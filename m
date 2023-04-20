@@ -1,72 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015196E8770
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 03:26:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 602956E8775
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 03:28:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF8710E8A2;
-	Thu, 20 Apr 2023 01:26:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0541B10EA31;
+	Thu, 20 Apr 2023 01:28:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC11710E768
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 01:26:12 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4edb9039a4cso230278e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 18:26:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681953971; x=1684545971;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=G9FvCMd4FeVo4PGdQogEA9VqD03U+AN8Fda9+egyrSU=;
- b=U24J37geoSH8knCLGimuYh2eVXwAASShKiWGWZ7VPiAAnaA8QkEv09KhTwQWoLS1jl
- VNKMYY/X+TFnc2S1IrIfbkqh17JXgQri6kn1hGMGn+K6DcChJWvLpJA2C+3WR6sLz3F+
- O9Nyxnnkxnx2V7OYhtZVGlfajITnf6RK441JpW+XsUtVz8bhgTo9iwXS8qK/yp7d/IMr
- /JOs0Iaf1YHD9U6zKDdx+97c10114TyRz8ZJi/p+4upnMuoQoBhsPIow9wgFIz96YbLn
- GKzWZ23Qstll35AhgRfRJVrMRTrofldp7zCE5X892Vi8tNZOEBbgZxAsCexsXAg5JpqB
- 1vzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681953971; x=1684545971;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G9FvCMd4FeVo4PGdQogEA9VqD03U+AN8Fda9+egyrSU=;
- b=EcFujHxXq6tCG8emZNFrUahtTbFHd03P1vh/y0KR1xT9kWEw/pDyg5CKYi1oShVBW3
- 1TK/xY/r9ZvkuNwH43XnZ5Sc/H+h+q1DkU+tX8yaG6NuCxJ7jnZWTAgv+31ZuzP6wMVX
- FaPanus07rCYd63kMSWy5I5iIkM0pm4zD3bHN68QyHbMZjT3/q0GXZHXMAM+vDWD47e0
- YZ4nhy4Arq0N1n/kuQfFfMTCWQZV4WPr9tkNaRU/QM3XCTQRR+8hxoJa5Kuuxd3eB/rV
- ze11ddWBhFDkGSWVqmCLZ8p5lLFNRUkObWWgutF/1t/1le5d+dDPrmT/Afv+A3Enm2La
- YZ1A==
-X-Gm-Message-State: AAQBX9emvC5N9Ecvakb0uWsxxRxOvsklnqgbZrxJvf95b9r2e310TDRZ
- N6zmd4eitv5jk7PCT7bhRO5zcA==
-X-Google-Smtp-Source: AKy350arA4VCD3/gkVo48bfEQ+3dNYxvQNgHZ0dKcoIlBBgvzM0ukon3pkBRaYJJaKtytZK1dCxMQg==
-X-Received: by 2002:ac2:5545:0:b0:4dd:af71:a5b7 with SMTP id
- l5-20020ac25545000000b004ddaf71a5b7mr4148524lfk.41.1681953970982; 
- Wed, 19 Apr 2023 18:26:10 -0700 (PDT)
-Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
- by smtp.gmail.com with ESMTPSA id
- b25-20020a056512025900b004cb23904bd9sm58367lfo.144.2023.04.19.18.26.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 18:26:10 -0700 (PDT)
-Message-ID: <c0e0a55a-cc37-fe8a-8d8a-5fe257f99b9a@linaro.org>
-Date: Thu, 20 Apr 2023 03:26:09 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5202310E1EC;
+ Thu, 20 Apr 2023 01:28:42 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33K17LS6001952; Thu, 20 Apr 2023 01:28:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=lgZ9M8eJHkyNZFew4ItZN0Kc4qPwcZwwCcblZpDhkP8=;
+ b=ntHyU0ZWKWso+YAM1U254cx7oaU4WTNBzxoush1pqG3eUjYEn2vccpc03J1FGs4DeM3c
+ V3KWXLumzR4KcFFvhqPMCre/Dpzo5R6cr+m6FKjemHxz+K9/BeXOpB1NVK2ffL2zFg9i
+ ran4SmetSkQ/eWNqpCMlwFj95nXb6CkzPDHkbnWSIyPr23f9qs+wVLTi0dn490a9+IrV
+ gdLGzaz2zzCQdPPTqulJnKBB2LD/0MjmBOIWgQhQblzMAr4eeh+DsgfnbnopuFgVVdZp
+ VmcEB3v3NPObIlikCeaywB+3tP1y7mgmCuvKNQYb7wxPc/2HTHH0ilGcVCWRnpMz4nbD gw== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q2p7arjq9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Apr 2023 01:28:39 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33K1ScrO006509
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Apr 2023 01:28:38 GMT
+Received: from [10.110.74.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 19 Apr
+ 2023 18:28:37 -0700
+Message-ID: <3f3b3637-ed85-09a1-22b7-3ccd4bc929bb@quicinc.com>
+Date: Wed, 19 Apr 2023 18:28:36 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, David Airlie <airlied@gmail.com>, Daniel Vetter
+ <daniel@ffwll.ch>
 References: <20230420-topic-dpu_gc-v1-0-d9d1a5e40917@linaro.org>
  <5b133c55-e4f5-bfd2-b542-a7d44313c038@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <5b133c55-e4f5-bfd2-b542-a7d44313c038@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ <c0e0a55a-cc37-fe8a-8d8a-5fe257f99b9a@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <c0e0a55a-cc37-fe8a-8d8a-5fe257f99b9a@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Qd8TwURxdZx-a2K4lG8gRlfmjFcOP3fC
+X-Proofpoint-ORIG-GUID: Qd8TwURxdZx-a2K4lG8gRlfmjFcOP3fC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-19_16,2023-04-18_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015
+ lowpriorityscore=0 spamscore=0 bulkscore=0 malwarescore=0 adultscore=0
+ phishscore=0 mlxscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=756
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2304200008
 Subject: Re: [Freedreno] [PATCH 0/2] DPU1 GC1.8 wiring-up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,39 +95,48 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 20.04.2023 03:25, Dmitry Baryshkov wrote:
-> On 20/04/2023 04:14, Konrad Dybcio wrote:
->> Almost all SoCs from SDM845 to SM8550 inclusive feature a GC1.8
->> dspp sub-block in addition to PCCv4. The other block differ a bit
->> more, but none of them are supported upstream.
->>
->> This series adds configures the GCv1.8 on all the relevant SoCs.
+On 4/19/2023 6:26 PM, Konrad Dybcio wrote:
 > 
-> Does this mean that we will see gamma_lut support soon?
-No promises, my plate is not even full, it's beyond overflowing! :P
+> 
+> On 20.04.2023 03:25, Dmitry Baryshkov wrote:
+>> On 20/04/2023 04:14, Konrad Dybcio wrote:
+>>> Almost all SoCs from SDM845 to SM8550 inclusive feature a GC1.8
+>>> dspp sub-block in addition to PCCv4. The other block differ a bit
+>>> more, but none of them are supported upstream.
+>>>
+>>> This series adds configures the GCv1.8 on all the relevant SoCs.
+>>
+>> Does this mean that we will see gamma_lut support soon?
+> No promises, my plate is not even full, it's beyond overflowing! :P
+> 
+> Konrad
 
-Konrad
-> 
+So I think I wrote about this before during the catalog rework/fixes 
+that the gc registers are not written to / programmed.
+
+If thats not done, is there any benefit to this series?
+
 >>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->> Konrad Dybcio (2):
->>        drm/msm/dpu1: Rename sm8150_dspp_blk to sdm845_dspp_blk
->>        drm/msm/dpu1: Enable GCv1.8 on many SoCs
+>>>
+>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>> ---
+>>> Konrad Dybcio (2):
+>>>         drm/msm/dpu1: Rename sm8150_dspp_blk to sdm845_dspp_blk
+>>>         drm/msm/dpu1: Enable GCv1.8 on many SoCs
+>>>
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 16 ++++++++--------
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 16 ++++++++--------
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h   |  4 ++--
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h  |  4 ++--
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 16 ++++++++--------
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 16 ++++++++--------
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 16 ++++++++--------
+>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 16 ++++++++--------
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           |  4 +++-
+>>>    9 files changed, 55 insertions(+), 53 deletions(-)
+>>> ---
+>>> base-commit: 3cdbc01c40e34c57697f8934f2727a88551696be
+>>> change-id: 20230420-topic-dpu_gc-6901f75768db
+>>>
+>>> Best regards,
 >>
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 16 ++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 16 ++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h   |  4 ++--
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h  |  4 ++--
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 16 ++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 16 ++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 16 ++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 16 ++++++++--------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           |  4 +++-
->>   9 files changed, 55 insertions(+), 53 deletions(-)
->> ---
->> base-commit: 3cdbc01c40e34c57697f8934f2727a88551696be
->> change-id: 20230420-topic-dpu_gc-6901f75768db
->>
->> Best regards,
-> 
