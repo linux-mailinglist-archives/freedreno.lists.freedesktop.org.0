@@ -2,75 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E531D6E98A1
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 17:44:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16D106E98AF
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 17:46:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A91FB10E960;
-	Thu, 20 Apr 2023 15:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEDF510EC94;
+	Thu, 20 Apr 2023 15:46:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFF610E960;
- Thu, 20 Apr 2023 15:44:33 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B0D510E07F;
+ Thu, 20 Apr 2023 15:46:54 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33KDdRHm007783; Thu, 20 Apr 2023 15:44:29 GMT
+ 33KDTEqQ015541; Thu, 20 Apr 2023 15:46:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=95hNvwsnOntj3IjZdDdz9tDvXz8259oYrPBtE1QxUE8=;
- b=V0grKoWSJ3GIxvYixyMXU20PPON7qn5vaH6L54sDh8kNPB0sP2zIxzbJfcbBJRCDJxxy
- Zbn7ieVHGJmRCSvv2LPN/sJ+dDUud3UsgXjcZ253MOPEWZPAnzYatLYrodM9JoDhqxCJ
- VBKIW0aRoLeUHdJFbnOan+O66uv18ymCtZ7a7AJyyrqysS1Pyl7+tGTgfJzOOPx+V5LO
- y+jQIZDsZ0E9dDRjh69S16+u/wW5I/HhEX7lwPuRJ5EnhYvnfrTdEWB2sf4wmWlNPikK
- 6NvLhpXeByQJj0z/TzB/v0+gx6zjdJGeBmLNNNvKxeC6y9RoeiXGvjBuXJGsk/fPqlZY RQ== 
+ bh=G/BEQmLkKBZqaQzlVPSxWqkEccIQJ/cOoKEm1YfSmuU=;
+ b=O5y0USRroxJIu7g8/T1RJWpdKiDqRsh8W9AYRZcB4Uz/eh5ibkX5eDQZHhf6oDytaySu
+ 6Rs9SIcoORgePoirb7VfLfeM9ddn/rULa/Sfwvay9vKsiXetkhVaxb4fAFhkrMVVefno
+ Q1kNDXvDNmy5Fu7EzWHe4lc72AnmIjvseJkLqdc9Ggtdsy7us8902p9VFytzJCrzs41a
+ KEzNstUycik4/mf08dMBqChyZZlO13JYyEzG+sDZA7e/4bPznwV+L9tdJOQEtUaM9Axx
+ Lh8tQzBxd7938AiFme8nbdUPzF6TWY9H7RstHjFQ65oeHB1R22Q7w4rKp1dI2L5q5Zmx Iw== 
 Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q2p522h1v-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q2uh3hvsg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Apr 2023 15:44:29 +0000
+ Thu, 20 Apr 2023 15:46:49 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33KFiSD9010024
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33KFkmoV012845
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Apr 2023 15:44:28 GMT
+ Thu, 20 Apr 2023 15:46:48 GMT
 Received: from [10.110.74.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 20 Apr
- 2023 08:44:27 -0700
-Message-ID: <50dabfb6-98a8-7e17-fe0f-bbf895980cca@quicinc.com>
-Date: Thu, 20 Apr 2023 08:44:26 -0700
+ 2023 08:46:47 -0700
+Message-ID: <cd308be9-5420-6d75-da23-e844107ec275@quicinc.com>
+Date: Thu, 20 Apr 2023 08:46:46 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20230418164158.549873-1-robdclark@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, David Airlie <airlied@gmail.com>, Daniel Vetter
+ <daniel@ffwll.ch>
+References: <20230418-dpu-drop-useless-for-lookup-v1-0-b9897ceb6f3e@somainline.org>
+ <20230418-dpu-drop-useless-for-lookup-v1-1-b9897ceb6f3e@somainline.org>
+ <7ad86cd9-4b30-e7f1-780f-2c1c7093087e@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230418164158.549873-1-robdclark@gmail.com>
+In-Reply-To: <7ad86cd9-4b30-e7f1-780f-2c1c7093087e@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: mp34yyQrkH9uEVrk6V42wZX2h6L7QtTB
-X-Proofpoint-GUID: mp34yyQrkH9uEVrk6V42wZX2h6L7QtTB
+X-Proofpoint-ORIG-GUID: qBUkv7MXVcxsAiY8z6huigdyztysqsiF
+X-Proofpoint-GUID: qBUkv7MXVcxsAiY8z6huigdyztysqsiF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
  definitions=2023-04-20_11,2023-04-20_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- phishscore=0 adultscore=0 mlxlogscore=985 malwarescore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ suspectscore=0 phishscore=0
+ bulkscore=0 spamscore=0 mlxscore=0 malwarescore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=999
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2303200000 definitions=main-2304200129
-Subject: Re: [Freedreno] [PATCH] drm/msm/atomic: Don't try async if crtc not
- active
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Drop unused members from
+ HW structs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,70 +88,147 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 4/18/2023 9:41 AM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 4/20/2023 7:33 AM, Dmitry Baryshkov wrote:
+> On 18/04/2023 02:14, Marijn Suijten wrote:
+>> Some of these members were initialized while never read, while others
+>> were not even assigned any value at all.  Drop them to save some space,
+>> and above all confusion when looking at these members.
+>>
+>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+>> Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for 
+>> writeback blocks")
 > 
-> For a similar reason as commit f2c7ca890182 ("drm/atomic-helper: Don't
-> set deadline for modesets"), we need the crtc to be already active in
-> order to compute a target vblank time for an async commit.  Otherwise
-> we get this splat reminding us that we are doing it wrong:
+> The fixes headers are slightly questionable, as unused fields are not a 
+> bug. Nevertheless:
 > 
->     ------------[ cut here ]------------
->     msm_dpu ae01000.mdp: drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
->     WARNING: CPU: 7 PID: 1923 at drivers/gpu/drm/drm_vblank.c:728 drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x148/0x370
->     Modules linked in: snd_seq_dummy snd_seq snd_seq_device bridge stp llc tun vhost_vsock vhost vhost_iotlb vmw_vsock_virtio_transport_common vsock uinput rfcomm algif_hash algif_skcipher af_alg veth venus_dec venus_enc cros_ec_typec typec qcom_spmi_temp_alarm qcom_spmi_adc_tm5 qcom_spmi_adc5 xt_cgroup qcom_vadc_common qcom_stats hci_uart btqca xt_MASQUERADE venus_core 8021q coresight_tmc coresight_funnel coresight_etm4x coresight_replicator snd_soc_lpass_sc7180 coresight snd_soc_sc7180 ip6table_nat fuse ath10k_snoc ath10k_core ath mac80211 iio_trig_sysfs bluetooth cfg80211 cros_ec_sensors cros_ec_sensors_core ecdh_generic industrialio_triggered_buffer ecc kfifo_buf cros_ec_sensorhub r8153_ecm cdc_ether usbnet r8152 mii lzo_rle lzo_compress zram hid_vivaldi hid_google_hammer hid_vivaldi_common joydev
->     CPU: 7 PID: 1923 Comm: DrmThread Not tainted 5.15.107-18853-g3be267609a0b-dirty #16 a1ffc1a66e79c21c3536d8c9a42e819236e39714
->     Hardware name: Google Wormdingler rev1+ BOE panel board (DT)
->     pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->     pc : drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x148/0x370
->     lr : drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x144/0x370
->     sp : ffffffc012e2b800
->     x29: ffffffc012e2b840 x28: ffffff8083676094 x27: ffffffc012e2bb28
->     x26: ffffff8084539800 x25: 0000000000000000 x24: ffffff8083676000
->     x23: ffffffd3c8cdc5a0 x22: ffffff80845b9d00 x21: ffffffc012e2b8b4
->     x20: ffffffc012e2b910 x19: 0000000000000001 x18: 0000000000000000
->     x17: 0000000000000000 x16: 0000000000000010 x15: ffffffd3c8451a88
->     x14: 0000000000000003 x13: 0000000000000004 x12: 0000000000000001
->     x11: c0000000ffffdfff x10: ffffffd3c973ef58 x9 : 8ea3526b3cc95900
->     x8 : 8ea3526b3cc95900 x7 : 0000000000000000 x6 : 000000000000003a
->     x5 : ffffffd3c99676cd x4 : 0000000000000000 x3 : ffffffc012e2b4b8
->     x2 : ffffffc012e2b4c0 x1 : 00000000ffffdfff x0 : 0000000000000000
->     Call trace:
->      drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x148/0x370
->      drm_crtc_vblank_helper_get_vblank_timestamp+0x20/0x30
->      drm_crtc_get_last_vbltimestamp+0x68/0xb0
->      drm_crtc_next_vblank_start+0x5c/0xa8
->      msm_atomic_commit_tail+0x264/0x664
->      commit_tail+0xac/0x160
->      drm_atomic_helper_commit+0x160/0x168
->      drm_atomic_commit+0xfc/0x128
->      drm_atomic_helper_disable_plane+0x8c/0x110
->      __setplane_atomic+0x10c/0x138
->      drm_mode_cursor_common+0x3a8/0x410
->      drm_mode_cursor_ioctl+0x48/0x70
->      drm_ioctl_kernel+0xe0/0x158
->      drm_ioctl+0x25c/0x4d8
->      __arm64_sys_ioctl+0x98/0xd0
->      invoke_syscall+0x4c/0x100
->      el0_svc_common+0x98/0x104
->      do_el0_svc+0x30/0x90
->      el0_svc+0x20/0x50
->      el0t_64_sync_handler+0x78/0x108
->      el0t_64_sync+0x1a4/0x1a8
->     ---[ end trace a0f587e1ab9589e8 ]---
-> 
-> Fixes: 52ff0d3073d2 ("drm/msm/atomic: Switch to vblank_start helper")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Yes, I would also not treat this as a "fix" but just cleanup.
+
+I think if this series is slightly re-ordered to keep the second patch 
+before this one, I can pick that one up for -fixes and then this one and 
+the third can be left for 6.5
+
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h | 1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 2 --
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c   | 1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h   | 5 -----
+>>   6 files changed, 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> index 84ee2efa9c66..a9c90249a6ac 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> @@ -374,7 +374,6 @@ struct dpu_hw_intf *dpu_hw_intf_init(enum dpu_intf 
+>> idx,
+>>        */
+>>       c->idx = idx;
+>>       c->cap = cfg;
+>> -    c->mdss = m;
+>>       _setup_intf_ops(&c->ops, c->cap->features);
+>>       return c;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> index 643dd10bc030..e07b2e33af3e 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> @@ -90,7 +90,6 @@ struct dpu_hw_intf {
+>>       /* intf */
+>>       enum dpu_intf idx;
+>>       const struct dpu_intf_cfg *cap;
+>> -    const struct dpu_mdss_cfg *mdss;
+>>       /* ops */
+>>       struct dpu_hw_intf_ops ops;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+>> index cf70a9bd1034..bb3ddec5c7d7 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+>> @@ -812,7 +812,6 @@ struct dpu_hw_sspp *dpu_hw_sspp_init(enum dpu_sspp 
+>> idx,
+>>       }
+>>       /* Assign ops */
+>> -    hw_pipe->catalog = catalog;
+>>       hw_pipe->ubwc = catalog->ubwc;
+>>       hw_pipe->idx = idx;
+>>       hw_pipe->cap = cfg;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+>> index 74b98b6b3bc3..5004a02fd61e 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+>> @@ -341,7 +341,6 @@ struct dpu_hw_sspp_ops {
+>>    * struct dpu_hw_sspp - pipe description
+>>    * @base: hardware block base structure
+>>    * @hw: block hardware details
+>> - * @catalog: back pointer to catalog
+>>    * @ubwc: ubwc configuration data
+>>    * @idx: pipe index
+>>    * @cap: pointer to layer_cfg
+>> @@ -350,7 +349,6 @@ struct dpu_hw_sspp_ops {
+>>   struct dpu_hw_sspp {
+>>       struct dpu_hw_blk base;
+>>       struct dpu_hw_blk_reg_map hw;
+>> -    const struct dpu_mdss_cfg *catalog;
+>>       const struct dpu_ubwc_cfg *ubwc;
+>>       /* Pipe */
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+>> index 2d28afdf860e..db5e6040017f 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+>> @@ -262,7 +262,6 @@ struct dpu_hw_wb *dpu_hw_wb_init(enum dpu_wb idx,
+>>       }
+>>       /* Assign ops */
+>> -    c->mdp = &m->mdp[0];
+>>       c->idx = idx;
+>>       c->caps = cfg;
+>>       _setup_wb_ops(&c->ops, c->caps->features);
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
+>> index 3ff5a48541e2..b91923f879f1 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
+>> @@ -76,15 +76,12 @@ struct dpu_hw_wb_ops {
+>>   /**
+>>    * struct dpu_hw_wb : WB driver object
+>>    * @hw: block hardware details
+>> - * @mdp: pointer to associated mdp portion of the catalog
+>>    * @idx: hardware index number within type
+>>    * @wb_hw_caps: hardware capabilities
+>>    * @ops: function pointers
+>> - * @hw_mdp: MDP top level hardware block
+>>    */
+>>   struct dpu_hw_wb {
+>>       struct dpu_hw_blk_reg_map hw;
+>> -    const struct dpu_mdp_cfg *mdp;
+>>       /* wb path */
+>>       int idx;
+>> @@ -92,8 +89,6 @@ struct dpu_hw_wb {
+>>       /* ops */
+>>       struct dpu_hw_wb_ops ops;
+>> -
+>> -    struct dpu_hw_mdp *hw_mdp;
+>>   };
+>>   /**
+>>
+> 
