@@ -2,58 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC61E6E8739
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 03:11:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0433D6E8741
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 03:12:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A968010E768;
-	Thu, 20 Apr 2023 01:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6209F10E9AF;
+	Thu, 20 Apr 2023 01:12:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BCE510E768
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 01:11:33 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2a776fb84a3so1954771fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 18:11:33 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43F0510E7E8
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 01:12:31 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id x34so1068308ljq.1
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 18:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681953091; x=1684545091;
+ d=linaro.org; s=google; t=1681953149; x=1684545149;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=IJrj+TgMbRzpuRXJE5LfWMJR9AP3X9yDCnaEAQl9U/8=;
- b=V+8QqEVBeITyrDt7Ielo1BpAwLg5mjgUup+tt26oPAfDBML3it68PcVK9kL9FRn0sU
- aWWaMZc/I6R9tIjnnpp4LFv71i1PfY88ldyTSkPaCoSaBk3pSnsYp0MAh/3+meuMsJSC
- dxO1jkG5XH9QfqUJaIunJMn9teZZTAzegWjswwvvJISYHWoKI9RDvA9DZxy4j/7N7WQ8
- nAXCN4tyR7S+9vGszC348dvW9uhRoAwbPdGKV2m2omHyhz/TOxqSz/+hmTUqu3iBtXbf
- r6kHG8tCybkBXZnoKrY8ZSorCdVsdybrg9W7ouJTfGNhpzGHqSzoBgJ35h4ZqWoqTeym
- PCCg==
+ bh=21nptXt3cg+q1Dc02GTtpl0ccYXLvq/yqLo2KDOgpRw=;
+ b=fxkJnyU8icPIp/1qZzwMsW4MAEuaR6QIt7EytgE1TnnVWnDpUJ0PgBlPXKAm+cOBgf
+ 3GQPMpv71Q6pQBakCcemnzr7qLRagEBIA22W9DVCQMa62vwLf+hgaOV/7anvdrw+SKaw
+ iLXGJsZyPZ+NPp4lApFtLxZhB2ibaxq2EvcNOY5H2O3HA8KsGpRq5jwDc+fC/iuMEne/
+ WUnrsRrMFSphEu2RWxa8k7fH3eXutm4Kuudd8fLaAnEGtydGCtjf8ym3LgrX6cVxfsKX
+ B/lPpxI0Ox6B8xv3ekLlr3ZHFCOJ5PeBoaU6VzSFLikDWcbYtEVWafmGq1zRfQKJaBW9
+ 98Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681953091; x=1684545091;
+ d=1e100.net; s=20221208; t=1681953149; x=1684545149;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IJrj+TgMbRzpuRXJE5LfWMJR9AP3X9yDCnaEAQl9U/8=;
- b=QQAab8Rq/DiOHsuAyOpfNq9HoyBTLA2JRMJZUD8Odh3x6FQ9SgL0eagyEZcoJswE/n
- PLgVVwOAwksmwOsn+QnyOP0WOa9+SpMLrWqfhyxx0Whe4PsjevVWdUHQVABX2Ehg2tIE
- XxOOB3U+oX7qZztxFRsRksD1uVjmKPL0IB92AkPW/LmLqYtl4Tr4XYHIOIL98OG99ZpM
- 7B5KZFFdZyLOEGFyKueiim9XLkB4vwL/+pk+NyGQpiiilhJKYI0IL5bQkZt4//OkGhQK
- hKge1kMfympNOqqSwnQ1F+AiIcP4Dt/434LT4APszrnMD9KChHARtIdcT6VWY9lFwq71
- Tqbg==
-X-Gm-Message-State: AAQBX9fnFX0zrruF6xqmQKxRkr2+P8ttaxfMOCtoFa/WVJdhyOPjQQRq
- L4yLqsusdWPMUBm/QYmUJrZLSg==
-X-Google-Smtp-Source: AKy350ZSYRJow6nQrCxmpivd/VrMhoc1Kbi2ON2vTXMUhq7uLz4wkIRazXzoDyv+c3vizfpQvvOksA==
-X-Received: by 2002:ac2:4c1a:0:b0:4eb:1606:48db with SMTP id
- t26-20020ac24c1a000000b004eb160648dbmr4364888lfq.22.1681953091328; 
- Wed, 19 Apr 2023 18:11:31 -0700 (PDT)
+ bh=21nptXt3cg+q1Dc02GTtpl0ccYXLvq/yqLo2KDOgpRw=;
+ b=GPA52PUQ6rXUox7dfPhdJl1RIpGb6VH8mG87XDvseS6ESQhzGi92OV8mRa2fI4LPrP
+ 4gYHPDFhRhO13gfaAqhTRtUddtagwS9J3BGEWVp40GOBsgpEJyQpASEGy2bkT7bMjnJP
+ yn6d6VpGPERTJVgt85Jp6vKRn/YB6/qkU34RI3+2eF9z0R6AW3e7iHMMZEDsyFEd4weC
+ DAf89qh9Zv+wfSV5uVXWZR+o7SWmLwXDTttR5Onw107KgFTVd+RbPoI7XIehLEovnZlw
+ pPpG+GRxFpZIAjQuW3H8h/XCGMj3CGvU/yfXbUlQq2dj3qppjcG6V2NcPwxyt7XBidWf
+ yl8w==
+X-Gm-Message-State: AAQBX9cgfTj716I/XmtJIOXX8V2rcs+kHHyR08jQFbOCcJoCAd44Wdtm
+ OuAJ5lKPgETHYoCK16JBoLRd9w==
+X-Google-Smtp-Source: AKy350bhbY3KYzfzX6sqiAFhHWulaltqj9jFwTi0Bp7JHJbhJdLwQ3z61rWtdQrTn2JY3Vh6XjqsRg==
+X-Received: by 2002:a2e:834c:0:b0:29b:6ead:6d92 with SMTP id
+ l12-20020a2e834c000000b0029b6ead6d92mr2381880ljh.23.1681953149392; 
+ Wed, 19 Apr 2023 18:12:29 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- x4-20020a2e9dc4000000b00295bbe17b46sm27496ljj.132.2023.04.19.18.11.30
+ a21-20020a05651c011500b002a8bc2fb3cesm27546ljb.115.2023.04.19.18.12.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 18:11:30 -0700 (PDT)
-Message-ID: <e16ef4f6-bf58-0c85-75ed-f8384c7fd7ef@linaro.org>
-Date: Thu, 20 Apr 2023 04:11:29 +0300
+ Wed, 19 Apr 2023 18:12:28 -0700 (PDT)
+Message-ID: <8b3d3379-1217-9f48-b761-06bf13169d0f@linaro.org>
+Date: Thu, 20 Apr 2023 04:12:28 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -70,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>
 References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
- <20230411-dpu-intf-te-v2-14-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-15-ef76c877eb97@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-dpu-intf-te-v2-14-ef76c877eb97@somainline.org>
+In-Reply-To: <20230411-dpu-intf-te-v2-15-ef76c877eb97@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 14/17] drm/msm/dpu: Document and enable
- TEAR interrupts on DSI interfaces
+Subject: Re: [Freedreno] [PATCH v2 15/17] drm/msm/dpu: Merge setup_- and
+ enable_tearcheck pingpong callbacks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,31 +102,22 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 17/04/2023 23:21, Marijn Suijten wrote:
-> All SoCs since DPU 5.0.0 have the tear interrupt registers moved out of
-> the PINGPONG block and into the INTF block.  Wire up these interrupts
-> and IRQ masks on all supported hardware.
+> These functions are always called consecutively and are best bundled
+> together for simplicity, especially when the same structure of callbacks
+> will be replicated later on the interface block for INTF TE support.
+> The enable_tearcheck(false) case is now replaced with a more obvious
+> disable_tearcheck(), encapsulating the original register write with 0.
 > 
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h | 12 ++++++----
->   .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    | 12 ++++++----
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h | 12 ++++++----
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  8 ++++---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |  8 ++++---
->   .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |  8 ++++---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h | 12 ++++++----
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  6 +++--
->   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   | 12 ++++++----
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 12 ++++++----
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 12 ++++++----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 15 ++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  6 +++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 27 ++++++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  4 ++++
->   15 files changed, 125 insertions(+), 41 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 10 ++++------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c      | 10 ++++++----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h      | 11 +++++------
+>   3 files changed, 15 insertions(+), 16 deletions(-)
+> 
 
-If there is v3 for some reason, please split this into two patches: 
-core/interrups and SoC catalog changes.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
