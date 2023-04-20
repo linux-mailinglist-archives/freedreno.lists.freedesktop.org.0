@@ -1,69 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1526E6E8A82
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 08:36:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 064DF6E8AE0
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 09:07:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20B110E06B;
-	Thu, 20 Apr 2023 06:36:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09D1310EB6C;
+	Thu, 20 Apr 2023 07:07:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67C1710E258
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 06:36:48 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id b16so4032858ejz.3
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 23:36:48 -0700 (PDT)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8C510EB76
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:06:58 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id fy21so4052718ejb.9
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:06:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681972607; x=1684564607;
+ d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681974415; x=1684566415;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fGIxebizqN9Evwu7ritmtZTZgkXXATKth4F74N7YOmU=;
- b=gi7LBvVVQ+zBjJw4jme1qgAObM/ONc6qKqnRwIvm0WlZdoJGXZqUC+ufgibtiqPY1f
- 4pw08FvkNLoadBoN5IUmWAnDspd4aFAMWTsl//O8UOzL9ZbNWvATSOwfQfs7A77snSnx
- gCqWk9vwDRbSPTfftItRHIN1XuL0a3Jx5LZs1dDiy8xojXnMfQaz8vmTnTnpqSW9BHLi
- y7zmIb5h6v3NB/EcacqklHog0iZ+rcVMaNlrw/BmjicDFLAGeuRE/530Vi40N/q2TrSp
- wS4pAzuh2GrdEkC7hpx8goVZKKEN+mb01gcrUFN/rXC9+GiC3c6qGHNInHJTd2hLAtmJ
- eZkg==
+ bh=Yb+yljt2qIh9YQj49hF4nCFbxARaf3XxP/2JpjBX4jk=;
+ b=cZv/lPvpV7dzsklh5rJGSX/ctisD8YiKx4V2vuazNVRvycMDy2qY+JLXTxg9c8+GJB
+ +p3GNccB/ffnSbUDxbMBcHRlsz/75SteAFuszpd9IGhEgV22AXdgPE0Q2Dk6z7RcVo94
+ a618EgQpnQwii3jZshBVWOWOdDri9NiCMe3aT7AVQd4oIk5d3uLJnsTAXROcwEnsObAM
+ Aa9SEKipB4kAaMvB/Ae7RXViYuxL1FbX7ern7o+EEXqL3bwwifuqPKpUSRsRU50abWw3
+ xR0p39vKIcQL+tvpB3gRGx5iEUI1g/0/HFHJu62xP+PFTv/S0cPe02LokMdtufHwr+1Y
+ extw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681972607; x=1684564607;
+ d=1e100.net; s=20221208; t=1681974415; x=1684566415;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fGIxebizqN9Evwu7ritmtZTZgkXXATKth4F74N7YOmU=;
- b=A/eglAh3ahnMCTr0MWRi68wskrFaSLj06lSHDJhE8u2vNqaaWQYgNt5dvu6TuEUCWi
- suuMkdifSHdqMSkZ/QWf1z/LIuYNWshMb3qlzPudWV2DjLVro12U5fWhruZGWGxMbiUA
- 8iOpQ4g0tie8G7Eel6eHJghYVNyCpWDfnzurApfiJbcmegNYZkdmwsuGK1x9Wb01IDhD
- HoO2HvpCW5+MASJ6+fA+oRJ76nbWnneRa821A2JvMpGcrXP95ly+pY8jvzFAfseccfkx
- vKtyB5itpd4BMY0v8qxXMe5KryRJj1RGEK8R37CefzRP/optUVgWhKPc7ZwXlvMYD2pM
- +l8A==
-X-Gm-Message-State: AAQBX9emJmIgeyJwYYqp9E5WpIiQwVSGufBMkIaixRjG8vaOr0NOmSEj
- us+Fd919dijI6lEBCHi1ju768spKHGzqGyj4DPv0
-X-Google-Smtp-Source: AKy350ZuCdZo3mZpgSj7RLvlirK3du10adEHs+LGaIdn5CBI5UyRP7ZvfjIwPCpE0z7H/vgULpy0lCaFXeZ3i4dRb7k=
-X-Received: by 2002:a17:906:a057:b0:94f:2d5e:1909 with SMTP id
- bg23-20020a170906a05700b0094f2d5e1909mr165267ejb.7.1681972606873; Wed, 19 Apr
- 2023 23:36:46 -0700 (PDT)
+ bh=Yb+yljt2qIh9YQj49hF4nCFbxARaf3XxP/2JpjBX4jk=;
+ b=VvruA5OBeW80+3Q9Ta2wmAJN6N+3Siv91RqTWKxwuFafIOmQMtpobu4DMvQgUn7sVO
+ zL9UvKR6MZfheb8oizlQVWxiaN/dPvBB4e5OWXiiko6kERAlMY9S6x2ahXpkKSS6Vqe+
+ GAAPeO6mKYdu/99gqQbioTpitYQiNHGoiIGMeGFhFgsvPPyJT3pS4Fdgd+jSZR/8BH8L
+ UlzCUblawzPCivmxs03dGxHmBT5knXAriKg34OUm/r+BdDzg5gN/mHaeGhpE+bvXb1LX
+ A91ebfPMSFrow0hT/Is8o0hHi1SlOnmZNtvPrNcxnDVB3QIIpJmyOMAcexjMXv2ixY34
+ /Fbg==
+X-Gm-Message-State: AAQBX9ePjnNGIg8L69aOquF2SpZaf+V/m/C/Y//+qM6vx8p1dnRIUUEU
+ zLuNBA/tuRq9V0ebGzymral+ZmTopNqSxdRTQNeF
+X-Google-Smtp-Source: AKy350a5nbAxpFRAe8GKYzKKw51dSoWmIC63OMzKer/o/NVstK/cdXnM4cTddEa7E1kqrQjHI9VhKy2gMGrrbDH4EuI=
+X-Received: by 2002:a17:907:980a:b0:94f:c1f:6d09 with SMTP id
+ ji10-20020a170907980a00b0094f0c1f6d09mr212498ejc.7.1681974414824; Thu, 20 Apr
+ 2023 00:06:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230418-msm8998-hdmi-cec-v1-0-176479fb2fce@freebox.fr>
- <20230418-msm8998-hdmi-cec-v1-1-176479fb2fce@freebox.fr>
- <9d7f81fc-945e-9704-4eb2-d2e5cb31297e@linaro.org>
- <5797c537-fe70-27be-ef1d-f4c8b19806f5@quicinc.com>
- <639b264b-08e5-b84e-1933-ed768b6d1512@linaro.org>
- <5014976f-3026-9fef-e1ec-270d421df078@quicinc.com>
- <bfbd0ecc-342b-1321-8ead-b3e462099e51@linaro.org>
- <7de672fb-e9ac-5594-295f-ac29951c3066@quicinc.com>
- <fe7c7533-b918-9b47-c1c8-959d967081d5@linaro.org>
-In-Reply-To: <fe7c7533-b918-9b47-c1c8-959d967081d5@linaro.org>
+References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
+ <20230419-dpu-tweaks-v1-7-d1bac46db075@freebox.fr>
+ <405ff057-e4da-3f2f-b860-ce2eeacaab94@linaro.org>
+In-Reply-To: <405ff057-e4da-3f2f-b860-ce2eeacaab94@linaro.org>
 From: Arnaud Vrac <avrac@freebox.fr>
-Date: Thu, 20 Apr 2023 08:36:35 +0200
-Message-ID: <CAG9NU69CtB23pHLSEBszSNrbgqcZ7NCvLuYJ=n3K0QvNoy0eyA@mail.gmail.com>
+Date: Thu, 20 Apr 2023 09:06:44 +0200
+Message-ID: <CAG9NU68aLLZ0KGNmsirzm5RtGw6CC_i=+kTwyfhy+bjSkRTO4Q@mail.gmail.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 1/4] drm/msm: add some cec register bitfield
- details
+Subject: Re: [Freedreno] [PATCH 07/11] drm/msm/dpu: add sspp cursor blocks
+ to msm8998 hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,197 +70,138 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-media@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Le jeu. 20 avr. 2023 =C3=A0 02:30, Dmitry Baryshkov
+Le jeu. 20 avr. 2023 =C3=A0 01:10, Dmitry Baryshkov
 <dmitry.baryshkov@linaro.org> a =C3=A9crit :
 >
-> On 20/04/2023 03:27, Abhinav Kumar wrote:
-> >
-> >
-> > On 4/19/2023 5:21 PM, Dmitry Baryshkov wrote:
-> >> On 20/04/2023 03:17, Abhinav Kumar wrote:
-> >>>
-> >>>
-> >>> On 4/19/2023 5:11 PM, Dmitry Baryshkov wrote:
-> >>>> On 20/04/2023 03:10, Abhinav Kumar wrote:
-> >>>>>
-> >>>>>
-> >>>>> On 4/19/2023 4:53 PM, Dmitry Baryshkov wrote:
-> >>>>>> On 18/04/2023 21:10, Arnaud Vrac wrote:
-> >>>>>>> The register names and bitfields were determined from the downstr=
-eam
-> >>>>>>> msm-4.4 driver.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
-> >>>>>>> ---
-> >>>>>>>   drivers/gpu/drm/msm/hdmi/hdmi.xml.h | 62
-> >>>>>>> ++++++++++++++++++++++++++++++++++++-
-> >>>>>>>   1 file changed, 61 insertions(+), 1 deletion(-)
-> >>>>>>
-> >>>>>> I have opened MR against Mesa at
-> >>>>>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22588.
-> >>>>>>
-> >>>>>> The patch is:
-> >>>>>>
-> >>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>>>
-> >>>>>> Minor nit below
-> >>>>>>
-> >>>>>
-> >>>>> Also, shouldnt the register updates be done using rnn tool instead
-> >>>>> of manual edits?
-> >>>>
-> >>>> We usually update the rnn and ask Rob to pull it at the beginning of
-> >>>> the cycle.
-> >>>>
-> >>>
-> >>> Sorry, I didnt get this. So you are saying, we will accept manual
-> >>> edits and then replace it with the tool generated xml later? I was
-> >>> not aware of that, because previously I was always asked by Rob to
-> >>> use the tool to generate the xml and push that.
-> >>
-> >> We accept manual edits for the patchset (so that one can test it), but
-> >> before merging the patchset we ask Rob to pull the xml.
-> >>
-> >
-> > Interesting, and Rob generates the xml that time or who does that?
-> >
-> > The MR you have created updates the freedreno/registers which is just t=
-o
-> > keep the XML in the driver and mesa in sync.
-> >
-> > But I am trying to understand who generates the updated xml to merge it
-> > with the patchset if its not the developer who does that anymore.
+> On 19/04/2023 17:41, Arnaud Vrac wrote:
+> > Now that cursor sspp blocks can be used for cursor planes, enable them
+> > on msm8998. The dma sspp blocks that were assigned to cursor planes can
+> > now be used for overlay planes instead.
 >
-> In this case I went on and created the MR as Arnaud didn't create one.
-> Yes, usually we do this on our own when updating the register file (in
-> other words: I usually edit the xml, then regen the xml.h, then add it
-> to the patchset).
+> While the change is correct, there is more about it. Composers, using
+> universal planes, will see this plane too. They have no obligations to
+> use it only for the cursor. At the minimum could you please extend the
+> plane_atomic_check to check for the plane dimensions for the CURSOR pipes=
+?
 
-Ok thanks, I wasn't sure in which order to do this, thanks for posting
-the MR on mesa. The changes in hdmi.xml.h I posted are not manually
-edited, they were generated using the gen_header.py script in mesa (I
-omitted the top comments changes about envytools which are not present
-anymore though).
+Hum, I had assumed the generic atomic checks would already do this,
+but it's not the case. I'll add the check when the pipe is of type
+SSPP_CURSOR in another patch coming before, thanks.
 
 >
+> For this change:
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
 > >
-> >>>
-> >>>>>
-> >>>>>>>
-> >>>>>>> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> >>>>>>> b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> >>>>>>> index 973b460486a5a..b4dd6e8cba6b7 100644
-> >>>>>>> --- a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> >>>>>>> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> >>>>>>> @@ -76,6 +76,13 @@ enum hdmi_acr_cts {
-> >>>>>>>       ACR_48 =3D 3,
-> >>>>>>>   };
-> >>>>>>> +enum hdmi_cec_tx_status {
-> >>>>>>> +    CEC_TX_OK =3D 0,
-> >>>>>>> +    CEC_TX_NACK =3D 1,
-> >>>>>>> +    CEC_TX_ARB_LOSS =3D 2,
-> >>>>>>> +    CEC_TX_MAX_RETRIES =3D 3,
-> >>>>>>> +};
-> >>>>>>> +
-> >>>>>>>   #define REG_HDMI_CTRL                        0x00000000
-> >>>>>>>   #define HDMI_CTRL_ENABLE                    0x00000001
-> >>>>>>>   #define HDMI_CTRL_HDMI                        0x00000002
-> >>>>>>> @@ -476,20 +483,73 @@ static inline uint32_t
-> >>>>>>> HDMI_DDC_REF_REFTIMER(uint32_t val)
-> >>>>>>>   #define REG_HDMI_HDCP_SW_LOWER_AKSV                0x00000288
-> >>>>>>>   #define REG_HDMI_CEC_CTRL                    0x0000028c
-> >>>>>>> +#define HDMI_CEC_CTRL_ENABLE                    0x00000001
-> >>>>>>> +#define HDMI_CEC_CTRL_SEND_TRIGGER                0x00000002
-> >>>>>>> +#define HDMI_CEC_CTRL_FRAME_SIZE__MASK                0x000001f0
-> >>>>>>> +#define HDMI_CEC_CTRL_FRAME_SIZE__SHIFT                4
-> >>>>>>> +static inline uint32_t HDMI_CEC_CTRL_FRAME_SIZE(uint32_t val)
-> >>>>>>> +{
-> >>>>>>> +    return ((val) << HDMI_CEC_CTRL_FRAME_SIZE__SHIFT) &
-> >>>>>>> HDMI_CEC_CTRL_FRAME_SIZE__MASK;
-> >>>>>>> +}
-> >>>>>>> +#define HDMI_CEC_CTRL_LINE_OE                    0x00000200
-> >>>>>>>   #define REG_HDMI_CEC_WR_DATA                    0x00000290
-> >>>>>>> +#define HDMI_CEC_WR_DATA_BROADCAST                0x00000001
-> >>>>>>> +#define HDMI_CEC_WR_DATA_DATA__MASK                0x0000ff00
-> >>>>>>> +#define HDMI_CEC_WR_DATA_DATA__SHIFT                8
-> >>>>>>> +static inline uint32_t HDMI_CEC_WR_DATA_DATA(uint32_t val)
-> >>>>>>> +{
-> >>>>>>> +    return ((val) << HDMI_CEC_WR_DATA_DATA__SHIFT) &
-> >>>>>>> HDMI_CEC_WR_DATA_DATA__MASK;
-> >>>>>>> +}
-> >>>>>>> -#define REG_HDMI_CEC_CEC_RETRANSMIT                0x00000294
-> >>>>>>> +#define REG_HDMI_CEC_RETRANSMIT                    0x00000294
-> >>>>>>> +#define HDMI_CEC_RETRANSMIT_ENABLE                0x00000001
-> >>>>>>> +#define HDMI_CEC_RETRANSMIT_COUNT__MASK                0x000000f=
-e
-> >>>>>>> +#define HDMI_CEC_RETRANSMIT_COUNT__SHIFT            1
-> >>>>>>> +static inline uint32_t HDMI_CEC_RETRANSMIT_COUNT(uint32_t val)
-> >>>>>>> +{
-> >>>>>>> +    return ((val) << HDMI_CEC_RETRANSMIT_COUNT__SHIFT) &
-> >>>>>>> HDMI_CEC_RETRANSMIT_COUNT__MASK;
-> >>>>>>> +}
-> >>>>>>>   #define REG_HDMI_CEC_STATUS                    0x00000298
-> >>>>>>> +#define HDMI_CEC_STATUS_BUSY                    0x00000001
-> >>>>>>> +#define HDMI_CEC_STATUS_TX_FRAME_DONE                0x00000008
-> >>>>>>> +#define HDMI_CEC_STATUS_TX_STATUS__MASK                0x000000f=
-0
-> >>>>>>> +#define HDMI_CEC_STATUS_TX_STATUS__SHIFT            4
-> >>>>>>> +static inline uint32_t HDMI_CEC_STATUS_TX_STATUS(enum
-> >>>>>>> hdmi_cec_tx_status val)
-> >>>>>>> +{
-> >>>>>>> +    return ((val) << HDMI_CEC_STATUS_TX_STATUS__SHIFT) &
-> >>>>>>> HDMI_CEC_STATUS_TX_STATUS__MASK;
-> >>>>>>> +}
-> >>>>>>>   #define REG_HDMI_CEC_INT                    0x0000029c
-> >>>>>>> +#define HDMI_CEC_INT_TX_DONE                    0x00000001
-> >>>>>>> +#define HDMI_CEC_INT_TX_DONE_MASK                0x00000002
-> >>>>>>> +#define HDMI_CEC_INT_TX_ERROR                    0x00000004
-> >>>>>>> +#define HDMI_CEC_INT_TX_ERROR_MASK                0x00000008
-> >>>>>>> +#define HDMI_CEC_INT_MONITOR                    0x00000010
-> >>>>>>> +#define HDMI_CEC_INT_MONITOR_MASK                0x00000020
-> >>>>>>> +#define HDMI_CEC_INT_RX_DONE                    0x00000040
-> >>>>>>> +#define HDMI_CEC_INT_RX_DONE_MASK                0x00000080
-> >>>>>>>   #define REG_HDMI_CEC_ADDR                    0x000002a0
-> >>>>>>>   #define REG_HDMI_CEC_TIME                    0x000002a4
-> >>>>>>> +#define HDMI_CEC_TIME_ENABLE                    0x00000001
-> >>>>>>> +#define HDMI_CEC_TIME_SIGNAL_FREE_TIME__MASK            0x0000ff=
-80
-> >>>>>>> +#define HDMI_CEC_TIME_SIGNAL_FREE_TIME__SHIFT            7
-> >>>>>>> +static inline uint32_t HDMI_CEC_TIME_SIGNAL_FREE_TIME(uint32_t v=
-al)
-> >>>>>>> +{
-> >>>>>>> +    return ((val) << HDMI_CEC_TIME_SIGNAL_FREE_TIME__SHIFT) &
-> >>>>>>> HDMI_CEC_TIME_SIGNAL_FREE_TIME__MASK;
-> >>>>>>> +}
-> >>>>>>>   #define REG_HDMI_CEC_REFTIMER                    0x000002a8
-> >>>>>>> +#define HDMI_CEC_REFTIMER_ENABLE                0x00010000
-> >>>>>>
-> >>>>>> I think this should come after the REFTIMER field.
-> >>>>>>
-> >>>>>>> +#define HDMI_CEC_REFTIMER_REFTIMER__MASK            0x0000ffff
-> >>>>>>> +#define HDMI_CEC_REFTIMER_REFTIMER__SHIFT            0
-> >>>>>>> +static inline uint32_t HDMI_CEC_REFTIMER_REFTIMER(uint32_t val)
-> >>>>>>> +{
-> >>>>>>> +    return ((val) << HDMI_CEC_REFTIMER_REFTIMER__SHIFT) &
-> >>>>>>> HDMI_CEC_REFTIMER_REFTIMER__MASK;
-> >>>>>>> +}
-> >>>>>>>   #define REG_HDMI_CEC_RD_DATA                    0x000002ac
-> >>>>>>>
-> >>>>>>
-> >>>>
-> >>
+> > Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
+> > ---
+> >   .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  8 +++--
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 34 +++++++++++++=
++++++++++
+> >   2 files changed, 40 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/=
+drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> > index b07e8a9941f79..7de393b0f91d7 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> > @@ -90,10 +90,14 @@ static const struct dpu_sspp_cfg msm8998_sspp[] =3D=
+ {
+> >               sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+> >       SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1ac, DMA_MSM8998_MASK,
+> >               sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
+> > -     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1ac, DMA_CURSOR_MSM8998=
+_MASK,
+> > +     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1ac, DMA_MSM8998_MASK,
+> >               sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
+> > -     SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1ac, DMA_CURSOR_MSM8998=
+_MASK,
+> > +     SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1ac, DMA_MSM8998_MASK,
+> >               sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
+> > +     SSPP_BLK("sspp_12", SSPP_CURSOR0, 0x34000, 0x1ac, DMA_CURSOR_MSM8=
+998_MASK,
+> > +             msm8998_cursor_sblk_0, 2, SSPP_TYPE_CURSOR, DPU_CLK_CTRL_=
+CURSOR0),
+> > +     SSPP_BLK("sspp_13", SSPP_CURSOR1, 0x36000, 0x1ac, DMA_CURSOR_MSM8=
+998_MASK,
+> > +             msm8998_cursor_sblk_1, 10, SSPP_TYPE_CURSOR, DPU_CLK_CTRL=
+_CURSOR1),
+> >   };
+> >
+> >   static const struct dpu_lm_cfg msm8998_lm[] =3D {
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/g=
+pu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > index 8d5d782a43398..f34fa704936bc 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > @@ -242,6 +242,22 @@ static const uint32_t wb2_formats[] =3D {
+> >       DRM_FORMAT_XBGR4444,
+> >   };
+> >
+> > +static const uint32_t cursor_formats[] =3D {
+> > +     DRM_FORMAT_ARGB8888,
+> > +     DRM_FORMAT_ABGR8888,
+> > +     DRM_FORMAT_RGBA8888,
+> > +     DRM_FORMAT_BGRA8888,
+> > +     DRM_FORMAT_XRGB8888,
+> > +     DRM_FORMAT_ARGB1555,
+> > +     DRM_FORMAT_ABGR1555,
+> > +     DRM_FORMAT_RGBA5551,
+> > +     DRM_FORMAT_BGRA5551,
+> > +     DRM_FORMAT_ARGB4444,
+> > +     DRM_FORMAT_ABGR4444,
+> > +     DRM_FORMAT_RGBA4444,
+> > +     DRM_FORMAT_BGRA4444,
+> > +};
+> > +
+> >   /*************************************************************
+> >    * SSPP sub blocks config
+> >    *************************************************************/
+> > @@ -300,6 +316,19 @@ static const uint32_t wb2_formats[] =3D {
+> >       .virt_num_formats =3D ARRAY_SIZE(plane_formats), \
+> >       }
+> >
+> > +#define _CURSOR_SBLK(num) \
+> > +     { \
+> > +     .maxdwnscale =3D SSPP_UNITY_SCALE, \
+> > +     .maxupscale =3D SSPP_UNITY_SCALE, \
+> > +     .smart_dma_priority =3D 0, \
+> > +     .src_blk =3D {.name =3D STRCAT("sspp_src_", num), \
+> > +             .id =3D DPU_SSPP_SRC, .base =3D 0x00, .len =3D 0x150,}, \
+> > +     .format_list =3D cursor_formats, \
+> > +     .num_formats =3D ARRAY_SIZE(cursor_formats), \
+> > +     .virt_format_list =3D cursor_formats, \
+> > +     .virt_num_formats =3D ARRAY_SIZE(cursor_formats), \
+> > +     }
+> > +
+> >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_0 =3D
+> >                               _VIG_SBLK("0", 0, DPU_SSPP_SCALER_QSEED3)=
+;
+> >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_1 =3D
+> > @@ -309,6 +338,11 @@ static const struct dpu_sspp_sub_blks msm8998_vig_=
+sblk_2 =3D
+> >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_3 =3D
+> >                               _VIG_SBLK("3", 0, DPU_SSPP_SCALER_QSEED3)=
+;
+> >
+> > +static const struct dpu_sspp_sub_blks msm8998_cursor_sblk_0 =3D
+> > +                             _CURSOR_SBLK("12");
+> > +static const struct dpu_sspp_sub_blks msm8998_cursor_sblk_1 =3D
+> > +                             _CURSOR_SBLK("13");
+> > +
+> >   static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 =3D {
+> >       .rot_maxheight =3D 1088,
+> >       .rot_num_formats =3D ARRAY_SIZE(rotation_v2_formats),
+> >
 >
 > --
 > With best wishes
