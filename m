@@ -1,58 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DC856E868B
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:31:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D812B6E8690
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:32:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F1710E57A;
-	Thu, 20 Apr 2023 00:31:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7DB10E585;
+	Thu, 20 Apr 2023 00:32:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72BCD10E57A
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:31:10 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id l15so916946ljq.8
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:31:10 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58FB910E57A
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:32:04 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4ec81773d50so214529e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681950668; x=1684542668;
+ d=linaro.org; s=google; t=1681950722; x=1684542722;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Fi7p0X7yko8Mx4oIRrg6YnMb1P1Vd3sNhAz3iheygcw=;
- b=n8o+MuQNehdCavTYlTZeOI9vdjMwDW+cYtyJMDyCO3xHji7UBepRk7TvOjgn4zuB93
- i2Bqs2O0B/H+ir8he/hX/I6mDZRrWT7C8sz54t8o17VPmhZDn0wtmRRTD3tEWJr8RFWk
- g4oLbC/7ovXIoMCaFu5TkcMz/UUDSPjdHYgEHGT6xbMZ4bqo8QsZWHezTXlQ89CuZ1K3
- JBoGRjbHN2pp0Gewe5kyTpdQoTBrM5drdwqtqQmT5emn2x0Qkj9uL+x7x//hAoyPmFB3
- +2uXbVslAToxHXwmiWL+altupL0ZOyGQSEzDdhB68sMAIZPhH508PV7Ue0J7KrnKb567
- AEGw==
+ bh=9Nd7HhhsmQrigh61dvTiVokWTk2+5/4WKyz3jRZXbJ4=;
+ b=a+40sUdKRlsWqlp51b0RhAxzrbuNll8UIcDmVP8tAIkAfLGz+KtdREVLHC01Jd4UUL
+ l/kqTYkR2KkldC8plqDQsctlU1Xg2Lfvyl56q4I/SBWMyXJAq+ubGmzwHIC93BoNMNiF
+ OBRtfwuVpCJbELT9UnzNwSpcrUv4lYol3z+3Z89d1pW66lmpO3K9ihBYxcgr8qU6rL7R
+ Wc5UCnoCrOiWMUrXngDGaxcJ03FoKaUfHK7Cv6D0or17FhYaQWIBOKAKGeuSbKkBdDw0
+ IxtnhP6CSYR7QehJB9NqRlZw3m60HVNlu5+YW0dGmynBRCzsORI+iOc3d4U+DZF2YHBM
+ yDjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681950668; x=1684542668;
+ d=1e100.net; s=20221208; t=1681950722; x=1684542722;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Fi7p0X7yko8Mx4oIRrg6YnMb1P1Vd3sNhAz3iheygcw=;
- b=b+TJVBOBT0pGJ1FJfP+2pR7jKK9n5jjecf+jJpXzlHhEV8tP7ROvDA/rGhgkjOwFFT
- 0y4/wrw0lIsvjvjwhp1uV7gnIu2o8KrTzqMHHUd4HrImT7juKKLDHPqSUKj6hZiUoS7T
- Ry53wO19BHCTjhyXepjnbVSRSpr7tPp99DJ7gUYrFdInNEIBa2u5TLYg4GcWPRBB4k3h
- Uwe2TupHeReAvFS2dEavVsm/Yfqd9y/WhWD7yGXX8bz/rmwnjGfGd/1+PDvQYeDqBqeF
- +Pv3rhpuwTr5Gu4ZpCGPEpj+08AnyL23LMXRzOrvJrc68Khxm7XXAJaebsNymQKjBGoe
- hVyw==
-X-Gm-Message-State: AAQBX9eu4Qiy/VAvU4738z+dxswR6C3Wcpg61F0izk1I4X+sAs2SxarG
- ORaTU26aqPhn9A3rh1wHWCbe9Q==
-X-Google-Smtp-Source: AKy350ZIFzvoFFdXkm/nOq/57c5CQDUjJmj7zSd2AdJrCfHfyIPD9k7QvTzEC2VbqCTx89kkyxFAwQ==
-X-Received: by 2002:a2e:86ca:0:b0:298:9e7b:d07b with SMTP id
- n10-20020a2e86ca000000b002989e7bd07bmr2327446ljj.30.1681950668589; 
- Wed, 19 Apr 2023 17:31:08 -0700 (PDT)
+ bh=9Nd7HhhsmQrigh61dvTiVokWTk2+5/4WKyz3jRZXbJ4=;
+ b=cvSAwhNgC9bcvbhqsBPXMCSiFXWVXFV4R76rUGwLoO0NbmncVjMFqlW1w4ZhB3pcJS
+ fnU0rXmd5ci9QbS/0PwSATyoiyj4p/RIj1K0PDC7FWUD1Y+1XJFNnbsjox5QysXs/241
+ Cs371sqPYcrJuSugyNEsTfdJ9YCSGN7cbzykYnWocdrnHcKWNxcr6BDMetIVSyOZmN7I
+ +fsfWJch7vYQ81RwO54EBk12oOu5VlpkKE1QlP0fOjzEYKEcOqVXo+VPCAjH9wzsTtq4
+ MTHnYF57CtQwAlDD57sG+jKinGXm/HUy5OPvLhRubfYAfoK0az2RGbkNnm9gTAdzCqmU
+ dkMA==
+X-Gm-Message-State: AAQBX9dSrJPZLxHiUHzDkRgjFaAl/utzT9PpwISORpu1MCnJdQUXslG1
+ qdv6/q94YO6ps47KzzKwyhXEhQ==
+X-Google-Smtp-Source: AKy350YbBBV05nPshdqlgV2P6Dq/C9Pi9ijk/pMzjguyytXcyvtxrmAbivOyAiwCtHn5hF2Oibff4g==
+X-Received: by 2002:ac2:4423:0:b0:4ed:d250:1604 with SMTP id
+ w3-20020ac24423000000b004edd2501604mr2651356lfl.57.1681950722649; 
+ Wed, 19 Apr 2023 17:32:02 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- l24-20020ac24318000000b004dc48d91061sm49743lfh.304.2023.04.19.17.31.07
+ g12-20020a19ee0c000000b004edd3f011cfsm55550lfb.43.2023.04.19.17.32.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 17:31:08 -0700 (PDT)
-Message-ID: <023a0e8c-651a-2248-a23e-dee8249a70fa@linaro.org>
-Date: Thu, 20 Apr 2023 03:31:07 +0300
+ Wed, 19 Apr 2023 17:32:02 -0700 (PDT)
+Message-ID: <d4e25a0f-3bb4-6803-ac7f-eb19083cb04a@linaro.org>
+Date: Thu, 20 Apr 2023 03:32:01 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -64,12 +65,12 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230417-topic-dpu_regbus-v2-0-91a66d04898e@linaro.org>
- <20230417-topic-dpu_regbus-v2-2-91a66d04898e@linaro.org>
+ <20230417-topic-dpu_regbus-v2-3-91a66d04898e@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230417-topic-dpu_regbus-v2-2-91a66d04898e@linaro.org>
+In-Reply-To: <20230417-topic-dpu_regbus-v2-3-91a66d04898e@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/5] drm/msm/dpu1: Rename path references
+Subject: Re: [Freedreno] [PATCH v2 3/5] drm/msm/mdss: Rename path references
  to mdp_path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,6 +93,9 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 18/04/2023 15:10, Konrad Dybcio wrote:
 > The DPU1 driver needs to handle all MDPn<->DDR paths, as well as
+
+Nit: msm_mdss.c is not DPU1.
+
 > CPU<->SLAVE_DISPLAY_CFG. The former ones share how their values are
 > calculated, but the latter one has static predefines spanning all SoCs.
 > 
@@ -100,10 +104,8 @@ On 18/04/2023 15:10, Konrad Dybcio wrote:
 > 
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 10 +++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 12 ++++++------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  4 ++--
->   3 files changed, 13 insertions(+), 13 deletions(-)
+>   drivers/gpu/drm/msm/msm_mdss.c | 20 ++++++++++----------
+>   1 file changed, 10 insertions(+), 10 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
