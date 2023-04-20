@@ -1,74 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF5CD6E8EA6
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 11:54:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 121A56E930D
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 13:39:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C93510E25F;
-	Thu, 20 Apr 2023 09:54:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF8910E23F;
+	Thu, 20 Apr 2023 11:39:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B7D710E25F
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 09:54:03 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4edcc885d8fso440030e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 02:54:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681984440; x=1684576440;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=mGGvYz0vqZ33n+fo0Tr5AwZsVe0Xqlv0TtcIG/mEdRM=;
- b=FOLFkVdZ0v44OL6a8anDA51YEWjj1ueQkF6fXUjxy9/2GrffrqyIQV4jqMAU1uWkRr
- IWmpPCKlgCSgBGZMOJk6lL+d19uqtXDYozyUl9ylDc0qsVqkyUc8vgPHwgBhis+sblZr
- 6CYCqqz9RHKsO8DpEvpLTEilZK5we08WkBhros9yXgygNmPXxqYgjjCmolN1dxR7GvcJ
- Lh8WHR6ozwt7UrrvN5dPMdMc+JRM7zwSWRJkrbmE1ZQT2D+UvPnfylsDYrlF/kJMe7Da
- AYtlBZ9czPCkn8xBazSzW6BKVro0eq8UvzoZOy5DTGeA2gHGeTsVxt9tua8feP17iUUP
- TBLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681984440; x=1684576440;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mGGvYz0vqZ33n+fo0Tr5AwZsVe0Xqlv0TtcIG/mEdRM=;
- b=UDUe/4+1IPSm+pAUgbJa9tHV/XB6umco4qQjLr6qDBvQofxELKSo08h2aKjkBLRzZE
- 4OtQ8QeP3G3wxe+ynyNEQKV2cdileWJv88+z0Afqgf/ZIMRtN8xRYuYu2GH2f5xmU0/H
- HXoPdFIJeIUekG1ccUXOB+yB9oBKT9jq0jDzYFximCpuh7/DUnuZBAMjNuMdrAH7WR8a
- l9UOAYIFlEtNhBac7/3nrovcezURKW4vcxs3n26AqFMzGEvNdSUsM987FQp1mHPP/jS5
- U15cUYCka+4aZRcMvrYGZWN1UXsZAcTAODMmRNDe0zRswrjGWybxfaX4Gh4mWXXNuF8+
- qslQ==
-X-Gm-Message-State: AAQBX9f53tF8qk53pXNorqqKP8YppdWGGsWFMUGn8vRzPqKsAOtozkBU
- 7Nh2eqaRzWSV6RROWG8xb21WgQ==
-X-Google-Smtp-Source: AKy350Y7UIxnxGPQnkZd6F1ty5wN9QW7ABmp+6yZagCX0dwlMCfwws+fXNS7jbCUDatA5h7CGh55LA==
-X-Received: by 2002:ac2:4a8c:0:b0:4ee:e0c7:435f with SMTP id
- l12-20020ac24a8c000000b004eee0c7435fmr116894lfp.61.1681984440112; 
- Thu, 20 Apr 2023 02:54:00 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- v28-20020ac2559c000000b004edc608d86bsm162230lfg.104.2023.04.20.02.53.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 02:53:59 -0700 (PDT)
-Message-ID: <bcbda796-908a-43d5-0744-c03656fda47b@linaro.org>
-Date: Thu, 20 Apr 2023 12:53:58 +0300
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64E5B10E20B;
+ Thu, 20 Apr 2023 11:39:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681990785; x=1713526785;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=yVyrMJN1Iigkd+tJFiSwN+cWLKzO4jFI/hFaT3f7kbA=;
+ b=KFBGlUHX6wwKJyq2JbrQNwyEGYRZDt4rxotmigqk48+yz6Dk7+oLh/Om
+ b/Xfn2xnbdcSsQbMEzpeL+Lnah63j6yaV35yrFgI6M69ZA4jvrPANYNII
+ fZw2URWs67bbhO24BvI8DjwieUxHUqc+R/fPsJZbrTFgfM8kx+PKnDjVq
+ yfS+yikpNyiEQ/2o4NXjfev+01sMNPqmCoooIig5sdv+XrRJ7Hnm/hduz
+ sIk/q6yCInpruQLdxqV3Xsk/soTumqS2eFOzIRrEXoVs5UcvrPJsu2yu8
+ q50Yh3DLwsZ2rcGLa0sCmxEqiEm5uWOBVGatWBs1puZIxI7lAIn2IPn69 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="347572004"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="347572004"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2023 04:39:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="815986146"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="815986146"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 20 Apr 2023 04:39:40 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ppSdX-000fnQ-1P;
+ Thu, 20 Apr 2023 11:39:39 +0000
+Date: Thu, 20 Apr 2023 19:39:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Yacoub <markyacoub@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <202304201909.D57x63J5-lkp@intel.com>
+References: <20230419154321.1993419-11-markyacoub@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Arnaud Vrac <avrac@freebox.fr>
-References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
- <20230419-dpu-tweaks-v1-4-d1bac46db075@freebox.fr>
- <74c59560-8a79-150f-0c1e-13f22eb35cb2@linaro.org>
- <CAG9NU6_Ua_XLa+c=_93fs5chzQTyPf11W4F87UYbny1k-feoJw@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAG9NU6_Ua_XLa+c=_93fs5chzQTyPf11W4F87UYbny1k-feoJw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 04/11] drm/msm/dpu: allow using lm mixer
- base stage
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230419154321.1993419-11-markyacoub@google.com>
+Subject: Re: [Freedreno] [PATCH v10 10/10] drm/msm: Implement HDCP 1.x using
+ the new drm HDCP helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,82 +64,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: suraj.kandpal@intel.com, linux-kernel@vger.kernel.org,
+ Mark Yacoub <markyacoub@chromium.org>, intel-gfx@lists.freedesktop.org,
+ dianders@chromium.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, seanpaul@chromium.org,
+ oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/04/2023 10:26, Arnaud Vrac wrote:
-> Le jeu. 20 avr. 2023 à 00:43, Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> a écrit :
->>
->> On 19/04/2023 17:41, Arnaud Vrac wrote:
->>> The dpu backend already handles applying alpha to the base stage, so we
->>> can use it to render the bottom plane in all cases. This allows mixing
->>> one additional plane with the hardware mixer.
->>>
->>> Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
->>
->> This might require additional changes. First, for the STAGE_BASE pipe
->> in the source split mode (iow using two LMs) should programmed with
->> respect to the right LM's x offset (rather than usual left top-left LM).
->> See  mdss_mdp_pipe_position_update().
-> 
-> Ok, I did test with 2 LMs and it seems to be working, I'll investigate.
+Hi Mark,
 
-The only reference I have here is the fbdev driver, see [1]. The newer 
-SDE driver doesn't handle STAGE_BASE vs STAGE0 (and DPU inherited that 
-design). Maybe this got fixed in hw at some point.
+kernel test robot noticed the following build errors:
 
-[1] 
-https://git.codelinaro.org/clo/la/kernel/msm-4.19/-/blob/LE.UM.4.4.1.r2-17500-QRB5165.0/drivers/video/fbdev/msm/mdss_mdp_pipe.c#L1789
+[auto build test ERROR on drm-intel/for-linux-next-fixes]
+[also build test ERROR on linus/master v6.3-rc7]
+[cannot apply to drm-misc/drm-misc-next drm-intel/for-linux-next drm/drm-next next-20230419]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I think, it only concerns the src_split + multirect cases, where the 
-rectangle base point is on the right LM.
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230419-234833
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
+patch link:    https://lore.kernel.org/r/20230419154321.1993419-11-markyacoub%40google.com
+patch subject: [PATCH v10 10/10] drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+config: ia64-randconfig-r011-20230416 (https://download.01.org/0day-ci/archive/20230420/202304201909.D57x63J5-lkp@intel.com/config)
+compiler: ia64-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/6fb5b032262769c786a7a8c9ed522d936dcf14c2
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230419-234833
+        git checkout 6fb5b032262769c786a7a8c9ed522d936dcf14c2
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=ia64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=ia64 SHELL=/bin/bash
 
-> 
->>
->> Also this might need some interaction with CTL_MIXER_BORDER_OUT being
->> set or not. If I remember correctly, if there bottom plane is not
->> fullscreen or if there are no planes at all, we should set
->> CTL_MIXER_BORDER_OUT (which takes STAGE_BASE) and start assigning them
->> from STAGE0. If not, we can use STAGE_BASE.
-> 
-> I also tested with both fullscreen and non-fullscreen primary plane,
-> and no plane. I'll check this.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304201909.D57x63J5-lkp@intel.com/
 
-Yes, the DPU driver always enables the MIXER_BORDER_OUT.
+All errors (new ones prefixed by >>):
 
-> 
->>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index 14b5cfe306113..148921ed62f85 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -881,7 +881,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>        r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->>>        r_pipe->sspp = NULL;
->>>
->>> -     pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
->>> +     pstate->stage = DPU_STAGE_BASE + pstate->base.normalized_zpos;
->>>        if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
->>>                DPU_ERROR("> %d plane stages assigned\n",
->>>                          pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
->>>
->>
->> --
->> With best wishes
->> Dmitry
->>
+   ia64-linux-ld: ia64-linux-ld: DWARF error: could not find abbrev number 1548101
+   drivers/gpu/drm/msm/msm_atomic.o: in function `msm_atomic_commit_tail':
+>> msm_atomic.c:(.text+0xe02): undefined reference to `dp_drm_is_bridge_msm_dp'
+>> ia64-linux-ld: msm_atomic.c:(.text+0xe22): undefined reference to `dp_drm_atomic_commit'
+   ia64-linux-ld: ia64-linux-ld: DWARF error: could not find abbrev number 872
+   drivers/gpu/drm/msm/dp/dp_debug.o: in function `dp_hdcp_key_write':
+>> dp_debug.c:(.text+0xa2): undefined reference to `dp_hdcp_ingest_key'
 
 -- 
-With best wishes
-Dmitry
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
