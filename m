@@ -1,76 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29B1C6E874C
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7B0A6E874E
 	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 03:15:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7E610E7E8;
-	Thu, 20 Apr 2023 01:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F39B10E9AF;
+	Thu, 20 Apr 2023 01:15:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8F110E7F2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 01:14:58 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id k15so1045306ljq.4
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 18:14:58 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F77710E7F2
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 01:14:59 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id h2so952477ljh.13
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 18:14:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681953296; x=1684545296;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2pjPggDwV+63wJc3gh5cASauH2FrG6WvSuw6/4vWXZk=;
- b=KARctsjb+Uom7cLN02eTYZmsdVBgGiMpxh4JAawF6BPkXh+w7FtS/Au39d2sSl0iAp
- qPdLpggmmbBHGpMz6s79jMMBsTS4sv5i/+8ewn6f7O30v+btVBnoLQxFhwF2FcdJlgwJ
- WseVJ5kP5JTwUS+JQIOmuW2wRsXT7vrIuYmIGqQpg74L/TnpBXXBqye+rxgD+KZMBBi1
- q431CNebUVHuGz0ybcUIqtE5SxKceoyOvnYw5zXt6ux/azcsfUozuQNkldvCjT96ABQl
- kdd+WXU3GfuklIVX9M8z+QHGt3WzPo+qJtudgce3HV1Ht4rsTmS5QUGxv9SdUEOyrloH
- Bdmw==
+ d=linaro.org; s=google; t=1681953298; x=1684545298;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=3YAPLxEQHRkQtBPUWYsNYhJFpEVLFDywj/VUg1ddWyo=;
+ b=UQsX0S6zrCg0bjka1ONQctLRZ4D8xxZav7b5lB137sSxCBmvsLC4347g0VTNeAipY/
+ kt3eYv3W3ziLtPXUgQCnRnIYnZvHGDzoPdJzeGNdqSocgE0SPNuR2YnCirCRO0gobidl
+ HI62bd07kuLAb5BUNnz/4IZ1gVB1z2fmlCBmUsxmbQpRbNs1qcb1v2VeJdctfXpT1NMB
+ I2lKbiFQmL1QC7/KxFq793KaUCnD7W70aGySPxDMBFEMMjN3wbJGar/GWOjfqwpZ5+N2
+ N/AGHt2R1c5iWXNoSBySJmDklbpAXCbuojeaiacaDWkDOnZn4GLXG2YuxYOpfBHVFJ4J
+ E7Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681953296; x=1684545296;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2pjPggDwV+63wJc3gh5cASauH2FrG6WvSuw6/4vWXZk=;
- b=JYpPt3DSEZmKT3Tz/EDWgeql03DbvfpnLhR3jmap0/Tc4C7nlNaQLYN2ba1OifhgDg
- nq5buu7NVLn7FjioyDjYi0g+p12W+L8keMGs+7OYwV5o1BVxFZXNddmXK1MOyBZFpyUz
- uGa9j+xHR1Rc80f2QrXTEGrBSynmtfeIm8AoWLgX65aaHWDOd5N3EI8YknVR+B3Rn5HT
- zRaGb1Wf+RlwpwVLToAKwmgV+bvGpaV67a3gT940XW4Xfbqwt32ol7vgR2uBjyOdfNVW
- 2qcZR/9WKiFIvTbmUBLpxrZiyqUOGdkoHamEGG62hHN2CiYyLLQJ4XbIesQRRsnl1NH7
- 3aZQ==
-X-Gm-Message-State: AAQBX9cEt/KqD1hYpFg+h8NbTGxJFl87+Vnp3x9RIwYNDM5snkFkFMZh
- /F/BaZcMWNcZLx8UBDUQhx7AKQ==
-X-Google-Smtp-Source: AKy350aHSdiCakiatcUlh9SQx/aSM/u9dQY9zoHmDOU05vWYsC/6+iItfVB+iAgcO/hbVK9945emIg==
-X-Received: by 2002:a2e:9a95:0:b0:2a8:aadc:f162 with SMTP id
- p21-20020a2e9a95000000b002a8aadcf162mr2506673lji.51.1681953296417; 
- Wed, 19 Apr 2023 18:14:56 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1681953298; x=1684545298;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3YAPLxEQHRkQtBPUWYsNYhJFpEVLFDywj/VUg1ddWyo=;
+ b=IoYCDeEo8KftkGvHNdM/dneDZpNwTBg/jokoRrwKy/z/L4icG1fhl0jZdM5LmmFQ8z
+ wWazF9Y7Bq9Z4d8JnzzsbyP1zhRefQggwws68ELZ/cb4ycOfSM88GoVo6Gy77fM/Ou1K
+ 8L0SDBhev3GG07ixWWRMwV8pgDZnG4S4WaUPVVSJPXC3k/8xPX8f6mAw1MbU66ZZc6EK
+ 8FZ0Ip0I7747CPvqa4njOOuvRiGQr1SlBV3WjcXoldt9x0VX2Jg041JAKCjElwPcaRvD
+ fn3w5HzLRwFkKyyleljUQo/GgejTxzew8IPbeBimoNVhaQz03QowLQZxo2QO8e7a0bqv
+ qMjA==
+X-Gm-Message-State: AAQBX9ereYPJUQj24gj88fsrcTOSLo8qDeydBQMqex4Gk7v0lyuS86NH
+ cKxi0uFhFS3WJgo1CyL1EE2sLg==
+X-Google-Smtp-Source: AKy350Y/tkNGSH9BHgOL6svxTMyN0azMc9APjE8LKh0JBxi5ocA3CHn/stNeNLStSUyux7sGsC0ljA==
+X-Received: by 2002:a2e:9595:0:b0:2a9:b6fe:18c2 with SMTP id
+ w21-20020a2e9595000000b002a9b6fe18c2mr1168848ljh.29.1681953297695; 
+ Wed, 19 Apr 2023 18:14:57 -0700 (PDT)
 Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
  by smtp.gmail.com with ESMTPSA id
- k25-20020a2e2419000000b002a8dce82cf6sm28853ljk.32.2023.04.19.18.14.55
+ k25-20020a2e2419000000b002a8dce82cf6sm28853ljk.32.2023.04.19.18.14.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Apr 2023 18:14:56 -0700 (PDT)
+ Wed, 19 Apr 2023 18:14:57 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Thu, 20 Apr 2023 03:14:53 +0200
-Message-Id: <20230420-topic-dpu_gc-v1-0-d9d1a5e40917@linaro.org>
+Date: Thu, 20 Apr 2023 03:14:54 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAA2SQGQC/x2NWwqDMBAAryL77UKMr9arSCl5rLogMSRVCuLdX
- fycgWFOyJSYMgzFCYkOzrwFgaoswC0mzITshUErXatGK/xtkR36uH9nh91bVVPf9t3LW5DEmkx
- okwlukSjs6yoyJpr4/zzGz3XdvYT8T3MAAAA=
+Message-Id: <20230420-topic-dpu_gc-v1-1-d9d1a5e40917@linaro.org>
+References: <20230420-topic-dpu_gc-v1-0-d9d1a5e40917@linaro.org>
+In-Reply-To: <20230420-topic-dpu_gc-v1-0-d9d1a5e40917@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1681953295; l=1362;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1681953295; l=8333;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=pRHWMRjt/n9zLCczjy/Yn/VbOiBgkQ1FtQZWTc9Q9rU=;
- b=JJ6i5qpF1MvRqD4DAygLVZUDtlpMNWpPh9eMvOEZe+8x04Wtsqq7pdDXh7F7vxVR2O7WsS1fScsC
- xwAzpJkqCZ/+gAiDEimRKnfQG7CuG6aVE522+WRSzEaNoA4nw444
+ bh=Hv4Y+/OyENonA4D9WD0Atvk2X0RWlZqmSfSPeIcfQbA=;
+ b=T14hv8IeHuKO46xglmGsqcs8p+2X5l5YCGnQE8/gsMEYDBDiRoCgy+ALP29JpTGlB/9vGa2HQeoF
+ 3jaHxr3hDzJPUU2EPJNZ6FnzxLHsa2/GxxPZKjqsqtBqVHhF2czU
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH 0/2] DPU1 GC1.8 wiring-up
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dpu1: Rename sm8150_dspp_blk to
+ sdm845_dspp_blk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,33 +90,197 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Almost all SoCs from SDM845 to SM8550 inclusive feature a GC1.8
-dspp sub-block in addition to PCCv4. The other block differ a bit
-more, but none of them are supported upstream.
+SDM845 was the first SoC to include both PCC v4 and GC v1.8.
+We don't currently support any other blocks but the common config
+for these two can be reused for a large amount of SoCs.
 
-This series adds configures the GCv1.8 on all the relevant SoCs.
+Rename it to indicate the origin of that combo.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
-Konrad Dybcio (2):
-      drm/msm/dpu1: Rename sm8150_dspp_blk to sdm845_dspp_blk
-      drm/msm/dpu1: Enable GCv1.8 on many SoCs
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 8 ++++----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 8 ++++----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h   | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h  | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 8 ++++----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 8 ++++----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 8 ++++----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 8 ++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           | 2 +-
+ 9 files changed, 27 insertions(+), 27 deletions(-)
 
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 16 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 16 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h   |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h  |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 16 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 16 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 16 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 16 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           |  4 +++-
- 9 files changed, 55 insertions(+), 53 deletions(-)
----
-base-commit: 3cdbc01c40e34c57697f8934f2727a88551696be
-change-id: 20230420-topic-dpu_gc-6901f75768db
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+index 282d410269ff..c555d43ef0e0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+@@ -118,13 +118,13 @@ static const struct dpu_lm_cfg sm8150_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sm8150_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ 
+ static const struct dpu_pingpong_cfg sm8150_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+index 2c40229ea515..c8a174352ede 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+@@ -119,13 +119,13 @@ static const struct dpu_lm_cfg sm8250_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sm8250_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ 
+ static const struct dpu_pingpong_cfg sm8250_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+index 6f04d8f85c92..00f82b2c18ff 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
+@@ -56,7 +56,7 @@ static const struct dpu_lm_cfg sm6115_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sm6115_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ 
+ static const struct dpu_pingpong_cfg sm6115_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+index 303492d62a5c..5f103140abc7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+@@ -53,7 +53,7 @@ static const struct dpu_lm_cfg qcm2290_lm[] = {
+ 
+ static const struct dpu_dspp_cfg qcm2290_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ 
+ static const struct dpu_pingpong_cfg qcm2290_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+index ca107ca8de46..257e898fea18 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+@@ -117,13 +117,13 @@ static const struct dpu_lm_cfg sm8350_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sm8350_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ 
+ static const struct dpu_pingpong_cfg sm8350_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+index 9aab110b8c44..e4d4e47418fe 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+@@ -111,13 +111,13 @@ static const struct dpu_lm_cfg sc8280xp_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sc8280xp_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ 
+ static const struct dpu_pingpong_cfg sc8280xp_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+index 02a259b6b426..88ad81e03622 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+@@ -118,13 +118,13 @@ static const struct dpu_lm_cfg sm8450_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sm8450_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ /* FIXME: interrupts */
+ static const struct dpu_pingpong_cfg sm8450_pp[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+index 9e403034093f..ecc034f76441 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+@@ -123,13 +123,13 @@ static const struct dpu_lm_cfg sm8550_lm[] = {
+ 
+ static const struct dpu_dspp_cfg sm8550_dspp[] = {
+ 	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ 	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
+-		 &sm8150_dspp_sblk),
++		 &sdm845_dspp_sblk),
+ };
+ static const struct dpu_pingpong_cfg sm8550_pp[] = {
+ 	PP_BLK_DIPHER("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sc7280_pp_sblk,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 03f162af1a50..69af786b66a0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -458,7 +458,7 @@ static const struct dpu_dspp_sub_blks sc7180_dspp_sblk = {
+ 		.len = 0x90, .version = 0x10000},
+ };
+ 
+-static const struct dpu_dspp_sub_blks sm8150_dspp_sblk = {
++static const struct dpu_dspp_sub_blks sdm845_dspp_sblk = {
+ 	.pcc = {.id = DPU_DSPP_PCC, .base = 0x1700,
+ 		.len = 0x90, .version = 0x40000},
+ };
 
-Best regards,
 -- 
-Konrad Dybcio <konrad.dybcio@linaro.org>
+2.40.0
 
