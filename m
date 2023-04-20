@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A126E86B3
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:45:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 746A66E86B7
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:45:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A434C10E1F3;
-	Thu, 20 Apr 2023 00:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA4810E691;
+	Thu, 20 Apr 2023 00:45:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09EF10E626
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:45:01 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id r9so930550ljp.9
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:45:01 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD8B110E691
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:45:29 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id z38so907640ljq.12
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:45:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681951500; x=1684543500;
+ d=linaro.org; s=google; t=1681951529; x=1684543529;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=2Uw7JNGYT4uLh3etMMP74RoMDPM5hJGwdSfCgrMMVoM=;
- b=mGKF03/4oZsNGaaGShd+QEVSq9NZb+b/aSYbYemAfcxB0OljlSufOAaVRPtuIk8fjk
- IsUWSPJPbKDOzGPpJCT+W5WzgPv1scbSvfzSiYTJRmWPSTTDnee6JEbWNQHrnYDiR5JV
- b7tDJyPbuydSddMmz/mhoRpZLBmECi2o/4M+j9b21LEeJUlXmQAtMTvFoBJ2ReVgnohX
- FULXv+EJG+ka/q4W9CgIsnVuwmmIk1bI4pUwmpFFNuR9bikhOOupApqX0sn/SS5suNVj
- mw4UJmXwHZnW/I30MZAMNfPpgKh214rZiexYF5nhD09XXaVTs2g9Ka0t4pf+AZLZVJtQ
- aT1g==
+ bh=wtWB4vlmwDWMUNOsfffP4l09F42Qg5zHNV5DdtGMrBA=;
+ b=wvXFn8cl6fUCSLiioYT4nXeZK0/nwW5kFU11F897WcQOvLHqmBDcyaCvdxhiq5Ngf/
+ vjRxK1PhhkR39Y9a72mFRI0eZlh1hn+VjNyeiEL7rkewAz2ejRZ12q6454kEB765HmaF
+ 34fIdq0ePri9LQSSOVVcHobT9x/BYwdBKXva5XNaEHpWb34VCkY/E5GuZ2YY5ZOXtwNn
+ ASBnxpQ+vCplQItgXOV94nQ2QyHc2hBDWPBRoe4nxyrdmMsduVF/+Xtl6ASkXhi70NMF
+ QWjh90k4BXW5dj0PcdB42i35lM3G9eYQN5TJGCWD4BbukFOfcpQ4fzJbSd2JXW+EbJh4
+ B0fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681951500; x=1684543500;
+ d=1e100.net; s=20221208; t=1681951529; x=1684543529;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2Uw7JNGYT4uLh3etMMP74RoMDPM5hJGwdSfCgrMMVoM=;
- b=LnH7PRBJDlRBnLYY3WTMGrHSjAbhOizEbhTnoF/dSRykmv/Y/+yZG2B2t8yiRkgpGY
- JbyBIUmqWOGYdULGXJo3lWipbo7lN6+y0j6bxnxCJpk5XCieX5Yw1vjz/6CYnCicVPmX
- vt4UUVASpKAjlssKLdzEj1fKRdzTINBopZdOoQFHX6WQQ8LfoqBsll7/2aruSfpssYNC
- 5bQkUdxgZdSJuJGjNhUavd4C+EAnQYU0Va9ffxpylbvXNzmjL08uvN/syjbMAoBphy+T
- ccGYgrJI28fvD/z0hg+22wd9VWVprhhgi3Jiz4TfJzPKbEit3sbOOqDjgbm+xN2ETT/0
- 69XA==
-X-Gm-Message-State: AAQBX9caH5gcdqaGN6pyPDPYQ6a3NdLO1PIMKNzi1QbWqngFzSFNi6fB
- IMaIv1gBFV7PSdMnTBznTctpqA==
-X-Google-Smtp-Source: AKy350ZBTBfKAQ0fZHgjW5NeO1pdUq3DqqyNPbaUxvwgl2B1P9ChdTakjvNEhN4imLkvEb7Wp/45eA==
-X-Received: by 2002:a2e:9a95:0:b0:2a8:aadc:f162 with SMTP id
- p21-20020a2e9a95000000b002a8aadcf162mr2474093lji.51.1681951499837; 
- Wed, 19 Apr 2023 17:44:59 -0700 (PDT)
+ bh=wtWB4vlmwDWMUNOsfffP4l09F42Qg5zHNV5DdtGMrBA=;
+ b=Es9eSb/XMmccN+Gb9vlgc0xDc9uhOzt/zM7oEFKkP4kTyaZuAxfSZCRFaI5mSPl+UW
+ E7/XaPLth6XQBLvI/YVg7s/lahu2TpynFbwE5/Jk7Af6Q/l3Oqq1fLL/mYbLX89Hnrrw
+ JDeHrh7FCPWZwsISUHxmIvq0cZRqeANot1SffKDa/o6ViFf+Yo1HTrpyw/FE8j7xbhln
+ FWVr736gOxhCFupDTK08oEw/CAHgBrOKNqxIkBxnrX1vwV4QIhIiW3F3nPOYdEydXe3w
+ 0qh+H+N/Lj9B7zv3OjztPLJPwsq/apdZjQOTfHmZ6oNCg/3I3bcgQHLLkXyB11snCJJ9
+ koxA==
+X-Gm-Message-State: AAQBX9ft8KadnpgdwSi0OlIoQZp92zLvYNtxha2l7L5d4a+f28wTLsiC
+ ICpH1MhpN0dIBXVCovc9NXe8Zw==
+X-Google-Smtp-Source: AKy350ZhjSkwDpeu1n+vje/43uN5I9UnV94ZUO73jsf4x9QrMfjxL5w7ChBm91Ulj1soJ6h4wWflxw==
+X-Received: by 2002:a2e:91c8:0:b0:2a8:bca1:bfa6 with SMTP id
+ u8-20020a2e91c8000000b002a8bca1bfa6mr2832002ljg.24.1681951529261; 
+ Wed, 19 Apr 2023 17:45:29 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- z4-20020a2e8e84000000b002a8bbd919f8sm16726ljk.6.2023.04.19.17.44.59
+ l14-20020a2e868e000000b002a775f96ef4sm16431lji.30.2023.04.19.17.45.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 17:44:59 -0700 (PDT)
-Message-ID: <0eb8eaf7-7649-13a1-edc4-049fd0f51dcb@linaro.org>
-Date: Thu, 20 Apr 2023 03:44:58 +0300
+ Wed, 19 Apr 2023 17:45:28 -0700 (PDT)
+Message-ID: <2c9fe675-b580-9f87-8b20-f4e125bf88a3@linaro.org>
+Date: Thu, 20 Apr 2023 03:45:28 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -69,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>
 References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
- <20230411-dpu-intf-te-v2-2-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-3-ef76c877eb97@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-dpu-intf-te-v2-2-ef76c877eb97@somainline.org>
+In-Reply-To: <20230411-dpu-intf-te-v2-3-ef76c877eb97@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 02/17] drm/msm/dpu: Remove TE2 block and
- feature from DPU >= 7.0.0 hardware
+Subject: Re: [Freedreno] [PATCH v2 03/17] drm/msm/dpu: Move non-MDP_TOP
+ INTF_INTR offsets out of hwio header
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,23 +102,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 17/04/2023 23:21, Marijn Suijten wrote:
-> No hardware beyond kona (sm8250) defines the TE2 PINGPONG sub-block
-> offset downstream.  Even though neither downstream nor upstream utilizes
-> these registers in any way, remove the erroneous specification for
-> SC8280XP, SM8350 and SM8450 to prevent confusion.
+> These offsets do not fall under the MDP TOP block and do not fit the
+> comment right above.  Move them to dpu_hw_interrupts.c next to the
+> repsective MDP_INTF_x_OFF interrupt block offsets.
 > 
-> Note that downstream enables the PPSPLIT (split-FIFO) topology (single
-> LM for 2 PP and 2 INTF) based on the presence of a TE2 block.
-> 
-> Fixes: f0a1bdf64dd7 ("drm/msm/dpu: Introduce SC8280XP")
-> Fixes: 0a72f23f6ef8 ("drm/msm/dpu: Add SM8350 to hw catalog")
-> Fixes: 8cbbc3396065 ("drm/msm/dpu: add support for SM8450")
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   |  4 ++--
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 12 ++++++------
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   |  4 ++--
->   3 files changed, 10 insertions(+), 10 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 5 ++++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h          | 3 ---
+>   2 files changed, 4 insertions(+), 4 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
