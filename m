@@ -2,78 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B506E8661
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:26:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D48756E866B
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 02:27:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163C210E43C;
-	Thu, 20 Apr 2023 00:26:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903BD10E343;
+	Thu, 20 Apr 2023 00:27:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D1610E43C
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:26:07 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2a7af0cb2e6so1837221fa.0
- for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:26:07 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 699E810E43C
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:27:23 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id bz21so880974ljb.11
+ for <freedreno@lists.freedesktop.org>; Wed, 19 Apr 2023 17:27:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681950365; x=1684542365;
+ d=linaro.org; s=google; t=1681950441; x=1684542441;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Psl4T4YpjUg01XfnlEjBI8pEA1fZTD2Nzhy7cDEKavA=;
- b=vJMv3A7l2uf768EgIZu+u9ouZ7G0Jl/dK3aLvq56cvfi5VadrrlT+1ndg37h3ofzMl
- XYydubodYZpRp/sJ60Hd4ZjVSdARprGguczDF8A0P8orqve/vxsC1YWBvZ8J7+rJxg5/
- GRf+ppxO9HEjf+LFcruSnHgNXTd6y6ydht8fOltFOLLIms2PBWLN4sfKSnsffq3hhXdP
- J18wcfDn2k+BywOIITi8rcM0eRdITq3UfxZB8+ISAWEA7E8ilDZupJko95Jmz+8n7em1
- AH05H2mSw3tRt2S3hT7mdbAs5LCr4UacI03mDiuf8ViMGuYqXMbnpSoXRR9fn5SNZ94/
- eSTQ==
+ bh=bJiK/C1Bp7VUIfdmCaPfsFY4/Z95o9zQhrrUL3cgcwM=;
+ b=FuDE91Glj+OEtbz8Ziz6K/mV9+nm9O9GJONoNRwe8JWNyjcaUX7irgXJ+eEQuE+hbQ
+ VvhjthMBolr5E7n7U4pQZCyYPZT9kZpWH8At/9Gs8bDyQPbj3SUfKA3xBHjJp92CChex
+ IzwkqYU3kxHV4c+ka1pQxC0mPnBmPkI2+ER012BebZUedO6XLgnemQHjUY2bBoEKtyfI
+ vhhVh+IvZ+pRD1Spb/+iWDkJTm9Rstdg6vUUgOu1yiPkT+zNckMXLHr2TFIvwdGT2Ma5
+ Ns7uj9NW4T2Vn/wxeuz8CQG2+QxPPD7sGw8MpSN9FzxXBJdHmm4kTc+Iioj52QclVTFH
+ Ph5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681950365; x=1684542365;
+ d=1e100.net; s=20221208; t=1681950441; x=1684542441;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Psl4T4YpjUg01XfnlEjBI8pEA1fZTD2Nzhy7cDEKavA=;
- b=RBYj1MAky7OL4ABBhQzuO5x1yrsVMkxB19bZ4F8a1yKLl3pm9epJ72IXca/oPVhZI7
- oxEy1u7vU0KQuDZJysiL8hrXO4FWegaYstNhdwTKIvk6roSKBCdebqlyIsFUz66nAM9S
- sMdtNi/6nXh2vw1rYIt3XFVKEg96qthQ9UnVqjDvuBKiFmo53pX4/76jFonaAeF/GHiR
- R94fHb+Ctlvd1wUcXkddMzMpLYks6Oeab+tJ9EBoxea1epb5txegdRdYpK2dMnRJhwyz
- mUAEnYMF7EKzA9fnbL5Qaq5+MLg9/QL+ffAB9SpJrAQ9hkhDZCJVw9si3qB7flhbqLnU
- RNmw==
-X-Gm-Message-State: AAQBX9d2etom64LkW705Jh24B4/QqmvXg7Vk1hGMUADJWa7AECQRJW5u
- c82rm4JNwHLuAHb2uIkHIfB54w==
-X-Google-Smtp-Source: AKy350bHHMfLKUnerA/JSf8lkT6nEjfYsQY40HJ6o/cWTpT9y6js94xXiQScUYrEnL+7ULilAE3lsw==
-X-Received: by 2002:ac2:4a9c:0:b0:4eb:40d4:e0d2 with SMTP id
- l28-20020ac24a9c000000b004eb40d4e0d2mr4690145lfp.38.1681950365504; 
- Wed, 19 Apr 2023 17:26:05 -0700 (PDT)
+ bh=bJiK/C1Bp7VUIfdmCaPfsFY4/Z95o9zQhrrUL3cgcwM=;
+ b=QIkqtbcZuSsmIGsUQ9BacQoSBQIHHt+MvZXm51eh7IqXtuozmyYCHuQ21adlFX0Dla
+ tKc7pi+zJIJnCokwIX7zen9J6GN1JvKhWKXUbgkP5Gb8Yt1nzemZ0gmFU9oL02fEqS+D
+ EziWsdJq7/rAhkNT0vax8Np+BT/6wis6b1v4ELH99U3B5E8pBMItiEfx6DEPjYLCxfVU
+ RmKPfmFNve1G0QE6Ddq9Wfj76oENY6siH8CMC3jB7eOFCJ4YQyKsJ8MGI98HNwTZ7mp6
+ 56eNprDuQhOLCTJpuCui+gaOrdJEgcJvaD3Xf5aeM//+IbX3NVlJgmFigQdqWqiZxk77
+ NWhA==
+X-Gm-Message-State: AAQBX9dahMbCGwRW3Zdi9oAKk9Ovlv8M+JDsiXNG+LAdM41TTuTU0JPK
+ RlKW2Tvupt7koj5xwdT9upgjzQ==
+X-Google-Smtp-Source: AKy350Z5iHH9rCjCwK6eiqlfzdtPwfCU6JEJtPtp6nI1ZchktQR8QqKq0BXI06ZgSNaOMbsiOJAJ9w==
+X-Received: by 2002:a2e:9652:0:b0:2a8:b129:f735 with SMTP id
+ z18-20020a2e9652000000b002a8b129f735mr2281704ljh.28.1681950441623; 
+ Wed, 19 Apr 2023 17:27:21 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- u6-20020ac248a6000000b004eb51cfb147sm52251lfg.115.2023.04.19.17.26.04
+ e17-20020a2e9851000000b002a8c2a4fe99sm10765ljj.28.2023.04.19.17.27.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 17:26:04 -0700 (PDT)
-Message-ID: <62f99cee-ecc2-2969-22da-d8f43b8b7064@linaro.org>
-Date: Thu, 20 Apr 2023 03:26:04 +0300
+ Wed, 19 Apr 2023 17:27:21 -0700 (PDT)
+Message-ID: <11b3bd19-fe23-439b-3f76-5bacfca83aa0@linaro.org>
+Date: Thu, 20 Apr 2023 03:27:20 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-GB
-To: Jeykumar Sankaran <quic_jeykumar@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230417-topic-dpu_regbus-v1-0-06fbdc1643c0@linaro.org>
- <20230417-topic-dpu_regbus-v1-1-06fbdc1643c0@linaro.org>
- <c20433cb-02e4-bd82-99ab-bd25a49771d4@quicinc.com>
+ <20230417-topic-dpu_regbus-v1-2-06fbdc1643c0@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <c20433cb-02e4-bd82-99ab-bd25a49771d4@quicinc.com>
+In-Reply-To: <20230417-topic-dpu_regbus-v1-2-06fbdc1643c0@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 1/5] dt-bindings: display/msm: Add reg bus
- interconnect
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/dpu1: Rename path references to
+ mdp_path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,43 +90,22 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/04/2023 23:05, Jeykumar Sankaran wrote:
-> Resending the question as the previous one was sent only to the 
-> freedreno list. Apologies for spamming!
+On 17/04/2023 18:30, Konrad Dybcio wrote:
+> The DPU1 driver needs to handle all MDPn<->DDR paths, as well as
+> CPU<->SLAVE_DISPLAY_CFG. The former ones share how their values are
+> calculated, but the latter one has static predefines spanning all SoCs.
 > 
-> On 4/17/2023 8:30 AM, Konrad Dybcio wrote:
->> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
->> another path that needs to be handled to ensure MDSS functions properly,
->> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
->>
->> Gating that path may have a variety of effects.. from none to otherwise
->> inexplicable DSI timeouts..
->>
->> Describe it in bindings to allow for use in device trees.
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>   Documentation/devicetree/bindings/display/msm/mdss-common.yaml | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git 
->> a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml 
->> b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
->> index ccd7d6417523..9eb5b6d3e0b9 100644
->> --- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
->> @@ -72,6 +72,7 @@ properties:
->>       items:
->>         - const: mdp0-mem
->>         - const: mdp1-mem
->> +      - const: cpu-cfg
-> If posted already, please point to the DTSI patch for this ICC path.
+> In preparation for supporting the CPU<->SLAVE_DISPLAY_CFG path, rename
+> the path-related struct members to include "mdp_".
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 10 +++++-----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 12 ++++++------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  4 ++--
+>   3 files changed, 13 insertions(+), 13 deletions(-)
 
-Probably it's worth updating the example in one of mdss schemas.
-
->>     resets:
->>       items:
->>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
