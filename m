@@ -2,67 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A1E66E974D
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 16:37:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E531D6E98A1
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 17:44:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D98BA10EC6A;
-	Thu, 20 Apr 2023 14:37:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A91FB10E960;
+	Thu, 20 Apr 2023 15:44:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3122C10EC6A
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 14:37:20 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id h2so2970028ljh.13
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:37:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682001438; x=1684593438;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FFnlJ6IPLJiXgZ+usawh9hc3QyVA/TfElwRSCMP1YKY=;
- b=z6klQflWiOHTnhUAVXNPRxiQyWVzRCkOF+nxe3qwjrKpvYQ0c8fdMQy5AqYR3q6JrI
- i1S4+guEniNWQcmSl+M/Yzpq+dfdS5Bj7dlL7gG41k2Z6KZK2vdsJIsn5YiChcw1qFrz
- AbRbti+YXbZMY/X8oVORZPXVMDyk5Mb/bVLTmUP5aDFT/tdAqv+D6FBSk5YB0ol8rtvJ
- jU/PVpJE1Iv+E5B6NWvjywxHhvytpk8Rt5dThE6U4it/DPrxWKG3ny1oQmjAkqGl3I0D
- /0OfLQtvrRrLVL0Mv+l2dJRxCQabVKKm0mEtH8/OqT2tgyEOYUqWq24g+C8c0x3YVY5M
- I9yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682001438; x=1684593438;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FFnlJ6IPLJiXgZ+usawh9hc3QyVA/TfElwRSCMP1YKY=;
- b=IT5TC6VxUef3ZpVa0VzxrWGrfDjBpgDPlmTYxzvng52VV1SIxw1vzfwVPSWrWa+Vyb
- rUaYGfPqKC7Y/pwpYf5Pdhs8Ao0HVMlySd39YBDYLUXnlt9V4nJuFaD+t4taxVWu5HiY
- EEgP+SpQdbqSD6v+iuqhgoyN0R5EtK5tzM/5HwfUZ4pTvo4Wrg3K1nlqBsGmumWvphB0
- lkdtcH3WlyAf0h4TLp/kW/AtaUKVRs7Xfolq9w6DxRNU4zWh8bquy74UO0PPmJT6WhkN
- DAhFUrlw46DtatQKFR5UKj7p14zYAE2wTUahrbpAyrvPQKghuLVWiFYuSER5XKQ+kfrx
- qS9A==
-X-Gm-Message-State: AAQBX9eXTmsiiAiEDp6puHypoK87abEeO8WaORGA6t68etiHcSgsYrqT
- GVZ+pFWIpaW03MYaQEiQgq4VfA==
-X-Google-Smtp-Source: AKy350ZpdMtuG/0Tpzm5teiN31A6tAjNCXvueSOpOgIpb7lGzeNDOFyDiRJmoL5S3zhmpMHw4jN6oA==
-X-Received: by 2002:a2e:9851:0:b0:2a8:ce32:864 with SMTP id
- e17-20020a2e9851000000b002a8ce320864mr501831ljj.16.1682001437831; 
- Thu, 20 Apr 2023 07:37:17 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- v22-20020ac25596000000b004e845b49d81sm237902lfg.140.2023.04.20.07.37.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 07:37:17 -0700 (PDT)
-Message-ID: <33f006e1-d57d-8f64-bef3-43b298a67049@linaro.org>
-Date: Thu, 20 Apr 2023 17:37:16 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFF610E960;
+ Thu, 20 Apr 2023 15:44:33 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33KDdRHm007783; Thu, 20 Apr 2023 15:44:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=95hNvwsnOntj3IjZdDdz9tDvXz8259oYrPBtE1QxUE8=;
+ b=V0grKoWSJ3GIxvYixyMXU20PPON7qn5vaH6L54sDh8kNPB0sP2zIxzbJfcbBJRCDJxxy
+ Zbn7ieVHGJmRCSvv2LPN/sJ+dDUud3UsgXjcZ253MOPEWZPAnzYatLYrodM9JoDhqxCJ
+ VBKIW0aRoLeUHdJFbnOan+O66uv18ymCtZ7a7AJyyrqysS1Pyl7+tGTgfJzOOPx+V5LO
+ y+jQIZDsZ0E9dDRjh69S16+u/wW5I/HhEX7lwPuRJ5EnhYvnfrTdEWB2sf4wmWlNPikK
+ 6NvLhpXeByQJj0z/TzB/v0+gx6zjdJGeBmLNNNvKxeC6y9RoeiXGvjBuXJGsk/fPqlZY RQ== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q2p522h1v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Apr 2023 15:44:29 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33KFiSD9010024
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Apr 2023 15:44:28 GMT
+Received: from [10.110.74.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 20 Apr
+ 2023 08:44:27 -0700
+Message-ID: <50dabfb6-98a8-7e17-fe0f-bbf895980cca@quicinc.com>
+Date: Thu, 20 Apr 2023 08:44:26 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
 References: <20230418164158.549873-1-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 In-Reply-To: <20230418164158.549873-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: mp34yyQrkH9uEVrk6V42wZX2h6L7QtTB
+X-Proofpoint-GUID: mp34yyQrkH9uEVrk6V42wZX2h6L7QtTB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-20_11,2023-04-20_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 mlxscore=0
+ bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ phishscore=0 adultscore=0 mlxlogscore=985 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304200129
 Subject: Re: [Freedreno] [PATCH] drm/msm/atomic: Don't try async if crtc not
  active
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -78,13 +84,16 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/04/2023 19:41, Rob Clark wrote:
+
+
+On 4/18/2023 9:41 AM, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
 > For a similar reason as commit f2c7ca890182 ("drm/atomic-helper: Don't
@@ -139,12 +148,5 @@ On 18/04/2023 19:41, Rob Clark wrote:
 > Fixes: 52ff0d3073d2 ("drm/msm/atomic: Switch to vblank_start helper")
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->   drivers/gpu/drm/msm/msm_atomic.c | 2 ++
->   1 file changed, 2 insertions(+)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
--- 
-With best wishes
-Dmitry
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
