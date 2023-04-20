@@ -2,64 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 784966E9ED7
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 00:31:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B75D6E9ED5
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 00:31:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC5D810ED0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0C3810ED08;
 	Thu, 20 Apr 2023 22:31:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93D5A10ED17
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 866FB10ED08
  for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 22:31:26 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4ec9c7c6986so951724e87.0
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2a7af0cb2e6so9306021fa.0
  for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 15:31:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682029881; x=1684621881;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=iMnuWFGrM/PJwZOBdpXu7uMemkHRjRrJAO+mKqn+Jmk=;
- b=aQsMXg/NOus9+GeChd10f8ubKVxsiA78PImgqubhQEHY5WoCIbJu4YybU8rMVoSuld
- uy6BpwEjlBXe/EP6hWAOmUFcLsbq5W1icBVy9URUpeXff8kscJrMtnZiKt+Ajf5IdIFJ
- vrRDdKhokID2wOPcpfWBkWd/LRpOW1f/ToPU/5A/isgSkUyUdhl152A2D1aI3KMyv1cj
- DrsjbhjpflFGNoH+DKn1HqtZIgr/Kj7oV68qQA18810aCMr5F5gvXlVUuIrQvIw9NUCT
- Tvglrbhi/EtIJ5qDidlI2tZhQIFozwjBpjB4S/c7FBx3iPRjGbBCVs4WtnHoi44/sKU/
- rtGA==
+ d=linaro.org; s=google; t=1682029883; x=1684621883;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=KWT/B+r7q/RKUVkiuFZ1DbVX2TD5Cvvln3noQ7CU1Y8=;
+ b=j9ovLmib1wBjfXLyvuYVA9fKZyjdkuM60bwdom/p0l6d+g2HsTUgByXIxDq9KFypFu
+ jgMhPVeraebxHUjWSU4KaJF8Xi7nBbEJaeuDLq/rSmcPRsCf0ASlwS5Z+lFEJjSeMpz+
+ G1Yt7few+Y8hg1VsUCOMe/El/+bubLML0kMxy+IHcgJDKr7/rH2ou6w2f3I/Usi8aUQg
+ /Fvoh6ko1EjKmjL/6hgmIJo0XgJHYg1ElgnjgSTqffBGoIgN2QMlVcn833UfxYJpoxnk
+ AMSxyjfPeLL8WKDLsdAAco5psbKaG2UgDmUKmOBjH8g03MF2PLeZGgB54O/n7Y8x0LQe
+ unTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682029881; x=1684621881;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iMnuWFGrM/PJwZOBdpXu7uMemkHRjRrJAO+mKqn+Jmk=;
- b=L9UMhLcAENBXNt7DxlzjlG5EO1nGJhIe5aOjqwN48zAL5kUc2EMb9/6fKSky1E6XNv
- 3XibpR49fOEfFJZsr5yA1+ek6Mnwhs+9vRAH4q+IQIjGFpC+MDo6oOYmHErhHpWF/BGo
- sW7dqzIPgL1Ia43MP3j2lq5ftKsrUPFo2/28dYUkktIJNtG5wJCKHzQgKgQiGZitppvW
- xbHvwenHnGUvaxRq6UpwGzZ6w3Q7rxx9i2BZ+XsCABdDIE5TPI0e+HiINMUkx/VKfY+N
- Ph2+l5R+JvUxVEJX0Bu3GLHUaBnPRf2+WkXQdaC1V8fEHdOTN8asGUcxmifPDM1Ra1YB
- 1aQQ==
-X-Gm-Message-State: AAQBX9dlUJglMh5A6tQ2FB57dnM/026QfQsWT0AubyB1nBN6TWKeaiDt
- f+lLGuvEFyxoO5+/Uv/9hpQ2IA==
-X-Google-Smtp-Source: AKy350ZchB20U9dl/pPfuLW+KcxMRjqr9dfU+8ds5x9ciZBLjLgvH9CvctlFQjn361GPRBpjNUyrnw==
-X-Received: by 2002:ac2:46f9:0:b0:4eb:40d4:e0d2 with SMTP id
- q25-20020ac246f9000000b004eb40d4e0d2mr917031lfo.38.1682029881593; 
- Thu, 20 Apr 2023 15:31:21 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682029883; x=1684621883;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KWT/B+r7q/RKUVkiuFZ1DbVX2TD5Cvvln3noQ7CU1Y8=;
+ b=NnkAcMrd1EhHSC7o+wpZb/bMBsom46EcS9NYJzRxAPOWixCoMA0aVe+lAIqg7ir+cg
+ 5OjFmFM25qQmGsYsbdXqw/hEAZkKMPeUrXtfngeh3kmey7GtIo54CixKA63p4YihOjEd
+ iz8iQNN/UjIJgfu3lnz0xbukF/LBgELV1w128+eq6nB3V9kYdllYWKCWfhNwAo7LfoFp
+ APLJfarB2Oq4zKGH4VmUS+hzHKUFB0NKWxR/pYNEMs8K3bUrxAJuGCL3Ohkrm6T9ghc9
+ 8uGxqBpOucsXxjQE3rL4uFY7Q7pEU5sdEe/h1F9/EoqRnn7ylahv9gjdAlvivAtIMWpO
+ j60Q==
+X-Gm-Message-State: AAQBX9dTf74sav6hYqfuYIcPad1qxnkwW8V7biHvZxwbP8d2iaBviztR
+ SERxpijzUxD1vuYIBJMKvbJw4w==
+X-Google-Smtp-Source: AKy350YuA9AUlqOuw49Ln1YZYTP8MQma23on/4STSQR6nyDGIJDgDbGw/Gs5GKRb/mcbRPEuFqhiIg==
+X-Received: by 2002:a2e:8784:0:b0:2a6:15c7:1926 with SMTP id
+ n4-20020a2e8784000000b002a615c71926mr129250lji.3.1682029883233; 
+ Thu, 20 Apr 2023 15:31:23 -0700 (PDT)
 Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
  by smtp.gmail.com with ESMTPSA id
- w8-20020ac25d48000000b004eedb66983csm324256lfd.273.2023.04.20.15.31.19
+ w8-20020ac25d48000000b004eedb66983csm324256lfd.273.2023.04.20.15.31.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 15:31:21 -0700 (PDT)
+ Thu, 20 Apr 2023 15:31:22 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 21 Apr 2023 00:31:09 +0200
-Message-Id: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
+Date: Fri, 21 Apr 2023 00:31:10 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC69QWQC/4WNWwqDMBAAryL5boquD0q/eo8iJcZVF9JEdtPQI
- t69qRfo5wwMsylBJhR1LTbFmEgo+AxwKpRdjJ9R05hZQQl12VSVjmElqyWyoejMHIJ/PEcRfZn
- qxho7tgidyvVgBPXAxtsl9/7lXJYr40TvY3fvMy8kMfDnuCf42f+jBLrUdTfZKu86gPbmyBsO5
- 8Cz6vd9/wKUXfip1AAAAA==
+Message-Id: <20230411-topic-straitlagoon_mdss-v2-1-5def73f50980@linaro.org>
+References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -70,14 +68,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
  Joerg Roedel <joro@8bytes.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1682029879; l=2429;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1682029879; l=1129;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=adALUm2UDCuq+jHiF5r/gGrJmlODjVUWz+k4+ab309g=;
- b=/nzsoNRh05ssUpKUu6os3JNQO8PfbruXwKRIX2V2kNWnyhJDQ0rvJRZ62p8t4kMlbM/yaNOLOWjg
- xCPJJiuWAxaRmTiAW3QO8qBjR0fRzd5jjjsP6RDamuXawInqU///
+ bh=1EZeD/7Id9o6cBL4ylQ4GNUTK1f0wLzgpRCWpr/xxlY=;
+ b=wcPs44uEQqo7xru1sJ+NnetyZuOSV0ot3K+yGfD6q7BPkHkYw3QFtH5LXw7Tm1g/nLRcx7x2ZTpV
+ PmFalNyZAsKNw3ajQaTN5bG899GZ4jB9ffY6uOvQVN4xLUyZfp7t
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v2 00/13] SM63(50|75) DPU support
+Subject: [Freedreno] [PATCH v2 01/13] dt-bindings: display/msm:
+ dsi-controller-main: Add SM6350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,64 +90,42 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, iommu@lists.linux.dev,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-v1 -> v2:
-- Rebase on the DPU catalog rework and INTF_TE
-- Fix QSEED(3L/4) discrepancies
-- Fixed DMA/cursor discrepancies for 6350
-- No deduplication, that's gonna be handled in catalogrework 2:
-  "the return of the catalogrework"
-- Split MDSS & DPU binding additions
-- Drop "Allow variable SSPP/INTF_BLK size", that got in w/ the rework
-- Split MDSS and DPU additions
-- Pick up Rob's acks
+Add the DSI host found on SM6350.
 
-Depends on (and based on): https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org/T/#t
-
-v1: https://lore.kernel.org/linux-arm-msm/20230211122656.1479141-1-konrad.dybcio@linaro.org/
-
+Acked-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
-Konrad Dybcio (13):
-      dt-bindings: display/msm: dsi-controller-main: Add SM6350
-      dt-bindings: display/msm: dsi-controller-main: Add SM6375
-      dt-bindings: display/msm: Add SM6350 DPU
-      dt-bindings: display/msm: Add SM6350 MDSS
-      dt-bindings: display/msm: Add SM6375 DPU
-      dt-bindings: display/msm: Add SM6375 MDSS
-      drm/msm/dpu: Add SM6350 support
-      drm/msm: mdss: Add SM6350 support
-      drm/msm/dpu: Add SM6375 support
-      drm/msm: mdss: Add SM6375 support
-      iommu/arm-smmu-qcom: Add SM6375 DPU compatible
-      iommu/arm-smmu-qcom: Add SM6350 DPU compatible
-      iommu/arm-smmu-qcom: Sort the compatible list alphabetically
+ Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
- .../bindings/display/msm/qcom,sm6350-dpu.yaml      |  94 +++++++++
- .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 214 ++++++++++++++++++++
- .../bindings/display/msm/qcom,sm6375-dpu.yaml      | 106 ++++++++++
- .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 216 +++++++++++++++++++++
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 186 ++++++++++++++++++
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 152 +++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  15 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   4 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
- drivers/gpu/drm/msm/msm_mdss.c                     |  19 ++
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   6 +-
- 12 files changed, 1016 insertions(+), 2 deletions(-)
----
-base-commit: eaf6956f6dfdbba2c53a668248f8213b9e01bc51
-change-id: 20230411-topic-straitlagoon_mdss-8f34cacd5e26
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index e6c1ebfe8a32..6f367a1fabf8 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -26,6 +26,7 @@ properties:
+               - qcom,sdm660-dsi-ctrl
+               - qcom,sdm845-dsi-ctrl
+               - qcom,sm6115-dsi-ctrl
++              - qcom,sm6350-dsi-ctrl
+               - qcom,sm8150-dsi-ctrl
+               - qcom,sm8250-dsi-ctrl
+               - qcom,sm8350-dsi-ctrl
+@@ -285,6 +286,7 @@ allOf:
+           contains:
+             enum:
+               - qcom,msm8998-dsi-ctrl
++              - qcom,sm6350-dsi-ctrl
+     then:
+       properties:
+         clocks:
 
-Best regards,
 -- 
-Konrad Dybcio <konrad.dybcio@linaro.org>
+2.40.0
 
