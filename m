@@ -1,72 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 722186E968D
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 16:03:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 611F56E972B
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 16:33:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3443A10E2D6;
-	Thu, 20 Apr 2023 14:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2352E10EC6A;
+	Thu, 20 Apr 2023 14:33:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9189810E2D6
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 14:03:36 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id x34so2969213ljq.1
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:03:36 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31F8510EC6A
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 14:33:04 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4edc114c716so608931e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:33:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1681999414; x=1684591414;
+ d=linaro.org; s=google; t=1682001180; x=1684593180;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=NVkfX9ez3svxYnnM8rJPmrSpJjSKXj7Id4d2FlN3kdo=;
- b=KqeZisWyrlpuDhOBtUm7MpDZRVm7fv6Ei87iod2bozueBqbASVy7qkz9awjAAVSP5G
- YDnnpUgTd7mwlkUWt7aH1UYTPsy4Hk8bptdN7qqtXz6sN3sMqtqR15StRbdvsf3ixTaV
- UNqN/1J3WmYyn+lJaeiZ0nOOWHRh5RGrGYeWFVOfI1N3FdHEKDIw9aqK0IWbwlkKi6bp
- NMhO2QeiJZZhKRZ6AKbth5AIz/xO1JoKcWWV019YJcp2fd0K+lSkvREX95yT15aACGRu
- snhW/lsMW4uu65AaijRCk8SCWAtcefRydH8VPjx78sD9fwFVNGpfgaKmmFjlmpSmcSTI
- l+VA==
+ bh=qxUBEBnff0FS5uWK1Xy6+WkZa1SWO0jyLNTiw6td0Tg=;
+ b=c0fBL6gljKJg2U5xC8i5InaVYMXL+9/qFKvMeTL5sEdZlJ+5MsUMgQorTocD+ZZr7R
+ nXPuc3kzONj+oEoOIARLORifiuZQIHlfg+jm+egwcilfOZAZDkVrRwOcEHSh9dpiTLYa
+ hA+d9ho40Od86hBr23gyMCf++z/uwKSJM+2B2x061aV0DXHaTMsjSgmtf6lwNNwDlFDF
+ OYpgiw+zoO8G3qVyXWHPzuC8b8mJgyiJade0OMfH2o9pc6A9CZ0RYPW6inK8vxZHMPBb
+ BZxBhQsrIZt/1gCAGHYoYTiFXmrhwxhRGB3uJ7HWCHoBjOvh6WLTFOk8ZtSL3fYtkQGi
+ pZ8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681999414; x=1684591414;
+ d=1e100.net; s=20221208; t=1682001180; x=1684593180;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NVkfX9ez3svxYnnM8rJPmrSpJjSKXj7Id4d2FlN3kdo=;
- b=YJfM8tBmZPQbZxvlnd8f0+NX/ELP1RhyuDDYC9q7l3Brh2/dFW7hMqWl8pvVSfiO2e
- zFUb9/hgfxMLh/g9PywQ78uvMOOhZtBS1tMth9WZcBWp5zmHNee2WPVvAfkHxoVVZO81
- R+bxhLx6mv+SH0wpYzw9AW7EX4nn+//7Y2n6qU4J/a1A9ljbS6OR8Pzm+MmoZFhj8Ja6
- AFiJrGlpPJRucjLchJnfU4z8c5haSbm5lEAFaRy7qAFTBiDNL3zDsItBeluJ/fDMfpXJ
- +9fmEVuMECyCrUE7uatcrOJR0BMtmvZWAmwVkSBYAwGCXGiNPHWyr6/YWNVHV/psPfwU
- izEA==
-X-Gm-Message-State: AAQBX9d8LwcKjUC6ZIY3zHzovo633ZGg9JhaLh8RlWFRRqg/3SoPZM5a
- Fg4Q8Mf+7GRdFvdcz/UsmxZn3w==
-X-Google-Smtp-Source: AKy350aSqD3HOes9oTjJ/n7YRoirlTchXOp15cOD09I43xK+WajJIRohATh87yc9DNwJ8QMiWGguPA==
-X-Received: by 2002:a05:651c:1504:b0:2a8:bb0a:2214 with SMTP id
- e4-20020a05651c150400b002a8bb0a2214mr2441992ljf.12.1681999414124; 
- Thu, 20 Apr 2023 07:03:34 -0700 (PDT)
+ bh=qxUBEBnff0FS5uWK1Xy6+WkZa1SWO0jyLNTiw6td0Tg=;
+ b=L69TRlEqY+0E50YTu1IZ2Qser4LfglLxVN3uVZ++gGc9Ulw9qI3cw+d3H4rkjSOGE5
+ 8HBObSTgD5ue5CWuKj0My6+Lj41aPbhZlqpQ/Bcs4wlVrvphRMIjfG/sHpktFlWOxAv6
+ YkVXWTeuNV42sj2Qb180B/5nsNkw4twb9BwBEfI6EY+RwfX07x+IL4d1Y18d6jfnZ2ih
+ yXBQ7jO47zk4JNzrgEUEzwait28y8mxPgtv2LAf8XLixywVBDjVRapBcz2NVGklL+unY
+ X7kw4tLUsMFX19YKMF9RlxFs4FLrkZKcQDCJeyVtVWDxhdvSHSpeXbMYBN2w2JGWMEFx
+ 13+Q==
+X-Gm-Message-State: AAQBX9d6w3V5HsxiYQBO9B7iSABcywpa9ubjo3sOS3svpqRKXQ2sNVoq
+ mfOQz8dgVi0xJ/xbBCcaJu0hEA==
+X-Google-Smtp-Source: AKy350bT9WLnfTYOgyXhMG2gNFX0pcaVYe702TIX25PW1dp9FSB/gs13aejCsz1XO5Ug3vfDx6VnwA==
+X-Received: by 2002:ac2:4a8d:0:b0:4ee:d562:5752 with SMTP id
+ l13-20020ac24a8d000000b004eed5625752mr521375lfp.27.1682001180631; 
+ Thu, 20 Apr 2023 07:33:00 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- n21-20020a2e86d5000000b002a77792f2c5sm244736ljj.62.2023.04.20.07.03.33
+ h12-20020ac25d6c000000b004db3900da02sm234026lft.73.2023.04.20.07.32.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 07:03:33 -0700 (PDT)
-Message-ID: <c2c0567a-8205-510d-bc0d-35b28dd64f70@linaro.org>
-Date: Thu, 20 Apr 2023 17:03:33 +0300
+ Thu, 20 Apr 2023 07:33:00 -0700 (PDT)
+Message-ID: <2aad9be0-bda3-7992-de1c-69d90dc1ecc6@linaro.org>
+Date: Thu, 20 Apr 2023 17:32:59 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-GB
 To: Marijn Suijten <marijn.suijten@somainline.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <1681490777-15351-1-git-send-email-quic_khsieh@quicinc.com>
- <zs762prrzv2geulwa7ztlolmxgldiyynk22m5ak4ejbyzbctrp@jprtanslko7c>
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20230418-dpu-drop-useless-for-lookup-v1-0-b9897ceb6f3e@somainline.org>
+ <20230418-dpu-drop-useless-for-lookup-v1-2-b9897ceb6f3e@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <zs762prrzv2geulwa7ztlolmxgldiyynk22m5ak4ejbyzbctrp@jprtanslko7c>
+In-Reply-To: <20230418-dpu-drop-useless-for-lookup-v1-2-b9897ceb6f3e@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dpu: always program DSC active
- bits
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Assign missing writeback
+ log_mask
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,77 +82,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, swboyd@chromium.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/04/2023 02:02, Marijn Suijten wrote:
-> On 2023-04-14 09:46:17, Kuogee Hsieh wrote:
->> In current code, the dsc active bits are set only if the cfg->dsc is set.
+On 18/04/2023 02:14, Marijn Suijten wrote:
+> The WB debug log mask ended up never being assigned, leading to writes
+> to this block to never be logged even if the mask is enabled in
+> dpu_hw_util_log_mask via sysfs.
 > 
-> This is the old sentence from v1 again, did you accidentally send the
-> wrong patch as the improvements from v2 are missing?
-> 
->> However, for displays which are hot-pluggable, there can be a use-case
->> of disconnecting a DSC supported sink and connecting a non-DSC sink.
->>
->> For those cases we need to clear DSC active bits during teardown.
-> 
-> At least teardown is one word again, v2 had "tear down" which is wrong.
-> 
->> As discuss at [1], clear DSC active bit will handled at reset_intf_cfg()
-> 
-> discussed* as pointed out by Dmitry, and make it clear that this is
-> about clearing CTL_DSC_ACTIVE (and CTL_DSC_FLUSH?) specifically.  Once
-> that is moved to reset_intf_cfg(), this patch should be reverted as
-> there is no need to write the registers once again when cfg->dsc equals
-> 0.
+> Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for writeback blocks")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 1 +
+>   1 file changed, 1 insertion(+)
 
-Kuogee, can we please get a proper v4? With all the relevant changes 
-from v2, with the changelog, etc.
+With the mentioned commit message changes:
 
-Otherwise the present Reviewed-by tags are just incorrect.
-
-> 
-> - Marijn
-> 
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> Fixes: 77f6da90487c ("drm/msm/disp/dpu1: Add DSC support in hw_ctl")
->> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
->>
->> [1] https://lore.kernel.org/linux-arm-msm/ec045d6b-4ffd-0f8c-4011-8db45edc6978@quicinc.com/
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 7 +++----
->>   1 file changed, 3 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> index bbdc95c..88e4efe 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> @@ -541,10 +541,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->>   	if (cfg->merge_3d)
->>   		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
->>   			      BIT(cfg->merge_3d - MERGE_3D_0));
->> -	if (cfg->dsc) {
->> -		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
->> -		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
->> -	}
->> +
->> +	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
->> +	DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
->>   }
->>   
->>   static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
->> -- 
->> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
->> a Linux Foundation Collaborative Project
->>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
