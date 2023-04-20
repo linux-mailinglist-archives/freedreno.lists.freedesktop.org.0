@@ -2,80 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 511FF6E9CDB
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 22:09:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B62E16E9DFA
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 23:39:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C63D10E0C5;
-	Thu, 20 Apr 2023 20:09:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8754A10E2E6;
+	Thu, 20 Apr 2023 21:39:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB83810E0C5
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 20:09:16 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4edb26f762dso836190e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 13:09:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682021354; x=1684613354;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=M3Y9Il1oqwyiPf5dbbjjrGSxVhkcdbFOHAXUkuBeIj4=;
- b=zxnUBz/XDQ02FR4wGa8lMypLEZQCrNT0gmPf4maNMnbuMNfuSFaPqvxs9d4PUfa7vN
- Bj3V1ZrWP17FJrRl6FDueGniOvbu267cwf6v2e3pJuEPctgNdy6gahF6PuqZoRi4MQKO
- SSposQliOyvlNLX4LPx8ZSBxLjwN+i4pPe6yc3H3vv3lEKNRlwS4NR6g4aV+qppSXPfP
- rKs/iwDmzkhrHb6CWALpgVhQtqWZKZJA2pKpHr5ehUVj1dmdb7mIsp7ZxGiAw8GZnrJi
- qIDZaNPWczBRC+yYJABQAIyYHK5pmcMcXorn9ohRbAcvuDQuhe8YyFf6ro6hTcpBV/vr
- zKWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682021354; x=1684613354;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=M3Y9Il1oqwyiPf5dbbjjrGSxVhkcdbFOHAXUkuBeIj4=;
- b=bFfvzXK+1oodgbfgZL7715+Xh+nvokWrxMp2syqoVRhKZcNjDfV9Y039DnUb9olSgH
- sbCUSzSTTP3IBtfOnN55E7lXihe2w05OLD4j+1xRRcuqKtXD+rsamljHiofEs8rhq2Xp
- Sm1AtSiPW4nLiDrCj0Lipe53i+i1QlGB2GQV2womjJf+ft7IU4wCUfEkuAFQ+zQj23BO
- Tbx+h/1pFwKzmj04T5li/I9P3yf/5i51ZHKTLTWce0LIeISmRONQmqvF56L5F5AP38oI
- tzxsomVWqbaZGXSfuLGiWd6+WuO4H3czD5iWcWgwfBO5EbnYN88emh72/sh1v/cYb6Td
- FSMA==
-X-Gm-Message-State: AAQBX9fqOL6Ze+/dnc9OWEpC27uuJwSEkGROjFhV+9yi7s1ziWv91lml
- XP7gn/oPPnBacrmPvbRmT/qlVw==
-X-Google-Smtp-Source: AKy350anF3iZ+VdWnOCjhqu7EDNHAFUSTDeDIECpJaTV9PMZ9UMJUEOYkat++z42gxxU67nMXSQZDA==
-X-Received: by 2002:ac2:4219:0:b0:4db:3e56:55c8 with SMTP id
- y25-20020ac24219000000b004db3e5655c8mr665153lfh.59.1682021354370; 
- Thu, 20 Apr 2023 13:09:14 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- s6-20020a19ad46000000b004db51387ad6sm318181lfd.129.2023.04.20.13.09.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 13:09:13 -0700 (PDT)
-Message-ID: <47d32e5e-49ad-3ffa-2862-26b78c9c6a98@linaro.org>
-Date: Thu, 20 Apr 2023 23:09:13 +0300
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92A9E10E2E6
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 21:39:16 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 8C81120571;
+ Thu, 20 Apr 2023 23:39:13 +0200 (CEST)
+Date: Thu, 20 Apr 2023 23:39:12 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <2ujeakobg7oulzarvzjktx5elo4ckpjq5pbknr3jx3h43snmry@yd4j64s7tqy5>
+References: <20230418-dpu-drop-useless-for-lookup-v1-0-b9897ceb6f3e@somainline.org>
+ <20230418-dpu-drop-useless-for-lookup-v1-1-b9897ceb6f3e@somainline.org>
+ <7ad86cd9-4b30-e7f1-780f-2c1c7093087e@linaro.org>
+ <cd308be9-5420-6d75-da23-e844107ec275@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20230420-topic-dpu_gc-v1-0-d9d1a5e40917@linaro.org>
- <5b133c55-e4f5-bfd2-b542-a7d44313c038@linaro.org>
- <c0e0a55a-cc37-fe8a-8d8a-5fe257f99b9a@linaro.org>
- <3f3b3637-ed85-09a1-22b7-3ccd4bc929bb@quicinc.com>
- <2dff9d62-cffe-c66f-9e50-3ecd64e44d37@linaro.org>
- <6a335df7-ff0b-098a-feec-45714159df04@linaro.org>
- <b134d09c-55fa-7879-80ff-900e39c20c3d@quicinc.com>
- <0f469b3c-5f0f-e027-8a9f-d1233169c04a@linaro.org>
- <951c7bbd-c239-336d-1914-af76f79a69d6@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <951c7bbd-c239-336d-1914-af76f79a69d6@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 0/2] DPU1 GC1.8 wiring-up
+In-Reply-To: <cd308be9-5420-6d75-da23-e844107ec275@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Drop unused members from
+ HW structs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,94 +46,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org,
+ Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/04/2023 22:53, Abhinav Kumar wrote:
+On 2023-04-20 08:46:46, Abhinav Kumar wrote:
 > 
 > 
-> On 4/20/2023 12:51 PM, Dmitry Baryshkov wrote:
->> On 20/04/2023 22:47, Abhinav Kumar wrote:
->>>
->>>
->>> On 4/20/2023 11:01 AM, Dmitry Baryshkov wrote:
->>>> On 20/04/2023 04:36, Konrad Dybcio wrote:
->>>>>
->>>>>
->>>>> On 20.04.2023 03:28, Abhinav Kumar wrote:
->>>>>>
->>>>>>
->>>>>> On 4/19/2023 6:26 PM, Konrad Dybcio wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 20.04.2023 03:25, Dmitry Baryshkov wrote:
->>>>>>>> On 20/04/2023 04:14, Konrad Dybcio wrote:
->>>>>>>>> Almost all SoCs from SDM845 to SM8550 inclusive feature a GC1.8
->>>>>>>>> dspp sub-block in addition to PCCv4. The other block differ a bit
->>>>>>>>> more, but none of them are supported upstream.
->>>>>>>>>
->>>>>>>>> This series adds configures the GCv1.8 on all the relevant SoCs.
->>>>>>>>
->>>>>>>> Does this mean that we will see gamma_lut support soon?
->>>>>>> No promises, my plate is not even full, it's beyond overflowing! :P
->>>>>>>
->>>>>>> Konrad
->>>>>>
->>>>>> So I think I wrote about this before during the catalog 
->>>>>> rework/fixes that the gc registers are not written to / programmed.
->>>>>>
->>>>>> If thats not done, is there any benefit to this series?
->>>>> Completeness and preparation for the code itself, if nothing else?
->>>>
->>>> The usual problem is that if something is not put to use, it quickly 
->>>> rots or becomes misused for newer platforms. We have seen this with 
->>>> the some of DPU features.
->>>>
->>>> In case of GC (and the freshly defined DPU_DSPP_IGC, but not used) 
->>>> we have three options:
->>>> - drop the unused GC from msm8998_sblk.
->>>> - keep things as is, single unused GC entry
->>>> - fill all the sblk with the correct information in hope that it 
->>>> stays correct
->>>>
->>>> Each of these options has its own drawbacks. I have slight bias 
->>>> towards the last option, to have the information in place (as long 
->>>> as it is accurate).
->>>>
->>>
->>> My vote is for (1) . Today, GC is unused and from the discussion 
->>> here, there is no concrete plan to add it. If we keep extending an 
->>> unused bitmask for all the chipsets including the ones which will get 
->>> added in the future in the hope that someday the feature comes, it 
->>> doesnt sound like a good idea.
->>>
->>> I would rather do (1), if someone has time.
->>
->> Agree, this was the second item on my preference list. Could you 
->> please send this oneliner?
->>
+> On 4/20/2023 7:33 AM, Dmitry Baryshkov wrote:
+> > On 18/04/2023 02:14, Marijn Suijten wrote:
+> >> Some of these members were initialized while never read, while others
+> >> were not even assigned any value at all.� Drop them to save some space,
+> >> and above all confusion when looking at these members.
+> >>
+> >> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> >> Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for 
+> >> writeback blocks")
+> > 
+> > The fixes headers are slightly questionable, as unused fields are not a 
+> > bug. Nevertheless:
+> > 
 > 
-> Sure, i will send this by tomorrow, but its not a oneliner. Need to get 
-> rid of below too:
-> 
-> 470 struct dpu_dspp_sub_blks {
-> 471     struct dpu_pp_blk gc;
+> Yes, I would also not treat this as a "fix" but just cleanup.
 
-Agree.
+Ack to both.  This seems like a fine line to me as the fields are not
+contributing to anything except confusion.  Specifically hw_mdp which is
+never initialized and may accidentally be used without realizing that
+it'll stay NULL, but that is again up to the developer using the field
+at that point.
 
-> 
->>> OR lets stay at (2) till someone does (1).
->>>
->>> When someone implements GC, we can re-use this patch and that time 
->>> keep konrad's author rights or co-developed by.
->>>
->>>
->>
+Feel free to drop them while applying, or should I reword the message to
+at least still link these commits to mention the origin of the unused
+fields?
 
--- 
-With best wishes
-Dmitry
-
+- Marijn
