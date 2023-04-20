@@ -2,62 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4398E6E8B5B
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 09:26:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA0296E8B8D
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 09:41:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 925E410EBCC;
-	Thu, 20 Apr 2023 07:26:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B432510EBCE;
+	Thu, 20 Apr 2023 07:41:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 588FD10EBCC
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:26:37 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id vc20so4141348ejc.10
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:26:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681975596; x=1684567596;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LaCVvuCh0ifaod/8Osz9wRqo6LYk9iFhMUaDZ5ywzU4=;
- b=HSxwHGoFkt1pfTNx3P/aMn78Qft/H5J/iUpd5Dtt67Q3lLbJ2cqELZ280B8RVP9ZI6
- 3YEMJHi59bhftwaSq+SH/3AXJhaP72uPkdWkxKcscMJxNwhsArxyCQV7s5V83hTyicNF
- nfjlFpvVTHCEdsqLwdIe8aEJFzXtSrtI/GvaNr8cKS6z9VHGyaaq4Dns5byfIuQr3B/g
- QY46hQIq0uY417faOyPO4xbA9sv6kwLDQzVR6AVEpIOMOkDjU2X38NFzBnTFtIBRCzsn
- J8DeyanOx0w8Wa8rRbKW0DbN7Z7jtmPwVRGE8siIG3mhgk7dzNOISL3OOSA5cpmjtj3d
- ZFMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681975596; x=1684567596;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LaCVvuCh0ifaod/8Osz9wRqo6LYk9iFhMUaDZ5ywzU4=;
- b=iwptMTniz9e5n7WHsHzIYR/RiIUPHoDbRrvyV/9uomHdPFedU/E+QhP7N/64INXCwU
- 3FYG5YBFTmFn2qBpEgPvaTwY0WUIERJVPGgo9GTpdhhy27rZW2rnYdzbwkHvf7E7w2mW
- tz8ar26e/hHkyX0/GL1RMNXNHmHP6dTDRmHH4skTOMXR+wbrlPcvOi8ElKrVXFIDcnOr
- t7A11vkKuwHw0eLV/S3cclNusp/OIELHxI75r/HTQO+plwMs8l8JBRpKu2dBMxr8mU+z
- SGG/TwAUBZ9hIy9fRchf28UrrdpcTGFe89cCK/sUp+PLDgd3XBbgGIDFrJ5YNBG/v6gs
- KwUw==
-X-Gm-Message-State: AAQBX9d0znnZ7lt+kqZrQc734ebnobxRjYWTzJ6S3bzpluEoKrp3EJnw
- msirJk3RzJJut6hnvCLMi8DDtScQH13vxTi+JUPU4ZD6wP+UqJA=
-X-Google-Smtp-Source: AKy350b+6jWk+FNIWk6cavQH152CzIc90gdPX+pCwubbVAUdMA3XRND8Zrw5SaaDEkP1wAvzR+tWGB6OxqTQhZLcC8g=
-X-Received: by 2002:a17:906:4b17:b0:94a:4c68:c1aa with SMTP id
- y23-20020a1709064b1700b0094a4c68c1aamr241124eju.7.1681975595637; Thu, 20 Apr
- 2023 00:26:35 -0700 (PDT)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E611210EBCE;
+ Thu, 20 Apr 2023 07:41:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681976503; x=1713512503;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=NhVnAVol5gXAIwXYVWqD7i2sY1WMUpuOf8O646Hurhg=;
+ b=LQ7WcPgFDInWIrneVOYkjyg7rop+1nWuVuU5BKRiKYvVv9DXnDGrMQhW
+ gFgAUQjuAU1f9h7AmRR+TEsAerFPAHU8l4aZn5ex+WYOj+sN6gjxCbU2/
+ u1TKWL7qlCgtFoirgZ/QJqlKU5IxntDGx2AisbC1c2t3gCKkuzX+fYNGT
+ HAlYUxJbxqgrmIMSpQddLib+qZEKtvVV4u6swNwizy3zIT4q/VOIatAsC
+ cLBg/U8Cp0wF1KMLXl30+FDxE8BQEyYisa7VZSmL+OSaDudeGR5b+14XP
+ O4/J11rE8DMfIXnuhtEqe8FYCE2kkDCgMU/7XLVi3AYGBRiKC6q4b4dMV A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="431940269"
+X-IronPort-AV: E=Sophos;i="5.99,211,1677571200"; d="scan'208";a="431940269"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2023 00:41:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="815916515"
+X-IronPort-AV: E=Sophos;i="5.99,211,1677571200"; d="scan'208";a="815916515"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 20 Apr 2023 00:41:36 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ppOv4-000fak-2x;
+ Thu, 20 Apr 2023 07:41:30 +0000
+Date: Thu, 20 Apr 2023 15:41:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Yacoub <markyacoub@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <202304201512.clLNZI0u-lkp@intel.com>
+References: <20230419154321.1993419-11-markyacoub@google.com>
 MIME-Version: 1.0
-References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
- <20230419-dpu-tweaks-v1-4-d1bac46db075@freebox.fr>
- <74c59560-8a79-150f-0c1e-13f22eb35cb2@linaro.org>
-In-Reply-To: <74c59560-8a79-150f-0c1e-13f22eb35cb2@linaro.org>
-From: Arnaud Vrac <avrac@freebox.fr>
-Date: Thu, 20 Apr 2023 09:26:24 +0200
-Message-ID: <CAG9NU6_Ua_XLa+c=_93fs5chzQTyPf11W4F87UYbny1k-feoJw@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 04/11] drm/msm/dpu: allow using lm mixer
- base stage
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230419154321.1993419-11-markyacoub@google.com>
+Subject: Re: [Freedreno] [PATCH v10 10/10] drm/msm: Implement HDCP 1.x using
+ the new drm HDCP helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,66 +64,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: suraj.kandpal@intel.com, linux-kernel@vger.kernel.org,
+ Mark Yacoub <markyacoub@chromium.org>, intel-gfx@lists.freedesktop.org,
+ dianders@chromium.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, seanpaul@chromium.org,
+ oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Le jeu. 20 avr. 2023 =C3=A0 00:43, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> a =C3=A9crit :
->
-> On 19/04/2023 17:41, Arnaud Vrac wrote:
-> > The dpu backend already handles applying alpha to the base stage, so we
-> > can use it to render the bottom plane in all cases. This allows mixing
-> > one additional plane with the hardware mixer.
-> >
-> > Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
->
-> This might require additional changes. First, for the STAGE_BASE pipe
-> in the source split mode (iow using two LMs) should programmed with
-> respect to the right LM's x offset (rather than usual left top-left LM).
-> See  mdss_mdp_pipe_position_update().
+Hi Mark,
 
-Ok, I did test with 2 LMs and it seems to be working, I'll investigate.
+kernel test robot noticed the following build errors:
 
->
-> Also this might need some interaction with CTL_MIXER_BORDER_OUT being
-> set or not. If I remember correctly, if there bottom plane is not
-> fullscreen or if there are no planes at all, we should set
-> CTL_MIXER_BORDER_OUT (which takes STAGE_BASE) and start assigning them
-> from STAGE0. If not, we can use STAGE_BASE.
+[auto build test ERROR on drm-intel/for-linux-next-fixes]
+[also build test ERROR on linus/master v6.3-rc7]
+[cannot apply to drm-misc/drm-misc-next drm-intel/for-linux-next drm/drm-next next-20230419]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I also tested with both fullscreen and non-fullscreen primary plane,
-and no plane. I'll check this.
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230419-234833
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
+patch link:    https://lore.kernel.org/r/20230419154321.1993419-11-markyacoub%40google.com
+patch subject: [PATCH v10 10/10] drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+config: arm64-randconfig-r022-20230416 (https://download.01.org/0day-ci/archive/20230420/202304201512.clLNZI0u-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/6fb5b032262769c786a7a8c9ed522d936dcf14c2
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230419-234833
+        git checkout 6fb5b032262769c786a7a8c9ed522d936dcf14c2
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash
 
->
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_plane.c
-> > index 14b5cfe306113..148921ed62f85 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -881,7 +881,7 @@ static int dpu_plane_atomic_check(struct drm_plane =
-*plane,
-> >       r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> >       r_pipe->sspp =3D NULL;
-> >
-> > -     pstate->stage =3D DPU_STAGE_0 + pstate->base.normalized_zpos;
-> > +     pstate->stage =3D DPU_STAGE_BASE + pstate->base.normalized_zpos;
-> >       if (pstate->stage >=3D pdpu->catalog->caps->max_mixer_blendstages=
-) {
-> >               DPU_ERROR("> %d plane stages assigned\n",
-> >                         pdpu->catalog->caps->max_mixer_blendstages - DP=
-U_STAGE_0);
-> >
->
-> --
-> With best wishes
-> Dmitry
->
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304201512.clLNZI0u-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   aarch64-linux-ld: drivers/gpu/drm/msm/msm_atomic.o: in function `msm_atomic_commit_connectors':
+>> drivers/gpu/drm/msm/msm_atomic.c:193: undefined reference to `dp_drm_is_bridge_msm_dp'
+   drivers/gpu/drm/msm/msm_atomic.c:193:(.text+0x1368): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `dp_drm_is_bridge_msm_dp'
+>> aarch64-linux-ld: drivers/gpu/drm/msm/msm_atomic.c:194: undefined reference to `dp_drm_atomic_commit'
+   drivers/gpu/drm/msm/msm_atomic.c:194:(.text+0x137c): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `dp_drm_atomic_commit'
+   aarch64-linux-ld: drivers/gpu/drm/msm/dp/dp_debug.o: in function `dp_hdcp_key_write':
+>> drivers/gpu/drm/msm/dp/dp_debug.c:219: undefined reference to `dp_hdcp_ingest_key'
+   drivers/gpu/drm/msm/dp/dp_debug.c:219:(.text+0x98): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `dp_hdcp_ingest_key'
+
+
+vim +193 drivers/gpu/drm/msm/msm_atomic.c
+
+   184	
+   185	static void msm_atomic_commit_connectors(struct drm_atomic_state *state)
+   186	{
+   187		struct drm_device *dev = state->dev;
+   188		struct msm_drm_private *priv = dev->dev_private;
+   189		int i;
+   190	
+   191		for (i = 0; i < priv->num_bridges; ++i) {
+   192			struct drm_bridge *bridge = priv->bridges[i];
+ > 193			if (dp_drm_is_bridge_msm_dp(bridge)) {
+ > 194				dp_drm_atomic_commit(bridge, state);
+   195			}
+   196		}
+   197	}
+   198	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
