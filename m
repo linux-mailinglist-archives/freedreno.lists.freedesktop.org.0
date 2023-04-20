@@ -2,75 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DD856E9EAC
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 00:20:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E396E9EBC
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 00:26:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114EC10ED05;
-	Thu, 20 Apr 2023 22:20:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4B1510ED0F;
+	Thu, 20 Apr 2023 22:26:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF3F910ECFA
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 22:20:27 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2a8ad872ea5so9385121fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 15:20:27 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A108910ED07
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 22:26:01 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-4edb26f762dso948951e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 15:26:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682029225; x=1684621225;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0QW2zFEjgoUsaSsxeB6v7NVOeo+doEcmv6Xwkw75TFw=;
- b=qX9nkfpbyJjng6ZSha7rHGcg4LudKd3zSrQNn0RR5uF1qMb/HDTzv5Ygyp7yz5JUby
- x+O1vf9GjBtAXRMaFcMQJsseHfBHftKtS2GGSlKHy6bJ+s58OX012Te2Hj3Ie0m+VjI3
- TjrB7NMPSfeFaDXX1tzrCf/EDlBBycUodM8JCXTkDRvL2kzdvZz+83MKUXhIgwHnHURB
- FXHSEHoku5wDTH4+Ij2eO44jPWiA6hQpXJHCdbgp+gJ+crH+oZJQKm6s5DvSstYRE/cC
- RVSv1Ga5xyYN0ZIror7eizBU1aaHZbRhjipk/BAOsRSFaW2x00OrZo5jEGbDL4z2tqMK
- gMoA==
+ d=linaro.org; s=google; t=1682029559; x=1684621559;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+rLH8zLsEJhOLQJivlTKfknlKfd1owOcPQWGe3hRNs0=;
+ b=N4rVO7IIGt1D/KgQt7qp/rDDLnbckOhgzMygrIULaovIEMMkNcd0lCOaSmMDWdyLLz
+ 4KNOH8ZfkRqUin+Ne4lvrRxlFhYSxvuMyqjBktqCRxVxDAIt5RG645WbyMOnaxasFMdK
+ 39wsCsl+j3eVOyfD+5q2lLCRE3vKH8xJKxBXYKbNAR1rHHBbghDD1U61wPNI/xex5Rf5
+ mjYWA0J/5/WtvMAdPhZ1D/k0oV78CPL1ZoAwXjLAlpocZ+K7LbwpqS8mBlV7Bcvr6wRS
+ p6FTKHKoVbWJAvN3xjNFNFU+7AmGVzKqysEHo5S0bvy7OZRoFtZPtlfVWwvqRN2YMgOy
+ W34w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682029225; x=1684621225;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0QW2zFEjgoUsaSsxeB6v7NVOeo+doEcmv6Xwkw75TFw=;
- b=itbBM5vAAM7QKOsnp5mdowmZBd6Qql1nv/s4+YlZLXz3l7onDbnQmjEEIWmp64C1lT
- SXTZRdNUq0Zu2T5vFTxiPnUPvvAMqezGsvibz9kpUOKgcjZbBdVDDb0t7ab1eguakOth
- MhTdt/JzN72QKPHDaqNzSDnStLXsy2EKthnwAbf76foyNDa+BE5dspvuaRl1QZPYMDej
- Za87yGQD97zF3N/xD5WAmOAzPfkplMw8ECnCOGWVGWmen5v+h2whZBmcXh3WelKywzZH
- +X5jrEqs0GkcJRpRp6eNZ3HuwR6ZV5wLzg+9odzbMflHdMUgvgoQ97HQAJ2dhh+Z7iDK
- N3cQ==
-X-Gm-Message-State: AAQBX9eXn370m+QPQ0gFm3UGyci2ad0d5WPyud1ww61vNaSUNsvbTJxy
- Q+JaQRsK4dl6E9nmk+grv6VHvQ==
-X-Google-Smtp-Source: AKy350bMn6KVhj21+we3mlghC+POksK+s8xQxvWGGN3UFAziRJEF3Lev22U9KKRMAJ1zT38co8wU8Q==
-X-Received: by 2002:ac2:4891:0:b0:4ec:8d97:9479 with SMTP id
- x17-20020ac24891000000b004ec8d979479mr777600lfc.20.1682029225592; 
- Thu, 20 Apr 2023 15:20:25 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- n5-20020ac242c5000000b004ec88753502sm347146lfl.111.2023.04.20.15.20.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 15:20:25 -0700 (PDT)
-Message-ID: <61bdd089-89b7-749b-95bd-c7e61c396e29@linaro.org>
-Date: Fri, 21 Apr 2023 01:20:24 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230418-dpu-drop-useless-for-lookup-v1-0-b9897ceb6f3e@somainline.org>
- <20230418-dpu-drop-useless-for-lookup-v1-1-b9897ceb6f3e@somainline.org>
- <7ad86cd9-4b30-e7f1-780f-2c1c7093087e@linaro.org>
- <cd308be9-5420-6d75-da23-e844107ec275@quicinc.com>
- <2ujeakobg7oulzarvzjktx5elo4ckpjq5pbknr3jx3h43snmry@yd4j64s7tqy5>
+ d=1e100.net; s=20221208; t=1682029559; x=1684621559;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+rLH8zLsEJhOLQJivlTKfknlKfd1owOcPQWGe3hRNs0=;
+ b=BMlN5h9dCkZvwlIB9s98VgAQvCQnYBH/8j816RvgCChfJOZqydH47MRj8sA/naSuwV
+ Lg61PwpZ04wv2vKxLTGHWCU7TiGY4mwdyuuN89L16Fpyh4f3p4yuGhTTYN5aXHWMDJwc
+ Apcvyea6cNf6T18rp9dU1cyVttHhrWb4DPNTmOfNrA+W0X16JCJAL6nQSImApVrUWwdm
+ /4EuabaMkVvFcgZwywPrr524JiPOmdus+RgFyHlRSsaKYUsIitvYT3prTerxKzb8Xzmg
+ XD+2NSJNYnWH0xcSlxeSct/dF8RP2XT3Ifx7CF19MWl17yATt13TOnmBF/5TiBujibWu
+ DI9g==
+X-Gm-Message-State: AAQBX9ckiu7qYtilNGrboen2tdF8tsVKZx55CXolqfknMmVvfEaKSC5U
+ NeK6NkCZSZ2O5P4njpdVYrLv2Q==
+X-Google-Smtp-Source: AKy350aRYfpGlOX/mJ09WdBiY/D6X8vTHzokImpwc9TO8NYhmo8R03jvfEwJvLh2rlnheajh6T9wJw==
+X-Received: by 2002:a19:f70f:0:b0:4ec:a4b4:627b with SMTP id
+ z15-20020a19f70f000000b004eca4b4627bmr749205lfe.14.1682029559415; 
+ Thu, 20 Apr 2023 15:25:59 -0700 (PDT)
+Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
+ f21-20020ac251b5000000b004cb45148027sm347567lfk.203.2023.04.20.15.25.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Apr 2023 15:25:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <2ujeakobg7oulzarvzjktx5elo4ckpjq5pbknr3jx3h43snmry@yd4j64s7tqy5>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 21 Apr 2023 01:25:57 +0300
+Message-Id: <20230420222558.1208887-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Drop unused members from
- HW structs
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: drop the regdma
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,55 +72,249 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/04/2023 00:39, Marijn Suijten wrote:
-> On 2023-04-20 08:46:46, Abhinav Kumar wrote:
->>
->>
->> On 4/20/2023 7:33 AM, Dmitry Baryshkov wrote:
->>> On 18/04/2023 02:14, Marijn Suijten wrote:
->>>> Some of these members were initialized while never read, while others
->>>> were not even assigned any value at all.  Drop them to save some space,
->>>> and above all confusion when looking at these members.
->>>>
->>>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
->>>> Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for
->>>> writeback blocks")
->>>
->>> The fixes headers are slightly questionable, as unused fields are not a
->>> bug. Nevertheless:
->>>
->>
->> Yes, I would also not treat this as a "fix" but just cleanup.
-> 
-> Ack to both.  This seems like a fine line to me as the fields are not
-> contributing to anything except confusion.  Specifically hw_mdp which is
-> never initialized and may accidentally be used without realizing that
-> it'll stay NULL, but that is again up to the developer using the field
-> at that point.
-> 
-> Feel free to drop them while applying, or should I reword the message to
-> at least still link these commits to mention the origin of the unused
-> fields?
+The regdma is currently not used by the current driver. We have no way
+to practically verify that the regdma is described correctly. Drop it
+now.
 
-I'm fine with having the Fixes removed. If you can send the v2 reordered 
-& with tags removed, that would be the best.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  1 -
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  2 -
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  2 -
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  2 -
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 40 -------------------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 18 ---------
+ 12 files changed, 77 deletions(-)
 
-> 
-> - Marijn
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+index 2b3ae84057df..02e9b26b49b0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+@@ -195,7 +195,6 @@ const struct dpu_mdss_cfg dpu_msm8998_cfg = {
+ 	.intf = msm8998_intf,
+ 	.vbif_count = ARRAY_SIZE(msm8998_vbif),
+ 	.vbif = msm8998_vbif,
+-	.reg_dma_count = 0,
+ 	.perf = &msm8998_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+index ceca741e93c9..63009435e258 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+@@ -193,8 +193,6 @@ const struct dpu_mdss_cfg dpu_sdm845_cfg = {
+ 	.intf = sdm845_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sdm845_regdma,
+ 	.perf = &sdm845_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+index 282d410269ff..e17398f98734 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+@@ -220,8 +220,6 @@ const struct dpu_mdss_cfg dpu_sm8150_cfg = {
+ 	.intf = sm8150_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8150_regdma,
+ 	.perf = &sm8150_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+index c57400265f28..d32f939e9c00 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+@@ -198,8 +198,6 @@ const struct dpu_mdss_cfg dpu_sc8180x_cfg = {
+ 	.intf = sc8180x_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8150_regdma,
+ 	.perf = &sc8180x_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+index 2c40229ea515..f49fc1690b71 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+@@ -228,8 +228,6 @@ const struct dpu_mdss_cfg dpu_sm8250_cfg = {
+ 	.vbif = sdm845_vbif,
+ 	.wb_count = ARRAY_SIZE(sm8250_wb),
+ 	.wb = sm8250_wb,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8250_regdma,
+ 	.perf = &sm8250_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+index 8799ed757119..0a273ba8cf4f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+@@ -143,8 +143,6 @@ const struct dpu_mdss_cfg dpu_sc7180_cfg = {
+ 	.wb = sc7180_wb,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sdm845_regdma,
+ 	.perf = &sc7180_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+index ca107ca8de46..865dc51d0fe5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+@@ -211,8 +211,6 @@ const struct dpu_mdss_cfg dpu_sm8350_cfg = {
+ 	.intf = sm8350_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8350_regdma,
+ 	.perf = &sm8350_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+index 9aab110b8c44..1ac7ad2ba0da 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+@@ -202,8 +202,6 @@ const struct dpu_mdss_cfg dpu_sc8280xp_cfg = {
+ 	.intf = sc8280xp_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sc8280xp_regdma,
+ 	.perf = &sc8280xp_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+index 02a259b6b426..41c326fc3792 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+@@ -219,8 +219,6 @@ const struct dpu_mdss_cfg dpu_sm8450_cfg = {
+ 	.intf = sm8450_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8450_regdma,
+ 	.perf = &sm8450_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+index 9e403034093f..e60ebb6242e3 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+@@ -224,8 +224,6 @@ const struct dpu_mdss_cfg dpu_sm8550_cfg = {
+ 	.intf = sm8550_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8450_regdma,
+ 	.perf = &sm8550_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 03f162af1a50..57b3c495aeb5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -650,46 +650,6 @@ static const struct dpu_vbif_cfg sdm845_vbif[] = {
+ 	},
+ };
+ 
+-static const struct dpu_reg_dma_cfg sc8280xp_regdma = {
+-	.base = 0x0,
+-	.version = 0x00020000,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+-static const struct dpu_reg_dma_cfg sdm845_regdma = {
+-	.base = 0x0, .version = 0x1, .trigger_sel_off = 0x119c
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8150_regdma = {
+-	.base = 0x0, .version = 0x00010001, .trigger_sel_off = 0x119c
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8250_regdma = {
+-	.base = 0x0,
+-	.version = 0x00010002,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8350_regdma = {
+-	.base = 0x400,
+-	.version = 0x00020000,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8450_regdma = {
+-	.base = 0x0,
+-	.version = 0x00020000,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+ /*************************************************************
+  * PERF data config
+  *************************************************************/
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 71584cd56fd7..8d62c21b051a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -720,21 +720,6 @@ struct dpu_vbif_cfg {
+ 	u32 memtype_count;
+ 	u32 memtype[MAX_XIN_COUNT];
+ };
+-/**
+- * struct dpu_reg_dma_cfg - information of lut dma blocks
+- * @id                 enum identifying this block
+- * @base               register offset of this block
+- * @features           bit mask identifying sub-blocks/features
+- * @version            version of lutdma hw block
+- * @trigger_sel_off    offset to trigger select registers of lutdma
+- */
+-struct dpu_reg_dma_cfg {
+-	DPU_HW_BLK_INFO;
+-	u32 version;
+-	u32 trigger_sel_off;
+-	u32 xin_id;
+-	enum dpu_clk_ctrl_type clk_ctrl;
+-};
+ 
+ /**
+  * Define CDP use cases
+@@ -850,9 +835,6 @@ struct dpu_mdss_cfg {
+ 	u32 wb_count;
+ 	const struct dpu_wb_cfg *wb;
+ 
+-	u32 reg_dma_count;
+-	const struct dpu_reg_dma_cfg *dma_cfg;
+-
+ 	u32 ad_count;
+ 
+ 	u32 dspp_count;
 -- 
-With best wishes
-Dmitry
+2.39.2
 
