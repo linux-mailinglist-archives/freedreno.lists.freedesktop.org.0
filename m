@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1BE6E9F46
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 00:49:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE4C6E9F4F
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 00:50:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2388A10ED26;
-	Thu, 20 Apr 2023 22:49:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 450BA10ED2E;
+	Thu, 20 Apr 2023 22:50:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7443F10ED20
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 22:49:06 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4edcdfa8638so970075e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 15:49:06 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9AA010ED2E
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 22:50:22 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4edcdfa8638so971205e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 15:50:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682030944; x=1684622944;
+ d=linaro.org; s=google; t=1682031021; x=1684623021;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=fdP8MC3XaEqA32rWPdIckKxRCI4GJxh3IXEDH13XKh4=;
- b=Uo5s2ZVJ8f0YtJNR2V/QAw9DClxjdNn9cqFYEbfOZQUbcrDWvI3kZIG/ZvuvSdVhU7
- pfh5B5a9RphGrqWEwNIRlbMY45cfKU38pWY1e0FY61FUJh0Jb1svYJ9R0LJakfx9tu3m
- nbekIr7F6ZW68EnD6s+zO6qcATzgxFBHn6w9fyAO0JcooAsehyLQcDBDOcntPm0NyGoN
- Oifnhlo7c89uxuHM+wDtJ0RnSGZNiKDCUdarMsAhcx8sziEmaqPjUGiTtCmM0BS8tN6v
- sj4Ln9lcUStQlwf/nzgnSZ0qMbfnh5CtcwwFPN++psWNdyfLRUKvJWy/6+3gbGTZVDBk
- ty5Q==
+ bh=68FCGKUyFaiFbG/iXo9yWgITnRfiZGq9Rg8NWDS09CU=;
+ b=Hm9MQY+d3zWJ8HGp6gmLD/00DgcjBJwatAr7+3XYRS59EtbFDERsBX8/Ks3EPh6BG3
+ fQgoE2PFsLatuu5MA9UVvUlYPHKCcdjQ8E6SrVHzXj4Qs1mMw1EkHdacE/NdiUh8tfL5
+ LAKAHQABx64AXh8gWtXf1KIQFq1tsUa9uQY9PFxebAD67U7c5bHoSUbUc/Bn1jQDbS9n
+ Qf/iewahUJEDdjqzt+IFOixdGJwc2vN7gAfzL1LA7fLqCYA95/RQaLb5JvrgzBC1AH9K
+ OO0+VY1ADaQmiqr7YH+tv2T84hDNPMSaCgIKwTazyvmrQlot1YlBbzgv+pnfUckh3UJS
+ h3Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682030944; x=1684622944;
+ d=1e100.net; s=20221208; t=1682031021; x=1684623021;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fdP8MC3XaEqA32rWPdIckKxRCI4GJxh3IXEDH13XKh4=;
- b=W2VMKj7bSp4muwvOEhcNFxekMAwEZ/kmhp2ZlUER3JLScsLI+b58AocZE7txnAMB/E
- O/ihSY2cMXnuR+D58HPrL1lbuqZ1bnsTRwXB4ZQKOqoBtYBwU0cstcMyjvqmITBvySXF
- IZmimg+6DPta2lebA17M4fYqI/VKhWMA/L3hg64qV6vkkMQ/WgK130KD1d0ncx9fJYB0
- LbmbChAdrnOb5AESeeF0ue41avyooqJ0d9NkTQ+LRHNgpkDl7hsisjEyltGRhl95VSky
- +XqutYCZzrPAauJrNt73FQmpBMwptetrF68/bBRsdhLJXvKv+QVrrzdW/ladHireKQqA
- 8RAw==
-X-Gm-Message-State: AAQBX9dtYB2/ER7t64p5CRI2Ql2TBOZYGnvFq87Ok6Pnp8QZw6lYPOKY
- 7EgO+jwFlOi6yf3CAiN2s40/uw==
-X-Google-Smtp-Source: AKy350ZInjPaVxyUTYhwDYw+L3xY8vOz8c952eS4vzPQ6cipzNOj58Pw/XifVqqdE8XeIyyL0HzukA==
-X-Received: by 2002:ac2:4905:0:b0:4ed:c9b0:6a42 with SMTP id
- n5-20020ac24905000000b004edc9b06a42mr780084lfi.12.1682030944156; 
- Thu, 20 Apr 2023 15:49:04 -0700 (PDT)
+ bh=68FCGKUyFaiFbG/iXo9yWgITnRfiZGq9Rg8NWDS09CU=;
+ b=LhqFqceUAsbq92w8P0K2yIxMiW+K+NIbZLQgA4aO/L9DRkKG1cGMw+OHVUAq2k1gj1
+ nGSD7qxSYur2DYF64n7RVnW2RUmlYG4AjlQ0zbmryQuB/0D2VDVz98vFfiIf1pIBAtj9
+ OhwxAgVZr5kiXsnbVVyE0XWQZcqkyR7JZ2LDLoW7c+rS6cHvNeSmpqr4m938NpgD/Ab7
+ r3moFRyumSLskGqHrxe49ihgt7OlfgJAxEIsmi4SfIzjJ4yblNgcRXpTmdhND+lhA72k
+ hmmzoJ8qbqHppVpCYzOescplNjyGSNiRVjBbhWXWepDWHvVFka/e/WaX4B103LQhZg4a
+ Mw0g==
+X-Gm-Message-State: AAQBX9eLLQKu5AvDsU4sKOf3w8PCRNy5YIE6t7EXOU0Gwt+L4EyfmWby
+ v86um/SyTXsi6mqr4uG+5f8FcQ==
+X-Google-Smtp-Source: AKy350a7P9jnq3r/leHVLSe7itJb11Vk9eHPCVoGdSGTSX6RhfhyYLjGpLCW3dojQzCUqmMeF0OUDQ==
+X-Received: by 2002:ac2:5a4a:0:b0:4d7:ccef:6b52 with SMTP id
+ r10-20020ac25a4a000000b004d7ccef6b52mr817486lfn.39.1682031021097; 
+ Thu, 20 Apr 2023 15:50:21 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- x13-20020ac2488d000000b004ef11b30a17sm94609lfc.91.2023.04.20.15.49.03
+ o14-20020a2e730e000000b002a8d41c8ebdsm404990ljc.122.2023.04.20.15.50.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 15:49:03 -0700 (PDT)
-Message-ID: <d2b6ebad-dd38-0bb3-7c98-27cda45c7ed9@linaro.org>
-Date: Fri, 21 Apr 2023 01:49:03 +0300
+ Thu, 20 Apr 2023 15:50:20 -0700 (PDT)
+Message-ID: <26832d5c-f55c-1dd0-947a-0278bcbf08de@linaro.org>
+Date: Fri, 21 Apr 2023 01:50:20 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -99,8 +99,39 @@ On 21/04/2023 01:31, Konrad Dybcio wrote:
 > ---
 >   drivers/gpu/drm/msm/msm_mdss.c | 10 ++++++++++
 >   1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index 4e3a5f0c303c..f2470ce699f7 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -546,6 +546,15 @@ static const struct msm_mdss_data sm6350_data = {
+>   	.highest_bank_bit = 1,
+>   };
+>   
+> +static const struct msm_mdss_data sm6375_data = {
+> +	.ubwc_version = UBWC_2_0,
+> +	.ubwc_dec_version = UBWC_2_0,
+> +	.ubwc_swizzle = 6,
+> +	.ubwc_static = 0x1e,
+> +	/* Possibly 0 for LPDDR3 */
+> +	.highest_bank_bit = 1,
+> +};
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Nit: we can use sm6350 data here, can't we?
+
+> +
+>   static const struct msm_mdss_data sm8150_data = {
+>   	.ubwc_version = UBWC_3_0,
+>   	.ubwc_dec_version = UBWC_3_0,
+> @@ -580,6 +589,7 @@ static const struct of_device_id mdss_dt_match[] = {
+>   	{ .compatible = "qcom,sc8280xp-mdss", .data = &sc8280xp_data },
+>   	{ .compatible = "qcom,sm6115-mdss", .data = &sm6115_data },
+>   	{ .compatible = "qcom,sm6350-mdss", .data = &sm6350_data },
+> +	{ .compatible = "qcom,sm6375-mdss", .data = &sm6375_data },
+>   	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
+>   	{ .compatible = "qcom,sm8250-mdss", .data = &sm8250_data },
+>   	{ .compatible = "qcom,sm8350-mdss", .data = &sm8250_data },
+> 
 
 -- 
 With best wishes
