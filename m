@@ -1,57 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA0296E8B8D
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 09:41:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD9D6E8D18
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 10:47:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B432510EBCE;
-	Thu, 20 Apr 2023 07:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 187DE10EBF7;
+	Thu, 20 Apr 2023 08:47:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E611210EBCE;
- Thu, 20 Apr 2023 07:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681976503; x=1713512503;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=NhVnAVol5gXAIwXYVWqD7i2sY1WMUpuOf8O646Hurhg=;
- b=LQ7WcPgFDInWIrneVOYkjyg7rop+1nWuVuU5BKRiKYvVv9DXnDGrMQhW
- gFgAUQjuAU1f9h7AmRR+TEsAerFPAHU8l4aZn5ex+WYOj+sN6gjxCbU2/
- u1TKWL7qlCgtFoirgZ/QJqlKU5IxntDGx2AisbC1c2t3gCKkuzX+fYNGT
- HAlYUxJbxqgrmIMSpQddLib+qZEKtvVV4u6swNwizy3zIT4q/VOIatAsC
- cLBg/U8Cp0wF1KMLXl30+FDxE8BQEyYisa7VZSmL+OSaDudeGR5b+14XP
- O4/J11rE8DMfIXnuhtEqe8FYCE2kkDCgMU/7XLVi3AYGBRiKC6q4b4dMV A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="431940269"
-X-IronPort-AV: E=Sophos;i="5.99,211,1677571200"; d="scan'208";a="431940269"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 00:41:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="815916515"
-X-IronPort-AV: E=Sophos;i="5.99,211,1677571200"; d="scan'208";a="815916515"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga004.jf.intel.com with ESMTP; 20 Apr 2023 00:41:36 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ppOv4-000fak-2x;
- Thu, 20 Apr 2023 07:41:30 +0000
-Date: Thu, 20 Apr 2023 15:41:12 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mark Yacoub <markyacoub@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <202304201512.clLNZI0u-lkp@intel.com>
-References: <20230419154321.1993419-11-markyacoub@google.com>
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25EC10EBF8
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 08:47:54 +0000 (UTC)
+Received: by mail-yb1-xb2a.google.com with SMTP id v9so1805765ybm.0
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 01:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1681980472; x=1684572472;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T5oAqCslyeZbhwZTq6RFTTQ4PQFGAxsJkatHKOyp9J0=;
+ b=bxyEIQuckrZovTT6ZFDvK22g7vQcjK9MDIwUGnHTk7f1r03inGlP8Hg9uKZa89pY2F
+ B3CdN9Si8aiLyM5WkeIVd0OS07FeUt/8E9sp7wOC4wSLOOgSLMRu620yYy+6ouQkBHHU
+ OrRntp7qLe1qDjiVgICBWJqoGb24YPjPlc4oXe6bqvwmnzFg63ZMtNQDai3YN0ouObvz
+ DtgFueQzO3xaAVO8HU5DHmuGly+qIhBGxBt8k6nddjhT4RXBfuAErQ07j5zQuzK/w1Pr
+ eyw7x9OYffXFfglyZ1E3bla8PnYZVQpnFyc/5NbE27VDNtomqydwHgJ7tFs+QXm7X/EA
+ m4aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681980472; x=1684572472;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=T5oAqCslyeZbhwZTq6RFTTQ4PQFGAxsJkatHKOyp9J0=;
+ b=k/ZYkKFJCv0AZtlyMR2OJLWdljjFW2dS3OvkrVlIral0WassdaY2KuXUgFOW5RJhM7
+ 5gcE/izhzy757SPKMsQw04OHwxE2ZLIrOk4hrot4LeNI/w4A1DreibcBxZHzM17ojgkK
+ KyxFpXnvtDggxbTqeaXJoCrDz3S5pjevQmfcEQ7EhUevNlefpLdF+ayRonfYWOff7WLC
+ 96oNgY03bN4q11cjWu6SZwGe+J+gT4UKj1bsT0MHfXpW7vBj0ZPNqNNa0krKeLgVOiuP
+ fkpZfOcAMGHnAk0ZRsH4u8ZZ4JPR10KVQyjN9LJQYItN+C93grYjgj/XI0jREN/wPU2N
+ waOw==
+X-Gm-Message-State: AAQBX9eVix1PO9KxeH0WCRTEIOiLK0FD8gTf2PLy0ZBT5MYX2zfo4uee
+ Py2scV38S2eTf3HZaq5sIhFwTYJW/6pQ5HgDH3VtCMwNKVnRDrOL
+X-Google-Smtp-Source: AKy350Yj07sfBe+SClXcBzSUONtgncb/id4YtuYg1fsL8LaTx7utG5puu9AQK1O//i8VSR4O9bit6lJq4Bxk2wl2vpY=
+X-Received: by 2002:a25:d181:0:b0:b79:6c89:86c0 with SMTP id
+ i123-20020a25d181000000b00b796c8986c0mr662624ybg.42.1681980471793; Thu, 20
+ Apr 2023 01:47:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230419154321.1993419-11-markyacoub@google.com>
-Subject: Re: [Freedreno] [PATCH v10 10/10] drm/msm: Implement HDCP 1.x using
- the new drm HDCP helpers
+References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
+ <20230419-dpu-tweaks-v1-7-d1bac46db075@freebox.fr>
+ <405ff057-e4da-3f2f-b860-ce2eeacaab94@linaro.org>
+ <CAG9NU68aLLZ0KGNmsirzm5RtGw6CC_i=+kTwyfhy+bjSkRTO4Q@mail.gmail.com>
+In-Reply-To: <CAG9NU68aLLZ0KGNmsirzm5RtGw6CC_i=+kTwyfhy+bjSkRTO4Q@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 20 Apr 2023 11:47:40 +0300
+Message-ID: <CAA8EJppa86WWE0tkUaFG4JpfKwr9husvgHWkCVjRbWiF=Ei7aQ@mail.gmail.com>
+To: Arnaud Vrac <avrac@freebox.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 07/11] drm/msm/dpu: add sspp cursor blocks
+ to msm8998 hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,78 +71,167 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: suraj.kandpal@intel.com, linux-kernel@vger.kernel.org,
- Mark Yacoub <markyacoub@chromium.org>, intel-gfx@lists.freedesktop.org,
- dianders@chromium.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, seanpaul@chromium.org,
- oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Mark,
+On Thu, 20 Apr 2023 at 10:06, Arnaud Vrac <avrac@freebox.fr> wrote:
+>
+> Le jeu. 20 avr. 2023 =C3=A0 01:10, Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> a =C3=A9crit :
+> >
+> > On 19/04/2023 17:41, Arnaud Vrac wrote:
+> > > Now that cursor sspp blocks can be used for cursor planes, enable the=
+m
+> > > on msm8998. The dma sspp blocks that were assigned to cursor planes c=
+an
+> > > now be used for overlay planes instead.
+> >
+> > While the change is correct, there is more about it. Composers, using
+> > universal planes, will see this plane too. They have no obligations to
+> > use it only for the cursor. At the minimum could you please extend the
+> > plane_atomic_check to check for the plane dimensions for the CURSOR pip=
+es?
+>
+> Hum, I had assumed the generic atomic checks would already do this,
 
-kernel test robot noticed the following build errors:
+Atomic will have these checks for the legacy cursor API (using the
+mode_config.cursor_width/cursor_height that you have added). But I
+don't think there is a generic API for telling the core 'this plane is
+slightly limited'.
 
-[auto build test ERROR on drm-intel/for-linux-next-fixes]
-[also build test ERROR on linus/master v6.3-rc7]
-[cannot apply to drm-misc/drm-misc-next drm-intel/for-linux-next drm/drm-next next-20230419]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fortunately, once the virtual planes land and are taught about the
+SSPP_CURSOR peculiarities, it should not matter, since the driver will
+know that it should not select these pipes in the inappropriate cases.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230419-234833
-base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
-patch link:    https://lore.kernel.org/r/20230419154321.1993419-11-markyacoub%40google.com
-patch subject: [PATCH v10 10/10] drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-config: arm64-randconfig-r022-20230416 (https://download.01.org/0day-ci/archive/20230420/202304201512.clLNZI0u-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/6fb5b032262769c786a7a8c9ed522d936dcf14c2
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230419-234833
-        git checkout 6fb5b032262769c786a7a8c9ed522d936dcf14c2
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash
+> but it's not the case. I'll add the check when the pipe is of type
+> SSPP_CURSOR in another patch coming before, thanks.
+>
+> >
+> > For this change:
+> >
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >
+> > >
+> > > Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
+> > > ---
+> > >   .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  8 +++--
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 34 +++++++++++=
++++++++++++
+> > >   2 files changed, 40 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h =
+b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> > > index b07e8a9941f79..7de393b0f91d7 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> > > @@ -90,10 +90,14 @@ static const struct dpu_sspp_cfg msm8998_sspp[] =
+=3D {
+> > >               sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0)=
+,
+> > >       SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1ac, DMA_MSM8998_MASK,
+> > >               sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1)=
+,
+> > > -     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1ac, DMA_CURSOR_MSM89=
+98_MASK,
+> > > +     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1ac, DMA_MSM8998_MASK=
+,
+> > >               sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2)=
+,
+> > > -     SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1ac, DMA_CURSOR_MSM89=
+98_MASK,
+> > > +     SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1ac, DMA_MSM8998_MASK=
+,
+> > >               sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3=
+),
+> > > +     SSPP_BLK("sspp_12", SSPP_CURSOR0, 0x34000, 0x1ac, DMA_CURSOR_MS=
+M8998_MASK,
+> > > +             msm8998_cursor_sblk_0, 2, SSPP_TYPE_CURSOR, DPU_CLK_CTR=
+L_CURSOR0),
+> > > +     SSPP_BLK("sspp_13", SSPP_CURSOR1, 0x36000, 0x1ac, DMA_CURSOR_MS=
+M8998_MASK,
+> > > +             msm8998_cursor_sblk_1, 10, SSPP_TYPE_CURSOR, DPU_CLK_CT=
+RL_CURSOR1),
+> > >   };
+> > >
+> > >   static const struct dpu_lm_cfg msm8998_lm[] =3D {
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers=
+/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > > index 8d5d782a43398..f34fa704936bc 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > > @@ -242,6 +242,22 @@ static const uint32_t wb2_formats[] =3D {
+> > >       DRM_FORMAT_XBGR4444,
+> > >   };
+> > >
+> > > +static const uint32_t cursor_formats[] =3D {
+> > > +     DRM_FORMAT_ARGB8888,
+> > > +     DRM_FORMAT_ABGR8888,
+> > > +     DRM_FORMAT_RGBA8888,
+> > > +     DRM_FORMAT_BGRA8888,
+> > > +     DRM_FORMAT_XRGB8888,
+> > > +     DRM_FORMAT_ARGB1555,
+> > > +     DRM_FORMAT_ABGR1555,
+> > > +     DRM_FORMAT_RGBA5551,
+> > > +     DRM_FORMAT_BGRA5551,
+> > > +     DRM_FORMAT_ARGB4444,
+> > > +     DRM_FORMAT_ABGR4444,
+> > > +     DRM_FORMAT_RGBA4444,
+> > > +     DRM_FORMAT_BGRA4444,
+> > > +};
+> > > +
+> > >   /*************************************************************
+> > >    * SSPP sub blocks config
+> > >    *************************************************************/
+> > > @@ -300,6 +316,19 @@ static const uint32_t wb2_formats[] =3D {
+> > >       .virt_num_formats =3D ARRAY_SIZE(plane_formats), \
+> > >       }
+> > >
+> > > +#define _CURSOR_SBLK(num) \
+> > > +     { \
+> > > +     .maxdwnscale =3D SSPP_UNITY_SCALE, \
+> > > +     .maxupscale =3D SSPP_UNITY_SCALE, \
+> > > +     .smart_dma_priority =3D 0, \
+> > > +     .src_blk =3D {.name =3D STRCAT("sspp_src_", num), \
+> > > +             .id =3D DPU_SSPP_SRC, .base =3D 0x00, .len =3D 0x150,},=
+ \
+> > > +     .format_list =3D cursor_formats, \
+> > > +     .num_formats =3D ARRAY_SIZE(cursor_formats), \
+> > > +     .virt_format_list =3D cursor_formats, \
+> > > +     .virt_num_formats =3D ARRAY_SIZE(cursor_formats), \
+> > > +     }
+> > > +
+> > >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_0 =3D
+> > >                               _VIG_SBLK("0", 0, DPU_SSPP_SCALER_QSEED=
+3);
+> > >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_1 =3D
+> > > @@ -309,6 +338,11 @@ static const struct dpu_sspp_sub_blks msm8998_vi=
+g_sblk_2 =3D
+> > >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_3 =3D
+> > >                               _VIG_SBLK("3", 0, DPU_SSPP_SCALER_QSEED=
+3);
+> > >
+> > > +static const struct dpu_sspp_sub_blks msm8998_cursor_sblk_0 =3D
+> > > +                             _CURSOR_SBLK("12");
+> > > +static const struct dpu_sspp_sub_blks msm8998_cursor_sblk_1 =3D
+> > > +                             _CURSOR_SBLK("13");
+> > > +
+> > >   static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 =3D {
+> > >       .rot_maxheight =3D 1088,
+> > >       .rot_num_formats =3D ARRAY_SIZE(rotation_v2_formats),
+> > >
+> >
+> > --
+> > With best wishes
+> > Dmitry
+> >
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202304201512.clLNZI0u-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   aarch64-linux-ld: drivers/gpu/drm/msm/msm_atomic.o: in function `msm_atomic_commit_connectors':
->> drivers/gpu/drm/msm/msm_atomic.c:193: undefined reference to `dp_drm_is_bridge_msm_dp'
-   drivers/gpu/drm/msm/msm_atomic.c:193:(.text+0x1368): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `dp_drm_is_bridge_msm_dp'
->> aarch64-linux-ld: drivers/gpu/drm/msm/msm_atomic.c:194: undefined reference to `dp_drm_atomic_commit'
-   drivers/gpu/drm/msm/msm_atomic.c:194:(.text+0x137c): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `dp_drm_atomic_commit'
-   aarch64-linux-ld: drivers/gpu/drm/msm/dp/dp_debug.o: in function `dp_hdcp_key_write':
->> drivers/gpu/drm/msm/dp/dp_debug.c:219: undefined reference to `dp_hdcp_ingest_key'
-   drivers/gpu/drm/msm/dp/dp_debug.c:219:(.text+0x98): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `dp_hdcp_ingest_key'
 
 
-vim +193 drivers/gpu/drm/msm/msm_atomic.c
-
-   184	
-   185	static void msm_atomic_commit_connectors(struct drm_atomic_state *state)
-   186	{
-   187		struct drm_device *dev = state->dev;
-   188		struct msm_drm_private *priv = dev->dev_private;
-   189		int i;
-   190	
-   191		for (i = 0; i < priv->num_bridges; ++i) {
-   192			struct drm_bridge *bridge = priv->bridges[i];
- > 193			if (dp_drm_is_bridge_msm_dp(bridge)) {
- > 194				dp_drm_atomic_commit(bridge, state);
-   195			}
-   196		}
-   197	}
-   198	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+--=20
+With best wishes
+Dmitry
