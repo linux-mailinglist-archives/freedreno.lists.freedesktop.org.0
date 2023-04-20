@@ -1,63 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 064DF6E8AE0
-	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 09:07:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A6D6E8AEA
+	for <lists+freedreno@lfdr.de>; Thu, 20 Apr 2023 09:08:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D1310EB6C;
-	Thu, 20 Apr 2023 07:07:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 451C010EB76;
+	Thu, 20 Apr 2023 07:08:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8C510EB76
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:06:58 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id fy21so4052718ejb.9
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:06:58 -0700 (PDT)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB29610EB84
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 07:08:54 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id vc20so4047602ejc.10
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 00:08:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681974415; x=1684566415;
+ d=freebox-fr.20221208.gappssmtp.com; s=20221208; t=1681974533; x=1684566533;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Yb+yljt2qIh9YQj49hF4nCFbxARaf3XxP/2JpjBX4jk=;
- b=cZv/lPvpV7dzsklh5rJGSX/ctisD8YiKx4V2vuazNVRvycMDy2qY+JLXTxg9c8+GJB
- +p3GNccB/ffnSbUDxbMBcHRlsz/75SteAFuszpd9IGhEgV22AXdgPE0Q2Dk6z7RcVo94
- a618EgQpnQwii3jZshBVWOWOdDri9NiCMe3aT7AVQd4oIk5d3uLJnsTAXROcwEnsObAM
- Aa9SEKipB4kAaMvB/Ae7RXViYuxL1FbX7ern7o+EEXqL3bwwifuqPKpUSRsRU50abWw3
- xR0p39vKIcQL+tvpB3gRGx5iEUI1g/0/HFHJu62xP+PFTv/S0cPe02LokMdtufHwr+1Y
- extw==
+ bh=bvojUsR5pwErXxzLqJHjlEXoz6gI0576CmK0oCJxdpc=;
+ b=EAo2Ow3XS1RZ8Q6tdvY+KMv4wd4ak0f8BPocMInIOOFHNFIvuNFzOPCuf90+iwfEgQ
+ ZHspYHA6cUYNt5Wgy8/DALjenpgaoNsZVVnOeFM4wbnG+KcFyqLnPb4Rhq/O0yweYnl7
+ CYMo+WGq2i8VlcfntymZq6LjZZfDAUQbqMNQcVueagYpplsjB/G9itlTHLHsRArA2mzy
+ Y7cpIE39ZVutrHQ/bwm3Ya6cScf537u6tSqFC7ssXf6QLH2GRKojshXPUAMFzyF2fG8H
+ FwVgOBTnypFAHXr2yXHmpJz+FOoQQeqpZWXF6PzlTiIoWGkYu8toSbCAON6nc2xY+5xS
+ 5uog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681974415; x=1684566415;
+ d=1e100.net; s=20221208; t=1681974533; x=1684566533;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Yb+yljt2qIh9YQj49hF4nCFbxARaf3XxP/2JpjBX4jk=;
- b=VvruA5OBeW80+3Q9Ta2wmAJN6N+3Siv91RqTWKxwuFafIOmQMtpobu4DMvQgUn7sVO
- zL9UvKR6MZfheb8oizlQVWxiaN/dPvBB4e5OWXiiko6kERAlMY9S6x2ahXpkKSS6Vqe+
- GAAPeO6mKYdu/99gqQbioTpitYQiNHGoiIGMeGFhFgsvPPyJT3pS4Fdgd+jSZR/8BH8L
- UlzCUblawzPCivmxs03dGxHmBT5knXAriKg34OUm/r+BdDzg5gN/mHaeGhpE+bvXb1LX
- A91ebfPMSFrow0hT/Is8o0hHi1SlOnmZNtvPrNcxnDVB3QIIpJmyOMAcexjMXv2ixY34
- /Fbg==
-X-Gm-Message-State: AAQBX9ePjnNGIg8L69aOquF2SpZaf+V/m/C/Y//+qM6vx8p1dnRIUUEU
- zLuNBA/tuRq9V0ebGzymral+ZmTopNqSxdRTQNeF
-X-Google-Smtp-Source: AKy350a5nbAxpFRAe8GKYzKKw51dSoWmIC63OMzKer/o/NVstK/cdXnM4cTddEa7E1kqrQjHI9VhKy2gMGrrbDH4EuI=
+ bh=bvojUsR5pwErXxzLqJHjlEXoz6gI0576CmK0oCJxdpc=;
+ b=autXRKEFMXGOhZ368iU1jOAEblr2nHtMimwhz45z7K5TR50pMHsNt28/cwP4hBbWZl
+ /2g3YlpOuc3LG17maYpqnkBmcI0PDDoBM4iTFaAtRGjE43RFFdLujpudeQxcP28gQTAv
+ t5iQ4JlJjN/2m4s6L3qpcMwjeXgp+2lTmGBKIWZ7Etejy98selWa1JCfZZl3LNuMML+B
+ MtA+wHEHmHa1VsmYqyCrOBcww/9exBE3hkahrsHqNQ5nhQTLSaSaBvV/vfbVB+T7uWRR
+ R6OHHkzqzvXadJxv5XIA8qkidse1y6knQeDqj6sUt7BlYU8rvwjkWu3WwaH+duWVC5a1
+ mMxQ==
+X-Gm-Message-State: AAQBX9fDm5awnETCnD/gGrH/bd4qKjQAna1I4cjjaLp77aIhorF+/ruQ
+ 5nrQBN1Oj/RoIb40MromZwitjd1QGRfEYnd2OXPb
+X-Google-Smtp-Source: AKy350YkIRiL6/g0txyPQcEysULNj8gjrNyWWXcoEDSMWOaKX/YTC+6vqefm8B56QsKbeEQmmG9BwMkojEpTRumRSyg=
 X-Received: by 2002:a17:907:980a:b0:94f:c1f:6d09 with SMTP id
- ji10-20020a170907980a00b0094f0c1f6d09mr212498ejc.7.1681974414824; Thu, 20 Apr
- 2023 00:06:54 -0700 (PDT)
+ ji10-20020a170907980a00b0094f0c1f6d09mr214789ejc.7.1681974533034; Thu, 20 Apr
+ 2023 00:08:53 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
- <20230419-dpu-tweaks-v1-7-d1bac46db075@freebox.fr>
- <405ff057-e4da-3f2f-b860-ce2eeacaab94@linaro.org>
-In-Reply-To: <405ff057-e4da-3f2f-b860-ce2eeacaab94@linaro.org>
+ <20230419-dpu-tweaks-v1-11-d1bac46db075@freebox.fr>
+ <08e79278-ad30-73e3-a56c-f569b3fea407@linaro.org>
+In-Reply-To: <08e79278-ad30-73e3-a56c-f569b3fea407@linaro.org>
 From: Arnaud Vrac <avrac@freebox.fr>
-Date: Thu, 20 Apr 2023 09:06:44 +0200
-Message-ID: <CAG9NU68aLLZ0KGNmsirzm5RtGw6CC_i=+kTwyfhy+bjSkRTO4Q@mail.gmail.com>
+Date: Thu, 20 Apr 2023 09:08:42 +0200
+Message-ID: <CAG9NU68AqX3P1MrrLvfSKMyw+OsfZ7tyk9F9zU7qvA-QzzqO5g@mail.gmail.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 07/11] drm/msm/dpu: add sspp cursor blocks
- to msm8998 hw catalog
+Subject: Re: [Freedreno] [PATCH 11/11] drm/msm/dpu: do not use mixer that
+ supports dspp when not required
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,129 +78,43 @@ Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Le jeu. 20 avr. 2023 =C3=A0 01:10, Dmitry Baryshkov
+Le jeu. 20 avr. 2023 =C3=A0 01:18, Dmitry Baryshkov
 <dmitry.baryshkov@linaro.org> a =C3=A9crit :
 >
 > On 19/04/2023 17:41, Arnaud Vrac wrote:
-> > Now that cursor sspp blocks can be used for cursor planes, enable them
-> > on msm8998. The dma sspp blocks that were assigned to cursor planes can
-> > now be used for overlay planes instead.
+> > This avoids using lm blocks that support DSPP when not needed, to
+> > keep those resources available.
 >
-> While the change is correct, there is more about it. Composers, using
-> universal planes, will see this plane too. They have no obligations to
-> use it only for the cursor. At the minimum could you please extend the
-> plane_atomic_check to check for the plane dimensions for the CURSOR pipes=
-?
+> This will break some of the platforms. Consider qcm2290 which has a
+> single LM with DSPP. So, _dpu_rm_check_lm_and_get_connected_blks should
+> be performed in two steps: first skip non-DSPP-enabled LMs when DSPP is
+> not required. Then, if the LM (pair) is not found, look for any suitable
+> LM(pair).
 
-Hum, I had assumed the generic atomic checks would already do this,
-but it's not the case. I'll add the check when the pipe is of type
-SSPP_CURSOR in another patch coming before, thanks.
+Good point, I'll add the change.
 
->
-> For this change:
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >
 > >
 > > Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
 > > ---
-> >   .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  8 +++--
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 34 +++++++++++++=
-+++++++++
-> >   2 files changed, 40 insertions(+), 2 deletions(-)
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/=
-drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-> > index b07e8a9941f79..7de393b0f91d7 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-> > @@ -90,10 +90,14 @@ static const struct dpu_sspp_cfg msm8998_sspp[] =3D=
- {
-> >               sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
-> >       SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1ac, DMA_MSM8998_MASK,
-> >               sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
-> > -     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1ac, DMA_CURSOR_MSM8998=
-_MASK,
-> > +     SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1ac, DMA_MSM8998_MASK,
-> >               sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
-> > -     SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1ac, DMA_CURSOR_MSM8998=
-_MASK,
-> > +     SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1ac, DMA_MSM8998_MASK,
-> >               sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
-> > +     SSPP_BLK("sspp_12", SSPP_CURSOR0, 0x34000, 0x1ac, DMA_CURSOR_MSM8=
-998_MASK,
-> > +             msm8998_cursor_sblk_0, 2, SSPP_TYPE_CURSOR, DPU_CLK_CTRL_=
-CURSOR0),
-> > +     SSPP_BLK("sspp_13", SSPP_CURSOR1, 0x36000, 0x1ac, DMA_CURSOR_MSM8=
-998_MASK,
-> > +             msm8998_cursor_sblk_1, 10, SSPP_TYPE_CURSOR, DPU_CLK_CTRL=
-_CURSOR1),
-> >   };
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/m=
+sm/disp/dpu1/dpu_rm.c
+> > index f4dda88a73f7d..4b393d46c743f 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > @@ -362,7 +362,7 @@ static bool _dpu_rm_check_lm_and_get_connected_blks=
+(struct dpu_rm *rm,
+> >       *pp_idx =3D idx;
 > >
-> >   static const struct dpu_lm_cfg msm8998_lm[] =3D {
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/g=
-pu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > index 8d5d782a43398..f34fa704936bc 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > @@ -242,6 +242,22 @@ static const uint32_t wb2_formats[] =3D {
-> >       DRM_FORMAT_XBGR4444,
-> >   };
+> >       if (!reqs->topology.num_dspp)
+> > -             return true;
+> > +             return !lm_cfg->dspp;
 > >
-> > +static const uint32_t cursor_formats[] =3D {
-> > +     DRM_FORMAT_ARGB8888,
-> > +     DRM_FORMAT_ABGR8888,
-> > +     DRM_FORMAT_RGBA8888,
-> > +     DRM_FORMAT_BGRA8888,
-> > +     DRM_FORMAT_XRGB8888,
-> > +     DRM_FORMAT_ARGB1555,
-> > +     DRM_FORMAT_ABGR1555,
-> > +     DRM_FORMAT_RGBA5551,
-> > +     DRM_FORMAT_BGRA5551,
-> > +     DRM_FORMAT_ARGB4444,
-> > +     DRM_FORMAT_ABGR4444,
-> > +     DRM_FORMAT_RGBA4444,
-> > +     DRM_FORMAT_BGRA4444,
-> > +};
-> > +
-> >   /*************************************************************
-> >    * SSPP sub blocks config
-> >    *************************************************************/
-> > @@ -300,6 +316,19 @@ static const uint32_t wb2_formats[] =3D {
-> >       .virt_num_formats =3D ARRAY_SIZE(plane_formats), \
-> >       }
-> >
-> > +#define _CURSOR_SBLK(num) \
-> > +     { \
-> > +     .maxdwnscale =3D SSPP_UNITY_SCALE, \
-> > +     .maxupscale =3D SSPP_UNITY_SCALE, \
-> > +     .smart_dma_priority =3D 0, \
-> > +     .src_blk =3D {.name =3D STRCAT("sspp_src_", num), \
-> > +             .id =3D DPU_SSPP_SRC, .base =3D 0x00, .len =3D 0x150,}, \
-> > +     .format_list =3D cursor_formats, \
-> > +     .num_formats =3D ARRAY_SIZE(cursor_formats), \
-> > +     .virt_format_list =3D cursor_formats, \
-> > +     .virt_num_formats =3D ARRAY_SIZE(cursor_formats), \
-> > +     }
-> > +
-> >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_0 =3D
-> >                               _VIG_SBLK("0", 0, DPU_SSPP_SCALER_QSEED3)=
-;
-> >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_1 =3D
-> > @@ -309,6 +338,11 @@ static const struct dpu_sspp_sub_blks msm8998_vig_=
-sblk_2 =3D
-> >   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_3 =3D
-> >                               _VIG_SBLK("3", 0, DPU_SSPP_SCALER_QSEED3)=
-;
-> >
-> > +static const struct dpu_sspp_sub_blks msm8998_cursor_sblk_0 =3D
-> > +                             _CURSOR_SBLK("12");
-> > +static const struct dpu_sspp_sub_blks msm8998_cursor_sblk_1 =3D
-> > +                             _CURSOR_SBLK("13");
-> > +
-> >   static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 =3D {
-> >       .rot_maxheight =3D 1088,
-> >       .rot_num_formats =3D ARRAY_SIZE(rotation_v2_formats),
+> >       idx =3D lm_cfg->dspp - DSPP_0;
+> >       if (idx < 0 || idx >=3D ARRAY_SIZE(rm->dspp_blks)) {
 > >
 >
 > --
