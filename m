@@ -2,55 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 595176EA90C
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 13:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7216EA988
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 13:45:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0325E10E096;
-	Fri, 21 Apr 2023 11:23:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F9E10EDF6;
+	Fri, 21 Apr 2023 11:45:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9F7610E08B;
- Fri, 21 Apr 2023 11:23:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682076203; x=1713612203;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=74+qAqIgYF47Iz1gO9HKLYWhwUWDspIE8Lqjj6JQMno=;
- b=hL7DENgiIFf+BqHX6EiXIJ1HxRH+00Oe11R0OZQT1lqy9sHxDP8LotET
- fJ1QS7nTO0IYyBhWFFrp2rAQcqlTSOaj5HJIZ6THwIvHHDEf79a/Z46ac
- WpxWLkcvhW8fbB1/G9ksA1c79Vxf8Fc5Y0SMTdLzMrDk5N1bZZsK9YYnw
- KVdK+4+LVx0iL/I8DmBtzRw+FRv5SKY9YpnvkyhSjX5X4dt0MRTJrQb54
- uEuUi3DXrYICrxJK1P6zec7mZBgwPzVnageQQO8X4VTCH+vzfce9YJF3m
- YU6AFCpMWw0OGQo+Rmi/eT9eVUaPkx1qZ917LLd9ADVtI4eUBGBnLVHNM A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="344726470"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="344726470"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2023 04:23:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="781575235"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="781575235"
-Received: from vhavelx-mobl2.ger.corp.intel.com (HELO [10.213.192.37])
- ([10.213.192.37])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2023 04:23:19 -0700
-Message-ID: <f2a423c2-302a-024a-cf65-199f4be6caec@linux.intel.com>
-Date: Fri, 21 Apr 2023 12:23:16 +0100
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 606CE10EDF6;
+ Fri, 21 Apr 2023 11:45:42 +0000 (UTC)
+Received: by mail-yb1-xb2a.google.com with SMTP id
+ 3f1490d57ef6-b97ec4bbc5aso665345276.3; 
+ Fri, 21 Apr 2023 04:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682077541; x=1684669541;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=cpExu34liiyV+GAi+/eT3EAKnCiqG6Ffpw4DRQDPAno=;
+ b=X357dpjFwt18aofQ0wDrq5xS25zQymH1kkZ7nx1QoezkPpsctPIFFhRm7lHDtLaWU/
+ leznEkIpKE+UutrPj+vIDvHUvepfMSVv2O/FhGzpxfyxrGyc2Se+g0FTJt15uLyo1l5m
+ hQ8VnTH7tb9c4cu9NcS0tiw6kxJvV/6MWP0Dwm2Pg0gQ1bM6gi0DQUUOmITt/jBRS0UH
+ cJVNYj7C2D/uCIZrngQ/8ubwO/63Va8rs4mpyr1W+aQBfPIAmvZP8lZlqxM7GqjAWTJX
+ e1yqWbDs2olaaSsMgp2AL3mmpHPl2LbdU/oqkTz0pkbm2Y/x+13Bm4DQ5j3P9Nsxe5bU
+ Z+xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682077541; x=1684669541;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cpExu34liiyV+GAi+/eT3EAKnCiqG6Ffpw4DRQDPAno=;
+ b=IVKJtJGL6R/FXtwhOYTxU+YhqpYCAbQN40JPTFAsWZetYluAJ3q8dspAjRY/USzKaY
+ sFgB9h/MuRd4DvEhkIkgg0yAt56XAG1u82bNX7JXtkEe8yPtgYudmUXb5CfgSE32jZXy
+ g+3WxZEXEpKLIFXAlcxgQtDF8Nau8Pl0XYmfIR6srGTdNLJIF6oWrPvo0eJMPnNvKkHd
+ a5ZD2OKyG99srI7ol31dpFeyiTneAptu958/+CbU2Qsq663Qdu7cKObrCqTuFPviUi3q
+ daDIHFRWLCMHijH0L7Pj+soV4v+FEQtvRDX8B1Oa4sQTzZ8Gi4E5DxjzOpmpeoLZ8vHI
+ 5JVQ==
+X-Gm-Message-State: AAQBX9e9Z1VOUvw87oBq5Pwn/h+6z3ltanMRD/lF70OWWKyL1263RCYX
+ 1O1xshvH+snd/vpSdAtIbcZ7DuaYAJUcMDFpGfA=
+X-Google-Smtp-Source: AKy350ZkJiVpvUcieuU2kqFOJ/OAdnKq40E+PLmCvtqId/JFLpKucdeMo2ppNwRWJvVclimQAVg9DPEL78KBn1eVLpE=
+X-Received: by 2002:a25:d7d1:0:b0:b92:5a0e:d5e9 with SMTP id
+ o200-20020a25d7d1000000b00b925a0ed5e9mr1999465ybg.28.1682077541278; Fri, 21
+ Apr 2023 04:45:41 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Emil Velikov <emil.l.velikov@gmail.com>, Rob Clark <robdclark@gmail.com>
 References: <20230412224311.23511-1-robdclark@gmail.com>
  <20230412224311.23511-6-robdclark@gmail.com>
  <CACvgo525ogS4LSZDUyaqjSqjJWj=qLRkphji5469=3obFXoMrQ@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CACvgo525ogS4LSZDUyaqjSqjJWj=qLRkphji5469=3obFXoMrQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <f2a423c2-302a-024a-cf65-199f4be6caec@linux.intel.com>
+In-Reply-To: <f2a423c2-302a-024a-cf65-199f4be6caec@linux.intel.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Date: Fri, 21 Apr 2023 12:45:29 +0100
+Message-ID: <CACvgo53dP03r1BuxntyyoYjua5k6XPvVhu4iTGqXJq31UMUgxg@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v4 5/6] drm: Add fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,56 +74,62 @@ Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
  Boris Brezillon <boris.brezillon@collabora.com>,
  Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  Daniel Vetter <daniel.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
  freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 21 Apr 2023 at 12:23, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
 
-On 21/04/2023 11:26, Emil Velikov wrote:
-> On Wed, 12 Apr 2023 at 23:43, Rob Clark <robdclark@gmail.com> wrote:
-> 
->> +/**
->> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
->> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
->> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
->> + *
->> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
->> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
->> + * it still active or not resident, in which case drm_show_fdinfo() will not
-> 
-> nit: s/can/can be/;s/if it still/if it is still/
-> 
->> + * account for it as purgeable.  So drivers do not need to check if the buffer
->> + * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
->> + * as purgeable even while it is still busy on the GPU.. it does not _actually_
->> + * become puregeable until it becomes idle.  The status gem object func does
-> 
-> nit: s/puregeable/purgeable/
-> 
-> 
-> I think we want a similar note in the drm-usage-stats.rst file.
-> 
-> With the above the whole series is:
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+> On 21/04/2023 11:26, Emil Velikov wrote:
+> > On Wed, 12 Apr 2023 at 23:43, Rob Clark <robdclark@gmail.com> wrote:
+> >
+> >> +/**
+> >> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
+> >> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+> >> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+> >> + *
+> >> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+> >> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
+> >> + * it still active or not resident, in which case drm_show_fdinfo() will not
+> >
+> > nit: s/can/can be/;s/if it still/if it is still/
+> >
+> >> + * account for it as purgeable.  So drivers do not need to check if the buffer
+> >> + * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
+> >> + * as purgeable even while it is still busy on the GPU.. it does not _actually_
+> >> + * become puregeable until it becomes idle.  The status gem object func does
+> >
+> > nit: s/puregeable/purgeable/
+> >
+> >
+> > I think we want a similar note in the drm-usage-stats.rst file.
+> >
+> > With the above the whole series is:
+> > Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+>
+> Have you maybe noticed my slightly alternative proposal? (*) I am not a
+> fan of putting this flavour of accounting into the core with no way to
+> opt out. I think it leaves no option but to add more keys in the future
+> for any driver which will not be happy with the core accounting.
+>
+> *) https://patchwork.freedesktop.org/series/116581/
+>
 
-Have you maybe noticed my slightly alternative proposal? (*) I am not a 
-fan of putting this flavour of accounting into the core with no way to 
-opt out. I think it leaves no option but to add more keys in the future 
-for any driver which will not be happy with the core accounting.
+Indeed I saw it. Not a fan of it, I'm afraid.
 
-*) https://patchwork.freedesktop.org/series/116581/
+> > Fwiw: Keeping the i915 patch as part of this series would be great.
+> > Sure i915_drm_client->id becomes dead code, but it's a piece one can
+> > live with for a release or two. Then again it's not my call to make.
+>
+> Rob can take the i915 patch from my RFC too.
+>
 
-> Fwiw: Keeping the i915 patch as part of this series would be great.
-> Sure i915_drm_client->id becomes dead code, but it's a piece one can
-> live with for a release or two. Then again it's not my call to make.
+Indeed.
 
-Rob can take the i915 patch from my RFC too.
-
-Regards,
-
-Tvrtko
+-Emil
