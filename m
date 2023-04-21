@@ -1,83 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 802C16EA0A9
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 02:36:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E059C6EA27A
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 05:53:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE15810E308;
-	Fri, 21 Apr 2023 00:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2A5A10E09B;
+	Fri, 21 Apr 2023 03:53:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 493F110E237;
- Fri, 21 Apr 2023 00:36:22 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33L0aGMo005655; Fri, 21 Apr 2023 00:36:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=UKQgIUDwzDOzUPk2VjzlD8UR5C6Y0PvdeSSx8f1Y0J0=;
- b=U5X7s20kIDyVFaT4EnoF/LQGXWa96SUNaEZlHrgPMhrf8FDALvN+WKMymWCpgGNW6LMl
- UtAScKvtvpEOOMxxNjoj662gGonf7Sb4i+4YwwQ6SnDqH7YNKU4U7RQxxYsV9GwAuAAW
- BgM9IX/XY92cu3crSHOK7oRlc1ywr+2bOYWB90lSmf0UjfGmQo+iSjATBdurI60MvXsZ
- yCsXQJbtls1bqNTtdO4IiicmnsqhDGN71X+EXcQyl+0vrnJFBJUtpgZ3BuJsaL5wWHp9
- ax1SSqPnSnkZbwfPygg3ZyhukSb/gO6pUdjXsFtYakZi3PuTRNOCvswswD4ZQEv+46ae tQ== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q3dcmg8sd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Apr 2023 00:36:16 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33L0aEQD031844
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Apr 2023 00:36:14 GMT
-Received: from [10.110.74.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 20 Apr
- 2023 17:36:13 -0700
-Message-ID: <43859b23-a324-b743-83b7-4f00c78170b5@quicinc.com>
-Date: Thu, 20 Apr 2023 17:36:12 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D41010E004;
+ Fri, 21 Apr 2023 03:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1682049189; x=1713585189;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hZgpuqIzJeQzUGcVl7JBW26FU9lNr05huyE0YaHEz7A=;
+ b=K+fJQCxYk7ovmHzZszu1blo7L06gBBbL/O+SspZVGHhSVVzJptvHN0P9
+ 0DZhbDUQEjJOKrX2SjYG9+BJqQ7HqvRtgrdq2ZIZYz2zbpS5UFHSBzKPC
+ WoALb+vd6cKjrlMJ0NytDV9CqlUfmjwGButT+IX4LKBbr98UvCEMQ5QgP
+ qqWbp2WWvLsxlys3JjFKVE4075v/Meo9n9htuIazwr82/aoX5JmSR/Yg8
+ y2tbwwYUNZNkCwYm2/2B8vi6kgSg+vSycesDk3niuOy2T++necwB7OZkv
+ KrWxrE9QQ1ysSHv/F7rfztZuxGbqjHMP/Y6hsTlT6v3RkWqfSg6XFmbM3 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="347808269"
+X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="347808269"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2023 20:53:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="938332076"
+X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="938332076"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 20 Apr 2023 20:53:02 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pphpV-000gIS-34;
+ Fri, 21 Apr 2023 03:53:01 +0000
+Date: Fri, 21 Apr 2023 11:52:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
+ airlied@gmail.com, agross@kernel.org, dmitry.baryshkov@linaro.org,
+ andersson@kernel.org
+Message-ID: <202304211131.LQJKi60t-lkp@intel.com>
+References: <1682033114-28483-2-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <andersson@kernel.org>
-References: <1682033114-28483-1-git-send-email-quic_khsieh@quicinc.com>
- <1682033114-28483-4-git-send-email-quic_khsieh@quicinc.com>
- <897af051-aed4-938a-5ab1-c44c967ab02d@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <897af051-aed4-938a-5ab1-c44c967ab02d@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: dZoQF6EaxQjxm3_wDYc2ly7hqZ_1UWkV
-X-Proofpoint-GUID: dZoQF6EaxQjxm3_wDYc2ly7hqZ_1UWkV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-20_17,2023-04-20_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- lowpriorityscore=0 adultscore=0 phishscore=0 spamscore=0 impostorscore=0
- mlxlogscore=999 malwarescore=0 suspectscore=0 clxscore=1015 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304210002
-Subject: Re: [Freedreno] [PATCH v1 3/5] drm/msm/dpu: save dpu topology
- configuration
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1682033114-28483-2-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v1 1/5] drm/msm/dpu: add support for DSC
+ encoder v1.2 engine
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,127 +64,215 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: marijn.suijten@somainline.org, quic_sbillaka@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ oe-kbuild-all@lists.linux.dev, marijn.suijten@somainline.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Kuogee,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.3-rc7 next-20230420]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/drm-msm-dpu-add-support-for-DSC-encoder-v1-2-engine/20230421-072925
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/1682033114-28483-2-git-send-email-quic_khsieh%40quicinc.com
+patch subject: [PATCH v1 1/5] drm/msm/dpu: add support for DSC encoder v1.2 engine
+config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230421/202304211131.LQJKi60t-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/1c3eede9e4f8fc63f52eddb0c55f63d59fad4b68
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Kuogee-Hsieh/drm-msm-dpu-add-support-for-DSC-encoder-v1-2-engine/20230421-072925
+        git checkout 1c3eede9e4f8fc63f52eddb0c55f63d59fad4b68
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash drivers/gpu/drm/msm/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304211131.LQJKi60t-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c: In function 'dpu_hw_dsc_config_1_2':
+   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c:227:31: error: implicit declaration of function 'drm_dsc_calculate_flatness_det_thresh' [-Werror=implicit-function-declaration]
+     227 |         det_thresh_flatness = drm_dsc_calculate_flatness_det_thresh(dsc);
+         |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c:124:23: warning: variable 'off' set but not used [-Wunused-but-set-variable]
+     124 |         void __iomem *off;
+         |                       ^~~
+   cc1: some warnings being treated as errors
 
 
-On 4/20/2023 5:12 PM, Dmitry Baryshkov wrote:
-> On 21/04/2023 02:25, Kuogee Hsieh wrote:
->> At current implementation, topology configuration is thrown away after
->> dpu_rm_reserve(). This patch save the topology so that it can be used
->> for DSC related calculation later.
-> 
-> Please take a look at 
-> https://patchwork.freedesktop.org/patch/527960/?series=115283&rev=2 .
+vim +/off +124 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
 
-Let the review of this series go on and lets try to get the acks on the 
-non-topology related pieces. I think 2/5 patches in this series are 
-conflicting in the design. We will resolve that in a weeks time. 
-Meanwhile, I think we can keep the reviews / versions going on the rest.
+   112	
+   113	static void dpu_hw_dsc_config_1_2(struct dpu_hw_dsc *hw_dsc,
+   114				      struct drm_dsc_config *dsc,
+   115				      u32 mode,
+   116				      u32 initial_lines)
+   117	{
+   118		struct dpu_hw_blk_reg_map *hw;
+   119		u32 offset;
+   120		u32 data = 0;
+   121		u32 det_thresh_flatness;
+   122		u32 num_active_ss_per_enc;
+   123		u32 bpp;
+ > 124		void __iomem *off;
+   125	
+   126		if (!hw_dsc || !dsc)
+   127			return;
+   128	
+   129		hw = &hw_dsc->hw;
+   130	
+   131		_dsc_subblk_offset(hw_dsc, DPU_DSC_ENC, &offset);
+   132	
+   133		if (mode & DSC_MODE_SPLIT_PANEL)
+   134			data |= BIT(0);
+   135	
+   136		if (mode & DSC_MODE_MULTIPLEX)
+   137			data |= BIT(1);
+   138	
+   139		num_active_ss_per_enc = dsc->slice_count;
+   140		if (mode & DSC_MODE_MULTIPLEX)
+   141			num_active_ss_per_enc = dsc->slice_count >> 1;
+   142	
+   143		data |= (num_active_ss_per_enc & 0x3) << 7;
+   144	
+   145		DPU_REG_WRITE(hw, DSC_CMN_MAIN_CNF, data);
+   146	
+   147		data = (initial_lines & 0xff);
+   148	
+   149		if (mode & DSC_MODE_VIDEO)
+   150			data |= BIT(9);
+   151	
+   152		data |= (_dsc_calc_ob_max_addr(hw_dsc, num_active_ss_per_enc) << 18);
+   153	
+   154		DPU_REG_WRITE(hw, offset + ENC_DF_CTRL, data);
+   155	
+   156		data = (dsc->dsc_version_minor & 0xf) << 28;
+   157		if (dsc->dsc_version_minor == 0x2) {
+   158			if (dsc->native_422)
+   159				data |= BIT(22);
+   160			if (dsc->native_420)
+   161				data |= BIT(21);
+   162		}
+   163	
+   164		bpp = dsc->bits_per_pixel;
+   165		/* as per hw requirement bpp should be programmed
+   166		 * twice the actual value in case of 420 or 422 encoding
+   167		 */
+   168		if (dsc->native_422 || dsc->native_420)
+   169			bpp = 2 * bpp;
+   170		data |= (dsc->block_pred_enable ? 1 : 0) << 20;
+   171		data |= bpp << 10;
+   172		data |= (dsc->line_buf_depth & 0xf) << 6;
+   173		data |= dsc->convert_rgb << 4;
+   174		data |= dsc->bits_per_component & 0xf;
+   175	
+   176		DPU_REG_WRITE(hw, offset + DSC_MAIN_CONF, data);
+   177	
+   178		data = (dsc->pic_width & 0xffff) |
+   179			((dsc->pic_height & 0xffff) << 16);
+   180	
+   181		DPU_REG_WRITE(hw, offset + DSC_PICTURE_SIZE, data);
+   182	
+   183		data = (dsc->slice_width & 0xffff) |
+   184			((dsc->slice_height & 0xffff) << 16);
+   185	
+   186		DPU_REG_WRITE(hw, offset + DSC_SLICE_SIZE, data);
+   187	
+   188		DPU_REG_WRITE(hw, offset + DSC_MISC_SIZE,
+   189				(dsc->slice_chunk_size) & 0xffff);
+   190	
+   191		data = (dsc->initial_xmit_delay & 0xffff) |
+   192			((dsc->initial_dec_delay & 0xffff) << 16);
+   193	
+   194		DPU_REG_WRITE(hw, offset + DSC_HRD_DELAYS, data);
+   195	
+   196		DPU_REG_WRITE(hw, offset + DSC_RC_SCALE,
+   197				dsc->initial_scale_value & 0x3f);
+   198	
+   199		data = (dsc->scale_increment_interval & 0xffff) |
+   200			((dsc->scale_decrement_interval & 0x7ff) << 16);
+   201	
+   202		DPU_REG_WRITE(hw, offset + DSC_RC_SCALE_INC_DEC, data);
+   203	
+   204		data = (dsc->first_line_bpg_offset & 0x1f) |
+   205			((dsc->second_line_bpg_offset & 0x1f) << 5);
+   206	
+   207		DPU_REG_WRITE(hw, offset + DSC_RC_OFFSETS_1, data);
+   208	
+   209		data = (dsc->nfl_bpg_offset & 0xffff) |
+   210			((dsc->slice_bpg_offset & 0xffff) << 16);
+   211	
+   212		DPU_REG_WRITE(hw, offset + DSC_RC_OFFSETS_2, data);
+   213	
+   214		data = (dsc->initial_offset & 0xffff) |
+   215			((dsc->final_offset & 0xffff) << 16);
+   216	
+   217		DPU_REG_WRITE(hw, offset + DSC_RC_OFFSETS_3, data);
+   218	
+   219		data = (dsc->nsl_bpg_offset & 0xffff) |
+   220			((dsc->second_line_offset_adj & 0xffff) << 16);
+   221	
+   222		DPU_REG_WRITE(hw, offset + DSC_RC_OFFSETS_4, data);
+   223	
+   224		data = (dsc->flatness_min_qp & 0x1f);
+   225		data |= (dsc->flatness_max_qp & 0x1f) << 5;
+   226	
+   227		det_thresh_flatness = drm_dsc_calculate_flatness_det_thresh(dsc);
+   228		data |= (det_thresh_flatness & 0xff) << 10;
+   229	
+   230		DPU_REG_WRITE(hw, offset + DSC_FLATNESS_QP, data);
+   231	
+   232		DPU_REG_WRITE(hw, offset + DSC_RC_MODEL_SIZE,
+   233				(dsc->rc_model_size) & 0xffff);
+   234	
+   235		data = dsc->rc_edge_factor & 0xf;
+   236		data |= (dsc->rc_quant_incr_limit0 & 0x1f) << 8;
+   237		data |= (dsc->rc_quant_incr_limit1 & 0x1f) << 13;
+   238		data |= (dsc->rc_tgt_offset_high & 0xf) << 20;
+   239		data |= (dsc->rc_tgt_offset_low & 0xf) << 24;
+   240	
+   241		DPU_REG_WRITE(hw, offset + DSC_RC_CONFIG, data);
+   242	
+   243		/* program the dsc wrapper */
+   244		_dsc_subblk_offset(hw_dsc, DPU_DSC_CTL, &offset);
+   245	
+   246		off = hw->blk_addr + offset;
+   247	
+   248		data = BIT(0); /* encoder enable */
+   249		if (dsc->native_422)
+   250			data |= BIT(8);
+   251		else if (dsc->native_420)
+   252			data |= BIT(9);
+   253		if (!dsc->convert_rgb)
+   254			data |= BIT(10);
+   255		if (dsc->bits_per_component == 8)
+   256			data |= BIT(11);
+   257		if (mode & DSC_MODE_SPLIT_PANEL)
+   258			data |= BIT(12);
+   259		if (mode & DSC_MODE_MULTIPLEX)
+   260			data |= BIT(13);
+   261		if (!(mode & DSC_MODE_VIDEO))
+   262			data |= BIT(17);
+   263	
+   264		DPU_REG_WRITE(hw, offset + DSC_CFG, data);
+   265	}
+   266	
 
-I think we can move patch 5 of this series to patch 3. That way we get 
-acks on patches 1-3 and patches 4 & 5 which deal with topology are dealt 
-with together with virtual planes.
-
-I will review virtual planes next week and we will decide the best 
-course of action. Moving resource allocation to CRTC needs to be thought 
-of a bit deeper for DSC as that one is directly tied to encoder.
-
-> 
->>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 
->> ++++++++++++++---------------
->>   1 file changed, 16 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index ecb87bc..2fdacf1 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -542,13 +542,13 @@ bool dpu_encoder_use_dsc_merge(struct 
->> drm_encoder *drm_enc)
->>       return (num_dsc > 0) && (num_dsc > intf_count);
->>   }
->> -static struct msm_display_topology dpu_encoder_get_topology(
->> +static void dpu_encoder_get_topology(
->>               struct dpu_encoder_virt *dpu_enc,
->>               struct dpu_kms *dpu_kms,
->>               struct drm_display_mode *mode,
->> -            struct drm_crtc_state *crtc_state)
->> +            struct drm_crtc_state *crtc_state,
->> +            struct msm_display_topology *topology)
->>   {
->> -    struct msm_display_topology topology = {0};
->>       int i, intf_count = 0;
->>       for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
->> @@ -567,16 +567,16 @@ static struct msm_display_topology 
->> dpu_encoder_get_topology(
->>        * Add dspps to the reservation requirements if ctm is requested
->>        */
->>       if (intf_count == 2)
->> -        topology.num_lm = 2;
->> +        topology->num_lm = 2;
->>       else if (!dpu_kms->catalog->caps->has_3d_merge)
->> -        topology.num_lm = 1;
->> +        topology->num_lm = 1;
->>       else
->> -        topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
->> +        topology->num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 
->> : 1;
->>       if (crtc_state->ctm)
->> -        topology.num_dspp = topology.num_lm;
->> +        topology->num_dspp = topology->num_lm;
->> -    topology.num_intf = intf_count;
->> +    topology->num_intf = intf_count;
->>       if (dpu_enc->dsc) {
->>           /*
->> @@ -585,12 +585,10 @@ static struct msm_display_topology 
->> dpu_encoder_get_topology(
->>            * this is power optimal and can drive up to (including) 4k
->>            * screens
->>            */
->> -        topology.num_dsc = 2;
->> -        topology.num_lm = 2;
->> -        topology.num_intf = 1;
->> +        topology->num_dsc = 2;
->> +        topology->num_lm = 2;
->> +        topology->num_intf = 1;
->>       }
->> -
->> -    return topology;
->>   }
->>   static int dpu_encoder_virt_atomic_check(
->> @@ -602,7 +600,7 @@ static int dpu_encoder_virt_atomic_check(
->>       struct msm_drm_private *priv;
->>       struct dpu_kms *dpu_kms;
->>       struct drm_display_mode *adj_mode;
->> -    struct msm_display_topology topology;
->> +    struct msm_display_topology *topology;
->>       struct dpu_global_state *global_state;
->>       int i = 0;
->>       int ret = 0;
->> @@ -639,7 +637,9 @@ static int dpu_encoder_virt_atomic_check(
->>           }
->>       }
->> -    topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, 
->> crtc_state);
->> +    topology = &dpu_enc->topology;
->> +    memset(topology, 0, sizeof (*topology));
->> +    dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state, 
->> topology);
->>       /*
->>        * Release and Allocate resources on every modeset
->> @@ -650,7 +650,7 @@ static int dpu_encoder_virt_atomic_check(
->>           if (!crtc_state->active_changed || crtc_state->enable)
->>               ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
->> -                    drm_enc, crtc_state, topology);
->> +                    drm_enc, crtc_state, *topology);
->>       }
->>       trace_dpu_enc_atomic_check_flags(DRMID(drm_enc), adj_mode->flags);
-> 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
