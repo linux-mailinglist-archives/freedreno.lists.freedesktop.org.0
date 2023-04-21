@@ -1,65 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9C036EA700
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 11:33:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A7E6EA853
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 12:27:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E535810EDD9;
-	Fri, 21 Apr 2023 09:33:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D611510E04A;
+	Fri, 21 Apr 2023 10:27:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C76010EDD6;
- Fri, 21 Apr 2023 09:33:33 +0000 (UTC)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-54f945a7bddso16692937b3.0; 
- Fri, 21 Apr 2023 02:33:33 -0700 (PDT)
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E9CA10E04A;
+ Fri, 21 Apr 2023 10:27:08 +0000 (UTC)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-54f8d59a8a9so17557577b3.0; 
+ Fri, 21 Apr 2023 03:27:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682069612; x=1684661612;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T5p6bvHwMyW7lziwaSul4O5r1HMCPQXOQK/D0l6nW90=;
- b=g8MjhIQdjGxLoIgiSzKatFf1xYtIgKS+bgDQB5OL6VoUyZdmddgHFb5qfO5OJill7Z
- 8dQb6jeaSwzQQtj2TqMXja/EAPmlhsau7pg4EMgeBLOYNGFWk/pQdKHbnOfhm+NCAxaK
- +gsMoJaptHLN+8nd6dK03DF7CWAUayErFT4o6Lerc4z06gz8O1Hty3S01Sy3+ZuTmUx9
- BOdYy+2ttz5CteUy7k6Q+DUfdU9FjDbmMB9VlI2uRzvqP+9ep4U/2TzbPpcT8Y9v42+5
- v4pTtgw93Fm8ERP2TDy4amJR9Fmc8falWud21v6z1OBwlY/I3vyKeGhpwuaGnvIZY0jI
- BuHA==
+ d=gmail.com; s=20221208; t=1682072827; x=1684664827;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1jDlW0W3MhjA8VbvOr9JFFYadMRZj0oB2XjEN8u/ZQs=;
+ b=Jq29MVaVXQLS7/50058udG92P2tJ0UekckHnIlgksme797+yXQe/r1AZ4lHs6wJmM3
+ 68UCR52u1/x0QZPBwDYQC/+6TpzG3a8XR8OnW+Usfo6Lna4M1f7uF7w9BeRa1aD06cMl
+ zGL9krAi1vZ3U5UyV+Dl4j5XfFhrXqTgk/dPt3WpF1wqAXu44UUqaWLHNcjgV8b3zGjU
+ dutK14XNfjEG+u2galkQfJXW/wAtUUJeqXrDXCeEVrEdt33M8X4iB/PsrMPsSqmyizi5
+ xGCiDATgeh9PHT84RlBa7BJERI6ne2eFDP3lBcKxKS1LVBKsCtxb2+PJ0gnXGCFR8QLp
+ pBmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682069612; x=1684661612;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=T5p6bvHwMyW7lziwaSul4O5r1HMCPQXOQK/D0l6nW90=;
- b=bWLbpsm5AjvnT9ZZJK3kRCe1JxlTDhjvI9LBleFCCdObvIjWdVaFDCiZiuvDgVDRTs
- EkMsnEhumypyFMzeuVi4HS+35KqPcCqcNuOJH8HUxiNgH9Y/lRrFv7RpZNUPW0OLTm0J
- FT3vQv6/WqrNccuzM2KEkk9wcgfKML0vbGEYr6dTm+wjxF5Zanuds7mF+urBlawIyTjw
- WdCH/naoO9HA/pSf2pjc5YLRYEhpA8UCmXk6KXRDLJlJgfLjsldtfIWpG4oE3ere8DTP
- ZAV27Mhd8W7xLnF1aMtGswtiPKnij+VYywxO6g3oVAc8yFxwUt9SCtCQbSgQiLMa4E+M
- ujmQ==
-X-Gm-Message-State: AAQBX9f7csPwVEo4gAh4dK9eGkHTv8QMpTLDLLeH6kER3d7JaKvwe/dh
- Zat+Afk23c7Zv2AIToetb+wMMpRPwj1IXSMfrgE=
-X-Google-Smtp-Source: AKy350aJAz949U56arY/RpcI9y4j/0DW6OJo5Grq9qVA9gs8hIZAx1lt/+6V34ibq32dXRhlt1z8YItoigsBMzaWfQQ=
-X-Received: by 2002:a0d:c2c1:0:b0:552:c551:9cff with SMTP id
- e184-20020a0dc2c1000000b00552c5519cffmr1131888ywd.21.1682069611741; Fri, 21
- Apr 2023 02:33:31 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682072827; x=1684664827;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1jDlW0W3MhjA8VbvOr9JFFYadMRZj0oB2XjEN8u/ZQs=;
+ b=Pg6Qs1DJx5fEGVSGI9hhK8Rx9lz0zgSJQrv1ra26T9Tydbszn2rsp6ILvTqooxOjUT
+ +Dn1ZzhiHMPNVGbAF1zi+6fR64Vz65NUu07MG+nrT54HpCMuln3s2H2IIeal+xE+Vc8m
+ MGQEe5IF2A7f23+6nJT+wxfz3ZlM46rpfZ83+ng4wM3DN/Q9u133/ndam5/n6Jnja92G
+ wjOz6dC+ozt8f5kBOsIW4DbsI6xzAT3u9ZM4jCXjDwO2TzgrdoJi0ZCZprCvHZFlm2Nz
+ EsuvdeZZ25BOEbyPkHBHQ2sdACCzZog9+HYvWEGurTHKKd5ljosy3BQCVeURTEEPobS5
+ XGYg==
+X-Gm-Message-State: AAQBX9fGWLJfwbQTZhLa9NhUGWvw2nJbjINE/dXHPdl5EbrjamZVKODl
+ Ymgux6k2UAKNxrssqbfsa5SbIPu/E3jTfjqJ5Ec=
+X-Google-Smtp-Source: AKy350Z7RE8rSiaLK/lDI02fKHY8C/Hkm8qnkU6IUdScLzIa6Hrc+QXATCBAVcaBw4SmzH5UZ0SVAeWWaxXJZEHiMro=
+X-Received: by 2002:a81:6fd5:0:b0:541:6d79:9291 with SMTP id
+ k204-20020a816fd5000000b005416d799291mr1599574ywc.43.1682072827166; Fri, 21
+ Apr 2023 03:27:07 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230417201215.448099-1-robdclark@gmail.com>
- <20230417201215.448099-3-robdclark@gmail.com>
- <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
- <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
- <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
-In-Reply-To: <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
+References: <20230412224311.23511-1-robdclark@gmail.com>
+ <20230412224311.23511-6-robdclark@gmail.com>
+In-Reply-To: <20230412224311.23511-6-robdclark@gmail.com>
 From: Emil Velikov <emil.l.velikov@gmail.com>
-Date: Fri, 21 Apr 2023 10:33:20 +0100
-Message-ID: <CACvgo52gByHzwtm4gxqUxZ5yJGTQ5NucBmMHSO7nLPsba3rTfw@mail.gmail.com>
+Date: Fri, 21 Apr 2023 11:26:55 +0100
+Message-ID: <CACvgo525ogS4LSZDUyaqjSqjJWj=qLRkphji5469=3obFXoMrQ@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
+Subject: Re: [Freedreno] [PATCH v4 5/6] drm: Add fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,124 +69,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ linux-arm-msm@vger.kernel.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
  open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Greeting all,
+On Wed, 12 Apr 2023 at 23:43, Rob Clark <robdclark@gmail.com> wrote:
 
-Sorry for the delay - Easter Holidays, food coma and all that :-)
+> +/**
+> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
+> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+> + *
+> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
+> + * it still active or not resident, in which case drm_show_fdinfo() will not
 
-On Tue, 18 Apr 2023 at 15:31, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Tue, Apr 18, 2023 at 1:34=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> w=
-rote:
-> >
-> > On Tue, Apr 18, 2023 at 09:27:49AM +0100, Tvrtko Ursulin wrote:
-> > >
-> > > On 17/04/2023 21:12, Rob Clark wrote:
-> > > > From: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > Make it work in terms of ctx so that it can be re-used for fdinfo.
-> > > >
-> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > ---
-> > > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
-> > > >   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
-> > > >   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
-> > > >   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
-> > > >   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
-> > > >   5 files changed, 21 insertions(+), 11 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/=
-drm/msm/adreno/adreno_gpu.c
-> > > > index bb38e728864d..43c4e1fea83f 100644
-> > > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu, struc=
-t msm_file_private *ctx,
-> > > >             /* Ensure string is null terminated: */
-> > > >             str[len] =3D '\0';
-> > > > -           mutex_lock(&gpu->lock);
-> > > > +           mutex_lock(&ctx->lock);
-> > > >             if (param =3D=3D MSM_PARAM_COMM) {
-> > > >                     paramp =3D &ctx->comm;
-> > > > @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu, struc=
-t msm_file_private *ctx,
-> > > >             kfree(*paramp);
-> > > >             *paramp =3D str;
-> > > > -           mutex_unlock(&gpu->lock);
-> > > > +           mutex_unlock(&ctx->lock);
-> > > >             return 0;
-> > > >     }
-> > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/ms=
-m_drv.c
-> > > > index 3d73b98d6a9c..ca0e89e46e13 100644
-> > > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > > @@ -581,6 +581,8 @@ static int context_init(struct drm_device *dev,=
- struct drm_file *file)
-> > > >     rwlock_init(&ctx->queuelock);
-> > > >     kref_init(&ctx->ref);
-> > > > +   ctx->pid =3D get_pid(task_pid(current));
-> > >
-> > > Would it simplify things for msm if DRM core had an up to date file->=
-pid as
-> > > proposed in
-> > > https://patchwork.freedesktop.org/patch/526752/?series=3D109902&rev=
-=3D4 ? It
-> > > gets updated if ioctl issuer is different than fd opener and this bei=
-ng
-> > > context_init here reminded me of it. Maybe you wouldn't have to track=
- the
-> > > pid in msm?
->
-> The problem is that we also need this for gpu devcore dumps, which
-> could happen after the drm_file is closed.  The ctx can outlive the
-> file.
->
-I think we all kept forgetting about that. MSM had support for ages,
-while AMDGPU is the second driver to land support - just a release
-ago.
+nit: s/can/can be/;s/if it still/if it is still/
 
-> But the ctx->pid has the same problem as the existing file->pid when
-> it comes to Xorg.. hopefully over time that problem just goes away.
+> + * account for it as purgeable.  So drivers do not need to check if the buffer
+> + * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
+> + * as purgeable even while it is still busy on the GPU.. it does not _actually_
+> + * become puregeable until it becomes idle.  The status gem object func does
 
-Out of curiosity: what do you mean with "when it comes to Xorg" - the
-"was_master" handling or something else?
+nit: s/puregeable/purgeable/
 
-> guess I could do a similar dance to your patch to update the pid
-> whenever (for ex) a submitqueue is created.
->
-> > Can we go one step further and let the drm fdinfo stuff print these new
-> > additions? Consistency across drivers and all that.
->
-> Hmm, I guess I could _also_ store the overridden comm/cmdline in
-> drm_file.  I still need to track it in ctx (msm_file_private) because
-> I could need it after the file is closed.
->
-> Maybe it could be useful to have a gl extension to let the app set a
-> name on the context so that this is useful beyond native-ctx (ie.
-> maybe it would be nice to see that "chrome: lwn.net" is using less gpu
-> memory than "chrome: phoronix.com", etc)
->
 
-/me awaits for the series to hit the respective websites ;-)
+I think we want a similar note in the drm-usage-stats.rst file.
 
-But seriously - the series from Tvrtko (thanks for the link, will
-check in a moment) makes sense. Although given the livespan issue
-mentioned above, I don't think it's applicable here.
-
-So if it were me, I would consider the two orthogonal for the
-short/mid term. Fwiw this and patch 1/3 are:
+With the above the whole series is:
 Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 
+Fwiw: Keeping the i915 patch as part of this series would be great.
+Sure i915_drm_client->id becomes dead code, but it's a piece one can
+live with for a release or two. Then again it's not my call to make.
+
 HTH
--Emil
+Emil
