@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFB726EAD6E
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 16:50:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC39C6EAD87
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 16:57:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88ED410EE26;
-	Fri, 21 Apr 2023 14:50:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A7F210E189;
+	Fri, 21 Apr 2023 14:57:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 789FD10E0F9;
- Fri, 21 Apr 2023 14:50:36 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id
- 5614622812f47-38c00f19654so965239b6e.2; 
- Fri, 21 Apr 2023 07:50:36 -0700 (PDT)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 194AE10E189
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 14:57:05 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-506bf4cbecbso2562727a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 07:57:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682088635; x=1684680635;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uRjexQPiKz+B2BoQne8GUJoVgOLR1S5xgnBzy2+vwS4=;
- b=S7tpiJ76bxam24ay+dcwU+lkgG2ZoXHiFLIxoeyfj0+byI5iBcx2l450tz/2E9W8Wv
- b2h1L2cKiG0giw0hS0j98+cO3L366V7krcddHCwHkASJvfLpeM1FNBX29DeFzKVh3G34
- a7b/LCvTbz5lb1xvsNRe1aDyrIZsxnCXKJpbsDu6xDE9mCJT3BNOINWuQIRouVYItqSR
- kFKqhN1jMPp49WdARMC+fHrYBKjrrzAV2Ur6+K8MVn5ogGN8b/LAW60v9wpnfwGVi2ch
- BDETaur+SB248K1SD7jdeJlFEBGJj7fplxuO+978tWeU85YbmzhZcOSHTvnuH1lmYFI5
- 6H7A==
+ d=linaro.org; s=google; t=1682089023; x=1684681023;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uctUzwBZNxJlKpvlCCGIAPlY6l+7Y7RDinQUecvvB3o=;
+ b=cpqNYtVyifWBpd7Olh6M27aSvswD+dUQz/fYK6h1wu/OC2xlMDRH8XDAnG3iJQBI0D
+ 26urFToMIi56QHNGa4WMAGDRaE1qKjdHGF4JySErBO1QIhveRbvjx7eTzYcJ3f2f+w1r
+ twY0DSHEQbxpDerw7+XhnFryKRoAgu6hS+nYlJpWI64/fn98UQSfksvNd4ePVjDFKSbo
+ 9TL8k3L+yf/xY8scabRgTyLQYjCQTUlKie3aFhnW8noQhUyLEfbDJG7VGDJ/FwuxoxKH
+ zyRn3zoEsgbd+ssdWhz5y2y9y2F4/vqzucbMHdUx/0+HxLAaHfLh3k+gFN2tXpDwq8tD
+ qe2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682088635; x=1684680635;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uRjexQPiKz+B2BoQne8GUJoVgOLR1S5xgnBzy2+vwS4=;
- b=G+vPZxQcbn4ueJVXo+1c43f6crz8fLlj63QCVhMouraO9h3G/c/BMk4kY2fCUCuS0I
- Ycgu/Ph/a6NwtzwUDk4Baksuj0Rlea7HVlelVFqZ4yIkrS/qhE+WRPTCh/oVcX9CBkEl
- 3kezR+M03h3ubihI3NuQNBx4CuD1hu4L06lWmsgdpFqlCit7EDkxs4rreoyLvZlkX3hl
- h6VKLS6GmxcdUToikmtgQBT4u4E+tldv1Ny0kTst+TEIqGWRst798jUFbmkRdJINb2zo
- bDIkas8xrzuf48V83Yk0erzWLP/WzNhVwJ+JDEI5pR9B/+Ug2jwvujK7VacRXUWt10/7
- fXuQ==
-X-Gm-Message-State: AAQBX9drr2kZAaO8+TRY5ItHAuc8Q/qoxaMIyTLNN40q+MtWRWRKJp/D
- GHLrcjK+LDYG1C1ZeTWkZZSaEsjQI48TAjtxOf4=
-X-Google-Smtp-Source: AKy350bmODRxJ669T9aGlnSwZYMJcgHKiq97d08P1iIzkniXSqIQpuU4ytOyTsxnikkTRNNNv7oGLN7hwliarNBmLVQ=
-X-Received: by 2002:a05:6808:f03:b0:38d:ef77:d720 with SMTP id
- m3-20020a0568080f0300b0038def77d720mr3059404oiw.52.1682088635133; Fri, 21 Apr
- 2023 07:50:35 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682089023; x=1684681023;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uctUzwBZNxJlKpvlCCGIAPlY6l+7Y7RDinQUecvvB3o=;
+ b=LKx4AXnrotGPonP9uS1TjDMAlOwicxiwx6t8LBcGZyasQEs1tEevGkjhOCo+4FZAnU
+ YBf+VUC4MjX7KzqPHgOKEI4HsxVXt5soRNEOCeomZKQ+aX9YneVlystrkXnYPrjU5lh6
+ fJ4uWG9g9X/FX9s/MvU+kxbK0ZQsuND+WkkqneSCe3HkcsjzVqwZyb5Xvq8WvHpsYTC7
+ mNiKur8O7foUKRYadTAhijoXWgfE9HS0rEcIdnRFlwyNNYaE8JXBhStumnxRuCp4EV3/
+ g2kRzCMNo5TayyL4a8nxJe/ccfCmP9KrEnaYtJQveqYQA+fAS1oyDbsroHNyu50h0zNQ
+ ttGg==
+X-Gm-Message-State: AAQBX9ckBHHYpiy5yo78j8z/wtHhPzBumAd2KSlUL4O6QwnESb/kG5g1
+ wmn/dPdefK70RhIGgngO1HU97J1KzUAW3vjTCok=
+X-Google-Smtp-Source: AKy350b2REY5H1kl7TPN9WKhRxrc9GCLZbpAU2wbU/1Wwzj0x/BQ66ZPvwtnLFJvkl9omAcUfzsOeA==
+X-Received: by 2002:a17:906:16d7:b0:94a:8ada:d109 with SMTP id
+ t23-20020a17090616d700b0094a8adad109mr2517876ejd.77.1682089022753; 
+ Fri, 21 Apr 2023 07:57:02 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+ by smtp.gmail.com with ESMTPSA id
+ 15-20020a170906058f00b0095708428cdcsm1227625ejn.6.2023.04.21.07.57.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Apr 2023 07:57:02 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
+ dmitry.baryshkov@linaro.org, airlied@gmail.com, daniel@ffwll.ch,
+ lyude@redhat.com
+Date: Fri, 21 Apr 2023 15:56:57 +0100
+Message-Id: <20230421145657.12186-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <20230412224311.23511-1-robdclark@gmail.com>
- <20230412224311.23511-6-robdclark@gmail.com>
- <CACvgo525ogS4LSZDUyaqjSqjJWj=qLRkphji5469=3obFXoMrQ@mail.gmail.com>
- <f2a423c2-302a-024a-cf65-199f4be6caec@linux.intel.com>
- <CACvgo53dP03r1BuxntyyoYjua5k6XPvVhu4iTGqXJq31UMUgxg@mail.gmail.com>
- <e16dc626-30bf-be19-8668-bdc14dfd051a@linux.intel.com>
-In-Reply-To: <e16dc626-30bf-be19-8668-bdc14dfd051a@linux.intel.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 21 Apr 2023 07:50:24 -0700
-Message-ID: <CAF6AEGv1B3gzM5sazA5kaPbU29aP-njygx-nOnsVjip1ZwERLg@mail.gmail.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v4 5/6] drm: Add fdinfo memory stats
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: unregister audio driver during
+ unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,106 +73,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-arm-msm@vger.kernel.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, tzimmermann@suse.de,
+ freedreno@lists.freedesktop.org, johan+linaro@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 21, 2023 at 4:59=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
->
->
-> On 21/04/2023 12:45, Emil Velikov wrote:
-> > On Fri, 21 Apr 2023 at 12:23, Tvrtko Ursulin
-> > <tvrtko.ursulin@linux.intel.com> wrote:
-> >
-> >> On 21/04/2023 11:26, Emil Velikov wrote:
-> >>> On Wed, 12 Apr 2023 at 23:43, Rob Clark <robdclark@gmail.com> wrote:
-> >>>
-> >>>> +/**
-> >>>> + * enum drm_gem_object_status - bitmask of object state for fdinfo =
-reporting
-> >>>> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not =
-unpinned)
-> >>>> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspa=
-ce
-> >>>> + *
-> >>>> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_obj=
-ect_funcs.status
-> >>>> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_P=
-URGEABLE if
-> >>>> + * it still active or not resident, in which case drm_show_fdinfo()=
- will not
-> >>>
-> >>> nit: s/can/can be/;s/if it still/if it is still/
-> >>>
-> >>>> + * account for it as purgeable.  So drivers do not need to check if=
- the buffer
-> >>>> + * is idle and resident to return this bit.  (Ie. userspace can mar=
-k a buffer
-> >>>> + * as purgeable even while it is still busy on the GPU.. it does no=
-t _actually_
-> >>>> + * become puregeable until it becomes idle.  The status gem object =
-func does
-> >>>
-> >>> nit: s/puregeable/purgeable/
-> >>>
-> >>>
-> >>> I think we want a similar note in the drm-usage-stats.rst file.
-> >>>
-> >>> With the above the whole series is:
-> >>> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-> >>
-> >> Have you maybe noticed my slightly alternative proposal? (*) I am not =
-a
-> >> fan of putting this flavour of accounting into the core with no way to
-> >> opt out. I think it leaves no option but to add more keys in the futur=
-e
-> >> for any driver which will not be happy with the core accounting.
-> >>
-> >> *) https://patchwork.freedesktop.org/series/116581/
-> >>
-> >
-> > Indeed I saw it. Not a fan of it, I'm afraid.
->
-> Hard to guess the reasons. :)
->
-> Anyway, at a minimum I suggest that if the no opt out version has to go
-> in, it is clearly documented drm-*-memory-* is *not* about the full
-> memory use of the client, but about memory belonging to user visible
-> buffer objects *only*. Possibly going as far as naming the keys as
-> drm-user-bo-memory-... That way there is a way to implement proper
-> drm-*-memory- in the future.
+while binding the code always registers a audio driver, however there
+is no corresponding unregistration done in unbind. This leads to multiple
+redundant audio platform devices if dp_display_bind and dp_display_unbind
+happens multiple times during startup. On X13s platform this resulted in
+6 to 9 audio codec device instead of just 3 codec devices for 3 dp ports.
 
-I'll go back to the helper approach, just been distracted by a few
-other balls in the air.. should hopefully get to it in the next couple
-days
+Fix this by unregistering codecs on unbind.
 
-BR,
--R
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_audio.c   | 12 ++++++++++++
+ drivers/gpu/drm/msm/dp/dp_audio.h   |  2 ++
+ drivers/gpu/drm/msm/dp/dp_display.c |  1 +
+ 3 files changed, 15 insertions(+)
 
-> Regards,
->
-> Tvrtko
->
-> >>> Fwiw: Keeping the i915 patch as part of this series would be great.
-> >>> Sure i915_drm_client->id becomes dead code, but it's a piece one can
-> >>> live with for a release or two. Then again it's not my call to make.
-> >>
-> >> Rob can take the i915 patch from my RFC too.
-> >>
-> >
-> > Indeed.
-> >
-> > -Emil
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+index 6666783e1468..1245c7aa49df 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.c
++++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+@@ -593,6 +593,18 @@ static struct hdmi_codec_pdata codec_data = {
+ 	.i2s = 1,
+ };
+ 
++void dp_unregister_audio_driver(struct device *dev, struct dp_audio *dp_audio)
++{
++	struct dp_audio_private *audio_priv;
++
++	audio_priv = container_of(dp_audio, struct dp_audio_private, dp_audio);
++
++	if (audio_priv->audio_pdev) {
++		platform_device_unregister(audio_priv->audio_pdev);
++		audio_priv->audio_pdev = NULL;
++	}
++}
++
+ int dp_register_audio_driver(struct device *dev,
+ 		struct dp_audio *dp_audio)
+ {
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.h b/drivers/gpu/drm/msm/dp/dp_audio.h
+index 84e5f4a5d26b..4ab78880af82 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.h
++++ b/drivers/gpu/drm/msm/dp/dp_audio.h
+@@ -53,6 +53,8 @@ struct dp_audio *dp_audio_get(struct platform_device *pdev,
+ int dp_register_audio_driver(struct device *dev,
+ 		struct dp_audio *dp_audio);
+ 
++void dp_unregister_audio_driver(struct device *dev, struct dp_audio *dp_audio);
++
+ /**
+  * dp_audio_put()
+  *
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3e13acdfa7e5..99a38dbe51c0 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -326,6 +326,7 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+ 	kthread_stop(dp->ev_tsk);
+ 
+ 	dp_power_client_deinit(dp->power);
++	dp_unregister_audio_driver(dev, dp->audio);
+ 	dp_aux_unregister(dp->aux);
+ 	dp->drm_dev = NULL;
+ 	dp->aux->drm_dev = NULL;
+-- 
+2.21.0
+
