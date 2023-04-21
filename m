@@ -1,59 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 527476EA9CB
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 13:59:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 857EC6EAB07
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 14:56:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBEA510E0B0;
-	Fri, 21 Apr 2023 11:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F76310E080;
+	Fri, 21 Apr 2023 12:56:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B08710E066;
- Fri, 21 Apr 2023 11:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682078357; x=1713614357;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=GlskIVbpC/T4dBmlRS8eqI09qaAdrtmiII1F3Y+p6K0=;
- b=etSLKj9Ea5iC4MTMDEYoznjeHm5APMwLwWyrfRK7CUsF6qkyJIdDwT48
- rTvHeGFsHXBHQSR2l0YPUk8WtN3aK8+BCOnaAHUz2V5d7u9B/0dZ3v5QG
- l+YsEFrLqa5Ne9sdMWf1kmbFNhDo9NRzYFw1LYpIGSNhZ4NYq1+HYDFc8
- smpvZKxxJhkkxFSWELJpvlMxUFJ6dKifD6JvEdin9mXyXhi0BswzZRLl3
- 5BW6Muxwk8J/YsVrba60JGLUX0s5CDTbBWeDU22AcezdavcJRF2X5Lmi3
- JD5AH0Mwh1zLqaTjkvZb3ZQN4eFVsW6yw7LZ9gvwvpHPpzrx67W9xR/zB w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="345994925"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="345994925"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2023 04:59:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="938458823"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="938458823"
-Received: from vhavelx-mobl2.ger.corp.intel.com (HELO [10.213.192.37])
- ([10.213.192.37])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2023 04:59:10 -0700
-Message-ID: <e16dc626-30bf-be19-8668-bdc14dfd051a@linux.intel.com>
-Date: Fri, 21 Apr 2023 12:59:09 +0100
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F3C10E080;
+ Fri, 21 Apr 2023 12:56:21 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-6a438f0d9c9so1659355a34.1; 
+ Fri, 21 Apr 2023 05:56:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682081780; x=1684673780;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=8iHqSMwo/rp53MUqa385NdmlLYpp8taR9HcafwH8WBg=;
+ b=Xn6LJ+ypKX4aERr2zvrxEajzqNf7SxT5asBRtjvrnlEbZe3a8r7oV17Ok6+ig8iBAV
+ DXi12kBytZZbgDX+NVCcAPfKfJyYW/R0MBt0dG4CdAEPRHZpJdwzi8jipkpplPNg9tbt
+ 0gskBxQ20z0sJ0fdY7Aj9sS2frs6heOW8qQmij3TnBbqbQf+pbMuHF3/JBjvpZHSfxSx
+ rmai/+KsHqEGc7pFrgQcM3pFBfpeZMhCrHXVfHd9P86+XLI6HDLoul2Av/YHIN7G+ELn
+ d+mvv9sEDnwlqOda2W1WHVmRWJfHR3N/d4BCuG5P72OcumZMHB/9vJ8P8RsiGilBJnuw
+ qlpg==
+X-Gm-Message-State: AAQBX9c2B8Qf29VbCaisSKTqCF81glP23/l/4wts7pCUnmAe5Hn/ZJC8
+ 6QPiODiiV6NbUIYVQN0TUAeo43ensQ==
+X-Google-Smtp-Source: AKy350aomGuxUTztWOPXI+gVl1MEgcB2Ww3EEurAtTYT7QWYKij3fQcsX+CIjfRPUgtasssGom9CvA==
+X-Received: by 2002:a05:6830:1e79:b0:6a5:ff72:4fea with SMTP id
+ m25-20020a0568301e7900b006a5ff724feamr2740190otr.29.1682081780049; 
+ Fri, 21 Apr 2023 05:56:20 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ l4-20020a0568301d6400b0069fa883c738sm1742364oti.35.2023.04.21.05.56.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Apr 2023 05:56:19 -0700 (PDT)
+Received: (nullmailer pid 936702 invoked by uid 1000);
+ Fri, 21 Apr 2023 12:56:18 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Emil Velikov <emil.l.velikov@gmail.com>
-References: <20230412224311.23511-1-robdclark@gmail.com>
- <20230412224311.23511-6-robdclark@gmail.com>
- <CACvgo525ogS4LSZDUyaqjSqjJWj=qLRkphji5469=3obFXoMrQ@mail.gmail.com>
- <f2a423c2-302a-024a-cf65-199f4be6caec@linux.intel.com>
- <CACvgo53dP03r1BuxntyyoYjua5k6XPvVhu4iTGqXJq31UMUgxg@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CACvgo53dP03r1BuxntyyoYjua5k6XPvVhu4iTGqXJq31UMUgxg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 5/6] drm: Add fdinfo memory stats
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v2-4-5def73f50980@linaro.org>
+References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v2-4-5def73f50980@linaro.org>
+Message-Id: <168208107852.922456.2603583984839094907.robh@kernel.org>
+Date: Fri, 21 Apr 2023 07:56:18 -0500
+Subject: Re: [Freedreno] [PATCH v2 04/13] dt-bindings: display/msm: Add
+ SM6350 MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,82 +65,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 21/04/2023 12:45, Emil Velikov wrote:
-> On Fri, 21 Apr 2023 at 12:23, Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
+On Fri, 21 Apr 2023 00:31:13 +0200, Konrad Dybcio wrote:
+> Document the SM6350 MDSS.
 > 
->> On 21/04/2023 11:26, Emil Velikov wrote:
->>> On Wed, 12 Apr 2023 at 23:43, Rob Clark <robdclark@gmail.com> wrote:
->>>
->>>> +/**
->>>> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
->>>> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
->>>> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
->>>> + *
->>>> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
->>>> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
->>>> + * it still active or not resident, in which case drm_show_fdinfo() will not
->>>
->>> nit: s/can/can be/;s/if it still/if it is still/
->>>
->>>> + * account for it as purgeable.  So drivers do not need to check if the buffer
->>>> + * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
->>>> + * as purgeable even while it is still busy on the GPU.. it does not _actually_
->>>> + * become puregeable until it becomes idle.  The status gem object func does
->>>
->>> nit: s/puregeable/purgeable/
->>>
->>>
->>> I think we want a similar note in the drm-usage-stats.rst file.
->>>
->>> With the above the whole series is:
->>> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
->>
->> Have you maybe noticed my slightly alternative proposal? (*) I am not a
->> fan of putting this flavour of accounting into the core with no way to
->> opt out. I think it leaves no option but to add more keys in the future
->> for any driver which will not be happy with the core accounting.
->>
->> *) https://patchwork.freedesktop.org/series/116581/
->>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 214 +++++++++++++++++++++
+>  1 file changed, 214 insertions(+)
 > 
-> Indeed I saw it. Not a fan of it, I'm afraid.
 
-Hard to guess the reasons. :)
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Anyway, at a minimum I suggest that if the no opt out version has to go 
-in, it is clearly documented drm-*-memory-* is *not* about the full 
-memory use of the client, but about memory belonging to user visible 
-buffer objects *only*. Possibly going as far as naming the keys as 
-drm-user-bo-memory-... That way there is a way to implement proper 
-drm-*-memory- in the future.
+yamllint warnings/errors:
 
-Regards,
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
+	'qcom,sm6350-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
+	'qcom,sm6350-dsi-ctrl' is not one of ['dsi-ctrl-6g-qcm2290']
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: dsi@ae94000: Unevaluated properties are not allowed ('compatible' was unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
 
-Tvrtko
+doc reference errors (make refcheckdocs):
 
->>> Fwiw: Keeping the i915 patch as part of this series would be great.
->>> Sure i915_drm_client->id becomes dead code, but it's a piece one can
->>> live with for a release or two. Then again it's not my call to make.
->>
->> Rob can take the i915 patch from my RFC too.
->>
-> 
-> Indeed.
-> 
-> -Emil
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230411-topic-straitlagoon_mdss-v2-4-5def73f50980@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
