@@ -2,62 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C05A96EAED6
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:12:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A49B46EAED7
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:12:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA33010E250;
-	Fri, 21 Apr 2023 16:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E569310E252;
+	Fri, 21 Apr 2023 16:12:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
  [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C946B10E123
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:12:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 697D710EE5A
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:12:44 +0000 (UTC)
 Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-54f99770f86so21780017b3.1
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:12:42 -0700 (PDT)
+ 00721157ae682-54fe0146b01so21568277b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:12:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1682093561; x=1684685561;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3iaYoNXm4l5TRXSCaOPyaOsQSUDKJbhWkidfUAQe800=;
- b=nTzCrifxuKTWpGBhR+ZZZf2bEdkhPdbeVRlCUqbn1RD1+rZLMNIiarlj+jTWSgr0Qj
- moPu5pKvqwPda/nSMHneKSZx67A8dBxHdHK8orJZ6F2KuSrHY95xXVBfw5J7PTSU+pEi
- xALCPoiksi6osn1IXcraU3dbTCkHIKIvQe5/g=
+ d=chromium.org; s=google; t=1682093563; x=1684685563;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QQvRknvrozsjgOo+aHdUqHX5mEjM0UqwOQuOkiFPD1Q=;
+ b=aY7hOgXg/OVMQhJpR+WdPXoXmESxOXa/4Z2E/3GbrCFz/DnAzBTOkLQvfUTDbakEKz
+ B+fEz9sGY+bXYgokkV9JKIHIN1UX8lWCps3ls6u7xpOuI7x6gR4KZ0dDWtGd0r+PNKs3
+ 95eRD42ZB/Jd21qkUJZGCIvz3+lpllh9EkBag=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682093561; x=1684685561;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3iaYoNXm4l5TRXSCaOPyaOsQSUDKJbhWkidfUAQe800=;
- b=bfdMnkgVz9HlCq/8B6RqC+Tv9jwiM2Iv0P5v2s+klERliYt0bXZw6xJ/wWDs/uzNNj
- kb9ZbWMZbdtrszWnXUwa8iXpVWFOaVpRMd7ylqyEJFui1RMfpzXVO5ewehk4PHj7KIFQ
- EgA/+S/xX3vHq2+LR405iBEAh9ZotVkJI/5Dyn2G0EYuln0nj7Vk/1zlyA16rYSx6fbT
- H6pmZSzPOcIvuG+BjcnVTymtS/12PV9IeAOHn2wHu1hr40o/kz2/C9P3VZnW6haOz/Kz
- p+UYlPoCzyfrtHPAodVQTZbAC65Se83T4ibAIMdX23hGshnLIciwv13YNMIw9TsuTgl5
- 97nA==
-X-Gm-Message-State: AAQBX9cv4gaGwo8x/W3JGm4QOq7VM9DtRqXbLDhwjPWbWjopF6oP+KfX
- g2zHAFk16gNwtYh8yqkYwdmM+w==
-X-Google-Smtp-Source: AKy350YfuVuXSKq0yh511OKw/AG4hNVcCQlX+I59C/N7PMMNKZ6kRrUgM7fL79KuLGPK+ogJYDkkRQ==
-X-Received: by 2002:a81:a0c3:0:b0:54f:244:807d with SMTP id
- x186-20020a81a0c3000000b0054f0244807dmr2420559ywg.11.1682093561340; 
- Fri, 21 Apr 2023 09:12:41 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682093563; x=1684685563;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QQvRknvrozsjgOo+aHdUqHX5mEjM0UqwOQuOkiFPD1Q=;
+ b=NRiqgkCO7sHmNJ4SbS3fB5ZF5g79MpmGTs7FC6t2VA2gUEi+It9WZrxPoJne0ZWs/3
+ QCPDfsgXVJTM6mt6UsUymJLnDBBxGNRzn4moGL3pYXCE1sBxRsv4xfJg+kMudJfPLirf
+ jWsaxod3M2w3o+4R3BsNbNCTwcxe0qfVfWAl4aFGPuwSu0eoE0hFwvzzuGINYJo0FpIG
+ nUwRYA5TEclU1qh/9EkBXq4/m5qbX6SyXoC3r7PAcRynE01zcUsCY1nnEtlqnXSiqQ96
+ IrPURkn9KUCCOJV9q+BIWl/L3gv5p3jUjpuc8yG0wXASMSGxiceUGjTKz3FzQdA4ZBCc
+ dJ7Q==
+X-Gm-Message-State: AAQBX9eCPl1wNpaiRDP9IA+HsD0pOIKSfvZL/qsY3smxCzU1sMpKqIVZ
+ E5WPmJpPLoGt/AxEDLLk0YVg7w==
+X-Google-Smtp-Source: AKy350aEtduOjMIU3HUgeK4N5JZgtHBrAAVw0qeEDNNp/Pmvtp0bSXFirsCwHwiI8ng/WkSUfnqtnA==
+X-Received: by 2002:a81:6245:0:b0:54c:2500:defa with SMTP id
+ w66-20020a816245000000b0054c2500defamr2367114ywb.10.1682093563605; 
+ Fri, 21 Apr 2023 09:12:43 -0700 (PDT)
 Received: from localhost ([2620:0:1035:15:25e5:2115:c97c:bf00])
  by smtp.gmail.com with UTF8SMTPSA id
- n207-20020a0dcbd8000000b00555df877a4csm1013313ywd.102.2023.04.21.09.12.40
+ f67-20020a816a46000000b00552a648fd7bsm1020460ywc.83.2023.04.21.09.12.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Apr 2023 09:12:40 -0700 (PDT)
+ Fri, 21 Apr 2023 09:12:43 -0700 (PDT)
 From: Mark Yacoub <markyacoub@chromium.org>
 X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
-To: dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org
-Date: Fri, 21 Apr 2023 12:12:35 -0400
-Message-ID: <20230421161237.357342-1-markyacoub@google.com>
+To: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 21 Apr 2023 12:12:36 -0400
+Message-ID: <20230421161237.357342-2-markyacoub@google.com>
 X-Mailer: git-send-email 2.40.0.634.g4ca3ef3211-goog
+In-Reply-To: <20230421161237.357342-1-markyacoub@google.com>
+References: <20230421161237.357342-1-markyacoub@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 0/2] Create Content Protection Property and
- Use it
+Subject: [Freedreno] [PATCH v1 1/2] DRM: Create new Content Protection
+ connector property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,33 +77,87 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: dmitry.baryshkov@linaro.org, Mark Yacoub <markyacoub@chromium.org>,
- seanpaul@chromium.org, dianders@chromium.org
+ seanpaul@chromium.org, dianders@chromium.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Mark Yacoub <markyacoub@chromium.org>
 
-Hi all, 
-Following up to my HDCP patches[1], this series introduces a new connector prop that is required to push the key from user space to a driver that requires a key from user space to enable HDCP on a connector.
+[Why]
+To enable Protected Content, some drivers require a key to be injected
+from user space to enable HDCP on the connector.
 
-Patch 1 is the DRM code that creates this prop.
-Patch 2 is the MSM driver making use of the value of this prop.
+[How]
+Create new "Content Protection Property" of type "Blob"
 
-Thanks,
-Mark Yacoub
+Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 9 +++++++++
+ include/drm/drm_connector.h       | 6 ++++++
+ include/drm/drm_mode_config.h     | 6 ++++++
+ 3 files changed, 21 insertions(+)
 
-[1] https://patchwork.freedesktop.org/series/94713/
-
-Mark Yacoub (2):
-  DRM: Create new Content Protection connector property
-  dp_hdcp: Get the hdcp key from the connector prop
-
- drivers/gpu/drm/drm_atomic_uapi.c |  9 +++++
- drivers/gpu/drm/msm/dp/dp_hdcp.c  | 66 ++++++++++++++++++++++++++++---
- include/drm/drm_connector.h       |  6 +++
- include/drm/drm_mode_config.h     |  6 +++
- 4 files changed, 82 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index d867e7f9f2cd5..e20bc57cdb05c 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -749,6 +749,11 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+ 		state->content_protection = val;
+ 	} else if (property == config->hdcp_content_type_property) {
+ 		state->hdcp_content_type = val;
++	} else if (property == config->content_protection_key_property) {
++		ret = drm_atomic_replace_property_blob_from_id(
++			dev, &state->content_protection_key, val, -1, -1,
++			&replaced);
++		return ret;
+ 	} else if (property == connector->colorspace_property) {
+ 		state->colorspace = val;
+ 	} else if (property == config->writeback_fb_id_property) {
+@@ -843,6 +848,10 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+ 		*val = state->content_protection;
+ 	} else if (property == config->hdcp_content_type_property) {
+ 		*val = state->hdcp_content_type;
++	} else if (property == config->content_protection_key_property) {
++		*val = state->content_protection_key ?
++			       state->content_protection_key->base.id :
++			       0;
+ 	} else if (property == config->writeback_fb_id_property) {
+ 		/* Writeback framebuffer is one-shot, write and forget */
+ 		*val = 0;
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 7b5048516185c..2fbe51272bfeb 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -896,6 +896,12 @@ struct drm_connector_state {
+ 	 */
+ 	unsigned int content_protection;
+ 
++	/**
++	 * @content_protection_key: DRM blob property for holding the Content
++	 * Protection Key injected from user space.
++	 */
++	struct drm_property_blob *content_protection_key;
++
+ 	/**
+ 	 * @colorspace: State variable for Connector property to request
+ 	 * colorspace change on Sink. This is most commonly used to switch
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index e5b053001d22e..615d1e5f57562 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -887,6 +887,12 @@ struct drm_mode_config {
+ 	 */
+ 	struct drm_property *hdcp_content_type_property;
+ 
++	/**
++	 * @content_protection_key_property: DRM blob property that receives the 
++	 * content protection key from user space to be injected into the kernel.
++	 */
++	struct drm_property *content_protection_key_property;
++
+ 	/* dumb ioctl parameters */
+ 	uint32_t preferred_depth, prefer_shadow;
+ 
 -- 
 2.40.0.634.g4ca3ef3211-goog
 
