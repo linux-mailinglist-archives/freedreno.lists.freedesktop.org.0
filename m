@@ -2,36 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CAE36EA4E6
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 09:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C036EA700
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 11:33:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D36ED10EDB5;
-	Fri, 21 Apr 2023 07:36:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E535810EDD9;
+	Fri, 21 Apr 2023 09:33:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07CDB10EDB4
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 07:35:58 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 67E053ED5F;
- Fri, 21 Apr 2023 09:35:55 +0200 (CEST)
-Date: Fri, 21 Apr 2023 09:35:54 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <cwy7eyop2heahqvlijp6a66acwhpfcg6feq2khfw2detul6fxk@qnkhj4iwo23k>
-References: <20230420222558.1208887-1-dmitry.baryshkov@linaro.org>
- <20230420222558.1208887-2-dmitry.baryshkov@linaro.org>
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [IPv6:2607:f8b0:4864:20::1132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C76010EDD6;
+ Fri, 21 Apr 2023 09:33:33 +0000 (UTC)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-54f945a7bddso16692937b3.0; 
+ Fri, 21 Apr 2023 02:33:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682069612; x=1684661612;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T5p6bvHwMyW7lziwaSul4O5r1HMCPQXOQK/D0l6nW90=;
+ b=g8MjhIQdjGxLoIgiSzKatFf1xYtIgKS+bgDQB5OL6VoUyZdmddgHFb5qfO5OJill7Z
+ 8dQb6jeaSwzQQtj2TqMXja/EAPmlhsau7pg4EMgeBLOYNGFWk/pQdKHbnOfhm+NCAxaK
+ +gsMoJaptHLN+8nd6dK03DF7CWAUayErFT4o6Lerc4z06gz8O1Hty3S01Sy3+ZuTmUx9
+ BOdYy+2ttz5CteUy7k6Q+DUfdU9FjDbmMB9VlI2uRzvqP+9ep4U/2TzbPpcT8Y9v42+5
+ v4pTtgw93Fm8ERP2TDy4amJR9Fmc8falWud21v6z1OBwlY/I3vyKeGhpwuaGnvIZY0jI
+ BuHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682069612; x=1684661612;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=T5p6bvHwMyW7lziwaSul4O5r1HMCPQXOQK/D0l6nW90=;
+ b=bWLbpsm5AjvnT9ZZJK3kRCe1JxlTDhjvI9LBleFCCdObvIjWdVaFDCiZiuvDgVDRTs
+ EkMsnEhumypyFMzeuVi4HS+35KqPcCqcNuOJH8HUxiNgH9Y/lRrFv7RpZNUPW0OLTm0J
+ FT3vQv6/WqrNccuzM2KEkk9wcgfKML0vbGEYr6dTm+wjxF5Zanuds7mF+urBlawIyTjw
+ WdCH/naoO9HA/pSf2pjc5YLRYEhpA8UCmXk6KXRDLJlJgfLjsldtfIWpG4oE3ere8DTP
+ ZAV27Mhd8W7xLnF1aMtGswtiPKnij+VYywxO6g3oVAc8yFxwUt9SCtCQbSgQiLMa4E+M
+ ujmQ==
+X-Gm-Message-State: AAQBX9f7csPwVEo4gAh4dK9eGkHTv8QMpTLDLLeH6kER3d7JaKvwe/dh
+ Zat+Afk23c7Zv2AIToetb+wMMpRPwj1IXSMfrgE=
+X-Google-Smtp-Source: AKy350aJAz949U56arY/RpcI9y4j/0DW6OJo5Grq9qVA9gs8hIZAx1lt/+6V34ibq32dXRhlt1z8YItoigsBMzaWfQQ=
+X-Received: by 2002:a0d:c2c1:0:b0:552:c551:9cff with SMTP id
+ e184-20020a0dc2c1000000b00552c5519cffmr1131888ywd.21.1682069611741; Fri, 21
+ Apr 2023 02:33:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230420222558.1208887-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: stop mapping the regdma
- region
+References: <20230417201215.448099-1-robdclark@gmail.com>
+ <20230417201215.448099-3-robdclark@gmail.com>
+ <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
+ <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
+ <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
+In-Reply-To: <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Date: Fri, 21 Apr 2023 10:33:20 +0100
+Message-ID: <CACvgo52gByHzwtm4gxqUxZ5yJGTQ5NucBmMHSO7nLPsba3rTfw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,62 +72,126 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-21 01:25:58, Dmitry Baryshkov wrote:
-> Stop mapping the regdma region. The driver does not support regdma.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Greeting all,
 
-Should you add a third patch to remove this from dt-bindings?
-(msm8998 has it in both dpu and mdss files)
+Sorry for the delay - Easter Holidays, food coma and all that :-)
 
-Regardless, the patch itself is:
+On Tue, 18 Apr 2023 at 15:31, Rob Clark <robdclark@gmail.com> wrote:
+>
+> On Tue, Apr 18, 2023 at 1:34=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> w=
+rote:
+> >
+> > On Tue, Apr 18, 2023 at 09:27:49AM +0100, Tvrtko Ursulin wrote:
+> > >
+> > > On 17/04/2023 21:12, Rob Clark wrote:
+> > > > From: Rob Clark <robdclark@chromium.org>
+> > > >
+> > > > Make it work in terms of ctx so that it can be re-used for fdinfo.
+> > > >
+> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > ---
+> > > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
+> > > >   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
+> > > >   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
+> > > >   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
+> > > >   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
+> > > >   5 files changed, 21 insertions(+), 11 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/=
+drm/msm/adreno/adreno_gpu.c
+> > > > index bb38e728864d..43c4e1fea83f 100644
+> > > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > > @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu, struc=
+t msm_file_private *ctx,
+> > > >             /* Ensure string is null terminated: */
+> > > >             str[len] =3D '\0';
+> > > > -           mutex_lock(&gpu->lock);
+> > > > +           mutex_lock(&ctx->lock);
+> > > >             if (param =3D=3D MSM_PARAM_COMM) {
+> > > >                     paramp =3D &ctx->comm;
+> > > > @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu, struc=
+t msm_file_private *ctx,
+> > > >             kfree(*paramp);
+> > > >             *paramp =3D str;
+> > > > -           mutex_unlock(&gpu->lock);
+> > > > +           mutex_unlock(&ctx->lock);
+> > > >             return 0;
+> > > >     }
+> > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/ms=
+m_drv.c
+> > > > index 3d73b98d6a9c..ca0e89e46e13 100644
+> > > > --- a/drivers/gpu/drm/msm/msm_drv.c
+> > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
+> > > > @@ -581,6 +581,8 @@ static int context_init(struct drm_device *dev,=
+ struct drm_file *file)
+> > > >     rwlock_init(&ctx->queuelock);
+> > > >     kref_init(&ctx->ref);
+> > > > +   ctx->pid =3D get_pid(task_pid(current));
+> > >
+> > > Would it simplify things for msm if DRM core had an up to date file->=
+pid as
+> > > proposed in
+> > > https://patchwork.freedesktop.org/patch/526752/?series=3D109902&rev=
+=3D4 ? It
+> > > gets updated if ioctl issuer is different than fd opener and this bei=
+ng
+> > > context_init here reminded me of it. Maybe you wouldn't have to track=
+ the
+> > > pid in msm?
+>
+> The problem is that we also need this for gpu devcore dumps, which
+> could happen after the drm_file is closed.  The ctx can outlive the
+> file.
+>
+I think we all kept forgetting about that. MSM had support for ages,
+while AMDGPU is the second driver to land support - just a release
+ago.
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> But the ctx->pid has the same problem as the existing file->pid when
+> it comes to Xorg.. hopefully over time that problem just goes away.
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 6 ------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 2 +-
->  2 files changed, 1 insertion(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 0e7a68714e9e..28d74d4d2c1d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1033,12 +1033,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->  		DPU_DEBUG("VBIF NRT is not defined");
->  	}
->  
-> -	dpu_kms->reg_dma = msm_ioremap_quiet(dpu_kms->pdev, "regdma");
-> -	if (IS_ERR(dpu_kms->reg_dma)) {
-> -		dpu_kms->reg_dma = NULL;
-> -		DPU_DEBUG("REG_DMA is not defined");
-> -	}
-> -
->  	dpu_kms_parse_data_bus_icc_path(dpu_kms);
->  
->  	rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index aca39a4689f4..15111e433f21 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -71,7 +71,7 @@ struct dpu_kms {
->  	const struct dpu_mdss_cfg *catalog;
->  
->  	/* io/register spaces: */
-> -	void __iomem *mmio, *vbif[VBIF_MAX], *reg_dma;
-> +	void __iomem *mmio, *vbif[VBIF_MAX];
->  
->  	struct regulator *vdd;
->  	struct regulator *mmagic;
-> -- 
-> 2.39.2
-> 
+Out of curiosity: what do you mean with "when it comes to Xorg" - the
+"was_master" handling or something else?
+
+> guess I could do a similar dance to your patch to update the pid
+> whenever (for ex) a submitqueue is created.
+>
+> > Can we go one step further and let the drm fdinfo stuff print these new
+> > additions? Consistency across drivers and all that.
+>
+> Hmm, I guess I could _also_ store the overridden comm/cmdline in
+> drm_file.  I still need to track it in ctx (msm_file_private) because
+> I could need it after the file is closed.
+>
+> Maybe it could be useful to have a gl extension to let the app set a
+> name on the context so that this is useful beyond native-ctx (ie.
+> maybe it would be nice to see that "chrome: lwn.net" is using less gpu
+> memory than "chrome: phoronix.com", etc)
+>
+
+/me awaits for the series to hit the respective websites ;-)
+
+But seriously - the series from Tvrtko (thanks for the link, will
+check in a moment) makes sense. Although given the livespan issue
+mentioned above, I don't think it's applicable here.
+
+So if it were me, I would consider the two orthogonal for the
+short/mid term. Fwiw this and patch 1/3 are:
+Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+
+HTH
+-Emil
