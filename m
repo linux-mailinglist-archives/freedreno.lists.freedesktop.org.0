@@ -1,66 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC39C6EAD87
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 16:57:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C05A96EAED6
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:12:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A7F210E189;
-	Fri, 21 Apr 2023 14:57:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA33010E250;
+	Fri, 21 Apr 2023 16:12:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 194AE10E189
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 14:57:05 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-506bf4cbecbso2562727a12.1
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 07:57:04 -0700 (PDT)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C946B10E123
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:12:42 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-54f99770f86so21780017b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:12:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682089023; x=1684681023;
+ d=chromium.org; s=google; t=1682093561; x=1684685561;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=uctUzwBZNxJlKpvlCCGIAPlY6l+7Y7RDinQUecvvB3o=;
- b=cpqNYtVyifWBpd7Olh6M27aSvswD+dUQz/fYK6h1wu/OC2xlMDRH8XDAnG3iJQBI0D
- 26urFToMIi56QHNGa4WMAGDRaE1qKjdHGF4JySErBO1QIhveRbvjx7eTzYcJ3f2f+w1r
- twY0DSHEQbxpDerw7+XhnFryKRoAgu6hS+nYlJpWI64/fn98UQSfksvNd4ePVjDFKSbo
- 9TL8k3L+yf/xY8scabRgTyLQYjCQTUlKie3aFhnW8noQhUyLEfbDJG7VGDJ/FwuxoxKH
- zyRn3zoEsgbd+ssdWhz5y2y9y2F4/vqzucbMHdUx/0+HxLAaHfLh3k+gFN2tXpDwq8tD
- qe2w==
+ bh=3iaYoNXm4l5TRXSCaOPyaOsQSUDKJbhWkidfUAQe800=;
+ b=nTzCrifxuKTWpGBhR+ZZZf2bEdkhPdbeVRlCUqbn1RD1+rZLMNIiarlj+jTWSgr0Qj
+ moPu5pKvqwPda/nSMHneKSZx67A8dBxHdHK8orJZ6F2KuSrHY95xXVBfw5J7PTSU+pEi
+ xALCPoiksi6osn1IXcraU3dbTCkHIKIvQe5/g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682089023; x=1684681023;
+ d=1e100.net; s=20221208; t=1682093561; x=1684685561;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=uctUzwBZNxJlKpvlCCGIAPlY6l+7Y7RDinQUecvvB3o=;
- b=LKx4AXnrotGPonP9uS1TjDMAlOwicxiwx6t8LBcGZyasQEs1tEevGkjhOCo+4FZAnU
- YBf+VUC4MjX7KzqPHgOKEI4HsxVXt5soRNEOCeomZKQ+aX9YneVlystrkXnYPrjU5lh6
- fJ4uWG9g9X/FX9s/MvU+kxbK0ZQsuND+WkkqneSCe3HkcsjzVqwZyb5Xvq8WvHpsYTC7
- mNiKur8O7foUKRYadTAhijoXWgfE9HS0rEcIdnRFlwyNNYaE8JXBhStumnxRuCp4EV3/
- g2kRzCMNo5TayyL4a8nxJe/ccfCmP9KrEnaYtJQveqYQA+fAS1oyDbsroHNyu50h0zNQ
- ttGg==
-X-Gm-Message-State: AAQBX9ckBHHYpiy5yo78j8z/wtHhPzBumAd2KSlUL4O6QwnESb/kG5g1
- wmn/dPdefK70RhIGgngO1HU97J1KzUAW3vjTCok=
-X-Google-Smtp-Source: AKy350b2REY5H1kl7TPN9WKhRxrc9GCLZbpAU2wbU/1Wwzj0x/BQ66ZPvwtnLFJvkl9omAcUfzsOeA==
-X-Received: by 2002:a17:906:16d7:b0:94a:8ada:d109 with SMTP id
- t23-20020a17090616d700b0094a8adad109mr2517876ejd.77.1682089022753; 
- Fri, 21 Apr 2023 07:57:02 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
- by smtp.gmail.com with ESMTPSA id
- 15-20020a170906058f00b0095708428cdcsm1227625ejn.6.2023.04.21.07.57.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Apr 2023 07:57:02 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- dmitry.baryshkov@linaro.org, airlied@gmail.com, daniel@ffwll.ch,
- lyude@redhat.com
-Date: Fri, 21 Apr 2023 15:56:57 +0100
-Message-Id: <20230421145657.12186-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ bh=3iaYoNXm4l5TRXSCaOPyaOsQSUDKJbhWkidfUAQe800=;
+ b=bfdMnkgVz9HlCq/8B6RqC+Tv9jwiM2Iv0P5v2s+klERliYt0bXZw6xJ/wWDs/uzNNj
+ kb9ZbWMZbdtrszWnXUwa8iXpVWFOaVpRMd7ylqyEJFui1RMfpzXVO5ewehk4PHj7KIFQ
+ EgA/+S/xX3vHq2+LR405iBEAh9ZotVkJI/5Dyn2G0EYuln0nj7Vk/1zlyA16rYSx6fbT
+ H6pmZSzPOcIvuG+BjcnVTymtS/12PV9IeAOHn2wHu1hr40o/kz2/C9P3VZnW6haOz/Kz
+ p+UYlPoCzyfrtHPAodVQTZbAC65Se83T4ibAIMdX23hGshnLIciwv13YNMIw9TsuTgl5
+ 97nA==
+X-Gm-Message-State: AAQBX9cv4gaGwo8x/W3JGm4QOq7VM9DtRqXbLDhwjPWbWjopF6oP+KfX
+ g2zHAFk16gNwtYh8yqkYwdmM+w==
+X-Google-Smtp-Source: AKy350YfuVuXSKq0yh511OKw/AG4hNVcCQlX+I59C/N7PMMNKZ6kRrUgM7fL79KuLGPK+ogJYDkkRQ==
+X-Received: by 2002:a81:a0c3:0:b0:54f:244:807d with SMTP id
+ x186-20020a81a0c3000000b0054f0244807dmr2420559ywg.11.1682093561340; 
+ Fri, 21 Apr 2023 09:12:41 -0700 (PDT)
+Received: from localhost ([2620:0:1035:15:25e5:2115:c97c:bf00])
+ by smtp.gmail.com with UTF8SMTPSA id
+ n207-20020a0dcbd8000000b00555df877a4csm1013313ywd.102.2023.04.21.09.12.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Apr 2023 09:12:40 -0700 (PDT)
+From: Mark Yacoub <markyacoub@chromium.org>
+X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
+To: dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org
+Date: Fri, 21 Apr 2023 12:12:35 -0400
+Message-ID: <20230421161237.357342-1-markyacoub@google.com>
+X-Mailer: git-send-email 2.40.0.634.g4ca3ef3211-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: unregister audio driver during
- unbind
+Subject: [Freedreno] [PATCH v1 0/2] Create Content Protection Property and
+ Use it
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,77 +70,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, javierm@redhat.com,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, tzimmermann@suse.de,
- freedreno@lists.freedesktop.org, johan+linaro@kernel.org
+Cc: dmitry.baryshkov@linaro.org, Mark Yacoub <markyacoub@chromium.org>,
+ seanpaul@chromium.org, dianders@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-while binding the code always registers a audio driver, however there
-is no corresponding unregistration done in unbind. This leads to multiple
-redundant audio platform devices if dp_display_bind and dp_display_unbind
-happens multiple times during startup. On X13s platform this resulted in
-6 to 9 audio codec device instead of just 3 codec devices for 3 dp ports.
+From: Mark Yacoub <markyacoub@chromium.org>
 
-Fix this by unregistering codecs on unbind.
+Hi all, 
+Following up to my HDCP patches[1], this series introduces a new connector prop that is required to push the key from user space to a driver that requires a key from user space to enable HDCP on a connector.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_audio.c   | 12 ++++++++++++
- drivers/gpu/drm/msm/dp/dp_audio.h   |  2 ++
- drivers/gpu/drm/msm/dp/dp_display.c |  1 +
- 3 files changed, 15 insertions(+)
+Patch 1 is the DRM code that creates this prop.
+Patch 2 is the MSM driver making use of the value of this prop.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-index 6666783e1468..1245c7aa49df 100644
---- a/drivers/gpu/drm/msm/dp/dp_audio.c
-+++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-@@ -593,6 +593,18 @@ static struct hdmi_codec_pdata codec_data = {
- 	.i2s = 1,
- };
- 
-+void dp_unregister_audio_driver(struct device *dev, struct dp_audio *dp_audio)
-+{
-+	struct dp_audio_private *audio_priv;
-+
-+	audio_priv = container_of(dp_audio, struct dp_audio_private, dp_audio);
-+
-+	if (audio_priv->audio_pdev) {
-+		platform_device_unregister(audio_priv->audio_pdev);
-+		audio_priv->audio_pdev = NULL;
-+	}
-+}
-+
- int dp_register_audio_driver(struct device *dev,
- 		struct dp_audio *dp_audio)
- {
-diff --git a/drivers/gpu/drm/msm/dp/dp_audio.h b/drivers/gpu/drm/msm/dp/dp_audio.h
-index 84e5f4a5d26b..4ab78880af82 100644
---- a/drivers/gpu/drm/msm/dp/dp_audio.h
-+++ b/drivers/gpu/drm/msm/dp/dp_audio.h
-@@ -53,6 +53,8 @@ struct dp_audio *dp_audio_get(struct platform_device *pdev,
- int dp_register_audio_driver(struct device *dev,
- 		struct dp_audio *dp_audio);
- 
-+void dp_unregister_audio_driver(struct device *dev, struct dp_audio *dp_audio);
-+
- /**
-  * dp_audio_put()
-  *
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 3e13acdfa7e5..99a38dbe51c0 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -326,6 +326,7 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 	kthread_stop(dp->ev_tsk);
- 
- 	dp_power_client_deinit(dp->power);
-+	dp_unregister_audio_driver(dev, dp->audio);
- 	dp_aux_unregister(dp->aux);
- 	dp->drm_dev = NULL;
- 	dp->aux->drm_dev = NULL;
+Thanks,
+Mark Yacoub
+
+[1] https://patchwork.freedesktop.org/series/94713/
+
+Mark Yacoub (2):
+  DRM: Create new Content Protection connector property
+  dp_hdcp: Get the hdcp key from the connector prop
+
+ drivers/gpu/drm/drm_atomic_uapi.c |  9 +++++
+ drivers/gpu/drm/msm/dp/dp_hdcp.c  | 66 ++++++++++++++++++++++++++++---
+ include/drm/drm_connector.h       |  6 +++
+ include/drm/drm_mode_config.h     |  6 +++
+ 4 files changed, 82 insertions(+), 5 deletions(-)
+
 -- 
-2.21.0
+2.40.0.634.g4ca3ef3211-goog
 
