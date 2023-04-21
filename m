@@ -1,69 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A61826EAED5
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:12:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 353466EAF05
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:28:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E5D410E123;
-	Fri, 21 Apr 2023 16:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4B6410E260;
+	Fri, 21 Apr 2023 16:27:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
- [IPv6:2607:f8b0:4864:20::b29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3BB410E123
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:12:46 +0000 (UTC)
-Received: by mail-yb1-xb29.google.com with SMTP id
- 3f1490d57ef6-b95af16639cso2466291276.2
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:12:46 -0700 (PDT)
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [IPv6:2607:f8b0:4864:20::b2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D8F10EE66
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:27:53 +0000 (UTC)
+Received: by mail-yb1-xb2b.google.com with SMTP id
+ 3f1490d57ef6-b8f5400de9eso2496307276.3
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:27:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1682093565; x=1684685565;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZKO1I2nyCroJ5CwepD9IlxcHZJ24Ly0m35i9l8S4MQs=;
- b=HJfyn5H0QVx3NXHRM8iU50CH7Ukb/wfDINz8hm/4f7n2NjK0MiMfZadyU4/9ZxGvkJ
- pH/IHUyy274lKYCO1jODOlPX2cacKBGdFCiGRGEYu2bzEwGpsO7LKkbrxIkAQWVLIc+j
- byWAkFmPgv/5cQKlcgPuQSV6bzI9E6E8GcAvs=
+ d=chromium.org; s=google; t=1682094472; x=1684686472;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=9+xE3Wm1qodu869l4ok3XAYSCDo7yF+Nc6Y5zDXcnPg=;
+ b=i/+PgShiQL5qfbfdoXayj+fkkTBr4G2sffw6vbWqyRDC5jytqUXFdY7HR8Kz8kLzTk
+ S/IvwVuN0BnrdnbIDQr5PDkagYcQHaRddEjoOSpNh4+/YY8bw+zXUOPrv11iguHY78h/
+ n46AIwA4t9t7e7neoCJBSOzQhKxwQcbIT0Q2o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682093565; x=1684685565;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZKO1I2nyCroJ5CwepD9IlxcHZJ24Ly0m35i9l8S4MQs=;
- b=GNE3mLGQmt+XvzWt2a7SDqBPH9ZONmKCICZQCBYHiqrZV25bzFY1vh4UgM48Uk5SEn
- RMNjcV1+aZSW22V+X6P/25qyJVsalDQoFz2tMyKufFEnCt4PDJkvEGgdI2b0tfierDmO
- YKi6aly6hOAJiV2kbeijD5MINNwq7gY5E+kd0ZBcHmVb4HYAaJZbknQkpn+jFCaJgEc2
- +92TmHkzPhxMOBU8/9JwvIIa5om/+TDJzCzAzP9rUjiHiWq+kTASapkDTNjJaKJMFXD2
- Yo7t5AQthEAsDKkb3cnahCrpPLVxsVtwR2/OiBsklkgqs3PuQu+ZerQWB9Z/9i8+CBSw
- 4aqg==
-X-Gm-Message-State: AAQBX9ebSYLoHf8HpLScm2eO3qFPE/eyZ7XxgMPWmvrFJlRHuX4boJBH
- mjbdiDMJU6gbjgrjyw3xt/HriA==
-X-Google-Smtp-Source: AKy350ZfHj4U+debwEjtoM+P+zXHEbqLPoMWNeevKjzr0FvvwqIS7hVfrAuFlrrufYErsNiIub5ahw==
-X-Received: by 2002:a25:b31b:0:b0:b8c:4e4:d3d4 with SMTP id
- l27-20020a25b31b000000b00b8c04e4d3d4mr2748897ybj.17.1682093565513; 
- Fri, 21 Apr 2023 09:12:45 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682094472; x=1684686472;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9+xE3Wm1qodu869l4ok3XAYSCDo7yF+Nc6Y5zDXcnPg=;
+ b=NE0GK5+/H4cawoKFLasTuHvLmk/Ke0D3iAsklo2rG2rQ7WcEaYnpEZ4537znpm2J3+
+ GIl4ih7mDYhDuEEkRPC9JK6xM6v2tubhn3Cvqbl49EGZ/dpG/6vgfaBrSfmdVuvTH5ii
+ CedaeK+yBCJMn2NbGZLdnHo2qYC6PqN4uYGLx5kYbP/yZph+3Gkwm/wltMop12rDvN+y
+ kclno8If3j5hSJUBi6cEh94prJOk2Bx4Bdy2wNLDySlGGvZhbJXj+5CasDMP2t/PRkcT
+ oVLD6ohwX7ZueJMXTCVmEkhZmRh7fTAzhSpmQOrTH/2fKzqLK0/TjwMoyxHdJ23kFfcg
+ Nq3w==
+X-Gm-Message-State: AAQBX9fSD8Z7Uj56BDzHBd+xzAtNqFLlDLeGaYRAl6IGm8vkyiJ4h0dl
+ xrLmUtLvbyfX7iTlvkaQvWZjmXb3LR5p+rL3qt4=
+X-Google-Smtp-Source: AKy350Z+WJv+LAd8zAQUyDHILjfQyRmgLWJkgn0t4i2NQ8+FMiduNDEWQhEvOqPJQCY9wgkOuQer2Q==
+X-Received: by 2002:a25:694b:0:b0:b95:8ccd:e9e6 with SMTP id
+ e72-20020a25694b000000b00b958ccde9e6mr2835096ybc.37.1682094471939; 
+ Fri, 21 Apr 2023 09:27:51 -0700 (PDT)
 Received: from localhost ([2620:0:1035:15:25e5:2115:c97c:bf00])
  by smtp.gmail.com with UTF8SMTPSA id
- n12-20020a0dcb0c000000b00552e32354f8sm1038529ywd.32.2023.04.21.09.12.44
+ t1-20020a0dea01000000b00545a08184fesm1013673ywe.142.2023.04.21.09.27.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Apr 2023 09:12:45 -0700 (PDT)
+ Fri, 21 Apr 2023 09:27:51 -0700 (PDT)
 From: Mark Yacoub <markyacoub@chromium.org>
 X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
-To: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 21 Apr 2023 12:12:37 -0400
-Message-ID: <20230421161237.357342-3-markyacoub@google.com>
+To: dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org
+Date: Fri, 21 Apr 2023 12:27:46 -0400
+Message-ID: <20230421162749.360777-1-markyacoub@google.com>
 X-Mailer: git-send-email 2.40.0.634.g4ca3ef3211-goog
-In-Reply-To: <20230421161237.357342-1-markyacoub@google.com>
-References: <20230421161237.357342-1-markyacoub@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 2/2] dp_hdcp: Get the hdcp key from the
- connector prop
+Subject: [Freedreno] [PATCH v2 0/3] Create Content Protection Property and
+ Use it
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,137 +70,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mark Yacoub <markyacoub@chromium.org>, seanpaul@chromium.org,
- dianders@chromium.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
+Cc: dmitry.baryshkov@linaro.org, Mark Yacoub <markyacoub@chromium.org>,
+ seanpaul@chromium.org, dianders@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Mark Yacoub <markyacoub@chromium.org>
 
-[Why]
-To support protected content, the driver requires a key.
-Currently, it's being injected from debugfs, which is not super useful
-to run a user space in the wild.
+Hi all, 
+Following up to my HDCP patches[1], this series introduces a new connector prop that is required to push the key from user space to a driver that requires a key from user space to enable HDCP on a connector.
 
-[How]
-When the key is needed, fetch the "Content Protection Property" on the
-connector and get the key blob. Verify that the size is valid and use
-it.
+Patch 1 is the WO blob patch to protect the key
+Patch 2 is the DRM code that creates this prop.
+Patch 3 is the MSM driver making use of the value of this prop
 
-Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_hdcp.c | 66 +++++++++++++++++++++++++++++---
- 1 file changed, 61 insertions(+), 5 deletions(-)
+V2: Added the WO property blob
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_hdcp.c b/drivers/gpu/drm/msm/dp/dp_hdcp.c
-index 191340971f943..4321d245b36c9 100644
---- a/drivers/gpu/drm/msm/dp/dp_hdcp.c
-+++ b/drivers/gpu/drm/msm/dp/dp_hdcp.c
-@@ -117,19 +117,61 @@ static bool dp_hdcp_are_keys_valid(struct drm_connector *connector,
- 	return FIELD_GET(DP_HDCP_KEY_STATUS, val) == DP_HDCP_KEY_STATUS_VALID;
- }
- 
-+static bool dp_hdcp_get_key_from_connector(struct drm_connector *connector,
-+					   struct drm_bridge *bridge)
-+{
-+	struct drm_property_blob *key_blob;
-+	u8 *raw_key;
-+	int ret;
-+	struct dp_hdcp *hdcp;
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *prop =
-+		dev->mode_config.content_protection_key_property;
-+
-+	if (!prop)
-+		return false;
-+
-+	key_blob = connector->state->content_protection_key;
-+	if (!key_blob)
-+		return false;
-+
-+	raw_key = key_blob->data;
-+
-+	if (key_blob->length !=
-+	    DRM_HDCP_KSV_LEN + DP_HDCP_NUM_KEYS * DP_HDCP_KEY_LEN) {
-+		drm_dbg_atomic(
-+			dev,
-+			"[CONNECTOR:%d:%s] Content Protection Key is a blob that we don't expect.\n",
-+			connector->base.id, connector->name);
-+		return false;
-+	}
-+
-+	hdcp = dp_display_bridge_to_hdcp(bridge);
-+	ret = dp_hdcp_ingest_key(hdcp, key_blob->data, key_blob->length);
-+	if (ret)
-+		return false;
-+
-+	return true;
-+}
-+
- static int dp_hdcp_load_keys(struct drm_connector *connector, void *driver_data)
- {
- 	struct drm_bridge *bridge = (struct drm_bridge *)driver_data;
- 	struct dp_hdcp *hdcp = dp_display_bridge_to_hdcp(bridge);
- 	int i, ret = 0;
-+	bool is_hdcp_key_valid;
- 
- 	mutex_lock(&hdcp->key_lock);
-+	is_hdcp_key_valid = hdcp->key.valid;
-+	mutex_unlock(&hdcp->key_lock);
- 
--	if (!hdcp->key.valid) {
--		ret = -ENOENT;
--		goto out;
-+	if (!is_hdcp_key_valid &&
-+	    !dp_hdcp_get_key_from_connector(connector, bridge)) {
-+		return -ENOENT;
- 	}
- 
-+	mutex_lock(&hdcp->key_lock);
-+
- 	dp_catalog_hdcp_write_aksv(hdcp->catalog, hdcp->key.ksv.words);
- 
- 
-@@ -139,7 +181,6 @@ static int dp_hdcp_load_keys(struct drm_connector *connector, void *driver_data)
- 	}
- 	dp_catalog_hdcp_post_write_key(hdcp->catalog);
- 
--out:
- 	mutex_unlock(&hdcp->key_lock);
- 	return ret;
- }
-@@ -346,6 +387,8 @@ int dp_hdcp_attach(struct dp_hdcp *hdcp, struct drm_connector *connector,
- 		   struct drm_bridge *bridge, struct dp_catalog *catalog)
- {
- 	struct drm_hdcp_helper_data *helper_data;
-+	struct drm_device *dev;
-+	struct drm_property *prop;
- 
- 	/* HDCP is not configured for this device */
- 	if (!hdcp->parser->io.dp_controller.hdcp_key.base)
-@@ -357,7 +400,20 @@ int dp_hdcp_attach(struct dp_hdcp *hdcp, struct drm_connector *connector,
- 		return PTR_ERR(helper_data);
- 
- 	helper_data->driver_data = bridge;
--	hdcp->dev = connector->dev;
-+
-+	dev = connector->dev;
-+	prop = dev->mode_config.content_protection_key_property;
-+	if (!prop) {
-+		prop = drm_property_create(dev, DRM_MODE_PROP_BLOB,
-+					   "Content Protection Key", 0);
-+	}
-+	if (!prop)
-+		return -1;
-+	drm_object_attach_property(&connector->base, prop,
-+				   DRM_MODE_HDCP_CONTENT_TYPE0);
-+	dev->mode_config.content_protection_key_property = prop;
-+
-+	hdcp->dev = dev;
- 	hdcp->connector = connector;
- 	hdcp->helper_data = helper_data;
- 	hdcp->catalog = catalog;
+Thanks,
+Mark Yacoub
+
+[1] https://patchwork.freedesktop.org/series/94713/
+
+Mark Yacoub (3):
+  drm: Create support for Write-Only property blob
+  DRM: Create new Content Protection connector property
+  dp_hdcp: Get the hdcp key from the connector prop
+
+ drivers/gpu/drm/drm_atomic_uapi.c |  9 +++++
+ drivers/gpu/drm/drm_property.c    |  3 +-
+ drivers/gpu/drm/msm/dp/dp_hdcp.c  | 66 ++++++++++++++++++++++++++++---
+ include/drm/drm_connector.h       |  6 +++
+ include/drm/drm_mode_config.h     |  6 +++
+ include/drm/drm_property.h        |  2 +
+ include/uapi/drm/drm_mode.h       |  6 +++
+ 7 files changed, 92 insertions(+), 6 deletions(-)
+
 -- 
 2.40.0.634.g4ca3ef3211-goog
 
