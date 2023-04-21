@@ -2,62 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 353466EAF05
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:28:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4696EAF08
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 18:28:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B6410E260;
-	Fri, 21 Apr 2023 16:27:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1818210EE69;
+	Fri, 21 Apr 2023 16:27:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51D8F10EE66
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:27:53 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-b8f5400de9eso2496307276.3
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:27:53 -0700 (PDT)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7207210E260
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 16:27:55 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-54f6f0dae19so9429067b3.0
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 09:27:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1682094472; x=1684686472;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9+xE3Wm1qodu869l4ok3XAYSCDo7yF+Nc6Y5zDXcnPg=;
- b=i/+PgShiQL5qfbfdoXayj+fkkTBr4G2sffw6vbWqyRDC5jytqUXFdY7HR8Kz8kLzTk
- S/IvwVuN0BnrdnbIDQr5PDkagYcQHaRddEjoOSpNh4+/YY8bw+zXUOPrv11iguHY78h/
- n46AIwA4t9t7e7neoCJBSOzQhKxwQcbIT0Q2o=
+ d=chromium.org; s=google; t=1682094474; x=1684686474;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=McykokNzwWyCz9Y9TPtIev36ZR6e3+pIXruNzRoQkAY=;
+ b=BUc1YxBC3awMTQscadlSIHFVnCRg4SyDmzMatWbAq+RrdhVVwAdHk38MECCoTxVyrE
+ cMqkaUZQqVGdOI+Urt+ZUr6Yng1aC1kFZfbRxVjNIvLOrOgg7K7D21tr7IDpZyKMHbFR
+ j/wo4ZRCFesby50BDSMqDksucccGTsyp0EMuI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682094472; x=1684686472;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9+xE3Wm1qodu869l4ok3XAYSCDo7yF+Nc6Y5zDXcnPg=;
- b=NE0GK5+/H4cawoKFLasTuHvLmk/Ke0D3iAsklo2rG2rQ7WcEaYnpEZ4537znpm2J3+
- GIl4ih7mDYhDuEEkRPC9JK6xM6v2tubhn3Cvqbl49EGZ/dpG/6vgfaBrSfmdVuvTH5ii
- CedaeK+yBCJMn2NbGZLdnHo2qYC6PqN4uYGLx5kYbP/yZph+3Gkwm/wltMop12rDvN+y
- kclno8If3j5hSJUBi6cEh94prJOk2Bx4Bdy2wNLDySlGGvZhbJXj+5CasDMP2t/PRkcT
- oVLD6ohwX7ZueJMXTCVmEkhZmRh7fTAzhSpmQOrTH/2fKzqLK0/TjwMoyxHdJ23kFfcg
- Nq3w==
-X-Gm-Message-State: AAQBX9fSD8Z7Uj56BDzHBd+xzAtNqFLlDLeGaYRAl6IGm8vkyiJ4h0dl
- xrLmUtLvbyfX7iTlvkaQvWZjmXb3LR5p+rL3qt4=
-X-Google-Smtp-Source: AKy350Z+WJv+LAd8zAQUyDHILjfQyRmgLWJkgn0t4i2NQ8+FMiduNDEWQhEvOqPJQCY9wgkOuQer2Q==
-X-Received: by 2002:a25:694b:0:b0:b95:8ccd:e9e6 with SMTP id
- e72-20020a25694b000000b00b958ccde9e6mr2835096ybc.37.1682094471939; 
- Fri, 21 Apr 2023 09:27:51 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682094474; x=1684686474;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=McykokNzwWyCz9Y9TPtIev36ZR6e3+pIXruNzRoQkAY=;
+ b=Ozie4p+bh1QYvpYBpwY7s7NRzmC6F1u7YGqrD6f5eMvhLfNS2LHD3iE1E4TJ6ZNMDP
+ 9sFMUXQvapReDh6cW45GefsyLcWI7pji2nYRwLkFPcRW/dRE2AxvUznRvgYvjNcvcgV/
+ 4EOSmUFDjkdcleBu207s8P3s7fZKPWlyoBYhBvkUH8s2geVqYtTEGy0pHyJ+L+sYByL0
+ cb9Efmf+B+A53tdwGfsDVITSDutfgkJXixx5PRbZLhfBLXOYkkbuMJswfv7o9svYExNk
+ g5ta1IH3lOa6coXN3Y6Pu+GvT/nnXj0v2xUCNswxG2m6214kJeNQrUFuV3oBUzD5yw+E
+ MENQ==
+X-Gm-Message-State: AAQBX9d561HmV1UTjkr0u0tTffHUy+JxfEI9r8+NqLPvM0wF7HBnbGcQ
+ Kp+o1vMYu1cdFh/fNgesMJvruw==
+X-Google-Smtp-Source: AKy350ZMUImoST1PPQEereoaPYWN/eiBO9JjQaNH8X/XxV88O/42bu9GQGxhm8cYP1K2g46uBi0tEQ==
+X-Received: by 2002:a81:6207:0:b0:549:2623:6f65 with SMTP id
+ w7-20020a816207000000b0054926236f65mr2430474ywb.33.1682094474289; 
+ Fri, 21 Apr 2023 09:27:54 -0700 (PDT)
 Received: from localhost ([2620:0:1035:15:25e5:2115:c97c:bf00])
  by smtp.gmail.com with UTF8SMTPSA id
- t1-20020a0dea01000000b00545a08184fesm1013673ywe.142.2023.04.21.09.27.51
+ b198-20020a0dd9cf000000b00545a0818487sm1036048ywe.23.2023.04.21.09.27.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Apr 2023 09:27:51 -0700 (PDT)
+ Fri, 21 Apr 2023 09:27:54 -0700 (PDT)
 From: Mark Yacoub <markyacoub@chromium.org>
 X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
-To: dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org
-Date: Fri, 21 Apr 2023 12:27:46 -0400
-Message-ID: <20230421162749.360777-1-markyacoub@google.com>
+To: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 21 Apr 2023 12:27:47 -0400
+Message-ID: <20230421162749.360777-2-markyacoub@google.com>
 X-Mailer: git-send-email 2.40.0.634.g4ca3ef3211-goog
+In-Reply-To: <20230421162749.360777-1-markyacoub@google.com>
+References: <20230421162749.360777-1-markyacoub@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/3] Create Content Protection Property and
- Use it
+Subject: [Freedreno] [PATCH v2 1/3] drm: Create support for Write-Only
+ property blob
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,40 +77,96 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: dmitry.baryshkov@linaro.org, Mark Yacoub <markyacoub@chromium.org>,
- seanpaul@chromium.org, dianders@chromium.org
+ seanpaul@chromium.org, dianders@chromium.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Mark Yacoub <markyacoub@chromium.org>
 
-Hi all, 
-Following up to my HDCP patches[1], this series introduces a new connector prop that is required to push the key from user space to a driver that requires a key from user space to enable HDCP on a connector.
+[Why]
+User space might need to inject data into the kernel without allowing it
+to be read again by any user space.
+An example of where this is particularly useful is secret keys fetched
+by user space and injected into the kernel to enable content protection.
 
-Patch 1 is the WO blob patch to protect the key
-Patch 2 is the DRM code that creates this prop.
-Patch 3 is the MSM driver making use of the value of this prop
+[How]
+Create a DRM_MODE_CREATE_BLOB_WRITE_ONLY flag used by user space to
+create a blob and mark the blob as write only.
+On reading back the blob, data will be not be copied if it's a write
+only blob
 
-V2: Added the WO property blob
+Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+---
+ drivers/gpu/drm/drm_property.c | 3 ++-
+ include/drm/drm_property.h     | 2 ++
+ include/uapi/drm/drm_mode.h    | 6 ++++++
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
-Thanks,
-Mark Yacoub
-
-[1] https://patchwork.freedesktop.org/series/94713/
-
-Mark Yacoub (3):
-  drm: Create support for Write-Only property blob
-  DRM: Create new Content Protection connector property
-  dp_hdcp: Get the hdcp key from the connector prop
-
- drivers/gpu/drm/drm_atomic_uapi.c |  9 +++++
- drivers/gpu/drm/drm_property.c    |  3 +-
- drivers/gpu/drm/msm/dp/dp_hdcp.c  | 66 ++++++++++++++++++++++++++++---
- include/drm/drm_connector.h       |  6 +++
- include/drm/drm_mode_config.h     |  6 +++
- include/drm/drm_property.h        |  2 +
- include/uapi/drm/drm_mode.h       |  6 +++
- 7 files changed, 92 insertions(+), 6 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+index dfec479830e49..afedf7109d002 100644
+--- a/drivers/gpu/drm/drm_property.c
++++ b/drivers/gpu/drm/drm_property.c
+@@ -765,7 +765,7 @@ int drm_mode_getblob_ioctl(struct drm_device *dev,
+ 	if (!blob)
+ 		return -ENOENT;
+ 
+-	if (out_resp->length == blob->length) {
++	if (out_resp->length == blob->length && !blob->is_write_only) {
+ 		if (copy_to_user(u64_to_user_ptr(out_resp->data),
+ 				 blob->data,
+ 				 blob->length)) {
+@@ -800,6 +800,7 @@ int drm_mode_createblob_ioctl(struct drm_device *dev,
+ 		ret = -EFAULT;
+ 		goto out_blob;
+ 	}
++	blob->is_write_only = out_resp->flags & DRM_MODE_CREATE_BLOB_WRITE_ONLY;
+ 
+ 	/* Dropping the lock between create_blob and our access here is safe
+ 	 * as only the same file_priv can remove the blob; at this point, it is
+diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+index 65bc9710a4702..700782f021b99 100644
+--- a/include/drm/drm_property.h
++++ b/include/drm/drm_property.h
+@@ -205,6 +205,7 @@ struct drm_property {
+  * 	&drm_mode_config.property_blob_list.
+  * @head_file: entry on the per-file blob list in &drm_file.blobs list.
+  * @length: size of the blob in bytes, invariant over the lifetime of the object
++ * @is_write_only: user space can't read the blob data.
+  * @data: actual data, embedded at the end of this structure
+  *
+  * Blobs are used to store bigger values than what fits directly into the 64
+@@ -219,6 +220,7 @@ struct drm_property_blob {
+ 	struct list_head head_global;
+ 	struct list_head head_file;
+ 	size_t length;
++	bool is_write_only;
+ 	void *data;
+ };
+ 
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index 46becedf5b2fc..10403c9a73082 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1168,6 +1168,9 @@ struct drm_format_modifier {
+ 	__u64 modifier;
+ };
+ 
++#define DRM_MODE_CREATE_BLOB_WRITE_ONLY                                        \
++	(1 << 0) /* data of the blob can't be read by user space */
++
+ /**
+  * struct drm_mode_create_blob - Create New blob property
+  *
+@@ -1181,6 +1184,9 @@ struct drm_mode_create_blob {
+ 	__u32 length;
+ 	/** @blob_id: Return: new property ID. */
+ 	__u32 blob_id;
++	/** Flags for special handling. */
++	__u32 flags;
++	__u32 pad;
+ };
+ 
+ /**
 -- 
 2.40.0.634.g4ca3ef3211-goog
 
