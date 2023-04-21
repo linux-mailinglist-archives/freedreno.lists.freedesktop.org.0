@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FB266EA056
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 01:58:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD43C6EA06F
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 02:07:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E311C10ED61;
-	Thu, 20 Apr 2023 23:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF8410ED64;
+	Fri, 21 Apr 2023 00:07:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAEF210ED5C
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 23:58:23 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4edc7cc6f46so1024990e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 16:58:23 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 144B910ED63
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 00:07:35 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2a8c28158e2so10002841fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Apr 2023 17:07:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682035102; x=1684627102;
+ d=linaro.org; s=google; t=1682035653; x=1684627653;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7AK29Vqlmjj3QqMiRI2bsAKdpcELqF+rg3ndnHxq09Y=;
- b=FYZ/2dMxGYlduhZjTzDa90fPuGbrAZHU7W7leXYuArgvcLMh9r57wVo3PxIuUDB5/N
- MCLuTbcmoEazsNJMhWYIvXNw48VjO0EcWk2pqfyAVjBC92uMeCa38Wu6AcRDMhgXmi7W
- IXqnuyO5FH9CXCADxDPdWnttgNRg34/AFhfRrKHXqBLaF0qabFsuoJ5sP/JUXfxgaQkj
- LjTCANlCnLzeo2eLVcCBkB2rhvHfQcY+B98tej7wqOYZ3g2hYWrNk+63O132akiR7i9O
- H9uxNQrXlSBhhErYA2TzfUBA6VXbyrtU6QE/5ja+BKfZFlrH4Ikh19BBHSThA/uOsud1
- RiIA==
+ bh=cLFXBTiLwMvaw8fy77PEa4Rr8nVXq3s6Busf4NAaQdk=;
+ b=yrZDLELc1gqcOYTTzXMhdoTTRq0nU+ntXeER+fEQerHoNQfzf+kZ7usuJs7Qs8ScWs
+ Ues22fDNrYj1hizTtV+oAGU8o/kQWS3DLzzln7kcdadLuSiYdAKNSta4lMSoR0ZgJ0W4
+ 7j1zysrCpIdvpTYU+ea+j/KUGxFRtddP173Nc7uxMyK2m1YFQksNE7U30p17p2obZi4Q
+ XIQC+PiPYyg/CCgqG43PPbO3Gyy6Lxr0IYgzRjR52Dk/XfJalvcs3qyPkYFIaK4MVerQ
+ XVyaLjo8S4sGRe3AEEWD9gD27XcK4+C3A3AS9mPxpAU9MS8Nnw5c8hurbdfldmlykoLQ
+ K8tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682035102; x=1684627102;
+ d=1e100.net; s=20221208; t=1682035653; x=1684627653;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7AK29Vqlmjj3QqMiRI2bsAKdpcELqF+rg3ndnHxq09Y=;
- b=XoxUXTBDIOWc1wJn2LeFQY96CAl92vxhtnqvPWEjqPpIdNyBrd2eeU5eF684MiRXov
- YbQ5TRmBCQYzpDwhksaZTwf4ph0WA2pCY6PGoMxAxmC8oQ6ttZ81OjJr8hHy5z1gHWr6
- w+qMeR1RX+tGCEulTmLbOanucoDY/Marcs8DJug/iOeYf+usFI2+2oNyfxziM/JkfB+d
- hq5ewQ9ykExPtZjTWojM6DmJxUHkdwR95kNonyRQHHzpohdnr2pAmzZD5gtNtbdYOIFj
- Y/FSfk78/S5f9IBH4FIjy9eFIjRpxhmwsrBwprCTKNdlct2V4Mm4QvVtZ2vElsfpB6kT
- NbIQ==
-X-Gm-Message-State: AAQBX9fnsO3h8a7H3ZfjrNnNqbTyY38icyxQD9hdQP3hfkYJ6gjXx0K/
- Q8i4nImtWIE+6f76c4GGnYt2qg==
-X-Google-Smtp-Source: AKy350YWf5KVt5uMobAN0BnSlS3GmR5H5Tp+nYzhcAsHZ7p988nsIWUE1rY6pnczQp8z17yHnk/90g==
-X-Received: by 2002:ac2:48a8:0:b0:4dc:84dd:eb91 with SMTP id
- u8-20020ac248a8000000b004dc84ddeb91mr796914lfg.22.1682035102091; 
- Thu, 20 Apr 2023 16:58:22 -0700 (PDT)
+ bh=cLFXBTiLwMvaw8fy77PEa4Rr8nVXq3s6Busf4NAaQdk=;
+ b=ZJ4t9UGgxHKmoXOpGDPWwsPNRulDnFjUo+hcmL5+3031PK5IiZUn8LjU8VB+Wy7HTn
+ HVbcq9Wg1uT/qnqEktlCzaAzKxAy8UqnY+DjOEulgq5/khr1RzzRKdkN5IyBpVn7hihq
+ omFFsiCBsrEUCLsJ6+5vdw4na3SQvcIR/JuElHzRzIHyRL3hOhDBb287eaeTpu0DvUiM
+ nslLRad2nln25bn5+z//pA1/yATYN0xl8m6D/PmRiofb0aYi1JvkuyQ36mTdLCbX1IRr
+ IGTilDXY6iPfqeJMS1z5C7SkO2eclFfc6erkzMMWon95jTzGqf70/N2nEwtK9FRPxVT1
+ mYyw==
+X-Gm-Message-State: AAQBX9dC1+RXMf4/9mNthUgrLl6nKe/Q+eEBohFD76Ys1i3/opivv3eQ
+ u3uoCf83BuXrhF00l+v6eMuENw==
+X-Google-Smtp-Source: AKy350anHEOXvktSuJ20WISPKkbmPhBf8HkSslFqb7f0lANUI6JSvjgax7jzs5LOxFBwdwvcW6GRNg==
+X-Received: by 2002:a2e:9e02:0:b0:2a8:ae13:cc31 with SMTP id
+ e2-20020a2e9e02000000b002a8ae13cc31mr105168ljk.47.1682035653203; 
+ Thu, 20 Apr 2023 17:07:33 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
  (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
  by smtp.gmail.com with ESMTPSA id
- t1-20020ac25481000000b004e92c0ed7a0sm368682lfk.100.2023.04.20.16.58.21
+ i14-20020a2e864e000000b002a9f9c358d4sm195909ljj.111.2023.04.20.17.07.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Apr 2023 16:58:21 -0700 (PDT)
-Message-ID: <fe419932-3a1f-033d-eb85-dfc69c97d40d@linaro.org>
-Date: Fri, 21 Apr 2023 02:58:21 +0300
+ Thu, 20 Apr 2023 17:07:32 -0700 (PDT)
+Message-ID: <b26dfb22-bf97-b65e-ef06-62098c4eafec@linaro.org>
+Date: Fri, 21 Apr 2023 03:07:32 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -63,13 +63,13 @@ To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
  dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
  agross@kernel.org, andersson@kernel.org
 References: <1682033114-28483-1-git-send-email-quic_khsieh@quicinc.com>
- <1682033114-28483-3-git-send-email-quic_khsieh@quicinc.com>
+ <1682033114-28483-6-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1682033114-28483-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1682033114-28483-6-git-send-email-quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 2/5] drm/msm/dpu: separate DSC flush
- update out of interface
+Subject: Re: [Freedreno] [PATCH v1 5/5] drm/msm/dpu: add DSC 1.2 hw blocks
+ for relevant chipsets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,26 +83,111 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org,
  marijn.suijten@somainline.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 21/04/2023 02:25, Kuogee Hsieh wrote:
-> Current DSC flush update is piggyback inside dpu_hw_ctl_intf_cfg_v1().
-> This patch separate DSC flush away from dpu_hw_ctl_intf_cfg_v1() by
-> adding dpu_hw_ctl_update_pending_flush_dsc_v1() to handle both per
-> DSC engine and DSC flush bits at same time to make it consistent with
-> the location of flush programming of other dpu sub blocks.
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
+> Add DSC 1.2 hardware blocks to the catalog with necessary
+> sub-block and feature flag information.
+> Each display compression engine (DCE) contains dual hard
+> slice DSC encoders so both share same base address but with
+> its own different sub block address.
+
+Please correct line wrapping. 72-75 is usually the preferred width
+
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 14 ++++++++++++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  | 22 ++++++++++++++++------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  | 10 ++++++++++
->   3 files changed, 38 insertions(+), 8 deletions(-)
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h  | 19 +++++++++++++++++++
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h  | 11 +++++++++++
+>   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h    | 21 +++++++++++++++++++++
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h  | 19 +++++++++++++++++++
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h  | 19 +++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c      | 12 ++++++++++--
+>   6 files changed, 99 insertions(+), 2 deletions(-)
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+[I commented on sm8550, it applies to all the rest of platforms]
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+> index 9e40303..72a7bcf 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+> @@ -165,6 +165,23 @@ static const struct dpu_merge_3d_cfg sm8550_merge_3d[] = {
+>   	MERGE_3D_BLK("merge_3d_3", MERGE_3D_3, 0x66700),
+>   };
+>   
+> +static const struct dpu_dsc_sub_blks sm8550_dsc_sblk_0 = {
+> +	.enc = {.base = 0x100, .len = 0x100},
+> +	.ctl = {.base = 0xF00, .len = 0x10},
+> +};
+> +
+> +static const struct dpu_dsc_sub_blks sm8550_dsc_sblk_1 = {
+> +	.enc = {.base = 0x200, .len = 0x100},
+> +	.ctl = {.base = 0xF80, .len = 0x10},
+> +};
+
+Please keep sblk in dpu_hw_catalog for now.
+
+> +
+> +static const struct dpu_dsc_cfg sm8550_dsc[] = {
+> +	DSC_BLK_1_2("dsc_0", DSC_0, 0x80000, 0x100, 0, sm8550_dsc_sblk_0),
+> +	DSC_BLK_1_2("dsc_0", DSC_1, 0x80000, 0x100, 0, sm8550_dsc_sblk_1),
+
+Is there a reason why index in "dsc_N" doesn't match the DSC_n which 
+comes next to it?
+
+> +	DSC_BLK_1_2("dsc_1", DSC_2, 0x81000, 0x100, BIT(DPU_DSC_NATIVE_422_EN), sm8550_dsc_sblk_0),
+> +	DSC_BLK_1_2("dsc_1", DSC_3, 0x81000, 0x100, BIT(DPU_DSC_NATIVE_422_EN), sm8550_dsc_sblk_1),
+> +};
+> +
+>   static const struct dpu_intf_cfg sm8550_intf[] = {
+>   	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+>   	/* TODO TE sub-blocks for intf1 & intf2 */
+> @@ -218,6 +235,8 @@ const struct dpu_mdss_cfg dpu_sm8550_cfg = {
+>   	.dspp = sm8550_dspp,
+>   	.pingpong_count = ARRAY_SIZE(sm8550_pp),
+>   	.pingpong = sm8550_pp,
+> +	.dsc = sm8550_dsc,
+> +	.dsc_count = ARRAY_SIZE(sm8550_dsc),
+>   	.merge_3d_count = ARRAY_SIZE(sm8550_merge_3d),
+>   	.merge_3d = sm8550_merge_3d,
+>   	.intf_count = ARRAY_SIZE(sm8550_intf),
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 03f162a..be08158 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -1,6 +1,6 @@
+>   // SPDX-License-Identifier: GPL-2.0-only
+>   /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+> - * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
+>    */
+>   
+>   #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
+> @@ -540,7 +540,15 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+>   	{\
+>   	.name = _name, .id = _id, \
+>   	.base = _base, .len = 0x140, \
+> -	.features = _features, \
+> +	.features = BIT(DPU_DSC_HW_REV_1_1) | _features, \
+> +	}
+> +
+> +#define DSC_BLK_1_2(_name, _id, _base, _len, _features, _sblk) \
+> +	{\
+> +	.name = _name, .id = _id, \
+> +	.base = _base, .len = _len, \
+> +	.features = BIT(DPU_DSC_HW_REV_1_2) | _features, \
+> +	.sblk = &_sblk, \
+>   	}
+>   
+>   /*************************************************************
 
 -- 
 With best wishes
