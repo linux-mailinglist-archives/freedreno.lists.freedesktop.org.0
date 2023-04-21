@@ -2,72 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47D536EB12E
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 19:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E7B6EB1C4
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 20:42:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0304110E327;
-	Fri, 21 Apr 2023 17:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B14AA10EEBF;
+	Fri, 21 Apr 2023 18:42:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2863410E65E
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 17:50:41 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2a8dd1489b0so18537931fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 10:50:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682099439; x=1684691439;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KhFQgubx3BwRpneR+uPik55kKaBM11rBostrxvE6DUg=;
- b=ZpfuMSjahsn2zfIK1YJS7GIdwB6UzWp+2za1evy8drzjnxvPZie5KKG0nDOoM6LnVj
- GqFraHvvzX9vPHUV5WF70e5oM7Hc9QhzR8LJtNZ5NWsaBhm8ZKOxW2ufSMQQVif1vpb5
- ujUsGDnwLHMi0SAZZzM0utYvrcaSwJiCkyb0ejIjOJDySLJHl9ap+qT+g+SGYjqRpnIZ
- U9dOEwdeYy6fsQGWKXYW0qB3ghe4So06E3DbbhTQ/lm14BkMdNtz5zGbOkE34OzpQqa7
- YZ9tx36Gy11cBPzdlV02uEEqtfAfOEarEYkZjF0bt2aKJcvq69/Ma1mtOeug+KsyvOp4
- FsNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682099439; x=1684691439;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KhFQgubx3BwRpneR+uPik55kKaBM11rBostrxvE6DUg=;
- b=hsf0qiMK/L56bXUlTVY3oO/sX+IuFHnwXO8y9FJ1eSTvWskMkvHV8zdyZcRhtOTyeA
- eDQYG96NbaSLYIjdZ6JQXxgYiKj1gJUmgQkIDAREMxUBpWh7qYIKuZjSaULCAGgsBD3m
- lFLbFz+aRB0aCoKRKPeY/IJnu82gslYPxmPz3QxjdA4EIa6tA/i0S2CAUKHG448VsfKa
- fvFxN5oRuJ6su0dXRqoyMu8PH5ndPjJhzGTDJiZd9g2T59MKiUHp6zPi3JTHgf0M+OuG
- arJLUMJrMX898PHtp09MdXGP9LVOmm4qSgJQDrdhROCWpLN83bjHqi6ixhGcAXVhBBMB
- i02A==
-X-Gm-Message-State: AAQBX9fTrril8MJv4tu9nKDLgXHCH2upCnCM5x/wWKSTj6UeKvmEe/Tv
- FsR7k1mrYnh2joo//4tu4wN8sA==
-X-Google-Smtp-Source: AKy350YLl37LWk+3RtVor9s7w8AS7YAJyV+v7/RwqjI5kuzAKNNFDYjrD1jErrVutbXwsdxB1F4ZLQ==
-X-Received: by 2002:a2e:8350:0:b0:2a8:e4d3:11e2 with SMTP id
- l16-20020a2e8350000000b002a8e4d311e2mr832615ljh.39.1682099439063; 
- Fri, 21 Apr 2023 10:50:39 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- n3-20020a2e8783000000b002a8e4678da4sm679206lji.139.2023.04.21.10.50.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Apr 2023 10:50:38 -0700 (PDT)
-Message-ID: <73e49bab-78a7-1fc2-e521-ede5429ed62e@linaro.org>
-Date: Fri, 21 Apr 2023 20:50:38 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC1C710EEBE;
+ Fri, 21 Apr 2023 18:42:06 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33LBYTbb011343; Fri, 21 Apr 2023 18:42:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=D+zxcmfcTVJSf2VwbasakLQRdVH5zKDovEgkZgH543E=;
+ b=ERlKO4epj3mOPBXCw8MB8Sky51a4uvPPcm3BWVV2wsbu5WZsni+ZLwfMgHyDaJNEFjpo
+ 4p42SUaxVhReQY8SL4xUcRzxohnuzRZB90pjw3szw/ZT1a1OceHiH6VNKZW8uffxkC9e
+ 7hdb64+uTuNWt8M1pTAyM/CTuIWM5DUK0e5CtWVcu7szTXspOrllwQ2TC3jFPomPfkU+
+ FJNrylk1Eeu4kl8AAht1gnG7/U3xjJfk4axcWbWG4mUZ0zquYb+6mq70/Hj8Lnbh2hUR
+ E9gMQhaTvKP+eLsz6nf6GWq2mRI6ucPzc2aKZ6SFKy5CcfT5KY45AUhvs1C6ae2iRXQa ow== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q3phdhc5b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Apr 2023 18:42:01 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33LIg0Ps009769
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Apr 2023 18:42:01 GMT
+Received: from [10.110.74.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 21 Apr
+ 2023 11:41:59 -0700
+Message-ID: <7579b02e-5b4d-72b7-4cef-e18f9fc86d7d@quicinc.com>
+Date: Fri, 21 Apr 2023 11:41:59 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230420222558.1208887-1-dmitry.baryshkov@linaro.org>
- <911e0a6e-eae4-8f98-8247-f6b2e8a0aeb9@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <911e0a6e-eae4-8f98-8247-f6b2e8a0aeb9@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ <robdclark@gmail.com>, <sean@poorly.run>,
+ <dmitry.baryshkov@linaro.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <lyude@redhat.com>
+References: <20230421145657.12186-1-srinivas.kandagatla@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230421145657.12186-1-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: drop the regdma
- configuration
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 45iFphmqevtGiCTObiY7FBrdu-TvvRs0
+X-Proofpoint-ORIG-GUID: 45iFphmqevtGiCTObiY7FBrdu-TvvRs0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-21_08,2023-04-21_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1011
+ mlxlogscore=775 phishscore=0 suspectscore=0 adultscore=0 mlxscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304210164
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: unregister audio driver during
+ unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,33 +86,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com, tzimmermann@suse.de,
+ freedreno@lists.freedesktop.org, johan+linaro@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/04/2023 20:46, Abhinav Kumar wrote:
-> 
-> 
-> On 4/20/2023 3:25 PM, Dmitry Baryshkov wrote:
->> The regdma is currently not used by the current driver. We have no way
->> to practically verify that the regdma is described correctly. Drop it
->> now.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
-> 
-> As Marijn noted, perhaps we can drop even DPU_CLK_CTRL_REG_DMA. But you 
-> can add that separately, hence
 
-I'd say it's not worth the trouble.
 
+On 4/21/2023 7:56 AM, Srinivas Kandagatla wrote:
+> while binding the code always registers a audio driver, however there
+> is no corresponding unregistration done in unbind. This leads to multiple
+> redundant audio platform devices if dp_display_bind and dp_display_unbind
+> happens multiple times during startup. On X13s platform this resulted in
+> 6 to 9 audio codec device instead of just 3 codec devices for 3 dp ports.
 > 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Fix this by unregistering codecs on unbind.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
 
--- 
-With best wishes
-Dmitry
+Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on 
+MSM")
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+(pls ignore the line break in the fixes tag, its a mail editor issue, I 
+will apply the tag properly while applying to -fixes)
