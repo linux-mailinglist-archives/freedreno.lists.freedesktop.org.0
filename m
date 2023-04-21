@@ -2,75 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 665BD6EB02A
-	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 19:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 873746EB108
+	for <lists+freedreno@lfdr.de>; Fri, 21 Apr 2023 19:46:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D978E10E2FE;
-	Fri, 21 Apr 2023 17:07:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDD210E0FD;
+	Fri, 21 Apr 2023 17:46:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3922E10E2FE
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 17:07:04 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4ec81773d50so1959749e87.2
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 10:07:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682096822; x=1684688822;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nsVxuLXGb/HmPw4+8d4rfb4M9t507exbwNDKA5TIVj0=;
- b=HrNG838xCe/plUz92VSGxl/e4w2Pd1PcZs5KToy+urCwSP7bumfAbId236f4ii3Cr2
- ZEyJ52y41H0aFtjXZbEWFTUdugvGiTwjGEAKroJc19BY4I4HQtNmxd5Hu5dDldNe64IU
- joL6owyMglGtfqIJFPaHxmAvreliuUZ2pmhC3wV+sEpu/t63h+Denl8lm6KxJGTHOg2E
- AmYfQttbiLsz28aV12KXZLUi0C0oeMhZ1U6Jf/HIOd6UYJUZvmHZy+UtWWAOW/i6efvR
- sRs+cXOKy36HxpMv6kLBv4jLMgSG/A0ULmXen7Fq4G8E3i/v6/OCY09DSWzBGrxo8Jy3
- UCDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682096822; x=1684688822;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nsVxuLXGb/HmPw4+8d4rfb4M9t507exbwNDKA5TIVj0=;
- b=TIDEvL+AkznKXd6+s+I8qTd81M3dlBO04/cWho6BrIxk5JOPRS4Zok5l8BotY3/fvG
- OAyaY6X+IwzddJ+Cxo9ICDTc5kVeEDJXQjNw/huaHdlyU+l75coFojG7cxU5W4Y0hiAE
- ParvJKHy4QNRRkBfYOI/+o+mTzDYkSpMo4ZGLzftp7z4Tm8QhEKJXTDjswBkOSTM49CL
- YVYwObfm48fvBYmadJ2Pt4wJqtzklLAKofLGjFPugF9KO3hOy1urtTRbtyKe4X66Vruf
- JzdeFG5/oaUpGxqPcI3NysVE/lCPhTMQmVcpPVMPh4rVzwvYQcS0GnKUBm7iTg+sqJyD
- YNDA==
-X-Gm-Message-State: AAQBX9d9am64cHiClY3cXwjMtepcFGzUe+iq1HwDsn2fVxEzsKiwx168
- E2iHHkLhljXlCTUmeESissFEUg==
-X-Google-Smtp-Source: AKy350bmI8zPG+zpUhZ0o7e9UHzK1WMARz2ilni8s0oJ+vuQJEaH/EH2o7WV5UWwWtdWpkO+jf8JFA==
-X-Received: by 2002:ac2:4821:0:b0:4e8:221f:5886 with SMTP id
- 1-20020ac24821000000b004e8221f5886mr1532394lft.19.1682096821884; 
- Fri, 21 Apr 2023 10:07:01 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
- by smtp.gmail.com with ESMTPSA id
- x24-20020a19f618000000b004db3e7dfb8csm616096lfe.189.2023.04.21.10.07.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Apr 2023 10:07:01 -0700 (PDT)
-Message-ID: <bc723ffd-73cd-0339-c2aa-42b3db5a3560@linaro.org>
-Date: Fri, 21 Apr 2023 20:07:00 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D80A710E0FD;
+ Fri, 21 Apr 2023 17:46:55 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33LDM7ew019380; Fri, 21 Apr 2023 17:46:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=dWK6Duc4/q1THWZFuXOghER6/w33Awx6ysMcPoJxwPU=;
+ b=n3NIIGUmwAZpgEGQ3Hx3O18h6giZ8ETzHoBCMMYxn+dxtiinvArNjoEvNb/QfD0h6mto
+ T61yVvXU84FyP9nUFnE7k2upHF0mFLg1texKJoS22UhvptJcPGwQk27Qt9j9v30N1mKF
+ KNpy149ohMYRJu2obnQ1e2CtLwJb2H0Ue6sutXIE5ajyu6ZxRHh9jCwQgzdxVA6nsw9Q
+ gj8ZOoQ0w3tUaA+G8sXp1RSAvxJvQ6MxKDOH5g5F4T1zvvt70yzsqcQPiukoPe3/Y2Lk
+ nYCAe6Fr71AyvKlbtISnci7jL04kkVo3Cl06GWiU+Duta2Mj868MAp+W2yeEmPN+fT4n 2w== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q3ewh245g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Apr 2023 17:46:49 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33LHkh0S003070
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Apr 2023 17:46:43 GMT
+Received: from [10.110.74.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 21 Apr
+ 2023 10:46:42 -0700
+Message-ID: <911e0a6e-eae4-8f98-8247-f6b2e8a0aeb9@quicinc.com>
+Date: Fri, 21 Apr 2023 10:46:41 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Mark Yacoub <markyacoub@chromium.org>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230421162749.360777-1-markyacoub@google.com>
- <20230421162749.360777-3-markyacoub@google.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230421162749.360777-3-markyacoub@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230420222558.1208887-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230420222558.1208887-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/3] DRM: Create new Content Protection
- connector property
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: w6Yci5GPE5d2V36-lsORhT5EfN9QjpFj
+X-Proofpoint-GUID: w6Yci5GPE5d2V36-lsORhT5EfN9QjpFj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-21_08,2023-04-21_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0
+ bulkscore=0 mlxlogscore=725 priorityscore=1501 mlxscore=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 clxscore=1015
+ malwarescore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2303200000 definitions=main-2304210156
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: drop the regdma
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,102 +84,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: seanpaul@chromium.org, dianders@chromium.org, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/04/2023 19:27, Mark Yacoub wrote:
-> From: Mark Yacoub <markyacoub@chromium.org>
 
-Nit: is there a reason for this header? My first impression is that it 
-matches your outgoing name & email address and as such is not necessary.
 
-Nit#2: subject should mention 'Key', as you are creating a property for 
-the key.
-
+On 4/20/2023 3:25 PM, Dmitry Baryshkov wrote:
+> The regdma is currently not used by the current driver. We have no way
+> to practically verify that the regdma is described correctly. Drop it
+> now.
 > 
-> [Why]
-> To enable Protected Content, some drivers require a key to be injected
-> from user space to enable HDCP on the connector.
-> 
-> [How]
-> Create new "Content Protection Property" of type "Blob"
-
-Generic observation is that the ability to inject HDCP keys manually 
-seems to be quite unique to your hardware. As such, I think the debugfs 
-or sysfs suits better in comparison to the DRM property.
-
-> 
-> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/drm_atomic_uapi.c | 9 +++++++++
->   include/drm/drm_connector.h       | 6 ++++++
->   include/drm/drm_mode_config.h     | 6 ++++++
->   3 files changed, 21 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index d867e7f9f2cd5..e20bc57cdb05c 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -749,6 +749,11 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
->   		state->content_protection = val;
->   	} else if (property == config->hdcp_content_type_property) {
->   		state->hdcp_content_type = val;
-> +	} else if (property == config->content_protection_key_property) {
-> +		ret = drm_atomic_replace_property_blob_from_id(
-> +			dev, &state->content_protection_key, val, -1, -1,
-> +			&replaced);
-> +		return ret;
->   	} else if (property == connector->colorspace_property) {
->   		state->colorspace = val;
->   	} else if (property == config->writeback_fb_id_property) {
-> @@ -843,6 +848,10 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
->   		*val = state->content_protection;
->   	} else if (property == config->hdcp_content_type_property) {
->   		*val = state->hdcp_content_type;
-> +	} else if (property == config->content_protection_key_property) {
-> +		*val = state->content_protection_key ?
-> +			       state->content_protection_key->base.id :
-> +			       0;
->   	} else if (property == config->writeback_fb_id_property) {
->   		/* Writeback framebuffer is one-shot, write and forget */
->   		*val = 0;
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 7b5048516185c..2fbe51272bfeb 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -896,6 +896,12 @@ struct drm_connector_state {
->   	 */
->   	unsigned int content_protection;
->   
-> +	/**
-> +	 * @content_protection_key: DRM blob property for holding the Content
-> +	 * Protection Key injected from user space.
-> +	 */
-> +	struct drm_property_blob *content_protection_key;
-> +
->   	/**
->   	 * @colorspace: State variable for Connector property to request
->   	 * colorspace change on Sink. This is most commonly used to switch
-> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> index e5b053001d22e..615d1e5f57562 100644
-> --- a/include/drm/drm_mode_config.h
-> +++ b/include/drm/drm_mode_config.h
-> @@ -887,6 +887,12 @@ struct drm_mode_config {
->   	 */
->   	struct drm_property *hdcp_content_type_property;
->   
-> +	/**
-> +	 * @content_protection_key_property: DRM blob property that receives the
-> +	 * content protection key from user space to be injected into the kernel.
-> +	 */
-> +	struct drm_property *content_protection_key_property;
-> +
->   	/* dumb ioctl parameters */
->   	uint32_t preferred_depth, prefer_shadow;
->   
 
--- 
-With best wishes
-Dmitry
+As Marijn noted, perhaps we can drop even DPU_CLK_CTRL_REG_DMA. But you 
+can add that separately, hence
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
