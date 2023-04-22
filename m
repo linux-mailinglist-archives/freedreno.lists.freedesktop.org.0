@@ -2,74 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3816EB674
-	for <lists+freedreno@lfdr.de>; Sat, 22 Apr 2023 02:25:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC3076EB90A
+	for <lists+freedreno@lfdr.de>; Sat, 22 Apr 2023 14:08:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5245410E102;
-	Sat, 22 Apr 2023 00:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E38310E036;
+	Sat, 22 Apr 2023 12:08:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0368E10E102
- for <freedreno@lists.freedesktop.org>; Sat, 22 Apr 2023 00:25:55 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4ec8149907aso2384380e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 21 Apr 2023 17:25:55 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9E0C10E036
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Apr 2023 12:08:11 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4ec816d64afso11553754e87.1
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Apr 2023 05:08:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682123154; x=1684715154;
+ d=linaro.org; s=google; t=1682165288; x=1684757288;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7OQWCpIJTAP1Ry3VsEerFVkfg5+LmukA8mKwvl4J2fQ=;
- b=hofCmIcOQV7vmT+uSPYmfnrarP9ImgW5VOyXN/GBZPHRTClLSUmQQ5VItaKz/ze67Y
- qrb2AYoT3SpmTopHd4nYKj9jNmsLi1Gh8BvkUuCMoaUp5wz63YJVAXiiFJcAIdClRuFm
- ep3L+zrUOGDG4VLjFzcxdLuoKld/BIvyKl8k7Ie9CG1cTFlz80h304tWXZSp4bEuWzqK
- okE+GJ8I6hVdyf5kGsVivUiqlUe/qhbtpo0hxqFyXpStaLbsWkv5LwdYpHaNuEOkz0cc
- zcRXhZZR7N+eXS04m7hbG0D66fXmPGXcHd5LniBhF1KFT5zv4Bpjsz+YvFL1Mi12QKqn
- q3Tw==
+ bh=9GDmJNueG7xvHJSuyd9rLemP2UP6fJ5kCNsM0oZLf0c=;
+ b=AKTRCFHu+iYmyrKzAJjYAzZXC1pJxGQc8yMTwS92aUohY5gkMS3jr9l2U6yQQmU9lJ
+ k/oov0bMh8tSIcV/lkpuDs8xdj7unYhSlcFLr3kTvB2P6u1Qsp+EaoUQ/hpYTt8tr7GD
+ TqwbKXNrYRuxsFtPAeCafSpiedt/rEXgA2B29rmUwPyDZrGN1+arLJIHczjoIxAhaRqj
+ 2FJctiIEFhYvQw8u/4aRYslbY0fMME72hcUTgxfZjpKJ/W7UybGlv+1+MEdudf/DEM1j
+ gG4N4f0Xyl0+bpotcaLjj7fcZPu7SowobsERCxxeP+yF75Pi6nn5usu53SKnA+TW15DT
+ ZIvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682123154; x=1684715154;
+ d=1e100.net; s=20221208; t=1682165288; x=1684757288;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7OQWCpIJTAP1Ry3VsEerFVkfg5+LmukA8mKwvl4J2fQ=;
- b=atbRGkKd0Z4UJQQIU5tmxLpjhlcA2w1s2PN221u2By2GaUlU7TdF8EAGODZTC+0eLQ
- VAEYlEfOkK4jiDLQEuw2iMUp6I55njeDZqJrY7htE4jpj5LA2OOmITweNmN9KWbNDfig
- ZKnafzs0p+E3F4+OnyEkQvQjmCoxjrWHLiCUy1j+1fDG1pu+XEXZdp3zakkcsLqS1vwl
- AuYK+4jKP/VGvcz+Bc9wrwKoY0pa1Y59VUIj2sBVE/xAZuc9umultOROFEWocmHLj26+
- y2OQNhtLJBjIacApXrrQqINlmZVtLCd82CmR9TBKBKhDyn6Z8GF9Cma17wFmY3Iwn8KZ
- eilw==
-X-Gm-Message-State: AAQBX9ccq+k3ACD3Yxj/4UymYBk2ECLkv4POTHg4JygBtmVyKavyMaC8
- 7PtdKBXJLAgJzAHX0q6+jFsx1Q==
-X-Google-Smtp-Source: AKy350ZWdFxJ2/AmpEAZfXikVOlUeKDpM+FXXIRP9U3RhsWAlAboixbX9MLOQe98xCfm16NMrQahCw==
-X-Received: by 2002:ac2:59dc:0:b0:4eb:2d47:602 with SMTP id
- x28-20020ac259dc000000b004eb2d470602mr1762343lfn.59.1682123154123; 
- Fri, 21 Apr 2023 17:25:54 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
- (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ bh=9GDmJNueG7xvHJSuyd9rLemP2UP6fJ5kCNsM0oZLf0c=;
+ b=itj01npK2urHQfEpWybOEgu4VPEq1pihY3xagLT5FyBmEJLtj3qtEqS+bNqveXLQ4+
+ iTSd2oVP7ytlEzLh3kI4tGuffKSFAocFaJUYRgXCuU7iJPtpUqK22b0FeHLB1dzGUK3H
+ k1Pgx1UhTDFp2RWIbWqnTUcwRFO9jgyWgaOSQTSsmktQ5DGqsqBksTYe0aEIRW8DTkJk
+ KBT1Ilwu3JoJmFc8SMJ84EGIpAZSiuJtYTISSqXKvjdcGDJTjqqbYI3XIghVaridi5UI
+ Z//ggWZcXgRUOBaPI+Pliyv+5M+yXe2OoSVmOu7BQ+4oOZ9hOPZBEZItGoI1kzEAM8Kf
+ ZlSg==
+X-Gm-Message-State: AAQBX9ek97+9oW9xaQVRBYPgrJpNxTuxI3bvkGMiFBVK8xVbXBqGi+ep
+ AGpvoKTIz1WHkwh6ilRoemJ6gA==
+X-Google-Smtp-Source: AKy350bNif2HJSh87Q2TpGjJVY2xiHP1kdIyebhnG4o3vq5xgwlttjmpYH8xHwzuXWyGEQ0gp5kaoA==
+X-Received: by 2002:a05:6512:3e16:b0:4eb:41ac:e33 with SMTP id
+ i22-20020a0565123e1600b004eb41ac0e33mr3781242lfv.19.1682165287653; 
+ Sat, 22 Apr 2023 05:08:07 -0700 (PDT)
+Received: from [192.168.1.101] (abyj144.neoplus.adsl.tpnet.pl. [83.9.29.144])
  by smtp.gmail.com with ESMTPSA id
- c19-20020ac244b3000000b004eed68a68efsm708285lfm.280.2023.04.21.17.25.53
+ w7-20020ac254a7000000b004efe73ee01fsm200108lfk.306.2023.04.22.05.08.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Apr 2023 17:25:53 -0700 (PDT)
-Message-ID: <6a4bd978-14e4-4e15-49b4-6ce3e0e5d1a5@linaro.org>
-Date: Sat, 22 Apr 2023 03:25:52 +0300
+ Sat, 22 Apr 2023 05:08:07 -0700 (PDT)
+Message-ID: <cbafc6fd-58db-91f5-b453-4b45ba80ee4d@linaro.org>
+Date: Sat, 22 Apr 2023 14:08:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1682033114-28483-1-git-send-email-quic_khsieh@quicinc.com>
- <1682033114-28483-2-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1682033114-28483-2-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230420-topic-dpu_gc-v1-0-d9d1a5e40917@linaro.org>
+ <5b133c55-e4f5-bfd2-b542-a7d44313c038@linaro.org>
+ <c0e0a55a-cc37-fe8a-8d8a-5fe257f99b9a@linaro.org>
+ <3f3b3637-ed85-09a1-22b7-3ccd4bc929bb@quicinc.com>
+ <2dff9d62-cffe-c66f-9e50-3ecd64e44d37@linaro.org>
+ <6a335df7-ff0b-098a-feec-45714159df04@linaro.org>
+ <b134d09c-55fa-7879-80ff-900e39c20c3d@quicinc.com>
+ <0f469b3c-5f0f-e027-8a9f-d1233169c04a@linaro.org>
+ <57pxyxwluu33z4lpij5gx7biwfo5pbhdalhhxflw7esi5n3vts@qhjb7ldnz3wb>
+ <0bba90c1-01be-a76e-df12-2328b84f7298@linaro.org>
+ <b6d56e50-fb5b-1d59-7b39-a3ca2a0a8d83@quicinc.com>
+ <1f7bb81a-d38c-725a-9ee1-89efe2950b1d@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <1f7bb81a-d38c-725a-9ee1-89efe2950b1d@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 1/5] drm/msm/dpu: add support for DSC
- encoder v1.2 engine
+Subject: Re: [Freedreno] [PATCH 0/2] DPU1 GC1.8 wiring-up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,69 +89,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/04/2023 02:25, Kuogee Hsieh wrote:
-> Add support for DSC 1.2 by providing the necessary hooks to program
-> the DPU DSC 1.2 encoder.
+
+
+On 22.04.2023 00:35, Dmitry Baryshkov wrote:
+> On 22/04/2023 01:34, Abhinav Kumar wrote:
+>>
+>>
+>> On 4/20/2023 3:52 PM, Dmitry Baryshkov wrote:
+>>> On 20/04/2023 22:56, Marijn Suijten wrote:
+>>>> On 2023-04-20 22:51:22, Dmitry Baryshkov wrote:
+>>>>> On 20/04/2023 22:47, Abhinav Kumar wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 4/20/2023 11:01 AM, Dmitry Baryshkov wrote:
+>>>>>>> On 20/04/2023 04:36, Konrad Dybcio wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 20.04.2023 03:28, Abhinav Kumar wrote:
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> On 4/19/2023 6:26 PM, Konrad Dybcio wrote:
+>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> On 20.04.2023 03:25, Dmitry Baryshkov wrote:
+>>>>>>>>>>> On 20/04/2023 04:14, Konrad Dybcio wrote:
+>>>>>>>>>>>> Almost all SoCs from SDM845 to SM8550 inclusive feature a GC1.8
+>>>>>>>>>>>> dspp sub-block in addition to PCCv4. The other block differ a bit
+>>>>>>>>>>>> more, but none of them are supported upstream.
+>>>>>>>>>>>>
+>>>>>>>>>>>> This series adds configures the GCv1.8 on all the relevant SoCs.
+>>>>>>>>>>>
+>>>>>>>>>>> Does this mean that we will see gamma_lut support soon?
+>>>>>>>>>> No promises, my plate is not even full, it's beyond overflowing! :P
+>>>>>>>>>>
+>>>>>>>>>> Konrad
+>>>>>>>>>
+>>>>>>>>> So I think I wrote about this before during the catalog rework/fixes
+>>>>>>>>> that the gc registers are not written to / programmed.
+>>>>>>>>>
+>>>>>>>>> If thats not done, is there any benefit to this series?
+>>>>>>>> Completeness and preparation for the code itself, if nothing else?
+>>>>>>>
+>>>>>>> The usual problem is that if something is not put to use, it quickly
+>>>>>>> rots or becomes misused for newer platforms. We have seen this with
+>>>>>>> the some of DPU features.
+>>>>>>>
+>>>>>>> In case of GC (and the freshly defined DPU_DSPP_IGC, but not used) we
+>>>>>>> have three options:
+>>>>>>> - drop the unused GC from msm8998_sblk.
+>>>>>>> - keep things as is, single unused GC entry
+>>>>>>> - fill all the sblk with the correct information in hope that it stays
+>>>>>>> correct
+>>>>>>>
+>>>>>>> Each of these options has its own drawbacks. I have slight bias
+>>>>>>> towards the last option, to have the information in place (as long as
+>>>>>>> it is accurate).
+>>>>>>>
+>>>>>>
+>>>>>> My vote is for (1) . Today, GC is unused and from the discussion here,
+>>>>>> there is no concrete plan to add it. If we keep extending an unused
+>>>>>> bitmask for all the chipsets including the ones which will get added in
+>>>>>> the future in the hope that someday the feature comes, it doesnt sound
+>>>>>> like a good idea.
+>>>>>>
+>>>>>> I would rather do (1), if someone has time.
+>>>>>
+>>>>> Agree, this was the second item on my preference list. Could you please
+>>>>> send this oneliner?
+>>>>
+>>>> Nit (to make sure we're on the same thought here): I think it's a
+>>>> 3-liner: remove it from DSPP_MSM8998_MASK as well as msm8998_dspp_sblk.
+>>>>
+>>>>>> OR lets stay at (2) till
+>>>>>> someone does (1).
+>>>>
+>>>> I'm personally okay leaving it in place too, with an eye on implementing
+>>>> this, IGC, and other blocks at some point if there's a use for it via
+>>>> standard DRM properties.
+>>>
+>>> I took a quick glance. I think it is possible, but not straightforward. But I must admit here, I don't have a full picture regarding different color encodings, ranges and the rest of gamma/degamma API and usage.
+>>>
+>>
+>> I think its easier to remove this now and then add it when we add the support. As discussed, will post this shortly.
+>>
+>> Otherwise, whenever any new chipset gets added, we will run into the same question of whether to add GC or not.
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/Makefile                   |   1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  38 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h     |  17 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c | 388 +++++++++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |   7 +-
->   5 files changed, 444 insertions(+), 7 deletions(-)
->   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
+> Yes, I absolutely agree here.
+Sorry for the useless patches, though I guess they were a good
+discussion starter..
+
+Konrad
 > 
-
-[skipped]
-
-> +static inline void _dsc_subblk_offset(struct dpu_hw_dsc *hw_dsc, int s_id,
-> +		u32 *offset)
-> +{
-> +	const struct dpu_dsc_sub_blks *sblk;
-> +
-> +	sblk = hw_dsc->caps->sblk;
-> +
-> +	if (s_id == DPU_DSC_ENC)
-> +		*offset = sblk->enc.base;
-> +	else if (s_id == DPU_DSC_CTL)
-> +		*offset = sblk->ctl.base;
-> +	else
-> +		DPU_ERROR("invalid DSC sub block=%d\n", s_id);
-> +}
-
-I have just sent a patchset removing the _sspp_subblk_offset. Could you 
-please inline this function too?
-
-> +
-> +static void dpu_hw_dsc_disable_1_2(struct dpu_hw_dsc *hw_dsc)
-> +{
-> +	struct dpu_hw_blk_reg_map *hw;
-> +	u32 offset;
-> +
-> +	if (!hw_dsc)
-> +		return;
-> +
-> +	_dsc_subblk_offset(hw_dsc, DPU_DSC_CTL, &offset);
-> +
-> +	hw = &hw_dsc->hw;
-> +	DPU_REG_WRITE(hw, offset + DSC_CFG, 0);
-> +
-> +	_dsc_subblk_offset(hw_dsc, DPU_DSC_ENC, &offset);
-> +
-> +	DPU_REG_WRITE(hw, offset + ENC_DF_CTRL, 0);
-> +	DPU_REG_WRITE(hw, offset + DSC_MAIN_CONF, 0);
-> +}
-> +
-
--- 
-With best wishes
-Dmitry
-
+>>
+>>>>
+>>>>>> When someone implements GC, we can re-use this patch and that time keep
+>>>>>> konrad's author rights or co-developed by.
+>>>>
+>>>> Good to at least know all these SoCs have the same offset and revision.
+>>>>
+>>>> - Marijn
+>>>
+> 
