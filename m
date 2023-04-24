@@ -1,53 +1,87 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 894476ED00D
-	for <lists+freedreno@lfdr.de>; Mon, 24 Apr 2023 16:12:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F4E56ED2EB
+	for <lists+freedreno@lfdr.de>; Mon, 24 Apr 2023 18:56:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35BE110E07A;
-	Mon, 24 Apr 2023 14:12:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B82410E1BB;
+	Mon, 24 Apr 2023 16:56:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE5FF10E07A;
- Mon, 24 Apr 2023 14:12:00 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C57E96252E;
- Mon, 24 Apr 2023 14:11:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B69C433EF;
- Mon, 24 Apr 2023 14:11:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682345519;
- bh=rXDHwC4VVIDhGhpP6nmTzwKeAZm5iA95fSY6qeiaDfk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ecpuOMTszADJgavY0i4FFYrmRsSE82tCm+QPqEkdo5TNJZ0aomGalWpUZP0Ssb37+
- 6BRaY9kgbQwqrNhHiAnWG5WmonxJCpgW7u0su6XQrV4B5V5qAzwpLIhlrluayElPR/
- 9LvYnxGL2AR/Jo5Ejdd9VZ2uR/rElBYlR3kFXPr+bNZk1kYpGQ/G/iNoQL5vYnmfNC
- 2gWYQtekVQ8MyM+tQvnoS0fEqOvYMNWiu0AMPp90UfQoLGH2XYKkZ+TzqGbivTB67f
- sYnPOiDz75wq5eq8MMpVpB6nSElpSmDbIzBWx/M92Sn27+kD8rIcS+lMpc/OCpiMRO
- 6XOmZzurWJmLg==
-Message-ID: <4a2f1ed0-015b-9953-1656-5d90020b7c10@kernel.org>
-Date: Mon, 24 Apr 2023 17:11:52 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E490110E1BB;
+ Mon, 24 Apr 2023 16:56:50 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33OFb9kp009958; Mon, 24 Apr 2023 16:55:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=ibcvq83T8ea5Zx9L7cpwBc6UOXr5caP2oYnDsWVp1IY=;
+ b=n99EL/gGtC3DZ3hVF7p/iZAM6zRz+mw8IJ8KooXvE3GgQe9LrEULLYsPzp5q+EMpB8FD
+ j7hHi/tkozlkPEL+XFMamsv/80WENEF3xq67lAImmzR5OgHzh+5J/jU0Xzg3vu6NeSQv
+ Er9Dr+OZqa9QfUYLsbwHWr8k5jjG1dVETLRiYaYm+2LaFSFoaK7kwChhWegh46p5DBVq
+ HdKTQarpYqkCUzLpcIo7pXapZQ2R0IJR+OGRGQ2atoSfkRpKmGhzy6gKhHwfqihWlb3Y
+ bGORnRlxPvDitLj2YsEXvQOcFlDPx3iHLIi+B96NqKrxrgwAPqeYmfv5JADBKtI5PhmG uQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q5mnnh9qm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Apr 2023 16:55:48 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33OGtkJd026082
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Apr 2023 16:55:47 GMT
+Received: from [10.110.104.134] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 24 Apr
+ 2023 09:55:45 -0700
+Message-ID: <e4a771f2-b390-ea8e-ee8b-b8d0860c834f@quicinc.com>
+Date: Mon, 24 Apr 2023 09:55:44 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-References: <20230417-topic-dpu_regbus-v2-0-91a66d04898e@linaro.org>
- <20230417-topic-dpu_regbus-v2-4-91a66d04898e@linaro.org>
-From: Georgi Djakov <djakov@kernel.org>
-In-Reply-To: <20230417-topic-dpu_regbus-v2-4-91a66d04898e@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Sean Paul" <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Adam Skladowski <a39.skl@gmail.com>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, "Kuogee
+ Hsieh" <quic_khsieh@quicinc.com>,
+ Robert Foss <rfoss@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rajesh Yadav <ryadav@codeaurora.org>, Jeykumar Sankaran
+ <jsanka@codeaurora.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ "Chandan Uddaraju" <chandanu@codeaurora.org>
+References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-1-ef76c877eb97@somainline.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230411-dpu-intf-te-v2-1-ef76c877eb97@somainline.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 4/5] drm/msm/mdss: Handle the reg bus ICC
- path
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 31_lSA82AM0D1kln3gWakn39Hun2n1mE
+X-Proofpoint-ORIG-GUID: 31_lSA82AM0D1kln3gWakn39Hun2n1mE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-24_10,2023-04-21_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ impostorscore=0 phishscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 mlxlogscore=694 spamscore=0 clxscore=1011
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304240151
+Subject: Re: [Freedreno] [PATCH v2 01/17] drm/msm/dpu: Remove unused INTF0
+ interrupt mask from SM6115/QCM2290
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,50 +94,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: Archit Taneja <architt@codeaurora.org>, Jami
+ Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ freedreno@lists.freedesktop.org,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Konrad,
 
-On 18.04.23 15:10, Konrad Dybcio wrote:
-> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
-> another path that needs to be handled to ensure MDSS functions properly,
-> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+
+On 4/17/2023 1:21 PM, Marijn Suijten wrote:
+> Neither of these SoCs has INTF0, they only have a DSI interface on index
+> 1.  Stop enabling an interrupt that can't fire.
 > 
-> Gating that path may have a variety of effects.. from none to otherwise
-> inexplicable DSI timeouts..
-> 
-> On the MDSS side, we only have to ensure that it's on at what Qualcomm
-> downstream calls "77 MHz", a.k.a 76.8 Mbps and turn it off at suspend.
-> 
-> To achieve that, make msm_mdss_icc_request_bw() accept a boolean to
-> indicate whether we want the busses to be on or off, as this function's
-> only use is to vote for minimum or no bandwidth at all.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Fixes: 3581b7062cec ("drm/msm/disp/dpu1: add support for display on SM6115")
+> Fixes: 5334087ee743 ("drm/msm: add support for QCM2290 MDSS")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   drivers/gpu/drm/msm/msm_mdss.c | 17 +++++++++++++----
->   1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-[..]
-> -static void msm_mdss_icc_request_bw(struct msm_mdss *msm_mdss, unsigned long bw)
-> +static void msm_mdss_icc_request_bw(struct msm_mdss *msm_mdss, bool enable)
->   {
->   	int i;
->   
->   	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
-> -		icc_set_bw(msm_mdss->mdp_path[i], 0, Bps_to_icc(bw));
-> +		icc_set_bw(msm_mdss->mdp_path[i], 0, enable ? Bps_to_icc(MIN_IB_BW) : 0);
-> +
-> +	if (msm_mdss->reg_bus_path)
-> +		icc_set_bw(msm_mdss->reg_bus_path, 0, enable ? 76800 : 0);
 
-Please use Bps_to_icc, kbps_to_icc or any of the other macros.
+Yes, this is right, Both of these chipsets only have DSI on index 1.
 
-BR,
-Georgi
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+
