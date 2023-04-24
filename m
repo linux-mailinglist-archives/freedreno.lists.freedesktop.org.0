@@ -2,36 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 145866ED75E
-	for <lists+freedreno@lfdr.de>; Tue, 25 Apr 2023 00:03:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 453856ED7AB
+	for <lists+freedreno@lfdr.de>; Tue, 25 Apr 2023 00:18:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A67E910E20D;
-	Mon, 24 Apr 2023 22:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35E5E10E21A;
+	Mon, 24 Apr 2023 22:18:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A2FF10E20D
- for <freedreno@lists.freedesktop.org>; Mon, 24 Apr 2023 22:03:12 +0000 (UTC)
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2EBC10E20D
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Apr 2023 22:18:13 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id C77C83F364;
- Tue, 25 Apr 2023 00:03:02 +0200 (CEST)
-Date: Tue, 25 Apr 2023 00:03:01 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 378C93F5CF;
+ Tue, 25 Apr 2023 00:18:06 +0200 (CEST)
+Date: Tue, 25 Apr 2023 00:18:04 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <ymq4kstme55dm3j5kr6trevnwdelhjq7e7m4yky6zcbnf7auid@66l7inxz4oq2>
-References: <20230418-dpu-drop-useless-for-lookup-v2-0-acb08e82ef19@somainline.org>
- <20230418-dpu-drop-useless-for-lookup-v2-3-acb08e82ef19@somainline.org>
- <50d22e0c-84b3-0678-eb06-30fb66fd24cf@quicinc.com>
+Message-ID: <l3adl3saeqovypmluubddp6kqcjducn75ifpf63ylbecuprpi3@gpoks434n4yg>
+References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-2-ef76c877eb97@somainline.org>
+ <ca4012ee-d964-c2e9-b437-b03277d71529@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <50d22e0c-84b3-0678-eb06-30fb66fd24cf@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: Pass catalog pointers
- directly from RM instead of IDs
+In-Reply-To: <ca4012ee-d964-c2e9-b437-b03277d71529@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v2 02/17] drm/msm/dpu: Remove TE2 block and
+ feature from DPU >= 7.0.0 hardware
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,125 +45,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jami Kettunen <jami.kettunen@somainline.org>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+Cc: dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ David Airlie <airlied@gmail.com>, Chandan Uddaraju <chandanu@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>, Robert Foss <rfoss@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+ freedreno@lists.freedesktop.org,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-21 16:25:15, Abhinav Kumar wrote:
+On 2023-04-24 13:41:07, Abhinav Kumar wrote:
 > 
 > 
-> On 4/21/2023 1:53 PM, Marijn Suijten wrote:
-> > The Resource Manager already iterates over all available blocks from the
-> > catalog, only to pass their ID to a dpu_hw_xxx_init() function which
-> > uses an _xxx_offset() helper to search for and find the exact same
-> > catalog pointer again to initialize the block with, fallible error
-> > handling and all.
+> On 4/17/2023 1:21 PM, Marijn Suijten wrote:
+> > No hardware beyond kona (sm8250) defines the TE2 PINGPONG sub-block
+> > offset downstream.  Even though neither downstream nor upstream utilizes
+> > these registers in any way, remove the erroneous specification for
+> > SC8280XP, SM8350 and SM8450 to prevent confusion.
 > > 
-> > Instead, pass const pointers to the catalog entries directly to these
-> > _init functions and drop the for loops entirely, saving on both
-> > readability complexity and unnecessary cycles at boot.
+> > Note that downstream enables the PPSPLIT (split-FIFO) topology (single
+> > LM for 2 PP and 2 INTF) based on the presence of a TE2 block.
 > > 
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Fixes: f0a1bdf64dd7 ("drm/msm/dpu: Introduce SC8280XP")
+> > Fixes: 0a72f23f6ef8 ("drm/msm/dpu: Add SM8350 to hw catalog")
+> > Fixes: 8cbbc3396065 ("drm/msm/dpu: add support for SM8450")
 > 
-> Overall, a nice cleanup!
+> I cannot find any commits with those hashes.
 > 
-> One comment below.
+> Should this be
 > 
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c        | 37 +++++----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h        | 14 ++++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c        | 32 +++---------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h        | 11 +++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c       | 38 ++++-----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.h       | 12 +++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c       | 40 ++++++-----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h       | 12 +++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c         | 38 ++++-----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h         | 10 +++---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c    | 33 +++----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.h    | 14 ++++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   | 33 +++----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   | 14 ++++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c       | 39 ++++------------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h       | 12 +++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c       | 33 +++----------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h       | 11 +++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c         | 33 ++++---------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h         | 11 +++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c           | 17 +++++-----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c            | 18 +++++-----
-> >   23 files changed, 139 insertions(+), 375 deletions(-)
-> > 
-> 
-> <snipped>
-> 
-> > -struct dpu_hw_intf *dpu_hw_intf_init(enum dpu_intf idx,
-> > -		void __iomem *addr,
-> > -		const struct dpu_mdss_cfg *m)
-> > +struct dpu_hw_intf *dpu_hw_intf_init(const struct dpu_intf_cfg *cfg,
-> > +		void __iomem *addr)
-> >   {
-> >   	struct dpu_hw_intf *c;
-> > -	const struct dpu_intf_cfg *cfg;
-> > +
-> > +	if (cfg->type == INTF_NONE) {
-> > +		pr_err("Cannot create interface hw object for INTF_NONE type\n");
-> > +		return ERR_PTR(-EINVAL);
-> > +	}
-> 
-> The caller of dpu_hw_intf_init which is the RM already has protection 
-> for INTF_NONE, see below
-> 
->          for (i = 0; i < cat->intf_count; i++) {
->                  struct dpu_hw_intf *hw;
->                  const struct dpu_intf_cfg *intf = &cat->intf[i];
-> 
->                  if (intf->type == INTF_NONE) {
->                          DPU_DEBUG("skip intf %d with type none\n", i);
->                          continue;
->                  }
->                  if (intf->id < INTF_0 || intf->id >= INTF_MAX) {
->                          DPU_ERROR("skip intf %d with invalid id\n", 
-> intf->id);
->                          continue;
->                  }
->                  hw = dpu_hw_intf_init(intf->id, mmio, cat);
-> 
-> So this part can be dropped.
+> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
+> Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
+> Fixes: 100d7ef6995d ("drm/msm/dpu: add support for SM8450")
 
-I mainly intended to keep original validation where _intf_offset would
-skip INTF_NONE, and error out.  RM init is hence expected to filter out
-INTF_NONE instead of running into that `-EINVAL`, which I maintained
-here.
+Yes they are, thanks for spotting that.  These patches were on drm-msm
+/ msm-next when I made this patch on January 11th, hence these were the
+hashes given to me by git bisect: see how those patches have an author
+timestamp of January 9th, while the proper hashes that landed upstream
+have a hash of January 12th: the branch has been force-pushed after.
 
-If you think there won't be another caller of dpu_hw_intf_init, and that
-such validation is hence excessive, I can remove it in a followup v3.
+Old:
+
+https://gitlab.freedesktop.org/drm/msm/-/commit/f0a1bdf64dd7
+https://gitlab.freedesktop.org/drm/msm/-/commit/0a72f23f6ef8
+https://gitlab.freedesktop.org/drm/msm/-/commit/8cbbc3396065
+
+New:
+
+https://gitlab.freedesktop.org/drm/msm/-/commit/4a352c2fc15a
+https://gitlab.freedesktop.org/drm/msm/-/commit/0e91bcbb0016
+https://gitlab.freedesktop.org/drm/msm/-/commit/100d7ef6995d
+
+> Will wait for a day to fix this up, otherwise I will do it while applying.
+
+Thanks, that's appreciated.
 
 - Marijn
 
-> >   	c = kzalloc(sizeof(*c), GFP_KERNEL);
-> >   	if (!c)
-> >   		return ERR_PTR(-ENOMEM);
-> >   
-> > -	cfg = _intf_offset(idx, m, addr, &c->hw);
-> > -	if (IS_ERR_OR_NULL(cfg)) {
-> > -		kfree(c);
-> > -		pr_err("failed to create dpu_hw_intf %d\n", idx);
-> > -		return ERR_PTR(-EINVAL);
-> > -	}
-> > +	c->hw.blk_addr = addr + cfg->base;
-> > +	c->hw.log_mask = DPU_DBG_MASK_INTF;
-> >   
-> 
-> <snipped>
+> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   |  4 ++--
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 12 ++++++------
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   |  4 ++--
+> >   3 files changed, 10 insertions(+), 10 deletions(-)
+
+<snip>
