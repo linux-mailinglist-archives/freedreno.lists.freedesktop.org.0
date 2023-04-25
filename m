@@ -1,50 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B4D06EE61F
-	for <lists+freedreno@lfdr.de>; Tue, 25 Apr 2023 18:53:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D20616EE644
+	for <lists+freedreno@lfdr.de>; Tue, 25 Apr 2023 19:03:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2C1A10E7B2;
-	Tue, 25 Apr 2023 16:53:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC9710E0AE;
+	Tue, 25 Apr 2023 17:03:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E340810E7B2;
- Tue, 25 Apr 2023 16:53:12 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-38e2740958aso2235767b6e.1; 
- Tue, 25 Apr 2023 09:53:12 -0700 (PDT)
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
+ [209.85.160.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08D7A10E0AE;
+ Tue, 25 Apr 2023 17:03:22 +0000 (UTC)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-18e26c08349so3332059fac.0; 
+ Tue, 25 Apr 2023 10:03:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682441592; x=1685033592;
+ d=1e100.net; s=20221208; t=1682442202; x=1685034202;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xsSaFPoEnp1cGsorTT7ZaH8aG8h2ymJ3AbL8g9oAX2c=;
- b=bFgyuKKiSA38FW5IQvy/mNwWoTrvHd7qlAeNWQLtimLt3FgdXcZ+sVXCI6VhOS4my8
- uFBSndPisouy4do9AfJHK93Gu4A9TIUWyNN3KGzie2iy5nJZ1ZFkjEm0Ta+hpohmk3/9
- zWArBAdygj/QuMmKifEuSEcq+wda0MFLPOYxMqdkZV6fBvKod/h6DuB7wGh+0nNAV1Tc
- vZtD49RSWyTp5m6nh4028C1kRtKoRWLuGWv3TCc28uWPr9Tjs1IdOHkrhUGaR/GUzg9X
- RmFi/ZFc9TZDstC/0cr5SJ5sxYtfcyi57n0nr2czJywC1sQlMhqAvXBKvWdxY7hVXoZV
- QoLA==
-X-Gm-Message-State: AAQBX9d4gXF//V4C62vdGt6DRZcoswj66gzU5K7oHb5PZLz53pfyMfwZ
- ZAV4dYZqjabQMKN9KAs4gw==
-X-Google-Smtp-Source: AKy350bfrDTwQxvMUyap3y3hJHSKG/gULg481X3pOZQCJmRNZ5VYkfUL4Idx8sx5O25r4MyufQ1RvQ==
-X-Received: by 2002:a05:6808:1392:b0:387:14b7:f8e7 with SMTP id
- c18-20020a056808139200b0038714b7f8e7mr10106662oiw.38.1682441591645; 
- Tue, 25 Apr 2023 09:53:11 -0700 (PDT)
+ bh=+ZDfXI7hMbqGi7E82l8vWt9jneZ/T4Uui2TLcBQz+KM=;
+ b=c3+edCJCof7Y73VgpJEKPyP7Qbi406dKWuZaphQ1/imhzUI8gwAxbjKCdC1nxumTf3
+ qsdhAroOolZRE/o5xa/zKVPXrO8c7DnsUX5b/j0Wd1X7n64VRq0xkSgHpXWv2B3YiblM
+ bhMUZR7daUGGfYs7HuALw4Gwii6c+hwArl5ENzAQFv5hA3z/N7nSswK65qpxHn3MA37g
+ MLw/yx8qww6n3b7K0nwQ5GwTV5kqQZUdO6319D8Oj0reT/CbfU01xeU8i5OdzIZzWQeb
+ rEcqvPh1BAcO+BufRoV7cHhYHdL7uOzp40jmpDhyHuP7YxjDnoPLAdSFSxBLZqBakHfU
+ /VOg==
+X-Gm-Message-State: AAQBX9cxh6mIKIHwPL+SuD4WBUPGdW1tpsPrtGhWSLrEDQSOZRZZ6Vpj
+ SWubNMY/ArsGk9ntJ55xMQ==
+X-Google-Smtp-Source: AKy350Yul7/EEVvrMD/ABdCsLr9ode6pBn2tmtKnE0Rjjz8gJcwSoneSAZlS17HOt1THyFiTOOIaeQ==
+X-Received: by 2002:a05:6870:63a4:b0:17e:6eaa:945f with SMTP id
+ t36-20020a05687063a400b0017e6eaa945fmr12199364oap.8.1682442201994; 
+ Tue, 25 Apr 2023 10:03:21 -0700 (PDT)
 Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- z9-20020a056808048900b0038dd5bf922bsm5772958oid.22.2023.04.25.09.53.10
+ b1-20020a056870b24100b0018045663fc5sm5678632oam.48.2023.04.25.10.03.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Apr 2023 09:53:11 -0700 (PDT)
-Received: (nullmailer pid 1931342 invoked by uid 1000);
- Tue, 25 Apr 2023 16:53:10 -0000
-Date: Tue, 25 Apr 2023 11:53:10 -0500
+ Tue, 25 Apr 2023 10:03:21 -0700 (PDT)
+Received: (nullmailer pid 1948453 invoked by uid 1000);
+ Tue, 25 Apr 2023 17:03:20 -0000
+Date: Tue, 25 Apr 2023 12:03:20 -0500
 From: Rob Herring <robh@kernel.org>
 To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230425165310.GA1928942-robh@kernel.org>
+Message-ID: <20230425170320.GA1931576-robh@kernel.org>
 References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
  <20230411-topic-straitlagoon_mdss-v2-3-5def73f50980@linaro.org>
 MIME-Version: 1.0
@@ -115,9 +115,42 @@ On Fri, Apr 21, 2023 at 12:31:12AM +0200, Konrad Dybcio wrote:
 > +    items:
 > +      - description: Address offset and size for mdp register set
 > +      - description: Address offset and size for vbif register set
+> +
+> +  reg-names:
+> +    items:
+> +      - const: mdp
+> +      - const: vbif
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display axi clock
+> +      - description: Display ahb clock
+> +      - description: Display rot clock
+> +      - description: Display lut clock
+> +      - description: Display core clock
+> +      - description: Display vsync clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +      - const: iface
+> +      - const: rot
+> +      - const: lut
+> +      - const: core
+> +      - const: vsync
 
-Drop 'Address offset and size for '
+Is there some reason the clocks are in different order? They appear to 
+be the same minus the 'throttle' clock. Is there really no 'throttle' 
+clock? Maybe this platform just tied it to one of the same clocks in the 
+above?
 
-With that,
+I really hate the mess that is clocks. We have the same or related 
+blocks with just totally different names and order. The result is 
+if/then schemas or separate schemas like this. Neither option is great, 
+but at least the if/then schemas provides some motivation to not have 
+pointless variations like this. </rant>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+As it seems the only difference between these 2 bindings is 1 extra 
+clock, can't they be shared?
+
+Rob
