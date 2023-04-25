@@ -1,58 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20616EE644
-	for <lists+freedreno@lfdr.de>; Tue, 25 Apr 2023 19:03:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD57E6EE92D
+	for <lists+freedreno@lfdr.de>; Tue, 25 Apr 2023 22:43:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC9710E0AE;
-	Tue, 25 Apr 2023 17:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1626F10E5A5;
+	Tue, 25 Apr 2023 20:43:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
- [209.85.160.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D7A10E0AE;
- Tue, 25 Apr 2023 17:03:22 +0000 (UTC)
-Received: by mail-oa1-f50.google.com with SMTP id
- 586e51a60fabf-18e26c08349so3332059fac.0; 
- Tue, 25 Apr 2023 10:03:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682442202; x=1685034202;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+ZDfXI7hMbqGi7E82l8vWt9jneZ/T4Uui2TLcBQz+KM=;
- b=c3+edCJCof7Y73VgpJEKPyP7Qbi406dKWuZaphQ1/imhzUI8gwAxbjKCdC1nxumTf3
- qsdhAroOolZRE/o5xa/zKVPXrO8c7DnsUX5b/j0Wd1X7n64VRq0xkSgHpXWv2B3YiblM
- bhMUZR7daUGGfYs7HuALw4Gwii6c+hwArl5ENzAQFv5hA3z/N7nSswK65qpxHn3MA37g
- MLw/yx8qww6n3b7K0nwQ5GwTV5kqQZUdO6319D8Oj0reT/CbfU01xeU8i5OdzIZzWQeb
- rEcqvPh1BAcO+BufRoV7cHhYHdL7uOzp40jmpDhyHuP7YxjDnoPLAdSFSxBLZqBakHfU
- /VOg==
-X-Gm-Message-State: AAQBX9cxh6mIKIHwPL+SuD4WBUPGdW1tpsPrtGhWSLrEDQSOZRZZ6Vpj
- SWubNMY/ArsGk9ntJ55xMQ==
-X-Google-Smtp-Source: AKy350Yul7/EEVvrMD/ABdCsLr9ode6pBn2tmtKnE0Rjjz8gJcwSoneSAZlS17HOt1THyFiTOOIaeQ==
-X-Received: by 2002:a05:6870:63a4:b0:17e:6eaa:945f with SMTP id
- t36-20020a05687063a400b0017e6eaa945fmr12199364oap.8.1682442201994; 
- Tue, 25 Apr 2023 10:03:21 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- b1-20020a056870b24100b0018045663fc5sm5678632oam.48.2023.04.25.10.03.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Apr 2023 10:03:21 -0700 (PDT)
-Received: (nullmailer pid 1948453 invoked by uid 1000);
- Tue, 25 Apr 2023 17:03:20 -0000
-Date: Tue, 25 Apr 2023 12:03:20 -0500
-From: Rob Herring <robh@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230425170320.GA1931576-robh@kernel.org>
-References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
- <20230411-topic-straitlagoon_mdss-v2-3-5def73f50980@linaro.org>
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF9710E2C9;
+ Tue, 25 Apr 2023 20:43:43 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 4D84F1F949;
+ Tue, 25 Apr 2023 22:43:36 +0200 (CEST)
+Date: Tue, 25 Apr 2023 22:43:34 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <6crk3acgxcdfdokpgcfjkojs2wdjoxalkmctqfgtc725wsgoep@kdj4zbavbe62>
+References: <20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org>
+ <20230411-dpu-intf-te-v2-4-ef76c877eb97@somainline.org>
+ <a0a0b8fb-0d6b-d11b-5596-d61c41aabe7f@quicinc.com>
+ <bhatfkgdkjt2bih4lcwa5cxcp3w2tkjrqmbdhqhzqa2cizrmxs@py3gr5vifsoc>
+ <65bb4d8a-c607-4152-0ae3-bf3134955925@quicinc.com>
+ <5td7ikd76obc5bn5sndnt7fbzjuwmyxtu35ma3lykzmmbyfffk@b24jh6imaocy>
+ <7541b780-482e-ea92-f788-18c8fbf45d77@quicinc.com>
+ <o536qdkbrqob5wux7jvmo7expwn4bdlj7vy7egjfsyydxp5myb@xjhmolci5jzl>
+ <cc537736-a555-dc3e-2e53-f1d4479eab21@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v2-3-5def73f50980@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 03/13] dt-bindings: display/msm: Add
- SM6350 DPU
+In-Reply-To: <cc537736-a555-dc3e-2e53-f1d4479eab21@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v2 04/17] drm/msm/dpu: Fix PP_BLK_DIPHER ->
+ DITHER typo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,92 +51,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Robin Murphy <robin.murphy@arm.com>
+Cc: dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ David Airlie <airlied@gmail.com>, Chandan Uddaraju <chandanu@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>, Robert Foss <rfoss@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 21, 2023 at 12:31:12AM +0200, Konrad Dybcio wrote:
-> Document the SM6350 DPU.
+On 2023-04-25 09:47:30, Abhinav Kumar wrote:
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  .../bindings/display/msm/qcom,sm6350-dpu.yaml      | 94 ++++++++++++++++++++++
->  1 file changed, 94 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml
-> new file mode 100644
-> index 000000000000..979fcf81afc9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml
-> @@ -0,0 +1,94 @@
-> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/qcom,sm6350-dpu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Display DPU dt properties for SM6350 target
-> +
-> +maintainers:
-> +  - Konrad Dybcio <konrad.dybcio@linaro.org>
-> +
-> +$ref: /schemas/display/msm/dpu-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: qcom,sm6350-dpu
-> +
-> +  reg:
-> +    items:
-> +      - description: Address offset and size for mdp register set
-> +      - description: Address offset and size for vbif register set
-> +
-> +  reg-names:
-> +    items:
-> +      - const: mdp
-> +      - const: vbif
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display axi clock
-> +      - description: Display ahb clock
-> +      - description: Display rot clock
-> +      - description: Display lut clock
-> +      - description: Display core clock
-> +      - description: Display vsync clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: bus
-> +      - const: iface
-> +      - const: rot
-> +      - const: lut
-> +      - const: core
-> +      - const: vsync
+> On 4/25/2023 9:33 AM, Marijn Suijten wrote:
+> > On 2023-04-25 09:18:58, Abhinav Kumar wrote:
+> >>
+> >>
+> >> On 4/24/2023 11:54 PM, Marijn Suijten wrote:
+> >>> On 2023-04-24 16:09:45, Abhinav Kumar wrote:
+> >>> <snip>
+> >>>>>> dither block should be present on many other chipsets too but looks like
+> >>>>>> on sm8550 was enabling it. Not sure how it was validated there. But we
+> >>>>>> are enabling dither, even other chipsets have this block.
+> >>>>>
+> >>>>> Correct, they all seem to have it starting at sdm845.  My patch message
+> >>>>> seems to lack the word "exclusively" as the PP on sm8550 appears to
+> >>>>> exclusively contain a DITHER subblock (unless other blocks are available
+> >>>>> that simply aren't supported within this driver yet) and no other
+> >>>>> registers.  Hence this aptly named macro exist to emit just the feature
+> >>>>> bitflag for that and a .len of zero.
+> >>>>>
+> >>>>
+> >>>> I think after the TE blocks were moved to INTF, dither is the only
+> >>>> sub-block for all Ping-Pongs not just in sm8550.
+> >>>
+> >>> So you are asking / leaving context to make all >= 5.0.0 pingpong blocks
+> >>> use this macro with only a single DITHER sblk in PP?
+> >>>
+> >>> As far as I recall SM8550 is the first SoC to use zero registers in PP,
+> >>> which is specifically what this macro takes care of too.  Then, there
+> >>> are only a few SoCs downstream still (erroneously?) referencing TE2 as
+> >>> the only other sub-blk, those SoCs still use sdm845_pp_sblk_te.
+> >>>
+> >>
+> >> So, what I didnt follow is why should sm8450 use PP_BLK_TE Vs sm8550
+> >> should use PP_BLK_DIPHER?
+> >>
+> >> Atleast for those two, both should be using PP_BLK_DIPHER.
+> >>
+> >> Thats what I was trying to note here.
+> >>
+> >> This isnt even right as there is no PP_BLK_TE in sm8450.
+> > 
+> > SM8450 doesn't use PP_BLK_TE (TE2) anymore since the second patch in
+> > this series.  If you think it should use the DITHER (not DIPHER!) macro
+> > instead of the regular PP_BLK with a size of 0xd4, we can do that in
+> > another patch as that's not strictly related to this series.
+> > 
+> 
+> Yes, thanks for pointing the TE2 was removed in the prev patch of this 
+> series for sm8450. I was just focusing too much on this patch.
+> 
+> And Yes, I think we should use the DIPHER ..... oh sorry .... DITHER ;)
+> 
+> Yes, it can go as a different series, like I already wrote many times in 
+> this.
 
-Is there some reason the clocks are in different order? They appear to 
-be the same minus the 'throttle' clock. Is there really no 'throttle' 
-clock? Maybe this platform just tied it to one of the same clocks in the 
-above?
+Thanks, that'd be great.  I wasn't sure at this point what you wanted to
+be changed here, after commenting on a typo fix rather than i.e. patch 2
+that deals with the TE2 sub-block of PP :)
 
-I really hate the mess that is clocks. We have the same or related 
-blocks with just totally different names and order. The result is 
-if/then schemas or separate schemas like this. Neither option is great, 
-but at least the if/then schemas provides some motivation to not have 
-pointless variations like this. </rant>
+> But atleast now, someone will remember to do it.
+> 
+> > Note that that's the only difference between these macros.  The size
+> > becomes 0 but the .features mask is the same (SM8450 uses
+> > PINGPONG_SM8150_MASK).
+> > 
+> > These patches are anyway already distracting from my series, but were
+> > easier to do in one go as I was touching the PP and INTF catalog blocks
+> > regardless.
+> > 
+> > While at it, perhaps we should check if the version and offset for the
+> > DITHER block are correct?  SM8450 uses SDM845 sblk definitions.
+> > 
+> 
+> Yes I already checked. the version and offset of dither are same between 
+> sm8450 and sm8550.
 
-As it seems the only difference between these 2 bindings is 1 extra 
-clock, can't they be shared?
+Thanks for checking, so then sm8450 is wrong on multiple occasions.
+Let's check all other SoCs that use sdm845_pp_sblk whether they should
+have used sc7280_pp_sblk instead.
 
-Rob
+- Marijn
