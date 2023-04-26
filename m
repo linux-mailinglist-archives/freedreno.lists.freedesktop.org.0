@@ -2,29 +2,30 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939116EFD34
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 00:37:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E967C6EFD46
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 00:37:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5777910E33A;
-	Wed, 26 Apr 2023 22:37:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5304010EA5A;
+	Wed, 26 Apr 2023 22:37:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3066610E51E
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34DF310EA29
  for <freedreno@lists.freedesktop.org>; Wed, 26 Apr 2023 22:37:22 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id A4D7D2020A;
- Thu, 27 Apr 2023 00:37:18 +0200 (CEST)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6C3E920210;
+ Thu, 27 Apr 2023 00:37:19 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 27 Apr 2023 00:37:17 +0200
+Date: Thu, 27 Apr 2023 00:37:18 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230411-dpu-intf-te-v4-3-27ce1a5ab5c6@somainline.org>
+Message-Id: <20230411-dpu-intf-te-v4-4-27ce1a5ab5c6@somainline.org>
 References: <20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org>
 In-Reply-To: <20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -36,8 +37,8 @@ To: Rob Clark <robdclark@gmail.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Robert Foss <rfoss@kernel.org>, 
  Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.12.2
-Subject: [Freedreno] [PATCH v4 03/22] drm/msm/dpu: Move non-MDP_TOP
- INTF_INTR offsets out of hwio header
+Subject: [Freedreno] [PATCH v4 04/22] drm/msm/dpu: Reindent REV_7xxx
+ interrupt masks with tabs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,57 +63,48 @@ Cc: Marijn Suijten <marijn.suijten@somainline.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-These offsets do not fall under the MDP TOP block and do not fit the
-comment right above.  Move them to dpu_hw_interrupts.c next to the
-repsective MDP_INTF_x_OFF interrupt block offsets.
+Use tabs for consistency with the other interrupt register definitions,
+rather than spaces.
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Fixes: ed6154a136e4 ("drm/msm/disp/dpu1: add intf offsets for SC7280 target")
+Fixes: 89688e2119b2 ("drm/msm/dpu: Add more of the INTF interrupt regions")
+Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 5 ++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h          | 3 ---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index 53326f25e40ef..85c0bda3ff90e 100644
+index 85c0bda3ff90e..17f3e7e4f1941 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -15,7 +15,7 @@
- 
- /*
-  * Register offsets in MDSS register file for the interrupt registers
-- * w.r.t. to the MDP base
-+ * w.r.t. the MDP base
-  */
- #define MDP_SSPP_TOP0_OFF		0x0
- #define MDP_INTF_0_OFF			0x6A000
-@@ -24,6 +24,9 @@
- #define MDP_INTF_3_OFF			0x6B800
- #define MDP_INTF_4_OFF			0x6C000
- #define MDP_INTF_5_OFF			0x6C800
-+#define INTF_INTR_EN			0x1c0
-+#define INTF_INTR_STATUS		0x1c4
-+#define INTF_INTR_CLEAR			0x1c8
- #define MDP_AD4_0_OFF			0x7C000
- #define MDP_AD4_1_OFF			0x7D000
+@@ -32,15 +32,15 @@
  #define MDP_AD4_INTR_EN_OFF		0x41c
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
-index feb9a729844a3..5acd5683d25a4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
-@@ -21,9 +21,6 @@
- #define HIST_INTR_EN                    0x01c
- #define HIST_INTR_STATUS                0x020
- #define HIST_INTR_CLEAR                 0x024
--#define INTF_INTR_EN                    0x1C0
--#define INTF_INTR_STATUS                0x1C4
--#define INTF_INTR_CLEAR                 0x1C8
- #define SPLIT_DISPLAY_EN                0x2F4
- #define SPLIT_DISPLAY_UPPER_PIPE_CTRL   0x2F8
- #define DSPP_IGC_COLOR0_RAM_LUTN        0x300
+ #define MDP_AD4_INTR_CLEAR_OFF		0x424
+ #define MDP_AD4_INTR_STATUS_OFF		0x420
+-#define MDP_INTF_0_OFF_REV_7xxx             0x34000
+-#define MDP_INTF_1_OFF_REV_7xxx             0x35000
+-#define MDP_INTF_2_OFF_REV_7xxx             0x36000
+-#define MDP_INTF_3_OFF_REV_7xxx             0x37000
+-#define MDP_INTF_4_OFF_REV_7xxx             0x38000
+-#define MDP_INTF_5_OFF_REV_7xxx             0x39000
+-#define MDP_INTF_6_OFF_REV_7xxx             0x3a000
+-#define MDP_INTF_7_OFF_REV_7xxx             0x3b000
+-#define MDP_INTF_8_OFF_REV_7xxx             0x3c000
++#define MDP_INTF_0_OFF_REV_7xxx		0x34000
++#define MDP_INTF_1_OFF_REV_7xxx		0x35000
++#define MDP_INTF_2_OFF_REV_7xxx		0x36000
++#define MDP_INTF_3_OFF_REV_7xxx		0x37000
++#define MDP_INTF_4_OFF_REV_7xxx		0x38000
++#define MDP_INTF_5_OFF_REV_7xxx		0x39000
++#define MDP_INTF_6_OFF_REV_7xxx		0x3a000
++#define MDP_INTF_7_OFF_REV_7xxx		0x3b000
++#define MDP_INTF_8_OFF_REV_7xxx		0x3c000
+ 
+ /**
+  * struct dpu_intr_reg - array of DPU register sets
 
 -- 
 2.40.1
