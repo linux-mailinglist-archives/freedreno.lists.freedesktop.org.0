@@ -1,85 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBB9B6EEB7A
-	for <lists+freedreno@lfdr.de>; Wed, 26 Apr 2023 02:34:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1FE76EEF08
+	for <lists+freedreno@lfdr.de>; Wed, 26 Apr 2023 09:17:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA42E10E84F;
-	Wed, 26 Apr 2023 00:34:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3800410E8DE;
+	Wed, 26 Apr 2023 07:17:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F307110E84F;
- Wed, 26 Apr 2023 00:34:22 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33PNJAMn031578; Wed, 26 Apr 2023 00:34:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=4agyAIcDc0Cu6zmKCDFisgCp3WWF8uk2+YsbowG0z6Y=;
- b=LV5nSvmngExikZBm0zfrErDRcTqj5lFjtyARNAbCOVibSTs/1B54o4MVblcBYQa7MxJm
- luhLxZxRF+a63RnccYzMHk8XM3S52mXIKVVZ6/BN+JW5sTSA10MnvVtX6iLphl79237z
- 06bgJRO/e+0M1HtIVnbWRGZ5vD6/kkoZD4wKeo3GjttuoqkqlGElJbKpoAzo1ujgjumy
- c4QhvHDv0ERopPAECspgKSe3R07S+nb7XA/fbGhsLfymgVBgic6fhiJ03rWzXfU6VslB
- g2bPuFT03KJwY9BJtEC4h3HDqZphmGUiOYXus21EYbx7gJiirehLIPfwWeWLLW9zA2FB jA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q6gak1b4d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Apr 2023 00:34:17 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33Q0XsoF016338
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Apr 2023 00:33:54 GMT
-Received: from [10.110.124.105] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 25 Apr
- 2023 17:33:53 -0700
-Message-ID: <697f5b26-73b0-b53c-c7a0-1d926778ee70@quicinc.com>
-Date: Tue, 25 Apr 2023 17:33:52 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Sean Paul" <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Adam Skladowski <a39.skl@gmail.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>,
- Robert Foss <rfoss@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 881B410E8D8
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Apr 2023 07:17:01 +0000 (UTC)
+Received: from SoMainline.org (unknown [89.205.225.144])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 9861A3E922;
+ Wed, 26 Apr 2023 09:16:51 +0200 (CEST)
+Date: Wed, 26 Apr 2023 09:16:48 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <6fnvr646if7s2wxx64yyhd7ddrxtvirn3tsltba4mgsjkseokq@a7i3d2w3q4pi>
 References: <20230411-dpu-intf-te-v3-0-693b17fe6500@somainline.org>
- <20230411-dpu-intf-te-v3-4-693b17fe6500@somainline.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230411-dpu-intf-te-v3-4-693b17fe6500@somainline.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: wAkvFEFaOcfgj7IatlCh_bSFJ3CaYpwi
-X-Proofpoint-GUID: wAkvFEFaOcfgj7IatlCh_bSFJ3CaYpwi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-25_11,2023-04-25_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 mlxscore=0
- priorityscore=1501 mlxlogscore=637 adultscore=0 impostorscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304260003
-Subject: Re: [Freedreno] [PATCH v3 04/21] drm/msm/dpu: Reindent REV_7xxx
- interrupt masks with tabs
+ <20230411-dpu-intf-te-v3-17-693b17fe6500@somainline.org>
+ <692a094b-1cb7-d4e1-7e44-6f9fab075c2f@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <692a094b-1cb7-d4e1-7e44-6f9fab075c2f@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 17/21] drm/msm/dpu: Describe TEAR
+ interrupt registers for DSI interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,28 +44,153 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jami
- Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
+Cc: dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+ David Airlie <airlied@gmail.com>, Robert Foss <rfoss@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 4/25/2023 4:05 PM, Marijn Suijten wrote:
-> Use tabs for consistency with the other interrupt register definitions,
-> rather than spaces.
+On 2023-04-26 03:05:12, Dmitry Baryshkov wrote:
+> On 26/04/2023 02:06, Marijn Suijten wrote:
+> > All SoCs since DPU 5.0.0 have the tear interrupt registers moved out of
+> > the PINGPONG block and into the INTF block.  Wire up the IRQ register
+> > masks in the interrupt table for enabling, reading and clearing them.
+> > 
+> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 52 +++++++++++++++++------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  4 ++
+> >   2 files changed, 44 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > index e116993b2f8f7..5e2d68ebb113e 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> > @@ -17,18 +17,26 @@
+> >    * Register offsets in MDSS register file for the interrupt registers
+> >    * w.r.t. the MDP base
+> >    */
+> > -#define MDP_INTF_OFF(intf)			(0x6A000 + 0x800 * (intf))
+> > -#define MDP_INTF_INTR_EN(intf)			(MDP_INTF_OFF(intf) + 0x1c0)
+> > -#define MDP_INTF_INTR_STATUS(intf)		(MDP_INTF_OFF(intf) + 0x1c4)
+> > -#define MDP_INTF_INTR_CLEAR(intf)		(MDP_INTF_OFF(intf) + 0x1c8)
+> > -#define MDP_AD4_OFF(ad4)			(0x7C000 + 0x1000 * (ad4))
+> > -#define MDP_AD4_INTR_EN_OFF(ad4)		(MDP_AD4_OFF(ad4) + 0x41c)
+> > -#define MDP_AD4_INTR_CLEAR_OFF(ad4)		(MDP_AD4_OFF(ad4) + 0x424)
+> > -#define MDP_AD4_INTR_STATUS_OFF(ad4)		(MDP_AD4_OFF(ad4) + 0x420)
+> > -#define MDP_INTF_REV_7xxx_OFF(intf)		(0x34000 + 0x1000 * (intf))
+> > -#define MDP_INTF_REV_7xxx_INTR_EN(intf)		(MDP_INTF_REV_7xxx_OFF(intf) + 0x1c0)
+> > -#define MDP_INTF_REV_7xxx_INTR_STATUS(intf)	(MDP_INTF_REV_7xxx_OFF(intf) + 0x1c4)
+> > -#define MDP_INTF_REV_7xxx_INTR_CLEAR(intf)	(MDP_INTF_REV_7xxx_OFF(intf) + 0x1c8)
+> > +#define MDP_INTF_OFF(intf)				(0x6A000 + 0x800 * (intf))
+> > +#define MDP_INTF_INTR_EN(intf)				(MDP_INTF_OFF(intf) + 0x1c0)
+> > +#define MDP_INTF_INTR_STATUS(intf)			(MDP_INTF_OFF(intf) + 0x1c4)
+> > +#define MDP_INTF_INTR_CLEAR(intf)			(MDP_INTF_OFF(intf) + 0x1c8)
+> > +#define MDP_INTF_TEAR_OFF(intf)				(0x6D700 + 0x100 * (intf))
+> > +#define MDP_INTF_INTR_TEAR_EN(intf)			(MDP_INTF_TEAR_OFF(intf) + 0x000)
+> > +#define MDP_INTF_INTR_TEAR_STATUS(intf)			(MDP_INTF_TEAR_OFF(intf) + 0x004)
+> > +#define MDP_INTF_INTR_TEAR_CLEAR(intf)			(MDP_INTF_TEAR_OFF(intf) + 0x008)
+> > +#define MDP_AD4_OFF(ad4)				(0x7C000 + 0x1000 * (ad4))
+> > +#define MDP_AD4_INTR_EN_OFF(ad4)			(MDP_AD4_OFF(ad4) + 0x41c)
+> > +#define MDP_AD4_INTR_CLEAR_OFF(ad4)			(MDP_AD4_OFF(ad4) + 0x424)
+> > +#define MDP_AD4_INTR_STATUS_OFF(ad4)			(MDP_AD4_OFF(ad4) + 0x420)
 > 
-> Fixes: ed6154a136e4 ("drm/msm/disp/dpu1: add intf offsets for SC7280 target")
-> Fixes: 89688e2119b2 ("drm/msm/dpu: Add more of the INTF interrupt regions")
-> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
+> 
+> Please don't reindent lines together with doing the actual changes. 
+> Please set the correct alignment in the patch 10
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+The alignment here is extended to accomodate for
+MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(intf), or do you want me to reserve
+the right indentation from the get-go in patch 10?  That'd certainly
+make it more clear which lines are added here, and patch 10 already
+adjusts the alignment anyway.
+
+- Marijn
+
+> > +#define MDP_INTF_REV_7xxx_OFF(intf)			(0x34000 + 0x1000 * (intf))
+> > +#define MDP_INTF_REV_7xxx_INTR_EN(intf)			(MDP_INTF_REV_7xxx_OFF(intf) + 0x1c0)
+> > +#define MDP_INTF_REV_7xxx_INTR_STATUS(intf)		(MDP_INTF_REV_7xxx_OFF(intf) + 0x1c4)
+> > +#define MDP_INTF_REV_7xxx_INTR_CLEAR(intf)		(MDP_INTF_REV_7xxx_OFF(intf) + 0x1c8)
+> > +#define MDP_INTF_REV_7xxx_TEAR_OFF(intf)		(0x34800 + 0x1000 * (intf))
+> > +#define MDP_INTF_REV_7xxx_INTR_TEAR_EN(intf)		(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x000)
+> > +#define MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(intf)	(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x004)
+> > +#define MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(intf)		(MDP_INTF_REV_7xxx_TEAR_OFF(intf) + 0x008)
+> >   
+> >   /**
+> >    * struct dpu_intr_reg - array of DPU register sets
+> > @@ -93,6 +101,16 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
+> >   		MDP_INTF_INTR_EN(5),
+> >   		MDP_INTF_INTR_STATUS(5)
+> >   	},
+> > +	[MDP_INTF1_TEAR_INTR] = {
+> > +		MDP_INTF_INTR_TEAR_CLEAR(1),
+> > +		MDP_INTF_INTR_TEAR_EN(1),
+> > +		MDP_INTF_INTR_TEAR_STATUS(1)
+> > +	},
+> > +	[MDP_INTF2_TEAR_INTR] = {
+> > +		MDP_INTF_INTR_TEAR_CLEAR(2),
+> > +		MDP_INTF_INTR_TEAR_EN(2),
+> > +		MDP_INTF_INTR_TEAR_STATUS(2)
+> > +	},
+> >   	[MDP_AD4_0_INTR] = {
+> >   		MDP_AD4_INTR_CLEAR_OFF(0),
+> >   		MDP_AD4_INTR_EN_OFF(0),
+> > @@ -113,11 +131,21 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
+> >   		MDP_INTF_REV_7xxx_INTR_EN(1),
+> >   		MDP_INTF_REV_7xxx_INTR_STATUS(1)
+> >   	},
+> > +	[MDP_INTF1_7xxx_TEAR_INTR] = {
+> > +		MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(1),
+> > +		MDP_INTF_REV_7xxx_INTR_TEAR_EN(1),
+> > +		MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(1)
+> > +	},
+> >   	[MDP_INTF2_7xxx_INTR] = {
+> >   		MDP_INTF_REV_7xxx_INTR_CLEAR(2),
+> >   		MDP_INTF_REV_7xxx_INTR_EN(2),
+> >   		MDP_INTF_REV_7xxx_INTR_STATUS(2)
+> >   	},
+> > +	[MDP_INTF2_7xxx_TEAR_INTR] = {
+> > +		MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(2),
+> > +		MDP_INTF_REV_7xxx_INTR_TEAR_EN(2),
+> > +		MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(2)
+> > +	},
+> >   	[MDP_INTF3_7xxx_INTR] = {
+> >   		MDP_INTF_REV_7xxx_INTR_CLEAR(3),
+> >   		MDP_INTF_REV_7xxx_INTR_EN(3),
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> > index 425465011c807..fda7f8c9caece 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> > @@ -23,11 +23,15 @@ enum dpu_hw_intr_reg {
+> >   	MDP_INTF3_INTR,
+> >   	MDP_INTF4_INTR,
+> >   	MDP_INTF5_INTR,
+> > +	MDP_INTF1_TEAR_INTR,
+> > +	MDP_INTF2_TEAR_INTR,
+> >   	MDP_AD4_0_INTR,
+> >   	MDP_AD4_1_INTR,
+> >   	MDP_INTF0_7xxx_INTR,
+> >   	MDP_INTF1_7xxx_INTR,
+> > +	MDP_INTF1_7xxx_TEAR_INTR,
+> >   	MDP_INTF2_7xxx_INTR,
+> > +	MDP_INTF2_7xxx_TEAR_INTR,
+> >   	MDP_INTF3_7xxx_INTR,
+> >   	MDP_INTF4_7xxx_INTR,
+> >   	MDP_INTF5_7xxx_INTR,
+> > 
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
