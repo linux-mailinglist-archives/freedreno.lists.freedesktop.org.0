@@ -2,84 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 130D96EF85D
-	for <lists+freedreno@lfdr.de>; Wed, 26 Apr 2023 18:24:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C36D26EF872
+	for <lists+freedreno@lfdr.de>; Wed, 26 Apr 2023 18:29:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF76A10E8CF;
-	Wed, 26 Apr 2023 16:24:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E0710E8A8;
+	Wed, 26 Apr 2023 16:29:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF5E10E59E;
- Wed, 26 Apr 2023 16:24:29 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33QG4XXi025015; Wed, 26 Apr 2023 16:24:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=jxCYqtU/KKjkZUQB929AylqzoqPHD48TdjP8lQBgiQo=;
- b=Uu+TZDjj+vDoVLruPzOacCpgFhY5A2lFI1+RjGNifA9iRNN72IoPFtKCEwpQL2xOp2+G
- FR9zyLCESBO+kPbJjDN24lwMoZR2zHWuTMDrLZla6kmr/zpanWK8JxQk4OlDyTFRTJ13
- YQpMhFm4315TrcLEhGpLWIX6QurL/b9aDLpFS9tnZSQyFdcldnr9St6FDEiFcd2ZLuGH
- 2sncuX3M1nzhcoozWjogtowb9bIPxf4pB/LCTVaX2TTj/YIqSl3V1wOqMi4PfUbEKR+9
- ad2lyUgVCMAX9zoPsBjzUOtXtXG2mbdjfD41IUnzmcdlPX5xefWksCiO+rpns+VPn4P9 lA== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q6uprsrct-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Apr 2023 16:24:23 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33QGOMcS019706
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Apr 2023 16:24:22 GMT
-Received: from [10.110.124.105] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 26 Apr
- 2023 09:24:20 -0700
-Message-ID: <d44022e0-bc09-122e-5a48-1994cb025ba8@quicinc.com>
-Date: Wed, 26 Apr 2023 09:24:19 -0700
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
+ [IPv6:2607:f8b0:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9AF410E694
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Apr 2023 16:29:34 +0000 (UTC)
+Received: by mail-il1-x133.google.com with SMTP id
+ e9e14a558f8ab-32b437f4607so19610465ab.1
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Apr 2023 09:29:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1682526573; x=1685118573;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TIDVwkBe6JgOdUFARGozlMNyy0dDCnMU/+lG8y5/nQs=;
+ b=cWVMkmgt9ObIOIZ+CfDwNRly4zcDmy0JyvZ0EolmH6lnHt6uGYsFuDeeM5GwhCPFTR
+ TkVWf7vQb5W3OekXlUNnm2DDJ9Pk5x7Zo41k31iy+iPcMhz+kfuBG1HyYb9UiZkXq3Vw
+ TnY8zbIJUDe4yggKB3nnDvOCmFqaGvVQCR6zc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682526573; x=1685118573;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TIDVwkBe6JgOdUFARGozlMNyy0dDCnMU/+lG8y5/nQs=;
+ b=hijLV9kPpNVUwvp4E9umzCaydWcqioVGjm/gvtAEoB+hY2r/Is22AkIOQHPaipQtbV
+ /2pZVSJ5TSnzwLT9jW99xLEfrdEHi+wSWOIa6di6EFrA1cVEMPJgZeE8csyrcS3LgZ5j
+ 9aZ+OBOMUal7CAp9IqCWvvCKaFiFR4oIH7KsLiwq8Y/tLbyN3hpqO9P7QvOqHBwhq5/t
+ 3osUPIXeRFYm4PBcLWDNfshsgKVjehAOGNoZHjIXy+EURUUf46W6GS4NQeuzTZa4pXK4
+ O7vQxhgKOoKRoOFqud+qUk14PUb/+krWElh4lYv2UdtLCfz9cOWcJGbyOcA9ojGp7eaq
+ +Ptw==
+X-Gm-Message-State: AAQBX9ec6ANqcbzW+4xUWpzlCTFq4LQWHZ/HhQTmKE3SMuFBHd1xgjpj
+ mjUsdB+vSH7G6Z2iNnVu7atiUmr/hPYJWyN8ZQA=
+X-Google-Smtp-Source: AKy350aGnTtWtfGD0OABRcYr1z0wT6wmwwjUr5UDUXavodNDEQoZnUju2P5UVQ9l0XRT+FK5HmLA7g==
+X-Received: by 2002:a92:c68f:0:b0:32c:911e:652 with SMTP id
+ o15-20020a92c68f000000b0032c911e0652mr10248720ilg.18.1682526572657; 
+ Wed, 26 Apr 2023 09:29:32 -0700 (PDT)
+Received: from mail-il1-f177.google.com (mail-il1-f177.google.com.
+ [209.85.166.177]) by smtp.gmail.com with ESMTPSA id
+ s24-20020a02b158000000b0040fc3a1313asm4899423jah.160.2023.04.26.09.29.28
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Apr 2023 09:29:29 -0700 (PDT)
+Received: by mail-il1-f177.google.com with SMTP id
+ e9e14a558f8ab-316d901b2ecso286965ab.0
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Apr 2023 09:29:28 -0700 (PDT)
+X-Received: by 2002:a05:6e02:1e0a:b0:32b:1de1:17de with SMTP id
+ g10-20020a056e021e0a00b0032b1de117demr419402ila.2.1682526568182; Wed, 26 Apr
+ 2023 09:29:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Sean Paul" <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Adam Skladowski <a39.skl@gmail.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>,
- Robert Foss <rfoss@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20230411-dpu-intf-te-v3-0-693b17fe6500@somainline.org>
- <20230411-dpu-intf-te-v3-6-693b17fe6500@somainline.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230411-dpu-intf-te-v3-6-693b17fe6500@somainline.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: rTTZ43xHj4-xreqtiXVZR4FNTkRaHNT6
-X-Proofpoint-GUID: rTTZ43xHj4-xreqtiXVZR4FNTkRaHNT6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-26_08,2023-04-26_03,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0
- mlxscore=0 clxscore=1015 priorityscore=1501 mlxlogscore=999
- lowpriorityscore=0 adultscore=0 impostorscore=0 spamscore=0 phishscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304260144
-Subject: Re: [Freedreno] [PATCH v3 06/21] drm/msm/dpu: Use V2 DITHER
- PINGPONG sub-block in SM8[34]50/SC8280XP
+References: <20230419154321.1993419-1-markyacoub@google.com>
+In-Reply-To: <20230419154321.1993419-1-markyacoub@google.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 26 Apr 2023 09:29:14 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V1+PMH3YGOcnvziOC7-_NY1yO4w=b4q2RLCdtEtETB3Q@mail.gmail.com>
+Message-ID: <CAD=FV=V1+PMH3YGOcnvziOC7-_NY1yO4w=b4q2RLCdtEtETB3Q@mail.gmail.com>
+To: Mark Yacoub <markyacoub@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v10 00/10] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,142 +79,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jami
- Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, seanpaul@chromium.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
+ Mark Yacoub <markyacoub@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
+
+On Wed, Apr 19, 2023 at 8:43=E2=80=AFAM Mark Yacoub <markyacoub@chromium.or=
+g> wrote:
+>
+> Hi all,
+> This is v10 of the HDCP patches. The patches are authored by Sean Paul.
+> I rebased and addressed the review comments in v6-v10.
+>
+> Main change in v10 is handling the kernel test bot warnings.
+>
+> Patches 1-4 focus on moving the common HDCP helpers to common DRM.
+> This introduces a slight change in the original intel flow
+> as it splits the unique driver protocol from the generic implementation.
+>
+> Patches 5-7 split the HDCP flow on the i915 driver to make use of the com=
+mon DRM helpers.
+>
+> Patches 8-10 implement HDCP on MSM driver.
+>
+> Thanks,
+> -Mark Yacoub
+>
+> Sean Paul (10):
+>   drm/hdcp: Add drm_hdcp_atomic_check()
+>   drm/hdcp: Avoid changing crtc state in hdcp atomic check
+>   drm/hdcp: Update property value on content type and user changes
+>   drm/hdcp: Expand HDCP helper library for enable/disable/check
+>   drm/i915/hdcp: Consolidate HDCP setup/state cache
+>   drm/i915/hdcp: Retain hdcp_capable return codes
+>   drm/i915/hdcp: Use HDCP helpers for i915
+>   dt-bindings: msm/dp: Add bindings for HDCP registers
+>   arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
+>   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+>
+>  .../bindings/display/msm/dp-controller.yaml   |    7 +-
+>  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
+>  drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
+>  drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
+>  .../drm/i915/display/intel_display_debugfs.c  |   12 +-
+>  .../drm/i915/display/intel_display_types.h    |   51 +-
+>  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
+>  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
+>  drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
+>  drivers/gpu/drm/msm/Kconfig                   |    1 +
+>  drivers/gpu/drm/msm/Makefile                  |    1 +
+>  drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
+>  drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
+>  drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
+>  drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
+>  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
+>  drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
+>  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
+>  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
+>  drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
+>  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+>  drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
+>  drivers/gpu/drm/msm/msm_atomic.c              |   19 +
+>  include/drm/display/drm_hdcp.h                |  296 ++++
+>  include/drm/display/drm_hdcp_helper.h         |   23 +
+>  30 files changed, 2867 insertions(+), 1349 deletions(-)
+
+Mark asked me if I had any advice for getting this patch series
+landed. I haven't been following the patch series super closely, but
+as I understand it:
+
+1. The first several patches (the generic ones) seem fairly well
+reviewed and haven't changed in any significant ways in a while. The
+ideal place to land these would be drm-misc, I think.
+
+2. The i915 patches also seem OK to land. The ideal place would be the
+Intel DRM tree, I think.
+
+3. The msm patches are not fully baked yet. Not only is there a kernel
+bot complaint on patch #10, but Mark also said that comments from v6
+haven't yet fully been addressed and he's talked with Dmitry on IRC
+about this and has a plan to move forward.
 
 
-On 4/25/2023 4:05 PM, Marijn Suijten wrote:
-> According to downstream sources this DITHER sub-block sits at an offset
-> of 0xe0 with version 0x20000.  The PP_BLK_DITHER macro is _not_ used as
-> downstream still says the size of the PINGPONG block is 0xd4 and not 0.
-> 
+The question becomes: can/should we land the generic and maybe the
+i915 patches now while the msm patches are reworked. Do folks have an
+opinion here? If we're OK landing some of the patches, I guess we have
+a few options:
 
-the PINGPONG block size is 0x0 on sm8350, sm8450 and sc8280xp.
+a) Just land the generic patches to drm-misc and put the i915 ones on
+the backburner until drm-misc has made it to somewhere that the
+drm-intel tree is based on. If we want to go this route and nobody
+objects, I don't mind being the person who does the gruntwork of
+actually landing them on drm-misc-next, though I certainly wouldn't
+rush to make sure that nobody is unhappy with this idea.
 
-and length of dither is 0x20 and they all start at 0xe0.
+b) Land the generic patches in some type of immutable branch so they
+can be pulled into drm-misc and the Intel DRM tree. Someone more
+senior to me would need to help with this, but if we really want to go
+this way I can poke folks on IRC.
 
-So now does anything prevent us from using PP_BLK_DITHER macro for these?
+c) Land the generic and Intel patches in the Intel tree. The msm
+patches would not be able to land until these trickled up the chain,
+but the msm patches aren't fully ready yet anyway so maybe this is OK.
 
-> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-> Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
-> Fixes: 100d7ef6995d ("drm/msm/dpu: add support for SM8450")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 12 ++++++------
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 12 ++++++------
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 16 ++++++++--------
->   3 files changed, 20 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> index 41ef0c8fc993f..4c1bb88029cd3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> @@ -127,22 +127,22 @@ static const struct dpu_dspp_cfg sm8350_dspp[] = {
->   };
->   
->   static const struct dpu_pingpong_cfg sm8350_pp[] = {
-> -	PP_BLK("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
-> -	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, MERGE_3D_0, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, MERGE_3D_0, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13)),
-> -	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, MERGE_3D_1, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, MERGE_3D_1, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14)),
-> -	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, MERGE_3D_1, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, MERGE_3D_1, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
-> -	PP_BLK("pingpong_4", PINGPONG_4, 0x6d000, MERGE_3D_2, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_4", PINGPONG_4, 0x6d000, MERGE_3D_2, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
->   			-1),
-> -	PP_BLK("pingpong_5", PINGPONG_5, 0x6e000, MERGE_3D_2, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_5", PINGPONG_5, 0x6e000, MERGE_3D_2, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
->   			-1),
->   };
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-> index 12c14d15e3863..bab9b0715f8c2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-> @@ -121,17 +121,17 @@ static const struct dpu_dspp_cfg sc8280xp_dspp[] = {
->   };
->   
->   static const struct dpu_pingpong_cfg sc8280xp_pp[] = {
-> -	PP_BLK("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sc7280_pp_sblk,
->   		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8), -1),
-> -	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, MERGE_3D_0, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, MERGE_3D_0, sc7280_pp_sblk,
->   		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9), -1),
-> -	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, MERGE_3D_1, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, MERGE_3D_1, sc7280_pp_sblk,
->   		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10), -1),
-> -	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, MERGE_3D_1, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, MERGE_3D_1, sc7280_pp_sblk,
->   		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11), -1),
-> -	PP_BLK("pingpong_4", PINGPONG_4, 0x6d000, MERGE_3D_2, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_4", PINGPONG_4, 0x6d000, MERGE_3D_2, sc7280_pp_sblk,
->   		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30), -1),
-> -	PP_BLK("pingpong_5", PINGPONG_5, 0x6e000, MERGE_3D_2, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_5", PINGPONG_5, 0x6e000, MERGE_3D_2, sc7280_pp_sblk,
->   		  DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31), -1),
->   };
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> index e409c119b0a2a..ec296a52076ce 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> @@ -128,28 +128,28 @@ static const struct dpu_dspp_cfg sm8450_dspp[] = {
->   };
->   /* FIXME: interrupts */
->   static const struct dpu_pingpong_cfg sm8450_pp[] = {
-> -	PP_BLK("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_0", PINGPONG_0, 0x69000, MERGE_3D_0, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
-> -	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, MERGE_3D_0, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_1", PINGPONG_1, 0x6a000, MERGE_3D_0, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13)),
-> -	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, MERGE_3D_1, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, MERGE_3D_1, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 14)),
-> -	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, MERGE_3D_1, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, MERGE_3D_1, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
-> -	PP_BLK("pingpong_4", PINGPONG_4, 0x6d000, MERGE_3D_2, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_4", PINGPONG_4, 0x6d000, MERGE_3D_2, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
->   			-1),
-> -	PP_BLK("pingpong_5", PINGPONG_5, 0x6e000, MERGE_3D_2, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_5", PINGPONG_5, 0x6e000, MERGE_3D_2, sc7280_pp_sblk,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
->   			-1),
-> -	PP_BLK("pingpong_6", PINGPONG_6, 0x65800, MERGE_3D_3, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_6", PINGPONG_6, 0x65800, MERGE_3D_3, sc7280_pp_sblk,
->   			-1,
->   			-1),
-> -	PP_BLK("pingpong_7", PINGPONG_7, 0x65c00, MERGE_3D_3, sdm845_pp_sblk,
-> +	PP_BLK("pingpong_7", PINGPONG_7, 0x65c00, MERGE_3D_3, sc7280_pp_sblk,
->   			-1,
->   			-1),
->   };
-> 
+d) Land the generic and Intel patches in the drm-misc tree. If folks
+are OK with this I can be the person to pull the trigger, but I'd want
+to be very sure that Intel DRM folks are on board. :-)
+
+
+My preference would be c), then d), then a), then b). ...this is all
+assuming, of course, that nobody on this thread objects to landing the
+generic/i195 patches now.
+
+
+-Doug
