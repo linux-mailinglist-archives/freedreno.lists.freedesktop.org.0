@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3D356F0711
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 16:15:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 690706F077E
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 16:31:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C9910EB51;
-	Thu, 27 Apr 2023 14:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1EC10EB5E;
+	Thu, 27 Apr 2023 14:31:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF32310E375
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 14:15:25 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-94f3df30043so1388747766b.2
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 07:15:25 -0700 (PDT)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 301B010EB59;
+ Thu, 27 Apr 2023 14:31:54 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-38e7ce73ca0so4685027b6e.2; 
+ Thu, 27 Apr 2023 07:31:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682604924; x=1685196924;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lqzI0wZ2EqQrQrjO8vqAoXJym2hVEg0r8e35+35xmQw=;
- b=q2xrjcGWRoZmThPFkxvA4QmteJ3wUDZ408LAWzx4rwMTFR/z8YJNxIz+O2Mjg2MMmX
- M5IsGnIEtDuyGpAX1CRk6f58dZCv1E2AmvkDqebIDtkyNzcZuwZRDrQBn8zySmo2Tz7X
- YAXCaU2n/ykqnbd9cSgSmfHAyZ+iTDqXTu7iSfhqrWbFE37HlWlAAYDlDuFCQ7GXFmFk
- fo4JFEU6Lwzii5xIPQXV3ZscUExZZGpdIyNBNhYPf1JM2BDfXqFuvQSPxq3FKavbqGBi
- J7sgqHN90xjjTkPCgKmF4a2X8Z4FQ2RqtsnSA1NlFkj1aT/RpV/P5V9NqRDnMcCK7lXE
- R5xQ==
+ d=gmail.com; s=20221208; t=1682605913; x=1685197913;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uRZglDXB91+6f7S2dtMlSBFPaJiJ8/S98Gq1cNjaW8Q=;
+ b=ZKUcLKH4jO6eUX11CsiFYAsZQboMzOTzukH+ORISmxFF2yQ6T96vWRnvS+xlwUtwBa
+ 0lqB7EnRVZbvDdY3i/V2xRzDCoFsKupg4xJATdLTpURRqY/9Vxst5iEaonxWZ5wxly9z
+ LuYos6Wfwy4zeY0uKGYtwiUZmPFCX6HPuEvJBMTzrjYvbgjpbo0R/rfbi6OtH/y5fokF
+ ox4hlGFE/1Cd5bnL7ekHeSYnvNMGcOGVME2PuLgyDk6ln934sI8x9H/Qh2O3jR1ppVIQ
+ vIYOrx0EUjA2AOMXAj+u4tkcCLv9qcWv1gxGAe0LPtm0SALsFtgQBovdiAcxxEM8PDi6
+ AnxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682604924; x=1685196924;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lqzI0wZ2EqQrQrjO8vqAoXJym2hVEg0r8e35+35xmQw=;
- b=F8GdWiEvk5KVC7LhUGIKikl8Hg3vk7MxiUKoRbK7giYU7L4859QhThlTcvzRLrqGA1
- tEVKetn1o5LbPNmu0mGIYfnEC+UG6ofrySwZ5Y/WUAVRRw3fB9F7TXVTn7RU0el8nThW
- pVIlsvPJ26Sv0lxHX/Xjf6v16K3PWexPsvI374c5oVumL1aJP7Bh0fP2fLa8mKwCXTe1
- AqxGiYRbUZz2nGE0nzqapTaWn6aGaJdcuRfSxklPgWMmZ+UjZcEnck0SXHNyLN+gIslK
- S8k6dgQzUHq1egFsA0OuOS4NF894NAoxo05OLNMGuTq5ASkv7GyKuNFrWXK4VxxBb2YQ
- jiug==
-X-Gm-Message-State: AC+VfDyLCP2Tu0EpiWCdm33XRih/TUE6yHQ4oXgALfrnYBxXbch69uFS
- Mwfb4Kah6m4aocgK3rQGGLpvXw==
-X-Google-Smtp-Source: ACHHUZ5dGF5nSry14i4bNMUV9qu86lYwG1gJxFEaX/tWakik5oSiGyZqTA3ZLSg6+Q3Lrb4MV+sXRg==
-X-Received: by 2002:a17:906:7307:b0:958:489f:d050 with SMTP id
- di7-20020a170906730700b00958489fd050mr2012618ejc.43.1682604923689; 
- Thu, 27 Apr 2023 07:15:23 -0700 (PDT)
-Received: from [172.23.2.5] ([195.167.132.10])
- by smtp.gmail.com with ESMTPSA id
- pv4-20020a170907208400b0094f49f58019sm9658604ejb.27.2023.04.27.07.15.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Apr 2023 07:15:23 -0700 (PDT)
-Message-ID: <544e3e61-d471-f0b5-4daf-53bfc531f361@linaro.org>
-Date: Thu, 27 Apr 2023 17:15:22 +0300
+ d=1e100.net; s=20221208; t=1682605913; x=1685197913;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uRZglDXB91+6f7S2dtMlSBFPaJiJ8/S98Gq1cNjaW8Q=;
+ b=aOL+vOc7I5xT+Vt6iisSYjnNLfBDL4tJwIH5NljbHCqlinfvSdgSIzP6cTgsofBgnN
+ 8lpf3nhlAlTKOBzopAprQqGr3smwavbSYOkT9gNrmxfEvOe2oAdfD2W0HDO13P2ixuWp
+ 1/8cU8Tz2Fjbq3MswrUjsZWkfYGfY3n7FiRymFHi0dM1cCXPdzS4hGof3L8T55502pgf
+ axWrjt/QirDtBYH92k0rNXCir9Gp0I896CFs3c6MnKbBy/oW2pgGV5u5bdLocfbJSUaQ
+ Au9W1tKxA+4avRLIa1VzvH9ZHKRX7voQbYGjvhV4ENsbHgxjaqb7hjbex4VDX/gjwbVl
+ KSpw==
+X-Gm-Message-State: AC+VfDzdoiT8rUz0nb+bVFqYVgR+agfNsZyIBa4ZJpMQvZM2NpXyeJVu
+ Oahic33tSSgFnE23BHPdX3Ld0U6EuiasKnMiX5E=
+X-Google-Smtp-Source: ACHHUZ5vqvrwk+VgTL9ZXd2NM5nRRwBWWe3P4jFrzMD7s6MUMokZJiESSfjBOx9isBUa3M10jk9ZUbOD9YRpwoIy1vg=
+X-Received: by 2002:a05:6808:914:b0:38c:1acd:e6ee with SMTP id
+ w20-20020a056808091400b0038c1acde6eemr799313oih.9.1682605911323; Thu, 27 Apr
+ 2023 07:31:51 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Adam Skladowski <a39.skl@gmail.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Robert Foss <rfoss@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-References: <20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org>
- <20230411-dpu-intf-te-v4-2-27ce1a5ab5c6@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-dpu-intf-te-v4-2-27ce1a5ab5c6@somainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 02/22] drm/msm/dpu: Remove TE2 block and
- feature from DPU >= 5.0.0 hardware
+References: <20230417201215.448099-1-robdclark@gmail.com>
+ <20230417201215.448099-3-robdclark@gmail.com>
+ <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
+ <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
+ <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
+ <CACvgo52gByHzwtm4gxqUxZ5yJGTQ5NucBmMHSO7nLPsba3rTfw@mail.gmail.com>
+ <CAF6AEGtijkCt2uUx98auFcK0GQHY=5GV7CxbOejGz22no6J0GQ@mail.gmail.com>
+ <ZEpC5xEZ4cueb881@phenom.ffwll.local>
+In-Reply-To: <ZEpC5xEZ4cueb881@phenom.ffwll.local>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 27 Apr 2023 07:31:39 -0700
+Message-ID: <CAF6AEGs5ROH0xqCwZKs2JaUvoOiEOmyqneLCW9eQDOJhPqNLFQ@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>, 
+ Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,46 +85,182 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/04/2023 01:37, Marijn Suijten wrote:
-> No hardware beyond kona (sm8250, DPU 6.0.0) defines the TE2 PINGPONG
-> sub-block offset downstream, and according to insiders no DPU >= 5.0.0
-> hardware has support for it either.  Especially since neither downstream
-> nor upstream utilize these registers in any way, remove the erroneous
-> specification from SM8150, SC8180X, SM8250, SC7180, SM8350, SC8280XP and
-> SM8450 to prevent confusion.
-> 
-> Note that downstream enables the PPSPLIT (split-FIFO) topology (single
-> LM for 2 PP and 2 INTF) based on the presence of a TE2 block.
-> 
-> Fixes: 386fced3f76f ("drm/msm/dpu: add SM8150 to hw catalog")
-> Fixes: 7bdc0c4b8126 ("msm:disp:dpu1: add support for display for SC7180 target")
-> Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
-> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-> Fixes: 100d7ef6995d ("drm/msm/dpu: add support for SM8450")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+On Thu, Apr 27, 2023 at 2:39=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> wro=
+te:
+>
+> On Fri, Apr 21, 2023 at 07:47:26AM -0700, Rob Clark wrote:
+> > On Fri, Apr 21, 2023 at 2:33=E2=80=AFAM Emil Velikov <emil.l.velikov@gm=
+ail.com> wrote:
+> > >
+> > > Greeting all,
+> > >
+> > > Sorry for the delay - Easter Holidays, food coma and all that :-)
+> > >
+> > > On Tue, 18 Apr 2023 at 15:31, Rob Clark <robdclark@gmail.com> wrote:
+> > > >
+> > > > On Tue, Apr 18, 2023 at 1:34=E2=80=AFAM Daniel Vetter <daniel@ffwll=
+.ch> wrote:
+> > > > >
+> > > > > On Tue, Apr 18, 2023 at 09:27:49AM +0100, Tvrtko Ursulin wrote:
+> > > > > >
+> > > > > > On 17/04/2023 21:12, Rob Clark wrote:
+> > > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > > >
+> > > > > > > Make it work in terms of ctx so that it can be re-used for fd=
+info.
+> > > > > > >
+> > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > > > ---
+> > > > > > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
+> > > > > > >   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
+> > > > > > >   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
+> > > > > > >   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
+> > > > > > >   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
+> > > > > > >   5 files changed, 21 insertions(+), 11 deletions(-)
+> > > > > > >
+> > > > > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/driver=
+s/gpu/drm/msm/adreno/adreno_gpu.c
+> > > > > > > index bb38e728864d..43c4e1fea83f 100644
+> > > > > > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > > > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > > > > > > @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu,=
+ struct msm_file_private *ctx,
+> > > > > > >             /* Ensure string is null terminated: */
+> > > > > > >             str[len] =3D '\0';
+> > > > > > > -           mutex_lock(&gpu->lock);
+> > > > > > > +           mutex_lock(&ctx->lock);
+> > > > > > >             if (param =3D=3D MSM_PARAM_COMM) {
+> > > > > > >                     paramp =3D &ctx->comm;
+> > > > > > > @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu,=
+ struct msm_file_private *ctx,
+> > > > > > >             kfree(*paramp);
+> > > > > > >             *paramp =3D str;
+> > > > > > > -           mutex_unlock(&gpu->lock);
+> > > > > > > +           mutex_unlock(&ctx->lock);
+> > > > > > >             return 0;
+> > > > > > >     }
+> > > > > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/=
+msm/msm_drv.c
+> > > > > > > index 3d73b98d6a9c..ca0e89e46e13 100644
+> > > > > > > --- a/drivers/gpu/drm/msm/msm_drv.c
+> > > > > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
+> > > > > > > @@ -581,6 +581,8 @@ static int context_init(struct drm_device=
+ *dev, struct drm_file *file)
+> > > > > > >     rwlock_init(&ctx->queuelock);
+> > > > > > >     kref_init(&ctx->ref);
+> > > > > > > +   ctx->pid =3D get_pid(task_pid(current));
+> > > > > >
+> > > > > > Would it simplify things for msm if DRM core had an up to date =
+file->pid as
+> > > > > > proposed in
+> > > > > > https://patchwork.freedesktop.org/patch/526752/?series=3D109902=
+&rev=3D4 ? It
+> > > > > > gets updated if ioctl issuer is different than fd opener and th=
+is being
+> > > > > > context_init here reminded me of it. Maybe you wouldn't have to=
+ track the
+> > > > > > pid in msm?
+> > > >
+> > > > The problem is that we also need this for gpu devcore dumps, which
+> > > > could happen after the drm_file is closed.  The ctx can outlive the
+> > > > file.
+> > > >
+> > > I think we all kept forgetting about that. MSM had support for ages,
+> > > while AMDGPU is the second driver to land support - just a release
+> > > ago.
+> > >
+> > > > But the ctx->pid has the same problem as the existing file->pid whe=
+n
+> > > > it comes to Xorg.. hopefully over time that problem just goes away.
+> > >
+> > > Out of curiosity: what do you mean with "when it comes to Xorg" - the
+> > > "was_master" handling or something else?
+> >
+> > The problem is that Xorg is the one to open the drm fd, and then
+> > passes the fd to the client.. so the pid of drm_file is the Xorg pid,
+> > not the client.  Making it not terribly informative.
+> >
+> > Tvrtko's patch he linked above would address that for drm_file, but
+> > not for other driver internal usages.  Maybe it could be wired up as a
+> > helper so that drivers don't have to re-invent that dance.  Idk, I
+> > have to think about it.
+> >
+> > Btw, with my WIP drm sched fence signalling patch lockdep is unhappy
+> > when gpu devcore dumps are triggered.  I'm still pondering how to
+> > decouple the locking so that anything coming from fs (ie.
+> > show_fdinfo()) is decoupled from anything that happens in the fence
+> > signaling path.  But will repost this series once I get that sorted
+> > out.
+>
+> So the cleanest imo is that you push most of the capturing into a worker
+> that's entirely decoupled. If you have terminal context (i.e. on first
+> hang they stop all further cmd submission, which is anyway what
+> vk/arb_robustness want), then you don't have to capture at tdr time,
+> because there's no subsequent batch that will wreck the state.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+It is already in a worker, but we (a) need to block other contexts
+from submitting while at the same time (b) using the GPU itself to
+capture its state.. (yes, the way the hw works is overly complicated
+in this regard)
 
-> ---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  4 ++--
->   .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  4 ++--
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  4 ++--
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  4 ++--
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  4 ++--
->   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   | 24 +++++++++++-----------
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  4 ++--
->   7 files changed, 24 insertions(+), 24 deletions(-)-- 
-With best wishes
-Dmitry
+> But it only works if your gpu ctx don't have recoverable semantics.
 
+We do have recoverable semantics.. but that is pretty orthogonal.  We
+just need a different lock.. I have a plan to move (a copy) of the
+override strings to drm_file with it's own locking decoupled from what
+we need in the recovery path.. and hopefully will finally have time to
+type it up today and post it (just before disappearing off into the
+woods to go backpacking ;-))
+
+BR,
+-R
+
+> If you can't do that it's a _lot_ of GFP_ATOMIC and trylock and bailing
+> out if any fails :-/
+> -Daniel
+>
+> >
+> > BR,
+> > -R
+> >
+> > >
+> > > > guess I could do a similar dance to your patch to update the pid
+> > > > whenever (for ex) a submitqueue is created.
+> > > >
+> > > > > Can we go one step further and let the drm fdinfo stuff print the=
+se new
+> > > > > additions? Consistency across drivers and all that.
+> > > >
+> > > > Hmm, I guess I could _also_ store the overridden comm/cmdline in
+> > > > drm_file.  I still need to track it in ctx (msm_file_private) becau=
+se
+> > > > I could need it after the file is closed.
+> > > >
+> > > > Maybe it could be useful to have a gl extension to let the app set =
+a
+> > > > name on the context so that this is useful beyond native-ctx (ie.
+> > > > maybe it would be nice to see that "chrome: lwn.net" is using less =
+gpu
+> > > > memory than "chrome: phoronix.com", etc)
+> > > >
+> > >
+> > > /me awaits for the series to hit the respective websites ;-)
+> > >
+> > > But seriously - the series from Tvrtko (thanks for the link, will
+> > > check in a moment) makes sense. Although given the livespan issue
+> > > mentioned above, I don't think it's applicable here.
+> > >
+> > > So if it were me, I would consider the two orthogonal for the
+> > > short/mid term. Fwiw this and patch 1/3 are:
+> > > Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+> > >
+> > > HTH
+> > > -Emil
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
