@@ -2,73 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A450A6F03D8
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 11:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61A76F05AA
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 14:22:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62F3D10E122;
-	Thu, 27 Apr 2023 09:59:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D41610EB30;
+	Thu, 27 Apr 2023 12:22:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83B5810E33E
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 09:59:31 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-94f59fbe2cbso240940466b.1
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 02:59:31 -0700 (PDT)
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7F0D10E1BD;
+ Thu, 27 Apr 2023 12:22:29 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id
+ d2e1a72fcca58-63d2ba63dddso6567807b3a.2; 
+ Thu, 27 Apr 2023 05:22:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1682589569; x=1685181569;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8NquWHEFbJKZX2gbSm4Ehemad7T4ozQG/E/WvhxNob8=;
- b=XlLSkFPoXIiTsYTEuukgAkA+JWv9B9jsb3SEnA4LsIHV62THau9IkIKsB5MaB1EdVx
- QVoQOLTQQNTMLIk2wWgNyPYvRAA0FeGSxpOVDo8J/rkz2s6sHaIrIEPKWDipRtDlmN2V
- YTRkofG3cWrv2uK1De8el4VUG+cmoMuOc8feQ=
+ d=gmail.com; s=20221208; t=1682598149; x=1685190149;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Je9dOfRheV0xbkP5D8rz4YMFOXvOjexxPPlhbTAEfPg=;
+ b=GQkHqLCx9QOiCVqkmdxf0PEzuwjMhhQn140pliLqoJPgOQ5nb4HFSUeFmKRAUUFL65
+ ygD+kZbwE/NQVPdP2oeBIAXKvHhkanPAeWnkIkz9JlAxYph7Rh+fF2hJqEUFSCO4jOO+
+ mie45R/RwxKV4XqV301GJksXsUh+PpMsyvjT0T/yMpZnEIFbHNI+2ADNuPmvtxQRjbL7
+ qfeqLmsNO6dxA/XznhGoOIvDCAtl/J/xBFWbEIidS5y/piZ8gfH5Z9VHGjUJbqhhVvBi
+ v4zdblaFMnGtRS50BUFUUv4E95KhJbOxxNclkMMex9+fV9mdbVYdz8xAFlZyNEYqgqnt
+ DRrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682589569; x=1685181569;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8NquWHEFbJKZX2gbSm4Ehemad7T4ozQG/E/WvhxNob8=;
- b=HVQ7gn6ufn+mc4t/gYp6xqG3XY2D0oDMxWNPsf0mpN1HpYxwrFPjzWQ7bCCmWMK3pu
- sGo5dAlsBhf7VpLAhm9rqCPzNbSdsiL4CtKyVM/fAvaV5MwjYA55O3w1y2hPkazsB5Tt
- H2JZLTACmzBVM9IvYde6gC3ZmjASn4ICDK9eJzkB+xKrxI/BDDcAiTJ6zRx9XPyRPhHY
- 6fqUv8rH8rdMgeMV2FQiF2LbrUVMRSyBpSE1U8jIH/hdpqyXRBGMLqh+i45s5z6TlLh3
- ZzZD63HoaU3E/vRfVE9u2FbKHj4RBxQKMCCrRLm8mF66M8I4wj5/13lSWqtBPlAqKqNe
- eL3A==
-X-Gm-Message-State: AC+VfDwxOlqc7Tg13eRwb7foezdkKrhMGlqhzPqPLEhFijD5UXAFUecS
- LJAVo9h5ElIEPTiCpsbAFxNylA==
-X-Google-Smtp-Source: ACHHUZ4d1BKrQgAKmkNUl21rH106gG/B6sW+h7EYIFJ7ogoatFxrlwGLtuzu6/dr99r5TFK0aVvnqA==
-X-Received: by 2002:a17:906:64c4:b0:94f:4ec3:f0f5 with SMTP id
- p4-20020a17090664c400b0094f4ec3f0f5mr1012683ejn.4.1682589569485; 
- Thu, 27 Apr 2023 02:59:29 -0700 (PDT)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- n25-20020a1709062bd900b0094fa472a7c4sm9456005ejg.161.2023.04.27.02.59.28
+ d=1e100.net; s=20221208; t=1682598149; x=1685190149;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Je9dOfRheV0xbkP5D8rz4YMFOXvOjexxPPlhbTAEfPg=;
+ b=NxmGckA839zMau655B3GJxIiVFsPcBFKgwWuYQFOPfjvgISkVcZGtBxfjx3hvidgaa
+ ojXxwCTi8xvV9rAHJrAl/tHs1s1+rCl3DL3Sx6WUXL+kK1+Bz+HiEthTTJnoybmcEKrI
+ z9WpBR8OJw4TsF7Ay8ffSR5KCXmMmEV00bJMeLZjKGUWMvt0nWe5o85xDHE4vOcWmq2q
+ 7hooBZCWy/wwQIpMgXgR7IP4A8UnMY/CFBzbbvAjCUG9JOX+v+tblOJ08P9Si5GdAeR9
+ 2uPLA77gbx40zn53EZRBPs9/Zklx8jTjtVVa9mko2pP2VLr8PgOUYIeIGUcwHM8Cq+U/
+ /A4g==
+X-Gm-Message-State: AC+VfDw7qItKMzuNRaHwIVaj2i/VoCoW7HJV97ql7s2ZJn/EHsuNU5o7
+ sh37I7n3av/yFZz33GtjNDM=
+X-Google-Smtp-Source: ACHHUZ60LSwIT0w8lkNEvMzM0Y0TrOpiNVgl24TggeN+M+JPyg2fFsrpOK3fdBeW4lKJvNEje1Dz8w==
+X-Received: by 2002:a17:90a:f312:b0:24c:1cc:e15 with SMTP id
+ ca18-20020a17090af31200b0024c01cc0e15mr1813547pjb.12.1682598148867; 
+ Thu, 27 Apr 2023 05:22:28 -0700 (PDT)
+Received: from localhost.localdomain (n220246252240.netvigator.com.
+ [220.246.252.240]) by smtp.gmail.com with ESMTPSA id
+ ot2-20020a17090b3b4200b0023cfdbb6496sm13443011pjb.1.2023.04.27.05.22.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Apr 2023 02:59:29 -0700 (PDT)
-Date: Thu, 27 Apr 2023 11:59:27 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Mark Yacoub <markyacoub@chromium.org>
-Message-ID: <ZEpHfxw5IhzGFStV@phenom.ffwll.local>
-Mail-Followup-To: Mark Yacoub <markyacoub@chromium.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, seanpaul@chromium.org,
- dianders@chromium.org, dmitry.baryshkov@linaro.org,
- linux-kernel@vger.kernel.org
-References: <20230421162749.360777-1-markyacoub@google.com>
- <20230421162749.360777-2-markyacoub@google.com>
+ Thu, 27 Apr 2023 05:22:28 -0700 (PDT)
+From: Jianhua Lu <lujianhua000@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+Date: Thu, 27 Apr 2023 20:21:32 +0800
+Message-Id: <20230427122132.24840-1-lujianhua000@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230421162749.360777-2-markyacoub@google.com>
-X-Operating-System: Linux phenom 6.1.0-7-amd64 
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm: Create support for Write-Only
- property blob
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] dt-bindings: display/msm:
+ dsi-controller-main: Document qcom, master-dsi and qcom, sync-dual-dsi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,116 +76,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, dianders@chromium.org,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, dmitry.baryshkov@linaro.org,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jianhua Lu <lujianhua000@gmail.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 21, 2023 at 12:27:47PM -0400, Mark Yacoub wrote:
-> From: Mark Yacoub <markyacoub@chromium.org>
-> 
-> [Why]
-> User space might need to inject data into the kernel without allowing it
-> to be read again by any user space.
-> An example of where this is particularly useful is secret keys fetched
-> by user space and injected into the kernel to enable content protection.
-> 
-> [How]
-> Create a DRM_MODE_CREATE_BLOB_WRITE_ONLY flag used by user space to
-> create a blob and mark the blob as write only.
-> On reading back the blob, data will be not be copied if it's a write
-> only blob
+This fixes warning:
+  sm8250-xiaomi-elish-csot.dtb: dsi@ae94000: Unevaluated properties are not allowed ('qcom,master-dsi', 'qcom,sync-dual-dsi' were unexpected)
 
-This makes no sense at all, why would you want to disallow reading?
-Userspace already knows the key, there's not much point in hiding it from
-userspace?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Acked-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Jianhua Lu <lujianhua000@gmail.com>
+---
+Changes in v2:
+  - pick up tags
+  - fix typo (need -> needs)
 
-Also for new uapi we need the igt patches and userspace, please link
-those.
--Daniel
+ .../bindings/display/msm/dsi-controller-main.yaml    | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-> 
-> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> ---
->  drivers/gpu/drm/drm_property.c | 3 ++-
->  include/drm/drm_property.h     | 2 ++
->  include/uapi/drm/drm_mode.h    | 6 ++++++
->  3 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-> index dfec479830e49..afedf7109d002 100644
-> --- a/drivers/gpu/drm/drm_property.c
-> +++ b/drivers/gpu/drm/drm_property.c
-> @@ -765,7 +765,7 @@ int drm_mode_getblob_ioctl(struct drm_device *dev,
->  	if (!blob)
->  		return -ENOENT;
->  
-> -	if (out_resp->length == blob->length) {
-> +	if (out_resp->length == blob->length && !blob->is_write_only) {
->  		if (copy_to_user(u64_to_user_ptr(out_resp->data),
->  				 blob->data,
->  				 blob->length)) {
-> @@ -800,6 +800,7 @@ int drm_mode_createblob_ioctl(struct drm_device *dev,
->  		ret = -EFAULT;
->  		goto out_blob;
->  	}
-> +	blob->is_write_only = out_resp->flags & DRM_MODE_CREATE_BLOB_WRITE_ONLY;
->  
->  	/* Dropping the lock between create_blob and our access here is safe
->  	 * as only the same file_priv can remove the blob; at this point, it is
-> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
-> index 65bc9710a4702..700782f021b99 100644
-> --- a/include/drm/drm_property.h
-> +++ b/include/drm/drm_property.h
-> @@ -205,6 +205,7 @@ struct drm_property {
->   * 	&drm_mode_config.property_blob_list.
->   * @head_file: entry on the per-file blob list in &drm_file.blobs list.
->   * @length: size of the blob in bytes, invariant over the lifetime of the object
-> + * @is_write_only: user space can't read the blob data.
->   * @data: actual data, embedded at the end of this structure
->   *
->   * Blobs are used to store bigger values than what fits directly into the 64
-> @@ -219,6 +220,7 @@ struct drm_property_blob {
->  	struct list_head head_global;
->  	struct list_head head_file;
->  	size_t length;
-> +	bool is_write_only;
->  	void *data;
->  };
->  
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index 46becedf5b2fc..10403c9a73082 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -1168,6 +1168,9 @@ struct drm_format_modifier {
->  	__u64 modifier;
->  };
->  
-> +#define DRM_MODE_CREATE_BLOB_WRITE_ONLY                                        \
-> +	(1 << 0) /* data of the blob can't be read by user space */
-> +
->  /**
->   * struct drm_mode_create_blob - Create New blob property
->   *
-> @@ -1181,6 +1184,9 @@ struct drm_mode_create_blob {
->  	__u32 length;
->  	/** @blob_id: Return: new property ID. */
->  	__u32 blob_id;
-> +	/** Flags for special handling. */
-> +	__u32 flags;
-> +	__u32 pad;
->  };
->  
->  /**
-> -- 
-> 2.40.0.634.g4ca3ef3211-goog
-> 
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index e6c1ebfe8a32..130e16d025bc 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -82,6 +82,18 @@ properties:
+       Indicates if the DSI controller is driving a panel which needs
+       2 DSI links.
+ 
++  qcom,master-dsi:
++    type: boolean
++    description: |
++      Indicates if the DSI controller is the master DSI controller when
++      qcom,dual-dsi-mode enabled.
++
++  qcom,sync-dual-dsi:
++    type: boolean
++    description: |
++      Indicates if the DSI controller needs to sync the other DSI controller
++      with MIPI DCS commands when qcom,dual-dsi-mode enabled.
++
+   assigned-clocks:
+     minItems: 2
+     maxItems: 4
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.39.2
+
