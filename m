@@ -2,36 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45CBF6F08A9
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 17:48:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 757DE6F08BF
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 17:51:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5BDA10EB8F;
-	Thu, 27 Apr 2023 15:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D8410EB8F;
+	Thu, 27 Apr 2023 15:51:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5824010EB8F
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 15:48:17 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 5BC1C20139;
- Thu, 27 Apr 2023 17:48:15 +0200 (CEST)
-Date: Thu, 27 Apr 2023 17:48:14 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <b3fajcbkfxqy4bxzjezrugbetpbjxdskarr3fhtn2unhqv2srj@y2o3wfd4v7dz>
-References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
- <20230411-topic-straitlagoon_mdss-v2-7-5def73f50980@linaro.org>
- <k25jg7cez2kimpxr4ztbdzjr2adq6a2vjknyvfe5frxujtogfg@vhfdyt45unv6>
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6557610EB8E
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 15:51:41 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-94f32588c13so1301197066b.2
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 08:51:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1682610699; x=1685202699;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+mQKmq64IzU6gA8PRckyzZWN74UV32uV9BZ4pCPB8Xo=;
+ b=xbTzydXiB45GZBhngRv9S410dndV58uP5gC9rdhXPKrndvnxbL+k28jY43oMktxKAH
+ yKLyof3MzTW8rcY8vgU9OAYUlS5a5ROJhrN15lIC+m+AgukMJ6QBKMwqIhogtEAgrqQl
+ OXVmWpMpvfnRllkqid0hO6D8KHGC+xfpPs5H6GlHWN7OxOl12tzyE1z2C9lxCCKVPyw0
+ yWRRUsrIfmDTyK5VJtfgdaLTmi5kGgf5uIVzTHOr6xFutLkt4WN9iM29tAnyhrZfo262
+ W1YSPIzrE9K/I1Bpi/M21+wiJTBnztVXIinGeGApXNdk2c8g3RFHavcZYvoEXEOwFIms
+ pYEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682610699; x=1685202699;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+mQKmq64IzU6gA8PRckyzZWN74UV32uV9BZ4pCPB8Xo=;
+ b=VviybO26dT7noXyFrXS8gfKrodKNzaGs1wYhWIdT9jh60KmnS87sj+r1mXewx+H3aR
+ 6+mDY9ltRN3u6Vc/2D0sJPxNMeIbYJk2YUfs2c+x4vLvZS5gvYoaMPRGPVe9W6R848ih
+ IdIaD1ZVqUk709JnY+EEsGx6YzgmyX/bGOsTbot7rgHMNcFzdXRp8pODO28e3rRC8qO4
+ F3VDJniMF3qQHEcVKSpq51kszShw+9OdWkORYQ32wMoirm0EKLagpRlGhUWgEjFJ1ks1
+ WbAMprlrd8ccP8kbPUzsfJ8xusBmu+0QgXjm74duMHAyMHdr3nD7J7pxrZKsnQxUWHnW
+ TsGQ==
+X-Gm-Message-State: AC+VfDxmFByQK5DNoH9EcXzAB9AEsioJOF9VJypzL+XHepfmyR7LBoIm
+ qpJr/TFbiKV2nkgsOCGk8dVPeg==
+X-Google-Smtp-Source: ACHHUZ6tPpIadoFIIjyJbIU0huYg0xNoVftC3qhHAqzwK9pzp5KjXzd5PNdYvyZnKKgA0LDbvtYy8A==
+X-Received: by 2002:a17:907:1629:b0:94e:6b12:caab with SMTP id
+ hb41-20020a170907162900b0094e6b12caabmr2587483ejc.51.1682610699440; 
+ Thu, 27 Apr 2023 08:51:39 -0700 (PDT)
+Received: from [172.23.2.5] ([195.167.132.10])
+ by smtp.gmail.com with ESMTPSA id
+ x3-20020a170906710300b0094f2f0c9ed9sm9709424ejj.167.2023.04.27.08.51.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Apr 2023 08:51:38 -0700 (PDT)
+Message-ID: <30f8e69f-b1f1-a9c5-e2ee-1be021a11393@linaro.org>
+Date: Thu, 27 Apr 2023 18:51:37 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <k25jg7cez2kimpxr4ztbdzjr2adq6a2vjknyvfe5frxujtogfg@vhfdyt45unv6>
-Subject: Re: [Freedreno] [PATCH v2 07/13] drm/msm/dpu: Add SM6350 support
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+To: Doug Anderson <dianders@chromium.org>,
+ Mark Yacoub <markyacoub@chromium.org>
+References: <20230419154321.1993419-1-markyacoub@google.com>
+ <CAD=FV=V1+PMH3YGOcnvziOC7-_NY1yO4w=b4q2RLCdtEtETB3Q@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAD=FV=V1+PMH3YGOcnvziOC7-_NY1yO4w=b4q2RLCdtEtETB3Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v10 00/10] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,272 +79,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
- Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Robin Murphy <robin.murphy@arm.com>
+Cc: suraj.kandpal@intel.com, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, seanpaul@chromium.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ freedreno@lists.freedesktop.org, Mark Yacoub <markyacoub@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-27 17:37:42, Marijn Suijten wrote:
-> On 2023-04-21 00:31:16, Konrad Dybcio wrote:
-> > Add SM6350 support to the DPU1 driver to enable display output.
-> > 
-> > Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+On 26/04/2023 19:29, Doug Anderson wrote:
+> Hi,
 > 
-> After addressing the comments from Dmitry (CURSOR0->DMA1 and
-> CURSOR1->DMA2), this is:
+> On Wed, Apr 19, 2023 at 8:43 AM Mark Yacoub <markyacoub@chromium.org> wrote:
+>>
+>> Hi all,
+>> This is v10 of the HDCP patches. The patches are authored by Sean Paul.
+>> I rebased and addressed the review comments in v6-v10.
+>>
+>> Main change in v10 is handling the kernel test bot warnings.
+>>
+>> Patches 1-4 focus on moving the common HDCP helpers to common DRM.
+>> This introduces a slight change in the original intel flow
+>> as it splits the unique driver protocol from the generic implementation.
+>>
+>> Patches 5-7 split the HDCP flow on the i915 driver to make use of the common DRM helpers.
+>>
+>> Patches 8-10 implement HDCP on MSM driver.
+>>
+>> Thanks,
+>> -Mark Yacoub
+>>
+>> Sean Paul (10):
+>>    drm/hdcp: Add drm_hdcp_atomic_check()
+>>    drm/hdcp: Avoid changing crtc state in hdcp atomic check
+>>    drm/hdcp: Update property value on content type and user changes
+>>    drm/hdcp: Expand HDCP helper library for enable/disable/check
+>>    drm/i915/hdcp: Consolidate HDCP setup/state cache
+>>    drm/i915/hdcp: Retain hdcp_capable return codes
+>>    drm/i915/hdcp: Use HDCP helpers for i915
+>>    dt-bindings: msm/dp: Add bindings for HDCP registers
+>>    arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
+>>    drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+>>
+>>   .../bindings/display/msm/dp-controller.yaml   |    7 +-
+>>   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
+>>   drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
+>>   drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
+>>   drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
+>>   .../drm/i915/display/intel_display_debugfs.c  |   12 +-
+>>   .../drm/i915/display/intel_display_types.h    |   51 +-
+>>   drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
+>>   drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
+>>   drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
+>>   drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
+>>   drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
+>>   drivers/gpu/drm/msm/Kconfig                   |    1 +
+>>   drivers/gpu/drm/msm/Makefile                  |    1 +
+>>   drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
+>>   drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
+>>   drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
+>>   drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
+>>   drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
+>>   drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+>>   drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
+>>   drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
+>>   drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
+>>   drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
+>>   drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
+>>   drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+>>   drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
+>>   drivers/gpu/drm/msm/msm_atomic.c              |   19 +
+>>   include/drm/display/drm_hdcp.h                |  296 ++++
+>>   include/drm/display/drm_hdcp_helper.h         |   23 +
+>>   30 files changed, 2867 insertions(+), 1349 deletions(-)
 > 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Mark asked me if I had any advice for getting this patch series
+> landed. I haven't been following the patch series super closely, but
+> as I understand it:
 > 
-> See below for some nits.
+> 1. The first several patches (the generic ones) seem fairly well
+> reviewed and haven't changed in any significant ways in a while. The
+> ideal place to land these would be drm-misc, I think.
+> 
+> 2. The i915 patches also seem OK to land. The ideal place would be the
+> Intel DRM tree, I think.
+> 
+> 3. The msm patches are not fully baked yet. Not only is there a kernel
+> bot complaint on patch #10, but Mark also said that comments from v6
+> haven't yet fully been addressed and he's talked with Dmitry on IRC
+> about this and has a plan to move forward.
+> 
+> 
+> The question becomes: can/should we land the generic and maybe the
+> i915 patches now while the msm patches are reworked. Do folks have an
+> opinion here? If we're OK landing some of the patches, I guess we have
+> a few options:
+> 
+> a) Just land the generic patches to drm-misc and put the i915 ones on
+> the backburner until drm-misc has made it to somewhere that the
+> drm-intel tree is based on. If we want to go this route and nobody
+> objects, I don't mind being the person who does the gruntwork of
+> actually landing them on drm-misc-next, though I certainly wouldn't
+> rush to make sure that nobody is unhappy with this idea.
+> 
+> b) Land the generic patches in some type of immutable branch so they
+> can be pulled into drm-misc and the Intel DRM tree. Someone more
+> senior to me would need to help with this, but if we really want to go
+> this way I can poke folks on IRC.
+> 
+> c) Land the generic and Intel patches in the Intel tree. The msm
+> patches would not be able to land until these trickled up the chain,
+> but the msm patches aren't fully ready yet anyway so maybe this is OK.
+> 
+> d) Land the generic and Intel patches in the drm-misc tree. If folks
+> are OK with this I can be the person to pull the trigger, but I'd want
+> to be very sure that Intel DRM folks are on board. :-)
+> 
+> 
+> My preference would be c), then d), then a), then b). ...this is all
+> assuming, of course, that nobody on this thread objects to landing the
+> generic/i195 patches now.
 
-Actually found one glaring issue that might explain why INTF TE wasn't
-working for you the other day!
+I'd also vote for c) I think it would be the best if the relevan patches 
+can be taken in the drm-intel after the -rc1. Once the msm patches are 
+finalized, we can back-merge drm-next and apply our part on top of that.
 
-> > ---
-> >  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 191 +++++++++++++++++++++
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   3 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
-> >  4 files changed, 196 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-> > new file mode 100644
-> > index 000000000000..687a508cbaa6
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-> > @@ -0,0 +1,191 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
-> > + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
-> > + * Copyright (c) 2023, Linaro Limited
-> > + */
-> > +
-> > +#ifndef _DPU_6_4_SM6350_H
-> > +#define _DPU_6_4_SM6350_H
-> > +
-> > +static const struct dpu_caps sm6350_dpu_caps = {
-> > +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
-> > +	.max_mixer_blendstages = 0x7,
-> > +	.qseed_type = DPU_SSPP_SCALER_QSEED4,
 > 
-> I thought it was QSEED3LITE, but doesn't really matter as both are
-> handled similarly.  It'll anyway change when I resubmit:
 > 
-> https://lore.kernel.org/linux-arm-msm/20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org/T/#u
-> 
-> which should hardcode the register value directly, making this field
-> superfluous.
-> 
-> > +	.has_src_split = true,
-> > +	.has_dim_layer = true,
-> > +	.has_idle_pc = true,
-> > +	.max_linewidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
-> > +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-> > +};
-> > +
-> > +static const struct dpu_ubwc_cfg sm6350_ubwc_cfg = {
-> > +	.ubwc_version = DPU_HW_UBWC_VER_20,
-> > +	.ubwc_swizzle = 6,
-> > +	.highest_bank_bit = 1,
-> > +};
-> > +
-> > +static const struct dpu_mdp_cfg sm6350_mdp[] = {
-> > +	{
-> > +	.name = "top_0", .id = MDP_TOP,
-> > +	.base = 0x0, .len = 0x494,
-> > +	.features = 0,
-> > +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
-> > +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
-> > +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
-> > +	.clk_ctrls[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
-> > +	.clk_ctrls[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
-> > +	},
-> > +};
-> > +
-> > +static const struct dpu_ctl_cfg sm6350_ctl[] = {
-> > +	{
-> > +	.name = "ctl_0", .id = CTL_0,
-> > +	.base = 0x1000, .len = 0x1dc,
-> > +	.features = BIT(DPU_CTL_ACTIVE_CFG),
-> > +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
-> > +	},
-> > +	{
-> > +	.name = "ctl_1", .id = CTL_1,
-> > +	.base = 0x1200, .len = 0x1dc,
-> > +	.features = BIT(DPU_CTL_ACTIVE_CFG),
-> > +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
-> > +	},
-> > +	{
-> > +	.name = "ctl_2", .id = CTL_2,
-> > +	.base = 0x1400, .len = 0x1dc,
-> > +	.features = BIT(DPU_CTL_ACTIVE_CFG),
-> > +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
-> > +	},
-> > +	{
-> > +	.name = "ctl_3", .id = CTL_3,
-> > +	.base = 0x1600, .len = 0x1dc,
-> > +	.features = BIT(DPU_CTL_ACTIVE_CFG),
-> > +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
-> > +	},
-> > +};
-> > +
-> > +static const struct dpu_sspp_cfg sm6350_sspp[] = {
-> > +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
-> > +		 sc7180_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-> > +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
-> > +		 sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
-> > +	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_CURSOR_SDM845_MASK,
-> > +		 sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
-> > +	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK,
-> > +		 sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
-> > +};
-> > +
-> > +static const struct dpu_lm_cfg sm6350_lm[] = {
-> > +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
-> > +		&sc7180_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
-> > +	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
-> > +		&sc7180_lm_sblk, PINGPONG_1, LM_0, 0),
-> 
-> These two entries are indented with two tabs and have one character too
-> many to align with the opening parenthesis on the previous line.  Can we
-> please settle on a single style, as this commit mostly uses tabs+spaces
-> to align with the opening parenthesis?
-> 
-> Dmitry vouched for `cino=(0` (when in unclosed parenthesis, align next
-> line with zero extra characters to the opening parenthesis), but I find
-> double tabs more convenient as it doesn't require reindenting when
-> changing the name of the macro (which happened too often in my INTF TE
-> series).
-> 
-> > +};
-> > +
-> > +static const struct dpu_dspp_cfg sm6350_dspp[] = {
-> > +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
-> > +		 &sm8150_dspp_sblk),
-> > +};
-> > +
-> > +static struct dpu_pingpong_cfg sm6350_pp[] = {
-> > +	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
-> > +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-> > +	       -1),
-> > +	PP_BLK("pingpong_1", PINGPONG_1, 0x70800, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
-> > +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
-> > +	       -1),
-> 
-> Glad to see no TE2 here, we just removed it from all of DPU >= 5.0.0
-> instead of >= 7.0.0 in [1] as downstream DTS turned out to be wrong.
-> 
-> [1]: https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-2-27ce1a5ab5c6@somainline.org/
-> 
-> - Marijn
-> 
-> > +};
-> > +
-> > +static const struct dpu_intf_cfg sm6350_intf[] = {
-> > +	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x2c0, INTF_DP, 0, 35, INTF_SC7180_MASK,
-> > +		 DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
-> > +		 DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25)),
-> > +	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 35, INTF_SC7180_MASK,
-> > +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
-> > +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> > +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
-> > +};
-> > +
-> > +static const struct dpu_vbif_cfg sm6350_vbif[] = {
-> > +	{
-> > +	.name = "vbif_0", .id = VBIF_RT,
-> > +	.base = 0, .len = 0x1044,
-> > +	.features = BIT(DPU_VBIF_QOS_REMAP),
-> > +	.xin_halt_timeout = 0x4000,
-> > +	.qos_rt_tbl = {
-> > +		.npriority_lvl = ARRAY_SIZE(sdm845_rt_pri_lvl),
-> > +		.priority_lvl = sdm845_rt_pri_lvl,
-> > +	},
-> > +	.qos_nrt_tbl = {
-> > +		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
-> > +		.priority_lvl = sdm845_nrt_pri_lvl,
-> > +	},
-> > +	.memtype_count = 14,
-> > +	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-> > +	},
-> > +};
-> > +
-> > +static const struct dpu_qos_lut_entry sm6350_qos_linear_macrotile[] = {
-> > +	{.fl = 0, .lut = 0x0011223344556677 },
-> > +	{.fl = 0, .lut = 0x0011223445566777 },
-> > +};
-> > +
-> > +static const struct dpu_perf_cfg sm6350_perf_data = {
-> > +	.max_bw_low = 4200000,
-> > +	.max_bw_high = 5100000,
-> > +	.min_core_ib = 2500000,
-> > +	.min_llcc_ib = 0,
-> > +	.min_dram_ib = 1600000,
-> > +	.min_prefill_lines = 35,
-> > +	/* TODO: confirm danger_lut_tbl */
-> > +	.danger_lut_tbl = {0xffff, 0xffff, 0x0, 0x0, 0xffff},
-> > +	.qos_lut_tbl = {
-> > +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
-> > +		.entries = sm6350_qos_linear_macrotile
-> > +		},
-> > +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
-> > +		.entries = sm6350_qos_linear_macrotile
-> > +		},
-> > +		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
-> > +		.entries = sc7180_qos_nrt
-> > +		},
-> > +	},
-> > +	.cdp_cfg = {
-> > +		{.rd_enable = 1, .wr_enable = 1},
-> > +		{.rd_enable = 1, .wr_enable = 0}
-> > +	},
-> > +	.clk_inefficiency_factor = 105,
-> > +	.bw_inefficiency_factor = 120,
-> > +};
-> > +
-> > +const struct dpu_mdss_cfg dpu_sm6350_cfg = {
-> > +	.caps = &sm6350_dpu_caps,
-> > +	.ubwc = &sm6350_ubwc_cfg,
-> > +	.mdp_count = ARRAY_SIZE(sm6350_mdp),
-> > +	.mdp = sm6350_mdp,
-> > +	.ctl_count = ARRAY_SIZE(sm6350_ctl),
-> > +	.ctl = sm6350_ctl,
-> > +	.sspp_count = ARRAY_SIZE(sm6350_sspp),
-> > +	.sspp = sm6350_sspp,
-> > +	.mixer_count = ARRAY_SIZE(sm6350_lm),
-> > +	.mixer = sm6350_lm,
-> > +	.dspp_count = ARRAY_SIZE(sm6350_dspp),
-> > +	.dspp = sm6350_dspp,
-> > +	.pingpong_count = ARRAY_SIZE(sm6350_pp),
-> > +	.pingpong = sm6350_pp,
-> > +	.intf_count = ARRAY_SIZE(sm6350_intf),
-> > +	.intf = sm6350_intf,
-> > +	.vbif_count = ARRAY_SIZE(sm6350_vbif),
-> > +	.vbif = sm6350_vbif,
-> > +	.reg_dma_count = 1,
-> > +	.dma_cfg = &sm8250_regdma,
-> > +	.perf = &sm6350_perf_data,
-> > +	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
-> > +		     BIT(MDP_SSPP_TOP0_INTR2) | \
-> > +		     BIT(MDP_SSPP_TOP0_HIST_INTR) | \
-> > +		     BIT(MDP_INTF0_INTR) | \
-> > +		     BIT(MDP_INTF1_INTR)
+> -Doug
 
-For completeness I should've pointed out that you're missing
-MDP_INTF1_TEAR_INTR here, likely resulting in INTF TE not working.
+-- 
+With best wishes
+Dmitry
 
-- Marijn
-
-<snip>
