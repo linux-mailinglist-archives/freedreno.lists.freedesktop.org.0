@@ -2,80 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503356F0883
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 17:39:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90B396F089C
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 17:46:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1F210EB7B;
-	Thu, 27 Apr 2023 15:39:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 388B410EB8F;
+	Thu, 27 Apr 2023 15:46:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E09610EB87
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 15:39:04 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-504dfc87927so14658929a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 08:39:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1682609941; x=1685201941;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EOPDPkAjGzQYhj/N9AfC0/FiIQg/4kHF1MpXLBODbrU=;
- b=UgjlwKTQdBdBm8+tTMTE8kjksUohLBESRmoTNwJ92ImKiPeqqdRcU+cfUTV1F5X3dg
- uo92x5hLmmVLwnoFOZH/iITezyRS2ePlZuPrPmQMpjgcfk/qdPBHS6+i70xJ7HkDd+s7
- vCBYoOT9go5Q3Hk0ysq5b7kDZqvAByvgI9a0I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682609941; x=1685201941;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EOPDPkAjGzQYhj/N9AfC0/FiIQg/4kHF1MpXLBODbrU=;
- b=MqBK6PHD2kjsxXtnjGHoVirAEk0CkXunW3sqwCWe++2azM8RcC4YrDev+9uiU0Ri8K
- 4ttNT4DCAsYYpLd//E0bsfVUoIkZxiDcTFLctr6U78nEIJbC/x4JNxD+IrghtRRp6/cY
- qGK5MGHp/WMZSwkHMNA0iruBlPKfs8PFhU5nvd0K/EV7JUZcP/0rUIsmvwZfl1Frl/Hq
- ajwzmTgtBpuC3xnSsjWtSJ6VWi5sgIpPHeOVwkSlymllfeM/IMABqLDzYRIsTl0WSi2X
- 6XXy7C/PLXq6Ed2BWK3KzUrB9XjP/HkAsAs7J41oWe+7wbQJira6W73JK8oL8Nkh42iQ
- h3Ag==
-X-Gm-Message-State: AC+VfDwlUMj/o6XXLYF8nZGEd3KUFYJxp4DT1Vxp7iRJ0q5DwZtYr/Qu
- 7pHhSVNFWPARevx2mIIwYLWa8PTUTt6NAnjWIhDnYA==
-X-Google-Smtp-Source: ACHHUZ7mBGet2++ezVdulz+RtUCVEtHHrrY7QoASv4RTZtVoO2Yx6nYFqhPgtQUaP6HovcW+Hu/e3A==
-X-Received: by 2002:aa7:c94c:0:b0:506:8838:45cc with SMTP id
- h12-20020aa7c94c000000b00506883845ccmr1847236edt.6.1682609940797; 
- Thu, 27 Apr 2023 08:39:00 -0700 (PDT)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com.
- [209.85.128.44]) by smtp.gmail.com with ESMTPSA id
- bq6-20020a056402214600b0050470aa444fsm8050910edb.51.2023.04.27.08.38.57
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Apr 2023 08:38:59 -0700 (PDT)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-3f19afc4f60so41225775e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 08:38:57 -0700 (PDT)
-X-Received: by 2002:a1c:7211:0:b0:3f1:830a:a345 with SMTP id
- n17-20020a1c7211000000b003f1830aa345mr1817435wmc.11.1682609936875; Thu, 27
- Apr 2023 08:38:56 -0700 (PDT)
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9777B10EB8F
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 15:46:52 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 0776220084;
+ Thu, 27 Apr 2023 17:46:50 +0200 (CEST)
+Date: Thu, 27 Apr 2023 17:46:48 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <rhlkjdphwaqcqgqbac7lue7jwzkjs4iic32jq34qletrcpkss6@hleig3kyot7p>
+References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v2-9-5def73f50980@linaro.org>
 MIME-Version: 1.0
-References: <20230421162749.360777-1-markyacoub@google.com>
- <20230421162749.360777-2-markyacoub@google.com>
- <ZEpHfxw5IhzGFStV@phenom.ffwll.local>
-In-Reply-To: <ZEpHfxw5IhzGFStV@phenom.ffwll.local>
-From: Sean Paul <seanpaul@chromium.org>
-Date: Thu, 27 Apr 2023 11:38:07 -0400
-X-Gmail-Original-Message-ID: <CAOw6vbKi5XRnBvAR1P+=pFYL7FUo3m=4xbHjBOEDU1BOoEowzQ@mail.gmail.com>
-Message-ID: <CAOw6vbKi5XRnBvAR1P+=pFYL7FUo3m=4xbHjBOEDU1BOoEowzQ@mail.gmail.com>
-To: Mark Yacoub <markyacoub@chromium.org>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- seanpaul@chromium.org, 
- dianders@chromium.org, dmitry.baryshkov@linaro.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm: Create support for Write-Only
- property blob
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v2-9-5def73f50980@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 09/13] drm/msm/dpu: Add SM6375 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,136 +42,284 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 27, 2023 at 5:59=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> wro=
-te:
->
-> On Fri, Apr 21, 2023 at 12:27:47PM -0400, Mark Yacoub wrote:
-> > From: Mark Yacoub <markyacoub@chromium.org>
-> >
-> > [Why]
-> > User space might need to inject data into the kernel without allowing i=
-t
-> > to be read again by any user space.
-> > An example of where this is particularly useful is secret keys fetched
-> > by user space and injected into the kernel to enable content protection=
-.
-> >
-> > [How]
-> > Create a DRM_MODE_CREATE_BLOB_WRITE_ONLY flag used by user space to
-> > create a blob and mark the blob as write only.
-> > On reading back the blob, data will be not be copied if it's a write
-> > only blob
->
-> This makes no sense at all, why would you want to disallow reading?
-> Userspace already knows the key, there's not much point in hiding it from
-> userspace?
+On 2023-04-21 00:31:18, Konrad Dybcio wrote:
+> Add basic SM6375 support to the DPU1 driver to enable display output.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h |   5 -
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 152 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  14 ++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  5 files changed, 168 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> index 687a508cbaa6..d46b43964be6 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> @@ -126,11 +126,6 @@ static const struct dpu_vbif_cfg sm6350_vbif[] = {
+>  	},
+>  };
+>  
+> -static const struct dpu_qos_lut_entry sm6350_qos_linear_macrotile[] = {
+> -	{.fl = 0, .lut = 0x0011223344556677 },
+> -	{.fl = 0, .lut = 0x0011223445566777 },
+> -};
+> -
+>  static const struct dpu_perf_cfg sm6350_perf_data = {
+>  	.max_bw_low = 4200000,
+>  	.max_bw_high = 5100000,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+> new file mode 100644
+> index 000000000000..19ca0051e072
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+> @@ -0,0 +1,152 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023, Linaro Limited
+> + */
+> +
+> +#ifndef _DPU_6_9_SM6375_H
+> +#define _DPU_6_9_SM6375_H
+> +
+> +static const struct dpu_caps sm6375_dpu_caps = {
+> +	.max_mixer_width = 2048,
+> +	.max_mixer_blendstages = 0x4,
+> +	.qseed_type = DPU_SSPP_SCALER_QSEED4,
+> +	.has_dim_layer = true,
+> +	.has_idle_pc = true,
+> +	.max_linewidth = 2160,
+> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+> +};
+> +
+> +static const struct dpu_ubwc_cfg sm6375_ubwc_cfg = {
+> +	.ubwc_version = DPU_HW_UBWC_VER_20,
+> +	.ubwc_swizzle = 6,
+> +	.highest_bank_bit = 1,
+> +};
+> +
+> +static const struct dpu_mdp_cfg sm6375_mdp[] = {
+> +	{
+> +	.name = "top_0", .id = MDP_TOP,
+> +	.base = 0x0, .len = 0x494,
+> +	.features = 0,
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+> +	},
+> +};
+> +
+> +static const struct dpu_ctl_cfg sm6375_ctl[] = {
+> +	{
+> +	.name = "ctl_0", .id = CTL_0,
+> +	.base = 0x1000, .len = 0x1dc,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+> +	},
+> +};
+> +
+> +static const struct dpu_sspp_cfg sm6375_sspp[] = {
+> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
+> +		 sm6115_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+> +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
+> +		 sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+> +};
+> +
+> +static const struct dpu_lm_cfg sm6375_lm[] = {
+> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_QCM2290_MASK,
+> +		&sm6375_lm_sblk, PINGPONG_0, 0, DSPP_0),
 
-There are varying levels of trust amongst userspace applications. For
-example, in CrOS we trust portions of Chrome to handle the key
-securely, but would like to avoid access from other portions, or users
-from exposing the key via modetest output. We could play whack-a-mole
-and try to patch up all untrusted userspace, but that doesn't seem
-like a scalable solution.
+Same indentation nit here as in SM6350.
 
-Sean
+> +};
+> +
+> +static const struct dpu_dspp_cfg sm6375_dspp[] = {
+> +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+> +		 &sm8150_dspp_sblk),
+> +};
+> +
+> +static const struct dpu_pingpong_cfg sm6375_pp[] = {
+> +	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
+> +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+> +	       -1),
+> +};
+> +
+> +static const struct dpu_intf_cfg sm6375_intf[] = {
+> +	INTF_BLK("intf_0", INTF_0, 0x00000, 0x2c0, INTF_NONE, 0, 0, 0, 0, 0),
+> +	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 24, INTF_SC7280_MASK,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
+> +};
+> +
+> +static const struct dpu_vbif_cfg sm6375_vbif[] = {
+> +	{
+> +	.name = "vbif_0", .id = VBIF_RT,
+> +	.base = 0, .len = 0x2008,
+> +	.features = BIT(DPU_VBIF_QOS_REMAP),
+> +	.xin_halt_timeout = 0x4000,
+> +	.qos_rp_remap_size = 0x40,
+> +	.qos_rt_tbl = {
+> +		.npriority_lvl = ARRAY_SIZE(sdm845_rt_pri_lvl),
+> +		.priority_lvl = sdm845_rt_pri_lvl,
+> +		},
+> +	.qos_nrt_tbl = {
+> +		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
+> +		.priority_lvl = sdm845_nrt_pri_lvl,
+> +		},
+> +	.memtype_count = 14,
+> +	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+> +	},
+> +};
+> +
+> +static const struct dpu_perf_cfg sm6375_perf_data = {
+> +	.max_bw_low = 5200000,
+> +	.max_bw_high = 6200000,
+> +	.min_core_ib = 2500000,
+> +	.min_llcc_ib = 0, /* No LLCC on this SoC */
+> +	.min_dram_ib = 1600000,
+> +	.min_prefill_lines = 24,
+> +	/* TODO: confirm danger_lut_tbl */
+> +	.danger_lut_tbl = {0xffff, 0xffff, 0x0, 0x0, 0xffff},
+> +	.qos_lut_tbl = {
+> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
+> +		.entries = sm6350_qos_linear_macrotile
+> +		},
+> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
+> +		.entries = sm6350_qos_linear_macrotile
+> +		},
+> +		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
+> +		.entries = sc7180_qos_nrt
+> +		},
+> +	},
+> +	.cdp_cfg = {
+> +		{.rd_enable = 1, .wr_enable = 1},
+> +		{.rd_enable = 1, .wr_enable = 0}
+> +	},
+> +	.clk_inefficiency_factor = 105,
+> +	.bw_inefficiency_factor = 120,
+> +};
+> +
+> +const struct dpu_mdss_cfg dpu_sm6375_cfg = {
+> +	.caps = &sm6375_dpu_caps,
+> +	.ubwc = &sm6375_ubwc_cfg,
+> +	.mdp_count = ARRAY_SIZE(sm6375_mdp),
+> +	.mdp = sm6375_mdp,
+> +	.ctl_count = ARRAY_SIZE(sm6375_ctl),
+> +	.ctl = sm6375_ctl,
+> +	.sspp_count = ARRAY_SIZE(sm6375_sspp),
+> +	.sspp = sm6375_sspp,
+> +	.mixer_count = ARRAY_SIZE(sm6375_lm),
+> +	.mixer = sm6375_lm,
+> +	.dspp_count = ARRAY_SIZE(sm6375_dspp),
+> +	.dspp = sm6375_dspp,
+> +	.pingpong_count = ARRAY_SIZE(sm6375_pp),
+> +	.pingpong = sm6375_pp,
+> +	.intf_count = ARRAY_SIZE(sm6375_intf),
+> +	.intf = sm6375_intf,
+> +	.vbif_count = ARRAY_SIZE(sm6375_vbif),
+> +	.vbif = sm6375_vbif,
+> +	.perf = &sm6375_perf_data,
+> +	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+> +		     BIT(MDP_SSPP_TOP0_INTR2) | \
+> +		     BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> +		     BIT(MDP_INTF0_INTR) | \
 
->
-> Also for new uapi we need the igt patches and userspace, please link
-> those.
-> -Daniel
->
-> >
-> > Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
-> > ---
-> >  drivers/gpu/drm/drm_property.c | 3 ++-
-> >  include/drm/drm_property.h     | 2 ++
-> >  include/uapi/drm/drm_mode.h    | 6 ++++++
-> >  3 files changed, 10 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_prope=
-rty.c
-> > index dfec479830e49..afedf7109d002 100644
-> > --- a/drivers/gpu/drm/drm_property.c
-> > +++ b/drivers/gpu/drm/drm_property.c
-> > @@ -765,7 +765,7 @@ int drm_mode_getblob_ioctl(struct drm_device *dev,
-> >       if (!blob)
-> >               return -ENOENT;
-> >
-> > -     if (out_resp->length =3D=3D blob->length) {
-> > +     if (out_resp->length =3D=3D blob->length && !blob->is_write_only)=
- {
-> >               if (copy_to_user(u64_to_user_ptr(out_resp->data),
-> >                                blob->data,
-> >                                blob->length)) {
-> > @@ -800,6 +800,7 @@ int drm_mode_createblob_ioctl(struct drm_device *de=
-v,
-> >               ret =3D -EFAULT;
-> >               goto out_blob;
-> >       }
-> > +     blob->is_write_only =3D out_resp->flags & DRM_MODE_CREATE_BLOB_WR=
-ITE_ONLY;
-> >
-> >       /* Dropping the lock between create_blob and our access here is s=
-afe
-> >        * as only the same file_priv can remove the blob; at this point,=
- it is
-> > diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
-> > index 65bc9710a4702..700782f021b99 100644
-> > --- a/include/drm/drm_property.h
-> > +++ b/include/drm/drm_property.h
-> > @@ -205,6 +205,7 @@ struct drm_property {
-> >   *   &drm_mode_config.property_blob_list.
-> >   * @head_file: entry on the per-file blob list in &drm_file.blobs list=
-.
-> >   * @length: size of the blob in bytes, invariant over the lifetime of =
-the object
-> > + * @is_write_only: user space can't read the blob data.
-> >   * @data: actual data, embedded at the end of this structure
-> >   *
-> >   * Blobs are used to store bigger values than what fits directly into =
-the 64
-> > @@ -219,6 +220,7 @@ struct drm_property_blob {
-> >       struct list_head head_global;
-> >       struct list_head head_file;
-> >       size_t length;
-> > +     bool is_write_only;
-> >       void *data;
-> >  };
-> >
-> > diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> > index 46becedf5b2fc..10403c9a73082 100644
-> > --- a/include/uapi/drm/drm_mode.h
-> > +++ b/include/uapi/drm/drm_mode.h
-> > @@ -1168,6 +1168,9 @@ struct drm_format_modifier {
-> >       __u64 modifier;
-> >  };
-> >
-> > +#define DRM_MODE_CREATE_BLOB_WRITE_ONLY                               =
-         \
-> > +     (1 << 0) /* data of the blob can't be read by user space */
-> > +
-> >  /**
-> >   * struct drm_mode_create_blob - Create New blob property
-> >   *
-> > @@ -1181,6 +1184,9 @@ struct drm_mode_create_blob {
-> >       __u32 length;
-> >       /** @blob_id: Return: new property ID. */
-> >       __u32 blob_id;
-> > +     /** Flags for special handling. */
-> > +     __u32 flags;
-> > +     __u32 pad;
-> >  };
-> >
-> >  /**
-> > --
-> > 2.40.0.634.g4ca3ef3211-goog
-> >
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+INTF0 is set to INTF_NONE, no point in turning on the interrupt for it.
+
+https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-1-27ce1a5ab5c6@somainline.org/
+
+> +		     BIT(MDP_INTF1_INTR)
+
+And you might want to turn on MDP_INTF1_TEAR_INTR (same on SM6350), that
+could explain why INTF TE wasn't working on these SoCs yet.
+
+- Marijn
+
+> +};
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 52750b592b36..29516273dd6b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -440,6 +440,14 @@ static const struct dpu_lm_sub_blks sc7180_lm_sblk = {
+>  	},
+>  };
+>  
+> +static const struct dpu_lm_sub_blks sm6375_lm_sblk = {
+> +	.maxwidth = 2048,
+> +	.maxblendstages = 4, /* excluding base layer */
+> +	.blendstage_base = { /* offsets relative to mixer base */
+> +		0x20, 0x38, 0x50, 0x68
+> +	},
+> +};
+> +
+>  /* QCM2290 */
+>  
+>  static const struct dpu_lm_sub_blks qcm2290_lm_sblk = {
+> @@ -751,6 +759,11 @@ static const struct dpu_qos_lut_entry sc7180_qos_linear[] = {
+>  	{.fl = 0, .lut = 0x0011222222335777},
+>  };
+>  
+> +static const struct dpu_qos_lut_entry sm6350_qos_linear_macrotile[] = {
+> +	{.fl = 0, .lut = 0x0011223344556677 },
+> +	{.fl = 0, .lut = 0x0011223445566777 },
+> +};
+> +
+>  static const struct dpu_qos_lut_entry sm8150_qos_linear[] = {
+>  	{.fl = 0, .lut = 0x0011222222223357 },
+>  };
+> @@ -808,6 +821,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+>  #include "catalog/dpu_6_3_sm6115.h"
+>  #include "catalog/dpu_6_4_sm6350.h"
+>  #include "catalog/dpu_6_5_qcm2290.h"
+> +#include "catalog/dpu_6_9_sm6375.h"
+>  
+>  #include "catalog/dpu_7_0_sm8350.h"
+>  #include "catalog/dpu_7_2_sc7280.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index f9611bd75e02..b4f193037869 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -884,6 +884,7 @@ extern const struct dpu_mdss_cfg dpu_sc7180_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm6115_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm6350_cfg;
+>  extern const struct dpu_mdss_cfg dpu_qcm2290_cfg;
+> +extern const struct dpu_mdss_cfg dpu_sm6375_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm8350_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sc7280_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sc8280xp_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 46be7ad8d615..980c3c8f8269 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1287,6 +1287,7 @@ static const struct of_device_id dpu_dt_match[] = {
+>  	{ .compatible = "qcom,sc8280xp-dpu", .data = &dpu_sc8280xp_cfg, },
+>  	{ .compatible = "qcom,sm6115-dpu", .data = &dpu_sm6115_cfg, },
+>  	{ .compatible = "qcom,sm6350-dpu", .data = &dpu_sm6350_cfg, },
+> +	{ .compatible = "qcom,sm6375-dpu", .data = &dpu_sm6375_cfg, },
+>  	{ .compatible = "qcom,sm8150-dpu", .data = &dpu_sm8150_cfg, },
+>  	{ .compatible = "qcom,sm8250-dpu", .data = &dpu_sm8250_cfg, },
+>  	{ .compatible = "qcom,sm8350-dpu", .data = &dpu_sm8350_cfg, },
+> 
+> -- 
+> 2.40.0
+> 
