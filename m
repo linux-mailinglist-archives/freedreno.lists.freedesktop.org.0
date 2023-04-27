@@ -2,84 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F6386F0381
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 11:39:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A450A6F03D8
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 11:59:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4CF10EB11;
-	Thu, 27 Apr 2023 09:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62F3D10E122;
+	Thu, 27 Apr 2023 09:59:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92BA210EB05
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 09:39:55 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-94f9cd65b1aso235485366b.0
- for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 02:39:55 -0700 (PDT)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83B5810E33E
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 09:59:31 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-94f59fbe2cbso240940466b.1
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 02:59:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1682588394; x=1685180394;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ijOvNVXHQPQ7K3a8mfotlj3EqkLbm2iNVAzawaQHZIw=;
- b=kFa3Dgvsdqo+BXHl6yahcNl1383pNFvNtKjCwWMfHTj+Bit3JIwCGJEQDI6N/QU00j
- 7X00IV28cyVTxMhXOHSSaNOtJlIO/f240AjyaV+PfAb4s7UETaAAtwNr4ZxvB9KF2UtB
- pZGfcxrFXB1KoRo0EnWbU8+HE3g7nM63d1OjQ=
+ d=ffwll.ch; s=google; t=1682589569; x=1685181569;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8NquWHEFbJKZX2gbSm4Ehemad7T4ozQG/E/WvhxNob8=;
+ b=XlLSkFPoXIiTsYTEuukgAkA+JWv9B9jsb3SEnA4LsIHV62THau9IkIKsB5MaB1EdVx
+ QVoQOLTQQNTMLIk2wWgNyPYvRAA0FeGSxpOVDo8J/rkz2s6sHaIrIEPKWDipRtDlmN2V
+ YTRkofG3cWrv2uK1De8el4VUG+cmoMuOc8feQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682588394; x=1685180394;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ijOvNVXHQPQ7K3a8mfotlj3EqkLbm2iNVAzawaQHZIw=;
- b=hQbT+bQHR40eVGK05cKkrPYHKfwtJI9brQRXMDe3Q3mVGoVBgJjdaDHx6q/x9I9aS6
- wgauu1vzCEY7u3x8fjX8Bp3MS7dTY660eWKhHi7C2O7kAz9VGj5VvOSNZI8wotfU3qoj
- PuuKNZ7173AlAfTCKI0z8gLtGCTSQKp3jlKC5K3qqQ83iJXutPd7yoj4459ObG6vGe3v
- R52cHXuSJsSb63XzFub2qXe/4yHXIgQ5fOPqMDYyHvNLPaTNQzx7AdyhX5LEcdf5MP4y
- SVhPqLGGbuNN+rQ1bKyoWHZLBA9So9aCicMafB6yhjha9NWNc1Eziz2gAdDBoqMCUU+4
- CgGw==
-X-Gm-Message-State: AC+VfDyXIorrH2qYJy4yVPYXzrHynpAPwKo7dpIrJLH46PY/9S42tawK
- YnoizHrTVKulX/qk3ERV6ZfuhA==
-X-Google-Smtp-Source: ACHHUZ7VSLJU2Bi7Vlppn+yZkQubTXq/4j3BnKk8IoW139u/a/w2x464xtiUeWCmvDcGrbJw+QXvuw==
-X-Received: by 2002:a17:906:7491:b0:95f:db5f:73b7 with SMTP id
- e17-20020a170906749100b0095fdb5f73b7mr888891ejl.0.1682588393848; 
- Thu, 27 Apr 2023 02:39:53 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682589569; x=1685181569;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8NquWHEFbJKZX2gbSm4Ehemad7T4ozQG/E/WvhxNob8=;
+ b=HVQ7gn6ufn+mc4t/gYp6xqG3XY2D0oDMxWNPsf0mpN1HpYxwrFPjzWQ7bCCmWMK3pu
+ sGo5dAlsBhf7VpLAhm9rqCPzNbSdsiL4CtKyVM/fAvaV5MwjYA55O3w1y2hPkazsB5Tt
+ H2JZLTACmzBVM9IvYde6gC3ZmjASn4ICDK9eJzkB+xKrxI/BDDcAiTJ6zRx9XPyRPhHY
+ 6fqUv8rH8rdMgeMV2FQiF2LbrUVMRSyBpSE1U8jIH/hdpqyXRBGMLqh+i45s5z6TlLh3
+ ZzZD63HoaU3E/vRfVE9u2FbKHj4RBxQKMCCrRLm8mF66M8I4wj5/13lSWqtBPlAqKqNe
+ eL3A==
+X-Gm-Message-State: AC+VfDwxOlqc7Tg13eRwb7foezdkKrhMGlqhzPqPLEhFijD5UXAFUecS
+ LJAVo9h5ElIEPTiCpsbAFxNylA==
+X-Google-Smtp-Source: ACHHUZ4d1BKrQgAKmkNUl21rH106gG/B6sW+h7EYIFJ7ogoatFxrlwGLtuzu6/dr99r5TFK0aVvnqA==
+X-Received: by 2002:a17:906:64c4:b0:94f:4ec3:f0f5 with SMTP id
+ p4-20020a17090664c400b0094f4ec3f0f5mr1012683ejn.4.1682589569485; 
+ Thu, 27 Apr 2023 02:59:29 -0700 (PDT)
 Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
  [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- jt11-20020a170906ca0b00b00958434d4ecesm6820771ejb.13.2023.04.27.02.39.52
+ n25-20020a1709062bd900b0094fa472a7c4sm9456005ejg.161.2023.04.27.02.59.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Apr 2023 02:39:53 -0700 (PDT)
-Date: Thu, 27 Apr 2023 11:39:51 +0200
+ Thu, 27 Apr 2023 02:59:29 -0700 (PDT)
+Date: Thu, 27 Apr 2023 11:59:27 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZEpC5xEZ4cueb881@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>
-References: <20230417201215.448099-1-robdclark@gmail.com>
- <20230417201215.448099-3-robdclark@gmail.com>
- <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
- <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
- <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
- <CACvgo52gByHzwtm4gxqUxZ5yJGTQ5NucBmMHSO7nLPsba3rTfw@mail.gmail.com>
- <CAF6AEGtijkCt2uUx98auFcK0GQHY=5GV7CxbOejGz22no6J0GQ@mail.gmail.com>
+To: Mark Yacoub <markyacoub@chromium.org>
+Message-ID: <ZEpHfxw5IhzGFStV@phenom.ffwll.local>
+Mail-Followup-To: Mark Yacoub <markyacoub@chromium.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, seanpaul@chromium.org,
+ dianders@chromium.org, dmitry.baryshkov@linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20230421162749.360777-1-markyacoub@google.com>
+ <20230421162749.360777-2-markyacoub@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtijkCt2uUx98auFcK0GQHY=5GV7CxbOejGz22no6J0GQ@mail.gmail.com>
+In-Reply-To: <20230421162749.360777-2-markyacoub@google.com>
 X-Operating-System: Linux phenom 6.1.0-7-amd64 
-Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm: Create support for Write-Only
+ property blob
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,155 +81,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>
+Cc: Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, dianders@chromium.org,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dmitry.baryshkov@linaro.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 21, 2023 at 07:47:26AM -0700, Rob Clark wrote:
-> On Fri, Apr 21, 2023 at 2:33 AM Emil Velikov <emil.l.velikov@gmail.com> wrote:
-> >
-> > Greeting all,
-> >
-> > Sorry for the delay - Easter Holidays, food coma and all that :-)
-> >
-> > On Tue, 18 Apr 2023 at 15:31, Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > On Tue, Apr 18, 2023 at 1:34 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Tue, Apr 18, 2023 at 09:27:49AM +0100, Tvrtko Ursulin wrote:
-> > > > >
-> > > > > On 17/04/2023 21:12, Rob Clark wrote:
-> > > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > > >
-> > > > > > Make it work in terms of ctx so that it can be re-used for fdinfo.
-> > > > > >
-> > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > > ---
-> > > > > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
-> > > > > >   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
-> > > > > >   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
-> > > > > >   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
-> > > > > >   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
-> > > > > >   5 files changed, 21 insertions(+), 11 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > > > index bb38e728864d..43c4e1fea83f 100644
-> > > > > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > > > @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
-> > > > > >             /* Ensure string is null terminated: */
-> > > > > >             str[len] = '\0';
-> > > > > > -           mutex_lock(&gpu->lock);
-> > > > > > +           mutex_lock(&ctx->lock);
-> > > > > >             if (param == MSM_PARAM_COMM) {
-> > > > > >                     paramp = &ctx->comm;
-> > > > > > @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
-> > > > > >             kfree(*paramp);
-> > > > > >             *paramp = str;
-> > > > > > -           mutex_unlock(&gpu->lock);
-> > > > > > +           mutex_unlock(&ctx->lock);
-> > > > > >             return 0;
-> > > > > >     }
-> > > > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > index 3d73b98d6a9c..ca0e89e46e13 100644
-> > > > > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > @@ -581,6 +581,8 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
-> > > > > >     rwlock_init(&ctx->queuelock);
-> > > > > >     kref_init(&ctx->ref);
-> > > > > > +   ctx->pid = get_pid(task_pid(current));
-> > > > >
-> > > > > Would it simplify things for msm if DRM core had an up to date file->pid as
-> > > > > proposed in
-> > > > > https://patchwork.freedesktop.org/patch/526752/?series=109902&rev=4 ? It
-> > > > > gets updated if ioctl issuer is different than fd opener and this being
-> > > > > context_init here reminded me of it. Maybe you wouldn't have to track the
-> > > > > pid in msm?
-> > >
-> > > The problem is that we also need this for gpu devcore dumps, which
-> > > could happen after the drm_file is closed.  The ctx can outlive the
-> > > file.
-> > >
-> > I think we all kept forgetting about that. MSM had support for ages,
-> > while AMDGPU is the second driver to land support - just a release
-> > ago.
-> >
-> > > But the ctx->pid has the same problem as the existing file->pid when
-> > > it comes to Xorg.. hopefully over time that problem just goes away.
-> >
-> > Out of curiosity: what do you mean with "when it comes to Xorg" - the
-> > "was_master" handling or something else?
+On Fri, Apr 21, 2023 at 12:27:47PM -0400, Mark Yacoub wrote:
+> From: Mark Yacoub <markyacoub@chromium.org>
 > 
-> The problem is that Xorg is the one to open the drm fd, and then
-> passes the fd to the client.. so the pid of drm_file is the Xorg pid,
-> not the client.  Making it not terribly informative.
+> [Why]
+> User space might need to inject data into the kernel without allowing it
+> to be read again by any user space.
+> An example of where this is particularly useful is secret keys fetched
+> by user space and injected into the kernel to enable content protection.
 > 
-> Tvrtko's patch he linked above would address that for drm_file, but
-> not for other driver internal usages.  Maybe it could be wired up as a
-> helper so that drivers don't have to re-invent that dance.  Idk, I
-> have to think about it.
-> 
-> Btw, with my WIP drm sched fence signalling patch lockdep is unhappy
-> when gpu devcore dumps are triggered.  I'm still pondering how to
-> decouple the locking so that anything coming from fs (ie.
-> show_fdinfo()) is decoupled from anything that happens in the fence
-> signaling path.  But will repost this series once I get that sorted
-> out.
+> [How]
+> Create a DRM_MODE_CREATE_BLOB_WRITE_ONLY flag used by user space to
+> create a blob and mark the blob as write only.
+> On reading back the blob, data will be not be copied if it's a write
+> only blob
 
-So the cleanest imo is that you push most of the capturing into a worker
-that's entirely decoupled. If you have terminal context (i.e. on first
-hang they stop all further cmd submission, which is anyway what
-vk/arb_robustness want), then you don't have to capture at tdr time,
-because there's no subsequent batch that will wreck the state.
+This makes no sense at all, why would you want to disallow reading?
+Userspace already knows the key, there's not much point in hiding it from
+userspace?
 
-But it only works if your gpu ctx don't have recoverable semantics.
-
-If you can't do that it's a _lot_ of GFP_ATOMIC and trylock and bailing
-out if any fails :-/
+Also for new uapi we need the igt patches and userspace, please link
+those.
 -Daniel
 
 > 
-> BR,
-> -R
+> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+> ---
+>  drivers/gpu/drm/drm_property.c | 3 ++-
+>  include/drm/drm_property.h     | 2 ++
+>  include/uapi/drm/drm_mode.h    | 6 ++++++
+>  3 files changed, 10 insertions(+), 1 deletion(-)
 > 
-> >
-> > > guess I could do a similar dance to your patch to update the pid
-> > > whenever (for ex) a submitqueue is created.
-> > >
-> > > > Can we go one step further and let the drm fdinfo stuff print these new
-> > > > additions? Consistency across drivers and all that.
-> > >
-> > > Hmm, I guess I could _also_ store the overridden comm/cmdline in
-> > > drm_file.  I still need to track it in ctx (msm_file_private) because
-> > > I could need it after the file is closed.
-> > >
-> > > Maybe it could be useful to have a gl extension to let the app set a
-> > > name on the context so that this is useful beyond native-ctx (ie.
-> > > maybe it would be nice to see that "chrome: lwn.net" is using less gpu
-> > > memory than "chrome: phoronix.com", etc)
-> > >
-> >
-> > /me awaits for the series to hit the respective websites ;-)
-> >
-> > But seriously - the series from Tvrtko (thanks for the link, will
-> > check in a moment) makes sense. Although given the livespan issue
-> > mentioned above, I don't think it's applicable here.
-> >
-> > So if it were me, I would consider the two orthogonal for the
-> > short/mid term. Fwiw this and patch 1/3 are:
-> > Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-> >
-> > HTH
-> > -Emil
+> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+> index dfec479830e49..afedf7109d002 100644
+> --- a/drivers/gpu/drm/drm_property.c
+> +++ b/drivers/gpu/drm/drm_property.c
+> @@ -765,7 +765,7 @@ int drm_mode_getblob_ioctl(struct drm_device *dev,
+>  	if (!blob)
+>  		return -ENOENT;
+>  
+> -	if (out_resp->length == blob->length) {
+> +	if (out_resp->length == blob->length && !blob->is_write_only) {
+>  		if (copy_to_user(u64_to_user_ptr(out_resp->data),
+>  				 blob->data,
+>  				 blob->length)) {
+> @@ -800,6 +800,7 @@ int drm_mode_createblob_ioctl(struct drm_device *dev,
+>  		ret = -EFAULT;
+>  		goto out_blob;
+>  	}
+> +	blob->is_write_only = out_resp->flags & DRM_MODE_CREATE_BLOB_WRITE_ONLY;
+>  
+>  	/* Dropping the lock between create_blob and our access here is safe
+>  	 * as only the same file_priv can remove the blob; at this point, it is
+> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+> index 65bc9710a4702..700782f021b99 100644
+> --- a/include/drm/drm_property.h
+> +++ b/include/drm/drm_property.h
+> @@ -205,6 +205,7 @@ struct drm_property {
+>   * 	&drm_mode_config.property_blob_list.
+>   * @head_file: entry on the per-file blob list in &drm_file.blobs list.
+>   * @length: size of the blob in bytes, invariant over the lifetime of the object
+> + * @is_write_only: user space can't read the blob data.
+>   * @data: actual data, embedded at the end of this structure
+>   *
+>   * Blobs are used to store bigger values than what fits directly into the 64
+> @@ -219,6 +220,7 @@ struct drm_property_blob {
+>  	struct list_head head_global;
+>  	struct list_head head_file;
+>  	size_t length;
+> +	bool is_write_only;
+>  	void *data;
+>  };
+>  
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 46becedf5b2fc..10403c9a73082 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1168,6 +1168,9 @@ struct drm_format_modifier {
+>  	__u64 modifier;
+>  };
+>  
+> +#define DRM_MODE_CREATE_BLOB_WRITE_ONLY                                        \
+> +	(1 << 0) /* data of the blob can't be read by user space */
+> +
+>  /**
+>   * struct drm_mode_create_blob - Create New blob property
+>   *
+> @@ -1181,6 +1184,9 @@ struct drm_mode_create_blob {
+>  	__u32 length;
+>  	/** @blob_id: Return: new property ID. */
+>  	__u32 blob_id;
+> +	/** Flags for special handling. */
+> +	__u32 flags;
+> +	__u32 pad;
+>  };
+>  
+>  /**
+> -- 
+> 2.40.0.634.g4ca3ef3211-goog
+> 
 
 -- 
 Daniel Vetter
