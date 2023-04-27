@@ -1,78 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690706F077E
-	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 16:31:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0696F087A
+	for <lists+freedreno@lfdr.de>; Thu, 27 Apr 2023 17:37:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1EC10EB5E;
-	Thu, 27 Apr 2023 14:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B64210EB9F;
+	Thu, 27 Apr 2023 15:37:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301B010EB59;
- Thu, 27 Apr 2023 14:31:54 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id
- 5614622812f47-38e7ce73ca0so4685027b6e.2; 
- Thu, 27 Apr 2023 07:31:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682605913; x=1685197913;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uRZglDXB91+6f7S2dtMlSBFPaJiJ8/S98Gq1cNjaW8Q=;
- b=ZKUcLKH4jO6eUX11CsiFYAsZQboMzOTzukH+ORISmxFF2yQ6T96vWRnvS+xlwUtwBa
- 0lqB7EnRVZbvDdY3i/V2xRzDCoFsKupg4xJATdLTpURRqY/9Vxst5iEaonxWZ5wxly9z
- LuYos6Wfwy4zeY0uKGYtwiUZmPFCX6HPuEvJBMTzrjYvbgjpbo0R/rfbi6OtH/y5fokF
- ox4hlGFE/1Cd5bnL7ekHeSYnvNMGcOGVME2PuLgyDk6ln934sI8x9H/Qh2O3jR1ppVIQ
- vIYOrx0EUjA2AOMXAj+u4tkcCLv9qcWv1gxGAe0LPtm0SALsFtgQBovdiAcxxEM8PDi6
- AnxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682605913; x=1685197913;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uRZglDXB91+6f7S2dtMlSBFPaJiJ8/S98Gq1cNjaW8Q=;
- b=aOL+vOc7I5xT+Vt6iisSYjnNLfBDL4tJwIH5NljbHCqlinfvSdgSIzP6cTgsofBgnN
- 8lpf3nhlAlTKOBzopAprQqGr3smwavbSYOkT9gNrmxfEvOe2oAdfD2W0HDO13P2ixuWp
- 1/8cU8Tz2Fjbq3MswrUjsZWkfYGfY3n7FiRymFHi0dM1cCXPdzS4hGof3L8T55502pgf
- axWrjt/QirDtBYH92k0rNXCir9Gp0I896CFs3c6MnKbBy/oW2pgGV5u5bdLocfbJSUaQ
- Au9W1tKxA+4avRLIa1VzvH9ZHKRX7voQbYGjvhV4ENsbHgxjaqb7hjbex4VDX/gjwbVl
- KSpw==
-X-Gm-Message-State: AC+VfDzdoiT8rUz0nb+bVFqYVgR+agfNsZyIBa4ZJpMQvZM2NpXyeJVu
- Oahic33tSSgFnE23BHPdX3Ld0U6EuiasKnMiX5E=
-X-Google-Smtp-Source: ACHHUZ5vqvrwk+VgTL9ZXd2NM5nRRwBWWe3P4jFrzMD7s6MUMokZJiESSfjBOx9isBUa3M10jk9ZUbOD9YRpwoIy1vg=
-X-Received: by 2002:a05:6808:914:b0:38c:1acd:e6ee with SMTP id
- w20-20020a056808091400b0038c1acde6eemr799313oih.9.1682605911323; Thu, 27 Apr
- 2023 07:31:51 -0700 (PDT)
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1D2F10EB86
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Apr 2023 15:37:45 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id E127D20159;
+ Thu, 27 Apr 2023 17:37:41 +0200 (CEST)
+Date: Thu, 27 Apr 2023 17:37:40 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <k25jg7cez2kimpxr4ztbdzjr2adq6a2vjknyvfe5frxujtogfg@vhfdyt45unv6>
+References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v2-7-5def73f50980@linaro.org>
 MIME-Version: 1.0
-References: <20230417201215.448099-1-robdclark@gmail.com>
- <20230417201215.448099-3-robdclark@gmail.com>
- <58977051-197b-f1f0-c795-9037e70d7a91@linux.intel.com>
- <ZD5WLMRNibbRkGQO@phenom.ffwll.local>
- <CAF6AEGugcuV08G_pxjUGvhTbp8DFFG4ws3=oiP5PpbRf=SJdhQ@mail.gmail.com>
- <CACvgo52gByHzwtm4gxqUxZ5yJGTQ5NucBmMHSO7nLPsba3rTfw@mail.gmail.com>
- <CAF6AEGtijkCt2uUx98auFcK0GQHY=5GV7CxbOejGz22no6J0GQ@mail.gmail.com>
- <ZEpC5xEZ4cueb881@phenom.ffwll.local>
-In-Reply-To: <ZEpC5xEZ4cueb881@phenom.ffwll.local>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 27 Apr 2023 07:31:39 -0700
-Message-ID: <CAF6AEGs5ROH0xqCwZKs2JaUvoOiEOmyqneLCW9eQDOJhPqNLFQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>, 
- Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [RFC 2/3] drm/msm: Rework get_comm_cmdline() helper
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v2-7-5def73f50980@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 07/13] drm/msm/dpu: Add SM6350 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,182 +42,313 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 27, 2023 at 2:39=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> wro=
-te:
->
-> On Fri, Apr 21, 2023 at 07:47:26AM -0700, Rob Clark wrote:
-> > On Fri, Apr 21, 2023 at 2:33=E2=80=AFAM Emil Velikov <emil.l.velikov@gm=
-ail.com> wrote:
-> > >
-> > > Greeting all,
-> > >
-> > > Sorry for the delay - Easter Holidays, food coma and all that :-)
-> > >
-> > > On Tue, 18 Apr 2023 at 15:31, Rob Clark <robdclark@gmail.com> wrote:
-> > > >
-> > > > On Tue, Apr 18, 2023 at 1:34=E2=80=AFAM Daniel Vetter <daniel@ffwll=
-.ch> wrote:
-> > > > >
-> > > > > On Tue, Apr 18, 2023 at 09:27:49AM +0100, Tvrtko Ursulin wrote:
-> > > > > >
-> > > > > > On 17/04/2023 21:12, Rob Clark wrote:
-> > > > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > > > >
-> > > > > > > Make it work in terms of ctx so that it can be re-used for fd=
-info.
-> > > > > > >
-> > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > > > ---
-> > > > > > >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 ++--
-> > > > > > >   drivers/gpu/drm/msm/msm_drv.c           |  2 ++
-> > > > > > >   drivers/gpu/drm/msm/msm_gpu.c           | 13 ++++++-------
-> > > > > > >   drivers/gpu/drm/msm/msm_gpu.h           | 12 ++++++++++--
-> > > > > > >   drivers/gpu/drm/msm/msm_submitqueue.c   |  1 +
-> > > > > > >   5 files changed, 21 insertions(+), 11 deletions(-)
-> > > > > > >
-> > > > > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/driver=
-s/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > > > > index bb38e728864d..43c4e1fea83f 100644
-> > > > > > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > > > > > @@ -412,7 +412,7 @@ int adreno_set_param(struct msm_gpu *gpu,=
- struct msm_file_private *ctx,
-> > > > > > >             /* Ensure string is null terminated: */
-> > > > > > >             str[len] =3D '\0';
-> > > > > > > -           mutex_lock(&gpu->lock);
-> > > > > > > +           mutex_lock(&ctx->lock);
-> > > > > > >             if (param =3D=3D MSM_PARAM_COMM) {
-> > > > > > >                     paramp =3D &ctx->comm;
-> > > > > > > @@ -423,7 +423,7 @@ int adreno_set_param(struct msm_gpu *gpu,=
- struct msm_file_private *ctx,
-> > > > > > >             kfree(*paramp);
-> > > > > > >             *paramp =3D str;
-> > > > > > > -           mutex_unlock(&gpu->lock);
-> > > > > > > +           mutex_unlock(&ctx->lock);
-> > > > > > >             return 0;
-> > > > > > >     }
-> > > > > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/=
-msm/msm_drv.c
-> > > > > > > index 3d73b98d6a9c..ca0e89e46e13 100644
-> > > > > > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > > @@ -581,6 +581,8 @@ static int context_init(struct drm_device=
- *dev, struct drm_file *file)
-> > > > > > >     rwlock_init(&ctx->queuelock);
-> > > > > > >     kref_init(&ctx->ref);
-> > > > > > > +   ctx->pid =3D get_pid(task_pid(current));
-> > > > > >
-> > > > > > Would it simplify things for msm if DRM core had an up to date =
-file->pid as
-> > > > > > proposed in
-> > > > > > https://patchwork.freedesktop.org/patch/526752/?series=3D109902=
-&rev=3D4 ? It
-> > > > > > gets updated if ioctl issuer is different than fd opener and th=
-is being
-> > > > > > context_init here reminded me of it. Maybe you wouldn't have to=
- track the
-> > > > > > pid in msm?
-> > > >
-> > > > The problem is that we also need this for gpu devcore dumps, which
-> > > > could happen after the drm_file is closed.  The ctx can outlive the
-> > > > file.
-> > > >
-> > > I think we all kept forgetting about that. MSM had support for ages,
-> > > while AMDGPU is the second driver to land support - just a release
-> > > ago.
-> > >
-> > > > But the ctx->pid has the same problem as the existing file->pid whe=
-n
-> > > > it comes to Xorg.. hopefully over time that problem just goes away.
-> > >
-> > > Out of curiosity: what do you mean with "when it comes to Xorg" - the
-> > > "was_master" handling or something else?
-> >
-> > The problem is that Xorg is the one to open the drm fd, and then
-> > passes the fd to the client.. so the pid of drm_file is the Xorg pid,
-> > not the client.  Making it not terribly informative.
-> >
-> > Tvrtko's patch he linked above would address that for drm_file, but
-> > not for other driver internal usages.  Maybe it could be wired up as a
-> > helper so that drivers don't have to re-invent that dance.  Idk, I
-> > have to think about it.
-> >
-> > Btw, with my WIP drm sched fence signalling patch lockdep is unhappy
-> > when gpu devcore dumps are triggered.  I'm still pondering how to
-> > decouple the locking so that anything coming from fs (ie.
-> > show_fdinfo()) is decoupled from anything that happens in the fence
-> > signaling path.  But will repost this series once I get that sorted
-> > out.
->
-> So the cleanest imo is that you push most of the capturing into a worker
-> that's entirely decoupled. If you have terminal context (i.e. on first
-> hang they stop all further cmd submission, which is anyway what
-> vk/arb_robustness want), then you don't have to capture at tdr time,
-> because there's no subsequent batch that will wreck the state.
+On 2023-04-21 00:31:16, Konrad Dybcio wrote:
+> Add SM6350 support to the DPU1 driver to enable display output.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-It is already in a worker, but we (a) need to block other contexts
-from submitting while at the same time (b) using the GPU itself to
-capture its state.. (yes, the way the hw works is overly complicated
-in this regard)
+After addressing the comments from Dmitry (CURSOR0->DMA1 and
+CURSOR1->DMA2), this is:
 
-> But it only works if your gpu ctx don't have recoverable semantics.
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-We do have recoverable semantics.. but that is pretty orthogonal.  We
-just need a different lock.. I have a plan to move (a copy) of the
-override strings to drm_file with it's own locking decoupled from what
-we need in the recovery path.. and hopefully will finally have time to
-type it up today and post it (just before disappearing off into the
-woods to go backpacking ;-))
+See below for some nits.
 
-BR,
--R
+> ---
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 191 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   3 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  4 files changed, 196 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> new file mode 100644
+> index 000000000000..687a508cbaa6
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> @@ -0,0 +1,191 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023, Linaro Limited
+> + */
+> +
+> +#ifndef _DPU_6_4_SM6350_H
+> +#define _DPU_6_4_SM6350_H
+> +
+> +static const struct dpu_caps sm6350_dpu_caps = {
+> +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+> +	.max_mixer_blendstages = 0x7,
+> +	.qseed_type = DPU_SSPP_SCALER_QSEED4,
 
-> If you can't do that it's a _lot_ of GFP_ATOMIC and trylock and bailing
-> out if any fails :-/
-> -Daniel
->
-> >
-> > BR,
-> > -R
-> >
-> > >
-> > > > guess I could do a similar dance to your patch to update the pid
-> > > > whenever (for ex) a submitqueue is created.
-> > > >
-> > > > > Can we go one step further and let the drm fdinfo stuff print the=
-se new
-> > > > > additions? Consistency across drivers and all that.
-> > > >
-> > > > Hmm, I guess I could _also_ store the overridden comm/cmdline in
-> > > > drm_file.  I still need to track it in ctx (msm_file_private) becau=
-se
-> > > > I could need it after the file is closed.
-> > > >
-> > > > Maybe it could be useful to have a gl extension to let the app set =
-a
-> > > > name on the context so that this is useful beyond native-ctx (ie.
-> > > > maybe it would be nice to see that "chrome: lwn.net" is using less =
-gpu
-> > > > memory than "chrome: phoronix.com", etc)
-> > > >
-> > >
-> > > /me awaits for the series to hit the respective websites ;-)
-> > >
-> > > But seriously - the series from Tvrtko (thanks for the link, will
-> > > check in a moment) makes sense. Although given the livespan issue
-> > > mentioned above, I don't think it's applicable here.
-> > >
-> > > So if it were me, I would consider the two orthogonal for the
-> > > short/mid term. Fwiw this and patch 1/3 are:
-> > > Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-> > >
-> > > HTH
-> > > -Emil
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+I thought it was QSEED3LITE, but doesn't really matter as both are
+handled similarly.  It'll anyway change when I resubmit:
+
+https://lore.kernel.org/linux-arm-msm/20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org/T/#u
+
+which should hardcode the register value directly, making this field
+superfluous.
+
+> +	.has_src_split = true,
+> +	.has_dim_layer = true,
+> +	.has_idle_pc = true,
+> +	.max_linewidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+> +};
+> +
+> +static const struct dpu_ubwc_cfg sm6350_ubwc_cfg = {
+> +	.ubwc_version = DPU_HW_UBWC_VER_20,
+> +	.ubwc_swizzle = 6,
+> +	.highest_bank_bit = 1,
+> +};
+> +
+> +static const struct dpu_mdp_cfg sm6350_mdp[] = {
+> +	{
+> +	.name = "top_0", .id = MDP_TOP,
+> +	.base = 0x0, .len = 0x494,
+> +	.features = 0,
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
+> +	.clk_ctrls[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
+> +	},
+> +};
+> +
+> +static const struct dpu_ctl_cfg sm6350_ctl[] = {
+> +	{
+> +	.name = "ctl_0", .id = CTL_0,
+> +	.base = 0x1000, .len = 0x1dc,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+> +	},
+> +	{
+> +	.name = "ctl_1", .id = CTL_1,
+> +	.base = 0x1200, .len = 0x1dc,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+> +	},
+> +	{
+> +	.name = "ctl_2", .id = CTL_2,
+> +	.base = 0x1400, .len = 0x1dc,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+> +	},
+> +	{
+> +	.name = "ctl_3", .id = CTL_3,
+> +	.base = 0x1600, .len = 0x1dc,
+> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+> +	},
+> +};
+> +
+> +static const struct dpu_sspp_cfg sm6350_sspp[] = {
+> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
+> +		 sc7180_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+> +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
+> +		 sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+> +	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_CURSOR_SDM845_MASK,
+> +		 sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
+> +	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK,
+> +		 sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
+> +};
+> +
+> +static const struct dpu_lm_cfg sm6350_lm[] = {
+> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
+> +		&sc7180_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
+> +	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
+> +		&sc7180_lm_sblk, PINGPONG_1, LM_0, 0),
+
+These two entries are indented with two tabs and have one character too
+many to align with the opening parenthesis on the previous line.  Can we
+please settle on a single style, as this commit mostly uses tabs+spaces
+to align with the opening parenthesis?
+
+Dmitry vouched for `cino=(0` (when in unclosed parenthesis, align next
+line with zero extra characters to the opening parenthesis), but I find
+double tabs more convenient as it doesn't require reindenting when
+changing the name of the macro (which happened too often in my INTF TE
+series).
+
+> +};
+> +
+> +static const struct dpu_dspp_cfg sm6350_dspp[] = {
+> +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+> +		 &sm8150_dspp_sblk),
+> +};
+> +
+> +static struct dpu_pingpong_cfg sm6350_pp[] = {
+> +	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
+> +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+> +	       -1),
+> +	PP_BLK("pingpong_1", PINGPONG_1, 0x70800, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
+> +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+> +	       -1),
+
+Glad to see no TE2 here, we just removed it from all of DPU >= 5.0.0
+instead of >= 7.0.0 in [1] as downstream DTS turned out to be wrong.
+
+[1]: https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-2-27ce1a5ab5c6@somainline.org/
+
+- Marijn
+
+> +};
+> +
+> +static const struct dpu_intf_cfg sm6350_intf[] = {
+> +	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x2c0, INTF_DP, 0, 35, INTF_SC7180_MASK,
+> +		 DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+> +		 DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25)),
+> +	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 35, INTF_SC7180_MASK,
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
+> +};
+> +
+> +static const struct dpu_vbif_cfg sm6350_vbif[] = {
+> +	{
+> +	.name = "vbif_0", .id = VBIF_RT,
+> +	.base = 0, .len = 0x1044,
+> +	.features = BIT(DPU_VBIF_QOS_REMAP),
+> +	.xin_halt_timeout = 0x4000,
+> +	.qos_rt_tbl = {
+> +		.npriority_lvl = ARRAY_SIZE(sdm845_rt_pri_lvl),
+> +		.priority_lvl = sdm845_rt_pri_lvl,
+> +	},
+> +	.qos_nrt_tbl = {
+> +		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
+> +		.priority_lvl = sdm845_nrt_pri_lvl,
+> +	},
+> +	.memtype_count = 14,
+> +	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+> +	},
+> +};
+> +
+> +static const struct dpu_qos_lut_entry sm6350_qos_linear_macrotile[] = {
+> +	{.fl = 0, .lut = 0x0011223344556677 },
+> +	{.fl = 0, .lut = 0x0011223445566777 },
+> +};
+> +
+> +static const struct dpu_perf_cfg sm6350_perf_data = {
+> +	.max_bw_low = 4200000,
+> +	.max_bw_high = 5100000,
+> +	.min_core_ib = 2500000,
+> +	.min_llcc_ib = 0,
+> +	.min_dram_ib = 1600000,
+> +	.min_prefill_lines = 35,
+> +	/* TODO: confirm danger_lut_tbl */
+> +	.danger_lut_tbl = {0xffff, 0xffff, 0x0, 0x0, 0xffff},
+> +	.qos_lut_tbl = {
+> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
+> +		.entries = sm6350_qos_linear_macrotile
+> +		},
+> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
+> +		.entries = sm6350_qos_linear_macrotile
+> +		},
+> +		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
+> +		.entries = sc7180_qos_nrt
+> +		},
+> +	},
+> +	.cdp_cfg = {
+> +		{.rd_enable = 1, .wr_enable = 1},
+> +		{.rd_enable = 1, .wr_enable = 0}
+> +	},
+> +	.clk_inefficiency_factor = 105,
+> +	.bw_inefficiency_factor = 120,
+> +};
+> +
+> +const struct dpu_mdss_cfg dpu_sm6350_cfg = {
+> +	.caps = &sm6350_dpu_caps,
+> +	.ubwc = &sm6350_ubwc_cfg,
+> +	.mdp_count = ARRAY_SIZE(sm6350_mdp),
+> +	.mdp = sm6350_mdp,
+> +	.ctl_count = ARRAY_SIZE(sm6350_ctl),
+> +	.ctl = sm6350_ctl,
+> +	.sspp_count = ARRAY_SIZE(sm6350_sspp),
+> +	.sspp = sm6350_sspp,
+> +	.mixer_count = ARRAY_SIZE(sm6350_lm),
+> +	.mixer = sm6350_lm,
+> +	.dspp_count = ARRAY_SIZE(sm6350_dspp),
+> +	.dspp = sm6350_dspp,
+> +	.pingpong_count = ARRAY_SIZE(sm6350_pp),
+> +	.pingpong = sm6350_pp,
+> +	.intf_count = ARRAY_SIZE(sm6350_intf),
+> +	.intf = sm6350_intf,
+> +	.vbif_count = ARRAY_SIZE(sm6350_vbif),
+> +	.vbif = sm6350_vbif,
+> +	.reg_dma_count = 1,
+> +	.dma_cfg = &sm8250_regdma,
+> +	.perf = &sm6350_perf_data,
+> +	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+> +		     BIT(MDP_SSPP_TOP0_INTR2) | \
+> +		     BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> +		     BIT(MDP_INTF0_INTR) | \
+> +		     BIT(MDP_INTF1_INTR)
+> +};
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index db558a9ae36e..52750b592b36 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -806,6 +806,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+>  #include "catalog/dpu_6_0_sm8250.h"
+>  #include "catalog/dpu_6_2_sc7180.h"
+>  #include "catalog/dpu_6_3_sm6115.h"
+> +#include "catalog/dpu_6_4_sm6350.h"
+>  #include "catalog/dpu_6_5_qcm2290.h"
+>  
+>  #include "catalog/dpu_7_0_sm8350.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 756bff1d2185..f9611bd75e02 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -320,6 +320,8 @@ enum dpu_qos_lut_usage {
+>  	DPU_QOS_LUT_USAGE_LINEAR,
+>  	DPU_QOS_LUT_USAGE_MACROTILE,
+>  	DPU_QOS_LUT_USAGE_NRT,
+> +	DPU_QOS_LUT_USAGE_CWB,
+> +	DPU_QOS_LUT_USAGE_MACROTILE_QSEED,
+>  	DPU_QOS_LUT_USAGE_MAX,
+>  };
+>  
+> @@ -880,6 +882,7 @@ extern const struct dpu_mdss_cfg dpu_sc8180x_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm8250_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sc7180_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm6115_cfg;
+> +extern const struct dpu_mdss_cfg dpu_sm6350_cfg;
+>  extern const struct dpu_mdss_cfg dpu_qcm2290_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm8350_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sc7280_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 0e7a68714e9e..46be7ad8d615 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1286,6 +1286,7 @@ static const struct of_device_id dpu_dt_match[] = {
+>  	{ .compatible = "qcom,sc8180x-dpu", .data = &dpu_sc8180x_cfg, },
+>  	{ .compatible = "qcom,sc8280xp-dpu", .data = &dpu_sc8280xp_cfg, },
+>  	{ .compatible = "qcom,sm6115-dpu", .data = &dpu_sm6115_cfg, },
+> +	{ .compatible = "qcom,sm6350-dpu", .data = &dpu_sm6350_cfg, },
+>  	{ .compatible = "qcom,sm8150-dpu", .data = &dpu_sm8150_cfg, },
+>  	{ .compatible = "qcom,sm8250-dpu", .data = &dpu_sm8250_cfg, },
+>  	{ .compatible = "qcom,sm8350-dpu", .data = &dpu_sm8350_cfg, },
+> 
+> -- 
+> 2.40.0
+> 
