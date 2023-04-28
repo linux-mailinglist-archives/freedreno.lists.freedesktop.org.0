@@ -2,80 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 353AB6F1CBA
-	for <lists+freedreno@lfdr.de>; Fri, 28 Apr 2023 18:39:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785CC6F1EF2
+	for <lists+freedreno@lfdr.de>; Fri, 28 Apr 2023 21:53:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE57410E3F9;
-	Fri, 28 Apr 2023 16:39:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED0C210EDE9;
+	Fri, 28 Apr 2023 19:53:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6948D10E3F3;
- Fri, 28 Apr 2023 16:39:00 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C034610EDE6;
+ Fri, 28 Apr 2023 19:52:58 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33S6daWg002201; Fri, 28 Apr 2023 16:38:49 GMT
+ 33SJ8LkK019378; Fri, 28 Apr 2023 19:52:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references : mime-version :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=TqQJkjTwoWF4dMGDBX0d8aMt6DnlZbBLw5na6S7xh40=;
- b=A9lwD8qAT5QnEHd3CRQQdRbi7WlSVzMZ9vYfDscd7pmLX/GyQs3kEpBndulaXNOQWs2C
- ayw5bjmPJ+/85ny8VdW/gXuIg4WLTv4CcGdIScHVEsEpIEsM6GAzH+G24zzLCxBMu8ck
- M1KYKNaSwMlZ3NF6VLKa4aZ3YiSi2rKRRHSaMkfOJya4fLMrwhQtdH1tIo/0ahgpy558
- wzPvJWATLYyJ4eWfwn96uR5J5KhXWZzolm6c0Ea4TFM9/QbHbGunnW+HMjN1bM5sM2D6
- epgTHCrBqni/wjgjo+iLcpMdTWij5VJXBvwbiI6OXMTxp9ZKBJdzvpXEJIzziAkIAl4Q +g== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=EXAgEMjbth8cyVtARpfuh7S5goHbVAcNet1MmlFgCxs=;
+ b=fbe/vBLUfFZtbsqbIoYuKWbC7T084410P8urofnEyTRWxo4HM+4e/tJvJyqwvmIbYjmv
+ 9/W6ePxl2OFPMR/1/weWGgrWszquLScs4Yqe+xVYXfX9bUXFbz/CzLWED1PLZeDG1vWw
+ pyl4V9vI6Svin3h/iXOMecP/lOnAcqIwZZStf3rShsWihuHg9LFtyDd/3OSOZSbA8h4M
+ WbhxU8bH5FlqmHNS0CIlwkDJ0ZqbEQTfbQih8iw1ta7PeoqXsUsDJo/D43Mz84kcymws
+ cAwVFAYXqDl6VfFpFRZxkRXXUl+5yjkCWHHMwpUtXrQER25Amy0O3MaWwFmuRK1dlycK Ug== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q7xdyaxky-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q8fvngtcg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Apr 2023 16:38:49 +0000
+ Fri, 28 Apr 2023 19:52:49 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33SGcnL5020862
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33SJqmhE002597
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Apr 2023 16:38:49 GMT
-Received: from [10.110.124.105] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 28 Apr
- 2023 09:38:47 -0700
-Message-ID: <ca0d68b9-b81c-ad3f-2835-9661cc946de2@quicinc.com>
-Date: Fri, 28 Apr 2023 09:38:46 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Jianhua Lu <lujianhua000@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Rob Herring" <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Krishna Manikandan
- <quic_mkrishn@quicinc.com>
-References: <20230427122132.24840-1-lujianhua000@gmail.com>
+ Fri, 28 Apr 2023 19:52:48 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Fri, 28 Apr 2023 12:52:47 -0700
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230427122132.24840-1-lujianhua000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+To: <robdclark@gmail.com>, <sean@poorly.run>, <dmitry.baryshkov@linaro.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <lyude@redhat.com>, "Srinivas
+ Kandagatla" <srinivas.kandagatla@linaro.org>
+Date: Fri, 28 Apr 2023 12:52:29 -0700
+Message-ID: <168271141820.10894.8416058508355144323.b4-ty@quicinc.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230421145657.12186-1-srinivas.kandagatla@linaro.org>
+References: <20230421145657.12186-1-srinivas.kandagatla@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: cCp5ILIbGKeWAEiSCRIOvhfR0isVcKMf
-X-Proofpoint-ORIG-GUID: cCp5ILIbGKeWAEiSCRIOvhfR0isVcKMf
+X-Proofpoint-ORIG-GUID: DxTjwicBopAh-zcTbWIi0XTGml9lwEz5
+X-Proofpoint-GUID: DxTjwicBopAh-zcTbWIi0XTGml9lwEz5
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-28_04,2023-04-27_01,2023-02-09_01
+ definitions=2023-04-28_06,2023-04-27_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  impostorscore=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
- phishscore=0 adultscore=0 mlxlogscore=999 clxscore=1011 mlxscore=0
- spamscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304280133
-Subject: Re: [Freedreno] [PATCH v2] dt-bindings: display/msm:
- dsi-controller-main: Document qcom, master-dsi and qcom, sync-dual-dsi
+ mlxlogscore=661 spamscore=0 bulkscore=0 mlxscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2303200000 definitions=main-2304280162
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: unregister audio driver during
+ unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,32 +83,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com, tzimmermann@suse.de,
+ javierm@redhat.com, freedreno@lists.freedesktop.org, johan+linaro@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-
-On 4/27/2023 5:21 AM, Jianhua Lu wrote:
-> This fixes warning:
->    sm8250-xiaomi-elish-csot.dtb: dsi@ae94000: Unevaluated properties are not allowed ('qcom,master-dsi', 'qcom,sync-dual-dsi' were unexpected)
+On Fri, 21 Apr 2023 15:56:57 +0100, Srinivas Kandagatla wrote:
+> while binding the code always registers a audio driver, however there
+> is no corresponding unregistration done in unbind. This leads to multiple
+> redundant audio platform devices if dp_display_bind and dp_display_unbind
+> happens multiple times during startup. On X13s platform this resulted in
+> 6 to 9 audio codec device instead of just 3 codec devices for 3 dp ports.
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Acked-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Jianhua Lu <lujianhua000@gmail.com>
-> ---
-> Changes in v2:
->    - pick up tags
->    - fix typo (need -> needs)
+> Fix this by unregistering codecs on unbind.
 > 
->   .../bindings/display/msm/dsi-controller-main.yaml    | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
-> 
+> [...]
 
-Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI 
-bindings")
+Applied, thanks!
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+[1/1] drm/msm/dp: unregister audio driver during unbind
+      https://gitlab.freedesktop.org/abhinavk/msm/-/commit/85c636284cb6
+
+Best regards,
+-- 
+Abhinav Kumar <quic_abhinavk@quicinc.com>
