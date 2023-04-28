@@ -1,79 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 649986F1F37
-	for <lists+freedreno@lfdr.de>; Fri, 28 Apr 2023 22:21:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4245F6F20E3
+	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 00:37:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF8E10E15C;
-	Fri, 28 Apr 2023 20:21:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05B210E16B;
+	Fri, 28 Apr 2023 22:37:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8597910E15C;
- Fri, 28 Apr 2023 20:21:42 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D4C10E161;
+ Fri, 28 Apr 2023 22:37:23 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33SJ17PI010240; Fri, 28 Apr 2023 20:21:38 GMT
+ 33SMbLOs029846; Fri, 28 Apr 2023 22:37:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=jLyPbtzvBUyAfoKSLhDpM3wpUyv5i2Vpizt0weLRsa4=;
- b=bXRDvUkIeRKig/SwyTPjKTnYLcprzEzecs1Aw3F9pv7c4tTDYFzxjJmbsPDk74Q//jk7
- yw8P/5aFSdOlgSqE7jXx/r1sc1n8Z/BJwfSvaznTS8S3Jbdc99zI6dL9dacnyLFQmqlN
- lsf6soBFrUwTW4VilhGhHT0F1KvYAYWDYmiv7Kowd1dIilM1ONqayoZW9UpeN1MoFF+C
- 9nm5NTIlsDOk8QxrLHfB1zkbhwTsVbRVrSg7qXOkei8CoGLtsMFzJDbwym4tDYgb9qQv
- lObcCIHFfng4NHasq4qzIu8I0OVcRj1j2eIF3h38K9k2HZEdT6VO4ddmuV8xCJyAzh37 iQ== 
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=gGNMIvLOzmjsnsVVRS2uN4yp1bQxftElJ84j2epJmAA=;
+ b=YEn6VPIQb1SkUnla3oErLFJ2aCdiUFuSfEpsE4qnAizdzr3w2Ux3GwrefdbJNklLEjlb
+ d430y8/6kCfKCfxR55MZ7QeCz4WSRIWCN9iHBL8s3EYBMxtYM2mkrHV4JbQz0zRj8kr/
+ C1yaoZEsaV7zw/2u/z66fB++BuVuuLRi5eGDvaXkK2i/bBS4mOhkR5uJd28SUGsm4SS9
+ l7IMXOH43esziDNQ1mlXELCkx8uDCwZUxJangwW0nMpIIfP3Itc8ITEymX5hfK2BPIvF
+ zF/e2JveajVYfGCY4xUvVSWb8xi05NNdIPI3JuL2g6CYK9IKK85/GdiBw1gwiURU5urw aQ== 
 Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q850ctr4n-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q8abpt85h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Apr 2023 20:21:38 +0000
+ Fri, 28 Apr 2023 22:37:20 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33SKLb6C016478
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33SMbJSl032506
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Apr 2023 20:21:37 GMT
+ Fri, 28 Apr 2023 22:37:19 GMT
 Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Fri, 28 Apr 2023 13:21:36 -0700
+ 15.2.986.42; Fri, 28 Apr 2023 15:37:19 -0700
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
  <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Krishna Manikandan
- <quic_mkrishn@quicinc.com>, Jianhua Lu <lujianhua000@gmail.com>
-Date: Fri, 28 Apr 2023 13:21:21 -0700
-Message-ID: <168271324255.1535.12569960424133230551.b4-ty@quicinc.com>
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 28 Apr 2023 15:36:43 -0700
+Message-ID: <20230428223646.23595-1-quic_abhinavk@quicinc.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230427122132.24840-1-lujianhua000@gmail.com>
-References: <20230427122132.24840-1-lujianhua000@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: D2rw4HD4qY9sb1xwqJLU7kIY_Mgf15A3
-X-Proofpoint-GUID: D2rw4HD4qY9sb1xwqJLU7kIY_Mgf15A3
+X-Proofpoint-ORIG-GUID: feiBuX8HmrmS_RghykE7D3NfL7xPtjKO
+X-Proofpoint-GUID: feiBuX8HmrmS_RghykE7D3NfL7xPtjKO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-28_06,2023-04-27_01,2023-02-09_01
+ definitions=2023-04-28_08,2023-04-27_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015
- suspectscore=0 mlxlogscore=893 mlxscore=0 phishscore=0 bulkscore=0
- adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304280167
-Subject: Re: [Freedreno] [PATCH v2] dt-bindings: display/msm:
- dsi-controller-main: Document qcom, master-dsi and qcom, sync-dual-dsi
+ lowpriorityscore=0
+ phishscore=0 suspectscore=0 spamscore=0 impostorscore=0 mlxscore=0
+ bulkscore=0 malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ mlxlogscore=752 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304280188
+Subject: [Freedreno] [PATCH v3 1/4] drm/msm/dpu: remove DPU_DSPP_GC handling
+ in dspp flush
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,26 +82,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ marijn.suijten@somainline.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Gamma correction blocks (GC) are not used today so lets remove
+the usage of DPU_DSPP_GC in the dspp flush to make it easier
+to remove GC from the catalog.
 
-On Thu, 27 Apr 2023 20:21:32 +0800, Jianhua Lu wrote:
-> This fixes warning:
->   sm8250-xiaomi-elish-csot.dtb: dsi@ae94000: Unevaluated properties are not allowed ('qcom,master-dsi', 'qcom,sync-dual-dsi' were unexpected)
-> 
-> 
+We can add this back when GC is properly supported in DPU with
+one of the standard DRM properties.
 
-Applied, thanks!
+changes in v3:
+	- drop the link tag which was auto added before
 
-[1/1] dt-bindings: display/msm: dsi-controller-main: Document qcom,master-dsi and qcom,sync-dual-dsi
-      https://gitlab.freedesktop.org/abhinavk/msm/-/commit/ca29699a57ec
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+index bbdc95ce374a..57adaebab563 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+@@ -336,9 +336,6 @@ static void dpu_hw_ctl_update_pending_flush_dspp_sub_blocks(
+ 	case DPU_DSPP_PCC:
+ 		ctx->pending_dspp_flush_mask[dspp - DSPP_0] |= BIT(4);
+ 		break;
+-	case DPU_DSPP_GC:
+-		ctx->pending_dspp_flush_mask[dspp - DSPP_0] |= BIT(5);
+-		break;
+ 	default:
+ 		return;
+ 	}
 -- 
-Abhinav Kumar <quic_abhinavk@quicinc.com>
+2.40.1
+
