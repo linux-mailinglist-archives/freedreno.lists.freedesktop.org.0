@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83FF6F2202
-	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 03:24:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F0576F2203
+	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 03:24:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7137710EE42;
-	Sat, 29 Apr 2023 01:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 327F410EE4B;
+	Sat, 29 Apr 2023 01:24:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CEB810EE3F
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10EDD10EE3F
  for <freedreno@lists.freedesktop.org>; Sat, 29 Apr 2023 01:23:58 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-2efbaad9d76so357463f8f.0
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-3f19ab99540so3026595e9.2
  for <freedreno@lists.freedesktop.org>; Fri, 28 Apr 2023 18:23:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682731436; x=1685323436;
+ d=linaro.org; s=google; t=1682731437; x=1685323437;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IMTg1W9FzftioxMCISNlGed9GIUyXWxjomoAI3Jy3dY=;
- b=vcjN67ET9nnTv65zioikMGVzqybE48WiifidA5vDmlEUrVyRpIOS3YHNsvFIdN8EDr
- KPIQrwTBGbbqKofQAzuZ8E5QXsAyRXCAqUwblop7X23nwCMwV7xDvpbvdKOqUJrJuYBJ
- HQMNJ/5xbpbCvKf+5DMr5x/gvoqpEmU3gpjrF/4N8lhSe0jT06iubLxy+JtvHAiu0Lqf
- 6Bcd7tl5OPZAmwzYK7SkC6QAdHvifB7CE6urPyEd4RQzavE//Mj5XH6HZzOiA6nFOUUt
- 21hKU8eLa5zGehXIHy925pE+WJVLDVGtnL8XKuL2yKSXcgzczj9y0ArhGUvo6QCvDehX
- CjcA==
+ bh=XpHRCDl8YUqkvzGdi9xj3a31C+ZLIPISEtnli6YWyd8=;
+ b=u2t1BbsEvLJsnd4haLznJtlvYjxKqBGVHQAPIb3m371bwOG6enT5Ukd1Bw9aIcfsxt
+ IL1y003mSznP1CBJfmRDEvIuf/qQYUePPKXw+s2wr2BaNj2DjjcoWKjVf9/oHFqwz8Uq
+ RPWXYpmQl24WllwEYSTsY7jd2TIk2Lmw2tmLOskDahaclH2E+AsD4mdlWYbAuhTRh9y4
+ aETvUyggCsDlVcN71ehfLa+9O5ydXLFgM06Y71q/XS5OCNCN1hXIqeDsvVd0YrumvMOS
+ JXod0tfaucW56Zmiz126LPbg9oo+Uf4Hgblg4956FEC4iCL2ibbO1hYaYmZ5JxIDdgkP
+ MNVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682731436; x=1685323436;
+ d=1e100.net; s=20221208; t=1682731437; x=1685323437;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IMTg1W9FzftioxMCISNlGed9GIUyXWxjomoAI3Jy3dY=;
- b=YYmKN4sJNSSSjpZZVUDEkr4iin9uzm5dcxp8lik+VR7GceKK9NslwiR6X5atXStosm
- L3jEYmxaAXDJrXZMakb+R6n2GXtHcg5+pefxvSrTa3hOWLUdBw2DojTopKcHHGN3EeIU
- ylieZl6SWpVyqBQFtVnoHfNMekv0HYozM/wTh0SzrC5IlJ5qOFOTba5jElj4diGd64Z2
- O0I2etA+pDffvKXTImW44xHgW75aDKPFtdi3HDb0ki9zJrtgJmOQwzxMy+hnqXFQE4+w
- /qvF70m2I+13wnJZDcDaZeZB49OJxB6sdEKcv7BEffbgJl3tQodSAFWH13LJXcJ5XrjX
- DX5Q==
-X-Gm-Message-State: AC+VfDydXyPBydn4ho+EGiBYFQrezTkqRcryzEcH8xz/QIPpBUiGFpdF
- CrVktdbL9F34VvPc73/wu+p4Cw==
-X-Google-Smtp-Source: ACHHUZ4rnurd+gniKsJNzfAaLJtqgOrLlxdRy1nrjqF8b2bM4Trb1FBBmjy8E4W75m2HIKq9mK7aYA==
-X-Received: by 2002:a5d:4147:0:b0:304:aad4:b1ed with SMTP id
- c7-20020a5d4147000000b00304aad4b1edmr5494292wrq.13.1682731436544; 
- Fri, 28 Apr 2023 18:23:56 -0700 (PDT)
+ bh=XpHRCDl8YUqkvzGdi9xj3a31C+ZLIPISEtnli6YWyd8=;
+ b=Y+/0NU1w4uVrlXoDpgTOpT5wY2HYDfgLGLuMN6kVaAOD+vgA0+GZQyqSmNJFz1Mx1G
+ jiZZP4mQzELJrMQoJwHnHKVpoJt8YzqJCPl4ZwR60qHNa9IlW3gYZdyPRTj7kUTH6Dxb
+ 9kVsgxCZM5VGJaxmXHyWgoDAXJetTYMLnmvX4wbjh5PeaGdxUOnho4Lutxoa/sOD9Eiz
+ iPoZalAit4P6hRCn8z8YSdfrd4x6AM8QyGRkC5n6l8NFwPvQgLgU8iITpDn6Q17E/FHg
+ /aeSN15jI83bsbAe5Azh2rT75DHhZz356uUgn2q0wPlPJnjFqYvqRSmHaS2wuN9tmad0
+ dSVA==
+X-Gm-Message-State: AC+VfDw2fczp6Pn8nvRjuSbWsp10PFeexEUuhHS7/wGSBbhoMxpTVP40
+ QZED0Pco2eNrfeXWDcO1tP3SWA==
+X-Google-Smtp-Source: ACHHUZ7UGhVk/hWFxV7349dYMYcFwWyPjAS+bnGonW90J8FBTiYvv5a9C69sPp7xss24J2zXiOt5Gg==
+X-Received: by 2002:a1c:f217:0:b0:3f2:5be3:cd6a with SMTP id
+ s23-20020a1cf217000000b003f25be3cd6amr5096302wmc.4.1682731437417; 
+ Fri, 28 Apr 2023 18:23:57 -0700 (PDT)
 Received: from eriador.lumag.spb.ru ([212.140.138.218])
  by smtp.gmail.com with ESMTPSA id
- p10-20020a5d48ca000000b003047dc162f7sm12983554wrs.67.2023.04.28.18.23.55
+ p10-20020a5d48ca000000b003047dc162f7sm12983554wrs.67.2023.04.28.18.23.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Apr 2023 18:23:55 -0700 (PDT)
+ Fri, 28 Apr 2023 18:23:57 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat, 29 Apr 2023 04:23:52 +0300
-Message-Id: <20230429012353.2569481-3-dmitry.baryshkov@linaro.org>
+Date: Sat, 29 Apr 2023 04:23:53 +0300
+Message-Id: <20230429012353.2569481-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230429012353.2569481-1-dmitry.baryshkov@linaro.org>
 References: <20230429012353.2569481-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/3] drm/msm/dpu: access QSEED registers
+Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: access CSC/CSC10 registers
  directly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,89 +83,100 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Stop using _sspp_subblk_offset() to get offset of the scaler_blk. Inline
-this function and use ctx->cap->sblk->scaler_blk.base directly.
+Stop using _sspp_subblk_offset() to get offset of the csc_blk. Inline
+this function and use ctx->cap->sblk->csc_blk.base directly.
+
+As this was the last user, drop _sspp_subblk_offset() too.
 
 Reviewed-by: Jeykumar Sankaran <quic_jeykumar@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 27 +++++++--------------
- 1 file changed, 9 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 43 +++++----------------
+ 1 file changed, 9 insertions(+), 34 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-index 83a091f978e2..37cd5f4396c6 100644
+index 37cd5f4396c6..fd9714659293 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-@@ -149,11 +149,6 @@ static int _sspp_subblk_offset(struct dpu_hw_sspp *ctx,
- 	sblk = ctx->cap->sblk;
+@@ -136,30 +136,6 @@
+ #define TS_CLK			19200000
  
- 	switch (s_id) {
--	case DPU_SSPP_SCALER_QSEED2:
--	case DPU_SSPP_SCALER_QSEED3:
--	case DPU_SSPP_SCALER_RGB:
--		*idx = sblk->scaler_blk.base;
+ 
+-static int _sspp_subblk_offset(struct dpu_hw_sspp *ctx,
+-		int s_id,
+-		u32 *idx)
+-{
+-	int rc = 0;
+-	const struct dpu_sspp_sub_blks *sblk;
+-
+-	if (!ctx || !ctx->cap || !ctx->cap->sblk)
+-		return -EINVAL;
+-
+-	sblk = ctx->cap->sblk;
+-
+-	switch (s_id) {
+-	case DPU_SSPP_CSC:
+-	case DPU_SSPP_CSC_10BIT:
+-		*idx = sblk->csc_blk.base;
 -		break;
- 	case DPU_SSPP_CSC:
- 	case DPU_SSPP_CSC_10BIT:
- 		*idx = sblk->csc_blk.base;
-@@ -195,22 +190,21 @@ static void dpu_hw_sspp_setup_multirect(struct dpu_sw_pipe *pipe)
- static void _sspp_setup_opmode(struct dpu_hw_sspp *ctx,
+-	default:
+-		rc = -EINVAL;
+-	}
+-
+-	return rc;
+-}
+-
+ static void dpu_hw_sspp_setup_multirect(struct dpu_sw_pipe *pipe)
+ {
+ 	struct dpu_hw_sspp *ctx = pipe->sspp;
+@@ -210,19 +186,16 @@ static void _sspp_setup_opmode(struct dpu_hw_sspp *ctx,
+ static void _sspp_setup_csc10_opmode(struct dpu_hw_sspp *ctx,
  		u32 mask, u8 en)
  {
 -	u32 idx;
 +	const struct dpu_sspp_sub_blks *sblk = ctx->cap->sblk;
  	u32 opmode;
  
- 	if (!test_bit(DPU_SSPP_SCALER_QSEED2, &ctx->cap->features) ||
--		_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED2, &idx) ||
- 		!test_bit(DPU_SSPP_CSC, &ctx->cap->features))
- 		return;
- 
--	opmode = DPU_REG_READ(&ctx->hw, SSPP_VIG_OP_MODE + idx);
-+	opmode = DPU_REG_READ(&ctx->hw, sblk->scaler_blk.base + SSPP_VIG_OP_MODE);
- 
+-	if (_sspp_subblk_offset(ctx, DPU_SSPP_CSC_10BIT, &idx))
+-		return;
+-
+-	opmode = DPU_REG_READ(&ctx->hw, SSPP_VIG_CSC_10_OP_MODE + idx);
++	opmode = DPU_REG_READ(&ctx->hw, sblk->csc_blk.base + SSPP_VIG_CSC_10_OP_MODE);
  	if (en)
  		opmode |= mask;
  	else
  		opmode &= ~mask;
  
--	DPU_REG_WRITE(&ctx->hw, SSPP_VIG_OP_MODE + idx, opmode);
-+	DPU_REG_WRITE(&ctx->hw, sblk->scaler_blk.base + SSPP_VIG_OP_MODE, opmode);
- }
- 
- static void _sspp_setup_csc10_opmode(struct dpu_hw_sspp *ctx,
-@@ -416,25 +410,22 @@ static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_sspp *ctx,
- 		struct dpu_hw_scaler3_cfg *scaler3_cfg,
- 		const struct dpu_format *format)
- {
--	u32 idx;
--
--	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
--		|| !scaler3_cfg)
-+	if (!ctx || !scaler3_cfg)
- 		return;
- 
--	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
-+	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg,
-+			ctx->cap->sblk->scaler_blk.base,
- 			ctx->cap->sblk->scaler_blk.version,
- 			format);
- }
- 
- static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_sspp *ctx)
- {
--	u32 idx;
--
--	if (!ctx || _sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx))
-+	if (!ctx)
- 		return 0;
- 
--	return dpu_hw_get_scaler3_ver(&ctx->hw, idx);
-+	return dpu_hw_get_scaler3_ver(&ctx->hw,
-+				      ctx->cap->sblk->scaler_blk.base);
+-	DPU_REG_WRITE(&ctx->hw, SSPP_VIG_CSC_10_OP_MODE + idx, opmode);
++	DPU_REG_WRITE(&ctx->hw, sblk->csc_blk.base + SSPP_VIG_CSC_10_OP_MODE, opmode);
  }
  
  /*
+@@ -530,18 +503,20 @@ static void dpu_hw_sspp_setup_sourceaddress(struct dpu_sw_pipe *pipe,
+ static void dpu_hw_sspp_setup_csc(struct dpu_hw_sspp *ctx,
+ 		const struct dpu_csc_cfg *data)
+ {
+-	u32 idx;
++	u32 offset;
+ 	bool csc10 = false;
+ 
+-	if (_sspp_subblk_offset(ctx, DPU_SSPP_CSC, &idx) || !data)
++	if (!ctx || !data)
+ 		return;
+ 
++	offset = ctx->cap->sblk->csc_blk.base;
++
+ 	if (test_bit(DPU_SSPP_CSC_10BIT, &ctx->cap->features)) {
+-		idx += CSC_10BIT_OFFSET;
++		offset += CSC_10BIT_OFFSET;
+ 		csc10 = true;
+ 	}
+ 
+-	dpu_hw_csc_setup(&ctx->hw, idx, data, csc10);
++	dpu_hw_csc_setup(&ctx->hw, offset, data, csc10);
+ }
+ 
+ static void dpu_hw_sspp_setup_solidfill(struct dpu_sw_pipe *pipe, u32 color)
 -- 
 2.39.2
 
