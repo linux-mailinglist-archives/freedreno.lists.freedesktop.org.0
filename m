@@ -1,65 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248BA6F2273
-	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 04:42:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC66A6F2278
+	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 04:47:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D803510E1AE;
-	Sat, 29 Apr 2023 02:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9280010E061;
+	Sat, 29 Apr 2023 02:46:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7574210E10C
- for <freedreno@lists.freedesktop.org>; Sat, 29 Apr 2023 02:42:45 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-3f19ab99540so3463435e9.2
- for <freedreno@lists.freedesktop.org>; Fri, 28 Apr 2023 19:42:45 -0700 (PDT)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C2210E1AE
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Apr 2023 02:46:56 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-54fb6ac1e44so8088367b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Apr 2023 19:46:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682736163; x=1685328163;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=5z0j9caTAK+t1Y50Hn33TpAq9vT8mZ8FHh0G4wESvXw=;
- b=rNNhV/bQkbMsukKkYsJX1r5ywXKd+uJCgUnnhPitTcYUBiXG9DwUaO8gW+VzgOBRtO
- rfro0ivS50rB1x6/4rIVC01AyuR1HHPusnZhKsVEnzRmsli+1ARdXGTBZ9vk+QGPE4LJ
- xHMR+LxL4/9UH/6Ag/mJCAujoGrWXnfNJfLZ9Q0YivLb97xeIHvdYTfcTVnWbjSvsprW
- bDi08XqzX2ZT5MeKWOzaF+kmLFOjPC+dBuceLUpcRiggZlZnTwNQ4sWiFU2mVtKGGfzP
- FzmjYktixZEWvD9Ur9zX/j1oDHk17BfvI8EJR5jRw0J6YjCEIFAZQUgP+6WQfge0dI33
- 2aAg==
+ d=linaro.org; s=google; t=1682736415; x=1685328415;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=7AvvVOSHUebik0pK4etJRGnSRHrTFQ2KZK3q3Gebd0I=;
+ b=oRptrL/V3bqyA6xemD7/7y08vO70rrFqiY7PWFElSjPjxYpT+FLfD3gxcbQiXTJFUj
+ ZOrwu5bkUeF3bLt+4MpLm+SclHRghJT/1tTK6ERtnW1dzNVboJmGTG202he4/ScubhQI
+ OlNZ9fsDjlAFMWG2CO9jp+CGQB7gc76EzFCbp4f+OU9kbbZtiJyA3vZ/X0f1cBeqFfYO
+ kM0+Kc7b1L/ijSyoUSMGRY7fgvVP0wB8A+h0hQvE+hw/NrELaVnpwk7AwsyCXmUtMONW
+ 33hnZAoljh48s9FwI9h08694PlGB+VmCpfWUvkkQgaU1kwWL/QcS4X0nTMr2Dd87f5ej
+ +zFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682736163; x=1685328163;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1682736415; x=1685328415;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=5z0j9caTAK+t1Y50Hn33TpAq9vT8mZ8FHh0G4wESvXw=;
- b=FLsNAbaRzUN9iSjVgx3I906msGR8tGRNAW91cagzH1MRG0wcKdX+GfeXRTvq4bp6pd
- jPrEH5JmpkSHpt4l/vFTrc8If7RtyHNjitobE9lRiAUmbbm7VCMsy4bnetKD44tDAup5
- sgLvd0vjSXHP2ud9VOITtTrBW+/+757ImaA6OGEmYIrV7qerEQLUsrvWpzvqVSBkNuNK
- poAOpNyebm6ju6Kuj3TTmMkLlnq+xMB5lHEZ7ojvC5vtHLlk/zD/fUBTPUp9NmwhLzO6
- kalf5Z6MFIBlMhShc3VWA7CVO7Z/I2mT8aOE0quxqEU133jK+QT9xgbgd4P83sGqYLk+
- zD2g==
-X-Gm-Message-State: AC+VfDztl4o4wMqTWqG05tz6chz09rsSxhWiDSYCIWYC4oAuuqLnIvD2
- vlkCrCNmsDJ0llek8RSIUK+PIQ==
-X-Google-Smtp-Source: ACHHUZ7mXx8ocQsamoMmD+wEHGo+Nr/9Lx40yplpDfClfBEbl9Lpw7Ug3RYLL8b5JfvqAMunOGv/+g==
-X-Received: by 2002:a05:600c:281:b0:3f0:9fef:1028 with SMTP id
- 1-20020a05600c028100b003f09fef1028mr5017684wmk.17.1682736163649; 
- Fri, 28 Apr 2023 19:42:43 -0700 (PDT)
-Received: from eriador.lumag.spb.ru ([81.145.206.52])
- by smtp.gmail.com with ESMTPSA id
- l9-20020a05600c1d0900b003f17eded97bsm29827071wms.19.2023.04.28.19.42.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Apr 2023 19:42:43 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat, 29 Apr 2023 05:42:42 +0300
-Message-Id: <20230429024242.2613957-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
+ bh=7AvvVOSHUebik0pK4etJRGnSRHrTFQ2KZK3q3Gebd0I=;
+ b=OT3IxI6Go2IcAdL0IA5UfM9ldsJG980DZ2Klr4AtNs1NTBWYQlkJ6hP5ihdlT1FC/u
+ D830gekfMjTKH287qStRkeXspcyw4hm9jfOzVSOQehqZYJYKUEY6s8YuCy2szAgiXTs/
+ lUugXy1x7RBpLxfzZ2hAjMIzwhC6c1EMcQA+IjLTbI10PVZ0MNOKN4aQK3tgIbhEsQni
+ aWZr7M2RzrllczmaTlAOeO3nSluYRV+DddGgArfk+IDyvpjFLs1T3CMcAH+R1AtcGCvR
+ /ULs4OnUholtUhMK5hAc3o8QlH8OF53w8BRUjtPxk1UUNgvr4CD5ZlKJT0HpSgWW31t4
+ EVag==
+X-Gm-Message-State: AC+VfDxEHKqxCKMtXu7TRsaqDS6TbrsIW0KVbQ2fOYUZXufe3SPwdmma
+ mmI4EuV0QqYw+2D7BEoNXxxwg9SVdWR6KC2UIxTyUA==
+X-Google-Smtp-Source: ACHHUZ4fpFXcDhl7AERIyphFBcqD8k3JHX9VYqDS9GgofysSi3/+l65xDHeI+LnYc5Am7SNLLN46EdMm0xmKPRQjn/8=
+X-Received: by 2002:a81:6c4e:0:b0:54c:288a:a2a1 with SMTP id
+ h75-20020a816c4e000000b0054c288aa2a1mr5593718ywc.27.1682736415063; Fri, 28
+ Apr 2023 19:46:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: drop unused SSPP sub-block
- information
+References: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 29 Apr 2023 05:46:44 +0300
+Message-ID: <CAA8EJpqqhP1QL7TuW8JXeVFqukWggYmB1XU8OeB65fQA+jhLAg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 0/7] add DSC 1.2 dpu supports
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +66,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
+ swboyd@chromium.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The driver  doesn't support hsic/memcolor, pcc and igc SSPP subblocks.
-Drop corresponding definitions.
+On Sat, 29 Apr 2023 at 02:45, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> This series adds the DPU side changes to support DSC 1.2 encoder. This
+> was validated with both DSI DSC 1.2 panel and DP DSC 1.2 monitor.
+> The DSI and DP parts will be pushed later on top of this change.
+> This seriel is rebase on [1], [2] and catalog fixes from [3].
+>
+> [1]: https://patchwork.freedesktop.org/series/116851/
+> [2]: https://patchwork.freedesktop.org/series/116615/
+> [3]: https://patchwork.freedesktop.org/series/112332/
+>
+> Abhinav Kumar (2):
+>   drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets
+>   drm/msm/dpu: add dsc blocks for remaining chipsets in catalog
+>
+> Kuogee Hsieh (5):
+>   drm/msm/dpu: add support for DSC encoder v1.2 engine
+>   drm/msm/dpu: separate DSC flush update out of interface
+>   drm/msm/dpu: add DPU_PINGPONG_DSC feature PP_BLK and PP_BLK_TE
+>   drm/msm/dpu: save dpu topology configuration
+>   drm/msm/dpu: calculate DSC encoder parameters dynamically
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 8 --------
- 1 file changed, 8 deletions(-)
+Another generic comment: this patchset doesn't have discussed RM
+changes to allocate DSC blocks in proper pairs as required by DCE.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 3e92c2c66716..db6488a6929d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -384,10 +384,6 @@ struct dpu_caps {
-  * @qseed_ver: qseed version
-  * @scaler_blk:
-  * @csc_blk:
-- * @hsic:
-- * @memcolor:
-- * @pcc_blk:
-- * @igc_blk:
-  * @format_list: Pointer to list of supported formats
-  * @num_formats: Number of supported formats
-  * @virt_format_list: Pointer to list of supported formats for virtual planes
-@@ -404,10 +400,6 @@ struct dpu_sspp_sub_blks {
- 	u32 qseed_ver;
- 	struct dpu_scaler_blk scaler_blk;
- 	struct dpu_pp_blk csc_blk;
--	struct dpu_pp_blk hsic_blk;
--	struct dpu_pp_blk memcolor_blk;
--	struct dpu_pp_blk pcc_blk;
--	struct dpu_pp_blk igc_blk;
- 
- 	const u32 *format_list;
- 	u32 num_formats;
+>
+>  drivers/gpu/drm/msm/Makefile                       |   1 +
+>  .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  19 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |   8 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  26 +-
+>  .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  35 ++-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  26 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |   4 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |   2 +-
+>  .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |   2 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  14 +
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |   7 +
+>  .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  16 +
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  14 +
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  14 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 102 ++++---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  35 ++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  36 ++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  22 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  10 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |  14 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     | 335 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   9 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |   7 +-
+>  23 files changed, 642 insertions(+), 116 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
+>
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
+
+
 -- 
-2.39.2
-
+With best wishes
+Dmitry
