@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EEB6F21A3
-	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 02:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CAA6F21A9
+	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 02:35:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9B9110EE1A;
-	Sat, 29 Apr 2023 00:31:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A8D10EE1A;
+	Sat, 29 Apr 2023 00:35:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A54D10EE1C
- for <freedreno@lists.freedesktop.org>; Sat, 29 Apr 2023 00:31:32 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-2fa0ce30ac2so297073f8f.3
- for <freedreno@lists.freedesktop.org>; Fri, 28 Apr 2023 17:31:32 -0700 (PDT)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D72D10EE1A
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Apr 2023 00:35:47 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-3f086770a50so1628095e9.2
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Apr 2023 17:35:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682728290; x=1685320290;
+ d=linaro.org; s=google; t=1682728545; x=1685320545;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=F2XR0z/V+qipW/Xk/AG/sbFXdxf2KNfIbpWmM5bO0cU=;
- b=Zbgq1BOOCN9HSBrZ8p7F3HAIrgpRiKzTK5yEX/tMtj4DlYZ0xva7V5OtlNzZhWzoJS
- u6c/2aXewDpEY7UDx5sTdgz1r5eLD++UIwAj8oaFnXFAgcb7+COW34CKf1jVli2xoeqY
- mHjrQvdBmXt/9XQTKT6wHBvMBgibNHq1neTKMltSpRVZFhujRDxuoIjFVZgSbCAaTTL1
- syOVQJXCmvMptd/jYBeLd47aH35g0mX+alyj2PszFkyyC10oFg9K2n9uwQTHNLm+dycH
- ufgM02+vZ33+J+UYohYYmJC5CpV+cCOtXnOGsaPAqUl6q6D5bwxKKfXcqBcbcX0gZmJ5
- wS0A==
+ bh=Fpnw8uCoA0rAU9jGGCChf1SspXtAy92aBylAg/xLWrA=;
+ b=J9vpW640rwizfC16AbNY5KLct+P2fghMblD0PVAhbr7tYpxYZlUU3Fsc3H2bELDtNe
+ hLMNo9i245c58lEiX6q1Su5kHr4hte5EJdb5h7P/ltbWWuEmBEPHcD6TQh7gfyuofQJQ
+ KK5bZexJRA+u1b2WZ4gbo9KwgzVEPrxz20oGK6+Wp+IAH66UAKyOBlKwOApW3FF4eC8h
+ kw3lXv1WL2ADM9KMVIsE5zQJE1pNshBiKgbuyzurRtXTu3gEXmWaxRCFB2Ppdjjo/G28
+ Z73pKDfBnOhRI8mhs/LVPDXlR4qNjYUaBi8X2zQ7oydv1TinLPGrNKRxgN2S3uV8f1vS
+ YEBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682728290; x=1685320290;
+ d=1e100.net; s=20221208; t=1682728545; x=1685320545;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=F2XR0z/V+qipW/Xk/AG/sbFXdxf2KNfIbpWmM5bO0cU=;
- b=YAt8LwKxfOcthTmcV1gMqFRpd4R7BFqzW0cggT0EGotxq0g/8iC+SxvnrJHVwUEM64
- 45+TlzPR5yQLir65kD+eGYs4dZYOJF5yjjcOIaO/4BfpVV0S/qWlMbrPzG4IpWAF+UwE
- IKaJ+Q1ieV7OOX6zWlK0gBO4cKD4VaeS0LHuHw64Z5lJ8oReDEk2APbhW6iRftcDo2Yx
- QvuNJLc5pCuC5nuzHh480vV6xTgRbgompEBltxA4VPMksZLJgpf9xZDE+kNXzawyR6xu
- OOnTN97JMM0KWUEq2jCan11KEIUaI5pleDLv+i/9IO3HKUok9iljKyurn1Ae6G9ED5EJ
- HJnw==
-X-Gm-Message-State: AC+VfDxqyPUoGV+Ud2WiemQfTQVGEr4H+n8n+QCPV2eAn+SOIYyhx7BA
- QG5TgdiVVNc8dyojuk418YURaXNY10PyZzNPsd+8TA==
-X-Google-Smtp-Source: ACHHUZ7DEZlp7AruW9jj/0SV4KdNW2fr6BGW3/PscdWqVmpcS5ZjrZ28TO2pWYWkVPgJV8/+vUL4ng==
-X-Received: by 2002:a5d:460b:0:b0:2f0:bd17:2d2c with SMTP id
- t11-20020a5d460b000000b002f0bd172d2cmr5241974wrq.9.1682728289965; 
- Fri, 28 Apr 2023 17:31:29 -0700 (PDT)
+ bh=Fpnw8uCoA0rAU9jGGCChf1SspXtAy92aBylAg/xLWrA=;
+ b=SnNiQtETvmQYUTN9yhyTVLLSvEr9EHHSWQpAH7NzSo0ZsKfo6Wp+C6LcwzWFHEXTPe
+ sl8xQyxwYClgKkkAIaLHAV4s11Wve6doIFktv6qiSCkp6r0Xz719YiAzzrwvsFpeCZBE
+ NF7hogvKMoEAxichYxgW1QTehRMA6Gcn2fNZ47DdBWOsNKqxSMQi0lIPLp46/UqJG/7o
+ seZQlwdogtfTsS/BsszdLfaGoZ/2vjSLcAOnMczUYFqxP4Lcac9c73ZVluvAbNMfELBH
+ lhFnwFmU9SwPHM9L0nVI+Zg+GCWHKgQC48toCUWnliHwhy/euhC5A/FODttRnvuEZRk0
+ UrZg==
+X-Gm-Message-State: AC+VfDzGMgCgTf6syISWfH3Fgvq4yr/aOFuFIIQVdF2R0/sNXiAjtaut
+ 1pogqkBYhE+5WM9mBXeieQgoe4PVTprYJWejBs413A==
+X-Google-Smtp-Source: ACHHUZ7/jqjJIRn24DHZbfcAZXD2Uo91hORwXNXDt5EK21EEcveNY1zcl9GGy8OrcfzV2J6iV5SfLQ==
+X-Received: by 2002:a7b:c7d0:0:b0:3f1:81c6:f59a with SMTP id
+ z16-20020a7bc7d0000000b003f181c6f59amr5016076wmk.4.1682728545321; 
+ Fri, 28 Apr 2023 17:35:45 -0700 (PDT)
 Received: from [10.6.147.212] ([212.140.138.218])
  by smtp.gmail.com with ESMTPSA id
- k6-20020a5d5246000000b002e71156b0fcsm22373199wrc.6.2023.04.28.17.31.28
+ f15-20020a7bcd0f000000b003f182cc55c4sm25640347wmj.12.2023.04.28.17.35.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Apr 2023 17:31:29 -0700 (PDT)
-Message-ID: <f26bd3f2-21d1-44d0-221c-230a8b93eec0@linaro.org>
-Date: Sat, 29 Apr 2023 03:31:28 +0300
+ Fri, 28 Apr 2023 17:35:44 -0700 (PDT)
+Message-ID: <1ef1388d-4dc3-273d-3ba6-10614ce6426c@linaro.org>
+Date: Sat, 29 Apr 2023 03:35:43 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
@@ -62,13 +62,13 @@ To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
  dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
  agross@kernel.org, andersson@kernel.org
 References: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
- <1682725511-18185-3-git-send-email-quic_khsieh@quicinc.com>
+ <1682725511-18185-5-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1682725511-18185-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1682725511-18185-5-git-send-email-quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/7] drm/msm/dpu: separate DSC flush
- update out of interface
+Subject: Re: [Freedreno] [PATCH v2 4/7] drm/msm/dpu: add dsc blocks for
+ remaining chipsets in catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,163 +82,83 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org,
  marijn.suijten@somainline.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 29/04/2023 02:45, Kuogee Hsieh wrote:
-> Current DSC flush update is piggyback inside dpu_hw_ctl_intf_cfg_v1().
-> This patch separate DSC flush away from dpu_hw_ctl_intf_cfg_v1() by
-
-Nit: separates
-
-> adding dpu_hw_ctl_update_pending_flush_dsc_v1() to handle both per
-> DSC engine and DSC flush bits at same time to make it consistent with
-> the location of flush programming of other dpu sub blocks.
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> In preparation of calling ping-pong DSC related functions only
+> for chipsets which have such a design add the dsc blocks for the
+> chipsets for which DSC is present but was not added in the catalog.
+
+Why/how is it prearing us for such calling?
+
+The change itself LGTM.
+
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 14 ++++++++++++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  | 22 ++++++++++++++++------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  | 10 ++++++++++
->   3 files changed, 38 insertions(+), 8 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  7 +++++++
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 11 +++++++++++
+>   2 files changed, 18 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1dc5dbe..ecb87bc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1823,12 +1823,18 @@ dpu_encoder_dsc_initial_line_calc(struct drm_dsc_config *dsc,
->   	return DIV_ROUND_UP(total_pixels, dsc->slice_width);
->   }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> index 2b3ae84..17f821c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+> @@ -126,6 +126,11 @@ static const struct dpu_pingpong_cfg msm8998_pp[] = {
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 15)),
+>   };
 >   
-> -static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
-> +static void dpu_encoder_dsc_pipe_cfg(struct dpu_encoder_virt *dpu_enc,
-> +				     struct dpu_hw_dsc *hw_dsc,
->   				     struct dpu_hw_pingpong *hw_pp,
->   				     struct drm_dsc_config *dsc,
->   				     u32 common_mode,
->   				     u32 initial_lines)
->   {
-> +	struct dpu_encoder_phys *cur_master = dpu_enc->cur_master;
-> +	struct dpu_hw_ctl *ctl;
+> +static const struct dpu_dsc_cfg msm8998_dsc[] = {
+> +	DSC_BLK("dsc_0", DSC_0, 0x80000, 0),
+> +	DSC_BLK("dsc_1", DSC_1, 0x80400, 0),
+> +};
 > +
-> +	ctl = cur_master->hw_ctl;
+>   static const struct dpu_dspp_cfg msm8998_dspp[] = {
+>   	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_MSM8998_MASK,
+>   		 &msm8998_dspp_sblk),
+> @@ -191,6 +196,8 @@ const struct dpu_mdss_cfg dpu_msm8998_cfg = {
+>   	.dspp = msm8998_dspp,
+>   	.pingpong_count = ARRAY_SIZE(msm8998_pp),
+>   	.pingpong = msm8998_pp,
+> +	.dsc_count = ARRAY_SIZE(msm8998_dsc),
+> +	.dsc = msm8998_dsc,
+>   	.intf_count = ARRAY_SIZE(msm8998_intf),
+>   	.intf = msm8998_intf,
+>   	.vbif_count = ARRAY_SIZE(msm8998_vbif),
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> index e3bdfe7..5bb9882 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> @@ -142,6 +142,15 @@ static const struct dpu_merge_3d_cfg sc8180x_merge_3d[] = {
+>   	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x83200),
+>   };
+>   
+> +static const struct dpu_dsc_cfg sc8180x_dsc[] = {
+> +	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_1", DSC_1, 0x80400, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_2", DSC_2, 0x80800, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_3", DSC_3, 0x80c00, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_4", DSC_4, 0x81000, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +	DSC_BLK("dsc_5", DSC_5, 0x81400, BIT(DPU_DSC_OUTPUT_CTRL)),
+> +};
 > +
->   	if (hw_dsc->ops.dsc_config)
->   		hw_dsc->ops.dsc_config(hw_dsc, dsc, common_mode, initial_lines);
->   
-> @@ -1843,6 +1849,9 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
->   
->   	if (hw_pp->ops.enable_dsc)
->   		hw_pp->ops.enable_dsc(hw_pp);
-> +
-> +	if (ctl->ops.update_pending_flush_dsc)
-> +		ctl->ops.update_pending_flush_dsc(ctl, hw_dsc->idx);
->   }
->   
->   static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
-> @@ -1887,7 +1896,8 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
->   	initial_lines = dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
->   
->   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> -		dpu_encoder_dsc_pipe_cfg(hw_dsc[i], hw_pp[i], dsc, dsc_common_mode, initial_lines);
-> +		dpu_encoder_dsc_pipe_cfg(dpu_enc, hw_dsc[i], hw_pp[i], dsc,
-> +					dsc_common_mode, initial_lines);
->   }
->   
->   void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index 4f7cfa9..832a6a7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -139,6 +139,11 @@ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
->   				CTL_DSPP_n_FLUSH(dspp - DSPP_0),
->   				ctx->pending_dspp_flush_mask[dspp - DSPP_0]);
->   		}
-> +
-> +	if (ctx->pending_flush_mask & BIT(DSC_IDX))
-> +		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH,
-> +				ctx->pending_dsc_flush_mask);
-> +
->   	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
->   }
->   
-> @@ -285,6 +290,13 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
->   	ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
->   }
->   
-> +static void dpu_hw_ctl_update_pending_flush_dsc_v1(struct dpu_hw_ctl *ctx,
-> +		enum dpu_dsc dsc_num)
-> +{
-> +	ctx->pending_dsc_flush_mask |= BIT(dsc_num - DSC_0);
-> +	ctx->pending_flush_mask |= BIT(DSC_IDX);
-> +}
-> +
->   static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
->   	enum dpu_dspp dspp, u32 dspp_sub_blk)
->   {
-> @@ -502,9 +514,6 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->   	if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
->   		mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
->   
-> -	if (cfg->dsc)
-> -		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
-> -
->   	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
->   		mode_sel |= BIT(17);
->   
-> @@ -524,10 +533,8 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->   	if (cfg->merge_3d)
->   		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
->   			      BIT(cfg->merge_3d - MERGE_3D_0));
-> -	if (cfg->dsc) {
-> -		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-> +	if (cfg->dsc)
->   		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
-> -	}
->   }
->   
->   static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
-> @@ -630,6 +637,9 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
->   		ops->update_pending_flush_merge_3d =
->   			dpu_hw_ctl_update_pending_flush_merge_3d_v1;
->   		ops->update_pending_flush_wb = dpu_hw_ctl_update_pending_flush_wb_v1;
-> +
-> +		ops->update_pending_flush_dsc =
-> +			dpu_hw_ctl_update_pending_flush_dsc_v1;
->   	} else {
->   		ops->trigger_flush = dpu_hw_ctl_trigger_flush;
->   		ops->setup_intf_cfg = dpu_hw_ctl_intf_cfg;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> index 6292002..5762752 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> @@ -158,6 +158,15 @@ struct dpu_hw_ctl_ops {
->   		enum dpu_dspp blk, u32 dspp_sub_blk);
->   
->   	/**
-> +	 * OR in the given flushbits to the cached pending_(dsc_)flush_mask
-> +	 * No effect on hardware
-> +	 * @ctx       : ctl path ctx pointer
-> +	 * @blk       : interface block index
-> +	 */
-> +	void (*update_pending_flush_dsc)(struct dpu_hw_ctl *ctx,
-> +		enum dpu_dsc blk);
-> +
-> +	/**
->   	 * Write the value of the pending_flush_mask to hardware
->   	 * @ctx       : ctl path ctx pointer
->   	 */
-> @@ -245,6 +254,7 @@ struct dpu_hw_ctl {
->   	u32 pending_wb_flush_mask;
->   	u32 pending_merge_3d_flush_mask;
->   	u32 pending_dspp_flush_mask[DSPP_MAX - DSPP_0];
-> +	u32 pending_dsc_flush_mask;
->   
->   	/* ops */
->   	struct dpu_hw_ctl_ops ops;
+>   static const struct dpu_intf_cfg sc8180x_intf[] = {
+>   	INTF_BLK("intf_0", INTF_0, 0x6a000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+>   	INTF_BLK("intf_1", INTF_1, 0x6a800, 0x2bc, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> @@ -192,6 +201,8 @@ const struct dpu_mdss_cfg dpu_sc8180x_cfg = {
+>   	.mixer = sc8180x_lm,
+>   	.pingpong_count = ARRAY_SIZE(sc8180x_pp),
+>   	.pingpong = sc8180x_pp,
+> +	.dsc_count = ARRAY_SIZE(sc8180x_dsc),
+> +	.dsc = sc8180x_dsc,
+>   	.merge_3d_count = ARRAY_SIZE(sc8180x_merge_3d),
+>   	.merge_3d = sc8180x_merge_3d,
+>   	.intf_count = ARRAY_SIZE(sc8180x_intf),
 
 -- 
 With best wishes
