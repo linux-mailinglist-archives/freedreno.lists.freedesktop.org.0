@@ -1,76 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282BF6F2152
-	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 01:45:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A356F219A
+	for <lists+freedreno@lfdr.de>; Sat, 29 Apr 2023 02:30:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC3CA10E161;
-	Fri, 28 Apr 2023 23:45:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5626710E193;
+	Sat, 29 Apr 2023 00:29:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44BAB10E06A;
- Fri, 28 Apr 2023 23:45:46 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33SNiOYR018675; Fri, 28 Apr 2023 23:45:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=wV4LdEJ2ofwpa9JtcSJW3D1ZqHtuyZ1wracfC5aYXyg=;
- b=B47rvZvpK0GwoDfCHVs//s0/kmMN7fxUBEtkQVYod+UFR+KEYd8N+OHGGFBJD7FoOBp7
- cWPpg8Nlsd7kPQ5wvnGU50ktIurJgRUn05aowUcivYma4/mWYtfQt57tiFzw66kEleCp
- uloYC6OWe7HUpstfcJPLDtAEFc8JxJ4nNpnuzkATa2x/CdYA77l1aRdm0oXJrGWQ11PO
- aDbpixeFK8A7i+EXnZRZ3W1iMQ3DIN9qL+rC3NmI9fQAmkFkmeQaY8l1uVt+VN2TvOgr
- K/RUvKkrk6uVjzuSPPxbCmIR+62QZr8UQFDiEHTFJGuk7BCLX/FhQVBvvZCkZP5KP1X+ /g== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3q8abptb41-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Apr 2023 23:45:41 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 33SNjef5015680
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Apr 2023 23:45:40 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Fri, 28 Apr 2023 16:45:39 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Date: Fri, 28 Apr 2023 16:45:11 -0700
-Message-ID: <1682725511-18185-8-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3581210E193
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Apr 2023 00:29:57 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-2f625d52275so318802f8f.3
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Apr 2023 17:29:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1682728193; x=1685320193;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=iiCF4OnwxjmLf3NeMqtDogKkBQycEZ1KKUyCMRH1bAQ=;
+ b=Yyz+/IjOdagk+9PlvWN88UlEn1X1/vrQb3GBPQTuvSIot2K9jCdkdOnEE7Ay8UJoqb
+ b4BWOAlwfhAM33VX0MvIBFSfgC0R2sPyIS3gVm8zfuPLIJeTfA01+eoTvIyChSYKa2Zr
+ mrWiPyTC75fEVUNSs5S9idlkaKiG6XbqXUmlSJr/2oZKijf94dW+g/A1yffpRKSGGlv0
+ eVd2epif3fsb+okfFBjTSdbdDD268zSkmf907eq9Pf2gyaprgQtyqQZR7M0Wazx72ZXE
+ 7025XgUWg/8YAXFMPn+eg8xV2aI5BtKJXE38jkd9Vetdx/RmiSjm0SsVPX2WIFIWuN3Z
+ l4aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682728193; x=1685320193;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=iiCF4OnwxjmLf3NeMqtDogKkBQycEZ1KKUyCMRH1bAQ=;
+ b=RBnnWnu06jH/p1YIPNtxzoYjWPIOwu/t5pMcrwRX4qooK9xjGQ59AvyT/IVzsmu4u/
+ xfVrScz8q2WlsmSOF44MV9kYiv2lJT7RRbzjtj2BiS8GtNQDIyiDDwhwqrb41zpZgj+j
+ B6Owzx5Do9ZHCppaMwRXXGvawhDUy3hCUV8aU2ItjDpbUT4zzDr65iKB2M0aUYP5sNho
+ hY3LvrR/8419ktA9xliSafzzUjnoQeH6E49Z2DtWoR0vm7ZxApz7ZkGhMTZCUXPCK+LZ
+ wZwG9Ja5vHiioQZ9/gkm4ndJ/Tols+qOgL8aRPw5J7UpzYA9NCvnesHhtWfwTTgisa4B
+ TI3w==
+X-Gm-Message-State: AC+VfDxWDhvNBo+1ZtzmT3K/e/YKCvwq3ZoSxnh4Rh4VpI3YeOHUEG8A
+ CyMn+fASlT5Py8ZX4GP/etyF/Q==
+X-Google-Smtp-Source: ACHHUZ6tC3OMzhsDU9xiKI+1LEOh6A9DsBYjRaeBqbDzEVQj9IGhTX6w7rY7JBvYO9jf4eb3gjKujQ==
+X-Received: by 2002:a5d:5222:0:b0:2cf:f01f:ed89 with SMTP id
+ i2-20020a5d5222000000b002cff01fed89mr5766079wra.24.1682728193374; 
+ Fri, 28 Apr 2023 17:29:53 -0700 (PDT)
+Received: from [10.6.147.212] ([212.140.138.218])
+ by smtp.gmail.com with ESMTPSA id
+ f8-20020a5d4dc8000000b002f9e04459desm22133933wru.109.2023.04.28.17.29.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Apr 2023 17:29:52 -0700 (PDT)
+Message-ID: <5089956f-a5ee-5b18-ce83-edce6999d583@linaro.org>
+Date: Sat, 29 Apr 2023 03:29:51 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 4vm5h3j3rUeMGu9EzRr4Em6jl3s4I-Ib
-X-Proofpoint-GUID: 4vm5h3j3rUeMGu9EzRr4Em6jl3s4I-Ib
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-28_08,2023-04-27_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- phishscore=0 suspectscore=0 spamscore=0 impostorscore=0 mlxscore=0
- bulkscore=0 malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304280199
-Subject: [Freedreno] [PATCH v2 7/7] drm/msm/dpu: calculate DSC encoder
- parameters dynamically
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, andersson@kernel.org
+References: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1682725511-18185-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 0/7] add DSC 1.2 dpu supports
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,116 +80,25 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-During DSC preparation, add run time calculation to figure out what
-usage modes, split mode and merge mode, is going to be setup.
+On 29/04/2023 02:45, Kuogee Hsieh wrote:
+> This series adds the DPU side changes to support DSC 1.2 encoder. This
+> was validated with both DSI DSC 1.2 panel and DP DSC 1.2 monitor.
+> The DSI and DP parts will be pushed later on top of this change.
+> This seriel is rebase on [1], [2] and catalog fixes from [3].
+> 
+> [1]: https://patchwork.freedesktop.org/series/116851/
+> [2]: https://patchwork.freedesktop.org/series/116615/
+> [3]: https://patchwork.freedesktop.org/series/112332/
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 56 ++++++++++++++++-------------
- 1 file changed, 31 insertions(+), 25 deletions(-)
+Changelogs? There must be one, either in the cover letter or in the 
+patch commit messages (following the DRM subsystem custom).
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 2fdacf1..3d18642 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -529,17 +529,9 @@ void dpu_encoder_helper_split_config(
- bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
- {
- 	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
--	int i, intf_count = 0, num_dsc = 0;
-+	struct msm_display_topology *topology = &dpu_enc->topology;
- 
--	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
--		if (dpu_enc->phys_encs[i])
--			intf_count++;
--
--	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
--	if (dpu_enc->dsc)
--		num_dsc = 2;
--
--	return (num_dsc > 0) && (num_dsc > intf_count);
-+	return (topology->num_dsc > topology->num_intf);
- }
- 
- static void dpu_encoder_get_topology(
-@@ -1861,41 +1853,55 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
- 	struct dpu_encoder_phys *enc_master = dpu_enc->cur_master;
- 	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
--	int this_frame_slices;
-+	struct msm_display_topology *topology = &dpu_enc->topology;
- 	int intf_ip_w, enc_ip_w;
--	int dsc_common_mode;
--	int pic_width;
-+	int dsc_common_mode = 0;
- 	u32 initial_lines;
-+	int num_dsc = topology->num_dsc;
-+	int num_intf = topology->num_intf;
- 	int i;
- 
--	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
-+	for (i = 0; i < num_dsc; i++) {
- 		hw_pp[i] = dpu_enc->hw_pp[i];
- 		hw_dsc[i] = dpu_enc->hw_dsc[i];
- 
- 		if (!hw_pp[i] || !hw_dsc[i]) {
- 			DPU_ERROR_ENC(dpu_enc, "invalid params for DSC\n");
- 			return;
--		}
-+		} 
- 	}
- 
--	dsc_common_mode = 0;
--	pic_width = dsc->pic_width;
-+	intf_ip_w = dsc->pic_width;
- 
--	dsc_common_mode = DSC_MODE_MULTIPLEX | DSC_MODE_SPLIT_PANEL;
- 	if (enc_master->intf_mode == INTF_MODE_VIDEO)
- 		dsc_common_mode |= DSC_MODE_VIDEO;
- 
--	this_frame_slices = pic_width / dsc->slice_width;
--	intf_ip_w = this_frame_slices * dsc->slice_width;
--
- 	/*
--	 * dsc merge case: when using 2 encoders for the same stream,
--	 * no. of slices need to be same on both the encoders.
-+	 * If this encoder is driving more than one DSC encoder, they
-+	 * operate in tandem, same pic dimension needs to be used by
-+	 * each of them.(pp-split is assumed to be not supported)
-+	 *
- 	 */
--	enc_ip_w = intf_ip_w / 2;
-+	enc_ip_w = intf_ip_w;
-+
-+	intf_ip_w /= num_intf;
-+
-+	if (num_dsc > 1)
-+		dsc_common_mode |= DSC_MODE_SPLIT_PANEL;
-+
-+	if (dpu_encoder_use_dsc_merge(&dpu_enc->base)) {
-+		dsc_common_mode |= DSC_MODE_MULTIPLEX;
-+		/*
-+		 * in dsc merge case: when using 2 encoders for the same
-+		 * stream, no. of slices need to be same on both the
-+		 * encoders.
-+		 */
-+		enc_ip_w = intf_ip_w / 2;
-+	}
-+
- 	initial_lines = dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
- 
--	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-+	for (i = 0; i < num_dsc; i++)
- 		dpu_encoder_dsc_pipe_cfg(dpu_enc, hw_dsc[i], hw_pp[i], dsc,
- 					dsc_common_mode, initial_lines);
- }
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+With best wishes
+Dmitry
 
