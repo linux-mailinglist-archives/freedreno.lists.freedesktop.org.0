@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 870276F2AB0
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39EDC6F2AAF
 	for <lists+freedreno@lfdr.de>; Sun, 30 Apr 2023 22:36:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB3110E0AA;
-	Sun, 30 Apr 2023 20:36:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA3FD10E083;
+	Sun, 30 Apr 2023 20:36:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08B2E10E086
- for <freedreno@lists.freedesktop.org>; Sun, 30 Apr 2023 20:36:01 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4eed764a10cso2331261e87.0
- for <freedreno@lists.freedesktop.org>; Sun, 30 Apr 2023 13:36:01 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DB610E083
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Apr 2023 20:36:02 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4efe8991b8aso2366286e87.0
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Apr 2023 13:36:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682886959; x=1685478959;
+ d=linaro.org; s=google; t=1682886960; x=1685478960;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VHx+FQUbQw63eL4XXyWHX139/FutFZv8MJNz7Im6ZFU=;
- b=zb5a1gPzBj4i7Iq7BSjZSH2Vgagqp8OIesB143RJvz5QhN5eRk6AwezJ1D/pwz8bTj
- 7s2MYjbfAHQzdqZeDS7zKgyMI0YZYVaItaOapfbDxuEPPFV1RWpiFOJ8Pc9NlZQ3Ut8+
- kfH2WT3LSsXBn9AXTCLi20Yk4fdXFTeu+s68wZP0iUoVig0fDhSyKD/Vf91ix1B23yMI
- tt0/Dmc4sdhq3KeFf4RNmK0avPvz8kRhZrUXyZKSllSk3c6nszx11CsKkbKCYGvdfvuW
- z1hYxzdUt7/Ou7779IBWblhzD0+3kA4nIuHDy6PgrN7M9mxvXhkYJ+5Iwo86OYEROcsH
- eQwA==
+ bh=1z0wTDitZ+gnKwYBCCk5Nz8/vpEbM2i/0l3o9/Ite8Q=;
+ b=bh7w9+OtR7liuWR6o0f8z2yxiERyBwCcEE+vuJVYz0tOzNmhnfR69BU7R4QI6zx2da
+ A8vNAtr28uxKOBoTP+0CC6vbtnZMGmq9MYh9JL+tI2Rx68ZooO3/3KqEKZCz3+1YdB3X
+ 6Bb1nwsGgRgfEH4y+Ap517bc2WIMnCu8iVkSVrvifYWp7AW0da/Yrw1XPRuzORl70I8t
+ 1tHBgGMMTjnVpDFVx9+j66DvUPyBCgFwKW4ZEIP47SFBEQ2Sd5FvL6qSe+Hs/A8ibTyY
+ x6wn4lmmBIFoNZaxxuOWgPZUqI5bpw2+AwJmWxhtf/XYsNgnb71SLUSfCp6qcvEamkhd
+ qAUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682886959; x=1685478959;
+ d=1e100.net; s=20221208; t=1682886960; x=1685478960;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VHx+FQUbQw63eL4XXyWHX139/FutFZv8MJNz7Im6ZFU=;
- b=Oz2U6OpOIro1JD0RvU9hFyPZYO7GgC6k9kKIyyk6c6cL5xGoWF+9VACWLfnWNRY7Vy
- I8gGhkym6kULQOSfW4vmGXEPAGRhPbg5UOn+fq5bCvPvFRHe23ldA59wdK65d60XhnEv
- MPwRBOX/1XnWYGlhi/5wSQPD6njxgifnYetEc92GLMdOPDKTGtglx6x3zCI8vzZkXCEO
- vPO5IYbByKRWwTWuipmZlgw+nZS+AFATk15bEF07zOExlnQRo2sEgbqrTU2ALEkokNiS
- fvAImTK502YBkg0LnUaOcI8j3I3EdUBHyRcNOiItah+YQocZk0s5OZC3hHDsha4niIkm
- Km7g==
-X-Gm-Message-State: AC+VfDzxDWHijnFh/GptsYfaCOSejHrM1BcSPzuFrIynHT2D1Olx1WMt
- qA++RtddvnFIEbUNWncBksEnAg==
-X-Google-Smtp-Source: ACHHUZ7rf85dypKGZgKj2L/G9uk1VPLUqTFodUanDhXNgOqobkulBVhyS7PRD+PuTNClDBk7qXYA9w==
-X-Received: by 2002:ac2:57cf:0:b0:4ed:c8ba:dfb2 with SMTP id
- k15-20020ac257cf000000b004edc8badfb2mr3412886lfo.65.1682886959578; 
- Sun, 30 Apr 2023 13:35:59 -0700 (PDT)
+ bh=1z0wTDitZ+gnKwYBCCk5Nz8/vpEbM2i/0l3o9/Ite8Q=;
+ b=OvXfr5dnJCXwLWiz3M3PiSyjRKTd/f2wC9tvCuiwDHdGEd+nE2RTDIlyV3BNT77P5c
+ u13Yaa3HvK/7gik7RbdiA6FoyxOqvkXZUXyHas4pt27ZrWnNZURkhBfcwc1q8wTu+JG3
+ ja/W/lveJt5vXuK087elchY4i9zkwcz3ZyZJFGCNFS44z56eTGs71OkJv40/5hPhr+Hj
+ jIdSUIp7kWk4AscEg9ezkHRO2O5WMFW+uehCp5mxRvOQtImH0HIEC4n/6QcluoV7rW4F
+ 1VnL8mcx3+e0KKNVZisrgpvApGIn8SpEJZF0jjHqeJA4rLhsUDImk8uocHzsWNTSwx+o
+ IWnw==
+X-Gm-Message-State: AC+VfDwiHLtvkgs9q2HRi4Sq6RHPcmp/DaY+BR9HxLULv5I8vd/Cv6tL
+ uKVpzAx8+I7YQpDbNG/jXI4IoQ==
+X-Google-Smtp-Source: ACHHUZ61lTnTm2vJed0Hbx8L4qCVWHfDv5fhWb0j9H/0AMiX+fz8xaElCfmxlsdHh3Ooixn/ajvxpg==
+X-Received: by 2002:a05:6512:11c1:b0:4e1:36a:eda5 with SMTP id
+ h1-20020a05651211c100b004e1036aeda5mr3134672lfr.30.1682886960376; 
+ Sun, 30 Apr 2023 13:36:00 -0700 (PDT)
 Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- b24-20020ac247f8000000b004edd4d1e55dsm4324634lfp.284.2023.04.30.13.35.58
+ b24-20020ac247f8000000b004edd4d1e55dsm4324634lfp.284.2023.04.30.13.35.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sun, 30 Apr 2023 13:35:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sun, 30 Apr 2023 23:35:54 +0300
-Message-Id: <20230430203556.3184252-3-dmitry.baryshkov@linaro.org>
+Date: Sun, 30 Apr 2023 23:35:55 +0300
+Message-Id: <20230430203556.3184252-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230430203556.3184252-1-dmitry.baryshkov@linaro.org>
 References: <20230430203556.3184252-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/4] drm/msm/dpu: remove futile checks from
- dpu_rm_init()
+Subject: [Freedreno] [PATCH 3/4] drm/msm/dpu: use PINGPONG_NONE for LMs with
+ no PP attached
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,111 +83,77 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dpu_rm_init() contains checks for block->id values. These were logical
-in the vendor driver, when one can not be sure which values were passed
-from DT. In the upstream driver this is not necessary: the catalog is a
-part of the driver, we control specified IDs.
+On msm8998/sdm845 some LM blocks do not have corresponding PINGPONG
+block. Currently the driver uses PINGPONG_MAX for such cases. Switch
+that to use PINGPONG_NONE instead, which is more logical.
 
-Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 34 --------------------------
- 1 file changed, 34 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h | 4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h  | 4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h             | 3 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c                  | 2 +-
+ 4 files changed, 7 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+index bdcd554fc8a8..6ae30f806ebc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+@@ -104,9 +104,9 @@ static const struct dpu_lm_cfg msm8998_lm[] = {
+ 	LM_BLK("lm_2", LM_2, 0x46000, MIXER_MSM8998_MASK,
+ 		&msm8998_lm_sblk, PINGPONG_2, LM_5, 0),
+ 	LM_BLK("lm_3", LM_3, 0x47000, MIXER_MSM8998_MASK,
+-		&msm8998_lm_sblk, PINGPONG_MAX, 0, 0),
++		&msm8998_lm_sblk, PINGPONG_NONE, 0, 0),
+ 	LM_BLK("lm_4", LM_4, 0x48000, MIXER_MSM8998_MASK,
+-		&msm8998_lm_sblk, PINGPONG_MAX, 0, 0),
++		&msm8998_lm_sblk, PINGPONG_NONE, 0, 0),
+ 	LM_BLK("lm_5", LM_5, 0x49000, MIXER_MSM8998_MASK,
+ 		&msm8998_lm_sblk, PINGPONG_3, LM_2, 0),
+ };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+index ceca741e93c9..4a94fd9b64a9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+@@ -102,9 +102,9 @@ static const struct dpu_lm_cfg sdm845_lm[] = {
+ 	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
+ 		&sdm845_lm_sblk, PINGPONG_2, LM_5, 0),
+ 	LM_BLK("lm_3", LM_3, 0x0, MIXER_SDM845_MASK,
+-		&sdm845_lm_sblk, PINGPONG_MAX, 0, 0),
++		&sdm845_lm_sblk, PINGPONG_NONE, 0, 0),
+ 	LM_BLK("lm_4", LM_4, 0x0, MIXER_SDM845_MASK,
+-		&sdm845_lm_sblk, PINGPONG_MAX, 0, 0),
++		&sdm845_lm_sblk, PINGPONG_NONE, 0, 0),
+ 	LM_BLK("lm_5", LM_5, 0x49000, MIXER_SDM845_MASK,
+ 		&sdm845_lm_sblk, PINGPONG_3, LM_2, 0),
+ };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+index 2d9192a6ce00..56826a92c155 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+@@ -191,7 +191,8 @@ enum dpu_dsc {
+ };
+ 
+ enum dpu_pingpong {
+-	PINGPONG_0 = 1,
++	PINGPONG_NONE,
++	PINGPONG_0,
+ 	PINGPONG_1,
+ 	PINGPONG_2,
+ 	PINGPONG_3,
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index dffd3dd0a877..d5a06628885e 100644
+index d5a06628885e..bf7b8e7c45b1 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -122,10 +122,6 @@ int dpu_rm_init(struct dpu_rm *rm,
+@@ -117,7 +117,7 @@ int dpu_rm_init(struct dpu_rm *rm,
+ 		struct dpu_hw_mixer *hw;
+ 		const struct dpu_lm_cfg *lm = &cat->mixer[i];
+ 
+-		if (lm->pingpong == PINGPONG_MAX) {
++		if (lm->pingpong == PINGPONG_NONE) {
+ 			DPU_DEBUG("skip mixer %d without pingpong\n", lm->id);
  			continue;
  		}
- 
--		if (lm->id < LM_0 || lm->id >= LM_MAX) {
--			DPU_ERROR("skip mixer %d with invalid id\n", lm->id);
--			continue;
--		}
- 		hw = dpu_hw_lm_init(lm, mmio);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -139,10 +135,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_merge_3d *hw;
- 		const struct dpu_merge_3d_cfg *merge_3d = &cat->merge_3d[i];
- 
--		if (merge_3d->id < MERGE_3D_0 || merge_3d->id >= MERGE_3D_MAX) {
--			DPU_ERROR("skip merge_3d %d with invalid id\n", merge_3d->id);
--			continue;
--		}
- 		hw = dpu_hw_merge_3d_init(merge_3d, mmio);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -157,10 +149,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_pingpong *hw;
- 		const struct dpu_pingpong_cfg *pp = &cat->pingpong[i];
- 
--		if (pp->id < PINGPONG_0 || pp->id >= PINGPONG_MAX) {
--			DPU_ERROR("skip pingpong %d with invalid id\n", pp->id);
--			continue;
--		}
- 		hw = dpu_hw_pingpong_init(pp, mmio);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -177,10 +165,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_intf *hw;
- 		const struct dpu_intf_cfg *intf = &cat->intf[i];
- 
--		if (intf->id < INTF_0 || intf->id >= INTF_MAX) {
--			DPU_ERROR("skip intf %d with invalid id\n", intf->id);
--			continue;
--		}
- 		hw = dpu_hw_intf_init(intf, mmio);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -194,11 +178,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_wb *hw;
- 		const struct dpu_wb_cfg *wb = &cat->wb[i];
- 
--		if (wb->id < WB_0 || wb->id >= WB_MAX) {
--			DPU_ERROR("skip intf %d with invalid id\n", wb->id);
--			continue;
--		}
--
- 		hw = dpu_hw_wb_init(wb, mmio);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -212,10 +191,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_ctl *hw;
- 		const struct dpu_ctl_cfg *ctl = &cat->ctl[i];
- 
--		if (ctl->id < CTL_0 || ctl->id >= CTL_MAX) {
--			DPU_ERROR("skip ctl %d with invalid id\n", ctl->id);
--			continue;
--		}
- 		hw = dpu_hw_ctl_init(ctl, mmio, cat->mixer_count, cat->mixer);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -229,10 +204,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_dspp *hw;
- 		const struct dpu_dspp_cfg *dspp = &cat->dspp[i];
- 
--		if (dspp->id < DSPP_0 || dspp->id >= DSPP_MAX) {
--			DPU_ERROR("skip dspp %d with invalid id\n", dspp->id);
--			continue;
--		}
- 		hw = dpu_hw_dspp_init(dspp, mmio);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
-@@ -259,11 +230,6 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		struct dpu_hw_sspp *hw;
- 		const struct dpu_sspp_cfg *sspp = &cat->sspp[i];
- 
--		if (sspp->id < SSPP_NONE || sspp->id >= SSPP_MAX) {
--			DPU_ERROR("skip intf %d with invalid id\n", sspp->id);
--			continue;
--		}
--
- 		hw = dpu_hw_sspp_init(sspp, mmio, cat->ubwc);
- 		if (IS_ERR(hw)) {
- 			rc = PTR_ERR(hw);
 -- 
 2.39.2
 
