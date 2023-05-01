@@ -2,48 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33EC96F2CBE
-	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 05:03:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB926F2CD1
+	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 05:05:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC13C10E2A8;
-	Mon,  1 May 2023 03:03:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93DD210E2BE;
+	Mon,  1 May 2023 03:05:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB00F10E2A7;
- Mon,  1 May 2023 03:03:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE2B10E2BD;
+ Mon,  1 May 2023 03:05:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6B73E61765;
- Mon,  1 May 2023 03:03:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03894C433D2;
- Mon,  1 May 2023 03:03:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D45286119D;
+ Mon,  1 May 2023 03:05:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD2CC433D2;
+ Mon,  1 May 2023 03:05:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910230;
- bh=cG3lu9FMZB1qZzX5GvnYFM79h8hoMu8URMJCS/qlmPk=;
+ s=k20201202; t=1682910313;
+ bh=oJuoo9B2Qn8mZYl2jaRGvq7HNNEAqRoirg8xoB0TXtQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DMME/8VD2YsuwA2G9a3TcrSX02flL7NdataxjFVyVkH3c+aWd1/U1vrX4RVXi9etq
- oYx0JjCk3iTKLn/GcltfJDSWuiC6K9GZw4IJ1XJ73WNFF9Sa3Exis/1NU44Nf/a07R
- 3UjXFSTBmoHF6gIp/ENE1pgTkdL5K7YABhKSRl1qE5f5mmZsm+Z47R2q/NW/Qu1p0l
- +WF5ji4N2a+xl+S4UAsQUU15XpHAEglh4F6V2zz5SGtK2tQj0TvpTKKWuMPClfCfnB
- qwzRnUOJlb7krNVbC21yop4SPIXMYXnmAR3j0SLx6bvozRnpRokD1sdynVN5P3CgEk
- w80Ysw5W05JgQ==
+ b=ZDkHXrVibqe3sDzZyP80EMT7TPq7yqwUE4wiffGJw4mui2B83wzO7DLNtTwV+w8o1
+ KrjaB1YFfuixMdj37IZguanQ0r38LXd+75A+tGotwprb5N1SplnyNvojJJ/dNr/yBq
+ eHcnF1x0GxjM6iP2RnkIVm7rM8ObhoIEX6z6ianBKrnfQRRKJ11sUiXVsKrpzGxP/b
+ dcGVTTo4yzV08bT107yeNcHAgFroLcrS3R0U/rznmJPngQrS0GR8z7SnfY2dVsdGQa
+ xoitMF1h0ZVF4Q1vIF0nw63b4dR0BocN3XsMuPkCK4BNCAr/0e+clE/L2FpNc72yuH
+ K7Srx8nN5cY+g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 30 Apr 2023 23:02:16 -0400
-Message-Id: <20230501030227.3254266-22-sashal@kernel.org>
+Date: Sun, 30 Apr 2023 23:04:29 -0400
+Message-Id: <20230501030435.3254695-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230501030227.3254266-1-sashal@kernel.org>
-References: <20230501030227.3254266-1-sashal@kernel.org>
+In-Reply-To: <20230501030435.3254695-1-sashal@kernel.org>
+References: <20230501030435.3254695-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.1 22/33] drm/msm/dp: Clean up handling
- of DP AUX interrupts
+Subject: [Freedreno] [PATCH AUTOSEL 5.15 12/17] drm/msm/dp: Clean up
+ handling of DP AUX interrupts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,10 +142,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 36 insertions(+), 48 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index cc3efed593aa1..84f9e3e5f9642 100644
+index 7b8d4ba868eb7..4742aca2af482 100644
 --- a/drivers/gpu/drm/msm/dp/dp_aux.c
 +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -162,47 +162,6 @@ static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
+@@ -161,47 +161,6 @@ static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
  	return i;
  }
  
@@ -194,7 +193,7 @@ index cc3efed593aa1..84f9e3e5f9642 100644
  static void dp_aux_update_offset_and_segment(struct dp_aux_private *aux,
  					     struct drm_dp_aux_msg *input_msg)
  {
-@@ -427,13 +386,42 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
+@@ -410,13 +369,42 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
  	if (!isr)
  		return;
  
@@ -243,11 +242,11 @@ index cc3efed593aa1..84f9e3e5f9642 100644
  	complete(&aux->comp);
  }
 diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 676279d0ca8d9..421391755427d 100644
+index 9ef24ced6586d..8df5dfd6ad17f 100644
 --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
 +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -27,7 +27,7 @@
- #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
+@@ -34,7 +34,7 @@
+ #define MSM_DP_CONTROLLER_P0_SIZE	0x0400
  
  #define DP_INTERRUPT_STATUS1 \
 -	(DP_INTR_AUX_I2C_DONE| \
@@ -256,7 +255,7 @@ index 676279d0ca8d9..421391755427d 100644
  	DP_INTR_NACK_DEFER | DP_INTR_WRONG_DATA_CNT | \
  	DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER | \
 diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-index 1f717f45c1158..f36b7b372a065 100644
+index 6965afa81aad2..32d3e14c98f7f 100644
 --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
 +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
 @@ -13,7 +13,7 @@
