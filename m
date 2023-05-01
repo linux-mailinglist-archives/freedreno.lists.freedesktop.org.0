@@ -1,48 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFB926F2CD1
-	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 05:05:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FFC56F30EC
+	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 14:38:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93DD210E2BE;
-	Mon,  1 May 2023 03:05:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F25B810E0E5;
+	Mon,  1 May 2023 12:38:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE2B10E2BD;
- Mon,  1 May 2023 03:05:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D45286119D;
- Mon,  1 May 2023 03:05:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD2CC433D2;
- Mon,  1 May 2023 03:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910313;
- bh=oJuoo9B2Qn8mZYl2jaRGvq7HNNEAqRoirg8xoB0TXtQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZDkHXrVibqe3sDzZyP80EMT7TPq7yqwUE4wiffGJw4mui2B83wzO7DLNtTwV+w8o1
- KrjaB1YFfuixMdj37IZguanQ0r38LXd+75A+tGotwprb5N1SplnyNvojJJ/dNr/yBq
- eHcnF1x0GxjM6iP2RnkIVm7rM8ObhoIEX6z6ianBKrnfQRRKJ11sUiXVsKrpzGxP/b
- dcGVTTo4yzV08bT107yeNcHAgFroLcrS3R0U/rznmJPngQrS0GR8z7SnfY2dVsdGQa
- xoitMF1h0ZVF4Q1vIF0nw63b4dR0BocN3XsMuPkCK4BNCAr/0e+clE/L2FpNc72yuH
- K7Srx8nN5cY+g==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sun, 30 Apr 2023 23:04:29 -0400
-Message-Id: <20230501030435.3254695-12-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230501030435.3254695-1-sashal@kernel.org>
-References: <20230501030435.3254695-1-sashal@kernel.org>
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4E3210E0E5
+ for <freedreno@lists.freedesktop.org>; Mon,  1 May 2023 12:38:03 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2a8aea2a654so23661431fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 01 May 2023 05:38:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1682944680; x=1685536680;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/IbVhpk+6YPf6UP0JUxSgmpnmuOZSagBqkf05LKlAxI=;
+ b=t+luffE6T+59qh3ntjYNcC3D1SBpx/+RpIpcCQ85pY/H9DOvzmmPnASP8r052HqmLS
+ +kzRdc3ATuzCgKbT1UAlQts5r3DdvAAEhgbDYC6F5dACbOvATDkkZUiDDpUo7eUC9tsZ
+ F0gQLIJCzriXoyvmlMMBEx4XB3nYgeF7r1DIIQMqzdeTyJifaEFf2z555o9DUFyHy6ad
+ e5W7QSlbtoj7qEf3xMe4ENjjMdEtYWNPsyxjUrY1Sp7N/l4iCnIVBRoRU8UqI4spwpST
+ vpTpKVb69D56fnwKY+0ANtVg9wg7pQ1tuSS075AEKWW7Sq/miTHoN1s3Qe6J3PPIjhHI
+ 0yvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682944680; x=1685536680;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/IbVhpk+6YPf6UP0JUxSgmpnmuOZSagBqkf05LKlAxI=;
+ b=ZEObiaqdvDmUq7OyNsdpVgQvtYGT3q7nXRtyBl3x7hrTSJZ8Ok2WK9mFMFoMinCM98
+ wKJ6/fhmnK+6w1ISxmosBuOQRnAgmZgiLndAtodtJ+8A840ZHZOfcXPE74RML+nf+vtz
+ cJq7xL317tUEL3W39rVKHlCI1lpGtgY2Q4sjJR6Pd4qCDYf/ZgUY32YsGRZ9nVH59gLH
+ Hu0Cj3S/dz5KMpL5bQ5j1u3jlFD0ky9QGj62pWAV3nlb6f49F8bQneQC7Hb189Ltdt4Y
+ hz2xW82NpYYJPudS7VrpO3ZnWFU5al/0iFauBTJpaog8YITLA0pYubYLLqvIOihi5sna
+ GdjQ==
+X-Gm-Message-State: AC+VfDyqfZhYWWZGclZFv4WFXIJjY7yKPKFOKYhZaS3kuwiAg5VE62CC
+ Qja8L6G11dRoBtZZrSI7VU+2qA==
+X-Google-Smtp-Source: ACHHUZ4JrEAVZU7gK3ZcuZgwQYC6Wox623r/U+ysIg9R1y1XMRn7lrpbRiifYov8TJDnd2uPAthOdg==
+X-Received: by 2002:a2e:9658:0:b0:2a8:bce4:c712 with SMTP id
+ z24-20020a2e9658000000b002a8bce4c712mr3814440ljh.43.1682944680000; 
+ Mon, 01 May 2023 05:38:00 -0700 (PDT)
+Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
+ by smtp.gmail.com with ESMTPSA id
+ p3-20020a05651238c300b004ec5229092dsm4722852lft.34.2023.05.01.05.37.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 May 2023 05:37:59 -0700 (PDT)
+Message-ID: <7cf248ee-d966-3aa5-91f1-3d93ab71cd4b@linaro.org>
+Date: Mon, 1 May 2023 14:37:58 +0200
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.15 12/17] drm/msm/dp: Clean up
- handling of DP AUX interrupts
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230501011257.3460103-1-dmitry.baryshkov@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230501011257.3460103-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: don't allow enabling 14nm VCO
+ with unprogrammed rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,218 +80,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
- quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, robdclark@gmail.com, daniel@ffwll.ch,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, airlied@gmail.com,
- quic_vpolimer@quicinc.com
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Douglas Anderson <dianders@chromium.org>
 
-[ Upstream commit b20566cdef05cd40d95f10869d2a7646f48b1bbe ]
 
-The DP AUX interrupt handling was a bit of a mess.
-* There were two functions (one for "native" transfers and one for
-  "i2c" transfers) that were quite similar. It was hard to say how
-  many of the differences between the two functions were on purpose
-  and how many of them were just an accident of how they were coded.
-* Each function sometimes used "else if" to test for error bits and
-  sometimes didn't and again it was hard to say if this was on purpose
-  or just an accident.
-* The two functions wouldn't notice whether "unknown" bits were
-  set. For instance, there seems to be a bit "DP_INTR_PLL_UNLOCKED"
-  and if it was set there would be no indication.
-* The two functions wouldn't notice if more than one error was set.
+On 1.05.2023 03:12, Dmitry Baryshkov wrote:
+> If the dispcc uses CLK_OPS_PARENT_ENABLE (e.g. on QCM2290), CCF can try
+> enabling VCO before the rate has been programmed. This can cause clock
+> lockups and/or other boot issues. Program the VCO to the minimal PLL
+> rate if the read rate is 0 Hz.
+> 
+> Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+Reported-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Reported-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Let's fix this by being more consistent / explicit about what we're
-doing.
+I think this should also be implemented on other PLL gens.
 
-By design this could cause different handling for AUX transfers,
-though I'm not actually aware of any bug fixed as a result of
-this patch (this patch was created because we simply noticed how odd
-the old code was by code inspection). Specific notes here:
-1. In the old native transfer case if we got "done + wrong address"
-   we'd ignore the "wrong address" (because of the "else if"). Now we
-   won't.
-2. In the old native transfer case if we got "done + timeout" we'd
-   ignore the "timeout" (because of the "else if"). Now we won't.
-3. In the old native transfer case we'd see "nack_defer" and translate
-   it to the error number for "nack". This differed from the i2c
-   transfer case where "nack_defer" was given the error number for
-   "nack_defer". This 100% can't matter because the only user of this
-   error number treats "nack defer" the same as "nack", so it's clear
-   that the difference between the "native" and "i2c" was pointless
-   here.
-4. In the old i2c transfer case if we got "done" plus any error
-   besides "nack" or "defer" then we'd ignore the error. Now we don't.
-5. If there is more than one error signaled by the hardware it's
-   possible that we'll report a different one than we used to. I don't
-   know if this matters. If someone is aware of a case this matters we
-   should document it and change the code to make it explicit.
-6. One quirk we keep (I don't know if this is important) is that in
-   the i2c transfer case if we see "done + defer" we report that as a
-   "nack". That seemed too intentional in the old code to just drop.
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> index 9f488adea7f5..3ce45b023e63 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> @@ -539,6 +539,9 @@ static int dsi_pll_14nm_vco_prepare(struct clk_hw *hw)
+>  	if (unlikely(pll_14nm->phy->pll_on))
+>  		return 0;
+>  
+> +	if (dsi_pll_14nm_vco_recalc_rate(hw, VCO_REF_CLK_RATE) == 0)
+> +		dsi_pll_14nm_vco_set_rate(hw, pll_14nm->phy->cfg->min_pll_rate, VCO_REF_CLK_RATE);
+VCO_REF_CLK_RATE ---> phy->cfg->min_pll_rate (VCO_MIN_RATE)?
 
-After this change we will add extra logging, including:
-* A warning if we see more than one error bit set.
-* A warning if we see an unexpected interrupt.
-* A warning if we get an AUX transfer interrupt when shouldn't.
-
-It actually turns out that as a result of this change then at boot we
-sometimes see an error:
-  [drm:dp_aux_isr] *ERROR* Unexpected DP AUX IRQ 0x01000000 when not busy
-That means that, during init, we are seeing DP_INTR_PLL_UNLOCKED. For
-now I'm going to say that leaving this error reported in the logs is
-OK-ish and hopefully it will encourage someone to track down what's
-going on at init time.
-
-One last note here is that this change renames one of the interrupt
-bits. The bit named "i2c done" clearly was used for native transfers
-being done too, so I renamed it to indicate this.
-
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Patchwork: https://patchwork.freedesktop.org/patch/520658/
-Link: https://lore.kernel.org/r/20230126170745.v2.1.I90ffed3ddd21e818ae534f820cb4d6d8638859ab@changeid
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     | 80 ++++++++++++-----------------
- drivers/gpu/drm/msm/dp/dp_catalog.c |  2 +-
- drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
- 3 files changed, 36 insertions(+), 48 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 7b8d4ba868eb7..4742aca2af482 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -161,47 +161,6 @@ static ssize_t dp_aux_cmd_fifo_rx(struct dp_aux_private *aux,
- 	return i;
- }
- 
--static void dp_aux_native_handler(struct dp_aux_private *aux, u32 isr)
--{
--	if (isr & DP_INTR_AUX_I2C_DONE)
--		aux->aux_error_num = DP_AUX_ERR_NONE;
--	else if (isr & DP_INTR_WRONG_ADDR)
--		aux->aux_error_num = DP_AUX_ERR_ADDR;
--	else if (isr & DP_INTR_TIMEOUT)
--		aux->aux_error_num = DP_AUX_ERR_TOUT;
--	if (isr & DP_INTR_NACK_DEFER)
--		aux->aux_error_num = DP_AUX_ERR_NACK;
--	if (isr & DP_INTR_AUX_ERROR) {
--		aux->aux_error_num = DP_AUX_ERR_PHY;
--		dp_catalog_aux_clear_hw_interrupts(aux->catalog);
--	}
--}
--
--static void dp_aux_i2c_handler(struct dp_aux_private *aux, u32 isr)
--{
--	if (isr & DP_INTR_AUX_I2C_DONE) {
--		if (isr & (DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER))
--			aux->aux_error_num = DP_AUX_ERR_NACK;
--		else
--			aux->aux_error_num = DP_AUX_ERR_NONE;
--	} else {
--		if (isr & DP_INTR_WRONG_ADDR)
--			aux->aux_error_num = DP_AUX_ERR_ADDR;
--		else if (isr & DP_INTR_TIMEOUT)
--			aux->aux_error_num = DP_AUX_ERR_TOUT;
--		if (isr & DP_INTR_NACK_DEFER)
--			aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
--		if (isr & DP_INTR_I2C_NACK)
--			aux->aux_error_num = DP_AUX_ERR_NACK;
--		if (isr & DP_INTR_I2C_DEFER)
--			aux->aux_error_num = DP_AUX_ERR_DEFER;
--		if (isr & DP_INTR_AUX_ERROR) {
--			aux->aux_error_num = DP_AUX_ERR_PHY;
--			dp_catalog_aux_clear_hw_interrupts(aux->catalog);
--		}
--	}
--}
--
- static void dp_aux_update_offset_and_segment(struct dp_aux_private *aux,
- 					     struct drm_dp_aux_msg *input_msg)
- {
-@@ -410,13 +369,42 @@ void dp_aux_isr(struct drm_dp_aux *dp_aux)
- 	if (!isr)
- 		return;
- 
--	if (!aux->cmd_busy)
-+	if (!aux->cmd_busy) {
-+		DRM_ERROR("Unexpected DP AUX IRQ %#010x when not busy\n", isr);
- 		return;
-+	}
- 
--	if (aux->native)
--		dp_aux_native_handler(aux, isr);
--	else
--		dp_aux_i2c_handler(aux, isr);
-+	/*
-+	 * The logic below assumes only one error bit is set (other than "done"
-+	 * which can apparently be set at the same time as some of the other
-+	 * bits). Warn if more than one get set so we know we need to improve
-+	 * the logic.
-+	 */
-+	if (hweight32(isr & ~DP_INTR_AUX_XFER_DONE) > 1)
-+		DRM_WARN("Some DP AUX interrupts unhandled: %#010x\n", isr);
-+
-+	if (isr & DP_INTR_AUX_ERROR) {
-+		aux->aux_error_num = DP_AUX_ERR_PHY;
-+		dp_catalog_aux_clear_hw_interrupts(aux->catalog);
-+	} else if (isr & DP_INTR_NACK_DEFER) {
-+		aux->aux_error_num = DP_AUX_ERR_NACK_DEFER;
-+	} else if (isr & DP_INTR_WRONG_ADDR) {
-+		aux->aux_error_num = DP_AUX_ERR_ADDR;
-+	} else if (isr & DP_INTR_TIMEOUT) {
-+		aux->aux_error_num = DP_AUX_ERR_TOUT;
-+	} else if (!aux->native && (isr & DP_INTR_I2C_NACK)) {
-+		aux->aux_error_num = DP_AUX_ERR_NACK;
-+	} else if (!aux->native && (isr & DP_INTR_I2C_DEFER)) {
-+		if (isr & DP_INTR_AUX_XFER_DONE)
-+			aux->aux_error_num = DP_AUX_ERR_NACK;
-+		else
-+			aux->aux_error_num = DP_AUX_ERR_DEFER;
-+	} else if (isr & DP_INTR_AUX_XFER_DONE) {
-+		aux->aux_error_num = DP_AUX_ERR_NONE;
-+	} else {
-+		DRM_WARN("Unexpected interrupt: %#010x\n", isr);
-+		return;
-+	}
- 
- 	complete(&aux->comp);
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 9ef24ced6586d..8df5dfd6ad17f 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -34,7 +34,7 @@
- #define MSM_DP_CONTROLLER_P0_SIZE	0x0400
- 
- #define DP_INTERRUPT_STATUS1 \
--	(DP_INTR_AUX_I2C_DONE| \
-+	(DP_INTR_AUX_XFER_DONE| \
- 	DP_INTR_WRONG_ADDR | DP_INTR_TIMEOUT | \
- 	DP_INTR_NACK_DEFER | DP_INTR_WRONG_DATA_CNT | \
- 	DP_INTR_I2C_NACK | DP_INTR_I2C_DEFER | \
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-index 6965afa81aad2..32d3e14c98f7f 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.h
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
-@@ -13,7 +13,7 @@
- 
- /* interrupts */
- #define DP_INTR_HPD		BIT(0)
--#define DP_INTR_AUX_I2C_DONE	BIT(3)
-+#define DP_INTR_AUX_XFER_DONE	BIT(3)
- #define DP_INTR_WRONG_ADDR	BIT(6)
- #define DP_INTR_TIMEOUT		BIT(9)
- #define DP_INTR_NACK_DEFER	BIT(12)
--- 
-2.39.2
-
+Konrad
+> +
+>  	dsi_phy_write(base + REG_DSI_14nm_PHY_PLL_VREF_CFG1, 0x10);
+>  	dsi_phy_write(cmn_base + REG_DSI_14nm_PHY_CMN_PLL_CNTRL, 1);
+>  
