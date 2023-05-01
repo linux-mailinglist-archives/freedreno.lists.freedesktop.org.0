@@ -1,47 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4795F6F2C8F
-	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 05:01:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33EC96F2CBE
+	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 05:03:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0644410E25F;
-	Mon,  1 May 2023 03:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC13C10E2A8;
+	Mon,  1 May 2023 03:03:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0DC910E25F;
- Mon,  1 May 2023 03:01:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB00F10E2A7;
+ Mon,  1 May 2023 03:03:51 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7947361784;
- Mon,  1 May 2023 03:01:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99006C433D2;
- Mon,  1 May 2023 03:01:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6B73E61765;
+ Mon,  1 May 2023 03:03:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03894C433D2;
+ Mon,  1 May 2023 03:03:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910088;
+ s=k20201202; t=1682910230;
  bh=cG3lu9FMZB1qZzX5GvnYFM79h8hoMu8URMJCS/qlmPk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YGULwAR07GfG7E3ZNnaYtTgDEtZj0g4diBjmKormlmdK5s2X0N1iOIWsbfYiO8UjD
- vamI6a7PhPeL/dhIO8FiR+m/tbtT3EHdZr8C2FYmR21bqKvJkWX3yXeqyDDk56eM6r
- nS+v/Oj/khvnwydhaRRFZpMDPWOvB/4aEOFH8IPdkt9T/hwzHO7ZEWT+BHdOsYFe9o
- EYcaUJTl+TSg8aY9HvTijS8HDgloc6MZP2vibHT7fSZAevL/CFiSbn0fH+vHxaF7kP
- lkQrBogLZFFA1zmgUmcPWiFinZp6UpMfKFjjBQU+54cxdS9O9YlsaowOQYxnujMwen
- S5C0T9KUZ6o+Q==
+ b=DMME/8VD2YsuwA2G9a3TcrSX02flL7NdataxjFVyVkH3c+aWd1/U1vrX4RVXi9etq
+ oYx0JjCk3iTKLn/GcltfJDSWuiC6K9GZw4IJ1XJ73WNFF9Sa3Exis/1NU44Nf/a07R
+ 3UjXFSTBmoHF6gIp/ENE1pgTkdL5K7YABhKSRl1qE5f5mmZsm+Z47R2q/NW/Qu1p0l
+ +WF5ji4N2a+xl+S4UAsQUU15XpHAEglh4F6V2zz5SGtK2tQj0TvpTKKWuMPClfCfnB
+ qwzRnUOJlb7krNVbC21yop4SPIXMYXnmAR3j0SLx6bvozRnpRokD1sdynVN5P3CgEk
+ w80Ysw5W05JgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 30 Apr 2023 22:59:33 -0400
-Message-Id: <20230501025945.3253774-25-sashal@kernel.org>
+Date: Sun, 30 Apr 2023 23:02:16 -0400
+Message-Id: <20230501030227.3254266-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230501025945.3253774-1-sashal@kernel.org>
-References: <20230501025945.3253774-1-sashal@kernel.org>
+In-Reply-To: <20230501030227.3254266-1-sashal@kernel.org>
+References: <20230501030227.3254266-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.2 25/37] drm/msm/dp: Clean up handling
+Subject: [Freedreno] [PATCH AUTOSEL 6.1 22/33] drm/msm/dp: Clean up handling
  of DP AUX interrupts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
