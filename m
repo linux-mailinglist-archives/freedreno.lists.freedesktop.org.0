@@ -1,75 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 661C86F3111
-	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 14:41:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA2416F3397
+	for <lists+freedreno@lfdr.de>; Mon,  1 May 2023 18:37:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A46B10E213;
-	Mon,  1 May 2023 12:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895B810E15D;
+	Mon,  1 May 2023 16:37:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC49C10E213
- for <freedreno@lists.freedesktop.org>; Mon,  1 May 2023 12:41:55 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4efefbd2c5eso3073299e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 01 May 2023 05:41:55 -0700 (PDT)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2EE610E0BB;
+ Mon,  1 May 2023 16:37:47 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-1aad55244b7so17505785ad.2; 
+ Mon, 01 May 2023 09:37:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1682944913; x=1685536913;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kRAAC9w75oB/bIFgwxyTbBa5xqYXWbXvoGPKDNUWQSc=;
- b=zCAcfUi4sMydaQf3bWSZhtQ+7vrCZpB4JSecvfQIDL7W/UjnSOSDl9VWfMu+zpkfCp
- U01caRTVNBS1XLe/DX1lIpJbicWq1AOAuLcWJ84VyfmlMbZQghUjObMbb1GUaYedx8C8
- qEO9WpDOVMyLlPx5u3qqyg5P4MdlTsn4+E6gaCZWLjur9tNHK9kMbY7zM3nilqvXrp3N
- hccqFYzlACsnszl2tLO7VBvueuuYQNGPRDPQoNbcxrod2ultC2xbWaW194p97m8no0Pd
- PR4Db3+xyEQqrIkniSqcvgXpxO4LWX5keL5ULyh2VVnnfmqPjmgZ3t/ihPCevKf96C/F
- W0SQ==
+ d=gmail.com; s=20221208; t=1682959067; x=1685551067;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wrKAgdmLOJyxcGM4fHJIExIcPdILMv9Wxsqdb+XbK0o=;
+ b=lajon+PLfTqBK9Rp20x2MnUwb7SWY0dOp+b/oNKOeIzHg6ROUzBVY0YZZnsmn15dPF
+ LOLkyaOHxrOCa6QgmaDu5t1d0knJDmZIoB40teLmie4OpAoiYvnarsAt3g/FOD4SsSN1
+ fxBQIN1M+sD+wv+R1xW5EqudhJDD+Cn3aiqUcuJJAUSp/lMH9kLFl+foD7GkkeGd26JC
+ E9nMaDv1hSgMJbYu7TMFA1Ejiu+YMCb488SrV0Bc/Kfh8iuwJXByW6ZP/cFL4cdVGm1W
+ osE3S9EGLrmU7g3l51OMkFpNJhnIMxSvydUixvAHpIG0TjrtoXT/73sQgwMoMA3D+mKF
+ X6tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682944913; x=1685536913;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kRAAC9w75oB/bIFgwxyTbBa5xqYXWbXvoGPKDNUWQSc=;
- b=Z32UGqFer7EjN52LyRHZ4J6ndBMrJu+Lm3DluZDkb1mZWQzKGIIUxwwabnx3FX0ptz
- LoVW6p3QvJR53lzpuEnflcX76eOCnW18ebpRAE/xyj01GFHbFsFkTllNFtE7OECLd4Kg
- WghKTGpxXDjBhB2+XzrJFnwZ0v0+ruygM0CLKqBPvYyBOrfxQMmRs9NdtVKC2yrmnGpN
- oczXt9/Dw3W39mET/aEWOGLnkWy0J3PLYyuTIdZHS4OcQe7wrN5bXPRXIuabnV5ghG9T
- UoocgkwlHAXkQWXyHLbDF6kjPH+DWSC9/grLXKEkl+Gx5t34rpaeWmFGDPxZH/I+1DGk
- 35pQ==
-X-Gm-Message-State: AC+VfDwFr475MjpdHTVDhv64B0EBO5bz/hYgq83iN5KFDgjYpQG6GAHH
- K+Ur1q/t2eWvVMybWsQ6shuxfw==
-X-Google-Smtp-Source: ACHHUZ72hLbvezX9uXS2Nydb9J0ngfEYbPtHxnRItKvjEZMFhFA2lLzYs5k6sPy+hyIKhRZ24pQzVA==
-X-Received: by 2002:a05:6512:21ab:b0:4eb:252e:3ec5 with SMTP id
- c11-20020a05651221ab00b004eb252e3ec5mr3596940lft.14.1682944913514; 
- Mon, 01 May 2023 05:41:53 -0700 (PDT)
-Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
+ d=1e100.net; s=20221208; t=1682959067; x=1685551067;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wrKAgdmLOJyxcGM4fHJIExIcPdILMv9Wxsqdb+XbK0o=;
+ b=OrMcB0ha9vvJQZvSKltI0jeApumMY6/dpLvo2CexywRGekUC6bPv49LvdlQ7VCAPdF
+ UN7Ag9QBn3LlH08ET0qy1sGsZjuN8Ao6QrsjNuo0EdK+8TQaS4lNmzHH+jf/+g/y4jCU
+ vZvbOqlBOSSxajflzWgnE86H1WeGhsmywVCFT0HTmpGEinY4KSafCunbT4Zmn3SnasS1
+ cUztg/bfZJ4GNbNf0zS5eqCUpXSDgd0LoRojU+81ZSd5vLLQOn86kHF5ABIpU3pQSapN
+ G6gd/DuK0CxXDvHgh11mt3ZcDSPKL3hkJw1chlxsBo7GAFG7xtzFXdt1VU7PeBLwKWMj
+ 5Lrg==
+X-Gm-Message-State: AC+VfDy/P5hSBbZiphc5YkiSJk5L6atIuBbV4cHPGITIB9PEY2wYoj0/
+ aaFyk5DKDTIGFKenYHyZ3GevHUa6Yjo=
+X-Google-Smtp-Source: ACHHUZ5QP9sT1qh1d4aBp7RgMIgDyOGAk7FUHJNl89muDSUAiUfpQJy+p/f3pRgH/baCQCVFZ1NPDg==
+X-Received: by 2002:a17:902:7b94:b0:1a6:7ed8:84f7 with SMTP id
+ w20-20020a1709027b9400b001a67ed884f7mr15518527pll.20.1682959066600; 
+ Mon, 01 May 2023 09:37:46 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- q27-20020ac2515b000000b004efe8174586sm4008405lfd.126.2023.05.01.05.41.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 May 2023 05:41:53 -0700 (PDT)
-Message-ID: <cfe771e1-6ce8-b6c5-dd65-ed18f84543a5@linaro.org>
-Date: Mon, 1 May 2023 14:41:51 +0200
+ s2-20020a170902988200b0019a7d58e595sm17988796plp.143.2023.05.01.09.37.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 May 2023 09:37:46 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  1 May 2023 09:37:35 -0700
+Message-Id: <20230501163736.1599381-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230501011257.3460103-1-dmitry.baryshkov@linaro.org>
- <7cf248ee-d966-3aa5-91f1-3d93ab71cd4b@linaro.org>
- <516a1313-5dff-d471-2c41-405e2beed4d6@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <516a1313-5dff-d471-2c41-405e2beed4d6@linaro.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: don't allow enabling 14nm VCO
- with unprogrammed rate
+Subject: [Freedreno] [PATCH] drm/msm: Fix submit error-path leaks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +70,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, pinkperfect2021@gmail.com,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+For errors after msm_submitqueue_get(), we need to drop the submitqueue
+reference.  Additionally after get_unused_fd() we need to drop the fd.
+The ordering for dropping the queue lock and put_unused_fd() is not
+important, so just move this all into out_post_unlock.
 
-On 1.05.2023 14:39, Dmitry Baryshkov wrote:
-> On 01/05/2023 15:37, Konrad Dybcio wrote:
->>
->>
->> On 1.05.2023 03:12, Dmitry Baryshkov wrote:
->>> If the dispcc uses CLK_OPS_PARENT_ENABLE (e.g. on QCM2290), CCF can try
->>> enabling VCO before the rate has been programmed. This can cause clock
->>> lockups and/or other boot issues. Program the VCO to the minimal PLL
->>> rate if the read rate is 0 Hz.
->>>
->>> Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->> Reported-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->> Reported-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>
->> I think this should also be implemented on other PLL gens.
->>
->>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 3 +++
->>>   1 file changed, 3 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
->>> index 9f488adea7f5..3ce45b023e63 100644
->>> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
->>> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
->>> @@ -539,6 +539,9 @@ static int dsi_pll_14nm_vco_prepare(struct clk_hw *hw)
->>>       if (unlikely(pll_14nm->phy->pll_on))
->>>           return 0;
->>>   +    if (dsi_pll_14nm_vco_recalc_rate(hw, VCO_REF_CLK_RATE) == 0)
->>> +        dsi_pll_14nm_vco_set_rate(hw, pll_14nm->phy->cfg->min_pll_rate, VCO_REF_CLK_RATE);
->> VCO_REF_CLK_RATE ---> phy->cfg->min_pll_rate (VCO_MIN_RATE)?
-> 
-> No, this is the parent rate, which is VCO_REF_CLK_RATE for all practical purposes.
-right!
+Reported-by: pinkperfect2021@gmail.com
+Fixes: f0de40a131d9 drm/msm: ("Reorder lock vs submit alloc")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 6c6aefaa72be..728983959ed5 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -767,27 +767,29 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	queue = msm_submitqueue_get(ctx, args->queueid);
+ 	if (!queue)
+ 		return -ENOENT;
+ 
+ 	ring = gpu->rb[queue->ring_nr];
+ 
+ 	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+ 		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+ 		if (out_fence_fd < 0) {
+ 			ret = out_fence_fd;
+-			return ret;
++			goto out_post_unlock;
+ 		}
+ 	}
+ 
+ 	submit = submit_create(dev, gpu, queue, args->nr_bos, args->nr_cmds);
+-	if (IS_ERR(submit))
+-		return PTR_ERR(submit);
++	if (IS_ERR(submit)) {
++		ret = PTR_ERR(submit);
++		goto out_post_unlock;
++	}
+ 
+ 	trace_msm_gpu_submit(pid_nr(submit->pid), ring->id, submit->ident,
+ 		args->nr_bos, args->nr_cmds);
+ 
+ 	ret = mutex_lock_interruptible(&queue->lock);
+ 	if (ret)
+ 		goto out_post_unlock;
+ 
+ 	if (args->flags & MSM_SUBMIT_SUDO)
+ 		submit->in_rb = true;
+@@ -962,25 +964,27 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+ 	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+ 	                      submit->user_fence);
+ 
+ 
+ out:
+ 	submit_cleanup(submit, !!ret);
+ 	if (has_ww_ticket)
+ 		ww_acquire_fini(&submit->ticket);
+ out_unlock:
+-	if (ret && (out_fence_fd >= 0))
+-		put_unused_fd(out_fence_fd);
+ 	mutex_unlock(&queue->lock);
+ out_post_unlock:
+-	msm_gem_submit_put(submit);
++	if (ret && (out_fence_fd >= 0))
++		put_unused_fd(out_fence_fd);
++	if (submit)
++		msm_gem_submit_put(submit);
++	msm_submitqueue_put(queue);
+ 	if (!IS_ERR_OR_NULL(post_deps)) {
+ 		for (i = 0; i < args->nr_out_syncobjs; ++i) {
+ 			kfree(post_deps[i].chain);
+ 			drm_syncobj_put(post_deps[i].syncobj);
+ 		}
+ 		kfree(post_deps);
+ 	}
+ 
+ 	if (!IS_ERR_OR_NULL(syncobjs_to_reset)) {
+ 		for (i = 0; i < args->nr_in_syncobjs; ++i) {
+-- 
+2.39.2
 
-This probably deserves
-
-Fixes: f079f6d999cb ("drm/msm/dsi: Add PHY/PLL for 8x96")
-
-as the driver previously allowed for erroneous (and inherently racy) behavior
-
-Konrad
-> 
->>
->> Konrad
->>> +
->>>       dsi_phy_write(base + REG_DSI_14nm_PHY_PLL_VREF_CFG1, 0x10);
->>>       dsi_phy_write(cmn_base + REG_DSI_14nm_PHY_CMN_PLL_CNTRL, 1);
->>>   
-> 
