@@ -2,46 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD2AA6F4B58
-	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 22:28:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 728C46F4B93
+	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 22:45:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8A2E10E082;
-	Tue,  2 May 2023 20:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 301C310E097;
+	Tue,  2 May 2023 20:45:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C9710E082;
- Tue,  2 May 2023 20:28:04 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2646410E097;
+ Tue,  2 May 2023 20:45:40 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 342JurL9011028; Tue, 2 May 2023 20:27:58 GMT
+ 342JumgW005591; Tue, 2 May 2023 20:45:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=bNSfF3fp8GOd4MX5IVX2LFeM5Oveea86k3zpUubxvG0=;
- b=VtXNFBspPlpx5Dx1l8HuPNfMZcGj3r+8cugJWww5TJfURpbtB6CD3OzD0Tv9MKYSE4B1
- Dr3urx8Z37nmEHFWcNOD3/MKSmQWrJUIsf7YlVxvyMxiRA2rhkxD6vpDhwIjGeZzuK03
- WACiTdjzmpHc8zQs46dX7R9Q4qDnsWTCQECZoaov6vqKuuqaIT6IEfqM+LyPRlejegGS
- MI037egkcabfNAvKtpcEAzhD34C3Tffb/R7E6CSRjVUHPqUYC3tIulf4p+NRcHy3k/fq
- RVnzk12jQFUgb7yJPDd4dweH0UbWNuOWfZmW/Wt527em1uDqTMDy9U/st6g0Pcik7nRS Gg== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=1vgKW6jlHCKJb9xeMsFEkB7YuPkorPjAU2tq9LK6stc=;
+ b=SbP9VjW3qU1bf6fZMrEguwfvOCc8u3u8fF8YuUMCwdyQV1LCxBdqjPxH73v+lAMs6seT
+ DeEP62iBPZbXBO14NthpLqkq+uil5+YiMcMh9goGqHIZld3nUP/rrSp7qTAJ39h9j3Kr
+ KqhnlgMIg8m3kHrLNoV033+uj6IxPlvw3zKPpwqDFYv0so2A6fTYL2g5SijeV/36k98H
+ X30QAS7D5Rppaafxh8rmR9QpYBd2Gz3hAA7BmV4LFuiMhQL+87BaR4rX16fMkwRmC27L
+ foPV6OsZttFWwKZMmZIjdYdrb26LOq038aV2v5zcKRFwaoQKr1NdkRrUtflaVqdcWghs ZA== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qan8gjq1d-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qays51k9n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 May 2023 20:27:58 +0000
+ Tue, 02 May 2023 20:45:35 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 342KRvub011320
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 342KjYo7006078
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 2 May 2023 20:27:57 GMT
+ Tue, 2 May 2023 20:45:34 GMT
 Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 2 May 2023
- 13:27:56 -0700
-Message-ID: <2fc36ced-039d-edc8-1695-6c79e196610e@quicinc.com>
-Date: Tue, 2 May 2023 13:27:56 -0700
+ 13:45:34 -0700
+Message-ID: <81d97939-1369-9a2d-01bb-ad8c8a4b7e5c@quicinc.com>
+Date: Tue, 2 May 2023 13:45:33 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
@@ -50,34 +50,30 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
  <marijn.suijten@somainline.org>
 References: <20230430235732.3341119-1-dmitry.baryshkov@linaro.org>
- <20230430235732.3341119-2-dmitry.baryshkov@linaro.org>
- <0d09f4ea-8778-d61d-feea-c0b3a2a6ebe4@quicinc.com>
- <048b40fb-b4d0-2b33-9e97-dddec1405269@linaro.org>
- <ee9da7d9-44a7-eb99-679b-c968fdb9ef6a@quicinc.com>
- <657391b8-7a87-6fcb-44d8-de505718f351@linaro.org>
+ <20230430235732.3341119-3-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <657391b8-7a87-6fcb-44d8-de505718f351@linaro.org>
+In-Reply-To: <20230430235732.3341119-3-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: D8yCcLJMr64KaOjWRVKXZ_ToMa4AIu-d
-X-Proofpoint-ORIG-GUID: D8yCcLJMr64KaOjWRVKXZ_ToMa4AIu-d
+X-Proofpoint-GUID: H0qZ-H44dDxgDE95wS19vUisR675HU_-
+X-Proofpoint-ORIG-GUID: H0qZ-H44dDxgDE95wS19vUisR675HU_-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-02_12,2023-04-27_01,2023-02-09_01
+ definitions=2023-05-02_11,2023-04-27_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- lowpriorityscore=0 suspectscore=0 mlxscore=0 priorityscore=1501
- mlxlogscore=807 impostorscore=0 bulkscore=0 phishscore=0 clxscore=1015
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2305020174
-Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/dpu: merge dpu_encoder_init()
- and dpu_encoder_setup()
+ suspectscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
+ mlxscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2305020176
+Subject: Re: [Freedreno] [PATCH 2/7] drm/msm/dpu: drop
+ dpu_encoder_early_unregister
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,58 +95,49 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/1/2023 2:27 PM, Dmitry Baryshkov wrote:
-> On 02/05/2023 00:22, Abhinav Kumar wrote:
->>
->>
->> On 5/1/2023 1:45 PM, Dmitry Baryshkov wrote:
->>> On 01/05/2023 22:58, Abhinav Kumar wrote:
->>>>
->>>>
->>>> On 4/30/2023 4:57 PM, Dmitry Baryshkov wrote:
->>>>> There is no reason to split the dpu_encoder interface into separate
->>>>> _init() and _setup() phases. Merge them into a single function.
->>>>>
->>>>
->>>> I think the reason for having this split was to pass a valid encoder 
->>>> to the interface_modeset_init() and then do the rest of encoder 
->>>> initialization after modeset_init().
->>>>
->>>> Looking at the current code, one issue i am seeing is that you will 
->>>> now initialize the dpu_encoder's msm_display_info along with 
->>>> dpu_encoder_init().
->>>>
->>>> Most of it is fine but in the case of bonded_dsi(), I see an issue.
->>>>
->>>> The info.num_of_h_tiles++ happens after the modeset_init() of the 
->>>> second dsi but now it has been moved earlier.
->>>>
->>>> If for some reason, msm_dsi_modeset_init() fails for the second DSI, 
->>>> num_of_h_tiles will still be 2 now.
->>>
->>> If msm_dsi_modeset_init() fails, the function will err out and fail 
->>> dpu_kms initialization. So it's not important, what is the value of 
->>> num_h_tiles in this case.
->>>
->>
->> But I still feel the msm_display_info should be saved in the dpu 
->> encoder after the modeset_init() and not before. That way if some 
->> display interface specific init is done in the modeset_init(), we save 
->> the info after that.
+On 4/30/2023 4:57 PM, Dmitry Baryshkov wrote:
+> There is no need to clean up debugfs manually, it will be done by the
+> DRM core on device deregistration.
 > 
-> Up to now we have been using 'poll' model, e.g. we specifically asked 
-> for the DSC info from the DSI host rather than making msm_dsi set it. So 
-> far I don't see a good reason why this should be changed.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+
+There are two reasons to have the debugfs removed in the early_unregister:
+
+1) Today, registration happens in late_register(), hence to balance the 
+the call in _dpu_encoder_init_debugfs(), this one is present.
+
+2) In drm_modeset_register_all(), if drm_connector_register_all() fails, 
+it calls drm_encoder_unregister_all() first which calls early_unregister().
+
+So to balance these out, dont we need to keep it?
+
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 8 --------
+>   1 file changed, 8 deletions(-)
 > 
-
-Ok got it, so my concern came from the fact that we individually poll 
-each feature today but lets say the number of features keeps growing we 
-will have to combine them all into xxx_xxx_get_disp_info() which fills 
-up all the fields of the display_info in one go.
-
-But yes, as long as we do that before calling dpu_encoder_init() it 
-should be fine.
-
-Hence,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 32785cb1b079..8c45c949ec39 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -2154,13 +2154,6 @@ static int dpu_encoder_late_register(struct drm_encoder *encoder)
+>   	return _dpu_encoder_init_debugfs(encoder);
+>   }
+>   
+> -static void dpu_encoder_early_unregister(struct drm_encoder *encoder)
+> -{
+> -	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(encoder);
+> -
+> -	debugfs_remove_recursive(dpu_enc->debugfs_root);
+> -}
+> -
+>   static int dpu_encoder_virt_add_phys_encs(
+>   		struct msm_display_info *disp_info,
+>   		struct dpu_encoder_virt *dpu_enc,
+> @@ -2374,7 +2367,6 @@ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
+>   static const struct drm_encoder_funcs dpu_encoder_funcs = {
+>   		.destroy = dpu_encoder_destroy,
+>   		.late_register = dpu_encoder_late_register,
+> -		.early_unregister = dpu_encoder_early_unregister,
+>   };
+>   
+>   struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
