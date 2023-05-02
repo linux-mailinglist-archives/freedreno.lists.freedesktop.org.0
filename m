@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBBDE6F4BF2
-	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 23:17:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0126F4C07
+	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 23:19:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A298610E0CA;
-	Tue,  2 May 2023 21:17:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A77410E0E1;
+	Tue,  2 May 2023 21:19:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A68A810E0CA
- for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 21:17:57 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4f00d41df22so203323e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 14:17:57 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16F2610E0CA
+ for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 21:19:51 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4ec8148f73eso5069393e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 14:19:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683062276; x=1685654276;
+ d=linaro.org; s=google; t=1683062389; x=1685654389;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=VwytHTjfZACxdHSL3LETW68YNRwzhMqZLENGdJTXawc=;
- b=uWWWOF4InCVUC8xXQ2dx/Fx7CqnKt1RywdYpOfgCCgnlbC4FP9IMebuPEXyfRfJD1L
- F1nfiY2IoswC/vc9Ucs+ijR/0kBG8abJmp7hUf9iDcJGrSf2VVeOCrJ2LdqgOFfeH8ZW
- hz/a5xSUAttmGKoAMb3EOuv8dI1Ks3HFXcjC9lzHkEVVQrrjFheBOgjZXxxJXIbn33/y
- taunr9MGGjfTS4jS7GQpNnrwW66S9URtMqK5fmPgu83QUSTsoIVvtMWYXmdZHmplS1HZ
- rz2v43DpNjfw6RMEJkbmNPo9E8YgKoaGiaQV5ZCQHNzXL8wtmofM24Co0JAyNoKosswg
- Cszg==
+ bh=YL0HTP2hogruEK5o6822RwsE/FsRfHqk/sZ5fYBkYpY=;
+ b=qkxU8X69WCmYeF26b5A6eJHBpvj9iG5fHaRF07ui9uPjUJiuoCJeXA4Nmx5nnfbFS2
+ OzMme+hOaQjL0WjgbUnLjvfFKC214yPVZ3J/k8meWEGph4ZFHHD6rW8WIFnbb3bBLwCg
+ 7xsWgZcCE9rDFVs6nJKvU5gUjGNbZhJtiQqY4B1tZqkNaRibRC3EN3dL39etfGKaimUL
+ cwyPP/Y06buZzkR77qMWwRXyZCLqtjFcCbT/vah9b6ilQ/Y79rfZVMtuI7HbwlUhMWKY
+ aWv1KOGd1/kHuSvkrcR9Uv0hQ/AJbmhTqT/Oww0djRU2p+E005cQaBuBj/74jaQtxD1+
+ wlDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683062276; x=1685654276;
+ d=1e100.net; s=20221208; t=1683062389; x=1685654389;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VwytHTjfZACxdHSL3LETW68YNRwzhMqZLENGdJTXawc=;
- b=hecYKVyHM731Athe/tuTzdVArXdV4xWwtHBccAFA3k1HgeNpyP9EWdEu60HX03HPRQ
- 9yy+nFc3FgbYn+ma1yt/9nWKjVcBoO2lXSCZQy2YSvQmxox6+HjCqyPu81q4ELA571Vl
- 7PZnzdcxCLeu7X02IWBd+SGMAlgUjIE7svs8OzQj3+OAyPdI47pJ6aGPM5xJKzMOb6m1
- ZzMkGDY4YUfECf82Ua8QfMmIhm4QZw60d61EAjB5R+Zs4z0NsN2BJ2fP3Ain7Zt6GJaj
- X7oxiq5CrD/QGh3uJXsBz7PIC/NWy4QNfCikM6oCs/THrowSWyAvsxoZW2ZWUPEgcBwr
- dOjA==
-X-Gm-Message-State: AC+VfDw+8AkBinV1DB4opTq2GtKAKqni8Pgj33iaFpflToxM9ot8Qhsv
- QQtZgYtDAmzhfJXQYLMEIk3jRA==
-X-Google-Smtp-Source: ACHHUZ4NYrs2cp8G6oi0T4mSukhces7XxuwjRNl8ge+lY9H62LfBjLMzHsqPfLBoArQP7fHDVomd9A==
-X-Received: by 2002:a05:6512:4008:b0:4e2:7ab6:15cd with SMTP id
- br8-20020a056512400800b004e27ab615cdmr288532lfb.30.1683062275812; 
- Tue, 02 May 2023 14:17:55 -0700 (PDT)
+ bh=YL0HTP2hogruEK5o6822RwsE/FsRfHqk/sZ5fYBkYpY=;
+ b=HmsTsO3mIiPHeZKkDNCWtVCY5fqVLRdFSqbd7Kq1vYnZ1EVF0eUBixudlv+G6JLxKD
+ hSUCz7mvjTT9WVBkDWw6yQWx5YPqjpe+WRsSPJhhn/+gtpCwNE7bCsF4gVNzuT2NxfNC
+ mgCDhUIMLYRoayfY7gv29IqdCxaStVo18Bokje+ojl9ayIde5gbeoqT8dBTm3f5Jmes1
+ kUXaBrvxTEaQ3BjKSaBPREihDC3qkClAM2jMPaLfk0zO9QZjv1Rn+VkudHCMm7dqaAG9
+ SxBC30KexO4JRHRPZNdJOV//A3GhJnkiZSbTyBRaZVwZtqN3hfF5p/139hdtwr8FyVIo
+ JkqQ==
+X-Gm-Message-State: AC+VfDwsMACYbn4Mjm2TYedZTN6pntLdEkn7uM4L8LtkN6QfAIh32u4n
+ budzq/tjVBPu4quiUQLWdTgkrw==
+X-Google-Smtp-Source: ACHHUZ7K353thxP/m/nJc6hXiu7I5BesEV/LnUXH2Py/TJOLlivtli2tg/ZZSu2NGgk22wQz0FACJw==
+X-Received: by 2002:a05:6512:3750:b0:4ed:bf01:3ff3 with SMTP id
+ a16-20020a056512375000b004edbf013ff3mr284376lfs.43.1683062388893; 
+ Tue, 02 May 2023 14:19:48 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- w22-20020ac24436000000b004f012ac4aedsm2668700lfl.81.2023.05.02.14.17.55
+ o8-20020ac24948000000b004f121c8beddsm1158666lfi.124.2023.05.02.14.19.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 May 2023 14:17:55 -0700 (PDT)
-Message-ID: <bb1412f9-9dac-7e6b-efe0-424a898b46e9@linaro.org>
-Date: Wed, 3 May 2023 00:17:54 +0300
+ Tue, 02 May 2023 14:19:48 -0700 (PDT)
+Message-ID: <0aba48f3-b877-3d67-85a6-f71ba0a56495@linaro.org>
+Date: Wed, 3 May 2023 00:19:47 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
@@ -63,13 +63,13 @@ To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
  dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
  agross@kernel.org, andersson@kernel.org
 References: <1683061382-32651-1-git-send-email-quic_khsieh@quicinc.com>
- <1683061382-32651-2-git-send-email-quic_khsieh@quicinc.com>
+ <1683061382-32651-3-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1683061382-32651-2-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1683061382-32651-3-git-send-email-quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/7] drm/msm/dpu: add dsc blocks for
- remaining chipsets in catalog
+Subject: Re: [Freedreno] [PATCH v3 2/7] drm/msm/dpu: add DPU_PINGPONG_DSC
+ feature bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,25 +83,77 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
  marijn.suijten@somainline.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 03/05/2023 00:02, Kuogee Hsieh wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> There are some platforms has DSC blocks but it is not declared at catalog.
-> For completeness, this patch adds DSC blocks for platforms which missed
-> them.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  7 +++++++
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 11 +++++++++++
->   2 files changed, 18 insertions(+)
+> Legacy DPU requires PP block to be involved during DSC setting up.
+> This patch adds DDPU_PINGPONG_DSC feature bit to indicate that both
+
+DPU_PINGPONG_DSC
+
+> dpu_hw_pp_setup_dsc() and dpu_hw_pp_dsc_enable() pingpong ops
+> functions are required to complete DSC data path set up and start
+> DSC engine.
+
+Nit: as these ops were already present, I'd say that the lack of the 
+flag means that these operations are not supported and must not be 
+called for DSC setup/teardown.
+
+Nevertheless:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+> 
+> Reported-by : Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h  | 2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c | 9 ++++++---
+>   2 files changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 71584cd..c07a6b6 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -144,6 +144,7 @@ enum {
+>    * @DPU_PINGPONG_SPLIT      PP block supports split fifo
+>    * @DPU_PINGPONG_SLAVE      PP block is a suitable slave for split fifo
+>    * @DPU_PINGPONG_DITHER,    Dither blocks
+> + * @DPU_PINGPONG_DSC,	    PP ops functions required for DSC
+>    * @DPU_PINGPONG_MAX
+>    */
+>   enum {
+> @@ -152,6 +153,7 @@ enum {
+>   	DPU_PINGPONG_SPLIT,
+>   	DPU_PINGPONG_SLAVE,
+>   	DPU_PINGPONG_DITHER,
+> +	DPU_PINGPONG_DSC,
+>   	DPU_PINGPONG_MAX
+>   };
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> index 3822e06..f255a04 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
+> @@ -264,9 +264,12 @@ static void _setup_pingpong_ops(struct dpu_hw_pingpong *c,
+>   	c->ops.get_autorefresh = dpu_hw_pp_get_autorefresh_config;
+>   	c->ops.poll_timeout_wr_ptr = dpu_hw_pp_poll_timeout_wr_ptr;
+>   	c->ops.get_line_count = dpu_hw_pp_get_line_count;
+> -	c->ops.setup_dsc = dpu_hw_pp_setup_dsc;
+> -	c->ops.enable_dsc = dpu_hw_pp_dsc_enable;
+> -	c->ops.disable_dsc = dpu_hw_pp_dsc_disable;
+> +
+> +	if (features & BIT(DPU_PINGPONG_DSC)) {
+> +		c->ops.setup_dsc = dpu_hw_pp_setup_dsc;
+> +		c->ops.enable_dsc = dpu_hw_pp_dsc_enable;
+> +		c->ops.disable_dsc = dpu_hw_pp_dsc_disable;
+> +	}
+>   
+>   	if (test_bit(DPU_PINGPONG_DITHER, &features))
+>   		c->ops.setup_dither = dpu_hw_pp_setup_dither;
 
 -- 
 With best wishes
