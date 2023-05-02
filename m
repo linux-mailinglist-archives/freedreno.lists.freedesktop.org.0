@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C086F46A7
-	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 17:05:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12EC6F46AA
+	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 17:05:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36BDB10E57F;
-	Tue,  2 May 2023 15:05:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9354F10E59B;
+	Tue,  2 May 2023 15:05:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80CE710E592
- for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 15:05:39 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2a8b62cfaceso39460881fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 08:05:39 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496B410E57F
+ for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 15:05:40 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4f00d3f98deso28891583e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 08:05:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683039937; x=1685631937;
+ d=linaro.org; s=google; t=1683039938; x=1685631938;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PbDxCYhJmFFSMUEu1mJ+7YqN8UK0VH1yWSuHzujdSQ0=;
- b=dHLXF6BI7TxUfgEiL2W2yLAHWUN690x5s8xpYLCgGo/vddLsBQlRvVpcpycCEwqCfv
- EeW1rQoPc0HLlzS22oiZsYN1CDTTsYfrp9iAIOJYaIfbyOSZ60qxZAjtYkqOfV9agNxo
- Iye6FPHiupKXpoyiFDQE2EjlnFQEq23G2d/cHOv4xbkzXg8cS73bMPF7u7LzHZ0/3PM9
- 94ykglw/fissRvPNLl+mFup1JhqjLydweTIfynFET8fYo3ze6UinbD5c3KZjSoWXi5kG
- daauQdDewTW2KLxXuUSMDN5FT2N/N+J4rLa+jU5e0qs5hEzBru9caOZJXTUCTDRFe9oC
- qKKQ==
+ bh=fRTUjNAovFxHHJip4pkjqd6JPwFqTmtn1T/ylsG5TIg=;
+ b=RlYgrqHs4Rax2JHON5jgD1G9Fj21fk5dVS9phPCQLoHyTWnLMuDZIGPCSeCQbydP90
+ IgqFpeFgtmVNaTbPOlI+BvamEfJRk3ByTGDi5j7zfzu6QEzOscgabUONGvz7mNuIMYm8
+ ndtwUUrzmCDWVB8e75xXIPso4T3ElR3GeN333svOnRtgoB2jhqvCmqmpT8XwBscqBjao
+ AAcqeG/Xx17M1pZaSnTCtMqt0BVMCww3B6xKZI3vxBP5+5Ti0i2TQ4C7TAaUM9PKiiaS
+ 8b+KoGTnSsHPMxl/FJRBDzICVfbgSj14PCMWnAT9RCn3Ufh9P+s/EBZdN/74wj3AtG33
+ ubIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683039937; x=1685631937;
+ d=1e100.net; s=20221208; t=1683039938; x=1685631938;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=PbDxCYhJmFFSMUEu1mJ+7YqN8UK0VH1yWSuHzujdSQ0=;
- b=bOxQKTZq6uF80gGgTVcR3mqKd39xK1Ahv65cWCcyfTJQMSPesfpkkrSCKnwgb+pFiQ
- v4w4CpbIBvkGklUB7BlQ0fPwqjKshMJpdrdvMvbOzVbneugmvacTRxD0+AlBXkSrVuYB
- IpiBRcE/Yg0NEypvN5U/FSQwOwEXbvEnniuRCX/Jsz0e6EqaWqEDStMG7+2aClO9GN/8
- S0rOb55i6AR+YOGf89BscK+N+Y2VrEwKhGh4XUCLA5A7xA+ja6FiKTM5Na/8mVE2oJm2
- QT/5ZuoFSRK5vFUjrSk84HW0opKL4PunZz9lLmVCOmjM6WLiu+s0G4OnmCEYBqSE+E2A
- U7OQ==
-X-Gm-Message-State: AC+VfDx5keC6clTjbja9B0kRViVbLlMPUw+FF+iNJ1/fXlewazoWs5nX
- chQLh5UP+4RJRMtyCFqZtzWU1g==
-X-Google-Smtp-Source: ACHHUZ7Om4FznqkWK9yUOG3yRHNlfrVnJEcE9TVriAyOZBUkrGycW30H5eYJs+BhnCKtCl2w8FTuIw==
-X-Received: by 2002:a2e:7003:0:b0:2ab:24f:c3c1 with SMTP id
- l3-20020a2e7003000000b002ab024fc3c1mr4651071ljc.46.1683039937329; 
- Tue, 02 May 2023 08:05:37 -0700 (PDT)
+ bh=fRTUjNAovFxHHJip4pkjqd6JPwFqTmtn1T/ylsG5TIg=;
+ b=EA1Is56gh7cey/P18CeXRioe8DSNs38nybprVAkr0EYaypD9rAdXusO2ZXmTOIlJmq
+ K7l3XOeWUV11dcTvMqRI1qLwmzjJcau2ozV7jVMlTkuLvc3qiKQAexVdBRmWkKqnQt+c
+ Zp/duwpQ8IUnB3XEzOeQT1NQaAfSIVWFL3U7N9P8K7tlcrzhBx9r+yHQ1eXeSYP227lw
+ BI57FUJJX+jQ7ge+w4chuQ0xvahPb2b3/YSYc10dCW9f4n9slYVSccUAKyIGvNHZTPzU
+ kLMJ9cIxfFIhAJwPLxWZg9K2VwIjFZPRfBKFiiiRLEY2e/vFN8uaptsmT9AEPRRqzYHm
+ wHYA==
+X-Gm-Message-State: AC+VfDzktTUi0hMk/EV9W6SOTNiWe7gskpAJPZ+/DvXR9IT1JIMMG+t0
+ tcwGKu9yrxqLmAq3JXrhhX0WwQ==
+X-Google-Smtp-Source: ACHHUZ4k8lIYRR/JiHiQvC1D/fLoYFOGiV5RHqzIcWIDGuxeiiZ7t92TnX0v8RWoNp3BhdMyu+7d6Q==
+X-Received: by 2002:a2e:9d0b:0:b0:2a8:baea:2554 with SMTP id
+ t11-20020a2e9d0b000000b002a8baea2554mr4904498lji.3.1683039938118; 
+ Tue, 02 May 2023 08:05:38 -0700 (PDT)
 Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- a22-20020a2e8316000000b002a8bb52d994sm5341659ljh.25.2023.05.02.08.05.36
+ a22-20020a2e8316000000b002a8bb52d994sm5341659ljh.25.2023.05.02.08.05.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 May 2023 08:05:36 -0700 (PDT)
+ Tue, 02 May 2023 08:05:37 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  2 May 2023 18:05:27 +0300
-Message-Id: <20230502150533.3672840-4-dmitry.baryshkov@linaro.org>
+Date: Tue,  2 May 2023 18:05:28 +0300
+Message-Id: <20230502150533.3672840-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230502150533.3672840-1-dmitry.baryshkov@linaro.org>
 References: <20230502150533.3672840-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/9] drm/msm/dpu: fix the condition for (not)
- applying QoS to CURSOR SSPP
+Subject: [Freedreno] [PATCH v2 4/9] drm/msm/dpu: rearrange QoS setting code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,31 +82,49 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The function dpu_plane_sspp_update_pipe() contains code to skip enabling
-the QoS and OT limitis for CURSOR pipes. However all DPU since sdm845
-repurpose DMA SSPP for the cursor planes because they lack the real
-CURSOR SSPP. Fix the condition to actually check that the plane is
-CURSOR or not.
+Slightly rearrainge code in dpu_plane_sspp_update_pipe() to group
+QoS/LUT related functions.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 3b210320ea62..b8ed7247a6af 100644
+index b8ed7247a6af..586f089756fa 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1126,7 +1126,8 @@ static void dpu_plane_sspp_update_pipe(struct drm_plane *plane,
+@@ -1079,10 +1079,10 @@ static void dpu_plane_sspp_update_pipe(struct drm_plane *plane,
+ 		pipe->sspp->ops.setup_sourceaddress(pipe, layout);
+ 	}
+ 
+-	_dpu_plane_set_qos_ctrl(plane, pipe, false, DPU_PLANE_QOS_PANIC_CTRL);
+-
+ 	/* override for color fill */
+ 	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
++		_dpu_plane_set_qos_ctrl(plane, pipe, false, DPU_PLANE_QOS_PANIC_CTRL);
++
+ 		/* skip remaining processing on color fill */
+ 		return;
+ 	}
+@@ -1125,12 +1125,14 @@ static void dpu_plane_sspp_update_pipe(struct drm_plane *plane,
+ 
  	_dpu_plane_set_qos_lut(plane, pipe, fmt, pipe_cfg);
  	_dpu_plane_set_danger_lut(plane, pipe, fmt);
++	_dpu_plane_set_qos_ctrl(plane, pipe,
++				pipe->sspp->idx != SSPP_CURSOR0 &&
++				pipe->sspp->idx != SSPP_CURSOR1,
++				DPU_PLANE_QOS_PANIC_CTRL);
  
--	if (plane->type != DRM_PLANE_TYPE_CURSOR) {
-+	if (pipe->sspp->idx != SSPP_CURSOR0 &&
-+	    pipe->sspp->idx != SSPP_CURSOR1) {
- 		_dpu_plane_set_qos_ctrl(plane, pipe, true, DPU_PLANE_QOS_PANIC_CTRL);
+ 	if (pipe->sspp->idx != SSPP_CURSOR0 &&
+-	    pipe->sspp->idx != SSPP_CURSOR1) {
+-		_dpu_plane_set_qos_ctrl(plane, pipe, true, DPU_PLANE_QOS_PANIC_CTRL);
++	    pipe->sspp->idx != SSPP_CURSOR1)
  		_dpu_plane_set_ot_limit(plane, pipe, pipe_cfg, frame_rate);
- 	}
+-	}
+ 
+ 	if (pstate->needs_qos_remap)
+ 		_dpu_plane_set_qos_remap(plane, pipe);
 -- 
 2.39.2
 
