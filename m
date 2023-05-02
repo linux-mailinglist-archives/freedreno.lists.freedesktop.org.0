@@ -2,64 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 515786F469E
-	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 17:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824FB6F469D
+	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 17:05:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD0D10E2AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64CE610E587;
 	Tue,  2 May 2023 15:05:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A37AC10E2AD
- for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 15:05:36 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2a8b766322bso37703151fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 08:05:36 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE9410E2AD
+ for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 15:05:37 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2a8aea0c7dcso37543921fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 08:05:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683039934; x=1685631934;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=er6uZ2Jm9haTMcFY7KD9AAR3BYHrxeDV+fDEIq+qzbU=;
- b=lwvMRaTbj6M2HCTghvl8PCWKQb9xxtECbfnG/oj529Mz2WWUhUo2u1UKfYuh8pQU1+
- mZDLHQwoLJ7e7dqsmCKkuVtTpqrbo48LR3k9rR7VbyeaqOn1v2O7QrddsZipwn8DUAOL
- kDhjseYlcnkrkgwUljCA8t2b4dKmhU/ESppGfjw+BiF9hGWqEXztYwRF9A9xKrS75joW
- jnh7MywkbmMlBg2DesIQeWOudFsISLa8fkRE/2pVp7jHwC9sAgu5NdJVgwL3yH7C26Tc
- uh6KR85RCFWfS3JkPAD3HK1kmjAOtnt7mNxPTST41EQ7KXc+Rg/1JO3SVH5TV+PkXVI2
- TBXw==
+ d=linaro.org; s=google; t=1683039935; x=1685631935;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RMoajvygLpHN0tJCNypWoRhLDvyZjkn9k0Ux5UMBZj0=;
+ b=aq6PQEnpvIt055Z4lFjJVggKjt3Zbi+Pil63EwkB4Z7+lw6dPK4eP6uavg9xjIxG69
+ QmjGRMxQrLg5CQxidIHM/j+vfOLx08sBPd6VYe49go97JSUuCIf+rmYJ21X5yKChLSDB
+ z65cQrHdJJ/Zitk5cVZs2bQf1vQzIzrytujhrv7J2SxxS+jxzV2UhPXIaYpwkgm7H5dz
+ 2lYzoOo1IicNe3fwgtJBK8pcXgd3cP06YNJXyiTkae+Q7/pHxvg7yShP42iIffk2ZwA6
+ YPT8EfIT2vUFJtlkvw+2zqdMwmKAqsH4dg1LoKGwVQKuX/Pu9D7yqBtS6C4UNVkcZQSs
+ HKZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683039934; x=1685631934;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=er6uZ2Jm9haTMcFY7KD9AAR3BYHrxeDV+fDEIq+qzbU=;
- b=U5kC+wR+1AqQJOsBenhvlvcOCfPM8dhB2BR+XbLi1f28Uj+vXKKSORiSTbQ65ejU+3
- RMIjjgvLTV+5GB119gcPKXbrp1hG+3+gbxiT7KHcQVIApmDl1oPGLpK1ESA7YoqNPAnd
- XXer+BeCz7v10UqxfFTQZDbrAumdo/ABtRA8ViJmnmL4qhfQr8rzgSYcJIpV11wV7Qxc
- EVOL8cw4Ej1FQ4dDLjMbuXcYDwR5XWcVzVttU15C+LolIjbQ6jfZ4hlECDWVofKIN02O
- Db6iL3wWdD8nxzJHtgWaQMQzTSWyY3kqZeztCGMNfrk3QlBzLjnqGoRQq99zJ/sarFTa
- Oyiw==
-X-Gm-Message-State: AC+VfDw/9lAmKJpx4scDbJovCGgxWVlsdtjVMeWpVwM0D/8+HtENYaoR
- BlwPOOEcnGH0KvoAlOmRJo9IZQ==
-X-Google-Smtp-Source: ACHHUZ4Y2KzHHTiUxhebn6B6ijI7/6qVJ3xvmzPc5H3/8SF5nY/wKX7Z0R7LOIxWrQclhtp99uBiKw==
-X-Received: by 2002:a2e:b00e:0:b0:2a8:b286:826e with SMTP id
- y14-20020a2eb00e000000b002a8b286826emr4642926ljk.33.1683039934435; 
- Tue, 02 May 2023 08:05:34 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683039935; x=1685631935;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RMoajvygLpHN0tJCNypWoRhLDvyZjkn9k0Ux5UMBZj0=;
+ b=VMN3Xb2TkY8r9DaBMzq7ZctPpZjH+zPGpKgAXPMfNoIz8jWm19HZKwcoKa5FeAftlJ
+ ao0Ix8D1wfdukI9hnOHkAyfnPet9mWD489eu6wrjoSwDf3gwpO3Ax+MSuKqB5kqOXI7K
+ ZIgYuUhb1mYAQPn/Qtjqa6as31SOKly4NU6bxG4dPV9JT0a2UxKrbXMi2R+K6DviwwOa
+ HPZA6dSHZvF75nxhnfnmV5rMJMh+fskJatjRmY6gngaEIL7wY4geH1kQdcaQEtNqTTgk
+ SyifblqUGWjFB8jqzbroMp5pdZ/UoBFEKnBOHy5jRDHELuknFuXu9doGGx9qmbmEpUOE
+ Nzzw==
+X-Gm-Message-State: AC+VfDxIpWXyegGpKBLHRU12LTlwAYctwh4n9JnYsJaylZREgsfbkLOs
+ hRCNrr3UMFDy9BdbLuIBmvpu5A==
+X-Google-Smtp-Source: ACHHUZ7sMGsEr9SbneUQPTQORdszf+GEZU/0ukBHco511nAb/TPu/Ofjc3gz+02n/peFhjVKBboI6Q==
+X-Received: by 2002:a2e:9812:0:b0:2a8:c333:ebee with SMTP id
+ a18-20020a2e9812000000b002a8c333ebeemr4608389ljj.49.1683039935425; 
+ Tue, 02 May 2023 08:05:35 -0700 (PDT)
 Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- a22-20020a2e8316000000b002a8bb52d994sm5341659ljh.25.2023.05.02.08.05.33
+ a22-20020a2e8316000000b002a8bb52d994sm5341659ljh.25.2023.05.02.08.05.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 May 2023 08:05:33 -0700 (PDT)
+ Tue, 02 May 2023 08:05:34 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  2 May 2023 18:05:24 +0300
-Message-Id: <20230502150533.3672840-1-dmitry.baryshkov@linaro.org>
+Date: Tue,  2 May 2023 18:05:25 +0300
+Message-Id: <20230502150533.3672840-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230502150533.3672840-1-dmitry.baryshkov@linaro.org>
+References: <20230502150533.3672840-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/9] drm/msm/dpu: simplify QoS/CDP programming
+Subject: [Freedreno] [PATCH v2 1/9] drm/msm/dpu: fix SSPP register
+ definitions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,36 +83,124 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Merge SSPP and WB code programming QoS and CDP. This allows us to drop
-intermediate structures and duplicate code.
+Reorder SSPP register definitions to sort them in the ascending order.
+Move register bitfields after the register definitions.
 
-Changes since v1:
-- Fixed kerneldoc for _dpu_plane_set_qos_ctrl()
-- Fixed danger_safe_en programming conditions (Jeykumar)
-- Simplified the code surrounding setup_cdp() calls (Jeykumar)
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 66 +++++++++++----------
+ 1 file changed, 34 insertions(+), 32 deletions(-)
 
-Dmitry Baryshkov (9):
-  drm/msm/dpu: fix SSPP register definitions
-  drm/msm/dpu: simplify CDP programming
-  drm/msm/dpu: fix the condition for (not) applying QoS to CURSOR SSPP
-  drm/msm/dpu: rearrange QoS setting code
-  drm/msm/dpu: drop DPU_PLANE_QOS_VBLANK_CTRL
-  drm/msm/dpu: simplify qos_ctrl handling
-  drm/msm/dpu: drop DPU_PLANE_QOS_PANIC_CTRL
-  drm/msm/dpu: remove struct dpu_hw_pipe_qos_cfg
-  drm/msm/dpu: use common helper for WB and SSPP QoS setup
-
- .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  21 +--
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   4 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 142 +++++----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  52 ++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |  52 ++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |  32 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |  48 +----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h     |  27 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 165 +++++-------------
- 9 files changed, 194 insertions(+), 349 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+index 6b68ec5c7a5a..1bf717290dab 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+@@ -26,45 +26,18 @@
+ #define SSPP_SRC_FORMAT                    0x30
+ #define SSPP_SRC_UNPACK_PATTERN            0x34
+ #define SSPP_SRC_OP_MODE                   0x38
+-
+-/* SSPP_MULTIRECT*/
+-#define SSPP_SRC_SIZE_REC1                 0x16C
+-#define SSPP_SRC_XY_REC1                   0x168
+-#define SSPP_OUT_SIZE_REC1                 0x160
+-#define SSPP_OUT_XY_REC1                   0x164
+-#define SSPP_SRC_FORMAT_REC1               0x174
+-#define SSPP_SRC_UNPACK_PATTERN_REC1       0x178
+-#define SSPP_SRC_OP_MODE_REC1              0x17C
+-#define SSPP_MULTIRECT_OPMODE              0x170
+-#define SSPP_SRC_CONSTANT_COLOR_REC1       0x180
+-#define SSPP_EXCL_REC_SIZE_REC1            0x184
+-#define SSPP_EXCL_REC_XY_REC1              0x188
+-
+-#define MDSS_MDP_OP_DEINTERLACE            BIT(22)
+-#define MDSS_MDP_OP_DEINTERLACE_ODD        BIT(23)
+-#define MDSS_MDP_OP_IGC_ROM_1              BIT(18)
+-#define MDSS_MDP_OP_IGC_ROM_0              BIT(17)
+-#define MDSS_MDP_OP_IGC_EN                 BIT(16)
+-#define MDSS_MDP_OP_FLIP_UD                BIT(14)
+-#define MDSS_MDP_OP_FLIP_LR                BIT(13)
+-#define MDSS_MDP_OP_BWC_EN                 BIT(0)
+-#define MDSS_MDP_OP_PE_OVERRIDE            BIT(31)
+-#define MDSS_MDP_OP_BWC_LOSSLESS           (0 << 1)
+-#define MDSS_MDP_OP_BWC_Q_HIGH             (1 << 1)
+-#define MDSS_MDP_OP_BWC_Q_MED              (2 << 1)
+-
+ #define SSPP_SRC_CONSTANT_COLOR            0x3c
+ #define SSPP_EXCL_REC_CTL                  0x40
+ #define SSPP_UBWC_STATIC_CTRL              0x44
+-#define SSPP_FETCH_CONFIG                  0x048
++#define SSPP_FETCH_CONFIG                  0x48
+ #define SSPP_DANGER_LUT                    0x60
+ #define SSPP_SAFE_LUT                      0x64
+ #define SSPP_CREQ_LUT                      0x68
+ #define SSPP_QOS_CTRL                      0x6C
+-#define SSPP_DECIMATION_CONFIG             0xB4
+ #define SSPP_SRC_ADDR_SW_STATUS            0x70
+ #define SSPP_CREQ_LUT_0                    0x74
+ #define SSPP_CREQ_LUT_1                    0x78
++#define SSPP_DECIMATION_CONFIG             0xB4
+ #define SSPP_SW_PIX_EXT_C0_LR              0x100
+ #define SSPP_SW_PIX_EXT_C0_TB              0x104
+ #define SSPP_SW_PIX_EXT_C0_REQ_PIXELS      0x108
+@@ -81,11 +54,33 @@
+ #define SSPP_TRAFFIC_SHAPER_PREFILL        0x150
+ #define SSPP_TRAFFIC_SHAPER_REC1_PREFILL   0x154
+ #define SSPP_TRAFFIC_SHAPER_REC1           0x158
++#define SSPP_OUT_SIZE_REC1                 0x160
++#define SSPP_OUT_XY_REC1                   0x164
++#define SSPP_SRC_XY_REC1                   0x168
++#define SSPP_SRC_SIZE_REC1                 0x16C
++#define SSPP_MULTIRECT_OPMODE              0x170
++#define SSPP_SRC_FORMAT_REC1               0x174
++#define SSPP_SRC_UNPACK_PATTERN_REC1       0x178
++#define SSPP_SRC_OP_MODE_REC1              0x17C
++#define SSPP_SRC_CONSTANT_COLOR_REC1       0x180
++#define SSPP_EXCL_REC_SIZE_REC1            0x184
++#define SSPP_EXCL_REC_XY_REC1              0x188
+ #define SSPP_EXCL_REC_SIZE                 0x1B4
+ #define SSPP_EXCL_REC_XY                   0x1B8
+-#define SSPP_VIG_OP_MODE                   0x0
+-#define SSPP_VIG_CSC_10_OP_MODE            0x0
+-#define SSPP_TRAFFIC_SHAPER_BPC_MAX        0xFF
++
++/* SSPP_SRC_OP_MODE & OP_MODE_REC1 */
++#define MDSS_MDP_OP_DEINTERLACE            BIT(22)
++#define MDSS_MDP_OP_DEINTERLACE_ODD        BIT(23)
++#define MDSS_MDP_OP_IGC_ROM_1              BIT(18)
++#define MDSS_MDP_OP_IGC_ROM_0              BIT(17)
++#define MDSS_MDP_OP_IGC_EN                 BIT(16)
++#define MDSS_MDP_OP_FLIP_UD                BIT(14)
++#define MDSS_MDP_OP_FLIP_LR                BIT(13)
++#define MDSS_MDP_OP_BWC_EN                 BIT(0)
++#define MDSS_MDP_OP_PE_OVERRIDE            BIT(31)
++#define MDSS_MDP_OP_BWC_LOSSLESS           (0 << 1)
++#define MDSS_MDP_OP_BWC_Q_HIGH             (1 << 1)
++#define MDSS_MDP_OP_BWC_Q_MED              (2 << 1)
+ 
+ /* SSPP_QOS_CTRL */
+ #define SSPP_QOS_CTRL_VBLANK_EN            BIT(16)
+@@ -96,6 +91,7 @@
+ #define SSPP_QOS_CTRL_CREQ_VBLANK_OFF      20
+ 
+ /* DPU_SSPP_SCALER_QSEED2 */
++#define SSPP_VIG_OP_MODE                   0x0
+ #define SCALE_CONFIG                       0x04
+ #define COMP0_3_PHASE_STEP_X               0x10
+ #define COMP0_3_PHASE_STEP_Y               0x14
+@@ -107,6 +103,12 @@
+ #define COMP1_2_INIT_PHASE_Y               0x2C
+ #define VIG_0_QSEED2_SHARP                 0x30
+ 
++/* DPU_SSPP_CSC_10BIT space */
++#define SSPP_VIG_CSC_10_OP_MODE            0x0
++
++/* SSPP_TRAFFIC_SHAPER and _REC1 */
++#define SSPP_TRAFFIC_SHAPER_BPC_MAX        0xFF
++
+ /*
+  * Definitions for ViG op modes
+  */
 -- 
 2.39.2
 
