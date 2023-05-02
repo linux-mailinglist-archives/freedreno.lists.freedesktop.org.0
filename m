@@ -2,76 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A15A26F4D62
-	for <lists+freedreno@lfdr.de>; Wed,  3 May 2023 01:04:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EF166F4D7F
+	for <lists+freedreno@lfdr.de>; Wed,  3 May 2023 01:16:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3419310E11A;
-	Tue,  2 May 2023 23:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9A210E11D;
+	Tue,  2 May 2023 23:16:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B84810E109;
- Tue,  2 May 2023 23:04:30 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 342MSK24023201; Tue, 2 May 2023 23:04:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=aCQqlxOWOUW4tpaXwOTQFsXC1G3e8ROqMcd7JKgom4w=;
- b=L70MgH+esuR8UhHy+wgUi6/dGOPlOBKmcMz4tuI8XL5omHrypTnNswYYIVjV0Az5+YQ3
- Ste/yZA5ll5bjLy3TeWsiYkyZ/C0hhtk12U9PAIRt0fm6YUBYW7oMETgPGDf82T/H2FO
- xl31/fvzKfkaGDnaoFjk9FCs40QPvJDwQnogIV6AdlFMcOrWyZMka649+5LPDARcK78e
- bxaFdbV8yZtjTYPbZ1RNBXC/SFEZJ0vAE+8mjkVlO7fX1ooIVwEK5BfpfqHdGAUh0a/X
- CaQvu77CrZuqTOyKznr6Ee9wKJlmseRST8nl5vL+dBD1TNl1w0H9/v+iOVDUd2poLIMI pQ== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qawcta34v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 May 2023 23:04:24 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 342N4ND0026819
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 2 May 2023 23:04:23 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 2 May 2023
- 16:04:23 -0700
-Message-ID: <dae23075-b907-48c0-7605-f91589630beb@quicinc.com>
-Date: Tue, 2 May 2023 16:04:22 -0700
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [IPv6:2607:f8b0:4864:20::112a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56C8110E123
+ for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 23:16:09 +0000 (UTC)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-55a5e0f5b1aso26250317b3.0
+ for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 16:16:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683069368; x=1685661368;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SXO6retkz2cq9N6Jojgiaaj/1/92QkbNhQxs4uHhF3I=;
+ b=TUnCAgtse7NCZmfBiGyU47uHwFzhUCP+slxkJTryq8tRdUaUwWya6Qhsqt1bdELd/I
+ 1r1FvCJhpa4334JZSrZZZ67zW0z17grxMDnPBsJoz8Nilv17RhLrxSqtEo/Fucnh4dH1
+ OmQQvIvWoJwDeUJSWCWWHazCzftGtE0RmJYDqIndUZNzMTIkW8+9jVSdUNRTxcD1L43C
+ ARO9Ukpml07DDOHOtkyYYWiRaK98bMzNAyrOUrLARvosFOvm1p5n+FQLIB7aCEBWni2w
+ 1nni+92gNZzFF++j81kaNvCkf6MBUninDcWFZqaSMgD/k97rl2hjA8GhIBOsFNkDrrLc
+ GzOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683069368; x=1685661368;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SXO6retkz2cq9N6Jojgiaaj/1/92QkbNhQxs4uHhF3I=;
+ b=MGxXXEOWirBksJFHZYF0ZTxISiYJWlbnOaKNGvx1TrjiY4XUnpeX9s3Xbucwd1pESg
+ 5EAM/BloqWMvOpCGc+lIkwFeXzQbFn/NORFNg8kk8tfKRYK87IiWVrEFVkR/rExWRMhM
+ 6k5TlrGhz0zLn5sFLXXSP3T6Id2N65yIYim3jl5iCxa0I+EUrEJkr4brcco2WlGzSIwB
+ +90tKWII2CEczS22GhtkfMEtPrU5RN30nrlNpnF0d7DTOiaCtIsJMgMShJFEbfeSzlox
+ AOeBfL2tDRzkj0jMVNGmNuw/L4qbvOD6fXscGhmjEYN1VIq0IgvKxVtuoB7sCB6/8gxb
+ aYPA==
+X-Gm-Message-State: AC+VfDz7g94Wv4bzNeanBPiylAcxaTWMhT3Osz7cRBVDk7HITXob4fgU
+ otGEBOnGLlZv3ARkFXyuTtHVoCu2TJUYAkq7vI/ZoC/j8jNJEokk
+X-Google-Smtp-Source: ACHHUZ59UpLKTEsqEYDETaLcDqOxHO1Z3WJOekgCiVwPByWYulavqGuvXnGzGLFj+PIAxsTqWknU+ig50eMk0+Sfl+M=
+X-Received: by 2002:a0d:f3c1:0:b0:54e:ffbc:7ac2 with SMTP id
+ c184-20020a0df3c1000000b0054effbc7ac2mr19499019ywf.45.1683069368113; Tue, 02
+ May 2023 16:16:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
 References: <20230430235732.3341119-1-dmitry.baryshkov@linaro.org>
  <20230430235732.3341119-5-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230430235732.3341119-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: o9b_M4_ZRleaST5Bq2oRUxVXBMlVS0OR
-X-Proofpoint-GUID: o9b_M4_ZRleaST5Bq2oRUxVXBMlVS0OR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-02_12,2023-04-27_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- adultscore=0 mlxlogscore=995 impostorscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2305020197
+ <dae23075-b907-48c0-7605-f91589630beb@quicinc.com>
+In-Reply-To: <dae23075-b907-48c0-7605-f91589630beb@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 3 May 2023 02:15:56 +0300
+Message-ID: <CAA8EJppO3GhsRVY-5UjOO-GAw_NZONPaNBigO4P4_axXxNxsaA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH 4/7] drm/msm/dpu: drop duplicated intf/wb
  indices from encoder structs
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -86,40 +69,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, 3 May 2023 at 02:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 4/30/2023 4:57 PM, Dmitry Baryshkov wrote:
+> > Remove intf_idx and wb_idx fields from struct dpu_encoder_phys and
+> > struct dpu_enc_phys_init_params. Set the hw_intf and hw_wb directly and
+> > use them to get the instance index.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+>
+>  From whatever I can see, this will not affect functionality of intf or
+> wb and cleans it up well , so I am fine with this. Hence,
+>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>
+> One minor comment/question.
+>
+> <snipped other parts>
+>
+> > @@ -761,7 +761,7 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
+> >       struct dpu_encoder_phys_cmd *cmd_enc = NULL;
+> >       int ret = 0;
+> >
+> > -     DPU_DEBUG("intf %d\n", p->intf_idx - INTF_0);
+>
+> Was it intentional to drop the index in this log?
+
+We don't have p->intf_idx at this point. I think we can use
+p->hw_intf->idx instead, I'll fix that for v2.
+
+>
+> > +     DPU_DEBUG("intf\n");
+> >
+> >       cmd_enc = kzalloc(sizeof(*cmd_enc), GFP_KERNEL);
 
 
-On 4/30/2023 4:57 PM, Dmitry Baryshkov wrote:
-> Remove intf_idx and wb_idx fields from struct dpu_encoder_phys and
-> struct dpu_enc_phys_init_params. Set the hw_intf and hw_wb directly and
-> use them to get the instance index.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
 
- From whatever I can see, this will not affect functionality of intf or 
-wb and cleans it up well , so I am fine with this. Hence,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-One minor comment/question.
-
-<snipped other parts>
-
-> @@ -761,7 +761,7 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
->   	struct dpu_encoder_phys_cmd *cmd_enc = NULL;
->   	int ret = 0;
->   
-> -	DPU_DEBUG("intf %d\n", p->intf_idx - INTF_0);
-
-Was it intentional to drop the index in this log?
-
-> +	DPU_DEBUG("intf\n");
->   
->   	cmd_enc = kzalloc(sizeof(*cmd_enc), GFP_KERNEL);
+-- 
+With best wishes
+Dmitry
