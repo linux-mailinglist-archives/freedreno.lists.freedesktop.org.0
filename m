@@ -1,58 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B116F3F16
-	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 10:29:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D5D6F4054
+	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 11:40:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD1A10E4CE;
-	Tue,  2 May 2023 08:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D0CF10E34F;
+	Tue,  2 May 2023 09:40:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FF8610E4B5;
- Tue,  2 May 2023 08:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683016183; x=1714552183;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=dppkoItVo3w1Vh4d+7DBpn4zuU2bpK7umfiC0UMIeZ8=;
- b=AHkfTanB8qzygrwiuSMUMWI9bzGdpLzMWY46Lialxn3B4hnOAkmBGShJ
- jQ76szR/q/Luf6MkA0Z1lLz0T3+sql6rAHiC55NMS+yWgCH2spSnK97dE
- IYX2DsqnNSu4Oyx/1/EYn5WKLGyvQ0PSqHAG4Fs05bg0aRF/1daELNYHY
- Hp6I8tk5x+rk4WAHiMjuhDX/4VtoXo6ZuDCTRGSI2fepdVy6fgrS3FPkw
- 23inbg3+RQyueTQNSmLYAZSzN3V5r7dY+5jO73b+qIfNkyuebDG0t0vWr
- AnX/aR+zWiFTpOAnCvieDuGWJd+baEWceQvkaUU4uAiZPXOEAzjgboUYm Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10697"; a="413779261"
-X-IronPort-AV: E=Sophos;i="5.99,243,1677571200"; d="scan'208";a="413779261"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2023 01:29:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10697"; a="696088479"
-X-IronPort-AV: E=Sophos;i="5.99,243,1677571200"; d="scan'208";a="696088479"
-Received: from petrush-mobl3.ger.corp.intel.com (HELO [10.213.196.106])
- ([10.213.196.106])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2023 01:29:38 -0700
-Message-ID: <d81929b1-6d3d-7fc5-149d-2ae96040c217@linux.intel.com>
-Date: Tue, 2 May 2023 09:29:35 +0100
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2173710E4E0
+ for <freedreno@lists.freedesktop.org>; Tue,  2 May 2023 09:40:31 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2a8ba693f69so35829991fa.0
+ for <freedreno@lists.freedesktop.org>; Tue, 02 May 2023 02:40:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683020429; x=1685612429;
+ h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TEWIP1DnYqcJKtoSYV5jlvQrwXqIVjEEt9X7/YWzJO0=;
+ b=eG7Fo7s1OGxBsMs8WO1qxzxMIolncSAvz+67N6ECuL2WJjSzlFnUjwxdTknW1nbIyc
+ qJYN5Fm5iaYlDQ3c9Zkd8+OKtf1F3l/IydzAtIhWx0MaJTUgliz+CCx8p0dcQTLfrey7
+ ms8XlKN/d30jGveRdrxTz1z7UHPHLptlpf3AiX53IhqwErq8B4+j7dEVSV5Zu9Q3ZXxF
+ i900omXDSlgfmgdWjyNv7SMZoNn3hXRx8LCabShjSuCfTLbX7vHNxsDAixvXMr/0BhFY
+ fp46NMdxEPSRwLT18D8UiZNKtZGax6PMryIX3NI/YRpSk906gRzA5nNjXwa3VBM2l/1k
+ PmTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683020429; x=1685612429;
+ h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+ :content-language:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TEWIP1DnYqcJKtoSYV5jlvQrwXqIVjEEt9X7/YWzJO0=;
+ b=bC/3l2xIS/rzCc1ngSBvaMUknLYih0vJ1LmNCwljhfVpV0NyujrHWdpQU17MSH6nZO
+ wVLttun+FqsmEsMeAtQM8jno5e8oax39rdhtX6R+X5VaMpamPQuJS6LZxgwDTQcsywsn
+ jDFHGuTbXnUIWF10s9FaaH5lKdC9R4IEfGxrAUZZEBbIt/SmdKw2HgxU4Jpn6ufogl6e
+ ESATcNV+hSO4XcASCTxPXg5FFjcCrhELombyGb4VzCRLC9+A2JJQiWq8z6Ldxg0Ei7tI
+ AoLIn6TourbDULW0mkU68RFmJk0LgDrLNsmoAGAKKdwkc/Eb1dVXEwwK3l/INktYGiKi
+ S1Tg==
+X-Gm-Message-State: AC+VfDx5kEvPxL2gpB1V8eSkQQehjLCAsh42efJV2QhEn85AHv2+WvOp
+ G9CVsph3wd2xUKioPi68b5PI1Q==
+X-Google-Smtp-Source: ACHHUZ7U8h32IW4dOwk3n9FMSaeoXMNnPF01t4Yv+r7US+1pWNOwyKlV4bYHQUYsOvV80zWq7yiHEA==
+X-Received: by 2002:ac2:4543:0:b0:4ed:be06:9e83 with SMTP id
+ j3-20020ac24543000000b004edbe069e83mr4777018lfm.66.1683020428664; 
+ Tue, 02 May 2023 02:40:28 -0700 (PDT)
+Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
+ by smtp.gmail.com with ESMTPSA id
+ f16-20020ac25090000000b004efee4ff266sm4261816lfm.67.2023.05.02.02.40.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 May 2023 02:40:28 -0700 (PDT)
+Message-ID: <d2374464-82e6-78c3-9c5e-f4e509c86d83@linaro.org>
+Date: Tue, 2 May 2023 11:40:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
+ Thunderbird/102.10.1
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20230427175340.1280952-1-robdclark@gmail.com>
- <20230427175340.1280952-6-robdclark@gmail.com>
- <085ddd66-e08d-07b2-cdc6-bff2492ba090@linux.intel.com>
- <CAF6AEGsE1rV+Wt36qreA8xxPoNwMhb6Zwt_cumBisD=mcebG7w@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CAF6AEGsE1rV+Wt36qreA8xxPoNwMhb6Zwt_cumBisD=mcebG7w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 5/9] drm: Add fdinfo memory stats
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+References: <20230223-topic-gmuwrapper-v6-0-2034115bb60c@linaro.org>
+ <20230223-topic-gmuwrapper-v6-6-2034115bb60c@linaro.org>
+ <20230502074956.GA21869@akhilpo-linux.qualcomm.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230502074956.GA21869@akhilpo-linux.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v6 06/15] drm/msm/a6xx: Introduce GMU
+ wrapper support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,449 +79,697 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 28/04/2023 15:45, Rob Clark wrote:
-> On Fri, Apr 28, 2023 at 3:56 AM Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
->>
->>
->> On 27/04/2023 18:53, Rob Clark wrote:
->>> From: Rob Clark <robdclark@chromium.org>
->>>
->>> Add support to dump GEM stats to fdinfo.
->>>
->>> v2: Fix typos, change size units to match docs, use div_u64
->>> v3: Do it in core
->>> v4: more kerneldoc
->>>
->>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
->>> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->>> ---
->>>    Documentation/gpu/drm-usage-stats.rst | 54 +++++++++++----
->>>    drivers/gpu/drm/drm_file.c            | 99 ++++++++++++++++++++++++++-
->>>    include/drm/drm_file.h                | 19 +++++
->>>    include/drm/drm_gem.h                 | 30 ++++++++
->>>    4 files changed, 189 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
->>> index 552195fb1ea3..bfc14150452c 100644
->>> --- a/Documentation/gpu/drm-usage-stats.rst
->>> +++ b/Documentation/gpu/drm-usage-stats.rst
->>> @@ -52,6 +52,9 @@ String shall contain the name this driver registered as via the respective
->>>    Optional fully standardised keys
->>>    --------------------------------
->>>
->>> +Identification
->>> +^^^^^^^^^^^^^^
->>> +
->>>    - drm-pdev: <aaaa:bb.cc.d>
->>>
->>>    For PCI devices this should contain the PCI slot address of the device in
->>> @@ -69,6 +72,9 @@ scope of each device, in which case `drm-pdev` shall be present as well.
->>>    Userspace should make sure to not double account any usage statistics by using
->>>    the above described criteria in order to associate data to individual clients.
->>>
->>> +Utilization
->>> +^^^^^^^^^^^
->>> +
->>>    - drm-engine-<str>: <uint> ns
->>>
->>>    GPUs usually contain multiple execution engines. Each shall be given a stable
->>> @@ -93,18 +99,6 @@ exported engine corresponds to a group of identical hardware engines.
->>>    In the absence of this tag parser shall assume capacity of one. Zero capacity
->>>    is not allowed.
->>>
->>> -- drm-memory-<str>: <uint> [KiB|MiB]
->>> -
->>> -Each possible memory type which can be used to store buffer objects by the
->>> -GPU in question shall be given a stable and unique name to be returned as the
->>> -string here.
->>> -
->>> -Value shall reflect the amount of storage currently consumed by the buffer
->>> -object belong to this client, in the respective memory region.
->>> -
->>> -Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
->>> -indicating kibi- or mebi-bytes.
->>> -
->>>    - drm-cycles-<str>: <uint>
->>>
->>>    Engine identifier string must be the same as the one specified in the
->>> @@ -126,6 +120,42 @@ percentage utilization of the engine, whereas drm-engine-<str> only reflects
->>>    time active without considering what frequency the engine is operating as a
->>>    percentage of it's maximum frequency.
->>>
->>> +Memory
->>> +^^^^^^
->>> +
->>> +- drm-memory-<region>: <uint> [KiB|MiB]
->>> +
->>> +Each possible memory type which can be used to store buffer objects by the
->>> +GPU in question shall be given a stable and unique name to be returned as the
->>> +string here.  The name "memory" is reserved to refer to normal system memory.
->>
->> How is the name memory reserved, I mean when which part of the key?
->> Obviously amdgpu exposes drm-memory-vram so it can't mean system memory
->> there.
->>
->> [Comes back later]
->>
->> Ah I see.. you meant the _region_ name "memory" is reserved. Which
->> applies to the below keys, not the one above. Hmm.. So for multi-region
->> drivers you meant like:
-> 
-> right, I thought "drm-memory-memory" sounded silly, and otherwise
-> "memory" fit elsewhere as below, so "memory" seemed like a reasonable
-> region name ;-)
-> 
->> drm-total-memory:
->> drm-total-vram:
->>
->> Etc. Okay I think that works. All prefixes "drm-$category" become
->> reserved ones effectively but I think that is okay.
->>
->>> +
->>> +Value shall reflect the amount of storage currently consumed by the buffer
->>> +object belong to this client, in the respective memory region.
->>
->> OMG it is all my fault for mentioning buffer objects here... :)
->>
->> Maybe just fix the plural while moving.
->>
->> Or maybe there is time to s/buffer objects/memory/ too? Why not I think.
->> It would leave things more future proof.
->>
->>> +
->>> +Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
->>> +indicating kibi- or mebi-bytes.
->>> +
->>> +- drm-shared-<region>: <uint> [KiB|MiB]
->>> +
->>> +The total size of buffers that are shared with another file (ie. have more
->>> +than a single handle).
->>> +
->>> +- drm-private-<region>: <uint> [KiB|MiB]
->>> +
->>> +The total size of buffers that are not shared with another file.
->>
->> You went back to private + shared for a specific reason? I thought we
->> agreed total + shared can be less confusing.
-> 
-> opps, yes, I forgot to update the rst
-> 
->>> +
->>> +- drm-resident-<region>: <uint> [KiB|MiB]
->>> +
->>> +The total size of buffers that are resident in system memory.
->>
->> "..resident in the specified memory region."?
->>
->>> +
->>> +- drm-purgeable-<region>: <uint> [KiB|MiB]
->>> +
->>> +The total size of buffers that are purgeable.
->>> +
->>> +- drm-active-<region>: <uint> [KiB|MiB]
->>> +
->>> +The total size of buffers that are active on one or more rings.
->>
->> Under utilisation we used 'engines' so introducing 'rings' at least
->> needs clarification, maybe a terminology chapter? Or just use engines
->> for consistency?
-> 
-> using "engines" works for me
-> 
->>> +
->>>    Implementation Details
->>>    ======================
->>>
->>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
->>> index 6d5bdd684ae2..9321eb0bf020 100644
->>> --- a/drivers/gpu/drm/drm_file.c
->>> +++ b/drivers/gpu/drm/drm_file.c
->>> @@ -42,6 +42,7 @@
->>>    #include <drm/drm_client.h>
->>>    #include <drm/drm_drv.h>
->>>    #include <drm/drm_file.h>
->>> +#include <drm/drm_gem.h>
->>>    #include <drm/drm_print.h>
->>>
->>>    #include "drm_crtc_internal.h"
->>> @@ -871,9 +872,105 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->>>    }
->>>    EXPORT_SYMBOL(drm_send_event);
->>>
->>> +static void print_size(struct drm_printer *p, const char *stat,
->>> +                    const char *region, size_t sz)
->>> +{
->>> +     const char *units[] = {"", " KiB", " MiB"};
->>> +     unsigned u;
->>> +
->>> +     for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
->>> +             if (sz < SZ_1K)
->>> +                     break;
->>> +             sz = div_u64(sz, SZ_1K);
->>> +     }
->>> +
->>> +     drm_printf(p, "drm-%s-%s:\t%zu%s\n", stat, region, sz, units[u]);
->>> +}
->>> +
->>> +/**
->>> + * drm_print_memory_stats - A helper to print memory stats
->>> + * @p: The printer to print output to
->>> + * @stats: The collected memory stats
->>> + * @supported_status: Bitmask of optional stats which are available
->>> + * @region: The memory region
->>> + *
->>> + */
->>> +void drm_print_memory_stats(struct drm_printer *p,
->>> +                         const struct drm_memory_stats *stats,
->>> +                         enum drm_gem_object_status supported_status,
->>> +                         const char *region)
->>> +{
->>> +     print_size(p, "total", region, stats->private + stats->shared);
->>> +     print_size(p, "shared", region, stats->shared);
->>
->> Ah just rst is out of date.
->>
->>> +     print_size(p, "active", region, stats->active);
->>> +
->>> +     if (supported_status & DRM_GEM_OBJECT_RESIDENT)
->>> +             print_size(p, "resident", region, stats->resident);
->>> +
->>> +     if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
->>> +             print_size(p, "purgeable", region, stats->purgeable);
->>> +}
->>> +EXPORT_SYMBOL(drm_print_memory_stats);
->>> +
->>> +/**
->>> + * drm_show_memory_stats - Helper to collect and show standard fdinfo memory stats
->>> + * @p: the printer to print output to
->>> + * @file: the DRM file
->>> + *
->>> + * Helper to iterate over GEM objects with a handle allocated in the specified
->>> + * file.
->>> + */
->>> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->>> +{
->>> +     struct drm_gem_object *obj;
->>> +     struct drm_memory_stats status = {};
->>> +     enum drm_gem_object_status supported_status;
->>> +     int id;
->>> +
->>> +     spin_lock(&file->table_lock);
->>> +     idr_for_each_entry (&file->object_idr, obj, id) {
->>> +             enum drm_gem_object_status s = 0;
->>> +
->>> +             if (obj->funcs && obj->funcs->status) {
->>> +                     s = obj->funcs->status(obj);
->>> +                     supported_status = DRM_GEM_OBJECT_RESIDENT |
->>> +                                     DRM_GEM_OBJECT_PURGEABLE;
->>
->> Whats the purpose of supported_status? It is never modified. Did you
->> intend for the vfunc to be returning this?
-> 
-> for now, simply to avoid showing fields for drivers which don't
-> support the vfunc.. it could be made more fine grained later if the
-> need arises.
 
-I think if vfunc returned a bitmask of supported statuses that would be 
-better.
+On 2.05.2023 09:49, Akhil P Oommen wrote:
+> On Sat, Apr 01, 2023 at 01:54:43PM +0200, Konrad Dybcio wrote:
+>> Some (particularly SMD_RPM, a.k.a non-RPMh) SoCs implement A6XX GPUs
+>> but don't implement the associated GMUs. This is due to the fact that
+>> the GMU directly pokes at RPMh. Sadly, this means we have to take care
+>> of enabling & scaling power rails, clocks and bandwidth ourselves.
+>>
+>> Reuse existing Adreno-common code and modify the deeply-GMU-infused
+>> A6XX code to facilitate these GPUs. This involves if-ing out lots
+>> of GMU callbacks and introducing a new type of GMU - GMU wrapper (it's
+>> the actual name that Qualcomm uses in their downstream kernels).
+>>
+>> This is essentially a register region which is convenient to model
+>> as a device. We'll use it for managing the GDSCs. The register
+>> layout matches the actual GMU_CX/GX regions on the "real GMU" devices
+>> and lets us reuse quite a bit of gmu_read/write/rmw calls.
+> << I sent a reply to this patch earlier, but not sure where it went.
+> Still figuring out Mutt... >>
+Answered it here:
 
->>> +             }
->>> +
->>> +             if (obj->handle_count > 1) {
->>> +                     status.shared += obj->size;
->>> +             } else {
->>> +                     status.private += obj->size;
->>> +             }
->>> +
->>> +             if (s & DRM_GEM_OBJECT_RESIDENT) {
->>> +                     status.resident += obj->size;
->>> +             } else {
->>> +                     /* If already purged or not yet backed by pages, don't
->>> +                      * count it as purgeable:
->>> +                      */
->>> +                     s &= ~DRM_GEM_OBJECT_PURGEABLE;
->>> +             }
->>
->> Again, why couldn't a resident object also be purgeable?
-> 
-> it is the other way around.. if it isn't backed by pages (ie. already
-> purged, etc) it shouldn't count as purgeable
+https://lore.kernel.org/linux-arm-msm/4d3000c1-c3f9-0bfd-3eb3-23393f9a8f77@linaro.org/
 
-Oops, may bad.
+I don't think I see any new comments in this "reply revision" (heh), so please
+check that one out.
 
->>> +
->>> +             if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
->>> +                     status.active += obj->size;
->>> +
->>> +                     /* If still active, don't count as purgeable: */
->>> +                     s &= ~DRM_GEM_OBJECT_PURGEABLE;
->>
->> Also add it to resident if driver hasn't advertised
->> DRM_GEM_OBJECT_RESIDENT? Not much value so not sure.
->>
->>> +             }
->>> +
->>> +             if (s & DRM_GEM_OBJECT_PURGEABLE)
->>> +                     status.purgeable += obj->size;
->>> +     }
->>> +     spin_unlock(&file->table_lock);
->>> +
->>> +     drm_print_memory_stats(p, &status, supported_status, "memory");
->>> +}
->>> +EXPORT_SYMBOL(drm_show_memory_stats);
->>> +
->>>    /**
->>>     * drm_show_fdinfo - helper for drm file fops
->>> - * @seq_file: output stream
->>> + * @m: output stream
->>>     * @f: the device file instance
->>>     *
->>>     * Helper to implement fdinfo, for userspace to query usage stats, etc, of a
->>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
->>> index 6de6d0e9c634..1339e925af52 100644
->>> --- a/include/drm/drm_file.h
->>> +++ b/include/drm/drm_file.h
->>> @@ -41,6 +41,7 @@
->>>    struct dma_fence;
->>>    struct drm_file;
->>>    struct drm_device;
->>> +struct drm_printer;
->>>    struct device;
->>>    struct file;
->>>
->>> @@ -440,6 +441,24 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e);
->>>    void drm_send_event_timestamp_locked(struct drm_device *dev,
->>>                                     struct drm_pending_event *e,
->>>                                     ktime_t timestamp);
->>> +
->>> +
->>> +struct drm_memory_stats {
->>> +     size_t shared;
->>> +     size_t private;
->>> +     size_t resident;
->>> +     size_t purgeable;
->>> +     size_t active;
->>> +};
->>
->> Is size_t enough? I'd be tempted to just make it u64.
 > 
-> hmm, >4GB VRAM on 32b system?  Seems dubious but I guess u64 would be
-> fine too...
+> Only convenience I found is that we can reuse gmu register ops in a few
+> places (< 10 I think). If we just model this as another gpu memory
+> region, I think it will help to keep gmu vs gmu-wrapper/no-gmu
+> architecture code with clean separation. Also, it looks like we need to
+> keep a dummy gmu platform device in the devicetree with the current
+> approach. That doesn't sound right.
+That's correct, but.. if we switch away from that, VDD_GX/VDD_CX will
+need additional, gmuwrapper-configuration specific code anyway, as
+OPP & genpd will no longer make use of the default behavior which
+only gets triggered if there's a single power-domains=<> entry, afaicu.
 
-Or just two ioctls to overflow it with any driver which does delayed/on 
-first use allocation?
+If nothing else, this is a very convenient way to model a part of the
+GPU (as that's essentially what GMU_CX is, to my understanding) and
+the bindings people didn't shoot me in the head for proposing this, so
+I assume it'd be cool to pursue this..
 
-Regards,
-
-Tvrtko
-
->>> +
->>> +enum drm_gem_object_status;
->>> +
->>> +void drm_print_memory_stats(struct drm_printer *p,
->>> +                         const struct drm_memory_stats *stats,
->>> +                         enum drm_gem_object_status supported_status,
->>> +                         const char *region);
->>> +
->>> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
->>>    void drm_show_fdinfo(struct seq_file *m, struct file *f);
->>>
->>>    struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
->>> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
->>> index 189fd618ca65..9ebd2820ad1f 100644
->>> --- a/include/drm/drm_gem.h
->>> +++ b/include/drm/drm_gem.h
->>> @@ -42,6 +42,25 @@
->>>    struct iosys_map;
->>>    struct drm_gem_object;
->>>
->>> +/**
->>> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
->>> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
->>> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
->>> + *
->>> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
->>> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
+Konrad
 >>
->> can be
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  72 +++++++-
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 255 +++++++++++++++++++++++++---
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |   1 +
+>>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  14 +-
+>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c     |   8 +-
+>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h     |   6 +
+>>  6 files changed, 318 insertions(+), 38 deletions(-)
 >>
->>> + * it still active or not resident, in which case drm_show_fdinfo() will not
->> it is
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> index 87babbb2a19f..b1acdb027205 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>> @@ -1469,6 +1469,7 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
+>>  
+>>  void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+>>  {
+>> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>>  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>>  	struct platform_device *pdev = to_platform_device(gmu->dev);
+>>  
+>> @@ -1494,10 +1495,12 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+>>  	gmu->mmio = NULL;
+>>  	gmu->rscc = NULL;
+>>  
+>> -	a6xx_gmu_memory_free(gmu);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+>> +		a6xx_gmu_memory_free(gmu);
+>>  
+>> -	free_irq(gmu->gmu_irq, gmu);
+>> -	free_irq(gmu->hfi_irq, gmu);
+>> +		free_irq(gmu->gmu_irq, gmu);
+>> +		free_irq(gmu->hfi_irq, gmu);
+>> +	}
+>>  
+>>  	/* Drop reference taken in of_find_device_by_node */
+>>  	put_device(gmu->dev);
+>> @@ -1516,6 +1519,69 @@ static int cxpd_notifier_cb(struct notifier_block *nb,
+>>  	return 0;
+>>  }
+>>  
+>> +int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>> +{
+>> +	struct platform_device *pdev = of_find_device_by_node(node);
+>> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>> +	int ret;
+>> +
+>> +	if (!pdev)
+>> +		return -ENODEV;
+>> +
+>> +	gmu->dev = &pdev->dev;
+>> +
+>> +	of_dma_configure(gmu->dev, node, true);
+> why setup dma for a device that is not actually present?
+>> +
+>> +	pm_runtime_enable(gmu->dev);
+>> +
+>> +	/* Mark legacy for manual SPTPRAC control */
+>> +	gmu->legacy = true;
+>> +
+>> +	/* Map the GMU registers */
+>> +	gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
+>> +	if (IS_ERR(gmu->mmio)) {
+>> +		ret = PTR_ERR(gmu->mmio);
+>> +		goto err_mmio;
+>> +	}
+>> +
+>> +	gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
+>> +	if (IS_ERR(gmu->cxpd)) {
+>> +		ret = PTR_ERR(gmu->cxpd);
+>> +		goto err_mmio;
+>> +	}
+>> +
+>> +	if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
+>> +		ret = -ENODEV;
+>> +		goto detach_cxpd;
+>> +	}
+>> +
+>> +	init_completion(&gmu->pd_gate);
+>> +	complete_all(&gmu->pd_gate);
+>> +	gmu->pd_nb.notifier_call = cxpd_notifier_cb;
+>> +
+>> +	/* Get a link to the GX power domain to reset the GPU */
+>> +	gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
+>> +	if (IS_ERR(gmu->gxpd)) {
+>> +		ret = PTR_ERR(gmu->gxpd);
+>> +		goto err_mmio;
+>> +	}
+>> +
+>> +	gmu->initialized = true;
+>> +
+>> +	return 0;
+>> +
+>> +detach_cxpd:
+>> +	dev_pm_domain_detach(gmu->cxpd, false);
+>> +
+>> +err_mmio:
+>> +	iounmap(gmu->mmio);
+>> +
+>> +	/* Drop reference taken in of_find_device_by_node */
+>> +	put_device(gmu->dev);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>  int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>>  {
+>>  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index 931f9f3b3a85..8e0345ffab81 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -20,9 +20,11 @@ static inline bool _a6xx_check_idle(struct msm_gpu *gpu)
+>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>  
+>> -	/* Check that the GMU is idle */
+>> -	if (!a6xx_gmu_isidle(&a6xx_gpu->gmu))
+>> -		return false;
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+>> +		/* Check that the GMU is idle */
+>> +		if (!a6xx_gmu_isidle(&a6xx_gpu->gmu))
+>> +			return false;
+>> +	}
+>>  
+>>  	/* Check tha the CX master is idle */
+>>  	if (gpu_read(gpu, REG_A6XX_RBBM_STATUS) &
+>> @@ -612,13 +614,15 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+>>  		return;
+>>  
+>>  	/* Disable SP clock before programming HWCG registers */
+>> -	gmu_rmw(gmu, REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL, 1, 0);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu))
+>> +		gmu_rmw(gmu, REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL, 1, 0);
+>>  
+>>  	for (i = 0; (reg = &adreno_gpu->info->hwcg[i], reg->offset); i++)
+>>  		gpu_write(gpu, reg->offset, state ? reg->value : 0);
+>>  
+>>  	/* Enable SP clock */
+>> -	gmu_rmw(gmu, REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL, 0, 1);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu))
+>> +		gmu_rmw(gmu, REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL, 0, 1);
+>>  
+>>  	gpu_write(gpu, REG_A6XX_RBBM_CLOCK_CNTL, state ? clock_cntl_on : 0);
+>>  }
+>> @@ -1018,10 +1022,13 @@ static int hw_init(struct msm_gpu *gpu)
+>>  {
+>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>>  	int ret;
+>>  
+>> -	/* Make sure the GMU keeps the GPU on while we set it up */
+>> -	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+>> +		/* Make sure the GMU keeps the GPU on while we set it up */
+>> +		a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+>> +	}
+>>  
+>>  	/* Clear GBIF halt in case GX domain was not collapsed */
+>>  	if (a6xx_has_gbif(adreno_gpu))
+>> @@ -1144,6 +1151,17 @@ static int hw_init(struct msm_gpu *gpu)
+>>  			0x3f0243f0);
+>>  	}
+>>  
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu)) {
+>> +		/* Do it here, as GMU wrapper only inits the GMU for memory reservation etc. */
+>> +
+>> +		/* Set up the CX GMU counter 0 to count busy ticks */
+>> +		gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GPU_CX_BUSY_MASK, 0xff000000);
+>> +
+>> +		/* Enable power counter 0 */
+>> +		gmu_rmw(gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_0, 0xff, BIT(5));
+>> +		gmu_write(gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_ENABLE, 1);
+>> +	}
+>> +
+>>  	/* Protect registers from the CP */
+>>  	a6xx_set_cp_protect(gpu);
+>>  
+>> @@ -1233,6 +1251,8 @@ static int hw_init(struct msm_gpu *gpu)
+>>  	}
+>>  
+>>  out:
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu))
+>> +		return ret;
+>>  	/*
+>>  	 * Tell the GMU that we are done touching the GPU and it can start power
+>>  	 * management
+>> @@ -1267,6 +1287,9 @@ static void a6xx_dump(struct msm_gpu *gpu)
+>>  	adreno_dump(gpu);
+>>  }
+>>  
+>> +#define GBIF_GX_HALT_MASK	BIT(0)
+>> +#define GBIF_CLIENT_HALT_MASK	BIT(0)
+>> +#define GBIF_ARB_HALT_MASK	BIT(1)
+>>  #define VBIF_RESET_ACK_TIMEOUT	100
+>>  #define VBIF_RESET_ACK_MASK	0x00f0
+>>  
+>> @@ -1299,7 +1322,8 @@ static void a6xx_recover(struct msm_gpu *gpu)
+>>  	 * Turn off keep alive that might have been enabled by the hang
+>>  	 * interrupt
+>>  	 */
+>> -	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu))
+>> +		gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+> 
+> Maybe it is better to move this to a6xx_gmu_force_power_off.
+> 
+>>  
+>>  	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
+>>  
+>> @@ -1329,6 +1353,32 @@ static void a6xx_recover(struct msm_gpu *gpu)
+>>  
+>>  	dev_pm_genpd_remove_notifier(gmu->cxpd);
+>>  
+>> +	/* Software-reset the GPU */
+> 
+> This is not soft reset sequence. We are trying to quiescent gpu - ddr
+> traffic with this sequence.
+> 
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu)) {
+>> +		/* Halt the GX side of GBIF */
+>> +		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, GBIF_GX_HALT_MASK);
+>> +		spin_until(gpu_read(gpu, REG_A6XX_RBBM_GBIF_HALT_ACK) &
+>> +			   GBIF_GX_HALT_MASK);
+>> +
+>> +		/* Halt new client requests on GBIF */
+>> +		gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_CLIENT_HALT_MASK);
+>> +		spin_until((gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK) &
+>> +			   (GBIF_CLIENT_HALT_MASK)) == GBIF_CLIENT_HALT_MASK);
+>> +
+>> +		/* Halt all AXI requests on GBIF */
+>> +		gpu_write(gpu, REG_A6XX_GBIF_HALT, GBIF_ARB_HALT_MASK);
+>> +		spin_until((gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK) &
+>> +			   (GBIF_ARB_HALT_MASK)) == GBIF_ARB_HALT_MASK);
+>> +
+>> +		/* Clear the halts */
+>> +		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
+>> +
+>> +		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 0);
+>> +
+>> +		/* This *really* needs to go through before we do anything else! */
+>> +		mb();
+>> +	}
+>> +
+> 
+> This sequence should be before we collapse cx gdsc. Also, please see if
+> we can create a subroutine to avoid code dup.
+> 
+>>  	pm_runtime_use_autosuspend(&gpu->pdev->dev);
+>>  
+>>  	if (active_submits)
+>> @@ -1463,7 +1513,8 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
+>>  	 * Force the GPU to stay on until after we finish
+>>  	 * collecting information
+>>  	 */
+>> -	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 1);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu))
+>> +		gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 1);
+>>  
+>>  	DRM_DEV_ERROR(&gpu->pdev->dev,
+>>  		"gpu fault ring %d fence %x status %8.8X rb %4.4x/%4.4x ib1 %16.16llX/%4.4x ib2 %16.16llX/%4.4x\n",
+>> @@ -1624,7 +1675,7 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
+>>  		a6xx_gpu->llc_mmio = ERR_PTR(-EINVAL);
+>>  }
+>>  
+>> -static int a6xx_pm_resume(struct msm_gpu *gpu)
+>> +static int a6xx_gmu_pm_resume(struct msm_gpu *gpu)
+>>  {
+>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>> @@ -1644,10 +1695,61 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
+>>  
+>>  	a6xx_llc_activate(a6xx_gpu);
+>>  
+>> -	return 0;
+>> +	return ret;
+>>  }
+>>  
+>> -static int a6xx_pm_suspend(struct msm_gpu *gpu)
+>> +static int a6xx_pm_resume(struct msm_gpu *gpu)
+>> +{
+>> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>> +	unsigned long freq = 0;
+>> +	struct dev_pm_opp *opp;
+>> +	int ret;
+>> +
+>> +	gpu->needs_hw_init = true;
+>> +
+>> +	trace_msm_gpu_resume(0);
+>> +
+>> +	mutex_lock(&a6xx_gpu->gmu.lock);
+> I think we can ignore gmu lock as there is no real gmu device.
+> 
+>> +
+>> +	pm_runtime_resume_and_get(gmu->dev);
+>> +	pm_runtime_resume_and_get(gmu->gxpd);
+>> +
+>> +	/* Set the core clock, having VDD scaling in mind */
+>> +	ret = dev_pm_opp_set_rate(&gpu->pdev->dev, gpu->fast_rate);
+>> +	if (ret)
+>> +		goto err_core_clk;
+>> +
+>> +	ret = clk_bulk_prepare_enable(gpu->nr_clocks, gpu->grp_clks);
+>> +	if (ret)
+>> +		goto err_bulk_clk;
+>> +
+>> +	ret = clk_prepare_enable(gpu->ebi1_clk);
+>> +	if (ret)
+>> +		goto err_mem_clk;
+>> +
+>> +	/* If anything goes south, tear the GPU down piece by piece.. */
+>> +	if (ret) {
+>> +err_mem_clk:
+>> +		clk_bulk_disable_unprepare(gpu->nr_clocks, gpu->grp_clks);
+>> +err_bulk_clk:
+>> +		opp = dev_pm_opp_find_freq_ceil(&gpu->pdev->dev, &freq);
+>> +		dev_pm_opp_put(opp);
+>> +		dev_pm_opp_set_rate(&gpu->pdev->dev, 0);
+>> +err_core_clk:
+>> +		pm_runtime_put(gmu->gxpd);
+>> +		pm_runtime_put(gmu->dev);
+>> +	}
+>> +	mutex_unlock(&a6xx_gpu->gmu.lock);
+>> +
+>> +	if (!ret)
+>> +		msm_devfreq_resume(gpu);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static int a6xx_gmu_pm_suspend(struct msm_gpu *gpu)
+>>  {
+>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>> @@ -1674,11 +1776,62 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
+>>  	return 0;
+>>  }
+>>  
+>> +static int a6xx_pm_suspend(struct msm_gpu *gpu)
+>> +{
+>> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>> +	unsigned long freq = 0;
+>> +	struct dev_pm_opp *opp;
+>> +	int i, ret;
+>> +
+>> +	trace_msm_gpu_suspend(0);
+>> +
+>> +	opp = dev_pm_opp_find_freq_ceil(&gpu->pdev->dev, &freq);
+>> +	dev_pm_opp_put(opp);
+>> +
+>> +	msm_devfreq_suspend(gpu);
+>> +
+>> +	mutex_lock(&a6xx_gpu->gmu.lock);
+>> +
+>> +	clk_disable_unprepare(gpu->ebi1_clk);
+>> +
+>> +	clk_bulk_disable_unprepare(gpu->nr_clocks, gpu->grp_clks);
+>> +
+>> +	/* Set frequency to the minimum supported level (no 27MHz on A6xx!) */
+>> +	ret = dev_pm_opp_set_rate(&gpu->pdev->dev, freq);
+>> +	if (ret)
+>> +		goto err;
+>> +
+>> +	pm_runtime_put_sync(gmu->gxpd);
+>> +	pm_runtime_put_sync(gmu->dev);
+>> +
+>> +	mutex_unlock(&a6xx_gpu->gmu.lock);
+>> +
+>> +	if (a6xx_gpu->shadow_bo)
+>> +		for (i = 0; i < gpu->nr_rings; i++)
+>> +			a6xx_gpu->shadow[i] = 0;
+>> +
+>> +	gpu->suspend_count++;
+>> +
+>> +	return 0;
+>> +
+>> +err:
+>> +	mutex_unlock(&a6xx_gpu->gmu.lock);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>  static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+>>  {
+>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>  
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu)) {
+>> +		*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER);
+>> +		return 0;
+>> +	}
+>> +
+> Instead of wrapper check here, we can just create a separate op. I don't
+> see any benefit in reusing the same function here.
+> 
+> 
+>>  	mutex_lock(&a6xx_gpu->gmu.lock);
+>>  
+>>  	/* Force the GPU power on so we can read this register */
+>> @@ -1716,7 +1869,8 @@ static void a6xx_destroy(struct msm_gpu *gpu)
+>>  		drm_gem_object_put(a6xx_gpu->shadow_bo);
+>>  	}
+>>  
+>> -	a6xx_llc_slices_destroy(a6xx_gpu);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu))
+>> +		a6xx_llc_slices_destroy(a6xx_gpu);
+>>  
+>>  	mutex_lock(&a6xx_gpu->gmu.lock);
+>>  	a6xx_gmu_remove(a6xx_gpu);
+>> @@ -1957,8 +2111,8 @@ static const struct adreno_gpu_funcs funcs = {
+>>  		.set_param = adreno_set_param,
+>>  		.hw_init = a6xx_hw_init,
+>>  		.ucode_load = a6xx_ucode_load,
+>> -		.pm_suspend = a6xx_pm_suspend,
+>> -		.pm_resume = a6xx_pm_resume,
+>> +		.pm_suspend = a6xx_gmu_pm_suspend,
+>> +		.pm_resume = a6xx_gmu_pm_resume,
+>>  		.recover = a6xx_recover,
+>>  		.submit = a6xx_submit,
+>>  		.active_ring = a6xx_active_ring,
+>> @@ -1982,6 +2136,35 @@ static const struct adreno_gpu_funcs funcs = {
+>>  	.get_timestamp = a6xx_get_timestamp,
+>>  };
+>>  
+>> +static const struct adreno_gpu_funcs funcs_gmuwrapper = {
+>> +	.base = {
+>> +		.get_param = adreno_get_param,
+>> +		.set_param = adreno_set_param,
+>> +		.hw_init = a6xx_hw_init,
+>> +		.ucode_load = a6xx_ucode_load,
+>> +		.pm_suspend = a6xx_pm_suspend,
+>> +		.pm_resume = a6xx_pm_resume,
+>> +		.recover = a6xx_recover,
+>> +		.submit = a6xx_submit,
+>> +		.active_ring = a6xx_active_ring,
+>> +		.irq = a6xx_irq,
+>> +		.destroy = a6xx_destroy,
+>> +#if defined(CONFIG_DRM_MSM_GPU_STATE)
+>> +		.show = a6xx_show,
+>> +#endif
+>> +		.gpu_busy = a6xx_gpu_busy,
+>> +#if defined(CONFIG_DRM_MSM_GPU_STATE)
+>> +		.gpu_state_get = a6xx_gpu_state_get,
+>> +		.gpu_state_put = a6xx_gpu_state_put,
+>> +#endif
+>> +		.create_address_space = a6xx_create_address_space,
+>> +		.create_private_address_space = a6xx_create_private_address_space,
+>> +		.get_rptr = a6xx_get_rptr,
+>> +		.progress = a6xx_progress,
+>> +	},
+>> +	.get_timestamp = a6xx_get_timestamp,
+>> +};
+>> +
+>>  struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>>  {
+>>  	struct msm_drm_private *priv = dev->dev_private;
+>> @@ -2003,18 +2186,36 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>>  
+>>  	adreno_gpu->registers = NULL;
+>>  
+>> +	/* Check if there is a GMU phandle and set it up */
+>> +	node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
+>> +	/* FIXME: How do we gracefully handle this? */
+>> +	BUG_ON(!node);
+> How will you handle this BUG() when there is no GMU (a610 gpu)?
+> 
+>> +
+>> +	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
+>> +
+>>  	/*
+>>  	 * We need to know the platform type before calling into adreno_gpu_init
+>>  	 * so that the hw_apriv flag can be correctly set. Snoop into the info
+>>  	 * and grab the revision number
+>>  	 */
+>>  	info = adreno_info(config->rev);
+>> -
+>> -	if (info && (info->revn == 650 || info->revn == 660 ||
+>> -			adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), info->rev)))
+>> +	if (!info)
+>> +		return ERR_PTR(-EINVAL);
+>> +
+>> +	/* Assign these early so that we can use the is_aXYZ helpers */
+>> +	/* Numeric revision IDs (e.g. 630) */
+>> +	adreno_gpu->revn = info->revn;
+>> +	/* New-style ADRENO_REV()-only */
+>> +	adreno_gpu->rev = info->rev;
+>> +	/* Quirk data */
+>> +	adreno_gpu->info = info;
+>> +
+>> +	if (adreno_is_a650(adreno_gpu) || adreno_is_a660_family(adreno_gpu))
+>>  		adreno_gpu->base.hw_apriv = true;
+>>  
+>> -	a6xx_llc_slices_init(pdev, a6xx_gpu);
+>> +	/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu))
+>> +		a6xx_llc_slices_init(pdev, a6xx_gpu);
+>>  
+>>  	ret = a6xx_set_supported_hw(&pdev->dev, config->rev);
+>>  	if (ret) {
+>> @@ -2022,7 +2223,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>>  		return ERR_PTR(ret);
+>>  	}
+>>  
+>> -	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu))
+>> +		ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs_gmuwrapper, 1);
+>> +	else
+>> +		ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
+>>  	if (ret) {
+>>  		a6xx_destroy(&(a6xx_gpu->base.base));
+>>  		return ERR_PTR(ret);
+>> @@ -2035,13 +2239,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>>  	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
+>>  		priv->gpu_clamp_to_idle = true;
+>>  
+>> -	/* Check if there is a GMU phandle and set it up */
+>> -	node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
+>> -
+>> -	/* FIXME: How do we gracefully handle this? */
+>> -	BUG_ON(!node);
+>> -
+>> -	ret = a6xx_gmu_init(a6xx_gpu, node);
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu))
+>> +		ret = a6xx_gmu_wrapper_init(a6xx_gpu, node);
+>> +	else
+>> +		ret = a6xx_gmu_init(a6xx_gpu, node);
+>>  	of_node_put(node);
+>>  	if (ret) {
+>>  		a6xx_destroy(&(a6xx_gpu->base.base));
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>> index eea2e60ce3b7..51a7656072fa 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>> @@ -76,6 +76,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+>>  void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
+>>  
+>>  int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+>> +int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
+>>  void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
+>>  
+>>  void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>> index 30ecdff363e7..4e5d650578c6 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>> @@ -1041,16 +1041,18 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
+>>  	/* Get the generic state from the adreno core */
+>>  	adreno_gpu_state_get(gpu, &a6xx_state->base);
+>>  
+>> -	a6xx_get_gmu_registers(gpu, a6xx_state);
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+> nit: Kinda misleading function name to a layman. Should we invert the
+> function to "adreno_has_gmu"?
+> 
+> -Akhil
+>> +		a6xx_get_gmu_registers(gpu, a6xx_state);
+>>  
+>> -	a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
+>> -	a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
+>> -	a6xx_state->gmu_debug = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.debug);
+>> +		a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
+>> +		a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
+>> +		a6xx_state->gmu_debug = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.debug);
+>>  
+>> -	a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
+>> +		a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
+>> +	}
+>>  
+>>  	/* If GX isn't on the rest of the data isn't going to be accessible */
+>> -	if (!a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
+>> +	if (!adreno_has_gmu_wrapper(adreno_gpu) && !a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
+>>  		return &a6xx_state->base;
+>>  
+>>  	/* Get the banks of indexed registers */
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> index 6934cee07d42..5c5901d65950 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> @@ -528,6 +528,10 @@ int adreno_load_fw(struct adreno_gpu *adreno_gpu)
+>>  		if (!adreno_gpu->info->fw[i])
+>>  			continue;
+>>  
+>> +		/* Skip loading GMU firwmare with GMU Wrapper */
+>> +		if (adreno_has_gmu_wrapper(adreno_gpu) && i == ADRENO_FW_GMU)
+>> +			continue;
+>> +
+>>  		/* Skip if the firmware has already been loaded */
+>>  		if (adreno_gpu->fw[i])
+>>  			continue;
+>> @@ -1074,8 +1078,8 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>  	u32 speedbin;
+>>  	int ret;
+>>  
+>> -	/* Only handle the core clock when GMU is not in use */
+>> -	if (config->rev.core < 6) {
+>> +	/* Only handle the core clock when GMU is not in use (or is absent). */
+>> +	if (adreno_has_gmu_wrapper(adreno_gpu) || config->rev.core < 6) {
+>>  		/*
+>>  		 * This can only be done before devm_pm_opp_of_add_table(), or
+>>  		 * dev_pm_opp_set_config() will WARN_ON()
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> index f62612a5c70f..ee5352bc5329 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> @@ -115,6 +115,7 @@ struct adreno_gpu {
+>>  	 * code (a3xx_gpu.c) and stored in this common location.
+>>  	 */
+>>  	const unsigned int *reg_offsets;
+>> +	bool gmu_is_wrapper;
+>>  };
+>>  #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
+>>  
+>> @@ -145,6 +146,11 @@ struct adreno_platform_config {
+>>  
+>>  bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
+>>  
+>> +static inline bool adreno_has_gmu_wrapper(struct adreno_gpu *gpu)
+>> +{
+>> +	return gpu->gmu_is_wrapper;
+>> +}
+>> +
+>>  static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
+>>  {
+>>  	return (gpu->revn < 300);
 >>
->>> + * account for it as purgeable.  So drivers do not need to check if the buffer
->>> + * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
->>> + * as purgeable even while it is still busy on the GPU.. it does not _actually_
->>> + * become puregeable until it becomes idle.  The status gem object func does
->>> + * not need to consider this.)
->>> + */
->>> +enum drm_gem_object_status {
->>> +     DRM_GEM_OBJECT_RESIDENT  = BIT(0),
->>> +     DRM_GEM_OBJECT_PURGEABLE = BIT(1),
->>> +};
+>> -- 
+>> 2.40.0
 >>
->> Why enum for a bitmask?
-> 
-> I guess personal preference, #define's have no type so they aren't
-> linked to the variable
-> 
->>> +
->>>    /**
->>>     * struct drm_gem_object_funcs - GEM object functions
->>>     */
->>> @@ -174,6 +193,17 @@ struct drm_gem_object_funcs {
->>>         */
->>>        int (*evict)(struct drm_gem_object *obj);
->>>
->>> +     /**
->>> +      * @status:
->>> +      *
->>> +      * The optional status callback can return additional object state
->>> +      * which determines which stats the object is counted against.  The
->>> +      * callback is called under table_lock.  Racing against object status
->>> +      * change is "harmless", and the callback can expect to not race
->>> +      * against object destruction.
->>> +      */
->>> +     enum drm_gem_object_status (*status)(struct drm_gem_object *obj);
->>
->> Why not have this under driver vfuncs? Can you see an usecase where it
->> needs to be per object?
-> 
-> Probably doesn't need to be per object, but putting it in obj vfuncs
-> lets the driver keep it static in their foo_gem_stuff.c
-> 
->> Modulo the details ie. on the high level I think this works. More
->> advanced drivers can re-use the exported drm_print_memory_stats and
->> amount of sharing-vs-duplication seems similar to my proposal so again,
->> I think it is an okay approach.
-> 
-> yup, this was the intent w/ drm_print_memory_stats()
-> 
-> BR,
-> -R
-> 
->> Regards,
->>
->> Tvrtko
->>
->>> +
->>>        /**
->>>         * @vm_ops:
->>>         *
