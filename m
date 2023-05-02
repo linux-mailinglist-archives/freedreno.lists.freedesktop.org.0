@@ -1,68 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E6A76F47FF
-	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 18:10:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD2AA6F4B58
+	for <lists+freedreno@lfdr.de>; Tue,  2 May 2023 22:28:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6BE310E2B5;
-	Tue,  2 May 2023 16:10:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A2E10E082;
+	Tue,  2 May 2023 20:28:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ED2910E2B5;
- Tue,  2 May 2023 16:09:58 +0000 (UTC)
-Received: by mail-pg1-x52e.google.com with SMTP id
- 41be03b00d2f7-5144043d9d1so2768706a12.3; 
- Tue, 02 May 2023 09:09:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683043797; x=1685635797;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2Jhmn/igXsSQ1CgSsPa7t8gOoGNkMRgv5IZ8g6dlT48=;
- b=pJzuaACIWttjwELslkpHg1tCXmshS+yvKzlM2sclBeAZBqaktTCJdD8yhUTXg6i86o
- kkwivrOJHKBy0LnooQV+X+6wciXVy1C8bgD6obbCrIovO4o7JCJyWvxNBWuuNZQdyXMh
- ghBFTeWdu9LakvzS/7diA7EcEe5Y3IGFSGBdFG6gVFR36kYEii+W1Ln4aQrRVDL2vY6H
- ateJACxLjPKew3Jlx77UBG5H8o/1WKbDKyW1ehws+4PP0j+NpmwJuhW9aOMcN+rRUeYY
- RxY/MSmjaciiP9i16n2WmasfMoM65dS36Y6GCusdODbbUoFwHQFWd8EseLIOad7WuW8R
- O72w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683043797; x=1685635797;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2Jhmn/igXsSQ1CgSsPa7t8gOoGNkMRgv5IZ8g6dlT48=;
- b=EGNtkvVFQQ1h8LdlPkqQ8obh9/HXA/UstOuYixAFsJi9pTkKQumZbZ4zOCm9wjE+s0
- PC+jklAQqRS5Y9jiOeTivrd+jIsv02E+3bZiADUiz/V2kPt1gnXQracjCA7q7tksceTP
- nXxlqrG4cH8qwH1rwwo2iEQ8BW9YNzCml3BCs9riVNXD7RWZpkVgPvT8JqQkP2krXoqk
- XS+ISBBWQSV5tluYmtcUFFmQWqxfWjA3eYNGjmqVoPoL2+biZsECK750tffoBq72jLM6
- J1Q/c4eFaDX8v8JXplYZk7VXUF16XqGCrUPowhlMVVtnd38xr4DvEh3MsRzrD9UI+evl
- gZ5Q==
-X-Gm-Message-State: AC+VfDwX0RwBDBlP4f++mMDxN3Vc/+pLDdpVKwrLvPEGs9m+0pyY1qro
- dyFs4QgUTnVzdktollB+xzY5pw7k2XI=
-X-Google-Smtp-Source: ACHHUZ4S2jGKgufIL9tpXhjYzZqUINYF6azJ3+MOLssaF0FK1bp3oJJJR7P9lf0iUWJblNhY54sFLw==
-X-Received: by 2002:a05:6a20:d69a:b0:ee:2bc1:6e01 with SMTP id
- it26-20020a056a20d69a00b000ee2bc16e01mr18312922pzb.24.1683043797412; 
- Tue, 02 May 2023 09:09:57 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
- by smtp.gmail.com with ESMTPSA id
- u29-20020a056a00099d00b0063d2bb0d107sm22055505pfg.64.2023.05.02.09.09.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 May 2023 09:09:57 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	iommu@lists.linux-foundation.org
-Date: Tue,  2 May 2023 09:09:48 -0700
-Message-Id: <20230502160950.1758826-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230502160950.1758826-1-robdclark@gmail.com>
-References: <20230502160950.1758826-1-robdclark@gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C9710E082;
+ Tue,  2 May 2023 20:28:04 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 342JurL9011028; Tue, 2 May 2023 20:27:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=bNSfF3fp8GOd4MX5IVX2LFeM5Oveea86k3zpUubxvG0=;
+ b=VtXNFBspPlpx5Dx1l8HuPNfMZcGj3r+8cugJWww5TJfURpbtB6CD3OzD0Tv9MKYSE4B1
+ Dr3urx8Z37nmEHFWcNOD3/MKSmQWrJUIsf7YlVxvyMxiRA2rhkxD6vpDhwIjGeZzuK03
+ WACiTdjzmpHc8zQs46dX7R9Q4qDnsWTCQECZoaov6vqKuuqaIT6IEfqM+LyPRlejegGS
+ MI037egkcabfNAvKtpcEAzhD34C3Tffb/R7E6CSRjVUHPqUYC3tIulf4p+NRcHy3k/fq
+ RVnzk12jQFUgb7yJPDd4dweH0UbWNuOWfZmW/Wt527em1uDqTMDy9U/st6g0Pcik7nRS Gg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qan8gjq1d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 02 May 2023 20:27:58 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 342KRvub011320
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 2 May 2023 20:27:57 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 2 May 2023
+ 13:27:56 -0700
+Message-ID: <2fc36ced-039d-edc8-1695-6c79e196610e@quicinc.com>
+Date: Tue, 2 May 2023 13:27:56 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Be more shouty if per-process
- pgtables aren't working
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20230430235732.3341119-1-dmitry.baryshkov@linaro.org>
+ <20230430235732.3341119-2-dmitry.baryshkov@linaro.org>
+ <0d09f4ea-8778-d61d-feea-c0b3a2a6ebe4@quicinc.com>
+ <048b40fb-b4d0-2b33-9e97-dddec1405269@linaro.org>
+ <ee9da7d9-44a7-eb99-679b-c968fdb9ef6a@quicinc.com>
+ <657391b8-7a87-6fcb-44d8-de505718f351@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <657391b8-7a87-6fcb-44d8-de505718f351@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: D8yCcLJMr64KaOjWRVKXZ_ToMa4AIu-d
+X-Proofpoint-ORIG-GUID: D8yCcLJMr64KaOjWRVKXZ_ToMa4AIu-d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-02_12,2023-04-27_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 mlxscore=0 priorityscore=1501
+ mlxlogscore=807 impostorscore=0 bulkscore=0 phishscore=0 clxscore=1015
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2305020174
+Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/dpu: merge dpu_encoder_init()
+ and dpu_encoder_setup()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,56 +90,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-Otherwise it is not always obvious if a dt or iommu change is causing us
-to fall back to global pgtable.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_iommu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 5/1/2023 2:27 PM, Dmitry Baryshkov wrote:
+> On 02/05/2023 00:22, Abhinav Kumar wrote:
+>>
+>>
+>> On 5/1/2023 1:45 PM, Dmitry Baryshkov wrote:
+>>> On 01/05/2023 22:58, Abhinav Kumar wrote:
+>>>>
+>>>>
+>>>> On 4/30/2023 4:57 PM, Dmitry Baryshkov wrote:
+>>>>> There is no reason to split the dpu_encoder interface into separate
+>>>>> _init() and _setup() phases. Merge them into a single function.
+>>>>>
+>>>>
+>>>> I think the reason for having this split was to pass a valid encoder 
+>>>> to the interface_modeset_init() and then do the rest of encoder 
+>>>> initialization after modeset_init().
+>>>>
+>>>> Looking at the current code, one issue i am seeing is that you will 
+>>>> now initialize the dpu_encoder's msm_display_info along with 
+>>>> dpu_encoder_init().
+>>>>
+>>>> Most of it is fine but in the case of bonded_dsi(), I see an issue.
+>>>>
+>>>> The info.num_of_h_tiles++ happens after the modeset_init() of the 
+>>>> second dsi but now it has been moved earlier.
+>>>>
+>>>> If for some reason, msm_dsi_modeset_init() fails for the second DSI, 
+>>>> num_of_h_tiles will still be 2 now.
+>>>
+>>> If msm_dsi_modeset_init() fails, the function will err out and fail 
+>>> dpu_kms initialization. So it's not important, what is the value of 
+>>> num_h_tiles in this case.
+>>>
+>>
+>> But I still feel the msm_display_info should be saved in the dpu 
+>> encoder after the modeset_init() and not before. That way if some 
+>> display interface specific init is done in the modeset_init(), we save 
+>> the info after that.
+> 
+> Up to now we have been using 'poll' model, e.g. we specifically asked 
+> for the DSC info from the DSI host rather than making msm_dsi set it. So 
+> far I don't see a good reason why this should be changed.
+> 
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 418e1e06cdde..1b7792d35860 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -224,24 +224,25 @@ static int msm_fault_handler(struct iommu_domain *domain, struct device *dev,
- 
- struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
- {
- 	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(parent->dev);
- 	struct msm_iommu *iommu = to_msm_iommu(parent);
- 	struct msm_iommu_pagetable *pagetable;
- 	const struct io_pgtable_cfg *ttbr1_cfg = NULL;
- 	struct io_pgtable_cfg ttbr0_cfg;
- 	int ret;
- 
-+
- 	/* Get the pagetable configuration from the domain */
- 	if (adreno_smmu->cookie)
- 		ttbr1_cfg = adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
--	if (!ttbr1_cfg)
-+	if (WARN_ON_ONCE(!ttbr1_cfg))
- 		return ERR_PTR(-ENODEV);
- 
- 	pagetable = kzalloc(sizeof(*pagetable), GFP_KERNEL);
- 	if (!pagetable)
- 		return ERR_PTR(-ENOMEM);
- 
- 	msm_mmu_init(&pagetable->base, parent->dev, &pagetable_funcs,
- 		MSM_MMU_IOMMU_PAGETABLE);
- 
- 	/* Clone the TTBR1 cfg as starting point for TTBR0 cfg: */
--- 
-2.39.2
+Ok got it, so my concern came from the fact that we individually poll 
+each feature today but lets say the number of features keeps growing we 
+will have to combine them all into xxx_xxx_get_disp_info() which fills 
+up all the fields of the display_info in one go.
 
+But yes, as long as we do that before calling dpu_encoder_init() it 
+should be fine.
+
+Hence,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
