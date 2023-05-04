@@ -1,85 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A6776F75F3
-	for <lists+freedreno@lfdr.de>; Thu,  4 May 2023 22:03:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A2A96F7710
+	for <lists+freedreno@lfdr.de>; Thu,  4 May 2023 22:33:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E52B10E51F;
-	Thu,  4 May 2023 20:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9C1C10E002;
+	Thu,  4 May 2023 20:33:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3782210E517;
- Thu,  4 May 2023 20:03:10 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 344Jj7Vf025862; Thu, 4 May 2023 20:03:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=faCqG69qLyLkXNye9eJMNdCtp6uyP6oT4gzqngATrec=;
- b=eq1yNutC0JmmZKW0YoVrypbffkMclIMUN7xMUkKZg5zN/4Qsy44ibp9K7OoAe4I/GdKY
- CNXlUX1NnoIQtNTS3xlQqxdU9/k8V8+LfEC5lAB6o6f9s2CHfJ5nnVloWDkeG/chskEs
- Tcm2YYWgvY+20ooOXLPCbCyXOT5vtB/+b0ffmEWMTo7CMWbi0jk9Gh0+eezDCIsqy4Bj
- UKUzetmJicGbIKinARjKd9ZmA+hZeHCAYf11ooUqhFxfZUXFoG0+PB0CQNrly101tA83
- Z/9ympe2YsyHo7qfzwAhurarhW6ZWZN6H34pDIfyY3o4DbRKovYbCKy57+3kxwlVkbIj Yg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qc652j1fb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 May 2023 20:03:03 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 344K32qA004827
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 4 May 2023 20:03:02 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 4 May 2023
- 13:03:01 -0700
-Message-ID: <85397bfb-a2d8-856d-c747-f303b8e1d598@quicinc.com>
-Date: Thu, 4 May 2023 13:03:01 -0700
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBACC10E533
+ for <freedreno@lists.freedesktop.org>; Thu,  4 May 2023 20:33:19 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DB43240B00;
+ Thu,  4 May 2023 22:33:16 +0200 (CEST)
+Date: Thu, 4 May 2023 22:33:15 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <lq6le3pxya3op2nke53uniusr3chtkmqdfrc7wkv4tylqb2fio@esjoh4f63g5q>
+References: <20230405-add-dsc-support-v1-0-6bc6f03ae735@quicinc.com>
+ <20230405-add-dsc-support-v1-1-6bc6f03ae735@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <1683218805-23419-1-git-send-email-quic_khsieh@quicinc.com>
- <1683218805-23419-4-git-send-email-quic_khsieh@quicinc.com>
- <ljt5mp4ew5lcrrrdd7xyof3jv3friafbmr3im35ddwxjc42ekh@toez7xfdreg2>
- <CAA8EJpreM9i3DUp+93K7p14f_tNMy-m+C-WdyN5_drmmkGV66g@mail.gmail.com>
- <u7hlzltevx675gfg4w6emmeceo6nj76taqeecsor6iqsi3hmki@lg43y65m6chz>
- <11ef769a-5089-57d4-db87-4c5766d98206@quicinc.com>
- <6qg25ffuq6xcfz3vuqm5lguspihjospctjclxmwyu2ifau4p7b@txywjmir7lg5>
- <9011a078-9962-b3de-6427-b9114fcd0cf4@quicinc.com>
- <06864435-3db9-a91c-2e99-69829d8296b1@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <06864435-3db9-a91c-2e99-69829d8296b1@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: pw0kleZpK45N4rfOhAvW4dqBBZydbELg
-X-Proofpoint-ORIG-GUID: pw0kleZpK45N4rfOhAvW4dqBBZydbELg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-04_13,2023-05-04_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- mlxlogscore=999 mlxscore=0 bulkscore=0 clxscore=1015 spamscore=0
- impostorscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2305040162
-Subject: Re: [Freedreno] [PATCH v5 3/7] drm/msm/dpu: add DPU_PINGPONG_DSC
- bits into PP_BLK and PP_BLK_TE marcos
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230405-add-dsc-support-v1-1-6bc6f03ae735@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 1/4] drm/msm/dsi: Adjust pclk rate for
+ compression
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,103 +43,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Title suggestion: use the wording "reduce pclk rate" :)
 
+(Eventually "when DSC is enabled", instead of "for compression")
 
-On 5/4/2023 12:59 PM, Dmitry Baryshkov wrote:
-> On 04/05/2023 22:50, Abhinav Kumar wrote:
->>
->>
->> On 5/4/2023 12:36 PM, Marijn Suijten wrote:
->>> On 2023-05-04 11:25:44, Abhinav Kumar wrote:
->>> <snip>
->>>>> Sure, if you really prefer a split I'd go for two patches:
->>>>> 1. Add the flag to the enum and catalog;
->>>>> 2. Add the ops guard (functional change).
->>>>>
->>>>> Then don't forget to reword the commit message, following the 
->>>>> guidelines
->>>>> below and the suggestion for 2/7.
->>>>>
->>>>> - Marijn
->>>>
->>>> Plan sounds good to me.
->>>>
->>>> Marijn, we will wait for a couple of days to post the next rev but 
->>>> would
->>>> be hard more than that as we need to pick up other things which are
->>>> pending on top of this. Hence would appreciate if you can finish 
->>>> reviews
->>>> by then.
->>>
->>> It depends on how many more revisions are needed after that, and not all
->>> patches in this series have an r-b just yet.  Given the amount of review
->>> comments that are still trickling in (also on patches that already have
->>> maintainer r-b) I don't think we're quite there to start thinging about
->>> picking this up in drm-msm just yet.  I doubt anyone wants a repeat of
->>> the original DSC series, which went through many review rounds yet still
->>> required multiple series of bugfixes (some of which were pointed out and
->>> ignored in review) to be brought to a working state.  But the split
->>> across topics per series already makes this a lot less likely, many
->>> thanks for that.
->>>
->>
->> I think the outstanding comments shouldnt last more than 1-2 revs more 
->> on this one as its mostly due to multiple patches on the list touching 
->> catalog at the same time. I have been monitoring the comments closely 
->> even though I dont respond to all of them.
->>
->> One of the major reasons of the number of issues with DSC 1.1 was QC 
->> didn't really have the devices or panels to support it. Thats why I 
->> changed that this time around to take more control of validation of 
->> DSC 1.2 and ofcourse decided to break up of series into the least 
->> amount of functionality needed to keep the DPU driver intact.
->>
->> All that being said, we still value your comments and would gladly 
->> wait for a couple of days like I already wrote. But there are more 
->> incremental series on top of this:
->>
->> -> DSI changes for DSC 1.2
->> -> proper teardown for DSC
->> -> DSC pair allocation support
->> -> DSC 1.2 over DP
->>
->> We will be posting all of these within next couple of weeks on top of 
->> this.
+On 2023-05-02 18:19:12, Jessica Zhang wrote:
+> Divide the pclk rate by the compression ratio when DSC is enabled
 > 
-> I'd say, it's fine to post them now, as we have more or less agreed on 
-> the helper series. The interface between the series should be stable then.
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+
+Thank you so much for sending this.   The compression ratio was applied
+to hdisplay, but not the clocks yet, and with this patch I get a massive
+reduction in clock speeds on the Xperia XZ3, without regressions nor
+affecting performance/fps:
+
+          gcc_sys_noc_cpuss_ahb_clk       1        1        0    19200000          0     0  50000         Y
+          gcc_cpuss_ahb_clk           1        1        0    19200000          0     0  50000         Y
+    bi_tcxo                           6        6        0    19200000          0     0  50000         Y
+       dsi0vco_clk                    1        1        0  [-1873793994-]{+1249195898+}          0     0  50000         Y
+          dsi0_pll_out_div_clk        1        1        0   [-1873793994-]{+624597949+}          0     0  50000         Y
+             dsi0_pll_post_out_div_clk       0        0        0   [-468448498-]{+156149487+}          0     0  50000         Y
+             dsi0_pll_bit_clk         2        2        0   [-1873793994-]{+624597949+}          0     0  50000         Y
+                dsi0_pclk_mux         1        1        0   [-1873793994-]{+624597949+}          0     0  50000         Y
+                   dsi0_phy_pll_out_dsiclk       1        1        0   [-312298999-]{+104099659+}          0     0  50000         Y
+                      disp_cc_mdss_pclk0_clk_src       1        1        0   [-312298999-]{+104099659+}          0     0  50000         Y
+                         disp_cc_mdss_pclk0_clk       1        1        0   [-312298999-]{+104099659+}          0     0  50000         Y
+                dsi0_pll_by_2_bit_clk       0        0        0   [-936896997-]{+312298974+}          0     0  50000         Y
+                dsi0_phy_pll_out_byteclk       1        1        0    [-234224249-]{+78074743+}          0     0  50000         Y
+                   disp_cc_mdss_byte0_clk_src       2        2        0    [-234224249-]{+78074743+}          0     0  50000         Y
+                      disp_cc_mdss_byte0_div_clk_src       1        1        0    [-117112125-]{+39037372+}          0     0  50000         Y
+                         disp_cc_mdss_byte0_intf_clk       1        1        0    [-117112125-]{+39037372+}          0     0  50000         Y
+                      disp_cc_mdss_byte0_clk       1        1        0    [-234224249-]{+78074743+}          0     0  50000         Y
+       gpu_cc_pll1                    0        0        0   500000097          0     0  50000         N
+       disp_cc_mdss_dp_pixel_clk_src       0        0        0    19200000          0     0  50000         N
+          disp_cc_mdss_dp_pixel_clk       0        0        0    19200000          0     0  50000         N
+
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
 > 
-> The RM series is probably the one having bigger dependencies/conflicts 
-> on other pending patches (include virtual wide planes)
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 43a5ec33eee8..35c69dbe5f6f 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -561,7 +561,8 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+>  	clk_disable_unprepare(msm_host->byte_clk);
+>  }
+>  
+> -static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
+
+It is a bit unfortunate that this function is called so often with the
+same parameters, doing the same calculation over and over.
+
+> +		struct drm_dsc_config *dsc, bool is_bonded_dsi)
+>  {
+>  	unsigned long pclk_rate;
+>  
+> @@ -576,6 +577,11 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool
+>  	if (is_bonded_dsi)
+>  		pclk_rate /= 2;
+>  
+> +	/* If DSC is enabled, divide pclk by compression ratio */
+> +	if (dsc)
+> +		pclk_rate = DIV_ROUND_UP(pclk_rate,
+> +				dsc->bits_per_component * 3 / msm_dsc_get_bpp_int(dsc));
+
+Don't forget to mention that this series depends on the DSC helpers.  I
+don't think the linked DSC 1.2 series depends on it (at least it doesn't
+mention it):
+
+https://lore.kernel.org/linux-arm-msm/20230329-rfc-msm-dsc-helper-v6-2-cb7f59f0f7fb@quicinc.com/
+
+- Marijn
+
+> +
+>  	return pclk_rate;
+>  }
+>  
+> @@ -585,7 +591,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+>  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>  	u8 lanes = msm_host->lanes;
+>  	u32 bpp = dsi_get_bpp(msm_host->format);
+> -	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+> +	unsigned long pclk_rate = dsi_get_pclk_rate(mode, msm_host->dsc, is_bonded_dsi);
+>  	u64 pclk_bpp = (u64)pclk_rate * bpp;
+>  
+>  	if (lanes == 0) {
+> @@ -604,7 +610,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+>  
+>  static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  {
+> -	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
+> +	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi);
+>  	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
+>  							msm_host->mode);
+>  
+> @@ -634,7 +640,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  
+>  	dsi_calc_pclk(msm_host, is_bonded_dsi);
+>  
+> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+> +	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi) * bpp;
+>  	do_div(pclk_bpp, 8);
+>  	msm_host->src_clk_rate = pclk_bpp;
+>  
 > 
-
-1 is already posted, will keep fixing review comments
-2 will be posted pretty soon
-
-DSC1.2 over DSI will be complete with this set.
-
-I will finish up virtual planes review by early next week. Already 
-underway ...
-
-3 & 4 will be posted soon after that.
-
->>
->>> In other words, let's take it slow and do things properly this time. And
->>> who knows, perhaps the rest of these patches are more straightforward.
->>>
->>
->> Ack. the intent is always to do things right the first time.
->>
->>> - Marijn
->>>
->>> <snip>
+> -- 
+> 2.40.1
 > 
