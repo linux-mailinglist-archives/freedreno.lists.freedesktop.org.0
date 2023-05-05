@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2840F6F8B49
-	for <lists+freedreno@lfdr.de>; Fri,  5 May 2023 23:41:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 103876F8B53
+	for <lists+freedreno@lfdr.de>; Fri,  5 May 2023 23:41:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95BE210E692;
-	Fri,  5 May 2023 21:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5AC10E69A;
+	Fri,  5 May 2023 21:41:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C077610E692
- for <freedreno@lists.freedesktop.org>; Fri,  5 May 2023 21:41:01 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ac7707e34fso26880321fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 May 2023 14:41:01 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9D410E692
+ for <freedreno@lists.freedesktop.org>; Fri,  5 May 2023 21:41:02 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ac75500798so26412921fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 05 May 2023 14:41:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683322860; x=1685914860;
+ d=linaro.org; s=google; t=1683322862; x=1685914862;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ppRfvpEzKntx7DzSp5zW1I4Fc3JFfOMmEmtjxYhv2RE=;
- b=R3nz/yc4RKI+HKc8qf/CgP4sa5/occ8xEvTKS/qhoYNoPxZW7k/tEOgBf9Il8un/yP
- iRxO9fomYjGWCfknkCXi8KznES714HRBdJPqrBElSXfSlCCTrtdrYqPFsE2vKFYoTOJg
- t5DiIqJZgA3nCCL7Biv3PIRZKWmM+EwCx/lAMbZyxw9oS8Yu2MpC79CIHgKx4j+68qGX
- uI96O9JZKvl8uYUOczRzmWy/yBvpBi1s1RAvpBMvypuESFlE5w/AWQVZe4lqgT1i//5V
- 3YSJhnPyZGfKrBBfc+0ErO1wkWkCWCDr6i/lEnz4XK5KXRZ7PGZMkNW6SDIivzqPzroq
- o0ZA==
+ :reply-to; bh=6Cgx0VgjSWF36kTiyIdxe2LPUi4kT2lQKkyyJC5x69s=;
+ b=Gccfie7GMOugjyiUVru/AmbzWeTgn3lIDnsiRORE1BLhhAhDo2q5OeGjUTPqdrkPBV
+ 42ByFze8DoBI5q1FCMCT3Iqs+bmFU9i+JGnGLiFcDLLR+U6BR/AlJJoHqfO5asrH7mPH
+ tUCk2VtfCESPRGvyE+inqnMfl0UcEkoyWEGYVTdWp4vxAJonCDVB+us6Iw92/tmXMKch
+ lHBlg/1zA/bh25rGZ61FMJcGz6CSwAPlGrSppo1mdMsb5EsYAZ3p1Ep7bEJedfnQfzJW
+ ihCWZ0yivoUcwJphIuwej6UOCSM9grvNt6HRpYB4LNcg3PISN324cVw3HYfU0OzB2t6h
+ AIzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683322860; x=1685914860;
+ d=1e100.net; s=20221208; t=1683322862; x=1685914862;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ppRfvpEzKntx7DzSp5zW1I4Fc3JFfOMmEmtjxYhv2RE=;
- b=OP87st7nTIPpznPpgic0tSStblI2hE6IBZ5IZp6DiYmqfdQU8Ju1Z1vLyGwVXeqdiP
- ogJDYu3AvCptxE5dzHtCXqduHt43YpIOTzSguFFspi4BNXmOWgaV4WTwaC4L+YgbKtk6
- rFnLBbGx/vIQFAoGKhSkye50r+d6R0h4L3xBdxLtxmCQ1YS0otjsH5l06GUij3Jdybet
- Jkw/fqA0hoRLlPA0dll2zcrjqaL70kM41GpZS9eUMXjOs9rqkIWizEjyGStAq/5LbBqz
- F5A+pWyArNrO8zvJ1zHQ+C3GPQ4n/wKq6VbzuwCZTi5rO6qUwK3q/HMo+V5HOYnEpVl+
- LjGQ==
-X-Gm-Message-State: AC+VfDwEa/olv30VtbCBSOgtFSAxL+kCWJgGjqwnVr/mGi2IWeXBWbsE
- vsXlQILP+SO9FTkRXHFxleEQdQ==
-X-Google-Smtp-Source: ACHHUZ5TWav1X9X/ALxvs/0XM5r7mThgrubkXZrzJkCS8NbL4zVainf3e/1qHa6k3/M1q30PkS1m2A==
-X-Received: by 2002:a2e:9211:0:b0:299:bb73:fcd4 with SMTP id
- k17-20020a2e9211000000b00299bb73fcd4mr806540ljg.7.1683322859940; 
- Fri, 05 May 2023 14:40:59 -0700 (PDT)
+ bh=6Cgx0VgjSWF36kTiyIdxe2LPUi4kT2lQKkyyJC5x69s=;
+ b=kx9Jvwf2xT4OGb+pDht7GQOHz36BfP8CRmdyTBUvgeSngfSMK9h8t3eX+asen7t4/o
+ PdDfZ0b0c9phauduceeUYNyFjrSxClrITBEaoNX23Ot7Btc1/+CAY7OrffTYK9EvJf8X
+ Lu6DpSziHo4DA69sQEBJu6NbaSeZx54cDKMjCKDiROuqx/bo1fSqcJCXYwcjwEKVLJOK
+ 7m728oQTYWWAcbsbMhvXxTGcEAtzC3HFdiZ3yhVf/YIH7vJHlMEp9zmwY1rCI/wp2q5a
+ JWLoN9vywGozra9Yj6ujusDwmCJXqzdjijjWT8FNBbVGrhusqp8fMsMy45e92/QAQusd
+ +EZg==
+X-Gm-Message-State: AC+VfDxYEyhpXnYlufsJkTJ6HqKXCCbfwTAZTiN6dkv0oKL/GkFNaFLY
+ lE6bJimQrLiyeBRomL3g5dPkEg==
+X-Google-Smtp-Source: ACHHUZ4+K+GhXhvLSXj3jdIBiVBVY1fOjuTIzZpxArJ+LOicJ5uIxrApQrg8YtPi+bMU1mnhxFICzg==
+X-Received: by 2002:a2e:9056:0:b0:2a7:9a7a:f864 with SMTP id
+ n22-20020a2e9056000000b002a79a7af864mr953234ljg.5.1683322861925; 
+ Fri, 05 May 2023 14:41:01 -0700 (PDT)
 Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
  by smtp.gmail.com with ESMTPSA id
- n12-20020a2e720c000000b002a776dbc277sm126453ljc.124.2023.05.05.14.40.58
+ n12-20020a2e720c000000b002a776dbc277sm126453ljc.124.2023.05.05.14.41.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 May 2023 14:40:59 -0700 (PDT)
+ Fri, 05 May 2023 14:41:01 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 05 May 2023 23:40:36 +0200
+Date: Fri, 05 May 2023 23:40:37 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230411-topic-straitlagoon_mdss-v3-10-9837d6b3516d@linaro.org>
+Message-Id: <20230411-topic-straitlagoon_mdss-v3-11-9837d6b3516d@linaro.org>
 References: <20230411-topic-straitlagoon_mdss-v3-0-9837d6b3516d@linaro.org>
 In-Reply-To: <20230411-topic-straitlagoon_mdss-v3-0-9837d6b3516d@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -68,15 +68,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
  Joerg Roedel <joro@8bytes.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1683322839; l=965;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1683322839; l=919;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=9/++xt/utIOxLufVN9PZF2yMVmu78Xo8NRamuKy95SI=;
- b=W4vng8UwOpFtLvkhYgHEBma6qHU974GMhSHhkYHxlHjBzkNdxo9TfDuc1S6Rp7aMdSC9LKIwn
- HplM/nY9V4gDWs9MiUk4EMJk6SU/76Otxvj2rOjLu76AsmwlZtfkUpn
+ bh=hMmDD+SgonZLP46KBM866xQojXqpPqEZ25ow2fxLp/E=;
+ b=zckkfPprq0LAaufGJdyd08HwqQ+DvDuj3pjCVufSbw/R95EDd1/WxZUQAiuD3r3x7v5RBq0Ea
+ rvoL+U9hlerCFPzxbe1MTtGhJLaUTYkcG44IEB3EaL4dsVNizhDuuO+
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v3 10/12] iommu/arm-smmu-qcom: Sort the
- compatible list alphabetically
+Subject: [Freedreno] [PATCH v3 11/12] iommu/arm-smmu-qcom: Add SM6375 DPU
+ compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,30 +97,27 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It got broken at some point, fix it up.
+Add the SM6375 DPU compatible to clients compatible list, as it also
+needs the workarounds.
 
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index ae09c627bc84..f945ae3d9d06 100644
+index f945ae3d9d06..d7d5d1dbee17 100644
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
 +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -251,10 +251,10 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
- 	{ .compatible = "qcom,sc7280-mss-pil" },
- 	{ .compatible = "qcom,sc8180x-mdss" },
+@@ -253,6 +253,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
  	{ .compatible = "qcom,sc8280xp-mdss" },
--	{ .compatible = "qcom,sm8150-mdss" },
--	{ .compatible = "qcom,sm8250-mdss" },
  	{ .compatible = "qcom,sdm845-mdss" },
  	{ .compatible = "qcom,sdm845-mss-pil" },
-+	{ .compatible = "qcom,sm8150-mdss" },
-+	{ .compatible = "qcom,sm8250-mdss" },
++	{ .compatible = "qcom,sm6375-mdss" },
+ 	{ .compatible = "qcom,sm8150-mdss" },
+ 	{ .compatible = "qcom,sm8250-mdss" },
  	{ }
- };
- 
 
 -- 
 2.40.1
