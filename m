@@ -1,62 +1,86 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E9ED6F8944
-	for <lists+freedreno@lfdr.de>; Fri,  5 May 2023 21:04:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1626F8AB2
+	for <lists+freedreno@lfdr.de>; Fri,  5 May 2023 23:24:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 666F010E660;
-	Fri,  5 May 2023 19:04:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7DEE10E0AE;
+	Fri,  5 May 2023 21:24:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA2E110E661
- for <freedreno@lists.freedesktop.org>; Fri,  5 May 2023 19:04:17 +0000 (UTC)
-Received: by mail-yb1-xb34.google.com with SMTP id
- 3f1490d57ef6-b9dea9d0360so2952743276.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 May 2023 12:04:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683313454; x=1685905454;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=HWHgcoJmGnAT2F8+CAPhfA6XJlKIdf+siYto+H4BoOo=;
- b=RKj9nFBpM8fl24aY6oU/FY/1xlAP1+SsMGwUibTPSsbPT/8KXSw/h2ElAME7RBNse0
- bBpAwD0rtBbaFQpOxucu6V6n4c/F57w91dMUVC09+XPK0BizEaC3SSYvy7fWzCMVNoK9
- nsf9xAiJ2bUuhl0/rYbWxDSi0SODUQch+2Bu0NY61NstpMjnzJgq+rUUk5Ml3L5Crwta
- nmsZKB60KAd4CoKonTf9B/5dSb9TDrxTXXE5694b6OMREF7RUjdNLVb2vTMgjs/WxsA5
- 0TCa98t8zqeYR8SndZvO80FEP8j3147Id6IqRhXBuK6V+Bf87sb+JB2hg03NMOZH73mW
- 2wrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683313454; x=1685905454;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=HWHgcoJmGnAT2F8+CAPhfA6XJlKIdf+siYto+H4BoOo=;
- b=IIx+/gaGwd2jiU8irFcsch9mSjXqIJ0tE2IbkqQXgyN3CoRQEZoGGHIiNjONdWh6V0
- v1mIMhKbiQsns9W1PoSPS79r8i1Lz9hlud/cNOyrHjZE6jKBB4T1UKXo2aXND4zLy3bE
- o9sXrByGu+v8AJvnPu725JDROnowHp93CXAoB+4w8rdOniiawFRdmJD7oJubhBQYWq2f
- baFTg054pZBHUUQEAuaLOiXZU5utIfpMtVkpXHYGMZkX/Gqp8ZBI6TnnD02MfJzAmiJp
- 1YJjMKr8ZMggoYLFy99OvT4ieZ0Q/qj50Y5tfHJVNI1yKYDisyRdU6kd3oqctFF6Kbl5
- pz4g==
-X-Gm-Message-State: AC+VfDz/6xjCx0QB9b1sixwC1FVBbmtnovVcGH7n1sA9NqZMboDCoEeT
- /bEXFzz0B5skiH3WuAUCmIzQAJN+ZjPyOWks/ekHUg==
-X-Google-Smtp-Source: ACHHUZ6TZGYSg82gTSCkzmV3zwK9Az5lq2j0vvfTJk8c7MKh39V2p7t3YO8Jsz+Np4QDnVwguPn/klfVXCEagVKNSZ8=
-X-Received: by 2002:a05:6902:1249:b0:b4c:6d0b:1e99 with SMTP id
- t9-20020a056902124900b00b4c6d0b1e99mr3054551ybu.48.1683313454429; Fri, 05 May
- 2023 12:04:14 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83B9710E0AE;
+ Fri,  5 May 2023 21:24:07 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 345KHQh9012432; Fri, 5 May 2023 21:24:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding : to : cc; s=qcppdkim1;
+ bh=rVzmO3/8OqoWF/+vJ6RhxHVcSzHR6TKoYzoM+GO5ESc=;
+ b=YIU0SbxVrT3acBPe+Yi0SiQgRR/NpevEP86jZ+uoKsqgrnaZ4iSSqAfQ4+zXtssDxsoU
+ NuDbe+Zhd5OHuJaOVZXm2ILBNwNnr91fVAMlAOtf2HDmp08b1/iZ0CYw1ldE7NZoKkLp
+ Y6Mbxz3tu1jfWm56gU2DZBmG51O6QGULliImnf8u21AgfWq+fCRFvRL9ROOpWX1INv3g
+ 0WJFTkolNam1bivtGtclURvo1aZ5ulqs8Nkd+EKWh2t2FzCXC3CyUavmGSL5qp841cI1
+ WLZ0+UXVZZmmmX1CUelxoSe86fCNcfR/33/bdx8Yrh9/gNMWkWXVRlWOSGYGGx/rxNF2 oA== 
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qctfua1dr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 May 2023 21:24:04 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 345LO3qb011979
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 5 May 2023 21:24:03 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Fri, 5 May 2023 14:24:03 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Fri, 5 May 2023 14:23:47 -0700
+Message-ID: <20230405-add-dsc-support-v2-0-1072c70e9786@quicinc.com>
 MIME-Version: 1.0
-References: <20230502150533.3672840-1-dmitry.baryshkov@linaro.org>
- <20230502150533.3672840-2-dmitry.baryshkov@linaro.org>
- <e2ddc196-5b12-5e8b-b406-665e2adfef0a@quicinc.com>
-In-Reply-To: <e2ddc196-5b12-5e8b-b406-665e2adfef0a@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 5 May 2023 22:04:03 +0300
-Message-ID: <CAA8EJppyGO6gRFjLFaZaBaipbBptqHVNQqCcczgwKV-v0mGrAQ@mail.gmail.com>
-To: Jeykumar Sankaran <quic_jeykumar@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/9] drm/msm/dpu: fix SSPP register
- definitions
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAONzVWQC/3WNOw6DMBAFrxK5zkY2BvKpco+Iwp8lbIFNvICIE
+ HePoU8572k0q2BMhCwep1UknIkphgzF+SRcZ8IbgXxmUchCy1JWYLwHzw54GoaYRmhRaWlNeb+
+ VSmTLGkawyQTX7V7PPQRcxv0aEra0HLFXk7kjHmP6Hu1Z7ev/zKxAQm1d3Upt8Kqr52ciR8FdX
+ OxFs23bDxfVnPDLAAAA
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+X-Mailer: b4 0.13-dev-bfdf5
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1683321843; l=1960;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=6BbpC86xjXc0XHFd1x6qXXxS28hFrPmY3crN8mrsv0Y=;
+ b=o9CYNBF/0tZlZu7sK47OD0ZX+iQqNLNcjwIKz1c33TIot1KQ0gK5Bci/AvAFEQr6DsQ4er+2s
+ WbWRdcgs2/VBMkWDpr290EA+O4ZCAprV2tQ3nVRYX6v+iEjbNGyeqV+
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: eB_sNAZTnUzkpMaasas2jSarU8o7FCmc
+X-Proofpoint-ORIG-GUID: eB_sNAZTnUzkpMaasas2jSarU8o7FCmc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-05_27,2023-05-05_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ mlxlogscore=999 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ spamscore=0 mlxscore=0 phishscore=0 adultscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2305050173
+Subject: [Freedreno] [PATCH v2 0/4] Add DSC v1.2 Support for DSI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,150 +93,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 5 May 2023 at 20:24, Jeykumar Sankaran
-<quic_jeykumar@quicinc.com> wrote:
->
->
->
-> On 5/2/2023 8:05 AM, Dmitry Baryshkov wrote:
-> > Reorder SSPP register definitions to sort them in the ascending order.
-> > Move register bitfields after the register definitions.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 66 +++++++++++----------
-> >   1 file changed, 34 insertions(+), 32 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> > index 6b68ec5c7a5a..1bf717290dab 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> > @@ -26,45 +26,18 @@
-> >   #define SSPP_SRC_FORMAT                    0x30
-> >   #define SSPP_SRC_UNPACK_PATTERN            0x34
-> >   #define SSPP_SRC_OP_MODE                   0x38
-> > -
-> > -/* SSPP_MULTIRECT*/
-> > -#define SSPP_SRC_SIZE_REC1                 0x16C
-> > -#define SSPP_SRC_XY_REC1                   0x168
-> > -#define SSPP_OUT_SIZE_REC1                 0x160
-> > -#define SSPP_OUT_XY_REC1                   0x164
-> > -#define SSPP_SRC_FORMAT_REC1               0x174
-> > -#define SSPP_SRC_UNPACK_PATTERN_REC1       0x178
-> > -#define SSPP_SRC_OP_MODE_REC1              0x17C
-> > -#define SSPP_MULTIRECT_OPMODE              0x170
-> > -#define SSPP_SRC_CONSTANT_COLOR_REC1       0x180
-> > -#define SSPP_EXCL_REC_SIZE_REC1            0x184
-> > -#define SSPP_EXCL_REC_XY_REC1              0x188
-> > -
-> > -#define MDSS_MDP_OP_DEINTERLACE            BIT(22)
-> > -#define MDSS_MDP_OP_DEINTERLACE_ODD        BIT(23)
-> > -#define MDSS_MDP_OP_IGC_ROM_1              BIT(18)
-> > -#define MDSS_MDP_OP_IGC_ROM_0              BIT(17)
-> > -#define MDSS_MDP_OP_IGC_EN                 BIT(16)
-> > -#define MDSS_MDP_OP_FLIP_UD                BIT(14)
-> > -#define MDSS_MDP_OP_FLIP_LR                BIT(13)
-> > -#define MDSS_MDP_OP_BWC_EN                 BIT(0)
-> > -#define MDSS_MDP_OP_PE_OVERRIDE            BIT(31)
-> > -#define MDSS_MDP_OP_BWC_LOSSLESS           (0 << 1)
-> > -#define MDSS_MDP_OP_BWC_Q_HIGH             (1 << 1)
-> > -#define MDSS_MDP_OP_BWC_Q_MED              (2 << 1)
-> > -
-> >   #define SSPP_SRC_CONSTANT_COLOR            0x3c
-> >   #define SSPP_EXCL_REC_CTL                  0x40
-> >   #define SSPP_UBWC_STATIC_CTRL              0x44
-> > -#define SSPP_FETCH_CONFIG                  0x048
-> > +#define SSPP_FETCH_CONFIG                  0x48
-> >   #define SSPP_DANGER_LUT                    0x60
-> >   #define SSPP_SAFE_LUT                      0x64
-> >   #define SSPP_CREQ_LUT                      0x68
-> >   #define SSPP_QOS_CTRL                      0x6C
-> > -#define SSPP_DECIMATION_CONFIG             0xB4
-> >   #define SSPP_SRC_ADDR_SW_STATUS            0x70
-> >   #define SSPP_CREQ_LUT_0                    0x74
-> >   #define SSPP_CREQ_LUT_1                    0x78
-> > +#define SSPP_DECIMATION_CONFIG             0xB4
-> >   #define SSPP_SW_PIX_EXT_C0_LR              0x100
-> >   #define SSPP_SW_PIX_EXT_C0_TB              0x104
-> >   #define SSPP_SW_PIX_EXT_C0_REQ_PIXELS      0x108
-> > @@ -81,11 +54,33 @@
-> >   #define SSPP_TRAFFIC_SHAPER_PREFILL        0x150
-> >   #define SSPP_TRAFFIC_SHAPER_REC1_PREFILL   0x154
-> >   #define SSPP_TRAFFIC_SHAPER_REC1           0x158
-> > +#define SSPP_OUT_SIZE_REC1                 0x160
-> > +#define SSPP_OUT_XY_REC1                   0x164
-> > +#define SSPP_SRC_XY_REC1                   0x168
-> > +#define SSPP_SRC_SIZE_REC1                 0x16C
-> > +#define SSPP_MULTIRECT_OPMODE              0x170
-> > +#define SSPP_SRC_FORMAT_REC1               0x174
-> > +#define SSPP_SRC_UNPACK_PATTERN_REC1       0x178
-> > +#define SSPP_SRC_OP_MODE_REC1              0x17C
-> > +#define SSPP_SRC_CONSTANT_COLOR_REC1       0x180
-> > +#define SSPP_EXCL_REC_SIZE_REC1            0x184
-> > +#define SSPP_EXCL_REC_XY_REC1              0x188
-> >   #define SSPP_EXCL_REC_SIZE                 0x1B4
-> >   #define SSPP_EXCL_REC_XY                   0x1B8
-> > -#define SSPP_VIG_OP_MODE                   0x0
-> > -#define SSPP_VIG_CSC_10_OP_MODE            0x0
-> > -#define SSPP_TRAFFIC_SHAPER_BPC_MAX        0xFF
-> > +
-> > +/* SSPP_SRC_OP_MODE & OP_MODE_REC1 */
-> > +#define MDSS_MDP_OP_DEINTERLACE            BIT(22)
-> > +#define MDSS_MDP_OP_DEINTERLACE_ODD        BIT(23)
-> > +#define MDSS_MDP_OP_IGC_ROM_1              BIT(18)
-> > +#define MDSS_MDP_OP_IGC_ROM_0              BIT(17)
-> > +#define MDSS_MDP_OP_IGC_EN                 BIT(16)
-> > +#define MDSS_MDP_OP_FLIP_UD                BIT(14)
-> > +#define MDSS_MDP_OP_FLIP_LR                BIT(13)
-> > +#define MDSS_MDP_OP_BWC_EN                 BIT(0)
-> > +#define MDSS_MDP_OP_PE_OVERRIDE            BIT(31)
-> > +#define MDSS_MDP_OP_BWC_LOSSLESS           (0 << 1)
-> > +#define MDSS_MDP_OP_BWC_Q_HIGH             (1 << 1)
-> > +#define MDSS_MDP_OP_BWC_Q_MED              (2 << 1)
-> >
-> >   /* SSPP_QOS_CTRL */
-> >   #define SSPP_QOS_CTRL_VBLANK_EN            BIT(16)
-> > @@ -96,6 +91,7 @@
-> >   #define SSPP_QOS_CTRL_CREQ_VBLANK_OFF      20
-> >
-> >   /* DPU_SSPP_SCALER_QSEED2 */
-> > +#define SSPP_VIG_OP_MODE                   0x0
-> >   #define SCALE_CONFIG                       0x04
-> >   #define COMP0_3_PHASE_STEP_X               0x10
-> >   #define COMP0_3_PHASE_STEP_Y               0x14
-> > @@ -107,6 +103,12 @@
-> >   #define COMP1_2_INIT_PHASE_Y               0x2C
-> >   #define VIG_0_QSEED2_SHARP                 0x30
-> >
-> > +/* DPU_SSPP_CSC_10BIT space */
-> > +#define SSPP_VIG_CSC_10_OP_MODE            0x0
-> > +
-> There is an existing grouping for CSC 10 bit op modes. You can add to that.
+This is a series of changes for DSI to enable command mode support
+for DSC v1.2.
 
-Good idea, thanks!
+This includes:
 
-> > +/* SSPP_TRAFFIC_SHAPER and _REC1 */
-> I dont get the _REC1 comment. How is it relevent for this flag?
+1) Adjusting pclk_rate to account for compression
+2) Fixing the word count calculation for DSC
+3) Setting the DATA_COMPRESS bit when DSC is enabled
 
-Because this define is applicable to the SSPP_T_S and SSPP_T_S_REC1 registers.
+With these changes (and the dependency below), DSC v1.2 should work over
+DSI in command mode.
 
-> > +#define SSPP_TRAFFIC_SHAPER_BPC_MAX        0xFF
-> > +
-> >   /*
-> >    * Definitions for ViG op modes
-> >    */
+Note: Changes that add DSC v1.2 support for video mode will be posted
+with the DP support changes.
 
+Depends-on: "add DSC 1.2 dpu supports" [1] and "Introduce MSM-specific
+DSC helpers" [2]
 
+[1] https://patchwork.freedesktop.org/series/116789/
+[2] https://patchwork.freedesktop.org/series/115833/
 
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+Changes in v2:
+- Changed pclk math to only divide hdisplay by compression ratio
+- Reworded word count TODO comment
+- Make DATA_COMPRESS an INTF flag
+- Read INTF_CFG2 before setting DATA_COMRPESS register
+- Reworded commit messages and cover letter for clarity
+- Link to v1: https://lore.kernel.org/r/20230405-add-dsc-support-v1-0-6bc6f03ae735@quicinc.com
+
+---
+Jessica Zhang (4):
+      drm/msm/dsi: Adjust pclk rate for compression
+      drm/msm/dsi: Fix compressed word count calculation
+      drm/msm/dpu: Add DPU_INTF_DATA_COMPRESS feature flag
+      drm/msm/dpu: Set DATA_COMPRESS for command mode
+
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  3 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 11 +++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  2 ++
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 | 26 +++++++++++++++++-----
+ 6 files changed, 40 insertions(+), 6 deletions(-)
+---
+base-commit: 70e08302e024bfac485b12972099237f7f39d829
+change-id: 20230405-add-dsc-support-fe130ba49841
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
