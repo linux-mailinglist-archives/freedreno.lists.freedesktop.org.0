@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAAC66F82B2
-	for <lists+freedreno@lfdr.de>; Fri,  5 May 2023 14:11:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45966F8313
+	for <lists+freedreno@lfdr.de>; Fri,  5 May 2023 14:38:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B34310E5E0;
-	Fri,  5 May 2023 12:11:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB4510E04C;
+	Fri,  5 May 2023 12:38:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE1510E5DF
- for <freedreno@lists.freedesktop.org>; Fri,  5 May 2023 12:11:48 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f13c577e36so1908953e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 May 2023 05:11:48 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A78510E04C
+ for <freedreno@lists.freedesktop.org>; Fri,  5 May 2023 12:38:14 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-4efe8991bafso2011769e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 05 May 2023 05:38:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683288706; x=1685880706;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1683290292; x=1685882292;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=2h/CWEwyJq3P5FCMXAryqXO9WR4aBfMB6PjoKhzl8U4=;
- b=Zbu8EzgqpkD96pt/0mSDWzGiFSmWODcuaUmVyreABq7m1znvVzYxy3l3faRkivY2vY
- oLDI2Z5XuRhTnKbuFBXLPc79Hw/MPZxeUXAQnNwDtXe14aQjma+HI0G1sbW7eDeTzzEv
- ET9OzwJbVh4F0fVY55KUrnh73Q4nFx6eiftAoxcso4H8tEn0IhBMqdm5mBrn4c6XKXWU
- aYEgXzNvaiCEIbvMqEm/CYVmSXbLBHRsfCj5feqRL4dfICy7bloK6AgaXukl9ki6l80Z
- qywFsTyxuplXRXKuaqUoh1JXnQdVgz6mEfvzQ40jCwV+5MiGVQDFUocZaHQ7RJY3r3C4
- dEGA==
+ bh=yplmN4cjcMjpz7yzL0GhEZF8x3n7FeMV/awLTpA1Cds=;
+ b=n+PCrxjHUW0iFTpnRlAN+eLhhGWqBvzuhiThIKBoygAfxiDUU+LH53XkQvLLeoTfS6
+ bqfQFUQP0SoeF1DHMmjXuUC6NQBJuT1auu3P5Y8z5nRm3YB6tB/s99I1e4zlHaHsgILv
+ IgjKdwFBmJKQ9Kpwv3f7IAGiwVh6ykYmZutvqca/tZPhwsVX7jEbCtgEPoX11bfnfgSf
+ HHjl3+0JLKKsXnhWZ0NCUN+zCwdnJ+PfkAHy7UhGZpvtuP355tmBx+wP2nw/5h0xCh7/
+ C/9/TiZvwWfpQFeAs4ZlV4rKrn2sgiSd+bldhNBWVxRPF/KtWRAiS3tCaqbG2uWmALcl
+ airw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683288706; x=1685880706;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1683290292; x=1685882292;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2h/CWEwyJq3P5FCMXAryqXO9WR4aBfMB6PjoKhzl8U4=;
- b=K4IKiRbePGtX7buGOXQfDPhfiJvB+vbXUD3OachAepioe0wWjtYImWFBiZ6sEZp+xa
- DG2KaB0m722cdV7O1J35gSV7frBRGbHEeoC/PJajoCDRvlpgcQgtfxx0j5MKfS260972
- yKREWhY4QE5/l2B6ma4xdvW7zCTOCCztwuhBYWZ1+9DRhSD5ENpPtg/t3Ge5BMc9ALAf
- aL4SijMsDnmk2EYnUnO7R4jQGwcurJ48b64teJ4NT9B0RuXFB5W7gil+LBLh4looO1LW
- EsckZ8+klUsPZykL2ahJ3erehaeGBp9w2aXZEsnn1AEjfXTYWlsXQzoqBh03o4/O7eYB
- CBdg==
-X-Gm-Message-State: AC+VfDweSBJfVgM2ir0Ek36yXl8+ioRAr8Ma4oTBhMLGigdDOJ7P2eTg
- vbhj+5VNJiOn32puSvSvMA15OA==
-X-Google-Smtp-Source: ACHHUZ65oVZBAu9sTHfvlhswi1d1wC5/971YPvE+M2PAFaQfj7qir5wd68R9OeFyzxYBUMg/1QjD6w==
-X-Received: by 2002:ac2:5108:0:b0:4f1:1de7:1aab with SMTP id
- q8-20020ac25108000000b004f11de71aabmr554324lfb.44.1683288706252; 
- Fri, 05 May 2023 05:11:46 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ bh=yplmN4cjcMjpz7yzL0GhEZF8x3n7FeMV/awLTpA1Cds=;
+ b=AFIkc59lt46Byx/fOxjLERkO+LV2HzMfcRzD9Xlgeu7NA0zX3VgZjBzmUCXLuYeLQd
+ /mXn6z99wOUl8DJt1onqB16AKIarkpeIB4ISqCrPQtwA+ASfwlyThhCiek87q5iynTXl
+ S08Ac5AOqLaSYTEeYIzhzallZTDeU62/ClaycskD58h66WZwwC6DC5EiavGVUp9isjky
+ /ZoIdq/UQUSumqSzeG3yieS+++F8p/H1WdNwO/JQm8Q+A152Ym1N6BF4YXREm2gwwKa+
+ mC97OeVCqiAmGJ2m2pQhHQcVMb1LhWnc2pZANk4ZlYundskCo75i3RhZU1nY2hv9MqYe
+ Yy+Q==
+X-Gm-Message-State: AC+VfDygHb98NZYZVilVV1BD3R2Oc+8i1/WM8YAzSZWySeUjKdUViQv+
+ n+Wd6mUicEmnDUIAAQSbZQ+jrw==
+X-Google-Smtp-Source: ACHHUZ6z59O8tplENC2bhQXd/JQWSp6AWPiroQfHmJwWkxLtJstvOyAq5du4f7CXb+84rHWoJ6jtOw==
+X-Received: by 2002:a19:f502:0:b0:4f1:43b3:90bf with SMTP id
+ j2-20020a19f502000000b004f143b390bfmr429933lfb.41.1683290292180; 
+ Fri, 05 May 2023 05:38:12 -0700 (PDT)
+Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
  by smtp.gmail.com with ESMTPSA id
- b21-20020ac25635000000b004f13633c260sm264975lff.145.2023.05.05.05.11.45
+ z23-20020a19f717000000b004f142eac23fsm273394lfe.114.2023.05.05.05.38.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 May 2023 05:11:45 -0700 (PDT)
-Message-ID: <91a390b2-db3d-90f4-a2e2-6ccb75303d04@linaro.org>
-Date: Fri, 5 May 2023 15:11:44 +0300
+ Fri, 05 May 2023 05:38:11 -0700 (PDT)
+Message-ID: <61a1441c-a948-bf89-a44f-a94c3956c41d@linaro.org>
+Date: Fri, 5 May 2023 14:38:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
+ Thunderbird/102.10.1
+To: Rob Herring <robh@kernel.org>
 References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
- <20230411-topic-straitlagoon_mdss-v2-7-5def73f50980@linaro.org>
- <k25jg7cez2kimpxr4ztbdzjr2adq6a2vjknyvfe5frxujtogfg@vhfdyt45unv6>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <k25jg7cez2kimpxr4ztbdzjr2adq6a2vjknyvfe5frxujtogfg@vhfdyt45unv6>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20230411-topic-straitlagoon_mdss-v2-3-5def73f50980@linaro.org>
+ <20230425170320.GA1931576-robh@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230425170320.GA1931576-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 07/13] drm/msm/dpu: Add SM6350 support
+Subject: Re: [Freedreno] [PATCH v2 03/13] dt-bindings: display/msm: Add
+ SM6350 DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,133 +83,107 @@ Cc: freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
  Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
- linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/04/2023 18:37, Marijn Suijten wrote:
-> On 2023-04-21 00:31:16, Konrad Dybcio wrote:
->> Add SM6350 support to the DPU1 driver to enable display output.
+
+
+On 25.04.2023 19:03, Rob Herring wrote:
+> On Fri, Apr 21, 2023 at 12:31:12AM +0200, Konrad Dybcio wrote:
+>> Document the SM6350 DPU.
 >>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> 
-> After addressing the comments from Dmitry (CURSOR0->DMA1 and
-> CURSOR1->DMA2), this is:
-> 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> 
-> See below for some nits.
-
-[...]
-
->> +static const struct dpu_mdp_cfg sm6350_mdp[] = {
->> +	{
->> +	.name = "top_0", .id = MDP_TOP,
->> +	.base = 0x0, .len = 0x494,
->> +	.features = 0,
->> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
->> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
->> +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
->> +	.clk_ctrls[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
->> +	.clk_ctrls[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
->> +	},
->> +};
+>> ---
+>>  .../bindings/display/msm/qcom,sm6350-dpu.yaml      | 94 ++++++++++++++++++++++
+>>  1 file changed, 94 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml
+>> new file mode 100644
+>> index 000000000000..979fcf81afc9
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-dpu.yaml
+>> @@ -0,0 +1,94 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/qcom,sm6350-dpu.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 >> +
->> +static const struct dpu_ctl_cfg sm6350_ctl[] = {
->> +	{
->> +	.name = "ctl_0", .id = CTL_0,
->> +	.base = 0x1000, .len = 0x1dc,
->> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
->> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
->> +	},
->> +	{
->> +	.name = "ctl_1", .id = CTL_1,
->> +	.base = 0x1200, .len = 0x1dc,
->> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
->> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
->> +	},
->> +	{
->> +	.name = "ctl_2", .id = CTL_2,
->> +	.base = 0x1400, .len = 0x1dc,
->> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
->> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
->> +	},
->> +	{
->> +	.name = "ctl_3", .id = CTL_3,
->> +	.base = 0x1600, .len = 0x1dc,
->> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
->> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
->> +	},
->> +};
+>> +title: Qualcomm Display DPU dt properties for SM6350 target
 >> +
->> +static const struct dpu_sspp_cfg sm6350_sspp[] = {
->> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
->> +		 sc7180_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
->> +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
->> +		 sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
->> +	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_CURSOR_SDM845_MASK,
->> +		 sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR0),
->> +	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK,
->> +		 sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
->> +};
+>> +maintainers:
+>> +  - Konrad Dybcio <konrad.dybcio@linaro.org>
 >> +
->> +static const struct dpu_lm_cfg sm6350_lm[] = {
->> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
->> +		&sc7180_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
->> +	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
->> +		&sc7180_lm_sblk, PINGPONG_1, LM_0, 0),
+>> +$ref: /schemas/display/msm/dpu-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: qcom,sm6350-dpu
+>> +
+>> +  reg:
+>> +    items:
+>> +      - description: Address offset and size for mdp register set
+>> +      - description: Address offset and size for vbif register set
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: mdp
+>> +      - const: vbif
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: Display axi clock
+>> +      - description: Display ahb clock
+>> +      - description: Display rot clock
+>> +      - description: Display lut clock
+>> +      - description: Display core clock
+>> +      - description: Display vsync clock
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: bus
+>> +      - const: iface
+>> +      - const: rot
+>> +      - const: lut
+>> +      - const: core
+>> +      - const: vsync
 > 
-> These two entries are indented with two tabs and have one character too
-> many to align with the opening parenthesis on the previous line.  Can we
-> please settle on a single style, as this commit mostly uses tabs+spaces
-> to align with the opening parenthesis?
-> 
-> Dmitry vouched for `cino=(0` (when in unclosed parenthesis, align next
-> line with zero extra characters to the opening parenthesis), but I find
-> double tabs more convenient as it doesn't require reindenting when
-> changing the name of the macro (which happened too often in my INTF TE
-> series).
+> Is there some reason the clocks are in different order?
+Nope, I'll sort this out
 
-I mainly vote for 'cino=(0' for indenting conditions (where double tab 
-is confusing) and for function calls. I do not have a strong opinion 
-about macros expansions. We have been using double-tab there, which is 
-fine with me.
+They appear to 
+> be the same minus the 'throttle' clock. Is there really no 'throttle' 
+> clock?
+Looks like GCC_DISP_THROTTLE_AXI_CLK does exist on sm6350 as well, no
+idea how/if it's used though.. Perhaps I can just remove it from sm6375
+and if it turns out necessary we can reintroduce it another day.
 
-Another option (which I personally find more appealing, but it doesn't 
-play well with the current guidelines) is to have all macro arguments in 
-a single line. It makes it easier to compare things.
-
-And another option would be to expand these macros up to some point. 
-Previous experience with clock and interconnect drivers showed that 
-expanding such multi-arg acros makes it _easier_ to handle the data. 
-Counterintuitive, but true.
+Maybe this platform just tied it to one of the same clocks in the 
+> above?
+Unlikely, most likely it's for some dire deep power saving stuff that
+does not seem to be used/exposed, even on the bsp kernel
 
 > 
->> +};
->> +
->> +static const struct dpu_dspp_cfg sm6350_dspp[] = {
->> +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
->> +		 &sm8150_dspp_sblk),
->> +};
->> +
->> +static struct dpu_pingpong_cfg sm6350_pp[] = {
->> +	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
->> +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
->> +	       -1),
->> +	PP_BLK("pingpong_1", PINGPONG_1, 0x70800, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
->> +	       DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
->> +	       -1),
+> I really hate the mess that is clocks. We have the same or related 
+> blocks with just totally different names and order. The result is 
+> if/then schemas or separate schemas like this. Neither option is great, 
+> but at least the if/then schemas provides some motivation to not have 
+> pointless variations like this. </rant>
+It's a totally valid rant..
 
-[skipped the rest]
+> 
+> As it seems the only difference between these 2 bindings is 1 extra 
+> clock, can't they be shared?
+Sounds like a plan!
 
--- 
-With best wishes
-Dmitry
-
+Konrad
+> 
+> Rob
