@@ -1,71 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 757F46F9B83
-	for <lists+freedreno@lfdr.de>; Sun,  7 May 2023 22:28:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1062F6F9BE2
+	for <lists+freedreno@lfdr.de>; Sun,  7 May 2023 23:25:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B9D510E2EE;
-	Sun,  7 May 2023 20:28:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC6A310E053;
+	Sun,  7 May 2023 21:25:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E3D10E2E8
- for <freedreno@lists.freedesktop.org>; Sun,  7 May 2023 20:28:46 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2ac8ee9cf7aso22675321fa.2
- for <freedreno@lists.freedesktop.org>; Sun, 07 May 2023 13:28:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683491325; x=1686083325;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2hbb+Gw2CW/HbmhZliVRpGRsPwJqaiAgOusSFBwss6U=;
- b=LhaHy5o46LDizECgcW3NDO4ChoSF+jVfMHWkOM6/9BLz/LjpwWu1wRhV5eb0xUgLSG
- JI8Ccfl93neNJMCQ+XFFnHfFG/6wFxCCOccFEWLkDwI3Rj8vJCPGjlmQmvkeqk6WIvyC
- N5GFuGUe7XyMYCMXXEiqsXPdeeOg7XDR832jeoW3fyzLkv/CS2Rq2ukfGF4srAo2GKaF
- sPDPHNjtjCwc6Ydt5cojWEYd/iaj81rZrB5+HKEp3ETo0z/mnpsqWh9yhh84zfmL0sjg
- XKofPsBUmBs46Jcg069/JykjrvHRpNAW6aMtUv6qzSZc89jYxyjHdltnTUeJ97q3ZqSN
- Duww==
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1474B10E053;
+ Sun,  7 May 2023 21:25:46 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-6aaf52ff35bso1030965a34.2; 
+ Sun, 07 May 2023 14:25:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683491325; x=1686083325;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2hbb+Gw2CW/HbmhZliVRpGRsPwJqaiAgOusSFBwss6U=;
- b=U7oR7LhnG6vN844sNm6mjlo4FCvofOh57iizgF0ABWHfKIaYQgY+6/DN48V3X6LCDG
- bScK0AC/eRA03HfPjIH/C/ILbPzJrHyQDlJwqK/25bRgM+hiBi3l1gZq4KtGizw0yNAG
- HCWGA9mOjWW6rrsocv3ghD7IZOzVQ0w47pdSjM7P3LaFz0IkZ7Vgypw22OdFxqKNTbPH
- Mi0um6WATnX67+szg9zBvaxH2GWPVRSzisZEnkv+wDOF7xIWsUUUXyNzndH1ycEdYv87
- EGXjZZuzHeSwqDidd1SOtXCi3yilTVTacZkouw9PPTqlCz2WbSTRxwKpiLBUpLcLVTOn
- KFCw==
-X-Gm-Message-State: AC+VfDwlbzMIjUfbEKF8EdN9avhwXYsVv3BCdQk+7pwi+O4kYOkKz28l
- TfI8Mk1Kj9p8Il8nZwrIV5I/Zg==
-X-Google-Smtp-Source: ACHHUZ7Yw1Dh/Uvxhe8otO9aoqhqpF2X2SkGV+rxNZnajmiPKx/Poiv2C2uF++k1Fio/WtE+SkwuOA==
-X-Received: by 2002:a2e:938c:0:b0:2a7:6fee:2503 with SMTP id
- g12-20020a2e938c000000b002a76fee2503mr2221516ljh.14.1683491324878; 
- Sun, 07 May 2023 13:28:44 -0700 (PDT)
-Received: from lothlorien.lan (dzdqv0yyyyyyyyyyybm5y-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::ab2]) by smtp.gmail.com with ESMTPSA id
- f25-20020a2e9199000000b002a8bb52d994sm928043ljg.25.2023.05.07.13.28.44
+ d=1e100.net; s=20221208; t=1683494746; x=1686086746;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=k6ufJ5LnX3H56g7Y6pg/KPKx3t1jKCtHndBxL/t/v/s=;
+ b=jw7jOZcTD2Tw8s8ecH+KdPTawDXKoElnQqeNtN0eI5z2vRGBibSePpOrii31r8kjri
+ OZwhWhYzXW7dvw9qzzSP+Jh2ZEWQsvPF22Y/VHOEL7S78Bsfp/BxLqSFKPy+PN9iAGrM
+ GPYF1kUaF1azKa9gk1JLd7UBI9Qbw2nqdxkqvTC4Jw2QvtY9ycAA1MdXmCtJCYSN489t
+ xuQarBiu9NuRLFdcmVI4SqRkuQN5NCsFpLcuXJa4cBDZ2EVMsVQmCNwjy7CObwqKDUZe
+ 7irvOoUDlK9Q9O+A2H9DfNoqYS7ztxg/asgwc1eBJUopkKO4nVenAGtLeUQvgz6yjrOL
+ E+dA==
+X-Gm-Message-State: AC+VfDxQfx9zLLdJr1Y0JLofLA1vx2tggXYGdiFMcbPVQuzD5O+amM+W
+ yTpd+0w/ZhNIkigUv1w+ssSxGF80F/BR
+X-Google-Smtp-Source: ACHHUZ5fb2Ya5VUsmLZ0Bv9b1gjpcOsZSP2K1/2E04n/AqjwfYewnMGgdGSBiJ5URZf5UqIRlhINIA==
+X-Received: by 2002:a9d:67d3:0:b0:6a5:f48b:6b6c with SMTP id
+ c19-20020a9d67d3000000b006a5f48b6b6cmr4102050otn.32.1683494745785; 
+ Sun, 07 May 2023 14:25:45 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ t17-20020a0568301e3100b006a7aaa2d269sm3455844otr.18.2023.05.07.14.25.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 May 2023 13:28:44 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sun,  7 May 2023 23:28:41 +0300
-Message-Id: <20230507202841.2339127-4-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230507202841.2339127-1-dmitry.baryshkov@linaro.org>
-References: <20230507202841.2339127-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
+ Sun, 07 May 2023 14:25:45 -0700 (PDT)
+Received: (nullmailer pid 3488547 invoked by uid 1000);
+ Sun, 07 May 2023 21:25:44 -0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v1 3/3] ARM: dts: qcom: apq8074-dragonboard:
- enable HDMI output
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230507201218.2339014-2-dmitry.baryshkov@linaro.org>
+References: <20230507201218.2339014-1-dmitry.baryshkov@linaro.org>
+ <20230507201218.2339014-2-dmitry.baryshkov@linaro.org>
+Message-Id: <168349474255.3488452.11372136807020227216.robh@kernel.org>
+Date: Sun, 07 May 2023 16:25:44 -0500
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display: hdmi-connector:
+ add hdmi-pwr supply
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,68 +65,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonas Karlman <jonas@kwiboo.se>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable HDMI output on the APQ8074 dragonboard device.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../arm/boot/dts/qcom-apq8074-dragonboard.dts | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
+On Sun, 07 May 2023 23:12:16 +0300, Dmitry Baryshkov wrote:
+> Follow the dp-connector example and add hdmi-pwr supply to drive the 5V
+> pin of the HDMI connector (together with some simple glue logic possibly
+> attached to the connector).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../devicetree/bindings/display/connector/hdmi-connector.yaml  | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 
-diff --git a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
-index 72f7e09a5bbf..850427bd2f82 100644
---- a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
-+++ b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
-@@ -20,6 +20,18 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		hdmi-pwr-supply = <&pm8941_5vs2>;
-+		type = "a";
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&mdss_hdmi_out>;
-+			};
-+		};
-+	};
-+
- 	reserved-memory {
- 		mpss_region: mpss@ac00000 {
- 			reg = <0x0ac00000 0x2500000>;
-@@ -90,6 +102,24 @@ &mdss {
- 	status = "okay";
- };
- 
-+&mdss_hdmi {
-+	core-vdda-supply = <&pm8941_l12>;
-+	core-vcc-supply = <&pm8941_s3>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_hdmi_out {
-+	remote-endpoint = <&hdmi_con>;
-+};
-+
-+&mdss_hdmi_phy {
-+	core-vdda-supply = <&pm8941_l12>;
-+	vddio-supply = <&pm8941_l12>;
-+
-+	status = "okay";
-+};
-+
- &pm8941_wled {
- 	qcom,cs-out;
- 	qcom,switching-freq = <3200>;
--- 
-2.39.2
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.example.dtb: camera-sensor@3c: port:endpoint:data-lanes: [[1]] is too short
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/rockchip-isp1.example.dtb: camera@3c: port:endpoint:data-lanes: [[1]] is too short
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.example.dtb: pcie-ep@33800000: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
+
+doc reference errors (make refcheckdocs):
+Documentation/usb/gadget_uvc.rst: Documentation/userspace-api/media/v4l/pixfmt-packed.yuv.rst
+MAINTAINERS: Documentation/devicetree/bindings/pwm/pwm-apple.yaml
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230507201218.2339014-2-dmitry.baryshkov@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
