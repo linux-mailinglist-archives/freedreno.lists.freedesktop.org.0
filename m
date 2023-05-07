@@ -1,71 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9C246F9B7A
-	for <lists+freedreno@lfdr.de>; Sun,  7 May 2023 22:28:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 757F46F9B83
+	for <lists+freedreno@lfdr.de>; Sun,  7 May 2023 22:28:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10E3010E2ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B9D510E2EE;
 	Sun,  7 May 2023 20:28:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2ABC10E07C
- for <freedreno@lists.freedesktop.org>; Sun,  7 May 2023 20:28:45 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ad714536cfso12841161fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 07 May 2023 13:28:45 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E3D10E2E8
+ for <freedreno@lists.freedesktop.org>; Sun,  7 May 2023 20:28:46 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ac8ee9cf7aso22675321fa.2
+ for <freedreno@lists.freedesktop.org>; Sun, 07 May 2023 13:28:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683491324; x=1686083324;
+ d=linaro.org; s=google; t=1683491325; x=1686083325;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GyozR2QyoRjCMdtT4EkVneCs1KKsOlXbUdEyBHVrmYQ=;
- b=WuZy1B1l1SCIBOjsvt+qJLlT2nkPyQ9IKFtB63Lpa7Xt8LWeCxqjJxdL1azjkHpuHj
- i7WxSF9OmzjpsDevL4RSguQrKmFX14+vZL9VgeNqEQawtZhJ2YX4/b7F5uYjYkTYvN6t
- HNrAJwsfWwc9En56KKcM5MEoSDLzC9kZw3B2D/+hPmAJJZUErrKulm/OLklwYFg1JscI
- prdgg7ExHYW8xQXM1leqhki9NKJPP1tEhMrGzIxiUPywcYvOl825qyzITTHHbLysKiBh
- gc/VbIfr1z+hfv4PQxzPNeihICFo1JRNhty3OTx0SA5WxrmLNONnJ4z9wkoMSSzh+pDr
- q0hA==
+ bh=2hbb+Gw2CW/HbmhZliVRpGRsPwJqaiAgOusSFBwss6U=;
+ b=LhaHy5o46LDizECgcW3NDO4ChoSF+jVfMHWkOM6/9BLz/LjpwWu1wRhV5eb0xUgLSG
+ JI8Ccfl93neNJMCQ+XFFnHfFG/6wFxCCOccFEWLkDwI3Rj8vJCPGjlmQmvkeqk6WIvyC
+ N5GFuGUe7XyMYCMXXEiqsXPdeeOg7XDR832jeoW3fyzLkv/CS2Rq2ukfGF4srAo2GKaF
+ sPDPHNjtjCwc6Ydt5cojWEYd/iaj81rZrB5+HKEp3ETo0z/mnpsqWh9yhh84zfmL0sjg
+ XKofPsBUmBs46Jcg069/JykjrvHRpNAW6aMtUv6qzSZc89jYxyjHdltnTUeJ97q3ZqSN
+ Duww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683491324; x=1686083324;
+ d=1e100.net; s=20221208; t=1683491325; x=1686083325;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GyozR2QyoRjCMdtT4EkVneCs1KKsOlXbUdEyBHVrmYQ=;
- b=FG7mORf96ACbuFbtZ69VoQou9StmMxaYYDSPpDBtOvu920l7ZDGXdtWHOOLLK/YntZ
- 71dkcFsON7mbKEJqZ4rCt5dDl7dBJV667bijdhLLO0d6hl5acK/Azm0OodAL9kcBvnUE
- 00MHpg2X7Uy5+RNWruV+q3R+F+t6RrukRAMEdPJVXmypmtSznpl/NVArZeoImlzITHC4
- 02OLQfL5Tk+r6RdFYkpeFj1K5YjNOQADYQN20w1WfawlU19asBK+V2S0rewuxod0N4JP
- DgkdyABQawgcjYp1bKZTprpinB860XmWZsY9rK8g5HJzvs3NgxpBBbtpKYx8QfOevNvR
- zw3Q==
-X-Gm-Message-State: AC+VfDwYwXwVCe2YAqNuW+5Pa1MUqT6ildUwvEyETrUC1xYezZ0Uxsky
- QOVTcwxzBVNXPdCsFl8q1APnew==
-X-Google-Smtp-Source: ACHHUZ4rd/9XKDbKxuC13Ag1L+a0V004U2wUtQvJVHFLmXEKr3FiwNGzj9a2LPx43cmjYDZaSHhX+w==
-X-Received: by 2002:a2e:99d9:0:b0:2a8:e53f:c174 with SMTP id
- l25-20020a2e99d9000000b002a8e53fc174mr2178716ljj.26.1683491324195; 
+ bh=2hbb+Gw2CW/HbmhZliVRpGRsPwJqaiAgOusSFBwss6U=;
+ b=U7oR7LhnG6vN844sNm6mjlo4FCvofOh57iizgF0ABWHfKIaYQgY+6/DN48V3X6LCDG
+ bScK0AC/eRA03HfPjIH/C/ILbPzJrHyQDlJwqK/25bRgM+hiBi3l1gZq4KtGizw0yNAG
+ HCWGA9mOjWW6rrsocv3ghD7IZOzVQ0w47pdSjM7P3LaFz0IkZ7Vgypw22OdFxqKNTbPH
+ Mi0um6WATnX67+szg9zBvaxH2GWPVRSzisZEnkv+wDOF7xIWsUUUXyNzndH1ycEdYv87
+ EGXjZZuzHeSwqDidd1SOtXCi3yilTVTacZkouw9PPTqlCz2WbSTRxwKpiLBUpLcLVTOn
+ KFCw==
+X-Gm-Message-State: AC+VfDwlbzMIjUfbEKF8EdN9avhwXYsVv3BCdQk+7pwi+O4kYOkKz28l
+ TfI8Mk1Kj9p8Il8nZwrIV5I/Zg==
+X-Google-Smtp-Source: ACHHUZ7Yw1Dh/Uvxhe8otO9aoqhqpF2X2SkGV+rxNZnajmiPKx/Poiv2C2uF++k1Fio/WtE+SkwuOA==
+X-Received: by 2002:a2e:938c:0:b0:2a7:6fee:2503 with SMTP id
+ g12-20020a2e938c000000b002a76fee2503mr2221516ljh.14.1683491324878; 
  Sun, 07 May 2023 13:28:44 -0700 (PDT)
 Received: from lothlorien.lan (dzdqv0yyyyyyyyyyybm5y-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::ab2]) by smtp.gmail.com with ESMTPSA id
- f25-20020a2e9199000000b002a8bb52d994sm928043ljg.25.2023.05.07.13.28.43
+ f25-20020a2e9199000000b002a8bb52d994sm928043ljg.25.2023.05.07.13.28.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 May 2023 13:28:43 -0700 (PDT)
+ Sun, 07 May 2023 13:28:44 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sun,  7 May 2023 23:28:40 +0300
-Message-Id: <20230507202841.2339127-3-dmitry.baryshkov@linaro.org>
+Date: Sun,  7 May 2023 23:28:41 +0300
+Message-Id: <20230507202841.2339127-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230507202841.2339127-1-dmitry.baryshkov@linaro.org>
 References: <20230507202841.2339127-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v1 2/3] ARM: dts: qcom: msm8974: add support
- for the HDMI output
+Subject: [Freedreno] [RFC PATCH v1 3/3] ARM: dts: qcom: apq8074-dragonboard:
+ enable HDMI output
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,135 +85,61 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add HDMI and HDMI PHY device nodes for the Qualcomm MSM8974 SoC.
+Enable HDMI output on the APQ8074 dragonboard device.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm/boot/dts/qcom-msm8974.dtsi | 90 ++++++++++++++++++++++++++++-
- 1 file changed, 89 insertions(+), 1 deletion(-)
+ .../arm/boot/dts/qcom-apq8074-dragonboard.dts | 30 +++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/arch/arm/boot/dts/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom-msm8974.dtsi
-index fb661c1bd3d5..fbe74eeef863 100644
---- a/arch/arm/boot/dts/qcom-msm8974.dtsi
-+++ b/arch/arm/boot/dts/qcom-msm8974.dtsi
-@@ -1805,6 +1805,21 @@ cci_i2c1_sleep: cci-i2c1-sleep-pins {
- 				};
- 			};
+diff --git a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+index 72f7e09a5bbf..850427bd2f82 100644
+--- a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
++++ b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+@@ -20,6 +20,18 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
  
-+			hdmi_default: hdmi-default-state {
-+				cec-pins {
-+					pins = "gpio31";
-+					function = "hdmi_cec";
-+				};
-+				ddc-pins {
-+					pins = "gpio32", "gpio33";
-+					function = "hdmi_ddc";
-+				};
-+				hpd-pins {
-+					pins = "gpio34";
-+					function = "hdmi_hpd";
-+				};
++	hdmi-out {
++		compatible = "hdmi-connector";
++		hdmi-pwr-supply = <&pm8941_5vs2>;
++		type = "a";
++
++		port {
++			hdmi_con: endpoint {
++				remote-endpoint = <&mdss_hdmi_out>;
 +			};
++		};
++	};
 +
- 			spi8_default: spi8_default-state {
- 				mosi-pins {
- 					pins = "gpio45";
-@@ -1840,7 +1855,7 @@ mmcc: clock-controller@fd8c0000 {
- 				 <&dsi0_phy 0>,
- 				 <&dsi1_phy 1>,
- 				 <&dsi1_phy 0>,
--				 <0>,
-+				 <&mdss_hdmi_phy>,
- 				 <0>,
- 				 <0>;
- 			clock-names = "xo",
-@@ -1914,6 +1929,13 @@ mdp5_intf2_out: endpoint {
- 							remote-endpoint = <&dsi1_in>;
- 						};
- 					};
-+
-+					port@2 {
-+						reg = <2>;
-+						mdp5_intf3_out: endpoint {
-+							remote-endpoint = <&mdss_hdmi_in>;
-+						};
-+					};
- 				};
- 			};
+ 	reserved-memory {
+ 		mpss_region: mpss@ac00000 {
+ 			reg = <0x0ac00000 0x2500000>;
+@@ -90,6 +102,24 @@ &mdss {
+ 	status = "okay";
+ };
  
-@@ -1970,6 +1992,72 @@ dsi0_out: endpoint {
- 				};
- 			};
- 
-+			mdss_hdmi: hdmi-tx@fd922100 {
-+				compatible = "qcom,hdmi-tx-8974";
-+				reg = <0xfd922100 0x35c>,
-+				      <0xfc4b8000 0x60f0>;
-+				reg-names = "core_physical",
-+					    "qfprom_physical";
++&mdss_hdmi {
++	core-vdda-supply = <&pm8941_l12>;
++	core-vcc-supply = <&pm8941_s3>;
 +
-+				pinctrl-0 = <&hdmi_default>;
-+				pinctrl-names = "default";
++	status = "okay";
++};
 +
-+				interrupt-parent = <&mdss>;
-+				interrupts = <8>;
++&mdss_hdmi_out {
++	remote-endpoint = <&hdmi_con>;
++};
 +
-+				clocks = <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_HDMI_CLK>,
-+					 <&mmcc MDSS_HDMI_AHB_CLK>,
-+					 <&mmcc MDSS_EXTPCLK_CLK>;
-+				clock-names =
-+					"mdp_core",
-+					"iface",
-+					"core",
-+					"alt_iface",
-+					"extp";
++&mdss_hdmi_phy {
++	core-vdda-supply = <&pm8941_l12>;
++	vddio-supply = <&pm8941_l12>;
 +
-+				phys = <&mdss_hdmi_phy>;
++	status = "okay";
++};
 +
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdss_hdmi_in: endpoint {
-+							remote-endpoint = <&mdp5_intf3_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						mdss_hdmi_out: endpoint {
-+						};
-+					};
-+				};
-+			};
-+
-+			mdss_hdmi_phy: hdmi-phy@fd922500 {
-+				compatible = "qcom,hdmi-phy-8974";
-+				reg = <0xfd922500 0x7c>,
-+				      <0xfd922700 0xd4>;
-+				reg-names = "hdmi_phy",
-+					    "hdmi_pll";
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_HDMI_AHB_CLK>;
-+				clock-names = "iface",
-+					      "alt_iface";
-+
-+				#phy-cells = <0>;
-+				#clock-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+
- 			dsi0_phy: phy@fd922a00 {
- 				compatible = "qcom,dsi-phy-28nm-hpm";
- 				reg = <0xfd922a00 0xd4>,
+ &pm8941_wled {
+ 	qcom,cs-out;
+ 	qcom,switching-freq = <3200>;
 -- 
 2.39.2
 
