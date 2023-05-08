@@ -1,60 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CC476FB858
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 22:35:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 168176FB924
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 23:10:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8C710E16A;
-	Mon,  8 May 2023 20:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D097310E038;
+	Mon,  8 May 2023 21:10:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 479 seconds by postgrey-1.36 at gabe;
- Mon, 08 May 2023 20:35:41 UTC
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E0810E16A
- for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 20:35:41 +0000 (UTC)
-Received: from [192.168.178.23] (unknown [62.108.10.64])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id E7CE8C6FC8;
- Mon,  8 May 2023 20:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
- t=1683577630; bh=i3ziI4n/VJMkmN4CQuT4LcsoHjXnkwxHSzv/FcCqPXM=;
- h=From:Date:Subject:To:Cc;
- b=Lpt3AKszZNsZgGyv7T9VdUROwSWU85GxH0HVFkBkANe5BOYAFV4RmKJipoj3Ogm15
- 0z6wR3RzmvhN6cUpJcf2yPeQ4HPXOwAnvIiQ1pn9X+DOs8KQLYgcXwAhWwh7Zq9/hw
- jslEgVoSMvEVROnCC0VYTi17KyeipBUQ35ayY9xw=
-From: Luca Weiss <luca@z3ntu.xyz>
-Date: Mon, 08 May 2023 22:26:45 +0200
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B02610E046
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 21:10:16 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 7F95C3F409;
+ Mon,  8 May 2023 23:10:11 +0200 (CEST)
+Date: Mon, 8 May 2023 23:10:09 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <63xbsz3mcly2nh7zehf7lutfe4i6qux2bqrlmiywr6hevs3rc2@et2kxxj6tqvf>
+References: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230508-6-4-drm-msm-iommu-fixup-v1-1-a7a21ec94f5b@z3ntu.xyz>
-X-B4-Tracking: v=1; b=H4sIAARbWWQC/x3Nyw6CMBCF4Vchs3ZIiwVbX8W46GWUWZRCG4yG8
- O4Wln9yvpwNCmWmAvdmg0wfLpymGvLSgB/t9CbkUBs60V1FLzQOqDDkiLFE5BTjii/+rjMaI7X
- xoTfSOqja2ULosp38ePjFp9Noc1M4tKr9HaM5U9Xn/eO573+NpZaEjgAAAA==
-To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1068; i=luca@z3ntu.xyz;
- h=from:subject:message-id; bh=i3ziI4n/VJMkmN4CQuT4LcsoHjXnkwxHSzv/FcCqPXM=;
- b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBkWVsH76PYisOQFUw10ifIhqeDXbL1+/ISX76uE
- 6m6P7wwmXSJAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZFlbBwAKCRBy2EO4nU3X
- VvTXEAClT70XPbhJ6yBBJ/+8UOrhJ4gbYP8+CjIS1sKARyCu773chJmc2sOglCnrIMnT332moyT
- 3KJiRgKgUpx+6dz/Jx+a8VxkCx9WkC8X3u9bg5IzxTIkqNfAKqiL5oh2rBAlcUlsPNaRC1ckruD
- xUC9Ce1sas4v1Drx81+b/E+0eULMRo86pIc1Ugb71/PGZtyqrDkIqIU1EfqsO+nJ3PwaEng3W4K
- irV5lpHFavXtPIIIgz35VM+sWRyIzD7/llpyZiKZIdiD0kMy975CiQrdL8q/5+8k8U6tS4pG7vv
- QqUNTr55pvhhyhdLaSEHKvBMJZRj/+YwEGarn1S4+FY66YuEqUOKNguZQrNVqjJ41KTPKV3Nqla
- grhQ/XmNv5UJzNmuc1sbq69eXfo2csRbd27x5baEn8VxNiTTiIe8usTlLeplyaP+0Ye0YufSGnp
- 9MQsHnJIwYSGu5AGr82BXI14cUMziM76MSdXgt1DIBWurin5DcklVr0Pznnt7P/ZWZbAo7Iu1xP
- 1pTbLOmT33rqc3y7QpU5c0PXYTDPC01V9lPQZJYABf9dGky5JOdUel9xMr5jaD+9mJcJBXGxljp
- lF2QwdrbOETBkTgHI5NtL6moUaOIfgedqYG43hKJ98KCFXj3CE3psyaMeWHFjuehZ9Rjl8WPTjN
- r+4KVakFf1VCc9Q==
-X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
- fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
-Subject: [Freedreno] [PATCH] drm/msm/iommu: Fix null pointer dereference in
- no-IOMMU case
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: simplify pixel clk rate
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +43,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Luca Weiss <luca@z3ntu.xyz>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In the case that no IOMMU is available, msm_iommu_new can return NULL
-which should be handled. Without we will get a NULL pointer dereference
-in the next statement when we try to use the mmu variable.
+On 2023-01-18 15:00:31, Dmitry Baryshkov wrote:
+> Move a call to dsi_calc_pclk() out of calc_clk_rate directly towards
+> msm_dsi_host_get_phy_clk_req(). It is called for both 6g and v2 hosts.
+> 
+> Also, while we are at it, replace another dsi_get_pclk_rate() invocation
+> with using the stored value at msm_host->pixel_clk_rate.
 
-Fixes: 8cceb773f565 ("drm/msm/adreno: stall translation on fault for all GPU families")
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
----
- drivers/gpu/drm/msm/msm_iommu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes please, this was annoying and confusing to read in one of the recent
+patches to that stray pclk_bpp assignment, thanks for cleaning it up.
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 418e1e06cdde..5080319ae4cf 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -410,7 +410,7 @@ struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsig
- 	struct msm_mmu *mmu;
- 
- 	mmu = msm_iommu_new(dev, quirks);
--	if (IS_ERR(mmu))
-+	if (IS_ERR_OR_NULL(mmu))
- 		return mmu;
- 
- 	iommu = to_msm_iommu(mmu);
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
----
-base-commit: ba0ad6ed89fd5dada3b7b65ef2b08e95d449d4ab
-change-id: 20230508-6-4-drm-msm-iommu-fixup-99189cd591ab
+For the rest of the cleanup, also totally happy to see the duplication
+moved out of the callback.  As Abhinav notes it does make the functions
+a bit lighter, but that's exactly the purpose to make the differences
+more obvious.
 
-Best regards,
--- 
-Luca Weiss <luca@z3ntu.xyz>
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi.h      |  4 ++--
+>  drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  2 +-
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++++++------------
+>  3 files changed, 15 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index bd3763a5d723..93ec54478eb6 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -129,8 +129,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *iova);
+>  int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t *iova);
+>  int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
+>  int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host);
+> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host);
+>  void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
+>  void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+>  struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> index 44be4a88aa83..5106e66846c3 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+> @@ -51,7 +51,7 @@ struct msm_dsi_host_cfg_ops {
+>  	void* (*tx_buf_get)(struct msm_dsi_host *msm_host);
+>  	void (*tx_buf_put)(struct msm_dsi_host *msm_host);
+>  	int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
+> -	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+> +	int (*calc_clk_rate)(struct msm_dsi_host *msm_host);
+>  };
+>  
+>  struct msm_dsi_cfg_handler {
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 18fa30e1e858..7d99a108bff6 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -616,28 +616,21 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  
+>  }
+>  
+> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host)
+>  {
+> -	if (!msm_host->mode) {
+> -		pr_err("%s: mode not set\n", __func__);
+> -		return -EINVAL;
+> -	}
+> -
+> -	dsi_calc_pclk(msm_host, is_bonded_dsi);
+>  	msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
+> +
+>  	return 0;
+>  }
+>  
+> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host)
+>  {
+>  	u32 bpp = dsi_get_bpp(msm_host->format);
+>  	u64 pclk_bpp;
+>  	unsigned int esc_mhz, esc_div;
+>  	unsigned long byte_mhz;
+>  
+> -	dsi_calc_pclk(msm_host, is_bonded_dsi);
+> -
+> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+> +	pclk_bpp = msm_host->pixel_clk_rate * bpp;
+>  	do_div(pclk_bpp, 8);
+>  	msm_host->src_clk_rate = pclk_bpp;
+>  
+> @@ -2292,7 +2285,14 @@ void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
+>  	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+>  	int ret;
+>  
+> -	ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_bonded_dsi);
+> +	if (!msm_host->mode) {
+> +		pr_err("%s: mode not set\n", __func__);
+> +		return;
+> +	}
+> +
+> +	dsi_calc_pclk(msm_host, is_bonded_dsi);
+> +
+> +	ret = cfg_hnd->ops->calc_clk_rate(msm_host);
+>  	if (ret) {
+>  		pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
+>  		return;
+> -- 
+> 2.39.0
+> 
