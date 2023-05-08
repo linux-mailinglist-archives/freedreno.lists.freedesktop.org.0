@@ -2,40 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9878F6F9DEA
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 04:59:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37D526F9EA7
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 06:25:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C88410E109;
-	Mon,  8 May 2023 02:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9F6610E03F;
+	Mon,  8 May 2023 04:25:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18D8810E104;
- Mon,  8 May 2023 02:59:50 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (softbank126090219015.bbtec.net
- [126.90.219.15])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3B916814;
- Mon,  8 May 2023 04:59:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1683514783;
- bh=XpKaegjrUuuBU+lYU7WtJvcFA2w3wSOoDTm1CNlD8Io=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CLwm57VPuAOuDjKt9jAKlsqDa7z+WiDnc1r3hI10JpMCdSL3QD2QDO2xOb4TftxX2
- lhF0A6Y338EjJ+SG9ppNlCctTncIXSeqWHNQWahy89VTxW5lqiTTC9qaTwGUa98aBf
- YCtYFbdKl2sXHwqwaha//O1EraxNV2ZgwyPf99sg=
-Date: Mon, 8 May 2023 06:00:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230508030001.GT23514@pendragon.ideasonboard.com>
-References: <20230507201218.2339014-1-dmitry.baryshkov@linaro.org>
- <20230507201218.2339014-2-dmitry.baryshkov@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7415610E03F;
+ Mon,  8 May 2023 04:25:48 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3483tkhV010768; Mon, 8 May 2023 04:25:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=xM9aJ3QMYI2jjSHFnPeXdxLTxmpqEH4m6OdKBd6a4jw=;
+ b=Z53fIorsfOd/a5CfYh4YR40eH4/zl/8i43oFqmhz8TA3IcgjNqTxlyPwN1b5u+B5d9S/
+ H2A1S+pHvVQqUXYCjqdXk+rMYusZyT+/zuUacZsIN5O9fdpT04NIOz67D9kQ4ep34/VS
+ y/CogXYhe2KP+RAEMnePBTVYfHKUdJYnSKAxRbXOiNSb5TkVQCwmRFKWZJsnn83X/aFP
+ EbJ7/0kBfPQQtvq19l4tRdMSB2DGpVgBOBJSC1Ju67Zc0/r4kgnmnn4H2fwtFzgJ7tJQ
+ xvRjAUIoNDmX4ClfZUXDfK5uNHRmjWmArfiOMf9parl4SM0xMl1OvbvMuRgTMhq+biRd zw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qddv0as7t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 08 May 2023 04:25:22 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3484PLaF024967
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 8 May 2023 04:25:21 GMT
+Received: from [10.110.53.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Sun, 7 May 2023
+ 21:25:20 -0700
+Message-ID: <b0cc40d5-6de1-91cc-e2cd-f47cc53551e4@quicinc.com>
+Date: Sun, 7 May 2023 21:25:19 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20230507201218.2339014-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display: hdmi-connector:
- add hdmi-pwr supply
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Bjorn Andersson <andersson@kernel.org>, Leonard Lausen <leonard@lausen.nl>
+References: <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
+ <20230508021536.txtamifw2vkfncnx@ripper>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230508021536.txtamifw2vkfncnx@ripper>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: CPo0I43eNuQT6fj1KBtBGXpp7wBGxqkl
+X-Proofpoint-ORIG-GUID: CPo0I43eNuQT6fj1KBtBGXpp7wBGxqkl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-08_02,2023-05-05_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0
+ suspectscore=0 clxscore=1011 spamscore=0 priorityscore=1501
+ impostorscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=999
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2305080029
+Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,55 +83,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonas Karlman <jonas@kwiboo.se>, freedreno@lists.freedesktop.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>, devicetree@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <andrzej.hajda@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, regressions@lists.linux.dev,
+ David Airlie <airlied@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Kuogee
+ Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
 
-Thank you for the patch.
 
-On Sun, May 07, 2023 at 11:12:16PM +0300, Dmitry Baryshkov wrote:
-> Follow the dp-connector example and add hdmi-pwr supply to drive the 5V
-> pin of the HDMI connector (together with some simple glue logic possibly
-> attached to the connector).
+On 5/7/2023 7:15 PM, Bjorn Andersson wrote:
+> On Mon, May 08, 2023 at 01:06:13AM +0000, Leonard Lausen wrote:
+>> This reverts commit e17af1c9d861dc177e5b56009bd4f71ace688d97.
+>>
+>> Removing the delay of 100 units broke hot plug detection for USB-C displays on
+>> qcom sc7180 lazor devices. Lazor uses mdss for hot plug detection and declares
+>> dp_hot_plug_det in the dts. Other sc7180 based devices like aspire1 were not
+>> affected by the regression, as they do not rely on mdss and dp_hot_plug_det for
+>> hot plug detection.
+>>
+>> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+>> Tested-by: Leonard Lausen <leonard@lausen.nl> # Trogdor (sc7180)
+>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index bde1a7ce442f..db9783ffd5cf 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1506,7 +1506,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
+>>          dp = container_of(dp_display, struct dp_display_private, dp_display);
+>>   
+>>          if (!dp_display->is_edp)
+>> -               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 0);
+>> +               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../devicetree/bindings/display/connector/hdmi-connector.yaml  | 3 +++
->  1 file changed, 3 insertions(+)
+> When booting with the cable connected on my X13s, 100 is long enough for
+> my display to time out and require me to disconnect and reconnect the
+> cable again.
 > 
-> diff --git a/Documentation/devicetree/bindings/display/connector/hdmi-connector.yaml b/Documentation/devicetree/bindings/display/connector/hdmi-connector.yaml
-> index 83c0d008265b..94f75359c6ff 100644
-> --- a/Documentation/devicetree/bindings/display/connector/hdmi-connector.yaml
-> +++ b/Documentation/devicetree/bindings/display/connector/hdmi-connector.yaml
-> @@ -36,6 +36,9 @@ properties:
->      description: GPIO signal to enable DDC bus
->      maxItems: 1
->  
-> +  hdmi-pwr-supply:
-> +    description: Power supply for the HDMI 5v pin connector
+> Do we have any idea of why the reduction to 0 is causing an issue when
+> using the internal HPD?
+> 
+> Regards,
+> Bjorn
 
-I'd write
+Yes, we do know why this is causing an issue. The cleaner patch for this 
+will be posted this week.
 
-    description: Power supply for the HDMI +5V Power pin
+There is no need to add the 100ms delay back yet.
 
-to match the HDMI specification. With that,
+thanks for posting this but NAK on this patch till we post the fix this 
+week.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Appreciate a bit of patience till then.
 
-> +
->    port:
->      $ref: /schemas/graph.yaml#/properties/port
->      description: Connection to controller providing HDMI signals
-
--- 
-Regards,
-
-Laurent Pinchart
+> 
+>>   }
+>>   
+>>   bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+>> -- 
+>> 2.30.2
