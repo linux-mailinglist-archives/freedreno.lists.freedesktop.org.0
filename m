@@ -1,49 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B276FB206
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 15:51:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 427426FB627
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 20:02:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C871C10E2AD;
-	Mon,  8 May 2023 13:51:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2DF10E066;
+	Mon,  8 May 2023 18:02:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A514410E139
- for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 07:50:53 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pvvdN-000352-R3; Mon, 08 May 2023 09:50:13 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pvvdK-001wDu-Ru; Mon, 08 May 2023 09:50:10 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pvvdJ-002Kte-5G; Mon, 08 May 2023 09:50:09 +0200
-Date: Mon, 8 May 2023 09:50:09 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20230508075009.4l4ghdrwopfhmcao@pengutronix.de>
-References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
- <935faac5-280b-b2e0-3fdb-d0424990e43a@suse.de>
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3471F10E309
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 18:02:02 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ac78bb48eeso53587721fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 11:02:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683568920; x=1686160920;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=srWpSA6PQvFq/EvQhPvuDCfFUZ4yDd/A9FonAYJLAMs=;
+ b=FL0pBNUePly1uVBRYJUl3YDEQQgYqGZRGGcMsTyuQQM4k/z2gNuEdj0UZoeBj+IhcR
+ R5CW1MiG9FVazGG5tD+vnR1LRVbR4OirYz9+xcNMpEk/Bb1xzaFlGPU5Z+hktCyt6cbo
+ 6OIXOO1SRKtgxJLFyheHDS94lHMmaI2AWLyE1I/o5UO9gdMdVXXYo76DWOENi7sLq6aQ
+ Bkt31Ln0Zt6Mq3U7d6J1kLjbt9VC9N2hBdHUtI2R44Ss2ODwVelvty604tCwMAES6DSq
+ JS2LTFrjYVm0DuK873z/rYGaPqUZEFJwt49g6YQZlfBEhTnPaC46XUT7S0rEbmph+4DK
+ 0iWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683568920; x=1686160920;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=srWpSA6PQvFq/EvQhPvuDCfFUZ4yDd/A9FonAYJLAMs=;
+ b=Y+lOUyollBGnlHXUa+Uqt4oPuLIRgbhBkOgu58BA/olZQWP7luEm6LSWBj/+FJhbD6
+ kZjaVibwgDsOr1ftl7eSAjJTCifzkDVFZOTrT1cdS9/Q6zpXB5YWzSYAZhn0czUJnBro
+ 3+dVEWOpOLIXAJUyZk3FKl8DWjBBGkiy9E5kJ/wsSNfMbR3kExU+AtVR09IKGWsq5y/j
+ 2U23cNCigVCkH8M87S3+4II5FV943d0J1ZIe+duUn5uXhZbeYDbpsTz4BkaSpN/42Omc
+ YBJFer+HS2QwBgwZwT7xK5vpjwby1sqSBOCnR6J7NbXy/ZElMF/2CXGxipPxUO3l3Wgo
+ SyTA==
+X-Gm-Message-State: AC+VfDwYSbUWCcgEHDKhELpAQ/rl3SGateuxIru8P4P2ufLCSewQz/qq
+ xs7goluCKxRR5+2rjCi1vRNy4g==
+X-Google-Smtp-Source: ACHHUZ4p/T5nbBw4TPBXo8mN0xn+DPOKvUfI0CuaD8GWmkK6eSAlX2ecNPT6pZCMcAH45YboIyysNA==
+X-Received: by 2002:a2e:9e96:0:b0:2a8:ceef:e6cd with SMTP id
+ f22-20020a2e9e96000000b002a8ceefe6cdmr2818088ljk.52.1683568919824; 
+ Mon, 08 May 2023 11:01:59 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ l5-20020a2e8345000000b002ac88e29049sm1265967ljh.43.2023.05.08.11.01.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 May 2023 11:01:59 -0700 (PDT)
+Message-ID: <c4775bde-9594-ab35-6765-5d2fe3e9f3b3@linaro.org>
+Date: Mon, 8 May 2023 21:01:58 +0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="3pf3cmic5n6cdkye"
-Content-Disposition: inline
-In-Reply-To: <935faac5-280b-b2e0-3fdb-d0424990e43a@suse.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
-X-Mailman-Approved-At: Mon, 08 May 2023 13:51:27 +0000
-Subject: Re: [Freedreno] [PATCH 00/53] drm: Convert to platform remove
- callback returning void
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230507190735.2333145-1-dmitry.baryshkov@linaro.org>
+ <20230507190735.2333145-4-dmitry.baryshkov@linaro.org>
+ <a86cfa8b-c205-6887-a64e-d51241b74b15@linaro.org>
+ <ca274ec9-81bf-c426-6ad6-93eb34b52b05@linaro.org>
+ <11863653-84aa-8edf-676f-e55174fb4539@linaro.org>
+ <7b90ed61-7789-275d-a743-6065ab6ecdbb@linaro.org>
+In-Reply-To: <7b90ed61-7789-275d-a743-6065ab6ecdbb@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 3/4] ARM: dts: qcom: apq8074-dragonboard:
+ enable adsp and MSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,142 +87,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Karol Herbst <kherbst@redhat.com>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Danilo Krummrich <dakr@redhat.com>,
- NXP Linux Team <linux-imx@nxp.com>, Miaoqian Lin <linmq006@gmail.com>,
- linux-sunxi@lists.linux.dev, Rahul T R <r-ravikumar@ti.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- etnaviv@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
- Johan Hovold <johan+linaro@kernel.org>, Hyun Kwon <hyun.kwon@xilinx.com>,
- Andrew Jeffery <andrew@aj.id.au>, Jingoo Han <jingoohan1@gmail.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- lima@lists.freedesktop.org, Chunyan Zhang <zhang.lyra@gmail.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Minghao Chi <chi.minghao@zte.com.cn>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>,
- Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Alain Volmat <alain.volmat@foss.st.com>, linux-mips@vger.kernel.org,
- Liu Ying <victor.liu@nxp.com>, linux-arm-msm@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Brian Starkey <brian.starkey@arm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Yuan Can <yuancan@huawei.com>, Stefan Agner <stefan@agner.ch>,
- Michal Simek <michal.simek@xilinx.com>, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Joel Fernandes <joel@joelfernandes.org>, Sam Ravnborg <sam@ravnborg.org>,
- Rob Herring <robh@kernel.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
- nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
- Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Alison Wang <alison.wang@nxp.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Liu Shixin <liushixin2@huawei.com>, Tomi Valkeinen <tomba@kernel.org>,
- Deepak R Varma <drv@mailo.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Ricardo Ribalda <ribalda@chromium.org>, Tian Tao <tiantao6@hisilicon.com>,
- Shawn Guo <shawnguo@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Sandy Huang <hjc@rock-chips.com>, Paul Cercueil <paul@crapouillou.net>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- linux-renesas-soc@vger.kernel.org, Yongqin Liu <yongqin.liu@linaro.org>,
- Jayshri Pawar <jpawar@cadence.com>, Jonas Karlman <jonas@kwiboo.se>,
- Rob Clark <robdclark@gmail.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
- Melissa Wen <mwen@igalia.com>, linux-mediatek@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Qiang Yu <yuq825@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 08/05/2023 13:49, Dmitry Baryshkov wrote:
+> On 08/05/2023 13:38, Konrad Dybcio wrote:
+>>
+>>
+>> On 8.05.2023 12:33, Dmitry Baryshkov wrote:
+>>> On 08/05/2023 11:33, Konrad Dybcio wrote:
+>>>>
+>>>>
+>>>> On 7.05.2023 21:07, Dmitry Baryshkov wrote:
+>>>>> Enable ADSP and Modem DSPs on APQ8074 dragonboard. The MSS region
+>>>>> differs from the one defined in the msm8974, so it overriden locally.
+>>>>>
+>>>>> The modem is specified use mba.mbn instead of mbn.b00 (for the sake of
+>>>>> similarity with other platforms). This requires a patch for remoteproc
+>>>>> to be applied [1].
+>>>>>
+>>>>> [1] 
+>>>>> https://lore.kernel.org/all/20230507172041.2320279-1-dmitry.baryshkov@linaro.org/
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>    .../arm/boot/dts/qcom-apq8074-dragonboard.dts | 28 
+>>>>> +++++++++++++++++++
+>>>>>    1 file changed, 28 insertions(+)
+>>>>>
+>>>>> diff --git a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts 
+>>>>> b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+>>>>> index 6b047c679370..c893afc00eb4 100644
+>>>>> --- a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+>>>>> +++ b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+>>>>> @@ -4,6 +4,8 @@
+>>>>>    #include "qcom-pm8841.dtsi"
+>>>>>    #include "qcom-pm8941.dtsi"
+>>>>>    +/delete-node/ &mpss_region;
+>>>>> +
+>>>>>    / {
+>>>>>        model = "Qualcomm APQ8074 Dragonboard";
+>>>>>        compatible = "qcom,apq8074-dragonboard", "qcom,apq8074";
+>>>>> @@ -17,6 +19,13 @@ aliases {
+>>>>>        chosen {
+>>>>>            stdout-path = "serial0:115200n8";
+>>>>>        };
+>>>>> +
+>>>>> +    reserved-memory {
+>>>>> +        mpss_region: mpss@ac00000 {
+>>>>> +            reg = <0x0ac00000 0x2500000>;
+>>>>> +            no-map;
+>>>>> +        };
+>>>>> +    };
+>>>>>    };
+>>>>>      &blsp1_uart2 {
+>>>>> @@ -39,6 +48,25 @@ eeprom: eeprom@52 {
+>>>>>        };
+>>>>>    };
+>>>>>    +&remoteproc_adsp {
+>>>>> +    cx-supply = <&pm8841_s2>;
+>>>>> +
+>>>>> +    firmware-name = "qcom/apq8074/adsp.mbn";
+>>>>> +
+>>>>> +    status = "okay";
+>>>>> +};
+>>>>> +
+>>>>> +&remoteproc_mss {
+>>>>> +    cx-supply = <&pm8841_s2>;
+>>>>> +    mss-supply = <&pm8841_s3>;
+>>>>> +    mx-supply = <&pm8841_s1>;
+>>>>> +    pll-supply = <&pm8941_l12>;
+>>>> High time to move this to rpmpd!
+>>>> I won't object to adding this though, as it obviously works
+>>>> and is already used on other boards..
+>>>
+>>> I think the problem is that they are not level-voted on this 
+>>> platform, so they are regulators, not PDs.
+>> They're corner-voted.
+> 
+> Hmm. Indeed. In msm8974-regulators I see both voltage and corner entries 
+> for these regulators.
 
---3pf3cmic5n6cdkye
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Checked. Only CX and GFX (yes, MX not included) are enabled as corners 
+in vendor dtsi. So this probably doesn't gain us a lot.
 
-[A few addressed bounced and my script to find the recipents for a patch
-series broke and invented some addresses. I fixed all the problem I'm
-aware of in this mail.]
+> 
+>>
+>> Konrad
+>>>
+>>>>
+>>>>> +
+>>>>> +    firmware-name = "qcom/apq8074/mba.mbn", "qcom/apq8074/modem.mbn";
+>>>> Could you please keep it one entry per line?
+>>>
+>>> Sure.
+>>>
+>>>>
+>>>> Otherwise,
+>>>>
+>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>>
+>>>> Konrad
+>>>>> +
+>>>>> +    status = "okay";
+>>>>> +};
+>>>>> +
+>>>>>    &rpm_requests {
+>>>>>        regulators-0 {
+>>>>>            compatible = "qcom,rpm-pm8841-regulators";
+>>>
+> 
 
-On Mon, May 08, 2023 at 09:06:27AM +0200, Thomas Zimmermann wrote:
-> for the whole series:
->=20
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->=20
-> Please see my comment on the patches to tiny/.
->=20
-> Let me know if you want me to merge this patchset into drm-misc-next.
+-- 
+With best wishes
+Dmitry
 
-Thanks, I'd wait a bit for more acks/reviews to come in and then plan to
-resend later, also addressing the feedback you sent.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---3pf3cmic5n6cdkye
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmRYqbAACgkQj4D7WH0S
-/k4JeggAnBHUxma4vQ+/T0T9qJC+5c7iGOJ+hg1VKQdu3RFYOsfEdBVHywMuX8Fb
-bkfMbL4jsyN80KX3Sc7XeT0GkuA6n1bkIfJsTz16Dl8pPUTDBLPKYKNT82+brNvg
-XIif/963gu+RJ+x6ME2cdKET84LGmQwhonW2LUxGiRX5JD3FroDO8qaiLtFzkxEg
-zhCTMEQJUy1J6coFLDsxnhLFu4R/6ngT6tZOJfRAB4OiIEFmKVVH0/Y2Ko/ggJ/d
-50TcQO/0MoAzPrToLpaLaT3VtMocbAxQf7XRwpqF4MDvhu7dVfsJIhcWtBYjocz+
-WfD1B59vo0hWYb/QXlkA6OY3tzlBQQ==
-=Fhn+
------END PGP SIGNATURE-----
-
---3pf3cmic5n6cdkye--
