@@ -1,76 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D526F9EA7
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 06:25:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27E916FA244
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 10:31:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9F6610E03F;
-	Mon,  8 May 2023 04:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D650510E174;
+	Mon,  8 May 2023 08:31:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7415610E03F;
- Mon,  8 May 2023 04:25:48 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3483tkhV010768; Mon, 8 May 2023 04:25:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=xM9aJ3QMYI2jjSHFnPeXdxLTxmpqEH4m6OdKBd6a4jw=;
- b=Z53fIorsfOd/a5CfYh4YR40eH4/zl/8i43oFqmhz8TA3IcgjNqTxlyPwN1b5u+B5d9S/
- H2A1S+pHvVQqUXYCjqdXk+rMYusZyT+/zuUacZsIN5O9fdpT04NIOz67D9kQ4ep34/VS
- y/CogXYhe2KP+RAEMnePBTVYfHKUdJYnSKAxRbXOiNSb5TkVQCwmRFKWZJsnn83X/aFP
- EbJ7/0kBfPQQtvq19l4tRdMSB2DGpVgBOBJSC1Ju67Zc0/r4kgnmnn4H2fwtFzgJ7tJQ
- xvRjAUIoNDmX4ClfZUXDfK5uNHRmjWmArfiOMf9parl4SM0xMl1OvbvMuRgTMhq+biRd zw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qddv0as7t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 May 2023 04:25:22 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3484PLaF024967
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 8 May 2023 04:25:21 GMT
-Received: from [10.110.53.190] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Sun, 7 May 2023
- 21:25:20 -0700
-Message-ID: <b0cc40d5-6de1-91cc-e2cd-f47cc53551e4@quicinc.com>
-Date: Sun, 7 May 2023 21:25:19 -0700
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D7A10E176
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 08:31:01 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4f139de8cefso26421575e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 01:31:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683534659; x=1686126659;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Bj0Lw2kox19ii2BM01KlnNMvqL1S4dwAiyFt2I0KjpM=;
+ b=JZGSLHB9MIYiGCrQCgu4CqzDve0wTy93hMJVCfnNsIg1e/oqMnEnuKZEjGWR7bs7cw
+ wfJ8mC5hmtQJMzFIerLt205IFxVfsoCteL9MbnHixWLjRat8FN3FHeByYWulJI5nse+n
+ XVxWvVrQgdCTXGXQPid3/2FfcJopHt43b38my1vwvUf01TJiN1YjXn+q37RSFi4TYAO9
+ aDNST8R5MPSiSCKGwws5Qi3bGUiXg+rLaRFlhpUHLtrTpmX3YA1zcsW6vm6FOoXFlgna
+ EWO8+OU0NAQaJXsDR6KfFam/VKu2N9I98M/8QewTteeTKYONYftaD56MxhGplbAFkQwV
+ wHVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683534659; x=1686126659;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bj0Lw2kox19ii2BM01KlnNMvqL1S4dwAiyFt2I0KjpM=;
+ b=WMY/BTG4kyIe1EiiAhIG5F6hiGBW7S8l6RMsYCOYCE9B7FcAqXJI+jnUl6rZJFyBVG
+ +JzwdlMMYXhDPQP1BCll4xEyEinf7/odfGaOrRs3IvwG9RBsUEAzfrOZpPPhVecilakM
+ PlSizAF2qhCMWJdmmCC4x7Cci2pBiCUVB8Uzi8Jwv4jE+AJBF1oC77LobIe4WkrMNDLD
+ fbGy9GlgFm0x9p80k7PckawzdDly/4G7WpD862mQE6I7KGAwwxdhxOfXAVaeMLlnNo6r
+ +Ou3/j3E2hbj9eo7Dg/aEsV5t3B/2TFsSBsvcs0AgZBKrSmDBWtzV2raxjJqUS2Tkb5Z
+ tJmw==
+X-Gm-Message-State: AC+VfDyD4kE9h7+JP/CEfjearINSD4Ir9s+gVJ+5fVVzeM3mIf5vp5vf
+ fS9G9g3mqr4RMl9++3sKfhdSxA==
+X-Google-Smtp-Source: ACHHUZ6d24zxoVca00fKR8vFgULu7VtObta6oV9gpaKWuTbbc7CK6t+VDpL4OjXEIRruPoM0kJT4+A==
+X-Received: by 2002:a19:f00d:0:b0:4ee:dc5a:42f7 with SMTP id
+ p13-20020a19f00d000000b004eedc5a42f7mr2907935lfc.24.1683534658808; 
+ Mon, 08 May 2023 01:30:58 -0700 (PDT)
+Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
+ by smtp.gmail.com with ESMTPSA id
+ a17-20020a19f811000000b004f13634da05sm1215359lff.180.2023.05.08.01.30.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 May 2023 01:30:58 -0700 (PDT)
+Message-ID: <8cdecc51-2a42-4b82-9eb3-2ab77860c5d4@linaro.org>
+Date: Mon, 8 May 2023 10:30:56 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
 Content-Language: en-US
-To: Bjorn Andersson <andersson@kernel.org>, Leonard Lausen <leonard@lausen.nl>
-References: <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
- <20230508021536.txtamifw2vkfncnx@ripper>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230508021536.txtamifw2vkfncnx@ripper>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230507190735.2333145-1-dmitry.baryshkov@linaro.org>
+ <20230507190735.2333145-2-dmitry.baryshkov@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230507190735.2333145-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: CPo0I43eNuQT6fj1KBtBGXpp7wBGxqkl
-X-Proofpoint-ORIG-GUID: CPo0I43eNuQT6fj1KBtBGXpp7wBGxqkl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-08_02,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0
- suspectscore=0 clxscore=1011 spamscore=0 priorityscore=1501
- impostorscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=999
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2305080029
-Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
+Subject: Re: [Freedreno] [PATCH 1/4] ARM: dts: qcom: msm8974: add ocmem
+ clock to GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,73 +82,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, regressions@lists.linux.dev,
- David Airlie <airlied@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Kuogee
- Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Johan Hovold <johan+linaro@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/7/2023 7:15 PM, Bjorn Andersson wrote:
-> On Mon, May 08, 2023 at 01:06:13AM +0000, Leonard Lausen wrote:
->> This reverts commit e17af1c9d861dc177e5b56009bd4f71ace688d97.
->>
->> Removing the delay of 100 units broke hot plug detection for USB-C displays on
->> qcom sc7180 lazor devices. Lazor uses mdss for hot plug detection and declares
->> dp_hot_plug_det in the dts. Other sc7180 based devices like aspire1 were not
->> affected by the regression, as they do not rely on mdss and dp_hot_plug_det for
->> hot plug detection.
->>
->> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
->> Tested-by: Leonard Lausen <leonard@lausen.nl> # Trogdor (sc7180)
->> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index bde1a7ce442f..db9783ffd5cf 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -1506,7 +1506,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->>          dp = container_of(dp_display, struct dp_display_private, dp_display);
->>   
->>          if (!dp_display->is_edp)
->> -               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 0);
->> +               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+On 7.05.2023 21:07, Dmitry Baryshkov wrote:
+> To get GPU working with the OCMEM, the oxili_ocmemgx_clk clock should be
+> enabled. Pass it to the GPU to get it to work on apq8074/msm8974 boards.
 > 
-> When booting with the cable connected on my X13s, 100 is long enough for
-> my display to time out and require me to disconnect and reconnect the
-> cable again.
+> Fixes: fe079442db63 ("ARM: dts: qcom: msm8974: add gpu support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+Uhh.. this clock should be managed by RPM with:
+
+type = MEM
+id = 2
+
+just like it's defined for 8994 today.
+
+Could you try adding it in rpmcc and confirming?
+
+Konrad
+>  arch/arm/boot/dts/qcom-msm8974.dtsi | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> Do we have any idea of why the reduction to 0 is causing an issue when
-> using the internal HPD?
-> 
-> Regards,
-> Bjorn
-
-Yes, we do know why this is causing an issue. The cleaner patch for this 
-will be posted this week.
-
-There is no need to add the 100ms delay back yet.
-
-thanks for posting this but NAK on this patch till we post the fix this 
-week.
-
-Appreciate a bit of patience till then.
-
-> 
->>   }
->>   
->>   bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
->> -- 
->> 2.30.2
+> diff --git a/arch/arm/boot/dts/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom-msm8974.dtsi
+> index 834ad95515b1..fb661c1bd3d5 100644
+> --- a/arch/arm/boot/dts/qcom-msm8974.dtsi
+> +++ b/arch/arm/boot/dts/qcom-msm8974.dtsi
+> @@ -2104,8 +2104,9 @@ gpu: adreno@fdb00000 {
+>  
+>  			clocks = <&mmcc OXILI_GFX3D_CLK>,
+>  				 <&mmcc OXILICX_AHB_CLK>,
+> +				 <&mmcc OXILI_OCMEMGX_CLK>,
+>  				 <&mmcc OXILICX_AXI_CLK>;
+> -			clock-names = "core", "iface", "mem_iface";
+> +			clock-names = "core", "iface", "mem", "mem_iface";
+>  
+>  			sram = <&gmu_sram>;
+>  			power-domains = <&mmcc OXILICX_GDSC>;
