@@ -1,37 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE5186FBA64
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 23:59:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5E56FBAC4
+	for <lists+freedreno@lfdr.de>; Tue,  9 May 2023 00:03:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D90110E30F;
-	Mon,  8 May 2023 21:59:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2C510E30F;
+	Mon,  8 May 2023 22:03:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0A1B10E30D;
- Mon,  8 May 2023 21:59:27 +0000 (UTC)
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8695A10E30F
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 22:03:27 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 38F633F33C;
- Mon,  8 May 2023 23:59:26 +0200 (CEST)
-Date: Mon, 8 May 2023 23:59:25 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id E398B3F586;
+ Tue,  9 May 2023 00:03:24 +0200 (CEST)
+Date: Tue, 9 May 2023 00:03:23 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <pldbixvcvqn5pjcuohz2uijywsd7rbhabdaas2oag6eqwqofon@amyyth6qgy3u>
-References: <20230329-rfc-msm-dsc-helper-v6-0-cb7f59f0f7fb@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v6-3-cb7f59f0f7fb@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <7pqaid23xlcksxy3pzc7wzud226nmucklhe37bpy6n2b3bbft3@g6lpuun6kpk5>
+References: <20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v2-7-5def73f50980@linaro.org>
+ <k25jg7cez2kimpxr4ztbdzjr2adq6a2vjknyvfe5frxujtogfg@vhfdyt45unv6>
+ <bfed3b0a-9672-fa59-5591-27ad17f5e96c@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v6-3-cb7f59f0f7fb@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v6 3/7] drm/msm/dpu: Use DRM DSC helper for
- det_thresh_flatness
+In-Reply-To: <bfed3b0a-9672-fa59-5591-27ad17f5e96c@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 07/13] drm/msm/dpu: Add SM6350 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,61 +44,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-12 16:25:17, Jessica Zhang wrote:
-> Use the DRM DSC helper for det_thresh_flatness to match downstream
-> implementation and the DSC spec.
-
-This should put more emphasis on the fact that the helper **has a
-different math implementation** to calculate the value differently, and
-that this hence is a **semantic change**.  Otherwise the Fixes: won't
-make sense and the reader wouldn't notice it.
-
-> Changes in V2:
-> - Added a Fixes tag
+On 2023-04-28 16:03:54, Dmitry Baryshkov wrote:
+<snip>
+> >> +	.qseed_type = DPU_SSPP_SCALER_QSEED4,
+> > 
+> > I thought it was QSEED3LITE, but doesn't really matter as both are
+> > handled similarly.  It'll anyway change when I resubmit:
 > 
-> Fixes: c110cfd1753e ("drm/msm/disp/dpu1: Add support for DSC")
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> If I understood correctly, we mixed two things: hw stuff and the 
+> userspace library. QSEEDv2 was a hardware scaler. "qseedv3/v3lite/v4" 
+> are software library names that are used with the scalers newer than 
+> QSEED2. From the driver point we can ignore that and use scaler's hw 
+> version (which mostly but not always corresponds to the 3/3lite/4).
 
-I've made the same change locally, so for the change itself:
+If I remember correctly, that matches the register changes we intended
+to do in the patch below.  This was only available starting at qseedv3.
+One of the replies in that thread clarifies which register value is used
+on what hardware, and that is what downstream switches on.
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+I'll try and respin it once we're through the DSC series.
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> index 619926da1441..b952f7d2b7f5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> @@ -3,6 +3,8 @@
->   * Copyright (c) 2020-2022, Linaro Limited
->   */
->  
-> +#include <drm/display/drm_dsc_helper.h>
-> +
->  #include "dpu_kms.h"
->  #include "dpu_hw_catalog.h"
->  #include "dpu_hwio.h"
-> @@ -102,7 +104,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
->  	data |= dsc->final_offset;
->  	DPU_REG_WRITE(c, DSC_DSC_OFFSET, data);
->  
-> -	det_thresh_flatness = 7 + 2 * (dsc->bits_per_component - 8);
-> +	det_thresh_flatness = drm_dsc_calculate_flatness_det_thresh(dsc);
->  	data = det_thresh_flatness << 10;
->  	data |= dsc->flatness_max_qp << 5;
->  	data |= dsc->flatness_min_qp;
-> 
-> -- 
-> 2.40.0
-> 
+- Marijn
+
+> > https://lore.kernel.org/linux-arm-msm/20230215-sspp-scaler-version-v1-0-416b1500b85b@somainline.org/T/#u
+> > 
+> > which should hardcode the register value directly, making this field
+> > superfluous.
+
+<snip>
