@@ -1,75 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD70A6FA25D
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 10:34:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C84C36FA262
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 10:36:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93ABE10E185;
-	Mon,  8 May 2023 08:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D38210E185;
+	Mon,  8 May 2023 08:36:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE85110E180
- for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 08:34:50 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4f13a72ff53so4680382e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 01:34:50 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3460810E185
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 08:36:13 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4ecb137af7eso4771555e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 01:36:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683534888; x=1686126888;
+ d=linaro.org; s=google; t=1683534971; x=1686126971;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=qCNtPr0JwlvjsNFu67DIeJ3GgI3iGTtI8/7LXS2wZYk=;
- b=V5vXNQ5GWe8KUpKdHN0fnMvcPOUhlsyB5PxpWSVkiOpt16uzeZWmHsLIN12yFm+5Yj
- 9MIm4tjLtxmpIa4vJZCHhpYU1SAw5ILnU4tw6oxBcNLR2XsPXy0uXgo9NSn7wfJkk2Ow
- X5vCImpRhKUZIcCqGjd0x5b9YsU95zpjhUwMx4HBXc8a5Ok1EZ0H3PHD607cWVy/5nCs
- kJtCl665w2PDl0ZdqYszREFCTMlhJGrbowvUwU96KHkQxrlUh28MfaGvILi34MqpiXV1
- uEDDPugmFJknA7tZY1GLfcPBRYlxKbDA0uPrUt6kVEEjADNaL2gOs1gz54mM4Zu1s2Zl
- KvNA==
+ bh=7vOeK6NJXfng1Er3sfGOPlcD75JIf3x+ne87klUAZe8=;
+ b=VjTc2e0tCdENNTGTlYaTu6SbmL+2zAqbhOvhqn8Ke3GrBw0BulOfpPKx61Gnsq+pau
+ M97jxNpDaGyMW/osQhp3kBshxpA+lq1IZikHIjue/85Ye3S+zucnAIriJRfMjfKv91XR
+ LXpKbcxRWPMkjOWfzBeqUKqb7sO5Tha6rVHExUgAiWXPOrk0KZsN1S5+VrT+AcbkXMhC
+ nPuVH3iUsGdjUPSI/8SaEMgn4GZohy/J/J2mdHV6i/+9haCNoFx6/BYxpxKFTdSW8qXJ
+ J/O3SefH9o5JXrkzC7cwR4tc+su3M2iLQcHon98PVnTrwxciiN7ExjmgJRWaQ83ztIYC
+ sBEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683534888; x=1686126888;
+ d=1e100.net; s=20221208; t=1683534971; x=1686126971;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qCNtPr0JwlvjsNFu67DIeJ3GgI3iGTtI8/7LXS2wZYk=;
- b=ZCb3PMUvaUqw7mSDLOXoktBYoLhuB1DaSV5w7pIMdYgB+QTI6SyDkqhGjCsx5xCLSD
- D/FrOJb7HCftulobTNGr03MAz++4RNHjAuV5nJ99t+BcvztWMKzuoGIcNC+8VRxXCY8Z
- 0NRhVbQAKjWLRsKmiNpyZxG8Wzx8Wz/wax0K6mKwunT8LGaPp7HYeLoV9wraalKL8X37
- Xj5FBVRs3jGUm1tbJ5G/SQe7B1zH0C14oaskP3kK4wazsuTDTVoiguFl6kfyAA4a2Epe
- mlB9Df/ZkLpvoTWh0oUmLrBv/dT8zj8wLQLc3vSrlZmRDxfSFWVSOiuAlAkSFMJlVG1N
- LEQA==
-X-Gm-Message-State: AC+VfDz3nA6kWxGU3ARa5iIdh7j6QZXlvejsTnIkV7eHcNSyJ/MADWkq
- 1+rXV2woweh80gDPI8FRB6C6CA==
-X-Google-Smtp-Source: ACHHUZ6PIEja33Tsnyi1eGOgotXjqEbCn17WNyUoqoCXNnTL2k/aocmrdgrbsEBA9RKenXcbUU4CAA==
-X-Received: by 2002:ac2:4d1a:0:b0:4ec:363a:5f24 with SMTP id
- r26-20020ac24d1a000000b004ec363a5f24mr2443926lfi.23.1683534888453; 
- Mon, 08 May 2023 01:34:48 -0700 (PDT)
+ bh=7vOeK6NJXfng1Er3sfGOPlcD75JIf3x+ne87klUAZe8=;
+ b=Xm+8DaxC+BriBKdo6X6j7bbut9NB+93qrprRR4TELEuMqVYdp56Donvf/WMN5/1Qit
+ gwOpl/am4yPcZb/CjAy7YbU/c7KY/3jNtte/knW+GiupkgRns/0IAQYy6SNGEeBFrPpZ
+ Wvp7aL9/spc1+3tOKabhzKl5XWuHfm4vgpz2O5vawcburJ4vOrTJ9dS4zyFqnQSp8eLI
+ rKtW7LVtv2jLGSLBANZ9Q8rzDRnlBYdJMgnZ7fwIBNPD4v/iqedstg0/sS2oqCGLfXgM
+ rptVw6C4B3cfp+jRijdKRWURdOpszRteIi8pWAi3RMDI1Ylbebrh6T6GczwfromD14pJ
+ VtiA==
+X-Gm-Message-State: AC+VfDz6C2ZIPkFAxlksYdNdttGFu16NJq/cYHITTZdQqAHK16MVIhof
+ nnhPd5fzFqbob5fyW9RmS8aKrQ==
+X-Google-Smtp-Source: ACHHUZ6/bXi/Yh+/jHrYdIbEzAMWQSkOek/BIP7BFnilquyHz/JZcmKS5cfq6hr+S1+7VeyczkzauA==
+X-Received: by 2002:ac2:47e5:0:b0:4ef:ec94:9678 with SMTP id
+ b5-20020ac247e5000000b004efec949678mr2744507lfp.20.1683534971320; 
+ Mon, 08 May 2023 01:36:11 -0700 (PDT)
 Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
  by smtp.gmail.com with ESMTPSA id
- d2-20020a05651221c200b004eff66716a6sm1206330lft.113.2023.05.08.01.34.46
+ v9-20020ac25609000000b004efee4ff266sm1230248lfd.67.2023.05.08.01.36.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 May 2023 01:34:48 -0700 (PDT)
-Message-ID: <ca09ce7d-b0c4-1544-0c9e-fab823aa79e6@linaro.org>
-Date: Mon, 8 May 2023 10:34:46 +0200
+ Mon, 08 May 2023 01:36:10 -0700 (PDT)
+Message-ID: <6b93e2a9-58aa-bb91-f615-3fdec52596da@linaro.org>
+Date: Mon, 8 May 2023 10:36:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230507190735.2333145-1-dmitry.baryshkov@linaro.org>
- <20230507190735.2333145-5-dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+References: <20230405-add-dsc-support-v2-0-1072c70e9786@quicinc.com>
+ <20230405-add-dsc-support-v2-3-1072c70e9786@quicinc.com>
+ <i6i2xj2tuy5mcxsj674d77kfdb3ne6immkmrzw5f6u4bfx2sth@ef7fzrhdyypx>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230507190735.2333145-5-dmitry.baryshkov@linaro.org>
+In-Reply-To: <i6i2xj2tuy5mcxsj674d77kfdb3ne6immkmrzw5f6u4bfx2sth@ef7fzrhdyypx>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 4/4] ARM: dts: qcom: apq8074-dragonboard:
- enable DSI panel
+Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm/dpu: Add
+ DPU_INTF_DATA_COMPRESS feature flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,89 +80,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 7.05.2023 21:07, Dmitry Baryshkov wrote:
-> Enable MDSS, GPU and DSI panel output on the APQ8074 dragonboard.
+On 7.05.2023 18:00, Marijn Suijten wrote:
+> On 2023-05-05 14:23:50, Jessica Zhang wrote:
+>> Add DATA_COMPRESS feature flag to DPU INTF block.
+>>
+>> In DPU 7.x and later, DSC/DCE enablement registers have been moved from
+>> PINGPONG to INTF.
+>>
+>> As core_rev (and related macros) was removed from the dpu_kms struct, the
+>> most straightforward way to indicate the presence of this register would be
+>> to have a feature flag.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../arm/boot/dts/qcom-apq8074-dragonboard.dts | 51 +++++++++++++++++++
->  1 file changed, 51 insertions(+)
+> Irrelevant.  Even though core_rev was still in mainline until recently,
+> we always hardcoded the features in the catalog and only used core_rev
+> to select a dpu_mdss_cfg catalog entry.  There is no "if version >= X
+> then enable feature Y" logic, this manually-enabled feature flag is the
+> only, correct way to do it.
 > 
-> diff --git a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
-> index c893afc00eb4..72f7e09a5bbf 100644
-> --- a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
-> +++ b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
-> @@ -48,6 +48,57 @@ eeprom: eeprom@52 {
->  	};
->  };
->  
-> +&dsi0 {
-old junk could use some mdss_ prefixing to keep the nodes together
+>> Changes in v2:
+>> - Changed has_data_compress dpu_cap to a DATA_COMPRESS INTF feature flag
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> 
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> 
+>> ---
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 ++
+>>  2 files changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> index 7944481d0a33..c74051906d05 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> @@ -104,7 +104,7 @@
+>>  #define INTF_SC7180_MASK \
+>>  	(BIT(DPU_INTF_INPUT_CTRL) | BIT(DPU_INTF_TE) | BIT(DPU_INTF_STATUS_SUPPORTED))
+>>  
+>> -#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
+>> +#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN) | BIT(DPU_INTF_DATA_COMPRESS)
+> 
+> Konrad: Your SM6350/SM6375 series v3 [1] switched from INTF_SC7180_MASK
+> to INTF_SC7280_MASK to enable HCTL on SM6375, but that will now
+> erroneously also receive this feature flag and write the new
+> DATA_COMPESS mask even if it's DPU 6.9 (< 7.x where it got added).
+> 
+> [1]: https://lore.kernel.org/linux-arm-msm/80b46fcb-d6d0-1998-c273-5401fa924c7d@linaro.org/T/#u
+> 
+> Depending on who lands first, this flag should be split.
+I'll adapt my patches. Jessica, no changes required on your side.
 
-Could you please take care of that?
-
-> +	vdda-supply = <&pm8941_l2>;
-> +	vdd-supply = <&pm8941_l22>;
-> +	vddio-supply = <&pm8941_l12>;
-> +
-> +	status = "okay";
-> +
-> +	panel: panel@0 {
-> +		compatible = "sharp,ls043t1le01-qhd";
-> +		reg = <0>;
-> +
-> +		avdd-supply = <&pm8941_l22>;
-> +		backlight = <&pm8941_wled>;
-> +		reset-gpios = <&pm8941_gpios 19 GPIO_ACTIVE_HIGH>;
-> +
-> +		port {
-> +			panel_in: endpoint {
-> +				remote-endpoint = <&dsi0_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&dsi0_out {
-> +	remote-endpoint = <&panel_in>;
-> +	data-lanes = <0 1 2 3>;
-> +};
-> +
-> +&dsi0_phy {
-> +	status = "okay";
-> +
-> +	vddio-supply = <&pm8941_l12>;
-status last
+> 
+> I still see value in inlining and removing these defines, though that
+> brings a host of other complexity.
+right, we should totally do it after we settle down from the patch
+flurry
 
 Konrad
-> +};
-> +
-> +&gpu {
-> +	status = "okay";
-> +};
-> +
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&pm8941_wled {
-> +	qcom,cs-out;
-> +	qcom,switching-freq = <3200>;
-> +	qcom,ovp = <32>;
-> +	qcom,num-strings = <1>;
-> +
-> +	status = "okay";
-> +};
-> +
->  &remoteproc_adsp {
->  	cx-supply = <&pm8841_s2>;
->  
+> 
+> - Marijn
+> 
+>>  #define WB_SM8250_MASK (BIT(DPU_WB_LINE_MODE) | \
+>>  			 BIT(DPU_WB_UBWC) | \
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> index 4eda2cc847ef..01c65f940f2a 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> @@ -185,6 +185,7 @@ enum {
+>>   * @DPU_DATA_HCTL_EN                Allows data to be transferred at different rate
+>>   *                                  than video timing
+>>   * @DPU_INTF_STATUS_SUPPORTED       INTF block has INTF_STATUS register
+>> + * @DPU_INTF_DATA_COMPRESS          INTF block has DATA_COMPRESS register
+>>   * @DPU_INTF_MAX
+>>   */
+>>  enum {
+>> @@ -192,6 +193,7 @@ enum {
+>>  	DPU_INTF_TE,
+>>  	DPU_DATA_HCTL_EN,
+>>  	DPU_INTF_STATUS_SUPPORTED,
+>> +	DPU_INTF_DATA_COMPRESS,
+>>  	DPU_INTF_MAX
+>>  };
+>>  
+>>
+>> -- 
+>> 2.40.1
+>>
