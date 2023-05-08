@@ -1,58 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1062F6F9BE2
-	for <lists+freedreno@lfdr.de>; Sun,  7 May 2023 23:25:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89AA16F9D40
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 03:13:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC6A310E053;
-	Sun,  7 May 2023 21:25:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1043D10E08F;
+	Mon,  8 May 2023 01:13:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1474B10E053;
- Sun,  7 May 2023 21:25:46 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- 46e09a7af769-6aaf52ff35bso1030965a34.2; 
- Sun, 07 May 2023 14:25:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683494746; x=1686086746;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=k6ufJ5LnX3H56g7Y6pg/KPKx3t1jKCtHndBxL/t/v/s=;
- b=jw7jOZcTD2Tw8s8ecH+KdPTawDXKoElnQqeNtN0eI5z2vRGBibSePpOrii31r8kjri
- OZwhWhYzXW7dvw9qzzSP+Jh2ZEWQsvPF22Y/VHOEL7S78Bsfp/BxLqSFKPy+PN9iAGrM
- GPYF1kUaF1azKa9gk1JLd7UBI9Qbw2nqdxkqvTC4Jw2QvtY9ycAA1MdXmCtJCYSN489t
- xuQarBiu9NuRLFdcmVI4SqRkuQN5NCsFpLcuXJa4cBDZ2EVMsVQmCNwjy7CObwqKDUZe
- 7irvOoUDlK9Q9O+A2H9DfNoqYS7ztxg/asgwc1eBJUopkKO4nVenAGtLeUQvgz6yjrOL
- E+dA==
-X-Gm-Message-State: AC+VfDxQfx9zLLdJr1Y0JLofLA1vx2tggXYGdiFMcbPVQuzD5O+amM+W
- yTpd+0w/ZhNIkigUv1w+ssSxGF80F/BR
-X-Google-Smtp-Source: ACHHUZ5fb2Ya5VUsmLZ0Bv9b1gjpcOsZSP2K1/2E04n/AqjwfYewnMGgdGSBiJ5URZf5UqIRlhINIA==
-X-Received: by 2002:a9d:67d3:0:b0:6a5:f48b:6b6c with SMTP id
- c19-20020a9d67d3000000b006a5f48b6b6cmr4102050otn.32.1683494745785; 
- Sun, 07 May 2023 14:25:45 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- t17-20020a0568301e3100b006a7aaa2d269sm3455844otr.18.2023.05.07.14.25.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 May 2023 14:25:45 -0700 (PDT)
-Received: (nullmailer pid 3488547 invoked by uid 1000);
- Sun, 07 May 2023 21:25:44 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
+ Mon, 08 May 2023 01:12:57 UTC
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9932310E08F
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 01:12:57 +0000 (UTC)
+Received: (qmail 8302 invoked by uid 990); 8 May 2023 01:06:14 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230507201218.2339014-2-dmitry.baryshkov@linaro.org>
-References: <20230507201218.2339014-1-dmitry.baryshkov@linaro.org>
- <20230507201218.2339014-2-dmitry.baryshkov@linaro.org>
-Message-Id: <168349474255.3488452.11372136807020227216.robh@kernel.org>
-Date: Sun, 07 May 2023 16:25:44 -0500
-Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display: hdmi-connector:
- add hdmi-pwr supply
+Date: Mon, 08 May 2023 01:06:13 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Leonard Lausen" <leonard@lausen.nl>
+Message-ID: <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
+TLS-Required: No
+To: regressions@lists.linux.dev, "Bjorn Andersson"
+ <quic_bjorande@quicinc.com>, "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, 
+ "Rob Clark" <robdclark@gmail.com>, "Abhinav Kumar"
+ <quic_abhinavk@quicinc.com>, "Stephen Boyd" <swboyd@chromium.org>, "Kuogee
+ Hsieh" <quic_khsieh@quicinc.com>, "Johan Hovold" <johan+linaro@kernel.org>,
+ "Sankeerth Billakanti" <quic_sbillaka@quicinc.com>
+X-Rspamd-Bar: -
+X-Rspamd-Report: MIME_GOOD(-0.1) BAYES_HAM(-2.999968) SUSPICIOUS_RECIPS(1.5)
+X-Rspamd-Score: -1.599968
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Mon, 08 May 2023 03:06:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=Ew+ga4R4XmyLDd+z40yzIO7CFGKrkhYk+0CcdiQL9Sw=;
+ b=od7KhyxiI988/H0wo80l6KXEewxhiWVhz0SfXY/weB6DUvv7GRv3Rb/20C0sRcopopbYInGJAy
+ u0LpHpGjdT10DN1ywJ9gw54CY4sTZ1EK+qfwoWlK6Lse+2EHQ/egTwgmIjUs+3z5u3Wwgf2Iy6Ov
+ 8+JjmHzraSUXx1gN376lVMSrsd5uBADfq6ae0aeSTI+rNg4zf6AV1xa3l5aiQndVbCH6lE0WEeEm
+ zYVDBem9t6Hx3ZS8gyRPqIkcfQbP90eDXu/W0EeiG19jKZPa/Y3Co/7K7W63phd7QdspH60A9w7K
+ VwwVw/VfIp+qZk7/k1/P+Ml6xftCKNVMRj0wvXjVH2HF+ZiYSdtQCAuN2GHBFd/loesiMFjEzv+I
+ 0HosD/qeYweyP2l7P8Zo5M9BCVOS5D+sQ7hANY/c0S9Gs+r1qOHyYh7Ao3RIPYs40pW2Dkyg2jEQ
+ aHQ0tdpJavp7CCkSAp/9YrYiLAwe3X5B7EZtR/Ps98/1/vbTd/qmkEGg92iF9QRm/5ksjayNrbY7
+ /bELzo3Iku+i5IQJi3ViM9T2NYaNUCbY2b3VCzRVNM6rEuAIGMOjqs3/oNj+fY9fwnQ54frY+pk0
+ l6ggn2GIbzVozsNkDoO3VfNBRY9HlabFLpLiNVWt7loWZDv2y3sxN83aeCKOHQIdTZq+mLtgvcaJ
+ E=
+Subject: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,58 +61,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonas Karlman <jonas@kwiboo.se>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ Nikita Travkin <nikita@trvn.ru>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This reverts commit e17af1c9d861dc177e5b56009bd4f71ace688d97.
 
-On Sun, 07 May 2023 23:12:16 +0300, Dmitry Baryshkov wrote:
-> Follow the dp-connector example and add hdmi-pwr supply to drive the 5V
-> pin of the HDMI connector (together with some simple glue logic possibly
-> attached to the connector).
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../devicetree/bindings/display/connector/hdmi-connector.yaml  | 3 +++
->  1 file changed, 3 insertions(+)
-> 
+Removing the delay of 100 units broke hot plug detection for USB-C displa=
+ys on
+qcom sc7180 lazor devices. Lazor uses mdss for hot plug detection and dec=
+lares
+dp_hot_plug_det in the dts. Other sc7180 based devices like aspire1 were =
+not
+affected by the regression, as they do not rely on mdss and dp_hot_plug_d=
+et for
+hot plug detection.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+Tested-by: Leonard Lausen <leonard@lausen.nl> # Trogdor (sc7180)
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-yamllint warnings/errors:
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.example.dtb: camera-sensor@3c: port:endpoint:data-lanes: [[1]] is too short
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/rockchip-isp1.example.dtb: camera@3c: port:endpoint:data-lanes: [[1]] is too short
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.example.dtb: pcie-ep@33800000: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
-
-doc reference errors (make refcheckdocs):
-Documentation/usb/gadget_uvc.rst: Documentation/userspace-api/media/v4l/pixfmt-packed.yuv.rst
-MAINTAINERS: Documentation/devicetree/bindings/pwm/pwm-apple.yaml
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230507201218.2339014-2-dmitry.baryshkov@linaro.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+index bde1a7ce442f..db9783ffd5cf 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1506,7 +1506,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_displ=
+ay)
+        dp =3D container_of(dp_display, struct dp_display_private, dp_dis=
+play);
+=20
+=20       if (!dp_display->is_edp)
+-               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 0);
++               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+ }
+=20
+=20bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+--=20
+2.30.2
