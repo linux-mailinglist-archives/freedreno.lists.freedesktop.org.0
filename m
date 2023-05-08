@@ -2,44 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95BEA6F9DA7
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 04:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12826F9DDC
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 04:51:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B605110E09F;
-	Mon,  8 May 2023 02:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62F1010E104;
+	Mon,  8 May 2023 02:51:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5812610E09F;
- Mon,  8 May 2023 02:11:58 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8657F61DA2;
- Mon,  8 May 2023 02:11:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4EEC433EF;
- Mon,  8 May 2023 02:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1683511915;
- bh=W+BDWcTwbvNWQBCgt9uZZKh6zOCIi71k2crWd1L3W+k=;
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21A8E10E124;
+ Mon,  8 May 2023 02:51:08 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (softbank126090219015.bbtec.net
+ [126.90.219.15])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 45E5E814;
+ Mon,  8 May 2023 04:50:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1683514261;
+ bh=ZhuJ29aZv60+w90rySi90/rQ2dYJYfEe/RLa1/gUzIQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SwpOfcoQzugMTe6nrRk10AeVJ9UQT/ItdgdISy7DTqoikrRz7Vrv19tbRp/olkgV8
- UBkjm8j7t9GSZPAgHoCls3WCNgnbSQXRf3ZhOdMELvr3rXsYAfpcEYG5Br5ho9atNt
- Z55/nHxH0BlmftEffctJVa/X4ADi1yAzrawwLAglJRzFJ1EUHjOYOlcV4FxZiBgXjU
- 0q3LdRMHxvI7Yt17Ip2XdG0QclnuZjPEgGo93iPi4NuG6a3nBDbIl/QjhmTvpSv4fa
- RbizSWsueFK5ilHy2NvIztJrlGKzTk0eSEzrxhiJOKmAOBO7LUTWPxCnr8zjyMscRS
- 2i8vHZAd7BNVw==
-Date: Sun, 7 May 2023 19:15:36 -0700
-From: Bjorn Andersson <andersson@kernel.org>
-To: Leonard Lausen <leonard@lausen.nl>
-Message-ID: <20230508021536.txtamifw2vkfncnx@ripper>
-References: <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
+ b=QLBgZWUj/E76WqwQITzOEEw0Ch1u7EGfKutIWCpGV95tmvPsdxUuBYKLnYMv9nq/8
+ NSOZAEQac2pBVKvnnP/CUxysDR5bMEtA/OxhXCFDjliKY/K9O0snBwjdad3TZtOLdn
+ jRYyi+e6LBdp2o3M38axsDarGC/n+6PIBlAxU5TQ=
+Date: Mon, 8 May 2023 05:51:18 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230508025118.GQ23514@pendragon.ideasonboard.com>
+References: <20230507201218.2339014-1-dmitry.baryshkov@linaro.org>
+ <20230507201218.2339014-3-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
-Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
+In-Reply-To: <20230507201218.2339014-3-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 2/3] drm/bridge: display-connector: rename
+ dp_pwr to connector_pwr
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,59 +48,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, regressions@lists.linux.dev,
- David Airlie <airlied@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
- Johan Hovold <johan+linaro@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonas Karlman <jonas@kwiboo.se>, freedreno@lists.freedesktop.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, devicetree@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 08, 2023 at 01:06:13AM +0000, Leonard Lausen wrote:
-> This reverts commit e17af1c9d861dc177e5b56009bd4f71ace688d97.
+Hi Dmitry,
+
+Thank you for the patch.
+
+On Sun, May 07, 2023 at 11:12:17PM +0300, Dmitry Baryshkov wrote:
+> In preparation to adding support for the hdmi_pwr supply, rename dp_pwr
+> structure field to the generic connector_pwr.
 > 
-> Removing the delay of 100 units broke hot plug detection for USB-C displays on
-> qcom sc7180 lazor devices. Lazor uses mdss for hot plug detection and declares
-> dp_hot_plug_det in the dts. Other sc7180 based devices like aspire1 were not
-> affected by the regression, as they do not rely on mdss and dp_hot_plug_det for
-> hot plug detection.
-> 
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-> Tested-by: Leonard Lausen <leonard@lausen.nl> # Trogdor (sc7180)
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/bridge/display-connector.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index bde1a7ce442f..db9783ffd5cf 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1506,7 +1506,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->         dp = container_of(dp_display, struct dp_display_private, dp_display);
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+> index 9a12449ad7b8..0d94e6edea50 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> @@ -24,7 +24,7 @@ struct display_connector {
+>  	struct gpio_desc	*hpd_gpio;
+>  	int			hpd_irq;
 >  
->         if (!dp_display->is_edp)
-> -               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 0);
-> +               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+> -	struct regulator	*dp_pwr;
+> +	struct regulator	*connector_pwr;
 
-When booting with the cable connected on my X13s, 100 is long enough for
-my display to time out and require me to disconnect and reconnect the
-cable again.
+This makes sense, but I would shorten the name to just "pwr", "power" or
+"supply". The field is part of the display_connector structure, so it
+implicitly refers to the connector.
 
-Do we have any idea of why the reduction to 0 is causing an issue when
-using the internal HPD?
+With or without that change,
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+>  	struct gpio_desc	*ddc_en;
+>  };
+>  
+> @@ -319,14 +319,14 @@ static int display_connector_probe(struct platform_device *pdev)
+>  	if (type == DRM_MODE_CONNECTOR_DisplayPort) {
+>  		int ret;
+>  
+> -		conn->dp_pwr = devm_regulator_get_optional(&pdev->dev, "dp-pwr");
+> +		conn->connector_pwr = devm_regulator_get_optional(&pdev->dev, "dp-pwr");
+>  
+> -		if (IS_ERR(conn->dp_pwr)) {
+> -			ret = PTR_ERR(conn->dp_pwr);
+> +		if (IS_ERR(conn->connector_pwr)) {
+> +			ret = PTR_ERR(conn->connector_pwr);
+>  
+>  			switch (ret) {
+>  			case -ENODEV:
+> -				conn->dp_pwr = NULL;
+> +				conn->connector_pwr = NULL;
+>  				break;
+>  
+>  			case -EPROBE_DEFER:
+> @@ -338,8 +338,8 @@ static int display_connector_probe(struct platform_device *pdev)
+>  			}
+>  		}
+>  
+> -		if (conn->dp_pwr) {
+> -			ret = regulator_enable(conn->dp_pwr);
+> +		if (conn->connector_pwr) {
+> +			ret = regulator_enable(conn->connector_pwr);
+>  			if (ret) {
+>  				dev_err(&pdev->dev, "failed to enable DP PWR regulator: %d\n", ret);
+>  				return ret;
+> @@ -389,8 +389,8 @@ static int display_connector_remove(struct platform_device *pdev)
+>  	if (conn->ddc_en)
+>  		gpiod_set_value(conn->ddc_en, 0);
+>  
+> -	if (conn->dp_pwr)
+> -		regulator_disable(conn->dp_pwr);
+> +	if (conn->connector_pwr)
+> +		regulator_disable(conn->connector_pwr);
+>  
+>  	drm_bridge_remove(&conn->bridge);
+>  
+
+-- 
 Regards,
-Bjorn
 
->  }
->  
->  bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
-> -- 
-> 2.30.2
+Laurent Pinchart
