@@ -2,72 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C84C36FA262
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 10:36:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 667D86FA26D
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 10:39:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D38210E185;
-	Mon,  8 May 2023 08:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 861B510E18A;
+	Mon,  8 May 2023 08:38:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3460810E185
- for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 08:36:13 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4ecb137af7eso4771555e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 01:36:13 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF1C10E0CC
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 08:38:52 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4efe8b3f3f7so4815401e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 01:38:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683534971; x=1686126971;
+ d=linaro.org; s=google; t=1683535130; x=1686127130;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7vOeK6NJXfng1Er3sfGOPlcD75JIf3x+ne87klUAZe8=;
- b=VjTc2e0tCdENNTGTlYaTu6SbmL+2zAqbhOvhqn8Ke3GrBw0BulOfpPKx61Gnsq+pau
- M97jxNpDaGyMW/osQhp3kBshxpA+lq1IZikHIjue/85Ye3S+zucnAIriJRfMjfKv91XR
- LXpKbcxRWPMkjOWfzBeqUKqb7sO5Tha6rVHExUgAiWXPOrk0KZsN1S5+VrT+AcbkXMhC
- nPuVH3iUsGdjUPSI/8SaEMgn4GZohy/J/J2mdHV6i/+9haCNoFx6/BYxpxKFTdSW8qXJ
- J/O3SefH9o5JXrkzC7cwR4tc+su3M2iLQcHon98PVnTrwxciiN7ExjmgJRWaQ83ztIYC
- sBEA==
+ bh=7M+LYvpo0uL6DRxOtraYhuPAgoiRvl+qFGnzZSo79f4=;
+ b=w3GXeMtyzwuRY7sysKSaMD++ZLTRpHQQAxAhiRO+cBGtPVZwBPcfj+CVxdPugtuHtj
+ e0jGozykIPHw5c9oZwVLX8uwlyUdbj2k8HVOcEaKtDonm73JFiFk0vOZ5QpvC/lbEJjZ
+ gNw9+uexlJCgR0LjtLiJy4hcGh2PNmrb91VcwpuP4LKMNMiJTjIdEVIOKJMm7Ah7Vdva
+ UZ0Ukpm0CB3oJ9RMa82eQ8RCq4FLpyjPIy6iF6bXapEF92JcVGEFZY9jpyX5pJVij2h1
+ bwcvGE7KevjjBG1wbaIWnL4K4Hh7bdXdH499QfbJ0qKzJFa/P2oOJye7I9Y1IMX46t/m
+ 3GCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683534971; x=1686126971;
+ d=1e100.net; s=20221208; t=1683535130; x=1686127130;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7vOeK6NJXfng1Er3sfGOPlcD75JIf3x+ne87klUAZe8=;
- b=Xm+8DaxC+BriBKdo6X6j7bbut9NB+93qrprRR4TELEuMqVYdp56Donvf/WMN5/1Qit
- gwOpl/am4yPcZb/CjAy7YbU/c7KY/3jNtte/knW+GiupkgRns/0IAQYy6SNGEeBFrPpZ
- Wvp7aL9/spc1+3tOKabhzKl5XWuHfm4vgpz2O5vawcburJ4vOrTJ9dS4zyFqnQSp8eLI
- rKtW7LVtv2jLGSLBANZ9Q8rzDRnlBYdJMgnZ7fwIBNPD4v/iqedstg0/sS2oqCGLfXgM
- rptVw6C4B3cfp+jRijdKRWURdOpszRteIi8pWAi3RMDI1Ylbebrh6T6GczwfromD14pJ
- VtiA==
-X-Gm-Message-State: AC+VfDz6C2ZIPkFAxlksYdNdttGFu16NJq/cYHITTZdQqAHK16MVIhof
- nnhPd5fzFqbob5fyW9RmS8aKrQ==
-X-Google-Smtp-Source: ACHHUZ6/bXi/Yh+/jHrYdIbEzAMWQSkOek/BIP7BFnilquyHz/JZcmKS5cfq6hr+S1+7VeyczkzauA==
-X-Received: by 2002:ac2:47e5:0:b0:4ef:ec94:9678 with SMTP id
- b5-20020ac247e5000000b004efec949678mr2744507lfp.20.1683534971320; 
- Mon, 08 May 2023 01:36:11 -0700 (PDT)
+ bh=7M+LYvpo0uL6DRxOtraYhuPAgoiRvl+qFGnzZSo79f4=;
+ b=M9fiB1sYIDN2QLF/DNv4O7SotGP6cB9ikjJBmCiR50d5cGSEfuFnxibHQNInH3ayc8
+ 7/Lm1K8wgPrw891v+4LT/WIWl7Zq/iPGTjuFf2DW8uofu0jY4BrHzWIk+EupXRAaMhKf
+ ezMD4si+qfO0GN4H23JY+DFmmOH/vllDMpFB+yZB6ckBApkV5VaAgu+4vUtQQvW6WQZL
+ wJGIT64FFTejY4Xl2kX01uKonKCcfx4o4g00dg9mEviH7L87VFR6nNY2tSOrRfFYMjmc
+ /Fgrj46l98wtDa0HTLMPC2jIb5HnnlFaI9MD5IljuGi4UmDciykb72bWAned2nPgmCQi
+ Z5yw==
+X-Gm-Message-State: AC+VfDwz8jQp0R4lydOm/fZNG5uH3W/sp9x11vL/j4R+hO5umtSCpWCt
+ DjBXvVViGSX78F7nlh+AHvAz2Q==
+X-Google-Smtp-Source: ACHHUZ7BOe90sL4z+719tAJbqmfFOlSnY6F/doGifg/JqPAqaNHcSKmqP/u6JkByUE0L1pZ0R1Ag1g==
+X-Received: by 2002:ac2:52a9:0:b0:4f1:4602:fb63 with SMTP id
+ r9-20020ac252a9000000b004f14602fb63mr2201009lfm.41.1683535130246; 
+ Mon, 08 May 2023 01:38:50 -0700 (PDT)
 Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
  by smtp.gmail.com with ESMTPSA id
- v9-20020ac25609000000b004efee4ff266sm1230248lfd.67.2023.05.08.01.36.10
+ c5-20020a05651221a500b004f143c11cbcsm1227074lft.51.2023.05.08.01.38.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 May 2023 01:36:10 -0700 (PDT)
-Message-ID: <6b93e2a9-58aa-bb91-f615-3fdec52596da@linaro.org>
-Date: Mon, 8 May 2023 10:36:09 +0200
+ Mon, 08 May 2023 01:38:49 -0700 (PDT)
+Message-ID: <faa64d3d-48bd-b6db-535e-05d6d50aebd7@linaro.org>
+Date: Mon, 8 May 2023 10:38:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
 Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-References: <20230405-add-dsc-support-v2-0-1072c70e9786@quicinc.com>
- <20230405-add-dsc-support-v2-3-1072c70e9786@quicinc.com>
- <i6i2xj2tuy5mcxsj674d77kfdb3ne6immkmrzw5f6u4bfx2sth@ef7fzrhdyypx>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Will Deacon
+ <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>
+References: <20230411-topic-straitlagoon_mdss-v3-0-9837d6b3516d@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v3-3-9837d6b3516d@linaro.org>
+ <31147c6d-e77a-8abd-0b55-73ead2385bb9@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <i6i2xj2tuy5mcxsj674d77kfdb3ne6immkmrzw5f6u4bfx2sth@ef7fzrhdyypx>
+In-Reply-To: <31147c6d-e77a-8abd-0b55-73ead2385bb9@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm/dpu: Add
- DPU_INTF_DATA_COMPRESS feature flag
+Subject: Re: [Freedreno] [PATCH v3 03/12] dt-bindings: display/msm:
+ sc7180-dpu: Describe SM6350 and SM6375
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,100 +87,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 7.05.2023 18:00, Marijn Suijten wrote:
-> On 2023-05-05 14:23:50, Jessica Zhang wrote:
->> Add DATA_COMPRESS feature flag to DPU INTF block.
+On 7.05.2023 10:14, Krzysztof Kozlowski wrote:
+> On 05/05/2023 23:40, Konrad Dybcio wrote:
+>> SC7180, SM6350 and SM6375 use a rather similar hw setup for DPU, with
+>> the main exception being that the last one requires an additional
+>> throttle clock.
 >>
->> In DPU 7.x and later, DSC/DCE enablement registers have been moved from
->> PINGPONG to INTF.
+>> It is not well understood yet, but failing to toggle it on makes the
+>> display hardware stall and not output any frames.
 >>
->> As core_rev (and related macros) was removed from the dpu_kms struct, the
->> most straightforward way to indicate the presence of this register would be
->> to have a feature flag.
-> 
-> Irrelevant.  Even though core_rev was still in mainline until recently,
-> we always hardcoded the features in the catalog and only used core_rev
-> to select a dpu_mdss_cfg catalog entry.  There is no "if version >= X
-> then enable feature Y" logic, this manually-enabled feature flag is the
-> only, correct way to do it.
-> 
->> Changes in v2:
->> - Changed has_data_compress dpu_cap to a DATA_COMPRESS INTF feature flag
+>> Document SM6350 and SM6375 DPU.
 >>
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> 
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 >> ---
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 ++
->>  2 files changed, 3 insertions(+), 1 deletion(-)
+>>  .../bindings/display/msm/qcom,sc7180-dpu.yaml      | 23 +++++++++++++++++++++-
+>>  1 file changed, 22 insertions(+), 1 deletion(-)
 >>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> index 7944481d0a33..c74051906d05 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> @@ -104,7 +104,7 @@
->>  #define INTF_SC7180_MASK \
->>  	(BIT(DPU_INTF_INPUT_CTRL) | BIT(DPU_INTF_TE) | BIT(DPU_INTF_STATUS_SUPPORTED))
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+>> index 1fb8321d9ee8..630b11480496 100644
+>> --- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+>> @@ -13,7 +13,10 @@ $ref: /schemas/display/msm/dpu-common.yaml#
 >>  
->> -#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
->> +#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN) | BIT(DPU_INTF_DATA_COMPRESS)
+>>  properties:
+>>    compatible:
+>> -    const: qcom,sc7180-dpu
+>> +    enum:
+>> +      - qcom,sc7180-dpu
+>> +      - qcom,sm6350-dpu
+>> +      - qcom,sm6375-dpu
+>>  
+>>    reg:
+>>      items:
+>> @@ -26,6 +29,7 @@ properties:
+>>        - const: vbif
+>>  
+>>    clocks:
+>> +    minItems: 6
+>>      items:
+>>        - description: Display hf axi clock
+>>        - description: Display ahb clock
+>> @@ -33,8 +37,10 @@ properties:
+>>        - description: Display lut clock
+>>        - description: Display core clock
+>>        - description: Display vsync clock
+>> +      - description: Display core throttle clock
+>>  
+>>    clock-names:
+>> +    minItems: 6
+>>      items:
+>>        - const: bus
+>>        - const: iface
+>> @@ -42,6 +48,7 @@ properties:
+>>        - const: lut
+>>        - const: core
+>>        - const: vsync
+>> +      - const: throttle
+>>  
+>>  required:
+>>    - compatible
+>> @@ -52,6 +59,20 @@ required:
+>>  
+>>  unevaluatedProperties: false
+>>  
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          const: qcom,sm6375-dpu
 > 
-> Konrad: Your SM6350/SM6375 series v3 [1] switched from INTF_SC7180_MASK
-> to INTF_SC7280_MASK to enable HCTL on SM6375, but that will now
-> erroneously also receive this feature flag and write the new
-> DATA_COMPESS mask even if it's DPU 6.9 (< 7.x where it got added).
-> 
-> [1]: https://lore.kernel.org/linux-arm-msm/80b46fcb-d6d0-1998-c273-5401fa924c7d@linaro.org/T/#u
-> 
-> Depending on who lands first, this flag should be split.
-I'll adapt my patches. Jessica, no changes required on your side.
+> And the two other variants? Is the clock valid there or not? If not
+> really, then you should have else: with maxItems: 6.
+Oh right!
 
 > 
-> I still see value in inlining and removing these defines, though that
-> brings a host of other complexity.
-right, we should totally do it after we settle down from the patch
-flurry
+>> +
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 7
+>> +
+>> +        clock-names:
+>> +          minItems: 7
+> 
+> If there is going new version - put allOf: before
+> unevaluatedProperties:. Otherwise it is fine.
+Thanks!
 
 Konrad
 > 
-> - Marijn
+>> +
+>>  examples:
+>>    - |
+>>      #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
+>>
 > 
->>  #define WB_SM8250_MASK (BIT(DPU_WB_LINE_MODE) | \
->>  			 BIT(DPU_WB_UBWC) | \
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> index 4eda2cc847ef..01c65f940f2a 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> @@ -185,6 +185,7 @@ enum {
->>   * @DPU_DATA_HCTL_EN                Allows data to be transferred at different rate
->>   *                                  than video timing
->>   * @DPU_INTF_STATUS_SUPPORTED       INTF block has INTF_STATUS register
->> + * @DPU_INTF_DATA_COMPRESS          INTF block has DATA_COMPRESS register
->>   * @DPU_INTF_MAX
->>   */
->>  enum {
->> @@ -192,6 +193,7 @@ enum {
->>  	DPU_INTF_TE,
->>  	DPU_DATA_HCTL_EN,
->>  	DPU_INTF_STATUS_SUPPORTED,
->> +	DPU_INTF_DATA_COMPRESS,
->>  	DPU_INTF_MAX
->>  };
->>  
->>
->> -- 
->> 2.40.1
->>
+> Best regards,
+> Krzysztof
+> 
