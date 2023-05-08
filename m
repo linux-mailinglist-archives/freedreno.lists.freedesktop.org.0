@@ -2,76 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8694B6FA735
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 12:28:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1BA16FA75B
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 12:29:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5546C10E1F8;
-	Mon,  8 May 2023 10:28:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ADFB10E1FC;
+	Mon,  8 May 2023 10:29:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
  [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC0B010E1F8
- for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 10:28:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB99310E1FC
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 10:29:39 +0000 (UTC)
 Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2ac836f4447so41752261fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 03:28:34 -0700 (PDT)
+ 38308e7fff4ca-2ac8c0fbb16so33371101fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 03:29:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683541712; x=1686133712;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=I2Jb+xA8QGd1sVsf3f5607mlfCv/gv10lcVV2z3QNTI=;
- b=f3mTLwEfdvUiXjDcEzJ3Z+m0bt6D1IXVPzbEtXDvgGVP8nekC+GD6PIenAt/TlLgce
- 7u+B2bdtASR6O3VIlfVzmZdwasDY0VeReTexR9/I99aZMqVmyNiajsrkXUSjmUelJ6YW
- DHOIahsjXRerPO2EI/l48ZlYZAgxIbNsJTLrowmfF2ryvWoO5mMMMCzcj1FHM4UN75G0
- UQM3BHRCT5azEWlgwHGX3AH2P+VSlQbyhLYztdRJPXu5DgA275k+XoFR+fO4ayCbU17I
- oreSPnESoyGzDalguQee8j0QVdjCkufWkMm96h41vZKX7eP5wodoGRadQfoMIU1b/xE+
- H46w==
+ d=linaro.org; s=google; t=1683541778; x=1686133778;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=D+x6UPkFapUFCRgp8EmleOOtaKQHjt0FTvIoOtvEJ8c=;
+ b=x9DNmoHffvz9zkyXfNz2/5QNP84c89e2grqLhtW70Ul+DK7SudOXKuS7qhRtjDTV90
+ zctPufr265A5UcOsAbEa+TAu4LmoL3BYLY/J/yujg9TZAzM5B8jTqoOKZuYB4fbpH5g2
+ X3ghXIz21oCoM8oxwoCj75m86/E7E8sPgDSi5UgqzWUK1k3Hoi6yqT223N/IBxH2RqSQ
+ Bm/E6mQMUkCRXPJoXqM/5iWsNsFjdGoBuxA/vVwDqhXdBrmanyEyq69YnWhTGkEWbHk3
+ GQQfDTthdX2iKYbT5qGHTD9NmYZiKBkyDNlyHEiA/3PB3NRrPAUXwO1bvqL4e1E98F6q
+ ScAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683541712; x=1686133712;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=I2Jb+xA8QGd1sVsf3f5607mlfCv/gv10lcVV2z3QNTI=;
- b=bW6VLiHljX+l/nlWAxyZ0R0x2yrSdQJPp+cXT37ylmMg+hher2ASh8qgNyaagMtgiB
- PLM5X4ynZAVIGYq36hB+kUgJ+P6NN2xQGf5AxJQOjeXoSXNIyS1O0zhXqi5H+Ap4QQVH
- pfsQ8N/p4FOxh+IT6eTbM200k7o6JWfGIJwItBoIebAZTcnxl6EhsEtmogDIRuaGAMno
- LGnkUuaoZYLIVE5bNraZx0RW1eTS4VM5D4PxdzKmwBOgv4wDZ0zweScb7WLfwif2I0gw
- apURsD9wQRb12c3ReLc6KX1GvVk1skuRir3d9qBoNLaPJaiQvpkcTY7gVvQaWjO6HS6A
- J+4g==
-X-Gm-Message-State: AC+VfDwPnJrxgvempR3W0OxTySXuQmDupsWlywLkPdgvL2R3m3z8C+AU
- lTKlFDymI/X8QgG8u/C2jYybPw==
-X-Google-Smtp-Source: ACHHUZ4h0seTe4/zh3HmwznORxKSXd7UYJS5RgdNNFU0wGGRhLw3cbZnlmYxmIDSQ1Nw4afv8SwzXQ==
-X-Received: by 2002:a2e:2419:0:b0:2ad:85dd:f3a8 with SMTP id
- k25-20020a2e2419000000b002ad85ddf3a8mr1287361ljk.30.1683541712491; 
- Mon, 08 May 2023 03:28:32 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683541778; x=1686133778;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=D+x6UPkFapUFCRgp8EmleOOtaKQHjt0FTvIoOtvEJ8c=;
+ b=VGjBQ3vu3zhHhHsKmk18UynAHF9Z5U4QDPPP5Ku3uLsCUutTwcolZs8A42t4Vx6yMQ
+ /YNRAfdkHQ1f1ja7exJjm6wqx4VPrf49B1lr6Z0FL+lMksh2ix+7dTbb56w/kr1GlQ7s
+ Hx2HSvJhyipaLbekvsbwLKb0I88fnfHFOAIMrYr+eapeckYHannB3ZmMLn5hQxtvuKPY
+ tqmiuZ3hLIc/bE94i2y0MeeNcd0UhiIFYhKOQcUeYjZz70Aoo2ZVA77r+IOqIR6mdO8E
+ Wvk/FM+u37/nCMbSinxvVLkP96C8SRk6yvJtZXsEhlPBb5GVh3tpd++3C+YcqxyDyaNw
+ botQ==
+X-Gm-Message-State: AC+VfDwOIZnqu9R+Qu1iwc+IKImKn6QDo/gxgFU8iLjeaCTcIor5Sw/+
+ MK7ddAz3uq5rgdAPIHE4VCQgzw==
+X-Google-Smtp-Source: ACHHUZ7VDiqCjyo3fLmZa9rwILRO8VviOXoaz18OXnBtbVeMGRKy/jU75LouvcT07DA3jHoPD19dsg==
+X-Received: by 2002:a2e:b61b:0:b0:2a7:8b35:8270 with SMTP id
+ r27-20020a2eb61b000000b002a78b358270mr2914716ljn.35.1683541778035; 
+ Mon, 08 May 2023 03:29:38 -0700 (PDT)
 Received: from [192.168.1.101] (abyl248.neoplus.adsl.tpnet.pl. [83.9.31.248])
  by smtp.gmail.com with ESMTPSA id
- p19-20020a2e9a93000000b002ad94c4351asm241662lji.66.2023.05.08.03.28.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 May 2023 03:28:32 -0700 (PDT)
-Message-ID: <d357a6f9-d66b-0ba1-138c-4b541c3bebfb@linaro.org>
-Date: Mon, 8 May 2023 12:28:29 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230507190735.2333145-1-dmitry.baryshkov@linaro.org>
- <20230507190735.2333145-2-dmitry.baryshkov@linaro.org>
- <8cdecc51-2a42-4b82-9eb3-2ab77860c5d4@linaro.org>
- <c8144b21-d672-318e-2761-5d1daf384c30@linaro.org>
+ w5-20020a2e9985000000b002ad8fc8dda6sm547230lji.17.2023.05.08.03.29.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 May 2023 03:29:37 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <c8144b21-d672-318e-2761-5d1daf384c30@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 1/4] ARM: dts: qcom: msm8974: add ocmem
- clock to GPU
+Date: Mon, 08 May 2023 12:29:32 +0200
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20230508-topic-hctl_en-v1-1-0f8b5df60ed5@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAAvPWGQC/x2N0QrCMAwAf2Xk2ULdUIy/IiJpjDZQstFuMhj79
+ wUf7+C4DZpUlQb3boMqP206msP51AFnsq8EfTtDH/shXuItzOOkHDLP5SUWBkoJEenKiOBNoiY
+ hVTLOXtlSisupykfX/+Tx3PcDIbuao3QAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Kalyan Thota <quic_kalyant@quicinc.com>, 
+ Shubhashree Dhar <dhar@codeaurora.org>, 
+ Raviteja Tamatam <travitej@codeaurora.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1683541776; l=1453;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=0xMxdhEkVRQ4tosyFddMHyURiJ2JW3BVZyyPB80D7FU=;
+ b=UXLtqK0g6TOe8dOVFKhJB+Ssr8/cqY2ihdagjOKGWJg2LMrp0OIaCr02aMw7UXqQl/G38cbGY
+ 7qBA7bdZbzzDTotoYkoFNw3gO+nLQUlHBNeDKCqfLjMf06A8xLCJTV1
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Set DPU_DATA_HCTL_EN for in
+ INTF_SC7180_MASK
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,56 +88,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+DPU5 and newer targets enable this unconditionally. Move it from the
+SC7280 mask to the SC7180 one.
 
+Fixes: 7bdc0c4b8126 ("msm:disp:dpu1: add support for display for SC7180 target")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Depends on:
+https://lore.kernel.org/linux-arm-msm/20230405-add-dsc-support-v2-0-1072c70e9786@quicinc.com/
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-On 8.05.2023 12:24, Dmitry Baryshkov wrote:
-> On 08/05/2023 11:30, Konrad Dybcio wrote:
->>
->>
->> On 7.05.2023 21:07, Dmitry Baryshkov wrote:
->>> To get GPU working with the OCMEM, the oxili_ocmemgx_clk clock should be
->>> enabled. Pass it to the GPU to get it to work on apq8074/msm8974 boards.
->>>
->>> Fixes: fe079442db63 ("ARM: dts: qcom: msm8974: add gpu support")
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->> Uhh.. this clock should be managed by RPM with:
->>
->> type = MEM
->> id = 2
->>
->> just like it's defined for 8994 today.
->>
->> Could you try adding it in rpmcc and confirming?
-> 
-> There is an RPM_SMD_OCMEMGX_CLK clk already, it is a bus clock for the ocmemnoc.
-It's wrong.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 27420fc863d6..7ea8fd69d5fd 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -98,9 +98,12 @@
+ #define INTF_SDM845_MASK (0)
+ 
+ #define INTF_SC7180_MASK \
+-	(BIT(DPU_INTF_INPUT_CTRL) | BIT(DPU_INTF_TE) | BIT(DPU_INTF_STATUS_SUPPORTED))
++	(BIT(DPU_INTF_INPUT_CTRL) | \
++	 BIT(DPU_INTF_TE) | \
++	 BIT(DPU_INTF_STATUS_SUPPORTED) | \
++	 BIT(DPU_DATA_HCTL_EN))
+ 
+-#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN) | BIT(DPU_INTF_DATA_COMPRESS)
++#define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_INTF_DATA_COMPRESS)
+ 
+ #define WB_SM8250_MASK (BIT(DPU_WB_LINE_MODE) | \
+ 			 BIT(DPU_WB_UBWC) | \
 
-Konrad
-> 
->>
->> Konrad
->>>   arch/arm/boot/dts/qcom-msm8974.dtsi | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/arch/arm/boot/dts/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom-msm8974.dtsi
->>> index 834ad95515b1..fb661c1bd3d5 100644
->>> --- a/arch/arm/boot/dts/qcom-msm8974.dtsi
->>> +++ b/arch/arm/boot/dts/qcom-msm8974.dtsi
->>> @@ -2104,8 +2104,9 @@ gpu: adreno@fdb00000 {
->>>                 clocks = <&mmcc OXILI_GFX3D_CLK>,
->>>                    <&mmcc OXILICX_AHB_CLK>,
->>> +                 <&mmcc OXILI_OCMEMGX_CLK>,
->>>                    <&mmcc OXILICX_AXI_CLK>;
->>> -            clock-names = "core", "iface", "mem_iface";
->>> +            clock-names = "core", "iface", "mem", "mem_iface";
->>>                 sram = <&gmu_sram>;
->>>               power-domains = <&mmcc OXILICX_GDSC>;
-> 
+---
+base-commit: c47189dee0decd9ecc1e65ae376ad6d4b0b7f1f2
+change-id: 20230508-topic-hctl_en-3abb999a6c99
+
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
