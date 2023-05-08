@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8076FA839
-	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 12:38:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A8E76FA92E
+	for <lists+freedreno@lfdr.de>; Mon,  8 May 2023 12:49:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178E610E20A;
-	Mon,  8 May 2023 10:38:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C7010E20A;
+	Mon,  8 May 2023 10:49:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E23F10E211
- for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 10:38:52 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ac7c59665bso50238511fa.3
- for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 03:38:52 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22F0D10E212
+ for <freedreno@lists.freedesktop.org>; Mon,  8 May 2023 10:49:09 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4ec8149907aso5015163e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 08 May 2023 03:49:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683542330; x=1686134330;
+ d=linaro.org; s=google; t=1683542948; x=1686134948;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Ioq2SHcYvzdWJgMENWPLRbhibNiRpiB3AcW6l1wBqmo=;
- b=pPwt2Urq9QTN/xOxlOHg28lV78TNcLYFXCnGQ2ofYbevhZWyzB4u+8K20Tqb2OkdYA
- 3wYrpHTS4dEv3cbSA5EFfNt0tpll3f2nrWSaeqmJaT2EvzCmsU2JK3D3Bwl2WUFNU7MV
- RjaiPY6hivn2CcXD3gHGE+zU/ZFRtM/8PcTjHBne6CmJLkdXUwd4ISnCQ2cPla80U7zG
- IJa7XxwwS9bJw8itdMyweLo9q/t8Dvz6JmGaObGVfeY1Vclm4E2byq8A7CdIilMYgZ9d
- vw4JyGUk8wzXgR00R2es8i5elY8xbkcMcJOdeWliawcyvqEwAP3acJngbUA6ghQK9cBc
- dCIg==
+ bh=RXdMsRso+EPSoX8YY6azBZyMDBmxWt4xm3vxGwfWTQY=;
+ b=wKp3ndVrukvtAw0SH+PdVLhZlcNjKc18oRP+1IXN69uXzoFXW2Mwbpfn5GTZN3c1B6
+ yNLSeHKlgrmVLwhOVW0LalhBF/g9flIrFmjfr/DxkLYovekW5HAfyvGtG/HYD9mCKRo3
+ 50A7HdoRJ36hqJkFRwdESRJz2ia3nM8yyrKpRVt3dvcpA2ciZaUWWaItLliUpK1UD/36
+ /Agg2glxjXNwINHQbbfGCeWL8qdRUWvkqww3xJYBqb+jqOes1lbS9tPtlp8q2buCsAcb
+ i8vDvT7M2dY+ppYWn+KZCpQw3TEJlp+slyysVOfRGyd4GSZAFoz1Ga/O9PXcQx4DOJNZ
+ e/ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683542330; x=1686134330;
+ d=1e100.net; s=20221208; t=1683542948; x=1686134948;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ioq2SHcYvzdWJgMENWPLRbhibNiRpiB3AcW6l1wBqmo=;
- b=I9jjlAg7bcHoLSnmlzT2WMLbILKkrIQXUGKRNXUX6XfDNQCHBetuwG0p5Fcc9YeL/W
- nggZ6SLe4fZgfICgDseAElHI8Vgk6fFv4spvPkLw8lyRdAMSh+shgLeDMtFV57eYBkMz
- TSwAOoT7UCy0K1rWe8ZXzZYCEVAy/f4wudzTlsylpIGOV/YFT+clCUd3jv2Cd+SQCkkz
- sKGKTbezPIAL0CuYF5drqmtwr9CRINN9DpcDVidmB2QpR2UEUDvZE6mqarXKJjQm3qyO
- O85lkdyBYCNvU0PfdQXn8XKFaiqiYSBHaqxox6oOf6xm6+/SCe3B4qg0U0pzxA2xYnXQ
- cfFw==
-X-Gm-Message-State: AC+VfDzvrcoauk5SIjM8XWMfzOmqkRc+zfczVEcsrXIMXmzy022zr6sk
- t3RZycJJnbcjb08HYa9lRfCXuA==
-X-Google-Smtp-Source: ACHHUZ7S5zP58g6KXG/JEkUocDxvEXW0bXVKra1pbbx4QdVHZkXdfPz0kZLX00pfASUO8PhnfzUK/g==
-X-Received: by 2002:a2e:8508:0:b0:2a8:b070:c21f with SMTP id
- j8-20020a2e8508000000b002a8b070c21fmr2466304lji.16.1683542330361; 
- Mon, 08 May 2023 03:38:50 -0700 (PDT)
+ bh=RXdMsRso+EPSoX8YY6azBZyMDBmxWt4xm3vxGwfWTQY=;
+ b=jAEUiMKZaIDhcB789btOtMwFcz7E3qaeQs/T0aOG2TroA/XDIQnaVuc86i3CTr58v9
+ VfxwQraKn3+dauHro+BRx4I/r2GB7rAxcQh6vDfWa2XRJPUWMe4dGU2/4mwiqRxJO2C3
+ kA8+2tmMRCac0UmEq6yGW+fVI02KjTbtaHzJsks+oyIeQb94nikJnq3Rpre0nAGiHkKh
+ 8FP43DbITBxtPOrGprMrzSovA6cYKu3xQyqTcaAYpt/PzdYwrPrApAR+Q5ES21RCANQF
+ GeuKDB0DzYX/oygNkyBjEJzMqTkspRdc02iYupXCpMXQ1+qZQnkhI3Mz/NFe1lNWRspE
+ OxaA==
+X-Gm-Message-State: AC+VfDzddwm2MzlxZL8+bYR15gFFJ29IXPVY8q32KdT6SH9seaS79k2J
+ 0CX3rSu3kxJh1XcjdnRzOOqAZA==
+X-Google-Smtp-Source: ACHHUZ7kUdyG/5vN8yWIbaBSvV6k8WFUd5GtXPP7rwCKkMG3l2F8jyvQ7D4ToZng4qwebsgRzR0qOA==
+X-Received: by 2002:ac2:530a:0:b0:4f1:3d5f:f54e with SMTP id
+ c10-20020ac2530a000000b004f13d5ff54emr2313936lfh.27.1683542948187; 
+ Mon, 08 May 2023 03:49:08 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- l2-20020a2e3e02000000b002a6168181d7sm1134847lja.7.2023.05.08.03.38.49
+ 19-20020ac24833000000b004f0049433adsm1255552lft.307.2023.05.08.03.49.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 May 2023 03:38:50 -0700 (PDT)
-Message-ID: <f33f124e-a989-4501-a896-45649297d71c@linaro.org>
-Date: Mon, 8 May 2023 13:38:49 +0300
+ Mon, 08 May 2023 03:49:07 -0700 (PDT)
+Message-ID: <7b90ed61-7789-275d-a743-6065ab6ecdbb@linaro.org>
+Date: Mon, 8 May 2023 13:49:07 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
@@ -64,14 +64,16 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20230507190735.2333145-1-dmitry.baryshkov@linaro.org>
- <20230507190735.2333145-3-dmitry.baryshkov@linaro.org>
- <f968009f-c52b-5e4c-aa79-01c0ac53b8dc@linaro.org>
+ <20230507190735.2333145-4-dmitry.baryshkov@linaro.org>
+ <a86cfa8b-c205-6887-a64e-d51241b74b15@linaro.org>
+ <ca274ec9-81bf-c426-6ad6-93eb34b52b05@linaro.org>
+ <11863653-84aa-8edf-676f-e55174fb4539@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <f968009f-c52b-5e4c-aa79-01c0ac53b8dc@linaro.org>
+In-Reply-To: <11863653-84aa-8edf-676f-e55174fb4539@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/4] ARM: dts: qcom: apq8074-dragonboard:
- Set DMA as remotely controlled
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 3/4] ARM: dts: qcom: apq8074-dragonboard:
+ enable adsp and MSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,62 +93,103 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/05/2023 11:32, Konrad Dybcio wrote:
+On 08/05/2023 13:38, Konrad Dybcio wrote:
 > 
 > 
-> On 7.05.2023 21:07, Dmitry Baryshkov wrote:
->> Add the qcom,controlled-remotely property for the blsp2_bam
->> controller node. This board requires this, otherwise the board stalls
->> during the boot for some reason (most probably because TZ mishandles the
->> protection error and keeps on looping somewhere inside).
+> On 8.05.2023 12:33, Dmitry Baryshkov wrote:
+>> On 08/05/2023 11:33, Konrad Dybcio wrote:
+>>>
+>>>
+>>> On 7.05.2023 21:07, Dmitry Baryshkov wrote:
+>>>> Enable ADSP and Modem DSPs on APQ8074 dragonboard. The MSS region
+>>>> differs from the one defined in the msm8974, so it overriden locally.
+>>>>
+>>>> The modem is specified use mba.mbn instead of mbn.b00 (for the sake of
+>>>> similarity with other platforms). This requires a patch for remoteproc
+>>>> to be applied [1].
+>>>>
+>>>> [1] https://lore.kernel.org/all/20230507172041.2320279-1-dmitry.baryshkov@linaro.org/
+>>>>
+>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> ---
+>>>>    .../arm/boot/dts/qcom-apq8074-dragonboard.dts | 28 +++++++++++++++++++
+>>>>    1 file changed, 28 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+>>>> index 6b047c679370..c893afc00eb4 100644
+>>>> --- a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+>>>> +++ b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
+>>>> @@ -4,6 +4,8 @@
+>>>>    #include "qcom-pm8841.dtsi"
+>>>>    #include "qcom-pm8941.dtsi"
+>>>>    +/delete-node/ &mpss_region;
+>>>> +
+>>>>    / {
+>>>>        model = "Qualcomm APQ8074 Dragonboard";
+>>>>        compatible = "qcom,apq8074-dragonboard", "qcom,apq8074";
+>>>> @@ -17,6 +19,13 @@ aliases {
+>>>>        chosen {
+>>>>            stdout-path = "serial0:115200n8";
+>>>>        };
+>>>> +
+>>>> +    reserved-memory {
+>>>> +        mpss_region: mpss@ac00000 {
+>>>> +            reg = <0x0ac00000 0x2500000>;
+>>>> +            no-map;
+>>>> +        };
+>>>> +    };
+>>>>    };
+>>>>      &blsp1_uart2 {
+>>>> @@ -39,6 +48,25 @@ eeprom: eeprom@52 {
+>>>>        };
+>>>>    };
+>>>>    +&remoteproc_adsp {
+>>>> +    cx-supply = <&pm8841_s2>;
+>>>> +
+>>>> +    firmware-name = "qcom/apq8074/adsp.mbn";
+>>>> +
+>>>> +    status = "okay";
+>>>> +};
+>>>> +
+>>>> +&remoteproc_mss {
+>>>> +    cx-supply = <&pm8841_s2>;
+>>>> +    mss-supply = <&pm8841_s3>;
+>>>> +    mx-supply = <&pm8841_s1>;
+>>>> +    pll-supply = <&pm8941_l12>;
+>>> High time to move this to rpmpd!
+>>> I won't object to adding this though, as it obviously works
+>>> and is already used on other boards..
 >>
->> Fixes: 62bc81792223 dts: msm8974: Add blsp2_bam dma node
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
-> Looks like a common theme.. sony-rhine boards also have the DMA
-> enabled *and* need this property.. perhaps it's a SoC-wide (or
-> at least SoC-and-fw-distribution-wide) issue?
+>> I think the problem is that they are not level-voted on this platform, so they are regulators, not PDs.
+> They're corner-voted.
 
-This looks like a strange history. Especially granted 338d51889851 
-("Revert "dts: msm8974: Add blsp2_bam dma node"") and d44cbb1e9ca3 
-("Revert "Revert "dts: msm8974: Add blsp2_bam dma node""")
+Hmm. Indeed. In msm8974-regulators I see both voltage and corner entries 
+for these regulators.
 
-And, of course, 
-https://lore.kernel.org/linux-arm-msm/CAJAp7Oi33=kraAiU337JdFJZbuKZEVoCtY4FfAv_RgiWVmz+sw@mail.gmail.com/
-
-Note, 338d51889851 mentions non-dragonboard boards. This makes me think 
-that for some of the dragonboards/firmware combos this device was 
-working as is, without controlled remotely. I could not get 'the latest 
-bootloader package' (if there was one), so I'm stuck with what I have on 
-my board. However there is no guarantee that it is the latest and 
-greatest stuff.
-
-Thus said, for this patch I decided to follow the rhino example and add 
-this to the board file. Unless Bjorn (or anybody else remembering those 
-times) can advise us.
-
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > 
 > Konrad
->>   arch/arm/boot/dts/qcom-apq8074-dragonboard.dts | 4 ++++
->>   1 file changed, 4 insertions(+)
 >>
->> diff --git a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
->> index 1345df7cbd00..6b047c679370 100644
->> --- a/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
->> +++ b/arch/arm/boot/dts/qcom-apq8074-dragonboard.dts
->> @@ -23,6 +23,10 @@ &blsp1_uart2 {
->>   	status = "okay";
->>   };
->>   
->> +&blsp2_dma {
->> +	qcom,controlled-remotely;
->> +};
->> +
->>   &blsp2_i2c5 {
->>   	status = "okay";
->>   	clock-frequency = <200000>;
+>>>
+>>>> +
+>>>> +    firmware-name = "qcom/apq8074/mba.mbn", "qcom/apq8074/modem.mbn";
+>>> Could you please keep it one entry per line?
+>>
+>> Sure.
+>>
+>>>
+>>> Otherwise,
+>>>
+>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>
+>>> Konrad
+>>>> +
+>>>> +    status = "okay";
+>>>> +};
+>>>> +
+>>>>    &rpm_requests {
+>>>>        regulators-0 {
+>>>>            compatible = "qcom,rpm-pm8841-regulators";
+>>
 
 -- 
 With best wishes
