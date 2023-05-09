@@ -2,67 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36286FCB6E
-	for <lists+freedreno@lfdr.de>; Tue,  9 May 2023 18:37:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1E386FCCA3
+	for <lists+freedreno@lfdr.de>; Tue,  9 May 2023 19:23:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE3310E1D0;
-	Tue,  9 May 2023 16:37:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76D9110E3B7;
+	Tue,  9 May 2023 17:22:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266B610E1B4;
- Tue,  9 May 2023 16:37:20 +0000 (UTC)
-Received: by mail-pg1-x52f.google.com with SMTP id
- 41be03b00d2f7-5144a9c11c7so5701750a12.2; 
- Tue, 09 May 2023 09:37:20 -0700 (PDT)
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78AF910E3B7;
+ Tue,  9 May 2023 17:22:58 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-6439f186366so3552651b3a.2; 
+ Tue, 09 May 2023 10:22:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683650239; x=1686242239;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=osWWYYQseCvJCBZt1Q3stKtUhhbUrnP9MQ0pNGBM3gY=;
- b=mZZAJf8CDVLdRsIa/eB31WvC02gURKhS4JsgGIM1FMEfS0TPzOSNr2ofLgpB/7d36u
- t+huw2YXaVGECPsBBtfOGhjyjvU670c59fAbXlO8Yz+yLMEUksGNyv+BRDQD8VIZFfkh
- mghLEYlEXXdGTtZG9Ss2M4RDBoz3VsqKzX4/E8mXGpRx7MCzH6pSJS/kmC3o3x8ob2+r
- FaoysUGQAZtMPp33CmjiOwLcYoRVcG/j5VesdRfj9iwmMnTVtHtTdQnXLroAzQ5BYpuw
- Dk4me3Nis+OCHDDn/PHz6ClQak2AclwSy1vmc119W+tNEFEBpb/qq08kUvh8KKxLAnzZ
- bRrw==
+ d=gmail.com; s=20221208; t=1683652977; x=1686244977;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=h8H4gLY9QD6JR3rBgoCS4vvXjxVaagMATkBih9kNdRg=;
+ b=EMBC+q+FGd7Q3uU5/5oV3B6UZEISuagmTJ9Cx076RXqV8Ik2Zb9HknVj5oCHgmH3Ug
+ RFVHxwYh58xvNHtou7+BfSvFF5zxGKfwDARu9iF/4Cd5yr2prKfvY9M0/QdmyCqtYotM
+ 3+6sXXNvM90RXZ+b2227fnKcHESoJ6NGaKMkEPROokGe8Gx3YIrBCsKUWgBAptXVqE9G
+ fC6DUtFjBKNBe7Y1UhZj1+NrmwGoSE0D25r0zsLKAzktvG/P3xNq9gPJiiaQYP/cNKgK
+ sv+wVvIzvrBU/0O1jFgrffWR38BDiAR+J1MTKRd5QtP73pVqtfJNT8L+Z42izNjuwM0y
+ rpdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683650239; x=1686242239;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=osWWYYQseCvJCBZt1Q3stKtUhhbUrnP9MQ0pNGBM3gY=;
- b=HBlerQq2UVdJY1u8xDzd7QRw5OYzi3/B4sdiCwliybJABxQON7a/kz6obyKp/gwdF2
- hAkepP4gGsWsADH/88j1jLLdVsBE0hRdHGYsSOzOOoUuSuD6Z7aPd4iPKPJA/n9RVcX+
- xxYh8+oYLKXJeCyeaAe0GDX4lY4FUzRozqLtNdq3dGAqJoCso30CtbBydiEauQDBaMdr
- EDFIrrMF7MBy8pBiSLke60GJnFn0CJzdU+HLdApZwcDV5duF3u+8yRscrDiagtPbjhf5
- ePDwtb7cpAqL5mUuPKaWBTJffCNS9wenSvrBuz7XcRpgn4jWIENjKtaaniH2NBABE+lO
- 67Nw==
-X-Gm-Message-State: AC+VfDzeuefjdKKpPLw6qgu61gvNbyETqNHo5eRmn0Par351PiNP8B/C
- IQPg6dD8W/SHLbYq73L3i6vZRqqPoWY=
-X-Google-Smtp-Source: ACHHUZ5LYRtJdAdxjy+ccn4spz1/vSAxQC2cahvFcQb+ES2TNjUqZm2oJKcFVWN0/5kCALhertuX3Q==
-X-Received: by 2002:a17:902:b110:b0:1aa:f6ed:973d with SMTP id
- q16-20020a170902b11000b001aaf6ed973dmr12646582plr.55.1683650239053; 
- Tue, 09 May 2023 09:37:19 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683652977; x=1686244977;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=h8H4gLY9QD6JR3rBgoCS4vvXjxVaagMATkBih9kNdRg=;
+ b=C5N9/f18sjaNJIWntfAXmgEG2OF1tw0eHjrnbrZvp/MkiwphpBhahX+laSrFq5MDkX
+ 13R9JpyYJWKOIGuZQm1IbGqUVAn8d+iUbLm2N0XbI87xeiN1gIXy5LaSbNOYGr6QaeWS
+ 0BkzfMYKskkk+qODeH0McMBoUxzrloly6dSXaF01+yOUSa6c2zwV+ZPl82xgCBstfotO
+ LcD7xYjQt/N8xqkFO01QpDTVqdJcnQsqOF1gCOIGH+f3EuMzRD9XDEKCZ5A7GLlbEeCN
+ wNjG7qySKix9RIXSMzD9qk6cXVCrD9rqcpGjfaDBrl51gptNiYrLedjXedzdhexYMKd+
+ OwUQ==
+X-Gm-Message-State: AC+VfDzHbwf6uyST8i9sXAzkdRxYJebYYYVVaXUiRQlqPejI0R/jWtQn
+ kerXMqKEmmHse6tFNC1/LDGAwQFScwI=
+X-Google-Smtp-Source: ACHHUZ7n2ye/CuTjs4se99yvH8Xq0S3axmyWPzeGYkUleujVONQhA3IefUZmticF0BdwwXUn6OV+xw==
+X-Received: by 2002:a05:6a21:920d:b0:eb:69b3:116c with SMTP id
+ tl13-20020a056a21920d00b000eb69b3116cmr17192888pzb.52.1683652977404; 
+ Tue, 09 May 2023 10:22:57 -0700 (PDT)
 Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- m24-20020a170902bb9800b001a217a7a11csm1812272pls.131.2023.05.09.09.37.18
+ e5-20020aa78c45000000b00639fc7124c2sm2072001pfd.148.2023.05.09.10.22.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 May 2023 09:37:18 -0700 (PDT)
+ Tue, 09 May 2023 10:22:57 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	iommu@lists.linux-foundation.org
-Date: Tue,  9 May 2023 09:37:11 -0700
-Message-Id: <20230509163712.376117-2-robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  9 May 2023 10:22:53 -0700
+Message-Id: <20230509172253.383964-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230509163712.376117-1-robdclark@gmail.com>
-References: <20230509163712.376117-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Be more shouty if per-process
- pgtables aren't working
+Subject: [Freedreno] [PATCH v3] drm/msm: Fix submit error-path leaks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,8 +72,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>, pinkperfect2021@gmail.com,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -86,46 +82,118 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Otherwise it is not always obvious if a dt or iommu change is causing us
-to fall back to global pgtable.
+For errors after msm_submitqueue_get(), we need to drop the submitqueue
+reference.  Additionally after get_unused_fd() we need to drop the fd.
+The ordering for dropping the queue lock and put_unused_fd() is not
+important, so just move this all into out_post_unlock.
 
+v2: Only drop queue ref if submit doesn't take it
+v3: Fix unitialized submit ref in error path
+
+Reported-by: pinkperfect2021@gmail.com
+Fixes: f0de40a131d9 drm/msm: ("Reorder lock vs submit alloc")
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/msm_iommu.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_gem_submit.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 418e1e06cdde..9b19124c9bd0 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -227,21 +227,26 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
- 	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(parent->dev);
- 	struct msm_iommu *iommu = to_msm_iommu(parent);
- 	struct msm_iommu_pagetable *pagetable;
- 	const struct io_pgtable_cfg *ttbr1_cfg = NULL;
- 	struct io_pgtable_cfg ttbr0_cfg;
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 6c6aefaa72be..c994d4a13580 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -720,21 +720,21 @@ static void msm_process_post_deps(struct msm_submit_post_dep *post_deps,
+ 		}
+ 	}
+ }
+ 
+ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		struct drm_file *file)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct drm_msm_gem_submit *args = data;
+ 	struct msm_file_private *ctx = file->driver_priv;
+-	struct msm_gem_submit *submit;
++	struct msm_gem_submit *submit = NULL;
+ 	struct msm_gpu *gpu = priv->gpu;
+ 	struct msm_gpu_submitqueue *queue;
+ 	struct msm_ringbuffer *ring;
+ 	struct msm_submit_post_dep *post_deps = NULL;
+ 	struct drm_syncobj **syncobjs_to_reset = NULL;
+ 	int out_fence_fd = -1;
+ 	bool has_ww_ticket = false;
+ 	unsigned i;
  	int ret;
  
- 	/* Get the pagetable configuration from the domain */
- 	if (adreno_smmu->cookie)
- 		ttbr1_cfg = adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
--	if (!ttbr1_cfg)
-+
-+	/*
-+	 * If you hit this WARN_ONCE() you are probably missing an entry in
-+	 * qcom_smmu_impl_of_match[] in arm-smmu-qcom.c
-+	 */
-+	if (WARN_ONCE(!ttbr1_cfg, "No per-process page tables"))
- 		return ERR_PTR(-ENODEV);
+@@ -767,27 +767,29 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	queue = msm_submitqueue_get(ctx, args->queueid);
+ 	if (!queue)
+ 		return -ENOENT;
  
- 	pagetable = kzalloc(sizeof(*pagetable), GFP_KERNEL);
- 	if (!pagetable)
- 		return ERR_PTR(-ENOMEM);
+ 	ring = gpu->rb[queue->ring_nr];
  
- 	msm_mmu_init(&pagetable->base, parent->dev, &pagetable_funcs,
- 		MSM_MMU_IOMMU_PAGETABLE);
+ 	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+ 		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+ 		if (out_fence_fd < 0) {
+ 			ret = out_fence_fd;
+-			return ret;
++			goto out_post_unlock;
+ 		}
+ 	}
  
- 	/* Clone the TTBR1 cfg as starting point for TTBR0 cfg: */
+ 	submit = submit_create(dev, gpu, queue, args->nr_bos, args->nr_cmds);
+-	if (IS_ERR(submit))
+-		return PTR_ERR(submit);
++	if (IS_ERR(submit)) {
++		ret = PTR_ERR(submit);
++		goto out_post_unlock;
++	}
+ 
+ 	trace_msm_gpu_submit(pid_nr(submit->pid), ring->id, submit->ident,
+ 		args->nr_bos, args->nr_cmds);
+ 
+ 	ret = mutex_lock_interruptible(&queue->lock);
+ 	if (ret)
+ 		goto out_post_unlock;
+ 
+ 	if (args->flags & MSM_SUBMIT_SUDO)
+ 		submit->in_rb = true;
+@@ -962,25 +964,33 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+ 	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+ 	                      submit->user_fence);
+ 
+ 
+ out:
+ 	submit_cleanup(submit, !!ret);
+ 	if (has_ww_ticket)
+ 		ww_acquire_fini(&submit->ticket);
+ out_unlock:
+-	if (ret && (out_fence_fd >= 0))
+-		put_unused_fd(out_fence_fd);
+ 	mutex_unlock(&queue->lock);
+ out_post_unlock:
+-	msm_gem_submit_put(submit);
++	if (ret && (out_fence_fd >= 0))
++		put_unused_fd(out_fence_fd);
++	if (submit) {
++		msm_gem_submit_put(submit);
++	} else {
++		/*
++		 * If the submit hasn't yet taken ownership of the queue
++		 * then we need to drop the reference ourself:
++		 */
++		msm_submitqueue_put(queue);
++	}
+ 	if (!IS_ERR_OR_NULL(post_deps)) {
+ 		for (i = 0; i < args->nr_out_syncobjs; ++i) {
+ 			kfree(post_deps[i].chain);
+ 			drm_syncobj_put(post_deps[i].syncobj);
+ 		}
+ 		kfree(post_deps);
+ 	}
+ 
+ 	if (!IS_ERR_OR_NULL(syncobjs_to_reset)) {
+ 		for (i = 0; i < args->nr_in_syncobjs; ++i) {
 -- 
 2.40.1
 
