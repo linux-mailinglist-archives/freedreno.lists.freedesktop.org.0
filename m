@@ -2,81 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 694276FC537
-	for <lists+freedreno@lfdr.de>; Tue,  9 May 2023 13:42:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD336FCB6D
+	for <lists+freedreno@lfdr.de>; Tue,  9 May 2023 18:37:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EAB710E38C;
-	Tue,  9 May 2023 11:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF9110E263;
+	Tue,  9 May 2023 16:37:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0440910E38C
- for <freedreno@lists.freedesktop.org>; Tue,  9 May 2023 11:42:04 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f004cc54f4so6552806e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 09 May 2023 04:42:04 -0700 (PDT)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E204810E1B4;
+ Tue,  9 May 2023 16:37:18 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id
+ d2e1a72fcca58-64395e2a715so6040048b3a.3; 
+ Tue, 09 May 2023 09:37:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683632523; x=1686224523;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9pl1V+sF83nw4jwYsmPa2jKKW5gdsa5ODMEKYo1fFAM=;
- b=LQxNW0yHGaTmdH+eDy4hgR9cO7qNKTV4OXMOOT21I/r4dPd7cll2R5GHhECVI8Cnqv
- Kep71GiRBdga58oD2UxP/oTQhmHWlqzemABoLdVysD4DHXSnkQukzmxGb6f3FSqJXfkB
- rIeWeS6ogVfo168XH9A/q3ZE+DCBZmkNbQ++iKB05KwLVafAui8q0HYStT8G5ui3qMPf
- 08On4KNSKQVQOGz26EXQvhiaQlq2/HaNNa3YnDSngLOfeHioQyh00o/jW9ohVjosYlsQ
- S0YoJCa7iizameoJR3FQtlUqPngVONeCxFjjEu2COFdE9rNuCEpoJyEBXXxu6dxmn1iY
- 9s5Q==
+ d=gmail.com; s=20221208; t=1683650238; x=1686242238;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TaDF8zy4btueLBSrY9dwMuQHd4N85rvewa4k8qv4+LA=;
+ b=j14RYjsAZP/vRadBipwj+/IsyNXcsgsIAhyw919XbStBA4kce3hQvKJ+cfxL4B2Fyk
+ xDslF7jbK8TYBzo3nv3M5tNKeJjYsIhGrvrv0UPaY8Lqtwx8ww8oFWZxQ5STMCvjOzoo
+ FdS2t9RdlZKcaR+m5JNWNFHI3+/DXPWurM/sx0TXEvdgNiU7+V1XnZ3pLh50ogSibyKq
+ OP+GfeN+rwBzfoUUSKlt5Frrt2rm4uGh7guDSGSq/qLjrguJp2+RNuCGEYuoQXZQ+t2q
+ im4ETpEyj3JKyhI6ChXApXKixbt+M5tce/JMfZdqk/T60jKy6V59XI1JaDR0WK9eW9N0
+ UtvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683632523; x=1686224523;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9pl1V+sF83nw4jwYsmPa2jKKW5gdsa5ODMEKYo1fFAM=;
- b=loX2umYQ016AupyMWzX1HtZADv0/YmuYB9TK5lJiwmc8WC+KVllasmXkUz64q8mr+l
- 1IB6wU2NbgqO2JjYTnofKPWjQlYrUgBrYoznYWazDTvDRB7QuQUWnu4E4H2AHhfndpNS
- 6hX7Qp2gNvSP0QdVxnQm6+z7CM4TQVwT+yk9VxZhanrXipjcDs2U/7uO7GHS/1tbDvk6
- C6Ghs101BAIUnsF8f8/C578FBU5nJpTycD7ATQAx+bB471TGx3oNUq7U1sDxJnmloR+f
- 5hBamgxtrhO+pcd+IE/FrUA/M5naREXhXdt2rhmyS5Y2ShZBYGwJCjSDYXhAKpOPMBvV
- 1VbA==
-X-Gm-Message-State: AC+VfDxcXB8961hrATCjC9BEf/oo7t5AENwJP56Dmg7+/9f7EVpcTqNM
- fR5IVMbm4Z3+Dl6wfhs1uUhLCw==
-X-Google-Smtp-Source: ACHHUZ677yF0j6L9wDMCT+AqFIVJ8oMMpSOLMCU82Rxd1DFuJyXAtxGrYscgN90CzYZ8VSgI+lqctg==
-X-Received: by 2002:ac2:5fa6:0:b0:4f2:520e:f865 with SMTP id
- s6-20020ac25fa6000000b004f2520ef865mr637666lfe.16.1683632522700; 
- Tue, 09 May 2023 04:42:02 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1683650238; x=1686242238;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TaDF8zy4btueLBSrY9dwMuQHd4N85rvewa4k8qv4+LA=;
+ b=JR6Z9A2ceSnE3uT/C/ozIzrqx1sxuHb7Qcd8CFu6OgCNH6GsID+/6TLIZl7sjUVUsm
+ sCr3igNmpcvk1ccPq9/Uoywu8M11L4UwK1Sztb45oHbiGFtmFWy3puaykz0mLuo7y8RG
+ nzVpXLCdB7Ebtz95hNFkLPMiYJHm0yc0sU/wXttIp8gbcO+zeAxDd18XkRrktC60PCWD
+ HF8T3Lrd432JGJ28HgDxMmIUgLr6EKmofeZ9bUvEfsi9KZzdEHbchMWjpGO7jectnwjr
+ usuUn+X/0HPWhohsd+h6WmPQ1MiPLrdVAcDnWrkkw5vSSdENo4NdnbsfXyt/kZ6AerZe
+ nGHg==
+X-Gm-Message-State: AC+VfDy8AChSFFnlRtkLRkbW0V0hT4R56aMSpC3ToeoO/gNykLh2n5G5
+ uft4nsUrQBfWs/VUDW5n4qIa0P+Eqvo=
+X-Google-Smtp-Source: ACHHUZ4Fw2eEX9sgR3Z4fMrQfqI4ebENqvBJull5h+TO+c/ePom2r4665yNHkpO6ibZvUcr5PA5kEQ==
+X-Received: by 2002:a05:6a21:6d88:b0:f2:fd1e:efc9 with SMTP id
+ wl8-20020a056a216d8800b000f2fd1eefc9mr19258556pzb.5.1683650237508; 
+ Tue, 09 May 2023 09:37:17 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- k2-20020ac24562000000b004eb0c51780bsm322168lfm.29.2023.05.09.04.42.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 May 2023 04:42:02 -0700 (PDT)
-Message-ID: <5f069b2c-d1b1-e489-7494-67ef395437bc@linaro.org>
-Date: Tue, 9 May 2023 14:42:01 +0300
+ y9-20020a63de49000000b0051b7bcb6162sm1547873pgi.81.2023.05.09.09.37.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 May 2023 09:37:17 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	iommu@lists.linux-foundation.org
+Date: Tue,  9 May 2023 09:37:10 -0700
+Message-Id: <20230509163712.376117-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, neil.armstrong@linaro.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230405-add-dsc-support-v1-0-6bc6f03ae735@quicinc.com>
- <20230405-add-dsc-support-v1-2-6bc6f03ae735@quicinc.com>
- <a60a9f37-bb43-6e2b-2535-995e9fae250a@linaro.org>
- <32d473a6-f7a5-9aa6-85cf-0f77f1c071ce@quicinc.com>
- <4cf2e9ab-7e08-fb26-d924-8ea8141d9f58@linaro.org>
- <44c47800-0913-b122-77ae-5ce0e5d4b443@linaro.org>
- <cd8cfbd5-1bde-08d8-dbb5-5489820d6a45@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <cd8cfbd5-1bde-08d8-dbb5-5489820d6a45@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 2/4] drm/msm/dsi: Fix compressed word count
- calculation
+Subject: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Fix missing
+ adreno_smmu's
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,106 +72,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Lepton Wu <lepton@chromium.org>,
+ Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, Emma Anholt <emma@anholt.net>,
+ Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Elliot Berman <quic_eberman@quicinc.com>, freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/05/2023 11:54, Konrad Dybcio wrote:
-> 
-> 
-> On 9.05.2023 10:23, Neil Armstrong wrote:
->> On 09/05/2023 01:27, Dmitry Baryshkov wrote:
->>> On 08/05/2023 23:09, Abhinav Kumar wrote:
->>>>
->>>>
->>>> On 5/3/2023 1:26 AM, Dmitry Baryshkov wrote:
->>>>> On 03/05/2023 04:19, Jessica Zhang wrote:
->>>>>> Currently, word count is calculated using slice_count. This is incorrect
->>>>>> as downstream uses slice per packet, which is different from
->>>>>> slice_count.
->>>>>>
->>>>>> Slice count represents the number of soft slices per interface, and its
->>>>>> value will not always match that of slice per packet. For example, it is
->>>>>> possible to have cases where there are multiple soft slices per interface
->>>>>> but the panel specifies only one slice per packet.
->>>>>>
->>>>>> Thus, use the default value of one slice per packet and remove slice_count
->>>>>> from the word count calculation.
->>>>>>
->>>>>> Fixes: bc6b6ff8135c ("drm/msm/dsi: Use DSC slice(s) packet size to compute word count")
->>>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>>>>> ---
->>>>>>    drivers/gpu/drm/msm/dsi/dsi_host.c | 9 ++++++++-
->>>>>>    1 file changed, 8 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>> index 35c69dbe5f6f..b0d448ffb078 100644
->>>>>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>>> @@ -996,7 +996,14 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->>>>>>            if (!msm_host->dsc)
->>>>>>                wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
->>>>>>            else
->>>>>> -            wc = msm_host->dsc->slice_chunk_size * msm_host->dsc->slice_count + 1;
->>>>>> +            /*
->>>>>> +             * When DSC is enabled, WC = slice_chunk_size * slice_per_packet + 1.
->>>>>> +             * Currently, the driver only supports default value of slice_per_packet = 1
->>>>>> +             *
->>>>>> +             * TODO: Expand drm_panel struct to hold slice_per_packet info
->>>>>> +             *       and adjust DSC math to account for slice_per_packet.
->>>>>
->>>>> slice_per_packet is not a part of the standard DSC, so I'm not sure how that can be implemented. And definitely we should not care about the drm_panel here. It should be either a part of drm_dsc_config, or mipi_dsi_device.
->>>>>
->>>>
->>>> This is not correct.
->>>>
->>>> It is part of the DSI standard (not DSC standard). Please refer to Figure 40 "One Line Containing One Packet with Data from One or More Compressed Slices" and Figure 41 "One Line Containing More than One Compressed Pixel Stream Packet".
->>>
->>> I have reviewed section 8.8.24 and Annex D of the DSI standard.
->>>
->>> It is not clear to me, if we can get away with always using slice_per_packet = 1. What is the DSI sink's difference between Fig. 40.(b) and Fig 41?
->>>
->>> Are there are known panels that require slice_per_packet != 1? If so, we will have to implement support for such configurations.
->>>
->>>> This has details about this. So I still stand by my point that this should be in the drm_panel.
->>>
->>> Note, the driver doesn't use drm_panel directly. So slices_per_packet should go to mipi_dsi_device instead (which in turn can be filled from e.g. drm_panel or from any other source).
->>
->> This is a big question, where should we set those parameters ?
->>
->> It's an even bigger questions for panels optionally supporting DSC in Video or Command mode (like the vtdr6130),
->> how to select DSC or not ? DT is not an option.
-> Compressed vs uncompressed modes, maybe? Would be nice to make this
-> togglable from userspace.. But then it may not scale for panels with e.g.
-> 10 resolutions, all cmd/vid/dsc/nodsc
+From: Rob Clark <robdclark@chromium.org>
 
-Currently the panel/panel-bridge make decision on command vs video mode. 
-We have no way to influence that decision. If you want to make that 
-negotiable, I'd start with adding 
-'cmd_supported/video_supported/dsc_supported' flags to struct 
-mipi_dsi_hosts.
+When the special handling of qcom,adreno-smmu was moved into
+qcom_smmu_create(), it was overlooked that we didn't have all the
+required entries in qcom_smmu_impl_of_match.  So we stopped getting
+adreno_smmu_priv on sc7180, breaking per-process pgtables.
 
-> 
-> 
-> Konrad
->>
->> Those should tied to a panel+controller tuple.
->>
->> Neil
->>
->>>
->>>>
->>>>>> +             */
->>>>>> +            wc = msm_host->dsc->slice_chunk_size + 1;
->>>>>>            dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
->>>>>>                DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
->>>>>>
->>>>>
->>>
->>
+Fixes: 30b912a03d91 ("iommu/arm-smmu-qcom: Move the qcom,adreno-smmu check into qcom_smmu_create")
+Suggested-by: Lepton Wu <lepton@chromium.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index d1b296b95c86..760d9c43dbd2 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -496,20 +496,21 @@ static const struct qcom_smmu_match_data qcom_smmu_500_impl0_data = {
+ /*
+  * Do not add any more qcom,SOC-smmu-500 entries to this list, unless they need
+  * special handling and can not be covered by the qcom,smmu-500 entry.
+  */
+ static const struct of_device_id __maybe_unused qcom_smmu_impl_of_match[] = {
+ 	{ .compatible = "qcom,msm8996-smmu-v2", .data = &msm8996_smmu_data },
+ 	{ .compatible = "qcom,msm8998-smmu-v2", .data = &qcom_smmu_v2_data },
+ 	{ .compatible = "qcom,qcm2290-smmu-500", .data = &qcom_smmu_500_impl0_data },
+ 	{ .compatible = "qcom,qdu1000-smmu-500", .data = &qcom_smmu_500_impl0_data  },
+ 	{ .compatible = "qcom,sc7180-smmu-500", .data = &qcom_smmu_500_impl0_data },
++	{ .compatible = "qcom,sc7180-smmu-v2", .data = &qcom_smmu_v2_data },
+ 	{ .compatible = "qcom,sc7280-smmu-500", .data = &qcom_smmu_500_impl0_data },
+ 	{ .compatible = "qcom,sc8180x-smmu-500", .data = &qcom_smmu_500_impl0_data },
+ 	{ .compatible = "qcom,sc8280xp-smmu-500", .data = &qcom_smmu_500_impl0_data },
+ 	{ .compatible = "qcom,sdm630-smmu-v2", .data = &qcom_smmu_v2_data },
+ 	{ .compatible = "qcom,sdm845-smmu-v2", .data = &qcom_smmu_v2_data },
+ 	{ .compatible = "qcom,sdm845-smmu-500", .data = &sdm845_smmu_500_data },
+ 	{ .compatible = "qcom,sm6115-smmu-500", .data = &qcom_smmu_500_impl0_data},
+ 	{ .compatible = "qcom,sm6125-smmu-500", .data = &qcom_smmu_500_impl0_data },
+ 	{ .compatible = "qcom,sm6350-smmu-v2", .data = &qcom_smmu_v2_data },
+ 	{ .compatible = "qcom,sm6350-smmu-500", .data = &qcom_smmu_500_impl0_data },
+@@ -540,12 +541,14 @@ struct arm_smmu_device *qcom_smmu_impl_init(struct arm_smmu_device *smmu)
+ 		/* Match platform for ACPI boot */
+ 		if (acpi_match_platform_list(qcom_acpi_platlist) >= 0)
+ 			return qcom_smmu_create(smmu, &qcom_smmu_500_impl0_data);
+ 	}
+ #endif
+ 
+ 	match = of_match_node(qcom_smmu_impl_of_match, np);
+ 	if (match)
+ 		return qcom_smmu_create(smmu, match->data);
+ 
++	WARN_ON(of_device_is_compatible(np, "qcom,adreno-smmu"));
++
+ 	return smmu;
+ }
 -- 
-With best wishes
-Dmitry
+2.40.1
 
