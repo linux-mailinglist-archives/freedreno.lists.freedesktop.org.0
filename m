@@ -1,36 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 418EC6FD66C
-	for <lists+freedreno@lfdr.de>; Wed, 10 May 2023 08:01:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A24046FD675
+	for <lists+freedreno@lfdr.de>; Wed, 10 May 2023 08:05:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F13310E44E;
-	Wed, 10 May 2023 06:01:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE2C710E1F4;
+	Wed, 10 May 2023 06:05:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 138B910E2A2
- for <freedreno@lists.freedesktop.org>; Wed, 10 May 2023 06:01:23 +0000 (UTC)
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF5CE10E2A2
+ for <freedreno@lists.freedesktop.org>; Wed, 10 May 2023 06:05:46 +0000 (UTC)
 Received: from SoMainline.org (unknown [89.205.225.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 293E9201E6;
- Wed, 10 May 2023 08:01:17 +0200 (CEST)
-Date: Wed, 10 May 2023 08:01:15 +0200
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id ADDE5201C9;
+ Wed, 10 May 2023 08:05:39 +0200 (CEST)
+Date: Wed, 10 May 2023 08:05:19 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <522ab2j4k6q3bdvhtf5h7zxu5ntysgcxgx4hznjyrp7wspealw@itzxkvimaeh7>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, @somainline.org
+Message-ID: <kut5a6r7j7jxgibaljatkqnk66ycvmbeqon7k6fvyhrha4gkwi@qjtqk766akfc>
 References: <20230329-rfc-msm-dsc-helper-v7-0-df48a2c54421@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v7-1-df48a2c54421@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v7-7-df48a2c54421@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v7-1-df48a2c54421@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v7 1/8] drm/display/dsc: Add flatness and
- initial scale value calculations
+In-Reply-To: <20230329-rfc-msm-dsc-helper-v7-7-df48a2c54421@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v7 7/8] drm/msm/dsi: Use MSM and DRM DSC
+ helper methods
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,53 +50,62 @@ Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-09 15:06:47, Jessica Zhang wrote:
-> Add helpers to calculate det_thresh_flatness and initial_scale_value as
-> these calculations are defined within the DSC spec.
+On 2023-05-09 15:06:53, Jessica Zhang wrote:
+> Use MSM and DRM DSC helper methods to configure DSC for DSI.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-
-This ordering is odd: Jessica originally sent the patch, then Dmitry
-seems to have sent it as part of his series and added his s-o-b [1], but
-now Jessica is sending her original patch again but with Dmitry's
-sign-off first.
-
-[1]: https://lore.kernel.org/linux-arm-msm/20230403092313.235320-11-dmitry.baryshkov@linaro.org/
-
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  include/drm/display/drm_dsc_helper.h | 11 +++++++++++
->  1 file changed, 11 insertions(+)
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-> index 0bb0c3afd740..422135a33d65 100644
-> --- a/include/drm/display/drm_dsc_helper.h
-> +++ b/include/drm/display/drm_dsc_helper.h
-> @@ -25,5 +25,16 @@ void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
->  int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
->  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 74d38f90398a..508577c596ff 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -28,6 +28,7 @@
+>  #include "dsi.xml.h"
+>  #include "sfpb.xml.h"
+>  #include "dsi_cfg.h"
+> +#include "msm_dsc_helper.h"
+>  #include "msm_kms.h"
+>  #include "msm_gem.h"
+>  #include "phy/dsi_phy.h"
+> @@ -848,7 +849,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>  	/* first calculate dsc parameters and then program
+>  	 * compress mode registers
+>  	 */
+> -	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->slice_width);
+> +	slice_per_intf = msm_dsc_get_slice_per_intf(dsc, hdisplay);
 >  
-> +static inline void drm_dsc_set_initial_scale_value(struct drm_dsc_config *dsc)
+>  	/*
+>  	 * If slice_count is greater than slice_per_intf
+> @@ -858,7 +859,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>  	if (dsc->slice_count > slice_per_intf)
+>  		dsc->slice_count = 1;
+>  
+> -	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+> +	total_bytes_per_intf = msm_dsc_get_bytes_per_intf(dsc, hdisplay);
 
-Nit: the other functions are not static inline, and are called "compute"
-or "setup" (or "calculate" below) for maths.
-
-The math itself is:
+This helper doesn't use slice_chunk_size, but I'll comment on that in
+the patch that adds the helper since it seems better to reuse that (as
+drm_dsc_compute_rc_parameters already took care of taking into account
+420 | 422.
 
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-> +{
-> +	dsc->initial_scale_value = 8 * dsc->rc_model_size /
-> +		(dsc->rc_model_size - dsc->initial_offset);
-> +}
-> +
-> +static inline int drm_dsc_calculate_flatness_det_thresh(struct drm_dsc_config *dsc)
-> +{
-> +	return 2 << (dsc->bits_per_component - 8);
-> +}
-> +
->  #endif /* _DRM_DSC_HELPER_H_ */
 >  
+>  	eol_byte_num = total_bytes_per_intf % 3;
+>  	pkt_per_line = slice_per_intf / dsc->slice_count;
+> @@ -1759,7 +1760,7 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+>  		return ret;
+>  	}
+>  
+> -	dsc->initial_scale_value = 32;
+> +	drm_dsc_set_initial_scale_value(dsc);
+>  	dsc->line_buf_depth = dsc->bits_per_component + 1;
+>  
+>  	return drm_dsc_compute_rc_parameters(dsc);
 > 
 > -- 
 > 2.40.1
