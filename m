@@ -1,81 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE546FD222
-	for <lists+freedreno@lfdr.de>; Wed, 10 May 2023 00:07:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 418EC6FD66C
+	for <lists+freedreno@lfdr.de>; Wed, 10 May 2023 08:01:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 000D410E3ED;
-	Tue,  9 May 2023 22:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F13310E44E;
+	Wed, 10 May 2023 06:01:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2011110E3DE;
- Tue,  9 May 2023 22:07:10 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 349LUXCI014708; Tue, 9 May 2023 22:07:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : date :
- subject : mime-version : content-type : content-transfer-encoding :
- message-id : references : in-reply-to : to : cc; s=qcppdkim1;
- bh=r4jzK0eE1T1/jSOoz4/SOobs7wCBbuZkG+iTbefsqBQ=;
- b=njG+UUvgm1EDf8uMvevFCGwfHZ2OTU01TaI36aoXYNjP728TBUXjQ8BomJowGiqt+3LA
- QgowAwpyy4p/JGp0oGbVAxbzSEsq2u0Azewyip6Xm7N5vPeHYFSXpT0F+MRDT8HOPLex
- z1iDGMErCd6iRx3VGDF/JLmDcVjxS9+GBoHWgEpWdwZG0WKzDC7yWjHsMW5u/ZZfqXej
- qV0EUK7ACNlUonuLuzjMC4vQYcH4CS7639RD4aD8hIydmwtVIXFmwUh39P9Ew3V8aNtb
- v7ubLsSgD3IHx6llDbfvRlC/Zuf2bF3FW6jtLZv2VTt91aDdlPtB+O04QL3e+oxO83da oQ== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qf77ktxrs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 May 2023 22:07:07 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 349M77Hf027574
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 9 May 2023 22:07:07 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Tue, 9 May 2023 15:07:06 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Tue, 9 May 2023 15:06:54 -0700
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20230329-rfc-msm-dsc-helper-v7-8-df48a2c54421@quicinc.com>
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 138B910E2A2
+ for <freedreno@lists.freedesktop.org>; Wed, 10 May 2023 06:01:23 +0000 (UTC)
+Received: from SoMainline.org (unknown [89.205.225.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 293E9201E6;
+ Wed, 10 May 2023 08:01:17 +0200 (CEST)
+Date: Wed, 10 May 2023 08:01:15 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <522ab2j4k6q3bdvhtf5h7zxu5ntysgcxgx4hznjyrp7wspealw@itzxkvimaeh7>
 References: <20230329-rfc-msm-dsc-helper-v7-0-df48a2c54421@quicinc.com>
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v7-0-df48a2c54421@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-X-Mailer: b4 0.13-dev-bfdf5
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1683670024; l=948;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=v1fkmXm3T2pYzckJjM9za7TTz9C0dbY4XlJHUPur2uI=;
- b=pa1cBa5kYvHvmP2U1gPNig93PZ2/6CLtohLoBGgtrmSENw65wCWYlp/98QkeQ1BoXYEbEdhOe
- ZY7mvf6MQ8tAkJdyFKx/svoij8UTxyDsHmUswMmX0Gt9Wih3ciRmDKn
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: V-QTYjkz0i2spnCck2soh7yTfAkaP-yI
-X-Proofpoint-ORIG-GUID: V-QTYjkz0i2spnCck2soh7yTfAkaP-yI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-09_14,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- suspectscore=0 adultscore=0 mlxlogscore=900 lowpriorityscore=0
- phishscore=0 impostorscore=0 spamscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305090180
-Subject: [Freedreno] [PATCH v7 8/8] drm/msm/dsi: update hdisplay calculation
- for dsi_timing_setup
+ <20230329-rfc-msm-dsc-helper-v7-1-df48a2c54421@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230329-rfc-msm-dsc-helper-v7-1-df48a2c54421@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v7 1/8] drm/display/dsc: Add flatness and
+ initial scale value calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,39 +43,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Jessica
- Zhang <quic_jesszhan@quicinc.com>, Dmitry
- Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-hdisplay for compressed images should be calculated as bytes_per_slice *
-slice_count. Thus, use MSM DSC helper to calculate hdisplay for
-dsi_timing_setup instead of directly using mode->hdisplay.
+On 2023-05-09 15:06:47, Jessica Zhang wrote:
+> Add helpers to calculate det_thresh_flatness and initial_scale_value as
+> these calculations are defined within the DSC spec.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This ordering is odd: Jessica originally sent the patch, then Dmitry
+seems to have sent it as part of his series and added his s-o-b [1], but
+now Jessica is sending her original patch again but with Dmitry's
+sign-off first.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 508577c596ff..d60403372514 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -952,7 +952,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		 * pulse width same
- 		 */
- 		h_total -= hdisplay;
--		hdisplay /= 3;
-+		hdisplay = msm_dsc_get_bytes_per_line(msm_host->dsc) / 3;
- 		h_total += hdisplay;
- 		ha_end = ha_start + hdisplay;
- 	}
+[1]: https://lore.kernel.org/linux-arm-msm/20230403092313.235320-11-dmitry.baryshkov@linaro.org/
 
--- 
-2.40.1
+> ---
+>  include/drm/display/drm_dsc_helper.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
+> index 0bb0c3afd740..422135a33d65 100644
+> --- a/include/drm/display/drm_dsc_helper.h
+> +++ b/include/drm/display/drm_dsc_helper.h
+> @@ -25,5 +25,16 @@ void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+>  int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
+>  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+>  
+> +static inline void drm_dsc_set_initial_scale_value(struct drm_dsc_config *dsc)
 
+Nit: the other functions are not static inline, and are called "compute"
+or "setup" (or "calculate" below) for maths.
+
+The math itself is:
+
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+> +{
+> +	dsc->initial_scale_value = 8 * dsc->rc_model_size /
+> +		(dsc->rc_model_size - dsc->initial_offset);
+> +}
+> +
+> +static inline int drm_dsc_calculate_flatness_det_thresh(struct drm_dsc_config *dsc)
+> +{
+> +	return 2 << (dsc->bits_per_component - 8);
+> +}
+> +
+>  #endif /* _DRM_DSC_HELPER_H_ */
+>  
+> 
+> -- 
+> 2.40.1
+> 
