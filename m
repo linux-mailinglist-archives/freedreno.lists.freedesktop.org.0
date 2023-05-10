@@ -1,36 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7EA66FD719
-	for <lists+freedreno@lfdr.de>; Wed, 10 May 2023 08:35:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B08B16FE519
+	for <lists+freedreno@lfdr.de>; Wed, 10 May 2023 22:31:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F17010E452;
-	Wed, 10 May 2023 06:35:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D247710E518;
+	Wed, 10 May 2023 20:31:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AACE10E44F;
- Wed, 10 May 2023 06:35:04 +0000 (UTC)
-Received: from SoMainline.org (unknown [89.205.225.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id EC6AB20210;
- Wed, 10 May 2023 08:35:01 +0200 (CEST)
-Date: Wed, 10 May 2023 08:35:00 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <k6xgvs64hryacvgkgc3gvz6ifcibcy62us6ejamyl2ktapnt3q@fnftioyh6ruj>
-References: <20230329-rfc-msm-dsc-helper-v7-0-df48a2c54421@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v7-5-df48a2c54421@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CBEC10E516;
+ Wed, 10 May 2023 20:31:24 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34AGSRB2009700; Wed, 10 May 2023 20:31:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=VT89NrsEZk2EiYORvXQxh2tzZli3aAytU6kc3hMBy8Q=;
+ b=fF7psbPd7YuUxLI903gl2nARsvyBPoN5AiYuBDK0/dvHmClHMHoJ0BkLreH+CMO1+8gJ
+ 7uZHbwOfyMOoH5lCpVs57zwYDZqe55e8zdXo+awdI63LmdxaQeQt0MRZHax3q92uG79P
+ id83i5IcXysD6ektGqNJ4UB6hatB00Y/hAtH6D+2ATPw3qUCKFseJYULhazIS4T3OHb7
+ syoiuN4iJHmXBOXNsETLFM5v7gpXGt4UExK//Yr3CyfU5YU2vOmuY4YsR7eKs2p1Qe5s
+ jANJxrWjoJJP28WPF5gwEP3l1Zf2urw5wku8OqRG76uLFpFp5mXMTRTIux5ezGaD1hIo 6A== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qgett0ewg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 May 2023 20:31:17 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34AKVGwQ024529
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 May 2023 20:31:16 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Wed, 10 May 2023 13:31:15 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Wed, 10 May 2023 13:31:03 -0700
+Message-ID: <1683750665-8764-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v7-5-df48a2c54421@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v7 5/8] drm/msm/dpu: Use DRM DSC helper for
- det_thresh_flatness
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: eltU65YRGi7lTe9XlpHQ9zJLCc93tY7v
+X-Proofpoint-GUID: eltU65YRGi7lTe9XlpHQ9zJLCc93tY7v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-10_04,2023-05-05_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=362
+ priorityscore=1501 bulkscore=0 impostorscore=0 mlxscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2304280000 definitions=main-2305100166
+Subject: [Freedreno] [PATCH v1 0/2] enable HDP plugin/unplugged interrupts
+ to hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,59 +80,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Title suggestion: Use **fixed** MSM DSC helper...
+There is bug report on exteranl DP display does not work.
+This patch add below two patches to fix the problem.
+1) enable HDP plugin/unplugged interrupts to hpd_enable/disable
+2) add mutex to protect internal_hpd against race condition between different threads
+    
 
-To make it clear that this is a bugfix without having to read the commit
-description first.
+Kuogee Hsieh (2):
+  drm/msm/dp: enable HDP plugin/unplugged interrupts to
+    hpd_enable/disable
+  drm/msm/dp: add mutex to protect internal_hpd against race condition
+    between different threads
 
-- Marijn
+ drivers/gpu/drm/msm/dp/dp_display.c | 37 +++++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
 
-On 2023-05-09 15:06:51, Jessica Zhang wrote:
-> The current dpu_hw_dsc calculation for det_thresh_flatness does not
-> match the downstream calculation or the DSC spec.
-> 
-> Use the DRM DSC helper for det_thresh_flatness to match downstream
-> implementation and the DSC spec.
-> 
-> Fixes: c110cfd1753e ("drm/msm/disp/dpu1: Add support for DSC")
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> index 4e1396575e6a..1e11c0fb0545 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> @@ -3,6 +3,8 @@
->   * Copyright (c) 2020-2022, Linaro Limited
->   */
->  
-> +#include <drm/display/drm_dsc_helper.h>
-> +
->  #include "dpu_kms.h"
->  #include "dpu_hw_catalog.h"
->  #include "dpu_hwio.h"
-> @@ -102,7 +104,7 @@ static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
->  	data |= dsc->final_offset;
->  	DPU_REG_WRITE(c, DSC_DSC_OFFSET, data);
->  
-> -	det_thresh_flatness = 7 + 2 * (dsc->bits_per_component - 8);
-> +	det_thresh_flatness = drm_dsc_calculate_flatness_det_thresh(dsc);
->  	data = det_thresh_flatness << 10;
->  	data |= dsc->flatness_max_qp << 5;
->  	data |= dsc->flatness_min_qp;
-> 
-> -- 
-> 2.40.1
-> 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
