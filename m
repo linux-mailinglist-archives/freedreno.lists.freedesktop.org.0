@@ -1,55 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 688C06FF182
-	for <lists+freedreno@lfdr.de>; Thu, 11 May 2023 14:31:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD6BE6FF1AF
+	for <lists+freedreno@lfdr.de>; Thu, 11 May 2023 14:39:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFCF910E12F;
-	Thu, 11 May 2023 12:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBCA10E12F;
+	Thu, 11 May 2023 12:39:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09D8110E0A6;
- Thu, 11 May 2023 12:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683808255; x=1715344255;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=M5r4I8zzSsceCqKbpdOjv0skHgUUayzExsp2nd1tp4U=;
- b=fdqC+ahOGOCLEJyuZWRM1UkEwzkX62q/vIOcyW/To1qyu6grvOs8hUbu
- VOgdgJ7fpG+sp8ZukySBBNXQOONo+7X4QIxs6fQdLTVtbhM9CrFGgzROt
- hwYoXkJb9c5jtKxnwlVKec99eyunQikkApuoU1o49ICpwEXKbeWcWcy/6
- agmyYV/u/JTdgScBchIiQeDOTnuD65+wUZ57HW+yZ3bALG0tB0JbXksun
- 89aOdk6MzLXwJQWJui3quFUl+12cL1xGh8HGNZ0ZXtwLcJKmHR3/6gdgq
- A25plN23YeqprOaGgg+Dd0jcU8brrDATxcx8Dy5P5p/cSXPIBxBaPsgmG g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10706"; a="347955794"
-X-IronPort-AV: E=Sophos;i="5.99,266,1677571200"; d="scan'208";a="347955794"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2023 05:30:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10706"; a="811575114"
-X-IronPort-AV: E=Sophos;i="5.99,266,1677571200"; d="scan'208";a="811575114"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga002.fm.intel.com with SMTP; 11 May 2023 05:30:50 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 11 May 2023 15:30:49 +0300
-Date: Thu, 11 May 2023 15:30:49 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <ZFzf-firnfYKwmy1@intel.com>
-References: <20230329-rfc-msm-dsc-helper-v9-0-87daeaec2c0a@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v9-1-87daeaec2c0a@quicinc.com>
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7ED10E12F
+ for <freedreno@lists.freedesktop.org>; Thu, 11 May 2023 12:39:36 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2ac82b07eb3so86313481fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 11 May 2023 05:39:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683808772; x=1686400772;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sguCADxh6/8JZhFfgnCw2t9kQNtuJnhKvTXcCcJKeVo=;
+ b=N+cChiVGWGTovdxW3imjqG5act1QQ5KtOXb3rtHLD0O5XukjYbg4R8yAFzaKwsj0LV
+ sw26mEJ4W2mmwpCqPIz/MEc9EQoRXJRPXV95YPcUdrkNXSLeKcwBT2cm9C1L+p+15dpr
+ 2I6soBLa49oUYkTYkhbTtNs8tOFwxOiBNiP7z0uAqxtfQjmImVisFnxkF5u0k6k/t6pY
+ O0XkPrRpnSIpg9+5p6XpcY5Ax06D8WwHsdxn2h4MDX2SVSW6otTrHULi2pD5B9+N7Syy
+ eDWZx0fD9yAF6aAbOvxMrxefdna9pQ7gzLCjaHjYmEXVDiUUqx04bgounx98mhAekQTd
+ QfSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683808772; x=1686400772;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=sguCADxh6/8JZhFfgnCw2t9kQNtuJnhKvTXcCcJKeVo=;
+ b=fSH49vhV124GE4c13S9Xk6KvwgGE2owY5NRFB2IUyNNVbBMolsVb5ouOLEddWkgLFW
+ cxMSEz4T6qCa0FESFsTCksoRv7dyE+QlAeNuC8N+GJLtbhU7nkP/Xmk+1FsNk1l6wb6j
+ 9vXK8RXF9K1ngWVvDd6RDHoMU17JO+37sMsJSXGAOjz1U+O/jUBC4H6VF9TmO7Wqe+ri
+ FoJ0hTd2cQJ+WU48+NdZ7gS4/eQ9HxNX1B4ZFuWrqPo00+S2evyrCu55eZmjUhlm1deB
+ UwiAa9HA64Boa/ipTUsbI7lxeIoKUtmFednss/enjw+LpuJt2aa8VkZtqDd96/PTyqUX
+ zBeg==
+X-Gm-Message-State: AC+VfDwtsI8PeI2FcMTu5MTs6kssd434U0k87Y1WjQhSYO9iimuysN21
+ ru5kMRh/3bNHCI+JV8ub2+vqdQ==
+X-Google-Smtp-Source: ACHHUZ6+tTZyN721QPlPxPuC2A0OHeNX3tT1BQq7UBNV3ZI/xQJB2a24CSnNTYmrGnjbCg+GxE97XQ==
+X-Received: by 2002:a2e:3211:0:b0:2a8:ba15:eb6f with SMTP id
+ y17-20020a2e3211000000b002a8ba15eb6fmr3164629ljy.6.1683808771890; 
+ Thu, 11 May 2023 05:39:31 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ v23-20020a2e9617000000b002a8bc9918d4sm2374591ljh.97.2023.05.11.05.39.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 May 2023 05:39:31 -0700 (PDT)
+Message-ID: <894ea5be-5126-b72b-ad88-4f06cb5c11ca@linaro.org>
+Date: Thu, 11 May 2023 15:39:30 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v9-1-87daeaec2c0a@quicinc.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH v9 1/8] drm/display/dsc: Add flatness and
- initial scale value calculations
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Luca Weiss <luca@z3ntu.xyz>, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230508-6-4-drm-msm-iommu-fixup-v1-1-a7a21ec94f5b@z3ntu.xyz>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230508-6-4-drm-msm-iommu-fixup-v1-1-a7a21ec94f5b@z3ntu.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/iommu: Fix null pointer dereference
+ in no-IOMMU case
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,60 +81,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 10, 2023 at 03:54:41PM -0700, Jessica Zhang wrote:
-> Add helpers to calculate det_thresh_flatness and initial_scale_value as
-> these calculations are defined within the DSC spec.
+On 08/05/2023 23:26, Luca Weiss wrote:
+> In the case that no IOMMU is available, msm_iommu_new can return NULL
+> which should be handled. Without we will get a NULL pointer dereference
+> in the next statement when we try to use the mmu variable.
 > 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Fixes: 8cceb773f565 ("drm/msm/adreno: stall translation on fault for all GPU families")
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
 > ---
->  include/drm/display/drm_dsc_helper.h | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-> index 0bb0c3afd740..422135a33d65 100644
-> --- a/include/drm/display/drm_dsc_helper.h
-> +++ b/include/drm/display/drm_dsc_helper.h
-> @@ -25,5 +25,16 @@ void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
->  int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
->  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
->  
-> +static inline void drm_dsc_set_initial_scale_value(struct drm_dsc_config *dsc)
-> +{
-> +	dsc->initial_scale_value = 8 * dsc->rc_model_size /
-> +		(dsc->rc_model_size - dsc->initial_offset);
-> +}
+>   drivers/gpu/drm/msm/msm_iommu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 
-I would suggest using pure functions whenever possible. Makes it much
-easier to reason about the code when you know there are no side effects.
-
-> +
-> +static inline int drm_dsc_calculate_flatness_det_thresh(struct drm_dsc_config *dsc)
-
-'dsc' can be const. The word "calculate" seems pretty much redundant.
-
-> +{
-> +	return 2 << (dsc->bits_per_component - 8);
-> +}
-> +
->  #endif /* _DRM_DSC_HELPER_H_ */
->  
-> 
-> -- 
-> 2.40.1
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
-Ville Syrjälä
-Intel
+With best wishes
+Dmitry
+
