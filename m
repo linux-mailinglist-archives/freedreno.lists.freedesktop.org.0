@@ -1,68 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D171F6FF54F
-	for <lists+freedreno@lfdr.de>; Thu, 11 May 2023 16:59:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 77B056FF5F0
+	for <lists+freedreno@lfdr.de>; Thu, 11 May 2023 17:28:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07AA10E4F8;
-	Thu, 11 May 2023 14:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4010710E501;
+	Thu, 11 May 2023 15:28:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1519110E4F9;
- Thu, 11 May 2023 14:59:15 +0000 (UTC)
-Received: by mail-pj1-x1034.google.com with SMTP id
- 98e67ed59e1d1-24dfc3c662eso5994016a91.3; 
- Thu, 11 May 2023 07:59:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683817155; x=1686409155;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=osWWYYQseCvJCBZt1Q3stKtUhhbUrnP9MQ0pNGBM3gY=;
- b=XAwtDDfL4AebuXak7bNPPI87nvTlXoYVEeNLYlT0BUwe4sk+v7jj2fSMAaMAVEkLac
- ASTV+Qd+a+iHRSsrr45q79TD3dqZjxXhxlxvWMDbkTRuogCV00CMQWXjxNJczItOgTLg
- yIXphxYtHPyqzJRpdLXhyd5kbt7fPsdqfPUEjC07crjg5JAzPfBYhLSaXouULyYUbUSb
- yAMWFEkA+uKWjPKiyonpbvNWr5WZeGFVeMqxrMvKzKfS2KZtz78sVhZ1nO2EDLxnlvnb
- 5K6F6qy+H8TL5DZ0JLMmh9pfcfZ/e0whO3kjLiwSmpyWIyju/Pm3UibZf+n+1Ksn+Lci
- AmeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683817155; x=1686409155;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=osWWYYQseCvJCBZt1Q3stKtUhhbUrnP9MQ0pNGBM3gY=;
- b=eMYLWFicD34DV4Z5w2+uSyRvp0kQu+HSfkwEXCt3KnNMfQz9jM7fj8plOq3SP5YItJ
- kY9OPnF5JkxMt0iarMmIdC+xj1Wl2TK8cXc88b9Eon+eMvLMkQl/hybLpj0oApqmyTWE
- OzRGknZIBEm9MN4a8C+RiDvsfBw8R6zEHt/ftlmATkmCrCSJQiBMd7XVbIYlWXNtuO4y
- f9ffyPf8ncSR520lXDtAmx62GnZFdcbvPIRbFuMVGiv/dADj0Y7CtPNsdb0MIntjBH5f
- PwTO8xKcT9G8ANJSpXzeasRcH+HsnbtPOXtE8iRYrV86KVqCgazzcq+6yO4HeSg130ew
- gQ+Q==
-X-Gm-Message-State: AC+VfDxWVfFMRfEhXATezVal3x00azUzu5C7eb8DggXc4XPKzcwPCKc7
- foYdxMUB7B4wYHBKqrrXMD551n9zVB8=
-X-Google-Smtp-Source: ACHHUZ5R5SEh6hgEPBhrxyDoUJPaDfMiz4Rtx25aiaUxPLerkMMf/9r2TREIx7jtkfBBQqUHdw7JYQ==
-X-Received: by 2002:a17:90b:1992:b0:24e:55c3:89af with SMTP id
- mv18-20020a17090b199200b0024e55c389afmr21638386pjb.18.1683817154440; 
- Thu, 11 May 2023 07:59:14 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
- by smtp.gmail.com with ESMTPSA id
- a1-20020a17090acb8100b0024e2980574asm15558660pju.4.2023.05.11.07.59.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 May 2023 07:59:14 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	iommu@lists.linux-foundation.org
-Date: Thu, 11 May 2023 07:59:06 -0700
-Message-Id: <20230511145908.597683-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230511145908.597683-1-robdclark@gmail.com>
-References: <20230511145908.597683-1-robdclark@gmail.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7CD10E4FE;
+ Thu, 11 May 2023 15:28:16 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8D8AD64EEE;
+ Thu, 11 May 2023 15:28:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1A82C433EF;
+ Thu, 11 May 2023 15:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1683818894;
+ bh=bfzVkgchG3ADANDZ9tx7JhDsCOgB/EmrIyZFm4dmlJ8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=irNHUONwsI6CQtLpREtNLSyQ69irtMLtOthyrhALcmJVzvlWu74WO7y6iT8Nax/vt
+ m/iT8bDf3ZfD1xzf+rwP+OXozll17Fvrxibk+XTJn6T7HLWHH76z5Y4TkaelGbJMuW
+ 4+dnu5w24X1HzFUX2jK/gIugQjwlfptG2xKFcSp6nhyYc2PTZ0V/om9HKqTuNYpEMl
+ 86/4HEiMLy7t3hrv8soCMojL2eBIeljcfbJ1p7JrUlAHlBUWTbQQVq9S6yEz2CNL5f
+ GxF9oCtHdW27I2K3Ogs9Y1NlRuZx68aVMET5/xK9FJ/oNSiPDa6RtizaVoi/Bkc102
+ KYnZPAr/nPsFg==
+Date: Thu, 11 May 2023 08:31:50 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Stephen Boyd <swboyd@chromium.org>
+Message-ID: <20230511153150.qn3psei655ixprtx@ripper>
+References: <1683750665-8764-1-git-send-email-quic_khsieh@quicinc.com>
+ <1683750665-8764-2-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n53ywhgFhJXA9krBo-Ds6ezM0K8n6w0xnVZj+sTJ4qt9cA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 2/2] drm/msm: Be more shouty if per-process
- pgtables aren't working
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE-0n53ywhgFhJXA9krBo-Ds6ezM0K8n6w0xnVZj+sTJ4qt9cA@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm/dp: enable HDP
+ plugin/unplugged interrupts to hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +55,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, dmitry.baryshkov@linaro.org,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org, airlied@gmail.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Wed, May 10, 2023 at 04:55:04PM -0700, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2023-05-10 13:31:04)
+> > The internal_hpd flag was introduced to handle external DP HPD derived from GPIO
+> > pinmuxed into DP controller.
+> 
+> Was it? It looks more like it was done to differentiate between eDP and
+> DP, because internal_hpd is set only if DRM_BRIDGE_OP_HPD is set on the
+> bridge and we only set the bridge op if the connector type is DP. The
+> assumption looks like if you have DP connector_type, you have the gpio
+> pinmuxed for "dp_hot" mode, which isn't exactly true. We don't treat
+> that gpio as an irq either, because it isn't. Instead the gpio is muxed
+> to the mdss inside the SoC and then that generates an mdss interrupt
+> that's combined with non-HPD things like "video ready".
+> 
 
-Otherwise it is not always obvious if a dt or iommu change is causing us
-to fall back to global pgtable.
+The purpose of "internal_hpd" is to indicate track if the internal
+HPD-logic should be used or not.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_iommu.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+> If that all follows, then I don't quite understand why we're setting
+> internal_hpd to false at all at runtime. It should be set to true at
+> some point, but ideally that point is during probe.
+> 
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 418e1e06cdde..9b19124c9bd0 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -227,21 +227,26 @@ struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent)
- 	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(parent->dev);
- 	struct msm_iommu *iommu = to_msm_iommu(parent);
- 	struct msm_iommu_pagetable *pagetable;
- 	const struct io_pgtable_cfg *ttbr1_cfg = NULL;
- 	struct io_pgtable_cfg ttbr0_cfg;
- 	int ret;
- 
- 	/* Get the pagetable configuration from the domain */
- 	if (adreno_smmu->cookie)
- 		ttbr1_cfg = adreno_smmu->get_ttbr1_cfg(adreno_smmu->cookie);
--	if (!ttbr1_cfg)
-+
-+	/*
-+	 * If you hit this WARN_ONCE() you are probably missing an entry in
-+	 * qcom_smmu_impl_of_match[] in arm-smmu-qcom.c
-+	 */
-+	if (WARN_ONCE(!ttbr1_cfg, "No per-process page tables"))
- 		return ERR_PTR(-ENODEV);
- 
- 	pagetable = kzalloc(sizeof(*pagetable), GFP_KERNEL);
- 	if (!pagetable)
- 		return ERR_PTR(-ENOMEM);
- 
- 	msm_mmu_init(&pagetable->base, parent->dev, &pagetable_funcs,
- 		MSM_MMU_IOMMU_PAGETABLE);
- 
- 	/* Clone the TTBR1 cfg as starting point for TTBR0 cfg: */
--- 
-2.40.1
+The DRM framework will invoke hpd_enable on the bridge furthest out that
+has OP_HPD. So in the case of HPD signal being pinmuxed into the
+HPD-logic, dp_bridge_hpd_enable() will be invoked.
 
+I therefor think the appropriate thing to do is to move the enablement
+of the internal HPD-logic to dp_bridge_hpd_enable(), further more I
+think the correct thing to do would be to tie the power state of the DP
+block to this (and to when the external hpd_notify events signals that
+there's something attached).
+
+> > HPD plug/unplug interrupts cannot be enabled until
+> > internal_hpd flag is set to true.
+> > At both bootup and resume time, the DP driver will enable external DP
+> > plugin interrupts and handle plugin interrupt accordingly. Unfortunately
+> > dp_bridge_hpd_enable() bridge ops function was called to set internal_hpd
+> > flag to true later than where DP driver expected during bootup time.
+> >
+> > This causes external DP plugin event to not get detected and display stays blank.
+> > Move enabling HDP plugin/unplugged interrupts to dp_bridge_hpd_enable()/disable() to
+> > set internal_hpd to true along with enabling HPD plugin/unplugged interrupts
+> > simultaneously to avoid timing issue during bootup and resume.
+> >
+> > Fixes: cd198caddea7 ("drm/msm/dp: Rely on hpd_enable/disable callbacks")
+> > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_display.c | 27 ++++++++++++++-------------
+> >  1 file changed, 14 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > index 3e13acdf..71aa944 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > @@ -1801,15 +1788,29 @@ void dp_bridge_hpd_enable(struct drm_bridge *bridge)
+> >  {
+> >         struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
+> >         struct msm_dp *dp_display = dp_bridge->dp_display;
+> > +       struct dp_display_private *dp;
+> > +
+> > +       dp = container_of(dp_display, struct dp_display_private, dp_display);
+> >
+> >         dp_display->internal_hpd = true;
+> 
+> Can we set internal_hpd to true during probe when we see that the hpd
+> pinmux exists? Or do any of these bits toggle in the irq status register
+> when the gpio isn't muxed to "dp_hot" or the controller is for eDP and
+> it doesn't have any gpio connection internally? I'm wondering if we can
+> get by with simply enabling the "dp_hot" pin interrupts
+> (plug/unplug/replug/irq_hpd) unconditionally and not worrying about them
+> if eDP is there (because the pin doesn't exist inside the SoC), or if DP
+> HPD is being signalled out of band through type-c framework.
+
+It seems logical to me that the panel driver should handle HPD signaling
+(or signal it always-asserted), in which case it also seems reasonable
+that hpd_enable() would not be invoked... I didn't go far enough into
+that rabbit hole though, but I think it would allow us to drop the
+is_edp flag (which isn't at all a property of the controller, but of
+what you have connected).
+
+I don't think we should peak into the pinmux settings to determine if
+the internal HPD logic should be enabled or not, when the DRM framework
+already has this callback to tell us "hey, you're the one doing HPD
+detection!".
+
+
+And as mentioned above, the continuation of this is to tie the power
+state to hpd_enable/hpd_disable/hpd_notify and thereby allow the DP
+block (and MMCX) to be powered down when nothing is connected (and we
+don't need to drive the HPD logic).
+
+Regards,
+Bjorn
