@@ -1,60 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C21266FF412
-	for <lists+freedreno@lfdr.de>; Thu, 11 May 2023 16:26:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE1C76FF4FC
+	for <lists+freedreno@lfdr.de>; Thu, 11 May 2023 16:51:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9062310E271;
-	Thu, 11 May 2023 14:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A243710E4E7;
+	Thu, 11 May 2023 14:51:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F05210E271;
- Thu, 11 May 2023 14:25:59 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id
- 5614622812f47-38ede2e0e69so4602788b6e.2; 
- Thu, 11 May 2023 07:25:59 -0700 (PDT)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB9D10E4E7
+ for <freedreno@lists.freedesktop.org>; Thu, 11 May 2023 14:51:57 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-50b8d2eed3dso13282903a12.0
+ for <freedreno@lists.freedesktop.org>; Thu, 11 May 2023 07:51:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683815158; x=1686407158;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EUMshOhJ/jCmOAXf0wSXeoJInJRRSEiHUd4QhJk0RRA=;
- b=DBl+lObSFhApj2jZOTQrUAOrwRIAf4xArfq5YCzK0SszrY7+8QX++/DM1qlgt14Z4R
- qEopsANTv+hPnlePep+XdcNtxdNulvw4P5qNfXchJTTbUCd4MSP29UPZAWuBhn0ffsNe
- uhXM+8dw1jy9CJHT+Ql38XqBeVvflRY7TBo3m4f6CCuzjIKoMFKj/JS2HWrh7bdfKWuB
- jUFxRKvMdOMAQoKc0pJI563yjY1+zqSRmyDiRVXpx0HsB3WrccNCpvBiX+VEv4xtPcB7
- UtSTAo8Q5KxkKiY0EdMzMlhESgiq2VDLZO4Z51EjGPKslAyjqv3+PuBbQGS8w2KckX/T
- 1POw==
+ d=linaro.org; s=google; t=1683816715; x=1686408715;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0sCDEYQ+lAwwMEzBoHzHhTtsRYd3XM3A3Tyzt01HFvA=;
+ b=mtPBUKQsWIlBp4e49W2yOkynlqDVHyfPbTN2fmMgQkVydDzOWHguXHqbQVzF+v+AAy
+ 9QG9Bap4DMMbaZTgBgScyK7fzfUv7oi1UazTId8pZ0kF72X6C1Bk0ZRpA/sCRpPSM6c7
+ LlDEOs7ZHM4zxnAbSZk556uDtQxp7ZqwAA+8tw0DMcaG7G0x7WhaQBwIIF65AkErvfYg
+ Wv9iWoNkWV+w5QkB2iR983OxWYQgJP8KCarY1JD74jznB+tX4BNZhQeo0zvS+ztL+5Hg
+ MO1ncCKr8zzLXW6DYTDER1r3r8CUP2eLigJMFOYonulsPfpmApeajTXJYEOaPVN15iwh
+ PDrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683815158; x=1686407158;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EUMshOhJ/jCmOAXf0wSXeoJInJRRSEiHUd4QhJk0RRA=;
- b=QighbE5YFfFiYoGz1/p1fVU+/i8LtFXxBuWHTAnk8qAWTCESKxF/+IlswWT4AHdQF9
- kDZeS3oVs8CSlpDqNkzCwNvO0RWXb+2EeZX3JTrPKfnEM5RL0rvnU67/R1sl43s0Vh2n
- 2sPw5FyzhdjI52m1cRamw7PkpKh8wNruSCe05pn74fQ8hI3CdleBPL7NMopU+P14yZvl
- 3ExbQsF04VJrAJFTIg89on/L7KGdIFq3U2c8Gg1wz8WyW2BejfH0RvbP2JdGPFN+TRd/
- WoybPZYNFO/K5+OVdip/z0ilywh7LOLGlyjuNGgBMzg+Fo02R4i5N24B0dnXmR4/tJf8
- E67w==
-X-Gm-Message-State: AC+VfDz3GUA1bst8CnuoTyuB2HSkz16U1XOC0g6s7NQyO6/6Di01Ol5W
- H/IcATMckaHT10LxYsu/apcnVjQK0rVNAtAm9RWmkD5X
-X-Google-Smtp-Source: ACHHUZ7poZgOitdfQqtIlPzYx5Qk56gFW9JRYK0fJ/hsY7AKW7RFp3/ZwhYX+SOn+yAUhmAJCncEuRY5yF/6vgL4jRQ=
-X-Received: by 2002:a05:6808:59:b0:38e:eaf:cf29 with SMTP id
- v25-20020a056808005900b0038e0eafcf29mr4889151oic.29.1683815157913; Thu, 11
- May 2023 07:25:57 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683816715; x=1686408715;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0sCDEYQ+lAwwMEzBoHzHhTtsRYd3XM3A3Tyzt01HFvA=;
+ b=GlW4gTty0/dgGzMOPE6MHRIZXwOjlnozAdbSMV/SEAR70yDiozGwkNcQ3MXPSac2Uh
+ /7UmIK5VKFkXdoEZhVXMLsSdjZD+MOn8x9ex9+LCEyeU6oGHEikJS1PT+6hn/kvbQ/si
+ z9ErL6lgQ5YPaAyaZqS9P+xjXMRDzm3XW0Jnpgbw317QyZGrCf8N1osDh9pwhwZycu3+
+ ui9fImNWqUOppjuwWwZZIIYV9rYedkxRcTLwie//1BvKeGAf9pQeXMmQdBGyk0a7VxQR
+ lftIGVFWQXM2WtwLl8TMoPwghryNePjJpFzvJLnzJkAJYblfoRRLtjZSXoiEod6maYei
+ D8gQ==
+X-Gm-Message-State: AC+VfDw9sgsOrG9UoSWK9muuY3ucsCFKfO6YAVwo2Y6qzwop+jR/HTJt
+ jxFdLQ3pgRH1OUbig13/NRGFFMNXP8yZuoPwwiEe2w==
+X-Google-Smtp-Source: ACHHUZ5v+1zYrVOKi/Ghck/qxazn4S4a54LG3s/j3dKBOosBgCgbc+lcxrX3cV6IcluE1NS3v3DGkoZujZK00d/9fp0=
+X-Received: by 2002:a17:907:d09:b0:961:8fcd:53ca with SMTP id
+ gn9-20020a1709070d0900b009618fcd53camr21830645ejc.65.1683816715418; Thu, 11
+ May 2023 07:51:55 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230509163712.376117-1-robdclark@gmail.com>
 In-Reply-To: <20230509163712.376117-1-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 11 May 2023 07:25:46 -0700
-Message-ID: <CAF6AEGv4kThhyCEhf3NeqTSwVT5X7rgxM5nuM_jq3aFbfUHpqA@mail.gmail.com>
-To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 11 May 2023 17:51:43 +0300
+Message-ID: <CAA8EJppVaCuh1kp7842pHt=5sWSBVaf18fZGC6ifmsQKgGNVSw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Subject: Re: [Freedreno] [PATCH 1/2] iommu/arm-smmu-qcom: Fix missing
  adreno_smmu's
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -72,20 +70,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Rob Clark <robdclark@chromium.org>, Lepton Wu <lepton@chromium.org>,
  Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
  Bjorn Andersson <quic_bjorande@quicinc.com>, Emma Anholt <emma@anholt.net>,
- Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Will Deacon <will@kernel.org>,
  "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, iommu@lists.linux-foundation.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Elliot Berman <quic_eberman@quicinc.com>, freedreno@lists.freedesktop.org,
  "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 9, 2023 at 9:37=E2=80=AFAM Rob Clark <robdclark@gmail.com> wrot=
-e:
+On Tue, 9 May 2023 at 19:37, Rob Clark <robdclark@gmail.com> wrote:
 >
 > From: Rob Clark <robdclark@chromium.org>
 >
@@ -94,84 +91,65 @@ e:
 > required entries in qcom_smmu_impl_of_match.  So we stopped getting
 > adreno_smmu_priv on sc7180, breaking per-process pgtables.
 >
-> Fixes: 30b912a03d91 ("iommu/arm-smmu-qcom: Move the qcom,adreno-smmu chec=
-k into qcom_smmu_create")
+> Fixes: 30b912a03d91 ("iommu/arm-smmu-qcom: Move the qcom,adreno-smmu check into qcom_smmu_create")
 > Suggested-by: Lepton Wu <lepton@chromium.org>
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-Any chance I could get an ack for landing this fix via msm-fixes?
-Broken per-process pgtables is kind of a serious regression..
-
-BR,
--R
-
 > ---
 >  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 3 +++
 >  1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/a=
-rm/arm-smmu/arm-smmu-qcom.c
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
 > index d1b296b95c86..760d9c43dbd2 100644
 > --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
 > +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -496,20 +496,21 @@ static const struct qcom_smmu_match_data qcom_smmu_=
-500_impl0_data =3D {
+> @@ -496,20 +496,21 @@ static const struct qcom_smmu_match_data qcom_smmu_500_impl0_data = {
 >  /*
->   * Do not add any more qcom,SOC-smmu-500 entries to this list, unless th=
-ey need
+>   * Do not add any more qcom,SOC-smmu-500 entries to this list, unless they need
 >   * special handling and can not be covered by the qcom,smmu-500 entry.
 >   */
->  static const struct of_device_id __maybe_unused qcom_smmu_impl_of_match[=
-] =3D {
->         { .compatible =3D "qcom,msm8996-smmu-v2", .data =3D &msm8996_smmu=
-_data },
->         { .compatible =3D "qcom,msm8998-smmu-v2", .data =3D &qcom_smmu_v2=
-_data },
->         { .compatible =3D "qcom,qcm2290-smmu-500", .data =3D &qcom_smmu_5=
-00_impl0_data },
->         { .compatible =3D "qcom,qdu1000-smmu-500", .data =3D &qcom_smmu_5=
-00_impl0_data  },
->         { .compatible =3D "qcom,sc7180-smmu-500", .data =3D &qcom_smmu_50=
-0_impl0_data },
-> +       { .compatible =3D "qcom,sc7180-smmu-v2", .data =3D &qcom_smmu_v2_=
-data },
->         { .compatible =3D "qcom,sc7280-smmu-500", .data =3D &qcom_smmu_50=
-0_impl0_data },
->         { .compatible =3D "qcom,sc8180x-smmu-500", .data =3D &qcom_smmu_5=
-00_impl0_data },
->         { .compatible =3D "qcom,sc8280xp-smmu-500", .data =3D &qcom_smmu_=
-500_impl0_data },
->         { .compatible =3D "qcom,sdm630-smmu-v2", .data =3D &qcom_smmu_v2_=
-data },
->         { .compatible =3D "qcom,sdm845-smmu-v2", .data =3D &qcom_smmu_v2_=
-data },
->         { .compatible =3D "qcom,sdm845-smmu-500", .data =3D &sdm845_smmu_=
-500_data },
->         { .compatible =3D "qcom,sm6115-smmu-500", .data =3D &qcom_smmu_50=
-0_impl0_data},
->         { .compatible =3D "qcom,sm6125-smmu-500", .data =3D &qcom_smmu_50=
-0_impl0_data },
->         { .compatible =3D "qcom,sm6350-smmu-v2", .data =3D &qcom_smmu_v2_=
-data },
->         { .compatible =3D "qcom,sm6350-smmu-500", .data =3D &qcom_smmu_50=
-0_impl0_data },
-> @@ -540,12 +541,14 @@ struct arm_smmu_device *qcom_smmu_impl_init(struct =
-arm_smmu_device *smmu)
+>  static const struct of_device_id __maybe_unused qcom_smmu_impl_of_match[] = {
+>         { .compatible = "qcom,msm8996-smmu-v2", .data = &msm8996_smmu_data },
+>         { .compatible = "qcom,msm8998-smmu-v2", .data = &qcom_smmu_v2_data },
+>         { .compatible = "qcom,qcm2290-smmu-500", .data = &qcom_smmu_500_impl0_data },
+>         { .compatible = "qcom,qdu1000-smmu-500", .data = &qcom_smmu_500_impl0_data  },
+>         { .compatible = "qcom,sc7180-smmu-500", .data = &qcom_smmu_500_impl0_data },
+> +       { .compatible = "qcom,sc7180-smmu-v2", .data = &qcom_smmu_v2_data },
+>         { .compatible = "qcom,sc7280-smmu-500", .data = &qcom_smmu_500_impl0_data },
+>         { .compatible = "qcom,sc8180x-smmu-500", .data = &qcom_smmu_500_impl0_data },
+>         { .compatible = "qcom,sc8280xp-smmu-500", .data = &qcom_smmu_500_impl0_data },
+>         { .compatible = "qcom,sdm630-smmu-v2", .data = &qcom_smmu_v2_data },
+>         { .compatible = "qcom,sdm845-smmu-v2", .data = &qcom_smmu_v2_data },
+>         { .compatible = "qcom,sdm845-smmu-500", .data = &sdm845_smmu_500_data },
+>         { .compatible = "qcom,sm6115-smmu-500", .data = &qcom_smmu_500_impl0_data},
+>         { .compatible = "qcom,sm6125-smmu-500", .data = &qcom_smmu_500_impl0_data },
+>         { .compatible = "qcom,sm6350-smmu-v2", .data = &qcom_smmu_v2_data },
+>         { .compatible = "qcom,sm6350-smmu-500", .data = &qcom_smmu_500_impl0_data },
+> @@ -540,12 +541,14 @@ struct arm_smmu_device *qcom_smmu_impl_init(struct arm_smmu_device *smmu)
 >                 /* Match platform for ACPI boot */
->                 if (acpi_match_platform_list(qcom_acpi_platlist) >=3D 0)
->                         return qcom_smmu_create(smmu, &qcom_smmu_500_impl=
-0_data);
+>                 if (acpi_match_platform_list(qcom_acpi_platlist) >= 0)
+>                         return qcom_smmu_create(smmu, &qcom_smmu_500_impl0_data);
 >         }
 >  #endif
 >
->         match =3D of_match_node(qcom_smmu_impl_of_match, np);
+>         match = of_match_node(qcom_smmu_impl_of_match, np);
 >         if (match)
 >                 return qcom_smmu_create(smmu, match->data);
 >
 > +       WARN_ON(of_device_is_compatible(np, "qcom,adreno-smmu"));
+
+Could you please add a comment here, noting the reason? Or maybe we
+should  change that to:
+if (WARN_ON(...))
+  return ERR_PTR(-EINVAL);
+
 > +
 >         return smmu;
 >  }
 > --
 > 2.40.1
 >
+
+
+-- 
+With best wishes
+Dmitry
