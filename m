@@ -2,54 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A55B700CD6
-	for <lists+freedreno@lfdr.de>; Fri, 12 May 2023 18:20:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F380700D36
+	for <lists+freedreno@lfdr.de>; Fri, 12 May 2023 18:43:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C701610E6D9;
-	Fri, 12 May 2023 16:20:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6056F10E1D6;
+	Fri, 12 May 2023 16:43:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353B610E6DA;
- Fri, 12 May 2023 16:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683908456; x=1715444456;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=6JMhlSI8AcK3kUbPJJDnaUnKRbv4q1hmlIrs1v8cDOE=;
- b=ii4uAWHUUQ751wxQmLA5UUsHNKSG5A6PFI3EU3gO3xb53Ym/N4wmvSbH
- YUYPZderL3Sc3AZde87ePdV5EhFI0lgielsnPAfQgP5gtCdqnRz0kkgqP
- +4NczElbrdRfys0Hap7ui3+r8Tzoo7XJjuQIrpf6EH9hjVxhj0JOLl86z
- gEsKSvQ/eOIfDto8m3OuncWYMu7XHRzRosm/ytVpHBJ7wt7p3hT2+55Og
- FgW5MRXUHPdqYHQfF0iwX5kUU01U4cSIsfvr4dJ6rxXx4unxXksaWRlVW
- DiJuIqBA1e1X+fNIcY/VGiKs85r6dHNCEqwiCG+GgNTnz6HX2bZ3/02hI w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="353077823"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="353077823"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 09:20:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="765219552"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="765219552"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
- by fmsmga008.fm.intel.com with ESMTP; 12 May 2023 09:20:51 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pxVVi-0004y2-2B;
- Fri, 12 May 2023 16:20:50 +0000
-Date: Sat, 13 May 2023 00:20:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Message-ID: <202305130058.VuW3nBPS-lkp@intel.com>
-References: <20230512084152.31233-8-tzimmermann@suse.de>
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A810D10E1D9
+ for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 16:43:55 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-4f139de8cefso53296620e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 09:43:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683909833; x=1686501833;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=oQ35jiD0iHCimmXNvqE7wf5xzhSOyJCookuzUyurpLM=;
+ b=LmEGhTe2a0TlygbG0pgEn3ULmATOXb0sCfMtBAEgM5W8HG+6IAO5PVCooWsF9UEups
+ c7QodB3vbWifw2arGdJiSkUy+9wDhkMxw3zwR3IRHGWoootxT9mc7amQycF3LDRUdFHZ
+ jEI3pSuMaamdcLeQJgKQXHIEgGwNg8gQZkxiIzxDAdl4u0/mTwG6yeSwGEC8yR6R2GI6
+ CujVaK1xb9uvKUYlGGTcvPHUuaIOuWkuaT3hGJbbmPAB/upM9nCpfpbRGVRw9EsCrVea
+ obaH884kC3q3FsXANPfe4kS18rAryzP+5Wa/CwJLJhmu1D8Yv+1jd+tsjMJCtcCs1a6N
+ 93Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683909833; x=1686501833;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=oQ35jiD0iHCimmXNvqE7wf5xzhSOyJCookuzUyurpLM=;
+ b=hI3y7e+jEJNjnIhyLYfscr8X1WROifjqgl2M1FZ7G9FhCeIoD9ZIWlsV6ElX+kgpph
+ AkJamL33g6XcbC1lVvTweshBakk7Vm+0GP6x5Ygm8Uc2queF6/jhR+nD3AWIYcYZ4jTd
+ h3iPy1A8JHWx1MSzKG34GAdhFIFPU2XQDUC+x0AJyYxlc559xeab1IGMylYzsvtgIcom
+ eYT8EHBzKrUu2t0HVou8w/CpLekVhqvLY5lY2VgTwXuznD3QhvybcTDRf+UMoKCI+bKH
+ jS8zo+P+Gro4p6FxANDUJLB9oRdHIWhNzjd3G+7R6AMNx0kT2y1bISWD9/0jQHEycqsF
+ 2Cwg==
+X-Gm-Message-State: AC+VfDxvrLaQr9u8uvK9TPhaoFiRXTCwAcXAvDWUYEHcIxOCWv+qiiE9
+ Kn5marH11SeXvmrtyDSJtSIZjw==
+X-Google-Smtp-Source: ACHHUZ6Knr8V9h2tzeBW26Liibmojqhi318dz0i7nIVAWX3Oxrywq7eHYWTvTbXUamXXHscf7fgd4A==
+X-Received: by 2002:a05:6512:3f19:b0:4ec:83fd:1599 with SMTP id
+ y25-20020a0565123f1900b004ec83fd1599mr4095277lfa.33.1683909833320; 
+ Fri, 12 May 2023 09:43:53 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ o14-20020a05651238ae00b004f250513215sm1513284lft.198.2023.05.12.09.43.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 May 2023 09:43:52 -0700 (PDT)
+Message-ID: <ddb79cfb-8ddd-5ca3-e133-465518e5e973@linaro.org>
+Date: Fri, 12 May 2023 19:43:51 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230512084152.31233-8-tzimmermann@suse.de>
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH 07/11] drm/omapdrm: Use regular
- fbdev I/O helpers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, andersson@kernel.org
+References: <1683827607-19193-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1683827607-19193-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v7 0/8] add DSC 1.2 dpu supports
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,59 +80,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, Tomi Valkeinen <tomba@kernel.org>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, oe-kbuild-all@lists.linux.dev,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+On 11/05/2023 20:53, Kuogee Hsieh wrote:
+> This series adds the DPU side changes to support DSC 1.2 encoder. This
+> was validated with both DSI DSC 1.2 panel and DP DSC 1.2 monitor.
+> The DSI and DP parts will be pushed later on top of this change.
+> This seriel is rebase on [1], [2] and catalog fixes from rev-4 of [3].
+> 
+> [1]: https://patchwork.freedesktop.org/series/116851/
+> [2]: https://patchwork.freedesktop.org/series/116615/
+> [3]: https://patchwork.freedesktop.org/series/112332/
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 451e49cfbaa90720149e63f4fa9c7824013c783d]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-armada-Use-regular-fbdev-I-O-helpers/20230512-164432
-base:   451e49cfbaa90720149e63f4fa9c7824013c783d
-patch link:    https://lore.kernel.org/r/20230512084152.31233-8-tzimmermann%40suse.de
-patch subject: [Intel-gfx] [PATCH 07/11] drm/omapdrm: Use regular fbdev I/O helpers
-config: arm-allmodconfig (https://download.01.org/0day-ci/archive/20230513/202305130058.VuW3nBPS-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/f9113ec6815b748d0b917f78527582b8b08deb40
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Thomas-Zimmermann/drm-armada-Use-regular-fbdev-I-O-helpers/20230512-164432
-        git checkout f9113ec6815b748d0b917f78527582b8b08deb40
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash drivers/gpu/drm/omapdrm/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202305130058.VuW3nBPS-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/omapdrm/omap_fbdev.c:306:6: error: redefinition of 'omap_fbdev_setup'
-     306 | void omap_fbdev_setup(struct drm_device *dev)
-         |      ^~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/omapdrm/omap_fbdev.c:19:
-   drivers/gpu/drm/omapdrm/omap_fbdev.h:17:20: note: previous definition of 'omap_fbdev_setup' with type 'void(struct drm_device *)'
-      17 | static inline void omap_fbdev_setup(struct drm_device *dev)
-         |                    ^~~~~~~~~~~~~~~~
-
-
-vim +/omap_fbdev_setup +306 drivers/gpu/drm/omapdrm/omap_fbdev.c
-
-9e69bcd88e4593 Thomas Zimmermann 2023-04-03  305  
-9e69bcd88e4593 Thomas Zimmermann 2023-04-03 @306  void omap_fbdev_setup(struct drm_device *dev)
+Please run the series through ./scripts/checkpatch.pl --strict. For this 
+series it reports tons of issues with the mixed indentation, 
+whitespaces, alignment, etc.
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+With best wishes
+Dmitry
+
