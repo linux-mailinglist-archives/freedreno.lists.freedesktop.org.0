@@ -2,74 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DDEE700E9F
-	for <lists+freedreno@lfdr.de>; Fri, 12 May 2023 20:21:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F9F700ECF
+	for <lists+freedreno@lfdr.de>; Fri, 12 May 2023 20:30:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9DE910E245;
-	Fri, 12 May 2023 18:21:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B64EF10E270;
+	Fri, 12 May 2023 18:30:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D15D710E245
- for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 18:21:40 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f122ff663eso11562288e87.2
- for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 11:21:40 -0700 (PDT)
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [IPv6:2607:f8b0:4864:20::112a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7174E10E264
+ for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 18:30:25 +0000 (UTC)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-55b7630a736so152917777b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 11:30:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1683915698; x=1686507698;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=3Acyzgrp8rxmeYUQ+kymRmcOuVXROIGoad2w+QNNU60=;
- b=epYdWmzpMSTQs6nt+foDd4yOaw8TbN4z62suiakp4q285fIWkEtoguXQznQycMRzE6
- W76jdg+NNoUkm9c0wHIH7oRIw8InX/eAK22rMNqIVXtjGXLUgXnijoC+BTmqE51P9air
- T7yuJr87YzucU/RlpHUj6x0pA2i32cHBZ1pKy7q9AS5t+gTLG4tQWr++YujEi0gCWN4N
- v3JJNBu+j1bHs/obBHjAIRSPkwjXgnS2d6SMGCBXymkWqaVQUBkdc5elT5dxqlPOQUNj
- BE38HYGqvrH2aSM2ZeOQQVHaUHaFVfOamZntB/SQNb4HTyWqx/2zFFGvbRCaK4JsCyhw
- G3aA==
+ d=linaro.org; s=google; t=1683916224; x=1686508224;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=8pKQb+0xYXxOucpnQzXDi3qX8jDqCIpUeJjG+K7ITys=;
+ b=ha15g8FNo/FKZNrF+fIFFhPoe8LUpkxENpBqAGkhlgIIw6RpVsD4q25DcY6gKzpOoa
+ oE9ce0ibbeel8jUFuWC+GQF5KKxHreoW5ikWUjYRb9sdWI3OXNmus3V4iKZ9vHKqd6sg
+ VFxLljBA8G2zdnOjAu+Z1Js/XYXeyUQEJmoaoCuOqG5pxckNIdYrzW1VBharM7ZexDzO
+ MAvtpzlCA1HLpSyajO6KSxrLNGQLfJ014MnGrNCn3ihPSv6NXEv3zvSt8gPoc6j9guXQ
+ hzvsSormsrqNGJQpht3s+lGzNwHuhUoybeKRwb9mn3F+7sDGqIeAxlIvHtB2hx9i0mfI
+ yYCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683915698; x=1686507698;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3Acyzgrp8rxmeYUQ+kymRmcOuVXROIGoad2w+QNNU60=;
- b=SnfmfXJy/fnipc1iqxnh7+9Y4voWOHCxvnGT+pEdFsbUGmS2lsPyYWVWj7FxJyrApn
- Em4CGn7e+u8La6u/gjCX5+KHOBv8SWg1CuPSU32VVMn0s5U39NmSMDctwiJur/FmuqUP
- mrjpNp/FFoXanN1dihvzwvKgmUbbXMeVNDKgV/BJ3WiNFWqDlT65V8vrqcvxyy0PZfx+
- rhoqCjhzMN/uPtf9/JywWPZStNJ3w1w9sHsH+JI7TfyM+bfu3OQhGlA8UaqlD8CITEzO
- N2zxXDQuDzqyQonyvBQo8VMhuzcHgml8eXHd6/6UG5UecG00LqNa6EB1SJOOWRHWcB/d
- LrAQ==
-X-Gm-Message-State: AC+VfDzlMnHHxAi7dtA708PjoWfTmhjQPNYF8Vd9C4Grx4F/uPYcyORS
- 0l8P/Bo2ytJu0qM/fuSzi0P+tQ==
-X-Google-Smtp-Source: ACHHUZ4i8bfs2ZGcJrnx2o5edO4F/5kwt78qCgePTkVJrH4RpSEccFoFp6oZZ6Sk7NKCnG4AYl1I6A==
-X-Received: by 2002:a05:6512:992:b0:4ef:f513:e8c1 with SMTP id
- w18-20020a056512099200b004eff513e8c1mr3656492lft.44.1683915698478; 
- Fri, 12 May 2023 11:21:38 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- m7-20020ac24287000000b004ec7c0f2178sm1567897lfh.63.2023.05.12.11.21.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 May 2023 11:21:37 -0700 (PDT)
-Message-ID: <91f63678-aade-2f42-1311-1bc706ebdc91@linaro.org>
-Date: Fri, 12 May 2023 21:21:37 +0300
+ d=1e100.net; s=20221208; t=1683916224; x=1686508224;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8pKQb+0xYXxOucpnQzXDi3qX8jDqCIpUeJjG+K7ITys=;
+ b=ZI+S7fTnfgX8M8s9pYsFNPTlMDk62e52dyImnzweaFL009WyDMAIhDskUjwFrrkinP
+ 8WBtbKOjJzSrvj5GSLE2I4Qf4z+w+8yu+aq6+0U5WtkCjtxhpFhYYgw8enirKZ7rp4D7
+ 4k1PlCKWHEt9mt5dH9RpnSGisXNaoAWDLJhIG24sG3UMQOMxSZCP5jKtjGv0Uoy9bgYn
+ JG0eUrm5yYMPohl+l6fbKEO6iwzprhfWBxDuwNxhExGsYZjjxaSL16EQ28KR2Hca+JNL
+ vjTbTR+qPgDTsLyP+cOVD6K9K8F/wsynEBZ5gYDPFEIjtun+kyc9LLriz1eMosBxSmBf
+ 3lAg==
+X-Gm-Message-State: AC+VfDwJz4I53sgQ631I94PPIfM3JhaS2fQo665EHRRq4qwEO4BF3Cr7
+ PmEBqkrUW6A72JwG0wVIugrJLDIv+pbGBglq8IURBg==
+X-Google-Smtp-Source: ACHHUZ4EpK0beeyEKKSqeEK5dUk6rdIl9cp/YnF8Y+QPICHcuW1M4nZMXaaPITctbhAOfsn7vuAk2CWoax7noIg8REs=
+X-Received: by 2002:a05:6902:70d:b0:ba7:50d4:d914 with SMTP id
+ k13-20020a056902070d00b00ba750d4d914mr259939ybt.5.1683916224054; Fri, 12 May
+ 2023 11:30:24 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1683914423-17612-1-git-send-email-quic_khsieh@quicinc.com>
- <1683914423-17612-7-git-send-email-quic_khsieh@quicinc.com>
+References: <1683750665-8764-1-git-send-email-quic_khsieh@quicinc.com>
+ <1683750665-8764-2-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJprtQF0x_LCOTrt5bvRnJ+xRz6QxLF6QAP-4Pff6V5TJ2g@mail.gmail.com>
+ <20230511155331.2jmfe7xcs5tihdgb@ripper>
+ <5ef83699-01de-d062-6239-9bb834c70458@linaro.org>
+ <8ac0b5f5-27da-2b28-8f10-b2fca447511a@quicinc.com>
+ <CAA8EJpokAoGni7vNwuijs7EvmjCweO3pgChij3Qx3OUkVTVpiQ@mail.gmail.com>
+ <CAE-0n51SHQhUJiY=BJp8CQQ1aTAOxeMDr2+NX_vpmjN_cyJJrA@mail.gmail.com>
+In-Reply-To: <CAE-0n51SHQhUJiY=BJp8CQQ1aTAOxeMDr2+NX_vpmjN_cyJJrA@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1683914423-17612-7-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v8 6/8] drm/msm/dpu: separate DSC flush
- update out of interface
+Date: Fri, 12 May 2023 21:30:13 +0300
+Message-ID: <CAA8EJprynCeTdYk5PH2aKcjoZZa5kh_iJRpXUua2jqhtMD5B=Q@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm/dp: enable HDP
+ plugin/unplugged interrupts to hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,172 +74,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_abhinavk@quicinc.com, airlied@gmail.com,
+ Bjorn Andersson <andersson@kernel.org>, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
  marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, sean@poorly.run,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/05/2023 21:00, Kuogee Hsieh wrote:
-> Current DSC flush update is piggyback inside dpu_hw_ctl_intf_cfg_v1().
-> This patch separates DSC flush away from dpu_hw_ctl_intf_cfg_v1() by
-> adding dpu_hw_ctl_update_pending_flush_dsc_v1() to handle both per
-> DSC engine and DSC flush bits at same time to make it consistent with
-> the location of flush programming of other dpu sub blocks.
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 14 ++++++++++++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  | 22 ++++++++++++++++------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  | 10 ++++++++++
->   3 files changed, 38 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index ffa6f04..5cae70e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1834,12 +1834,18 @@ dpu_encoder_dsc_initial_line_calc(struct drm_dsc_config *dsc,
->   	return DIV_ROUND_UP(total_pixels, dsc->slice_width);
->   }
->   
-> -static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
-> +static void dpu_encoder_dsc_pipe_cfg(struct dpu_encoder_virt *dpu_enc,
-> +				     struct dpu_hw_dsc *hw_dsc,
->   				     struct dpu_hw_pingpong *hw_pp,
->   				     struct drm_dsc_config *dsc,
->   				     u32 common_mode,
->   				     u32 initial_lines)
->   {
-> +	struct dpu_encoder_phys *cur_master = dpu_enc->cur_master;
-> +	struct dpu_hw_ctl *ctl;
-> +
-> +	ctl = cur_master->hw_ctl;
+On Fri, 12 May 2023 at 21:03, Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Dmitry Baryshkov (2023-05-11 17:54:19)
+> > On Fri, 12 May 2023 at 03:16, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> > > 1) DP with GPIO: No downstream drm_bridge are connected, is_edp = false
+> > > and internal HPD-logic is in used (internal_hpd = true). Power needs to
+> > > be on at all times etc.
+> > >
+> > > 2) DP without GPIO: Downstream drm_bridge connected, is_edp = false and
+> > > internal HPD-logic should not be used/enabled (internal_hpd = false).
+> > > Power doesn't need to be on unless hpd_notify is invoked to tell us that
+> > > there's something connected...
+> > >
+> > > - dp_bridge_hpd_notify(). What is the point of this check? <== i have
+> > > below two questions,
+> > >
+> > > 1) can you explain when/what this dp_bridge_hpd_notify() will be called?
+> >
+> > The call chain is drm_bridge_hpd_notify() ->
+> > drm_bridge_connector_hpd_notify() -> .hpd_notify() for all drm_bridge
+> > in chain
+> >
+> > One should add a call to drm_bridge_hpd_notify() when the hotplug
+> > event has been detected.
+> >
+> > Also please note the patch https://patchwork.freedesktop.org/patch/484432/
+> >
+> > >
+> > > 2) is dp_bridge_hpd_notify() only will be called at above case #2? and
+> > > it will not be used by case #1?
+> >
+> > Once the driver calls drm_bridge_hpd_notify() in the hpd path, the
+> > hpd_notify callbacks will be called in case#1 too.
+> >
+> > BTW: I don't see drm_bridge_hpd_notify() or
+> > drm_kms_{,connector_}_hotplug_event() HPD notifications in the DP
+> > driver at all. This should be fixed.
+> >
+>
+> Is dp_bridge_hpd_notify() being called by
+> drm_helper_probe_single_connector_modes() when the connectors are
+> detected?
+>
+> I see drm_helper_probe_detect() calls connector->funcs->detect() which I
+> think calls
+> drm_bridge_connector_funcs::drm_bridge_connector_hpd_notify() but I
+> haven't confirmed yet. The 'detect' bridge is the DP bridge in msm
+> driver
+>
+>          if (!dp_display->is_edp) {
+>                 bridge->ops =
+>                         DRM_BRIDGE_OP_DETECT |
+>
+> so if the bridge_connector is being used then I think when fill_modes()
+> is called we'll run the detect cycle and call the hpd_notify callbacks
+> on the bridge chain.
 
-Just for my understanding: if we have a bonded DSI @ sdm845, should both 
-flashes go to the master CTL or each flush should go to the 
-corresponding CTL?
+Yes. This call chain is correct.
+drm_helper_probe_single_connector_modes() ->
+drm_bridge_connector_detect() -> drm_bridge_connector_hpd_notify().
 
-I'm going to send patches that utilize single CTL for sm8150+ after the 
-DSC lands, so I'd like to understand this part.
-
-> +
->   	if (hw_dsc->ops.dsc_config)
->   		hw_dsc->ops.dsc_config(hw_dsc, dsc, common_mode, initial_lines);
->   
-> @@ -1854,6 +1860,9 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
->   
->   	if (hw_pp->ops.enable_dsc)
->   		hw_pp->ops.enable_dsc(hw_pp);
-> +
-> +	if (ctl->ops.update_pending_flush_dsc)
-> +		ctl->ops.update_pending_flush_dsc(ctl, hw_dsc->idx);
->   }
->   
->   static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
-> @@ -1898,7 +1907,8 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
->   	initial_lines = dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
->   
->   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> -		dpu_encoder_dsc_pipe_cfg(hw_dsc[i], hw_pp[i], dsc, dsc_common_mode, initial_lines);
-> +		dpu_encoder_dsc_pipe_cfg(dpu_enc, hw_dsc[i], hw_pp[i], dsc,
-> +					 dsc_common_mode, initial_lines);
->   }
->   
->   void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index 4f7cfa9..f3a50cc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -139,6 +139,11 @@ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
->   				CTL_DSPP_n_FLUSH(dspp - DSPP_0),
->   				ctx->pending_dspp_flush_mask[dspp - DSPP_0]);
->   		}
-> +
-> +	if (ctx->pending_flush_mask & BIT(DSC_IDX))
-> +		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH,
-> +			      ctx->pending_dsc_flush_mask);
-> +
->   	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
->   }
->   
-> @@ -285,6 +290,13 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
->   	ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
->   }
->   
-> +static void dpu_hw_ctl_update_pending_flush_dsc_v1(struct dpu_hw_ctl *ctx,
-> +						   enum dpu_dsc dsc_num)
-> +{
-> +	ctx->pending_dsc_flush_mask |= BIT(dsc_num - DSC_0);
-> +	ctx->pending_flush_mask |= BIT(DSC_IDX);
-> +}
-> +
->   static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
->   	enum dpu_dspp dspp, u32 dspp_sub_blk)
->   {
-> @@ -502,9 +514,6 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->   	if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
->   		mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
->   
-> -	if (cfg->dsc)
-> -		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
-> -
->   	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
->   		mode_sel |= BIT(17);
->   
-> @@ -524,10 +533,8 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->   	if (cfg->merge_3d)
->   		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
->   			      BIT(cfg->merge_3d - MERGE_3D_0));
-> -	if (cfg->dsc) {
-> -		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-> +	if (cfg->dsc)
->   		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
-> -	}
->   }
->   
->   static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
-> @@ -630,6 +637,9 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
->   		ops->update_pending_flush_merge_3d =
->   			dpu_hw_ctl_update_pending_flush_merge_3d_v1;
->   		ops->update_pending_flush_wb = dpu_hw_ctl_update_pending_flush_wb_v1;
-> +
-> +		ops->update_pending_flush_dsc =
-> +			dpu_hw_ctl_update_pending_flush_dsc_v1;
->   	} else {
->   		ops->trigger_flush = dpu_hw_ctl_trigger_flush;
->   		ops->setup_intf_cfg = dpu_hw_ctl_intf_cfg;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> index 6292002..d4869a0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> @@ -158,6 +158,15 @@ struct dpu_hw_ctl_ops {
->   		enum dpu_dspp blk, u32 dspp_sub_blk);
->   
->   	/**
-> +	 * OR in the given flushbits to the cached pending_(dsc_)flush_mask
-> +	 * No effect on hardware
-> +	 * @ctx       : ctl path ctx pointer
-> +	 * @blk       : interface block index
-> +	 */
-> +	void (*update_pending_flush_dsc)(struct dpu_hw_ctl *ctx,
-> +					 enum dpu_dsc blk);
-> +
-> +	/**
->   	 * Write the value of the pending_flush_mask to hardware
->   	 * @ctx       : ctl path ctx pointer
->   	 */
-> @@ -245,6 +254,7 @@ struct dpu_hw_ctl {
->   	u32 pending_wb_flush_mask;
->   	u32 pending_merge_3d_flush_mask;
->   	u32 pending_dspp_flush_mask[DSPP_MAX - DSPP_0];
-> +	u32 pending_dsc_flush_mask;
->   
->   	/* ops */
->   	struct dpu_hw_ctl_ops ops;
+However on HPD events the DP driver doesn't call into the drm core
+(which I believe should be fixed).
 
 -- 
 With best wishes
 Dmitry
-
