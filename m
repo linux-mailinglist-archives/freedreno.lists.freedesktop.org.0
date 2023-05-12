@@ -2,85 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD6C7701126
-	for <lists+freedreno@lfdr.de>; Fri, 12 May 2023 23:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0DD570113E
+	for <lists+freedreno@lfdr.de>; Fri, 12 May 2023 23:32:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B8510E2C0;
-	Fri, 12 May 2023 21:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B71DA10E2C6;
+	Fri, 12 May 2023 21:32:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2BDE10E2C0
- for <freedreno@lists.freedesktop.org>; Fri, 12 May 2023 21:28:37 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E5010E2C1;
+ Fri, 12 May 2023 21:32:25 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34CI2BKP002300; Fri, 12 May 2023 21:28:36 GMT
+ 34CHpsfB031800; Fri, 12 May 2023 21:32:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=tmlcvFZPOm7cn0EH3Ys3Fj2hW7TIEKrMrDgwpf+11Rg=;
- b=FUqELP8OIeLjJ0TVtinPG7sYeYH7nemtgEC+aqXKggThGJNQ27mCxiPiSL5CuHkm/5Lv
- N6WKNExEyF6I3uXqhvOKRRCP0He1wZ+0s0gWwsjQCUtDCSo07hEQieaPTREKX4v8VFfo
- ZygFI5LcKWYjLOKn3Yic9xZMz9lx8Phu56oIx6J0PflCUCKei/ibRavopi6DhV+c/YKO
- q9lm1OrZWRI0JFexTJNAcBbTynFS86pZHisFAc96gqqCGTiqUoZGNqhaOaTJ83Ee/1X4
- HTCd9YYBy3DM9zoqDDDhLGnPWcqlhVO+v7luy95JEADszz2XWkZc6S9G/egijLah+nU5 Qg== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qhj9s1mpq-1
+ h=from : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding : to : cc; s=qcppdkim1;
+ bh=IWy+aB7v9F9RVJFt30IKKucfCtLRqa3E2rpxO28aw5Q=;
+ b=gROgBacz+eksRpIxnRM9adYdXNC1ECtbMa/U0SH0Vb8AVOtRXUNoc3nDujj1gTvoZFbG
+ FN9c4uHk3fz8Xg7X8C77SpKw0Kx8+7wzDfaIfz+ux6aW6NwoRKtPIgCH4+BgVd7elBPV
+ kfyo3ng3cDLptLGFhoOQ8Nr2d84R+C0P7QnCYOV1pvXGtXERo0x+c6F3vwRjIcjuQ3lS
+ Z2WstbsTr6qL0IqdtjaOfD9fkWUEpGgkFcblTjTFbcB5rx7NaCFKB+Hr9G4V/bfU46WH
+ /PZvmauFqZF9ps1SInUzlqiByNhFA0ezMh/wajf7gIi9YaOoSV77xdkKAz3uA1jXpFMj 9A== 
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qh8hm2ryq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 May 2023 21:28:36 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34CLSZlC014295
+ Fri, 12 May 2023 21:32:23 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34CLWM7C021678
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 May 2023 21:28:35 GMT
-Received: from [10.110.82.209] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 12 May
- 2023 14:28:34 -0700
-Message-ID: <2d1fad81-c1dc-77db-de67-caf130af9767@quicinc.com>
-Date: Fri, 12 May 2023 14:28:34 -0700
+ Fri, 12 May 2023 21:32:22 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Fri, 12 May 2023 14:32:22 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Fri, 12 May 2023 14:32:10 -0700
+Message-ID: <20230329-rfc-msm-dsc-helper-v10-0-4cb21168c227@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <1683750665-8764-1-git-send-email-quic_khsieh@quicinc.com>
- <1683750665-8764-2-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJprtQF0x_LCOTrt5bvRnJ+xRz6QxLF6QAP-4Pff6V5TJ2g@mail.gmail.com>
- <20230511155331.2jmfe7xcs5tihdgb@ripper>
- <5ef83699-01de-d062-6239-9bb834c70458@linaro.org>
- <8ac0b5f5-27da-2b28-8f10-b2fca447511a@quicinc.com>
- <CAA8EJpokAoGni7vNwuijs7EvmjCweO3pgChij3Qx3OUkVTVpiQ@mail.gmail.com>
- <cf8b7c38-b716-e44a-86e5-d65ba7fa2869@quicinc.com>
- <CAA8EJprN7Kp_NdBi9NHqheDdgEhj=3gyBRwr5ufTSH47P9L_-Q@mail.gmail.com>
- <0456cbfe-66bf-9cc3-16ca-a85be603af01@quicinc.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <0456cbfe-66bf-9cc3-16ca-a85be603af01@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFuwXmQC/4XQPU/EMAwG4L9yykxQvtokTEhIDIyMIIbEcWgk2
+ h4JVKDT/XfS2yASGW35fWz5RArmhIXcHE4k45ZKWpdacHZ1IDC55RVpCrVBBBOSSWFpjkDnMtN
+ QgE74dsRMreHODhiiD4zUoHcFqc9ugWmPPjz9DTze3+1zx4wxfV22P7/UekrlY83fl2M2vnf/X
+ btxymiUqLSNg/VjuH3/TJAWuIZ1Jju4iT4iKiKBS8AwyNGLFpF9RFZk9AgsCK2dkS2i+oiqCPf
+ agjZesqBbZOgjQ0UYZ0YxHrQxY4uMfWSsCHhdvxpZ1NG3iO4juiIhKuMEDEoJ3iKmj5iKCLBee
+ M8Fs9Aito/YihgdHDoEAcz9Rs7n8w+H5+CpBwMAAA==
+To: <freedreno@lists.freedesktop.org>
+X-Mailer: b4 0.13-dev-bfdf5
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1683927142; l=7233;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=Paaom14BsIdVfpKrOYGim+VDFWkyb+BwSDRTPdquHnM=;
+ b=84JgwZ7skEiJDMtjipmFySPDjHjXEcNqllmx4O4W3cF+lyXuUC+ZL1YENqHl3bJvNii+HMAUE
+ X1ba5vNSMxJBTBpa7iijcryZ+jmzhEDeNuKUvNbhJrs+rEnxYmT298l
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+ nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: lNQuf1ueCVdNpkWcXuZgJFGyZIn_7h9q
-X-Proofpoint-GUID: lNQuf1ueCVdNpkWcXuZgJFGyZIn_7h9q
+X-Proofpoint-GUID: 5NQQnNtSgzcA63WEh2E-wHgvYdVLiHvY
+X-Proofpoint-ORIG-GUID: 5NQQnNtSgzcA63WEh2E-wHgvYdVLiHvY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-12_13,2023-05-05_01,2023-02-09_01
+ definitions=2023-05-12_14,2023-05-05_01,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 mlxscore=0
- adultscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 suspectscore=0
- bulkscore=0 malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
- definitions=main-2305120180
-Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm/dp: enable HDP
- plugin/unplugged interrupts to hpd_enable/disable
+ priorityscore=1501
+ lowpriorityscore=0 mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ phishscore=0 mlxlogscore=999 spamscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305120181
+Subject: [Freedreno] [PATCH v10 0/8] Introduce MSM-specific DSC helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,301 +91,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Bjorn and Dmitry
+There are some overlap in calculations for MSM-specific DSC variables
+between DP and DSI. In addition, the calculations for initial_scale_value
+and det_thresh_flatness that are defined within the DSC 1.2 specifications,
+but aren't yet included in drm_dsc_helper.c.
 
-On 5/12/2023 12:34 PM, Kuogee Hsieh wrote:
-> 
-> On 5/12/2023 10:28 AM, Dmitry Baryshkov wrote:
->> On Fri, 12 May 2023 at 19:52, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->> wrote:
->>>
->>> On 5/11/2023 5:54 PM, Dmitry Baryshkov wrote:
->>>> On Fri, 12 May 2023 at 03:16, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->>>> wrote:
->>>>> On 5/11/2023 8:57 AM, Dmitry Baryshkov wrote:
->>>>>> On 11/05/2023 18:53, Bjorn Andersson wrote:
->>>>>>> On Thu, May 11, 2023 at 07:24:46AM +0300, Dmitry Baryshkov wrote:
->>>>>>>> On Wed, 10 May 2023 at 23:31, Kuogee Hsieh 
->>>>>>>> <quic_khsieh@quicinc.com>
->>>>>>>> wrote:
->>>>>>>>> The internal_hpd flag was introduced to handle external DP HPD
->>>>>>>>> derived from GPIO
->>>>>>>>> pinmuxed into DP controller. HPD plug/unplug interrupts cannot be
->>>>>>>>> enabled until
->>>>>>>>> internal_hpd flag is set to true.
->>>>>>>>> At both bootup and resume time, the DP driver will enable 
->>>>>>>>> external DP
->>>>>>>>> plugin interrupts and handle plugin interrupt accordingly.
->>>>>>>>> Unfortunately
->>>>>>>>> dp_bridge_hpd_enable() bridge ops function was called to set
->>>>>>>>> internal_hpd
->>>>>>>>> flag to true later than where DP driver expected during bootup 
->>>>>>>>> time.
->>>>>>>>>
->>>>>>>>> This causes external DP plugin event to not get detected and
->>>>>>>>> display stays blank.
->>>>>>>>> Move enabling HDP plugin/unplugged interrupts to
->>>>>>>>> dp_bridge_hpd_enable()/disable() to
->>>>>>>>> set internal_hpd to true along with enabling HPD plugin/unplugged
->>>>>>>>> interrupts
->>>>>>>>> simultaneously to avoid timing issue during bootup and resume.
->>>>>>>>>
->>>>>>>>> Fixes: cd198caddea7 ("drm/msm/dp: Rely on hpd_enable/disable
->>>>>>>>> callbacks")
->>>>>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>>>>>> Thanks for debugging this!
->>>>>>>>
->>>>>>>> However after looking at the driver I think there is more than 
->>>>>>>> this.
->>>>>>>>
->>>>>>>> We have several other places gated on internal_hpd flag, where 
->>>>>>>> we do
->>>>>>>> not have a strict ordering of events.
->>>>>>>> I see that dp_hpd_plug_handle() and dp_hpd_unplug_handle() also 
->>>>>>>> toggle
->>>>>>>> DP_DP_IRQ_HPD_INT_MASK and DP_DP_HPD_REPLUG_INT_MASK depending on
->>>>>>>> internal_hpd. Can we toggle all 4 interrupts from the
->>>>>>>> hpd_enable/hpd_disable functions? If we can do it, then I think 
->>>>>>>> we can
->>>>>>>> drop the internal_hpd flag completely.
->>>>>>>>
+This series moves these calculations to a shared msm_dsc_helper.c file and
+defines drm_dsc_helper methods for initial_scale_value and
+det_thresh_flatness.
 
-No we cannot. The HPD logic works in a flip-flop model. When we get the 
-plug interrupt, we need to flip to tell the hw to wait for unplug and 
-when we get unplug, we need to tell the hw to wait for plug.
+Note: For now, the MSM specific helper methods are only called for the DSI
+path, but will called for DP once DSC 1.2 support for DP has been added.
 
-The two calls in plug_handle() / unplug_handle() are doing that whereas 
-hpd_enable/hpd_disable are disabling the hpd interrupts altogether.
+Depends on: "drm/i915: move DSC RC tables to drm_dsc_helper.c" [1]
 
-In other words, we cannot rely on hpd_enable() / hpd_disable() calls to 
-do the flip part as that has to be done every plug/unplug. In addition 
-we need to handle the compliance test cases with REPLUG.
+[1] https://patchwork.freedesktop.org/series/114472/
 
-So hpd_enable / hpd_disable is not the right place to move all these calls.
+---
+Changes in v10:
+- Removed msm_dsc_get_bytes_per_slice helper
+- Inlined msm_dsc_get_bytes_per_intf
+- Refactored drm_dsc_set_initial_scale_value() to be a pure function
+- Renamed DRM DSC initial_scale and flatness_det_thresh helpers
+- Removed msm_dsc_helpers.o from Makefile
+- Link to v9: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v9-0-87daeaec2c0a@quicinc.com
 
->>>>>>> Yes, that's what I believe the DRM framework intend us to do.
->>>>>>>
->>>>>>> The problem, and reason why I didn't do tat in my series, was 
->>>>>>> that in
->>>>>>> order to update the INT_MASKs you need to clock the IP-block and 
->>>>>>> that's
->>>>>>> done elsewhere.
->>>>>>>
->>>>>>> So, for the internal_hpd case, it seems appropriate to 
->>>>>>> pm_runtime_get()
->>>>>>> in hpd_enable() and unmask the HPD interrupts, and mask the 
->>>>>>> interrupts
->>>>>>> and pm_runtime_put() in hpd_disable().
->>>>>>>
+Changes in v9:
+- Fixed incorrect math for msm_dsc_get_bytes_per_line()
+- Link to v8: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v8-0-2c9b2bb1209c@quicinc.com
 
-I dont agree completely on this. The blocks powering the HPD block also 
-power other things. So the AUX clk and host_init() both are needed for 
-HPD but they power not just the HPD.
+Changes in v8:
+- *_bytes_per_soft_slice --> *_bytes_per_slice
+- Fixed comment doc formatting for MSM DSC helpers
+- Use slice_chunk_size in msm_dsc_get_bytes_per_line calculation
+- Reworded "drm/msm/dpu: Use DRM DSC helper for det_thresh_flatness"
+  commit title for clarity
+- Picked up "Reviewed-by" tags
+- Added duplicate Signed-off-by tag to "drm/display/dsc: Add flatness
+  and initial scale value calculations" to reflect patch history
+- Link to v7: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v7-0-df48a2c54421@quicinc.com
 
-So powering all of these at hpd_enable / hpd_disable would be an 
-overkill for that call and not required as well.
+Changes in v7:
+- Renamed msm_dsc_get_pclk_per_intf to msm_dsc_get_bytes_per_line
+- Removed duplicate msm_dsc_get_dce_bytes_per_line
+- Reworded commit message for "drm/msm/dpu: Use DRM DSC helper for
+  det_thresh_flatness"
+- Dropped slice_per_pkt change (it will be included in the later
+  "Add DSC v1.2 Support for DSI" series)
+- Picked up "drm/display/dsc: Add flatness and initial scale value
+  calculations" and "drm/display/dsc: add helper to set semi-const
+  parameters", which were dropped from "drm/i915: move DSC RC tables to
+  drm_dsc_helper.c" series
+- Picked up "Reviewed-by" tags
+- Removed changelog in individual patches
+- Link to v6: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v6-0-cb7f59f0f7fb@quicinc.com
 
-Before talking about removing hpd_event_thread, I think we should 
-understand why its there. It handles all asynchronous connection and 
-sink related events in one centralized place like 
-connect/disconnect/irq_hpd.
+Changes in v6:
+- Documented return values for MSM DSC helpers
+- Fixed dependency issue in msm_dsc_helper.c
+- Link to v5: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v5-0-0108401d7886@quicinc.com
 
-This is a well tested code with multiple dongles on chromebooks and I 
-dont see any alternative to it at the moment and dont think that 
-discussion is necessary in the context of this bug fix . We can talk 
-about it more in one of our sync ups if you want to know more.
+Changes in v5:
+- Added extra line at end of msm_dsc_helper.h
+- Simplified msm_dsc_get_bytes_per_soft_slice() math
+- Simplified and inlined msm_dsc_get_pclk_per_intf() math
+- "Fix calculations pkt_per_line" --> "... Fix calculation for pkt_per_line"
+- Split dsc->slice_width check into a separate patch
+- Picked up Dmitry's msm/dsi patch ("drm/msm/dsi: use new helpers for
+  DSC setup")
+- Removed unused headers in MSM DSC helper files
+- Picked up Reviewed-by tags
+- Link to v4: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v4-0-1b79c78b30d7@quicinc.com
 
-Based on the responses I have seen so far, I see that we had to 
-introduce the dynamic control of internal_hpd for below case :
+Changes in v4:
+- Changed msm_dsc_get_uncompressed_pclk_per_intf to msm_dsc_get_pclk_per_intf
+- Moved pclk_per_intf calculation for dsi_timing_setup to `if
+  (msm_host->dsc)` block
+- Link to v3: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v3-0-6bec0d277a83@quicinc.com
 
-2) DP without GPIO: Downstream drm_bridge connected, is_edp = false and
-internal HPD-logic should not be used/enabled (internal_hpd = false).
-Power doesn't need to be on unless hpd_notify is invoked to tell us that
-there's something connected...
+Changes in v3:
+- Dropped src_bpp parameter from all methods -- src_bpp can be
+  calculated as dsc->bits_per_component * 3- Cleaned up unused parameters
+- Dropped intf_width parameter from get_bytes_per_soft_slice()
+- Moved dsc->bits_per_component to numerator calculation in
+  get_bytes_per_soft_slice()
+- Made get_bytes_per_soft_slice() a public method (this will be called
+  later to help calculate DP pclk params)- Added comment documentation to
+  MSM DSC helpers
+- Renamed msm_dsc_get_uncompressed_pclk_per_line to
+  *_get_uncompressed_pclk_per_intf()
+- Removed dsc->slice_width check from msm_dsc_get_uncompressed_pclk_per_intf()
+- Added documentation in comments
+- Moved extra_eol_bytes math out of msm_dsc_get_eol_byte_num()
+- Renamed msm_dsc_get_eol_byte_num to *_get_bytes_per_intf.
+- Reworded slice_last_group_size calculation to `(dsc->slice_width + 2) % 3`
+- Used MSM DSC helper to calculate total_bytes_per_intf
+- Initialized hdisplay as uncompressed pclk per line at the beginning of
+  dsi_timing_setup as to not break dual DSI calculations
+- Added slice_width check to dsi_timing_setup
+- Dropped 78c8b81d57d8 ("drm/display/dsc: Add flatness and initial scale
+  value calculations") patch as it was absorbed in Dmitry's DSC series [1]
+- Split dsi_timing_setup() hdisplay calculation to a separate patch
+- Link to v2: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v2-0-3c13ced536b2@quicinc.com
 
-So we want internal_hpd to be false for this case.
+Changes in v2:
+- Changed det_thresh_flatness to flatness_det_thresh
+- Set initial_scale_value directly in helper
+- Moved msm_dsc_helper files to msm/ directory
+- Dropped get_comp_ratio() helper
+- Used drm_int2fixp() to convert to integers to fp
+- Fixed type mismatch issues in MSM DSC helpers
+- Changed DSC_BPP macro to drm_dsc_get_bpp_int() helper method
+- Style changes to improve readability
+- Dropped last division step of msm_dsc_get_pclk_per_line() and changed
+  method name accordingly
+- Dropped unused bpp variable in msm_dsc_get_dce_bytes_per_line()
+- Changed msm_dsc_get_slice_per_intf() to a static inline method
+- Split eol_byte_num and pkt_per_line calculation into a separate patch
+- Moved pclk_per_line calculation into `if (dsc)` block in
+  dsi_timing_setup()
+- *_calculate_initial_scale_value --> *_set_initial_scale_value
+- Picked up Fixes tags for patches 3/5 and 4/5
+- Picked up Reviewed-by for patch 4/5
+- Link to v1: https://lore.kernel.org/r/20230329-rfc-msm-dsc-helper-v1-0-f3e479f59b6d@quicinc.com
 
-That is good information and provides the context of why hpd_enable / 
-hpd_disable callbacks were implemented as they are optional as per the 
-framework.
+---
+Dmitry Baryshkov (2):
+      drm/display/dsc: add helper to set semi-const parameters
+      drm/msm/dsi: use DRM DSC helpers for DSC setup
 
-I saw Bjorn mentioned that "The DRM framework will invoke hpd_enable on 
-the bridge furthest out that
-has OP_HPD. So in the case of HPD signal being pinmuxed into the
-HPD-logic, dp_bridge_hpd_enable() will be invoked.
-"
+Jessica Zhang (6):
+      drm/display/dsc: Add flatness and initial scale value calculations
+      drm/msm: Add MSM-specific DSC helper methods
+      drm/msm/dpu: Use fixed DRM DSC helper for det_thresh_flatness
+      drm/msm/dpu: Fix slice_last_group_size calculation
+      drm/msm/dsi: Use MSM and DRM DSC helper methods
+      drm/msm/dsi: update hdisplay calculation for dsi_timing_setup
 
-For my understanding, this logic is in the drm_bridge_connector_init() 
-right? So bridge_connector->bridge_detect will hold the last bridge and 
-hence enable_hpd / disable/hpd gets called only for the last one right?
+ drivers/gpu/drm/display/drm_dsc_helper.c   | 22 ++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c |  9 ++--
+ drivers/gpu/drm/msm/dsi/dsi_host.c         | 70 ++++++------------------------
+ drivers/gpu/drm/msm/msm_dsc_helper.h       | 65 +++++++++++++++++++++++++++
+ include/drm/display/drm_dsc_helper.h       | 11 +++++
+ 5 files changed, 117 insertions(+), 60 deletions(-)
+---
+base-commit: 5526fe03b40ca1cc72c7b4e97f28d3bbfaa0ded9
+change-id: 20230329-rfc-msm-dsc-helper-981a95edfbd0
 
-If all this is correct, I think the fix posted at the moment is the best 
-possible one as it correctly does what hpd_enable / hpd_disable 
-callbacks are supposed to do without overdoing it.
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
 
-What are the concerns with this patch with all the explanation I have 
-given now.
-
->>>>>>>
->>>>>>> But for edp and external HPD-signal we also need to make sure 
->>>>>>> power is
->>>>>>> on while something is connected...
->>>>>> I think this is already handled by the existing code, see calls to 
->>>>>> the
->>>>>> dp_display_host_init().
->>>>>>
->>>>>>>> I went on and checked other places where it is used:
->>>>>>>> - dp_hpd_unplug_handle(), guarding DP_DP_HPD_PLUG_INT_MASK 
->>>>>>>> toggling. I
->>>>>>>> think we can drop these two calls completely. The function is under
->>>>>>>> the event_mutex protection, so other events can not interfere.
->>>>>>>> - dp_bridge_hpd_notify(). What is the point of this check? If some
->>>>>>>> other party informs us of the HPD event, we'd better handle it 
->>>>>>>> instead
->>>>>>>> of dropping it. Correct?  In other words, I'd prefer seeing the
->>>>>>>> hpd_event_thread removal. Instead of that I think that on
->>>>>>>> HPD/plug/unplug/etc. IRQ the driver should call into the drm stack,
->>>>>>>> then the hpd_notify call should process those events.
->>>>>>>>
-
->>>>> 1) DP with GPIO: No downstream drm_bridge are connected, is_edp = 
->>>>> false
->>>>> and internal HPD-logic is in used (internal_hpd = true). Power 
->>>>> needs to
->>>>> be on at all times etc.
->>>>>
->>>>> 2) DP without GPIO: Downstream drm_bridge connected, is_edp = false 
->>>>> and
->>>>> internal HPD-logic should not be used/enabled (internal_hpd = false).
->>>>> Power doesn't need to be on unless hpd_notify is invoked to tell us 
->>>>> that
->>>>> there's something connected...
->>>>>
->>>>> - dp_bridge_hpd_notify(). What is the point of this check? <== i have
->>>>> below two questions,
->>>>>
->>>>> 1) can you explain when/what this dp_bridge_hpd_notify() will be 
->>>>> called?
->>>> The call chain is drm_bridge_hpd_notify() ->
->>>> drm_bridge_connector_hpd_notify() -> .hpd_notify() for all drm_bridge
->>>> in chain
->>>>
->>>> One should add a call to drm_bridge_hpd_notify() when the hotplug
->>>> event has been detected.
->>>>
->>>> Also please note the patch 
->>>> https://patchwork.freedesktop.org/patch/484432/
->>>>
->>>>> 2) is dp_bridge_hpd_notify() only will be called at above case #2? and
->>>>> it will not be used by case #1?
->>>> Once the driver calls drm_bridge_hpd_notify() in the hpd path, the
->>>> hpd_notify callbacks will be called in case#1 too.
->>>>
->>>> BTW: I don't see drm_bridge_hpd_notify() or
->>>> drm_kms_{,connector_}_hotplug_event() HPD notifications in the DP
->>>> driver at all. This should be fixed.
->>> Just curious, since dp_bridge_detect() only return either
->>> connector_status_connected or connector_status_disconnect,
->>>
->>> how IRQ_HPD_INT (attention) and HPD_REPLUG_INT be generated at DP 
->>> case#1?
->> if (bridge.status == connected && status == connected) {
->>    either attention or replug were reported
->> }
->>
->> BTW: what is HPD_REPLUG_INT, if you excuse my ignorance?
-> 
-> HPD high -- drop to low for less than 2 ms -- go back to high again
-> 
-> Currently, we have to treat this scenario as HPD_UNPLUG_int followed by 
-> HPD_PLUG_INT to pass compliance test
-> 
->>
->>>>>
->>>>>>> I agree, that seems to be what's expected of us from the DRM 
->>>>>>> framework.
->>>>>>>
->>>>>>> Regards,
->>>>>>> Bjorn
->>>>>>>
->>>>>>>>> ---
->>>>>>>>>     drivers/gpu/drm/msm/dp/dp_display.c | 27 
->>>>>>>>> ++++++++++++++-------------
->>>>>>>>>     1 file changed, 14 insertions(+), 13 deletions(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>>> index 3e13acdf..71aa944 100644
->>>>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>>>>>> @@ -1088,13 +1088,6 @@ static void dp_display_config_hpd(struct
->>>>>>>>> dp_display_private *dp)
->>>>>>>>>            dp_display_host_init(dp);
->>>>>>>>>            dp_catalog_ctrl_hpd_config(dp->catalog);
->>>>>>>>>
->>>>>>>>> -       /* Enable plug and unplug interrupts only if requested */
->>>>>>>>> -       if (dp->dp_display.internal_hpd)
->>>>>>>>> -               dp_catalog_hpd_config_intr(dp->catalog,
->>>>>>>>> -                               DP_DP_HPD_PLUG_INT_MASK |
->>>>>>>>> -                               DP_DP_HPD_UNPLUG_INT_MASK,
->>>>>>>>> -                               true);
->>>>>>>>> -
->>>>>>>>>            /* Enable interrupt first time
->>>>>>>>>             * we are leaving dp clocks on during disconnect
->>>>>>>>>             * and never disable interrupt
->>>>>>>>> @@ -1396,12 +1389,6 @@ static int dp_pm_resume(struct device *dev)
->>>>>>>>>
->>>>>>>>>            dp_catalog_ctrl_hpd_config(dp->catalog);
->>>>>>>>>
->>>>>>>>> -       if (dp->dp_display.internal_hpd)
->>>>>>>>> -               dp_catalog_hpd_config_intr(dp->catalog,
->>>>>>>>> -                               DP_DP_HPD_PLUG_INT_MASK |
->>>>>>>>> -                               DP_DP_HPD_UNPLUG_INT_MASK,
->>>>>>>>> -                               true);
->>>>>>>>> -
->>>>>>>>>            if (dp_catalog_link_is_connected(dp->catalog)) {
->>>>>>>>>                    /*
->>>>>>>>>                     * set sink to normal operation mode -- D0
->>>>>>>>> @@ -1801,15 +1788,29 @@ void dp_bridge_hpd_enable(struct 
->>>>>>>>> drm_bridge
->>>>>>>>> *bridge)
->>>>>>>>>     {
->>>>>>>>>            struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
->>>>>>>>>            struct msm_dp *dp_display = dp_bridge->dp_display;
->>>>>>>>> +       struct dp_display_private *dp;
->>>>>>>>> +
->>>>>>>>> +       dp = container_of(dp_display, struct dp_display_private,
->>>>>>>>> dp_display);
->>>>>>>>>
->>>>>>>>>            dp_display->internal_hpd = true;
->>>>>>>>> +       dp_catalog_hpd_config_intr(dp->catalog,
->>>>>>>>> +                               DP_DP_HPD_PLUG_INT_MASK |
->>>>>>>>> +                               DP_DP_HPD_UNPLUG_INT_MASK,
->>>>>>>>> +                               true);
->>>>>>>>>     }
->>>>>>>>>
->>>>>>>>>     void dp_bridge_hpd_disable(struct drm_bridge *bridge)
->>>>>>>>>     {
->>>>>>>>>            struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
->>>>>>>>>            struct msm_dp *dp_display = dp_bridge->dp_display;
->>>>>>>>> +       struct dp_display_private *dp;
->>>>>>>>> +
->>>>>>>>> +       dp = container_of(dp_display, struct dp_display_private,
->>>>>>>>> dp_display);
->>>>>>>>>
->>>>>>>>> +       dp_catalog_hpd_config_intr(dp->catalog,
->>>>>>>>> +                               DP_DP_HPD_PLUG_INT_MASK |
->>>>>>>>> +                               DP_DP_HPD_UNPLUG_INT_MASK,
->>>>>>>>> +                               false);
->>>>>>>>>            dp_display->internal_hpd = false;
->>>>>>>>>     }
->>>>>>>> -- 
->>>>>>>> With best wishes
->>>>>>>> Dmitry
->>>>
->>
->>
