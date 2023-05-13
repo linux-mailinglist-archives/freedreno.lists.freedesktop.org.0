@@ -2,35 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38EFC70197F
-	for <lists+freedreno@lfdr.de>; Sat, 13 May 2023 21:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 707747019A7
+	for <lists+freedreno@lfdr.de>; Sat, 13 May 2023 22:28:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D49E210E12A;
-	Sat, 13 May 2023 19:26:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A26910E128;
+	Sat, 13 May 2023 20:28:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6E7410E12A
- for <freedreno@lists.freedesktop.org>; Sat, 13 May 2023 19:26:32 +0000 (UTC)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9C0B10E0DA
+ for <freedreno@lists.freedesktop.org>; Sat, 13 May 2023 20:28:40 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id D4C0B3F32D;
- Sat, 13 May 2023 21:26:28 +0200 (CEST)
-Date: Sat, 13 May 2023 21:26:26 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 05E023F251;
+ Sat, 13 May 2023 22:28:38 +0200 (CEST)
+Date: Sat, 13 May 2023 22:28:37 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <bzfwgc6akvfvupvro2jz7mi3r6mltftkng3u7oxuyrdztzjqw7@nj3dxbiu4tiz>
-References: <1683914423-17612-1-git-send-email-quic_khsieh@quicinc.com>
- <1683914423-17612-3-git-send-email-quic_khsieh@quicinc.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <ezijf6p7wbobl6upky56hb2q2ixhhg5hssesbqtibckqdm4pzr@2k762556kcpe>
+References: <20230329-rfc-msm-dsc-helper-v10-0-4cb21168c227@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v10-1-4cb21168c227@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1683914423-17612-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v8 2/8] drm/msm/dpu: add DPU_PINGPONG_DSC
- feature bit for DPU < 7.0.0
+In-Reply-To: <20230329-rfc-msm-dsc-helper-v10-1-4cb21168c227@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v10 1/8] drm/display/dsc: Add flatness and
+ initial scale value calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,102 +44,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com, swboyd@chromium.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-12 11:00:17, Kuogee Hsieh wrote:
+On 2023-05-12 14:32:11, Jessica Zhang wrote:
 > 
-> DPU < 7.0.0 requires the PINGPONG block to be involved during
-> DSC setting up. Since DPU >= 7.0.0, enabling and starting the DSC
-> encoder engine was moved to INTF with the help of the flush mechanism.
-> Add a DPU_PINGPONG_DSC feature bit to restrict the availability of
-> dpu_hw_pp_setup_dsc() and dpu_hw_pp_dsc_{enable,disable}() on the
-> PINGPONG block to DPU < 7.0.0 hardware, as the registers are not
-> available [in the PINGPONG block] on DPU 7.0.0 and higher anymore.
-
-Fwiw I added the brackets in the suggestion as an "up to you to include
-this or not".  Drop the brackets if you think this should be part of the
-sentence.
-
-> Add DPU_PINGPONG_DSC to PINGPONG_SDM845_MASK, PINGPONG_SDM845_TE2_MASK
-> and PINGPONG_SM8150_MASK which is used for all DPU < 7.0 chipsets.
+> Add helpers to calculate det_thresh_flatness and initial_scale_value as
+> these calculations are defined within the DSC spec.
 > 
-> changes in v6:
-> -- split patches and rearrange to keep catalog related files at this patch
-> 
-> changes in v7:
-> -- rewording commit text as suggested at review comments
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 6 +++---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 4 +++-
->  2 files changed, 6 insertions(+), 4 deletions(-)
+>  include/drm/display/drm_dsc_helper.h | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 82b58c6..78e4bf6 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -76,13 +76,13 @@
->  	(BIT(DPU_DIM_LAYER) | BIT(DPU_MIXER_COMBINED_ALPHA))
+> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
+> index 0bb0c3afd740..060b22ec02eb 100644
+> --- a/include/drm/display/drm_dsc_helper.h
+> +++ b/include/drm/display/drm_dsc_helper.h
+> @@ -25,5 +25,15 @@ void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+>  int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
+>  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
 >  
->  #define PINGPONG_SDM845_MASK \
-> -	(BIT(DPU_PINGPONG_DITHER) | BIT(DPU_PINGPONG_TE))
-> +	(BIT(DPU_PINGPONG_DITHER) | BIT(DPU_PINGPONG_TE) | BIT(DPU_PINGPONG_DSC))
->  
->  #define PINGPONG_SDM845_TE2_MASK \
-> -	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
-> +	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2) | BIT(DPU_PINGPONG_DSC))
+> +static inline int drm_dsc_initial_scale_value(const struct drm_dsc_config *dsc)
 
-Don't add it here, this is already in PINGPONG_SDM845_MASK.
+Should this truncate and return u8?
 
->  
->  #define PINGPONG_SM8150_MASK \
-> -	(BIT(DPU_PINGPONG_DITHER))
-> +	(BIT(DPU_PINGPONG_DITHER) | BIT(DPU_PINGPONG_DSC))
->  
->  #define CTL_SC7280_MASK \
->  	(BIT(DPU_CTL_ACTIVE_CFG) | \
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index 6ee48f0..dc0a4da 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -144,7 +144,8 @@ enum {
->   * @DPU_PINGPONG_TE2        Additional tear check block for split pipes
->   * @DPU_PINGPONG_SPLIT      PP block supports split fifo
->   * @DPU_PINGPONG_SLAVE      PP block is a suitable slave for split fifo
-> - * @DPU_PINGPONG_DITHER,    Dither blocks
-> + * @DPU_PINGPONG_DITHER     Dither blocks
-> + * @DPU_PINGPONG_DSC        PP ops functions required for DSC
+> +{
+> +	return 8 * dsc->rc_model_size / (dsc->rc_model_size - dsc->initial_offset);
+> +}
+> +
+> +static inline int drm_dsc_flatness_det_thresh(const struct drm_dsc_config *dsc)
 
-Following the other documentation wording:
-
-    PP block supports DSC
-
-Or:
-
-    PP block has DSC enable/disable registers
+Should this return u32?
 
 - Marijn
 
->   * @DPU_PINGPONG_MAX
->   */
->  enum {
-> @@ -153,6 +154,7 @@ enum {
->  	DPU_PINGPONG_SPLIT,
->  	DPU_PINGPONG_SLAVE,
->  	DPU_PINGPONG_DITHER,
-> +	DPU_PINGPONG_DSC,
->  	DPU_PINGPONG_MAX
->  };
+> +{
+> +	return 2 << (dsc->bits_per_component - 8);
+> +}
+> +
+>  #endif /* _DRM_DSC_HELPER_H_ */
 >  
+> 
 > -- 
-> 2.7.4
+> 2.40.1
 > 
