@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D76701E5B
-	for <lists+freedreno@lfdr.de>; Sun, 14 May 2023 19:01:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16549701E5E
+	for <lists+freedreno@lfdr.de>; Sun, 14 May 2023 19:02:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D5C10E095;
-	Sun, 14 May 2023 17:01:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA98F10E099;
+	Sun, 14 May 2023 17:02:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
- [IPv6:2607:f8b0:4864:20::1130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7286010E07E
- for <freedreno@lists.freedesktop.org>; Sun, 14 May 2023 17:01:40 +0000 (UTC)
-Received: by mail-yw1-x1130.google.com with SMTP id
- 00721157ae682-55a44a2637bso173767387b3.2
- for <freedreno@lists.freedesktop.org>; Sun, 14 May 2023 10:01:40 -0700 (PDT)
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6A5B10E099
+ for <freedreno@lists.freedesktop.org>; Sun, 14 May 2023 17:02:49 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-55cc8aadc97so178330127b3.3
+ for <freedreno@lists.freedesktop.org>; Sun, 14 May 2023 10:02:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684083699; x=1686675699;
+ d=linaro.org; s=google; t=1684083768; x=1686675768;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=2UHE6KlW9JyEYO4rMr/i63nT9UiBXdbXXzrRs9yxmkU=;
- b=RPKTeggauu5yKDq3wGbtAgtozDUWB6aA+Niak68nX+2zDqgRHObtdkLgGG+ZS2s62q
- AQM5/zSZhEl6sm9upmDn+HR9bAEO/uu3Ori8BkiQDeEv7r58e46h6gLcP7/IPJpbuQhS
- ICnC6i6cT2fqe8mNqWMod+M5DcSyf0ddQN+1s6p/UHwwJmxZa9a0M/PG4KqWgFRqukFY
- NT7QlCB+4sUJCU5ujJMlS5tJWvLjyWj1FtHwYgK9qlwe6z1A6SFU3NydcxRDYXb04rvc
- 9EUeFGRjjaW0qh9gLJ3Zbp/vQ4tJSA1Pw7oM6NDFfOosBrCvWyBHnHvEWe7qOjCmd45S
- b6BQ==
+ bh=4HemADSWG6TbTWJTVcnnzd18/y0jetxsoQACmcYyLEA=;
+ b=ZUyOmZTzMm8ibiR+r9wArf5nURp7oGX95YU93GkqfiPa+tcBaLg4MgplXdvCWySa/5
+ HIeIPOy/7Aso7A16FrO0rzlOLnYADrJCcvg8LyUQdKlpV8Gdunl6H7lFIy28ZiahbEtn
+ J7FiK67mDBcPRI1AoXTC8wy9ll73EPAyfFYe3RIMYmkItKMRIsoypIMjWGhOgmAzQ5Rz
+ 9bKgaCAfwA1+2Lay2AjeMxityHFAPADOh2IL4IT4e7EoDe/yHEVrJF4HN0ryuLc4A+M0
+ c1iBCrbj89SrKl7jEyPxJPiE4ZHP/fO5yQZRLpp+eDWp2FLQCdk+0WjsZcHd1n8vOiNm
+ vfTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684083699; x=1686675699;
+ d=1e100.net; s=20221208; t=1684083768; x=1686675768;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=2UHE6KlW9JyEYO4rMr/i63nT9UiBXdbXXzrRs9yxmkU=;
- b=io2GyPJbd7frA7CJfHn2oF9DkZekyi7Ho3t0LAQja2b5mKwHoQn8ZYgVPjhKSzRtzD
- yp5YpnaqLcjzOiYx7utMyXNnuD2w2mg5vaxabVAEtMpx5KBVvSvFTai4eamu7vWqFoqz
- KeyX69wIQi+3Y7QWCHjt9H5ArVZhXwEBiNyUXh2iEqVvG9//5JnBnG0vjzXiUJbl9DCz
- htBVTq4NNV6g9KkeqKDtOqU7haRRpmKH1efEFYo+v44IBgo+NbpbHCg7zlLJkxyCAOuH
- CvbTwPGk48BLzHKR6Ts06hMCMt3S2HFZyQb0UCqRsO00PVMQuaHYpKEzqR+L7F7V2kbn
- HZvA==
-X-Gm-Message-State: AC+VfDzHeKltmISN3D++THZCJ3TmplcwQaTFTKYumklUohXPzyg5tYWA
- YvcZbppBJuml/MjpMuOZHyexVBbQ6Un1mmTGbOI97xi0U3thcmdj5rn+0w==
-X-Google-Smtp-Source: ACHHUZ6CIWv7Cilknh4FESFfjsUlP+18hc9999+7vuxr0cmZZf09oa3qy8n/zP5ZyAmBRAUuuyuzlPz6QAxgVJIsHeE=
-X-Received: by 2002:a81:4985:0:b0:55a:577f:eff9 with SMTP id
- w127-20020a814985000000b0055a577feff9mr29769040ywa.28.1684083699008; Sun, 14
- May 2023 10:01:39 -0700 (PDT)
+ bh=4HemADSWG6TbTWJTVcnnzd18/y0jetxsoQACmcYyLEA=;
+ b=Tu7iKNWeU/cyXH01uu7B/pGcH5xyLN3l8eq8nmVmSquyBM16ya5XAGyeTTRiIm7K81
+ OClX3cecMXCRdiHPMhr7vAKaWENWmxtWQLLdhqCtxLthUsFdwSTHoLchtAz6OYe4+HrB
+ mjyoZ6icULSLyXfA2nznxK3i/P95rc6cbOOKPIU4uAK4RC2HMFSc8gL65x86lRkmP4f6
+ w3MLKVQaAKcoTm3dT0wZKC45xQ1D9VMN7afYg5pAiDjc9sFBLktKt+FrllA2qx/ma6us
+ FgKYxwgxpOUJO5m3T8uXqh4kKE2Y9nrkA4/bH828CnDOmUyj9QwLej/H63PSm2h6Uu7p
+ cdQQ==
+X-Gm-Message-State: AC+VfDyAZZrBEQgXeQDrkaQYjJEhChYJLN12Rb71eDlH8sdKH1bNH8si
+ PidkhI9FrHvLaiPCdqMcX22CZyy/OuXPETFRde5AFQ==
+X-Google-Smtp-Source: ACHHUZ5DaioK1TXRd33tj9Kq922BXwIOeOuZeQ+C1hGTFrXRYbkZdsBOYes41MZx10122HrPjXThSxAGXdK/gwcjNqk=
+X-Received: by 2002:a0d:e6d5:0:b0:55a:30f5:3d65 with SMTP id
+ p204-20020a0de6d5000000b0055a30f53d65mr31086924ywe.41.1684083768354; Sun, 14
+ May 2023 10:02:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
- <20230321011821.635977-3-dmitry.baryshkov@linaro.org>
- <ea7af397-1840-f15b-6f56-2d0559b8be4d@quicinc.com>
-In-Reply-To: <ea7af397-1840-f15b-6f56-2d0559b8be4d@quicinc.com>
+ <20230321011821.635977-4-dmitry.baryshkov@linaro.org>
+ <47ade353-a46a-9f10-f712-4d5502e03ce1@quicinc.com>
+In-Reply-To: <47ade353-a46a-9f10-f712-4d5502e03ce1@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 14 May 2023 20:01:28 +0300
-Message-ID: <CAA8EJppbXavJCT4ErBoW2cBjRoabFK58UQ39T6h96Ovm8yMdEQ@mail.gmail.com>
+Date: Sun, 14 May 2023 20:02:37 +0300
+Message-ID: <CAA8EJprczWqZ9uDPujw0JbOVW6A5+NcF_isnzDmheomRg3MQjw@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v2 02/13] drm/msm/dpu: take plane
- rotation into account for wide planes
+Subject: Re: [Freedreno] [RFC PATCH v2 03/13] drm/msm/dpu: encoder: simplify
+ debugfs handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,101 +77,135 @@ Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 13 May 2023 at 01:12, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Sat, 13 May 2023 at 01:18, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
 >
 >
 > On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
-> > Take into account the plane rotation and flipping when calculating src
-> > positions for the wide plane parts.
+> > As the debugfs is fully cleared on drm device removal, drop the
+> > encoder-specific cleanup function, remove debugfs_root from dpu_encoder
+> > struct and also remove phys_encoder late_register() ops which has been
+> > unused since the driver being added.
 > >
+>
+> Agreed, late_register of encoder_phys is unused, so we can drop that.
+>
+> For the other two things which this patch does:
+>
+> 1) remove debugfs_root from dpu_encoder
+> 2) remove early_unregister of dpu_encoder
+>
+> I think this has been posted separately here
+> https://patchwork.freedesktop.org/patch/534802/?series=117150&rev=1 for
+> which I had given my feedback about why it cant be removed
+
+Sure. And this patch predates your feedback.
+
+>
+> So these 2 parts have to be kept till we sort out that feedback
+>
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Do we need to have a fixes tag for this? This means we dont consider
-> rotation while calculating src position today which is a bug?
-
-Hmm, I thought that I had a check forbidding rotation with the current
-approach, but I don't see it. Most probably I thought about it and
-then forgot to add it.
-The proper fix should be to disallow it for static SSPP case. I'll
-include the patch into v3.
-
->
 > > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++---------
-> >   1 file changed, 17 insertions(+), 10 deletions(-)
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 22 +++----------------
+> >   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  3 ---
+> >   2 files changed, 3 insertions(+), 22 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > index 2e63eb0a2f3f..d43e04fc4578 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -887,16 +887,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
-> >               return -EINVAL;
-> >       }
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 97d8d777f178..28729c77364f 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -142,7 +142,6 @@ enum dpu_enc_rc_states {
+> >    * @crtc_kickoff_cb:                Callback into CRTC that will flush & start
+> >    *                          all CTL paths
+> >    * @crtc_kickoff_cb_data:   Opaque user data given to crtc_kickoff_cb
+> > - * @debugfs_root:            Debug file system root file node
+> >    * @enc_lock:                       Lock around physical encoder
+> >    *                          create/destroy/enable/disable
+> >    * @frame_busy_mask:                Bitmask tracking which phys_enc we are still
+> > @@ -186,7 +185,6 @@ struct dpu_encoder_virt {
+> >       struct drm_crtc *crtc;
+> >       struct drm_connector *connector;
 > >
-> > -     pipe_cfg->src_rect = new_plane_state->src;
+> > -     struct dentry *debugfs_root;
+> >       struct mutex enc_lock;
+> >       DECLARE_BITMAP(frame_busy_mask, MAX_PHYS_ENCODERS_PER_VIRTUAL);
+> >       void (*crtc_frame_event_cb)(void *, u32 event);
+> > @@ -2134,7 +2132,7 @@ DEFINE_SHOW_ATTRIBUTE(_dpu_encoder_status);
+> >   static int _dpu_encoder_init_debugfs(struct drm_encoder *drm_enc)
+> >   {
+> >       struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> > -     int i;
+> > +     struct dentry *debugfs_root;
+> >
+> >       char name[DPU_NAME_SIZE];
+> >
+> > @@ -2146,18 +2144,12 @@ static int _dpu_encoder_init_debugfs(struct drm_encoder *drm_enc)
+> >       snprintf(name, DPU_NAME_SIZE, "encoder%u", drm_enc->base.id);
+> >
+> >       /* create overall sub-directory for the encoder */
+> > -     dpu_enc->debugfs_root = debugfs_create_dir(name,
+> > +     debugfs_root = debugfs_create_dir(name,
+> >                       drm_enc->dev->primary->debugfs_root);
+> >
+> >       /* don't error check these */
+> >       debugfs_create_file("status", 0600,
+> > -             dpu_enc->debugfs_root, dpu_enc, &_dpu_encoder_status_fops);
 > > -
-> > -     /* state->src is 16.16, src_rect is not */
-> > -     pipe_cfg->src_rect.x1 >>= 16;
-> > -     pipe_cfg->src_rect.x2 >>= 16;
-> > -     pipe_cfg->src_rect.y1 >>= 16;
-> > -     pipe_cfg->src_rect.y2 >>= 16;
+> > -     for (i = 0; i < dpu_enc->num_phys_encs; i++)
+> > -             if (dpu_enc->phys_encs[i]->ops.late_register)
+> > -                     dpu_enc->phys_encs[i]->ops.late_register(
+> > -                                     dpu_enc->phys_encs[i],
+> > -                                     dpu_enc->debugfs_root);
+> > +             debugfs_root, dpu_enc, &_dpu_encoder_status_fops);
+> >
+> >       return 0;
+> >   }
+> > @@ -2173,13 +2165,6 @@ static int dpu_encoder_late_register(struct drm_encoder *encoder)
+> >       return _dpu_encoder_init_debugfs(encoder);
+> >   }
+> >
+> > -static void dpu_encoder_early_unregister(struct drm_encoder *encoder)
+> > -{
+> > -     struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(encoder);
 > > -
-> > -     pipe_cfg->dst_rect = new_plane_state->dst;
+> > -     debugfs_remove_recursive(dpu_enc->debugfs_root);
+> > -}
 > > -
-> >       fb_rect.x2 = new_plane_state->fb->width;
-> >       fb_rect.y2 = new_plane_state->fb->height;
+> >   static int dpu_encoder_virt_add_phys_encs(
+> >               struct msm_display_info *disp_info,
+> >               struct dpu_encoder_virt *dpu_enc,
+> > @@ -2406,7 +2391,6 @@ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
+> >   static const struct drm_encoder_funcs dpu_encoder_funcs = {
+> >               .destroy = dpu_encoder_destroy,
+> >               .late_register = dpu_encoder_late_register,
+> > -             .early_unregister = dpu_encoder_early_unregister,
+> >   };
 > >
-> > @@ -912,6 +902,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >   int dpu_encoder_setup(struct drm_device *dev, struct drm_encoder *enc,
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> > index 1d434b22180d..9e29079a6fc4 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> > @@ -63,7 +63,6 @@ struct dpu_encoder_phys;
+> >   /**
+> >    * struct dpu_encoder_phys_ops - Interface the physical encoders provide to
+> >    *  the containing virtual encoder.
+> > - * @late_register:           DRM Call. Add Userspace interfaces, debugfs.
+> >    * @prepare_commit:         MSM Atomic Call, start of atomic commit sequence
+> >    * @is_master:                      Whether this phys_enc is the current master
+> >    *                          encoder. Can be switched at enable time. Based
+> > @@ -93,8 +92,6 @@ struct dpu_encoder_phys;
+> >    */
 > >
-> >       max_linewidth = pdpu->catalog->caps->max_linewidth;
-> >
-> > +     /* state->src is 16.16, src_rect is not */
-> > +     drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
-> > +
-> > +     pipe_cfg->dst_rect = new_plane_state->dst;
-> > +
-> > +     drm_rect_rotate(&pipe_cfg->src_rect,
-> > +                     new_plane_state->fb->width, new_plane_state->fb->height,
-> > +                     new_plane_state->rotation);
-> > +
-> >       if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
-> >               /*
-> >                * In parallel multirect case only the half of the usual width
-> > @@ -959,6 +958,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
-> >               r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
-> >       }
-> >
-> > +     drm_rect_rotate_inv(&pipe_cfg->src_rect,
-> > +                         new_plane_state->fb->width, new_plane_state->fb->height,
-> > +                         new_plane_state->rotation);
-> > +     if (r_pipe->sspp)
->
-> Dont you need to check for if (r_pipe_cfg) here and not if
-> (r_pipe->sspp) because parameter you are passing is the r_pipe_cfg to
-> drm_rect_rotate_inv().
-
-Of course not. r_pipe_cfg is a pointer to the field in pstate. We know
-that it can not be NULL.
-
->
-> So we rotated the pipe_cfg once, then rotated_inv it to restore the
-> rectangle to its original state, but r_pipe_cfg's rectangle was never
-> rotated as it was not allocated before this function so it will remain
-> in inverse rotated state now right?
-
-No. r_pipe_cfg is set beforehand to the half of the rotated pipe_cfg.
-
-> > +             drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-> > +                                 new_plane_state->fb->width, new_plane_state->fb->height,
-> > +                                 new_plane_state->rotation);
-> > +
-> >       ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
-> >       if (ret)
-> >               return ret;
+> >   struct dpu_encoder_phys_ops {
+> > -     int (*late_register)(struct dpu_encoder_phys *encoder,
+> > -                     struct dentry *debugfs_root);
+> >       void (*prepare_commit)(struct dpu_encoder_phys *encoder);
+> >       bool (*is_master)(struct dpu_encoder_phys *encoder);
+> >       void (*atomic_mode_set)(struct dpu_encoder_phys *encoder,
 
 
 
---
+-- 
 With best wishes
 Dmitry
