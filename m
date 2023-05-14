@@ -2,35 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE794701A07
-	for <lists+freedreno@lfdr.de>; Sat, 13 May 2023 23:20:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D76701E5B
+	for <lists+freedreno@lfdr.de>; Sun, 14 May 2023 19:01:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97B3810E02D;
-	Sat, 13 May 2023 21:20:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59D5C10E095;
+	Sun, 14 May 2023 17:01:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F0510E02D
- for <freedreno@lists.freedesktop.org>; Sat, 13 May 2023 21:20:06 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 7FBED3EEAA;
- Sat, 13 May 2023 23:20:04 +0200 (CEST)
-Date: Sat, 13 May 2023 23:20:03 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <6f3v5xmv66yw7mxecwqbrj6mxlfos3cwosb6xqs7hjbgrjgfqz@acm27l7qot5f>
-References: <20230329-rfc-msm-dsc-helper-v10-0-4cb21168c227@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v10-3-4cb21168c227@quicinc.com>
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7286010E07E
+ for <freedreno@lists.freedesktop.org>; Sun, 14 May 2023 17:01:40 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-55a44a2637bso173767387b3.2
+ for <freedreno@lists.freedesktop.org>; Sun, 14 May 2023 10:01:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684083699; x=1686675699;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=2UHE6KlW9JyEYO4rMr/i63nT9UiBXdbXXzrRs9yxmkU=;
+ b=RPKTeggauu5yKDq3wGbtAgtozDUWB6aA+Niak68nX+2zDqgRHObtdkLgGG+ZS2s62q
+ AQM5/zSZhEl6sm9upmDn+HR9bAEO/uu3Ori8BkiQDeEv7r58e46h6gLcP7/IPJpbuQhS
+ ICnC6i6cT2fqe8mNqWMod+M5DcSyf0ddQN+1s6p/UHwwJmxZa9a0M/PG4KqWgFRqukFY
+ NT7QlCB+4sUJCU5ujJMlS5tJWvLjyWj1FtHwYgK9qlwe6z1A6SFU3NydcxRDYXb04rvc
+ 9EUeFGRjjaW0qh9gLJ3Zbp/vQ4tJSA1Pw7oM6NDFfOosBrCvWyBHnHvEWe7qOjCmd45S
+ b6BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684083699; x=1686675699;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2UHE6KlW9JyEYO4rMr/i63nT9UiBXdbXXzrRs9yxmkU=;
+ b=io2GyPJbd7frA7CJfHn2oF9DkZekyi7Ho3t0LAQja2b5mKwHoQn8ZYgVPjhKSzRtzD
+ yp5YpnaqLcjzOiYx7utMyXNnuD2w2mg5vaxabVAEtMpx5KBVvSvFTai4eamu7vWqFoqz
+ KeyX69wIQi+3Y7QWCHjt9H5ArVZhXwEBiNyUXh2iEqVvG9//5JnBnG0vjzXiUJbl9DCz
+ htBVTq4NNV6g9KkeqKDtOqU7haRRpmKH1efEFYo+v44IBgo+NbpbHCg7zlLJkxyCAOuH
+ CvbTwPGk48BLzHKR6Ts06hMCMt3S2HFZyQb0UCqRsO00PVMQuaHYpKEzqR+L7F7V2kbn
+ HZvA==
+X-Gm-Message-State: AC+VfDzHeKltmISN3D++THZCJ3TmplcwQaTFTKYumklUohXPzyg5tYWA
+ YvcZbppBJuml/MjpMuOZHyexVBbQ6Un1mmTGbOI97xi0U3thcmdj5rn+0w==
+X-Google-Smtp-Source: ACHHUZ6CIWv7Cilknh4FESFfjsUlP+18hc9999+7vuxr0cmZZf09oa3qy8n/zP5ZyAmBRAUuuyuzlPz6QAxgVJIsHeE=
+X-Received: by 2002:a81:4985:0:b0:55a:577f:eff9 with SMTP id
+ w127-20020a814985000000b0055a577feff9mr29769040ywa.28.1684083699008; Sun, 14
+ May 2023 10:01:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v10-3-4cb21168c227@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v10 3/8] drm/msm/dsi: use DRM DSC helpers
- for DSC setup
+References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
+ <20230321011821.635977-3-dmitry.baryshkov@linaro.org>
+ <ea7af397-1840-f15b-6f56-2d0559b8be4d@quicinc.com>
+In-Reply-To: <ea7af397-1840-f15b-6f56-2d0559b8be4d@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 14 May 2023 20:01:28 +0300
+Message-ID: <CAA8EJppbXavJCT4ErBoW2cBjRoabFK58UQ39T6h96Ovm8yMdEQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH v2 02/13] drm/msm/dpu: take plane
+ rotation into account for wide planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,134 +69,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-12 14:32:13, Jessica Zhang wrote:
-> 
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Use new DRM DSC helpers to setup DSI DSC configuration. The
-> initial_scale_value needs to be adjusted according to the standard, but
-> this is a separate change.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+On Sat, 13 May 2023 at 01:12, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
+> > Take into account the plane rotation and flipping when calculating src
+> > positions for the wide plane parts.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> Do we need to have a fixes tag for this? This means we dont consider
+> rotation while calculating src position today which is a bug?
 
-All the parameters check out.
+Hmm, I thought that I had a check forbidding rotation with the current
+approach, but I don't see it. Most probably I thought about it and
+then forgot to add it.
+The proper fix should be to disallow it for static SSPP case. I'll
+include the patch into v3.
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++---------
+> >   1 file changed, 17 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > index 2e63eb0a2f3f..d43e04fc4578 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -887,16 +887,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >               return -EINVAL;
+> >       }
+> >
+> > -     pipe_cfg->src_rect = new_plane_state->src;
+> > -
+> > -     /* state->src is 16.16, src_rect is not */
+> > -     pipe_cfg->src_rect.x1 >>= 16;
+> > -     pipe_cfg->src_rect.x2 >>= 16;
+> > -     pipe_cfg->src_rect.y1 >>= 16;
+> > -     pipe_cfg->src_rect.y2 >>= 16;
+> > -
+> > -     pipe_cfg->dst_rect = new_plane_state->dst;
+> > -
+> >       fb_rect.x2 = new_plane_state->fb->width;
+> >       fb_rect.y2 = new_plane_state->fb->height;
+> >
+> > @@ -912,6 +902,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >
+> >       max_linewidth = pdpu->catalog->caps->max_linewidth;
+> >
+> > +     /* state->src is 16.16, src_rect is not */
+> > +     drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+> > +
+> > +     pipe_cfg->dst_rect = new_plane_state->dst;
+> > +
+> > +     drm_rect_rotate(&pipe_cfg->src_rect,
+> > +                     new_plane_state->fb->width, new_plane_state->fb->height,
+> > +                     new_plane_state->rotation);
+> > +
+> >       if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
+> >               /*
+> >                * In parallel multirect case only the half of the usual width
+> > @@ -959,6 +958,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >               r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
+> >       }
+> >
+> > +     drm_rect_rotate_inv(&pipe_cfg->src_rect,
+> > +                         new_plane_state->fb->width, new_plane_state->fb->height,
+> > +                         new_plane_state->rotation);
+> > +     if (r_pipe->sspp)
+>
+> Dont you need to check for if (r_pipe_cfg) here and not if
+> (r_pipe->sspp) because parameter you are passing is the r_pipe_cfg to
+> drm_rect_rotate_inv().
 
-(And as asked elsewhere: is it valuable to have t-b on top of this r-b,
- for all the devices/boards/SoCs/panels I have these patches working
- on?)
+Of course not. r_pipe_cfg is a pointer to the field in pstate. We know
+that it can not be NULL.
 
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 61 +++++---------------------------------
->  1 file changed, 8 insertions(+), 53 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 961689a255c4..74d38f90398a 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1731,28 +1731,9 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
->  	return -EINVAL;
->  }
->  
-> -static u32 dsi_dsc_rc_buf_thresh[DSC_NUM_BUF_RANGES - 1] = {
-> -	0x0e, 0x1c, 0x2a, 0x38, 0x46, 0x54, 0x62,
-> -	0x69, 0x70, 0x77, 0x79, 0x7b, 0x7d, 0x7e
-> -};
-> -
-> -/* only 8bpc, 8bpp added */
-> -static char min_qp[DSC_NUM_BUF_RANGES] = {
-> -	0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 7, 13
-> -};
-> -
-> -static char max_qp[DSC_NUM_BUF_RANGES] = {
-> -	4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 11, 12, 13, 13, 15
-> -};
-> -
-> -static char bpg_offset[DSC_NUM_BUF_RANGES] = {
-> -	2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
-> -};
-> -
->  static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc_config *dsc)
->  {
-> -	int i;
-> -	u16 bpp = dsc->bits_per_pixel >> 4;
-> +	int ret;
->  
->  	if (dsc->bits_per_pixel & 0xf) {
->  		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support fractional bits_per_pixel\n");
-> @@ -1764,49 +1745,23 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
->  		return -EOPNOTSUPP;
->  	}
->  
-> -	dsc->rc_model_size = 8192;
-> -	dsc->first_line_bpg_offset = 12;
-> -	dsc->rc_edge_factor = 6;
-> -	dsc->rc_tgt_offset_high = 3;
-> -	dsc->rc_tgt_offset_low = 3;
->  	dsc->simple_422 = 0;
->  	dsc->convert_rgb = 1;
->  	dsc->vbr_enable = 0;
->  
-> -	/* handle only bpp = bpc = 8 */
-> -	for (i = 0; i < DSC_NUM_BUF_RANGES - 1 ; i++)
-> -		dsc->rc_buf_thresh[i] = dsi_dsc_rc_buf_thresh[i];
-> +	drm_dsc_set_const_params(dsc);
-> +	drm_dsc_set_rc_buf_thresh(dsc);
->  
-> -	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
-> -		dsc->rc_range_params[i].range_min_qp = min_qp[i];
-> -		dsc->rc_range_params[i].range_max_qp = max_qp[i];
-> -		/*
-> -		 * Range BPG Offset contains two's-complement signed values that fill
-> -		 * 8 bits, yet the registers and DCS PPS field are only 6 bits wide.
-> -		 */
+>
+> So we rotated the pipe_cfg once, then rotated_inv it to restore the
+> rectangle to its original state, but r_pipe_cfg's rectangle was never
+> rotated as it was not allocated before this function so it will remain
+> in inverse rotated state now right?
 
-I wish drm_dsc_setup_rc_params() used this comment :)
+No. r_pipe_cfg is set beforehand to the half of the rotated pipe_cfg.
 
-> -		dsc->rc_range_params[i].range_bpg_offset = bpg_offset[i] & DSC_RANGE_BPG_OFFSET_MASK;
-> +	/* handle only bpp = bpc = 8, pre-SCR panels */
-> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
-> +		return ret;
->  	}
->  
-> -	dsc->initial_offset = 6144;		/* Not bpp 12 */
-> -	if (bpp != 8)
-> -		dsc->initial_offset = 2048;	/* bpp = 12 */
-> -
-> -	if (dsc->bits_per_component <= 10)
-> -		dsc->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
-> -	else
-> -		dsc->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
-> -
-> -	dsc->initial_xmit_delay = 512;
->  	dsc->initial_scale_value = 32;
-> -	dsc->first_line_bpg_offset = 12;
->  	dsc->line_buf_depth = dsc->bits_per_component + 1;
->  
-> -	/* bpc 8 */
-> -	dsc->flatness_min_qp = 3;
-> -	dsc->flatness_max_qp = 12;
-> -	dsc->rc_quant_incr_limit0 = 11;
-> -	dsc->rc_quant_incr_limit1 = 11;
-> -
->  	return drm_dsc_compute_rc_parameters(dsc);
->  }
->  
-> 
-> -- 
-> 2.40.1
-> 
+> > +             drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
+> > +                                 new_plane_state->fb->width, new_plane_state->fb->height,
+> > +                                 new_plane_state->rotation);
+> > +
+> >       ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
+> >       if (ret)
+> >               return ret;
+
+
+
+--
+With best wishes
+Dmitry
