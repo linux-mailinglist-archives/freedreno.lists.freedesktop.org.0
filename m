@@ -2,48 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D2B702CF8
-	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 14:43:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D299702D1F
+	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 14:54:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA27C10E1B7;
-	Mon, 15 May 2023 12:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F14410E1B7;
+	Mon, 15 May 2023 12:54:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E033110E178
- for <freedreno@lists.freedesktop.org>; Mon, 15 May 2023 09:23:58 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pyUNq-0004G7-84; Mon, 15 May 2023 11:20:46 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pyUNQ-000KQl-8J; Mon, 15 May 2023 11:20:20 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pyUNP-004cYH-B9; Mon, 15 May 2023 11:20:19 +0200
-Date: Mon, 15 May 2023 11:20:19 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Inki Dae <daeinki@gmail.com>
-Message-ID: <20230515092019.a3uwmofkkujo772g@pengutronix.de>
-References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
- <CAAQKjZP5jhwFg9sNndpa6_7G6HoV76heQbt=knoOEZZskexrhg@mail.gmail.com>
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9CED10E1B7;
+ Mon, 15 May 2023 12:54:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1684155248; x=1715691248;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=yplrmYNNQPplQTwHqMtTpl2JRIkVQ1ZIOj5xbrxhjuQ=;
+ b=dRRJwnzq75zsdx9Jx7ihuIej7Xvf4GFix3OL2ibjMBj0RcaF5xoT1nSW
+ YZGiusAlZqLdF+6iht77p0ZxrJbbJHlIyBvVobDXUt/JLxnnp8nFnjcbW
+ hrVqeDqdYNC95S9Hml0yFjQ+9VhpFSIknYTvuZ9xdV8smb4n6IZxt79wJ
+ jz9QNB3BuyBfVWdKd4b8WdZu0zVDwe8tcPR55dOtyjVBpHQyrPW+8ctJd
+ +84UoG4RZ2Ymb+VLB/UyptTjEYqyFp0OF6DmBAgK6GzTMOTdbsW3fMUnj
+ JccfuaA9+hVBoo2KBnEc4UySwquOsdg9SO3m2hAfOwFppX67+Lc9CJbYp A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="354347276"
+X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="354347276"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2023 05:54:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="812940419"
+X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="812940419"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by fmsmga002.fm.intel.com with SMTP; 15 May 2023 05:54:02 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 15 May 2023 15:54:02 +0300
+Date: Mon, 15 May 2023 15:54:02 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZGIraoocR1gLCWjZ@intel.com>
+References: <20230124104548.3234554-1-dmitry.baryshkov@linaro.org>
+ <20230124104548.3234554-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="suzv37z45wvm64m4"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAAQKjZP5jhwFg9sNndpa6_7G6HoV76heQbt=knoOEZZskexrhg@mail.gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
-X-Mailman-Approved-At: Mon, 15 May 2023 12:43:29 +0000
-Subject: Re: [Freedreno] [PATCH 00/53] drm: Convert to platform remove
- callback returning void
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230124104548.3234554-2-dmitry.baryshkov@linaro.org>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH v3 2/2] drm/probe_helper: sort
+ out poll_running vs poll_enabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,168 +62,197 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Danilo Krummrich <dakr@redhat.com>,
- NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
- Rahul T R <r-ravikumar@ti.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- etnaviv@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
- Hyun Kwon <hyun.kwon@xilinx.com>, Andrew Jeffery <andrew@aj.id.au>,
- Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Miaoqian Lin <linmq006@gmail.com>, linux-aspeed@lists.ozlabs.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- lima@lists.freedesktop.org, Chunyan Zhang <zhang.lyra@gmail.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Minghao Chi <chi.minghao@zte.com.cn>,
- Steven Price <steven.price@arm.com>, linux-rockchip@lists.infradead.org,
- Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Maxime Ripard <mripard@kernel.org>, Tian Tao <tiantao6@hisilicon.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Brian Starkey <brian.starkey@arm.com>, Karol Herbst <kherbst@redhat.com>,
- Yuan Can <yuancan@huawei.com>, Stefan Agner <stefan@agner.ch>,
- Michal Simek <michal.simek@xilinx.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Rob Herring <robh@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
- nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
- Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Alison Wang <alison.wang@nxp.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Cercueil <paul@crapouillou.net>, Tomi Valkeinen <tomba@kernel.org>,
- Deepak R Varma <drv@mailo.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Ricardo Ribalda <ribalda@chromium.org>, John Stultz <jstultz@google.com>,
- Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Sandy Huang <hjc@rock-chips.com>, Liu Shixin <liushixin2@huawei.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- linux-renesas-soc@vger.kernel.org, Jayshri Pawar <jpawar@cadence.com>,
- Jonas Karlman <jonas@kwiboo.se>, Russell King <linux@armlinux.org.uk>,
- Qiang Yu <yuq825@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Melissa Wen <mwen@igalia.com>, linux-mediatek@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Liu Ying <victor.liu@nxp.com>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Chen-Yu Tsai <wenst@chromium.org>,
+ David Airlie <airlied@gmail.com>, Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Jan 24, 2023 at 12:45:48PM +0200, Dmitry Baryshkov wrote:
+> There are two flags attemting to guard connector polling:
+> poll_enabled and poll_running. While poll_enabled semantics is clearly
+> defined and fully adhered (mark that drm_kms_helper_poll_init() was
+> called and not finalized by the _fini() call), the poll_running flag
+> doesn't have such clearliness.
+> 
+> This flag is used only in drm_helper_probe_single_connector_modes() to
+> guard calling of drm_kms_helper_poll_enable, it doesn't guard the
+> drm_kms_helper_poll_fini(), etc. Change it to only be set if the polling
+> is actually running. Tie HPD enablement to this flag.
 
---suzv37z45wvm64m4
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This apparently broke something in i915. I suspect polling
+is no longer happening correctly while the device is runtime
+suspended.
 
-On Mon, May 15, 2023 at 04:50:57PM +0900, Inki Dae wrote:
-> Hi,
->=20
-> 2023=EB=85=84 5=EC=9B=94 8=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 1:32, =
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>=EB=8B=98=EC=9D=B4 =
-=EC=9E=91=EC=84=B1:
-> >
-> > Hello,
-> >
-> > this patch series adapts the platform drivers below drivers/gpu/drm
-> > to use the .remove_new() callback. Compared to the traditional .remove()
-> > callback .remove_new() returns no value. This is a good thing because
->=20
-> First of all, I apologize for the delay in providing my review comments.
->=20
-> Not related to this patch but seems that the "remove_new" callback
-> naming implicitly implies that there is no need to return anything
-> since its return type is void. To help users understand the intended
-> behavior based on the callback name, how about considering a modified
-> naming convention like "remove_no_return" or something similar?
->=20
-> The relevant patch has already been merged as outlined below,
-> author Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de> 2022-12-09
-> 16:09:14 +0100
-> committer Greg Kroah-Hartman <gregkh@linuxfoundation.org> 2023-01-17
-> 19:04:17 +0100
-> commit 5c5a7680e67ba6fbbb5f4d79fa41485450c1985c (patch)
-> tree 0b6dbc003a6bb4a3f7fb084d31326bbfa3ba3f7c
-> parent 7bbb89b420d9e290cb34864832de8fcdf2c140dc (diff)
-> download linux-5c5a7680e67ba6fbbb5f4d79fa41485450c1985c.tar.gz
-> platform: Provide a remove callback that returns no value
->=20
-> Maybe a trivial thing but how about renaming it? I think the postfix,
-> 'new', is a very generic word. I think you could introduce another
-> patch for it if you think it's reasonable.
+https://gitlab.freedesktop.org/drm/intel/-/issues/8451
 
-=2Eremove_new is only a temporary name. Once all drivers are converted,
-=2Eremove is changed to return void and then all drivers are converted
-back. While "remove_new" might not be a brilliant name choice, touching
-all already converted drivers again just to improve the temporary
-measures doesn't sound right.
+> 
+> This fixes the following warning reported after merging the HPD series:
+> 
+> Hot plug detection already enabled
+> WARNING: CPU: 2 PID: 9 at drivers/gpu/drm/drm_bridge.c:1257 drm_bridge_hpd_enable+0x94/0x9c [drm]
+> Modules linked in: videobuf2_memops snd_soc_simple_card snd_soc_simple_card_utils fsl_imx8_ddr_perf videobuf2_common snd_soc_imx_spdif adv7511 etnaviv imx8m_ddrc imx_dcss mc cec nwl_dsi gov
+> CPU: 2 PID: 9 Comm: kworker/u8:0 Not tainted 6.2.0-rc2-15208-g25b283acd578 #6
+> Hardware name: NXP i.MX8MQ EVK (DT)
+> Workqueue: events_unbound deferred_probe_work_func
+> pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> lr : drm_bridge_hpd_enable+0x94/0x9c [drm]
+> sp : ffff800009ef3740
+> x29: ffff800009ef3740 x28: ffff000009331f00 x27: 0000000000001000
+> x26: 0000000000000020 x25: ffff800001148ed8 x24: ffff00000a8fe000
+> x23: 00000000fffffffd x22: ffff000005086348 x21: ffff800001133ee0
+> x20: ffff00000550d800 x19: ffff000005086288 x18: 0000000000000006
+> x17: 0000000000000000 x16: ffff8000096ef008 x15: 97ffff2891004260
+> x14: 2a1403e194000000 x13: 97ffff2891004260 x12: 2a1403e194000000
+> x11: 7100385f29400801 x10: 0000000000000aa0 x9 : ffff800008112744
+> x8 : ffff000000250b00 x7 : 0000000000000003 x6 : 0000000000000011
+> x5 : 0000000000000000 x4 : ffff0000bd986a48 x3 : 0000000000000001
+> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff000000250000
+> Call trace:
+>  drm_bridge_hpd_enable+0x94/0x9c [drm]
+>  drm_bridge_connector_enable_hpd+0x2c/0x3c [drm_kms_helper]
+>  drm_kms_helper_poll_enable+0x94/0x10c [drm_kms_helper]
+>  drm_helper_probe_single_connector_modes+0x1a8/0x510 [drm_kms_helper]
+>  drm_client_modeset_probe+0x204/0x1190 [drm]
+>  __drm_fb_helper_initial_config_and_unlock+0x5c/0x4a4 [drm_kms_helper]
+>  drm_fb_helper_initial_config+0x54/0x6c [drm_kms_helper]
+>  drm_fbdev_client_hotplug+0xd0/0x140 [drm_kms_helper]
+>  drm_fbdev_generic_setup+0x90/0x154 [drm_kms_helper]
+>  dcss_kms_attach+0x1c8/0x254 [imx_dcss]
+>  dcss_drv_platform_probe+0x90/0xfc [imx_dcss]
+>  platform_probe+0x70/0xcc
+>  really_probe+0xc4/0x2e0
+>  __driver_probe_device+0x80/0xf0
+>  driver_probe_device+0xe0/0x164
+>  __device_attach_driver+0xc0/0x13c
+>  bus_for_each_drv+0x84/0xe0
+>  __device_attach+0xa4/0x1a0
+>  device_initial_probe+0x1c/0x30
+>  bus_probe_device+0xa4/0xb0
+>  deferred_probe_work_func+0x90/0xd0
+>  process_one_work+0x200/0x474
+>  worker_thread+0x74/0x43c
+>  kthread+0xfc/0x110
+>  ret_from_fork+0x10/0x20
+> ---[ end trace 0000000000000000 ]---
+> 
+> Reported-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> Fixes: c8268795c9a9 ("drm/probe-helper: enable and disable HPD on connectors")
+> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Tested-by: Chen-Yu Tsai <wenst@chromium.org>
+> Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> Tested-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/drm_probe_helper.c | 42 +++++++++++++++---------------
+>  1 file changed, 21 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+> index ab787d71fa66..8127be134c39 100644
+> --- a/drivers/gpu/drm/drm_probe_helper.c
+> +++ b/drivers/gpu/drm/drm_probe_helper.c
+> @@ -282,7 +282,8 @@ void drm_kms_helper_poll_enable(struct drm_device *dev)
+>  	bool poll = false;
+>  	unsigned long delay = DRM_OUTPUT_POLL_PERIOD;
+>  
+> -	if (!dev->mode_config.poll_enabled || !drm_kms_helper_poll)
+> +	if (!dev->mode_config.poll_enabled || !drm_kms_helper_poll ||
+> +	    dev->mode_config.poll_running)
+>  		return;
+>  
+>  	poll = drm_kms_helper_enable_hpd(dev);
+> @@ -304,6 +305,8 @@ void drm_kms_helper_poll_enable(struct drm_device *dev)
+>  
+>  	if (poll)
+>  		schedule_delayed_work(&dev->mode_config.output_poll_work, delay);
+> +
+> +	dev->mode_config.poll_running = true;
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_poll_enable);
+>  
+> @@ -592,10 +595,7 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
+>  	}
+>  
+>  	/* Re-enable polling in case the global poll config changed. */
+> -	if (drm_kms_helper_poll != dev->mode_config.poll_running)
+> -		drm_kms_helper_poll_enable(dev);
+> -
+> -	dev->mode_config.poll_running = drm_kms_helper_poll;
+> +	drm_kms_helper_poll_enable(dev);
+>  
+>  	if (connector->status == connector_status_disconnected) {
+>  		DRM_DEBUG_KMS("[CONNECTOR:%d:%s] disconnected\n",
+> @@ -735,8 +735,11 @@ static void output_poll_execute(struct work_struct *work)
+>  	changed = dev->mode_config.delayed_event;
+>  	dev->mode_config.delayed_event = false;
+>  
+> -	if (!drm_kms_helper_poll)
+> +	if (!drm_kms_helper_poll && dev->mode_config.poll_running) {
+> +		drm_kms_helper_disable_hpd(dev);
+> +		dev->mode_config.poll_running = false;
+>  		goto out;
+> +	}
+>  
+>  	if (!mutex_trylock(&dev->mode_config.mutex)) {
+>  		repoll = true;
+> @@ -833,19 +836,6 @@ bool drm_kms_helper_is_poll_worker(void)
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+>  
+> -static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
+> -{
+> -	if (!dev->mode_config.poll_enabled)
+> -		return;
+> -
+> -	if (fini)
+> -		dev->mode_config.poll_enabled = false;
+> -
+> -	drm_kms_helper_disable_hpd(dev);
+> -
+> -	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
+> -}
+> -
+>  /**
+>   * drm_kms_helper_poll_disable - disable output polling
+>   * @dev: drm_device
+> @@ -862,7 +852,12 @@ static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
+>   */
+>  void drm_kms_helper_poll_disable(struct drm_device *dev)
+>  {
+> -	drm_kms_helper_poll_disable_fini(dev, false);
+> +	if (dev->mode_config.poll_running)
+> +		drm_kms_helper_disable_hpd(dev);
+> +
+> +	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
+> +
+> +	dev->mode_config.poll_running = false;
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_poll_disable);
+>  
+> @@ -900,7 +895,12 @@ EXPORT_SYMBOL(drm_kms_helper_poll_init);
+>   */
+>  void drm_kms_helper_poll_fini(struct drm_device *dev)
+>  {
+> -	drm_kms_helper_poll_disable_fini(dev, true);
+> +	if (!dev->mode_config.poll_enabled)
+> +		return;
+> +
+> +	drm_kms_helper_poll_disable(dev);
+> +
+> +	dev->mode_config.poll_enabled = false;
+>  }
+>  EXPORT_SYMBOL(drm_kms_helper_poll_fini);
+>  
+> -- 
+> 2.39.0
 
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
-   |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---suzv37z45wvm64m4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmRh+VIACgkQj4D7WH0S
-/k7epggAlsMX1TbSjMAIV+LPNrZU/ErXl1QWJt2/nA/iQmxppFkkR19U334HeeZf
-VXsu0FwIvUZpfndnO3hCw3pvEa4gQiTo7reQsd28ECZaLwTVQYvp6o/LceTtaOJ2
-5+FeefPV0mHxQ6SiXZ7g7aA4gkkw2iJY9s7LaPHHXw0jpyOpcZHlNzJioLe4RHdT
-eFYzR99DVhYH81tw8szT4fpAS3Vw2Eqq5PyQHDRT12PrJdM0Ig+3ei53DU4adRWh
-w/kH6vGx2XBIbqNrXq5AcSjVnMvrKq7iKPRxMCz58JC4oCirfqT+7tGWbOgJLLEx
-BCbOuZXZE9d8Thjrbo3cXVRujnhsLg==
-=GMrP
------END PGP SIGNATURE-----
-
---suzv37z45wvm64m4--
+-- 
+Ville Syrjälä
+Intel
