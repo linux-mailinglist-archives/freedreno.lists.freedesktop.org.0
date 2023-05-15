@@ -2,57 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7107027F8
-	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 11:12:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F9D702907
+	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 11:41:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2581510E18A;
-	Mon, 15 May 2023 09:12:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFC810E193;
+	Mon, 15 May 2023 09:40:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F48F10E178;
- Mon, 15 May 2023 09:12:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684141930; x=1715677930;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=dhM3m8vOuQXUzo4VYwSqzWC32+ahxslyhibsQL5kqac=;
- b=L2oK9Q6L+lt8y5MVhAryQsO0ILS63BSwuBIWwPw3boCsd9pbx3aqYwrt
- 9c1GbHcSXELiONd6WfaqKLcmQ23JIXtNj5P+gA0OPaRFvvBJ8rb42686Y
- sN3/fPHxWkMp4KtARX9rlBlRUNdixQjIkurCn1o1Z2sq6jPSC4NC+V8SW
- 2tjaEGIDW4RZtV3IDSqs0DajUPKx8c2Sqw5khkixiEyl8KrB43+SUazRR
- nSJ01Aaq83NONJTBz6fPQsj8sGti+ZWMq5MchcBMXn7tefwCBE0mHAIQT
- wSU/QtoTNOKaIG3BOYk+hjvl7iUGDOVum8gh+q8a8Y/S4vpePsgTdWBNM Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="437489750"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="437489750"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 02:12:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="812870323"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="812870323"
-Received: from lveltman-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.42.56])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 02:12:04 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Suraj Kandpal
- <suraj.kandpal@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
- Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-In-Reply-To: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
-Date: Mon, 15 May 2023 12:12:02 +0300
-Message-ID: <871qjij6vx.fsf@intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3517810E18A;
+ Mon, 15 May 2023 09:40:38 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CC1891F749;
+ Mon, 15 May 2023 09:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1684143634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gmr4FfaH5fbVmlkPgeABvPLh70AOaXqGDduq6NJ5ewI=;
+ b=HpNO9MAQmtFT0yZbTdZhHZmp8ZPFMHBzlHtwh31/3eOPlc7YuselHO3PrhTKLIIdYrpcc2
+ yC/MUpPcKq0V3gL1sfNqXEfpioV/utCoqMoBevvXfeJIV3ghSjd6AHvy2XnInEn7rrzxin
+ yDT9gUB2X5QNfk6+Rqi+VQnDwfrpyew=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1684143634;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gmr4FfaH5fbVmlkPgeABvPLh70AOaXqGDduq6NJ5ewI=;
+ b=4pKrYyAEyEMbX3hdJ4z9QYEPh45rqeWWpG6ZCOLivDWeKEx/er2DoKqzb/RJCcDjiJXzJE
+ pM7snHdKQ6tgHNAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6EE5513466;
+ Mon, 15 May 2023 09:40:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5OD4GRL+YWTeTwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 15 May 2023 09:40:34 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
+Date: Mon, 15 May 2023 11:40:21 +0200
+Message-Id: <20230515094033.2133-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Freedreno] [PATCH v5 0/8] drm/i915: move DSC RC tables to
- drm_dsc_helper.c
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/12] drm/fbdev: Remove DRM's helpers for
+ fbdev I/O
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +66,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 04 May 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> Other platforms (msm) will benefit from sharing the DSC config setup
-> functions. This series moves parts of static DSC config data from the
-> i915 driver to the common helpers to be used by other drivers.
->
-> Note: the RC parameters were cross-checked against config files found in
-> DSC model 2021062, 20161212 (and 20150914). The first patch modifies
-> tables according to those config files, while preserving parameter
-> values using the code. I have not changed one of the values in the
-> pre-SCR config file as it clearly looks like a typo in the config file,
-> considering the table E in DSC 1.1 and in the DSC 1.1 SCR.
+DRM provides a number of wrappers around fbdev cfb_() sys_(), fb_io_()
+and fb_sys_() helpers. The DRM functions don't provide any additional
+functionality for most DRM drivers. So remove them and call the fbdev
+I/O helpers directly.
 
-As I believe I've said before, I think it's fine to merge these either
-via drm-intel or drm-misc. Which do you prefer?
+The DRM fbdev I/O wrappers were originally added because <linux/fb.h>
+does not protect its content with CONFIG_FB. DRM fbdev emulation did
+not build if the config option had been disabled. This has been
+fixed. For fbdev-generic and i915, the wrappers added support for damage
+handling. But this is better handled within the two callers, as each
+is special in its damage handling.
 
-BR,
-Jani.
+Patch 1 adds several internal Kconfig otpions that DRM drivers (and
+possibly other fbdev code) will use to select the correct set of I/O
+helpers.
+
+Patches 2 to 9 replace the DRM wrappers in a number of fbdev emulations.
+Patch 10 exports two helpers for damage handling. Patches 11 and 12
+update fbdev-generic and i915 with the help of the exported functions.
+The patches also remove DRM's fbdev I/O helpers, which are now unused.
+
+DRM's fbdev helpers had to select fbdev I/O helpers for I/O and for
+system memory. Each fbdev emulation now selects the correct helpers
+for itself. Depending on the selected DRM drivers, kernel builds will
+now only contain the necessary fbdev I/O helpers and might be slightly
+smaller in size.
+
+v2:
+	* simplify Kconfig handling (Sam)
+
+Thomas Zimmermann (12):
+  fbdev: Add Kconfig options to select different fb_ops helpers
+  drm/armada: Use regular fbdev I/O helpers
+  drm/exynos: Use regular fbdev I/O helpers
+  drm/gma500: Use regular fbdev I/O helpers
+  drm/radeon: Use regular fbdev I/O helpers
+  drm/fbdev-dma: Use regular fbdev I/O helpers
+  drm/msm: Use regular fbdev I/O helpers
+  drm/omapdrm: Use regular fbdev I/O helpers
+  drm/tegra: Use regular fbdev I/O helpers
+  drm/fb-helper: Export helpers for marking damage areas
+  drm/fbdev-generic: Implement dedicated fbdev I/O helpers
+  drm/i915: Implement dedicated fbdev I/O helpers
+
+ drivers/gpu/drm/Kconfig                    |  10 +-
+ drivers/gpu/drm/armada/Kconfig             |   1 +
+ drivers/gpu/drm/armada/armada_fbdev.c      |   9 +-
+ drivers/gpu/drm/drm_fb_helper.c            | 233 ++-------------------
+ drivers/gpu/drm/drm_fbdev_dma.c            |  12 +-
+ drivers/gpu/drm/drm_fbdev_generic.c        |  47 ++++-
+ drivers/gpu/drm/exynos/Kconfig             |   1 +
+ drivers/gpu/drm/exynos/Makefile            |   2 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |  10 +-
+ drivers/gpu/drm/gma500/Kconfig             |   1 +
+ drivers/gpu/drm/gma500/fbdev.c             |   9 +-
+ drivers/gpu/drm/i915/Kconfig               |   1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  51 ++++-
+ drivers/gpu/drm/msm/Kconfig                |   1 +
+ drivers/gpu/drm/msm/msm_fbdev.c            |  12 +-
+ drivers/gpu/drm/omapdrm/Kconfig            |   1 +
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       |  12 +-
+ drivers/gpu/drm/radeon/Kconfig             |   1 +
+ drivers/gpu/drm/radeon/radeon_fbdev.c      |   9 +-
+ drivers/gpu/drm/tegra/Kconfig              |   1 +
+ drivers/gpu/drm/tegra/fbdev.c              |  11 +-
+ drivers/video/fbdev/Kconfig                |  21 ++
+ include/drm/drm_fb_helper.h                |  84 +-------
+ 23 files changed, 184 insertions(+), 356 deletions(-)
 
 
-
->
-> Chances since v4:
-> - Rebased on top of drm-intel-next
-> - Cut the first 8 patches of the series to ease merging. The rest of the
->   patches will go afterwards.
->
-> Chances since v3:
-> - Rebased on top of drm-intel-next
-> - Dropped the msm patch to make patchset fully mergeable through
->   drm-intel
-> - Made drm_dsc_set_const_params() ignore rc_model_size, picked up
->   drm_dsc_set_initial_scale_value() patch by Jessica and switched
->   intel_vdsc.c to use those two helpers.
-> - Added a patch to make i915 actually use rc_tgt_offset_high,
->   rc_tgt_offset_low and rc_edge_factor from struct drm_dsc_config.
->
-> Chances since v2:
-> - Rebased on top of drm-intel-next
->
-> Chances since v1:
-> - Made drm_dsc_rc_buf_thresh static rather than exporting it
-> - Switched drm_dsc_rc_buf_thresh loop to use ARRAY_SIZE. Added
->   BUILD_BUG_ON's to be sure that array sizes are correct
-> - Fixed rc_parameters_data indentation to be logical and tidy
-> - Fixed drm_dsc_setup_rc_params() kerneldoc
-> - Added a clause to drm_dsc_setup_rc_params() to verify bpp and bpc
->   being set.
-> - Fixed range_bpg_offset programming in calculate_rc_params()
-> - Fixed bpp vs bpc bug in intel_dsc_compute_params()
-> - Added FIXME comment next to the customizations in
->   intel_dsc_compute_params().
->
-> Dmitry Baryshkov (8):
->   drm/i915/dsc: change DSC param tables to follow the DSC model
->   drm/i915/dsc: move rc_buf_thresh values to common helper
->   drm/i915/dsc: move DSC tables to DRM DSC helper
->   drm/i915/dsc: stop using interim structure for calculated params
->   drm/display/dsc: use flat array for rc_parameters lookup
->   drm/display/dsc: split DSC 1.2 and DSC 1.1 (pre-SCR) parameters
->   drm/display/dsc: include the rest of pre-SCR parameters
->   drm/display/dsc: add YCbCr 4:2:2 and 4:2:0 RC parameters
->
->  drivers/gpu/drm/display/drm_dsc_helper.c  | 986 ++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_vdsc.c | 443 ++--------
->  include/drm/display/drm_dsc_helper.h      |   9 +
->  3 files changed, 1042 insertions(+), 396 deletions(-)
-
+base-commit: 451e49cfbaa90720149e63f4fa9c7824013c783d
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.40.1
+
