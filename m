@@ -1,81 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3021703DC1
-	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 21:32:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50AC7703E1F
+	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 22:07:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84C3110E23C;
-	Mon, 15 May 2023 19:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD2410E070;
+	Mon, 15 May 2023 20:07:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 801E810E23C;
- Mon, 15 May 2023 19:32:38 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34FJQLVo002398; Mon, 15 May 2023 19:32:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=fwrQ3B+3MWU2iftJ7lLAWhX9FzTAkBIHvNEIQ0eF+tE=;
- b=Qs2+yOtyGZwnUoZY2gZwCGY2YMyXCBGU/TjweYVI8AWEEJO7Z6ZC/zvKvJSk8rUmJkTI
- r5PZG1g3mjv873hTNWbk12TjGFbtG4r0o9jUbWKIxgvC/M1/0yphlDJNdiJsJVq+XTZV
- CyLCkHpchEvEV++lrpL9XHWdN7yV8lsZmqlXS+JzL9z+mYE9gFTAe8Iixya05OxIUV5d
- rtVqiAVcAjfCn06tcnckxw8IiMA0R/p3MnjX5L0uUW3bLepyXCu8C1pIMfzf1NWl7cT5
- wkDqoRs5F4PH1+ZmM/w7pCKYv2hJZmE+TVMBXUy7ZLi98iuJ9ZRgsXa4bvbDzCScx5HV 9Q== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qkkq99b3s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 19:32:32 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34FJWVnS006995
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 19:32:31 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 15 May
- 2023 12:32:30 -0700
-Message-ID: <3e1e25fc-517e-16aa-09ed-b15f174e4b9a@quicinc.com>
-Date: Mon, 15 May 2023 12:32:24 -0700
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7C610E07F
+ for <freedreno@lists.freedesktop.org>; Mon, 15 May 2023 20:07:43 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id AB1311F9A7;
+ Mon, 15 May 2023 22:07:37 +0200 (CEST)
+Date: Mon, 15 May 2023 22:07:36 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>
+Message-ID: <u47xthqfjxpbbzjbvnrz4qa2f2m3aip4iose7cwuhzg4raf7db@qxbos7u55wko>
+References: <1683914423-17612-1-git-send-email-quic_khsieh@quicinc.com>
+ <1683914423-17612-2-git-send-email-quic_khsieh@quicinc.com>
+ <4tmuqrz3du7pwwih3gzp6zveyfvwxj3meeksgxkbg2v5mdtyu3@e5xxuoe64rvv>
+ <69538f77-ff08-c3ce-3d4a-9f7250ee2505@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
- <20230321011821.635977-3-dmitry.baryshkov@linaro.org>
- <ea7af397-1840-f15b-6f56-2d0559b8be4d@quicinc.com>
- <CAA8EJppbXavJCT4ErBoW2cBjRoabFK58UQ39T6h96Ovm8yMdEQ@mail.gmail.com>
- <94d4bc54-74c5-f565-a75e-766fdc458f75@quicinc.com>
- <CAA8EJpqWZ0X-npaMEQ6=fzyT-G+fvX_-=DsUjPnqdiuP_RO_ag@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpqWZ0X-npaMEQ6=fzyT-G+fvX_-=DsUjPnqdiuP_RO_ag@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: s5tn9Xlr44gcYp833hnG027beSx8dmUK
-X-Proofpoint-ORIG-GUID: s5tn9Xlr44gcYp833hnG027beSx8dmUK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-15_17,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- mlxlogscore=999 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- mlxscore=0 adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
- definitions=main-2305150163
-Subject: Re: [Freedreno] [RFC PATCH v2 02/13] drm/msm/dpu: take plane
- rotation into account for wide planes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <69538f77-ff08-c3ce-3d4a-9f7250ee2505@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v8 1/8] drm/msm/dpu: add dsc blocks for
+ remaining chipsets in catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,159 +47,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, freedreno@lists.freedesktop.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 5/15/2023 12:12 PM, Dmitry Baryshkov wrote:
-> On Mon, 15 May 2023 at 21:45, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 5/14/2023 10:01 AM, Dmitry Baryshkov wrote:
->>> On Sat, 13 May 2023 at 01:12, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
->>>>> Take into account the plane rotation and flipping when calculating src
->>>>> positions for the wide plane parts.
->>>>>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>
->>>> Do we need to have a fixes tag for this? This means we dont consider
->>>> rotation while calculating src position today which is a bug?
->>>
->>> Hmm, I thought that I had a check forbidding rotation with the current
->>> approach, but I don't see it. Most probably I thought about it and
->>> then forgot to add it.
->>> The proper fix should be to disallow it for static SSPP case. I'll
->>> include the patch into v3.
->>>
->>>>
->>>>> ---
->>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++---------
->>>>>     1 file changed, 17 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> index 2e63eb0a2f3f..d43e04fc4578 100644
->>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>> @@ -887,16 +887,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>>>                 return -EINVAL;
->>>>>         }
->>>>>
->>>>> -     pipe_cfg->src_rect = new_plane_state->src;
->>>>> -
->>>>> -     /* state->src is 16.16, src_rect is not */
->>>>> -     pipe_cfg->src_rect.x1 >>= 16;
->>>>> -     pipe_cfg->src_rect.x2 >>= 16;
->>>>> -     pipe_cfg->src_rect.y1 >>= 16;
->>>>> -     pipe_cfg->src_rect.y2 >>= 16;
->>>>> -
->>>>> -     pipe_cfg->dst_rect = new_plane_state->dst;
->>>>> -
->>>>>         fb_rect.x2 = new_plane_state->fb->width;
->>>>>         fb_rect.y2 = new_plane_state->fb->height;
->>>>>
->>>>> @@ -912,6 +902,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>>>
->>>>>         max_linewidth = pdpu->catalog->caps->max_linewidth;
->>>>>
->>>>> +     /* state->src is 16.16, src_rect is not */
->>>>> +     drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
->>>>> +
->>>>> +     pipe_cfg->dst_rect = new_plane_state->dst;
->>>>> +
->>>>> +     drm_rect_rotate(&pipe_cfg->src_rect,
->>>>> +                     new_plane_state->fb->width, new_plane_state->fb->height,
->>>>> +                     new_plane_state->rotation);
->>>>> +
->>>>>         if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
->>>>>                 /*
->>>>>                  * In parallel multirect case only the half of the usual width
->>>>> @@ -959,6 +958,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>>>                 r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
->>>>>         }
->>>>>
->>>>> +     drm_rect_rotate_inv(&pipe_cfg->src_rect,
->>>>> +                         new_plane_state->fb->width, new_plane_state->fb->height,
->>>>> +                         new_plane_state->rotation);
->>>>> +     if (r_pipe->sspp)
->>>>
->>>> Dont you need to check for if (r_pipe_cfg) here and not if
->>>> (r_pipe->sspp) because parameter you are passing is the r_pipe_cfg to
->>>> drm_rect_rotate_inv().
->>>
->>> Of course not. r_pipe_cfg is a pointer to the field in pstate. We know
->>> that it can not be NULL.
->>>
->>
->> Ack, and my bad for not checking that r_pipe_cfg points to a field in
->> pstate but .... it was just weird though that you are checking for
->> r_pipe->sspp before calling a method which really doesnt care if its
->> null or not. How about you use drm_rect_visible(r_pipe_cfg->src_rect)
->>
->> If its not set, it wont be visible too.
-> 
-> I think it is better for the uniformity to check for r_pipe->sspp:
-> this is the condition that is used all over the driver to check that
-> r_pipe is used.
-> 
-
-hmmm .... okay .... not entirely convinced this was the right way to 
-begin with then because some places do need a valid sspp for the 
-function getting called so thats fine but some do not.
-
-its incorrect uniformity, but I am not going to complain about it now. 
-will think of cleaning it up once this lands.
-
->>
->>>>
->>>> So we rotated the pipe_cfg once, then rotated_inv it to restore the
->>>> rectangle to its original state, but r_pipe_cfg's rectangle was never
->>>> rotated as it was not allocated before this function so it will remain
->>>> in inverse rotated state now right?
->>>
->>> No. r_pipe_cfg is set beforehand to the half of the rotated pipe_cfg.
->>>
->>
->> Ok i got it now. Instead of directly operating on the plane_state's
->> rectangle which makes you to invert again why not just use a temporary
->> drm_rect which stores the rotated pipe_cfg->src_rect. That way you dont
->> have to invert anything?
-> 
-> I don't think this will work. I explicitly rotate & invert rotation to
-> get correct coordinates for both source and destination rectangles.
-> Doing it otherwise would require us to manually implement this in the
-> DPU driver.
-> 
-
-Ok got it, i guess this will need more changes within the if (src_width 
- > max_width) .... this is fine then.
-
-Will ack this once i finish reviews on the others.
-
->>
->>>>> +             drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
->>>>> +                                 new_plane_state->fb->width, new_plane_state->fb->height,
->>>>> +                                 new_plane_state->rotation);
->>>>> +
->>>>>         ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
->>>>>         if (ret)
->>>>>                 return ret;
->>>
->>>
->>>
->>> --
->>> With best wishes
->>> Dmitry
+On 2023-05-15 11:20:02, Abhinav Kumar wrote:
 > 
 > 
 > 
+> On 5/14/2023 2:39 PM, Marijn Suijten wrote:
+> > DSC*, and mention 1.1 explicitly (since this skips the 1.2 blocks, while
+> > the series is clearly aimed at 1.1...).  This was done for the DSC 1.2
+> > HW block patch after all.
+> > 
+> > in catalog -> to catalog
+> > 
+> > But it's just two platforms, you can fit MSM8998 and SC8180X in the
+> > title.
+> > 
+> > On 2023-05-12 11:00:16, Kuogee Hsieh wrote:
+> >>
+> >> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >>
+> >> There are some platforms has DSC blocks but it is not declared at catalog.
+> > 
+> > Some platforms have DSC blocks which have not yet been declared in the
+> > catalog.*
+> > 
+> >> For completeness, this patch adds DSC blocks for platforms which missed
+> >> them.
+> > 
+> > Drop "this patch":
+> > 
+> >      Complete DSC 1.1 support for all platforms by adding the missing
+> >      blocks to MSM8998 and SC8180X.
+> > 
+> >>
+> >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> ---
+> >>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  7 +++++++
+> >>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 11 +++++++++++
+> > 
+> > How about SC7180, and any other DPU 6.x revision?
+> > 
+> 
+> Will let kuogee respond to the other nits. There is no DSC in sc7180 / 
+> sm6115 / qcm2290. So this patch is complete.
+
+Thank you for checking as I didn't have the DTS close (and it seems
+SC7180 would have supported this, but no).  I did check other SoCs in
+the DPU 6.x range that are currently floating in my tree and on the
+list, which do need their DSC 1.1 block added (both a single block at
+0x81000 downstream, 0x80000 upstream), if you can in a resend Konrad:
+
+DPU 6.4 in SM6350: https://lore.kernel.org/linux-arm-msm/20230411-topic-straitlagoon_mdss-v3-6-9837d6b3516d@linaro.org/
+DPU 6.9 in SM6375: https://lore.kernel.org/linux-arm-msm/20230411-topic-straitlagoon_mdss-v3-8-9837d6b3516d@linaro.org/
+
+Thanks!
+
+- Marijn
