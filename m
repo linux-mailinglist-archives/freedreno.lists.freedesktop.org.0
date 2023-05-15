@@ -1,82 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13DE9703FC8
-	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 23:27:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D43D704011
+	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 23:52:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 772BA10E290;
-	Mon, 15 May 2023 21:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A254010E297;
+	Mon, 15 May 2023 21:52:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE1410E288;
- Mon, 15 May 2023 21:27:40 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34FKt00D029642; Mon, 15 May 2023 21:27:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=TQJEHXi0TLCNkapeCGSQUpsNiWrxDk2PaOR8nncjWPs=;
- b=TbkDjPDFPz0inBneXz4yq4in8WhyfhbxVeaTiIl5+/w6e3OxII/dYpe1cDMKMRW/RsOY
- E48M4n6imyAZIIJFYQ1iYb2gU1IEUr/A/F8hM/iqhwz14ROEILCc8J61ln8ImwYTy/gK
- GsHdEELHn6kZe/Pyvx8LRcWXKMoAuiRu/5HqzwNp/aTvZQZFd72JCQbDwojcfZuI3nZ+
- fXzqcJe4C49d5eIvP4JnALgnvhngDsBXVqapxIW8dcViok6Mvl9hdthhgDVDzLYTGu7N
- cSDb+eMLx8WIT8OwvuagcKUKj3CiaXZo1Thl5v1BdA9GQYlIOqvD0t3WryhFJo+E7sgP 0Q== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qkjr01n2g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 21:27:34 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34FLRWIo016401
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 21:27:32 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 15 May
- 2023 14:27:31 -0700
-Message-ID: <d7d7cc13-25e4-5a8e-e803-e8c3cfbe22a3@quicinc.com>
-Date: Mon, 15 May 2023 14:26:59 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68C7010E297
+ for <freedreno@lists.freedesktop.org>; Mon, 15 May 2023 21:52:34 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 7E5223F327;
+ Mon, 15 May 2023 23:52:31 +0200 (CEST)
+Date: Mon, 15 May 2023 23:52:30 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <r5rbbaz5gms5d2wdheuvqoij4ld5qiyz2kxrjjqkpyzy4v2zdq@44q2zgkrxpgt>
 References: <1683914423-17612-1-git-send-email-quic_khsieh@quicinc.com>
- <1683914423-17612-2-git-send-email-quic_khsieh@quicinc.com>
- <4tmuqrz3du7pwwih3gzp6zveyfvwxj3meeksgxkbg2v5mdtyu3@e5xxuoe64rvv>
- <69538f77-ff08-c3ce-3d4a-9f7250ee2505@quicinc.com>
- <u47xthqfjxpbbzjbvnrz4qa2f2m3aip4iose7cwuhzg4raf7db@qxbos7u55wko>
- <d10da0ce-a22e-24e9-e895-fae4c3a35222@quicinc.com>
- <zkvmqpcdgeg3qjkddopqx2yfipmqjjyva2cnk5bq4npxzxto4v@gfgvp5hkblkm>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <zkvmqpcdgeg3qjkddopqx2yfipmqjjyva2cnk5bq4npxzxto4v@gfgvp5hkblkm>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: umyaAh8G_r_m8I5NCpNocSuAqCkYu1IM
-X-Proofpoint-GUID: umyaAh8G_r_m8I5NCpNocSuAqCkYu1IM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-15_19,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1011
- spamscore=0 malwarescore=0 phishscore=0 suspectscore=0 mlxscore=0
- priorityscore=1501 mlxlogscore=957 adultscore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305150176
-Subject: Re: [Freedreno] [PATCH v8 1/8] drm/msm/dpu: add dsc blocks for
- remaining chipsets in catalog
+ <1683914423-17612-7-git-send-email-quic_khsieh@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1683914423-17612-7-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v8 6/8] drm/msm/dpu: separate DSC flush
+ update out of interface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,90 +43,230 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- dianders@chromium.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- freedreno@lists.freedesktop.org, robdclark@gmail.com, agross@kernel.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ quic_jesszhan@quicinc.com, swboyd@chromium.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 5/15/2023 2:23 PM, Marijn Suijten wrote:
-> On 2023-05-15 13:58:35, Abhinav Kumar wrote:
->>
->>
->>
->> On 5/15/2023 1:07 PM, Marijn Suijten wrote:
->>> On 2023-05-15 11:20:02, Abhinav Kumar wrote:
->>>>
->>>>
->>>>
->>>> On 5/14/2023 2:39 PM, Marijn Suijten wrote:
->>>>> DSC*, and mention 1.1 explicitly (since this skips the 1.2 blocks, while
->>>>> the series is clearly aimed at 1.1...).  This was done for the DSC 1.2
->>>>> HW block patch after all.
->>>>>
->>>>> in catalog -> to catalog
->>>>>
->>>>> But it's just two platforms, you can fit MSM8998 and SC8180X in the
->>>>> title.
->>>>>
->>>>> On 2023-05-12 11:00:16, Kuogee Hsieh wrote:
->>>>>>
->>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>>
->>>>>> There are some platforms has DSC blocks but it is not declared at catalog.
->>>>>
->>>>> Some platforms have DSC blocks which have not yet been declared in the
->>>>> catalog.*
->>>>>
->>>>>> For completeness, this patch adds DSC blocks for platforms which missed
->>>>>> them.
->>>>>
->>>>> Drop "this patch":
->>>>>
->>>>>        Complete DSC 1.1 support for all platforms by adding the missing
->>>>>        blocks to MSM8998 and SC8180X.
->>>>>
->>>>>>
->>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>>> ---
->>>>>>     drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  7 +++++++
->>>>>>     drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 11 +++++++++++
->>>>>
->>>>> How about SC7180, and any other DPU 6.x revision?
->>>>>
->>>>
->>>> Will let kuogee respond to the other nits. There is no DSC in sc7180 /
->>>> sm6115 / qcm2290. So this patch is complete.
->>>
->>> Thank you for checking as I didn't have the DTS close (and it seems
->>> SC7180 would have supported this, but no).  I did check other SoCs in
->>> the DPU 6.x range that are currently floating in my tree and on the
->>> list, which do need their DSC 1.1 block added (both a single block at
->>> 0x81000 downstream, 0x80000 upstream), if you can in a resend Konrad:
->>>
->>> DPU 6.4 in SM6350: https://lore.kernel.org/linux-arm-msm/20230411-topic-straitlagoon_mdss-v3-6-9837d6b3516d@linaro.org/
->>> DPU 6.9 in SM6375: https://lore.kernel.org/linux-arm-msm/20230411-topic-straitlagoon_mdss-v3-8-9837d6b3516d@linaro.org/
->>>
->>
->> If these are still on the list, can Konrad add them to his change as
->> that way his catalog change will be complete? Otherwise I would prefer
->> to add them in a follow up change because marking this change as
->> dependent on a catalog change which adds a new chipset is not right.
+On 2023-05-12 11:00:21, Kuogee Hsieh wrote:
 > 
-> The question was for Konrad (and I addressed him by name, not you) as
-> his series is not merged and the DSC blocks can be added to it directly
-> without depending on this series.  DSC 1.1 is after all available for
-> some time now.
+> Current DSC flush update is piggyback inside dpu_hw_ctl_intf_cfg_v1().
+
+Can you rewrite "is piggyback"?  Something like "Currently DSC flushing
+happens during interface configuration".  And it's intf configuration
+**on the CTL**, which makes this extra confusing.
+
+> This patch separates DSC flush away from dpu_hw_ctl_intf_cfg_v1() by
+
+Drop "This patch".  Then, separates -> Separate
+
+> adding dpu_hw_ctl_update_pending_flush_dsc_v1() to handle both per
+> DSC engine and DSC flush bits at same time to make it consistent with
+
+Make that per-DSC with a hyphen.
+
+> the location of flush programming of other dpu sub blocks.
+
+DPU sub-blocks.
+
 > 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 14 ++++++++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  | 22 ++++++++++++++++------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  | 10 ++++++++++
+>  3 files changed, 38 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index ffa6f04..5cae70e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1834,12 +1834,18 @@ dpu_encoder_dsc_initial_line_calc(struct drm_dsc_config *dsc,
+>  	return DIV_ROUND_UP(total_pixels, dsc->slice_width);
+>  }
+>  
+> -static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
+> +static void dpu_encoder_dsc_pipe_cfg(struct dpu_encoder_virt *dpu_enc,
 
-Thanks for clarifying. Your reply was cut-off "if you can in a resend 
-Konrad" so not sure what you were trying to tell.
+Why not pass hw_ctl directly?  The other blocks are directly passed as
+well, and the caller already has cur_master.  Otherwise we might as well
+inline the for loops.  Same question for the new _clr call added in
+patch 8/8.
 
-> - Marijn
+> +				     struct dpu_hw_dsc *hw_dsc,
+>  				     struct dpu_hw_pingpong *hw_pp,
+>  				     struct drm_dsc_config *dsc,
+>  				     u32 common_mode,
+>  				     u32 initial_lines)
+>  {
+> +	struct dpu_encoder_phys *cur_master = dpu_enc->cur_master;
+> +	struct dpu_hw_ctl *ctl;
+> +
+> +	ctl = cur_master->hw_ctl;
+
+Assign this directly at declaration, just like cur_master (but
+irrelevant if you pass this directly instead).
+
+> +
+>  	if (hw_dsc->ops.dsc_config)
+>  		hw_dsc->ops.dsc_config(hw_dsc, dsc, common_mode, initial_lines);
+>  
+> @@ -1854,6 +1860,9 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
+>  
+>  	if (hw_pp->ops.enable_dsc)
+>  		hw_pp->ops.enable_dsc(hw_pp);
+> +
+> +	if (ctl->ops.update_pending_flush_dsc)
+> +		ctl->ops.update_pending_flush_dsc(ctl, hw_dsc->idx);
+>  }
+>  
+>  static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+> @@ -1898,7 +1907,8 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+>  	initial_lines = dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
+>  
+>  	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
+> -		dpu_encoder_dsc_pipe_cfg(hw_dsc[i], hw_pp[i], dsc, dsc_common_mode, initial_lines);
+> +		dpu_encoder_dsc_pipe_cfg(dpu_enc, hw_dsc[i], hw_pp[i], dsc,
+> +					 dsc_common_mode, initial_lines);
+>  }
+>  
+>  void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index 4f7cfa9..f3a50cc 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -139,6 +139,11 @@ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+>  				CTL_DSPP_n_FLUSH(dspp - DSPP_0),
+>  				ctx->pending_dspp_flush_mask[dspp - DSPP_0]);
+>  		}
+> +
+> +	if (ctx->pending_flush_mask & BIT(DSC_IDX))
+> +		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH,
+> +			      ctx->pending_dsc_flush_mask);
+
+When are we setting this to zero again?
+
+Same question for the other masks, only the global pending_flush_mask
+and pending_dspp_flush_mask are reset in dpu_hw_ctl_clear_pending_flush.
+
+> +
+>  	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
+>  }
+>  
+> @@ -285,6 +290,13 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
+>  	ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
+>  }
+>  
+> +static void dpu_hw_ctl_update_pending_flush_dsc_v1(struct dpu_hw_ctl *ctx,
+> +						   enum dpu_dsc dsc_num)
+> +{
+> +	ctx->pending_dsc_flush_mask |= BIT(dsc_num - DSC_0);
+> +	ctx->pending_flush_mask |= BIT(DSC_IDX);
+> +}
+> +
+>  static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
+>  	enum dpu_dspp dspp, u32 dspp_sub_blk)
+>  {
+> @@ -502,9 +514,6 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>  	if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
+>  		mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
+>  
+> -	if (cfg->dsc)
+> -		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
+> -
+>  	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
+>  		mode_sel |= BIT(17);
+>  
+> @@ -524,10 +533,8 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>  	if (cfg->merge_3d)
+>  		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
+>  			      BIT(cfg->merge_3d - MERGE_3D_0));
+
+Can we have a newline here?
+
+> -	if (cfg->dsc) {
+> -		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
+
+Found the reason why this patch (as one of the few) is needed to get
+display working on my SM8150/SM8250 devices: the semantic change is that
+BIT() was missing around DSC_IDX here.
+(It wasn't hampering SDM845 because it doesn't have a configurable
+ crossbar, i.e. DPU_CTL_ACTIVE_CFG)
+
+Manually reverting this patch and adding BIT() indeed also fixes the
+issue.
+
+This semantic change should be documented in the description and with a
+Fixes: (and Reported-by:?), or as a separate preliminary patch for
+clarity.
+
+> +	if (cfg->dsc)
+>  		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
+> -	}
+>  }
+>  
+>  static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
+> @@ -630,6 +637,9 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
+>  		ops->update_pending_flush_merge_3d =
+>  			dpu_hw_ctl_update_pending_flush_merge_3d_v1;
+>  		ops->update_pending_flush_wb = dpu_hw_ctl_update_pending_flush_wb_v1;
+> +
+
+And while adding a newline above, drop the one here.
+
+> +		ops->update_pending_flush_dsc =
+> +			dpu_hw_ctl_update_pending_flush_dsc_v1;
+>  	} else {
+>  		ops->trigger_flush = dpu_hw_ctl_trigger_flush;
+>  		ops->setup_intf_cfg = dpu_hw_ctl_intf_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index 6292002..d4869a0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -158,6 +158,15 @@ struct dpu_hw_ctl_ops {
+>  		enum dpu_dspp blk, u32 dspp_sub_blk);
+>  
+>  	/**
+> +	 * OR in the given flushbits to the cached pending_(dsc_)flush_mask
+> +	 * No effect on hardware
+> +	 * @ctx       : ctl path ctx pointer
+> +	 * @blk       : interface block index
+
+Can you drop the spaces before the colon (:)?  That's wrong and will be
+fixed elsewhere later.
+
+> +	 */
+> +	void (*update_pending_flush_dsc)(struct dpu_hw_ctl *ctx,
+> +					 enum dpu_dsc blk);
+
+Indent with a single tab to match the rest.
+
+> +
+> +	/**
+>  	 * Write the value of the pending_flush_mask to hardware
+>  	 * @ctx       : ctl path ctx pointer
+>  	 */
+> @@ -245,6 +254,7 @@ struct dpu_hw_ctl {
+>  	u32 pending_wb_flush_mask;
+>  	u32 pending_merge_3d_flush_mask;
+>  	u32 pending_dspp_flush_mask[DSPP_MAX - DSPP_0];
+> +	u32 pending_dsc_flush_mask;
+
+Don't forget to add this to the doc-comment, or did you skip it by
+intention because pending_merge_3d_flush_mask and
+pending_dspp_flush_mask are missing as well?
+
+- Marijn
+
+>  
+>  	/* ops */
+>  	struct dpu_hw_ctl_ops ops;
+> -- 
+> 2.7.4
+> 
