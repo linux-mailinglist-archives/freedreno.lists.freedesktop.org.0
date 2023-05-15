@@ -1,77 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F1E4703CF0
-	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 20:45:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 61433703D6B
+	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 21:13:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3750E10E24B;
-	Mon, 15 May 2023 18:45:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2647A10E265;
+	Mon, 15 May 2023 19:13:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 910D110E24B;
- Mon, 15 May 2023 18:45:14 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34FEftmV028937; Mon, 15 May 2023 18:45:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=UFssbCY2KyWDITNgDeCM+fkwZR9LV6Xnno4JzIb2RJA=;
- b=ifYaGA773Ib4zpNlcMxgb9QNm4RCdbZ/MsXYQlFNqxueKuUo9nQFYQl5w0jkrtlzTQc6
- bRTiIOVGhND6aLWH+m/jLCnhwtVYUJoKfwOeseGC+feg7jl/ENo++QJn1ZayVpADgfjI
- 2l8RBIqlxATVNam7Pg2UO71HCeuEVJX/fh9aOB/fIUErpW0r8OAQD7p0OkW7FaTU4O0z
- qkSwXLz8s0gtr5w+GPYEwbkBrn4Lt5rDH/RC1e1ClOIhNr6RDfL7CexektGccPR0vqeM
- JOvV5U9wc9bsjpFpV5dw2z2rCn9S+nuf2bBU84T/lGK6lwJ13P2PE54fSz7YBOcKX8jb 2w== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qkkq998ru-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 18:45:08 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34FIj71H015207
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 May 2023 18:45:07 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 15 May
- 2023 11:45:07 -0700
-Message-ID: <94d4bc54-74c5-f565-a75e-766fdc458f75@quicinc.com>
-Date: Mon, 15 May 2023 11:45:06 -0700
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEFDC10E258
+ for <freedreno@lists.freedesktop.org>; Mon, 15 May 2023 19:13:01 +0000 (UTC)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-559de1d36a9so187507727b3.1
+ for <freedreno@lists.freedesktop.org>; Mon, 15 May 2023 12:13:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684177980; x=1686769980;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=buMTvzj30ZgxcgwVKLFoA6Hv/2Gc4z76k5nbzhdcfcE=;
+ b=kGyzVwdggUf0TCs+S9ne4HxjpOQvYeVlI94Z+wRM6wFu5WZrHEVjGgS/gcr5u6sSQu
+ 6bvrmsBvXMxD4J/AJXeUUdkaENEfKxofPyDqT6r/ILnw25Leaj2iL7fkxQyrTQapODEE
+ Jf88zY6aaay7/kJJGEGT5cjSetRMC1GROJtF/UPVsbHDCX8sda8ktlMz13MnZZzrkoGQ
+ QEPzI8r9Tq7hnJRZ4AqIFdHEZBuenL49+dTg56lrPvHyTSwYG4QDkJml13BgGM2QaJPh
+ lKgff229nsQi6PVUMa7a2yvIYKfomzUfgTXr6x0sY874tUgTDf8HEEBStYlna/e02Sv5
+ H2oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684177980; x=1686769980;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=buMTvzj30ZgxcgwVKLFoA6Hv/2Gc4z76k5nbzhdcfcE=;
+ b=eJlzytndqi1oeO1spJa4/i6lunILFXkTnjXcpxgUwqYAtAVB+stNDmDOxVruHn9+UC
+ 5Z1VXpL/O6xjfVSsBasFADpbHhTiNgnU2SBjng203SZN/X1wPaaUSelv/T90BJlE9RMR
+ 7rNw2odskry+hoXW/Ve04t4VeL/2Ny2XHYIlqqoMyDHJbdgWs4R7VUhwHBaeE5B0Goyy
+ iPQHEj4DAed+XN86jYgCrsxT5cBOhb/PjRm8RF8frk7vSknKcvmCcTzFeMFWtywFa+QI
+ j8s9dtXomLPCwSGdOglUZK7KLr1OHKYsfuHIkKNLViCbxLhJU11h/2PHEF1tgThAWAsQ
+ WrEA==
+X-Gm-Message-State: AC+VfDxY0/LvvpjSBC4EaZzwDF0WzDe9+XKT1YbdUKwzbimwnaEYLpY1
+ lBV2BUI8Io7pgU3I0uy00Lug9y+Wxcka2AXijb9Y0P4RdYv40Cz7
+X-Google-Smtp-Source: ACHHUZ4zo5Odlu/M+PIPJ0+/SGozXBDUG7yCyRfqLCsT/XHyRTLU8KzMao1l25ceAAxmRbqbJPdevypdm7mTatLG5yQ=
+X-Received: by 2002:a0d:ebd6:0:b0:54f:d816:895d with SMTP id
+ u205-20020a0debd6000000b0054fd816895dmr36270831ywe.28.1684177980506; Mon, 15
+ May 2023 12:13:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
  <20230321011821.635977-3-dmitry.baryshkov@linaro.org>
  <ea7af397-1840-f15b-6f56-2d0559b8be4d@quicinc.com>
  <CAA8EJppbXavJCT4ErBoW2cBjRoabFK58UQ39T6h96Ovm8yMdEQ@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJppbXavJCT4ErBoW2cBjRoabFK58UQ39T6h96Ovm8yMdEQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: JgPaponmBZeqmTm10Cck27IUcrrLMDit
-X-Proofpoint-ORIG-GUID: JgPaponmBZeqmTm10Cck27IUcrrLMDit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-15_17,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- mlxlogscore=999 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- mlxscore=0 adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
- definitions=main-2305150158
+ <94d4bc54-74c5-f565-a75e-766fdc458f75@quicinc.com>
+In-Reply-To: <94d4bc54-74c5-f565-a75e-766fdc458f75@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 15 May 2023 22:12:49 +0300
+Message-ID: <CAA8EJpqWZ0X-npaMEQ6=fzyT-G+fvX_-=DsUjPnqdiuP_RO_ag@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [RFC PATCH v2 02/13] drm/msm/dpu: take plane
  rotation into account for wide planes
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -94,118 +79,137 @@ Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, 15 May 2023 at 21:45, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 5/14/2023 10:01 AM, Dmitry Baryshkov wrote:
+> > On Sat, 13 May 2023 at 01:12, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> >>
+> >>
+> >>
+> >> On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
+> >>> Take into account the plane rotation and flipping when calculating src
+> >>> positions for the wide plane parts.
+> >>>
+> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >>
+> >> Do we need to have a fixes tag for this? This means we dont consider
+> >> rotation while calculating src position today which is a bug?
+> >
+> > Hmm, I thought that I had a check forbidding rotation with the current
+> > approach, but I don't see it. Most probably I thought about it and
+> > then forgot to add it.
+> > The proper fix should be to disallow it for static SSPP case. I'll
+> > include the patch into v3.
+> >
+> >>
+> >>> ---
+> >>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++---------
+> >>>    1 file changed, 17 insertions(+), 10 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >>> index 2e63eb0a2f3f..d43e04fc4578 100644
+> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> >>> @@ -887,16 +887,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >>>                return -EINVAL;
+> >>>        }
+> >>>
+> >>> -     pipe_cfg->src_rect = new_plane_state->src;
+> >>> -
+> >>> -     /* state->src is 16.16, src_rect is not */
+> >>> -     pipe_cfg->src_rect.x1 >>= 16;
+> >>> -     pipe_cfg->src_rect.x2 >>= 16;
+> >>> -     pipe_cfg->src_rect.y1 >>= 16;
+> >>> -     pipe_cfg->src_rect.y2 >>= 16;
+> >>> -
+> >>> -     pipe_cfg->dst_rect = new_plane_state->dst;
+> >>> -
+> >>>        fb_rect.x2 = new_plane_state->fb->width;
+> >>>        fb_rect.y2 = new_plane_state->fb->height;
+> >>>
+> >>> @@ -912,6 +902,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >>>
+> >>>        max_linewidth = pdpu->catalog->caps->max_linewidth;
+> >>>
+> >>> +     /* state->src is 16.16, src_rect is not */
+> >>> +     drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+> >>> +
+> >>> +     pipe_cfg->dst_rect = new_plane_state->dst;
+> >>> +
+> >>> +     drm_rect_rotate(&pipe_cfg->src_rect,
+> >>> +                     new_plane_state->fb->width, new_plane_state->fb->height,
+> >>> +                     new_plane_state->rotation);
+> >>> +
+> >>>        if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
+> >>>                /*
+> >>>                 * In parallel multirect case only the half of the usual width
+> >>> @@ -959,6 +958,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >>>                r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
+> >>>        }
+> >>>
+> >>> +     drm_rect_rotate_inv(&pipe_cfg->src_rect,
+> >>> +                         new_plane_state->fb->width, new_plane_state->fb->height,
+> >>> +                         new_plane_state->rotation);
+> >>> +     if (r_pipe->sspp)
+> >>
+> >> Dont you need to check for if (r_pipe_cfg) here and not if
+> >> (r_pipe->sspp) because parameter you are passing is the r_pipe_cfg to
+> >> drm_rect_rotate_inv().
+> >
+> > Of course not. r_pipe_cfg is a pointer to the field in pstate. We know
+> > that it can not be NULL.
+> >
+>
+> Ack, and my bad for not checking that r_pipe_cfg points to a field in
+> pstate but .... it was just weird though that you are checking for
+> r_pipe->sspp before calling a method which really doesnt care if its
+> null or not. How about you use drm_rect_visible(r_pipe_cfg->src_rect)
+>
+> If its not set, it wont be visible too.
+
+I think it is better for the uniformity to check for r_pipe->sspp:
+this is the condition that is used all over the driver to check that
+r_pipe is used.
+
+>
+> >>
+> >> So we rotated the pipe_cfg once, then rotated_inv it to restore the
+> >> rectangle to its original state, but r_pipe_cfg's rectangle was never
+> >> rotated as it was not allocated before this function so it will remain
+> >> in inverse rotated state now right?
+> >
+> > No. r_pipe_cfg is set beforehand to the half of the rotated pipe_cfg.
+> >
+>
+> Ok i got it now. Instead of directly operating on the plane_state's
+> rectangle which makes you to invert again why not just use a temporary
+> drm_rect which stores the rotated pipe_cfg->src_rect. That way you dont
+> have to invert anything?
+
+I don't think this will work. I explicitly rotate & invert rotation to
+get correct coordinates for both source and destination rectangles.
+Doing it otherwise would require us to manually implement this in the
+DPU driver.
+
+>
+> >>> +             drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
+> >>> +                                 new_plane_state->fb->width, new_plane_state->fb->height,
+> >>> +                                 new_plane_state->rotation);
+> >>> +
+> >>>        ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
+> >>>        if (ret)
+> >>>                return ret;
+> >
+> >
+> >
+> > --
+> > With best wishes
+> > Dmitry
 
 
-On 5/14/2023 10:01 AM, Dmitry Baryshkov wrote:
-> On Sat, 13 May 2023 at 01:12, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
->>> Take into account the plane rotation and flipping when calculating src
->>> positions for the wide plane parts.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>
->> Do we need to have a fixes tag for this? This means we dont consider
->> rotation while calculating src position today which is a bug?
-> 
-> Hmm, I thought that I had a check forbidding rotation with the current
-> approach, but I don't see it. Most probably I thought about it and
-> then forgot to add it.
-> The proper fix should be to disallow it for static SSPP case. I'll
-> include the patch into v3.
-> 
->>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++---------
->>>    1 file changed, 17 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index 2e63eb0a2f3f..d43e04fc4578 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -887,16 +887,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>                return -EINVAL;
->>>        }
->>>
->>> -     pipe_cfg->src_rect = new_plane_state->src;
->>> -
->>> -     /* state->src is 16.16, src_rect is not */
->>> -     pipe_cfg->src_rect.x1 >>= 16;
->>> -     pipe_cfg->src_rect.x2 >>= 16;
->>> -     pipe_cfg->src_rect.y1 >>= 16;
->>> -     pipe_cfg->src_rect.y2 >>= 16;
->>> -
->>> -     pipe_cfg->dst_rect = new_plane_state->dst;
->>> -
->>>        fb_rect.x2 = new_plane_state->fb->width;
->>>        fb_rect.y2 = new_plane_state->fb->height;
->>>
->>> @@ -912,6 +902,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>
->>>        max_linewidth = pdpu->catalog->caps->max_linewidth;
->>>
->>> +     /* state->src is 16.16, src_rect is not */
->>> +     drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
->>> +
->>> +     pipe_cfg->dst_rect = new_plane_state->dst;
->>> +
->>> +     drm_rect_rotate(&pipe_cfg->src_rect,
->>> +                     new_plane_state->fb->width, new_plane_state->fb->height,
->>> +                     new_plane_state->rotation);
->>> +
->>>        if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
->>>                /*
->>>                 * In parallel multirect case only the half of the usual width
->>> @@ -959,6 +958,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>>                r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
->>>        }
->>>
->>> +     drm_rect_rotate_inv(&pipe_cfg->src_rect,
->>> +                         new_plane_state->fb->width, new_plane_state->fb->height,
->>> +                         new_plane_state->rotation);
->>> +     if (r_pipe->sspp)
->>
->> Dont you need to check for if (r_pipe_cfg) here and not if
->> (r_pipe->sspp) because parameter you are passing is the r_pipe_cfg to
->> drm_rect_rotate_inv().
-> 
-> Of course not. r_pipe_cfg is a pointer to the field in pstate. We know
-> that it can not be NULL.
-> 
 
-Ack, and my bad for not checking that r_pipe_cfg points to a field in 
-pstate but .... it was just weird though that you are checking for 
-r_pipe->sspp before calling a method which really doesnt care if its 
-null or not. How about you use drm_rect_visible(r_pipe_cfg->src_rect)
-
-If its not set, it wont be visible too.
-
->>
->> So we rotated the pipe_cfg once, then rotated_inv it to restore the
->> rectangle to its original state, but r_pipe_cfg's rectangle was never
->> rotated as it was not allocated before this function so it will remain
->> in inverse rotated state now right?
-> 
-> No. r_pipe_cfg is set beforehand to the half of the rotated pipe_cfg.
-> 
-
-Ok i got it now. Instead of directly operating on the plane_state's 
-rectangle which makes you to invert again why not just use a temporary 
-drm_rect which stores the rotated pipe_cfg->src_rect. That way you dont 
-have to invert anything?
-
->>> +             drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
->>> +                                 new_plane_state->fb->width, new_plane_state->fb->height,
->>> +                                 new_plane_state->rotation);
->>> +
->>>        ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
->>>        if (ret)
->>>                return ret;
-> 
-> 
-> 
-> --
-> With best wishes
-> Dmitry
+-- 
+With best wishes
+Dmitry
