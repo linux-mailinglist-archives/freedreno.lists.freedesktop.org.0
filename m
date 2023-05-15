@@ -2,55 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968A8702BC1
-	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 13:47:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B019D702CF7
+	for <lists+freedreno@lfdr.de>; Mon, 15 May 2023 14:43:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A4910E056;
-	Mon, 15 May 2023 11:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0250E10E1EF;
+	Mon, 15 May 2023 12:43:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9603E10E056;
- Mon, 15 May 2023 11:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684151220; x=1715687220;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=7JX+nvSPyV13JqpPeMxVUanZYrzPdLynyEVuwdjYBS8=;
- b=WZ0TOljE9l3/Q+JZktGrLksaoPd7SURUABdJ3u/dAMEvfkMdFykv9BPK
- QBrInUZsRC1f5mWj4avNtEtlRvmBISURgtMwYxB3lPcmEJ6IVyFdjTQCW
- xwzbZZJanbMV3XtkuOub3cDmqObcWO5TumPf6Cvzd2VluQ8PFRwqJgivi
- Lu6EIgpFZ93VSMHXHChQIatIi4LEa7b5J8CFArh9HYXf1TTy758vbiOfi
- pgNColxkPlUZRUNL2tHhIj20yFna9YrO9vc6R4qXDcWML/EhiVMbiTKS+
- BmqhPlVa/cVOR2T9P1pCOzCZED8yBBzwdKUHJuijumq9Vgitj024gxcau A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="351212409"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="351212409"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 04:46:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="770595971"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="770595971"
-Received: from zolayode-mobl.ger.corp.intel.com (HELO [10.213.214.133])
- ([10.213.214.133])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 04:46:56 -0700
-Message-ID: <9faeff9b-d0aa-db7a-1bcc-0fe26a974595@linux.intel.com>
-Date: Mon, 15 May 2023 12:46:54 +0100
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EDEA10E15F;
+ Mon, 15 May 2023 07:51:36 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-9659443fb56so1940914966b.2; 
+ Mon, 15 May 2023 00:51:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1684137094; x=1686729094;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cfDqT6X1hpnQXZe1MRUmzHPyHIv4YDADYndQ1imD+oM=;
+ b=QEzBGKrSjRdyzYe6ieOdJODPeNUdYdnBUcfXpn0/moCF5bU4GDKao8GZRQQbw0ScSj
+ hEalhWz2jHazrnbym08knKa0kriRSwPike6V7qFdb0SYkq5ZdsbY7DsO7FPGWFcQZc4I
+ yx7v9MO0EFs1BsS1BzlrMU/49f38+CFEbN6cwavsTi/YNhpLd6/f7T/SGEGYx3nr8Hyq
+ 96GIg2iw6p9BedFsBmDM+AKZnAYeClMxXQ4dl34JgRS9vWkoZvXTodDnKACwzKvENSpl
+ oGu3By0XqyO1n0TJjlvlzyTkzr2Q3JL9FS6JcHCYIaNwZPRY3PgIiLlR3XqzyirohV+9
+ 19TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684137094; x=1686729094;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cfDqT6X1hpnQXZe1MRUmzHPyHIv4YDADYndQ1imD+oM=;
+ b=dazo6CPwxuBxz2bUJxhE5lU01GVbkDiERxwjjUIih3rmYo1f5hsa3YmPeJm72RGjMT
+ DPkcH/fiRCWHzaGcDevSptkCukZkxLHhL7d1Zy5Z6uHAKu13BzDMXSSWK56H9w/vWZXB
+ MKxKU3bA3EM5ibZveQxu/qgbXd1Cc7QJoh/sDvsVoxDDX8+ZIkBlwdcK3aHQm0C4i5ZR
+ RqXiFVZxr4EipgtOAyJBF4JcNWTr6qVsbDsCBe9aLHdN9/4spy1lSq1D1vCJLtzYoOzT
+ kNuk7S00KZHkPByoTP+VfuegCZJQm18/Z1wWx8bTqo9aDdh4KS/dsWygyO/CBbfXclE0
+ oy1w==
+X-Gm-Message-State: AC+VfDyY82OX6GUSwkiSGQxJq5TdZ6SpO1oPXaoyH3yFh49Gq/hbKoFn
+ SqLn0YgrWxDcC+Ltiz/cwbJTYBoqdPxrZfn0gxI=
+X-Google-Smtp-Source: ACHHUZ73K81XIZGLByuufDfxqMz465SRmfWrwBUtXlzEFG2IITIGcj/PIpOa0fmbOAVOCPKBAxevZY68jzd4AtlbsQg=
+X-Received: by 2002:a17:907:7211:b0:96b:4ed5:a1c9 with SMTP id
+ dr17-20020a170907721100b0096b4ed5a1c9mr1098991ejc.51.1684137093827; Mon, 15
+ May 2023 00:51:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20230501184502.1620335-1-robdclark@gmail.com>
- <20230501184502.1620335-6-robdclark@gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20230501184502.1620335-6-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 5/9] drm: Add fdinfo memory stats
+References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+From: Inki Dae <daeinki@gmail.com>
+Date: Mon, 15 May 2023 16:50:57 +0900
+Message-ID: <CAAQKjZP5jhwFg9sNndpa6_7G6HoV76heQbt=knoOEZZskexrhg@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 15 May 2023 12:43:29 +0000
+Subject: Re: [Freedreno] [PATCH 00/53] drm: Convert to platform remove
+ callback returning void
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,484 +70,377 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- open list <linux-kernel@vger.kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, Joel@pengutronix.de,
+ Robert Foss <rfoss@kernel.org>, Karol Herbst <kherbst@redhat.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Danilo Krummrich <dakr@redhat.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Miaoqian Lin <linmq006@gmail.com>,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Rahul T R <r-ravikumar@ti.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ etnaviv@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
+ Hyun Kwon <hyun.kwon@xilinx.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Edmund Dea <edmund.j.dea@intel.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ lima@lists.freedesktop.org, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Minghao Chi <chi.minghao@zte.com.cn>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Alain Volmat <alain.volmat@foss.st.com>, linux-mips@vger.kernel.org,
+ Liu Ying <victor.liu@nxp.com>, linux-arm-msm@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, John Stultz <jstultz@google.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Brian Starkey <brian.starkey@arm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Yuan Can <yuancan@huawei.com>, Stefan Agner <stefan@agner.ch>,
+ Michal Simek <michal.simek@xilinx.com>, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Rob Herring <robh@kernel.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
+ nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Alison Wang <alison.wang@nxp.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Liu Shixin <liushixin2@huawei.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Deepak R Varma <drv@mailo.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Shawn Guo <shawnguo@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Sandy Huang <hjc@rock-chips.com>, Paul Cercueil <paul@crapouillou.net>,
+ James@pengutronix.de, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
+ Jayshri Pawar <jpawar@cadence.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Rob Clark <robdclark@gmail.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Melissa Wen <mwen@igalia.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Qiang Yu <yuq825@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 01/05/2023 19:44, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Add support to dump GEM stats to fdinfo.
-> 
-> v2: Fix typos, change size units to match docs, use div_u64
-> v3: Do it in core
-> v4: more kerneldoc
-> v5: doc fixes
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> ---
->   Documentation/gpu/drm-usage-stats.rst | 54 +++++++++++----
->   drivers/gpu/drm/drm_file.c            | 99 ++++++++++++++++++++++++++-
->   include/drm/drm_file.h                | 28 ++++++++
->   include/drm/drm_gem.h                 | 30 ++++++++
->   4 files changed, 198 insertions(+), 13 deletions(-)
-> 
-> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-> index 552195fb1ea3..d012eb56885e 100644
-> --- a/Documentation/gpu/drm-usage-stats.rst
-> +++ b/Documentation/gpu/drm-usage-stats.rst
-> @@ -45,37 +45,43 @@ Mandatory fully standardised keys
->   ---------------------------------
->   
->   - drm-driver: <str>
->   
->   String shall contain the name this driver registered as via the respective
->   `struct drm_driver` data structure.
->   
->   Optional fully standardised keys
->   --------------------------------
->   
-> +Identification
-> +^^^^^^^^^^^^^^
-> +
->   - drm-pdev: <aaaa:bb.cc.d>
->   
->   For PCI devices this should contain the PCI slot address of the device in
->   question.
->   
->   - drm-client-id: <uint>
->   
->   Unique value relating to the open DRM file descriptor used to distinguish
->   duplicated and shared file descriptors. Conceptually the value should map 1:1
->   to the in kernel representation of `struct drm_file` instances.
->   
->   Uniqueness of the value shall be either globally unique, or unique within the
->   scope of each device, in which case `drm-pdev` shall be present as well.
->   
->   Userspace should make sure to not double account any usage statistics by using
->   the above described criteria in order to associate data to individual clients.
->   
-> +Utilization
-> +^^^^^^^^^^^
-> +
->   - drm-engine-<str>: <uint> ns
->   
->   GPUs usually contain multiple execution engines. Each shall be given a stable
->   and unique name (str), with possible values documented in the driver specific
->   documentation.
->   
->   Value shall be in specified time units which the respective GPU engine spent
->   busy executing workloads belonging to this client.
->   
->   Values are not required to be constantly monotonic if it makes the driver
-> @@ -86,32 +92,20 @@ value until a monotonic update is seen.
->   
->   - drm-engine-capacity-<str>: <uint>
->   
->   Engine identifier string must be the same as the one specified in the
->   drm-engine-<str> tag and shall contain a greater than zero number in case the
->   exported engine corresponds to a group of identical hardware engines.
->   
->   In the absence of this tag parser shall assume capacity of one. Zero capacity
->   is not allowed.
->   
-> -- drm-memory-<str>: <uint> [KiB|MiB]
-> -
-> -Each possible memory type which can be used to store buffer objects by the
-> -GPU in question shall be given a stable and unique name to be returned as the
-> -string here.
-> -
-> -Value shall reflect the amount of storage currently consumed by the buffer
-> -object belong to this client, in the respective memory region.
-> -
-> -Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
-> -indicating kibi- or mebi-bytes.
-> -
->   - drm-cycles-<str>: <uint>
->   
->   Engine identifier string must be the same as the one specified in the
->   drm-engine-<str> tag and shall contain the number of busy cycles for the given
->   engine.
->   
->   Values are not required to be constantly monotonic if it makes the driver
->   implementation easier, but are required to catch up with the previously reported
->   larger value within a reasonable period. Upon observing a value lower than what
->   was previously read, userspace is expected to stay with that larger previous
-> @@ -119,20 +113,56 @@ value until a monotonic update is seen.
->   
->   - drm-maxfreq-<str>: <uint> [Hz|MHz|KHz]
->   
->   Engine identifier string must be the same as the one specified in the
->   drm-engine-<str> tag and shall contain the maximum frequency for the given
->   engine.  Taken together with drm-cycles-<str>, this can be used to calculate
->   percentage utilization of the engine, whereas drm-engine-<str> only reflects
->   time active without considering what frequency the engine is operating as a
->   percentage of it's maximum frequency.
->   
-> +Memory
-> +^^^^^^
-> +
-> +- drm-memory-<region>: <uint> [KiB|MiB]
-> +
-> +Each possible memory type which can be used to store buffer objects by the
-> +GPU in question shall be given a stable and unique name to be returned as the
-> +string here.  The name "memory" is reserved to refer to normal system memory.
-> +
-> +Value shall reflect the amount of storage currently consumed by the buffer
-> +objects belong to this client, in the respective memory region.
-> +
-> +Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
-> +indicating kibi- or mebi-bytes.
-> +
-> +- drm-shared-<region>: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are shared with another file (ie. have more
-> +than a single handle).
-> +
-> +- drm-total-<region>: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that including shared and private memory.
-> +
-> +- drm-resident-<region>: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are resident in the specified region.
-> +
-> +- drm-purgeable-<region>: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are purgeable.
-> +
-> +- drm-active-<region>: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that are active on one or more engines.
-> +
->   Implementation Details
->   ======================
->   
->   Drivers should use drm_show_fdinfo() in their `struct file_operations`, and
->   implement &drm_driver.show_fdinfo if they wish to provide any stats which
->   are not provided by drm_show_fdinfo().  But even driver specific stats should
->   be documented above and where possible, aligned with other drivers.
->   
->   Driver specific implementations
->   -------------------------------
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 6d5bdd684ae2..9321eb0bf020 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -35,20 +35,21 @@
->   #include <linux/dma-fence.h>
->   #include <linux/file.h>
->   #include <linux/module.h>
->   #include <linux/pci.h>
->   #include <linux/poll.h>
->   #include <linux/slab.h>
->   
->   #include <drm/drm_client.h>
->   #include <drm/drm_drv.h>
->   #include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
->   #include <drm/drm_print.h>
->   
->   #include "drm_crtc_internal.h"
->   #include "drm_internal.h"
->   #include "drm_legacy.h"
->   
->   /* from BKL pushdown */
->   DEFINE_MUTEX(drm_global_mutex);
->   
->   bool drm_dev_needs_global_mutex(struct drm_device *dev)
-> @@ -864,23 +865,119 @@ EXPORT_SYMBOL(drm_send_event_locked);
->   void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->   {
->   	unsigned long irqflags;
->   
->   	spin_lock_irqsave(&dev->event_lock, irqflags);
->   	drm_send_event_helper(dev, e, 0);
->   	spin_unlock_irqrestore(&dev->event_lock, irqflags);
->   }
->   EXPORT_SYMBOL(drm_send_event);
->   
-> +static void print_size(struct drm_printer *p, const char *stat,
-> +		       const char *region, size_t sz)
-> +{
-> +	const char *units[] = {"", " KiB", " MiB"};
-> +	unsigned u;
-> +
-> +	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
-> +		if (sz < SZ_1K)
-> +			break;
-> +		sz = div_u64(sz, SZ_1K);
-> +	}
-> +
-> +	drm_printf(p, "drm-%s-%s:\t%zu%s\n", stat, region, sz, units[u]);
-> +}
-> +
-> +/**
-> + * drm_print_memory_stats - A helper to print memory stats
-> + * @p: The printer to print output to
-> + * @stats: The collected memory stats
-> + * @supported_status: Bitmask of optional stats which are available
-> + * @region: The memory region
-> + *
-> + */
-> +void drm_print_memory_stats(struct drm_printer *p,
-> +			    const struct drm_memory_stats *stats,
-> +			    enum drm_gem_object_status supported_status,
-> +			    const char *region)
-> +{
-> +	print_size(p, "total", region, stats->private + stats->shared);
-> +	print_size(p, "shared", region, stats->shared);
-> +	print_size(p, "active", region, stats->active);
-> +
-> +	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
-> +		print_size(p, "resident", region, stats->resident);
-> +
-> +	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
-> +		print_size(p, "purgeable", region, stats->purgeable);
-> +}
-> +EXPORT_SYMBOL(drm_print_memory_stats);
-> +
-> +/**
-> + * drm_show_memory_stats - Helper to collect and show standard fdinfo memory stats
-> + * @p: the printer to print output to
-> + * @file: the DRM file
-> + *
-> + * Helper to iterate over GEM objects with a handle allocated in the specified
-> + * file.
-> + */
-> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
-> +{
-> +	struct drm_gem_object *obj;
-> +	struct drm_memory_stats status = {};
-> +	enum drm_gem_object_status supported_status;
-> +	int id;
-> +
-> +	spin_lock(&file->table_lock);
-> +	idr_for_each_entry (&file->object_idr, obj, id) {
-> +		enum drm_gem_object_status s = 0;
-> +
-> +		if (obj->funcs && obj->funcs->status) {
-> +			s = obj->funcs->status(obj);
-> +			supported_status = DRM_GEM_OBJECT_RESIDENT |
-> +					DRM_GEM_OBJECT_PURGEABLE;
+2023=EB=85=84 5=EC=9B=94 8=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 1:32, Uw=
+e Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>=EB=8B=98=EC=9D=B4 =EC=
+=9E=91=EC=84=B1:
+>
+> Hello,
+>
+> this patch series adapts the platform drivers below drivers/gpu/drm
+> to use the .remove_new() callback. Compared to the traditional .remove()
+> callback .remove_new() returns no value. This is a good thing because
 
-I am slightly unsure if instead this mask shouldn't be returned by the 
-driver callback. No action needed.
+First of all, I apologize for the delay in providing my review comments.
 
-> +		}
-> +
-> +		if (obj->handle_count > 1) {
-> +			status.shared += obj->size;
-> +		} else {
-> +			status.private += obj->size;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_RESIDENT) {
-> +			status.resident += obj->size;
-> +		} else {
-> +			/* If already purged or not yet backed by pages, don't
-> +			 * count it as purgeable:
-> +			 */
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> +		}
-> +
-> +		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
-> +			status.active += obj->size;
-> +
-> +			/* If still active, don't count as purgeable: */
-> +			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> +		}
-> +
-> +		if (s & DRM_GEM_OBJECT_PURGEABLE)
-> +			status.purgeable += obj->size;
-> +	}
-> +	spin_unlock(&file->table_lock);
-> +
-> +	drm_print_memory_stats(p, &status, supported_status, "memory");
-> +}
-> +EXPORT_SYMBOL(drm_show_memory_stats);
-> +
->   /**
->    * drm_show_fdinfo - helper for drm file fops
-> - * @seq_file: output stream
-> + * @m: output stream
->    * @f: the device file instance
->    *
->    * Helper to implement fdinfo, for userspace to query usage stats, etc, of a
->    * process using the GPU.  See also &drm_driver.show_fdinfo.
->    *
->    * For text output format description please see Documentation/gpu/drm-usage-stats.rst
->    */
->   void drm_show_fdinfo(struct seq_file *m, struct file *f)
->   {
->   	struct drm_file *file = f->private_data;
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 6de6d0e9c634..f77540b97cd0 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -34,20 +34,21 @@
->   #include <linux/completion.h>
->   #include <linux/idr.h>
->   
->   #include <uapi/drm/drm.h>
->   
->   #include <drm/drm_prime.h>
->   
->   struct dma_fence;
->   struct drm_file;
->   struct drm_device;
-> +struct drm_printer;
->   struct device;
->   struct file;
->   
->   /*
->    * FIXME: Not sure we want to have drm_minor here in the end, but to avoid
->    * header include loops we need it here for now.
->    */
->   
->   /* Note that the order of this enum is ABI (it determines
->    * /dev/dri/renderD* numbers).
-> @@ -433,15 +434,42 @@ int drm_event_reserve_init(struct drm_device *dev,
->   			   struct drm_file *file_priv,
->   			   struct drm_pending_event *p,
->   			   struct drm_event *e);
->   void drm_event_cancel_free(struct drm_device *dev,
->   			   struct drm_pending_event *p);
->   void drm_send_event_locked(struct drm_device *dev, struct drm_pending_event *e);
->   void drm_send_event(struct drm_device *dev, struct drm_pending_event *e);
->   void drm_send_event_timestamp_locked(struct drm_device *dev,
->   				     struct drm_pending_event *e,
->   				     ktime_t timestamp);
-> +
-> +/**
-> + * struct drm_memory_stats - GEM object stats associated
-> + * @shared: Total size of GEM objects shared between processes
-> + * @private: Total size of GEM objects
-> + * @resident: Total size of GEM objects backing pages
-> + * @purgeable: Total size of GEM objects that can be purged (resident and not active)
-> + * @active: Total size of GEM objects active on one or more engines
-> + *
-> + * Used by drm_print_memory_stats()
-> + */
-> +struct drm_memory_stats {
-> +	u32 shared;
-> +	u32 private;
-> +	u32 resident;
-> +	u32 purgeable;
-> +	u32 active;
-> +};
+Not related to this patch but seems that the "remove_new" callback
+naming implicitly implies that there is no need to return anything
+since its return type is void. To help users understand the intended
+behavior based on the callback name, how about considering a modified
+naming convention like "remove_no_return" or something similar?
 
-u64 for these as agreed.
+The relevant patch has already been merged as outlined below,
+author Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de> 2022-12-09
+16:09:14 +0100
+committer Greg Kroah-Hartman <gregkh@linuxfoundation.org> 2023-01-17
+19:04:17 +0100
+commit 5c5a7680e67ba6fbbb5f4d79fa41485450c1985c (patch)
+tree 0b6dbc003a6bb4a3f7fb084d31326bbfa3ba3f7c
+parent 7bbb89b420d9e290cb34864832de8fcdf2c140dc (diff)
+download linux-5c5a7680e67ba6fbbb5f4d79fa41485450c1985c.tar.gz
+platform: Provide a remove callback that returns no value
 
-> +
-> +enum drm_gem_object_status;
-> +
-> +void drm_print_memory_stats(struct drm_printer *p,
-> +			    const struct drm_memory_stats *stats,
-> +			    enum drm_gem_object_status supported_status,
-> +			    const char *region);
-> +
-> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
->   void drm_show_fdinfo(struct seq_file *m, struct file *f);
->   
->   struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
->   
->   #endif /* _DRM_FILE_H_ */
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 189fd618ca65..9ebd2820ad1f 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -35,20 +35,39 @@
->    */
->   
->   #include <linux/kref.h>
->   #include <linux/dma-resv.h>
->   
->   #include <drm/drm_vma_manager.h>
->   
->   struct iosys_map;
->   struct drm_gem_object;
->   
-> +/**
-> + * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
-> + * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
-> + * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
-> + *
-> + * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
-> + * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
-> + * it still active or not resident, in which case drm_show_fdinfo() will not
-> + * account for it as purgeable.  So drivers do not need to check if the buffer
-> + * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
-> + * as purgeable even while it is still busy on the GPU.. it does not _actually_
-> + * become puregeable until it becomes idle.  The status gem object func does
-> + * not need to consider this.)
-> + */
-> +enum drm_gem_object_status {
-> +	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
-> +	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
-> +};
-> +
->   /**
->    * struct drm_gem_object_funcs - GEM object functions
->    */
->   struct drm_gem_object_funcs {
->   	/**
->   	 * @free:
->   	 *
->   	 * Deconstructor for drm_gem_objects.
->   	 *
->   	 * This callback is mandatory.
-> @@ -167,20 +186,31 @@ struct drm_gem_object_funcs {
->   	/**
->   	 * @evict:
->   	 *
->   	 * Evicts gem object out from memory. Used by the drm_gem_object_evict()
->   	 * helper. Returns 0 on success, -errno otherwise.
->   	 *
->   	 * This callback is optional.
->   	 */
->   	int (*evict)(struct drm_gem_object *obj);
->   
-> +	/**
-> +	 * @status:
-> +	 *
-> +	 * The optional status callback can return additional object state
-> +	 * which determines which stats the object is counted against.  The
-> +	 * callback is called under table_lock.  Racing against object status
-> +	 * change is "harmless", and the callback can expect to not race
-> +	 * against object destruction.
+Maybe a trivial thing but how about renaming it? I think the postfix,
+'new', is a very generic word. I think you could introduce another
+patch for it if you think it's reasonable.
 
-Maybe mention the callback is called from drm_show_memory_stats?
+Thanks,
+Inki Dae
 
-> +	 */
-> +	enum drm_gem_object_status (*status)(struct drm_gem_object *obj);
-> +
->   	/**
->   	 * @vm_ops:
->   	 *
->   	 * Virtual memory operations used with mmap.
->   	 *
->   	 * This is optional but necessary for mmap support.
->   	 */
->   	const struct vm_operations_struct *vm_ops;
->   };
->   
-
-With the u64 stats:
-
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Regards,
-
-Tvrtko
+> the driver core doesn't (and cannot) cope for errors during remove. The
+> only effect of a non-zero return value in .remove() is that the driver
+> core emits a warning. The device is removed anyhow and an early return
+> from .remove() usually yields a resource leak.
+>
+> By changing the remove callback to return void driver authors cannot
+> reasonably (but wrongly) assume any more that there happens some kind of
+> cleanup later.
+>
+> Best regards
+> Uwe
+>
+> Uwe Kleine-K=C3=B6nig (53):
+>   drm/komeda: Convert to platform remove callback returning void
+>   drm/arm/hdlcd: Convert to platform remove callback returning void
+>   drm/arm/malidp: Convert to platform remove callback returning void
+>   drm/armada: Convert to platform remove callback returning void
+>   drm/aspeed: Convert to platform remove callback returning void
+>   drm/atmel-hlcdc: Convert to platform remove callback returning void
+>   drm/bridge: cdns-dsi: Convert to platform remove callback returning
+>     void
+>   drm/bridge: display-connector: Convert to platform remove callback
+>     returning void
+>   drm/bridge: fsl-ldb: Convert to platform remove callback returning
+>     void
+>   drm/imx/imx8*: Convert to platform remove callback returning void
+>   drm/bridge: lvds-codec: Convert to platform remove callback returning
+>     void
+>   drm/bridge: nwl-dsi: Convert to platform remove callback returning
+>     void
+>   drm/bridge: simple-bridge: Convert to platform remove callback
+>     returning void
+>   drm/bridge: synopsys: Convert to platform remove callback returning
+>     void
+>   drm/bridge: thc63lvd1024: Convert to platform remove callback
+>     returning void
+>   drm/bridge: tfp410: Convert to platform remove callback returning void
+>   drm/etnaviv: Convert to platform remove callback returning void
+>   drm/exynos: Convert to platform remove callback returning void
+>   drm/fsl-dcu: Convert to platform remove callback returning void
+>   drm/hisilicon: Convert to platform remove callback returning void
+>   drm/imx/dcss: Convert to platform remove callback returning void
+>   drm/imx/ipuv3: Convert to platform remove callback returning void
+>   drm/ingenic: Convert to platform remove callback returning void
+>   drm/kmb: Convert to platform remove callback returning void
+>   drm/lima: Convert to platform remove callback returning void
+>   drm/logicvc: Convert to platform remove callback returning void
+>   drm/mcde: Convert to platform remove callback returning void
+>   drm/mediatek: Convert to platform remove callback returning void
+>   drm/mediatek: Convert to platform remove callback returning void
+>   drm/meson: Convert to platform remove callback returning void
+>   drm/msm: Convert to platform remove callback returning void
+>   drm/mxsfb: Convert to platform remove callback returning void
+>   drm/nouveau: Convert to platform remove callback returning void
+>   drm/omap: Convert to platform remove callback returning void
+>   drm/panel: Convert to platform remove callback returning void
+>   drm/panfrost: Convert to platform remove callback returning void
+>   drm/rcar-du: Convert to platform remove callback returning void
+>   drm/rockchip: Convert to platform remove callback returning void
+>   drm/shmobile: Convert to platform remove callback returning void
+>   drm/sprd: Convert to platform remove callback returning void
+>   drm/sti: Convert to platform remove callback returning void
+>   drm/stm: Convert to platform remove callback returning void
+>   drm/sun4i: Convert to platform remove callback returning void
+>   drm/tegra: Convert to platform remove callback returning void
+>   drm/tests: helpers: Convert to platform remove callback returning void
+>   drm/tidss: Convert to platform remove callback returning void
+>   drm/tilcdc: Convert to platform remove callback returning void
+>   drm/tiny: Convert to platform remove callback returning void
+>   drm/tiny: Convert to platform remove callback returning void
+>   drm/tve200: Convert to platform remove callback returning void
+>   drm/v3d: Convert to platform remove callback returning void
+>   drm/vc4: Convert to platform remove callback returning void
+>   drm/xlnx/zynqmp_dpsub: Convert to platform remove callback returning
+>     void
+>
+>  drivers/gpu/drm/arm/display/komeda/komeda_drv.c     | 5 ++---
+>  drivers/gpu/drm/arm/hdlcd_drv.c                     | 5 ++---
+>  drivers/gpu/drm/arm/malidp_drv.c                    | 5 ++---
+>  drivers/gpu/drm/armada/armada_crtc.c                | 5 ++---
+>  drivers/gpu/drm/armada/armada_drv.c                 | 5 ++---
+>  drivers/gpu/drm/aspeed/aspeed_gfx_drv.c             | 6 ++----
+>  drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c        | 6 ++----
+>  drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c      | 6 ++----
+>  drivers/gpu/drm/bridge/display-connector.c          | 6 ++----
+>  drivers/gpu/drm/bridge/fsl-ldb.c                    | 6 ++----
+>  drivers/gpu/drm/bridge/imx/imx8qm-ldb-drv.c         | 6 ++----
+>  drivers/gpu/drm/bridge/imx/imx8qxp-ldb-drv.c        | 6 ++----
+>  drivers/gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c | 6 ++----
+>  drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c     | 6 ++----
+>  drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c        | 6 ++----
+>  drivers/gpu/drm/bridge/lvds-codec.c                 | 6 ++----
+>  drivers/gpu/drm/bridge/nwl-dsi.c                    | 5 ++---
+>  drivers/gpu/drm/bridge/simple-bridge.c              | 6 ++----
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 6 ++----
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-cec.c       | 6 ++----
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-gp-audio.c  | 6 ++----
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c | 6 ++----
+>  drivers/gpu/drm/bridge/thc63lvd1024.c               | 6 ++----
+>  drivers/gpu/drm/bridge/ti-tfp410.c                  | 6 ++----
+>  drivers/gpu/drm/etnaviv/etnaviv_drv.c               | 6 ++----
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c               | 5 ++---
+>  drivers/gpu/drm/exynos/exynos5433_drm_decon.c       | 6 ++----
+>  drivers/gpu/drm/exynos/exynos7_drm_decon.c          | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_dp.c                  | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_drv.c             | 5 ++---
+>  drivers/gpu/drm/exynos/exynos_drm_dsi.c             | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_fimc.c            | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_fimd.c            | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_g2d.c             | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_gsc.c             | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_mic.c             | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_rotator.c         | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_drm_scaler.c          | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_hdmi.c                | 6 ++----
+>  drivers/gpu/drm/exynos/exynos_mixer.c               | 6 ++----
+>  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c           | 6 ++----
+>  drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c        | 6 ++----
+>  drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c     | 5 ++---
+>  drivers/gpu/drm/imx/dcss/dcss-drv.c                 | 6 ++----
+>  drivers/gpu/drm/imx/ipuv3/dw_hdmi-imx.c             | 6 ++----
+>  drivers/gpu/drm/imx/ipuv3/imx-drm-core.c            | 5 ++---
+>  drivers/gpu/drm/imx/ipuv3/imx-ldb.c                 | 5 ++---
+>  drivers/gpu/drm/imx/ipuv3/imx-tve.c                 | 5 ++---
+>  drivers/gpu/drm/imx/ipuv3/ipuv3-crtc.c              | 5 ++---
+>  drivers/gpu/drm/imx/ipuv3/parallel-display.c        | 6 ++----
+>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c           | 6 ++----
+>  drivers/gpu/drm/ingenic/ingenic-ipu.c               | 5 ++---
+>  drivers/gpu/drm/kmb/kmb_drv.c                       | 5 ++---
+>  drivers/gpu/drm/lima/lima_drv.c                     | 5 ++---
+>  drivers/gpu/drm/logicvc/logicvc_drm.c               | 6 ++----
+>  drivers/gpu/drm/mcde/mcde_drv.c                     | 6 ++----
+>  drivers/gpu/drm/mcde/mcde_dsi.c                     | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_cec.c                  | 5 ++---
+>  drivers/gpu/drm/mediatek/mtk_disp_aal.c             | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_disp_ccorr.c           | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_disp_color.c           | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_disp_gamma.c           | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_disp_merge.c           | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_disp_ovl.c             | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_disp_rdma.c            | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_dp.c                   | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_dpi.c                  | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c              | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_dsi.c                  | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_hdmi.c                 | 5 ++---
+>  drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c             | 6 ++----
+>  drivers/gpu/drm/mediatek/mtk_mdp_rdma.c             | 5 ++---
+>  drivers/gpu/drm/meson/meson_drv.c                   | 6 ++----
+>  drivers/gpu/drm/meson/meson_dw_hdmi.c               | 6 ++----
+>  drivers/gpu/drm/msm/adreno/adreno_device.c          | 5 ++---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c             | 6 ++----
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c            | 6 ++----
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c            | 5 ++---
+>  drivers/gpu/drm/msm/dp/dp_display.c                 | 6 ++----
+>  drivers/gpu/drm/msm/dsi/dsi.c                       | 6 ++----
+>  drivers/gpu/drm/msm/hdmi/hdmi.c                     | 6 ++----
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy.c                 | 6 ++----
+>  drivers/gpu/drm/msm/msm_drv.c                       | 6 ++----
+>  drivers/gpu/drm/msm/msm_mdss.c                      | 6 ++----
+>  drivers/gpu/drm/mxsfb/lcdif_drv.c                   | 6 ++----
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c                   | 6 ++----
+>  drivers/gpu/drm/nouveau/nouveau_platform.c          | 5 ++---
+>  drivers/gpu/drm/omapdrm/dss/dispc.c                 | 5 ++---
+>  drivers/gpu/drm/omapdrm/dss/dsi.c                   | 6 ++----
+>  drivers/gpu/drm/omapdrm/dss/dss.c                   | 6 ++----
+>  drivers/gpu/drm/omapdrm/dss/hdmi4.c                 | 5 ++---
+>  drivers/gpu/drm/omapdrm/dss/hdmi5.c                 | 5 ++---
+>  drivers/gpu/drm/omapdrm/dss/venc.c                  | 5 ++---
+>  drivers/gpu/drm/omapdrm/omap_dmm_tiler.c            | 9 +++------
+>  drivers/gpu/drm/omapdrm/omap_drv.c                  | 6 ++----
+>  drivers/gpu/drm/panel/panel-lvds.c                  | 6 ++----
+>  drivers/gpu/drm/panel/panel-seiko-43wvf1g.c         | 6 ++----
+>  drivers/gpu/drm/panel/panel-sharp-ls037v7dw01.c     | 6 ++----
+>  drivers/gpu/drm/panel/panel-simple.c                | 6 ++----
+>  drivers/gpu/drm/panfrost/panfrost_drv.c             | 5 ++---
+>  drivers/gpu/drm/rcar-du/rcar_cmm.c                  | 6 ++----
+>  drivers/gpu/drm/rcar-du/rcar_du_drv.c               | 6 ++----
+>  drivers/gpu/drm/rcar-du/rcar_dw_hdmi.c              | 6 ++----
+>  drivers/gpu/drm/rcar-du/rcar_lvds.c                 | 6 ++----
+>  drivers/gpu/drm/rcar-du/rcar_mipi_dsi.c             | 6 ++----
+>  drivers/gpu/drm/rcar-du/rzg2l_mipi_dsi.c            | 6 ++----
+>  drivers/gpu/drm/rockchip/analogix_dp-rockchip.c     | 6 ++----
+>  drivers/gpu/drm/rockchip/cdn-dp-core.c              | 6 ++----
+>  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c     | 6 ++----
+>  drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c         | 6 ++----
+>  drivers/gpu/drm/rockchip/inno_hdmi.c                | 6 ++----
+>  drivers/gpu/drm/rockchip/rk3066_hdmi.c              | 6 ++----
+>  drivers/gpu/drm/rockchip/rockchip_drm_drv.c         | 6 ++----
+>  drivers/gpu/drm/rockchip/rockchip_lvds.c            | 6 ++----
+>  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c        | 6 ++----
+>  drivers/gpu/drm/rockchip/rockchip_vop_reg.c         | 6 ++----
+>  drivers/gpu/drm/shmobile/shmob_drm_drv.c            | 6 ++----
+>  drivers/gpu/drm/sprd/sprd_dpu.c                     | 6 ++----
+>  drivers/gpu/drm/sprd/sprd_drm.c                     | 5 ++---
+>  drivers/gpu/drm/sprd/sprd_dsi.c                     | 6 ++----
+>  drivers/gpu/drm/sti/sti_compositor.c                | 5 ++---
+>  drivers/gpu/drm/sti/sti_drv.c                       | 6 ++----
+>  drivers/gpu/drm/sti/sti_dvo.c                       | 5 ++---
+>  drivers/gpu/drm/sti/sti_hda.c                       | 5 ++---
+>  drivers/gpu/drm/sti/sti_hdmi.c                      | 6 ++----
+>  drivers/gpu/drm/sti/sti_hqvdp.c                     | 5 ++---
+>  drivers/gpu/drm/sti/sti_tvout.c                     | 5 ++---
+>  drivers/gpu/drm/stm/drv.c                           | 6 ++----
+>  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c               | 6 ++----
+>  drivers/gpu/drm/sun4i/sun4i_backend.c               | 6 ++----
+>  drivers/gpu/drm/sun4i/sun4i_drv.c                   | 6 ++----
+>  drivers/gpu/drm/sun4i/sun4i_frontend.c              | 6 ++----
+>  drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c              | 6 ++----
+>  drivers/gpu/drm/sun4i/sun4i_tcon.c                  | 6 ++----
+>  drivers/gpu/drm/sun4i/sun4i_tv.c                    | 6 ++----
+>  drivers/gpu/drm/sun4i/sun6i_drc.c                   | 6 ++----
+>  drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c              | 6 ++----
+>  drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c               | 6 ++----
+>  drivers/gpu/drm/sun4i/sun8i_mixer.c                 | 6 ++----
+>  drivers/gpu/drm/sun4i/sun8i_tcon_top.c              | 6 ++----
+>  drivers/gpu/drm/tegra/dpaux.c                       | 6 ++----
+>  drivers/gpu/drm/tests/drm_kunit_helpers.c           | 5 ++---
+>  drivers/gpu/drm/tidss/tidss_drv.c                   | 6 ++----
+>  drivers/gpu/drm/tilcdc/tilcdc_panel.c               | 6 ++----
+>  drivers/gpu/drm/tiny/arcpgu.c                       | 6 ++----
+>  drivers/gpu/drm/tiny/ofdrm.c                        | 6 ++----
+>  drivers/gpu/drm/tiny/simpledrm.c                    | 6 ++----
+>  drivers/gpu/drm/tve200/tve200_drv.c                 | 6 ++----
+>  drivers/gpu/drm/v3d/v3d_drv.c                       | 6 ++----
+>  drivers/gpu/drm/vc4/vc4_crtc.c                      | 5 ++---
+>  drivers/gpu/drm/vc4/vc4_dpi.c                       | 5 ++---
+>  drivers/gpu/drm/vc4/vc4_drv.c                       | 6 ++----
+>  drivers/gpu/drm/vc4/vc4_dsi.c                       | 6 ++----
+>  drivers/gpu/drm/vc4/vc4_hdmi.c                      | 5 ++---
+>  drivers/gpu/drm/vc4/vc4_hvs.c                       | 5 ++---
+>  drivers/gpu/drm/vc4/vc4_txp.c                       | 5 ++---
+>  drivers/gpu/drm/vc4/vc4_v3d.c                       | 5 ++---
+>  drivers/gpu/drm/vc4/vc4_vec.c                       | 5 ++---
+>  drivers/gpu/drm/xlnx/zynqmp_dpsub.c                 | 6 ++----
+>  159 files changed, 319 insertions(+), 597 deletions(-)
+>
+>
+> base-commit: 457391b0380335d5e9a5babdec90ac53928b23b4
+> --
+> 2.39.2
+>
