@@ -2,71 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05631704300
-	for <lists+freedreno@lfdr.de>; Tue, 16 May 2023 03:39:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743F5704E73
+	for <lists+freedreno@lfdr.de>; Tue, 16 May 2023 14:59:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66C8910E2CE;
-	Tue, 16 May 2023 01:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3170210E085;
+	Tue, 16 May 2023 12:59:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C491E10E2CE
- for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 01:39:05 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f137dbaa4fso16137756e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 15 May 2023 18:39:05 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11E0310E0A4
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 12:59:32 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4f2676d62a2so8032586e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 05:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684201143; x=1686793143;
- h=content-transfer-encoding:in-reply-to:from:cc:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1684241969; x=1686833969;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=EEd2VNamh1i6jf7PkiHXJC0cUQGs4JXzfDvZf2SFrsY=;
- b=fzN2hqaAGe1KyV8sUYflKtQl3IPGSaX0LiupKOi8VqGUk53LwWoZw2uOFBv1iBHiiY
- ygaxcokdSmP2NFtMaiiUN3/nlrpfgJi36uNoagsv8tFNb8zDo2lBhhV1RtvftwOPV9Xz
- p8drDmaNxSbx5xoVvNzds54Unq8mGx+Mm+G6gD/t/hbfW/Ws8HIMZuTJ2YLd/AxMjSW+
- KuE3mR/PJvUlC+1svaDlCJilolhc+nk38qlgTKEfZRASOp4R+hELK366WGREHqHwwN7h
- xoxURRgYiR882yxLt+3lYoIrB04GgQmZaNd/G1OteyrbMv3Yk+2i685LjP7WYRGPMc8G
- 64DA==
+ bh=RyX6rQJR1BZQe9Yc57Xp/rJrQBCXKFM6w6ZuIQmIOyk=;
+ b=vms5vFb83wjTEUFScjnZ39oGL9tY2MRnQCrmiM+Z9r8mbDubZnpRtiI94iw7RQHBiG
+ NQlmg0NnQK5UWCHQAo7xRz5Bc228a9R01ftilJ6IUT2lUm5XaaUNSQ7OHnjcBvRofMEx
+ DGSsneyG3NEoZzAE3kgVBc0ixpS/9nduEN/bFcMq8BwFjTY3Z6bTTX1rSe0gM9EpFiut
+ DySc6CxiBo/ZSeaiwij+VNx4FBjDaKaRNnar8q8HgHujQln+VWp3L75DJgnMTrvIWeXj
+ 1zkAMj7IT0v7Ktd0k0c/MGkTFc20GDtFYo3o8TvPg0zX+03jq1aybpoUMCqea/zXSymx
+ 6MTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684201143; x=1686793143;
- h=content-transfer-encoding:in-reply-to:from:cc:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1684241969; x=1686833969;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EEd2VNamh1i6jf7PkiHXJC0cUQGs4JXzfDvZf2SFrsY=;
- b=dMDNSsG167yDqr9Obj2Zl1sYPva6g4Hv2/6BKsiMzQPsAvbyDfTUqaVz+bVJk9UQ7F
- G40HKZRgRNk+BGc/O31A8Rz0BhaMjONFe69AwX6cIG4w2bXWFWQJ4SWokDh4WYHmbWMB
- ecOy7HA4qcZpXl1/FAoeq4MWWBleOQa9ebhkVbdF9hAKl6zBjh3E5/vXRUQWEapTCDDv
- zS9I5Xqfo1k+QpYH4D1T+LLu/VbMbi/hQ2t9nUIybSARRcFNend6/waGuPdSe2xuVOf/
- p9B+rwtGMeiYuYuUcDTdV/qCPU4jKiTi2XvHmwlcvoWfpjd4TFFnhBpEEl77DT43ISNQ
- bAKg==
-X-Gm-Message-State: AC+VfDxz3CjMeLEqt0vBmTOIV2QXRHFdCZsoobH7vwkQjs6Sg2AIQrvl
- nmaiygZHe1l5wQaegMezUsMFTQ==
-X-Google-Smtp-Source: ACHHUZ6fpj4cg0RPG98p6BQpabeODsCHDUgNJuiOzcslPL8r/crEfJmYtontwB5v0f+wE7768UWM0Q==
-X-Received: by 2002:a19:750b:0:b0:4f2:5007:bd7f with SMTP id
- y11-20020a19750b000000b004f25007bd7fmr6730952lfe.36.1684201143600; 
- Mon, 15 May 2023 18:39:03 -0700 (PDT)
-Received: from [192.168.1.101] (abxi58.neoplus.adsl.tpnet.pl. [83.9.2.58])
+ bh=RyX6rQJR1BZQe9Yc57Xp/rJrQBCXKFM6w6ZuIQmIOyk=;
+ b=HZP1ZI6oxQLXj30PYdd51RTFLmR+EUBkGEcwR5T1mIHR7A1Bz4W5VtghykLtNTXJPl
+ BXXU11CogLDlNwhTG80poR5Kz8WTeXYkhfba8y4lBNXmdAYmxwtRAXjkqgIkXT/Fnpl4
+ 3X20pOZy4L4vrQgwK45KvlObXP83sl0aCgEdnAmw8S+1Tgbi09mbdUsqyAfPTF65Ve81
+ 8yf71y6caVIL3cYeB7h8DjS9l/MLk/g1hZYpK4+rdigzzaoKkLLMqmaaO1XjyWVP0F0h
+ q7F1dB7Lm2vaiS0HpCSNqKu82asM+6MF0kAE9DlekGlTZpElFj4jQl0EvW6Q84hHfXXe
+ zFhw==
+X-Gm-Message-State: AC+VfDwg76nEhKKPbigm1KqNDO9XJ4nH8OOp/TJPF4vvyyZW6FrcMttZ
+ iPaZK5xqC0Mq+wskYoKWTSLakw==
+X-Google-Smtp-Source: ACHHUZ5jrcPyi1Sklbq+EVgE6AzuXgiM/acWnd8fwfuhTH5xW6E3kNQ1fnoEjsH+AEPeI1ou78pHOA==
+X-Received: by 2002:ac2:5dc4:0:b0:4ef:6ed9:7af2 with SMTP id
+ x4-20020ac25dc4000000b004ef6ed97af2mr7847544lfq.8.1684241968852; 
+ Tue, 16 May 2023 05:59:28 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- i22-20020a056512007600b004ece331c830sm2797419lfo.206.2023.05.15.18.39.02
+ c9-20020ac244a9000000b004f387d97dafsm360065lfm.147.2023.05.16.05.59.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 May 2023 18:39:03 -0700 (PDT)
-Message-ID: <2f24af7e-058a-5a70-f3ad-99ff4f0ed0a5@linaro.org>
-Date: Tue, 16 May 2023 03:39:01 +0200
+ Tue, 16 May 2023 05:59:28 -0700 (PDT)
+Message-ID: <19853086-3486-54e9-7926-e6eb9fc0d243@linaro.org>
+Date: Tue, 16 May 2023 15:59:27 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230410185226.3240336-1-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230410185226.3240336-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ Thunderbird/102.10.0
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
+ <871qjij6vx.fsf@intel.com>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <871qjij6vx.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: don't set
- IO_PGTABLE_QUIRK_ARM_OUTER_WBWA with coherent SMMU
+Subject: Re: [Freedreno] [PATCH v5 0/8] drm/i915: move DSC RC tables to
+ drm_dsc_helper.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,47 +86,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, David Heidelberg <david@ixit.cz>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 10.04.2023 20:52, Dmitry Baryshkov wrote:
-> If the Adreno SMMU is dma-coherent, allocation will fail unless we
-> disable IO_PGTABLE_QUIRK_ARM_OUTER_WBWA. Skip setting this quirk for the
-> coherent SMMUs (like we have on sm8350 platform).
+On 15/05/2023 12:12, Jani Nikula wrote:
+> On Thu, 04 May 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+>> Other platforms (msm) will benefit from sharing the DSC config setup
+>> functions. This series moves parts of static DSC config data from the
+>> i915 driver to the common helpers to be used by other drivers.
+>>
+>> Note: the RC parameters were cross-checked against config files found in
+>> DSC model 2021062, 20161212 (and 20150914). The first patch modifies
+>> tables according to those config files, while preserving parameter
+>> values using the code. I have not changed one of the values in the
+>> pre-SCR config file as it clearly looks like a typo in the config file,
+>> considering the table E in DSC 1.1 and in the DSC 1.1 SCR.
 > 
-> Fixes: 54af0ceb7595 ("arm64: dts: qcom: sm8350: add GPU, GMU, GPU CC and SMMU nodes")
-> Reported-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Tested-by: David Heidelberg <david@ixit.cz>
-> ---
-Also required for SM8450 (and others)
+> As I believe I've said before, I think it's fine to merge these either
+> via drm-intel or drm-misc. Which do you prefer?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Tested-by: Konrad Dybcio <konrad.dybcio@linaro.org> # SM8450 HDK
+No strong preference. Maybe drm-misc would be easier for us to 
+back-merge it into msm/next. Otherwise it is up to you.
 
-Cc: <stable@vger.kernel.org>
-
-Konrad
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 2942d2548ce6..f74495dcbd96 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1793,7 +1793,8 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
->  	 * This allows GPU to set the bus attributes required to use system
->  	 * cache on behalf of the iommu page table walker.
->  	 */
-> -	if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
-> +	if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice) &&
-> +	    !device_iommu_capable(&pdev->dev, IOMMU_CAP_CACHE_COHERENCY))
->  		quirks |= IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
->  
->  	return adreno_iommu_create_address_space(gpu, pdev, quirks);
+> BR,
+> Jani.
+> 
+> 
+> 
+>>
+>> Chances since v4:
+>> - Rebased on top of drm-intel-next
+>> - Cut the first 8 patches of the series to ease merging. The rest of the
+>>    patches will go afterwards.
+>>
+>> Chances since v3:
+>> - Rebased on top of drm-intel-next
+>> - Dropped the msm patch to make patchset fully mergeable through
+>>    drm-intel
+>> - Made drm_dsc_set_const_params() ignore rc_model_size, picked up
+>>    drm_dsc_set_initial_scale_value() patch by Jessica and switched
+>>    intel_vdsc.c to use those two helpers.
+>> - Added a patch to make i915 actually use rc_tgt_offset_high,
+>>    rc_tgt_offset_low and rc_edge_factor from struct drm_dsc_config.
+>>
+>> Chances since v2:
+>> - Rebased on top of drm-intel-next
+>>
+>> Chances since v1:
+>> - Made drm_dsc_rc_buf_thresh static rather than exporting it
+>> - Switched drm_dsc_rc_buf_thresh loop to use ARRAY_SIZE. Added
+>>    BUILD_BUG_ON's to be sure that array sizes are correct
+>> - Fixed rc_parameters_data indentation to be logical and tidy
+>> - Fixed drm_dsc_setup_rc_params() kerneldoc
+>> - Added a clause to drm_dsc_setup_rc_params() to verify bpp and bpc
+>>    being set.
+>> - Fixed range_bpg_offset programming in calculate_rc_params()
+>> - Fixed bpp vs bpc bug in intel_dsc_compute_params()
+>> - Added FIXME comment next to the customizations in
+>>    intel_dsc_compute_params().
+>>
+>> Dmitry Baryshkov (8):
+>>    drm/i915/dsc: change DSC param tables to follow the DSC model
+>>    drm/i915/dsc: move rc_buf_thresh values to common helper
+>>    drm/i915/dsc: move DSC tables to DRM DSC helper
+>>    drm/i915/dsc: stop using interim structure for calculated params
+>>    drm/display/dsc: use flat array for rc_parameters lookup
+>>    drm/display/dsc: split DSC 1.2 and DSC 1.1 (pre-SCR) parameters
+>>    drm/display/dsc: include the rest of pre-SCR parameters
+>>    drm/display/dsc: add YCbCr 4:2:2 and 4:2:0 RC parameters
+>>
+>>   drivers/gpu/drm/display/drm_dsc_helper.c  | 986 ++++++++++++++++++++++
+>>   drivers/gpu/drm/i915/display/intel_vdsc.c | 443 ++--------
+>>   include/drm/display/drm_dsc_helper.h      |   9 +
+>>   3 files changed, 1042 insertions(+), 396 deletions(-)
+> 
+
+-- 
+With best wishes
+Dmitry
+
