@@ -1,65 +1,82 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C94F704EFC
-	for <lists+freedreno@lfdr.de>; Tue, 16 May 2023 15:14:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45ED9704FC7
+	for <lists+freedreno@lfdr.de>; Tue, 16 May 2023 15:50:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F6710E1E0;
-	Tue, 16 May 2023 13:14:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9266E10E0D1;
+	Tue, 16 May 2023 13:50:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D947F10E1E0;
- Tue, 16 May 2023 13:14:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 748C71FE71;
- Tue, 16 May 2023 13:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684242882; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GKjzpGS7tW9V68LhGYL4giB4gAwlkVhk3ib1w3wujrY=;
- b=08y7cz0zUoL+B1F0ZnnVCoCB/4jFvI7X20l0zIjXaQlTqZMqx9sgy/LKRMVrrRUuzmfAnf
- i9O12SAtRYGwB9Jrjw/wo88lScIA3GftZmlhAg2xN1CD3rlS4xUGVNLuhuOGpEFiD7AUyi
- lTUbiJWgyj8oRALacVljgEIzReffcpw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684242882;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GKjzpGS7tW9V68LhGYL4giB4gAwlkVhk3ib1w3wujrY=;
- b=Ub4B6xfMkjIbfuZNAczm4TfxQQ1Ry/K1sr6L+BhKR6AnThvExTqMkDNNkLfGD0Qp2q+DB4
- 9oj//2UjAe4mDyBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0E3F2138F5;
- Tue, 16 May 2023 13:14:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3qNtAsKBY2R/QQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 16 May 2023 13:14:42 +0000
-Message-ID: <09028144-8666-ba64-d94d-92139e469efe@suse.de>
-Date: Tue, 16 May 2023 15:14:41 +0200
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 382A410E0D1
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 13:50:31 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-4efd6e26585so16349210e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 06:50:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684245029; x=1686837029;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qloUU6Wz018FLFP/6/ZiZVsL8xQ4DAT7Q2vo3OazLUc=;
+ b=SVdBBsFZwdlYytKSvhLM+ctaiOLMmdUus8GU4cFfXa/sIlxynM9mtPJNad2h6wiqKR
+ dJ1Qg9oIqgKMiwo6cGYut//OKhVpHz6njQ0reoA6zOm9aq9IjsZSXfgPNzAs76XtoRw6
+ ufty1BKnpUEL7MBM3sMdK9Nzenlf43QLfneXDyDtG2gvZ0IPo1eSIG+UhKExDoZwSH1N
+ dYfy3PHVjpAIU+gBlDt4CCMSW74CaxML+rvfY2MOUvfXWwl1/u873qhXBj+ssKfwnDMA
+ GQWSoGy71j5r/P9/T6CAQdkse1Pq5lRTOn/6wHuk34QG/4kBRxW/g68HP9blaUV5Q+3V
+ 0fBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684245029; x=1686837029;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qloUU6Wz018FLFP/6/ZiZVsL8xQ4DAT7Q2vo3OazLUc=;
+ b=BGBL76cOaZnnTbn0oeRBMlXq1ZrsKGssN/usnk0TUONVo2JuJ/z0tjNF1U9clO+Jwt
+ aC1OvVm5CmJtRMqLeidBoH39vaeB3qJ7oGnZ0SMMY+91WuvtmqxDlzAv+toxBzYNIkk2
+ Mm7qBNW7bInHCeouBnuhI4XRF2f5vnESfzVOE6FwoeTTvuCAJhZB4mvURP/tjZmgfATW
+ RC/iFO6RzQPYMGAEezxDwrGTomeDcyxZl2KvMSgzIWkBc6w2FtK+Ql3jnYREOWiACmqf
+ yFHCxXXpuWlSvMXQtzj772Zd2x1HtGhOOx+WPOpx9/4WUTvOeTEIT88DU0/f0w0zV1r8
+ ISoQ==
+X-Gm-Message-State: AC+VfDyYlHi/LPMTqIAMdephccl8dbGhrIIbnvwlY6sRJlJzmDyq7zDH
+ I9mRXCHM322CAosOx/3Dqxut1ziSid1E4iNk2/4=
+X-Google-Smtp-Source: ACHHUZ7gnSTruCwO5rcBaAl7OThO+/s82DJbpLd3Tj4ugcQrYC9n0n9xiDfGFHlautbkSpnwqffVAQ==
+X-Received: by 2002:ac2:5223:0:b0:4f1:5015:43c4 with SMTP id
+ i3-20020ac25223000000b004f1501543c4mr7475760lfl.38.1684245028880; 
+ Tue, 16 May 2023 06:50:28 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ d5-20020ac24c85000000b004f38223eb7fsm822645lfl.102.2023.05.16.06.50.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 May 2023 06:50:28 -0700 (PDT)
+Message-ID: <6a2d1417-7333-7f8c-af87-628e5977aad6@linaro.org>
+Date: Tue, 16 May 2023 16:50:27 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Content-Language: en-US
-To: Sam Ravnborg <sam@ravnborg.org>
-References: <20230515094033.2133-1-tzimmermann@suse.de>
- <20230515094033.2133-4-tzimmermann@suse.de>
- <20230515174320.GA1745913@ravnborg.org>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20230515174320.GA1745913@ravnborg.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------lmicXarUWLuzvl3cSPm20cMq"
-Subject: Re: [Freedreno] [PATCH v2 03/12] drm/exynos: Use regular fbdev I/O
- helpers
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+References: <1683750665-8764-1-git-send-email-quic_khsieh@quicinc.com>
+ <1683750665-8764-2-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJprtQF0x_LCOTrt5bvRnJ+xRz6QxLF6QAP-4Pff6V5TJ2g@mail.gmail.com>
+ <20230511155331.2jmfe7xcs5tihdgb@ripper>
+ <5ef83699-01de-d062-6239-9bb834c70458@linaro.org>
+ <8ac0b5f5-27da-2b28-8f10-b2fca447511a@quicinc.com>
+ <CAA8EJpokAoGni7vNwuijs7EvmjCweO3pgChij3Qx3OUkVTVpiQ@mail.gmail.com>
+ <cf8b7c38-b716-e44a-86e5-d65ba7fa2869@quicinc.com>
+ <CAA8EJprN7Kp_NdBi9NHqheDdgEhj=3gyBRwr5ufTSH47P9L_-Q@mail.gmail.com>
+ <0456cbfe-66bf-9cc3-16ca-a85be603af01@quicinc.com>
+ <2d1fad81-c1dc-77db-de67-caf130af9767@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <2d1fad81-c1dc-77db-de67-caf130af9767@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm/dp: enable HDP
+ plugin/unplugged interrupts to hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,142 +89,310 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- Alim Akhtar <alim.akhtar@samsung.com>, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, javierm@redhat.com, mripard@kernel.org,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, linux-tegra@vger.kernel.org,
- Kyungmin Park <kyungmin.park@samsung.com>, airlied@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------lmicXarUWLuzvl3cSPm20cMq
-Content-Type: multipart/mixed; boundary="------------mIKpmu0MXjw05PYRo3QM4tHe";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com, linux-samsung-soc@vger.kernel.org,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- dri-devel@lists.freedesktop.org, Kyungmin Park <kyungmin.park@samsung.com>,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
-Message-ID: <09028144-8666-ba64-d94d-92139e469efe@suse.de>
-Subject: Re: [PATCH v2 03/12] drm/exynos: Use regular fbdev I/O helpers
-References: <20230515094033.2133-1-tzimmermann@suse.de>
- <20230515094033.2133-4-tzimmermann@suse.de>
- <20230515174320.GA1745913@ravnborg.org>
-In-Reply-To: <20230515174320.GA1745913@ravnborg.org>
+On 13/05/2023 00:28, Abhinav Kumar wrote:
+> Hi Bjorn and Dmitry
+> 
+> On 5/12/2023 12:34 PM, Kuogee Hsieh wrote:
+>>
+>> On 5/12/2023 10:28 AM, Dmitry Baryshkov wrote:
+>>> On Fri, 12 May 2023 at 19:52, Kuogee Hsieh <quic_khsieh@quicinc.com> 
+>>> wrote:
+>>>>
+>>>> On 5/11/2023 5:54 PM, Dmitry Baryshkov wrote:
+>>>>> On Fri, 12 May 2023 at 03:16, Kuogee Hsieh 
+>>>>> <quic_khsieh@quicinc.com> wrote:
+>>>>>> On 5/11/2023 8:57 AM, Dmitry Baryshkov wrote:
+>>>>>>> On 11/05/2023 18:53, Bjorn Andersson wrote:
+>>>>>>>> On Thu, May 11, 2023 at 07:24:46AM +0300, Dmitry Baryshkov wrote:
+>>>>>>>>> On Wed, 10 May 2023 at 23:31, Kuogee Hsieh 
+>>>>>>>>> <quic_khsieh@quicinc.com>
+>>>>>>>>> wrote:
+>>>>>>>>>> The internal_hpd flag was introduced to handle external DP HPD
+>>>>>>>>>> derived from GPIO
+>>>>>>>>>> pinmuxed into DP controller. HPD plug/unplug interrupts cannot be
+>>>>>>>>>> enabled until
+>>>>>>>>>> internal_hpd flag is set to true.
+>>>>>>>>>> At both bootup and resume time, the DP driver will enable 
+>>>>>>>>>> external DP
+>>>>>>>>>> plugin interrupts and handle plugin interrupt accordingly.
+>>>>>>>>>> Unfortunately
+>>>>>>>>>> dp_bridge_hpd_enable() bridge ops function was called to set
+>>>>>>>>>> internal_hpd
+>>>>>>>>>> flag to true later than where DP driver expected during bootup 
+>>>>>>>>>> time.
+>>>>>>>>>>
+>>>>>>>>>> This causes external DP plugin event to not get detected and
+>>>>>>>>>> display stays blank.
+>>>>>>>>>> Move enabling HDP plugin/unplugged interrupts to
+>>>>>>>>>> dp_bridge_hpd_enable()/disable() to
+>>>>>>>>>> set internal_hpd to true along with enabling HPD plugin/unplugged
+>>>>>>>>>> interrupts
+>>>>>>>>>> simultaneously to avoid timing issue during bootup and resume.
+>>>>>>>>>>
+>>>>>>>>>> Fixes: cd198caddea7 ("drm/msm/dp: Rely on hpd_enable/disable
+>>>>>>>>>> callbacks")
+>>>>>>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>>>>>> Thanks for debugging this!
+>>>>>>>>>
+>>>>>>>>> However after looking at the driver I think there is more than 
+>>>>>>>>> this.
+>>>>>>>>>
+>>>>>>>>> We have several other places gated on internal_hpd flag, where 
+>>>>>>>>> we do
+>>>>>>>>> not have a strict ordering of events.
+>>>>>>>>> I see that dp_hpd_plug_handle() and dp_hpd_unplug_handle() also 
+>>>>>>>>> toggle
+>>>>>>>>> DP_DP_IRQ_HPD_INT_MASK and DP_DP_HPD_REPLUG_INT_MASK depending on
+>>>>>>>>> internal_hpd. Can we toggle all 4 interrupts from the
+>>>>>>>>> hpd_enable/hpd_disable functions? If we can do it, then I think 
+>>>>>>>>> we can
+>>>>>>>>> drop the internal_hpd flag completely.
+>>>>>>>>>
+> 
+> No we cannot. The HPD logic works in a flip-flop model. When we get the 
+> plug interrupt, we need to flip to tell the hw to wait for unplug and 
+> when we get unplug, we need to tell the hw to wait for plug.
 
---------------mIKpmu0MXjw05PYRo3QM4tHe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+But, doesn't dp_display_config_hpd() (current code) or 
+dp_bridge_hpd_enable() (after this patch) enable both plug and unplug 
+interrupts? This doesn't fit well into the flip-flop description.
 
-SGkgU2FtDQoNCkFtIDE1LjA1LjIzIHVtIDE5OjQzIHNjaHJpZWIgU2FtIFJhdm5ib3JnOg0K
-PiBIaSBUaG9tYXMsDQo+IA0KPiBPbiBNb24sIE1heSAxNSwgMjAyMyBhdCAxMTo0MDoyNEFN
-ICswMjAwLCBUaG9tYXMgWmltbWVybWFubiB3cm90ZToNCj4+IFVzZSB0aGUgcmVndWxhciBm
-YmRldiBoZWxwZXJzIGZvciBmcmFtZWJ1ZmZlciBJL08gaW5zdGVhZCBvZiBEUk0ncw0KPj4g
-aGVscGVycy4gRXh5bm9zIGRvZXMgbm90IHVzZSBkYW1hZ2UgaGFuZGxpbmcsIHNvIERSTSdz
-IGZiZGV2IGhlbHBlcnMNCj4+IGFyZSBtZXJlIHdyYXBwZXJzIGFyb3VuZCB0aGUgZmJkZXYg
-Y29kZS4NCj4+DQo+PiBCeSB1c2luZyBmYmRldiBoZWxwZXJzIGRpcmVjdGx5IHdpdGhpbiBl
-YWNoIERSTSBmYmRldiBlbXVsYXRpb24sDQo+PiB3ZSBjYW4gZXZlbnR1YWxseSByZW1vdmUg
-RFJNJ3Mgd3JhcHBlciBmdW5jdGlvbnMgZW50aXJlbHkuDQo+Pg0KPj4gdjI6DQo+PiAJKiB1
-c2UgRkJfSU9fSEVMUEVSUyBvcHRpb24NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMg
-WmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4+IENjOiBJbmtpIERhZSA8aW5r
-aS5kYWVAc2Ftc3VuZy5jb20+DQo+PiBDYzogU2V1bmctV29vIEtpbSA8c3cwMzEyLmtpbUBz
-YW1zdW5nLmNvbT4NCj4+IENjOiBLeXVuZ21pbiBQYXJrIDxreXVuZ21pbi5wYXJrQHNhbXN1
-bmcuY29tPg0KPj4gQ2M6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dz
-a2lAbGluYXJvLm9yZz4NCj4+IENjOiBBbGltIEFraHRhciA8YWxpbS5ha2h0YXJAc2Ftc3Vu
-Zy5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9LY29uZmlnICAg
-ICAgICAgICAgfCAgMSArDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9leHlub3MvTWFrZWZpbGUg
-ICAgICAgICAgIHwgIDIgKy0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3Nf
-ZHJtX2ZiZGV2LmMgfCAxMCArKysrKy0tLS0tDQo+PiAgIDMgZmlsZXMgY2hhbmdlZCwgNyBp
-bnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vZXh5bm9zL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL0tj
-b25maWcNCj4+IGluZGV4IDBjYjkyZDY1MWZmMS4uN2NhN2UxZGFiNTJjIDEwMDY0NA0KPj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9LY29uZmlnDQo+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vZXh5bm9zL0tjb25maWcNCj4+IEBAIC03LDYgKzcsNyBAQCBjb25maWcgRFJN
-X0VYWU5PUw0KPj4gICAJc2VsZWN0IERSTV9ESVNQTEFZX0hFTFBFUiBpZiBEUk1fRVhZTk9T
-X0RQDQo+PiAgIAlzZWxlY3QgRFJNX0tNU19IRUxQRVINCj4+ICAgCXNlbGVjdCBWSURFT01P
-REVfSEVMUEVSUw0KPj4gKwlzZWxlY3QgRkJfSU9fSEVMUEVSUyBpZiBEUk1fRkJERVZfRU1V
-TEFUSU9ODQo+PiAgIAlzZWxlY3QgU05EX1NPQ19IRE1JX0NPREVDIGlmIFNORF9TT0MNCj4+
-ICAgCWhlbHANCj4+ICAgCSAgQ2hvb3NlIHRoaXMgb3B0aW9uIGlmIHlvdSBoYXZlIGEgU2Ft
-c3VuZyBTb0MgRXh5bm9zIGNoaXBzZXQuDQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2V4eW5vcy9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvTWFrZWZpbGUN
-Cj4+IGluZGV4IDJmZDJmM2VlNGZjZi4uMjMzYTY2MDM2NTg0IDEwMDY0NA0KPj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9NYWtlZmlsZQ0KPj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2V4eW5vcy9NYWtlZmlsZQ0KPj4gQEAgLTYsNyArNiw2IEBADQo+PiAgIGV4eW5vc2Ry
-bS15IDo9IGV4eW5vc19kcm1fZHJ2Lm8gZXh5bm9zX2RybV9jcnRjLm8gZXh5bm9zX2RybV9m
-Yi5vIFwNCj4+ICAgCQlleHlub3NfZHJtX2dlbS5vIGV4eW5vc19kcm1fcGxhbmUubyBleHlu
-b3NfZHJtX2RtYS5vDQo+PiAgIA0KPj4gLWV4eW5vc2RybS0kKENPTkZJR19EUk1fRkJERVZf
-RU1VTEFUSU9OKSArPSBleHlub3NfZHJtX2ZiZGV2Lm8NCj4+ICAgZXh5bm9zZHJtLSQoQ09O
-RklHX0RSTV9FWFlOT1NfRklNRCkJKz0gZXh5bm9zX2RybV9maW1kLm8NCj4+ICAgZXh5bm9z
-ZHJtLSQoQ09ORklHX0RSTV9FWFlOT1M1NDMzX0RFQ09OKQkrPSBleHlub3M1NDMzX2RybV9k
-ZWNvbi5vDQo+PiAgIGV4eW5vc2RybS0kKENPTkZJR19EUk1fRVhZTk9TN19ERUNPTikJKz0g
-ZXh5bm9zN19kcm1fZGVjb24ubw0KPj4gQEAgLTIzLDUgKzIyLDYgQEAgZXh5bm9zZHJtLSQo
-Q09ORklHX0RSTV9FWFlOT1NfUk9UQVRPUikJKz0gZXh5bm9zX2RybV9yb3RhdG9yLm8NCj4+
-ICAgZXh5bm9zZHJtLSQoQ09ORklHX0RSTV9FWFlOT1NfU0NBTEVSKQkrPSBleHlub3NfZHJt
-X3NjYWxlci5vDQo+PiAgIGV4eW5vc2RybS0kKENPTkZJR19EUk1fRVhZTk9TX0dTQykJKz0g
-ZXh5bm9zX2RybV9nc2Mubw0KPj4gICBleHlub3Nkcm0tJChDT05GSUdfRFJNX0VYWU5PU19N
-SUMpICAgICArPSBleHlub3NfZHJtX21pYy5vDQo+PiArZXh5bm9zZHJtLSQoQ09ORklHX0RS
-TV9GQkRFVl9FTVVMQVRJT04pCSs9IGV4eW5vc19kcm1fZmJkZXYubw0KPiBXaGF0IGRvZXMg
-dGhpcyBjaGFuZ2UgZG8/DQo+IE1heWJlIHNvbWV0aGluZyB0aGF0IHdhcyBsZWZ0IGJ5IGFj
-Y2lkZW50Pw0KDQpJdCByZW9yZGVycyB0aGUgc3RhdGVtZW50cyBhbHBoYWJldGljYWxseS4g
-SSBjYW4gcmVtb3ZlIHRoaXMsIGlmIHVud2FudGVkLg0KDQpCZXN0IHJlZ2FyZHMNClRob21h
-cw0KDQo+IA0KPiAJU2FtDQo+IA0KPj4gICANCj4+ICAgb2JqLSQoQ09ORklHX0RSTV9FWFlO
-T1MpCQkrPSBleHlub3Nkcm0ubw0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9l
-eHlub3MvZXh5bm9zX2RybV9mYmRldi5jIGIvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlu
-b3NfZHJtX2ZiZGV2LmMNCj4+IGluZGV4IGVhNGIzZDI0OGFhYy4uYjMzMzNkZDFkMDg3IDEw
-MDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2ZiZGV2
-LmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zX2RybV9mYmRldi5j
-DQo+PiBAQCAtOCw2ICs4LDggQEANCj4+ICAgICoJU2V1bmctV29vIEtpbSA8c3cwMzEyLmtp
-bUBzYW1zdW5nLmNvbT4NCj4+ICAgICovDQo+PiAgIA0KPj4gKyNpbmNsdWRlIDxsaW51eC9m
-Yi5oPg0KPj4gKw0KPj4gICAjaW5jbHVkZSA8ZHJtL2RybV9jcnRjX2hlbHBlci5oPg0KPj4g
-ICAjaW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4NCj4+ICAgI2luY2x1ZGUgPGRybS9kcm1fZmJf
-aGVscGVyLmg+DQo+PiBAQCAtNDksMTEgKzUxLDkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBm
-Yl9vcHMgZXh5bm9zX2RybV9mYl9vcHMgPSB7DQo+PiAgIAkub3duZXIJCT0gVEhJU19NT0RV
-TEUsDQo+PiAgIAlEUk1fRkJfSEVMUEVSX0RFRkFVTFRfT1BTLA0KPj4gICAJLmZiX21tYXAg
-ICAgICAgID0gZXh5bm9zX2RybV9mYl9tbWFwLA0KPj4gLQkuZmJfcmVhZAk9IGRybV9mYl9o
-ZWxwZXJfY2ZiX3JlYWQsDQo+PiAtCS5mYl93cml0ZQk9IGRybV9mYl9oZWxwZXJfY2ZiX3dy
-aXRlLA0KPj4gLQkuZmJfZmlsbHJlY3QJPSBkcm1fZmJfaGVscGVyX2NmYl9maWxscmVjdCwN
-Cj4+IC0JLmZiX2NvcHlhcmVhCT0gZHJtX2ZiX2hlbHBlcl9jZmJfY29weWFyZWEsDQo+PiAt
-CS5mYl9pbWFnZWJsaXQJPSBkcm1fZmJfaGVscGVyX2NmYl9pbWFnZWJsaXQsDQo+PiArCS5m
-Yl9maWxscmVjdAk9IGNmYl9maWxscmVjdCwNCj4+ICsJLmZiX2NvcHlhcmVhCT0gY2ZiX2Nv
-cHlhcmVhLA0KPj4gKwkuZmJfaW1hZ2VibGl0CT0gY2ZiX2ltYWdlYmxpdCwNCj4+ICAgCS5m
-Yl9kZXN0cm95CT0gZXh5bm9zX2RybV9mYl9kZXN0cm95LA0KPj4gICB9Ow0KPj4gICANCj4+
-IC0tIA0KPj4gMi40MC4xDQoNCi0tIA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERy
-aXZlciBEZXZlbG9wZXINClNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0K
-RnJhbmtlbnN0cmFzc2UgMTQ2LCA5MDQ2MSBOdWVybmJlcmcsIEdlcm1hbnkNCkdGOiBJdm8g
-VG90ZXYsIEFuZHJldyBNeWVycywgQW5kcmV3IE1jRG9uYWxkLCBCb3VkaWVuIE1vZXJtYW4N
-CkhSQiAzNjgwOSAoQUcgTnVlcm5iZXJnKQ0K
+> 
+> The two calls in plug_handle() / unplug_handle() are doing that whereas 
+> hpd_enable/hpd_disable are disabling the hpd interrupts altogether.
+> 
+> In other words, we cannot rely on hpd_enable() / hpd_disable() calls to 
+> do the flip part as that has to be done every plug/unplug. In addition 
+> we need to handle the compliance test cases with REPLUG.
 
---------------mIKpmu0MXjw05PYRo3QM4tHe--
+Thank you for the explanation. Would it be possible to keep mask/unmask, 
+but make hpd_enable/hpd_disable toggle DP_DP_HPD_CTRL_HPD_EN instead?
 
---------------lmicXarUWLuzvl3cSPm20cMq
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> 
+> So hpd_enable / hpd_disable is not the right place to move all these calls.
+> 
+>>>>>>>> Yes, that's what I believe the DRM framework intend us to do.
+>>>>>>>>
+>>>>>>>> The problem, and reason why I didn't do tat in my series, was 
+>>>>>>>> that in
+>>>>>>>> order to update the INT_MASKs you need to clock the IP-block and 
+>>>>>>>> that's
+>>>>>>>> done elsewhere.
+>>>>>>>>
+>>>>>>>> So, for the internal_hpd case, it seems appropriate to 
+>>>>>>>> pm_runtime_get()
+>>>>>>>> in hpd_enable() and unmask the HPD interrupts, and mask the 
+>>>>>>>> interrupts
+>>>>>>>> and pm_runtime_put() in hpd_disable().
+>>>>>>>>
+> 
+> I dont agree completely on this. The blocks powering the HPD block also 
+> power other things. So the AUX clk and host_init() both are needed for 
+> HPD but they power not just the HPD.
+> 
+> So powering all of these at hpd_enable / hpd_disable would be an 
+> overkill for that call and not required as well.
 
------BEGIN PGP SIGNATURE-----
+The main requirement behind hpd_enable/disable is that:
+- hpd_enable makes sure that hpd events are properly detected and 
+delivered afterwards.
+- hpd_disable must unroll this. In other words, "Once [..hpd_disable..] 
+returns the bridge shall not call drm_bridge_hpd_notify()".
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmRjgcEFAwAAAAAACgkQlh/E3EQov+Ap
-7xAAtDTqOO+cWdlVRZdjXBhkoahIqQTYsq6fXRlqOzJCc3QOiIqEoH6TKVXImK5JxjzEDfLsei5P
-nifoeeMVEo6LeBIIYBSPNbNVmLDp6LXRD4lYQGFtQYRXHz/BmPV0htc2aDtCGX5sd9Y5rHQJM9pD
-uUbJ3KoYRfr4vUXUpUgVhVWQ8EhJPkjKweiftJcP1R8nEKxEIlkg5iY3sebsuoFHqQEfZf0phelw
-DyBnl9PvxGlMh8jN9zR9E5kepTqUZ1u64gdtC2lBvovBFXCiZSKRwlOaGuGzSJKSIcl2zrlxW30R
-H5CA12nGNICsX6weA9eZbCWhTGn6cEVETY8fbs5MOSYtxMlAmwtToBmiKYRTsE4BtykSsXinzm5V
-RSy4LeVLsWl0lVHW1n8XvjBS6A6JVHmrZchgGTJsFGNjCO4Utb8r8q/4VxmWIkozDshwFIG1DoPL
-1FsE1WlbadqGGF1sSyS5xhedv3MvyxXXHrbnMEAGRIErmKjUUxbPZ2eb0CCyUhx7R/UhIkgOxpR+
-qIPoMq61Q5PVOJua34IR9ncJR+VTgF8C1nnZEzJRW1O3EOc06fEHRxBDKwBhvDrzQy//cA+bDzyc
-zB9s1hbttJgRR4zdYRmm+1A4yXuoWWPnvGG6tNGK2p33kSlwa/XOvvWlOSkeEV9DMkHIjODU+g3S
-iwo=
-=27yr
------END PGP SIGNATURE-----
+> Before talking about removing hpd_event_thread, I think we should 
+> understand why its there. It handles all asynchronous connection and 
+> sink related events in one centralized place like 
+> connect/disconnect/irq_hpd.
+> 
+> This is a well tested code with multiple dongles on chromebooks and I 
+> dont see any alternative to it at the moment and dont think that 
+> discussion is necessary in the context of this bug fix . We can talk 
+> about it more in one of our sync ups if you want to know more.
 
---------------lmicXarUWLuzvl3cSPm20cMq--
+Sync ups are private. Can we please keep this discussion public? It 
+would be beneficial for other parties too (e.g. ChromeOS people).
+
+The main issue with the current event thread is that it short cuts all 
+HPD handling. This causes some uevents not being sent to the userspace, etc.
+
+Please see below.
+
+
+> Based on the responses I have seen so far, I see that we had to 
+> introduce the dynamic control of internal_hpd for below case :
+> 
+> 2) DP without GPIO: Downstream drm_bridge connected, is_edp = false and
+> internal HPD-logic should not be used/enabled (internal_hpd = false).
+> Power doesn't need to be on unless hpd_notify is invoked to tell us that
+> there's something connected...
+
+Ideally, the DP block should be in the runtime suspension state, unless 
+one of the following happens:
+
+- hpd_enable() was called without consequent hpd_disable() call
+- atomic_pre_enable() was called to start up the stream, 
+atomic_post_disable() was not called yet
+- get_edid() / get_modes() is in progress
+- detect() is in progress
+- eDP? I admit I do not fully understand the requirements there, so 
+Stephen / Doug might be in a better position to comment about it
+
+> 
+> So we want internal_hpd to be false for this case.
+> 
+> That is good information and provides the context of why hpd_enable / 
+> hpd_disable callbacks were implemented as they are optional as per the 
+> framework.
+> 
+> I saw Bjorn mentioned that "The DRM framework will invoke hpd_enable on 
+> the bridge furthest out that
+> has OP_HPD. So in the case of HPD signal being pinmuxed into the
+> HPD-logic, dp_bridge_hpd_enable() will be invoked.
+> "
+> 
+> For my understanding, this logic is in the drm_bridge_connector_init() 
+> right? So bridge_connector->bridge_detect will hold the last bridge and 
+> hence enable_hpd / disable/hpd gets called only for the last one right?
+
+You are mixing bridge_detect and bridge_hpd here. But yes, these 
+pointers are initialized to the last bridges implementing 
+correspondingly OP_DETECT / OP_HPD. Then drm_bridge_connector_detect() 
+will call bridge_detect->detect(). drm_bridge_connector_enable_hpd() 
+will call bridge_hpd->hpd_enable.
+
+Note, the hpd_notify() callback will be called for all bridges in a chanin.
+
+> 
+> If all this is correct, I think the fix posted at the moment is the best 
+> possible one as it correctly does what hpd_enable / hpd_disable 
+> callbacks are supposed to do without overdoing it.
+> 
+> What are the concerns with this patch with all the explanation I have 
+> given now.
+
+I'd like to better understand the flip-flop story and the 
+DP_DP_HPD_CTRL_HPD_EN.
+
+Also, as you can see, the discussion of this patch popped up discussions 
+for two other problems:
+- power consumption / pm_runtime status
+- HPD notifications
+
+> 
+>>>>>>>>
+>>>>>>>> But for edp and external HPD-signal we also need to make sure 
+>>>>>>>> power is
+>>>>>>>> on while something is connected...
+>>>>>>> I think this is already handled by the existing code, see calls 
+>>>>>>> to the
+>>>>>>> dp_display_host_init().
+>>>>>>>
+>>>>>>>>> I went on and checked other places where it is used:
+>>>>>>>>> - dp_hpd_unplug_handle(), guarding DP_DP_HPD_PLUG_INT_MASK 
+>>>>>>>>> toggling. I
+>>>>>>>>> think we can drop these two calls completely. The function is 
+>>>>>>>>> under
+>>>>>>>>> the event_mutex protection, so other events can not interfere.
+>>>>>>>>> - dp_bridge_hpd_notify(). What is the point of this check? If some
+>>>>>>>>> other party informs us of the HPD event, we'd better handle it 
+>>>>>>>>> instead
+>>>>>>>>> of dropping it. Correct?  In other words, I'd prefer seeing the
+>>>>>>>>> hpd_event_thread removal. Instead of that I think that on
+>>>>>>>>> HPD/plug/unplug/etc. IRQ the driver should call into the drm 
+>>>>>>>>> stack,
+>>>>>>>>> then the hpd_notify call should process those events.
+
+Now about the hpd_event_thread and the callbacks.
+
+Currently the driver shortcuts the DRM infrastructure and tries to 
+handle all the details / call sequences. This might be partially 
+correct, but it definitely needs to be improved:
+
+drm_bridge_connector_hpd_cb() also calls drm_kms_helper_hotplug_event(), 
+which does other imporant things like sending uevent, notifying drm 
+clients, etc. This part is completely missing for the internal_hpd case 
+in the current driver.
+
+Thus I suggest the following refactoring:
+
+- On all HPD events the driver should call drm_bridge_hpd_notify(). For 
+the REPLUG it might be required to perform two notifications in a sequence.
+
+- drm_bridge_connector_hpd_cb() should be taught to pass through the 
+(old_status == status) events (either in all cases or if the driver 
+requests that)
+
+- The dp_bridge_hpd_notify() will be called for all HPD events. This way 
+it becomes natural to remove the !internal_hpd check from this function 
+and handle all HPD events from the proper single place, hpd_notify.
+
+
+>>>>>>>>>
+> 
+>>>>>> 1) DP with GPIO: No downstream drm_bridge are connected, is_edp = 
+>>>>>> false
+>>>>>> and internal HPD-logic is in used (internal_hpd = true). Power 
+>>>>>> needs to
+>>>>>> be on at all times etc.
+>>>>>>
+>>>>>> 2) DP without GPIO: Downstream drm_bridge connected, is_edp = 
+>>>>>> false and
+>>>>>> internal HPD-logic should not be used/enabled (internal_hpd = false).
+>>>>>> Power doesn't need to be on unless hpd_notify is invoked to tell 
+>>>>>> us that
+>>>>>> there's something connected...
+>>>>>>
+>>>>>> - dp_bridge_hpd_notify(). What is the point of this check? <== i have
+>>>>>> below two questions,
+>>>>>>
+>>>>>> 1) can you explain when/what this dp_bridge_hpd_notify() will be 
+>>>>>> called?
+>>>>> The call chain is drm_bridge_hpd_notify() ->
+>>>>> drm_bridge_connector_hpd_notify() -> .hpd_notify() for all drm_bridge
+>>>>> in chain
+>>>>>
+>>>>> One should add a call to drm_bridge_hpd_notify() when the hotplug
+>>>>> event has been detected.
+>>>>>
+>>>>> Also please note the patch 
+>>>>> https://patchwork.freedesktop.org/patch/484432/
+>>>>>
+>>>>>> 2) is dp_bridge_hpd_notify() only will be called at above case #2? 
+>>>>>> and
+>>>>>> it will not be used by case #1?
+>>>>> Once the driver calls drm_bridge_hpd_notify() in the hpd path, the
+>>>>> hpd_notify callbacks will be called in case#1 too.
+>>>>>
+>>>>> BTW: I don't see drm_bridge_hpd_notify() or
+>>>>> drm_kms_{,connector_}_hotplug_event() HPD notifications in the DP
+>>>>> driver at all. This should be fixed.
+>>>> Just curious, since dp_bridge_detect() only return either
+>>>> connector_status_connected or connector_status_disconnect,
+>>>>
+>>>> how IRQ_HPD_INT (attention) and HPD_REPLUG_INT be generated at DP 
+>>>> case#1?
+>>> if (bridge.status == connected && status == connected) {
+>>>    either attention or replug were reported
+>>> }
+>>>
+>>> BTW: what is HPD_REPLUG_INT, if you excuse my ignorance?
+>>
+>> HPD high -- drop to low for less than 2 ms -- go back to high again
+>>
+>> Currently, we have to treat this scenario as HPD_UNPLUG_int followed 
+>> by HPD_PLUG_INT to pass compliance test
+>>
+>>>
+>>>>>>
+>>>>>>>> I agree, that seems to be what's expected of us from the DRM 
+>>>>>>>> framework.
+
+
+-- 
+With best wishes
+Dmitry
+
