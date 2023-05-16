@@ -1,84 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3413705B38
-	for <lists+freedreno@lfdr.de>; Wed, 17 May 2023 01:20:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96917705B40
+	for <lists+freedreno@lfdr.de>; Wed, 17 May 2023 01:22:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 880D110E380;
-	Tue, 16 May 2023 23:20:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A60FB10E380;
+	Tue, 16 May 2023 23:22:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79F8610E380
- for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 23:20:45 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ac7f53ae44so33491fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 16:20:45 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D546110E380
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 23:22:34 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2ac8091351eso37771fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 16:22:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684279241; x=1686871241;
+ d=linaro.org; s=google; t=1684279353; x=1686871353;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=rUCxj5i0o1EXen8Dn3SsI740dx3RR0b+Gn+gr3SQnI0=;
- b=T3XytzLPiDwMonEvfsm98PF1ckZX7DG+3TFrsMZYYtlFPtoiupTH1Ldf30CgJKMJla
- 7ZZdGGWV6kKhn/2c8IUrmfPlZW7U2ZuI1CxEQuMdncelT76YoZyKYp0P21XM2jDZ+iRD
- amc0SENhSerqj48gypJPtpvcEEArSqAdRChBwQnjNUqpVzqLQhFTaPvOoCKnS75Jz5cH
- U2WpxL/JAWCnPlDC9mmW2pD6RBK8+KiZXvFh4AnBQKiPGJ8+B6Vj4cGD1uxPFkwzFyMz
- 90H4Cj0t6NAGB33o83ZBX+cdAPWMSaXor5pLbyF9py9sbIIkz2Hjy8HuCA/nq8oc+U4C
- yxIQ==
+ bh=F0lqRcsSsQH0bBfoyNKX+3AOqI8xO1VZEspaatlK78k=;
+ b=uA7/LYKh5HNBNHXQxR6NRDVGEgME5E/5oAkzu0StP2gjzSumdlZ5g/rL//IZqzjU2A
+ +gViSD7O4lfppe164q8n3Xky20BhzZGAf9iDiwAoTUlqsRsCx4UDh6Y/4F2Pbhdlqr7y
+ yYeUOjhEnhKVEUFdeF5UPkS2h3e5qRfnS4HxxaJ5HaIUa+T1kYHvOhBXJczw9/U8vjEa
+ hDN85Ae1svLt7wJIHQffrL0BDY/BTIN9Q+HdpgaykIIQbVNyGHRd8tDHTu7LnyBvKsIg
+ aZw8IXL3rbqbK4RVyIEKRlyjXcgTXQjY6UuJ/rLJ0hPQ0Z1PI90sjmJFeIddz1YMZvjs
+ ypXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684279241; x=1686871241;
+ d=1e100.net; s=20221208; t=1684279353; x=1686871353;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rUCxj5i0o1EXen8Dn3SsI740dx3RR0b+Gn+gr3SQnI0=;
- b=ZGexZHZ1wpj8d1BsPicL/VXJBoktt0WoUSEECgiXekpbwRpu2FV75idGWMDySHgKgC
- 48d1Az3Mt4Ie4wrxoKrVEIEbnrgczXQo44fsRH6MVrnffJuOm/JEu5HDiw4lWb3mu24z
- sVrKZQnmPRcyDP1D5IgZP6uh1p62PCayJdnWy6bZxOwVtWcVat2edWasXKmPMHKPvJj9
- zYvpRNPB33WK2ygKj777+hu43o1FgkNF0LSjiOrvf8654g1SYZ6UzmsZpG8aY4FKiERC
- ic+xQZpm0D/EjkKpslnwgzGZPmWL+UtJYWsnpKYmcRNbpemlcN028Npd0XRV6E6v12B9
- dhjw==
-X-Gm-Message-State: AC+VfDyNHpPlAalviiJwdCRQ2rw5fWLhrd5I2i6OfPlMzuAoDwWIPvU5
- iqcR8PLDbVED7n5muqL2jUk2NkOeJ88h0ekB/6M=
-X-Google-Smtp-Source: ACHHUZ7eIF/GOyTxlyMI7B9U4rn7u0NOvSSrwX+GKMTHDb5J90cQBkIk33i1598vLUWY1a1AtlLLvw==
-X-Received: by 2002:a2e:2c17:0:b0:2ad:b674:a7a3 with SMTP id
- s23-20020a2e2c17000000b002adb674a7a3mr6832997ljs.31.1684279241312; 
- Tue, 16 May 2023 16:20:41 -0700 (PDT)
+ bh=F0lqRcsSsQH0bBfoyNKX+3AOqI8xO1VZEspaatlK78k=;
+ b=h4jKu+nzJ1sNs8eBXaM9TWc2QVGAKTiIpN4jZKUGgjlqj5ZYLGQT8w/DD0Z7k4vk4h
+ N9s4YW7kt1i0aw1sVwcLUZ6c8kobVrX6ZbN0y3Wrgj+jpiy6w+zy1EMl9zynaksiu/dA
+ jaMIuuI8xPvlqtNIo1Ykqt34qfa0jYRLVtd/tGnBp9shWhebgooDeprkqaUueY4FXNSV
+ IYDZ2IYB2KQX1vptpbzqI+rMxQz6QjfdIKJiLICUBK6lnD7K/jJAE/LQtpFS2dKrMvR7
+ wko4OQ+hqHzH2lXUDc4pCFbPvsNcvraKj0AzOf4bAb7+i6zJkIdGjzJfJ0UfCd31OZjg
+ ykdA==
+X-Gm-Message-State: AC+VfDz1swZrKm9IEY5UrB0s9o/gl49JV7emL9EKs+qzpRak02N1z4CB
+ NGXP2qJ+QgwxaZaPLDpLYFwupQ==
+X-Google-Smtp-Source: ACHHUZ6pKQ/IyOU0B/3fMGnHOQ5asgHXtu0mkqxW5VGYBRoXChUBKHyVyTbPwB9oD8Q/wqE0YYfidg==
+X-Received: by 2002:a2e:8851:0:b0:2ac:8e69:c06d with SMTP id
+ z17-20020a2e8851000000b002ac8e69c06dmr9126360ljj.49.1684279352762; 
+ Tue, 16 May 2023 16:22:32 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- s23-20020a2e9c17000000b002ad90280503sm3678184lji.138.2023.05.16.16.20.40
+ e4-20020a2e9e04000000b002aecfa8c58bsm1321531ljk.40.2023.05.16.16.22.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 May 2023 16:20:40 -0700 (PDT)
-Message-ID: <02a63057-5c2a-5e26-d8e0-95a2c49a5e5e@linaro.org>
-Date: Wed, 17 May 2023 02:20:40 +0300
+ Tue, 16 May 2023 16:22:32 -0700 (PDT)
+Message-ID: <fdd07b5b-a3f5-0cbf-0d71-602d0b3b9847@linaro.org>
+Date: Wed, 17 May 2023 02:22:31 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <1683750665-8764-1-git-send-email-quic_khsieh@quicinc.com>
- <1683750665-8764-2-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJprtQF0x_LCOTrt5bvRnJ+xRz6QxLF6QAP-4Pff6V5TJ2g@mail.gmail.com>
- <20230511155331.2jmfe7xcs5tihdgb@ripper>
- <5ef83699-01de-d062-6239-9bb834c70458@linaro.org>
- <8ac0b5f5-27da-2b28-8f10-b2fca447511a@quicinc.com>
- <CAA8EJpokAoGni7vNwuijs7EvmjCweO3pgChij3Qx3OUkVTVpiQ@mail.gmail.com>
- <cf8b7c38-b716-e44a-86e5-d65ba7fa2869@quicinc.com>
- <CAA8EJprN7Kp_NdBi9NHqheDdgEhj=3gyBRwr5ufTSH47P9L_-Q@mail.gmail.com>
- <0456cbfe-66bf-9cc3-16ca-a85be603af01@quicinc.com>
- <2d1fad81-c1dc-77db-de67-caf130af9767@quicinc.com>
- <6a2d1417-7333-7f8c-af87-628e5977aad6@linaro.org>
- <4a904c23-77b9-283d-ff6b-606f5a2606cb@quicinc.com>
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux-foundation.org
+References: <20230516222039.907690-1-robdclark@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <4a904c23-77b9-283d-ff6b-606f5a2606cb@quicinc.com>
+In-Reply-To: <20230516222039.907690-1-robdclark@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm/dp: enable HDP
- plugin/unplugged interrupts to hpd_enable/disable
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 1/2] iommu/arm-smmu-qcom: Fix missing
+ adreno_smmu's
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,500 +79,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Lepton Wu <lepton@chromium.org>,
+ Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, Will Deacon <will@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, stable@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Melody Olvera <quic_molvera@quicinc.com>,
+ Elliot Berman <quic_eberman@quicinc.com>, freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/05/2023 01:35, Abhinav Kumar wrote:
+On 17/05/2023 01:20, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
+> When the special handling of qcom,adreno-smmu was moved into
+> qcom_smmu_create(), it was overlooked that we didn't have all the
+> required entries in qcom_smmu_impl_of_match.  So we stopped getting
+> adreno_smmu_priv on sc7180, breaking per-process pgtables.
 > 
-> On 5/16/2023 6:50 AM, Dmitry Baryshkov wrote:
->> On 13/05/2023 00:28, Abhinav Kumar wrote:
->>> Hi Bjorn and Dmitry
->>>
->>> On 5/12/2023 12:34 PM, Kuogee Hsieh wrote:
->>>>
->>>> On 5/12/2023 10:28 AM, Dmitry Baryshkov wrote:
->>>>> On Fri, 12 May 2023 at 19:52, Kuogee Hsieh 
->>>>> <quic_khsieh@quicinc.com> wrote:
->>>>>>
->>>>>> On 5/11/2023 5:54 PM, Dmitry Baryshkov wrote:
->>>>>>> On Fri, 12 May 2023 at 03:16, Kuogee Hsieh 
->>>>>>> <quic_khsieh@quicinc.com> wrote:
->>>>>>>> On 5/11/2023 8:57 AM, Dmitry Baryshkov wrote:
->>>>>>>>> On 11/05/2023 18:53, Bjorn Andersson wrote:
->>>>>>>>>> On Thu, May 11, 2023 at 07:24:46AM +0300, Dmitry Baryshkov wrote:
->>>>>>>>>>> On Wed, 10 May 2023 at 23:31, Kuogee Hsieh 
->>>>>>>>>>> <quic_khsieh@quicinc.com>
->>>>>>>>>>> wrote:
->>>>>>>>>>>> The internal_hpd flag was introduced to handle external DP HPD
->>>>>>>>>>>> derived from GPIO
->>>>>>>>>>>> pinmuxed into DP controller. HPD plug/unplug interrupts 
->>>>>>>>>>>> cannot be
->>>>>>>>>>>> enabled until
->>>>>>>>>>>> internal_hpd flag is set to true.
->>>>>>>>>>>> At both bootup and resume time, the DP driver will enable 
->>>>>>>>>>>> external DP
->>>>>>>>>>>> plugin interrupts and handle plugin interrupt accordingly.
->>>>>>>>>>>> Unfortunately
->>>>>>>>>>>> dp_bridge_hpd_enable() bridge ops function was called to set
->>>>>>>>>>>> internal_hpd
->>>>>>>>>>>> flag to true later than where DP driver expected during 
->>>>>>>>>>>> bootup time.
->>>>>>>>>>>>
->>>>>>>>>>>> This causes external DP plugin event to not get detected and
->>>>>>>>>>>> display stays blank.
->>>>>>>>>>>> Move enabling HDP plugin/unplugged interrupts to
->>>>>>>>>>>> dp_bridge_hpd_enable()/disable() to
->>>>>>>>>>>> set internal_hpd to true along with enabling HPD 
->>>>>>>>>>>> plugin/unplugged
->>>>>>>>>>>> interrupts
->>>>>>>>>>>> simultaneously to avoid timing issue during bootup and resume.
->>>>>>>>>>>>
->>>>>>>>>>>> Fixes: cd198caddea7 ("drm/msm/dp: Rely on hpd_enable/disable
->>>>>>>>>>>> callbacks")
->>>>>>>>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>>>>>>>>> Thanks for debugging this!
->>>>>>>>>>>
->>>>>>>>>>> However after looking at the driver I think there is more 
->>>>>>>>>>> than this.
->>>>>>>>>>>
->>>>>>>>>>> We have several other places gated on internal_hpd flag, 
->>>>>>>>>>> where we do
->>>>>>>>>>> not have a strict ordering of events.
->>>>>>>>>>> I see that dp_hpd_plug_handle() and dp_hpd_unplug_handle() 
->>>>>>>>>>> also toggle
->>>>>>>>>>> DP_DP_IRQ_HPD_INT_MASK and DP_DP_HPD_REPLUG_INT_MASK 
->>>>>>>>>>> depending on
->>>>>>>>>>> internal_hpd. Can we toggle all 4 interrupts from the
->>>>>>>>>>> hpd_enable/hpd_disable functions? If we can do it, then I 
->>>>>>>>>>> think we can
->>>>>>>>>>> drop the internal_hpd flag completely.
->>>>>>>>>>>
->>>
->>> No we cannot. The HPD logic works in a flip-flop model. When we get 
->>> the plug interrupt, we need to flip to tell the hw to wait for unplug 
->>> and when we get unplug, we need to tell the hw to wait for plug.
->>
->> But, doesn't dp_display_config_hpd() (current code) or 
->> dp_bridge_hpd_enable() (after this patch) enable both plug and unplug 
->> interrupts? This doesn't fit well into the flip-flop description.
->>
-> 
-> Let me clarify / correct the response. Ideally thats what is usually 
-> done to wait for disconnect when we get connect and vice-versa. HDMI 
-> still does it the same way.
-> 
-> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c#L196
+> Fixes: 30b912a03d91 ("iommu/arm-smmu-qcom: Move the qcom,adreno-smmu check into qcom_smmu_create")
+> Cc: <stable@vger.kernel.org>
+> Suggested-by: Lepton Wu <lepton@chromium.org>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
 
-So, HDMI HPD is real flip-flop, sounds fine.
-
-> 
-> But I checked with kuogee that DP always enabled HPD connect and 
-> disconnect interrupts by default and he mentioned its mainly because we 
-> wanted to enable HPD connect / disconnect by default but not the others.
-> 
-> That being said, the logic is close to flip-flop that when you get a 
-> connect event, you wait for the "other" interrupts which are possible 
-> which is IRQ_HPD and REPLUG and during disconnect, those are not 
-> possible so disable them. Thats why the calls to 
-> dp_catalog_hpd_config_intr() are present in the plug_handle / 
-> unplug_handle to enable the "other possible" interrupts.
-
-Can we keep them always enabled? Are these interrupts edge-triggered or 
-level-triggered? What prevents us from enabling these interrupts all the 
-time? Or enabling all 4 interrupts in hpd_enable() and disabling them in 
-hpd_disable()? Can IRQ_HPD or REPLUG fire when the cable is disconnected?
-
-> 
-> The logic from dp_display_config_hpd() is getting removed in this patch, 
-> in case you didnt check to align just with hpd_enable / hpd_disable 
-> callbacks.
-
-I saw this. The code is being moved to dp_bridge_hpd_enable(), as I 
-mentioned in the email.
-
-> 
->>>
->>> The two calls in plug_handle() / unplug_handle() are doing that 
->>> whereas hpd_enable/hpd_disable are disabling the hpd interrupts 
->>> altogether.
->>>
->>> In other words, we cannot rely on hpd_enable() / hpd_disable() calls 
->>> to do the flip part as that has to be done every plug/unplug. In 
->>> addition we need to handle the compliance test cases with REPLUG.
->>
->> Thank you for the explanation. Would it be possible to keep 
->> mask/unmask, but make hpd_enable/hpd_disable toggle 
->> DP_DP_HPD_CTRL_HPD_EN instead?
->>
-> 
-> Yes, this should be possible but we would like to test this. But what 
-> about the interrupt masks then. So you are saying, hpd_enable will only 
-> toggle the DP_DP_HPD_CTRL_HPD_EN but leave the HPD connect and 
-> disconnect interrupts intact? That also doesnt sound right.
-> 
-> enabling the block all the time and then toggling the interrupt masks 
-> seemed like a better thing.
-
-Why? We do not need the block outside of the hpd_enable()/hpd_disable() 
-pair. Even from the power consumption perspective, disabling the unused 
-block sounds better to me.
-
-> 
->>>
->>> So hpd_enable / hpd_disable is not the right place to move all these 
->>> calls.
->>>
->>>>>>>>>> Yes, that's what I believe the DRM framework intend us to do.
->>>>>>>>>>
->>>>>>>>>> The problem, and reason why I didn't do tat in my series, was 
->>>>>>>>>> that in
->>>>>>>>>> order to update the INT_MASKs you need to clock the IP-block 
->>>>>>>>>> and that's
->>>>>>>>>> done elsewhere.
->>>>>>>>>>
->>>>>>>>>> So, for the internal_hpd case, it seems appropriate to 
->>>>>>>>>> pm_runtime_get()
->>>>>>>>>> in hpd_enable() and unmask the HPD interrupts, and mask the 
->>>>>>>>>> interrupts
->>>>>>>>>> and pm_runtime_put() in hpd_disable().
->>>>>>>>>>
->>>
->>> I dont agree completely on this. The blocks powering the HPD block 
->>> also power other things. So the AUX clk and host_init() both are 
->>> needed for HPD but they power not just the HPD.
->>>
->>> So powering all of these at hpd_enable / hpd_disable would be an 
->>> overkill for that call and not required as well.
->>
->> The main requirement behind hpd_enable/disable is that:
->> - hpd_enable makes sure that hpd events are properly detected and 
->> delivered afterwards.
->> - hpd_disable must unroll this. In other words, "Once 
->> [..hpd_disable..] returns the bridge shall not call 
->> drm_bridge_hpd_notify()".
->>
-> 
-> Yes, we are aware of it and this patch keeps that documented expectation 
-> intact. AFAICT, we want to skip dp_bridge_hpd_notify in the internal hpd 
-> case. Please note, like I wrote before, these callbacks are listed as 
-> optional
-> 
-> 632      * This callback is optional and shall only be implemented by 
-> bridges
-> 633      * that support hot-plug notification without polling. Bridges that
-> 634      * implement it shall also implement the @hpd_disable callback 
-> and set
-> 635      * the DRM_BRIDGE_OP_HPD flag in their &drm_bridge->ops.
-> 636      */
-> 637     void (*hpd_enable)(struct drm_bridge *bridge);
-> 638
-> 
-> So, the intention of introducing them to DP driver was to handle the 
-> case which Bjorn listed. Otherwise things are fine the way it is because 
-> like Stephen wrote, whether to use internal_hpd or not is a probe time 
-> decision, we really dont need to tie it with hpd_enable/hpd_disable 
-> callbacks.
-
-Small correction correct. This is not a probe-time decision. One can not 
-decide this just basing on the next bridge existence. 
-drm_bridge_connector decides which bridges to use for HPD or DETECT at 
-the drm_bridge_connector_init(), which happens duing dpu_kms_hw_init().
-
-hpd_enable/disable are optional (the drm core can function without them 
-being provided). However having them implemented is still useful. It 
-allows one to disable unused logic.
-
-> 
->>> Before talking about removing hpd_event_thread, I think we should 
->>> understand why its there. It handles all asynchronous connection and 
->>> sink related events in one centralized place like 
->>> connect/disconnect/irq_hpd.
->>>
->>> This is a well tested code with multiple dongles on chromebooks and I 
->>> dont see any alternative to it at the moment and dont think that 
->>> discussion is necessary in the context of this bug fix . We can talk 
->>> about it more in one of our sync ups if you want to know more.
->>
->> Sync ups are private. Can we please keep this discussion public? It 
->> would be beneficial for other parties too (e.g. ChromeOS people).
->>
-> 
->> The main issue with the current event thread is that it short cuts all 
->> HPD handling. This causes some uevents not being sent to the 
->> userspace, etc.
->>
->> Please see below.
-> 
-> Sure, but questioning why it exists and that it can be removed distracts 
-> folks from the objective of fixing the hpd issue.
-> 
-> I have some questions about your assessment of uevents not being sent to 
-> userspace . Answers below to that.
-> 
->>
->>
->>> Based on the responses I have seen so far, I see that we had to 
->>> introduce the dynamic control of internal_hpd for below case :
->>>
->>> 2) DP without GPIO: Downstream drm_bridge connected, is_edp = false and
->>> internal HPD-logic should not be used/enabled (internal_hpd = false).
->>> Power doesn't need to be on unless hpd_notify is invoked to tell us that
->>> there's something connected...
->>
->> Ideally, the DP block should be in the runtime suspension state, 
->> unless one of the following happens:
->>
->> - hpd_enable() was called without consequent hpd_disable() call
->> - atomic_pre_enable() was called to start up the stream, 
->> atomic_post_disable() was not called yet
->> - get_edid() / get_modes() is in progress
->> - detect() is in progress
->> - eDP? I admit I do not fully understand the requirements there, so 
->> Stephen / Doug might be in a better position to comment about it
->>
-> 
-> This list is correct except for the other aspect I explained.
-> 
-> Like you mentioned, we really need to power up the hpd block only when 
-> hpd_enable is called. But to power up the hpd block, we need:
-> 
-> -> AUX clk
-> -> mdss ahb clk
-> -> program hpd registers
-> 
-> We need to carefully isolate these out to hpd_enable / hpd_disable. This 
-> can be tried but will only delay this fix longer ... We can give it a shot.
-
-I'd start with the simpler approach. We have AUX and MDSS AHB clocks 
-enabled all the time. I'm suggesting to limit (for the fix) 
-hpd_enable()/disable() to HPD register programming, if that is easier 
-ATM. Power optimizations can come later, provided everybody understands 
-them. If AUX or AHB clocks programming is easy, them I'm fine with them 
-getting in at the same time.
-
-> All these concerns should have been thought of when actually introducing 
-> the internal_hpd flag and the hpd_enable / hpd_disable callbacks. But 
-> looks like neither sides did.
-
-Yes. Quite unfortunate, but true.
-
-> 
-> Anyway, like we always do, we can attempt cleaning this up like the way 
-> i have explained above to move the enable / disable of those 3 resources 
-> to hpd_enable / hpd_disable. Hopefully it works and is a small change.
-> 
->>>
->>> So we want internal_hpd to be false for this case.
->>>
->>> That is good information and provides the context of why hpd_enable / 
->>> hpd_disable callbacks were implemented as they are optional as per 
->>> the framework.
->>>
->>> I saw Bjorn mentioned that "The DRM framework will invoke hpd_enable 
->>> on the bridge furthest out that
->>> has OP_HPD. So in the case of HPD signal being pinmuxed into the
->>> HPD-logic, dp_bridge_hpd_enable() will be invoked.
->>> "
->>>
->>> For my understanding, this logic is in the 
->>> drm_bridge_connector_init() right? So bridge_connector->bridge_detect 
->>> will hold the last bridge and hence enable_hpd / disable/hpd gets 
->>> called only for the last one right?
->>
->> You are mixing bridge_detect and bridge_hpd here. But yes, these 
->> pointers are initialized to the last bridges implementing 
->> correspondingly OP_DETECT / OP_HPD. Then drm_bridge_connector_detect() 
->> will call bridge_detect->detect(). drm_bridge_connector_enable_hpd() 
->> will call bridge_hpd->hpd_enable.
->>
-> 
-> Thanks for confirming.
-> 
->> Note, the hpd_notify() callback will be called for all bridges in a 
->> chanin.
->>
->>>
->>> If all this is correct, I think the fix posted at the moment is the 
->>> best possible one as it correctly does what hpd_enable / hpd_disable 
->>> callbacks are supposed to do without overdoing it.
->>>
->>> What are the concerns with this patch with all the explanation I have 
->>> given now.
->>
->> I'd like to better understand the flip-flop story and the 
->> DP_DP_HPD_CTRL_HPD_EN.
->>
->> Also, as you can see, the discussion of this patch popped up 
->> discussions for two other problems:
->> - power consumption / pm_runtime status
->> - HPD notifications
->>
-> 
-> pm_runtime status is really not affected with this patch.
-> 
-> Even without this patch, the dp_display_host_deinit was called 
-> dp_pm_suspend which would have powered down the HPD related resources.
-> 
-> hpd_enable / hpd_disable callbacks from the DRM fwk only provide us 
-> another hook to do something which was already being done.
-
-There was a point from Bjorn that there is no need to power on the DP 
-block, if the output is disabled and HPD is not enabled. It was not 
-directly related to this patch, but (in my opinion) it was an attempt to 
-understand and optimize the logic.
-
-> 
-> HPD notifications explained below.
-> 
->>>
->>>>>>>>>>
->>>>>>>>>> But for edp and external HPD-signal we also need to make sure 
->>>>>>>>>> power is
->>>>>>>>>> on while something is connected...
->>>>>>>>> I think this is already handled by the existing code, see calls 
->>>>>>>>> to the
->>>>>>>>> dp_display_host_init().
->>>>>>>>>
->>>>>>>>>>> I went on and checked other places where it is used:
->>>>>>>>>>> - dp_hpd_unplug_handle(), guarding DP_DP_HPD_PLUG_INT_MASK 
->>>>>>>>>>> toggling. I
->>>>>>>>>>> think we can drop these two calls completely. The function is 
->>>>>>>>>>> under
->>>>>>>>>>> the event_mutex protection, so other events can not interfere.
->>>>>>>>>>> - dp_bridge_hpd_notify(). What is the point of this check? If 
->>>>>>>>>>> some
->>>>>>>>>>> other party informs us of the HPD event, we'd better handle 
->>>>>>>>>>> it instead
->>>>>>>>>>> of dropping it. Correct?  In other words, I'd prefer seeing the
->>>>>>>>>>> hpd_event_thread removal. Instead of that I think that on
->>>>>>>>>>> HPD/plug/unplug/etc. IRQ the driver should call into the drm 
->>>>>>>>>>> stack,
->>>>>>>>>>> then the hpd_notify call should process those events.
->>
->> Now about the hpd_event_thread and the callbacks.
->>
->> Currently the driver shortcuts the DRM infrastructure and tries to 
->> handle all the details / call sequences. This might be partially 
->> correct, but it definitely needs to be improved:
->>
->> drm_bridge_connector_hpd_cb() also calls 
->> drm_kms_helper_hotplug_event(), which does other imporant things like 
->> sending uevent, notifying drm clients, etc. This part is completely 
->> missing for the internal_hpd case in the current driver.
->>
-> 
-> Today the DP driver calls drm_helper_hpd_irq_event to notify events 
-> which calls drm_kms_helper_hotplug_event internally. So what part is 
-> missing?
-
-Ack, I missed this call beneath all the event processing.
-
-However it still misses a call to drm_bridge_connector_hpd_notify() to 
-notify all the bridges in a chain. This might become important later for 
-the redrivers.
-
-Not to mention that drm_helper_hpd_irq_event() loops all connectors to 
-check which ones were changed. For DP driver this is not required. We 
-already know the exact connector and new state, so the loop is unnecessary.
-
-> 
->> Thus I suggest the following refactoring:
->>
->> - On all HPD events the driver should call drm_bridge_hpd_notify(). 
->> For the REPLUG it might be required to perform two notifications in a 
->> sequence.
->>
-> 
-> I am seeing this from users in drm/bridge (that is external hpd) which 
-> makes sense. So if I understand this better, in external_hpd case I do 
-> see its purpose as this info has to be passed down from the bridge to 
-> the Display controller through the drm fwk, not for the internal_hpd 
-> case because in that case the controller already knows as it is the one 
-> generating this interrupt.
-
-With the help of drm_bridge_hpd_notify() and proper hpd_notify() we can 
-unify both cases. The driver just gets the 
-connected/disconnected/attention events and handles them. It should not 
-matter, which part generates them.
-
-> 
->> - drm_bridge_connector_hpd_cb() should be taught to pass through the 
->> (old_status == status) events (either in all cases or if the driver 
->> requests that)
->>
->> - The dp_bridge_hpd_notify() will be called for all HPD events. This 
->> way it becomes natural to remove the !internal_hpd check from this 
->> function and handle all HPD events from the proper single place, 
->> hpd_notify.
->>
->>
-> 
->>>>>>>>>>>
->>>
->>>>>>>> 1) DP with GPIO: No downstream drm_bridge are connected, is_edp 
->>>>>>>> = false
->>>>>>>> and internal HPD-logic is in used (internal_hpd = true). Power 
->>>>>>>> needs to
->>>>>>>> be on at all times etc.
->>>>>>>>
->>>>>>>> 2) DP without GPIO: Downstream drm_bridge connected, is_edp = 
->>>>>>>> false and
->>>>>>>> internal HPD-logic should not be used/enabled (internal_hpd = 
->>>>>>>> false).
->>>>>>>> Power doesn't need to be on unless hpd_notify is invoked to tell 
->>>>>>>> us that
->>>>>>>> there's something connected...
->>>>>>>>
->>>>>>>> - dp_bridge_hpd_notify(). What is the point of this check? <== i 
->>>>>>>> have
->>>>>>>> below two questions,
->>>>>>>>
->>>>>>>> 1) can you explain when/what this dp_bridge_hpd_notify() will be 
->>>>>>>> called?
->>>>>>> The call chain is drm_bridge_hpd_notify() ->
->>>>>>> drm_bridge_connector_hpd_notify() -> .hpd_notify() for all 
->>>>>>> drm_bridge
->>>>>>> in chain
->>>>>>>
->>>>>>> One should add a call to drm_bridge_hpd_notify() when the hotplug
->>>>>>> event has been detected.
->>>>>>>
->>>>>>> Also please note the patch 
->>>>>>> https://patchwork.freedesktop.org/patch/484432/
->>>>>>>
->>>>>>>> 2) is dp_bridge_hpd_notify() only will be called at above case 
->>>>>>>> #2? and
->>>>>>>> it will not be used by case #1?
->>>>>>> Once the driver calls drm_bridge_hpd_notify() in the hpd path, the
->>>>>>> hpd_notify callbacks will be called in case#1 too.
->>>>>>>
->>>>>>> BTW: I don't see drm_bridge_hpd_notify() or
->>>>>>> drm_kms_{,connector_}_hotplug_event() HPD notifications in the DP
->>>>>>> driver at all. This should be fixed.
->>>>>> Just curious, since dp_bridge_detect() only return either
->>>>>> connector_status_connected or connector_status_disconnect,
->>>>>>
->>>>>> how IRQ_HPD_INT (attention) and HPD_REPLUG_INT be generated at DP 
->>>>>> case#1?
->>>>> if (bridge.status == connected && status == connected) {
->>>>>    either attention or replug were reported
->>>>> }
->>>>>
->>>>> BTW: what is HPD_REPLUG_INT, if you excuse my ignorance?
->>>>
->>>> HPD high -- drop to low for less than 2 ms -- go back to high again
->>>>
->>>> Currently, we have to treat this scenario as HPD_UNPLUG_int followed 
->>>> by HPD_PLUG_INT to pass compliance test
->>>>
->>>>>
->>>>>>>>
->>>>>>>>>> I agree, that seems to be what's expected of us from the DRM 
->>>>>>>>>> framework.
->>
->>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
