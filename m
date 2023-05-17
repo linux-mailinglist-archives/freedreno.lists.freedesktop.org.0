@@ -2,55 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD09E706DCF
-	for <lists+freedreno@lfdr.de>; Wed, 17 May 2023 18:16:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4C2706E8B
+	for <lists+freedreno@lfdr.de>; Wed, 17 May 2023 18:50:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D85E10E456;
-	Wed, 17 May 2023 16:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B375E10E228;
+	Wed, 17 May 2023 16:50:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BA3B10E450;
- Wed, 17 May 2023 16:16:19 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-6ac8ede63ccso739706a34.2; 
- Wed, 17 May 2023 09:16:19 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E81C10E11E
+ for <freedreno@lists.freedesktop.org>; Wed, 17 May 2023 16:50:16 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2ac831bb762so10326501fa.3
+ for <freedreno@lists.freedesktop.org>; Wed, 17 May 2023 09:50:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684340179; x=1686932179;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=XZoSas/Przcs6p2bBcZX+px+j9fsVB4dTbNSWQWc0gM=;
- b=CSD9rb3RghhBOnBe50y2BKYHM9K6hfddhHQbYhizS+xMh/5QUbOY66LfK1WwM3sgP4
- LyVf8q++kwhx5cyM850PUjrr6yANT8Sjk1McfCjmCLNcX4WoG83UehGZ2TsC6MIyLjQQ
- /MDZhf4OTbU8kk9yIUeDv1b09bANDAkqtvGi+R3y8jtEjtDkYnlQKYvGYi1y14Es7/G3
- mPri6hqFGHvaxz3GDLYCLAtyQvb8Le2gi1EiY9lFSr2bNT35h0667BkePgXl8dYlY4nd
- xSkA3BvXDqeOmYrujltk/v/SAyUu5A/pHWL9jGMl+RGK/n3i/e8ENYPJgJekey27XTL7
- QKKg==
+ d=linaro.org; s=google; t=1684342214; x=1686934214;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Qu3lyWs3Jbx0/jeZXUB6hf2dlkHallCSn46b3AvlYYI=;
+ b=YqE6HhdyUGy4W9xtxxoPucGkbifgxv0R6p3g00l33zbm9pWPUToFqZa3RqRKnWmRbD
+ 1LmqI0SC/n5wP/2HoNMrA0CjBg/DMvBk/XPiUzmB/hvx/GuP7MO7e8IQqtRZ3hY/7vPz
+ +JutbUhDxW/3WG/Gbs8PGZqEoNqFrogO2ictnvbC93qbBnvbRP1vD2nKMHSIj6SSUKLk
+ 1FWumXpW8hi7+2zn5F2EHx+nSsua0rZfYe7rB9Jqrg+gMzHl4CJOsHZcBMJecTjFzqgt
+ ++8513xov++McXYwn9Xy8N1XtNwiFgWFyZWFpDygrnqkf9M4gC/ZD5JoazASjVYRQkYu
+ 8jtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684340179; x=1686932179;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XZoSas/Przcs6p2bBcZX+px+j9fsVB4dTbNSWQWc0gM=;
- b=M6YARkIAN28b+iWdFlkvTCvHX9VdGCsqagFaK1yVh8SBStzPX/2XzalPwmQZXah/2l
- DCFSX5BZhPOQMGMM+90MYz4NaR5OK6W115sOjz+OXN7ADuIJ46Ww79ZwRY6epg4YfbDz
- m/PtQ51v2DKNCkaXeubbwKE9Fr8vKFrEIraHadEAPC3GggQ+zXeOOUjBbzfPUu6xbKeh
- HcaHCqIeb1Y5bma+Ar+ckVq2iVoH/tRYTrM64itWhbEqwTR+RXYAiOZgM+XfI4n7K4Ds
- 7WAo/yY6W1ihndGd+m4+IcaHHJnByGV2DLILgOiHqhrkXuGBJRoC3813hK1yYJpfZjN6
- ZiZA==
-X-Gm-Message-State: AC+VfDzmeABSXs/kg35fYBimI/+03FFkJBAAtuYKaQNQEBEMJFscyjHi
- HNTGQ9/MGFb5Mcem5YnYbK7uL3qTB1TAapmraro=
-X-Google-Smtp-Source: ACHHUZ6MqyaoeR7pvm4ubf0HguB8gkwiyMGZ6wqyCRvqrdP6G4SyxLoDLD6K+GrgQ0vukkN1qXg9wODFwiPyHSa2SjA=
-X-Received: by 2002:aca:190d:0:b0:394:2815:5b37 with SMTP id
- l13-20020aca190d000000b0039428155b37mr12162932oii.30.1684340178871; Wed, 17
- May 2023 09:16:18 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684342214; x=1686934214;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Qu3lyWs3Jbx0/jeZXUB6hf2dlkHallCSn46b3AvlYYI=;
+ b=NjsKxP59/n6q05NE/6tc/Iufr6IQFj1ze2WFaJzZZlXe6AAznEwRSc97MzkITSkjAd
+ ijTQ4Nn31hGe//9qChMbSq0b5PWVEYowbOWOHXXurQPZzpnxd4NgglQLP6FrdZGsvwS/
+ tf+bd/q4QPXPt//OBZLWSgV8Ga4Vlb6T4OKuXiuMqqz1CPZ4E/hbgI0t+zgO0wg78njM
+ smT6HBG5s7GK3iO2Vz2CJr5+Q9Gj+wetr9LLVTZZpGkXUeuvTC2zBGpkfw1s5gcUKdsn
+ ZRUa61NSKTI/LMF0BVOl0/GwizMtCaFz1xv/oZF+fRkqrA/l7M/mOHxqNej8cDkV2P9W
+ 7kFg==
+X-Gm-Message-State: AC+VfDzfKM7B/eXEowOi60yZmDFdPmzea1aLIiQeJzDPHgGpsSFP7Wrj
+ f9lnOoJTU4XM7X7RvFSBdw5RcQ==
+X-Google-Smtp-Source: ACHHUZ7B1OkgdyFqV7dA+bLi8NfyBZ5hPdx4Dm9efcTeqthni/6gYdQdU9dCQt6KhxgZntR/mv09GA==
+X-Received: by 2002:a2e:91c5:0:b0:2aa:af16:5c55 with SMTP id
+ u5-20020a2e91c5000000b002aaaf165c55mr10779281ljg.44.1684342214593; 
+ Wed, 17 May 2023 09:50:14 -0700 (PDT)
+Received: from [192.168.1.101] (abxi58.neoplus.adsl.tpnet.pl. [83.9.2.58])
+ by smtp.gmail.com with ESMTPSA id
+ g6-20020a2e9cc6000000b002af0e9abaf6sm159224ljj.131.2023.05.17.09.50.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 May 2023 09:50:14 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Wed, 17 May 2023 18:50:07 +0200
+Message-Id: <20230517-topic-a7xx_prep-v1-0-7a964f2e99c2@linaro.org>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 17 May 2023 09:16:07 -0700
-Message-ID: <CAF6AEGvHEcJfp=k6qatmb_SvAeyvy3CBpaPfwLqtNthuEzA_7w@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-05-17 for v6.4-rc3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAL8FZWQC/x2N0QqDMAxFf0XybKA6trj9iowRa6oBqaXdRkH89
+ 4U9nsM93AOKZJUCj+aALF8tukeDrm3ArxwXQZ2NoXf9xV07wvee1CNTra+UJSENxLe7p9mFAFZ
+ NXASnzNGv1sXPtpm0ZdD6vxmf5/kDWs6iCHYAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1684342212; l=971;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=+el7PqiUKmuBnYDuD93qCjkLN+POO/QcjFGpgw7amf0=;
+ b=I+eTif+5OVxiz5T1jAnY0c3EyKvbZtNVmuIgmiwcS4EQl1tWIrD8wAq3ratR8+88fMXU9M0Q+
+ Om6Zb11zNzTDegUIrWEsg6zeuEMq3DoyBQjp0ernsgB6ONfhpHSi0Uc
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH 0/6] Adreno QoL changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,132 +84,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+This series brings some niceties in preparation for A7xx introduction.
 
-A few fixes for v6.4, summary below.  One arm-smmu-qcom fix to
-un-break GPU per-process page-tables which was broken by a small
-refactor in arm-smmu-qcom.  (Also added some WARN()s to make this sort
-of breakage more obvious in the future.)
+It should be fully independent of the GMU wrapper series.
 
-The following changes since commit ac7e7c9c65ecfb1fcc99de91cfd6b17a8d4cb9c1:
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (6):
+      drm/msm/a6xx: Explain CP_PROTECT_CNTL writes in a6xx_set_cp_protect
+      drm/msm/a6xx: Skip empty protection ranges entries
+      drm/msm/a6xx: Ensure clean GMU state in a6xx_gmu_fw_start
+      drm/msm/a6xx: Improve GMU force shutdown sequence
+      drm/msm/a6xx: Use GMU_ALWAYS_ON_COUNTER for GMU-equipped GPUs in timestamp
+      drm/msm/a6xx: Fix up GMU region reservations
 
-  drm/msm/dpu: drop unused macros from hw catalog (2023-04-07 03:54:50 +0300)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 21 +++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 23 ++++++++++++-----------
+ 2 files changed, 29 insertions(+), 15 deletions(-)
+---
+base-commit: 065efa589871e93b6610c70c1e9de274ef1f1ba2
+change-id: 20230517-topic-a7xx_prep-787a69c7d0ff
 
-are available in the Git repository at:
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-05-17
-
-for you to fetch changes up to 5c054db54c43a5fcb5cc81012361f5e3fac37637:
-
-  drm/msm: Be more shouty if per-process pgtables aren't working
-(2023-05-17 08:53:47 -0700)
-
-----------------------------------------------------------------
-msm-fixes for v6.4-rc3
-
-Display Fixes:
-
-+ Catalog fixes:
- - fix the programmable fetch lines and qos settings of msm8998
-   to match what is present downstream
- - fix the LM pairs for msm8998 to match what is present downstream.
-   The current settings are not right as LMs with incompatible
-   connected blocks are paired
- - remove unused INTF0 interrupt mask from SM6115/QCM2290 as there
-   is no INTF0 present on those chipsets. There is only one DSI on
-   index 1
- - remove TE2 block from relevant chipsets because this is mainly
-   used for ping-pong split feature which is not supported upstream
-   and also for the chipsets where we are removing them in this
-   change, that block is not present as the tear check has been moved
-   to the intf block
- - relocate non-MDP_TOP INTF_INTR offsets from dpu_hwio.h to
-   dpu_hw_interrupts.c to match where they belong
- - fix the indentation for REV_7xxx interrupt masks
- - fix the offset and version for dither blocks of SM8[34]50/SC8280XP
-   chipsets as it was incorrect
- - make the ping-pong blk length 0 for appropriate chipsets as those
-   chipsets only have a dither ping-pong dither block but no other
-   functionality in the base ping-pong
- - remove some duplicate register defines from INTF
-+ Fix the log mask for the writeback block so that it can be enabled
-  correctly via debugfs
-+ unregister the hdmi codec for dp during unbind otherwise it leaks
-  audio codec devices
-+ Yaml change to fix warnings related to 'qcom,master-dsi' and
-  'qcom,sync-dual-dsi'
-
-GPU Fixes:
-
-+ fix submit error path leak
-+ arm-smmu-qcom fix for regression that broke per-process page tables
-+ fix no-iommu crash
-
-----------------------------------------------------------------
-Arnaud Vrac (2):
-      drm/msm/dpu: tweak msm8998 hw catalog values
-      drm/msm/dpu: tweak lm pairings in msm8998 hw catalog
-
-Jianhua Lu (1):
-      dt-bindings: display/msm: dsi-controller-main: Document qcom,
-master-dsi and qcom, sync-dual-dsi
-
-Luca Weiss (1):
-      drm/msm/iommu: Fix null pointer dereference in no-IOMMU case
-
-Marijn Suijten (9):
-      drm/msm/dpu: Assign missing writeback log_mask
-      drm/msm/dpu: Remove unused INTF0 interrupt mask from SM6115/QCM2290
-      drm/msm/dpu: Remove TE2 block and feature from DPU >= 5.0.0 hardware
-      drm/msm/dpu: Move non-MDP_TOP INTF_INTR offsets out of hwio header
-      drm/msm/dpu: Reindent REV_7xxx interrupt masks with tabs
-      drm/msm/dpu: Fix PP_BLK_DIPHER -> DITHER typo
-      drm/msm/dpu: Use V2 DITHER PINGPONG sub-block in SM8[34]50/SC8280XP
-      drm/msm/dpu: Set PINGPONG block length to zero for DPU >= 7.0.0
-      drm/msm/dpu: Remove duplicate register defines from INTF
-
-Rob Clark (5):
-      drm/msm/atomic: Don't try async if crtc not active
-      drm/msm: Fix vmap madv warning
-      drm/msm: Fix submit error-path leaks
-      iommu/arm-smmu-qcom: Fix missing adreno_smmu's
-      drm/msm: Be more shouty if per-process pgtables aren't working
-
-Srinivas Kandagatla (1):
-      drm/msm/dp: unregister audio driver during unbind
-
- .../bindings/display/msm/dsi-controller-main.yaml  | 12 +++++++++++
- .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    | 16 +++++++-------
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  4 ++--
- .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  4 ++--
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  4 ++--
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  4 ++--
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |  1 -
- .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |  1 -
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h | 12 +++++------
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  8 +++----
- .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   | 24 ++++++++++-----------
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 16 +++++++-------
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 16 +++++++-------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 17 ++++++---------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 23 +++++++++++---------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  5 -----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h           |  3 ---
- drivers/gpu/drm/msm/dp/dp_audio.c                  | 12 +++++++++++
- drivers/gpu/drm/msm/dp/dp_audio.h                  |  2 ++
- drivers/gpu/drm/msm/dp/dp_display.c                |  1 +
- drivers/gpu/drm/msm/msm_atomic.c                   |  2 ++
- drivers/gpu/drm/msm/msm_gem.c                      | 22 +++++++------------
- drivers/gpu/drm/msm/msm_gem_submit.c               | 25 ++++++++++++++++------
- drivers/gpu/drm/msm/msm_iommu.c                    |  9 ++++++--
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         | 10 +++++++++
- 26 files changed, 146 insertions(+), 108 deletions(-)
