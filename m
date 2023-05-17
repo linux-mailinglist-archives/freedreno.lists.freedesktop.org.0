@@ -2,72 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E1C0705B45
-	for <lists+freedreno@lfdr.de>; Wed, 17 May 2023 01:22:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B16C705B95
+	for <lists+freedreno@lfdr.de>; Wed, 17 May 2023 02:03:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F91510E380;
-	Tue, 16 May 2023 23:22:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B01DA10E388;
+	Wed, 17 May 2023 00:03:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E29310E380
- for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 23:22:47 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4f24cfb8539so154975e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 16:22:46 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B96910E388
+ for <freedreno@lists.freedesktop.org>; Wed, 17 May 2023 00:03:19 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ac770a99e2so305371fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 16 May 2023 17:03:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684279365; x=1686871365;
+ d=linaro.org; s=google; t=1684281797; x=1686873797;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7VAhpo92jN54Fe2L3yyfkmVB4msq33PbAZ9pt+KT4z8=;
- b=PEjKzkKFwg9DhWnkbxJIppl3GBnbkXu3XtMQpwJuourIFZZZmC5fiZnifNiPLMTCjU
- SnbTkokLPCSXFA37zY/8Rv7xKY/0oKMGKzm7Ly/pA25Sm8ULpecPptiYZgAMj3aeZKO9
- h764fhx/OgSu/GsW2Mj5DHnkceGTUY3fSuSI+xY/2m+1cEtiR2gvu/MgGSz1SsTuhKkA
- VdQ81FC9pEQb7QmaXuFANifFA0ywpBkaZCIEX5lUBjf/5PWaOGpJfwJr86AEpL48qjdl
- V4EweawUNHyM8ZbYHrPS7nKv7hg384jkBl140aRR32GLgB3E1TJB+KTdrUDGueSmvCZj
- G/rg==
+ bh=2ieFz8z1+Uma6qKTvu/I6fnjYeaEZwlD0iXkEDsR+9k=;
+ b=UshE9JIJ/9HvEJVKWrA762EiI36kpduypzigFBQuJwlZW7f6WGcWA5yq8sBWUGM0eu
+ HS29i3pTtqcvTcwsgOac0ZNMa33Y8zb4untGl0yC73/7pcZ0tRPXRcU+uJsbGmJzcJkW
+ RzfnDVFtPe47xpnYnjnEADQvcdrorT6JXjGVJW4yUbuPQlUTw+bCdgf5u8V9d27m3xOn
+ lLK7Etj8BdDifTR/bI3/WgspAE5I/q69PCG6be2kN6BdpnDtepoRqKOG0WXDUCXOy8z7
+ WFFdg0lHsfLBuXFIklVcOb+8KK4FyRyjajIA02dFHobHe9ApLag/GH8/k9meTiC2+KPx
+ UTSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684279365; x=1686871365;
+ d=1e100.net; s=20221208; t=1684281797; x=1686873797;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7VAhpo92jN54Fe2L3yyfkmVB4msq33PbAZ9pt+KT4z8=;
- b=UwRcRJqiStpF+XAO3Gldldi2atjQ8QKPC3tKw4RNLvcKzU0IISQZBlRAHMygLmVGqi
- sB1qPVx2LXUDL6smQdAlTedKPLc8+MeKHfYlOEDjAGbNxC8mhh7JgDhlsvqM/qXIMduO
- boCaD1xVsRudTuDjFtvVs91AhQoillpQ21T6PNuBiY12KPOKhVDBCGWg7PPMK7saQLyH
- YK26bVDd+1o9/XAePQSttPVVLGvXyodI1CN6sWvW8CGZ4TMUvL5iz5zc5FwVhKGlF6C3
- n9xT1I9lj61gmCxlDpycb3nLe+4H+ViSEp+4RVzhb95XaOz6+HbLcoNzuhnKszCl8UCb
- 7CKA==
-X-Gm-Message-State: AC+VfDzkNQR8zxXtyuCrs+lr6j0Xft5t+mWZMwvHtEPmNjXbv53H0XIR
- Q/pkuibTFMXiIXHrIp5B0zRUHQ==
-X-Google-Smtp-Source: ACHHUZ6ZLHWS6AxNdvby7Rx3xUbbWtDDyrWiA8gw73Uk9O49w5tJDuZUC7wwOX77tlraOpnpmbnTBQ==
-X-Received: by 2002:ac2:46f6:0:b0:4f3:7b1b:ff7b with SMTP id
- q22-20020ac246f6000000b004f37b1bff7bmr3043742lfo.9.1684279364857; 
- Tue, 16 May 2023 16:22:44 -0700 (PDT)
+ bh=2ieFz8z1+Uma6qKTvu/I6fnjYeaEZwlD0iXkEDsR+9k=;
+ b=U9cC3Q9y+1S1/LCUo/LntMeCFj9U7GjosBvY+nuWcmfNW4EfUqxiMvB2FnOjSMof8Y
+ JNn4GtJqVMjdCQUq7uPrF/2uk6XvboX7mJyz4upuhS+AVjTqEQEn2qyh6XniEbbt8lgz
+ dM9CPFGewAS8VeQfbmW0HQQtlOI5PUZ+C1isM+QJFLTcwS3NWyNhxFtnuucTavhEtdHe
+ m4psGf6fqz5MnU8asF79N9kq6l0rEIXC/PZ4iCe+3KJ0TU1lejZzynFbsWRf+eCzOdd+
+ 2yBN2XuGvUGOW3AjWZ9TB/MauaeKMWA+ilGyUtsffCh060eUJJC/SGGeKSkaaXIsiciV
+ 4w7g==
+X-Gm-Message-State: AC+VfDzwGeCxGSCbi0KfdN27RBFEZzQqRCFl6D1T3+5LmkpVDzXDgpkT
+ RghPA/lWtplKZhuP5yeokcYGmw==
+X-Google-Smtp-Source: ACHHUZ7F1Ki5yXvEvp0yB37BNoPUY0CUEmQYoTrjfK5dJahsPlYAan5ywIdhaactI13TQSM3yHahoQ==
+X-Received: by 2002:a2e:b002:0:b0:2ac:87f6:7b4a with SMTP id
+ y2-20020a2eb002000000b002ac87f67b4amr8575604ljk.2.1684281797277; 
+ Tue, 16 May 2023 17:03:17 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- z12-20020a19f70c000000b004db3d57c3a8sm3119886lfe.96.2023.05.16.16.22.44
+ e2-20020a2e8182000000b002a8e8c776e9sm4338909ljg.56.2023.05.16.17.03.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 May 2023 16:22:44 -0700 (PDT)
-Message-ID: <aec4f825-482a-5e8f-66e1-d74b218e1a8d@linaro.org>
-Date: Wed, 17 May 2023 02:22:43 +0300
+ Tue, 16 May 2023 17:03:16 -0700 (PDT)
+Message-ID: <12082d1c-4ff2-5ca6-fdaa-2fad6bd06e84@linaro.org>
+Date: Wed, 17 May 2023 03:03:15 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- iommu@lists.linux-foundation.org
-References: <20230516222039.907690-1-robdclark@gmail.com>
- <20230516222039.907690-2-robdclark@gmail.com>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
+ <20230504153511.4007320-7-dmitry.baryshkov@linaro.org>
+ <SN7PR11MB6750F3758BA9B176904C449BE3799@SN7PR11MB6750.namprd11.prod.outlook.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230516222039.907690-2-robdclark@gmail.com>
+In-Reply-To: <SN7PR11MB6750F3758BA9B176904C449BE3799@SN7PR11MB6750.namprd11.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 2/2] drm/msm: Be more shouty if
- per-process pgtables aren't working
+Subject: Re: [Freedreno] [PATCH v5 6/8] drm/display/dsc: split DSC 1.2 and
+ DSC 1.1 (pre-SCR) parameters
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,27 +87,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Will Deacon <will@kernel.org>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/05/2023 01:20, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 16/05/2023 21:46, Kandpal, Suraj wrote:
+>>
+>> The array of rc_parameters contains a mixture of parameters from DSC 1.1
+>> and DSC 1.2 standards. Split these tow configuration arrays in preparation to
+>> adding more configuration data.
+>>
 > 
-> Otherwise it is not always obvious if a dt or iommu change is causing us
-> to fall back to global pgtable.
+> Hi ,
+> Needed to add some more comments apart from the previous ones already given
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/msm/msm_iommu.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+[skipped]
+
+
+>> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c
+>> b/drivers/gpu/drm/i915/display/intel_vdsc.c
+>> index d4340b18c18d..bd9116d2cd76 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+>> @@ -226,7 +226,15 @@ int intel_dsc_compute_params(struct
+>> intel_crtc_state *pipe_config)
+>>   	if (DISPLAY_VER(dev_priv) >= 13) {
+>>   		calculate_rc_params(vdsc_cfg);
+>>   	} else {
+>> -		ret = drm_dsc_setup_rc_params(vdsc_cfg);
+>> +		if ((compressed_bpp == 8 ||
+>> +		     compressed_bpp == 12) &&
+>> +		    (vdsc_cfg->bits_per_component == 8 ||
+>> +		     vdsc_cfg->bits_per_component == 10 ||
+>> +		     vdsc_cfg->bits_per_component == 12))
+>> +			ret = drm_dsc_setup_rc_params(vdsc_cfg,
+>> DRM_DSC_1_1_PRE_SCR);
+>> +		else
+>> +			ret = drm_dsc_setup_rc_params(vdsc_cfg,
+>> DRM_DSC_1_2_444);
+>> +
+> 
+> I do not think this kind of assignment works as you will also be adding
+> DRM_DSC_1_2_422 and DRM_DSC_1_2_420 in further patches and AFAICS
+> There is no where in patch 8 that you have accounted for when 422 or 420 will be used.
+> Maybe you can add an if case inside the else block to check pipe_config->output_format
+> to pass the rc_param_data in patch 8
+
+I don't think this is necessary for now. The driver doesn't support YUV 
+422. The YUV 420 is supported only for DISPLAY_VER(dev_priv) >= 14, 
+however these helpers are only used for DISPLAY_VER(dev_priv) < 13.
+
+I did not move RC calculation to drm_dsc_helpers.c (yet ?), which is 
+used for DISPLAY_VER >= 13.
+
+> 
+> Regards,
+> Suraj Kandpal
+>>   		if (ret)
+>>   			return ret;
+>>
+>> diff --git a/include/drm/display/drm_dsc_helper.h
+>> b/include/drm/display/drm_dsc_helper.h
+>> index 1681791f65a5..c634bb2935d3 100644
+>> --- a/include/drm/display/drm_dsc_helper.h
+>> +++ b/include/drm/display/drm_dsc_helper.h
+>> @@ -10,12 +10,17 @@
+>>
+>>   #include <drm/display/drm_dsc.h>
+>>
+>> +enum drm_dsc_params_kind {
+>> +	DRM_DSC_1_2_444,
+>> +	DRM_DSC_1_1_PRE_SCR, /* legacy params from DSC 1.1 */ };
+>> +
+>>   void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);  int
+>> drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
+>> void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set
+>> *pps_sdp,
+>>   			      const struct drm_dsc_config *dsc_cfg);  void
+>> drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg); -int
+>> drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg);
+>> +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum
+>> +drm_dsc_params_kind kind);
+>>   int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+>>
+>>   #endif /* _DRM_DSC_HELPER_H_ */
+>> --
+>> 2.39.2
+> 
 
 -- 
 With best wishes
