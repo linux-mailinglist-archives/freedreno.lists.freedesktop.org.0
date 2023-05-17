@@ -2,36 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 336687075C1
-	for <lists+freedreno@lfdr.de>; Thu, 18 May 2023 01:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3038270765D
+	for <lists+freedreno@lfdr.de>; Thu, 18 May 2023 01:22:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D61DD10E2D7;
-	Wed, 17 May 2023 23:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 695E710E4AB;
+	Wed, 17 May 2023 23:22:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27C6910E2D7
- for <freedreno@lists.freedesktop.org>; Wed, 17 May 2023 23:01:29 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id B82542048D;
- Thu, 18 May 2023 01:01:26 +0200 (CEST)
-Date: Thu, 18 May 2023 01:01:25 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <pzqbkdgpiilcaqm2qezqp6qrmybt2d2wmiqifcq77h3i2uhjzf@pc5aeykhxknh>
-References: <20230329-rfc-msm-dsc-helper-v12-0-9cdb7401f614@quicinc.com>
- <20230329-rfc-msm-dsc-helper-v12-5-9cdb7401f614@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 019EE10E2E7;
+ Wed, 17 May 2023 23:22:44 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34HMxhPP019648; Wed, 17 May 2023 23:22:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=hUbA3URmTGJE56PdDudnP72n27MNQz3qCtNpALMkXtE=;
+ b=FZsV5olTVz8TVObt978fI7iG6K2N0NENjqvygPHMnCXvJe1aQaB1mrRdc43YXjYBtC5v
+ mDN2W4OHiuYEBGY8kBA/G50RMCCc6uyT69TBMa1Uue7J2SKsQt5ncnR09dbNF++lc+lf
+ QzVH9DvmMlpjIL12ZWmQOFP07ApLiWsPevCptoby/dRAJp7Nz82lRKGH7hHGioU3Akaw
+ bF+pLFPRD0Ek3wjtBLSI77PH0xrJSqUvdsg3xXZtbi5EqEfBWJAUKKPyYBAmEsoTNiy0
+ US3x1YpcL5ZCxkkfQQbFIq0+jy83cGTSlnXAbZlIaK0D+ITYDziDkvRJKYBMq1qny1VB 0Q== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qmts29yk1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 May 2023 23:22:39 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34HNMcfJ032549
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 May 2023 23:22:39 GMT
+Received: from [10.110.94.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 17 May
+ 2023 16:22:38 -0700
+Message-ID: <51f0439c-a5e8-b47a-21af-7bbbc944ca53@quicinc.com>
+Date: Wed, 17 May 2023 16:22:37 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v12-5-9cdb7401f614@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v12 5/9] drm/msm: Add MSM-specific DSC
- helper methods
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>
+References: <1684360919-28458-1-git-send-email-quic_khsieh@quicinc.com>
+ <1684360919-28458-8-git-send-email-quic_khsieh@quicinc.com>
+ <w7xre5jdot3fpe3ldj6vcnvribpbalfvova5hhmbgvgvkrcm34@xqvsc5ga2knb>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <w7xre5jdot3fpe3ldj6vcnvribpbalfvova5hhmbgvgvkrcm34@xqvsc5ga2knb>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: SMtPvud4DbmpjK5WAPRtu_wd9bpczX6U
+X-Proofpoint-ORIG-GUID: SMtPvud4DbmpjK5WAPRtu_wd9bpczX6U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-17_04,2023-05-17_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0
+ mlxlogscore=999 spamscore=0 mlxscore=0 clxscore=1015 lowpriorityscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
+ definitions=main-2305170191
+Subject: Re: [Freedreno] [PATCH v10 7/8] drm/msm/dpu: add DSC 1.2 hw blocks
+ for relevant chipsets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,81 +86,284 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: sean@poorly.run, quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, dianders@chromium.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, vkoul@kernel.org, agross@kernel.org,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-17 15:27:18, Jessica Zhang wrote:
-> Introduce MSM-specific DSC helper methods, as some calculations are
-> common between DP and DSC.
+
+
+On 5/17/2023 3:47 PM, Marijn Suijten wrote:
+> Title: "DPU >= 7.0" instead of "relevant chipsets" to match the others.
 > 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/msm_dsc_helper.h | 38 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 38 insertions(+)
+> On 2023-05-17 15:01:58, Kuogee Hsieh wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> Add DSC 1.2 hardware blocks to the catalog with necessary sub-block and
+>> feature flag information.  Each display compression engine (DCE) contains
+>> dual DSC encoders so both share same base address but with
+>> its own different sub block address.
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_dsc_helper.h b/drivers/gpu/drm/msm/msm_dsc_helper.h
-> new file mode 100644
-> index 000000000000..c7d7ed026368
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/msm_dsc_helper.h
-> @@ -0,0 +1,38 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved
-> + *
-> + * Helper methods for MSM-specific DSC calculations that are common between timing engine,
-> + * DSI, and DP.
-> + */
-> +
-> +#ifndef MSM_DSC_HELPER_H_
-> +#define MSM_DSC_HELPER_H_
-> +
-> +#include <linux/math.h>
-> +#include <drm/display/drm_dsc_helper.h>
-> +
-> +/**
-> + * msm_dsc_calculate_slices_per_intf() - get number of slices per interface
-
-Oh no, we just went to get to match the function below, and now this is
-back at calculate.  My bad, I wasn't clear enough in previous review: I
-meant the ext after the -, so "get number of" -> "calculate number of".
-
-Sorry!
-
-> + * @dsc: Pointer to drm dsc config struct
-> + * @intf_width: interface width in pixels
-> + * Returns: Integer representing the number of slices for the given interface
-> + */
-> +static inline u32 msm_dsc_calculate_slices_per_intf(const struct drm_dsc_config *dsc, int intf_width)
-
-u32... also for intf_width?
-
-- Marijn
-
-> +{
-> +	return DIV_ROUND_UP(intf_width, dsc->slice_width);
-> +}
-> +
-> +/**
-> + * msm_dsc_get_bytes_per_line() - calculate bytes per line
-> + * @dsc: Pointer to drm dsc config struct
-> + * Returns: Integer value representing bytes per line. DSI and DP need
-> + *          to perform further calculations to turn this into pclk_per_intf,
-> + *          such as dividing by different values depending on if widebus is enabled.
-> + */
-> +static inline u32 msm_dsc_get_bytes_per_line(const struct drm_dsc_config *dsc)
-> +{
-> +	return dsc->slice_count * dsc->slice_chunk_size;
-> +}
-> +
-> +#endif /* MSM_DSC_HELPER_H_ */
+> If you reword it, also reflow this line.
 > 
-> -- 
-> 2.40.1
+>>
+>> changes in v4:
+>> -- delete DPU_DSC_HW_REV_1_1
+>> -- re arrange sc8280xp_dsc[]
+>>
+>> changes in v4:
+>> -- fix checkpatch warning
+>>
+>> changes in v10:
+>> -- remove hard slice from commit text
 > 
+> It is still mentioned in the diff though, that's why I originally
+> requested a better place to describe it.
+> 
+>> -- replace DPU_DSC_NATIVE_422_EN with DPU_DSC_NATIVE_42x_EN
+>> -- change DSC_BLK_1_2 .len from 0x100 to 0x29c
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> 
+>>
+>> kuogee: catalog.h
+> 
+> What's this for?  This file isn't touched in this patch.
+> 
+>> ---
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h | 14 ++++++++++++
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  7 ++++++
+>>   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   | 16 ++++++++++++++
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 14 ++++++++++++
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 14 ++++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 25 +++++++++++++++++++++-
+>>   6 files changed, 89 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+>> index 500cfd0..d90486f 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+>> @@ -153,6 +153,18 @@ static const struct dpu_merge_3d_cfg sm8350_merge_3d[] = {
+>>   	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x50000),
+>>   };
+>>   
+>> +/*
+>> + * NOTE: Each display compression engine (DCE) contains dual hard
+>> + * slice DSC encoders so both share same base address but with
+>> + * its own different sub block address.
+>> + */
+>> +static const struct dpu_dsc_cfg sm8350_dsc[] = {
+>> +	DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> +	DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +};
+>> +
+>>   static const struct dpu_intf_cfg sm8350_intf[] = {
+>>   	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+>> @@ -215,6 +227,8 @@ const struct dpu_mdss_cfg dpu_sm8350_cfg = {
+>>   	.dspp = sm8350_dspp,
+>>   	.pingpong_count = ARRAY_SIZE(sm8350_pp),
+>>   	.pingpong = sm8350_pp,
+>> +	.dsc_count = ARRAY_SIZE(sm8350_dsc),
+>> +	.dsc = sm8350_dsc,
+>>   	.merge_3d_count = ARRAY_SIZE(sm8350_merge_3d),
+>>   	.merge_3d = sm8350_merge_3d,
+>>   	.intf_count = ARRAY_SIZE(sm8350_intf),
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+>> index 5646713..52609b8 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+>> @@ -93,6 +93,11 @@ static const struct dpu_pingpong_cfg sc7280_pp[] = {
+>>   	PP_BLK_DITHER("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
+>>   };
+>>   
+>> +/* NOTE: sc7280 only has one DSC hard slice encoder */
+>> +static const struct dpu_dsc_cfg sc7280_dsc[] = {
+>> +	DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +};
+>> +
+>>   static const struct dpu_intf_cfg sc7280_intf[] = {
+>>   	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+>> @@ -149,6 +154,8 @@ const struct dpu_mdss_cfg dpu_sc7280_cfg = {
+>>   	.mixer = sc7280_lm,
+>>   	.pingpong_count = ARRAY_SIZE(sc7280_pp),
+>>   	.pingpong = sc7280_pp,
+>> +	.dsc_count = ARRAY_SIZE(sc7280_dsc),
+>> +	.dsc = sc7280_dsc,
+>>   	.intf_count = ARRAY_SIZE(sc7280_intf),
+>>   	.intf = sc7280_intf,
+>>   	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> index 808aacd..a84cf36 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> @@ -141,6 +141,20 @@ static const struct dpu_merge_3d_cfg sc8280xp_merge_3d[] = {
+>>   	MERGE_3D_BLK("merge_3d_2", MERGE_3D_2, 0x50000),
+>>   };
+>>   
+>> +/*
+>> + * NOTE: Each display compression engine (DCE) contains dual hard
+>> + * slice DSC encoders so both share same base address but with
+>> + * its own different sub block address.
+>> + */
+>> +static const struct dpu_dsc_cfg sc8280xp_dsc[] = {
+>> +	DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> +	DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +	DSC_BLK_1_2("dce_2_0", DSC_4, 0x82000, 0x29c, 0, dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_2_1", DSC_5, 0x82000, 0x29c, 0, dsc_sblk_1),
+>> +};
+>> +
+>>   /* TODO: INTF 3, 8 and 7 are used for MST, marked as INTF_NONE for now */
+>>   static const struct dpu_intf_cfg sc8280xp_intf[] = {
+>>   	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>> @@ -216,6 +230,8 @@ const struct dpu_mdss_cfg dpu_sc8280xp_cfg = {
+>>   	.dspp = sc8280xp_dspp,
+>>   	.pingpong_count = ARRAY_SIZE(sc8280xp_pp),
+>>   	.pingpong = sc8280xp_pp,
+>> +	.dsc_count = ARRAY_SIZE(sc8280xp_dsc),
+>> +	.dsc = sc8280xp_dsc,
+>>   	.merge_3d_count = ARRAY_SIZE(sc8280xp_merge_3d),
+>>   	.merge_3d = sc8280xp_merge_3d,
+>>   	.intf_count = ARRAY_SIZE(sc8280xp_intf),
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+>> index 1a89ff9..1620622 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+>> @@ -161,6 +161,18 @@ static const struct dpu_merge_3d_cfg sm8450_merge_3d[] = {
+>>   	MERGE_3D_BLK("merge_3d_3", MERGE_3D_3, 0x65f00),
+>>   };
+>>   
+>> +/*
+>> + * NOTE: Each display compression engine (DCE) contains dual hard
+>> + * slice DSC encoders so both share same base address but with
+>> + * its own different sub block address.
+>> + */
+>> +static const struct dpu_dsc_cfg sm8450_dsc[] = {
+>> +	DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> +	DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +};
+>> +
+>>   static const struct dpu_intf_cfg sm8450_intf[] = {
+>>   	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+>> @@ -223,6 +235,8 @@ const struct dpu_mdss_cfg dpu_sm8450_cfg = {
+>>   	.dspp = sm8450_dspp,
+>>   	.pingpong_count = ARRAY_SIZE(sm8450_pp),
+>>   	.pingpong = sm8450_pp,
+>> +	.dsc_count = ARRAY_SIZE(sm8450_dsc),
+>> +	.dsc = sm8450_dsc,
+>>   	.merge_3d_count = ARRAY_SIZE(sm8450_merge_3d),
+>>   	.merge_3d = sm8450_merge_3d,
+>>   	.intf_count = ARRAY_SIZE(sm8450_intf),
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> index 497b34c..6582a14 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> @@ -165,6 +165,18 @@ static const struct dpu_merge_3d_cfg sm8550_merge_3d[] = {
+>>   	MERGE_3D_BLK("merge_3d_3", MERGE_3D_3, 0x66700),
+>>   };
+>>   
+>> +/*
+>> + * NOTE: Each display compression engine (DCE) contains dual hard
+>> + * slice DSC encoders so both share same base address but with
+>> + * its own different sub block address.
+>> + */
+>> +static const struct dpu_dsc_cfg sm8550_dsc[] = {
+>> +	DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> +	DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +	DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +};
+>> +
+>>   static const struct dpu_intf_cfg sm8550_intf[] = {
+>>   	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+>> @@ -227,6 +239,8 @@ const struct dpu_mdss_cfg dpu_sm8550_cfg = {
+>>   	.dspp = sm8550_dspp,
+>>   	.pingpong_count = ARRAY_SIZE(sm8550_pp),
+>>   	.pingpong = sm8550_pp,
+>> +	.dsc_count = ARRAY_SIZE(sm8550_dsc),
+>> +	.dsc = sm8550_dsc,
+>>   	.merge_3d_count = ARRAY_SIZE(sm8550_merge_3d),
+>>   	.merge_3d = sm8550_merge_3d,
+>>   	.intf_count = ARRAY_SIZE(sm8550_intf),
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> index f2a1535..9612ab5 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> @@ -1,6 +1,6 @@
+>>   // SPDX-License-Identifier: GPL-2.0-only
+>>   /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+>> - * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+>> + * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
+>>    */
+>>   
+>>   #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
+>> @@ -522,6 +522,16 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+>>   /*************************************************************
+>>    * DSC sub blocks config
+>>    *************************************************************/
+>> +static const struct dpu_dsc_sub_blks dsc_sblk_0 = {
+>> +	.enc = {.base = 0x100, .len = 0x100},
+>> +	.ctl = {.base = 0xF00, .len = 0x10},
+>> +};
+>> +
+>> +static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
+>> +	.enc = {.base = 0x200, .len = 0x100},
+>> +	.ctl = {.base = 0xF80, .len = 0x10},
+>> +};
+>> +
+>>   #define DSC_BLK(_name, _id, _base, _features) \
+>>   	{\
+>>   	.name = _name, .id = _id, \
+>> @@ -529,6 +539,19 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+>>   	.features = _features, \
+>>   	}
+>>   
+>> +/*
+>> + * NOTE: Each display compression engine (DCE) contains dual hard
+>> + * slice DSC encoders so both share same base address but with
+>> + * its own different sub block address.
+>> + */
+> 
+> I still think this comment is superfluous (and doesn't even apply
+> generically, see i.e. sc7280) and should best be kept exclusively in the
+> SoC-specific catalog files.
+> 
+> - Marijn
+> 
+
+sc7280 is the only exception as it has only one encoder. But, by and 
+large, for all other chipsets this is true and hence kept here.
+
+The main reason for this comment is people should not get confused that 
+how come two DSC encoders have the same base address.
+
+>> +#define DSC_BLK_1_2(_name, _id, _base, _len, _features, _sblk) \
+>> +	{\
+>> +	.name = _name, .id = _id, \
+>> +	.base = _base, .len = _len, \
+>> +	.features = BIT(DPU_DSC_HW_REV_1_2) | _features, \
+>> +	.sblk = &_sblk, \
+>> +	}
+>> +
+>>   /*************************************************************
+>>    * INTF sub blocks config
+>>    *************************************************************/
+>> -- 
+>> 2.7.4
+>>
