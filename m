@@ -1,78 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB58B708B4E
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 00:09:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D2B708B60
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 00:19:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CFAA10E56C;
-	Thu, 18 May 2023 22:09:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D5FF10E137;
+	Thu, 18 May 2023 22:19:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D200210E565;
- Thu, 18 May 2023 22:09:28 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2E910E137;
+ Thu, 18 May 2023 22:19:23 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34IM4SuS032060; Thu, 18 May 2023 22:09:20 GMT
+ 34ILuIsp029154; Thu, 18 May 2023 22:19:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=1bUgox6j599CmzW8rtuF1ODGcZT0x9mq5zR7O7gjYGU=;
- b=DpklgrgzNR5J13XysWqC9gIjglTPojCQYYkDt/cwdJxgNtANZS0DkfQUZ8slkJJYqMtT
- KvWvRQBH044AmyqHFycyVHhx2LXX9oooayaSS1fM9EsFLem+tJqSas9dHT43vrw6Wd1x
- FamzeZ/PhmoZ/jMiG6mzk2imomYWuE2muuhc1Iebkxr5lISgd+RDVbdLP+Qw3FLGk+U9
- ppmRR4m+LGD0hD2RYS293B9gpj+g3ZCC9o+Hbhxec+qF5jfJ5QdJSHxh1talxawWgMMp
- 3MwRzbmgcwNFnJMTHLtKCK/Dxp/UXJKhVQhkeUeiD6GwKByMnPIwrOxihnjoCMkp4s/H qQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=F2KDyZjGgigvoKQcIYa0b9DEhnQVy66PQU256r88rm4=;
+ b=fLd6KI9SSYt/rQoUPGE1p1Wwh4rv8qToFEpVtngNHiqvYFmvZF7JyWrB90hbXkxaHs7C
+ M08TbeVd4MDD7y0UJ1PqDEP6TU/wdr/UKPrxe/pVC1tp7opVV9jKE+p86QPpTcKCuK/Z
+ BpOKBG3GCEZ0FHdmu0Qj1mSLzMgRuJWu3BtmIb+SKq8J/1ItdNmyXKJArzDF9Vx1y3vV
+ CZx+a5MROnwiodlCXAGcf2DptX+cbhIV+95Cr6sDnLDum9dvfrHeqiRwChPkHY07wx/Y
+ nhseqXi+/EWb+OAGyYMlNpkqwfEtKPTaljbPoWb40/hDJKTK1h8LTh7Yb+eUfr05lNfW mQ== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qn8d2jne6-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qn8a62kgt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 May 2023 22:09:20 +0000
+ Thu, 18 May 2023 22:19:20 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34IM9JK7013625
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34IMJ8NR000685
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 May 2023 22:09:19 GMT
-Received: from [10.71.110.189] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Thu, 18 May 2023 22:19:08 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 18 May
- 2023 15:09:18 -0700
-Message-ID: <8e9feb23-a5f0-7cd8-ebff-8e9097ff0ca1@quicinc.com>
-Date: Thu, 18 May 2023 15:09:17 -0700
+ 2023 15:19:07 -0700
+Message-ID: <5fda5128-072b-d8f3-f294-ae3eaef44d25@quicinc.com>
+Date: Thu, 18 May 2023 15:19:07 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <1684360919-28458-1-git-send-email-quic_khsieh@quicinc.com>
- <1684360919-28458-7-git-send-email-quic_khsieh@quicinc.com>
- <evkla3rkf4tge6gln4lgtulj7q5gt6vef3i2yqupc5lj2oszfx@7ttyxzlmvet5>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <evkla3rkf4tge6gln4lgtulj7q5gt6vef3i2yqupc5lj2oszfx@7ttyxzlmvet5>
+To: Marijn Suijten <marijn.suijten@somainline.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+References: <20230428223646.23595-1-quic_abhinavk@quicinc.com>
+ <20230428223646.23595-4-quic_abhinavk@quicinc.com>
+ <kap4lpzbv5qihf2k7fdznmx72hrhpx4acjgcng45kxnshxo6ge@gzke6ruy3x6u>
+ <2c688487-a5b1-155c-f73a-69358d03e478@linaro.org>
+ <dexkdzb3wo3jjveys4i2ujh22fbyti5kugie7nl23s7lv63pky@ryycjghsifva>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <dexkdzb3wo3jjveys4i2ujh22fbyti5kugie7nl23s7lv63pky@ryycjghsifva>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: R4zabI1_GyLgeX59jG_w1tVMUG-WQRtY
-X-Proofpoint-GUID: R4zabI1_GyLgeX59jG_w1tVMUG-WQRtY
+X-Proofpoint-GUID: LllXyVNTZpC0IuK20YNA2_VcflkKxOKN
+X-Proofpoint-ORIG-GUID: LllXyVNTZpC0IuK20YNA2_VcflkKxOKN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
  definitions=2023-05-18_15,2023-05-17_02,2023-02-09_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- malwarescore=0 mlxlogscore=756 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 clxscore=1015 mlxscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305180182
-Subject: Re: [Freedreno] [PATCH v10 6/8] drm/msm/dpu: separate DSC flush
- update out of interface
+ lowpriorityscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 spamscore=0 mlxscore=0 mlxlogscore=708 adultscore=0
+ impostorscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2304280000 definitions=main-2305180184
+Subject: Re: [Freedreno] [PATCH v3 4/4] drm/msm/dpu: drop DSPP_MSM8998_MASK
+ from hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,139 +88,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- quic_abhinavk@quicinc.com, airlied@gmail.com, andersson@kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com, swboyd@chromium.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ quic_jesszhan@quicinc.com, David Airlie <airlied@gmail.com>, Sean
+ Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 5/17/2023 3:31 PM, Marijn Suijten wrote:
->
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->> @@ -139,6 +139,11 @@ static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
->>   				CTL_DSPP_n_FLUSH(dspp - DSPP_0),
->>   				ctx->pending_dspp_flush_mask[dspp - DSPP_0]);
->>   		}
->> +
->> +	if (ctx->pending_flush_mask & BIT(DSC_IDX))
->> +		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH,
->> +			      ctx->pending_dsc_flush_mask);
-> Again, when do we reset this mask to 0?  (v8 review)
 
-can not find it.
-
-let me add a separate  patch to fix this.
-
->
->> +
->>   	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
->>   }
->>   
->> @@ -285,6 +290,13 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
->>   	ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
->>   }
->>   
->> +static void dpu_hw_ctl_update_pending_flush_dsc_v1(struct dpu_hw_ctl *ctx,
->> +						   enum dpu_dsc dsc_num)
->> +{
->> +	ctx->pending_dsc_flush_mask |= BIT(dsc_num - DSC_0);
->> +	ctx->pending_flush_mask |= BIT(DSC_IDX);
->> +}
->> +
->>   static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
->>   	enum dpu_dspp dspp, u32 dspp_sub_blk)
->>   {
->> @@ -502,9 +514,6 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->>   	if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
->>   		mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
->>   
->> -	if (cfg->dsc)
->> -		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
->> -
->>   	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
->>   		mode_sel |= BIT(17);
->>   
->> @@ -524,10 +533,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->>   	if (cfg->merge_3d)
->>   		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
->>   			      BIT(cfg->merge_3d - MERGE_3D_0));
->> -	if (cfg->dsc) {
->> -		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-> Again, this bugfix of now wrapping DSC_IDX in BIT() should go in a
-> separate Fixes: patch to have this semantic change documented.  (v8
-> review)
-That will be this patch. let me add Fixes at this patch
->
->> +
->> +	if (cfg->dsc)
->>   		DPU_REG_WRITE(c, CTL_DSC_ACTIVE, cfg->dsc);
->> -	}
->>   }
->>   
->>   static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
->> @@ -630,6 +638,8 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
->>   		ops->update_pending_flush_merge_3d =
->>   			dpu_hw_ctl_update_pending_flush_merge_3d_v1;
->>   		ops->update_pending_flush_wb = dpu_hw_ctl_update_pending_flush_wb_v1;
->> +		ops->update_pending_flush_dsc =
->> +			dpu_hw_ctl_update_pending_flush_dsc_v1;
->>   	} else {
->>   		ops->trigger_flush = dpu_hw_ctl_trigger_flush;
->>   		ops->setup_intf_cfg = dpu_hw_ctl_intf_cfg;
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
->> index 6292002..d5f3ef8 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
->> @@ -158,6 +158,15 @@ struct dpu_hw_ctl_ops {
->>   		enum dpu_dspp blk, u32 dspp_sub_blk);
->>   
->>   	/**
->> +	 * OR in the given flushbits to the cached pending_(dsc_)flush_mask
->> +	 * No effect on hardware
->> +	 * @ctx: ctl path ctx pointer
->> +	 * @blk: interface block index
->> +	 */
->> +	void (*update_pending_flush_dsc)(struct dpu_hw_ctl *ctx,
->> +		enum dpu_dsc blk);
->> +
->> +	/**
->>   	 * Write the value of the pending_flush_mask to hardware
->>   	 * @ctx       : ctl path ctx pointer
->>   	 */
->> @@ -229,6 +238,9 @@ struct dpu_hw_ctl_ops {
->>    * @pending_flush_mask: storage for pending ctl_flush managed via ops
->>    * @pending_intf_flush_mask: pending INTF flush
->>    * @pending_wb_flush_mask: pending WB flush
-> The above is all capitalized, so...:
->
->> + * @pending_merge_3d_flush_mask: pending merge_3d flush
-> MERGE_3D?
->
->> + * @pending_dspp_flush_mask: pending dspp flush
-> DSPP
->
->> + * @pending_dsc_flush_mask: pending dsc flush
-> DSC
->
-> - Marijn
->
->>    * @ops: operation list
->>    */
->>   struct dpu_hw_ctl {
->> @@ -245,6 +257,7 @@ struct dpu_hw_ctl {
->>   	u32 pending_wb_flush_mask;
->>   	u32 pending_merge_3d_flush_mask;
->>   	u32 pending_dspp_flush_mask[DSPP_MAX - DSPP_0];
->> +	u32 pending_dsc_flush_mask;
->>   
->>   	/* ops */
->>   	struct dpu_hw_ctl_ops ops;
->> -- 
->> 2.7.4
+On 5/18/2023 2:36 PM, Marijn Suijten wrote:
+> On 2023-05-19 00:26:33, Dmitry Baryshkov wrote:
+>> On 18/05/2023 22:41, Marijn Suijten wrote:
+>>> On 2023-04-28 15:36:46, Abhinav Kumar wrote:
+>>>> Since GC and IGC masks have now been dropped DSPP_MSM8998_MASK
+>>>> is same as DSPP_SC7180_MASK. Since DSPP_SC7180_MASK is used more
+>>>
+>>> is *the* same
 >>
+>> And, I think, a comma is missing before DSPP_MSM8998_MASK.
+> 
+> Possible, but not needed I think; both would work.
+> 
+>> Note: since the English language is not native for most of the
+>> developers, I usually don't nitpick on these issues provided we can
+>> understand the message without too much trouble (and the mistake doesn't
+>> stand out aloud, begging for it to be fixed).
+> 
+
+I also dont nitpick on these.
+
+> I hope you don't mind me pointing them out when they make the reader go
+> "huh, a word is missing here", breaking my sentence-parser.
+> 
+> - Marijn
+
+Sure, but I dont expect another version to be sent if that was the only 
+issue.
+
+> 
+>> I will fix missing articles when applying, if I don't forget.
+> 
+> <snip>
