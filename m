@@ -2,36 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C71F3708845
-	for <lists+freedreno@lfdr.de>; Thu, 18 May 2023 21:20:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF288708879
+	for <lists+freedreno@lfdr.de>; Thu, 18 May 2023 21:40:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8040B10E544;
-	Thu, 18 May 2023 19:20:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3873710E54F;
+	Thu, 18 May 2023 19:40:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1258710E53E;
- Thu, 18 May 2023 19:20:08 +0000 (UTC)
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6CFA10E549
+ for <freedreno@lists.freedesktop.org>; Thu, 18 May 2023 19:40:46 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id A858E201C8;
- Thu, 18 May 2023 21:20:05 +0200 (CEST)
-Date: Thu, 18 May 2023 21:20:04 +0200
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 448AB203AE;
+ Thu, 18 May 2023 21:40:44 +0200 (CEST)
+Date: Thu, 18 May 2023 21:40:43 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ycwywmgy2pby2jglwm7tfjqgliizbi7ue75x526hdkik3kjtrt@c4eb4bgucgxb>
-References: <20230429012353.2569481-1-dmitry.baryshkov@linaro.org>
- <20230429012353.2569481-4-dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <cwnoowgglhlsx7357sddgonyohj7vj3z23bqlgleaskozzpcu2@nnyxzzzyhgem>
+References: <20230428223646.23595-1-quic_abhinavk@quicinc.com>
+ <20230428223646.23595-3-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230429012353.2569481-4-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: access CSC/CSC10
- registers directly
+In-Reply-To: <20230428223646.23595-3-quic_abhinavk@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v3 3/4] drm/msm/dpu: remove GC and IGC
+ related code from dpu catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,120 +44,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Jeykumar Sankaran <quic_jeykumar@quicinc.com>,
- David Airlie <airlied@gmail.com>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, quic_jesszhan@quicinc.com,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-29 04:23:53, Dmitry Baryshkov wrote:
-> Stop using _sspp_subblk_offset() to get offset of the csc_blk. Inline
-
-the offset of.
-
-> this function and use ctx->cap->sblk->csc_blk.base directly.
+On 2023-04-28 15:36:45, Abhinav Kumar wrote:
+> Gamma Correction (GC) and Inverse Gamma Correction(IGC) is
+> currently unused. In addition dpu_dspp_sub_blks didn't even have an igc
+> member describing the block.
 > 
-> As this was the last user, drop _sspp_subblk_offset() too.
+> Drop related code from the dpu hardware catalog otherwise this becomes a
+> burden to carry across chipsets in the catalog.
 > 
-> Reviewed-by: Jeykumar Sankaran <quic_jeykumar@quicinc.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Also much nicer to have idx renamed to offset, and having it on the
-left-hand side of these `blk + REG` expressions.  Thanks!
+> changes in v3:
+> 	- drop IGC related code from dpu_hw_catalog too
+> 	- update commit text accordingly
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 43 +++++----------------
->  1 file changed, 9 insertions(+), 34 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  4 +---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 10 ----------
+>  2 files changed, 1 insertion(+), 13 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index 37cd5f4396c6..fd9714659293 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -136,30 +136,6 @@
->  #define TS_CLK			19200000
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 5d994bce696f..791a6fc8bdbf 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -91,7 +91,7 @@
 >  
+>  #define MERGE_3D_SM8150_MASK (0)
 >  
-> -static int _sspp_subblk_offset(struct dpu_hw_sspp *ctx,
-> -		int s_id,
-> -		u32 *idx)
-> -{
-> -	int rc = 0;
-> -	const struct dpu_sspp_sub_blks *sblk;
-> -
-> -	if (!ctx || !ctx->cap || !ctx->cap->sblk)
-> -		return -EINVAL;
-> -
-> -	sblk = ctx->cap->sblk;
-> -
-> -	switch (s_id) {
-> -	case DPU_SSPP_CSC:
-> -	case DPU_SSPP_CSC_10BIT:
-> -		*idx = sblk->csc_blk.base;
-> -		break;
-> -	default:
-> -		rc = -EINVAL;
-> -	}
-> -
-> -	return rc;
-> -}
-> -
->  static void dpu_hw_sspp_setup_multirect(struct dpu_sw_pipe *pipe)
->  {
->  	struct dpu_hw_sspp *ctx = pipe->sspp;
-> @@ -210,19 +186,16 @@ static void _sspp_setup_opmode(struct dpu_hw_sspp *ctx,
->  static void _sspp_setup_csc10_opmode(struct dpu_hw_sspp *ctx,
->  		u32 mask, u8 en)
->  {
-> -	u32 idx;
-> +	const struct dpu_sspp_sub_blks *sblk = ctx->cap->sblk;
->  	u32 opmode;
+> -#define DSPP_MSM8998_MASK BIT(DPU_DSPP_PCC) | BIT(DPU_DSPP_GC)
+
+Oops we weren't even using parenthesis here before...
+
+> +#define DSPP_MSM8998_MASK BIT(DPU_DSPP_PCC)
 >  
-> -	if (_sspp_subblk_offset(ctx, DPU_SSPP_CSC_10BIT, &idx))
-> -		return;
-> -
-> -	opmode = DPU_REG_READ(&ctx->hw, SSPP_VIG_CSC_10_OP_MODE + idx);
-> +	opmode = DPU_REG_READ(&ctx->hw, sblk->csc_blk.base + SSPP_VIG_CSC_10_OP_MODE);
->  	if (en)
->  		opmode |= mask;
->  	else
->  		opmode &= ~mask;
+>  #define DSPP_SC7180_MASK BIT(DPU_DSPP_PCC)
 >  
-> -	DPU_REG_WRITE(&ctx->hw, SSPP_VIG_CSC_10_OP_MODE + idx, opmode);
-> +	DPU_REG_WRITE(&ctx->hw, sblk->csc_blk.base + SSPP_VIG_CSC_10_OP_MODE, opmode);
->  }
+> @@ -449,8 +449,6 @@ static const struct dpu_lm_sub_blks qcm2290_lm_sblk = {
+>  static const struct dpu_dspp_sub_blks msm8998_dspp_sblk = {
+>  	.pcc = {.id = DPU_DSPP_PCC, .base = 0x1700,
+>  		.len = 0x90, .version = 0x10007},
+> -	.gc = { .id = DPU_DSPP_GC, .base = 0x17c0,
+> -		.len = 0x90, .version = 0x10007},
+>  };
 >  
->  /*
-> @@ -530,18 +503,20 @@ static void dpu_hw_sspp_setup_sourceaddress(struct dpu_sw_pipe *pipe,
->  static void dpu_hw_sspp_setup_csc(struct dpu_hw_sspp *ctx,
->  		const struct dpu_csc_cfg *data)
->  {
-> -	u32 idx;
-> +	u32 offset;
->  	bool csc10 = false;
+>  static const struct dpu_dspp_sub_blks sc7180_dspp_sblk = {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 71584cd56fd7..1230739e37d4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -127,13 +127,9 @@ enum {
+>  /**
+>   * DSPP sub-blocks
+>   * @DPU_DSPP_PCC             Panel color correction block
+> - * @DPU_DSPP_GC              Gamma correction block
+> - * @DPU_DSPP_IGC             Inverse gamma correction block
+>   */
+>  enum {
+>  	DPU_DSPP_PCC = 0x1,
+> -	DPU_DSPP_GC,
+> -	DPU_DSPP_IGC,
+>  	DPU_DSPP_MAX
+>  };
 >  
-> -	if (_sspp_subblk_offset(ctx, DPU_SSPP_CSC, &idx) || !data)
-> +	if (!ctx || !data)
->  		return;
+> @@ -398,7 +394,6 @@ struct dpu_caps {
+>   * @hsic:
+>   * @memcolor:
+>   * @pcc_blk:
+> - * @igc_blk:
+>   * @format_list: Pointer to list of supported formats
+>   * @num_formats: Number of supported formats
+>   * @virt_format_list: Pointer to list of supported formats for virtual planes
+> @@ -419,7 +414,6 @@ struct dpu_sspp_sub_blks {
+>  	struct dpu_pp_blk hsic_blk;
+>  	struct dpu_pp_blk memcolor_blk;
+>  	struct dpu_pp_blk pcc_blk;
+> -	struct dpu_pp_blk igc_blk;
 >  
-> +	offset = ctx->cap->sblk->csc_blk.base;
-> +
->  	if (test_bit(DPU_SSPP_CSC_10BIT, &ctx->cap->features)) {
-> -		idx += CSC_10BIT_OFFSET;
-> +		offset += CSC_10BIT_OFFSET;
->  		csc10 = true;
->  	}
+>  	const u32 *format_list;
+>  	u32 num_formats;
+> @@ -433,22 +427,18 @@ struct dpu_sspp_sub_blks {
+>   * @maxwidth:               Max pixel width supported by this mixer
+>   * @maxblendstages:         Max number of blend-stages supported
+>   * @blendstage_base:        Blend-stage register base offset
+> - * @gc: gamma correction block
+>   */
+>  struct dpu_lm_sub_blks {
+>  	u32 maxwidth;
+>  	u32 maxblendstages;
+>  	u32 blendstage_base[MAX_BLOCKS];
+> -	struct dpu_pp_blk gc;
+>  };
 >  
-> -	dpu_hw_csc_setup(&ctx->hw, idx, data, csc10);
-> +	dpu_hw_csc_setup(&ctx->hw, offset, data, csc10);
->  }
+>  /**
+>   * struct dpu_dspp_sub_blks: Information of DSPP block
+> - * @gc : gamma correction block
+>   * @pcc: pixel color correction block
+>   */
+>  struct dpu_dspp_sub_blks {
+> -	struct dpu_pp_blk gc;
+>  	struct dpu_pp_blk pcc;
+>  };
 >  
->  static void dpu_hw_sspp_setup_solidfill(struct dpu_sw_pipe *pipe, u32 color)
 > -- 
-> 2.39.2
+> 2.40.1
 > 
