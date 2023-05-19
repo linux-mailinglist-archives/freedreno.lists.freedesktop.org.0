@@ -2,75 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B13A8709D07
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 18:55:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33239709D20
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 19:04:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 786C510E53B;
-	Fri, 19 May 2023 16:55:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7F510E542;
+	Fri, 19 May 2023 17:03:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C19610E53B
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 16:55:51 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4f3a7241c0aso2272239e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 09:55:51 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D8110E542
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 17:03:57 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4ec8eca56cfso3897670e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 10:03:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684515349; x=1687107349;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8u8Cffd9gh33GRz1/pbcBEqZLgNy2eMWL4ehBbFWLjI=;
- b=frBZC/4FCb2QlYrqMh5fSiI43wwxOHGZeClHqaQu1pT9pIifaaeOut2l5G5SeW5L5N
- DWg1O3ITeeYp2clN+vP0J6DApUwMDqFgJ9gcrEsQtRES3vtgwQRZXjoPa7H/2FSAJWH/
- JorcuryfBrDaMeDg4sttp+mazhbdiDF9HZpfK5o0EQNhBRF248NdPzl+UMvemqCozPqJ
- KJvk8AEw+/DytCJhQLO8O4LbZHrgmsXonnYgQCeutXT4+oUHrRGvlSnn20q6Ashj2rAt
- xkBlABn6tSf6yUFIKZHoplxKokwropWI7Eh1Ejz0BBtNR9Zn788YZZE9TM8n9hTDa2z/
- hFfA==
+ d=linaro.org; s=google; t=1684515836; x=1687107836;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QXs4aiQLHrio2Nlg6cF/rAKgeR+4aHuEkDi24S6DJvU=;
+ b=MziKeRUTI/2c1rFbmzscJed1ZncaDWeYTTRNnnczF+4Tg3S2dvAghpVh53bNTlaxWN
+ jxtlF4hmxrCyS4/tjmQwaPe7zXuRDu0JVMls1zjw6pblrWgfcdXBIh/bqd2vidq9ygqr
+ Zg0RAvUaG2AeKCAmB5QLH5JCUmHBZxpSeeJUti8OAw9jhut/AIHzf+QJdCnX6SgwwqKw
+ 4/khp8s9QqJSC7zWjixJL9s+SwmSIUvd5DDnz3AEZtIiHOJdKslHK6DvM3xuJBmhsIIp
+ t+wEpHHUktEBqqR3G+X3JnIB5R/lqw6r6XD18JTotIWl35JitI2KIM9l0IyFOZddqvqI
+ NtmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684515349; x=1687107349;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8u8Cffd9gh33GRz1/pbcBEqZLgNy2eMWL4ehBbFWLjI=;
- b=kIJFlLBFbagIU0Ob/4zY2ppwoTk2IFw6AaiwdORHOf/2Da/P+alvATtJ5KJwopDpvz
- /8VN0QgiucHvg12neBO2lNPNPr+bT80HLFd3xkOiAvdD+bTFdw3lv+J4lScuV272Ymem
- uhc9dtccKRZt9b4dpUjqmw9k/+eiu1D3mMZeiiRzXn0f6xT7otYYySI1otf0C08ZWg2B
- /6S4wT1m82LeEUrXMFfH+vt3H69bgnTbrQ++HD+yygxPci0UY2/HBlzTjkqDDrHE6Ewt
- Bh7vgoax7LUm7vgsKLovc/XuKocfiSEThldHVSz3+w2N+k6En/UlQ1Gn1Jin6pk+R791
- rR1w==
-X-Gm-Message-State: AC+VfDzQwot3ggW1vpBnh1dtdYGeFFgrvT2/AtVoxKeLRsSbjiAGcorT
- 0TlJu/j99cjsTPyqEZDN+yYOyQ==
-X-Google-Smtp-Source: ACHHUZ7f0Yd3ApLNEvVN4yist87EQ8Ddt29lyiXsuzgsN0hmwyzO5avMdxs62WPck07X7DVpNuW5Vw==
-X-Received: by 2002:ac2:5298:0:b0:4f1:5010:4b34 with SMTP id
- q24-20020ac25298000000b004f150104b34mr1215390lfm.18.1684515349191; 
- Fri, 19 May 2023 09:55:49 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1684515836; x=1687107836;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QXs4aiQLHrio2Nlg6cF/rAKgeR+4aHuEkDi24S6DJvU=;
+ b=kPgwGsdm8rnMLcA/FmZKgyuQbSy7mqlljMqflS569R7U3G8HOy9M4VR2IzpuG8uQy6
+ ocRzbRCBrcKxYm3zB58/ib+RaZ5eFkWLVXb0h8QpD9ylt6yx8SkkY/ddNs02qVtbSdpb
+ HJdzTII0WnRMwwOAd9orlqaYv6a2v1x+0G6+8Nm+z7uynmC+CdAP6YHcWKTvzmhZCsHz
+ 57GqOWyHJCdy7bNWqFBou8EDwQfVF5RTOBHTn/QYjbCMcBbAwRzz/tqVdLjTDhkazooh
+ G6J51A72m38XHOOcERZtONiahBqy9uMffirdYSFaI2k2cj4D7Qj5c+I0mS48IFqNB0zh
+ XY+A==
+X-Gm-Message-State: AC+VfDycVRWS3DN6lPBMWwcW1Q8C2B1Ig9Yrz6zIQ2tUl/yuLKiGy2Dr
+ IdwYWaXSPGB+SZ+qwQcNGRDTbw==
+X-Google-Smtp-Source: ACHHUZ6bJhbgom1BxYi5sgdsDvGMfmj2+rrO36VW3fIP8qiL0zf3oal1c+V+jlnPAG3YAwCRTigCJw==
+X-Received: by 2002:ac2:491a:0:b0:4f2:6387:e1fe with SMTP id
+ n26-20020ac2491a000000b004f26387e1femr1054071lfi.7.1684515834789; 
+ Fri, 19 May 2023 10:03:54 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- i5-20020ac25225000000b004f13ece6a4fsm656365lfl.101.2023.05.19.09.55.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 May 2023 09:55:48 -0700 (PDT)
-Message-ID: <0c702f15-c842-8eab-cc95-83378236773c@linaro.org>
-Date: Fri, 19 May 2023 19:55:47 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-GB
-To: Mark Yacoub <markyacoub@chromium.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Douglas Anderson <dianders@chromium.org>
-References: <20230419154321.1993419-1-markyacoub@google.com>
+ f5-20020ac251a5000000b004f2532cfbc1sm661242lfk.81.2023.05.19.10.03.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 May 2023 10:03:54 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230419154321.1993419-1-markyacoub@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v10 00/10] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 19 May 2023 20:03:53 +0300
+Message-Id: <20230519170353.3936443-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: drop the regdma configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,86 +71,288 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: suraj.kandpal@intel.com, intel-gfx@lists.freedesktop.org,
- dianders@chromium.org, dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org, Mark Yacoub <markyacoub@google.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/04/2023 18:43, Mark Yacoub wrote:
-> Hi all,
-> This is v10 of the HDCP patches. The patches are authored by Sean Paul.
-> I rebased and addressed the review comments in v6-v10.
-> 
-> Main change in v10 is handling the kernel test bot warnings.
-> 
-> Patches 1-4 focus on moving the common HDCP helpers to common DRM.
-> This introduces a slight change in the original intel flow
-> as it splits the unique driver protocol from the generic implementation.
-> 
-> Patches 5-7 split the HDCP flow on the i915 driver to make use of the common DRM helpers.
-> 
-> Patches 8-10 implement HDCP on MSM driver.
-> 
-> Thanks,
-> -Mark Yacoub
-> 
-> Sean Paul (10):
->    drm/hdcp: Add drm_hdcp_atomic_check()
->    drm/hdcp: Avoid changing crtc state in hdcp atomic check
->    drm/hdcp: Update property value on content type and user changes
->    drm/hdcp: Expand HDCP helper library for enable/disable/check
->    drm/i915/hdcp: Consolidate HDCP setup/state cache
->    drm/i915/hdcp: Retain hdcp_capable return codes
->    drm/i915/hdcp: Use HDCP helpers for i915
->    dt-bindings: msm/dp: Add bindings for HDCP registers
->    arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
+The regdma is currently not used by the current driver. We have no way
+to practically verify that the regdma is described correctly. Drop it
+now.
 
-Dear i915 maintainers,
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
-I wanted to ping you regarding this patch series. If there are no 
-comments for the series from you side, would it be possible to land 
-Intel-specific and generic patches into drm-intel tree? We will continue 
-working on the msm specific parts and merge them through the msm tree.
+Changes since v1:
+- Restored dpu_msm8998_cfg.perf, incorrectly removed previously (Marijn)
+- Also dropped reg_dma pointer from struct dpu_kms (Marijn)
 
->    drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-> 
->   .../bindings/display/msm/dp-controller.yaml   |    7 +-
->   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
->   drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
->   drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
->   drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
->   .../drm/i915/display/intel_display_debugfs.c  |   12 +-
->   .../drm/i915/display/intel_display_types.h    |   51 +-
->   drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
->   drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
->   drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
->   drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
->   drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
->   drivers/gpu/drm/msm/Kconfig                   |    1 +
->   drivers/gpu/drm/msm/Makefile                  |    1 +
->   drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
->   drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
->   drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
->   drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
->   drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
->   drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
->   drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
->   drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
->   drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
->   drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
->   drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
->   drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
->   drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
->   drivers/gpu/drm/msm/msm_atomic.c              |   19 +
->   include/drm/display/drm_hdcp.h                |  296 ++++
->   include/drm/display/drm_hdcp_helper.h         |   23 +
->   30 files changed, 2867 insertions(+), 1349 deletions(-)
->   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
->   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
-> 
+---
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  1 -
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  2 -
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  2 -
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  2 -
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  2 -
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 40 -------------------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 18 ---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  6 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  2 +-
+ 14 files changed, 1 insertion(+), 84 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+index 2b3ae84057df..02e9b26b49b0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+@@ -195,7 +195,6 @@ const struct dpu_mdss_cfg dpu_msm8998_cfg = {
+ 	.intf = msm8998_intf,
+ 	.vbif_count = ARRAY_SIZE(msm8998_vbif),
+ 	.vbif = msm8998_vbif,
+-	.reg_dma_count = 0,
+ 	.perf = &msm8998_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+index ceca741e93c9..63009435e258 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+@@ -193,8 +193,6 @@ const struct dpu_mdss_cfg dpu_sdm845_cfg = {
+ 	.intf = sdm845_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sdm845_regdma,
+ 	.perf = &sdm845_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+index 282d410269ff..e17398f98734 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
+@@ -220,8 +220,6 @@ const struct dpu_mdss_cfg dpu_sm8150_cfg = {
+ 	.intf = sm8150_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8150_regdma,
+ 	.perf = &sm8150_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+index c57400265f28..d32f939e9c00 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+@@ -198,8 +198,6 @@ const struct dpu_mdss_cfg dpu_sc8180x_cfg = {
+ 	.intf = sc8180x_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8150_regdma,
+ 	.perf = &sc8180x_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+index 2c40229ea515..f49fc1690b71 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+@@ -228,8 +228,6 @@ const struct dpu_mdss_cfg dpu_sm8250_cfg = {
+ 	.vbif = sdm845_vbif,
+ 	.wb_count = ARRAY_SIZE(sm8250_wb),
+ 	.wb = sm8250_wb,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8250_regdma,
+ 	.perf = &sm8250_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+index 8799ed757119..0a273ba8cf4f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+@@ -143,8 +143,6 @@ const struct dpu_mdss_cfg dpu_sc7180_cfg = {
+ 	.wb = sc7180_wb,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sdm845_regdma,
+ 	.perf = &sc7180_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+index ca107ca8de46..865dc51d0fe5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+@@ -211,8 +211,6 @@ const struct dpu_mdss_cfg dpu_sm8350_cfg = {
+ 	.intf = sm8350_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8350_regdma,
+ 	.perf = &sm8350_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+index 9aab110b8c44..1ac7ad2ba0da 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+@@ -202,8 +202,6 @@ const struct dpu_mdss_cfg dpu_sc8280xp_cfg = {
+ 	.intf = sc8280xp_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sc8280xp_regdma,
+ 	.perf = &sc8280xp_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+index 02a259b6b426..41c326fc3792 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+@@ -219,8 +219,6 @@ const struct dpu_mdss_cfg dpu_sm8450_cfg = {
+ 	.intf = sm8450_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8450_regdma,
+ 	.perf = &sm8450_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+index 9e403034093f..e60ebb6242e3 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+@@ -224,8 +224,6 @@ const struct dpu_mdss_cfg dpu_sm8550_cfg = {
+ 	.intf = sm8550_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+ 	.vbif = sdm845_vbif,
+-	.reg_dma_count = 1,
+-	.dma_cfg = &sm8450_regdma,
+ 	.perf = &sm8550_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 03f162af1a50..57b3c495aeb5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -650,46 +650,6 @@ static const struct dpu_vbif_cfg sdm845_vbif[] = {
+ 	},
+ };
+ 
+-static const struct dpu_reg_dma_cfg sc8280xp_regdma = {
+-	.base = 0x0,
+-	.version = 0x00020000,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+-static const struct dpu_reg_dma_cfg sdm845_regdma = {
+-	.base = 0x0, .version = 0x1, .trigger_sel_off = 0x119c
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8150_regdma = {
+-	.base = 0x0, .version = 0x00010001, .trigger_sel_off = 0x119c
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8250_regdma = {
+-	.base = 0x0,
+-	.version = 0x00010002,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8350_regdma = {
+-	.base = 0x400,
+-	.version = 0x00020000,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+-static const struct dpu_reg_dma_cfg sm8450_regdma = {
+-	.base = 0x0,
+-	.version = 0x00020000,
+-	.trigger_sel_off = 0x119c,
+-	.xin_id = 7,
+-	.clk_ctrl = DPU_CLK_CTRL_REG_DMA,
+-};
+-
+ /*************************************************************
+  * PERF data config
+  *************************************************************/
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 71584cd56fd7..8d62c21b051a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -720,21 +720,6 @@ struct dpu_vbif_cfg {
+ 	u32 memtype_count;
+ 	u32 memtype[MAX_XIN_COUNT];
+ };
+-/**
+- * struct dpu_reg_dma_cfg - information of lut dma blocks
+- * @id                 enum identifying this block
+- * @base               register offset of this block
+- * @features           bit mask identifying sub-blocks/features
+- * @version            version of lutdma hw block
+- * @trigger_sel_off    offset to trigger select registers of lutdma
+- */
+-struct dpu_reg_dma_cfg {
+-	DPU_HW_BLK_INFO;
+-	u32 version;
+-	u32 trigger_sel_off;
+-	u32 xin_id;
+-	enum dpu_clk_ctrl_type clk_ctrl;
+-};
+ 
+ /**
+  * Define CDP use cases
+@@ -850,9 +835,6 @@ struct dpu_mdss_cfg {
+ 	u32 wb_count;
+ 	const struct dpu_wb_cfg *wb;
+ 
+-	u32 reg_dma_count;
+-	const struct dpu_reg_dma_cfg *dma_cfg;
+-
+ 	u32 ad_count;
+ 
+ 	u32 dspp_count;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 0e7a68714e9e..28d74d4d2c1d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1033,12 +1033,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 		DPU_DEBUG("VBIF NRT is not defined");
+ 	}
+ 
+-	dpu_kms->reg_dma = msm_ioremap_quiet(dpu_kms->pdev, "regdma");
+-	if (IS_ERR(dpu_kms->reg_dma)) {
+-		dpu_kms->reg_dma = NULL;
+-		DPU_DEBUG("REG_DMA is not defined");
+-	}
+-
+ 	dpu_kms_parse_data_bus_icc_path(dpu_kms);
+ 
+ 	rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index aca39a4689f4..15111e433f21 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -71,7 +71,7 @@ struct dpu_kms {
+ 	const struct dpu_mdss_cfg *catalog;
+ 
+ 	/* io/register spaces: */
+-	void __iomem *mmio, *vbif[VBIF_MAX], *reg_dma;
++	void __iomem *mmio, *vbif[VBIF_MAX];
+ 
+ 	struct regulator *vdd;
+ 	struct regulator *mmagic;
 -- 
-With best wishes
-Dmitry
+2.39.2
 
