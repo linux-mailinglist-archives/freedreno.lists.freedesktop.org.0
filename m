@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5700A709D31
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 19:04:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA7EB709D33
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 19:04:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2031E10E5B8;
-	Fri, 19 May 2023 17:04:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87B2510E5BA;
+	Fri, 19 May 2023 17:04:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15ADD10E5B6
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 17:04:38 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4f13d8f74abso4009753e87.0
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 10:04:37 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6D810E5B8
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 17:04:39 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4f26f437b30so3997966e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 10:04:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684515876; x=1687107876;
+ d=linaro.org; s=google; t=1684515878; x=1687107878;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Olp/PVXIJr8fEMjOP3fCHDkSYD0xJnBud5aoQtWwMD4=;
- b=P9a3mKGxCtfXzLKVP5SAo8qOjOSf2qX1HaGd/cu8Xc9t6oXlMn3jlr7AlPWcfXUcGc
- uUhl0unwQ+QMiJ6B95v/v6z2cKzszb/5BcyqYLd7UX6POBBNCYBgyiW9RxMBgaN6hejk
- e5D56a96OYOJrhs0upUZj0VDGFDjlBPbXLW5Zn8C16wqz0mPgyN8kUQ3fqDgk7Namlas
- HVeSscM5QregjAWpfKtNE+sc6VScflt0U/8InDCjzdAoRKFZyZmym1t93dB0RircufHa
- bGbO6VyI3Gi0Ao+Ofz035mXiB43bMiH19+BPZ+69ER1Vz9PioKXed9KGziR2h0GuwWKh
- kjzQ==
+ :reply-to; bh=NO5fRgfBpga7Z40GIKnv5Lmg/IglAEvXvStQNi4ygG0=;
+ b=Bbdb+1QThMlF638M4Pv9G/iJljUA7x+KqM8jdrVQsDF4imUidG7ALAqVodbIShi3UM
+ 3BP6HsF/5MYh9RSn6zQ6wynq2wfhZjKLvvE36Ow7H2ll+yi2x6N5bS1CqoKd2YxtY/22
+ 62ATGeNmNM6yVKg8r7JCQTN1JTMTc7kGs72gzf9PbJiccXDMtT3KnlhUz/Z212YJoNtf
+ qgutCap1f3InoMPkzkPePQt4DA0nz8deZyxdalH8ACi2vSwmtwaFoINGIZLjnA6ZGZct
+ 0lH16Dtre1Bq2uDq8w6uCTfEt27FE7iubGsTs1f20vFNlI+lDIoO2phnBqQoollyu5AJ
+ SGxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684515876; x=1687107876;
+ d=1e100.net; s=20221208; t=1684515878; x=1687107878;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Olp/PVXIJr8fEMjOP3fCHDkSYD0xJnBud5aoQtWwMD4=;
- b=PaX9vrJcNASwPRponeMbU+GjYks8UzZeKaZIL8ep11QFi25QUewC/sK4BwM4uM86g5
- NMAMIwTCAW4FG5PbEiHqvSWDxt2HliY/4jC59JJ26O5TdmKKpkttYY2ogErAQxExSF8A
- ydLR9hX+qURLf686vGiWCY+TFjBeq9y8lTv8kLZRNqinuO+dd2z7UESrGuUel/ny2J1K
- McGNfNXn6afEY70Gso3waltK12xUR1ZGmdx9nIZ8d8/xTpwUxoEor8PeY1ziDhKVCvEs
- WRSza2KFHwjh+rg03qfeWGYAKLwUIM390yskc234qlM/P8CV8Nch4Z/Lk4vo1MeucPpS
- 4N4w==
-X-Gm-Message-State: AC+VfDwTju5gHQTJFRhCuLQs1EfWPQnFRDPNmZMhi1zomwX2qYsIGTVR
- LN8w3q8hWrboX+x8N4qKtMLIPQ==
-X-Google-Smtp-Source: ACHHUZ4IeHr3sqM5Wn5U1+TjNStYTlQDUVag+a9X5qZ3WvOtBOeS4Z5TH4sFCy3lI4XYAyk9EC+kwg==
-X-Received: by 2002:ac2:4c90:0:b0:4f1:95cf:11eb with SMTP id
- d16-20020ac24c90000000b004f195cf11ebmr972148lfl.6.1684515876323; 
- Fri, 19 May 2023 10:04:36 -0700 (PDT)
+ bh=NO5fRgfBpga7Z40GIKnv5Lmg/IglAEvXvStQNi4ygG0=;
+ b=auXSOAumhsUKgo2rxzWP/+8O886/BAn8vL36/m22B+6kCF6O83GbblEzuYtVADh3W4
+ cCy5UT0O/wbnh3NoidPLJMcoy0YYhlhR3ZDqCotox0rI45/Z5Se6fT5ivH2zOxFurbHp
+ +PG6QrkXLQhuECMHZFefTToZWg82YeR7jW3cp4xx7sWbSeLkAMaWBs2/Q+crKSm+uZ8c
+ afQrEEUnGaJk15zC2MWkLJTjsShPa6+fRKJiWJBRpSap09J3d3afEUDHrKX3fU3JEziB
+ +XMoWCofJiz5CypUgNaK+RcvgahAafoAdMkqhkQgOlwGuvEUVmKoGLsctq3lLNyHjXX/
+ LcsA==
+X-Gm-Message-State: AC+VfDxHarES6YwpO9vg4UrVO7V0VB0JvUqUHSXDaP+Ffy/wVVvQJ5IH
+ 3GC5gQQWdWyEyMszmfDqgZBNbw==
+X-Google-Smtp-Source: ACHHUZ6pbneutyD2zQncnD7WKo5DHNLnuaD2QVdYjB+RwAqZmitfAl2aZHnLP9npNSJQHFfDJsrcAQ==
+X-Received: by 2002:ac2:5973:0:b0:4f1:26f5:7814 with SMTP id
+ h19-20020ac25973000000b004f126f57814mr970085lfp.20.1684515878014; 
+ Fri, 19 May 2023 10:04:38 -0700 (PDT)
 Received: from [192.168.1.101] (abxi58.neoplus.adsl.tpnet.pl. [83.9.2.58])
  by smtp.gmail.com with ESMTPSA id
- a6-20020a19f806000000b004f38260f196sm654478lff.218.2023.05.19.10.04.34
+ a6-20020a19f806000000b004f38260f196sm654478lff.218.2023.05.19.10.04.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 May 2023 10:04:35 -0700 (PDT)
+ Fri, 19 May 2023 10:04:37 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 19 May 2023 19:04:23 +0200
+Date: Fri, 19 May 2023 19:04:24 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230411-topic-straitlagoon_mdss-v4-2-68e7e25d70e1@linaro.org>
+Message-Id: <20230411-topic-straitlagoon_mdss-v4-3-68e7e25d70e1@linaro.org>
 References: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
 In-Reply-To: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -68,15 +68,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
  Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1684515870; l=1145;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1684515870; l=2117;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=VsWoYP7GHCgHOv33piyXwEtJ6/KtKH5SJYQ2EDUVEdo=;
- b=QPzbrNxaTLE/p9WkBiuxekU0fx4pSTlLLWeihi35wm/6b4DUhAxEznO6YIPT1cqT9vE73a++B
- KIBa/uP4RVtC4cpGHCHGC0eyloeNuPrCeuqwfmpNxDSXB2Gr7rCN3Yh
+ bh=0YTG0EAw+lDImyg5bB4Ke78N5DjTkdTQlY35rQdmXMI=;
+ b=EcOimJs07IbYQ2waHhEPLsH7OslP142E9bndaFUYKcyL2n6tgLHuuW7brAv8TZhjdQaFnDZ3/
+ 9VabXvrY1UfByI35KRw5KZoGRHacXGXeCjrP4j+ZOfzWFDWDIRsUsZ5
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v4 02/12] dt-bindings: display/msm:
- dsi-controller-main: Add SM6375
+Subject: [Freedreno] [PATCH v4 03/12] dt-bindings: display/msm: sc7180-dpu:
+ Describe SM6350 and SM6375
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,42 +89,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, iommu@lists.linux.dev,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the DSI host found on SM6375.
+SC7180, SM6350 and SM6375 use a rather similar hw setup for DPU, with
+the main exception being that the last one requires an additional
+throttle clock.
 
-Acked-by: Rob Herring <robh@kernel.org>
+It is not well understood yet, but failing to toggle it on makes the
+display hardware stall and not output any frames.
+
+Document SM6350 and SM6375 DPU.
+
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml      | 23 +++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 6f367a1fabf8..f7dc05a65420 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -27,6 +27,7 @@ properties:
-               - qcom,sdm845-dsi-ctrl
-               - qcom,sm6115-dsi-ctrl
-               - qcom,sm6350-dsi-ctrl
-+              - qcom,sm6375-dsi-ctrl
-               - qcom,sm8150-dsi-ctrl
-               - qcom,sm8250-dsi-ctrl
-               - qcom,sm8350-dsi-ctrl
-@@ -354,6 +355,7 @@ allOf:
-             enum:
-               - qcom,sdm845-dsi-ctrl
-               - qcom,sm6115-dsi-ctrl
-+              - qcom,sm6375-dsi-ctrl
-     then:
-       properties:
-         clocks:
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+index 1fb8321d9ee8..630b11480496 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+@@ -13,7 +13,10 @@ $ref: /schemas/display/msm/dpu-common.yaml#
+ 
+ properties:
+   compatible:
+-    const: qcom,sc7180-dpu
++    enum:
++      - qcom,sc7180-dpu
++      - qcom,sm6350-dpu
++      - qcom,sm6375-dpu
+ 
+   reg:
+     items:
+@@ -26,6 +29,7 @@ properties:
+       - const: vbif
+ 
+   clocks:
++    minItems: 6
+     items:
+       - description: Display hf axi clock
+       - description: Display ahb clock
+@@ -33,8 +37,10 @@ properties:
+       - description: Display lut clock
+       - description: Display core clock
+       - description: Display vsync clock
++      - description: Display core throttle clock
+ 
+   clock-names:
++    minItems: 6
+     items:
+       - const: bus
+       - const: iface
+@@ -42,6 +48,7 @@ properties:
+       - const: lut
+       - const: core
+       - const: vsync
++      - const: throttle
+ 
+ required:
+   - compatible
+@@ -52,6 +59,20 @@ required:
+ 
+ unevaluatedProperties: false
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: qcom,sm6375-dpu
++
++    then:
++      properties:
++        clocks:
++          minItems: 7
++
++        clock-names:
++          minItems: 7
++
+ examples:
+   - |
+     #include <dt-bindings/clock/qcom,dispcc-sc7180.h>
 
 -- 
 2.40.1
