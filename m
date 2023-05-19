@@ -1,77 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A2D5709846
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 15:29:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B64527099AD
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 16:29:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05C1A10E280;
-	Fri, 19 May 2023 13:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8AF10E3A4;
+	Fri, 19 May 2023 14:29:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB7B610E21C
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 13:29:26 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2af177f12d1so22163541fa.0
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 06:29:26 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46D5510E3A4
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 14:29:06 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-4eff4ea8e39so3687344e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 07:29:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684502964; x=1687094964;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=CoLKDA4nls3CGbrXvxh61SjvP4v8d9SGkB682PI8Y9w=;
- b=Z2m27kLSE1/hw4iXIE43fi41wpKcFGxK0Xnz1w3T0lvfvcVk7Le/dEr+zi+NGu1tJf
- /OKfe10DfnNwtrOoIjkKfQVAUfzj1PZRmT8MEw6tANJx9t9XoxSvsB/Go/dOwGpkfSvi
- Lb0vcRU1NXSqRbpzFuwYtJQ0M5MkGiPzGD+GpyLJGC+1otOlmpnKQzFzuijUnp610wRL
- f93k4HuHiZM1WfeSuOYffIrpdKQ6KwV4WkxxgEcPK/WPFMC9Qm6xJp2wwXU0SCVvOeZv
- yfA8zWafiXtaFx0IQYXhtZPOS1COVU+JOV6hYDyHf6fqP6pkl/A7YrypOO69nsxDmsXw
- PWbg==
+ d=linaro.org; s=google; t=1684506544; x=1687098544;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SXSWp9UT1nFmnhqm3B5R8YXXasDWmGa7xqzY3bdTr7A=;
+ b=kwgATlkhkJ4dpLP5u471YE6mmR19bPExUHdjGal9FiBa7R6o+oSZL+4RnDlhNr6rG+
+ ZBg+fTcrx53sT/mK7GMwZTZP/Np9fiqVxc4O0FfRFGTitrNigCpLb9LPZnTgUBvJPR/S
+ MctcdvBpb9KpbHMWDu8XyEHKPtTur3zxrte8OohbJH7O/giAGZixo7Hd+p7LhLAdQ+3c
+ uHt51bdM/EEISau7rcH0k2u+BDlx0Mvsjsfd5KnOLrX2xNVaOnRAqhk7FW0m1ywKn3Hk
+ /eKpXOsMkVNKTjzqZi3B5wGXQDep9OvqyEnUEvmiT/Ku0mOws+C0JixM6wDb1WCJmjuF
+ +szA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684502964; x=1687094964;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CoLKDA4nls3CGbrXvxh61SjvP4v8d9SGkB682PI8Y9w=;
- b=MOFvHBdmrI7cS7p3ih2FXcBPYb/VERiIWtfNkqgGhFuqFiCynepMtZV3ZjQUW8797W
- XiSs7G0oor3Jkwjek183IoY3uiAQ1DxlF6COBtgtCN6nsxr0m4NMC4JL624SOGfk6uMF
- 0opXw21EOUsjAIRIh6VQ6HBgqSxStTEWd+GizciIXh7vO+aKH50qt80AOMbFc2qrDVmO
- vn0/MH1r8rv/lD5puRBptRrOJCAN9GzZ7JAN0O9YOgXULRO7N69L5S8HcPDTDS3BABU5
- h8AYyV+iYWDWjtX+TNOtmYdFozaBlhIs9DsdiSuLfwcIbMIb9NZOqEZQKwfN7RBQ71Hp
- tD4A==
-X-Gm-Message-State: AC+VfDyzluid/U+Uoe+ZLlXrXXX6ViZpT6alxwIJRkFgIOP7QoTUQFJA
- BWaYHHenpUIqtRnBkbEk4vKwyg==
-X-Google-Smtp-Source: ACHHUZ6CxGFLDlfvrAV3JkY97oQkX8w9GTUFMc0/kvtZwEgddKmd2D5f8xSBKXHwb9BO5aK9+azW7Q==
-X-Received: by 2002:a2e:8091:0:b0:2ad:fef4:94f8 with SMTP id
- i17-20020a2e8091000000b002adfef494f8mr797526ljg.6.1684502964590; 
- Fri, 19 May 2023 06:29:24 -0700 (PDT)
-Received: from [192.168.1.101] (abxi58.neoplus.adsl.tpnet.pl. [83.9.2.58])
+ d=1e100.net; s=20221208; t=1684506544; x=1687098544;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SXSWp9UT1nFmnhqm3B5R8YXXasDWmGa7xqzY3bdTr7A=;
+ b=gP1HMZwtMwSnkXa3hbH7o4nt6sJt0TW0Ib0KBJL1TBf/K2cp3LduXUDCDrMt3c5Qs8
+ yCnoU3SJzGF9dUFIntP6nCrAchcOYvcxw+KY0R0Io8MLmI2yc4mmT61V2ZaQE+rAke42
+ LiuhIc2GnA8stb/oeNgjXQtexdWZhithfxG934uJkXzSy6FNK+dHJrhPWiVHpUY/l0+s
+ iC/bkd4S1D8xlmoGBRvopIE0J/JvlLLozqzbM3TjXz7dYdiJYvJ6uOvuvxLh76GWYLKb
+ grwVY1BFN7KnJz45caXuhELnEj/dG2MOlXVkLsomhDmc9+313fqdCaTxHAP4NZY0b0sc
+ ZUCg==
+X-Gm-Message-State: AC+VfDxZ8lgcd2flcwxijqEkAabF7O2ybLhnzblQGRXvu7VUsXMn+pDY
+ FfnkcQHNOuxjC9I8bbitS6bgqQ==
+X-Google-Smtp-Source: ACHHUZ6w05g//15CVJcp2ZhyzGhk5MPjyJqW3b/KEHwqEqs+F7QYpnESM/ah/J7f/bBWLjs6GgWeTQ==
+X-Received: by 2002:a05:6512:945:b0:4e9:74a8:134c with SMTP id
+ u5-20020a056512094500b004e974a8134cmr763720lft.43.1684506544001; 
+ Fri, 19 May 2023 07:29:04 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- q24-20020a2e9698000000b002ad92dff470sm821384lji.134.2023.05.19.06.29.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 May 2023 06:29:24 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 19 May 2023 15:29:11 +0200
+ d6-20020ac25ec6000000b004f14ecc03f1sm609354lfq.100.2023.05.19.07.29.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 May 2023 07:29:03 -0700 (PDT)
+Message-ID: <1678a177-f9a3-9673-d837-0ec82a4f5c1a@linaro.org>
+Date: Fri, 19 May 2023 17:29:02 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <quic_kalyant@quicinc.com>
+References: <20230518-dpu-sc7180-pcc-version-v1-1-ec9ca4949e3e@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230518-dpu-sc7180-pcc-version-v1-1-ec9ca4949e3e@somainline.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230517-topic-a7xx_prep-v2-6-5b9daa2b2cf0@linaro.org>
-References: <20230517-topic-a7xx_prep-v2-0-5b9daa2b2cf0@linaro.org>
-In-Reply-To: <20230517-topic-a7xx_prep-v2-0-5b9daa2b2cf0@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1684502955; l=1342;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=btUFgb1HmX4JzaeMKMcU2R1/tETWRJTF/5M21P54ufE=;
- b=uge7jhsa+6TMgVnbDiql/KjRMCa2Zb0JOe9R2GsPOzeoMYLsykOQCCB6qAuMi5PGNRRC++0uR
- dFwe/8HcIVVBFtJho3vrH41g3hspVEGRLxiuZX69M1/8Ix2IBah+mWC
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v2 6/6] drm/msm/a6xx: Fix up GMU region
- reservations
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Use V4.0 PCC DSPP sub-block in
+ SC7[12]80
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,49 +81,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Change the order of region allocations to make the addresses match
-downstream. This shouldn't matter very much, but helps eliminate one
-more difference when comparing register accesses.
+On 19/05/2023 00:29, Marijn Suijten wrote:
+> According to various downstream sources the PCC sub-block inside DSPP is
+> version 4.0 since DPU 4.0 and higher, including SC7[12]80 at DPU version
+> 6.2 and 7.2 respectively.  After correcting the version this struct
+> becomes identical to sm8150_dspp_sblk which is used all across the
+> catalog: replace uses of sc7180_dspp_sblk with that and remove
+> the struct definition for sc7180_dspp_sblk entirely.
+> 
+> Fixes: 4259ff7ae509e ("drm/msm/dpu: add support for pcc color block in dpu driver")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h | 2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c         | 5 -----
+>   3 files changed, 2 insertions(+), 7 deletions(-)
 
-Also, make the log region 16K long. That's what it is, unconditionally
-on A6xx and A7xx.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 8004b582e45f..386c81e1a2f3 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1614,13 +1614,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 			goto err_memory;
- 	}
- 
--	/* Allocate memory for for the HFI queues */
--	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
-+	/* Allocate memory for the GMU log region */
-+	ret = a6xx_gmu_memory_alloc(gmu, &gmu->log, SZ_16K, 0, "log");
- 	if (ret)
- 		goto err_memory;
- 
--	/* Allocate memory for the GMU log region */
--	ret = a6xx_gmu_memory_alloc(gmu, &gmu->log, SZ_4K, 0, "log");
-+	/* Allocate memory for for the HFI queues */
-+	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
- 	if (ret)
- 		goto err_memory;
- 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
-2.40.1
+With best wishes
+Dmitry
 
