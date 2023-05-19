@@ -1,65 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC106709B91
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 17:49:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF2AE709B97
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 17:49:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92FC510E112;
-	Fri, 19 May 2023 15:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892CE10E375;
+	Fri, 19 May 2023 15:49:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2705710E123
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40EB10E112
  for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:49:41 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2af2958db45so3994461fa.1
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ac770a99e2so38754701fa.3
  for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 08:49:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1684511379; x=1687103379;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=etm0lGlferaZBiu/m/R8IoSiZbBr1p0Ve2cEXO9P+d8=;
- b=x8LjhB6xV2Gj3OFH4jaZP6gUtckhUvcOYS9pHNHfPL61gKRIv1BAYr2sxa3VccvZD5
- An2mB8Vj7r+DYW2ca74/rS99Ezpw3La8fUHpz8VVRVhKG7aTG3d0woWzKylEJO1AELHy
- T6wKlkMybmccdH9j3QA/eTiFmA3cMw93Ym/EhXl4QwWJTPZyI07ifqrimYHjWf8XG734
- x26Q3+qSmuTBUcwe3hJZcsCZVLl1JQNKw9D7cT3WSkriH9FxnwaEVv33A7IIg+MtrDra
- LqD4iK4B7uqKyGLcB+ygv3a6uA08vV5iG0sQ3W5+kiYTLsmmqBynjaZZhdbHFJ4YipSD
- FDUQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RPw2/wB1a5ZqseDCDRMmAwDzMdHfzNEkNDX8ElfTmdw=;
+ b=P6TLQJNMAGnNM8kCbXRBfbVx109jVwbRerjJtBpryITbsGU3rKd2aoBl/dH0iEl3RF
+ I0pU2hj/4CTqawEsBd1ka7oiGpeZxHJahRQL9XU9rC+RDtXeNNN4YhH8yyR5KDsY3kVX
+ u45j4gmMMJveG5uNTYHZQfwtNymJKViLyi80XrZx9idhrL3/zEV9tLUP0SFnfA6Wu8KM
+ RPN50hhiidlCsqFQnKwyQhg3b292jmG6v6wwZQEwQfc5p3KLiQH089L+4BSIcKqUt7an
+ hE9P1/s+K2n2l+oux/87hCt7sDE2eCCb92g38jlU3xXmzCpa93lx9IygdfYG4HbhPYaT
+ mN6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684511379; x=1687103379;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=etm0lGlferaZBiu/m/R8IoSiZbBr1p0Ve2cEXO9P+d8=;
- b=P8tL4EAXQ1SM8F4l/KqBJHaxLG+ndcuQlpqD2VmhLhRpxTKxiN8GD1TFOHbxX9G15x
- Lrnxj9G7GpQ0hhFJ8yGc589sQMm1t/a+CE3LWWBo2PF7oxmZdhhIgZeqnlETK7Eev7Vy
- Cot6PR2Z31GtTayJw/tzCnucp2A+Cz48JmJJOAVPpjzBiz8CiWq325mY721m2xSk++Bg
- FcIR58TNDc1M4d+u0B2I+7o64cMUSHapS74dFCLjkJmEeLkGzZ26V6Nfwr1+00IcNCGz
- MRN6OQCuyzuDzPfbfRbXCnfYIlCbI9k6shPkojjmfAzGlrVB2Hmsz3J2Q+spb59mEAgw
- 54ag==
-X-Gm-Message-State: AC+VfDxRu6d6RHdo0te5UTMs8uBuGX3ZUOalSKeskRJ8tMq3Q4UHLsJL
- u1Ag1oAJmvdfLbWxukR0YvJkvg==
-X-Google-Smtp-Source: ACHHUZ75pz5tZfDvLgjAVqnnC4tOhnfAgvtWOyj7YnyKWM8M8h8lZ9SLgfBikSAxL9c6aN1LICZbzA==
-X-Received: by 2002:a2e:960a:0:b0:2ac:7ffb:6bda with SMTP id
- v10-20020a2e960a000000b002ac7ffb6bdamr908462ljh.2.1684511379018; 
+ d=1e100.net; s=20221208; t=1684511380; x=1687103380;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RPw2/wB1a5ZqseDCDRMmAwDzMdHfzNEkNDX8ElfTmdw=;
+ b=SRBf+YTWGsG9xd1xp2aPQxunw9H29EpsEDwR1sUY8e29ogIPCV6k115i7luBfmsHmL
+ 1bWebHVwNcoQmAKhdf/Ys6hdtGY9bsDsbe5d5wxK3I+1/d9vSxOeOMkEtbL7V42+Jfwb
+ dsLKvqdPPgcoVKQ/v6sjEcXsTU8hcIrcbpH32g/r42wetQkNWWX3GzYIkzHQYEAmdgaU
+ a1eazAxZ+aCoUdBAjbj/SKuopBSakqCYeRiIEJPmI0TS4MEv8sP4YosdZQq+JnAZac8P
+ PchUZ7j8ldxNE2X70PifvhhPHV+CceOZxbNzrlw9kPgAajJRQfdsN58hkvyj2klJN+LR
+ xCJw==
+X-Gm-Message-State: AC+VfDyyZwpoGdHhOq8Z2zXfxZ2RvlmCiOcueXQB2ZDlYKh/RA+sYI8y
+ BT+eReScGrkpBf6jDWn65YMvaA==
+X-Google-Smtp-Source: ACHHUZ79rwQCtJZfzAIsCko+9eGfzBOM4wW04PuNuLf9bdGCdZtdThsvBRhWo4NQmiYq6SP2HXIhcg==
+X-Received: by 2002:a2e:3012:0:b0:2ad:bedc:9961 with SMTP id
+ w18-20020a2e3012000000b002adbedc9961mr801339ljw.24.1684511379721; 
  Fri, 19 May 2023 08:49:39 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- d22-20020a2e96d6000000b002ab59a09d75sm873333ljj.120.2023.05.19.08.49.38
+ d22-20020a2e96d6000000b002ab59a09d75sm873333ljj.120.2023.05.19.08.49.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 May 2023 08:49:38 -0700 (PDT)
+ Fri, 19 May 2023 08:49:39 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 19 May 2023 18:49:34 +0300
-Message-Id: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
+Date: Fri, 19 May 2023 18:49:35 +0300
+Message-Id: <20230519154938.3929839-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
+References: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/4] drm/msm: move resource allocation to the
- _probe function
+Subject: [Freedreno] [PATCH v2 1/4] drm/msm: allow passing struct msm_kms to
+ msm_drv_probe()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +82,102 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patchset was left untouched for almost a year. Let's reiterate it
-in attempt to solve the long-standing issue.
+In preparation of moving resource allocation to the probe time, allow
+MSM KMS drivers to pass struct msm_kms pointer via msm_drv_probe().
 
-As discussed several times on IRC, move display subdriver resource
-allocation from kms_init to probe time to let it bail early.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 2 +-
+ drivers/gpu/drm/msm/msm_drv.c            | 6 ++++--
+ drivers/gpu/drm/msm/msm_drv.h            | 3 ++-
+ 5 files changed, 9 insertions(+), 6 deletions(-)
 
-Changes since v1:
-- Dropped the applied patch
-- Picked in the patch to pass msm_kms pointer via msm_drv_probe()
-
-Dmitry Baryshkov (4):
-  drm/msm: allow passing struct msm_kms to msm_drv_probe()
-  drm/msm/dpu: move resource allocation to the _probe function
-  drm/msm/mdp4: move resource allocation to the _probe function
-  drm/msm/mdp5: move resource allocation to the _probe function
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  64 +++++++-------
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 107 +++++++++++------------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 100 ++++++++++-----------
- drivers/gpu/drm/msm/msm_drv.c            |   6 +-
- drivers/gpu/drm/msm/msm_drv.h            |   3 +-
- 5 files changed, 132 insertions(+), 148 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 0e7a68714e9e..ec6fb8634196 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1217,7 +1217,7 @@ static int dpu_kms_init(struct drm_device *ddev)
+ 
+ static int dpu_dev_probe(struct platform_device *pdev)
+ {
+-	return msm_drv_probe(&pdev->dev, dpu_kms_init);
++	return msm_drv_probe(&pdev->dev, dpu_kms_init, NULL);
+ }
+ 
+ static int dpu_dev_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 6e37072ed302..e57a1e5f9da0 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -558,7 +558,7 @@ static const struct dev_pm_ops mdp4_pm_ops = {
+ 
+ static int mdp4_probe(struct platform_device *pdev)
+ {
+-	return msm_drv_probe(&pdev->dev, mdp4_kms_init);
++	return msm_drv_probe(&pdev->dev, mdp4_kms_init, NULL);
+ }
+ 
+ static int mdp4_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 29ae5c9613f3..7fd89c93a491 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -939,7 +939,7 @@ static int mdp5_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	return msm_drv_probe(&pdev->dev, mdp5_kms_init);
++	return msm_drv_probe(&pdev->dev, mdp5_kms_init, NULL);
+ }
+ 
+ static int mdp5_dev_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index b4cfa44a8a5c..a18a8dde3b4b 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1232,7 +1232,8 @@ const struct component_master_ops msm_drm_ops = {
+ };
+ 
+ int msm_drv_probe(struct device *master_dev,
+-	int (*kms_init)(struct drm_device *dev))
++	int (*kms_init)(struct drm_device *dev),
++	struct msm_kms *kms)
+ {
+ 	struct msm_drm_private *priv;
+ 	struct component_match *match = NULL;
+@@ -1242,6 +1243,7 @@ int msm_drv_probe(struct device *master_dev,
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
++	priv->kms = kms;
+ 	priv->kms_init = kms_init;
+ 	dev_set_drvdata(master_dev, priv);
+ 
+@@ -1277,7 +1279,7 @@ int msm_drv_probe(struct device *master_dev,
+ 
+ static int msm_pdev_probe(struct platform_device *pdev)
+ {
+-	return msm_drv_probe(&pdev->dev, NULL);
++	return msm_drv_probe(&pdev->dev, NULL, NULL);
+ }
+ 
+ static int msm_pdev_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index e13a8cbd61c9..6787bd302dfa 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -562,7 +562,8 @@ int msm_pm_prepare(struct device *dev);
+ void msm_pm_complete(struct device *dev);
+ 
+ int msm_drv_probe(struct device *dev,
+-	int (*kms_init)(struct drm_device *dev));
++	int (*kms_init)(struct drm_device *dev),
++	struct msm_kms *kms);
+ void msm_drv_shutdown(struct platform_device *pdev);
+ 
+ 
 -- 
 2.39.2
 
