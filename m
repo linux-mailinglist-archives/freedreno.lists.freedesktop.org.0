@@ -2,67 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC4E0709B9B
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 17:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA59709BB9
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 17:55:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818F910E5B0;
-	Fri, 19 May 2023 15:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE48C10E068;
+	Fri, 19 May 2023 15:55:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEDF610E123
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:49:43 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2af290cf9b7so4753761fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 08:49:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684511382; x=1687103382;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WnOy3xXVbZBcw8tuSp38bYTCu1PvdF8k1HAWiCvu54c=;
- b=VVkR2j/NOlOxHM/B7faQwk8qAx3TeoxX8ZLAfFNPxP6hFUbXZp+NSG5VKylzZNeIT8
- VWoegMs/s9JiiunagKPhteWANGdCT0RDgucig0YlP0j2/1sajx9RjdH31bWK7I+QpDQ/
- 5vhJYyFATJoLrg0KA7B79OMue9inxxI+YroL99O9SBeDcx2thAQoc0H+UG60GHDGoBUp
- ibdUcusD/QcVAorhVRlD4d2UdzsOsD/4ol02ieK9DAr5LK29TDEOzkCO82t882CqIw7y
- PFhDSntGWja8cuu6Da8GIod3sQmYt4q/UzSkTE8IjtCFIZfC1K6t/wPZAavDOab5MDVg
- e7og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684511382; x=1687103382;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WnOy3xXVbZBcw8tuSp38bYTCu1PvdF8k1HAWiCvu54c=;
- b=loMx1AVNF/KY/a7KcmyPJwYJEghHOxaOJxFEY0Z3jK6URdXN2rRmUXNS1FzcBBHWY1
- kpJt+nJOERTkTqHKP2sH1ZrN5RXMfSuGaDazO2irYeoTORI4x0+y3LnKJmQA0oCFzhj5
- /5XcuZ1Vzm9SryJ6C6CxyFwBkFe3fSqYxnsXgT5Y4/v/CAEr9dXv7S6fP5sItufFu9oQ
- 5zjNo2ivZKzG/SvYgvv2gt4wFtmgW6XG0jiPxcgpuAULRKcym59t5WWF0dJk8hmzwop3
- ATHKrrkfHn4FBsmyfeEh9hYqS3qi6v6WBMFT7ozphYa5MpFFeFwEBp5gxKaxxIG94FE6
- DMqQ==
-X-Gm-Message-State: AC+VfDydpTAn5fMk16g4oatI3DbqpNsW5wI9oyNAm6o33Baj/ESlOZjx
- nNtBPmf8R4efDEyf7IA1uO+FXA==
-X-Google-Smtp-Source: ACHHUZ5unJI7LT83cS2mbrlmzrYyfmxct/dzSY9H+Vz1NTmvfESLjsasBB6t3LWhi88e2P8kNYRPWQ==
-X-Received: by 2002:a2e:984d:0:b0:2ad:dd7e:6651 with SMTP id
- e13-20020a2e984d000000b002addd7e6651mr989010ljj.43.1684511382103; 
- Fri, 19 May 2023 08:49:42 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- d22-20020a2e96d6000000b002ab59a09d75sm873333ljj.120.2023.05.19.08.49.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 May 2023 08:49:41 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 19 May 2023 18:49:38 +0300
-Message-Id: <20230519154938.3929839-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
-References: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A491110E068
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:55:43 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34JDQnqa030242
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:55:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=+OXpJWkg2sYENm0I7vpOd1hXwby63qazsKeWJwyRpDg=;
+ b=bts8HqZmQdhjqxrxNrVf0lrz6aRFqlvodT+A0BDRdrlpMYtkd4n6tv3ZwtB+NrwGI2V6
+ H7B+pLKRG86UxcKscUpD2iHUBQ7A86z++EXJnN+UDSNkZIOkoDywCrvG3j9jg6dY7i2E
+ lC/ZIuf+wgk8zIyYzVz/o9+CaqI+VkplT8Zgc51TrLDoPcjCVa3T+bKTGf+kQfDGPwTU
+ 6RxBrnip0LRlArhAyEN145wBsGId3qTTmg7hmuAQq6uW8r0cogoDeSR4GFAEReEtDbrR
+ UDUcbKXKp4E3dmOaC68vkrJIJLsUzpJrYcm6SA6gryp0rxVMiRLv1zUpuvqgdedO9mS+ rQ== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qp0kesjgb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:55:42 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34JFtfUX006302
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:55:41 GMT
+Received: from [10.110.69.155] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 19 May
+ 2023 08:55:41 -0700
+Message-ID: <890cb047-83ac-989b-b3ed-919431305128@quicinc.com>
+Date: Fri, 19 May 2023 08:55:32 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: <freedreno@lists.freedesktop.org>
+References: <1684452816-27848-1-git-send-email-quic_khsieh@quicinc.com>
+ <1684452816-27848-8-git-send-email-quic_khsieh@quicinc.com>
+ <97ef8324-655c-a9fa-9722-9bd7054c25f4@linaro.org>
+Content-Language: en-US
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <97ef8324-655c-a9fa-9722-9bd7054c25f4@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/mdp5: move resource allocation
- to the _probe function
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: lhpiN3EbUg2tnD_mg35cvNqJt12F92Se
+X-Proofpoint-ORIG-GUID: lhpiN3EbUg2tnD_mg35cvNqJt12F92Se
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-19_11,2023-05-17_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=677 malwarescore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 phishscore=0 mlxscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305190135
+Subject: Re: [Freedreno] [PATCH v11 7/9] drm/msm/dpu: separate DSC flush
+ update out of interface
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,185 +86,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To let the probe function bail early if any of the resources is
-unavailable, move resource allocattion from kms_init directly to the
-probe callback.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 100 ++++++++++-------------
- 1 file changed, 44 insertions(+), 56 deletions(-)
+On 5/18/2023 4:37 PM, Dmitry Baryshkov wrote:
+> On 19/05/2023 02:33, Kuogee Hsieh wrote:
+>> Currently DSC flushing happens during interface configuration at
+>> dpu_hw_ctl_intf_cfg_v1(). Separate DSC flush away from
+>> dpu_hw_ctl_intf_cfg_v1() by adding 
+>> dpu_hw_ctl_update_pending_flush_dsc_v1()
+>> to handle both per-DSC engine and DSC flush bits at same time to make it
+>> consistent with the location of flush programming of other DPU 
+>> sub-blocks.
+>>
+>> Changes in v10:
+>> -- rewording commit text
+>> -- pass ctl directly instead of dpu_enc to dsc_pipe_cfg()
+>> -- ctx->pending_dsc_flush_mask = 0;
+>>
+>> Changes in v11:
+>> -- add Fixes tag
+>> -- capitalize MERGE_3D, DSPP and DSC at struct dpu_hw_ctl_ops{}
+>>
+>> Fixes: 77f6da90487c ("drm/msm/disp/dpu1: Add DSC support in hw_ctl")
+>
+> NAK. The fix should be in a separate patch. This has been written 
+> several times during the review.
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 7fd89c93a491..2881bf17d649 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -554,20 +554,16 @@ static int mdp5_kms_init(struct drm_device *dev)
- 	struct platform_device *pdev;
- 	struct mdp5_kms *mdp5_kms;
- 	struct mdp5_cfg *config;
--	struct msm_kms *kms;
-+	struct msm_kms *kms = priv->kms;
- 	struct msm_gem_address_space *aspace;
--	int irq, i, ret;
-+	int i, ret;
- 
- 	ret = mdp5_init(to_platform_device(dev->dev), dev);
- 	if (ret)
- 		return ret;
- 
--	/* priv->kms would have been populated by the MDP5 driver */
--	kms = priv->kms;
--	if (!kms)
--		return -ENOMEM;
--
- 	mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
-+
- 	pdev = mdp5_kms->pdev;
- 
- 	ret = mdp_kms_init(&mdp5_kms->base, &kms_funcs);
-@@ -576,15 +572,6 @@ static int mdp5_kms_init(struct drm_device *dev)
- 		goto fail;
- 	}
- 
--	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
--	if (!irq) {
--		ret = -EINVAL;
--		DRM_DEV_ERROR(&pdev->dev, "failed to get irq\n");
--		goto fail;
--	}
--
--	kms->irq = irq;
--
- 	config = mdp5_cfg_get_config(mdp5_kms->cfg);
- 
- 	/* make sure things are off before attaching iommu (bootloader could
-@@ -787,60 +774,23 @@ static int interface_init(struct mdp5_kms *mdp5_kms)
- static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
--	struct mdp5_kms *mdp5_kms;
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 	struct mdp5_cfg *config;
- 	u32 major, minor;
- 	int ret;
- 
--	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
--	if (!mdp5_kms) {
--		ret = -ENOMEM;
--		goto fail;
--	}
--
--	spin_lock_init(&mdp5_kms->resource_lock);
--
- 	mdp5_kms->dev = dev;
--	mdp5_kms->pdev = pdev;
- 
- 	ret = mdp5_global_obj_init(mdp5_kms);
- 	if (ret)
- 		goto fail;
- 
--	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
--	if (IS_ERR(mdp5_kms->mmio)) {
--		ret = PTR_ERR(mdp5_kms->mmio);
--		goto fail;
--	}
--
--	/* mandatory clocks: */
--	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
--	if (ret)
--		goto fail;
--	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
--	if (ret)
--		goto fail;
--	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
--	if (ret)
--		goto fail;
--	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
--	if (ret)
--		goto fail;
--
--	/* optional clocks: */
--	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
--	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
--	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
--
- 	/* we need to set a default rate before enabling.  Set a safe
- 	 * rate first, then figure out hw revision, and then set a
- 	 * more optimal rate:
- 	 */
- 	clk_set_rate(mdp5_kms->core_clk, 200000000);
- 
--	/* set uninit-ed kms */
--	priv->kms = &mdp5_kms->base.base;
--
- 	pm_runtime_enable(&pdev->dev);
- 	mdp5_kms->rpm_enabled = true;
- 
-@@ -931,15 +881,53 @@ static int mdp5_setup_interconnect(struct platform_device *pdev)
- 
- static int mdp5_dev_probe(struct platform_device *pdev)
- {
--	int ret;
-+	struct mdp5_kms *mdp5_kms;
-+	int ret, irq;
- 
- 	DBG("");
- 
-+	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
-+	if (!mdp5_kms)
-+		return -ENOMEM;
-+
- 	ret = mdp5_setup_interconnect(pdev);
- 	if (ret)
- 		return ret;
- 
--	return msm_drv_probe(&pdev->dev, mdp5_kms_init, NULL);
-+	mdp5_kms->pdev = pdev;
-+
-+	spin_lock_init(&mdp5_kms->resource_lock);
-+
-+	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
-+	if (IS_ERR(mdp5_kms->mmio))
-+		return PTR_ERR(mdp5_kms->mmio);
-+
-+	/* mandatory clocks: */
-+	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
-+	if (ret)
-+		return ret;
-+	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
-+	if (ret)
-+		return ret;
-+	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
-+	if (ret)
-+		return ret;
-+	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
-+	if (ret)
-+		return ret;
-+
-+	/* optional clocks: */
-+	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
-+	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
-+	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return dev_err_probe(&pdev->dev, irq, "failed to get irq\n");
-+
-+	mdp5_kms->base.base.irq = irq;
-+
-+	return msm_drv_probe(&pdev->dev, mdp5_kms_init, &mdp5_kms->base.base);
- }
- 
- static int mdp5_dev_remove(struct platform_device *pdev)
--- 
-2.39.2
+yes, i know that. but i just intended to keep this patch at same order 
+as before.
 
+are you want me to move this patch to the first?
+
+
+>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ++++++++--
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  | 23 
+>> +++++++++++++++++------
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  | 13 +++++++++++++
+>>   3 files changed, 38 insertions(+), 8 deletions(-)
+>>
+>
