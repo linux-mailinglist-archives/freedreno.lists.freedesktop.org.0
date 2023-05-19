@@ -1,63 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DF6709E65
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 19:41:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F46E709EF5
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 20:18:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5593D10E372;
-	Fri, 19 May 2023 17:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6586D10E095;
+	Fri, 19 May 2023 18:18:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE31610E087;
- Fri, 19 May 2023 17:41:13 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-39431e2b2cdso2586270b6e.3; 
- Fri, 19 May 2023 10:41:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684518073; x=1687110073;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zyC8PnfI9XbbL3zj+lnVWVG5hpCaOmXN3AIjDOl28/4=;
- b=obalH9qRMLvilwY6q3sKWeoK0cZLDmYuPqooShs6Bo6GWuY3cw5Ax/+UWHRhtKsWGF
- 1+mJasCGgAtSAUtluHAkY7EOcCoAVqFaImwZdd5zsLdz1Vyf9hu4a/tYqcrHk02E0t3k
- dZCxxsydPp2En9kEb3YxoRJ4qQFNH4yE+QYa2KxdlmUqydsdqkfZhIYK0ewUrc1EU3sG
- q/igIXxQTuvsTVn9eJRk8c0Cjs29WvGzWMrspABgVLhnkA5j9KERZt+Svi3YvIfAkhzR
- d7dtMNl1PJTouGcOI8F1Hemn0wMhZWauSv/Q3hgUltfbIbxnP0ajsV7Ri+pGOaLCBHVB
- d57A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684518073; x=1687110073;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zyC8PnfI9XbbL3zj+lnVWVG5hpCaOmXN3AIjDOl28/4=;
- b=FlH3ckoLGqC0w15S92JzRJiTLFMcQzlo8LCMwUhyUtSq5AeXGJ3bRv7jFks28TJ7ZA
- yQwF36Rsh6dbDCcrtmfcJhCBje1Nj5I6ABsG8Ei3Ja2m0ogX5ovb8QvAYVJKvPP3C0mt
- fE2uVd7HDkrTOpzICyuFtP+TSA1mYhnGuN9+j0TaCBqFHXxYqDn66M7rQB5vdelTdSoq
- /yjMbyOYss5yO25Jj79s3XbaVQFqrbNZW6/QsxZblikcwwy9z9d5YQrS1gURSucC9Hjo
- bwDL3vliyFgk23OUH5oZXs+UDrLoVKocwCAN5qRE8AqN0sgpfJtnOnaLdJLutjQZ+fNy
- YYSQ==
-X-Gm-Message-State: AC+VfDwM219bIAzZz2GhPiUdSSiBhGEmb46qD0t/QGNKNMqMXLIokTsj
- EPUUYsfkK7ROCsK26bkoq7fyYgcTbT/EXbqW97o=
-X-Google-Smtp-Source: ACHHUZ4UrVLa0agrHncr8UIMxx3FQcGtiLA3QhZsr8KzI+qP/P4/TkwFJt/+/sZZthwoJmnOS95iwVJZitvckESHRbc=
-X-Received: by 2002:a05:6808:8dc:b0:38e:c2a4:3530 with SMTP id
- k28-20020a05680808dc00b0038ec2a43530mr1408267oij.9.1684518072697; Fri, 19 May
- 2023 10:41:12 -0700 (PDT)
+Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D47B10E095
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:18:07 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6F87D1F58D;
+ Fri, 19 May 2023 20:18:03 +0200 (CEST)
+Date: Fri, 19 May 2023 20:18:01 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <dktpk4msw3v7y4tgyovcqels34urqzm3fcocygn6ocufws3kev@bd5zcy572cle>
+References: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
 MIME-Version: 1.0
-References: <20230411224308.440550-1-marijn.suijten@somainline.org>
- <e6407312-c2fb-e77e-0c9e-abc2a014464a@linaro.org>
-In-Reply-To: <e6407312-c2fb-e77e-0c9e-abc2a014464a@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 19 May 2023 10:41:01 -0700
-Message-ID: <CAF6AEGsPOb-EzBjRTZC1ik5QB65E4yVhfFei05uS1+CVAJ4weg@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] MAINTAINERS: Add Marijn Suijten as drm/msm
- reviewer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
+Subject: Re: [Freedreno] [PATCH v4 00/12] SM63(50|75) DPU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,56 +41,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>
+Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ dri-devel@lists.freedesktop.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
+ David Airlie <airlied@gmail.com>, Joerg Roedel <joro@8bytes.org>,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 11, 2023 at 3:46=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 12/04/2023 01:43, Marijn Suijten wrote:
-> > As I get more and more active in the drm/msm space, yet sometimes miss
-> > out on patches (where I was involved in previous discussions), add
-> > myself as reviewer to make this involvement clear.
-> >
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
-> >
-> > Note that this is only a slight commitment from my part to look at
-> > patches arriving in this area, most notably on the DPU1 driver and only
-> > if day-to-day workload allows for it.
->
-> I think Marijn does a good job of reviewing incoming patches in the
-> mentioned area.
->
-> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 2023-05-19 19:04:21, Konrad Dybcio wrote:
+> v3 -> v4:
+> - Drop adding new QoS LUT entries
+> - Add safe_lut_tbl for both SoCs
 
-Acked-by: Rob Clark <robdclark@gmail.com>
+I may not have pinged you correctly with this message [1], but can you
+add the DSC configuration for both SoCs?
 
->
-> >
-> >   MAINTAINERS | 1 +
-> >   1 file changed, 1 insertion(+)
-> >
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 04d7c816d46a..fd1b717c57d8 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -6536,6 +6536,7 @@ M:      Rob Clark <robdclark@gmail.com>
-> >   M:  Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >   M:  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >   R:  Sean Paul <sean@poorly.run>
-> > +R:   Marijn Suijten <marijn.suijten@somainline.org>
-> >   L:  linux-arm-msm@vger.kernel.org
-> >   L:  dri-devel@lists.freedesktop.org
-> >   L:  freedreno@lists.freedesktop.org
->
-> --
-> With best wishes
-> Dmitry
->
+[1]: https://lore.kernel.org/linux-arm-msm/u47xthqfjxpbbzjbvnrz4qa2f2m3aip4iose7cwuhzg4raf7db@qxbos7u55wko/
+
+- Marijn
+
+> 
+> Depends on:
+> - https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org/
+> 
+> v3: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v3-0-9837d6b3516d@linaro.org
+> 
+> v2 -> v3:
+> - Don't duplicate qcm2290_lm_sblk
+> - Use DEFAULT_DPU_LINE_WIDTH defines
+> - Fix up sspp clk assignments for sm6350
+> - Add 6350-6375-common QoS data straight to the common file
+>   instead of moving it around after adding it
+> - Fix up iommu compatible order before adding new entries
+> - Reuse sm6350 msm_mdss_data for sm6375
+> - INTF_SC7180_MASK -> INTF_SC7280_MASK (enable HCTL) on 6375
+> - use double tabs in catalog headers
+> - remove one unused entry in 6350 dpu_qos_lut_entry
+> - add missing tear IRQs, drop INTF0 irq on 6375
+> - don't overduplicate DPU bindings, reuse 7180
+> - Pick up tags
+> - Rebase on INTF_TE v4 and next-20230504
+> 
+> Depends on:
+> - https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org/
+> 
+> v2: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org
+> 
+> v1 -> v2:
+> - Rebase on the DPU catalog rework and INTF_TE
+> - Fix QSEED(3L/4) discrepancies
+> - Fixed DMA/cursor discrepancies for 6350
+> - No deduplication, that's gonna be handled in catalogrework 2:
+>   "the return of the catalogrework"
+> - Split MDSS & DPU binding additions
+> - Drop "Allow variable SSPP/INTF_BLK size", that got in w/ the rework
+> - Split MDSS and DPU additions
+> - Pick up Rob's acks
+> 
+> Depends on (and based on): https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org/T/#t
+> 
+> v1: https://lore.kernel.org/linux-arm-msm/20230211122656.1479141-1-konrad.dybcio@linaro.org/
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+> Konrad Dybcio (12):
+>       dt-bindings: display/msm: dsi-controller-main: Add SM6350
+>       dt-bindings: display/msm: dsi-controller-main: Add SM6375
+>       dt-bindings: display/msm: sc7180-dpu: Describe SM6350 and SM6375
+>       dt-bindings: display/msm: Add SM6350 MDSS
+>       dt-bindings: display/msm: Add SM6375 MDSS
+>       drm/msm/dpu: Add SM6350 support
+>       drm/msm: mdss: Add SM6350 support
+>       drm/msm/dpu: Add SM6375 support
+>       drm/msm: mdss: Add SM6375 support
+>       iommu/arm-smmu-qcom: Sort the compatible list alphabetically
+>       iommu/arm-smmu-qcom: Add SM6375 DPU compatible
+>       iommu/arm-smmu-qcom: Add SM6350 DPU compatible
+> 
+>  .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
+>  .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  23 ++-
+>  .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 214 ++++++++++++++++++++
+>  .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 216 +++++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 188 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 153 +++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
+>  drivers/gpu/drm/msm/msm_mdss.c                     |  10 +
+>  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   6 +-
+>  11 files changed, 821 insertions(+), 3 deletions(-)
+> ---
+> base-commit: c437aff71b13c5ca77821ec1bab98ca7e18716d0
+> change-id: 20230411-topic-straitlagoon_mdss-8f34cacd5e26
+> 
+> Best regards,
+> -- 
+> Konrad Dybcio <konrad.dybcio@linaro.org>
+> 
