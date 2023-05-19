@@ -1,68 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AE93708DCF
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 04:30:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9922B708DDE
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 04:39:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7B2F10E5A3;
-	Fri, 19 May 2023 02:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8E710E5A2;
+	Fri, 19 May 2023 02:38:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE77F10E5A2
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 02:30:17 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2af2451b3f1so1613571fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 18 May 2023 19:30:17 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616BA10E5A2
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 02:38:58 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2ac735fee70so4339401fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 18 May 2023 19:38:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684463415; x=1687055415;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DTMoBnu8c03FjNPj9qU+/R0vXknB9qzxYO9GXWdKjog=;
- b=JeSP/gFlVkSYoNqo7EjpTFhfBTSCo4IUuoal5O+mGF90sXIpVGdJMSfV5focJo8qTl
- jwv0o/PBqjDv+SAL44gPeIvNN4EixZw19I7SjDj2WuA4EGxHrl+Co3RF8WDspH3r0O2q
- wZkLjbYcwqR/03k1fLHQVZjjI507zkt35qr4sJ67slvlpAxcimDqL7UWcCvKJHHj7+TG
- vFCJ/6XrZ/CGtFUiYTA9OjgyroKqwoZ5qCJF0/wVP+nS4MV70CzQ6cY2+WCd0w3CiTzD
- oxFa9Ulqbr1N0dxHYkZCXDeK2W/bmCRvQyuHqXHIk2/3ViUBZlzo53T5IVXcs6akd+/d
- QkcA==
+ d=linaro.org; s=google; t=1684463936; x=1687055936;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hB8ttbepI7FxJGTYR5m6g7q7o+wcPnq3jGd8N1SpVCI=;
+ b=VjfmbfbVfpbbbE3GuO+Zf+g5r78woNV9IpiPnccmMFoSwn4LBwoHwaDREb9ushjW4a
+ mEIJRsGlSxhmgyFfrDeanBXRxkQrmwqVfnRuHGl7DaMLyzmN92Eoc6UztdV+KIeIYNCD
+ FX3cfLLjm1n/wyIyxX5WfTT4dRZIS+qWspiF1P+b7uOoI7kT3tHoCfPl5LkkMYBYifQ3
+ azGjaX14vVY8lLJyTwaZI05B5wWdVB4H6aPYv8e/bXTvCwi2o8FzPPaahi+vH+VBsycV
+ ZHSk2pSuBtrrqMJhQn/xRyvErGri/M45E/RJQJeYmwKnNk4/foWyOXMOR4PQbUsnwNHb
+ PEZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684463415; x=1687055415;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DTMoBnu8c03FjNPj9qU+/R0vXknB9qzxYO9GXWdKjog=;
- b=XepGTR5ID9xDaZX6UeLgPaoRH83ZVHPEhCPN5B/BzOwIy/ZUweW6pFjnbzf761MpT6
- OYheTnRUb5iCShfkCRuKGbQvg2Dgfb5jsIeLLyXKpg7s14X3S8vcatznMaTz1FgzZvun
- dLhvFondydXB8lUNGykolNDUJwfQ1391o0cKqKJgwjngzLaPjGGTJf39nxnkecVMhDMG
- tnlCG7PjvHm8IupW1GjzG+vIaXiySzJh1V3F5U9WlZ6oAMabsT4kT3i46rh3iA9fUQoj
- /euMWrevLJjGdu6dg9NG9mRfoEfUa2Tt4FM5JXQko4TeyMpa27MnvngN0lbHlulSGWfq
- t0uQ==
-X-Gm-Message-State: AC+VfDwmOrDv+QVt5kLfg5JzG6551h1c9LSFN5EUjasbOlGCZXOMrF79
- 9Dvu7lVp5hQopzVyjWg8WvB78w==
-X-Google-Smtp-Source: ACHHUZ6Kot9UNOvZVgzIbG+e7WN/U79ck+dSDUf6n/v2yItL6wE/tXaHJcxo//4EjNDKMI7NrXqFgw==
-X-Received: by 2002:a2e:740b:0:b0:2ac:80f6:544a with SMTP id
- p11-20020a2e740b000000b002ac80f6544amr126469ljc.24.1684463415271; 
- Thu, 18 May 2023 19:30:15 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684463936; x=1687055936;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hB8ttbepI7FxJGTYR5m6g7q7o+wcPnq3jGd8N1SpVCI=;
+ b=BzZv8XSxJAojO5Tu0WmMjZetRgYA29u6Y68X6icgtJ+RRE3hBlQPgFIMwWmGcynNDX
+ foeeGEoEnSXyyxl5Tcr38tF1J3tglUUf5/rfGp3DWZFOmZSrqjXVPXJ6YTKUNV3CXlNB
+ Yf4VUrp6mtC+bet2USLj62ULh0bx/UBAe4iOGC68V0OL/cKk4ts1oeTWjYdDm+ktjnqz
+ FJFOhVA/Da29BzLVvbxVG0pS216vPRHGmOPJsm37PzRjk59yI199sS6Tp0TaNYZ9AxWN
+ 0vQsenocHeNcx7bvz1PRWvWGvSPNBfQWUzNbnJ/T0qbVWT4k1C6JPpsWHuoz7j1NOOnn
+ TAmw==
+X-Gm-Message-State: AC+VfDzlJjNnDVAQsCYvyGPYOf+PcsTWPUmU5aX54aQMNdhlAFyb+tLQ
+ BhBRQbRZmjnQ5meU27tAl4YK5g==
+X-Google-Smtp-Source: ACHHUZ5BnGhVzZ2iYRIc5cTse2COPb6iSeJskh97TwpEPM05paE6PQ4l4p042CJNRhdiesdH2TGB/A==
+X-Received: by 2002:a05:651c:1693:b0:2af:2094:acdd with SMTP id
+ bd19-20020a05651c169300b002af2094acddmr127190ljb.14.1684463936505; 
+ Thu, 18 May 2023 19:38:56 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- t16-20020a2e9d10000000b002aa3ad9014asm573709lji.54.2023.05.18.19.30.14
+ s15-20020a2e2c0f000000b002af25598ef9sm25906ljs.0.2023.05.18.19.38.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 May 2023 19:30:14 -0700 (PDT)
+ Thu, 18 May 2023 19:38:56 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 19 May 2023 05:30:11 +0300
-Message-Id: <20230519023011.3837868-3-dmitry.baryshkov@linaro.org>
+Date: Fri, 19 May 2023 05:38:48 +0300
+Message-Id: <20230519023855.3840907-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230519023011.3837868-1-dmitry.baryshkov@linaro.org>
-References: <20230519023011.3837868-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dpu: drop
- dpu_encoder_phys_ops::atomic_check()
+Subject: [Freedreno] [PATCH v2 0/7] drm/msm/dpu: simplify DPU encoder init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,71 +78,33 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Writeback was the last user of dpu_encoder_phys_ops's atomic_check()
-callback. As the code was moved to the dpu_writeback.c, the callback
-becomes unused. Drop it now.
+Rework dpu_encoder initialization code, simplifying calling sequences
+and separating common init parts.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 15 ---------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  4 ----
- 2 files changed, 19 deletions(-)
+Changes since v1:
+- Withdrawn two pathes for a later consideration
+- Changed dpu_encoder_phys_init() to return void (Abhinav)
+- Added small simplifications of dpu_encoder_phys_cmd_init() and
+  dpu_encoder_phys_wb_init()
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 509b4fc7dbc5..77f476c17829 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -605,7 +605,6 @@ static int dpu_encoder_virt_atomic_check(
- 	struct drm_display_mode *adj_mode;
- 	struct msm_display_topology topology;
- 	struct dpu_global_state *global_state;
--	int i = 0;
- 	int ret = 0;
- 
- 	if (!drm_enc || !crtc_state || !conn_state) {
-@@ -626,20 +625,6 @@ static int dpu_encoder_virt_atomic_check(
- 
- 	trace_dpu_enc_atomic_check(DRMID(drm_enc));
- 
--	/* perform atomic check on the first physical encoder (master) */
--	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
--		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
--
--		if (phys->ops.atomic_check)
--			ret = phys->ops.atomic_check(phys, crtc_state,
--					conn_state);
--		if (ret) {
--			DPU_ERROR_ENC(dpu_enc,
--					"mode unsupported, phys idx %d\n", i);
--			return ret;
--		}
--	}
--
- 	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 67c4b4e0975d..1fcb502f368b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -70,7 +70,6 @@ struct dpu_encoder_phys;
-  *				on split_role and current mode (CMD/VID).
-  * @enable:			DRM Call. Enable a DRM mode.
-  * @disable:			DRM Call. Disable mode.
-- * @atomic_check:		DRM Call. Atomic check new DRM state.
-  * @destroy:			DRM Call. Destroy and release resources.
-  * @control_vblank_irq		Register/Deregister for VBLANK IRQ
-  * @wait_for_commit_done:	Wait for hardware to have flushed the
-@@ -97,9 +96,6 @@ struct dpu_encoder_phys_ops {
- 	bool (*is_master)(struct dpu_encoder_phys *encoder);
- 	void (*enable)(struct dpu_encoder_phys *encoder);
- 	void (*disable)(struct dpu_encoder_phys *encoder);
--	int (*atomic_check)(struct dpu_encoder_phys *encoder,
--			    struct drm_crtc_state *crtc_state,
--			    struct drm_connector_state *conn_state);
- 	void (*destroy)(struct dpu_encoder_phys *encoder);
- 	int (*control_vblank_irq)(struct dpu_encoder_phys *enc, bool enable);
- 	int (*wait_for_commit_done)(struct dpu_encoder_phys *phys_enc);
+Dmitry Baryshkov (7):
+  drm/msm/dpu: merge dpu_encoder_init() and dpu_encoder_setup()
+  drm/msm/dpu: separate common function to init physical encoder
+  drm/msm/dpu: drop duplicated intf/wb indices from encoder structs
+  drm/msm/dpu: inline dpu_encoder_get_wb()
+  drm/msm/dpu: call dpu_rm_get_intf() from dpu_encoder_get_intf()
+  drm/msm/dpu: drop temp variable from dpu_encoder_phys_cmd_init()
+  drm/msm/dpu: simplify dpu_encoder_phys_wb_init()
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 178 ++++++++----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  14 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  15 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  35 ++--
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  19 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  35 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  87 ++++-----
+ 7 files changed, 140 insertions(+), 243 deletions(-)
+
 -- 
 2.39.2
 
