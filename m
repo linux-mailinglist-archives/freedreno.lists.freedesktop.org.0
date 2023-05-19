@@ -2,40 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0A2709703
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 14:04:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C47E70970B
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 14:06:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9538010E0B8;
-	Fri, 19 May 2023 12:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6655110E5D4;
+	Fri, 19 May 2023 12:06:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB8C110E0B8
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 12:04:45 +0000 (UTC)
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 628BE10E5D4
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 12:05:58 +0000 (UTC)
 Received: from SoMainline.org (82-72-63-87.cable.dynamic.v4.ziggo.nl
  [82.72.63.87])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id B44081F97E;
- Fri, 19 May 2023 14:04:40 +0200 (CEST)
-Date: Fri, 19 May 2023 14:04:38 +0200
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 985F6200C9;
+ Fri, 19 May 2023 14:05:55 +0200 (CEST)
+Date: Fri, 19 May 2023 14:05:54 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ku27atp4yqkpmz7g4ttylvzd43jmu4cwcs76nqgzramgxetjna@bu76f4c73724>
-References: <1684360919-28458-1-git-send-email-quic_khsieh@quicinc.com>
- <1684360919-28458-7-git-send-email-quic_khsieh@quicinc.com>
- <evkla3rkf4tge6gln4lgtulj7q5gt6vef3i2yqupc5lj2oszfx@7ttyxzlmvet5>
- <8e9feb23-a5f0-7cd8-ebff-8e9097ff0ca1@quicinc.com>
- <b2fcc9f5-ca11-ab87-e40b-9c6d2662325b@linaro.org>
+Message-ID: <lgd2yhcbgkvdpzuiq4s657m3aq2m3bs2edoesdkh27btcgyf7o@d74kukqlma6n>
+References: <20230429012353.2569481-1-dmitry.baryshkov@linaro.org>
+ <20230429012353.2569481-2-dmitry.baryshkov@linaro.org>
+ <375aoihzzqquma4e53zfl7t6xdamlwyb2t36effy44wooylywp@5oz5jl5t54qo>
+ <cace6559-dbd4-0fa0-5b59-88c75cf35091@linaro.org>
+ <seamj37nkkwn5n2b6jdhpul5kgouwrph22nsyunhibw2tjutxv@euo7k55aatx4>
+ <ae1cd755-ead4-79e0-8d12-074f08e592f1@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b2fcc9f5-ca11-ab87-e40b-9c6d2662325b@linaro.org>
-Subject: Re: [Freedreno] [PATCH v10 6/8] drm/msm/dpu: separate DSC flush
- update out of interface
+In-Reply-To: <ae1cd755-ead4-79e0-8d12-074f08e592f1@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dpu: drop SSPP's SRC subblock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,97 +46,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com,
- airlied@gmail.com, andersson@kernel.org, freedreno@lists.freedesktop.org,
- dianders@chromium.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, quic_jesszhan@quicinc.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-19 01:40:19, Dmitry Baryshkov wrote:
+On 2023-05-19 00:40:03, Dmitry Baryshkov wrote:
 > 
-> On 19/05/2023 01:09, Kuogee Hsieh wrote:
-> > 
-> > On 5/17/2023 3:31 PM, Marijn Suijten wrote:
+> On 19/05/2023 00:39, Marijn Suijten wrote:
+> > On 2023-05-19 00:06:15, Dmitry Baryshkov wrote:
+> >> On 18/05/2023 22:14, Marijn Suijten wrote:
+> >>> On 2023-04-29 04:23:51, Dmitry Baryshkov wrote:
+> >>>> The src_blk declares a lame copy of main SSPP register space. It's
+> >>>> offset is always 0. It's length has been fixed to 0x150, while SSPP's
+> >>>
+> >>> It's -> its, twice.
 > >>
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> >>> @@ -139,6 +139,11 @@ static inline void 
-> >>> dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
-> >>>                   CTL_DSPP_n_FLUSH(dspp - DSPP_0),
-> >>>                   ctx->pending_dspp_flush_mask[dspp - DSPP_0]);
-> >>>           }
-> >>> +
-> >>> +    if (ctx->pending_flush_mask & BIT(DSC_IDX))
-> >>> +        DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH,
-> >>> +                  ctx->pending_dsc_flush_mask);
-> >> Again, when do we reset this mask to 0?  (v8 review)
+> >> Ack
+> >>
+> >>>
+> >>>
+> >>>
+> >>>> length is now correct. Drop the src_blk and access SSPP registers
+> >>>> without additional subblock lookup.
+> >>>
+> >>> Note that the block code still calls `dpu_debugfs_create_regset32()` on
+> >>> "src_blk", do we want to rename that?
+> >>>
+> >>
+> >> I could not come up with a better debugfs file name, so I decided to
+> >> leave it as is.
 > > 
-> > can not find it.
-> > 
-> > let me add a separate  patch to fix this.
+> > Just "blk" or "reg(s)"?  This already sits in a dspp/%d subfolder so no
+> > need to repeat "dspp" at least.  But also fine to leave it untouched for
+> > now.
 > 
-> The pending_dsc_flush_mask was added in this patch, so the reset should 
-> be a part of this patch too.
+> s/dspp/sspp/ ?
 
-Yes, same patch.
-
-Related question I asked in v8: only the global pending_flush_mask and
-pending_dspp_flush_mask are reset in dpu_hw_ctl_clear_pending_flush().
-Shall I send a patch to clear the other missing ones (e.g. merge_3d etc)
-as well?
-
-> >>> +
-> >>>       DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
-> >>>   }
-> >>> @@ -285,6 +290,13 @@ static void 
-> >>> dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
-> >>>       ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
-> >>>   }
-> >>> +static void dpu_hw_ctl_update_pending_flush_dsc_v1(struct dpu_hw_ctl 
-> >>> *ctx,
-> >>> +                           enum dpu_dsc dsc_num)
-> >>> +{
-> >>> +    ctx->pending_dsc_flush_mask |= BIT(dsc_num - DSC_0);
-> >>> +    ctx->pending_flush_mask |= BIT(DSC_IDX);
-> >>> +}
-> >>> +
-> >>>   static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl 
-> >>> *ctx,
-> >>>       enum dpu_dspp dspp, u32 dspp_sub_blk)
-> >>>   {
-> >>> @@ -502,9 +514,6 @@ static void dpu_hw_ctl_intf_cfg_v1(struct 
-> >>> dpu_hw_ctl *ctx,
-> >>>       if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
-> >>>           mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
-> >>> -    if (cfg->dsc)
-> >>> -        DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
-> >>> -
-> >>>       if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
-> >>>           mode_sel |= BIT(17);
-> >>> @@ -524,10 +533,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct 
-> >>> dpu_hw_ctl *ctx,
-> >>>       if (cfg->merge_3d)
-> >>>           DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
-> >>>                     BIT(cfg->merge_3d - MERGE_3D_0));
-> >>> -    if (cfg->dsc) {
-> >>> -        DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-> >> Again, this bugfix of now wrapping DSC_IDX in BIT() should go in a
-> >> separate Fixes: patch to have this semantic change documented.  (v8
-> >> review)
-> > That will be this patch. let me add Fixes at this patch
-> 
-> _separate_ patch.
-
-Separate patch, and documenting clearly what happens and why.  Kuogee, I
-can send this as well if it makes things more clear, since it doesn't
-seem (from the patch description) that anyone noticed the
-implication/bugfix in this change as a drive-by effect of porting
-sde_hw_ctl_update_bitmask_dsc_v1() from downstream.
+Yes, sorry I've been looking at both blocks and keep mixing the names
+up.
 
 - Marijn
-
-<snip>
