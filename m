@@ -2,33 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F46E709EF5
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 20:18:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E0F709F2C
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 20:40:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6586D10E095;
-	Fri, 19 May 2023 18:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE69210E601;
+	Fri, 19 May 2023 18:40:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D47B10E095
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:18:07 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6F87D1F58D;
- Fri, 19 May 2023 20:18:03 +0200 (CEST)
-Date: Fri, 19 May 2023 20:18:01 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <dktpk4msw3v7y4tgyovcqels34urqzm3fcocygn6ocufws3kev@bd5zcy572cle>
-References: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A638110E600
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:40:26 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2ad819ab8a9so41126381fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 11:40:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684521625; x=1687113625;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=9MfCat2/K/yUX1JaZQTW7hBT1/vztBWiCBBZbC5udgk=;
+ b=inBFn9AzL77APjwvOMDHMRmeo0NnSTkH90h1WFwqtO/vhguriAdg7XAQeSXQhrcaYg
+ S0R6I5gmE322ZLGCYDmSXi8fpfYbb3kfoHF7Ov2ISV2cGOSTMNgyOyjosTE4kXMrPCgi
+ VbYeJP6IPbyPcZq79FURO7heVOb6hPnivlKWMg/ehrlV1Jxs2gPfcbfpsiYnTogiPZny
+ NkZxNxnFXRsk2oYdY+dZ5d8duoqdK9Rusm5Ko2lRnhy417SeRiB5o4IRLRXJQvh/2ixi
+ Dhjx8UmlkF94gmeTOYdx7cmqwNPjIcHed/JiK2k0ZB+ys2gZ7ez3gt7VYPzc39DihP4r
+ 48Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684521625; x=1687113625;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9MfCat2/K/yUX1JaZQTW7hBT1/vztBWiCBBZbC5udgk=;
+ b=j76jgAfHVBedTtBeuIzjLSwGRi10XIJdeF0olEdRcJR9MT/WqX23qa3YYmCdh0kupr
+ VeGclu1sVSOZ72ier5GBa5y/wKW7PrVE/bA1SONlvaN4l3ZJKw+AKYvRftX9HhEJFJ8x
+ BGVSKTpVfpjbOXS1cRb53sEFgXG1y5KdVMn7XPJWniyGG/ZPbGDpdAuNO32nN10fT3FX
+ lm1AVw88UHVF1EvUoCBL/E2CilKHbap1rDsd9UXohPc0KauqKWpLG03aDq9aOrE13hDF
+ TzSPSQ4wLqKUafjGxhWxMOx4i4mf+IpGd5QV8nPGyyERoFH+Daj80cEc2IrkOyDkNAWe
+ mBwg==
+X-Gm-Message-State: AC+VfDyPz2f+bemCb+1ezgGQoKBn0IRjZNjNpHRVeJtQqZ4CaRFBycUT
+ POQAfuQk6BGCyoy/d5M7/TnoDQ==
+X-Google-Smtp-Source: ACHHUZ6mjw6xuqhF0duf6JoyEt6LcJKbe7mYoI3lNRv8QhuCw62yrwZSwt2NCSP5o9jpgSp5GTM6pw==
+X-Received: by 2002:a2e:9c07:0:b0:2ae:e05e:76b4 with SMTP id
+ s7-20020a2e9c07000000b002aee05e76b4mr1023300lji.28.1684521624776; 
+ Fri, 19 May 2023 11:40:24 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ d22-20020a2e96d6000000b002ab59a09d75sm932493ljj.120.2023.05.19.11.40.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 May 2023 11:40:24 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Date: Fri, 19 May 2023 21:40:20 +0300
+Message-Id: <20230519184023.3943362-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
-Subject: Re: [Freedreno] [PATCH v4 00/12] SM63(50|75) DPU support
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/3] drm/bridge: display-connector: add
+ external supply support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,109 +75,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@somainline.org>,
- dri-devel@lists.freedesktop.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
- David Airlie <airlied@gmail.com>, Joerg Roedel <joro@8bytes.org>,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-19 19:04:21, Konrad Dybcio wrote:
-> v3 -> v4:
-> - Drop adding new QoS LUT entries
-> - Add safe_lut_tbl for both SoCs
+On some devices the 5V pin of the HDMI connector and/or the ESD
+protection logic is powered on by a separate regulator. The dp-connector
+for such usecases provides dp-pwr supply support. Follow this example
+and make hdmi-connector support the hdmi-pwr supply.
 
-I may not have pinged you correctly with this message [1], but can you
-add the DSC configuration for both SoCs?
+Changes since v1:
+- Changed the pin description to HDMI +5V Power
+- Renamed 'connector_pwr' to simpler 'supply'
+- Extracted the common supply-handling code for DP and HDMI
 
-[1]: https://lore.kernel.org/linux-arm-msm/u47xthqfjxpbbzjbvnrz4qa2f2m3aip4iose7cwuhzg4raf7db@qxbos7u55wko/
+Dmitry Baryshkov (3):
+  dt-bindings: display: hdmi-connector: add hdmi-pwr supply
+  drm/bridge: display-connector: rename dp_pwr to connector_pwr
+  drm/bridge: display-connector: handle hdmi-pwr supply
 
-- Marijn
+ .../display/connector/hdmi-connector.yaml     |  3 +
+ drivers/gpu/drm/bridge/display-connector.c    | 61 ++++++++++---------
+ 2 files changed, 35 insertions(+), 29 deletions(-)
 
-> 
-> Depends on:
-> - https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org/
-> 
-> v3: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v3-0-9837d6b3516d@linaro.org
-> 
-> v2 -> v3:
-> - Don't duplicate qcm2290_lm_sblk
-> - Use DEFAULT_DPU_LINE_WIDTH defines
-> - Fix up sspp clk assignments for sm6350
-> - Add 6350-6375-common QoS data straight to the common file
->   instead of moving it around after adding it
-> - Fix up iommu compatible order before adding new entries
-> - Reuse sm6350 msm_mdss_data for sm6375
-> - INTF_SC7180_MASK -> INTF_SC7280_MASK (enable HCTL) on 6375
-> - use double tabs in catalog headers
-> - remove one unused entry in 6350 dpu_qos_lut_entry
-> - add missing tear IRQs, drop INTF0 irq on 6375
-> - don't overduplicate DPU bindings, reuse 7180
-> - Pick up tags
-> - Rebase on INTF_TE v4 and next-20230504
-> 
-> Depends on:
-> - https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org/
-> 
-> v2: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org
-> 
-> v1 -> v2:
-> - Rebase on the DPU catalog rework and INTF_TE
-> - Fix QSEED(3L/4) discrepancies
-> - Fixed DMA/cursor discrepancies for 6350
-> - No deduplication, that's gonna be handled in catalogrework 2:
->   "the return of the catalogrework"
-> - Split MDSS & DPU binding additions
-> - Drop "Allow variable SSPP/INTF_BLK size", that got in w/ the rework
-> - Split MDSS and DPU additions
-> - Pick up Rob's acks
-> 
-> Depends on (and based on): https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org/T/#t
-> 
-> v1: https://lore.kernel.org/linux-arm-msm/20230211122656.1479141-1-konrad.dybcio@linaro.org/
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-> Konrad Dybcio (12):
->       dt-bindings: display/msm: dsi-controller-main: Add SM6350
->       dt-bindings: display/msm: dsi-controller-main: Add SM6375
->       dt-bindings: display/msm: sc7180-dpu: Describe SM6350 and SM6375
->       dt-bindings: display/msm: Add SM6350 MDSS
->       dt-bindings: display/msm: Add SM6375 MDSS
->       drm/msm/dpu: Add SM6350 support
->       drm/msm: mdss: Add SM6350 support
->       drm/msm/dpu: Add SM6375 support
->       drm/msm: mdss: Add SM6375 support
->       iommu/arm-smmu-qcom: Sort the compatible list alphabetically
->       iommu/arm-smmu-qcom: Add SM6375 DPU compatible
->       iommu/arm-smmu-qcom: Add SM6350 DPU compatible
-> 
->  .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
->  .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  23 ++-
->  .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 214 ++++++++++++++++++++
->  .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 216 +++++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 188 ++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 153 +++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
->  drivers/gpu/drm/msm/msm_mdss.c                     |  10 +
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   6 +-
->  11 files changed, 821 insertions(+), 3 deletions(-)
-> ---
-> base-commit: c437aff71b13c5ca77821ec1bab98ca7e18716d0
-> change-id: 20230411-topic-straitlagoon_mdss-8f34cacd5e26
-> 
-> Best regards,
-> -- 
-> Konrad Dybcio <konrad.dybcio@linaro.org>
-> 
+-- 
+2.39.2
+
