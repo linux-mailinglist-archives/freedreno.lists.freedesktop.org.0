@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF2AE709B97
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 17:49:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96C57709B95
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 17:49:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 892CE10E375;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FAB010E533;
 	Fri, 19 May 2023 15:49:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F40EB10E112
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:49:41 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ac770a99e2so38754701fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 08:49:41 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459CD10E112
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 15:49:42 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ac8d9399d5so39275321fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 08:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684511379; x=1687103379;
+ d=linaro.org; s=google; t=1684511380; x=1687103380;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RPw2/wB1a5ZqseDCDRMmAwDzMdHfzNEkNDX8ElfTmdw=;
- b=P6TLQJNMAGnNM8kCbXRBfbVx109jVwbRerjJtBpryITbsGU3rKd2aoBl/dH0iEl3RF
- I0pU2hj/4CTqawEsBd1ka7oiGpeZxHJahRQL9XU9rC+RDtXeNNN4YhH8yyR5KDsY3kVX
- u45j4gmMMJveG5uNTYHZQfwtNymJKViLyi80XrZx9idhrL3/zEV9tLUP0SFnfA6Wu8KM
- RPN50hhiidlCsqFQnKwyQhg3b292jmG6v6wwZQEwQfc5p3KLiQH089L+4BSIcKqUt7an
- hE9P1/s+K2n2l+oux/87hCt7sDE2eCCb92g38jlU3xXmzCpa93lx9IygdfYG4HbhPYaT
- mN6g==
+ bh=ZH+xIBGRFydG8VrF7CTkUuT849ThU7IR5DwJqTeGGlA=;
+ b=RSpFoRRlhzOBQzGPQ6TGHNuGCmB8p762QhRJxbXGpZHu01SRRIk8tUN5tF4gRWm5X2
+ itmZqdurbcgStQVkNFA5lsjjO6ypziKWD5hYIdCwh0C9wsV2H9NRieoxLShbg3uoZ2as
+ EG2afUwPw57NXkv1x32D8B6tldVhC5Rz+xmM747AD7lG8imcbcbLMqT7S1B0KbIyXZC9
+ 5tKLHTjx16StbpDp+RfzLfm1kvD+5dhwL20JRiMzUrAOMp3iGWGc3tCpcLWVSExDkFLb
+ 9ro5rsc3aqYCZWk8A394wbfS2QeF5beqlhtnS+apJV7heo//Xf3JHH+OlaR35udiMZn5
+ bgxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1684511380; x=1687103380;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=RPw2/wB1a5ZqseDCDRMmAwDzMdHfzNEkNDX8ElfTmdw=;
- b=SRBf+YTWGsG9xd1xp2aPQxunw9H29EpsEDwR1sUY8e29ogIPCV6k115i7luBfmsHmL
- 1bWebHVwNcoQmAKhdf/Ys6hdtGY9bsDsbe5d5wxK3I+1/d9vSxOeOMkEtbL7V42+Jfwb
- dsLKvqdPPgcoVKQ/v6sjEcXsTU8hcIrcbpH32g/r42wetQkNWWX3GzYIkzHQYEAmdgaU
- a1eazAxZ+aCoUdBAjbj/SKuopBSakqCYeRiIEJPmI0TS4MEv8sP4YosdZQq+JnAZac8P
- PchUZ7j8ldxNE2X70PifvhhPHV+CceOZxbNzrlw9kPgAajJRQfdsN58hkvyj2klJN+LR
- xCJw==
-X-Gm-Message-State: AC+VfDyyZwpoGdHhOq8Z2zXfxZ2RvlmCiOcueXQB2ZDlYKh/RA+sYI8y
- BT+eReScGrkpBf6jDWn65YMvaA==
-X-Google-Smtp-Source: ACHHUZ79rwQCtJZfzAIsCko+9eGfzBOM4wW04PuNuLf9bdGCdZtdThsvBRhWo4NQmiYq6SP2HXIhcg==
-X-Received: by 2002:a2e:3012:0:b0:2ad:bedc:9961 with SMTP id
- w18-20020a2e3012000000b002adbedc9961mr801339ljw.24.1684511379721; 
- Fri, 19 May 2023 08:49:39 -0700 (PDT)
+ bh=ZH+xIBGRFydG8VrF7CTkUuT849ThU7IR5DwJqTeGGlA=;
+ b=gkV7TwwaAui/UEX0QJo/MTS6woKHrwDPJ16oA7SPb1uwSf9gCVOgXwmFkn9NU+7Pvo
+ v7Wia8yjClRHatmrZTZm3oQM2kNiennbBXS2NQfhN1Ne91czq99SYlqD5ODoh2clg8ID
+ bOBsEvay9ZyS0fYf1E0CbgJ20+xNrjvucQyBXOXtH4a/E/ExBRw+fTyByhyXWIYNi128
+ vsYWsSM939TwCGtoHdd4vlN2VLR2yY9tbI1rbj9ziON8E5pvjWvB5IAXg5TSmlr85pBq
+ FKbESeUH9xiKVb0xxf/ZUfb5LGmn1S91FYxSvG/0qOjN9kfc2y0jpZKlF/zDkByHQa4O
+ vcAw==
+X-Gm-Message-State: AC+VfDzABX7kmR5KROtNYUN2W73gXakCcdXqVpxV4Hb+b25Iv3aaQSuC
+ nihg/6y3Vo5rZzFlcpeRHufcEA==
+X-Google-Smtp-Source: ACHHUZ64Pcb/JekoQT4SE65mTQYsCAV7YbPuMV/NrOrePtdT8wB8DJ5IhBVWP38S8jGAEiWfD9ECeA==
+X-Received: by 2002:a2e:9cc6:0:b0:2ab:19a0:667b with SMTP id
+ g6-20020a2e9cc6000000b002ab19a0667bmr1100421ljj.0.1684511380648; 
+ Fri, 19 May 2023 08:49:40 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  d22-20020a2e96d6000000b002ab59a09d75sm873333ljj.120.2023.05.19.08.49.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 May 2023 08:49:39 -0700 (PDT)
+ Fri, 19 May 2023 08:49:40 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 19 May 2023 18:49:35 +0300
-Message-Id: <20230519154938.3929839-2-dmitry.baryshkov@linaro.org>
+Date: Fri, 19 May 2023 18:49:36 +0300
+Message-Id: <20230519154938.3929839-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
 References: <20230519154938.3929839-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 1/4] drm/msm: allow passing struct msm_kms to
- msm_drv_probe()
+Subject: [Freedreno] [PATCH v2 2/4] drm/msm/dpu: move resource allocation to
+ the _probe function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,102 +82,108 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In preparation of moving resource allocation to the probe time, allow
-MSM KMS drivers to pass struct msm_kms pointer via msm_drv_probe().
+To let the probe function bail early if any of the resources is
+unavailable, move resource allocattion from kms_init directly to the
+probe callback. While we are at it, replace irq_of_parse_and_map() with
+platform_get_irq().
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 2 +-
- drivers/gpu/drm/msm/msm_drv.c            | 6 ++++--
- drivers/gpu/drm/msm/msm_drv.h            | 3 ++-
- 5 files changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 64 ++++++++++++-------------
+ 1 file changed, 31 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 0e7a68714e9e..ec6fb8634196 100644
+index ec6fb8634196..23f0dbd2dfa1 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1217,7 +1217,7 @@ static int dpu_kms_init(struct drm_device *ddev)
+@@ -1159,33 +1159,11 @@ static int dpu_kms_init(struct drm_device *ddev)
+ 	struct msm_drm_private *priv = ddev->dev_private;
+ 	struct device *dev = ddev->dev;
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct dpu_kms *dpu_kms;
+-	int irq;
++	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+ 	struct dev_pm_opp *opp;
+ 	int ret = 0;
+ 	unsigned long max_freq = ULONG_MAX;
+ 
+-	dpu_kms = devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
+-	if (!dpu_kms)
+-		return -ENOMEM;
+-
+-	ret = devm_pm_opp_set_clkname(dev, "core");
+-	if (ret)
+-		return ret;
+-	/* OPP table is optional */
+-	ret = devm_pm_opp_of_add_table(dev);
+-	if (ret && ret != -ENODEV) {
+-		dev_err(dev, "invalid OPP table in device tree\n");
+-		return ret;
+-	}
+-
+-	ret = devm_clk_bulk_get_all(&pdev->dev, &dpu_kms->clocks);
+-	if (ret < 0) {
+-		DPU_ERROR("failed to parse clocks, ret=%d\n", ret);
+-		return ret;
+-	}
+-	dpu_kms->num_clocks = ret;
+-
+ 	opp = dev_pm_opp_find_freq_floor(dev, &max_freq);
+ 	if (!IS_ERR(opp))
+ 		dev_pm_opp_put(opp);
+@@ -1203,21 +1181,41 @@ static int dpu_kms_init(struct drm_device *ddev)
+ 	pm_runtime_enable(&pdev->dev);
+ 	dpu_kms->rpm_enabled = true;
+ 
+-	priv->kms = &dpu_kms->base;
+-
+-	irq = irq_of_parse_and_map(dpu_kms->pdev->dev.of_node, 0);
+-	if (!irq) {
+-		DPU_ERROR("failed to get irq\n");
+-		return -EINVAL;
+-	}
+-	dpu_kms->base.irq = irq;
+-
+ 	return 0;
+ }
  
  static int dpu_dev_probe(struct platform_device *pdev)
  {
--	return msm_drv_probe(&pdev->dev, dpu_kms_init);
-+	return msm_drv_probe(&pdev->dev, dpu_kms_init, NULL);
+-	return msm_drv_probe(&pdev->dev, dpu_kms_init, NULL);
++	struct device *dev = &pdev->dev;
++	struct dpu_kms *dpu_kms;
++	int irq;
++	int ret = 0;
++
++	dpu_kms = devm_kzalloc(dev, sizeof(*dpu_kms), GFP_KERNEL);
++	if (!dpu_kms)
++		return -ENOMEM;
++
++	ret = devm_pm_opp_set_clkname(dev, "core");
++	if (ret)
++		return ret;
++	/* OPP table is optional */
++	ret = devm_pm_opp_of_add_table(dev);
++	if (ret && ret != -ENODEV)
++		return dev_err_probe(dev, ret, "invalid OPP table in device tree\n");
++
++	ret = devm_clk_bulk_get_all(&pdev->dev, &dpu_kms->clocks);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to parse clocks\n");
++
++	dpu_kms->num_clocks = ret;
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return dev_err_probe(dev, irq, "failed to get irq\n");
++
++	dpu_kms->base.irq = irq;
++
++	return msm_drv_probe(&pdev->dev, dpu_kms_init, &dpu_kms->base);
  }
  
  static int dpu_dev_remove(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 6e37072ed302..e57a1e5f9da0 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -558,7 +558,7 @@ static const struct dev_pm_ops mdp4_pm_ops = {
- 
- static int mdp4_probe(struct platform_device *pdev)
- {
--	return msm_drv_probe(&pdev->dev, mdp4_kms_init);
-+	return msm_drv_probe(&pdev->dev, mdp4_kms_init, NULL);
- }
- 
- static int mdp4_remove(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 29ae5c9613f3..7fd89c93a491 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -939,7 +939,7 @@ static int mdp5_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	return msm_drv_probe(&pdev->dev, mdp5_kms_init);
-+	return msm_drv_probe(&pdev->dev, mdp5_kms_init, NULL);
- }
- 
- static int mdp5_dev_remove(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index b4cfa44a8a5c..a18a8dde3b4b 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1232,7 +1232,8 @@ const struct component_master_ops msm_drm_ops = {
- };
- 
- int msm_drv_probe(struct device *master_dev,
--	int (*kms_init)(struct drm_device *dev))
-+	int (*kms_init)(struct drm_device *dev),
-+	struct msm_kms *kms)
- {
- 	struct msm_drm_private *priv;
- 	struct component_match *match = NULL;
-@@ -1242,6 +1243,7 @@ int msm_drv_probe(struct device *master_dev,
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->kms = kms;
- 	priv->kms_init = kms_init;
- 	dev_set_drvdata(master_dev, priv);
- 
-@@ -1277,7 +1279,7 @@ int msm_drv_probe(struct device *master_dev,
- 
- static int msm_pdev_probe(struct platform_device *pdev)
- {
--	return msm_drv_probe(&pdev->dev, NULL);
-+	return msm_drv_probe(&pdev->dev, NULL, NULL);
- }
- 
- static int msm_pdev_remove(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index e13a8cbd61c9..6787bd302dfa 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -562,7 +562,8 @@ int msm_pm_prepare(struct device *dev);
- void msm_pm_complete(struct device *dev);
- 
- int msm_drv_probe(struct device *dev,
--	int (*kms_init)(struct drm_device *dev));
-+	int (*kms_init)(struct drm_device *dev),
-+	struct msm_kms *kms);
- void msm_drv_shutdown(struct platform_device *pdev);
- 
- 
 -- 
 2.39.2
 
