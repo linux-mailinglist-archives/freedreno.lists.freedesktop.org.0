@@ -1,80 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CF2570A299
-	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 00:01:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AC3F70A312
+	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 01:02:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A99A110E113;
-	Fri, 19 May 2023 22:01:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 084A110E08E;
+	Fri, 19 May 2023 23:02:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EEBE10E071;
- Fri, 19 May 2023 22:01:24 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34JLvbYi032293; Fri, 19 May 2023 22:00:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=2M8Qy/bGAgxLNT+04Owjjr5jUyJqYgJChjPSDnOvG3U=;
- b=nq13IB1crg9fM9BXi3478aY8LGzKVxkL+XIFOyVUoTphnKIGlWauVLoxHGcDNsRpRAfD
- MDvgFKB7uFsigADdgVxsDxsnOqYnvwEV7jTjwlIZCXLw8iwUgkj13uwxGisqy83K38tB
- 5JV2wj8DLlezMGb5LX0lStdV738874vagDRXmy/4prcycXhfxrbyrtpMsc0REJBTUVCx
- kxtDpOfa8AlwWhRScdTV/txOACcDco0H/bex7V3c6bS2d75Bwri5FG5XDVbs5UwqE8pq
- 4Y+84uOFYm0b28iKMdOZF+R6DPpm/l1s7pWIrxkHCIopJQBbZiO5OnfKWz8al0VkA9mS mQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qpad1h8nw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 May 2023 22:00:53 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34JM0qlm007656
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 May 2023 22:00:52 GMT
-Received: from [10.110.96.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 19 May
- 2023 15:00:51 -0700
-Message-ID: <56ac76e8-e5ac-3712-1e07-ad6c5b96c77c@quicinc.com>
-Date: Fri, 19 May 2023 15:00:43 -0700
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8E1510E08E
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 23:02:17 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2af15b5f726so33089711fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 16:02:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684537333; x=1687129333;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7ICfQVhv0p58QRGm6Ofs09fgKjfcNCD6otbrYwwYRjw=;
+ b=k9H9/XI3c4gYLXp82YhPCxKp/bDxz6SLs54kVqVsH58rAVBFtDinul2AXJ4edC47fj
+ nKbery7wfrU4P9uk2IJgPBl3Fjdr7phb96CXmFwjNSPMLGxh1IVMXyRmqV31yuFyfZoM
+ 7jc+hyKKcb3efWrPCnY+pwHfbjLrL8lYZAha27UWnTXjswT7u3SXRwa+yDiwxCJyXG5y
+ FsnGNwxdnMS6EH1orrvTh6JDIUfouHrBU0mUd54t4lZcvgGwCcyNJ2VFo4E+SpxkHuSv
+ KLF+Lp2TPkzxtmpmWsLk8N3ZCmFsRVTr3CJUN17MXA07WLu1RKvXM/Tol4dUd9C6ntbh
+ A4jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684537333; x=1687129333;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7ICfQVhv0p58QRGm6Ofs09fgKjfcNCD6otbrYwwYRjw=;
+ b=O+8rc+dI2kJwpHm2lNatXqt9ak6nx5m1EZjaFP3+d7ikLgOiBO4dcR0N8GxjCgzkEn
+ chj9us3bMTbdDZMzuDn1Mr3R630BrtllSaOPl6qOJ/ZfLx/CZGia/08mCa3L9FsxBtxC
+ Z+PabUXFzwMSZteChiAWFKforE3J0/9l9odpMKixg5jZXRQUzwvKRVi9OUs82Z9eA/io
+ GdCaiBFOhdftI1TacwP93qCZlb5Ip8FgHni6zVdz02d3XcsbP7wuZ1ktWjnQA7mUX9/K
+ xhiORMOzsEht9xCuuQgkAAH+JJZk5Cy4tG0P49pEScr/uXAIq3Wsf6IM6t5ZXcINnR4M
+ k+Uw==
+X-Gm-Message-State: AC+VfDxGW8QcjZmuyXTRJpXD+Gw8YY7vs8yeeCyx+6v24XH/DHC7SiDl
+ yVqxFWyxePMohB1aBhFhHLeXkA==
+X-Google-Smtp-Source: ACHHUZ7UMqHk5rENqq9JMQbX9ZqRDgPSQuGZy96/uT1vIZP+8fQjGpkcjjF1D/yArdvq6XYMW8UwDw==
+X-Received: by 2002:a2e:9117:0:b0:2ad:af50:6ecb with SMTP id
+ m23-20020a2e9117000000b002adaf506ecbmr1397207ljg.14.1684537333678; 
+ Fri, 19 May 2023 16:02:13 -0700 (PDT)
+Received: from [192.168.1.101] (abxi58.neoplus.adsl.tpnet.pl. [83.9.2.58])
+ by smtp.gmail.com with ESMTPSA id
+ k1-20020a2e2401000000b002a8c2a4fe99sm34178ljk.28.2023.05.19.16.01.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 May 2023 16:02:00 -0700 (PDT)
+Message-ID: <d97a5b51-f71e-28d6-47ee-a49d11a6aa2d@linaro.org>
+Date: Sat, 20 May 2023 01:01:58 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Kalyan Thota" <quic_kalyant@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kalyan Thota <quic_kalyant@quicinc.com>,
  Shubhashree Dhar <dhar@codeaurora.org>,
- Raviteja Tamatam <travitej@codeaurora.org>, Krishna Manikandan
- <quic_mkrishn@quicinc.com>
+ Raviteja Tamatam <travitej@codeaurora.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230508-topic-hctl_en-v2-1-e7bea9f1f5dd@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230508-topic-hctl_en-v2-1-e7bea9f1f5dd@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ <56ac76e8-e5ac-3712-1e07-ad6c5b96c77c@quicinc.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <56ac76e8-e5ac-3712-1e07-ad6c5b96c77c@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: dlWzTMD1K9sgige-225FzMntVgVNF14M
-X-Proofpoint-ORIG-GUID: dlWzTMD1K9sgige-225FzMntVgVNF14M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-19_16,2023-05-17_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 lowpriorityscore=0 phishscore=0 impostorscore=0
- clxscore=1011 suspectscore=0 spamscore=0 mlxlogscore=736 adultscore=0
- bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305190190
 Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Set DPU_DATA_HCTL_EN for in
  INTF_SC7180_MASK
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -90,29 +85,36 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Marijn
- Suijten <marijn.suijten@somainline.org>, freedreno@lists.freedesktop.org
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/19/2023 11:49 AM, Konrad Dybcio wrote:
-> DPU5 and newer targets enable this unconditionally. Move it from the
-> SC7280 mask to the SC7180 one.
+On 20.05.2023 00:00, Abhinav Kumar wrote:
 > 
+> 
+> On 5/19/2023 11:49 AM, Konrad Dybcio wrote:
+>> DPU5 and newer targets enable this unconditionally. Move it from the
+>> SC7280 mask to the SC7180 one.
+>>
+> 
+> You mean DPU 5.0.0 right?
+Yep!
 
-You mean DPU 5.0.0 right?
+> 
+>> Fixes: 7e6ee55320f0 ("drm/msm/disp/dpu1: enable DATA_HCTL_EN for sc7280 target")
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
+> 
+> I have cross-checked all the chipsets affected by this and confirmed DATA_HCTL is present and those 3 registers programmed with that feature bit are valid, hence
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Thanks!
 
-> Fixes: 7e6ee55320f0 ("drm/msm/disp/dpu1: enable DATA_HCTL_EN for sc7280 target")
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-
-I have cross-checked all the chipsets affected by this and confirmed 
-DATA_HCTL is present and those 3 registers programmed with that feature 
-bit are valid, hence
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
+Konrad
+> 
