@@ -2,41 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12B6470A15D
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 23:15:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58FCB70A163
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 23:16:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E341210E60D;
-	Fri, 19 May 2023 21:15:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74CD10E613;
+	Fri, 19 May 2023 21:16:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADBFC10E60D
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 21:15:00 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 88C9E3F7A8;
- Fri, 19 May 2023 23:14:57 +0200 (CEST)
-Date: Fri, 19 May 2023 23:14:56 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95B8910E60F;
+ Fri, 19 May 2023 21:16:43 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0C85C60C8A;
+ Fri, 19 May 2023 21:16:43 +0000 (UTC)
+Received: from rdvivi-mobl4 (unknown [192.55.55.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPSA id 96260C433D2;
+ Fri, 19 May 2023 21:16:38 +0000 (UTC)
+Date: Fri, 19 May 2023 17:16:36 -0400
+From: Rodrigo Vivi <rodrigo.vivi@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <uzzllinf6vuxfb7levkxjoj7yyr3kydu37eawk2tu5gi3juz56@hyqpwumsg7s4>
-References: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
- <8ebd01e3-00be-b0da-e91a-ab1a4e074074@quicinc.com>
- <85d0a8c6-f6b4-4cd4-7cc6-b13f37523bd4@linaro.org>
- <637c1848-0e3f-9f3d-dc56-8f2d5b8de696@quicinc.com>
- <a9669c51-3171-3751-f249-be4a7f4312c2@linaro.org>
- <9a505edb-f3e8-ade4-8d4e-629bc2840f29@quicinc.com>
- <100f7525-35ed-a2a2-6672-e5874e0a1ac5@linaro.org>
+Message-ID: <ZGfnNBRUN72IXRjy@rdvivi-mobl4>
+References: <20230419154321.1993419-1-markyacoub@google.com>
+ <0c702f15-c842-8eab-cc95-83378236773c@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <100f7525-35ed-a2a2-6672-e5874e0a1ac5@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: simplify pixel clk rate
- handling
+In-Reply-To: <0c702f15-c842-8eab-cc95-83378236773c@linaro.org>
+Subject: Re: [Freedreno] [PATCH v10 00/10] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,87 +46,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, suraj.kandpal@intel.com,
+ Mark Yacoub <markyacoub@chromium.org>, intel-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ freedreno@lists.freedesktop.org, Mark Yacoub <markyacoub@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-19 22:37:34, Dmitry Baryshkov wrote:
-<snip>
-> >>>>>> +    ret = cfg_hnd->ops->calc_clk_rate(msm_host);
-> >>>>>
-> >>>>> I am not too sure what we are gaining by this.
-> >>>>>
-> >>>>> Its not that we are replacing dsi_get_pclk_rate().
-> >>>>>
-> >>>>> We are moving the dsi_get_pclk_rate() from the calc_clk_rate() to 
-> >>>>> the msm_dsi_host_get_phy_clk_req().
-> >>>>>
-> >>>>> Also, with this change, dsi_calc_clk_rate_6g() looks kind of empty 
-> >>>>> to stand on its own.
-> >>>>>
-> >>>>> The original intention of the calc_clk_rate() op seems to be 
-> >>>>> calculate and store all the clocks (byte, pixel and esc).
-> >>>>>
-> >>>>> Why change that behavior by breaking it up?
-> >>>>
-> >>>> Unification between platforms. Both v2 and 6g platforms call 
-> >>>> dsi_calc_pclk(). Let's just move it to a common code path.
-> >>>
-> >>> Hi Dmitry,
-> >>>
-> >>> I think what Abhinav means here is that the meaning and functionality 
-> >>> of calc_clk_rate() changes with this patch.
-> >>>
-> >>> Before, calc_clk_rate() does *all* the clk_rate calculations and 
-> >>> assignments. But after this change, it will only calculate and assign 
-> >>> the escape clk rate.
-> >>>
-> >>> I agree with Abhinav that this change renders the calc_clk_rate() op 
-> >>> misleading as it will not calculate all of the clock rates anymore.
-> >>
-> >> Would it make sense if I rename it to calc_other_clock_rates()?
-> >>
+On Fri, May 19, 2023 at 07:55:47PM +0300, Dmitry Baryshkov wrote:
+> On 19/04/2023 18:43, Mark Yacoub wrote:
+> > Hi all,
+> > This is v10 of the HDCP patches. The patches are authored by Sean Paul.
+> > I rebased and addressed the review comments in v6-v10.
 > > 
-> > Not really. I would rather still have it separate and drop this patch.
+> > Main change in v10 is handling the kernel test bot warnings.
 > > 
-> > So even if pixel clock calculation looks common today between v2 and 6g, 
-> > lets say tomorrow there is a 7g or 8g which needs some other math there, 
-> > I think this is the right place where it should stay so that we 
-> > calculate all clocks together.
+> > Patches 1-4 focus on moving the common HDCP helpers to common DRM.
+> > This introduces a slight change in the original intel flow
+> > as it splits the unique driver protocol from the generic implementation.
+> > 
+> > Patches 5-7 split the HDCP flow on the i915 driver to make use of the common DRM helpers.
+> > 
+> > Patches 8-10 implement HDCP on MSM driver.
+> > 
+> > Thanks,
+> > -Mark Yacoub
+> > 
+> > Sean Paul (10):
+> >    drm/hdcp: Add drm_hdcp_atomic_check()
+> >    drm/hdcp: Avoid changing crtc state in hdcp atomic check
+> >    drm/hdcp: Update property value on content type and user changes
+> >    drm/hdcp: Expand HDCP helper library for enable/disable/check
+> >    drm/i915/hdcp: Consolidate HDCP setup/state cache
+> >    drm/i915/hdcp: Retain hdcp_capable return codes
+> >    drm/i915/hdcp: Use HDCP helpers for i915
+> >    dt-bindings: msm/dp: Add bindings for HDCP registers
+> >    arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
 > 
-> Ack.
+> Dear i915 maintainers,
+> 
+> I wanted to ping you regarding this patch series. If there are no comments
+> for the series from you side, would it be possible to land Intel-specific
+> and generic patches into drm-intel tree? We will continue working on the msm
+> specific parts and merge them through the msm tree.
 
-Unfortunate, but okay.  Then don't forget to send the following hunk of
-this patch in isolation:
+pushed to drm-intel-next.
 
-    -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
-    +	pclk_bpp = msm_host->pixel_clk_rate * bpp;
+should be propagated in a few weeks to drm-next on our next pull request.
 
-- Marijn
-
-> >> Moving pclk calculation to the core code emphasises that pclk 
-> >> calculation is common between v2 and 6g hosts.
-> >>
-> >>>
-> >>> Thanks,
-> >>>
-> >>> Jessica Zhang
-> >>>
-> >>>>
-> >>>>>
-> >>>>>>       if (ret) {
-> >>>>>>           pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
-> >>>>>>           return;
-> >>>>
-> >>>> -- 
-> >>>> With best wishes
-> >>>> Dmitry
-> >>>>
-> >>
+> 
+> >    drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+> > 
+> >   .../bindings/display/msm/dp-controller.yaml   |    7 +-
+> >   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
+> >   drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
+> >   drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
+> >   drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
+> >   .../drm/i915/display/intel_display_debugfs.c  |   12 +-
+> >   .../drm/i915/display/intel_display_types.h    |   51 +-
+> >   drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
+> >   drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
+> >   drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
+> >   drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
+> >   drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
+> >   drivers/gpu/drm/msm/Kconfig                   |    1 +
+> >   drivers/gpu/drm/msm/Makefile                  |    1 +
+> >   drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
+> >   drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
+> >   drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
+> >   drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
+> >   drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
+> >   drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+> >   drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
+> >   drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
+> >   drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
+> >   drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
+> >   drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
+> >   drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+> >   drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
+> >   drivers/gpu/drm/msm/msm_atomic.c              |   19 +
+> >   include/drm/display/drm_hdcp.h                |  296 ++++
+> >   include/drm/display/drm_hdcp_helper.h         |   23 +
+> >   30 files changed, 2867 insertions(+), 1349 deletions(-)
+> >   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+> >   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+> > 
 > 
 > -- 
 > With best wishes
