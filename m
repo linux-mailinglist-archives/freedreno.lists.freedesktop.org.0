@@ -1,77 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F3B9709C69
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 18:26:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C788B709CA1
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 18:42:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D646210E45E;
-	Fri, 19 May 2023 16:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9460B10E4C8;
+	Fri, 19 May 2023 16:42:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3079B10E45E
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 16:26:05 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4efd6e26585so3890360e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 09:26:05 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F9310E4C8
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 16:42:34 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2ac90178fdaso38178471fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 09:42:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684513563; x=1687105563;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ d=linaro.org; s=google; t=1684514553; x=1687106553;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=pzkV3eFT+UyGsSgy/B4/2r7DXWLfX9IJI6rAEngNyY4=;
- b=K0ZkrVXIBIlgJI6GxX9U1BVFOG9ni4zAFTvHmAW4p0eeDDXc1Tbb0fO/VaJp/Hc+0C
- yHmewdR6WXjfiEz+nBtXlMhoJDU/1srp1K5TxhljOukyl0sKcZyKG6kFBirFTG+egHU2
- M9P4Lc7HrP9lpdklzYz6bfU/cSgQgYxb5PFY52Px1gFV7IXKAa4Ra0EToNB5JHmBTm4C
- /SdSzmfLWaOYPSSdUt8H4E/QMJY2b+iY78AxB+OXcy/23jaHdqb70/BWpwA12BB69f+e
- kLGGEavODU1l7/+vcyhC7Ly24egtgQTYaPaBaQXH4mwvxnzYw7BWFMebiSRK3Sza/WGl
- eMXw==
+ bh=143EakvyOuVdHkumYHBraHpbTfkxgJP6S3+u9gTOH5w=;
+ b=H6i68wdNAUIf4PQUqwLssDsY3GknAmQxtXtb71tGZxPoWwlYnwRqr8auBnpdr1ktOm
+ 9dBuw/oXX5ve66KfRi9b/9NAbhOgrtNe7xPpuWXNOnoUgzDZStfuCNo3L3MzZ8i3R67N
+ UtAtpvq2RUUreDOuy5FhTDT0bGgGBgWynt2GiadslacGJNXaVFgolXG9lakRzjMWLgm+
+ 9ZiE87SjX2xi0dhJaqcEGBp7kn17U5hVlZblqBGVuNoVj7u4guslAG6HNZ+xvQb5nycM
+ DgoCNnBo6BqbBYJ5DV6lxEAstGCkCAwf9g6xDGxApWAeBWzUIg+BsjLxlLUssp12Lldx
+ H5dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684513563; x=1687105563;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ d=1e100.net; s=20221208; t=1684514553; x=1687106553;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pzkV3eFT+UyGsSgy/B4/2r7DXWLfX9IJI6rAEngNyY4=;
- b=Fp58TduuLhmxLMspdxPYUOe9IGLNmr697h0HDbSeMKVK9nV+QIOHhv/leXfFAGMhzH
- zl9foBhdqEp9jKw/K+32OnVlj/WOrMiTTqKlXtjl2BShdTkCX0ERV3u0N//hOD/Y9Rk6
- NDBOFbfeDddcNXAUH5GPAEt5wbwjgCYvBiC+JDZBjw2gS1Bk4qSH8WTOLcfZ78gzzwty
- 5Tt5oMH477iEbm35MVAM20+UZFkBN/K/ivmYGIsdVSyhs0Nv9tG6ontMhyU4HoygOXN6
- uwMnlVSmhjjHbeXDObI5EP7qX3gBMws0UsEsL5RWYqMtacxjZH8o+/D1+uVu7WixiPtJ
- ys7w==
-X-Gm-Message-State: AC+VfDy1xrob7XSN/jUvkaV7a8u+x5wjte3JFPaiGUYS/6VqQKYew63b
- idqGj4Y7jIlHahymT4bV/S8gmtj6KEdQl9mee0k=
-X-Google-Smtp-Source: ACHHUZ53FGQVKSy+8m5wHWJubiKSrd+KAgJAlXNP65x++jlyZJlF2vKxGa4xup0bi3pbF+08vFdwpg==
-X-Received: by 2002:a05:6512:3c9:b0:4ee:dafa:cb00 with SMTP id
- w9-20020a05651203c900b004eedafacb00mr1028417lfp.60.1684513562641; 
- Fri, 19 May 2023 09:26:02 -0700 (PDT)
+ bh=143EakvyOuVdHkumYHBraHpbTfkxgJP6S3+u9gTOH5w=;
+ b=fcH5hiqMqagP6VfyI18LlG2hthxzloscccziqMvAG8m2ZuyJ59rDqtKR7K6M2/Id8m
+ gyorztR7HLfcc71onKtFXfhDDlrX+TMvkuxihyHYMlLpeBhDN2wmVUFEode26Dgs1qWY
+ fnCuHBW4CN/mk90/CmZuIX0dJL1Q7+P2wF0fuWvKMDSRMlbPqaZ7UEQtkTWOo8vK0KNg
+ IS9PPd7gMdgVQZ1x2+H9UkYxqB4ToIBgueWHvGXHn03aGUqmGn+0Lx3gF5+gyQTbiY5q
+ if1cBydoY+jaE8ClsdGaTTKyi30Bfu7a0n2m3SGMDdPcgZF5RCrUYo7T+82KB+fTLto0
+ /i8Q==
+X-Gm-Message-State: AC+VfDyKmkA+0i1RDeIa0kmy04LUXw6NhVo/ER0hx/uk9TfSUG+DP3Ht
+ L1zK5Ad/7VlIR2I1DbqlETySPQ==
+X-Google-Smtp-Source: ACHHUZ5CdyVB0/lT15XzwEt1IwNhkaSEWNdeA1DBJ6SV+PZd+UtKzg7gmtugTSK7682fQLSzo6Qxpw==
+X-Received: by 2002:a2e:9008:0:b0:2a8:e44e:c75a with SMTP id
+ h8-20020a2e9008000000b002a8e44ec75amr896865ljg.32.1684514553045; 
+ Fri, 19 May 2023 09:42:33 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- n5-20020a195505000000b004f3b2d3fc25sm102647lfe.10.2023.05.19.09.26.02
+ l11-20020a2e3e0b000000b002aa40d705a5sm895992lja.11.2023.05.19.09.42.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 May 2023 09:26:02 -0700 (PDT)
-Message-ID: <ee0fc9e0-fa49-093b-87ee-463e1f728a0b@linaro.org>
-Date: Fri, 19 May 2023 19:26:01 +0300
+ Fri, 19 May 2023 09:42:32 -0700 (PDT)
+Message-ID: <e4824511-1148-83ee-b6e9-4f819e655f32@linaro.org>
+Date: Fri, 19 May 2023 19:42:31 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
-References: <1684360919-28458-1-git-send-email-quic_khsieh@quicinc.com>
- <1684360919-28458-7-git-send-email-quic_khsieh@quicinc.com>
- <evkla3rkf4tge6gln4lgtulj7q5gt6vef3i2yqupc5lj2oszfx@7ttyxzlmvet5>
- <8e9feb23-a5f0-7cd8-ebff-8e9097ff0ca1@quicinc.com>
- <b2fcc9f5-ca11-ab87-e40b-9c6d2662325b@linaro.org>
- <ku27atp4yqkpmz7g4ttylvzd43jmu4cwcs76nqgzramgxetjna@bu76f4c73724>
- <62f0cdb9-af80-4ff4-0621-21a041ee2f16@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <62f0cdb9-af80-4ff4-0621-21a041ee2f16@quicinc.com>
+To: Vinod Polimera <vpolimer@qti.qualcomm.com>
+References: <1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1680271114-1534-4-git-send-email-quic_vpolimer@quicinc.com>
+ <CAA8EJppc3LDQy2RgVZbWki4Y-_FOTK67Y8RfK5Bm9gqdfqMjqQ@mail.gmail.com>
+ <BN0PR02MB8173E9FF869F7EEFCE1F5410E4929@BN0PR02MB8173.namprd02.prod.outlook.com>
+ <CAA8EJprj5cmB_STfv45NDCJ_e=aWfwMgaNmGkQBqFa8fQq6gQw@mail.gmail.com>
+In-Reply-To: <CAA8EJprj5cmB_STfv45NDCJ_e=aWfwMgaNmGkQBqFa8fQq6gQw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v10 6/8] drm/msm/dpu: separate DSC flush
- update out of interface
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 3/3] msm: skip the atomic commit of self
+ refresh while PSR running
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,110 +82,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
+ "Bjorn Andersson \(QUIC\)" <quic_bjorande@quicinc.com>,
+ "Vishnuvardhan Prodduturi \(QUIC\)" <quic_vproddut@quicinc.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "Vinod Polimera \(QUIC\)" <quic_vpolimer@quicinc.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/05/2023 19:21, Kuogee Hsieh wrote:
-> 
-> On 5/19/2023 5:04 AM, Marijn Suijten wrote:
->> On 2023-05-19 01:40:19, Dmitry Baryshkov wrote:
->>> On 19/05/2023 01:09, Kuogee Hsieh wrote:
->>>> On 5/17/2023 3:31 PM, Marijn Suijten wrote:
->>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
->>>>>> @@ -139,6 +139,11 @@ static inline void
->>>>>> dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
->>>>>>                    CTL_DSPP_n_FLUSH(dspp - DSPP_0),
->>>>>>                    ctx->pending_dspp_flush_mask[dspp - DSPP_0]);
->>>>>>            }
->>>>>> +
->>>>>> +    if (ctx->pending_flush_mask & BIT(DSC_IDX))
->>>>>> +        DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH,
->>>>>> +                  ctx->pending_dsc_flush_mask);
->>>>> Again, when do we reset this mask to 0?  (v8 review)
->>>> can not find it.
+On 03/04/2023 19:11, Dmitry Baryshkov wrote:
+> On Mon, 3 Apr 2023 at 15:01, Vinod Polimera <vpolimer@qti.qualcomm.com> wrote:
+>>
+>>> On Fri, 31 Mar 2023 at 16:59, Vinod Polimera <quic_vpolimer@quicinc.com>
+>>> wrote:
 >>>>
->>>> let me add a separate  patch to fix this.
->>> The pending_dsc_flush_mask was added in this patch, so the reset should
->>> be a part of this patch too.
->> Yes, same patch.
-> yes, i keep pending_dsc_flush_mask = 0; at this patch at V11
+>>>> In certain CPU stress conditions, there can be a delay in scheduling commit
+>>>> work and it was observed that PSR commit from a different work queue
+>>> was
+>>>> scheduled. Avoid these commits as display is already in PSR mode.
+>>>>
+>>>> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+>>>> ---
+>>>>   drivers/gpu/drm/msm/msm_atomic.c | 3 +++
+>>>>   1 file changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/msm_atomic.c
+>>> b/drivers/gpu/drm/msm/msm_atomic.c
+>>>> index 645fe53..f8141bb 100644
+>>>> --- a/drivers/gpu/drm/msm/msm_atomic.c
+>>>> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+>>>> @@ -192,6 +192,9 @@ int msm_atomic_check(struct drm_device *dev,
+>>> struct drm_atomic_state *state)
+>>>>                          new_crtc_state->mode_changed = true;
+>>>>                          state->allow_modeset = true;
+>>>>                  }
+>>>> +
+>>>> +               if (old_crtc_state->self_refresh_active && new_crtc_state-
+>>>> self_refresh_active)
+>>>> +                       return -EINVAL;
+>>>
+>>> EINVAL here means that atomic_check will fail if both old and new
+>>> states are in SR mode. For example, there might be a mode set for
+>>> another CRTC (while keeping this one in SR mode). I don't think this
+>>> is correct. We should skip/shortcut the commit, that's true. But I
+>>> doubt that returning an error here is a proper way to do this. Please
+>>> correct me if I'm wrong.
 >>
->> Related question I asked in v8: only the global pending_flush_mask and
->> pending_dspp_flush_mask are reset in dpu_hw_ctl_clear_pending_flush().
->> Shall I send a patch to clear the other missing ones (e.g. merge_3d etc)
->> as well?
-> at v11, I had add separate  patch to clear missing ones.
->>>>>> +
->>>>>>        DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
->>>>>>    }
->>>>>> @@ -285,6 +290,13 @@ static void
->>>>>> dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
->>>>>>        ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
->>>>>>    }
->>>>>> +static void dpu_hw_ctl_update_pending_flush_dsc_v1(struct dpu_hw_ctl
->>>>>> *ctx,
->>>>>> +                           enum dpu_dsc dsc_num)
->>>>>> +{
->>>>>> +    ctx->pending_dsc_flush_mask |= BIT(dsc_num - DSC_0);
->>>>>> +    ctx->pending_flush_mask |= BIT(DSC_IDX);
->>>>>> +}
->>>>>> +
->>>>>>    static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl
->>>>>> *ctx,
->>>>>>        enum dpu_dspp dspp, u32 dspp_sub_blk)
->>>>>>    {
->>>>>> @@ -502,9 +514,6 @@ static void dpu_hw_ctl_intf_cfg_v1(struct
->>>>>> dpu_hw_ctl *ctx,
->>>>>>        if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
->>>>>>            mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
->>>>>> -    if (cfg->dsc)
->>>>>> -        DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
->>>>>> -
->>>>>>        if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
->>>>>>            mode_sel |= BIT(17);
->>>>>> @@ -524,10 +533,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct
->>>>>> dpu_hw_ctl *ctx,
->>>>>>        if (cfg->merge_3d)
->>>>>>            DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
->>>>>>                      BIT(cfg->merge_3d - MERGE_3D_0));
->>>>>> -    if (cfg->dsc) {
->>>>>> -        DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
->>>>> Again, this bugfix of now wrapping DSC_IDX in BIT() should go in a
->>>>> separate Fixes: patch to have this semantic change documented.  (v8
->>>>> review)
->>>> That will be this patch. let me add Fixes at this patch
->>> _separate_ patch.
->> Separate patch, and documenting clearly what happens and why.  Kuogee, I
->> can send this as well if it makes things more clear, since it doesn't
->> seem (from the patch description) that anyone noticed the
->> implication/bugfix in this change as a drive-by effect of porting
->> sde_hw_ctl_update_bitmask_dsc_v1() from downstream.
+>> If there is a modeset on same crtc with a different connector. The new_crtc_state will not have self_refresh_active set.
+>> Self_refresh_active is set from the helper library, which will duplicate the old_state and just adds self_refresh_active to true and active to false.
+>> so we can be confident that if we are checking for self_refresh_active status then it should be coming from the library call.
 >>
->> - Marijn
+>> Also the EINVAL is returned to the self_refresh library API and the function will be retired.
 > 
-> The problem is a create a separate patch to delete 
-> DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX), then this patch will break 
-> dsc function.
-> 
-> So that I keep this within same patch.
-> 
-> please confirm you still want a separate patch to delete 
-> DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX).
+> Maybe I misunderstand you here. However, in this way EINVAL is
+> returned to drm_atomic_check_only() and not to the SR code.
 
-I'd prefer to see:
-
-- DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, DSC_IDX);
-+ DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, BIT(DSC_IDX));
-
-This a Fixes patch and in theory it can be backported to stable kernel.
-
-Then the rest can go into this patch, including the movement of 
-BIT(DSC_IDX) to proper function, etc.
+Unless anybody objects, I'm going to drop this patch now. The issue 
+should be solved in the framework itself.
 
 > 
->>
->> <snip>
+>> And self_refresh_active is cleared on every commit : https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/drm_atomic_state_helper.c#n158
+> 
+> And this means that this check will not trigger at all, if I'm not
+> mistaken. You've added code to msm_atomic_check(), so
+> drm_self_refresh_helper_alter_state() was not called (yet) and thus
+> new_crtc_state->self_refresh_active is set to false, fresh after
+> crtc's duplicate_state.
+> 
+> --
+> With best wishes
+> Dmitry
 
 -- 
 With best wishes
