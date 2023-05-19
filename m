@@ -2,71 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C19709F9A
-	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 21:06:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8F06709FEC
+	for <lists+freedreno@lfdr.de>; Fri, 19 May 2023 21:33:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD34510E548;
-	Fri, 19 May 2023 19:06:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DAAD10E512;
+	Fri, 19 May 2023 19:33:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13FD410E5BB
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 19:06:45 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4f3a166f8e9so1506822e87.0
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 12:06:45 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5013110E512
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 19:33:07 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2af0eb50b4aso36065761fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 12:33:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684523204; x=1687115204;
+ d=linaro.org; s=google; t=1684524785; x=1687116785;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Rui+ZWUFjt86muw9r1inOKrWuQmQAvAfmjQmisslnGc=;
- b=rXItGa2oK4EId+ypJUigwh2I4n2aUm3LD0VPGd7JlVZCaPN/L88EcMPOP4jWOnPsQZ
- CMm4ajybmaym87ABRc8V6w1o4kohcT+W1ohUypA9+EDCj73+q5y0nvyWbhDHobWdb6Wu
- sIyjjd8bJ8+fnLS+pt1HFKqrBe9SO5gkmQyicwHfhc6LPGdryrcV1gAFOFPuRy+/V/vf
- CEB4XZ2V6Bv9bm8AjqnJWsxwAw2BnFMIUlmk2zv186UF9J2mfuO7wgqfYg5tVieB6J6P
- kLogJIvzdk6ert42EdAka5D9GXdWfHp+tod5qHax9lYYW06PeODCbhHf8lYLWQS8Oqlk
- 9n0w==
+ bh=OZVN230CAcFfgTcYjqdCoOVW4NdmvfAyK8FKV16f3b4=;
+ b=yuHxMex0Qnq0mzpvOztFdRUqyK/Qcdb2BhUJuxbMavQVoJlrKEQtWo7SEvQDIxdSfB
+ Kl/vyGauxm6M3D3mcSIVKmm/zBAyx2FAUZjfFzVz0SAjs/xKGI234up74OHJ4tCAhV2m
+ a/+jj/KpDdwoUorTeUoUM7cWyO3mCnUsafbRERn91cHYgW8eraqwn8nAxE1MWtk5eV3U
+ XTsQ5nV34MA3Fx1/TSYT9IxywgK+kNPSTRDRFXjrVZuI5aLpxmdy8e6zYoktgIRCZL5M
+ wVVm/AGe5kkhJEkP+71UkWUSuomLkHqV/iRTOFJUVn5QqK9p24VZbVDuUrCJzlo6cxqQ
+ 8SJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684523204; x=1687115204;
+ d=1e100.net; s=20221208; t=1684524785; x=1687116785;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Rui+ZWUFjt86muw9r1inOKrWuQmQAvAfmjQmisslnGc=;
- b=WSUmRuSTWDM4GLveuT4H+zGmMdD6KrW1tyOLR7FDUy1+H3iER1yeij0A2mcXkuKf7g
- 0HYs5aYQdIzHRVqaj6Fqhc2l/iU/mn04W8m5bjaQEn9lqhtUaY2d3SjEnNTOYIIv2Aie
- FbcX+Xyxrpx83qpTik/VDtcoxBrEROyJhZ3YKn0y/Xckun59qQlXLOaRtZWpOybPRcd7
- Fn0ySEMU7Jj0gDTTXJYzBoozMuXl28BDcAqBvuuWA8RoCvWKnfwVdTUIt2RwLsNdcsQx
- ipubktwLIAu2t8bxgYYIOTz+tIk6RdHFQcRtC+AdMq9p0taZN6DTys8JP7zCG7QZICgM
- 0TrA==
-X-Gm-Message-State: AC+VfDwHrW4AqicuRngrBAsPcQY4SdqwFZVcdye68Vj3FkaIpJ2Eqm6G
- bsCYE15fq+Tv2HgWr9LONGENyg==
-X-Google-Smtp-Source: ACHHUZ67Ce2tA0cEGprwriJupZEEkiXqed5dpC+i0UuXp7d1PPnEunZUR84ZOoZKnBiZEonZaVqBdg==
-X-Received: by 2002:a05:6512:3d22:b0:4f3:aa26:1890 with SMTP id
- d34-20020a0565123d2200b004f3aa261890mr1294165lfv.22.1684523204153; 
- Fri, 19 May 2023 12:06:44 -0700 (PDT)
-Received: from [192.168.1.101] (abxi58.neoplus.adsl.tpnet.pl. [83.9.2.58])
+ bh=OZVN230CAcFfgTcYjqdCoOVW4NdmvfAyK8FKV16f3b4=;
+ b=hMZD+p6LuTWpw9joZgMprC5S1ygF4DhQuko1aT2lLrseDQX/qreYHEijFz10h4DonV
+ 9opdDh6Na90iAdPHW2YMAa8et5q/p09EpG7gkclV7Ohmx7tIMv8mvik39gdbunI5V4a9
+ UIK4xFURqAgZx52d6rmnlUMWINpGnInRz6PwYhlcRF+jeXJhGW9YAnpIHlXKlzxQhsIV
+ fOhnVKpfl+8JwyBC/LQxmpj7PPC4wJZW80sIid+teXzM1U/iEhIfXpoo4q7wRRjHcND9
+ /XV85Er+CVcziILNXsvuGSZ9u6CX5G0hCg5DA7RVExM7Z+jnKENh2brZywZurTrN+9Nw
+ CY4A==
+X-Gm-Message-State: AC+VfDz6eyq+wsLmPyp45FGvhRrrH2ukRhWx+fmyPTHsPhZsdSfYR3pB
+ fRbUkknjBGfg1nqu8pDyNAUFyw==
+X-Google-Smtp-Source: ACHHUZ5tV8zCU+DIBj7Os87JHpRfdKbxz0jbM3+pO51R5PoKzgSpedEI/vpJDaZEvLV1FRCJbsM0Hg==
+X-Received: by 2002:a2e:2e0f:0:b0:2ad:95dd:8802 with SMTP id
+ u15-20020a2e2e0f000000b002ad95dd8802mr1143231lju.38.1684524785455; 
+ Fri, 19 May 2023 12:33:05 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- d30-20020ac25ede000000b004f019d3eab4sm2904lfq.23.2023.05.19.12.06.42
+ w5-20020ac24425000000b004f266537ad7sm8010lfl.34.2023.05.19.12.33.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 May 2023 12:06:43 -0700 (PDT)
-Message-ID: <0ccf9fdf-5604-d65d-6c7f-02c96f706a09@linaro.org>
-Date: Fri, 19 May 2023 21:06:41 +0200
+ Fri, 19 May 2023 12:33:05 -0700 (PDT)
+Message-ID: <a9669c51-3171-3751-f249-be4a7f4312c2@linaro.org>
+Date: Fri, 19 May 2023 22:33:04 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-References: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
- <20230411-topic-straitlagoon_mdss-v4-5-68e7e25d70e1@linaro.org>
- <168452313011.3852116.2187810600963716663.robh@kernel.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <168452313011.3852116.2187810600963716663.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 05/12] dt-bindings: display/msm: Add
- SM6375 MDSS
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+References: <20230118130031.2345941-1-dmitry.baryshkov@linaro.org>
+ <8ebd01e3-00be-b0da-e91a-ab1a4e074074@quicinc.com>
+ <85d0a8c6-f6b4-4cd4-7cc6-b13f37523bd4@linaro.org>
+ <637c1848-0e3f-9f3d-dc56-8f2d5b8de696@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <637c1848-0e3f-9f3d-dc56-8f2d5b8de696@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: simplify pixel clk rate
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,66 +83,175 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- iommu@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 19.05.2023 21:05, Rob Herring wrote:
+On 19/05/2023 21:54, Jessica Zhang wrote:
 > 
-> On Fri, 19 May 2023 19:04:26 +0200, Konrad Dybcio wrote:
->> Document the SM6375 MDSS.
+> 
+> On 3/28/2023 6:04 AM, Dmitry Baryshkov wrote:
+>> On 26/01/2023 02:07, Abhinav Kumar wrote:
+>>>
+>>>
+>>> On 1/18/2023 5:00 AM, Dmitry Baryshkov wrote:
+>>>> Move a call to dsi_calc_pclk() out of calc_clk_rate directly towards
+>>>> msm_dsi_host_get_phy_clk_req(). It is called for both 6g and v2 hosts.
+>>>>
+>>>> Also, while we are at it, replace another dsi_get_pclk_rate() 
+>>>> invocation
+>>>> with using the stored value at msm_host->pixel_clk_rate.
+>>>>
+>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> ---
+>>>>   drivers/gpu/drm/msm/dsi/dsi.h      |  4 ++--
+>>>>   drivers/gpu/drm/msm/dsi/dsi_cfg.h  |  2 +-
+>>>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++++++------------
+>>>>   3 files changed, 15 insertions(+), 15 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
+>>>> b/drivers/gpu/drm/msm/dsi/dsi.h
+>>>> index bd3763a5d723..93ec54478eb6 100644
+>>>> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+>>>> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+>>>> @@ -129,8 +129,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host 
+>>>> *msm_host, uint64_t *iova);
+>>>>   int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t 
+>>>> *iova);
+>>>>   int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
+>>>>   int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
+>>>> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+>>>> is_bonded_dsi);
+>>>> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+>>>> is_bonded_dsi);
+>>>> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host);
+>>>> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host);
+>>>>   void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, 
+>>>> struct mipi_dsi_host *host);
+>>>>   void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+>>>>   struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct 
+>>>> mipi_dsi_host *host);
+>>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h 
+>>>> b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>>>> index 44be4a88aa83..5106e66846c3 100644
+>>>> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+>>>> @@ -51,7 +51,7 @@ struct msm_dsi_host_cfg_ops {
+>>>>       void* (*tx_buf_get)(struct msm_dsi_host *msm_host);
+>>>>       void (*tx_buf_put)(struct msm_dsi_host *msm_host);
+>>>>       int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t 
+>>>> *iova);
+>>>> -    int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool 
+>>>> is_bonded_dsi);
+>>>> +    int (*calc_clk_rate)(struct msm_dsi_host *msm_host);
+>>>>   };
+>>>>   struct msm_dsi_cfg_handler {
+>>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
+>>>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> index 18fa30e1e858..7d99a108bff6 100644
+>>>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> @@ -616,28 +616,21 @@ static void dsi_calc_pclk(struct msm_dsi_host 
+>>>> *msm_host, bool is_bonded_dsi)
+>>>>   }
+>>>> -int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool 
+>>>> is_bonded_dsi)
+>>>> +int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host)
+>>>>   {
+>>>> -    if (!msm_host->mode) {
+>>>> -        pr_err("%s: mode not set\n", __func__);
+>>>> -        return -EINVAL;
+>>>> -    }
+>>>> -
+>>>> -    dsi_calc_pclk(msm_host, is_bonded_dsi);
+>>>>       msm_host->esc_clk_rate = clk_get_rate(msm_host->esc_clk);
+>>>> +
+>>>>       return 0;
+>>>>   }
+>>>> -int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool 
+>>>> is_bonded_dsi)
+>>>> +int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host)
+>>>>   {
+>>>>       u32 bpp = dsi_get_bpp(msm_host->format);
+>>>>       u64 pclk_bpp;
+>>>>       unsigned int esc_mhz, esc_div;
+>>>>       unsigned long byte_mhz;
+>>>> -    dsi_calc_pclk(msm_host, is_bonded_dsi);
+>>>> -
+>>>> -    pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, 
+>>>> is_bonded_dsi) * bpp;
+>>>> +    pclk_bpp = msm_host->pixel_clk_rate * bpp;
+>>>>       do_div(pclk_bpp, 8);
+>>>>       msm_host->src_clk_rate = pclk_bpp;
+>>>> @@ -2292,7 +2285,14 @@ void msm_dsi_host_get_phy_clk_req(struct 
+>>>> mipi_dsi_host *host,
+>>>>       const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+>>>>       int ret;
+>>>> -    ret = cfg_hnd->ops->calc_clk_rate(msm_host, is_bonded_dsi);
+>>>> +    if (!msm_host->mode) {
+>>>> +        pr_err("%s: mode not set\n", __func__);
+>>>> +        return;
+>>>> +    }
+>>>> +
+>>>> +    dsi_calc_pclk(msm_host, is_bonded_dsi);
+>>>> +
+>>>> +    ret = cfg_hnd->ops->calc_clk_rate(msm_host);
+>>>
+>>> I am not too sure what we are gaining by this.
+>>>
+>>> Its not that we are replacing dsi_get_pclk_rate().
+>>>
+>>> We are moving the dsi_get_pclk_rate() from the calc_clk_rate() to the 
+>>> msm_dsi_host_get_phy_clk_req().
+>>>
+>>> Also, with this change, dsi_calc_clk_rate_6g() looks kind of empty to 
+>>> stand on its own.
+>>>
+>>> The original intention of the calc_clk_rate() op seems to be 
+>>> calculate and store all the clocks (byte, pixel and esc).
+>>>
+>>> Why change that behavior by breaking it up?
 >>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>  .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 216 +++++++++++++++++++++
->>  1 file changed, 216 insertions(+)
->>
+>> Unification between platforms. Both v2 and 6g platforms call 
+>> dsi_calc_pclk(). Let's just move it to a common code path.
 > 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> Hi Dmitry,
 > 
-> yamllint warnings/errors:
+> I think what Abhinav means here is that the meaning and functionality of 
+> calc_clk_rate() changes with this patch.
 > 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.example.dtb: display-controller@5e01000: clock-names:0: 'bus' was expected
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.example.dtb: display-controller@5e01000: clock-names:1: 'iface' was expected
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.example.dtb: display-controller@5e01000: clock-names:2: 'rot' was expected
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.example.dtb: display-controller@5e01000: clock-names:4: 'core' was expected
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml
+> Before, calc_clk_rate() does *all* the clk_rate calculations and 
+> assignments. But after this change, it will only calculate and assign 
+> the escape clk rate.
 > 
-Whoops, forgot to fix the bindings.. there was going to be a v5 anyway.
+> I agree with Abhinav that this change renders the calc_clk_rate() op 
+> misleading as it will not calculate all of the clock rates anymore.
 
-Konrad
-> doc reference errors (make refcheckdocs):
+Would it make sense if I rename it to calc_other_clock_rates()?
+
+Moving pclk calculation to the core code emphasises that pclk 
+calculation is common between v2 and 6g hosts.
+
 > 
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230411-topic-straitlagoon_mdss-v4-5-68e7e25d70e1@linaro.org
+> Thanks,
 > 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
+> Jessica Zhang
 > 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+>>
+>>>
+>>>>       if (ret) {
+>>>>           pr_err("%s: unable to calc clk rate, %d\n", __func__, ret);
+>>>>           return;
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
+>>
+
+-- 
+With best wishes
+Dmitry
+
