@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A18470A451
-	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 03:33:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 050F170A459
+	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 03:34:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E67210E62C;
-	Sat, 20 May 2023 01:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C440610E115;
+	Sat, 20 May 2023 01:34:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C37D10E62B
- for <freedreno@lists.freedesktop.org>; Sat, 20 May 2023 01:33:18 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2af290cf9b7so10613041fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:33:17 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D8AD10E480
+ for <freedreno@lists.freedesktop.org>; Sat, 20 May 2023 01:34:19 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2ac7462d9f1so45071171fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:34:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684546396; x=1687138396;
+ d=linaro.org; s=google; t=1684546455; x=1687138455;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=UAL5nYCj2vZvRS2Tz7EI1xVwLYus4KEX3uqoy05ZFFI=;
- b=MTtBkbuHU4/MtJ2M4gEQGQcKGpcAIKjxMBA8u71oeSIBlIaXgZGwFWU8lP4d4QpWGz
- Q55Uc+H4S97UyOl520XJv4/JiqOhB9R3obS14SIpS5axsPkO/1bWKNFPjNe0FMmBLY7O
- sN3GU7V7SIkd5vO8+0rrihI3bOsM8ADLqD7XnkRwj9roQM7UoFl55dx/JLkHAncL0h66
- PHVSkLoXKte65M6h/FWpH8RZCC94imjYWBnd1XfWCm3KB/9HhDqXRzzl5nZxisu5A/b3
- H/IzKovHCpUSQOHXzr593hDO0I3aKt8S6be3DqAbJfE0TY04RC9/mxzbLsKKt3FtOWlm
- vQ6A==
+ bh=pLAGUtWMudiFE1fjRVJz4UPReT3teB4CnEhketxzvG8=;
+ b=jtF8SWdB4WbRVXC2NVHEZAvpwX249s2JclIrlpwexrwTZ2cgknIxXFoIhINKIkcngD
+ APKbH2AD071j63Ei7ZCjRI1cp3sR8ofPnMa9S+XUjAUpqcGwkEGcPnoZpNeqQjcxKRU/
+ 1bZ9K5Xzfn680v4atudeR+w5P+OUWHaQixtmKmpyo99nmTydUPJRLgvoV7GLffnLjbCw
+ +7c2yO4kksTWsoRJNjLgSvyjbsZdl4IxeX4OdRdo2/bILsDog/QeiCBEY6XyYVD5MgLs
+ PVniMBfasG458Cuy73WkDz3ybI67t7Kj3E0BlX7pibybU/fzS8tBbrjxg1beaIWUuomF
+ BFLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684546396; x=1687138396;
+ d=1e100.net; s=20221208; t=1684546455; x=1687138455;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UAL5nYCj2vZvRS2Tz7EI1xVwLYus4KEX3uqoy05ZFFI=;
- b=IEGnOwgWckTJ1rTCTD4qUgaw65Bf7/oNGkuZGXNWt6SG1f4/5tYRZOadXfUqdQKp0X
- fXwjh5OpwUjFPJzr2AGc+Dn3k6faZnVHtMci9CyhO6eCCShlHqg+3qAgHYgokFxbainI
- y8hkAL0Dc5YSvnt5BH+0AzmMGGPTH0iDIP4FAx5dEMUfmfbkrOkMeQHcGLYm1q9xtpM/
- b5i8ob2oYFVtvGelL+NMEtRj/KKRBxQRa96au/yFbl+2WNZaM160ema6KLOfIeH2qu1c
- KgXx8730uOYIqJXCufHsB+WnyXTOsKgp9OxM6Y3/jYbgHl2r/v45JMqpILO2QXDoclPi
- UY7w==
-X-Gm-Message-State: AC+VfDxzXIH5r+C15domH87UD6APvw4UYOQhBoIsXlPkLfJm5HZvsSJq
- MulLYHQOQMW2QGBvFeVofy+XUQ==
-X-Google-Smtp-Source: ACHHUZ7HHg3UADQtG6fGoZzNDiGfxuM+1bHdrchFAFZ7Orolvob30+32S9e800thyEfVX5X2KbhKPw==
-X-Received: by 2002:ac2:4e4c:0:b0:4f3:ac64:84f5 with SMTP id
- f12-20020ac24e4c000000b004f3ac6484f5mr1097360lfr.36.1684546396305; 
- Fri, 19 May 2023 18:33:16 -0700 (PDT)
+ bh=pLAGUtWMudiFE1fjRVJz4UPReT3teB4CnEhketxzvG8=;
+ b=IJZR0hEIP+E6qZ5/VpIGP+WkN3A4aJ0OXG3puIIXJdfjMMDks/IcvLpdy9bjyGX+1v
+ ovUNA9hPMJsqFZCTJFGsgjYMgVoFIKhZX3XnReJUexJKQnRA3DNoVIuZZNbHTVRTkmzK
+ zP7nFFQYjamaL0LF4pjK7yuvV1TdiQbgSlRHRory90tt4PYMUUL1gFKnSTOsGrA+EDsc
+ qw0SVVl7FbWwS8ZxFfuhfJb075/8zjDguiH0IDo8GaJn0u0Djv0/P9/Yyi7FNAjjYiAg
+ nVBHp5aWRZGYdLTp+YBnGIW+hvqlKi0x/Vr2Ln/JihHJQgnUpuKjWIcNDW9OB1ozcvfm
+ fiuw==
+X-Gm-Message-State: AC+VfDxVOrM24pBo+w1hhcIl7c9Y7aCPFxbfeDBRPx+sus80SzB1A5aZ
+ Wv7rqrv50rtbg46qKaTzampuRw==
+X-Google-Smtp-Source: ACHHUZ7G6s2ldDT/PJWyP3GIpJqiwJxUgAD9NJmFazGPXUEt5kQ8ak4Spemx2LJsae2R6elvXeTolg==
+X-Received: by 2002:a2e:9ac7:0:b0:2ad:509a:22b8 with SMTP id
+ p7-20020a2e9ac7000000b002ad509a22b8mr1586632ljj.16.1684546454796; 
+ Fri, 19 May 2023 18:34:14 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- c26-20020ac2531a000000b004f160559d4asm86296lfh.183.2023.05.19.18.33.15
+ l21-20020a2e99d5000000b002ad333df101sm73780ljj.133.2023.05.19.18.34.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 May 2023 18:33:15 -0700 (PDT)
-Message-ID: <8ae06612-6108-4cda-79b0-7e26b4b38d24@linaro.org>
-Date: Sat, 20 May 2023 04:33:15 +0300
+ Fri, 19 May 2023 18:34:14 -0700 (PDT)
+Message-ID: <e04ed1b6-958e-ffc8-ea5e-7fe89bb2b9f9@linaro.org>
+Date: Sat, 20 May 2023 04:34:13 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
@@ -67,12 +67,13 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
  Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
 References: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
- <20230411-topic-straitlagoon_mdss-v4-9-68e7e25d70e1@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v4-10-68e7e25d70e1@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v4-9-68e7e25d70e1@linaro.org>
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v4-10-68e7e25d70e1@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 09/12] drm/msm: mdss: Add SM6375 support
+Subject: Re: [Freedreno] [PATCH v4 10/12] iommu/arm-smmu-qcom: Sort the
+ compatible list alphabetically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,14 +94,12 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 19/05/2023 20:04, Konrad Dybcio wrote:
-> Add support for MDSS on SM6375.
+> It got broken at some point, fix it up.
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   drivers/gpu/drm/msm/msm_mdss.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
