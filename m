@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A59070A43E
-	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 03:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED7AE70A448
+	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 03:27:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4828310E62B;
-	Sat, 20 May 2023 01:20:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E079110E480;
+	Sat, 20 May 2023 01:27:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0C2810E62A
- for <freedreno@lists.freedesktop.org>; Sat, 20 May 2023 01:20:23 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f13ef4ad91so4528078e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:20:23 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E144F10E480
+ for <freedreno@lists.freedesktop.org>; Sat, 20 May 2023 01:27:02 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ac8d9399d5so45092881fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684545622; x=1687137622;
+ d=linaro.org; s=google; t=1684546021; x=1687138021;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=idK09QRjerUdfw38jS+Z9wofhw3ghWuoa33jJg2Grso=;
- b=j62wmiGYB5+RTNZP8dPGY4Ftn8ajKo7rpU14vlNP2hpxkBgonPXVcFDdV7f/ENe2lD
- XpYMZ0kWLRQPALaERnSCB9ZkzkgrgSbJae870CB+yJOLRvBwPK+pvzezL6y9F/uqnOc0
- qh6F2vHdsqtdPEvYNZTtuVF+Qq1RfrE5tl/rfJ7z3oRjK+jjAUSPTH93EdvDNeUnwUn/
- 6EQDRn4DvDvjETY38td42GZmCkfvywf2w8TBtIMuNsL91dPXKg+5trf1Uk0f89FfvXj3
- fHEtytd+0UJ+Ueaakj8osZjuYFAx+3IbetLKZD+Sz4lw7cl4wgcyI1uD09PjeR1B1wL1
- O5FQ==
+ bh=UpGiQfdC7CJAPSrG431oIQoQ1WsQQX/NbmDyOqUhpQ0=;
+ b=H9QImVvElIGXwqFEEHYziU/1jR8cN1PEp8dORaPxetSx8G+yiK5qb0TpeLsLCVGViz
+ Ze4lBNLrN0UTAzHJHvIEV2nNQ3WO3dyr3x6CT76CTgNhvs5Ff77XVuT0/bzrxdLEkViY
+ /sKJ0iTBZ2ypPrLIOqrUZKVB+kdiCuNHh1Ekiw2HiaB+VhMJe0U6IbPRcCmLdqECYxBx
+ bL0HbwawSHhv9oekPBPZpHxh/WuBfIXOfNUrLjsZ+D7ENavv1ELZ8yk/A+f+hZkyDwW5
+ H+ukL8SnvrdTVo/TBtIFGAQ7U+1xHWTUflS3UnJGJKuvxrHJQbw2A/iuDBRP/uffd48C
+ hKqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684545622; x=1687137622;
+ d=1e100.net; s=20221208; t=1684546021; x=1687138021;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=idK09QRjerUdfw38jS+Z9wofhw3ghWuoa33jJg2Grso=;
- b=fXrj8/a/wIRgQnRi3gP9uUlznj2wqO4P6UcaQOO3Kh0W5YG60nYMQByowmJQDk05Bh
- JqOS9lgCBeLiy0S76eErjBQGfOsZYLC/6kuPjsAh5Qxf7huz0KGBuK8hf6Spdke1cz0F
- xQjv9SJgKYtIvJ9oYwD3dO2wCroG6rOubkoQyiNda5D4Bw6jaQ543/Zpu66yG5SVqlx/
- KC+Qbdj8rTBiLdbfnIWb7I3+3s06f0dLYJ5iiMwlRUv3xiszXpD/elA6WUw1CUns7MaM
- LGstZdjCcvIc0ppT3wX1OYegDKxc3S+nQ3NXnH1aO+ae6jblJQK4feuPvOaIqdOTuCCv
- LuDQ==
-X-Gm-Message-State: AC+VfDxV5Ifptv3Yk+ZFw9wnkcj8Iobs6JfdIAvK7jmc8S1El8c5bBZ0
- 7qc8EUXJ5vXA9njOp/5Gakbxuw==
-X-Google-Smtp-Source: ACHHUZ5L+B0tUaPEfiUGR6rIXgmZMGCZz4FNtMpNh0ki7IuMWCV31ETphalEaTCPmegXwNF0b+UiAg==
-X-Received: by 2002:a05:6512:403:b0:4f3:a446:8236 with SMTP id
- u3-20020a056512040300b004f3a4468236mr1409771lfk.11.1684545621691; 
- Fri, 19 May 2023 18:20:21 -0700 (PDT)
+ bh=UpGiQfdC7CJAPSrG431oIQoQ1WsQQX/NbmDyOqUhpQ0=;
+ b=iZK4DzbA9rhuFtnIjs8yumhh4P0pei1awluThNqPJiI+5DTGli65s17HSvjPtSgIvk
+ D2mW60mXzxlSfVfR6R86luHKkWUfleK9FNftWU0IQ1jG1nzObjP4cRa85GlvKjSCv/43
+ Wjc0HCI4gLazv8Uel9LuYvaLC7elU6BgjkCEpZtgcqx2BTWx76FCpcVqNY/eQ5i27Dt+
+ wC0hhiu6grNkUR0ENDk0wjL9JZIxjBQWt7KznoeVfxB++6ins7YV59zl5SqMpmys3jk3
+ tTCtN3gpdpAXES3dYKvf5/27mzWbJWptI5LTiBulUtgO3xTjLfZuqW0poprIrffk3Rfe
+ K3xA==
+X-Gm-Message-State: AC+VfDxxlrszSfKsM6qawVr5zZ68Afnq1rYaNcdRGVyO0TYHfwiw3xUE
+ MpxQ1j5WoKrwlssyk1hZ8KVPbA==
+X-Google-Smtp-Source: ACHHUZ7gNJVfI5DJg9sjmVcTaD99mo2iri83qrRKQibTPnORDyEuVpzuKJuSj0TOF0yFNg8gzSYF8g==
+X-Received: by 2002:a05:6512:2182:b0:4ef:f09c:c505 with SMTP id
+ b2-20020a056512218200b004eff09cc505mr1009742lft.37.1684546020991; 
+ Fri, 19 May 2023 18:27:00 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- v3-20020ac25603000000b004f387d97dafsm85058lfd.147.2023.05.19.18.20.20
+ v2-20020a197402000000b004e84d64ab51sm90897lfe.58.2023.05.19.18.27.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 May 2023 18:20:21 -0700 (PDT)
-Message-ID: <3a5d2a34-bdc3-ac64-f69a-c7d99ff2f275@linaro.org>
-Date: Sat, 20 May 2023 04:20:20 +0300
+ Fri, 19 May 2023 18:27:00 -0700 (PDT)
+Message-ID: <d7d27051-2853-c979-b965-3cad47f2b693@linaro.org>
+Date: Sat, 20 May 2023 04:26:59 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
@@ -62,13 +62,13 @@ To: Bjorn Andersson <quic_bjorande@quicinc.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>
 References: <20230515030256.300104-1-quic_bjorande@quicinc.com>
- <20230515030256.300104-2-quic_bjorande@quicinc.com>
+ <20230515030256.300104-3-quic_bjorande@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230515030256.300104-2-quic_bjorande@quicinc.com>
+In-Reply-To: <20230515030256.300104-3-quic_bjorande@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dp: Clean up logs dp_power
- module
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dp: Clean up pdev/dev
+ duplication in dp_power
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,162 +89,98 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 15/05/2023 06:02, Bjorn Andersson wrote:
-> The clk_bulk API already provides error messages indicating which
-> specific clock in the request for which the operation failed, further
-> more these errors are associated with the specific DisplayPort
-> controller (rather than the shared drm_device). The additional error
-> messages int he dp_power module does thereby not provide any benefit.
+> The dp_power module keeps track of both the DP controller's struct
+> platform_device and struct device - with the prior pulled out of the
+> dp_parser module.
 > 
-> While at it, none of the dp_power handles passed to these functions are
-> dynamic in nature, so there should not be any need for runtime checking
-> them. Drop these as well.
-
-It might have been slightly better to have this split into two patches, 
-but as this is a debug/logs only, it's fine with me.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+> Clean up the duplication by dropping the platform_device reference and
+> just track the passed struct device.
 > 
 > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/dp/dp_power.c | 62 +++++--------------------------
->   1 file changed, 9 insertions(+), 53 deletions(-)
+>   drivers/gpu/drm/msm/dp/dp_power.c | 16 +++++++---------
+>   1 file changed, 7 insertions(+), 9 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-> index c0aaabb03389..031d2eefef07 100644
+> index 031d2eefef07..9be645f91211 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_power.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_power.c
-> @@ -35,25 +35,16 @@ static int dp_power_clk_init(struct dp_power_private *power)
->   	stream = &power->parser->mp[DP_STREAM_PM];
+> @@ -14,7 +14,6 @@
 >   
->   	rc = devm_clk_bulk_get(dev, core->num_clk, core->clocks);
-> -	if (rc) {
-> -		DRM_ERROR("failed to get %s clk. err=%d\n",
-> -			dp_parser_pm_name(DP_CORE_PM), rc);
-> +	if (rc)
->   		return rc;
-> -	}
->   
->   	rc = devm_clk_bulk_get(dev, ctrl->num_clk, ctrl->clocks);
-> -	if (rc) {
-> -		DRM_ERROR("failed to get %s clk. err=%d\n",
-> -			dp_parser_pm_name(DP_CTRL_PM), rc);
-> +	if (rc)
->   		return -ENODEV;
-> -	}
->   
->   	rc = devm_clk_bulk_get(dev, stream->num_clk, stream->clocks);
-> -	if (rc) {
-> -		DRM_ERROR("failed to get %s clk. err=%d\n",
-> -			dp_parser_pm_name(DP_CTRL_PM), rc);
-> +	if (rc)
->   		return -ENODEV;
-> -	}
->   
->   	return 0;
->   }
-> @@ -121,11 +112,9 @@ int dp_power_clk_enable(struct dp_power *dp_power,
->   			mp = &power->parser->mp[DP_CORE_PM];
->   
->   			rc = clk_bulk_prepare_enable(mp->num_clk, mp->clocks);
-> -			if (rc) {
-> -				DRM_ERROR("fail to enable clks: %s. err=%d\n",
-> -					dp_parser_pm_name(DP_CORE_PM), rc);
-> +			if (rc)
->   				return rc;
-> -			}
-> +
->   			dp_power->core_clks_on = true;
->   		}
->   	}
-> @@ -133,10 +122,8 @@ int dp_power_clk_enable(struct dp_power *dp_power,
->   	mp = &power->parser->mp[pm_type];
->   	if (enable) {
->   		rc = clk_bulk_prepare_enable(mp->num_clk, mp->clocks);
-> -		if (rc) {
-> -			DRM_ERROR("failed to enable clks, err: %d\n", rc);
-> +		if (rc)
->   			return rc;
-> -		}
->   	} else {
->   		clk_bulk_disable_unprepare(mp->num_clk, mp->clocks);
->   	}
-> @@ -162,34 +149,19 @@ int dp_power_clk_enable(struct dp_power *dp_power,
->   
->   int dp_power_client_init(struct dp_power *dp_power)
+>   struct dp_power_private {
+>   	struct dp_parser *parser;
+> -	struct platform_device *pdev;
+>   	struct device *dev;
+>   	struct drm_device *drm_dev;
+>   	struct clk *link_clk_src;
+> @@ -28,7 +27,7 @@ static int dp_power_clk_init(struct dp_power_private *power)
 >   {
-> -	int rc = 0;
->   	struct dp_power_private *power;
->   
-> -	if (!dp_power) {
-> -		DRM_ERROR("invalid power data\n");
-> -		return -EINVAL;
-> -	}
-> -
->   	power = container_of(dp_power, struct dp_power_private, dp_power);
->   
->   	pm_runtime_enable(&power->pdev->dev);
->   
-> -	rc = dp_power_clk_init(power);
-> -	if (rc)
-> -		DRM_ERROR("failed to init clocks %d\n", rc);
-> -
-> -	return rc;
-> +	return dp_power_clk_init(power);
->   }
->   
->   void dp_power_client_deinit(struct dp_power *dp_power)
->   {
->   	struct dp_power_private *power;
->   
-> -	if (!dp_power) {
-> -		DRM_ERROR("invalid power data\n");
-> -		return;
-> -	}
-> -
->   	power = container_of(dp_power, struct dp_power_private, dp_power);
->   
->   	pm_runtime_disable(&power->pdev->dev);
-> @@ -200,25 +172,14 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
 >   	int rc = 0;
->   	struct dp_power_private *power = NULL;
+>   	struct dss_module_power *core, *ctrl, *stream;
+> -	struct device *dev = &power->pdev->dev;
+> +	struct device *dev = power->dev;
 >   
-> -	if (!dp_power) {
-> -		DRM_ERROR("invalid power data\n");
-> -		return -EINVAL;
-> -	}
-> -
+>   	core = &power->parser->mp[DP_CORE_PM];
+>   	ctrl = &power->parser->mp[DP_CTRL_PM];
+> @@ -153,7 +152,7 @@ int dp_power_client_init(struct dp_power *dp_power)
+>   
 >   	power = container_of(dp_power, struct dp_power_private, dp_power);
 >   
->   	pm_runtime_get_sync(&power->pdev->dev);
+> -	pm_runtime_enable(&power->pdev->dev);
+> +	pm_runtime_enable(power->dev);
+>   
+>   	return dp_power_clk_init(power);
+>   }
+> @@ -164,7 +163,7 @@ void dp_power_client_deinit(struct dp_power *dp_power)
+>   
+>   	power = container_of(dp_power, struct dp_power_private, dp_power);
+>   
+> -	pm_runtime_disable(&power->pdev->dev);
+> +	pm_runtime_disable(power->dev);
+>   }
+>   
+>   int dp_power_init(struct dp_power *dp_power, bool flip)
+> @@ -174,11 +173,11 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
+>   
+>   	power = container_of(dp_power, struct dp_power_private, dp_power);
+>   
+> -	pm_runtime_get_sync(&power->pdev->dev);
+> +	pm_runtime_get_sync(power->dev);
 >   
 >   	rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
-> -	if (rc) {
-> -		DRM_ERROR("failed to enable DP core clocks, %d\n", rc);
-> -		goto exit;
-> -	}
-> -
-> -	return 0;
-> +	if (rc)
-> +		pm_runtime_put_sync(&power->pdev->dev);
+>   	if (rc)
+> -		pm_runtime_put_sync(&power->pdev->dev);
+> +		pm_runtime_put_sync(power->dev);
 >   
-> -exit:
-> -	pm_runtime_put_sync(&power->pdev->dev);
 >   	return rc;
 >   }
+> @@ -190,7 +189,7 @@ int dp_power_deinit(struct dp_power *dp_power)
+>   	power = container_of(dp_power, struct dp_power_private, dp_power);
 >   
-> @@ -238,11 +199,6 @@ struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser)
+>   	dp_power_clk_enable(dp_power, DP_CORE_PM, false);
+> -	pm_runtime_put_sync(&power->pdev->dev);
+> +	pm_runtime_put_sync(power->dev);
+>   	return 0;
+>   }
+>   
+> @@ -199,12 +198,11 @@ struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser)
+
+Technically we don't even need to pass struct device here, we can get it 
+from parser->pdev->dev.
+
 >   	struct dp_power_private *power;
 >   	struct dp_power *dp_power;
 >   
-> -	if (!parser) {
-> -		DRM_ERROR("invalid input\n");
-> -		return ERR_PTR(-EINVAL);
-> -	}
-> -
->   	power = devm_kzalloc(&parser->pdev->dev, sizeof(*power), GFP_KERNEL);
+> -	power = devm_kzalloc(&parser->pdev->dev, sizeof(*power), GFP_KERNEL);
+> +	power = devm_kzalloc(dev, sizeof(*power), GFP_KERNEL);
 >   	if (!power)
 >   		return ERR_PTR(-ENOMEM);
+>   
+>   	power->parser = parser;
+> -	power->pdev = parser->pdev;
+>   	power->dev = dev;
+>   
+>   	dp_power = &power->dp_power;
 
 -- 
 With best wishes
