@@ -2,73 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED7AE70A448
-	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 03:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D205F70A44D
+	for <lists+freedreno@lfdr.de>; Sat, 20 May 2023 03:33:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E079110E480;
-	Sat, 20 May 2023 01:27:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09E9B10E480;
+	Sat, 20 May 2023 01:33:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E144F10E480
- for <freedreno@lists.freedesktop.org>; Sat, 20 May 2023 01:27:02 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ac8d9399d5so45092881fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:27:02 -0700 (PDT)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A596B10E62A
+ for <freedreno@lists.freedesktop.org>; Sat, 20 May 2023 01:33:09 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2af16426065so31470991fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 19 May 2023 18:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684546021; x=1687138021;
+ d=linaro.org; s=google; t=1684546388; x=1687138388;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=UpGiQfdC7CJAPSrG431oIQoQ1WsQQX/NbmDyOqUhpQ0=;
- b=H9QImVvElIGXwqFEEHYziU/1jR8cN1PEp8dORaPxetSx8G+yiK5qb0TpeLsLCVGViz
- Ze4lBNLrN0UTAzHJHvIEV2nNQ3WO3dyr3x6CT76CTgNhvs5Ff77XVuT0/bzrxdLEkViY
- /sKJ0iTBZ2ypPrLIOqrUZKVB+kdiCuNHh1Ekiw2HiaB+VhMJe0U6IbPRcCmLdqECYxBx
- bL0HbwawSHhv9oekPBPZpHxh/WuBfIXOfNUrLjsZ+D7ENavv1ELZ8yk/A+f+hZkyDwW5
- H+ukL8SnvrdTVo/TBtIFGAQ7U+1xHWTUflS3UnJGJKuvxrHJQbw2A/iuDBRP/uffd48C
- hKqQ==
+ bh=9m6FYEdyuS34WJpEKNGhiGJw26BbhauPjEFJhVqIy84=;
+ b=J2WAtndni5pg8zI01jaEewzpdR8rCPsAoHbZekp+7M7wC2x3R9lV418//z863DW65n
+ 2lUc3KDyHqYLd/BYBzCb+uiqjLN/9CLt1T1xBY4W326Xz1VlLg27DhrsdUr4KSEGc4e7
+ rwLGneMzBtX9uDKXQ2tiw+kMkyTrE3mKeqUvyAOECJqTiUVwCraa9sePU3K9gItlfFUz
+ 1fccnmpHkpoYH6BPpwxCn/QluiL5NGN+jeyHtyD9ahQjzJaKQvimoTnyv59pD0rWMtt5
+ FbuBOuOjbn7d8xA3FKXll6cU3ijggLoMHkMRp8NIQ9Qd7KxbWm3ySAdYBfXjJ8Duwq71
+ h4Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684546021; x=1687138021;
+ d=1e100.net; s=20221208; t=1684546388; x=1687138388;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UpGiQfdC7CJAPSrG431oIQoQ1WsQQX/NbmDyOqUhpQ0=;
- b=iZK4DzbA9rhuFtnIjs8yumhh4P0pei1awluThNqPJiI+5DTGli65s17HSvjPtSgIvk
- D2mW60mXzxlSfVfR6R86luHKkWUfleK9FNftWU0IQ1jG1nzObjP4cRa85GlvKjSCv/43
- Wjc0HCI4gLazv8Uel9LuYvaLC7elU6BgjkCEpZtgcqx2BTWx76FCpcVqNY/eQ5i27Dt+
- wC0hhiu6grNkUR0ENDk0wjL9JZIxjBQWt7KznoeVfxB++6ins7YV59zl5SqMpmys3jk3
- tTCtN3gpdpAXES3dYKvf5/27mzWbJWptI5LTiBulUtgO3xTjLfZuqW0poprIrffk3Rfe
- K3xA==
-X-Gm-Message-State: AC+VfDxxlrszSfKsM6qawVr5zZ68Afnq1rYaNcdRGVyO0TYHfwiw3xUE
- MpxQ1j5WoKrwlssyk1hZ8KVPbA==
-X-Google-Smtp-Source: ACHHUZ7gNJVfI5DJg9sjmVcTaD99mo2iri83qrRKQibTPnORDyEuVpzuKJuSj0TOF0yFNg8gzSYF8g==
-X-Received: by 2002:a05:6512:2182:b0:4ef:f09c:c505 with SMTP id
- b2-20020a056512218200b004eff09cc505mr1009742lft.37.1684546020991; 
- Fri, 19 May 2023 18:27:00 -0700 (PDT)
+ bh=9m6FYEdyuS34WJpEKNGhiGJw26BbhauPjEFJhVqIy84=;
+ b=cA1uGDJ08Kc7zMDHE9DNG4UfSh5fGyQJjbkPbdemxlvu34cg7W6SaPjnb1agg54Gzx
+ Pf4GtP//TlWEDcjfeFLjjjoTbbMNRFSs5E0P+Fi4O1UBnIVatiVkbPA4wcEC9L8ZIZ3p
+ C8Wj4IpwIKfzy/PykNyt+gQGAwpLh69fxtGSS2yTXEM5inoV7TrzWvCiExwvojZgZLPw
+ tI7TxBDibzwn/OwxK7yn7HV2XH2Eh/Xuk1DfIIduQO9q+YOQ+i01KBAnKP38aSRrfiQS
+ 11mxF1FXRSATWw1hQEhRdi9+f1kjpFo5eC4cRWDuP1pD1nH/IuaGC+B/Ebfjj1AtceCc
+ 2SIA==
+X-Gm-Message-State: AC+VfDw7A1Cgjs8BMzWYLhPAUkF6is44OGikr1b06nVHGEgxZQTO+nFn
+ SMWbrE2s2hP2MXPmHkDxfAPuxA==
+X-Google-Smtp-Source: ACHHUZ7hSJky8D3B+kEQc4AR9VaHMZsAgYX95I/Fi+l7dRlfuSrwNICffM982tuTFljAsF+j/ezRAA==
+X-Received: by 2002:a2e:880a:0:b0:2af:20c9:3f8a with SMTP id
+ x10-20020a2e880a000000b002af20c93f8amr1515995ljh.7.1684546387794; 
+ Fri, 19 May 2023 18:33:07 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- v2-20020a197402000000b004e84d64ab51sm90897lfe.58.2023.05.19.18.27.00
+ k7-20020ac24567000000b004efe9a169d2sm92819lfm.64.2023.05.19.18.33.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 May 2023 18:27:00 -0700 (PDT)
-Message-ID: <d7d27051-2853-c979-b965-3cad47f2b693@linaro.org>
-Date: Sat, 20 May 2023 04:26:59 +0300
+ Fri, 19 May 2023 18:33:07 -0700 (PDT)
+Message-ID: <02e1886f-801e-6100-f977-be407697df29@linaro.org>
+Date: Sat, 20 May 2023 04:33:06 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
 Content-Language: en-GB
-To: Bjorn Andersson <quic_bjorande@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <20230515030256.300104-1-quic_bjorande@quicinc.com>
- <20230515030256.300104-3-quic_bjorande@quicinc.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Will Deacon
+ <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v4-8-68e7e25d70e1@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230515030256.300104-3-quic_bjorande@quicinc.com>
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v4-8-68e7e25d70e1@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dp: Clean up pdev/dev
- duplication in dp_power
+Subject: Re: [Freedreno] [PATCH v4 08/12] drm/msm/dpu: Add SM6375 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,106 +85,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
- freedreno@lists.freedesktop.org, Johan Hovold <johan+linaro@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/05/2023 06:02, Bjorn Andersson wrote:
-> The dp_power module keeps track of both the DP controller's struct
-> platform_device and struct device - with the prior pulled out of the
-> dp_parser module.
+On 19/05/2023 20:04, Konrad Dybcio wrote:
+> Add basic SM6375 support to the DPU1 driver to enable display output.
 > 
-> Clean up the duplication by dropping the platform_device reference and
-> just track the passed struct device.
-> 
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   drivers/gpu/drm/msm/dp/dp_power.c | 16 +++++++---------
->   1 file changed, 7 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-> index 031d2eefef07..9be645f91211 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_power.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
-> @@ -14,7 +14,6 @@
->   
->   struct dp_power_private {
->   	struct dp_parser *parser;
-> -	struct platform_device *pdev;
->   	struct device *dev;
->   	struct drm_device *drm_dev;
->   	struct clk *link_clk_src;
-> @@ -28,7 +27,7 @@ static int dp_power_clk_init(struct dp_power_private *power)
->   {
->   	int rc = 0;
->   	struct dss_module_power *core, *ctrl, *stream;
-> -	struct device *dev = &power->pdev->dev;
-> +	struct device *dev = power->dev;
->   
->   	core = &power->parser->mp[DP_CORE_PM];
->   	ctrl = &power->parser->mp[DP_CTRL_PM];
-> @@ -153,7 +152,7 @@ int dp_power_client_init(struct dp_power *dp_power)
->   
->   	power = container_of(dp_power, struct dp_power_private, dp_power);
->   
-> -	pm_runtime_enable(&power->pdev->dev);
-> +	pm_runtime_enable(power->dev);
->   
->   	return dp_power_clk_init(power);
->   }
-> @@ -164,7 +163,7 @@ void dp_power_client_deinit(struct dp_power *dp_power)
->   
->   	power = container_of(dp_power, struct dp_power_private, dp_power);
->   
-> -	pm_runtime_disable(&power->pdev->dev);
-> +	pm_runtime_disable(power->dev);
->   }
->   
->   int dp_power_init(struct dp_power *dp_power, bool flip)
-> @@ -174,11 +173,11 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
->   
->   	power = container_of(dp_power, struct dp_power_private, dp_power);
->   
-> -	pm_runtime_get_sync(&power->pdev->dev);
-> +	pm_runtime_get_sync(power->dev);
->   
->   	rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
->   	if (rc)
-> -		pm_runtime_put_sync(&power->pdev->dev);
-> +		pm_runtime_put_sync(power->dev);
->   
->   	return rc;
->   }
-> @@ -190,7 +189,7 @@ int dp_power_deinit(struct dp_power *dp_power)
->   	power = container_of(dp_power, struct dp_power_private, dp_power);
->   
->   	dp_power_clk_enable(dp_power, DP_CORE_PM, false);
-> -	pm_runtime_put_sync(&power->pdev->dev);
-> +	pm_runtime_put_sync(power->dev);
->   	return 0;
->   }
->   
-> @@ -199,12 +198,11 @@ struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser)
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 153 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>   4 files changed, 156 insertions(+)
 
-Technically we don't even need to pass struct device here, we can get it 
-from parser->pdev->dev.
-
->   	struct dp_power_private *power;
->   	struct dp_power *dp_power;
->   
-> -	power = devm_kzalloc(&parser->pdev->dev, sizeof(*power), GFP_KERNEL);
-> +	power = devm_kzalloc(dev, sizeof(*power), GFP_KERNEL);
->   	if (!power)
->   		return ERR_PTR(-ENOMEM);
->   
->   	power->parser = parser;
-> -	power->pdev = parser->pdev;
->   	power->dev = dev;
->   
->   	dp_power = &power->dp_power;
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
