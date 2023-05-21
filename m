@@ -1,67 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D21670AF4F
-	for <lists+freedreno@lfdr.de>; Sun, 21 May 2023 19:34:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FED770AF68
+	for <lists+freedreno@lfdr.de>; Sun, 21 May 2023 20:12:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBADB10E1ED;
-	Sun, 21 May 2023 17:34:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77ADB10E023;
+	Sun, 21 May 2023 18:12:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC25710E1EC
- for <freedreno@lists.freedesktop.org>; Sun, 21 May 2023 17:34:13 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4efe8b3f3f7so5758064e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 21 May 2023 10:34:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684690452; x=1687282452;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Dx5VtIdw4xz9+p4ACct80X9rQk3FASEXkqwK53EC+yo=;
- b=AtBDHn5XfXMiUU5UN1Jr0wMa5AitUJS7oNCQbWgXYj6b17DwNSYd7FlfQJqP9Pd5t7
- 5ecw4m8JovTnJ4keUcJSfJZ55XtVsXvu1Hr5Nmn2Cyj21ByTVWeFzDfyxjvMLS6n51U6
- A9TbcRkBs1JFOpEskvZ3XarkWstkvjYwXSIS/M/DgAhL2znelzZ0OtI05Vg114u4hSST
- 2eyIqS5CmByYsg4ctLXHBPZPK8br8nXT6Cs6V4dMlA4hbk88lDSjtQCBpVGZscooXt7I
- 8aM12dwHWX+aBd+v0pzI1LexnWkT1DGinPnTCg3OGQ/KEVRNCwe53l3SS7ndQ7TezMLs
- 0lfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684690452; x=1687282452;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Dx5VtIdw4xz9+p4ACct80X9rQk3FASEXkqwK53EC+yo=;
- b=KQpVti8SVc1APGYhVdpihI/R6RCKNaIr5SjnEfs0MoEe2FL/XOwKzEZg5lYpjb3jz5
- 2NqIWkf84GR46SWOHwPSb1bst7EdFxrV82wnqlMALRiVb5KT/iWKceOn6+NgEJpa+Qsf
- Q27nSkv5d3iZYlv4QNVHkJE94284Q4sTWYb/27y/uSNdvCELwXcjMjA4eWejtxqgl+99
- v5VUIf8QtyOaDIFVuVth4vIFtq4/R6yaDI2Dsrs24nqHkov46k83iEkxdQRRUROawNga
- dJ2T//y63pwGjxq6XbPNlRLzS1QxfaMY7W8VUavcNuzurQepAJ1M7HAMppHyptt5r9uo
- 9z5g==
-X-Gm-Message-State: AC+VfDyM9ltBs/kP3paLnencWeHRJ6WyVCO9MkMqjBoRiUBUnu8cE9d2
- PHyN3XF5Xyn1W5tEmootobJCZ2FwJ6qL8d4hFFA=
-X-Google-Smtp-Source: ACHHUZ6g7QQ7TPLvDpyS+uB2oszYUZsRFTc/Mnt5MXrj/JkMn1R6HTDwVfS0/VSsVVpi1/942/BoxQ==
-X-Received: by 2002:a05:6512:2182:b0:4f1:42ea:c242 with SMTP id
- b2-20020a056512218200b004f142eac242mr2307991lft.3.1684690451788; 
- Sun, 21 May 2023 10:34:11 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- v28-20020ac2593c000000b004f13eff5375sm690908lfi.45.2023.05.21.10.34.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 May 2023 10:34:11 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Sun, 21 May 2023 20:34:10 +0300
-Message-Id: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C37010E023
+ for <freedreno@lists.freedesktop.org>; Sun, 21 May 2023 18:12:04 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 0EEBB3F336;
+ Sun, 21 May 2023 20:11:59 +0200 (CEST)
+Date: Sun, 21 May 2023 20:11:58 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <fihs3di7da5rnvx63n4ums65rer62nps2ber77rojrtwacrgih@3r3aeedfvdr2>
+References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/drv: propagate errors from
- drm_modeset_register_all()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,49 +42,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In case the drm_modeset_register_all() function fails, its error code
-will be ignored. Instead make the drm_dev_register() bail out in case of
-such an error.
+On 2023-05-21 20:21:46, Dmitry Baryshkov wrote:
+> Drop SSPP-specifig debugfs register dumps in favour of using
+> debugfs/dri/0/kms or devcoredump.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Fixes: 79190ea2658a ("drm: Add callbacks for late registering")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/drm_drv.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index c6eb8972451a..dc4a496795ee 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -938,8 +938,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 			goto err_minors;
- 	}
- 
--	if (drm_core_check_feature(dev, DRIVER_MODESET))
--		drm_modeset_register_all(dev);
-+	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
-+		ret = drm_modeset_register_all(dev);
-+		if (ret)
-+			goto err_unload;
-+	}
- 
- 	DRM_INFO("Initialized %s %d.%d.%d %s for %s on minor %d\n",
- 		 driver->name, driver->major, driver->minor,
-@@ -949,6 +952,9 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 
- 	goto out_unlock;
- 
-+err_unload:
-+	if (dev->driver->unload)
-+		dev->driver->unload(dev);
- err_minors:
- 	remove_compat_control_link(dev);
- 	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
--- 
-2.39.2
-
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 25 ---------------------
+>  1 file changed, 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index bfd82c2921af..6c5ebee2f7cd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -727,31 +727,6 @@ int _dpu_hw_sspp_init_debugfs(struct dpu_hw_sspp *hw_pipe, struct dpu_kms *kms,
+>  	debugfs_create_xul("features", 0600,
+>  			debugfs_root, (unsigned long *)&hw_pipe->cap->features);
+>  
+> -	/* add register dump support */
+> -	dpu_debugfs_create_regset32("src_blk", 0400,
+> -			debugfs_root,
+> -			sblk->src_blk.base + cfg->base,
+> -			sblk->src_blk.len,
+> -			kms);
+> -
+> -	if (cfg->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
+> -			cfg->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
+> -			cfg->features & BIT(DPU_SSPP_SCALER_QSEED2) ||
+> -			cfg->features & BIT(DPU_SSPP_SCALER_QSEED4))
+> -		dpu_debugfs_create_regset32("scaler_blk", 0400,
+> -				debugfs_root,
+> -				sblk->scaler_blk.base + cfg->base,
+> -				sblk->scaler_blk.len,
+> -				kms);
+> -
+> -	if (cfg->features & BIT(DPU_SSPP_CSC) ||
+> -			cfg->features & BIT(DPU_SSPP_CSC_10BIT))
+> -		dpu_debugfs_create_regset32("csc_blk", 0400,
+> -				debugfs_root,
+> -				sblk->csc_blk.base + cfg->base,
+> -				sblk->csc_blk.len,
+> -				kms);
+> -
+>  	debugfs_create_u32("xin_id",
+>  			0400,
+>  			debugfs_root,
+> -- 
+> 2.39.2
+> 
