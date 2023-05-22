@@ -1,58 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 788BC70D78E
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 10:34:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E38371A2E0
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 17:42:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44AA910E410;
-	Tue, 23 May 2023 08:34:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E00110E158;
+	Thu,  1 Jun 2023 15:42:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC0810E40F;
- Tue, 23 May 2023 08:34:55 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id
- 46e09a7af769-6af754a2f2cso1812833a34.1; 
- Tue, 23 May 2023 01:34:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684830895; x=1687422895;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Fbuuelze6oX5JYOQ10a+DjnQCHnZU9fuAvZCu9bIt5c=;
- b=U3rczKzudNmeJZRFf3xz4uzmdTGz31rVkurHbMGsTFRTmLmoeIob7gdJ3wQpp/fw/m
- BZ0gp8LhT92gwW/1VVwlvDQPlW2rbzVi0/E4x8nKi7q3jMm4biySVaYMOPf5n/bodLBc
- jwZiQ+dDsqgwZiIyPj/bic+MnTqGkGrafBb9wU97Bsm/UDj9Mx9CIfnXa5FG6RcthgTq
- rEXeL0NEx33vc/2E68ll5xzBoNvBVX5dzg9QNO1RJ1tD+79a3PEipYj7QpaKp+9Wqebu
- 5zKi6hd84HGxTdAFPk3Bfqa7oSAMD3v+SI3kXsZU3/ySfz3KSxNMkIV5TuC0hJkKxFcO
- caUw==
-X-Gm-Message-State: AC+VfDyqjzaDmH74GbpmYr+awKuEm3Qkgyor6Ks+G3EFWwF8xm0Yzk9C
- aWGhtDXEA8sfz/UfGJMO5Kh2NP5QWA==
-X-Google-Smtp-Source: ACHHUZ7/tT2ff11MVD89mp0Uq6HgcF9rMmy1Is5kbzuJKiVecR9PIqUjz5MCk5++W0yN001aVxjPUQ==
-X-Received: by 2002:a9d:6b11:0:b0:6af:85fd:ffff with SMTP id
- g17-20020a9d6b11000000b006af85fdffffmr2136294otp.25.1684830894792; 
- Tue, 23 May 2023 01:34:54 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- q25-20020a9d7c99000000b006aaf82bd5a2sm3258395otn.43.2023.05.23.01.34.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 May 2023 01:34:54 -0700 (PDT)
-Received: (nullmailer pid 140433 invoked by uid 1000);
- Tue, 23 May 2023 08:34:52 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-Greylist: delayed 485 seconds by postgrey-1.36 at gabe;
+ Mon, 22 May 2023 01:40:42 UTC
+Received: from mail.nfschina.com (unknown [42.101.60.195])
+ by gabe.freedesktop.org (Postfix) with SMTP id D841610E234
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 01:40:42 +0000 (UTC)
+Received: from localhost.localdomain (unknown [180.167.10.98])
+ by mail.nfschina.com (Maildata Gateway V2.8.8) with ESMTPA id 16BFC1800B7C44; 
+ Mon, 22 May 2023 09:32:24 +0800 (CST)
+X-MD-Sfrom: suhui@nfschina.com
+X-MD-SrcIP: 180.167.10.98
+From: Su Hui <suhui@nfschina.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 22 May 2023 09:32:13 +0800
+Message-Id: <20230522013213.25876-1-suhui@nfschina.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v5-4-998b4d2f7dd1@linaro.org>
-References: <20230411-topic-straitlagoon_mdss-v5-0-998b4d2f7dd1@linaro.org>
- <20230411-topic-straitlagoon_mdss-v5-4-998b4d2f7dd1@linaro.org>
-Message-Id: <168483089214.140382.17835176497108911988.robh@kernel.org>
-Date: Tue, 23 May 2023 03:34:52 -0500
-Subject: Re: [Freedreno] [PATCH v5 04/12] dt-bindings: display/msm: Add
- SM6350 MDSS
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 01 Jun 2023 15:42:20 +0000
+Subject: [Freedreno] [PATCH] drm/msm: Remove unnecessary (void*) conversions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,60 +43,107 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, iommu@lists.linux.dev,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- linux-arm-kernel@lists.infradead.org, Robin Murphy <robin.murphy@arm.com>
+Cc: Su Hui <suhui@nfschina.com>, linux-arm-msm@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Pointer variables of (void*) type do not require type cast.
 
-On Tue, 23 May 2023 09:46:15 +0200, Konrad Dybcio wrote:
-> Document the SM6350 MDSS.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 214 +++++++++++++++++++++
->  1 file changed, 214 insertions(+)
-> 
+Signed-off-by: Su Hui <suhui@nfschina.com>
+---
+ drivers/gpu/drm/msm/adreno/a5xx_debugfs.c | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   | 2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  | 2 +-
+ drivers/gpu/drm/msm/msm_debugfs.c         | 6 +++---
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: dsi@ae94000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,sm6350-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
-	'qcom,sm6350-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm6115-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
-	'qcom,sm6350-dsi-ctrl' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.example.dtb: dsi@ae94000: Unevaluated properties are not allowed ('compatible' was unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230411-topic-straitlagoon_mdss-v5-4-998b4d2f7dd1@linaro.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
+index 6bd397a85834..169b8fe688f8 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_debugfs.c
+@@ -69,7 +69,7 @@ static void roq_print(struct msm_gpu *gpu, struct drm_printer *p)
+ 
+ static int show(struct seq_file *m, void *arg)
+ {
+-	struct drm_info_node *node = (struct drm_info_node *) m->private;
++	struct drm_info_node *node = m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct drm_printer p = drm_seq_file_printer(m);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index cc66ddffe672..6e684a7b49a1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1392,7 +1392,7 @@ DEFINE_SHOW_ATTRIBUTE(_dpu_debugfs_status);
+ 
+ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
+ {
+-	struct drm_crtc *crtc = (struct drm_crtc *) s->private;
++	struct drm_crtc *crtc = s->private;
+ 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+ 
+ 	seq_printf(s, "client type: %d\n", dpu_crtc_get_client_type(crtc));
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 0e7a68714e9e..3b307ce637a6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -57,8 +57,8 @@ static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms);
+ static int _dpu_danger_signal_status(struct seq_file *s,
+ 		bool danger_status)
+ {
+-	struct dpu_kms *kms = (struct dpu_kms *)s->private;
+ 	struct dpu_danger_safe_status status;
++	struct dpu_kms *kms = s->private;
+ 	int i;
+ 
+ 	if (!kms->hw_mdp) {
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 29ae5c9613f3..323079cfd698 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -229,7 +229,7 @@ static void mdp5_kms_destroy(struct msm_kms *kms)
+ #ifdef CONFIG_DEBUG_FS
+ static int smp_show(struct seq_file *m, void *arg)
+ {
+-	struct drm_info_node *node = (struct drm_info_node *) m->private;
++	struct drm_info_node *node = m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index 9c0e633a3a61..a0a936f80ae3 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -211,7 +211,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(shrink_fops,
+ 
+ static int msm_gem_show(struct seq_file *m, void *arg)
+ {
+-	struct drm_info_node *node = (struct drm_info_node *) m->private;
++	struct drm_info_node *node = m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	int ret;
+@@ -229,7 +229,7 @@ static int msm_gem_show(struct seq_file *m, void *arg)
+ 
+ static int msm_mm_show(struct seq_file *m, void *arg)
+ {
+-	struct drm_info_node *node = (struct drm_info_node *) m->private;
++	struct drm_info_node *node = m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct drm_printer p = drm_seq_file_printer(m);
+ 
+@@ -240,7 +240,7 @@ static int msm_mm_show(struct seq_file *m, void *arg)
+ 
+ static int msm_fb_show(struct seq_file *m, void *arg)
+ {
+-	struct drm_info_node *node = (struct drm_info_node *) m->private;
++	struct drm_info_node *node = m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct drm_framebuffer *fb, *fbdev_fb = NULL;
+ 
+-- 
+2.30.2
 
