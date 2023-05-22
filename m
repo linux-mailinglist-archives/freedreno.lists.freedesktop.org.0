@@ -2,63 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B433B70CCC4
-	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 23:45:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E7F70CCD1
+	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 23:45:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA5EE10E2B1;
-	Mon, 22 May 2023 21:45:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D70610E39A;
+	Mon, 22 May 2023 21:45:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E8510E2B7
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B61510E396
  for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 21:45:32 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4f13d8f74abso7278856e87.0
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f00d41df22so5038052e87.1
  for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 14:45:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684791928; x=1687383928;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=k6gn7Y4qoY3ku7wbFuicMLgC2spCVikeHkn0CM0cq+U=;
- b=TRrV+NSmwH0JScLFBWL1YvLsnvWyGmhV732WFztodQD6F/T+kOgYt3A3pZWyVNT9+i
- 2YYeRZntBy0nhvzlYJB9YDLkaILZ3xKklZmBq+y/8MZZXjJS4kZ/dbn5atnD3fImLPwX
- BQ8hDRY5/KEmVir/eab856pq0xPu94/SFsogYvsvTwFa/fWW3nEl7nnoGXssJKOOabLa
- aKWLV9Q6m9a6vZaXkMhIvnKdMmj8IIHZr6AVgMKaSTKHykkjVCNWXrf0wQvc6hn5HtP/
- fTjkdbK0sgnwHWeopBFrRXJuzy9eNj3kKrRQ5r8TRlHfza73io76uDdw1oBu+QEWltld
- cVIg==
+ d=linaro.org; s=google; t=1684791929; x=1687383929;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MPZiyM+41u6KV41f466UiDSi20dbWDpELFpeisbXMJ4=;
+ b=kwLUVb/RYRXphumuuqIPcHjZNC8S1lqilqqEA3cBLONADHlwQAYfa80jx2YNLHEQQ9
+ iyQf2K9TcDaz4BW1XtGrsZuTeyn3XDi3VlELLNMosUnkFVfsjCpfLZt3diwRIEHhUElC
+ 8LlX2FfGZXzn91Ciiy6lzRLYdI6PoQ4jjY6Nu2rPMTb3KhvmnM7shAh5DhsTKpHyhrgA
+ I8l8exLUObliXYi/S0zgG2gcVxvCqBIElpyd2VUvyYyicGLKPNIi3igQ3oqzNd5MQwv6
+ HG5iY7uB/nC7OFwyghTF+zXOrSqJ2YFj8kdUA1j+4vPeGmZDgm47t0+Tqn1sBFFB8+ib
+ gWUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684791928; x=1687383928;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=k6gn7Y4qoY3ku7wbFuicMLgC2spCVikeHkn0CM0cq+U=;
- b=a92bmAomPxZP7YgyZnBmbW+/5YbIyRGWqArJoYRRvXFAY/TeU6sJkabQanjc+IJeyl
- Nhp8RsFQZk26LYgfVPY7nruUePM0rY672bTq/MA1fNVVDEBrsGWVmTwBDV67K183ClqZ
- MtEUfBuYwzPvwfk4sWwjOlA4ZBBobTpTsXd5dzoYHed1WqRyuDzPaCYwDdYOyqXi6VjG
- Bg7fyXlgSuQyLQcUp+LZ4p2cHgmtv+g1RKBzg3tZ2guqTb/gtaoPzrrufD3cnmusVSQD
- pZ0SAoUBrJhYGw+3pSsLUt4uLXaENcaEP8mBQPqXqmODQLCG8wV58ChoVM9uNP7/g6BX
- 5WGg==
-X-Gm-Message-State: AC+VfDxgfJYWWBH/IhJtybfjn0bf+wM1ZUfPB7JzKhGclok+cnCGG2jb
- ueOV/dlYKNlUrd8FyZ2HcxToCA==
-X-Google-Smtp-Source: ACHHUZ6TaZjp2uCnvt0sLePWE7ya6+815pDv0RMQQ2jfUWQNEJpxo0lOlEKl3dQqPUVkcSLKV1a0jg==
-X-Received: by 2002:a05:6512:21c:b0:4f0:5b4:4863 with SMTP id
- a28-20020a056512021c00b004f005b44863mr2944951lfo.0.1684791928542; 
- Mon, 22 May 2023 14:45:28 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684791929; x=1687383929;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MPZiyM+41u6KV41f466UiDSi20dbWDpELFpeisbXMJ4=;
+ b=FNwnGqu3uVI6JJ6+4yqerS3HjSe9GxwA51VGOs+s56+Bnl2k2HSS9hI88mBjfQYMTB
+ khVvixCqkyUPqQRMRKYrbVibfojqn608VPSYF4nW0MtbY8/897IrKkQcrkSoG8YZ2761
+ QUmt/PfV3IPRylyu7/qonME31WlszOsPlWCPyRooCMO0mgXsfiQgRfdNfK8W/06uiBTw
+ YUN5RYZVpev3suYvMhRszQR5Cz3ZENxr329ZiyhJGBUpUFalvZSVRN769NCd3LDN5W+8
+ q8cHK91qzysFNPYCRPxWxICXz/DroxS+Uk/E7T/F5bKCTzOduslg5OoVKoiniYtdnXky
+ xPnA==
+X-Gm-Message-State: AC+VfDw52hK5I0JuEubp/Os8mZiTtBlRqVYNgTQUMrnkdkcd1mCXLaXP
+ qlwxO14KNzYOBr2b1ZLqKgmtYQ==
+X-Google-Smtp-Source: ACHHUZ7N55ew+3ZF5N/qRmIuviul0GR4XA/TKZFj9YvHhFZWy9M6af1HDlhR/8Nr8uEW7b4txVtw+g==
+X-Received: by 2002:a05:6512:b0e:b0:4f3:7974:2f32 with SMTP id
+ w14-20020a0565120b0e00b004f379742f32mr3940967lfu.9.1684791929333; 
+ Mon, 22 May 2023 14:45:29 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- j7-20020ac25507000000b004f2543be9dbsm1106918lfk.5.2023.05.22.14.45.27
+ j7-20020ac25507000000b004f2543be9dbsm1106918lfk.5.2023.05.22.14.45.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 22 May 2023 14:45:28 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 23 May 2023 00:45:21 +0300
-Message-Id: <20230522214527.190054-1-dmitry.baryshkov@linaro.org>
+Date: Tue, 23 May 2023 00:45:22 +0300
+Message-Id: <20230522214527.190054-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230522214527.190054-1-dmitry.baryshkov@linaro.org>
+References: <20230522214527.190054-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/6] drm/msm/dpu: rework interrupt handling
+Subject: [Freedreno] [PATCH v2 1/6] drm/msm/dpu: don't set DPU_INTF_TE
+ globally
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,49 +75,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Declaring the mask of supported interrupts proved to be error-prone. It
-is very easy to add a bit with no corresponding backing block or to miss
-the INTF TE bit. Replace this static configuration with the irq mask
-calculated from the HW catalog data.
+Using BIT(DPU_INTF_TE) in INTF_SC7180_MASK (and by extension in
+INTF_SC7280_MASK) results in this bit (and corrsponding operations)
+being enabled for all interfaces, even the ones which do not have TE
+block. Move this bit setting to INTF_DSI_TE(), so that it is only
+enabled for those INTF blocks which have TE support.
 
-Changes since v1:
- - Enable dpu_caps::has_7xxx_intr for DPU >= 7.0 (Neil)
+Fixes: 152c1d430992 ("drm/msm/dpu: Add TEAR-READ-pointer interrupt to INTF block")
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Dmitry Baryshkov (6):
-  drm/msm/dpu: don't set DPU_INTF_TE globally
-  drm/msm/dpu: inline __intr_offset
-  drm/msm/dpu: split interrupt address arrays
-  drm/msm/dpu: autodetect supported interrupts
-  drm/msm/dpu: drop now-unused mdss_irqs field from hw catalog
-  drm/msm/dpu: drop compatibility INTR defines
-
- .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |   8 --
- .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |   9 --
- .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  11 --
- .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  13 ---
- .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  10 --
- .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |   6 -
- .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   5 -
- .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   5 -
- .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  14 +--
- .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  10 +-
- .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  19 +--
- .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  14 +--
- .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  14 +--
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   3 +-
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   5 +-
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 110 ++++++++++++------
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  21 ++--
- 17 files changed, 102 insertions(+), 175 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 1dee5ba2b312..162141cb5c83 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -101,7 +101,6 @@
+ 
+ #define INTF_SC7180_MASK \
+ 	(BIT(DPU_INTF_INPUT_CTRL) | \
+-	 BIT(DPU_INTF_TE) | \
+ 	 BIT(DPU_INTF_STATUS_SUPPORTED) | \
+ 	 BIT(DPU_DATA_HCTL_EN))
+ 
+@@ -544,7 +543,7 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
+ 	{\
+ 	.name = _name, .id = _id, \
+ 	.base = _base, .len = _len, \
+-	.features = _features, \
++	.features = _features | BIT(DPU_INTF_TE), \
+ 	.type = _type, \
+ 	.controller_id = _ctrl_id, \
+ 	.prog_fetch_lines_worst_case = _progfetch, \
 -- 
 2.39.2
 
