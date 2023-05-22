@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54EE870B288
-	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 02:42:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B5ED170B28C
+	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 02:42:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEA1610E224;
-	Mon, 22 May 2023 00:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8210F10E227;
+	Mon, 22 May 2023 00:42:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A4410E224
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 00:42:32 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2af1a7d2f6aso46237931fa.1
- for <freedreno@lists.freedesktop.org>; Sun, 21 May 2023 17:42:32 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98C0010E229
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 00:42:33 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2af28303127so29547211fa.3
+ for <freedreno@lists.freedesktop.org>; Sun, 21 May 2023 17:42:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684716150; x=1687308150;
+ d=linaro.org; s=google; t=1684716151; x=1687308151;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=eVXHZaacAcP1iX8qcHXfJlVy77mmdg0igWJvVmzqs60=;
- b=h/gxkN3ZPxHD0F9Xhw6aeOHk4QtTkKIdab7Cu2CtGEAx05SODdgTwnECJcjOZmmTNm
- TJzc+AdvxMpOdUhSbputCX+G8rYxkmMPxnptB8VPbFzqEsTfF5yObQyoPAvQIX7dIxZ0
- uSGf0dypOG5sEQPaR12LDbYAOjNzGJQ2FDxJHbEgQJaYF+6jSJaqjOErnV1aWkqgjFQy
- njUNqO4XwEByGoZZ9cFHt3WH4kyAiJ3s94UflHMwwyXnRJfpfm4dIPqo0bYmgBCSSXS6
- ZgmIZ39GvfIPdGSvkSgM7UcyeTVwrTAl0nNIeE5IZ7xFkduF2g3xdtAQc4gcENJYNFkv
- sPOw==
+ bh=BjC2o2RQsqV5nTbuvN77aHeR5dEhH5/JaYtRSJzTgZA=;
+ b=osRVdQTxu2DDCV/zMuHPaTYsul8XmCwWIZ6Dlg6o/+mHuuvoaXK2AJLe3ezd3BGq/l
+ 7vsBT7K2xLun2kgDm1G+zCSZRXqW8gx7uI001V4+Xb5Tw2nY5FZyUiRLM+1vi7P4k6uD
+ rD3VEMccANRFcJeUwHguY+9VPhdzmnVLyFpk25XOVp1r53iLoEqLY07wRfSLQgeVedjW
+ l69JOGn0GrJ3av+oU5gNHrsHOekF+XUyo6fXXKL86RsWejTb9SPyVq7Kc5VwJDlHGhmv
+ A6D7dNCDbXD+2d3Gp9ENQYVWBYIVCXK5RvDEDkCM74ImIYjonap09As3VB8+8rErcHD+
+ sdmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684716150; x=1687308150;
+ d=1e100.net; s=20221208; t=1684716151; x=1687308151;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=eVXHZaacAcP1iX8qcHXfJlVy77mmdg0igWJvVmzqs60=;
- b=BbW3wvyrKddH8QFxZ1AoUPxTOQoz6CyF770WrUqh9f4piLYI3k1BUi4Eaapylj3iX9
- 8aG1DfL/niaiUUmqa9xwDCT/v+OoYT7l+vjKrHEqezZkbyVDyvs33nIC3VkGg4HdecDs
- zd3gxgbDV3kLfpPMKCnMe14AMSZy+bqbe1kHRN9tVx7+w9h9E1vhpK5cTe7ms9uY9sLu
- 0SGm6kBdtAetBCsGwUEvhC201JbVFFgrbUZnULa6Uwrb55y4WM7rP+VU+xSl0CWX+etr
- wXcpKNtaWljOLNOcnVdpawfjopuBL8MzrrD6/oRtEr4wmeXKitCl4YgxnyvZ69zNxU74
- WTgw==
-X-Gm-Message-State: AC+VfDxcZ3glgjcugsW1TDZ4PsnspFDXYUpBeee+vEZU9QOSZMNthB9S
- ZibRauNp94AmqpGTX7fGR8ySRA==
-X-Google-Smtp-Source: ACHHUZ7gEBVcTVfpIFLgZi3nFj50myQdVYS6JPGxDvJOhcB+TuNYsAMkrrpWoGm9USMNAMaIWOnw/g==
-X-Received: by 2002:a2e:95d2:0:b0:2a8:adf6:b0e2 with SMTP id
- y18-20020a2e95d2000000b002a8adf6b0e2mr3305258ljh.13.1684716150723; 
- Sun, 21 May 2023 17:42:30 -0700 (PDT)
+ bh=BjC2o2RQsqV5nTbuvN77aHeR5dEhH5/JaYtRSJzTgZA=;
+ b=UdiWVbf0iX+nPGksFAju7SBvMRTWCeJyhWpw+x4/MiUXRFvCfMkM/fLN4uylGhVyqB
+ 6UYyjdvsu4dCtGpMj6d5AxhANmZ+PvbixHTu5am8Y4+sAvfmIW6Qe6i02WDBvXXhLi0r
+ vSqQK/y16HrsH6w37aQLJs8eZUmFyNoGk2jKwWBYnUzu97h/lYnmaLjw1ElAeuoMj7gs
+ 4RHrp8QSUHt+vhwjzpxYSDLX9d+RoZuoLhFClmDXuqJkQkixgdX2JUGXcXAQh2VjK+Ut
+ MOPVYeNIWya6eDKFpwUJFkQB6magcOEP1/OgGqw0cJ3w2xLd6/Wf2iRMarT8N6fr2JMW
+ dR7g==
+X-Gm-Message-State: AC+VfDxfaCKZigMdLDd6uIfopf8ysonaZclXAfnmSftJr3vX6JcE4T7p
+ tZ1VBkaeLrlS/+vxMEab3kFa3w==
+X-Google-Smtp-Source: ACHHUZ7OxDDO1hEyr87WgCREKr/jBFihNoQyYqsiBKRAApx2ovI+fHiW6aqL+bxS+VTnbG3YqjpNyg==
+X-Received: by 2002:ac2:44d6:0:b0:4dd:ce0b:7692 with SMTP id
+ d22-20020ac244d6000000b004ddce0b7692mr2628528lfm.46.1684716151426; 
+ Sun, 21 May 2023 17:42:31 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- b15-20020ac25e8f000000b004f139712835sm768159lfq.293.2023.05.21.17.42.29
+ b15-20020ac25e8f000000b004f139712835sm768159lfq.293.2023.05.21.17.42.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 May 2023 17:42:30 -0700 (PDT)
+ Sun, 21 May 2023 17:42:31 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Mon, 22 May 2023 03:42:24 +0300
-Message-Id: <20230522004227.134501-4-dmitry.baryshkov@linaro.org>
+Date: Mon, 22 May 2023 03:42:25 +0300
+Message-Id: <20230522004227.134501-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230522004227.134501-1-dmitry.baryshkov@linaro.org>
 References: <20230522004227.134501-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/6] drm/msm/dpu: split interrupt address arrays
+Subject: [Freedreno] [PATCH 4/6] drm/msm/dpu: autodetect supported interrupts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,295 +82,79 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is no point in having a single enum (and a single array) for both
-DPU < 7.0 and DPU >= 7.0 interrupt registers. Instead define a single
-enum and two IRQ address arrays.
+Declaring the mask of supported interrupts proved to be error-prone. It
+is very easy to add a bit with no corresponding backing block or to miss
+the INTF TE bit. Replace this with looping over the enabled INTF blocks
+to setup the irq mask.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  2 +
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 82 +++++++++++++------
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h | 28 ++++---
- 3 files changed, 74 insertions(+), 38 deletions(-)
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 20 ++++++++++++++++++-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  6 ++++++
+ 2 files changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 677048cc3b7d..72530ebb0ae6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -351,6 +351,7 @@ struct dpu_rotation_cfg {
-  * @has_dim_layer      dim layer feature status
-  * @has_idle_pc        indicate if idle power collapse feature is supported
-  * @has_3d_merge       indicate if 3D merge is supported
-+ * @has_7xxx_intr      indicate that INTF/IRQs use addressing for DPU 7.0 and greater
-  * @max_linewidth      max linewidth for sspp
-  * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
-  * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
-@@ -364,6 +365,7 @@ struct dpu_caps {
- 	bool has_dim_layer;
- 	bool has_idle_pc;
- 	bool has_3d_merge;
-+	bool has_7xxx_intr;
- 	/* SSPP limits */
- 	u32 max_linewidth;
- 	u32 pixel_ram_size;
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index 0776b0f6df4f..a03d826bb9ad 100644
+index a03d826bb9ad..01f2660a2354 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -51,11 +51,9 @@ struct dpu_intr_reg {
- };
+@@ -463,6 +463,7 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
+ {
+ 	struct dpu_hw_intr *intr;
+ 	int nirq = MDP_INTR_MAX * 32;
++	unsigned int i;
  
- /*
-- * struct dpu_intr_reg -  List of DPU interrupt registers
-- *
-- * When making changes be sure to sync with dpu_hw_intr_reg
-+ * dpu_intr_set_legacy -  List of DPU interrupt registers for DPU <= 6.x
-  */
--static const struct dpu_intr_reg dpu_intr_set[] = {
-+static const struct dpu_intr_reg dpu_intr_set_legacy[] = {
- 	[MDP_SSPP_TOP0_INTR] = {
- 		INTR_CLEAR,
- 		INTR_EN,
-@@ -121,57 +119,78 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
- 		MDP_AD4_INTR_EN_OFF(1),
- 		MDP_AD4_INTR_STATUS_OFF(1),
- 	},
--	[MDP_INTF0_7xxx_INTR] = {
-+};
-+
-+/*
-+ * dpu_intr_set_7xxx -  List of DPU interrupt registers for DPU >= 7.0
-+ */
-+static const struct dpu_intr_reg dpu_intr_set_7xxx[] = {
-+	[MDP_SSPP_TOP0_INTR] = {
-+		INTR_CLEAR,
-+		INTR_EN,
-+		INTR_STATUS
-+	},
-+	[MDP_SSPP_TOP0_INTR2] = {
-+		INTR2_CLEAR,
-+		INTR2_EN,
-+		INTR2_STATUS
-+	},
-+	[MDP_SSPP_TOP0_HIST_INTR] = {
-+		HIST_INTR_CLEAR,
-+		HIST_INTR_EN,
-+		HIST_INTR_STATUS
-+	},
-+	[MDP_INTF0_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(0),
- 		MDP_INTF_REV_7xxx_INTR_EN(0),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(0)
- 	},
--	[MDP_INTF1_7xxx_INTR] = {
-+	[MDP_INTF1_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(1),
- 		MDP_INTF_REV_7xxx_INTR_EN(1),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(1)
- 	},
--	[MDP_INTF1_7xxx_TEAR_INTR] = {
-+	[MDP_INTF1_TEAR_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(1),
- 		MDP_INTF_REV_7xxx_INTR_TEAR_EN(1),
- 		MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(1)
- 	},
--	[MDP_INTF2_7xxx_INTR] = {
-+	[MDP_INTF2_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(2),
- 		MDP_INTF_REV_7xxx_INTR_EN(2),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(2)
- 	},
--	[MDP_INTF2_7xxx_TEAR_INTR] = {
-+	[MDP_INTF2_TEAR_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_TEAR_CLEAR(2),
- 		MDP_INTF_REV_7xxx_INTR_TEAR_EN(2),
- 		MDP_INTF_REV_7xxx_INTR_TEAR_STATUS(2)
- 	},
--	[MDP_INTF3_7xxx_INTR] = {
-+	[MDP_INTF3_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(3),
- 		MDP_INTF_REV_7xxx_INTR_EN(3),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(3)
- 	},
--	[MDP_INTF4_7xxx_INTR] = {
-+	[MDP_INTF4_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(4),
- 		MDP_INTF_REV_7xxx_INTR_EN(4),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(4)
- 	},
--	[MDP_INTF5_7xxx_INTR] = {
-+	[MDP_INTF5_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(5),
- 		MDP_INTF_REV_7xxx_INTR_EN(5),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(5)
- 	},
--	[MDP_INTF6_7xxx_INTR] = {
-+	[MDP_INTF6_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(6),
- 		MDP_INTF_REV_7xxx_INTR_EN(6),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(6)
- 	},
--	[MDP_INTF7_7xxx_INTR] = {
-+	[MDP_INTF7_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(7),
- 		MDP_INTF_REV_7xxx_INTR_EN(7),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(7)
- 	},
--	[MDP_INTF8_7xxx_INTR] = {
-+	[MDP_INTF8_INTR] = {
- 		MDP_INTF_REV_7xxx_INTR_CLEAR(8),
- 		MDP_INTF_REV_7xxx_INTR_EN(8),
- 		MDP_INTF_REV_7xxx_INTR_STATUS(8)
-@@ -216,19 +235,19 @@ irqreturn_t dpu_core_irq(struct msm_kms *kms)
- 		return IRQ_NONE;
- 
- 	spin_lock_irqsave(&intr->irq_lock, irq_flags);
--	for (reg_idx = 0; reg_idx < ARRAY_SIZE(dpu_intr_set); reg_idx++) {
-+	for (reg_idx = 0; reg_idx < MDP_INTR_MAX; reg_idx++) {
- 		if (!test_bit(reg_idx, &intr->irq_mask))
- 			continue;
- 
- 		/* Read interrupt status */
--		irq_status = DPU_REG_READ(&intr->hw, dpu_intr_set[reg_idx].status_off);
-+		irq_status = DPU_REG_READ(&intr->hw, intr->intr_set[reg_idx].status_off);
- 
- 		/* Read enable mask */
--		enable_mask = DPU_REG_READ(&intr->hw, dpu_intr_set[reg_idx].en_off);
-+		enable_mask = DPU_REG_READ(&intr->hw, intr->intr_set[reg_idx].en_off);
- 
- 		/* and clear the interrupt */
- 		if (irq_status)
--			DPU_REG_WRITE(&intr->hw, dpu_intr_set[reg_idx].clr_off,
-+			DPU_REG_WRITE(&intr->hw, intr->intr_set[reg_idx].clr_off,
- 				     irq_status);
- 
- 		/* Finally update IRQ status based on enable mask */
-@@ -285,7 +304,11 @@ static int dpu_hw_intr_enable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
- 	assert_spin_locked(&intr->irq_lock);
- 
- 	reg_idx = DPU_IRQ_REG(irq_idx);
--	reg = &dpu_intr_set[reg_idx];
-+	reg = &intr->intr_set[reg_idx];
-+
-+	/* Is this interrupt register supported on the platform */
-+	if (WARN_ON(!reg->en_off))
-+		return -EINVAL;
- 
- 	cache_irq_mask = intr->cache_irq_mask[reg_idx];
- 	if (cache_irq_mask & DPU_IRQ_MASK(irq_idx)) {
-@@ -334,7 +357,7 @@ static int dpu_hw_intr_disable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
- 	assert_spin_locked(&intr->irq_lock);
- 
- 	reg_idx = DPU_IRQ_REG(irq_idx);
--	reg = &dpu_intr_set[reg_idx];
-+	reg = &intr->intr_set[reg_idx];
- 
- 	cache_irq_mask = intr->cache_irq_mask[reg_idx];
- 	if ((cache_irq_mask & DPU_IRQ_MASK(irq_idx)) == 0) {
-@@ -368,10 +391,10 @@ static void dpu_clear_irqs(struct dpu_kms *dpu_kms)
- 	if (!intr)
- 		return;
- 
--	for (i = 0; i < ARRAY_SIZE(dpu_intr_set); i++) {
-+	for (i = 0; i < MDP_INTR_MAX; i++) {
- 		if (test_bit(i, &intr->irq_mask))
- 			DPU_REG_WRITE(&intr->hw,
--					dpu_intr_set[i].clr_off, 0xffffffff);
-+					intr->intr_set[i].clr_off, 0xffffffff);
- 	}
- 
- 	/* ensure register writes go through */
-@@ -386,10 +409,10 @@ static void dpu_disable_all_irqs(struct dpu_kms *dpu_kms)
- 	if (!intr)
- 		return;
- 
--	for (i = 0; i < ARRAY_SIZE(dpu_intr_set); i++) {
-+	for (i = 0; i < MDP_INTR_MAX; i++) {
- 		if (test_bit(i, &intr->irq_mask))
- 			DPU_REG_WRITE(&intr->hw,
--					dpu_intr_set[i].en_off, 0x00000000);
-+					intr->intr_set[i].en_off, 0x00000000);
- 	}
- 
- 	/* ensure register writes go through */
-@@ -421,10 +444,10 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms, int irq_idx)
- 
- 	reg_idx = DPU_IRQ_REG(irq_idx);
- 	intr_status = DPU_REG_READ(&intr->hw,
--			dpu_intr_set[reg_idx].status_off) &
-+			intr->intr_set[reg_idx].status_off) &
- 		DPU_IRQ_MASK(irq_idx);
- 	if (intr_status)
--		DPU_REG_WRITE(&intr->hw, dpu_intr_set[reg_idx].clr_off,
-+		DPU_REG_WRITE(&intr->hw, intr->intr_set[reg_idx].clr_off,
- 				intr_status);
- 
- 	/* ensure register writes go through */
-@@ -448,6 +471,11 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
- 	if (!intr)
- 		return ERR_PTR(-ENOMEM);
- 
-+	if (m->caps->has_7xxx_intr)
-+		intr->intr_set = dpu_intr_set_7xxx;
-+	else
-+		intr->intr_set = dpu_intr_set_legacy;
-+
- 	intr->hw.blk_addr = addr + m->mdp[0].base;
+ 	if (!addr || !m)
+ 		return ERR_PTR(-EINVAL);
+@@ -480,7 +481,24 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
  
  	intr->total_irqs = nirq;
+ 
+-	intr->irq_mask = m->mdss_irqs;
++	intr->irq_mask = BIT(MDP_SSPP_TOP0_INTR) |
++			 BIT(MDP_SSPP_TOP0_INTR2) |
++			 BIT(MDP_SSPP_TOP0_HIST_INTR);
++	for (i = 0; i < m->intf_count; i++) {
++		const struct dpu_intf_cfg *intf = &m->intf[i];
++
++		if (intf->type == INTF_NONE)
++			continue;
++
++		intr->irq_mask |= BIT(MDP_INTFn_INTR(intf->id));
++
++		if (test_bit(DPU_INTF_TE, &intf->features)) {
++			unsigned idx = MDP_INTFn_TEAR_INTR(intf->id);
++
++			if (!WARN_ON(idx == -1))
++				intr->irq_mask |= BIT(idx);
++		}
++	}
+ 
+ 	spin_lock_init(&intr->irq_lock);
+ 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-index 1f2dabc54c22..f329d6d7f646 100644
+index f329d6d7f646..f0b92c9e3b09 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-@@ -23,24 +23,29 @@ enum dpu_hw_intr_reg {
- 	MDP_INTF3_INTR,
- 	MDP_INTF4_INTR,
- 	MDP_INTF5_INTR,
-+	MDP_INTF6_INTR,
-+	MDP_INTF7_INTR,
-+	MDP_INTF8_INTR,
- 	MDP_INTF1_TEAR_INTR,
- 	MDP_INTF2_TEAR_INTR,
- 	MDP_AD4_0_INTR,
- 	MDP_AD4_1_INTR,
--	MDP_INTF0_7xxx_INTR,
--	MDP_INTF1_7xxx_INTR,
--	MDP_INTF1_7xxx_TEAR_INTR,
--	MDP_INTF2_7xxx_INTR,
--	MDP_INTF2_7xxx_TEAR_INTR,
--	MDP_INTF3_7xxx_INTR,
--	MDP_INTF4_7xxx_INTR,
--	MDP_INTF5_7xxx_INTR,
--	MDP_INTF6_7xxx_INTR,
--	MDP_INTF7_7xxx_INTR,
--	MDP_INTF8_7xxx_INTR,
+@@ -17,6 +17,7 @@ enum dpu_hw_intr_reg {
+ 	MDP_SSPP_TOP0_INTR,
+ 	MDP_SSPP_TOP0_INTR2,
+ 	MDP_SSPP_TOP0_HIST_INTR,
++	/* All MDP_INTFn_INTR should come sequentially */
+ 	MDP_INTF0_INTR,
+ 	MDP_INTF1_INTR,
+ 	MDP_INTF2_INTR,
+@@ -33,6 +34,11 @@ enum dpu_hw_intr_reg {
  	MDP_INTR_MAX,
  };
  
-+/* compatibility */
-+#define MDP_INTF0_7xxx_INTR MDP_INTF0_INTR
-+#define MDP_INTF1_7xxx_INTR MDP_INTF1_INTR
-+#define MDP_INTF2_7xxx_INTR MDP_INTF2_INTR
-+#define MDP_INTF3_7xxx_INTR MDP_INTF3_INTR
-+#define MDP_INTF4_7xxx_INTR MDP_INTF4_INTR
-+#define MDP_INTF5_7xxx_INTR MDP_INTF5_INTR
-+#define MDP_INTF6_7xxx_INTR MDP_INTF6_INTR
-+#define MDP_INTF7_7xxx_INTR MDP_INTF7_INTR
-+#define MDP_INTF8_7xxx_INTR MDP_INTF8_INTR
-+#define MDP_INTF1_7xxx_TEAR_INTR MDP_INTF1_TEAR_INTR
-+#define MDP_INTF2_7xxx_TEAR_INTR MDP_INTF2_TEAR_INTR
++#define MDP_INTFn_INTR(intf)	(MDP_INTF0_INTR + (intf - INTF_0))
++#define MDP_INTFn_TEAR_INTR(intf) (intf == INTF_1 ? MDP_INTF1_TEAR_INTR : \
++				   intf == INTF_2 ? MDP_INTF2_TEAR_INTR : \
++				   -1)
 +
- #define DPU_IRQ_IDX(reg_idx, offset)	(reg_idx * 32 + offset)
- 
- /**
-@@ -60,6 +65,7 @@ struct dpu_hw_intr {
- 	u32 total_irqs;
- 	spinlock_t irq_lock;
- 	unsigned long irq_mask;
-+	const struct dpu_intr_reg *intr_set;
- 
- 	struct {
- 		void (*cb)(void *arg, int irq_idx);
+ /* compatibility */
+ #define MDP_INTF0_7xxx_INTR MDP_INTF0_INTR
+ #define MDP_INTF1_7xxx_INTR MDP_INTF1_INTR
 -- 
 2.39.2
 
