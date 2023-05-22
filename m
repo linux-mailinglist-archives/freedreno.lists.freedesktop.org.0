@@ -1,61 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A345C70BF88
-	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 15:21:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54DE570C0BA
+	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 16:12:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C7F510E32A;
-	Mon, 22 May 2023 13:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD3B10E08B;
+	Mon, 22 May 2023 14:12:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
- [IPv6:2607:f8b0:4864:20::1133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB41010E330
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 13:21:06 +0000 (UTC)
-Received: by mail-yw1-x1133.google.com with SMTP id
- 00721157ae682-561f23dc55aso60556387b3.3
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 06:21:06 -0700 (PDT)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E514910E338
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 14:12:02 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-3f607059b4eso5875475e9.0
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 07:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684761665; x=1687353665;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=te6QRcnpJlK5rz5MOROStak0xNaxvC/mgPjGBRZqrEw=;
- b=yPR/vxi80ktVB9nBZ+gxEpqHthrrZrC1UyAfFROVYDLlGEj7ovedj6oNNIw+3f0MOf
- z3zwG4IfOmSW6CRb2rra4QVS4Dhm2TqZRzp6HgRvvaaeKpSFf8N2Yd8ug0rjRC/BfsZs
- 0Gy3NEXsjoyB/EBGjX8QeHuYSJMq4akDiFD4zlp+27o8pOzHrwbnPA5E6zbc0RqXI60W
- 8SR4GG+hcdg1KyP/eOj+sSxGVrhDgL9HGieztXbL3dPEKD3uqSer40aIu2n05D326mxT
- CiGzVH+sbPyN3jyR/zDyITYP5MRVcFqh9OzwxbizNsZYSfyV5JmeXs4Tn4jVCoTyqK6V
- PzsA==
+ d=linaro.org; s=google; t=1684764721; x=1687356721;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=12+cwfh/J/lq/7ReW768CrkhjCKZ9/EkoidN0du/FMM=;
+ b=ZRi3ygcdvUaAWP/urkbko3XcgIPKa1rdGoRNTs/p6KbZ+00gJIjgmrFneII1Lit5gV
+ XKu+GFI2r1sq+OVGLVc5Y0YqUF77D9fck8HJG5SSCVyeGPgarazoSF/UI/JAwnBBkh84
+ uOmR9XadRdZflthc/BiCEU8gzFybJP1NoonMP2rTtOoGSMlzPvRBtI+Ze9jm4czhzKGr
+ cn1HF9xt3LUbJjD8pszC7hNhOgKhTsxwRgXpp58WcXnCY69z3Ii9EBNOkeDhmPBVlLfM
+ O7pNIf9xYaNd6OcSdO17CgAU7CxqFJ/ILExOnW/69YXfhI2Xat3SRsvSjaGxl9GLhFlc
+ EH+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684761665; x=1687353665;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1684764721; x=1687356721;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=te6QRcnpJlK5rz5MOROStak0xNaxvC/mgPjGBRZqrEw=;
- b=U6Pfpch/tjP156x/Nq86A+oZZ6Ig3j2pkmUgcAk5RmY6qW8i3+fU1R8jX8nQpGEnvP
- 1UQpIW37KeB1/2d7MtVxjshlmMAaJqU/rjo5xwWVGjqnz1CxEqunMX1lGTN2vv2ScYGM
- 5kgrDAeyWSo3dB+Cp+ryEIjlNbLb0UF8VrwVjyXfScqFiXQaOHt5XL/ps631aCAtp+85
- vBJ2JAvU7MHJ2Q3AHog+cgBAWymfHTYfV27SPk4wZnSkoIt+IJWR/f6w0/cdXjQStTIl
- tCpyqzZaroS0bBY5KaYMSFPvn1gdSMLPEXQuJxUt7a9Z0vM5gDKv2SF+F2Q6f4KbUarp
- 341g==
-X-Gm-Message-State: AC+VfDzj91KSDs4W5m4nsrIAJ87ZTaOBjqGDeu0vynqitlVKnw+yKXz7
- vPZZVDx9N6U9FxT4g8Ibowkjps/w1EfomnCCOwQDlQ==
-X-Google-Smtp-Source: ACHHUZ4V34k1+A48kW0LeNO8AJ5hzoROAawtKyJZuPIJnbOsbTP9EI8ZTFZxqxCOc9Oyb+Q5NVr2AGZu2kbPcQ886F8=
-X-Received: by 2002:a81:7b87:0:b0:559:f861:9e0b with SMTP id
- w129-20020a817b87000000b00559f8619e0bmr12608824ywc.5.1684761664777; Mon, 22
- May 2023 06:21:04 -0700 (PDT)
+ bh=12+cwfh/J/lq/7ReW768CrkhjCKZ9/EkoidN0du/FMM=;
+ b=OaNIyfrDn+cfx5NycWC+9ItF+98SLE4AISb/yOgyEF4D8Iou5bdKxe4yFPCSUz3MAL
+ jQ8JkHSzbLL6gC794lLvGuVlOCipJvYlu2LljcnCmoKdzLOvS0F4SrO3qDxIfYhb33bi
+ oX4i4wIuegmk9TMlPkB0RJIJhZiX5RD7Xkss11w+8I8YZGG/FYFfXKVgYHmtuwFr1SBa
+ WmUlw1UUkZMAlJ5nZ+aoAVHJFZqAAbqL2wdP0C+EsF4B63xMMGW8zpNzlk0Tb2+jf/vL
+ MGhcMr5T2IxIss9UkiQRDDydjawhmzSgjnuqiExtgxdVIEikwzWAcVjjiuxZmxmotn6P
+ mF7Q==
+X-Gm-Message-State: AC+VfDzC9IO6r4654/AkP9jIg5KNBWlaLCjb93sSpGQZMyUIadf+go8a
+ i+bW0nrXPg2SBXvU1T6pxl5qeg==
+X-Google-Smtp-Source: ACHHUZ56PUPVuPQqMYXQ9kZa0vF/Qh3zEqzoAnU0KUwXxNgDzDnOsi57CaYYBiMu7X9kMLxsWktG+w==
+X-Received: by 2002:a05:600c:28c8:b0:3f4:2452:9666 with SMTP id
+ h8-20020a05600c28c800b003f424529666mr6304979wmd.40.1684764720718; 
+ Mon, 22 May 2023 07:12:00 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:a478:d61d:5bb5:7df?
+ ([2a01:e0a:982:cbb0:a478:d61d:5bb5:7df])
+ by smtp.gmail.com with ESMTPSA id
+ y5-20020a7bcd85000000b003f6028a4c85sm5278893wmj.16.2023.05.22.07.11.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 May 2023 07:12:00 -0700 (PDT)
+Message-ID: <575e7f13-69b4-e4b5-a4e1-c7b0fdd59471@linaro.org>
+Date: Mon, 22 May 2023 16:11:59 +0200
 MIME-Version: 1.0
-References: <20230522122140.30131-1-tzimmermann@suse.de>
- <20230522122140.30131-12-tzimmermann@suse.de>
-In-Reply-To: <20230522122140.30131-12-tzimmermann@suse.de>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 22 May 2023 16:20:53 +0300
-Message-ID: <CAA8EJpp4Q0P7JSK=1igsQ4gbLjbW2X670CKQrZSm_epzqusYug@mail.gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 11/12] drm/fbdev-generic: Implement
- dedicated fbdev I/O helpers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+References: <20230519184023.3943362-1-dmitry.baryshkov@linaro.org>
+ <20230519184023.3943362-4-dmitry.baryshkov@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <20230519184023.3943362-4-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 3/3] drm/bridge: display-connector:
+ handle hdmi-pwr supply
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,309 +85,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, airlied@gmail.com,
- intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
- sam@ravnborg.org, linux-arm-kernel@lists.infradead.org
+Reply-To: neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 22 May 2023 at 15:22, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->
-> Implement dedicated fbdev helpers for framebuffer I/O instead
-> of using DRM's helpers. Fbdev-generic was the only caller of the
-> DRM helpers, so remove them from the helper module.
->
-> v2:
->         * use FB_SYS_HELPERS_DEFERRED option
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On 19/05/2023 20:40, Dmitry Baryshkov wrote:
+> On some devices the +5V Power pin of the HDMI connector and/or the ESD
+> protection logic is powered on by a separate regulator. Instead of
+> declaring this regulator as always-on, make hdmi-connector support the
+> additional hdmi-pwr supply.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/Kconfig             |   6 +-
->  drivers/gpu/drm/drm_fb_helper.c     | 107 ----------------------------
->  drivers/gpu/drm/drm_fbdev_generic.c |  47 ++++++++++--
->  include/drm/drm_fb_helper.h         |  41 -----------
->  4 files changed, 43 insertions(+), 158 deletions(-)
-
-Looking at this patch makes me wonder if we should have implemented
-fb_dirty for the MSM driver. We have drm_framebuffer_funcs::dirty()
-implemented (by wrapping the drm_atomic_helper_dirtyfb()).
-
->
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 77fb10ddd8a2..92a782827b7b 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -95,6 +95,7 @@ config DRM_KUNIT_TEST
->  config DRM_KMS_HELPER
->         tristate
->         depends on DRM
-> +       select FB_SYS_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
->         help
->           CRTC helpers for KMS drivers.
->
-> @@ -135,11 +136,6 @@ config DRM_FBDEV_EMULATION
->         select FB_CFB_FILLRECT
->         select FB_CFB_COPYAREA
->         select FB_CFB_IMAGEBLIT
-> -       select FB_DEFERRED_IO
-> -       select FB_SYS_FOPS
-> -       select FB_SYS_FILLRECT
-> -       select FB_SYS_COPYAREA
-> -       select FB_SYS_IMAGEBLIT
->         select FRAMEBUFFER_CONSOLE if !EXPERT
->         select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
->         default y
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> index 8724e08c518b..ba0a808f14ee 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -729,113 +729,6 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
->  }
->  EXPORT_SYMBOL(drm_fb_helper_deferred_io);
->
-> -/**
-> - * drm_fb_helper_sys_read - Implements struct &fb_ops.fb_read for system memory
-> - * @info: fb_info struct pointer
-> - * @buf: userspace buffer to read from framebuffer memory
-> - * @count: number of bytes to read from framebuffer memory
-> - * @ppos: read offset within framebuffer memory
-> - *
-> - * Returns:
-> - * The number of bytes read on success, or an error code otherwise.
-> - */
-> -ssize_t drm_fb_helper_sys_read(struct fb_info *info, char __user *buf,
-> -                              size_t count, loff_t *ppos)
-> -{
-> -       return fb_sys_read(info, buf, count, ppos);
-> -}
-> -EXPORT_SYMBOL(drm_fb_helper_sys_read);
-> -
-> -/**
-> - * drm_fb_helper_sys_write - Implements struct &fb_ops.fb_write for system memory
-> - * @info: fb_info struct pointer
-> - * @buf: userspace buffer to write to framebuffer memory
-> - * @count: number of bytes to write to framebuffer memory
-> - * @ppos: write offset within framebuffer memory
-> - *
-> - * Returns:
-> - * The number of bytes written on success, or an error code otherwise.
-> - */
-> -ssize_t drm_fb_helper_sys_write(struct fb_info *info, const char __user *buf,
-> -                               size_t count, loff_t *ppos)
-> -{
-> -       struct drm_fb_helper *helper = info->par;
-> -       loff_t pos = *ppos;
-> -       ssize_t ret;
-> -       struct drm_rect damage_area;
-> -
-> -       ret = fb_sys_write(info, buf, count, ppos);
-> -       if (ret <= 0)
-> -               return ret;
-> -
-> -       if (helper->funcs->fb_dirty) {
-> -               drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
-> -               drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
-> -                                    drm_rect_width(&damage_area),
-> -                                    drm_rect_height(&damage_area));
-> -       }
-> -
-> -       return ret;
-> -}
-> -EXPORT_SYMBOL(drm_fb_helper_sys_write);
-> -
-> -/**
-> - * drm_fb_helper_sys_fillrect - wrapper around sys_fillrect
-> - * @info: fbdev registered by the helper
-> - * @rect: info about rectangle to fill
-> - *
-> - * A wrapper around sys_fillrect implemented by fbdev core
-> - */
-> -void drm_fb_helper_sys_fillrect(struct fb_info *info,
-> -                               const struct fb_fillrect *rect)
-> -{
-> -       struct drm_fb_helper *helper = info->par;
-> -
-> -       sys_fillrect(info, rect);
-> -
-> -       if (helper->funcs->fb_dirty)
-> -               drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
-> -}
-> -EXPORT_SYMBOL(drm_fb_helper_sys_fillrect);
-> -
-> -/**
-> - * drm_fb_helper_sys_copyarea - wrapper around sys_copyarea
-> - * @info: fbdev registered by the helper
-> - * @area: info about area to copy
-> - *
-> - * A wrapper around sys_copyarea implemented by fbdev core
-> - */
-> -void drm_fb_helper_sys_copyarea(struct fb_info *info,
-> -                               const struct fb_copyarea *area)
-> -{
-> -       struct drm_fb_helper *helper = info->par;
-> -
-> -       sys_copyarea(info, area);
-> -
-> -       if (helper->funcs->fb_dirty)
-> -               drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
-> -}
-> -EXPORT_SYMBOL(drm_fb_helper_sys_copyarea);
-> -
-> -/**
-> - * drm_fb_helper_sys_imageblit - wrapper around sys_imageblit
-> - * @info: fbdev registered by the helper
-> - * @image: info about image to blit
-> - *
-> - * A wrapper around sys_imageblit implemented by fbdev core
-> - */
-> -void drm_fb_helper_sys_imageblit(struct fb_info *info,
-> -                                const struct fb_image *image)
-> -{
-> -       struct drm_fb_helper *helper = info->par;
-> -
-> -       sys_imageblit(info, image);
-> -
-> -       if (helper->funcs->fb_dirty)
-> -               drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
-> -}
-> -EXPORT_SYMBOL(drm_fb_helper_sys_imageblit);
-> -
->  /**
->   * drm_fb_helper_cfb_read - Implements struct &fb_ops.fb_read for I/O memory
->   * @info: fb_info struct pointer
-> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-> index 8e5148bf40bb..f53fc49e34a4 100644
-> --- a/drivers/gpu/drm/drm_fbdev_generic.c
-> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-> @@ -34,6 +34,43 @@ static int drm_fbdev_generic_fb_release(struct fb_info *info, int user)
->         return 0;
->  }
->
-> +static ssize_t drm_fbdev_generic_fb_write(struct fb_info *info, const char __user *buf,
-> +                                         size_t count, loff_t *ppos)
+>   drivers/gpu/drm/bridge/display-connector.c | 55 ++++++++++++----------
+>   1 file changed, 29 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+> index 1d37e57242dd..d6a9aa589d17 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> @@ -191,6 +191,18 @@ static irqreturn_t display_connector_hpd_irq(int irq, void *arg)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static int display_connector_get_supply(struct platform_device *pdev,
+> +					struct display_connector *conn,
+> +					const char *name)
 > +{
-> +       struct drm_fb_helper *helper = info->par;
-> +       loff_t pos = *ppos;
-> +       ssize_t ret;
+> +	conn->supply = devm_regulator_get_optional(&pdev->dev, "dp-pwr");
+
+You should use name here right ?
+
+Neil
+
 > +
-> +       ret = fb_sys_write(info, buf, count, ppos);
-> +       if (ret > 0)
-> +               drm_fb_helper_damage_range(helper, pos, ret);
-> +       return ret;
+> +	if (conn->supply == ERR_PTR(-ENODEV))
+> +		conn->supply = NULL;
+> +
+> +	return PTR_ERR_OR_ZERO(conn->supply);
 > +}
 > +
-> +static void drm_fbdev_generic_fb_fillrect(struct fb_info *info, const struct fb_fillrect *rect)
-> +{
-> +       struct drm_fb_helper *helper = info->par;
+>   static int display_connector_probe(struct platform_device *pdev)
+>   {
+>   	struct display_connector *conn;
+> @@ -319,36 +331,15 @@ static int display_connector_probe(struct platform_device *pdev)
+>   	if (type == DRM_MODE_CONNECTOR_DisplayPort) {
+>   		int ret;
+>   
+> -		conn->supply = devm_regulator_get_optional(&pdev->dev, "dp-pwr");
+> -
+> -		if (IS_ERR(conn->supply)) {
+> -			ret = PTR_ERR(conn->supply);
+> -
+> -			switch (ret) {
+> -			case -ENODEV:
+> -				conn->supply = NULL;
+> -				break;
+> -
+> -			case -EPROBE_DEFER:
+> -				return -EPROBE_DEFER;
+> -
+> -			default:
+> -				dev_err(&pdev->dev, "failed to get DP PWR regulator: %d\n", ret);
+> -				return ret;
+> -			}
+> -		}
+> -
+> -		if (conn->supply) {
+> -			ret = regulator_enable(conn->supply);
+> -			if (ret) {
+> -				dev_err(&pdev->dev, "failed to enable DP PWR regulator: %d\n", ret);
+> -				return ret;
+> -			}
+> -		}
+> +		ret = display_connector_get_supply(pdev, conn, "dp-pwr");
+> +		if (ret < 0)
+> +			return dev_err_probe(&pdev->dev, ret, "failed to get DP PWR regulator\n");
+>   	}
+>   
+>   	/* enable DDC */
+>   	if (type == DRM_MODE_CONNECTOR_HDMIA) {
+> +		int ret;
 > +
-> +       sys_fillrect(info, rect);
-> +       drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
-> +}
+>   		conn->ddc_en = devm_gpiod_get_optional(&pdev->dev, "ddc-en",
+>   						       GPIOD_OUT_HIGH);
+>   
+> @@ -356,6 +347,18 @@ static int display_connector_probe(struct platform_device *pdev)
+>   			dev_err(&pdev->dev, "Couldn't get ddc-en gpio\n");
+>   			return PTR_ERR(conn->ddc_en);
+>   		}
 > +
-> +static void drm_fbdev_generic_fb_copyarea(struct fb_info *info, const struct fb_copyarea *area)
-> +{
-> +       struct drm_fb_helper *helper = info->par;
+> +		ret = display_connector_get_supply(pdev, conn, "hdmi-pwr");
+> +		if (ret < 0)
+> +			return dev_err_probe(&pdev->dev, ret, "failed to get HDMI +5V Power regulator\n");
+> +	}
 > +
-> +       sys_copyarea(info, area);
-> +       drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
-> +}
-> +
-> +static void drm_fbdev_generic_fb_imageblit(struct fb_info *info, const struct fb_image *image)
-> +{
-> +       struct drm_fb_helper *helper = info->par;
-> +
-> +       sys_imageblit(info, image);
-> +       drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
-> +}
-> +
->  static void drm_fbdev_generic_fb_destroy(struct fb_info *info)
->  {
->         struct drm_fb_helper *fb_helper = info->par;
-> @@ -56,12 +93,12 @@ static const struct fb_ops drm_fbdev_generic_fb_ops = {
->         .owner          = THIS_MODULE,
->         .fb_open        = drm_fbdev_generic_fb_open,
->         .fb_release     = drm_fbdev_generic_fb_release,
-> -       .fb_read        = drm_fb_helper_sys_read,
-> -       .fb_write       = drm_fb_helper_sys_write,
-> +       .fb_read        = fb_sys_read,
-> +       .fb_write       = drm_fbdev_generic_fb_write,
->         DRM_FB_HELPER_DEFAULT_OPS,
-> -       .fb_fillrect    = drm_fb_helper_sys_fillrect,
-> -       .fb_copyarea    = drm_fb_helper_sys_copyarea,
-> -       .fb_imageblit   = drm_fb_helper_sys_imageblit,
-> +       .fb_fillrect    = drm_fbdev_generic_fb_fillrect,
-> +       .fb_copyarea    = drm_fbdev_generic_fb_copyarea,
-> +       .fb_imageblit   = drm_fbdev_generic_fb_imageblit,
->         .fb_mmap        = fb_deferred_io_mmap,
->         .fb_destroy     = drm_fbdev_generic_fb_destroy,
->  };
-> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-> index 80c402f4e379..e3240d749a43 100644
-> --- a/include/drm/drm_fb_helper.h
-> +++ b/include/drm/drm_fb_helper.h
-> @@ -259,18 +259,6 @@ void drm_fb_helper_damage_range(struct drm_fb_helper *helper, off_t off, size_t
->
->  void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
->
-> -ssize_t drm_fb_helper_sys_read(struct fb_info *info, char __user *buf,
-> -                              size_t count, loff_t *ppos);
-> -ssize_t drm_fb_helper_sys_write(struct fb_info *info, const char __user *buf,
-> -                               size_t count, loff_t *ppos);
-> -
-> -void drm_fb_helper_sys_fillrect(struct fb_info *info,
-> -                               const struct fb_fillrect *rect);
-> -void drm_fb_helper_sys_copyarea(struct fb_info *info,
-> -                               const struct fb_copyarea *area);
-> -void drm_fb_helper_sys_imageblit(struct fb_info *info,
-> -                                const struct fb_image *image);
-> -
->  ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
->                                size_t count, loff_t *ppos);
->  ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
-> @@ -398,35 +386,6 @@ static inline int drm_fb_helper_defio_init(struct drm_fb_helper *fb_helper)
->         return -ENODEV;
->  }
->
-> -static inline ssize_t drm_fb_helper_sys_read(struct fb_info *info,
-> -                                            char __user *buf, size_t count,
-> -                                            loff_t *ppos)
-> -{
-> -       return -ENODEV;
-> -}
-> -
-> -static inline ssize_t drm_fb_helper_sys_write(struct fb_info *info,
-> -                                             const char __user *buf,
-> -                                             size_t count, loff_t *ppos)
-> -{
-> -       return -ENODEV;
-> -}
-> -
-> -static inline void drm_fb_helper_sys_fillrect(struct fb_info *info,
-> -                                             const struct fb_fillrect *rect)
-> -{
-> -}
-> -
-> -static inline void drm_fb_helper_sys_copyarea(struct fb_info *info,
-> -                                             const struct fb_copyarea *area)
-> -{
-> -}
-> -
-> -static inline void drm_fb_helper_sys_imageblit(struct fb_info *info,
-> -                                              const struct fb_image *image)
-> -{
-> -}
-> -
->  static inline ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
->                                              size_t count, loff_t *ppos)
->  {
-> --
-> 2.40.1
->
+> +	if (conn->supply) {
+> +		ret = regulator_enable(conn->supply);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "failed to enable DP PWR regulator: %d\n", ret);
+> +			return ret;
+> +		}
+>   	}
+>   
+>   	conn->bridge.funcs = &display_connector_bridge_funcs;
 
-
--- 
-With best wishes
-Dmitry
