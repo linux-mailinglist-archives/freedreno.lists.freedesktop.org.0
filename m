@@ -1,78 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76BFA70CE10
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 00:38:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 164A470CE2A
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 00:44:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB9E10E2BF;
-	Mon, 22 May 2023 22:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D66C510E082;
+	Mon, 22 May 2023 22:44:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 749D210E2BF;
- Mon, 22 May 2023 22:38:10 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34MMNpj4031420; Mon, 22 May 2023 22:38:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=3EcUo0b4yk3M/kUwqGEUzpjmrbUKns+6xY17n/5HWDI=;
- b=AI0MrJo42O0gUErKGg8GaSRqXh2sN3Tuspbkc8LDoMiPNGnQXUj4cLHi1Q2C/hTh65iD
- TDjSzJXDbYciQHJfwfX06U8jp1uyIpwQ8p88DPLo4N81yjOHEAGO2f3srAXOjx6rh+mb
- 1UwyD5f5SXZSRobaJMGHPVoLSCfmfDYe0yHBoDPW9je5lLI7AO5E/+idXBKOxmlQHH9Y
- qFUQFXx9oFWtY6syRqCW2rn4MS6XG/abDcMKnu9VU+MjR3mKkzkxXsMOIUq8VDIfE2RB
- E3BMxsZPZgBIs6+03CWfsXEJke9uG984gdNBjMbB6lZcDjSPERgyLNJZmazOC1Q3dTvA pw== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qpkwmw059-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 22 May 2023 22:38:04 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34MMc3dg028447
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 22 May 2023 22:38:03 GMT
-Received: from [10.110.65.90] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 22 May
- 2023 15:38:03 -0700
-Message-ID: <c7c032b7-082a-cb38-3ba3-e5de0143ea38@quicinc.com>
-Date: Mon, 22 May 2023 15:38:02 -0700
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7F210E082;
+ Mon, 22 May 2023 22:43:59 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EB1266239A;
+ Mon, 22 May 2023 22:43:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AEEAC433EF;
+ Mon, 22 May 2023 22:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1684795438;
+ bh=oOHDjeYKCKxfJCgXP2IFGV4OVL44QXbBAH3b4cOYdG4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EIK07Rtlo0FkG2xHNTlvOBNjCr1urFVT9UBOedGuSQfj+W95+8oinEug9N1wDVoNs
+ glixJIsgG6OPvwptlGPmI0zfb+8UR/1fcxdxil9DLSOm+ZQ3/UIYHZufCnjuGP029r
+ qWtaL3czA1cb6AMKq4PeR72BTNih0Is2a+wy0B4+3DDVpksci8GU+rHl0tFNKFzWWP
+ CqzOvANXB2WGirNq9thICVmK2aZbwlmR6Qc3XHQ20cN0bPe6c0pa+AesFjiUQJjjY0
+ Z0ZkbVnpGif/y5gmnBz6lFNtP59YcnXHjNj6hOxQ0SeXOq5PyvbqwXBO/fFM9KcfRo
+ fZLC6OxKZrteg==
+Date: Mon, 22 May 2023 15:47:51 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <20230522224751.5tf4oifp5z5k45pf@ripper>
+References: <1684791092-1822-1-git-send-email-quic_khsieh@quicinc.com>
+ <20230522220555.7ood44kavjzzg3lv@ripper>
+ <c4d6e019-1582-c94f-d56d-271c420d72ea@linaro.org>
+ <9804c558-124d-aca4-c534-158c0457b7bf@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230519023855.3840907-1-dmitry.baryshkov@linaro.org>
- <20230519023855.3840907-7-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230519023855.3840907-7-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: G98CEKnipftFpUBJJ4ds69LBF_qhhQeB
-X-Proofpoint-ORIG-GUID: G98CEKnipftFpUBJJ4ds69LBF_qhhQeB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-22_16,2023-05-22_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015
- spamscore=0 impostorscore=0 mlxscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 mlxlogscore=712 lowpriorityscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305220191
-Subject: Re: [Freedreno] [PATCH v2 6/7] drm/msm/dpu: drop temp variable from
- dpu_encoder_phys_cmd_init()
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9804c558-124d-aca4-c534-158c0457b7bf@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: enable HDP plugin/unplugged
+ interrupts at hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,20 +56,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_abhinavk@quicinc.com, airlied@gmail.com, linux-arm-msm@vger.kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ quic_jesszhan@quicinc.com, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ marijn.suijten@somainline.org, swboyd@chromium.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 5/18/2023 7:38 PM, Dmitry Baryshkov wrote:
-> There is no need to assign a result to temp varable just to return it
-> two lines below. Drop the temporary variable.
+On Mon, May 22, 2023 at 03:35:13PM -0700, Kuogee Hsieh wrote:
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> 
+> > > >   -static void dp_display_config_hpd(struct dp_display_private *dp)
+> > > > -{
+> > > > -
+> > > > -    dp_display_host_init(dp);
+> > > > -    dp_catalog_ctrl_hpd_config(dp->catalog);
+> > > > -
+> > > > -    /* Enable plug and unplug interrupts only if requested */
+> > > > -    if (dp->dp_display.internal_hpd)
+> > > > -        dp_catalog_hpd_config_intr(dp->catalog,
+> > > > -                DP_DP_HPD_PLUG_INT_MASK |
+> > > > -                DP_DP_HPD_UNPLUG_INT_MASK,
+> > > > -                true);
+> > > > -
+> > > > -    /* Enable interrupt first time
+> > > > -     * we are leaving dp clocks on during disconnect
+> > > > -     * and never disable interrupt
+> > > > -     */
+> > > > -    enable_irq(dp->irq);
+> > > 
+> > > ...we need dp->irq enabled for handling the other interrupts, otherwise
+> > > e.g. AUX transfers will time out.
+> > > 
+> > > I added enable_irq(dp_priv->irq) to the EV_HPD_INIT_SETUP case below,
+> > > just for testing, and with that the patch seems to be working fine.
+> > > 
+> > > 
+> > > Is there any reason why we need to delay its enablement to after we
+> > > unmask the HPD interrupts?
+> 
+> my though is aux transaction should happen after plugin interrupt detected.
+> 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+I have a next_bridge which implements DRM_BRIDGE_OP_HPD, in which case
+dp_bridge_hpd_enable() will never be called (the next_bridge's
+hpd_enable will be called instead).
+
+> can you please let me know what did you do to trigger aux timeout?
+> 
+
+In this setup I just connect the cable, wait a few seconds and the
+transfers fails - as there's no interrupts signalling them being
+completed.
+
+> It does not happen on me at my test.
+> 
+
+Given that you have the HPD signal on a GPIO, you should be able to
+rewrite your DTS in line with:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/qcom/sa8295p-adp.dts#n28
+
+And pinmux the HPD signal as GPIO instead.
+
+I believe this would allow you to test both code paths - without the
+actual TCPM known to Linux.
+
+> > 
+> > As I wrote, I'd probably prefer to see enable_irq() and disable_irq()
+> > calls gone.
+> 
+> ok, i will move enable_irq() out of here.
+> 
+
+Thanks,
+Bjorn
+
+> 
+> > > 
+> > > Regards,
+> > > Bjorn
+> > > 
+> > 
