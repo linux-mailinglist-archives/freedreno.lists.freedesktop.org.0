@@ -1,66 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5FD70B8EC
-	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 11:30:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73D7D70B908
+	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 11:35:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C3F610E107;
-	Mon, 22 May 2023 09:30:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 281B110E1AC;
+	Mon, 22 May 2023 09:35:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2732F10E107;
- Mon, 22 May 2023 09:30:18 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4f3bb61f860so1708475e87.3; 
- Mon, 22 May 2023 02:30:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684747816; x=1687339816;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=N2xyW26ygJSV7jGPDNFX5kKvBpAiH74OJxHDLif1V4o=;
- b=RUD8CW17ehLYABgkufotE7+2qA9MpQEUmH+a8Rzsv+BHTFpkQXkp/vUAoPyUND4WUa
- df8zjLmWIsuyQpd0DvHu/G3O1/2e4FVgynUTVzKZOAHv9L/ks4U2wElYhdG0cnXNDszK
- gTO/PkGc7RM8MyNAW2R1JXFqVuLd8vUvteqAFCV4ZHPafnbrsgCOMF9tMaGlDLolyrMT
- itm3YGRJC6uJ8Sd1fKBuIgsQ3GwQti55DHbBOfA/xI6JndZhdZZLa4YvdkyDekb9MBGh
- QVy2wxgngibHXKXssGnCfKbqsalSZPeUWc3hs2T62tJ5IaU+EyDu2k4A0jQw6RLQ8yJZ
- bd4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684747816; x=1687339816;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=N2xyW26ygJSV7jGPDNFX5kKvBpAiH74OJxHDLif1V4o=;
- b=SHNjvLfzXyBTYeoYYRA9xKp2NIW5ITm8L9IzE5HCm+nDnAeOG0FCej0kqQ1XdB5+s4
- sfSZ9ABBiFvziSQ2LRAVOIS3iu2eI/kUWe9rM6WgjKSTdK7SK0f86Fj3J+5DynC9qIKB
- Wj/E9wm0VR9g9d+lBaLbSpxAlxpCzyl/Q2qp2Wr08WKG3ZkXlwomk7SpjuMvzeSvNoR6
- 30LvTBn4RPV3s0TRGYB9K65qQZXKz0J6jCza5+D4ltRIQUb0d1jHXn3ulpqhatksX04j
- id8L2kI5mdLgbZSDCl4bayeX7NWfj+K+4RRRNk6mfd/60MCfiyUOsW+IjpMRCdlOOjnl
- /ahQ==
-X-Gm-Message-State: AC+VfDxnv0Hn+LReQga3qIzSHGuhO5PkO5rT5J0KtmmS8OSz9TN6aaeR
- CF6CKJYNJyrMSBoF8ugjqksbXaSGXYw+CLmblxU=
-X-Google-Smtp-Source: ACHHUZ6/K2VPQrqZf4bbMsZ6RsWzfsJGdcrFrCLU2weoNL6fRpXehhPH0QBKWbv2BmkB7pm4G6ojPKMVBze4qdsiKeM=
-X-Received: by 2002:ac2:4259:0:b0:4f3:a55a:bace with SMTP id
- m25-20020ac24259000000b004f3a55abacemr2981630lfl.7.1684747815493; Mon, 22 May
- 2023 02:30:15 -0700 (PDT)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B433710E1AC;
+ Mon, 22 May 2023 09:35:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1684748141; x=1716284141;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=2yLoCurvsm+Am4n+8Po4obmzXAOhFU5SVLIQzAYdKM4=;
+ b=SNUFdyVLY+4k7vkrE88JAB1BWapY3IhM84G7+s3RBPP4VK7BS3jMZ9/9
+ nAyPeHuprNdQWlqQ8045ktrx0M4yAc4Un+r2Z/3lpVFXs4h4zNrCzd5K1
+ wLVy/wbWFZaQ9arYgB+Y0mg6Wvw+6XNeewDHcssQA0Dq4hqFKajgWxzrT
+ lI/q2wKIXJksxKhSJSo9YVW6K4mCqNYET5WQSyV4RmQDtHBXcPUDeP33l
+ urvDB9IE4TyZzBdRUgIMT6s/RTLy60TqChHXhepdPnkfyTprrluh/sf8p
+ +qxU5DH8MvzAZ2QXpi2O/wt7x8dT2C5K8d5y39osDlvR71pC77FF4meZE w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10717"; a="351722754"
+X-IronPort-AV: E=Sophos;i="6.00,184,1681196400"; d="scan'208";a="351722754"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2023 02:35:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10717"; a="734201147"
+X-IronPort-AV: E=Sophos;i="6.00,184,1681196400"; d="scan'208";a="734201147"
+Received: from andreipo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.54.228])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2023 02:35:35 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+In-Reply-To: <20230329-rfc-msm-dsc-helper-v12-3-9cdb7401f614@quicinc.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230329-rfc-msm-dsc-helper-v12-0-9cdb7401f614@quicinc.com>
+ <20230329-rfc-msm-dsc-helper-v12-3-9cdb7401f614@quicinc.com>
+Date: Mon, 22 May 2023 12:35:33 +0300
+Message-ID: <87a5xwogii.fsf@intel.com>
 MIME-Version: 1.0
-References: <20230419-dpu-tweaks-v1-0-d1bac46db075@freebox.fr>
- <20230419-dpu-tweaks-v1-2-d1bac46db075@freebox.fr>
- <6e807c05-a990-5692-3f84-2e4153c8c278@linaro.org>
- <905b4150-6e15-4172-10cf-19aa0ebf817c@quicinc.com>
- <50fc88f9-4304-110c-84e8-15dfdeee062f@linaro.org>
-In-Reply-To: <50fc88f9-4304-110c-84e8-15dfdeee062f@linaro.org>
-From: Arnaud Vrac <rawoul@gmail.com>
-Date: Mon, 22 May 2023 11:30:02 +0200
-Message-ID: <CAN5H-g4zEkxrUr2_0QZfNHndVqF=L-Bx3OTbKnFjQVmoYc7FyQ@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 02/11] drm/msm/dpu: use the actual lm
- maximum width instead of a hardcoded value
+Content-Type: text/plain
+Subject: Re: [Freedreno] [PATCH v12 3/9] drm/display/dsc: Add
+ drm_dsc_get_bpp_int helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,92 +60,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Arnaud Vrac <avrac@freebox.fr>,
- Jeykumar Sankaran <quic_jeykumar@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Le sam. 20 mai 2023 =C3=A0 22:49, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> a =C3=A9crit :
+On Wed, 17 May 2023, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+> Add helper to get the integer value of drm_dsc_config.bits_per_pixel
 >
-> On 20/04/2023 20:47, Jeykumar Sankaran wrote:
-> >
-> >
-> > On 4/19/2023 3:23 PM, Dmitry Baryshkov wrote:
-> >> On 19/04/2023 17:41, Arnaud Vrac wrote:
-> >>> This avoids using two LMs instead of one when the display width is lo=
-wer
-> >>> than the maximum supported value. For example on MSM8996/MSM8998, the
-> >>> actual maxwidth is 2560, so we would use two LMs for 1280x720 or
-> >>> 1920x1080 resolutions, while one is enough.
-> >>>
-> >>> Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
-> >>
-> >> While this looks correct (and following what we have in 4.4), later
-> >> vendor kernels specify the topology explicitly. Probably we should
-> >> check this with the hw guys, because it might be the following case:
-> >> even though a single LM can supply the mode, it will spend more power
-> >> compared to two LMs.
-> >>
-> >>
-> > Yes. 2 LM split will allow the HW to run in lower mdp core clock. Can
-> > you maintain the split_threshold in the hw catalog until per mode
-> > topology is available?
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>  include/drm/display/drm_dsc_helper.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >
-> I don't think it warrants the trouble, unless we have a real usecase
-> when the device is short of LMs.
->
-> Arnaud, I'll mark this patch as Rejected for now, unless it fixes an LM
-> shortage for your platform.
+> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
+> index e0cbc38ada26..7bf7e8ff8eb4 100644
+> --- a/include/drm/display/drm_dsc_helper.h
+> +++ b/include/drm/display/drm_dsc_helper.h
+> @@ -9,6 +9,7 @@
+>  #define DRM_DSC_HELPER_H_
+>  
+>  #include <drm/display/drm_dsc.h>
+> +#include <linux/bug.h>
 
-It's fine, if I remember correctly I wrote this patch because display
-wouldn't work before I fixed the LM pairings on msm8998, but now it's
-not a requirement anymore.
+Seems like a small thing, adding static inlines in headers usually leads
+to more header dependencies like this, and gradually slows down build.
 
->
-> >
-> > Jeykumar S
-> >>> ---
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 +++++-----
-> >>>   1 file changed, 5 insertions(+), 5 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >>> index 1dc5dbe585723..dd2914726c4f6 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >>> @@ -53,8 +53,6 @@
-> >>>   #define IDLE_SHORT_TIMEOUT    1
-> >>> -#define MAX_HDISPLAY_SPLIT 1080
-> >>> -
-> >>>   /* timeout in frames waiting for frame done */
-> >>>   #define DPU_ENCODER_FRAME_DONE_TIMEOUT_FRAMES 5
-> >>> @@ -568,10 +566,12 @@ static struct msm_display_topology
-> >>> dpu_encoder_get_topology(
-> >>>        */
-> >>>       if (intf_count =3D=3D 2)
-> >>>           topology.num_lm =3D 2;
-> >>> -    else if (!dpu_kms->catalog->caps->has_3d_merge)
-> >>> -        topology.num_lm =3D 1;
-> >>> +    else if (dpu_kms->catalog->caps->has_3d_merge &&
-> >>> +         dpu_kms->catalog->mixer_count > 0 &&
-> >>> +         mode->hdisplay > dpu_kms->catalog->mixer[0].sblk->maxwidth)
-> >>> +        topology.num_lm =3D 2;
-> >>>       else
-> >>> -        topology.num_lm =3D (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? =
-2
-> >>> : 1;
-> >>> +        topology.num_lm =3D 1;
-> >>>       if (crtc_state->ctm)
-> >>>           topology.num_dspp =3D topology.num_lm;
-> >>>
-> >>
->
-> --
-> With best wishes
-> Dmitry
->
+Does it need to be a static inline?
+
+BR,
+Jani.
+
+>  
+>  enum drm_dsc_params_type {
+>  	DRM_DSC_1_2_444,
+> @@ -26,6 +27,12 @@ void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+>  int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_type type);
+>  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+>  
+> +static inline u32 drm_dsc_get_bpp_int(const struct drm_dsc_config *dsc)
+> +{
+> +	WARN_ON_ONCE(dsc->bits_per_pixel & 0xf);
+> +	return dsc->bits_per_pixel >> 4;
+> +}
+> +
+>  static inline u8 drm_dsc_initial_scale_value(const struct drm_dsc_config *dsc)
+>  {
+>  	return 8 * dsc->rc_model_size / (dsc->rc_model_size - dsc->initial_offset);
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
