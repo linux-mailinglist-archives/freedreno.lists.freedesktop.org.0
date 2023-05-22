@@ -2,37 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47FFA70CDD0
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 00:24:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0BA070CDFD
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 00:32:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE16C10E3AC;
-	Mon, 22 May 2023 22:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7A610E3AB;
+	Mon, 22 May 2023 22:32:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 432D010E3AB
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 22:24:37 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 758D03ED94;
- Tue, 23 May 2023 00:24:35 +0200 (CEST)
-Date: Tue, 23 May 2023 00:24:34 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <m6usbg7kwvtf73t3sitsl7vglkotqnqdvdg5eq56wzwrjfvosz@e3fh4jc7sejx>
-References: <20230522214527.190054-1-dmitry.baryshkov@linaro.org>
- <20230522214527.190054-2-dmitry.baryshkov@linaro.org>
- <tc35qb4qkzoanna5mqiibdfv5ascdm2wtcalbspr4u64nwkc3v@itowzdap5vjq>
- <bf4f2183-dba2-d8c6-2ad5-2c0dcee7810e@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF60210E3AB;
+ Mon, 22 May 2023 22:32:47 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34MLTkrO001952; Mon, 22 May 2023 22:32:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=o5ykXhg3wu5gYRzykIK1EzM8R4+bF4RthS27GpuDXQE=;
+ b=Ar7jMxsQ6MEbmrsNsYQsT7s+s6jnjb+cgbTMqM81TZwMrV6dOg2vbIW8t0ZFOBtUQNbd
+ BjDy4R/bEqjgQ4XTi1va43MQPIbU6cWal1GzFyr6kTSs5ZzDiOzAMmXtGdQMEicXR+to
+ RgYIHQsSWzJ2SdqnXemomVNPkzFzeOwfQ1IPcsFV/aqRDp0YwvqKUKxWGgJ3soNtoOcb
+ BXBXrQK01ky3xvokMzznOCfkQ/5VYCMdM6zL669x0hwWaau05zwzK/vitVxr48+9Z7Re
+ JPYnqYgAkudUvbmP9z9oXDXw+typbiVj8rCb9j0dtuBFkioMQdOgaqKAUOhm33TYQwdk Mg== 
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qr6h0sdnb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 22 May 2023 22:32:44 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34MMWiPv014771
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 22 May 2023 22:32:44 GMT
+Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 22 May
+ 2023 15:32:43 -0700
+Message-ID: <c1df53d9-e476-64bb-f8cb-cc2bf9cb7ff8@quicinc.com>
+Date: Mon, 22 May 2023 15:32:42 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bf4f2183-dba2-d8c6-2ad5-2c0dcee7810e@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 1/6] drm/msm/dpu: don't set DPU_INTF_TE
- globally
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230405-add-dsc-support-v4-0-15daf84f8dcb@quicinc.com>
+ <20230405-add-dsc-support-v4-2-15daf84f8dcb@quicinc.com>
+ <ybyb3sijo462w4qeoihmm6sd3m7ht2p4clhh7qdzk4fnej7v3e@j4pf2kzu2d4v>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <ybyb3sijo462w4qeoihmm6sd3m7ht2p4clhh7qdzk4fnej7v3e@j4pf2kzu2d4v>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: slj-DDewJZeNHasgsIIUI6-vAnUatDWI
+X-Proofpoint-ORIG-GUID: slj-DDewJZeNHasgsIIUI6-vAnUatDWI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-22_16,2023-05-22_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0
+ spamscore=0 suspectscore=0 clxscore=1015 adultscore=0 phishscore=0
+ mlxscore=0 lowpriorityscore=0 mlxlogscore=999 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305220190
+Subject: Re: [Freedreno] [PATCH v4 2/5] drm/msm/dsi: Adjust pclk rate for
+ compression
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,96 +85,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-23 01:01:50, Dmitry Baryshkov wrote:
-> On 23/05/2023 00:56, Marijn Suijten wrote:
-> > Title suggestion: s/globally/on non-TE/DSI (INTF) blocks
-> > 
-> > On 2023-05-23 00:45:22, Dmitry Baryshkov wrote:
-> >> Using BIT(DPU_INTF_TE) in INTF_SC7180_MASK (and by extension in
-> >> INTF_SC7280_MASK) results in this bit (and corrsponding operations)
-> >> being enabled for all interfaces, even the ones which do not have TE
-> >> block. Move this bit setting to INTF_DSI_TE(), so that it is only
-> >> enabled for those INTF blocks which have TE support.
-> >>
-> >> Fixes: 152c1d430992 ("drm/msm/dpu: Add TEAR-READ-pointer interrupt to INTF block")
-> >> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > 
-> > We've always been setting flags globally but I guess it makes sense to
-> > not only restrict this flag to DPU >= 5.0.0 but also just the few
-> > hardware blocks that actually have these in their *enlarged* register
-> > space (and have the interrupt).
-> > 
-> > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > 
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 3 +--
-> >>   1 file changed, 1 insertion(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >> index 1dee5ba2b312..162141cb5c83 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >> @@ -101,7 +101,6 @@
-> >>   
-> >>   #define INTF_SC7180_MASK \
-> >>   	(BIT(DPU_INTF_INPUT_CTRL) | \
-> >> -	 BIT(DPU_INTF_TE) | \
-> >>   	 BIT(DPU_INTF_STATUS_SUPPORTED) | \
-> >>   	 BIT(DPU_DATA_HCTL_EN))
-> >>   
-> >> @@ -544,7 +543,7 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
-> >>   	{\
-> >>   	.name = _name, .id = _id, \
-> >>   	.base = _base, .len = _len, \
-> >> -	.features = _features, \
-> >> +	.features = _features | BIT(DPU_INTF_TE), \
-> > 
-> > Now that we're more broadly switching to this pattern, should we do the
-> > same for PP_BLK() with and without TE block?  That way we can also
-> > forcefully initialize intr_rdptr=-1 similar to what I did for
-> > intr_tear_rd_ptr in INTF_BLK() (vs INTF_BLK_DSI_TE) here, instead of
-> > having the -1's floating around the catalog when I added them in commit
-> > 7952f5180eb3e ("drm/msm/dpu: Remove intr_rdptr from DPU >= 5.0.0
-> > pingpong config").
-> 
-> If we are going to expand the macros, then hiding -1 probably doesn't 
-> make sense as it will reappear soon.
-> 
-> Probably it makes sense to do another thing (which would play better 
-> with the expanded macros): increase IRQ indices by 1, making 'NO IRQ' 
-> equal to 0 instead of -1. This way all non-existing interrupts can be 
-> omitted during macros expansion. WDYT?
 
-I'm fine explicitly setting it to -1 to clarify it is missing.  On the
-other hand, default struct initialization might accidentally initialize
-it to the first interrupt on MDP_SSPP_TOP0_INTR (when users forget to
-write the member), where it makes sense to start at 1 instead.  Need to
-think about this for a bit.
-(The forced number of arguments is an advantage of the macro, even if we
- now have too many numeric constants to know which field it sets)
 
-- Marijn
+On 5/22/2023 2:31 PM, Marijn Suijten wrote:
+> On 2023-05-22 13:30:21, Jessica Zhang wrote:
+>> Adjust the pclk rate to divide hdisplay by the compression ratio when DSC
+>> is enabled.
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> 
+> As discussed previously, this patch would apply a lot more cleanly on
+> top of:
+> 
+> https://lore.kernel.org/linux-arm-msm/20230520200103.4019607-1-dmitry.baryshkov@linaro.org/T/#u
+> 
+> (This is the v2 that doesn't change the callback, but does change the
+> code flow so that you have to *touch less lines* in this patch).
 
-> > - Marijn
-> > 
-> >>   	.type = _type, \
-> >>   	.controller_id = _ctrl_id, \
-> >>   	.prog_fetch_lines_worst_case = _progfetch, \
-> >> -- 
-> >> 2.39.2
-> >>
+Hi Marijn,
+
+Sounds good. I'll rebase on top of that.
+
+Thanks,
+
+Jessica Zhang
+
 > 
-> -- 
-> With best wishes
-> Dmitry
+> - Marijn
 > 
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 23 +++++++++++++++++++----
+>>   1 file changed, 19 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index 18d38b90eb28..d04f8bbd707d 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -561,7 +561,18 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+>>   	clk_disable_unprepare(msm_host->byte_clk);
+>>   }
+>>   
+>> -static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+>> +static unsigned long dsi_adjust_compressed_pclk(const struct drm_display_mode *mode,
+>> +		const struct drm_dsc_config *dsc)
+>> +{
+>> +	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
+>> +			dsc->bits_per_component * 3);
+>> +
+>> +	return (new_hdisplay + (mode->htotal - mode->hdisplay))
+>> +			* mode->vtotal * drm_mode_vrefresh(mode);
+>> +}
+>> +
+>> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
+>> +		const struct drm_dsc_config *dsc, bool is_bonded_dsi)
+>>   {
+>>   	unsigned long pclk_rate;
+>>   
+>> @@ -576,6 +587,10 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool
+>>   	if (is_bonded_dsi)
+>>   		pclk_rate /= 2;
+>>   
+>> +	/* If DSC is enabled, divide hdisplay by compression ratio */
+>> +	if (dsc)
+>> +		pclk_rate = dsi_adjust_compressed_pclk(mode, dsc);
+>> +
+>>   	return pclk_rate;
+>>   }
+>>   
+>> @@ -585,7 +600,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+>>   	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>>   	u8 lanes = msm_host->lanes;
+>>   	u32 bpp = dsi_get_bpp(msm_host->format);
+>> -	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+>> +	unsigned long pclk_rate = dsi_get_pclk_rate(mode, msm_host->dsc, is_bonded_dsi);
+>>   	u64 pclk_bpp = (u64)pclk_rate * bpp;
+>>   
+>>   	if (lanes == 0) {
+>> @@ -604,7 +619,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+>>   
+>>   static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>>   {
+>> -	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
+>> +	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi);
+>>   	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
+>>   							msm_host->mode);
+>>   
+>> @@ -634,7 +649,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>>   
+>>   	dsi_calc_pclk(msm_host, is_bonded_dsi);
+>>   
+>> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
+>> +	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi) * bpp;
+>>   	do_div(pclk_bpp, 8);
+>>   	msm_host->src_clk_rate = pclk_bpp;
+>>   
+>>
+>> -- 
+>> 2.40.1
+>>
