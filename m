@@ -2,75 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A8170C13A
-	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 16:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7491E70C1A2
+	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 16:58:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05E8C10E341;
-	Mon, 22 May 2023 14:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD6DA10E346;
+	Mon, 22 May 2023 14:58:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD0610E343
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 14:37:15 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-3f6077660c6so5557265e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 07:37:15 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9ADA10E346
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 14:58:45 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2af29b37bd7so36532361fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 07:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684766234; x=1687358234;
- h=content-transfer-encoding:in-reply-to:organization:from:references
- :cc:to:content-language:subject:reply-to:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=zdvnVwXgfNIrQu1ouYczIi6HAW+S+m4cU0rmicGDt34=;
- b=uSbpJXtyH5RlNwRfmJX+il8tst9dzv5/H9xjSbTjLTwP/5GQN1dHRA1GmXDpk5aCHN
- B6DUpYf4WHupYYm149I26jWPAt39q0cwFxSbVmzRbqvVSqa9PMuRCoWCJCqzILlrMfOB
- o0muvgVT5p2B2ZlF4SfOnfOvTdeiowWEj+FuywHIIo6U/8WdQ4A4jECSpzhH3bl/JnQw
- OQYATM9De6zFJjAunPB6qL/VLI8i9LTZkeVCcnUI7rpxhSaNe5cC3B96Yu5nVpLxfY4m
- kXn18c0bj/4C2hJ4ce1K9qARMCZu/hLnIGRoA54Hg56C3uT97qYe46l3PuUchsTk9trb
- Vxfw==
+ d=linaro.org; s=google; t=1684767524; x=1687359524;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GB7XYhd2mlIH0fHMUAhimGnNPOH+S2GqRkVg6KqMpSs=;
+ b=gPTggsTBERvcP+EXfapcNg3Im+HXfZaBAsfZou5V4jt90/bqnENtw1bbGYVIeHQyd0
+ N6wQ4CN9n+IvlsUIFDXSqPAbwWfZ5KAUrtV7Q4eUdvFdpaUPrPzlQZm9rY2UHZ08vYVi
+ EhCYxVKDHkgk3wft4zSgmjRkJBTST7DXgkSbzSmVS/L+VR9XbHPGLsfwL8ExFI2TKeyd
+ jmthItPiRl4f5pxPwlu7d58UfmQAHPWbcubxJ2h1ptGdgBtsIe4L9PDhgo1wzb+tSsXk
+ zBDdkdfYTAVJclEgmyFlDS0bdqNcP2pSv0TuGQnkDMG6yEAkut3jc/xVdEdC2hwIlR9I
+ EWRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684766234; x=1687358234;
- h=content-transfer-encoding:in-reply-to:organization:from:references
- :cc:to:content-language:subject:reply-to:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zdvnVwXgfNIrQu1ouYczIi6HAW+S+m4cU0rmicGDt34=;
- b=QyrckyGA+1A0r2xTH624dvCUG6xZtPQL7UvW79LtRe2AVLF/8/6aadY3aG2Qo8vIbi
- WPKw4cgN2NrfA1yrx7yFWgOl70dmxSmENFP1Cu3iLS1nXKiqI43H7lU+waL/xRoRfWwm
- z3yb++wjyd9XP1zLk1K3S/23yUWxW0lkEASeq4Ci2iut1J1NM1ou++JqLRc5Ddga5p5g
- I8MmhpB4qLnIXJfQlV0QzMS08z2SJQEz2M2rWWVeObyGwitcavM01udieaY1Rak+TINj
- l+URDIO/iaAmhjFNi/Hw2GS02y+3/ylufbUSbjk52BLgOpRpcF+x7uWy3+Kmi+GKDyjE
- ILIA==
-X-Gm-Message-State: AC+VfDxTbtENWSGNy8wEhGe6NfDOB0A/eehzpbLK0sGTgKJBEI+ATKPE
- NZbeO8tAWYOtAJKfXuFpjVz3Kw==
-X-Google-Smtp-Source: ACHHUZ4NPnSFsxk/nimmDrGyNkeLNKKPnjiITR4ePa5lAHi8Hb449dSFiRhXa5mYv0fQR26dEcw9mg==
-X-Received: by 2002:a7b:c013:0:b0:3f1:9b85:e305 with SMTP id
- c19-20020a7bc013000000b003f19b85e305mr8152288wmb.34.1684766233879; 
- Mon, 22 May 2023 07:37:13 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:a478:d61d:5bb5:7df?
- ([2a01:e0a:982:cbb0:a478:d61d:5bb5:7df])
+ d=1e100.net; s=20221208; t=1684767524; x=1687359524;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GB7XYhd2mlIH0fHMUAhimGnNPOH+S2GqRkVg6KqMpSs=;
+ b=QDYHam6X90ictM5kngtvJO9jiYoU9Q7AsZ5gCUxCrQWhWgyJzmSMhj4qSMvlz9Cl2C
+ JtqwN9+MOwF1ht40XfOoe2PPWf8lqcs823jo/lFNuUVPo7wlxK9Q/s/hRgtbw0xk8QTZ
+ xmZ9MOzE/sdYBXLsxI3IidKUuVnqLtNxrD4lo6MbzrVbWBYv8F6a28y3KEI0J3BnOdYv
+ 959eMphcYrqgABkLzDpRQwRz+FEWi3pl/CabHuy+v3NTWiMg5/Q3CdCJoBo/qBqFuzn9
+ MufPpTUlmSCZORhDNH0kqstK+KcoYSpEuttHzAZDx8c5BhEbgeGwzKFthdPG7LH9qyth
+ GAeA==
+X-Gm-Message-State: AC+VfDwMwpCNNLWaPwdwKHwLqyOGAN/R/r/fCM2oejVLat6kd9P9Ugz0
+ zGfgUJ+Puoqa1TZhf9FgCFD2rw==
+X-Google-Smtp-Source: ACHHUZ4BDbUixCFCn6K/ZmSTVEPc3IlyEtxt5/2WqXNMuohCC/E7nqhpjiIN29qz4pge9WjbtitRVA==
+X-Received: by 2002:ac2:489c:0:b0:4e8:5112:1ff2 with SMTP id
+ x28-20020ac2489c000000b004e851121ff2mr3557967lfc.27.1684767523807; 
+ Mon, 22 May 2023 07:58:43 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- 22-20020a05600c231600b003f421979398sm11630824wmo.26.2023.05.22.07.37.12
+ r11-20020a19ac4b000000b004f3942e1fbesm1021727lfc.1.2023.05.22.07.58.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 May 2023 07:37:13 -0700 (PDT)
-Message-ID: <a1896fcf-c52d-ee79-6394-8667d6163cb9@linaro.org>
-Date: Mon, 22 May 2023 16:37:12 +0200
+ Mon, 22 May 2023 07:58:43 -0700 (PDT)
+Message-ID: <0be4bb6e-40dd-f4bd-3fd2-d62fa228d356@linaro.org>
+Date: Mon, 22 May 2023 17:58:42 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: neil.armstrong@linaro.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20230522004227.134501-1-dmitry.baryshkov@linaro.org>
- <20230522004227.134501-7-dmitry.baryshkov@linaro.org>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <20230522004227.134501-7-dmitry.baryshkov@linaro.org>
+ <20230522004227.134501-4-dmitry.baryshkov@linaro.org>
+ <80da4c26-ca3f-00c9-072c-087a1ff24c74@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <80da4c26-ca3f-00c9-072c-087a1ff24c74@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 6/6] drm/msm/dpu: drop compatibility INTR
- defines
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 3/6] drm/msm/dpu: split interrupt address
+ arrays
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,7 +81,6 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
@@ -92,129 +89,51 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/05/2023 02:42, Dmitry Baryshkov wrote:
-> While reworking interrupts masks, it was easier to keep old
-> MDP_INTFn_7xxx_INTR and MDP_INTFn_7xxx_TEAR_INTR symbols. Now it is time
-> to drop them and use unified symbol names.
+On 22/05/2023 17:36, Neil Armstrong wrote:
+> Hi,
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h  |  4 ++--
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h  |  2 +-
->   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h    |  4 ++--
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h  |  4 ++--
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h  |  4 ++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h   | 13 -------------
->   6 files changed, 9 insertions(+), 22 deletions(-)
+> On 22/05/2023 02:42, Dmitry Baryshkov wrote:
+>> There is no point in having a single enum (and a single array) for both
+>> DPU < 7.0 and DPU >= 7.0 interrupt registers. Instead define a single
+>> enum and two IRQ address arrays.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  2 +
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 82 +++++++++++++------
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h | 28 ++++---
+>>   3 files changed, 74 insertions(+), 38 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> index 677048cc3b7d..72530ebb0ae6 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> @@ -351,6 +351,7 @@ struct dpu_rotation_cfg {
+>>    * @has_dim_layer      dim layer feature status
+>>    * @has_idle_pc        indicate if idle power collapse feature is 
+>> supported
+>>    * @has_3d_merge       indicate if 3D merge is supported
+>> + * @has_7xxx_intr      indicate that INTF/IRQs use addressing for DPU 
+>> 7.0 and greater
+>>    * @max_linewidth      max linewidth for sspp
+>>    * @pixel_ram_size     size of latency hiding and de-tiling buffer 
+>> in bytes
+>>    * @max_hdeci_exp      max horizontal decimation supported (max is 
+>> 2^value)
+>> @@ -364,6 +365,7 @@ struct dpu_caps {
+>>       bool has_dim_layer;
+>>       bool has_idle_pc;
+>>       bool has_3d_merge;
+>> +    bool has_7xxx_intr;
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> index f9e5f252ae54..c64b6a7a30af 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-> @@ -160,11 +160,11 @@ static const struct dpu_intf_cfg sm8350_intf[] = {
->   	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x2c4, INTF_DSI, 0, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> -			DPU_IRQ_IDX(MDP_INTF1_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
->   	INTF_BLK_DSI_TE("intf_2", INTF_2, 0x36000, 0x2c4, INTF_DSI, 1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
-> -			DPU_IRQ_IDX(MDP_INTF2_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2)),
->   	INTF_BLK("intf_3", INTF_3, 0x37000, 0x280, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31)),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> index dede8cb2d784..98623388badc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> @@ -106,7 +106,7 @@ static const struct dpu_intf_cfg sc7280_intf[] = {
->   	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x2c4, INTF_DSI, 0, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> -			DPU_IRQ_IDX(MDP_INTF1_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
->   	INTF_BLK("intf_5", INTF_5, 0x39000, 0x280, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 22),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 23)),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-> index 79ab2d015a44..fde9204c2c8e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-> @@ -150,11 +150,11 @@ static const struct dpu_intf_cfg sc8280xp_intf[] = {
->   	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x300, INTF_DSI, 0, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> -			DPU_IRQ_IDX(MDP_INTF1_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
->   	INTF_BLK_DSI_TE("intf_2", INTF_2, 0x36000, 0x300, INTF_DSI, 1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
-> -			DPU_IRQ_IDX(MDP_INTF2_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2)),
->   	INTF_BLK("intf_3", INTF_3, 0x37000, 0x280, INTF_NONE, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31)),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> index b0bc88136e86..3821cc465c47 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> @@ -168,11 +168,11 @@ static const struct dpu_intf_cfg sm8450_intf[] = {
->   	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x300, INTF_DSI, 0, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> -			DPU_IRQ_IDX(MDP_INTF1_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
->   	INTF_BLK_DSI_TE("intf_2", INTF_2, 0x36000, 0x300, INTF_DSI, 1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
-> -			DPU_IRQ_IDX(MDP_INTF2_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2)),
->   	INTF_BLK("intf_3", INTF_3, 0x37000, 0x280, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31)),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-> index afed62e44f90..f35671d1f2b8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-> @@ -172,11 +172,11 @@ static const struct dpu_intf_cfg sm8550_intf[] = {
->   	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x300, INTF_DSI, 0, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> -			DPU_IRQ_IDX(MDP_INTF1_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
->   	INTF_BLK_DSI_TE("intf_2", INTF_2, 0x36000, 0x300, INTF_DSI, 1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
-> -			DPU_IRQ_IDX(MDP_INTF2_7xxx_TEAR_INTR, 2)),
-> +			DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2)),
->   	INTF_BLK("intf_3", INTF_3, 0x37000, 0x280, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK,
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31)),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> index f0b92c9e3b09..4a46c0900e04 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> @@ -39,19 +39,6 @@ enum dpu_hw_intr_reg {
->   				   intf == INTF_2 ? MDP_INTF2_TEAR_INTR : \
->   				   -1)
->   
-> -/* compatibility */
-> -#define MDP_INTF0_7xxx_INTR MDP_INTF0_INTR
-> -#define MDP_INTF1_7xxx_INTR MDP_INTF1_INTR
-> -#define MDP_INTF2_7xxx_INTR MDP_INTF2_INTR
-> -#define MDP_INTF3_7xxx_INTR MDP_INTF3_INTR
-> -#define MDP_INTF4_7xxx_INTR MDP_INTF4_INTR
-> -#define MDP_INTF5_7xxx_INTR MDP_INTF5_INTR
-> -#define MDP_INTF6_7xxx_INTR MDP_INTF6_INTR
-> -#define MDP_INTF7_7xxx_INTR MDP_INTF7_INTR
-> -#define MDP_INTF8_7xxx_INTR MDP_INTF8_INTR
-> -#define MDP_INTF1_7xxx_TEAR_INTR MDP_INTF1_TEAR_INTR
-> -#define MDP_INTF2_7xxx_TEAR_INTR MDP_INTF2_TEAR_INTR
-> -
->   #define DPU_IRQ_IDX(reg_idx, offset)	(reg_idx * 32 + offset)
->   
->   /**
+> looks good, but I can't find where has_7xxx_intr is set in the patchset
+> 
+> Neil
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Indeed. It seems I missed a patch.
+
+-- 
+With best wishes
+Dmitry
+
