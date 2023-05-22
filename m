@@ -2,35 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B039270CC73
-	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 23:31:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CEAC70CCA0
+	for <lists+freedreno@lfdr.de>; Mon, 22 May 2023 23:39:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1ED210E156;
-	Mon, 22 May 2023 21:31:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0241710E0C2;
+	Mon, 22 May 2023 21:39:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5452910E11D
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 21:31:45 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id C496920161;
- Mon, 22 May 2023 23:31:42 +0200 (CEST)
-Date: Mon, 22 May 2023 23:31:41 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <ybyb3sijo462w4qeoihmm6sd3m7ht2p4clhh7qdzk4fnej7v3e@j4pf2kzu2d4v>
-References: <20230405-add-dsc-support-v4-0-15daf84f8dcb@quicinc.com>
- <20230405-add-dsc-support-v4-2-15daf84f8dcb@quicinc.com>
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [IPv6:2607:f8b0:4864:20::1134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 869EE10E0C2
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 21:39:45 +0000 (UTC)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-561e5014336so53906517b3.1
+ for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 14:39:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684791583; x=1687383583;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=yD4zfUk9vpnEy1wIqYzjUGIqvKrzAnasqXbBWIwAtbE=;
+ b=NBNfOFLXx7VH0QBdHxgcutL+Urmh+l+H3lZcHGWDXD/w7zuAmucZuSEoG5jTTDsblo
+ DnOUZtbkc4StbDmPQZ8b9rp2X27dp35Jl06ObKvsbpRrgRSk6gT+oklQSkwo/DFtEhwR
+ hdzgaZaRrSKPkPUnExacwxbEUiqait3+O/MMjlyfa3ajeIiiBTslkBU971sBqrfXjKs5
+ mFJBaEKK28fFBZOsMoz6zFx7iDKTcUjQvUwwU+Oc6Cfr776nShMc3UdIhqxiMgh8JKRz
+ p8EhQDnCLJKT+pWkuumDFU0CtuSSVJ5b91vSBqrN1TQIPDm/3jBmrYsxzQ2AdPIyAtDd
+ jCKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684791583; x=1687383583;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yD4zfUk9vpnEy1wIqYzjUGIqvKrzAnasqXbBWIwAtbE=;
+ b=OaChJc0tRfllAhsGzIu0A/qqDOiMm/Z3Wyemrj0MmJ0zJ7VTjmGrg3MIUKjf4VpraC
+ xyTYTocXVjw36FwnQBZa/pNTvWWPdQk1ggg6251DWwcJtCxIqIJhUahqAcL6Mvo6ES7i
+ jmYroe1nJfvZHmBUdLjkMFd0Cm2eY1gbkqLr241md6mwT7mPs3coZ0vmYtuOQxJEzxU4
+ BdOQMErTyft8Ei5n+8eYSgM/KE5oFneX9eNVF7eEAeC7ggpuztl+Bvs/8Z0PXtJzaYpp
+ XQKuc1TDPOXi/0uZlxc0GKBhuWEGWdt3g7TX9EzgKOlKun3zGRrUePdWtOAFznzn8mdu
+ MKrg==
+X-Gm-Message-State: AC+VfDyO6Xf06p+6CDyxla19Xc7gtioyGB3gXE30pvPBIYN1+Lq0u7UQ
+ 2st+eyM7VvqFYQntNj53mH1k2mv4gXRWX+6O2wC+1g==
+X-Google-Smtp-Source: ACHHUZ6Vrsb3R3bh+4v8zZ9fkn4gN1vr6nJGKUpWXzmVEgP7NDoynj6j6syAX/Mutv+PD9SYk7Jpao+7EUzi5fGCftY=
+X-Received: by 2002:a0d:dd01:0:b0:561:9051:d2d3 with SMTP id
+ g1-20020a0ddd01000000b005619051d2d3mr13622724ywe.11.1684791583389; Mon, 22
+ May 2023 14:39:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230405-add-dsc-support-v4-2-15daf84f8dcb@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 2/5] drm/msm/dsi: Adjust pclk rate for
- compression
+References: <1684791092-1822-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1684791092-1822-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 23 May 2023 00:39:32 +0300
+Message-ID: <CAA8EJpq9a71UN9p3DgdxudHtRR1sCSQdFmX=FAXgCLkPVw3oNQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: enable HDP plugin/unplugged
+ interrupts at hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,98 +67,245 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ quic_jesszhan@quicinc.com, marijn.suijten@somainline.org, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-22 13:30:21, Jessica Zhang wrote:
-> Adjust the pclk rate to divide hdisplay by the compression ratio when DSC
-> is enabled.
-> 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-
-As discussed previously, this patch would apply a lot more cleanly on
-top of:
-
-https://lore.kernel.org/linux-arm-msm/20230520200103.4019607-1-dmitry.baryshkov@linaro.org/T/#u
-
-(This is the v2 that doesn't change the callback, but does change the
-code flow so that you have to *touch less lines* in this patch).
-
-- Marijn
-
+On Tue, 23 May 2023 at 00:31, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> The internal_hpd flag is set to true by dp_bridge_hpd_enable() and set to
+> false by dp_bridge_hpd_disable() to handle GPIO pinmuxed into DP controller
+> case. HDP related interrupts can not be enabled until internal_hpd is set
+> to true. At current implementation dp_display_config_hpd() will initialize
+> DP host controller first followed by enabling HDP related interrupts if
+> internal_hpd was true at that time. Enable HDP related interrupts depends on
+> internal_hpd status may leave system with DP driver host is in running state
+> but without HDP related interrupts being enabled. This will prevent external
+> display from being detected. Eliminated this dependency by moving HDP related
+> interrupts enable/disable be done at dp_bridge_hpd_enable/disable() directly
+> regardless of internal_hpd status.
+>
+> Changes in V3:
+> -- dp_catalog_ctrl_hpd_enable() and dp_catalog_ctrl_hpd_disable()
+> -- rewording ocmmit text
+>
+> Fixes: cd198caddea7 ("drm/msm/dp: Rely on hpd_enable/disable callbacks")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 18d38b90eb28..d04f8bbd707d 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -561,7 +561,18 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
->  	clk_disable_unprepare(msm_host->byte_clk);
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 15 +++++++-
+>  drivers/gpu/drm/msm/dp/dp_catalog.h |  3 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c | 70 +++++++++++--------------------------
+>  3 files changed, 37 insertions(+), 51 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index 7a8cf1c..5142aeb 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -620,7 +620,7 @@ void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+>                                 config & DP_DP_HPD_INT_MASK);
 >  }
->  
-> -static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
-> +static unsigned long dsi_adjust_compressed_pclk(const struct drm_display_mode *mode,
-> +		const struct drm_dsc_config *dsc)
+>
+> -void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog)
+> +void dp_catalog_ctrl_hpd_enable(struct dp_catalog *dp_catalog)
+>  {
+>         struct dp_catalog_private *catalog = container_of(dp_catalog,
+>                                 struct dp_catalog_private, dp_catalog);
+> @@ -635,6 +635,19 @@ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog)
+>         dp_write_aux(catalog, REG_DP_DP_HPD_CTRL, DP_DP_HPD_CTRL_HPD_EN);
+>  }
+>
+> +void dp_catalog_ctrl_hpd_disable(struct dp_catalog *dp_catalog)
 > +{
-> +	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
-> +			dsc->bits_per_component * 3);
+> +       struct dp_catalog_private *catalog = container_of(dp_catalog,
+> +                               struct dp_catalog_private, dp_catalog);
 > +
-> +	return (new_hdisplay + (mode->htotal - mode->hdisplay))
-> +			* mode->vtotal * drm_mode_vrefresh(mode);
+> +       u32 reftimer = dp_read_aux(catalog, REG_DP_DP_HPD_REFTIMER);
+> +
+> +       reftimer &= ~DP_DP_HPD_REFTIMER_ENABLE;
+> +       dp_write_aux(catalog, REG_DP_DP_HPD_REFTIMER, reftimer);
+> +
+> +       dp_write_aux(catalog, REG_DP_DP_HPD_CTRL, 0);
 > +}
 > +
-> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
-> +		const struct drm_dsc_config *dsc, bool is_bonded_dsi)
+>  static void dp_catalog_enable_sdp(struct dp_catalog_private *catalog)
 >  {
->  	unsigned long pclk_rate;
->  
-> @@ -576,6 +587,10 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool
->  	if (is_bonded_dsi)
->  		pclk_rate /= 2;
->  
-> +	/* If DSC is enabled, divide hdisplay by compression ratio */
-> +	if (dsc)
-> +		pclk_rate = dsi_adjust_compressed_pclk(mode, dsc);
-> +
->  	return pclk_rate;
+>         /* trigger sdp */
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index 82376a2..38786e8 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -104,7 +104,8 @@ bool dp_catalog_ctrl_mainlink_ready(struct dp_catalog *dp_catalog);
+>  void dp_catalog_ctrl_enable_irq(struct dp_catalog *dp_catalog, bool enable);
+>  void dp_catalog_hpd_config_intr(struct dp_catalog *dp_catalog,
+>                         u32 intr_mask, bool en);
+> -void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog);
+> +void dp_catalog_ctrl_hpd_enable(struct dp_catalog *dp_catalog);
+> +void dp_catalog_ctrl_hpd_disable(struct dp_catalog *dp_catalog);
+>  void dp_catalog_ctrl_config_psr(struct dp_catalog *dp_catalog);
+>  void dp_catalog_ctrl_set_psr(struct dp_catalog *dp_catalog, bool enter);
+>  u32 dp_catalog_link_is_connected(struct dp_catalog *dp_catalog);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 3e13acdf..69bbc5f 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -615,12 +615,6 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+>                 dp->hpd_state = ST_MAINLINK_READY;
+>         }
+>
+> -       /* enable HDP irq_hpd/replug interrupt */
+> -       if (dp->dp_display.internal_hpd)
+> -               dp_catalog_hpd_config_intr(dp->catalog,
+> -                                          DP_DP_IRQ_HPD_INT_MASK | DP_DP_HPD_REPLUG_INT_MASK,
+> -                                          true);
+> -
+>         drm_dbg_dp(dp->drm_dev, "After, type=%d hpd_state=%d\n",
+>                         dp->dp_display.connector_type, state);
+>         mutex_unlock(&dp->event_mutex);
+> @@ -658,12 +652,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+>         drm_dbg_dp(dp->drm_dev, "Before, type=%d hpd_state=%d\n",
+>                         dp->dp_display.connector_type, state);
+>
+> -       /* disable irq_hpd/replug interrupts */
+> -       if (dp->dp_display.internal_hpd)
+> -               dp_catalog_hpd_config_intr(dp->catalog,
+> -                                          DP_DP_IRQ_HPD_INT_MASK | DP_DP_HPD_REPLUG_INT_MASK,
+> -                                          false);
+> -
+>         /* unplugged, no more irq_hpd handle */
+>         dp_del_event(dp, EV_IRQ_HPD_INT);
+>
+> @@ -687,10 +675,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+>                 return 0;
+>         }
+>
+> -       /* disable HPD plug interrupts */
+> -       if (dp->dp_display.internal_hpd)
+> -               dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, false);
+> -
+>         /*
+>          * We don't need separate work for disconnect as
+>          * connect/attention interrupts are disabled
+> @@ -706,10 +690,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+>         /* signal the disconnect event early to ensure proper teardown */
+>         dp_display_handle_plugged_change(&dp->dp_display, false);
+>
+> -       /* enable HDP plug interrupt to prepare for next plugin */
+> -       if (dp->dp_display.internal_hpd)
+> -               dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, true);
+> -
+>         drm_dbg_dp(dp->drm_dev, "After, type=%d hpd_state=%d\n",
+>                         dp->dp_display.connector_type, state);
+>
+> @@ -1082,26 +1062,6 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
+>         mutex_unlock(&dp_display->event_mutex);
 >  }
->  
-> @@ -585,7 +600,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
->  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->  	u8 lanes = msm_host->lanes;
->  	u32 bpp = dsi_get_bpp(msm_host->format);
-> -	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
-> +	unsigned long pclk_rate = dsi_get_pclk_rate(mode, msm_host->dsc, is_bonded_dsi);
->  	u64 pclk_bpp = (u64)pclk_rate * bpp;
->  
->  	if (lanes == 0) {
-> @@ -604,7 +619,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
->  
->  static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>
+> -static void dp_display_config_hpd(struct dp_display_private *dp)
+> -{
+> -
+> -       dp_display_host_init(dp);
+> -       dp_catalog_ctrl_hpd_config(dp->catalog);
+> -
+> -       /* Enable plug and unplug interrupts only if requested */
+> -       if (dp->dp_display.internal_hpd)
+> -               dp_catalog_hpd_config_intr(dp->catalog,
+> -                               DP_DP_HPD_PLUG_INT_MASK |
+> -                               DP_DP_HPD_UNPLUG_INT_MASK,
+> -                               true);
+> -
+> -       /* Enable interrupt first time
+> -        * we are leaving dp clocks on during disconnect
+> -        * and never disable interrupt
+> -        */
+> -       enable_irq(dp->irq);
+> -}
+> -
+>  void dp_display_set_psr(struct msm_dp *dp_display, bool enter)
 >  {
-> -	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
-> +	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi);
->  	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
->  							msm_host->mode);
->  
-> @@ -634,7 +649,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  
->  	dsi_calc_pclk(msm_host, is_bonded_dsi);
->  
-> -	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi) * bpp;
-> +	pclk_bpp = (u64)dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi) * bpp;
->  	do_div(pclk_bpp, 8);
->  	msm_host->src_clk_rate = pclk_bpp;
->  
-> 
-> -- 
-> 2.40.1
-> 
+>         struct dp_display_private *dp;
+> @@ -1176,7 +1136,7 @@ static int hpd_event_thread(void *data)
+>
+>                 switch (todo->event_id) {
+>                 case EV_HPD_INIT_SETUP:
+> -                       dp_display_config_hpd(dp_priv);
+> +                       dp_display_host_init(dp_priv);
+>                         break;
+>                 case EV_HPD_PLUG_INT:
+>                         dp_hpd_plug_handle(dp_priv, todo->data);
+> @@ -1394,13 +1354,8 @@ static int dp_pm_resume(struct device *dev)
+>         /* turn on dp ctrl/phy */
+>         dp_display_host_init(dp);
+>
+> -       dp_catalog_ctrl_hpd_config(dp->catalog);
+> -
+> -       if (dp->dp_display.internal_hpd)
+> -               dp_catalog_hpd_config_intr(dp->catalog,
+> -                               DP_DP_HPD_PLUG_INT_MASK |
+> -                               DP_DP_HPD_UNPLUG_INT_MASK,
+> -                               true);
+> +       if (dp_display->is_edp)
+> +               dp_catalog_ctrl_hpd_enable(dp->catalog);
+>
+>         if (dp_catalog_link_is_connected(dp->catalog)) {
+>                 /*
+> @@ -1568,7 +1523,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>
+>         if (aux_bus && dp->is_edp) {
+>                 dp_display_host_init(dp_priv);
+> -               dp_catalog_ctrl_hpd_config(dp_priv->catalog);
+> +               dp_catalog_ctrl_hpd_enable(dp_priv->catalog);
+>                 dp_display_host_phy_init(dp_priv);
+>                 enable_irq(dp_priv->irq);
+>
+> @@ -1801,16 +1756,33 @@ void dp_bridge_hpd_enable(struct drm_bridge *bridge)
+>  {
+>         struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
+>         struct msm_dp *dp_display = dp_bridge->dp_display;
+> +       struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
+> +
+> +       mutex_lock(&dp->event_mutex);
+> +       dp_catalog_ctrl_hpd_enable(dp->catalog);
+> +
+> +       /* enable HDP interrupts */
+> +       dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, true);
+> +
+> +       enable_irq(dp->irq);
+>
+>         dp_display->internal_hpd = true;
+> +       mutex_unlock(&dp->event_mutex);
+>  }
+>
+>  void dp_bridge_hpd_disable(struct drm_bridge *bridge)
+>  {
+>         struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
+>         struct msm_dp *dp_display = dp_bridge->dp_display;
+> +       struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
+> +
+> +       mutex_lock(&dp->event_mutex);
+> +       /* disable HDP interrupts */
+
+Should there be a disable_irq? Or maybe it would  be simpler to keep
+IRQ always enabled from the time of request_irq. There is a window
+when the IRQ is enabled between request_irq and disable_irq.
+
+> +       dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
+> +       dp_catalog_ctrl_hpd_disable(dp->catalog);
+>
+>         dp_display->internal_hpd = false;
+> +       mutex_unlock(&dp->event_mutex);
+>  }
+>
+>  void dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> --
+> 2.7.4
+>
+
+
+-- 
+With best wishes
+Dmitry
