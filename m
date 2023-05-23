@@ -2,60 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA8070E70E
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 23:02:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33FCF70E736
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 23:14:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74EF110E4DF;
-	Tue, 23 May 2023 21:02:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4FCB10E4EE;
+	Tue, 23 May 2023 21:14:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35E8110E4DC
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 21:02:36 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-5621a279cbbso5291657b3.1
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 14:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684875755; x=1687467755;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4gNfZIeekSHs7BohS2Orfq0Se0pBECTdaana4cYqBL4=;
- b=tOGPzOTXR3ZwhBy1Ic0ihRryuxQqnniw6YqV0SHZ2xEJbKbV79oNg8iSaUODmLcYpc
- OODVehM/ARBOOUXdzyj94ie3ObrYp2+yDybUY6odfIvlc3vWw4Uu42VIjwf40Qj8jnpv
- /u6BIYptfcGey8tl64SMGH2ekP+e49xLeKTW8DQrLw1PiekWMDf+SVtkboNYCRCGAok6
- r3NGmKXQI7IcDYSXwmcTXA1k8cCjELTw9o7nX5Wa7vfMZ2Cbd4X+B/kwzKnE15M8S45G
- buaYCqxYBK9bQTQOog//pv15RiylJCcZ2FOpBp2rmOQy5OInQOLIQu3TNA64CyDbqbSd
- lTWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684875755; x=1687467755;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4gNfZIeekSHs7BohS2Orfq0Se0pBECTdaana4cYqBL4=;
- b=fPdQ3HEQA1ntevOHnugkWkTe9ys5B0jkgqRrlZL5pgEYIUfatCt9pmYP65Y0ZFJsxv
- Q+KV9UsGTTFCrcAj4R2ci9/xv9dIptcM0E3dUHOSd5EFeVTTDWldFAgxkzdsZpehcAcg
- LIAazp22h4E39aKTYsnL80RbKHpDf/UMxbunLLdJb1DfQaSvqNJoxGN6ZWc/z7q31NC0
- QoKQGjHSZRpS6QcW5IyxeoHMAm32I8nZt1WkOtJCEjnj3SiOfVtwKaIqfM570Fic1+nO
- qppMF611BQ70G8rLs8YQM1DrYdpgV3lyNoDfjrc3e1IPJUOlmwrXcFzizifnWpjQ/tGf
- iZkg==
-X-Gm-Message-State: AC+VfDzrOXisWKFZCVQtze7Fo1A0rNIE1ppIXkLuRyZqjbhzJYr+Q4mP
- Hn0WFwa5hIrtuUUzfrWOFyCd7UBgoEX/fKBCFFcbSw==
-X-Google-Smtp-Source: ACHHUZ7UXQzwb1RIpn2+dG8waBFp9bePM9jRJQJFoANyzIIkMfYS8DmloLszmqODJrAwBGg2Stn1tqrkrSUfUH7FmaQ=
-X-Received: by 2002:a81:1bc8:0:b0:55a:776e:95f3 with SMTP id
- b191-20020a811bc8000000b0055a776e95f3mr15671135ywb.25.1684875754960; Tue, 23
- May 2023 14:02:34 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B5B10E4E2;
+ Tue, 23 May 2023 21:14:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34NKOQ0S014492; Tue, 23 May 2023 21:14:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=Q0WFDeLy9CaQPGLDkV6wAF624X8koEHaM1rhdA9Julo=;
+ b=K8CjS4ge7/mhqQzVneriGIW6KvJeSeZL1WCpsH9C9yChZJCypoTdAdN6B2tcSxcvXAsA
+ 1kEkxa8cf/hla5FIFwpaJZpqLvCboWJ1UWHXogzqN/lFsY1bMwGp29n94QlsJpAWOhoo
+ 5rAnQi9mFsIERv0NGr9wSIQoM//tjpU3ks1zvHwUCq2WgfFbMHNdZJ2qr25w73S90Z9e
+ BZbEgBH25AK+99lekajxpGnQlq4RNWnMmgbloetWD5JdwD9CS28zubLcM1hvgapdCMRW
+ Xcs6/vSQQUd2GSo3Ykf6irGK3EBBpUFwz7W9aK+roRJ0qpTwZM0/eHmePfIIV68CL2vR Cw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qs42ur4eh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 May 2023 21:14:31 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34NLEU5r012629
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 May 2023 21:14:30 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 23 May
+ 2023 14:14:30 -0700
+Message-ID: <8267cc85-f35c-628b-8270-869cf64362d5@quicinc.com>
+Date: Tue, 23 May 2023 14:14:29 -0700
 MIME-Version: 1.0
-References: <1684870754-24906-1-git-send-email-quic_khsieh@quicinc.com>
- <1684870754-24906-2-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1684870754-24906-2-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 24 May 2023 00:02:23 +0300
-Message-ID: <CAA8EJpq0Gh5Wu5S_9aMytghOer_zPKthCZq9-vf7+vHm+sYH5Q@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 1/2] drm/msm/dp: no need to disable irq
- after devm_request_irq()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230519150734.3879916-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230519150734.3879916-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 9-1r9pIwEpRy8TC1Fh4N2hsd1QpWBlgH
+X-Proofpoint-GUID: 9-1r9pIwEpRy8TC1Fh4N2hsd1QpWBlgH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-23_14,2023-05-23_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0
+ priorityscore=1501 adultscore=0 lowpriorityscore=0 spamscore=0 mlxscore=0
+ phishscore=0 suspectscore=0 malwarescore=0 mlxlogscore=625 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
+ definitions=main-2305230169
+Subject: Re: [Freedreno] [PATCH v7] drm/msm: stop storing the array of CRTCs
+ in struct msm_drm_private
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,84 +84,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- leonard@lausen.nl, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, linux-kernel@vger.kernel.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
- agross@kernel.org, daniel@ffwll.ch, marijn.suijten@somainline.org,
- quic_jesszhan@quicinc.com, swboyd@chromium.org, sean@poorly.run,
- linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 23 May 2023 at 22:39, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> devm_request_irq() will allocate irq and return with irq enabled.
-> At current implementation irq are specified disabled after return from
-> devm_request_irq() and re enabled later. It is redundant.
 
-This is not correct. The disable_irq / enable_irq pair is not
-redundant. If I understand correctly, it was done so to prevent HPD
-IRQs from being delivered before HPD worker is initialized (which was
-probably correct at the time of the mentioned commit). So this patch
-either can come after the next patch (but then it should not have a
-Fixes tag and the commit message should be changed to mention why
-disable_irq() call is redundant) or it can be squashed together with
-the next patch.
 
->
-> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+On 5/19/2023 8:07 AM, Dmitry Baryshkov wrote:
+> The array of CRTC in the struct msm_drm_private duplicates a list of
+> CRTCs in the drm_device. Drop it and use the existing list for CRTC
+> enumeration.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 9 ---------
->  1 file changed, 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 3e13acdf..1af49b6 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1094,12 +1094,6 @@ static void dp_display_config_hpd(struct dp_display_private *dp)
->                                 DP_DP_HPD_PLUG_INT_MASK |
->                                 DP_DP_HPD_UNPLUG_INT_MASK,
->                                 true);
-> -
-> -       /* Enable interrupt first time
-> -        * we are leaving dp clocks on during disconnect
-> -        * and never disable interrupt
-> -        */
-> -       enable_irq(dp->irq);
->  }
->
->  void dp_display_set_psr(struct msm_dp *dp_display, bool enter)
-> @@ -1282,7 +1276,6 @@ int dp_display_request_irq(struct msm_dp *dp_display)
->                                 dp->irq, rc);
->                 return rc;
->         }
-> -       disable_irq(dp->irq);
->
->         return 0;
->  }
-> @@ -1570,7 +1563,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
->                 dp_display_host_init(dp_priv);
->                 dp_catalog_ctrl_hpd_config(dp_priv->catalog);
->                 dp_display_host_phy_init(dp_priv);
-> -               enable_irq(dp_priv->irq);
->
->                 /*
->                  * The code below assumes that the panel will finish probing
-> @@ -1612,7 +1604,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
->
->  error:
->         if (dp->is_edp) {
-> -               disable_irq(dp_priv->irq);
->                 dp_display_host_phy_exit(dp_priv);
->                 dp_display_host_deinit(dp_priv);
->         }
-> --
-> 2.7.4
->
+> This was a part of https://patchwork.freedesktop.org/series/105302/
+> 
+> Changes since v6:
+> - Dropped applied patches
+> - Dropped msm_drm_thread::crtc as suggested by Abhinav
+> 
+> ---
 
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
