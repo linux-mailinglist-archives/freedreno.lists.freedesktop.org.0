@@ -1,72 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D34C370D69B
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 10:04:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6108E70D72E
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 10:20:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 383B310E03F;
-	Tue, 23 May 2023 08:04:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF0610E411;
+	Tue, 23 May 2023 08:20:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2017610E00B
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 08:04:44 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4f4ba3e0b98so770415e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 01:04:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684829082; x=1687421082;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jlLi+ycwQXT/s4WU1mgXfkcIcnCNUrHoMrkamB93Vuw=;
- b=yEeshyscNoLJVMCqCweqT7Ymu1NIkldjVJKTiSLVvMMfvO32evYEr1WPg2d0BW1TRQ
- uhy9kH5wiSWDV02U5UF24Cf9OjMqYE19px5Eyhbvb9xyi7grAHpwTD2SEANSIyf6xav8
- UoWmMmUVmpolCh7YAVGAXm/LsM5uyVC438M0lVeufbXpqU9Y9ndJnZlSd//vloYbXXq8
- VgXKuOdTj9eIfIih72RkIaOT/uBz8lM/WPR8gege6DfW7Bg6HWwpqNpEbV9ItQbRw3eb
- VtPzhKn0D45xdMXzgbm6TotuMxybSoWw6FCKkoOSqMVAiKXn2Tyi5NXDnVWjNM+ttgAb
- ZlGw==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B45A10E413
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 08:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1684830051;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DndqY8qaw8M96mn1iEYa/a1K7y8wRhCJTZ8hiaPo6U8=;
+ b=WfIEfRYtGXAFzTuO/pG9Et4JjLMPUC/21M0a9bQixGBXs+b7c3Ot9B9zccrM8fXwA0b1yY
+ Y0B62yS9qKDWFdiKq/ZeeSOke8rfsZOdQmfjOh0qeYsoxBAxIfH6v40jdo7u8LPbI+iyvV
+ 3KWUYjVYQAuM8KaWmSk9/wy1yH0r2AQ=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-657-IEFHmY1uPOCJ7Dv--2fLlw-1; Tue, 23 May 2023 04:20:49 -0400
+X-MC-Unique: IEFHmY1uPOCJ7Dv--2fLlw-1
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-97005627685so215660966b.2
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 01:20:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684829082; x=1687421082;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jlLi+ycwQXT/s4WU1mgXfkcIcnCNUrHoMrkamB93Vuw=;
- b=bV4Asf/Ip424j2qjWWkDzh2hsU9f2kagd5qrTDRXEuN50XO45INIsbtn0iVuhsNKy8
- qpxww4+ThxSPMqQpdLtJK+EsdRzW57XOL5s04zdpJcgbIRTI2Xtf4HDB8bHEd2lYvUHg
- LZOtn5hBhOz+LuvF0rmfadSgjEI4RFUcXtUx1QpmlaPd2XlRwNQPYD7XU/Z35mp3H/LU
- 0U6LbTICJCrsr/SOHtJBZXzUUNHOIr4iMb0wU3pxF5q9PkccisHq/gZj4ibri9cgSajK
- ZMXIEBIUH/DWRRJooLb4dcv+FEVnyVGznIK0MURNfNkJNGjXummTswugLlbrop6dYmAm
- yOCw==
-X-Gm-Message-State: AC+VfDzcPEUBOo2gzYsLp4/wS1PgTljeEWqIoINClRR3hYWeZAZWYG/q
- mMuGPLUazNPoO65ZMfCEoKZGZg==
-X-Google-Smtp-Source: ACHHUZ5q1rbkyTP3VBE77IeCogBVNMojIQwKmhDiZgShpgGhFEFrKHs6LoV4mjCuEeutALVhZt49Cw==
-X-Received: by 2002:ac2:5298:0:b0:4ef:eb50:4d3d with SMTP id
- q24-20020ac25298000000b004efeb504d3dmr4022870lfm.18.1684829082167; 
- Tue, 23 May 2023 01:04:42 -0700 (PDT)
-Received: from [192.168.1.101] (abyk138.neoplus.adsl.tpnet.pl. [83.9.30.138])
- by smtp.gmail.com with ESMTPSA id
- h13-20020ac2596d000000b004f11eb32f20sm1266058lfp.13.2023.05.23.01.04.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 May 2023 01:04:41 -0700 (PDT)
-Message-ID: <1669ecc5-1845-e671-83f4-19ee14d37ce5@linaro.org>
-Date: Tue, 23 May 2023 10:04:40 +0200
+ d=1e100.net; s=20221208; t=1684830049; x=1687422049;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DndqY8qaw8M96mn1iEYa/a1K7y8wRhCJTZ8hiaPo6U8=;
+ b=lbRpSwuHjrEiDHLXllczJrZINwsxHKBuv8ba/juGmA9/qWBnO/Chf535Kwewom46fG
+ Ao5jYlwnV+kh/D1QxIHDEkcKa9LUrr8BdrIC/azrAygLnpbTfH6oyknfG0/NiwCmluXW
+ Bo9b27ANMigFxGA7Iu7ZTaXK+k+RQ2KQDc2nuWaDqu/qKRw1O2NiACoS1CJlB6NgwEtA
+ 6bNV6f05y8/mkQ5OLdgTP12om6ITAHICNWW/ZQgBGr8fWv7yp4ZAFJxcJUy6EA0aVM+P
+ +aOefU0Gcb91p9RU3x8mOQ+PGadOxZquUzg2lO8gqBPILK9lMt0UlC4mAr4jUj1wuqdt
+ mtqA==
+X-Gm-Message-State: AC+VfDyJSDILgkXBlmI59fwwqNliup1gr2Q9pyeXK6SzzeAzDASx26kn
+ xlaM9+bkfQNK0lMrp2M3i1nXB6gjsg4ELga2wuFctxbCh5ggK5WnA4KMUcHn6Yx/SXUCF05fbha
+ m9kVqsz3cniqecthVldVxypE+Ta2NvtTgOycnZTLmcUFv
+X-Received: by 2002:a17:907:3f02:b0:966:4d99:b0aa with SMTP id
+ hq2-20020a1709073f0200b009664d99b0aamr12167256ejc.59.1684830048886; 
+ Tue, 23 May 2023 01:20:48 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5vDJ2caLgBzpJg2BUoYLuue6tySLcgqmgfjT+iH7/Q0IOlMoDmJKkj3IlzO+ADI9Tech44ouiizk9C2natgqM=
+X-Received: by 2002:a17:907:3f02:b0:966:4d99:b0aa with SMTP id
+ hq2-20020a1709073f0200b009664d99b0aamr12167237ejc.59.1684830048553; Tue, 23
+ May 2023 01:20:48 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Bjorn Andersson <quic_bjorande@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>
-References: <20230523011522.65351-1-quic_bjorande@quicinc.com>
- <20230523011522.65351-4-quic_bjorande@quicinc.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230523011522.65351-4-quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 3/3] arm64: dts: qcom: sc8280xp: Enable
- GPU related nodes
+References: <20230522191701.13406-1-tzimmermann@suse.de>
+In-Reply-To: <20230522191701.13406-1-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+Date: Tue, 23 May 2023 10:20:37 +0200
+Message-ID: <CAFOAJEdxxMUpc53m0YkkO+FzqYr+JFcGkH3T6HTnodV5bKm=Fw@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH] drm/msm: Use struct fb_info.screen_buffer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,145 +77,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, mani@kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, johan@kernel.org,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, sean@poorly.run, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hello Thomas,
 
-
-On 23.05.2023 03:15, Bjorn Andersson wrote:
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
-> 
-> Add memory reservation for the zap-shader and enable the Adreno SMMU,
-> GPU clock controller, GMU and the GPU nodes for the SC8280XP CRD and the
-> Lenovo ThinkPad X13s.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+On Mon, May 22, 2023 at 9:17=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> The fbdev framebuffer is in system memory. Store the address in
+> the field 'screen_buffer'. Fixes the following sparse warning.
+>
+> ../drivers/gpu/drm/msm/msm_fbdev.c:124:26: warning: incorrect type in ass=
+ignment (different address spaces)
+> ../drivers/gpu/drm/msm/msm_fbdev.c:124:26:    expected char [noderef] __i=
+omem *screen_base
+> ../drivers/gpu/drm/msm/msm_fbdev.c:124:26:    got void *
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
-> 
-> Changes since v1:
-> - None
-> 
->  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     | 26 +++++++++++++++++++
->  .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    | 26 +++++++++++++++++++
->  2 files changed, 52 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> index 5b25d54b9591..547277924ea3 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> @@ -210,6 +210,11 @@ vreg_wwan: regulator-wwan {
->  	};
->  
->  	reserved-memory {
-> +		gpu_mem: gpu-mem@8bf00000 {
-The ZAP region is very seldom moved around, and I wouldn't expect it
-to be uncommon among the very usecase-specific 8280 machines.
 
-> +			reg = <0 0x8bf00000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
->  		linux,cma {
->  			compatible = "shared-dma-pool";
->  			size = <0x0 0x8000000>;
-> @@ -259,6 +264,10 @@ usb1_sbu_mux: endpoint {
->  	};
->  };
->  
-> +&adreno_smmu {
-> +	status = "okay";
-> +};
-Ugh. Should definitely be enabled by default.
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-> +
->  &apps_rsc {
->  	regulators-0 {
->  		compatible = "qcom,pm8350-rpmh-regulators";
-> @@ -376,6 +385,23 @@ &dispcc0 {
->  	status = "okay";
->  };
->  
-> +&gmu {
-> +	status = "okay";
-> +};
-You can keep the GMU enabled by default as well, it won't "probe" on
-its own (the GPU's hw_init calls its registration)
+--=20
+Best regards,
 
-> +
-> +&gpu {
-> +	status = "okay";
-> +
-> +	zap-shader {
-> +		memory-region = <&gpu_mem>;
-> +		firmware-name = "qcom/sc8280xp/qcdxkmsuc8280.mbn";
-> +	};
-> +};
-> +
-> +&gpucc {
-> +	status = "okay";
-> +};
-Clock controllers have no reason to be off by default.
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
-Konrad
-> +
->  &mdss0 {
->  	status = "okay";
->  };
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> index bdcba719fc38..5ef3f4c07d75 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> @@ -264,6 +264,11 @@ vreg_wwan: regulator-wwan {
->  	};
->  
->  	reserved-memory {
-> +		gpu_mem: gpu-mem@8bf00000 {
-> +			reg = <0 0x8bf00000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
->  		linux,cma {
->  			compatible = "shared-dma-pool";
->  			size = <0x0 0x8000000>;
-> @@ -359,6 +364,10 @@ usb1_sbu_mux: endpoint {
->  	};
->  };
->  
-> +&adreno_smmu {
-> +	status = "okay";
-> +};
-> +
->  &apps_rsc {
->  	regulators-0 {
->  		compatible = "qcom,pm8350-rpmh-regulators";
-> @@ -518,6 +527,23 @@ &dispcc0 {
->  	status = "okay";
->  };
->  
-> +&gmu {
-> +	status = "okay";
-> +};
-> +
-> +&gpu {
-> +	status = "okay";
-> +
-> +	zap-shader {
-> +		memory-region = <&gpu_mem>;
-> +		firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
-> +	};
-> +};
-> +
-> +&gpucc {
-> +	status = "okay";
-> +};
-> +
->  &mdss0 {
->  	status = "okay";
->  };
