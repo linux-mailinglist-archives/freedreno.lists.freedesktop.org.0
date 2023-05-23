@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B51270DCF3
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 14:49:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 176A470DD14
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 14:56:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD5810E092;
-	Tue, 23 May 2023 12:49:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC75F10E43A;
+	Tue, 23 May 2023 12:56:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFEB310E435
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 12:49:37 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4f3a166f8e9so5955226e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 05:49:37 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACFE710E43A
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 12:56:30 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2af2db78b38so41865221fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 05:56:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684846176; x=1687438176;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ d=linaro.org; s=google; t=1684846588; x=1687438588;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=8AW95x05Cs7zVCr4QZ0d5TByJ9+4cDZxrEBugpUgmSY=;
- b=laSO6aKQAHp0nBr6G42Lzz/F0emre9Xgk0mzDLxNepoaYFbG1nIvG/RLLXxRu1i0y/
- FValRxDzMhJ4w2SvG6wfzGrpDkYeeVIkOFsE0qpiWn/mKK71ACXG++olvlvkXxry4eCu
- WNB8jzeMo75MXlsloTAdGWuCEfoRfjzAGWOyXg2vj7flWHe7aBmsvaWMqwNG2NrldkSR
- 6FrKNU+rsWHs9+nL5Awnz3mm2UG5g6m5o1iPmmCKlTH177b6bQGD5Ie8GHKXRtQSrAuu
- ekLS0Sc2KTi+Uru9T4R0+EB9rydXtQnG41KEMigp+lw3ZrAwSz9VI3WcR99nmP5M3rV0
- PFnw==
+ bh=YpPwKZ/pHSK5WOwFpXpf+dWli/bJbY6VBZD/E/hAP6M=;
+ b=b3DIamYxTi/v51EdZ7SDh+hBPqRnIDi2rx+vibVvM23RP7rzyneyxLRB/Axlc5MBzO
+ utZ0ym+QKi6LRKwRFLZYT8kMmOsYe7sNQSOdPupxujrdTkT5+ZtDJuXI0VxaI9ncg4/b
+ uwRF+nGfeB+kjW6kraUREcEDLqyR5WP476SDCyqVXEHpSUBmhotJySJ7QCSqJe35hCgh
+ urAll0vklxPAr1SBcoP9YhVG9VUv8SAFXYePLOpCKrIsG4r/+X/NYx13/EH668fJo+eo
+ NL1NZvXZJUO7+EssMt5Pi+VZfbFtHMgoTYSLvrTR71YMvYnH0srbD/ZyIzqWgZBaj6d8
+ 8O4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684846176; x=1687438176;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ d=1e100.net; s=20221208; t=1684846588; x=1687438588;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8AW95x05Cs7zVCr4QZ0d5TByJ9+4cDZxrEBugpUgmSY=;
- b=ARq18Fe4Tb9HWEcOWK8OmqsvgdbANF3hWzYKvfwtFslaRANi+adeD/a/BdQ4gbaqoK
- i379aV3QO+xxiQJZM2nh46sW3uCMsUYP3hqHbQhm5mKan7z6GuvPe2uVqkbEDQPCuGMp
- eRvnTYkNAb/IeXH+0LnYXkXP3oiXqNj/khHYcINkMK78/yLbQrXusLeVQqQMDJhrJWvN
- Y6h1YRYhSJRTdLmweCvmELsMWDMoMwP5IG2uJQfG8k5iU2a2SPZo1xeNLaiIpx5q3uQw
- c4hq2H9m7C6nCTwuJOMlIGDuIPkGU7TkQwJzR6lNWCVO4GWKSHI93YHZ5gKW1KMwrPB9
- nokw==
-X-Gm-Message-State: AC+VfDxOkMRLMSZAGNH7fLQ8upxksjdh7XI1NxnhOWADua0Qv3rRRIrh
- Lj7Bm1jVCBxpgaPdW64xHB1dpw==
-X-Google-Smtp-Source: ACHHUZ4vQUyqJnd5wFhpaqBfNVnWxMU8Lk+Da0svhgAJtF/dZWkT+TX10Z9dWGSspcpv4J1osJQdsA==
-X-Received: by 2002:a19:f816:0:b0:4f1:4074:b4fd with SMTP id
- a22-20020a19f816000000b004f14074b4fdmr5297479lff.29.1684846176105; 
- Tue, 23 May 2023 05:49:36 -0700 (PDT)
-Received: from [10.10.15.175] ([192.130.178.91])
+ bh=YpPwKZ/pHSK5WOwFpXpf+dWli/bJbY6VBZD/E/hAP6M=;
+ b=hot8iRQF3mRBWWHGM21KLwz7FuuRxlFsiB2e7FwMxP3+BCtx7YE8wMxjNKY47QAhsg
+ zlyEmdyHJHp4821dxaizM+DjMyOPdI1ujIYcjaa5xWjpfBRFXq2ws6y1uqar/DPF/GfJ
+ J7OXof/X79ypmPBQM9lPqC/AH8NcLrP65eqMf5lWMAKa5KHdrIYlO+pvLMr3+5Pp9Ksa
+ s+rOF5x8LvhSCiHJnPotribFzCWYxwAM6tuVMBtxybgAwqaB3kBqU7YGkTsAS/0QBpZP
+ MbFMIIHqYR/3IdH+/GWPM4wwA9kbA/fMy9AhyLmC96gepRKUYFu09oYTOD//Iva42gcN
+ Hapw==
+X-Gm-Message-State: AC+VfDxSTvviw3zwxRPg3141I2hCn078fFgh/15ZgORQH6f038IkPuKn
+ ZFH1pG8CuNc4xmAFmszHL0Y+tg==
+X-Google-Smtp-Source: ACHHUZ6c/kauyo/sRXK7gC6gSHRvq37cCYQro1FP0DCL+bzRiQxIwgpFpYqew7cK1BFsw+yt12lPGQ==
+X-Received: by 2002:a2e:b1c4:0:b0:2af:22a0:81fd with SMTP id
+ e4-20020a2eb1c4000000b002af22a081fdmr4691128lja.11.1684846588241; 
+ Tue, 23 May 2023 05:56:28 -0700 (PDT)
+Received: from [192.168.1.101] (abyk138.neoplus.adsl.tpnet.pl. [83.9.30.138])
  by smtp.gmail.com with ESMTPSA id
- y2-20020a197502000000b004efee46249fsm1325560lfe.243.2023.05.23.05.49.35
+ a19-20020a2e9813000000b002a7746800d0sm1605159ljj.130.2023.05.23.05.56.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 May 2023 05:49:35 -0700 (PDT)
-Message-ID: <7db11395-3b57-70ff-dc7e-acf8d8d4b1b8@linaro.org>
-Date: Tue, 23 May 2023 15:49:35 +0300
+ Tue, 23 May 2023 05:56:27 -0700 (PDT)
+Message-ID: <19f30d4c-d879-ce2f-1cd7-ebcb941bbcec@linaro.org>
+Date: Tue, 23 May 2023 14:56:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
-References: <20230523121454.3460634-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230523121454.3460634-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Bjorn Andersson <andersson@kernel.org>
+References: <20230523011522.65351-1-quic_bjorande@quicinc.com>
+ <20230523011522.65351-4-quic_bjorande@quicinc.com>
+ <1669ecc5-1845-e671-83f4-19ee14d37ce5@linaro.org>
+ <20230523122842.cueyeovuzpx63def@ripper>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230523122842.cueyeovuzpx63def@ripper>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 00/15] drm/msm/hdmi & phy: use generic PHY
- framework
+Subject: Re: [Freedreno] [PATCH v2 3/3] arm64: dts: qcom: sc8280xp: Enable
+ GPU related nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,33 +80,162 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>,
+ mani@kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, johan@kernel.org,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/05/2023 15:14, Dmitry Baryshkov wrote:
-> The MSM HDMI PHYs have been using the ad-hoc approach / API instead of
-> using the generic API framework. Move all the PHYs to
-> drivers/phy/qualcomm and rework them to use generic PHY framework. This
-> way all the QMP-related code is kept close. Also in future this will
-> allow us to use a common set of functions to setup msm8974 HDMI PHY,
-> 28nm DSI PHY and apq8964 SATA PHY (which all use UNI PLL internally).
+
+
+On 23.05.2023 14:28, Bjorn Andersson wrote:
+> On Tue, May 23, 2023 at 10:04:40AM +0200, Konrad Dybcio wrote:
+>>
+>>
+>> On 23.05.2023 03:15, Bjorn Andersson wrote:
+>>> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>>
+>>> Add memory reservation for the zap-shader and enable the Adreno SMMU,
+>>> GPU clock controller, GMU and the GPU nodes for the SC8280XP CRD and the
+>>> Lenovo ThinkPad X13s.
+>>>
+>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+>>> ---
+>>>
+>>> Changes since v1:
+>>> - None
+>>>
+>>>  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     | 26 +++++++++++++++++++
+>>>  .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    | 26 +++++++++++++++++++
+>>>  2 files changed, 52 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+>>> index 5b25d54b9591..547277924ea3 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+>>> @@ -210,6 +210,11 @@ vreg_wwan: regulator-wwan {
+>>>  	};
+>>>  
+>>>  	reserved-memory {
+>>> +		gpu_mem: gpu-mem@8bf00000 {
+>> The ZAP region is very seldom moved around, and I wouldn't expect it
+>> to be uncommon among the very usecase-specific 8280 machines.
+>>
+>>> +			reg = <0 0x8bf00000 0 0x2000>;
+>>> +			no-map;
+>>> +		};
+>>> +
+>>>  		linux,cma {
+>>>  			compatible = "shared-dma-pool";
+>>>  			size = <0x0 0x8000000>;
+>>> @@ -259,6 +264,10 @@ usb1_sbu_mux: endpoint {
+>>>  	};
+>>>  };
+>>>  
+>>> +&adreno_smmu {
+>>> +	status = "okay";
+>>> +};
+>> Ugh. Should definitely be enabled by default.
+>>
+>>> +
+>>>  &apps_rsc {
+>>>  	regulators-0 {
+>>>  		compatible = "qcom,pm8350-rpmh-regulators";
+>>> @@ -376,6 +385,23 @@ &dispcc0 {
+>>>  	status = "okay";
+>>>  };
+>>>  
+>>> +&gmu {
+>>> +	status = "okay";
+>>> +};
+>> You can keep the GMU enabled by default as well, it won't "probe" on
+>> its own (the GPU's hw_init calls its registration)
+>>
+>>> +
+>>> +&gpu {
+>>> +	status = "okay";
+>>> +
+>>> +	zap-shader {
+>>> +		memory-region = <&gpu_mem>;
+>>> +		firmware-name = "qcom/sc8280xp/qcdxkmsuc8280.mbn";
+>>> +	};
+>>> +};
+>>> +
+>>> +&gpucc {
+>>> +	status = "okay";
+>>> +};
+>> Clock controllers have no reason to be off by default.
+>>
 > 
-> This also causes some design changes. Currently on msm8996 the HDMI PLL
-> implements clock's set_rate(), while other HDMI PHY drivers used the
-> ad-hoc PHY API for setting the PLL rate (this includes in-tree msm8960
-> driver and posted, but not merged, msm8974 driver). This might result in
-> the PLL being set to one rate, while the rest of the PHY being tuned to
-> work at another rate. Adopt the latter idea and always use
-> phy_configure() to tune the PHY and set the PLL rate.
+> On sa8295p/sa8540p the GPU is powered differently, so if I leave it
+> enabled by default I need to disable it (or configure it) for those, or
+> they won't boot.
+Another "messed up automotive forks" situation, eh..
+Would it take a lot of new code to configure these platforms correctly?
 
-Forgot to mention that this also features msm8974 HDMI PLL code, so 
-modeswitching HDMI output on msm8974 is now possible.
--- 
-With best wishes
-Dmitry
-
+Konrad
+> 
+> Regards,
+> Bjorn
+> 
+>> Konrad
+>>> +
+>>>  &mdss0 {
+>>>  	status = "okay";
+>>>  };
+>>> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+>>> index bdcba719fc38..5ef3f4c07d75 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+>>> @@ -264,6 +264,11 @@ vreg_wwan: regulator-wwan {
+>>>  	};
+>>>  
+>>>  	reserved-memory {
+>>> +		gpu_mem: gpu-mem@8bf00000 {
+>>> +			reg = <0 0x8bf00000 0 0x2000>;
+>>> +			no-map;
+>>> +		};
+>>> +
+>>>  		linux,cma {
+>>>  			compatible = "shared-dma-pool";
+>>>  			size = <0x0 0x8000000>;
+>>> @@ -359,6 +364,10 @@ usb1_sbu_mux: endpoint {
+>>>  	};
+>>>  };
+>>>  
+>>> +&adreno_smmu {
+>>> +	status = "okay";
+>>> +};
+>>> +
+>>>  &apps_rsc {
+>>>  	regulators-0 {
+>>>  		compatible = "qcom,pm8350-rpmh-regulators";
+>>> @@ -518,6 +527,23 @@ &dispcc0 {
+>>>  	status = "okay";
+>>>  };
+>>>  
+>>> +&gmu {
+>>> +	status = "okay";
+>>> +};
+>>> +
+>>> +&gpu {
+>>> +	status = "okay";
+>>> +
+>>> +	zap-shader {
+>>> +		memory-region = <&gpu_mem>;
+>>> +		firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
+>>> +	};
+>>> +};
+>>> +
+>>> +&gpucc {
+>>> +	status = "okay";
+>>> +};
+>>> +
+>>>  &mdss0 {
+>>>  	status = "okay";
+>>>  };
