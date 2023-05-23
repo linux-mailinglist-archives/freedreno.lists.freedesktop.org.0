@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84ADF70DC22
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD6FA70DC23
 	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 14:15:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4C710E435;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C948410E436;
 	Tue, 23 May 2023 12:15:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C70A410E436
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 134C910E430
  for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 12:15:07 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4effb818c37so8126583e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 05:15:07 -0700 (PDT)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f1411e8111so8023368e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 05:15:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684844105; x=1687436105;
+ d=linaro.org; s=google; t=1684844106; x=1687436106;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HlnLygFYYtSxoKEaC5DFXDBhNuXumh16hVtzEXEvSec=;
- b=SL/WVHABS704+8O+JkeKaXTNIjTPa6bMNxe4CV7AGXBoUs/Jdt4ceFX7jQwNDAyN1+
- BJOdBVhocMwX+gbdjC8AlbYXA9mlNGWCdJM+iikUuY1fcz4I/dmwnnMiBgAXlV1S7tXL
- jfviyHrP2KDMfy76e8Lg1peoMrw1hq/5Ocuk0nQ3vXbGRwtzQf8YiTGt0icIpgU0fNWQ
- iRUecbmN3nbJywrZahJkGoXLhrzzXS8TR5ngxOFwOZcBG1P36g9r3irNgFshMUr9qw7x
- xL47QOII4bg1JQ5vU0zlR9msEyIZfYCj9nDGwfhp4y1OYpJtNIXrATNNec4qpF2HkvxP
- JrJA==
+ bh=JRCcVx5yqkWjx+j8HRIisuUziAvNRbEhBQXvfMXuZd8=;
+ b=iJC8cOHW0X4kvVER7XhLHnQWxkC+jbzri8i0MSx1FWzm1j3TgBoKJEus10S6ncpEAK
+ DZHgtbe5CSmiS1kT64zbTG4hR6qrLUvhfvpstMG0lUjREEOQbg6NnSHZLHPM+cx/8VZa
+ 0k5wf8cRNQEmr3gnjDbgqS9mV0/+AU8YkvOYxkQShYze+C455NHKiS3vFFgyBRYjzUp2
+ ETvYqSNmMRncJhyLTNm3pI2nWj3zzRDQaFijvBKyBZQtynIE90HbTb4jtKT9xCF54p3G
+ ReLH6SmJ7a/4A2aOI4UaYI4RKs4PLNkiEM0lc3Q8NK/pVbL4EegKUnYepXO+PObstRho
+ BVzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684844105; x=1687436105;
+ d=1e100.net; s=20221208; t=1684844106; x=1687436106;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HlnLygFYYtSxoKEaC5DFXDBhNuXumh16hVtzEXEvSec=;
- b=eUtc2pyg/vMti38CvePYv63L1Td982tLW1i7XThsbnPHiLR3DNOffRmibiJyP04x5N
- TmoxKDWDSGzdSL4EUDJ3g2sFIURTc/koyVE5yOUfqK9L481LhDVyhrwuRtYMeYzUXSn2
- Q6ho/2T2u/EBMMtHoKtqf7XgS7mawQSXKVU7bVfQg7hj4tJLl7KdENVwTCSNV9lrLrfA
- s+lootQR39GY92AfRqqQjr+U0c5Oo/YWsQn3ExMoWE5vWC77kT+KeIaJBQDYVd6lc5rc
- ucfaz6sAZXYFSNuQIKC6PR/RhhWNz5icv5VP5OSeP9qnRR7UmrsRjnSh1XgWTrmQrLq8
- +xtg==
-X-Gm-Message-State: AC+VfDwuxRLnr3RqHa2Ki0NacijU6Bi36pxVdfi5TkWIJYc/vkhcp0MH
- I7pHvH5AoSqUIU2Qs5cYlmKOja5K/9eJTpeyHwA=
-X-Google-Smtp-Source: ACHHUZ7RIvGjdINojHjJ65ERgUVxZ9JLqK/cT+DIqTF6C4Xu/7dDxF+Uml9xZ924hzI/Ju9SUi5sYw==
-X-Received: by 2002:a19:5213:0:b0:4f3:a0f5:92e5 with SMTP id
- m19-20020a195213000000b004f3a0f592e5mr3853326lfb.31.1684844105762; 
- Tue, 23 May 2023 05:15:05 -0700 (PDT)
+ bh=JRCcVx5yqkWjx+j8HRIisuUziAvNRbEhBQXvfMXuZd8=;
+ b=TYLTHwdG+B8nnTnuW1+NKfVqMsqUQTVVkhYybl+t1ZwazO7lGGk0I3Yui/svHSk27X
+ H/TVjb6eTBm1aMG1kwf/aet8VvZmrSeE1JDDyodxquJ98LL7TZG4Yg1Zg7Ys6rsauTG+
+ vRuIgTDt2BX6GJ7AjgudNh4RjOFHKdDQB2CVthW3svcSgc71v6K6jB7V+SYCKS8sgFz/
+ QqA28ytO8xnwCEOYyV7ALaAxvZVbzqIYHIqZq1RZ5AH0vpa7OwHM/3rCZLPAXzBoOJQl
+ 5Isziv0FQm5EkqWwLG0QnaI5C5VK1mSlP12DnmG8DEQ544Hy+L/rO77el4qjIl3Wbek2
+ VyRA==
+X-Gm-Message-State: AC+VfDw07qS7sLURSc/fHvkFLZ6R6jEjAW2qQKBYwfV6WP+IPdg96CIg
+ mS+ssiLCCgVMWG2jp98g8LcSxA==
+X-Google-Smtp-Source: ACHHUZ5vlFenZbIB+tk6w5Wm9JFARuGQkoC34ibzwpD/wshwINCjNKESlnZMABksaf1XUycVFfSF6w==
+X-Received: by 2002:ac2:5a0a:0:b0:4ec:a18e:f985 with SMTP id
+ q10-20020ac25a0a000000b004eca18ef985mr3960269lfn.13.1684844106606; 
+ Tue, 23 May 2023 05:15:06 -0700 (PDT)
 Received: from eriador.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- c26-20020ac2531a000000b004f160559d4asm1319616lfh.183.2023.05.23.05.15.04
+ c26-20020ac2531a000000b004f160559d4asm1319616lfh.183.2023.05.23.05.15.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 May 2023 05:15:05 -0700 (PDT)
+ Tue, 23 May 2023 05:15:06 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
-Date: Tue, 23 May 2023 15:14:49 +0300
-Message-Id: <20230523121454.3460634-11-dmitry.baryshkov@linaro.org>
+Date: Tue, 23 May 2023 15:14:50 +0300
+Message-Id: <20230523121454.3460634-12-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523121454.3460634-1-dmitry.baryshkov@linaro.org>
 References: <20230523121454.3460634-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 10/15] drm/msm/hdmi: correct indentation of HDMI
- bridge functions
+Subject: [Freedreno] [PATCH 11/15] drm/msm/hdmi: switch to
+ atomic_pre_enable/post_disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,34 +84,54 @@ Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+In preparation of reworking the HDMI mode setting, switch pre_enable and
+post_disable callbacks to their atomic variants.
+
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 62ce1455f974..fbcf4dd91cd9 100644
+index fbcf4dd91cd9..f9293f7d8f34 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -291,12 +291,12 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
+@@ -128,7 +128,8 @@ static void msm_hdmi_config_avi_infoframe(struct hdmi *hdmi)
+ 	hdmi_write(hdmi, REG_HDMI_INFOFRAME_CTRL1, val);
+ }
+ 
+-static void msm_hdmi_bridge_pre_enable(struct drm_bridge *bridge)
++static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
++					      struct drm_bridge_state *old_bridge_state)
+ {
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+@@ -154,7 +155,8 @@ static void msm_hdmi_bridge_pre_enable(struct drm_bridge *bridge)
+ 		msm_hdmi_hdcp_on(hdmi->hdcp_ctrl);
+ }
+ 
+-static void msm_hdmi_bridge_post_disable(struct drm_bridge *bridge)
++static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
++						struct drm_bridge_state *old_bridge_state)
+ {
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+@@ -291,8 +293,13 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
  }
  
  static const struct drm_bridge_funcs msm_hdmi_bridge_funcs = {
--		.pre_enable = msm_hdmi_bridge_pre_enable,
--		.post_disable = msm_hdmi_bridge_post_disable,
--		.mode_set = msm_hdmi_bridge_mode_set,
--		.mode_valid = msm_hdmi_bridge_mode_valid,
--		.get_edid = msm_hdmi_bridge_get_edid,
--		.detect = msm_hdmi_bridge_detect,
-+	.pre_enable = msm_hdmi_bridge_pre_enable,
-+	.post_disable = msm_hdmi_bridge_post_disable,
-+	.mode_set = msm_hdmi_bridge_mode_set,
-+	.mode_valid = msm_hdmi_bridge_mode_valid,
-+	.get_edid = msm_hdmi_bridge_get_edid,
-+	.detect = msm_hdmi_bridge_detect,
- };
- 
- static void
+-	.pre_enable = msm_hdmi_bridge_pre_enable,
+-	.post_disable = msm_hdmi_bridge_post_disable,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_reset = drm_atomic_helper_bridge_reset,
++
++	.atomic_pre_enable = msm_hdmi_bridge_atomic_pre_enable,
++	.atomic_post_disable = msm_hdmi_bridge_atomic_post_disable,
++
+ 	.mode_set = msm_hdmi_bridge_mode_set,
+ 	.mode_valid = msm_hdmi_bridge_mode_valid,
+ 	.get_edid = msm_hdmi_bridge_get_edid,
 -- 
 2.39.2
 
