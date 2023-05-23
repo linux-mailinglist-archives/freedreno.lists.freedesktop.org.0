@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 874C270D1D4
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 04:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1272B70D4C8
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 09:20:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7572510E3C7;
-	Tue, 23 May 2023 02:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53D4010E3D4;
+	Tue, 23 May 2023 07:20:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D79F10E3C7
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 02:56:31 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-510d8d7f8eeso665699a12.0
- for <freedreno@lists.freedesktop.org>; Mon, 22 May 2023 19:56:31 -0700 (PDT)
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3481910E3D4
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 07:20:13 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-55db055b412so65092507b3.0
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 00:20:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kali.org; s=google; t=1684810589; x=1687402589;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=F6o0pldmtPNZczHK6kfIrJdzD+PEWsvSqi4EjRqmT/Y=;
- b=e11dfn1JU9wXqIahkfF02Gf522PcNJQDKa2O7j7arpRNtAJ2Ix/FSqXIyTXApmyvpG
- xqvhZzMdbmyVbhaRlObPxzUge+C9oKx9Itqzwj4DNrXdFAv7kp+WvdGB3xE435lw7jFT
- lvi9pyaA8BQwwKnlMZbu2TcDjX1UkrFPiQO3C69lV78eRrsIeb7XactRS/+o2X6ds4Oq
- CifFeC8clqH8fHML5SIM/QY/85h3UAk2L1JwLDiHe79MTvP7VzfAmkruCWIZ+EVDvHan
- BQI2rTQ4F2c7bs5TAbu7rXfFX5jDWOEcGuxgoNYBfTHM+VE3nfXJKmrjVe9cyfPhhrBy
- /oaA==
+ d=linaro.org; s=google; t=1684826412; x=1687418412;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ms2Z+39mDMVo35dL1mx9T/boJmFobIlJgfkKwKncnys=;
+ b=DS1T6leVnIRLikXL4zCbd0GhmmcuSC4fDJJ0eZBApkEzBPC+fMOUS/WE5w9+UZj6JW
+ +qjbSE9CDqdfhUMwIBrvrwzEOUOkYYUrwJ+jyummdkBBiGuFUgNK7hDY/QXa9H+vTX79
+ XYxfHoC668JBQvb7RXu9kc342ihnygBj1bHI4CMGU2GgqoAd1sDTWZ+05aU/92mtMfpK
+ /AVpXziqW+bKvZ8dT0+ahO1uBdmadXYqSp0hrLemJJBnFuQ+B5XLWjZKVm11roeFeEjy
+ YiPGMulbh+pgsTaBuzJqBQ3a/r2X1yLqxJ84ENvk+xDntYbiJKEw6WZl/JoU3zBII5dQ
+ gZsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684810589; x=1687402589;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=F6o0pldmtPNZczHK6kfIrJdzD+PEWsvSqi4EjRqmT/Y=;
- b=KH61T2vxYk1VtiKDelDkC24dypy5ZVdOYAQ7/dkgZtlOcxY560sz46D61or6vJH1ps
- rGx1mxqGzHcxpyqigdBo+6X+fq2BaLSMH3bKefyMqdANV6rl79V1VtXGQbEFKl0f01h/
- wy8NkBRnKws+a4VRvCMpDnrE8/cm8+N/eG2o8vZlTGYQHWVLZ5DWXX6W5/Z9NleA7A5X
- YQdziTAo/PkQWOh01h8e+Byh3SuMiwz/vUuXyUxSxtcCy7HxBgAHsp5zIe9OiDsFwCeU
- 6jwEAGJfHBVjUdHnlGr8kOJRQk+GWmMf/RLcLrCsMkq2f91MGJCPXu01DC0D57dyywXV
- WLLQ==
-X-Gm-Message-State: AC+VfDyqQNe9yqnLVYi87GpihT4fiMUnvJfgGK4Umn33hD2vt1ipGOuC
- dTnZ8fRD45fX7nvJRzJ0UiVz7s3GCXjPxMapJO4Byg==
-X-Google-Smtp-Source: ACHHUZ4Zm9Cx7sVlYhjjvAXSE1TSetEayzYnn2DXi0k6UasemtiYelBRWj9ZoL5JMF+LnmHGv/vUswTO23KNbH0i4+A=
-X-Received: by 2002:a17:907:9716:b0:970:19a2:7303 with SMTP id
- jg22-20020a170907971600b0097019a27303mr2892607ejc.19.1684810589345; Mon, 22
- May 2023 19:56:29 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684826412; x=1687418412;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ms2Z+39mDMVo35dL1mx9T/boJmFobIlJgfkKwKncnys=;
+ b=UbSBKF+Ic1TiafhtyPABWNXpimEOkZaQq1/vldvURkmiee8OQ6N4IMlzqDQCsiiM3z
+ 1qQFW0eSrnjT9hr19DIt7QvaPa+H9Bi2Yb9V7tiYdEGdlnphmOItWtdBLfZK18VECGMb
+ WXXgGhMF5vEnQ3N98itVz6pKIxAkurieWPTgcsOWqlASiXyeTCD6wBKVE6l5M4ABkqvJ
+ ucjQOF0Vt5nNF0EutlZ6j4VGnpexUL/hR6AvR4ps7c96Sw3Qv4Ie0DQ56puKT+h95sBG
+ qIT3PxuCbOI9SO3VkB9aaYSwc2YBaxs1h/MIO9s0SWF2sQ7E90a8i0Em3wwkLL9PGVii
+ DmXw==
+X-Gm-Message-State: AC+VfDxMJflXtwQ+3sgVx+UJ3SOYHlC84VXHhXuhjydVafgYxKwYx4xk
+ uheEQ3kxNVOzCFCcD5Ipw8zPheyrdi9a3vBaHn42Dw==
+X-Google-Smtp-Source: ACHHUZ4dVDuvZbgczwrU9xuM2MLuDG609rhoPRz3LEihgVs/v2KsXLh237BeTMSa0tknVxyLC8UQ4A0t8g58et1DB1U=
+X-Received: by 2002:a81:788f:0:b0:55d:9f32:f6c with SMTP id
+ t137-20020a81788f000000b0055d9f320f6cmr13731962ywc.15.1684826411847; Tue, 23
+ May 2023 00:20:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230523011522.65351-1-quic_bjorande@quicinc.com>
-In-Reply-To: <20230523011522.65351-1-quic_bjorande@quicinc.com>
-From: Steev Klimaszewski <steev@kali.org>
-Date: Mon, 22 May 2023 21:56:18 -0500
-Message-ID: <CAKXuJqjgRdr-16h3G_7u1KDfKBnfu2cmB9FsNYdKOpzOKawU=g@mail.gmail.com>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
+References: <20230519023855.3840907-1-dmitry.baryshkov@linaro.org>
+ <557a8aee-37b9-5654-c82c-97206576ab44@quicinc.com>
+In-Reply-To: <557a8aee-37b9-5654-c82c-97206576ab44@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 23 May 2023 10:20:00 +0300
+Message-ID: <CAA8EJpp+ODZZu13ehAN-9Ehz87HCdXsXvO3DQ-oxAhKcb2rqtA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2 0/3] drm/msm/adreno: GPU support on
- SC8280XP
+Subject: Re: [Freedreno] [PATCH v2 0/7] drm/msm/dpu: simplify DPU encoder
+ init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,39 +68,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, mani@kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, johan@kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 22, 2023 at 8:15=E2=80=AFPM Bjorn Andersson
-<quic_bjorande@quicinc.com> wrote:
+On Tue, 23 May 2023 at 04:58, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> This series introduces support for A690 in the DRM/MSM driver and
-> enables it for the two SC8280XP laptops.
 >
-> Bjorn Andersson (3):
->   drm/msm/adreno: Add Adreno A690 support
->   arm64: dts: qcom: sc8280xp: Add GPU related nodes
->   arm64: dts: qcom: sc8280xp: Enable GPU related nodes
 >
->  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     |  26 +++
->  .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    |  26 +++
->  arch/arm64/boot/dts/qcom/sc8280xp.dtsi        | 169 ++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 113 +++++++++++-
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c         |  33 ++++
->  drivers/gpu/drm/msm/adreno/adreno_device.c    |  14 ++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h       |  11 +-
->  7 files changed, 387 insertions(+), 5 deletions(-)
+> On 5/18/2023 7:38 PM, Dmitry Baryshkov wrote:
+> > Rework dpu_encoder initialization code, simplifying calling sequences
+> > and separating common init parts.
+> >
+> > Changes since v1:
+> > - Withdrawn two pathes for a later consideration
+> > - Changed dpu_encoder_phys_init() to return void (Abhinav)
+> > - Added small simplifications of dpu_encoder_phys_cmd_init() and
+> >    dpu_encoder_phys_wb_init()
+> >
 >
-> --
-> 2.39.2
+> I had previously given these comments on the cover letter of v1, so
+> giving it again.
 >
-Tested here on my X13s with GNOME 44.1 and using Wayland.
+> Please mention that your series was made on top of
+> https://patchwork.freedesktop.org/series/116530/.
+>
+> Figured it out when I tried to apply it to my branch to test.
+>
+> I had tested v1, and between v1 and v2 i only see very trivial change,
+> so i think its okay to retain:
+>
+> Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
 
-Tested-by: Steev Klimaszewski <steev@kali.org>
+Unfortunately patchwork ignores tags sent in the cover letter thread.
+
+>
+> > Dmitry Baryshkov (7):
+> >    drm/msm/dpu: merge dpu_encoder_init() and dpu_encoder_setup()
+> >    drm/msm/dpu: separate common function to init physical encoder
+> >    drm/msm/dpu: drop duplicated intf/wb indices from encoder structs
+> >    drm/msm/dpu: inline dpu_encoder_get_wb()
+> >    drm/msm/dpu: call dpu_rm_get_intf() from dpu_encoder_get_intf()
+> >    drm/msm/dpu: drop temp variable from dpu_encoder_phys_cmd_init()
+> >    drm/msm/dpu: simplify dpu_encoder_phys_wb_init()
+> >
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 178 ++++++++----------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  14 +-
+> >   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  15 +-
+> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  35 ++--
+> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  19 +-
+> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  35 +---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  87 ++++-----
+> >   7 files changed, 140 insertions(+), 243 deletions(-)
+> >
+
+
+
+-- 
+With best wishes
+Dmitry
