@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 384A770E66C
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 22:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BA8070E70E
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 23:02:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF55610E4C9;
-	Tue, 23 May 2023 20:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74EF110E4DF;
+	Tue, 23 May 2023 21:02:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D38F110E4C9
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 20:27:38 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-561c1768bacso1218667b3.1
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 13:27:38 -0700 (PDT)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35E8110E4DC
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 21:02:36 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-5621a279cbbso5291657b3.1
+ for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 14:02:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684873657; x=1687465657;
+ d=linaro.org; s=google; t=1684875755; x=1687467755;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=P4zhdFMMFweNQjmQzA41UGsWmlCSqKzpzycx7+iVS7A=;
- b=fDtpR5bYRVSCUwJDVAyWboPY+JdRGy0K4KFzM+mm4bi0GIkXlvypRgGdw/mbiKiAd9
- qU++VSmcOgWjna2PlbW606CGM5eAPgaiQrAic6cABd3eMYrSukjFLLG1u6XffjbmwaiM
- /VDfRzNctQWfN8olq6nOJ9eOfCKfAUen2RlfanwaV0T55oxkWMJVGk0mPMNuZB9tAXWh
- BwbjVkeQeA+lNMvG8ShcXRC1uCONL4syOdUrzcJryCWwryQIUJaw10e7dKrQYer3MVFF
- QX7tVj4bilwR2G52phZ6bMXMpXpO+Ur2umF3L7BZi3qngUSMaadzoBuQHWuKvrfpQ024
- 65qg==
+ bh=4gNfZIeekSHs7BohS2Orfq0Se0pBECTdaana4cYqBL4=;
+ b=tOGPzOTXR3ZwhBy1Ic0ihRryuxQqnniw6YqV0SHZ2xEJbKbV79oNg8iSaUODmLcYpc
+ OODVehM/ARBOOUXdzyj94ie3ObrYp2+yDybUY6odfIvlc3vWw4Uu42VIjwf40Qj8jnpv
+ /u6BIYptfcGey8tl64SMGH2ekP+e49xLeKTW8DQrLw1PiekWMDf+SVtkboNYCRCGAok6
+ r3NGmKXQI7IcDYSXwmcTXA1k8cCjELTw9o7nX5Wa7vfMZ2Cbd4X+B/kwzKnE15M8S45G
+ buaYCqxYBK9bQTQOog//pv15RiylJCcZ2FOpBp2rmOQy5OInQOLIQu3TNA64CyDbqbSd
+ lTWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684873657; x=1687465657;
+ d=1e100.net; s=20221208; t=1684875755; x=1687467755;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=P4zhdFMMFweNQjmQzA41UGsWmlCSqKzpzycx7+iVS7A=;
- b=X6ANtSgP6i9Vr1C5cgx74h78ffJ9vun//9UOmeUiltV7aV+iHL5CLoL4QI+FE0c+YA
- lOovwFaZ/3bUOBFX1KCsffAFI6LJntQz6GRAEg7/YHZ884AO7usNWEki6hS5eRf/koSQ
- pHh7iuiJ7XMepSg6HvCGjTuebx/+w+0KGMiBsC3KkmcV7jBhq7PrfLC+KkypDdtC5aCc
- 3mzXytG0rIn6uXPxOjPBE486xP41m+gpgBAyeNuBJHAYT4+4SHHoqiZld2Sh2ON4NzSv
- YD8FbSqspZtoRWOBFKAf0Ot2Y38ucoJW/AjUbuVWOszV76ItqgidS/0L5X4oCnVWOQFj
- 7TrQ==
-X-Gm-Message-State: AC+VfDwXE2qOgWqH8Qi+h1BwdV3Efqpq9U6ci6IcobCtt52VKqjh8ojf
- CNj4ZbD/9OvNRsLNmWjVjMNroKCEHWkkxAq9pRhj6A==
-X-Google-Smtp-Source: ACHHUZ5dsaAmJeAPGWQj1PMa6KvCSz/ESzcoCqojES3xKY2lidhpDE6B1Numzio7gc+OYpyBK0255R1DeS0u0zoQyeU=
-X-Received: by 2002:a0d:ca0b:0:b0:561:bb2a:5d88 with SMTP id
- m11-20020a0dca0b000000b00561bb2a5d88mr17220176ywd.7.1684873655780; Tue, 23
- May 2023 13:27:35 -0700 (PDT)
+ bh=4gNfZIeekSHs7BohS2Orfq0Se0pBECTdaana4cYqBL4=;
+ b=fPdQ3HEQA1ntevOHnugkWkTe9ys5B0jkgqRrlZL5pgEYIUfatCt9pmYP65Y0ZFJsxv
+ Q+KV9UsGTTFCrcAj4R2ci9/xv9dIptcM0E3dUHOSd5EFeVTTDWldFAgxkzdsZpehcAcg
+ LIAazp22h4E39aKTYsnL80RbKHpDf/UMxbunLLdJb1DfQaSvqNJoxGN6ZWc/z7q31NC0
+ QoKQGjHSZRpS6QcW5IyxeoHMAm32I8nZt1WkOtJCEjnj3SiOfVtwKaIqfM570Fic1+nO
+ qppMF611BQ70G8rLs8YQM1DrYdpgV3lyNoDfjrc3e1IPJUOlmwrXcFzizifnWpjQ/tGf
+ iZkg==
+X-Gm-Message-State: AC+VfDzrOXisWKFZCVQtze7Fo1A0rNIE1ppIXkLuRyZqjbhzJYr+Q4mP
+ Hn0WFwa5hIrtuUUzfrWOFyCd7UBgoEX/fKBCFFcbSw==
+X-Google-Smtp-Source: ACHHUZ7UXQzwb1RIpn2+dG8waBFp9bePM9jRJQJFoANyzIIkMfYS8DmloLszmqODJrAwBGg2Stn1tqrkrSUfUH7FmaQ=
+X-Received: by 2002:a81:1bc8:0:b0:55a:776e:95f3 with SMTP id
+ b191-20020a811bc8000000b0055a776e95f3mr15671135ywb.25.1684875754960; Tue, 23
+ May 2023 14:02:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
- <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
-In-Reply-To: <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
+References: <1684870754-24906-1-git-send-email-quic_khsieh@quicinc.com>
+ <1684870754-24906-2-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1684870754-24906-2-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 23 May 2023 23:27:24 +0300
-Message-ID: <CAA8EJprPuwo4z=WoRJOzg2WMWdEkuXwgzoAe6X+Dv_Wgi1X9nQ@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 24 May 2023 00:02:23 +0300
+Message-ID: <CAA8EJpq0Gh5Wu5S_9aMytghOer_zPKthCZq9-vf7+vHm+sYH5Q@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
+Subject: Re: [Freedreno] [PATCH v5 1/2] drm/msm/dp: no need to disable irq
+ after devm_request_irq()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,90 +68,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ leonard@lausen.nl, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
+ agross@kernel.org, daniel@ffwll.ch, marijn.suijten@somainline.org,
+ quic_jesszhan@quicinc.com, swboyd@chromium.org, sean@poorly.run,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 23 May 2023 at 23:01, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Tue, 23 May 2023 at 22:39, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
->
->
-> On 5/21/2023 10:21 AM, Dmitry Baryshkov wrote:
-> > Drop SSPP-specifig debugfs register dumps in favour of using
-> > debugfs/dri/0/kms or devcoredump.
-> >
->
-> I did see another series which removes src_blk from the catalog (I am
-> yet to review that one) . Lets assume that one is fine and this change
-> will be going on top of that one right?
->
-> The concern I have with this change is that although I do agree that we
-> should be in favor of using debugfs/dri/0/kms ( i have used it a few
-> times and it works pretty well ), devcoredump does not have the support
-> to dump sub-blocks . Something which we should add with priority because
-> even with DSC blocks with the separation of enc/ctl blocks we need that
-> like I wrote in one of the responses.
->
-> So the "len" of the blocks having sub-blocks will be ignored in favor of
-> the len of the sub-blocks.
->
-> If we remove this without adding that support first, its a loss of debug
-> functionality.
->
-> Can we retain these blocks and remove dpu_debugfs_create_regset32 in a
-> different way?
+> devm_request_irq() will allocate irq and return with irq enabled.
+> At current implementation irq are specified disabled after return from
+> devm_request_irq() and re enabled later. It is redundant.
 
-Let's add subblocks dumping. This sounds like a good idea. I'll take a
-look closer to the weekend.
+This is not correct. The disable_irq / enable_irq pair is not
+redundant. If I understand correctly, it was done so to prevent HPD
+IRQs from being delivered before HPD worker is initialized (which was
+probably correct at the time of the mentioned commit). So this patch
+either can come after the next patch (but then it should not have a
+Fixes tag and the commit message should be changed to mention why
+disable_irq() call is redundant) or it can be squashed together with
+the next patch.
 
 >
+> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 9 ---------
+>  1 file changed, 9 deletions(-)
 >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 25 ---------------------
-> >   1 file changed, 25 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> > index bfd82c2921af..6c5ebee2f7cd 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> > @@ -727,31 +727,6 @@ int _dpu_hw_sspp_init_debugfs(struct dpu_hw_sspp *hw_pipe, struct dpu_kms *kms,
-> >       debugfs_create_xul("features", 0600,
-> >                       debugfs_root, (unsigned long *)&hw_pipe->cap->features);
-> >
-> > -     /* add register dump support */
-> > -     dpu_debugfs_create_regset32("src_blk", 0400,
-> > -                     debugfs_root,
-> > -                     sblk->src_blk.base + cfg->base,
-> > -                     sblk->src_blk.len,
-> > -                     kms);
-> > -
-> > -     if (cfg->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
-> > -                     cfg->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
-> > -                     cfg->features & BIT(DPU_SSPP_SCALER_QSEED2) ||
-> > -                     cfg->features & BIT(DPU_SSPP_SCALER_QSEED4))
-> > -             dpu_debugfs_create_regset32("scaler_blk", 0400,
-> > -                             debugfs_root,
-> > -                             sblk->scaler_blk.base + cfg->base,
-> > -                             sblk->scaler_blk.len,
-> > -                             kms);
-> > -
-> > -     if (cfg->features & BIT(DPU_SSPP_CSC) ||
-> > -                     cfg->features & BIT(DPU_SSPP_CSC_10BIT))
-> > -             dpu_debugfs_create_regset32("csc_blk", 0400,
-> > -                             debugfs_root,
-> > -                             sblk->csc_blk.base + cfg->base,
-> > -                             sblk->csc_blk.len,
-> > -                             kms);
-> > -
-> >       debugfs_create_u32("xin_id",
-> >                       0400,
-> >                       debugfs_root,
-
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 3e13acdf..1af49b6 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1094,12 +1094,6 @@ static void dp_display_config_hpd(struct dp_display_private *dp)
+>                                 DP_DP_HPD_PLUG_INT_MASK |
+>                                 DP_DP_HPD_UNPLUG_INT_MASK,
+>                                 true);
+> -
+> -       /* Enable interrupt first time
+> -        * we are leaving dp clocks on during disconnect
+> -        * and never disable interrupt
+> -        */
+> -       enable_irq(dp->irq);
+>  }
+>
+>  void dp_display_set_psr(struct msm_dp *dp_display, bool enter)
+> @@ -1282,7 +1276,6 @@ int dp_display_request_irq(struct msm_dp *dp_display)
+>                                 dp->irq, rc);
+>                 return rc;
+>         }
+> -       disable_irq(dp->irq);
+>
+>         return 0;
+>  }
+> @@ -1570,7 +1563,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>                 dp_display_host_init(dp_priv);
+>                 dp_catalog_ctrl_hpd_config(dp_priv->catalog);
+>                 dp_display_host_phy_init(dp_priv);
+> -               enable_irq(dp_priv->irq);
+>
+>                 /*
+>                  * The code below assumes that the panel will finish probing
+> @@ -1612,7 +1604,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>
+>  error:
+>         if (dp->is_edp) {
+> -               disable_irq(dp_priv->irq);
+>                 dp_display_host_phy_exit(dp_priv);
+>                 dp_display_host_deinit(dp_priv);
+>         }
+> --
+> 2.7.4
+>
 
 
 -- 
