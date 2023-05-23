@@ -2,74 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0993E70D055
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 03:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8393C70D0B7
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 03:56:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BE4910E3C2;
-	Tue, 23 May 2023 01:15:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0113010E3B5;
+	Tue, 23 May 2023 01:56:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DF710E02F;
- Tue, 23 May 2023 01:15:33 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A181010E306;
+ Tue, 23 May 2023 01:56:16 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34N0sMdU001141; Tue, 23 May 2023 01:15:29 GMT
+ 34N1Sch2014661; Tue, 23 May 2023 01:56:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=UO1s0M03wTvIPHQ9cNLsV67P1G2h+uyQqJfOCg5+Al0=;
- b=C9/2v1FiRZLgSgnPPejoym+f75lnI0oaCErFFnUuDjkrhSEdzIzplBwk6+ReerB490Hm
- mxYS3rnyW2aPPPTnH+Sbbu4sIOh6vh6Eyxs4mi6kAunvWQ0KdRQ1fVWvH7VhJAcpC0q+
- 4Mtt17qEfFxU/xQ5nJpYQiY8Mq1wROuKcR2YqovZOc6G/l+JKuLvnQW3RyCldsXiD46P
- Cw99jpaWmd0VmUCWrHoV6nkuNthl/li+ah34tdAuwLJ1tPEzJe24aCAkFszqNhxqMDVO
- 2XwVIyW3lX3HMVf+Z51J317emCF7VHrPt1jHaRE4CJABYHK41CUntB5Rwmui4fhEAfhe Lg== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=vq8pmvsDFbvBGh3T07q+2ifxcyxuvPzPboZP8/bpshA=;
+ b=UDA5vfA5NCHZkpS7/3xk4zXZNuoW6wZXV/3Kb4fEK4wYSXvrvV2V8epNLleNGLstBolz
+ GnA16g5M42xIy0aM38rEJHjszNNPGEABfplyobwg5OTB/3dJ3xWrYizhlBVV+gZGC0ld
+ hKRiDxys+jTx+eT7Ur+bQI3oUU5cheMQQvc8Mj6dA8bquI42HsZSCUr3TPPiq8higtUa
+ Vu6lJImWQJ0vwUDTG8ZN+moi24M3wpKp2FWImjnI+p2QukIUxUsgZLPf3QYt1hwKLV5x
+ ZDa2WkAUntvdT1rb7/aYySN854qaGD5Yd7ptgzPIyrNRyaM9Bu4DStgKbV/dW8xyOsqQ bQ== 
 Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qpkwmw6ra-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qracsh55m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 May 2023 01:15:29 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34N1FSK1014500
+ Tue, 23 May 2023 01:56:10 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34N1u8i4024536
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 May 2023 01:15:28 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Mon, 22 May 2023 18:15:28 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>
-Date: Mon, 22 May 2023 18:15:22 -0700
-Message-ID: <20230523011522.65351-4-quic_bjorande@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230523011522.65351-1-quic_bjorande@quicinc.com>
-References: <20230523011522.65351-1-quic_bjorande@quicinc.com>
+ Tue, 23 May 2023 01:56:08 GMT
+Received: from [10.110.65.90] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 22 May
+ 2023 18:56:08 -0700
+Message-ID: <8b04609f-8c80-ca84-710d-a2ba6f109cf8@quicinc.com>
+Date: Mon, 22 May 2023 18:56:07 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230519023855.3840907-1-dmitry.baryshkov@linaro.org>
+ <20230519023855.3840907-8-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230519023855.3840907-8-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: HOn7VQ6-RgtxjRw-NzPAZI1R5lCXk_SR
-X-Proofpoint-ORIG-GUID: HOn7VQ6-RgtxjRw-NzPAZI1R5lCXk_SR
+X-Proofpoint-GUID: oNCc7vYUimF_kpfTTQzdLRsmR1TK4pP2
+X-Proofpoint-ORIG-GUID: oNCc7vYUimF_kpfTTQzdLRsmR1TK4pP2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
  definitions=2023-05-22_18,2023-05-22_03,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015
- spamscore=0 impostorscore=0 mlxscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 mlxlogscore=999 lowpriorityscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305230008
-Subject: [Freedreno] [PATCH v2 3/3] arm64: dts: qcom: sc8280xp: Enable GPU
- related nodes
+ mlxlogscore=697 spamscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ mlxscore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305230014
+Subject: Re: [Freedreno] [PATCH v2 7/7] drm/msm/dpu: simplify
+ dpu_encoder_phys_wb_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,134 +85,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, mani@kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, johan@kernel.org,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-Add memory reservation for the zap-shader and enable the Adreno SMMU,
-GPU clock controller, GMU and the GPU nodes for the SC8280XP CRD and the
-Lenovo ThinkPad X13s.
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
----
+On 5/18/2023 7:38 PM, Dmitry Baryshkov wrote:
+> There is no need to assign a result to temp varable just to return it
+> after a goto. Drop the temporary variable and goto and return the result
+> directly.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Changes since v1:
-- None
-
- arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     | 26 +++++++++++++++++++
- .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    | 26 +++++++++++++++++++
- 2 files changed, 52 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-index 5b25d54b9591..547277924ea3 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-@@ -210,6 +210,11 @@ vreg_wwan: regulator-wwan {
- 	};
- 
- 	reserved-memory {
-+		gpu_mem: gpu-mem@8bf00000 {
-+			reg = <0 0x8bf00000 0 0x2000>;
-+			no-map;
-+		};
-+
- 		linux,cma {
- 			compatible = "shared-dma-pool";
- 			size = <0x0 0x8000000>;
-@@ -259,6 +264,10 @@ usb1_sbu_mux: endpoint {
- 	};
- };
- 
-+&adreno_smmu {
-+	status = "okay";
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm8350-rpmh-regulators";
-@@ -376,6 +385,23 @@ &dispcc0 {
- 	status = "okay";
- };
- 
-+&gmu {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		memory-region = <&gpu_mem>;
-+		firmware-name = "qcom/sc8280xp/qcdxkmsuc8280.mbn";
-+	};
-+};
-+
-+&gpucc {
-+	status = "okay";
-+};
-+
- &mdss0 {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-index bdcba719fc38..5ef3f4c07d75 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-@@ -264,6 +264,11 @@ vreg_wwan: regulator-wwan {
- 	};
- 
- 	reserved-memory {
-+		gpu_mem: gpu-mem@8bf00000 {
-+			reg = <0 0x8bf00000 0 0x2000>;
-+			no-map;
-+		};
-+
- 		linux,cma {
- 			compatible = "shared-dma-pool";
- 			size = <0x0 0x8000000>;
-@@ -359,6 +364,10 @@ usb1_sbu_mux: endpoint {
- 	};
- };
- 
-+&adreno_smmu {
-+	status = "okay";
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm8350-rpmh-regulators";
-@@ -518,6 +527,23 @@ &dispcc0 {
- 	status = "okay";
- };
- 
-+&gmu {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		memory-region = <&gpu_mem>;
-+		firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
-+	};
-+};
-+
-+&gpucc {
-+	status = "okay";
-+};
-+
- &mdss0 {
- 	status = "okay";
- };
--- 
-2.39.2
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
