@@ -2,36 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F5E70CE65
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 01:03:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C22C70CED0
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 02:01:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECDEE10E2F3;
-	Mon, 22 May 2023 23:03:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD2910E2DD;
+	Tue, 23 May 2023 00:00:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4466C10E2F3;
- Mon, 22 May 2023 23:03:21 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 6B29C3EFD3;
- Tue, 23 May 2023 01:03:19 +0200 (CEST)
-Date: Tue, 23 May 2023 01:03:17 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <p7thrishzrjxcjs3ilczfanuqrdfzh3djd2wyydodk6fed7mrg@4mh3sgipnobz>
-References: <20230522214527.190054-1-dmitry.baryshkov@linaro.org>
- <20230522214527.190054-2-dmitry.baryshkov@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973F510E01F;
+ Tue, 23 May 2023 00:00:56 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34MNtdvs015380; Tue, 23 May 2023 00:00:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=lnhlqcDpdebCW8fTwQlsbFTiHOOMDDt1r96jqt2Cg5Y=;
+ b=gwVAdpwyF5ykS+1NDFl5dQ3wYqOSp7BdevFtnVP4iZk3n0MOfv9P7+WyV7X513lSlekG
+ hO4KggP3fY+cAAY3pjOeULU5apMtfATKOEWoog86119UvXQy7PthgkeNZP1Y2RfWTAeF
+ 8VcHxQROqERL40BobUk3xH+Q5pQHsjHATbn/8PrZyldNt8xr+ssUr4nHA3P7HqMzQOoF
+ TMGhvenV31cKXnc105oJKlLrc4TjkafPi/Z+qSeQnkzEjdZHnsdJ5NaEjwfStLrLyQU9
+ gHLd4giB7UMRa03olLhtJ+/uyIKUFYHXs3OafGkkRPJ0+w17NDtO2LtgjWI33jfYEv+g vg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qracsh0k9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 May 2023 00:00:50 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34N00nni029888
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 May 2023 00:00:49 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Mon, 22 May 2023 17:00:48 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Mon, 22 May 2023 17:00:29 -0700
+Message-ID: <1684800039-18231-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230522214527.190054-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 1/6] drm/msm/dpu: don't set DPU_INTF_TE
- globally
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: KdlPAh4rgsxvIj4gXw3cYbyEsRjt7fQ_
+X-Proofpoint-ORIG-GUID: KdlPAh4rgsxvIj4gXw3cYbyEsRjt7fQ_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-22_18,2023-05-22_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=907 spamscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ mlxscore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305220203
+Subject: [Freedreno] [PATCH v13 00/10] add DSC 1.2 dpu supports
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,58 +79,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-05-23 00:45:22, Dmitry Baryshkov wrote:
-> Using BIT(DPU_INTF_TE) in INTF_SC7180_MASK (and by extension in
-> INTF_SC7280_MASK) results in this bit (and corrsponding operations)
-> being enabled for all interfaces, even the ones which do not have TE
-> block. Move this bit setting to INTF_DSI_TE(), so that it is only
-> enabled for those INTF blocks which have TE support.
-> 
-> Fixes: 152c1d430992 ("drm/msm/dpu: Add TEAR-READ-pointer interrupt to INTF block")
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 1dee5ba2b312..162141cb5c83 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -101,7 +101,6 @@
->  
->  #define INTF_SC7180_MASK \
->  	(BIT(DPU_INTF_INPUT_CTRL) | \
-> -	 BIT(DPU_INTF_TE) | \
->  	 BIT(DPU_INTF_STATUS_SUPPORTED) | \
->  	 BIT(DPU_DATA_HCTL_EN))
->  
-> @@ -544,7 +543,7 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
->  	{\
->  	.name = _name, .id = _id, \
->  	.base = _base, .len = _len, \
-> -	.features = _features, \
-> +	.features = _features | BIT(DPU_INTF_TE), \
+This series adds the DPU side changes to support DSC 1.2 encoder. This
+was validated with both DSI DSC 1.2 panel and DP DSC 1.2 monitor.
+The DSI and DP parts will be pushed later on top of this change.
+This seriel is rebase on [1], [2] and catalog fixes from rev-4 of [3].
 
-We'll have to be very careful when applying this.  I already had a hard
-time reviewing because of missing the #define context but assumed it
-would apply to INTF_BLK_DSI_TE()... but when actually applying it
-locally this ended up in INTF_BLK() and breaking everything.
+[1]: https://patchwork.freedesktop.org/series/116851/
+[2]: https://patchwork.freedesktop.org/series/116615/
+[3]: https://patchwork.freedesktop.org/series/112332/
 
-- Marijn
+Abhinav Kumar (2):
+  drm/msm/dpu: add dsc blocks to the catalog of MSM8998 and SC8180X
+  drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets
 
->  	.type = _type, \
->  	.controller_id = _ctrl_id, \
->  	.prog_fetch_lines_worst_case = _progfetch, \
-> -- 
-> 2.39.2
-> 
+Kuogee Hsieh (8):
+  drm/msm/dpu: set DSC flush bit correctly at MDP CTL flush register
+  drm/msm/dpu: add DPU_PINGPONG_DSC feature bit for DPU < 7.0.0
+  drm/msm/dpu: Guard PINGPONG DSC ops behind DPU_PINGPONG_DSC bit
+  drm/msm/dpu: Introduce PINGPONG_NONE to disconnect DSC from PINGPONG
+  drm/msm/dpu: add support for DSC encoder v1.2 engine
+  drm/msm/dpu: always clear every individual pending flush mask
+  drm/msm/dpu: separate DSC flush update out of interface
+  drm/msm/dpu: tear down DSC data path when DSC disabled
+
+ drivers/gpu/drm/msm/Makefile                       |   1 +
+ .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |   7 +
+ .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  11 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  14 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |   7 +
+ .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  16 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  14 +
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  14 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  51 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  24 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  35 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  33 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  11 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |  14 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |  15 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     | 387 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |   7 +-
+ 19 files changed, 644 insertions(+), 29 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
+
+-- 
+2.7.4
+
