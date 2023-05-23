@@ -1,73 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C879A70D76D
-	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 10:29:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC9470D790
+	for <lists+freedreno@lfdr.de>; Tue, 23 May 2023 10:35:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D39892AE;
-	Tue, 23 May 2023 08:29:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5C8C10E414;
+	Tue, 23 May 2023 08:34:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAB710E3B2
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 08:29:06 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2af1822b710so65644921fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 23 May 2023 01:29:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684830541; x=1687422541;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ru8/Ayqf4dTtmxHSBTZW4Z/WyG04tjjI1uvhJ1HwfeI=;
- b=abJjwkmDgJj5c2H3Ph/PaFWs5c3ixfxVuxTVw6cdn0Sl5+HIwtdFR0r2wAmVtzNdTN
- AazJsKfhIiipws0rgDYu5IZ8lN/amDTcBOIwQHOREIkh+o9OmnEt4x+I7LEow3bxxTcq
- 3k5PYk7/e2VEDw+dBu8ynUPX6FkwfvS724LdiRKYHBgHyY+Ng6P75dP/eufPhOXJUJCj
- v4Huuvj6qOxVJ28ntsfINKdAy/7XFwqgvblBZsOr/apNa/CBOBGkOw8Qy//fqF4lU9Os
- k7ZqeeO9wl4UiKV0Gb3fjqwoR2+ia/oZH6S00HacjPDlAYG7GsSVeTbNz9BKdQRvbgFV
- 5DTw==
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE04410E40F;
+ Tue, 23 May 2023 08:34:57 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-6af6ec6d73bso1145812a34.3; 
+ Tue, 23 May 2023 01:34:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684830541; x=1687422541;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ru8/Ayqf4dTtmxHSBTZW4Z/WyG04tjjI1uvhJ1HwfeI=;
- b=AxxJn/5j1xb/ceVWXcM98mkGc5fI/UiPawJdOg0tBrQFFunUdyK5x2ky8fMJL9jN4N
- MWB5goRXzaWZdnwUY4MnsJtwgxjcLWeWBAc1d53YVrRvxx/hirqtyE31qxg4SV0mqTBp
- +Gr0fJExld7HwAH3Yd7qk2v2L/ksuaklI7rZCpLrFmdBt/7llXW7ggAcBz1YHDPMcd9w
- b4uRFIs9xL5Z0tn3DWKf60Ki7TOTkqYtQED1x3HSqjiDr1SyxZkPNQikw3tk+25oHZrf
- jTs0/uG9z/OMoU4x9pGEpGAVueMOZ6b9jkIL5emhjfoHnWXbZMSqBjCzHzGgn3CGCEfD
- NsGw==
-X-Gm-Message-State: AC+VfDysG1OgeWFyq9tWxq8WsEiJVumo8mEGxr7vLnMhR6aI/pmnDp5l
- j4gaOV2+qPm6f+2oqrd/YYqajw==
-X-Google-Smtp-Source: ACHHUZ7Z6KxAfOGRGBcH8la8DINFLT/esIUVa3YUF9vwrpNYh17uiO2t/tJt2bcDRLkVCG33/nVWUw==
-X-Received: by 2002:a2e:3809:0:b0:2ad:94cd:3cb7 with SMTP id
- f9-20020a2e3809000000b002ad94cd3cb7mr4535421lja.51.1684830540807; 
- Tue, 23 May 2023 01:29:00 -0700 (PDT)
-Received: from [192.168.1.101] (abyk138.neoplus.adsl.tpnet.pl. [83.9.30.138])
- by smtp.gmail.com with ESMTPSA id
- y14-20020a2eb00e000000b002af0464353bsm1465866ljk.106.2023.05.23.01.28.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 May 2023 01:29:00 -0700 (PDT)
-Message-ID: <df1b3440-d007-0658-0739-9a939b143a32@linaro.org>
-Date: Tue, 23 May 2023 10:28:58 +0200
+ d=1e100.net; s=20221208; t=1684830897; x=1687422897;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=8Rk/6TkhHiy7aOgeY8F1RdAT5pIvD1dRXseK75IVn/U=;
+ b=YLJ/oYFb1p6id0CdwCU+DEp3L5vfCYeAbuBi04A/dU7jY6rxVrculBP824OWYwy5fo
+ /9fqinlgTmUy87LeVT6qR9FKfFNa+5oRPyHAedMm07z54LZisn1VgbwCyT3DxjLrdms8
+ MHEh/eymCX6ZKi1Vt5tt75iVhxgc+/rqNnpGiXi1Cyn8LFFb8UQL33u10Wm38RiIwz1Q
+ g6POs/e7JcbXLb6d0IGl5f65mx/+fwdQc1wS/jg1ewsWGGbgwsYBFR+etGO9LqxxcWHt
+ 6uNbIiGUVkeZbP2bRIGge1x4d0Jqg/W/uNjovqi1F7/Zw/OrEdgfB+XNxbRvKjQql0Nb
+ Dz/A==
+X-Gm-Message-State: AC+VfDzqckW0m3aTDyEXbzs+RaVGboHSwRG6+9b1k9CWRnOkACvO6scd
+ rtR29oYCyk7+r20v0Hzs7A==
+X-Google-Smtp-Source: ACHHUZ5s/vzpTb+9BMMWcelUyV4uhEXM/zWmwl11RKvNss9ted8Bfh3Z6TbSKaa7B4n4vss2ArZacw==
+X-Received: by 2002:a9d:7e9a:0:b0:6af:8743:d5ac with SMTP id
+ m26-20020a9d7e9a000000b006af8743d5acmr1845750otp.29.1684830896813; 
+ Tue, 23 May 2023 01:34:56 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ g7-20020a9d6c47000000b006ae7c3eaf4esm1353685otq.26.2023.05.23.01.34.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 May 2023 01:34:56 -0700 (PDT)
+Received: (nullmailer pid 140436 invoked by uid 1000);
+ Tue, 23 May 2023 08:34:52 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>
-References: <20230523011522.65351-1-quic_bjorande@quicinc.com>
- <20230523011522.65351-3-quic_bjorande@quicinc.com>
- <097944b0-fa7a-ad4d-1c3d-e74ab2b977de@linaro.org>
-In-Reply-To: <097944b0-fa7a-ad4d-1c3d-e74ab2b977de@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/3] arm64: dts: qcom: sc8280xp: Add GPU
- related nodes
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230411-topic-straitlagoon_mdss-v5-5-998b4d2f7dd1@linaro.org>
+References: <20230411-topic-straitlagoon_mdss-v5-0-998b4d2f7dd1@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v5-5-998b4d2f7dd1@linaro.org>
+Message-Id: <168483089291.140404.16963046121189730936.robh@kernel.org>
+Date: Tue, 23 May 2023 03:34:52 -0500
+Subject: Re: [Freedreno] [PATCH v5 05/12] dt-bindings: display/msm: Add
+ SM6375 MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,242 +65,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, mani@kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- johan@kernel.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, iommu@lists.linux.dev,
+ Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+On Tue, 23 May 2023 09:46:16 +0200, Konrad Dybcio wrote:
+> Document the SM6375 MDSS.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 216 +++++++++++++++++++++
+>  1 file changed, 216 insertions(+)
+> 
 
-On 23.05.2023 09:59, Konrad Dybcio wrote:
-> 
-> 
-> On 23.05.2023 03:15, Bjorn Andersson wrote:
->> From: Bjorn Andersson <bjorn.andersson@linaro.org>
->>
->> Add Adreno SMMU, GPU clock controller, GMU and GPU nodes for the
->> SC8280XP.
->>
->> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
->> ---
-> It does not look like you tested the DTS against bindings. Please run
-> `make dtbs_check` (see
-> Documentation/devicetree/bindings/writing-schema.rst for instructions).
-> 
->>
->> Changes since v1:
->> - Dropped gmu_pdc_seq region from &gmu, as it shouldn't have been used.
->> - Added missing compatible to &adreno_smmu.
->> - Dropped aoss_qmp clock in &gmu and &adreno_smmu.
->>  
->>  arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 169 +++++++++++++++++++++++++
->>  1 file changed, 169 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> index d2a2224d138a..329ec2119ecf 100644
->> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> @@ -6,6 +6,7 @@
->>  
->>  #include <dt-bindings/clock/qcom,dispcc-sc8280xp.h>
->>  #include <dt-bindings/clock/qcom,gcc-sc8280xp.h>
->> +#include <dt-bindings/clock/qcom,gpucc-sc8280xp.h>
->>  #include <dt-bindings/clock/qcom,rpmh.h>
->>  #include <dt-bindings/interconnect/qcom,osm-l3.h>
->>  #include <dt-bindings/interconnect/qcom,sc8280xp.h>
->> @@ -2331,6 +2332,174 @@ tcsr: syscon@1fc0000 {
->>  			reg = <0x0 0x01fc0000 0x0 0x30000>;
->>  		};
->>  
->> +		gpu: gpu@3d00000 {
->> +			compatible = "qcom,adreno-690.0", "qcom,adreno";
->> +
->> +			reg = <0 0x03d00000 0 0x40000>,
->> +			      <0 0x03d9e000 0 0x1000>,
->> +			      <0 0x03d61000 0 0x800>;
->> +			reg-names = "kgsl_3d0_reg_memory",
->> +				    "cx_mem",
->> +				    "cx_dbgc";
->> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
->> +			iommus = <&adreno_smmu 0 0xc00>, <&adreno_smmu 1 0xc00>;
->> +			operating-points-v2 = <&gpu_opp_table>;
->> +
->> +			qcom,gmu = <&gmu>;
->> +			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
->> +			interconnect-names = "gfx-mem";
-I also noticed downstream adds additional votes for L3 (*not* LLCC), should
-we explore that?
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Konrad
->> +			#cooling-cells = <2>;
->> +
->> +			status = "disabled";
->> +
->> +			gpu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-270000000 {
->> +					opp-hz = /bits/ 64 <270000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
->> +					opp-peak-kBps = <451000>;
->> +				};
->> +
->> +				opp-410000000 {
->> +					opp-hz = /bits/ 64 <410000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
->> +					opp-peak-kBps = <1555000>;
->> +				};
->> +
->> +				opp-500000000 {
->> +					opp-hz = /bits/ 64 <500000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
->> +					opp-peak-kBps = <1555000>;
->> +				};
->> +
->> +				opp-547000000 {
->> +					opp-hz = /bits/ 64 <547000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
->> +					opp-peak-kBps = <1555000>;
->> +				};
->> +
->> +				opp-606000000 {
->> +					opp-hz = /bits/ 64 <606000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
->> +					opp-peak-kBps = <2736000>;
->> +				};
->> +
->> +				opp-640000000 {
->> +					opp-hz = /bits/ 64 <640000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
->> +					opp-peak-kBps = <2736000>;
->> +				};
->> +
->> +				opp-690000000 {
->> +					opp-hz = /bits/ 64 <690000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
->> +					opp-peak-kBps = <2736000>;
->> +				};
->> +			};
->> +		};
->> +
->> +		gmu: gmu@3d6a000 {
->> +			compatible = "qcom,adreno-gmu-690.0", "qcom,adreno-gmu";
->> +			reg = <0 0x03d6a000 0 0x34000>,
->> +			      <0 0x03de0000 0 0x10000>,
->> +			      <0 0x0b290000 0 0x10000>;
->> +			reg-names = "gmu", "rscc", "gmu_pdc";
->> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
->> +			interrupt-names = "hfi", "gmu";
->> +			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
->> +				 <&gpucc GPU_CC_CXO_CLK>,
->> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
->> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +				 <&gpucc GPU_CC_AHB_CLK>,
->> +				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
->> +				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
->> +			clock-names = "gmu",
->> +				      "cxo",
->> +				      "axi",
->> +				      "memnoc",
->> +				      "ahb",
->> +				      "hub",
->> +				      "smmu_vote";
->> +			power-domains = <&gpucc GPU_CC_CX_GDSC>,
->> +					<&gpucc GPU_CC_GX_GDSC>;
->> +			power-domain-names = "cx",
->> +					     "gx";
->> +			iommus = <&adreno_smmu 5 0xc00>;
->> +			operating-points-v2 = <&gmu_opp_table>;
->> +
->> +			status = "disabled";
-> I've recently discovered that - and I am not 100% sure - all GMUs are
-> cache-coherent. Could you please ask somebody at qc about this?
-> 
->> +
->> +			gmu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-200000000 {
->> +					opp-hz = /bits/ 64 <200000000>;
->> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
->> +				};
-> Missing 500MHz + RPMH_REGULATOR_LEVEL_SVS
-> 
-> (that may be used in the future for hw scheduling)
->> +			};
->> +		};
->> +
->> +		gpucc: clock-controller@3d90000 {
->> +			compatible = "qcom,sc8280xp-gpucc";
->> +			reg = <0 0x03d90000 0 0x9000>;
->> +			clocks = <&rpmhcc RPMH_CXO_CLK>,
->> +				 <&gcc GCC_GPU_GPLL0_CLK_SRC>,
->> +				 <&gcc GCC_GPU_GPLL0_DIV_CLK_SRC>;
->> +			clock-names = "bi_tcxo",
->> +				      "gcc_gpu_gpll0_clk_src",
->> +				      "gcc_gpu_gpll0_div_clk_src";
-> FWIW the driver doesn't use clock-names, but the binding defines it,
-> so I suppose it's fine
-> 
->> +
->> +			power-domains = <&rpmhpd SC8280XP_GFX>;
->> +			#clock-cells = <1>;
->> +			#reset-cells = <1>;
->> +			#power-domain-cells = <1>;
->> +
->> +			status = "disabled";
->> +		};
->> +
->> +		adreno_smmu: iommu@3da0000 {
->> +			compatible = "qcom,sc8280xp-smmu-500", "qcom,adreno-smmu",
->> +				     "qcom,smmu-500", "arm,mmu-500";
->> +			reg = <0 0x03da0000 0 0x20000>;
->> +			#iommu-cells = <2>;
->> +			#global-interrupts = <2>;
->> +			interrupts = <GIC_SPI 672 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 689 IRQ_TYPE_LEVEL_HIGH>;
->> +
->> +			clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +				 <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
->> +				 <&gpucc GPU_CC_AHB_CLK>,
->> +				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>,
->> +				 <&gpucc GPU_CC_CX_GMU_CLK>,
->> +				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
->> +				 <&gpucc GPU_CC_HUB_AON_CLK>;
->> +			clock-names = "gcc_gpu_memnoc_gfx_clk",
->> +				      "gcc_gpu_snoc_dvm_gfx_clk",
->> +				      "gpu_cc_ahb_clk",
->> +				      "gpu_cc_hlos1_vote_gpu_smmu_clk",
->> +				      "gpu_cc_cx_gmu_clk",
->> +				      "gpu_cc_hub_cx_int_clk",
->> +				      "gpu_cc_hub_aon_clk";
->> +
->> +			power-domains = <&gpucc GPU_CC_CX_GDSC>;
->> +
->> +			status = "disabled";
-> This one should be dma-coherent (per downstream, plus 8350's mmu is for sure)
-> 
-> Konrad
->> +		};
->> +
->>  		usb_0_hsphy: phy@88e5000 {
->>  			compatible = "qcom,sc8280xp-usb-hs-phy",
->>  				     "qcom,usb-snps-hs-5nm-phy";
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.example.dtb: dsi@5e94000: compatible: 'oneOf' conditional failed, one must be fixed:
+	['qcom,sm6375-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
+	'qcom,sm6375-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm6115-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
+	'qcom,sm6375-dsi-ctrl' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.example.dtb: dsi@5e94000: Unevaluated properties are not allowed ('compatible' was unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230411-topic-straitlagoon_mdss-v5-5-998b4d2f7dd1@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
