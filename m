@@ -2,51 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D7F70F889
-	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 16:22:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDF8170FB12
+	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 18:00:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215B210E02A;
-	Wed, 24 May 2023 14:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D61810E48C;
+	Wed, 24 May 2023 16:00:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE5D310E02A;
- Wed, 24 May 2023 14:22:34 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5B6756173C;
- Wed, 24 May 2023 14:22:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE479C433D2;
- Wed, 24 May 2023 14:22:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1684938153;
- bh=Ti7srOHrHydlQp6V2XYkCscD2SeIBeXLguWZIPuModw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FUdNlK6L8Loy0wWd0CgvfG/kzrVJSH6+DoP2oyLBHUy3mUEGYxjq1u5nRx7yhmf82
- sWXfBZPdyAqklc7UG80vYzr5gbepP3tjP7RphgyzSOd462PuNQb9v+9RxpAuoxHEKm
- rLXLdpzBi7pbDwlCuOvp/XzJZDWjwn99U1veGzW8lPyYK4R/nRxAgW55BiN+Xw2x9z
- tmCjcfQhYUvYbUOW/8JsW7w7SjasRGRAGZU6mRPiILVz+nvvM85qFZzUMST1WAH3tv
- qYHd5WjW9GjgI3LuxZ2LZsxUTgT2BTnil8gQqptQgkuNSAa384KQoCDaYYbbulmijF
- HBE6/zmMN/f0w==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1q1pNv-0000eS-Pz; Wed, 24 May 2023 16:22:39 +0200
-Date: Wed, 24 May 2023 16:22:39 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ZG4dry_GOJPSyrWC@hovoldconsulting.com>
-References: <20230427232848.5200-1-quic_abhinavk@quicinc.com>
- <053819bd-b3c4-a72c-9316-85d974082ad6@linaro.org>
- <ZGzalLjTvUfzEADU@hovoldconsulting.com>
- <f530691b-989d-b059-6b06-e66abb740bdb@quicinc.com>
- <ZG216qoxK9hQ-kQs@hovoldconsulting.com>
- <4f2556e2-52ab-eb1d-b388-52546044f460@linaro.org>
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FEC510E4BD;
+ Wed, 24 May 2023 16:00:10 +0000 (UTC)
+Received: by mail-pg1-x52c.google.com with SMTP id
+ 41be03b00d2f7-5208be24dcbso372181a12.1; 
+ Wed, 24 May 2023 09:00:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1684944009; x=1687536009;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B9cfnkHSvu3f3znujma+mgkhmHw3+ATd1xiyn5rWq0o=;
+ b=I5y87xsIqIVtUw8NgQ8OzPnVVGKTBzR2XyPln4kjDcANDchFlG1CpGRW66ZRtFPNud
+ gzeNokAw24CRm2J0jQ6I8jlG2FaYli9xZVT3Q3GzbnSvGVuPIf/NvQvBrFrbMDQEUAKg
+ GV7UpSEiGg7fODuQMj7B6LXb0+SAmBCTsNMeXZGEBZu6up//eHEaHRZMFhbPt0psAweQ
+ Vk4M0fggq5SAxZ3k3KIHlUQOYYXrEB5fJweYPEJwyDwn6PvEjH89Aucqbe4ZLBKovTKh
+ sosgavmsbc82w+Y9U3Mw/jVLqiyeUqeMZ7DtP7atQx3IY1WYwmdN7cH7AS+3gV8WMkG0
+ H15Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684944009; x=1687536009;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B9cfnkHSvu3f3znujma+mgkhmHw3+ATd1xiyn5rWq0o=;
+ b=Oz3ft1rT1hCkvirQ/Vl3eZ5irdpl7UXRljx8zp1AKXXGb6cmK9Hqn2FJK31KgVRJmz
+ Aob3QlWa+6zqQeQD0sn34kBrMtz36/5G0WMVzQsS0Zb42clmzLg5Jo+IVn8+iMLBSkLA
+ KCDho6d7bPlTfXWZCGtd8WvSZnYrO8Ij43hs06B6tMBmBE1k/RN5nhNdaIfi6nUBwQNF
+ dYk3Y4KcxeZI+HlXAun7a3RwTjOjgDu+J5W+y2J0BQHTzubSgiB0axZm9soxHQT6Ep7Q
+ u8k1wsrtBWDYI4UVNqEHa2pXNBPqbRDivXT6vbzbMa13CFfh0Qon06153ySO4OKBLV9s
+ YAKw==
+X-Gm-Message-State: AC+VfDzbTk//Zmd9O0EyK2Fg8B9bsQt8ZF13XF0NCYY9mXW3ThA8QA8b
+ 1Iy8BgIYX868/gbjuW9yKGYQzqhrXxI=
+X-Google-Smtp-Source: ACHHUZ4yDiUIV+Y7x/9WTGapmKYECnfSMNNF8AnZWdTT01U+ku9Z92d6dTBweuROpFldZkLALHJ09Q==
+X-Received: by 2002:a17:903:244a:b0:1ac:63b6:f1ca with SMTP id
+ l10-20020a170903244a00b001ac63b6f1camr23696631pls.0.1684944009268; 
+ Wed, 24 May 2023 09:00:09 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ by smtp.gmail.com with ESMTPSA id
+ g23-20020a170902869700b001a98f844e60sm8930176plo.263.2023.05.24.09.00.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 May 2023 09:00:08 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 24 May 2023 08:59:30 -0700
+Message-Id: <20230524155956.382440-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f2556e2-52ab-eb1d-b388-52546044f460@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add module parameter for PSR
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5 0/7] drm: fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +71,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, quic_jesszhan@quicinc.com,
- David Airlie <airlied@gmail.com>, swboyd@chromium.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Lijo Lazar <lijo.lazar@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Dave Airlie <airlied@redhat.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
+ Sean Paul <sean@poorly.run>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jim Cromie <jim.cromie@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 24, 2023 at 11:06:03AM +0300, Dmitry Baryshkov wrote:
-> On 24/05/2023 09:59, Johan Hovold wrote:
+From: Rob Clark <robdclark@chromium.org>
 
-> > Regressions happen and sometimes there are corner cases that are harder
-> > to find, but this is a breakage of a fundamental feature that was
-> > reported before the code was even merged into mainline.
-> > 
-> >> We should have ideally gone with the modparam with the feature patches
-> >> itself knowing that it gets enabled for all sinks if PSR is supported.
-> > 
-> > Modparams are things of the past should not be used to enable broken
-> > features so that some vendor can tick of their internal lists of
-> > features that have been "mainlined".
-> 
-> We have had a history of using modparam with i915 and IIRC amdgpu / 
-> radeon drivers to allow users to easily check whether new feature works 
-> for their hardware. My current understanding is that PSR+VT works for on 
-> some laptops and doesn't on some other laptops, which makes it a valid case.
+Similar motivation to other similar recent attempt[1].  But with an
+attempt to have some shared code for this.  As well as documentation.
 
-But here it does not seem to be the hardware that's the issue, but
-rather that the implementation is incorrect or incomplete.
+It is probably a bit UMA-centric, I guess devices with VRAM might want
+some placement stats as well.  But this seems like a reasonable start.
 
-Johan
+Basic gputop support: https://patchwork.freedesktop.org/series/116236/
+And already nvtop support: https://github.com/Syllo/nvtop/pull/204
+
+I've combined the separate series to add comm/cmdline override onto
+the end of this, simply out of convenience (they would otherwise
+conflict in a bunch of places).
+
+v2: Extend things to allow for multiple regions other than just system
+    "memory", make drm_show_memory_stats() a helper so that, drivers
+    can use it or not based on their needs (but in either case, re-
+    use drm_print_memory_stats()
+v3: Docs fixes
+v4: use u64 for drm_memory_stats, small docs update and collected
+    Tvrtko's a-b
+v5: Rebase on drm-misc-next, drop comm/cmdline override patches
+
+[1] https://patchwork.freedesktop.org/series/112397/
+
+Rob Clark (7):
+  drm/docs: Fix usage stats typos
+  drm: Add common fdinfo helper
+  drm/msm: Switch to fdinfo helper
+  drm/amdgpu: Switch to fdinfo helper
+  drm: Add fdinfo memory stats
+  drm/msm: Add memory stats to fdinfo
+  drm/doc: Relax fdinfo string constraints
+
+ Documentation/gpu/drm-usage-stats.rst      |  91 ++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  32 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |   2 +-
+ drivers/gpu/drm/drm_file.c                 | 132 +++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.c              |  13 +-
+ drivers/gpu/drm/msm/msm_gem.c              |  15 +++
+ drivers/gpu/drm/msm/msm_gpu.c              |   2 -
+ include/drm/drm_drv.h                      |   7 ++
+ include/drm/drm_file.h                     |  32 +++++
+ include/drm/drm_gem.h                      |  32 +++++
+ 11 files changed, 308 insertions(+), 53 deletions(-)
+
+-- 
+2.40.1
+
