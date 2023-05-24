@@ -1,63 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0B970F24E
-	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 11:22:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E836570F367
+	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 11:48:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40B9510E634;
-	Wed, 24 May 2023 09:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9CA610E653;
+	Wed, 24 May 2023 09:48:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 387A910E5DA;
- Wed, 24 May 2023 09:21:59 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4353710E64F
+ for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 09:48:42 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EC1031FE27;
- Wed, 24 May 2023 09:21:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684920117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tNm/VjzKJfYTTelMWAwWaGOR8nslqSNZSJW0IOCyjHU=;
- b=nXzQqku3whw80151lpW6EvXw1aCMuglbOLWh7yxjt165tl+cgc5XDSWv7cQrJMvzhyUsfq
- 253hJeB3Si/5q1SJSkG/iA0mTKkIPan4w/9jKx3hBVTvmJDYJwsjWEdiGJ3IhVPZPj0jHY
- 0CyLH1ZRVRNlr0BK6AWg6ilw0n1YwbA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684920117;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tNm/VjzKJfYTTelMWAwWaGOR8nslqSNZSJW0IOCyjHU=;
- b=UYtRX8Dwfbc6qDFhHIgkjxSZ20MW1+gmZTVzKERzDOP9iY+mRM7zyZq22EiEwKsFQfS6Xe
- VuT3ZAhytvhKhIDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91EE113A10;
- Wed, 24 May 2023 09:21:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eGLBIjXXbWTHewAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:57 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
-Date: Wed, 24 May 2023 11:21:50 +0200
-Message-Id: <20230524092150.11776-14-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230524092150.11776-1-tzimmermann@suse.de>
-References: <20230524092150.11776-1-tzimmermann@suse.de>
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 7EF1C3F321;
+ Wed, 24 May 2023 11:48:39 +0200 (CEST)
+Date: Wed, 24 May 2023 11:48:37 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <bvjtgmuyz4zdjvt4jyjyt5hasiwnnaz4lyse6mf6b7grtig23f@yuji3z2mxue2>
+References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
+ <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 13/13] drm/i915: Implement dedicated fbdev
- I/O helpers
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,290 +42,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Implement dedicated fbdev helpers for framebuffer I/O instead
-of using DRM's helpers. Use an fbdev generator macro for
-deferred I/O to create the fbdev callbacks. i915 was the only
-caller of the DRM helpers, so remove them from the helper module.
+On 2023-05-23 13:01:13, Abhinav Kumar wrote:
+> 
+> 
+> On 5/21/2023 10:21 AM, Dmitry Baryshkov wrote:
+> > Drop SSPP-specifig debugfs register dumps in favour of using
+> > debugfs/dri/0/kms or devcoredump.
+> > 
+> 
+> I did see another series which removes src_blk from the catalog (I am 
+> yet to review that one) . Lets assume that one is fine and this change 
+> will be going on top of that one right?
 
-i915's fbdev emulation is still incomplete as it doesn't implement
-deferred I/O and damage handling for mmaped pages.
+It replaces src_blk with directly accessing the blk (non-sub-block)
+directly, because they were overlapping anyway.
 
-v4:
-	* generate deferred-I/O helpers
-	* use initializer macros for fb_ops
-v2:
-	* use FB_IO_HELPERS options
+> The concern I have with this change is that although I do agree that we 
+> should be in favor of using debugfs/dri/0/kms ( i have used it a few 
+> times and it works pretty well ), devcoredump does not have the support 
+> to dump sub-blocks . Something which we should add with priority because 
+> even with DSC blocks with the separation of enc/ctl blocks we need that 
+> like I wrote in one of the responses.
+> 
+> So the "len" of the blocks having sub-blocks will be ignored in favor of 
+> the len of the sub-blocks.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/Kconfig                    |   3 -
- drivers/gpu/drm/drm_fb_helper.c            | 107 ---------------------
- drivers/gpu/drm/i915/Kconfig               |   1 +
- drivers/gpu/drm/i915/display/intel_fbdev.c |  14 +--
- include/drm/drm_fb_helper.h                |  39 --------
- 5 files changed, 9 insertions(+), 155 deletions(-)
+The sub-blocks are not always contiguous with their parent block, are
+they?  It's probably better to print the sub-blocks separately with
+clear headers anyway rather than dumping the range parent_blk_base to
+max(parent_blk_base+len, parent_blk_base+sblk_base+sblk_len...).
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 92a782827b7b..bb2e48cc6cd6 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -133,9 +133,6 @@ config DRM_FBDEV_EMULATION
- 	bool "Enable legacy fbdev support for your modesetting driver"
- 	depends on DRM_KMS_HELPER
- 	depends on FB=y || FB=DRM_KMS_HELPER
--	select FB_CFB_FILLRECT
--	select FB_CFB_COPYAREA
--	select FB_CFB_IMAGEBLIT
- 	select FRAMEBUFFER_CONSOLE if !EXPERT
- 	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
- 	default y
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index bab6b252f02a..9978147bbc8a 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -736,113 +736,6 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
- }
- EXPORT_SYMBOL(drm_fb_helper_deferred_io);
- 
--/**
-- * drm_fb_helper_cfb_read - Implements struct &fb_ops.fb_read for I/O memory
-- * @info: fb_info struct pointer
-- * @buf: userspace buffer to read from framebuffer memory
-- * @count: number of bytes to read from framebuffer memory
-- * @ppos: read offset within framebuffer memory
-- *
-- * Returns:
-- * The number of bytes read on success, or an error code otherwise.
-- */
--ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
--			       size_t count, loff_t *ppos)
--{
--	return fb_io_read(info, buf, count, ppos);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_read);
--
--/**
-- * drm_fb_helper_cfb_write - Implements struct &fb_ops.fb_write for I/O memory
-- * @info: fb_info struct pointer
-- * @buf: userspace buffer to write to framebuffer memory
-- * @count: number of bytes to write to framebuffer memory
-- * @ppos: write offset within framebuffer memory
-- *
-- * Returns:
-- * The number of bytes written on success, or an error code otherwise.
-- */
--ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
--				size_t count, loff_t *ppos)
--{
--	struct drm_fb_helper *helper = info->par;
--	loff_t pos = *ppos;
--	ssize_t ret;
--	struct drm_rect damage_area;
--
--	ret = fb_io_write(info, buf, count, ppos);
--	if (ret <= 0)
--		return ret;
--
--	if (helper->funcs->fb_dirty) {
--		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
--		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
--				     drm_rect_width(&damage_area),
--				     drm_rect_height(&damage_area));
--	}
--
--	return ret;
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_write);
--
--/**
-- * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
-- * @info: fbdev registered by the helper
-- * @rect: info about rectangle to fill
-- *
-- * A wrapper around cfb_fillrect implemented by fbdev core
-- */
--void drm_fb_helper_cfb_fillrect(struct fb_info *info,
--				const struct fb_fillrect *rect)
--{
--	struct drm_fb_helper *helper = info->par;
--
--	cfb_fillrect(info, rect);
--
--	if (helper->funcs->fb_dirty)
--		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_fillrect);
--
--/**
-- * drm_fb_helper_cfb_copyarea - wrapper around cfb_copyarea
-- * @info: fbdev registered by the helper
-- * @area: info about area to copy
-- *
-- * A wrapper around cfb_copyarea implemented by fbdev core
-- */
--void drm_fb_helper_cfb_copyarea(struct fb_info *info,
--				const struct fb_copyarea *area)
--{
--	struct drm_fb_helper *helper = info->par;
--
--	cfb_copyarea(info, area);
--
--	if (helper->funcs->fb_dirty)
--		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_copyarea);
--
--/**
-- * drm_fb_helper_cfb_imageblit - wrapper around cfb_imageblit
-- * @info: fbdev registered by the helper
-- * @image: info about image to blit
-- *
-- * A wrapper around cfb_imageblit implemented by fbdev core
-- */
--void drm_fb_helper_cfb_imageblit(struct fb_info *info,
--				 const struct fb_image *image)
--{
--	struct drm_fb_helper *helper = info->par;
--
--	cfb_imageblit(info, image);
--
--	if (helper->funcs->fb_dirty)
--		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_imageblit);
--
- /**
-  * drm_fb_helper_set_suspend - wrapper around fb_set_suspend
-  * @fb_helper: driver-allocated fbdev helper, can be NULL
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index e4f4d2e3fdfe..01b5a8272a27 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -17,6 +17,7 @@ config DRM_I915
- 	select DRM_KMS_HELPER
- 	select DRM_PANEL
- 	select DRM_MIPI_DSI
-+	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
- 	select RELAY
- 	select I2C
- 	select I2C_ALGOBIT
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index aab1ae74a8f7..eccaceaf8b9d 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -28,6 +28,7 @@
- #include <linux/console.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
-+#include <linux/fb.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/mm.h>
-@@ -84,6 +85,10 @@ static void intel_fbdev_invalidate(struct intel_fbdev *ifbdev)
- 	intel_frontbuffer_invalidate(to_frontbuffer(ifbdev), ORIGIN_CPU);
- }
- 
-+FB_GEN_DEFAULT_DEFERRED_IO_OPS(intel_fbdev,
-+			       drm_fb_helper_damage_range,
-+			       drm_fb_helper_damage_area)
-+
- static int intel_fbdev_set_par(struct fb_info *info)
- {
- 	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
-@@ -132,15 +137,12 @@ static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
- 
- static const struct fb_ops intelfb_ops = {
- 	.owner = THIS_MODULE,
-+	__FB_DEFAULT_DEFERRED_OPS_RDWR(intel_fbdev),
- 	DRM_FB_HELPER_DEFAULT_OPS,
- 	.fb_set_par = intel_fbdev_set_par,
--	.fb_read = drm_fb_helper_cfb_read,
--	.fb_write = drm_fb_helper_cfb_write,
--	.fb_fillrect = drm_fb_helper_cfb_fillrect,
--	.fb_copyarea = drm_fb_helper_cfb_copyarea,
--	.fb_imageblit = drm_fb_helper_cfb_imageblit,
--	.fb_pan_display = intel_fbdev_pan_display,
- 	.fb_blank = intel_fbdev_blank,
-+	.fb_pan_display = intel_fbdev_pan_display,
-+	__FB_DEFAULT_DEFERRED_OPS_DRAW(intel_fbdev),
- 	.fb_mmap = intel_fbdev_mmap,
- };
- 
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index b50fd0c0b713..4863b0f8299e 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -258,18 +258,6 @@ void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u3
- 
- void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
- 
--ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
--			       size_t count, loff_t *ppos);
--ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
--				size_t count, loff_t *ppos);
--
--void drm_fb_helper_cfb_fillrect(struct fb_info *info,
--				const struct fb_fillrect *rect);
--void drm_fb_helper_cfb_copyarea(struct fb_info *info,
--				const struct fb_copyarea *area);
--void drm_fb_helper_cfb_imageblit(struct fb_info *info,
--				 const struct fb_image *image);
--
- void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper, bool suspend);
- void drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper,
- 					bool suspend);
-@@ -385,33 +373,6 @@ static inline int drm_fb_helper_defio_init(struct drm_fb_helper *fb_helper)
- 	return -ENODEV;
- }
- 
--static inline ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
--					     size_t count, loff_t *ppos)
--{
--	return -ENODEV;
--}
--
--static inline ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
--					      size_t count, loff_t *ppos)
--{
--	return -ENODEV;
--}
--
--static inline void drm_fb_helper_cfb_fillrect(struct fb_info *info,
--					      const struct fb_fillrect *rect)
--{
--}
--
--static inline void drm_fb_helper_cfb_copyarea(struct fb_info *info,
--					      const struct fb_copyarea *area)
--{
--}
--
--static inline void drm_fb_helper_cfb_imageblit(struct fb_info *info,
--					       const struct fb_image *image)
--{
--}
--
- static inline void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper,
- 					     bool suspend)
- {
--- 
-2.40.1
+- Marijn
 
+> If we remove this without adding that support first, its a loss of debug 
+> functionality.
+> 
+> Can we retain these blocks and remove dpu_debugfs_create_regset32 in a 
+> different way?
+
+<snip>
