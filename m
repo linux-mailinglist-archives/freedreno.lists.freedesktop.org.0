@@ -2,60 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D9BA70F41D
-	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 12:25:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05F3570F58D
+	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 13:46:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB5C10E5DD;
-	Wed, 24 May 2023 10:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A626910E65A;
+	Wed, 24 May 2023 11:46:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E574110E34C
- for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 10:25:09 +0000 (UTC)
-Received: by mail-yb1-xb2d.google.com with SMTP id
- 3f1490d57ef6-ba80dc46972so1165305276.2
- for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 03:25:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684923908; x=1687515908;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aD3IA34gk0OpiFHmxgq4cZFvvS4AtjdfxP/2AHXDei4=;
- b=v42rDL2b4iFPtfMW+oR7SNJkKip2850QFTsyU+q5ISKql7iMfcDOgzYLmSxd+gQ1JR
- CkdspAZLOO3Os6ylUoe4hFkaZkcJr6VQHUTeAmWwbZYUay70avJ9EeaqZcnPS0euhFZ0
- 5K28BrG+uDp81w0CUW5E34Ly434xVGcQ8rJz69KgWBLv6B5yaNal/bTWkSJJoUKboLzk
- pf0AWWHRqco76CED95f8NppvdSLVdCytawDMaHQk/9Zi/sWiqefnd+sDROR/QiFkjwII
- SMeNqPlAPDUBv6DVWPfWqYJk+03cbUtGBx1AaLrNZRrPzhsIhuPvaS+C+6G1cEex/40K
- MZsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684923908; x=1687515908;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aD3IA34gk0OpiFHmxgq4cZFvvS4AtjdfxP/2AHXDei4=;
- b=Z97D+EsFlZt3kX8G6oVTN/LqUZFa7EiGJ2y1hfWMepAP2/JGPQwbRI+cqmPsDnigzk
- 8Ideu0sQl6uZpFWwkt2CuTHgOno2LWYZhAVTjdRrHoNaUKaVrwssPMqNCkIwxl39zgOp
- zjtd9SVaq4RP7bzqfii7wyDSQ6H6hnR6UxgpsOzU4SnXMj6IBRS17SMWdNviB5ZsXUqN
- F8rItiUiq72vUpnbriJ5tMjL+sPFzbqyqPV2Iu42MY6l3JOC3mRAgf2yFqdg3kGhexA0
- RG4jKd1AP/zp2lu7mj7LFqII2TiLGw4TJ+zDw9FmER2+aK/uyVptdVqqCdLz/4qwUEqF
- tXxg==
-X-Gm-Message-State: AC+VfDwn29t4TfamToymICigFRuqOZTTRbnHNACmcN5vpP4YdrJQfNCh
- aCDzMaYsla7isqegbNcp1sbjl3EWRN4c3UdiBXilHA==
-X-Google-Smtp-Source: ACHHUZ4xV9jRL3GEe5EA3g8bWvxcwLzA0YIwtlm12hu88MYwFnsVrU+nENvU+B1yodFngmQL9vL4RFxHDpW66Gpt3Is=
-X-Received: by 2002:a81:8351:0:b0:559:f029:992d with SMTP id
- t78-20020a818351000000b00559f029992dmr18079445ywf.24.1684923908465; Wed, 24
- May 2023 03:25:08 -0700 (PDT)
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93DB610E65A
+ for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 11:46:24 +0000 (UTC)
+Received: (qmail 19997 invoked by uid 990); 24 May 2023 11:46:21 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
 MIME-Version: 1.0
-References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
- <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
- <bvjtgmuyz4zdjvt4jyjyt5hasiwnnaz4lyse6mf6b7grtig23f@yuji3z2mxue2>
-In-Reply-To: <bvjtgmuyz4zdjvt4jyjyt5hasiwnnaz4lyse6mf6b7grtig23f@yuji3z2mxue2>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 24 May 2023 13:24:57 +0300
-Message-ID: <CAA8EJpoyZsEHJeh7wMrz3dYg3841AfR4LQEEhZff_zRpRQgAvw@mail.gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
+Date: Wed, 24 May 2023 11:46:21 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Leonard Lausen" <leonard@lausen.nl>
+Message-ID: <3a11741c9cc699e178f9b705a34342add03ea0df@lausen.nl>
+TLS-Required: No
+To: "Kuogee Hsieh" <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, dmitry.baryshkov@linaro.org, andersson@kernel.org,
+ regressions@lists.linux.dev
+In-Reply-To: <1684878756-17830-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1684878756-17830-1-git-send-email-quic_khsieh@quicinc.com>
+X-Rspamd-Bar: /
+X-Rspamd-Report: MIME_GOOD(-0.1) BAYES_HAM(-1.80269) SUSPICIOUS_RECIPS(1.5)
+X-Rspamd-Score: -0.40269
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Wed, 24 May 2023 13:46:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=yvML/N3WJWiB2LyumltXUYRXVUY6T1Z0/T8xB4Juop4=;
+ b=BW79TuMU14I2zQ1/iZDlcMklY9d8hFqDFVqNll7kptlo750aTKf/9+xmPYQuVKOK8D1pPFwgoG
+ CtO/GUTdpodwO1GVY1pDTvEzL8g4Lw0aoz4aNSjSaluTfpqig+jW1v6adCTpPzuI4dw/TJpOGTJe
+ xfemmQFpSMpDe251TKcjHIxN4DJEDRaWfBzPmicXBrooUdIF/dIb2KZND/uh3stRVnqsqJ1nSZnK
+ gMwoWQ8CGwjdBmC/exGcwRpsbUuezc7WRwa+cdR/wT7Qq6o9c9/bkqkHlrObjKYiXeNs+nUF+C4w
+ RFZpIj6UxXScvs1Eg+LvT8VUNnApNhgr8riIg32AAE/67TgFGxMIFV8I9moIUPmwezY022c5adm9
+ KDkx/fQi5VIp1aHEwuPVraOFI4apNz/gaBjt2Vb73DGaZfX6Hyf5a8L1kttx+r9dxOgy9pW2R7oz
+ nqbGNGbBSD16wYwsJ6wPtp05fRBSswm9J8Yjs3dT49YGRJdlGPnWP/Og/UdB/u2jtU0dM4a9cU/Z
+ Suut2A4cQqYzlbFv5oQ+Hl1OIETlT9E1GW5hXrl1m/s6qn1G3rI4p76ZPCKAFskxPRKgcYlQ4fyE
+ eUXQdOGRBnvug3exP9XNUqiB9gQsmh4J6sRE5WCpwPZsy/MZfYsJy65wqW/1Xdz1Hg0uIuOLqztv
+ w=
+Subject: Re: [Freedreno] [PATCH v6] drm/msm/dp: enable HDP plugin/unplugged
+ interrupts at hpd_enable/disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,62 +61,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 24 May 2023 at 12:48, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
+Kuogee Hsieh <quic_khsieh@quicinc.com> writes:
+> The internal_hpd flag is set to true by dp_bridge_hpd_enable() and set =
+to
+> false by dp_bridge_hpd_disable() to handle GPIO pinmuxed into DP contro=
+ller
+> case. HDP related interrupts can not be enabled until internal_hpd is s=
+et
+> to true. At current implementation dp_display_config_hpd() will initial=
+ize
+> DP host controller first followed by enabling HDP related interrupts if
+> internal_hpd was true at that time. Enable HDP related interrupts depen=
+ds on
+> internal_hpd status may leave system with DP driver host is in running =
+state
+> but without HDP related interrupts being enabled. This will prevent ext=
+ernal
+> display from being detected. Eliminated this dependency by moving HDP r=
+elated
+> interrupts enable/disable be done at dp_bridge_hpd_enable/disable() dir=
+ectly
+> regardless of internal_hpd status.
 >
-> On 2023-05-23 13:01:13, Abhinav Kumar wrote:
-> >
-> >
-> > On 5/21/2023 10:21 AM, Dmitry Baryshkov wrote:
-> > > Drop SSPP-specifig debugfs register dumps in favour of using
-> > > debugfs/dri/0/kms or devcoredump.
-> > >
-> >
-> > I did see another series which removes src_blk from the catalog (I am
-> > yet to review that one) . Lets assume that one is fine and this change
-> > will be going on top of that one right?
+> Changes in V3:
+> -- dp_catalog_ctrl_hpd_enable() and dp_catalog_ctrl_hpd_disable()
+> -- rewording ocmmit text
 >
-> It replaces src_blk with directly accessing the blk (non-sub-block)
-> directly, because they were overlapping anyway.
+> Changes in V4:
+> -- replace dp_display_config_hpd() with dp_display_host_start()
+> -- move enable_irq() at dp_display_host_start();
 >
-> > The concern I have with this change is that although I do agree that we
-> > should be in favor of using debugfs/dri/0/kms ( i have used it a few
-> > times and it works pretty well ), devcoredump does not have the support
-> > to dump sub-blocks . Something which we should add with priority because
-> > even with DSC blocks with the separation of enc/ctl blocks we need that
-> > like I wrote in one of the responses.
-> >
-> > So the "len" of the blocks having sub-blocks will be ignored in favor of
-> > the len of the sub-blocks.
+> Changes in V5:
+> -- replace dp_display_host_start() with dp_display_host_init()
 >
-> The sub-blocks are not always contiguous with their parent block, are
-> they?  It's probably better to print the sub-blocks separately with
-> clear headers anyway
+> Changes in V6:
+> -- squash remove enable_irq() and disable_irq()
+>
+> Fixes: cd198caddea7 ("drm/msm/dp: Rely on hpd_enable/disable callbacks"=
+)
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
-I hope this is what Abhinav meant.
+Cherry-picked on top of v6.3.3 and verified fixes the USB-C DP
+regression on sc7180 lazor. Thank you!
 
-> rather than dumping the range parent_blk_base to
-> max(parent_blk_base+len, parent_blk_base+sblk_base+sblk_len...).
->
-> - Marijn
->
-> > If we remove this without adding that support first, its a loss of debug
-> > functionality.
-> >
-> > Can we retain these blocks and remove dpu_debugfs_create_regset32 in a
-> > different way?
->
-> <snip>
-
-
-
--- 
-With best wishes
-Dmitry
+Tested-by: Leonard Lausen <leonard@lausen.nl> # on sc7180 lazor
