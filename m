@@ -1,66 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AD9170FB2A
-	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 18:00:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8607870FB68
+	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 18:10:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C1610E590;
-	Wed, 24 May 2023 16:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90BBD10E4DD;
+	Wed, 24 May 2023 16:10:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 890D110E691;
- Wed, 24 May 2023 16:00:40 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id
- d2e1a72fcca58-64d293746e0so1202501b3a.2; 
- Wed, 24 May 2023 09:00:40 -0700 (PDT)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8B710E4C1
+ for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 16:10:20 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-3f6077660c6so9996345e9.0
+ for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 09:10:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684944039; x=1687536039;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1684944617; x=1687536617;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ex5RgcOGAy76xADxIoHPP5AhCcNedegsTMiHxYneYvA=;
- b=AESaB1MjaCZtF0RCoh9e77N5vnrWapnBypJL1aCtjHEnEZb14XPLFFeEJGplihdCB9
- xcEovBnrNPwzC7actG2PNYtsxUMNUvPyjKjRRUrpLAdhSU5qs/L1njJWvayRfHp6l+gz
- DqdY/B8iS7/N4Cz3Mh8phN8N4jdj1+hGp50cUv08D3FxbcIRaj092Fo6DNoRQFZ2kjEG
- FdlR6Vkl83wdnxOKU0/1vIWWJhcfMA+VF0M9QMBpwhVsYaADIYuYWXvuGLJxUk/v3JW0
- 4nYEjVSCl7hMOEonBURtneMlQ5nePBIVU79XIPcNi5N5riSozrlNxKYUZdorCfnJ7/CW
- cgpg==
+ bh=sonO3GOYzGccW/51txZZdB4M9CGgorlp/b5UFoGyaco=;
+ b=huJrIL8GrNYmxaL+91OktyHSNGC4Uj9H6LgChlHFde8wRuazQA2qKQx6gCLm5EeUL2
+ ChyzSS3yZGt2x8Op/sPCRDNJ0ZBVe22BFbk5n7wqOh3LXQN3gNw2KahY5+Y4d7fAPypg
+ guLngSIAs+OA9FpyZelrGBAx01iPnej6Pxh7AaBFHLpBkcLKz4zj5MECgG68A+pkFuSl
+ W2tTk2kgJLFACbkK6DcSAREyG9sqVzJko7HCcFQROj/IKjqcPi5ksUUb75URizrZUeDH
+ 1pJkY+oznh25umOaeF2AuwhXQ6sJXhvqLrjKjkeTnLqslRGHojbcxLvb+wlSlazue9a9
+ NfbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684944039; x=1687536039;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1684944617; x=1687536617;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ex5RgcOGAy76xADxIoHPP5AhCcNedegsTMiHxYneYvA=;
- b=bR6SkpRw8j9rR1hNENzceBzp8NMOImSAO2PuEcY+7W2vNI9V/e6eeFk9JJDmGChoC3
- H+atFznC2OpwbS0WdYTh64cMnUaaYba2Jciev3oDYuzGS+8kpgGvce8iBNsfXtP+hOy6
- JkWQC0GU6CRehXR8Q0bPxFZGeNu5rImM+aoex1Lz36e5zlmYjVHK6rm4aPNST0wNlNgM
- OnNGbi9wuYJjhRA7v1eNR9OomBY+hZGwfRBYCSaTPRcpIT6+S1m62dpPixUOCMEaRnco
- sK+RDDCskVOr5zIpNCqsqizMEsN38H+YrHGaNkyuXRTTh2iO/HWt0FqbyNHBZIcMDFWC
- aFfg==
-X-Gm-Message-State: AC+VfDx9+FlHGYkdkmoT7g7CQvmUiphw688Y/LAakrDAigQMzGdZvyfV
- tpcK6X5dPOuygVismzlqrqEXtz5iWnE=
-X-Google-Smtp-Source: ACHHUZ7onA/29uMKwZvh+T+iC1Z1taVKK6Wncz/arA/4C9WyRm6daOgouT46veHHvrkbpt6hDF5Vwg==
-X-Received: by 2002:a17:902:748c:b0:1a9:21bc:65f8 with SMTP id
- h12-20020a170902748c00b001a921bc65f8mr16308136pll.11.1684944039060; 
- Wed, 24 May 2023 09:00:39 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ bh=sonO3GOYzGccW/51txZZdB4M9CGgorlp/b5UFoGyaco=;
+ b=P2yPU+B2U07LEZ5whXhxdQU8B6bq4l630EpLgiu6EN0WyTSJtZjH0qiNzl+3adGf1p
+ xlIZVPQV+CuJwyjBHL07NLDEcL0JnqLvqYrOV1JX7xA3JokaYcdm9U08GqdL+qE4QzOC
+ ZeF+zrbnoHLnWA3Y50r5ZSyEe8jgvxiiSTVsfxKT47BjEUPE3ZFX7pkHSb7ZTkq/2FWl
+ fPjo4OYzFGRtOnZUOieEan13eY9ScNpJzBWT+pu8RM5L8mqh2szYfMw4SV5Zkw+5V4lF
+ 0Vq4WVofMS7LUrfddTwbVTh+Gv07oOrlZRssxxl115HWK+fFeGmc+4OfFT5GbqRgCL1g
+ lOQA==
+X-Gm-Message-State: AC+VfDw2VZID+eIZPObxKNwCcxI378hL3h+/xrHG6O/r1rRahjanCJbx
+ sHTfvLCmNLWAI6aEuoBAWnyGaQ==
+X-Google-Smtp-Source: ACHHUZ6TpR8oaLW3NZ/tDgs34qpc3OAVHAqUENH6gjAtwJ10LJtGbVpmkQsfflTucQ7R54D29ZedZQ==
+X-Received: by 2002:a7b:ce87:0:b0:3f4:2327:53c2 with SMTP id
+ q7-20020a7bce87000000b003f4232753c2mr248128wmj.19.1684944616955; 
+ Wed, 24 May 2023 09:10:16 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- e16-20020a17090301d000b001afccb29d69sm3698533plh.303.2023.05.24.09.00.38
+ v7-20020a05600c214700b003f4f89bc48dsm2865399wml.15.2023.05.24.09.10.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 May 2023 09:00:38 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 24 May 2023 08:59:37 -0700
-Message-Id: <20230524155956.382440-8-robdclark@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230524155956.382440-1-robdclark@gmail.com>
-References: <20230524155956.382440-1-robdclark@gmail.com>
+ Wed, 24 May 2023 09:10:16 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
+In-Reply-To: <20230515143023.801167-1-robdclark@gmail.com>
+References: <20230515143023.801167-1-robdclark@gmail.com>
+Message-Id: <168494461551.3403386.4095735722928777312.b4-ty@linaro.org>
+Date: Wed, 24 May 2023 18:10:15 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 7/7] drm/doc: Relax fdinfo string constraints
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.2
+Subject: Re: [Freedreno] (subset) [PATCH v4 0/9] drm: fdinfo memory stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,158 +74,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jonathan Corbet <corbet@lwn.net>, Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>, Maxime Ripard <mripard@kernel.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+Cc: linux-doc@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Sean Paul <sean@poorly.run>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Elliot Berman <quic_eberman@quicinc.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, Peter Maucher <bellosilicio@gmail.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi,
 
-The restriction about no whitespace, etc, really only applies to the
-usage of strings in keys.  Values can contain anything (other than
-newline).
+On Mon, 15 May 2023 07:30:07 -0700, Rob Clark wrote:
+> Similar motivation to other similar recent attempt[1].  But with an
+> attempt to have some shared code for this.  As well as documentation.
+> 
+> It is probably a bit UMA-centric, I guess devices with VRAM might want
+> some placement stats as well.  But this seems like a reasonable start.
+> 
+> Basic gputop support: https://patchwork.freedesktop.org/series/116236/
+> And already nvtop support: https://github.com/Syllo/nvtop/pull/204
+> 
+> [...]
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Acked-by: Dave Airlie <airlied@redhat.com>
----
- Documentation/gpu/drm-usage-stats.rst | 27 ++++++++++++++-------------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
 
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index d012eb56885e..fe35a291ff3e 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -17,41 +17,42 @@ wherever possible effort should still be made to standardise as much as
- possible.
- 
- File format specification
- =========================
- 
- - File shall contain one key value pair per one line of text.
- - Colon character (`:`) must be used to delimit keys and values.
- - All keys shall be prefixed with `drm-`.
- - Whitespace between the delimiter and first non-whitespace character shall be
-   ignored when parsing.
--- Neither keys or values are allowed to contain whitespace characters.
-+- Keys are not allowed to contain whitespace characters.
- - Numerical key value pairs can end with optional unit string.
- - Data type of the value is fixed as defined in the specification.
- 
- Key types
- ---------
- 
- 1. Mandatory, fully standardised.
- 2. Optional, fully standardised.
- 3. Driver specific.
- 
- Data types
- ----------
- 
- - <uint> - Unsigned integer without defining the maximum value.
--- <str> - String excluding any above defined reserved characters or whitespace.
-+- <keystr> - String excluding any above defined reserved characters or whitespace.
-+- <valstr> - String.
- 
- Mandatory fully standardised keys
- ---------------------------------
- 
--- drm-driver: <str>
-+- drm-driver: <valstr>
- 
- String shall contain the name this driver registered as via the respective
- `struct drm_driver` data structure.
- 
- Optional fully standardised keys
- --------------------------------
- 
- Identification
- ^^^^^^^^^^^^^^
- 
-@@ -68,62 +69,62 @@ to the in kernel representation of `struct drm_file` instances.
- 
- Uniqueness of the value shall be either globally unique, or unique within the
- scope of each device, in which case `drm-pdev` shall be present as well.
- 
- Userspace should make sure to not double account any usage statistics by using
- the above described criteria in order to associate data to individual clients.
- 
- Utilization
- ^^^^^^^^^^^
- 
--- drm-engine-<str>: <uint> ns
-+- drm-engine-<keystr>: <uint> ns
- 
- GPUs usually contain multiple execution engines. Each shall be given a stable
--and unique name (str), with possible values documented in the driver specific
-+and unique name (keystr), with possible values documented in the driver specific
- documentation.
- 
- Value shall be in specified time units which the respective GPU engine spent
- busy executing workloads belonging to this client.
- 
- Values are not required to be constantly monotonic if it makes the driver
- implementation easier, but are required to catch up with the previously reported
- larger value within a reasonable period. Upon observing a value lower than what
- was previously read, userspace is expected to stay with that larger previous
- value until a monotonic update is seen.
- 
--- drm-engine-capacity-<str>: <uint>
-+- drm-engine-capacity-<keystr>: <uint>
- 
- Engine identifier string must be the same as the one specified in the
--drm-engine-<str> tag and shall contain a greater than zero number in case the
-+drm-engine-<keystr> tag and shall contain a greater than zero number in case the
- exported engine corresponds to a group of identical hardware engines.
- 
- In the absence of this tag parser shall assume capacity of one. Zero capacity
- is not allowed.
- 
--- drm-cycles-<str>: <uint>
-+- drm-cycles-<keystr>: <uint>
- 
- Engine identifier string must be the same as the one specified in the
--drm-engine-<str> tag and shall contain the number of busy cycles for the given
-+drm-engine-<keystr> tag and shall contain the number of busy cycles for the given
- engine.
- 
- Values are not required to be constantly monotonic if it makes the driver
- implementation easier, but are required to catch up with the previously reported
- larger value within a reasonable period. Upon observing a value lower than what
- was previously read, userspace is expected to stay with that larger previous
- value until a monotonic update is seen.
- 
--- drm-maxfreq-<str>: <uint> [Hz|MHz|KHz]
-+- drm-maxfreq-<keystr>: <uint> [Hz|MHz|KHz]
- 
- Engine identifier string must be the same as the one specified in the
--drm-engine-<str> tag and shall contain the maximum frequency for the given
--engine.  Taken together with drm-cycles-<str>, this can be used to calculate
--percentage utilization of the engine, whereas drm-engine-<str> only reflects
-+drm-engine-<keystr> tag and shall contain the maximum frequency for the given
-+engine.  Taken together with drm-cycles-<keystr>, this can be used to calculate
-+percentage utilization of the engine, whereas drm-engine-<keystr> only reflects
- time active without considering what frequency the engine is operating as a
- percentage of it's maximum frequency.
- 
- Memory
- ^^^^^^
- 
- - drm-memory-<region>: <uint> [KiB|MiB]
- 
- Each possible memory type which can be used to store buffer objects by the
- GPU in question shall be given a stable and unique name to be returned as the
+[1/9] drm/docs: Fix usage stats typos
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0020582a8afe9a8570f80ec503c59bf049a616de
+[2/9] drm: Add common fdinfo helper
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=3f09a0cd4ea3b9d34495450d686227d48e7ec648
+[3/9] drm/msm: Switch to fdinfo helper
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=51d86ee5e07ccef85af04ee9850b0baa107999b6
+[4/9] drm/amdgpu: Switch to fdinfo helper
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=376c25f8ca47084c4f0aff0f14684780756ccef4
+[5/9] drm: Add fdinfo memory stats
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=686b21b5f6ca2f8a716f9a4ade07246dbfb2713e
+[6/9] drm/msm: Add memory stats to fdinfo
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=3e9757f5ddb98238226ad68a1609aa313de35adb
+[7/9] drm/doc: Relax fdinfo string constraints
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=90d63a150b85fd1debb9c01237fb78faee02746a
+
 -- 
-2.40.1
+Neil
 
