@@ -1,73 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA5170FB75
-	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 18:12:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F47270FBB8
+	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 18:33:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31F5510E4DD;
-	Wed, 24 May 2023 16:12:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1D9310E533;
+	Wed, 24 May 2023 16:33:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4704510E4DD
- for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 16:12:00 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-307d58b3efbso760063f8f.0
- for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 09:12:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684944718; x=1687536718;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :from:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=k72tOLHNx9m56BXts73JUfuZbFrbujBUrTnehtgDexQ=;
- b=EtUy1cT338QhJ12TcFnp4j/CEuWv4Yt8jNNXowheZkIKoGi9WlZzNh0xDPDTWoMoZF
- AXBqX7soBwzGywtMChbffgU6DKKeKQCq+EBqimBte3QJLQV8wawUdTFpAB4rAVPJxYGM
- IIvm3K3uaJjas73TUnERcMICPokNky1JbBvie2mjaTh6TtIC2qeR9Fohgh1563uI84ff
- CQo1kKdnhAuyAHong+zSvjmeNs/mtplC7GQlK36bX/Ffi1mEdl22qrqH2wVGGC/N8fut
- Si0wa9LslXA//MwsEhc2/0vfkOxC47LHpN4S8MReA6rN+WtPTta11s/kPgqTjHQiBAuC
- DXvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684944718; x=1687536718;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :from:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=k72tOLHNx9m56BXts73JUfuZbFrbujBUrTnehtgDexQ=;
- b=jAuqZkM2QuOPclKJ0RIxdcql2ndF+WaWLwzTrCoYAlsZP2jiApU7lD+MAQaPjxl0g7
- xFbrSCLDs3uoHQS4l3MOvr8CHGXgvv9Rigx1xhkuaDT6Gy5rEdPqdQIrNChvRX6Y+EE6
- VzF6k0ZtVUj70h0Kffpr2ED3O/09mel5ueq/+IiBiZu/uHhlmNf3G6UAI+IDk++5SLm9
- tDpaiecLQXBoTEOid/RNLjwln8JLWgq8u55xSeeXsohTw2PGzLnuS3L3zs68uFpSYpFA
- 25arTvfPWrP5oMMNzI03wkwxhK5k9rk6p9VYGpsI96u8p2p+zk1uU2UqTZPBTFm69J4f
- dqog==
-X-Gm-Message-State: AC+VfDybMd+PWRpMYZ7EHtvdssRTvfg7+sSbbZRIsfRMS5730bPq22WI
- vW2Cq7q8ObDXGTo5qrD7vydSYQ==
-X-Google-Smtp-Source: ACHHUZ7yzSRYJcrJoJX1pJvtfP6AqsaU7Xxlwr8toSEa+a55GzhttWpC2GloIzGWvYf5g3l7Wu+/rg==
-X-Received: by 2002:a5d:604f:0:b0:309:e24:57aa with SMTP id
- j15-20020a5d604f000000b003090e2457aamr209929wrt.19.1684944718139; 
- Wed, 24 May 2023 09:11:58 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:39c7:394c:5a3:4047?
- ([2a01:e0a:982:cbb0:39c7:394c:5a3:4047])
- by smtp.gmail.com with ESMTPSA id
- c14-20020a056000104e00b00307b5376b2csm14807613wrx.90.2023.05.24.09.11.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 May 2023 09:11:57 -0700 (PDT)
-Message-ID: <9a489856-436f-0c7b-9bfc-2336d26ad403@linaro.org>
-Date: Wed, 24 May 2023 18:11:56 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDD0510E4DD;
+ Wed, 24 May 2023 16:33:25 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34OFfUiq008677; Wed, 24 May 2023 16:33:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=WHPoXP5utHdLTSZGO5wV4RpG8TRwXt/UKLbt8oGZ07Q=;
+ b=XJN1T6ZZ31tfgiO02UaluszxxVqkYrjH3og/Q3AxxIWrmACU4GCtscAfupfPrY2nRdGl
+ sfy0xLbLP9sdjHIaT2d9Tbq/GcAqoFvlqgm1Ao7io54RQvQxL33sOPabx9V/7+7TFBeY
+ ZSfSw9cKnY03J1BfeYcAiniwPyMCPT+gpn7rB0I9IIOjvS7uJzwzGb9mfB9RKS7bJHad
+ ZGBG1Z9eZcHz9yRAtdmTLgZc3fLajsjv2C90sGCN45LtUNjAU+DdC3HkdAYCvdC6ZGNz
+ 4O/+qC8/mHvqRCrk7VO1dKgggqsnafp+MRIpDAwY1SrvBI8IbkbnW8mz1Wgo0/lHR1qY Qg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qscgmheuk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 May 2023 16:33:15 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34OGXEjN028531
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 May 2023 16:33:14 GMT
+Received: from [10.71.110.189] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 24 May
+ 2023 09:33:13 -0700
+Message-ID: <81399377-cd0b-ba9c-e58f-e1955912b263@quicinc.com>
+Date: Wed, 24 May 2023 09:33:13 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
-References: <20230515143023.801167-1-robdclark@gmail.com>
- <168494461551.3403386.4095735722928777312.b4-ty@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <168494461551.3403386.4095735722928777312.b4-ty@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+References: <1684800039-18231-1-git-send-email-quic_khsieh@quicinc.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1684800039-18231-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] (subset) [PATCH v4 0/9] drm: fdinfo memory stats
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 1i6xzJ6550qlbC9RKlRvNvBFYClxXQqK
+X-Proofpoint-ORIG-GUID: 1i6xzJ6550qlbC9RKlRvNvBFYClxXQqK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-24_11,2023-05-24_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=966 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ adultscore=0 malwarescore=0 phishscore=0 mlxscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305240137
+Subject: Re: [Freedreno] [PATCH v13 00/10] add DSC 1.2 dpu supports
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,65 +85,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <mdaenzer@redhat.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- linux-arm-msm@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Sean Paul <sean@poorly.run>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Elliot Berman <quic_eberman@quicinc.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Jim Cromie <jim.cromie@gmail.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Peter Maucher <bellosilicio@gmail.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/05/2023 18:10, Neil Armstrong wrote:
-> Hi,
-> 
-> On Mon, 15 May 2023 07:30:07 -0700, Rob Clark wrote:
->> Similar motivation to other similar recent attempt[1].  But with an
->> attempt to have some shared code for this.  As well as documentation.
->>
->> It is probably a bit UMA-centric, I guess devices with VRAM might want
->> some placement stats as well.  But this seems like a reasonable start.
->>
->> Basic gputop support: https://patchwork.freedesktop.org/series/116236/
->> And already nvtop support: https://github.com/Syllo/nvtop/pull/204
->>
->> [...]
-> 
-> Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
-> 
-> [1/9] drm/docs: Fix usage stats typos
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0020582a8afe9a8570f80ec503c59bf049a616de
-> [2/9] drm: Add common fdinfo helper
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=3f09a0cd4ea3b9d34495450d686227d48e7ec648
-> [3/9] drm/msm: Switch to fdinfo helper
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=51d86ee5e07ccef85af04ee9850b0baa107999b6
-> [4/9] drm/amdgpu: Switch to fdinfo helper
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=376c25f8ca47084c4f0aff0f14684780756ccef4
-> [5/9] drm: Add fdinfo memory stats
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=686b21b5f6ca2f8a716f9a4ade07246dbfb2713e
-> [6/9] drm/msm: Add memory stats to fdinfo
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=3e9757f5ddb98238226ad68a1609aa313de35adb
-> [7/9] drm/doc: Relax fdinfo string constraints
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=90d63a150b85fd1debb9c01237fb78faee02746a
-> 
+Hi Dmitry/Marijn,
 
-Hmm no idea what happened, but I really applied v5 !
+Are you satisfy with this patch series or any more comments will be added?
 
-Neil
+Thanks,
+
+
+kuogee
+
+
+On 5/22/2023 5:00 PM, Kuogee Hsieh wrote:
+> This series adds the DPU side changes to support DSC 1.2 encoder. This
+> was validated with both DSI DSC 1.2 panel and DP DSC 1.2 monitor.
+> The DSI and DP parts will be pushed later on top of this change.
+> This seriel is rebase on [1], [2] and catalog fixes from rev-4 of [3].
+>
+> [1]: https://patchwork.freedesktop.org/series/116851/
+> [2]: https://patchwork.freedesktop.org/series/116615/
+> [3]: https://patchwork.freedesktop.org/series/112332/
+>
+> Abhinav Kumar (2):
+>    drm/msm/dpu: add dsc blocks to the catalog of MSM8998 and SC8180X
+>    drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets
+>
+> Kuogee Hsieh (8):
+>    drm/msm/dpu: set DSC flush bit correctly at MDP CTL flush register
+>    drm/msm/dpu: add DPU_PINGPONG_DSC feature bit for DPU < 7.0.0
+>    drm/msm/dpu: Guard PINGPONG DSC ops behind DPU_PINGPONG_DSC bit
+>    drm/msm/dpu: Introduce PINGPONG_NONE to disconnect DSC from PINGPONG
+>    drm/msm/dpu: add support for DSC encoder v1.2 engine
+>    drm/msm/dpu: always clear every individual pending flush mask
+>    drm/msm/dpu: separate DSC flush update out of interface
+>    drm/msm/dpu: tear down DSC data path when DSC disabled
+>
+>   drivers/gpu/drm/msm/Makefile                       |   1 +
+>   .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |   7 +
+>   .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  11 +
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  14 +
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |   7 +
+>   .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  16 +
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  14 +
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  14 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  51 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  24 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  35 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  33 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  11 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |  14 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |  15 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     | 387 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   3 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   9 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |   7 +-
+>   19 files changed, 644 insertions(+), 29 deletions(-)
+>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c
+>
