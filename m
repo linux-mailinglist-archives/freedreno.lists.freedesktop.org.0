@@ -2,48 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5430070EEC1
-	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 08:59:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19F9D70F024
+	for <lists+freedreno@lfdr.de>; Wed, 24 May 2023 10:06:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2D710E57A;
-	Wed, 24 May 2023 06:59:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9CA10E594;
+	Wed, 24 May 2023 08:06:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C35410E046;
- Wed, 24 May 2023 06:59:51 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 55C79626BE;
- Wed, 24 May 2023 06:59:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A14C433EF;
- Wed, 24 May 2023 06:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1684911589;
- bh=EGxKW0ENE1SqUGUsYp+MnGqiOllxXX1HxcX9JCZtn/w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pFFnpgTWz0mFlcM7EiCO4wqhXZSoxWvo5e6iAqou8ivxTUOcgv3tRwJhDekhFPmWL
- O0tdDOMhV8UqOQvPqsRiBdPsaZpFEpva03kuZW/udlzFBVPDk9C+6wmhT+i3Km8yA4
- h1tCHUMQpW1WDMjaNx45ejnB17QToaDeknC6B0Oww6UiSVYGKXHrS/JEmbZj6vGA9o
- znEOfH9UGHM5jjj4sYzkusaFY45cw4ZONwjdicCO+qHGAYlJJ831mIfUX9Tmid3ydR
- JSHRVsVE3Cg9kPOHZbZs+svQGuzOJbejGJ6Dk+94IW9wKNIMRi81ZIk3Qc0SIwFD6g
- HioNUMDijK0nA==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1q1iTS-0003FU-8Y; Wed, 24 May 2023 08:59:55 +0200
-Date: Wed, 24 May 2023 08:59:54 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <ZG216qoxK9hQ-kQs@hovoldconsulting.com>
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B66510E592
+ for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 08:06:07 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-4f4ba3e0b98so516111e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 01:06:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684915565; x=1687507565;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2di5F/Fsbly9FAD3Arcq2hIOC6OgudTqnppopyN/4nE=;
+ b=RSELJiQWTCvR5j8lZExyFCzoraNky4ZAabOHgGlH7yl/0Quby/lt2SDe6fTx3XbWAj
+ 0XWa/vf1m8zEvRtZMM6rAZl2rRfVrXpvpynlU3epuM9Rs74RN5+L4X2pQT2jQD2CEo+G
+ 4HLLTRWH4qDXGZoB9uRcOt7OVaTpTG2ilLXAY7SoNpVdiK6ilWc0uPg0mrD+NXT9P66S
+ T9A6JhgwUdZRbQi/fz9keYqnWpHWf//oOKVSeeKc+wHMRjUnD8taHhKov93BzWxjiW02
+ jYS0rmR920K+h2BVdf0nrgoicMfE+eSbL5IQDE+9g/bCyJzrwH0e4p5eQpm5b1jRQw1w
+ cKTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684915565; x=1687507565;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2di5F/Fsbly9FAD3Arcq2hIOC6OgudTqnppopyN/4nE=;
+ b=BcIkD5jViKPVMycPYi3+CUP4CBFYg21DsJm046hy7FjR5bpiz0NTC03IEFC15w0yKT
+ YjkhODx0nbOJnPumxpko11nbo7eSxMCzZ2w4Btksts+Q5k43uKWcB4psFjU8WdQ59FwK
+ lPV1ZKOe9J0SWDBO9LLAoyVWMAXT4JmKqOYSHu22rb+6S8MldWwnnKxQjeoqOBq84kLE
+ zx86dgL3FQgn6YifFT2cBhco9Hz4lb/ZmiI1gNi0kGAQD4KRAOxgHiQvPdA/cjRPaMJ6
+ Xc0noR0ZMycVI1zxRntqNOktT856xe58atPUzNGMf+eY9gA2k5/Tdk1UZMR0xbbnYst4
+ eGLw==
+X-Gm-Message-State: AC+VfDyrm6ZICGhtMODH40C40Ew3P9rtyfJeTAfKXZsA8g1zyS08X46s
+ 91k4SQm3gE9nGGpRO+VfGYJ6Qw==
+X-Google-Smtp-Source: ACHHUZ6kVNyrtxkIjgkKymdHMZFb01K61ZNMGKdJOPA3oiVKK8AHjyd/9kt+dgwnEGIzjiA1+U7fLQ==
+X-Received: by 2002:ac2:4c9a:0:b0:4f1:4602:fb63 with SMTP id
+ d26-20020ac24c9a000000b004f14602fb63mr5205614lfl.41.1684915565311; 
+ Wed, 24 May 2023 01:06:05 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ 19-20020ac24853000000b004f3b4d17114sm1647259lfy.144.2023.05.24.01.06.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 May 2023 01:06:04 -0700 (PDT)
+Message-ID: <4f2556e2-52ab-eb1d-b388-52546044f460@linaro.org>
+Date: Wed, 24 May 2023 11:06:03 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Johan Hovold <johan@kernel.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Douglas Anderson <dianders@chromium.org>
 References: <20230427232848.5200-1-quic_abhinavk@quicinc.com>
  <053819bd-b3c4-a72c-9316-85d974082ad6@linaro.org>
  <ZGzalLjTvUfzEADU@hovoldconsulting.com>
  <f530691b-989d-b059-6b06-e66abb740bdb@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f530691b-989d-b059-6b06-e66abb740bdb@quicinc.com>
+ <ZG216qoxK9hQ-kQs@hovoldconsulting.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <ZG216qoxK9hQ-kQs@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add module parameter for PSR
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,72 +85,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, dianders@chromium.org,
  dri-devel@lists.freedesktop.org, swboyd@chromium.org,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- quic_jesszhan@quicinc.com, David Airlie <airlied@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+ linux-arm-msm@vger.kernel.org, quic_jesszhan@quicinc.com,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 23, 2023 at 12:23:04PM -0700, Abhinav Kumar wrote:
-> On 5/23/2023 8:24 AM, Johan Hovold wrote:
-> > On Fri, May 12, 2023 at 09:13:04PM +0300, Dmitry Baryshkov wrote:
-> >> On 28/04/2023 02:28, Abhinav Kumar wrote:
-> >>> On sc7280 where eDP is the primary display, PSR is causing
-> >>> IGT breakage even for basic test cases like kms_atomic and
-> >>> kms_atomic_transition. Most often the issue starts with below
-> >>> stack so providing that as reference
-> >>>
-> >>> Call trace:
-
-> >>> ---[ end trace 0000000000000000 ]---
-> >>> [drm-dp] dp_ctrl_push_idle: PUSH_IDLE pattern timedout
-> >>>
-> >>> Other basic use-cases still seem to work fine hence add a
-> >>> a module parameter to allow toggling psr enable/disable till
-> >>> PSR related issues are hashed out with IGT.
-> >>
-> >> For the reference: Bjorn reported that he has issues with VT on a
-> >> PSR-enabled laptops. This patch fixes the issue for him
-> > 
-> > Module parameters are almost never warranted, and it is definitely not
-> > the right way to handle a broken implementation.
-> > 
-> > I've just sent a revert that unconditionally disables PSR support until
-> > the implementation has been fixed:
-> > 
-> > 	https://lore.kernel.org/lkml/20230523151646.28366-1-johan+linaro@kernel.org/
+On 24/05/2023 09:59, Johan Hovold wrote:
+> On Tue, May 23, 2023 at 12:23:04PM -0700, Abhinav Kumar wrote:
+>> On 5/23/2023 8:24 AM, Johan Hovold wrote:
+>>> On Fri, May 12, 2023 at 09:13:04PM +0300, Dmitry Baryshkov wrote:
+>>>> On 28/04/2023 02:28, Abhinav Kumar wrote:
+>>>>> On sc7280 where eDP is the primary display, PSR is causing
+>>>>> IGT breakage even for basic test cases like kms_atomic and
+>>>>> kms_atomic_transition. Most often the issue starts with below
+>>>>> stack so providing that as reference
+>>>>>
+>>>>> Call trace:
 > 
-> I dont completely agree with this. Even the virtual terminal case was 
-> reported to be fixed by one user but not the other. So it was probably 
-> something missed out either in validation or reproduction steps of the 
-> user who reported it to be fixed OR the user who reported it not fixed. 
-> That needs to be investigated now.
+>>>>> ---[ end trace 0000000000000000 ]---
+>>>>> [drm-dp] dp_ctrl_push_idle: PUSH_IDLE pattern timedout
+>>>>>
+>>>>> Other basic use-cases still seem to work fine hence add a
+>>>>> a module parameter to allow toggling psr enable/disable till
+>>>>> PSR related issues are hashed out with IGT.
+>>>>
+>>>> For the reference: Bjorn reported that he has issues with VT on a
+>>>> PSR-enabled laptops. This patch fixes the issue for him
+>>>
+>>> Module parameters are almost never warranted, and it is definitely not
+>>> the right way to handle a broken implementation.
+>>>
+>>> I've just sent a revert that unconditionally disables PSR support until
+>>> the implementation has been fixed:
+>>>
+>>> 	https://lore.kernel.org/lkml/20230523151646.28366-1-johan+linaro@kernel.org/
+>>
+>> I dont completely agree with this. Even the virtual terminal case was
+>> reported to be fixed by one user but not the other. So it was probably
+>> something missed out either in validation or reproduction steps of the
+>> user who reported it to be fixed OR the user who reported it not fixed.
+>> That needs to be investigated now.
+> 
+> Yes, there may still be some time left to fix it, but it's pretty damn
+> annoying to find that an issue reported two months ago still is not
+> fixed at 6.4-rc3. (I even waited to make the switch to 6.4 so that I
+> would not have to spend time on this.)
+> 
+> I didn't see any mail from Bjorn saying that the series that claimed to
+> fix the VT issue actually did fix the VT issue. There's only the comment
+> above from Dmitry suggesting that disabling this feature is the only way
+> to get a working terminal back.
 
-Yes, there may still be some time left to fix it, but it's pretty damn
-annoying to find that an issue reported two months ago still is not
-fixed at 6.4-rc3. (I even waited to make the switch to 6.4 so that I
-would not have to spend time on this.)
+Originally this issue was reported by Doug, and at [1] he reported that 
+an issue is fixed for him. So, for me it looks like we have hardware 
+where VT works and hardware where it doesn't.
 
-I didn't see any mail from Bjorn saying that the series that claimed to
-fix the VT issue actually did fix the VT issue. There's only the comment
-above from Dmitry suggesting that disabling this feature is the only way
-to get a working terminal back.
+Doug, can you please confirm whether you can reproduce the PSR+VT issue 
+on 6.4-rc (without extra patches) or if the issue is fixed for you?
 
-Regressions happen and sometimes there are corner cases that are harder
-to find, but this is a breakage of a fundamental feature that was
-reported before the code was even merged into mainline.
+[1] 
+https://lore.kernel.org/dri-devel/CAD=FV=VSHmQPtsQfWjviEZeErms-VEOTmfozejASUC9zsMjAbA@mail.gmail.com/
 
-> We should have ideally gone with the modparam with the feature patches 
-> itself knowing that it gets enabled for all sinks if PSR is supported.
+> 
+> Regressions happen and sometimes there are corner cases that are harder
+> to find, but this is a breakage of a fundamental feature that was
+> reported before the code was even merged into mainline.
+> 
+>> We should have ideally gone with the modparam with the feature patches
+>> itself knowing that it gets enabled for all sinks if PSR is supported.
+> 
+> Modparams are things of the past should not be used to enable broken
+> features so that some vendor can tick of their internal lists of
+> features that have been "mainlined".
 
-Modparams are things of the past should not be used to enable broken
-features so that some vendor can tick of their internal lists of
-features that have been "mainlined".
+We have had a history of using modparam with i915 and IIRC amdgpu / 
+radeon drivers to allow users to easily check whether new feature works 
+for their hardware. My current understanding is that PSR+VT works for on 
+some laptops and doesn't on some other laptops, which makes it a valid case.
 
-You can carry that single patch out-of-tree to enable this if you need
-it for some particular use case where you don't care about VTs.
+> 
+> You can carry that single patch out-of-tree to enable this if you need
+> it for some particular use case where you don't care about VTs.
+> 
+> But hopefully you can just get this sorted quickly. If not, the revert I
+> posted is the way to go rather than adding random module parameters.
+> 
+> Johan
 
-But hopefully you can just get this sorted quickly. If not, the revert I
-posted is the way to go rather than adding random module parameters.
+-- 
+With best wishes
+Dmitry
 
-Johan
