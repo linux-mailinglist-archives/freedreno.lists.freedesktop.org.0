@@ -2,61 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A2C71028A
-	for <lists+freedreno@lfdr.de>; Thu, 25 May 2023 03:48:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C5B710438
+	for <lists+freedreno@lfdr.de>; Thu, 25 May 2023 06:51:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA9B410E628;
-	Thu, 25 May 2023 01:48:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60DC910E745;
+	Thu, 25 May 2023 04:51:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
- [IPv6:2607:f8b0:4864:20::1133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4700A10E628
- for <freedreno@lists.freedesktop.org>; Thu, 25 May 2023 01:48:11 +0000 (UTC)
-Received: by mail-yw1-x1133.google.com with SMTP id
- 00721157ae682-561bcd35117so283607b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 24 May 2023 18:48:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684979289; x=1687571289;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jlwu/WPJmxOj9L+yA1aXSfrQUf7SXlXj3SObiQNErpo=;
- b=lHgGeXeVBjoCyf8DKMtxcH8WgNUtTA9OrJws/uhQSZQluYcb1RK1Gh2YfD19nqsr5u
- OvM7aht2ZaPJPPNrvlBEQBKM5u/LSbHtUfBZglKUWft9o3YM8TGEm/dTuYKoHFXiPKM8
- +Lgclvo+c5GgsVzfhIsJjno1HpaaMCDsepz/NJ8kH80gsvi/mMDAVMliV8yN0UFP5fPp
- mRvMa/VdDTffQJXCrMoFrPWddp2gv7aU1l2LsyezQwHaVgEtSrYDD1d1liJ1Bd5+JkBM
- DrJf6WFO/1mwxCI1/DW2XjUFl7ngGkkXTd1XMbAMv6NW7IckWxVVgDBXcz6bzbEH1aoX
- im5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684979289; x=1687571289;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jlwu/WPJmxOj9L+yA1aXSfrQUf7SXlXj3SObiQNErpo=;
- b=kkdhA45AlGdxZRfBMUaQFH/c4bf/qJJYfS2pcHxvJIQIFoumzOTsZYLnEETKEMsflL
- AMP2ryUk2W5wg5i4KlZVqKZg/XhcnS7IHQi9o8vk+p0xfdbAck4RrfuPpWGk452az/E3
- PmcxN6RcZwpSxGX/yqqqhpqkX1EUpiBZ4XMGJXohBa06w/RReeSckge1WfWmpauCKX/M
- HpQIePvSPT97PAcZeLL/gWUVKOH8gDO7PwS0JXghNp1dApTpAH6yZ2blcz4ejvYbb65A
- nOQLt65TSHos9QZxz5VDk3b+xv9vbgc3Yvbf+IeWq2YX1irL+C6iYMUH6EmEk0pNjgjN
- CA/w==
-X-Gm-Message-State: AC+VfDxlDvEl3oBOEiuWPJsB9mnD+FTT9sJYbXlwXxwVHf+kVUwTDQe5
- T4SISXyVQf+newwqSPRBy0Qzu//zej1pTtc1MM9MDA==
-X-Google-Smtp-Source: ACHHUZ5ILwtqfpuUpq8JmFBXm7eQb9r53tgdt9k8Ljb4MZxKaEHsNYvUpCyd2eKrpkOpxFZZDLmGWx0MF7BrMF2mo2k=
-X-Received: by 2002:a81:e949:0:b0:561:206a:ee52 with SMTP id
- e9-20020a81e949000000b00561206aee52mr23588113ywm.24.1684979289768; Wed, 24
- May 2023 18:48:09 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A36410E08E;
+ Thu, 25 May 2023 04:51:08 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7CBAA60E95;
+ Thu, 25 May 2023 04:51:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3087C433A0;
+ Thu, 25 May 2023 04:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1684990266;
+ bh=NC5k/dortCaTYYIlrCvaSs13p3N1PuUUuNBljB2ZWuU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=s3jr1i2YaPyOPc2Qk20qUMPVA9udUiXDduKblAQYXeFn+eRNVqM5fy7apWUpUYMZW
+ UpKSghHkTVFt65vudox8c7fj3KYsecDYpSqkOni5JK6ifYIWH3GkS9XTu8iicdy3Dj
+ c1GKr+Ee3XyiXja146geg34iDl4eVsyvTt2wWs+koIu77qWxnxlm0XJ6XTBQc0OtcK
+ bSfLbLbwMa+s8xLuhVlGEeu5A+MCil2GnZ9N0BdmaeksnB0G2FNaO7UJesf4OHV7++
+ ZMlU7tEP0KY/II650aWrAMRXQkBij5jpjY4Adl6LzYXWWIoSzjc3STXdclGNfCyRMK
+ 3/swa8B26rAvw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Date: Wed, 24 May 2023 21:53:46 -0700
+Message-Id: <168499048179.3998961.8259109964158005747.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230504160430.4014206-1-dmitry.baryshkov@linaro.org>
+References: <20230504160430.4014206-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
- <20230321011821.635977-12-dmitry.baryshkov@linaro.org>
- <9142b3b4-9f19-d187-ac06-4db9780ba194@quicinc.com>
-In-Reply-To: <9142b3b4-9f19-d187-ac06-4db9780ba194@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 25 May 2023 04:47:58 +0300
-Message-ID: <CAA8EJpr_v0xAhZWRaW4EsOZ1WRRoMu6aBBQ5izFohR7OFHfcow@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v2 11/13] drm/msm/dpu: add a field
- describing inline rotation to dpu_caps
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: enable dual ("bonded")
+ DSI mode for DB845c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,78 +60,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: Amit Pundir <amit.pundir@linaro.org>, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 25 May 2023 at 02:20, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
-> > We need to know if the platform supports inline rotation on any of the
-> > SSPP blocks or not. Add this information to struct dpu_caps in a form of
-> > the boolean field has_inline_rot.
-> >
->
-> So even for this one, will a helper to detect it from the list of sspps
-> be better?
->
-> We are now duplicating information from sspp to dpu caps for convenience
-> and nothing wrong with it if the helper will get called like every
-> atomic check .
->
-> But looking at the next patch, it seems we use this information only
-> once during dpu_plane_init(), so why not add a helper to find this out?
+On Thu, 4 May 2023 19:04:30 +0300, Dmitry Baryshkov wrote:
+> Now as both lt9611 and drm/msm drivers were updated to handle the 4k
+> modes over DSI, enable "bonded" DSI mode on DB845c. This way the board
+> utilizes both DSI links and thus can support 4k on the HDMI output.
+> 
+> 
 
-Sure, why not.
+Applied, thanks!
 
->
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 1 +
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 ++
-> >   2 files changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > index 2d6944a9679a..33527ec7c938 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > @@ -489,6 +489,7 @@ static const struct dpu_caps sc7280_dpu_caps = {
-> >       .ubwc_version = DPU_HW_UBWC_VER_30,
-> >       .has_dim_layer = true,
-> >       .has_idle_pc = true,
-> > +     .has_inline_rot = true,
-> >       .max_linewidth = 2400,
-> >       .pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-> >       .format_list = plane_formats_yuv,
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> > index 4847aae78db2..cc64fb2e815f 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> > @@ -400,6 +400,7 @@ struct dpu_rotation_cfg {
-> >    * @has_dim_layer      dim layer feature status
-> >    * @has_idle_pc        indicate if idle power collapse feature is supported
-> >    * @has_3d_merge       indicate if 3D merge is supported
-> > + * @has_inline_rot     indicate if inline rotation is supported
-> >    * @max_linewidth      max linewidth for sspp
-> >    * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
-> >    * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
-> > @@ -416,6 +417,7 @@ struct dpu_caps {
-> >       bool has_dim_layer;
-> >       bool has_idle_pc;
-> >       bool has_3d_merge;
-> > +     bool has_inline_rot;
-> >       /* SSPP limits */
-> >       u32 max_linewidth;
-> >       u32 pixel_ram_size;
+[1/1] arm64: dts: qcom: enable dual ("bonded") DSI mode for DB845c
+      commit: 8721e18ca6960f3c5a6a7f58245d9ab084ad09dd
 
-
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Bjorn Andersson <andersson@kernel.org>
