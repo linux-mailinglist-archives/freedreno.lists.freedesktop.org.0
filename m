@@ -2,52 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C5B710438
-	for <lists+freedreno@lfdr.de>; Thu, 25 May 2023 06:51:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A418A711279
+	for <lists+freedreno@lfdr.de>; Thu, 25 May 2023 19:39:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60DC910E745;
-	Thu, 25 May 2023 04:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4AF10E6E0;
+	Thu, 25 May 2023 17:39:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A36410E08E;
- Thu, 25 May 2023 04:51:08 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7CBAA60E95;
- Thu, 25 May 2023 04:51:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3087C433A0;
- Thu, 25 May 2023 04:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1684990266;
- bh=NC5k/dortCaTYYIlrCvaSs13p3N1PuUUuNBljB2ZWuU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=s3jr1i2YaPyOPc2Qk20qUMPVA9udUiXDduKblAQYXeFn+eRNVqM5fy7apWUpUYMZW
- UpKSghHkTVFt65vudox8c7fj3KYsecDYpSqkOni5JK6ifYIWH3GkS9XTu8iicdy3Dj
- c1GKr+Ee3XyiXja146geg34iDl4eVsyvTt2wWs+koIu77qWxnxlm0XJ6XTBQc0OtcK
- bSfLbLbwMa+s8xLuhVlGEeu5A+MCil2GnZ9N0BdmaeksnB0G2FNaO7UJesf4OHV7++
- ZMlU7tEP0KY/II650aWrAMRXQkBij5jpjY4Adl6LzYXWWIoSzjc3STXdclGNfCyRMK
- 3/swa8B26rAvw==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Rob Clark <robdclark@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
-Date: Wed, 24 May 2023 21:53:46 -0700
-Message-Id: <168499048179.3998961.8259109964158005747.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230504160430.4014206-1-dmitry.baryshkov@linaro.org>
-References: <20230504160430.4014206-1-dmitry.baryshkov@linaro.org>
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E385410E6E0;
+ Thu, 25 May 2023 17:39:12 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-5576c2791e6so341221eaf.1; 
+ Thu, 25 May 2023 10:39:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685036351; x=1687628351;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q4D8c9QPyqmoOXQDae1retuejjcC/UV6PHLGp3fhhjw=;
+ b=cWK/TeSz7AD4BvpRQaMJ2AbrRrrf6WKrpQ31ln3A9MDdvoh1Sg6u4XectXi9T9z/Tw
+ AYcM/jmSiuWiW/Y7cSut9dkxmvSSnwynvrd/RkP+sd0XxRZnxS+m/nhwBpUj9pyCG75Q
+ +/Fx/Dda9E8NlcWKvp5PBiYBt5GOwUYvJdn7h4zEzj4f6dKV0Ug8MSbiukNwXryGzGpE
+ JjdQSNxOE4Ed6PLcSO6QunQ4XoQx8q+2pOwv8yPRAdNm8sBNmLYrcuRZ4IAkGRBgdh41
+ aTGtHXos9bezeG3UDyLvDbzDWLyl0jfA4i5JLxhgz5/07y5O7XOsgLfctZEMvW8kbgfa
+ JGtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685036351; x=1687628351;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=q4D8c9QPyqmoOXQDae1retuejjcC/UV6PHLGp3fhhjw=;
+ b=PZ62IJHr7IHqTIj1/SM0NTifHa9MGH192LilKw6qtRjenlG3MPbNLjQDLIF0OpzJfQ
+ SYdkA/NuhdD4tLJ0FLxER1CqiUNIOhntajhXZYF0EzkPN7AJ66/VECK4yg05tk/dpK6c
+ 9tXrKtgpnwce104VdbRoixiHzjOb6sGub+V27JcbB2VIPeyxg/yBKClkouiurze6+Xsc
+ cW1E3sDYYPGGx0hBkIQXA9XTBkFUxsYtrwYPtNmvd2KeIxTO0qeyBnhBYmT/GxDhpuQb
+ 6haWLchO7VK3QrfTlACmNQjjj25575A4+zQdnc4IQ6EPrhBJ8f0boiR98pzqkOQnjfdL
+ ie1A==
+X-Gm-Message-State: AC+VfDx6wWqq7Enk0LmOWwf2g3iL0R7GsEz5CFILUS9rZ1/5+ZBfDOS3
+ heF22VcjWjqIuZDHfS9UuUrPI6PBg0RiqmKaRlc=
+X-Google-Smtp-Source: ACHHUZ6vYd/72HrFnILIsPPxkV9WtXgdY0reZpTVE+28Qcv/gfC8YrS3WgW3xvAxoExi5idG0G+2nqlifIhKg3jLxd0=
+X-Received: by 2002:a4a:5782:0:b0:557:cd4e:c116 with SMTP id
+ u124-20020a4a5782000000b00557cd4ec116mr65019ooa.1.1685036351462; Thu, 25 May
+ 2023 10:39:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: enable dual ("bonded")
- DSI mode for DB845c
+References: <20230517-topic-a7xx_prep-v2-0-5b9daa2b2cf0@linaro.org>
+ <20230517-topic-a7xx_prep-v2-2-5b9daa2b2cf0@linaro.org>
+In-Reply-To: <20230517-topic-a7xx_prep-v2-2-5b9daa2b2cf0@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 25 May 2023 10:38:59 -0700
+Message-ID: <CAF6AEGsm=o-KgOtm01FSvMOB_uj6VOaONNu5FUr4phUixYNG3g@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 2/6] drm/msm/a6xx: Explain
+ CP_PROTECT_CNTL writes in a6xx_set_cp_protect
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,25 +70,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amit Pundir <amit.pundir@linaro.org>, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 4 May 2023 19:04:30 +0300, Dmitry Baryshkov wrote:
-> Now as both lt9611 and drm/msm drivers were updated to handle the 4k
-> modes over DSI, enable "bonded" DSI mode on DB845c. This way the board
-> utilizes both DSI links and thus can support 4k on the HDMI output.
-> 
-> 
+On Fri, May 19, 2023 at 6:29=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+>
+> We have the necessary information, so explain which bit does what.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index 9fb214f150dd..deed42675fe2 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -771,9 +771,10 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+>         }
+>
+>         /*
+> -        * Enable access protection to privileged registers, fault on an =
+access
+> -        * protect violation and select the last span to protect from the=
+ start
+> -        * address all the way to the end of the register address space
+> +        * BIT(0) - Enable access protection to privileged registers
+> +        * BIT(1) - Enable fault on an access protect violation
+> +        * BIT(3) - Select the last span to protect from the start
+> +        *          address all the way to the end of the register addres=
+s space
 
-Applied, thanks!
+Even better would be to give these bitfields names in the xml, which
+also gets you more meaningful decoding.  We've been better about not
+open-coding a lot of stuff on the mesa side, but it is a bit easier
+with header generation integrated into the build..  but less
+open-coding on the kernel side is still a noble goal
 
-[1/1] arm64: dts: qcom: enable dual ("bonded") DSI mode for DB845c
-      commit: 8721e18ca6960f3c5a6a7f58245d9ab084ad09dd
+BR,
+-R
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+>          */
+>         gpu_write(gpu, REG_A6XX_CP_PROTECT_CNTL, BIT(0) | BIT(1) | BIT(3)=
+);
+>
+>
+> --
+> 2.40.1
+>
