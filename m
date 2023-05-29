@@ -2,62 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D143714748
-	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 11:45:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A22C714799
+	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 12:01:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0104610E26E;
-	Mon, 29 May 2023 09:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74D6A10E266;
+	Mon, 29 May 2023 10:01:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A0BC10E269;
- Mon, 29 May 2023 09:45:05 +0000 (UTC)
-Received: from [192.168.122.1] (217-149-172-244.nat.highway.telekom.at
- [217.149.172.244])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id 1A7BCCFC2B;
- Mon, 29 May 2023 09:45:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
- t=1685353503; bh=olIjx6WNF0x2y6WeKZc+6Pza/04SgAz6C7jo5EcOTi4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=p6UE9fXxzSn/W3LEX2Wav5xgnUoKZaGYthvYO9z5QQAHAM04kMSpmn6jT21acHtY6
- 48clhABsraBmdF4kyjO6tid9TD0ollHJoBVMTYPwSnChKof/e07BlaFCUhnEOxAcGr
- GimB6IpKAPvvkT1fdRDrpaPoFv5uxzmgT+tvtaUU=
-From: Luca Weiss <luca@z3ntu.xyz>
-Date: Mon, 29 May 2023 11:44:04 +0200
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5773710E266
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 10:01:17 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4f4b256a0c9so3283624e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 03:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685354475; x=1687946475;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=NnjxsqeBUt3nN6IEIFcMokb1FE2z6yxCiutSi12fIMw=;
+ b=Zam50bsfGCeAd+Q4HbMgubwGcnEpql+KsjM/23AhbtzJIILsYkkVddgYpFlg3q6JeF
+ xPiy7PxJLnXjRCn/0UBBzSDxx++ggSzm23TrygJ6CX4ykUKsaXTGlVjNWKqh6UcW+bSf
+ gtXeTN/hyEmTXWqBdxh5AOLVZDuIbPe28n8FBM2StjpIGdXfGpm8Qyc2Y9YRXbXpC89S
+ YZyMdocDpieHb3ogMuleFdR+x+S+PfaIZdl/aIa93tRURNUJlPrRYPhjDzQTENlzozWf
+ yyNV6F3WxJoHImcYu28PArW0rhjX0gpgVdrulNMchTuvJ4nu49Og5n6PFWB5fEgW9v9a
+ Pnqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685354475; x=1687946475;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=NnjxsqeBUt3nN6IEIFcMokb1FE2z6yxCiutSi12fIMw=;
+ b=DGa9Z4wut2wmVqj2xix33kLDD+hXUhRxHu/y+DrHsMSGaHjpGrGdxc4MX5CBMoMSD8
+ agiPJP5ZK4dtdJu+FB0cnNH5gDFOfsg5pbZX9YPTUMgSXpX95l+2Ra9vzkxl/zdR5Kzi
+ z9h6e5EmO571ddHQYbgFG7mpmi9HmAnhXP73qlJfOkubAb/GcUNJpCyNcS0mGupsHmj9
+ eeEMSqELh6KwiHBPuJhthNYUVgsudMbt2QtobNHbHXdHMQJIEysLbTEp+fLElzmqEkgc
+ c7ATuNYI/WxUdO09PRelK/NyGNfVaveNGYv22Rz06YuPuqIl8fGQ1oa7sPH87vRMkxuL
+ uYtQ==
+X-Gm-Message-State: AC+VfDzP8vGrfuUo12VQ4D5UxR8D08S1FAGLxnGfvnsVwglis0RPfHqe
+ F5Dxu830Mg2W7hhNVKemXAqJdA==
+X-Google-Smtp-Source: ACHHUZ614GmzOwkADdb0cx2/sLyZX4qloMdouIYDIHIuIU3ETpYVay2HnEGMkLMZCvonJyeyWejbcg==
+X-Received: by 2002:ac2:44c9:0:b0:4e8:4412:1d95 with SMTP id
+ d9-20020ac244c9000000b004e844121d95mr3096049lfm.29.1685354475042; 
+ Mon, 29 May 2023 03:01:15 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ y19-20020ac24473000000b004f3bb9f1068sm1915381lfl.225.2023.05.29.03.01.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 May 2023 03:01:14 -0700 (PDT)
+Message-ID: <3b5b6271-9611-9884-f0de-5b3f7c3d7b72@linaro.org>
+Date: Mon, 29 May 2023 13:01:13 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20230417-topic-dpu_regbus-v1-0-06fbdc1643c0@linaro.org>
+ <CAA8EJpo8X7KrrXoButyW0d1Lz=a5Stw2inFGt2R7KJ+2NTX6wA@mail.gmail.com>
+ <74a817ff-5850-330d-8cac-f551be6fa35c@linaro.org>
+ <254cd131-4ad1-44c9-2653-862580503c15@linaro.org>
+ <e99a9fe9-21e4-fc56-d400-4f6e9df2eaed@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <e99a9fe9-21e4-fc56-d400-4f6e9df2eaed@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230308-msm8226-mdp-v1-7-679f335d3d5b@z3ntu.xyz>
-References: <20230308-msm8226-mdp-v1-0-679f335d3d5b@z3ntu.xyz>
-In-Reply-To: <20230308-msm8226-mdp-v1-0-679f335d3d5b@z3ntu.xyz>
-To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3341; i=luca@z3ntu.xyz;
- h=from:subject:message-id; bh=olIjx6WNF0x2y6WeKZc+6Pza/04SgAz6C7jo5EcOTi4=;
- b=owEBbAKT/ZANAwAIAXLYQ7idTddWAcsmYgBkdHQY5R80arv9k0ADpEw1M/ChWf45zauAT8Z2m
- fs+d+RpiMaJAjIEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZHR0GAAKCRBy2EO4nU3X
- VkYQD/iP2kg+TmrA9D35SoXw/U3mupRc57sfecIUJokolunxh4MPPfeL5D0/3JT0Q5nNw4W0aSJ
- hA+sjtfobYWpluNHDMuDsJ0/DWoSfLqfWmudtS4133dC5B/RcyEXbubj+j4eSk0rJ8I2NQoUVy9
- Kme0Hha0vWs1U/GhFeGtTrwMilhFUpCgQGBvMqw/QTpL/7LOQ2Q+RNTr1giM51ne9Fcqsb8uRv/
- /H1QOyvRLBYXLK7DnPlcg3IGFhTV1k8EhUpHupw8aZkg+BosxMrsm5WPYgpay/4vEKc89NZvSMY
- ObZ2S+SqhNZf/tYkstu+U9lV4aUwG4gNj8Q784jvSww4+wfTmikSKV8FTJ1i86AP6bIfcrOnVU5
- 8zOcuMm5YXNZdROr89hUCyJPq0nBxrEK/MAMoShvK8jHXVywrhotHNz1YgK1zj3CFbc4IwkGV4a
- SMTdfFLF1Rt9HAYfsvCz/CQ+9jotUu7PBqrVMwTFdHSB0Q8N3nvK/ax8ICUaJD72ha4YjaX92gm
- Yz6Lp1x8YpVEL9tUmBLVZbobPNy9NbUMhB/ax/LRP9m0P2Taz1JeVUEx8cNML7kpFj8sYh6Arf6
- qPKs2MVsCpEBlCA7oEwCNfQhlfdE6f9pGSMBK8UwpjxEhFWzUaJEzTbEhbF4mc2RUUZJzTxxdI3
- GeZAr3jjdUNyJ
-X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
- fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
-Subject: [Freedreno] [PATCH 7/7] ARM: dts: qcom: msm8226: Add mdss nodes
+Subject: Re: [Freedreno] [PATCH 0/5] MDSS reg bus interconnect
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,150 +81,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Luca Weiss <luca@z3ntu.xyz>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the nodes that describe the mdss so that display can work on
-MSM8226.
+On 29/05/2023 12:08, Konrad Dybcio wrote:
+> 
+> 
+> On 29.05.2023 10:47, Dmitry Baryshkov wrote:
+>> On 29/05/2023 10:42, Konrad Dybcio wrote:
+>>>
+>>>
+>>> On 29.05.2023 04:42, Dmitry Baryshkov wrote:
+>>>> On Mon, 17 Apr 2023 at 18:30, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>>>>
+>>>>> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
+>>>>> another path that needs to be handled to ensure MDSS functions properly,
+>>>>> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+>>>>>
+>>>>> Gating that path may have a variety of effects.. from none to otherwise
+>>>>> inexplicable DSI timeouts..
+>>>>>
+>>>>> This series tries to address the lack of that.
+>>>>>
+>>>>> Example path:
+>>>>>
+>>>>> interconnects = <&bimc MASTER_AMPSS_M0 0 &config_noc SLAVE_DISPLAY_CFG 0>;
+>>>>
+>>>> If we are going to touch the MDSS interconnects, could you please also
+>>>> add the rotator interconnect to the bindings?
+>>>> We do not need to touch it at this time, but let's not have to change
+>>>> bindings later again.
+>>>>
+>>> Ack
+>>
+>> Also, several points noted from the mdss fbdev driver:
+>>
+>> - All possible clents vote for the low bw setting. This includes DSI, HDMI, MDSS itself and INTF
+> As in, "you need NUM_CLIENTS * MIN_VOTE" or as in "any client necessitates
+> a vote"?
 
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
----
- arch/arm/boot/dts/qcom-msm8226.dtsi | 118 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 118 insertions(+)
+Each client has separate vote
 
-diff --git a/arch/arm/boot/dts/qcom-msm8226.dtsi b/arch/arm/boot/dts/qcom-msm8226.dtsi
-index 42acb9ddb8cc..182d6405032f 100644
---- a/arch/arm/boot/dts/qcom-msm8226.dtsi
-+++ b/arch/arm/boot/dts/qcom-msm8226.dtsi
-@@ -636,6 +636,124 @@ smd-edge {
- 				label = "lpass";
- 			};
- 		};
-+
-+		mdss: display-subsystem@fd900000 {
-+			compatible = "qcom,mdss";
-+			reg = <0xfd900000 0x100>, <0xfd924000 0x1000>;
-+			reg-names = "mdss_phys", "vbif_phys";
-+
-+			power-domains = <&mmcc MDSS_GDSC>;
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			clock-names = "iface", "bus", "vsync";
-+
-+			interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+
-+			status = "disabled";
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges;
-+
-+			mdp: display-controller@fd900000 {
-+				compatible = "qcom,msm8226-mdp5", "qcom,mdp5";
-+				reg = <0xfd900100 0x22000>;
-+				reg-names = "mdp_phys";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_VSYNC_CLK>;
-+				clock-names = "iface", "bus", "core", "vsync";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdp5_intf1_out: endpoint {
-+							remote-endpoint = <&dsi0_in>;
-+						};
-+					};
-+				};
-+			};
-+
-+			dsi0: dsi@fd922800 {
-+				compatible = "qcom,msm8226-dsi-ctrl",
-+					     "qcom,mdss-dsi-ctrl";
-+				reg = <0xfd922800 0x1f8>;
-+				reg-names = "dsi_ctrl";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <4>;
-+
-+				assigned-clocks = <&mmcc BYTE0_CLK_SRC>, <&mmcc PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&dsi_phy0 0>, <&dsi_phy0 1>;
-+
-+				clocks = <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MDSS_BYTE0_CLK>,
-+					 <&mmcc MDSS_PCLK0_CLK>,
-+					 <&mmcc MDSS_ESC0_CLK>,
-+					 <&mmcc MMSS_MISC_AHB_CLK>;
-+				clock-names = "mdp_core",
-+					      "iface",
-+					      "bus",
-+					      "byte",
-+					      "pixel",
-+					      "core",
-+					      "core_mmss";
-+
-+				phys = <&dsi_phy0>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						dsi0_in: endpoint {
-+							remote-endpoint = <&mdp5_intf1_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dsi0_out: endpoint {
-+						};
-+					};
-+				};
-+			};
-+
-+			dsi_phy0: phy@fd922a00 {
-+				compatible = "qcom,dsi-phy-28nm-8226";
-+				reg = <0xfd922a00 0xd4>,
-+				      <0xfd922b00 0x280>,
-+				      <0xfd922d80 0x30>;
-+				reg-names = "dsi_pll",
-+					    "dsi_phy",
-+					    "dsi_phy_regulator";
-+
-+				#clock-cells = <1>;
-+				#phy-cells = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>, <&rpmcc RPM_SMD_XO_CLK_SRC>;
-+				clock-names = "iface", "ref";
-+			};
-+		};
- 	};
- 
- 	timer {
+> 
+>> - SMMU also casts such vote, which I do not think should be necessary, unless there is a separate MDSS SMMU?
+> There's one on 8996, pre-845 SoCs often have a MMSS MMU, 845 and
+> later have a MMSS-specific TBU which (theoretically) requires a
+> vote for access to 0x400-0x7ff SIDs
+
+Ack.
+
+> 
+>> - PINGPONG cacsts high bw setting for the sake of speeding up the LUT tables if required.
+> Hm, I think is would be a separate topic.
+
+I think so. I'd do a single vote from mdp5/dpu1. Then we can cast higher 
+vote from PP/DSPP/etc.
 
 -- 
-2.40.1
+With best wishes
+Dmitry
 
