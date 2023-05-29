@@ -2,80 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66DF0714A6B
-	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:34:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED70714AB7
+	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:52:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A19B10E0F5;
-	Mon, 29 May 2023 13:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B393110E291;
+	Mon, 29 May 2023 13:52:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF6B10E28A
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:34:10 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2af2e908163so35272951fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:34:10 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A264010E290
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:52:27 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4f3baf04f0cso3584905e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:52:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685367248; x=1687959248;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=DUA07q7mYkXN8wVPChZecILFUwJ1RMa5CnZ3abb0nMY=;
- b=pkW7Z1cVHEOnlVLJkBjNzjkkiO8NM2vYMLg6yPxEdMZ2a07USLAPzWdhHOB5ViPxJs
- TZTkzfHOA6Nd8C9lsl7ldEAWItXSrez20w7NBPuJ+jjjdgAD6OCqoSP/2HGemsEenIoV
- 84kGCeEAAGsLW9TilZsnBUf1CVYKxcl6lNSSsgy+A1vPyw7uRrmk3a8zKsfVfeKpCjU4
- YM3I1qjSzuUNl+hcZ+nLIqAc62tuJSGaaKwfvRxTuYI5AR2MkbLTSNdQ37r+qEPUjXhn
- AJdqqJUcI7AMDVk4VlFrnSiKCVD43MaykDtFwJbScMgPLoCmpoz4B9EwLBTl9e1XTBlz
- C9Ng==
+ d=linaro.org; s=google; t=1685368345; x=1687960345;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XPQMzrH+YgZJY6fGayTA4z62Wg0qnvW+w6LRVEnngS8=;
+ b=FRoIjhuPIsnVt7NIKy/c7E9gERBaz0Vukz1btGe96m6z3UzsKTNzO5YrzKIV/y3uf9
+ zSqtIkY0oIyTYArUlXyV0/S149AXX8Jq26HMW49lHsddb5QphK/orBKal5s1j6VjNHfk
+ 0hHUR1FRi/RXWaN64n6re1zhzSNdfIK7PvrwvXyKs4mxv6P+r8nc8VICq5cftL53riti
+ IGqqlOZHAKETY5XILhiRs4Mm/K+AW8kFwXqSNxmuRPSu1AtoQcHv5Z8jzdnO2XWFWYlQ
+ 0M1AxMXibh54KFZ54mOrNVX+CSYbjq7QefmYSaZIOPXtUDlEfRVfxMwPJDeYksuiAhFi
+ HUDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685367248; x=1687959248;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=DUA07q7mYkXN8wVPChZecILFUwJ1RMa5CnZ3abb0nMY=;
- b=k570NLLtg7Tjv0VYCpbliuJUuBT3BPzroglHDUxfyZpSqBQ3Z5S1c++nFV2DrH+c6G
- DlEh9POEgbuK1A5fiXQGLv00swc11dypkuHXC/pKPIMAqdYxDIcnaSNftjUGB3YbCDPM
- RS/4DP7JFl9QdGBTo0BkrXaWpMI0tAcgP2QB4wTgzjdeyDEoCQY68fL9rpaK1hegjAN1
- ObhfMCX/IDoIeaiEnWyB9Gt2RrcRbWkYg094xfqsy6NRGg/DqbKo9E0K7zwJed8rEIY6
- 7ZlHP6hemeXFjOOQPE7j9tnwME6crWLxSKHD+PXoeT4oyoqu6e7+ITL7Tqb5Gl83aztR
- 1w8g==
-X-Gm-Message-State: AC+VfDxbQrYwUzitlAZz62n1yTREyrJHfIj/nvk1agz5L9O1lvFT2nOz
- rFq8eJWDqDhZG0hFN66IsZdCIg==
-X-Google-Smtp-Source: ACHHUZ4fjkUlyAONcCrJHEq5VFwORiOBYxD/b92R5rW/39PS7RVBLgtIWEXQkKEJ6aKOtUeVzkpq+g==
-X-Received: by 2002:a2e:b6c2:0:b0:2ac:8486:e318 with SMTP id
- m2-20020a2eb6c2000000b002ac8486e318mr3473659ljo.35.1685367248247; 
- Mon, 29 May 2023 06:34:08 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1685368345; x=1687960345;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XPQMzrH+YgZJY6fGayTA4z62Wg0qnvW+w6LRVEnngS8=;
+ b=gHIZMNjuwPkl5VOLHgf36YKogb4OyvKKCitMcfBuGkhXk/75gnZHxI1Qrmkl6+Yq9Y
+ tHktHotVIVPKwBDo+f/QioNEBv3BR7Ct2ogMsLFu/iq1yidMwsOemlysW2OWorSmejaX
+ flRTOyJJfeTRWckSIwuBOpCr35G79DGC2ju0g0vDkVcuWdBcttu6qax9SkDU1Iwj9dK5
+ umvDnRh9tGHFumPLk0+rXGXkW2z9RBa2GSahXeyIjZqgFrMEHPBjSYHe0ovobNBP3cj0
+ nzFMq9DJVSpmapIqIViiSsoQeJmgS+n/Y7FGorFWs4EccrnNFKXmGgpz93GfVkWOysbU
+ c1Bw==
+X-Gm-Message-State: AC+VfDxPASBx5OI4q43vv9wHPk7/U4XE5WOLS6J5IcMoTj4Z8VE4cya/
+ Jg8m7qk17WLgE/Pf35f1o38Q7w==
+X-Google-Smtp-Source: ACHHUZ6Es4X7EvJ5mkT2LZfiBwHxpG12qhb8DQ03bGPngIytKSy/OH2vtTtp9nXlNF605foZT0NJig==
+X-Received: by 2002:ac2:5183:0:b0:4ed:ca3b:40f0 with SMTP id
+ u3-20020ac25183000000b004edca3b40f0mr3557752lfi.9.1685368345288; 
+ Mon, 29 May 2023 06:52:25 -0700 (PDT)
+Received: from [192.168.1.101] (abyj77.neoplus.adsl.tpnet.pl. [83.9.29.77])
  by smtp.gmail.com with ESMTPSA id
- i10-20020a2e808a000000b002adc2fe3fc8sm2450984ljg.4.2023.05.29.06.34.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 May 2023 06:34:07 -0700 (PDT)
-Message-ID: <419972e3-3052-87ae-a471-5fcf0a01f7da@linaro.org>
-Date: Mon, 29 May 2023 16:34:07 +0300
+ c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 May 2023 06:52:24 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Mon, 29 May 2023 15:52:19 +0200
+Message-Id: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Luca Weiss <luca@z3ntu.xyz>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-References: <20230308-msm8226-mdp-v1-0-679f335d3d5b@z3ntu.xyz>
- <20230308-msm8226-mdp-v1-4-679f335d3d5b@z3ntu.xyz>
- <9858de8d-54ae-aa0c-35d8-fe8c1c8473b7@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <9858de8d-54ae-aa0c-35d8-fe8c1c8473b7@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 4/7] drm/msm/mdp5: Add MDP5 configuration
- for MSM8226
+X-B4-Tracking: v=1; b=H4sIABOudGQC/4XPTWrDMBAF4KsErasi619Z9R6li5E8sgWuZaTEb
+ Qm+e+XsiqFevgfzPeZBKpaElVwvD1JwTTXluQX7ciFhhHlAmvqWCWdcMM4FveUlBTp83r8KLAs
+ W6mWMUcXeGOtIO/NQkfoCcxjb4XyfplYuBWP6fu68f7Q8pnrL5ec5u4q9/WdhFZRR5VEpEELbz
+ r1NaYaSX3MZyK6t8kyQTUBnDXrjeibiQVBngmqCj8ZI78AxDgdBnwm6CZwJ2XXKe83CQTBngtm
+ /CMEAeCuU0n+Ebdt+ASgGEMrOAQAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ Conor Dooley <conor+dt@kernel.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=10496;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=2xPafDp697mwNQMZRzOvp+gaeERplSmUFqefQsvB2ck=;
+ b=L3pIA0s9Ig9iDXeSmLc95ekNBYHYI1JDqJj2T2y6qR5we0beU9Vxnaq+i7CTyO/lCF4jtbipJ
+ fgJywFuH7I3D3D6V+vhqP9C0PdDy1fgd4X3eYPlslUrbAtmpHRffxD4
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v8 00/18] GMU-less A6xx support (A610, A619_holi)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,152 +92,267 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29/05/2023 14:59, Konrad Dybcio wrote:
-> 
-> 
-> On 29.05.2023 11:44, Luca Weiss wrote:
->> Add the required config for the v1.1 MDP5 found on MSM8226.
->>
->> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
->> ---
->>   drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 82 ++++++++++++++++++++++++++++++++
->>   1 file changed, 82 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
->> index 2eec2d78f32a..694d54341337 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
->> @@ -103,6 +103,87 @@ static const struct mdp5_cfg_hw msm8x74v1_config = {
->>   	.max_clk = 200000000,
->>   };
->>   
->> +static const struct mdp5_cfg_hw msm8x26_config = {
-> Luca, this patch looks good as-is (without diving into the values).
-> 
-> Dmitry, I see some things that we may improve here..
-> 
-> 1. Rename msm8xab to msm89ab or something, it's really inconsistent
->     with other drivers
-> 
-> 2. Some values seem very common / always constant.. perhaps we could
->     add some #defines like we do in DPU?
+v7 -> v8:
+- Fix up resume/suspend (icc now correctly parks to 0, don't abuse
+  OPP & genpd throughout system-wide suspend)
+- Don't handle ebi1_clk separately, the bulk ops handle it just fine
+- Rebase on next-20230525 (no meaningful changes)
 
-I really would not like to go the DPU way here. Maybe we can define the 
-'full-featured' masks, while leaving the older hardware intact.
+v7: https://lore.kernel.org/linux-arm-msm/20230223-topic-gmuwrapper-v7-0-ecc7aab83556@linaro.org/
 
-> 3. Can we add some magic defines to make flush_hw_mask non-cryptic?
+v6 -> v7:
+- Rebase on next-20230519 (A640/650 speedbin merged already)
 
-Sounds like a good idea, especially since we have all the defines. I'll 
-tend to it after landing 8226.
+- separate out the .get_timestamp cb for gmu wrapper
 
-> 
-> 4. We can probably use pointers in data structs and deduplicate identical
->     blocks!
+- check for gmu presence inside a6xx_llc_slices_(init|destroy) instead
+  of before calling them
 
-Let's see.
+- use REG_A6XX_RBBM_GPR0_CNTL instead of literal 0x18
 
-> 
-> Konrad
->> +	.name = "msm8x26",
->> +	.mdp = {
->> +		.count = 1,
->> +		.caps = MDP_CAP_SMP |
->> +			0,
->> +	},
->> +	.smp = {
->> +		.mmb_count = 7,
->> +		.mmb_size = 4096,
->> +		.clients = {
->> +			[SSPP_VIG0] =  1,
->> +			[SSPP_DMA0] = 4,
->> +			[SSPP_RGB0] = 7,
->> +		},
->> +	},
->> +	.ctl = {
->> +		.count = 2,
->> +		.base = { 0x00500, 0x00600 },
->> +		.flush_hw_mask = 0x0003ffff,
->> +	},
->> +	.pipe_vig = {
->> +		.count = 1,
->> +		.base = { 0x01100 },
->> +		.caps = MDP_PIPE_CAP_HFLIP |
->> +			MDP_PIPE_CAP_VFLIP |
->> +			MDP_PIPE_CAP_SCALE |
->> +			MDP_PIPE_CAP_CSC   |
->> +			0,
->> +	},
->> +	.pipe_rgb = {
->> +		.count = 1,
->> +		.base = { 0x01d00 },
->> +		.caps = MDP_PIPE_CAP_HFLIP |
->> +			MDP_PIPE_CAP_VFLIP |
->> +			MDP_PIPE_CAP_SCALE |
->> +			0,
->> +	},
->> +	.pipe_dma = {
->> +		.count = 1,
->> +		.base = { 0x02900 },
->> +		.caps = MDP_PIPE_CAP_HFLIP |
->> +			MDP_PIPE_CAP_VFLIP |
->> +			0,
->> +	},
->> +	.lm = {
->> +		.count = 2,
->> +		.base = { 0x03100, 0x03d00 },
->> +		.instances = {
->> +				{ .id = 0, .pp = 0, .dspp = 0,
->> +				  .caps = MDP_LM_CAP_DISPLAY, },
->> +				{ .id = 1, .pp = -1, .dspp = -1,
->> +				  .caps = MDP_LM_CAP_WB },
->> +			     },
->> +		.nb_stages = 2,
->> +		.max_width = 2048,
->> +		.max_height = 0xFFFF,
->> +	},
->> +	.dspp = {
->> +		.count = 1,
->> +		.base = { 0x04500 },
->> +	},
->> +	.pp = {
->> +		.count = 1,
->> +		.base = { 0x21a00 },
->> +	},
->> +	.intf = {
->> +		.base = { 0x00000, 0x21200 },
->> +		.connect = {
->> +			[0] = INTF_DISABLED,
->> +			[1] = INTF_DSI,
->> +		},
->> +	},
->> +	.perf = {
->> +		.ab_inefficiency = 100,
->> +		.ib_inefficiency = 200,
->> +		.clk_inefficiency = 125
->> +	},
->> +	.max_clk = 200000000,
->> +};
->> +
->>   static const struct mdp5_cfg_hw msm8x74v2_config = {
->>   	.name = "msm8x74",
->>   	.mdp = {
->> @@ -1236,6 +1317,7 @@ static const struct mdp5_cfg_hw sdm660_config = {
->>   
->>   static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
->>   	{ .revision = 0, .config = { .hw = &msm8x74v1_config } },
->> +	{ .revision = 1, .config = { .hw = &msm8x26_config } },
->>   	{ .revision = 2, .config = { .hw = &msm8x74v2_config } },
->>   	{ .revision = 3, .config = { .hw = &apq8084_config } },
->>   	{ .revision = 6, .config = { .hw = &msm8x16_config } },
->>
+- move a6xx_bus_clear_pending_transactions to a6xx_gpu, clean it up
+  and reuse it for gmu wrapper gpus
 
+- drop clearing RBBM_GBIF (GBIF from GX's POV) as part of draining the
+  buses, it's not necessary
+
+- introduce a helper for gpu softreset
+
+- sw-reset the gmu wrapper GPUS *after* draining GBIF and only reset
+  it if it's hung
+
+- reword the commit message in "Remove both GBIF and RBBM GBIF halt
+  on hw init" and move it before gmu wrapper-specific changes
+
+- drop set_rate logic from a6xx_pm_suspend as the clock simply gets
+  disabled and we don't have to worry about scaling problems as OPP
+  and devfreq take care of that, validated with debugcc
+
+- drop a level of indentation in _a6xx_check_idle() to hopefully
+  improve readability
+
+- check for !a610 instead of gmu_wrapper||a619_holi in sptprac cc
+  toggling in a6xx_set_hwcg()
+
+- pick up krzk's rb on bindings
+
+All external dependencies have been merged since the last revision.
+
+v6: https://lore.kernel.org/r/20230223-topic-gmuwrapper-v6-0-2034115bb60c@linaro.org
+
+v5 -> v6:
+- Rebase on 8ead96783163 ("drm/msm/gpu: Move BO allocation out of hw_init")
+  (Add .ucode_load to funcs_gmuwrapper)
+- Drop A6[45]0 speedbin deps, merged into msm-next
+
+Dependencies:
+- https://lore.kernel.org/linux-arm-msm/20230330231517.2747024-1-konrad.dybcio@linaro.org/ (to work properly)
+
+v5: https://lore.kernel.org/linux-arm-msm/20230223-topic-gmuwrapper-v5-0-bf774b9a902a@linaro.org/
+
+v4 -> v5:
+- Add a newline before the new allOf:if: [3/15]
+- Enforce 6 clocks on A619_holi/A610 [2/15]
+- Pick up tags
+- Improve error handling in a6xx_pm_resume [6/15]
+- Add patch [1/15] (fix an existing issue) which can be picked
+  separately and account for it in [6/15]
+- Rebase atop Akhil's CX shutdown patches and incorporate analogous logic
+- Fix a regression introduced in v3 that made the fw loader expect
+  GMU fw on GMU wrapper GPUs
+
+Dependencies:
+- https://lore.kernel.org/linux-arm-msm/20230120172233.1905761-1-konrad.dybcio@linaro.org/ (to apply)
+- https://lore.kernel.org/linux-arm-msm/20230330231517.2747024-1-konrad.dybcio@linaro.org/ (to work properly)
+
+v4: https://lore.kernel.org/r/20230223-topic-gmuwrapper-v4-0-e987eb79d03f@linaro.org
+
+v3 -> v4:
+- Drop the mistakengly-included and wrong A3xx-A5xx bindings changes
+- Improve bindings commit messages to better explain what GMU Wrapper is
+- Drop the A680 highest bank bit value adjustment patch
+- Sort UBWC config variables in a reverse-Christmass-tree fashion [4/14]
+- Don't alter any UBWC config values in [4/14]
+  - Do so for a619_holi in [8/14]
+- Rebase on next-20230314 (shouldn't matter at all)
+
+v3: https://lore.kernel.org/r/20230223-topic-gmuwrapper-v3-0-5be55a336819@linaro.org
+
+v2 -> v3:
+New dependencies:
+- https://lore.kernel.org/linux-arm-msm/20230223-topic-opp-v3-0-5f22163cd1df@linaro.org/T/#t
+- https://lore.kernel.org/linux-arm-msm/20230120172233.1905761-1-konrad.dybcio@linaro.org/
+
+Sidenote: A speedbin rework is in progress, the of_machine_is_compatible
+calls in A619_holi are ugly (but well, necessary..) but they'll be
+replaced with socid matching in this or the next kernel cycle.
+
+Due to the new way of identifying GMU wrapper GPUs, configuring 6350
+to use wrapper would cause the wrong fuse values to be checked, but that
+will be solved by the conversion + the ultimate goal is to use the GMU
+whenever possible with the wrapper left for GMU-less Adrenos and early
+bringup debugging of GMU-equipped ones.
+
+- Ship dt-bindings in this series as we're referencing the compatible now
+
+- "De-staticize" -> "remove static keyword" [3/15]
+
+- Track down all the values in [4/15]
+
+- Add many comments and explanations in [4/15]
+
+- Fix possible return-before-mutex-unlock [5/15]
+
+- Explain the GMU wrapper a bit more in the commit msg [5/15]
+
+- Separate out pm_resume/suspend for GMU-wrapper GPUs to make things
+  cleaner [5/15]
+
+- Don't check if `info` exists, it has to at this point [5/15]
+
+- Assign gpu->info early and clean up following if statements in
+  a6xx_gpu_init [5/15]
+
+- Determine whether we use GMU wrapper based on the GMU compatible
+  instead of a quirk [5/15]
+
+- Use a struct field to annotate whether we're using gmu wrapper so
+  that it can be assigned at runtime (turns out a619 holi-ness cannot
+  be determined by patchid + that will make it easier to test out GMU
+  GPUs without actually turning on the GMU if anybody wants to do so)
+  [5/15]
+
+- Unconditionally hook up gx to the gmu wrapper (otherwise our gpu
+  will not get power) [5/15]
+
+- Don't check for gx domain presence in gmu_wrapper paths, it's
+  guaranteed [5/15]
+
+- Use opp set rate in the gmuwrapper suspend path [5/15]
+
+- Call opp functions on the GPU device and not on the DRM device of
+  mdp4/5/DPU1 half the time (WHOOOOPS!) [5/15]
+
+- Disable the memory clock in a6xx_pm_suspend instead of enabling it
+  (moderate oops) [5/15]
+
+- Call the forgotten clk_bulk_disable_unprepare in a6xx_pm_suspend [5/15]
+
+- Set rate to FMIN (a6xx really doesn't like rate=0 + that's what
+  msm-5.x does anyway) before disabling core clock [5/15]
+
+- pm_runtime_get_sync -> pm_runtime_resume_and_get [5/15]
+
+- Don't annotate no cached BO support with a quirk, as A619_holi is
+  merged into the A619 entry in the big const struct - this means
+  that all GPUs operating in gmu wrapper configuration will be
+  implicitly treated as if they didn't have this feature [7/15]
+
+- Drop OPP rate & icc related patches, they're a part of a separate
+  series now; rebase on it
+
+- Clean up extra parentheses [8/15]
+
+- Identify A619_holi by checking the compatible of its GMU instead
+  of patchlevel [8/15]
+
+- Drop "Fix up A6XX protected registers" - unnecessary, Rob will add
+  a comment explaining why
+
+- Fix existing UBWC values for A680, new patch [10/15]
+
+- Use adreno_is_aXYZ macros in speedbin matching [13/15] - new patch
+
+v2: https://lore.kernel.org/linux-arm-msm/20230214173145.2482651-1-konrad.dybcio@linaro.org/
+
+v1 -> v2:
+- Fix A630 values in [2/14]
+- Fix [6/14] for GMU-equipped GPUs
+
+Link to v1: https://lore.kernel.org/linux-arm-msm/20230126151618.225127-1-konrad.dybcio@linaro.org/
+
+This series concludes my couple-weeks-long suffering of figuring out
+the ins and outs of the "non-standard" A6xx GPUs which feature no GMU.
+
+The GMU functionality is essentially emulated by parting out a
+"GMU wrapper" region, which is essentially just a register space
+within the GPU. It's modeled to be as similar to the actual GMU
+as possible while staying as unnecessary as we can make it - there's
+no IRQs, communicating with a microcontroller, no RPMh communication
+etc. etc. I tried to reuse as much code as possible without making
+a mess where every even line is used for GMU and every odd line is
+used for GMU wrapper..
+
+This series contains:
+- plumbing for non-GMU operation, if-ing out GMU calls based on
+  GMU presence
+- GMU wrapper support
+- A610 support (w/ speedbin)
+- A619 support (w/ speedbin)
+- couple of minor fixes and improvements
+- VDDCX/VDDGX scaling fix for non-GMU GPUs (concerns more than just
+  A6xx)
+- Enablement of opp interconnect properties
+
+A619_holi works perfectly fine using the already-present A619 support
+in mesa. A610 needs more work on that front, but can already replay
+command traces captures on downstream.
+
+NOTE: the "drm/msm/a6xx: Add support for A619_holi" patch contains
+two occurences of 0x18 used in place of a register #define, as it's
+supposed to be RBBM_GPR0_CNTL, but that will only be present after
+mesa-side changes are merged and headers are synced from there.
+
+Speedbin patches depend on:
+https://lore.kernel.org/linux-arm-msm/20230120172233.1905761-1-konrad.dybcio@linaro.org/
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (18):
+      dt-bindings: display/msm: gpu: Document GMU wrapper-equipped A6xx
+      dt-bindings: display/msm/gmu: Add GMU wrapper
+      drm/msm/a6xx: Remove static keyword from sptprac en/disable functions
+      drm/msm/a6xx: Move force keepalive vote removal to a6xx_gmu_force_off()
+      drm/msm/a6xx: Move a6xx_bus_clear_pending_transactions to a6xx_gpu
+      drm/msm/a6xx: Improve a6xx_bus_clear_pending_transactions()
+      drm/msm/a6xx: Add a helper for software-resetting the GPU
+      drm/msm/a6xx: Remove both GBIF and RBBM GBIF halt on hw init
+      drm/msm/a6xx: Extend and explain UBWC config
+      drm/msm/a6xx: Introduce GMU wrapper support
+      drm/msm/adreno: Disable has_cached_coherent in GMU wrapper configurations
+      drm/msm/a6xx: Add support for A619_holi
+      drm/msm/a6xx: Add A610 support
+      drm/msm/a6xx: Fix some A619 tunables
+      drm/msm/a6xx: Use "else if" in GPU speedbin rev matching
+      drm/msm/a6xx: Use adreno_is_aXYZ macros in speedbin matching
+      drm/msm/a6xx: Add A619_holi speedbin support
+      drm/msm/a6xx: Add A610 speedbin support
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  50 +-
+ .../devicetree/bindings/display/msm/gpu.yaml       |  61 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 122 +++--
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 512 ++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   4 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |  14 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  17 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   8 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  33 +-
+ 10 files changed, 686 insertions(+), 137 deletions(-)
+---
+base-commit: 6a3d37b4d885129561e1cef361216f00472f7d2e
+change-id: 20230223-topic-gmuwrapper-b4fff5fd7789
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
