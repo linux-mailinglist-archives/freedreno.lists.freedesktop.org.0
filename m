@@ -2,60 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF6E715191
-	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 00:13:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29F271522F
+	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 00:55:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E388E10E308;
-	Mon, 29 May 2023 22:13:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6280910E311;
+	Mon, 29 May 2023 22:55:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD5C110E303
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 22:13:24 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-55db055b412so67867697b3.0
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 15:13:24 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF1610E30D
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 22:55:25 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-4f4b2bc1565so4025292e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 15:55:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685398403; x=1687990403;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=kOr0DX6iLxxYAuILB8BTJpX8Pk1Fui7+IF7W6JxB0DE=;
- b=yFvxlIe0WMww2gewXbt456IW5lVKafrqLCQcAIYIpLHr1Qcq5iemMXYe6QVfVFaEzM
- YyFz2vls/Ty5U++b4Nwtv+pPmzoQU6uavXCLJM+ctxVKVivUHOKx1DrfDOSvvKpJJ934
- 98KiV7kNqysQeS1c41OET0HopeD/2bFmh8MgMbbavuslyBShzZ+hzw7KOm9nVgtEzdAA
- L39jnx8VuFKcxZO6SO5jivnxKyhnmNMUj5VD3dsQKEgl4kvue2LERMyV3Zl5bidOmWV5
- K389aa6u7YTVKsLYCQ20KAYP8WncegH5mq1tajNBeDdsiuoQko3lLa28+HucVmWiRqJ1
- FHRg==
+ d=linaro.org; s=google; t=1685400923; x=1687992923;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=erb1mT4gxBfvr6bhVSpCQkfJxjOnYXNjx/AzFex9rao=;
+ b=vfM/4roU28bxzHL3YHgezlXFGtHkmoymMUAt7C7C7eUZJMqzGCbKBqUP1rA+44aveN
+ FgNive4EI4JKkxnPztfsIPtq72JjsiQZxXyhpkjavq6qQVnn2u6JKZj6MU7rW0oHP+si
+ h/XgVNYDqkrr2E0KYdA9n+S96P7xfC6/oigcrOUnEdu4eKsDzMWP9pwKvcWlRlZAaGsj
+ umzlrja8UJkIFJ5DXoiNmpHyCZSAZ5RxWbFNn5yA4oBeGBe9uH7083Q+HZxq627v+GfX
+ 1L//YKTObAEQXyt6vCJ1wE/Yls00L8oJN5TzbjCqUOKyZj/pSrLnFGPsbnzkyjQxplMh
+ wwzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685398403; x=1687990403;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kOr0DX6iLxxYAuILB8BTJpX8Pk1Fui7+IF7W6JxB0DE=;
- b=E9yGfaqcUe9dWKhDv833grAPJYIwDZUoz/zZAwlXd0iPeMHHhHCS+TUqk5LJj0WVTA
- LD4fS5xWgICPy5h5ywVV5FGR69HKn6zaU5EQMd3W5CtzfdXOg6Pg+dxXbq2CEJG1tPkz
- G3pvfOqJTryetCUz5XZx5yi98pL1QkWLsbK6BEB37tp6mAwXhlBZrG45zi5OQlw4a+rn
- NB3GueNdkpx7JnRUhHt3zKIceQ2GcLfku8zgZT6scelQyETmMVOQlbacbjQSLvDvPLqc
- j77CfPJzHz1IAiC/E5W/zr7T9EPMXGcVAxBTMvdAIpw8k8SLXEkUOVAZzZOpWKJK9S9a
- y7zw==
-X-Gm-Message-State: AC+VfDy+niLCEk68LPsMRc6vskKPsB5w7QbsQgJrhqG7M7VpIAPLNS8I
- PGPJfHoptyjOxfVu1YMjuBxiHH/AayqtGgsJ4kFopw==
-X-Google-Smtp-Source: ACHHUZ7vUjFcyiefKEHtkKZuqT1Jg5guyvCgl6QIHZzhD4Haicd2lKi39F6CBiMxb+/0CcothL7GC4QeobfxTCkmnHs=
-X-Received: by 2002:a81:5287:0:b0:55a:3502:d2ca with SMTP id
- g129-20020a815287000000b0055a3502d2camr514571ywb.13.1685398403688; Mon, 29
- May 2023 15:13:23 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1685400923; x=1687992923;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=erb1mT4gxBfvr6bhVSpCQkfJxjOnYXNjx/AzFex9rao=;
+ b=kthETgcJUTjP0Y6V7ESBumm8jxXk8k01sQDGhuS0jLxJ/Vj4wEdMXZxgHwPBJq+ZjA
+ d3rjppfGnrckgv6mrtLMAaPSmAq+6+zAQ2LHA1F15ihYA8dsEi6AUOei5xMtypwMiraW
+ yhE5QPGptdWMmAbhzccYN37tUklv/cE2KPyALpMTLfBJQBiDOceXRUIeQKTZhnNkRVQX
+ SnxugVZqMEerTCFofXc0dBeQt3h7qOR5EQodhaQE78yRkr/vNocOmXW7bNji8QvxDZcQ
+ VcZRX5MJte3Q4VdrXz1jgW7bkZuEBOau4SOx3QcaK7grYqdSOfXVZxD7m09A5uIxS72S
+ YYIQ==
+X-Gm-Message-State: AC+VfDzBmjNypmG7u9jZeciTAINGncw13yywPgKyYV1+/kJBAZDXkLdD
+ El5RST9T3v62EZxCbyUH+TzFUddkStZtrM2EfTc=
+X-Google-Smtp-Source: ACHHUZ6yBG+U0n4l8SBmlpDgsHF6xTUrbv7N3+XfzyJJzM0/mlNjaK7nZJr2jDTfm98MXQI/puoQUw==
+X-Received: by 2002:ac2:4c35:0:b0:4f3:79af:fcb7 with SMTP id
+ u21-20020ac24c35000000b004f379affcb7mr50149lfq.26.1685400923082; 
+ Mon, 29 May 2023 15:55:23 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ u22-20020ac24c36000000b004efe73ee01fsm133154lfq.306.2023.05.29.15.55.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 May 2023 15:55:22 -0700 (PDT)
+Message-ID: <7e385b28-f418-52b2-71ea-52347ec6a819@linaro.org>
+Date: Tue, 30 May 2023 01:55:21 +0300
 MIME-Version: 1.0
-References: <20230526090945.439639-1-dmitry.baryshkov@linaro.org>
- <h33hhvvlwq67uooelhm5wot7hx5utzegxtq3wu25rfrcrjx45n@dznkc26cxz23>
-In-Reply-To: <h33hhvvlwq67uooelhm5wot7hx5utzegxtq3wu25rfrcrjx45n@dznkc26cxz23>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, brian.starkey@arm.com, christian.koenig@amd.com,
+ daniel@ffwll.ch, liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, Xinhui.Pan@amd.com
+References: <20230523221520.3115570-1-mwen@igalia.com>
+Content-Language: en-GB
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 30 May 2023 01:13:12 +0300
-Message-ID: <CAA8EJpq6cse-cxDSv+a1A0Pn4p0o-a1NO9+3vCDROnkc6gJT2A@mail.gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: use PINGPONG_NONE to unbind
- INTF from PP
+In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 00/36] drm/amd/display: add AMD
+ driver-specific properties for color mgmt
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,156 +84,151 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, kernel-dev@igalia.com,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 30 May 2023 at 00:46, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
->
-> On 2023-05-26 12:09:45, Dmitry Baryshkov wrote:
-> > Currently the driver passes the PINGPONG index to
-> > dpu_hw_intf_ops::bind_pingpong_blk() callback and uses separate boolean
-> > flag to tell whether INTF should be bound or unbound. Simplify this by
-> > passing PINGPONG_NONE in case of unbinding and drop the flag completely.
->
-> Perhaps worth mentioning that this flag was only recently introduced
-> (and link to it as a dependency under the cut),
+On 24/05/2023 01:14, Melissa Wen wrote:
+> This series is a refined version of our RFC [1] for AMD driver-specific
+> color management properties. It is a collection of contributions from
+> Joshua, Harry and I to enhance AMD KMS color pipeline for Steam
+> Deck/SteamOS by exposing the large set of color caps available in AMD
+> display HW.
+> 
+> Considering RFC feedback, this patchset differs from the previous one by
+> removing the KConfig option and just guarding driver-specific properties
+> with `AMD_PRIVATE_COLOR` - but we also removed the guards from internal
+> elements and operations. We stopped to advertise CRTC shaper and 3D LUTs
+> properties since they aren't in use in the Steam Deck color pipeline[2].
+> On the other hand, we keep mapping CRTC shaper and 3D LUTs (DM) to DC
+> MPC setup. We also improved curve calculations to take into account HW
+> color caps.
+> 
+> In short, for pre-blending, we added the following properties:
+> - plane degamma LUT and predefined transfer function;
+> - plane HDR multiplier
+> - plane shaper LUT/transfer function;
+> - plane 3D LUT; and finally,
+> - plane blend LUT/transfer function, just before blending.
 
-The patch is already a part of linux-next. This is the usual boundary
-of skipping the dependencies.
+This set of properties sounds interesting and not fully AMD-specific. 
+Could you please consider moving them to the more generic location?
 
->  as well as explain that
-> the passed `enum dpu_pingpong` value is bogus when enable=false because
-> it is not part of the value written to the register for the
-> "unbind/disable" case?
+For the reference, MSM (Qualcomm) display hardware supports 
+degamma/gamma LUTs for planes too. One of the suggested usecases for 
+these degamma/gamma units is to support colorspace transfer functions.
 
-Good suggestion.
+Thus, at least some of these properties can be implemented in drm/msm 
+driver too.
 
->  See for example the wording I suggested on the
-> patch that introduces and uses PINGPONG_NONE.
->
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          | 4 ++--
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 4 +---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 1 -
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 3 +--
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          | 1 -
->
-> How about appending/sending another patch that drops this from
-> dpu_hw_wb.c as well?
-
-Ack, nice catch.
-
->
-> >  5 files changed, 4 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > index ebe34eda6e50..7fd3a13ac226 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > @@ -2102,8 +2102,8 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
-> >               for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-> >                       if (dpu_enc->phys_encs[i] && phys_enc->hw_intf->ops.bind_pingpong_blk)
-> >                               phys_enc->hw_intf->ops.bind_pingpong_blk(
-> > -                                             dpu_enc->phys_encs[i]->hw_intf, false,
-> > -                                             dpu_enc->phys_encs[i]->hw_pp->idx);
-> > +                                             dpu_enc->phys_encs[i]->hw_intf,
-> > +                                             PINGPONG_NONE);
-> >
-> >                       /* mark INTF flush as pending */
-> >                       if (phys_enc->hw_ctl->ops.update_pending_flush_intf)
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > index 1a4c20f02312..3130c86a32cc 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > @@ -66,7 +66,6 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
-> >       if (test_bit(DPU_CTL_ACTIVE_CFG, &ctl->caps->features) && phys_enc->hw_intf->ops.bind_pingpong_blk)
-> >               phys_enc->hw_intf->ops.bind_pingpong_blk(
-> >                               phys_enc->hw_intf,
-> > -                             true,
-> >                               phys_enc->hw_pp->idx);
-> >
-> >       if (phys_enc->hw_intf->ops.enable_compression)
-> > @@ -556,8 +555,7 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
-> >       if (phys_enc->hw_intf->ops.bind_pingpong_blk) {
-> >               phys_enc->hw_intf->ops.bind_pingpong_blk(
-> >                               phys_enc->hw_intf,
-> > -                             false,
-> > -                             phys_enc->hw_pp->idx);
-> > +                             PINGPONG_NONE);
->
-> Is there also a cleanup state where hw_pp is assigned back to NULL?
-
-No. None of the encoder resources are reassigned to NULL. I will tend
-this topic during vN of resource allocation rework.
-
->
-> >               ctl = phys_enc->hw_ctl;
-> >               ctl->ops.update_pending_flush_intf(ctl, phys_enc->intf_idx);
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> > index 3a374292f311..220020273304 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> > @@ -287,7 +287,6 @@ static void dpu_encoder_phys_vid_setup_timing_engine(
-> >       if (phys_enc->hw_intf->ops.bind_pingpong_blk)
-> >               phys_enc->hw_intf->ops.bind_pingpong_blk(
-> >                               phys_enc->hw_intf,
-> > -                             true,
-> >                               phys_enc->hw_pp->idx);
-> >
-> >       if (phys_enc->hw_pp->merge_3d)
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> > index a2486f99d3c2..918d154848b9 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> > @@ -268,7 +268,6 @@ static void dpu_hw_intf_setup_prg_fetch(
-> >
-> >  static void dpu_hw_intf_bind_pingpong_blk(
-> >               struct dpu_hw_intf *intf,
-> > -             bool enable,
-> >               const enum dpu_pingpong pp)
-> >  {
-> >       struct dpu_hw_blk_reg_map *c = &intf->hw;
-> > @@ -277,7 +276,7 @@ static void dpu_hw_intf_bind_pingpong_blk(
-> >       mux_cfg = DPU_REG_READ(c, INTF_MUX);
-> >       mux_cfg &= ~0xf;
-> >
-> > -     if (enable)
-> > +     if (pp != PINGPONG_NONE)
->
-> Kuogee just used `if (pp)`, I think we should stay consistent.
-
-Sure. The rest of the driver usually compares to foo_NONE.
-
->
-> - Marijn
->
-> >               mux_cfg |= (pp - PINGPONG_0) & 0x7;
-> >       else
-> >               mux_cfg |= 0xf;
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> > index 72fe907729f1..e2d15e89880d 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> > @@ -89,7 +89,6 @@ struct dpu_hw_intf_ops {
-> >       u32 (*get_line_count)(struct dpu_hw_intf *intf);
-> >
-> >       void (*bind_pingpong_blk)(struct dpu_hw_intf *intf,
-> > -                     bool enable,
-> >                       const enum dpu_pingpong pp);
-> >       void (*setup_misr)(struct dpu_hw_intf *intf, bool enable, u32 frame_count);
-> >       int (*collect_misr)(struct dpu_hw_intf *intf, u32 *misr_value);
-> > --
-> > 2.39.2
-
+> After blending, we already have DRM CRTC degamma/gamma LUTs and CTM,
+> therefore, we extend post-blending color pipeline with CRTC gamma
+> transfer function.
+> 
+> The first three patches are on DRM KMS side. We expose DRM property
+> helper for blob lookup and replacement so that we can use it for
+> managing driver-specific properties. We add a tracked for plane color
+> mgmt changes and increase the maximum number of properties to
+> accommodate this expansion.
+> 
+> The userspace case here is Gamescope which is the compositor for
+> SteamOS. It's already using all of this functionality to implement its
+> color management pipeline right now [3].
+> 
+> Current IGT tests kms_color and amdgpu/amd_color on DCN301 and DCN21 HW
+> preserve the same results with and without the guard.
+> 
+> Finally, I may have missed something, please let me know if that's the
+> case.
+> 
+> Best Regards,
+> 
+> Melissa Wen
+> 
+> [1] https://lore.kernel.org/dri-devel/20230423141051.702990-1-mwen@igalia.com
+> [2] https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
+> [3] https://github.com/ValveSoftware/gamescope
+> 
+> 
+> Harry Wentland (2):
+>    drm/amd/display: fix segment distribution for linear LUTs
+>    drm/amd/display: fix the delta clamping for shaper LUT
+> 
+> Joshua Ashton (13):
+>    drm/amd/display: add plane degamma TF driver-specific property
+>    drm/amd/display: add plane HDR multiplier driver-specific property
+>    drm/amd/display: add plane blend LUT and TF driver-specific properties
+>    drm/amd/display: copy 3D LUT settings from crtc state to stream_update
+>    drm/amd/display: dynamically acquire 3DLUT resources for color changes
+>    drm/amd/display: add CRTC regamma TF support
+>    drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
+>    drm/amd/display: add support for plane degamma TF and LUT properties
+>    drm/amd/display: add dc_fixpt_from_s3132 helper
+>    drm/adm/display: add HDR multiplier support
+>    drm/amd/display: handle empty LUTs in __set_input_tf
+>    drm/amd/display: add DRM plane blend LUT and TF support
+>    drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
+> 
+> Melissa Wen (21):
+>    drm/drm_mode_object: increase max objects to accommodate new color
+>      props
+>    drm/drm_property: make replace_property_blob_from_id a DRM helper
+>    drm/drm_plane: track color mgmt changes per plane
+>    drm/amd/display: add CRTC driver-specific property for gamma TF
+>    drm/amd/display: add plane driver-specific properties for degamma LUT
+>    drm/amd/display: add plane 3D LUT driver-specific properties
+>    drm/amd/display: add plane shaper LUT driver-specific properties
+>    drm/amd/display: add plane shaper TF driver-private property
+>    drm/amd/display: add comments to describe DM crtc color mgmt behavior
+>    drm/amd/display: encapsulate atomic regamma operation
+>    drm/amd/display: update lut3d and shaper lut to stream
+>    drm/amd/display: allow BYPASS 3D LUT but keep shaper LUT settings
+>    drm/amd/display: handle MPC 3D LUT resources for a given context
+>    drm/amd/display: add CRTC 3D LUT support
+>    drm/amd/display: add CRTC shaper LUT support
+>    drm/amd/display: add CRTC shaper TF support
+>    drm/amd/display: mark plane as needing reset if plane color mgmt
+>      changes
+>    drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
+>    drm/amd/display: reject atomic commit if setting both plane and CRTC
+>      degamma
+>    drm/amd/display: program DPP shaper and 3D LUT if updated
+>    drm/amd/display: add plane shaper/3D LUT and shaper TF support
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 125 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  69 ++
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  28 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 110 +++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 612 ++++++++++++++++--
+>   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  72 ++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 213 +++++-
+>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 +-
+>   drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+>   .../amd/display/dc/dcn10/dcn10_cm_common.c    | 107 ++-
+>   .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   5 +-
+>   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   9 +-
+>   .../amd/display/dc/dcn301/dcn301_resource.c   |  26 +-
+>   .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
+>   drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
+>   drivers/gpu/drm/drm_atomic.c                  |   1 +
+>   drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+>   drivers/gpu/drm/drm_atomic_uapi.c             |  43 +-
+>   drivers/gpu/drm/drm_property.c                |  49 ++
+>   include/drm/drm_mode_object.h                 |   2 +-
+>   include/drm/drm_plane.h                       |   7 +
+>   include/drm/drm_property.h                    |   6 +
+>   22 files changed, 1416 insertions(+), 140 deletions(-)
+> 
 
 -- 
 With best wishes
 Dmitry
+
