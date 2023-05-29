@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85891714ACE
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC85D714ACF
 	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:52:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32AA510E293;
-	Mon, 29 May 2023 13:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FCE810E2A0;
+	Mon, 29 May 2023 13:52:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D64510E2A4
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:52:38 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f4f3ac389eso2157135e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:52:38 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBEF110E293
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:52:39 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-4f3b9e54338so3734052e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:52:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685368357; x=1687960357;
+ d=linaro.org; s=google; t=1685368358; x=1687960358;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=jEG7D8dDSqo05e8UhKgqNHGqbXe0pvKNUFpleUKYXVg=;
- b=VYVTUh8pzTNgV/eVoCNaftcZqjFTRyjiCwc+8UsNxROQQ1N6C6dvlrpJi4JIs0Edjj
- uletisN22xYlC87IH39xVDiD6XTEe9HptbcoAY1ViLOWEOBkHiq8D0A29yBQr3b6DLCF
- macvNl41DoWq0xDMKH11Imwo2RvVmJYoJ5dfluBXrXyfbknaS2vHDWxRwVzsQ3cVoTDE
- naYDncIxqPghGlwhp0Ah7CEE6nV1RAEWt8ET51Nk5ijHzw7NJgzjzbgA4/+hSxvppdff
- ephadTzUZd4p9lMm3lDEjhV1L9sP+84mLko0VcoEsbkxh8NWLT1cKND8E+wjv2dFRntP
- 8wjA==
+ :reply-to; bh=+xX5NNwgRWpbIyQzksfucv5stjdGXkcjknwzUIBRmfg=;
+ b=bA3d0JsO/958cCaxBwxol5/lqEJrekQtU0rajPNe12bN285Slg7NnmaNXRdvfFhOmH
+ u6BLtnm72Jyftg/+cXuRafZ+i5AbvWh6w5tZCLOacC4NgsbVuzb8lZrGxuysLa7yQsP2
+ swR8BK7gFnGptZd4BukFA47Kd0ljzDls2adrNUSGMyRJjZ8kp5Cgi/DQLcr7q8pfHOj4
+ D9xum0ZAPj9cKXCTM2gDgLExV32IeRdgQ3NjeuDg3kr5Gav22cX3T8YdIdM9LPb7SoyQ
+ 7RwANrk/QmVOuK95a4niY7uSGqdYUnyvICsZizYrdny052iASVD+0Net+Hj2ksVG1AU5
+ UDPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685368357; x=1687960357;
+ d=1e100.net; s=20221208; t=1685368358; x=1687960358;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jEG7D8dDSqo05e8UhKgqNHGqbXe0pvKNUFpleUKYXVg=;
- b=FU5uyqnnhx/jofTWpTOkRctF8wa+gr46v5HrrBvePzQra74UvzFofnpuQlRsk5vCCZ
- QLIoefCFeachnUf06e2b6JSwcUH5+WrjJGEqnjQ43BSDRJZwnSsn+xpCUREPlMEKaJHA
- 0fkz8AwknryvaE7fNdc4qfY2up2/t3Fz73hAJRqBckg+5uOp1E0c7n6UZUoNZ/p/8Ddf
- B/IiBm3/cDlTyk02SzgU5f+Oi/Rz3NS3xVURpWeaLJE2kFrtoHkwVNDPdMmd8YgN0vlR
- 8tnJfvBTVmKPOdFmBvN7tBgd18ldkeGEp6SVDFfHoX5W25tISYk65mLyp31Mx3WFS0Pc
- jm4w==
-X-Gm-Message-State: AC+VfDwB/EkrhWsESdyxElTVARpIGRdyssv9eVUgjtJAbl+1G08gavU7
- DZy55cH9BzczQGZFGMSxmqnU3w==
-X-Google-Smtp-Source: ACHHUZ6BO3IMMdXQ4hOUI+q+RFhQoVSWjfWKHkdE8DmtBgfUjDjnwIVsdQTgMmVKONx6M/Q3ajt6eA==
-X-Received: by 2002:ac2:4a84:0:b0:4f4:b05c:dbca with SMTP id
- l4-20020ac24a84000000b004f4b05cdbcamr3485700lfp.66.1685368356810; 
- Mon, 29 May 2023 06:52:36 -0700 (PDT)
+ bh=+xX5NNwgRWpbIyQzksfucv5stjdGXkcjknwzUIBRmfg=;
+ b=ApaITvReU9fUJ6kF/zgyEj84Iod/oSzlP4zZCBMuUGrofNWNdwGFSFnmx3xbarnEwB
+ 78WM/xwlevN9zbrJ2kTQVsvBfTvh/5578hZABGzZGK1ehypRYsHYeKETwPI+lvFpGJ+z
+ wdtpT4aRR5ChFpsnTM13ZSho74/PAqB9KYnfB5d4szqlX97cl92VhPUeunZylbtuEPhA
+ BHaxfFcXcmxEE26EWdC9EzeyaNH3E0YYyRNecgEUY7xllBB5jB5FBBEJ9Cs40e0ba3S6
+ lYECHT93/ej2vtiYtiToDjz1WpaOwP6OF/bUVPNyAlhS9nJUihJoV04nKTixeFYH78vZ
+ M2Pw==
+X-Gm-Message-State: AC+VfDyFrAoveK0z0tr2dGdVkwjuMdHvHsFpZlZ4rwkc5dwgwa6TRFEb
+ 52M2V0QSRV550CyIc5a/vaISqQ==
+X-Google-Smtp-Source: ACHHUZ7lFcnfP94YXATDpOFQmUo2RWVwF9mgm4BzuUWPmwH8xcx+yuxn9jhflkz6PpOTews9mV5jvg==
+X-Received: by 2002:ac2:532f:0:b0:4f2:5393:b7c with SMTP id
+ f15-20020ac2532f000000b004f253930b7cmr3189727lfh.67.1685368358242; 
+ Mon, 29 May 2023 06:52:38 -0700 (PDT)
 Received: from [192.168.1.101] (abyj77.neoplus.adsl.tpnet.pl. [83.9.29.77])
  by smtp.gmail.com with ESMTPSA id
- c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.35
+ c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 May 2023 06:52:36 -0700 (PDT)
+ Mon, 29 May 2023 06:52:37 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 29 May 2023 15:52:27 +0200
+Date: Mon, 29 May 2023 15:52:28 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v8-8-69c68206609e@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v8-9-69c68206609e@linaro.org>
 References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,15 +69,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, 
  Conor Dooley <conor+dt@kernel.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=1283;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=3025;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=JTiDWY7uw1D1PMKchNdprqbjJGR71Zsm7TruEBGJMeY=;
- b=xf73OwsERrXCMsq+Y+pf5PjUz5MTlKgqefICpZArCRq3AjzzRFz7lkqcF71SO/1SDRJfxrJKI
- cw21cRkAjsqALBfkZ1voAsLn2d2HMcmL6Z5gewnBdwHSDizkODWwhs+
+ bh=nJDRWtUki4jmsfB34feuvhwzM2ZS76IBIVVsPiHM+h4=;
+ b=bQC2dIePYgKLZz5ZffVdswJmtK88z6k4sG2T1CD7DUIJOzd3Wo8JPiIePzHbiP5Gyj0wO4Z9Z
+ AJDhWUXrLzFAQMhgyntvzVe99hUdNCNwneSdqZL15u0bgsH6nu7cEsH
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v8 08/18] drm/msm/a6xx: Remove both GBIF and
- RBBM GBIF halt on hw init
+Subject: [Freedreno] [PATCH v8 09/18] drm/msm/a6xx: Extend and explain UBWC
+ config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +98,88 @@ Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently we're only deasserting REG_A6XX_RBBM_GBIF_HALT, but we also
-need REG_A6XX_GBIF_HALT to be set to 0.
+Rename lower_bit to hbb_lo and explain what it signifies.
+Add explanations (wherever possible to other tunables).
 
-This is typically done automatically on successful GX collapse, but in
-case that fails, we should take care of it.
+Port setting min_access_length, ubwc_mode and hbb_hi from downstream.
 
-Also, add a memory barrier to ensure it's gone through before jumping
-to further initialization.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 39 +++++++++++++++++++++++++++--------
+ 1 file changed, 30 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 083ccb5bcb4e..dfde5fb65eed 100644
+index dfde5fb65eed..58bf405b85d8 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1003,8 +1003,12 @@ static int hw_init(struct msm_gpu *gpu)
- 	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
+@@ -786,10 +786,25 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+-	u32 lower_bit = 2;
+-	u32 amsbc = 0;
++	/* Unknown, introduced with A650 family, related to UBWC mode/ver 4 */
+ 	u32 rgb565_predicator = 0;
++	/* Unknown, introduced with A650 family */
+ 	u32 uavflagprd_inv = 0;
++	/* Whether the minimum access length is 64 bits */
++	u32 min_acc_len = 0;
++	/* Entirely magic, per-GPU-gen value */
++	u32 ubwc_mode = 0;
++	/*
++	 * The Highest Bank Bit value represents the bit of the highest DDR bank.
++	 * We then subtract 13 from it (13 is the minimum value allowed by hw) and
++	 * write the lowest two bits of the remaining value as hbb_lo and the
++	 * one above it as hbb_hi to the hardware. This should ideally use DRAM
++	 * type detection.
++	 */
++	u32 hbb_hi = 0;
++	u32 hbb_lo = 2;
++	/* Unknown, introduced with A640/680 */
++	u32 amsbc = 0;
  
- 	/* Clear GBIF halt in case GX domain was not collapsed */
--	if (a6xx_has_gbif(adreno_gpu))
-+	if (a6xx_has_gbif(adreno_gpu)) {
-+		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
- 		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 0);
-+		/* Let's make extra sure that the GPU can access the memory.. */
-+		mb();
-+	}
+ 	/* a618 is using the hw default values */
+ 	if (adreno_is_a618(adreno_gpu))
+@@ -800,25 +815,31 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
  
- 	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TSB_CNTL, 0);
+ 	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+ 		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
+-		lower_bit = 3;
++		hbb_lo = 3;
+ 		amsbc = 1;
+ 		rgb565_predicator = 1;
+ 		uavflagprd_inv = 2;
+ 	}
  
+ 	if (adreno_is_7c3(adreno_gpu)) {
+-		lower_bit = 1;
++		hbb_lo = 1;
+ 		amsbc = 1;
+ 		rgb565_predicator = 1;
+ 		uavflagprd_inv = 2;
+ 	}
+ 
+ 	gpu_write(gpu, REG_A6XX_RB_NC_MODE_CNTL,
+-		rgb565_predicator << 11 | amsbc << 4 | lower_bit << 1);
+-	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, lower_bit << 1);
+-	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL,
+-		uavflagprd_inv << 4 | lower_bit << 1);
+-	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, lower_bit << 21);
++		  rgb565_predicator << 11 | hbb_hi << 10 | amsbc << 4 |
++		  min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
++
++	gpu_write(gpu, REG_A6XX_TPL1_NC_MODE_CNTL, hbb_hi << 4 |
++		  min_acc_len << 3 | hbb_lo << 1 | ubwc_mode);
++
++	gpu_write(gpu, REG_A6XX_SP_NC_MODE_CNTL, hbb_hi << 10 |
++		  uavflagprd_inv << 4 | min_acc_len << 3 |
++		  hbb_lo << 1 | ubwc_mode);
++
++	gpu_write(gpu, REG_A6XX_UCHE_MODE_CNTL, min_acc_len << 23 | hbb_lo << 21);
+ }
+ 
+ static int a6xx_cp_init(struct msm_gpu *gpu)
 
 -- 
 2.40.1
