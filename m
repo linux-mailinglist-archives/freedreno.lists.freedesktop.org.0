@@ -2,76 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47CA27149BA
-	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 14:56:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66DF0714A6B
+	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:34:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD8B910E0B8;
-	Mon, 29 May 2023 12:56:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A19B10E0F5;
+	Mon, 29 May 2023 13:34:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07C1610E0B8
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 12:56:22 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4f4d6aee530so3383816e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 05:56:22 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF6B10E28A
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:34:10 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2af2e908163so35272951fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:34:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685364981; x=1687956981;
+ d=linaro.org; s=google; t=1685367248; x=1687959248;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=4kMFfJbf4XWQRQofGy/2ExiTeQJT1aHojFUaBWm+VSo=;
- b=BcDC1g2wM+Hky7zS2L1tkWnaCDYLDXZq2kb6pZOERWNUGx4d4jTjMFTHA07E9ApWSs
- w+dyPzzFDF3mjciTlbZNFVMzL/VqivyhhPdPLFa3yzhOHRSao2rqJFFI8bD3+OYBthlK
- cq0H0qxoBbufK5TxSEmJmBpx8zfFHFOi9XoKYMSWvS22GfCJQRLB+Ff4jk+3MSMU5qY4
- slPIAevDm7tgAQ5UqsacisFeDInVrT4+dS8H3vtMsofj414q5j61MyW00wyoYBurH+bv
- y7HCbVbew2INxWhgZ3swJESm6zOzcDUMSK3Ixg87sQZFddSnkj1j3UTgIYdzbaMlDnMK
- aloA==
+ bh=DUA07q7mYkXN8wVPChZecILFUwJ1RMa5CnZ3abb0nMY=;
+ b=pkW7Z1cVHEOnlVLJkBjNzjkkiO8NM2vYMLg6yPxEdMZ2a07USLAPzWdhHOB5ViPxJs
+ TZTkzfHOA6Nd8C9lsl7ldEAWItXSrez20w7NBPuJ+jjjdgAD6OCqoSP/2HGemsEenIoV
+ 84kGCeEAAGsLW9TilZsnBUf1CVYKxcl6lNSSsgy+A1vPyw7uRrmk3a8zKsfVfeKpCjU4
+ YM3I1qjSzuUNl+hcZ+nLIqAc62tuJSGaaKwfvRxTuYI5AR2MkbLTSNdQ37r+qEPUjXhn
+ AJdqqJUcI7AMDVk4VlFrnSiKCVD43MaykDtFwJbScMgPLoCmpoz4B9EwLBTl9e1XTBlz
+ C9Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685364981; x=1687956981;
+ d=1e100.net; s=20221208; t=1685367248; x=1687959248;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4kMFfJbf4XWQRQofGy/2ExiTeQJT1aHojFUaBWm+VSo=;
- b=ljvbMRYjlWBqlquw/irzkZJZ87PfUyLvuBKPcQNyYQL3hLb0dUG6/DhUH5N6hozI5X
- pxx346m40BI/pvME8BSPvwCci5umetigdZ2zsI0YukUnNaRoKhKUuwQUDwL6pJ5T1RRr
- pF+gmZYjFKfZBi25GHMjI/uGyT3tNRvDKHGN6K1FG3sSwcsNqzppKCK3saGtk1umBjzO
- m6s0+WKaoBoi0qb7pG7UHWniHhZoFsbwo+Y5sdVGwxdaJn8yvSGo9Lw8o86C4pByKK6s
- aXke0XsY8wP6ODYWIHJKEh7VcF1HXHYAPPDE147/V2Rl3qEEI/F033nayMKIa/eHY1gm
- ue9A==
-X-Gm-Message-State: AC+VfDzmP9A3SVn5C52k+QrpDogA5wn/TlKS/ATRZEHgDZuhK4Rgf+Qf
- DbdTAR13y0aQgKyS8mXqjZv8lQ==
-X-Google-Smtp-Source: ACHHUZ5SDvE89GclIQVxV0l3jEskTCdcupX432GYZIWoRyUD9NsdvqkL1Ne2Cb1FwCZlHaWbxFlAnQ==
-X-Received: by 2002:a19:750c:0:b0:4eb:18d:91de with SMTP id
- y12-20020a19750c000000b004eb018d91demr3416851lfe.43.1685364981202; 
- Mon, 29 May 2023 05:56:21 -0700 (PDT)
+ bh=DUA07q7mYkXN8wVPChZecILFUwJ1RMa5CnZ3abb0nMY=;
+ b=k570NLLtg7Tjv0VYCpbliuJUuBT3BPzroglHDUxfyZpSqBQ3Z5S1c++nFV2DrH+c6G
+ DlEh9POEgbuK1A5fiXQGLv00swc11dypkuHXC/pKPIMAqdYxDIcnaSNftjUGB3YbCDPM
+ RS/4DP7JFl9QdGBTo0BkrXaWpMI0tAcgP2QB4wTgzjdeyDEoCQY68fL9rpaK1hegjAN1
+ ObhfMCX/IDoIeaiEnWyB9Gt2RrcRbWkYg094xfqsy6NRGg/DqbKo9E0K7zwJed8rEIY6
+ 7ZlHP6hemeXFjOOQPE7j9tnwME6crWLxSKHD+PXoeT4oyoqu6e7+ITL7Tqb5Gl83aztR
+ 1w8g==
+X-Gm-Message-State: AC+VfDxbQrYwUzitlAZz62n1yTREyrJHfIj/nvk1agz5L9O1lvFT2nOz
+ rFq8eJWDqDhZG0hFN66IsZdCIg==
+X-Google-Smtp-Source: ACHHUZ4fjkUlyAONcCrJHEq5VFwORiOBYxD/b92R5rW/39PS7RVBLgtIWEXQkKEJ6aKOtUeVzkpq+g==
+X-Received: by 2002:a2e:b6c2:0:b0:2ac:8486:e318 with SMTP id
+ m2-20020a2eb6c2000000b002ac8486e318mr3473659ljo.35.1685367248247; 
+ Mon, 29 May 2023 06:34:08 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- d12-20020ac241cc000000b004f2529c71c1sm1959695lfi.260.2023.05.29.05.56.20
+ i10-20020a2e808a000000b002adc2fe3fc8sm2450984ljg.4.2023.05.29.06.34.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 May 2023 05:56:20 -0700 (PDT)
-Message-ID: <8bbdc1c3-7caf-c189-9c81-a26efc79c4f0@linaro.org>
-Date: Mon, 29 May 2023 15:56:20 +0300
+ Mon, 29 May 2023 06:34:07 -0700 (PDT)
+Message-ID: <419972e3-3052-87ae-a471-5fcf0a01f7da@linaro.org>
+Date: Mon, 29 May 2023 16:34:07 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-GB
-To: Luca Weiss <luca@z3ntu.xyz>, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Luca Weiss <luca@z3ntu.xyz>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
 References: <20230308-msm8226-mdp-v1-0-679f335d3d5b@z3ntu.xyz>
  <20230308-msm8226-mdp-v1-4-679f335d3d5b@z3ntu.xyz>
+ <9858de8d-54ae-aa0c-35d8-fe8c1c8473b7@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230308-msm8226-mdp-v1-4-679f335d3d5b@z3ntu.xyz>
+In-Reply-To: <9858de8d-54ae-aa0c-35d8-fe8c1c8473b7@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH 4/7] drm/msm/mdp5: Add MDP5 configuration
@@ -88,21 +88,150 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29/05/2023 12:44, Luca Weiss wrote:
-> Add the required config for the v1.1 MDP5 found on MSM8226.
+On 29/05/2023 14:59, Konrad Dybcio wrote:
 > 
-> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
-> ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 82 ++++++++++++++++++++++++++++++++
->   1 file changed, 82 insertions(+)
+> 
+> On 29.05.2023 11:44, Luca Weiss wrote:
+>> Add the required config for the v1.1 MDP5 found on MSM8226.
+>>
+>> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+>> ---
+>>   drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 82 ++++++++++++++++++++++++++++++++
+>>   1 file changed, 82 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+>> index 2eec2d78f32a..694d54341337 100644
+>> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+>> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+>> @@ -103,6 +103,87 @@ static const struct mdp5_cfg_hw msm8x74v1_config = {
+>>   	.max_clk = 200000000,
+>>   };
+>>   
+>> +static const struct mdp5_cfg_hw msm8x26_config = {
+> Luca, this patch looks good as-is (without diving into the values).
+> 
+> Dmitry, I see some things that we may improve here..
+> 
+> 1. Rename msm8xab to msm89ab or something, it's really inconsistent
+>     with other drivers
+> 
+> 2. Some values seem very common / always constant.. perhaps we could
+>     add some #defines like we do in DPU?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I really would not like to go the DPU way here. Maybe we can define the 
+'full-featured' masks, while leaving the older hardware intact.
+
+> 3. Can we add some magic defines to make flush_hw_mask non-cryptic?
+
+Sounds like a good idea, especially since we have all the defines. I'll 
+tend to it after landing 8226.
+
+> 
+> 4. We can probably use pointers in data structs and deduplicate identical
+>     blocks!
+
+Let's see.
+
+> 
+> Konrad
+>> +	.name = "msm8x26",
+>> +	.mdp = {
+>> +		.count = 1,
+>> +		.caps = MDP_CAP_SMP |
+>> +			0,
+>> +	},
+>> +	.smp = {
+>> +		.mmb_count = 7,
+>> +		.mmb_size = 4096,
+>> +		.clients = {
+>> +			[SSPP_VIG0] =  1,
+>> +			[SSPP_DMA0] = 4,
+>> +			[SSPP_RGB0] = 7,
+>> +		},
+>> +	},
+>> +	.ctl = {
+>> +		.count = 2,
+>> +		.base = { 0x00500, 0x00600 },
+>> +		.flush_hw_mask = 0x0003ffff,
+>> +	},
+>> +	.pipe_vig = {
+>> +		.count = 1,
+>> +		.base = { 0x01100 },
+>> +		.caps = MDP_PIPE_CAP_HFLIP |
+>> +			MDP_PIPE_CAP_VFLIP |
+>> +			MDP_PIPE_CAP_SCALE |
+>> +			MDP_PIPE_CAP_CSC   |
+>> +			0,
+>> +	},
+>> +	.pipe_rgb = {
+>> +		.count = 1,
+>> +		.base = { 0x01d00 },
+>> +		.caps = MDP_PIPE_CAP_HFLIP |
+>> +			MDP_PIPE_CAP_VFLIP |
+>> +			MDP_PIPE_CAP_SCALE |
+>> +			0,
+>> +	},
+>> +	.pipe_dma = {
+>> +		.count = 1,
+>> +		.base = { 0x02900 },
+>> +		.caps = MDP_PIPE_CAP_HFLIP |
+>> +			MDP_PIPE_CAP_VFLIP |
+>> +			0,
+>> +	},
+>> +	.lm = {
+>> +		.count = 2,
+>> +		.base = { 0x03100, 0x03d00 },
+>> +		.instances = {
+>> +				{ .id = 0, .pp = 0, .dspp = 0,
+>> +				  .caps = MDP_LM_CAP_DISPLAY, },
+>> +				{ .id = 1, .pp = -1, .dspp = -1,
+>> +				  .caps = MDP_LM_CAP_WB },
+>> +			     },
+>> +		.nb_stages = 2,
+>> +		.max_width = 2048,
+>> +		.max_height = 0xFFFF,
+>> +	},
+>> +	.dspp = {
+>> +		.count = 1,
+>> +		.base = { 0x04500 },
+>> +	},
+>> +	.pp = {
+>> +		.count = 1,
+>> +		.base = { 0x21a00 },
+>> +	},
+>> +	.intf = {
+>> +		.base = { 0x00000, 0x21200 },
+>> +		.connect = {
+>> +			[0] = INTF_DISABLED,
+>> +			[1] = INTF_DSI,
+>> +		},
+>> +	},
+>> +	.perf = {
+>> +		.ab_inefficiency = 100,
+>> +		.ib_inefficiency = 200,
+>> +		.clk_inefficiency = 125
+>> +	},
+>> +	.max_clk = 200000000,
+>> +};
+>> +
+>>   static const struct mdp5_cfg_hw msm8x74v2_config = {
+>>   	.name = "msm8x74",
+>>   	.mdp = {
+>> @@ -1236,6 +1317,7 @@ static const struct mdp5_cfg_hw sdm660_config = {
+>>   
+>>   static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
+>>   	{ .revision = 0, .config = { .hw = &msm8x74v1_config } },
+>> +	{ .revision = 1, .config = { .hw = &msm8x26_config } },
+>>   	{ .revision = 2, .config = { .hw = &msm8x74v2_config } },
+>>   	{ .revision = 3, .config = { .hw = &apq8084_config } },
+>>   	{ .revision = 6, .config = { .hw = &msm8x16_config } },
+>>
 
 -- 
 With best wishes
