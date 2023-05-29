@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E103D714ACB
-	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4544D714ACD
+	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:52:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16D1D10E2A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9F1010E291;
 	Mon, 29 May 2023 13:52:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B25F610E2A1
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E0410E2A2
  for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:52:35 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f4e71a09a7so3601103e87.1
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4f3baf04f0cso3585151e87.1
  for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:52:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685368354; x=1687960354;
+ d=linaro.org; s=google; t=1685368355; x=1687960355;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4I8zZOOwyp4NjNuH+/dpM0ZZysjD7tVsNkFj0zmZXZM=;
- b=l+DkWo2ZhoNK9556YBMdFVNBkVeLpQfjuMUDlHntKSZyaetyXOnvUXuV7dvX86/wLJ
- ko/ffdFEImU13o1EPs2vDfO1747VHMw0bFEun9AyIv2flD76csOB6xZuC6dW+yV0cBv+
- SisWIgBMQgy3/hw13dO5IgWBy6HMtBBBDS9kFFbJChiCrvEJisJlFxMOYzr0CYK5Lc4d
- Th6WgSpj8ufoace/gpxE99jT5m16k+z5TXXjJ/Toi7dk4b4z/k+rVfEM3FpjZoJ1lU58
- EPbTwHrRgS4N1d/9ENYvq6OJ19Ok8HRdfNdZtVFH/3SnF6wc8b3Qcu1MZX1V0zS6OIQM
- Xn9w==
+ :reply-to; bh=1wFIIbEoxPLhpitFzIB7VWk7qAiJQapqN1VZ4+ZRTRI=;
+ b=tJFZkGE+7K3cO4bTU2J0U0tPAkHpBMlsjrFXVKtem/gV7E/xLJGiLiradl9efECbS8
+ a/qHxL9Aoplc9sKCfO07aeRfUuab+TPHMKIh+x4qA9bWzl0R/SXUTK0uqfRjkrepFd5d
+ J3wBhENOWveg0ew96zH95NosFLsHbSNbdDHtoYP8CLVfo3wvGpIdi6d/wRbv6LVFtZnA
+ /D9cUO/5qEitqDn3JU4ASjOpkpmgx27BbATZTb0++TKCmFTDJzhFW37hss8x7qwRGdNV
+ bVr0HWxqAgp0dfQi0ILyUUD7jHJAWU9FwH013MmuWU5PgWSCGa7HTXEsSlNa+6gSzxGV
+ mDtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685368354; x=1687960354;
+ d=1e100.net; s=20221208; t=1685368355; x=1687960355;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4I8zZOOwyp4NjNuH+/dpM0ZZysjD7tVsNkFj0zmZXZM=;
- b=NoF4QwKFejAnaFO4p2VLM4h3WayGGX7eoCs0OtYprHsBrrH/LO3K4eOs0eEpNwzwXP
- 8ej6gZEiKfY97RM+GcrWGRpXbH+4Nfa28CG05MOhlIEoIyJpiNnHD7YMbBzyYeo5zvTJ
- MO780vJt5QL7AkhmdOMpMh8AYbM2WEb9sE79f95UIfNBFLGbNBeAewaVVD+lP8ndDfrD
- meQNT1zyjPXuvMOyGeHPFdAITuieMJwJ6hkPmTJmwj+3HKV8e0FuWqi9BjiHSzlPy5xw
- Y9evJ2g4q2GQNAtqxN+VqIFKETnjmPENfCwUOUsQWBIqmn91ez/Rj1DOrLOyq3zCFKN5
- 9Vfg==
-X-Gm-Message-State: AC+VfDwv686bYbKAW7KTrlX/uIwR1cSbNRt495in+swqDlL0i4jlUzh6
- cX/PatkMaGZYaBod//QisPee1w==
-X-Google-Smtp-Source: ACHHUZ5aB1sINxFsZoyUXzNneKTrgmI/kRzYljU0PYMyyNMxHSuRFDEq5CvQf7zzn5rk8owg86Etmg==
-X-Received: by 2002:ac2:52ae:0:b0:4f1:4898:d183 with SMTP id
- r14-20020ac252ae000000b004f14898d183mr3170767lfm.25.1685368353925; 
- Mon, 29 May 2023 06:52:33 -0700 (PDT)
+ bh=1wFIIbEoxPLhpitFzIB7VWk7qAiJQapqN1VZ4+ZRTRI=;
+ b=fwwPih1cfR1T6iwUjrExS8B7geAZ+AorOOaRBevhYbfbrvdngWf1X2MP2Uk7+dM06m
+ Rd0SKw2NHNQhyJe0jUTCcHDK/QpLW3CwBn+r+S3kQxMoNw1E/uAMFWxRBo1L/g6qP5Xr
+ uqGGZkvttSattnx2tKIX5pxomFt3PQMPMgoze5hqjgKwbwgJskNCEkktyu1uMIRtt0Ng
+ EbsNpdGsiIYz4kAhFFJq7ILDQO8LIU/oQ+wNQyWZMfFGwNB8Y/I8TlpfBFv6LU+WTsZc
+ HOk+LczpRvJBet68rA2DHROnMcA+SKP0AQG8VrTBzA8E8I9kicoTAShJ4WmjYeHjSomF
+ 84Gg==
+X-Gm-Message-State: AC+VfDxQP4OAJURIrrg/4S14FdgsEfC+qnU5uud1NsfSi85rB6hKGI83
+ rQoVonJZOg0BYzfO2LWqlao0Ag==
+X-Google-Smtp-Source: ACHHUZ52UYRz6PdcRbweestohp2Un+CXhq2+nijsIOg5qgQMZI3fkls5VrLbssLD9Q2ZQkwN1N2alQ==
+X-Received: by 2002:a19:f014:0:b0:4f3:8196:80c8 with SMTP id
+ p20-20020a19f014000000b004f3819680c8mr2992126lfc.1.1685368355333; 
+ Mon, 29 May 2023 06:52:35 -0700 (PDT)
 Received: from [192.168.1.101] (abyj77.neoplus.adsl.tpnet.pl. [83.9.29.77])
  by smtp.gmail.com with ESMTPSA id
- c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.32
+ c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 May 2023 06:52:33 -0700 (PDT)
+ Mon, 29 May 2023 06:52:35 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 29 May 2023 15:52:25 +0200
+Date: Mon, 29 May 2023 15:52:26 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v8-6-69c68206609e@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v8-7-69c68206609e@linaro.org>
 References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,15 +69,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, 
  Conor Dooley <conor+dt@kernel.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=1359;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=2525;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=WRWN4WVkGFPt0it/wZ2I1vdoI21A135Lfips/fNYpFI=;
- b=mIpciuesV9A/22LuUm403HydwQAsP83RCVrbPN0KA4I+OL/+/dvEsyNBtqML4K0b0MbyVi3Ey
- veuPskNnSqgD7yRStu3erO8aeLxty6Ap3tGNO3y2CJ3Mc/Rb2nnWPVg
+ bh=mi/m4Oey75vF6uy9TLg2BuEnAAWYnXoWrcm53l1hJFY=;
+ b=enRRVhClSkzGNyALCbuTLrsRhyxRtr6M5+NIOUmVyvTekRXXLNLpVv3mhrelTdgzg7baIKMlI
+ E+Yn8f2qd0+B+zdudaBL8M3bwxbhoLDu2i8Do+Ity1YTSSu8q0yoyj+
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v8 06/18] drm/msm/a6xx: Improve
- a6xx_bus_clear_pending_transactions()
+Subject: [Freedreno] [PATCH v8 07/18] drm/msm/a6xx: Add a helper for
+ software-resetting the GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,40 +98,68 @@ Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Unify the indentation and explain the cryptic 0xF value.
+Introduce a6xx_gpu_sw_reset() in preparation for adding GMU wrapper
+GPUs and reuse it in a6xx_gmu_force_off().
+
+This helper, contrary to the original usage in GMU code paths, adds
+a write memory barrier which together with the necessary delay should
+ensure that the reset is never deasserted too quickly due to e.g. OoO
+execution going crazy.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  3 +--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 6bb4da70f6a6..e3ac3f045665 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1597,17 +1597,18 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
- 		a6xx_gpu->llc_mmio = ERR_PTR(-EINVAL);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index b86be123ecd0..5ba8cba69383 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -899,8 +899,7 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+ 	a6xx_bus_clear_pending_transactions(adreno_gpu, true);
+ 
+ 	/* Reset GPU core blocks */
+-	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, 1);
+-	udelay(100);
++	a6xx_gpu_sw_reset(gpu, true);
  }
  
--#define GBIF_CLIENT_HALT_MASK             BIT(0)
--#define GBIF_ARB_HALT_MASK                BIT(1)
-+#define GBIF_CLIENT_HALT_MASK		BIT(0)
-+#define GBIF_ARB_HALT_MASK		BIT(1)
-+#define VBIF_XIN_HALT_CTRL0_MASK	GENMASK(3, 0)
+ static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index e3ac3f045665..083ccb5bcb4e 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1634,6 +1634,17 @@ void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_
+ 	gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
+ }
  
- void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off)
++void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert)
++{
++	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, assert);
++	/* Add a barrier to avoid bad surprises */
++	mb();
++
++	/* The reset line needs to be asserted for at least 100 us */
++	if (assert)
++		udelay(100);
++}
++
+ static int a6xx_pm_resume(struct msm_gpu *gpu)
  {
- 	struct msm_gpu *gpu = &adreno_gpu->base;
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 9580def06d45..aa70390ee1c6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -89,5 +89,6 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu);
+ int a6xx_gpu_state_put(struct msm_gpu_state *state);
  
- 	if (!a6xx_has_gbif(adreno_gpu)) {
--		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0xf);
-+		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, VBIF_XIN_HALT_CTRL0_MASK);
- 		spin_until((gpu_read(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL1) &
--								0xf) == 0xf);
-+				(VBIF_XIN_HALT_CTRL0_MASK)) == VBIF_XIN_HALT_CTRL0_MASK);
- 		gpu_write(gpu, REG_A6XX_VBIF_XIN_HALT_CTRL0, 0);
+ void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
++void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert);
  
- 		return;
+ #endif /* __A6XX_GPU_H__ */
 
 -- 
 2.40.1
