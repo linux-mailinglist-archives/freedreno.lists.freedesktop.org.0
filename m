@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB7B714AC5
-	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F6C1714AC8
+	for <lists+freedreno@lfdr.de>; Mon, 29 May 2023 15:52:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A449A10E2A2;
-	Mon, 29 May 2023 13:52:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0876010E29B;
+	Mon, 29 May 2023 13:52:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C74E710E296
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:52:31 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f4b2bc1565so3522695e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:52:31 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34CF910E296
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 13:52:33 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4f4bdcde899so3529618e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 29 May 2023 06:52:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685368349; x=1687960349;
+ d=linaro.org; s=google; t=1685368351; x=1687960351;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=zp5vgGCljU9Pzelevk/Q8qB+omVB6SpjUQQoV9nlSfc=;
- b=j6o4ndm9exCbsyMtXk7Ddvm8aXJGgxxHXxGXxrHyc+TdJLtea0+YEg+aBLvLMyQiH8
- 6NEHuo70+dGEtt9Me9Ybbazq8THoTxkBOx0i3EnX6sH9Jx/NtaABirAg+buUVC4ZyEEW
- V9icn6p/WRymbWrGoKOd/+xGr8ZF8Ck0sNoxv879dvWazSm/fmCn8PwXHsOaUqBvj1lA
- C92vnLvToWCFQwLbv8XgVNG+iHa44WbmffsjC9gmynRhuhM/7MEFE+THlFgdb/mqaC/X
- ivrdPvJcu1r+snAEeNy2L8ngQInK4EKBs5KYqagUui9NzlsLPX06Km5qPbSkuiq7YBDY
- AM7w==
+ :reply-to; bh=Ox41uPAx3lnO302Ry1Df1WPA2I0vwUL6Eka5WZ9+II8=;
+ b=HjjCbA1IfVPklnX4hxxrr479tjGTHg03aPYbA8LjoLjynxFAIoy1254+uA6zs2GEsa
+ Ng/Rk9cGdPncBQIoyVXEAfCfbqznsEQGn+2gojUxV8rBwLa9Oz7ebFYckH5recNqAdjG
+ a4lbdd7kGFF2BVDzUayofSUUVgUI6OcC6yvy7xqJaBONnPyvA6nroooBpZkYsM1slWDY
+ shj2NXr5SszJlMMPpeLYgNDaYRKyW65E5FujU+XxcpFES/VJ89qJbU1xXgxO1p338Ief
+ 8yQVGIZiJdNMQYcijN1WISgjtb1UUjWK7k735ppzRgxztzsBCOu1i+UkdgVrEioBQde+
+ Hzaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685368349; x=1687960349;
+ d=1e100.net; s=20221208; t=1685368351; x=1687960351;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zp5vgGCljU9Pzelevk/Q8qB+omVB6SpjUQQoV9nlSfc=;
- b=bNjrOx83ZBEAynZikH6SwfTgQgIcPii8btXiMVB+J34gVEZeZsxK++IQkdGfsMWvB9
- I9j5TbYx5JM1WfqpYzlo168oF5M5kd4J+c9s317F3oILNMUHi5wO18oGQOnuEAC6Fnqf
- rgPUYyJcR5zd6YfxdvAADCMIz/533OPSukePxqrLkFQnHBUPCTm2yilDcZofjMp/M/bW
- WXGyDUbmzYWZFKzNaUkswQEGPA4OZTXXtyUi9SPGhXzIBwsHRNdk4Hq5j6gITZenl14m
- H0yjAdFsN7HgmLZ3tPB1QhV+o+t7TuEgy4zm0gik9y8kMjtNlV+IWIWApC5CwLAmyuXu
- pzRQ==
-X-Gm-Message-State: AC+VfDzcgHmdbCNca6BvNlmiFMLr8vZ4CNCF4lKFzwiZn/4J91lXNQlp
- z0ytT3apIPGxOb2OHiihUY1eCg==
-X-Google-Smtp-Source: ACHHUZ4ELGEOuSiCSoEkpbsfF8oQU8hAjPpkpF8iYAlnhL0aPjqWp9vWkryBVQmkXUQWqPwuu1BcDA==
-X-Received: by 2002:ac2:593b:0:b0:4f4:e26c:644c with SMTP id
- v27-20020ac2593b000000b004f4e26c644cmr3511386lfi.68.1685368349674; 
- Mon, 29 May 2023 06:52:29 -0700 (PDT)
+ bh=Ox41uPAx3lnO302Ry1Df1WPA2I0vwUL6Eka5WZ9+II8=;
+ b=i743VThY2UhFzQMD/ePZVcnGsKzwcw0GAzBUb1/LszHyXK9XNyiQoJT/6It6DDiBtO
+ 0Goa7MLW4PS+OUEAoTinT5aJLuOlT9AJo1CSweqhaWcElS4FEK2wW/S2B2yGZkIdNNlL
+ yT4ka7XV/fGwyDJdLOdNM23jlg43WNOuMKzL9nmLc4iYrxM53o8I8JoOFaotUwuHtViO
+ AoLXvQyID4JXLWCUURLcvuKMVzVKi2nMaGGtxteudpQch3RsED9808ALsXXuI5jF9Rlk
+ IL6ncVeB9wFQkMLyedrpB6jYXz/pZ8TZ9sfYUWVyiz08/VBfhPK+c+r70SsQvkKDZBnC
+ xXaw==
+X-Gm-Message-State: AC+VfDxXOcNYMWYErXFhHqA822VFEmG2OC4KhA/U7zwTymA2HR6WsHcg
+ pjHmXBHpCzyfkThQUd6qdLlYzQ==
+X-Google-Smtp-Source: ACHHUZ4vk8LTno9K6vFTsGH2IPC+ZCybTCoUIpBBvQz3qqRJqqUUTyGGvWflVjF1p/neVA3yrS/NKg==
+X-Received: by 2002:a05:6512:241:b0:4ef:f06e:eacf with SMTP id
+ b1-20020a056512024100b004eff06eeacfmr3324513lfo.27.1685368351092; 
+ Mon, 29 May 2023 06:52:31 -0700 (PDT)
 Received: from [192.168.1.101] (abyj77.neoplus.adsl.tpnet.pl. [83.9.29.77])
  by smtp.gmail.com with ESMTPSA id
- c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.28
+ c16-20020ac25310000000b004f2532cfbc1sm4700lfh.81.2023.05.29.06.52.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 May 2023 06:52:29 -0700 (PDT)
+ Mon, 29 May 2023 06:52:30 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 29 May 2023 15:52:22 +0200
+Date: Mon, 29 May 2023 15:52:23 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v8-3-69c68206609e@linaro.org>
+Message-Id: <20230223-topic-gmuwrapper-v8-4-69c68206609e@linaro.org>
 References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 In-Reply-To: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,15 +69,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, 
  Conor Dooley <conor+dt@kernel.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=1711;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1685368343; l=2072;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=UGqbGuIs6LlGAaix8p6ok6zP4Iy0VYtXRGz1T9C6CU8=;
- b=iOq1ICy96MlI+LSJpYN6hOW4tYAsXyISkNiXCfzDVHQx+stBruh5n3B4XG2uwGKuvy1fVBVdI
- QyXR733auXZDDVrvKNMntXFujlUjBq1VkLyinovCsZcpyENLQPAkPn1
+ bh=WdDcDOyizy5IWwyMqltY5oqm/fsHIExj5zaeUB68hS4=;
+ b=aBSvTQ5N+E1G5FcVBte5HyjyDhSx9dEGT5S8/XgIqhCakLKJD5Ck2zwhKKKgt07wHSnknGu9b
+ 7Rw2pv5mdrNAaU0rJUKpQsXXRqg8KFTAUdhhuSj3Z/kbRs+0dNbohMD
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v8 03/18] drm/msm/a6xx: Remove static keyword
- from sptprac en/disable functions
+Subject: [Freedreno] [PATCH v8 04/18] drm/msm/a6xx: Move force keepalive
+ vote removal to a6xx_gmu_force_off()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,50 +98,58 @@ Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-These two will be reused by at least A619_holi in the non-gmu
-paths. Turn them non-static them to make it possible.
+As pointed out by Akhil during the review process of GMU wrapper
+introduction [1], it makes sense to move this write into the function
+that's responsible for forcibly shutting the GMU off.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+It is also very convenient to move this to GMU-specific code, so that
+it does not have to be guarded by an if-condition to avoid calling it
+on GMU wrapper targets.
+
+Move the write to the aforementioned a6xx_gmu_force_off() to achieve
+that. No effective functional change.
+
+[1] https://lore.kernel.org/linux-arm-msm/20230501194022.GA18382@akhilpo-linux.qualcomm.com/
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 4 ++--
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 2 ++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 ++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 ------
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index e16b4b3f8535..87babbb2a19f 100644
+index 87babbb2a19f..9421716a2fe5 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -354,7 +354,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- }
+@@ -912,6 +912,12 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
  
- /* Enable CPU control of SPTP power power collapse */
--static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
-+int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
- {
- 	int ret;
- 	u32 val;
-@@ -376,7 +376,7 @@ static int a6xx_sptprac_enable(struct a6xx_gmu *gmu)
- }
++	/*
++	 * Turn off keep alive that might have been enabled by the hang
++	 * interrupt
++	 */
++	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
++
+ 	/* Flush all the queues */
+ 	a6xx_hfi_stop(gmu);
  
- /* Disable CPU control of SPTP power power collapse */
--static void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
-+void a6xx_sptprac_disable(struct a6xx_gmu *gmu)
- {
- 	u32 val;
- 	int ret;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 0bc3eb443fec..7ee5b606bc47 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -193,5 +193,7 @@ int a6xx_hfi_set_freq(struct a6xx_gmu *gmu, int index);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 9fb214f150dd..e34aa15156a4 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1274,12 +1274,6 @@ static void a6xx_recover(struct msm_gpu *gpu)
+ 	/* Halt SQE first */
+ 	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 3);
  
- bool a6xx_gmu_gx_is_on(struct a6xx_gmu *gmu);
- bool a6xx_gmu_sptprac_is_on(struct a6xx_gmu *gmu);
-+void a6xx_sptprac_disable(struct a6xx_gmu *gmu);
-+int a6xx_sptprac_enable(struct a6xx_gmu *gmu);
+-	/*
+-	 * Turn off keep alive that might have been enabled by the hang
+-	 * interrupt
+-	 */
+-	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+-
+ 	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
  
- #endif
+ 	/* active_submit won't change until we make a submission */
 
 -- 
 2.40.1
