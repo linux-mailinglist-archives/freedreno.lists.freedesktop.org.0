@@ -2,62 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84242716C49
-	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 20:25:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97250716D7A
+	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 21:24:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22B4210E3ED;
-	Tue, 30 May 2023 18:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D85910E40D;
+	Tue, 30 May 2023 19:24:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDBF10E403;
- Tue, 30 May 2023 18:25:03 +0000 (UTC)
-Received: from [192.168.122.1] (84-115-214-73.cable.dynamic.surfer.at
- [84.115.214.73])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id A394ACFC44;
- Tue, 30 May 2023 18:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
- t=1685471072; bh=z/aQiTQcE2QuOfic75RRo/hFCpeXMEDvL82sQ0eB9MU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=PNuNaQPfPXQXcBI3A0XralCb8FDrEGVTHYmJ3aCA10HzXvrQq0T06xM4qdA7AP/Kf
- Rs/LIrqV8Q/oGBuvhsJub9kXZDnNjm8OJIEXQ8s6F4sgXt/3jvZRsS495NrY5qT7gm
- p2PrPr2h/JIWbw214A1oylzKbjYO50YaA8oxpzJo=
-From: Luca Weiss <luca@z3ntu.xyz>
-Date: Tue, 30 May 2023 20:24:17 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230308-msm8226-mdp-v2-7-e005b769ee28@z3ntu.xyz>
+X-Greylist: delayed 717 seconds by postgrey-1.36 at gabe;
+ Tue, 30 May 2023 19:24:54 UTC
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [85.215.255.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FDF10E40D;
+ Tue, 30 May 2023 19:24:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1685473973; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=qU7DNAy+pcGWmhjuiAm9kRZRamd3CjaN4FZNo9xxupruZsjDBjvzGYUulmhex1Zlwp
+ DOiZ4qkHMR/aQpg2cu0cRw20HEyDKlNDudjwV+BGS/gjuN9rUd2pllHPAADyp9DAEgSY
+ htpHb/Va2PtU8Z5jl4OlABXcLf3Ii9niXp55rSKDaqyelj8Q+1ZlB3gjIt/0RGdKCY6Y
+ msD/Hql5puJ3ip7ltNIILq8P5PBiVq/L0zjFu3QoLgXMXbsjAvoPJb0w9/TxmAs0v2Bc
+ kfqzMJ1IYgz6CskDpEtINT8vQsL6LcawSHipczl9zx0gY8zdJLJqLRhZiJ280SfBRzfp
+ t0sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685473973;
+ s=strato-dkim-0002; d=strato.com;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+ From:Subject:Sender;
+ bh=SWANTZ5LEi/i+/1OmwNVpeU8Q7B6L98dYRwCag1X3IU=;
+ b=I/X0CW8WhEp2A4za5NpiYhBoom9IHdgSls/ubMEOPaT8J1rbLK3S1KeSPh9/cdkImH
+ Mc8Gtpp5K7lG02FNrycaMZHZZneNAaamPSrI3sLh3NStwALNiYBo6Ba6gzeVo48veVVv
+ N5jF3q9VoQqQkomhORZllXoV/2IWine2tS9h2wO8CB+tepaYN5KpXU+NufA+68ihYoGw
+ cujGTpWNvsslgYNFMWeB28bjgScQ4WGRPHD8ST6PW5hl9eYrF+7T46DPoFYNxtfZNSe4
+ 7iMTZcmRrH7j8YkVp4sBWi4RRA4b9+tJtwumAF2NhFfz8kAZp4PuRDdb9TRFjh3WBYqE
+ GTrw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685473973;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+ From:Subject:Sender;
+ bh=SWANTZ5LEi/i+/1OmwNVpeU8Q7B6L98dYRwCag1X3IU=;
+ b=FP15hFHt7bpGY5RHvuIydONPTqUWgn24aeD7J7cIsVVjJXLrUejy1YuCBUDpJevVXz
+ rPBRIk/7SgXG2EaWgrXi0HBJVyZ7muRUNHrCjJhuyeCCi31FNHu8r9kcSGXq+Uh2H+qE
+ CaYRYiiwjsGhO0zC4y5I2XPVjzAeRPWjr2MNaunRs9YQpWYliWqoYHmc5At14PMNm8Kx
+ Xphp8uejnz0yblvdUpE7iYSL45VJuH5lT/g2uZXqGKgIgVAgj3qFjZZxaVcMtQWp00CU
+ 00mW+9EyixBVFTDmsODxP1yOZ5bsRMtTO+bofUgdoFf9drpApWxf5CShK7feZklkUKNl
+ YxIA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685473973;
+ s=strato-dkim-0003; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+ From:Subject:Sender;
+ bh=SWANTZ5LEi/i+/1OmwNVpeU8Q7B6L98dYRwCag1X3IU=;
+ b=0vKC/pbXCFw865TKgWIbeMWtQkGyD0pg9Z0RZOOHqaY3uiXaPDPu+L1OTpT1tORz68
+ RTtLOfqc4pWs5wpougBg==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u261EJF5OxJD4peA95nh"
+Received: from gerhold.net by smtp.strato.de (RZmta 49.4.0 DYNA|AUTH)
+ with ESMTPSA id j6420az4UJCqjnU
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 30 May 2023 21:12:52 +0200 (CEST)
+Date: Tue, 30 May 2023 21:12:46 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Luca Weiss <luca@z3ntu.xyz>
+Message-ID: <ZHZKriRXoh9gHpWg@gerhold.net>
 References: <20230308-msm8226-mdp-v2-0-e005b769ee28@z3ntu.xyz>
-In-Reply-To: <20230308-msm8226-mdp-v2-0-e005b769ee28@z3ntu.xyz>
-To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3445; i=luca@z3ntu.xyz;
- h=from:subject:message-id; bh=z/aQiTQcE2QuOfic75RRo/hFCpeXMEDvL82sQ0eB9MU=;
- b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBkdj9XQ26mD638qkdilZENNBfMnjNRu6b0TrM9i
- x5nSITiamCJAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZHY/VwAKCRBy2EO4nU3X
- VnLUEACNBeNSCjbsj9aGEIRQvH3o2vtqRbOvDk1zU6BBbiSmbXGGieqeWgf9FXKZhiGQnUqICnG
- D387FPjOyiicfJ6MYqFNbcGgWiFQIbfTdcdBGXSkOxH1Kk3Issd3qQ1rhIhBKrjRMR+geDo/DAt
- XlxcxB+3/DVPPuvjLM0y5ZIKCqriFjP5zla9Y0qpGsvWrK3E4SqyyajciObw7ZiGWFkbM7rn4fY
- WyAqFoFStaRYCRl+etjNwL/hiiq/EO91rK+jUwTugLrJVJHoxtun+yeu24BI3cJz6/POGnpGKU2
- y5aUG8C1AznkHXBOHTKBleqMRwr5SgjUstlCCiYiZtdO+7Vn4I7lIE31LMFx7C7/lgzFHvveRph
- TasTKWPQFROsT408+XGDL2gMaFf5884CEmACaEn+UWzI5KCSG/OpwUFI9AUimawI67VV21z0gS0
- XNLPEw2N+7Qz/IubFzbMzlvnL4UDwZiW+vy4o+QqphcvK4wms6ke2co5aED9B/JFxrqYeMzFBcl
- vuDuFXJCFGtvM7UZlS6suSn0NZOOaEyW2SOrCFqbfuvNGWjuBa8SJ/CONwBlsxfEbLIET85jWti
- rGguMvuupfUzUS+YXnGFbcxOpGMgvWvHAfyCV6jj/WhxH22uouhYvUk1MqOVoq+Hvb8DOHyYIiG
- EewI8xHb5XplNzg==
-X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
- fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
-Subject: [Freedreno] [PATCH v2 7/7] ARM: dts: qcom: msm8226: Add mdss nodes
+ <20230308-msm8226-mdp-v2-7-e005b769ee28@z3ntu.xyz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230308-msm8226-mdp-v2-7-e005b769ee28@z3ntu.xyz>
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 7/7] ARM: dts: qcom: msm8226: Add mdss
+ nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,159 +87,196 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Luca Weiss <luca@z3ntu.xyz>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Andy Gross <agross@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the nodes that describe the mdss so that display can work on
-MSM8226.
+On Tue, May 30, 2023 at 08:24:17PM +0200, Luca Weiss wrote:
+> Add the nodes that describe the mdss so that display can work on
+> MSM8226.
+> 
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
 
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
----
- arch/arm/boot/dts/qcom-msm8226.dtsi | 127 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 127 insertions(+)
+Can you update this to use labels like in [1]? See inline below.
+This will allow proper grouping of the labels in the board DT.
 
-diff --git a/arch/arm/boot/dts/qcom-msm8226.dtsi b/arch/arm/boot/dts/qcom-msm8226.dtsi
-index 42acb9ddb8cc..c794f5ece1d1 100644
---- a/arch/arm/boot/dts/qcom-msm8226.dtsi
-+++ b/arch/arm/boot/dts/qcom-msm8226.dtsi
-@@ -636,6 +636,133 @@ smd-edge {
- 				label = "lpass";
- 			};
- 		};
-+
-+		mdss: display-subsystem@fd900000 {
-+			compatible = "qcom,mdss";
-+			reg = <0xfd900000 0x100>, <0xfd924000 0x1000>;
-+			reg-names = "mdss_phys", "vbif_phys";
-+
-+			power-domains = <&mmcc MDSS_GDSC>;
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			clock-names = "iface",
-+				      "bus",
-+				      "vsync";
-+
-+			interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges;
-+
-+			status = "disabled";
-+
-+			mdp: display-controller@fd900000 {
-+				compatible = "qcom,msm8226-mdp5", "qcom,mdp5";
-+				reg = <0xfd900100 0x22000>;
-+				reg-names = "mdp_phys";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_VSYNC_CLK>;
-+				clock-names = "iface",
-+					      "bus",
-+					      "core",
-+					      "vsync";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdp5_intf1_out: endpoint {
-+							remote-endpoint = <&dsi0_in>;
-+						};
-+					};
-+				};
-+			};
-+
-+			dsi0: dsi@fd922800 {
-+				compatible = "qcom,msm8226-dsi-ctrl",
-+					     "qcom,mdss-dsi-ctrl";
-+				reg = <0xfd922800 0x1f8>;
-+				reg-names = "dsi_ctrl";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <4>;
-+
-+				assigned-clocks = <&mmcc BYTE0_CLK_SRC>,
-+						  <&mmcc PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&dsi_phy0 0>,
-+							 <&dsi_phy0 1>;
-+
-+				clocks = <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MDSS_BYTE0_CLK>,
-+					 <&mmcc MDSS_PCLK0_CLK>,
-+					 <&mmcc MDSS_ESC0_CLK>,
-+					 <&mmcc MMSS_MISC_AHB_CLK>;
-+				clock-names = "mdp_core",
-+					      "iface",
-+					      "bus",
-+					      "byte",
-+					      "pixel",
-+					      "core",
-+					      "core_mmss";
-+
-+				phys = <&dsi_phy0>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						dsi0_in: endpoint {
-+							remote-endpoint = <&mdp5_intf1_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dsi0_out: endpoint {
-+						};
-+					};
-+				};
-+			};
-+
-+			dsi_phy0: phy@fd922a00 {
-+				compatible = "qcom,dsi-phy-28nm-8226";
-+				reg = <0xfd922a00 0xd4>,
-+				      <0xfd922b00 0x280>,
-+				      <0xfd922d80 0x30>;
-+				reg-names = "dsi_pll",
-+					    "dsi_phy",
-+					    "dsi_phy_regulator";
-+
-+				#clock-cells = <1>;
-+				#phy-cells = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>,
-+					 <&rpmcc RPM_SMD_XO_CLK_SRC>;
-+				clock-names = "iface",
-+					      "ref";
-+			};
-+		};
- 	};
- 
- 	timer {
+Thanks,
+Stephan
 
--- 
-2.40.1
+[1]: https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/commit/?h=for-next&id=835f939501769253eb7eb2dc5389b8592a63a3ed
 
+> ---
+>  arch/arm/boot/dts/qcom-msm8226.dtsi | 127 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 127 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/qcom-msm8226.dtsi b/arch/arm/boot/dts/qcom-msm8226.dtsi
+> index 42acb9ddb8cc..c794f5ece1d1 100644
+> --- a/arch/arm/boot/dts/qcom-msm8226.dtsi
+> +++ b/arch/arm/boot/dts/qcom-msm8226.dtsi
+> @@ -636,6 +636,133 @@ smd-edge {
+>  				label = "lpass";
+>  			};
+>  		};
+> +
+> +		mdss: display-subsystem@fd900000 {
+> +			compatible = "qcom,mdss";
+> +			reg = <0xfd900000 0x100>, <0xfd924000 0x1000>;
+> +			reg-names = "mdss_phys", "vbif_phys";
+> +
+> +			power-domains = <&mmcc MDSS_GDSC>;
+> +
+> +			clocks = <&mmcc MDSS_AHB_CLK>,
+> +				 <&mmcc MDSS_AXI_CLK>,
+> +				 <&mmcc MDSS_VSYNC_CLK>;
+> +			clock-names = "iface",
+> +				      "bus",
+> +				      "vsync";
+> +
+> +			interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			interrupt-controller;
+> +			#interrupt-cells = <1>;
+> +
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +			ranges;
+> +
+> +			status = "disabled";
+> +
+> +			mdp: display-controller@fd900000 {
+
+			mdss_mdp:
+
+> +				compatible = "qcom,msm8226-mdp5", "qcom,mdp5";
+> +				reg = <0xfd900100 0x22000>;
+> +				reg-names = "mdp_phys";
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <0>;
+> +
+> +				clocks = <&mmcc MDSS_AHB_CLK>,
+> +					 <&mmcc MDSS_AXI_CLK>,
+> +					 <&mmcc MDSS_MDP_CLK>,
+> +					 <&mmcc MDSS_VSYNC_CLK>;
+> +				clock-names = "iface",
+> +					      "bus",
+> +					      "core",
+> +					      "vsync";
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						mdp5_intf1_out: endpoint {
+
+						mdss_mdp_intf1_out:
+
+> +							remote-endpoint = <&dsi0_in>;
+> +						};
+> +					};
+> +				};
+> +			};
+> +
+> +			dsi0: dsi@fd922800 {
+
+			mdss_dsi0:
+
+> +				compatible = "qcom,msm8226-dsi-ctrl",
+> +					     "qcom,mdss-dsi-ctrl";
+> +				reg = <0xfd922800 0x1f8>;
+> +				reg-names = "dsi_ctrl";
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <4>;
+> +
+> +				assigned-clocks = <&mmcc BYTE0_CLK_SRC>,
+> +						  <&mmcc PCLK0_CLK_SRC>;
+> +				assigned-clock-parents = <&dsi_phy0 0>,
+> +							 <&dsi_phy0 1>;
+> +
+> +				clocks = <&mmcc MDSS_MDP_CLK>,
+> +					 <&mmcc MDSS_AHB_CLK>,
+> +					 <&mmcc MDSS_AXI_CLK>,
+> +					 <&mmcc MDSS_BYTE0_CLK>,
+> +					 <&mmcc MDSS_PCLK0_CLK>,
+> +					 <&mmcc MDSS_ESC0_CLK>,
+> +					 <&mmcc MMSS_MISC_AHB_CLK>;
+> +				clock-names = "mdp_core",
+> +					      "iface",
+> +					      "bus",
+> +					      "byte",
+> +					      "pixel",
+> +					      "core",
+> +					      "core_mmss";
+> +
+> +				phys = <&dsi_phy0>;
+> +
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						dsi0_in: endpoint {
+
+						mdss_dsi0_in:
+
+> +							remote-endpoint = <&mdp5_intf1_out>;
+> +						};
+> +					};
+> +
+> +					port@1 {
+> +						reg = <1>;
+> +						dsi0_out: endpoint {
+
+						mdss_dsi0_out:
+
+> +						};
+> +					};
+> +				};
+> +			};
+> +
+> +			dsi_phy0: phy@fd922a00 {
+
+			mdss_dsi0_phy:
+
+> +				compatible = "qcom,dsi-phy-28nm-8226";
+> +				reg = <0xfd922a00 0xd4>,
+> +				      <0xfd922b00 0x280>,
+> +				      <0xfd922d80 0x30>;
+> +				reg-names = "dsi_pll",
+> +					    "dsi_phy",
+> +					    "dsi_phy_regulator";
+> +
+> +				#clock-cells = <1>;
+> +				#phy-cells = <0>;
+> +
+> +				clocks = <&mmcc MDSS_AHB_CLK>,
+> +					 <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +				clock-names = "iface",
+> +					      "ref";
+> +			};
+> +		};
+>  	};
+>  
+>  	timer {
+> 
+> -- 
+> 2.40.1
+> 
