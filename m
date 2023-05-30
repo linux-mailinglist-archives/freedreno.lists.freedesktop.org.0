@@ -2,63 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B5BC716E79
-	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 22:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC69717142
+	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 01:06:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4824F10E420;
-	Tue, 30 May 2023 20:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93C2410E43F;
+	Tue, 30 May 2023 23:06:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
- [IPv6:2607:f8b0:4864:20::1130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0B9910E41B
- for <freedreno@lists.freedesktop.org>; Tue, 30 May 2023 20:14:31 +0000 (UTC)
-Received: by mail-yw1-x1130.google.com with SMTP id
- 00721157ae682-565ba6aee5fso58495137b3.1
- for <freedreno@lists.freedesktop.org>; Tue, 30 May 2023 13:14:31 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94FE110E43F
+ for <freedreno@lists.freedesktop.org>; Tue, 30 May 2023 23:06:28 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4f3bb395e69so6002998e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 30 May 2023 16:06:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685477671; x=1688069671;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=n9PhFw6EqXKj/DjQH85Ps097cPd6lOxV2adiWzAyXMY=;
- b=uP+H06dQN5AfH4nA+D3U5/f29oBlCpAgAY/Sfdkkn0KucPXUsBlr9QZUOMcexRO8hF
- rRPysPENw6yKThs+UJo0kSvEiXkxkRyiKjj8BISN7UUkHrBpuk9Osq0pT2Xjln76ayx/
- CNuipU9ccvJtgvkFumt3DfVxA5babPUSCwDzRdpz7sC8RYnpAVzlCDSboYPtivbsimEA
- DRGIB6whPv4RTPBI2DyOCrsWVuE3UzvezGOEr+NKjVu5wa5uTaph3ufEuGSUMaXDVWwU
- TglC+zULylPkTFZ6Dh8dCWwQlZa8UMiJeQfuq8gjH57ZtTHAa+vjMDvc/oYwu6zr0B4R
- Qc1w==
+ d=linaro.org; s=google; t=1685487986; x=1688079986;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xoE1Va3lrsP1lB13pDuMNR1cXTdryjflT/7nlUUK6Rc=;
+ b=b8/2G2fdB+56Tbp9PnkNRhs5zFlFXYvGJknohLMPNOc8uFbDoU7RrOpy1kpJmg62J2
+ rpiEGcZb5E3uM0apJGYSHoKc79LHtMJK4iKqj8feuEdQKGe6HYTGghnT6fWUO4BojeIj
+ kqsExpqKuk7NPJlRZ6MverGw+84MZ3hI722UbTviJx+de3ks7uwqsijSdfNZUqsOnXJ9
+ QEVeHO66RRKg1fkOq31yvRLLsaWR30CmZmyQO1zHM9TEH4Mg/C3xw1+QO0lLpHVXgkeJ
+ g3A9V6bXQztxaXY7JWnu27nqbRkUhRs4pB/YEF1qtin0twCYiJdNQMbuBmV41x0Q1CeS
+ DW/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685477671; x=1688069671;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=n9PhFw6EqXKj/DjQH85Ps097cPd6lOxV2adiWzAyXMY=;
- b=Fq2RvbSkszDTYRPTcShuBJHLligaWiCmkOvt+IbNOeOQ9bsaAfI8S0j4jzp7Unlp7g
- UF0d6IKtMvZ0g4QHvB37UvPdkRD6ypr1JjKD7jkE98r1W4mO+fHVhVsJgbASTHMnPwl8
- 7x66QIgvTL8CEGZZGJmElF9GNIckn20XYlKmBQ8LZ/o3dim1o5WWMppMgajYVjsAieXO
- QJF4iyOIvq2n8mG72k9zJonHn0uV/L69s3BHV+7KzCNm160oFPpf76WdcsX3fFg1hQhb
- pXQN7oM5+SBHfOHspEFZ6ruf57HIlClDI6q9pq4PQkRvre1FltVHpzofZFATCirl7rlE
- hYYA==
-X-Gm-Message-State: AC+VfDy+h7zaJ1QbLJMyKHQGn0pPt88DW2mCkuGLGO9/WYqJlC5thyeS
- e5S0GKQlRW6K4Mut5kr0eQkqBVYTuG5mz0apPV4zNw==
-X-Google-Smtp-Source: ACHHUZ59cFtiwvOV4dMWsQ/BceJCxYHiJSRU7xd4rWZLxQAVVu325eR1vgGEksuIHWnmsEl+0Yvy5dpYVHm9Y/ZjG3k=
-X-Received: by 2002:a81:c310:0:b0:561:7351:f56f with SMTP id
- r16-20020a81c310000000b005617351f56fmr3759086ywk.24.1685477670706; Tue, 30
- May 2023 13:14:30 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1685487986; x=1688079986;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xoE1Va3lrsP1lB13pDuMNR1cXTdryjflT/7nlUUK6Rc=;
+ b=Sgl33lVCWm+tMdpYKM0J7derRstgzcjjQnn96xk7HxlKwHDEynYRVgAgLaz2UK0DBz
+ dCatlpNqkh41EdtS6q9FN5XqG//v00mF7eO8y6OyCHEyWHB7aCaVpEFiXBF2sgOL3ldc
+ xbK3J3j5WF2YHrhLzMBgi5SqgwCoZtyGc8KSF7oFGGgi6m6MvnPCZegYKCJkD9DVL0KL
+ 9Lg0QX27jC2cGQe8EDdP3cLzUrx/CEzgNg4LImG4oUxO/vzsX8kbL7tOZPiuVicq4mIZ
+ 5AUEmEX6jfW46eB836M0AJyKs+MjsOC+0r3Up4sB8aGP+4z90Sxa6GJ9f6XGLcq/N0O2
+ lArQ==
+X-Gm-Message-State: AC+VfDznJQtta/7jqe38juav20TRexRN8Hmb4eVESmAIzu/DNDaUebi8
+ mIuJnJwUIKQuDVfcwrk0wUGuWw==
+X-Google-Smtp-Source: ACHHUZ5vqEiOKQt+AwXDfF7NvKz9AQrvbyjiDTMb/5ktfTARtcQduzonA0aupU0Gc6Bo6oCvvzki8w==
+X-Received: by 2002:ac2:5a0d:0:b0:4f3:aaea:6d48 with SMTP id
+ q13-20020ac25a0d000000b004f3aaea6d48mr1515508lfn.63.1685487986417; 
+ Tue, 30 May 2023 16:06:26 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ f12-20020a19ae0c000000b004f378fbb358sm483832lfc.112.2023.05.30.16.06.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 May 2023 16:06:25 -0700 (PDT)
+Message-ID: <dfa12c8b-ccec-261c-9c83-54536e17c02d@linaro.org>
+Date: Wed, 31 May 2023 02:06:24 +0300
 MIME-Version: 1.0
-References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
- <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
- <bvjtgmuyz4zdjvt4jyjyt5hasiwnnaz4lyse6mf6b7grtig23f@yuji3z2mxue2>
- <c18c8687-0c4e-894e-a629-bc55e54031c5@quicinc.com>
- <6se25tikdg2tkiprz4h4umfta34tc5orddksvwi6woklf7c74k@rbserwp5kt3a>
- <9001aaaf-778e-5b3c-e87f-2b196d8b62ed@quicinc.com>
-In-Reply-To: <9001aaaf-778e-5b3c-e87f-2b196d8b62ed@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, andersson@kernel.org
+References: <1685464318-25031-1-git-send-email-quic_khsieh@quicinc.com>
+ <1685464318-25031-3-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 30 May 2023 23:14:19 +0300
-Message-ID: <CAA8EJpp2mGcOHf5KJ8Zt_MQK+grAvbb=tVtaiT7MBLzCis20fg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
+In-Reply-To: <1685464318-25031-3-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dpu: retrieve DSI DSC struct
+ at atomic_check()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,104 +82,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 30 May 2023 at 20:37, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 5/29/2023 2:36 PM, Marijn Suijten wrote:
-> > On 2023-05-24 12:18:09, Abhinav Kumar wrote:
-> >>
-> >>
-> >> On 5/24/2023 2:48 AM, Marijn Suijten wrote:
-> >>> On 2023-05-23 13:01:13, Abhinav Kumar wrote:
-> >>>>
-> >>>>
-> >>>> On 5/21/2023 10:21 AM, Dmitry Baryshkov wrote:
-> >>>>> Drop SSPP-specifig debugfs register dumps in favour of using
-> >>>>> debugfs/dri/0/kms or devcoredump.
-> >>>>>
-> >>>>
-> >>>> I did see another series which removes src_blk from the catalog (I am
-> >>>> yet to review that one) . Lets assume that one is fine and this change
-> >>>> will be going on top of that one right?
-> >>>
-> >>> It replaces src_blk with directly accessing the blk (non-sub-block)
-> >>> directly, because they were overlapping anyway.
-> >>>
-> >>>> The concern I have with this change is that although I do agree that we
-> >>>> should be in favor of using debugfs/dri/0/kms ( i have used it a few
-> >>>> times and it works pretty well ), devcoredump does not have the support
-> >>>> to dump sub-blocks . Something which we should add with priority because
-> >>>> even with DSC blocks with the separation of enc/ctl blocks we need that
-> >>>> like I wrote in one of the responses.
-> >>>>
-> >>>> So the "len" of the blocks having sub-blocks will be ignored in favor of
-> >>>> the len of the sub-blocks.
-> >>>
-> >>> The sub-blocks are not always contiguous with their parent block, are
-> >>> they?  It's probably better to print the sub-blocks separately with
-> >>
-> >> Yes, not contiguous otherwise we could have just had them in one big range.
-> >>
-> >>> clear headers anyway rather than dumping the range parent_blk_base to
-> >>> max(parent_blk_base+len, parent_blk_base+sblk_base+sblk_len...).
-> >>>
-> >>> - Marijn
-> >>
-> >> When I meant sub-block support to devcoredump, this is how I visualize
-> >> them to be printed
-> >>
-> >> =========================SSPP xxx =======================
-> >> =========================SSPP_CSC =======================(for SSPP_xxx)
-> >> =========================SSPP_QSEED =====================(for SSPP_xxx)
-> >
-> > Yeah something along those lines, though I don't really like the `(for
-> > SSPP_xxx)` suffix which we should either drop entirely and make the
-> > "heading" less of a "heading"
-> >
->
-> I wrote that "for SSPP_xxx" to explain the idea, ofcourse it wont be
-> part of the print itself.
->
-> Without that, it matches what you have shared below.
->
->
-> > ========================= SSPP xxx =======================
-> > ...
-> > ------------------------- SSPP_CSC -----------------------
-> > ...
-> > ------------------------- SSPP_QSEED ---------------------
-> > ...
-> >
-> > And/or inline the numbers:
-> >
-> > ========================= SSPP xxx =======================
-> > ...
-> > ----------------------- SSPP_xxx_CSC ---------------------
-> > ...
-> > ---------------------- SSPP_xxx_QSEED --------------------
-> > ...
+On 30/05/2023 19:31, Kuogee Hsieh wrote:
+> At current implementation, DSI DSC struct is populated at display setup
+> during system bootup. This mechanism works fine with embedded display.
+> But will run into problem with plugin/unplug oriented external display,
+> such as DP, due to DSC struct will become stale once external display
+> unplugged. New DSC struct has to be re populated to reflect newer external
+> display which just plugged in. Move retrieving of DSI DSC struct to
+> atomic_check() so that same mechanism will work for both embedded display
+> and external plugin/unplug oriented display.
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 ++++++++++++++-
+>   drivers/gpu/drm/msm/msm_drv.h               |  6 ++++++
+>   2 files changed, 20 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 3b416e1..2927d20 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -16,6 +16,8 @@
+>   #include <drm/drm_crtc.h>
+>   #include <drm/drm_file.h>
+>   #include <drm/drm_probe_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_fixed.h>
+>   
+>   #include "msm_drv.h"
+>   #include "dpu_kms.h"
+> @@ -639,6 +641,15 @@ static int dpu_encoder_virt_atomic_check(
+>   		}
+>   	}
+>   
+> +	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
 
-I'd prefer this format. It eases grepping.
+INTF_DSI
 
-> >
->
-> sure this is also fine with me.
->
-> > Either works, or any other pattern in the title (e.g `SSPP xxx: CSC`)
-> > that clearly tells the blocks and sub-blocks apart.
-> >
-> > - Marijn
+> +		struct drm_bridge *bridge;
+> +
+> +		if (!dpu_enc->dsc) {
 
+This condition is not correct. We should be updating the DSC even if 
+there is one.
 
+> +			bridge = drm_bridge_chain_get_first_bridge(drm_enc);
+> +			dpu_enc->dsc = msm_dsi_bridge_get_dsc_config(bridge);
+
+This approach will not work for the hot-pluggable outputs. The dpu_enc 
+is not a part of the state. It should not be touched before 
+atomic_commit actually commits changes.
+
+Also, I don't think I like the API. It makes it impossible for the 
+driver to check that the bridge is the actually our DSI bridge or not.
+Once you add DP here, the code will explode.
+
+I think instead we should extend the drm_bridge API to be able to get 
+the DSC configuration from it directly. Additional care should be put to 
+design an assymetrical API. Theoretically a drm_bridge can be both DSC 
+source and DSC sink. Imagine a DSI-to-DP or DSI-to-HDMI bridge, 
+supporting DSC on the DSI side too.
+
+> +		}
+> +	}
+> +
+>   	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
+>   
+>   	/*
+> @@ -2121,8 +2132,10 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
+>   					phys_enc->hw_pp->merge_3d->idx);
+>   	}
+>   
+> -	if (dpu_enc->dsc)
+> +	if (dpu_enc->dsc) {
+>   		dpu_encoder_unprep_dsc(dpu_enc);
+> +		dpu_enc->dsc = NULL;
+> +	}
+>   
+>   	intf_cfg.stream_sel = 0; /* Don't care value for video mode */
+>   	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index e13a8cb..5a7c1f4 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -341,6 +341,7 @@ bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
+>   bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
+>   bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
+>   struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi);
+> +struct drm_dsc_config *msm_dsi_bridge_get_dsc_config(struct drm_bridge *bridge);
+>   #else
+>   static inline void __init msm_dsi_register(void)
+>   {
+> @@ -374,6 +375,11 @@ static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_
+>   {
+>   	return NULL;
+>   }
+> +
+> +struct drm_dsc_config *msm_dsi_bridge_get_dsc_config(struct drm_bridge *bridge)
+> +{
+> +	return NULL;
+> +}
+
+These two chunks belong to the previous patch.
+
+>   #endif
+>   
+>   #ifdef CONFIG_DRM_MSM_DP
 
 -- 
 With best wishes
 Dmitry
+
