@@ -1,75 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8829471714E
-	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 01:07:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BD8D717205
+	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 01:52:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5350510E43F;
-	Tue, 30 May 2023 23:07:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26CA810E43D;
+	Tue, 30 May 2023 23:52:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA6F10E43F
- for <freedreno@lists.freedesktop.org>; Tue, 30 May 2023 23:07:42 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2af1e290921so53303121fa.3
- for <freedreno@lists.freedesktop.org>; Tue, 30 May 2023 16:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685488060; x=1688080060;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=aZBYZqm2QX9cYcGeEqnnE5rqTJSxRk4/JBiXuTiUxM0=;
- b=ulU+69wC13TRns9H2O4cl+nn9Tz8PwxPmBGH5PNA5IJHmcDcqr4OY3NcBQ5ialQbdJ
- bL9wumq+ipUUiEBgXf+dQO64M5/jlSPXdd9TOXfLDyi34sLTtdCae1lPq+Lov8MZTt11
- GPFB53UzyMHTv0GbSXrrQkVs2s7tRGqyyw5UiBm19a2fjdjsnwN/JZJn5WIM6tDvB0zy
- BSIGjGnT0AHRIdP/VKdLLE/EH5z8y36+GJWsh5R/nl/nbS5r36LdNEj0OrWN1WTVnEL3
- UzNufZw6i23RzNQIsWiLs+A1gUGcYNTSMFwQjelbwHM+OnEp/FOgYgpEzYp5JBD0blNU
- zUOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685488060; x=1688080060;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aZBYZqm2QX9cYcGeEqnnE5rqTJSxRk4/JBiXuTiUxM0=;
- b=chaxte09YzZiMEpKfir4eWCugC0X3hhjN4fV9Hc13HCJG/4TZNUf2yZEP5rqnG8v5n
- e8+Z4+Gg3PplzILm7TOlUvTLhdYlK5QL5GSkUwIoDFePbv1RGYFl8nI1/H/qvel0HcgG
- KuhkUqZFKUY5Bpi5stka0AVYyc/k4kpkfs9uIEAbJbvJSayMjAO+zIJEiTj2ppfYsmdg
- lkTakoGG5iFuxzliz4FGZHHa/FXdzlYCBEw8wRwDi5w0gIc2jJEhay2HHbpSufZWukhW
- 5VlwnCtyNQVRIghiLlKtwPddUqGEt1LQrd0Qv5ovMDmIa7rjPCAgFuzcn9I+NQ07DuPI
- KKMQ==
-X-Gm-Message-State: AC+VfDxpaai5a6lbqdcLjKV74di6SKmeNLzYvTceJMoIZArWHc3dCiOO
- jUH+QM0s2QpPY9AYKxWv83H6FA==
-X-Google-Smtp-Source: ACHHUZ5Ej9llgNKtAHQ57gkDu3OnNpoWD2Lx9icO+8TRpW35FdeXVdc2sZL1MNWqROBGbmmQgDUuwQ==
-X-Received: by 2002:a05:651c:10b:b0:2af:d2ef:49d4 with SMTP id
- a11-20020a05651c010b00b002afd2ef49d4mr1515001ljb.1.1685488060177; 
- Tue, 30 May 2023 16:07:40 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- u3-20020a2e9b03000000b002aeee2a093csm3044298lji.59.2023.05.30.16.07.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 May 2023 16:07:39 -0700 (PDT)
-Message-ID: <64fbc753-d8aa-6845-c530-f76999e8c7b9@linaro.org>
-Date: Wed, 31 May 2023 02:07:38 +0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE5310E008;
+ Tue, 30 May 2023 23:52:03 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34UN5tYp003532; Tue, 30 May 2023 23:51:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : from : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=zL9X9ZEYdYD3dGMRWM21vapdd4lMB6Whvz4k/8XL9LU=;
+ b=WUSW5ejCBgiGS2E77Hcw/yE4SUJGAxUSVA2I+r4kPh7Kadrn3rSM2ggUYlSln8/3Xq7M
+ S/eC5HucBT2CqDlamO1jt5SscZOxythvoOJX6yGbmmq6CbSfLk20kYTjvUWa5tBbmhay
+ 21OXlSs75CrnzaqcSELhLCYpa/hlLRuQ16thMxBcUSzM1BdZPDaNC2fzFlNUjUGcdt9g
+ Sk0zH3L0h/uF3bI9Tq4+bFhm0tmhBuTz+1vkDrIhGKtWrFyx2IqyL6W3PfxDlgNnMXrN
+ wLuAddpQAiQX1CRaT7p+Js/yULs0JKfbsYtzwDxQpEtb0Ild6qu0ZyKZk4g18bt/KYXO Xg== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qvwm4u9kx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 May 2023 23:51:56 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34UNpjGx012592
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 May 2023 23:51:45 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 30 May
+ 2023 16:51:44 -0700
+Message-ID: <210642df-ebae-ca53-d7ea-e8b9b30f21c9@quicinc.com>
+Date: Tue, 30 May 2023 16:51:43 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1685464318-25031-1-git-send-email-quic_khsieh@quicinc.com>
- <1685464318-25031-4-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1685464318-25031-4-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 3/3] drm/msm/dpu: remove
- msm_dsi_get_dsc_config()
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230519023855.3840907-1-dmitry.baryshkov@linaro.org>
+ <557a8aee-37b9-5654-c82c-97206576ab44@quicinc.com>
+ <CAA8EJpp+ODZZu13ehAN-9Ehz87HCdXsXvO3DQ-oxAhKcb2rqtA@mail.gmail.com>
+ <af7ab667-1be4-7391-d0a9-6f9e7439eb6d@linaro.org>
+ <b0be5965-0dc9-c33c-9cba-21bfa82c4faf@linaro.org>
+ <249baf98-5264-b2cb-4213-5bcd00a670c9@quicinc.com>
+ <CAA8EJpp4m85ubkfs7erLVxydHi_S7Xp7neNjh22z=tMnvrWsQA@mail.gmail.com>
+ <a4bda0d3-767e-9ed4-ae59-db9cc843cd48@quicinc.com>
+In-Reply-To: <a4bda0d3-767e-9ed4-ae59-db9cc843cd48@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: wBoxWRcIuvtqJ-vJ0jVOFurwXSPYscZl
+X-Proofpoint-GUID: wBoxWRcIuvtqJ-vJ0jVOFurwXSPYscZl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-30_17,2023-05-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ adultscore=0 bulkscore=0 mlxscore=0 malwarescore=0 mlxlogscore=999
+ phishscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2304280000 definitions=main-2305300195
+Subject: Re: [Freedreno] [PATCH v2 0/7] drm/msm/dpu: simplify DPU encoder
+ init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,30 +90,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+Cc: Sean Paul <sean@poorly.run>, neil.armstrong@linaro.org,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/05/2023 19:31, Kuogee Hsieh wrote:
-> Since msm_dsi_bridge_get_dsc_config() was added to retrieve DSI DSC
-> info through DRM bridge, msm_dsi_get_dsc_config() become redundant
-> and should be removed.
+
+
+On 5/23/2023 12:30 PM, Abhinav Kumar wrote:
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 --
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 2 --
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 2 --
->   drivers/gpu/drm/msm/dsi/dsi.c               | 5 -----
->   drivers/gpu/drm/msm/msm_drv.h               | 6 ------
->   5 files changed, 17 deletions(-)
+> 
+> On 5/23/2023 12:23 PM, Dmitry Baryshkov wrote:
+>> On Tue, 23 May 2023 at 22:14, Abhinav Kumar 
+>> <quic_abhinavk@quicinc.com> wrote:
+>>>
+>>>
+>>>
+>>> On 5/23/2023 7:36 AM, Dmitry Baryshkov wrote:
+>>>> On 23/05/2023 10:31, Neil Armstrong wrote:
+>>>>> On 23/05/2023 09:20, Dmitry Baryshkov wrote:
+>>>>>> On Tue, 23 May 2023 at 04:58, Abhinav Kumar
+>>>>>> <quic_abhinavk@quicinc.com> wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>> On 5/18/2023 7:38 PM, Dmitry Baryshkov wrote:
+>>>>>>>> Rework dpu_encoder initialization code, simplifying calling 
+>>>>>>>> sequences
+>>>>>>>> and separating common init parts.
+>>>>>>>>
+>>>>>>>> Changes since v1:
+>>>>>>>> - Withdrawn two pathes for a later consideration
+>>>>>>>> - Changed dpu_encoder_phys_init() to return void (Abhinav)
+>>>>>>>> - Added small simplifications of dpu_encoder_phys_cmd_init() and
+>>>>>>>>      dpu_encoder_phys_wb_init()
+>>>>>>>>
+>>>>>>>
+>>>>>>> I had previously given these comments on the cover letter of v1, so
+>>>>>>> giving it again.
+>>>>>>>
+>>>>>>> Please mention that your series was made on top of
+>>>>>>> https://patchwork.freedesktop.org/series/116530/.
+>>>>>>>
+>>>>>>> Figured it out when I tried to apply it to my branch to test.
+>>>>>>>
+>>>>>>> I had tested v1, and between v1 and v2 i only see very trivial 
+>>>>>>> change,
+>>>>>>> so i think its okay to retain:
+>>>>>>>
+>>>>>>> Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
+>>>>>>
+>>>>>> Unfortunately patchwork ignores tags sent in the cover letter thread.
+>>>>>
+>>>>> But b4 does with -t option to b4 shazam or b4 am
+>>>>
+>>>> Yes. But b4 doesn't append Patchwork headers.
+>>>>
+>>>
+>>> If thats the case, either the author can add them to the patches
+>>> manually like we do sometimes for R-b tags OR I will go ahead and add it
+>>> one by one for every patch now.
+>>
+>> I'd prefer either to have a single T-B on the latest patch on the
+>> series, or a pile of replies with T-B tags. Thank you (for the testing
+>> and for providing the feedback).
+>> If we ever switch from git-pw to b4, this requirement will be lifted.
+>>
+> 
+> Latest patch means, the last one in the series?
+> 
+> In this case, that would look a bit odd as that one just removes a temp 
+> variable.
+> 
+> I will provide it on all the patches by tomorrow.
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This patch doesnt apply cleanly on msm-next-lumag now. Do you have to 
+rebase this? Otherwise please list the dependency on top of msm-next-lumag.
 
--- 
-With best wishes
-Dmitry
-
+>>>
+>>> Let me know what you prefer.
+>>>
+>>>>>
+>>>>> Neil
+>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>>> Dmitry Baryshkov (7):
+>>>>>>>>      drm/msm/dpu: merge dpu_encoder_init() and dpu_encoder_setup()
+>>>>>>>>      drm/msm/dpu: separate common function to init physical encoder
+>>>>>>>>      drm/msm/dpu: drop duplicated intf/wb indices from encoder 
+>>>>>>>> structs
+>>>>>>>>      drm/msm/dpu: inline dpu_encoder_get_wb()
+>>>>>>>>      drm/msm/dpu: call dpu_rm_get_intf() from 
+>>>>>>>> dpu_encoder_get_intf()
+>>>>>>>>      drm/msm/dpu: drop temp variable from 
+>>>>>>>> dpu_encoder_phys_cmd_init()
+>>>>>>>>      drm/msm/dpu: simplify dpu_encoder_phys_wb_init()
+>>>>>>>>
+>>>>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 178
+>>>>>>>> ++++++++----------
+>>>>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  14 +-
+>>>>>>>>     .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  15 +-
+>>>>>>>>     .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  35 ++--
+>>>>>>>>     .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  19 +-
+>>>>>>>>     .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  35 +---
+>>>>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  87 ++++-----
+>>>>>>>>     7 files changed, 140 insertions(+), 243 deletions(-)
+>>>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>
+>>
+>>
