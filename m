@@ -1,79 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F2A716B3D
-	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 19:38:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1625716C2E
+	for <lists+freedreno@lfdr.de>; Tue, 30 May 2023 20:24:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 891ED10E1E8;
-	Tue, 30 May 2023 17:38:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 729D310E3ED;
+	Tue, 30 May 2023 18:24:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CFF610E117;
- Tue, 30 May 2023 17:37:59 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34U8aqeb007650; Tue, 30 May 2023 17:37:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=z9UryKPY++sLkaBIxrTXU+ep6jQ1z+TFu7RofzWPkcA=;
- b=gEHApG58ZTY+64/99u63+HsYzinHk0w4qcLGoKgy/xAuC12ha2+baeF32qmZw4ZBsDpq
- HBKhxfJav3sxXvUtsP39BfdKJ4tHffpEzN/UoGOm7AqJMQkDFc5mxaMhRVWL6icj9Dcw
- SHcUW9Ksu11P0fsnEVXx9GLzLIhQepCqI4yEUrAMNj1BzGE4o8wRC/e3SjtWCQCdaAHH
- Fj4p2J4hqKgoR+Rr8Vj0mOWXtgwbvMavzEgkaHL0edfKycasIGmwcgQL9xZbaKgrBRay
- gg3SJXlolgUcIIOwK/J8fS+w2UqpXiwxxmglaAui7ka6FMvgtTVhULQ1wql3v7q/NKXU 5A== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qw8v4srd9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 May 2023 17:37:55 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34UHbtiP017023
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 May 2023 17:37:55 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 30 May
- 2023 10:37:54 -0700
-Message-ID: <9001aaaf-778e-5b3c-e87f-2b196d8b62ed@quicinc.com>
-Date: Tue, 30 May 2023 10:37:53 -0700
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4C110E3E4;
+ Tue, 30 May 2023 18:24:28 +0000 (UTC)
+Received: from [192.168.122.1] (84-115-214-73.cable.dynamic.surfer.at
+ [84.115.214.73])
+ by mail.z3ntu.xyz (Postfix) with ESMTPSA id 986E0CC497;
+ Tue, 30 May 2023 18:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1685471065; bh=wH9D4QPu75zLcE21916ThcXWPvIYfoofjYZww0iPay0=;
+ h=From:Subject:Date:To:Cc;
+ b=UfhTFpGGrFz0rDkLgLfhBRwN9BTbJ195AZL/rh+sFEYwC9Gmd8TRsbMrGBmvClNBj
+ ySCdArhD2GfpCfubgnMsP1Phs6QK6Mj3L+j81sDQXj/oAF4cOuww2QccUE/bWAxTZi
+ GPsfbVjPUpqrRQleRyWlRrI2wdS9Wgw6+iUAxyPE=
+From: Luca Weiss <luca@z3ntu.xyz>
+Date: Tue, 30 May 2023 20:24:10 +0200
+Message-Id: <20230308-msm8226-mdp-v2-0-e005b769ee28@z3ntu.xyz>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
- <300fc53c-2a58-714c-855a-08a0dbef3ed9@quicinc.com>
- <bvjtgmuyz4zdjvt4jyjyt5hasiwnnaz4lyse6mf6b7grtig23f@yuji3z2mxue2>
- <c18c8687-0c4e-894e-a629-bc55e54031c5@quicinc.com>
- <6se25tikdg2tkiprz4h4umfta34tc5orddksvwi6woklf7c74k@rbserwp5kt3a>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <6se25tikdg2tkiprz4h4umfta34tc5orddksvwi6woklf7c74k@rbserwp5kt3a>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: hDsi95Jad4DhLjwACCwN7FQjlS_fIf3J
-X-Proofpoint-GUID: hDsi95Jad4DhLjwACCwN7FQjlS_fIf3J
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-30_13,2023-05-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 mlxscore=0 mlxlogscore=462 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305300140
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
+X-B4-Tracking: v=1; b=H4sIAEo/dmQC/22OOw6DMBBEr4K2ziKzDoakyj0iCoNNcGFDbIL4i
+ LvHUKRK+UbzNLNB0N7oAPdkA68nE0zvItAlgaaT7qXRqMhAjDjjrEQbbEkk0KoBxZVnulSiIMk
+ gGrUMGmsvXdMdzrvp7a8vUkqXozR43Zr5nHxWkTsTxt4v54MpO9L/Y1OGDEVxaznPFVd5/Vi5G
+ z/pvKxQ7fv+BVxoBrzLAAAA
+To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1957; i=luca@z3ntu.xyz;
+ h=from:subject:message-id; bh=wH9D4QPu75zLcE21916ThcXWPvIYfoofjYZww0iPay0=;
+ b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBkdj9RSo2hMiSUGEnXG8SKEOHwLGh7+gRawCWDe
+ WUsIQ5MblyJAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZHY/UQAKCRBy2EO4nU3X
+ VkpoEACK9lwWOEnEdpUTdtUi4EIpjnarDW1DYk8eHzNNUG6sNR9Bb1YXUO+RXD/NGLw1nm3rzjA
+ whoMeTD3RyFqciJZF1MEId568OW6NyP2DBXqnBcP4pww39V2zLPql8e9egiNrx6hcjTeuzD2oTj
+ 3Zv6JuhkBftaE4d2lBrEPebm0W/DI3FGo0KGhpXVnYth+/TCEv/ws4Ni7v61VJPS1cMnUc8/YLZ
+ Xwsteogk8ZfKFtOcw2uvodiEWQYRwGOmjP+8lAEFzyyt8cDwT/YLM81jL/LMLUVQAsM4q0qu/j/
+ IRRkevY2JWc/19YJsjcPYdFkMBxXuek5lSTAo1a0m2YNvvFCVwGwLUBtkxkrSH34Xs5MEdEB0DV
+ t49bPQBqucuXiIHFcUTX547C8wW2VOTKJ6jBbxDoApa/wGDAtpK/5Wfo+0ZNk+0kaYgzBYgsfil
+ 7y6+wEU7eqPYLcVViG909t2aG8ddLZslJlsiiuAjYSqSPBqBA05uZy9IWD29+FoQobunldUgSiI
+ Q4cM4SkUEecwkp3Lco8aM2Lxu2DHwI+z7X7McECdHiCqnssIX6hegPRzX5uAvFXqJvjVxvOHWK8
+ DZTIgjh66dT2Gj8dou9ljft2J3NGsGrHz2Z4OYDfQNjz6k0mQxoxJAYRCa0lWBMFzPJc3C7aSXp
+ bKOnbhxEDGQIizA==
+X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
+ fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
+Subject: [Freedreno] [PATCH v2 0/7] Display support for MSM8226
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,93 +72,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Luca Weiss <luca@z3ntu.xyz>, Conor Dooley <conor.dooley@microchip.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series adds the required configs for MDP5 and DSI blocks that are
+needed for MDSS on MSM8226. Finally we can add the new nodes into the
+dts.
 
+Tested on apq8026-lg-lenok and msm8926-htc-memul.
 
-On 5/29/2023 2:36 PM, Marijn Suijten wrote:
-> On 2023-05-24 12:18:09, Abhinav Kumar wrote:
->>
->>
->> On 5/24/2023 2:48 AM, Marijn Suijten wrote:
->>> On 2023-05-23 13:01:13, Abhinav Kumar wrote:
->>>>
->>>>
->>>> On 5/21/2023 10:21 AM, Dmitry Baryshkov wrote:
->>>>> Drop SSPP-specifig debugfs register dumps in favour of using
->>>>> debugfs/dri/0/kms or devcoredump.
->>>>>
->>>>
->>>> I did see another series which removes src_blk from the catalog (I am
->>>> yet to review that one) . Lets assume that one is fine and this change
->>>> will be going on top of that one right?
->>>
->>> It replaces src_blk with directly accessing the blk (non-sub-block)
->>> directly, because they were overlapping anyway.
->>>
->>>> The concern I have with this change is that although I do agree that we
->>>> should be in favor of using debugfs/dri/0/kms ( i have used it a few
->>>> times and it works pretty well ), devcoredump does not have the support
->>>> to dump sub-blocks . Something which we should add with priority because
->>>> even with DSC blocks with the separation of enc/ctl blocks we need that
->>>> like I wrote in one of the responses.
->>>>
->>>> So the "len" of the blocks having sub-blocks will be ignored in favor of
->>>> the len of the sub-blocks.
->>>
->>> The sub-blocks are not always contiguous with their parent block, are
->>> they?  It's probably better to print the sub-blocks separately with
->>
->> Yes, not contiguous otherwise we could have just had them in one big range.
->>
->>> clear headers anyway rather than dumping the range parent_blk_base to
->>> max(parent_blk_base+len, parent_blk_base+sblk_base+sblk_len...).
->>>
->>> - Marijn
->>
->> When I meant sub-block support to devcoredump, this is how I visualize
->> them to be printed
->>
->> =========================SSPP xxx =======================
->> =========================SSPP_CSC =======================(for SSPP_xxx)
->> =========================SSPP_QSEED =====================(for SSPP_xxx)
-> 
-> Yeah something along those lines, though I don't really like the `(for
-> SSPP_xxx)` suffix which we should either drop entirely and make the
-> "heading" less of a "heading"
-> 
+Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+---
+Changes in v2:
+- In dsi-phy-28nm.yaml fix the order of the compatibles 1/7 (Conor)
+- Remove leftover debugging comments from 6/7 (Konrad)
+- Rewrap some clock-names lines and move status property last in 7/7
+  (Konrad)
+- Pick up tags
+- Link to v1: https://lore.kernel.org/r/20230308-msm8226-mdp-v1-0-679f335d3d5b@z3ntu.xyz
 
-I wrote that "for SSPP_xxx" to explain the idea, ofcourse it wont be 
-part of the print itself.
+---
+Luca Weiss (7):
+      dt-bindings: msm: dsi-phy-28nm: Document msm8226 compatible
+      dt-bindings: display/msm: dsi-controller-main: Add msm8226 compatible
+      dt-bindings: display/msm: qcom,mdp5: Add msm8226 compatible
+      drm/msm/mdp5: Add MDP5 configuration for MSM8226
+      drm/msm/dsi: Add configuration for MSM8226
+      drm/msm/dsi: Add phy configuration for MSM8226
+      ARM: dts: qcom: msm8226: Add mdss nodes
 
-Without that, it matches what you have shared below.
+ .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
+ .../bindings/display/msm/dsi-phy-28nm.yaml         |   3 +-
+ .../devicetree/bindings/display/msm/qcom,mdp5.yaml |   1 +
+ .../devicetree/bindings/display/msm/qcom,mdss.yaml |   1 +
+ arch/arm/boot/dts/qcom-msm8226.dtsi                | 127 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c           |  82 +++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   3 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c         |  97 ++++++++++++++++
+ 11 files changed, 319 insertions(+), 2 deletions(-)
+---
+base-commit: e5c87df1b3ab5220362ec48f907cc62ba8928b01
+change-id: 20230308-msm8226-mdp-6431e8d672a0
 
+Best regards,
+-- 
+Luca Weiss <luca@z3ntu.xyz>
 
-> ========================= SSPP xxx =======================
-> ...
-> ------------------------- SSPP_CSC -----------------------
-> ...
-> ------------------------- SSPP_QSEED ---------------------
-> ...
-> 
-> And/or inline the numbers:
-> 
-> ========================= SSPP xxx =======================
-> ...
-> ----------------------- SSPP_xxx_CSC ---------------------
-> ...
-> ---------------------- SSPP_xxx_QSEED --------------------
-> ...
-> 
-
-sure this is also fine with me.
-
-> Either works, or any other pattern in the title (e.g `SSPP xxx: CSC`)
-> that clearly tells the blocks and sub-blocks apart.
-> 
-> - Marijn
