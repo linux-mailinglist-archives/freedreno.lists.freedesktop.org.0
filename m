@@ -2,45 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBDF97179DF
-	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 10:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A7CD717B7C
+	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 11:13:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82FEE10E491;
-	Wed, 31 May 2023 08:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C38AD10E49C;
+	Wed, 31 May 2023 09:12:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC4110E491;
- Wed, 31 May 2023 08:20:31 +0000 (UTC)
-Received: from [192.168.88.20] (91-154-35-171.elisa-laajakaista.fi
- [91.154.35.171])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id AB62D7FC;
- Wed, 31 May 2023 10:20:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1685521207;
- bh=EL3RWdaIqfPKhp0EXpVPxPCT9ntFr8tTKWXlYphupWI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MvSXDrHk7T4BnPJqHjbFiTX+4V0oyXpM4JlCJJT+bzOMxSOycyjTIr/UAfnt1xezv
- qzMGM+1MWvguHV2odb3hKaYoA6dxUihmMViSPeeHPMA04EyWI4cWEcnv/H7riWMXBY
- LXCYZwLPo9seo/aN3CtoiK5GheRzH+ZTTqCtxMHI=
-Message-ID: <c4146861-3e8c-7410-4fec-27e7bce7e2de@ideasonboard.com>
-Date: Wed, 31 May 2023 11:20:24 +0300
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE2910E1CA
+ for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 09:12:56 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-30af86a966eso1224792f8f.2
+ for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 02:12:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685524375; x=1688116375;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=b+YQlgx1VFjGNM9jR4+GNT4YtqTgZVS0cajTtQFZxPY=;
+ b=TxgwASoWbYILqZMx1W+qJLLjUFcaq8VRufal5QmKv95NcDXZwa2NneqoeYjhsD96/0
+ wfqjbVUm2NUBapNFOcmvDvKAIhr6DzfTL3C7JBNsury9sdT8Ujc4dQpyMOzSIyrElG/D
+ MJ5JrgN92GvFuSM8u+O+P72L9t81wLayJDnPoe5M0IejPqt8abZAeBYRGt3sJCPPmX9k
+ llGPNvd7wKwPetElGvsC5pbltpMWAQ6GIWef6E2fV83EdFR3yjyF37SMHYO28qItls3k
+ prYaYkggSzcB67YRUUSkdSFT2WLspoPtqDHCq1+M8E4aJwC8Dj7u/HSwRbR833CoGbAx
+ kGgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685524375; x=1688116375;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=b+YQlgx1VFjGNM9jR4+GNT4YtqTgZVS0cajTtQFZxPY=;
+ b=LkxIVRQKYoxBZrsLbbVu/TQcIeiJNppjEXSyezAX3kN9cnqhNFFWEMBXO5IdoOFJxK
+ dWzCO2uCCfsTT55GoejwWOAkIZLOmXvcaEQ214+DwPHA5Mn84sxClQgX/g2iOfI5BNhF
+ Ah45KWe1Ek9qDZ48ZATtl9OmM7fp51s3xyn8atde4vPvjEegSUwEsCMkuLhgnrolaY59
+ gFH89Ic713anXq3ygwP5le3YP2QSjGMeslpfnUKnQcWGuaLAwjqb507F2nyyBKZf1JM4
+ FngW/eR9WcKyNMq8dDH3wdLAxsz5Asujli5FwIcFBXMhRjc7IO6JYUmsxc+egGebtBrz
+ AK4w==
+X-Gm-Message-State: AC+VfDxeQpBx6gZ3H/CktK5BuZ4dMYqJ3anWPax7ZnibhnT+XUvPg/xa
+ DAAtdmKT0tViPKe8zLScoFRDwI2+FacSfnQjveC83Q==
+X-Google-Smtp-Source: ACHHUZ63Rq1SiIBEGY8gi25g6h2KtY943yA6ZZTaGh4uMaC/0fDaORIAd9BOP/nEMenZLdqK/Nut7w==
+X-Received: by 2002:a5d:5150:0:b0:30a:e973:b182 with SMTP id
+ u16-20020a5d5150000000b0030ae973b182mr3192370wrt.1.1685524374979; 
+ Wed, 31 May 2023 02:12:54 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ cs1-20020a056000088100b002e5f6f8fc4fsm6117294wrb.100.2023.05.31.02.12.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 May 2023 02:12:54 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230531000259.3758235-1-dmitry.baryshkov@linaro.org>
+References: <20230531000259.3758235-1-dmitry.baryshkov@linaro.org>
+Message-Id: <168552437407.2007178.8614236021819101690.b4-ty@linaro.org>
+Date: Wed, 31 May 2023 11:12:54 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- javierm@redhat.com, sam@ravnborg.org, suijingfeng@loongson.cn
-References: <20230530150253.22758-1-tzimmermann@suse.de>
- <20230530150253.22758-9-tzimmermann@suse.de>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <20230530150253.22758-9-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 08/13] drm/omapdrm: Use regular fbdev I/O
- helpers
+X-Mailer: b4 0.12.2
+Subject: Re: [Freedreno] [PATCH v3 0/3] drm/bridge: display-connector: add
+ external supply support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,83 +82,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/05/2023 18:02, Thomas Zimmermann wrote:
-> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-> helpers. Omapdrm does not use damage handling, so DRM's fbdev helpers
-> are mere wrappers around the fbdev code.
-> 
-> By using fbdev helpers directly within each DRM fbdev emulation,
-> we can eventually remove DRM's wrapper functions entirely.
-> 
-> v4:
-> 	* use initializer macros for struct fb_ops
-> v2:
-> 	* use FB_SYS_HELPERS option
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Tomi Valkeinen <tomba@kernel.org>
-> ---
->   drivers/gpu/drm/omapdrm/Kconfig      |  1 +
->   drivers/gpu/drm/omapdrm/omap_fbdev.c | 11 +++--------
->   2 files changed, 4 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/omapdrm/Kconfig b/drivers/gpu/drm/omapdrm/Kconfig
-> index 76ded1568bd0..b4ac76c9f31b 100644
-> --- a/drivers/gpu/drm/omapdrm/Kconfig
-> +++ b/drivers/gpu/drm/omapdrm/Kconfig
-> @@ -4,6 +4,7 @@ config DRM_OMAP
->   	depends on DRM && OF
->   	depends on ARCH_OMAP2PLUS
->   	select DRM_KMS_HELPER
-> +	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
->   	select VIDEOMODE_HELPERS
->   	select HDMI
->   	default n
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> index b950e93b3846..b7ccce0704a3 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> @@ -4,6 +4,8 @@
->    * Author: Rob Clark <rob@ti.com>
->    */
->   
-> +#include <linux/fb.h>
-> +
->   #include <drm/drm_drv.h>
->   #include <drm/drm_crtc_helper.h>
->   #include <drm/drm_fb_helper.h>
-> @@ -95,20 +97,13 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
->   
->   static const struct fb_ops omap_fb_ops = {
->   	.owner = THIS_MODULE,
-> -
-> +	FB_DEFAULT_SYS_OPS,
->   	.fb_check_var	= drm_fb_helper_check_var,
->   	.fb_set_par	= drm_fb_helper_set_par,
->   	.fb_setcmap	= drm_fb_helper_setcmap,
->   	.fb_blank	= drm_fb_helper_blank,
->   	.fb_pan_display = omap_fbdev_pan_display,
->   	.fb_ioctl	= drm_fb_helper_ioctl,
-> -
-> -	.fb_read = drm_fb_helper_sys_read,
-> -	.fb_write = drm_fb_helper_sys_write,
-> -	.fb_fillrect = drm_fb_helper_sys_fillrect,
-> -	.fb_copyarea = drm_fb_helper_sys_copyarea,
-> -	.fb_imageblit = drm_fb_helper_sys_imageblit,
-> -
->   	.fb_destroy = omap_fbdev_fb_destroy,
->   };
->   
+Hi,
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+On Wed, 31 May 2023 03:02:56 +0300, Dmitry Baryshkov wrote:
+> On some devices the 5V pin of the HDMI connector and/or the ESD
+> protection logic is powered on by a separate regulator. The dp-connector
+> for such usecases provides dp-pwr supply support. Follow this example
+> and make hdmi-connector support the hdmi-pwr supply.
+> 
+> Changes since v2:
+> - Changed to use proper supply name instead of hardcoded "dp-pwr" (Neil)
+> 
+> [...]
 
-  Tomi
+Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
+
+[1/3] dt-bindings: display: hdmi-connector: add hdmi-pwr supply
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=41b74821751466457dc8b87606ac4d71ec568d4e
+[2/3] drm/bridge: display-connector: rename dp_pwr to connector_pwr
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=99304fd0050314a0c998c28300393ec574998db9
+[3/3] drm/bridge: display-connector: handle hdmi-pwr supply
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=6eb6b6f0a012993070b26dacb5ea1ff5fc233c18
+
+-- 
+Neil
 
