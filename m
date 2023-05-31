@@ -2,64 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3BE47188D9
-	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 19:53:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 917B9718920
+	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 20:13:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8517810E500;
-	Wed, 31 May 2023 17:53:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E63689233;
+	Wed, 31 May 2023 18:13:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0547310E500
- for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 17:53:24 +0000 (UTC)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-565ba2c7554so49401997b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 10:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685555604; x=1688147604;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dqEFokutPlWHp6iUC83Xjciu2KQ+BavT6TGVpdRnlGk=;
- b=EwfgnWll56GCjBcN1cIZ2Apaci26NiYl7FrcVAXCG7aRlFZmfBTA2ZErk5/YRUt3+L
- 6oGWzV6JxeRNo1LeDkRzouJkskwx0giwJpnQmYG23W6gKXnPVe0UFb9l4w03zQUvdtVj
- aRGmsoNtALgyFf9mrc3/VoNlBy5nawN8xPLyPGfNQLbbOsge1XxyFAEXeAsU6MaPOwc8
- /guGT1UXBcxA/QmM2kGRwEGEUIku46WsFp89FXBwXb0uVqP3sRGjPB13g/HdR1Sr2Ylw
- 80xexz0qm27he4N4vO0vohadJzPgDpVFW4S81i+oz9lgrIU7y1nWkOTkR7csYMv9ma1o
- udBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685555604; x=1688147604;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dqEFokutPlWHp6iUC83Xjciu2KQ+BavT6TGVpdRnlGk=;
- b=mHx2QnnRp2t6qwVIDxPM3pS+2gecV7/l+IqIpH/ogB0vCD/whprvU/hNyn6HBOSDpt
- BdBM5Agkmw3HOT1zg5gETouU6xGPm0/87swqsyGcwFjKT10/fqnpyaLvdSLSCYMv0j7k
- lAiUTegfsZruTLTs8drUl2x9E2jXml7waruwZ60HgqXX4j8mx/BlRO3EqiSHWbcILMa1
- //75wzViTkaZRNPhVgyoiBLBSsrRoARvc1+qJyNU9qDqxfIazhlfZzwlbi+NYOJPHVUg
- cb1Gv/ossBzo2xzAt/upoHBOTq1oDPNQZE1iKf9Ij0LaxdAFZHA3QxUVCstZRj3Txctm
- VJpA==
-X-Gm-Message-State: AC+VfDwJf3CnPale3YPSdFHhLen1/6EZ0GOR2LAuFjotIQndrUEVguFb
- qmrzgkHhI3LypzW8A0Fnx0ED1tw1DtZPZjw8cOfCwg==
-X-Google-Smtp-Source: ACHHUZ53vNWX+g9NG7x1PjohENCM9c217qPR01yiSb6haDYnSF3yL9PFSNFfSq1sZz8ugsuL++LHR2Rn0O/zdrb2HPo=
-X-Received: by 2002:a81:92c2:0:b0:564:e527:4d7 with SMTP id
- j185-20020a8192c2000000b00564e52704d7mr5979020ywg.25.1685555603892; Wed, 31
- May 2023 10:53:23 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D913289233;
+ Wed, 31 May 2023 18:13:43 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34V8H132017586; Wed, 31 May 2023 18:13:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding : to : cc; s=qcppdkim1;
+ bh=jnC3UWZnuMssmGRIBn9FSVa8jE7AqeAfSgZoP5/O3N0=;
+ b=D0nisQ/26DSNKKyF35ki3qG9qNt2DjpqAsKYI/e3wepbdvzl2IOJN4x1MUgCT3r6l6RN
+ 5F9ezzTrtv8EXxtU0qqtv00jwPrIbIPIb2V9hr5414uV1x4fEPiAnCOogXaquEyfYKpW
+ nglfxm8hiwaBIE5UaBsk/rbspNosEynBt7ZA0jENVd2RZbUXkA2EoUoMFWCbpy6ut+8r
+ KWJc0X6ZTStwdHhx5/OJd+pOdu0Xdz8eauwMTf6eyrzv7W+Z3xdKnowOV+Vy96CIcl05
+ D/VHqMrLjrIx+kFTJrPOzoV+rvZPHkOXbwKVdtmW49w28UL2ybW/oOB63zefnlsKYoex SA== 
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qwwbtj24a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 May 2023 18:13:23 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34VID2OU003020
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 May 2023 18:13:02 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Wed, 31 May 2023 11:13:02 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Wed, 31 May 2023 11:12:31 -0700
+Message-ID: <20230516-b4-r66451-panel-driver-v2-0-9c8d5eeef579@quicinc.com>
 MIME-Version: 1.0
-References: <1685464318-25031-1-git-send-email-quic_khsieh@quicinc.com>
- <1685464318-25031-3-git-send-email-quic_khsieh@quicinc.com>
- <dfa12c8b-ccec-261c-9c83-54536e17c02d@linaro.org>
- <157e8219-7af2-c7ed-6d99-3caa6fbc11ba@quicinc.com>
- <CAA8EJponkEne2vVsNP=2Fxmv=Uc6i_LzAGBSEz9hPPotCEpGzg@mail.gmail.com>
- <e69f02b7-eba9-5f33-5ca1-eb0638928414@quicinc.com>
-In-Reply-To: <e69f02b7-eba9-5f33-5ca1-eb0638928414@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 31 May 2023 20:53:13 +0300
-Message-ID: <CAA8EJpr9dfrrEsFf8heOvG3BWRTVCY-q1QYNH_3OBeMAWEwotA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dpu: retrieve DSI DSC struct
- at atomic_check()
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA+Od2QC/4WOQQ6CMBBFr0K6dkxbComuXHsEDYtOGWASKNgCw
+ RDuLnABl+/nv/y/ikiBKYp7sopAM0fu/Q76kgjXWF8TcLmz0FKnMlM5oIGQ5yZTMFhPLZSBZwq
+ AlTSYVZiWmRa7jDYSYLDeNYf+fEEXO/C0jNBOna2PzhCo4uUcfxc7NxzHPnzPL7M60r+zswIJR
+ iuJDlHl5vb4TOzYu6vrO1Fs2/YDjmxi8eIAAAA=
+To: Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg
+ <sam@ravnborg.org>, David Airlie <airlied@gmail.com>, Daniel Vetter
+ <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>
+X-Mailer: b4 0.13-dev-02a79
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1685556782; l=1788;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=B/0asQMdL/LaMmqd6zsaL7/B67ZX+CdyB2w5irB73ZM=;
+ b=rmN+Kn7iTcoh9RA9AcHB6gM4BSHF0ITtk9n0jy/bl0XRVSbg+hepYYe8i7cFWhqVnY6yzy1FC
+ /fJOBnlo96yAs2RmG5f6KCcaJcHvlSaE+dPXGuZI4GEjdauMwhw5dXU
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: zZgrGm3JFetZolnrrAtLk7x9Ba-dU8eK
+X-Proofpoint-ORIG-GUID: zZgrGm3JFetZolnrrAtLk7x9Ba-dU8eK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-31_12,2023-05-31_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 mlxscore=0
+ malwarescore=0 mlxlogscore=719 adultscore=0 spamscore=0 suspectscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305310154
+Subject: [Freedreno] [PATCH v2 0/2] Add support for Visionox R66451 AMOLED
+ DSI panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,80 +93,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 31 May 2023 at 20:29, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 5/31/2023 10:12 AM, Dmitry Baryshkov wrote:
-> > On Wed, 31 May 2023 at 18:41, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >>
-> >>
-> >>>>    +    if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-> >>> INTF_DSI
-> >>>
-> >>>> +        struct drm_bridge *bridge;
-> >>>> +
-> >>>> +        if (!dpu_enc->dsc) {
-> >>> This condition is not correct. We should be updating the DSC even if
-> >>> there is one.
-> >>>
-> >>>> +            bridge = drm_bridge_chain_get_first_bridge(drm_enc);
-> >>>> +            dpu_enc->dsc = msm_dsi_bridge_get_dsc_config(bridge);
-> >>> This approach will not work for the hot-pluggable outputs. The dpu_enc
-> >>> is not a part of the state. It should not be touched before
-> >>> atomic_commit actually commits changes.
-> >> where can drm_dsc_config be stored?
-> > I'd say, get it during atomic_check (and don't store it anywhere).
-> > Then get it during atomic_enable (and save in dpu_enc).
-> got it.
-> >
-> >>> Also, I don't think I like the API. It makes it impossible for the
-> >>> driver to check that the bridge is the actually our DSI bridge or not.
-> >>> Once you add DP here, the code will explode.
-> >>>
-> >>> I think instead we should extend the drm_bridge API to be able to get
-> >>> the DSC configuration from it directly. Additional care should be put
-> >>> to design an assymetrical API. Theoretically a drm_bridge can be both
-> >>> DSC source and DSC sink. Imagine a DSI-to-DP or DSI-to-HDMI bridge,
-> >>> supporting DSC on the DSI side too.
-> >> Form my understanding, a bridge contains two interfaces.
-> >>
-> >> Therefore I would think only one bridge for dsi-to-dp bridge? and this
-> >> bridge should represent the bridge chip?
-> >>
-> >> I am thinking adding an ops function, get_bridge_dsc() to struct
-> >> drm_bridge_funcs to retrieve drm_dsc_config.
-> > So, for this DSI-to-DP bridge will get_bridge_dsc() return DSC
-> > configuration for  the DSI or for the DP side of the bridge?
->
-> I would think should be DP side. there is no reason to enable dsc on
-> both DSI and DP fro a bridge chip.
+Add support for the 1080x2340 Visionox R66451 AMOLED DSI panel that
+comes with the Qualcomm HDK8350 display expansion pack.
 
-Well, there can be. E.g. to lower the clock rates of the DSI link.
+The driver will come with display compression (DSC v1.2) enabled by
+default.
 
->
-> drm_bridge_chain_get_first_bridge(drm_enc) should return the bridge of
-> the controller.
->
-> In DSI-to-DP bridge chip case, this controller will be the bridge chip
-> who configured to perform protocol conversion between DSI and DP.
->
-> If DSC enabled should be at DP size which connect to panel.
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+Changes in v2:
+- Reworded panel bindings commit message for brevity (Krzysztof)
+- Used corresponding *_set_column_address() and *_set_page_address() DCS
+  helper methods (Dmitry)
+- Moved *_set_display_[on|off]() and *_[exit|enter]_sleep_mode() calls
+  into _enable() and _disable(), respectively (Dmitry)
+- Dropped cpu_to_le16() conversion for
+  mipi_dsi_dcs_set_display_brightness() (Dmitry)
+- Unset LPM flag after DCS commands are sent in _on() (Dmitry)
+- Used real numbers for mode values (Dmitry)
+- Used drm_connector_helper_get_modes_fixed() in get_modes() (Dmitry)
+- Added BACKLIGHT_CLASS_DEVICE as a Kconfig dependency (Neil)
+- Added error handling for mipi_dsi_picture_parameter_set() (Marijn)
+- Dropped "0x" for dcs->bits_per_pixel value (Marijn)
+- Link to v1: https://lore.kernel.org/r/20230516-b4-r66451-panel-driver-v1-0-4210bcbb1649@quicinc.com
 
-Ok, so it returns the DSC configuration of the bridge's source side.
-Now let's consider a panel bridge for the DSC-enabled DSI panel.
-Should get_bridge_dsc() return a DSC config in this case?
+---
+Jessica Zhang (2):
+      dt-bindings: display: panel: Add Visionox R66451 AMOLED DSI panel
+      drm/panel: Add driver for Visionox r66451 panel
 
-> >> Do you have other suggestion?
-> > Let me think about it for a few days.
+ .../bindings/display/panel/visionox,r66451.yaml    |  59 ++++
+ drivers/gpu/drm/panel/Kconfig                      |   9 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-visionox-r66451.c      | 390 +++++++++++++++++++++
+ 4 files changed, 459 insertions(+)
+---
+base-commit: a5abc0900af0cfb1b8093200a265d2791864f26b
+change-id: 20230516-b4-r66451-panel-driver-bf04b5fb3d52
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
