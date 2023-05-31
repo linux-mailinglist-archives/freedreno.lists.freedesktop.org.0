@@ -2,56 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C13771796B
-	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 10:02:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBDF97179DF
+	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 10:20:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D101D10E491;
-	Wed, 31 May 2023 08:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82FEE10E491;
+	Wed, 31 May 2023 08:20:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4B910E491;
- Wed, 31 May 2023 08:02:10 +0000 (UTC)
-Received: from [IPV6:2001:b07:2ed:14ed:a962:cd4d:a84:1eab] (unknown
- [IPv6:2001:b07:2ed:14ed:a962:cd4d:a84:1eab])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 980BD6605840;
- Wed, 31 May 2023 09:02:07 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1685520128;
- bh=AUgmp4uHtrPVbg+VOwRc6ifmtXREBu7e0Y6wlWAnSr0=;
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC4110E491;
+ Wed, 31 May 2023 08:20:31 +0000 (UTC)
+Received: from [192.168.88.20] (91-154-35-171.elisa-laajakaista.fi
+ [91.154.35.171])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id AB62D7FC;
+ Wed, 31 May 2023 10:20:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1685521207;
+ bh=EL3RWdaIqfPKhp0EXpVPxPCT9ntFr8tTKWXlYphupWI=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eLW3Xfmmt4Ri4pJ7KJCHSfcuvjrQMC44UhKMt6X2i1wJT9ecIAHO033v1swOdEOye
- R9gDswxF/pBPL1jp67uwOSDq0JcltrOauhfqT+H4B34ov9QcU48HdEw8rRDL2iTooJ
- r63ie3iDRtARF03aNXQKu3bkyFojYolt4wL06A1SbbHeNDgXfzpF/xOiB4OV+/UVAY
- 7wnOSwCrJw8pxjUOkrzgR+W7CFSQg925qjZ/Se9Dfv8zkUo2A02iLH7NuioEq45iFh
- MJxr5tdxtZ7w8Wmt6JQMnwhvoK1Fiuspqm1+7zPXXvoVQcDXg5LC6Tumu2GUwlpDG+
- 0m0hsQQVbgtGw==
-Message-ID: <491055de-93f5-952e-4e37-9b00299a1d2d@collabora.com>
-Date: Wed, 31 May 2023 10:02:04 +0200
+ b=MvSXDrHk7T4BnPJqHjbFiTX+4V0oyXpM4JlCJJT+bzOMxSOycyjTIr/UAfnt1xezv
+ qzMGM+1MWvguHV2odb3hKaYoA6dxUihmMViSPeeHPMA04EyWI4cWEcnv/H7riWMXBY
+ LXCYZwLPo9seo/aN3CtoiK5GheRzH+ZTTqCtxMHI=
+Message-ID: <c4146861-3e8c-7410-4fec-27e7bce7e2de@ideasonboard.com>
+Date: Wed, 31 May 2023 11:20:24 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-To: neil.armstrong@linaro.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org>
- <20230521-drm-panels-sony-v1-3-541c341d6bee@somainline.org>
- <ccc97880-8e74-b85b-9679-9c12c44c4b99@linaro.org>
- <brmrqeajbq3oyp3jjwmc6tuhiftz764u6az444xw6g7pwf5fr3@5tlp375qwhed>
- <617c8f8a-1fc7-c6a0-eaa5-ce75ff2adc1b@linaro.org>
- <CAA8EJppG=MAVpK1J_8bNnkJ23y9NtgY7a2GVResXJvhEKyNsrw@mail.gmail.com>
- <739a8bd9-9ff0-5072-fdae-b64efdf86842@collabora.com>
- <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
- <83c36957-cc85-c7e3-3fe5-f86562e003ee@linaro.org>
+ Thunderbird/102.11.0
 Content-Language: en-US
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <83c36957-cc85-c7e3-3fe5-f86562e003ee@linaro.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ javierm@redhat.com, sam@ravnborg.org, suijingfeng@loongson.cn
+References: <20230530150253.22758-1-tzimmermann@suse.de>
+ <20230530150253.22758-9-tzimmermann@suse.de>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <20230530150253.22758-9-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
- drm/panel: Add LGD panel driver for Sony Xperia XZ3)
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 08/13] drm/omapdrm: Use regular fbdev I/O
+ helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,194 +53,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, Caleb Connolly <caleb@connolly.tech>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Andy Gross <agross@kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Il 30/05/23 17:44, Neil Armstrong ha scritto:
-> On 30/05/2023 14:36, Dmitry Baryshkov wrote:
->> On 30/05/2023 15:15, AngeloGioacchino Del Regno wrote:
->>> Il 30/05/23 13:44, Dmitry Baryshkov ha scritto:
->>>> On Tue, 30 May 2023 at 10:24, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->>>>>
->>>>> Hi Marijn, Dmitry, Caleb, Jessica,
->>>>>
->>>>> On 29/05/2023 23:11, Marijn Suijten wrote:
->>>>>> On 2023-05-22 04:16:20, Dmitry Baryshkov wrote:
->>>>>> <snip>
->>>>>>>> +   if (ctx->dsi->dsc) {
->>>>>>>
->>>>>>> dsi->dsc is always set, thus this condition can be dropped.
->>>>>>
->>>>>> I want to leave room for possibly running the panel without DSC (at a
->>>>>> lower resolution/refresh rate, or at higher power consumption if there
->>>>>> is enough BW) by not assigning the pointer, if we get access to panel
->>>>>> documentation: probably one of the magic commands sent in this driver
->>>>>> controls it but we don't know which.
->>>>>
->>>>> I'd like to investigate if DSC should perhaps only be enabled if we
->>>>> run non certain platforms/socs ?
->>>>>
->>>>> I mean, we don't know if the controller supports DSC and those particular
->>>>> DSC parameters so we should probably start adding something like :
->>>>>
->>>>> static drm_dsc_config dsc_params_qcom = {}
->>>>>
->>>>> static const struct of_device_id panel_of_dsc_params[] = {
->>>>>          { .compatible = "qcom,sm8150", , .data = &dsc_params_qcom },
->>>>>          { .compatible = "qcom,sm8250", , .data = &dsc_params_qcom },
->>>>>          { .compatible = "qcom,sm8350", , .data = &dsc_params_qcom },
->>>>>          { .compatible = "qcom,sm8450", , .data = &dsc_params_qcom },
->>>>> };
->>>>
->>>> I think this would damage the reusability of the drivers. The panel
->>>> driver does not actually care if the SoC is SM8350, sunxi-something or
->>>> RCar.
->>>> Instead it cares about host capabilities.
->>>>
->>>> I think instead we should extend mipi_dsi_host:
->>>>
->>>> #define MIPI_DSI_HOST_MODE_VIDEO BIT(0)
+On 30/05/2023 18:02, Thomas Zimmermann wrote:
+> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+> helpers. Omapdrm does not use damage handling, so DRM's fbdev helpers
+> are mere wrappers around the fbdev code.
 > 
-> I assume all DSI controller supports Video mode, so it should be a negative here
-> if for a reason it's not the case.
-
-Either all positive or all negative... and yes I agree that all DSI controllers
-support video mode nowadays, but:
-  - Will that be true for future controllers? (likely yes, but you never know)
-  - Is there any controller driver not implementing video mode?
-    - Will there be one in the future?
-
+> By using fbdev helpers directly within each DRM fbdev emulation,
+> we can eventually remove DRM's wrapper functions entirely.
 > 
-> There should also be a flag to tell if sending LP commands sending while
-> in HS Video mode is supported.
+> v4:
+> 	* use initializer macros for struct fb_ops
+> v2:
+> 	* use FB_SYS_HELPERS option
 > 
-
-+1. This is the case for both qcom and mtk.
-
->>>> #define MIPI_DSI_HOST_MODE_CMD  BIT(1)
->>>> #define MIPI_DSI_HOST_VIDEO_SUPPORTS_COMMANDS BIT(2)
->>>> // FIXME: do we need to provide additional caps here ?
->>>>
->>>> #define MIPI_DSI_DSC_1_1 BIT(0)
->>>> #define MIPI_DSI_DSC_1_2 BIT(1)
->>>> #define MIPI_DSI_DSC_NATIVE_422 BIT(2)
->>>> #define MIPI_DSI_DSC_NATIVE_420 BIT(3)
->>>> #define MIPI_DSI_DSC_FRAC_BPP BIT(4)
->>>> // etc.
->>>>
->>>> struct mipi_dsi_host {
->>>>   // new fields only
->>>>    unsigned long mode_flags;
->>>>    unsigned long dsc_flags;
->>>> };
->>>>
->>>> Then the panel driver can adapt itself to the host capabilities and
->>>> (possibly) select one of the internally supported DSC profiles.
->>>>
->>>
->>> I completely agree about extending mipi_dsi_host, other SoCs could reuse that and
->>> support for DSC panels would become a lot cleaner.
->>
->> Sounds good. I will wait for one or two more days (to get the possible feedback 
->> on fields/flags/etc) and post an RFC patch to dri-devel.
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Tomi Valkeinen <tomba@kernel.org>
+> ---
+>   drivers/gpu/drm/omapdrm/Kconfig      |  1 +
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c | 11 +++--------
+>   2 files changed, 4 insertions(+), 8 deletions(-)
 > 
-> Good, I was waiting until a DSC panel appears on the list (and I failed to be the 
-> first), it's now the case.
-> 
-> For VTRD6130, the panel is capable of the 4 modes:
-> - video mode
-> - command mode
-> - video mode & DSC
-> - command mode & DSC
-> 
-> So it would need such info to enable one of the mode in some order to determine.
-> 
+> diff --git a/drivers/gpu/drm/omapdrm/Kconfig b/drivers/gpu/drm/omapdrm/Kconfig
+> index 76ded1568bd0..b4ac76c9f31b 100644
+> --- a/drivers/gpu/drm/omapdrm/Kconfig
+> +++ b/drivers/gpu/drm/omapdrm/Kconfig
+> @@ -4,6 +4,7 @@ config DRM_OMAP
+>   	depends on DRM && OF
+>   	depends on ARCH_OMAP2PLUS
+>   	select DRM_KMS_HELPER
+> +	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
+>   	select VIDEOMODE_HELPERS
+>   	select HDMI
+>   	default n
+> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> index b950e93b3846..b7ccce0704a3 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> @@ -4,6 +4,8 @@
+>    * Author: Rob Clark <rob@ti.com>
+>    */
+>   
+> +#include <linux/fb.h>
+> +
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_crtc_helper.h>
+>   #include <drm/drm_fb_helper.h>
+> @@ -95,20 +97,13 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+>   
+>   static const struct fb_ops omap_fb_ops = {
+>   	.owner = THIS_MODULE,
+> -
+> +	FB_DEFAULT_SYS_OPS,
+>   	.fb_check_var	= drm_fb_helper_check_var,
+>   	.fb_set_par	= drm_fb_helper_set_par,
+>   	.fb_setcmap	= drm_fb_helper_setcmap,
+>   	.fb_blank	= drm_fb_helper_blank,
+>   	.fb_pan_display = omap_fbdev_pan_display,
+>   	.fb_ioctl	= drm_fb_helper_ioctl,
+> -
+> -	.fb_read = drm_fb_helper_sys_read,
+> -	.fb_write = drm_fb_helper_sys_write,
+> -	.fb_fillrect = drm_fb_helper_sys_fillrect,
+> -	.fb_copyarea = drm_fb_helper_sys_copyarea,
+> -	.fb_imageblit = drm_fb_helper_sys_imageblit,
+> -
+>   	.fb_destroy = omap_fbdev_fb_destroy,
+>   };
+>   
 
-Dynamically determining is not trivial, as that depends on multiple variables:
-  - Availability of the modes (obviously)
-  - Available lanes
-    - Available bandwidth per lane
-      - Available total bandwidth
-  - Power consumption considerations (DSC IP may be using more or less power
-    depending on the actual SoC//controller)
-    - Thermal management: DSC may make no thermal sense as in, more heat output
-      vs thermal envelope (laptop vs embedded vs handset)
-  - Others
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-Hence, the implementation should also provide a way of choosing a preferred mode
-on a per-controller basis (DSC or no compression).
-
-Just a few considerations that came to mind with a good sleep.
-
-Cheers!
-
-> Thanks,
-> Neil
->>
->>>
->>> For example, on MediaTek DRM there's some support for DSC, more or less the same
->>> for SPRD DRM and some DSI bridge drivers... having a clean infrastructure would
->>> definitely help.
->>>
->>> I'm sad I cannot offer testing in that case because despite being sure that there
->>> are MTK smartphones around with DSI panels using DSC, I have none... and all of the
->>> Chromebooks are not using DSC anyway (but using DisplayPort compression, which is
->>> obviously an entirely different beast).
->>>
->>>>>
->>>>> ...
->>>>> static int sony_akatsuki_lgd_probe(struct mipi_dsi_device *dsi)
->>>>> ...
->>>>>          const struct of_device_id *match;
->>>>>
->>>>> ...
->>>>>          match = of_match_node(panel_of_dsc_params, of_root);
->>>>>          if (match && match->data) {
->>>>>                  dsi->dsc = devm_kzalloc(&dsi->dev, sizeof(*dsc), GFP_KERNEL);
->>>>>                  memcpy(dsi->dsc, match->data, sizeof(*dsc));
->>>>>          } else {
->>>>>                  dev_warn(&dsi->dev, "DSI controller is not marked as 
->>>>> supporting DSC\n");
->>>>>          }
->>>>> ...
->>>>> }
->>>>>
->>>>> and probably bail out if it's a DSC only panel.
->>>>>
->>>
->>> Usually DDICs support both DSC and non-DSC modes, depending on the initial
->>> programming (read: init commands)... but the usual issue is that many DDICs
->>> are not publicly documented for reasons, so yes, bailing out if DSC is not
->>> supported would be the only option, and would be fine at this point.
->>>
->>> Cheers,
->>> Angelo
->>>
->>>>> We could alternatively match on the DSI controller's dsi->host->dev instead of 
->>>>> the SoC root compatible.
->>>>>
->>>>> Neil
->>>>
->>>
->>
-> 
+  Tomi
 
