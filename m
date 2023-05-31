@@ -2,71 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED8E97184C9
-	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 16:23:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54D3771868D
+	for <lists+freedreno@lfdr.de>; Wed, 31 May 2023 17:41:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E8D10E4E7;
-	Wed, 31 May 2023 14:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43D3C10E1C2;
+	Wed, 31 May 2023 15:41:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA9810E4E7
- for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 14:23:04 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id
- e9e14a558f8ab-33b4552e55cso2838375ab.0
- for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 07:23:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1685542982; x=1688134982;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BEeMcGwsmQcWXT4vssRRefgYUtAVUNcH/IZjc9KyPZo=;
- b=nl6ZncCyLlb0//swZpa/cW1OOoof1YurlLrT0As3THnOC5paCGiiezrAe6ZP3mFMyL
- lfeBOvC/VUPhAOWMUQv7M1tmzulReiXgR0kmhKXkRmc8r6Nh8x3t9H6V1okoxEoO1vyX
- hci3H0ASHYLYkRFxcFeaPkTkVVan8Zfp4oNCY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685542982; x=1688134982;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=BEeMcGwsmQcWXT4vssRRefgYUtAVUNcH/IZjc9KyPZo=;
- b=U4U8hq2mN1cKZZL5kmfa2tJwarjxhIY6pAIMwC8Ukzx0j6WJCogmfh6wq7Aycxg330
- J3g70bN6i2HZ8FDJDBXYzlLnbyF8hk2QjO3BVdvi7TxT2rJKeFWTeS10Y6SUH7cO2l4v
- 1DKWGpUAjE3fz2Vt8uBfHTPQHps/8pPhe1/7lMwwEYmg1UCnrt6gO2qizX+JGn78hXEf
- EUZALbtU7sqCwDBTCBK2RoSUlsqmxtFN0Vl0S1b1uXkt+UTZSrLeK6AqTCpextHfgqyf
- aQvjV+NiP0lMXc9+tO2BLFkOZTeyvj1DSZVyfcUalhwcA0Is2BmAskV1nFhvBYLBo0Gt
- RgFw==
-X-Gm-Message-State: AC+VfDwYxeqKUT4F6knuSus24VD051mXWUZzenPvrcwHLUxU1hkYA71Z
- N5Besy7YYzbkEecDt0W8kDyhpOVaz/6IUZqE1bE=
-X-Google-Smtp-Source: ACHHUZ5ZMImoT4pGNkH6EOex3X0LaYgnELACdD/2wQxSZKDQ6tHt65ydLJsmkTbrFhYYpxy5iXqC5Q==
-X-Received: by 2002:a92:d34a:0:b0:337:d335:6469 with SMTP id
- a10-20020a92d34a000000b00337d3356469mr2169067ilh.5.1685542982121; 
- Wed, 31 May 2023 07:23:02 -0700 (PDT)
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com.
- [209.85.166.171]) by smtp.gmail.com with ESMTPSA id
- q25-20020a02c8d9000000b00408c8da83ffsm1538772jao.127.2023.05.31.07.23.00
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 May 2023 07:23:01 -0700 (PDT)
-Received: by mail-il1-f171.google.com with SMTP id
- e9e14a558f8ab-33baee0235cso141765ab.1
- for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 07:23:00 -0700 (PDT)
-X-Received: by 2002:a05:6e02:2196:b0:331:4d3c:db55 with SMTP id
- j22-20020a056e02219600b003314d3cdb55mr209123ila.4.1685542980288; Wed, 31 May
- 2023 07:23:00 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D211010E50C;
+ Wed, 31 May 2023 15:41:08 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34VEn1Si009755; Wed, 31 May 2023 15:40:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=MhTlLlPXPB2hun/YA2U92J0IiaRh377ghLpoTRHa6uo=;
+ b=k71HKymloQg/rg8FCKf6Hs92iY1db06zAKgJrb9NkcHoluAKlf1u2SHimCCiDPjkvNt3
+ cxt/sNn+f4GHn7jCXXWzVr3nlOKeEOjYkHVCxqBcOAdW5wsag2ZZY0Ykj30mX+Njdns5
+ W2pBCrH2uhPlp7jpoChnbo8MKdlAo86gXJ3Vl4XDyuAUiQIeDK3naijngiOapGDbZPCx
+ v+daS3Jgh5OMWdOqkQV3TcRjYgbESFd/ZLZhGzwJvcUuzyCj1UrhP61NRHR4FVyKhS9W
+ E1mZRDCALmZfqv2vI+MTyLbYFJPksxnUTzxi2LcCqUYsY0TRf0+1Nf31IYXGROz45pPA hQ== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qx39d0xrs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 May 2023 15:40:37 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34VFea2M020193
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 May 2023 15:40:36 GMT
+Received: from [10.71.110.189] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 31 May
+ 2023 08:40:35 -0700
+Message-ID: <157e8219-7af2-c7ed-6d99-3caa6fbc11ba@quicinc.com>
+Date: Wed, 31 May 2023 08:40:26 -0700
 MIME-Version: 1.0
-References: <20230531075854.703-1-johan+linaro@kernel.org>
-In-Reply-To: <20230531075854.703-1-johan+linaro@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 31 May 2023 07:22:49 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UtyMSekPYfamMkswC=mSRnBpQUygMxZ+Wgf6Y2dB2Qhw@mail.gmail.com>
-Message-ID: <CAD=FV=UtyMSekPYfamMkswC=mSRnBpQUygMxZ+Wgf6Y2dB2Qhw@mail.gmail.com>
-To: Johan Hovold <johan+linaro@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix uninitialised lock in
- init error path
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <andersson@kernel.org>
+References: <1685464318-25031-1-git-send-email-quic_khsieh@quicinc.com>
+ <1685464318-25031-3-git-send-email-quic_khsieh@quicinc.com>
+ <dfa12c8b-ccec-261c-9c83-54536e17c02d@linaro.org>
+Content-Language: en-US
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <dfa12c8b-ccec-261c-9c83-54536e17c02d@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: _UgxJ8hFXO64gsDUKEHxREvw_6jO6D_D
+X-Proofpoint-ORIG-GUID: _UgxJ8hFXO64gsDUKEHxREvw_6jO6D_D
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-31_10,2023-05-31_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0
+ spamscore=0 mlxlogscore=999 mlxscore=0 adultscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2304280000 definitions=main-2305310134
+Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dpu: retrieve DSI DSC struct
+ at atomic_check()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,42 +88,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- stable@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Wed, May 31, 2023 at 1:00=E2=80=AFAM Johan Hovold <johan+linaro@kernel.o=
-rg> wrote:
+
+>>   +    if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
 >
-> A recent commit started taking the GMU lock in the GPU destroy path,
-> which on GPU initialisation failure is called before the GMU and its
-> lock have been initialised.
+> INTF_DSI
 >
-> Make sure that the GMU has been initialised before taking the lock in
-> a6xx_destroy() and drop the now redundant check from a6xx_gmu_remove().
+>> +        struct drm_bridge *bridge;
+>> +
+>> +        if (!dpu_enc->dsc) {
 >
-> Fixes: 4cd15a3e8b36 ("drm/msm/a6xx: Make GPU destroy a bit safer")
-> Cc: stable@vger.kernel.org      # 6.3
-> Cc: Douglas Anderson <dianders@chromium.org>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 3 ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 9 ++++++---
->  2 files changed, 6 insertions(+), 6 deletions(-)
+> This condition is not correct. We should be updating the DSC even if 
+> there is one.
+>
+>> +            bridge = drm_bridge_chain_get_first_bridge(drm_enc);
+>> +            dpu_enc->dsc = msm_dsi_bridge_get_dsc_config(bridge);
+>
+> This approach will not work for the hot-pluggable outputs. The dpu_enc 
+> is not a part of the state. It should not be touched before 
+> atomic_commit actually commits changes.
+where can drm_dsc_config be stored?
+>
+> Also, I don't think I like the API. It makes it impossible for the 
+> driver to check that the bridge is the actually our DSI bridge or not.
+> Once you add DP here, the code will explode.
+>
+> I think instead we should extend the drm_bridge API to be able to get 
+> the DSC configuration from it directly. Additional care should be put 
+> to design an assymetrical API. Theoretically a drm_bridge can be both 
+> DSC source and DSC sink. Imagine a DSI-to-DP or DSI-to-HDMI bridge, 
+> supporting DSC on the DSI side too.
 
-I think Dmitry already posted a patch 1.5 months ago to fix this.
+Form my understanding, a bridge contains two interfaces.
 
-https://lore.kernel.org/r/20230410165908.3094626-1-dmitry.baryshkov@linaro.=
-org
+Therefore I would think only one bridge for dsi-to-dp bridge? and this 
+bridge should represent the bridge chip?
 
-Can you confirm that works for you?
+I am thinking adding an ops function, get_bridge_dsc() to struct 
+drm_bridge_funcs to retrieve drm_dsc_config.
 
--Doug
+Do you have other suggestion?
+
+>
