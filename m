@@ -2,66 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C5071F2B6
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 21:14:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E9971F2D5
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 21:21:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2F8D10E043;
-	Thu,  1 Jun 2023 19:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B01C10E5A2;
+	Thu,  1 Jun 2023 19:21:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75BF010E043
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 19:14:10 +0000 (UTC)
-Received: by mail-yb1-xb2e.google.com with SMTP id
- 3f1490d57ef6-ba8cd61ee2dso3786131276.1
- for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 12:14:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685646849; x=1688238849;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=CssJZdLrRZ/V6FVae/m7OqKnsOQwlYYiWk08TJo4VnQ=;
- b=GcCLGEcudNw/dbsQVaGRKXiqMwnTGEiv4gX8egl286jn5JV62pRMGAe306lcNlUMu2
- GiPyPfB07J51hN36TqBOJeQTgm4ubvKJvf+z5izSmyxtGeYh13OxqQZUsk07w23ZZ+J2
- 4OY+1npaE+of6gBbU4BJolPFzlmAJg8CB4yqaN5/8TEvcejHr56t3mZoF0KlyJ7YEiqJ
- /UQIoDQEag3tLi5Ad8mDa0GmGTDFCMV9rus/MLsmlvIWiF9yhjYBiEfAaJkWdPjNLHCk
- V36ANA+ZR7JehK8sorXjR9sCicsrbEA0QZUNe0VIKlk9JGozffqnkabDAGY0sJbiNWL2
- fbLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685646849; x=1688238849;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CssJZdLrRZ/V6FVae/m7OqKnsOQwlYYiWk08TJo4VnQ=;
- b=EWVF1eWgsZ5N8e6T3Uov+51OZ6vr5suoqkv3H2M0xuMxa1VbLtUVC7L5pZNngMkJVi
- jy1+XB3TloIHL2Xxpq0miQXFqp3h7JYyt9DALso2GiTOM6xVpO3zqg9ngK1NM52ONm9O
- Ba1Stc/fr8FPwpLBKQQkbcyclARDs2k4aQrcr+P/QGYB4blf8HKfRyNIBk0yK1VidqNN
- wnLww1rK6b6SIGDJhFeLqR5hXMVdTpDAuKPSUpXREZ4Z9mMpAzRfg40TU+dCHtm1CKpZ
- v/ipZRgpAFVt+v6UlwCIy+M5GKk5lJ/32NBGYaTx65ptns5u+1cMpfRlBJvWMgsYBw/6
- NNWg==
-X-Gm-Message-State: AC+VfDz6WXw1z4iVkmPLxpijIeAXHD0UihyDY5Gc2eIR3Sit9onzw4Vq
- et8Sn6TnTXp/AjssAzEQm/Ikl4B5LJthZXZtpvjRtrDK+kE3/Bzg
-X-Google-Smtp-Source: ACHHUZ44Q7JQo20oIgXDJLAbfcCYKegCgJuIFwqXkFhdm2NrGejewEBkqkQMyWJNZwsYWfIeCO0u9TCGj1l/9a5Vp5E=
-X-Received: by 2002:a25:c504:0:b0:b9e:45e1:75e with SMTP id
- v4-20020a25c504000000b00b9e45e1075emr1005677ybe.28.1685646848925; Thu, 01 Jun
- 2023 12:14:08 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6198710E5B1;
+ Thu,  1 Jun 2023 19:21:23 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 351IWT64021738; Thu, 1 Jun 2023 19:21:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=EFa/NmBtii/RjNtJcSA+b7nC2BASDp2x0P9xuuJoJ8c=;
+ b=C44go066ITZPRfVic9csx3exufeUwC/i4mS/KtGotJH0JgrM8bscHqZBrw/a8uN2yvi8
+ 8rcbcXjKzOc7LC56KhXJYy08BRlTmBGMAYIO3FIXWbAIjQhVSwjyizb5c0JiXnWfK8wv
+ Y8+iPi0Bw8wbV3wQI6r1WAzOH+QB4WZyl18rctUx+kIOAUsmzOnaTQezX/gZTXGWlFOe
+ Grx0s6J6bkUl33oLgSW8ekpe1yROqZEcHM9SH1imQFzvv5+ihBbB/PZ0LzEnp5rx8Ntn
+ 2woewvQtlczuf07jGStJzT5kpLeeS3RQbfqd4AQIpycous8peXHHAFyUm7T9Q6axTUj+ BA== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qxnwv1xuu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Jun 2023 19:21:03 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 351JL1UM007473
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Jun 2023 19:21:01 GMT
+Received: from [10.110.26.45] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 1 Jun 2023
+ 12:20:58 -0700
+Message-ID: <932ee149-c524-25e7-ee49-5ea1a7e6708c@quicinc.com>
+Date: Thu, 1 Jun 2023 12:20:56 -0700
 MIME-Version: 1.0
-References: <1685464318-25031-1-git-send-email-quic_khsieh@quicinc.com>
- <1685464318-25031-3-git-send-email-quic_khsieh@quicinc.com>
- <dfa12c8b-ccec-261c-9c83-54536e17c02d@linaro.org>
- <157e8219-7af2-c7ed-6d99-3caa6fbc11ba@quicinc.com>
- <CAA8EJponkEne2vVsNP=2Fxmv=Uc6i_LzAGBSEz9hPPotCEpGzg@mail.gmail.com>
- <e69f02b7-eba9-5f33-5ca1-eb0638928414@quicinc.com>
- <CAA8EJpr9dfrrEsFf8heOvG3BWRTVCY-q1QYNH_3OBeMAWEwotA@mail.gmail.com>
- <d1a320c4-d851-ba75-ef7b-80dc369d1cfd@quicinc.com>
-In-Reply-To: <d1a320c4-d851-ba75-ef7b-80dc369d1cfd@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 1 Jun 2023 22:13:57 +0300
-Message-ID: <CAA8EJpqzyYQAg+VXLzttan7zGWv4w+k6kgS2SbRo26hFZ_9Efg@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dpu: retrieve DSI DSC struct
- at atomic_check()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Leonard Lausen <leonard@lausen.nl>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>
+References: <e547edf4-1b48-5d12-1600-45f78e7cab49@quicinc.com>
+ <1345a125-f745-4fe3-0f5e-bfe84225958d@quicinc.com>
+ <b0cc40d5-6de1-91cc-e2cd-f47cc53551e4@quicinc.com>
+ <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
+ <20230508021536.txtamifw2vkfncnx@ripper>
+ <3802269cd54ce105ef6dece03b1b9af575b4fa06@lausen.nl>
+ <ad351c02-1c29-3601-53e8-f8cdeca2ac63@linaro.org>
+ <49d175ec16e3f65a18265063e51092ee8d0d79c1@lausen.nl>
+ <f2d1bb37-ea83-4d5d-6ef5-ae84c26d6ac1@quicinc.com>
+ <b9c8243ed53c5c9d7c1b5711237f6130976ea99b@lausen.nl>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <b9c8243ed53c5c9d7c1b5711237f6130976ea99b@lausen.nl>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: NEEKnNQnkoXQnQdsGsQfqb3d1ckaav82
+X-Proofpoint-ORIG-GUID: NEEKnNQnkoXQnQdsGsQfqb3d1ckaav82
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-01_08,2023-05-31_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0 mlxscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2306010167
+Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,104 +93,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, regressions@lists.linux.dev,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>, Nikita
+ Travkin <nikita@trvn.ru>, freedreno@lists.freedesktop.org,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 1 Jun 2023 at 20:37, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 5/31/2023 10:53 AM, Dmitry Baryshkov wrote:
-> > On Wed, 31 May 2023 at 20:29, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >>
-> >> On 5/31/2023 10:12 AM, Dmitry Baryshkov wrote:
-> >>> On Wed, 31 May 2023 at 18:41, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >>>>
-> >>>>>>     +    if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-> >>>>> INTF_DSI
-> >>>>>
-> >>>>>> +        struct drm_bridge *bridge;
-> >>>>>> +
-> >>>>>> +        if (!dpu_enc->dsc) {
-> >>>>> This condition is not correct. We should be updating the DSC even if
-> >>>>> there is one.
-> >>>>>
-> >>>>>> +            bridge = drm_bridge_chain_get_first_bridge(drm_enc);
-> >>>>>> +            dpu_enc->dsc = msm_dsi_bridge_get_dsc_config(bridge);
-> >>>>> This approach will not work for the hot-pluggable outputs. The dpu_enc
-> >>>>> is not a part of the state. It should not be touched before
-> >>>>> atomic_commit actually commits changes.
-> >>>> where can drm_dsc_config be stored?
-> >>> I'd say, get it during atomic_check (and don't store it anywhere).
-> >>> Then get it during atomic_enable (and save in dpu_enc).
-> >> got it.
-> >>>>> Also, I don't think I like the API. It makes it impossible for the
-> >>>>> driver to check that the bridge is the actually our DSI bridge or not.
-> >>>>> Once you add DP here, the code will explode.
-> >>>>>
-> >>>>> I think instead we should extend the drm_bridge API to be able to get
-> >>>>> the DSC configuration from it directly. Additional care should be put
-> >>>>> to design an assymetrical API. Theoretically a drm_bridge can be both
-> >>>>> DSC source and DSC sink. Imagine a DSI-to-DP or DSI-to-HDMI bridge,
-> >>>>> supporting DSC on the DSI side too.
-> >>>> Form my understanding, a bridge contains two interfaces.
-> >>>>
-> >>>> Therefore I would think only one bridge for dsi-to-dp bridge? and this
-> >>>> bridge should represent the bridge chip?
-> >>>>
-> >>>> I am thinking adding an ops function, get_bridge_dsc() to struct
-> >>>> drm_bridge_funcs to retrieve drm_dsc_config.
-> >>> So, for this DSI-to-DP bridge will get_bridge_dsc() return DSC
-> >>> configuration for  the DSI or for the DP side of the bridge?
-> >> I would think should be DP side. there is no reason to enable dsc on
-> >> both DSI and DP fro a bridge chip.
->
-> My above statement is not correct. For DSI-to-DP bridge,
-> drm_bridge_chain_get_first_bridge(drm_enc) return DSI bridge.
->
-> Is possible that DSC feature can be added to DSI-to-DP bridge?
->
-> If it is not possible, then we can rule out DSI-to-DP bridge case, then
-> use struct drm_bridge to retrieve DSC form controller will work.
->
->
->
-> > Well, there can be. E.g. to lower the clock rates of the DSI link.
-> >
-> >> drm_bridge_chain_get_first_bridge(drm_enc) should return the bridge of
-> >> the controller.
-> >>
-> >> In DSI-to-DP bridge chip case, this controller will be the bridge chip
-> >> who configured to perform protocol conversion between DSI and DP.
-> >>
-> >> If DSC enabled should be at DP size which connect to panel.
-> > Ok, so it returns the DSC configuration of the bridge's source side.
-> > Now let's consider a panel bridge for the DSC-enabled DSI panel.
-> > Should get_bridge_dsc() return a DSC config in this case?
-> >
-> >>>> Do you have other suggestion?
-> >>> Let me think about it for a few days.
->
-> There is one option which is keep current
->
-> 1) keep struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi
-> *msm_dsi) at dsi.c
->
-> 2) use  struct msm_display_info *disp_info saved at dpu_enc to locate
-> struct msm_dsi from priv->dsi[] list (see item #3)
->
-> 3)  info.dsc = msm_dsi_get_dsc_config(priv->dsi[info.h_tile_instance[0]]);
->
-> 4) ballistically, keep original code but move  info.dsc =
-> msm_dsi_get_dsc_config(priv->dsi[i]); to other place sush as
-> atomic_check() and atomic_enable().
->
+Hi Leonard
 
-5) leave drm_dsc_config handling as is, update the dsc config from the
-DP driver as suitable. If DSC is not supported, set
-dsc->dsc_version_major = 0 and dsc->dsc_version_minor = 0 on the DP
-side. In DPU driver verify that dsc->dsc_version_major/_minor != 0.
+On 5/24/2023 5:58 AM, Leonard Lausen wrote:
+>>>>>>> [  275.025497] [drm:dpu_encoder_phys_vid_wait_for_commit_done:488]
+>>>>>>> [dpu error]vblank timeout
+>>>>>>> [  275.025514] [drm:dpu_kms_wait_for_commit_done:510] [dpu error]wait
+>>>>>>> for commit done returned -110
+>>>>>>> [  275.064141] [drm:dpu_encoder_frame_done_timeout:2382] [dpu
+>>>>>>> error]enc33 frame done timeout
+>>>>>
+>>>>> This is a different crash but the root-cause of both the issues is the
+>>>>> bridge hpd_enable/disable series.
+>>>>>
+>>>>> https://patchwork.freedesktop.org/patch/514414/
+>>>
+>>> Yes, the new patch to fix this issue is here
+>>>
+>>> https://patchwork.freedesktop.org/patch/538601/?series=118148&rev=3
+>>>
+>>> Apologies if you were not CCed on this, if a next version is CCed,
+>>> will ask kuogee to cc you.
+>>>
+>>> Meanwhile, will be great if you can verify if it works for you and
+>>> provide Tested-by tags.
+>>
+>> Hi Leonard,
+>>
+>> I had  cc you with v5 patches.
+>>
+>> Would you please verify it.
+> 
+> Hi Kuogee,
+> 
+> thank you. Verified the v6 patch fixes the regression when ported to
+> 6.3.3. One non-fatal issue remains: Suspending and resuming the system
+> while USB-C DP monitor is connected triggers an error, though the system
+> recovers within a second without the need to unplug the cable.
+> 
+> [drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-107)
+> 
 
--- 
-With best wishes
-Dmitry
+We are not able to recreate this on sc7280 chromebooks , will need to 
+check on sc7180. This does not seem directly related to any of the 
+hotplug changes though so needs to be checked separately. So please feel 
+free to raise a gitlab bug for this and assign to me.
