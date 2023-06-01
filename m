@@ -2,70 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBCAB718F73
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 02:16:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5133371963D
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 11:01:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BFD510E1EF;
-	Thu,  1 Jun 2023 00:16:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1967010E21B;
+	Thu,  1 Jun 2023 09:01:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8946F10E0F9
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 00:16:55 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f4b80bf93aso149769e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 31 May 2023 17:16:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685578613; x=1688170613;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sxTX4X4YKUtqwPm+hbV1ZZouN5cpgVgg+LAtjb8cK/I=;
- b=i9rKVnU4m6dI91mhR4zJ7ZW0TQwWjSH3HQMaugd8Y1bpUQYDRiw8b1AKA1sRS0A2FR
- 6ZlvU5hW6bsSlbITaHTAI4Ekc9LVT3bVmo6OG4/+itIrrEmHfi9hDdtcfJ6z5aza7qqo
- y42Dn/E/BTVRqI35zv1N2oRcF/9JKrRh+TzhMp79w/spWSvGmmGQw8QuqikBPv8ZWAa+
- iaByBCuzR95pTcAmIWvopqsuDc9/GyQg82VQQeOlm1ciEFrimZht9pExjh9PccrerdFr
- VkpsNgXLe8doQ1rNuozfbkhclKq/tTkgrJA+mq5pjmMGQ/hA2cz/b1dEBGMcqRt4htI6
- eFtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685578613; x=1688170613;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sxTX4X4YKUtqwPm+hbV1ZZouN5cpgVgg+LAtjb8cK/I=;
- b=XprQbu/u3b7IsURdu64jhiD0uWcqMEPofxpGi4SwvS2+r/8nyRGW3IAJOVPt8x8Ktw
- RiTPraKdFG4xTnhmyYCWs8JJ7z3+9uRaXISQlr4/bFo8TYToFjseZ5QBqghQlIYqZ2jJ
- zO72RGpSTuXzC7gQBB7YevCEyZzmQiFmsbf+gz768xyWfIIg9zQ//7YE9mGREjtMJfN7
- mfUMZYVNiQrytHQ3p8p61J5cF4g6Hz0jyHNzaL9g4RgGlhkbOB1fXtMB1+D26J5ZfPFl
- cSYKrD4XpotSFPdsRcFg7gfVbZOQ2ET2ZjKGQde7+GDB+jzVCufJaCqqRcwxvxAXyKi7
- wToQ==
-X-Gm-Message-State: AC+VfDw9a3FYYfGBpHwCQV7/vhKlEHGSUQzz5uL5hQr04IBlRU2WMA7x
- cUgg8URP+2N/60vqBJ+183l+BQ==
-X-Google-Smtp-Source: ACHHUZ5Q3u+SzRMFGtrtDBvEpZJ6S83Uw7/xbtquC1ZjKTF0POh8B99t3GmLNjPbhZJsD3vRnrpdEw==
-X-Received: by 2002:ac2:4466:0:b0:4f1:43de:7c3 with SMTP id
- y6-20020ac24466000000b004f143de07c3mr267149lfl.51.1685578613308; 
- Wed, 31 May 2023 17:16:53 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- c10-20020ac2530a000000b004f139712835sm889366lfh.293.2023.05.31.17.16.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 May 2023 17:16:52 -0700 (PDT)
-Message-ID: <0fbe5ddb-c3de-0724-fb69-a99e4980b26c@linaro.org>
-Date: Thu, 1 Jun 2023 03:16:52 +0300
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B66310E3AC;
+ Thu,  1 Jun 2023 09:01:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9A6F064217;
+ Thu,  1 Jun 2023 09:01:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F326EC433D2;
+ Thu,  1 Jun 2023 09:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1685610115;
+ bh=4qQydQYRMrUOcNRnymjEdMYj9KOx6NIt5j1b1rQ06po=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SHPCH/armNDPorE+cc3Xb3TXoWoApNaKS29MS+NEXf6sQ/2Mz8KZnELAt6eo0JkFI
+ vHBkYpsSVnV5qsc0rMP3PF5pfX7oUL4Sfp9fguKwNwff4N5gBx4XOB+fpR37F7VWEI
+ h/3NZIwevah72IbNwlMfIC4R/Uwma5mW+3xUZYQ67/9WKX78D/AJ/NZYs/6PXnohCa
+ dLsDaKPh6+A3FgQUiZh3lngNpdPts4aiXMMvaM5cUb5Xb028NhIneDbyKjdQXmPq3k
+ 2JNyFfB1YzWXNVxBn4xbmVN+b0BifFzs70E0o30zjeC6VMTHBZO8doYnpQXnrLw+u1
+ QFoHrgiDb3iAg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1q4eC0-0007BU-Sj; Thu, 01 Jun 2023 11:02:00 +0200
+Date: Thu, 1 Jun 2023 11:02:00 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZHheiJfdp7-597XT@hovoldconsulting.com>
+References: <20230531075854.703-1-johan+linaro@kernel.org>
+ <CAD=FV=UtyMSekPYfamMkswC=mSRnBpQUygMxZ+Wgf6Y2dB2Qhw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20230411-topic-straitlagoon_mdss-v5-0-998b4d2f7dd1@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v5-0-998b4d2f7dd1@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 00/12] SM63(50|75) DPU support
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=UtyMSekPYfamMkswC=mSRnBpQUygMxZ+Wgf6Y2dB2Qhw@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix uninitialised lock in
+ init error path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,63 +58,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, iommu@lists.linux.dev,
- Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, 'Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/05/2023 10:46, Konrad Dybcio wrote:
-
-[skipped the changelog]
-
-> ---
-> Konrad Dybcio (12):
->        dt-bindings: display/msm: dsi-controller-main: Add SM6350
->        dt-bindings: display/msm: dsi-controller-main: Add SM6375
->        dt-bindings: display/msm: sc7180-dpu: Describe SM6350 and SM6375
->        dt-bindings: display/msm: Add SM6350 MDSS
->        dt-bindings: display/msm: Add SM6375 MDSS
->        drm/msm/dpu: Add SM6350 support
->        drm/msm: mdss: Add SM6350 support
->        drm/msm/dpu: Add SM6375 support
->        drm/msm: mdss: Add SM6375 support
->        iommu/arm-smmu-qcom: Sort the compatible list alphabetically
->        iommu/arm-smmu-qcom: Add SM6375 DPU compatible
->        iommu/arm-smmu-qcom: Add SM6350 DPU compatible
-
-As we are now nearly ready to merge this series, Will, Robin, what 
-should be the merge strategy for these three patches? Would you take 
-them through the arm-smmu/iommu tree?
-
+On Wed, May 31, 2023 at 07:22:49AM -0700, Doug Anderson wrote:
+> Hi,
 > 
->   .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
->   .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  23 ++-
->   .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 214 ++++++++++++++++++++
->   .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 216 +++++++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 173 +++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 139 +++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
->   drivers/gpu/drm/msm/msm_mdss.c                     |  10 +
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   6 +-
->   11 files changed, 792 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 9f925874281f7e8855855d6210d6e29d844e4307
-> change-id: 20230411-topic-straitlagoon_mdss-8f34cacd5e26
+> On Wed, May 31, 2023 at 1:00 AM Johan Hovold <johan+linaro@kernel.org> wrote:
+> >
+> > A recent commit started taking the GMU lock in the GPU destroy path,
+> > which on GPU initialisation failure is called before the GMU and its
+> > lock have been initialised.
+> >
+> > Make sure that the GMU has been initialised before taking the lock in
+> > a6xx_destroy() and drop the now redundant check from a6xx_gmu_remove().
+> >
+> > Fixes: 4cd15a3e8b36 ("drm/msm/a6xx: Make GPU destroy a bit safer")
+> > Cc: stable@vger.kernel.org      # 6.3
+> > Cc: Douglas Anderson <dianders@chromium.org>
+> > Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 3 ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 9 ++++++---
+> >  2 files changed, 6 insertions(+), 6 deletions(-)
 > 
-> Best regards,
+> I think Dmitry already posted a patch 1.5 months ago to fix this.
+> 
+> https://lore.kernel.org/r/20230410165908.3094626-1-dmitry.baryshkov@linaro.org
 
--- 
-With best wishes
-Dmitry
+Bah, I checked if Bjorn had hit this with his recent A690 v3 series and
+posted a fix, but did not look further than that.
 
+> Can you confirm that works for you?
+
+That looks like it would work too, but I think I prefer my version which
+keeps the initialisation of the GMU struct in a6xx_gmu_init().
+
+Dmitry or Rob, could you see to that either version gets merged soon so
+that we don't end up with even more people having to debug and fix the
+same issue?
+
+Johan
