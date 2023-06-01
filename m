@@ -2,50 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5133371963D
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 11:01:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC9A71974B
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 11:42:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1967010E21B;
-	Thu,  1 Jun 2023 09:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99D4B10E535;
+	Thu,  1 Jun 2023 09:42:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B66310E3AC;
- Thu,  1 Jun 2023 09:01:56 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9A6F064217;
- Thu,  1 Jun 2023 09:01:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F326EC433D2;
- Thu,  1 Jun 2023 09:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685610115;
- bh=4qQydQYRMrUOcNRnymjEdMYj9KOx6NIt5j1b1rQ06po=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SHPCH/armNDPorE+cc3Xb3TXoWoApNaKS29MS+NEXf6sQ/2Mz8KZnELAt6eo0JkFI
- vHBkYpsSVnV5qsc0rMP3PF5pfX7oUL4Sfp9fguKwNwff4N5gBx4XOB+fpR37F7VWEI
- h/3NZIwevah72IbNwlMfIC4R/Uwma5mW+3xUZYQ67/9WKX78D/AJ/NZYs/6PXnohCa
- dLsDaKPh6+A3FgQUiZh3lngNpdPts4aiXMMvaM5cUb5Xb028NhIneDbyKjdQXmPq3k
- 2JNyFfB1YzWXNVxBn4xbmVN+b0BifFzs70E0o30zjeC6VMTHBZO8doYnpQXnrLw+u1
- QFoHrgiDb3iAg==
-Received: from johan by xi.lan with local (Exim 4.94.2)
- (envelope-from <johan@kernel.org>)
- id 1q4eC0-0007BU-Sj; Thu, 01 Jun 2023 11:02:00 +0200
-Date: Thu, 1 Jun 2023 11:02:00 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ZHheiJfdp7-597XT@hovoldconsulting.com>
-References: <20230531075854.703-1-johan+linaro@kernel.org>
- <CAD=FV=UtyMSekPYfamMkswC=mSRnBpQUygMxZ+Wgf6Y2dB2Qhw@mail.gmail.com>
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A08810E1AF;
+ Thu,  1 Jun 2023 09:42:45 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-510d6b939bfso1042830a12.0; 
+ Thu, 01 Jun 2023 02:42:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685612563; x=1688204563;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7q5khLoEX4J3lidnUZjzKtgn8/eZ/Y3adwlIXy+1pGo=;
+ b=DOk+vfUpNWI6QjumU5Q8+7tLd2D676JlGoIQM4t1DetpGC9GA89dMTgrSitzFdCjeN
+ Z77tsGABwvU36zQJ2XcPN5KRSYoPcsSCNtdMjbV3W84CJI8D40lGXeEH+pGa3ob3liUO
+ I5DqokWzpfOu/jU0+/NveUCl6Gv4CFsXhYJZyvVW7hGnYAJRsRlbBj/rZkXkfRW+62tC
+ v/hIZyCWXaXmcOZDAYUhB9UtQ8nr/4l3/EBrhO1EKwjqVc7SjAYpDtb/bCUF/RiOGS/e
+ jGgBjF+wuFDJ79cqaBA4FNM/aiRA+bs51RAV/5u+pTNzxt7ZPSEs/fsg6Tak4a/ReNNO
+ cxKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685612563; x=1688204563;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7q5khLoEX4J3lidnUZjzKtgn8/eZ/Y3adwlIXy+1pGo=;
+ b=Qy1ikvl050jEp6zSM7ew/s9hTTxT6zss05YUVdPdx/yXEd3+zcGvospeXMoCecLZiF
+ OGZQfTwZwtCU6y9d38Z8lEGfTGkZwQll27mOu6FpQNWANDK82GATG1T+soxVxsLjVn1x
+ g/Wd434G/GU4jC6P/IsJdsHqf5Eu3/9r5nlb6lLR7XfCZ+zGzyEHIotFqmNN7z+sK/T6
+ ny76Rvjp7p4NYcz97gn1x9j8TeaLIXl2MUnjj7iDCczt6wm4iznKmR+DQZSkHARqC7sK
+ Qtet+orDd7+lVbCbY+sQ4C+ivOxdNdRGkwqn2fxesORS4VIQzwy41AXH5BzvJKLvZkDH
+ 0lpw==
+X-Gm-Message-State: AC+VfDxnQWUjAqHoD9Hqh0/aWe5mf64p0iGGS3qfkCeDNuQX9iRH1GEG
+ pFMtaiycuQ6903UWFrHFhV4=
+X-Google-Smtp-Source: ACHHUZ4Ut/2p85sdNMlqXBYqd/kF5rcU9VA6xQW4nb4z+SUKQQBkigJa799rdC1rKMIMKpGvTRQY1g==
+X-Received: by 2002:a05:6402:349:b0:50b:c89f:f381 with SMTP id
+ r9-20020a056402034900b0050bc89ff381mr5344371edw.29.1685612563085; 
+ Thu, 01 Jun 2023 02:42:43 -0700 (PDT)
+Received: from orome (p200300e41f305300f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ [2003:e4:1f30:5300:f22f:74ff:fe1f:3a53])
+ by smtp.gmail.com with ESMTPSA id
+ n15-20020a05640206cf00b004fbdfbb5acesm6916135edy.89.2023.06.01.02.42.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jun 2023 02:42:42 -0700 (PDT)
+Date: Thu, 1 Jun 2023 11:42:40 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <ZHhoEHn_i79j8IAf@orome>
+References: <20230530151228.22979-1-tzimmermann@suse.de>
+ <20230530151228.22979-10-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="J8y/7sWNqq9Yj/uK"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD=FV=UtyMSekPYfamMkswC=mSRnBpQUygMxZ+Wgf6Y2dB2Qhw@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: fix uninitialised lock in
- init error path
+In-Reply-To: <20230530151228.22979-10-tzimmermann@suse.de>
+User-Agent: Mutt/2.2.10 (2023-03-25)
+Subject: Re: [Freedreno] [PATCH v5 09/13] drm/tegra: Use regular fbdev I/O
+ helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,50 +78,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>, 'Johan Hovold <johan+linaro@kernel.org>
+Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ suijingfeng@loongson.cn, amd-gfx@lists.freedesktop.org, airlied@gmail.com,
+ intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ javierm@redhat.com, mripard@kernel.org,
+ Mikko Perttunen <mperttunen@nvidia.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, sam@ravnborg.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 31, 2023 at 07:22:49AM -0700, Doug Anderson wrote:
-> Hi,
-> 
-> On Wed, May 31, 2023 at 1:00 AM Johan Hovold <johan+linaro@kernel.org> wrote:
-> >
-> > A recent commit started taking the GMU lock in the GPU destroy path,
-> > which on GPU initialisation failure is called before the GMU and its
-> > lock have been initialised.
-> >
-> > Make sure that the GMU has been initialised before taking the lock in
-> > a6xx_destroy() and drop the now redundant check from a6xx_gmu_remove().
-> >
-> > Fixes: 4cd15a3e8b36 ("drm/msm/a6xx: Make GPU destroy a bit safer")
-> > Cc: stable@vger.kernel.org      # 6.3
-> > Cc: Douglas Anderson <dianders@chromium.org>
-> > Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 3 ---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 9 ++++++---
-> >  2 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> I think Dmitry already posted a patch 1.5 months ago to fix this.
-> 
-> https://lore.kernel.org/r/20230410165908.3094626-1-dmitry.baryshkov@linaro.org
 
-Bah, I checked if Bjorn had hit this with his recent A690 v3 series and
-posted a fix, but did not look further than that.
+--J8y/7sWNqq9Yj/uK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Can you confirm that works for you?
+On Tue, May 30, 2023 at 05:12:24PM +0200, Thomas Zimmermann wrote:
+> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+> helpers. Tegra does not use damage handling, so DRM's fbdev helpers
+> are mere wrappers around the fbdev code.
+>=20
+> By using fbdev helpers directly within each DRM fbdev emulation,
+> we can eventually remove DRM's wrapper functions entirely.
+>=20
+> v4:
+> 	* use initializer macros for struct fb_ops
+> v2:
+> 	* use FB_SYS_HELPERS option
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Mikko Perttunen <mperttunen@nvidia.com>
+> Cc: Jonathan Hunter <jonathanh@nvidia.com>
+> ---
+>  drivers/gpu/drm/tegra/Kconfig | 1 +
+>  drivers/gpu/drm/tegra/fbdev.c | 8 +++-----
+>  2 files changed, 4 insertions(+), 5 deletions(-)
 
-That looks like it would work too, but I think I prefer my version which
-keeps the initialisation of the GMU struct in a6xx_gmu_init().
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-Dmitry or Rob, could you see to that either version gets merged soon so
-that we don't end up with even more people having to debug and fix the
-same issue?
+--J8y/7sWNqq9Yj/uK
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Johan
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmR4aBAACgkQ3SOs138+
+s6EMnhAApvbF83jJgB6q5JCxzWJ69rSVfi9hjhGoa9Wz9miYwATuP3yzLuDbf21b
+6diFMn3cJ9yU+3PrBZasS4/WLyXsu0DIW8ZWsexZ2nCnjEmMjBshzfr7CaOHCHAQ
+PeobxSDdVCgv898nMOwOOlDHSVpuGbexSge1pq9Tsfid4IDWZHTap1y3a56iyhxy
+tsP27T0aQ+2jKYTegSaokFocUaeFper7JWV3mSr1FZH4N8CqskB3p+YMSzdWp9K4
+KiSrfAo8w09MPTwy3A/LxzIGXaGofiOUITd/zk6CWEl33Be2v1iva7Anq3cljKiT
+KU5vNPVgmK3Fhz0o08cFuUS6t42GtMh/iij/1ZE5HePx5IPkZjJGSpg/9DXNHOA1
+68V0xsUPRSUpEIm6Q91oPZVFTF4PGK0rYkRWCIH+C6JW67wvfKbRoUgwbEN+ZrC7
+yQMNtpi9HKHq3v/+PahWPiWTEp3K7GAy2HAoEdtP5whzNqohKwn+qIHXC7Cu9tPC
+aexe4C80Aq8PBX1v2E/cVRq69BnzDwDZEiBXjRugfzDZn0KhMuPNxFJxwyi27ibK
+dWrkkLHypmvS04FY0HGzt5OxuuIPTiiPfg57DAfl9LmTisbXRI9RyPHF508ll9T6
+HgJJLHycd7x1y639mAntcOoe9GfgQwA9rUiv4mvIe3EkrJQqBgg=
+=793F
+-----END PGP SIGNATURE-----
+
+--J8y/7sWNqq9Yj/uK--
