@@ -2,79 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED6E71983C
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 12:04:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EFFE71986E
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 12:10:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C8D10E54A;
-	Thu,  1 Jun 2023 10:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD4510E53D;
+	Thu,  1 Jun 2023 10:10:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9078910E544
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 10:03:55 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-510d6b939bfso1069460a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 03:03:55 -0700 (PDT)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0D2810E537
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 10:10:05 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-3f6e1393f13so6601745e9.0
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 03:10:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685613833; x=1688205833;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WO8KsaywxjcSX6U8BECoCcVISsSXERYCN/AYt3V86VI=;
- b=j4S5kWdl3VRytOmeo3nxkdlw8u0wFF93pTVOptBBi9qTp4Ot0KOb5bcE8MoFv93bRY
- sY7h6/H9zu0Zu+2QXm60OrPcq0uvD8BnQRftgyD5ZikvnJK1ricQHhKMVzf4z8KPDqCO
- 6zqeqiGYZmmL3g2MnLrqGBsprMfe6tnMXGOmb6TpZHGs5mGLcvs4S6mAPUI84TbZ6ed5
- GO9M6G1SBQ2iV2Kbwnz+JlB/rJRkmmv6ZsAlToqHh+f+AsHxcuyPo4RU55M7a6WvLVun
- LJg4TZ+p8qu6yH1IEYFk9CKwICZ+7E8YbPZjKZCcnY9EQaKdtonjIB7OrvaAqkSiHJsP
- a0vw==
+ d=linaro.org; s=google; t=1685614202; x=1688206202;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=F7oPRb56xxOFhyPPW7r8Cl13Ie6RSoTMualjqBVrsIs=;
+ b=BNQvvGLR8AIkT/AqxSdai2eFt3LbdlfiOBZrnmbspzeK9DMwMDi/LSRWKm7S5cJpCj
+ 5NbUyvSuBvXy6Vl9h6iFC9+zZInNHm5TiHAYwn3LHWFBA/QFIuawaCai/3oa1+QJSQep
+ MT34mdnK9NV/452bXVlcH7wGq0H7RAxvrEm/G1AjNtM7WeI6UPw4HYEW515uSZNvPUOs
+ FUSORe1Vej/YpkVEgWxhwI3oFedPhz+Jz/sygQte+YIk4wjWTWsUtBJ33eMhapRbwJyN
+ iejuh+b5JKc3m7MQK9s340IelAASZ8PoYshk1SZ87JBerLLtuj0Sjh6GnBPMe2tv9Mbf
+ NrIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685613833; x=1688205833;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WO8KsaywxjcSX6U8BECoCcVISsSXERYCN/AYt3V86VI=;
- b=WqPdu1tDXIIhA46H6iq6mRAnp7SNQmjZpfDnEtcxW9vaR/KhbaDm6BqBhzx+l+k0No
- ee7hePIqa7QbJoLzbSWkSJBNINW8VdBVip01s1Iszo1lyntTy+Pk5ZytrCiCsA/vaE+C
- /TEoPk4DqHXg4FA/zf5eFvbIHekfQZHjoJ5Cw0EBHiz65GyYwwLOSoREO7eBr7hnTKrD
- JyBv2xOzZvgpdrW5sZdmtFpdzTDVMjXUb4wTRQbEu4bFfBx3fUtYZ57BfVKZhX09R5LA
- opr/pc3kd0ljWS1YZW/Ej74DxdobqUZcyHehM1Y7Bayp4u4TGUoWsMdt3lIiLp6cXeau
- oKUg==
-X-Gm-Message-State: AC+VfDxBemK4QyvyKBWBa9WvH7PDojDNLp0B3Km85QGsCq+N4RpvL6nC
- ZI6TFisr1yR0Zu2S5LN9WuB8qg==
-X-Google-Smtp-Source: ACHHUZ5XF35YQhoW6eEwBUCD3iUcY3MK6CCYI1Ds5j3oUuOB+tovOKsrFDij/jYx+59W+nHLeUm8eQ==
-X-Received: by 2002:a17:907:2d0a:b0:974:1ef7:1e33 with SMTP id
- gs10-20020a1709072d0a00b009741ef71e33mr8451695ejc.8.1685613833464; 
- Thu, 01 Jun 2023 03:03:53 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.199.204])
+ d=1e100.net; s=20221208; t=1685614202; x=1688206202;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=F7oPRb56xxOFhyPPW7r8Cl13Ie6RSoTMualjqBVrsIs=;
+ b=IB750yQW69cOx/mMsEeDdy9MKzAdgdZkehInQ/451ZwBtIl9yY5fuBW5Rj0ip24R+t
+ nijtHipv/ZwP1jWjggR1sOr41CgNCx79hSTXMLAomsFOvsdRWqxbxxzxIl1ezhxUIxrD
+ Tl+w7cHwU7/KkHkfxmjZgL5/GLBhB+441vb0eRI8wLGEZO1Qkqw2mgR/FhbcK3juLx8b
+ vkQHaT13eB2YYFZ3qNZZv9t0dCijNAuIYeQIumgRQBeB3Z6OMZKXcuhOsquPe+vLmnJD
+ 24h+baxzqOWpVkVmX63GfXOfo1ltMHrIp/r7+KqrorT5E9ocqJIeDd8oRyWtwsNfIrsz
+ nX8Q==
+X-Gm-Message-State: AC+VfDygIFacEtrNsg/A6U+/lzhxXWoWAaeDb3vm/9AqxgkXQdMsk6zj
+ 7d367ciA3P1zsaJr2JeSKWC/nw==
+X-Google-Smtp-Source: ACHHUZ473fmdIHtT9A4as6dePNfSRbK0nYDXhQAFl9rWDDAhXfxdKeqPuqISRhtrj+hJ/MyRmg69GQ==
+X-Received: by 2002:a7b:cd15:0:b0:3f7:19f9:4c4f with SMTP id
+ f21-20020a7bcd15000000b003f719f94c4fmr1544487wmj.21.1685614202461; 
+ Thu, 01 Jun 2023 03:10:02 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- t24-20020a170906179800b00968db60e070sm10262249eje.67.2023.06.01.03.03.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Jun 2023 03:03:52 -0700 (PDT)
-Message-ID: <025e29ae-842f-e086-81f1-20380152dc0e@linaro.org>
-Date: Thu, 1 Jun 2023 12:03:48 +0200
+ u6-20020adfeb46000000b0030ae53550f5sm9683845wrn.51.2023.06.01.03.10.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jun 2023 03:10:02 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 01 Jun 2023 12:09:46 +0200
+Message-Id: <20230601-topic-sm8550-upstream-dp-v2-0-e8778109c757@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20230601-topic-sm8550-upstream-dp-v1-0-29efe2689553@linaro.org>
- <20230601-topic-sm8550-upstream-dp-v1-1-29efe2689553@linaro.org>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230601-topic-sm8550-upstream-dp-v1-1-29efe2689553@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display: msm:
- dp-controller: document SM8550 compatible
+X-B4-Tracking: v=1; b=H4sIAGpueGQC/42NSw6DIBRFt2IY9zWAwU9H3UfjAPCpJArkoaaNc
+ e+lrqDDc5J7z8ESksPEHsXBCHeXXPAZ5K1gdtJ+RHB9Zia5LHnFBawhOgtpaZTisMW0EuoF+gi
+ mFqXRslZ9bVmeG50QDGlvp3zgt3nOMhIO7n31Xl3myaU10OfK7+Jn/yjtAjjIFgeUVdMqVT5n5
+ zWFe6CRded5fgE4SEkF1gAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1123;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=iL7lzn9jXBeXGB9m4il+iznwNTKa8/E0w6IARZqYybU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBkeG53ed4YWRTgqTjNqXEAeNxvfooFfW8lapHGUozL
+ MkqbFzuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZHhudwAKCRB33NvayMhJ0YcGEA
+ C91t1BSYpxwVVwzULJmQ9vu5fzT93CzP4v9TO5xoakQb4KC9rU8EcY5MnS8nQPHduPR7YA6/XuMcI2
+ ToWlkc3kHf543U9fQHa0/esSYNChAsKmXlnmDYFOvM/TiWLwMcyU+/ZEei9Lx+xmK4yk4bPR6yVGiz
+ IC3glQ0JAVmCejnMuo1sOpy4HRcQEVJFBg5NMNwh1w14wN/yeESHb3jTH14IF6g6bqyK1k4V0rzJzN
+ 2LD/Z4tLsolNDvvl1wQOtT97qnWCxklhm1AbYeZ6sAcgwnnvOW+ew8NlcgcWmU45felC/HPmYw/QIc
+ QRALqjPZMaxkfA8P6/c+VcoWcy+LNgHKhOo9jcWCYdRTnleLzIdowrtXeWF6wGDpyv0I9KaxcFgPL5
+ dC4tyvLM69xwZ7/YaJg0N0d3Wzp2MgFuaVJ6H2vzBzRi4OCMB9K1D8tSagV8bfJWfTjlLgUPyqdaQG
+ 50krHycEGtIMcU4qaEpoKycl2ROt4gRHnH6MIlBs8IYz6qRIwYtkQE0bZYka/cw0AGR5Qn/KCrOi1F
+ gAMtuTxMr5YGTmmg7Vc4sg39ApTcN7upaI9E5cS2SFg6206bzk9mVblxM4nYbcO1yKwvvF3hpf3874
+ QQpTfLlrXe+yWHybSqSCZxktvPwyf7iHXW3A8aW4lAATUtbRwxKxDSkRCamQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Subject: [Freedreno] [PATCH v2 0/3] arm64: dts: qcom: add DP Controller to
+ SM8550 DTS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,22 +101,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/06/2023 11:52, Neil Armstrong wrote:
-> The SM8550 & SM8350 SoC shares the same DP TX IP version, use the
-> SM8350 compatible as fallback for SM8550.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
+The DP output is shared with the USB3 SuperSpeed lanes and is
+usually connected to an USB-C port which Altmode is controlled
+by the PMIC Glink infrastructure.
 
+DT changes tying the DP controller to the USB-C port on the QRD
+board will be sent later.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Added review tags
+- s/lov_svs/low_svs/
+- Applied fixes suggested from Konrad
+- Link to v1: https://lore.kernel.org/r/20230601-topic-sm8550-upstream-dp-v1-0-29efe2689553@linaro.org
+
+---
+Neil Armstrong (3):
+      dt-bindings: display: msm: dp-controller: document SM8550 compatible
+      arm64: dts: qcom: sm8550: fix low_svs RPMhPD labels
+      arm64: dts: qcom: sm8550: add display port nodes
+
+ .../bindings/display/msm/dp-controller.yaml        |  1 +
+ arch/arm64/boot/dts/qcom/sm8550.dtsi               | 95 ++++++++++++++++++++--
+ 2 files changed, 91 insertions(+), 5 deletions(-)
+---
+base-commit: d4cee89031c80066ec461bb77b5e13a4f37d5fd2
+change-id: 20230601-topic-sm8550-upstream-dp-b713ba275d7c
 
 Best regards,
-Krzysztof
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
 
