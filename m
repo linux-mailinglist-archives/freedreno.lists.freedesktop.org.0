@@ -2,62 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CDA71F00C
-	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 19:01:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84B4C71F095
+	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 19:22:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5437310E598;
-	Thu,  1 Jun 2023 17:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5079A10E58F;
+	Thu,  1 Jun 2023 17:22:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D151710E597;
- Thu,  1 Jun 2023 17:00:56 +0000 (UTC)
-Received: from [192.168.122.1] (84-115-214-73.cable.dynamic.surfer.at
- [84.115.214.73])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id 70759CFC95;
- Thu,  1 Jun 2023 17:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
- t=1685638825; bh=eKeJWu3f/K9fInmraz7fujMKEyoO5YqMeg0ocfPUaZk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=pjAzBJB1NE9OKSaN9I3P20sycTyjb6pXf0Mw4byihxdSSGCuP2ZBjfRNv3CFxz1P6
- HEc1M9yG9XlckffcoObCzgxTz2SNQx3wZB3yFl5vmjXRRr+1raQdOyNZ3tMQIPcBoN
- fSqf27cw0X0+JqnMeQ4Lrpu7+W6o7m/4PNo1teJM=
-From: Luca Weiss <luca@z3ntu.xyz>
-Date: Thu, 01 Jun 2023 19:00:14 +0200
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 413DA10E58B
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 17:22:40 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-4f4b2bc1565so1480122e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 10:22:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685640158; x=1688232158;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=sWVaudt6LsFTD/rqYNILwYPV4mqbIoPZfzCN0ltwBe0=;
+ b=oKS648V4csGwPY/aR2vtqyAMJUbtbly8L8AZnN8my8AgTv8p/GMBbQGxASb9nJ+XHd
+ KEyyaCT/1Fo56HZpUwsGdQA55nrYnSOY25SPSczTFVV5L8E/yqmdfd4O7BXMcY4Y7hPb
+ lrGgskYsO1qxZHhR4bsYDo6YTsz7vz8B9Iye8foRdblMbsnVICgsC9mvq9PM6xczNp06
+ t8iYOPHLg5HwZKnA3uwYvLnkdbCt31B6kITerh06/kVfNFsnnbRUTJk0NYaroJwUKIiK
+ vuv9HWHJLlNS6PbcozwcaPRyRo1/NSy+NNHKtk63W6RoLdHmraZiJTLpja84FxpLtGxe
+ 5nHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685640158; x=1688232158;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sWVaudt6LsFTD/rqYNILwYPV4mqbIoPZfzCN0ltwBe0=;
+ b=jrsTASbTMjBcfDHa4oDlIZ1ONN4rCHHtd1JhPhqP4Wjy6dhy+zaS2DjRWAfmCqjrsZ
+ mHu5OEVkoLAulJ84qf1YHkv5zUvWijOgAFy5yOnE8U8ZRdFLLv0ETW/ef3nJFp+WLFXF
+ cvXcxr4px5cVys51aQdfFUWjlctIm1RR+N735lYXkoGBrcHavl7LmWLrPl6efAbSEdUg
+ v1p7M+hoHK9bz+bRxMCTZGEOstc3NtC6mQosqECjJ710/VqJ467qckKyE9ouwXCA6iSp
+ p+2Qt/haZ2eddbaGEkfrT97qWe/1RR/RCWIJG8bxOvnDRhQKORgYuHdUJxurIkM9mibR
+ OU5Q==
+X-Gm-Message-State: AC+VfDzeJWF3KXQZppIfwYSMFmg211eCl6kmV1dGIJCqQs364LbrCCZK
+ gXYBfZNgLAnaiAhC2xzegmOn5w==
+X-Google-Smtp-Source: ACHHUZ6nIBJXKG+xTUTHYyhVVGJkUrZWZrvseGKuDtApB9Is+JPcnXkFZilVLdboy10XG1W8jjaJKA==
+X-Received: by 2002:ac2:5627:0:b0:4f3:880b:285a with SMTP id
+ b7-20020ac25627000000b004f3880b285amr456411lff.29.1685640158258; 
+ Thu, 01 Jun 2023 10:22:38 -0700 (PDT)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ b25-20020ac25e99000000b004eb2f35045bsm1145739lfq.269.2023.06.01.10.22.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jun 2023 10:22:37 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Thu,  1 Jun 2023 20:22:29 +0300
+Message-Id: <20230601172236.564445-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230308-msm8226-mdp-v3-7-b6284145d67a@z3ntu.xyz>
-References: <20230308-msm8226-mdp-v3-0-b6284145d67a@z3ntu.xyz>
-In-Reply-To: <20230308-msm8226-mdp-v3-0-b6284145d67a@z3ntu.xyz>
-To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3498; i=luca@z3ntu.xyz;
- h=from:subject:message-id; bh=eKeJWu3f/K9fInmraz7fujMKEyoO5YqMeg0ocfPUaZk=;
- b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBkeM6h05rTstajjbAt+kVtioKTNC37puxYbWPQm
- BTuFhUuiQuJAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZHjOoQAKCRBy2EO4nU3X
- Vv4hD/0WEov8+ZNLq0Q5ol0zU/7j43NKM1dVC6HyNyEHS5sRr4q3y8LKlQ/m3lzk2eKq89I6Zoa
- 0wA+H6g00UjIjDShXCCNLa/I0XkuwuGb4nXsF5fX/8OmCwRBBQX5XaP2m3DlkWivhe7xEj4qw+6
- BoKeBzDn/g+lFAUKX8+616t3lCvpK1BRatKOMfqMnikGKSji0DdKH8ODP2qH0LsmmQETwEg4jb5
- qQxBSRJ1vZf/OE9B7RVyCQTzimae1j++fugad5zuBDXLzgzJJDclMzlORxZr+k2hNuJM5GihgO7
- IxNGErKKY7PTyfXRC2Zirh9PwcGbY3zX6tJ6uQbKDwRA8GzJ0g4Ib9DXegvW8Iloex7kvC3HZXi
- uZ68MJxFjDXvR/KpKQwoRppp6tJX8lRvivMnYa8zqJT3c/uetq1zkpedfG2Slas0QQxEK2WYCWY
- bVZk/gxbJpVOdfERXlpFbK/9m7/7Zn0yiN9csQ0R77W+dXgm1d8VlsNdTU3EHgHthNYS/Ymsxwr
- q/3qCeNr8VE/vRHDnVoEPIHEd9G1D9FxxWYSbr2/hcnm+LpucX2G4ENbWCp/64eFfLJLQfcuzOT
- PVe3yL89QxXqgV14B1ATyLSlO2TqQdhRgUNAnhhbJOOgXeO9dTc1ztTtmd1WoA0wqdjtRP8UIkW
- WgdUOM8ZyUlSCwA==
-X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
- fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
-Subject: [Freedreno] [PATCH v3 7/7] ARM: dts: qcom: msm8226: Add mdss nodes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/7] drm/msm/dpu: simplify DPU encoder init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,159 +72,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Luca Weiss <luca@z3ntu.xyz>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the nodes that describe the mdss so that display can work on
-MSM8226.
+Rework dpu_encoder initialization code, simplifying calling sequences
+and separating common init parts.
 
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
----
- arch/arm/boot/dts/qcom-msm8226.dtsi | 127 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 127 insertions(+)
+Changes since v2:
+- Rebased on top of msm-next-lumag branch
 
-diff --git a/arch/arm/boot/dts/qcom-msm8226.dtsi b/arch/arm/boot/dts/qcom-msm8226.dtsi
-index 42acb9ddb8cc..9f53747d2990 100644
---- a/arch/arm/boot/dts/qcom-msm8226.dtsi
-+++ b/arch/arm/boot/dts/qcom-msm8226.dtsi
-@@ -636,6 +636,133 @@ smd-edge {
- 				label = "lpass";
- 			};
- 		};
-+
-+		mdss: display-subsystem@fd900000 {
-+			compatible = "qcom,mdss";
-+			reg = <0xfd900000 0x100>, <0xfd924000 0x1000>;
-+			reg-names = "mdss_phys", "vbif_phys";
-+
-+			power-domains = <&mmcc MDSS_GDSC>;
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			clock-names = "iface",
-+				      "bus",
-+				      "vsync";
-+
-+			interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges;
-+
-+			status = "disabled";
-+
-+			mdss_mdp: display-controller@fd900000 {
-+				compatible = "qcom,msm8226-mdp5", "qcom,mdp5";
-+				reg = <0xfd900100 0x22000>;
-+				reg-names = "mdp_phys";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_VSYNC_CLK>;
-+				clock-names = "iface",
-+					      "bus",
-+					      "core",
-+					      "vsync";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdss_mdp_intf1_out: endpoint {
-+							remote-endpoint = <&mdss_dsi0_in>;
-+						};
-+					};
-+				};
-+			};
-+
-+			mdss_dsi0: dsi@fd922800 {
-+				compatible = "qcom,msm8226-dsi-ctrl",
-+					     "qcom,mdss-dsi-ctrl";
-+				reg = <0xfd922800 0x1f8>;
-+				reg-names = "dsi_ctrl";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <4>;
-+
-+				assigned-clocks = <&mmcc BYTE0_CLK_SRC>,
-+						  <&mmcc PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&mdss_dsi0_phy 0>,
-+							 <&mdss_dsi0_phy 1>;
-+
-+				clocks = <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MDSS_BYTE0_CLK>,
-+					 <&mmcc MDSS_PCLK0_CLK>,
-+					 <&mmcc MDSS_ESC0_CLK>,
-+					 <&mmcc MMSS_MISC_AHB_CLK>;
-+				clock-names = "mdp_core",
-+					      "iface",
-+					      "bus",
-+					      "byte",
-+					      "pixel",
-+					      "core",
-+					      "core_mmss";
-+
-+				phys = <&mdss_dsi0_phy>;
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						mdss_dsi0_in: endpoint {
-+							remote-endpoint = <&mdss_mdp_intf1_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						mdss_dsi0_out: endpoint {
-+						};
-+					};
-+				};
-+			};
-+
-+			mdss_dsi0_phy: phy@fd922a00 {
-+				compatible = "qcom,dsi-phy-28nm-8226";
-+				reg = <0xfd922a00 0xd4>,
-+				      <0xfd922b00 0x280>,
-+				      <0xfd922d80 0x30>;
-+				reg-names = "dsi_pll",
-+					    "dsi_phy",
-+					    "dsi_phy_regulator";
-+
-+				#clock-cells = <1>;
-+				#phy-cells = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>,
-+					 <&rpmcc RPM_SMD_XO_CLK_SRC>;
-+				clock-names = "iface",
-+					      "ref";
-+			};
-+		};
- 	};
- 
- 	timer {
+Changes since v1:
+- Withdrawn two pathes for a later consideration
+- Changed dpu_encoder_phys_init() to return void (Abhinav)
+- Added small simplifications of dpu_encoder_phys_cmd_init() and
+  dpu_encoder_phys_wb_init()
+
+
+Dmitry Baryshkov (7):
+  drm/msm/dpu: merge dpu_encoder_init() and dpu_encoder_setup()
+  drm/msm/dpu: separate common function to init physical encoder
+  drm/msm/dpu: drop duplicated intf/wb indices from encoder structs
+  drm/msm/dpu: inline dpu_encoder_get_wb()
+  drm/msm/dpu: call dpu_rm_get_intf() from dpu_encoder_get_intf()
+  drm/msm/dpu: drop temp variable from dpu_encoder_phys_cmd_init()
+  drm/msm/dpu: simplify dpu_encoder_phys_wb_init()
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 178 ++++++++----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  14 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  15 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  37 ++--
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  19 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  35 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  87 ++++-----
+ 7 files changed, 141 insertions(+), 244 deletions(-)
 
 -- 
-2.40.1
+2.39.2
 
