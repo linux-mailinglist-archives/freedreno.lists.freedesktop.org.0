@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1183719873
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A9B0719872
 	for <lists+freedreno@lfdr.de>; Thu,  1 Jun 2023 12:10:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 342E410E22F;
-	Thu,  1 Jun 2023 10:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B19F10E554;
+	Thu,  1 Jun 2023 10:10:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B957610E53D
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 10:10:05 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-3f60e730bf2so6899205e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 03:10:05 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE11410E537
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 10:10:06 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4f3bb61f860so705155e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 03:10:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685614203; x=1688206203;
+ d=linaro.org; s=google; t=1685614204; x=1688206204;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4hM3UpU4FHsZR3ujTD4pG4KYkhz/mexEq2D+ziSUPKA=;
- b=wm0YX/FCvbKlhU8+yx/ex0SXt+VVm9oGs34CkMJgcsUos/ksIQds0jbU/2zfqJdNMt
- B1q+sI1TqnYVnzmPYirTEpd4EYzOe+2ajmG0xIlETpmHWTkrGv7/1bL4/mIupyl0zYMD
- 7DZkQ9loj/ET7NJHVN7pd6l+TaDNDIDS6wfKdKO8v+MA2lM9c2XYyaEwAfKApDvTmm6r
- MOEnvqmzG9Gbpj/CSNvftIdqq1AoqGSyUYNvaJewpt+0sprqYWtSwd67YkqhsL+wkvNt
- XWgRnHXQh2c88A8ZAI39Pk03HhtDHcOOoHlwFwo8pazb+G0LCsXZDv6zpBCgxGls89Vq
- SJcw==
+ :reply-to; bh=sY1We4qYQqoWhZd32M3qvVq9EFogwk8bUgcdgefUaYg=;
+ b=RIyPaMt0j2FCUZjMmBjUlH0p6Dct9E7GEV69C8HaRd0iRVA6dsE6J16zCkI/lKleo0
+ WkSqo4XyFGJDi1BqPX9NMYcPwqbE1BCodgv0QriY7ZF4sPmINygF20H8quVtffciZNRD
+ jzZYnmzkQ07G7xNxxaqruu2BEjagNjkf84sm2Kf3yVgKUsr5t3X9Kza0NqoxjLtENPjd
+ 6Qw7Boqvhlkx1R2GF/WVCphCK9fYVr7+TyoXP3M6KR9YWtL/EJ/A+rensy7dx1/6CBVo
+ j9PXjj2N24QhqDMW6cMDh1vqE9cDfG286IkNEYNYrCysbOaj2cM13FhHKYfR/FpMRHPw
+ rFvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685614203; x=1688206203;
+ d=1e100.net; s=20221208; t=1685614204; x=1688206204;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4hM3UpU4FHsZR3ujTD4pG4KYkhz/mexEq2D+ziSUPKA=;
- b=dC01xXU9S5qSew58gaP4/u7vS+GzEGgWtOC+TvddsMedItUdGPuJBMBAXMPuO/dHGs
- Lh+ZBXixDwvhWPpvXcPp/yOTucUlmRjZ4T3BHv2oyTPtkyANZ66wb5VElIM+9zy/yl61
- 5yzZlRblUfxa7VslxbYFPHV5eMO61/qJVfDhZmRb2z66C0s0u5ErCSMPurJ0Q/0GNDbp
- vLXc/aXJkjCJyORsSYhS/7GK4Fb5YC+eQaB0bI1e5uSm+liBIdQ24k920vUOGEXZmY6x
- GNqBCd7vl8TsYb40bOaQmVSR+/bgdWtA9t9bArrHSn3E4HYHYqmK1hmlT/47RjVpkWo6
- 7gHg==
-X-Gm-Message-State: AC+VfDwmv5idZrce1F6Wk9xVN8KMRdq0JCoPCUybIqChgKPf7Eew5+3K
- IhldZKf7l3NuadycOlx5jczj8g==
-X-Google-Smtp-Source: ACHHUZ69Bbf6Z3INj/J+PwXGLRxzxffkhFi1gLwovYKWHvCS3FLJST4uEj1nucW5+Z4m4vb6CSO5MA==
-X-Received: by 2002:a5d:60d1:0:b0:309:5029:b075 with SMTP id
- x17-20020a5d60d1000000b003095029b075mr1497452wrt.13.1685614203474; 
- Thu, 01 Jun 2023 03:10:03 -0700 (PDT)
+ bh=sY1We4qYQqoWhZd32M3qvVq9EFogwk8bUgcdgefUaYg=;
+ b=M4MKa6dnX3wnTvOESz8Zhxs4aLqzradRYe/+LnSK/bVMtBrCjpA7qhk0u3sLIphBU9
+ qBL3HHVepwRkKyA+akX8KRignWOueKKWNADYV51iV+BkldJQoq1TQNlPz/wELDo5Mpz7
+ BvQomm8QH6/+FV4+JYhMHLRc/A35wR1H/2GJk0DMeT4qk7UvZwNCW7DxgapJ7a0IKGHA
+ WAKMh7SdAJ42ClBZs0pqgAjy0Ffpdcu/nsKa5/uGKMBaW7yOqUBmzw1kKgBLZQvqaa3C
+ DliZPbS6jxwwB7vSfgQi/zSTdvlFX1OIS9nICMUU/OoQtsV64wueYsvKJGotqBBzw2jJ
+ 0K4Q==
+X-Gm-Message-State: AC+VfDzr/R4qnfUGjfiUkwArtHM+bfUR2Uu4lJLtmxuT5/cusQUjMZlQ
+ fcbFlxW31+df8qvYqMIyvMfN/A==
+X-Google-Smtp-Source: ACHHUZ65TRjKIjH36XsJnqcWHxy3HM0YdUpsaedx5ubl2+mAXMVmYvzVt/Gt2BmsypY9M2Hz+tReuA==
+X-Received: by 2002:ac2:424f:0:b0:4f3:baf9:8f93 with SMTP id
+ m15-20020ac2424f000000b004f3baf98f93mr1055227lfl.3.1685614204494; 
+ Thu, 01 Jun 2023 03:10:04 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- u6-20020adfeb46000000b0030ae53550f5sm9683845wrn.51.2023.06.01.03.10.02
+ u6-20020adfeb46000000b0030ae53550f5sm9683845wrn.51.2023.06.01.03.10.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 03:10:03 -0700 (PDT)
+ Thu, 01 Jun 2023 03:10:04 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 01 Jun 2023 12:09:47 +0200
+Date: Thu, 01 Jun 2023 12:09:48 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230601-topic-sm8550-upstream-dp-v2-1-e8778109c757@linaro.org>
+Message-Id: <20230601-topic-sm8550-upstream-dp-v2-2-e8778109c757@linaro.org>
 References: <20230601-topic-sm8550-upstream-dp-v2-0-e8778109c757@linaro.org>
 In-Reply-To: <20230601-topic-sm8550-upstream-dp-v2-0-e8778109c757@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -69,24 +69,24 @@ To: Rob Clark <robdclark@gmail.com>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=876;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1076;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=DRIkrQLx11ml/or6ze6+hR4V0lPSP/PMoO7uVnzdRFc=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBkeG54qg4wI0MlQbpeCkfXkCVcdBiCMuVoAT0SMQ1N
- 59LRRxeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZHhueAAKCRB33NvayMhJ0afpD/
- 9uWKQsA/VKfHHE76RHNW3PPQDOjVTLJ9jcBX1WePnao/vNYlw9XuVl/GTt2p8YhPZSHBIYU/T7ukFf
- lI2nbrdnYJFFikTpvDhyQvT68mZ00mTXDDakUxVB/nLwzjlAOGTUc9FbDNAifNACgVjIs+/woS4FWK
- 1GLiWtPat8FaGPKQyhtnuOXTyrs1Adzidf0B5HfxDIT/ydsvX35TAVcfnl36MHTVF4ElAByV122Dnj
- 7VTFiTw1ibXKN2Si6b482wou3s8hTuz64t4dKF1FmIF86b+OfJ2rr4ilpM6tCVId06IvjyYts7mZZc
- rd1DKtP+PTq2wM6hBWGrXe03vezEBp6/E+13CrqX0Rhu6CSNxyiLBm76ucWC/4oHwE6vz1zmt4LgEr
- HXeJg5KAPE1AFp7MmZGeJVdXe3CPDlSEXJkxvH0QQ8RXuHUdKfphFvi9b2oHX+tgEXIdVySCpSHo46
- 8ihW6AMow+htUomkVYCNm8Gv+ZRvAOlG8Wn0/1s0oFk0fFENrBYvJNBecKqu/FLhGYdGQ7qurHcpF3
- B8DeUX2KQW6yDCvfHJ4NCcF0PG4aXOEGr+Sn8OxGA36hL63GfVQkeZ0nRpNYds81DRKMgPkW2VRdLc
- 1lrLzNM2ztNi4RGed6RJ+gv/M5bd3VdkW0SY6Tph/gKTD4D9SuZ351pRlYQQ==
+ bh=BYB/JqR4EQKAABvrcd/B6Yg5ojwBRjwkuwpOgjg+m3k=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBkeG54bhNVdQN6AtyD+AxffdNrLX6hlWEkxTXj8vsE
+ qBWbcHqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZHhueAAKCRB33NvayMhJ0VxxEA
+ Ch5pApwPR/p754sUMBx/sMt4sn6pnr2AeyXiUzb2+MaN3Fwcpo9IjzSvoT67PglpF5yQps4Yia+AEH
+ JNS69njWUnGW+kJij07YFhspaofhY/9xX7aH7fmQ/npXitQ2h7mmglTQVZ6RiJ2Z/cuPm71RpU0cW/
+ 52r4m1nxpE9gcFKZD7MOFDtI53+xNsCQkTkvCkpl8E5uPC1uucg4+K2/P6VQt09UJ6c55ik/v9b1Jq
+ 85BsH8E9oXH6hJc4I+4RFUCeSopEeNCNAD3LFTQ8Azg1boLV9fNV2n1YAZoQDyktxT8K1mfqwtidTW
+ uPZkLSRoWMWzkrBASVujWhR6mqLjHGK4meVeMIopppxaQxSmmHg5qUdgwJliVfY3Na/YqyYQHtQ64H
+ NSQsrI+0J/Tzfe8Etd8adpkTXX6PCtAoQVIf3zeu4xyF9zt9ds2HdxYozqnq6mWdm+cg7+DX4XV2Ly
+ POMtvSv+QPf633NEJO9l1Rs0TkTQGx7WInmITN11liIbnpL7lEdV8KwAJVdMDZFEJP1A9qPM5NPNhY
+ 8FdZXleXL0CAKy7axagK/uQjH6mhdI3WciatBGgVbKCON9CCQJcutT8vN/uBe2YwsRHdExFAP+mEIY
+ S2eO4xSplMyEpps+kcqYPXw5qXKhT5R0OgeEcLsVltgnRDw98oOY+OJzwFAA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH v2 1/3] dt-bindings: display: msm:
- dp-controller: document SM8550 compatible
+Subject: [Freedreno] [PATCH v2 2/3] arm64: dts: qcom: sm8550: fix low_svs
+ RPMhPD labels
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,33 +101,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- freedreno@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SM8550 & SM8350 SoC shares the same DP TX IP version, use the
-SM8350 compatible as fallback for SM8550.
+"low" was written "lov", fix this.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Fixes: 99d33ee61cb0 ("arm64: dts: qcom: sm8550: Add missing RPMhPD OPP levels")
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index f0c2237d5f82..7a7cf3fb3e6d 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -29,6 +29,7 @@ properties:
-       - items:
-           - enum:
-               - qcom,sm8450-dp
-+              - qcom,sm8550-dp
-           - const: qcom,sm8350-dp
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index 75cd374943eb..972df1ef86ee 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -3649,15 +3649,15 @@ rpmhpd_opp_min_svs: opp-48 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+ 					};
  
-   reg:
+-					rpmhpd_opp_lov_svs_d2: opp-52 {
++					rpmhpd_opp_low_svs_d2: opp-52 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
+ 					};
+ 
+-					rpmhpd_opp_lov_svs_d1: opp-56 {
++					rpmhpd_opp_low_svs_d1: opp-56 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
+ 					};
+ 
+-					rpmhpd_opp_lov_svs_d0: opp-60 {
++					rpmhpd_opp_low_svs_d0: opp-60 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
+ 					};
+ 
 
 -- 
 2.34.1
