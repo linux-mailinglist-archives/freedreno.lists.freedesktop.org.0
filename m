@@ -1,75 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A1671F5DE
-	for <lists+freedreno@lfdr.de>; Fri,  2 Jun 2023 00:19:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 358EA71F80B
+	for <lists+freedreno@lfdr.de>; Fri,  2 Jun 2023 03:36:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3853710E5EF;
-	Thu,  1 Jun 2023 22:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8D610E609;
+	Fri,  2 Jun 2023 01:36:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5046310E5EF
- for <freedreno@lists.freedesktop.org>; Thu,  1 Jun 2023 22:19:05 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4eed764a10cso1855748e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 01 Jun 2023 15:19:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685657943; x=1688249943;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tzXpUnDvZMIGNay0Hjx0EQuMfpTuFoMlesIC5F6AUvE=;
- b=kkhGZhP5XYy2HzmNIbLeUTEFhbvL2oQoZdvdAI05ZtUBwV3q5x/VU0GV1R3T9qZODl
- Dm+cctRk1I2y2IwihBvGoQDFXqC2kMkKIPU2uxpiZ4KBHZaXech2/+rpMV8wCwfo/8kU
- mhbWvU54ao/wpEDJoIztIre3a2004KfIjMYKCWyDxXzOhSV7mfvmGDu7D1/V2kBiNAwq
- yuK+R850oz/AG2rENm8K36Wg2Oozrly5S+LqBCwTzdLVmr20hEdqF3qyrDSGLfie8Y0A
- jYem+IJBXXhiaucCcB6zFtJvmYfv303ldkko5SgNfy96NbcGNvgAVaL7/D3E75w88cZe
- 3A/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685657943; x=1688249943;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tzXpUnDvZMIGNay0Hjx0EQuMfpTuFoMlesIC5F6AUvE=;
- b=RY2pxKuXNHdFAWNq1KHrcn3ykMC4MmW7NqkqIFnjN4n/dXmcCskv6gtZCEV8I7xHg6
- oGFWhP21Ug9Cp7dUzco91shEOk1QWJ4UD6pfWsXAKEPzvDeWbx8H0b1HaKiZ5DTxb583
- pccuC9aUEgZRqvuUQ5pmCRvz8KpN7mOm7dfL/dlVmD4shvskZUAhujD4xDAH/U7YjoK/
- tkCs0JrYLiK5Jv75DDVSGZ7mqkkt4Xv9EmzAxt2sKq86yPSSQn844kUbiYaC2mH7xKyq
- fIxfH9fecR3MNdHD9qOt+k4T87qvDHEAtcd4bf7woHG7YN+caddreqaG/jwK0jyEwOmi
- 6bow==
-X-Gm-Message-State: AC+VfDwI4RcJSvnpwu4s0opn7WyHj8MYG8bj7vCY8HcmQAL0TTsX1czW
- lKyJcKAw3rcz0yBn1tRToU2j5g==
-X-Google-Smtp-Source: ACHHUZ4bdEmvTLb553Q5+iyY77wpuuXKmGQSlgIhZOEtsTYnzLDj9i2MCBGiPRL4H9ECBwrf05q6wA==
-X-Received: by 2002:ac2:5a06:0:b0:4f4:b28f:6b9c with SMTP id
- q6-20020ac25a06000000b004f4b28f6b9cmr783852lfn.29.1685657943086; 
- Thu, 01 Jun 2023 15:19:03 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- r2-20020a056512102200b004f25c1e2cf5sm1210004lfr.173.2023.06.01.15.19.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Jun 2023 15:19:02 -0700 (PDT)
-Message-ID: <4011108d-1c1a-c648-244f-5414e9465d80@linaro.org>
-Date: Fri, 2 Jun 2023 01:19:01 +0300
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2EE810E609
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Jun 2023 01:36:38 +0000 (UTC)
+Received: (qmail 10122 invoked by uid 990); 2 Jun 2023 01:36:36 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1685657331-23280-1-git-send-email-quic_khsieh@quicinc.com>
- <1685657331-23280-2-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1685657331-23280-2-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: retrieve DSI DSC struct
- at atomic_check()
+Date: Fri, 02 Jun 2023 01:36:35 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Leonard Lausen" <leonard@lausen.nl>
+Message-ID: <f98dcffe4b1dc91edf692fbaa766a263910f2c5b@lausen.nl>
+TLS-Required: No
+To: "Abhinav Kumar" <quic_abhinavk@quicinc.com>, "Kuogee Hsieh"
+ <quic_khsieh@quicinc.com>, "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>,
+ "Bjorn Andersson" <andersson@kernel.org>
+In-Reply-To: <932ee149-c524-25e7-ee49-5ea1a7e6708c@quicinc.com>
+References: <932ee149-c524-25e7-ee49-5ea1a7e6708c@quicinc.com>
+ <e547edf4-1b48-5d12-1600-45f78e7cab49@quicinc.com>
+ <1345a125-f745-4fe3-0f5e-bfe84225958d@quicinc.com>
+ <b0cc40d5-6de1-91cc-e2cd-f47cc53551e4@quicinc.com>
+ <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
+ <20230508021536.txtamifw2vkfncnx@ripper>
+ <3802269cd54ce105ef6dece03b1b9af575b4fa06@lausen.nl>
+ <ad351c02-1c29-3601-53e8-f8cdeca2ac63@linaro.org>
+ <49d175ec16e3f65a18265063e51092ee8d0d79c1@lausen.nl>
+ <f2d1bb37-ea83-4d5d-6ef5-ae84c26d6ac1@quicinc.com>
+ <b9c8243ed53c5c9d7c1b5711237f6130976ea99b@lausen.nl>
+X-Rspamd-Bar: /
+X-Rspamd-Report: MIME_GOOD(-0.1) BAYES_HAM(-0.653806) SUSPICIOUS_RECIPS(1.5)
+X-Rspamd-Score: 0.746193
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Fri, 02 Jun 2023 03:36:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=F1dvcx9M5aUHwpLVgbzf/l4rVtHAAaC7rv6RpWusZ5s=;
+ b=wFk1temRwaSxBD9VI5V46NvXc365LyX2Oy2QNyMIivszup70xaT/XGMZU9EImnz2BJ4OAZR/Ng
+ /+LZGTrJC+Vrm93lm6S9PM/qij10wuT53Ig7zCv+9c085Xm+9fxf5fDzKYr05woN1avArs2muKTc
+ +dQytvX5Q7DgjKbcJZtFQkQ7QseKeklh9Qlue7F9wQTLCHfdOqm4Y4qQk2cGlL34GzXda63ViAd5
+ 8yfFe5zJjWkTACc5P7Avxr5evqcUzZuolE9tMP76oAtyEu8RCVAOQs47MP3uAUyhLqWJVkSid/h3
+ dnWDVjz4YUH9H878dg0emKksBhR3ZpSi4RQP1CPXanMBcAshgbjBxHGigY+PejnMoOGfw1jJrvqO
+ dubxnpOH3IyfpKlLY+F28N2lSoYyedtoSACiRy59GWHWiiOwkaO51SoFYwU5VM/dYG3RpEiFnoLP
+ n3YP+gMxFqv+UrRpHzz+QulynVDBaFiizMzwpoMiHSvlczC5AUI+aJhlhQyT4nlYf95/UGIs96Ih
+ /try9w4FMiDYKpELz9gP22UMwK5Xi9j27MK2yn3uKcs25g7GIy+87Wbb2b3sp9wwD5jTGq4urLRt
+ 8TGdvJxgrlCuiZ9cNuJLk9V7KDF+aseLMe6kLuvoWQXSd/l1Ju+nlTIxaR7GLjuxqscmWxWZeyDe
+ s=
+Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,102 +68,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, regressions@lists.linux.dev,
+ David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>, Daniel 
+ Vetter <daniel@ffwll.ch>, Nikita 
+ Travkin <nikita@trvn.ru>, freedreno@lists.freedesktop.org,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/06/2023 01:08, Kuogee Hsieh wrote:
-> At current implementation, DSI DSC struct is populated at display setup
-> during system bootup. This mechanism works fine with embedded display.
-> But will run into problem with plugin/unplug oriented external display,
-> such as DP, due to DSC struct will become stale once external display
-> unplugged. New DSC struct has to be re populated to reflect newer external
-> display which just plugged in. Move retrieving of DSI DSC struct to
-> atomic_check() so that same mechanism will work for both embedded display
-> and external plugin/unplug oriented display.
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 +++++++++++++---
->   1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 3b416e1..5c440a0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -604,7 +604,7 @@ static int dpu_encoder_virt_atomic_check(
->   	struct drm_display_mode *adj_mode;
->   	struct msm_display_topology topology;
->   	struct dpu_global_state *global_state;
-> -	int i = 0;
-> +	int index, i = 0;
->   	int ret = 0;
->   
->   	if (!drm_enc || !crtc_state || !conn_state) {
-> @@ -639,6 +639,10 @@ static int dpu_encoder_virt_atomic_check(
->   		}
->   	}
->   
-> +	index = dpu_enc->disp_info.h_tile_instance[0];
-> +        if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI)
-> +		dpu_enc->dsc = msm_dsi_get_dsc_config(priv->dsi[index]);
+Hi Abhinav,
 
-As discussed previously, one should not write to non-state objects from 
-atomic_check. This chunk does.
+June 1, 2023 at 3:20 PM, "Abhinav Kumar" <quic_abhinavk@quicinc.com> wrot=
+e:
+> >=20
+>=20>  [drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-107=
+)
+> >=20
+>=20
+> We are not able to recreate this on sc7280 chromebooks , will need to c=
+heck on sc7180. This does not seem directly related to any of the hotplug=
+ changes though so needs to be checked separately. So please feel free to=
+ raise a gitlab bug for this and assign to me.
 
-Not to mention that this will start exploding once you try adding DP 
-next to it.
+Thank you for checking with sc7280. I created https://gitlab.freedesktop.=
+org/drm/msm/-/issues/25 and CCed you. I've also verified that the error p=
+ersists with v6.4.0-rc4 + Kuogee's patch (just in case you may have teste=
+d on sc7280 with 6.4).
+=20
+>=20>  https://patchwork.freedesktop.org/patch/538601/?series=3D118148&re=
+v=3D3
+> >  Apologies if you were not CCed on this, if a next version is CCed,
+> >  will ask kuogee to cc you.
+> >  Meanwhile, will be great if you can verify if it works for you and
+> >  provide Tested-by tags.
 
-Please abstain from posting next revisions until the discussions on the 
-previous one are more or less finished. For now this is NAK.
+I see Bjorn also tested the patch. As it fixes a serious USB-C DP regress=
+ion which broke USB-C DP completely on lazor for v6.3, can it be included=
+ in upcoming 6.3.y release?
 
-Not to mention that this patch doesn't pass checkpatch.pl.
-
-> +
->   	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
->   
->   	/*
-> @@ -1034,7 +1038,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->   	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
->   	int num_lm, num_ctl, num_pp, num_dsc;
->   	unsigned int dsc_mask = 0;
-> -	int i;
-> +	int index, i;
->   
->   	if (!drm_enc) {
->   		DPU_ERROR("invalid encoder\n");
-> @@ -1055,6 +1059,10 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->   
->   	trace_dpu_enc_mode_set(DRMID(drm_enc));
->   
-> +	index = dpu_enc->disp_info.h_tile_instance[0];
-> +        if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI)
-> +		dpu_enc->dsc = msm_dsi_get_dsc_config(priv->dsi[index]);
-
-Doesn't this seem 100% same as the previous chunk? Doesn't it plead to 
-be extracted to a helper function?
-
-> +
->   	/* Query resource that have been reserved in atomic check step. */
->   	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->   		drm_enc->base.id, DPU_HW_BLK_PINGPONG, hw_pp,
-> @@ -2121,8 +2129,10 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
->   					phys_enc->hw_pp->merge_3d->idx);
->   	}
->   
-> -	if (dpu_enc->dsc)
-> +	if (dpu_enc->dsc) {
->   		dpu_encoder_unprep_dsc(dpu_enc);
-> +		dpu_enc->dsc = NULL;
-> +	}
->   
->   	intf_cfg.stream_sel = 0; /* Don't care value for video mode */
->   	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
-
--- 
-With best wishes
-Dmitry
-
+Thank you
+Leonard
