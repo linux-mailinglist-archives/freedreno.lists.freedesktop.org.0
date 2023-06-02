@@ -2,60 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 358EA71F80B
-	for <lists+freedreno@lfdr.de>; Fri,  2 Jun 2023 03:36:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4D271FCCE
+	for <lists+freedreno@lfdr.de>; Fri,  2 Jun 2023 10:56:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8D610E609;
-	Fri,  2 Jun 2023 01:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D90410E637;
+	Fri,  2 Jun 2023 08:56:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2EE810E609
- for <freedreno@lists.freedesktop.org>; Fri,  2 Jun 2023 01:36:38 +0000 (UTC)
-Received: (qmail 10122 invoked by uid 990); 2 Jun 2023 01:36:36 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9006F10E637
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Jun 2023 08:56:24 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2b1a3fa2cd2so20971761fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 02 Jun 2023 01:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1685696182; x=1688288182;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XrpidZdFlKb1peCnBOGzyHQ66vMzewHGJSI8Eoy2cco=;
+ b=rpOG+boljts3dlGY1vcrvZpSiu7Kf8GgwnVFrPvlpM7MJJ6fr6sOh/KOmEFZKG246F
+ iDJ/cVwpzw+fNS9JeaLMRUlPCul6ZvlKcW+VWXjf9L5jod6A9f0Wvc+9wH/54Os+qFuw
+ ThfiOYsHP/XEZ9a+6nN67ih+y6decEC5ohFJXQl0zP+gcMzfm//4lC5jNQcgFbtWRjne
+ bmHoaNucTB5mSj+8afIeEem5AA6y8fir+91Lh6uMnZXUJwbuOhGIR44pgEZdGc2O9k3r
+ nuNGYRHKRn7lbZPzeWGPq5cFRiXPO+O4Tu1fxG0OBO+GxqLcETOCATf1l99+aXDxKAP2
+ kGQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685696182; x=1688288182;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XrpidZdFlKb1peCnBOGzyHQ66vMzewHGJSI8Eoy2cco=;
+ b=KQqFNi/up7MmHvgnC1gxTqox4nt1y61G3vgLGeY7OwmkfkyIqnyOGfkqA714O94BFK
+ Xeu0QDJXth4+c5gmuNX4Tvr+67pPLIaifyDTKIr36NVA7/yyv4/YP79KfZUIh9L3nDuK
+ f/41Gu51Q4KcUVJujSxFloBUIbHnWImqtg/Y6jXvdsXmoLAdjh5yvvn+kbSGmo5HByVZ
+ 6x/FRbYE3cgL/P2KALgkjWU8NkByRQUcxY13LM9N9FAtY1oQEC9j79/q/73VpMUpc83o
+ 3TuOCJQ1JUhPpuNkB9ZGr5HvCq1oiTpgfq2Q14U0vs8faIAGkFesXtN8Mb0zH0tAXTcL
+ Mnhw==
+X-Gm-Message-State: AC+VfDyH1XVt8Vw2ptbLYMBiLGkDJtatCFqq8+kEGXyd3tPEpIQ1TMgv
+ 7yUU+dGjpGl21SaDhTeWlNP4fA==
+X-Google-Smtp-Source: ACHHUZ4l0ApT7LocfRdhMrG29TGzSsXg8GfH5Tp8aoqG+hzm7uAHxtZ8mpFbDowbBLab5puiE7RKBA==
+X-Received: by 2002:a2e:9d58:0:b0:2af:1e55:1290 with SMTP id
+ y24-20020a2e9d58000000b002af1e551290mr1047214ljj.46.1685696182133; 
+ Fri, 02 Jun 2023 01:56:22 -0700 (PDT)
+Received: from [192.168.1.101] (abyj77.neoplus.adsl.tpnet.pl. [83.9.29.77])
+ by smtp.gmail.com with ESMTPSA id
+ n21-20020a2e82d5000000b002a8c1462ecbsm142980ljh.137.2023.06.02.01.56.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Jun 2023 01:56:21 -0700 (PDT)
+Message-ID: <3ef05642-08e4-5347-10da-38f50d9c818f@linaro.org>
+Date: Fri, 2 Jun 2023 10:56:19 +0200
 MIME-Version: 1.0
-Date: Fri, 02 Jun 2023 01:36:35 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Leonard Lausen" <leonard@lausen.nl>
-Message-ID: <f98dcffe4b1dc91edf692fbaa766a263910f2c5b@lausen.nl>
-TLS-Required: No
-To: "Abhinav Kumar" <quic_abhinavk@quicinc.com>, "Kuogee Hsieh"
- <quic_khsieh@quicinc.com>, "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>,
- "Bjorn Andersson" <andersson@kernel.org>
-In-Reply-To: <932ee149-c524-25e7-ee49-5ea1a7e6708c@quicinc.com>
-References: <932ee149-c524-25e7-ee49-5ea1a7e6708c@quicinc.com>
- <e547edf4-1b48-5d12-1600-45f78e7cab49@quicinc.com>
- <1345a125-f745-4fe3-0f5e-bfe84225958d@quicinc.com>
- <b0cc40d5-6de1-91cc-e2cd-f47cc53551e4@quicinc.com>
- <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
- <20230508021536.txtamifw2vkfncnx@ripper>
- <3802269cd54ce105ef6dece03b1b9af575b4fa06@lausen.nl>
- <ad351c02-1c29-3601-53e8-f8cdeca2ac63@linaro.org>
- <49d175ec16e3f65a18265063e51092ee8d0d79c1@lausen.nl>
- <f2d1bb37-ea83-4d5d-6ef5-ae84c26d6ac1@quicinc.com>
- <b9c8243ed53c5c9d7c1b5711237f6130976ea99b@lausen.nl>
-X-Rspamd-Bar: /
-X-Rspamd-Report: MIME_GOOD(-0.1) BAYES_HAM(-0.653806) SUSPICIOUS_RECIPS(1.5)
-X-Rspamd-Score: 0.746193
-Received: from unknown (HELO unkown) (::1)
- by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
- Fri, 02 Jun 2023 03:36:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
- h=from; bh=F1dvcx9M5aUHwpLVgbzf/l4rVtHAAaC7rv6RpWusZ5s=;
- b=wFk1temRwaSxBD9VI5V46NvXc365LyX2Oy2QNyMIivszup70xaT/XGMZU9EImnz2BJ4OAZR/Ng
- /+LZGTrJC+Vrm93lm6S9PM/qij10wuT53Ig7zCv+9c085Xm+9fxf5fDzKYr05woN1avArs2muKTc
- +dQytvX5Q7DgjKbcJZtFQkQ7QseKeklh9Qlue7F9wQTLCHfdOqm4Y4qQk2cGlL34GzXda63ViAd5
- 8yfFe5zJjWkTACc5P7Avxr5evqcUzZuolE9tMP76oAtyEu8RCVAOQs47MP3uAUyhLqWJVkSid/h3
- dnWDVjz4YUH9H878dg0emKksBhR3ZpSi4RQP1CPXanMBcAshgbjBxHGigY+PejnMoOGfw1jJrvqO
- dubxnpOH3IyfpKlLY+F28N2lSoYyedtoSACiRy59GWHWiiOwkaO51SoFYwU5VM/dYG3RpEiFnoLP
- n3YP+gMxFqv+UrRpHzz+QulynVDBaFiizMzwpoMiHSvlczC5AUI+aJhlhQyT4nlYf95/UGIs96Ih
- /try9w4FMiDYKpELz9gP22UMwK5Xi9j27MK2yn3uKcs25g7GIy+87Wbb2b3sp9wwD5jTGq4urLRt
- 8TGdvJxgrlCuiZ9cNuJLk9V7KDF+aseLMe6kLuvoWQXSd/l1Ju+nlTIxaR7GLjuxqscmWxWZeyDe
- s=
-Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230411-topic-straitlagoon_mdss-v5-0-998b4d2f7dd1@linaro.org>
+ <20230411-topic-straitlagoon_mdss-v5-8-998b4d2f7dd1@linaro.org>
+ <h56lpxfxujaia6jfgvbpu2dp3dqdilaormxr5plms44vev2qdf@qhkrsuhlarga>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <h56lpxfxujaia6jfgvbpu2dp3dqdilaormxr5plms44vev2qdf@qhkrsuhlarga>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 08/12] drm/msm/dpu: Add SM6375 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,47 +78,230 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, regressions@lists.linux.dev,
- David Airlie <airlied@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>, Daniel 
- Vetter <daniel@ffwll.ch>, Nikita 
- Travkin <nikita@trvn.ru>, freedreno@lists.freedesktop.org,
- Johan Hovold <johan+linaro@kernel.org>
+Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ iommu@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Joerg Roedel <joro@8bytes.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Robin Murphy <robin.murphy@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
 
-June 1, 2023 at 3:20 PM, "Abhinav Kumar" <quic_abhinavk@quicinc.com> wrot=
-e:
-> >=20
->=20>  [drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-107=
-)
-> >=20
->=20
-> We are not able to recreate this on sc7280 chromebooks , will need to c=
-heck on sc7180. This does not seem directly related to any of the hotplug=
- changes though so needs to be checked separately. So please feel free to=
- raise a gitlab bug for this and assign to me.
 
-Thank you for checking with sc7280. I created https://gitlab.freedesktop.=
-org/drm/msm/-/issues/25 and CCed you. I've also verified that the error p=
-ersists with v6.4.0-rc4 + Kuogee's patch (just in case you may have teste=
-d on sc7280 with 6.4).
-=20
->=20>  https://patchwork.freedesktop.org/patch/538601/?series=3D118148&re=
-v=3D3
-> >  Apologies if you were not CCed on this, if a next version is CCed,
-> >  will ask kuogee to cc you.
-> >  Meanwhile, will be great if you can verify if it works for you and
-> >  provide Tested-by tags.
+On 1.06.2023 16:56, Marijn Suijten wrote:
+> On 2023-05-23 09:46:19, Konrad Dybcio wrote:
+>> Add basic SM6375 support to the DPU1 driver to enable display output.
+> 
+> Nit: The SM6350 commit doesn't use the word "basic" here: what does it
+> mean?  Is this addition not complete (because it seems so)?
+Well the 6350 commit dates back to 2021 and we didn't have INTF_TE or
+DSC back then, so it's possible I had that in mind..
 
-I see Bjorn also tested the patch. As it fixes a serious USB-C DP regress=
-ion which broke USB-C DP completely on lazor for v6.3, can it be included=
- in upcoming 6.3.y release?
-
-Thank you
-Leonard
+Konrad
+> 
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
+>>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 139 +++++++++++++++++++++
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>>  4 files changed, 142 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+>> new file mode 100644
+>> index 000000000000..924f2526c06a
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
+>> @@ -0,0 +1,139 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+>> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
+>> + * Copyright (c) 2023, Linaro Limited
+>> + */
+>> +
+>> +#ifndef _DPU_6_9_SM6375_H
+>> +#define _DPU_6_9_SM6375_H
+>> +
+>> +static const struct dpu_caps sm6375_dpu_caps = {
+>> +	.max_mixer_width = DEFAULT_DPU_LINE_WIDTH,
+>> +	.max_mixer_blendstages = 0x4,
+>> +	.qseed_type = DPU_SSPP_SCALER_QSEED4,
+>> +	.has_dim_layer = true,
+>> +	.has_idle_pc = true,
+>> +	.max_linewidth = 2160,
+>> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+>> +};
+>> +
+>> +static const struct dpu_ubwc_cfg sm6375_ubwc_cfg = {
+>> +	.ubwc_version = DPU_HW_UBWC_VER_20,
+>> +	.ubwc_swizzle = 6,
+>> +	.highest_bank_bit = 1,
+>> +};
+>> +
+>> +static const struct dpu_mdp_cfg sm6375_mdp[] = {
+>> +	{
+>> +	.name = "top_0", .id = MDP_TOP,
+>> +	.base = 0x0, .len = 0x494,
+>> +	.features = 0,
+>> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
+>> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+>> +	},
+>> +};
+>> +
+>> +static const struct dpu_ctl_cfg sm6375_ctl[] = {
+>> +	{
+>> +	.name = "ctl_0", .id = CTL_0,
+>> +	.base = 0x1000, .len = 0x1dc,
+>> +	.features = BIT(DPU_CTL_ACTIVE_CFG),
+>> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+>> +	},
+>> +};
+>> +
+>> +static const struct dpu_sspp_cfg sm6375_sspp[] = {
+>> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
+>> +		sm6115_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+>> +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
+>> +		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+>> +};
+>> +
+>> +static const struct dpu_lm_cfg sm6375_lm[] = {
+>> +	LM_BLK("lm_0", LM_0, 0x44000, MIXER_QCM2290_MASK,
+>> +		&qcm2290_lm_sblk, PINGPONG_0, 0, DSPP_0),
+>> +};
+>> +
+>> +static const struct dpu_dspp_cfg sm6375_dspp[] = {
+>> +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
+>> +		&sm8150_dspp_sblk),
+>> +};
+>> +
+>> +static const struct dpu_pingpong_cfg sm6375_pp[] = {
+>> +	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SM8150_MASK, 0, sdm845_pp_sblk,
+>> +		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+>> +		-1),
+>> +};
+>> +
+>> +static const struct dpu_dsc_cfg sm6375_dsc[] = {
+>> +	DSC_BLK("dsc_0", DSC_0, 0x80000, BIT(DPU_DSC_OUTPUT_CTRL)),
+>> +};
+>> +
+>> +static const struct dpu_intf_cfg sm6375_intf[] = {
+>> +	INTF_BLK("intf_0", INTF_0, 0x00000, 0x280, INTF_NONE, 0, 0, 0, 0, 0),
+>> +	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 24, INTF_SC7280_MASK,
+> 
+> Did you forget to set this back to SC7180?  This will be enabling
+> DPU_INTF_DATA_COMPRESS otherwise, which is a DPU 7.x feature.
+> 
+> - Marijn
+> 
+>> +		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+>> +		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+>> +		DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2)),
+>> +};
+>> +
+>> +static const struct dpu_perf_cfg sm6375_perf_data = {
+>> +	.max_bw_low = 5200000,
+>> +	.max_bw_high = 6200000,
+>> +	.min_core_ib = 2500000,
+>> +	.min_llcc_ib = 0, /* No LLCC on this SoC */
+>> +	.min_dram_ib = 1600000,
+>> +	.min_prefill_lines = 24,
+>> +	/* TODO: confirm danger_lut_tbl */
+>> +	.danger_lut_tbl = {0xffff, 0xffff, 0x0},
+>> +	.safe_lut_tbl = {0xfe00, 0xfe00, 0xffff},
+>> +	.qos_lut_tbl = {
+>> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
+>> +		.entries = sm6350_qos_linear_macrotile
+>> +		},
+>> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
+>> +		.entries = sm6350_qos_linear_macrotile
+>> +		},
+>> +		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
+>> +		.entries = sc7180_qos_nrt
+>> +		},
+>> +	},
+>> +	.cdp_cfg = {
+>> +		{.rd_enable = 1, .wr_enable = 1},
+>> +		{.rd_enable = 1, .wr_enable = 0}
+>> +	},
+>> +	.clk_inefficiency_factor = 105,
+>> +	.bw_inefficiency_factor = 120,
+>> +};
+>> +
+>> +const struct dpu_mdss_cfg dpu_sm6375_cfg = {
+>> +	.caps = &sm6375_dpu_caps,
+>> +	.ubwc = &sm6375_ubwc_cfg,
+>> +	.mdp_count = ARRAY_SIZE(sm6375_mdp),
+>> +	.mdp = sm6375_mdp,
+>> +	.ctl_count = ARRAY_SIZE(sm6375_ctl),
+>> +	.ctl = sm6375_ctl,
+>> +	.sspp_count = ARRAY_SIZE(sm6375_sspp),
+>> +	.sspp = sm6375_sspp,
+>> +	.mixer_count = ARRAY_SIZE(sm6375_lm),
+>> +	.mixer = sm6375_lm,
+>> +	.dspp_count = ARRAY_SIZE(sm6375_dspp),
+>> +	.dspp = sm6375_dspp,
+>> +	.dsc_count = ARRAY_SIZE(sm6375_dsc),
+>> +	.dsc = sm6375_dsc,
+>> +	.pingpong_count = ARRAY_SIZE(sm6375_pp),
+>> +	.pingpong = sm6375_pp,
+>> +	.intf_count = ARRAY_SIZE(sm6375_intf),
+>> +	.intf = sm6375_intf,
+>> +	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+>> +	.vbif = sdm845_vbif,
+>> +	.perf = &sm6375_perf_data,
+>> +	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+>> +		     BIT(MDP_SSPP_TOP0_INTR2) | \
+>> +		     BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+>> +		     BIT(MDP_INTF1_INTR) | \
+>> +		     BIT(MDP_INTF1_TEAR_INTR),
+>> +};
+>> +
+>> +#endif
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> index 6e338d569632..7cfdcf7aa486 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> @@ -750,6 +750,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+>>  #include "catalog/dpu_6_3_sm6115.h"
+>>  #include "catalog/dpu_6_4_sm6350.h"
+>>  #include "catalog/dpu_6_5_qcm2290.h"
+>> +#include "catalog/dpu_6_9_sm6375.h"
+>>  
+>>  #include "catalog/dpu_7_0_sm8350.h"
+>>  #include "catalog/dpu_7_2_sc7280.h"
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> index ed4311f6aaf0..b84c14318449 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>> @@ -836,6 +836,7 @@ extern const struct dpu_mdss_cfg dpu_sc7180_cfg;
+>>  extern const struct dpu_mdss_cfg dpu_sm6115_cfg;
+>>  extern const struct dpu_mdss_cfg dpu_sm6350_cfg;
+>>  extern const struct dpu_mdss_cfg dpu_qcm2290_cfg;
+>> +extern const struct dpu_mdss_cfg dpu_sm6375_cfg;
+>>  extern const struct dpu_mdss_cfg dpu_sm8350_cfg;
+>>  extern const struct dpu_mdss_cfg dpu_sc7280_cfg;
+>>  extern const struct dpu_mdss_cfg dpu_sc8280xp_cfg;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> index d9925097626c..d3ca8c3c808c 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> @@ -1329,6 +1329,7 @@ static const struct of_device_id dpu_dt_match[] = {
+>>  	{ .compatible = "qcom,sc8280xp-dpu", .data = &dpu_sc8280xp_cfg, },
+>>  	{ .compatible = "qcom,sm6115-dpu", .data = &dpu_sm6115_cfg, },
+>>  	{ .compatible = "qcom,sm6350-dpu", .data = &dpu_sm6350_cfg, },
+>> +	{ .compatible = "qcom,sm6375-dpu", .data = &dpu_sm6375_cfg, },
+>>  	{ .compatible = "qcom,sm8150-dpu", .data = &dpu_sm8150_cfg, },
+>>  	{ .compatible = "qcom,sm8250-dpu", .data = &dpu_sm8250_cfg, },
+>>  	{ .compatible = "qcom,sm8350-dpu", .data = &dpu_sm8350_cfg, },
+>>
+>> -- 
+>> 2.40.1
+>>
