@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1FF721411
-	for <lists+freedreno@lfdr.de>; Sun,  4 Jun 2023 04:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CC5721416
+	for <lists+freedreno@lfdr.de>; Sun,  4 Jun 2023 04:21:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B412D10E0D2;
-	Sun,  4 Jun 2023 02:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DF2610E0D2;
+	Sun,  4 Jun 2023 02:21:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB32210E0D1
- for <freedreno@lists.freedesktop.org>; Sun,  4 Jun 2023 02:09:59 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-4f6255ad8aeso165355e87.2
- for <freedreno@lists.freedesktop.org>; Sat, 03 Jun 2023 19:09:59 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1158C10E0D5
+ for <freedreno@lists.freedesktop.org>; Sun,  4 Jun 2023 02:21:10 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2b1b2ca09b9so21806311fa.1
+ for <freedreno@lists.freedesktop.org>; Sat, 03 Jun 2023 19:21:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685844597; x=1688436597;
+ d=linaro.org; s=google; t=1685845268; x=1688437268;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=V9eSsxUopAOhh02C1XZ5Y2iHb3zpn16hh2Ni/D7tYJk=;
- b=ojlqA7jxB8ljYaLIc3w25f2B0Hz3Rbu6nhF4qLAg0A6Iex8uquzsqsUfwIkL+CAuSZ
- sK6q0+ub8EPNp6MMtDhGwQoiIkgV2O256BdHkzGDpYw2gtvumhg1zD2XDs7tDm6qhgYS
- XHwRhieg4zlvhSO+VU8bAG8LfkOwR8sITNRtC9j3kuMjDlDe/iWcVV69OFOoqSJb/YPy
- 4EmmPvVRYYYWlTyW/uxvT9zYNe31Jb1oMPwq/HASwSo4oCdfr1fB+6SfDlyPLLvvv0uU
- 9pnOvh77elcWHiI3WhRnWx+GwoOsqezkf0oIbwbKwcWhHP5KVC8vOCQeEONcxZ1qOkpk
- ywBg==
+ bh=94K3cHwmH2/Toiu5F32LRWKtL0L6f5qNOB3VUbafcuY=;
+ b=N2ijRtfbYZj5FEQJlxZIHBL+kA48Sl+YlXAQbkk1k//9Kh36jywXlE+TFhNx+G+rr0
+ Air2no4CfLHQfHjReRphAr6Os17Y1ZXJxL/XexdEWNnrP101ilaOQFKwNzbCYO1LNbkr
+ 0SWFh1KJ19bABPPX0nNVWfTjqwKmrPOwiLlo6BiaLzAaB2XeVUYElXke/+AM+/AF6Ybc
+ 2pKCghJwGxdDivLSpvPBqpPJDrZd1TeaJAXcPeYQHJqsdRil3r2A/V2q7FV3tvYKYXR+
+ JDcVMIi+1C6i91+2ooPoWqIta1A9SDy1MQvceca0RDSHkFdvNMy5+9StpnC48qpv+W3L
+ 2u7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685844597; x=1688436597;
+ d=1e100.net; s=20221208; t=1685845268; x=1688437268;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=V9eSsxUopAOhh02C1XZ5Y2iHb3zpn16hh2Ni/D7tYJk=;
- b=etvb1JzPFevau8nNnAerL0XHHl2teB73W7FRD1KXqfbSPBqWIa1LijLv6h1oQFKvcV
- dtgKqbSFIott4s2mGO0WgNWH3E5vdtre0NPL6lrcgQ9lKExFbq3Wt4XOjMIYc89r7R9z
- m9LMfamDVuqqLggWAmfV27FcrGyHuV+c+u5N5tdtNIgCEzWI318tHHlls2V+rF/+dFMQ
- 6TRSws6h0xKnz5jCcOhoXRGdUEIp8KSGNpU5sBkmaSFcOBj+HyIDphd3nVcly2sO9FiD
- psgB9DD2P6ASjDFUCLz4skR30wtPPfdgIVOpF0O7WscRu0Rv6dHbfDbKcjXI7SvEcJGv
- pzVg==
-X-Gm-Message-State: AC+VfDwB40zxejSu2ErEKSkMXSbeur+WREZhQ76YuDpBISsxGOgw4ONs
- qBfjMlM5ZNykDdYyoRt2o2iW9A==
-X-Google-Smtp-Source: ACHHUZ7VlK4xbclyxPlsscCr4C6Comy8dBU2iSY/G5l/WNa8ffpmH3mxhNOZS+SIEZf7DeEu+xrQtw==
-X-Received: by 2002:a2e:3803:0:b0:2b1:c389:c425 with SMTP id
- f3-20020a2e3803000000b002b1c389c425mr405969lja.25.1685844597625; 
- Sat, 03 Jun 2023 19:09:57 -0700 (PDT)
+ bh=94K3cHwmH2/Toiu5F32LRWKtL0L6f5qNOB3VUbafcuY=;
+ b=BXiWnDcxk74898Qsbbl7xFZ/Ancv3A9SYPfuBbaxybHS9guBSH/sbFyq61AnHCn9VL
+ 2pjMRXlhGSincAiTYC0u4nfYECNzxn1Etaa0mLC4NvFvfPUD0CkAL4Loip+57HG9SaHB
+ 0ma1BuZcnZrDbI9c9cOANToQ9B+eSzG4bgkMKwobRdWHVJlo9712JO5+b68xLmMhJUbp
+ 9SbkQEGIh/kdOQXe1e5xZ1IxAt6qZyd3gbRWDrwyoEDkprC5rQylkxU1cjKB2fuMGMcS
+ VB6bYShK+QcbN7HRa9JSVz7DEdMwnFeswMKS1Wr8kJaJ4wlZojvkQetHPy8RKbWyFR7X
+ C1NQ==
+X-Gm-Message-State: AC+VfDx/rMRS523Gs1Ly+tiyjkVmo1hIPPu0Chtc6/BqTCT8gkegKZt9
+ AQB9sBmXn/H+NYvnrJd49LcnZw==
+X-Google-Smtp-Source: ACHHUZ52uzaPztU41RQW/83gEgLWdMcAJF5ixoePMl5oSnReexsbJHbsbWi9mDhRRnjXLo+KX+DY9Q==
+X-Received: by 2002:a2e:918f:0:b0:2a7:6e85:e287 with SMTP id
+ f15-20020a2e918f000000b002a76e85e287mr2252788ljg.45.1685845268559; 
+ Sat, 03 Jun 2023 19:21:08 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- n5-20020a2e86c5000000b002ac7a715585sm848818ljj.30.2023.06.03.19.09.56
+ r23-20020ac24d17000000b004ec84d24818sm647581lfi.282.2023.06.03.19.21.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 03 Jun 2023 19:09:57 -0700 (PDT)
-Message-ID: <07d11141-02f8-6920-9c96-70cbefe6c05b@linaro.org>
-Date: Sun, 4 Jun 2023 05:09:56 +0300
+ Sat, 03 Jun 2023 19:21:08 -0700 (PDT)
+Message-ID: <451b114c-05e1-541c-1d3e-26bb81a307c4@linaro.org>
+Date: Sun, 4 Jun 2023 05:21:07 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1685036458-22683-1-git-send-email-quic_khsieh@quicinc.com>
- <1685036458-22683-3-git-send-email-quic_khsieh@quicinc.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230531005358.18090-1-quic_abhinavk@quicinc.com>
+ <CAA8EJpryw0h8TgpJ+SFJ7s0=LCjkQ6oqAjCKsm60dk_Q5e+wWA@mail.gmail.com>
+ <0af4df3d-8048-98cd-6c91-7cd553f4f65f@quicinc.com>
+ <98e4bda7-19e9-09b6-f008-383adada97cb@linaro.org>
+ <a0b7a9fc-eb3c-3b26-b11d-fe1fb47b2c51@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1685036458-22683-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <a0b7a9fc-eb3c-3b26-b11d-fe1fb47b2c51@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v14 02/10] drm/msm/dpu: add DSC blocks to
- the catalog of MSM8998 and SC8180X
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: re-introduce dpu core revision
+ to the catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,44 +82,199 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, quic_jesszhan@quicinc.com,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/05/2023 20:40, Kuogee Hsieh wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On 31/05/2023 21:25, Abhinav Kumar wrote:
 > 
-> Some platforms have DSC blocks which have not been declared in the catalog.
-> Complete DSC 1.1 support for all platforms by adding the missing blocks to
-> MSM8998 and SC8180X.
 > 
-> Changes in v9:
-> -- add MSM8998 and SC8180x to commit title
+> On 5/31/2023 3:07 AM, Dmitry Baryshkov wrote:
+>> On 31/05/2023 06:05, Abhinav Kumar wrote:
+>>>
+>>>
+>>> On 5/30/2023 7:53 PM, Dmitry Baryshkov wrote:
+>>>> On Wed, 31 May 2023 at 03:54, Abhinav Kumar 
+>>>> <quic_abhinavk@quicinc.com> wrote:
+>>>>>
+>>>>> With [1] dpu core revision was dropped in favor of using the
+>>>>> compatible string from the device tree to select the dpu catalog
+>>>>> being used in the device.
+>>>>>
+>>>>> This approach works well however also necessitates adding catalog
+>>>>> entries for small register level details as dpu capabilities and/or
+>>>>> features bloating the catalog unnecessarily. Examples include but
+>>>>> are not limited to data_compress, interrupt register set, widebus etc.
+>>>>>
+>>>>> Introduce the dpu core revision back as an entry to the catalog so 
+>>>>> that
+>>>>> we can just use dpu revision checks and enable those bits which
+>>>>> should be enabled unconditionally and not controlled by a catalog
+>>>>> and also simplify the changes to do something like:
+>>>>>
+>>>>> if (dpu_core_revision > xxxxx && dpu_core_revision < xxxxx)
+>>>>>          enable the bit;
+>>>>>
+>>>>> Also, add some of the useful macros back to be able to use dpu core
+>>>>> revision effectively.
+>>>>>
+>>>>> [1]: 
+>>>>> https://patchwork.freedesktop.org/patch/530891/?series=113910&rev=4
+>>>>>
+>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>> ---
+>>>>>   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  1 +
+>>>>>   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  1 +
+>>>>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 31 
+>>>>> ++++++++++++++++++-
+>>>>>   14 files changed, 43 insertions(+), 1 deletion(-)
+>>>>>
+>>>>
+>>>> [skipped catalog changes]
+>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h 
+>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>>>>> index 677048cc3b7d..cc4aa75a1219 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>>>>> @@ -19,6 +19,33 @@
+>>>>>    */
+>>>>>   #define MAX_BLOCKS    12
+>>>>>
+>>>>> +#define DPU_HW_VER(MAJOR, MINOR, STEP)\
+>>>>> +                 ((((unsigned int)MAJOR & 0xF) << 28) |\
+>>>>> +                 ((MINOR & 0xFFF) << 16) |\
+>>>>> +                 (STEP & 0xFFFF))
+>>>>> +
+>>>>> +#define DPU_HW_MAJOR(rev)((rev) >> 28)
+>>>>> +#define DPU_HW_MINOR(rev)(((rev) >> 16) & 0xFFF)
+>>>>> +#define DPU_HW_STEP(rev)((rev) & 0xFFFF)
+>>>>> +#define DPU_HW_MAJOR_MINOR(rev)((rev) >> 16)
+>>>>> +
+>>>>> +#define IS_DPU_MAJOR_MINOR_SAME(rev1, rev2)   \
+>>>>> +(DPU_HW_MAJOR_MINOR((rev1)) == DPU_HW_MAJOR_MINOR((rev2)))
+>>>>> +
+>>>>> +#define DPU_HW_VER_300 DPU_HW_VER(3, 0, 0) /* 8998 v1.0 */
+>>>>> +#define DPU_HW_VER_400 DPU_HW_VER(4, 0, 0) /* sdm845 v1.0 */
+>>>>> +#define DPU_HW_VER_500 DPU_HW_VER(5, 0, 0) /* sm8150 v1.0 */
+>>>>> +#define DPU_HW_VER_510 DPU_HW_VER(5, 1, 1) /* sc8180 */
+>>>>> +#define DPU_HW_VER_600 DPU_HW_VER(6, 0, 0) /* sm8250 */
+>>>>> +#define DPU_HW_VER_620 DPU_HW_VER(6, 2, 0) /* sc7180 v1.0 */
+>>>>> +#define DPU_HW_VER_630 DPU_HW_VER(6, 3, 0) /* sm6115|sm4250 */
+>>>>> +#define DPU_HW_VER_650 DPU_HW_VER(6, 5, 0) /* qcm2290|sm4125 */
+>>>>> +#define DPU_HW_VER_700 DPU_HW_VER(7, 0, 0) /* sm8350 */
+>>>>> +#define DPU_HW_VER_720 DPU_HW_VER(7, 2, 0) /* sc7280 */
+>>>>> +#define DPU_HW_VER_800 DPU_HW_VER(8, 0, 0) /* sc8280xp */
+>>>>> +#define DPU_HW_VER_810 DPU_HW_VER(8, 1, 0) /* sm8450 */
+>>>>> +#define DPU_HW_VER_900 DPU_HW_VER(9, 0, 0) /* sm8550 */
+>>>>
+>>>> Instead of having defines for all SoCs (which can quickly become
+>>>> unmanageable) and can cause merge conflicts, I'd suggest inlining all
+>>>> the defines into respective catalog files.
+>>>>
+>>>
+>>> Sure, that can be done.
+>>>
+>>>> Also, I'm not sure that the "step" should be a part of the catalog. I
+>>>> know that this follows the hardware revision. However, please correct
+>>>> me if I'm wrong, different step levels are used for revisions of the
+>>>> same SoC. The original code that was reading the hw revision from the
+>>>> hardware register, listed both 5.0.0 and 5.0.1 for sm8150.
+>>>>
+>>>
+>>> This is one of the things i noticed while making this change.
+>>>
+>>> Before the catalog rework, we used to handle even steps as we used to 
+>>> read that from the register and match it with the mdss_cfg handler. 
+>>> But after the rework, we dont handle steps anymore. Yes, you are 
+>>> right that different step levels are used for the revisions of the 
+>>> same SOC and so with that, i dont expect or atleast am not aware of 
+>>> DPU differences between steps but I am not able to rule it out.
+>>>
+>>> So are you suggesting we drop step altogether and DPU_HW_VER() macro 
+>>> shall only handle major and minor versions? With the current chipsets 
+>>> I see, it should not make a difference . Its just that I am not sure 
+>>> if that will never happen.
+>>
+>> Yes. The goal of this rework would be to drop generic features and to 
+>> replace those checks with DPU-revision lookups. Correct?
 > 
-> Changes in v10:
-> -- fix grammar at commit text
+> Yes thats right.
 > 
-> Changes in v12:
-> -- fix "titil" with "title" at changes in v9
+>> I think that from this perspective having to handle toe step revision 
+>> is a sign of an overkill. Having to handle the step revision is a sign 
+>> of paltform feature (or mis-feature) rather than a generic DPU bit.
+>>
 > 
-> Changes in v14:
-> -- "dsc" tp "DSC" at commit title
+> Not entirely. Lets not forget that at the moment even dpu_perf_cfg is 
+> part of the catalog. Even if in terms of major HW blocks steps shouldnt 
+> change, there is absolutely no guarantee that perf data cannot.
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h |  7 +++++++
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h | 11 +++++++++++
->   2 files changed, 18 insertions(+)
+> This is what is the sticking point for me which is holding me back 
+> against dropping step. Thoughts?
 
-The sc8180x changes conflict with the patch at [1], which is already 
-applied.
+We usually do not support ES versions of the chips, only the final 
+version. So supporting the perf data for earlier revisions is also not 
+required.
 
-[1] https://patchwork.freedesktop.org/patch/531490/
+> 
+>> In fact I suppose that even handling a minor revision would be an 
+>> overkill. Why don't we start with .dpu_major instead of .core_rev? We 
+>> can add .dpu_minor if/when required.
+>>
+> 
+> No, unfortunately we cannot drop minor version for sure. I am seeing 
+> examples in downstream code where some of the features are available 
+> after a minor verion as well.
+
+Can you please give an example?
+
+> 
+>>>
+>>>>> +
+>>>>>   #define DPU_HW_BLK_NAME_LEN    16
+>>>>>
+>>>>>   #define MAX_IMG_WIDTH 0x3fff
+>>>>> @@ -769,7 +796,7 @@ struct dpu_perf_cfg {
+>>>>>   /**
+>>>>>    * struct dpu_mdss_cfg - information of MDSS HW
+>>>>>    * This is the main catalog data structure representing
+>>>>> - * this HW version. Contains number of instances,
+>>>>> + * this HW version. Contains dpu core revision, number of instances,
+>>>>>    * register offsets, capabilities of the all MDSS HW sub-blocks.
+>>>>>    *
+>>>>>    * @dma_formats        Supported formats for dma pipe
+>>>>> @@ -778,6 +805,8 @@ struct dpu_perf_cfg {
+>>>>>    * @mdss_irqs:         Bitmap with the irqs supported by the target
+>>>>>    */
+>>>>>   struct dpu_mdss_cfg {
+>>>>> +       u32 core_rev;
+>>>>> +
+>>>>>          const struct dpu_caps *caps;
+>>>>>
+>>>>>          const struct dpu_ubwc_cfg *ubwc;
+>>>>> -- 
+>>>>> 2.40.1
+>>>>>
+>>>>
+>>>>
+>>
 
 -- 
 With best wishes
