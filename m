@@ -1,74 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD49720AD1
-	for <lists+freedreno@lfdr.de>; Fri,  2 Jun 2023 23:07:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2852721404
+	for <lists+freedreno@lfdr.de>; Sun,  4 Jun 2023 03:47:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB2B10E64C;
-	Fri,  2 Jun 2023 21:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E356510E095;
+	Sun,  4 Jun 2023 01:47:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5F2410E646
- for <freedreno@lists.freedesktop.org>; Fri,  2 Jun 2023 21:06:58 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4f3b5881734so3513826e87.0
- for <freedreno@lists.freedesktop.org>; Fri, 02 Jun 2023 14:06:58 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B39F010E09C
+ for <freedreno@lists.freedesktop.org>; Sun,  4 Jun 2023 01:47:10 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2af2db78b38so45238221fa.3
+ for <freedreno@lists.freedesktop.org>; Sat, 03 Jun 2023 18:47:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685740016; x=1688332016;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ d=linaro.org; s=google; t=1685843228; x=1688435228;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=FZY6Tt5IZ5A+5zg8XVdaalYb7Rc3l0aJEXOzk1+13EI=;
- b=qF+bhnweMlxUE5tMsdJSEmsva6y1Acdv9/Pl2Xb+5vffPjKXfchND+T/BSX0waLc8f
- 4JJ6qrgkZ/ESMJbeCQYSwrvzRbIkX3K+IOF8Tk2wit+I+YwlwLsiZsI/YItfbuAiOLwa
- oHSDg9S+IbcN1nt8OsPdfxS7JNqDEg+jqbdhVt1tfFt/5qvzIHswxAglhHRW476vfXtv
- SGUtJKH2fgwdS4qV2q0LfBHQnSs2fxeLbD5iA0+BdLPXevkGRVD4oN6M7Yed2mMRqonm
- A9PQT0W023ppy9NiEIkpK820sT8Q8YRjjwjDDogeuve2QkST/JeXwyTSYW+TGkT5Pnl2
- XeSQ==
+ bh=x6uhed2cRD1eObTiku8eArjPbSJO8HLDvaDTuRDrq6w=;
+ b=HKnoeDu8EixKceqBBFvpU9P+QRH3IX8FEk9TQYQDJ3iJmrbDnQyTK6252KRtnWZtWM
+ QZJVYxY4zLK+zBCiLLceEp85IvFU7yx8a/4p193Yweeo3x37BVrHcVLmeKyCKSA9JxWI
+ WdLGLx6LUDhlpcSADD9xD/8g76UpIYvA6NKtzjLWHN39321b0orl7QcKRqSRLOHUH1Z/
+ vf0hbDSvMBE26B7OgbPvf9WEs3q2kaXoK+T7P1Pv1yJM1ukZGRftryr4ZZ0I+bM2ADP2
+ qht3NBfcbgLy0MU422PpCnSSZNMp9WV1KDKvqTTxCHYDpPVvQC6nQHaK4RynWSGafQRO
+ arpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685740016; x=1688332016;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ d=1e100.net; s=20221208; t=1685843228; x=1688435228;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FZY6Tt5IZ5A+5zg8XVdaalYb7Rc3l0aJEXOzk1+13EI=;
- b=SqqPDolNXfWSq0P0QlSNSXkHMzwpqS2zqljYw2JSwf/BUvuLTurQOl4mHcXOH+wlKQ
- X44JtWwQoouSUWNvzUPyIwQQ4g+INJXB4bFyLSGYln7xGqwRGyLOclRQalJW8wnnlRuY
- 81h2CV6sbzgvj/jj6m+Ym3fM8GOeYjWKfAPZx27jeTPI9/ztlSy7hKZJ2v8eW/l/08hT
- lQhCgumN1m9kYgPAifQPyE90FZLb/J0ne/b89dk49IDMAVUgJIyHGS0Quc1NRepRSmMV
- MBbEfQ48aSdStWSz7kMyMNqBfokOCXAtmp7JtwGiiS8CX/7JN+ui/hD2LFxRz93qFTOY
- Io+g==
-X-Gm-Message-State: AC+VfDyH3DykxjkKRZTZjp7U9H9rPl8DKnB5XbKRiG2TyGQaxxiKSmOR
- 7Q5alU4upQUYbZ4gX1JVOp4OlUk+EIbNHC4o4Sc=
-X-Google-Smtp-Source: ACHHUZ42otg7uQiKzPc4sKqxsgEV0OBgAmca+U/kDI65CdNp3moBFvtzsI3SlVww5rV2YOCccrWCjg==
-X-Received: by 2002:ac2:539c:0:b0:4f4:d383:4d6b with SMTP id
- g28-20020ac2539c000000b004f4d3834d6bmr2576794lfh.6.1685740016475; 
- Fri, 02 Jun 2023 14:06:56 -0700 (PDT)
+ bh=x6uhed2cRD1eObTiku8eArjPbSJO8HLDvaDTuRDrq6w=;
+ b=XXQkyqXB2S8W//rhLGp16W3G+AEBP1JeHAmOcUnJox6sT9X7OkCxR/c+wn2WZEdmBk
+ zloKKRNT8l+oL5W6wY8ZPo4yhbPC6TJsA4BpSlTQhe/nW3LeLd+kXUDytW6+ziMjcHEO
+ E91pzYdYzzrclQuJx1cJP9dDeI1yBjg6U528N0EsAy4+NLDj0+O2SZw6n640qWlvzpcg
+ vwjtTbZ/GRpgavZCigE2EYgKMByL8SPXSo04yzKLx1d48kvH9u1ZHEbUwn16/THtKxKB
+ 9SkqGGG9h0FSAuqCJjo5byoHQlpn9npEYBg9zDfsJmizOQCfWTxDzfRxzKFyKZdso5eM
+ Q3eQ==
+X-Gm-Message-State: AC+VfDz5jyW0lazW/IjHLWYjsLonuImyAxHaFBWVohecclBDHZSjZiOF
+ ZgZO8DxY7RLTydf0T6vlWr3T1g==
+X-Google-Smtp-Source: ACHHUZ69Mr3ytCwbUFh1zGQoEbiGYyUW20IKowwatT9sHBg2KFGkbsAZRez464428oxbWJ2XCzKDRQ==
+X-Received: by 2002:a2e:3318:0:b0:2b1:b68d:b10c with SMTP id
+ d24-20020a2e3318000000b002b1b68db10cmr2079491ljc.32.1685843228375; 
+ Sat, 03 Jun 2023 18:47:08 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- u15-20020a056512094f00b004f24ee39661sm273833lft.137.2023.06.02.14.06.55
+ d4-20020a2e8904000000b002b1bb9a3febsm464479lji.74.2023.06.03.18.47.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Jun 2023 14:06:55 -0700 (PDT)
-Message-ID: <8c40574e-ac0b-25ae-c7ed-cc24706f818a@linaro.org>
-Date: Sat, 3 Jun 2023 00:06:55 +0300
+ Sat, 03 Jun 2023 18:47:07 -0700 (PDT)
+Message-ID: <e242509b-6602-9a70-a624-0141673fd75c@linaro.org>
+Date: Sun, 4 Jun 2023 04:47:06 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
-References: <1685657331-23280-1-git-send-email-quic_khsieh@quicinc.com>
- <1685657331-23280-2-git-send-email-quic_khsieh@quicinc.com>
- <4011108d-1c1a-c648-244f-5414e9465d80@linaro.org>
- <49155554-1efe-0d44-a43b-ff09182c647f@quicinc.com>
+To: Bjorn Andersson <andersson@kernel.org>
+References: <20230515030256.300104-1-quic_bjorande@quicinc.com>
+ <20230515030256.300104-3-quic_bjorande@quicinc.com>
+ <d7d27051-2853-c979-b965-3cad47f2b693@linaro.org>
+ <euxiqfx3q5cs3z2unai67w3h33y225whstauqezwbcx4pcqegl@jct5c7crcet7>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <49155554-1efe-0d44-a43b-ff09182c647f@quicinc.com>
+In-Reply-To: <euxiqfx3q5cs3z2unai67w3h33y225whstauqezwbcx4pcqegl@jct5c7crcet7>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: retrieve DSI DSC struct
- at atomic_check()
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dp: Clean up pdev/dev
+ duplication in dp_power
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,83 +81,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org, Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/06/2023 18:51, Kuogee Hsieh wrote:
-> 
-> 
->>>       }
->>>   +    index = dpu_enc->disp_info.h_tile_instance[0];
->>> +        if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI)
->>> +        dpu_enc->dsc = msm_dsi_get_dsc_config(priv->dsi[index]);
+On 21/05/2023 06:53, Bjorn Andersson wrote:
+> On Sat, May 20, 2023 at 04:26:59AM +0300, Dmitry Baryshkov wrote:
+>> On 15/05/2023 06:02, Bjorn Andersson wrote:
+>>> The dp_power module keeps track of both the DP controller's struct
+>>> platform_device and struct device - with the prior pulled out of the
+>>> dp_parser module.
+>>>
+>>> Clean up the duplication by dropping the platform_device reference and
+>>> just track the passed struct device.
+>>>
+>>> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+>>> ---
+>>>    drivers/gpu/drm/msm/dp/dp_power.c | 16 +++++++---------
+>>>    1 file changed, 7 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
+>>> index 031d2eefef07..9be645f91211 100644
+>>> --- a/drivers/gpu/drm/msm/dp/dp_power.c
+>>> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
+>>> @@ -14,7 +14,6 @@
+>>>    struct dp_power_private {
+>>>    	struct dp_parser *parser;
+>>> -	struct platform_device *pdev;
+>>>    	struct device *dev;
+>>>    	struct drm_device *drm_dev;
+>>>    	struct clk *link_clk_src;
+>>> @@ -28,7 +27,7 @@ static int dp_power_clk_init(struct dp_power_private *power)
+>>>    {
+>>>    	int rc = 0;
+>>>    	struct dss_module_power *core, *ctrl, *stream;
+>>> -	struct device *dev = &power->pdev->dev;
+>>> +	struct device *dev = power->dev;
+>>>    	core = &power->parser->mp[DP_CORE_PM];
+>>>    	ctrl = &power->parser->mp[DP_CTRL_PM];
+>>> @@ -153,7 +152,7 @@ int dp_power_client_init(struct dp_power *dp_power)
+>>>    	power = container_of(dp_power, struct dp_power_private, dp_power);
+>>> -	pm_runtime_enable(&power->pdev->dev);
+>>> +	pm_runtime_enable(power->dev);
+>>>    	return dp_power_clk_init(power);
+>>>    }
+>>> @@ -164,7 +163,7 @@ void dp_power_client_deinit(struct dp_power *dp_power)
+>>>    	power = container_of(dp_power, struct dp_power_private, dp_power);
+>>> -	pm_runtime_disable(&power->pdev->dev);
+>>> +	pm_runtime_disable(power->dev);
+>>>    }
+>>>    int dp_power_init(struct dp_power *dp_power, bool flip)
+>>> @@ -174,11 +173,11 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
+>>>    	power = container_of(dp_power, struct dp_power_private, dp_power);
+>>> -	pm_runtime_get_sync(&power->pdev->dev);
+>>> +	pm_runtime_get_sync(power->dev);
+>>>    	rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
+>>>    	if (rc)
+>>> -		pm_runtime_put_sync(&power->pdev->dev);
+>>> +		pm_runtime_put_sync(power->dev);
+>>>    	return rc;
+>>>    }
+>>> @@ -190,7 +189,7 @@ int dp_power_deinit(struct dp_power *dp_power)
+>>>    	power = container_of(dp_power, struct dp_power_private, dp_power);
+>>>    	dp_power_clk_enable(dp_power, DP_CORE_PM, false);
+>>> -	pm_runtime_put_sync(&power->pdev->dev);
+>>> +	pm_runtime_put_sync(power->dev);
+>>>    	return 0;
+>>>    }
+>>> @@ -199,12 +198,11 @@ struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser)
 >>
->> As discussed previously, one should not write to non-state objects 
->> from atomic_check. This chunk does.
+>> Technically we don't even need to pass struct device here, we can get it
+>> from parser->pdev->dev.
+>>
 > 
-> yes, i did think about not to assign dsc here as we had discussed.
+> Right, but afaict dp_init_sub_modules() passes struct device * as first
+> parameter to all the "module" initializers. So it feels reasonable to
+> keep it, for now, for symmetry.
 > 
-> but the get_topology() below did need to know whether dsc is present or 
-> not.
-> 
-> otherwise, i have to create a local variable to pass into get_topology() 
-> function.
-> 
-> The dsc is assigned here but not yet be used.
+> What do you think?
 
-This is all not relevant. You should not assign dpu_enc->dsc here, full 
-stop. I thought I have explained why.
-
-> 
-> 
->>
->> Not to mention that this will start exploding once you try adding DP 
->> next to it.
->>
->> Please abstain from posting next revisions until the discussions on 
->> the previous one are more or less finished. For now this is NAK.
->>
->> Not to mention that this patch doesn't pass checkpatch.pl.
->>
->>> +
->>>       topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, 
->>> crtc_state);
->>>         /*
->>> @@ -1034,7 +1038,7 @@ static void 
->>> dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->>>       struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
->>>       int num_lm, num_ctl, num_pp, num_dsc;
->>>       unsigned int dsc_mask = 0;
->>> -    int i;
->>> +    int index, i;
->>>         if (!drm_enc) {
->>>           DPU_ERROR("invalid encoder\n");
->>> @@ -1055,6 +1059,10 @@ static void 
->>> dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->>>         trace_dpu_enc_mode_set(DRMID(drm_enc));
->>>   +    index = dpu_enc->disp_info.h_tile_instance[0];
->>> +        if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI)
->>> +        dpu_enc->dsc = msm_dsi_get_dsc_config(priv->dsi[index]);
->>
->> Doesn't this seem 100% same as the previous chunk? Doesn't it plead to 
->> be extracted to a helper function?
->>
->>> +
->>>       /* Query resource that have been reserved in atomic check step. */
->>>       num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->>>           drm_enc->base.id, DPU_HW_BLK_PINGPONG, hw_pp,
->>> @@ -2121,8 +2129,10 @@ void dpu_encoder_helper_phys_cleanup(struct 
->>> dpu_encoder_phys *phys_enc)
->>>                       phys_enc->hw_pp->merge_3d->idx);
->>>       }
->>>   -    if (dpu_enc->dsc)
->>> +    if (dpu_enc->dsc) {
->>>           dpu_encoder_unprep_dsc(dpu_enc);
->>> +        dpu_enc->dsc = NULL;
->>> +    }
->>>         intf_cfg.stream_sel = 0; /* Don't care value for video mode */
->>>       intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
->>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
