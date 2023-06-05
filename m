@@ -2,55 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2581721ADB
-	for <lists+freedreno@lfdr.de>; Mon,  5 Jun 2023 00:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1B97222D4
+	for <lists+freedreno@lfdr.de>; Mon,  5 Jun 2023 12:02:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9633410E10F;
-	Sun,  4 Jun 2023 22:29:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2FDD10E277;
+	Mon,  5 Jun 2023 10:02:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF7F10E10F;
- Sun,  4 Jun 2023 22:29:27 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- 006d021491bc7-558a79941c6so760272eaf.3; 
- Sun, 04 Jun 2023 15:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685917766; x=1688509766;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=0HYIe7NBs3P4VaCcSqqfBcyZi2lvil1HmX6vOv0yNEs=;
- b=Q/2KGS45cvdOZ9hNhKmQXnE6X8tXuMiyNxBwA7vPtUgEZvZHp9XTAgnmJzDiqhd4T3
- Pmsk4nQGquBXMafK41YK+fdbuxsEw0yu/SDXaErGB2HFawdcslVCuTfLjZIovKgzQVJN
- rqgSqdAQj3Rnc9MCdvrEgQk/qBYTbDxy53LjNOyRF6vrcDzrIJn5hwIBB6NSbLxnXd9X
- KYOXp05O+CIJJslcTQzmkhfRBLiF7RN89+TPd4EBOnc8ZTBdReT7Wse4xRDS4g2Gumv+
- py+7nAAQGFAwa05SE+Iuv4U/vsoXhROy8t6LIYW3Ot5mVBXIAM1xCko3Vy2KeRNKdqVP
- 3QEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685917766; x=1688509766;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0HYIe7NBs3P4VaCcSqqfBcyZi2lvil1HmX6vOv0yNEs=;
- b=MY1xH47n+eCS/HacFfQe/wMW6KpsPlrCUgjDvSxm/Ty1nNr75ejNh20jG4nNKsisSk
- W2NUzEP8Uu8rmYnJIiHvltiEdHMxq3YSuYUGUexJwflMIcWrpmUN26IfVSOs9E/z0Crm
- +5dhx399q96smqhswGjEYZ1Jwj0uoK+EyQ3iVPhCf+2pVg2NTcLUVmK/UJdXaxE+U9DC
- wMUjJJ/K7TYfHC/y8e39D9+1d/uiO+Nk3c2YIjbjb7eX6+cfWpNTLOlJHoqkWayNTupE
- u/qaxy8LBCaVpkSoic2FJ3TkVjdHR1w8buanu+1o/gQyUqRNunavu0bQTui9+47sk4o8
- pbAg==
-X-Gm-Message-State: AC+VfDyHaWd5pr60nSCcayta0URi6XqA7bZMDS8Qq7dSSIM4Ceg+p89z
- u7dcKRlkiBr26GS7iux1Qogp8aJcyiTa7FaZVs4=
-X-Google-Smtp-Source: ACHHUZ4jbbYC91lwNstgBF4Cg9ALfDPcvokzPLiT9nXdqsg66TSnmhhB/lR59A34A8B7NIHdzVg9VH79OKPi21U+vHk=
-X-Received: by 2002:a4a:97ca:0:b0:555:7682:7644 with SMTP id
- x10-20020a4a97ca000000b0055576827644mr10516748ooi.2.1685917765747; Sun, 04
- Jun 2023 15:29:25 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A6810E1C0;
+ Mon,  5 Jun 2023 10:02:11 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CFD1C614C5;
+ Mon,  5 Jun 2023 10:02:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32815C433EF;
+ Mon,  5 Jun 2023 10:02:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1685959330;
+ bh=5abGnYlpGeIkAbmWOgFaqsPnq9GUfYv18EA1sRFxf0o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ks5F/7ZsXGFzvQYZkRtnA2uNecgZ73F6IwjUmpD7XAD38sPGLyy7BBTrNpEva1D/z
+ ggXUOAtJ5VJYMufV+7FEXksc92u6nFd6nANf1AWy53Ysh4q2DrerwLPml8KN3Ti94j
+ ckF2yIETt4QXljbFoh4CRE0/bF2eMPgVHhH4fRePhHhmP4VJW17UBpOThf/8PDalcO
+ lVa7FcCmpssWJQE07mdlWlFrRMzy1hICOKUbgKniepMEcl91r4WtBZi/TvBl6YNEy1
+ b0HDFg1cJuMDXrJWrV8j1eOTk6m+SOT6zHkxwQlx0NrNsSHTP+sbYejxW85OUGIpgg
+ EQzmGCEwlD94Q==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1q672h-0005ky-7p; Mon, 05 Jun 2023 12:02:27 +0200
+Date: Mon, 5 Jun 2023 12:02:27 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZH2ys6dVeL02JLCU@hovoldconsulting.com>
+References: <20230523151646.28366-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Sun, 4 Jun 2023 15:29:14 -0700
-Message-ID: <CAF6AEGuHujkFjRa6ys36Uyh0KUr4Hd16u1EMqJo8tOZ3ifVubQ@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-06-04 for v6.4-rc6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230523151646.28366-1-johan+linaro@kernel.org>
+Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: set self refresh aware
+ based on PSR support"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,59 +56,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, regressions@lists.linux.dev,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+[ +CC: Thorsten and regzbot so they can help with tracking this
+regression ]
 
-A few late fixes for v6.4.. meant to send this out last week but got
-distracted setting my new x13s.
+#regzbot introduced: v6.3..v6.4-rc1
 
-The following changes since commit 5c054db54c43a5fcb5cc81012361f5e3fac37637:
+On Tue, May 23, 2023 at 05:16:46PM +0200, Johan Hovold wrote:
+> This reverts commit 1844e680d56bb0c4e0489138f2b7ba2dc1c988e3.
+> 
+> PSR support clearly is not ready for mainline and specifically breaks
+> virtual terminals which are no longer updated when PSR is enabled (e.g.
+> no keyboard input is echoed, no cursor blink).
+> 
+> Disable PSR support for now by reverting commit 1844e680d56b
+> ("drm/msm/dp: set self refresh aware based on PSR support").
+> 
+> Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+> ---
+> 
+> Bjorn reported that PSR support broke virtual terminals two months ago, 
+> but this is still broken in 6.4-rc3:
+> 
+> 	https://lore.kernel.org/lkml/20230326162723.3lo6pnsfdwzsvbhj@ripper/
+> 
+> despite the following series that claimed to address this:
+> 
+> 	https://lore.kernel.org/lkml/1680271114-1534-1-git-send-email-quic_vpolimer@quicinc.com
+> 
+> Let's revert until this has been fixed properly.
 
-  drm/msm: Be more shouty if per-process pgtables aren't working
-(2023-05-17 08:53:47 -0700)
+Virtual terminals are still broken with 6.4-rc5 on the Lenovo ThinkPad
+X13s two weeks after I reported this, and there has been no indication
+of any progress in the other related thread:
 
-are available in the Git repository at:
+	https://lore.kernel.org/lkml/ZHYPHnWoDbXB-fqe@hovoldconsulting.com
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-06-04
+Seems like it is time to merge this revert to get this sorted.
 
-for you to fetch changes up to 203a878ae6f483fa6a99895f90bddd425626b9d2:
+Rob, Abhinav, Dmitry, can either of you merge this one and get it into
+6.4-rc6?
 
-  drm/msm/a6xx: initialize GMU mutex earlier (2023-06-04 09:59:03 -0700)
-
-----------------------------------------------------------------
-A few more late fixes for v6.4-rc6
-
-+ Fix max segment size to address splat on newer a6xx
-+ Disable PSR by default w/ modparam to re-enable, since there
-  still seems to be a lingering issue
-+ Fix HPD issue
-+ Fix issue with unitialized GMU mutex
-
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dp: add module parameter for PSR
-
-Dmitry Baryshkov (1):
-      drm/msm/a6xx: initialize GMU mutex earlier
-
-Kuogee Hsieh (1):
-      drm/msm/dp: enable HDP plugin/unplugged interrupts at hpd_enable/disable
-
-Rob Clark (1):
-      drm/msm: Set max segment size earlier
-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  2 -
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  2 +
- drivers/gpu/drm/msm/dp/dp_catalog.c   | 15 ++++++-
- drivers/gpu/drm/msm/dp/dp_catalog.h   |  3 +-
- drivers/gpu/drm/msm/dp/dp_display.c   | 77 +++++++++++------------------------
- drivers/gpu/drm/msm/msm_drv.c         |  4 +-
- 6 files changed, 44 insertions(+), 59 deletions(-)
+Johan
