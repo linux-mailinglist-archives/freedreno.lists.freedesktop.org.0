@@ -2,61 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75193723BD9
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jun 2023 10:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F535724083
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jun 2023 13:09:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D082A10E306;
-	Tue,  6 Jun 2023 08:33:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D607110E22F;
+	Tue,  6 Jun 2023 11:09:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49D4810E304
- for <freedreno@lists.freedesktop.org>; Tue,  6 Jun 2023 08:33:10 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-30ae4ec1ac7so4565307f8f.2
- for <freedreno@lists.freedesktop.org>; Tue, 06 Jun 2023 01:33:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686040388; x=1688632388;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HGNvezJMXfjn7ToqqZuXUFZItGnK+ZI8rSYUZp66fL0=;
- b=ebW+dZ4PFwVmuzs+A/1mErcEfwlk42eaHMnN0FTXdU4DToHNMqjg4hps7BaomOmmnG
- ULeztuZ667nKmYkB8ryIIMId0Ya0i1cXnLd/2Jms6MjS7sKP1cyJAOU6jeF085HhLoTY
- lRn40UYUUe074EBieFDm8LmII0z3VjGADQOBO416duu0D4HLC/dxSxgOShk3e9tnQu6G
- z7cIOOTpWmTUCCKwHUfk/AY8KznVOufjFOyrDOcxDNKRzEAmuKQ+1SEEhsDwkOAvnlKK
- SOeWPzLVkwYxz5X6SCq/3oB97ZfRVn3MS5PjBh6rNiLAom3mBQQdr8q4n7gRCRwvF5dc
- wi9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686040388; x=1688632388;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HGNvezJMXfjn7ToqqZuXUFZItGnK+ZI8rSYUZp66fL0=;
- b=A0w8pEeCYw/YY1Zyytf1DcGWXXfkvhuRrfzlfJZmC4ZXIx0uC1u1pnIkxWjnvxXKCi
- tb2opNZ1dp//+6Pzjk7eMTreWs/w1PcZkO35wEV4PcvxHR7cXNKqVeKMmLPbGtV4TAVh
- HFvUh0QpT6ju0vCS37RrzMp7YVuPE2y2kyrzJD4SRVr9ugqX4aBZlNunEAjiR42fsYDp
- vz2ve7TdP64yIzBd2o9CBzBEGeXIgNs2WmAp/g0k8jrE0utQRw8OS7r/K2U65s4sPfwy
- pwA/8XmT7RuUwiXdW0gDAwo7o4/0z9C2phLLteIadETrbjol/WsmLXZTkLTWzjCXMmSk
- 3S/Q==
-X-Gm-Message-State: AC+VfDwRh51QTJifOdv9kdBGPLP39QNyyQsWE+iTYYXlbb9N7+LFlV5T
- bcdtWdfuWR+Y6rWCZF4/NkALqw==
-X-Google-Smtp-Source: ACHHUZ69J8r5vJcWEWXn2VmWqlCRB7PTWJZj88krqf7/cGT0YE5tj+fKqFHTvwx1gzn5SpOc8uSZ5g==
-X-Received: by 2002:adf:fccb:0:b0:30c:2bbf:bf75 with SMTP id
- f11-20020adffccb000000b0030c2bbfbf75mr1071217wrs.26.1686040388227; 
- Tue, 06 Jun 2023 01:33:08 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- l24-20020a1ced18000000b003f31cb7a203sm13443342wmh.14.2023.06.06.01.33.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jun 2023 01:33:07 -0700 (PDT)
-Date: Tue, 6 Jun 2023 11:33:03 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Clark <robdclark@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <ZH7vP2Swu8CYpgUL@moroto>
+X-Greylist: delayed 2213 seconds by postgrey-1.36 at gabe;
+ Tue, 06 Jun 2023 11:09:49 UTC
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE72D10E21F
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Jun 2023 11:09:49 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1q6Tze-0000VO-4a; Tue, 06 Jun 2023 12:32:50 +0200
+Message-ID: <f55d98c0-69c8-23d6-1b07-57597f4d4066@leemhuis.info>
+Date: Tue, 6 Jun 2023 12:32:49 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Freedreno] [PATCH] drm/msm/dpu: tidy up some error checking
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US, de-DE
+To: Johan Hovold <johan@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230523151646.28366-1-johan+linaro@kernel.org>
+ <ZH2ys6dVeL02JLCU@hovoldconsulting.com>
+ <CAA8EJprBNzw4o4m0sn2OoOqnwioQWNcTPcKoKGqxLWGc_8xjWA@mail.gmail.com>
+ <ZH22jMTq6fi8iBpe@hovoldconsulting.com>
+From: "Linux regression tracking #adding (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <ZH22jMTq6fi8iBpe@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1686049789;
+ 86ad6035; 
+X-HE-SMSGID: 1q6Tze-0000VO-4a
+Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: set self refresh aware
+ based on PSR support"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,61 +53,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: freedreno@lists.freedesktop.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, regressions@lists.linux.dev,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The "vsync_hz" variable is unsigned int so it can't be less
-than zero.  The dpu_kms_get_clk_rate() function used to return a u64
-but I previously changed it to return an unsigned long and zero on
-error so it matches clk_get_rate().
 
-Change the "vsync_hz" type to unsigned long as well and change the
-error checking to check for zero instead of negatives.  This change
-does not affect runtime at all.  It's just a clean up.
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+On 05.06.23 12:18, Johan Hovold wrote:
+> On Mon, Jun 05, 2023 at 01:05:36PM +0300, Dmitry Baryshkov wrote:
+>> On Mon, 5 Jun 2023 at 13:02, Johan Hovold <johan@kernel.org> wrote:
+> 
+>>> Virtual terminals are still broken with 6.4-rc5 on the Lenovo ThinkPad
+>>> X13s two weeks after I reported this, and there has been no indication
+>>> of any progress in the other related thread:
+>>>
+>>>         https://lore.kernel.org/lkml/ZHYPHnWoDbXB-fqe@hovoldconsulting.com
+>>>
+>>> Seems like it is time to merge this revert to get this sorted.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index d8ed85a238af..6aecaba14e7e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -324,7 +324,7 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	struct dpu_hw_tear_check tc_cfg = { 0 };
- 	struct drm_display_mode *mode;
- 	bool tc_enable = true;
--	u32 vsync_hz;
-+	unsigned long vsync_hz;
- 	struct dpu_kms *dpu_kms;
- 
- 	if (phys_enc->has_intf_te) {
-@@ -359,8 +359,8 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	 * frequency divided by the no. of rows (lines) in the LCDpanel.
- 	 */
- 	vsync_hz = dpu_kms_get_clk_rate(dpu_kms, "vsync");
--	if (vsync_hz <= 0) {
--		DPU_DEBUG_CMDENC(cmd_enc, "invalid - vsync_hz %u\n",
-+	if (!vsync_hz) {
-+		DPU_DEBUG_CMDENC(cmd_enc, "invalid - vsync_hz %lu\n",
- 				 vsync_hz);
- 		return;
- 	}
-@@ -381,7 +381,7 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	tc_cfg.rd_ptr_irq = mode->vdisplay + 1;
- 
- 	DPU_DEBUG_CMDENC(cmd_enc,
--		"tc vsync_clk_speed_hz %u vtotal %u vrefresh %u\n",
-+		"tc vsync_clk_speed_hz %lu vtotal %u vrefresh %u\n",
- 		vsync_hz, mode->vtotal, drm_mode_vrefresh(mode));
- 	DPU_DEBUG_CMDENC(cmd_enc,
- 		"tc enable %u start_pos %u rd_ptr_irq %u\n",
--- 
-2.39.2
+BTW, thx for bringing this to my attention!
+
+>>> Rob, Abhinav, Dmitry, can either of you merge this one and get it into
+>>> 6.4-rc6?
+>>
+>> Rob sent the pull request few hours ago, see
+>> https://lore.kernel.org/dri-devel/CAF6AEGuHujkFjRa6ys36Uyh0KUr4Hd16u1EMqJo8tOZ3ifVubQ@mail.gmail.com/
+> 
+> Ok, so you guys went with the module parameter hack. Whatever. As long
+> as the regression is finally fixed.
+
+Yup. Let me tell regzbot about the fix:
+
+#regzbot fix: drm/msm/dp: add module parameter for PSR
+#regzbot ignore-activity
+
+> Next time, some visibility into your process would be appreciated to
+> avoid unnecessary work.
+
+Yeah, that's something we IMHO sooner or later need to improve for all
+of kernel development -- among others to give people that find existing
+bug reports a chance to find patches that were posted or applied to
+address the issue (and of course reporters also, like in this case).
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.
 
