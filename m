@@ -2,81 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 650A07242BC
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jun 2023 14:44:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392FE7247BC
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jun 2023 17:30:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD3DC10E33F;
-	Tue,  6 Jun 2023 12:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0197010E373;
+	Tue,  6 Jun 2023 15:30:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B12010E357
- for <freedreno@lists.freedesktop.org>; Tue,  6 Jun 2023 12:44:27 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2b15a327c20so73812311fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 06 Jun 2023 05:44:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686055467; x=1688647467;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=71R2q19ZXsGZnOPocAOTBJ3+IZ1FZhz4Wl6PP95R9qE=;
- b=I8bal3u2MbL5N2wtAHwu70IeyshjqDHEG6e07z9uY66vw9fstpsDTVU/yXP/+3pU7s
- wO0H6Q+rw12fnt8EaLmOJiC95oWyxw3WB3DdPnoaCxwZWA/80UushCnOXdZX+VqSxYXX
- OuysNYXfN3SP2qfmickHoD56ST0CxDc9VFuq9IKwvkixzpZgdJPU+BINxK1jTrYsGHiM
- hPl4koRIiwslemS3vQy0NDzvKEPYK8bkv5BPj10GWB/rIsFl2a7RvoJvgrBUTmqebxHI
- NL413CB37yFJbklwP95xy+Jl2Zj3FHnlS+YYv2UI62cirRTab1rRUArQdwQo1+AeE8bW
- Ntjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686055467; x=1688647467;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=71R2q19ZXsGZnOPocAOTBJ3+IZ1FZhz4Wl6PP95R9qE=;
- b=YLdrzjQ3wyQDVOP/PLItVukKXmLW9gWEo681q/VydEChI0gsRkG8GhaCr/bWKydFaa
- 8jOHzIaGMp+259QjRF8v+UYeL4DAaiw963vSH5am62Hv8LPI0O/VLQjBIrpW3tLo2dcA
- PgpCk/DWYnOp5SPT7RhYEz/u2qnBO9iv61i/bzZBbFIONAtTFizeooymZ9wfywqxndYE
- 0aCtP3+27w8h4kxpq0/aCZAKcZrYg+32X+Gh0Xy0siGZP9bsfO6LSMehDFB57/TlJIlP
- 1VrKUcGg8cjwhYrtmO3RfJKx8p2K+DNE7p6WsETCu73GNSoS0ggoqXMimfw1hWbBisqE
- FvbA==
-X-Gm-Message-State: AC+VfDx3MlFXBxdL1rN1/oVTVyOfH1nhBq4ZDTiOeJ/8bAlDGhCMD6Yz
- mw7LoUtjxLOrzHuvOlcaXxR18A==
-X-Google-Smtp-Source: ACHHUZ4c+yMvlAIdZkCiNRfIWyTpQZD41YEWXcpVJkwRTIOU6+57/WT/SEZI/YDq4XG3X0FHRp1KAw==
-X-Received: by 2002:a2e:86c8:0:b0:2b1:bd11:a71a with SMTP id
- n8-20020a2e86c8000000b002b1bd11a71amr1161537ljj.17.1686055467141; 
- Tue, 06 Jun 2023 05:44:27 -0700 (PDT)
-Received: from [192.168.1.101] (abyl150.neoplus.adsl.tpnet.pl. [83.9.31.150])
- by smtp.gmail.com with ESMTPSA id
- u23-20020a2e9f17000000b002a9ebff8431sm1830823ljk.94.2023.06.06.05.44.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jun 2023 05:44:26 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 06 Jun 2023 14:44:03 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 700C810E373;
+ Tue,  6 Jun 2023 15:30:29 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 356FMeV0016037; Tue, 6 Jun 2023 15:30:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=date : from : to :
+ cc : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=qcppdkim1; bh=5rjeQ+adxEPAtRMVme/yLgNBpCtZv2fDyPstcl0ZWqI=;
+ b=gJisIJDkXCyRs/n48/uyAdwP60E2kH2F6N1J43wlrrT10s95z+QUfvaNcGMKDtmZH1Zq
+ /yG4gDVqpPWTPTCphrULT22L/DIrEZ2UAdmpcGxGJyo6PZ2t0Hsx+H4Nt4Mw/JVUqGwx
+ l0xaExo+/OElusF4X5pmTH/VVtY0Q9dD+3pN+co1y+DXuw0g2vwXLwp5vIhf42+2n7f5
+ gChOdSN5sVuminoTluvu3GvuxeWTEGeeSGgy3tyN1NjSbBlptGwZ2b++yNyuY8/qPTCk
+ 2DopesnkTDxUMB5eh1wXjjoDhHzM0UkSOdP1T/4ppU3o2kDguIi7ie8lp0+DzVARmP0e 6Q== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r1s4uhtyd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 06 Jun 2023 15:30:22 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 356FUMdb029459
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 6 Jun 2023 15:30:22 GMT
+Received: from akhilpo-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Tue, 6 Jun 2023 08:30:16 -0700
+Date: Tue, 6 Jun 2023 21:00:13 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <23c2tadnl5hyeyo2i4onxfgx76dfsc6zefasdhxcdzoebsn7rg@24noupcp5h2h>
+References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
+ <20230223-topic-gmuwrapper-v8-4-69c68206609e@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230411-topic-straitlagoon_mdss-v6-12-dee6a882571b@linaro.org>
-References: <20230411-topic-straitlagoon_mdss-v6-0-dee6a882571b@linaro.org>
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v6-0-dee6a882571b@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1686055444; l=1014;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=CPO6pRkqp9OH9BXcQBO5PamnhFLC+q+SwQwF41wCtLY=;
- b=EpXSpLvNfkNwN2LETbMboB402kF8n6aEw8/3XRGdYE/p0jqbAcEhn9jwTJy9yIh5JXIvC2O2n
- Qgs41nBrZ/NBuK4rPGepMA17UT/akizQC5SR5/YqACBatIfFVMeJDPK
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v6 12/12] iommu/arm-smmu-qcom: Add SM6350 DPU
- compatible
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230223-topic-gmuwrapper-v8-4-69c68206609e@linaro.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: PbliB0h2FTeeYlppe_S__3dezpyGlQH_
+X-Proofpoint-GUID: PbliB0h2FTeeYlppe_S__3dezpyGlQH_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-06_11,2023-06-06_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ spamscore=0 mlxlogscore=989 impostorscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 clxscore=1011 mlxscore=0 suspectscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2306060132
+Subject: Re: [Freedreno] [PATCH v8 04/18] drm/msm/a6xx: Move force keepalive
+ vote removal to a6xx_gmu_force_off()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,39 +80,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@somainline.org>
-
-Add the SM6350 DPU compatible to clients compatible list, as it also
-needs the workarounds.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index cc574928c707..bdeb587552c0 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -253,6 +253,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
- 	{ .compatible = "qcom,sc8280xp-mdss" },
- 	{ .compatible = "qcom,sdm845-mdss" },
- 	{ .compatible = "qcom,sdm845-mss-pil" },
-+	{ .compatible = "qcom,sm6350-mdss" },
- 	{ .compatible = "qcom,sm6375-mdss" },
- 	{ .compatible = "qcom,sm8150-mdss" },
- 	{ .compatible = "qcom,sm8250-mdss" },
-
--- 
-2.40.1
-
+On Mon, May 29, 2023 at 03:52:23PM +0200, Konrad Dybcio wrote:
+> 
+> As pointed out by Akhil during the review process of GMU wrapper
+> introduction [1], it makes sense to move this write into the function
+> that's responsible for forcibly shutting the GMU off.
+> 
+> It is also very convenient to move this to GMU-specific code, so that
+> it does not have to be guarded by an if-condition to avoid calling it
+> on GMU wrapper targets.
+> 
+> Move the write to the aforementioned a6xx_gmu_force_off() to achieve
+> that. No effective functional change.
+Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+-Akhil.
+> 
+> [1] https://lore.kernel.org/linux-arm-msm/20230501194022.GA18382@akhilpo-linux.qualcomm.com/
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 ++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 6 ------
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 87babbb2a19f..9421716a2fe5 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -912,6 +912,12 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+>  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+>  	struct msm_gpu *gpu = &adreno_gpu->base;
+>  
+> +	/*
+> +	 * Turn off keep alive that might have been enabled by the hang
+> +	 * interrupt
+> +	 */
+> +	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+> +
+>  	/* Flush all the queues */
+>  	a6xx_hfi_stop(gmu);
+>  
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 9fb214f150dd..e34aa15156a4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1274,12 +1274,6 @@ static void a6xx_recover(struct msm_gpu *gpu)
+>  	/* Halt SQE first */
+>  	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 3);
+>  
+> -	/*
+> -	 * Turn off keep alive that might have been enabled by the hang
+> -	 * interrupt
+> -	 */
+> -	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE, 0);
+> -
+>  	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
+>  
+>  	/* active_submit won't change until we make a submission */
+> 
+> -- 
+> 2.40.1
+> 
