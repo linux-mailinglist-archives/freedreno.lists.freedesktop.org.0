@@ -1,68 +1,84 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A1A72409D
-	for <lists+freedreno@lfdr.de>; Tue,  6 Jun 2023 13:14:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0405B724294
+	for <lists+freedreno@lfdr.de>; Tue,  6 Jun 2023 14:44:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB94C10E220;
-	Tue,  6 Jun 2023 11:14:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1BF10E338;
+	Tue,  6 Jun 2023 12:44:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6911810E220
- for <freedreno@lists.freedesktop.org>; Tue,  6 Jun 2023 11:14:29 +0000 (UTC)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-565a63087e9so65124277b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 06 Jun 2023 04:14:29 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1CE410E33D
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Jun 2023 12:44:08 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2b1c5a6129eso33391001fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 06 Jun 2023 05:44:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686050068; x=1688642068;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=u/JpE1i6u3UyOCSwk7LIAsH+Du9jpLfkZSMYTXfJG3I=;
- b=FgIW/ISz5L/ObhQcPrKy49QeNqR3mBroqqS+wy7clcJ3QIRnx4IILlzIL7P/45WtWz
- nomye470QRmLCkgmC+J5G/thfqa5psVrhoon1bcwD0w/gl6P/hwPBMWDjz7HldoU9uEZ
- B0QmHyfD7EFnYp2kDFH+GLRZcliu5NMIb8GouJDAoW9Lv1cg6nUeXQjv600yY9BvoA+B
- EICaASFjVxMeljm5JX1ZSqFzxvqeFacelOOzZyiheFDzuF2JfGj/ADn1tJfr7ZMVNiSh
- qwgFAgKEtQ07qHEAgycVVVA49vWstKhODvcXtzd1RfV6epPaGIb7w6DhZcvQCC7Lht4P
- afcQ==
+ d=linaro.org; s=google; t=1686055446; x=1688647446;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uDe9yWm7FDRgHENi0EyWVPZ2Kw85wZtNhtSyOm6/4EE=;
+ b=mwcfACuJoEZNKneJcZ43Cp79swDuvm7SrEQ6jXsd2EwNJK2STQC9b73iBc4f7UOEx8
+ 6AAuUoOFyM15y3/pnSI6usxTjFayvA+hRcM60Re+pGCRmLgUK7TVZS4/gHaCceB8tk3b
+ WwwEeM/PJ87yx2obApx0WHCGlznns2xINKv64cpJK6Fx87szU8N4ETJh5v2BC65ni34b
+ 7QldRLRU3IU9q7GRVc/xR8RtDSXqwsVZPFkh91dflzB3/fshm+akjUgo3yBb1FY0iOVx
+ il9PORYTYR915tmUt1Oa0UE43EjhKjmuQnCmO50W2pjbzj65HPu/umE7N7oO0mbrnP/5
+ rMWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686050068; x=1688642068;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1686055446; x=1688647446;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=u/JpE1i6u3UyOCSwk7LIAsH+Du9jpLfkZSMYTXfJG3I=;
- b=HyZCYfDb8sq2fbgpktjqrTO1BdJrMSjF0EioXWgDj3ARLGU0ceI7D+Bi36NTgrsYDh
- lxGauAg4PZoOquJC3JjoSHx7o2GQZy/ZZN4tYIE/+Yf8jRhQxqDx8lY+R0peUPO/0jc/
- +G+uBqMfOPP/hDxH5FsYSsbo39RL87jnb2BcBFX3Vw1CiqP0kJlwjrOLlZ7RGf67vMb0
- 69S3Mz/3xlaG+au450ACSbBNHvFrB8b5rUjvU7fxiZ1XCzB4W7GX2TFcthcO3jAr2dDM
- nisuTRHqnS9D1l0l6MR3KhXuS1rJd1kD58t6jilpZMbb6+zn261cFH7fgCBFHVuhiGJf
- mscA==
-X-Gm-Message-State: AC+VfDxjpXFnmX7dZXq43Bgtf5937n/w1oj82+MBnyBDejKxFmZ5V1Vw
- IbKeszX07Xulj4RZF/PDkjwhMgcWxvirdaYbWJatTQ==
-X-Google-Smtp-Source: ACHHUZ6eDhnU/z/JYiXN/UdObpxtsoiDAKWtnMH1n9IQ91ExOLpy9qqGrL2jYuFQHQq22Va53lhmznigmMXxoufIaQU=
-X-Received: by 2002:a81:6dc6:0:b0:569:e7cb:c1d3 with SMTP id
- i189-20020a816dc6000000b00569e7cbc1d3mr2615624ywc.47.1686050067966; Tue, 06
- Jun 2023 04:14:27 -0700 (PDT)
+ bh=uDe9yWm7FDRgHENi0EyWVPZ2Kw85wZtNhtSyOm6/4EE=;
+ b=VszA0umF1GpHlni2Rk9xoBYRNzxeYj37iU6/lqEuDN/7E0q9sQXtEjAKsjBNm2ZQqQ
+ nR0oPAX4zeJ+5hZOGnPQ/F5P4BCJziCfKR0wGDFQc3zCXXC7jNPcHdTKnur1nhJj9wac
+ bAzfbQr0GUMAzrz1SjooHwnJ9K5Pm55JCLH9BF+q0sJwdjUQQ84+0ileLL70YhYOpj/M
+ CE4P3cwnzUHTLLiEbfpTXzu57VNKj5Y+U7PsbYU44MX2nbyBgUp63iXaNNAeY1qucqye
+ SP7lePcTxA7TRoJ5Uctw1tq0s2XTekP8jbhC4lVD+ZkKHcXTlGuAVZRnRGEs/qRPwaQu
+ W7MA==
+X-Gm-Message-State: AC+VfDyEVzAIWaEqT1/d4jePd3aPTIc7tf9lVMghPLQKOC+V3H/Nmfr1
+ IHSq+cxKwWR0g4rXLL31tnQX0g==
+X-Google-Smtp-Source: ACHHUZ5QqhGUqNb2yD+U/39kOWKg1VeFrzId9zYsCF32Jzz1w04Ocfwl4yLG3gYnKVTtNlEAlYIBHA==
+X-Received: by 2002:a2e:b0e1:0:b0:2b0:4c72:98ff with SMTP id
+ h1-20020a2eb0e1000000b002b04c7298ffmr1083056ljl.7.1686055446572; 
+ Tue, 06 Jun 2023 05:44:06 -0700 (PDT)
+Received: from [192.168.1.101] (abyl150.neoplus.adsl.tpnet.pl. [83.9.31.150])
+ by smtp.gmail.com with ESMTPSA id
+ u23-20020a2e9f17000000b002a9ebff8431sm1830823ljk.94.2023.06.06.05.44.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jun 2023 05:44:06 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 06 Jun 2023 14:43:51 +0200
+Message-Id: <20230411-topic-straitlagoon_mdss-v6-0-dee6a882571b@linaro.org>
 MIME-Version: 1.0
-References: <20230531005358.18090-1-quic_abhinavk@quicinc.com>
- <CAA8EJpryw0h8TgpJ+SFJ7s0=LCjkQ6oqAjCKsm60dk_Q5e+wWA@mail.gmail.com>
- <0af4df3d-8048-98cd-6c91-7cd553f4f65f@quicinc.com>
- <98e4bda7-19e9-09b6-f008-383adada97cb@linaro.org>
- <a0b7a9fc-eb3c-3b26-b11d-fe1fb47b2c51@quicinc.com>
- <451b114c-05e1-541c-1d3e-26bb81a307c4@linaro.org>
- <47fda908-d76f-65d5-e001-8773c5b160b9@quicinc.com>
- <48cc3d26-10fe-5b10-30b6-0772d62a2a53@linaro.org>
- <804363cf-f6cf-71a6-be8f-5fc00eea3154@quicinc.com>
-In-Reply-To: <804363cf-f6cf-71a6-be8f-5fc00eea3154@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 6 Jun 2023 14:14:17 +0300
-Message-ID: <CAA8EJprDSd79AXQvqW+=0xvTrTMCTL+CJ2E6Rhjro3g3E9UWog@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: re-introduce dpu core revision
- to the catalog
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAcqf2QC/42Oy2rDMBREfyVoXRVZb2fV/yihyLpXtsCVguSYl
+ uB/r5xVSxb1cgbmnLmTiiViJefTnRRcY405taBfTsRPLo1II7RMOOOCya6jS75GT+tSXFxmN+a
+ cPj6hVmqDkN55UMg1aevBVaRDcclPbZ9u89zKa8EQvx6690vLU6xLLt8P+8r39n/RyimjQgffN
+ Z3mXL3NMbmSX3MZd/ExgAIMRgTFest+A/ZXqzj4RDRQb4UBPQjVaXgCyYMg2UDaokGuwDDsnkD
+ qIEjtj3o7SODBAPwFbdv2A5a1HjDwAQAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1686055444; l=4174;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=boLoG8rL7D1hV5a4prC+37/bhZnhm3gDXdsQwkKVQg0=;
+ b=lD+tWC5iuFDg1MEolqAgo2hDOU8MFlyjiP8TbhVIvPOTFVPjg0zirv0kINyBQLLDsUseJ5bVC
+ CZHOHul+7VnBE6n4pk/c2bFQc6dKqINcAMWoAoNTw4fmpVJ6KdsCAjI
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v6 00/12] SM63(50|75) DPU support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,230 +91,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_jesszhan@quicinc.com,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, iommu@lists.linux.dev,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 6 Jun 2023 at 05:35, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 6/5/2023 6:03 PM, Dmitry Baryshkov wrote:
-> > On 06/06/2023 03:55, Abhinav Kumar wrote:
-> >>
-> >>
-> >> On 6/3/2023 7:21 PM, Dmitry Baryshkov wrote:
-> >>> On 31/05/2023 21:25, Abhinav Kumar wrote:
-> >>>>
-> >>>>
-> >>>> On 5/31/2023 3:07 AM, Dmitry Baryshkov wrote:
-> >>>>> On 31/05/2023 06:05, Abhinav Kumar wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 5/30/2023 7:53 PM, Dmitry Baryshkov wrote:
-> >>>>>>> On Wed, 31 May 2023 at 03:54, Abhinav Kumar
-> >>>>>>> <quic_abhinavk@quicinc.com> wrote:
-> >>>>>>>>
-> >>>>>>>> With [1] dpu core revision was dropped in favor of using the
-> >>>>>>>> compatible string from the device tree to select the dpu catalog
-> >>>>>>>> being used in the device.
-> >>>>>>>>
-> >>>>>>>> This approach works well however also necessitates adding catalog
-> >>>>>>>> entries for small register level details as dpu capabilities and/or
-> >>>>>>>> features bloating the catalog unnecessarily. Examples include but
-> >>>>>>>> are not limited to data_compress, interrupt register set,
-> >>>>>>>> widebus etc.
-> >>>>>>>>
-> >>>>>>>> Introduce the dpu core revision back as an entry to the catalog
-> >>>>>>>> so that
-> >>>>>>>> we can just use dpu revision checks and enable those bits which
-> >>>>>>>> should be enabled unconditionally and not controlled by a catalog
-> >>>>>>>> and also simplify the changes to do something like:
-> >>>>>>>>
-> >>>>>>>> if (dpu_core_revision > xxxxx && dpu_core_revision < xxxxx)
-> >>>>>>>>          enable the bit;
-> >>>>>>>>
-> >>>>>>>> Also, add some of the useful macros back to be able to use dpu core
-> >>>>>>>> revision effectively.
-> >>>>>>>>
-> >>>>>>>> [1]:
-> >>>>>>>> https://patchwork.freedesktop.org/patch/530891/?series=113910&rev=4
-> >>>>>>>>
-> >>>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>>>>>>> ---
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  1 +
-> >>>>>>>>   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  1 +
-> >>>>>>>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 31
-> >>>>>>>> ++++++++++++++++++-
-> >>>>>>>>   14 files changed, 43 insertions(+), 1 deletion(-)
-> >>>>>>>>
-> >>>>>>>
-> >>>>>>> [skipped catalog changes]
-> >>>>>>>
-> >>>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >>>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >>>>>>>> index 677048cc3b7d..cc4aa75a1219 100644
-> >>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >>>>>>>> @@ -19,6 +19,33 @@
-> >>>>>>>>    */
-> >>>>>>>>   #define MAX_BLOCKS    12
-> >>>>>>>>
-> >>>>>>>> +#define DPU_HW_VER(MAJOR, MINOR, STEP)\
-> >>>>>>>> +                 ((((unsigned int)MAJOR & 0xF) << 28) |\
-> >>>>>>>> +                 ((MINOR & 0xFFF) << 16) |\
-> >>>>>>>> +                 (STEP & 0xFFFF))
-> >>>>>>>> +
-> >>>>>>>> +#define DPU_HW_MAJOR(rev)((rev) >> 28)
-> >>>>>>>> +#define DPU_HW_MINOR(rev)(((rev) >> 16) & 0xFFF)
-> >>>>>>>> +#define DPU_HW_STEP(rev)((rev) & 0xFFFF)
-> >>>>>>>> +#define DPU_HW_MAJOR_MINOR(rev)((rev) >> 16)
-> >>>>>>>> +
-> >>>>>>>> +#define IS_DPU_MAJOR_MINOR_SAME(rev1, rev2)   \
-> >>>>>>>> +(DPU_HW_MAJOR_MINOR((rev1)) == DPU_HW_MAJOR_MINOR((rev2)))
-> >>>>>>>> +
-> >>>>>>>> +#define DPU_HW_VER_300 DPU_HW_VER(3, 0, 0) /* 8998 v1.0 */
-> >>>>>>>> +#define DPU_HW_VER_400 DPU_HW_VER(4, 0, 0) /* sdm845 v1.0 */
-> >>>>>>>> +#define DPU_HW_VER_500 DPU_HW_VER(5, 0, 0) /* sm8150 v1.0 */
-> >>>>>>>> +#define DPU_HW_VER_510 DPU_HW_VER(5, 1, 1) /* sc8180 */
-> >>>>>>>> +#define DPU_HW_VER_600 DPU_HW_VER(6, 0, 0) /* sm8250 */
-> >>>>>>>> +#define DPU_HW_VER_620 DPU_HW_VER(6, 2, 0) /* sc7180 v1.0 */
-> >>>>>>>> +#define DPU_HW_VER_630 DPU_HW_VER(6, 3, 0) /* sm6115|sm4250 */
-> >>>>>>>> +#define DPU_HW_VER_650 DPU_HW_VER(6, 5, 0) /* qcm2290|sm4125 */
-> >>>>>>>> +#define DPU_HW_VER_700 DPU_HW_VER(7, 0, 0) /* sm8350 */
-> >>>>>>>> +#define DPU_HW_VER_720 DPU_HW_VER(7, 2, 0) /* sc7280 */
-> >>>>>>>> +#define DPU_HW_VER_800 DPU_HW_VER(8, 0, 0) /* sc8280xp */
-> >>>>>>>> +#define DPU_HW_VER_810 DPU_HW_VER(8, 1, 0) /* sm8450 */
-> >>>>>>>> +#define DPU_HW_VER_900 DPU_HW_VER(9, 0, 0) /* sm8550 */
-> >>>>>>>
-> >>>>>>> Instead of having defines for all SoCs (which can quickly become
-> >>>>>>> unmanageable) and can cause merge conflicts, I'd suggest inlining
-> >>>>>>> all
-> >>>>>>> the defines into respective catalog files.
-> >>>>>>>
-> >>>>>>
-> >>>>>> Sure, that can be done.
-> >>>>>>
-> >>>>>>> Also, I'm not sure that the "step" should be a part of the
-> >>>>>>> catalog. I
-> >>>>>>> know that this follows the hardware revision. However, please
-> >>>>>>> correct
-> >>>>>>> me if I'm wrong, different step levels are used for revisions of the
-> >>>>>>> same SoC. The original code that was reading the hw revision from
-> >>>>>>> the
-> >>>>>>> hardware register, listed both 5.0.0 and 5.0.1 for sm8150.
-> >>>>>>>
-> >>>>>>
-> >>>>>> This is one of the things i noticed while making this change.
-> >>>>>>
-> >>>>>> Before the catalog rework, we used to handle even steps as we used
-> >>>>>> to read that from the register and match it with the mdss_cfg
-> >>>>>> handler. But after the rework, we dont handle steps anymore. Yes,
-> >>>>>> you are right that different step levels are used for the
-> >>>>>> revisions of the same SOC and so with that, i dont expect or
-> >>>>>> atleast am not aware of DPU differences between steps but I am not
-> >>>>>> able to rule it out.
-> >>>>>>
-> >>>>>> So are you suggesting we drop step altogether and DPU_HW_VER()
-> >>>>>> macro shall only handle major and minor versions? With the current
-> >>>>>> chipsets I see, it should not make a difference . Its just that I
-> >>>>>> am not sure if that will never happen.
-> >>>>>
-> >>>>> Yes. The goal of this rework would be to drop generic features and
-> >>>>> to replace those checks with DPU-revision lookups. Correct?
-> >>>>
-> >>>> Yes thats right.
-> >>>>
-> >>>>> I think that from this perspective having to handle toe step
-> >>>>> revision is a sign of an overkill. Having to handle the step
-> >>>>> revision is a sign of paltform feature (or mis-feature) rather than
-> >>>>> a generic DPU bit.
-> >>>>>
-> >>>>
-> >>>> Not entirely. Lets not forget that at the moment even dpu_perf_cfg
-> >>>> is part of the catalog. Even if in terms of major HW blocks steps
-> >>>> shouldnt change, there is absolutely no guarantee that perf data
-> >>>> cannot.
-> >>>>
-> >>>> This is what is the sticking point for me which is holding me back
-> >>>> against dropping step. Thoughts?
-> >>>
-> >>> We usually do not support ES versions of the chips, only the final
-> >>> version. So supporting the perf data for earlier revisions is also
-> >>> not required.
-> >>>
-> >>
-> >> ack, we will drop step in that case. and good to know about the ES
-> >> versions.
-> >>
-> >>>>
-> >>>>> In fact I suppose that even handling a minor revision would be an
-> >>>>> overkill. Why don't we start with .dpu_major instead of .core_rev?
-> >>>>> We can add .dpu_minor if/when required.
-> >>>>>
-> >>>>
-> >>>> No, unfortunately we cannot drop minor version for sure. I am seeing
-> >>>> examples in downstream code where some of the features are available
-> >>>> after a minor verion as well.
-> >>>
-> >>> Can you please give an example?
-> >>>
-> >>
-> >> Yes, watchdog timer, intf reset counter are available only after DPU
-> >> HW version 8.1 (not major version 8).
-> >
-> > Hmm, IIRC, wd timer was available for ages. Was it moved together with
-> > the introduction of MDSS_PERIPH_0_REMOVED?
-> >
->
-> I am not sure of the timeline but its certainly tied to 8.1.
->
-> > But anyway, I see your point. Let's have major and minor. I'd probably
-> > still ask for the separate major and minor fields, if you don't mind.
-> >
->
-> hmmm so something like this?
->
-> +#define DPU_HW_VER_300 DPU_HW_VER(3, 0) /* 8998 v1.0 */
->
-> const struct dpu_mdss_cfg dpu_msm8998_cfg = {
-> .......
-> .dpu_major_rev = DPU_HW_MAJOR(DPU_HW_VER_300),
-> .dpu_minor_rev = DPU_HW_MINOR(DPU_HW_VER_300)
+v5 -> v6:
+- Drop unnecessary items: level in bindings
+- Use INTF_SC7180_MASK for 6375 to avoid enabling DPU_INTF_DATA_COMPRESS on DPU6
+- Pick up tags
 
-Just:
+v5: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v5-0-998b4d2f7dd1@linaro.org
 
-const struct dpu_mdss_cfg dpu_msm8998_cfg = {
-    .dpu_major_rev = 3,
-    .dpu_minor_rev = 0,
-    /* .... */
-};
+v4 -> v5:
+- Rebase on next-20230522 (drop regdma, drop external dependencies)
+- Reuse sdm845_vbif
+- Resize non-DSI INTFs to 0x280 (no TE block)
+- Fix up 6375 mdss bindings example
+- Rewrite reasoning of dropping the QoS LUT entry in
+  "drm/msm/dpu: Add SM6350 support"
+- pick up tags
+- add DSC blocks for both SoCs
 
-We do not need a single enumeration of all the versions. It can easily
-become a source of merge conflicts.
+No more dependency on INTFTE (merged)
 
-> .......
-> }
->
-> But may I ask why? Since the manor/minor version macros handle this
-> nicely for us.
+v4: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v4-0-68e7e25d70e1@linaro.org
 
+v3 -> v4:
+- Drop adding new QoS LUT entries
+- Add safe_lut_tbl for both SoCs
 
+Depends on:
+- https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org/
 
+v3: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v3-0-9837d6b3516d@linaro.org
+
+v2 -> v3:
+- Don't duplicate qcm2290_lm_sblk
+- Use DEFAULT_DPU_LINE_WIDTH defines
+- Fix up sspp clk assignments for sm6350
+- Add 6350-6375-common QoS data straight to the common file
+  instead of moving it around after adding it
+- Fix up iommu compatible order before adding new entries
+- Reuse sm6350 msm_mdss_data for sm6375
+- INTF_SC7180_MASK -> INTF_SC7280_MASK (enable HCTL) on 6375
+- use double tabs in catalog headers
+- remove one unused entry in 6350 dpu_qos_lut_entry
+- add missing tear IRQs, drop INTF0 irq on 6375
+- don't overduplicate DPU bindings, reuse 7180
+- Pick up tags
+- Rebase on INTF_TE v4 and next-20230504
+
+Depends on:
+- https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v4-0-27ce1a5ab5c6@somainline.org/
+
+v2: https://lore.kernel.org/r/20230411-topic-straitlagoon_mdss-v2-0-5def73f50980@linaro.org
+
+v1 -> v2:
+- Rebase on the DPU catalog rework and INTF_TE
+- Fix QSEED(3L/4) discrepancies
+- Fixed DMA/cursor discrepancies for 6350
+- No deduplication, that's gonna be handled in catalogrework 2:
+  "the return of the catalogrework"
+- Split MDSS & DPU binding additions
+- Drop "Allow variable SSPP/INTF_BLK size", that got in w/ the rework
+- Split MDSS and DPU additions
+- Pick up Rob's acks
+
+Depends on (and based on): https://lore.kernel.org/linux-arm-msm/20230411-dpu-intf-te-v2-0-ef76c877eb97@somainline.org/T/#t
+
+v1: https://lore.kernel.org/linux-arm-msm/20230211122656.1479141-1-konrad.dybcio@linaro.org/
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (12):
+      dt-bindings: display/msm: dsi-controller-main: Add SM6350
+      dt-bindings: display/msm: dsi-controller-main: Add SM6375
+      dt-bindings: display/msm: sc7180-dpu: Describe SM6350 and SM6375
+      dt-bindings: display/msm: Add SM6350 MDSS
+      dt-bindings: display/msm: Add SM6375 MDSS
+      drm/msm/dpu: Add SM6350 support
+      drm/msm: mdss: Add SM6350 support
+      drm/msm/dpu: Add SM6375 support
+      drm/msm: mdss: Add SM6375 support
+      iommu/arm-smmu-qcom: Sort the compatible list alphabetically
+      iommu/arm-smmu-qcom: Add SM6375 DPU compatible
+      iommu/arm-smmu-qcom: Add SM6350 DPU compatible
+
+ .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  23 ++-
+ .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 213 ++++++++++++++++++++
+ .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 215 +++++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 173 +++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 139 +++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  10 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   6 +-
+ 11 files changed, 790 insertions(+), 3 deletions(-)
+---
+base-commit: 6db29e14f4fb7bce9eb5290288e71b05c2b0d118
+change-id: 20230411-topic-straitlagoon_mdss-8f34cacd5e26
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
