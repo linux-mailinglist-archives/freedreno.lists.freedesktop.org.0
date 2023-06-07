@@ -2,78 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D827572682E
-	for <lists+freedreno@lfdr.de>; Wed,  7 Jun 2023 20:12:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BBAC726A14
+	for <lists+freedreno@lfdr.de>; Wed,  7 Jun 2023 21:46:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D96310E53D;
-	Wed,  7 Jun 2023 18:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 134CA10E540;
+	Wed,  7 Jun 2023 19:46:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24DA310E53C
- for <freedreno@lists.freedesktop.org>; Wed,  7 Jun 2023 18:12:05 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-970028cfb6cso1285240766b.1
- for <freedreno@lists.freedesktop.org>; Wed, 07 Jun 2023 11:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686161523; x=1688753523;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=c8LLkELG8pk1deRrNltGQ2MtkxURXpppj04DS98maLQ=;
- b=mQwtQAxpJG8jV/xuinu93mq/TbKBa7bsRoILZ55z99uqXXE5DKZVFKH7DpniJCQN1O
- JtBEzsgI5qPT30X/q0Ql60fQqMuONlqxwLiKA7rXEx8zAscuJcOUApu9ynYG/zDz8AAZ
- yaiZnamd97s2iyhRdQ6Okaql4+ryQb3SwBY4YNl7kNJ+HRy1qJPxw4WeNqJZaXWlbO0J
- 8j9JXYJRVIh/WIx5MtpUQNuVjTwyALsOrfeJeyaUTiYmEkPHvxCvCXSu4pxjC2GL9bN+
- dO9tWQFuJMI96rn4DT7hGU4eGoGPA47VuIOOtE6tCe61TclepLRJE98yM/i3EPz1lMe6
- SEtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686161523; x=1688753523;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c8LLkELG8pk1deRrNltGQ2MtkxURXpppj04DS98maLQ=;
- b=Vf25m4VNKRpwaxvhgupiMNwhaXP0pmg2cWDnlobUrGuIZ54YDViVPT9jZdBRk/HWKo
- Y6iOeTYpACoYx+Eb8VTAPce+AxW3evH5m4n0/35m0f20HHZyahTRA81eR30vAbqFP50v
- JgJy2lMav5voh6PKY0al8NlNlNwGon4DJSfrLjSR6n4taEH5KTjJAXN3RlN1NGrzkfon
- 16RPvPRkGHWH6p5GqPgJpY9ij8QN8lYgWYDh886G9qteiYB1fdQi0U7YnyFLvz4k7Vtc
- 8H2J3gwRB9Wt411aupDfSp3S0nfxjMcd7QTBTJiZiduxcY/V86XquOPAf4G7mfzFnazU
- olaw==
-X-Gm-Message-State: AC+VfDykxTMsg7EVQEDplUjQM1qbnCn4lSIYHmoCh1cV/CP9zuC++UPu
- i2SziCo6xYhmEPrp+RAyQBI6Aw==
-X-Google-Smtp-Source: ACHHUZ4atA66ozVYI+ahtfsSLEEsIg2F4Rpb/cEGKV9GpyA79gCHhdMvWAlwmA4CitsH2GXDKLrxQQ==
-X-Received: by 2002:a17:907:7da3:b0:977:d676:d3ca with SMTP id
- oz35-20020a1709077da300b00977d676d3camr7269835ejc.33.1686161523172; 
- Wed, 07 Jun 2023 11:12:03 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
- by smtp.gmail.com with ESMTPSA id
- q20-20020a170906a09400b009786ae9ed50sm2488347ejy.194.2023.06.07.11.12.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Jun 2023 11:12:02 -0700 (PDT)
-Message-ID: <7717cc1b-d258-4fb6-3379-05b2de27dc70@linaro.org>
-Date: Wed, 7 Jun 2023 20:11:59 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D18010E53E;
+ Wed,  7 Jun 2023 19:46:42 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 357JT57k000503; Wed, 7 Jun 2023 19:46:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=5G6HDYV61owlTxtOzctRQ3nN88GKhOoD0XA1tYt2JAs=;
+ b=PgOT/HZXCbQa1kGYbLsNeVg+XA/ISyVi7VDGg3iEazwC/5Gfgdx1eXNwPCgb2vxCRUYg
+ 3gnx+6a72JCWpsQx2wkXuma3aQ0Yl9cSOHZhfcQZrYd2GqiaDtz2pW5dORmuRmBF30iD
+ m4W/81yuUyFrcOCcPCAZtZh4xH91i5IbPQH0fecYIj9nvPXErCeG9CEjwrhh2EQVAz8v
+ FaM4I4iKG1OaQmuK7MTdx1vVSHOSN0Zi+JXlzM7EYJvJs58dk8c+mWMrUTkax3Iiq4ht
+ zPgFNrXTwhu9k+NV+fxLc5Ug/xGurKqw9xYbo5SIQIbAv0RSWHVmisC5l/Z8m9hD7koC 1Q== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r2a7k2sm5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Jun 2023 19:46:36 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 357JkZ6e026091
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 7 Jun 2023 19:46:35 GMT
+Received: from [10.110.54.114] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 7 Jun 2023
+ 12:46:34 -0700
+Message-ID: <51712e34-c964-a5b3-3df8-1af10c7751f6@quicinc.com>
+Date: Wed, 7 Jun 2023 12:46:31 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
+To: Luca Weiss <luca@z3ntu.xyz>, <~postmarketos/upstreaming@lists.sr.ht>,
+ <phone-devel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Will Deacon
- <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20230411-topic-straitlagoon_mdss-v6-0-dee6a882571b@linaro.org>
- <20230411-topic-straitlagoon_mdss-v6-5-dee6a882571b@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v6-5-dee6a882571b@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konrad.dybcio@linaro.org>
+References: <20230308-msm8226-mdp-v3-0-b6284145d67a@z3ntu.xyz>
+ <20230308-msm8226-mdp-v3-6-b6284145d67a@z3ntu.xyz>
+From: Jeykumar Sankaran <quic_jeykumar@quicinc.com>
+In-Reply-To: <20230308-msm8226-mdp-v3-6-b6284145d67a@z3ntu.xyz>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 05/12] dt-bindings: display/msm: Add
- SM6375 MDSS
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: JfdO3l81FXQYiHJVxQ4Of-WTisJFXX7-
+X-Proofpoint-GUID: JfdO3l81FXQYiHJVxQ4Of-WTisJFXX7-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-07_09,2023-06-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ mlxlogscore=999 adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306070171
+Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dsi: Add phy configuration
+ for MSM8226
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,25 +94,203 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: devicetree@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/06/2023 14:43, Konrad Dybcio wrote:
-> Document the SM6375 MDSS.
+
+
+On 6/1/2023 10:00 AM, Luca Weiss wrote:
+> MSM8226 uses a modified PLL lock sequence compared to MSM8974, which is
+> based on the function dsi_pll_enable_seq_m in the msm-3.10 kernel.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Worth noting that the msm-3.10 downstream kernel also will try other
+> sequences in case this one doesn't work, but during testing it has shown
+> that the _m sequence succeeds first time also:
+> 
+>    .pll_enable_seqs[0] = dsi_pll_enable_seq_m,
+>    .pll_enable_seqs[1] = dsi_pll_enable_seq_m,
+>    .pll_enable_seqs[2] = dsi_pll_enable_seq_d,
+>    .pll_enable_seqs[3] = dsi_pll_enable_seq_d,
+>    .pll_enable_seqs[4] = dsi_pll_enable_seq_f1,
+>    .pll_enable_seqs[5] = dsi_pll_enable_seq_c,
+>    .pll_enable_seqs[6] = dsi_pll_enable_seq_e,
+> 
+> We may need to expand this in the future.
+> 
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
 > ---
->  .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 215 +++++++++++++++++++++
->  1 file changed, 215 insertions(+)
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 +
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  3 +-
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 97 ++++++++++++++++++++++++++++++
+>   3 files changed, 101 insertions(+), 1 deletion(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> index bb09cbe8ff86..9d5795c58a98 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> @@ -541,6 +541,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
+>   	  .data = &dsi_phy_28nm_hpm_famb_cfgs },
+>   	{ .compatible = "qcom,dsi-phy-28nm-lp",
+>   	  .data = &dsi_phy_28nm_lp_cfgs },
+> +	{ .compatible = "qcom,dsi-phy-28nm-8226",
+> +	  .data = &dsi_phy_28nm_8226_cfgs },
+>   #endif
+>   #ifdef CONFIG_DRM_MSM_DSI_20NM_PHY
+>   	{ .compatible = "qcom,dsi-phy-20nm",
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> index 7137a17ae523..8b640d174785 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> @@ -46,8 +46,9 @@ struct msm_dsi_phy_cfg {
+>   extern const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs;
+>   extern const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_famb_cfgs;
+>   extern const struct msm_dsi_phy_cfg dsi_phy_28nm_lp_cfgs;
+> -extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
+> +extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8226_cfgs;
+>   extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs;
+> +extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
+>   extern const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs;
+>   extern const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs;
+>   extern const struct msm_dsi_phy_cfg dsi_phy_14nm_2290_cfgs;
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> index 4c1bf55c5f38..ceec7bb87bf1 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> @@ -37,6 +37,7 @@
+>   
+>   /* v2.0.0 28nm LP implementation */
+>   #define DSI_PHY_28NM_QUIRK_PHY_LP	BIT(0)
+> +#define DSI_PHY_28NM_QUIRK_PHY_8226	BIT(1)
+>   
+>   #define LPFR_LUT_SIZE			10
+>   struct lpfr_cfg {
+> @@ -377,6 +378,74 @@ static int dsi_pll_28nm_vco_prepare_hpm(struct clk_hw *hw)
+>   	return ret;
+>   }
+>   
+> +static int dsi_pll_28nm_vco_prepare_8226(struct clk_hw *hw)
+> +{
+> +	struct dsi_pll_28nm *pll_28nm = to_pll_28nm(hw);
+> +	struct device *dev = &pll_28nm->phy->pdev->dev;
+> +	void __iomem *base = pll_28nm->phy->pll_base;
+> +	u32 max_reads = 5, timeout_us = 100;
+> +	bool locked;
+> +	u32 val;
+> +	int i;
+> +
+> +	DBG("id=%d", pll_28nm->phy->id);
+> +
+> +	pll_28nm_software_reset(pll_28nm);
+> +
+> +	/*
+> +	 * PLL power up sequence.
+> +	 * Add necessary delays recommended by hardware.
+> +	 */
+> +	dsi_phy_write(base + REG_DSI_28nm_PHY_PLL_CAL_CFG1, 0x34);
+> +
+> +	val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
+> +	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
+> +
+> +	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
+> +	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
+> +
+> +	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
+> +	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
+> +	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 600);
+> +
+> +	for (i = 0; i < 7; i++) {
+> +		/* DSI Uniphy lock detect setting */
+> +		dsi_phy_write(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2, 0x0d);
+> +		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2,
+> +				0x0c, 100);
+> +		dsi_phy_write(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2, 0x0d);
+> +
+> +		/* poll for PLL ready status */
+> +		locked = pll_28nm_poll_for_ready(pll_28nm,
+> +						max_reads, timeout_us);
+> +		if (locked)
+> +			break;
+> +
+> +		pll_28nm_software_reset(pll_28nm);
+> +
+> +		/*
+> +		 * PLL power up sequence.
+> +		 * Add necessary delays recommended by hardware.
+> +		 */
+> +		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_PWRGEN_CFG, 0x00, 50);
+> +
+> +		val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
+> +		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
+> +		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 100);
+> +
+> +		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
+> +		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
+> +		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 600);
+> +	}
+> +
+> +	if (unlikely(!locked))
+> +		DRM_DEV_ERROR(dev, "DSI PLL lock failed\n");
+> +	else
+> +		DBG("DSI PLL Lock success");
+> +
+> +	return locked ? 0 : -EINVAL;
+> +}
+> +
+Could you please share the downstream reference you used to come up with 
+this sequence?
 
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
+Thanks and Regards,
+Jeykumar S.
+>   static int dsi_pll_28nm_vco_prepare_lp(struct clk_hw *hw)
+>   {
+>   	struct dsi_pll_28nm *pll_28nm = to_pll_28nm(hw);
+> @@ -471,6 +540,15 @@ static const struct clk_ops clk_ops_dsi_pll_28nm_vco_lp = {
+>   	.is_enabled = dsi_pll_28nm_clk_is_enabled,
+>   };
+>   
+> +static const struct clk_ops clk_ops_dsi_pll_28nm_vco_8226 = {
+> +	.round_rate = dsi_pll_28nm_clk_round_rate,
+> +	.set_rate = dsi_pll_28nm_clk_set_rate,
+> +	.recalc_rate = dsi_pll_28nm_clk_recalc_rate,
+> +	.prepare = dsi_pll_28nm_vco_prepare_8226,
+> +	.unprepare = dsi_pll_28nm_vco_unprepare,
+> +	.is_enabled = dsi_pll_28nm_clk_is_enabled,
+> +};
+> +
+>   /*
+>    * PLL Callbacks
+>    */
+> @@ -536,6 +614,8 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+>   
+>   	if (pll_28nm->phy->cfg->quirks & DSI_PHY_28NM_QUIRK_PHY_LP)
+>   		vco_init.ops = &clk_ops_dsi_pll_28nm_vco_lp;
+> +	else if (pll_28nm->phy->cfg->quirks & DSI_PHY_28NM_QUIRK_PHY_8226)
+> +		vco_init.ops = &clk_ops_dsi_pll_28nm_vco_8226;
+>   	else
+>   		vco_init.ops = &clk_ops_dsi_pll_28nm_vco_hpm;
+>   
+> @@ -820,3 +900,20 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_lp_cfgs = {
+>   	.quirks = DSI_PHY_28NM_QUIRK_PHY_LP,
+>   };
+>   
+> +const struct msm_dsi_phy_cfg dsi_phy_28nm_8226_cfgs = {
+> +	.has_phy_regulator = true,
+> +	.regulator_data = dsi_phy_28nm_regulators,
+> +	.num_regulators = ARRAY_SIZE(dsi_phy_28nm_regulators),
+> +	.ops = {
+> +		.enable = dsi_28nm_phy_enable,
+> +		.disable = dsi_28nm_phy_disable,
+> +		.pll_init = dsi_pll_28nm_init,
+> +		.save_pll_state = dsi_28nm_pll_save_state,
+> +		.restore_pll_state = dsi_28nm_pll_restore_state,
+> +	},
+> +	.min_pll_rate = VCO_MIN_RATE,
+> +	.max_pll_rate = VCO_MAX_RATE,
+> +	.io_start = { 0xfd922b00 },
+> +	.num_dsi_phy = 1,
+> +	.quirks = DSI_PHY_28NM_QUIRK_PHY_8226,
+> +};
+> 
