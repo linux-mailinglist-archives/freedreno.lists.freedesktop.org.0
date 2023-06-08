@@ -2,76 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC6272806D
-	for <lists+freedreno@lfdr.de>; Thu,  8 Jun 2023 14:49:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE87728267
+	for <lists+freedreno@lfdr.de>; Thu,  8 Jun 2023 16:12:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B821C10E266;
-	Thu,  8 Jun 2023 12:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5774310E196;
+	Thu,  8 Jun 2023 14:12:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C93C810E265
- for <freedreno@lists.freedesktop.org>; Thu,  8 Jun 2023 12:49:25 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-30e5289105cso452931f8f.1
- for <freedreno@lists.freedesktop.org>; Thu, 08 Jun 2023 05:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686228563; x=1688820563;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=vfWLVHSaynosqDzEpjpn0x+xQ1lv5rwjFflJ53vQG5U=;
- b=Ld/I7TsVqq8lNET1145ywbdAk32fc/mKg+dQMRUBDbrcV+6L3uwbCBKQy5tEEV9O5B
- GvhkFZ1PviaaZO3axmNDTmG9Uvak+oraF/JeZ8z0f6eOfArSAMbI7W7TAzTHJwubfA5p
- LeZ7a5OTYzGQ4q2LBMfsAE/kLwBK8DvYRLIATcULGcCmf2/iAbePsjNtYofPDOcCtj0U
- lKOcbFO8gEyOG/HMDGxpeAYl3vf2CW8nE5EeFmtdRFY2drnJL6YL1glODb23bzQY0yoV
- IC8MVS4wmQ7VgNNjnu/Xvm8wtgq1XYF3rcJu+3IJ/2vY/J7+KYRVr9VNVK+2Tj2q5sgf
- nAyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686228563; x=1688820563;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vfWLVHSaynosqDzEpjpn0x+xQ1lv5rwjFflJ53vQG5U=;
- b=Q/rlfJgd1YQ/cCfbN6an5cqb8URkUioIHyzqZYD6gHz+Z2TNBWD6vaeqZBrlcHKkQL
- 8Mqk4FKJx02izwwPXpnkyaen9W7jkGn3NNGO5diq7U2lr0fTKpri8Gw6y1fLkzytlzsz
- wOJaOAUH2VHQYnf8SJn31a6uyKqSm27k4XrvoWI7ZoHE45HyUdYrYXZHUfnx9dREGSYA
- Wx1eyqdQsolv51rUlpcTA9I6VgHuTX+zaGUqKea1Hn8Uj25NJytmSZZDnhPn+UkmUlGR
- BOPFVVMM49NVKfv2eiTXfHejBpRmxehRbhe4TlNS82pIMI1K5UWRhHDFKttEgfwap34o
- /zTA==
-X-Gm-Message-State: AC+VfDzJxCFHUYL0k3tAnIbZEwNY7b0hJIuL136Be4/BYmhN4fNUFFiF
- 3LqHHBAjZ94sWHuWolpKw8IkyA==
-X-Google-Smtp-Source: ACHHUZ7ZSLakGms4uctT0aG0W9tRLGeB8tYPAvCcspi0o/V0pzajuizm1ie1V4k9LZ1CK1D0lzasZw==
-X-Received: by 2002:a5d:6941:0:b0:307:9081:d355 with SMTP id
- r1-20020a5d6941000000b003079081d355mr1757375wrw.26.1686228563580; 
- Thu, 08 Jun 2023 05:49:23 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:1b90:b83e:29ce:beb6?
- ([2a01:e0a:982:cbb0:1b90:b83e:29ce:beb6])
- by smtp.gmail.com with ESMTPSA id
- d8-20020a5d6dc8000000b0030aec5e020fsm1495423wrz.86.2023.06.08.05.49.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Jun 2023 05:49:23 -0700 (PDT)
-Message-ID: <86b8960b-7483-cacd-3f29-715a31c4f7b6@linaro.org>
-Date: Thu, 8 Jun 2023 14:49:22 +0200
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4B110E196;
+ Thu,  8 Jun 2023 14:12:48 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8FB1E60B01;
+ Thu,  8 Jun 2023 14:12:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA3BC433EF;
+ Thu,  8 Jun 2023 14:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686233567;
+ bh=jiC9XwKLIhJp7L/2mf5VkOAerj+XVF2GwszxyJwIce0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PdlUNyu6BxgXKeXfUv8gyn2gfLBxInzqG8EY8Erdk53eOUwKsqy8yNDYtag6g1hJo
+ UJXUGEGQXr3cH/f6i9MGEM9afRbriAzkd087t3uOCPo0xooekeecvJipUE3F5momEw
+ WK4xfcgCRx8IwHaLnk/b/HWaRJlNGvW+NCG8w9/0pAsIUXbZw/+SyQL9AOAHnWykBQ
+ cTZsOv8jZZ9iIgECZI2ELlRc9MHvdr1jrLoZ6vgchYgAeSXcy22UKW8n4akgt4TNoJ
+ 7ezE6Ob3fKQSDESqhBzY/xzA4iZKxg2vHiDEK2sPHSYLO57rL1l2ViDPpWRgi/G4fq
+ oYTBCdymVpDgQ==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1q7GNz-0001re-U7; Thu, 08 Jun 2023 16:13:12 +0200
+Date: Thu, 8 Jun 2023 16:13:11 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <ZIHh95IeOPBTvB00@hovoldconsulting.com>
+References: <ZBGNmXwQoW330Wr8@hovoldconsulting.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg
- <sam@ravnborg.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230516-b4-r66451-panel-driver-v2-0-9c8d5eeef579@quicinc.com>
- <20230516-b4-r66451-panel-driver-v2-2-9c8d5eeef579@quicinc.com>
-Organization: Linaro Developer Services
-In-Reply-To: <20230516-b4-r66451-panel-driver-v2-2-9c8d5eeef579@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/panel: Add driver for Visionox
- r66451 panel
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZBGNmXwQoW330Wr8@hovoldconsulting.com>
+Subject: Re: [Freedreno] Adreno devfreq lockdep splat with 6.3-rc2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,464 +55,213 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Jessica,
+Hi Rob,
 
-On 31/05/2023 20:12, Jessica Zhang wrote:
-> Add support for the 1080x2340 Visionox R66451 AMOLED DSI panel that
-> comes with the Qualcomm HDK8350 display expansion pack.
+Have you had a chance to look at this regression yet? It prevents us
+from using lockdep on the X13s as it is disabled as soon as we start
+the GPU.
+
+On Wed, Mar 15, 2023 at 10:19:21AM +0100, Johan Hovold wrote:
 > 
-> The panel enables display compression (DSC v1.2) by default.
+> Since 6.3-rc2 (or possibly -rc1), I'm now seeing the below
+> devfreq-related lockdep splat.
 > 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/panel/Kconfig                 |   9 +
->   drivers/gpu/drm/panel/Makefile                |   1 +
->   drivers/gpu/drm/panel/panel-visionox-r66451.c | 390 ++++++++++++++++++++++++++
->   3 files changed, 400 insertions(+)
+> I noticed that you posted a fix for something similar here:
 > 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 29cf5fa39ff2..1f9d57854ea8 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -766,6 +766,15 @@ config DRM_PANEL_VISIONOX_VTDR6130
->   	  Say Y here if you want to enable support for Visionox
->   	  VTDR6130 1080x2400 AMOLED DSI panel.
->   
-> +config DRM_PANEL_VISIONOX_R66451
-> +	tristate "Visionox R66451"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	help
-> +	  Say Y here if you want to enable support for Visionox
-> +	  R66451 1080x2340 AMOLED DSI panel.
-> +
->   config DRM_PANEL_WIDECHIPS_WS2401
->   	tristate "Widechips WS2401 DPI panel driver"
->   	depends on SPI && GPIOLIB
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index b3e8ba29edd3..e043a92ee676 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -78,5 +78,6 @@ obj-$(CONFIG_DRM_PANEL_TPO_TPG110) += panel-tpo-tpg110.o
->   obj-$(CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA) += panel-truly-nt35597.o
->   obj-$(CONFIG_DRM_PANEL_VISIONOX_RM69299) += panel-visionox-rm69299.o
->   obj-$(CONFIG_DRM_PANEL_VISIONOX_VTDR6130) += panel-visionox-vtdr6130.o
-> +obj-$(CONFIG_DRM_PANEL_VISIONOX_R66451) += panel-visionox-r66451.o
->   obj-$(CONFIG_DRM_PANEL_WIDECHIPS_WS2401) += panel-widechips-ws2401.o
->   obj-$(CONFIG_DRM_PANEL_XINPENG_XPP055C272) += panel-xinpeng-xpp055c272.o
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-r66451.c b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> new file mode 100644
-> index 000000000000..00fc28ad3d07
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> @@ -0,0 +1,390 @@
-> +//SPDX-License-Identifier: GPL-2.0-only
-> +//Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_probe_helper.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +struct visionox_r66451 {
-> +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi;
-> +	struct gpio_desc *reset_gpio;
-> +	struct regulator_bulk_data supplies[2];
-> +	bool prepared, enabled;
-> +};
-> +
-> +static inline struct visionox_r66451 *to_visionox_r66451(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct visionox_r66451, panel);
-> +}
-> +
-> +static void visionox_r66451_reset(struct visionox_r66451 *ctx)
-> +{
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 10100);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	usleep_range(10000, 10100);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 10100);
-> +}
-> +
-> +static int visionox_r66451_on(struct visionox_r66451 *ctx)
-> +{
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +
-> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq(dsi, 0xb0, 0x00);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xc2,
-> +			       0x09, 0x24, 0x0c, 0x00, 0x00, 0x0c, 0x00, 0x00, 0x00,
-> +			       0x09, 0x3c);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xd7,
-> +			       0x00, 0xb9, 0x3c, 0x00, 0x40, 0x04, 0x00, 0xa0, 0x0a,
-> +			       0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x19,
-> +			       0x3c, 0x00, 0x40, 0x04, 0x00, 0xa0, 0x0a);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xb0, 0x80);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xde,
-> +			       0x40, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18,
-> +			       0x10, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x02, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xb0, 0x04);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xe8, 0x00, 0x02);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xe4, 0x00, 0x08);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xb0, 0x00);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xc4,
-> +			       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +			       0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x32);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xcf,
-> +			       0x64, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08,
-> +			       0x00, 0x0b, 0x77, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-> +			       0x02, 0x02, 0x02, 0x02, 0x02, 0x03);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xd3,
-> +			       0x45, 0x00, 0x00, 0x01, 0x13, 0x15, 0x00, 0x15, 0x07,
-> +			       0x0f, 0x77, 0x77, 0x77, 0x37, 0xb2, 0x11, 0x00, 0xa0,
-> +			       0x3c, 0x9c);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xd7,
-> +			       0x00, 0xb9, 0x34, 0x00, 0x40, 0x04, 0x00, 0xa0, 0x0a,
-> +			       0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x19,
-> +			       0x34, 0x00, 0x40, 0x04, 0x00, 0xa0, 0x0a);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xd8,
-> +			       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +			       0x3a, 0x00, 0x3a, 0x00, 0x3a, 0x00, 0x3a, 0x00, 0x3a,
-> +			       0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +			       0x00, 0x0a, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +			       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a,
-> +			       0x00, 0x32, 0x00, 0x0a, 0x00, 0x22);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xdf,
-> +			       0x50, 0x42, 0x58, 0x81, 0x2d, 0x00, 0x00, 0x00, 0x00,
-> +			       0x00, 0x00, 0x6b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +			       0x00, 0x00, 0x01, 0x0f, 0xff, 0xd4, 0x0e, 0x00, 0x00,
-> +			       0x00, 0x00, 0x00, 0x00, 0x0f, 0x53, 0xf1, 0x00, 0x00,
-> +			       0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xf7, 0x01);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xb0, 0x80);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xe4, 0x34, 0xb4, 0x00, 0x00, 0x00, 0x39, 0x04, 0x09, 0x34);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xe6, 0x00);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xb0, 0x04);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xdf, 0x50, 0x40);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xf3, 0x50, 0x00, 0x00, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xf2, 0x11);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xf3, 0x01, 0x00, 0x00, 0x00, 0x01);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xf4, 0x00, 0x02);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xf2, 0x19);
-> +	mipi_dsi_dcs_write_seq(dsi, 0xdf, 0x50, 0x42);
-> +	mipi_dsi_dcs_set_tear_on(dsi, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +	mipi_dsi_dcs_set_column_address(dsi, 0, 1080 - 1);
-> +	mipi_dsi_dcs_set_page_address(dsi, 0, 2340 - 1);
-> +
-> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-> +
-> +static int visionox_r66451_off(struct visionox_r66451 *ctx)
-> +{
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +	return 0;
-> +}
-> +
-> +static int visionox_r66451_prepare(struct drm_panel *panel)
-> +{
-> +	struct visionox_r66451 *ctx = to_visionox_r66451(panel);
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct device *dev = &dsi->dev;
-> +	int ret;
-> +
-> +	if (ctx->prepared)
-> +		return 0;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies),
-> +				    ctx->supplies);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	visionox_r66451_reset(ctx);
-> +
-> +	ret = visionox_r66451_on(ctx);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-> +		return ret;
-> +	}
-> +
-> +	mipi_dsi_compression_mode(ctx->dsi, true);
-> +
-> +	ctx->prepared = true;
-> +	return 0;
-> +}
-> +
-> +static int visionox_r66451_unprepare(struct drm_panel *panel)
-> +{
-> +	struct visionox_r66451 *ctx = to_visionox_r66451(panel);
-> +	struct device *dev = &ctx->dsi->dev;
-> +	int ret;
-> +
-> +	if (!ctx->prepared)
-> +		return 0;
-> +
-> +	ret = visionox_r66451_off(ctx);
-> +	if (ret < 0)
-> +		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-> +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-> +
-> +	ctx->prepared = false;
-> +	return 0;
-> +}
-> +
-> +static const struct drm_display_mode visionox_r66451_mode = {
-> +	.clock = 345830,
-> +	.hdisplay = 1080,
-> +	.hsync_start = 1175,
-> +	.hsync_end = 1176,
-> +	.htotal = 1216,
-> +	.vdisplay = 2340,
-> +	.vsync_start = 2365,
-> +	.vsync_end = 2366,
-> +	.vtotal = 2370,
-> +	.width_mm = 0,
-> +	.height_mm = 0,
-> +	.type = DRM_MODE_TYPE_DRIVER,
-> +};
-> +
-> +static int visionox_r66451_enable(struct drm_panel *panel)
-> +{
-> +	struct visionox_r66451 *ctx = to_visionox_r66451(panel);
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	int ret;
-> +
-> +	if (ctx->enabled)
-> +		return 0;
-> +
-> +	if (!dsi->dsc) {
-> +		dev_err(&dsi->dev, "DSC not attached to DSI\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
-> +	ret = mipi_dsi_picture_parameter_set(dsi, &pps);
-> +	if (ret) {
-> +		dev_err(&dsi->dev, "Failed to set PPS\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
-> +	if (ret < 0) {
-> +		dev_err(&dsi->dev, "Failed to exit sleep mode: %d\n", ret);
-> +		return ret;
-> +	}
-> +	msleep(120);
-> +
-> +	ret = mipi_dsi_dcs_set_display_on(dsi);
-> +	if (ret < 0) {
-> +		dev_err(&dsi->dev, "Failed on set display on: %d\n", ret);
-> +		return ret;
-> +	}
-> +	msleep(20);
-> +
-> +	ctx->enabled = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static int visionox_r66451_disable(struct drm_panel *panel)
-> +{
-> +	struct visionox_r66451 *ctx = to_visionox_r66451(panel);
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct device *dev = &dsi->dev;
-> +	int ret;
-> +
-> +	ctx->enabled = false;
-> +
-> +	ret = mipi_dsi_dcs_set_display_off(dsi);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to set display off: %d\n", ret);
-> +		return ret;
-> +	}
-> +	msleep(20);
-> +
-> +	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to enter sleep mode: %d\n", ret);
-> +		return ret;
-> +	}
-> +	msleep(120);
-> +
-> +	return 0;
-> +}
-> +
-> +static int visionox_r66451_get_modes(struct drm_panel *panel,
-> +				    struct drm_connector *connector)
-> +{
-> +	drm_connector_helper_get_modes_fixed(connector, &visionox_r66451_mode);
-> +	return 1;
-> +}
-> +
-> +static const struct drm_panel_funcs visionox_r66451_funcs = {
-> +	.prepare = visionox_r66451_prepare,
-> +	.unprepare = visionox_r66451_unprepare,
-> +	.get_modes = visionox_r66451_get_modes,
-> +	.enable = visionox_r66451_enable,
-> +	.disable = visionox_r66451_disable,
-> +};
-> +
-> +static int visionox_r66451_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
-> +	u16 brightness = backlight_get_brightness(bl);
-> +
-> +	return mipi_dsi_dcs_set_display_brightness(dsi, brightness);
-> +}
-> +
-> +static const struct backlight_ops visionox_r66451_bl_ops = {
-> +	.update_status = visionox_r66451_bl_update_status,
-> +};
-> +
-> +static struct backlight_device *
-> +visionox_r66451_create_backlight(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	const struct backlight_properties props = {
-> +		.type = BACKLIGHT_RAW,
-> +		.brightness = 255,
-> +		.max_brightness = 4095,
-> +	};
-> +
-> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-> +					      &visionox_r66451_bl_ops, &props);
-> +}
-> +
-> +static int visionox_r66451_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	struct visionox_r66451 *ctx;
-> +	struct drm_dsc_config *dsc;
-> +	int ret = 0;
-> +
-> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> +	if (!ctx)
-> +		return -ENOMEM;
-> +
-> +	dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
-> +	if (!dsc)
-> +		return -ENOMEM;
-> +
-> +	/* Set DSC params */
-> +	dsc->dsc_version_major = 0x1;
-> +	dsc->dsc_version_minor = 0x2;
-> +
-> +	dsc->slice_height = 20;
-> +	dsc->slice_width = 540;
-> +	dsc->slice_count = 2;
-> +	dsc->bits_per_component = 8;
-> +	dsc->bits_per_pixel = 8 << 4;
-> +	dsc->block_pred_enable = true;
-> +
-> +	dsi->dsc = dsc;
-
-At some point we must check if the host controller supports
-DSC, but it would be for later so it's not a blocker.
-
-> +
-> +	ctx->supplies[0].supply = "vddio";
-> +	ctx->supplies[1].supply = "vdd";
-> +
-> +	ret = devm_regulator_bulk_get(&dsi->dev, ARRAY_SIZE(ctx->supplies),
-> +			ctx->supplies);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ctx->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio), "Failed to get reset-gpios\n");
-> +
-> +	ctx->dsi = dsi;
-> +	mipi_dsi_set_drvdata(dsi, ctx);
-> +
-> +	dsi->lanes = 4;
-> +	dsi->format = MIPI_DSI_FMT_RGB888;
-> +	dsi->mode_flags = MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +
-> +	drm_panel_init(&ctx->panel, dev, &visionox_r66451_funcs, DRM_MODE_CONNECTOR_DSI);
-> +	ctx->panel.backlight = visionox_r66451_create_backlight(dsi);
-> +	if (IS_ERR(ctx->panel.backlight))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-> +				"Failed to create backlight\n");
-> +
-> +	drm_panel_add(&ctx->panel);
-> +
-> +	ret = mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
-> +		drm_panel_remove(&ctx->panel);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static void visionox_r66451_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct visionox_r66451 *ctx = mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret = mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "Failed to detach DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +}
-> +
-> +static const struct of_device_id visionox_r66451_of_match[] = {
-> +	{.compatible = "visionox,r66451"},
-> +	{ /*sentinel*/ }
-> +};
-> +MODULE_DEVICE_TABLE(of, visionox_r66451_of_match);
-> +
-> +static struct mipi_dsi_driver visionox_r66451_driver = {
-> +	.probe = visionox_r66451_probe,
-> +	.remove = visionox_r66451_remove,
-> +	.driver = {
-> +		.name = "panel-visionox-r66451",
-> +		.of_match_table = visionox_r66451_of_match,
-> +	},
-> +};
-> +
-> +module_mipi_dsi_driver(visionox_r66451_driver);
-> +
-> +MODULE_AUTHOR("Jessica Zhang <quic_jesszhan@quicinc.com>");
-> +MODULE_DESCRIPTION("Panel driver for the Visionox R66451 AMOLED DSI panel");
-> +MODULE_LICENSE("GPL");
+> 	https://lore.kernel.org/r/20230312204150.1353517-9-robdclark@gmail.com
 > 
+> but that particular patch makes no difference.
+> 
+> From skimming the calltraces below and qos/devfreq related changes in
+> 6.3-rc1 it seems like this could be related to:
+> 
+> 	fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS constraint for idle clamp")
 
-It looks fine for me, if there's no other comments I'll apply it later today.
+Below is an updated splat from 6.4-rc5.
 
-Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
+Johan
 
-Neil
+[ 2941.931507] ======================================================
+[ 2941.931509] WARNING: possible circular locking dependency detected
+[ 2941.931513] 6.4.0-rc5 #64 Not tainted
+[ 2941.931516] ------------------------------------------------------
+[ 2941.931518] ring0/359 is trying to acquire lock:
+[ 2941.931520] ffff63310e35c078 (&devfreq->lock){+.+.}-{3:3}, at: qos_min_notifier_call+0x28/0x88
+[ 2941.931541] 
+               but task is already holding lock:
+[ 2941.931543] ffff63310e3cace8 (&(c->notifiers)->rwsem){++++}-{3:3}, at: blocking_notifier_call_chain+0x30/0x70
+[ 2941.931553] 
+               which lock already depends on the new lock.
+
+[ 2941.931555] 
+               the existing dependency chain (in reverse order) is:
+[ 2941.931556] 
+               -> #4 (&(c->notifiers)->rwsem){++++}-{3:3}:
+[ 2941.931562]        down_write+0x50/0x198
+[ 2941.931567]        blocking_notifier_chain_register+0x30/0x8c
+[ 2941.931570]        freq_qos_add_notifier+0x68/0x7c
+[ 2941.931574]        dev_pm_qos_add_notifier+0xa0/0xf8
+[ 2941.931579]        devfreq_add_device.part.0+0x360/0x5a4
+[ 2941.931583]        devm_devfreq_add_device+0x74/0xe0
+[ 2941.931587]        msm_devfreq_init+0xa0/0x154 [msm]
+[ 2941.931624]        msm_gpu_init+0x2fc/0x588 [msm]
+[ 2941.931649]        adreno_gpu_init+0x160/0x2d0 [msm]
+[ 2941.931675]        a6xx_gpu_init+0x2c0/0x74c [msm]
+[ 2941.931699]        adreno_bind+0x180/0x290 [msm]
+[ 2941.931723]        component_bind_all+0x124/0x288
+[ 2941.931728]        msm_drm_bind+0x1d8/0x6cc [msm]
+[ 2941.931752]        try_to_bring_up_aggregate_device+0x1ec/0x2f4
+[ 2941.931755]        __component_add+0xa8/0x194
+[ 2941.931758]        component_add+0x14/0x20
+[ 2941.931761]        dp_display_probe+0x2b4/0x474 [msm]
+[ 2941.931785]        platform_probe+0x68/0xd8
+[ 2941.931789]        really_probe+0x184/0x3c8
+[ 2941.931792]        __driver_probe_device+0x7c/0x16c
+[ 2941.931794]        driver_probe_device+0x3c/0x110
+[ 2941.931797]        __device_attach_driver+0xbc/0x158
+[ 2941.931800]        bus_for_each_drv+0x84/0xe0
+[ 2941.931802]        __device_attach+0xa8/0x1d4
+[ 2941.931805]        device_initial_probe+0x14/0x20
+[ 2941.931807]        bus_probe_device+0xb0/0xb4
+[ 2941.931810]        deferred_probe_work_func+0xa0/0xf4
+[ 2941.931812]        process_one_work+0x288/0x5bc
+[ 2941.931816]        worker_thread+0x74/0x450
+[ 2941.931818]        kthread+0x124/0x128
+[ 2941.931822]        ret_from_fork+0x10/0x20
+[ 2941.931826] 
+               -> #3 (dev_pm_qos_mtx){+.+.}-{3:3}:
+[ 2941.931831]        __mutex_lock+0xa0/0x840
+[ 2941.931833]        mutex_lock_nested+0x24/0x30
+[ 2941.931836]        dev_pm_qos_remove_notifier+0x34/0x140
+[ 2941.931838]        genpd_remove_device+0x3c/0x174
+[ 2941.931841]        genpd_dev_pm_detach+0x78/0x1b4
+[ 2941.931844]        dev_pm_domain_detach+0x24/0x34
+[ 2941.931846]        a6xx_gmu_remove+0x34/0xc4 [msm]
+[ 2941.931869]        a6xx_destroy+0xd0/0x160 [msm]
+[ 2941.931892]        adreno_unbind+0x40/0x64 [msm]
+[ 2941.931916]        component_unbind+0x38/0x6c
+[ 2941.931919]        component_unbind_all+0xc8/0xd4
+[ 2941.931921]        msm_drm_uninit.isra.0+0x150/0x1c4 [msm]
+[ 2941.931945]        msm_drm_bind+0x310/0x6cc [msm]
+[ 2941.931967]        try_to_bring_up_aggregate_device+0x1ec/0x2f4
+[ 2941.931970]        __component_add+0xa8/0x194
+[ 2941.931973]        component_add+0x14/0x20
+[ 2941.931976]        dp_display_probe+0x2b4/0x474 [msm]
+[ 2941.932000]        platform_probe+0x68/0xd8
+[ 2941.932003]        really_probe+0x184/0x3c8
+[ 2941.932005]        __driver_probe_device+0x7c/0x16c
+[ 2941.932008]        driver_probe_device+0x3c/0x110
+[ 2941.932011]        __device_attach_driver+0xbc/0x158
+[ 2941.932014]        bus_for_each_drv+0x84/0xe0
+[ 2941.932016]        __device_attach+0xa8/0x1d4
+[ 2941.932018]        device_initial_probe+0x14/0x20
+[ 2941.932021]        bus_probe_device+0xb0/0xb4
+[ 2941.932023]        deferred_probe_work_func+0xa0/0xf4
+[ 2941.932026]        process_one_work+0x288/0x5bc
+[ 2941.932028]        worker_thread+0x74/0x450
+[ 2941.932031]        kthread+0x124/0x128
+[ 2941.932035]        ret_from_fork+0x10/0x20
+[ 2941.932037] 
+               -> #2 (&gmu->lock){+.+.}-{3:3}:
+[ 2941.932043]        __mutex_lock+0xa0/0x840
+[ 2941.932045]        mutex_lock_nested+0x24/0x30
+[ 2941.932047]        a6xx_gpu_set_freq+0x30/0x5c [msm]
+[ 2941.932071]        msm_devfreq_target+0xb8/0x1a8 [msm]
+[ 2941.932094]        devfreq_set_target+0x84/0x27c
+[ 2941.932098]        devfreq_update_target+0xc4/0xec
+[ 2941.932102]        devfreq_monitor+0x38/0x170
+[ 2941.932105]        process_one_work+0x288/0x5bc
+[ 2941.932108]        worker_thread+0x74/0x450
+[ 2941.932110]        kthread+0x124/0x128
+[ 2941.932113]        ret_from_fork+0x10/0x20
+[ 2941.932116] 
+               -> #1 (&df->lock){+.+.}-{3:3}:
+[ 2941.932121]        __mutex_lock+0xa0/0x840
+[ 2941.932124]        mutex_lock_nested+0x24/0x30
+[ 2941.932126]        msm_devfreq_get_dev_status+0x48/0x134 [msm]
+[ 2941.932149]        devfreq_simple_ondemand_func+0x3c/0x144
+[ 2941.932153]        devfreq_update_target+0x4c/0xec
+[ 2941.932157]        devfreq_monitor+0x38/0x170
+[ 2941.932160]        process_one_work+0x288/0x5bc
+[ 2941.932162]        worker_thread+0x74/0x450
+[ 2941.932165]        kthread+0x124/0x128
+[ 2941.932168]        ret_from_fork+0x10/0x20
+[ 2941.932171] 
+               -> #0 (&devfreq->lock){+.+.}-{3:3}:
+[ 2941.932175]        __lock_acquire+0x13d8/0x2188
+[ 2941.932178]        lock_acquire+0x1e8/0x310
+[ 2941.932180]        __mutex_lock+0xa0/0x840
+[ 2941.932182]        mutex_lock_nested+0x24/0x30
+[ 2941.932184]        qos_min_notifier_call+0x28/0x88
+[ 2941.932188]        notifier_call_chain+0xa0/0x17c
+[ 2941.932190]        blocking_notifier_call_chain+0x48/0x70
+[ 2941.932193]        pm_qos_update_target+0xdc/0x1d0
+[ 2941.932195]        freq_qos_apply+0x68/0x74
+[ 2941.932198]        apply_constraint+0x100/0x148
+[ 2941.932201]        __dev_pm_qos_update_request+0xb8/0x1fc
+[ 2941.932203]        dev_pm_qos_update_request+0x3c/0x64
+[ 2941.932206]        msm_devfreq_active+0xf8/0x194 [msm]
+[ 2941.932227]        msm_gpu_submit+0x18c/0x1a8 [msm]
+[ 2941.932249]        msm_job_run+0x98/0x11c [msm]
+[ 2941.932272]        drm_sched_main+0x1a0/0x444 [gpu_sched]
+[ 2941.932281]        kthread+0x124/0x128
+[ 2941.932284]        ret_from_fork+0x10/0x20
+[ 2941.932287] 
+               other info that might help us debug this:
+
+[ 2941.932289] Chain exists of:
+                 &devfreq->lock --> dev_pm_qos_mtx --> &(c->notifiers)->rwsem
+
+[ 2941.932296]  Possible unsafe locking scenario:
+
+[ 2941.932298]        CPU0                    CPU1
+[ 2941.932300]        ----                    ----
+[ 2941.932301]   rlock(&(c->notifiers)->rwsem);
+[ 2941.932304]                                lock(dev_pm_qos_mtx);
+[ 2941.932307]                                lock(&(c->notifiers)->rwsem);
+[ 2941.932309]   lock(&devfreq->lock);
+[ 2941.932312] 
+                *** DEADLOCK ***
+
+[ 2941.932313] 4 locks held by ring0/359:
+[ 2941.932315]  #0: ffff633110966170 (&gpu->lock){+.+.}-{3:3}, at: msm_job_run+0x8c/0x11c [msm]
+[ 2941.932342]  #1: ffff633110966208 (&gpu->active_lock){+.+.}-{3:3}, at: msm_gpu_submit+0xdc/0x1a8 [msm]
+[ 2941.932368]  #2: ffffa40da2f91ed0 (dev_pm_qos_mtx){+.+.}-{3:3}, at: dev_pm_qos_update_request+0x30/0x64
+[ 2941.932374]  #3: ffff63310e3cace8 (&(c->notifiers)->rwsem){++++}-{3:3}, at: blocking_notifier_call_chain+0x30/0x70
+[ 2941.932381] 
+               stack backtrace:
+[ 2941.932383] CPU: 7 PID: 359 Comm: ring0 Not tainted 6.4.0-rc5 #64
+[ 2941.932386] Hardware name: LENOVO 21BYZ9SRUS/21BYZ9SRUS, BIOS N3HET53W (1.25 ) 10/12/2022
+[ 2941.932389] Call trace:
+[ 2941.932391]  dump_backtrace+0x9c/0x11c
+[ 2941.932395]  show_stack+0x18/0x24
+[ 2941.932398]  dump_stack_lvl+0x60/0xac
+[ 2941.932402]  dump_stack+0x18/0x24
+[ 2941.932405]  print_circular_bug+0x26c/0x348
+[ 2941.932407]  check_noncircular+0x134/0x148
+[ 2941.932409]  __lock_acquire+0x13d8/0x2188
+[ 2941.932411]  lock_acquire+0x1e8/0x310
+[ 2941.932414]  __mutex_lock+0xa0/0x840
+[ 2941.932416]  mutex_lock_nested+0x24/0x30
+[ 2941.932418]  qos_min_notifier_call+0x28/0x88
+[ 2941.932421]  notifier_call_chain+0xa0/0x17c
+[ 2941.932424]  blocking_notifier_call_chain+0x48/0x70
+[ 2941.932426]  pm_qos_update_target+0xdc/0x1d0
+[ 2941.932428]  freq_qos_apply+0x68/0x74
+[ 2941.932431]  apply_constraint+0x100/0x148
+[ 2941.932433]  __dev_pm_qos_update_request+0xb8/0x1fc
+[ 2941.932435]  dev_pm_qos_update_request+0x3c/0x64
+[ 2941.932437]  msm_devfreq_active+0xf8/0x194 [msm]
+[ 2941.932460]  msm_gpu_submit+0x18c/0x1a8 [msm]
+[ 2941.932482]  msm_job_run+0x98/0x11c [msm]
+[ 2941.932504]  drm_sched_main+0x1a0/0x444 [gpu_sched]
+[ 2941.932511]  kthread+0x124/0x128
+[ 2941.932514]  ret_from_fork+0x10/0x20
