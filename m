@@ -1,77 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D54B272732B
-	for <lists+freedreno@lfdr.de>; Thu,  8 Jun 2023 01:39:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B634727AFC
+	for <lists+freedreno@lfdr.de>; Thu,  8 Jun 2023 11:15:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A69DD10E576;
-	Wed,  7 Jun 2023 23:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7D0D10E40F;
+	Thu,  8 Jun 2023 09:15:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13CF710E577
- for <freedreno@lists.freedesktop.org>; Wed,  7 Jun 2023 23:39:10 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2b1b8593263so60475211fa.2
- for <freedreno@lists.freedesktop.org>; Wed, 07 Jun 2023 16:39:09 -0700 (PDT)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE00610E59F
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Jun 2023 09:15:32 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-30ad99fa586so374391f8f.2
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Jun 2023 02:15:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686181148; x=1688773148;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1686215730; x=1688807730;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=XONB9T8Mj7o/MLrEwoJSSBYj969JG7tPSlspH2W5BIw=;
- b=GTSY7qEdobWh7LkTRnOAImvPKZUJQfgOgETcJ+tk6DI5sF/chuwr6uFDqqlVN23O2W
- //yo7tNg480hQs0zkZINMpSZx3sk/T3RykwcV+TsgCqjcm6lxUr7OIiZgxIFpwSR5GDM
- 4G0wg5Ie0zBjwOhgMcBHNt5pPR8zWZkXbyFtqUc4AfJayZmsCu3RwDeCa8spwMuwj3kd
- l7IFXSZtuqtnQi6PcQ7vFnWwXhpYhZaVzrLSjtc6apATcNyaMuyKL3dvg8eSImkt7HNR
- s3HuH1jxWmY/bYrPhnN5PoHhxg9HXsMayW/9mjwSHTu08V8Fjpsb3fvDLgVQ95kyqjtA
- HJ8g==
+ bh=3RySa5TKNiSsUD/90w92orRJEIYhEVSGdB85+66FnSA=;
+ b=mpC92LVOdl/5WmkIGe0GW1UkaOKSkWpiVMnE7MxRMUzmduDVvakeDuJbXwzon9xx06
+ h2kszxa6Q/zZCGN1TUcANr5Qo8yjUN66VlWcHG2bh7+swXyZ2dAuYAlJrqXwxLviZ+LQ
+ nfSLtnAn2NBSeB8TNIQevkWKI/w17xILOPWIuB0I3CZVL2PaJZZO6yucWln3LEk9q1JJ
+ xUYDFwhjSHn95HYqNysv1+b/FWgAiQaxikcffL2lgI1B9tCaagdxH/XBX0VOaHHmY5AY
+ Y8RHdm6BjCVBK5TM5zqasqPXrvU7IUJm+sJjy76yOm/UsX5Ih7s2QtRYNDGe42gu9YmV
+ OPQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686181148; x=1688773148;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1686215730; x=1688807730;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XONB9T8Mj7o/MLrEwoJSSBYj969JG7tPSlspH2W5BIw=;
- b=HODsupnEOMxaRAKVPEsaDRxGhZiq36E4SJGY/pmve34ObdqfvMTqLT4tyjEzH0+cRR
- HeXnH+q49IvSIAdNxWIRKPHLbM8Jgm4Kp6pbwcHoDp39HK8RaODHU0hRwbEFllNbF1m+
- 54K4i6SCL9MaZlVf8TkQjhjHiIry0bcJ/rCOPgzm+uptBZRtRdommLo2B0migm1aWHvv
- /GNu2HsqeyIGiUPYHbOIFXKZpAtJexHaS/aDpjVkQoxGY7v0ynGhmiRhVA3H5UuRdaTV
- umZH65HVTZijD32qExPicOQxUK7hKTbQfiJWlVO0UaLGD6v02qUC2kXkLvYhvnsOwynD
- mkbA==
-X-Gm-Message-State: AC+VfDxbHpyT1cV9mutRWuOJhrqsxdLxiRmojkvCp4SGcWMnkSOFOcdj
- ajLOvSOym/12apNEm6Ifkre+5g==
-X-Google-Smtp-Source: ACHHUZ5Ti07xNp1+TYebI62vHoSL/r5taUDlEmn3ZQRy27Ik7N84bpsPjsq4VfKfSjqdaopI0zXg+A==
-X-Received: by 2002:a2e:730c:0:b0:2a7:7100:ff5a with SMTP id
- o12-20020a2e730c000000b002a77100ff5amr2976356ljc.6.1686181147775; 
- Wed, 07 Jun 2023 16:39:07 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- o15-20020a2e90cf000000b002b1b92910c8sm346ljg.86.2023.06.07.16.39.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Jun 2023 16:39:07 -0700 (PDT)
-Message-ID: <e70b266b-85bb-f23f-dac8-47702a2aaf37@linaro.org>
-Date: Thu, 8 Jun 2023 02:39:06 +0300
+ bh=3RySa5TKNiSsUD/90w92orRJEIYhEVSGdB85+66FnSA=;
+ b=lu6FBTbuaHaLzLSQRdg71FRXmRuzVJ55mmOpBYpd44cHOVHTTGt09V1OlwMRUKEIF3
+ ldKv7bl6tmmRqZyJwsj9W+6gAEsksWbvaRWN4dIg1+pxNdCJimc8JT8PUAFPzhwt1tac
+ 2bpa81kst1mvvrqaDotqWKRqBCyZlejmNMH15FFofXR4ukv/boybJVemWwWzUEnBgE7M
+ eoUfLkbn56HD59LRcE5G3/CSKnLwaitCCyC/Z2kwcnnHOH86aC2SefnPy+nYvhuFShEl
+ EWgZF6ZXcHt8KXYhbVf1ThR5swdIOUbQFDnEgzB+mueJ+E0mOQe3Tj654i1qqntmQJ5j
+ n12w==
+X-Gm-Message-State: AC+VfDyCmApB1QXnjznAW3kNPapBQr7rscI27651jG2e5C9FlBNt4CQ0
+ rU8Fy/JjLJmWjR4Mz/oPjO/BGg==
+X-Google-Smtp-Source: ACHHUZ5sHNLLbkCtJHL6hEVSUHaRtgooC4bpxt6UOn69Qv0TvZpAnODCn/1nIOo+cXufx6q67xuXpg==
+X-Received: by 2002:a5d:4003:0:b0:30a:d747:b357 with SMTP id
+ n3-20020a5d4003000000b0030ad747b357mr6375438wrp.56.1686215730511; 
+ Thu, 08 Jun 2023 02:15:30 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ b14-20020adfe30e000000b00307a86a4bcesm974061wrj.35.2023.06.08.02.15.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Jun 2023 02:15:29 -0700 (PDT)
+Date: Thu, 8 Jun 2023 11:23:33 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Rob Clark <robdclark@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <907e4b37-b9a2-4e14-bff2-ec2a0aa45965@moroto.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Will Deacon
- <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20230411-topic-straitlagoon_mdss-v6-0-dee6a882571b@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230411-topic-straitlagoon_mdss-v6-0-dee6a882571b@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v6 00/12] SM63(50|75) DPU support
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: tidy up some error checking
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,57 +70,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, iommu@lists.linux.dev,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/06/2023 15:43, Konrad Dybcio wrote:
+The "vsync_hz" variable is unsigned int so it can't be less
+than zero.  The dpu_kms_get_clk_rate() function used to return a u64
+but I previously changed it to return an unsigned long and zero on
+error so it matches clk_get_rate().
 
-[skipped the changelog]
+Change the "vsync_hz" type to unsigned long as well and change the
+error checking to check for zero instead of negatives.  This change
+does not affect runtime at all beyond a minor adjustment to the debug
+output.
 
-> ---
-> Konrad Dybcio (12):
->        dt-bindings: display/msm: dsi-controller-main: Add SM6350
->        dt-bindings: display/msm: dsi-controller-main: Add SM6375
->        dt-bindings: display/msm: sc7180-dpu: Describe SM6350 and SM6375
->        dt-bindings: display/msm: Add SM6350 MDSS
->        dt-bindings: display/msm: Add SM6375 MDSS
->        drm/msm/dpu: Add SM6350 support
->        drm/msm: mdss: Add SM6350 support
->        drm/msm/dpu: Add SM6375 support
->        drm/msm: mdss: Add SM6375 support
+Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
+v2: update the debug output
 
-Will, we have finally picked up the display related patches. Could you 
-please pick up the IOMMU patches if they look fine to you.
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
->        iommu/arm-smmu-qcom: Sort the compatible list alphabetically
->        iommu/arm-smmu-qcom: Add SM6375 DPU compatible
->        iommu/arm-smmu-qcom: Add SM6350 DPU compatible
-> 
->   .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
->   .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  23 ++-
->   .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 213 ++++++++++++++++++++
->   .../bindings/display/msm/qcom,sm6375-mdss.yaml     | 215 +++++++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 173 +++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h | 139 +++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
->   drivers/gpu/drm/msm/msm_mdss.c                     |  10 +
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   6 +-
->   11 files changed, 790 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 6db29e14f4fb7bce9eb5290288e71b05c2b0d118
-> change-id: 20230411-topic-straitlagoon_mdss-8f34cacd5e26
-> 
-> Best regards,
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index 4f8c9187f76d..27a823c72c06 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -323,8 +323,8 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
+ 		to_dpu_encoder_phys_cmd(phys_enc);
+ 	struct dpu_hw_tear_check tc_cfg = { 0 };
+ 	struct drm_display_mode *mode;
++	unsigned long vsync_hz;
+ 	bool tc_enable = true;
+-	u32 vsync_hz;
+ 	struct dpu_kms *dpu_kms;
+ 
+ 	if (phys_enc->has_intf_te) {
+@@ -359,9 +359,8 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
+ 	 * frequency divided by the no. of rows (lines) in the LCDpanel.
+ 	 */
+ 	vsync_hz = dpu_kms_get_clk_rate(dpu_kms, "vsync");
+-	if (vsync_hz <= 0) {
+-		DPU_DEBUG_CMDENC(cmd_enc, "invalid - vsync_hz %u\n",
+-				 vsync_hz);
++	if (!vsync_hz) {
++		DPU_DEBUG_CMDENC(cmd_enc, "no vsync clock\n");
+ 		return;
+ 	}
+ 
+@@ -381,7 +380,7 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
+ 	tc_cfg.rd_ptr_irq = mode->vdisplay + 1;
+ 
+ 	DPU_DEBUG_CMDENC(cmd_enc,
+-		"tc vsync_clk_speed_hz %u vtotal %u vrefresh %u\n",
++		"tc vsync_clk_speed_hz %lu vtotal %u vrefresh %u\n",
+ 		vsync_hz, mode->vtotal, drm_mode_vrefresh(mode));
+ 	DPU_DEBUG_CMDENC(cmd_enc,
+ 		"tc enable %u start_pos %u rd_ptr_irq %u\n",
 -- 
-With best wishes
-Dmitry
+2.39.2
 
