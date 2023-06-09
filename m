@@ -2,56 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71FBF728CEF
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jun 2023 03:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A49728FBC
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jun 2023 08:17:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2DA10E620;
-	Fri,  9 Jun 2023 01:15:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44E0610E0F8;
+	Fri,  9 Jun 2023 06:17:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8275C10E079;
- Fri,  9 Jun 2023 01:15:13 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id
- 5614622812f47-39c77cf32deso231799b6e.0; 
- Thu, 08 Jun 2023 18:15:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686273312; x=1688865312;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=H0xCMAC/NtHY5CX7dP6e8DaXAI+xP/PPsv73S1ApFK4=;
- b=oblBIKSjWOPANq4L3jUYH9d7owGAzWhrcXAx9DqzBgGb6E6VYgc5ELqConP7Qz9SDY
- zhs2Pa9CsTcYO1R4glWacmaJpMrZVB63fy/O4y1gLyF55K8hPB0TV1gpbAtAVGtwhOlI
- XEDFRflvrZBOIpmJyeXF6ROighWmDeNMtq8y5Ao1V4M9m0XSenEqgypMCtZd/o7iiapM
- /vJSQC8o/uGPJRd40mEq6duxtX7RWCiQmRiq77TWqKat6zn603HwCwDqdPlDtY78Xeso
- Oqabz3PjcfOczDGAI1BroTwLKBDUntw6JXwdlXUwXeGiIjt8uO8bMfY/MHdb32Er4SBZ
- U1UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686273312; x=1688865312;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=H0xCMAC/NtHY5CX7dP6e8DaXAI+xP/PPsv73S1ApFK4=;
- b=anDzJXntSjMyUHKvZXV+HHRrJYjBBec1iqR2sXbdbKOZKngvgbhHRsXyE1UcxlZ8Gu
- YYFXiLZoMInvmj/I70F8Qfx5heoBooVJlk8bOz7cErrf+sdMegi9UbnQqmBBe5cZdAxT
- nz29EgH5HCZav6/L8COe/q0Ren0dvivfOgGFHc2eO58OJ1L1igHjKZdi/aJO88dNLdjF
- iV4oxTZ6r8kuvzdscGG4j8nrrQuYgJVi1gQwYO15xKPZYywtEIjB/zVznl2XxV8h0wMW
- 6gI+DNMjIGqJcxA4FzuZ6pUhYMHJth7aI2fGDX0zAhK3Y+HyrGyDbLFjfF2ssWwABdqd
- 7kLw==
-X-Gm-Message-State: AC+VfDyO2ciXtxpUT51ki/zPUFRefh633SwlwnA+E4fT2J6j0M7Ui+TH
- O8Vptn6Ux1RoUJGz/4qFS6D3jT6mLgDQzVBH8VI=
-X-Google-Smtp-Source: ACHHUZ5i1BVHpXVDIEhb2skg7ja9WfJxN/vbAYrCOckVTX31ArB0mO+iUW6nFeRen41NjCQEQSOjgq2tDHET0NKxuwI=
-X-Received: by 2002:aca:efd5:0:b0:38e:ca21:db29 with SMTP id
- n204-20020acaefd5000000b0038eca21db29mr1922386oih.27.1686273311816; Thu, 08
- Jun 2023 18:15:11 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7745F10E0E8;
+ Fri,  9 Jun 2023 06:17:15 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BE7AF611A9;
+ Fri,  9 Jun 2023 06:17:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2845CC433EF;
+ Fri,  9 Jun 2023 06:17:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686291434;
+ bh=B6+cEXU+VzPhKn+kA8svZbpcpafwICKvJPZUpHR+zho=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WEogXCkWo/1eteonPbvslPLmwh7f55SvhXOwmOCm9WKWcy5eTEFw/QaMD/0JXOn28
+ KnP9y1lI9alflEFPTRb6CQ29Fr02ynwnlvXbpjezaFzuuRTYVHMl5+ZzzK4CUVp/4T
+ Q0r8/70eaxtnmsWg8c9005jbDGbm3OolvxiDhbnFiADE/Vbvhup13EztHwvQlMQ/cP
+ nSYC2SHYs9kDbuIN1dxi/0OynRW5QMtRiF+3fL+8SggYtruE+TKk5BLVr5zzCZusdr
+ WG7taaUi2BmoD/wBoA5UmXtlDPHas6sRxHxjNAw7+NMupsJtrUPEJLFtF7RMITQNle
+ qI4I3IEfPO6Mg==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+ (envelope-from <johan@kernel.org>)
+ id 1q7VRM-0005C5-SA; Fri, 09 Jun 2023 08:17:41 +0200
+Date: Fri, 9 Jun 2023 08:17:40 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <ZILEBPQgqr1HomUQ@hovoldconsulting.com>
+References: <ZBGNmXwQoW330Wr8@hovoldconsulting.com>
+ <ZIHh95IeOPBTvB00@hovoldconsulting.com>
+ <CAF6AEGv3y3C6nAq7nrkgbv5-9-tVgj+BtY1yU+fXXFFm_N7fcQ@mail.gmail.com>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 8 Jun 2023 18:15:00 -0700
-Message-ID: <CAF6AEGufjVZRNT6YfQ7YUXFC7Cz95wdLF7QHAYkiGfp+3Xc3DQ@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-06-08 for v6.4-rc6
- [resend]
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGv3y3C6nAq7nrkgbv5-9-tVgj+BtY1yU+fXXFFm_N7fcQ@mail.gmail.com>
+Subject: Re: [Freedreno] Adreno devfreq lockdep splat with 6.3-rc2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +57,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+On Thu, Jun 08, 2023 at 02:17:45PM -0700, Rob Clark wrote:
+> On Thu, Jun 8, 2023 at 7:12 AM Johan Hovold <johan@kernel.org> wrote:
 
-(retry of previous PR with missing s-o-b corrected but otherwise identical)
+> > Have you had a chance to look at this regression yet? It prevents us
+> > from using lockdep on the X13s as it is disabled as soon as we start
+> > the GPU.
+> 
+> Hmm, curious what is different between x13s and sc7180/sc7280 things?
 
-A few late fixes for v6.4.. meant to send this out last week but got
-distracted setting my new x13s.
+It seems like lockdep needs to hit the tear down path in order to
+detect the circular lock dependency. Perhaps you don't hit that on your
+sc7180/sc7280? 
 
-The following changes since commit 5c054db54c43a5fcb5cc81012361f5e3fac37637:
+It is due to the fact that the panel is looked up way too late so that
+bind fails unless the panel driver is already loaded when the msm drm
+driver probes.
 
-  drm/msm: Be more shouty if per-process pgtables aren't working
-(2023-05-17 08:53:47 -0700)
+Manually loading the panel driver before msm makes the splat go away.
 
-are available in the Git repository at:
+> Or did lockdep recently get more clever (or more annotation)?
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-06-08
+I think this is indeed a new problem related to some of the devfreq work
+you did in 6.3-rc1 (e.g. fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS
+constraint for idle clamp")).
 
-for you to fetch changes up to 12abd735f0300600bfc01b2a3832b966312df205:
+> I did spend some time a while back trying to bring some sense to
+> devfreq/pm-qos/icc locking:
+> https://patchwork.freedesktop.org/series/115028/
+> 
+> but haven't had time to revisit that for a while
 
-  drm/msm/a6xx: initialize GMU mutex earlier (2023-06-08 18:10:51 -0700)
+That's the series I link to below, but IIRC it did not look directly
+applicable to the splat I see on X13s (e.g. does not involve
+fs_reclaim).
 
-----------------------------------------------------------------
-A few more late fixes for v6.4-rc6
+> > On Wed, Mar 15, 2023 at 10:19:21AM +0100, Johan Hovold wrote:
+> > >
+> > > Since 6.3-rc2 (or possibly -rc1), I'm now seeing the below
+> > > devfreq-related lockdep splat.
+> > >
+> > > I noticed that you posted a fix for something similar here:
+> > >
+> > >       https://lore.kernel.org/r/20230312204150.1353517-9-robdclark@gmail.com
+> > >
+> > > but that particular patch makes no difference.
+> > >
+> > > From skimming the calltraces below and qos/devfreq related changes in
+> > > 6.3-rc1 it seems like this could be related to:
+> > >
+> > >       fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS constraint for idle clamp")
 
-+ Fix max segment size to address splat on newer a6xx
-+ Disable PSR by default w/ modparam to re-enable, since there
-  still seems to be a lingering issue
-+ Fix HPD issue
-+ Fix issue with unitialized GMU mutex
-
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dp: add module parameter for PSR
-
-Dmitry Baryshkov (1):
-      drm/msm/a6xx: initialize GMU mutex earlier
-
-Kuogee Hsieh (1):
-      drm/msm/dp: enable HDP plugin/unplugged interrupts at hpd_enable/disable
-
-Rob Clark (1):
-      drm/msm: Set max segment size earlier
-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  2 -
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  2 +
- drivers/gpu/drm/msm/dp/dp_catalog.c   | 15 ++++++-
- drivers/gpu/drm/msm/dp/dp_catalog.h   |  3 +-
- drivers/gpu/drm/msm/dp/dp_display.c   | 77 +++++++++++------------------------
- drivers/gpu/drm/msm/msm_drv.c         |  4 +-
- 6 files changed, 44 insertions(+), 59 deletions(-)
+Johan
