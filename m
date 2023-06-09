@@ -1,64 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6109E729D39
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jun 2023 16:47:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2731F72A0BF
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jun 2023 18:58:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B532310E6BC;
-	Fri,  9 Jun 2023 14:46:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2B1910E15A;
+	Fri,  9 Jun 2023 16:58:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F6010E6B8;
- Fri,  9 Jun 2023 14:46:57 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1a28817f7d8so774961fac.3; 
- Fri, 09 Jun 2023 07:46:57 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B9110E15F
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Jun 2023 16:58:03 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f63ab1ac4aso2545342e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Jun 2023 09:58:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686322016; x=1688914016;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sdbxKBVcBVIgPeSRn3sb4Td/Dc7pVhPTKzbSHfxRLUA=;
- b=DNZbTLKQPliTfstgbHegNTkVrvFD9wIBWPaL0NFQ1I88MwmBHg+WCO8HWfwtfhFxyL
- qEk9VSMgQ9RCxCAGS83dDGAZiL/6nIGajfqph3NEHHw19OXDeTiSGCrss3O+kph8FksO
- fTgGXiJczEcbuxO0RZ6qBbRq48gTUE9+lau9EdAjDv3V5K0UJ5HHmMCx1jQfGVcMB8L5
- zmbiA+p1jw8kUuAONkOiEzq1acvq1zXWawi4lnVpEw5rfOYYfqlzCTJAysfhnE1gQr1I
- 5pWoUZ0a8zXSRpgiRvydhFnUrGeKL464wjAC6XibCEi0I/d816J/dTFSWrjoMG/0nYF2
- 9HMw==
+ d=linaro.org; s=google; t=1686329881; x=1688921881;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SUb5nVm7hFEBhuv59behzuKW8dLna7emUUL4IOqj/Es=;
+ b=k0pP6Yhd3tBEViDCSHkbzEXgsqBEiMFY4yu+KoHTzdKB2j5qstboVWNWylre1DXBAi
+ bIOqo0z/GXU22r0SD+x4ONdlvCmhoecZ5INom/OyUQgupL45ebVoRNdWWribHpPyBrkj
+ W6iv9HkY1PNCAhp9gdn9wz2y9nRHHoJMsAEAXJOnkYtl0MW9rdC6CpFqIJdhr3QKYF1X
+ OGFU1rKCxbgE6MHmhJIs1ldfddy9bjqDjIlQMsM4PyX8OVvrnUCP+q9Hj6lHWWaGJcl/
+ nFDhDQLI0Lltq/2EdH3GOUgjKeKTauO+4tUXrrSaPCsx2z1pLaZ7zaSsqS0Ixa6qO0O5
+ YSTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686322016; x=1688914016;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sdbxKBVcBVIgPeSRn3sb4Td/Dc7pVhPTKzbSHfxRLUA=;
- b=SZfRF50Im9kglZErQ0AngvjcsVcR1Nug05IX7iArMskViwtAE0vUQwGJrcJC80cJUu
- b+Z5PIB1iwr36ucWmoifQ5bJhUj5s8GCImfU6oNnV2xnsmiVXdm9myi8hvc2ZflSEcwn
- Soxwu5CzQoOKOiUBDxup1O+sX4aKpqOfNQ0ILq+UG3jFV0pOvE94yY78DL6LbEicC3hb
- VC17rY9yeCj3WLxMTSOQgamEsU5qxLyT1CzVBvkze/waMhkUPEuCp/RfKceAPI8dAISM
- tMm0Qh1bWvLVCSFtbI1rEQPT3JNmubBRP3lPJHmDeoD/DB+voYtsXNuFJvnlk6oFLwWp
- sHbg==
-X-Gm-Message-State: AC+VfDyBFxpprE66AjxNnVhNivEdMtwsCdfH51vC+c9VyTomdKNi2PHY
- puqFFi9HaJdnw7Kog3wekIwegzUNhDvvyCyJiCI=
-X-Google-Smtp-Source: ACHHUZ7J0l5veq+z1PgJ9eZh7SJrvdCaZgEm8srFRcMOKIil0mLDwk3fE22sVm0Zt9XOct9JtmMlMOwq65yRGatpAtk=
-X-Received: by 2002:a05:6870:42c6:b0:19e:e96a:4cb9 with SMTP id
- z6-20020a05687042c600b0019ee96a4cb9mr1272834oah.23.1686322015525; Fri, 09 Jun
- 2023 07:46:55 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686329881; x=1688921881;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SUb5nVm7hFEBhuv59behzuKW8dLna7emUUL4IOqj/Es=;
+ b=GVSzEcp+lCfPODOl28LXtzl8eUM5RPHVBq6hwL6HqHAd0ckLjke9Mecb4zCr7yoeBX
+ L8qMsxVFrd7AlhLTQLefliHomDfULZh1iDJXI2Bcfosk1i0y+tcl6Y4K5GaUA/aSz3YC
+ 2gINP2a0VwgHXedtULQFXdiY1JOP7XOquGACpXK5hkGlBvHqzytrzf22SAL4Nr0262Jy
+ Dpp4wprUbsP+S3/1lGrGNfKlwXCFwiJv0V68X0Vyt05AkamhwjYglh6QxPz4oDuKPp8m
+ 71h9bP3gbelsyyZzq/7z4nEJ8C1qRVhWOKtzP4mqjOgxeHvj9teuFipYPv+/6ew4OfOr
+ KHQQ==
+X-Gm-Message-State: AC+VfDyPhKVJQ7tIZYoyNsvWGbSgsFEbw0hUpIUaRc7N+V3PH/hD75LQ
+ CLJrW7i7t88+wRtLs1fCp+wYww==
+X-Google-Smtp-Source: ACHHUZ5XREmgDhoET21rXfbNBJMsOO4k1ia54yVbEFbqrn3hb5hXibwbLwjxN3epvSvRqhrKKRNXdA==
+X-Received: by 2002:a19:6550:0:b0:4f4:b218:e85f with SMTP id
+ c16-20020a196550000000b004f4b218e85fmr1067786lfj.31.1686329881358; 
+ Fri, 09 Jun 2023 09:58:01 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ x3-20020ac259c3000000b004f39bb71ed2sm601806lfn.138.2023.06.09.09.58.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Jun 2023 09:58:00 -0700 (PDT)
+Message-ID: <f34a03ce-6295-b5d1-bf42-a43cfb382ea3@linaro.org>
+Date: Fri, 9 Jun 2023 19:58:00 +0300
 MIME-Version: 1.0
-References: <ZBGNmXwQoW330Wr8@hovoldconsulting.com>
- <ZIHh95IeOPBTvB00@hovoldconsulting.com>
- <CAF6AEGv3y3C6nAq7nrkgbv5-9-tVgj+BtY1yU+fXXFFm_N7fcQ@mail.gmail.com>
- <ZILEBPQgqr1HomUQ@hovoldconsulting.com>
-In-Reply-To: <ZILEBPQgqr1HomUQ@hovoldconsulting.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 9 Jun 2023 07:46:44 -0700
-Message-ID: <CAF6AEGsHFpGEiOLxEqzxG2VU+i+h0uVQTHcpfD4sbk0GWN2+Vg@mail.gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] Adreno devfreq lockdep splat with 6.3-rc2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+References: <20230405-add-dsc-support-v5-0-028c10850491@quicinc.com>
+ <20230405-add-dsc-support-v5-2-028c10850491@quicinc.com>
+ <js3mcglahq53mcyxa6deltjlu4xpc2pnafwz2rbk3dl4ovws2o@5xw2wzvfaj2v>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <js3mcglahq53mcyxa6deltjlu4xpc2pnafwz2rbk3dl4ovws2o@5xw2wzvfaj2v>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 2/5] drm/msm/dsi: Adjust pclk rate for
+ compression
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,84 +83,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 8, 2023 at 11:17=E2=80=AFPM Johan Hovold <johan@kernel.org> wro=
-te:
->
-> On Thu, Jun 08, 2023 at 02:17:45PM -0700, Rob Clark wrote:
-> > On Thu, Jun 8, 2023 at 7:12=E2=80=AFAM Johan Hovold <johan@kernel.org> =
-wrote:
->
-> > > Have you had a chance to look at this regression yet? It prevents us
-> > > from using lockdep on the X13s as it is disabled as soon as we start
-> > > the GPU.
-> >
-> > Hmm, curious what is different between x13s and sc7180/sc7280 things?
->
-> It seems like lockdep needs to hit the tear down path in order to
-> detect the circular lock dependency. Perhaps you don't hit that on your
-> sc7180/sc7280?
->
-> It is due to the fact that the panel is looked up way too late so that
-> bind fails unless the panel driver is already loaded when the msm drm
-> driver probes.
+On 08/06/2023 23:36, Marijn Suijten wrote:
+> Same title suggestion as earlier: s/adjust/reduce
+> 
+> On 2023-05-22 18:08:56, Jessica Zhang wrote:
+>> Adjust the pclk rate to divide hdisplay by the compression ratio when DSC
+>> is enabled.
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++++++++---
+>>   1 file changed, 18 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index a448931af804..88f370dd2ea1 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -561,7 +561,18 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+>>   	clk_disable_unprepare(msm_host->byte_clk);
+>>   }
+>>   
+>> -static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool is_bonded_dsi)
+>> +static unsigned long dsi_adjust_compressed_pclk(const struct drm_display_mode *mode,
+> 
+> Nit: adjust_pclk_for_compression
+> 
+> As discussed before we realized that this change is more-or-less a hack,
+> since downstream calculates pclk quite differently - at least for
+> command-mode panels.  Do you still intend to land this patch this way,
+> or go the proper route by introducing the right math from the get-go?
+> Or is the math at least correct for video-mode panels?
 
-Oh, this seems likely
+Can we please postpone the cmd-vs-video discussion? Otherwise I will 
+reserve myself a right to push a patch dropping CMD mode support until 
+somebody comes with a proper way to handle CMD clock calculation.
 
-> Manually loading the panel driver before msm makes the splat go away.
->
-> > Or did lockdep recently get more clever (or more annotation)?
->
-> I think this is indeed a new problem related to some of the devfreq work
-> you did in 6.3-rc1 (e.g. fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS
-> constraint for idle clamp")).
->
-> > I did spend some time a while back trying to bring some sense to
-> > devfreq/pm-qos/icc locking:
-> > https://patchwork.freedesktop.org/series/115028/
-> >
-> > but haven't had time to revisit that for a while
->
-> That's the series I link to below, but IIRC it did not look directly
-> applicable to the splat I see on X13s (e.g. does not involve
-> fs_reclaim).
 
-Ahh, right, sorry I've not had time to do more than glance at the
-thread.. and yeah, that one is mostly just trying to solve the reclaim
-problem by moving allocations out from under the big-pm-qos-lock.
+It is off-topic for the sake of DSC 1.2 support. Yes, all CMD panel 
+timings are a kind of a hack and should be improved. No, we can not do 
+this as a part of this series. I think everybody agrees that with the 
+current way of calculating CMD panel timings, this function does some 
+kind of a trick.
 
-As far as fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS constraint for
-idle clamp"), it should be just taking the lock that
-dev_pm_qos_update_request() would have indirectly, although I guess
-without some intervening lock?  We can't really avoid taking the
-devfreq lock, I don't think.  But I'd have to spend time I don't have
-right now digging into it..
+> 
+> This function requires a documentation comment to explain that all.
+> 
+>> +		const struct drm_dsc_config *dsc)
+>> +{
+>> +	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
+> 
+> This sounds like a prime candidate for msm_dsc_get_bytes_per_line(), if
+> bits_per_component==8 is assumed.  In fact, it then becomes identical
+> to the following line in dsi_host.c which you added previously:
+> 
+> 	hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
 
-BR,
--R
+This would imply a simple /3, but as far as I understand it is not 
+correct here.
 
-> > > On Wed, Mar 15, 2023 at 10:19:21AM +0100, Johan Hovold wrote:
-> > > >
-> > > > Since 6.3-rc2 (or possibly -rc1), I'm now seeing the below
-> > > > devfreq-related lockdep splat.
-> > > >
-> > > > I noticed that you posted a fix for something similar here:
-> > > >
-> > > >       https://lore.kernel.org/r/20230312204150.1353517-9-robdclark@=
-gmail.com
-> > > >
-> > > > but that particular patch makes no difference.
-> > > >
-> > > > From skimming the calltraces below and qos/devfreq related changes =
-in
-> > > > 6.3-rc1 it seems like this could be related to:
-> > > >
-> > > >       fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS constraint for idle=
- clamp")
->
-> Johan
+> 
+> If not, what is the difference between these two calculations?  Maybe
+> they both need to be in a properly-named helper.
+> 
+>> +			dsc->bits_per_component * 3);
+
+I hope to see a documentation patch to be posted, telling that this 
+scales hdisplay and thus pclk by the factor of compressed_bpp / 
+uncompressed_bpp.
+
+This is not how it is usually done, but I would accept a separate 
+documentation patch going over the calculation here and in 
+dsi_timing_setup (and maybe other unobvious cases, if there is anything 
+left).
+
+> 
+> As we established in the drm/msm issue [2] there is currently a
+> confusion whether this /3 (and the /3 in dsi_timing_setup) come from the
+> ratio between dsi_get_bpp() and dsc->bpp or something else.  Can you
+> clarify that with constants and comments?
+> 
+> [2]: https://gitlab.freedesktop.org/drm/msm/-/issues/24
+> 
+>> +
+>> +	return (new_hdisplay + (mode->htotal - mode->hdisplay))
+>> +			* mode->vtotal * drm_mode_vrefresh(mode);
+> 
+> As clarified in [1] I was not necessarily suggesting to move this math
+> to a separate helper, but to also use a few more properly-named
+> intermediate variables to not have multi-line math and self-documenting
+> code.  These lines could be split to be much more clear.
+
+I think it's fine more or less. One pair of parenthesis is unnecessary, 
+but that's mostly it. Maybe `new_htotal' variable would make some sense.
+
+Also, please excuse me if this was discussed somewhere. This calculation 
+means that only the displayed data is compressed, but porches are not 
+touched. Correct?
+
+> 
+> [1]: https://lore.kernel.org/linux-arm-msm/u4x2vldkzsokfcpbkz3dtwcllbdk4ljcz6kzuaxt5frx6g76o5@uku6abewvye7/
+> 
+>> +}
+>> +
+>> +static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
+>> +		const struct drm_dsc_config *dsc, bool is_bonded_dsi)
+>>   {
+>>   	unsigned long pclk_rate;
+>>   
+>> @@ -576,6 +587,10 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode, bool
+>>   	if (is_bonded_dsi)
+>>   		pclk_rate /= 2;
+>>   
+>> +	/* If DSC is enabled, divide hdisplay by compression ratio */
+>> +	if (dsc)
+>> +		pclk_rate = dsi_adjust_compressed_pclk(mode, dsc);
+
+Looking for the perfection, I'd also move the pclk adjustment to come 
+before the is_bonded_dsi check.
+
+> 
+> The confusion with this comment (and the reason the aforementioned
+> discussion [2] carried on so long) stems from the fact a division makes
+> sense for a bit/byte clock, but not for a pixel clock: we still intend
+> to send the same number of pixels, just spending less bytes on them.  So
+> as you clarify the /3 above, can you also clarify that here or drop this
+> comment completely when the function is correctly documented instead?
+> 
+> - Marijn
+> 
+>> +
+>>   	return pclk_rate;
+>>   }
+>>   
+>> @@ -585,7 +600,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+>>   	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>>   	u8 lanes = msm_host->lanes;
+>>   	u32 bpp = dsi_get_bpp(msm_host->format);
+>> -	unsigned long pclk_rate = dsi_get_pclk_rate(mode, is_bonded_dsi);
+>> +	unsigned long pclk_rate = dsi_get_pclk_rate(mode, msm_host->dsc, is_bonded_dsi);
+>>   	unsigned long pclk_bpp;
+>>   
+>>   	if (lanes == 0) {
+>> @@ -604,7 +619,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+>>   
+>>   static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>>   {
+>> -	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, is_bonded_dsi);
+>> +	msm_host->pixel_clk_rate = dsi_get_pclk_rate(msm_host->mode, msm_host->dsc, is_bonded_dsi);
+>>   	msm_host->byte_clk_rate = dsi_byte_clk_get_rate(&msm_host->base, is_bonded_dsi,
+>>   							msm_host->mode);
+>>   
+>>
+>> -- 
+>> 2.40.1
+>>
+
+-- 
+With best wishes
+Dmitry
+
