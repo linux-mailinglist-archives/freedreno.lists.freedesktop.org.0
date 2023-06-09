@@ -2,73 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AAD3729464
-	for <lists+freedreno@lfdr.de>; Fri,  9 Jun 2023 11:13:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6109E729D39
+	for <lists+freedreno@lfdr.de>; Fri,  9 Jun 2023 16:47:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5645A10E663;
-	Fri,  9 Jun 2023 09:12:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B532310E6BC;
+	Fri,  9 Jun 2023 14:46:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26AF310E663
- for <freedreno@lists.freedesktop.org>; Fri,  9 Jun 2023 09:12:58 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4f62b552751so1855214e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 09 Jun 2023 02:12:57 -0700 (PDT)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86F6010E6B8;
+ Fri,  9 Jun 2023 14:46:57 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1a28817f7d8so774961fac.3; 
+ Fri, 09 Jun 2023 07:46:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686301976; x=1688893976;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CVfeus2+E5nD4MhpBQlXT0XxTlLQBPr9RISFV3RUGtM=;
- b=AN2CvSTAcyzxxXP5A80X6hk1bPtbBj4syuSk+akZk9+eiMcZcPN8HFIud39D1yRw5j
- Bk3J1djy8D/1haJgaOh8Ki6MkZGfa5ZitdW3+q9aJQmewUuzxuHpjMbA4ElnlPcOzzIe
- sQk4UTDj6b8Sb2dwOnmXAOFVK6TiyKo585/vPx48ht8qGe46M4zEXfEEtjwcd3ig2Xeh
- vbelghPdA55FJPH/ZGDrnva8eqZt2uEwePGFEU8G1hz9f4ehbR6gZI7IXv1ig25undMr
- 7cCeep92+CS2qdS/nTQoZDeQRpBpS1jy/wKKK4i2yomM17QL5rXIbgDq36l8T7r/sUgA
- VQqA==
+ d=gmail.com; s=20221208; t=1686322016; x=1688914016;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sdbxKBVcBVIgPeSRn3sb4Td/Dc7pVhPTKzbSHfxRLUA=;
+ b=DNZbTLKQPliTfstgbHegNTkVrvFD9wIBWPaL0NFQ1I88MwmBHg+WCO8HWfwtfhFxyL
+ qEk9VSMgQ9RCxCAGS83dDGAZiL/6nIGajfqph3NEHHw19OXDeTiSGCrss3O+kph8FksO
+ fTgGXiJczEcbuxO0RZ6qBbRq48gTUE9+lau9EdAjDv3V5K0UJ5HHmMCx1jQfGVcMB8L5
+ zmbiA+p1jw8kUuAONkOiEzq1acvq1zXWawi4lnVpEw5rfOYYfqlzCTJAysfhnE1gQr1I
+ 5pWoUZ0a8zXSRpgiRvydhFnUrGeKL464wjAC6XibCEi0I/d816J/dTFSWrjoMG/0nYF2
+ 9HMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686301976; x=1688893976;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CVfeus2+E5nD4MhpBQlXT0XxTlLQBPr9RISFV3RUGtM=;
- b=YSy1pZU8D4Vodxtu2Cfgx7Zx/UNLIwzVgrFwpHeguLUZ5y4145Pjp+bTAuk3meFM5A
- U8KZClYu4SQd5hnEKsVOHnrirENBj+XM+YeNxtwmKXTFh2QRWf1rXnWHOPrtBtOWn5g3
- CX2TtJzKywys+6ub2vaAyscX+CQmAzOU9lBmjNDL9sj73g1DgSCYPz1kjH4z8MZ70M/m
- wpHWmMQVHPDRcNexC0BOo8YfJWJRel2FHLkoTV8b+QAYOlpXsrNLipB5k/PZX2llv4YO
- 3wWXB5p4CPNOBdKabDmlSoj/ZjrctgbLm43I8nUjvzRc8H1PyNW5luVQhsSbMkcOMusJ
- MwwQ==
-X-Gm-Message-State: AC+VfDz1W8GDNnW0amuGaOF0Wm14r7p53GNW+818oRUeYmyWuNTZLpZO
- 8yr+s0oro6bFLYF60effRyHn+A==
-X-Google-Smtp-Source: ACHHUZ5TX+tKPeytqOB6c1Nsnr7i1EoxWIdysEl5KLLT0ilTcM5fc1peAWtmRZn28O+QIzBawagDGg==
-X-Received: by 2002:a19:660a:0:b0:4f4:dfd4:33e7 with SMTP id
- a10-20020a19660a000000b004f4dfd433e7mr425372lfc.33.1686301975825; 
- Fri, 09 Jun 2023 02:12:55 -0700 (PDT)
-Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
- by smtp.gmail.com with ESMTPSA id
- q26-20020ac2511a000000b004f20d0ebe50sm478422lfb.94.2023.06.09.02.12.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jun 2023 02:12:55 -0700 (PDT)
-Message-ID: <7ed52f34-b53a-09f8-4d51-dc5ca41827ce@linaro.org>
-Date: Fri, 9 Jun 2023 11:12:53 +0200
+ d=1e100.net; s=20221208; t=1686322016; x=1688914016;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sdbxKBVcBVIgPeSRn3sb4Td/Dc7pVhPTKzbSHfxRLUA=;
+ b=SZfRF50Im9kglZErQ0AngvjcsVcR1Nug05IX7iArMskViwtAE0vUQwGJrcJC80cJUu
+ b+Z5PIB1iwr36ucWmoifQ5bJhUj5s8GCImfU6oNnV2xnsmiVXdm9myi8hvc2ZflSEcwn
+ Soxwu5CzQoOKOiUBDxup1O+sX4aKpqOfNQ0ILq+UG3jFV0pOvE94yY78DL6LbEicC3hb
+ VC17rY9yeCj3WLxMTSOQgamEsU5qxLyT1CzVBvkze/waMhkUPEuCp/RfKceAPI8dAISM
+ tMm0Qh1bWvLVCSFtbI1rEQPT3JNmubBRP3lPJHmDeoD/DB+voYtsXNuFJvnlk6oFLwWp
+ sHbg==
+X-Gm-Message-State: AC+VfDyBFxpprE66AjxNnVhNivEdMtwsCdfH51vC+c9VyTomdKNi2PHY
+ puqFFi9HaJdnw7Kog3wekIwegzUNhDvvyCyJiCI=
+X-Google-Smtp-Source: ACHHUZ7J0l5veq+z1PgJ9eZh7SJrvdCaZgEm8srFRcMOKIil0mLDwk3fE22sVm0Zt9XOct9JtmMlMOwq65yRGatpAtk=
+X-Received: by 2002:a05:6870:42c6:b0:19e:e96a:4cb9 with SMTP id
+ z6-20020a05687042c600b0019ee96a4cb9mr1272834oah.23.1686322015525; Fri, 09 Jun
+ 2023 07:46:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
- <20230223-topic-gmuwrapper-v8-1-69c68206609e@linaro.org>
- <20230530122652.lct6tk6zseny6gxl@krzk-bin>
- <1ceeb56e-3efd-6858-358a-bd1976c625b1@linaro.org>
- <20230608205848.GA3424883-robh@kernel.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230608205848.GA3424883-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v8 01/18] dt-bindings: display/msm: gpu:
- Document GMU wrapper-equipped A6xx
+References: <ZBGNmXwQoW330Wr8@hovoldconsulting.com>
+ <ZIHh95IeOPBTvB00@hovoldconsulting.com>
+ <CAF6AEGv3y3C6nAq7nrkgbv5-9-tVgj+BtY1yU+fXXFFm_N7fcQ@mail.gmail.com>
+ <ZILEBPQgqr1HomUQ@hovoldconsulting.com>
+In-Reply-To: <ZILEBPQgqr1HomUQ@hovoldconsulting.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 9 Jun 2023 07:46:44 -0700
+Message-ID: <CAF6AEGsHFpGEiOLxEqzxG2VU+i+h0uVQTHcpfD4sbk0GWN2+Vg@mail.gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] Adreno devfreq lockdep splat with 6.3-rc2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,72 +71,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, freedreno@lists.freedesktop.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, Jun 8, 2023 at 11:17=E2=80=AFPM Johan Hovold <johan@kernel.org> wro=
+te:
+>
+> On Thu, Jun 08, 2023 at 02:17:45PM -0700, Rob Clark wrote:
+> > On Thu, Jun 8, 2023 at 7:12=E2=80=AFAM Johan Hovold <johan@kernel.org> =
+wrote:
+>
+> > > Have you had a chance to look at this regression yet? It prevents us
+> > > from using lockdep on the X13s as it is disabled as soon as we start
+> > > the GPU.
+> >
+> > Hmm, curious what is different between x13s and sc7180/sc7280 things?
+>
+> It seems like lockdep needs to hit the tear down path in order to
+> detect the circular lock dependency. Perhaps you don't hit that on your
+> sc7180/sc7280?
+>
+> It is due to the fact that the panel is looked up way too late so that
+> bind fails unless the panel driver is already loaded when the msm drm
+> driver probes.
 
+Oh, this seems likely
 
-On 8.06.2023 22:58, Rob Herring wrote:
-> On Tue, May 30, 2023 at 03:35:09PM +0200, Konrad Dybcio wrote:
->>
->>
->> On 30.05.2023 14:26, Krzysztof Kozlowski wrote:
->>> On Mon, 29 May 2023 15:52:20 +0200, Konrad Dybcio wrote:
->>>> The "GMU Wrapper" is Qualcomm's name for "let's treat the GPU blocks
->>>> we'd normally assign to the GMU as if they were a part of the GMU, even
->>>> though they are not". It's a (good) software representation of the GMU_CX
->>>> and GMU_GX register spaces within the GPUSS that helps us programatically
->>>> treat these de-facto GMU-less parts in a way that's very similar to their
->>>> GMU-equipped cousins, massively saving up on code duplication.
->>>>
->>>> The "wrapper" register space was specifically designed to mimic the layout
->>>> of a real GMU, though it rather obviously does not have the M3 core et al.
->>>>
->>>> GMU wrapper-equipped A6xx GPUs require clocks and clock-names to be
->>>> specified under the GPU node, just like their older cousins. Account
->>>> for that.
->>>>
->>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>> ---
->>>>  .../devicetree/bindings/display/msm/gpu.yaml       | 61 ++++++++++++++++++----
->>>>  1 file changed, 52 insertions(+), 9 deletions(-)
->>>>
->>>
->>> Running 'make dtbs_check' with the schema in this patch gives the
->>> following warnings. Consider if they are expected or the schema is
->>> incorrect. These may not be new warnings.
->> I think it'd be beneficial if the bot diffed the output of checks pre-
->> and post- patch.
-> 
-> Fix all the warnings and it will. ;)
-Nice one :P
+> Manually loading the panel driver before msm makes the splat go away.
+>
+> > Or did lockdep recently get more clever (or more annotation)?
+>
+> I think this is indeed a new problem related to some of the devfreq work
+> you did in 6.3-rc1 (e.g. fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS
+> constraint for idle clamp")).
+>
+> > I did spend some time a while back trying to bring some sense to
+> > devfreq/pm-qos/icc locking:
+> > https://patchwork.freedesktop.org/series/115028/
+> >
+> > but haven't had time to revisit that for a while
+>
+> That's the series I link to below, but IIRC it did not look directly
+> applicable to the splat I see on X13s (e.g. does not involve
+> fs_reclaim).
 
-Care to donate h/w to run the build 
-> twice every time?
-Personally that might be a bit difficult, but I'm pretty sure KernelCI
-farms don't run at full throttle 24/7, perpaps some of their capacity
-could be borrowed?
+Ahh, right, sorry I've not had time to do more than glance at the
+thread.. and yeah, that one is mostly just trying to solve the reclaim
+problem by moving allocations out from under the big-pm-qos-lock.
 
-> 
-> Really what I care about on these is when I keep getting changes to a 
-> schema and the list of warnings remains long and not getting fixed.
-> 
-> This case was less than useful with just the oneOf warning.
-Ack
+As far as fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS constraint for
+idle clamp"), it should be just taking the lock that
+dev_pm_qos_update_request() would have indirectly, although I guess
+without some intervening lock?  We can't really avoid taking the
+devfreq lock, I don't think.  But I'd have to spend time I don't have
+right now digging into it..
 
-Konrad
-> 
-> Rob
+BR,
+-R
+
+> > > On Wed, Mar 15, 2023 at 10:19:21AM +0100, Johan Hovold wrote:
+> > > >
+> > > > Since 6.3-rc2 (or possibly -rc1), I'm now seeing the below
+> > > > devfreq-related lockdep splat.
+> > > >
+> > > > I noticed that you posted a fix for something similar here:
+> > > >
+> > > >       https://lore.kernel.org/r/20230312204150.1353517-9-robdclark@=
+gmail.com
+> > > >
+> > > > but that particular patch makes no difference.
+> > > >
+> > > > From skimming the calltraces below and qos/devfreq related changes =
+in
+> > > > 6.3-rc1 it seems like this could be related to:
+> > > >
+> > > >       fadcc3ab1302 ("drm/msm/gpu: Bypass PM QoS constraint for idle=
+ clamp")
+>
+> Johan
