@@ -1,81 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D47872A6EC
-	for <lists+freedreno@lfdr.de>; Sat, 10 Jun 2023 02:00:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BFFF72AAE1
+	for <lists+freedreno@lfdr.de>; Sat, 10 Jun 2023 12:27:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C59B10E121;
-	Sat, 10 Jun 2023 00:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A8910E132;
+	Sat, 10 Jun 2023 10:27:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC0F10E110;
- Sat, 10 Jun 2023 00:00:21 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 359NhYIT028385; Sat, 10 Jun 2023 00:00:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : from : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=G+t0EXnw41DiMmjm25D5UjowmOGfVudWiv2L1IIEZ2c=;
- b=DWI0MKZyQYQz2XdHDV1yoKcsMNpBKzfU+RX6IfgVOcKx2d8r9ZFc8SIH1FWCC5fORhOq
- nKSF0MnKSHLD52AT1QGhu88cXQLUzlnrcAtRUNRuyLx1b+OcPvX6Ww2I3EOaGyvogT4N
- 6/ob/c5xX3+Hzbfol3hKmV0BkTbGhUmBdwi1D/CU44EOf1+gWT2f6FQ0n+N/vYwTIvZB
- 7vPfGhAZtL4FPpeZOjo8gnUEakNaO+5ga+0h7diLb/+2xJ82MHGHAqX00Z/bw+xmSrT4
- wvma70ohOa+idSVfrjrvLGHJWgO9gO1/BTcqk3iGLMNV7vS7eNcOsiRQsHiTxtu6mx24 ag== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r3t70jccu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 10 Jun 2023 00:00:14 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35A00DhY009993
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 10 Jun 2023 00:00:13 GMT
-Received: from [10.110.51.236] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 9 Jun 2023
- 17:00:11 -0700
-Message-ID: <a144f18a-bffb-d9ed-dd2e-12977404d71e@quicinc.com>
-Date: Fri, 9 Jun 2023 17:00:08 -0700
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 825D210E132
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jun 2023 10:27:11 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-565eb83efe4so24840187b3.0
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Jun 2023 03:27:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686392829; x=1688984829;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=to8oZ7L4fC+T49c7O2RXAbP8nJvmZRdwodJiT0ePUgs=;
+ b=VtfoIIBi2gjH8mp/MVxkQnvYC58lGIrKyL1oN9HdMV2QIktHsfiMb7nG1eK+hsPfAn
+ c96AHXJCFWm4BYoTbUUw+s0mrnbCF0m4V1D4E1TAAUEdHPVBdztK+sR/B53Aeu3DA2WF
+ bR5lRfV0MrgBcPEMC3yfPypP3eQswXm2ZNAfBVQg/Recb+MgBGw8THISDUfL3IROQF/h
+ zi6pMuJO66v17QGaf9n6xOa6kIb5OkjVHwJODl23BlrrbGcSedvUm8WyAatcB5Qvfsp1
+ DiGywfyCvuey04+bMIQJZYw3HaIpFrJmLVUafIO6QhGwZUv50Relfvjfkbo0XLyywpbY
+ 9CdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686392829; x=1688984829;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=to8oZ7L4fC+T49c7O2RXAbP8nJvmZRdwodJiT0ePUgs=;
+ b=aru+4MhH3IwRa3Oq1j0t3G2VlnGlCC/amtqMN2IIFd/AA8faTwoqJn/S00hBIUTDJH
+ jbgYz5K/43EH3ykJlv8UsJoxAvMajhVz99iy8iWBKDi/XGmOowNMIS6nTSCH7l1cBpdO
+ XfvG6xaEn3DGr7WQUcvRfMG7/BTtACEsIKZS+yoJ8wpOtNkpl8Dd/cWULFlTgZUoJb/4
+ KuMTUD8Xg+M5hrIZ7qCFrytLVGvduMLNUD2uA5oxoDrE/d98IEn3QuiRzw8H8RRHYlr9
+ gM124qLINfGA9LkvqTDuF/S2vJnObvyMMgHTcLRxryL0e0+cqXfVmxaFh5Tm9qUi5Sv8
+ MeFQ==
+X-Gm-Message-State: AC+VfDx5K12PR4YC+o6/j0MsGCXlkWsae2GrC9xVxu+aFPasQbBDwpJm
+ 9AQEUsr8td9xScqRsd7ALHi6n8ZrAMn33ZxNxQlLhQ==
+X-Google-Smtp-Source: ACHHUZ6OSKyE7M/AKX5RnhMGNLiUXry/Ecu8iTy734i4jNpdrWoupgCkvkkVY50NCYi04PH1Fm8GCv9SFC9Tcqs5ltM=
+X-Received: by 2002:a81:8841:0:b0:565:9a3d:a3f9 with SMTP id
+ y62-20020a818841000000b005659a3da3f9mr3920231ywf.9.1686392829544; Sat, 10 Jun
+ 2023 03:27:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230321011821.635977-1-dmitry.baryshkov@linaro.org>
- <20230321011821.635977-13-dmitry.baryshkov@linaro.org>
- <78594a9a-f834-f2d2-1d8a-3e13e18c5477@quicinc.com>
- <43a856be-e6a4-b9ff-eb38-d1e9ff857754@linaro.org>
- <7d8372ff-6cb3-5bcb-ff9f-386937bff218@quicinc.com>
-In-Reply-To: <7d8372ff-6cb3-5bcb-ff9f-386937bff218@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: eruSdcBDXdnIlcMEMjC9PKCvSJo2C-jE
-X-Proofpoint-ORIG-GUID: eruSdcBDXdnIlcMEMjC9PKCvSJo2C-jE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-09_17,2023-06-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0
- lowpriorityscore=0 mlxscore=0 spamscore=0 clxscore=1015 suspectscore=0
- bulkscore=0 malwarescore=0 priorityscore=1501 mlxlogscore=999 phishscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306090202
-Subject: Re: [Freedreno] [RFC PATCH v2 12/13] drm/msm/dpu: add support for
- virtual planes
+References: <1676286704-818-1-git-send-email-quic_kalyant@quicinc.com>
+ <1676286704-818-3-git-send-email-quic_kalyant@quicinc.com>
+ <20230301082403.vm4ejqod3ba5wkzp@SoMainline.org>
+In-Reply-To: <20230301082403.vm4ejqod3ba5wkzp@SoMainline.org>
+From: Yongqin Liu <yongqin.liu@linaro.org>
+Date: Sat, 10 Jun 2023 18:26:58 +0800
+Message-ID: <CAMSo37VmhB1-PUp1qu8gaxOXtu98eEYmWd71FOai+cwLb-JvSg@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Kalyan Thota <quic_kalyant@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 2/4] drm/msm/dpu: add DSPPs into
+ reservation upon a CTM request
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,193 +70,127 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>
+Cc: robdclark@chromium.org, devicetree@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ Amit Pundir <amit.pundir@linaro.org>, John Stultz <jstultz@google.com>,
+ dmitry.baryshkov@linaro.org, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org, quic_vpolimer@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi, Kalyan Thota
+
+It seems this change caused some drm problems with the Android build.
+I tested with one Android build that based on the ACK android-mainline
+kernel[1], and there are the message printed like
+    01-01 06:51:50.541   504   504 E         :
+[drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]failed to get
+dspp on lm 0
+    01-01 06:51:50.551   504   504 E         :
+[drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]failed to get
+dspp on lm 0
+    01-01 06:51:50.560   504   504 E         :
+[drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]failed to get
+dspp on lm 0
+    01-01 06:51:50.570   504   504 E         :
+[drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]failed to get
+dspp on lm 0
+    01-01 06:51:50.579   504   504 E         :
+[drm:_dpu_rm_make_reservation] [dpu error]unable to find appropriate
+mixers
+    01-01 06:51:50.588   504   504 E         : [drm:dpu_rm_reserve]
+[dpu error]failed to reserve hw resources: -119
+For details, please check the link here: https://termbin.com/31lc
+
+If I revert this commit, then the problem will be gone.
+Could you please help check if there is any problem with this commit?
+
+[1]: https://android.googlesource.com/kernel/common/+/refs/heads/android-mainline
+
+Thanks,
+Yongqin Liu
+
+On Wed, 1 Mar 2023 at 16:24, Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
+>
+> On 2023-02-13 03:11:42, Kalyan Thota wrote:
+> > Add DSPP blocks into the topology for reservation, if there
+> > is a CTM request for that composition.
+> >
+> > Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+>
+> > ---
+> > Changes in v1:
+> > - Minor nits (Dmitry)
+> >
+> > Changes in v2:
+> > - Populate DSPPs into the reservation only if CTM is requested (Dmitry)
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 ++++++---------
+> >  1 file changed, 6 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 9c6817b..46d2a5c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -545,7 +545,8 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+> >  static struct msm_display_topology dpu_encoder_get_topology(
+> >                       struct dpu_encoder_virt *dpu_enc,
+> >                       struct dpu_kms *dpu_kms,
+> > -                     struct drm_display_mode *mode)
+> > +                     struct drm_display_mode *mode,
+> > +                     struct drm_crtc_state *crtc_state)
+> >  {
+> >       struct msm_display_topology topology = {0};
+> >       int i, intf_count = 0;
+> > @@ -563,8 +564,7 @@ static struct msm_display_topology dpu_encoder_get_topology(
+> >        * 1 LM, 1 INTF
+> >        * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
+> >        *
+> > -      * Adding color blocks only to primary interface if available in
+> > -      * sufficient number
+> > +      * Add dspps to the reservation requirements if ctm is requested
+> >        */
+> >       if (intf_count == 2)
+> >               topology.num_lm = 2;
+> > @@ -573,11 +573,8 @@ static struct msm_display_topology dpu_encoder_get_topology(
+> >       else
+> >               topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
+> >
+> > -     if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
+> > -             if (dpu_kms->catalog->dspp &&
+> > -                     (dpu_kms->catalog->dspp_count >= topology.num_lm))
+> > -                     topology.num_dspp = topology.num_lm;
+> > -     }
+> > +     if (crtc_state->ctm)
+> > +             topology.num_dspp = topology.num_lm;
+> >
+> >       topology.num_enc = 0;
+> >       topology.num_intf = intf_count;
+> > @@ -643,7 +640,7 @@ static int dpu_encoder_virt_atomic_check(
+> >               }
+> >       }
+> >
+> > -     topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode);
+> > +     topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
+> >
+> >       /* Reserve dynamic resources now. */
+> >       if (!ret) {
+> > --
+> > 2.7.4
+> >
 
 
-On 6/8/2023 12:51 PM, Abhinav Kumar wrote:
-> 
-> 
-> On 6/7/2023 2:56 PM, Dmitry Baryshkov wrote:
->> On 08/06/2023 00:05, Abhinav Kumar wrote:
->>>
->>>
->>> On 3/20/2023 6:18 PM, Dmitry Baryshkov wrote:
->>>> Only several SSPP blocks support such features as YUV output or 
->>>> scaling,
->>>> thus different DRM planes have different features.  Properly utilizing
->>>> all planes requires the attention of the compositor, who should
->>>> prefer simpler planes to YUV-supporting ones. Otherwise it is very easy
->>>> to end up in a situation when all featureful planes are already
->>>> allocated for simple windows, leaving no spare plane for YUV playback.
->>>>
->>>> To solve this problem make all planes virtual. Each plane is registered
->>>> as if it supports all possible features, but then at the runtime during
->>>> the atomic_check phase the driver selects backing SSPP block for each
->>>> plane.
->>>>
->>>> Note, this does not provide support for using two different SSPP blocks
->>>> for a single plane or using two rectangles of an SSPP to drive two
->>>> planes. Each plane still gets its own SSPP and can utilize either a 
->>>> solo
->>>> rectangle or both multirect rectangles depending on the resolution.
->>>>
->>>> Note #2: By default support for virtual planes is turned off and the
->>>> driver still uses old code path with preallocated SSPP block for each
->>>> plane. To enable virtual planes, pass 'msm.dpu_use_virtual_planes=1'
->>>> kernel parameter.
->>>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>
->>> There will be some rebase needed to switch back to encoder based 
->>> allocation so I am not going to comment on those parts and will let 
->>> you handle that when you post v3.
->>>
->>> But my questions/comments below are for other things.
->>>
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  59 +++++--
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   | 120 ++++++++++----
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h   |   4 +
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 187 
->>>> ++++++++++++++++++----
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  24 ++-
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c    |  65 ++++++++
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h    |  24 +++
->>>>   7 files changed, 413 insertions(+), 70 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>> index 8ef191fd002d..cdece21b81c9 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>> @@ -1273,6 +1273,29 @@ static int dpu_crtc_assign_resources(struct 
->>>> drm_crtc *crtc, struct drm_crtc_stat
->>>>       return 0;
->>>>   }
->>>> +static int dpu_crtc_assign_plane_resources(struct drm_crtc *crtc, 
->>>> struct drm_crtc_state *crtc_state)
->>>> +{
->>>> +    struct dpu_global_state *global_state;
->>>> +    struct drm_plane *plane;
->>>> +    int rc;
->>>> +
->>>> +    global_state = dpu_kms_get_global_state(crtc_state->state);
->>>> +    if (IS_ERR(global_state))
->>>> +        return PTR_ERR(global_state);
->>>> +
->>>> +    dpu_rm_release_all_sspp(global_state, crtc);
->>>> +
->>>> +    drm_atomic_crtc_state_for_each_plane(plane, crtc_state) {
->>>> +        rc = dpu_plane_virtual_assign_resources(plane, crtc,
->>>> +                            global_state,
->>>> +                            crtc_state->state);
->>>> +        if (rc)
->>>> +            return rc;
->>>> +    }
->>>> +
->>>> +    return 0;
->>>> +}
->>>> +
->>>>   static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->>>>           struct drm_atomic_state *state)
->>>>   {
->>>> @@ -1281,7 +1304,6 @@ static int dpu_crtc_atomic_check(struct 
->>>> drm_crtc *crtc,
->>>>       struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
->>>>       struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
->>>> -    const struct drm_plane_state *pstate;
->>>>       struct drm_plane *plane;
->>>>       int rc = 0;
->>>> @@ -1294,6 +1316,13 @@ static int dpu_crtc_atomic_check(struct 
->>>> drm_crtc *crtc,
->>>>               return rc;
->>>>       }
->>>> +    if (dpu_use_virtual_planes &&
->>>> +        crtc_state->planes_changed) {
->>>> +        rc = dpu_crtc_assign_plane_resources(crtc, crtc_state);
->>>> +        if (rc < 0)
->>>> +            return rc;
->>>> +    }
->>>
->>> Can you please explain a bit more about the planes_changed condition?
->>>
->>> 1) Are we doing this because the plane's atomic check happens before 
->>> the CRTC atomic check?
->>
->> Yes. Another alternative would be to stop using 
->> drm_atomic_helper_check() and implement our own code instead, 
->> inverting the plane / CRTC check order.
->>
-> 
-> I am fine with that too but as you noted in (3), if planes_changed will 
-> be set by those functions and you can drop explicit assignment of it in 
-> this patch, that will be the best option for me.
-> 
->>>
->>> 2) So the DRM core sets this to true already when plane is switching 
->>> CRTCs or being connected to a CRTC for the first time, we need to 
->>> handle the conditions additional to that right?
->>
->> Nit: it is not possible to switch CRTCs. Plane first has to be 
->> disconnected and then to be connected to another CRTC.
->>
->>>
->>> 3) If (2) is correct, arent there other conditions then to be handled 
->>> for setting planes_changed to true?
->>>
->>> Some examples include, switching from a scaling to non-scaling 
->>> scenario, needing rotation vs not needing etc.
->>
->> Setting the plane_changed is not required. Both 
->> drm_atomic_helper_disable_plane() and drm_atomic_helper_update_plane() 
->> will add the plane to the state. Then drm_atomic_helper_check_planes() 
->> will call drm_atomic_helper_plane_changed(), setting 
->> {old_,new_}crtc_state->planes_changed.
->>
->> I should check if the format check below is required or not. It looks 
->> like I can drop that clause too.
->>
-> 
-> Yes, please do. From the above explanation, it seems like we dont need 
-> to explicity set it again ourselves for format change.
-> 
->>
 
-I have a basic doubt about the split between dpu_plane_atomic_check Vs 
-dpu_crtc_atomic_check() because the next patch is also relying heavily 
-on the fact that plane's atomic check comes first and then crtc.
-
-Please help me understand this better.
-
--> dpu_plane_virtual_atomic_check() is called and today that doesnt seem 
-to do much :
-
-	- marks visible as false if there is no fb
-	(wouldnt the DRM core already do this?)
-	- caches the format
-	(this part is used in the dpu_crtc_atomic_check())
-
--> dpu_crtc_atomic_check() gets called which calls 
-dpu_crtc_assign_plane_resources() which finally reserves the SSPPs to 
-back the planes
-
--> perform dpu_plane_atomic_check() on each of the planes on the CRTC by 
-checking the planes attached to CRTC state
-
-1) What would be wrong to continue using dpu_plane_atomic_check() 
-instead of the newly created dpu_plane_virtual_atomic_check() to get the 
-backing SSPPs because it seems we need to maintain lot of information in 
-the dpu_plane_state to manage co-ordination between the two atomic 
-checks? A big portion of even the next patch does that.
-
-2) Even dpu_plane_atomic_check() /  dpu_plane_virtual_atomic_check() is 
-called only for each plane in the CRTC state, so why all the movement to 
-crtc's atomic_check()? I am missing the link here. Was it done only to 
-move all resource allocation to CRTC ID?
-
-
+-- 
+Best Regards,
+Yongqin Liu
+---------------------------------------------------------------
+#mailing list
+linaro-android@lists.linaro.org
+http://lists.linaro.org/mailman/listinfo/linaro-android
