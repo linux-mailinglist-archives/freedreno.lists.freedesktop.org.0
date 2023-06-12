@@ -1,36 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5D2572B48A
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 00:03:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE4772B5E8
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 05:16:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCFB10E13C;
-	Sun, 11 Jun 2023 22:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 339BC10E14C;
+	Mon, 12 Jun 2023 03:16:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF6510E13C
- for <freedreno@lists.freedesktop.org>; Sun, 11 Jun 2023 22:03:23 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id BA2A01F9B4;
- Mon, 12 Jun 2023 00:03:20 +0200 (CEST)
-Date: Mon, 12 Jun 2023 00:03:19 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <6uiyqgggt2a3gkcihtyzr4rvq5igbe3ojpeiqnji22663bhh2l@3jifgk7bw4u5>
-References: <20230405-add-dsc-support-v6-0-95eab864d1b6@quicinc.com>
- <20230405-add-dsc-support-v6-6-95eab864d1b6@quicinc.com>
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A2110E14F
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 03:16:21 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4f649db9b25so4376505e87.0
+ for <freedreno@lists.freedesktop.org>; Sun, 11 Jun 2023 20:16:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686539777; x=1689131777;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vX21LLla0MPhcsSW4wvj7gR4EaqJE3wcHLDAEcLoY6c=;
+ b=UEaw34LyFdwrlSiYVQJ5ZILZiR/N1JaAlaYFfucPkw2w4awQargHtrcPxLharIfjev
+ qzrJowpSqvTy03z3pxsq1FA1OMc7suBtxDz16gi9EyuH7YI6BH6W0hk9VbRgs0t7D4Js
+ 1yVAFTvwQ0bZJGLdiPE1DB0ibsClmU17XnjfmODHvgAdQx38K6Fib6Nm8Jw3kfiWdcP1
+ ufhOEPNZLRrMG1bpB6Y2MLDO59QtR12kNmvvSdMCh0GttG7NmOeJnS8xTjx+1o9QgGkE
+ tHGrEC4u2+ioh1s2vHvL3VZXXIAf6gE/xWNko1SZXTqjDT8f2VV3thEhomWZlzgsz6aq
+ DuGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686539777; x=1689131777;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vX21LLla0MPhcsSW4wvj7gR4EaqJE3wcHLDAEcLoY6c=;
+ b=fZ1D6ehGGVaDhVxx6KYhd7YixUoQ+DryIQXAthxVKt1JSHfWSu8OWVsyqk/GljriiF
+ DSt9Su1RpYser1f8wCS1YYO+VW0ChyGbLLez/o3CA8w6IdzwjLq7/DxyjI/Pj7cMyGaA
+ rfZTBy1K/JrlEOU9BlUOQVFIXtdTrksNPuzBA23ygBV/KxKSieAIgc2c8WKdm55keczr
+ AfEap9s+lga96PVSvvDz7/bDSDqKNowy1UXbmFQiAmHWtW4QK1sDq3jyUEG4JF3GcbKu
+ EWLMMJn44Cd87jqgLj+as1OM2dNCu4L42VAMFMh+iyzsyCHmoDvMCImfyn951CtxjPOg
+ V02w==
+X-Gm-Message-State: AC+VfDz3gNRIjfnlqTrrhDYuc06tswSfAVgIiTgKHrmzd3sr+MHjnTE+
+ vIrQIViyApTfS/geQ9WVoV4FJg==
+X-Google-Smtp-Source: ACHHUZ7xb6D35xBh+yT8h5vDpe68vonKc8bOPpe7y8I0g1oqybnBZZ8oB4/Z3mNH3dbwcrX/01MghQ==
+X-Received: by 2002:a19:4f4e:0:b0:4f6:40e1:4a92 with SMTP id
+ a14-20020a194f4e000000b004f640e14a92mr3490850lfk.13.1686539777360; 
+ Sun, 11 Jun 2023 20:16:17 -0700 (PDT)
+Received: from lothlorien.lan (dzdqv0yyyyyyyyyyybm5y-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::ab2]) by smtp.gmail.com with ESMTPSA id
+ g12-20020a19ee0c000000b004f27471e0aesm1295901lfb.79.2023.06.11.20.16.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Jun 2023 20:16:16 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Mon, 12 Jun 2023 06:16:15 +0300
+Message-Id: <20230612031616.3620134-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230405-add-dsc-support-v6-6-95eab864d1b6@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v6 6/6] drm/msm/dsi: Document DSC related
- pclk_rate and hdisplay calculations
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/2] drm/msm: provide fb_dirty implemenation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,73 +72,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Degdag Mohamed <degdagmohamed@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-09 15:57:18, Jessica Zhang wrote:
-> Add documentation comments explaining the pclk_rate and hdisplay math
-> related to DSC.
-> 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index fb1d3a25765f..aeaadc18bc7b 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -564,6 +564,13 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
->  static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
->  		const struct drm_dsc_config *dsc)
->  {
-> +	/*
-> +	 * Adjust the pclk rate by calculating a new hdisplay proportional to
-> +	 * the compression ratio such that:
-> +	 *     new_hdisplay = old_hdisplay * target_bpp / source_bpp
-> +	 *
-> +	 * Porches need not be adjusted during compression.
-> +	 */
->  	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
->  			dsc->bits_per_component * 3);
+Since commit 93e81e38e197 ("drm/fb_helper: Minimize damage-helper
+overhead") the drm_fb_helper_funcs::fb_dirty helper is required for
+proper dirty/damage processing. The drm/msm driver requires that to
+function to let CMD panels to work. Use simplified version of
+drm_fbdev_generic_helper_fb_dirty() to fix support for CMD mode panels.
 
-I won't reiterate my original troubles with this logic and the comment
-as that has well been described in v5 replies.
+Reported-by: Degdag Mohamed <degdagmohamed@gmail.com>
+Fixes: 93e81e38e197 ("drm/fb_helper: Minimize damage-helper overhead")
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_fbdev.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Just want to ask why this comment couldn't be added in patch 5/6
-immediately when the logic is introduced?  Now readers won't have a clue
-what is going on until they skip one patch ahead.
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index fa9c1cbffae3..b933a85420f6 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -139,8 +139,28 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
+ 	return ret;
+ }
+ 
++static int msm_fbdev_fb_dirty(struct drm_fb_helper *helper,
++			      struct drm_clip_rect *clip)
++{
++	struct drm_device *dev = helper->dev;
++	int ret;
++
++	/* Call damage handlers only if necessary */
++	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
++		return 0;
++
++	if (helper->fb->funcs->dirty) {
++		ret = helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
++		if (drm_WARN_ONCE(dev, ret, "Dirty helper failed: ret=%d\n", ret))
++			return ret;
++	}
++
++	return 0;
++}
++
+ static const struct drm_fb_helper_funcs msm_fb_helper_funcs = {
+ 	.fb_probe = msm_fbdev_create,
++	.fb_dirty = msm_fbdev_fb_dirty,
+ };
+ 
+ /*
+-- 
+2.39.2
 
-Furthermore it is lacking any explanation that this is a workaround for
-cmd-mode, and that porches are currently used to represent "transfer
-time" until those calculations are implemented.  At that point there is
-no concept of "not adjusting porches for compressed signals" anymore.
-
->  
-> @@ -961,6 +968,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  
->  		/* Divide the display by 3 but keep back/font porch and
->  		 * pulse width same
-> +		 *
-> +		 * hdisplay will be divided by 3 here to account for the fact
-> +		 * that DPU sends 3 bytes per pclk cycle to DSI.
->  		 */
->  		h_total -= hdisplay;
->  		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
-
-Still very glad to have this, thank you for adding it.  Note that it
-only further undermines the pclk adjustments, as I just explained in v5
-review.
-
-- Marijn
-
-> 
-> -- 
-> 2.40.1
-> 
