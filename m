@@ -1,75 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF09072D490
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 00:40:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 970B572D4C7
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 01:09:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2D610E106;
-	Mon, 12 Jun 2023 22:40:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C4010E12E;
+	Mon, 12 Jun 2023 23:09:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C79510E106
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 22:40:53 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2b1c910ee19so58871021fa.3
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 15:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686609651; x=1689201651;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=PJv3SYkb3/54C0GBq7q+cwJt2WQz+XK/nza61SWhb9I=;
- b=cCt9/utssvdNZaLZzNAWQ6y/DvDiM8GOgkCMWP0QBWJ/C72CmnAiEudYB6L+jQVNtD
- 2E5kk1kw7ITjC2JUeg6HYh3QJlLXLAjS+lZ4xd++v2Z3j+fy7Ml6/HsNflXNWVDDf5Pd
- ruyl4sJBoEiy/rHMahVxr9comFf9IRDgp3r1yFjODpOPL2tgk92sxIos45QlHEMJuLOr
- qylShw/PvBj7zNQmW9J9YyERF0wen6HgdJPW79rUGQ+MDPCrqrHxK2MWT/BYfFSFRGsh
- kex18Ad7cEfSG+2yVY465Ks1tA6Zm/toA+loDJPLVYYgJ0UF47L/tccjeaUe+uN/r7yU
- Fd/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686609651; x=1689201651;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PJv3SYkb3/54C0GBq7q+cwJt2WQz+XK/nza61SWhb9I=;
- b=AnxaAULoQ/wgxzS20a8dW+GunhNhLLDWZ8gyNTM/OCCpKqiZCBHirHYB2q6fYeQNDz
- 8pDR5xjb/Kj+PGXDf1CsVvgbgcfgM7U3Favv9ZqNiqiEp71sqN0MF79kBQDeOK+ifqCw
- WYgYHhAfAX0OLIa0l+7shRLwnkPgenJdCoP8a12myvILUwPqT8Gvvc68VAarrmpKn09V
- 0P2VC0bnwSb+fvhE2BUgR+wscwR0p5Sm+RIdz3EwBx4XSC6+e9izZybfBHquF0C4nrh3
- SbKN6AERjbHQFVFzG8NkocKFI6ZvDlbPKJWkMmiDUODkx7jYEmEOLO+9CBGYLc3rr+3B
- wqFA==
-X-Gm-Message-State: AC+VfDx7XB7rOhydmyAgfXsve/IDbRZLkeXQ+AdNnTd3CcoeMAoT30Gm
- 9+ljvt5bmfjTowwEzGwMc4UNkg==
-X-Google-Smtp-Source: ACHHUZ7qZUkr8QULHI13GFQxQQksTABoqa3/KliVWWufTmgeQZCcLjdaM6GMdpfAhi6Uvior6iYHWA==
-X-Received: by 2002:a2e:9c5a:0:b0:2b1:ae75:2781 with SMTP id
- t26-20020a2e9c5a000000b002b1ae752781mr3258215ljj.27.1686609651128; 
- Mon, 12 Jun 2023 15:40:51 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- y12-20020a2e978c000000b002ac7c9d2806sm1936982lji.50.2023.06.12.15.40.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jun 2023 15:40:50 -0700 (PDT)
-Message-ID: <c31ee9e4-1878-c0ae-70e6-42af5fd838c7@linaro.org>
-Date: Tue, 13 Jun 2023 01:40:49 +0300
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7571D10E12E;
+ Mon, 12 Jun 2023 23:09:17 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id C6159201A2;
+ Tue, 13 Jun 2023 01:09:13 +0200 (CEST)
+Date: Tue, 13 Jun 2023 01:09:11 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <dbt3zbvagd4vrrrvpjokshebiebjaes77lvjv5ithsxggcdlrj@ce4l2ykex7bm>
+References: <20230612182534.3345805-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Bjorn Andersson <quic_bjorande@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Johan Hovold <johan+linaro@kernel.org>
-References: <20230612220106.1884039-1-quic_bjorande@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230612220106.1884039-1-quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Drop aux devices together with
- DP controller
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230612182534.3345805-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: do not enable
+ color-management if DSPPs are not available
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,99 +43,55 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/06/2023 01:01, Bjorn Andersson wrote:
-> Using devres to depopulate the aux bus made sure that upon a probe
-> deferral the EDP panel device would be destroyed and recreated upon next
-> attempt.
+On 2023-06-12 21:25:33, Dmitry Baryshkov wrote:
+> We can not support color management without DSPP blocks being provided
+> in the HW catalog. Do not enable color management for CRTCs if num_dspps
+> is 0.
 > 
-> But the struct device which the devres is tied to is the DPUs
-> (drm_dev->dev), which may be happen after the DP controller is torn
-> down.
-> 
-> Indications of this can be seen in the commonly seen EDID-hexdump full
-> of zeros in the log, or the occasional/rare KASAN fault where the
-> panel's attempt to read the EDID information causes a use after free on
-> DP resources.
-> 
-> It's tempting to move the devres to the DP controller's struct device,
-> but the resources used by the device(s) on the aux bus are explicitly
-> torn down in the error path.
+> Fixes: 4259ff7ae509 ("drm/msm/dpu: add support for pcc color block in dpu driver")
+> Reported-by: Yongqin Liu <yongqin.liu@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-I hoped that proper usage of of_dp_aux_populate_bus(), with the callback 
-function being non-NULL would have solved at least this part. But it 
-seems I'll never see this patch.
+Yep, this indeed makes the CTM blob property disappear from the CRTC
+resource:
 
-> The KASAN-reported use-after-free also
-> remains, as the DP aux "module" explicitly frees its devres-allocated
-> memory in this code path.
-> 
-> As such, explicitly depopulate the aux bus in the error path, and in the
-> component unbind path, to avoid these issues.
-> 
-> Fixes: 2b57f726611e ("drm/msm/dp: fix aux-bus EP lifetime")
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
 > ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 14 +++-----------
->   1 file changed, 3 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 3d8fa2e73583..bbb0550a022b 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -322,6 +322,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
->   
->   	kthread_stop(dp->ev_tsk);
->   
-> +	of_dp_aux_depopulate_bus(dp->aux);
-> +
->   	dp_power_client_deinit(dp->power);
->   	dp_unregister_audio_driver(dev, dp->audio);
->   	dp_aux_unregister(dp->aux);
-> @@ -1521,11 +1523,6 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
->   	}
->   }
->   
-> -static void of_dp_aux_depopulate_bus_void(void *data)
-> -{
-> -	of_dp_aux_depopulate_bus(data);
-> -}
-> -
->   static int dp_display_get_next_bridge(struct msm_dp *dp)
->   {
->   	int rc;
-> @@ -1554,12 +1551,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
->   		of_node_put(aux_bus);
->   		if (rc)
->   			goto error;
-> -
-> -		rc = devm_add_action_or_reset(dp->drm_dev->dev,
-> -						of_dp_aux_depopulate_bus_void,
-> -						dp_priv->aux);
-> -		if (rc)
-> -			goto error;
->   	} else if (dp->is_edp) {
->   		DRM_ERROR("eDP aux_bus not found\n");
->   		return -ENODEV;
-> @@ -1583,6 +1574,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
->   
->   error:
->   	if (dp->is_edp) {
-> +		of_dp_aux_depopulate_bus(dp_priv->aux);
->   		disable_irq(dp_priv->irq);
->   		dp_display_host_phy_exit(dp_priv);
->   		dp_display_host_deinit(dp_priv);
-
--- 
-With best wishes
-Dmitry
-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 6e684a7b49a1..1edf2b6b0a26 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1463,6 +1463,8 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
+>  struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+>  				struct drm_plane *cursor)
+>  {
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+>  	struct drm_crtc *crtc = NULL;
+>  	struct dpu_crtc *dpu_crtc = NULL;
+>  	int i, ret;
+> @@ -1494,7 +1496,8 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+>  
+>  	drm_crtc_helper_add(crtc, &dpu_crtc_helper_funcs);
+>  
+> -	drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
+> +	if (dpu_kms->catalog->dspp_count)
+> +		drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
+>  
+>  	/* save user friendly CRTC name for later */
+>  	snprintf(dpu_crtc->name, DPU_CRTC_NAME_SIZE, "crtc%u", crtc->base.id);
+> -- 
+> 2.39.2
+> 
