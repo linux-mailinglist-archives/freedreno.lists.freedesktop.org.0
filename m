@@ -2,71 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAD5772D469
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 00:31:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF09072D490
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 00:40:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B840210E2CA;
-	Mon, 12 Jun 2023 22:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2D610E106;
+	Mon, 12 Jun 2023 22:40:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5EA710E2C6
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 22:31:43 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2b203360d93so59374361fa.3
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 15:31:43 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C79510E106
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 22:40:53 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b1c910ee19so58871021fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 15:40:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686609102; x=1689201102;
+ d=linaro.org; s=google; t=1686609651; x=1689201651;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=cIiNh3EsWQh5XFXsht2Yjz2CVfu27o+IFNlM+KPIy54=;
- b=g8lwnvRs1s/lifFGdcnVYfHgD8dR4It0rPDdiT76piGnm7URYmtrLpJFPG9agC1MSB
- DNQra6wTgxZdfRt0zcMC/PqzuQfEFcvgahNOMMNYmdAyyH/4yE0ojQc9OPFPqGzJbsGI
- Unm9eCcSB8tNXEqrDDuJeyFinfi2jDcO65slFHeO/4Is1GSoONYYNILGom0zVk5L6Js/
- HTlmAygETSmeQ0IERV5QyaMG3hwK3Q8FHFzmTxgZXNr86cjfA5Sk86gRj2oQ7bZGFk1g
- QPhh/2d13ItUZiDQ+U9lxMwY7mczrxP+RTwY84fIKne/iBI6RAMjsVoVYw5FXRgsKY9r
- I8ww==
+ bh=PJv3SYkb3/54C0GBq7q+cwJt2WQz+XK/nza61SWhb9I=;
+ b=cCt9/utssvdNZaLZzNAWQ6y/DvDiM8GOgkCMWP0QBWJ/C72CmnAiEudYB6L+jQVNtD
+ 2E5kk1kw7ITjC2JUeg6HYh3QJlLXLAjS+lZ4xd++v2Z3j+fy7Ml6/HsNflXNWVDDf5Pd
+ ruyl4sJBoEiy/rHMahVxr9comFf9IRDgp3r1yFjODpOPL2tgk92sxIos45QlHEMJuLOr
+ qylShw/PvBj7zNQmW9J9YyERF0wen6HgdJPW79rUGQ+MDPCrqrHxK2MWT/BYfFSFRGsh
+ kex18Ad7cEfSG+2yVY465Ks1tA6Zm/toA+loDJPLVYYgJ0UF47L/tccjeaUe+uN/r7yU
+ Fd/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686609102; x=1689201102;
+ d=1e100.net; s=20221208; t=1686609651; x=1689201651;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cIiNh3EsWQh5XFXsht2Yjz2CVfu27o+IFNlM+KPIy54=;
- b=JZiaG504D2CGF3KUJBJ1llzVZRnFg3cMwzNAQITmK2bfWG73OFZnj6ee2vUCKuneza
- o7LwqPNBkhGcEZyb3y2cYSzGRGIZgPLZCmmsdsH00u1GugZOBSFrdCqemMvfVcg3qZ3h
- qRShSsJ+o0ZL/KkEqdtkYV0BFdsZryCfkxZYT+iH+dIAo5sEOOObje6CNehbSJ+b3I4U
- 9nGLta+CQODaxGeZOPvaZIfrGlFcWVesmC9GVgYc0uU+UOh0l2Bhol76c45ILpHs+a8r
- LaOJixEDiw9Z9ZoQh6bmktVxJE+3noK/lDdKFWt1l8uTcV35w8hV8GXvpAzA8/5PmvJW
- R2Qg==
-X-Gm-Message-State: AC+VfDwTbq95Bxo7UFwyZ/r+Mfk7ktm4TBLS+clVVmDjj3Twii5Aa73G
- 5BkbfAQIlMsM/EAviLobu+W/gg==
-X-Google-Smtp-Source: ACHHUZ55E2+88mAUkatf4uaHOVoJ/NCneD3K+X7+RJMzABDCbRTSeU3pb0MoQp3GxjQclQGbbv+n4A==
-X-Received: by 2002:a2e:8603:0:b0:2aa:40dd:7a55 with SMTP id
- a3-20020a2e8603000000b002aa40dd7a55mr3428308lji.8.1686609101832; 
- Mon, 12 Jun 2023 15:31:41 -0700 (PDT)
+ bh=PJv3SYkb3/54C0GBq7q+cwJt2WQz+XK/nza61SWhb9I=;
+ b=AnxaAULoQ/wgxzS20a8dW+GunhNhLLDWZ8gyNTM/OCCpKqiZCBHirHYB2q6fYeQNDz
+ 8pDR5xjb/Kj+PGXDf1CsVvgbgcfgM7U3Favv9ZqNiqiEp71sqN0MF79kBQDeOK+ifqCw
+ WYgYHhAfAX0OLIa0l+7shRLwnkPgenJdCoP8a12myvILUwPqT8Gvvc68VAarrmpKn09V
+ 0P2VC0bnwSb+fvhE2BUgR+wscwR0p5Sm+RIdz3EwBx4XSC6+e9izZybfBHquF0C4nrh3
+ SbKN6AERjbHQFVFzG8NkocKFI6ZvDlbPKJWkMmiDUODkx7jYEmEOLO+9CBGYLc3rr+3B
+ wqFA==
+X-Gm-Message-State: AC+VfDx7XB7rOhydmyAgfXsve/IDbRZLkeXQ+AdNnTd3CcoeMAoT30Gm
+ 9+ljvt5bmfjTowwEzGwMc4UNkg==
+X-Google-Smtp-Source: ACHHUZ7qZUkr8QULHI13GFQxQQksTABoqa3/KliVWWufTmgeQZCcLjdaM6GMdpfAhi6Uvior6iYHWA==
+X-Received: by 2002:a2e:9c5a:0:b0:2b1:ae75:2781 with SMTP id
+ t26-20020a2e9c5a000000b002b1ae752781mr3258215ljj.27.1686609651128; 
+ Mon, 12 Jun 2023 15:40:51 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- t9-20020a2e9d09000000b002a9ee18e9c7sm1860132lji.69.2023.06.12.15.31.40
+ y12-20020a2e978c000000b002ac7c9d2806sm1936982lji.50.2023.06.12.15.40.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jun 2023 15:31:41 -0700 (PDT)
-Message-ID: <435dd068-fbf2-10cf-4f78-377e689abb2c@linaro.org>
-Date: Tue, 13 Jun 2023 01:31:40 +0300
+ Mon, 12 Jun 2023 15:40:50 -0700 (PDT)
+Message-ID: <c31ee9e4-1878-c0ae-70e6-42af5fd838c7@linaro.org>
+Date: Tue, 13 Jun 2023 01:40:49 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-GB
 To: Bjorn Andersson <quic_bjorande@quicinc.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230612221047.1886709-1-quic_bjorande@quicinc.com>
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Johan Hovold <johan+linaro@kernel.org>
+References: <20230612220106.1884039-1-quic_bjorande@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230612221047.1886709-1-quic_bjorande@quicinc.com>
+In-Reply-To: <20230612220106.1884039-1-quic_bjorande@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Configure DP INTF/PHY selector
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Drop aux devices together with
+ DP controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,190 +82,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/06/2023 01:10, Bjorn Andersson wrote:
-> From: Bjorn Andersson <bjorn.andersson@linaro.org>
+On 13/06/2023 01:01, Bjorn Andersson wrote:
+> Using devres to depopulate the aux bus made sure that upon a probe
+> deferral the EDP panel device would be destroyed and recreated upon next
+> attempt.
 > 
-> Some platforms provides a mechanism for configuring the mapping between
-> (one or two) DisplayPort intfs and their PHYs.
+> But the struct device which the devres is tied to is the DPUs
+> (drm_dev->dev), which may be happen after the DP controller is torn
+> down.
 > 
-> In particular SC8180X provides this functionality, without a default
-> configuration, resulting in no connection between its two external
-> DisplayPort controllers and any PHYs.
+> Indications of this can be seen in the commonly seen EDID-hexdump full
+> of zeros in the log, or the occasional/rare KASAN fault where the
+> panel's attempt to read the EDID information causes a use after free on
+> DP resources.
 > 
-> The change implements the logic for optionally configuring which phy
-> each of the intfs should be connected to, provides a new entry in the
-> DPU catalog for specifying how many intfs to configure and marks the
-> SC8180X DPU to program 2 entries.
+> It's tempting to move the devres to the DP controller's struct device,
+> but the resources used by the device(s) on the aux bus are explicitly
+> torn down in the error path.
+
+I hoped that proper usage of of_dp_aux_populate_bus(), with the callback 
+function being non-NULL would have solved at least this part. But it 
+seems I'll never see this patch.
+
+> The KASAN-reported use-after-free also
+> remains, as the DP aux "module" explicitly frees its devres-allocated
+> memory in this code path.
 > 
-> For now the request is simply to program the mapping 1:1, any support
-> for alternative mappings is left until the use case arrise.
+> As such, explicitly depopulate the aux bus in the error path, and in the
+> component unbind path, to avoid these issues.
 > 
-> Note that e.g. msm-4.14 unconditionally maps intf 0 to phy 0 on all
-> rlatforms, so perhaps this is needed in order to get DisplayPort working
-> on some other platforms as well.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Fixes: 2b57f726611e ("drm/msm/dp: fix aux-bus EP lifetime")
 > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
->   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  1 +
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  2 ++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 23 +++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 +++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h      |  1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 10 ++++++++
->   6 files changed, 45 insertions(+)
+>   drivers/gpu/drm/msm/dp/dp_display.c | 14 +++-----------
+>   1 file changed, 3 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> index 8ed2b263c5ea..9da952692a69 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> @@ -19,6 +19,7 @@ static const struct dpu_caps sc8180x_dpu_caps = {
->   	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
->   	.max_hdeci_exp = MAX_HORZ_DECIMATION,
->   	.max_vdeci_exp = MAX_VERT_DECIMATION,
-> +	.num_dp_intf_sel = 2,
->   };
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 3d8fa2e73583..bbb0550a022b 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -322,6 +322,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
 >   
->   static const struct dpu_ubwc_cfg sc8180x_ubwc_cfg = {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index ac4a9e73705c..4cb8d096d8ec 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -357,6 +357,7 @@ struct dpu_rotation_cfg {
->    * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
->    * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
->    * @max_vdeci_exp      max vertical decimation supported (max is 2^value)
-> + * @num_dp_intf_sel    number of DP intfs to configure PHY selection for
->    */
->   struct dpu_caps {
->   	u32 max_mixer_width;
-> @@ -371,6 +372,7 @@ struct dpu_caps {
->   	u32 pixel_ram_size;
->   	u32 max_hdeci_exp;
->   	u32 max_vdeci_exp;
-> +	u32 num_dp_intf_sel;
->   };
+>   	kthread_stop(dp->ev_tsk);
 >   
->   /**
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-> index 963bdb5e0252..5afa99cb148c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
-> @@ -250,6 +250,27 @@ static void dpu_hw_intf_audio_select(struct dpu_hw_mdp *mdp)
->   	DPU_REG_WRITE(c, HDMI_DP_CORE_SELECT, 0x1);
->   }
->   
-> +static void dpu_hw_dp_phy_intf_sel(struct dpu_hw_mdp *mdp, unsigned int *phys,
-> +				   unsigned int num_intfs)
-> +{
-> +	struct dpu_hw_blk_reg_map *c = &mdp->hw;
-> +	unsigned int intf;
-> +	u32 sel = 0;
+> +	of_dp_aux_depopulate_bus(dp->aux);
 > +
-> +	if (!num_intfs)
-> +		return;
-> +
-> +	for (intf = 0; intf < num_intfs; intf++) {
-> +		/* Specify the PHY (1-indexed) for @intf */
-> +		sel |= (phys[intf] + 1) << (intf * 3);
-> +
-> +		/* Specify the @intf (1-indexed) of targeted PHY */
-> +		sel |= (intf + 1) << (6 + phys[intf] * 3);
-
- From what I can see, phys[intf] is const. What about defining indexed 
-masks instead?
-
-> +	}
-> +
-> +	DPU_REG_WRITE(c, DP_PHY_INTF_SEL, sel);
-> +}
-> +
->   static void _setup_mdp_ops(struct dpu_hw_mdp_ops *ops,
->   		unsigned long cap)
->   {
-> @@ -264,6 +285,8 @@ static void _setup_mdp_ops(struct dpu_hw_mdp_ops *ops,
->   
->   	ops->get_safe_status = dpu_hw_get_safe_status;
->   
-> +	ops->dp_phy_intf_sel = dpu_hw_dp_phy_intf_sel;
-
-Should this be gated for DPU < 4.0? Or 5.0?
-
-> +
->   	if (cap & BIT(DPU_MDP_AUDIO_SELECT))
->   		ops->intf_audio_select = dpu_hw_intf_audio_select;
->   }
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
-> index a1a9e44bed36..8446d74d59b0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
-> @@ -125,6 +125,14 @@ struct dpu_hw_mdp_ops {
->   	void (*get_safe_status)(struct dpu_hw_mdp *mdp,
->   			struct dpu_danger_safe_status *status);
->   
-> +	/**
-> +	 * dp_phy_intf_sel - configure intf to phy mapping
-> +	 * @mdp: mdp top context driver
-> +	 * @phys: list of phys the @num_intfs intfs should be connected to
-> +	 * @num_intfs: number of intfs to configure
-> +	 */
-> +	void (*dp_phy_intf_sel)(struct dpu_hw_mdp *mdp, unsigned int *phys,
-> +			        unsigned int num_intfs);
->   	/**
->   	 * intf_audio_select - select the external interface for audio
->   	 * @mdp: mdp top context driver
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
-> index 5acd5683d25a..6d31bdc7269c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
-> @@ -59,6 +59,7 @@
->   #define MDP_WD_TIMER_4_CTL2             0x444
->   #define MDP_WD_TIMER_4_LOAD_VALUE       0x448
->   #define DCE_SEL                         0x450
-> +#define DP_PHY_INTF_SEL                 0x460
-
-MDP_DP_PHY_INTF_SEL, if you don't mind.
-
->   
->   #define MDP_PERIPH_TOP0			MDP_WD_TIMER_0_CTL
->   #define MDP_PERIPH_TOP0_END		CLK_CTRL3
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index aa8499de1b9f..5dbe5d164c01 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1011,6 +1011,14 @@ unsigned long dpu_kms_get_clk_rate(struct dpu_kms *dpu_kms, char *clock_name)
->   	return clk_get_rate(clk);
->   }
->   
-> +static void dpu_kms_dp_phy_intf_sel(struct dpu_kms *dpu_kms)
-> +{
-> +	const unsigned int num_intfs = dpu_kms->catalog->caps->num_dp_intf_sel;
-> +	static unsigned int phy_map[] = {0, 1, 2};
-
-Please move this to dp_phy_intf_sel() and make it const.
-
-> +
-> +	dpu_kms->hw_mdp->ops.dp_phy_intf_sel(dpu_kms->hw_mdp, phy_map, num_intfs);
-> +}
-> +
->   static int dpu_kms_hw_init(struct msm_kms *kms)
->   {
->   	struct dpu_kms *dpu_kms;
-> @@ -1122,6 +1130,8 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->   		goto perf_err;
+>   	dp_power_client_deinit(dp->power);
+>   	dp_unregister_audio_driver(dev, dp->audio);
+>   	dp_aux_unregister(dp->aux);
+> @@ -1521,11 +1523,6 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
 >   	}
+>   }
 >   
-> +	dpu_kms_dp_phy_intf_sel(dpu_kms);
-> +
->   	dpu_kms->hw_intr = dpu_hw_intr_init(dpu_kms->mmio, dpu_kms->catalog);
->   	if (IS_ERR_OR_NULL(dpu_kms->hw_intr)) {
->   		rc = PTR_ERR(dpu_kms->hw_intr);
+> -static void of_dp_aux_depopulate_bus_void(void *data)
+> -{
+> -	of_dp_aux_depopulate_bus(data);
+> -}
+> -
+>   static int dp_display_get_next_bridge(struct msm_dp *dp)
+>   {
+>   	int rc;
+> @@ -1554,12 +1551,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>   		of_node_put(aux_bus);
+>   		if (rc)
+>   			goto error;
+> -
+> -		rc = devm_add_action_or_reset(dp->drm_dev->dev,
+> -						of_dp_aux_depopulate_bus_void,
+> -						dp_priv->aux);
+> -		if (rc)
+> -			goto error;
+>   	} else if (dp->is_edp) {
+>   		DRM_ERROR("eDP aux_bus not found\n");
+>   		return -ENODEV;
+> @@ -1583,6 +1574,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>   
+>   error:
+>   	if (dp->is_edp) {
+> +		of_dp_aux_depopulate_bus(dp_priv->aux);
+>   		disable_irq(dp_priv->irq);
+>   		dp_display_host_phy_exit(dp_priv);
+>   		dp_display_host_deinit(dp_priv);
 
 -- 
 With best wishes
