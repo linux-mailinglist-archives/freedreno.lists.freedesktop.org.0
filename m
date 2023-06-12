@@ -2,36 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE91972D4D6
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 01:11:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCAA172D507
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 01:38:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5461E10E2CB;
-	Mon, 12 Jun 2023 23:11:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB2410E2D7;
+	Mon, 12 Jun 2023 23:38:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B353710E2CB;
- Mon, 12 Jun 2023 23:11:45 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 25EFF201B1;
- Tue, 13 Jun 2023 01:11:41 +0200 (CEST)
-Date: Tue, 13 Jun 2023 01:11:39 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <vwd7khwlh2kn2nyrw5jm3sy4lm4hm4nweksg76cezvxnnybgoc@jjvtfaxufslb>
-References: <20230612182534.3345805-1-dmitry.baryshkov@linaro.org>
- <20230612182534.3345805-2-dmitry.baryshkov@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6FB510E2D7;
+ Mon, 12 Jun 2023 23:38:14 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35CNL5Gh019976; Mon, 12 Jun 2023 23:38:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : date :
+ subject : mime-version : content-type : content-transfer-encoding :
+ message-id : to : cc; s=qcppdkim1;
+ bh=nF0oxcJueMu5x7aoa0z57cKbfobnIExcbE0zg1TNeHU=;
+ b=SRnfHbLdzXaF1ChbEjrZDNiOKBjdN8M5MNpNFw87S/V8nQriV2G4fz3r9m/57CT4QID1
+ RSFSx31gE0q1SK6EtrYc9sOd3+zbzwcGmnre38wRiUSa9OtUK3jr1FGk108GBF+HQKAh
+ B8nmva7Adi/CZzSkMaBpVSZIMm+Js4bXkSjki/aoEkQTfV7WgoEAUelMRiOyrzOfGSm6
+ cfS8qQV7pdr3TLPrCOBzmcn5eq8ZsEeQCRF7DgHOP1lJBrR/RQ3tR74OO06ukupTP/qs
+ WM76bwzz4kAqANetqk+2mrFJWXN/uy4p1K0X16d16iTcAkX76ZbUuKKxKSd/smjlKyz9 Gw== 
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r68x98cxf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Jun 2023 23:38:11 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35CNcAUt031794
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Jun 2023 23:38:10 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Mon, 12 Jun 2023 16:38:10 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Mon, 12 Jun 2023 16:37:36 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230612182534.3345805-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu/catalog: define DSPP blocks
- found on sdm845
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20230608-b4-add-burst-mode-v1-1-55dfbcfada55@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIAD+sh2QC/x2NQQqDMBAAvyJ77kK0qbR9Qp/Q4mHXrBpoomS1C
+ OLfjT0OzDAbqCQvCs9igyQ/r36MGcpLAe1AsRf0LjNUprqa2tyRLZJzyEvSGcPoBOnGXFpr6kd
+ HkDsmFeREsR3O8vXGoAGjrDN+l0D96UxJOr/+v59m3w9wyGUGhwAAAA==
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>
+X-Mailer: b4 0.13-dev-c6835
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1686613090; l=1443;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=3AkGtxG8lwBTKyEdG06x39OyLfylf84f2+kPxqOtcqI=;
+ b=JAHAesW/J4wfvV5wP9axVDLHOPlsZhpT/iM1ivhliyp3ouVWT1acQrqsqHF9UA5yAhESpwRW5
+ i3bDV9jxpxVAXra/1DeTxUvCCPr8YoRSPiq1CVyMyuXlF1DpDlNFsDs
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: E6FXTjbu_VmQieQhUcmIPFNqfwsx4Kwa
+X-Proofpoint-ORIG-GUID: E6FXTjbu_VmQieQhUcmIPFNqfwsx4Kwa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-12_16,2023-06-12_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 mlxlogscore=662 mlxscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306120204
+Subject: [Freedreno] [PATCH] drm/msm/dsi: Enable BURST_MODE for command mode
+ for DSI 6G v1.3+
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,81 +92,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-12 21:25:34, Dmitry Baryshkov wrote:
-> Add definitions of DSPP blocks present on the sdm845 platform. This
-> should enable color-management on sdm845-bassed devices.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+During a frame transfer in command mode, there could be frequent
+LP11 <-> HS transitions when multiple DCS commands are sent mid-frame or
+if the DSI controller is running on slow clock and is throttled. To
+minimize frame latency due to these transitions, it is recommended to
+send the frame in a single burst.
 
-And with this, the CTM property is back on SDM845 and functions as
-intended: I am able to set a color transformation of choice with a
-quickly-pieced-together DRM utility:
+This feature is supported for DSI 6G 1.3 and above, thus enable burst
+mode if supported.
 
-    https://github.com/MarijnS95/drm-tools
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 744f2398a6d6..8254b06dca85 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -994,6 +994,11 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_TOTAL,
+ 			DSI_CMD_MDP_STREAM0_TOTAL_H_TOTAL(hdisplay) |
+ 			DSI_CMD_MDP_STREAM0_TOTAL_V_TOTAL(mode->vdisplay));
++
++		if (msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
++				msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V1_3)
++			dsi_write(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2,
++					DSI_CMD_MODE_MDP_CTRL2_BURST_MODE);
+ 	}
+ }
+ 
 
-> ---
->  .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    | 21 +++++++++++++++----
->  1 file changed, 17 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-> index 36ea1af10894..b6098141bb9b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-> @@ -96,19 +96,30 @@ static const struct dpu_sspp_cfg sdm845_sspp[] = {
->  
->  static const struct dpu_lm_cfg sdm845_lm[] = {
->  	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
-> -		&sdm845_lm_sblk, PINGPONG_0, LM_1, 0),
-> +		&sdm845_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
->  	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
-> -		&sdm845_lm_sblk, PINGPONG_1, LM_0, 0),
-> +		&sdm845_lm_sblk, PINGPONG_1, LM_0, DSPP_1),
->  	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
-> -		&sdm845_lm_sblk, PINGPONG_2, LM_5, 0),
-> +		&sdm845_lm_sblk, PINGPONG_2, LM_5, DSPP_2),
->  	LM_BLK("lm_3", LM_3, 0x0, MIXER_SDM845_MASK,
-> -		&sdm845_lm_sblk, PINGPONG_NONE, 0, 0),
-> +		&sdm845_lm_sblk, PINGPONG_NONE, 0, DSPP_3),
->  	LM_BLK("lm_4", LM_4, 0x0, MIXER_SDM845_MASK,
->  		&sdm845_lm_sblk, PINGPONG_NONE, 0, 0),
->  	LM_BLK("lm_5", LM_5, 0x49000, MIXER_SDM845_MASK,
->  		&sdm845_lm_sblk, PINGPONG_3, LM_2, 0),
->  };
->  
-> +static const struct dpu_dspp_cfg sdm845_dspp[] = {
-> +	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
-> +		 &sm8150_dspp_sblk),
-> +	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
-> +		 &sm8150_dspp_sblk),
-> +	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
-> +		 &sm8150_dspp_sblk),
-> +	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
-> +		 &sm8150_dspp_sblk),
-> +};
-> +
->  static const struct dpu_pingpong_cfg sdm845_pp[] = {
->  	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SDM845_TE2_MASK, 0, sdm845_pp_sblk_te,
->  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-> @@ -193,6 +204,8 @@ const struct dpu_mdss_cfg dpu_sdm845_cfg = {
->  	.sspp = sdm845_sspp,
->  	.mixer_count = ARRAY_SIZE(sdm845_lm),
->  	.mixer = sdm845_lm,
-> +	.dspp_count = ARRAY_SIZE(sdm845_dspp),
-> +	.dspp = sdm845_dspp,
->  	.pingpong_count = ARRAY_SIZE(sdm845_pp),
->  	.pingpong = sdm845_pp,
->  	.dsc_count = ARRAY_SIZE(sdm845_dsc),
-> -- 
-> 2.39.2
-> 
+---
+base-commit: dd969f852ba4c66938c71889e826aa8e5300d2f2
+change-id: 20230608-b4-add-burst-mode-a5bb144069fa
+
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
