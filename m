@@ -1,79 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 202D672CBC9
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 18:51:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 563FF72CC76
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 19:26:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BCF410E053;
-	Mon, 12 Jun 2023 16:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76C5D10E1AA;
+	Mon, 12 Jun 2023 17:26:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD5C10E2C1
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 16:51:03 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4f619c2ba18so5156996e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 09:51:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686588660; x=1689180660;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bc2XJlWre4e2gBDTdr+40bFjaee8RTH5UZuMdlZsuEU=;
- b=eZRgWXqo4hq6/oz9ha7x5zEK9V63CWuGLWH1lCsWH+9SQalC9QrdW9+Z8Sm1vPaZQW
- zjNDfoE6ARzQMwD+LgcM11ZFKqNHjtoz+e6al+L+ysHRyViWSg9iEGWzZDxB3xHFSiAL
- YyQ7LU2QpfIixZ3vpyayhXQh+zlMwNl/Vuk1TEiBH7bWjHFTRbVcVAfCeCygiqzO3BXU
- HdOIrIvijxV28fZ/XvnLZHMiz0XOdVl3768Q6DVJ/Zp68oUbRDTUzMEw17/bABFys7pQ
- OSG5P2bTuU7z6msDQPCa4G7wqBEjVeeirRTCPaUG9r3ebjQdOhvysO5ex8DjjOzNDAmz
- XoUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686588660; x=1689180660;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bc2XJlWre4e2gBDTdr+40bFjaee8RTH5UZuMdlZsuEU=;
- b=KF7ApOBmoh7deijkcLpbPPKtKkZE+mh82d3XwowKMIbJUurGbc0lL/z0E70PjkMtSQ
- z9FF1/nSzX1P+RN9tr/PDCjqWp+Nc88jVdFExYhUDA7yk6i0B901odrMjG7AOuNJ7bBM
- jSZ0k5zPou0kLyobY+cXOEUB+ZFn1i/W5EP+XCFgKe9kKRXOXKCdnQLXFZ7zIl5lh/A7
- CcY59c0nQoFwMnSI5KNn2GnqmbwZX/xYP62twI7I8sZ1huZpHyjNiwO8TmPhPC56V+P7
- L5pJ8a2rrnzQWwUPmlZSGQtJ5iuhxV53eDqsC1fsXMF1ihkeEU+bpGwmsNenvSfh1RRn
- Iz3g==
-X-Gm-Message-State: AC+VfDxrWAyclglGdT5A1j4q8SPIwVeFzU8QOfvVdDhfXW2fAnNTR4Zx
- 5iVH6C75uZn7Bk8hhx0vMA/wZg==
-X-Google-Smtp-Source: ACHHUZ6EkKBZ+W8P5v+lv3YaBBS6PyGdorCb5izxLPIOXCqPw9kHf6veSA7sPnKJFqZWW7ZxSuYXRA==
-X-Received: by 2002:a19:5f1c:0:b0:4f3:a69e:1d80 with SMTP id
- t28-20020a195f1c000000b004f3a69e1d80mr3863304lfb.0.1686588659862; 
- Mon, 12 Jun 2023 09:50:59 -0700 (PDT)
-Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
- by smtp.gmail.com with ESMTPSA id
- j4-20020ac253a4000000b004f262997496sm1479085lfh.76.2023.06.12.09.50.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jun 2023 09:50:59 -0700 (PDT)
-Message-ID: <ce7c4402-b58e-b5df-c864-9f1a959132d0@linaro.org>
-Date: Mon, 12 Jun 2023 18:50:57 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 809E010E0C7;
+ Mon, 12 Jun 2023 17:26:47 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35CGtBGW019445; Mon, 12 Jun 2023 17:26:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=OHfuioKkw0sSpQtX9200zS3CjcWSpGjjyhgTtDXGPmM=;
+ b=iproMTiiq2fmZRyz4/qPhZhdMDQHP6+3hw21rySefMHqodZjQzkZ4ythgEKN3z7EjZB5
+ /aDvsUE5h05zCj4CJbkCrVNIFrMNAxLROlNp8RZB0hLUTF4tZblYaxx5F3hWLfbREdcq
+ QsoxaaT4AM4JsFG5kAqAtlc7r/cbqKY77J6bvNQiThwwZd0rt02a8kStkU8BntMkWNlZ
+ M0C+95mewJKzG0bnPEtD9qYRTf9xl78GVwhvEcH9418Ur1Be3wfHcaMDTpYVQbm8/tkX
+ xdUV/FL0YWjOk1sQINwbFMRP6zkmuu0y11NkKfSwNFmu1smH6B/Wp5XCQOwdIOc6mr4J Bw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r4ehtv4w3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Jun 2023 17:26:44 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35CHQhBJ030448
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Jun 2023 17:26:43 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 12 Jun
+ 2023 10:26:41 -0700
+Message-ID: <ffdaddd0-4f2b-7846-322b-8efeadf7ed0c@quicinc.com>
+Date: Mon, 12 Jun 2023 10:26:39 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-References: <20230601-topic-sm8550-upstream-dp-v3-0-5f9ffdcb8369@linaro.org>
- <20230601-topic-sm8550-upstream-dp-v3-1-5f9ffdcb8369@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230601-topic-sm8550-upstream-dp-v3-1-5f9ffdcb8369@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Marijn Suijten <marijn.suijten@somainline.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>
+References: <20230405-add-dsc-support-v6-0-95eab864d1b6@quicinc.com>
+ <20230405-add-dsc-support-v6-6-95eab864d1b6@quicinc.com>
+ <6uiyqgggt2a3gkcihtyzr4rvq5igbe3ojpeiqnji22663bhh2l@3jifgk7bw4u5>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <6uiyqgggt2a3gkcihtyzr4rvq5igbe3ojpeiqnji22663bhh2l@3jifgk7bw4u5>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/2] arm64: dts: qcom: sm8550: fix
- low_svs RPMhPD labels
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: e_XxNZDwJDINU3TH43jITT2yedyJgZ8k
+X-Proofpoint-ORIG-GUID: e_XxNZDwJDINU3TH43jITT2yedyJgZ8k
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-12_12,2023-06-12_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0
+ priorityscore=1501 mlxscore=0 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 spamscore=0 mlxlogscore=999 adultscore=0
+ suspectscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2305260000 definitions=main-2306120150
+Subject: Re: [Freedreno] [PATCH v6 6/6] drm/msm/dsi: Document DSC related
+ pclk_rate and hdisplay calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +86,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad
+ Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12.06.2023 17:26, Neil Armstrong wrote:
-> "low" was written "lov", fix this.
+On 6/11/2023 3:03 PM, Marijn Suijten wrote:
+> On 2023-06-09 15:57:18, Jessica Zhang wrote:
+>> Add documentation comments explaining the pclk_rate and hdisplay math
+>> related to DSC.
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 10 ++++++++++
+>>   1 file changed, 10 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index fb1d3a25765f..aeaadc18bc7b 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -564,6 +564,13 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+>>   static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
+>>   		const struct drm_dsc_config *dsc)
+>>   {
+>> +	/*
+>> +	 * Adjust the pclk rate by calculating a new hdisplay proportional to
+>> +	 * the compression ratio such that:
+>> +	 *     new_hdisplay = old_hdisplay * target_bpp / source_bpp
+>> +	 *
+>> +	 * Porches need not be adjusted during compression.
+>> +	 */
+>>   	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
+>>   			dsc->bits_per_component * 3);
 > 
-> Fixes: 99d33ee61cb0 ("arm64: dts: qcom: sm8550: Add missing RPMhPD OPP levels")
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
-https://lore.kernel.org/linux-arm-msm/1d3c05f5-c1bd-6844-1788-8df0b863a02e@linaro.org/
+> I won't reiterate my original troubles with this logic and the comment
+> as that has well been described in v5 replies.
+> 
+> Just want to ask why this comment couldn't be added in patch 5/6
+> immediately when the logic is introduced?  Now readers won't have a clue
+> what is going on until they skip one patch ahead.
+> 
 
-somebody forgot to run `b4 trailers -u` :P
+Both myself and Dmitry discussed that in this particular case, we will 
+add the documentation as a follow-up patch and merge it together. Not 
+usually the process, but in this case, just decided to do it this way. 
+The series will still be merged as one.
 
-Konrad
->  arch/arm64/boot/dts/qcom/sm8550.dtsi | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+> Furthermore it is lacking any explanation that this is a workaround for
+> cmd-mode, and that porches are currently used to represent "transfer
+> time" until those calculations are implemented.  At that point there is
+> no concept of "not adjusting porches for compressed signals" anymore.
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> index 75cd374943eb..972df1ef86ee 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -3649,15 +3649,15 @@ rpmhpd_opp_min_svs: opp-48 {
->  						opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
->  					};
->  
-> -					rpmhpd_opp_lov_svs_d2: opp-52 {
-> +					rpmhpd_opp_low_svs_d2: opp-52 {
->  						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
->  					};
->  
-> -					rpmhpd_opp_lov_svs_d1: opp-56 {
-> +					rpmhpd_opp_low_svs_d1: opp-56 {
->  						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
->  					};
->  
-> -					rpmhpd_opp_lov_svs_d0: opp-60 {
-> +					rpmhpd_opp_low_svs_d0: opp-60 {
->  						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
->  					};
->  
+
+This is a much bigger topic and goes out of scope of this patch and 
+series and I dont want to explain all that in this documentation patch.
+
+If we explain that this is specific to command mode, what would the 
+panel drivers fill out for porches . Obviously they cannot fill out a 0.
+
+Coming to transfer time. Even if current panel drivers use 0 porches, 
+the clock you get should still be sufficient for 60fps or a transfer 
+time of 16.66ms.
+
+Transfer time was a concept introduced for some specific command mode 
+panels where we needed to finish transferring the frame even faster than 
+16.66ms like 12ms or 13ms.
+
+Yes, without that, upstream and downstream math doesnt match. But that 
+doesnt mean its going to break the panels or that upstream math is 
+wrong. If you think command mode porches should be 0, then this will 
+give you the clk for 60fps. If you add some random porches, it will just 
+give a faster clock.
+
+Porches can be used instead of transfer time till we add that math but 
+again, thats only needed for panels which need a faster transfer time 
+than 16.66ms.
+
+So we dont need to call this a workaround in my opinion at all (and hack 
+as you called in v5 is totally out of proportion).
+
+One could even argue that if the panel needs a transfer time faster than 
+16.66ms, then the mode->clock should also be bumped up. Panels dont do 
+that today either.
+
+Hence, I am going to consider transfer time as an enhancement and not 
+going to take that up in this series so I am not for adding that comment 
+here.
+
+And as I have explained, this patch is not a workaround either. Its just 
+calculating the clock based on what we have today in the panel drivers.
+
+
+
+>>   
+>> @@ -961,6 +968,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>>   
+>>   		/* Divide the display by 3 but keep back/font porch and
+>>   		 * pulse width same
+>> +		 *
+>> +		 * hdisplay will be divided by 3 here to account for the fact
+>> +		 * that DPU sends 3 bytes per pclk cycle to DSI.
+>>   		 */
+>>   		h_total -= hdisplay;
+>>   		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
 > 
+> Still very glad to have this, thank you for adding it.  Note that it
+> only further undermines the pclk adjustments, as I just explained in v5
+> review.
+> 
+> - Marijn
+> 
+>>
+>> -- 
+>> 2.40.1
+>>
