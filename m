@@ -2,38 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 802D972CD72
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 20:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2025272CDE9
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 20:25:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5143A10E055;
-	Mon, 12 Jun 2023 18:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CECBA10E2BC;
+	Mon, 12 Jun 2023 18:25:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB6E410E1E9
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 18:04:33 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 3A92520071;
- Mon, 12 Jun 2023 20:04:28 +0200 (CEST)
-Date: Mon, 12 Jun 2023 20:04:26 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <ufirohxuhba32znw74pxvyhsvgfr7sejrreh4unhj6chmneood@aszgvd7xrr6l>
-References: <20230405-add-dsc-support-v6-0-95eab864d1b6@quicinc.com>
- <20230405-add-dsc-support-v6-6-95eab864d1b6@quicinc.com>
- <6uiyqgggt2a3gkcihtyzr4rvq5igbe3ojpeiqnji22663bhh2l@3jifgk7bw4u5>
- <ffdaddd0-4f2b-7846-322b-8efeadf7ed0c@quicinc.com>
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 142E610E2B8
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 18:25:32 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2b1a6a8e851so57240361fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 11:25:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686594328; x=1689186328;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SRzyUIsK6pGxw41itI7qcW9AyOhEGSR+zGX4cSAWEUE=;
+ b=P1ebaDZ0Utu/VtBVcEq4AwPmyzWiTMqd/oI2be4YyyHZ+2AA9cNaINLxwe2+97Htt+
+ xwbWwOWRiPrvLZ3J0zhyYNMXvVMiJdF+v6WtdcyXdRnXPGZ98GqAcLcqcpJmO41OxqEo
+ dhv7VhApeUAQVi4RVR5VzVfXBTFvRLmzR9rbhmcdxfAlOUgUTRO8ohqcDMYhjKx7+SlI
+ oGZgAdf3P+/okYUfe8IojoWAn6dfH3NcaV4QTuXapFfv1r5yHkcbKZHS87vgqhJHTC6x
+ amw2aUFCqyLEkwCc+30g0PJwqrMG6AKtOvRJufBdV7qqJn3n4/PVAl4RHh0GK7RbgN4H
+ ifIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686594328; x=1689186328;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SRzyUIsK6pGxw41itI7qcW9AyOhEGSR+zGX4cSAWEUE=;
+ b=eRedNcVSlWRzzhokMNs0ftVrtRKjk28RibyT3z/OoCQhDejBCu34bWYvi0RSZKr3JA
+ WDNVvz4+4dv3vJO3xEmCvC9ikCcqWQchR5+zMwxsi2IyRAfFw6nbbSEiud3657X8pUXa
+ vMENbDwSeimZCLi5gJgknpz1E5Gz9p4LUMkthbiJV7ZWZgS091khFZ8yu8TrK+rsZhTF
+ svZN/1WUDGUcRc0B46i5ZtwemDGqk+kl8TQFOIENO7SC8HxAhBaEvodX2b7r9xjLArg7
+ dWRaDNQlleh5vSJ0zoKnwPzjgNDbquEkIKNUHRAZjESGUg3/6FH8GZ8fcTDx00JLBsq5
+ KRBg==
+X-Gm-Message-State: AC+VfDz27Ct+EnH4RCNeCUcKpkhFvyd78Yve2saxMRBjqiw3zcTRcGU0
+ e62YDVznrexaQhDgNDqFuDL0tQ==
+X-Google-Smtp-Source: ACHHUZ7vMn7X3kb0tD+cRSlLHmzDPF8v+1lJz7x03jVDXdtf6kEG5bHgrV44bNAQA2AjJIr5UIvYSQ==
+X-Received: by 2002:a2e:95d5:0:b0:2b1:bf5d:4115 with SMTP id
+ y21-20020a2e95d5000000b002b1bf5d4115mr3201417ljh.13.1686594328479; 
+ Mon, 12 Jun 2023 11:25:28 -0700 (PDT)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ v10-20020a2e960a000000b002adbe01cd69sm1875106ljh.9.2023.06.12.11.25.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jun 2023 11:25:28 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Mon, 12 Jun 2023 21:25:27 +0300
+Message-Id: <20230612182527.3345786-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ffdaddd0-4f2b-7846-322b-8efeadf7ed0c@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v6 6/6] drm/msm/dsi: Document DSC related
- pclk_rate and hdisplay calculations
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/adreno: make adreno_is_a690()'s
+ argument const
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,167 +74,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-12 10:26:39, Abhinav Kumar wrote:
-> 
-> 
-> On 6/11/2023 3:03 PM, Marijn Suijten wrote:
-> > On 2023-06-09 15:57:18, Jessica Zhang wrote:
-> >> Add documentation comments explaining the pclk_rate and hdisplay math
-> >> related to DSC.
-> >>
-> >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/dsi/dsi_host.c | 10 ++++++++++
-> >>   1 file changed, 10 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> >> index fb1d3a25765f..aeaadc18bc7b 100644
-> >> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> >> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> >> @@ -564,6 +564,13 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
-> >>   static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
-> >>   		const struct drm_dsc_config *dsc)
-> >>   {
-> >> +	/*
-> >> +	 * Adjust the pclk rate by calculating a new hdisplay proportional to
-> >> +	 * the compression ratio such that:
-> >> +	 *     new_hdisplay = old_hdisplay * target_bpp / source_bpp
-> >> +	 *
-> >> +	 * Porches need not be adjusted during compression.
-> >> +	 */
-> >>   	int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
-> >>   			dsc->bits_per_component * 3);
-> > 
-> > I won't reiterate my original troubles with this logic and the comment
-> > as that has well been described in v5 replies.
-> > 
-> > Just want to ask why this comment couldn't be added in patch 5/6
-> > immediately when the logic is introduced?  Now readers won't have a clue
-> > what is going on until they skip one patch ahead.
-> > 
-> 
-> Both myself and Dmitry discussed that in this particular case, we will 
-> add the documentation as a follow-up patch and merge it together. Not 
-> usually the process, but in this case, just decided to do it this way. 
-> The series will still be merged as one.
+Change adreno_is_a690() prototype to accept the const struct adreno_gpu
+pointer instead of a non-const one. This fixes the following warning:
 
-Just saying that it doesn't make much sense from a "reading the patches
-after they've been merged" point of view, maybe there was a
-misunderstanding here that Dmitry would have been okay with a followup
-patch if the pclk patch got merged... But since it didn't, I would at
-least prefer that to be squashed (but I am not the maintainer, so you'll
-obviously take that with a grain of salt).
+In file included from drivers/gpu/drm/msm/msm_drv.c:33:
+drivers/gpu/drm/msm/adreno/adreno_gpu.h: In function ‘adreno_is_a660_family’:
+drivers/gpu/drm/msm/adreno/adreno_gpu.h:303:54: warning: passing argument 1 of ‘adreno_is_a690’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+  303 |         return adreno_is_a660(gpu) || adreno_is_a690(gpu) || adreno_is_7c3(gpu);
 
-> > Furthermore it is lacking any explanation that this is a workaround for
-> > cmd-mode, and that porches are currently used to represent "transfer
-> > time" until those calculations are implemented.  At that point there is
-> > no concept of "not adjusting porches for compressed signals" anymore.
-> > 
-> 
-> This is a much bigger topic and goes out of scope of this patch and 
-> series and I dont want to explain all that in this documentation patch.
-> 
-> If we explain that this is specific to command mode, what would the 
-> panel drivers fill out for porches . Obviously they cannot fill out a 0.
-> 
-> Coming to transfer time. Even if current panel drivers use 0 porches, 
-> the clock you get should still be sufficient for 60fps or a transfer 
-> time of 16.66ms.
-> 
-> Transfer time was a concept introduced for some specific command mode 
-> panels where we needed to finish transferring the frame even faster than 
-> 16.66ms like 12ms or 13ms.
+Fixes: 1b90e8f8879c ("drm/msm/adreno: change adreno_is_* functions to accept const argument")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-That probably explains why, for the same sofef01 Driver-IC for example,
-but with slight variations in panels (and SoC...), I was able to achieve
-60Hz on the Xperia 10 II with 0-porches, yet the Xperia 5 (and 10 III?)
-require quite a bit more "pclk" to reach 60Hz.
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 1283e5fe22d2..9a7626c7ac4d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -284,7 +284,7 @@ static inline int adreno_is_a660(const struct adreno_gpu *gpu)
+ 	return adreno_is_revn(gpu, 660);
+ }
+ 
+-static inline int adreno_is_a690(struct adreno_gpu *gpu)
++static inline int adreno_is_a690(const struct adreno_gpu *gpu)
+ {
+ 	return gpu->revn == 690;
+ };
+-- 
+2.39.2
 
-(I don't think 10 III ever achieved 60Hz, but the clocktree and/or panel
- cmds might be wrong)
-
-> Yes, without that, upstream and downstream math doesnt match. But that 
-> doesnt mean its going to break the panels or that upstream math is 
-> wrong. If you think command mode porches should be 0, then this will 
-> give you the clk for 60fps. If you add some random porches, it will just 
-> give a faster clock.
-
-And exactly this little bit of text is what I'd like to see in a comment
-:)
-
-> Porches can be used instead of transfer time till we add that math but 
-> again, thats only needed for panels which need a faster transfer time 
-> than 16.66ms.
-
-Same here, why can't we have this in a code comment?
-
-> So we dont need to call this a workaround in my opinion at all (and hack 
-> as you called in v5 is totally out of proportion).
-
-Don't get me wrong, it is still a hack to only scale the hdisplay
-portion without ever explaining in any comment why the porches are not
-taken into account (the explanation you gave above is perfect!), instead
-of calculating the right pclk from the get-go and ignoring the DRM mode
-clock altogether.
-
-> One could even argue that if the panel needs a transfer time faster than 
-> 16.66ms, then the mode->clock should also be bumped up. Panels dont do 
-> that today either.
-
-But we cannot easily bump the `clock` member as that'd break the value
-returned by drm_mode_vrefresh(), unless we also come up with a fake
-porch in htotal or vtotal as that is what it will be divided by.
-
-This ties into a recent discussion where "someone" mentioned that DRM
-isn't really designed with CMD mode panels, in mind... and perhaps my
-observations here are just scratching the surface?
-
-> Hence, I am going to consider transfer time as an enhancement and not 
-> going to take that up in this series so I am not for adding that comment 
-> here.
-
-No need to add a TODO stating that it needs to be added, but it'd be
-good to at the very least explain ***why*** only the hdisplay portion is
-scaled and not everything else?
-
-> And as I have explained, this patch is not a workaround either. Its just 
-> calculating the clock based on what we have today in the panel drivers.
-
-Agree to disagree?  Beyond sending my take on these two patches as an
-RFC, I don't think there's a point discussing this much furter as we
-seem to disagree and misunderstand eachother on a fundamental level.
-And we haven't even gotten into the "src_bpp / target_bpp" versus "24
-bits per pclk" details yet.
-
-- Marijn
-
-> >> @@ -961,6 +968,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-> >>   
-> >>   		/* Divide the display by 3 but keep back/font porch and
-> >>   		 * pulse width same
-> >> +		 *
-> >> +		 * hdisplay will be divided by 3 here to account for the fact
-> >> +		 * that DPU sends 3 bytes per pclk cycle to DSI.
-> >>   		 */
-> >>   		h_total -= hdisplay;
-> >>   		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
-> > 
-> > Still very glad to have this, thank you for adding it.  Note that it
-> > only further undermines the pclk adjustments, as I just explained in v5
-> > review.
-> > 
-> > - Marijn
-> > 
-> >>
-> >> -- 
-> >> 2.40.1
-> >>
