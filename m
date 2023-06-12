@@ -1,69 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A20C72CE05
-	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 20:25:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F9C172CE27
+	for <lists+freedreno@lfdr.de>; Mon, 12 Jun 2023 20:30:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 209C910E209;
-	Mon, 12 Jun 2023 18:25:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16CED10E2BD;
+	Mon, 12 Jun 2023 18:30:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 612C810E2BA
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 18:25:38 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-4f63ea7bfb6so5277529e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 11:25:38 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E5510E2D7
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 18:30:09 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2b1adf27823so56649491fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 11:30:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686594336; x=1689186336;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I9Wojx8CKa0fNsj3PWh9HoNqa1CUIodoAFt77duCrjQ=;
- b=nFgAZCUI/1tlMnEtguQZ4L2eUtklwJLryWFg4VXcDBpX1AieZuKajcF5QBL3D/HEBk
- tNB6rZaOAlO/wKSqoa7m+FJI/m2asfcl23y2xYuQLuLskk0nnn5L3UyW2OHt/IvdnW5S
- 7K8JAoiq8tKDzsaBaxlxGuFSh6S984x2qVFHokyforSiSPos1YlYPCBWg1Ux9V4/qlvZ
- c6T/LB72ftaiAadxE5eD32wo51kyGW0H/EkSA/necv9SS9GPh+Iprfls5Xtj7mYmzsb7
- 1A5GY9x3Cs2ABCu9B4NSzJmUT6aL0U3zUax6IEkwOjsNnhoY6NGGc1q5a8Sn/U4A2aMf
- ov9g==
+ d=linaro.org; s=google; t=1686594607; x=1689186607;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=86ugo32DRfKDcuMrDG0yQ43XUYb0oQVlSxJDfDAPaVg=;
+ b=dKoteqlNv9+E30xypMf0WlSywBagA+fPeLhvu2Fwd4e7n1wieMST4o4+Ozdl8lNxF3
+ ZMTMCH3HagCdQ6OhGn3PUMxABYNBP5508IgD/EWwXfUuEnyCJe+MVhSccbj2TpWPJyJ/
+ R+kwu6JVoopOxT3LMWS7RbvXphKyQ2eAUWRUXEnZ6kNraY80ffrzXv2dc/1Fv4N2Fy6T
+ 82wQc6Fa/QWvESYq43VLgwBDOuFduNnh4ZcUQAukv9xS0KRr07PKiFMQwWUXcpQfE9bD
+ EEBAg5cuZaCHXRnZQXQnkhg8QQ5Tyq0TnfyYnGSdq0tFs+PCCXm7ahVsdhPR95S+K4ez
+ gQTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686594336; x=1689186336;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I9Wojx8CKa0fNsj3PWh9HoNqa1CUIodoAFt77duCrjQ=;
- b=auwMZAqgvDWM/nEAi5B3W0t8zaPRuLVDWBKgmi2ESzo0p8hdXZRL+4/AF7vEXK6bZT
- cJ/CG++ioaGiip1dD1BhGGR/0pFeL3zpBxjIgZPtm+UJRBbZQgQ9IE8iy4Cy0EIMYuxl
- yEgulH4JAcAv+3TfPslqSeb+MsoHw2M3+KVWhByY0Xua7h88Sj9aCzWzJz9baO24caTS
- 91jYI6N5mIZeq6RXF9ES94rhTjZoJVHpa/qphoshnxJ6MziXZGvRXExTf2WuDcn0Q1Rq
- HR8oAXIJ7mLIrBNFgQCRh9N32tyGarz9RFc9sntVQXaLRwMRGPMfo0AZ4NVFTFxeFvjV
- UpCQ==
-X-Gm-Message-State: AC+VfDzHATX5I7pYnp3M3VVVOmALmoglIaSlzpa1XnKtMkvr0GXc1Ax5
- xn17Rl4+gNjubvCef1g+nv4WQg==
-X-Google-Smtp-Source: ACHHUZ6578JElAAJEDCsUrnC1f/XMi/IpFjcTFO30GFGBTTaAAIYCSZWM5flDs14jhM0MPgfoXrnRg==
-X-Received: by 2002:a05:6512:44b:b0:4f2:6817:2379 with SMTP id
- y11-20020a056512044b00b004f268172379mr3843186lfk.23.1686594336223; 
- Mon, 12 Jun 2023 11:25:36 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- v16-20020ac25930000000b004f63dd1dab0sm1503396lfi.98.2023.06.12.11.25.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 11:25:35 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon, 12 Jun 2023 21:25:34 +0300
-Message-Id: <20230612182534.3345805-2-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230612182534.3345805-1-dmitry.baryshkov@linaro.org>
-References: <20230612182534.3345805-1-dmitry.baryshkov@linaro.org>
+ d=1e100.net; s=20221208; t=1686594607; x=1689186607;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=86ugo32DRfKDcuMrDG0yQ43XUYb0oQVlSxJDfDAPaVg=;
+ b=Pg3SYyrnEbWN+oeaCnyI9nRCR0Z3mlukDG7hYJS7PXmH4+Eez8JJwinBfXxvgR9YcP
+ Tgc52+idVYJfQHGYclAdguYvz6E8WYD/mi9lMUlQF2667zOYfRKvUETiQTzttq4oATxk
+ zPYWxHxj/YwTjSABw16zS20X9DB/MPj0Y2Bg6gyZSzwO5o97wjiV80xBcAOw683TybLD
+ LvSzQfzBr5Jo81E7f5NAw6A6VaCwrGm9ar+nMGQ41QLiLi7jvWZPuEHq7CtmzbzolvTB
+ vitLgRKVCGR3D4DeDvYmbAgy1VpSP2NTjoWDwX3dOpaxUycuIxjGaE6BEdX6fBr4q6Sw
+ tBWQ==
+X-Gm-Message-State: AC+VfDwYAS3VIdiy2G29r4rH76KP22enjY1lrSGM49kglr5hy9j0KjEu
+ OFvlcOsIaVMFAzXBx0+//1MGzA==
+X-Google-Smtp-Source: ACHHUZ6X9nloN3ygOvB6chpZTre6E0HKZJ17Z6MMO57ovWo5jJeV9l7k/AX8bvH4CTKcSrSzc9+hkw==
+X-Received: by 2002:a05:651c:1023:b0:2ad:dd7e:6651 with SMTP id
+ w3-20020a05651c102300b002addd7e6651mr3634093ljm.43.1686594606728; 
+ Mon, 12 Jun 2023 11:30:06 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ f9-20020a2e9509000000b002b32d4a59d5sm530954ljh.117.2023.06.12.11.30.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jun 2023 11:30:06 -0700 (PDT)
+Message-ID: <a8b72f2a-d5b2-723e-405a-e7c304ddeed4@linaro.org>
+Date: Mon, 12 Jun 2023 21:30:05 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dpu/catalog: define DSPP blocks
- found on sdm845
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230612031616.3620134-1-dmitry.baryshkov@linaro.org>
+ <20230612031616.3620134-2-dmitry.baryshkov@linaro.org>
+ <g4ogg7ecraduqbvcxsost2lm26fr6rswdm4tgba5ae23b5jjvg@6mzv2u7bmw7u>
+ <yyjkikzxsggwlnxcexho62zkapw5xrkogvoclsu6af7t5xcp3a@jdssfb3hz7px>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <yyjkikzxsggwlnxcexho62zkapw5xrkogvoclsu6af7t5xcp3a@jdssfb3hz7px>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dsi: don't allow enabling 7nm
+ VCO with unprogrammed rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +81,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Degdag Mohamed <degdagmohamed@gmail.com>,
+ Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add definitions of DSPP blocks present on the sdm845 platform. This
-should enable color-management on sdm845-bassed devices.
+On 12/06/2023 12:21, Marijn Suijten wrote:
+> On 2023-06-12 11:15:53, Marijn Suijten wrote:
+>> On 2023-06-12 06:16:16, Dmitry Baryshkov wrote:
+>>> CCF can try enabling VCO before the rate has been programmed. This can
+>>> cause clock lockups and/or other boot issues. Program the VCO to the
+>>> minimal PLL rate if the read rate is 0 Hz.
+>>>
+>>> Reported-by: Degdag Mohamed <degdagmohamed@gmail.com>
+>>> Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>
+>> This unfortunately regresses my Xperia 5 (sofef01 panel driver that's
+>> on the lists) to now run at 30~33Hz instead of 60Hz.  I can provide
+>> debugging and clk trees later, if needed.
+> 
+> I'll also retest the Xperia 1 with this, which has a 4k DSC panel.
+> 
+> Is this intended to get rid of:
+> 
+>      msm_dsi_phy ae94400.phy: [drm:dsi_pll_7nm_vco_prepare] *ERROR* DSI PLL(0) lock failed, status=0x00000000: -110
+>      PLL(0) lock failed
+> 
+> ... at startup (and relevant rcg2 update_config failures, unbalanced
+> disables etc)?  It locks after a couple tries but it's still
+> unnecessarily spammy.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    | 21 +++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+Yes.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-index 36ea1af10894..b6098141bb9b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-@@ -96,19 +96,30 @@ static const struct dpu_sspp_cfg sdm845_sspp[] = {
- 
- static const struct dpu_lm_cfg sdm845_lm[] = {
- 	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SDM845_MASK,
--		&sdm845_lm_sblk, PINGPONG_0, LM_1, 0),
-+		&sdm845_lm_sblk, PINGPONG_0, LM_1, DSPP_0),
- 	LM_BLK("lm_1", LM_1, 0x45000, MIXER_SDM845_MASK,
--		&sdm845_lm_sblk, PINGPONG_1, LM_0, 0),
-+		&sdm845_lm_sblk, PINGPONG_1, LM_0, DSPP_1),
- 	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SDM845_MASK,
--		&sdm845_lm_sblk, PINGPONG_2, LM_5, 0),
-+		&sdm845_lm_sblk, PINGPONG_2, LM_5, DSPP_2),
- 	LM_BLK("lm_3", LM_3, 0x0, MIXER_SDM845_MASK,
--		&sdm845_lm_sblk, PINGPONG_NONE, 0, 0),
-+		&sdm845_lm_sblk, PINGPONG_NONE, 0, DSPP_3),
- 	LM_BLK("lm_4", LM_4, 0x0, MIXER_SDM845_MASK,
- 		&sdm845_lm_sblk, PINGPONG_NONE, 0, 0),
- 	LM_BLK("lm_5", LM_5, 0x49000, MIXER_SDM845_MASK,
- 		&sdm845_lm_sblk, PINGPONG_3, LM_2, 0),
- };
- 
-+static const struct dpu_dspp_cfg sdm845_dspp[] = {
-+	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+	DSPP_BLK("dspp_1", DSPP_1, 0x56000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+	DSPP_BLK("dspp_2", DSPP_2, 0x58000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+	DSPP_BLK("dspp_3", DSPP_3, 0x5a000, DSPP_SC7180_MASK,
-+		 &sm8150_dspp_sblk),
-+};
-+
- static const struct dpu_pingpong_cfg sdm845_pp[] = {
- 	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, PINGPONG_SDM845_TE2_MASK, 0, sdm845_pp_sblk_te,
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-@@ -193,6 +204,8 @@ const struct dpu_mdss_cfg dpu_sdm845_cfg = {
- 	.sspp = sdm845_sspp,
- 	.mixer_count = ARRAY_SIZE(sdm845_lm),
- 	.mixer = sdm845_lm,
-+	.dspp_count = ARRAY_SIZE(sdm845_dspp),
-+	.dspp = sdm845_dspp,
- 	.pingpong_count = ARRAY_SIZE(sdm845_pp),
- 	.pingpong = sdm845_pp,
- 	.dsc_count = ARRAY_SIZE(sdm845_dsc),
+> 
+> - Marijn
+> 
+>>
+>> - Marijn
+>>
+>>> ---
+>>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 5 +++++
+>>>   1 file changed, 5 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+>>> index 3b1ed02f644d..6979d35eb7c3 100644
+>>> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+>>> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+>>> @@ -395,11 +395,16 @@ static void dsi_pll_phy_dig_reset(struct dsi_pll_7nm *pll)
+>>>   	wmb(); /* Ensure that the reset is deasserted */
+>>>   }
+>>>   
+>>> +static unsigned long dsi_pll_7nm_vco_recalc_rate(struct clk_hw *hw,
+>>> +						  unsigned long parent_rate);
+>>>   static int dsi_pll_7nm_vco_prepare(struct clk_hw *hw)
+>>>   {
+>>>   	struct dsi_pll_7nm *pll_7nm = to_pll_7nm(hw);
+>>>   	int rc;
+>>>   
+>>> +	if (dsi_pll_7nm_vco_recalc_rate(hw, VCO_REF_CLK_RATE) == 0)
+>>> +		dsi_pll_7nm_vco_set_rate(hw, pll_7nm->phy->cfg->min_pll_rate, VCO_REF_CLK_RATE);
+>>> +
+>>>   	dsi_pll_enable_pll_bias(pll_7nm);
+>>>   	if (pll_7nm->slave)
+>>>   		dsi_pll_enable_pll_bias(pll_7nm->slave);
+>>> -- 
+>>> 2.39.2
+>>>
+
 -- 
-2.39.2
+With best wishes
+Dmitry
 
