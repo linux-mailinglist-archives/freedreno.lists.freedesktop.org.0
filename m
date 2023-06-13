@@ -1,65 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEE4472DADD
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 09:30:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C170872DADF
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 09:30:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74E6910E340;
-	Tue, 13 Jun 2023 07:30:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECAF10E343;
+	Tue, 13 Jun 2023 07:30:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9BFD10E33E
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jun 2023 07:30:22 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-3f8cc04c2adso2907455e9.3
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jun 2023 00:30:22 -0700 (PDT)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9D8E10E33E
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jun 2023 07:30:23 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-3f8cec6641bso2138435e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jun 2023 00:30:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686641421; x=1689233421;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PBDkCj6IzOprmvk0wsDqFhkKf1Z88p1shaiXxO1NVss=;
- b=fZuCJTbOyXS8c7Ez4hWwkZplKnxZYGPzK6QpJkWLCjBUqHlESaHFK4lkrsYRFKOWr1
- eoSgWUSFQKGTSLpcwoXWW3+9u8D/1K5gJSEr8DdCB7SXRT1peVKq50AuECMO7TWfDOeF
- wYLQEews3OmYYL3w4mOT2PGUmZR6oTC6rVWG5z4+pFdGuMofbbE8BHDzBOrhL3bdwjto
- zPjtk9OcntbBk1UKlmxYfMcF7eEJ2xwxXX3fvdxT6Rb5G1u31hOQDhJ17boOnDTKpcRV
- fA2PGUTZVda4Ocd6RyxkbMjGT6/7SetLUDTZ+7PtRujVALzLJbJILHUR9HvFurZ01NjT
- 66NA==
+ d=linaro.org; s=google; t=1686641422; x=1689233422;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=o6LElsFzPxh77ZLbLkZX9VeLLGGZJsRBvmjPinVkkXc=;
+ b=g/oywEaymjRQhU1bl7foXjQEsy0a+yIeMT2mXMe5MI7ASmn5aJgVayc8Gf6jGhJJR/
+ OlZUxMG/NeFnqx0iZz7gGsbUUNMlZUOytTzsRSEq+De7rbFrbcunqG2WKZfAsJ5PaHlR
+ 4nN1i5OtCxv2xgKJUUNLBLT9su9K8iyruokPzaTaAZZoVD8BR4MH9tvHPDypuSge/W7n
+ wEf+e3qm4+mtI1cfTkcrsHWaQ+wPfFqryxsTqFpjvy9N1Yx+ONGPR99XiPDfm5GSr8qc
+ T/lkz/s8p8BN2u1sKnEl4l5MN2VIBzF31nxSlF5pIG0nTX02Shj31C1IO3hokDt+Heq4
+ RLKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686641421; x=1689233421;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PBDkCj6IzOprmvk0wsDqFhkKf1Z88p1shaiXxO1NVss=;
- b=ONkPTJnfUzi5pJw42HDIYzBsrw4KMXGJMUF2LqG5AkWciQWgyXfT6T7RUc+yLXWzoW
- fdHeKTWQI8ntLwrZCL00KDO1jTIKldSTQTxusDzMx5w44mMYYgIUOr4lkHG6f24iEoz4
- PAMPWzGqLdCwoPmdKFEp2Qo5mri9eZzsNjqB2+nU+DgRiYNN11rzrEvgcgktYJoB/sao
- N5U29UTreehLUKdpYO33plrtMBK2azVdwoUwztnQwUisN29qsENMiS597x6unJCbl4Yg
- gkOicPDaSYz30dn5U3CgbDR9Rbt6hY8a47KXkl2Vy2O9bWIdARz4+YSRUgPfSr+lXAnF
- eyZA==
-X-Gm-Message-State: AC+VfDwjE3mVSROCQx0GGr38Ot8iU2gVsbXi02FejyFOn3V61ZftAMRi
- JtE9qIjlXAgZtcedX5rN1cZGYg==
-X-Google-Smtp-Source: ACHHUZ6GhVpOh89E7wzRUZl8GRroyUGL8JF6b5FpJb/rSQKDuOUL+eUZZiMjzNbPPBGSLWTlVjOZ/g==
-X-Received: by 2002:a7b:cb88:0:b0:3f7:e4fe:1dd7 with SMTP id
- m8-20020a7bcb88000000b003f7e4fe1dd7mr9485430wmi.13.1686641420564; 
- Tue, 13 Jun 2023 00:30:20 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686641422; x=1689233422;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=o6LElsFzPxh77ZLbLkZX9VeLLGGZJsRBvmjPinVkkXc=;
+ b=G7s39KUJytIvNDny+qtuf/gUaEqaWVlByNs3FHejHzsx0Y7urj/Lir0ordzBSVssVl
+ 1OMnwThqkcxoSnH6HvHYndagH0nv3/9nzB38E634OxbfTtsnyNuXnc6Pnyr0ssZur7XQ
+ C8eBVJ7pstVr0Pf+8aTL13C3ebhca9rFnfdv0uDx+SxbUMAMhH5ubkK/o37tBiqM7/lP
+ cg1d0Pkl5nFmXiBB8l1TgL4rV3SF0A4ZV2bDeJ0KI80xoOrZNYI/BQr69FsjcLQ1BzQ9
+ lfzsANbKiPp+M0QNW5FHeTuhmuFqQIKNydbgIAZvJ3bqeuwxOlV4/4BdaFa3PqKviijR
+ yDOA==
+X-Gm-Message-State: AC+VfDzy0HyFnTsoSJ4OXsikSllbVwjhEe0pXin10XUEW3W/MCgXfCsa
+ 4IdeW5c9/vbfjA6Ntht7RnTG3Q==
+X-Google-Smtp-Source: ACHHUZ46AM+DpW6rDbIsu7b0Q+F4vpipyMeqHrzQ6PBYqGrZ0bQMjK5H6YphB7yBciNNrxTyoE55Dg==
+X-Received: by 2002:a1c:ed15:0:b0:3f6:da2:bc86 with SMTP id
+ l21-20020a1ced15000000b003f60da2bc86mr8656178wmh.7.1686641421791; 
+ Tue, 13 Jun 2023 00:30:21 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- q25-20020a7bce99000000b003f17848673fsm13474453wmj.27.2023.06.13.00.30.19
+ q25-20020a7bce99000000b003f17848673fsm13474453wmj.27.2023.06.13.00.30.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jun 2023 00:30:20 -0700 (PDT)
+ Tue, 13 Jun 2023 00:30:21 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 13 Jun 2023 09:30:11 +0200
-Message-Id: <20230601-topic-sm8550-upstream-dp-v4-0-ac2c6899d22c@linaro.org>
+Date: Tue, 13 Jun 2023 09:30:12 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAMbiGQC/43NTW7DIBQE4KtErPsqfoKBrnqPKAvADxvJAQscK
- 1Hku4d4V3Xj5Yw037xIxRKxkp/TixRcY405tXD+OhE/2jQgxL5lwikXtKMMljxHD/WmpaRwn+t
- S0N6gn8EpJpzlSvbKkzZ3tiK4YpMfG5Du09TKuWCIj/3vcm15jHXJ5bnfr+zTHnhaGVDgBgPyT
- hspxe8Uky35O5eBfNSVH5V4k1ArpRk1Xkn1TxJHJdEkGUwIvXdadOaPtG3bGyb9a5lqAQAA
+Message-Id: <20230601-topic-sm8550-upstream-dp-v4-1-ac2c6899d22c@linaro.org>
+References: <20230601-topic-sm8550-upstream-dp-v4-0-ac2c6899d22c@linaro.org>
+In-Reply-To: <20230601-topic-sm8550-upstream-dp-v4-0-ac2c6899d22c@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -71,24 +69,24 @@ To: Rob Clark <robdclark@gmail.com>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1315;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1131;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=8DvxRryXQQQ0y8Oh2tMAV/xSohwX06++G2+ngE4ucu4=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBkiBsKTJOKtHi2EI9K2dRfEfI1j0+AEfmWgTRgqqGl
- BTBUvuuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZIgbCgAKCRB33NvayMhJ0ZjJEA
- DJm9dMBNEkuCdJ3V0k54VYU3+fm2YHKjKvaokmK9lT0WHXfQ5ABko38xxGcM30yozhSFcOYLn+O1Oa
- +PpY183grbzvysTLCfD0/uhAm8euXU/AFQAB5Qzpsm+v7gMSqQP96eXVSV498GA2EDB+ZRa3wlDitc
- 5zUXSD9+nw9dxySsePDHZzWt+7GdCBSMUTBDnaXpp+VS5tFgk/UbVdNpUZ4B1a3eyHjbv7blKFyYs9
- eOmjYmNGYuMVd3mab/17OvihVinkileSwI+hbyDhRPV2aLsFOXnOptoSTcPOx2HGZUxuGf5Bhfobt9
- Ec4PgiVgwsU2gDd0YsMF1EbPgpBDcpdanesTjae7ews7tC9yU5PquZTGeZnaEtf5Jd/bErbEYvTviM
- Y/hesIorIfPnONdmQIkutTQqqEvIHsp7hJLJV7bBcTUM+6xTYzbQeC0RaPNocET/5XJm/rFWaN6dVv
- yMdqkdWVcLnMdx8bCJGw+Ss67mA9WgwpVis55V7A2WL8SlkMC4GV96ine9E2RD3iSmUuJ/CbrtvSUd
- oDvLsL06kOeaL7rJwxWVLGI+kxTJ6dMKXm6pPP0ricTmTytaxDCabGH8Z8Mzyc57XK1JvaLNFeQBMR
- aSYtPpsKhbqJt/wJyGZIRN7zPIiEfPNLdfa3C9ccoEzaZZAhWCq1JNR0wDrg==
+ bh=nJqLBkS8fxRgUU70NtM0p74qFBwhXul3hYyAwBkcZwU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBkiBsKOLHj+O1c3irzwDgvy4v8K3CEnvzoXV3sNFLI
+ TBWZ/MOJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZIgbCgAKCRB33NvayMhJ0bVEEA
+ COS+FQe+idmgtkEEqz7yTq9tEHS6CaGoh1Ob9q1VblBAdJECLHy5kd80jtwTPUs14h0gkLfGMzsWoj
+ n5OX8fHbLefY7osJ8SG54GTPzZAPthxEoJF8uJnlvWkR/uswfKqOHnJlkctUbwdM02wOz0CFr+jIO+
+ CXIFH+IVwFQnSKOO2VipKZyyC/FKtE53eCZp3/ZP7CEmU/xU6W825axHy+Be4UBesTt1tW/pS0h00z
+ NViaZUit8VV/zTWPCsbJBgxHWT6/38UgpqjPR70H6F5vZRTmmdYPiDn9kCiixJbymkKg57whJyQ2Kv
+ ZKP1N6xE/0MJA9v7L29J6Be+SRKwwHukGyhWIg9LSfBvCIgR7kU+U0/mRR19WiKagNyWuQ5w1kaJry
+ 2lRXZD30w9IKVLJyf00vm5fBrpRO7pCDXcPCsiZdnMmMoXmvlG9U1gE7N7BeS6yH9B7Kw9XYF29Ggw
+ c7pi1WqlV0M9A6nZowT5gaKhZHBu6P3iBKUuy/GN2j5bnYvCWoCIYIs44opf1xmaQzANJbh3pHgAek
+ B4YdZvUT1L3jj1vdQr7XW6Lfsh0XT4V8H51IvWj8O80J7BhWq4dOQsv+8u2pSFWvU5LSzoBhhQbVPr
+ pR1I7WPVHtEjIoX8PJN0j3Ng0awH4YKBj3/fjmL1TT55/mDSA0oL40Ey/f7w==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH v4 0/2] arm64: dts: qcom: add DP Controller to
- SM8550 DTS
+Subject: [Freedreno] [PATCH v4 1/2] arm64: dts: qcom: sm8550: fix low_svs
+ RPMhPD labels
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +105,39 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The DP output is shared with the USB3 SuperSpeed lanes and is
-usually connected to an USB-C port which Altmode is controlled
-by the PMIC Glink infrastructure.
+"low" was written "lov", fix this.
 
-DT changes tying the DP controller to the USB-C port on the QRD
-board will be sent later.
-
+Fixes: 99d33ee61cb0 ("arm64: dts: qcom: sm8550: Add missing RPMhPD OPP levels")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v4:
-- Added review tags from v2
-- Link to v3: https://lore.kernel.org/r/20230601-topic-sm8550-upstream-dp-v3-0-5f9ffdcb8369@linaro.org
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Changes in v3:
-- Rebased on next-20230609
-- Dropped applied bindings
-- Link to v2: https://lore.kernel.org/r/20230601-topic-sm8550-upstream-dp-v2-0-e8778109c757@linaro.org
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index 75cd374943eb..972df1ef86ee 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -3649,15 +3649,15 @@ rpmhpd_opp_min_svs: opp-48 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+ 					};
+ 
+-					rpmhpd_opp_lov_svs_d2: opp-52 {
++					rpmhpd_opp_low_svs_d2: opp-52 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
+ 					};
+ 
+-					rpmhpd_opp_lov_svs_d1: opp-56 {
++					rpmhpd_opp_low_svs_d1: opp-56 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
+ 					};
+ 
+-					rpmhpd_opp_lov_svs_d0: opp-60 {
++					rpmhpd_opp_low_svs_d0: opp-60 {
+ 						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
+ 					};
+ 
 
-Changes in v2:
-- Added review tags
-- s/lov_svs/low_svs/
-- Applied fixes suggested from Konrad
-- Link to v1: https://lore.kernel.org/r/20230601-topic-sm8550-upstream-dp-v1-0-29efe2689553@linaro.org
-
----
-Neil Armstrong (2):
-      arm64: dts: qcom: sm8550: fix low_svs RPMhPD labels
-      arm64: dts: qcom: sm8550: add display port nodes
-
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 95 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 90 insertions(+), 5 deletions(-)
----
-base-commit: 53ab6975c12d1ad86c599a8927e8c698b144d669
-change-id: 20230601-topic-sm8550-upstream-dp-b713ba275d7c
-
-Best regards,
 -- 
-Neil Armstrong <neil.armstrong@linaro.org>
+2.34.1
 
