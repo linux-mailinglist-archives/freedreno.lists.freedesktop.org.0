@@ -2,75 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B89CA72EF0D
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 00:19:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9343D72EF33
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 00:27:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7941F10E3E4;
-	Tue, 13 Jun 2023 22:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D59610E3EE;
+	Tue, 13 Jun 2023 22:27:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94DBC10E3E4;
- Tue, 13 Jun 2023 22:19:28 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35DM9IQl031698; Tue, 13 Jun 2023 22:19:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=Q+Emnlo/SKLoYvLzBqyEsB2dOQol4X7TDbShJ6ZRdZI=;
- b=QGOLJipZu9qPb8ThnuZ5Hr0XT5hd+YztwxrDP2oXyYksCJky8/SzBQZeT7jB5hIhfvNv
- hu3mLE7vxUEVhz60I6a38aXDZCJKijRjV6KiPMVAX5tSKZlGqrjuyOtpfU+kxTykMSQQ
- WcSEQdyqNYixZA+kgdNPs2GX77nnoluIb71v0ndnVRF7ZImND55s+e0S5lA14AOtWGZK
- r80NVCvUNaPRK7jMMPVPywsnR0i9DgQaCEpj+oDMtHjyIG0wUB6751x4jCeIIMPPefoe
- kA3IeL/kN/QXeSe2aFlpZFne3qCBaAU1E34Wre6ruvbXbAohLs+0eWDZ3WhH0+XCC9am Fg== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r6t0bs21x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Jun 2023 22:19:21 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35DMJFFU010340
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Jun 2023 22:19:15 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Tue, 13 Jun 2023 15:19:14 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Date: Tue, 13 Jun 2023 15:19:02 -0700
-Message-ID: <1686694742-20862-3-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1686694742-20862-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1686694742-20862-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7334010E3EE;
+ Tue, 13 Jun 2023 22:27:24 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D9F7263624;
+ Tue, 13 Jun 2023 22:27:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5DEC433CB;
+ Tue, 13 Jun 2023 22:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686695242;
+ bh=/giBIYOdbVKt2nNPEKWExWP7ihJj262AshCzdvOhLBc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=jgGjBs9WX6i9EZ2M0O5qxYt4hvTVwuhDRjrgugdkXrs5wHyNNusDDKLVhFz5qwF/s
+ x/WheKzPw+j27KOO4pe7fnbmUhvXQ8k5pZRZiCmSbWmthMO9qZsab8aqvFiyOb+Yae
+ YUhg47AcP64zUQKSWPJjuQ7KehFEyHnGRb3d88hWtpup2OTtUtmLWmR1dkEViJ9bLX
+ f3seWqRkHx3r4CeO/EfiTNTc9t0cV/n4PVcv82RDumVPvEGTtw9P2RSZJd8tVAQYIM
+ IDDYPsEOTrc76WguNTLbxbhwpQfQbxGeyTSSIjA9FL2l4wNRO/mYMlcGG0ZaYUThBN
+ EtGrBT1y//5+A==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>
+Date: Tue, 13 Jun 2023 15:30:19 -0700
+Message-Id: <168669542892.1315701.7023894164338964260.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230601-topic-sm8550-upstream-dp-v4-0-ac2c6899d22c@linaro.org>
+References: <20230601-topic-sm8550-upstream-dp-v4-0-ac2c6899d22c@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Eu1gK577Qy35r46n0nGLEthTJP8J1eRO
-X-Proofpoint-ORIG-GUID: Eu1gK577Qy35r46n0nGLEthTJP8J1eRO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-13_22,2023-06-12_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- priorityscore=1501 clxscore=1011 mlxlogscore=999 spamscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 impostorscore=0
- phishscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2305260000 definitions=main-2306130196
-Subject: [Freedreno] [PATCH v3 2/2] drm/msm/dpu: remove struct
- drm_dsc_config from struct msm_display_info
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v4 0/2] arm64: dts: qcom: add DP Controller
+ to SM8550 DTS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,71 +65,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-ince struct drm_dsc_config is stored at atomic_enable() instead
-of display setup time during boot up, saving struct drm_dsc_config
-at struct msm_display_info is not necessary. Lets drop the dsc member
-from struct msm_display_info.
+On Tue, 13 Jun 2023 09:30:11 +0200, Neil Armstrong wrote:
+> The DP output is shared with the USB3 SuperSpeed lanes and is
+> usually connected to an USB-C port which Altmode is controlled
+> by the PMIC Glink infrastructure.
+> 
+> DT changes tying the DP controller to the USB-C port on the QRD
+> board will be sent later.
+> 
+> [...]
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 2 --
- 3 files changed, 6 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index e00cd39..50ce2ef 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2309,8 +2309,6 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 		dpu_enc->idle_pc_supported =
- 				dpu_kms->catalog->caps->has_idle_pc;
- 
--	dpu_enc->dsc = disp_info->dsc;
--
- 	mutex_lock(&dpu_enc->enc_lock);
- 	for (i = 0; i < disp_info->num_of_h_tiles && !ret; i++) {
- 		/*
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 90e1925..4c05fd5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -28,7 +28,6 @@
-  * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
-  * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
-  *				 used instead of panel TE in cmd mode panels
-- * @dsc:		DSC configuration data for DSC-enabled displays
-  */
- struct msm_display_info {
- 	enum dpu_intf_type intf_type;
-@@ -36,7 +35,6 @@ struct msm_display_info {
- 	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
- 	bool is_cmd_mode;
- 	bool is_te_using_watchdog_timer;
--	struct drm_dsc_config *dsc;
- };
- 
- /**
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 613384b..5e77e09 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -544,8 +544,6 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 
- 		info.is_cmd_mode = msm_dsi_is_cmd_mode(priv->dsi[i]);
- 
--		info.dsc = msm_dsi_get_dsc_config(priv->dsi[i]);
--
- 		encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI, &info);
- 		if (IS_ERR(encoder)) {
- 			DPU_ERROR("encoder init failed for dsi display\n");
+[1/2] arm64: dts: qcom: sm8550: fix low_svs RPMhPD labels
+      commit: bbde65f9da9291a77636e1467b28f27ced1b4ece
+[2/2] arm64: dts: qcom: sm8550: add display port nodes
+      commit: 66adfbc4d33993865a180016db73520a15e754c9
+
+Best regards,
 -- 
-2.7.4
-
+Bjorn Andersson <andersson@kernel.org>
