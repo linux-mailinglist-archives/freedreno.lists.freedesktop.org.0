@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146CD72D565
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 02:10:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2393C72D560
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 02:10:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36C2C10E2DE;
-	Tue, 13 Jun 2023 00:10:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 114BC10E2E4;
+	Tue, 13 Jun 2023 00:10:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C77C10E2E4
- for <freedreno@lists.freedesktop.org>; Tue, 13 Jun 2023 00:10:10 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4f655293a38so5576904e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 17:10:10 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83F3710E2E3
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Jun 2023 00:10:11 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4f63ab1ac4aso5912278e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Jun 2023 17:10:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686615009; x=1689207009;
+ d=linaro.org; s=google; t=1686615010; x=1689207010;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dMZvwl44ms7Xwpm8GNdjd1hqyKGN/MTr2D0GCfzVRGs=;
- b=Be2wPWCeK3qDjIUttzQTXauZvz62GcAITjhMitxj7LDFNiU2TvRxeWXp5Me6TKDx3U
- QBsCYyUvTh3bL5A2fjlGWrB6YBa13Vr9SEnHdTAUnTqBWQHFbqkhDGFQ8abRbuvkX9K4
- qQLD5Ua2gvuWWOp9ayGQ2pqqUGz+cYSISOOuYrrnC2ia5SwrjLiFd4ElVztLr6294oag
- I5FjeW1jGoFSiej984yaXGoRQ0uiCSvlKb5JGqzKfvzJ9Y7IM1psKfphgr070vE2pd8Y
- LOrafVp1FKWvgb/urAjeDVCK88PmPZNbjN6cS1bot1o1DEEh9AOwpv/ygFjiuQPt+uhT
- 5aWA==
+ bh=5VOufof82LdFXq5Avw+IGoCuTtc/4cJuL5op7JwlHY8=;
+ b=RMVZESEktU9x/dwTev7Vnf18otE1Pw+LM+9HjPAkDQ/xcPB59RDhPsA46Gazxih5dr
+ FachsxGtxUvxIn9w8HN/ZFRclsKkX1IwSrdVzs2DqrApiAZvHBUgHizKKSVhlLD9pqJJ
+ KAbQSoiiNdz63+qwAWOff/0vOJ4iL7GShTphjjiihbKe08HvQl294PSVAXCkbk8EGt/j
+ hfD4Ka+JIF4funfOCraP73PzkE8q8FgAlHrcEvBvFFOEo41cMe9/YtmBuFq7e1yBexhO
+ d1EHnF5BChN3KeXEWkW2MJKV56Yx7/dP0PfIMnhGcueqOZBKRgdwvk+r0W8nvnlO+0tj
+ jLig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686615009; x=1689207009;
+ d=1e100.net; s=20221208; t=1686615010; x=1689207010;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dMZvwl44ms7Xwpm8GNdjd1hqyKGN/MTr2D0GCfzVRGs=;
- b=LISeFP2t7Kus8rCJgr45cXXnXSLWNnyH/YAOBj4WzB9ffazB4Tvfdy3inaL+9ygrZg
- Hg6CEbNkS/SQUy2v0BMNKQiyXn6jQNxu8AhA8D4abiveQSd9Ogmsz+juhojC6Z+ky0hk
- TeVpqfh+Mo/eFmupvzceu3iWuVeW5ebAJ1YpZqoiEZLx8d2KE55qNadzAWSfG/+9/mjq
- vNJf6zkWWiSqODroPy4czYx9LaJKGPwx6CtbBP1WIhwaJ4Aq9faZwZIEu9PQXEQ+l0Bs
- CrV98fHLQyFvSPl1bhw417EHuUwDVmuKlhX5jvYUxPJZGQ4tTDv3An1G3v71+T00o5Ha
- ICqw==
-X-Gm-Message-State: AC+VfDz/iVeEZGG49e02WYyFtXqdAYTn+xjxnBGhwoj5NimucwyUj9mk
- LX9MqL12RXEkYW/QWmMD8OKrcA==
-X-Google-Smtp-Source: ACHHUZ6HfcI417Ibo1OlTj65/ufgRzmJVnxaHP4arCDkxcaC+3wx7HrcTfjzOReqWHfhFCOwoymlkg==
-X-Received: by 2002:a05:6512:521:b0:4f4:d41b:f421 with SMTP id
- o1-20020a056512052100b004f4d41bf421mr5681292lfc.33.1686615008917; 
- Mon, 12 Jun 2023 17:10:08 -0700 (PDT)
+ bh=5VOufof82LdFXq5Avw+IGoCuTtc/4cJuL5op7JwlHY8=;
+ b=almLkidowJamX4Rgn62s9bZM35CzxcpEO+odbV4Pd0RUEGOPMJF25LAQi2UVoEoZMF
+ PplL+YmxWTXds7VUmWvusJw/mi+uoP01KrUu58jjFZkftqfLrM0rNpSPg3oyxD/7w6xH
+ 1zvq63b8O1sHlXr+sTE3Ks40gqtgNG+AtgVa+IhRO4lOyFpdMF3Z83Pu/Gt27Q7nahv3
+ 1WNotD0mph/ntF6vTNpx/WZZB76AXazs3N9STb+6BKBm6vXxuYYoZJ1Cg9Ua08JfFhAV
+ YPBJpkSWza+6wN1GLh5q5G7Tf5MqhD23zeUj4ZAXNHgWrdHM14gT+0LST46UR7JHz7SN
+ bkrQ==
+X-Gm-Message-State: AC+VfDxROYfHl1wXUyNMjj140Q9e67geXINns0U0ADKHuerlgrk1zcR0
+ vZG87YYKi7t2DH/7yGRW3basjg==
+X-Google-Smtp-Source: ACHHUZ6qNMlmsZQl5mhOYHN407i3q5TDwQmWKGOaWWDRMj8n5sGEIBJreQbMAOvMFV30lg/aU11IcQ==
+X-Received: by 2002:ac2:5b11:0:b0:4f1:dcd2:ab6d with SMTP id
+ v17-20020ac25b11000000b004f1dcd2ab6dmr5715036lfn.28.1686615009944; 
+ Mon, 12 Jun 2023 17:10:09 -0700 (PDT)
 Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- c10-20020ac2530a000000b004f63eea01a7sm1581604lfh.192.2023.06.12.17.10.07
+ c10-20020ac2530a000000b004f63eea01a7sm1581604lfh.192.2023.06.12.17.10.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 17:10:08 -0700 (PDT)
+ Mon, 12 Jun 2023 17:10:09 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue, 13 Jun 2023 03:09:42 +0300
-Message-Id: <20230613001004.3426676-4-dmitry.baryshkov@linaro.org>
+Date: Tue, 13 Jun 2023 03:09:43 +0300
+Message-Id: <20230613001004.3426676-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230613001004.3426676-1-dmitry.baryshkov@linaro.org>
 References: <20230613001004.3426676-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 03/22] drm/msm/dpu: remove unused INTF_NONE
- interfaces
+Subject: [Freedreno] [PATCH v2 04/22] drm/msm: enumerate DSI interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,52 +82,39 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-sm6115 and qcm2290 do not have INTF_0. Drop corresponding interface
-definitions.
+Follow the DP example and define MSM_DSI_CONTROLLER_n enumeration.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h  | 1 -
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h | 1 -
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h  | 1 -
- 3 files changed, 3 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-index ba9de008519b..031fc8dae3c6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-@@ -66,7 +66,6 @@ static const struct dpu_pingpong_cfg sm6115_pp[] = {
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index e13a8cbd61c9..ad4fad2bcdc8 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -65,6 +65,12 @@ enum msm_dp_controller {
+ 	MSM_DP_CONTROLLER_COUNT,
  };
  
- static const struct dpu_intf_cfg sm6115_intf[] = {
--	INTF_BLK("intf_0", INTF_0, 0x00000, 0x280, INTF_NONE, 0, 0, 0, 0, 0),
- 	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 24, INTF_SC7180_MASK,
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
-index 92ac348eea6b..f2808098af39 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
-@@ -63,7 +63,6 @@ static const struct dpu_pingpong_cfg qcm2290_pp[] = {
- };
++enum msm_dsi_controller {
++	MSM_DSI_CONTROLLER_0,
++	MSM_DSI_CONTROLLER_1,
++	MSM_DSI_CONTROLLER_COUNT,
++};
++
+ #define MSM_GPU_MAX_RINGS 4
+ #define MAX_H_TILES_PER_DISPLAY 2
  
- static const struct dpu_intf_cfg qcm2290_intf[] = {
--	INTF_BLK("intf_0", INTF_0, 0x00000, 0x280, INTF_NONE, 0, 0, 0, 0, 0),
- 	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 24, INTF_SC7180_MASK,
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-index d7aae45e3e66..241fa6746674 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-@@ -71,7 +71,6 @@ static const struct dpu_dsc_cfg sm6375_dsc[] = {
- };
+@@ -117,7 +123,7 @@ struct msm_drm_private {
+ 	struct hdmi *hdmi;
  
- static const struct dpu_intf_cfg sm6375_intf[] = {
--	INTF_BLK("intf_0", INTF_0, 0x00000, 0x280, INTF_NONE, 0, 0, 0, 0, 0),
- 	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x6a800, 0x2c0, INTF_DSI, 0, 24, INTF_SC7180_MASK,
- 		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
- 		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+ 	/* DSI is shared by mdp4 and mdp5 */
+-	struct msm_dsi *dsi[2];
++	struct msm_dsi *dsi[MSM_DSI_CONTROLLER_COUNT];
+ 
+ 	struct msm_dp *dp[MSM_DP_CONTROLLER_COUNT];
+ 
 -- 
 2.39.2
 
