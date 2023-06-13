@@ -1,63 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01DF872E73A
-	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 17:32:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8894272E7C2
+	for <lists+freedreno@lfdr.de>; Tue, 13 Jun 2023 18:04:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0022D10E3C1;
-	Tue, 13 Jun 2023 15:32:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4981310E025;
+	Tue, 13 Jun 2023 16:04:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C8910E3C3;
- Tue, 13 Jun 2023 15:32:36 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- 46e09a7af769-6b28fc7a6dcso3988952a34.0; 
- Tue, 13 Jun 2023 08:32:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686670356; x=1689262356;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UnaqhwjlCJW4rONwgkzq9LoubKZ8qoNtbP44UDq+JhU=;
- b=mIICRCtD8jdZBzwV/YZMuFbJKUWKL0pLZzltKSu5VzzBiaM43z4Fdgqkak4z5eS7Dz
- z5MUz6Zk0w5kAaPBDBOG0725I86PCIKwHE0LUpGEpWxspmyVTL12+Eom6J3jAAEZH1XA
- Fxb2Y51L07bP7LYth5St+n2UgnuosuSbT31Y/jMIOi2ype7ZVZCISKn+zBcm2piy48az
- iAIc/J+HI3Z9KKaVopyZuvC4hJYSY+q1m883K/OAPryRxG3Ke0feJsw1QfVooLyYwX+v
- R/74ReLM3O5f+C00YMPAYS52DcCoZdjNIjDlkZzqudRVYqCOdqhrn8Db92qx0tp9T9fp
- iLEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686670356; x=1689262356;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UnaqhwjlCJW4rONwgkzq9LoubKZ8qoNtbP44UDq+JhU=;
- b=SID+NCp+VMVS9yPmjvf4ZoYhwuiHy4RSh9BlblTlPkDko4Vj8mzaAsZcNP9J3TEr7h
- gFzXN5vlhBGYPIc2QAd2G8J8yp+PQ6JlwZrMttE60r/PFenraWDf0sTN4Cn7JA33nzQN
- vaJ3uWKTxxAK7VVzJEpMobaLkeiuKpygCvCh7d4TNcxhLPiRp5ApZpxlhX36UHtvm1gF
- atv6zXtD0AcRk2DfJxJU2DpHpgI2FldOgy+oHTgf+OFJ+IdqDI0G6ANVbNG4BIQA22Qg
- WRRKQIBjZqkAGLPALRis/gYxlGwUpcdu7sQaEnm8+YrMT4T8jORyAjLYE6TOYzG3U0bl
- uYrw==
-X-Gm-Message-State: AC+VfDzwSizkcoI0MMEKOjwwOZcJcowxhDmCm2NjT/P/R3fkIhkZOu1k
- VMUavQGW1LpeT8PhqNCR0ayDb8zxG1QXqUvCb7o=
-X-Google-Smtp-Source: ACHHUZ4P5TyQWlHmJrNfETqp6fwdCdavD/NfOPVwwNYz7F+KqT7WwtVIfkSm/7QuJ56EHlfptCNup1WxTsZvJtIHzko=
-X-Received: by 2002:a05:6870:3a31:b0:1a6:b74e:afd9 with SMTP id
- du49-20020a0568703a3100b001a6b74eafd9mr1817813oab.35.1686670355466; Tue, 13
- Jun 2023 08:32:35 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8271110E025;
+ Tue, 13 Jun 2023 16:03:58 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5CAF663811;
+ Tue, 13 Jun 2023 16:03:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6505EC4AF5C;
+ Tue, 13 Jun 2023 16:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686672237;
+ bh=hRs/09I3nVePGyq7+ZAJUlWdpGWIbMI1XEr6/Yow+u8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tVbpwH2fLHIWbej7jYshdnJlpjWYAHpIevTgNAUXsmMojFrbopyryR+rfDUL8xCv1
+ /X96DIpLwGVYwA9TQPDXiz5IWgsOEPpoHu9Qb7yYylwZyRSU2GXXbqK4P6BSZ4uwv1
+ qVGi9XqLxwx35wynCx2Qvsnm3jgctojsLBxG/O+7c8FnkGePCFlMH27pUGGAHjo9y9
+ zR+HJHoMVB1dd4NOoHwvZ5E0EAvHUR9Fwf76b/ER8ZhpuSz8miIPlaMasDVR5sTZPI
+ cWGnxa0BQnrC1BULZIN4vUjbBFGUN9oKFlTk6O0llidTzw5w5qgMWGpQuAAMI9UqxY
+ 62P++rDdTFT+A==
+Date: Tue, 13 Jun 2023 09:07:20 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230613160720.2a6ouut5qn3cewqd@ripper>
+References: <20230612221047.1886709-1-quic_bjorande@quicinc.com>
+ <435dd068-fbf2-10cf-4f78-377e689abb2c@linaro.org>
 MIME-Version: 1.0
-References: <20230613150441.17720-1-tzimmermann@suse.de>
- <20230613150441.17720-3-tzimmermann@suse.de>
-In-Reply-To: <20230613150441.17720-3-tzimmermann@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 13 Jun 2023 11:32:24 -0400
-Message-ID: <CADnq5_NiD4_zu8mexCcPCptow_ePkUb=bveF+xp1_be5te1vAw@mail.gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 2/2] drm: Remove struct
- drm_driver.gem_prime_mmap
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <435dd068-fbf2-10cf-4f78-377e689abb2c@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Configure DP INTF/PHY selector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,498 +52,204 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@gmail.com,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- sean@poorly.run
+Cc: Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 13, 2023 at 11:05=E2=80=AFAM Thomas Zimmermann <tzimmermann@sus=
-e.de> wrote:
->
-> All drivers initialize this field with drm_gem_prime_mmap(). Call
-> the function directly and remove the field. Simplifies the code and
-> resolves a long-standing TODO item.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On Tue, Jun 13, 2023 at 01:31:40AM +0300, Dmitry Baryshkov wrote:
+> On 13/06/2023 01:10, Bjorn Andersson wrote:
+> > From: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > 
+> > Some platforms provides a mechanism for configuring the mapping between
+> > (one or two) DisplayPort intfs and their PHYs.
+> > 
+> > In particular SC8180X provides this functionality, without a default
+> > configuration, resulting in no connection between its two external
+> > DisplayPort controllers and any PHYs.
+> > 
+> > The change implements the logic for optionally configuring which phy
+> > each of the intfs should be connected to, provides a new entry in the
+> > DPU catalog for specifying how many intfs to configure and marks the
+> > SC8180X DPU to program 2 entries.
+> > 
+> > For now the request is simply to program the mapping 1:1, any support
+> > for alternative mappings is left until the use case arrise.
+> > 
+> > Note that e.g. msm-4.14 unconditionally maps intf 0 to phy 0 on all
+> > rlatforms, so perhaps this is needed in order to get DisplayPort working
+> > on some other platforms as well.
+> > 
+> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> > ---
+> >   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  1 +
+> >   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  2 ++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 23 +++++++++++++++++++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 +++++++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h      |  1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 10 ++++++++
+> >   6 files changed, 45 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> > index 8ed2b263c5ea..9da952692a69 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+> > @@ -19,6 +19,7 @@ static const struct dpu_caps sc8180x_dpu_caps = {
+> >   	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+> >   	.max_hdeci_exp = MAX_HORZ_DECIMATION,
+> >   	.max_vdeci_exp = MAX_VERT_DECIMATION,
+> > +	.num_dp_intf_sel = 2,
+> >   };
+> >   static const struct dpu_ubwc_cfg sc8180x_ubwc_cfg = {
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > index ac4a9e73705c..4cb8d096d8ec 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> > @@ -357,6 +357,7 @@ struct dpu_rotation_cfg {
+> >    * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
+> >    * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
+> >    * @max_vdeci_exp      max vertical decimation supported (max is 2^value)
+> > + * @num_dp_intf_sel    number of DP intfs to configure PHY selection for
+> >    */
+> >   struct dpu_caps {
+> >   	u32 max_mixer_width;
+> > @@ -371,6 +372,7 @@ struct dpu_caps {
+> >   	u32 pixel_ram_size;
+> >   	u32 max_hdeci_exp;
+> >   	u32 max_vdeci_exp;
+> > +	u32 num_dp_intf_sel;
+> >   };
+> >   /**
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+> > index 963bdb5e0252..5afa99cb148c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+> > @@ -250,6 +250,27 @@ static void dpu_hw_intf_audio_select(struct dpu_hw_mdp *mdp)
+> >   	DPU_REG_WRITE(c, HDMI_DP_CORE_SELECT, 0x1);
+> >   }
+> > +static void dpu_hw_dp_phy_intf_sel(struct dpu_hw_mdp *mdp, unsigned int *phys,
+> > +				   unsigned int num_intfs)
+> > +{
+> > +	struct dpu_hw_blk_reg_map *c = &mdp->hw;
+> > +	unsigned int intf;
+> > +	u32 sel = 0;
+> > +
+> > +	if (!num_intfs)
+> > +		return;
+> > +
+> > +	for (intf = 0; intf < num_intfs; intf++) {
+> > +		/* Specify the PHY (1-indexed) for @intf */
+> > +		sel |= (phys[intf] + 1) << (intf * 3);
+> > +
+> > +		/* Specify the @intf (1-indexed) of targeted PHY */
+> > +		sel |= (intf + 1) << (6 + phys[intf] * 3);
+> 
+> From what I can see, phys[intf] is const. What about defining indexed masks
+> instead?
+> 
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+intf is the loop variable. What am I missing?
 
-> ---
->  Documentation/gpu/todo.rst                      |  9 ---------
->  drivers/accel/ivpu/ivpu_drv.c                   |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c         |  1 -
->  drivers/gpu/drm/drm_fbdev_dma.c                 |  6 +-----
->  drivers/gpu/drm/drm_prime.c                     | 14 ++------------
->  drivers/gpu/drm/etnaviv/etnaviv_drv.c           |  1 -
->  drivers/gpu/drm/exynos/exynos_drm_drv.c         |  1 -
->  drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c |  1 -
->  drivers/gpu/drm/lima/lima_drv.c                 |  1 -
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c          |  1 -
->  drivers/gpu/drm/msm/msm_drv.c                   |  1 -
->  drivers/gpu/drm/msm/msm_drv.h                   |  1 -
->  drivers/gpu/drm/msm/msm_gem_prime.c             |  5 -----
->  drivers/gpu/drm/nouveau/nouveau_drm.c           |  1 -
->  drivers/gpu/drm/panfrost/panfrost_drv.c         |  1 -
->  drivers/gpu/drm/pl111/pl111_drv.c               |  1 -
->  drivers/gpu/drm/radeon/radeon_drv.c             |  1 -
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c   |  1 -
->  drivers/gpu/drm/rockchip/rockchip_drm_drv.c     |  1 -
->  drivers/gpu/drm/v3d/v3d_drv.c                   |  1 -
->  drivers/gpu/drm/virtio/virtgpu_drv.c            |  1 -
->  drivers/gpu/drm/xen/xen_drm_front.c             |  1 -
->  include/drm/drm_drv.h                           | 14 --------------
->  include/drm/drm_gem_dma_helper.h                |  6 ++----
->  include/drm/drm_gem_shmem_helper.h              |  1 -
->  include/drm/drm_gem_vram_helper.h               |  1 -
->  26 files changed, 5 insertions(+), 69 deletions(-)
->
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 68bdafa0284f5..ca1efad8c89c3 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -319,15 +319,6 @@ Contact: Daniel Vetter, Noralf Tronnes
->
->  Level: Advanced
->
-> -struct drm_gem_object_funcs
-> ----------------------------
-> -
-> -GEM objects can now have a function table instead of having the callback=
-s on the
-> -DRM driver struct. This is now the preferred way. Callbacks in drivers h=
-ave been
-> -converted, except for struct drm_driver.gem_prime_mmap.
-> -
-> -Level: Intermediate
-> -
->  connector register/unregister fixes
->  -----------------------------------
->
-> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.=
-c
-> index 2df7643b843d5..9f2b9fdcc5498 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.c
-> +++ b/drivers/accel/ivpu/ivpu_drv.c
-> @@ -376,7 +376,6 @@ static const struct drm_driver driver =3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import =3D ivpu_gem_prime_import,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->
->         .ioctls =3D ivpu_drm_ioctls,
->         .num_ioctls =3D ARRAY_SIZE(ivpu_drm_ioctls),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index c9a41c997c6c7..7681f79f462eb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2809,7 +2809,6 @@ static const struct drm_driver amdgpu_kms_driver =
-=3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import =3D amdgpu_gem_prime_import,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->
->         .name =3D DRIVER_NAME,
->         .desc =3D DRIVER_DESC,
-> diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_=
-dma.c
-> index d86773fa8ab00..8217f1ddc0075 100644
-> --- a/drivers/gpu/drm/drm_fbdev_dma.c
-> +++ b/drivers/gpu/drm/drm_fbdev_dma.c
-> @@ -54,12 +54,8 @@ static void drm_fbdev_dma_fb_destroy(struct fb_info *i=
-nfo)
->  static int drm_fbdev_dma_fb_mmap(struct fb_info *info, struct vm_area_st=
-ruct *vma)
->  {
->         struct drm_fb_helper *fb_helper =3D info->par;
-> -       struct drm_device *dev =3D fb_helper->dev;
-> -
-> -       if (drm_WARN_ON_ONCE(dev, !fb_helper->dev->driver->gem_prime_mmap=
-))
-> -               return -ENODEV;
->
-> -       return fb_helper->dev->driver->gem_prime_mmap(fb_helper->buffer->=
-gem, vma);
-> +       return drm_gem_prime_mmap(fb_helper->buffer->gem, vma);
->  }
->
->  static const struct fb_ops drm_fbdev_dma_fb_ops =3D {
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index d29dafce9bb0a..6bcf324ef81c9 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -715,8 +715,6 @@ EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
->   * the same codepath that is used for regular GEM buffer mapping on the =
-DRM fd.
->   * The fake GEM offset is added to vma->vm_pgoff and &drm_driver->fops->=
-mmap is
->   * called to set up the mapping.
-> - *
-> - * Drivers can use this as their &drm_driver.gem_prime_mmap callback.
->   */
->  int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct=
- *vma)
->  {
-> @@ -772,25 +770,17 @@ EXPORT_SYMBOL(drm_gem_prime_mmap);
->   * @vma: virtual address range
->   *
->   * Provides memory mapping for the buffer. This can be used as the
-> - * &dma_buf_ops.mmap callback. It just forwards to &drm_driver.gem_prime=
-_mmap,
-> - * which should be set to drm_gem_prime_mmap().
-> - *
-> - * FIXME: There's really no point to this wrapper, drivers which need an=
-ything
-> - * else but drm_gem_prime_mmap can roll their own &dma_buf_ops.mmap call=
-back.
-> + * &dma_buf_ops.mmap callback. It just forwards to drm_gem_prime_mmap().
->   *
->   * Returns 0 on success or a negative error code on failure.
->   */
->  int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *=
-vma)
->  {
->         struct drm_gem_object *obj =3D dma_buf->priv;
-> -       struct drm_device *dev =3D obj->dev;
->
->         dma_resv_assert_held(dma_buf->resv);
->
-> -       if (!dev->driver->gem_prime_mmap)
-> -               return -ENOSYS;
-> -
-> -       return dev->driver->gem_prime_mmap(obj, vma);
-> +       return drm_gem_prime_mmap(obj, vma);
->  }
->  EXPORT_SYMBOL(drm_gem_dmabuf_mmap);
->
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.c
-> index 31a7f59ccb49e..00223a8749092 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> @@ -484,7 +484,6 @@ static const struct drm_driver etnaviv_drm_driver =3D=
- {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D etnaviv_gem_prime_import_sg_table,
-> -       .gem_prime_mmap     =3D drm_gem_prime_mmap,
->  #ifdef CONFIG_DEBUG_FS
->         .debugfs_init       =3D etnaviv_debugfs_init,
->  #endif
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_drv.c
-> index 6b73fb7a83c3c..c9e3c88fb329c 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> @@ -113,7 +113,6 @@ static const struct drm_driver exynos_drm_driver =3D =
-{
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import       =3D exynos_drm_gem_prime_import,
->         .gem_prime_import_sg_table      =3D exynos_drm_gem_prime_import_s=
-g_table,
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap,
->         .ioctls                 =3D exynos_ioctls,
->         .num_ioctls             =3D ARRAY_SIZE(exynos_ioctls),
->         .fops                   =3D &exynos_drm_driver_fops,
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gp=
-u/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index 0c4aa4d9b0a77..8a98fa276e8a9 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -63,7 +63,6 @@ static const struct drm_driver hibmc_driver =3D {
->         .debugfs_init           =3D drm_vram_mm_debugfs_init,
->         .dumb_create            =3D hibmc_dumb_create,
->         .dumb_map_offset        =3D drm_gem_ttm_dumb_map_offset,
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap,
->  };
->
->  static int __maybe_unused hibmc_pm_suspend(struct device *dev)
-> diff --git a/drivers/gpu/drm/lima/lima_drv.c b/drivers/gpu/drm/lima/lima_=
-drv.c
-> index e8566211e9fa1..65c31dc38049a 100644
-> --- a/drivers/gpu/drm/lima/lima_drv.c
-> +++ b/drivers/gpu/drm/lima/lima_drv.c
-> @@ -279,7 +279,6 @@ static const struct drm_driver lima_drm_driver =3D {
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D drm_gem_shmem_prime_import_sg_tabl=
-e,
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->  };
->
->  struct lima_block_reader {
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
-iatek/mtk_drm_drv.c
-> index 6dcb4ba2466c0..5693bb8d29ce4 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> @@ -560,7 +560,6 @@ static const struct drm_driver mtk_drm_driver =3D {
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import =3D mtk_drm_gem_prime_import,
->         .gem_prime_import_sg_table =3D mtk_gem_prime_import_sg_table,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->         .fops =3D &mtk_drm_fops,
->
->         .name =3D DRIVER_NAME,
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
-c
-> index 891eff8433a9c..47efa3c4492c4 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -1089,7 +1089,6 @@ static const struct drm_driver msm_driver =3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D msm_gem_prime_import_sg_table,
-> -       .gem_prime_mmap     =3D msm_gem_prime_mmap,
->  #ifdef CONFIG_DEBUG_FS
->         .debugfs_init       =3D msm_debugfs_init,
->  #endif
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.=
-h
-> index e13a8cbd61c95..44c9e06f2dffa 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -282,7 +282,6 @@ unsigned long msm_gem_shrinker_shrink(struct drm_devi=
-ce *dev, unsigned long nr_t
->  void msm_gem_shrinker_init(struct drm_device *dev);
->  void msm_gem_shrinker_cleanup(struct drm_device *dev);
->
-> -int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct=
- *vma);
->  struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj);
->  int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map=
-);
->  void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct iosys_map *=
-map);
-> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/ms=
-m_gem_prime.c
-> index 2c846afe049e4..5f68e31a3e4e1 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-> @@ -11,11 +11,6 @@
->  #include "msm_drv.h"
->  #include "msm_gem.h"
->
-> -int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct=
- *vma)
-> -{
-> -       return drm_gem_prime_mmap(obj, vma);
-> -}
-> -
->  struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  {
->         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index cc7c5b4a05fd8..4199b8294e6e8 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1237,7 +1237,6 @@ driver_stub =3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D nouveau_gem_prime_import_sg_table,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->
->         .dumb_create =3D nouveau_display_dumb_create,
->         .dumb_map_offset =3D drm_gem_ttm_dumb_map_offset,
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 19f8cff52e533..d2916bf435473 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -542,7 +542,6 @@ static const struct drm_driver panfrost_drm_driver =
-=3D {
->         .prime_handle_to_fd     =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D panfrost_gem_prime_import_sg_table=
-,
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap,
->  };
->
->  static int panfrost_probe(struct platform_device *pdev)
-> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl=
-111_drv.c
-> index 43049c8028b21..c4b8357ea9996 100644
-> --- a/drivers/gpu/drm/pl111/pl111_drv.c
-> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
-> @@ -227,7 +227,6 @@ static const struct drm_driver pl111_drm_driver =3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D pl111_gem_import_sg_table,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->
->  #if defined(CONFIG_DEBUG_FS)
->         .debugfs_init =3D pl111_debugfs_init,
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon=
-/radeon_drv.c
-> index e4374814f0ef6..cf1b960c4200c 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -607,7 +607,6 @@ static const struct drm_driver kms_driver =3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D radeon_gem_prime_import_sg_table,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->
->         .name =3D DRIVER_NAME,
->         .desc =3D DRIVER_DESC,
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c b/drivers/gpu/=
-drm/renesas/rcar-du/rcar_du_drv.c
-> index ed3ee3d15baec..4280ff5fa91f2 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
-> @@ -608,7 +608,6 @@ static const struct drm_driver rcar_du_driver =3D {
->         .prime_handle_to_fd     =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D rcar_du_gem_prime_import_sg_table,
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap,
->         .fops                   =3D &rcar_du_fops,
->         .name                   =3D "rcar-du",
->         .desc                   =3D "Renesas R-Car Display Unit",
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/dr=
-m/rockchip/rockchip_drm_drv.c
-> index c0ebfdf56a711..b8cf89f0cc566 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-> @@ -227,7 +227,6 @@ static const struct drm_driver rockchip_drm_driver =
-=3D {
->         .prime_handle_to_fd     =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table      =3D rockchip_gem_prime_import_sg_=
-table,
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap,
->         .fops                   =3D &rockchip_drm_driver_fops,
->         .name   =3D DRIVER_NAME,
->         .desc   =3D DRIVER_DESC,
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.=
-c
-> index 71f9fdde24b41..845a36e36450d 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.c
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
-> @@ -174,7 +174,6 @@ static const struct drm_driver v3d_drm_driver =3D {
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D v3d_prime_import_sg_table,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->
->         .ioctls =3D v3d_drm_ioctls,
->         .num_ioctls =3D ARRAY_SIZE(v3d_drm_ioctls),
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virti=
-o/virtgpu_drv.c
-> index add075681e18f..91ace7a44f2a6 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -188,7 +188,6 @@ static const struct drm_driver driver =3D {
->  #endif
->         .prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle =3D drm_gem_prime_fd_to_handle,
-> -       .gem_prime_mmap =3D drm_gem_prime_mmap,
->         .gem_prime_import =3D virtgpu_gem_prime_import,
->         .gem_prime_import_sg_table =3D virtgpu_gem_prime_import_sg_table,
->
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xe=
-n_drm_front.c
-> index 90996c108146d..62c3c13b3a175 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front.c
-> @@ -477,7 +477,6 @@ static const struct drm_driver xen_drm_driver =3D {
->         .prime_handle_to_fd        =3D drm_gem_prime_handle_to_fd,
->         .prime_fd_to_handle        =3D drm_gem_prime_fd_to_handle,
->         .gem_prime_import_sg_table =3D xen_drm_front_gem_import_sg_table,
-> -       .gem_prime_mmap            =3D drm_gem_prime_mmap,
->         .dumb_create               =3D xen_drm_drv_dumb_create,
->         .fops                      =3D &xen_drm_dev_fops,
->         .name                      =3D "xendrm-du",
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index 89e2706cac561..870278ecd8ba9 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -343,20 +343,6 @@ struct drm_driver {
->                                 struct drm_device *dev,
->                                 struct dma_buf_attachment *attach,
->                                 struct sg_table *sgt);
-> -       /**
-> -        * @gem_prime_mmap:
-> -        *
-> -        * mmap hook for GEM drivers, used to implement dma-buf mmap in t=
-he
-> -        * PRIME helpers.
-> -        *
-> -        * This hook only exists for historical reasons. Drivers must use
-> -        * drm_gem_prime_mmap() to implement it.
-> -        *
-> -        * FIXME: Convert all drivers to implement mmap in struct
-> -        * &drm_gem_object_funcs and inline drm_gem_prime_mmap() into
-> -        * its callers. This hook should be removed afterwards.
-> -        */
-> -       int (*gem_prime_mmap)(struct drm_gem_object *obj, struct vm_area_=
-struct *vma);
->
->         /**
->          * @dumb_create:
-> diff --git a/include/drm/drm_gem_dma_helper.h b/include/drm/drm_gem_dma_h=
-elper.h
-> index 8a043235dad81..61da596780b64 100644
-> --- a/include/drm/drm_gem_dma_helper.h
-> +++ b/include/drm/drm_gem_dma_helper.h
-> @@ -169,8 +169,7 @@ drm_gem_dma_prime_import_sg_table(struct drm_device *=
-dev,
->         .dumb_create            =3D (dumb_create_func), \
->         .prime_handle_to_fd     =3D drm_gem_prime_handle_to_fd, \
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle, \
-> -       .gem_prime_import_sg_table =3D drm_gem_dma_prime_import_sg_table,=
- \
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap
-> +       .gem_prime_import_sg_table =3D drm_gem_dma_prime_import_sg_table
->
->  /**
->   * DRM_GEM_DMA_DRIVER_OPS - DMA GEM driver operations
-> @@ -207,8 +206,7 @@ drm_gem_dma_prime_import_sg_table(struct drm_device *=
-dev,
->         .dumb_create            =3D dumb_create_func, \
->         .prime_handle_to_fd     =3D drm_gem_prime_handle_to_fd, \
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle, \
-> -       .gem_prime_import_sg_table =3D drm_gem_dma_prime_import_sg_table_=
-vmap, \
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap
-> +       .gem_prime_import_sg_table =3D drm_gem_dma_prime_import_sg_table_=
-vmap
->
->  /**
->   * DRM_GEM_DMA_DRIVER_OPS_VMAP - DMA GEM driver operations ensuring a vi=
-rtual
-> diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shm=
-em_helper.h
-> index 5994fed5e3278..46eb46e690630 100644
-> --- a/include/drm/drm_gem_shmem_helper.h
-> +++ b/include/drm/drm_gem_shmem_helper.h
-> @@ -293,7 +293,6 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, =
-struct drm_device *dev,
->         .prime_handle_to_fd     =3D drm_gem_prime_handle_to_fd, \
->         .prime_fd_to_handle     =3D drm_gem_prime_fd_to_handle, \
->         .gem_prime_import_sg_table =3D drm_gem_shmem_prime_import_sg_tabl=
-e, \
-> -       .gem_prime_mmap         =3D drm_gem_prime_mmap, \
->         .dumb_create            =3D drm_gem_shmem_dumb_create
->
->  #endif /* __DRM_GEM_SHMEM_HELPER_H__ */
-> diff --git a/include/drm/drm_gem_vram_helper.h b/include/drm/drm_gem_vram=
-_helper.h
-> index f4aab64411d82..6b265cb9f45a4 100644
-> --- a/include/drm/drm_gem_vram_helper.h
-> +++ b/include/drm/drm_gem_vram_helper.h
-> @@ -160,7 +160,6 @@ void drm_gem_vram_simple_display_pipe_cleanup_fb(
->         .debugfs_init             =3D drm_vram_mm_debugfs_init, \
->         .dumb_create              =3D drm_gem_vram_driver_dumb_create, \
->         .dumb_map_offset          =3D drm_gem_ttm_dumb_map_offset, \
-> -       .gem_prime_mmap           =3D drm_gem_prime_mmap, \
->         .prime_handle_to_fd       =3D drm_gem_prime_handle_to_fd, \
->         .prime_fd_to_handle       =3D drm_gem_prime_fd_to_handle
->
-> --
-> 2.41.0
->
+> > +	}
+> > +
+> > +	DPU_REG_WRITE(c, DP_PHY_INTF_SEL, sel);
+> > +}
+> > +
+> >   static void _setup_mdp_ops(struct dpu_hw_mdp_ops *ops,
+> >   		unsigned long cap)
+> >   {
+> > @@ -264,6 +285,8 @@ static void _setup_mdp_ops(struct dpu_hw_mdp_ops *ops,
+> >   	ops->get_safe_status = dpu_hw_get_safe_status;
+> > +	ops->dp_phy_intf_sel = dpu_hw_dp_phy_intf_sel;
+> 
+> Should this be gated for DPU < 4.0? Or 5.0?
+> 
+> > +
+> >   	if (cap & BIT(DPU_MDP_AUDIO_SELECT))
+> >   		ops->intf_audio_select = dpu_hw_intf_audio_select;
+> >   }
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
+> > index a1a9e44bed36..8446d74d59b0 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h
+> > @@ -125,6 +125,14 @@ struct dpu_hw_mdp_ops {
+> >   	void (*get_safe_status)(struct dpu_hw_mdp *mdp,
+> >   			struct dpu_danger_safe_status *status);
+> > +	/**
+> > +	 * dp_phy_intf_sel - configure intf to phy mapping
+> > +	 * @mdp: mdp top context driver
+> > +	 * @phys: list of phys the @num_intfs intfs should be connected to
+> > +	 * @num_intfs: number of intfs to configure
+> > +	 */
+> > +	void (*dp_phy_intf_sel)(struct dpu_hw_mdp *mdp, unsigned int *phys,
+> > +			        unsigned int num_intfs);
+> >   	/**
+> >   	 * intf_audio_select - select the external interface for audio
+> >   	 * @mdp: mdp top context driver
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
+> > index 5acd5683d25a..6d31bdc7269c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h
+> > @@ -59,6 +59,7 @@
+> >   #define MDP_WD_TIMER_4_CTL2             0x444
+> >   #define MDP_WD_TIMER_4_LOAD_VALUE       0x448
+> >   #define DCE_SEL                         0x450
+> > +#define DP_PHY_INTF_SEL                 0x460
+> 
+> MDP_DP_PHY_INTF_SEL, if you don't mind.
+> 
+
+I don't mind.
+
+> >   #define MDP_PERIPH_TOP0			MDP_WD_TIMER_0_CTL
+> >   #define MDP_PERIPH_TOP0_END		CLK_CTRL3
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > index aa8499de1b9f..5dbe5d164c01 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > @@ -1011,6 +1011,14 @@ unsigned long dpu_kms_get_clk_rate(struct dpu_kms *dpu_kms, char *clock_name)
+> >   	return clk_get_rate(clk);
+> >   }
+> > +static void dpu_kms_dp_phy_intf_sel(struct dpu_kms *dpu_kms)
+> > +{
+> > +	const unsigned int num_intfs = dpu_kms->catalog->caps->num_dp_intf_sel;
+> > +	static unsigned int phy_map[] = {0, 1, 2};
+> 
+> Please move this to dp_phy_intf_sel() and make it const.
+> 
+
+There's a possible use case for passing a phy_map of {0, 2} or {2, 1} on
+SC8180X. While this is left to someone in the future to have that use
+case, as split dp_phy_intf_sel() would handle such variations.
+
+That said, per the layout of the DP_PHY_INTF_SEL, num_intfs can not be
+more than 2, so this list shouldn't have 3 elements.
+
+Regards,
+Bjorn
+
+> > +
+> > +	dpu_kms->hw_mdp->ops.dp_phy_intf_sel(dpu_kms->hw_mdp, phy_map, num_intfs);
+> > +}
+> > +
+> >   static int dpu_kms_hw_init(struct msm_kms *kms)
+> >   {
+> >   	struct dpu_kms *dpu_kms;
+> > @@ -1122,6 +1130,8 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+> >   		goto perf_err;
+> >   	}
+> > +	dpu_kms_dp_phy_intf_sel(dpu_kms);
+> > +
+> >   	dpu_kms->hw_intr = dpu_hw_intr_init(dpu_kms->mmio, dpu_kms->catalog);
+> >   	if (IS_ERR_OR_NULL(dpu_kms->hw_intr)) {
+> >   		rc = PTR_ERR(dpu_kms->hw_intr);
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
