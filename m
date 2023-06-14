@@ -2,36 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A59C730B0A
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 00:58:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A580B730B18
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 01:01:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3B3910E47E;
-	Wed, 14 Jun 2023 22:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D25810E47F;
+	Wed, 14 Jun 2023 23:01:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E26D210E478;
- Wed, 14 Jun 2023 22:58:01 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 13AC13F804;
- Thu, 15 Jun 2023 00:57:57 +0200 (CEST)
-Date: Thu, 15 Jun 2023 00:57:55 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <kkqjd5kmopmuhcnkksk2vzn3rwunbmzoq3yybnlw4eu4fjnmxo@seilko33i5ri>
-References: <20230614224402.296825-1-dmitry.baryshkov@linaro.org>
- <20230614224402.296825-2-dmitry.baryshkov@linaro.org>
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31DEC10E47E;
+ Wed, 14 Jun 2023 23:01:03 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-558cf3e9963so1037548eaf.1; 
+ Wed, 14 Jun 2023 16:01:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686783661; x=1689375661;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nSH2hR39R1Nu5nYNmwG59rST+IPCeWv6B5EE3Mhl5OY=;
+ b=Do/rnoOZm8KDvaqEeuPKDPWhinfOkHT4967FvL6stWl4f2aWuVw1RoQtdmgbCLprwu
+ Qay+1kaHFf4r0eZSd6cXzTP3xUfRmLWBpPdrEW/Ud6QlbopV58yn7LEPn4SSC8jD00pe
+ Zn77Tk6OjEDBQODXDmftu+yLVIhILKdBVon1Kbspwj1Ct8S+qSE9OCOq1jeG0YmQveSR
+ qmYOYNHFYvnF1UMlqZTg7T2vR46EnoMP3JudhhH23KfCzwMdheNjM4u+F8TYJgGG//8+
+ /A4BQL6CedjOgS5OWH7ZWQBgH/vYKvnWts1ZmPGvcDIYFw6Rucxo5s3n2IywCkhL02qq
+ kd0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686783661; x=1689375661;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nSH2hR39R1Nu5nYNmwG59rST+IPCeWv6B5EE3Mhl5OY=;
+ b=an17EZIayge8HmOabKq57hw1xm4IpKN9ppT58UTWWd291PwuWJaqovSdrvpijyIQ4a
+ aw+Px1RW5DCZ6fi9gXcgkxWkwL+X+JZzv+u6gjdXQGCMge4XX2Il7U3sd7CesXBAn7LI
+ fD2mR/A2e+a2z5pvT/DJ3cxxicubLjfv3NguqHpeJOUFPXTXVj/kFciQ8ZAp6l8Qihpa
+ rJqPYwQ9NBCl3BM6VcijlUF+CKiFkN43RCUfWnjYKP7TU226uihdb29sjTZStHhfppUQ
+ fwHsiF8StLe1VjCQyazkQY7tfLWShEzTd8OLvHgV+dHIK45X/qV4PzeqTLFzBxK3cIts
+ Ebkg==
+X-Gm-Message-State: AC+VfDzWBCtXWDCbublK625eqLsa23WVHuzZsHxjTwXzSCuZxrRv6aFK
+ MoB7GypW1NdTgNpQ6PCjUMyK0MzIzcK3BBNFLRo=
+X-Google-Smtp-Source: ACHHUZ46yEBe1FcunlF58VnQxu8cvZA4PXvar+FFbc8FSJYjMNbi0r+gSceDdOluLVGBpOQSW/Mt5H5Q5U21bdq5deA=
+X-Received: by 2002:a4a:d9d5:0:b0:55b:2f80:39e4 with SMTP id
+ l21-20020a4ad9d5000000b0055b2f8039e4mr11211428oou.4.1686783661535; Wed, 14
+ Jun 2023 16:01:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230614224402.296825-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dsi: split dsi_ctrl_config()
- function
+References: <20230612182527.3345786-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230612182527.3345786-1-dmitry.baryshkov@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 14 Jun 2023 16:00:50 -0700
+Message-ID: <CAF6AEGv6ZYSN343AMF5JEaL-04ciRjMWxSdd21TgQDoUXpSzyg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: make adreno_is_a690()'s
+ argument const
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,85 +72,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
  Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-15 01:44:02, Dmitry Baryshkov wrote:
-> It makes no sense to pass NULL parameters to dsi_ctrl_config() in the
-> disable case. Split dsi_ctrl_config() into enable and disable parts and
-> drop unused params.
-> 
+On Mon, Jun 12, 2023 at 11:25=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Change adreno_is_a690() prototype to accept the const struct adreno_gpu
+> pointer instead of a non-const one. This fixes the following warning:
+>
+> In file included from drivers/gpu/drm/msm/msm_drv.c:33:
+> drivers/gpu/drm/msm/adreno/adreno_gpu.h: In function =E2=80=98adreno_is_a=
+660_family=E2=80=99:
+> drivers/gpu/drm/msm/adreno/adreno_gpu.h:303:54: warning: passing argument=
+ 1 of =E2=80=98adreno_is_a690=E2=80=99 discards =E2=80=98const=E2=80=99 qua=
+lifier from pointer target type [-Wdiscarded-qualifiers]
+>   303 |         return adreno_is_a660(gpu) || adreno_is_a690(gpu) || adre=
+no_is_7c3(gpu);
+>
+> Fixes: 1b90e8f8879c ("drm/msm/adreno: change adreno_is_* functions to acc=
+ept const argument")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Indeed, it makes much more sense to split this out instead of faking a
-_configure(false) with a return right at the top and "bogus" pointers.
-
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index eaee621aa6c8..3f6dfb4f9d5a 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -705,7 +705,12 @@ static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
->  	}
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.h
+> index 1283e5fe22d2..9a7626c7ac4d 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -284,7 +284,7 @@ static inline int adreno_is_a660(const struct adreno_=
+gpu *gpu)
+>         return adreno_is_revn(gpu, 660);
 >  }
->  
-> -static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
-> +static void dsi_ctrl_disable(struct msm_dsi_host *msm_host)
-> +{
-> +	dsi_write(msm_host, REG_DSI_CTRL, 0);
-> +}
-> +
-> +static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
->  			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct msm_dsi_phy *phy)
+>
+> -static inline int adreno_is_a690(struct adreno_gpu *gpu)
+> +static inline int adreno_is_a690(const struct adreno_gpu *gpu)
 >  {
->  	u32 flags = msm_host->mode_flags;
-> @@ -713,11 +718,6 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
->  	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
->  	u32 data = 0, lane_ctrl = 0;
->  
-> -	if (!enable) {
-> -		dsi_write(msm_host, REG_DSI_CTRL, 0);
-> -		return;
-> -	}
-> -
->  	if (flags & MIPI_DSI_MODE_VIDEO) {
->  		if (flags & MIPI_DSI_MODE_VIDEO_HSE)
->  			data |= DSI_VID_CFG0_PULSE_MODE_HSA_HE;
-> @@ -802,7 +802,7 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
->  	if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
->  		lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
->  
-> -		if (msm_dsi_phy_set_continuous_clock(phy, enable))
-> +		if (msm_dsi_phy_set_continuous_clock(phy, true))
->  			lane_ctrl &= ~DSI_LANE_CTRL_HS_REQ_SEL_PHY;
->  
->  		dsi_write(msm_host, REG_DSI_LANE_CTRL,
-> @@ -2358,7 +2358,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
->  
->  	dsi_timing_setup(msm_host, is_bonded_dsi);
->  	dsi_sw_reset(msm_host);
-> -	dsi_ctrl_config(msm_host, true, phy_shared_timings, phy);
-> +	dsi_ctrl_enable(msm_host, phy_shared_timings, phy);
->  
->  	if (msm_host->disp_en_gpio)
->  		gpiod_set_value(msm_host->disp_en_gpio, 1);
-> @@ -2390,7 +2390,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
->  		goto unlock_ret;
->  	}
->  
-> -	dsi_ctrl_config(msm_host, false, NULL, NULL);
-> +	dsi_ctrl_disable(msm_host);
->  
->  	if (msm_host->disp_en_gpio)
->  		gpiod_set_value(msm_host->disp_en_gpio, 0);
-> -- 
+>         return gpu->revn =3D=3D 690;
+>  };
+> --
 > 2.39.2
-> 
+>
