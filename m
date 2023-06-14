@@ -2,72 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F70730A6B
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 00:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E691A730AE0
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 00:44:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1929810E46F;
-	Wed, 14 Jun 2023 22:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 508FD10E469;
+	Wed, 14 Jun 2023 22:44:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E31A510E46D;
- Wed, 14 Jun 2023 22:10:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35ELoFid020851; Wed, 14 Jun 2023 22:10:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=date : from : to :
- cc : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=qcppdkim1; bh=nnWLQwiZkQ8s5CJTvwAtHE6CaPCsbe4R6Q/zstn1Luc=;
- b=DZz5I+9VuXJWd7k/TkEHCTpNnPL4Wypx4h/Xq2vqIBngIrpz4gY96hFKFupz7Va4krlg
- 2QPJBHhJnQXtDwUK7ZDZ1wtzq9D8Ry+R0llYF+0uSsPLNdoN99qwfBMv5p8CYjLj/3p9
- /V+dtoWoIJ36492O9Rf8uM/QSKEwezvHFcbdoyYq/R35nO1dOUpYeoFpDPbIlUCuMIm4
- 8Z/bKKADuD0f5SuVGc569xMX9mljdVu+QyxWpS8Cs/NdJUPQky0N6sACjddRnmehTOOO
- YQfmXlSQbGXJp1ga/DjvuNYChq48aBZgYwfRFUPwYsnx1ppoaPveg0RwnMZuNDr10IGB TA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r7auy1p69-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Jun 2023 22:10:09 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35EM9iW3028192
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Jun 2023 22:09:45 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Wed, 14 Jun 2023 15:09:44 -0700
-Date: Wed, 14 Jun 2023 15:09:43 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Message-ID: <20230614220943.GA2941091@hu-bjorande-lv.qualcomm.com>
-References: <20230523011522.65351-1-quic_bjorande@quicinc.com>
- <168675861182.1453524.13825528487008901071.b4-ty@kernel.org>
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92CE310E469
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 22:44:08 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-4f64fb05a8aso9551548e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 15:44:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686782645; x=1689374645;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=AC35kDbj6ySmemert7/iRfIceZyirU887BhY5EsoBY0=;
+ b=hXG52HqnIpdkGQuwJp2XG/WhHpGSW2X8YJ7wRGzqSbvDi5DogyuX5DYcdP7KZIldr9
+ DeU4ZRXJT+c8u0Z5DG3UEJMSU65yIOgCiTKuYdkY27vmolZPGHMjkoxWLUv/sdJeQ3uK
+ btYHk+vZm4kQeDWGC83FMN0TtDm2jWZqlwJW7DuKgYb7aOeF9iiQgCfRWGmZka/P2FDz
+ xC0eDuQgiz64HSNxquDOOynIKns/FJDzC/naJZPaZgpRQoxtjIjuxnBx9rB1vu6S86XR
+ QtCh6eiOw07pMTxwmWAqoy8a0/tQsYjq6u3K/5HvCELbEzE0WwhpWae5nUOCC7hTEU1/
+ oTgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686782645; x=1689374645;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AC35kDbj6ySmemert7/iRfIceZyirU887BhY5EsoBY0=;
+ b=NfKH31Ns1jOUjV8EvaadVqEJZ127vaihi1q7i/b29dgCuFPLWAwWiWPlYVfkIbtjdA
+ KeariYnC3pfq5MlVRvX13v76z3OEoQvct8ye9eUd5qVEuGfcsAjQj18UhTo+/odg2bag
+ Su85hG08xyoxUsBdL8w2zcpnNDagJB+WiZXTnC7OUwWqhHsVnQ254D4nvVU63hU7mNRP
+ +MP+r40Ein3ZF8V7IntAYanfZCw9yR5tSnrmbf2V5rClmvmXTNwvpjgdFCHod+kDUJ4K
+ CmXKyN0s21S8OwQMvOEP7WFd2t8RkOemFAI2vT0z5MXJxBMj236JVeNFTnFlpX1GFK7I
+ o46g==
+X-Gm-Message-State: AC+VfDwlCGgnLLo9nI7zdKbwO9e8cGi0z2DUh8p+rNmfYVQRYZgY0pId
+ Qushbpbj+13ALaOsDAPc7hb3LfZpQzRIy73ZnWk=
+X-Google-Smtp-Source: ACHHUZ4dw/+61k2ZzEwroW2qmQVzfEyETzh2vxioPG+C1jcksXinkjZ6FbgE76zzqP9NLubv6XahYQ==
+X-Received: by 2002:a05:6512:68:b0:4f3:a99f:1ea7 with SMTP id
+ i8-20020a056512006800b004f3a99f1ea7mr8129826lfo.55.1686782644756; 
+ Wed, 14 Jun 2023 15:44:04 -0700 (PDT)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ q2-20020ac24a62000000b004edd2dc9a09sm2295866lfp.258.2023.06.14.15.44.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Jun 2023 15:44:03 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Thu, 15 Jun 2023 01:44:01 +0300
+Message-Id: <20230614224402.296825-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <168675861182.1453524.13825528487008901071.b4-ty@kernel.org>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: H2uwT20jcJRpnISyN6zyDC_T5LdqIC3a
-X-Proofpoint-GUID: H2uwT20jcJRpnISyN6zyDC_T5LdqIC3a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-14_14,2023-06-14_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- lowpriorityscore=0 mlxscore=0 spamscore=0 impostorscore=0 mlxlogscore=999
- adultscore=0 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306140194
-Subject: Re: [Freedreno] [PATCH v2 0/3] drm/msm/adreno: GPU support on
- SC8280XP
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dsi: dsi_host: drop unused clocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,40 +72,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, mani@kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- johan@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 14, 2023 at 09:03:34AM -0700, Bjorn Andersson wrote:
-> On Mon, 22 May 2023 18:15:19 -0700, Bjorn Andersson wrote:
-> > This series introduces support for A690 in the DRM/MSM driver and
-> > enables it for the two SC8280XP laptops.
-> > 
-> > Bjorn Andersson (3):
-> >   drm/msm/adreno: Add Adreno A690 support
-> >   arm64: dts: qcom: sc8280xp: Add GPU related nodes
-> >   arm64: dts: qcom: sc8280xp: Enable GPU related nodes
-> > 
-> > [...]
-> 
-> Applied, thanks!
-> 
-> [1/3] drm/msm/adreno: Add Adreno A690 support
->       (no commit info)
-> [2/3] arm64: dts: qcom: sc8280xp: Add GPU related nodes
->       commit: eec51ab2fd6f447a993c502364704d0cb5bc8cae
-> [3/3] arm64: dts: qcom: sc8280xp: Enable GPU related nodes
->       commit: 598a06afca5a2ab4850ce9ff8146ec728cca570c
-> 
+Several source clocks are not used anymore, so stop handling them.
 
-Seems like I managed to confuse b4, only v4 of the DTS patches were
-merged, while Rob merged the driver change.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 33 ------------------------------
+ 1 file changed, 33 deletions(-)
 
-Regards,
-Bjorn
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index fb1d3a25765f..eaee621aa6c8 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -118,8 +118,6 @@ struct msm_dsi_host {
+ 	struct clk *byte_clk;
+ 	struct clk *esc_clk;
+ 	struct clk *pixel_clk;
+-	struct clk *byte_clk_src;
+-	struct clk *pixel_clk_src;
+ 	struct clk *byte_intf_clk;
+ 
+ 	unsigned long byte_clk_rate;
+@@ -129,8 +127,6 @@ struct msm_dsi_host {
+ 
+ 	/* DSI v2 specific clocks */
+ 	struct clk *src_clk;
+-	struct clk *esc_clk_src;
+-	struct clk *dsi_clk_src;
+ 
+ 	unsigned long src_clk_rate;
+ 
+@@ -267,21 +263,6 @@ int dsi_clk_init_v2(struct msm_dsi_host *msm_host)
+ 		return ret;
+ 	}
+ 
+-	msm_host->esc_clk_src = clk_get_parent(msm_host->esc_clk);
+-	if (!msm_host->esc_clk_src) {
+-		ret = -ENODEV;
+-		pr_err("%s: can't get esc clock parent. ret=%d\n",
+-			__func__, ret);
+-		return ret;
+-	}
+-
+-	msm_host->dsi_clk_src = clk_get_parent(msm_host->src_clk);
+-	if (!msm_host->dsi_clk_src) {
+-		ret = -ENODEV;
+-		pr_err("%s: can't get src clock parent. ret=%d\n",
+-			__func__, ret);
+-	}
+-
+ 	return ret;
+ }
+ 
+@@ -346,20 +327,6 @@ static int dsi_clk_init(struct msm_dsi_host *msm_host)
+ 		goto exit;
+ 	}
+ 
+-	msm_host->byte_clk_src = clk_get_parent(msm_host->byte_clk);
+-	if (IS_ERR(msm_host->byte_clk_src)) {
+-		ret = PTR_ERR(msm_host->byte_clk_src);
+-		pr_err("%s: can't find byte_clk clock. ret=%d\n", __func__, ret);
+-		goto exit;
+-	}
+-
+-	msm_host->pixel_clk_src = clk_get_parent(msm_host->pixel_clk);
+-	if (IS_ERR(msm_host->pixel_clk_src)) {
+-		ret = PTR_ERR(msm_host->pixel_clk_src);
+-		pr_err("%s: can't find pixel_clk clock. ret=%d\n", __func__, ret);
+-		goto exit;
+-	}
+-
+ 	if (cfg_hnd->ops->clk_init_ver)
+ 		ret = cfg_hnd->ops->clk_init_ver(msm_host);
+ exit:
+-- 
+2.39.2
+
