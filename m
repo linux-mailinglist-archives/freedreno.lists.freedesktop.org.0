@@ -2,78 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E56F72F092
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 01:48:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7CF72F244
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 03:57:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A27710E3F5;
-	Tue, 13 Jun 2023 23:48:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B0F010E079;
+	Wed, 14 Jun 2023 01:57:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7676B10E3F5;
- Tue, 13 Jun 2023 23:48:05 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F3610E079;
+ Wed, 14 Jun 2023 01:57:34 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35DNTr9l023275; Tue, 13 Jun 2023 23:48:00 GMT
+ 35E1tvfC017191; Wed, 14 Jun 2023 01:57:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=FM5xB/r4EgxdjlRoQHM31J01RF4Bmv0XYEAXoPAud88=;
- b=NMve9Y7QZpnpfeibDE4J/rishu1Y1TGAqohcdMMLUjltbLbn6jIYoNsr4j190X+Ir3Av
- PwUKCkdpeGnj+5Vdda0G/FB1glyF+os3ICvSRvmnJEWvUaRitIVSxZBM64PzyAWv4Gbp
- H+3gYSMS0tnW9hQkyclYBPuRAYl2Pq3pP1cv+do6mpjjk7YXLG3nHhkXxxC3+AmCwoVq
- HXt3YOR+QJE3UYOjYIszuRzrHZrRg5HQpHXTQWCGIBGRKqFT7ffZwiV6oOsJXPC+qOxo
- RBkAPXhX8nRULe+wl/ihqbeJoU35gJePYO9Kb1EuIwT4CzMOemk2qWW9+Hfsor9dIVCy bA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r6t0bs6br-1
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=qcppdkim1;
+ bh=aB6qq9NAlAoe3i7ogsj2FwxbUnF/Z84IWK9KM6MeDQc=;
+ b=RvRb1IlEjePtIbOz7LESDmdNs3le9ZIX0t9+xKfR/2eAHnHDMtzBoRYaACSgK4pxmyDj
+ VcOlUWJBw7xinomf7zDP5RhalusNngUZLRXrkURq0KfSrUzMmv4l6JP5NaIyu+FUmVWQ
+ kohFNasZ2smj8iQ96R/U0B6pFv4xZC7mg7r2GX+ZTD0rrvZyg4kgfZPUYP/tjFJ6BvqN
+ 4HH7yt/mBYqKXibifBiLtVF9jw1m/yUx3coaUPvT+AqJZCcfGDuTlA2+H/3C7adQJ1hI
+ mtRf0H7IVab6qHXAHsD5GNVREAgjio4mi4hbMty7mGpxKb2daOj0pAZcc5wsMkeIv0G1 Uw== 
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r71tvr707-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Jun 2023 23:47:59 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35DNlwE1002038
+ Wed, 14 Jun 2023 01:57:31 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35E1vUlj030068
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Jun 2023 23:47:58 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 13 Jun
- 2023 16:47:58 -0700
-Message-ID: <2e3403a4-006c-9870-85b0-7994f8fdd769@quicinc.com>
-Date: Tue, 13 Jun 2023 16:47:57 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ Wed, 14 Jun 2023 01:57:30 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Tue, 13 Jun 2023 18:57:30 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Marijn Suijten
  <marijn.suijten@somainline.org>
-References: <20230613001004.3426676-1-dmitry.baryshkov@linaro.org>
- <20230613001004.3426676-6-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230613001004.3426676-6-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Tue, 13 Jun 2023 18:57:10 -0700
+Message-ID: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
+X-Mailer: git-send-email 2.40.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.13-dev-c6835
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1686707625; l=1659;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=Yse1fODJx1zUr/BvNeAxSEDHdQVKnBYqwbDO7X9/hOE=;
+ b=eEaCNrWNisgPCcT+qTo9wYkKBL1lj4GQFzahBU0SSUxvGv2XO/8U/4JuP9IFWftbenBm2dzTk
+ ZC2yrySLhV+BzMwZL1rG+dgEll7pyrifyFbMzWWnYCGZDV7bOXY9dAM
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 1kauRuyzNvITo4UzpOUXOO6cNZiWYAS6
-X-Proofpoint-ORIG-GUID: 1kauRuyzNvITo4UzpOUXOO6cNZiWYAS6
+X-Proofpoint-GUID: 1Rozn0QoesLu5m3RuSCKXusycWHEtQc7
+X-Proofpoint-ORIG-GUID: 1Rozn0QoesLu5m3RuSCKXusycWHEtQc7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-13_23,2023-06-12_02,2023-05-22_02
+ definitions=2023-06-13_24,2023-06-12_02,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- priorityscore=1501 clxscore=1015 mlxlogscore=530 spamscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 impostorscore=0
- phishscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2305260000 definitions=main-2306130209
-Subject: Re: [Freedreno] [PATCH v2 05/22] drm/msm/dpu: always use
- MSM_DP/DSI_CONTROLLER_n
+ impostorscore=0
+ malwarescore=0 mlxlogscore=811 bulkscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306140012
+Subject: [Freedreno] [PATCH 0/3] Add support for databus widen mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,39 +89,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+DPU 5.x+ and DSI 6G 2.5.x+ support a databus-widen mode that allows for
+more compressed data to be transferred per pclk.
 
+This series adds support for enabling this feature for both DPU and DSI
+by doing the following:
 
-On 6/12/2023 5:09 PM, Dmitry Baryshkov wrote:
-> In several catalog entries we did not use existing MSM_DP_CONTROLLER_n
-> constants. Fill them in. Also use freshly defined MSM_DSI_CONTROLLER_n
-> for DSI interfaces.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h  | 6 +++---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h   | 8 ++++----
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 8 ++++----
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h  | 4 ++--
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 8 ++++----
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h   | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h   | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h  | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 4 ++--
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h   | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 4 ++--
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 4 ++--
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 4 ++--
->   13 files changed, 29 insertions(+), 29 deletions(-)
-> 
+1. Add a DPU_INTF_DATABUS_WIDEN feature flag
+2. Add a DPU INTF op to set the DATABUS_WIDEN register
+3. Set the DATABUS_WIDEN register and do the proper hdisplay
+   calculations in DSI when applicable
 
-Patch itself is fine.
+Note: This series will only enable the databus-widen mode for command
+mode as we are currently unable to validate it on video mode.
 
-But sm6375 and sm6350 are missing as this needs to be rebased on top of 
-the tip of msm-next-lumag.
+Depends on: "Add DSC v1.2 Support for DSI" [1]
+
+[1] https://patchwork.freedesktop.org/series/117219/
+
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+Jessica Zhang (3):
+      drm/msm/dpu: Add DPU_INTF_DATABUS_WIDEN feature flag for DPU >= 5.0
+      drm/msm/dpu: Set DATABUS_WIDEN on command mode encoders
+      drm/msm/dsi: Enable DATABUS_WIDEN for DSI command mode
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  3 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c       |  3 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h       |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 12 ++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          |  3 +++
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                    |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                   | 19 ++++++++++++++++++-
+ 7 files changed, 41 insertions(+), 2 deletions(-)
+---
+base-commit: 1981c2c0c05f5d7fe4d4552d4f352cb46840e51e
+change-id: 20230525-add-widebus-support-f785546ee751
+
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
