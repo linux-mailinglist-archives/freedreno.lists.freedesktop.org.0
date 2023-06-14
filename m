@@ -2,38 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D4D67301A5
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 16:22:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 096A47301AA
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 16:22:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3757E10E460;
-	Wed, 14 Jun 2023 14:22:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1404F10E461;
+	Wed, 14 Jun 2023 14:22:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7827510E133
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E86410E460
  for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 14:22:27 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35EDBMCA016845; Wed, 14 Jun 2023 14:22:12 GMT
+ 35EDOA11027717; Wed, 14 Jun 2023 14:22:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=qcppdkim1;
- bh=N896rduNeGPW4nECa5gFYOlfCcvCO2H4GftWaevUJIk=;
- b=QpWt6D2QEZpHQzn2hGXLh+i6px+Kw33A3yHdK2GWAuptHvg/0/Go8VmcMNuKbhSs2BrH
- SHCOusgmpzwSJWH96B3N3fKZ9s2eYdwQqs34jokF5mWJnqpKLWnWmKFmXMpX37CyuGDE
- DhouHIz0Gn9aO2Cl8jc/WXam7y1wqJFW9GZd/XsfOunUMDGj1SOT2MhMZwJcsdlRLSyY
- /WJvWyCXs+iWZghIElXpSTgooeOIZcqqPaeia59vGuzk2bRZBcCT1isjF8fXoq2VeO2B
- 7ULqTpX9ORS/KcQWyUq06P9HrGjYtzJE0/NW8ZtFwGlRPFfCEPACObNFnstGz89AQ8bt /Q== 
+ bh=RItX9jbfeXEodO4/EXY2nGdLddbQVMaHdAExv3SXWco=;
+ b=O5X+PqVgdFpODgGidEDfv4nLc1GiYEWDSz6tzlpn3U5ZQEm6xXS5nBWceI8qx4NgUm90
+ wKrvx60Os69LUva5Py3MTA7L/hh2nBfxYaAOiqKZfhBfNh1XBbsBDCjhQzpZfF8viRmx
+ 07xi4SO3658l4lC2l0KEmKNGpKllBqzRMiCz7FJkW+3JtDQyYmKGQVkP6ckf4VPsHbP0
+ BX0Qof+2hYTdjVUZK3hbWyZl2zVniR1kaNMam1XDQIHLxVYc8SOp/wDvJ6s4Bz8fIHJx
+ 1KTCAJSwRWr5788KpVPkwnEdmbUn3fFxrCcwaveyvYNhe9C3w4HIAFcwlbAk04yFFMZO 8Q== 
 Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r7auy0rct-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r7ebt84ac-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 14 Jun 2023 14:22:11 +0000
 Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
  [10.47.97.35])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35EEMAQg008624
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35EEMAQh008624
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 14 Jun 2023 14:22:10 GMT
 Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
@@ -43,8 +43,8 @@ Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
 From: Bjorn Andersson <quic_bjorande@quicinc.com>
 To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
  <konrad.dybcio@linaro.org>
-Date: Wed, 14 Jun 2023 07:22:03 -0700
-Message-ID: <20230614142204.2675653-2-quic_bjorande@quicinc.com>
+Date: Wed, 14 Jun 2023 07:22:04 -0700
+Message-ID: <20230614142204.2675653-3-quic_bjorande@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230614142204.2675653-1-quic_bjorande@quicinc.com>
 References: <20230614142204.2675653-1-quic_bjorande@quicinc.com>
@@ -57,18 +57,18 @@ X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: NPD7W07ok-3NH24d_muREwABnWRbTR24
-X-Proofpoint-GUID: NPD7W07ok-3NH24d_muREwABnWRbTR24
+X-Proofpoint-GUID: SHl4N8nS31imK2LITXrGIWFS6vdrmBvq
+X-Proofpoint-ORIG-GUID: SHl4N8nS31imK2LITXrGIWFS6vdrmBvq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
  definitions=2023-06-14_10,2023-06-14_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- lowpriorityscore=0 mlxscore=0 spamscore=0 impostorscore=0 mlxlogscore=999
- adultscore=0 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306140124
-Subject: [Freedreno] [PATCH v4 1/2] arm64: dts: qcom: sc8280xp: Add GPU
+ clxscore=1011 spamscore=0
+ mlxscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 mlxlogscore=989 impostorscore=0
+ phishscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2305260000 definitions=main-2306140124
+Subject: [Freedreno] [PATCH v4 2/2] arm64: dts: qcom: sc8280xp: Enable GPU
  related nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,230 +93,83 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-Add Adreno SMMU, GPU clock controller, GMU and GPU nodes for the
-SC8280XP.
+Add memory reservation for the zap-shader and enable the Adreno SMMU,
+GPU clock controller, GMU and the GPU nodes for the SC8280XP CRD and the
+Lenovo ThinkPad X13s.
 
 Tested-by: Steev Klimaszewski <steev@kali.org>
 Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 Tested-by: Johan Hovold <johan+linaro@kernel.org>
 Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 ---
- arch/arm64/boot/dts/qcom/sa8540p.dtsi  |   8 ++
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 175 +++++++++++++++++++++++++
- 2 files changed, 183 insertions(+)
+ arch/arm64/boot/dts/qcom/sc8280xp-crd.dts          | 14 ++++++++++++++
+ .../dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     | 14 ++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8540p.dtsi b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-index 4a990fda8fc3..bacbdec56281 100644
---- a/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-@@ -167,6 +167,14 @@ opp-2592000000 {
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+index cd7e0097d8bc..b566e403d1db 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+@@ -210,6 +210,11 @@ vreg_wwan: regulator-wwan {
  	};
+ 
+ 	reserved-memory {
++		gpu_mem: gpu-mem@8bf00000 {
++			reg = <0 0x8bf00000 0 0x2000>;
++			no-map;
++		};
++
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			size = <0x0 0x8000000>;
+@@ -390,6 +395,15 @@ &dispcc0 {
+ 	status = "okay";
  };
  
-+&gpucc {
-+	status = "disabled";
++&gpu {
++	status = "okay";
++
++	zap-shader {
++		memory-region = <&gpu_mem>;
++		firmware-name = "qcom/sc8280xp/qcdxkmsuc8280.mbn";
++	};
 +};
 +
-+&gpu_smmu {
-+	status = "disabled";
+ &mdss0 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+index 5ae057ad6438..7cc3028440b6 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+@@ -264,6 +264,11 @@ vreg_wwan: regulator-wwan {
+ 	};
+ 
+ 	reserved-memory {
++		gpu_mem: gpu-mem@8bf00000 {
++			reg = <0 0x8bf00000 0 0x2000>;
++			no-map;
++		};
++
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			size = <0x0 0x8000000>;
+@@ -518,6 +523,15 @@ &dispcc0 {
+ 	status = "okay";
+ };
+ 
++&gpu {
++	status = "okay";
++
++	zap-shader {
++		memory-region = <&gpu_mem>;
++		firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
++	};
 +};
 +
- &pcie2a {
- 	compatible = "qcom,pcie-sa8540p";
- 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index 6b1bb203b1d1..ac0596dfdbc4 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -6,6 +6,7 @@
- 
- #include <dt-bindings/clock/qcom,dispcc-sc8280xp.h>
- #include <dt-bindings/clock/qcom,gcc-sc8280xp.h>
-+#include <dt-bindings/clock/qcom,gpucc-sc8280xp.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/clock/qcom,sc8280xp-lpasscc.h>
- #include <dt-bindings/interconnect/qcom,osm-l3.h>
-@@ -2341,6 +2342,180 @@ tcsr: syscon@1fc0000 {
- 			reg = <0x0 0x01fc0000 0x0 0x30000>;
- 		};
- 
-+		gpu: gpu@3d00000 {
-+			compatible = "qcom,adreno-690.0", "qcom,adreno";
-+
-+			reg = <0 0x03d00000 0 0x40000>,
-+			      <0 0x03d9e000 0 0x1000>,
-+			      <0 0x03d61000 0 0x800>;
-+			reg-names = "kgsl_3d0_reg_memory",
-+				    "cx_mem",
-+				    "cx_dbgc";
-+			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-+			iommus = <&gpu_smmu 0 0xc00>, <&gpu_smmu 1 0xc00>;
-+			operating-points-v2 = <&gpu_opp_table>;
-+
-+			qcom,gmu = <&gmu>;
-+			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
-+			interconnect-names = "gfx-mem";
-+			#cooling-cells = <2>;
-+
-+			status = "disabled";
-+
-+			gpu_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-270000000 {
-+					opp-hz = /bits/ 64 <270000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <451000>;
-+				};
-+
-+				opp-410000000 {
-+					opp-hz = /bits/ 64 <410000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <1555000>;
-+				};
-+
-+				opp-500000000 {
-+					opp-hz = /bits/ 64 <500000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <1555000>;
-+				};
-+
-+				opp-547000000 {
-+					opp-hz = /bits/ 64 <547000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-peak-kBps = <1555000>;
-+				};
-+
-+				opp-606000000 {
-+					opp-hz = /bits/ 64 <606000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <2736000>;
-+				};
-+
-+				opp-640000000 {
-+					opp-hz = /bits/ 64 <640000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <2736000>;
-+				};
-+
-+				opp-655000000 {
-+					opp-hz = /bits/ 64 <655000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					opp-peak-kBps = <2736000>;
-+				};
-+
-+				opp-690000000 {
-+					opp-hz = /bits/ 64 <690000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+					opp-peak-kBps = <2736000>;
-+				};
-+			};
-+		};
-+
-+		gmu: gmu@3d6a000 {
-+			compatible = "qcom,adreno-gmu-690.0", "qcom,adreno-gmu";
-+			reg = <0 0x03d6a000 0 0x34000>,
-+			      <0 0x03de0000 0 0x10000>,
-+			      <0 0x0b290000 0 0x10000>;
-+			reg-names = "gmu", "rscc", "gmu_pdc";
-+			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "hfi", "gmu";
-+			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-+				 <&gpucc GPU_CC_CXO_CLK>,
-+				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-+				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+				 <&gpucc GPU_CC_AHB_CLK>,
-+				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
-+				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
-+			clock-names = "gmu",
-+				      "cxo",
-+				      "axi",
-+				      "memnoc",
-+				      "ahb",
-+				      "hub",
-+				      "smmu_vote";
-+			power-domains = <&gpucc GPU_CC_CX_GDSC>,
-+					<&gpucc GPU_CC_GX_GDSC>;
-+			power-domain-names = "cx",
-+					     "gx";
-+			iommus = <&gpu_smmu 5 0xc00>;
-+			operating-points-v2 = <&gmu_opp_table>;
-+
-+			gmu_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-200000000 {
-+					opp-hz = /bits/ 64 <200000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-+				};
-+
-+				opp-500000000 {
-+					opp-hz = /bits/ 64 <500000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+				};
-+			};
-+		};
-+
-+		gpucc: clock-controller@3d90000 {
-+			compatible = "qcom,sc8280xp-gpucc";
-+			reg = <0 0x03d90000 0 0x9000>;
-+			clocks = <&rpmhcc RPMH_CXO_CLK>,
-+				 <&gcc GCC_GPU_GPLL0_CLK_SRC>,
-+				 <&gcc GCC_GPU_GPLL0_DIV_CLK_SRC>;
-+			clock-names = "bi_tcxo",
-+				      "gcc_gpu_gpll0_clk_src",
-+				      "gcc_gpu_gpll0_div_clk_src";
-+
-+			power-domains = <&rpmhpd SC8280XP_GFX>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		gpu_smmu: iommu@3da0000 {
-+			compatible = "qcom,sc8280xp-smmu-500", "qcom,adreno-smmu",
-+				     "qcom,smmu-500", "arm,mmu-500";
-+			reg = <0 0x03da0000 0 0x20000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <2>;
-+			interrupts = <GIC_SPI 672 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 689 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+				 <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
-+				 <&gpucc GPU_CC_AHB_CLK>,
-+				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>,
-+				 <&gpucc GPU_CC_CX_GMU_CLK>,
-+				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
-+				 <&gpucc GPU_CC_HUB_AON_CLK>;
-+			clock-names = "gcc_gpu_memnoc_gfx_clk",
-+				      "gcc_gpu_snoc_dvm_gfx_clk",
-+				      "gpu_cc_ahb_clk",
-+				      "gpu_cc_hlos1_vote_gpu_smmu_clk",
-+				      "gpu_cc_cx_gmu_clk",
-+				      "gpu_cc_hub_cx_int_clk",
-+				      "gpu_cc_hub_aon_clk";
-+
-+			power-domains = <&gpucc GPU_CC_CX_GDSC>;
-+			dma-coherent;
-+		};
-+
- 		usb_0_hsphy: phy@88e5000 {
- 			compatible = "qcom,sc8280xp-usb-hs-phy",
- 				     "qcom,usb-snps-hs-5nm-phy";
+ &mdss0 {
+ 	status = "okay";
+ };
 -- 
 2.25.1
 
