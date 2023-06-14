@@ -2,74 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12DB272F70C
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 09:56:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12E5872F98A
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 11:43:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF9A410E226;
-	Wed, 14 Jun 2023 07:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F98410E434;
+	Wed, 14 Jun 2023 09:43:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E8810E415
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 07:56:05 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4f660e57123so5919731e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 00:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686729363; x=1689321363;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=JJPISEmPBy/fFyKK4OdqlG5gkZtasSpnLqvR/QuZsrc=;
- b=Z7GS1eKT8nO7TxFE5M0qMwLUz+EZv2zNcpHm3JpZ8188Zt3tGihoJ40UK/M/+P7P1Z
- 1yFkhvNp50dlLGoJWKQdCtY3bQAVdBOKB0tC/+UBZfCJe3XOGO9zUEhazVVS1Iar5ZLi
- 2qX/tjowOPZyaZynAzLAI1zvmABYP3Yoo7R1s8k97vYd6unI4pNI5gj3BtdRC44m5Y5p
- 0PW7/ypl/lVieTySySLFObOe70melVrKASD+UPl0H/bucy8XP2FJMZ5HcrbRxunTW2xC
- abDHMJScDUZwW5ZpOM4kgN1I8LsIM6ACc+5tDujmhghznXjF99QWvWY2jl6QBfRDjxsN
- 31mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686729363; x=1689321363;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JJPISEmPBy/fFyKK4OdqlG5gkZtasSpnLqvR/QuZsrc=;
- b=QbhzPmazh3lzYPKUmKTPxR6CC9fIASYP9+poiCMpWQfObkAsYHXU911Nix/yH1Innp
- woFOkII8le30nFmGOBsD+gVbFvU90UP56kxPhuadISs8Jz3d0YVZRH3AzZpIky1c8qTv
- 8uNfQOI0HXt2lvAhDsIYoXKhsPk5wh7EKAJPEBaL5K7CnZFaUpnXUnsIXzfLLT2gGk09
- TwFi8uPMyoVFSzpDSG5k3YqaszeoDbSfmumBIhLmhOacPSjF5/H89KqelCzmHVcYnZlN
- 4NfFATIQGxrlNFGDWy9kPd/nUFEthtmgEhkDKzr+0WIrQZMvjfB3lqsJqZd2tZzHBbU1
- 24bQ==
-X-Gm-Message-State: AC+VfDw20oSc3xpFd63JPtVs6x60yAMxplYCY0qsVJ/1oeSLsW1vDgA/
- 971b8O8PLnA/s0FBw6N0+sWI6w==
-X-Google-Smtp-Source: ACHHUZ6gQl+0Kjo3PkucyLQR6m9PDFEMbrbKq8jhGBsMoylSMxxqYFARW61e25BEd87a5AcAhO1Hzw==
-X-Received: by 2002:a19:5619:0:b0:4f3:8196:80cb with SMTP id
- k25-20020a195619000000b004f3819680cbmr6959270lfb.41.1686729363110; 
- Wed, 14 Jun 2023 00:56:03 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- x9-20020ac259c9000000b004f650b03391sm2013241lfn.91.2023.06.14.00.56.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jun 2023 00:56:02 -0700 (PDT)
-Message-ID: <c74c9e0e-d059-f0e3-4350-03089c37131a@linaro.org>
-Date: Wed, 14 Jun 2023 10:56:02 +0300
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF0210E432
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 09:43:34 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id AC2483F80E;
+ Wed, 14 Jun 2023 11:43:29 +0200 (CEST)
+Date: Wed, 14 Jun 2023 11:43:27 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <o57lsyxwzz5ihqlzq4ewnlnevj36rrq44ohyaxm3htnxzmomxn@fuv2sa5frph3>
+References: <20230608-b4-add-burst-mode-v1-1-55dfbcfada55@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-2-c7069f2efca1@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230525-add-widebus-support-v1-2-c7069f2efca1@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Set DATABUS_WIDEN on
- command mode encoders
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230608-b4-add-burst-mode-v1-1-55dfbcfada55@quicinc.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Enable BURST_MODE for command
+ mode for DSI 6G v1.3+
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,99 +43,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
  quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/06/2023 04:57, Jessica Zhang wrote:
-> Add a DPU INTF op to set the DATABUS_WIDEN register to enable the
-> databus-widen mode datapath.
+On 2023-06-12 16:37:36, Jessica Zhang wrote:
+> During a frame transfer in command mode, there could be frequent
+> LP11 <-> HS transitions when multiple DCS commands are sent mid-frame or
+> if the DSI controller is running on slow clock and is throttled. To
+> minimize frame latency due to these transitions, it is recommended to
+> send the frame in a single burst.
+> 
+> This feature is supported for DSI 6G 1.3 and above, thus enable burst
+> mode if supported.
 > 
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  3 +++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 12 ++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          |  3 +++
->   3 files changed, 18 insertions(+)
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> index b856c6286c85..124ba96bebda 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> @@ -70,6 +70,9 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
->   
->   	if (intf_cfg.dsc != 0 && phys_enc->hw_intf->ops.enable_compression)
->   		phys_enc->hw_intf->ops.enable_compression(phys_enc->hw_intf);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 744f2398a6d6..8254b06dca85 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -994,6 +994,11 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_TOTAL,
+>  			DSI_CMD_MDP_STREAM0_TOTAL_H_TOTAL(hdisplay) |
+>  			DSI_CMD_MDP_STREAM0_TOTAL_V_TOTAL(mode->vdisplay));
 > +
-> +	if (phys_enc->hw_intf->ops.enable_widebus)
-> +		phys_enc->hw_intf->ops.enable_widebus(phys_enc->hw_intf);
+> +		if (msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
+> +				msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V1_3)
+> +			dsi_write(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2,
+> +					DSI_CMD_MODE_MDP_CTRL2_BURST_MODE);
 
-No. Please provide a single function which takes necessary 
-configuration, including compression and wide_bus_enable.
+This is not part of the timing setup, and a similar BURST_MODE flag is
+enabled for video-mode in dsi_ctrl_config() - should it be moved there?
 
-Also note, that we already have dpu_encoder_is_widebus_enabled() and the 
-rest of support code. Please stick to it too.
+(There is a dsi_sw_reset() in between the calls to dsi_timing_setup()
+ and dsi_ctrl_cfg())
 
->   }
->   
->   static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int irq_idx)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index 5b0f6627e29b..03ba3a1c7a46 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -513,6 +513,15 @@ static void dpu_hw_intf_disable_autorefresh(struct dpu_hw_intf *intf,
->   
->   }
->   
-> +static void dpu_hw_intf_enable_widebus(struct dpu_hw_intf *ctx)
-> +{
-> +	u32 intf_cfg2 = DPU_REG_READ(&ctx->hw, INTF_CONFIG2);
-> +
-> +	intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
-> +
-> +	DPU_REG_WRITE(&ctx->hw, INTF_CONFIG2, intf_cfg2);
-> +}
-> +
->   static void dpu_hw_intf_enable_compression(struct dpu_hw_intf *ctx)
->   {
->   	u32 intf_cfg2 = DPU_REG_READ(&ctx->hw, INTF_CONFIG2);
-> @@ -545,6 +554,9 @@ static void _setup_intf_ops(struct dpu_hw_intf_ops *ops,
->   
->   	if (cap & BIT(DPU_INTF_DATA_COMPRESS))
->   		ops->enable_compression = dpu_hw_intf_enable_compression;
-> +
-> +	if (cap & BIT(DPU_INTF_DATABUS_WIDEN))
-> +		ops->enable_widebus = dpu_hw_intf_enable_widebus;
+Note that that function sets up the CMD_CFG0 and CMD_CFG1 register, with
+the former having a very similar layout to MDP_CTRL2... is there
+documentation outlining the difference?
 
->   }
->   
->   struct dpu_hw_intf *dpu_hw_intf_init(const struct dpu_intf_cfg *cfg,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> index 99e21c4137f9..64a17b99d3d1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> @@ -71,6 +71,7 @@ struct intf_status {
->    *                              Return: 0 on success, -ETIMEDOUT on timeout
->    * @vsync_sel:                  Select vsync signal for tear-effect configuration
->    * @enable_compression:         Enable data compression
-> + * @enable_widebus:             Enable widebus
->    */
->   struct dpu_hw_intf_ops {
->   	void (*setup_timing_gen)(struct dpu_hw_intf *intf,
-> @@ -109,6 +110,8 @@ struct dpu_hw_intf_ops {
->   	void (*disable_autorefresh)(struct dpu_hw_intf *intf, uint32_t encoder_id, u16 vdisplay);
->   
->   	void (*enable_compression)(struct dpu_hw_intf *intf);
-> +
-> +	void (*enable_widebus)(struct dpu_hw_intf *intf);
->   };
->   
->   struct dpu_hw_intf {
+- Marijn
+
+>  	}
+>  }
+>  
 > 
-
--- 
-With best wishes
-Dmitry
-
+> ---
+> base-commit: dd969f852ba4c66938c71889e826aa8e5300d2f2
+> change-id: 20230608-b4-add-burst-mode-a5bb144069fa
+> 
+> Best regards,
+> -- 
+> Jessica Zhang <quic_jesszhan@quicinc.com>
+> 
