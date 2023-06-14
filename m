@@ -2,37 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC77C72FE6A
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 14:23:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 130077301A2
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 16:22:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5385010E12A;
-	Wed, 14 Jun 2023 12:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9827C10E133;
+	Wed, 14 Jun 2023 14:22:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7BB610E12A
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 12:23:40 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 57B7D3F403;
- Wed, 14 Jun 2023 14:23:38 +0200 (CEST)
-Date: Wed, 14 Jun 2023 14:23:36 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ycgei43x4kfmjk7g7gbeglehtiiinfbqmrjbdzcy56frxbtd2z@yk2f5kgrkbrt>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-1-c7069f2efca1@quicinc.com>
- <wpjxrnhbcanbc5iatxnff25yrrdfrtmgb24sgwyo457dz2oyjz@e2docpcb6337>
- <f4fb042c-1458-6077-3c49-8cc02638b27c@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 774B110E06B;
+ Wed, 14 Jun 2023 14:22:27 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35EEGEwK008904; Wed, 14 Jun 2023 14:22:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=kSbbaWee/PlN9V2bg3yK1efNJc94MTdMdYRy8dTiyY0=;
+ b=P3xHpKatcME6lmrcAo7Sb85jXo0WUrcDUVitVtcXBwT/zOc4+L2araiGoC3nDNh1BIdc
+ hGPBy4YrFtOoeikm8auwTaFzDA45zCmQDuW7QRNNEYlStnGmnZ6/jNN7VQDqm0SH85WK
+ dw6RBHxjCPhWa0osRfN8drW8gDtIItNZ9k0ZuA+ybZPuMSBMe5SEtiNjlH0pp0O+w6sb
+ kAZilEj0TeqLBUs2co/G+BW8Zrd62DgTN/vuV6GQhJMlPHjxjozCA8E7tiIupic/Z7Y7
+ dY1ySrHP85Z1MKjLlHXu7Ca10T7QPgvqzEKj87NCj2tb1H9iHzrFV1PxeSC02pK49JO2 kQ== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r6s3wu067-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Jun 2023 14:22:11 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35EEMAeh022915
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Jun 2023 14:22:10 GMT
+Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Wed, 14 Jun 2023 07:22:09 -0700
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: 
+Date: Wed, 14 Jun 2023 07:22:02 -0700
+Message-ID: <20230614142204.2675653-1-quic_bjorande@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f4fb042c-1458-6077-3c49-8cc02638b27c@linaro.org>
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Add DPU_INTF_DATABUS_WIDEN
- feature flag for DPU >= 5.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: bWoIwAdXXEatKvW8W0Zgl6ZeCHUX_0dB
+X-Proofpoint-GUID: bWoIwAdXXEatKvW8W0Zgl6ZeCHUX_0dB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-14_10,2023-06-14_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0
+ adultscore=0 mlxscore=0 mlxlogscore=511 clxscore=1011 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306140124
+Subject: [Freedreno] [PATCH v4 0/2] drm/msm/adreno: GPU support on SC8280XP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,55 +78,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, mani@kernel.org,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, johan@kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-14 15:01:59, Dmitry Baryshkov wrote:
-> On 14/06/2023 14:42, Marijn Suijten wrote:
-> > On 2023-06-13 18:57:11, Jessica Zhang wrote:
-> >> DPU 5.x+ supports a databus widen mode that allows more data to be sent
-> >> per pclk. Enable this feature flag on all relevant chipsets.
-> >>
-> >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 3 ++-
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 ++
-> >>   2 files changed, 4 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >> index 36ba3f58dcdf..0be7bf0bfc41 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> >> @@ -103,7 +103,8 @@
-> >>   	(BIT(DPU_INTF_INPUT_CTRL) | \
-> >>   	 BIT(DPU_INTF_TE) | \
-> >>   	 BIT(DPU_INTF_STATUS_SUPPORTED) | \
-> >> -	 BIT(DPU_DATA_HCTL_EN))
-> >> +	 BIT(DPU_DATA_HCTL_EN) | \
-> >> +	 BIT(DPU_INTF_DATABUS_WIDEN))
-> > 
-> > This doesn't work.  DPU 5.0.0 is SM8150, which has DSI 6G 2.3.  In the
-> > last patch for DSI you state and enable widebus for DSI 6G 2.5+ only,
-> > meaning DPU and DSI are now desynced, and the output is completely
-> > corrupted.
+With the A690 support merged in the drm/msm driver, this series adds the
+DeviceTree pieces to make it go on sc8280xp.
 
-Tested this on SM8350 which actually has DSI 2.5, and it is also
-corrupted with this series so something else on this series might be
-broken.
+Note that in order for the GPU driver to probe, the last change
+requires (which is now in linux-next):
+https://lore.kernel.org/linux-arm-msm/20230410185226.3240336-1-dmitry.baryshkov@linaro.org/
 
-> > Is the bound in dsi_host wrong, or do DPU and DSI need to communicate
-> > when widebus will be enabled, based on DPU && DSI supporting it?
-> 
-> I'd prefer to follow the second approach, as we did for DP. DPU asks the 
-> actual video output driver if widebus is to be enabled.
+Changes since v3:
+- Dropped DRM patch, as it has been merged
+- Left status okay on gmu, gpucc and smmu nodes, disabled latter two in
+  sa8540p for now
+- s/adreno_smmu/gpu_smmu/ to get the GPU nodes adjacent in sa8540p
 
-Doesn't it seem very strange that DPU 5.x+ comes with a widebus feature,
-but the DSI does not until two revisions later?  Or is this available on
-every interface, but only for a different (probably DP) encoder block?
+Changes since v2:
+- Added missing opp level (both gpu and gmu)
+- Corrected opp-level for highest gpu opp
+- Added dma-coherent to gpu smmu
 
-- Marijn
+Changes since v1:
+- Dropped gmu_pdc_seq region from &gmu, as it shouldn't have been used.
+- Added missing compatible to &adreno_smmu.
+- Dropped aoss_qmp clock in &gmu and &adreno_smmu.
+
+Bjorn Andersson (2):
+  arm64: dts: qcom: sc8280xp: Add GPU related nodes
+  arm64: dts: qcom: sc8280xp: Enable GPU related nodes
+
+ arch/arm64/boot/dts/qcom/sa8540p.dtsi         |   8 +
+ arch/arm64/boot/dts/qcom/sc8280xp-crd.dts     |  14 ++
+ .../qcom/sc8280xp-lenovo-thinkpad-x13s.dts    |  14 ++
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi        | 175 ++++++++++++++++++
+ 4 files changed, 211 insertions(+)
+
+-- 
+2.25.1
+
