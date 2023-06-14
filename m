@@ -1,34 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08B8472FA21
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 12:09:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A868E72FB3C
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 12:39:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C73810E438;
-	Wed, 14 Jun 2023 10:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F3810E437;
+	Wed, 14 Jun 2023 10:39:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF01610E438;
- Wed, 14 Jun 2023 10:09:40 +0000 (UTC)
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E42710E440
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 10:39:15 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DA6493F7F8;
- Wed, 14 Jun 2023 12:09:38 +0200 (CEST)
-Date: Wed, 14 Jun 2023 12:09:37 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 820473F78E;
+ Wed, 14 Jun 2023 12:39:12 +0200 (CEST)
+Date: Wed, 14 Jun 2023 12:39:11 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <daltbzem4x5azhqt4xtjip4alc2r6huis4qnukl5h2w3rle56y@7b7kkoltys4s>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <lsfofftdomumlm4w7nilkez26weckb3wd2rndrpqikwkxtfar4@ryjvbumfetlu>
+References: <20230521172147.4163085-1-dmitry.baryshkov@linaro.org>
+ <fihs3di7da5rnvx63n4ums65rer62nps2ber77rojrtwacrgih@3r3aeedfvdr2>
+ <kb25ll3emyh6jymyewzpqjtzuw4jekfysruar5pvgxbp37glf2@wf2pqlnhh64m>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 0/3] Add support for databus widen mode
+In-Reply-To: <kb25ll3emyh6jymyewzpqjtzuw4jekfysruar5pvgxbp37glf2@wf2pqlnhh64m>
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: drop SSPP register dumpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,57 +44,80 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-13 18:57:10, Jessica Zhang wrote:
-> DPU 5.x+ and DSI 6G 2.5.x+ support a databus-widen mode that allows for
-> more compressed data to be transferred per pclk.
+On 2023-05-21 21:16:39, Marijn Suijten wrote:
+> On 2023-05-21 20:12:00, Marijn Suijten wrote:
+> > On 2023-05-21 20:21:46, Dmitry Baryshkov wrote:
+> > > Drop SSPP-specifig debugfs register dumps in favour of using
+> > > debugfs/dri/0/kms or devcoredump.
+> > > 
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > 
+> > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > 
+> > > ---
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 25 ---------------------
+> > >  1 file changed, 25 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> > > index bfd82c2921af..6c5ebee2f7cd 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> > > @@ -727,31 +727,6 @@ int _dpu_hw_sspp_init_debugfs(struct dpu_hw_sspp *hw_pipe, struct dpu_kms *kms,
+> > >  	debugfs_create_xul("features", 0600,
+> > >  			debugfs_root, (unsigned long *)&hw_pipe->cap->features);
+> > >  
+> > > -	/* add register dump support */
+> > > -	dpu_debugfs_create_regset32("src_blk", 0400,
+> > > -			debugfs_root,
+> > > -			sblk->src_blk.base + cfg->base,
+> > > -			sblk->src_blk.len,
 > 
-> This series adds support for enabling this feature for both DPU and DSI
-> by doing the following:
-> 
-> 1. Add a DPU_INTF_DATABUS_WIDEN feature flag
-> 2. Add a DPU INTF op to set the DATABUS_WIDEN register
-> 3. Set the DATABUS_WIDEN register and do the proper hdisplay
->    calculations in DSI when applicable
-> 
-> Note: This series will only enable the databus-widen mode for command
-> mode as we are currently unable to validate it on video mode.
-> 
-> Depends on: "Add DSC v1.2 Support for DSI" [1]
-> 
-> [1] https://patchwork.freedesktop.org/series/117219/
+> Note that this fails to apply on top of
+> https://lore.kernel.org/linux-arm-msm/20230429012353.2569481-2-dmitry.baryshkov@linaro.org/
 
-Didn't Dmitry already pick that up for msm-next-lumag?
+Also noticing just now that this whole patch makes sblk unused:
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c: In function '_dpu_hw_sspp_init_debugfs':
+drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c:620:41: warning: unused variable 'sblk' [-Wunused-variable]
+  620 |         const struct dpu_sspp_sub_blks *sblk = cfg->sblk;
+      |                                         ^~~~
 
 - Marijn
 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
-> Jessica Zhang (3):
->       drm/msm/dpu: Add DPU_INTF_DATABUS_WIDEN feature flag for DPU >= 5.0
->       drm/msm/dpu: Set DATABUS_WIDEN on command mode encoders
->       drm/msm/dsi: Enable DATABUS_WIDEN for DSI command mode
 > 
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  3 +++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c       |  3 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h       |  2 ++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 12 ++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          |  3 +++
->  drivers/gpu/drm/msm/dsi/dsi.xml.h                    |  1 +
->  drivers/gpu/drm/msm/dsi/dsi_host.c                   | 19 ++++++++++++++++++-
->  7 files changed, 41 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 1981c2c0c05f5d7fe4d4552d4f352cb46840e51e
-> change-id: 20230525-add-widebus-support-f785546ee751
+> - Marijn
 > 
-> Best regards,
-> -- 
-> Jessica Zhang <quic_jesszhan@quicinc.com>
-> 
+> > > -			kms);
+> > > -
+> > > -	if (cfg->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
+> > > -			cfg->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
+> > > -			cfg->features & BIT(DPU_SSPP_SCALER_QSEED2) ||
+> > > -			cfg->features & BIT(DPU_SSPP_SCALER_QSEED4))
+> > > -		dpu_debugfs_create_regset32("scaler_blk", 0400,
+> > > -				debugfs_root,
+> > > -				sblk->scaler_blk.base + cfg->base,
+> > > -				sblk->scaler_blk.len,
+> > > -				kms);
+> > > -
+> > > -	if (cfg->features & BIT(DPU_SSPP_CSC) ||
+> > > -			cfg->features & BIT(DPU_SSPP_CSC_10BIT))
+> > > -		dpu_debugfs_create_regset32("csc_blk", 0400,
+> > > -				debugfs_root,
+> > > -				sblk->csc_blk.base + cfg->base,
+> > > -				sblk->csc_blk.len,
+> > > -				kms);
+> > > -
+> > >  	debugfs_create_u32("xin_id",
+> > >  			0400,
+> > >  			debugfs_root,
+> > > -- 
+> > > 2.39.2
+> > > 
