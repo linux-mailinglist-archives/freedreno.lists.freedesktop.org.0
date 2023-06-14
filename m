@@ -1,48 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B48B730443
-	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 17:55:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4C3730472
+	for <lists+freedreno@lfdr.de>; Wed, 14 Jun 2023 18:00:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C0610E0B4;
-	Wed, 14 Jun 2023 15:55:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92F2A10E464;
+	Wed, 14 Jun 2023 16:00:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA45A10E0B4
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 15:55:03 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F023310E0B4;
+ Wed, 14 Jun 2023 16:00:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0E13F61269;
- Wed, 14 Jun 2023 15:55:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76027C433C0;
- Wed, 14 Jun 2023 15:55:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0A9BF6441B;
+ Wed, 14 Jun 2023 16:00:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82BF2C433CC;
+ Wed, 14 Jun 2023 16:00:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686758101;
- bh=iI6igqMT60w7P/l0QhFqDEyNg7+YVbD5N8OO3TanF+w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=e48oeFwLHdIUlSFKmZpuhvaZIc6XX120LrcMPSpyEqB7BWuDFDEx67h7VG5wuG+/V
- MZ55YvNovcv/mJkjYdv4qw/Fg9V8aUml9KglqAzDpQnFQJj6WBmgLjZINSWGrPOFKW
- A4UJyJrm6EZnGRqzlethKgCNm6OmbCct4vFCZC3ztZhnngSbp8pzXo4cyHdNGZkwXz
- gmGqY4U4493FBCFLe1W+p6/yZ9AorFfR4Az6A8Ax6LKC06sOmpk/gWKymf+QLeQbmI
- v+58d1tk96zhctkcv00QPrklqa/1YQT9XY3e8vW+P2TBoD2h3BSqXYCgybGS7H+ljv
- vnyDkW6WNMmCA==
-Date: Wed, 14 Jun 2023 08:58:23 -0700
+ s=k20201202; t=1686758416;
+ bh=zPad16VQA2o+Tv/QSFx5CXwfrqAoNBmN4FNn4dNqSfE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=IqIz4aoYiZIynb4a0IkxtYp1hA3pbZdfOEr9EI/SmjMoK+97BonO9VYTXDWyARNvQ
+ gD7yeeIcvMI2ffB/UTlLDd7ftokEJwxtWJzu26+2kTVfStFkKgcIHir2V089tlk1XS
+ auPJV9J3SyvAc83wz4nRNY9mzRfvVIUtM/61LTB9PGQLSRD0nbaRU88wBXPvOihMHd
+ 1Y/JpjbJwD8fRJgvo46FYW+zDjhyVL3MmYE0dm3JMiLMWT99aqB8QKEbcIkO5eR/ul
+ GUeH9O7SJpDlWvODlwG9SZPNG5VqIgw5pmgNY7x/u5j5plrzRhy+GOQFLTi9MTuApE
+ dABo0JIY+Qt/Q==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <20230614155823.g7xfgxff3eopukwh@ripper>
-References: <20230614142204.2675653-1-quic_bjorande@quicinc.com>
- <20230614142204.2675653-3-quic_bjorande@quicinc.com>
- <8f8d5e09-50a6-a83f-d4bb-3d7bc8c07162@linaro.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Date: Wed, 14 Jun 2023 09:03:33 -0700
+Message-Id: <168675861182.1453524.13931605500633983519.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230208034052.2047681-1-quic_bjorande@quicinc.com>
+References: <20230208034052.2047681-1-quic_bjorande@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8f8d5e09-50a6-a83f-d4bb-3d7bc8c07162@linaro.org>
-Subject: Re: [Freedreno] [PATCH v4 2/2] arm64: dts: qcom: sc8280xp: Enable
- GPU related nodes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 0/3] drm/msm/adreno: GPU support on SC8280XP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,109 +54,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>,
- mani@kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Steev Klimaszewski <steev@kali.org>, johan@kernel.org,
- Rob Clark <robdclark@gmail.com>,
+Cc: devicetree@vger.kernel.org, mani@kernel.org,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
+ johan@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Johan Hovold <johan+linaro@kernel.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 14, 2023 at 05:27:24PM +0200, Konrad Dybcio wrote:
-> On 14.06.2023 16:22, Bjorn Andersson wrote:
-> > From: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > 
-> > Add memory reservation for the zap-shader and enable the Adreno SMMU,
-> > GPU clock controller, GMU and the GPU nodes for the SC8280XP CRD and the
-> > Lenovo ThinkPad X13s.
-> > 
-> > Tested-by: Steev Klimaszewski <steev@kali.org>
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> > ---
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+On Tue, 7 Feb 2023 19:40:49 -0800, Bjorn Andersson wrote:
+> This series introduces support for A690 in the DRM/MSM driver and
+> enables it for the two SC8280XP laptops.
 > 
-
-Thanks.
-
-> one question below
-> >  arch/arm64/boot/dts/qcom/sc8280xp-crd.dts          | 14 ++++++++++++++
-> >  .../dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     | 14 ++++++++++++++
-> >  2 files changed, 28 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> > index cd7e0097d8bc..b566e403d1db 100644
-> > --- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> > +++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-> > @@ -210,6 +210,11 @@ vreg_wwan: regulator-wwan {
-> >  	};
-> >  
-> >  	reserved-memory {
-> > +		gpu_mem: gpu-mem@8bf00000 {
-> Is it ever going to differ on other platforms, including the automotive ones?
+> Bjorn Andersson (3):
+>   drm/msm/adreno: Add Adreno A690 support
+>   arm64: dts: qcom: sc8280xp: Add GPU related nodes
+>   arm64: dts: qcom: sc8280xp: Enable GPU related nodes
 > 
+> [...]
 
-The memory maps for the two live different lives.
+Applied, thanks!
 
-Regards,
-Bjorn
+[1/3] drm/msm/adreno: Add Adreno A690 support
+      (no commit info)
+[2/3] arm64: dts: qcom: sc8280xp: Add GPU related nodes
+      commit: eec51ab2fd6f447a993c502364704d0cb5bc8cae
+[3/3] arm64: dts: qcom: sc8280xp: Enable GPU related nodes
+      commit: 598a06afca5a2ab4850ce9ff8146ec728cca570c
 
-> Konrad
-> > +			reg = <0 0x8bf00000 0 0x2000>;
-> > +			no-map;
-> > +		};
-> > +
-> >  		linux,cma {
-> >  			compatible = "shared-dma-pool";
-> >  			size = <0x0 0x8000000>;
-> > @@ -390,6 +395,15 @@ &dispcc0 {
-> >  	status = "okay";
-> >  };
-> >  
-> > +&gpu {
-> > +	status = "okay";
-> > +
-> > +	zap-shader {
-> > +		memory-region = <&gpu_mem>;
-> > +		firmware-name = "qcom/sc8280xp/qcdxkmsuc8280.mbn";
-> > +	};
-> > +};
-> > +
-> >  &mdss0 {
-> >  	status = "okay";
-> >  };
-> > diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> > index 5ae057ad6438..7cc3028440b6 100644
-> > --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> > +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> > @@ -264,6 +264,11 @@ vreg_wwan: regulator-wwan {
-> >  	};
-> >  
-> >  	reserved-memory {
-> > +		gpu_mem: gpu-mem@8bf00000 {
-> > +			reg = <0 0x8bf00000 0 0x2000>;
-> > +			no-map;
-> > +		};
-> > +
-> >  		linux,cma {
-> >  			compatible = "shared-dma-pool";
-> >  			size = <0x0 0x8000000>;
-> > @@ -518,6 +523,15 @@ &dispcc0 {
-> >  	status = "okay";
-> >  };
-> >  
-> > +&gpu {
-> > +	status = "okay";
-> > +
-> > +	zap-shader {
-> > +		memory-region = <&gpu_mem>;
-> > +		firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
-> > +	};
-> > +};
-> > +
-> >  &mdss0 {
-> >  	status = "okay";
-> >  };
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
