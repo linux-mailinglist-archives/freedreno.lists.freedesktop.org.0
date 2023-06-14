@@ -1,69 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2738F730AE3
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 00:44:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A58DE730AE9
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 00:45:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6771B10E476;
-	Wed, 14 Jun 2023 22:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709DC10E469;
+	Wed, 14 Jun 2023 22:45:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A64E710E478
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 22:44:08 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f660e57123so7301774e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 15:44:08 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A27B10E469
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 22:45:05 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-4f6170b1486so237362e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Jun 2023 15:45:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686782646; x=1689374646;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p4TeQ2gX03YG5PIrvF0SIkzbh/hc2Hi8ju+1wWJts90=;
- b=mejd0PgojRgTibQo1NDO1zLnL/YJsWUZ6RDOgpGRjulWpfTej0tGMWIppnOZyCyckj
- 6b+b9/fWlJf6CeriG5ixL0Ig1nDxRIPAu4bNZfnanSYC/GWmb4BPXjA6MsnOymj5SreU
- 2bsHPKSQc0JVWUnJh34Zw+c5yt4T7HAJgPcTkzJbEzoydR040QEfP8cesF12I58MdPc8
- 8nPPL2f0EpRIpIck2Om4QzUV7deYmQY/dCxn2D5Mt9fB6SvKF12JEAJdAyczOjJmCE/A
- G7msGmNwIKE2O3p1NaaJFx2Yte7Cr48HRd6lpjVcrVDS8+XC+8lSMNNx21Vf5au9gBFY
- ZqYw==
+ d=linaro.org; s=google; t=1686782703; x=1689374703;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pFmEys4UP/BgwQm19UOfZJrlXyJD3pmyho65CpiqnbY=;
+ b=P0xkljwPwEIx9AiLfTQ52OF2brfwDB4iX2e7Jv+LzXTgBkI/ZnBRbTtlAc7Bh4YMqO
+ EEXq38ZzvaHMHJqQFYknBcSu1UmHdfOedsuvIeYhAjrX2BUHKUhF4JKDySzJ2dpDa4O1
+ STA9E2hLePlmYiY0a091mZSsm6CrsqbcOEAoUMjJrGOKOxZwID0WFgNlrlrZuv+7hxBp
+ nSnm2wB/3L1FKvBLMexFx0C69lhhJjibpN6Ovyg7JgXz9G6RI9jBkY8tWtHIPelfdvEb
+ aFmtko2M4jIJNuyG5LafYw9GiVLS0Be1FFpoHkLSH1Xi/ZnAWrbMpv21T9t3/VmELmeO
+ +GZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686782646; x=1689374646;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p4TeQ2gX03YG5PIrvF0SIkzbh/hc2Hi8ju+1wWJts90=;
- b=Rp1NKFsac7+lo1oeLG5vJtVJ2PtDQF2AieSkeQurKx7/DoCNE8kd7NYAuWsyMuWI2Q
- xHybMgLtseckG1wvd5NQGNVT6DtNFTSiRpoatfem2BExJ0BaqfPnmE35TSbouYS4AEh3
- 1D6PUD2DjLP87Cw3mzS3CjqjUR9Von8NK2RxBZYkBtxd0DBBZ2scIjmSMm+8I5aEBdVX
- RJv14QC+th6EcTVpL3AX+FO5dpKMehE+39jcLfmLTNmqpPm1H2/alNDk2XRBXNdSnVyc
- DiMRwxtqPCgyHhNUuqK0uivzy5QKXIorojL04oL9m6RQh1FdGXFjaGlOSu+chLDe+H23
- GaTQ==
-X-Gm-Message-State: AC+VfDxwBtgxaQyHDePSueVd2wvFDvVy2LHW/6sWICDYBmKv80CkVNDE
- ZD8vV/SNLk2V/TiZf0pD+ffriw==
-X-Google-Smtp-Source: ACHHUZ4pJcmQKm4s+0vsfF9XrGooeI1io0wm57LzsKmlwXycybu69XZDRdyXWGWiYbJ0TTkGHAJU1g==
-X-Received: by 2002:a19:5619:0:b0:4f3:8196:80cb with SMTP id
- k25-20020a195619000000b004f3819680cbmr8397374lfb.41.1686782645905; 
- Wed, 14 Jun 2023 15:44:05 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- q2-20020ac24a62000000b004edd2dc9a09sm2295866lfp.258.2023.06.14.15.44.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jun 2023 15:44:05 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 15 Jun 2023 01:44:02 +0300
-Message-Id: <20230614224402.296825-2-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230614224402.296825-1-dmitry.baryshkov@linaro.org>
-References: <20230614224402.296825-1-dmitry.baryshkov@linaro.org>
+ d=1e100.net; s=20221208; t=1686782703; x=1689374703;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pFmEys4UP/BgwQm19UOfZJrlXyJD3pmyho65CpiqnbY=;
+ b=PTMwIwIGF5SdLyJrAvoKXeoGBEpGb1+HCuIQPZky5dQ2F0soRacsv+7WdrzbBgQFif
+ Em6avjWzC/0Dx1etnaR/S/LtRNES4zL8BlHouMzhj+PjbS7TI9job3A3EexlXRmoTXqJ
+ SvGJ93HXuchvmPbmQG4IDuAcaM8+Nn5rKGI3GgOAKmp+n3JLPDi/jvl21GTsQW2CwUqc
+ nGtBmwaI40nc5l+q8xAjOlRXRiS98D2XuRVYrhEzXE4EUzel5Hz8R2kt7TR/MhKANgPl
+ uI/GMNyT4kTLI2vAZJgzl5u0HOVdBllxUiz2EZ54Vaxb1tSMb2aomu7pxecNHh31nxmY
+ 3LKg==
+X-Gm-Message-State: AC+VfDy7IBs2ilfqGWg3e2ln9OObkIbSdSsw7XPVUU+CSmDUGb/XoeYF
+ NKUNU0zNBiYNxlNcCCZfV3ShHw==
+X-Google-Smtp-Source: ACHHUZ41d/xGmuzPjif6jwX/W74Tm1loth6hzxERHcbhrFmHVvv22kop8/IE1XX6TbWVmyC2w1FOkQ==
+X-Received: by 2002:a05:6512:45a:b0:4f6:5473:7bf0 with SMTP id
+ y26-20020a056512045a00b004f654737bf0mr1184339lfk.21.1686782703414; 
+ Wed, 14 Jun 2023 15:45:03 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ r23-20020ac252b7000000b004f2ce4b0f2esm2288991lfm.168.2023.06.14.15.45.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Jun 2023 15:45:02 -0700 (PDT)
+Message-ID: <a1322d43-d1e6-059d-6428-f0da843a00b1@linaro.org>
+Date: Thu, 15 Jun 2023 01:45:01 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dsi: split dsi_ctrl_config()
- function
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230608-b4-add-burst-mode-v1-1-55dfbcfada55@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230608-b4-add-burst-mode-v1-1-55dfbcfada55@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Enable BURST_MODE for command
+ mode for DSI 6G v1.3+
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,79 +81,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It makes no sense to pass NULL parameters to dsi_ctrl_config() in the
-disable case. Split dsi_ctrl_config() into enable and disable parts and
-drop unused params.
+On 13/06/2023 02:37, Jessica Zhang wrote:
+> During a frame transfer in command mode, there could be frequent
+> LP11 <-> HS transitions when multiple DCS commands are sent mid-frame or
+> if the DSI controller is running on slow clock and is throttled. To
+> minimize frame latency due to these transitions, it is recommended to
+> send the frame in a single burst.
+> 
+> This feature is supported for DSI 6G 1.3 and above, thus enable burst
+> mode if supported.
+> 
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 744f2398a6d6..8254b06dca85 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -994,6 +994,11 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>   		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_TOTAL,
+>   			DSI_CMD_MDP_STREAM0_TOTAL_H_TOTAL(hdisplay) |
+>   			DSI_CMD_MDP_STREAM0_TOTAL_V_TOTAL(mode->vdisplay));
+> +
+> +		if (msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
+> +				msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V1_3)
+> +			dsi_write(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2,
+> +					DSI_CMD_MODE_MDP_CTRL2_BURST_MODE);
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Please move this to dsi_ctrl_config(), the place where we set all the 
+configs. Also please change this to RMW cycle.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index eaee621aa6c8..3f6dfb4f9d5a 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -705,7 +705,12 @@ static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
- 	}
- }
- 
--static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
-+static void dsi_ctrl_disable(struct msm_dsi_host *msm_host)
-+{
-+	dsi_write(msm_host, REG_DSI_CTRL, 0);
-+}
-+
-+static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct msm_dsi_phy *phy)
- {
- 	u32 flags = msm_host->mode_flags;
-@@ -713,11 +718,6 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
- 	u32 data = 0, lane_ctrl = 0;
- 
--	if (!enable) {
--		dsi_write(msm_host, REG_DSI_CTRL, 0);
--		return;
--	}
--
- 	if (flags & MIPI_DSI_MODE_VIDEO) {
- 		if (flags & MIPI_DSI_MODE_VIDEO_HSE)
- 			data |= DSI_VID_CFG0_PULSE_MODE_HSA_HE;
-@@ -802,7 +802,7 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
- 	if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
- 		lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
- 
--		if (msm_dsi_phy_set_continuous_clock(phy, enable))
-+		if (msm_dsi_phy_set_continuous_clock(phy, true))
- 			lane_ctrl &= ~DSI_LANE_CTRL_HS_REQ_SEL_PHY;
- 
- 		dsi_write(msm_host, REG_DSI_LANE_CTRL,
-@@ -2358,7 +2358,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 
- 	dsi_timing_setup(msm_host, is_bonded_dsi);
- 	dsi_sw_reset(msm_host);
--	dsi_ctrl_config(msm_host, true, phy_shared_timings, phy);
-+	dsi_ctrl_enable(msm_host, phy_shared_timings, phy);
- 
- 	if (msm_host->disp_en_gpio)
- 		gpiod_set_value(msm_host->disp_en_gpio, 1);
-@@ -2390,7 +2390,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
- 		goto unlock_ret;
- 	}
- 
--	dsi_ctrl_config(msm_host, false, NULL, NULL);
-+	dsi_ctrl_disable(msm_host);
- 
- 	if (msm_host->disp_en_gpio)
- 		gpiod_set_value(msm_host->disp_en_gpio, 0);
+>   	}
+>   }
+>   
+> 
+> ---
+> base-commit: dd969f852ba4c66938c71889e826aa8e5300d2f2
+> change-id: 20230608-b4-add-burst-mode-a5bb144069fa
+> 
+> Best regards,
+
 -- 
-2.39.2
+With best wishes
+Dmitry
 
