@@ -1,73 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A1C67320AB
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 22:11:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E273732139
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 22:59:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77F3710E535;
-	Thu, 15 Jun 2023 20:11:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA94510E54C;
+	Thu, 15 Jun 2023 20:59:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1270710E534;
- Thu, 15 Jun 2023 20:11:42 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35FJu9tT031635; Thu, 15 Jun 2023 20:11:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=date : from : to :
- cc : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=qcppdkim1; bh=kIRTN6UrVIS2yHQZ2vEzLvG3wl4ylStlzjDH/RNZQ8o=;
- b=aujoH7/UAhnbayh8QlSM/7fj3tBYoBIEdZLoiZ5gNls1L2pdIx6I4UAesS81N1Mkq7/n
- uDA5JXR5PZd0aC12tw4CPLM9tESbbrxpqZHyFjpoD3qcSzJctBIC75TR0a9lu9UAXvmf
- ZKwGH8ot3IcHAzCwZ4bATi1wg2SLdwgNOv2T+wrqN+en0szHDBdZL81tqOJNBCTh5nF8
- tbFWN8rmw4XBBFJyeHqdOnZqPvW2HjsZYl/UPU8QoqOKFekJO7uAODSfWqWDatDybRjs
- c82+QbrvxhCJBhXN3ARwhM8Y3ogSbrxziy/iTXgkBlBSpg9GP8V+ULwIsZehJMljdo/3 AA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3r7p4qaj20-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Jun 2023 20:11:34 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35FKBXLc002978
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Jun 2023 20:11:33 GMT
-Received: from akhilpo-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Thu, 15 Jun 2023 13:11:28 -0700
-Date: Fri, 16 Jun 2023 01:41:25 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <rd4mte26n22xlgx5umerpgr66b4wfi7mdm6ovszafyinrg3q4c@g227oj3nh2vc>
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF14010E54C
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 20:59:27 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4f62cf9755eso11135791e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 13:59:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686862765; x=1689454765;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=niAlZljWXW/H63Y0SMOkpmVWJA4JXQOx/GZYVfHqRhM=;
+ b=IZAfsnAPCywJPU6vGov8IiuC6/OwaScJ9/lcwgZmfIQ+t81KTiG8qIrf4Q9J7ow31a
+ e0/BFZWJP4J1T5ji4OH0hSYdtWRyQls3po7+NhWcz4xvyi2YiVoG4Bion7fMqLczexeE
+ ggZ9o0NHQdd3oltkh5+eoV8OM4Y1YAaYUpslFx4qZEbmD3pTEjp24Oe0FC/7Dv0pblL3
+ lIX/ZO5eIxg7cHAp8QHOXm49JYcRqb8iSFLsnw7nm0v7XbE/qbJ97zdoMqPAowpz9f3U
+ TfgSxGaXXkY5OzOKfevkEBnWgvh3lTDbYP35Fzg9i9vLq7hX1lvXYLO8EAmWKhUcteOC
+ zWJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686862765; x=1689454765;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=niAlZljWXW/H63Y0SMOkpmVWJA4JXQOx/GZYVfHqRhM=;
+ b=UzHC/Dnpethwotq6K221mK7YAlBMAdtC3VgM+N0aoVPALKAT8q4IMXf+dsZwIppOxx
+ UAvhT11CK2Qyp8TDIE6wkgbI6x1xdEJOHm4ownIdyyLvzuK0Ap+lzLn/sA348XzrHQoW
+ TV0oFnng5qU+OUxYMkp+Djix6hWgclytI31zbxFo2lIqd/MmjCj1PIO0tb+njG86z77C
+ 18eAsJ4Om+Ndew3f/g5Ijs5gQxxIVQdteq/71VsuOtx2Sjv0kWx68IIUDVU524hRXD52
+ FhYr37rbQeyVotMKkFo6YwGnDy1Q22JVm6N4xj0ss02DfjaXHU3USdDqN3c9YzalYHpb
+ NCjA==
+X-Gm-Message-State: AC+VfDyYGWvy+cqiE8PnTrWR78B5ylXeuscJDo4JjVzra2lQSmA5ovgb
+ JB5E7GyEMgdcDV9boqtX7VWMmg==
+X-Google-Smtp-Source: ACHHUZ5iut2/IQev9V/2oWiVW8z3ctcktYp59vG5CrqEkxtz2aEQV7PRsrNmDdJcBnuil92PLjjKQQ==
+X-Received: by 2002:a19:d611:0:b0:4f7:434b:70b4 with SMTP id
+ n17-20020a19d611000000b004f7434b70b4mr7568688lfg.41.1686862765535; 
+ Thu, 15 Jun 2023 13:59:25 -0700 (PDT)
+Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
+ by smtp.gmail.com with ESMTPSA id
+ c26-20020ac244ba000000b004ec8b638115sm2700798lfm.193.2023.06.15.13.59.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Jun 2023 13:59:25 -0700 (PDT)
+Message-ID: <e0141f93-b3d8-cc3e-7b2d-32618351ba10@linaro.org>
+Date: Thu, 15 Jun 2023 22:59:23 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Content-Language: en-US
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
 References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
  <20230223-topic-gmuwrapper-v8-7-69c68206609e@linaro.org>
  <jplt5g5xuphbnci73pdtaxd63fguxtgtp4c37kc7ehavzrjbau@kamshezxnvgy>
  <001d7571-5e9f-4f60-f6d0-35806a3e51c5@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <001d7571-5e9f-4f60-f6d0-35806a3e51c5@linaro.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: PiBZfZ9M9EfnFAoxAGTWvrdGWLXTpbNJ
-X-Proofpoint-ORIG-GUID: PiBZfZ9M9EfnFAoxAGTWvrdGWLXTpbNJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-15_15,2023-06-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 adultscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999 phishscore=0
- mlxscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306150173
+ <rd4mte26n22xlgx5umerpgr66b4wfi7mdm6ovszafyinrg3q4c@g227oj3nh2vc>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <rd4mte26n22xlgx5umerpgr66b4wfi7mdm6ovszafyinrg3q4c@g227oj3nh2vc>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v8 07/18] drm/msm/a6xx: Add a helper for
  software-resetting the GPU
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -97,101 +96,109 @@ Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 15, 2023 at 12:34:06PM +0200, Konrad Dybcio wrote:
+On 15.06.2023 22:11, Akhil P Oommen wrote:
+> On Thu, Jun 15, 2023 at 12:34:06PM +0200, Konrad Dybcio wrote:
+>>
+>> On 6.06.2023 19:18, Akhil P Oommen wrote:
+>>> On Mon, May 29, 2023 at 03:52:26PM +0200, Konrad Dybcio wrote:
+>>>>
+>>>> Introduce a6xx_gpu_sw_reset() in preparation for adding GMU wrapper
+>>>> GPUs and reuse it in a6xx_gmu_force_off().
+>>>>
+>>>> This helper, contrary to the original usage in GMU code paths, adds
+>>>> a write memory barrier which together with the necessary delay should
+>>>> ensure that the reset is never deasserted too quickly due to e.g. OoO
+>>>> execution going crazy.
+>>>>
+>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>> ---
+>>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  3 +--
+>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++++++
+>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
+>>>>  3 files changed, 13 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>> index b86be123ecd0..5ba8cba69383 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>> @@ -899,8 +899,7 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+>>>>  	a6xx_bus_clear_pending_transactions(adreno_gpu, true);
+>>>>  
+>>>>  	/* Reset GPU core blocks */
+>>>> -	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, 1);
+>>>> -	udelay(100);
+>>>> +	a6xx_gpu_sw_reset(gpu, true);
+>>>>  }
+>>>>  
+>>>>  static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>> index e3ac3f045665..083ccb5bcb4e 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>> @@ -1634,6 +1634,17 @@ void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_
+>>>>  	gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
+>>>>  }
+>>>>  
+>>>> +void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert)
+>>>> +{
+>>>> +	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, assert);
+>>>> +	/* Add a barrier to avoid bad surprises */
+>>> Can you please make this comment a bit more clear? Highlight that we
+>>> should ensure the register is posted at hw before polling.
+>>>
+>>> I think this barrier is required only during assert.
+>> Generally it should not be strictly required at all, but I'm thinking
+>> that it'd be good to keep it in both cases, so that:
+>>
+>> if (assert)
+>> 	we don't keep writing things to the GPU if it's in reset
+>> else
+>> 	we don't start writing things to the GPU becomes it comes
+>> 	out of reset
+>>
+>> Also, if you squint hard enough at the commit message, you'll notice
+>> I intended for this so only be a wmb, but for some reason generalized
+>> it.. Perhaps that's another thing I should fix!
+>> for v9..
 > 
-> On 6.06.2023 19:18, Akhil P Oommen wrote:
-> > On Mon, May 29, 2023 at 03:52:26PM +0200, Konrad Dybcio wrote:
-> >>
-> >> Introduce a6xx_gpu_sw_reset() in preparation for adding GMU wrapper
-> >> GPUs and reuse it in a6xx_gmu_force_off().
-> >>
-> >> This helper, contrary to the original usage in GMU code paths, adds
-> >> a write memory barrier which together with the necessary delay should
-> >> ensure that the reset is never deasserted too quickly due to e.g. OoO
-> >> execution going crazy.
-> >>
-> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> >> ---
-> >>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  3 +--
-> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 11 +++++++++++
-> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  1 +
-> >>  3 files changed, 13 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> >> index b86be123ecd0..5ba8cba69383 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> >> @@ -899,8 +899,7 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
-> >>  	a6xx_bus_clear_pending_transactions(adreno_gpu, true);
-> >>  
-> >>  	/* Reset GPU core blocks */
-> >> -	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, 1);
-> >> -	udelay(100);
-> >> +	a6xx_gpu_sw_reset(gpu, true);
-> >>  }
-> >>  
-> >>  static void a6xx_gmu_set_initial_freq(struct msm_gpu *gpu, struct a6xx_gmu *gmu)
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> index e3ac3f045665..083ccb5bcb4e 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> @@ -1634,6 +1634,17 @@ void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_
-> >>  	gpu_write(gpu, REG_A6XX_GBIF_HALT, 0x0);
-> >>  }
-> >>  
-> >> +void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert)
-> >> +{
-> >> +	gpu_write(gpu, REG_A6XX_RBBM_SW_RESET_CMD, assert);
-> >> +	/* Add a barrier to avoid bad surprises */
-> > Can you please make this comment a bit more clear? Highlight that we
-> > should ensure the register is posted at hw before polling.
-> > 
-> > I think this barrier is required only during assert.
-> Generally it should not be strictly required at all, but I'm thinking
-> that it'd be good to keep it in both cases, so that:
-> 
-> if (assert)
-> 	we don't keep writing things to the GPU if it's in reset
-> else
-> 	we don't start writing things to the GPU becomes it comes
-> 	out of reset
-> 
-> Also, if you squint hard enough at the commit message, you'll notice
-> I intended for this so only be a wmb, but for some reason generalized
-> it.. Perhaps that's another thing I should fix!
-> for v9..
+> wmb() doesn't provide any ordering guarantee with the delay loop.
+Hm, fair.. I'm still not as fluent with memory access knowledge as I'd
+like to be..
 
-wmb() doesn't provide any ordering guarantee with the delay loop.
-A common practice is to just read back the same register before
-the loop because a readl followed by delay() is guaranteed to be ordered.
+> A common practice is to just read back the same register before
+> the loop because a readl followed by delay() is guaranteed to be ordered.
+So, how should I proceed? Keep the r/w barrier, or add a readback and
+a tiiiny (perhaps even using ndelay instead of udelay?) delay on de-assert?
 
--Akhil.
+Konrad
 > 
-> Konrad
-> > 
-> > -Akhil.
-> >> +	mb();
-> >> +
-> >> +	/* The reset line needs to be asserted for at least 100 us */
-> >> +	if (assert)
-> >> +		udelay(100);
-> >> +}
-> >> +
-> >>  static int a6xx_pm_resume(struct msm_gpu *gpu)
-> >>  {
-> >>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> >> index 9580def06d45..aa70390ee1c6 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> >> @@ -89,5 +89,6 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu);
-> >>  int a6xx_gpu_state_put(struct msm_gpu_state *state);
-> >>  
-> >>  void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
-> >> +void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert);
-> >>  
-> >>  #endif /* __A6XX_GPU_H__ */
-> >>
-> >> -- 
-> >> 2.40.1
-> >>
+> -Akhil.
+>>
+>> Konrad
+>>>
+>>> -Akhil.
+>>>> +	mb();
+>>>> +
+>>>> +	/* The reset line needs to be asserted for at least 100 us */
+>>>> +	if (assert)
+>>>> +		udelay(100);
+>>>> +}
+>>>> +
+>>>>  static int a6xx_pm_resume(struct msm_gpu *gpu)
+>>>>  {
+>>>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>>>> index 9580def06d45..aa70390ee1c6 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>>>> @@ -89,5 +89,6 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu);
+>>>>  int a6xx_gpu_state_put(struct msm_gpu_state *state);
+>>>>  
+>>>>  void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
+>>>> +void a6xx_gpu_sw_reset(struct msm_gpu *gpu, bool assert);
+>>>>  
+>>>>  #endif /* __A6XX_GPU_H__ */
+>>>>
+>>>> -- 
+>>>> 2.40.1
+>>>>
