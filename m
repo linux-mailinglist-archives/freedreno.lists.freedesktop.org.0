@@ -1,70 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968AD7316AD
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 13:32:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8F87318ED
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 14:25:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF03C10E4E2;
-	Thu, 15 Jun 2023 11:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6886310E195;
+	Thu, 15 Jun 2023 12:25:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E692410E4D7
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 11:31:39 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2b44200367bso11852901fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 04:31:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686828698; x=1689420698;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5T8GgYIqVudWlnsC3oPDKoAyLE+QLU/Vc0UJQqOQEms=;
- b=asxgBI7ZjmLrmbZmvFQpyF/5eFUTJQWWW7xKqJqFCtjlsV0LV7ZxW7CJ9oqI4vd0oj
- 4LPzImZ6wWupg9kgiUwvnSiwoBPIXTKiBAlXZx9T+p+A6Gt2dI9hArmwyNxiZeqpRw22
- QHWN7auMbRPeq3+WXysgOGpLScuvTkMZeJ05E1bEix8FIVKMgOTvVGSEfk0g4JiqnBIN
- RpL64eej6Q3bHM9J85d774/erJNuo6JMCRRf4v6ei65hYaWmxP5QRZfCZVDQ0m8LFEIT
- gVA5mQIlskllXR1VRwp2V/3xjTd6wlPCgqTxGKf/7pgiFUwE+bn39vHttwfqr7toC9wb
- Adsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686828698; x=1689420698;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5T8GgYIqVudWlnsC3oPDKoAyLE+QLU/Vc0UJQqOQEms=;
- b=g4SWdq7FNW/wAA/LroXrr7I0ILDbQpffXCBQOne/oqlOmm7QGXDsKPyy4T1lG+PlIB
- WQlEY4KPHvoFI44Y4Lqgdds41hrd0C/XiojreHGR2jiqTuZbwch+YZFm5VAN6dbsCWU9
- +W6x2dWu7QeT9mPf5EXBXiXf8kuU5w5czyLS1PQlO4LMHBuYRvU8PnR70RP8DfRlnFvp
- awi1sJ6/W3YevTA2LnvHSZrPbOazbO0OrXoxXmh+NKSjvuL9EHp8seDhZ38Tft2whuZJ
- fr9suB7aDwTbPvsO83Ne7Xy1pIkLy6EhuPFFHswgjwA4Sb4olWSwuXpYNM0AR+McwhGf
- AoBQ==
-X-Gm-Message-State: AC+VfDycvESgzsB+XFZ+CPEnZJtShF0cnFgL2cnGqK16i6c+lNGeEbMW
- jf+TxTNH6Rqu05hJ/DZqRRPOpg==
-X-Google-Smtp-Source: ACHHUZ7anJq5+jo+HNiZTaLF+2RxcGBAkP3TUmnIjwSU0KcnYb1vyWAXaCDG02wduM41vfWbpKYzEQ==
-X-Received: by 2002:a2e:3c0a:0:b0:2b1:fcb2:3029 with SMTP id
- j10-20020a2e3c0a000000b002b1fcb23029mr8451714lja.28.1686828698241; 
- Thu, 15 Jun 2023 04:31:38 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- y12-20020a2e320c000000b002b345f71039sm860525ljy.36.2023.06.15.04.31.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 04:31:37 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org, dianders@chromium.org, vkoul@kernel.org,
- daniel@ffwll.ch, airlied@gmail.com, agross@kernel.org,
- andersson@kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>
-Date: Thu, 15 Jun 2023 14:31:27 +0300
-Message-Id: <168682860387.384026.8615794645993103495.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <1685036458-22683-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1685036458-22683-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8897D10E18C
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 12:25:42 +0000 (UTC)
+Received: from SoMainline.org (82-72-63-87.cable.dynamic.v4.ziggo.nl
+ [82.72.63.87])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 4F5AF3FB06;
+ Thu, 15 Jun 2023 14:25:37 +0200 (CEST)
+Date: Thu, 15 Jun 2023 14:25:35 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <m4q4atgpxgl765ct432bqn6apw5z2hjouplawhckxd6s2sf4y5@nkfz72etdjah>
+References: <20230405-add-dsc-support-v6-0-95eab864d1b6@quicinc.com>
+ <168682860387.384026.9115594076193676039.b4-ty@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v14 00/10] add DSC 1.2 dpu supports
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <168682860387.384026.9115594076193676039.b4-ty@linaro.org>
+Subject: Re: [Freedreno] [PATCH v6 0/6] Add DSC v1.2 Support for DSI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,33 +43,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Thu, 25 May 2023 10:40:48 -0700, Kuogee Hsieh wrote:
-> This series adds the DPU side changes to support DSC 1.2 encoder. This
-> was validated with both DSI DSC 1.2 panel and DP DSC 1.2 monitor.
-> The DSI and DP parts will be pushed later on top of this change.
-> This seriel is rebase on [1], [2] and catalog fixes from rev-4 of [3].
+On 2023-06-15 14:31:26, Dmitry Baryshkov wrote:
 > 
-> [1]: https://patchwork.freedesktop.org/series/116851/
-> [2]: https://patchwork.freedesktop.org/series/116615/
-> [3]: https://patchwork.freedesktop.org/series/112332/
+> On Fri, 09 Jun 2023 15:57:12 -0700, Jessica Zhang wrote:
+> > This is a series of changes for DSI to enable command mode support
+> > for DSC v1.2.
+> > 
+> > This includes:
+> > 
+> > 1) Rounding up `hdisplay / 3` in dsc_timing_setup()
+> > 2) Adjusting pclk_rate to account for compression
+> > 3) Fixing incorrect uses of slice_count in DSI DSC calculations
+> > 4) Setting the DATA_COMPRESS bit when DSC is enabled
+> > 
+> > [...]
 > 
-> [...]
+> Applied, thanks!
+> 
+> [1/6] msm/drm/dsi: Round up DSC hdisplay calculation
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/21bf617110ba
+> [2/6] drm/msm/dsi: Reduce pclk rate for compression
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/7c9e4a554d4a
+> [3/6] drm/msm/dpu: Add DPU_INTF_DATA_COMPRESS feature flag for DPU >= 7.0
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/22598cfc94bb
+> [4/6] drm/msm/dpu: Set DATA_COMPRESS on command mode for DCE/DSC 1.2
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/1642b5803473
+> [5/6] drm/msm/dsi: Remove incorrect references to slice_count
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/155fa3a91d64
+> 
+> Note, patch 6 is skipped for now
 
-Applied, thanks!
+Note that we also haven't finished discussions on where the ratio in
+patch 2/6 comes from and how that should be outlined in patch 6.
+Related to the widebus patches which affect the ratio as well.
 
-[06/10] drm/msm/dpu: add support for DSC encoder v1.2 engine
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/8c4094b275f6
-[09/10] drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0d1b10c63346
-
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+- Marijn
