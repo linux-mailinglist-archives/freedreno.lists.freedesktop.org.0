@@ -2,66 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F8777316AC
-	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 13:32:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6E947316A6
+	for <lists+freedreno@lfdr.de>; Thu, 15 Jun 2023 13:31:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 554AD10E4E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13D7F10E4DB;
 	Thu, 15 Jun 2023 11:31:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7612B10E4D1
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015B810E4D3
  for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 11:31:38 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b44200367bso11852381fa.2
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2b1afe57bdfso26717071fa.0
  for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 04:31:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686828696; x=1689420696;
+ d=linaro.org; s=google; t=1686828697; x=1689420697;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+HIhvOoQ0TWNFRCD6jSrp6XPbshCV+o8gS0gvm0cA9c=;
- b=codcU07VH/1l08yBIe8moRDqekQ+qa9MA24meplrjB/GfjiERlvYVyBtjKgqtGTcSm
- VINdEP3TNkQnD9GbpHjYkEiITOCr/EbeGdP2Mm+wassaHN5acrruRQFAVkMF4I0qmwBD
- d2PFSC7IRgnox6FKWApbOQbFYetb9QuMYt1jHgXN4OOVtppIAsyyefh0YgWDekvLngVY
- UUX0o7ZHBzhMqIod1PN5WmAYwr0XlzjJss1yLK71gHsSORVvLD3fMB3w8okLT9PL7+pS
- KOHDWis+GoihcNcIdSKhnpM3k8odHTEvpJ9GzwOkCNH7GCMIMQAYGBCEWQw/PaCFpkOh
- F6xw==
+ bh=iagvrTdJe16mbe43XCaGjCeX1Svdet6EWcsi0Mlbfo0=;
+ b=C1G5NDiXspEzy5EQjsjez+uLoXWTbf1yhJfnfn5dw2nFfd7vBXpmy74ehzhi2gVWO0
+ 98BA54WhJ6FJm5DDQ0XhB8jkpmXBh0ABSt+sBLjEnLVb88t7lkoqn0ZycBe3DOXs8TBc
+ Ezyff4QbewIrBte/SFLoA9fKc7m2p/X8k9i/KE/caEz9NN4kDvxahKkiybJN+8ZangzP
+ VkFJNg0xUKAhA2ZEva6jLrkemxDXhe0a4IPVV0jIXYbZKFvSGnJk+O0fwTG3NuOC5m0p
+ XjZFWWLSO8+d6tmRyNIzvOhN04zCvgRxHd8UDT3B8XakDsB3WR1xO57QE5JmQLIxnZa7
+ RL3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686828696; x=1689420696;
+ d=1e100.net; s=20221208; t=1686828697; x=1689420697;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+HIhvOoQ0TWNFRCD6jSrp6XPbshCV+o8gS0gvm0cA9c=;
- b=dKbgdqH3VvITsCFJIL9Nf4JIpK/x2Fr1P6VW/r4O6LxQ4UQLP82/gWc5w8ZfIw+BKx
- YmFUGA0bcQZlZMfRd9wrW9YBSRWlVaZScmrv0QUUV48jdAucTBLKAqDV4L/8jHF2EgoX
- ghueZz/gYz2pN6RTwR8MFlaZpuDW+AspQirutSaHx4muemwCX33pwUlgx3HoxP0/gfEE
- 2yMcEJnp/WoDy0ILs5eqIuh1gLABPFuUGNPpKmGIYyh6BOL/CcAxv2ERvFkqUsZhLg7X
- IwOE1c4+U3o67QmbQhE/sHQ+DlJyvxy0BskRvjLhvhyYozdiBcsT/AGGY0d5F+D3ttls
- WugA==
-X-Gm-Message-State: AC+VfDwIY1gIZPlBpoyOCWljXBOLl5PYal6gkg/bsUkvYcOtMBlIpLlp
- DLudSQoDkUMMTfy6Al+PuDp9l7CjORflCHFMQdg=
-X-Google-Smtp-Source: ACHHUZ7SSADcaAPRP5KYn2CMl2Rq1NcPT9lS6upii8Us8pO9C2lbr1tZ4cZdHrkss8uyf21GnV3qJQ==
-X-Received: by 2002:a2e:95d2:0:b0:2b1:daca:676f with SMTP id
- y18-20020a2e95d2000000b002b1daca676fmr8191322ljh.36.1686828695949; 
- Thu, 15 Jun 2023 04:31:35 -0700 (PDT)
+ bh=iagvrTdJe16mbe43XCaGjCeX1Svdet6EWcsi0Mlbfo0=;
+ b=dEPtOyshcsxIvdJ7D3uj5W2Uq1AprALL5dJeLbdu9do02AOHkLIp27UOVZeHBjIvB1
+ aiDEEWPceFOpW4QpIHVo+axYgYG7lU4ujbhjpxa82GVijbsxV3F0mjZL3QQCKnnkjWvt
+ CbSL7uCg+jOU81sBeJr+Wq8zPi/CWkmlsad+eFUxtr4j4QrLqSCDWWT21OMC7FnIa0hr
+ MUkyZw0TBPrMzACraM1gE/i+i1ZuQQaS/t9iMJiLS2VuDnr3MLL4Y2ZIOrr1NauX3Dbk
+ POBKUXfCHGPZRRtxmzaMvwfY6JT3ra1DPhjcszYnLNl22WO0xBCqdppKvyYaySUpqgTO
+ 4uXw==
+X-Gm-Message-State: AC+VfDwZ9KWMmqHTUAidBGbCC9PzKdEhJI//F/LXdIfvWotZa8/JiZA5
+ MyQtBn9TPjAfml5GGzcRAj+w5UWAK6QXYDv+t5Y=
+X-Google-Smtp-Source: ACHHUZ4Y0HPzWzh+M9sKVmQVFCAQ3f0hHOdfTS1SY7SsZK1b1Ui9Pb4I1jOd1s4VTLjtxaN/by9/4Q==
+X-Received: by 2002:a2e:9e86:0:b0:2b3:2f9b:7c9d with SMTP id
+ f6-20020a2e9e86000000b002b32f9b7c9dmr6606616ljk.28.1686828697221; 
+ Thu, 15 Jun 2023 04:31:37 -0700 (PDT)
 Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- y12-20020a2e320c000000b002b345f71039sm860525ljy.36.2023.06.15.04.31.34
+ y12-20020a2e320c000000b002b345f71039sm860525ljy.36.2023.06.15.04.31.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 04:31:34 -0700 (PDT)
+ Thu, 15 Jun 2023 04:31:36 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: freedreno@lists.freedesktop.org, Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Thu, 15 Jun 2023 14:31:25 +0300
-Message-Id: <168682860388.384026.1953512234094498484.b4-ty@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Thu, 15 Jun 2023 14:31:26 +0300
+Message-Id: <168682860387.384026.9115594076193676039.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230329-rfc-msm-dsc-helper-v14-0-bafc7be95691@quicinc.com>
-References: <20230329-rfc-msm-dsc-helper-v14-0-bafc7be95691@quicinc.com>
+In-Reply-To: <20230405-add-dsc-support-v6-0-95eab864d1b6@quicinc.com>
+References: <20230405-add-dsc-support-v6-0-95eab864d1b6@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v14 0/9] Introduce MSM-specific DSC helpers
+Subject: Re: [Freedreno] [PATCH v6 0/6] Add DSC v1.2 Support for DSI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,48 +78,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Wed, 24 May 2023 10:45:13 -0700, Jessica Zhang wrote:
-> There are some overlap in calculations for MSM-specific DSC variables
-> between DP and DSI. In addition, the calculations for initial_scale_value
-> and det_thresh_flatness that are defined within the DSC 1.2 specifications,
-> but aren't yet included in drm_dsc_helper.c.
+On Fri, 09 Jun 2023 15:57:12 -0700, Jessica Zhang wrote:
+> This is a series of changes for DSI to enable command mode support
+> for DSC v1.2.
 > 
-> This series moves these calculations to a shared msm_dsc_helper.c file and
-> defines drm_dsc_helper methods for initial_scale_value and
-> det_thresh_flatness.
+> This includes:
+> 
+> 1) Rounding up `hdisplay / 3` in dsc_timing_setup()
+> 2) Adjusting pclk_rate to account for compression
+> 3) Fixing incorrect uses of slice_count in DSI DSC calculations
+> 4) Setting the DATA_COMPRESS bit when DSC is enabled
 > 
 > [...]
 
 Applied, thanks!
 
-[1/9] drm/display/dsc: Add flatness and initial scale value calculations
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/7df1ed6ddf3d
-[2/9] drm/display/dsc: add helper to set semi-const parameters
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/e871a70d8ccd
-[3/9] drm/display/dsc: Add drm_dsc_get_bpp_int helper
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/688583281241
-[4/9] drm/msm/dsi: use DRM DSC helpers for DSC setup
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/49fd30a7153b
-[5/9] drm/msm: Add MSM-specific DSC helper methods
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b50f06f83e0e
-[6/9] drm/msm/dpu: Use fixed DRM DSC helper for det_thresh_flatness
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/44346191a210
-[7/9] drm/msm/dpu: Fix slice_last_group_size calculation
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c223059e6f83
-[8/9] drm/msm/dsi: Use MSM and DRM DSC helper methods
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ed1498f77419
-[9/9] drm/msm/dsi: update hdisplay calculation for dsi_timing_setup
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/149419396a92
+[1/6] msm/drm/dsi: Round up DSC hdisplay calculation
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/21bf617110ba
+[2/6] drm/msm/dsi: Reduce pclk rate for compression
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/7c9e4a554d4a
+[3/6] drm/msm/dpu: Add DPU_INTF_DATA_COMPRESS feature flag for DPU >= 7.0
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/22598cfc94bb
+[4/6] drm/msm/dpu: Set DATA_COMPRESS on command mode for DCE/DSC 1.2
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/1642b5803473
+[5/6] drm/msm/dsi: Remove incorrect references to slice_count
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/155fa3a91d64
+
+Note, patch 6 is skipped for now
 
 Best regards,
 -- 
