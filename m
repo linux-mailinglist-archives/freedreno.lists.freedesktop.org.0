@@ -1,82 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF91732367
-	for <lists+freedreno@lfdr.de>; Fri, 16 Jun 2023 01:21:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E43732C57
+	for <lists+freedreno@lfdr.de>; Fri, 16 Jun 2023 11:42:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79B7210E588;
-	Thu, 15 Jun 2023 23:21:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42D7310E587;
+	Fri, 16 Jun 2023 09:41:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21EB410E577
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 23:21:50 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f762b3227dso256750e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 Jun 2023 16:21:50 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A4B10E587
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 09:41:57 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b4274f7640so21170591fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 02:41:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686871308; x=1689463308;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=a+svBDf4CLgOAipv+j0r6qWFrZWv28OUfTzAcDFjW8k=;
- b=GCHOdnkoYXEvs/0jT/JPEJ88fwlvgz9KRcr4tdd1kVEoRdap5/XoymnOMrVgKYqg0u
- qtgkwIV+8jgAeRsJ96GdMoqzjhufEGhX+iz2zQYykJuxurBiJreSCezAnbSqIXFy2Zok
- QERYixcwm6AqzZPtv3VXY8bkQTgFQBEFQ+euYXRdArxUUoIoUCS1HhCvCF2is2Y3uqDd
- 3M3aSuie9CCXNOYaBSPUR/xJiWgDCpUwot/U7PAEs07FHHyBnuSaceKng+gOXCBPW7Aj
- v1RPpRa6oPIKlo6oXNkkTPbOaJf3dfADfbNbutC57q5M2cz/W0qHjaatksJ4EtRhQ9uY
- zAvQ==
+ d=linaro.org; s=google; t=1686908516; x=1689500516;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZOdAkBA8FOVnbZoSsi+PF1F3scMmt2Df8O/OAnmM4VU=;
+ b=UI/zlnBm/dscnXLIZ+pOpEko9tSEf14nSYHZg+p470KerrBvtZ+uPX1PW9TsMOEZ+E
+ K2TDU0duDskkspbS2cSvcjoMgPsVXacVzZMSPoZwNwlLnW/xMkkcl+nSXcLqCnpkndH0
+ f9CbEX/ZxmR+tei1rTUZK/XwkCoMqgB3sNpKYHdKMaOnruCPCsrxqQU9THnMc01DuEAr
+ uPo2u8O9zOhJUtyANL4fxtLy2ggzTUKUAKxiEaR7zd470TDsAK4/4srybLAFLy+8jgQN
+ XAiZ6Nx/Vl9ZQHnXDKJoGBra4/evWgW48DmLBwnNyHONT1FzA2/oxkR5ztlQV4paxDl3
+ CO0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686871308; x=1689463308;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=a+svBDf4CLgOAipv+j0r6qWFrZWv28OUfTzAcDFjW8k=;
- b=bJF0KRvIM2uXeqCtSWMESvyYo9yLT6qV1HO9GF2F75P4WF6F8YE7B6XnZk+kq07cnY
- PX5gmcCljMKpKHCSXgYpIf9cfo0qR+jkS2FP3WqAcx9LyH/uVTffZXJzDGdrepj+DuHH
- VnHPhTCr/fX633a5lvz2+QabpQhsYwkOBPv63pjl64SDY4LCYKd43bOi6GG6SYrbZ2W0
- At66KyNWfoKEsrVmAoYoSJRUVZfLXJoJp/AVG8jb2+HUCWrn3hi/1rQghkQlvv0ry67I
- 2IiuRtx1MwakpnFKk8JeZCy7ZpeoPcPyVdjsxWQhxvUQoXUPzVKp/Vc83QoPP6vkCXca
- /r0Q==
-X-Gm-Message-State: AC+VfDyVcy1VMsRfe4dGQfBHlpSjV8X9rXX8Mt3twLkPb7RRYXOjs2CW
- uhzJ75ueDu9KxJMPfCY4JEy7mw==
-X-Google-Smtp-Source: ACHHUZ5M8+Y1tEEhAxhunZ5k31fQ0kTL8g5RSZ1OpELl8hso07LURPszaXvFfhbNwT0tuON+1GdjNQ==
-X-Received: by 2002:a05:6512:398a:b0:4f4:e509:ef56 with SMTP id
- j10-20020a056512398a00b004f4e509ef56mr1852623lfu.25.1686871308495; 
- Thu, 15 Jun 2023 16:21:48 -0700 (PDT)
-Received: from [192.168.1.101] (abyj190.neoplus.adsl.tpnet.pl. [83.9.29.190])
+ d=1e100.net; s=20221208; t=1686908516; x=1689500516;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZOdAkBA8FOVnbZoSsi+PF1F3scMmt2Df8O/OAnmM4VU=;
+ b=KXfwsgWQo5DNvrI1RXhrRKcjdj0UsxIWafL4Eigb7YvcjyLwakR5eUGVqP+UUUOBPy
+ b17B+qJWY/rO6d0uB26IWl9dlySwNvgusEEtsUiRC9AJAX0sRMAQ1aEqcNOeIlZw387p
+ g6vrZYkiBa+VkW9uE8U0Z7OFkyUPIMGiXtJafCZvsh8fCYEH+jJL5+pHRCt+sTBOUEI+
+ 0nyoSlVyU5KHUhI7nE0KLFYuC16Wju7eaxOBftytsevKXiB52gIlhj4ZbZQTtfP1ykMW
+ W+7g4IGoauZezpfCcy3Jdaipxc+I75HMfokWPFK9i4YKoyFgwDI9pu8Hx7XzYNhg891e
+ Y34A==
+X-Gm-Message-State: AC+VfDzCuk/py+44Pcqtf0f5wRSTaN9ccwvxr8/BDa+gWjZRSCbVOpqz
+ Kuu8s5Qaz5FedAZXxZ8M6OC5ew==
+X-Google-Smtp-Source: ACHHUZ47GquGnTYuMlPm2AJHqLpY6Q+MU1t9IezNRjf3b38AdAZhLfoHzbT48HcYyKs7T25DBmNqgQ==
+X-Received: by 2002:a2e:9f55:0:b0:2b1:f90b:f51a with SMTP id
+ v21-20020a2e9f55000000b002b1f90bf51amr443499ljk.5.1686908515946; 
+ Fri, 16 Jun 2023 02:41:55 -0700 (PDT)
+Received: from eriador.lan (85-76-68-127-nat.elisa-mobile.fi. [85.76.68.127])
  by smtp.gmail.com with ESMTPSA id
- u25-20020a056512041900b004f24ee39661sm2744852lfk.137.2023.06.15.16.21.47
+ e8-20020a2e9e08000000b00295a96a0f6csm3441184ljk.102.2023.06.16.02.41.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 16:21:48 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 16 Jun 2023 01:21:01 +0200
+ Fri, 16 Jun 2023 02:41:54 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Fri, 16 Jun 2023 12:41:52 +0300
+Message-Id: <20230616094152.495723-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230223-topic-gmuwrapper-v9-20-890d8f470c8b@linaro.org>
-References: <20230223-topic-gmuwrapper-v9-0-890d8f470c8b@linaro.org>
-In-Reply-To: <20230223-topic-gmuwrapper-v9-0-890d8f470c8b@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@somainline.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>, 
- Conor Dooley <conor+dt@kernel.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1686871277; l=1908;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=QopxU5AaMC+j/o5cTOrG8wzEEwTggnAJi8IemaS+5vw=;
- b=NYNylG8pigD3OTBd3OI53qX8ugm96hvBv8g6mwWgFpPpKI2cLy28RrZAm4FAkNYNvy9fmXUEY
- hEPbQ2EAryQCVzo06LJNPngbVcuJId2kFj0Bwt1/Dxnfm7lLvCfe6/I
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v9 20/20] drm/msm/a6xx: Add A610 speedbin support
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dsi: Document DSC related pclk_rate and
+ hdisplay calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,73 +73,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A610 is implemented on at least three SoCs: SM6115 (bengal), SM6125
-(trinket) and SM6225 (khaje). Trinket does not support speed binning
-(only a single SKU exists) and we don't yet support khaje upstream.
-Hence, add a fuse mapping table for bengal to allow for per-chip
-frequency limiting.
+Provide actual documentation for the pclk and hdisplay calculations in
+the case of DSC compression being used.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 35 ++++++++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index ff9a8d342c77..b3ada1e7b598 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2204,6 +2204,30 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return progress;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 3f6dfb4f9d5a..72c377c9c7be 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -528,6 +528,21 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+ 	clk_disable_unprepare(msm_host->byte_clk);
  }
  
-+static u32 a610_get_speed_bin(u32 fuse)
-+{
-+	/*
-+	 * There are (at least) three SoCs implementing A610: SM6125 (trinket),
-+	 * SM6115 (bengal) and SM6225 (khaje). Trinket does not have speedbinning,
-+	 * as only a single SKU exists and we don't support khaje upstream yet.
-+	 * Hence, this matching table is only valid for bengal and can be easily
-+	 * expanded if need be.
-+	 */
-+
-+	if (fuse == 0)
-+		return 0;
-+	else if (fuse == 206)
-+		return 1;
-+	else if (fuse == 200)
-+		return 2;
-+	else if (fuse == 157)
-+		return 3;
-+	else if (fuse == 127)
-+		return 4;
-+
-+	return UINT_MAX;
-+}
-+
- static u32 a618_get_speed_bin(u32 fuse)
++/*
++ * Adjust the pclk rate by calculating a new hdisplay proportional to
++ * the compression ratio such that:
++ *     new_hdisplay = old_hdisplay * compressed_bpp / uncompressed_bpp
++ *
++ * Porches do not need to be adjusted:
++ * - For the VIDEO mode they are not compressed by DSC and are passed as is.
++ * - For the CMD mode the are no actual porches. Instead they represent the
++ *   overhead to the image data transfer. As such, they are calculated for the
++ *   final mode parameters (after the compression) and are not to be adjusted
++ *   too.
++ *
++ *  FIXME: Reconsider this if/when CMD mode handling is rewritten to use
++ *  refresh rate and data overhead as a starting point of the calculations.
++ */
+ static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
+ 		const struct drm_dsc_config *dsc)
  {
- 	if (fuse == 0)
-@@ -2301,6 +2325,9 @@ static u32 fuse_to_supp_hw(struct device *dev, struct adreno_gpu *adreno_gpu, u3
- {
- 	u32 val = UINT_MAX;
+@@ -926,8 +941,24 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		if (ret)
+ 			return;
  
-+	if (adreno_is_a610(adreno_gpu))
-+		val = a610_get_speed_bin(fuse);
-+
- 	if (adreno_is_a618(adreno_gpu))
- 		val = a618_get_speed_bin(fuse);
- 
-
+-		/* Divide the display by 3 but keep back/font porch and
+-		 * pulse width same
++		/*
++		 * DPU sends 3 bytes per pclk cycle to DSI. If compression is
++		 * not used, a single pixel is transferred at each pulse, no
++		 * matter what bpp or pixel format is used. In case of DSC
++		 * compression this results (due to data alignment
++		 * requirements) in a transfer of 3 compressed pixel per pclk
++		 * cycle.
++		 *
++		 * If widebus is enabled, bus width is extended to 6 bytes.
++		 * This way the DPU can transfer 6 compressed pixels with bpp
++		 * less or equal to 8 or 3 compressed pyxels in case bpp is
++		 * greater than 8.
++		 *
++		 * The back/font porch and pulse width are kept intact.  They
++		 * represent timing parameters rather than actual data
++		 * transfer.
++		 *
++		 * XXX: widebus is not supported by the driver (yet).
+ 		 */
+ 		h_total -= hdisplay;
+ 		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
 -- 
-2.41.0
+2.39.2
 
