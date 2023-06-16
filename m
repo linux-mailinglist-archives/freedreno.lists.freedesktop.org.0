@@ -2,68 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF9F6732CE0
-	for <lists+freedreno@lfdr.de>; Fri, 16 Jun 2023 12:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3857732FDA
+	for <lists+freedreno@lfdr.de>; Fri, 16 Jun 2023 13:30:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17CA310E59C;
-	Fri, 16 Jun 2023 10:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8937710E0D0;
+	Fri, 16 Jun 2023 11:30:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9C6810E5CB
- for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 10:04:38 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-4f640e48bc3so626016e87.2
- for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 03:04:38 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D69110E0D0
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 11:30:31 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2b1b06af50eso7524351fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 04:30:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686909877; x=1689501877;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gUCljY54Ij62McPnq0z5nAUMfwrJa995R+QcNnilpzs=;
- b=UH0dMSR8J1p5xJus1o/EO5bWsLeq4c9WEpd3X7prBwNQl0Engy1x/dnHAK6j07gYiq
- HFCPs23UeCThmyjUOOE+ZmVMObYxZyNBYc6phYUJOsnmoPoiCMPuvu9oCQg2wPZ18kBc
- S2YW3IAQKfghiWHGGDRvm17ti8BM8xLBEL6rMmlrY5AMX4wOJgvAzZkZaMsOuN9p2deX
- 42a+gqiiwmYEFDP5ZfVyMmtlgaQLs17H4FPWtwgtiuBN+ZERkfsSjCDOdP6/c3wqHzMG
- QVNZzY/PVu8hOGxKLhExYKVIwZvUb2ixJe1GuVvr81P/WOcwa4yo0+6KNjMp5anbIICD
- LU0w==
+ d=linaro.org; s=google; t=1686915027; x=1689507027;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hWaj8V26e6AndVXAhP1UnOZRtCJHb24nNyQJnL1KfpQ=;
+ b=qsMcLbqWpaDKn5jJ3a7lh2l7ZEoQMihWU/D9Xl/C041+aVh8oEnvGGYPYeWgI//piH
+ 8RKB9TSLG+GDqdw1aeL7PACdlLO5VCCDB8NLuLoXYEdPbZ4PEHZJdfVMrU0ZPbiqmCPx
+ VVQ15Kwq+qOIGF/AsyhY3pvyC1lFN4JqKcZuc7rkCxLRVEryb7uIJiyUtvBuGSw14hZ3
+ KqgKogpwOPt802SJKBQty6rmzQBRW1InBZSIkacyo/IjUeRjU+SR995A/qgHZ2heQYqp
+ mIQ5G6qeN0AlcwrWw9vGaDIdB0sLriKHrGiYMp8xxCMcztgfndwKHCBiWrGJj6Qq6CS+
+ Adig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686909877; x=1689501877;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gUCljY54Ij62McPnq0z5nAUMfwrJa995R+QcNnilpzs=;
- b=A2Izm/abfj2KGO7hcbrcQJaswOvWZDOthfHEmA2WnqF3DLEcbJckgOQ9ym0DT4mBoT
- +TljdiLFDGKBO8+vNQPCYdkwd2hOpGJU4jz5JhJzKWxgeeIEQH0+sApJqPm1iMLYQvKy
- W0Pc15Npbg4Gq0oi5b1n6qKcRHlrtOxFc+xtrcKGhnkKI3bKJk21GgEvmYEc9LWHlj8a
- LdRKy0ZUWBrP3GjHnAtS5d1FI77hviTaVdcl4zA266i4a2MN3/N2lPUKtsX7u7sUa/3P
- Px48dFc6JeBd2wvZ3bVsStvvftj1Ri7ZC2lrucqrDf7Nu8MhRYoG6TECvyRu5W+AqVDL
- AXVQ==
-X-Gm-Message-State: AC+VfDyI2hXbur1MapXEU6U/lslZSHpcneqWmcn3owZzDOguLXO7h/eq
- ow8wyZg+clFkfDstpIIKxXCdlw==
-X-Google-Smtp-Source: ACHHUZ6evdJwuwSnA7+xNDznvom4QXiXTXlUa6azaqYVsuhHWzrfy04hW54mkrWDDnYVhS/DPgCg3Q==
-X-Received: by 2002:a19:5e02:0:b0:4f1:4cdc:ec03 with SMTP id
- s2-20020a195e02000000b004f14cdcec03mr959227lfb.18.1686909877014; 
- Fri, 16 Jun 2023 03:04:37 -0700 (PDT)
-Received: from eriador.lan (85-76-68-127-nat.elisa-mobile.fi. [85.76.68.127])
- by smtp.gmail.com with ESMTPSA id
- r12-20020ac24d0c000000b004f4ce9c9338sm2967423lfi.283.2023.06.16.03.04.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Jun 2023 03:04:36 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri, 16 Jun 2023 13:03:17 +0300
-Message-Id: <20230616100317.500687-20-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230616100317.500687-1-dmitry.baryshkov@linaro.org>
-References: <20230616100317.500687-1-dmitry.baryshkov@linaro.org>
+ d=1e100.net; s=20221208; t=1686915027; x=1689507027;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hWaj8V26e6AndVXAhP1UnOZRtCJHb24nNyQJnL1KfpQ=;
+ b=ikXZK+r6mlhhmodzzxmSPRzwof7XQFC03uYhqjp8B5n4NGZnaScmHFE82YEdz35F3u
+ E5nvqgMzeIyY6lFJt0QJmKcZStD40J0pc7Y0Ox0NyMoUMRRSXD9gD5wOdvXgbWPbEdh/
+ 8Pqy/wHuv0EB/5mGwQprO8ARgZToA7f8G9tOhdHhnORLQZKy8bBFF1y0pgj2GnjgK4HQ
+ DjND+FwJTc7IR5cKbQY+3rQd5E+WJIUm1nWXXkoWG+L58yC3P4SFNfc57Sw6HvLRhm68
+ OTAF1oeTnu/ZscJ/drXFRRK7AG4608ezSUaWjeoWuzg+YLcUMux5/5s36brxnLtAeuvX
+ N1zQ==
+X-Gm-Message-State: AC+VfDyRj9dV+521VrGgLarVxprNpcHphK/mscvvfotNIvWWN5UruiLT
+ gcQZc/eSULJehTZXxXZBClcWcQ==
+X-Google-Smtp-Source: ACHHUZ7fM7XuMr8WhrpLTJWyagGKaUPyrMK77XcC+7GWq+uy60ZRqPMZkECck0Zt0Hymekne24sv4w==
+X-Received: by 2002:a2e:9206:0:b0:2b0:259d:f670 with SMTP id
+ k6-20020a2e9206000000b002b0259df670mr1487873ljg.4.1686915027509; 
+ Fri, 16 Jun 2023 04:30:27 -0700 (PDT)
+Received: from [192.168.1.151] (85-76-68-127-nat.elisa-mobile.fi.
+ [85.76.68.127]) by smtp.gmail.com with ESMTPSA id
+ j6-20020a2eb706000000b002b34f9cfc7asm1072257ljo.90.2023.06.16.04.30.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Jun 2023 04:30:27 -0700 (PDT)
+Message-ID: <8d5870f8-e530-fa8f-444a-3d3ccf716d48@linaro.org>
+Date: Fri, 16 Jun 2023 14:30:20 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 19/19] drm/msm/dpu: drop empty features mask
- INTF_SDM845_MASK
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 0/3] Add support for databus widen mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,107 +79,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The INTF_SDM845_MASK features mask is zero. Drop it completely.
+On 14/06/2023 04:57, Jessica Zhang wrote:
+> DPU 5.x+ and DSI 6G 2.5.x+ support a databus-widen mode that allows for
+> more compressed data to be transferred per pclk.
+> 
+> This series adds support for enabling this feature for both DPU and DSI
+> by doing the following:
+> 
+> 1. Add a DPU_INTF_DATABUS_WIDEN feature flag
+> 2. Add a DPU INTF op to set the DATABUS_WIDEN register
+> 3. Set the DATABUS_WIDEN register and do the proper hdisplay
+>     calculations in DSI when applicable
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h | 4 ----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h  | 4 ----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 2 --
- 3 files changed, 10 deletions(-)
+As I was writing the documentation patch, another thought stroke me wrt 
+this patchset. Could you please add a check to DSI's mode_valid 
+disallowing all modes if DSI_BPP > 8 & !widebus. Technically this check 
+does not filter modes per se, but in my opinion ending up with empty 
+modes list would be a better user experience compared to having a list 
+of modes, from which none can be selected.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-index d78cedd35c01..060e6a49b2f9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-@@ -246,7 +246,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
- 		.base = 0x6a000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 21,
-@@ -256,7 +255,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	}, {
- 		.name = "intf_1", .id = INTF_1,
- 		.base = 0x6a800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 21,
-@@ -266,7 +264,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	}, {
- 		.name = "intf_2", .id = INTF_2,
- 		.base = 0x6b000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 21,
-@@ -276,7 +273,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x6b800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_HDMI,
- 		.prog_fetch_lines_worst_case = 21,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-index de26f469ebb1..54d7475e1591 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-@@ -260,7 +260,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
- 		.base = 0x6a000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 24,
-@@ -270,7 +269,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	}, {
- 		.name = "intf_1", .id = INTF_1,
- 		.base = 0x6a800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 24,
-@@ -280,7 +278,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	}, {
- 		.name = "intf_2", .id = INTF_2,
- 		.base = 0x6b000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 24,
-@@ -290,7 +287,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x6b800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 24,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 4a18fc66a412..3efa22429e5f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -95,8 +95,6 @@
- 
- #define DSPP_SC7180_MASK BIT(DPU_DSPP_PCC)
- 
--#define INTF_SDM845_MASK (0)
--
- #define INTF_SC7180_MASK \
- 	(BIT(DPU_INTF_INPUT_CTRL) | \
- 	 BIT(DPU_INTF_TE) | \
+And if we ever get dynamic mode/dsc_config setup, this would allow us to 
+filter unsupported modes via their DSC confiuration.
+
+Abhinav, I remember, that you told me that adding drm_dsc_config to drm 
+modes was forbidden already. However this looks like a valid reason to 
+maybe restart the discussion: we want to filter modes basing on the 
+corresponding DSC data rather than allowing the mode in mode_valid() and 
+then failing it in the atomic_check().
+
+> 
+> Note: This series will only enable the databus-widen mode for command
+> mode as we are currently unable to validate it on video mode.
+> 
+> Depends on: "Add DSC v1.2 Support for DSI" [1]
+> 
+> [1] https://patchwork.freedesktop.org/series/117219/
+> 
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+
+Nit: there is no need to sign-off the cover letters.
+
+> ---
+> Jessica Zhang (3):
+>        drm/msm/dpu: Add DPU_INTF_DATABUS_WIDEN feature flag for DPU >= 5.0
+>        drm/msm/dpu: Set DATABUS_WIDEN on command mode encoders
+>        drm/msm/dsi: Enable DATABUS_WIDEN for DSI command mode
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  3 +++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c       |  3 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h       |  2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 12 ++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          |  3 +++
+>   drivers/gpu/drm/msm/dsi/dsi.xml.h                    |  1 +
+>   drivers/gpu/drm/msm/dsi/dsi_host.c                   | 19 ++++++++++++++++++-
+>   7 files changed, 41 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 1981c2c0c05f5d7fe4d4552d4f352cb46840e51e
+> change-id: 20230525-add-widebus-support-f785546ee751
+> 
+> Best regards,
+
 -- 
-2.39.2
+With best wishes
+Dmitry
 
