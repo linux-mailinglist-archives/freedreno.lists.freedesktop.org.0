@@ -2,40 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D50C733BCF
-	for <lists+freedreno@lfdr.de>; Sat, 17 Jun 2023 00:00:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 696CA733C11
+	for <lists+freedreno@lfdr.de>; Sat, 17 Jun 2023 00:03:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 966CC10E692;
-	Fri, 16 Jun 2023 22:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C9510E692;
+	Fri, 16 Jun 2023 22:03:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1CC610E11E
- for <freedreno@lists.freedesktop.org>; Fri, 16 Jun 2023 22:00:06 +0000 (UTC)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DAB510E135;
+ Fri, 16 Jun 2023 22:03:52 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id B9B7740F37;
- Sat, 17 Jun 2023 00:00:03 +0200 (CEST)
-Date: Sat, 17 Jun 2023 00:00:02 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id C7BDB404AF;
+ Sat, 17 Jun 2023 00:03:49 +0200 (CEST)
+Date: Sat, 17 Jun 2023 00:03:48 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <uvfqlaez2jxiacacl7ndhuj4oqjtuboqz42sacxlavcxd3vqtf@hl7rajyglvc2>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-1-c7069f2efca1@quicinc.com>
- <wpjxrnhbcanbc5iatxnff25yrrdfrtmgb24sgwyo457dz2oyjz@e2docpcb6337>
- <f4fb042c-1458-6077-3c49-8cc02638b27c@linaro.org>
- <ycgei43x4kfmjk7g7gbeglehtiiinfbqmrjbdzcy56frxbtd2z@yk2f5kgrkbrt>
- <i5trozzoexkm7taojob4c53sajm2w6tnasj2yfzjy3a77oqvw7@wadk7g7op2kp>
- <3791f18c-89f1-f066-38c4-d8d13a3ab611@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <b6junzecn74xvb5gk3tg7d442now2jw336czqcxn2uuup6cowu@w6ghvte6ivo3>
+References: <20230616100317.500687-1-dmitry.baryshkov@linaro.org>
+ <20230616100317.500687-3-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3791f18c-89f1-f066-38c4-d8d13a3ab611@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Add DPU_INTF_DATABUS_WIDEN
- feature flag for DPU >= 5.0
+In-Reply-To: <20230616100317.500687-3-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 02/19] drm/msm/dpu: always use
+ MSM_DP/DSI_CONTROLLER_n
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,37 +43,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-16 14:06:47, Abhinav Kumar wrote:
-> On 6/14/2023 3:49 PM, Marijn Suijten wrote:
-> > On 2023-06-14 14:23:38, Marijn Suijten wrote:
-> > <snip>
-> >> Tested this on SM8350 which actually has DSI 2.5, and it is also
-> >> corrupted with this series so something else on this series might be
-> >> broken.
-> > 
-> > Never mind, this was a bad conflict-resolve.  Jessica's original
-> > BURST_MODE patch was RMW'ing MDP_CTRL2, but the upstreamed patch was
-> > only writing, and the way I conflict-resolved that caused the write of
-> > BURST_MODE to overwrite the RMW DATABUS_WIDEN.
-> > 
-> > If both are moved to dsi_ctrl_config(), we could do a read, add both
-> > flags in conditionally, and write.
-> > 
-> 
-> So just to confirm, there is no issue on your 8350 setup with widebus 
-> enabled right?
+On 2023-06-16 13:03:00, Dmitry Baryshkov wrote:
+<snip>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+> index 8da424eaee6a..8fa9d83a539d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+> @@ -169,11 +169,11 @@ static const struct dpu_intf_cfg sm8350_intf[] = {
+>  	INTF_BLK("intf_0", INTF_0, 0x34000, 0x280, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25)),
+> -	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x2c4, INTF_DSI, 0, 24, INTF_SC7280_MASK,
+> +	INTF_BLK_DSI_TE("intf_1", INTF_1, 0x35000, 0x2c4, INTF_DSI, MSM_DSI_CONTROLLER_0, 24, INTF_SC7280_MASK,
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+>  			DPU_IRQ_IDX(MDP_INTF1_7xxx_TEAR_INTR, 2)),
 
-After properly conflict-resolving both series so that they either both
-RMW, or combine the two bit-sets (the same you just discussed _not_
-doing on the DPU side for DATABUS_WIDEN|COMPRESSION...) before a single
-write, it works fine!
+This doesn't apply cleanly on top of your interupt rework series: do you
+still intend to land that?
+
+> -	INTF_BLK_DSI_TE("intf_2", INTF_2, 0x36000, 0x2c4, INTF_DSI, 1, 24, INTF_SC7280_MASK,
+> +	INTF_BLK_DSI_TE("intf_2", INTF_2, 0x36000, 0x2c4, INTF_DSI, MSM_DSI_CONTROLLER_1, 24, INTF_SC7280_MASK,
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
+>  			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
+>  			DPU_IRQ_IDX(MDP_INTF2_7xxx_TEAR_INTR, 2)),
+
+<snip, same for the other catalogs>
 
 - Marijn
