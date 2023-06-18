@@ -2,73 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB8D7342DF
-	for <lists+freedreno@lfdr.de>; Sat, 17 Jun 2023 20:09:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6A76734768
+	for <lists+freedreno@lfdr.de>; Sun, 18 Jun 2023 19:58:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64B9710E00D;
-	Sat, 17 Jun 2023 18:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B611510E0F2;
+	Sun, 18 Jun 2023 17:58:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F2B310E00D
- for <freedreno@lists.freedesktop.org>; Sat, 17 Jun 2023 17:58:03 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-9883123260fso49125666b.0
- for <freedreno@lists.freedesktop.org>; Sat, 17 Jun 2023 10:58:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1687024680; x=1689616680;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sD3IWEzBGQZ8mcTerhCj4o67e1f5v1lsAPNkuhRyMbk=;
- b=OZ0uvEXxx2GABust4XjlN54hpmLk3IWHH8Qjxu8hJ/wpIoDjGlxehuDpwtmvNJT9CZ
- mZYJKe33u2+0jKtnWAaUTyfN36aWXWKulGZD0SJ5lWupocHr7g0jKvHFZN9Zj2Hhdys2
- TObLFfbmHKckLE7c0usye58WkbJ5MF4Lnw4Pw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687024680; x=1689616680;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sD3IWEzBGQZ8mcTerhCj4o67e1f5v1lsAPNkuhRyMbk=;
- b=Y+P78vylhVLUzEaJXN8qItFRVHkU1qw/D1rGpz1bXoM6gRokIL7OXKOihVavxtIzFh
- D9Zr1PzxrYpvL5nu/sdWAEhPDIjr57Ny30EzzTbCZhCagnxgPwQP6QDt9D0M+gORq0f7
- ipnosKRL2ZNX2QPa/0ew//SYefDXT8QRo8LMtz0XIBK8mFti/G0UelgBWJbN8xtd7VFo
- cArkKBih9euJlomQoLzDwbUPIRjB1yDeB4rTUwz4O0NLnIekTVOObuYPsmSAHCTjs2gZ
- KWY2tdG20iZ5yufFe0HtyQkxImFKsTYU+2UKLTjAH82eYt39gXHVkkcXf87kLtD58u5e
- yQLA==
-X-Gm-Message-State: AC+VfDy19HCI47AqvWmKXH1gHB5nn+WN+bfjnP8LAdGUtimI3aqBBZvt
- YgFStS++E+skAl3UeSn9ZNLCLpVq+XdxJDAgSW43EUj8
-X-Google-Smtp-Source: ACHHUZ4sY+TC22kkVyjD+dRmZDcwnZ0mYT1LbLQEuziOhdN+0W/Fnot3y0ST0j5zNwWhHSPrdvBVwg==
-X-Received: by 2002:a17:906:9b8b:b0:96f:4927:7a96 with SMTP id
- dd11-20020a1709069b8b00b0096f49277a96mr5589336ejc.70.1687024680522; 
- Sat, 17 Jun 2023 10:58:00 -0700 (PDT)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com.
- [209.85.208.41]) by smtp.gmail.com with ESMTPSA id
- r23-20020a1709064d1700b009658475919csm12189153eju.188.2023.06.17.10.57.56
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 17 Jun 2023 10:58:00 -0700 (PDT)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-516500163b2so3216a12.1
- for <freedreno@lists.freedesktop.org>; Sat, 17 Jun 2023 10:57:56 -0700 (PDT)
-X-Received: by 2002:a05:600c:444e:b0:3f4:2736:b5eb with SMTP id
- v14-20020a05600c444e00b003f42736b5ebmr491530wmn.1.1687024655682; Sat, 17 Jun
- 2023 10:57:35 -0700 (PDT)
-MIME-Version: 1.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2F5310E05D
+ for <freedreno@lists.freedesktop.org>; Sun, 18 Jun 2023 12:41:01 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qArh7-0003eY-9M; Sun, 18 Jun 2023 14:39:49 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qArgb-008HLz-J5; Sun, 18 Jun 2023 14:39:17 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qArga-00FHNT-AP; Sun, 18 Jun 2023 14:39:16 +0200
+Date: Sun, 18 Jun 2023 14:39:15 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Doug Anderson <dianders@chromium.org>
+Message-ID: <20230618123915.hmy66z7e532jhwgk@pengutronix.de>
 References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
  <20230601154002.uv2wfatpb7b45duz@pengutronix.de>
  <CAD=FV=WvP--wJwBQtnSoW_xb57R1Wf9dH0XzWxe+NorczXfeAw@mail.gmail.com>
  <20230617161222.wy55pbomnrrlfy5u@pengutronix.de>
-In-Reply-To: <20230617161222.wy55pbomnrrlfy5u@pengutronix.de>
-From: Doug Anderson <dianders@chromium.org>
-Date: Sat, 17 Jun 2023 10:57:23 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
-Message-ID: <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Sat, 17 Jun 2023 18:08:57 +0000
+ <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jxye2q65aavatxzk"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
+X-Mailman-Approved-At: Sun, 18 Jun 2023 17:58:51 +0000
 Subject: Re: [Freedreno] patches dropped from drm-misc-next [Was: Re: [PATCH
  00/53] drm: Convert to platform remove callback returning] void
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -84,44 +60,43 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Raymond Tan <raymond.tan@intel.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
  Alim Akhtar <alim.akhtar@samsung.com>,
  Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
  Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Robert Foss <rfoss@kernel.org>, Karol Herbst <kherbst@redhat.com>,
  Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Danilo Krummrich <dakr@redhat.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Michal Simek <michal.simek@xilinx.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Danilo Krummrich <dakr@redhat.com>,
  NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
- Rahul T R <r-ravikumar@ti.com>,
+ Rob Clark <robdclark@gmail.com>, Rahul T R <r-ravikumar@ti.com>,
  Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
  Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- etnaviv@lists.freedesktop.org, Yuan Can <yuancan@huawei.com>,
- Inki Dae <inki.dae@samsung.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ etnaviv@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Inki Dae <inki.dae@samsung.com>, Alain Volmat <alain.volmat@foss.st.com>,
  Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
  Hyun Kwon <hyun.kwon@xilinx.com>, Andrew Jeffery <andrew@aj.id.au>,
  Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
  Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Miaoqian Lin <linmq006@gmail.com>, linux-aspeed@lists.ozlabs.org,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
  Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  lima@lists.freedesktop.org, Chunyan Zhang <zhang.lyra@gmail.com>,
  Alexey Brodkin <abrodkin@synopsys.com>, Minghao Chi <chi.minghao@zte.com.cn>,
- Steven Price <steven.price@arm.com>, linux-rockchip@lists.infradead.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
  Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Alain Volmat <alain.volmat@foss.st.com>, Liu Ying <victor.liu@nxp.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Liu Ying <victor.liu@nxp.com>,
  linux-arm-msm@vger.kernel.org, Wang Jianzheng <wangjianzheng@vivo.com>,
  Maxime Ripard <mripard@kernel.org>, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org,
@@ -130,11 +105,10 @@ Cc: Raymond Tan <raymond.tan@intel.com>,
  Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
  Kyungmin Park <kyungmin.park@samsung.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Brian Starkey <brian.starkey@arm.com>, Karol Herbst <kherbst@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Stefan Agner <stefan@agner.ch>, Michal Simek <michal.simek@xilinx.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org, Brian Starkey <brian.starkey@arm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Yuan Can <yuancan@huawei.com>, Stefan Agner <stefan@agner.ch>,
+ Javier Martinez Canillas <javierm@redhat.com>, linux-tegra@vger.kernel.org,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
  Rob Herring <robh@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
@@ -142,191 +116,231 @@ Cc: Raymond Tan <raymond.tan@intel.com>,
  Xinwei Kong <kong.kongxinwei@hisilicon.com>,
  Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
  nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
  Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
  Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Alison Wang <alison.wang@nxp.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Alison Wang <alison.wang@nxp.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Cercueil <paul@crapouillou.net>, Tomi Valkeinen <tomba@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Liu Shixin <liushixin2@huawei.com>, Tomi Valkeinen <tomba@kernel.org>,
  Deepak R Varma <drv@mailo.com>,
  Karol Wachowski <karol.wachowski@linux.intel.com>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  Ricardo Ribalda <ribalda@chromium.org>, Tian Tao <tiantao6@hisilicon.com>,
- Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Liu Shixin <liushixin2@huawei.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Laura Nao <laura.nao@collabora.com>, David Airlie <airlied@gmail.com>,
- Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
- Yongqin Liu <yongqin.liu@linaro.org>, Jayshri Pawar <jpawar@cadence.com>,
- Jonas Karlman <jonas@kwiboo.se>, Russell King <linux@armlinux.org.uk>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, Laura Nao <laura.nao@collabora.com>,
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ linux-renesas-soc@vger.kernel.org, Yongqin Liu <yongqin.liu@linaro.org>,
+ Jayshri Pawar <jpawar@cadence.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Russell King <linux@armlinux.org.uk>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Qiang Yu <yuq825@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Melissa Wen <mwen@igalia.com>, linux-mediatek@lists.infradead.org,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Melissa Wen <mwen@igalia.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Qiang Yu <yuq825@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
  Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Sat, Jun 17, 2023 at 9:15=E2=80=AFAM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@pengutronix.de> wrote:
->
-> [expanding recipents by the other affected persons]
->
-> On Thu, Jun 08, 2023 at 09:08:15AM -0700, Doug Anderson wrote:
-> > On Thu, Jun 1, 2023 at 8:40=E2=80=AFAM Uwe Kleine-K=C3=B6nig
-> > <u.kleine-koenig@pengutronix.de> wrote:
-> > >
-> > > Hello,
-> > >
-> > > On Sun, May 07, 2023 at 06:25:23PM +0200, Uwe Kleine-K=C3=B6nig wrote=
-:
-> > > > this patch series adapts the platform drivers below drivers/gpu/drm
-> > > > to use the .remove_new() callback. Compared to the traditional .rem=
-ove()
-> > > > callback .remove_new() returns no value. This is a good thing becau=
-se
-> > > > the driver core doesn't (and cannot) cope for errors during remove.=
- The
-> > > > only effect of a non-zero return value in .remove() is that the dri=
-ver
-> > > > core emits a warning. The device is removed anyhow and an early ret=
-urn
-> > > > from .remove() usually yields a resource leak.
+--jxye2q65aavatxzk
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Doug,
+
+On Sat, Jun 17, 2023 at 10:57:23AM -0700, Doug Anderson wrote:
+> On Sat, Jun 17, 2023 at 9:15=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> <u.kleine-koenig@pengutronix.de> wrote:
+> >
+> > [expanding recipents by the other affected persons]
+> >
+> > On Thu, Jun 08, 2023 at 09:08:15AM -0700, Doug Anderson wrote:
+> > > On Thu, Jun 1, 2023 at 8:40=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> > > <u.kleine-koenig@pengutronix.de> wrote:
 > > > >
-> > > > By changing the remove callback to return void driver authors canno=
-t
-> > > > reasonably (but wrongly) assume any more that there happens some ki=
-nd of
-> > > > cleanup later.
+> > > > Hello,
+> > > >
+> > > > On Sun, May 07, 2023 at 06:25:23PM +0200, Uwe Kleine-K=C3=B6nig wro=
+te:
+> > > > > this patch series adapts the platform drivers below drivers/gpu/d=
+rm
+> > > > > to use the .remove_new() callback. Compared to the traditional .r=
+emove()
+> > > > > callback .remove_new() returns no value. This is a good thing bec=
+ause
+> > > > > the driver core doesn't (and cannot) cope for errors during remov=
+e. The
+> > > > > only effect of a non-zero return value in .remove() is that the d=
+river
+> > > > > core emits a warning. The device is removed anyhow and an early r=
+eturn
+> > > > > from .remove() usually yields a resource leak.
+> > > > >
+> > > > > By changing the remove callback to return void driver authors can=
+not
+> > > > > reasonably (but wrongly) assume any more that there happens some =
+kind of
+> > > > > cleanup later.
+> > > >
+> > > > I wonder if someone would volunteer to add the whole series to
+> > > > drm-misc-next?!
 > > >
-> > > I wonder if someone would volunteer to add the whole series to
-> > > drm-misc-next?!
-> >
-> > It looks as if Neil applied quite a few of them already, so I looked
-> > at what was left...
-> >
-> > I'm a little hesitant to just apply the whole kit-and-caboodle to
-> > drm-misc-next since there are specific DRM trees for a bunch of them
-> > and it would be better if they landed there. ...so I went through all
-> > the patches that still applied to drm-misc-next, then used
-> > 'scripts/get_maintainer.pl --scm' to check if they were maintained
-> > through drm-misc. That still left quite a few patches. I've applied
-> > those ones and pushed to drm-misc-next:
-> >
-> > 71722685cd17 drm/xlnx/zynqmp_dpsub: Convert to platform remove
-> > callback returning void
-> > 1ed54a19f3b3 drm/vc4: Convert to platform remove callback returning voi=
-d
-> > b957812839f8 drm/v3d: Convert to platform remove callback returning voi=
-d
-> > e2fd3192e267 drm/tve200: Convert to platform remove callback returning =
-void
-> > 84e6da7ad553 drm/tiny: Convert to platform remove callback returning vo=
-id
-> > 34cdd1f691ad drm/tidss: Convert to platform remove callback returning v=
+> > > It looks as if Neil applied quite a few of them already, so I looked
+> > > at what was left...
+> > >
+> > > I'm a little hesitant to just apply the whole kit-and-caboodle to
+> > > drm-misc-next since there are specific DRM trees for a bunch of them
+> > > and it would be better if they landed there. ...so I went through all
+> > > the patches that still applied to drm-misc-next, then used
+> > > 'scripts/get_maintainer.pl --scm' to check if they were maintained
+> > > through drm-misc. That still left quite a few patches. I've applied
+> > > those ones and pushed to drm-misc-next:
+> > >
+> > > 71722685cd17 drm/xlnx/zynqmp_dpsub: Convert to platform remove
+> > > callback returning void
+> > > 1ed54a19f3b3 drm/vc4: Convert to platform remove callback returning v=
 oid
-> > d665e3c9d37a drm/sun4i: Convert to platform remove callback returning v=
+> > > b957812839f8 drm/v3d: Convert to platform remove callback returning v=
 oid
-> > 0c259ab19146 drm/stm: Convert to platform remove callback returning voi=
-d
-> > 9a865e45884a drm/sti: Convert to platform remove callback returning voi=
-d
-> > 3c855610840e drm/rockchip: Convert to platform remove callback returnin=
+> > > e2fd3192e267 drm/tve200: Convert to platform remove callback returnin=
 g void
-> > e41977a83b71 drm/panfrost: Convert to platform remove callback returnin=
-g void
-> > cef3776d0b5a drm/panel: Convert to platform remove callback returning v=
-oid
-> > bd296a594e87 drm/mxsfb: Convert to platform remove callback returning v=
-oid
-> > 38ca2d93d323 drm/meson: Convert to platform remove callback returning v=
-oid
-> > fd1457d84bae drm/mcde: Convert to platform remove callback returning vo=
-id
-> > 41a56a18615c drm/logicvc: Convert to platform remove callback returning=
- void
-> > 980ec6444372 drm/lima: Convert to platform remove callback returning vo=
-id
-> > 82a2c0cc1a22 drm/hisilicon: Convert to platform remove callback returni=
-ng void
-> > c3b28b29ac0a drm/fsl-dcu: Convert to platform remove callback returning=
- void
-> > a118fc6e71f9 drm/atmel-hlcdc: Convert to platform remove callback retur=
-ning void
-> > 9a32dd324c46 drm/aspeed: Convert to platform remove callback returning =
+> > > 84e6da7ad553 drm/tiny: Convert to platform remove callback returning =
 void
-> > 2c7d291c498c drm/arm/malidp: Convert to platform remove callback return=
+> > > 34cdd1f691ad drm/tidss: Convert to platform remove callback returning=
+ void
+> > > d665e3c9d37a drm/sun4i: Convert to platform remove callback returning=
+ void
+> > > 0c259ab19146 drm/stm: Convert to platform remove callback returning v=
+oid
+> > > 9a865e45884a drm/sti: Convert to platform remove callback returning v=
+oid
+> > > 3c855610840e drm/rockchip: Convert to platform remove callback return=
 ing void
-> > a920028df679 drm/arm/hdlcd: Convert to platform remove callback returni=
-ng void
-> > 1bf3d76a7d15 drm/komeda: Convert to platform remove callback returning =
+> > > e41977a83b71 drm/panfrost: Convert to platform remove callback return=
+ing void
+> > > cef3776d0b5a drm/panel: Convert to platform remove callback returning=
+ void
+> > > bd296a594e87 drm/mxsfb: Convert to platform remove callback returning=
+ void
+> > > 38ca2d93d323 drm/meson: Convert to platform remove callback returning=
+ void
+> > > fd1457d84bae drm/mcde: Convert to platform remove callback returning =
 void
->
-> Together with the patches that were applied later the topmost commit
-> from this series is c2807ecb5290 ("drm/omap: Convert to platform remove
-> callback returning void"). This commit was part for the following next
-> tags:
->
->         $ git tag -l --contains c2807ecb5290
->         next-20230609
->         next-20230613
->         next-20230614
->         next-20230615
->
-> However in next-20230616 they are missing. In next-20230616
-> drm-misc/for-linux-next was cf683e8870bd4be0fd6b98639286700a35088660.
-> Compared to c2807ecb5290 this adds 1149 patches but drops 37 (that are
-> also not included with a different commit id). The 37 patches dropped
-> are 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807ecb5290:
->
->         $ git shortlog -s 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807=
-ecb5290
->              1  Christophe JAILLET
->              2  Jessica Zhang
->              5  Karol Wachowski
->              1  Laura Nao
->             27  Uwe Kleine-K=C3=B6nig
->              1  Wang Jianzheng
->
->
-> I guess this was done by mistake because nobody told me about dropping
-> my/these patches? Can c2807ecb5290 please be merged into drm-misc-next
-> again?
+> > > 41a56a18615c drm/logicvc: Convert to platform remove callback returni=
+ng void
+> > > 980ec6444372 drm/lima: Convert to platform remove callback returning =
+void
+> > > 82a2c0cc1a22 drm/hisilicon: Convert to platform remove callback retur=
+ning void
+> > > c3b28b29ac0a drm/fsl-dcu: Convert to platform remove callback returni=
+ng void
+> > > a118fc6e71f9 drm/atmel-hlcdc: Convert to platform remove callback ret=
+urning void
+> > > 9a32dd324c46 drm/aspeed: Convert to platform remove callback returnin=
+g void
+> > > 2c7d291c498c drm/arm/malidp: Convert to platform remove callback retu=
+rning void
+> > > a920028df679 drm/arm/hdlcd: Convert to platform remove callback retur=
+ning void
+> > > 1bf3d76a7d15 drm/komeda: Convert to platform remove callback returnin=
+g void
+> >
+> > Together with the patches that were applied later the topmost commit
+> > from this series is c2807ecb5290 ("drm/omap: Convert to platform remove
+> > callback returning void"). This commit was part for the following next
+> > tags:
+> >
+> >         $ git tag -l --contains c2807ecb5290
+> >         next-20230609
+> >         next-20230613
+> >         next-20230614
+> >         next-20230615
+> >
+> > However in next-20230616 they are missing. In next-20230616
+> > drm-misc/for-linux-next was cf683e8870bd4be0fd6b98639286700a35088660.
+> > Compared to c2807ecb5290 this adds 1149 patches but drops 37 (that are
+> > also not included with a different commit id). The 37 patches dropped
+> > are 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807ecb5290:
+> >
+> >         $ git shortlog -s 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c28=
+07ecb5290
+> >              1  Christophe JAILLET
+> >              2  Jessica Zhang
+> >              5  Karol Wachowski
+> >              1  Laura Nao
+> >             27  Uwe Kleine-K=C3=B6nig
+> >              1  Wang Jianzheng
+> >
+> >
+> > I guess this was done by mistake because nobody told me about dropping
+> > my/these patches? Can c2807ecb5290 please be merged into drm-misc-next
+> > again?
+>=20
+> Actually, it was probably a mistake that these patches got merged to
+> linuxnext during the 4 days that you noticed. However, your patches
+> aren't dropped and are still present in drm-misc-next.
+>=20
+> drm-misc has a bit of a unique model and it's documented fairly well here:
+>=20
+> https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
 
-Actually, it was probably a mistake that these patches got merged to
-linuxnext during the 4 days that you noticed. However, your patches
-aren't dropped and are still present in drm-misc-next.
+Is there a flaw then in this unique model (or its implementation) when
+drm-misc/for-linux-next moves in a non-fast-forward manner? This isn't
+expected, is it?
 
-drm-misc has a bit of a unique model and it's documented fairly well here:
+> The key is that committers can commit to drm-misc-next _at any time_
+> regardless of the merge window. The drm-misc merge strategy makes this
+> OK. Specifically, when it's late in the linux cycle then drm-misc-next
+> is supposed to stop merging to linuxnext. Then, shortly after the
+> merge window closes, patches will start flowing again.
+>=20
+> So basically your patches are landed and should even keep the same git
+> hashes when they eventually make it to Linux. They just won't land for
+> another release cycle of Linux.
 
-https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
+OK, c2807ecb5290 is still included in drm-misc-next. So while I don't
+understand the whole model, the patches at least seem to be scheduled to
+go in during the next merge window.
 
-The key is that committers can commit to drm-misc-next _at any time_
-regardless of the merge window. The drm-misc merge strategy makes this
-OK. Specifically, when it's late in the linux cycle then drm-misc-next
-is supposed to stop merging to linuxnext. Then, shortly after the
-merge window closes, patches will start flowing again.
+> Hope that makes sense!
 
-So basically your patches are landed and should even keep the same git
-hashes when they eventually make it to Linux. They just won't land for
-another release cycle of Linux.
+I hope so, too :-)
 
-Hope that makes sense!
+Best regards
+Uwe
 
--Doug
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
+   |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--jxye2q65aavatxzk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSO+vMACgkQj4D7WH0S
+/k4tBAf/WJqmqU+5eekUGchlF9m1+XeCRlblrZKJD8OlTBL6PlxHAN/jbFku6GKt
+gjyjPP6HZ9iWXLnvngsdwG8hNFKJvu2Y1IEbPgA5j8Dd68NivIKMuj0eXTLZ29xn
+OUiLHWcA7+wwu14zyDNbB+IcT0uyxwkPhS8SuUhcsbhWhS6+7sjxQvv0CP34/En2
+LzTVFs7CpT/eTDELjFwUNzHDs9+Off9x1XvvYp7UqJBJvpt+6hbH2ovTKx3SLf8Z
+R3If2PYSjGHHQ7iEvQrY1CV4P3asfnmauhG0Fhow3Sn5isYcAjgrt+MTjDti7KjD
+AI9VKh7LunoDs1M1lzZLbZT3DXLMag==
+=zTX8
+-----END PGP SIGNATURE-----
+
+--jxye2q65aavatxzk--
