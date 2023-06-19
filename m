@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 502C7735C4B
-	for <lists+freedreno@lfdr.de>; Mon, 19 Jun 2023 18:44:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AA97735C49
+	for <lists+freedreno@lfdr.de>; Mon, 19 Jun 2023 18:44:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2AD610E232;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF99110E231;
 	Mon, 19 Jun 2023 16:44:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5273310E224
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 16:44:30 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2b46d4e1b0aso29225761fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 09:44:30 -0700 (PDT)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787D710E226
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 16:44:31 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2b46f1256bbso22386591fa.0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 09:44:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687193068; x=1689785068;
+ d=linaro.org; s=google; t=1687193069; x=1689785069;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=QFAqDiLltNdklyeWnFl2VhcGAm3uwoOV8Onj4m150Sc=;
- b=ydvczJg9iNkM262T5XB6cmLMaJVfVu7iYHqszB8VXkxPeO5NQ9+exlDXnGKGIe/7TJ
- OYe/SfNNS6DnMMSL+Bd9RN+tuFtwo+voglslPDHyFEiF0kJami83CNgVtn5fGpkMnVOV
- aZlL6SCjcvi+Bmqgi1cZ8J5LaQslfcscVzbcJCzL8FTAhqRF3fjW8/52N+PbPIbm/a0y
- vVsHNDTVwgQhvhyFskNDxBVxsPrWEebE8qk4Y0bH+ql076gOj8h31mOr8w9UAoJqGd5C
- TAhrSJ0hB9i3FqOz7rqBP2GSNGpet5dyP6+lbLKboYmYxd9gxRzbCFNbX3xD8OP71z8O
- oO5g==
+ :reply-to; bh=uceOjOeFYW3YrOQKTUQY3Yfirv5mMIrxQprXiD+0ONY=;
+ b=xOpv7V8piGwp9kSuScZZYSxnOZCd1tk3gtMa7ADQ1jETVtQDlOZSbz2uvTAIlOGc3W
+ WklI9+RaTjwHA60bw1xN/rT+m1Xlh1D+00CdRAXqtyDZQwhFz9wiyFySTD9ik4C6HjOI
+ +oHgfZYqmxzeIz6lR6rDj8pLEP1yiRds05eBGV3pi8O0xwqmlUvCMxTPdKpfNR4K/+bp
+ kwtVrVUw9fVKf0fIgMu1OAYdESLJvmKaRLj7f2Msy52SLuJ23BLApzG6KmA9Rk61ffcC
+ +DScSF9HB6sfexQETdwd9EC4aFcaYDeHHicOnu4Ct3QPlZxllOQPRpjUlFm/qAbkAuYd
+ BuZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687193068; x=1689785068;
+ d=1e100.net; s=20221208; t=1687193069; x=1689785069;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QFAqDiLltNdklyeWnFl2VhcGAm3uwoOV8Onj4m150Sc=;
- b=WgPogKz/QwmqynR0ib4kJoR8VB5etyfP+ke8pIlhPXnMAhQtT7jOAQvirU8S0cXLzZ
- gc0x1LMOX1/QmIWZf8/y7rRRW7LypFRVLNb0i6VFylR/6eCq4b9+7cnkXk3aAjCAXZXc
- SQtomqW5bbF0iQIH24BUQFZAZCG2lG2VrSGDymqbwtTiroTWB8QhO5sOM689AmJmipwv
- VeEFuRBIuBvc2OrjCIXa04Tnp8smADBY6gzPKNkD2v69PekqEB4r8MBxEaN72DcvIgYy
- nghfpYbLxPZpve/ulmOSJNLyQ/uHDGwJwRhi5nx8K4d8neixSdPKxvL52pycGfe4RMDw
- xz5Q==
-X-Gm-Message-State: AC+VfDzDQF9eiBm6s9wwWROZBjT8k/b6/mXXQ83/DMjw9g+1IZ7yxWVz
- fIwGDHpBZKPwi5+vzv8lOGg6uA==
-X-Google-Smtp-Source: ACHHUZ6GvqCREQISOX1d7De3EJU6DKvTJPcAypBgXVFT0pSTLd/AWtoPgTlrqTVKu+0llNXPSU3EBg==
-X-Received: by 2002:a19:505b:0:b0:4f8:5af4:73ef with SMTP id
- z27-20020a19505b000000b004f85af473efmr4160229lfj.28.1687193068133; 
- Mon, 19 Jun 2023 09:44:28 -0700 (PDT)
+ bh=uceOjOeFYW3YrOQKTUQY3Yfirv5mMIrxQprXiD+0ONY=;
+ b=jRn6a1xF/lziouBWTK+J1lLLujApoMxhwEDuiqblnZi22dVzF6WUqCHHJCrTgQXuhr
+ WjRpfYYQqU24baP1AfyayydLZxwcgXwNTKdESWF4lKNNDbWS8zQSCPAqN5cEpbBvcCYM
+ VGJKoj1L0Lg1GuPbV6swj7CHs65wdxfCNoH9gFE1VPqRgcgwfhO1HUyH9T5g9A/aU9Kg
+ xDAA220NkHrrU5kMgJrlw9gy1ywHyw5vE938IA4BzDJ/tr4wdTGqVtLOtKiPsl023MCN
+ DZTLVpP5q4dGsRo2Eyk3LkxbqvWFyuF2WsAtB4Yw/kHTR/a+HaEy8xDZn6tjKxOSwKQC
+ XEUA==
+X-Gm-Message-State: AC+VfDxvdvyRcl7Lk6cCNGLtb5BWBYee8LI0M6DrN/PgBUf+ED9PyWLn
+ XYZEAxEOOSF6PMX0dI4dQM3ns8UCnrnmvfMQ4xY=
+X-Google-Smtp-Source: ACHHUZ55co0W+lBHMkpkIC71790GAjDutHsy5crYaSggmViTCmrlSdoglUSzsLjo7L/kFLehqHaRFg==
+X-Received: by 2002:a05:6512:1046:b0:4f4:7a5:e800 with SMTP id
+ c6-20020a056512104600b004f407a5e800mr5318895lfb.10.1687193069425; 
+ Mon, 19 Jun 2023 09:44:29 -0700 (PDT)
 Received: from [192.168.1.101] (abyl242.neoplus.adsl.tpnet.pl. [83.9.31.242])
  by smtp.gmail.com with ESMTPSA id
- d9-20020ac24c89000000b004f849605be7sm1774293lfl.292.2023.06.19.09.44.26
+ d9-20020ac24c89000000b004f849605be7sm1774293lfl.292.2023.06.19.09.44.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 09:44:27 -0700 (PDT)
+ Mon, 19 Jun 2023 09:44:29 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 19 Jun 2023 18:44:24 +0200
+Date: Mon, 19 Jun 2023 18:44:25 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230517-topic-a7xx_prep-v3-4-a3ce3725385b@linaro.org>
+Message-Id: <20230517-topic-a7xx_prep-v3-5-a3ce3725385b@linaro.org>
 References: <20230517-topic-a7xx_prep-v3-0-a3ce3725385b@linaro.org>
 In-Reply-To: <20230517-topic-a7xx_prep-v3-0-a3ce3725385b@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -63,15 +63,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1687193061; l=1213;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1687193061; l=999;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=xLnqc6AHpOSP+ED80kyz8V2j7nuk18OJ2Jy8h13Cf1I=;
- b=dCZGseLgFqy+mQCr62XX8kh4lVXddSmsA/R+OcREroBFhCmvIVQXZ/rLg2/fzr8nh4/9VxGJU
- hqJVr4eX8zFDsryMCP6ihGHaz2PEVQGJ6qdRYjm5iBQfnC1QUYeCZ4A
+ bh=HgL0AdZtJqxx0twaid3jHnuqKqCDcBlTAxb3JHJlxVw=;
+ b=Pf6zJ0t2/uvlo+V9LyriSjXmfPMpP8Bno7oiFYGpMsSxVxwUMlFcB7vC+QzDp3HIKqNnv00kF
+ IyI9s9s/9X7CNSdq1Wjolu7Eh34qSmxBKzhPddf6H7Ru943onBZn7t1
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v3 4/6] drm/msm/a6xx: Ensure clean GMU state in
- a6xx_gmu_fw_start
+Subject: [Freedreno] [PATCH v3 5/6] drm/msm/a6xx: Improve GMU force shutdown
+ sequence
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,36 +92,32 @@ Cc: Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-While it's not very well understood, there is some sort of a fault
-handler implemented in the GMU firmware which triggers when a certain
-bit is set, resulting in the M3 core not booting up the way we expect
-it to.
-
-Write a magic value to a magic register to hopefully prevent that
-from happening.
+The GMU force shutdown sequence involves some additional register cleanup
+which was not implemented previously. Do so.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 5deb79924897..9929ff187368 100644
+index 9929ff187368..55b12a8066ee 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -790,6 +790,12 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
- 	gmu_write(gmu, REG_A6XX_GMU_AHB_FENCE_RANGE_0,
- 		(1 << 31) | (0xa << 18) | (0xa0));
+@@ -893,6 +893,13 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
+ 	/* Make sure there are no outstanding RPMh votes */
+ 	a6xx_gmu_rpmh_off(gmu);
  
-+	/*
-+	 * Snapshots toggle the NMI bit which will result in a jump to the NMI
-+	 * handler instead of __main. Set the M3 config value to avoid that.
-+	 */
-+	gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
++	/* Clear the WRITEDROPPED fields and put fence into allow mode */
++	gmu_write(gmu, REG_A6XX_GMU_AHB_FENCE_STATUS_CLR, 0x7);
++	gmu_write(gmu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, 0);
 +
- 	chipid = adreno_gpu->rev.core << 24;
- 	chipid |= adreno_gpu->rev.major << 16;
- 	chipid |= adreno_gpu->rev.minor << 12;
++	/* Make sure the above writes go through */
++	wmb();
++
+ 	/* Halt the gmu cm3 core */
+ 	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 1);
+ 
 
 -- 
 2.41.0
