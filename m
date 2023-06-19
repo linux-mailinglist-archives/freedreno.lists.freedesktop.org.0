@@ -2,75 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE646735811
-	for <lists+freedreno@lfdr.de>; Mon, 19 Jun 2023 15:10:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574867358C4
+	for <lists+freedreno@lfdr.de>; Mon, 19 Jun 2023 15:41:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6142410E139;
-	Mon, 19 Jun 2023 13:10:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F38E310E200;
+	Mon, 19 Jun 2023 13:41:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44AB610E202
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 13:10:50 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b466073e19so30229951fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 06:10:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687180247; x=1689772247;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=PtVdSdU88LNefkY72KFJQZutSu/EAmlxtmHK1QOiwmw=;
- b=Btmt5VBwmuO+gYWg4hz6LJAYqrE/pf6gWMF9KW0ZL1p6ttVPYn4leAVhdecN254JGD
- Q2kilkwqlje1MAnUdtDBZnY3gEU465W9HjIFaWFzhrHVAzKbZ7uKJIIw8la1JLg0c+U9
- /5qdfMUkUQTeJDkO5+ckbK5A6jXqsh+F7PBWsKH9qMXn5zZhDKwOO+ooPDifTsge3GHw
- 5WdlFGFf1w0VLrY3ziJb4uR39n1vZnMSouC30BPk81HpPBf/WXQ+ifvyauwmSqcsdphK
- CR0STgE/aMNTXIrrCGLEqZPDx2RLDtr7GDL2ra0aSSXZ5ouY3jwZhyRy75OIAlMpQlIv
- VYAA==
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5037C10E1FE;
+ Mon, 19 Jun 2023 13:26:07 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-763a8918cbeso8796285a.3; 
+ Mon, 19 Jun 2023 06:26:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687180247; x=1689772247;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PtVdSdU88LNefkY72KFJQZutSu/EAmlxtmHK1QOiwmw=;
- b=dNZfzXIdpJYL8/wnU5FzGFWmdpcIJwCjNX4byXfwGdrnbj4YIShh0PwK3zMR/enGXM
- rt2WR+GQDmK2HaV8xvFDrJsftaagH9Z9Pxlvennk08A5LTQglHvMhjNQbOTywifPFPHB
- uIrPDw0RDEciF3C1q088dcg3SlWZKYPkfSfRwHqnMZkZKEYcIkp1XkBrPSFjkxpMRN88
- yVA2/8HBiQF95vsNvCPwAH6QvAF32J9xenQRidWULQTSnPE6+NUtDRcbyT6w5MbfQ3pg
- Yg/Iass1FjNtgc4UMmlVOiSzXQquwI9Xj4urfDKJy6UIC2l8bxLyRZ4PSSaw80tIMKIo
- uVzA==
-X-Gm-Message-State: AC+VfDy1qB/GPhMJAVkZ8ncRE9jRUzhRgzLo8+6/CU3o8jU1ww19x0CW
- aqfJ6ZkACqFibVBZ0yeSPYucbg==
-X-Google-Smtp-Source: ACHHUZ4DnGAHEekUA4iOo293sW8ZgS8Q4mleM8K8Lnivp0CUEHjzUgdefTLrh8L3iHJ87q4a0S1qaQ==
-X-Received: by 2002:a2e:3a05:0:b0:2b2:4e86:510b with SMTP id
- h5-20020a2e3a05000000b002b24e86510bmr6120161lja.13.1687180247222; 
- Mon, 19 Jun 2023 06:10:47 -0700 (PDT)
-Received: from [192.168.1.101] (abyl242.neoplus.adsl.tpnet.pl. [83.9.31.242])
- by smtp.gmail.com with ESMTPSA id
- a15-20020a2e860f000000b002b44bcdf809sm2114696lji.87.2023.06.19.06.10.45
+ d=1e100.net; s=20221208; t=1687181166; x=1689773166;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TEGefi/onIC0eCyepJlH8hSgTT8IMaedG+S+Kvs9SIU=;
+ b=SXdppDlp3efDiQ+weUFI/RxHeSlFnOIXHOH4A5ToCA8hJlqAkdaLAgwWWmaqEOA6/i
+ o3BTxL1UVnd9cCJOgSEjtTyrpRDr5XIpDWFimEK0xdg0KJqUOdHtShN67oQpExUPbzx0
+ qnUCZHQ3avNJegz3hseiQeJGpw0CNH9kRqqy1LTDdnh7G/ORXXKsidZdyfcMkkluVN/7
+ Q6yszNs1zkJpu4msxuJvJ+uCcKeDBUIIsTzfgmma3kqqIcY9ZL1PjQ5IqWHbP2KlxOHO
+ 8acZp0QTGrY1AdvqVn6gbYbWOUeLy6m9j6vot00icb9RNZ0g3uCxM27kVQuufWU3pPFz
+ Mjlw==
+X-Gm-Message-State: AC+VfDxwJanI7iKrJos9BDwzEpMcgtbBGB04HakMskXaYsHNDHI+kbIM
+ /2C/7QyA8xgX7SjY3f++VFkBVJRgJiboBORl
+X-Google-Smtp-Source: ACHHUZ7Nclghb0EF3O9FYlxoJAmNgpPjw4kqg9vT99EARRgRCcs/B/pxmS660O1ycCXXHoIXDTZn4w==
+X-Received: by 2002:a81:83d7:0:b0:56c:ea2c:5cb2 with SMTP id
+ t206-20020a8183d7000000b0056cea2c5cb2mr1065568ywf.49.1687181145190; 
+ Mon, 19 Jun 2023 06:25:45 -0700 (PDT)
+Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com.
+ [209.85.219.171]) by smtp.gmail.com with ESMTPSA id
+ d2-20020a0ddb02000000b005701eadbb5asm2881061ywe.66.2023.06.19.06.25.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jun 2023 06:10:46 -0700 (PDT)
-Message-ID: <0696f655-1928-ac7a-da3f-67c40f8f6743@linaro.org>
-Date: Mon, 19 Jun 2023 15:10:44 +0200
+ Mon, 19 Jun 2023 06:25:43 -0700 (PDT)
+Received: by mail-yb1-f171.google.com with SMTP id
+ 3f1490d57ef6-bb15165ba06so2555995276.2; 
+ Mon, 19 Jun 2023 06:25:42 -0700 (PDT)
+X-Received: by 2002:a25:cb88:0:b0:bc6:5d71:f820 with SMTP id
+ b130-20020a25cb88000000b00bc65d71f820mr932905ybg.55.1687181141903; Mon, 19
+ Jun 2023 06:25:41 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230223-topic-gmuwrapper-v8-0-69c68206609e@linaro.org>
- <20230223-topic-gmuwrapper-v8-10-69c68206609e@linaro.org>
- <2vr72w4tslxxumzphtuwgkcnbfjrtmw2j4qak2cukcabchadlg@spjbqoa7v4lr>
- <c5396101-ad5b-afdd-d6d7-1a2efa3b9bf7@linaro.org>
- <z5imqaxyumc5pyk4ijumjby4tswfmnjsnedeekonx5tymhwsfi@h5dk3pl2zawf>
- <68e64a35-9705-6565-3b5c-5de38419aba8@linaro.org>
- <ghxtdcvjaqkyu3xnsvwanevjxbucaw2qlesbm26yrk423jfxxt@epmsxqse3njs>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <ghxtdcvjaqkyu3xnsvwanevjxbucaw2qlesbm26yrk423jfxxt@epmsxqse3njs>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v8 10/18] drm/msm/a6xx: Introduce GMU
- wrapper support
+References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+ <20230601154002.uv2wfatpb7b45duz@pengutronix.de>
+ <CAD=FV=WvP--wJwBQtnSoW_xb57R1Wf9dH0XzWxe+NorczXfeAw@mail.gmail.com>
+ <20230617161222.wy55pbomnrrlfy5u@pengutronix.de>
+ <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
+ <20230618123915.hmy66z7e532jhwgk@pengutronix.de>
+ <jlq2xayh4dxfigfsh2fms2kt4hlrqcwxblffmqq7czbhqhhvz7@hsvol72f5i3y>
+ <20230618162950.6th2yo66baqay5mv@pengutronix.de>
+ <vxjp5c4wojcvbnp3ghsspwkgrc4mjmskzl56jkuxlgfhcji7kx@m3hg525p7y6a>
+ <20230619105342.ugf5gz26gcalcsi6@pengutronix.de>
+ <a6ex232lwyovzzazfh6jfvlwszppr2624czgcc5sa4nthkgecf@asauiw3rf4vi>
+In-Reply-To: <a6ex232lwyovzzazfh6jfvlwszppr2624czgcc5sa4nthkgecf@asauiw3rf4vi>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Jun 2023 15:25:28 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWERLXOa4bQvsb7=gx+Q=Hn8v=XJZxahV0j3Vw1xKUYiQ@mail.gmail.com>
+Message-ID: <CAMuHMdWERLXOa4bQvsb7=gx+Q=Hn8v=XJZxahV0j3Vw1xKUYiQ@mail.gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 19 Jun 2023 13:41:39 +0000
+Subject: Re: [Freedreno] patches dropped from drm-misc-next [Was: Re: [PATCH
+ 00/53] drm: Convert to platform remove callback returning] void
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,407 +80,326 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Raymond Tan <raymond.tan@intel.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+ Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Robert Foss <rfoss@kernel.org>, Karol Herbst <kherbst@redhat.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Xinliang Liu <xinliang.liu@linaro.org>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Miaoqian Lin <linmq006@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-sunxi@lists.linux.dev, Rob Clark <robdclark@gmail.com>,
+ Rahul T R <r-ravikumar@ti.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ etnaviv@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Inki Dae <inki.dae@samsung.com>, Alain Volmat <alain.volmat@foss.st.com>,
+ Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
+ Hyun Kwon <hyun.kwon@xilinx.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, lima@lists.freedesktop.org,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Minghao Chi <chi.minghao@zte.com.cn>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Ben Skeggs <bskeggs@redhat.com>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-mips@vger.kernel.org,
+ Liu Ying <victor.liu@nxp.com>, linux-arm-msm@vger.kernel.org,
+ Wang Jianzheng <wangjianzheng@vivo.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-mediatek@lists.infradead.org, Brian Starkey <brian.starkey@arm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Yuan Can <yuancan@huawei.com>, Stefan Agner <stefan@agner.ch>,
+ Michal Simek <michal.simek@xilinx.com>, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Rob Herring <robh@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
+ nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Alison Wang <alison.wang@nxp.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Liu Shixin <liushixin2@huawei.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Shawn Guo <shawnguo@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Doug Anderson <dianders@chromium.org>, Paul Cercueil <paul@crapouillou.net>,
+ Laura Nao <laura.nao@collabora.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
+ Yongqin Liu <yongqin.liu@linaro.org>, Jayshri Pawar <jpawar@cadence.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Russell King <linux@armlinux.org.uk>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Melissa Wen <mwen@igalia.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Qiang Yu <yuq825@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17.06.2023 18:07, Akhil P Oommen wrote:
-> On Sat, Jun 17, 2023 at 02:00:50AM +0200, Konrad Dybcio wrote:
->>
->> On 16.06.2023 19:54, Akhil P Oommen wrote:
->>> On Thu, Jun 15, 2023 at 11:43:04PM +0200, Konrad Dybcio wrote:
->>>>
->>>> On 10.06.2023 00:06, Akhil P Oommen wrote:
->>>>> On Mon, May 29, 2023 at 03:52:29PM +0200, Konrad Dybcio wrote:
->>>>>>
->>>>>> Some (particularly SMD_RPM, a.k.a non-RPMh) SoCs implement A6XX GPUs
->>>>>> but don't implement the associated GMUs. This is due to the fact that
->>>>>> the GMU directly pokes at RPMh. Sadly, this means we have to take care
->>>>>> of enabling & scaling power rails, clocks and bandwidth ourselves.
->>>>>>
->>>>>> Reuse existing Adreno-common code and modify the deeply-GMU-infused
->>>>>> A6XX code to facilitate these GPUs. This involves if-ing out lots
->>>>>> of GMU callbacks and introducing a new type of GMU - GMU wrapper (it's
->>>>>> the actual name that Qualcomm uses in their downstream kernels).
->>>>>>
->>>>>> This is essentially a register region which is convenient to model
->>>>>> as a device. We'll use it for managing the GDSCs. The register
->>>>>> layout matches the actual GMU_CX/GX regions on the "real GMU" devices
->>>>>> and lets us reuse quite a bit of gmu_read/write/rmw calls.
->>>>>>
->>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>>>> ---
->> [...]
->>
->>>>>> +
->>>>>> +	ret = clk_bulk_prepare_enable(gpu->nr_clocks, gpu->grp_clks);
->>>>>> +	if (ret)
->>>>>> +		goto err_bulk_clk;
->>>>>> +
->>>>>> +	/* If anything goes south, tear the GPU down piece by piece.. */
->>>>>> +	if (ret) {
->>>>>> +err_bulk_clk:
->>>>>
->>>>> Goto jump directly to another block looks odd to me. Why do you need this label
->>>>> anyway?
->>>> If clk_bulk_prepare_enable() fails, trying to proceed will hang the
->>>> platform with unclocked accesses. We need to unwind everything that
->>>> has been done up until that point, in reverse order.
->>>
->>> I missed this response from you earlier.
->>>
->>> But you are checking for 'ret' twice here. You will end up here even
->>> if you don't jump! So "if (ret) goto err_bulk_clk;" looks
->>> unnecessary.
->>>
->>> -Akhil.
->> Ohhh right, silly mistake on my part ;)
->>
->> I already sent out a v9 since.. Please check it out and if you
->> have any further comments, I'll fix this, and if not.. Perhaps I
->> could fix it in an incremental patch if that revision is gtg?
-> 
-> Incremental patch is fine as there is no functional issue.
-Okay so I took another look with today's next that already contains
-this series, and it currently looks like:
+Hi Maxime,
 
+CC sfr
 
-ret = clk_bulk_prepare_enable(gpu->nr_clocks, gpu->grp_clks);
-if (ret)
-	goto err_bulk_clk;
+On Mon, Jun 19, 2023 at 2:51=E2=80=AFPM Maxime Ripard <mripard@kernel.org> =
+wrote:
+> On Mon, Jun 19, 2023 at 12:53:42PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> > On Mon, Jun 19, 2023 at 11:45:37AM +0200, Maxime Ripard wrote:
+> > > On Sun, Jun 18, 2023 at 06:29:50PM +0200, Uwe Kleine-K=C3=B6nig wrote=
+:
+> > > > On Sun, Jun 18, 2023 at 04:32:55PM +0200, Maxime Ripard wrote:
+> > > > > On Sun, Jun 18, 2023 at 02:39:15PM +0200, Uwe Kleine-K=C3=B6nig w=
+rote:
+> > > > > > On Sat, Jun 17, 2023 at 10:57:23AM -0700, Doug Anderson wrote:
+> > > > > > > On Sat, Jun 17, 2023 at 9:15=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> > > > > > > <u.kleine-koenig@pengutronix.de> wrote:
+> > > > > > > > Together with the patches that were applied later the topmo=
+st commit
+> > > > > > > > from this series is c2807ecb5290 ("drm/omap: Convert to pla=
+tform remove
+> > > > > > > > callback returning void"). This commit was part for the fol=
+lowing next
+> > > > > > > > tags:
+> > > > > > > >
+> > > > > > > >         $ git tag -l --contains c2807ecb5290
+> > > > > > > >         next-20230609
+> > > > > > > >         next-20230613
+> > > > > > > >         next-20230614
+> > > > > > > >         next-20230615
+> > > > > > > >
+> > > > > > > > However in next-20230616 they are missing. In next-20230616
+> > > > > > > > drm-misc/for-linux-next was cf683e8870bd4be0fd6b98639286700=
+a35088660.
+> > > > > > > > Compared to c2807ecb5290 this adds 1149 patches but drops 3=
+7 (that are
+> > > > > > > > also not included with a different commit id). The 37 patch=
+es dropped
+> > > > > > > > are 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807ecb5290:
+> > > > > > > >
+> > > > > > > >         $ git shortlog -s 13cdd12a9f934158f4ec817cf048fcb43=
+84aa9dc..c2807ecb5290
+> > > > > > > >              1  Christophe JAILLET
+> > > > > > > >              2  Jessica Zhang
+> > > > > > > >              5  Karol Wachowski
+> > > > > > > >              1  Laura Nao
+> > > > > > > >             27  Uwe Kleine-K=C3=B6nig
+> > > > > > > >              1  Wang Jianzheng
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > I guess this was done by mistake because nobody told me abo=
+ut dropping
+> > > > > > > > my/these patches? Can c2807ecb5290 please be merged into dr=
+m-misc-next
+> > > > > > > > again?
+> > > > > > >
+> > > > > > > Actually, it was probably a mistake that these patches got me=
+rged to
+> > > > > > > linuxnext during the 4 days that you noticed. However, your p=
+atches
+> > > > > > > aren't dropped and are still present in drm-misc-next.
+> > > > > > >
+> > > > > > > drm-misc has a bit of a unique model and it's documented fair=
+ly well here:
+> > > > > > >
+> > > > > > > https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.h=
+tml
+> > > > > >
+> > > > > > Is there a flaw then in this unique model (or its implementatio=
+n) when
+> > > > > > drm-misc/for-linux-next moves in a non-fast-forward manner? Thi=
+s isn't
+> > > > > > expected, is it?
+> > > > >
+> > > > > There's no expectation afaik. Any tree merged in linux-next can b=
+e
+> > > > > rebased, drop a patch, amend one, etc. without any concern.
+> > > >
+> > > > I agree that there are no rules broken for a tree that is included =
+in
+> > > > next and a maintainer is free to rewrite their tree independant of =
+the
+> > > > tree being included in next.
+> > > >
+> > > > Still I think that shouldn't be used as an excuse.
+> > >
+> > > As an excuse for what?
+> >
+> > Just because the rules for trees in next allow the merged branch to be
+> > rewritten, shouldn't be used to justify rewriting the branch.
+> >
+> > IMHO you still should ensure that only commits make it into any next
+> > snapshot via your tree before X-rc1 for some X (e.g. v6.5) that you
+> > intend to be included in X-rc1.
+>
+> That's never been a next rule either. Rust support has been in next for
+> almost a year without being sent as a PR for example.
 
-if (adreno_is_a619_holi(adreno_gpu))
-	a6xx_sptprac_enable(gmu);
+https://elixir.bootlin.com/linux/latest/source/Documentation/process/2.Proc=
+ess.rst#L297
 
-/* If anything goes south, tear the GPU down piece by piece.. */
-if (ret) {
-err_bulk_clk:
+   "The linux-next tree is, by design, a snapshot of what the mainline
+    is expected to look like after the next merge window closes."
 
+The general rule for linux-next is that its contents are intended to end
+up in the next kernel release, and that it should not contain commits
+that are intended for the next-next release, cfr. what Stephen sends
+out to new trees:
 
-So it makes sense this way.. perhaps I just left it in this patch
-by mistake when I was rebasing some changes. I guess it requires
-no further action now?
+   "You will need to ensure that the patches/commits in your tree/series ha=
+ve
+    been:
+            [...]
+         * destined for the current or next Linux merge window."
 
-Konrad
-> 
-> -Akhil.
-> 
->>
->> Konrad
->>>
->>>>
->>>>>
->>>>>> +		pm_runtime_put(gmu->gxpd);
->>>>>> +		pm_runtime_put(gmu->dev);
->>>>>> +		dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
->>>>>> +	}
->>>>>> +err_set_opp:
->>>>>
->>>>> Generally, it is better to name the label based on what you do here. For
->>>>> eg: "unlock_lock:".
->>>> That seems to be a mixed bag all throughout the kernel, I've seen many
->>>> usages of err_(what went wrong)
->>>>
->>>>>
->>>>> Also, this function is small enough that it is better to return directly
->>>>> in case of error. I think that would be more readable.
->>>> Not really, adding the necessary cleanup steps in `if (ret)`
->>>> blocks would roughly double the function's size.
->>>>
->>>>>
->>>>>> +	mutex_unlock(&a6xx_gpu->gmu.lock);
->>>>>> +
->>>>>> +	if (!ret)
->>>>>> +		msm_devfreq_resume(gpu);
->>>>>> +
->>>>>> +	return ret;
->>>>>> +}
->>>>>> +
->>>>>> +static int a6xx_gmu_pm_suspend(struct msm_gpu *gpu)
->>>>>>  {
->>>>>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>>>> @@ -1720,7 +1799,40 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
->>>>>>  	return 0;
->>>>>>  }
->>>>>>  
->>>>>> -static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
->>>>>> +static int a6xx_pm_suspend(struct msm_gpu *gpu)
->>>>>> +{
->>>>>> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>>>> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
->>>>>> +	int i;
->>>>>> +
->>>>>> +	trace_msm_gpu_suspend(0);
->>>>>> +
->>>>>> +	msm_devfreq_suspend(gpu);
->>>>>> +
->>>>>> +	mutex_lock(&a6xx_gpu->gmu.lock);
->>>>>
->>>>> Again, is this initialized somewhere?
->>>>>
->>>>>> +
->>>>>> +	/* Drain the outstanding traffic on memory buses */
->>>>>> +	a6xx_bus_clear_pending_transactions(adreno_gpu, true);
->>>>>> +
->>>>>> +	clk_bulk_disable_unprepare(gpu->nr_clocks, gpu->grp_clks);
->>>>>> +
->>>>>> +	pm_runtime_put_sync(gmu->gxpd);
->>>>>> +	dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
->>>>>> +	pm_runtime_put_sync(gmu->dev);
->>>>>> +
->>>>>> +	mutex_unlock(&a6xx_gpu->gmu.lock);
->>>>>> +
->>>>>> +	if (a6xx_gpu->shadow_bo)
->>>>>> +		for (i = 0; i < gpu->nr_rings; i++)
->>>>>> +			a6xx_gpu->shadow[i] = 0;
->>>>>> +
->>>>>> +	gpu->suspend_count++;
->>>>>> +
->>>>>> +	return 0;
->>>>>> +}
->>>>>> +
->>>>>> +static int a6xx_gmu_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
->>>>>>  {
->>>>>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>>  	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>>>> @@ -1739,6 +1851,12 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
->>>>>>  	return 0;
->>>>>>  }
->>>>>>  
->>>>>> +static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
->>>>>> +{
->>>>>> +	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER);
->>>>>> +	return 0;
->>>>>> +}
->>>>>> +
->>>>>>  static struct msm_ringbuffer *a6xx_active_ring(struct msm_gpu *gpu)
->>>>>>  {
->>>>>>  	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>> @@ -2004,8 +2122,8 @@ static const struct adreno_gpu_funcs funcs = {
->>>>>>  		.set_param = adreno_set_param,
->>>>>>  		.hw_init = a6xx_hw_init,
->>>>>>  		.ucode_load = a6xx_ucode_load,
->>>>>> -		.pm_suspend = a6xx_pm_suspend,
->>>>>> -		.pm_resume = a6xx_pm_resume,
->>>>>> +		.pm_suspend = a6xx_gmu_pm_suspend,
->>>>>> +		.pm_resume = a6xx_gmu_pm_resume,
->>>>>>  		.recover = a6xx_recover,
->>>>>>  		.submit = a6xx_submit,
->>>>>>  		.active_ring = a6xx_active_ring,
->>>>>> @@ -2020,6 +2138,35 @@ static const struct adreno_gpu_funcs funcs = {
->>>>>>  #if defined(CONFIG_DRM_MSM_GPU_STATE)
->>>>>>  		.gpu_state_get = a6xx_gpu_state_get,
->>>>>>  		.gpu_state_put = a6xx_gpu_state_put,
->>>>>> +#endif
->>>>>> +		.create_address_space = a6xx_create_address_space,
->>>>>> +		.create_private_address_space = a6xx_create_private_address_space,
->>>>>> +		.get_rptr = a6xx_get_rptr,
->>>>>> +		.progress = a6xx_progress,
->>>>>> +	},
->>>>>> +	.get_timestamp = a6xx_gmu_get_timestamp,
->>>>>> +};
->>>>>> +
->>>>>> +static const struct adreno_gpu_funcs funcs_gmuwrapper = {
->>>>>> +	.base = {
->>>>>> +		.get_param = adreno_get_param,
->>>>>> +		.set_param = adreno_set_param,
->>>>>> +		.hw_init = a6xx_hw_init,
->>>>>> +		.ucode_load = a6xx_ucode_load,
->>>>>> +		.pm_suspend = a6xx_pm_suspend,
->>>>>> +		.pm_resume = a6xx_pm_resume,
->>>>>> +		.recover = a6xx_recover,
->>>>>> +		.submit = a6xx_submit,
->>>>>> +		.active_ring = a6xx_active_ring,
->>>>>> +		.irq = a6xx_irq,
->>>>>> +		.destroy = a6xx_destroy,
->>>>>> +#if defined(CONFIG_DRM_MSM_GPU_STATE)
->>>>>> +		.show = a6xx_show,
->>>>>> +#endif
->>>>>> +		.gpu_busy = a6xx_gpu_busy,
->>>>>> +#if defined(CONFIG_DRM_MSM_GPU_STATE)
->>>>>> +		.gpu_state_get = a6xx_gpu_state_get,
->>>>>> +		.gpu_state_put = a6xx_gpu_state_put,
->>>>>>  #endif
->>>>>>  		.create_address_space = a6xx_create_address_space,
->>>>>>  		.create_private_address_space = a6xx_create_private_address_space,
->>>>>> @@ -2050,15 +2197,31 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->>>>>>  
->>>>>>  	adreno_gpu->registers = NULL;
->>>>>>  
->>>>>> +	/* Check if there is a GMU phandle and set it up */
->>>>>> +	node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
->>>>>> +	/* FIXME: How do we gracefully handle this? */
->>>>>> +	BUG_ON(!node);
->>>>>> +
->>>>>> +	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
->>>>>> +
->>>>>>  	/*
->>>>>>  	 * We need to know the platform type before calling into adreno_gpu_init
->>>>>>  	 * so that the hw_apriv flag can be correctly set. Snoop into the info
->>>>>>  	 * and grab the revision number
->>>>>>  	 */
->>>>>>  	info = adreno_info(config->rev);
->>>>>> -
->>>>>> -	if (info && (info->revn == 650 || info->revn == 660 ||
->>>>>> -			adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), info->rev)))
->>>>>> +	if (!info)
->>>>>> +		return ERR_PTR(-EINVAL);
->>>>>> +
->>>>>> +	/* Assign these early so that we can use the is_aXYZ helpers */
->>>>>> +	/* Numeric revision IDs (e.g. 630) */
->>>>>> +	adreno_gpu->revn = info->revn;
->>>>>> +	/* New-style ADRENO_REV()-only */
->>>>>> +	adreno_gpu->rev = info->rev;
->>>>>> +	/* Quirk data */
->>>>>> +	adreno_gpu->info = info;
->>>>>> +
->>>>>> +	if (adreno_is_a650(adreno_gpu) || adreno_is_a660_family(adreno_gpu))
->>>>>>  		adreno_gpu->base.hw_apriv = true;
->>>>>>  
->>>>>>  	a6xx_llc_slices_init(pdev, a6xx_gpu);
->>>>>> @@ -2069,7 +2232,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->>>>>>  		return ERR_PTR(ret);
->>>>>>  	}
->>>>>>  
->>>>>> -	ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
->>>>>> +	if (adreno_has_gmu_wrapper(adreno_gpu))
->>>>>> +		ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs_gmuwrapper, 1);
->>>>>> +	else
->>>>>> +		ret = adreno_gpu_init(dev, pdev, adreno_gpu, &funcs, 1);
->>>>>>  	if (ret) {
->>>>>>  		a6xx_destroy(&(a6xx_gpu->base.base));
->>>>>>  		return ERR_PTR(ret);
->>>>>> @@ -2082,13 +2248,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->>>>>>  	if (adreno_is_a618(adreno_gpu) || adreno_is_7c3(adreno_gpu))
->>>>>>  		priv->gpu_clamp_to_idle = true;
->>>>>>  
->>>>>> -	/* Check if there is a GMU phandle and set it up */
->>>>>> -	node = of_parse_phandle(pdev->dev.of_node, "qcom,gmu", 0);
->>>>>> -
->>>>>> -	/* FIXME: How do we gracefully handle this? */
->>>>>> -	BUG_ON(!node);
->>>>>> -
->>>>>> -	ret = a6xx_gmu_init(a6xx_gpu, node);
->>>>>> +	if (adreno_has_gmu_wrapper(adreno_gpu))
->>>>>> +		ret = a6xx_gmu_wrapper_init(a6xx_gpu, node);
->>>>>> +	else
->>>>>> +		ret = a6xx_gmu_init(a6xx_gpu, node);
->>>>>>  	of_node_put(node);
->>>>>>  	if (ret) {
->>>>>>  		a6xx_destroy(&(a6xx_gpu->base.base));
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>> index aa70390ee1c6..c788b06e72da 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>> @@ -76,6 +76,7 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
->>>>>>  void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
->>>>>>  
->>>>>>  int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
->>>>>> +int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
->>>>>>  void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
->>>>>>  
->>>>>>  void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
->>>>>> index 30ecdff363e7..4e5d650578c6 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
->>>>>> @@ -1041,16 +1041,18 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
->>>>>>  	/* Get the generic state from the adreno core */
->>>>>>  	adreno_gpu_state_get(gpu, &a6xx_state->base);
->>>>>>  
->>>>>> -	a6xx_get_gmu_registers(gpu, a6xx_state);
->>>>>> +	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
->>>>>> +		a6xx_get_gmu_registers(gpu, a6xx_state);
->>>>>>  
->>>>>> -	a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
->>>>>> -	a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
->>>>>> -	a6xx_state->gmu_debug = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.debug);
->>>>>> +		a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
->>>>>> +		a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
->>>>>> +		a6xx_state->gmu_debug = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.debug);
->>>>>>  /
->>>>>> -	a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
->>>>>> +		a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
->>>>>> +	}
->>>>>>  
->>>>>>  	/* If GX isn't on the rest of the data isn't going to be accessible */
->>>>>> -	if (!a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
->>>>>> +	if (!adreno_has_gmu_wrapper(adreno_gpu) && !a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
->>>>>>  		return &a6xx_state->base;
->>>>>>  
->>>>>>  	/* Get the banks of indexed registers */
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>>>> index 6934cee07d42..5c5901d65950 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>>>> @@ -528,6 +528,10 @@ int adreno_load_fw(struct adreno_gpu *adreno_gpu)
->>>>>>  		if (!adreno_gpu->info->fw[i])
->>>>>>  			continue;
->>>>>>  
->>>>>> +		/* Skip loading GMU firwmare with GMU Wrapper */
->>>>>> +		if (adreno_has_gmu_wrapper(adreno_gpu) && i == ADRENO_FW_GMU)
->>>>>> +			continue;
->>>>>> +
->>>>>>  		/* Skip if the firmware has already been loaded */
->>>>>>  		if (adreno_gpu->fw[i])
->>>>>>  			continue;
->>>>>> @@ -1074,8 +1078,8 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>>>>>  	u32 speedbin;
->>>>>>  	int ret;
->>>>>>  
->>>>>> -	/* Only handle the core clock when GMU is not in use */
->>>>>> -	if (config->rev.core < 6) {
->>>>>> +	/* Only handle the core clock when GMU is not in use (or is absent). */
->>>>>> +	if (adreno_has_gmu_wrapper(adreno_gpu) || config->rev.core < 6) {
->>>>>>  		/*
->>>>>>  		 * This can only be done before devm_pm_opp_of_add_table(), or
->>>>>>  		 * dev_pm_opp_set_config() will WARN_ON()
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>>>> index f62612a5c70f..ee5352bc5329 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>>>> @@ -115,6 +115,7 @@ struct adreno_gpu {
->>>>>>  	 * code (a3xx_gpu.c) and stored in this common location.
->>>>>>  	 */
->>>>>>  	const unsigned int *reg_offsets;
->>>>>> +	bool gmu_is_wrapper;
->>>>>>  };
->>>>>>  #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
->>>>>>  
->>>>>> @@ -145,6 +146,11 @@ struct adreno_platform_config {
->>>>>>  
->>>>>>  bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
->>>>>>  
->>>>>> +static inline bool adreno_has_gmu_wrapper(struct adreno_gpu *gpu)
->>>>>> +{
->>>>>> +	return gpu->gmu_is_wrapper;
->>>>>> +}
->>>>>> +
->>>>>>  static inline bool adreno_is_a2xx(struct adreno_gpu *gpu)
->>>>>>  {
->>>>>>  	return (gpu->revn < 300);
->>>>>>
->>>>>> -- 
->>>>>> 2.40.1
->>>>>>
->>>>>
->>>>> I am still not fully onboard with the idea of gmu_wrapper node in devicetree.
->>>>> Aside from that, I don't see any other issue. Please check the few comments I left.
->>>> Thanks for your review!
->>>>
->>>> Konrad
->>>>>
->>>>> -Akhil.
->>>>>
+and what he requests regularly in his announces, e.g.:
+
+   "Please do not add any v6.4 related commits to your linux-next included
+    branches until after v6.3-rc1 has been released."
+
+AFAIU, the exception to the rule is new, self-contained, and sometimes
+controversial development, which may have to cook for a few more cycles,
+if it ends up in a PR at all.
+
+> > > > For me, if a maintainer puts some patch into next that's a statemen=
+t
+> > > > saying (approximately) "I think this patch is fine and I intend to
+> > > > send it to Linus during the next merge window.".
+> > >
+> > > I mean, that's what we're saying and doing?
+> >
+> > No, on 2023-06-09 I assumed that my patches will go into v6.5-rc1 (as i=
+t
+> > was part of next-20230609). A few days later however the patches were
+> > dropped.
+> >
+> > The two options that would have made the experience smoother for me are=
+:
+> >
+> >  a) keep c2807ecb5290 in next and send it for v6.5-rc1; or
+>
+> That's not an option. You were simply too late for v6.5-rc1, unless you
+> expect us to get rid of timezones and work on week-ends. But surely you
+> don't.
+
+I don't think anyone expects you to do that...
+
+> >  b) keep c2807ecb5290 in a branch that doesn't result it entering next
+> >     before v6.5-rc1.
+>
+> All the drm-misc committers use dim. If that's a concern for you, feel
+> free to send a patch addressing this to dim.
+
+So you say this is an issue with the tooling? ;-)
+If the tooling breaks the rules, perhaps the tooling should be fixed?
+
+> > > > So my expectation is that if a patch is dropped again from next, th=
+ere
+> > > > was a problem and it would be fair if the maintainer tells the
+> > > > author/submitter about this problem and that the patch was dropped.
+> > >
+> > > But it wasn't dropped,
+> >
+> > From my POV it was dropped from next as it was part of next between
+> > next-20230609 and next-20230615 but not any more since next-20230616.
+> > You talk about (not) being dropped from some branch in drm-misc, that's
+> > irrelevant for the thing I'm complaining about.
+>
+> You were never told that they were merged in linux-next, but in
+> drm-misc-next. If they did, it's mostly an unfortunate artifact.
+>
+> We have a documentation that explains the process and how drm-misc-next
+> works. If that's still confusing somehow, feel free to amend it to make
+> it clearer.
+
+Why that document may apply to drm-misc-next, everything that appears
+in linux-next should follow the linux-next process
+https://elixir.bootlin.com/linux/latest/source/Documentation/process/2.Proc=
+ess.rst#L256
+
+> > > it's still very much to be sent to Linus during the next merge window=
+.
+> >
+> > "next merge window" as in the one leading to 6.5-rc1? Either we mean
+> > different things when we say "next merge window", or there is a
+> > misunderstanding I don't see yet.
+>
+> Linus doesn't want to receive in a PR patches that haven't been in
+> linux-next for at least two weeks. In most cases that's rc6, which means
+> that by the time we send our last PR before rc6, the
+> next-merge-window-while-still-meeting-Linus-requirements is 6.6.
+>
+> The rule applies to all trees, and it's why the soc tree also requires
+> its submaintainers to submit their PR before -rc6.
+
+Unless there's a very good reason to deviate from that (e.g. a bug fix).
+
+> So yeah, sorry if it was confusing. At the end of the day, it's a
+> compromise, and I can't find a better one for everyone involved
+> (maintainers, contributors and committers alike) off the top of my head.
+
+As I understand, the main issue Uwe is objecting to, is that his
+patches ended up in linux-next first, only to be dropped again from
+linux-next later, and that there was no communication about the
+latter.
+
+If you're not constantly working on a subsystem, it can be very hard
+to keep track of the status of your own drive-by patches. When patches
+get applied, appear in linux-next, and disappear from linux-next again
+later, it's worse...
+
+Thanks for your understanding!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
