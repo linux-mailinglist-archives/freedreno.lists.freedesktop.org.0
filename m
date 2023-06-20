@@ -1,73 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54566736A06
-	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 12:56:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 816DD736A70
+	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 13:10:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB5DB10E2BE;
-	Tue, 20 Jun 2023 10:56:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E18C910E2C6;
+	Tue, 20 Jun 2023 11:10:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D200310E2BE
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 10:56:49 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2b466073e19so45413361fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 03:56:49 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35CC710E2C2
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 11:10:44 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4f122ff663eso5951672e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 04:10:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687258608; x=1689850608;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oFqY3JPIOHhrCDWe7opJVMIu2iuwa1Q7D1xQRKlMgbQ=;
- b=uRLcWOUWpEIQl6vz1xWRgHsilN6LvWK3L/02cDKUqJHNnzb4hwG+pxYVHl/+VYASRF
- nC6X79mVaUbV2G3YKCFY+lC/JYjNGWR5fp2Dbn59T9gHCSXoCxjbnHE5Zl8TkDBgREVv
- Ai9Et1hrlL9UIRmTGf8A3LJCO+iXgq580QUmnWOecZ5Ve9+3vaYkjoZ5En5Z/A7RJ+48
- BTkiJojsH97sqWJdy5YbfYSZUW3r8hiOs7z7x+UfIjWe+U5Iz9TCjgQAbnF+K2FHK7GG
- 4RiGrnb2D6TdyK+8NK3Qa+uDZW5RDxhdETLXy7inyxXF6T64XzUiwAqZLh8jZKONWhCp
- Oc8Q==
+ d=linaro.org; s=google; t=1687259440; x=1689851440;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=IoT2GR/Uoi2aGgdfRzromK+7BmskPgx1PJTo67yINu0=;
+ b=SjWj58M0HawcUhEnQUhjDM2rl2u3ACNUOQeMLzsfSi0fTfnUMqvhrYeKRIRujPz8eW
+ O7EEYwV0QGDFDPaCpuyfIx23shDmD5szRESu4SFz70X5NOVfeNgexNX7qzjUAgWn4v6h
+ FwyolvZ1znYI46bFZgQcjoaCwKRHBQ2+Imxbz9y139MVOilQxeRvXK2XLDyqp3JUwCKU
+ LUcRfiEI6VcFsvIQ9Ll7TwR/L9A7nVmyDthePNoE5cr6DgJ9mMcA70dsrYIJK9GWyuxY
+ hLgXz/e7892voLDN5mNhNxyw3NuYJMK2nO8PWJZu4VKw7rMMyzFK0WzB0ebL9rcW0Rv8
+ BQKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687258608; x=1689850608;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oFqY3JPIOHhrCDWe7opJVMIu2iuwa1Q7D1xQRKlMgbQ=;
- b=gGgZNhKbEJolrtHGBSdTXAG9XnJ1UPsH6o1vnO40gT+RgtIyIc3vwLPXJzsSHwL8kW
- Ub85UR38xF0HID9Zwday1TeTIoV8DcXBWchnPA8L0AlsK6Bic8bORkQxpfEipoBZ0dp9
- cZ05mjwkgAmC8eiSIaU26EIe7JfjjhHcdWRrlEqWaMxkAyWPI2mOcWAjjulj5o0Vq745
- X1xpV31Pz8+xMYLX2YPYEnvN4nDVfJn6uEK5Eo5IRBXc6E/z8PBc3/Ri3y05hxpIa1R2
- nCILxeKFHYjnkXm+MpOnmSRp91YWjtVbl6WSF4UmGfy5o091EU+zQy+MktDZRCc9cnPM
- PYaw==
-X-Gm-Message-State: AC+VfDwENNHT11tRU99tIkexattvFJtLki8Rwn9noxExhoQaabRcszmD
- 0uDc7V7IBH22L5a0QoxJwiGhjQ==
-X-Google-Smtp-Source: ACHHUZ6hCNdrCmb27LQnbm+NLckOTiA3YD8TuMMSXhmHUe5FnN3n3LlMF3AW9/tFmXxA+iXnNOXJsg==
-X-Received: by 2002:a2e:a601:0:b0:2b4:4bb7:2618 with SMTP id
- v1-20020a2ea601000000b002b44bb72618mr7652691ljp.19.1687258608115; 
- Tue, 20 Jun 2023 03:56:48 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1687259440; x=1689851440;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IoT2GR/Uoi2aGgdfRzromK+7BmskPgx1PJTo67yINu0=;
+ b=hgCMLmUDMPwvmyLNVfamrXvD85JQUF8qy3CoSmaadPc9BqgPMuwjsAtkMqT1Sc0snm
+ P1isOU6alRQzBPFHZM5oZG03w5mJzcb0b4TgTi7PL5v4kXX9u243GBdFla05XJql0sDU
+ KbVs3FolQUIHYJTgs0BacFCfBOia7sXB88TkP7fnfcu9oOfHAMrHyv7yH3V9+LjQHJNZ
+ wsgjbhabjp8zuxVUlpbAU3Ap5XuhRFyGhDdiNIEfgIFpJ+wqYwP8DZhxOnfSR6f5AtHO
+ o3nWI2A6lkMi5gYkENoufdQ5n+/n6SFubkYUOkD4Sa8fJc/HsRJvdeAYne4rshrG/bui
+ sPKg==
+X-Gm-Message-State: AC+VfDygA5D8foX8rvuPM+a0e92Zi6zbUanbUYH36O0T0qQlfCF1TIPy
+ Qz8MT7K+2c0KdEsJNPn6GOfLLw==
+X-Google-Smtp-Source: ACHHUZ45duw0feSQ/bSA0cRlMKEsqbS53ljbZe0BeA7XZhGamKkfrfynxW77p5B4lFpDMQzTPbmzPQ==
+X-Received: by 2002:a05:6512:288:b0:4f3:a99f:1ea1 with SMTP id
+ j8-20020a056512028800b004f3a99f1ea1mr7040192lfp.45.1687259440360; 
+ Tue, 20 Jun 2023 04:10:40 -0700 (PDT)
 Received: from [192.168.1.101] (abxj193.neoplus.adsl.tpnet.pl. [83.9.3.193])
  by smtp.gmail.com with ESMTPSA id
- h19-20020a2eb0f3000000b002b3318c8d6fsm359850ljl.28.2023.06.20.03.56.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jun 2023 03:56:47 -0700 (PDT)
-Message-ID: <331b4f84-a852-3197-f26a-4f1f0368ef70@linaro.org>
-Date: Tue, 20 Jun 2023 12:56:46 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230620000846.946925-1-dmitry.baryshkov@linaro.org>
- <20230620000846.946925-9-dmitry.baryshkov@linaro.org>
+ u26-20020a056512041a00b004f764716afdsm314395lfk.257.2023.06.20.04.10.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Jun 2023 04:10:39 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230620000846.946925-9-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Jun 2023 13:10:35 +0200
+Message-Id: <20230517-topic-a7xx_prep-v4-0-b16f273a91d4@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 8/8] drm/msm/dpu: remove unused fields from
- struct dpu_core_perf
+X-B4-Tracking: v=1; b=H4sIACuJkWQC/4XNQQrCMBAF0KtI1kbSiW2MK+8hIpM0sYGSlKSWi
+ vTuju5EpMs/zH//yYrLwRV23DxZdlMoIUUK++2G2Q7jzfHQUmYgQIq6UnxMQ7Ac1Txfh+wGrg4
+ KG21VK7xn1DJYHDcZo+2oF+99T0f69GH+zJwvlLtQxpQfn9Wpel//D0wVF1yhbvYenNYWTn2Im
+ NMu5Rt7YxOsAEBAbXSLCAasFz+AXAEkASitkwpqeajNF7AsywvpOsZDRgEAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1687259438; l=1738;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=eX5ZTxH/9LwPpvZBJk24YxyZZoovg4iLjcTUF8O57GU=;
+ b=eYdW9DwxTwYnC48PMFoXBqN4XCttHvlsNmTdrnieqG6ADJHwq4DgAv5Euo8IT8Sgs6KGjoJYS
+ bcv2VpLfEIlB4d9XqRNEN7KOTFEqoKzs66a9BGbti6xQED2Id7N9kH3
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v4 0/6] Adreno QoL changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,83 +85,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20.06.2023 02:08, Dmitry Baryshkov wrote:
-> Remove dpu_core_perf::dev and dpu_core_perf::debugfs_root fields, they
-> are not used by the code.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+This series brings some niceties in preparation for A7xx introduction.
 
-Konrad
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 2 --
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h | 4 ----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 2 +-
->  3 files changed, 1 insertion(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index f779ad544347..7f110d15b101 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -395,11 +395,9 @@ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
->  #endif
->  
->  int dpu_core_perf_init(struct dpu_core_perf *perf,
-> -		struct drm_device *dev,
->  		const struct dpu_perf_cfg *perf_cfg,
->  		struct clk *core_clk)
->  {
-> -	perf->dev = dev;
->  	perf->perf_cfg = perf_cfg;
->  	perf->core_clk = core_clk;
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> index e1198c104b5e..623e2d058695 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> @@ -27,7 +27,6 @@ struct dpu_core_perf_params {
->  /**
->   * struct dpu_core_perf - definition of core performance context
->   * @dev: Pointer to drm device
-> - * @debugfs_root: top level debug folder
->   * @perf_cfg: Platform-specific performance configuration
->   * @core_clk: Pointer to the core clock
->   * @core_clk_rate: current core clock rate
-> @@ -36,8 +35,6 @@ struct dpu_core_perf_params {
->   * @enable_bw_release: debug control for bandwidth release
->   */
->  struct dpu_core_perf {
-> -	struct drm_device *dev;
-> -	struct dentry *debugfs_root;
->  	const struct dpu_perf_cfg *perf_cfg;
->  	struct clk *core_clk;
->  	u64 core_clk_rate;
-> @@ -77,7 +74,6 @@ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc);
->   * @core_clk: pointer to core clock
->   */
->  int dpu_core_perf_init(struct dpu_core_perf *perf,
-> -		struct drm_device *dev,
->  		const struct dpu_perf_cfg *perf_cfg,
->  		struct clk *core_clk);
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 4439147d2c35..5297cec68c9c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1115,7 +1115,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->  		dpu_kms->hw_vbif[vbif->id] = hw;
->  	}
->  
-> -	rc = dpu_core_perf_init(&dpu_kms->perf, dev, dpu_kms->catalog->perf,
-> +	rc = dpu_core_perf_init(&dpu_kms->perf, dpu_kms->catalog->perf,
->  			msm_clk_bulk_get_clock(dpu_kms->clocks, dpu_kms->num_clocks, "core"));
->  	if (rc) {
->  		DPU_ERROR("failed to init perf %d\n", rc);
+It should be fully independent of the GMU wrapper series.
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Changes in v4:
+- Fix an issue where half of patch 1 got squashed into the cover letter..
+- Link to v3: https://lore.kernel.org/r/20230517-topic-a7xx_prep-v3-0-a3ce3725385b@linaro.org
+
+Changes in v3:
+- Pull more definitions from mesa
+- Decode CP_PROTECT_CNTL bitfields
+- Rebase on next-20230619
+- Link to v2: https://lore.kernel.org/r/20230517-topic-a7xx_prep-v2-0-5b9daa2b2cf0@linaro.org
+
+Changes in v2:
+- Drop switching to using the GMU_AO counter in timestamp
+- Add a definition for REG_A6XX_GMU_AHB_FENCE_STATUS_CLR, may be subbed
+  with a register sync after mesa MR22901
+- Link to v1: https://lore.kernel.org/r/20230517-topic-a7xx_prep-v1-0-7a964f2e99c2@linaro.org
+
+---
+Konrad Dybcio (6):
+      drm/msm/a6xx: Add some missing header definitions
+      drm/msm/a6xx: Use descriptive bitfield names for CP_PROTECT_CNTL
+      drm/msm/a6xx: Skip empty protection ranges entries
+      drm/msm/a6xx: Ensure clean GMU state in a6xx_gmu_fw_start
+      drm/msm/a6xx: Improve GMU force shutdown sequence
+      drm/msm/a6xx: Fix up GMU region reservations
+
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h     |  3 +++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c     | 21 +++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h |  2 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 14 ++++++++++----
+ 4 files changed, 32 insertions(+), 8 deletions(-)
+---
+base-commit: 9dbf40840551df336c95ce2a3adbdd25ed53c0ef
+change-id: 20230517-topic-a7xx_prep-787a69c7d0ff
+
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
