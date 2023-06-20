@@ -1,76 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EACF573633B
-	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 07:40:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC0B736455
+	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 09:20:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 316B710E25C;
-	Tue, 20 Jun 2023 05:40:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9A3610E273;
+	Tue, 20 Jun 2023 07:20:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F18B810E25C
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 05:40:46 +0000 (UTC)
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A7A72423EC
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 05:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1687239643;
- bh=eKxatBk/Yyq4Kcp78eUZOCU8RQk/O3McJworAZUfA7k=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=KV56MXsEPVYGgVmbpZITcKNT2qYhOQvGlvkdQPfvw5Ghp1pPVSrNPUkwf7qdN3udB
- cjWNx8SSVE6hmxAF/3VnvmRtIpznYefx+gjbHkx9BLFlazRXiXWlqeccgfidSO/Su0
- kOwm79Hhm/Tw8tJeYwGWtGDX00vX18s5wjlAg6f8ABSN99ZZz1MaIAL8GcT55lRoSh
- IO08UDZbjja9L8UQQhCVt1Iv+yIs93XhKQC3gP5Pg8UxCtyuunwJZ2wq6BLcijM6SC
- 1ZJjbz1UNszuAsEzWQd6so08PZRud5TbtjvvVFe2BYLlJKtDqk4adXeay7pClTgVAv
- h/k3seYTG6NRw==
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-4f873e55445so1191013e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 22:40:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687239641; x=1689831641;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eKxatBk/Yyq4Kcp78eUZOCU8RQk/O3McJworAZUfA7k=;
- b=Bhz73ZR49Gb2wbTC61OwWw7Kgf5bgH07kNl5mEltJmF4KfwNLU7UVXukReCSLYYxxI
- T31KU1y6WNtmnusepxjJLaRXmDu56LuzlNCLKO2w8FJ/vYzmfH22GQz6wa7R/MhPdHht
- B8oL0F/LFcHGJUQJwPYxsCLi8bGCKgmJgKBV8bquqsdKOskPBdXEneCwz9D2+IrZ1Q4a
- QNi/ScQJKVP8LJbWAAu0hPX31+9RSBW467G/pT+8jSBQ2+0yXo06tyE2/Wv+h2ClgDPy
- TgnqMgnoqCsbFKcEGijQe3lPe0ksL+g7P24ftHWm9lDt8CjXL+jdV0J9Vy37wf6FbGcj
- z4AQ==
-X-Gm-Message-State: AC+VfDxMQBFNTgvozLFVdbxb8dV/8TN6CiZI5jbtcVGQ9l6FEAFqIo2c
- H1IZBpp74GrMk/XTWz0GtxWRJVhi0l9vOBzbwbS7Foz+2tMZOphNZMi48kr51RHlXE1VdFKRCOY
- nvN6AvZShWAGCmgp/lmtMDEKeXpmFKNlab5mxPy4Maft8sA==
-X-Received: by 2002:ac2:499e:0:b0:4f8:6f40:4776 with SMTP id
- f30-20020ac2499e000000b004f86f404776mr2610348lfl.46.1687239641133; 
- Mon, 19 Jun 2023 22:40:41 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7mAmYRUNcTRvaEpgafMNWbpCh84NFbi5qKXny7yAHkhYQctNPgq9IskSasfT3ZfXza5M/jjg==
-X-Received: by 2002:ac2:499e:0:b0:4f8:6f40:4776 with SMTP id
- f30-20020ac2499e000000b004f86f404776mr2610336lfl.46.1687239640866; 
- Mon, 19 Jun 2023 22:40:40 -0700 (PDT)
-Received: from localhost ([194.191.244.86]) by smtp.gmail.com with ESMTPSA id
- m12-20020a7bcb8c000000b003f7ea771b5dsm1433746wmi.1.2023.06.19.22.40.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 22:40:40 -0700 (PDT)
-From: Juerg Haefliger <juerg.haefliger@canonical.com>
-To: juerg.haefliger@canonical.com
-Date: Tue, 20 Jun 2023 07:40:31 +0200
-Message-Id: <20230620054031.1203960-1-juerg.haefliger@canonical.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230616122815.1037425-1-juerg.haefliger@canonical.com>
-References: <20230616122815.1037425-1-juerg.haefliger@canonical.com>
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9805310E273;
+ Tue, 20 Jun 2023 07:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1687245606; x=1718781606;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=AQehVaXeVezyZ1EIIBMhF2TW21RUDUgTxTT8HfMhib8=;
+ b=WlaMEncQAWShn2pzjFL4Y+rpP2sw6WcNLdqPVIFc3Hu9Oq2E0f90MCeT
+ 4arIJUsHZogZuajSgOzfrh/OJmdPCFX9utVEHl4MWNeXaVSw2z6/46qta
+ fox6zBTi7194XjrrM6VaD32BT8TDFl6V49C+JqTFAyHcvdaYpTD8aJ5hi
+ ZZZetGvFqL2LZoyzjmjNhAAJeZDmQOZ0sTFKWqjLMrv2AOlBjg9QUxTj0
+ AbXGBx2xXvMcvSpEJlYaMiADK7N9u+x0gxzWk6VdpuMpeKVopn2EIPU7F
+ VgYS+RGvAeWRtjS+7PeHcv4+qJiEhiUKzrSBJa8IUL7q0ndITsN+En4bd Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10746"; a="358657020"
+X-IronPort-AV: E=Sophos;i="6.00,256,1681196400"; d="scan'208";a="358657020"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2023 00:20:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10746"; a="803839635"
+X-IronPort-AV: E=Sophos;i="6.00,256,1681196400"; d="scan'208";a="803839635"
+Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 20 Jun 2023 00:20:01 -0700
+Received: from kbuild by 783282924a45 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qBVei-0005dS-2W;
+ Tue, 20 Jun 2023 07:20:00 +0000
+Date: Tue, 20 Jun 2023 15:18:58 +0800
+From: kernel test robot <lkp@intel.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <202306201502.pisn6tpR-lkp@intel.com>
+References: <20230517-topic-a7xx_prep-v3-2-a3ce3725385b@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm/adreno: Add missing MODULE_FIRMWARE
- macros
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230517-topic-a7xx_prep-v3-2-a3ce3725385b@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 2/6] drm/msm/a6xx: Use descriptive
+ bitfield names for CP_PROTECT_CNTL
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,55 +64,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, quic_akhilpo@quicinc.com, airlied@gmail.com,
- ribalda@chromium.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- konrad.dybcio@linaro.org, joel@joelfernandes.org, robdclark@gmail.com,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- freedreno@lists.freedesktop.org, johan+linaro@kernel.org
+Cc: Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, oe-kbuild-all@lists.linux.dev,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The driver references some firmware files that don't have corresponding
-MODULE_FIRMWARE macros and thus won't be listed via modinfo. Fix that.
+Hi Konrad,
 
-Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+kernel test robot noticed the following build errors:
 
----
-v2:
-  - Drop addition and removal of zap files (needs more discussion)
-  - Add new a690_gmu.bin
-  - Update commit subject and message accordingly
----
- drivers/gpu/drm/msm/adreno/adreno_device.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+[auto build test ERROR on 47045630bc409ce6606d97b790895210dd1d517d]
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index cb94cfd137a8..7c1f9a844009 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -397,10 +397,21 @@ MODULE_FIRMWARE("qcom/a530_zap.mdt");
- MODULE_FIRMWARE("qcom/a530_zap.b00");
- MODULE_FIRMWARE("qcom/a530_zap.b01");
- MODULE_FIRMWARE("qcom/a530_zap.b02");
-+MODULE_FIRMWARE("qcom/a540_gpmu.fw2");
- MODULE_FIRMWARE("qcom/a619_gmu.bin");
- MODULE_FIRMWARE("qcom/a630_sqe.fw");
- MODULE_FIRMWARE("qcom/a630_gmu.bin");
- MODULE_FIRMWARE("qcom/a630_zap.mbn");
-+MODULE_FIRMWARE("qcom/a640_gmu.bin");
-+MODULE_FIRMWARE("qcom/a650_gmu.bin");
-+MODULE_FIRMWARE("qcom/a650_sqe.fw");
-+MODULE_FIRMWARE("qcom/a660_gmu.bin");
-+MODULE_FIRMWARE("qcom/a660_sqe.fw");
-+MODULE_FIRMWARE("qcom/a690_gmu.bin");
-+MODULE_FIRMWARE("qcom/leia_pfp_470.fw");
-+MODULE_FIRMWARE("qcom/leia_pm4_470.fw");
-+MODULE_FIRMWARE("qcom/yamato_pfp.fw");
-+MODULE_FIRMWARE("qcom/yamato_pm4.fw");
- 
- static inline bool _rev_match(uint8_t entry, uint8_t id)
- {
+url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/drm-msm-a6xx-Add-some-missing-header-definitions/20230620-004639
+base:   47045630bc409ce6606d97b790895210dd1d517d
+patch link:    https://lore.kernel.org/r/20230517-topic-a7xx_prep-v3-2-a3ce3725385b%40linaro.org
+patch subject: [PATCH v3 2/6] drm/msm/a6xx: Use descriptive bitfield names for CP_PROTECT_CNTL
+config: arm-allmodconfig (https://download.01.org/0day-ci/archive/20230620/202306201502.pisn6tpR-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 12.3.0
+reproduce: (https://download.01.org/0day-ci/archive/20230620/202306201502.pisn6tpR-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202306201502.pisn6tpR-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a6xx_set_cp_protect':
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:19: error: 'A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN' undeclared (first use in this function)
+     934 |                   A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN |
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:19: note: each undeclared identifier is reported only once for each function it appears in
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:935:19: error: 'A6XX_CP_PROTECT_CNTL_ACCESS_FAULT_ON_VIOL_EN' undeclared (first use in this function)
+     935 |                   A6XX_CP_PROTECT_CNTL_ACCESS_FAULT_ON_VIOL_EN |
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:936:19: error: 'A6XX_CP_PROTECT_CNTL_LAST_SPAN_INF_RANGE' undeclared (first use in this function)
+     936 |                   A6XX_CP_PROTECT_CNTL_LAST_SPAN_INF_RANGE);
+         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for SM_GCC_8350
+   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_QCOM [=m] && (ARM64 || COMPILE_TEST [=n])
+   Selected by [m]:
+   - SM_VIDEOCC_8350 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
+   WARNING: unmet direct dependencies detected for SM_GCC_8450
+   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_QCOM [=m] && (ARM64 || COMPILE_TEST [=n])
+   Selected by [m]:
+   - SM_GPUCC_8450 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
+   - SM_VIDEOCC_8450 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
+   WARNING: unmet direct dependencies detected for SM_GCC_8550
+   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_QCOM [=m] && (ARM64 || COMPILE_TEST [=n])
+   Selected by [m]:
+   - SM_GPUCC_8550 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
+   - SM_VIDEOCC_8550 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
+
+
+vim +/A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN +934 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+
+   899	
+   900	static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+   901	{
+   902		struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+   903		const u32 *regs = a6xx_protect;
+   904		unsigned i, count, count_max;
+   905	
+   906		if (adreno_is_a650(adreno_gpu)) {
+   907			regs = a650_protect;
+   908			count = ARRAY_SIZE(a650_protect);
+   909			count_max = 48;
+   910			BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
+   911		} else if (adreno_is_a690(adreno_gpu)) {
+   912			regs = a690_protect;
+   913			count = ARRAY_SIZE(a690_protect);
+   914			count_max = 48;
+   915			BUILD_BUG_ON(ARRAY_SIZE(a690_protect) > 48);
+   916		} else if (adreno_is_a660_family(adreno_gpu)) {
+   917			regs = a660_protect;
+   918			count = ARRAY_SIZE(a660_protect);
+   919			count_max = 48;
+   920			BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
+   921		} else {
+   922			regs = a6xx_protect;
+   923			count = ARRAY_SIZE(a6xx_protect);
+   924			count_max = 32;
+   925			BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
+   926		}
+   927	
+   928		/*
+   929		 * Enable access protection to privileged registers, fault on an access
+   930		 * protect violation and select the last span to protect from the start
+   931		 * address all the way to the end of the register address space
+   932		 */
+   933		gpu_write(gpu, REG_A6XX_CP_PROTECT_CNTL,
+ > 934			  A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN |
+ > 935			  A6XX_CP_PROTECT_CNTL_ACCESS_FAULT_ON_VIOL_EN |
+ > 936			  A6XX_CP_PROTECT_CNTL_LAST_SPAN_INF_RANGE);
+   937	
+   938		for (i = 0; i < count - 1; i++)
+   939			gpu_write(gpu, REG_A6XX_CP_PROTECT(i), regs[i]);
+   940		/* last CP_PROTECT to have "infinite" length on the last entry */
+   941		gpu_write(gpu, REG_A6XX_CP_PROTECT(count_max - 1), regs[i]);
+   942	}
+   943	
+
 -- 
-2.37.2
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
