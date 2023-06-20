@@ -1,74 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A2F735F49
-	for <lists+freedreno@lfdr.de>; Mon, 19 Jun 2023 23:39:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F21F736070
+	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 02:08:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E48B710E15D;
-	Mon, 19 Jun 2023 21:39:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53A4E10E034;
+	Tue, 20 Jun 2023 00:08:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6521410E08A
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 21:39:01 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b455855fb2so53016351fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 14:39:01 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75F4E10E034
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 00:08:50 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-4f76a0a19d4so5282411e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Jun 2023 17:08:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687210739; x=1689802739;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NJqgFyZORxKSRICxsmBFhPlaldFyLWkexWK7bDGxjGc=;
- b=RPfDbbXupqzacz7KmZUEQIISSc1lhv+2xRsN7vCGYpBl6AXY9CbUmlVWhZ98RO3D42
- nVQ8K02IklHfRbbOREnhR5b8ttJtfv5xqS3zYzOKuo76kZCzNQQqoqeAO4AUV2DFuUzG
- DniqlfoxeWNQlHekVLs0UT9jbTxhIjD2aUk0Esm/2CsTRRKhZ0pD10m8d1ZG6AyGuYws
- YwK9aOTmhf+qQCZ6mDc8Dxyb5p3EEvQ6npsQ7e/ZtvUyZU2WEN8z+0PBX6gwIWBQi0qW
- fSyQdThWVI6RDHslTDs5eRZQoUcmG9jTevSVKtBGTZHvByvIDf6E+fV2/YAWve5/wkkh
- KfVQ==
+ d=linaro.org; s=google; t=1687219728; x=1689811728;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=w7OWjaL+FXNpudHxCHDOI7HyMiIA5hklDMjolIe+wQw=;
+ b=mqUlJF2tBzSFoNWT2HbgqoGJbMVw02B/z4yPBFiNXYA8ErP/nOxxyh+b2bphoGRGOp
+ jdIu5BMnE/d14wd/+6pm/cAzA3yLsaOGVCi0NZ7cLJMn/m4zgricgBxKl3IraNDV3kp5
+ iXuZH+Ash0v/VtNgtWj82N0Jub3k8qNORbah/zSdv8HEwCHUnDMbFxqRjfjGzowemxpk
+ 1OvKQH6N5bViC/EjLzNBBt9Y4GG8+aetxJrbW0aALfL26FC1xhWEdTi4q5To7ueLFkNO
+ QyywttgTsj9kmH9+8mGzHJ8t+sVUx6KuIrgDP0qxBbscVqaEIlXG3An4ZD/wFM1Nq5Ti
+ XyZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687210739; x=1689802739;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NJqgFyZORxKSRICxsmBFhPlaldFyLWkexWK7bDGxjGc=;
- b=NygRXAC/O+W+iJV7AX1szrkNIyihHwokaNbcb3p+S1LPJj6DoXB+KEsXDm4zjRBNGO
- KvSM4kMl4tZFJ1yjJnbdAytAim44IvIX80sG6UZtel9ng53Ha7junqiuRENq8KCpAWQx
- aOaZBi/5LksFHdxsjueGVNvH+j4xf3UhWjwvgg63SZ8wFD460m/+gkQD/tF4us8pyBzI
- bDAYC7Xg03XnhTwwnR1ElfMPN2m1JCi9FhDNfe0z9gXa1rTZCPVJbAWkcQP1uKeoOsiE
- bZu4yu3B4m2HZJUaf4XzQFQGN7QIPV/22Ti+/NdUwQ6vf/FHOhkZWQjvw8VOBjiUEAVQ
- ggUg==
-X-Gm-Message-State: AC+VfDwoo3gvkTdhAMrWQLprwjhLKkxe9pC4I4Nc/2N2ctuf8x+bw5uZ
- 2O3YWz0SRMJjeLu8D6ZCmmFmVK4dLH968NLV8cHbqA==
-X-Google-Smtp-Source: ACHHUZ7mho7mHSB6JCzN3pI1HKBCa5gj+wq/4VTVHdrMTAaqPwUmQrdQYLCZ6sPJApcpZkejhtLHCA==
-X-Received: by 2002:a2e:9189:0:b0:2b4:75b7:edda with SMTP id
- f9-20020a2e9189000000b002b475b7eddamr2530334ljg.24.1687210739281; 
- Mon, 19 Jun 2023 14:38:59 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1687219728; x=1689811728;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=w7OWjaL+FXNpudHxCHDOI7HyMiIA5hklDMjolIe+wQw=;
+ b=idVy53iFDJhlcDd9YfnHx0HqiMR8PzaUCluh7gCGo5eMuv3V51ZqmCaCGOFqFdtBNO
+ bQ0mfOxUqCPh0Fi9eXUYTkwCv3neaIt05ooa5tv3dfGpjDBnxyuXSe7nt02inpQW9cC5
+ 7U0hspr3dCdLnCLCe6iunBTrJm9qY/YwoOOWvppXgu97Raj9PDWDox2sG3P/yi/e3Wr5
+ aWk7vsba2nOzpXVIjeVhDtPmkUfhUNKB22bvduhAm8IFmIh/pjVVNFGiWb6oUqql8Y0n
+ uoCrsvT+AF2u52rZyVETwd++4mCHYj/Wvgh64nipjna4ol5p2LGoIT+yF/ito83ATtXp
+ qEJQ==
+X-Gm-Message-State: AC+VfDyEDfVVgS34DIv66W3anTRYrQ0t/fjs8hUC1eVa2QB+PBE88zds
+ epddwiTZvxEawQ7hcLOtWl6PFA==
+X-Google-Smtp-Source: ACHHUZ5wHy2qK1kc1Il2EOPChzHpk185SQoGSGIIJ3/WYrIKx1fiOxoJ1wm7lMjlPQjK00i1LkiMGA==
+X-Received: by 2002:a19:791d:0:b0:4f8:6f40:4773 with SMTP id
+ u29-20020a19791d000000b004f86f404773mr2154256lfc.7.1687219728459; 
+ Mon, 19 Jun 2023 17:08:48 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- e22-20020a2e8ed6000000b002adc2fe3fc8sm66717ljl.4.2023.06.19.14.38.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jun 2023 14:38:58 -0700 (PDT)
-Message-ID: <c25ba108-1363-9c6f-3d02-2524ede7484e@linaro.org>
-Date: Tue, 20 Jun 2023 00:38:57 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: zhumao001@208suo.com, robdclark@gmail.com, quic_abhinavk@quicinc.com,
- airlied@gmail.com, daniel@ffwll.ch, sumit.semwal@linaro.org,
- christian.koenig@amd.com, sean@poorly.run
-References: <20230618143813.15142-1-dengshaomin@cdjrlc.com>
- <20230618143813.15142-4-dengshaomin@cdjrlc.com>
- <610b47a2989976b9dae162ecc55ddc85@208suo.com>
+ a6-20020a056512020600b004f869e46fd4sm128815lfo.100.2023.06.19.17.08.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Jun 2023 17:08:47 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <610b47a2989976b9dae162ecc55ddc85@208suo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Tue, 20 Jun 2023 03:08:38 +0300
+Message-Id: <20230620000846.946925-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix typo in comment
+Subject: [Freedreno] [PATCH 0/8] drm/msm/dpu: cleanup dpu_core_perf module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,23 +71,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/06/2023 17:54, zhumao001@208suo.com wrote:
-> Fix typo in comment of msm_gem.c.
-> 
-> Signed-off-by: Zhu Mao <zhumao001@208suo.com>
-> ---
->   drivers/gpu/drm/msm/msm_gem.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+Apply several cleanups to the DPU's core_perf module.
 
-This patch doesn't apply. Please use git send-email to send patches.
+Dmitry Baryshkov (8):
+  drm/msm/dpu: drop enum dpu_core_perf_data_bus_id
+  drm/msm/dpu: drop performance tuning modes
+  drm/msm/dpu: drop dpu_core_perf_params::max_per_pipe_ib
+  drm/msm/dpu: rework indentation in dpu_core_perf
+  drm/msm/dpu: drop the dpu_core_perf_crtc_update()'s stop_req param
+  drm/msm/dpu: use dpu_perf_cfg in DPU core_perf code
+  drm/msm/dpu: drop dpu_core_perf_destroy()
+  drm/msm/dpu: remove unused fields from struct dpu_core_perf
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 199 ++++--------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  55 +----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   3 +-
+ 4 files changed, 47 insertions(+), 218 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
