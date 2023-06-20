@@ -1,63 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 614EF736AC6
-	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 13:18:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F10736AF1
+	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 13:30:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9F610E2CB;
-	Tue, 20 Jun 2023 11:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84BB10E2C2;
+	Tue, 20 Jun 2023 11:30:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D80E910E180
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 11:18:42 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-57045429f76so48335677b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 04:18:42 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A06810E2C2
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 11:30:04 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4f870247d6aso3057941e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 04:30:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687259921; x=1689851921;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=pur1jXE5W/6rmxi5j9JRnl95BFEuYCNLXHO4SrVb4YQ=;
- b=CSlXRn6qVy4MRXyXRov0FIfB9Qauu/skSw27CZfaB0TXq4hLHKKmy6eopFcx0WOoYQ
- coQXBsL4D62rXCZwNeO26+YxOeQlX1juWy83sEZ+fjXPuw11zlwvaiuK807W56lAClPa
- BXzcK1OWca9//RREtR7g4t+LOgvslPNIOG9O+TfPi4N1wX0a6epomLcBMgfaF3Gt7TuZ
- HZc25N2VOddqzQfloabHVREWe3azkM6lZvSc2Sfxs1+YK4lUrspbo1pYdTBn2i+22wmB
- hek1hcdKaGDlRQDY2srmMRO13sDmznodWZbKdehw0a6s8/OyYSBMr3RCs5qPy+8kMovg
- 9j9g==
+ d=linaro.org; s=google; t=1687260602; x=1689852602;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=S29GAOwwZU/UObQHm7K1yfmLnNLJ0R5m3hwbW5Fh5rM=;
+ b=bTHzG1h+kD6J4+vhZGTHsDyQ7K9hsvawjTM8WE0Y53ykw8hcvb33uM/nwcsw9F1zeq
+ 9Qm4mrsxdOXq4zyXtZ13fmn+xqzbMBpL7QcIdWZMFb8mFPO2f8/xfle2z8/Vneebn5js
+ aypBK6IFASC/87S/DLQjnkLRr2dkPMxE6P6ppFcR5sXRoZwijyQjqSikNtcoHWtAB7Fr
+ lr1fhfjnnkJPyKCylS+BVb+BxD3trYNhV+B9hplhpSMFhwnZvZJP631l4UPfLlogvATX
+ eLfeZUgszbL4qoQM1uwF5Yc511j7pNni5TVMP5sWq3C3167ZSvJVa8avuVDIz889LByE
+ bdWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687259921; x=1689851921;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1687260602; x=1689852602;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=pur1jXE5W/6rmxi5j9JRnl95BFEuYCNLXHO4SrVb4YQ=;
- b=HBI4XvtY89UHBZCpH5qbhy3vYBuCkbL8B6+InjkNNF7cfaHk7oOayaEUZ7dbfNEAg3
- 2UD6Spc5CEmnTk+OyYutOgxofxD5CYWET9CJFZwYIRHpUNx8XdHCx2mTqzeCHAp18k6I
- KJcWxwYccmq+b2aW4xhYwNoj6c8qZ+fjuCsmuldITOG8uqURCGGfxyk8lMKF8m3hKCgQ
- quaZDzYTvIUAhRUHfNaVZkPmFbzUUyFLS2WzRc+prCpLSYzZlKVYCtL0VWQwRGg6CtHz
- qbBVe/MOF8z06XL65TfX0/ItgBIzfsgBTUyqhRBdbIyR+RHI22f3ftSwbpsdw2WwIHts
- pmbQ==
-X-Gm-Message-State: AC+VfDym9lKn90rJjwhEgLS3AadBB0kadz16KB29XOim+PBYCOMupNq3
- uhaK5jcf1IIlRh6ShaRGppald5nxU2dSbgYtBkMHSQ==
-X-Google-Smtp-Source: ACHHUZ4du7Ti9OxiHAAEVUiPO8uQCjpSE8B12g+KVIwq1GBX5WwJBOVHI07GaNYWPpVD6Oc6fhjEXfFGC9sdmpVcVtc=
-X-Received: by 2002:a25:868b:0:b0:bf5:3c03:25f3 with SMTP id
- z11-20020a25868b000000b00bf53c0325f3mr3233248ybk.63.1687259921617; Tue, 20
- Jun 2023 04:18:41 -0700 (PDT)
+ bh=S29GAOwwZU/UObQHm7K1yfmLnNLJ0R5m3hwbW5Fh5rM=;
+ b=QicZi0Zt0Bj28zjROzIoievFbEM563gJvKjQ5s0aglmnCXtA+n1GoDZTg08oN33QH0
+ kU9MFe4PZLeluo6tIQR36Tr1MyO2P8ASY3mHAt3dKOi2UO3+OACd1uFGbz2XMswneN2U
+ X+dYIKoOPj6jCWuNOfa2NckD8vmNUgsvCd6YC3FvlyDr3GjxiFETAlsKdd3QTFhV2MRz
+ qvEMebkbwmbA3BV9r3IL2C1cVE+HfYBWy12Qlgx0bd1MxDTcYQITtb/GmkJ2Z6cZZ6Lf
+ eEFra2xMmuok/JT7pvlL/QIlfYPwa2gFrJQ6UodE9cFPD54ev9SMwAyaU5XKE6Eo9oj9
+ orsQ==
+X-Gm-Message-State: AC+VfDw2WqqHLIRLDJwpmgpBKVc/PScjyxA1DNP/rqReitTZff/Cy9aq
+ khfK9FTXpXx0fuqJPKUHLulwjynAIrJc9AVqQZs=
+X-Google-Smtp-Source: ACHHUZ6QUJ2NUSmwlMllnTnlwhUMH00U8cch0Y7x4JBrv6lDEvgv8KA6emtEHyH6UtWTECxcKatUAQ==
+X-Received: by 2002:a19:5055:0:b0:4f6:14d1:596d with SMTP id
+ z21-20020a195055000000b004f614d1596dmr6541924lfj.61.1687260602313; 
+ Tue, 20 Jun 2023 04:30:02 -0700 (PDT)
+Received: from [192.168.1.101] (abxj193.neoplus.adsl.tpnet.pl. [83.9.3.193])
+ by smtp.gmail.com with ESMTPSA id
+ 8-20020ac24828000000b004eed8de597csm335709lft.32.2023.06.20.04.30.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Jun 2023 04:30:02 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 20 Jun 2023 13:29:57 +0200
+Message-Id: <20230620-topic-dsiphy_rpm-v1-0-446a7fd0ce43@linaro.org>
 MIME-Version: 1.0
-References: <20230620000846.946925-1-dmitry.baryshkov@linaro.org>
- <20230620000846.946925-7-dmitry.baryshkov@linaro.org>
- <bc192a59-f8a1-2786-670c-cd56737dfdba@linaro.org>
-In-Reply-To: <bc192a59-f8a1-2786-670c-cd56737dfdba@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 20 Jun 2023 14:18:30 +0300
-Message-ID: <CAA8EJpo6KVnQO-K8ftyaSe+xyN6-RC_QNXfx5v890=S10jExNQ@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 6/8] drm/msm/dpu: use dpu_perf_cfg in DPU
- core_perf code
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALWNkWQC/x2N0QrCMAwAf2Xk2UBXRcVfEZG0jTYwu5KoKGP/b
+ vDxDo5bwFiFDU7DAspvMZmbw7gZIFdqd0YpzhBD3IZ9DPicu2QsJr1+r9ofyLQ7jodEhSiBZ4m
+ MMSm1XD1sr2ly2ZVv8vl/zpd1/QHd37O+dwAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1687260601; l=636;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=wCUG/R9HXWMnAwuGxYhXrhmjszSC6nEVuCGugxXUvag=;
+ b=oLojyqv8R2Yxb/4Bx0OPl53gbOYVtZGEvfDiYfytg8gFL3uXbs/agnHkUqk3yiONeq1e1qWA5
+ xXDfhniDSFOBXQOoH7SqEunzIznVpy6eWLBLQDUMiYekoP0h3tuhm+y
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH 0/2] DSIPHY RPM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,93 +84,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/06/2023 13:55, Konrad Dybcio wrote:
-> On 20.06.2023 02:08, Dmitry Baryshkov wrote:
->> Simplify dpu_core_perf code by using only dpu_perf_cfg instead of using
->> full-featured catalog data.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
-> Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->
-> Check below.
->
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 52 ++++++++-----------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  8 +--
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  2 +-
->>   3 files changed, 27 insertions(+), 35 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->> index 773e641eab28..78a7e3ea27a4 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->> @@ -19,11 +19,11 @@
->>
->>   /**
->>    * _dpu_core_perf_calc_bw() - to calculate BW per crtc
->> - * @kms:  pointer to the dpu_kms
->> + * @perf_cfg: performance configuration
->>    * @crtc: pointer to a crtc
->>    * Return: returns aggregated BW for all planes in crtc.
->>    */
->> -static u64 _dpu_core_perf_calc_bw(struct dpu_kms *kms,
->> +static u64 _dpu_core_perf_calc_bw(const struct dpu_perf_cfg *perf_cfg,
->>              struct drm_crtc *crtc)
->>   {
->>      struct drm_plane *plane;
->> @@ -39,7 +39,7 @@ static u64 _dpu_core_perf_calc_bw(struct dpu_kms *kms,
->>              crtc_plane_bw += pstate->plane_fetch_bw;
->>      }
->>
->> -    bw_factor = kms->catalog->perf->bw_inefficiency_factor;
->> +    bw_factor = perf_cfg->bw_inefficiency_factor;
-> It's set to 120 for all SoCs.. and it sounds very much like some kind of a
-> hack.
->
-> The 105 on the other inefficiency factor is easy to spot:
->
-> (1024/1000)^2 = 1.048576 =~= 1.05 = 105%
->
-> It comes from a MiB-MB-MHz conversion that Qcom splattered all over
-> downstream as due to ancient tragical design decisions in msmbus
-> (which leak to the downstream interconnect a bit):
+Some recent SoCs use power rails that we model as GENPDs to power the
+DSIPHY. This series attempts to make such configurations suspendable.
 
-This doesn't describe, why msm8226 and msm8974 had qcom,mdss-clk-factor
-of 5/4. And 8084 got 1.05 as usual. I can only suppose that MDSS 1.0
-(8974 v1) and 1.1 (8226) had some internal inefficiency / issues.
+Tested on SM6375.
 
-Also, this 1.05 is a clock inefficiency, so it should not be related
-to msm bus client code.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (2):
+      drm/msm/dsi: Use pm_runtime_resume_and_get to prevent refcnt leaks
+      drm/msm/dsi: Enable runtime PM
 
->
-> The logic needs to get some input that corresponds to a clock rate
-> of a bus clock (19.2, 200, 300 Mhz etc.) but the APIs expect a Kbps
-> value. So at one point they invented a MHZ_TO_MBPS macro which did this
-> conversion the other way around and probably had to account for it.
->
-> I think they tried to make it make more sense, but it ended up being
-> even more spaghetti :/
->
-> Not yet sure how it's done on RPMh icc, but with SMD RPM, passing e.g.
->
-> opp-peak-kBps = <(200 * 8 * 1000)>; # 200 MHz * 8-wide * KHz-to-MHz
->
-> results in a "correct" end rate.
->
-> Konrad
->>      if (bw_factor) {
->>              crtc_plane_bw *= bw_factor;
->>              do_div(crtc_plane_bw, 100);
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+---
+base-commit: 9dbf40840551df336c95ce2a3adbdd25ed53c0ef
+change-id: 20230620-topic-dsiphy_rpm-ea4817badaab
 
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
---
-With best wishes
-Dmitry
