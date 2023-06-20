@@ -1,57 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BC0B736455
-	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 09:20:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB611736965
+	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 12:35:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9A3610E273;
-	Tue, 20 Jun 2023 07:20:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B73210E2A6;
+	Tue, 20 Jun 2023 10:35:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9805310E273;
- Tue, 20 Jun 2023 07:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687245606; x=1718781606;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=AQehVaXeVezyZ1EIIBMhF2TW21RUDUgTxTT8HfMhib8=;
- b=WlaMEncQAWShn2pzjFL4Y+rpP2sw6WcNLdqPVIFc3Hu9Oq2E0f90MCeT
- 4arIJUsHZogZuajSgOzfrh/OJmdPCFX9utVEHl4MWNeXaVSw2z6/46qta
- fox6zBTi7194XjrrM6VaD32BT8TDFl6V49C+JqTFAyHcvdaYpTD8aJ5hi
- ZZZetGvFqL2LZoyzjmjNhAAJeZDmQOZ0sTFKWqjLMrv2AOlBjg9QUxTj0
- AbXGBx2xXvMcvSpEJlYaMiADK7N9u+x0gxzWk6VdpuMpeKVopn2EIPU7F
- VgYS+RGvAeWRtjS+7PeHcv4+qJiEhiUKzrSBJa8IUL7q0ndITsN+En4bd Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10746"; a="358657020"
-X-IronPort-AV: E=Sophos;i="6.00,256,1681196400"; d="scan'208";a="358657020"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2023 00:20:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10746"; a="803839635"
-X-IronPort-AV: E=Sophos;i="6.00,256,1681196400"; d="scan'208";a="803839635"
-Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 20 Jun 2023 00:20:01 -0700
-Received: from kbuild by 783282924a45 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qBVei-0005dS-2W;
- Tue, 20 Jun 2023 07:20:00 +0000
-Date: Tue, 20 Jun 2023 15:18:58 +0800
-From: kernel test robot <lkp@intel.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <202306201502.pisn6tpR-lkp@intel.com>
-References: <20230517-topic-a7xx_prep-v3-2-a3ce3725385b@linaro.org>
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35E0E10E2A6
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 10:35:55 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2b479d53d48so28253041fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 03:35:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1687257353; x=1689849353;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/HIA2CPxgECjXLspDDsjBe6Xv7WQ50oq1xrRdt7Bp5U=;
+ b=sVPvMzd8ZXN6fxiD2g18okClyC51hJfp0d54xnvst+U3AgVzvn0TK1b6PuQdEtFrTw
+ Iv/vqOjmm6F4LhfhFF+BYgXbKQo0jIoR/LTmZ6WGl1994yjMbNJ+FfX1rviiepbOUZvU
+ yJnIvN33VaiaP/zbYArV6ndtl9cax7PA+GMlxdF4c8WP7QNkO2XZpMqCYpVm+D+EmTlH
+ 5C0Mv6679SGVx2Z+gnNLt4ycjaEStf9uB0hEyuJ14jJrpmRd8zlaiZxxgcIdLUJOWP2L
+ lv6Uuw4AD6mOhLftfE8Ha3PLlfbbLkL66+HCS+zv7SchnCIV27RjQKJt1MzNr/+MfZuW
+ OCsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687257353; x=1689849353;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/HIA2CPxgECjXLspDDsjBe6Xv7WQ50oq1xrRdt7Bp5U=;
+ b=Or7yeh6dPVj9afaQD5h6NwzarNhrC8+BiXCxGosCavxzwvx0+/wNgoD4E8cM+K/SBV
+ Gyfe/LG34Bos8mgCWmBaa+mbfST7Yeir6W/Fi9gUYSYMBEIbwZC5HaBoyF3tn0lZmLFm
+ zbLAU4xMPYsYGL2oUaD8QaOKfSu/AzXUNnMo6ffh79umta+tMw7ue9Q7cO8IjqP1oEC+
+ hIJD/YudrnQfYhYSMqMuRgHBIQ7FuYQQlLIwQM2GnjzOX4k/mpV7ywzdex00eOEifXjU
+ Ce9m9IAkFkAZhJ8gftWACVYA17hPFtfyNA9XN8Xv6ilqsB30sD0VNfQc4LQVeezuQxf+
+ uX4g==
+X-Gm-Message-State: AC+VfDxJooMLrvKcsAneD39dnCoYX3aIf3l1EWltyOSkEOGqCuMIZpBY
+ xLOQL6gL5JloscaHLoOMbwm65w==
+X-Google-Smtp-Source: ACHHUZ7Vk8cUEKNVc/DdXw9Q7qrbYezVTFnd3aciTZZxAlPCmlNI4FE1L+wYmVuHxswAOAO6vrO1sQ==
+X-Received: by 2002:a2e:a175:0:b0:2b3:47b3:3c39 with SMTP id
+ u21-20020a2ea175000000b002b347b33c39mr7252516ljl.23.1687257352911; 
+ Tue, 20 Jun 2023 03:35:52 -0700 (PDT)
+Received: from [192.168.1.101] (abxj193.neoplus.adsl.tpnet.pl. [83.9.3.193])
+ by smtp.gmail.com with ESMTPSA id
+ b22-20020a2e8496000000b002b1f8c10926sm347259ljh.138.2023.06.20.03.35.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Jun 2023 03:35:52 -0700 (PDT)
+Message-ID: <06087f90-ba34-f044-707c-7f3557ec6198@linaro.org>
+Date: Tue, 20 Jun 2023 12:35:50 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230517-topic-a7xx_prep-v3-2-a3ce3725385b@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 2/6] drm/msm/a6xx: Use descriptive
- bitfield names for CP_PROTECT_CNTL
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230620000846.946925-1-dmitry.baryshkov@linaro.org>
+ <20230620000846.946925-2-dmitry.baryshkov@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230620000846.946925-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/8] drm/msm/dpu: drop enum
+ dpu_core_perf_data_bus_id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,112 +80,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, oe-kbuild-all@lists.linux.dev,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Konrad,
+On 20.06.2023 02:08, Dmitry Baryshkov wrote:
+> Drop the leftover of bus-client -> interconnect conversion, the enum
+> dpu_core_perf_data_bus_id.
+> 
+> Fixes: cb88482e2570 ("drm/msm/dpu: clean up references of DPU custom bus scaling")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 47045630bc409ce6606d97b790895210dd1d517d]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/drm-msm-a6xx-Add-some-missing-header-definitions/20230620-004639
-base:   47045630bc409ce6606d97b790895210dd1d517d
-patch link:    https://lore.kernel.org/r/20230517-topic-a7xx_prep-v3-2-a3ce3725385b%40linaro.org
-patch subject: [PATCH v3 2/6] drm/msm/a6xx: Use descriptive bitfield names for CP_PROTECT_CNTL
-config: arm-allmodconfig (https://download.01.org/0day-ci/archive/20230620/202306201502.pisn6tpR-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230620/202306201502.pisn6tpR-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202306201502.pisn6tpR-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c: In function 'a6xx_set_cp_protect':
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:19: error: 'A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN' undeclared (first use in this function)
-     934 |                   A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN |
-         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/msm/adreno/a6xx_gpu.c:934:19: note: each undeclared identifier is reported only once for each function it appears in
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:935:19: error: 'A6XX_CP_PROTECT_CNTL_ACCESS_FAULT_ON_VIOL_EN' undeclared (first use in this function)
-     935 |                   A6XX_CP_PROTECT_CNTL_ACCESS_FAULT_ON_VIOL_EN |
-         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/msm/adreno/a6xx_gpu.c:936:19: error: 'A6XX_CP_PROTECT_CNTL_LAST_SPAN_INF_RANGE' undeclared (first use in this function)
-     936 |                   A6XX_CP_PROTECT_CNTL_LAST_SPAN_INF_RANGE);
-         |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for SM_GCC_8350
-   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_QCOM [=m] && (ARM64 || COMPILE_TEST [=n])
-   Selected by [m]:
-   - SM_VIDEOCC_8350 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
-   WARNING: unmet direct dependencies detected for SM_GCC_8450
-   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_QCOM [=m] && (ARM64 || COMPILE_TEST [=n])
-   Selected by [m]:
-   - SM_GPUCC_8450 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
-   - SM_VIDEOCC_8450 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
-   WARNING: unmet direct dependencies detected for SM_GCC_8550
-   Depends on [n]: COMMON_CLK [=y] && COMMON_CLK_QCOM [=m] && (ARM64 || COMPILE_TEST [=n])
-   Selected by [m]:
-   - SM_GPUCC_8550 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
-   - SM_VIDEOCC_8550 [=m] && COMMON_CLK [=y] && COMMON_CLK_QCOM [=m]
-
-
-vim +/A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN +934 drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-
-   899	
-   900	static void a6xx_set_cp_protect(struct msm_gpu *gpu)
-   901	{
-   902		struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-   903		const u32 *regs = a6xx_protect;
-   904		unsigned i, count, count_max;
-   905	
-   906		if (adreno_is_a650(adreno_gpu)) {
-   907			regs = a650_protect;
-   908			count = ARRAY_SIZE(a650_protect);
-   909			count_max = 48;
-   910			BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
-   911		} else if (adreno_is_a690(adreno_gpu)) {
-   912			regs = a690_protect;
-   913			count = ARRAY_SIZE(a690_protect);
-   914			count_max = 48;
-   915			BUILD_BUG_ON(ARRAY_SIZE(a690_protect) > 48);
-   916		} else if (adreno_is_a660_family(adreno_gpu)) {
-   917			regs = a660_protect;
-   918			count = ARRAY_SIZE(a660_protect);
-   919			count_max = 48;
-   920			BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
-   921		} else {
-   922			regs = a6xx_protect;
-   923			count = ARRAY_SIZE(a6xx_protect);
-   924			count_max = 32;
-   925			BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
-   926		}
-   927	
-   928		/*
-   929		 * Enable access protection to privileged registers, fault on an access
-   930		 * protect violation and select the last span to protect from the start
-   931		 * address all the way to the end of the register address space
-   932		 */
-   933		gpu_write(gpu, REG_A6XX_CP_PROTECT_CNTL,
- > 934			  A6XX_CP_PROTECT_CNTL_ACCESS_PROT_EN |
- > 935			  A6XX_CP_PROTECT_CNTL_ACCESS_FAULT_ON_VIOL_EN |
- > 936			  A6XX_CP_PROTECT_CNTL_LAST_SPAN_INF_RANGE);
-   937	
-   938		for (i = 0; i < count - 1; i++)
-   939			gpu_write(gpu, REG_A6XX_CP_PROTECT(i), regs[i]);
-   940		/* last CP_PROTECT to have "infinite" length on the last entry */
-   941		gpu_write(gpu, REG_A6XX_CP_PROTECT(count_max - 1), regs[i]);
-   942	}
-   943	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Konrad
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h | 13 -------------
+>  1 file changed, 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> index e3795995e145..29bb8ee2bc26 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> @@ -14,19 +14,6 @@
+>  
+>  #define	DPU_PERF_DEFAULT_MAX_CORE_CLK_RATE	412500000
+>  
+> -/**
+> - * enum dpu_core_perf_data_bus_id - data bus identifier
+> - * @DPU_CORE_PERF_DATA_BUS_ID_MNOC: DPU/MNOC data bus
+> - * @DPU_CORE_PERF_DATA_BUS_ID_LLCC: MNOC/LLCC data bus
+> - * @DPU_CORE_PERF_DATA_BUS_ID_EBI: LLCC/EBI data bus
+> - */
+> -enum dpu_core_perf_data_bus_id {
+> -	DPU_CORE_PERF_DATA_BUS_ID_MNOC,
+> -	DPU_CORE_PERF_DATA_BUS_ID_LLCC,
+> -	DPU_CORE_PERF_DATA_BUS_ID_EBI,
+> -	DPU_CORE_PERF_DATA_BUS_ID_MAX,
+> -};
+> -
+>  /**
+>   * struct dpu_core_perf_params - definition of performance parameters
+>   * @max_per_pipe_ib: maximum instantaneous bandwidth request
