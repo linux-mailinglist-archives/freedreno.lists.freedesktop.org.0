@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC99736A00
-	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 12:56:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54566736A06
+	for <lists+freedreno@lfdr.de>; Tue, 20 Jun 2023 12:56:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72BB010E2B8;
-	Tue, 20 Jun 2023 10:56:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB5DB10E2BE;
+	Tue, 20 Jun 2023 10:56:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54CE710E2A6
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 10:56:18 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4f8735ac3e3so2628850e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 03:56:18 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D200310E2BE
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 10:56:49 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2b466073e19so45413361fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Jun 2023 03:56:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687258576; x=1689850576;
+ d=linaro.org; s=google; t=1687258608; x=1689850608;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=VwGJvKL8bIVSVsxQLUUZbS85sC7vlo43qu3RpJRu4DY=;
- b=pHv2LtB1UWqfvUWhXXRTaV2WuDy886fOPcAt8BWym0KEDqSoTizehoS/ATy6BwKOgH
- b0XDbq320c9d7hLHG5VSKnMG/Mb6AMbRA2EAHB43RIhr5+lTHDZcLcCQgcWh9zUaJp6U
- hnMa5BNnX9UQS/VZ5rbgQIy32MXMW8VYPWRr2f272W5fdQb4qQ0UcAfF57aftbB7UBhf
- hIV+XlZmrKnwXNVzbQz/vTk28G7HiF2gUOKutJFeB0ubt9UINqhZEhyT9UuV6GpBZI3T
- bxXhqvEmA3TJ9ZhJFwMIvNMi5xlNCwoueCGJfcyM1+xfStdXpY4VSgeVwguWKd5kxb0x
- HPGw==
+ bh=oFqY3JPIOHhrCDWe7opJVMIu2iuwa1Q7D1xQRKlMgbQ=;
+ b=uRLcWOUWpEIQl6vz1xWRgHsilN6LvWK3L/02cDKUqJHNnzb4hwG+pxYVHl/+VYASRF
+ nC6X79mVaUbV2G3YKCFY+lC/JYjNGWR5fp2Dbn59T9gHCSXoCxjbnHE5Zl8TkDBgREVv
+ Ai9Et1hrlL9UIRmTGf8A3LJCO+iXgq580QUmnWOecZ5Ve9+3vaYkjoZ5En5Z/A7RJ+48
+ BTkiJojsH97sqWJdy5YbfYSZUW3r8hiOs7z7x+UfIjWe+U5Iz9TCjgQAbnF+K2FHK7GG
+ 4RiGrnb2D6TdyK+8NK3Qa+uDZW5RDxhdETLXy7inyxXF6T64XzUiwAqZLh8jZKONWhCp
+ Oc8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687258576; x=1689850576;
+ d=1e100.net; s=20221208; t=1687258608; x=1689850608;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VwGJvKL8bIVSVsxQLUUZbS85sC7vlo43qu3RpJRu4DY=;
- b=fXEsSTrmgSDfiLnH6hsHiszFSr372CLzdlwsHy7i6EYMmnz+T3vFlF4Hi4OBgAUpZp
- thOc5zMrwyoOckzSe5BiWUyIQY8PZb67bTkzMt0polg8E4lk2TCu1yiPIJgFnSiFiS6o
- bUuOetXFqN2DR8MWhq6nQs7/LYXWDmEG+ThLNrrEf8y2B7GgyIzhgXc+UhOqm7h8ch7t
- QgnHNBvuvTFnd/Sk3YfkMPhZhqT1Mz7hLq9fxIsNFeSEg6BJFFblf/vm2kDy4dDyxhEG
- u1UBnhGyzkEckM4z43tGg5UIXMaN/atG3vBv2FVttIHcENi1QaVmDkUT0y9APOlYs2IL
- SREw==
-X-Gm-Message-State: AC+VfDxEA/RXKWJzu8kndgNyA1CZQuUCwaN1XynCSaXi4ycwHlZN85NY
- lNeFVVcf7BQ0y1+o7s9xLTaJgN5bFVNcTkJZ62Q=
-X-Google-Smtp-Source: ACHHUZ6gLfBFkX5OpvpQ1KU0BrK026q12jba0np2sWg67nwCGim7wU5dkJbVHle3NJb4iis6pc3eAg==
-X-Received: by 2002:a05:6512:46c:b0:4f8:5bbb:7fa0 with SMTP id
- x12-20020a056512046c00b004f85bbb7fa0mr5327995lfd.13.1687258575976; 
- Tue, 20 Jun 2023 03:56:15 -0700 (PDT)
+ bh=oFqY3JPIOHhrCDWe7opJVMIu2iuwa1Q7D1xQRKlMgbQ=;
+ b=gGgZNhKbEJolrtHGBSdTXAG9XnJ1UPsH6o1vnO40gT+RgtIyIc3vwLPXJzsSHwL8kW
+ Ub85UR38xF0HID9Zwday1TeTIoV8DcXBWchnPA8L0AlsK6Bic8bORkQxpfEipoBZ0dp9
+ cZ05mjwkgAmC8eiSIaU26EIe7JfjjhHcdWRrlEqWaMxkAyWPI2mOcWAjjulj5o0Vq745
+ X1xpV31Pz8+xMYLX2YPYEnvN4nDVfJn6uEK5Eo5IRBXc6E/z8PBc3/Ri3y05hxpIa1R2
+ nCILxeKFHYjnkXm+MpOnmSRp91YWjtVbl6WSF4UmGfy5o091EU+zQy+MktDZRCc9cnPM
+ PYaw==
+X-Gm-Message-State: AC+VfDwENNHT11tRU99tIkexattvFJtLki8Rwn9noxExhoQaabRcszmD
+ 0uDc7V7IBH22L5a0QoxJwiGhjQ==
+X-Google-Smtp-Source: ACHHUZ6hCNdrCmb27LQnbm+NLckOTiA3YD8TuMMSXhmHUe5FnN3n3LlMF3AW9/tFmXxA+iXnNOXJsg==
+X-Received: by 2002:a2e:a601:0:b0:2b4:4bb7:2618 with SMTP id
+ v1-20020a2ea601000000b002b44bb72618mr7652691ljp.19.1687258608115; 
+ Tue, 20 Jun 2023 03:56:48 -0700 (PDT)
 Received: from [192.168.1.101] (abxj193.neoplus.adsl.tpnet.pl. [83.9.3.193])
  by smtp.gmail.com with ESMTPSA id
- u2-20020ac24c22000000b004f862732a3asm314255lfq.194.2023.06.20.03.56.14
+ h19-20020a2eb0f3000000b002b3318c8d6fsm359850ljl.28.2023.06.20.03.56.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jun 2023 03:56:15 -0700 (PDT)
-Message-ID: <6d598438-f10f-8678-7878-829b8b3ae790@linaro.org>
-Date: Tue, 20 Jun 2023 12:56:13 +0200
+ Tue, 20 Jun 2023 03:56:47 -0700 (PDT)
+Message-ID: <331b4f84-a852-3197-f26a-4f1f0368ef70@linaro.org>
+Date: Tue, 20 Jun 2023 12:56:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -61,13 +61,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20230620000846.946925-1-dmitry.baryshkov@linaro.org>
- <20230620000846.946925-8-dmitry.baryshkov@linaro.org>
+ <20230620000846.946925-9-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230620000846.946925-8-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230620000846.946925-9-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 7/8] drm/msm/dpu: drop
- dpu_core_perf_destroy()
+Subject: Re: [Freedreno] [PATCH 8/8] drm/msm/dpu: remove unused fields from
+ struct dpu_core_perf
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,70 +89,74 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 20.06.2023 02:08, Dmitry Baryshkov wrote:
-> This function does nothing, just clears several data pointers. Drop it
-> now.
+> Remove dpu_core_perf::dev and dpu_core_perf::debugfs_root fields, they
+> are not used by the code.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 12 ------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  6 ------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  1 -
->  3 files changed, 19 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index 78a7e3ea27a4..f779ad544347 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -394,18 +394,6 @@ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
->  }
->  #endif
->  
-> -void dpu_core_perf_destroy(struct dpu_core_perf *perf)
-> -{
-> -	if (!perf) {
-> -		DPU_ERROR("invalid parameters\n");
-> -		return;
-> -	}
-> -
-> -	perf->max_core_clk_rate = 0;
-> -	perf->core_clk = NULL;
-> -	perf->dev = NULL;
-> -}
-> -
->  int dpu_core_perf_init(struct dpu_core_perf *perf,
->  		struct drm_device *dev,
->  		const struct dpu_perf_cfg *perf_cfg,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> index e8a7916b6f71..e1198c104b5e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> @@ -69,12 +69,6 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
->   */
->  void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc);
->  
-> -/**
-> - * dpu_core_perf_destroy - destroy the given core performance context
-> - * @perf: Pointer to core performance context
-> - */
-> -void dpu_core_perf_destroy(struct dpu_core_perf *perf);
-> -
->  /**
->   * dpu_core_perf_init - initialize the given core performance context
->   * @perf: Pointer to core performance context
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 6e62606e32de..4439147d2c35 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1162,7 +1162,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->  	return 0;
->  
->  drm_obj_init_err:
-> -	dpu_core_perf_destroy(&dpu_kms->perf);
->  hw_intr_init_err:
->  perf_err:
->  power_error:
-This screams for another cleanup ;)
-
-Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 2 --
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h | 4 ----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 2 +-
+>  3 files changed, 1 insertion(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> index f779ad544347..7f110d15b101 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> @@ -395,11 +395,9 @@ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
+>  #endif
+>  
+>  int dpu_core_perf_init(struct dpu_core_perf *perf,
+> -		struct drm_device *dev,
+>  		const struct dpu_perf_cfg *perf_cfg,
+>  		struct clk *core_clk)
+>  {
+> -	perf->dev = dev;
+>  	perf->perf_cfg = perf_cfg;
+>  	perf->core_clk = core_clk;
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> index e1198c104b5e..623e2d058695 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> @@ -27,7 +27,6 @@ struct dpu_core_perf_params {
+>  /**
+>   * struct dpu_core_perf - definition of core performance context
+>   * @dev: Pointer to drm device
+> - * @debugfs_root: top level debug folder
+>   * @perf_cfg: Platform-specific performance configuration
+>   * @core_clk: Pointer to the core clock
+>   * @core_clk_rate: current core clock rate
+> @@ -36,8 +35,6 @@ struct dpu_core_perf_params {
+>   * @enable_bw_release: debug control for bandwidth release
+>   */
+>  struct dpu_core_perf {
+> -	struct drm_device *dev;
+> -	struct dentry *debugfs_root;
+>  	const struct dpu_perf_cfg *perf_cfg;
+>  	struct clk *core_clk;
+>  	u64 core_clk_rate;
+> @@ -77,7 +74,6 @@ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc);
+>   * @core_clk: pointer to core clock
+>   */
+>  int dpu_core_perf_init(struct dpu_core_perf *perf,
+> -		struct drm_device *dev,
+>  		const struct dpu_perf_cfg *perf_cfg,
+>  		struct clk *core_clk);
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 4439147d2c35..5297cec68c9c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1115,7 +1115,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>  		dpu_kms->hw_vbif[vbif->id] = hw;
+>  	}
+>  
+> -	rc = dpu_core_perf_init(&dpu_kms->perf, dev, dpu_kms->catalog->perf,
+> +	rc = dpu_core_perf_init(&dpu_kms->perf, dpu_kms->catalog->perf,
+>  			msm_clk_bulk_get_clock(dpu_kms->clocks, dpu_kms->num_clocks, "core"));
+>  	if (rc) {
+>  		DPU_ERROR("failed to init perf %d\n", rc);
