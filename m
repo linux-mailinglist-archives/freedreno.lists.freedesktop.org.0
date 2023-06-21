@@ -1,35 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E857391C2
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 23:45:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BED8473925E
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 00:18:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405AD10E356;
-	Wed, 21 Jun 2023 21:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D19F410E043;
+	Wed, 21 Jun 2023 22:18:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE88F10E356;
- Wed, 21 Jun 2023 21:45:29 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 1E6993F88A;
- Wed, 21 Jun 2023 23:45:24 +0200 (CEST)
-Date: Wed, 21 Jun 2023 23:45:22 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Message-ID: <qew6nd3jqnasb3mivvdxcwugfrvxdeafilaxk35v7uihagk2qi@oxe3oqdgfwpe>
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB3510E043
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 22:18:16 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4f4b2bc1565so8775524e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 15:18:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1687385894; x=1689977894;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zyWuSVMXh2Y/fSXjuElkXOGDHtemipt9fq/ZZgliCDQ=;
+ b=y8vrACxzMcCef2j1eZMvyDCcR4g1WySOtRYSYJyZqwUKM4+gk+I3LPSGmrGtyQtqtw
+ MvYjd6Ib3r6rZHSZMSh2yH4aFQ2E5lARS+WYZhB25P8fxa7ICZ4Qgkd4Pp8w9bXLnyho
+ +ar+OFjHQwc86zWWpU8XRSIiyeaCC4yhtSx+qG3huWbBmuVl8wB9vQhzdp1pbIiG7gFR
+ TNBjkEBdyO4mDXxeWtkUcajbdQUpSFA5Ry9I0WU8whd+wL7QnnRihow0MxwPSsiGzE4E
+ u55FKvTNWFZz8Mtwv8f/FtYsbWr82ukB4r4QkAHYfcfIxQRRWxoxf58G1LJNcR1LfFcG
+ 4hFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687385894; x=1689977894;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zyWuSVMXh2Y/fSXjuElkXOGDHtemipt9fq/ZZgliCDQ=;
+ b=iGBgx3ofb2ySyWGsk3Z/zIhJS9lupjndQnLRJ7lzVbNNYGB4fxaVAsz2DOJIj5+s46
+ zqYayW3eAOxhgd8JOF4ZI0rIevpyn8mnNLg+jFhDkQWXLkSqbTqmroOugEYjw7w4PnAN
+ cd6IvqMwEyAhEJX2ChYRQoJjtGk6Snnl0wG5Rfvwxi7q9uHEmtgdLd50Jd7PALf1ZwFq
+ 0GAFVLfBSY/OGIcD4qjTedkFsVUHbfe5Bh4icCG71THNKCZnsdkcfx9wgxy1td8sUbY8
+ 9vEeheIS8iNMAHecjSzBpxn0G2rU8pN8DVXKtap3a8lit5JbkbBDVOYLwzPgUn0g681t
+ kg+g==
+X-Gm-Message-State: AC+VfDxuqMN1IrvNcPq34Xb1/fbu42G+tzMRKR1XwIpMsq65thIlWObm
+ rbbonAYAZTm+POFK9xCKcgB8xA==
+X-Google-Smtp-Source: ACHHUZ5Si4dCWNPr03XUSarW8gCPbkN/erz8YhdBHCibOFkHWzUSZhPV12IA2841vnOqzTcqJaHntg==
+X-Received: by 2002:ac2:4988:0:b0:4f9:535e:cdca with SMTP id
+ f8-20020ac24988000000b004f9535ecdcamr4407924lfl.7.1687385894197; 
+ Wed, 21 Jun 2023 15:18:14 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ h16-20020ac25970000000b004f85858e52dsm893503lfp.138.2023.06.21.15.18.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Jun 2023 15:18:13 -0700 (PDT)
+Message-ID: <c05a9a02-0a33-6160-9072-717efe30031a@linaro.org>
+Date: Thu, 22 Jun 2023 01:18:13 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 References: <20230118171621.102694-1-bryan.odonoghue@linaro.org>
  <20230118171621.102694-3-bryan.odonoghue@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230118171621.102694-3-bryan.odonoghue@linaro.org>
+ <qew6nd3jqnasb3mivvdxcwugfrvxdeafilaxk35v7uihagk2qi@oxe3oqdgfwpe>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <qew6nd3jqnasb3mivvdxcwugfrvxdeafilaxk35v7uihagk2qi@oxe3oqdgfwpe>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v9 2/2] dt-bindings: msm:
  dsi-controller-main: Document clocks on a per compatible basis
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -44,308 +81,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, dri-devel@lists.freedesktop.org,
- Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org,
- andersson@kernel.org, konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com,
- david@ixit.cz, dianders@chromium.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, robdclark@gmail.com,
- robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, airlied@gmail.com, swboyd@chromium.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ konrad.dybcio@somainline.org, quic_abhinavk@quicinc.com, david@ixit.cz,
+ dianders@chromium.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ robdclark@gmail.com, robh+dt@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ airlied@gmail.com, swboyd@chromium.org, sean@poorly.run,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi!
-
-On 2023-01-18 17:16:21, Bryan O'Donoghue wrote:
-> Each compatible has a different set of clocks which are associated with it.
-> Add in the list of clocks for each compatible.
-
-So if each set of compatibles have their own unique set of clocks, is
-there a reason to have so many duplicate then: blocks?  I ran into this
-while preparing for submitting SM6125 DPU and having no clue where to
-add it.
-
-> Acked-by: Rob Herring <robh@kernel.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  .../display/msm/dsi-controller-main.yaml      | 218 ++++++++++++++++--
->  1 file changed, 201 insertions(+), 17 deletions(-)
+On 22/06/2023 00:45, Marijn Suijten wrote:
+> Hi!
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 35668caa190c4..ad1ba15b74c19 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -9,9 +9,6 @@ title: Qualcomm Display DSI controller
->  maintainers:
->    - Krishna Manikandan <quic_mkrishn@quicinc.com>
->  
-> -allOf:
-> -  - $ref: "../dsi-controller.yaml#"
-> -
->  properties:
->    compatible:
->      oneOf:
-> @@ -50,22 +47,23 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> -    items:
-> -      - description: Display byte clock
-> -      - description: Display byte interface clock
-> -      - description: Display pixel clock
-> -      - description: Display core clock
-> -      - description: Display AHB clock
-> -      - description: Display AXI clock
-> +    description: |
-> +      Several clocks are used, depending on the variant. Typical ones are::
-> +       - bus:: Display AHB clock.
-> +       - byte:: Display byte clock.
-> +       - byte_intf:: Display byte interface clock.
-> +       - core:: Display core clock.
-> +       - core_mss:: Core MultiMedia SubSystem clock.
-
-mm*??
-
-> +       - iface:: Display AXI clock.
-> +       - mdp_core:: MDP Core clock.
-> +       - mnoc:: MNOC clock
-> +       - pixel:: Display pixel clock.
-> +    minItems: 3
-> +    maxItems: 9
->  
->    clock-names:
-> -    items:
-> -      - const: byte
-> -      - const: byte_intf
-> -      - const: pixel
-> -      - const: core
-> -      - const: iface
-> -      - const: bus
-> +    minItems: 3
-> +    maxItems: 9
->  
->    phys:
->      maxItems: 1
-> @@ -161,6 +159,192 @@ required:
->    - assigned-clock-parents
->    - ports
->  
-> +allOf:
-> +  - $ref: ../dsi-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,apq8064-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 7
-> +        clock-names:
-> +          items:
-> +            - const: iface
-> +            - const: bus
-> +            - const: core_mmss
-> +            - const: src
-> +            - const: byte
-> +            - const: pixel
-> +            - const: core
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,msm8916-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 6
-> +        clock-names:
-> +          items:
-> +            - const: mdp_core
-> +            - const: iface
-> +            - const: bus
-> +            - const: byte
-> +            - const: pixel
-> +            - const: core
-
-So this...
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,msm8953-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 6
-> +        clock-names:
-> +          items:
-> +            - const: mdp_core
-> +            - const: iface
-> +            - const: bus
-> +            - const: byte
-> +            - const: pixel
-> +            - const: core
-
-Is the same as the above.  Can we merge msm8953 into msm8916 or do you
-expect differences down the line?
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,msm8974-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 7
-> +        clock-names:
-> +          items:
-> +            - const: mdp_core
-> +            - const: iface
-> +            - const: bus
-> +            - const: byte
-> +            - const: pixel
-> +            - const: core
-> +            - const: core_mmss
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,msm8996-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 7
-> +        clock-names:
-> +          items:
-> +            - const: mdp_core
-> +            - const: byte
-> +            - const: iface
-> +            - const: bus
-> +            - const: core_mmss
-> +            - const: pixel
-> +            - const: core
-
-This could be the same as msm8226/msm8974 if we reorder the entries.
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,msm8998-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 6
-> +        clock-names:
-> +          items:
-> +            - const: byte
-> +            - const: byte_intf
-> +            - const: pixel
-> +            - const: core
-> +            - const: iface
-> +            - const: bus
-
-Then, here...
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,sc7180-dsi-ctrl
-> +              - qcom,sc7280-dsi-ctrl
-> +              - qcom,sm8250-dsi-ctrl
-> +              - qcom,sm8150-dsi-ctrl
-> +              - qcom,sm8250-dsi-ctrl
-> +              - qcom,sm8350-dsi-ctrl
-> +              - qcom,sm8450-dsi-ctrl
-> +              - qcom,sm8550-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 6
-> +        clock-names:
-> +          items:
-> +            - const: byte
-> +            - const: byte_intf
-> +            - const: pixel
-> +            - const: core
-> +            - const: iface
-> +            - const: bus
-
-... and here ...
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,sdm660-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 9
-> +        clock-names:
-> +          items:
-> +            - const: mdp_core
-> +            - const: byte
-> +            - const: byte_intf
-> +            - const: mnoc
-> +            - const: iface
-> +            - const: bus
-> +            - const: core_mmss
-> +            - const: pixel
-> +            - const: core
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,sdm845-dsi-ctrl
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 6
-> +        clock-names:
-> +          items:
-> +            - const: byte
-> +            - const: byte_intf
-> +            - const: pixel
-> +            - const: core
-> +            - const: iface
-> +            - const: bus
-
-and here, we have *three* identical lists of clocks.  Should they (have
-been) combined?
-
-I can send a patch fixing these all if desired!
-
-- Marijn
-
-> +
->  additionalProperties: false
->  
->  examples:
-> -- 
-> 2.38.1
+> On 2023-01-18 17:16:21, Bryan O'Donoghue wrote:
+>> Each compatible has a different set of clocks which are associated with it.
+>> Add in the list of clocks for each compatible.
 > 
+> So if each set of compatibles have their own unique set of clocks, is
+> there a reason to have so many duplicate then: blocks?  I ran into this
+> while preparing for submitting SM6125 DPU and having no clue where to
+> add it.
+> 
+>> Acked-by: Rob Herring <robh@kernel.org>
+>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>> ---
+>>   .../display/msm/dsi-controller-main.yaml      | 218 ++++++++++++++++--
+>>   1 file changed, 201 insertions(+), 17 deletions(-)
+>>
+
+[skipped most of the comments]
+
+> 
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - qcom,sc7180-dsi-ctrl
+>> +              - qcom,sc7280-dsi-ctrl
+>> +              - qcom,sm8250-dsi-ctrl
+>> +              - qcom,sm8150-dsi-ctrl
+>> +              - qcom,sm8250-dsi-ctrl
+>> +              - qcom,sm8350-dsi-ctrl
+>> +              - qcom,sm8450-dsi-ctrl
+>> +              - qcom,sm8550-dsi-ctrl
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          maxItems: 6
+>> +        clock-names:
+>> +          items:
+>> +            - const: byte
+>> +            - const: byte_intf
+>> +            - const: pixel
+>> +            - const: core
+>> +            - const: iface
+>> +            - const: bus
+> 
+> ... and here ...
+> 
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - qcom,sdm660-dsi-ctrl
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          maxItems: 9
+>> +        clock-names:
+>> +          items:
+>> +            - const: mdp_core
+>> +            - const: byte
+>> +            - const: byte_intf
+>> +            - const: mnoc
+>> +            - const: iface
+>> +            - const: bus
+>> +            - const: core_mmss
+>> +            - const: pixel
+>> +            - const: core
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - qcom,sdm845-dsi-ctrl
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          maxItems: 6
+>> +        clock-names:
+>> +          items:
+>> +            - const: byte
+>> +            - const: byte_intf
+>> +            - const: pixel
+>> +            - const: core
+>> +            - const: iface
+>> +            - const: bus
+> 
+> and here, we have *three* identical lists of clocks.  Should they (have
+> been) combined?
+> 
+> I can send a patch fixing these all if desired!
+
+Probably it would be logical to split follow DPU and MDSS schema and 
+split this file into per-SoC compatibles and a generic file. Then it 
+would be easier to review different SoC parts.
+
+Regarding reordering of clocks. I think we have 5 different 
+configurations in dsi_cfg.c, but we definitely can optimize the schema.
+
+> 
+> - Marijn
+> 
+>> +
+>>   additionalProperties: false
+>>   
+>>   examples:
+>> -- 
+>> 2.38.1
+>>
+
+-- 
+With best wishes
+Dmitry
+
