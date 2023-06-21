@@ -1,65 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB7147388EF
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 17:27:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 368627388F4
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 17:27:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C76D710E4B0;
-	Wed, 21 Jun 2023 15:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B227B10E4B2;
+	Wed, 21 Jun 2023 15:27:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F1710E4AF
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 15:27:22 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2b46f1256bbso50537901fa.0
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 08:27:22 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B1810E4AF
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 15:27:23 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2b47bfd4e45so49209921fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 08:27:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687361240; x=1689953240;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lxGS67E5F7LIYxIf1R7Yz2kDsTmvNbR9wS74p4KXsXM=;
- b=V9lZIK6uFE4tMf0QqO6KFt2IQ+ZgD8cBtfJ8UR3OutbVpRa1zqCoqtL/mU9YYrddSN
- Od2nLsaDxoEke4CFLNwcZYFdsomIPiKCAqgDvXpIf/6N4i18k1w0AauGS9cY+4ADzIkC
- O1rPFt3O1aOEW8PBS4Mwzotw4QgQ9x0v1LCY4Smgp6eyssjsNaQG49E3FrGsWDmAD3In
- NRUMebZ2WCmiCyPkPmHuVPiSEBkNvzUBBV4ZT3/KYY9QtbS2E15+W+871W2BxDZ4yCGD
- tcR8ONhy+zzBM0P/FW7yPH6bBa/iXSdjB/PoqwT1r0ULGtoAqAcuXLh1iF2n8OQszE6C
- Tbww==
+ d=linaro.org; s=google; t=1687361241; x=1689953241;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cinDdKc7qcFMBG/ILqluH58R0lxOnWl8AXgWQvYj7y8=;
+ b=L7XZYrLRMVdNrNT666kAmLVpx0UuAEJm1JszHztq+eVasTX4GMDmNddObn/0Ta9JgW
+ gxQjSGO28UPlxUf3AeIRe8n/HouUdNa9U/72YAp920k7SzDNUz1OyPitDS4p2H7OPRj+
+ 9xDbjJqXa74BuLabUS38U64LlXcjYYkOrv191gUGPc4lF42W01mQx1gz7b1mggPH6Fpo
+ uMwgf44GN64W3quBKjx61T+FxfM9QAaVOx2Lz3ZfDpWufjnB7D/uPAP19XIr0H3nmBcx
+ +DSqZ3skJiq5baHf+ZFCwUocRs8rbd8NjBBx1gqEGHrIsmMPOYJXPEeZzt1OIQZsd2z0
+ a4eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687361240; x=1689953240;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lxGS67E5F7LIYxIf1R7Yz2kDsTmvNbR9wS74p4KXsXM=;
- b=eXt3/oJDG+RmZz5cGNfksI+2wykKr7Rh9qly1Q2kmX+pU+hbGnGUXkXXirb19UN1Kv
- MLo4CQ9EUS8w1Y/IlhZhmb1XFqCZo+QEgZBMAA8Mv830l2hOPIrMTYd/Q31n5CWe7D9y
- LDYJXQyDi9ExRXg43fIadsziIEAnc+OHk5jnAztETlOVua5DVrMP/j57L2O28qL8AjgO
- 3OjRJScBBR5hBeaCZwKxmFzPV6hzLn1lC35htcHo23J/w6EcX/F9JDgOCLv2fd22nctU
- EGTxfLCLwLeeUxPpzmWHD3cQ6LZmaRUAhlNQqJsLM9+LnM7qmqt8AWBQGwjk4jUF4gke
- 76aQ==
-X-Gm-Message-State: AC+VfDw8CRCbAvYTjb/ghvgcI2GbbF8pvueAx/TW+YdRYOJuEju3BNnS
- WKwVab3aYME6V7H6DfCm421BIQ==
-X-Google-Smtp-Source: ACHHUZ6u7ScRV5sTyrJdQiLqv2QdANaIa6NTVDT6DIcDnYZFkG4YkgBkpIJRy5nhzz07EkG9CGdhPQ==
-X-Received: by 2002:a2e:b5cc:0:b0:2b4:7500:3094 with SMTP id
- g12-20020a2eb5cc000000b002b475003094mr3540774ljn.3.1687361240509; 
- Wed, 21 Jun 2023 08:27:20 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1687361241; x=1689953241;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cinDdKc7qcFMBG/ILqluH58R0lxOnWl8AXgWQvYj7y8=;
+ b=QsLnkaMIMeD4l4v+PjGZdZeQC/TJQMwdyn1dxtHUU+SczOGLQ/F03twc2KL/nJFCf8
+ tJnCpUD5dA4zgyPetg1fw4Y4YfXh1otfqKTQ93Fp5mDvIQ1uHVKRiRpHgdDPZGag143F
+ 8M9m6Pi9PRuaF3IEIXPu1GPC+fzZuiAaOnyGLSOZ6riiU4Bt0bO4XZlDOdBoeKVT2L92
+ hiiA4SvHpe3lDVIWbnWzWFciJIRpnl2FlStUA2U2qkSOhvFEFsF/1z6YvqoL3qH8EJHM
+ 6d9a4mG4sB6kAFegY6TuKFRbKM2t597t/Jr2WPzBi2xlimkJ2bm5AIy2Bul51LdX4FQT
+ ghzA==
+X-Gm-Message-State: AC+VfDxi0X3cHMrPdpHsZMmEgSpU+aWOJJm3hTHiMQh933srkRtQZmR9
+ lle130ra6Z/t/yiUg20uFcbAFg==
+X-Google-Smtp-Source: ACHHUZ5DrUiscoavdt2iyHRYadcld7Szp4rZOkCpzgtMW1bpfECW3qcwqzyL93OSiZjSm09amAPr6w==
+X-Received: by 2002:a2e:848a:0:b0:2b4:6c76:332f with SMTP id
+ b10-20020a2e848a000000b002b46c76332fmr8882032ljh.9.1687361241467; 
+ Wed, 21 Jun 2023 08:27:21 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- o11-20020a2e9b4b000000b002ad5f774579sm926408ljj.96.2023.06.21.08.27.19
+ o11-20020a2e9b4b000000b002ad5f774579sm926408ljj.96.2023.06.21.08.27.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 08:27:19 -0700 (PDT)
+ Wed, 21 Jun 2023 08:27:20 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
  Michael Turquette <mturquette@baylibre.com>
-Date: Wed, 21 Jun 2023 18:27:12 +0300
-Message-Id: <20230621152719.1025801-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 21 Jun 2023 18:27:13 +0300
+Message-Id: <20230621152719.1025801-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230621152719.1025801-1-dmitry.baryshkov@linaro.org>
+References: <20230621152719.1025801-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 0/7] phy: qcom: qmp-combo: rework register access
+Subject: [Freedreno] [PATCH 1/7] phy: qcom: qmp-combo: correct bias0_en
+ programming
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,35 +83,41 @@ Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The patch at [1], which added another function just to have v4 vs v6
-register address difference prompted me to take a look at the combo PHY
-driver. We already have mechanism, register layout descriptions, for
-coping with register address differences, which I ignored while adding
-v4 support. It looks like nowadays this has exploded somehow, resulting
-inseveral almost-identicatical functions.
+It seems the commit a2e927b0e50d ("phy: qcom-qmp-combo: Add sc8280xp
+USB/DP combo phys") contained a typo for selecting bias0_en values.
+First, bias0_en and bias1_en are expected to be symmetrical, and then
+the vendor driver also uses `flipped : 0x3E : 0x15` statement for
+bias0_en. Correct bias0_en programming to follow this.
 
-Forcibly use regs layout for all version-specific registers used in DP
-PHY programming. As a result, this allows us to drop several very
-similar functions. And also while doing this cleanup I spotted a typo,
-which resulted in a patch 1, fixing bias0_en programming for sc8280 and
-sm8550 PHYs.
+Fixes: 49742e9edab3 ("phy: qcom-qmp-combo: Add support for SM8550")
+Fixes: a2e927b0e50d ("phy: qcom-qmp-combo: Add sc8280xp USB/DP combo phys")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-[1] https://lore.kernel.org/linux-arm-msm/20230601-topic-sm8550-upstream-dp-phy-init-fix-v1-1-4e9da9f97991@linaro.org/
-
-Dmitry Baryshkov (7):
-  phy: qcom: qmp-combo: correct bias0_en programming
-  phy: qcom: qmp-combo: reuse register layouts for more registers
-  phy: qcom: qmp-combo: reuse register layouts for even more registers
-  phy: qcom: qmp-combo: reuse register layouts for some more registers
-  phy: qcom: qmp-combo: drop similar functions
-  phy: qcom: qmp-combo: drop qmp_v6_dp_aux_init()
-  phy: qcom: qmp-combo: extract common function to setup clocks
-
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c     | 408 +++++++-----------
- .../qualcomm/phy-qcom-qmp-qserdes-txrx-v6.h   |   5 +
- drivers/phy/qualcomm/phy-qcom-qmp.h           |   2 +
- 3 files changed, 174 insertions(+), 241 deletions(-)
-
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index bebce8c591a3..9d03b7b8e00c 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -2322,7 +2322,7 @@ static int qmp_v5_configure_dp_phy(struct qmp_combo *qmp)
+ 		return ret;
+ 
+ 	if (dp_opts->lanes == 1) {
+-		bias0_en = reverse ? 0x3e : 0x1a;
++		bias0_en = reverse ? 0x3e : 0x15;
+ 		drvr0_en = reverse ? 0x13 : 0x10;
+ 		bias1_en = reverse ? 0x15 : 0x3e;
+ 		drvr1_en = reverse ? 0x10 : 0x13;
+@@ -2382,7 +2382,7 @@ static int qmp_v6_configure_dp_phy(struct qmp_combo *qmp)
+ 		return ret;
+ 
+ 	if (dp_opts->lanes == 1) {
+-		bias0_en = reverse ? 0x3e : 0x1a;
++		bias0_en = reverse ? 0x3e : 0x15;
+ 		drvr0_en = reverse ? 0x13 : 0x10;
+ 		bias1_en = reverse ? 0x15 : 0x3e;
+ 		drvr1_en = reverse ? 0x10 : 0x13;
 -- 
 2.39.2
 
