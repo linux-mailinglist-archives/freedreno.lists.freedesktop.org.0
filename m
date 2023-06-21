@@ -1,43 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4AA7388A2
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 17:17:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB7147388EF
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 17:27:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2409D10E4AA;
-	Wed, 21 Jun 2023 15:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C76D710E4B0;
+	Wed, 21 Jun 2023 15:27:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3BAE10E4A9;
- Wed, 21 Jun 2023 15:17:36 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 43F9E200EA;
- Wed, 21 Jun 2023 17:17:31 +0200 (CEST)
-Date: Wed, 21 Jun 2023 17:17:29 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <26tvhvqpxtxz5tqc6jbjixadpae34k7uc7fyec2u5o2ccj4tdq@tjvguzlolc3g>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-2-c7069f2efca1@quicinc.com>
- <c74c9e0e-d059-f0e3-4350-03089c37131a@linaro.org>
- <cce68370-3fd9-4c9a-258e-af0d5d057fda@quicinc.com>
- <n2c5qlujxhbbj2aqlgj7fetzoteood5h4hmbwt4mapi77xlvmt@bpourzaideti>
- <81a5e241-ec82-7414-8752-4ce3cb084959@linaro.org>
- <f14f2c31-38c2-0600-3a29-17e83afececf@quicinc.com>
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F1710E4AF
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 15:27:22 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2b46f1256bbso50537901fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 08:27:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1687361240; x=1689953240;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lxGS67E5F7LIYxIf1R7Yz2kDsTmvNbR9wS74p4KXsXM=;
+ b=V9lZIK6uFE4tMf0QqO6KFt2IQ+ZgD8cBtfJ8UR3OutbVpRa1zqCoqtL/mU9YYrddSN
+ Od2nLsaDxoEke4CFLNwcZYFdsomIPiKCAqgDvXpIf/6N4i18k1w0AauGS9cY+4ADzIkC
+ O1rPFt3O1aOEW8PBS4Mwzotw4QgQ9x0v1LCY4Smgp6eyssjsNaQG49E3FrGsWDmAD3In
+ NRUMebZ2WCmiCyPkPmHuVPiSEBkNvzUBBV4ZT3/KYY9QtbS2E15+W+871W2BxDZ4yCGD
+ tcR8ONhy+zzBM0P/FW7yPH6bBa/iXSdjB/PoqwT1r0ULGtoAqAcuXLh1iF2n8OQszE6C
+ Tbww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687361240; x=1689953240;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lxGS67E5F7LIYxIf1R7Yz2kDsTmvNbR9wS74p4KXsXM=;
+ b=eXt3/oJDG+RmZz5cGNfksI+2wykKr7Rh9qly1Q2kmX+pU+hbGnGUXkXXirb19UN1Kv
+ MLo4CQ9EUS8w1Y/IlhZhmb1XFqCZo+QEgZBMAA8Mv830l2hOPIrMTYd/Q31n5CWe7D9y
+ LDYJXQyDi9ExRXg43fIadsziIEAnc+OHk5jnAztETlOVua5DVrMP/j57L2O28qL8AjgO
+ 3OjRJScBBR5hBeaCZwKxmFzPV6hzLn1lC35htcHo23J/w6EcX/F9JDgOCLv2fd22nctU
+ EGTxfLCLwLeeUxPpzmWHD3cQ6LZmaRUAhlNQqJsLM9+LnM7qmqt8AWBQGwjk4jUF4gke
+ 76aQ==
+X-Gm-Message-State: AC+VfDw8CRCbAvYTjb/ghvgcI2GbbF8pvueAx/TW+YdRYOJuEju3BNnS
+ WKwVab3aYME6V7H6DfCm421BIQ==
+X-Google-Smtp-Source: ACHHUZ6u7ScRV5sTyrJdQiLqv2QdANaIa6NTVDT6DIcDnYZFkG4YkgBkpIJRy5nhzz07EkG9CGdhPQ==
+X-Received: by 2002:a2e:b5cc:0:b0:2b4:7500:3094 with SMTP id
+ g12-20020a2eb5cc000000b002b475003094mr3540774ljn.3.1687361240509; 
+ Wed, 21 Jun 2023 08:27:20 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ o11-20020a2e9b4b000000b002ad5f774579sm926408ljj.96.2023.06.21.08.27.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jun 2023 08:27:19 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Michael Turquette <mturquette@baylibre.com>
+Date: Wed, 21 Jun 2023 18:27:12 +0300
+Message-Id: <20230621152719.1025801-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f14f2c31-38c2-0600-3a29-17e83afececf@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Set DATABUS_WIDEN on
- command mode encoders
+Subject: [Freedreno] [PATCH 0/7] phy: qcom: qmp-combo: rework register access
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,65 +72,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-20 14:38:34, Jessica Zhang wrote:
-<snip>
-> >>>>> +    if (phys_enc->hw_intf->ops.enable_widebus)
-> >>>>> +        phys_enc->hw_intf->ops.enable_widebus(phys_enc->hw_intf);
-> >>>>
-> >>>> No. Please provide a single function which takes necessary
-> >>>> configuration, including compression and wide_bus_enable.
-> >>>>
-> >>>
-> >>> There are two ways to look at this. Your point is coming from the
-> >>> perspective that its programming the same register but just a different
-> >>> bit. But that will also make it a bit confusing.
-> > 
-> > My point is to have a high-level function that configures the INTF for 
-> > the CMD mode. This way it can take a structure with necessary 
-> > configuration bits.
-> 
-> Hi Dmitry,
-> 
-> After discussing this approach with Abhinav, we still have a few 
-> questions about it:
-> 
-> Currently, only 3 of the 32 bits for INTF_CONFIG2 are being used (the 
-> rest are reserved with no plans of being programmed in the future). Does 
-> this still justify the use of a struct to pass in the necessary 
-> configuration?
+The patch at [1], which added another function just to have v4 vs v6
+register address difference prompted me to take a look at the combo PHY
+driver. We already have mechanism, register layout descriptions, for
+coping with register address differences, which I ignored while adding
+v4 support. It looks like nowadays this has exploded somehow, resulting
+inseveral almost-identicatical functions.
 
-No.  The point Dmitry is making is **not** about this concidentally
-using the same register, but about adding a common codepath to enable
-compression on this hw_intf (regardless of the registers it needs to
-touch).  Similar to how dpu_hw_intf_setup_timing_engine() programs the
-hw_intf - including widebus! - for video-mode.
+Forcibly use regs layout for all version-specific registers used in DP
+PHY programming. As a result, this allows us to drop several very
+similar functions. And also while doing this cleanup I spotted a typo,
+which resulted in a patch 1, fixing bias0_en programming for sc8280 and
+sm8550 PHYs.
 
-Or even more generically, have a struct similar to intf_timing_params
-that says how the intf needs to be configured - without the caller
-knowing about INTF_CONFIG2.
+[1] https://lore.kernel.org/linux-arm-msm/20230601-topic-sm8550-upstream-dp-phy-init-fix-v1-1-4e9da9f97991@linaro.org/
 
-struct dpu_hw_intf_cfg is a very good example of how we can use a single
-struct and a single callback to configure multiple registers at once
-based on some input parameters.
+Dmitry Baryshkov (7):
+  phy: qcom: qmp-combo: correct bias0_en programming
+  phy: qcom: qmp-combo: reuse register layouts for more registers
+  phy: qcom: qmp-combo: reuse register layouts for even more registers
+  phy: qcom: qmp-combo: reuse register layouts for some more registers
+  phy: qcom: qmp-combo: drop similar functions
+  phy: qcom: qmp-combo: drop qmp_v6_dp_aux_init()
+  phy: qcom: qmp-combo: extract common function to setup clocks
 
-> In addition, it seems that video mode does all its INTF_CONFIG2 
-> configuration separately in dpu_hw_intf_setup_timing_engine(). If we 
-> have a generic set_intf_config2() op, it might be good to have it as 
-> part of a larger cleanup where we have both video and command mode use 
-> the generic op. What are your thoughts on this?
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c     | 408 +++++++-----------
+ .../qualcomm/phy-qcom-qmp-qserdes-txrx-v6.h   |   5 +
+ drivers/phy/qualcomm/phy-qcom-qmp.h           |   2 +
+ 3 files changed, 174 insertions(+), 241 deletions(-)
 
-Not in that way, but if there is a generic enable_compression() or
-configure_compression() callback (or even more generic, similar to
-setup_intf_cfg in dpu_hw_ctl) that would work for both video-mode and
-command-mode, maybe that is beneficial.
+-- 
+2.39.2
 
-- Marijn
