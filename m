@@ -2,89 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ACF3737EEF
-	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 11:26:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4AA7388A2
+	for <lists+freedreno@lfdr.de>; Wed, 21 Jun 2023 17:17:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DEAE10E42B;
-	Wed, 21 Jun 2023 09:26:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2409D10E4AA;
+	Wed, 21 Jun 2023 15:17:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F5910E427
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 09:26:34 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-3f9c2913133so2823845e9.1
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 02:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687339592; x=1689931592;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=VG9qCKvekYoYgR4Fl0peORs6WrpDzePjez0ReZU/eVI=;
- b=xQESYjL4gW6Io7gbTKsEXRQ8/CpdNIXOBuDG3JUhaOFlzoppGV+5OdFgHiwAJC3epk
- ZHClsNRFnRbabFhaovMpFfMaBODei/Isc4Bpt68KnQoTK42nsknP3LICATYnMfHC+UQ5
- 7wzMu7dSfMet++/e5wqPTh+orUNzicgV3xnJxXVbheQcZT1I3EDXf8m87cTKDRIOdBoD
- uCIgcxWtNLh1kWF/qcro/TeVoH+n27IIiI3V54NrEigBZqsM3FWhPwdOVm64chuI0jGm
- acdqDhZD3yiL5KWfr9krEO0ubp+bTruMLn+fm/Qn+QUTOXllvx3AS2dZ21uUTpoUWrWf
- VosQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687339592; x=1689931592;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VG9qCKvekYoYgR4Fl0peORs6WrpDzePjez0ReZU/eVI=;
- b=KXUFFGn76sXq2af89qIFy0wrx2ou8TfQgryCWeD3GhWH1P3Ml47jI1K97aRlN9k0Ef
- qQPYHBJdOwYYor+eQYLWPXmDvbKgXE84H61aC/WjEw9VVzAOUM1mZJaSACeQVcRnkB+C
- c9SseAN6ylDfpzmK8eaSQoMs/u0/FGck5Zu0h9Gte6+ldBQLlgBtsdz+TuOpjiybixpJ
- Uu7geedTT/5OpNDm83L441KEhidvODls7pqs149tUXcqk5lbUwcS+mopvjYQpsvOSa+s
- mL8G8llDyiRvvbzzsmW+o//eCNPRdUOOsKo8jQ+CUk/QYyaXWzcJKFgC5cEty25bvMlL
- yW6g==
-X-Gm-Message-State: AC+VfDzs5I3RgekivfrWiavq/EcBlw3HKMDil2tdqJqL/mnpYbVGkTp/
- VUP+axaofBM5jI+SfXi4gIcgrA==
-X-Google-Smtp-Source: ACHHUZ76qDL0JPGb4BAfepy4QIinWf6vA5aG9heOM2nB+6kfh7t7vrhlEdyUFRtNteZskvZUuQkciw==
-X-Received: by 2002:a7b:c045:0:b0:3f7:b1dd:9553 with SMTP id
- u5-20020a7bc045000000b003f7b1dd9553mr10904437wmc.14.1687339592026; 
- Wed, 21 Jun 2023 02:26:32 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- n8-20020a05600c294800b003f90a604885sm4435068wmd.34.2023.06.21.02.26.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 02:26:31 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 21 Jun 2023 11:26:27 +0200
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3BAE10E4A9;
+ Wed, 21 Jun 2023 15:17:36 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 43F9E200EA;
+ Wed, 21 Jun 2023 17:17:31 +0200 (CEST)
+Date: Wed, 21 Jun 2023 17:17:29 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <26tvhvqpxtxz5tqc6jbjixadpae34k7uc7fyec2u5o2ccj4tdq@tjvguzlolc3g>
+References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
+ <20230525-add-widebus-support-v1-2-c7069f2efca1@quicinc.com>
+ <c74c9e0e-d059-f0e3-4350-03089c37131a@linaro.org>
+ <cce68370-3fd9-4c9a-258e-af0d5d057fda@quicinc.com>
+ <n2c5qlujxhbbj2aqlgj7fetzoteood5h4hmbwt4mapi77xlvmt@bpourzaideti>
+ <81a5e241-ec82-7414-8752-4ce3cb084959@linaro.org>
+ <f14f2c31-38c2-0600-3a29-17e83afececf@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-3-8bf386b373eb@linaro.org>
-References: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-0-8bf386b373eb@linaro.org>
-In-Reply-To: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-0-8bf386b373eb@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=971;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=OJLy9BOcYtfmScZM3DtWEAFi/hUxNEeYncZLHm7ar6U=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBkksJD6P8+2DIjZZuy4odgtDdmcuanRr0RVltXqACF
- 3dixsyaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZJLCQwAKCRB33NvayMhJ0aasEA
- CIw1on1qij6mV/QegVshdcgWDNEBHwXCtfLomZ9fxodct2WSOziNhiAn7o7fUP2U2CXS57K7h3JD/b
- 5DdWW1OYk3hLVZgFOoKQ0/RqxzIKulddUnaCA49ScYAvCrghj8iOn8abGBrEYseXJmZoKCkVRKJ6Qd
- m02qXNfrPtHYm++FfR3NB0z3zuboKzncbnf7DbSUD2cUGIOOIdYHCZNKQopgZW3VpHOHvro8lC3zjX
- CijhwuMCyZoqDYkRXHulx+pSnTvykNCaNqQe6At+qQ0Jvx55tkdO0xr7lo+UEzBt2Y1tuKjfandjrJ
- O1dKxzkrOdVN7f6FG0zqLrp3hx8iQe/8y+WTcGevIdew5V5Zpe7g9nXAOV6q+hdwFDBM4ZImVvtpN0
- 8xp0Jp5Bk60xAhsQluHYpqlkp53227XSGKuP+4SoQ9Hq/3/dTErV3dC60dtzFji71oLvBiiY5RNh5A
- q2Ag7aDw5HEaECHvgYGnf+4F5MDhMFw4XxPUk2hRcg1qf8eb50iAq1COfMspp5cjPJYUdsc7iCBMfd
- dWY6f7HclsSO08vRySXDhRqqlQk5E1JQxGIGz6fxk6tCxR4En4F42+929J9OAUJuIfa6b8/mIzJia8
- iWc6gfCvRVtjQa/hKZpnz20oVG8I/AZAc3vrHgFyJofaST2TPyaj2uSVQT+g==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH 3/3] dt-bindings: display: msm: sm8550-mdss:
- document displayport controller subnode
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f14f2c31-38c2-0600-3a29-17e83afececf@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Set DATABUS_WIDEN on
+ command mode encoders
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,40 +50,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the optional document displayport controller subnode
-of the SM8550 MDSS.
+On 2023-06-20 14:38:34, Jessica Zhang wrote:
+<snip>
+> >>>>> +    if (phys_enc->hw_intf->ops.enable_widebus)
+> >>>>> +        phys_enc->hw_intf->ops.enable_widebus(phys_enc->hw_intf);
+> >>>>
+> >>>> No. Please provide a single function which takes necessary
+> >>>> configuration, including compression and wide_bus_enable.
+> >>>>
+> >>>
+> >>> There are two ways to look at this. Your point is coming from the
+> >>> perspective that its programming the same register but just a different
+> >>> bit. But that will also make it a bit confusing.
+> > 
+> > My point is to have a high-level function that configures the INTF for 
+> > the CMD mode. This way it can take a structure with necessary 
+> > configuration bits.
+> 
+> Hi Dmitry,
+> 
+> After discussing this approach with Abhinav, we still have a few 
+> questions about it:
+> 
+> Currently, only 3 of the 32 bits for INTF_CONFIG2 are being used (the 
+> rest are reserved with no plans of being programmed in the future). Does 
+> this still justify the use of a struct to pass in the necessary 
+> configuration?
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 8 ++++++++
- 1 file changed, 8 insertions(+)
+No.  The point Dmitry is making is **not** about this concidentally
+using the same register, but about adding a common codepath to enable
+compression on this hw_intf (regardless of the registers it needs to
+touch).  Similar to how dpu_hw_intf_setup_timing_engine() programs the
+hw_intf - including widebus! - for video-mode.
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-index 887be33ba108..70ce7cb7a80d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-@@ -42,6 +42,14 @@ patternProperties:
-       compatible:
-         const: qcom,sm8550-dpu
- 
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    properties:
-+      compatible:
-+        items:
-+          - const: qcom,sm8550-dp
-+          - const: qcom,sm8350-dp
-+
-   "^dsi@[0-9a-f]+$":
-     type: object
-     properties:
+Or even more generically, have a struct similar to intf_timing_params
+that says how the intf needs to be configured - without the caller
+knowing about INTF_CONFIG2.
 
--- 
-2.34.1
+struct dpu_hw_intf_cfg is a very good example of how we can use a single
+struct and a single callback to configure multiple registers at once
+based on some input parameters.
 
+> In addition, it seems that video mode does all its INTF_CONFIG2 
+> configuration separately in dpu_hw_intf_setup_timing_engine(). If we 
+> have a generic set_intf_config2() op, it might be good to have it as 
+> part of a larger cleanup where we have both video and command mode use 
+> the generic op. What are your thoughts on this?
+
+Not in that way, but if there is a generic enable_compression() or
+configure_compression() callback (or even more generic, similar to
+setup_intf_cfg in dpu_hw_ctl) that would work for both video-mode and
+command-mode, maybe that is beneficial.
+
+- Marijn
