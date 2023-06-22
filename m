@@ -2,69 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DDE73A85A
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 20:37:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88EE73A865
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 20:42:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC4DC89226;
-	Thu, 22 Jun 2023 18:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87E2F10E5A8;
+	Thu, 22 Jun 2023 18:42:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8680889798
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 18:37:55 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2b45e347266so99546241fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 11:37:55 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E74FF10E5A0
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 18:42:29 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2b47a15ca10so74701031fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 11:42:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687459073; x=1690051073;
+ d=linaro.org; s=google; t=1687459347; x=1690051347;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=zzG0tSlyMS8K/jdItFZx7TbNpJmG4rkJCyOPMnx7isY=;
- b=TgCE9NX00+he7J84lVf3ryO+yziXXPFD2lu6icnsb9FN6t9l/KWvEc9q/bp8J5wgg3
- bFa9XvYx53cq6Tduss48e8umwv95cl3BDkELyey6PHbA+Ba478b/EG1hOz+B6AGJfOSk
- minmf6gV0Tess4twbTNTfQWDb4sTMKY8nsv4HzPGXnRMRFf7odQy0b6vFTFTHhs8koO/
- BVWqbbEfqdRlh38Pqc6pWPKnD9lGZt0rvV40fwXBrrtlEDEiYzW7MlWPlIMNibAQ8ww+
- ML24EvUQHi0nGjzJOK9wQAdUZrXhPLUJsHIoBE35yz5ewWSbpcH8zN7nFpPcywK1qQUU
- GuEg==
+ bh=Sjj3Boe/HdR5zbtRo/fyylNooQOkgRfrOTZ9rBEe6Bw=;
+ b=Omoq/Psf65h/J0Xnd36qTxSaAMzihoVX/9b2fJWYcum0UPoYymXDz9mk2wwEn3JoeH
+ npYR9qKvLoLqWY+v04GFXG6qQpqSSqsXjaNNn30xs72VpDbWu7zfPgmDXz5IQ3PK43Hj
+ uJp2yFqObG1CTXIMjfBAERVKUiv7s0BA65tuRw0YHtwAPaFYEp8TXUyUNWnaXVMNKHzH
+ GehQdO/5+9qOCBbHQVn3r/l8WmH5mA3OfbRL84GMJYZBkAsHW058IO+TZiZwIjC0tak0
+ IKA/ioe6NICNoL9aFuVYJeCoreNHdQkopgWShydzeuGxOqXf6EloNkLRTi8tI2pIPzz4
+ U78A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687459073; x=1690051073;
+ d=1e100.net; s=20221208; t=1687459347; x=1690051347;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zzG0tSlyMS8K/jdItFZx7TbNpJmG4rkJCyOPMnx7isY=;
- b=AdKK+0YR+CMDo4TbJ4ce7CjSKBzvp1et73gV2BFrHTWGDYdgOL/SPfcHcWlFk1VNVR
- 7nyaIZEbM5UKY85wyOn4WJdbdVYgmt5SKr2QpG1ESj/O/jDl6O/iRpTHiSYnWXcT8KsR
- TYPXLsJZQrLT3tnlPJhSSyvtlfNX3BueGF4DIE0l+Yc7j4nhv9Fulk0Zw5m0SkmYcp4i
- eyXMD50R3OA0l4VZnVPyP5QMTuJAm9UdS6epvLDu14q+ZcS+LJ8LDS+3yvZOdRvikCxh
- wik9A0WEdI7CvUXMztI/7kUHYl2IG/iEptKay0c2qAURCJ7FGcehCJj8hBWOQDFQVdiB
- z01Q==
-X-Gm-Message-State: AC+VfDybLXmTJU1ahHNC3eH5dWxSajerDEt8Ts1vuWkCvHDWcyOqmkob
- +sSrJg4K2+RP9RzSqtq9IYBBCQ==
-X-Google-Smtp-Source: ACHHUZ4nIprKKXRwE+j6F9GvSCFLbOOBMZVjxD93Yhc5YuNKQzARcV07GeW3/1dWJYorso09AReFFQ==
-X-Received: by 2002:a2e:b050:0:b0:2b4:734a:35fa with SMTP id
- d16-20020a2eb050000000b002b4734a35famr9582611ljl.42.1687459073220; 
- Thu, 22 Jun 2023 11:37:53 -0700 (PDT)
+ bh=Sjj3Boe/HdR5zbtRo/fyylNooQOkgRfrOTZ9rBEe6Bw=;
+ b=HL7O3SJZQN3eaics0PSE1C/1E0/x41rtDu6VxHHqhHspfXQr605QijNIPBvE5iAi4F
+ zs7A/TmgM/IVNUav9kkPO0xvuD8DyiATNOlORdOoisLRUeuUZQ1vRE4ywuBMau6appLJ
+ gtdVI18iiXisi3zSCSUZvfWoF2rc+kRxkYMYIIZ7jw2DsPh3eOSUslr4SK/oBiQ/2Pus
+ 1jzzD1rEBkpDQLOq/g+vaBIEA0OMsApneHuQcDH3tZCcyTUw/9wH7HW1/NIg+feNlfCw
+ gA7ZPsYN+DAhlZTd5N9wvySTAMeILBo2b7DtHJsn02jVt1MvQ8IP0vC7ul4ohuqyxfGG
+ u2kQ==
+X-Gm-Message-State: AC+VfDzB6TtRBf1BR7bOs9oCzSr/lnwkHEEXoiOb3FdOsEWISaePavw4
+ il4oDEoeLG3vuuMN84qRzV5jPw==
+X-Google-Smtp-Source: ACHHUZ45fBGVA7hhjEz9ruDoM5N1Xdmlgj5bRXIJecI+q+YtDZCQzJGfn3VzZPrqrZJ/dHgobkjzTg==
+X-Received: by 2002:a2e:9f56:0:b0:2b4:45bd:fd7 with SMTP id
+ v22-20020a2e9f56000000b002b445bd0fd7mr11840621ljk.50.1687459347539; 
+ Thu, 22 Jun 2023 11:42:27 -0700 (PDT)
 Received: from [10.2.145.31] ([193.65.47.217])
  by smtp.gmail.com with ESMTPSA id
- x18-20020a2e9dd2000000b002b1edfe817fsm1414109ljj.88.2023.06.22.11.37.52
+ e17-20020a2e9851000000b002b331e241edsm1427299ljj.133.2023.06.22.11.42.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jun 2023 11:37:52 -0700 (PDT)
-Message-ID: <33390a7a-f6f6-f2c5-1574-970ed1dc3a20@linaro.org>
-Date: Thu, 22 Jun 2023 21:37:51 +0300
+ Thu, 22 Jun 2023 11:42:26 -0700 (PDT)
+Message-ID: <8f69cb15-6c70-031c-7632-15daddaddce2@linaro.org>
+Date: Thu, 22 Jun 2023 21:42:26 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-GB
-To: Fabio Estevam <festevam@gmail.com>, robdclark@gmail.com
-References: <20230620232319.991918-1-festevam@gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20230620-topic-dsiphy_rpm-v2-0-a11a751f34f0@linaro.org>
+ <20230620-topic-dsiphy_rpm-v2-2-a11a751f34f0@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230620232319.991918-1-festevam@gmail.com>
+In-Reply-To: <20230620-topic-dsiphy_rpm-v2-2-a11a751f34f0@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/a2xx: Call adreno_gpu_init()
- earlier
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dsi: Enable runtime PM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,45 +80,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fabio Estevam <festevam@denx.de>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jonathan@marek.ca
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/06/2023 02:23, Fabio Estevam wrote:
-> From: Fabio Estevam <festevam@denx.de>
+On 20/06/2023 14:43, Konrad Dybcio wrote:
+> Some devices power the DSI PHY/PLL through a power rail that we model
+> as a GENPD. Enable runtime PM to make it suspendable.
 > 
-> The adreno_is_a20x() and adreno_is_a225() functions rely on the
-> GPU revision, but such information is retrieved inside adreno_gpu_init(),
-> which is called afterwards.
-> 
-> Fix this problem by caling adreno_gpu_init() earlier, so that
-> the GPU information revision is available when adreno_is_a20x()
-> and adreno_is_a225() run.
-> 
-> Tested on a imx53-qsb board.
-> 
-> Fixes: 21af872cd8c6 ("drm/msm/adreno: add a2xx")
-> Signed-off-by: Fabio Estevam <festevam@denx.de>
-> ---
-> Hi,
-> 
-> This error has been exposed by a recent commit in linux-next:
-> 
-> cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified before being set")
-> 
-> , but the error has been present since the very first a2xx commit.
-> 
-> Changes since v2:
-> - Call adreno_gpu_init() earlier.
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+So, we were calling pm_runtime_get/put, but we didn't have runtime PM 
+enabled for this device? It might be a nice place for dev_warn() in the 
+driver core.
+
+Nevertheless:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-
+> ---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 > 
->   drivers/gpu/drm/msm/adreno/a2xx_gpu.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> index 2f319e0eb74f..22431e106529 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> @@ -689,6 +689,10 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(phy->ahb_clk),
+>   				     "Unable to get ahb clk\n");
+>   
+> +	ret = devm_pm_runtime_enable(&pdev->dev);
+> +	if (ret)
+> +		return ret;
+> +
+>   	/* PLL init will call into clk_register which requires
+>   	 * register access, so we need to enable power and ahb clock.
+>   	 */
+> 
 
 -- 
 With best wishes
