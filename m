@@ -2,79 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D41B73ACDA
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 01:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAAAC73ACFD
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 01:15:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABE3310E5BA;
-	Thu, 22 Jun 2023 23:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CFC910E38D;
+	Thu, 22 Jun 2023 23:15:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4076310E5B7;
- Thu, 22 Jun 2023 23:04:40 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35MN4aLl006637; Thu, 22 Jun 2023 23:04:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=gEVNUB1zcKbvjNqD3ckCwvagRn7rUtsTyD/VLkXlut8=;
- b=oe656xEn3clCXA6ZoZTwkx6OHK7jBOaRKuRo8Y2Y1jsvtX5BLQMDeMYnJUp7RfYsD0G1
- dUOwtVijU0xW40tclEEh5dyOflghG7BXUj5PMEGYvM70qMCygA33f9iO4d0hr/XrI7gP
- LdQrlTHWbcv0DKM0q376owAppKtwtjwmV+YUT+EKKNwPqax0bL/i82WLu1GVG0JyMtTp
- xjy+BZRHNE19z8vwkRe5xE9zR16PYD/+tcu+WH7G7NE54Bu5vj4rbN/cdw4CESRHLADU
- rU06kVOrMkrnVi2xGk6pkt9PFZyimq+bSCELT+mG1BjExQA+TAEpEMzxL+zeFwwsys8U iA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rc359kxc0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Jun 2023 23:04:36 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35MN4Z6D010733
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Jun 2023 23:04:35 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 22 Jun
- 2023 16:04:34 -0700
-Message-ID: <e594fed4-fc01-477b-1e7c-d1d58e1a0dda@quicinc.com>
-Date: Thu, 22 Jun 2023 16:04:30 -0700
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9711B10E38D
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 23:15:00 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2b479d53d48so1450181fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 16:15:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1687475697; x=1690067697;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=g1JY0yeL3CeoNuEhq9uRKX956qL6nT7MiCllyM/47ik=;
+ b=pDgvUF90fHQm5F2DkDPo2iXIdKKXGkIoGOpgdvMdlg9jB+cag1pl8EJ76CM6XD2nHO
+ T/Q7vGDxcWWFG/NCZhQKgzHFCiHfb4v/LmF+PkScYz8AYs3kq7IS8rVWVLAquwAMJ+Ed
+ GBsfXR5QVrglU+R1oHBgKOEtpPPkgIeQXHbkZEwjYrnIVkuHoXcKuVnGPXZw/gU3ZdFl
+ JLpbeMwU7NWfkW4l9L2Y0JNb0ZdRERyG9J6nXkUQNT/NQvOm4wpWkGp+1A2rwSgg0MZM
+ lw7Q+oCIgiRJCW5wZ7mPkDsuQW0Nh7DghXimKMB9fFshVDQLcr9chYGJ8GdrL4+bUzOR
+ YZkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687475697; x=1690067697;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=g1JY0yeL3CeoNuEhq9uRKX956qL6nT7MiCllyM/47ik=;
+ b=gUyotvqZlQwuZbQAyH0RBrkRJfCQwk43H4uzd/kPvaxmW0SwmAVS2U/F/9EZn4uYZL
+ HcmD7UX8vXx8VB33IGijP1aZM8xnz3ecubDMyIT3Ls49Y12Ta4KHcZ06iGghfzcvbX7+
+ NwAiOc5UUx9h7At1u77oO+dn+TT9ozoNv9jOqTsz9VW9H+5m0xYSsv30K02mSNm+pvue
+ nWfd8AZPPmq+5wjiBMnBvc4fR/GooaXKa2ZmN5xU4OvhiwofCL2E/+kat2O9mEX4x3Mo
+ knbwj3frQyzyDbBL5QwlKMPK1HCcbB1k9jqu8siE1A//CDP9NKE2Vs+L4SEDnuAIomQi
+ M1NQ==
+X-Gm-Message-State: AC+VfDwsoB9tX4LZ4+cio6DrWdKG0fr9S527tj3ofs24pt6TsCKHMbhw
+ lT+eVdzD47n0c5o1xXxqGTO7TA==
+X-Google-Smtp-Source: ACHHUZ51Vi7gdrXGLA0oOJ1dXh3HiLjBGA0Ks/lCXN75Wlh+vv5jSmCwxP1WSZc2IkK17o30KM3N7g==
+X-Received: by 2002:a05:6512:55a:b0:4f7:669f:7da8 with SMTP id
+ h26-20020a056512055a00b004f7669f7da8mr12998738lfl.7.1687475697468; 
+ Thu, 22 Jun 2023 16:14:57 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ g15-20020a19ee0f000000b004f86e5918a6sm1237614lfb.189.2023.06.22.16.14.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Jun 2023 16:14:56 -0700 (PDT)
+Message-ID: <dab90e58-c25a-9b5a-bae0-dfc50de7d363@linaro.org>
+Date: Fri, 23 Jun 2023 02:14:56 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
 References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-3-c7069f2efca1@quicinc.com>
- <3a6cc492-6b54-2c70-402e-995c0b003c01@linaro.org>
- <mfzmioovf54lcuiuzvk4fuz26elag6iw3ohbdhgym7k3qzirhx@dd7vu7ms6azz>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <mfzmioovf54lcuiuzvk4fuz26elag6iw3ohbdhgym7k3qzirhx@dd7vu7ms6azz>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: LgExeXWfvtnKZBj17sv02QKilZNuLY4w
-X-Proofpoint-ORIG-GUID: LgExeXWfvtnKZBj17sv02QKilZNuLY4w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-22_16,2023-06-22_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- suspectscore=0 bulkscore=0 mlxscore=0 malwarescore=0 mlxlogscore=999
- spamscore=0 impostorscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306220198
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dsi: Enable DATABUS_WIDEN for
- DSI command mode
+ <20230525-add-widebus-support-v1-2-c7069f2efca1@quicinc.com>
+ <c74c9e0e-d059-f0e3-4350-03089c37131a@linaro.org>
+ <cce68370-3fd9-4c9a-258e-af0d5d057fda@quicinc.com>
+ <n2c5qlujxhbbj2aqlgj7fetzoteood5h4hmbwt4mapi77xlvmt@bpourzaideti>
+ <81a5e241-ec82-7414-8752-4ce3cb084959@linaro.org>
+ <f14f2c31-38c2-0600-3a29-17e83afececf@quicinc.com>
+ <26tvhvqpxtxz5tqc6jbjixadpae34k7uc7fyec2u5o2ccj4tdq@tjvguzlolc3g>
+ <8dcd643f-9644-a4e7-a0d5-eefa28084a88@linaro.org>
+ <7d5256cd-c0bd-36e3-9b59-63ad8595f0ce@quicinc.com>
+ <b119470d-f656-71d1-8b87-b4b8196f5220@linaro.org>
+ <a4688db2-4230-7485-a688-bc6253d2d4b8@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <a4688db2-4230-7485-a688-bc6253d2d4b8@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Set DATABUS_WIDEN on
+ command mode encoders
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,139 +91,174 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Sean Paul <sean@poorly.run>
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/14/2023 3:03 AM, Marijn Suijten wrote:
-> On 2023-06-14 10:49:31, Dmitry Baryshkov wrote:
->> On 14/06/2023 04:57, Jessica Zhang wrote:
->>> DSI 6G v2.5.x+ supports a data-bus widen mode that allows DSI to send
->>> 48 bits of compressed data per pclk instead of 24.
+On 23/06/2023 01:37, Abhinav Kumar wrote:
+> 
+> 
+> On 6/21/2023 4:46 PM, Dmitry Baryshkov wrote:
+>> On 22/06/2023 02:01, Abhinav Kumar wrote:
 >>>
->>> For all chipsets that support this mode, enable it whenever DSC is
->>> enabled as recommend by the hardware programming guide.
 >>>
->>> Only enable this for command mode as we are currently unable to validate
->>> it for video mode.
+>>> On 6/21/2023 9:36 AM, Dmitry Baryshkov wrote:
+>>>> On 21/06/2023 18:17, Marijn Suijten wrote:
+>>>>> On 2023-06-20 14:38:34, Jessica Zhang wrote:
+>>>>> <snip>
+>>>>>>>>>>> +    if (phys_enc->hw_intf->ops.enable_widebus)
+>>>>>>>>>>> + phys_enc->hw_intf->ops.enable_widebus(phys_enc->hw_intf);
+>>>>>>>>>>
+>>>>>>>>>> No. Please provide a single function which takes necessary
+>>>>>>>>>> configuration, including compression and wide_bus_enable.
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> There are two ways to look at this. Your point is coming from the
+>>>>>>>>> perspective that its programming the same register but just a 
+>>>>>>>>> different
+>>>>>>>>> bit. But that will also make it a bit confusing.
+>>>>>>>
+>>>>>>> My point is to have a high-level function that configures the 
+>>>>>>> INTF for
+>>>>>>> the CMD mode. This way it can take a structure with necessary
+>>>>>>> configuration bits.
+>>>>>>
+>>>>>> Hi Dmitry,
+>>>>>>
+>>>>>> After discussing this approach with Abhinav, we still have a few
+>>>>>> questions about it:
+>>>>>>
+>>>>>> Currently, only 3 of the 32 bits for INTF_CONFIG2 are being used (the
+>>>>>> rest are reserved with no plans of being programmed in the 
+>>>>>> future). Does
+>>>>>> this still justify the use of a struct to pass in the necessary
+>>>>>> configuration?
+>>>>>
+>>>>> No.  The point Dmitry is making is **not** about this concidentally
+>>>>> using the same register, but about adding a common codepath to enable
+>>>>> compression on this hw_intf (regardless of the registers it needs to
+>>>>> touch).
+>>>>
+>>>> Actually to setup INTF for CMD stream (which is equal to setting up 
+>>>> compression at this point).
+>>>>
 >>>
->>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> ---
+>>> Yes it should be setup intf for cmd and not enable compression.
 >>>
->>> Note: The dsi.xml.h changes were generated using the headergen2 script in
->>> envytools [1], but the changes to the copyright and rules-ng-ng source file
->>> paths were dropped.
+>>> Widebus and compression are different features and we should be able 
+>>> to control them independently.
 >>>
->>> [1] https://github.com/freedreno/envytools/
+>>> We just enable them together for DSI. So a separation is necessary.
 >>>
->>>    drivers/gpu/drm/msm/dsi/dsi.xml.h  |  1 +
->>>    drivers/gpu/drm/msm/dsi/dsi_host.c | 19 ++++++++++++++++++-
->>>    2 files changed, 19 insertions(+), 1 deletion(-)
+>>> But I am still not totally convinced we even need to go down the path 
+>>> for having an op called setup_intf_cmd() which takes in a struct like
 >>>
->>> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
->>> index a4a154601114..2a7d980e12c3 100644
->>> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
->>> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
->>> @@ -664,6 +664,7 @@ static inline uint32_t DSI_CMD_MODE_MDP_CTRL2_INPUT_RGB_SWAP(enum dsi_rgb_swap v
->>>    	return ((val) << DSI_CMD_MODE_MDP_CTRL2_INPUT_RGB_SWAP__SHIFT) & DSI_CMD_MODE_MDP_CTRL2_INPUT_RGB_SWAP__MASK;
->>>    }
->>>    #define DSI_CMD_MODE_MDP_CTRL2_BURST_MODE			0x00010000
->>> +#define DSI_CMD_MODE_MDP_CTRL2_DATABUS_WIDEN			0x00100000
+>>> struct dpu_cmd_intf_cfg {
+>>>      bool data_compress;
+>>>      bool widebus_en;
+>>> };
 >>>
->>>    #define REG_DSI_CMD_MODE_MDP_STREAM2_CTRL			0x000001b8
->>>    #define DSI_CMD_MODE_MDP_STREAM2_CTRL_DATA_TYPE__MASK		0x0000003f
->>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>> index 5d7b4409e4e9..1da5238e7105 100644
->>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>> @@ -927,6 +927,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->>>    	u32 hdisplay = mode->hdisplay;
->>>    	u32 wc;
->>>    	int ret;
->>> +	bool widebus_supported = msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
->>> +			msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V2_5_0;
->>> +
+>>> As we have agreed that we will not touch the video mode timing engine 
+>>> path, it leaves us with only two bits.
 >>>
->>>    	DBG("");
+>>> And like I said, its not that these two bits always go together. We 
+>>> want to be able to control them independently which means that its 
+>>> not necessary both bits program the same register one by one. We 
+>>> might just end up programming one of them if we just use widebus.
 >>>
->>> @@ -973,8 +976,15 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->>>    		 *
->>>    		 * hdisplay will be divided by 3 here to account for the fact
->>>    		 * that DPU sends 3 bytes per pclk cycle to DSI.
->>> +		 *
->>> +		 * If widebus is supported, set DATABUS_WIDEN register and divide hdisplay by 6
->>> +		 * instead of 3
+>>> Thats why I am still leaning on keeping this approach.
 >>
->> This is useless, it is already obvious from the code below. Instead
->> there should be something like "wide bus extends that to 6 bytes per
->> pclk cycle"
-> 
-> Yes please.  In general, don't paraphrase the code, but explain _why_ it
-> is doing what it does.  Saying that the widebus feature doubles the
-> bandwidth per pclk tick is much more clear than "divide by 6 instead of
-> 3" - we can read that from the code.
-> 
-> Overall comments have been very good so far (such as the original "to
-> account for the fact that DPU sends 3 bytes per pclk cycle"), though!
-> 
->>>    		 */
->>> -		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
->>> +		if (!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) && widebus_supported)
->>> +			hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 6);
->>> +		else
->>> +			hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
->>> +
->>>    		h_total += hdisplay;
->>>    		ha_end = ha_start + hdisplay;
->>>    	}
->>> @@ -1027,6 +1037,13 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->>>    		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_TOTAL,
->>>    			DSI_CMD_MDP_STREAM0_TOTAL_H_TOTAL(hdisplay) |
->>>    			DSI_CMD_MDP_STREAM0_TOTAL_V_TOTAL(mode->vdisplay));
->>> +
->>> +		if (msm_host->dsc && widebus_supported) {
->>> +			u32 mdp_ctrl2 = dsi_read(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2);
->>> +
->>> +			mdp_ctrl2 |= DSI_CMD_MODE_MDP_CTRL2_DATABUS_WIDEN;
->>> +			dsi_write(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2, mdp_ctrl2);
+>> I do not like the idea of having small functions being called between 
+>> modules. So, yes there will a config of two booleans, but it is 
+>> preferable (and more scalable) compared to separate callbacks.
 >>
->> Is widebus applicable only to the CMD mode, or video mode can employ it too?
 > 
-> The patch description states that it was not tested on video-mode yet,
-> so I assume it will.  But this should also be highlighted with a comment
-> (e.g. /* XXX: Allow for video-mode once tested/fixed */), _especially_
-> on the check for MIPI_DSI_MODE_VIDEO above.
->
-
-Sure, we can leave a comment.
-
-
-> If I understand this correctly DSC is not working for video mode at all
-> on these setups, right?  Or no-one was able to test it?  I'm inclined to
-> request dropping these artifical guards to have as little friction as
-> possible when someone starts enabling and testing this - and less
-> patches removing artificial bounds in the future.
+> I definitely agree with the scalable part and I even cross checked that 
+> the number of usable bitfields of this register is going up from one 
+> chipset to the other although once again that depends on whether we will 
+> use those features.
 > 
+> For that reason I am not opposed to the struct idea.
+> 
+> But there is also another pattern i am seeing which worries me. Usable 
+> bitfields sometimes even reduce. For those cases, if we go with a 
+> pre-defined struct it ends up with redundant members as those bitfields 
+> go away.
+> 
+> With the function op based approach, we just call the op if the feature 
+> bit / core revision.
+> 
+> So I wanted to check once more about the fact that we should consider 
+> not just expansion but also reduction.
 
-Noone was able to test it. Like I have said before, we dont have or have 
-not brought up any DSI DSC panel with video mode. DP will be the first 
-to validate the video mode path for DSC so even that time we cannot test 
-DSI with DSC on video mode.
+As we have to support all generations, there is no actual reduction. 
+Newer SoCs do not have particular feature/bit, but older ones do. By 
+having multiple optional ops we just move this knowledge from 
+ops->complex_callback() to _setup_block_ops(). But more importantly the 
+caller gets more complicated. Instead of just calling ops->set_me_up(), 
+it has to check all the optional callbacks and call the one by one.
 
-I think we should find a panel which supports cmd and video mode ( I 
-believe one of the HDKs does have that ) and bring that one up first to 
-validate this.
+> 
+>> Not to mention that it allows us to program required registers 
+>> directly (by setting values) rather than using RMW cycles and thus 
+>> depending on the value being previously programmed to these registers.
+>>
+> 
+> This will not change. We will still have to use RMW cycles to preserve 
+> the reset values of some of the fields as those are the right values for 
+> the registers and shouldnt be touched.
 
-I believe we should keep this checks with the comment you have 
-suggested. If someone tests it and then removes it, I am comfortable 
-with that.
+I'd like to point to the dpu_hw_intf_setup_timing_engine(), a close 
+rival callback, setting up the INTF for video mode. It does not do RMW 
+cycles, it just writes all the registers.
 
-Till then, I would rather guard that configuration.
+In the worst case, there will be a single RMW instead of having multiple 
+of them.
 
-> - Marijn
+
+> 
+>>>
+>>>>>  Similar to how dpu_hw_intf_setup_timing_engine() programs the
+>>>>> hw_intf - including widebus! - for video-mode.
+>>>>>
+>>>>> Or even more generically, have a struct similar to intf_timing_params
+>>>>> that says how the intf needs to be configured - without the caller
+>>>>> knowing about INTF_CONFIG2.
+>>>>>
+>>>>> struct dpu_hw_intf_cfg is a very good example of how we can use a 
+>>>>> single
+>>>>> struct and a single callback to configure multiple registers at once
+>>>>> based on some input parameters.
+>>>>>
+>>>>>> In addition, it seems that video mode does all its INTF_CONFIG2
+>>>>>> configuration separately in dpu_hw_intf_setup_timing_engine(). If we
+>>>>>> have a generic set_intf_config2() op, it might be good to have it as
+>>>>>> part of a larger cleanup where we have both video and command mode 
+>>>>>> use
+>>>>>> the generic op. What are your thoughts on this?
+>>>>>
+>>>>> Not in that way, but if there is a generic enable_compression() or
+>>>>> configure_compression() callback (or even more generic, similar to
+>>>>> setup_intf_cfg in dpu_hw_ctl) that would work for both video-mode and
+>>>>> command-mode, maybe that is beneficial.
+>>>>
+>>>> I'd rather not do this. Let's just 'setup timing enging' vs 'setup 
+>>>> CMD'. For example, it might also include setting up other INTF 
+>>>> parameters for CMD mode (if anything is required later on).
+>>>>
+>>>
+>>> Agreed on setup CMD but I dont know whether we need a setup CMD at all.
+>>> Seems like an overkill.
+>>>
+>>>>>
+>>>>> - Marijn
+>>>>
+>>
+
+-- 
+With best wishes
+Dmitry
+
