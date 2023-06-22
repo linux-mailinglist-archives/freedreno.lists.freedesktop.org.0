@@ -2,81 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8044A739331
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 01:47:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E95739508
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 04:00:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17A0D10E377;
-	Wed, 21 Jun 2023 23:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C117A10E375;
+	Thu, 22 Jun 2023 02:00:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB6610E377
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 23:46:59 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2b46d4e1b0aso70329731fa.2
- for <freedreno@lists.freedesktop.org>; Wed, 21 Jun 2023 16:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687391217; x=1689983217;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oOiwUqZP4/ZBUQay2OmmnkqAiOONYUDUlPRVo/SLkM4=;
- b=DFnJQlCH2I3JkVfWuCzr5CSiQPKUQSAov76XceCVfvZrVHk9tYVmkpYAwW0JqmNZxC
- sY0hLfW04E0X/QSJqyn5XYpRHA4yQw/xVn3UvzZQ4yc51fQD3l5GvRd9JHhGuvZlFgx7
- 28/ob8g/w3LkLdEF02Hwpvw4lSGF3JNOtWcv74SJFKPsEzpJXOmfPX09PfM9Cl8glLUs
- 0Z2GlbWHfvo1Axd1SO5WCO1fOFMuzaRBhhjUmnuUs4VXV6bqNyjuT9Uq+1FOhz90Sc+k
- p6N8D8ip/OGRWJT/cbWmSuI2TWl+ENdoN6AwkABz4JYRhS9E9wOfJbF+aIbSpYIXdHhl
- sU9g==
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0623710E145;
+ Thu, 22 Jun 2023 02:00:32 +0000 (UTC)
+Received: by mail-io1-f43.google.com with SMTP id
+ ca18e2360f4ac-77e2c42de06so231722839f.1; 
+ Wed, 21 Jun 2023 19:00:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687391217; x=1689983217;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oOiwUqZP4/ZBUQay2OmmnkqAiOONYUDUlPRVo/SLkM4=;
- b=KLKvKMqaQxEDUqKK0aPlrb9yISxX46fw0i45wZ38jhC+flGPXkPEHI8ZqXU2X1l18K
- hHQMsDSSqNgTFlLnoRZoA3Ot9Bjm3ADYW8VzMkuOePF02uJCUc9koMtcsaMY4aoZSX76
- KFqJEO5nty+ok5egqrdHCCpfmCWBiXMlQwIChI2vTnJUxNeESQLwyJuYwZcsgZ62qHDy
- bGptiVFQOSvHyzeu2X3gbSiK3J2oE1OhzGegAhSxiuRhttsn6WZ/ng9YT7DOBNN19U51
- LEuO2bC81YLAT1Y2kUokhQpq3cmGwTLvNawBLw4Bonos39r56udDXU1oVuyDyAdPAgjg
- U8sw==
-X-Gm-Message-State: AC+VfDyi57o9XUGaIfrgMfPns7if8HKFb334vyktL2Xm0gooyxia24xh
- lwKhDL6D4k1OLboUxYktt/Mzhg==
-X-Google-Smtp-Source: ACHHUZ59SEFD1bzDgMCtit9uF6IrHCQYYtidCfeaP2JiLSZdyfmuw85CumHY+HwWPTvbgmF6Ihb5RQ==
-X-Received: by 2002:a2e:998c:0:b0:2b1:a3ce:b709 with SMTP id
- w12-20020a2e998c000000b002b1a3ceb709mr11935997lji.39.1687391217167; 
- Wed, 21 Jun 2023 16:46:57 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1687399231; x=1689991231;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=d1hTON9k3kUIOBB37/7PUxl0PK0fb2GZFYePKsdMJFo=;
+ b=gi0JxuAYzYnoqkzTLco03Kce9EgLKDm/SZtSusspeSIBu+OMzRUbfnVfJa+vQZQN8P
+ PX4N9anuCRakYwkGQXLtYFHi3G3hpAQ2vyIbg+RqHY0FsNo4GDDCHh6yTKe8i0Av+W7j
+ pLBc5JiFD4XdFWx14CE53j6rCgVADvjQmV8artqnHEF1Tj0vkRV8Ol8JxQG7R9ikvbzm
+ B6AXPWaHV3oP/9InC9DSCCnp2KJhWQnSdBK3HqdR9F6B3JQw5HCHXWuxJnYO8VEwsWLA
+ r+9lPtTL5pk25lp5MQtPEf/Z9g1EFb0fBmWlB05hl7B8eDCMErrdAKrhif6xGfJw8Tf8
+ qtQQ==
+X-Gm-Message-State: AC+VfDzKVgsWJ6wv4YrRvNyIwS0kazUmJyNOt0EETq/knrIQteQt3dgT
+ A+XsTcsvyx5nbd8kbN5+Xg==
+X-Google-Smtp-Source: ACHHUZ7PHAaESnvWc25GWM80Ls0vDP095cd+Mfu5NOZJhBwUtBO+yfU/nx4s4ZFJNpLM37IU/+AHew==
+X-Received: by 2002:a05:6e02:102:b0:341:d9e7:9d88 with SMTP id
+ t2-20020a056e02010200b00341d9e79d88mr16172126ilm.11.1687399231490; 
+ Wed, 21 Jun 2023 19:00:31 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
  by smtp.gmail.com with ESMTPSA id
- y2-20020a2e7d02000000b002b4750c4db0sm1075944ljc.49.2023.06.21.16.46.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jun 2023 16:46:56 -0700 (PDT)
-Message-ID: <b119470d-f656-71d1-8b87-b4b8196f5220@linaro.org>
-Date: Thu, 22 Jun 2023 02:46:55 +0300
+ p24-20020a02c818000000b0042672a015f0sm1733554jao.25.2023.06.21.19.00.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jun 2023 19:00:30 -0700 (PDT)
+Received: (nullmailer pid 54477 invoked by uid 1000);
+ Thu, 22 Jun 2023 02:00:28 -0000
+Date: Wed, 21 Jun 2023 20:00:28 -0600
+From: Rob Herring <robh@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Message-ID: <168739922812.54419.5619568858048769577.robh@kernel.org>
+References: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-0-8bf386b373eb@linaro.org>
+ <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-1-8bf386b373eb@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-2-c7069f2efca1@quicinc.com>
- <c74c9e0e-d059-f0e3-4350-03089c37131a@linaro.org>
- <cce68370-3fd9-4c9a-258e-af0d5d057fda@quicinc.com>
- <n2c5qlujxhbbj2aqlgj7fetzoteood5h4hmbwt4mapi77xlvmt@bpourzaideti>
- <81a5e241-ec82-7414-8752-4ce3cb084959@linaro.org>
- <f14f2c31-38c2-0600-3a29-17e83afececf@quicinc.com>
- <26tvhvqpxtxz5tqc6jbjixadpae34k7uc7fyec2u5o2ccj4tdq@tjvguzlolc3g>
- <8dcd643f-9644-a4e7-a0d5-eefa28084a88@linaro.org>
- <7d5256cd-c0bd-36e3-9b59-63ad8595f0ce@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <7d5256cd-c0bd-36e3-9b59-63ad8595f0ce@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Set DATABUS_WIDEN on
- command mode encoders
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-1-8bf386b373eb@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display: msm: sm8350-mdss:
+ document displayport controller subnode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,125 +65,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/06/2023 02:01, Abhinav Kumar wrote:
-> 
-> 
-> On 6/21/2023 9:36 AM, Dmitry Baryshkov wrote:
->> On 21/06/2023 18:17, Marijn Suijten wrote:
->>> On 2023-06-20 14:38:34, Jessica Zhang wrote:
->>> <snip>
->>>>>>>>> +    if (phys_enc->hw_intf->ops.enable_widebus)
->>>>>>>>> +        phys_enc->hw_intf->ops.enable_widebus(phys_enc->hw_intf);
->>>>>>>>
->>>>>>>> No. Please provide a single function which takes necessary
->>>>>>>> configuration, including compression and wide_bus_enable.
->>>>>>>>
->>>>>>>
->>>>>>> There are two ways to look at this. Your point is coming from the
->>>>>>> perspective that its programming the same register but just a 
->>>>>>> different
->>>>>>> bit. But that will also make it a bit confusing.
->>>>>
->>>>> My point is to have a high-level function that configures the INTF for
->>>>> the CMD mode. This way it can take a structure with necessary
->>>>> configuration bits.
->>>>
->>>> Hi Dmitry,
->>>>
->>>> After discussing this approach with Abhinav, we still have a few
->>>> questions about it:
->>>>
->>>> Currently, only 3 of the 32 bits for INTF_CONFIG2 are being used (the
->>>> rest are reserved with no plans of being programmed in the future). 
->>>> Does
->>>> this still justify the use of a struct to pass in the necessary
->>>> configuration?
->>>
->>> No.  The point Dmitry is making is **not** about this concidentally
->>> using the same register, but about adding a common codepath to enable
->>> compression on this hw_intf (regardless of the registers it needs to
->>> touch).
->>
->> Actually to setup INTF for CMD stream (which is equal to setting up 
->> compression at this point).
->>
-> 
-> Yes it should be setup intf for cmd and not enable compression.
-> 
-> Widebus and compression are different features and we should be able to 
-> control them independently.
-> 
-> We just enable them together for DSI. So a separation is necessary.
-> 
-> But I am still not totally convinced we even need to go down the path 
-> for having an op called setup_intf_cmd() which takes in a struct like
-> 
-> struct dpu_cmd_intf_cfg {
->      bool data_compress;
->      bool widebus_en;
-> };
-> 
-> As we have agreed that we will not touch the video mode timing engine 
-> path, it leaves us with only two bits.
-> 
-> And like I said, its not that these two bits always go together. We want 
-> to be able to control them independently which means that its not 
-> necessary both bits program the same register one by one. We might just 
-> end up programming one of them if we just use widebus.
-> 
-> Thats why I am still leaning on keeping this approach.
 
-I do not like the idea of having small functions being called between 
-modules. So, yes there will a config of two booleans, but it is 
-preferable (and more scalable) compared to separate callbacks.
-
-Not to mention that it allows us to program required registers directly 
-(by setting values) rather than using RMW cycles and thus depending on 
-the value being previously programmed to these registers.
-
+On Wed, 21 Jun 2023 11:26:25 +0200, Neil Armstrong wrote:
+> Document the optional document displayport controller subnode
+> of the SM8350 MDSS.
 > 
->>>  Similar to how dpu_hw_intf_setup_timing_engine() programs the
->>> hw_intf - including widebus! - for video-mode.
->>>
->>> Or even more generically, have a struct similar to intf_timing_params
->>> that says how the intf needs to be configured - without the caller
->>> knowing about INTF_CONFIG2.
->>>
->>> struct dpu_hw_intf_cfg is a very good example of how we can use a single
->>> struct and a single callback to configure multiple registers at once
->>> based on some input parameters.
->>>
->>>> In addition, it seems that video mode does all its INTF_CONFIG2
->>>> configuration separately in dpu_hw_intf_setup_timing_engine(). If we
->>>> have a generic set_intf_config2() op, it might be good to have it as
->>>> part of a larger cleanup where we have both video and command mode use
->>>> the generic op. What are your thoughts on this?
->>>
->>> Not in that way, but if there is a generic enable_compression() or
->>> configure_compression() callback (or even more generic, similar to
->>> setup_intf_cfg in dpu_hw_ctl) that would work for both video-mode and
->>> command-mode, maybe that is beneficial.
->>
->> I'd rather not do this. Let's just 'setup timing enging' vs 'setup 
->> CMD'. For example, it might also include setting up other INTF 
->> parameters for CMD mode (if anything is required later on).
->>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> Agreed on setup CMD but I dont know whether we need a setup CMD at all.
-> Seems like an overkill.
-> 
->>>
->>> - Marijn
->>
 
--- 
-With best wishes
-Dmitry
+Acked-by: Rob Herring <robh@kernel.org>
 
