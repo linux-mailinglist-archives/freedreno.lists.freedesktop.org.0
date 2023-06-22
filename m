@@ -2,57 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B77473950E
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 04:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98E573A169
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 15:05:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA3610E391;
-	Thu, 22 Jun 2023 02:00:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A39D210E55F;
+	Thu, 22 Jun 2023 13:05:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43D6010E391;
- Thu, 22 Jun 2023 02:00:52 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-341c14e495fso31726005ab.0; 
- Wed, 21 Jun 2023 19:00:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687399251; x=1689991251;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wBXEfv4Yrn77qP/MYPvp3SEav3PapGrc9nExUoKa+q4=;
- b=jPY9Se7ZE15o30yGK2cZti5xS5noBoTyge3qqCg/3IcR3/qIUoKaJiKP5nge5bPfNn
- ClJKxq9rrXho33K4FzTT2JgMdPx3pFRW6I2w2VEYGKF3h4s7IckdduqI8SXisyW9aP8w
- Wi1judwpZBjZEq5p3IJTvys1ZMoLxvkXWZAL5v+bBiU/3QcIfdjbH5kbXoXGFFLE6Qm2
- RLxLgBFTsoSKB3ScfIOHtvWOigPaDntCfWD7N8Kwig0cBq8FR2W8gWX9mjBWBmWxvC7e
- KowkZEqiuRGU7C/b3MfIVdasHlVXPSismobyf7AE3OvuI+92evEiONpbsu8ZfB1kapz+
- 5DPw==
-X-Gm-Message-State: AC+VfDzhfhico18cPJedcwFaRWw+Z0lM+3wdaoJJL/Hfj4HSmhZDRbdC
- nIh1Y2vdmMJd//C8g0utPw==
-X-Google-Smtp-Source: ACHHUZ4LjlN2f3BpdV6OS0nUzSrKIpexflZ3GCFR2u9mVTl6o2I45TcjN3WnmY9ZnCdbw80O88zXjg==
-X-Received: by 2002:a05:6e02:4d2:b0:340:b569:aec1 with SMTP id
- f18-20020a056e0204d200b00340b569aec1mr15521666ils.28.1687399251132; 
- Wed, 21 Jun 2023 19:00:51 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id
- n13-20020a92d9cd000000b0033b2a123254sm1670712ilq.61.2023.06.21.19.00.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 19:00:50 -0700 (PDT)
-Received: (nullmailer pid 55180 invoked by uid 1000);
- Thu, 22 Jun 2023 02:00:48 -0000
-Date: Wed, 21 Jun 2023 20:00:48 -0600
-From: Rob Herring <robh@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Message-ID: <168739924746.55132.18209927857725642853.robh@kernel.org>
-References: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-0-8bf386b373eb@linaro.org>
- <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-3-8bf386b373eb@linaro.org>
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0279910E560
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 13:05:37 +0000 (UTC)
+Received: (qmail 18934 invoked by uid 990); 22 Jun 2023 13:05:34 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-3-8bf386b373eb@linaro.org>
-Subject: Re: [Freedreno] [PATCH 3/3] dt-bindings: display: msm: sm8550-mdss:
- document displayport controller subnode
+Date: Thu, 22 Jun 2023 13:05:34 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Leonard Lausen" <leonard@lausen.nl>
+Message-ID: <c451cea0e0541f786e06d771afeb4112d3349dbc@lausen.nl>
+TLS-Required: No
+To: "Abhinav Kumar" <quic_abhinavk@quicinc.com>, "Kuogee Hsieh"
+ <quic_khsieh@quicinc.com>, "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>,
+ "Bjorn Andersson" <andersson@kernel.org>, regressions@lists.linux.dev
+In-Reply-To: <f98dcffe4b1dc91edf692fbaa766a263910f2c5b@lausen.nl>
+References: <f98dcffe4b1dc91edf692fbaa766a263910f2c5b@lausen.nl>
+ <932ee149-c524-25e7-ee49-5ea1a7e6708c@quicinc.com>
+ <e547edf4-1b48-5d12-1600-45f78e7cab49@quicinc.com>
+ <1345a125-f745-4fe3-0f5e-bfe84225958d@quicinc.com>
+ <b0cc40d5-6de1-91cc-e2cd-f47cc53551e4@quicinc.com>
+ <ebbcd56ac883d3c3d3024d368fab63d26e02637a@lausen.nl>
+ <20230508021536.txtamifw2vkfncnx@ripper>
+ <3802269cd54ce105ef6dece03b1b9af575b4fa06@lausen.nl>
+ <ad351c02-1c29-3601-53e8-f8cdeca2ac63@linaro.org>
+ <49d175ec16e3f65a18265063e51092ee8d0d79c1@lausen.nl>
+ <f2d1bb37-ea83-4d5d-6ef5-ae84c26d6ac1@quicinc.com>
+ <b9c8243ed53c5c9d7c1b5711237f6130976ea99b@lausen.nl>
+X-Rspamd-Bar: /
+X-Rspamd-Report: MIME_GOOD(-0.1) BAYES_HAM(-1.376189) SUSPICIOUS_RECIPS(1.5)
+X-Rspamd-Score: 0.02381
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Thu, 22 Jun 2023 15:05:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=vccUnMmIqdngT99oaK8My7B6NiGz9nspCO7ChiAPVtI=;
+ b=BvxzYWRr6A5zJe+/S9o10zNf9FhFlriFlWDTcyToHnftwViksxL3QK1bAlfDH72t91Kp870plW
+ ebKanfqnUQWFRbAz6WvO1SIcpplgaC+qQLl2Nyd506fL376PY8epR3gBxeFSd92R3IvBQT9rU+2o
+ RKEgKDlHsbNszoREiduTSgTqvuJxE5vW377XXDZRqKhcqJV+ZsbgtWRfPsQpgtPFDEJNetCDqloJ
+ tl+ohiZfk3R5DFLBwimlIuBC+nbRHGKBbU6XUlXzMxEx0+uBxXd6mU8ffydJaIEyxxpx9iK9VF21
+ XG2Hg0TAuqEvHW3sOJRigerZPXAUQibGgHKwgaKxPZsxD+gAGHnmfGpzwGnlXjfrq8UZg/o6uCRg
+ 37pkIDED7SE9BN1fwBe5KYk7oxHJi/FNBOEpSXA2VV5GEwBh3/+NmFtwrIJKrYT/BKYzCFJYOkA4
+ EfYCpPvv/SVrgoptTxrfcE5kwhEk35GdQlzGvJ26makQmTglqgiQhoIJ8Q6ZT6nbSKognSFQAHuk
+ jQ3ktfuskG8gKMYxTzEqDgJObOQ6gJCgS04B6w4j/lYSgtjP9xC8qPzKIHVxg+ChR0I2OeU2quso
+ NKa+AWqiKVVtxBx7+txGbHlmeyQiPp2tIw3bPMkr0Rszuy4z0ID3cN3wRtW8p87qOvrFuNWX3Z7L
+ Q=
+Subject: Re: [Freedreno] [PATCH] Revert "drm/msm/dp: Remove INIT_SETUP delay"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +69,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
+Cc: Sean
+ Paul <sean@poorly.run>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, David Airlie <airlied@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel   Vetter <daniel@ffwll.ch>,
+ Nikita   Travkin <nikita@trvn.ru>, freedreno@lists.freedesktop.org,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+> > https://patchwork.freedesktop.org/patch/538601/?series=3D118148&rev=
+=3D3
+> >  Apologies if you were not CCed on this, if a next version is CCed,
+> >=20
+>=20>  will ask kuogee to cc you.
+> >=20
+>=20>  Meanwhile, will be great if you can verify if it works for you and
+> >=20
+>=20>  provide Tested-by tags.
+> >=20
+>=20
+> I see Bjorn also tested the patch. As it fixes a serious USB-C DP regre=
+ssion which broke USB-C DP completely on lazor for v6.3, can it be includ=
+ed in upcoming 6.3.y release?
 
-On Wed, 21 Jun 2023 11:26:27 +0200, Neil Armstrong wrote:
-> Document the optional document displayport controller subnode
-> of the SM8550 MDSS.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
+Kuogee's fix has since been committed to drm-tip on 2023-06-08 as a8e981a=
+c2d0eb9dd53a4c173e29ca0c99c88abe2. Since it fixes a serious regression in=
+ 6.3 and 6.4 kernels, can we include it for the stable releases?
 
-Acked-by: Rob Herring <robh@kernel.org>
-
+Thank you
+Leonard
