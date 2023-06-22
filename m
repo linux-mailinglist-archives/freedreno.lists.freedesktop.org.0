@@ -2,42 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A689B73A53E
-	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 17:45:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 492BD73A72B
+	for <lists+freedreno@lfdr.de>; Thu, 22 Jun 2023 19:25:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEE6010E58A;
-	Thu, 22 Jun 2023 15:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B75A710E594;
+	Thu, 22 Jun 2023 17:25:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out-16.mta1.migadu.com (out-16.mta1.migadu.com [95.215.58.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C55A10E501
- for <freedreno@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:23 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1687423301;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZLNuxoO8OfzQ143YMlcA0F6NJodxjDO0V9/3OfXvbSM=;
- b=eaBfLuYlG6JJ2wMMRdNKZV0a4oqFx389/61anHjbefPzDibHOLkGJsZGY3Dw+v+qevkyK3
- n26AVKRC06swwDMkLHX6VNJZ04EnOeXYs8Wqh3UkaG0D+Uk7NLaSF2pUsBmfBvjexois2k
- MY254J8+7levLBhOGEbqDhRxPfqcIBs=
-From: Qi Zheng <qi.zheng@linux.dev>
-To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:17 +0000
-Message-Id: <20230622083932.4090339-15-qi.zheng@linux.dev>
-In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
-References: <20230622083932.4090339-1-qi.zheng@linux.dev>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B747110E58F;
+ Thu, 22 Jun 2023 17:25:14 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35MCsx7H001363; Thu, 22 Jun 2023 17:25:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=K0qNhIIXKK45Ts/N5IbalZI9W7UKiRSCw61qaqks+Nk=;
+ b=W0RB08jYhJhp82KgmuOG2ztt7r+O4PpalIrz8ka2wBIGodG+vtK1vaBDIu+xk4EjSt/t
+ nqsM7sj/+mh9AIeraDxueTFQXMg1g253cxzJTieDaBpEk6xAy4P9gF7tTx0tBXd4iGvk
+ GN+sViHYK7BPVt5f2TQw40hVJXWVHJ7h5m6xGpZil/4wjOtGOnimIZe0kgP95Tv42kGs
+ rjBjdKRwlS1VVO0HpqsHI9b/CFJWJsyof4sdKBjkU5hDv9m890Zq4UHmVyleGeWUQHj8
+ Xr7OR0dub0ciW5CyzIYYGiIfgmuYaCI6xUhH7FIajIOw2fXc6C4J5T97QHGxKSDJXd4C nQ== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rbvr1m80m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Jun 2023 17:25:00 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35MHOwXl029864
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Jun 2023 17:24:59 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Thu, 22 Jun 2023 10:24:57 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Thu, 22 Jun 2023 10:24:44 -0700
+Message-ID: <1687454686-10340-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Thu, 22 Jun 2023 15:45:12 +0000
-Subject: [Freedreno] [PATCH 14/29] jbd2,
- ext4: dynamically allocate the jbd2-journal shrinker
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: BEagMbqq05WaAmV-viF5K_gDhD7hWwpC
+X-Proofpoint-ORIG-GUID: BEagMbqq05WaAmV-viF5K_gDhD7hWwpC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-22_11,2023-06-22_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0
+ mlxlogscore=924 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 phishscore=0 mlxscore=0 bulkscore=0 malwarescore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306220147
+Subject: [Freedreno] [PATCH v5 0/2] retrieve DSI DSC through priv-dsi[0]
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,115 +79,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+moving retrieving struct drm_dsc_cofnig from setup_display to
+atomic_enable() and delete struct drm_dsc_config from
+struct msm_display_info.
 
-In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the jbd2-journal shrinker,
-so that it can be freed asynchronously using kfree_rcu().
-Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct journal_s.
+Kuogee Hsieh (2):
+  drm/msm/dpu: retrieve DSI DSC struct through priv->dsi[0]
+  drm/msm/dpu: remove struct drm_dsc_config from struct msm_display_info
 
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- fs/jbd2/journal.c    | 32 +++++++++++++++++++-------------
- include/linux/jbd2.h |  2 +-
- 2 files changed, 20 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 44 ++++++++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 --
+ 3 files changed, 30 insertions(+), 18 deletions(-)
 
-diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-index eee3c0ae349a..92a2f4360b5f 100644
---- a/fs/jbd2/journal.c
-+++ b/fs/jbd2/journal.c
-@@ -1301,7 +1301,7 @@ static int jbd2_min_tag_size(void)
- static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
- 					      struct shrink_control *sc)
- {
--	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
-+	journal_t *journal = shrink->private_data;
- 	unsigned long nr_to_scan = sc->nr_to_scan;
- 	unsigned long nr_shrunk;
- 	unsigned long count;
-@@ -1327,7 +1327,7 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
- static unsigned long jbd2_journal_shrink_count(struct shrinker *shrink,
- 					       struct shrink_control *sc)
- {
--	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
-+	journal_t *journal = shrink->private_data;
- 	unsigned long count;
- 
- 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
-@@ -1415,21 +1415,27 @@ static journal_t *journal_init_common(struct block_device *bdev,
- 	journal->j_superblock = (journal_superblock_t *)bh->b_data;
- 
- 	journal->j_shrink_transaction = NULL;
--	journal->j_shrinker.scan_objects = jbd2_journal_shrink_scan;
--	journal->j_shrinker.count_objects = jbd2_journal_shrink_count;
--	journal->j_shrinker.seeks = DEFAULT_SEEKS;
--	journal->j_shrinker.batch = journal->j_max_transaction_buffers;
- 
- 	if (percpu_counter_init(&journal->j_checkpoint_jh_count, 0, GFP_KERNEL))
- 		goto err_cleanup;
- 
--	if (register_shrinker(&journal->j_shrinker, "jbd2-journal:(%u:%u)",
--			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev))) {
--		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
--		goto err_cleanup;
--	}
-+	journal->j_shrinker = shrinker_alloc_and_init(jbd2_journal_shrink_count,
-+						      jbd2_journal_shrink_scan,
-+						      journal->j_max_transaction_buffers,
-+						      DEFAULT_SEEKS, 0, journal);
-+	if (!journal->j_shrinker)
-+		goto err_shrinker;
-+
-+	if (register_shrinker(journal->j_shrinker, "jbd2-journal:(%u:%u)",
-+			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev)))
-+		goto err_register;
-+
- 	return journal;
- 
-+err_register:
-+	shrinker_free(journal->j_shrinker);
-+err_shrinker:
-+	percpu_counter_destroy(&journal->j_checkpoint_jh_count);
- err_cleanup:
- 	brelse(journal->j_sb_buffer);
- 	kfree(journal->j_wbuf);
-@@ -2190,9 +2196,9 @@ int jbd2_journal_destroy(journal_t *journal)
- 		brelse(journal->j_sb_buffer);
- 	}
- 
--	if (journal->j_shrinker.flags & SHRINKER_REGISTERED) {
-+	if (journal->j_shrinker->flags & SHRINKER_REGISTERED) {
- 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
--		unregister_shrinker(&journal->j_shrinker);
-+		unregister_and_free_shrinker(journal->j_shrinker);
- 	}
- 	if (journal->j_proc_entry)
- 		jbd2_stats_proc_exit(journal);
-diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
-index 44c298aa58d4..beb4c4586320 100644
---- a/include/linux/jbd2.h
-+++ b/include/linux/jbd2.h
-@@ -891,7 +891,7 @@ struct journal_s
- 	 * Journal head shrinker, reclaim buffer's journal head which
- 	 * has been written back.
- 	 */
--	struct shrinker		j_shrinker;
-+	struct shrinker		*j_shrinker;
- 
- 	/**
- 	 * @j_checkpoint_jh_count:
 -- 
-2.30.2
+2.7.4
 
