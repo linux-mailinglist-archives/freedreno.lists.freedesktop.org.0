@@ -2,56 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC5373BE40
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 20:03:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 291F273BEEF
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 21:36:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6500F10E0B1;
-	Fri, 23 Jun 2023 18:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D7110E68F;
+	Fri, 23 Jun 2023 19:36:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D950A10E0B1;
- Fri, 23 Jun 2023 18:03:30 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F72C10E68F;
+ Fri, 23 Jun 2023 19:36:19 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35NHu3li027390; Fri, 23 Jun 2023 18:03:25 GMT
+ 35NDqkBo002013; Fri, 23 Jun 2023 19:36:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=Zs4PqRwqM2oQI386HL9oV+ST8IFSsaCmf3wwh3DeOCs=;
- b=knNKf8beC9SThR1bUwjBew59dMPjVJHafyP+/BGWi7h0av392JS6KfMtNd9cT13GUIWS
- 5YGFQNdhFqrqgq7UNE22VvBfr1WVgWD3Rv+IP6gj6JSL0edGNzWMVmIKKLpQeTuzSsst
- +0FkRaxgYheDQQ+BMn3Ly7YNeqs52/d6ou0CGyKxVha3cVFdlKyKwepO+shFtOvvzvl1
- iLvLuulLWT1h+8WwuJaXOojQ5LSXs0r/4l9qTiekakISX7CORhoYS92H6BcDX063JrWp
- FVES766bfhaN4ZFtLkl8O0CBu5VssRZqTLB/cY2JwRyzziZSkwMsLKorkWXeT453dU1g tA== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=zO+PGNmN8a9U+5qGpmMEyYnTntxdbEi/c3pK95BwTPo=;
+ b=bHytJRC1b1wg8ghbWyTlwErmtTkd3qY8kKcetht9KDNaBIdx4zCxRCEAC9351B8F75g8
+ F/tvhzT1bWDzWjzXXIYjaxAIfjf4Eyu3ZZOJ7czBoG6xiYSP8aIpfOiFVkCm+8LDP4XC
+ ysFMRuWqsF7qi4j4HgD/NNU8nkhsgS2zB/K8MiFqlDCksiNB50/APvAu5cRfQQcLs2Yb
+ hwdz263ahEYCaw18Ac3drI+zP2MIRUyaQmBcK30gSJXmA8+3VJHZbfrYiusGSqW1Tca0
+ jLji4q0r/GQ4NlVsqo0ApRXNBOKa1oR7UIwXofqs+rBAOH/scc4zo/tV+TdidbImLbVa 8w== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rc6b2dcfv-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rcju84cew-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Jun 2023 18:03:24 +0000
+ Fri, 23 Jun 2023 19:36:09 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35NI3N9G008322
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35NJa8j2031070
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Jun 2023 18:03:23 GMT
-Received: from [10.110.6.30] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Fri, 23 Jun 2023 19:36:08 GMT
+Received: from [10.110.61.170] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 23 Jun
- 2023 11:03:22 -0700
-Message-ID: <dbaefcfe-18f2-0842-1059-9557e0802a99@quicinc.com>
-Date: Fri, 23 Jun 2023 11:03:21 -0700
+ 2023 12:36:07 -0700
+Message-ID: <6579ad4d-03ce-1320-3751-4b725fe3474e@quicinc.com>
+Date: Fri, 23 Jun 2023 12:36:06 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230623135844.1113908-1-dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230623013731.1088007-1-dmitry.baryshkov@linaro.org>
+ <6b74cb1f-3128-4ebd-8ff9-33cc025d957b@quicinc.com>
+ <mwxs3rvemvdizqtsfa7pxms5prgrdq2lue6lvkt2f23nehzhwr@uawaxv5jsnmh>
+ <wbeyverizh4644grwtz4r62gb5rypsuufs4ixz4qx5jl4233hr@uexh36futuys>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230623135844.1113908-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <wbeyverizh4644grwtz4r62gb5rypsuufs4ixz4qx5jl4233hr@uexh36futuys>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -60,19 +61,18 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: dyqJ99a20fXbWmD6jBA-JsWhDF3_nO1d
-X-Proofpoint-GUID: dyqJ99a20fXbWmD6jBA-JsWhDF3_nO1d
+X-Proofpoint-ORIG-GUID: JLVjg7zdDnjN2qoWH2dza96cILk-7zNa
+X-Proofpoint-GUID: JLVjg7zdDnjN2qoWH2dza96cILk-7zNa
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-23_09,2023-06-22_02,2023-05-22_02
+ definitions=2023-06-23_11,2023-06-22_02,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0
- malwarescore=0 spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501
- mlxlogscore=999 lowpriorityscore=0 impostorscore=0 mlxscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2305260000
- definitions=main-2306230161
-Subject: Re: [Freedreno] [PATCH 0/7] drm/msm/dpu: simplify DPU sub-blocks
- info
+ mlxscore=0 adultscore=0
+ clxscore=1015 phishscore=0 suspectscore=0 mlxlogscore=999
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ impostorscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2305260000 definitions=main-2306230175
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: fix DSC 1.2 block lengths
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,69 +85,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6/23/2023 6:58 AM, Dmitry Baryshkov wrote:
-> Ryan pointed out [1] that some (most) of of sub-blocks do not fill the
-> field `name'. Further research showed that we can drop the fields `name'
-> and `id' and further simplify the catalog. The handling code also
-> usually knows, which sub-block it is now looking at.
+On 6/22/2023 11:57 PM, Marijn Suijten wrote:
+> On 2023-06-23 08:54:39, Marijn Suijten wrote:
+>> On 2023-06-22 22:47:04, Abhinav Kumar wrote:
+>>> On 6/22/2023 6:37 PM, Dmitry Baryshkov wrote:
+>>>> All DSC_BLK_1_2 declarations incorrectly pass 0x29c as the block length.
+>>>> This includes the common block itself, enc subblocks and some empty
+>>>> space around. Change that to pass 0x4 instead, the length of common
+>>>> register block itself.
+>>>>
+>>>> Fixes: 0d1b10c63346 ("drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets")
+>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>
+>>> There is no need of a fixes tag for this.
+>>>
+>>> This is not a bug but was intentional.
+>>>
+>>> Till we added sub-block parsing support we had to dump the whole block.
+>>>
+>>> And hence I would suggest this change should be merged after the
+>>> sub-block parsing change otherwise we wont have full register dumps for DSC.
+>>
+>> This was indeed intentional, we discussed it in [1].
+>>
+>> In fact I asked to make it 0xf00 + 0x10 or 0xf80 + 0x10 to also cover
+>> the CTL registers, but that change didn't make it through.  0x29c is an
+>> arbitrary number that I have no clue what it was based on.
 > 
-> Drop unused field and arguments and merge some of sub-block
-> declarations. I did not merge inter-generation VIG_SBLK definitions,
-> this is pending another cleanup (which will also switch to using
-> hardcoded scaler version).
+> Ah, as expected Dmitry's second commit clarifies that the last register
+> in the enc block is at 0x98, and the base of the enc + length of the enc
+> then is 0x200 + 0x9c.
 > 
-> Dependencies: [2]
+> That still excludes the ctl sblk.
 
-NAK on this series till we have responded to the comments on the other 
-sub-blk series.
+0x29c is not an arbitrary number. The last encoder offset is 0x298 so we 
+add 4 more to that.
 
-Please stop pushing changes in the middle of discussions with the goal 
-of forcing others to adopt them or rebase them.
-
-Its not going to happen and we want to have a collaborative culture and 
-not an authoritative one.
+Yes it will still exclude ctl blk as that space is not contiguous and we 
+dont want to increase len all the way to 0xf00.
 
 > 
-> [1] https://patchwork.freedesktop.org/patch/543903/?series=119773&rev=1
-> [2] https://patchwork.freedesktop.org/series/118839/
-> 
-> Dmitry Baryshkov (6):
->    drm/msm/dpu: drop the `id' field from DPU_HW_SUBBLK_INFO
->    drm/msm/dpu: drop the field `name' from DPU_HW_SUBBLK_INFO
->    drm/msm/dpu: drop the `smart_dma_priority' field from struct
->      dpu_sspp_sub_blks
->    drm/msm/dpu: deduplicate some (most) of SSPP sub-blocks
->    drm/msm/dpu: drop DPU_HW_SUBBLK_INFO macro
->    drm/msm/dpu: merge dpu_csc_blk and dpu_dsc_blk into dpu_simple_blk
-> 
-> Ryan McCann (1):
->    drm/msm/dpu: Drop unused num argument from relevant macros
-> 
->   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |   8 +-
->   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   4 +-
->   .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |   8 +-
->   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   4 +-
->   .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   4 +-
->   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   8 +-
->   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  16 +--
->   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  20 +--
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 122 +++++++-----------
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  48 +++----
->   17 files changed, 154 insertions(+), 200 deletions(-)
-> 
+>> [1]: https://lore.kernel.org/linux-arm-msm/y2whfntyo2rbrg3taazjdw5sijle6k6swzl4uutcxm6tmuayh4@uxdur74uasua/
+>>
+>> - Marijn
