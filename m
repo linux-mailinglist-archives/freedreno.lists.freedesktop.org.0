@@ -2,89 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59CC73B758
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 14:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD36573B935
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 15:58:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B716110E636;
-	Fri, 23 Jun 2023 12:33:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2724310E118;
+	Fri, 23 Jun 2023 13:58:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B90B10E106
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 12:33:02 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-3f9b4a71623so6551095e9.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 05:33:02 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFF810E118
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 13:58:47 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f96da99965so827262e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 06:58:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687523580; x=1690115580;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qKu3Asg/SoO8zazL8mfwdhVcyG7zeze59hq7qPtEbdE=;
- b=fyDwJPug3BqaULyR8VN+c6NZetMBHKDYnk+da2tih9w8a1iBYC/K7qcIRGeEycC2iR
- k0S3GHF3yO9crvH8UYu+z12M5IU+Pz//WgcJAOpW4YQsCJDLSikuFEyb3PO/cwGqRYRQ
- Firo5v2auy8ZQ+1R+rSeavOeulczX0YWsWxBZK0Uu+ovTK0lYk5KeZLZwuQt8WfsKt6g
- KRyH7tpyKpsNb4MbS3XzQkP4A+edWwdpEXa9gfrC6rpxoOjlQg6rDBnC5HNEsmbsTa7G
- kmLwPKLb/Vh4GrG2zhx1cYWivS/SUi75S9a0a8rbfEff9vwM9vAOu+aL5siTiM1RgfDI
- h11Q==
+ d=linaro.org; s=google; t=1687528725; x=1690120725;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=yOhWkbu2l8TcyI6GhCT/UC0v9ZBG8+6y99ASll4jh3w=;
+ b=gOT4WUNixw1iqApc2hvVhE0lW9ZYNsgY52m1tquGH6LS+PTQVh3rFeQ4cM7/c/Ux5h
+ x7cywYZVk2Dq4XyJTHpb28rS2VY+mSLlLIngwNUc9waWV6G2KceJ660ddP9C0tEAzpuF
+ Z1+Qcqrt47Iuj2Toio3qx931DbFv8VRkQzFSb0wflAjrP/2tMWqbBeEWfVeVQdw0jpU8
+ 8IyLpjOQUEUqf/AU1TX9OE48wD1z71a510M5mnVRY24KEVjbNyUWy2RcKwCsVCozuoSk
+ okqHVYl7Qdj6BdutCgjVMy/Yctq0RUpoHlj9y2gnyPc4PL5aqf68ByLmC2NBClwKgqck
+ 9bZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687523580; x=1690115580;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qKu3Asg/SoO8zazL8mfwdhVcyG7zeze59hq7qPtEbdE=;
- b=MWAF8NnIm6EyGbtIJPJfPmw9+t7J692DlqC0ZNwAPyxrLVNNhwK4YPZjwiMVPKheEY
- jZndK2EycYle0kwXiTX4n5uJib7cNjYxLsCdFkzyCyXApOu+AkG9zfmdEpIwY6+kXULe
- L4boYjiGT0tx+yrYv8VXaRalo6nTXZbQfd0xGIK+ZxOOQqv+snsIAGAZoioUlSJjeWR8
- IwtANXaCL1urXlLJ7JEXtt4rojGOtbsFodlS/xNWNv4pINMzS1kj/iNMG4bsrcoxpF27
- 56tfhFJO/WTtcIgRs1VAtMHFi5JzpeiIEnBtjDy6fwJzaPp4BeFUCVLudo0IxMULb3EM
- 0ayQ==
-X-Gm-Message-State: AC+VfDy1jLTVY/4o8Ss2M7KXPt9qPBfLLbxeTD+fGnJLEmAiCKWVLgQ0
- ra8VVtYM+f9a9Yan+hVUqFfoMw==
-X-Google-Smtp-Source: ACHHUZ7bU81T+88a0MZhjBG/h+wDoj9sRWgkbsoQKe4dkIZwCXHLd3e/M45PBrJ8P8lzCAxscUstFw==
-X-Received: by 2002:a7b:cd89:0:b0:3fa:7991:52b3 with SMTP id
- y9-20020a7bcd89000000b003fa799152b3mr1911948wmj.5.1687523580433; 
- Fri, 23 Jun 2023 05:33:00 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ d=1e100.net; s=20221208; t=1687528725; x=1690120725;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yOhWkbu2l8TcyI6GhCT/UC0v9ZBG8+6y99ASll4jh3w=;
+ b=Nzn6X7xS/bgfd5pobWBI+TaP532q+z8GpLmp2/66oI/xwI6cG0dSjJZc1DQWzykRkp
+ rwk9QoXEa7yc5Ry6bWo1u6c3/9BLt3CJ50mSSurP+mmg521uOZahcJJlkU1TC7iVgE7C
+ h61au0ZPWSbNOWi4XpHXMFlNqZ1vFiCYmFs9bu7SR8cW7AfwHhJNi5uhdodZcDQ+DrrZ
+ 4IEUCRnGSVEO+ArAVO1OxO/Oi0rKaz815EegGaAw9Vu7qVH4rYNQ17VWsvjEbX9zl5uO
+ WjY3a0kadSNpTITo1alVPkqoV3G0+LmX67e96BiLzlIreIcd4Yvp1TpvmNPA7uy52oGW
+ EU1w==
+X-Gm-Message-State: AC+VfDzRieiIeoH0Qa8V6ODKOTBfmIUH6VyTzpin0ku3z3EVpQm7ggZd
+ QjoIUpYIHQgKujflIkFhXh1Isg==
+X-Google-Smtp-Source: ACHHUZ7CUw4mSjt7xEoQZLR9dgp37du/c/s9wAc01Q2NRnVzbTqGUFk86gqyTYlJKvykW/TqCI39OA==
+X-Received: by 2002:a2e:a175:0:b0:2b1:fda8:e653 with SMTP id
+ u21-20020a2ea175000000b002b1fda8e653mr14243650ljl.27.1687528725225; 
+ Fri, 23 Jun 2023 06:58:45 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- t24-20020a1c7718000000b003f91e32b1ebsm2228105wmi.17.2023.06.23.05.32.59
+ 11-20020a05651c008b00b002ac7b0fc473sm1756869ljq.38.2023.06.23.06.58.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Jun 2023 05:33:00 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 23 Jun 2023 14:32:55 +0200
+ Fri, 23 Jun 2023 06:58:44 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Fri, 23 Jun 2023 16:58:37 +0300
+Message-Id: <20230623135844.1113908-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-3-733ed383f6b6@linaro.org>
-References: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-0-733ed383f6b6@linaro.org>
-In-Reply-To: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-0-733ed383f6b6@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1002;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=+gKeJlRXpLRqD+znH4Johi2h/GuV34UsbIw5Q0Ic9jo=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBklZD3dffl2a0DHKBeY92wLbSr4u6DigwRysgCWhTB
- GfF0GRaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZJWQ9wAKCRB33NvayMhJ0aOfD/
- 0Szo5tE8zaz/C/a92osk59QxwO/8/JJypPJDr7pmnEi0h/1G8IUTnl+M1YCu1XEJAKNw6nA8ivlJSf
- JxqO4TRABDEZZrdTyaBE3osQ/gjS0TcIIJZJQSKMm12fqIvg3VEOcyzDercafhgwQhhfYkr1r8kDro
- /QVu3/0wwYuXOXoaKl1PGvSH2Bblk3rhDVwst8Ii36d/VLjKrpXUxT5+mY5YbNUg9MPZ1OJ/mmXGd3
- SzowYr7y5R2NybIGOOLuhe2GLbixErGDfvi3wLaE9/hXURHN6NsyNJ47ZTJP3HnT2TtJiK0t1SiI6y
- yzDHW22lhXBnJngQQqRoLP6nEZUb0aqjivSW8gw7cL/RHI4CJRcrmsl+wfawMvkOgrvNEVKCTItTU0
- uBYaAlqATVVKKxr2GTDQr0rkTT8Gakqr+u0bIFou0gveh9uV5uxAa8cWGAGRWa7ZePN3PxV+Xmx1Y5
- 4wCp+8kR3GpUw4YUPWGJ12eIhxqFm2UiNFezHGFIxepy7VMF5xQRyTXd/kkB+yt7rbR5AI9F56z0v2
- sc8G1JzIpox56pV4/kK0+E65Ypx4EeU+dbUyoFyPYas4jCkpw/T6mAwLWNUoRrzkQ32myt44VdHPT1
- VhmHcLE1970xLLjutAoC5wCMwRF7rzxbSPtujFOW+mYzwoE5rbJoaK6cQsow==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH v2 3/3] dt-bindings: display: msm: sm8550-mdss:
- document displayport controller subnode
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/7] drm/msm/dpu: simplify DPU sub-blocks info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,41 +72,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Rob Herring <robh@kernel.org>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the optional displayport controller subnode of the SM8550 MDSS.
+Ryan pointed out [1] that some (most) of of sub-blocks do not fill the
+field `name'. Further research showed that we can drop the fields `name'
+and `id' and further simplify the catalog. The handling code also
+usually knows, which sub-block it is now looking at.
 
-Acked-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Drop unused field and arguments and merge some of sub-block
+declarations. I did not merge inter-generation VIG_SBLK definitions,
+this is pending another cleanup (which will also switch to using
+hardcoded scaler version).
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-index 887be33ba108..70ce7cb7a80d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-@@ -42,6 +42,14 @@ patternProperties:
-       compatible:
-         const: qcom,sm8550-dpu
- 
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    properties:
-+      compatible:
-+        items:
-+          - const: qcom,sm8550-dp
-+          - const: qcom,sm8350-dp
-+
-   "^dsi@[0-9a-f]+$":
-     type: object
-     properties:
+Dependencies: [2]
+
+[1] https://patchwork.freedesktop.org/patch/543903/?series=119773&rev=1
+[2] https://patchwork.freedesktop.org/series/118839/
+
+Dmitry Baryshkov (6):
+  drm/msm/dpu: drop the `id' field from DPU_HW_SUBBLK_INFO
+  drm/msm/dpu: drop the field `name' from DPU_HW_SUBBLK_INFO
+  drm/msm/dpu: drop the `smart_dma_priority' field from struct
+    dpu_sspp_sub_blks
+  drm/msm/dpu: deduplicate some (most) of SSPP sub-blocks
+  drm/msm/dpu: drop DPU_HW_SUBBLK_INFO macro
+  drm/msm/dpu: merge dpu_csc_blk and dpu_dsc_blk into dpu_simple_blk
+
+Ryan McCann (1):
+  drm/msm/dpu: Drop unused num argument from relevant macros
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |   8 +-
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   4 +-
+ .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |   8 +-
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   4 +-
+ .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   4 +-
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   8 +-
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  16 +--
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  20 +--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 122 +++++++-----------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  48 +++----
+ 17 files changed, 154 insertions(+), 200 deletions(-)
 
 -- 
-2.34.1
+2.39.2
 
