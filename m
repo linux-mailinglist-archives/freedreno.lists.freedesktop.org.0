@@ -2,40 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D576A73BF45
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 22:14:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B17AA73BF5A
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 22:18:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDD3310E6AD;
-	Fri, 23 Jun 2023 20:14:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 782D310E6AE;
+	Fri, 23 Jun 2023 20:18:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EABAC10E315
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 20:14:48 +0000 (UTC)
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C84A210E0C8
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 20:18:37 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 01A583EBA4;
- Fri, 23 Jun 2023 22:14:45 +0200 (CEST)
-Date: Fri, 23 Jun 2023 22:14:44 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 68F383F6CF;
+ Fri, 23 Jun 2023 22:18:35 +0200 (CEST)
+Date: Fri, 23 Jun 2023 22:18:34 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <daqhyz4rtgdxthsezmgk6t2egbdsvzsdy3cihrqrhyveoqbizi@etq2tafkucg2>
-References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
- <20230525-add-widebus-support-v1-3-c7069f2efca1@quicinc.com>
- <ky7sgsaohak2pcdf6pbhedfyrwk4ea7y3ekfqlw7rn6cpk4rhe@rjuhb23n37oz>
- <cf968ab4-e4c4-dcad-f7d1-4edff6f08147@quicinc.com>
- <xrqiat4otnfwtss6zwubh77qx3frdyi77flna2xljzycvr6r2v@riimvmhoondt>
- <654ccc4c-40c2-bef6-9f47-847216e16cb0@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <gtbpo6o255z3wb5veapjf4z2gasf6sjqdswqxxgpcwtkxaa6qk@dgkopjxs47uz>
+References: <20230619210647.867630-1-dmitry.baryshkov@linaro.org>
+ <e9d5876a-3113-8c79-c2aa-e1ad175f0d84@quicinc.com>
+ <b632e52d-7b86-9f5a-913a-aace26d9a039@linaro.org>
+ <c2f632e7-8302-a77f-fc61-ccda3b5a8aac@quicinc.com>
+ <eqdu44xcd6qdrmxcdr44dfcliydz6q4oombghjg6ptlcbxf22v@uhqnhnlv6gxi>
+ <6e2ded6a-63a9-d32a-7a2f-67d3c72b1aa2@quicinc.com>
+ <gpxqh6mu5dora7ul4agaflmzqiq7ps6j2dic3zj2ygvp7dsori@lnbnexnbqthg>
+ <a3ce94a4-8e5b-427c-28ad-1bfad041d097@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <654ccc4c-40c2-bef6-9f47-847216e16cb0@quicinc.com>
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dsi: Enable DATABUS_WIDEN for
- DSI command mode
+In-Reply-To: <a3ce94a4-8e5b-427c-28ad-1bfad041d097@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Document DSC related
+ pclk_rate and hdisplay calculations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,69 +49,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
- Sean Paul <sean@poorly.run>
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-23 10:29:51, Abhinav Kumar wrote:
+On 2023-06-23 23:10:56, Dmitry Baryshkov wrote:
 <snip>
-> The concept is quite simple
-> 
-> one pixel per clock for uncompresssed without widebubus
-> 
-> 2 pixels per clock for uncompressed with widebus (only enabled for DP 
-> not DSI)
-> 
-> 3 bytes worth of data for compressed without widebus
-> 
-> 6 bytes worth of data for compressed with widebus
-> 
-> When compression happens, we cannot quantify with pixels as the boundary 
-> is not defined with respect to bytes.
-> 
-> You brought up uncompressed in your below comment so I assumed your 
-> question of /2 was about uncompressed too.
-
-No clue where things are going wrong, but you either avoid or
-misunderstand the question.
-
-(Talking exclusively about compressed data here!)
-
-pclk is determined based on the number of bytes.
-
-When widebus is enabled, we transfer twice as many bytes per pclk cycle.
-
-Can pclk be reduced by a factor two, as that should still be enough to
-transfer the same amount of bytes when widebus is enabled?
-
-> >> We tried our best to respond and explain to all your queries both on the
-> >> bug and the patch but i guess it just kept coming :)
+> >> There is no confusion between what was said earlier and now.
+> >>
+> >> This line is calculating the number of pclks needed to transmit one line
+> >> of the compressed data:
+> >>
+> >> hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
+> >>
+> >> msm_dsc_get_bytes_per_line() is calculating the number of compressed
+> >> bytes as it uses the target bits_per_pixel
+> >>
+> >> 126 	 * @bits_per_pixel:
+> >> 127 	 * Target bits per pixel with 4 fractional bits, bits_per_pixel << 4
+> >> 128 	 */
+> >> 129 	u16 bits_per_pixel;
+> >>
+> >> (like I have said a few times, hdisplay is perhaps confusing us)
+> >>
+> >> If you calculate the bytes this way you are already accounting for the
+> >> compression, so where is the confusion.
+> >>
+> >> The pclk calculation does the same thing of using the ratio instead.
 > > 
-> > Then send less patches!  As long as there is activity on the mailing
-> > list there'll always be questions going back and forth, and I don't
-> > think that's unreasonable.
-> > 
-> > Unless you want to push patches into mainline without questioning.
-> > 
+> > This is not answering my question whether the ratio for pclk calculation
+> > should also be adjusted to account for widebus.  And if the ratio is
+> > fixed, why use a fixed factor here but the ratio between
+> > src_bpp:target_bpp here?  It only adds extra confusion.
 > 
-> the comments were bordering the line of becoming irrelevant to the 
-> patches like discussing video mode on a command mode patch when we had 
-> explained many many times that we did not validate them.
+> Wide bus is dicussed separately. I think the question you are trying to 
+> ask is "why are we not using msm_dsc_get_bytes_per_line() in 
+> dsi_adjust_pclk_for_compression()?"
 
-You(r team) came up with irrelevant video-mode checks in these patches,
-and you keep bringing up topics that I did not mention (such as
-suddently talking about uncompressed formats above).  Stop pretending
-there's any nefarious intent here unless you intend to push external
-contributors away.
+I have asked that question before, and the answer was something
+incomprehensible.  But indeed, it would look more natural if
+dsi_adjust_pclk_for_compression() replaces:
 
-> I dont want to add more comments to this. Lets stop discussing this and 
-> focus more on this patch.
+    int new_hdisplay = DIV_ROUND_UP(mode->hdisplay * drm_dsc_get_bpp_int(dsc),
+        dsc->bits_per_component * 3)
 
-Perhaps if you answer the question?
+With:
+
+    int new_hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(dsc), 3);
+
+Which is the same value as we have here.
+
+And then it becomes more clear how widebus affects this calculation.
 
 - Marijn
