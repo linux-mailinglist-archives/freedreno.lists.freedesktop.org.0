@@ -2,56 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3170F73BA39
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 16:33:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDD473BDCA
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 19:30:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4DEE10E646;
-	Fri, 23 Jun 2023 14:33:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAF3110E68F;
+	Fri, 23 Jun 2023 17:29:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E7610E63F;
- Fri, 23 Jun 2023 14:33:45 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECFB410E68D;
+ Fri, 23 Jun 2023 17:29:57 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35NDd6Lv028366; Fri, 23 Jun 2023 14:33:39 GMT
+ 35NDuPwG007161; Fri, 23 Jun 2023 17:29:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=NBK2ikwut+xkO+7cwsrjlW443RlA4CBiPCwlB76Lsx0=;
- b=ARoJZpcSC6CagbpHzBGQXEiudQiX0/8M5/qsqOPfMoTq7+ju8Az2tnWzO381bsJS7mpR
- tzXM0fBRFWTHh8xbGw4vv+eE6mvk8z6NsY8CcI/KxPPatgjBZWF4qB4xlbn/FR4jkcSk
- zNmqEdhOvtm/T6ybpvVOGesPA3SdO+YoTihPtfN3NPrn7f3l3XtDSf2MqBABRdBG7H+S
- dgwXnxBGxD1SRrkNugW+8Z4hq8qkcqUXoSM/2jx7C/rNnbfPUuZsHx0lkxFmIwQVnKhV
- bsXiXtBH47/HdMxYDjf/j13uNQwbTv+bIHiT6WotN+5oTeGNUFKg2iBEsiBidQ6ThCvj yg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=lnIbIf7NmudFilKAbXIrXRh3WR7inmW/SzqPR4v7r0Q=;
+ b=Af1iYuTBzGUrutsebEwLC4KhmkN4yGIbqtWYGDTHSAXMYzKqe1aXIU7QjgtKmjkXqYBX
+ dRlhArdD7PiP8Wq4KlVim72n3Do4yawWbEzBWphsW4D66wTjBOoJ8lJWncoZ1v/4DyvW
+ naMO2GR7MgDFtLvVAI13bAVu7Ipe568AVChp5WmiEaIYnRbkEBOF3eTOVVx9na5JR7ml
+ scyyRQU2OU714aVgYl/YdR4d+iJ6fyDSEPn1SwPNQJoNd8tY86Bl0a2gVQKZcduV9a7k
+ f2P4FBIq33nEUfOAaTXHKQ/X7zyEasAK20ws+l5A0xmLRPB81B25zUjPquwVrnGQOsit tA== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rbwvme85y-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rc6b2da9f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Jun 2023 14:33:38 +0000
+ Fri, 23 Jun 2023 17:29:55 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35NEXaWE029462
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35NHTsLN001132
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Jun 2023 14:33:37 GMT
-Received: from [10.110.61.123] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Fri, 23 Jun 2023 17:29:54 GMT
+Received: from [10.110.6.30] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 23 Jun
- 2023 07:33:35 -0700
-Message-ID: <f3efef59-1f0f-368e-6d69-f61865c26521@quicinc.com>
-Date: Fri, 23 Jun 2023 07:33:27 -0700
+ 2023 10:29:52 -0700
+Message-ID: <654ccc4c-40c2-bef6-9f47-847216e16cb0@quicinc.com>
+Date: Fri, 23 Jun 2023 10:29:51 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1687454686-10340-1-git-send-email-quic_khsieh@quicinc.com>
- <1687454686-10340-2-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpoc+4Hx221Zf0i8yhRxFQ9BhgZ5H5QQ5EvwpAarXFu8Gg@mail.gmail.com>
+ Thunderbird/102.11.0
 Content-Language: en-US
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAA8EJpoc+4Hx221Zf0i8yhRxFQ9BhgZ5H5QQ5EvwpAarXFu8Gg@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com>
+ <20230525-add-widebus-support-v1-3-c7069f2efca1@quicinc.com>
+ <ky7sgsaohak2pcdf6pbhedfyrwk4ea7y3ekfqlw7rn6cpk4rhe@rjuhb23n37oz>
+ <cf968ab4-e4c4-dcad-f7d1-4edff6f08147@quicinc.com>
+ <xrqiat4otnfwtss6zwubh77qx3frdyi77flna2xljzycvr6r2v@riimvmhoondt>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <xrqiat4otnfwtss6zwubh77qx3frdyi77flna2xljzycvr6r2v@riimvmhoondt>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -60,19 +62,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: HyRY2zuL8RWG19B8xMTyS-z7wNKyxSP7
-X-Proofpoint-GUID: HyRY2zuL8RWG19B8xMTyS-z7wNKyxSP7
+X-Proofpoint-ORIG-GUID: 0rJIduGmZPurT6kYCsCNdSHZsqJs1pW1
+X-Proofpoint-GUID: 0rJIduGmZPurT6kYCsCNdSHZsqJs1pW1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-06-23_08,2023-06-22_02,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- mlxlogscore=978 malwarescore=0 spamscore=0 mlxscore=0 lowpriorityscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ clxscore=1015 bulkscore=0
+ malwarescore=0 spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ mlxlogscore=740 lowpriorityscore=0 impostorscore=0 mlxscore=0 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2305260000
- definitions=main-2306230131
-Subject: Re: [Freedreno] [PATCH v5 1/2] drm/msm/dpu: retrieve DSI DSC struct
- through priv->dsi[0]
+ definitions=main-2306230156
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dsi: Enable DATABUS_WIDEN for
+ DSI command mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,146 +87,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 6/22/2023 11:36 AM, Dmitry Baryshkov wrote:
-> On Thu, 22 Jun 2023 at 20:25, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->> Currently struct drm_dsc_config for DSI is populated at display
->> setup during system boot up. This mechanism works fine with
->> embedded display but not for pluggable displays as the
->> struct drm_dsc_config will become stale once external display
->> is unplugged.
+
+On 6/23/2023 12:19 AM, Marijn Suijten wrote:
+> On 2023-06-22 17:01:34, Abhinav Kumar wrote:
+> <snip>
+>>> More interesting would be a link to the Mesa MR upstreaming this
+>>> bitfield to dsi.xml [2] (which I have not found on my own yet).
+>>>
+>>> [2]: https://gitlab.freedesktop.org/mesa/mesa/-/blame/main/src/freedreno/registers/dsi/dsi.xml
+>>>
 >>
-> Nit: "In preparation of adding support for DP DSC..."
->
-> If you don't mind, I'll append this phrase while applying the patch.
-please, thank for your helps.
->
->> Move storing of DSI DSC struct to atomic_enable() so that same
->> mechanism will work for both embedded display and pluggable
->> displays.
+>> Thats because we havent submitted a MR yet for this on mesa.
 >>
->> Changes in v4:
->> -- fix checkpatch.pl warning
+>> Generally, our team does not have legal permissions yet for mesa MRs
+>> other than mesa drm because we got permissions for the modetest.
 >>
->> Changes in v5:
->> -- delete dpu_encoder_get_dsc_config() from atomic_mode_set
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 42 ++++++++++++++++++++---------
->>   1 file changed, 30 insertions(+), 12 deletions(-)
+>> Rob/Dmitry, can one of you pls help with the corresponding mesa MR for this?
+> 
+> Thanks!
+> 
+>> The xml file change was autogenerated so this patch can go in.
+> <snip>
+>>>>    		 *
+>>>>    		 * hdisplay will be divided by 3 here to account for the fact
+>>>>    		 * that DPU sends 3 bytes per pclk cycle to DSI.
+>>>> +		 *
+>>>> +		 * If widebus is supported, set DATABUS_WIDEN register and divide hdisplay by 6
+>>>> +		 * instead of 3
+>>>
+>>> So this should allow us to divide pclk by 2, or have much lower latency?
+>>> Otherwise it'll tick enough times to transmit the data twice.
+>>>
+>>> Note that I brought up the exact same concerns when you used the 3:1
+>>> ratio from dsi_bpp / dsc_bpp in your pclk reduction patch (instad of the
+>>> number of bits/bytes that DPU sends to DSI per pclk), but no-one has
+>>> replied to my inquiry yet.
+>>>
 >>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 2e1873d..edc559d 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -543,11 +543,24 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
->>          return (num_dsc > 0) && (num_dsc > intf_count);
->>   }
+>> Ideally yes, we could have done pclk/2 on uncompressed pixels but we are
+>> not going to add support for widebus on DSI without DSC as that is not
+>> recommended in our docs.
+> 
+> No-one here mentioned uncompressed pixels?
+> 
+> None of this code suddenly makes DPU send twice as many pixels/bytes to
+> the DSI, yet we are enabling a feature that makes the bus twice as wide,
+> so the clock can be halved *for comressed pixels*?
+> 
+
+The concept is quite simple
+
+one pixel per clock for uncompresssed without widebubus
+
+2 pixels per clock for uncompressed with widebus (only enabled for DP 
+not DSI)
+
+3 bytes worth of data for compressed without widebus
+
+6 bytes worth of data for compressed with widebus
+
+When compression happens, we cannot quantify with pixels as the boundary 
+is not defined with respect to bytes.
+
+You brought up uncompressed in your below comment so I assumed your 
+question of /2 was about uncompressed too.
+
+
+>> So this cannot be done.
 >>
->> +static struct drm_dsc_config *dpu_encoder_get_dsc_config(struct drm_encoder *drm_enc)
->> +{
->> +       struct msm_drm_private *priv = drm_enc->dev->dev_private;
->> +       struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->> +       int index = dpu_enc->disp_info.h_tile_instance[0];
->> +
->> +       if (dpu_enc->disp_info.intf_type == INTF_DSI)
->> +               return msm_dsi_get_dsc_config(priv->dsi[index]);
->> +
->> +       return NULL;
->> +}
->> +
->>   static struct msm_display_topology dpu_encoder_get_topology(
->>                          struct dpu_encoder_virt *dpu_enc,
->>                          struct dpu_kms *dpu_kms,
->>                          struct drm_display_mode *mode,
->> -                       struct drm_crtc_state *crtc_state)
->> +                       struct drm_crtc_state *crtc_state,
->> +                       struct drm_dsc_config *dsc)
->>   {
->>          struct msm_display_topology topology = {0};
->>          int i, intf_count = 0;
->> @@ -579,7 +592,7 @@ static struct msm_display_topology dpu_encoder_get_topology(
+>> We tried our best to respond and explain to all your queries both on the
+>> bug and the patch but i guess it just kept coming :)
+> 
+> Then send less patches!  As long as there is activity on the mailing
+> list there'll always be questions going back and forth, and I don't
+> think that's unreasonable.
+> 
+> Unless you want to push patches into mainline without questioning.
+> 
+
+the comments were bordering the line of becoming irrelevant to the 
+patches like discussing video mode on a command mode patch when we had 
+explained many many times that we did not validate them.
+
+I dont want to add more comments to this. Lets stop discussing this and 
+focus more on this patch.
+
+>> I am going to try one more time to explain it in the documentation change.
+> 
+> Would love to hear, why, for compressed streams, the bus is twice as
+> wide yet pclk is not reduced to account for that.
+> 
+> <snip>
+>>> Can we also support widebus for uncompressed streams (sending 2 pixels
+>>> of bpp=24 per pclk), and if so, is that something you want to add in the
+>>> future (a comment would be nice)?
 >>
->>          topology.num_intf = intf_count;
->>
->> -       if (dpu_enc->dsc) {
->> +       if (dsc) {
->>                  /*
->>                   * In case of Display Stream Compression (DSC), we would use
->>                   * 2 DSC encoders, 2 layer mixers and 1 interface
->> @@ -605,6 +618,7 @@ static int dpu_encoder_virt_atomic_check(
->>          struct drm_display_mode *adj_mode;
->>          struct msm_display_topology topology;
->>          struct dpu_global_state *global_state;
->> +       struct drm_dsc_config *dsc;
->>          int i = 0;
->>          int ret = 0;
->>
->> @@ -640,7 +654,9 @@ static int dpu_encoder_virt_atomic_check(
->>                  }
->>          }
->>
->> -       topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state);
->> +       dsc = dpu_encoder_get_dsc_config(drm_enc);
->> +
->> +       topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state, dsc);
->>
->>          /*
->>           * Release and Allocate resources on every modeset
->> @@ -1072,14 +1088,12 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->>                  dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
->>                                                  : NULL;
->>
->> -       if (dpu_enc->dsc) {
->> -               num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->> -                                                       drm_enc->base.id, DPU_HW_BLK_DSC,
->> -                                                       hw_dsc, ARRAY_SIZE(hw_dsc));
->> -               for (i = 0; i < num_dsc; i++) {
->> -                       dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
->> -                       dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
->> -               }
->> +       num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->> +                                               drm_enc->base.id, DPU_HW_BLK_DSC,
->> +                                               hw_dsc, ARRAY_SIZE(hw_dsc));
->> +       for (i = 0; i < num_dsc; i++) {
->> +               dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
->> +               dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
->>          }
->>
->>          dpu_enc->dsc_mask = dsc_mask;
->> @@ -1187,6 +1201,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
->>
->>          dpu_enc = to_dpu_encoder_virt(drm_enc);
->>
->> +       dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
->> +
->>          mutex_lock(&dpu_enc->enc_lock);
->>          cur_mode = &dpu_enc->base.crtc->state->adjusted_mode;
->>
->> @@ -2109,8 +2125,10 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
->>                                          phys_enc->hw_pp->merge_3d->idx);
->>          }
->>
->> -       if (dpu_enc->dsc)
->> +       if (dpu_enc->dsc) {
->>                  dpu_encoder_unprep_dsc(dpu_enc);
->> +               dpu_enc->dsc = NULL;
->> +       }
->>
->>          intf_cfg.stream_sel = 0; /* Don't care value for video mode */
->>          intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
->> --
->> 2.7.4
->>
->
+>> No, we cannot support widebus on uncompressed streams on DSI so we wont
+>> be adding that.
+> 
+> And here we start talking about uncompressed pixels *separately*.  Okay,
+> if it is not supported (e.g. widebus is specific to / reserved for DSC)
+> it of course makes no sense to add it.
+> 
+> - Marijn
