@@ -2,73 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6516673B1A0
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 09:29:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA27C73B619
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 13:25:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F45C10E62A;
-	Fri, 23 Jun 2023 07:29:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 739AE10E042;
+	Fri, 23 Jun 2023 11:25:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0541910E62C
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 07:29:04 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3128fcd58f3so372873f8f.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 00:29:04 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C441E10E0E9
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 11:25:19 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2b455855fb2so8992041fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 04:25:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687505343; x=1690097343;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=74Pt8y9BLYayYvuaPPOjFJX++4vBERPSGc1K1bOgfPc=;
- b=Y4LcbyKKH4D6Sc646yqtnsdFR8fsUfhWH/1ZHEzwtdsJ2yk8zc1Id8XVlOltQkHnRw
- QOEMIZF8lARJZ6DwtHrkXJUM5ppaxzuno9eMOajvNiVVRauJQjgfI5z77h+YaaWHm0Pb
- LIT/8+VGo1gkux9Gm0eWNJy5t2FQLi4gwjAy+/ASpPay5cTlS+kJA/Is381aaoo+z1TY
- Bbq4uJmoUVRTHpOROfa+YIir1CtWiCJQBPgcqnIhQ42xSvYK2+2KRJtNbVv+Aq6b7+c/
- 7MqkFZv+o4R2+ucZPy/9fmXkuqzADq6kWRKTrQ5dkRxIZZPM8eJLdvaj6Ooo80jPhybu
- VN7Q==
+ d=linaro.org; s=google; t=1687519516; x=1690111516;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=bgUU4kvAWecThTaVy7iKimbNi3/uDtCuo4ZewB7tiTc=;
+ b=kaX5kXkyDwwuO+WvzfTRq8TZhvC0S7824aUsuyaTm1w50bfBpLmxQRAxNJemjzBo1y
+ k4Xi0CkdmN7IHac5iaAZIKbzJBYsDB1Aoy6hmQwn9GN3t32gijbw/lmiYAg56+AGt8vI
+ ZO+HZmMKf4YYAfx7rW3GxL2e7p3ftE8OEReRFO8SQLGj+iTO2pJpPwj+8+iR9z3qvEgt
+ Ox6YX8bshivrWzXBLRJdkKoZ+bzb8ISybhjf/cP+PEopTkErBxQlqqPTE/moGjsBgB2H
+ sePpgZVqBTIHG7cQAsLtoWovQYiN3lfaZLMGnUV4zOmEOEziKXc6b+shyYsVXKG0xPX7
+ ch4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687505343; x=1690097343;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=74Pt8y9BLYayYvuaPPOjFJX++4vBERPSGc1K1bOgfPc=;
- b=Rwr15LIBxb0qc/cjoLWZorhrHYoCJAs12HgEz8Fk7FMtKMFZKV2LMZ6veN7+CySyEh
- 7DmEZoghr+iZIgO+wGnpyAITH7XDWedCwLYTAfVZnlDUAna0H988OUoSvoWn3An0JaF8
- rg3m9O6hgeDGZCd4ydkujjz6cqAAjZRqehH25I9wi/vxlYtFOBi9ocv0bCmWEG81Jpix
- hnVzd7hgpyijjPT/LjPXhfERDjq/lxKbPnYEajc3fG59XZaVNkn9ulcgZ2j3ISiIy0gG
- G4y/nzEosTQsO7WSaWwapQAEaEVIqdpahOZqlG7Q4ibryCtKsU4d3gxi/vUwELX4niyo
- wkQw==
-X-Gm-Message-State: AC+VfDxiJs8tsmgHygpzGo4X1mf8TP+IxFAp/4gLAMlv4hZj1lDdL0F2
- H6jD1UY77Kykn/NzRHuUULfbfA==
-X-Google-Smtp-Source: ACHHUZ5R9hJ3wXhPhvbJVcGIHlACR3cX0dSORBCPRA3xKj+G+lmLhEIxWe2HnM4i26WPrqPkabi7bA==
-X-Received: by 2002:adf:f6c8:0:b0:311:d7d:e831 with SMTP id
- y8-20020adff6c8000000b003110d7de831mr15478208wrp.48.1687505343048; 
- Fri, 23 Jun 2023 00:29:03 -0700 (PDT)
-Received: from [192.168.27.65] (home.beaume.starnux.net. [82.66.176.246])
+ d=1e100.net; s=20221208; t=1687519516; x=1690111516;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=bgUU4kvAWecThTaVy7iKimbNi3/uDtCuo4ZewB7tiTc=;
+ b=D2KGOVjOx0QNYbs9wYsrF4ZpGIwIEhEh1FWMq+SLzpkXqE3VXcVQP5WXqhcvY0BUy8
+ ziR6uSY1bnlcs6OlrTCAzaJPFwegskK/zhlFcAa0lJazkrp8CPdGtGWuNnW0EespEatj
+ qXXinl3joQiEXQ8onOcYyuXP4pp+A7nTBgo2rEWC6B6X3Sk8Zz0UYKoYcOlMk2MaMSr0
+ nP6M7tHeLO0fGd8PRvOKG0LoOv5MlX4Cd58YZgle0hXP2+WKsy8hIUbVvmiUt5IvegUt
+ r0Osocl7zSmNrYVaRthSHdgMjckegRd/YAxtKAcN920rh9Anuu9zN4wccpvAPnV7OXkx
+ oV3w==
+X-Gm-Message-State: AC+VfDyO97+uQG6jVnIgLBpRc+ZxVITnuK4/WXuvUdqfpMBIUKaUUj+M
+ 9v2toCq0qJACx9pSP5plByD5PQ==
+X-Google-Smtp-Source: ACHHUZ56os1dzwaBZbEzRw6FhwI6ogZcRqVZVDGqw3GI2eal3+2tbgJZWSCRzaK8MCvvqA90QcwYhQ==
+X-Received: by 2002:a2e:95c2:0:b0:2ae:db65:2d01 with SMTP id
+ y2-20020a2e95c2000000b002aedb652d01mr14522612ljh.23.1687519516113; 
+ Fri, 23 Jun 2023 04:25:16 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- p9-20020adfcc89000000b003113f0ba414sm8822488wrj.65.2023.06.23.00.29.01
+ h27-20020a2eb0fb000000b002b3e5794516sm1689893ljl.26.2023.06.23.04.25.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 00:29:02 -0700 (PDT)
-Message-ID: <b4b1552d-67ab-3ab4-641a-1e190ed4a707@linaro.org>
-Date: Fri, 23 Jun 2023 09:29:00 +0200
+ Fri, 23 Jun 2023 04:25:15 -0700 (PDT)
+Message-ID: <d98ddf40-c4b5-56a4-c444-2d87712a6ebd@linaro.org>
+Date: Fri, 23 Jun 2023 14:25:14 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-0-8bf386b373eb@linaro.org>
- <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v1-1-8bf386b373eb@linaro.org>
- <xlr3rmz7wy5o3ka6cxo2tzl3hqbnk4vkm7jsgjdhyimiyyqnfr@pjjwjg37675s>
-Organization: Linaro Developer Services
-In-Reply-To: <xlr3rmz7wy5o3ka6cxo2tzl3hqbnk4vkm7jsgjdhyimiyyqnfr@pjjwjg37675s>
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230623013731.1088007-1-dmitry.baryshkov@linaro.org>
+ <6b74cb1f-3128-4ebd-8ff9-33cc025d957b@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <6b74cb1f-3128-4ebd-8ff9-33cc025d957b@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display: msm: sm8350-mdss:
- document displayport controller subnode
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: fix DSC 1.2 block lengths
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,58 +80,179 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- Robert Foss <rfoss@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/06/2023 09:27, Marijn Suijten wrote:
-> On 2023-06-21 11:26:25, Neil Armstrong wrote:
->> Document the optional document displayport controller subnode
+On 23/06/2023 08:47, Abhinav Kumar wrote:
 > 
-> document the optional *document*?  Same in the other patches IIRC.
-
-oops, will re-spin with this fixed
-
-thanks!
-
 > 
-> - Marijn
-> 
->> of the SM8350 MDSS.
+> On 6/22/2023 6:37 PM, Dmitry Baryshkov wrote:
+>> All DSC_BLK_1_2 declarations incorrectly pass 0x29c as the block length.
+>> This includes the common block itself, enc subblocks and some empty
+>> space around. Change that to pass 0x4 instead, the length of common
+>> register block itself.
 >>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Fixes: 0d1b10c63346 ("drm/msm/dpu: add DSC 1.2 hw blocks for relevant 
+>> chipsets")
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> There is no need of a fixes tag for this.
+> 
+> This is not a bug but was intentional.
+
+We have other subblocks which are not dumped withoyt Ryan's patchset. So 
+this declaration should be corrected.
+
+> 
+> Till we added sub-block parsing support we had to dump the whole block.
+> 
+> And hence I would suggest this change should be merged after the 
+> sub-block parsing change otherwise we wont have full register dumps for 
+> DSC.
+
+No, the order should be opposite: this is merged first, then subblocks 
+dumping can use block->len in all the cases.
+
+> 
+> Also, please add :
+> 
+> Suggested-by: Ryan McCann <quic_rmccann@quicinc.com>
+
+More likely:
+
+Reported-by: Ryan McCann <quic_rmccann@quicinc.com>
+
+> 
+> 
 >> ---
->>   Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml | 6 ++++++
->>   1 file changed, 6 insertions(+)
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   |  8 ++++----
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h   |  2 +-
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 12 ++++++------
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   |  8 ++++----
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   |  8 ++++----
+>>   5 files changed, 19 insertions(+), 19 deletions(-)
 >>
->> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
->> index 79a226e4cc6a..f2cbeb435f1b 100644
->> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
->> @@ -52,6 +52,12 @@ patternProperties:
->>         compatible:
->>           const: qcom,sm8350-dpu
->>   
->> +  "^displayport-controller@[0-9a-f]+$":
->> +    type: object
->> +    properties:
->> +      compatible:
->> +        const: qcom,sm8350-dp
->> +
->>     "^dsi@[0-9a-f]+$":
->>       type: object
->>       properties:
->>
->> -- 
->> 2.34.1
->>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+>> index 8da424eaee6a..6edf323f381f 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+>> @@ -159,10 +159,10 @@ static const struct dpu_merge_3d_cfg 
+>> sm8350_merge_3d[] = {
+>>    * its own different sub block address.
+>>    */
+>>   static const struct dpu_dsc_cfg sm8350_dsc[] = {
+>> -    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> -    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x4, 0, dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x4, 0, dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>>   };
+>>   static const struct dpu_intf_cfg sm8350_intf[] = {
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+>> index 900fee410e11..5354003aa8be 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+>> @@ -104,7 +104,7 @@ static const struct dpu_pingpong_cfg sc7280_pp[] = {
+>>   /* NOTE: sc7280 only has one DSC hard slice encoder */
+>>   static const struct dpu_dsc_cfg sc7280_dsc[] = {
+>> -    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>>   };
+>>   static const struct dpu_wb_cfg sc7280_wb[] = {
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> index f6ce6b090f71..1d374abec1fd 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
+>> @@ -148,12 +148,12 @@ static const struct dpu_merge_3d_cfg 
+>> sc8280xp_merge_3d[] = {
+>>    * its own different sub block address.
+>>    */
+>>   static const struct dpu_dsc_cfg sc8280xp_dsc[] = {
+>> -    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> -    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> -    DSC_BLK_1_2("dce_2_0", DSC_4, 0x82000, 0x29c, 0, dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_2_1", DSC_5, 0x82000, 0x29c, 0, dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x4, 0, dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x4, 0, dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_2_0", DSC_4, 0x82000, 0x4, 0, dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_2_1", DSC_5, 0x82000, 0x4, 0, dsc_sblk_1),
+>>   };
+>>   /* TODO: INTF 3, 8 and 7 are used for MST, marked as INTF_NONE for 
+>> now */
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+>> index 8d13c369213c..79447d8cab05 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
+>> @@ -167,10 +167,10 @@ static const struct dpu_merge_3d_cfg 
+>> sm8450_merge_3d[] = {
+>>    * its own different sub block address.
+>>    */
+>>   static const struct dpu_dsc_cfg sm8450_dsc[] = {
+>> -    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> -    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x4, 0, dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x4, 0, dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>>   };
+>>   static const struct dpu_intf_cfg sm8450_intf[] = {
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> index f17b9a7fee85..26e3c28003f7 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> @@ -171,10 +171,10 @@ static const struct dpu_merge_3d_cfg 
+>> sm8550_merge_3d[] = {
+>>    * its own different sub block address.
+>>    */
+>>   static const struct dpu_dsc_cfg sm8550_dsc[] = {
+>> -    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x29c, 0, dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x29c, 0, dsc_sblk_1),
+>> -    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> -    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x29c, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_0_0", DSC_0, 0x80000, 0x4, 0, dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_0_1", DSC_1, 0x80000, 0x4, 0, dsc_sblk_1),
+>> +    DSC_BLK_1_2("dce_1_0", DSC_2, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_0),
+>> +    DSC_BLK_1_2("dce_1_1", DSC_3, 0x81000, 0x4, 
+>> BIT(DPU_DSC_NATIVE_42x_EN), dsc_sblk_1),
+>>   };
+>>   static const struct dpu_intf_cfg sm8550_intf[] = {
+
+-- 
+With best wishes
+Dmitry
 
