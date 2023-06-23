@@ -1,37 +1,37 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F3F73BF71
-	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 22:23:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11BBF73BF78
+	for <lists+freedreno@lfdr.de>; Fri, 23 Jun 2023 22:23:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 632FC10E6AD;
-	Fri, 23 Jun 2023 20:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E7B10E6AE;
+	Fri, 23 Jun 2023 20:23:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E9010E6AD
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 20:23:00 +0000 (UTC)
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 875D110E6AD
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 20:23:48 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 91BFF3F6B1;
- Fri, 23 Jun 2023 22:22:58 +0200 (CEST)
-Date: Fri, 23 Jun 2023 22:22:57 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 650E23F684;
+ Fri, 23 Jun 2023 22:23:46 +0200 (CEST)
+Date: Fri, 23 Jun 2023 22:23:45 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>
-Message-ID: <lfumxhwsucndtozr4de2cxvva65p7fst7pwdiv4ywv2hbevldr@kmpls2kjcr5n>
+Message-ID: <j6pdytaxa4gspbyi4cafl43cxxix3a7tepdunhahgqefemuhy5@zldd6osxuzyh>
 References: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-0-733ed383f6b6@linaro.org>
- <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-2-733ed383f6b6@linaro.org>
+ <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-3-733ed383f6b6@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-2-733ed383f6b6@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 2/3] dt-bindings: display: msm:
- sm8450-mdss: document displayport controller subnode
+In-Reply-To: <20230621-topic-sm8x50-upstream-mdss-bindings-dp-subnode-v2-3-733ed383f6b6@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 3/3] dt-bindings: display: msm:
+ sm8550-mdss: document displayport controller subnode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,8 +56,8 @@ Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-23 14:32:54, Neil Armstrong wrote:
-> Document the optional displayport controller subnode of the SM8450 MDSS.
+On 2023-06-23 14:32:55, Neil Armstrong wrote:
+> Document the optional displayport controller subnode of the SM8550 MDSS.
 > 
 > Acked-by: Rob Herring <robh@kernel.org>
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
@@ -65,23 +65,23 @@ On 2023-06-23 14:32:54, Neil Armstrong wrote:
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
 > ---
->  .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml         | 8 ++++++++
+>  .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 8 ++++++++
 >  1 file changed, 8 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-> index f26eb5643aed..494e2a080e99 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
+> index 887be33ba108..70ce7cb7a80d 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
 > @@ -42,6 +42,14 @@ patternProperties:
 >        compatible:
->          const: qcom,sm8450-dpu
+>          const: qcom,sm8550-dpu
 >  
 > +  "^displayport-controller@[0-9a-f]+$":
 > +    type: object
 > +    properties:
 > +      compatible:
 > +        items:
-> +          - const: qcom,sm8450-dp
+> +          - const: qcom,sm8550-dp
 > +          - const: qcom,sm8350-dp
 > +
 >    "^dsi@[0-9a-f]+$":
