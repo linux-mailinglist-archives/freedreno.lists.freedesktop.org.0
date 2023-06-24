@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C5C73C9E0
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 11:10:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8C373C9E6
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 11:11:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28D010E131;
-	Sat, 24 Jun 2023 09:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7064810E18B;
+	Sat, 24 Jun 2023 09:11:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7098A10E0E8
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 09:10:18 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-98e011f45ffso15643766b.3
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:10:18 -0700 (PDT)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2EFD10E174
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 09:11:19 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-98de21518fbso52290266b.0
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:11:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687597816; x=1690189816;
+ d=linaro.org; s=google; t=1687597878; x=1690189878;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=iyaZqfbPtoW544erxGkV79CDXXxsYM/Fp16IQb+tP9I=;
- b=jc1Auh5tqvnIULQo0SinoF4pptEI9CJAL3uA1jKLnlNGiTWufhWrhahGAE+h32L1xx
- hCwdO7h3Vmv1b34q5rAjJbBMrkdAJ8jeyZmjvO+/pFLJkS4CYb8abNyKpQxPGX5ienRW
- PIJMAwGBAxWfsdY4eyp40JyXmD5mVqTuA7AjloZ2sTj1+fTYOyn35xzG2+XOl0lDTdlS
- QPyfGp/MBw3L4SDMqlLRDP9AJH7so7ie6Vil1QYZyTe6pApxQk8F1CZiR60hS7V1esSW
- za+FT3/7dbx3jXeTCm+xsyV8y0gAot6PpCd97/OoF2RdV9kXALgQsFE8fatD+p/d2bEU
- 4+iA==
+ bh=TB9IHENJDTgP3/+RgmCR40mbzefHRkoxy0VpWnLxklY=;
+ b=grwUtLESlVNXp6uim+dHlAYHJFBXetSUjezL5bHBZaNCN4WHItbgPsVqVEFsjYN4Rt
+ 2BAB2zpWJwRo9UEqMnSqwJkUbanLf/6B1TSOZLeZ8UfKg2TvccWv5R4eHxIvn5z24DMl
+ qk+juz7k5H9qq5p8oUhdEvxEClDedMtrUTeu1djwzyeMCx2QWE5ZyGXJqSF4iB+D7sFM
+ IorPe6SpPqO7N3InbG456FHlrS70BkvkEJqIrsMdwpNPXQoILbm6jRlrMgiKN3OppCZC
+ 39cqq4zhyC9Ea/FvFTODLTojMQmM0Ft5CoePsTengl0SjhapGJAjF1w5j8Ao5uvmcgWP
+ gmGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687597816; x=1690189816;
+ d=1e100.net; s=20221208; t=1687597878; x=1690189878;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iyaZqfbPtoW544erxGkV79CDXXxsYM/Fp16IQb+tP9I=;
- b=aLQthBOqdCQs7SxiHvBoTUJPxMDtKQobBYuttzf86/Bhf5a9UylB0uQJTKhmhCPJ+n
- EdB+tL1+QjdA9TeQQ/iFs331jWGfWPtHV3qCqgiAI7Q8Y5vixg+2BERNx5pX+PhHL6I3
- /s2A7N+Az1Xpu2Cg85uFZt7AtZVpB4mV48zhi1bKta/u+Je1b2sD+ZHZeKnBJt8STCxn
- +iPIDNyXa9T1DqtTClwOy2wRLSLDjCeF1QKY0sekqxu0eA4d+jZq6kqxi1otZB+TcTeU
- 2Hy8puWFMpCrik1o//Ali6Rm7KSHo5H4i9BdRbwyHN8XlC71YRWslLJrDgN9uEZECLyF
- T7rw==
-X-Gm-Message-State: AC+VfDwlURNPqhssjVQhZpcD8ECPop+FqWg03O5euWcvbcH6FXjMe6hb
- lgEmtQ72F0ij6MA4OJMthVtu/A==
-X-Google-Smtp-Source: ACHHUZ4pqNge7JwaJVBPQcyWNxciyTTsdI3G9ALVxmbefnkvykz7tn8SBKrUteVDofWtt9OCuMQg/g==
-X-Received: by 2002:a17:907:7628:b0:98e:a54:42e3 with SMTP id
- jy8-20020a170907762800b0098e0a5442e3mr173662ejc.54.1687597816650; 
- Sat, 24 Jun 2023 02:10:16 -0700 (PDT)
+ bh=TB9IHENJDTgP3/+RgmCR40mbzefHRkoxy0VpWnLxklY=;
+ b=QVSK/fFg5rAZ8b0F0nAXCn3ACCyF/1F16We5O7Pbvrwtmg/qrzw3nt57/RbQruMiWI
+ ZWaMUc74vKVe2XF+sfQ+UYD76GO2YZcpEKPHj+e5M217DkWS/SLkFB3ip4MJG+88Ucr3
+ Zp37zTdhCgdYwSK8cPqYQw51iKFAr3vP9FQRLzVd0NLBM7IsKGCOkUAnfynjQyCYBaVF
+ ul1LpRY3dmaEV9wakbxMiCQb8HoJhe+ulYIGqDlSXxdADNvfAmIvLAsGJ+M5OjKinFVI
+ GCmHhXdmRrFHH3QSJXJhMRiHexx6FEE4twDQm2rCi2L4M1YTKkiB3QPv/1JMR5Ox13ro
+ apsw==
+X-Gm-Message-State: AC+VfDyTXr++yBKPqe506NilxYg6liCBHf7bXUbPG3+7tUF2fGSwzHKc
+ IC0EwklrZRosXJCdtu5FiRHpFw==
+X-Google-Smtp-Source: ACHHUZ4TP0Vdg3BKzhJVTx8ptKa5/v9jsxLjJ+4KkREwbvl+gOjJuEvoSK1K+Qjdqw+DMfHimDsPFQ==
+X-Received: by 2002:a17:907:7293:b0:988:84e8:747c with SMTP id
+ dt19-20020a170907729300b0098884e8747cmr15007406ejc.32.1687597877906; 
+ Sat, 24 Jun 2023 02:11:17 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
  by smtp.gmail.com with ESMTPSA id
- n3-20020aa7db43000000b0051a4361f3efsm455606edt.61.2023.06.24.02.10.14
+ u10-20020a056402064a00b00514b3dd8638sm455576edx.67.2023.06.24.02.11.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Jun 2023 02:10:16 -0700 (PDT)
-Message-ID: <0aefd7ef-a877-2501-1db9-d2c14c6ffdb8@linaro.org>
-Date: Sat, 24 Jun 2023 11:10:13 +0200
+ Sat, 24 Jun 2023 02:11:17 -0700 (PDT)
+Message-ID: <f880e10e-080e-4c80-4faa-fc2c0e62f260@linaro.org>
+Date: Sat, 24 Jun 2023 11:11:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -69,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-4-1d5a638cebf2@somainline.org>
+ <20230624-sm6125-dpu-v1-5-1d5a638cebf2@somainline.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230624-sm6125-dpu-v1-4-1d5a638cebf2@somainline.org>
+In-Reply-To: <20230624-sm6125-dpu-v1-5-1d5a638cebf2@somainline.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 04/15] dt-bindings: clock: qcom,
- dispcc-sm6125: Allow power-domains property
+Subject: Re: [Freedreno] [PATCH 05/15] dt-bindings: display/msm:
+ dsi-controller-main: Document SM6125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,17 +100,15 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 24/06/2023 02:41, Marijn Suijten wrote:
-> On SM6125 the dispcc block is gated behind VDDCX: allow this domain to
-> be configured.
+> Document general compatibility of the DSI controller on SM6125.
 > 
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->  Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+>  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
