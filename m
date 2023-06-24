@@ -2,80 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCB1073CA31
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 11:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A930F73CAAF
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 14:08:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C7BC10E18D;
-	Sat, 24 Jun 2023 09:33:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2492C10E18E;
+	Sat, 24 Jun 2023 12:07:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C92610E18D
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 09:33:12 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-51bdca52424so1619920a12.3
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:33:12 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 444E110E1A8
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 12:07:57 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b47a15ca10so24625621fa.1
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 05:07:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687599190; x=1690191190;
+ d=linaro.org; s=google; t=1687608474; x=1690200474;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=tj3h2F7PrfXgiEVSgcmcva0dTAsO+LbFtvUy3HlpOUM=;
- b=ic86rBDVlYcttew4/vob85e87FNpbbw8JM1F4OZp5nVBORwXNv4q2cTt9SNVFlD9m1
- dFi33g/gLFSWKIokJ9yYgX/tAQvFqVzaGb+REdj5S1pJg8PrdKReA0WIdwbevE9qKL9X
- jTb64bNYUQw0MrC41EE0O0A9p8khOb4xXzpmJeG9HS6yk9KoACeNybd0UTWCAMTDIW+h
- KDdKphFAbVxcyXlCNtts7L78DEmH/dMSIUyCQVoipTLDJWOgGB1FLejiUR8b146FM1N8
- zQFTl5lZGymUQd3VgWk49FEUwvT7wCpqn0SQ1lMbET9C6orZAQ1dEMjK8+eDWqCcdBdD
- dvuQ==
+ bh=AhB7gO41s6RkTIX9B+mUm/3DyCsWmE8KY3H2vl6K7Yo=;
+ b=czAJe/3Oa1kuRQTtvewFIdfyYHou1G0kNyuYoDxXVlQvBJToB68u6OsyOa56X4iM+a
+ RnmzaxB/Iv/SW5+U62RETn1N5FArQT8y2ia13WQCblIgbej/Hfh3vVX0qD7RxA6aduJr
+ W/TMuSXeS6eEXhw48mXZVnzO5elr0JGjUljWt/BU1o4VigIZ2iTS3Os3jVGClWBSKlcy
+ 7hSo3uym7nkpJm2IZMp6h1OyFJuUFR3VeqwF3b49D8KSTVT8upjIw03u+Cv+Cu78xNQk
+ crpqmMK/TAf5q4/S5W4FtP1fVxp6BlqgvXvNcNHiFWkY+gleHzFbkCJQVAc/MVOB99s7
+ xh+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687599190; x=1690191190;
+ d=1e100.net; s=20221208; t=1687608474; x=1690200474;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tj3h2F7PrfXgiEVSgcmcva0dTAsO+LbFtvUy3HlpOUM=;
- b=KzpluNnWx35zRmrX0koRBzLLfgkj1Pt5WZqhHP8NmljlllLt4gddBYtFamPdWeSGA3
- e4zoEg6r6rMKeJVKfFiLYAxQf1M35sKoue6nb6KxRQ1J4/muLSKqX/79trsULNaIS61C
- e8ICMHW0gJaGyJ85Lb5zbZiS04BjcSg7bvfVgsVRYgX5734P6Tco3sWwS/S7XpKiPfwI
- F+XL3pmNFeNBiZWFoz7iKQSWMTj81gZ/JvuEYwfASoRmKUNZTgVKLUikmxjjDVmWZRJT
- sZbo1uAPNAOxmLU/ilTnCoiApwJSs77de+E/qTG+PSH7mR+b1feRKRx5OItB4Fb0EcNU
- vYBQ==
-X-Gm-Message-State: AC+VfDwezYjXrPsd6OmO+w6gVCTy083AY1CrA6y+E8RfKsZSLtmsRgEX
- 4q29a5uQ11uvFp5BPDOa50np8g==
-X-Google-Smtp-Source: ACHHUZ6bs/BxTDqMq4cvMfLXihVSFIJDim3qioOSXkCmAssN1V1E4/ail2H+MUzzE3JuAdSuXV/mmA==
-X-Received: by 2002:aa7:d411:0:b0:51b:ece3:70d6 with SMTP id
- z17-20020aa7d411000000b0051bece370d6mr4079434edq.26.1687599190265; 
- Sat, 24 Jun 2023 02:33:10 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
+ bh=AhB7gO41s6RkTIX9B+mUm/3DyCsWmE8KY3H2vl6K7Yo=;
+ b=fN6T9NTgSi62/pP2ACnpuKG9qWiyZmzUWflgJqfK7Y01wr9x0KUyvbjtItnaLil2Rh
+ Cv5/x8snBYO8cQ8kEg/sFIApRb4xMS0SALD2LT/EOSOYrG/dfHAzd2DEwqaxVc/q7JDo
+ YgUMxNnZlyFiEXY3jm1PPrvbQijxcC7MJ1O843X1K/1zWhLyLN7VOCZUXDVysKKNbDzf
+ FvVeL6jAbuNByTibeGDRSQXAhfIWEYcOpq7sjua7fbC5LievxpuM0MJNR7KjAzpkmlKt
+ xO3163vjiudFUtcaWd8k82PZSd2S0FUS8F3IXI7vXsZsZJfjnGhKuuaih/ap5P7f7j/i
+ VI5w==
+X-Gm-Message-State: AC+VfDy3mvkCi5KtyWwJCrN8fGOoHVBN576PdxCnlQcYbSITsKZ2BIGf
+ +uMLfnamhIAbk4pf1tSJurfZNQ==
+X-Google-Smtp-Source: ACHHUZ5EUcWz4Bkd9KV9wW+T+pNBBh8PesWiqS6TbSRjDaH5t3TeGZPvWwypTx9M7lxdoDj1lX0zqw==
+X-Received: by 2002:a2e:95d5:0:b0:2b4:852d:8747 with SMTP id
+ y21-20020a2e95d5000000b002b4852d8747mr10406353ljh.30.1687608473517; 
+ Sat, 24 Jun 2023 05:07:53 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- b10-20020aa7c90a000000b0051bed090703sm481937edt.12.2023.06.24.02.33.07
+ g7-20020a2e9e47000000b002b1b92910c8sm258409ljk.86.2023.06.24.05.07.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Jun 2023 02:33:09 -0700 (PDT)
-Message-ID: <00cd9016-4b2d-b8b9-45da-49d1f82148a2@linaro.org>
-Date: Sat, 24 Jun 2023 11:33:06 +0200
+ Sat, 24 Jun 2023 05:07:52 -0700 (PDT)
+Message-ID: <412f68a3-e3cc-f26e-2e3d-59727e5c48d8@linaro.org>
+Date: Sat, 24 Jun 2023 15:07:51 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-10-1d5a638cebf2@somainline.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230624-sm6125-dpu-v1-10-1d5a638cebf2@somainline.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 10/15] dt-bindings: msm: dsi-phy-14nm:
- Document SM6125 variant
+ Thunderbird/102.11.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230622-devcoredump_patch-v1-0-3b2cdcc6a576@quicinc.com>
+ <20230622-devcoredump_patch-v1-6-3b2cdcc6a576@quicinc.com>
+ <114f34dd-e5ce-f878-5b23-4c14dc800547@linaro.org>
+ <1e41b909-4886-8392-edbc-78684e52bbf9@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1e41b909-4886-8392-edbc-78684e52bbf9@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 6/6] drm/msm/dpu: Update dev core dump to
+ dump registers of sub blocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,41 +84,286 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Lux Aliaga <they@mint.lgbt>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/06/2023 02:41, Marijn Suijten wrote:
-> Document availability of the 14nm DSI PHY on SM6125.
+On 24/06/2023 03:09, Abhinav Kumar wrote:
 > 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml | 1 +
->  1 file changed, 1 insertion(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
-> index a43e11d3b00d..60b590f21138 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
-> @@ -18,6 +18,7 @@ properties:
->        - qcom,dsi-phy-14nm
->        - qcom,dsi-phy-14nm-2290
->        - qcom,dsi-phy-14nm-660
-> +      - qcom,dsi-phy-14nm-6125
+> On 6/22/2023 5:13 PM, Dmitry Baryshkov wrote:
+>> On 23/06/2023 02:48, Ryan McCann wrote:
+>>> Currently, the device core dump mechanism does not dump registers of sub
+>>> blocks within the DSPP, SSPP, DSC, and PINGPONG blocks. Add wrapper
+>>> function to dump hardware blocks that contain sub blocks.
+>>>
+>>> Signed-off-by: Ryan McCann <quic_rmccann@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 194 
+>>> +++++++++++++++++++++++++++-----
+>>>   1 file changed, 168 insertions(+), 26 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> index aa8499de1b9f..9b1b1c382269 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> @@ -885,6 +885,154 @@ static int dpu_irq_postinstall(struct msm_kms 
+>>> *kms)
+>>>       return 0;
+>>>   }
+>>> +static void dpu_kms_mdp_snapshot_add_block(struct msm_disp_state 
+>>> *disp_state,
+>>> +                       void __iomem *mmio, void *blk,
+>>> +                       enum dpu_hw_blk_type blk_type)
+>>
+>> No. Such multiplexers add no value to the code. Please inline it.
+>>
+>> Not to mention that this patch is hard to review. You both move 
+>> existing code and add new features. If it were to go, it should have 
+>> been split into two patches: one introducing the multiplexer and 
+>> another one adding subblocks.
+>>
+> 
+> Ok. we can split this into:
+> 
+> 1) adding the multiplexer
+> 2) adding sub-blk parsing support inside the multiplexer
 
-If there is going to be next version:
-Should be rather ordered alphanumeric, so before 660.
+I'd say, drop the multiplexer completely. It adds no value here. It is 
+only used from dpu_kms_mdp_snapshot(). If the code there was complex 
+enough, it would have made sense to _split_ the function. But even in 
+such case there would be no point in having multiplexer. We do not 
+enumerate block by type.
+
+> 
+>>> +{
+>>> +    u32 base;
+>>> +
+>>> +    switch (blk_type) {
+>>> +    case DPU_HW_BLK_TOP:
+>>> +    {
+>>> +        struct dpu_mdp_cfg *top = (struct dpu_mdp_cfg *)blk;
+>>> +
+>>> +        if (top->features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
+>>> +            msm_disp_snapshot_add_block(disp_state, MDP_PERIPH_TOP0,
+>>> +                            mmio + top->base, "top");
+>>> +            msm_disp_snapshot_add_block(disp_state, top->len - 
+>>> MDP_PERIPH_TOP0_END,
+>>> +                            mmio + top->base + MDP_PERIPH_TOP0_END,
+>>> +                            "top_2");
+>>> +        } else {
+>>> +            msm_disp_snapshot_add_block(disp_state, top->len, mmio + 
+>>> top->base, "top");
+>>> +        }
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_LM:
+>>> +    {
+>>> +        struct dpu_lm_cfg *mixer = (struct dpu_lm_cfg *)blk;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, mixer->len, mmio + 
+>>> mixer->base, "%s",
+>>> +                        mixer->name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_CTL:
+>>> +    {
+>>> +        struct dpu_ctl_cfg *ctl = (struct dpu_ctl_cfg *)blk;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, ctl->len, mmio + 
+>>> ctl->base, "%s",
+>>> +                        ctl->name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_INTF:
+>>> +    {
+>>> +        struct dpu_intf_cfg *intf = (struct dpu_intf_cfg *)blk;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, intf->len, mmio + 
+>>> intf->base, "%s",
+>>> +                        intf->name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_WB:
+>>> +    {
+>>> +        struct dpu_wb_cfg *wb = (struct dpu_wb_cfg *)blk;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, wb->len, mmio + 
+>>> wb->base, "%s",
+>>> +                        wb->name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_SSPP:
+>>> +    {
+>>> +        struct dpu_sspp_cfg *sspp_block = (struct dpu_sspp_cfg *)blk;
+>>> +        const struct dpu_sspp_sub_blks *sblk = sspp_block->sblk;
+>>> +
+>>> +        base = sspp_block->base;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, sspp_block->len, 
+>>> mmio + base, "%s",
+>>> +                        sspp_block->name);
+>>> +
+>>> +        if (sspp_block->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
+>>> +            sspp_block->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
+>>> +            sspp_block->features & BIT(DPU_SSPP_SCALER_QSEED4))
+>>> +            msm_disp_snapshot_add_block(disp_state, 
+>>> sblk->scaler_blk.len,
+>>> +                            mmio + base + sblk->scaler_blk.base, 
+>>> "%s_%s",
+>>> +                            sspp_block->name, sblk->scaler_blk.name);
+>>
+>> Actually, it would be better to:
+>> - drop name from all sblk instances (and use known string instead of 
+>> the sblk name here)
+>> - Use sblk->foo_blk.len to check if it should be printed or not.
+>>
+> 
+> No, I dont agree. If we drop the names from the sub_blk in the catalog, 
+> we will end up using "sub_blk_name" string here in the code to indicate 
+> which blk that is in the dump.
+> 
+> If we add more sub_blks in the catalog in the future we need to keep 
+> changing the code over here. Thats not how it should be.
+> 
+> Leaving the names in the catalog ensures that this code wont change and 
+> only catalog changes when we add a new sub_blk either for an existing or 
+> new chipset.
+> 
+> catalog is indicating the new blk, and dumping code just prints it.
+> 
+> with your approach, dumping code will or can keep changing with chipsets 
+> or sub_blks. Thats not how it should be.
+
+Well, we do not enumerate sub-blocks in any way, they are not indexed. 
+So even with sblk->blk.name in place, adding new sub-block would require 
+adding new code here. That's why I wrote that the calling code knows 
+which sub-block it refers to.
+
+Let me extract the relevant code (skipping all the conditions for now):
+
+msm_disp_snapshot_add_block(disp_state, sspp_block->len, mmio + base, "%s",
+			    sspp_block->name);
+
+if (have_scaler)
+	msm_disp_snapshot_add_block(disp_state, sblk->scaler_blk.len,
+				    mmio + base + sblk->scaler_blk.base, "%s_%s",
+				    sspp_block->name, sblk->scaler_blk.name);
+
+if (have_csc)
+	msm_disp_snapshot_add_block(disp_state, sblk->csc_blk.len,
+				    mmio + base + sblk->csc_blk.base, "%s_%s",
+				    sspp_block->name, sblk->csc_blk.name);
+
+Consider adding new sub-block, "baz". We would still require manual 
+addition of the following code:
+
+	msm_disp_snapshot_add_block(disp_state, sblk->baz_blk.len,
+				    mmio + base + sblk->baz_blk.base, "%s_%s",
+				    sspp_block->name, sblk->baz_blk.name);
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Compare this with:
 
-Best regards,
-Krzysztof
+	msm_disp_snapshot_add_block(disp_state, sblk->baz_blk.len,
+				    mmio + base + sblk->baz_blk.base, "%s_baz",
+				    sspp_block->name);
+
+Moreover, if we follow the style of dpu_kms_mdp_snapshot() (which 
+doesn't use name), it should be:
+
+	msm_disp_snapshot_add_block(disp_state, sblk->baz_blk.len,
+				    mmio + base + sblk->baz_blk.base, "sspp%d_baz", idx);
+
+
+
+> 
+>>> +
+>>> +        if (sspp_block->features & BIT(DPU_SSPP_CSC) || 
+>>> sspp_block->features
+>>> +                    & BIT(DPU_SSPP_CSC_10BIT))
+>>
+>> A very bad use of indentation. In future please split logically rather 
+>> than just filling the line up to the line width.
+>>
+>>> +            msm_disp_snapshot_add_block(disp_state, sblk->csc_blk.len,
+>>> +                            mmio + base + sblk->csc_blk.base, "%s_%s",
+>>> +                            sspp_block->name, sblk->csc_blk.name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_DSPP:
+>>> +    {
+>>> +        struct dpu_dspp_cfg *dspp_block = (struct dpu_dspp_cfg *)blk;
+>>> +
+>>> +        base = dspp_block->base;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, dspp_block->len, 
+>>> mmio + base, "%s",
+>>> +                        dspp_block->name);
+>>> +
+>>> +        if (dspp_block->features & BIT(DPU_DSPP_PCC))
+>>> +            msm_disp_snapshot_add_block(disp_state, 
+>>> dspp_block->sblk->pcc.len,
+>>> +                            mmio + base + dspp_block->sblk->pcc.base,
+>>> +                            "%s_%s", dspp_block->name,
+>>> +                            dspp_block->sblk->pcc.name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_PINGPONG:
+>>> +    {
+>>> +        struct dpu_pingpong_cfg *pingpong_block = (struct 
+>>> dpu_pingpong_cfg *)blk;
+>>> +        const struct dpu_pingpong_sub_blks *sblk = 
+>>> pingpong_block->sblk;
+>>> +
+>>> +        base = pingpong_block->base;
+>>> +
+>>> +        msm_disp_snapshot_add_block(disp_state, pingpong_block->len, 
+>>> mmio + base, "%s",
+>>> +                        pingpong_block->name);
+>>> +
+>>> +        if (pingpong_block->features & BIT(DPU_PINGPONG_TE2))
+>>> +            msm_disp_snapshot_add_block(disp_state, sblk->te2.len,
+>>> +                            mmio + base + sblk->te2.base, "%s_%s",
+>>> +                            pingpong_block->name, sblk->te2.name);
+>>> +
+>>> +        if (pingpong_block->features & BIT(DPU_PINGPONG_DITHER))
+>>> +            msm_disp_snapshot_add_block(disp_state, sblk->dither.len,
+>>> +                            mmio + base + sblk->dither.base, "%s_%s",
+>>> +                            pingpong_block->name, sblk->dither.name);
+>>> +        break;
+>>> +    }
+>>> +    case DPU_HW_BLK_DSC:
+>>> +    {
+>>> +        struct dpu_dsc_cfg *dsc_block = (struct dpu_dsc_cfg *)blk;
+>>> +
+>>> +        base = dsc_block->base;
+>>> +
+>>> +        if (dsc_block->features & BIT(DPU_DSC_HW_REV_1_2)) {
+>>> +            struct dpu_dsc_blk enc = dsc_block->sblk->enc;
+>>> +            struct dpu_dsc_blk ctl = dsc_block->sblk->ctl;
+>>> +
+>>> +            /* For now, pass in a length of 0 because the DSC_BLK 
+>>> register space
+>>> +             * overlaps with the sblks' register space.
+>>> +             *
+>>> +             * TODO: Pass in a length of 0 t0 DSC_BLK_1_2 in the HW 
+>>> catalog where
+>>> +             * applicable.
+>>
+>> Nice catch, thank you. We should fix that.
+>>
+> 
+> Yes and we would have fixed that ourself if you wanted that with this 
+> series as another patch.
+
+This is not relevant to this series, so it should be fixed in a separate 
+series.
+
+-- 
+With best wishes
+Dmitry
 
