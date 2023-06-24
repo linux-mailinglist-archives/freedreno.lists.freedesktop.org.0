@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E41F373C642
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 04:06:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D785973C9D3
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 11:08:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B27E10E702;
-	Sat, 24 Jun 2023 02:06:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1507A10E0E8;
+	Sat, 24 Jun 2023 09:08:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6652610E702
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:06:09 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2b479d53d48so21751201fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 19:06:09 -0700 (PDT)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA0F710E0E8
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 09:08:35 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-98934f000a5so165906166b.2
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:08:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687572367; x=1690164367;
+ d=linaro.org; s=google; t=1687597714; x=1690189714;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=MOwxqMlgkTFrWJc8xA5MXozWw0nmlbcyc7nF9imMwjs=;
- b=LmI/TqWqL8JE93EDyN0jv4MZehgjF0j017lDfAxYTDzUHoHT+51Hj6GLAWbyzAa6WK
- vkLXUiMDV5y9bZ4du2Ii5dKRC5P5W2mq+/+vMK8Du/Cs1nwDIk7s3bUVWobl+JhjZ143
- xrvNypKeKaLwimIlC3wfrj3a3XpTSmyrlRTaCzyVVmOgYLjarD3vVcU9vdpZTfCsyH1n
- jkWxZdwaBGtVAJbPyF/hIIFlH1yOIkVAGLt9oARXDQT8dfKQk4pY4U8g+ZW7ZRa7oH2t
- OLrYxF9EsrcM7/r8eMBXzzcg69brgs36ZWAeHOw8gmXNZ9bmWjyWZ8xoWCMoiBsDy7Tx
- 6IWg==
+ bh=n6JzkVRa8sMgqt4wOZNLb6V0TofrH1Kd7ev3kFxK2xc=;
+ b=Rh8pbD9W2/mmo4vpLwjYYWuICUk4g/xZiRykDWLdyyaNcYKkKFf6TC+hX59iPXhc7M
+ m5Mx927JbOZZSiDpI0jqZut6z0twtjvDu7+/APy5ALdjHKtkEAIoCzGHIdh/guaCxSMC
+ oPyZzW50fzbPIvzCUsmNlennD/6einpbBEDAudDYS6TPzm64u0db39jTTys5sUcDD/mL
+ TMGtGLgXaWbg3nboMjSS3FlLmT+dOSZrJUQvoW9EBQ4gC9m84otAZv1cC9I3IsPux4xg
+ Df8l8aR7Xz/s+tGAQMybg4+gRuO04k+gHoMl4TRnFb3c/JGOIJkgQSTQtfEuQo5+Z0bZ
+ xLVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687572367; x=1690164367;
+ d=1e100.net; s=20221208; t=1687597714; x=1690189714;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MOwxqMlgkTFrWJc8xA5MXozWw0nmlbcyc7nF9imMwjs=;
- b=Wt6gzRBFdGrDeSReJjpUCEGsFsZ5X4zw96XwNQjR1PJnQz6CtntidoUZvBex52aKrA
- UCAlhnqv/CWk6FNX1xAYp8ZSAaNZS/VoUhFWiBJuJDzYK5CPtv6Itri0RteSgHIiEKoh
- ObTw1WnVRJ+UJtuiKLroL8VOQG7MKeDginjw5Lekuf++Im+hhCK3SvavrNJa/mQyAbNN
- ZG5tfBw1yw5rySnNDVbbzA3+dNW8Hr+fLjS3/A7PYW4aVQNtGPfM0tKUtMdanxL+QF0g
- GLxNpspxbbMUrI4S7De8w1m2iYSoL8CWSiKR/axVATn70A5UDy2XVbAkeCWl1EknXZrC
- 7u8A==
-X-Gm-Message-State: AC+VfDy8HimxButc9ml3LH5G7rYLq+D1pamUvMJNj1VVBC9a8aSCteKG
- CO9YSJyz0PEIGJ9SYJR8zSYyAg==
-X-Google-Smtp-Source: ACHHUZ5Uyb9e3UGC2DMWmWQNTma/OZe4osi82kXN3QhHkzSBwWLzAJWxu7afEjLAdtcbj+f8GaA2hw==
-X-Received: by 2002:a2e:a0d5:0:b0:2b4:5cad:f246 with SMTP id
- f21-20020a2ea0d5000000b002b45cadf246mr14478160ljm.7.1687572367335; 
- Fri, 23 Jun 2023 19:06:07 -0700 (PDT)
-Received: from [192.168.1.101] (abyk30.neoplus.adsl.tpnet.pl. [83.9.30.30])
+ bh=n6JzkVRa8sMgqt4wOZNLb6V0TofrH1Kd7ev3kFxK2xc=;
+ b=DiqGj5YhW98UQD0LJEUT5uwwlUch/OO8CJL0Ui+03yz55+OW5dUl4tPwNi3zrWL+Z3
+ AV9gzoHI384eV1xwwuZ6wMPGoGQ0WsAm0clRUaMtDB3AyQuqWe7u/BmU2tmSy0SuK9kj
+ OrdQ5BDVuTzop3ZpF1/eWH7qdQw30lKuig3bM8eyGW/fh2IINtcqYQEyW1RTexKYzAkd
+ ef3LfHQ8SHMD9jratJT+hzdfBqXps2UAWPhTQzA/5/tV6w6HBQ7ye4LCz4BKrZvuGX3E
+ /a9J86TnYsGU26r+o5Q5zPQUjrRj79gTfFtHV7ROFo+qj2aizow30i5eza7tmmmmEiwQ
+ FFVw==
+X-Gm-Message-State: AC+VfDzdw/Rn/xy84SLh+FEYSc0nx0RRyPUS/cF8EEz64MwlmXqzJE+c
+ vf1ofHYyzqG1f/SgKWgsxczuKQ==
+X-Google-Smtp-Source: ACHHUZ6WDJEt8kVafAtj06USOxNi1vO5kwV8GgXL8AtGVdivZUyr0N1GgeF04ko574WKyptwyPK0cA==
+X-Received: by 2002:a17:907:a408:b0:98d:3ae:b683 with SMTP id
+ sg8-20020a170907a40800b0098d03aeb683mr6395204ejc.19.1687597713874; 
+ Sat, 24 Jun 2023 02:08:33 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
  by smtp.gmail.com with ESMTPSA id
- x8-20020a2e7c08000000b002b330580377sm58705ljc.66.2023.06.23.19.06.05
+ gv18-20020a170906f11200b0098e0a937a6asm108250ejb.69.2023.06.24.02.08.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 19:06:07 -0700 (PDT)
-Message-ID: <c10b9ffe-bfb5-d6ba-f682-8b7d2f5f1461@linaro.org>
-Date: Sat, 24 Jun 2023 04:06:04 +0200
+ Sat, 24 Jun 2023 02:08:33 -0700 (PDT)
+Message-ID: <1d782241-f0ef-848b-9b42-a8a6234bbfae@linaro.org>
+Date: Sat, 24 Jun 2023 11:08:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -69,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-15-1d5a638cebf2@somainline.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230624-sm6125-dpu-v1-15-1d5a638cebf2@somainline.org>
+ <20230624-sm6125-dpu-v1-2-1d5a638cebf2@somainline.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230624-sm6125-dpu-v1-2-1d5a638cebf2@somainline.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 15/15] arm64: dts: qcom: sm6125-seine:
- Configure MDSS, DSI and panel
+Subject: Re: [Freedreno] [PATCH 02/15] dt-bindings: clock: qcom,
+ dispcc-sm6125: Remove unused GCC_DISP_AHB_CLK
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,100 +91,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Lux Aliaga <they@mint.lgbt>, Martin Botka <martin.botka@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Lux Aliaga <they@mint.lgbt>,
+ Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
  linux-clk@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24.06.2023 02:41, Marijn Suijten wrote:
-> Enable MDSS and DSI, and configure the Samsung SOFEF01-M ams597ut01
-> 6.0" 1080x2520 panel.
+On 24/06/2023 02:41, Marijn Suijten wrote:
+> The downsteam driver for dispcc only ever gets and puts this clock
+> without ever using it in the clocktree; this unnecessary workaround was
+> never ported to mainline, hence the driver doesn't consume this clock
+> and shouldn't be required by the bindings.
 > 
+> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->  .../dts/qcom/sm6125-sony-xperia-seine-pdx201.dts   | 59 ++++++++++++++++++++++
->  1 file changed, 59 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts b/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts
-> index 9f8a9ef398a2..bdf7c15f9b83 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts
-> @@ -179,6 +179,43 @@ &i2c3 {
->  	/* Cirrus Logic CS35L41 boosted audio amplifier @ 40 */
->  };
->  
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dsi0 {
-> +	vdda-supply = <&pm6125_l18>;
-> +	status = "okay";
-> +
-> +	panel@0 {
-> +		compatible = "samsung,sofef01-m-ams597ut01";
-> +		reg = <0>;
-> +
-> +		reset-gpios = <&tlmm 90 GPIO_ACTIVE_LOW>;
-> +
-> +		vddio-supply = <&pm6125_l12>;
-> +
-> +		pinctrl-0 = <&sde_dsi_active &sde_te_active_sleep>;
-> +		pinctrl-1 = <&sde_dsi_sleep &sde_te_active_sleep>;
-> +		pinctrl-names = "default", "sleep";
-> +
-> +		port {
-> +			panel_in: endpoint {
-> +				remote-endpoint = <&mdss_dsi0_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&mdss_dsi0_out {
-> +	remote-endpoint = <&panel_in>;
-> +	data-lanes = <0 1 2 3>;
-> +};
-> +
-> +&mdss_dsi0_phy {
-> +	status = "okay";
-> +};
-> +
->  &pm6125_adc {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&camera_flash_therm &emmc_ufs_therm &rf_pa1_therm>;
-> @@ -469,6 +506,28 @@ vol_down_n: vol-down-n-state {
->  		drive-strength = <2>;
->  		bias-disable;
->  	};
-> +
-> +	sde_te_active_sleep: sde-te-active-sleep-state {
-> +		pins = "gpio89";
-> +		function = "mdp_vsync";
-> +		drive-strength = <2>;
-> +		bias-pull-down;
-> +	};
-> +
-> +	sde_dsi_active: sde-dsi-active-state {
-> +		pins = "gpio90";
-> +		function = "gpio";
-> +		drive-strength = <8>;
-> +		bias-disable;
-> +	};
-> +
-> +	sde_dsi_sleep: sde-dsi-sleep-state {
-> +		pins = "gpio90";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-down;
-> +	};
-s/sde/mdss as per Dmitry's recent request
 
-Konrad
-> +
->  };
->  
->  &usb3 {
-> 
+In perfect would we would like to know whether hardware needs this clock
+enabled/controlled, not whether some driver needs it. I understand
+though that with lack of proper docs we rely on drivers, so:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+
