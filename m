@@ -2,80 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3BE573C506
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 02:09:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47CD573C53E
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 02:41:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42CB610E6E2;
-	Sat, 24 Jun 2023 00:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E54D10E6E4;
+	Sat, 24 Jun 2023 00:41:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D703110E103;
- Sat, 24 Jun 2023 00:09:18 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35NNqr03021448; Sat, 24 Jun 2023 00:09:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=cnq5krcqwAsOwPeNM8J57gWplA/sMeZZivFN/l7ve1M=;
- b=CqPMSlHDIdXi+W/xuHav8hDD1E9y27HpiUzwAhc8sxXwhtpiGOSMehnYlFa66hPjbKYu
- GSr10+qTUNDvrMzgEgmN/OkrqvTSH1WVyaK7cj98HV1t5rGvwOlaHlgFJb/3pR9ZBHEd
- 7EC9TkQB484lK75Mzy4UZVOR0WWHPf5gyU45MrCW7H7ErwoWFVI3EbMBd/T78Q17A3K1
- hZONSMLwACKfzQ8/VDerjSUjFgWQnOwiuGlnn2MvdAjl7vRphy+Q7JUuPv6yGOmqeyQd
- 996PWLpBfF9nxcvUBoGOVKmMH+cQaBhdM0xX7AiyuCK3kB5waeeckWJbGdMzqOflWnT+ eg== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rcw93jvgu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 24 Jun 2023 00:09:12 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35O09CVZ013409
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 24 Jun 2023 00:09:12 GMT
-Received: from [10.110.61.170] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 23 Jun
- 2023 17:09:10 -0700
-Message-ID: <1e41b909-4886-8392-edbc-78684e52bbf9@quicinc.com>
-Date: Fri, 23 Jun 2023 17:09:09 -0700
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCF9310E0EA
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 00:41:06 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id D454E3F78B;
+ Sat, 24 Jun 2023 02:41:00 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sat, 24 Jun 2023 02:40:58 +0200
+Message-Id: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Ryan McCann
- <quic_rmccann@quicinc.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230622-devcoredump_patch-v1-0-3b2cdcc6a576@quicinc.com>
- <20230622-devcoredump_patch-v1-6-3b2cdcc6a576@quicinc.com>
- <114f34dd-e5ce-f878-5b23-4c14dc800547@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <114f34dd-e5ce-f878-5b23-4c14dc800547@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: A9EqZX9Jcar87sot__13p7oWJRsOaaQg
-X-Proofpoint-ORIG-GUID: A9EqZX9Jcar87sot__13p7oWJRsOaaQg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-23_14,2023-06-22_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 suspectscore=0
- adultscore=0 clxscore=1011 impostorscore=0 spamscore=0 phishscore=0
- mlxlogscore=999 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306230219
-Subject: Re: [Freedreno] [PATCH 6/6] drm/msm/dpu: Update dev core dump to
- dump registers of sub blocks
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJs7lmQC/x2NSwqDQBAFryK9ToOOZiS5SnAxn5fYYCYyjSEg3
+ t0myyooaidFFSjdm50qvqLyKQbdpaE0h/ICSzYm17q+9W5gffvOXTmvGwfkdPP9CIyRLIhBwbG
+ GkmZLyrYsJteKp/z+h8d0HCeH6zvdcQAAAA==
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+X-Mailer: b4 0.12.2
+Subject: [Freedreno] [PATCH 00/15] drm/msm: Add SM6125 MDSS/DPU hardware and
+ enable Sony Xperia 10 II panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,226 +54,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Lux Aliaga <they@mint.lgbt>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Bring up the SM6125 DPU now that all preliminary series (such as INTF
+TE) have been merged (for me to test the hardware properly), and most
+other conflicting work (barring ongoing catalog *improvements*) has made
+its way in as well or is still being discussed.
 
+The second part of the series complements that by immediately utilizing
+this hardware in DT, and even enabling the MDSS/DSI nodes complete with
+a 6.0" 1080x2520 panel for Sony's Seine PDX201 (Xperia 10 II).
 
-On 6/22/2023 5:13 PM, Dmitry Baryshkov wrote:
-> On 23/06/2023 02:48, Ryan McCann wrote:
->> Currently, the device core dump mechanism does not dump registers of sub
->> blocks within the DSPP, SSPP, DSC, and PINGPONG blocks. Add wrapper
->> function to dump hardware blocks that contain sub blocks.
->>
->> Signed-off-by: Ryan McCann <quic_rmccann@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 194 
->> +++++++++++++++++++++++++++-----
->>   1 file changed, 168 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index aa8499de1b9f..9b1b1c382269 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -885,6 +885,154 @@ static int dpu_irq_postinstall(struct msm_kms *kms)
->>       return 0;
->>   }
->> +static void dpu_kms_mdp_snapshot_add_block(struct msm_disp_state 
->> *disp_state,
->> +                       void __iomem *mmio, void *blk,
->> +                       enum dpu_hw_blk_type blk_type)
-> 
-> No. Such multiplexers add no value to the code. Please inline it.
-> 
-> Not to mention that this patch is hard to review. You both move existing 
-> code and add new features. If it were to go, it should have been split 
-> into two patches: one introducing the multiplexer and another one adding 
-> subblocks.
-> 
+The last patch ("sm6125-seine: Configure MDSS, DSI and panel") depends
+on (an impending v2 of) my Sony panel collection series [1].
 
-Ok. we can split this into:
+[1]: https://lore.kernel.org/linux-arm-msm/20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org/
 
-1) adding the multiplexer
-2) adding sub-blk parsing support inside the multiplexer
+---
+Marijn Suijten (15):
+      arm64: dts: qcom: sm6125: Sort spmi_bus node numerically by reg
+      dt-bindings: clock: qcom,dispcc-sm6125: Remove unused GCC_DISP_AHB_CLK
+      dt-bindings: clock: qcom,dispcc-sm6125: Require GCC PLL0 DIV clock
+      dt-bindings: clock: qcom,dispcc-sm6125: Allow power-domains property
+      dt-bindings: display/msm: dsi-controller-main: Document SM6125
+      dt-bindings: display/msm: sc7180-dpu: Describe SM6125
+      dt-bindings: display/msm: Add SM6125 MDSS
+      drm/msm/dpu: Add SM6125 support
+      drm/msm/mdss: Add SM6125 support
+      dt-bindings: msm: dsi-phy-14nm: Document SM6125 variant
+      drm/msm/dsi: Add 14nm phy configuration for SM6125
+      arm64: dts: qcom: sm6125: Switch fixed xo_board clock to RPM XO clock
+      arm64: dts: qcom: sm6125: Add dispcc node
+      arm64: dts: qcom: sm6125: Add display hardware nodes
+      arm64: dts: qcom: sm6125-seine: Configure MDSS, DSI and panel
 
->> +{
->> +    u32 base;
->> +
->> +    switch (blk_type) {
->> +    case DPU_HW_BLK_TOP:
->> +    {
->> +        struct dpu_mdp_cfg *top = (struct dpu_mdp_cfg *)blk;
->> +
->> +        if (top->features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
->> +            msm_disp_snapshot_add_block(disp_state, MDP_PERIPH_TOP0,
->> +                            mmio + top->base, "top");
->> +            msm_disp_snapshot_add_block(disp_state, top->len - 
->> MDP_PERIPH_TOP0_END,
->> +                            mmio + top->base + MDP_PERIPH_TOP0_END,
->> +                            "top_2");
->> +        } else {
->> +            msm_disp_snapshot_add_block(disp_state, top->len, mmio + 
->> top->base, "top");
->> +        }
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_LM:
->> +    {
->> +        struct dpu_lm_cfg *mixer = (struct dpu_lm_cfg *)blk;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, mixer->len, mmio + 
->> mixer->base, "%s",
->> +                        mixer->name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_CTL:
->> +    {
->> +        struct dpu_ctl_cfg *ctl = (struct dpu_ctl_cfg *)blk;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, ctl->len, mmio + 
->> ctl->base, "%s",
->> +                        ctl->name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_INTF:
->> +    {
->> +        struct dpu_intf_cfg *intf = (struct dpu_intf_cfg *)blk;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, intf->len, mmio + 
->> intf->base, "%s",
->> +                        intf->name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_WB:
->> +    {
->> +        struct dpu_wb_cfg *wb = (struct dpu_wb_cfg *)blk;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, wb->len, mmio + 
->> wb->base, "%s",
->> +                        wb->name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_SSPP:
->> +    {
->> +        struct dpu_sspp_cfg *sspp_block = (struct dpu_sspp_cfg *)blk;
->> +        const struct dpu_sspp_sub_blks *sblk = sspp_block->sblk;
->> +
->> +        base = sspp_block->base;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, sspp_block->len, mmio 
->> + base, "%s",
->> +                        sspp_block->name);
->> +
->> +        if (sspp_block->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
->> +            sspp_block->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
->> +            sspp_block->features & BIT(DPU_SSPP_SCALER_QSEED4))
->> +            msm_disp_snapshot_add_block(disp_state, 
->> sblk->scaler_blk.len,
->> +                            mmio + base + sblk->scaler_blk.base, 
->> "%s_%s",
->> +                            sspp_block->name, sblk->scaler_blk.name);
-> 
-> Actually, it would be better to:
-> - drop name from all sblk instances (and use known string instead of the 
-> sblk name here)
-> - Use sblk->foo_blk.len to check if it should be printed or not.
-> 
+ .../bindings/clock/qcom,dispcc-sm6125.yaml         |  17 +-
+ .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
+ .../bindings/display/msm/dsi-phy-14nm.yaml         |   1 +
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml      |   1 +
+ .../bindings/display/msm/qcom,sm6125-mdss.yaml     | 206 +++++++++++++++++
+ .../dts/qcom/sm6125-sony-xperia-seine-pdx201.dts   |  59 +++++
+ arch/arm64/boot/dts/qcom/sm6125.dtsi               | 244 +++++++++++++++++++--
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h | 173 +++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  15 ++
+ drivers/gpu/drm/msm/msm_mdss.c                     |   8 +
+ 15 files changed, 712 insertions(+), 25 deletions(-)
+---
+base-commit: 8d2be868b42c08290509c60515865f4de24ea704
+change-id: 20230624-sm6125-dpu-aedc9637ee7b
 
-No, I dont agree. If we drop the names from the sub_blk in the catalog, 
-we will end up using "sub_blk_name" string here in the code to indicate 
-which blk that is in the dump.
-
-If we add more sub_blks in the catalog in the future we need to keep 
-changing the code over here. Thats not how it should be.
-
-Leaving the names in the catalog ensures that this code wont change and 
-only catalog changes when we add a new sub_blk either for an existing or 
-new chipset.
-
-catalog is indicating the new blk, and dumping code just prints it.
-
-with your approach, dumping code will or can keep changing with chipsets 
-or sub_blks. Thats not how it should be.
-
->> +
->> +        if (sspp_block->features & BIT(DPU_SSPP_CSC) || 
->> sspp_block->features
->> +                    & BIT(DPU_SSPP_CSC_10BIT))
-> 
-> A very bad use of indentation. In future please split logically rather 
-> than just filling the line up to the line width.
-> 
->> +            msm_disp_snapshot_add_block(disp_state, sblk->csc_blk.len,
->> +                            mmio + base + sblk->csc_blk.base, "%s_%s",
->> +                            sspp_block->name, sblk->csc_blk.name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_DSPP:
->> +    {
->> +        struct dpu_dspp_cfg *dspp_block = (struct dpu_dspp_cfg *)blk;
->> +
->> +        base = dspp_block->base;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, dspp_block->len, mmio 
->> + base, "%s",
->> +                        dspp_block->name);
->> +
->> +        if (dspp_block->features & BIT(DPU_DSPP_PCC))
->> +            msm_disp_snapshot_add_block(disp_state, 
->> dspp_block->sblk->pcc.len,
->> +                            mmio + base + dspp_block->sblk->pcc.base,
->> +                            "%s_%s", dspp_block->name,
->> +                            dspp_block->sblk->pcc.name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_PINGPONG:
->> +    {
->> +        struct dpu_pingpong_cfg *pingpong_block = (struct 
->> dpu_pingpong_cfg *)blk;
->> +        const struct dpu_pingpong_sub_blks *sblk = pingpong_block->sblk;
->> +
->> +        base = pingpong_block->base;
->> +
->> +        msm_disp_snapshot_add_block(disp_state, pingpong_block->len, 
->> mmio + base, "%s",
->> +                        pingpong_block->name);
->> +
->> +        if (pingpong_block->features & BIT(DPU_PINGPONG_TE2))
->> +            msm_disp_snapshot_add_block(disp_state, sblk->te2.len,
->> +                            mmio + base + sblk->te2.base, "%s_%s",
->> +                            pingpong_block->name, sblk->te2.name);
->> +
->> +        if (pingpong_block->features & BIT(DPU_PINGPONG_DITHER))
->> +            msm_disp_snapshot_add_block(disp_state, sblk->dither.len,
->> +                            mmio + base + sblk->dither.base, "%s_%s",
->> +                            pingpong_block->name, sblk->dither.name);
->> +        break;
->> +    }
->> +    case DPU_HW_BLK_DSC:
->> +    {
->> +        struct dpu_dsc_cfg *dsc_block = (struct dpu_dsc_cfg *)blk;
->> +
->> +        base = dsc_block->base;
->> +
->> +        if (dsc_block->features & BIT(DPU_DSC_HW_REV_1_2)) {
->> +            struct dpu_dsc_blk enc = dsc_block->sblk->enc;
->> +            struct dpu_dsc_blk ctl = dsc_block->sblk->ctl;
->> +
->> +            /* For now, pass in a length of 0 because the DSC_BLK 
->> register space
->> +             * overlaps with the sblks' register space.
->> +             *
->> +             * TODO: Pass in a length of 0 t0 DSC_BLK_1_2 in the HW 
->> catalog where
->> +             * applicable.
-> 
-> Nice catch, thank you. We should fix that.
-> 
-
-Yes and we would have fixed that ourself if you wanted that with this 
-series as another patch.
+Best regards,
+-- 
+Marijn Suijten <marijn.suijten@somainline.org>
 
