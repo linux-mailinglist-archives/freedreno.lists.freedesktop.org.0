@@ -2,29 +2,29 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A0E373C555
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 02:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D254273C55F
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 02:41:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8901C10E6FA;
-	Sat, 24 Jun 2023 00:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A6EB10E6FD;
+	Sat, 24 Jun 2023 00:41:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4990610E6F4;
- Sat, 24 Jun 2023 00:41:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0AD10E6F7;
+ Sat, 24 Jun 2023 00:41:15 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id CC85F3F81A;
- Sat, 24 Jun 2023 02:41:11 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 11A163F83D;
+ Sat, 24 Jun 2023 02:41:13 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat, 24 Jun 2023 02:41:07 +0200
+Date: Sat, 24 Jun 2023 02:41:08 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230624-sm6125-dpu-v1-9-1d5a638cebf2@somainline.org>
+Message-Id: <20230624-sm6125-dpu-v1-10-1d5a638cebf2@somainline.org>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
 In-Reply-To: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -38,7 +38,8 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 X-Mailer: b4 0.12.2
-Subject: [Freedreno] [PATCH 09/15] drm/msm/mdss: Add SM6125 support
+Subject: [Freedreno] [PATCH 10/15] dt-bindings: msm: dsi-phy-14nm: Document
+ SM6125 variant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,40 +64,25 @@ Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SM6125's UBWC hardware decoder is version 3.0, and supports decoding
-UBWC 1.0.
+Document availability of the 14nm DSI PHY on SM6125.
 
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 05648c910c68..bf68bae23264 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -559,6 +559,13 @@ static const struct msm_mdss_data sm6115_data = {
- 	.ubwc_static = 0x11f,
- };
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+index a43e11d3b00d..60b590f21138 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+@@ -18,6 +18,7 @@ properties:
+       - qcom,dsi-phy-14nm
+       - qcom,dsi-phy-14nm-2290
+       - qcom,dsi-phy-14nm-660
++      - qcom,dsi-phy-14nm-6125
+       - qcom,dsi-phy-14nm-8953
  
-+static const struct msm_mdss_data sm6125_data = {
-+	.ubwc_version = UBWC_1_0,
-+	.ubwc_dec_version = UBWC_3_0,
-+	.ubwc_swizzle = 1,
-+	.highest_bank_bit = 1,
-+};
-+
- static const struct msm_mdss_data sm8250_data = {
- 	.ubwc_version = UBWC_4_0,
- 	.ubwc_dec_version = UBWC_4_0,
-@@ -579,6 +586,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sc8180x-mdss", .data = &sc8180x_data },
- 	{ .compatible = "qcom,sc8280xp-mdss", .data = &sc8280xp_data },
- 	{ .compatible = "qcom,sm6115-mdss", .data = &sm6115_data },
-+	{ .compatible = "qcom,sm6125-mdss", .data = &sm6125_data },
- 	{ .compatible = "qcom,sm6350-mdss", .data = &sm6350_data },
- 	{ .compatible = "qcom,sm6375-mdss", .data = &sm6350_data },
- 	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
+   reg:
 
 -- 
 2.41.0
