@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA8C373C9E6
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 11:11:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27D4073C9ED
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 11:13:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7064810E18B;
-	Sat, 24 Jun 2023 09:11:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E523110E174;
+	Sat, 24 Jun 2023 09:13:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2EFD10E174
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 09:11:19 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-98de21518fbso52290266b.0
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:11:19 -0700 (PDT)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C10E710E174
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 09:12:58 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-51a52a7d859so4618556a12.0
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 02:12:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687597878; x=1690189878;
+ d=linaro.org; s=google; t=1687597976; x=1690189976;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=TB9IHENJDTgP3/+RgmCR40mbzefHRkoxy0VpWnLxklY=;
- b=grwUtLESlVNXp6uim+dHlAYHJFBXetSUjezL5bHBZaNCN4WHItbgPsVqVEFsjYN4Rt
- 2BAB2zpWJwRo9UEqMnSqwJkUbanLf/6B1TSOZLeZ8UfKg2TvccWv5R4eHxIvn5z24DMl
- qk+juz7k5H9qq5p8oUhdEvxEClDedMtrUTeu1djwzyeMCx2QWE5ZyGXJqSF4iB+D7sFM
- IorPe6SpPqO7N3InbG456FHlrS70BkvkEJqIrsMdwpNPXQoILbm6jRlrMgiKN3OppCZC
- 39cqq4zhyC9Ea/FvFTODLTojMQmM0Ft5CoePsTengl0SjhapGJAjF1w5j8Ao5uvmcgWP
- gmGQ==
+ bh=vchTo0Ol++OLJmq7HkKHErizaURF3xHVTmmMX3ficGE=;
+ b=lbMMOlNVSXG7UBvaMUImfSKH7/n6r6Ndl26O12IO6VUdAMh57hAh7TKLUcTQEmzW4z
+ 8qiviylmAklg5Zgk6kOOVYxUQCvuwmfjxlWR6KoxtUAX+Knh/p/GPT1DhyXmednt/n/b
+ XFGWInS0/evgU+4t6VgZJMb5EWyrhwzut3lhcxOnLtNPn6tWeOOijFaxiKqfCoeuO/ph
+ r6uzYWtZfjHw6J3donHZpDZT2yNsyrY8auaWHd+eelL363XvSEcKaUJBRm+3FCJFZKaL
+ y5nTgBhsjWwFCZ7FCLvn/39YP3rvOVIGdLD+RuJCPk9TREWL+Izhl6x7Q8gWxH2/SJ29
+ a1fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687597878; x=1690189878;
+ d=1e100.net; s=20221208; t=1687597976; x=1690189976;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TB9IHENJDTgP3/+RgmCR40mbzefHRkoxy0VpWnLxklY=;
- b=QVSK/fFg5rAZ8b0F0nAXCn3ACCyF/1F16We5O7Pbvrwtmg/qrzw3nt57/RbQruMiWI
- ZWaMUc74vKVe2XF+sfQ+UYD76GO2YZcpEKPHj+e5M217DkWS/SLkFB3ip4MJG+88Ucr3
- Zp37zTdhCgdYwSK8cPqYQw51iKFAr3vP9FQRLzVd0NLBM7IsKGCOkUAnfynjQyCYBaVF
- ul1LpRY3dmaEV9wakbxMiCQb8HoJhe+ulYIGqDlSXxdADNvfAmIvLAsGJ+M5OjKinFVI
- GCmHhXdmRrFHH3QSJXJhMRiHexx6FEE4twDQm2rCi2L4M1YTKkiB3QPv/1JMR5Ox13ro
- apsw==
-X-Gm-Message-State: AC+VfDyTXr++yBKPqe506NilxYg6liCBHf7bXUbPG3+7tUF2fGSwzHKc
- IC0EwklrZRosXJCdtu5FiRHpFw==
-X-Google-Smtp-Source: ACHHUZ4TP0Vdg3BKzhJVTx8ptKa5/v9jsxLjJ+4KkREwbvl+gOjJuEvoSK1K+Qjdqw+DMfHimDsPFQ==
-X-Received: by 2002:a17:907:7293:b0:988:84e8:747c with SMTP id
- dt19-20020a170907729300b0098884e8747cmr15007406ejc.32.1687597877906; 
- Sat, 24 Jun 2023 02:11:17 -0700 (PDT)
+ bh=vchTo0Ol++OLJmq7HkKHErizaURF3xHVTmmMX3ficGE=;
+ b=JQekLLxua2U92jFGmXgegFZMtGZKuDmTqKbwSFYDn+W6TPPm1eYFTIKrcAq/8UAXeZ
+ I1y2g+xV54UKXf8QDQVwHbsWQbH21Mm1p+lwFMYiGOe9a2XUnjHoxDC/4995yJNxtIOV
+ VnoHdPbInjXvb1SoHAtEd+aZ0CKU5knbXvEHbChpfg1++q/r9iFRDGhVbp8DHkpyAI2b
+ ob3yLi+97qE0GKJtI9LTIMNZREjvPiY2hNqFVa0MTHhVChz1JGRsbJC2RBtSAvAmJyGL
+ x8lhcovQyZORGPwlxhRdNpHaGnwoR3dDq5NtKGeQPPlOs75FkYjGovUHUHZJ+f9TRJjc
+ M2dg==
+X-Gm-Message-State: AC+VfDy1vOlwnUAoMzhwOLUhLhl+wxfNyXpahKZx1v3lIcnqQluGVJnD
+ 0v2gHO6Gj6FaWgmnEOmtiwHLKA==
+X-Google-Smtp-Source: ACHHUZ6HroITc5YdkUcavz4MKFxBB8L412c78SNrFWbnl1gdMQWQ0zgOQinmNiUzqMWS9McYR20j2w==
+X-Received: by 2002:a05:6402:35c5:b0:51b:fd09:9ec1 with SMTP id
+ z5-20020a05640235c500b0051bfd099ec1mr2819074edc.0.1687597976653; 
+ Sat, 24 Jun 2023 02:12:56 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
  by smtp.gmail.com with ESMTPSA id
- u10-20020a056402064a00b00514b3dd8638sm455576edx.67.2023.06.24.02.11.15
+ i4-20020a056402054400b0051a318c0120sm461301edx.28.2023.06.24.02.12.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Jun 2023 02:11:17 -0700 (PDT)
-Message-ID: <f880e10e-080e-4c80-4faa-fc2c0e62f260@linaro.org>
-Date: Sat, 24 Jun 2023 11:11:14 +0200
+ Sat, 24 Jun 2023 02:12:56 -0700 (PDT)
+Message-ID: <6bbf239f-d530-2f1e-ff52-361f7c9cc951@linaro.org>
+Date: Sat, 24 Jun 2023 11:12:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -69,13 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-5-1d5a638cebf2@somainline.org>
+ <20230624-sm6125-dpu-v1-6-1d5a638cebf2@somainline.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230624-sm6125-dpu-v1-5-1d5a638cebf2@somainline.org>
+In-Reply-To: <20230624-sm6125-dpu-v1-6-1d5a638cebf2@somainline.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 05/15] dt-bindings: display/msm:
- dsi-controller-main: Document SM6125
+Subject: Re: [Freedreno] [PATCH 06/15] dt-bindings: display/msm: sc7180-dpu:
+ Describe SM6125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,15 +100,13 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 24/06/2023 02:41, Marijn Suijten wrote:
-> Document general compatibility of the DSI controller on SM6125.
-> 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> SM6125 is identical to SM6375 except that while downstream also defines
+> a throttle clock, its presence results in timeouts whereas SM6375
+> requires it to not observe any timeouts.
 
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Then it should not be allowed, so you need either "else:" block or
+another "if: properties: compatible:" to disallow it. Because in current
+patch it would be allowed.
 
 Best regards,
 Krzysztof
