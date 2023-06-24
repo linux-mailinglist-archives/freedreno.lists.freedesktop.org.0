@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E043F73C5E6
-	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 03:42:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 179EC73C5EC
+	for <lists+freedreno@lfdr.de>; Sat, 24 Jun 2023 03:43:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD4110E6ED;
-	Sat, 24 Jun 2023 01:42:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB96A10E6ED;
+	Sat, 24 Jun 2023 01:43:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8E410E0FF
- for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 01:42:51 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4f870247d6aso1740070e87.0
- for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 18:42:51 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4130F10E6ED
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Jun 2023 01:43:26 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-4f7677a94d1so1777778e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Jun 2023 18:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687570969; x=1690162969;
+ d=linaro.org; s=google; t=1687571004; x=1690163004;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ABZIpr9ZPthPG5kXqvTW8Rk5Ou0ROoLl20Thcdzgw/c=;
- b=mfNh86M9tQZaO3Vz9auPoZGQgiWExLFjqQ/WsoQHTSh1AQLad+HsUIkiZuVboMwwG5
- CdSu7uJ/8dCsECdjtNblkQNPZbb687SykeJeV1mAzkm9RymqjpgN13ag5p/PwzU7+Qqq
- ITKCMnDMj7dQfWpdANu6zwIPxWjNq+TolwbMC4wwYQZVCJW6Swk55GJLurh3mCBbMVrM
- dXLqZtHyn0pi86fvqsphzeOOc7xJbjsP7IGdUWIB9h8Wg48gY3XCNvN6EF2+0Xlse/5u
- o41/+ldUgtopN+9VIbFxZsM3JyT0Hp/QPLycFAznItkyF48RvF0/ivxhdFqo8LV2pETP
- PGhA==
+ bh=FJu328CuD0FpfwTO8re7cLemAMEGjdbgxO2wkNCuWs4=;
+ b=Huvl/IsXBiNB6PHLiIGpsqlH//TabGsHUSokzqBsuO084KzFFFGnVpjHZ8I8BApZtC
+ 4nh5NY4dsFx2IhnOMvm5a6UvhPhznMX7vYaCung0sKFyh5sZJa3/YIsSsW3HTMbdFaGz
+ xddKwRGKx8Oc57sGO9eNdU2I+f6sUfwgyfbFOo9tqWZWYvnXaPn29Z93WBxOM3ecgJpm
+ 8oPpvVMYAM7Ai12qSJzvEgopRO32Vwc/ZLVs/JGem5iQ2LsQ3bc5eJ95ejyMnei5LThW
+ crFnDFVwBuvADU5AI2PFD8L7zIErCvJl6h4PPaWd9sIPH+ly9qnGa2iD71Sass4C8MTL
+ NMdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687570969; x=1690162969;
+ d=1e100.net; s=20221208; t=1687571004; x=1690163004;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ABZIpr9ZPthPG5kXqvTW8Rk5Ou0ROoLl20Thcdzgw/c=;
- b=csOBQ8FeNMgq6BElN7bC6A4AweMrv6xb+DIvgG6n321Erzb7O7DQC5LCwUXUE5bRyb
- OpfdqkAw5wsq2mNktX8YOIQVd+X24gyyiyq4iT6+qbSmCfaXrTkh0j3Qj2z2xH3YVBR9
- 4b+U+N0zoaqE0K5mUDExjsQdmn92rntW7DoQsNPl6x/39W32VlLS3rLHU6q0bjz4wu0m
- CP9KGr360xT4a68sMIiIy9WCGoJcpYVsAueMgX4A5oiFGnMuJmAH5glXx84S9qMmX+9V
- ibtpbStl+da3bTeOoMUz2XRBYmdKGzVwAyWzzywqHIfpMK/qbati7aDcVdCVges+XwIs
- 9A3Q==
-X-Gm-Message-State: AC+VfDwsvfmZA5QjUfZtXqJbpB17r7GEIajLKnuDczrOGvLL9e8I0dl6
- wiEXZKgUWpLjD0QlZa6hyWI2+g==
-X-Google-Smtp-Source: ACHHUZ6XXA3DQLeAWzirtjDtvmXD+F18W7u2zYLlyKgJF3mFy/ep6QDlKt+rpO04JFu+dKDnag1Gaw==
-X-Received: by 2002:a19:670f:0:b0:4f8:7528:50b5 with SMTP id
- b15-20020a19670f000000b004f8752850b5mr9893706lfc.14.1687570968988; 
- Fri, 23 Jun 2023 18:42:48 -0700 (PDT)
+ bh=FJu328CuD0FpfwTO8re7cLemAMEGjdbgxO2wkNCuWs4=;
+ b=XjXz8H8PjCu5ANJuzQNRVJ0NoSIWSbxDKD0FFx8Tl02iZ8CsjtKkYz7oirm4ELBeSs
+ 6QrNKAOenxTQuanzR0xk3EzbROaHxyjPlL62XwVXmDUtz088HugKgB5szWKMuJEvhBuN
+ L26TKJCImef3UBdCr2q+aiCJD+/zRodfDa0GPY4eaN49FrSSj5hvi0ioFXKAmKHx39PO
+ 5xiNxXi4XUyLTYpQiV5sdMB2GuPQl5jIxSkbSw7AGxw7aF0snjzKI8VJsyCOYvILMXve
+ T1rQYMDnGx8u9GGToZg6OV98/8TXbjk4MVG12gbitY4S5M5QtT4eVx9nCW4sQ+WVezFM
+ Al5w==
+X-Gm-Message-State: AC+VfDwrxXhe1CrdYhLd6w2CJEPhV9pjo7VVBwWxeDSUZv1ZQ87jtyGB
+ p8bHfgMIHvLm4+l3B2zPhAbwAw==
+X-Google-Smtp-Source: ACHHUZ79nWqogKy/8Yh1jokr5cO+Vt//UYSZuqtf/o9Edq3PDMHTZ9jAcj594JH3NhOIPESHp42T/g==
+X-Received: by 2002:a19:6755:0:b0:4f8:57b8:8efe with SMTP id
+ e21-20020a196755000000b004f857b88efemr14798210lfj.55.1687571004247; 
+ Fri, 23 Jun 2023 18:43:24 -0700 (PDT)
 Received: from [192.168.1.101] (abyk30.neoplus.adsl.tpnet.pl. [83.9.30.30])
  by smtp.gmail.com with ESMTPSA id
- c26-20020ac2531a000000b004f13ca69dc8sm98316lfh.72.2023.06.23.18.42.46
+ g4-20020ac25384000000b004f26f437ad8sm99250lfh.53.2023.06.23.18.43.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 18:42:48 -0700 (PDT)
-Message-ID: <035ffdd2-27e3-99bc-f8a4-41e66685db09@linaro.org>
-Date: Sat, 24 Jun 2023 03:42:46 +0200
+ Fri, 23 Jun 2023 18:43:23 -0700 (PDT)
+Message-ID: <a2a79b58-c7a9-9099-028c-5ca79cf8f711@linaro.org>
+Date: Sat, 24 Jun 2023 03:43:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -69,12 +69,13 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
+ <20230624-sm6125-dpu-v1-1-1d5a638cebf2@somainline.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
+In-Reply-To: <20230624-sm6125-dpu-v1-1-1d5a638cebf2@somainline.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 00/15] drm/msm: Add SM6125 MDSS/DPU hardware
- and enable Sony Xperia 10 II panel
+Subject: Re: [Freedreno] [PATCH 01/15] arm64: dts: qcom: sm6125: Sort
+ spmi_bus node numerically by reg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,64 +99,79 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 24.06.2023 02:40, Marijn Suijten wrote:
-> Bring up the SM6125 DPU now that all preliminary series (such as INTF
-> TE) have been merged (for me to test the hardware properly)
-We should not repeat the same mistake in the future.. Finding a
-balance between releasing early and releasing what we can declare
-working and tested code is hard, but we waaaaaaaay overstayed on
-this one..
+> This node has always resided in the wrong spot, making it somewhat
+> harder to contribute new node entries while maintaining proper sorting
+> around it.  Move the node up to sit after hsusb_phy1 where it maintains
+> proper numerial
+numerical
+
+sorting on the (first of its many) reg address property.
+> 
+> Fixes: cff4bbaf2a2d ("arm64: dts: qcom: Add support for SM6125")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
-, and most
-> other conflicting work (barring ongoing catalog *improvements*) has made
-> its way in as well or is still being discussed.
-
+>  arch/arm64/boot/dts/qcom/sm6125.dtsi | 38 ++++++++++++++++++------------------
+>  1 file changed, 19 insertions(+), 19 deletions(-)
 > 
-> The second part of the series complements that by immediately utilizing
-> this hardware in DT, and even enabling the MDSS/DSI nodes complete with
-> a 6.0" 1080x2520 panel for Sony's Seine PDX201 (Xperia 10 II).
+> diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+> index a596baa6ce3e..722dde560bec 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+> @@ -679,6 +679,24 @@ hsusb_phy1: phy@1613000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		spmi_bus: spmi@1c40000 {
+> +			compatible = "qcom,spmi-pmic-arb";
+> +			reg = <0x01c40000 0x1100>,
+> +			      <0x01e00000 0x2000000>,
+> +			      <0x03e00000 0x100000>,
+> +			      <0x03f00000 0xa0000>,
+> +			      <0x01c0a000 0x26000>;
+> +			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
+> +			interrupt-names = "periph_irq";
+> +			interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
+> +			qcom,ee = <0>;
+> +			qcom,channel = <0>;
+> +			#address-cells = <2>;
+> +			#size-cells = <0>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <4>;
+> +		};
+> +
+>  		rpm_msg_ram: sram@45f0000 {
+>  			compatible = "qcom,rpm-msg-ram";
+>  			reg = <0x045f0000 0x7000>;
+> @@ -1184,27 +1202,9 @@ sram@4690000 {
+>  			reg = <0x04690000 0x10000>;
+>  		};
+>  
+> -		spmi_bus: spmi@1c40000 {
+> -			compatible = "qcom,spmi-pmic-arb";
+> -			reg = <0x01c40000 0x1100>,
+> -			      <0x01e00000 0x2000000>,
+> -			      <0x03e00000 0x100000>,
+> -			      <0x03f00000 0xa0000>,
+> -			      <0x01c0a000 0x26000>;
+> -			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
+> -			interrupt-names = "periph_irq";
+> -			interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
+> -			qcom,ee = <0>;
+> -			qcom,channel = <0>;
+> -			#address-cells = <2>;
+> -			#size-cells = <0>;
+> -			interrupt-controller;
+> -			#interrupt-cells = <4>;
+> -		};
+> -
+>  		apps_smmu: iommu@c600000 {
+>  			compatible = "qcom,sm6125-smmu-500", "qcom,smmu-500", "arm,mmu-500";
+> -			reg = <0xc600000 0x80000>;
+> +			reg = <0x0c600000 0x80000>;
+>  			interrupts = <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>,
 > 
-> The last patch ("sm6125-seine: Configure MDSS, DSI and panel") depends
-> on (an impending v2 of) my Sony panel collection series [1].
-> 
-> [1]: https://lore.kernel.org/linux-arm-msm/20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org/
-> 
-> ---
-> Marijn Suijten (15):
->       arm64: dts: qcom: sm6125: Sort spmi_bus node numerically by reg
->       dt-bindings: clock: qcom,dispcc-sm6125: Remove unused GCC_DISP_AHB_CLK
->       dt-bindings: clock: qcom,dispcc-sm6125: Require GCC PLL0 DIV clock
->       dt-bindings: clock: qcom,dispcc-sm6125: Allow power-domains property
->       dt-bindings: display/msm: dsi-controller-main: Document SM6125
->       dt-bindings: display/msm: sc7180-dpu: Describe SM6125
->       dt-bindings: display/msm: Add SM6125 MDSS
->       drm/msm/dpu: Add SM6125 support
->       drm/msm/mdss: Add SM6125 support
->       dt-bindings: msm: dsi-phy-14nm: Document SM6125 variant
->       drm/msm/dsi: Add 14nm phy configuration for SM6125
->       arm64: dts: qcom: sm6125: Switch fixed xo_board clock to RPM XO clock
->       arm64: dts: qcom: sm6125: Add dispcc node
->       arm64: dts: qcom: sm6125: Add display hardware nodes
->       arm64: dts: qcom: sm6125-seine: Configure MDSS, DSI and panel
-> 
->  .../bindings/clock/qcom,dispcc-sm6125.yaml         |  17 +-
->  .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
->  .../bindings/display/msm/dsi-phy-14nm.yaml         |   1 +
->  .../bindings/display/msm/qcom,sc7180-dpu.yaml      |   1 +
->  .../bindings/display/msm/qcom,sm6125-mdss.yaml     | 206 +++++++++++++++++
->  .../dts/qcom/sm6125-sony-xperia-seine-pdx201.dts   |  59 +++++
->  arch/arm64/boot/dts/qcom/sm6125.dtsi               | 244 +++++++++++++++++++--
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h | 173 +++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  15 ++
->  drivers/gpu/drm/msm/msm_mdss.c                     |   8 +
->  15 files changed, 712 insertions(+), 25 deletions(-)
-> ---
-> base-commit: 8d2be868b42c08290509c60515865f4de24ea704
-> change-id: 20230624-sm6125-dpu-aedc9637ee7b
-> 
-> Best regards,
