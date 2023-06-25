@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A300F73D08E
-	for <lists+freedreno@lfdr.de>; Sun, 25 Jun 2023 13:43:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7021173D08F
+	for <lists+freedreno@lfdr.de>; Sun, 25 Jun 2023 13:43:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171F110E17E;
-	Sun, 25 Jun 2023 11:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 938FB10E187;
+	Sun, 25 Jun 2023 11:42:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2307810E163
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jun 2023 11:42:32 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4f8735ac3e3so3006839e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 25 Jun 2023 04:42:32 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 746A510E173
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Jun 2023 11:42:33 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2b4636bb22eso31788251fa.2
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Jun 2023 04:42:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687693350; x=1690285350;
+ d=linaro.org; s=google; t=1687693351; x=1690285351;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lwdtqkDXqK7iZxcIX1bEzs8baolumoX7/30733m/ZW8=;
- b=csRNaQVYcN5FlY1KPPmbQ3DhS2yDIluczA9prBJjlEis0hj9zyLOJ92+3vWSG3wDPH
- aJXwYnwBhB7nfZ4ZU/BkYzjQow5FL+ttw7WQzRVTWRsWovgYQMYPWJNsEFH1shm9DxEM
- MRw6m6BbZlxeDAAkVWzXRx1B7TtkNNicfCrLeAjQFowxLo1TM0o/L6IUFsH668ogcEcf
- aaKuM1FSW1r5X+W9WZNu7KY0FB/zb4yo/pEvgO00Rvrt/C0Ne7l4AjlelDBp7hA97/c7
- 1/LSkEId65dBAiGKPtDbLGQZ3rVH/fWZDpYriqPbjBCZNoKJ1rwoB+GNFbMT4msiXzFo
- x9xA==
+ bh=8sn8z574aHDaIUAuI0kB4BeZ8f9+C4yT5HRFlvneark=;
+ b=N4i8hbKp9JLJ7Hcn5m0dC+xMh8Petmn5eegQ1/6yt8GKKAQ8iTYfVKIQX7i/p1hZhO
+ B1OgHjyfFzsmDZtUgO1wINs2xE+2KB9pH5JxmHz6eF+mw4OK+Xymp+jJMrltjcCmoPob
+ yRmekZ2ZzUo0x0sAoPICZrcNFfh3VQa7AatW01uq7AzJM+vgXo35kAqM7N6U4LyfOsfz
+ jwKpTxvoB8rKJB60H3GZqakAev5xiRrEbatzO5MtZXsItftL26ZlcSvBgFQtNEDH8yJk
+ KfiVvrP9L+ntHTqXnHE179n+56wKUMogFcNBBvMhLL9A/rL9I7yZxtpLn3fN1DuLj+jY
+ K/GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687693350; x=1690285350;
+ d=1e100.net; s=20221208; t=1687693351; x=1690285351;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lwdtqkDXqK7iZxcIX1bEzs8baolumoX7/30733m/ZW8=;
- b=ZSqn/imNSLxagv30Ng+RPjDrg1wzr00T0YAYTr2F/RSipPcAlA77Nng3yos0ZponJ8
- 8AMcvLtOQSH+kjX8BSPdLCTek7DPQxNYAETkNNDUVN3G2bACO1c8UHOEHtJHfs1hAFNY
- 3BGKixMaLzsOXQfEsVffAP1IoyJL4F+Ia7aXr0I6mlELOkqiLf/myDhRKfAhab+nBY5C
- CLiX3eQ+yisTe8YUIBi4PxzfmmJM+Oc8mK8JzCR2PBHl2qyLdpUGwT0QMm2SBMYNadbn
- 5dXMIBYREvWEEzpcONFF9X4eL0q6oWW2sHikYCn1J/Kid75+u680Fk2EnKlzKI1q8WFD
- BUKw==
-X-Gm-Message-State: AC+VfDxcntVvvoPYcmBMEv0Bxw2xIynaE45/IV4kAxQoqLfDqfLi16Hu
- /SzLb2Ul8lGd3zPktjnJD7Gv4Q==
-X-Google-Smtp-Source: ACHHUZ6JBYjRhM3xUtGku0UohCxWUXppP0M1khuC54BjHXVyboGxygUTxDaw7zl/dBjjx5nQpMp90Q==
-X-Received: by 2002:a19:e348:0:b0:4f8:48f3:f06 with SMTP id
- c8-20020a19e348000000b004f848f30f06mr14544063lfk.48.1687693350508; 
- Sun, 25 Jun 2023 04:42:30 -0700 (PDT)
+ bh=8sn8z574aHDaIUAuI0kB4BeZ8f9+C4yT5HRFlvneark=;
+ b=MqHNg5gjholMeFi9pQmgKdWxs+irjUo9YhnegK0LIk3D7Xnf35xcfU6nz11PSTi0Bi
+ 6WtLnVORjjVichfGMEG22SC/F6FkGuSs2RI6QdOPqdlIA2I1wYje+BCVeiv3Wk/X2hu9
+ S+YSCvJszCRdryTyh735tUG/b57fHXMOwHAjOSfgekhC8DQ8KnxkzGWpdZ6kfkzs8ynb
+ 5hX6Cvvjh3MQB6lkw/Va3Q1fXF2bEa8GbvdLILnEVleCobFRgX3DL7kCYyat4sX7NPoJ
+ HvUXnT3y/keVs3AG9StLn110fSY2hlB7WaumClCd+5LszNlq4Aq/l7F0PoLdDr76Witp
+ EjnQ==
+X-Gm-Message-State: AC+VfDwQM6d5sLDsiOi3ocyTkcYbIa9diCCGv0tqJb3nN+b2bzy3OwVb
+ eVqFbwXa7rwB6DpZrfZT3el+2g==
+X-Google-Smtp-Source: ACHHUZ5uSrg00k+4Jeoniqdq+eKmv5SMkKvGBXZUIVFY2Z0vMlR3S+2poEP5u2Y66tfSof0mcBqGaA==
+X-Received: by 2002:a19:2d43:0:b0:4f8:5e49:c610 with SMTP id
+ t3-20020a192d43000000b004f85e49c610mr12389972lft.35.1687693351436; 
+ Sun, 25 Jun 2023 04:42:31 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- b23-20020ac25637000000b004f87893ce21sm637323lff.3.2023.06.25.04.42.29
+ b23-20020ac25637000000b004f87893ce21sm637323lff.3.2023.06.25.04.42.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sun, 25 Jun 2023 04:42:30 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -56,15 +56,15 @@ To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
-Date: Sun, 25 Jun 2023 14:42:15 +0300
-Message-Id: <20230625114222.96689-9-dmitry.baryshkov@linaro.org>
+Date: Sun, 25 Jun 2023 14:42:16 +0300
+Message-Id: <20230625114222.96689-10-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230625114222.96689-1-dmitry.baryshkov@linaro.org>
 References: <20230625114222.96689-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 08/15] drm/msm/hdmi: move the alt_iface clock
- to the hpd list
+Subject: [Freedreno] [PATCH v2 09/15] drm/msm/hdmi: simplify extp clock
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,34 +85,167 @@ Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-According to the vendor kernel [1] , the alt_iface clock should be
-enabled together with the rest of HPD clocks, to make HPD to work
-properly.
-
-[1] https://git.codelinaro.org/clo/la/kernel/msm-3.18/-/commit/e07a5487e521e57f76083c0a6e2f995414ac6d03
+With the extp being the only "power" clock left, remove the surrounding
+loops and handle the extp clock directly.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi.c        | 24 ++++---------------
+ drivers/gpu/drm/msm/hdmi/hdmi.h        |  6 +----
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 33 ++++++++++----------------
+ 3 files changed, 18 insertions(+), 45 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 3132105a2a43..0fc3df43aa70 100644
+index 0fc3df43aa70..a2780aba6d3c 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -248,9 +248,9 @@ static const struct hdmi_platform_config hdmi_tx_8960_config = {
+@@ -248,13 +248,11 @@ static const struct hdmi_platform_config hdmi_tx_8960_config = {
  };
  
  static const char *pwr_reg_names_8x74[] = {"core-vdda", "core-vcc"};
--static const char *pwr_clk_names_8x74[] = {"extp", "alt_iface"};
--static const char *hpd_clk_names_8x74[] = {"iface", "core", "mdp_core"};
--static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0};
-+static const char *pwr_clk_names_8x74[] = {"extp"};
-+static const char *hpd_clk_names_8x74[] = {"iface", "core", "mdp_core", "alt_iface"};
-+static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0, 0};
+-static const char *pwr_clk_names_8x74[] = {"extp"};
+ static const char *hpd_clk_names_8x74[] = {"iface", "core", "mdp_core", "alt_iface"};
+ static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0, 0};
  
  static const struct hdmi_platform_config hdmi_tx_8974_config = {
  		HDMI_CFG(pwr_reg, 8x74),
+-		HDMI_CFG(pwr_clk, 8x74),
+ 		HDMI_CFG(hpd_clk, 8x74),
+ 		.hpd_freq      = hpd_clk_freq_8x74,
+ };
+@@ -495,24 +493,10 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
+ 		hdmi->hpd_clks[i] = clk;
+ 	}
+ 
+-	hdmi->pwr_clks = devm_kcalloc(&pdev->dev,
+-				      config->pwr_clk_cnt,
+-				      sizeof(hdmi->pwr_clks[0]),
+-				      GFP_KERNEL);
+-	if (!hdmi->pwr_clks)
+-		return -ENOMEM;
+-
+-	for (i = 0; i < config->pwr_clk_cnt; i++) {
+-		struct clk *clk;
+-
+-		clk = msm_clk_get(pdev, config->pwr_clk_names[i]);
+-		if (IS_ERR(clk))
+-			return dev_err_probe(dev, PTR_ERR(clk),
+-					     "failed to get pwr clk: %s\n",
+-					     config->pwr_clk_names[i]);
+-
+-		hdmi->pwr_clks[i] = clk;
+-	}
++	hdmi->extp_clk = devm_clk_get_optional(&pdev->dev, "extp");
++	if (IS_ERR(hdmi->extp_clk))
++		return dev_err_probe(dev, PTR_ERR(hdmi->extp_clk),
++				     "failed to get extp clock\n");
+ 
+ 	hdmi->hpd_gpiod = devm_gpiod_get_optional(&pdev->dev, "hpd", GPIOD_IN);
+ 	/* This will catch e.g. -EPROBE_DEFER */
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
+index e8dbee50637f..2d405da63bd0 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.h
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
+@@ -51,7 +51,7 @@ struct hdmi {
+ 	struct regulator_bulk_data *hpd_regs;
+ 	struct regulator_bulk_data *pwr_regs;
+ 	struct clk **hpd_clks;
+-	struct clk **pwr_clks;
++	struct clk *extp_clk;
+ 
+ 	struct gpio_desc *hpd_gpiod;
+ 
+@@ -98,10 +98,6 @@ struct hdmi_platform_config {
+ 	const char **hpd_clk_names;
+ 	const long unsigned *hpd_freq;
+ 	int hpd_clk_cnt;
+-
+-	/* clks that need to be on for screen pwr (ie pixel clk): */
+-	const char **pwr_clk_names;
+-	int pwr_clk_cnt;
+ };
+ 
+ struct hdmi_bridge {
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 9b1391d27ed3..62ce1455f974 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -25,7 +25,7 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+ 	const struct hdmi_platform_config *config = hdmi->config;
+-	int i, ret;
++	int ret;
+ 
+ 	pm_runtime_get_sync(&hdmi->pdev->dev);
+ 
+@@ -33,21 +33,15 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
+ 	if (ret)
+ 		DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %d\n", ret);
+ 
+-	if (config->pwr_clk_cnt > 0) {
++	if (hdmi->extp_clk) {
+ 		DBG("pixclock: %lu", hdmi->pixclock);
+-		ret = clk_set_rate(hdmi->pwr_clks[0], hdmi->pixclock);
+-		if (ret) {
+-			DRM_DEV_ERROR(dev->dev, "failed to set pixel clk: %s (%d)\n",
+-					config->pwr_clk_names[0], ret);
+-		}
+-	}
++		ret = clk_set_rate(hdmi->extp_clk, hdmi->pixclock);
++		if (ret)
++			DRM_DEV_ERROR(dev->dev, "failed to set extp clk rate: %d\n", ret);
+ 
+-	for (i = 0; i < config->pwr_clk_cnt; i++) {
+-		ret = clk_prepare_enable(hdmi->pwr_clks[i]);
+-		if (ret) {
+-			DRM_DEV_ERROR(dev->dev, "failed to enable pwr clk: %s (%d)\n",
+-					config->pwr_clk_names[i], ret);
+-		}
++		ret = clk_prepare_enable(hdmi->extp_clk);
++		if (ret)
++			DRM_DEV_ERROR(dev->dev, "failed to enable extp clk: %d\n", ret);
+ 	}
+ }
+ 
+@@ -57,15 +51,15 @@ static void power_off(struct drm_bridge *bridge)
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+ 	const struct hdmi_platform_config *config = hdmi->config;
+-	int i, ret;
++	int ret;
+ 
+ 	/* TODO do we need to wait for final vblank somewhere before
+ 	 * cutting the clocks?
+ 	 */
+ 	mdelay(16 + 4);
+ 
+-	for (i = 0; i < config->pwr_clk_cnt; i++)
+-		clk_disable_unprepare(hdmi->pwr_clks[i]);
++	if (hdmi->extp_clk)
++		clk_disable_unprepare(hdmi->extp_clk);
+ 
+ 	ret = regulator_bulk_disable(config->pwr_reg_cnt, hdmi->pwr_regs);
+ 	if (ret)
+@@ -270,7 +264,6 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
+ {
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+-	const struct hdmi_platform_config *config = hdmi->config;
+ 	struct msm_drm_private *priv = bridge->dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+ 	long actual, requested;
+@@ -284,8 +277,8 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
+ 	if (kms->funcs->round_pixclk)
+ 		actual = kms->funcs->round_pixclk(kms,
+ 			requested, hdmi_bridge->hdmi->encoder);
+-	else if (config->pwr_clk_cnt > 0)
+-		actual = clk_round_rate(hdmi->pwr_clks[0], requested);
++	else if (hdmi->extp_clk)
++		actual = clk_round_rate(hdmi->extp_clk, requested);
+ 	else
+ 		actual = requested;
+ 
 -- 
 2.39.2
 
