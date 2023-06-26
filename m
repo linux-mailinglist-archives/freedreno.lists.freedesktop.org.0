@@ -2,72 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A267773E4B8
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jun 2023 18:17:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 961F873E6C7
+	for <lists+freedreno@lfdr.de>; Mon, 26 Jun 2023 19:47:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664B010E23C;
-	Mon, 26 Jun 2023 16:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08B2D10E16C;
+	Mon, 26 Jun 2023 17:47:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C27810E242
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 16:17:03 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-3fb10fd9ad3so7457595e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 09:17:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687796222; x=1690388222;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=JXeypSA36Qg27xwQK6BwDtx9kWu+FNhZhOD5YziOszI=;
- b=sPsZ86m5T5T04cUPJ6T5/9291QbjPMFyaSlceLp+6Z3VkTseFFaRaaj41GdRaDMyKW
- AvmGwchSI6OBo/R40KeXNU5aHaqvZvg0lsACalGibHKNU+CNWuFw1mvHO/nh0DKSi9a0
- 4bS3YQTuGx565//jrqHhGQlMAG8aZv1g8XI2BA12PuebSxfmh6hdCsToQiU7W6v0XrZZ
- 8FPHh/SQoESnw4D6xAaMCB6CFHo+5T5YfwNWcymt+52ohKUxeXvttYBts30DvDz1SqJ1
- BuzYc+04nuOYWdh7C96S21OoNlqBBJiFS3mSwLElfEbgAGB8EKt0oDV1Lviql/E0lEQa
- 8pGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687796222; x=1690388222;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JXeypSA36Qg27xwQK6BwDtx9kWu+FNhZhOD5YziOszI=;
- b=Bh+wLdfAY1y7A919m5lyVXU6FvZiPBVDS+vUMe/KuMwFsQglOnIi7fqF1AjYco6Ek/
- nyUl6yyetGUZDAMblMfSQ+Wa78dHjCHxmkOhnOSnBLQX0IS5u5fY7XURESLmv92Bq/uE
- 6R7Hr0MMYhI7O34Z44U0x2XBFssoGZ4bJbm/KQcZ83MHUoiw8gVasZz41QCP1vwP9uaz
- LxhyiRQh9N4e9+O94o8+bHLGzMtZ7hQVh8A+DAfTvGNyjdzIa4PYnB3RijVmyVB0wMVR
- nF5C5M6HXR/V9z2/rZ//L7RbhXcYcKrjdE/qqYpn4T2SjMK27qxUUZzNK2hyMdsQOu8r
- jKWQ==
-X-Gm-Message-State: AC+VfDwLVsGXity3XOyCCNGPC6+DBBVBkwcsdAfQ0/7wRkCm45nR/CQq
- 0197xUE830oZ9TabFpfecrZs5Q==
-X-Google-Smtp-Source: ACHHUZ5D7uHptdZqFo2PIkF6RpQXHdVAueCcOlxaXh158opWn01xLXfxyk7SpixUISeHvjWi2z+a3Q==
-X-Received: by 2002:a7b:cd1a:0:b0:3fb:7184:53eb with SMTP id
- f26-20020a7bcd1a000000b003fb718453ebmr127490wmj.18.1687796221657; 
- Mon, 26 Jun 2023 09:17:01 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
- by smtp.gmail.com with ESMTPSA id
- 7-20020a05600c230700b003fa968e9c27sm3404076wmo.9.2023.06.26.09.16.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Jun 2023 09:17:01 -0700 (PDT)
-Message-ID: <a6f3906a-98a7-de7a-3e26-4b8c45fe93f7@linaro.org>
-Date: Mon, 26 Jun 2023 18:16:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC5A210E121
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 17:47:45 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 448113F64A;
+ Mon, 26 Jun 2023 19:47:39 +0200 (CEST)
+Date: Mon, 26 Jun 2023 19:47:37 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <w36fif3isv2nwzvket6dslfoz3vwng7bv3hy6qtezftlqha74a@kd5c6q4ontsf>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-6-1d5a638cebf2@somainline.org>
- <6bbf239f-d530-2f1e-ff52-361f7c9cc951@linaro.org>
- <75d64lixeawfoqbrctm4thzh73cxkvnlmnh5xgbpf277pmh3gz@zthnqvvuxmeq>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <75d64lixeawfoqbrctm4thzh73cxkvnlmnh5xgbpf277pmh3gz@zthnqvvuxmeq>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 06/15] dt-bindings: display/msm: sc7180-dpu:
- Describe SM6125
+ <20230624-sm6125-dpu-v1-3-1d5a638cebf2@somainline.org>
+ <c9681bce-efa8-9b79-4bf6-837dd6a2dc12@linaro.org>
+ <edrftxqhywiaxvbonyh25cmubrg77y4dryqoy7id4ndan2lfa7@rhvcoavtg5vl>
+ <f62d750e-da73-fece-c3de-0dac1fbb9827@linaro.org>
+ <dp2ucgmql2jff52nbxti2hwjchtgjkbrwcgpx3p7ruodz7adnj@635pcqr6fv4x>
+ <c3c79634-b4d3-84a4-4c41-8d74d8648313@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c3c79634-b4d3-84a4-4c41-8d74d8648313@linaro.org>
+Subject: Re: [Freedreno] [PATCH 03/15] dt-bindings: clock: qcom,
+ dispcc-sm6125: Require GCC PLL0 DIV clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,34 +70,76 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/06/2023 21:52, Marijn Suijten wrote:
-> On 2023-06-24 11:12:52, Krzysztof Kozlowski wrote:
->> On 24/06/2023 02:41, Marijn Suijten wrote:
->>> SM6125 is identical to SM6375 except that while downstream also defines
->>> a throttle clock, its presence results in timeouts whereas SM6375
->>> requires it to not observe any timeouts.
->>
->> Then it should not be allowed, so you need either "else:" block or
->> another "if: properties: compatible:" to disallow it. Because in current
->> patch it would be allowed.
+On 2023-06-26 18:15:13, Krzysztof Kozlowski wrote:
+> On 26/06/2023 16:26, Marijn Suijten wrote:
+> > On 2023-06-26 11:43:39, Konrad Dybcio wrote:
+> >> On 25.06.2023 21:48, Marijn Suijten wrote:
+> >>> On 2023-06-24 03:45:02, Konrad Dybcio wrote:
+> >>>> On 24.06.2023 02:41, Marijn Suijten wrote:
+> >>>>> The "gcc_disp_gpll0_div_clk_src" clock is consumed by the driver, will
+> >>>>> be passed from DT, and should be required by the bindings.
+> >>>>>
+> >>>>> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
+> >>>>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> >>>>> ---
+> >>>> Ideally, you'd stick it at the bottom of the list, as the items: order
+> >>>> is part of the ABI
+> >>>
+> >>> This isn't an ABI break, as this driver nor its bindings require/declare
+> >>> a fixed order: they declare a relation between clocks and clock-names.
+> >> Bindings describe the ABI, drivers implement compliant code flow.
+> > 
+> > That is how bindings are supposed to be...  However typically the driver
+> > is written/ported first and then the bindings are simply created to
 > 
-> That means this binding is wrong/incomplete for all other SoCs then.
-> clock(-name)s has 6 items, and sets `minItems: 6`.  Only for sm6375-dpu
-> does it set `minItems: 7`, but an else case is missing.
+> Your development process does not matter for the bindings. Whatever you
+> decide to do "typically" is your choice, although of course I understand
+> why you do it like that. You can argument the same that "I never create
+> bindings in my process, so the driver defines the ABI".
 
-Ask the author why it is done like this.
+This is not my process, nor my choice.
 
+> > reflect this, and sometimes (as is the case with this patch)
+> > incorrectly.
+> > 
+> > That, together with a lack of DTS and known-working device with it
+> > (which is why I'm submitting driver+bindings+dts in one series now!)
+> > makes us shoot ourselves in the foot by locking everyone into an ABI
+> > that makes no sense.
 > 
-> Shall I send a Fixes: ed41005f5b7c ("dt-bindings: display/msm:
-> sc7180-dpu: Describe SM6350 and SM6375") for that, and should maxItems:
-> 6 be the default under clock(-name)s or in an else:?
+> No one is locked into the ABI. SoC maintainer decides on this. However
+> unjustified ABI breaking or not caring about it at all is not the way to
+> go. It is not the correct process.
 
-There is no bug to fix. Or at least it is not yet known. Whether other
-devices should be constrained as well - sure, sounds reasonable, but I
-did not check the code exactly.
+It definitely sounds like it.
 
-We talk here about this patch.
+> >>> This orders the GCC clock just like other dispccs.  And the previous
+> >>> patch dropped the unused cfg_ahb_clk from the bindings, so all bets are
+> >>> off anyway.
+> >> Thinking about it again, the binding has not been consumed by any upstream
+> >> DT to date, so it should (tm) be fine to let it slide..
+> > 
+> > Exactly, I hope/doubt anyone was already using these incomplete
+> > bindings.  And again: the ABI here is the name->phandle mapping, the
+> > order Does Not Matter™.
+> 
+> No, it's not. Your one driver does not define the ABI. There are many
+> different drivers, many different operating systems and other software
+> components.
 
-Best regards,
-Krzysztof
+You missed the point entirely.
 
+The point is that someone contributed a dt-bindings patch that does not
+represent the hardware (hence not the driver for that hardware either).
+It was taken without objection.  So now what?  We are stuck with a
+broken ABI that does not allow us to describe the hardware?
+
+If there are many different drivers and other OSes, why are we solely
+responsible for describing broken bindings?  Why were there no
+objections elsewhere that this does not allow us to describe the
+hardware in question?
+
+Note that the person signing off on and sending that initial dt-bindings
+patch for qcom,dispcc-sm6125.yaml is me, by the way.
+
+- Marijn
