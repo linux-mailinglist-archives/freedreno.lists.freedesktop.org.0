@@ -1,41 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C97F73E6E1
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jun 2023 19:49:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0863073E6F9
+	for <lists+freedreno@lfdr.de>; Mon, 26 Jun 2023 19:54:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5911310E178;
-	Mon, 26 Jun 2023 17:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E8810E23A;
+	Mon, 26 Jun 2023 17:54:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38F910E23A;
- Mon, 26 Jun 2023 17:49:28 +0000 (UTC)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C4010E16C
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 17:54:26 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 8A2613F4E6;
- Mon, 26 Jun 2023 19:49:24 +0200 (CEST)
-Date: Mon, 26 Jun 2023 19:49:23 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 3CB883E7AF;
+ Mon, 26 Jun 2023 19:54:23 +0200 (CEST)
+Date: Mon, 26 Jun 2023 19:54:21 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <jmtjuya4c423rmdlo4ubvvqndbxvgapal5otjqnejdpdd25izp@kewbjmqdu2xs>
+Message-ID: <w3bbdq72thnerbyglb4dyshzg4vu5go2wpsciprk27vah6w2ms@yc4eqclct24a>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-3-1d5a638cebf2@somainline.org>
- <c9681bce-efa8-9b79-4bf6-837dd6a2dc12@linaro.org>
- <55b0ca89-8f2e-5383-59d4-6809e813abf8@linaro.org>
- <vnp263d43flny2ibt3n7fbloyi26enqrejnobogplfu5fcj6l3@s7zkxrsi2rde>
- <52c57cab-10cf-2e7e-2c1d-fa6506786d45@linaro.org>
+ <20230624-sm6125-dpu-v1-6-1d5a638cebf2@somainline.org>
+ <6bbf239f-d530-2f1e-ff52-361f7c9cc951@linaro.org>
+ <75d64lixeawfoqbrctm4thzh73cxkvnlmnh5xgbpf277pmh3gz@zthnqvvuxmeq>
+ <a6f3906a-98a7-de7a-3e26-4b8c45fe93f7@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <52c57cab-10cf-2e7e-2c1d-fa6506786d45@linaro.org>
-Subject: Re: [Freedreno] [PATCH 03/15] dt-bindings: clock: qcom,
- dispcc-sm6125: Require GCC PLL0 DIV clock
+In-Reply-To: <a6f3906a-98a7-de7a-3e26-4b8c45fe93f7@linaro.org>
+Subject: Re: [Freedreno] [PATCH 06/15] dt-bindings: display/msm: sc7180-dpu:
+ Describe SM6125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,35 +66,55 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-26 18:10:44, Krzysztof Kozlowski wrote:
-> On 25/06/2023 21:48, Marijn Suijten wrote:
-> > On 2023-06-24 11:08:54, Krzysztof Kozlowski wrote:
-> >> On 24/06/2023 03:45, Konrad Dybcio wrote:
-> >>> On 24.06.2023 02:41, Marijn Suijten wrote:
-> >>>> The "gcc_disp_gpll0_div_clk_src" clock is consumed by the driver, will
-> >>>> be passed from DT, and should be required by the bindings.
-> >>>>
-> >>>> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
-> >>>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >>>> ---
-> >>> Ideally, you'd stick it at the bottom of the list, as the items: order
-> >>> is part of the ABI
+On 2023-06-26 18:16:58, Krzysztof Kozlowski wrote:
+> On 25/06/2023 21:52, Marijn Suijten wrote:
+> > On 2023-06-24 11:12:52, Krzysztof Kozlowski wrote:
+> >> On 24/06/2023 02:41, Marijn Suijten wrote:
+> >>> SM6125 is identical to SM6375 except that while downstream also defines
+> >>> a throttle clock, its presence results in timeouts whereas SM6375
+> >>> requires it to not observe any timeouts.
 > >>
-> >> Yes, please add them to the end. Order is fixed.
+> >> Then it should not be allowed, so you need either "else:" block or
+> >> another "if: properties: compatible:" to disallow it. Because in current
+> >> patch it would be allowed.
 > > 
-> > Disagreed for bindings that declare clock-names and when the driver
-> > adheres to it, see my reply to Konrad's message.
-> 
-> That's the generic rule, with some exceptions of course. Whether one
-> chosen driver (chosen system and chosen version of that system) adheres
-> or not, does not change it. Other driver behaves differently and ABI is
-> for everyone, not only for your specific version of Linux driver.
-> 
-> Follow the rule.
+> > That means this binding is wrong/incomplete for all other SoCs then.
+> > clock(-name)s has 6 items, and sets `minItems: 6`.  Only for sm6375-dpu
 
-This has no relation to the driver (just that our driver adheres to the
-bindings, as it is supposed to be).  The bindings define a mapping from
-a clock-names=<> entry to a clock on the same index in the clocks=<>
-array.  That relation remains the same with this change.
+Of course meant to say that clock(-name)s has **7** items, not 6.
+
+> > does it set `minItems: 7`, but an else case is missing.
+> 
+> Ask the author why it is done like this.
+
+Konrad, can you clarify why other 
+
+> > Shall I send a Fixes: ed41005f5b7c ("dt-bindings: display/msm:
+> > sc7180-dpu: Describe SM6350 and SM6375") for that, and should maxItems:
+> > 6 be the default under clock(-name)s or in an else:?
+> 
+> There is no bug to fix. Or at least it is not yet known. Whether other
+> devices should be constrained as well - sure, sounds reasonable, but I
+> did not check the code exactly.
+
+I don't know either, but we need this information to decide whether to
+use `maxItems: 6`:
+
+1. Directly on the property;
+2. In an `else:` case on the current `if: sm6375-dpu` (should have the
+   same effect as 1., afaik);
+3. In a second `if:` case that lists all SoCS explicitly.
+
+Since we don't have this information, I think option 3. is the right way
+to go, setting `maxItems: 6` for qcom,sm6125-dpu.
+
+However, it is not yet understood why downstream is able to use the
+throttle clock without repercussions.
+
+> We talk here about this patch.
+
+We used this patch to discover that other SoCs are similarly
+unconstrained.  But if you don't want me to look into it, by all means!
+Saves me a lot of time.  So I will go with option 3.
 
 - Marijn
