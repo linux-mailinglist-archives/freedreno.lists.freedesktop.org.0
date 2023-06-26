@@ -1,38 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4894973E21D
-	for <lists+freedreno@lfdr.de>; Mon, 26 Jun 2023 16:26:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D49773E449
+	for <lists+freedreno@lfdr.de>; Mon, 26 Jun 2023 18:10:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A571A10E20E;
-	Mon, 26 Jun 2023 14:26:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8951910E237;
+	Mon, 26 Jun 2023 16:10:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EFAE10E20D
- for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 14:26:30 +0000 (UTC)
-Received: from SoMainline.org (82-72-63-87.cable.dynamic.v4.ziggo.nl
- [82.72.63.87])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DDFC63F494;
- Mon, 26 Jun 2023 16:26:25 +0200 (CEST)
-Date: Mon, 26 Jun 2023 16:26:24 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <dp2ucgmql2jff52nbxti2hwjchtgjkbrwcgpx3p7ruodz7adnj@635pcqr6fv4x>
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBC3A10E011
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 16:10:49 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-312824aa384so3005170f8f.1
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Jun 2023 09:10:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1687795848; x=1690387848;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zqAmLl/C5FNJIhv2Xt1PuXVNbepqgpYqVZ+raKQfDgo=;
+ b=Dk9D/qPMCY74SEye/8fNMTPEpEockgkVtKFNB5FpvJP6Z2NVSo47uRsb0CubNQMYKd
+ WtkUlVzRm0OstEhMn04c8lGSdVBSwfWues+6SYb8jxXGnITJ/3Kys7xO1aGHt0pWGOvM
+ aA8yIEBHWbJFPmP0UWx3SloZvu0U2PR48aUI4URctIkhwDtRpYz7uXYWH7BXxA+BUtGd
+ daPgIncZc5uHyrG7QxHLGDzN0ePEASN4hMWadW2r8fn/QIRPCMMWwCa5uoMgc6pxaZPl
+ +Eaa8YzSoZgMSGjoplFEYNvjPCOATV5BP/Pbk7lZXMiSx1VYsVB+XwniRCN8wfPc5YmI
+ LzLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687795848; x=1690387848;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zqAmLl/C5FNJIhv2Xt1PuXVNbepqgpYqVZ+raKQfDgo=;
+ b=Mf9hZDXKdVDoAt2GODIaiGLPg5zKSm8+TpqPU4nhoNUT9PAhDtRr3+AFeR4BmoCEWh
+ Cz+eplmKMBGYChijjQpqiZBbU07HpuALQcTZmVAsQpCgo0kEW3Z7SIVZbn2Xw/b/WmLV
+ LKfHylJmQ92/ShBbPRDid3amkpoXt+2cWx7Kgona+KrkrSC7byO/DloHKj7KNPVet9Nk
+ UMeXQn4SywFcRHwh4DBIcJv5GUU6E/moIFE9KI4uxh7MarCCV4wNPdO+Tmr1J53H6jcp
+ Euw1F8ocWhlPQuSCszl281ILQXhp6YuhAl8n0u6cgLrnycu7pnBCQv6qEdo18hBrXclF
+ Rdmw==
+X-Gm-Message-State: AC+VfDx6fj+o08rTEAwNtxlKSrfzPs5ZvU/TJIoDJr61b+y6qdQjrXVB
+ 4GbLiL0WtIHdP+rgM9KW3/LRdA==
+X-Google-Smtp-Source: ACHHUZ7NhS/vlSmtNSKWHpB3xX654GhMOQ5yRJfZky0DhRpX0T7S8MJstbg9Aob3s7/xTaRbLNztbg==
+X-Received: by 2002:a05:6000:118f:b0:309:4620:e155 with SMTP id
+ g15-20020a056000118f00b003094620e155mr8838545wrx.49.1687795847749; 
+ Mon, 26 Jun 2023 09:10:47 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+ by smtp.gmail.com with ESMTPSA id
+ r16-20020adfce90000000b00313f1f543b8sm3000758wrn.108.2023.06.26.09.10.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Jun 2023 09:10:47 -0700 (PDT)
+Message-ID: <52c57cab-10cf-2e7e-2c1d-fa6506786d45@linaro.org>
+Date: Mon, 26 Jun 2023 18:10:44 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>
 References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
  <20230624-sm6125-dpu-v1-3-1d5a638cebf2@somainline.org>
  <c9681bce-efa8-9b79-4bf6-837dd6a2dc12@linaro.org>
- <edrftxqhywiaxvbonyh25cmubrg77y4dryqoy7id4ndan2lfa7@rhvcoavtg5vl>
- <f62d750e-da73-fece-c3de-0dac1fbb9827@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f62d750e-da73-fece-c3de-0dac1fbb9827@linaro.org>
+ <55b0ca89-8f2e-5383-59d4-6809e813abf8@linaro.org>
+ <vnp263d43flny2ibt3n7fbloyi26enqrejnobogplfu5fcj6l3@s7zkxrsi2rde>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <vnp263d43flny2ibt3n7fbloyi26enqrejnobogplfu5fcj6l3@s7zkxrsi2rde>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH 03/15] dt-bindings: clock: qcom,
  dispcc-sm6125: Require GCC PLL0 DIV clock
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -59,98 +93,39 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
  ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-06-26 11:43:39, Konrad Dybcio wrote:
-> On 25.06.2023 21:48, Marijn Suijten wrote:
-> > On 2023-06-24 03:45:02, Konrad Dybcio wrote:
-> >> On 24.06.2023 02:41, Marijn Suijten wrote:
-> >>> The "gcc_disp_gpll0_div_clk_src" clock is consumed by the driver, will
-> >>> be passed from DT, and should be required by the bindings.
-> >>>
-> >>> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
-> >>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >>> ---
-> >> Ideally, you'd stick it at the bottom of the list, as the items: order
-> >> is part of the ABI
-> > 
-> > This isn't an ABI break, as this driver nor its bindings require/declare
-> > a fixed order: they declare a relation between clocks and clock-names.
-> Bindings describe the ABI, drivers implement compliant code flow.
+On 25/06/2023 21:48, Marijn Suijten wrote:
+> On 2023-06-24 11:08:54, Krzysztof Kozlowski wrote:
+>> On 24/06/2023 03:45, Konrad Dybcio wrote:
+>>> On 24.06.2023 02:41, Marijn Suijten wrote:
+>>>> The "gcc_disp_gpll0_div_clk_src" clock is consumed by the driver, will
+>>>> be passed from DT, and should be required by the bindings.
+>>>>
+>>>> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
+>>>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+>>>> ---
+>>> Ideally, you'd stick it at the bottom of the list, as the items: order
+>>> is part of the ABI
+>>
+>> Yes, please add them to the end. Order is fixed.
+> 
+> Disagreed for bindings that declare clock-names and when the driver
+> adheres to it, see my reply to Konrad's message.
 
-That is how bindings are supposed to be...  However typically the driver
-is written/ported first and then the bindings are simply created to
-reflect this, and sometimes (as is the case with this patch)
-incorrectly.
+That's the generic rule, with some exceptions of course. Whether one
+chosen driver (chosen system and chosen version of that system) adheres
+or not, does not change it. Other driver behaves differently and ABI is
+for everyone, not only for your specific version of Linux driver.
 
-That, together with a lack of DTS and known-working device with it
-(which is why I'm submitting driver+bindings+dts in one series now!)
-makes us shoot ourselves in the foot by locking everyone into an ABI
-that makes no sense.
+Follow the rule.
 
-> > This orders the GCC clock just like other dispccs.  And the previous
-> > patch dropped the unused cfg_ahb_clk from the bindings, so all bets are
-> > off anyway.
-> Thinking about it again, the binding has not been consumed by any upstream
-> DT to date, so it should (tm) be fine to let it slide..
+Best regards,
+Krzysztof
 
-Exactly, I hope/doubt anyone was already using these incomplete
-bindings.  And again: the ABI here is the name->phandle mapping, the
-order Does Not Matter™.  So I hope we can let it slide (otherwise the
-previous patch shouldd have been NAK'ed as well??)
-
-(Unless you are SM6115 which uses index-based mapping and does not
- define clock-names at all)
-
-- Marijn
-
-> Konrad
-> > 
-> > - Marijn
-> > 
-> >>
-> >> Konrad
-> >>>  Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 4 ++++
-> >>>  1 file changed, 4 insertions(+)
-> >>>
-> >>> diff --git a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-> >>> index 2acf487d8a2f..11ec154503a3 100644
-> >>> --- a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-> >>> +++ b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-> >>> @@ -23,6 +23,7 @@ properties:
-> >>>    clocks:
-> >>>      items:
-> >>>        - description: Board XO source
-> >>> +      - description: GPLL0 div source from GCC
-> >>>        - description: Byte clock from DSI PHY0
-> >>>        - description: Pixel clock from DSI PHY0
-> >>>        - description: Pixel clock from DSI PHY1
-> >>> @@ -32,6 +33,7 @@ properties:
-> >>>    clock-names:
-> >>>      items:
-> >>>        - const: bi_tcxo
-> >>> +      - const: gcc_disp_gpll0_div_clk_src
-> >>>        - const: dsi0_phy_pll_out_byteclk
-> >>>        - const: dsi0_phy_pll_out_dsiclk
-> >>>        - const: dsi1_phy_pll_out_dsiclk
-> >>> @@ -65,12 +67,14 @@ examples:
-> >>>        compatible = "qcom,sm6125-dispcc";
-> >>>        reg = <0x5f00000 0x20000>;
-> >>>        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
-> >>> +               <&gcc GCC_DISP_GPLL0_DIV_CLK_SRC>,
-> >>>                 <&dsi0_phy 0>,
-> >>>                 <&dsi0_phy 1>,
-> >>>                 <&dsi1_phy 1>,
-> >>>                 <&dp_phy 0>,
-> >>>                 <&dp_phy 1>;
-> >>>        clock-names = "bi_tcxo",
-> >>> +                    "gcc_disp_gpll0_div_clk_src",
-> >>>                      "dsi0_phy_pll_out_byteclk",
-> >>>                      "dsi0_phy_pll_out_dsiclk",
-> >>>                      "dsi1_phy_pll_out_dsiclk",
-> >>>
