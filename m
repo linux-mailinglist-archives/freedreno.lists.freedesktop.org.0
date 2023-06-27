@@ -2,71 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B67B73FC24
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 14:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9FED73FDC0
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 16:24:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5361110E00B;
-	Tue, 27 Jun 2023 12:44:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2233310E30F;
+	Tue, 27 Jun 2023 14:24:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24FE710E284;
- Tue, 27 Jun 2023 04:13:30 +0000 (UTC)
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35QMjDNN029311; Tue, 27 Jun 2023 04:13:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2023-03-30; bh=qE1HJ292s3PXvLRoSr2Nw3hL8I7+kggKD9BrBYerbDA=;
- b=a5t50CXV4q8mIIpAJq12aaDS/qBcZvmjsY+27MVXUsvUPmreAXKZ5Gu40e0RceaWryoP
- 6jUsKdSxVQ6o9vqZF8AAyCptj/QH330OLUNFvGLsb0iEQg0anIe+AkQqNLQgHiJ00vVl
- w6UDOrr7AFQzr6Ave5R9AnWibIJfNwnFYKmSXFMGXXnCf5wdYEIQZB0umN4Ae46UqhDH
- Mumx9Ekv08CvodsXBk+deCrb1YA3kgAZ2LhVXTgdRFHIguMJ3Ri1MJPKMcgQNe62yO34
- Nf0EPxwh44p4LHMlgY89Wq5qlLiYEK3Huv7JRo8F+K2i2YOI3R3E7O5c7rs392GbuUx5 4g== 
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3rds1u3yvr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 27 Jun 2023 04:13:22 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 35R1DS8U026348; Tue, 27 Jun 2023 04:13:21 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3rdpxaehdq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 27 Jun 2023 04:13:21 +0000
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 35R4DLTQ009154;
- Tue, 27 Jun 2023 04:13:21 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3rdpxaeh80-1; Tue, 27 Jun 2023 04:13:21 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: 
-Date: Mon, 26 Jun 2023 21:12:35 -0700
-Message-ID: <20230627041250.3899791-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.41.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 987AB10E2EF;
+ Tue, 27 Jun 2023 14:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=iikALXau+kRIX9NJP7tUOOeSXUb0yU7k2GK1eRrP4VM=; b=rskGK9qtC+QAlO6K0metPw8zyG
+ slCLTy8RBoesO2iwR4xGd0HvRAkzunJ6s2dbnRVf9Hhwi6egxFXOuVb5GyaxBYuQh2GvjzHPgXXW0
+ C2Q76j9x+S7WuSYHrpz+mzI0ckEgW0coYmichRB//77LK0N6ykr03lrMk6VS6qr4ZYNW9OFRT/awY
+ v/ZD1zoOCQhFbb+gJCqy7QcgTmTr+kinvd3zfyd3qotGVH3Qj5VXw5f7KieTqf63/PIXgRpq0K6Fo
+ wj2gUGWNs4OSop8GiL1HkPQQ/ORSzQcJvpMMpWbS5jGZZvMyjp6MiJciAftrWe+2BICcx9CV9mBCg
+ XUahvymQ==;
+Received: from 145.red-83-52-114.dynamicip.rima-tde.net ([83.52.114.145]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qE9cX-004aie-2p; Tue, 27 Jun 2023 16:24:41 +0200
+Message-ID: <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
+From: Ricardo Garcia <rgarcia@igalia.com>
+To: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>, 
+ events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org, members@x.org
+Date: Tue, 27 Jun 2023 16:24:40 +0200
+In-Reply-To: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
+References: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-27_01,2023-06-26_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- spamscore=0
- mlxlogscore=999 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306270039
-X-Proofpoint-GUID: yfOpun_fnhTicgyspkhXL1luRak9scc_
-X-Proofpoint-ORIG-GUID: yfOpun_fnhTicgyspkhXL1luRak9scc_
-X-Mailman-Approved-At: Tue, 27 Jun 2023 12:44:25 +0000
-Subject: [Freedreno] [PATCH next] drm/msm/a5xx: Fix a NULL dereference bug
- in a5xx_gpu_init()
+Subject: Re: [Freedreno] XDC 2023: Registration & Call for Proposals now
+ open!
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,58 +59,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Elliot Berman <quic_eberman@quicinc.com>,
- error27@gmail.com, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@gmail.com>, Adam Skladowski <a39.skl@gmail.com>,
- kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Mukesh Ojha <quic_mojha@quicinc.com>,
- harshit.m.mogalapalli@oracle.com, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, dan.carpenter@linaro.org
+Cc: "board@foundation.x.org" <board@foundation.x.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Smatch complains:
-	drivers/gpu/drm/msm/adreno/a5xx_gpu.c:1753
-	a5xx_gpu_init() warn: variable dereferenced before
-	check 'pdev' (see line 1746)
+This is a reminder that the XDC 2023 Registration and the Call for
+Proposals are still open and will be open for about 2 more weeks. Do not
+forget to submit your proposals before the deadline (July 17)!
 
-When no device is defined, dereferencing pdev is a NULL dereference.
-Fix this by dereferencing pdev to get the config post the NULL check.
+The conference will take place in A Coru=C3=B1a this year, from October 17 =
+to
+19. You can find more information about the conference in the links
+below and you can also follow us on Mastodon for the latest updates.
 
-Fixes: 736a93273656 ("drm/msm/a5xx: really check for A510 in a5xx_gpu_init")
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
----
-This is based on static analysis, only compile tested.
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+https://floss.social/@XOrgDevConf
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index a99310b68793..adaf8f8e7f2d 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1743,7 +1743,7 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct platform_device *pdev = priv->gpu_pdev;
--	struct adreno_platform_config *config = pdev->dev.platform_data;
-+	struct adreno_platform_config *config;
- 	struct a5xx_gpu *a5xx_gpu = NULL;
- 	struct adreno_gpu *adreno_gpu;
- 	struct msm_gpu *gpu;
-@@ -1755,6 +1755,8 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- 		return ERR_PTR(-ENXIO);
- 	}
- 
-+	config = pdev->dev.platform_data;
-+
- 	a5xx_gpu = kzalloc(sizeof(*a5xx_gpu), GFP_KERNEL);
- 	if (!a5xx_gpu)
- 		return ERR_PTR(-ENOMEM);
--- 
-2.39.3
+Thanks for your attention,
+-Ricardo
+
+On Mon, 2023-04-17 at 13:41 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> =C2=A0
+> Hello!
+> =C2=A0=C2=A0
+> =C2=A0Registration & Call for Proposals are now open for XDC 2023, which =
+will
+> =C2=A0take place on October 17-19, 2023.=20
+> =C2=A0
+> =C2=A0https://xdc2023.x.org
+> =C2=A0=C2=A0
+> =C2=A0As usual, the conference is free of charge and open to the general
+> =C2=A0public. If you plan on attending, please make sure to register as e=
+arly
+> =C2=A0as possible!
+> =C2=A0=C2=A0
+> =C2=A0In order to register as attendee, you will therefore need to regist=
+er
+> =C2=A0via the XDC website.
+> =C2=A0=C2=A0
+> =C2=A0https://indico.freedesktop.org/event/4/registrations/
+> =C2=A0=C2=A0
+> =C2=A0In addition to registration, the CfP is now open for talks, worksho=
+ps
+> =C2=A0and demos at XDC 2023. While any serious proposal will be gratefull=
+y
+> =C2=A0considered, topics of interest to X.Org and freedesktop.org develop=
+ers
+> =C2=A0are encouraged. The program focus is on new development, ongoing
+> =C2=A0challenges and anything else that will spark discussions among
+> =C2=A0attendees in the hallway track.
+> =C2=A0=C2=A0
+> =C2=A0We are open to talks across all layers of the graphics stack, from =
+the
+> =C2=A0kernel to desktop environments / graphical applications and about h=
+ow
+> =C2=A0to make things better for the developers who build them. Head to th=
+e
+> =C2=A0CfP page to learn more:=20
+> =C2=A0=C2=A0
+> =C2=A0https://indico.freedesktop.org/event/4/abstracts/
+> =C2=A0=C2=A0
+> =C2=A0The deadline for submissions is Monday, 17 July 2023 (23:59 CEST)
+> =C2=A0=C2=A0
+> =C2=A0Check out our Reimbursement Policy to accept speaker expenses:
+> =C2=A0=C2=A0
+> =C2=A0https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
+> =C2=A0=C2=A0
+> =C2=A0If you have any questions, please send me an email to
+> =C2=A0siglesias AT igalia.com, adding on Cc the X.org board (board
+> =C2=A0at foundation.x.org).
+> =C2=A0=C2=A0
+> =C2=A0And please keep in mind, you can follow us on Twitter for all the l=
+atest
+> =C2=A0updates and to stay connected:
+> =C2=A0=C2=A0
+> =C2=A0https://twitter.com/XOrgDevConf
+> =C2=A0=C2=A0
+> =C2=A0Best,
+> =C2=A0=C2=A0
+> =C2=A0Sam
+> =C2=A0
+> =C2=A0
 
