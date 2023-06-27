@@ -2,79 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660E773F7BA
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 10:49:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A67B73F807
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 11:02:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B24210E1AC;
-	Tue, 27 Jun 2023 08:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5C3910E2C7;
+	Tue, 27 Jun 2023 09:02:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6A8810E1AC
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 08:49:10 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4fb863edcb6so446792e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 01:49:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687855748; x=1690447748;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TomAZ7O1EcBP8WsIDD1uG9Qcrmlg/XdNsRiguOyzx/0=;
- b=RN9aLjViLhcUH7KdpEXWJIAnR1KYFcbSesBCdFKTJhwVucsZLjDKnrhZjy/zoNoikP
- ZyjER8DVaECxXuqaOsf+/BAdzpowTouasRQCLrMrMn6jfQe4A0oeU1FGKN+oGbahWaQa
- Cki7OuUbEM4mJScX9zc/TCTrJqDpPaA0AU1u3yl/jmwzOLQfNQm+oKWIT4z5OF6PVs4M
- /ED2ykvHh4Z4alap67p2FI/AfvJvJeobLVb+XzBZTb+iz1/zW5qlJRm3huUcg+k8/Kyo
- JKORQVbwQmknHFwpef92HI2XluXPrcIKuBxe5/KO5z0x6cGyONu1pEUOz4I5onG0hHUP
- /lPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687855748; x=1690447748;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TomAZ7O1EcBP8WsIDD1uG9Qcrmlg/XdNsRiguOyzx/0=;
- b=gjqtX0SixsD3uEPiIkpbtL+9l77KimXr9sAv10UoX+RhIXHnAXv+RRGU/DUuLZrry8
- dTFs+d4K/E54hCg/2Sv/8zRwnO4tC9Xr2i0HY8cldjpQUqF7M5M+2iq614VbejDbZOYc
- m52ISljO9lDy5yHSSvzu0fhGtFkDkHZyR48Wj62lEHDTJ8XvuhI0ApavnDR0gbOKMzM6
- QdTnXizK6DxU8QobBqcMA/z2FZfbewHQ0SbWmsc2GWVMyF2zTR4yYeKqv0YgWA2AfmHR
- /x4LM/89V0raK4TsVP4ZbMB1bR3kBmJ1iBZcvBTLSWcmt2V7aHD2Qb2sR7W98jzTG6p+
- U+tA==
-X-Gm-Message-State: AC+VfDzPSBE44Sz+6UAqFpyw0TJ2eFO28taly35m/LbM+A7KSXmu7QjY
- pBvf1kXcqybTOqT6qvhXcaxOuw==
-X-Google-Smtp-Source: ACHHUZ7IDr8oibNYTHFk7o1dd1/ahrycgoOYSLclnkdUlcbGQzlTG4kCoZs3kPIK9DLExdcuVbuhJg==
-X-Received: by 2002:a19:e044:0:b0:4f8:7754:62e1 with SMTP id
- g4-20020a19e044000000b004f8775462e1mr13177206lfj.40.1687855748412; 
- Tue, 27 Jun 2023 01:49:08 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- r1-20020a19ac41000000b004f82c820245sm1419563lfc.107.2023.06.27.01.49.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jun 2023 01:49:07 -0700 (PDT)
-Message-ID: <9ba8e5c9-642d-a09d-7e82-adba8e5497aa@linaro.org>
-Date: Tue, 27 Jun 2023 11:49:07 +0300
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2551610E2DA
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 09:02:37 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id C0A7A3F792;
+ Tue, 27 Jun 2023 11:02:28 +0200 (CEST)
+Date: Tue, 27 Jun 2023 11:02:27 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <makhh4ebdmoa5f6r4mbx4g2v2cpcsi74wqf3622dxuli4w7tb6@els2rvqcnvgz>
+References: <52c57cab-10cf-2e7e-2c1d-fa6506786d45@linaro.org>
+ <jmtjuya4c423rmdlo4ubvvqndbxvgapal5otjqnejdpdd25izp@kewbjmqdu2xs>
+ <6311f26f-79ee-c471-649f-5e0b4629cfcc@linaro.org>
+ <uuy5prkjhhs66te7h6z3pu4lzj2cfbiqk6ftjijwoeqpw573av@ogs6cboanvzc>
+ <ziykmixskqkgheigefvyo4q3katbc4uix6jtcg7mncs25z4tj5@5gykrfgns4bm>
+ <16731023-7dc7-d43d-1b16-fda44c0948ed@linaro.org>
+ <yofju7jp7vmv33x7dzvzoelpumfsz3fjqy2ozakfphsuysunon@pglt2wzlsjex>
+ <683a6f7e-bf1a-aff2-070b-472fb14e0353@linaro.org>
+ <3nnk4xvmpnum2q6g6c6crjlqq3ra7j2z5zis53xcqbvevymuhz@mkffvs45n6ut>
+ <145ab255-b3f8-1c6c-824d-5f1b40568d30@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-References: <20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org>
- <20230624-sm6125-dpu-v1-9-1d5a638cebf2@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230624-sm6125-dpu-v1-9-1d5a638cebf2@somainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 09/15] drm/msm/mdss: Add SM6125 support
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <145ab255-b3f8-1c6c-824d-5f1b40568d30@linaro.org>
+Subject: Re: [Freedreno] [PATCH 03/15] dt-bindings: clock: qcom,
+ dispcc-sm6125: Require GCC PLL0 DIV clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,64 +51,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Lux Aliaga <they@mint.lgbt>,
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ dri-devel@lists.freedesktop.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
+ Lux Aliaga <they@mint.lgbt>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/06/2023 03:41, Marijn Suijten wrote:
-> SM6125's UBWC hardware decoder is version 3.0, and supports decoding
-> UBWC 1.0.
-
-I think it's UBWC encoder version, see 
-https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/display-kernel.lnx.5.15.1.r17-rel/msm/sde/sde_hw_top.c?ref_type=heads#L357
-
-This is a part of 
-https://patchwork.freedesktop.org/patch/538279/?series=118074&rev=1
-
-(no, you don't have to rebase on that patchset, it is not reviewed yet).
-
+On 2023-06-27 10:21:12, Krzysztof Kozlowski wrote:
+> On 27/06/2023 09:49, Marijn Suijten wrote:
+> > On 2023-06-27 09:29:53, Krzysztof Kozlowski wrote:
+> >> On 27/06/2023 08:54, Marijn Suijten wrote:
+> >>> On 2023-06-27 08:24:41, Krzysztof Kozlowski wrote:
+> >>>> On 26/06/2023 20:53, Marijn Suijten wrote:
+> >>>>> On 2023-06-26 20:51:38, Marijn Suijten wrote:
+> >>>>> <snip>
+> >>>>>>> Not really, binding also defines the list of clocks - their order and
+> >>>>>>> specific entries. This changes.
+> >>>>>>
+> >>>>>> And so it does in "dt-bindings: clock: qcom,dispcc-sm6125: Remove unused
+> >>>>>> GCC_DISP_AHB_CLK"?
+> >>>>>
+> >>>>> Never mind: it is the last item so the order of the other items doesn't
+> >>>>> change.  The total number of items decreases though, which sounds like
+> >>>>> an ABI-break too?
+> >>>>
+> >>>> How does it break? Old DTS works exactly the same, doesn't it?
+> >>>
+> >>> So deleting a new item at the end does not matter.  But what if I respin
+> >>> this patch to add the new clock _at the end_, which will then be at the
+> >>> same index as the previous GCC_DISP_AHB_CLK?
+> >>
+> >> I think you know the answer, right? What do you want to prove? That two
+> >> independent changes can have together negative effect? We know this.
+> > 
+> > The question is whether this is allowed?
 > 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->   drivers/gpu/drm/msm/msm_mdss.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 05648c910c68..bf68bae23264 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -559,6 +559,13 @@ static const struct msm_mdss_data sm6115_data = {
->   	.ubwc_static = 0x11f,
->   };
->   
-> +static const struct msm_mdss_data sm6125_data = {
-> +	.ubwc_version = UBWC_1_0,
-> +	.ubwc_dec_version = UBWC_3_0,
-> +	.ubwc_swizzle = 1,
-> +	.highest_bank_bit = 1,
-> +};
-> +
->   static const struct msm_mdss_data sm8250_data = {
->   	.ubwc_version = UBWC_4_0,
->   	.ubwc_dec_version = UBWC_4_0,
-> @@ -579,6 +586,7 @@ static const struct of_device_id mdss_dt_match[] = {
->   	{ .compatible = "qcom,sc8180x-mdss", .data = &sc8180x_data },
->   	{ .compatible = "qcom,sc8280xp-mdss", .data = &sc8280xp_data },
->   	{ .compatible = "qcom,sm6115-mdss", .data = &sm6115_data },
-> +	{ .compatible = "qcom,sm6125-mdss", .data = &sm6125_data },
->   	{ .compatible = "qcom,sm6350-mdss", .data = &sm6350_data },
->   	{ .compatible = "qcom,sm6375-mdss", .data = &sm6350_data },
->   	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
-> 
+> That would be an ABI break and I already explained if it is or is not
+> allowed.
 
--- 
-With best wishes
-Dmitry
+How should we solve it then, if we cannot remove GCC_DISP_AHB_CLK in one
+patch and add GCC_DISP_GPLL0_DIV_CLK_SRC **at the end** in the next
+patch?  Keep an empty spot at the original index of GCC_DISP_AHB_CLK?
 
+- Marijn
