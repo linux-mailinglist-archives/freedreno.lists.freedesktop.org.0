@@ -2,51 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9FED73FDC0
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 16:24:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE530740469
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 22:14:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2233310E30F;
-	Tue, 27 Jun 2023 14:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41A3B10E058;
+	Tue, 27 Jun 2023 20:14:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 987AB10E2EF;
- Tue, 27 Jun 2023 14:24:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=iikALXau+kRIX9NJP7tUOOeSXUb0yU7k2GK1eRrP4VM=; b=rskGK9qtC+QAlO6K0metPw8zyG
- slCLTy8RBoesO2iwR4xGd0HvRAkzunJ6s2dbnRVf9Hhwi6egxFXOuVb5GyaxBYuQh2GvjzHPgXXW0
- C2Q76j9x+S7WuSYHrpz+mzI0ckEgW0coYmichRB//77LK0N6ykr03lrMk6VS6qr4ZYNW9OFRT/awY
- v/ZD1zoOCQhFbb+gJCqy7QcgTmTr+kinvd3zfyd3qotGVH3Qj5VXw5f7KieTqf63/PIXgRpq0K6Fo
- wj2gUGWNs4OSop8GiL1HkPQQ/ORSzQcJvpMMpWbS5jGZZvMyjp6MiJciAftrWe+2BICcx9CV9mBCg
- XUahvymQ==;
-Received: from 145.red-83-52-114.dynamicip.rima-tde.net ([83.52.114.145]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qE9cX-004aie-2p; Tue, 27 Jun 2023 16:24:41 +0200
-Message-ID: <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>, 
- events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org, members@x.org
-Date: Tue, 27 Jun 2023 16:24:40 +0200
-In-Reply-To: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
-References: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E02210E00D;
+ Tue, 27 Jun 2023 20:14:25 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 23AEF3F6B1;
+ Tue, 27 Jun 2023 22:14:21 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue, 27 Jun 2023 22:14:15 +0200
+Message-Id: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
 MIME-Version: 1.0
-Subject: Re: [Freedreno] XDC 2023: Registration & Call for Proposals now
- open!
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABdDm2QC/22Nyw6CMBBFf4XM2jG0SFFX/odh0ccAk0BLWiEaw
+ r9bWbs8J7n3bJAoMiW4FxtEWjlx8BnkqQA7aN8TsssMspRVqeQF06SErNHNC2py9qaqhqgxkAd
+ GJ0ITtbdDnvhlHLOcI3X8PgrPNvPA6RXi5wiu4mf/fq8CSxSu1qq6WjKdfKQwafYjezqH2EO77
+ /sXm5f5kb4AAAA=
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Loic Poulain <loic.poulain@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>
+X-Mailer: b4 0.12.3
+Subject: [Freedreno] [PATCH v2 00/15] drm/msm: Add SM6125 MDSS/DPU hardware
+ and enable Sony Xperia 10 II panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +57,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
+Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Lux Aliaga <they@mint.lgbt>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a reminder that the XDC 2023 Registration and the Call for
-Proposals are still open and will be open for about 2 more weeks. Do not
-forget to submit your proposals before the deadline (July 17)!
+Bring up the SM6125 DPU now that all preliminary series (such as INTF
+TE) have been merged (for me to test the hardware properly), and most
+other conflicting work (barring ongoing catalog *improvements*) has made
+its way in as well or is still being discussed.
 
-The conference will take place in A Coru=C3=B1a this year, from October 17 =
-to
-19. You can find more information about the conference in the links
-below and you can also follow us on Mastodon for the latest updates.
+The second part of the series complements that by immediately utilizing
+this hardware in DT, and even enabling the MDSS/DSI nodes complete with
+a 6.0" 1080x2520 panel for Sony's Seine PDX201 (Xperia 10 II).
 
-https://floss.social/@XOrgDevConf
+The last patch ("sm6125-seine: Configure MDSS, DSI and panel") depends
+on (an impending v2 of) my Sony panel collection series [1].
 
-Thanks for your attention,
--Ricardo
+[1]: https://lore.kernel.org/linux-arm-msm/20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org/
 
-On Mon, 2023-04-17 at 13:41 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> =C2=A0
-> Hello!
-> =C2=A0=C2=A0
-> =C2=A0Registration & Call for Proposals are now open for XDC 2023, which =
-will
-> =C2=A0take place on October 17-19, 2023.=20
-> =C2=A0
-> =C2=A0https://xdc2023.x.org
-> =C2=A0=C2=A0
-> =C2=A0As usual, the conference is free of charge and open to the general
-> =C2=A0public. If you plan on attending, please make sure to register as e=
-arly
-> =C2=A0as possible!
-> =C2=A0=C2=A0
-> =C2=A0In order to register as attendee, you will therefore need to regist=
-er
-> =C2=A0via the XDC website.
-> =C2=A0=C2=A0
-> =C2=A0https://indico.freedesktop.org/event/4/registrations/
-> =C2=A0=C2=A0
-> =C2=A0In addition to registration, the CfP is now open for talks, worksho=
-ps
-> =C2=A0and demos at XDC 2023. While any serious proposal will be gratefull=
-y
-> =C2=A0considered, topics of interest to X.Org and freedesktop.org develop=
-ers
-> =C2=A0are encouraged. The program focus is on new development, ongoing
-> =C2=A0challenges and anything else that will spark discussions among
-> =C2=A0attendees in the hallway track.
-> =C2=A0=C2=A0
-> =C2=A0We are open to talks across all layers of the graphics stack, from =
-the
-> =C2=A0kernel to desktop environments / graphical applications and about h=
-ow
-> =C2=A0to make things better for the developers who build them. Head to th=
-e
-> =C2=A0CfP page to learn more:=20
-> =C2=A0=C2=A0
-> =C2=A0https://indico.freedesktop.org/event/4/abstracts/
-> =C2=A0=C2=A0
-> =C2=A0The deadline for submissions is Monday, 17 July 2023 (23:59 CEST)
-> =C2=A0=C2=A0
-> =C2=A0Check out our Reimbursement Policy to accept speaker expenses:
-> =C2=A0=C2=A0
-> =C2=A0https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> =C2=A0=C2=A0
-> =C2=A0If you have any questions, please send me an email to
-> =C2=A0siglesias AT igalia.com, adding on Cc the X.org board (board
-> =C2=A0at foundation.x.org).
-> =C2=A0=C2=A0
-> =C2=A0And please keep in mind, you can follow us on Twitter for all the l=
-atest
-> =C2=A0updates and to stay connected:
-> =C2=A0=C2=A0
-> =C2=A0https://twitter.com/XOrgDevConf
-> =C2=A0=C2=A0
-> =C2=A0Best,
-> =C2=A0=C2=A0
-> =C2=A0Sam
-> =C2=A0
-> =C2=A0
+---
+Changes in v2:
+- Moved dispcc DT clock reordering to the right patch (--fixup on the
+  wrong hash) (Dmitry, Konrad multiple times);
+- Drop removal of GCC_DISP_AHB_CLK in dispcc bindings.  While it is
+  unused in the current driver, it is likely used to ensure a guaranteed
+  probe order between GCC and DISPCC downstream, as well as currently
+  relying on the fact that GCC_DISP_AHB_CLK is CLK_IS_CRITICAL and never
+  turned off (Bjorn);
+- Add GCC_DISP_GPLL0_DIV_CLK_SRC at the end of the dispcc clock list to
+  maintain some form of ABI stability (Krzysztof);
+- Use SoC-prefix format for 14nm DSI PHY qcom,sm6125-dsi-phy-14nm
+  compatible (Dmitry, Krzysztof);
+- Add patch to drop unused regulators from QCM2290 14nm DSI PHY (Konrad,
+  Dmitry);
+- Reuse QCM2290 14nm DSI PHY config struct for SM6125 compatible
+  (Konrad);
+- s/sde/mdss in pdx201.dts pinctrl node names and labels (Konrad);
+- Use MX power domain in DSI PHY with SVS OPP (Dmitry);
+- Use CX power domain with (already-existing) OPP table in DSI CTRL
+  (Konrad, Dmitry);
+- Rebased on top of DPU catalog rework [1] by inlining macro
+  invocations, and validated by diffing stripped dpu_hw_catalog.o that
+  there are no unexpected changes;
+- Unset min_llcc_ib because this platform has no LLCC (Konrad);
+- Fix UBWC comment to mention "encoding" version (Dmitry);
+- Reordered DT nodes to follow Konrad's requested sorting;
+- Add power-domains and required-opps properties to dsi-phy-14nm.yaml;
+- Link to v1: https://lore.kernel.org/r/20230624-sm6125-dpu-v1-0-1d5a638cebf2@somainline.org
+
+The discussions and this list ran quite long, apologies if I missed or
+mis-resolved anything in advance!
+
+[1]: https://lore.kernel.org/linux-arm-msm/20230619212519.875673-1-dmitry.baryshkov@linaro.org/
+
+---
+Marijn Suijten (15):
+      drm/msm/dsi: Drop unused regulators from QCM2290 14nm DSI PHY config
+      arm64: dts: qcom: sm6125: Sort spmi_bus node numerically by reg
+      dt-bindings: clock: qcom,dispcc-sm6125: Require GCC PLL0 DIV clock
+      dt-bindings: clock: qcom,dispcc-sm6125: Allow power-domains property
+      dt-bindings: display/msm: dsi-controller-main: Document SM6125
+      dt-bindings: display/msm: sc7180-dpu: Describe SM6125
+      dt-bindings: display/msm: Add SM6125 MDSS
+      drm/msm/dpu: Add SM6125 support
+      drm/msm/mdss: Add SM6125 support
+      dt-bindings: msm: dsi-phy-14nm: Document SM6125 variant
+      drm/msm/dsi: Reuse QCM2290 14nm DSI PHY configuration for SM6125
+      arm64: dts: qcom: sm6125: Switch fixed xo_board clock to RPM XO clock
+      arm64: dts: qcom: sm6125: Add dispcc node
+      arm64: dts: qcom: sm6125: Add display hardware nodes
+      arm64: dts: qcom: sm6125-seine: Configure MDSS, DSI and panel
+
+ .../bindings/clock/qcom,dispcc-sm6125.yaml         |  15 +-
+ .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
+ .../bindings/display/msm/dsi-phy-14nm.yaml         |  11 +
+ .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  14 ++
+ .../bindings/display/msm/qcom,sm6125-mdss.yaml     | 217 ++++++++++++++++++
+ .../dts/qcom/sm6125-sony-xperia-seine-pdx201.dts   |  59 +++++
+ arch/arm64/boot/dts/qcom/sm6125.dtsi               | 251 +++++++++++++++++++--
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h | 230 +++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |   2 -
+ drivers/gpu/drm/msm/msm_mdss.c                     |   8 +
+ 14 files changed, 796 insertions(+), 23 deletions(-)
+---
+base-commit: e42c42a03fdf31deccaea2f44885dd6f8150eb32
+change-id: 20230624-sm6125-dpu-aedc9637ee7b
+
+Best regards,
+-- 
+Marijn Suijten <marijn.suijten@somainline.org>
 
