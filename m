@@ -1,83 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13C8740529
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 22:48:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B61F974058F
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 23:28:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0D410E32A;
-	Tue, 27 Jun 2023 20:48:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E288610E338;
+	Tue, 27 Jun 2023 21:28:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0158110E028
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 20:48:32 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f86dbce369so6881989e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 13:48:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687898911; x=1690490911;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=h5cuxxD3O/wTB2BSSAaaa+aPcVHglRupuBRpkNvhp/4=;
- b=noeEPvhzwSHk1yr+PYO+SJGFRehpAwvLYYcJ2os8G6QThZlWNjba1cjaV/ACdEtn6y
- UkgnNucmSeKLRThSp14WbUOgibmopor+LCDEUGfG9b44wFXNCPblqIUQPa+67y5j8V22
- GuPubh8ldtsanayR27EljTM3iNBQY3JE+ylibTqf/PYwI8axRmq4n3jvsUKEN29XS9ej
- 0R9XoDHjXrbH3h6IgyPV/NB1ObmjRHvPpFY0YxyKhrPLRO5ERD+mPjfayhPgfv0NLHjs
- Ui+UbzwHVTesR9K7j8C1qhVuSTtEW0VXMXQ9vfxGnadvqvxjsnqngQc7pkbbzirwXoHW
- ddoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687898911; x=1690490911;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=h5cuxxD3O/wTB2BSSAaaa+aPcVHglRupuBRpkNvhp/4=;
- b=GTqx8WIeV2JxWNDwG/DODBMq4TBs3ydjI3UzPQrGi7HCHWkNHDCPByI4KhBgVXhvxc
- ItsCqA2fdINLsYcwQM712SgOk+u11LkFOzg6v+bPj7mkQJMGmHbd7XG0eiaxbsD4rxfW
- P4pIV1mmgTYux+Wboz3dVzT09HjLSDoy0PI4MptDjIWErZ1dUcsMxGcBJ5JdmZL46DCQ
- rCoUomGuq0fQerMp0x4AmpVRLJ0EcxwyYYQwQHL8RnPINPmk4JtJHx/ZnbyRqKuNmCx7
- IkGqTYjVpsQWINAmHq45gPqkMtxdnJqjbvHA2cwWg4Nwg6cArXW+LwtNC4ffAIHUyAAb
- iqsg==
-X-Gm-Message-State: AC+VfDzvk7K1BO9kGYy4jurtEKUb9Uq3A4iMiPyUCajA+OQpKVY6b9GC
- sNypEY+LVBfdlJqYP3mtnPeidg==
-X-Google-Smtp-Source: ACHHUZ4b2TcqgSOIUXbuevAdQp4iFlsG08HkdF6Rm3hdzogpclAKk2cDmnKVJ3bFLNwK1Ffq8nl9oQ==
-X-Received: by 2002:a05:6512:281f:b0:4fb:7665:9b0d with SMTP id
- cf31-20020a056512281f00b004fb76659b0dmr5269960lfb.12.1687898911109; 
- Tue, 27 Jun 2023 13:48:31 -0700 (PDT)
-Received: from [192.168.1.101] (abxj103.neoplus.adsl.tpnet.pl. [83.9.3.103])
- by smtp.gmail.com with ESMTPSA id
- n25-20020a195519000000b004fb6c61e79bsm1206591lfe.117.2023.06.27.13.48.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jun 2023 13:48:30 -0700 (PDT)
-Message-ID: <234628ff-359d-7058-a5ca-17b67be08ba5@linaro.org>
-Date: Tue, 27 Jun 2023 22:48:28 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4255C10E062;
+ Tue, 27 Jun 2023 21:28:34 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35RL006N029287; Tue, 27 Jun 2023 21:27:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=32v8zUpAns1bpbcoTXrIfgJK1uukHAZqxRfEdRFtVBE=;
+ b=LwTZbsAP6C+aNk3llfyOvxTKeARq+WpN906JLR1OCbWYQgwEKqhrodEq0MpYHRiLOjrU
+ T8wc75uagy5Hi0RnS+Q/Fd3QaF6CwxEnHGOYQZvObcAbBD6kXJgb7+3hlwCeaIrSy4ZO
+ jXQnnPpD/IL1wPnapigAYgNqOLWFndCdPM486Fr4F87wzcC7tQfKFV2NjSI2sqnDHjwg
+ fDVRIQJwf1Q/upBZxqqSJo2CBpT/d8sOWfGM6aEhZe+D+gDkYUELwrhtlgisKF23ApMj
+ P2r0EDmfUmOkSpP3BZIiO9ls0msEOI8pLDqRsuRp9wmFZFDiC0Yq3jve35mvM1f4UsdK kA== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rfpd8ae6r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Jun 2023 21:27:46 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35RLRjTl025904
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Jun 2023 21:27:45 GMT
+Received: from [10.110.54.235] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 27 Jun
+ 2023 14:27:45 -0700
+Message-ID: <5e60fe99-76d5-c242-608e-b74bf6f0e7bd@quicinc.com>
+Date: Tue, 27 Jun 2023 14:27:44 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
 Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
- <20230627-sm6125-dpu-v2-15-03e430a2078c@somainline.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230627-sm6125-dpu-v2-15-03e430a2078c@somainline.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 15/15] arm64: dts: qcom: sm6125-seine:
- Configure MDSS, DSI and panel
+To: Pekka Paalanen <ppaalanen@gmail.com>, <dmitry.baryshkov@linaro.org>
+References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
+ <Y2leZDfLj/5963wl@intel.com>
+ <d0b5abdc-85ad-fee2-9760-866c32bab111@quicinc.com>
+ <20230627105849.004050b3@eldfell>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20230627105849.004050b3@eldfell>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: WQhEwbghHdy9XqxkV5HbaVdAc5VtSfMw
+X-Proofpoint-GUID: WQhEwbghHdy9XqxkV5HbaVdAc5VtSfMw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-27_14,2023-06-27_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 mlxscore=0 mlxlogscore=999 phishscore=0 impostorscore=0
+ bulkscore=0 suspectscore=0 clxscore=1011 spamscore=0 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306270195
+Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,103 +85,190 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Lux Aliaga <they@mint.lgbt>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
+ wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27.06.2023 22:14, Marijn Suijten wrote:
-> Enable MDSS and DSI, and configure the Samsung SOFEF01-M ams597ut01
-> 6.0" 1080x2520 panel.
-> 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Konrad
->  .../dts/qcom/sm6125-sony-xperia-seine-pdx201.dts   | 59 ++++++++++++++++++++++
->  1 file changed, 59 insertions(+)
+
+On 6/27/2023 12:58 AM, Pekka Paalanen wrote:
+> On Mon, 26 Jun 2023 16:02:50 -0700
+> Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts b/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts
-> index 9f8a9ef398a2..08d96d05da2e 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6125-sony-xperia-seine-pdx201.dts
-> @@ -179,6 +179,43 @@ &i2c3 {
->  	/* Cirrus Logic CS35L41 boosted audio amplifier @ 40 */
->  };
->  
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dsi0 {
-> +	vdda-supply = <&pm6125_l18>;
-> +	status = "okay";
-> +
-> +	panel@0 {
-> +		compatible = "samsung,sofef01-m-ams597ut01";
-> +		reg = <0>;
-> +
-> +		reset-gpios = <&tlmm 90 GPIO_ACTIVE_LOW>;
-> +
-> +		vddio-supply = <&pm6125_l12>;
-> +
-> +		pinctrl-0 = <&mdss_dsi_active &mdss_te_active_sleep>;
-> +		pinctrl-1 = <&mdss_dsi_sleep &mdss_te_active_sleep>;
-> +		pinctrl-names = "default", "sleep";
-> +
-> +		port {
-> +			panel_in: endpoint {
-> +				remote-endpoint = <&mdss_dsi0_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&mdss_dsi0_out {
-> +	remote-endpoint = <&panel_in>;
-> +	data-lanes = <0 1 2 3>;
-> +};
-> +
-> +&mdss_dsi0_phy {
-> +	status = "okay";
-> +};
-> +
->  &pm6125_adc {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&camera_flash_therm &emmc_ufs_therm &rf_pa1_therm>;
-> @@ -469,6 +506,28 @@ vol_down_n: vol-down-n-state {
->  		drive-strength = <2>;
->  		bias-disable;
->  	};
-> +
-> +	mdss_te_active_sleep: mdss-te-active-sleep-state {
-> +		pins = "gpio89";
-> +		function = "mdp_vsync";
-> +		drive-strength = <2>;
-> +		bias-pull-down;
-> +	};
-> +
-> +	mdss_dsi_active: mdss-dsi-active-state {
-> +		pins = "gpio90";
-> +		function = "gpio";
-> +		drive-strength = <8>;
-> +		bias-disable;
-> +	};
-> +
-> +	mdss_dsi_sleep: mdss-dsi-sleep-state {
-> +		pins = "gpio90";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-down;
-> +	};
-> +
->  };
->  
->  &usb3 {
+>> On 11/7/2022 11:37 AM, Ville Syrjälä wrote:
+>>> On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
+>>>> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
+>>>> properties. When the color fill value is set, and the framebuffer is set
+>>>> to NULL, memory fetch will be disabled.
+>>>
+>>> Thinking a bit more universally I wonder if there should be
+>>> some kind of enum property:
+>>>
+>>> enum plane_pixel_source {
+>>> 	FB,
+>>> 	COLOR,
+>>> 	LIVE_FOO,
+>>> 	LIVE_BAR,
+>>> 	...
+>>> }
+>>
+>> Reviving this thread as this was the initial comment suggesting to
+>> implement pixel_source as an enum.
+>>
+>> I think the issue with having pixel_source as an enum is how to decide
+>> what counts as a NULL commit.
+>>
+>> Currently, setting the FB to NULL will disable the plane. So I'm
+>> guessing we will extend that logic to "if there's no pixel_source set
+>> for the plane, then it will be a NULL commit and disable the plane".
+>>
+>> In that case, the question then becomes when to set the pixel_source to
+>> NONE. Because if we do that when setting a NULL FB (or NULL solid_fill
+>> blob), it then forces userspace to set one property before the other.
+> 
+> Right, that won't work.
+> 
+> There is no ordering between each property being set inside a single
+> atomic commit. They can all be applied to kernel-internal state
+> theoretically simultaneously, or any arbitrary random order, and the
+> end result must always be the same. Hence, setting one property cannot
+> change the state of another mutable property. I believe that doing
+> otherwise would make userspace fragile and hard to get right.
+> 
+> I guess there might be an exception to that rule when the same property
+> is set multiple times in a single atomic commit; the last setting in
+> the array prevails. That's universal and not a special-case between two
+> specific properties.
+> 
+>> Because of that, I'm thinking of having pixel_source be represented by a
+>> bitmask instead. That way, we will simply unset the corresponding
+>> pixel_source bit when passing in a NULL FB/solid_fill blob. Then, in
+>> order to detect whether a commit is NULL or has a valid pixel source, we
+>> can just check if pixel_source == 0.
+> 
+> Sounds fine to me at first hand, but isn't there the enum property that
+> says if the kernel must look at solid_fill blob *or* FB_ID?
+> 
+> If enum prop says "use solid_fill prop", the why would changes to FB_ID
+> do anything? Is it for backwards-compatibility with KMS clients that do
+> not know about the enum prop?
+> 
+> It seems like that kind of backwards-compatiblity will cause problems
+> in trying to reason about the atomic state, as explained above, leading
+> to very delicate and fragile conditions where things work intuitively.
+> Hence, I'm not sure backwards-compatibility is wanted. This won't be
+> the first or the last KMS property where an unexpected value left over
+> will make old atomic KMS clients silently malfunction up to showing no
+> recognisable picture at all. *If* that problem needs solving, there
+> have been ideas floating around about resetting everything to nice
+> values so that userspace can ignore what it does not understand. So far
+> there has been no real interest in solving that problem in the kernel
+> though.
+> 
+> Legacy non-atomic UAPI wrappers can do whatever they want, and program
+> any (new) properties they want in order to implement the legacy
+> expectations, so that does not seem to be a problem.
+
+Hi Pekka and Dmitry,
+
+After reading through both of your comments, I think I have a better 
+understanding of the pixel_source implementation now.
+
+So to summarize, we want to expose another property called 
+"pixel_source" to userspace that will default to FB (as to not break 
+legacy userspace).
+
+If userspace wants to use solid fill planes, it will set both the 
+solid_fill *and* pixel_source properties to a valid blob and COLOR 
+respectively. If it wants to use FB, it will set FB_ID and pixel_source 
+to a valid FB and FB.
+
+Here's a table illustrating what I've described above:
+
++-----------------+-------------------------+-------------------------+
+| Use Case        | Legacy Userspace        | solid_fill-aware        |
+|                 |                         | Userspace               |
++=================+=========================+=========================+
+| Valid FB        | pixel_source = FB       | pixel_source = FB       |
+|                 | FB_ID = valid FB        | FB_ID = valid FB        |
++-----------------+-------------------------+-------------------------+
+| Valid           | pixel_source = COLOR    | N/A                     |
+| solid_fill blob | solid_fill = valid blob |                         |
++-----------------+-------------------------+-------------------------+
+| NULL commit     | pixel_source = FB       | pixel_source = FB       |
+|                 | FB_ID = NULL            | FB_ID = NULL            |
++-----------------+-------------------------+-------------------------+
+
+Is there anything I'm missing or needs to be clarified?
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> 
+> Thanks,
+> pq
+> 
+> 
+>>
+>> Would be interested in any feedback on this.
+>>
+>> Thanks,
+>>
+>> Jessica Zhang
+>>
+>>>    
+>>>> In addition, loosen the NULL FB checks within the atomic commit callstack
+>>>> to allow a NULL FB when color_fill is nonzero and add FB checks in
+>>>> methods where the FB was previously assumed to be non-NULL.
+>>>>
+>>>> Finally, have the DPU driver use drm_plane_state.color_fill and
+>>>> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
+>>>> and add extra checks in the DPU atomic commit callstack to account for a
+>>>> NULL FB in cases where color_fill is set.
+>>>>
+>>>> Some drivers support hardware that have optimizations for solid fill
+>>>> planes. This series aims to expose these capabilities to userspace as
+>>>> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
+>>>> hardware composer HAL) that can be set by apps like the Android Gears
+>>>> app.
+>>>>
+>>>> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
+>>>> DRM format, setting COLOR_FILL to a color fill value, and setting the
+>>>> framebuffer to NULL.
+>>>
+>>> Is there some real reason for the format property? Ie. why not
+>>> just do what was the plan for the crttc background color and
+>>> specify the color in full 16bpc format and just pick as many
+>>> msbs from that as the hw can use?
+>>>    
+>>>>
+>>>> Jessica Zhang (3):
+>>>>     drm: Introduce color fill properties for drm plane
+>>>>     drm: Adjust atomic checks for solid fill color
+>>>>     drm/msm/dpu: Use color_fill property for DPU planes
+>>>>
+>>>>    drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++-----------
+>>>>    drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
+>>>>    drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
+>>>>    drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
+>>>>    drivers/gpu/drm/drm_plane.c               |  8 +--
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
+>>>>    include/drm/drm_atomic_helper.h           |  5 +-
+>>>>    include/drm/drm_blend.h                   |  2 +
+>>>>    include/drm/drm_plane.h                   | 28 ++++++++++
+>>>>    10 files changed, 188 insertions(+), 76 deletions(-)
+>>>>
+>>>> -- 
+>>>> 2.38.0
+>>>
+>>> -- 
+>>> Ville Syrjälä
+>>> Intel
 > 
