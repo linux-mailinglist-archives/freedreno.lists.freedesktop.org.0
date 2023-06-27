@@ -2,65 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4E373F63F
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 09:58:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 138F873F6D8
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 10:21:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F34410E29E;
-	Tue, 27 Jun 2023 07:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C025B10E2B6;
+	Tue, 27 Jun 2023 08:21:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E410310E29E;
- Tue, 27 Jun 2023 07:58:55 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4f86e6e4038so5188047e87.0; 
- Tue, 27 Jun 2023 00:58:55 -0700 (PDT)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D29E10E2B6
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 08:21:17 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-3fb4146e8fcso10033215e9.0
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 01:21:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687852733; x=1690444733;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=oTS3fSe3r0f/6ByayGhePS4oD9QfJK+nEUrgD7pCsJk=;
- b=huX4s5sf8BKf1RCEGjUW5BJJGhtTkOyJcvYxrNS1SPZK8qhGFt/cb/sXYHxFQdDqPg
- I1AktCrwkuQ1bHByaHMsbXVXHt+cv1iFqi8YccVhvtgeRCHqMRpF0CX4leNd9FGbbUTx
- esce51oVfNxfLPZqnK5eIzVha0rsvgPvehclvTMn/ElG6FFJ8HNfyazPnxdiMEuE3iV5
- F5jH98jgHb2NlsIxEE0DULhKfItkayS1rw4Leh2JDc7P313GS+6HPXIN61xEXMdy7KrM
- fsYARsnX1+jQh0XaT5tY3DuFIPfeAoqvtmpmlLN44A2og3DoNWSt1BlXdflImJhpSVeo
- foLw==
+ d=linaro.org; s=google; t=1687854076; x=1690446076;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=62PvuKpVR4vvVJ+czbvONPwN6io0eLrvuJxR3ESd9KA=;
+ b=GWJ9ONMSJlMwyYXp0QaRKdaJtu5jZBcNxzdkPKUwRpJhwrwX8c1oqud662S6O4ihKq
+ F12QXcEAEIpIvy36KrpOXKMDntQowJdz9/xuPNmmzcv92GGCXuAMA4OGjXTlWB2cr0zj
+ htXt7F/EKv+oWankZqOEy+DVMFKw0Edbljrb8IPfWM3xTyKxrrD+IqCiiJ6AY9o4RZXa
+ MeWxAjQ09kxu5VA6De4g7ejM4B5ySaVEnB02kj/YjkbXYjr4VqSqSQ3fn5FWb9NuvRYn
+ QB7lpctHLQPZLpQZn5XtQow9S4KY7bdecScKLdGxXOvNbzLL0apf6pIWdZY+Kla/eNep
+ uB/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687852733; x=1690444733;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oTS3fSe3r0f/6ByayGhePS4oD9QfJK+nEUrgD7pCsJk=;
- b=JHc6dRpSbkhXRrnsECJVi9ZRDG7t+QAOFLmhGaUzh+1b30zaO1qHQzXqgKxSo90WRP
- vusJKreliDbixgCsqKSvYw3QoIp3P8KozOAvvah+NaC7wAC4aDSS01+9icwBHBDp4MqA
- +uf3uGX/zzDbv1kSqKt1vctcCFwfPAHCPnvjAMe5aNmTW9AEaPDsfZ/2XZAbebvY5bDv
- iElsRSzglcMUfC5kpMs/kI/qXnhvSWK43mNzZ0v/lif+rLHau48RwJ2CclYNxwHF3Vni
- xIOTv8PAnXzWf2TjmdQZFtmIEa7k4sSCTSyXdJ2TAQpB+64YmkQNGqxCrGvw9ivoaNF9
- Hftg==
-X-Gm-Message-State: AC+VfDzj3yGr80dO4gFm9jnKZ2ra7CbBoCH7VKYEyTi/hcstd0fh+COE
- PzhDkshiiux4oMbxU7U+bxY=
-X-Google-Smtp-Source: ACHHUZ6+Jj822+nMyQbeFXCz2UduS9qwqpND5fA4rkY5e2oEyEG4SghXX0a9OjS8GrfM283RxwnFBw==
-X-Received: by 2002:a05:6512:110a:b0:4fb:7bf8:51c8 with SMTP id
- l10-20020a056512110a00b004fb7bf851c8mr743594lfg.1.1687852733029; 
- Tue, 27 Jun 2023 00:58:53 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- o4-20020ac24344000000b004fb8118a1aasm250684lfl.274.2023.06.27.00.58.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Jun 2023 00:58:52 -0700 (PDT)
-Date: Tue, 27 Jun 2023 10:58:49 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <20230627105849.004050b3@eldfell>
-In-Reply-To: <d0b5abdc-85ad-fee2-9760-866c32bab111@quicinc.com>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <Y2leZDfLj/5963wl@intel.com>
- <d0b5abdc-85ad-fee2-9760-866c32bab111@quicinc.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20221208; t=1687854076; x=1690446076;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=62PvuKpVR4vvVJ+czbvONPwN6io0eLrvuJxR3ESd9KA=;
+ b=kwdk1sTtCTkRhtUjTHoUD38N3yxsMXgYhr8fqA8BebgJGxpOf/vUVgEAugnLpX7frc
+ 1EJHh4Pzb+hW1IXX7peQLbHVm5ZO73LAnaPmNfYfUUKc8S/DNiboTpJi/egp5R+g55ua
+ bcOnuB7eD7aq2rnlYYUvQJB7DkpP8FIJU+Uy8RX9WuSNnvxJzPLwP92MJA+lPhg7KjvX
+ fQsBdTnOxWlZL6E4CzAB8LAsynaDqZREsuwiYGz2LzbTZaJkCNUTct7SuMx6DOGsmKrQ
+ STKOu+y/k91d+SjX4fa/i6NIJHuev2kbyLgPsJFIswAl0PoOt+/IaCOhjfSlQR0Y2F4p
+ lMmA==
+X-Gm-Message-State: AC+VfDxDYhtvDce6eezHjhpT1bNSJPDWj6e+sreWoZl3rSPdz7op6L60
+ hJvOSdv2oyjv6mgMMBWo7Fxc6w==
+X-Google-Smtp-Source: ACHHUZ4PvmNA0F8Q+dsc+125+loCwPVtHMhlTOLwsM5Ei8GYIzO5r9zAz/2rQpnzolZP8rtVPJDjVA==
+X-Received: by 2002:a05:600c:3657:b0:3f6:8ba:6ea2 with SMTP id
+ y23-20020a05600c365700b003f608ba6ea2mr29015214wmq.15.1687854075903; 
+ Tue, 27 Jun 2023 01:21:15 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+ by smtp.gmail.com with ESMTPSA id
+ l1-20020a1ced01000000b003f9b0830107sm12942303wmh.41.2023.06.27.01.21.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jun 2023 01:21:15 -0700 (PDT)
+Message-ID: <145ab255-b3f8-1c6c-824d-5f1b40568d30@linaro.org>
+Date: Tue, 27 Jun 2023 10:21:12 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/cawiMM3/kuZMggByy=fJ+.m";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <55b0ca89-8f2e-5383-59d4-6809e813abf8@linaro.org>
+ <vnp263d43flny2ibt3n7fbloyi26enqrejnobogplfu5fcj6l3@s7zkxrsi2rde>
+ <52c57cab-10cf-2e7e-2c1d-fa6506786d45@linaro.org>
+ <jmtjuya4c423rmdlo4ubvvqndbxvgapal5otjqnejdpdd25izp@kewbjmqdu2xs>
+ <6311f26f-79ee-c471-649f-5e0b4629cfcc@linaro.org>
+ <uuy5prkjhhs66te7h6z3pu4lzj2cfbiqk6ftjijwoeqpw573av@ogs6cboanvzc>
+ <ziykmixskqkgheigefvyo4q3katbc4uix6jtcg7mncs25z4tj5@5gykrfgns4bm>
+ <16731023-7dc7-d43d-1b16-fda44c0948ed@linaro.org>
+ <yofju7jp7vmv33x7dzvzoelpumfsz3fjqy2ozakfphsuysunon@pglt2wzlsjex>
+ <683a6f7e-bf1a-aff2-070b-472fb14e0353@linaro.org>
+ <3nnk4xvmpnum2q6g6c6crjlqq3ra7j2z5zis53xcqbvevymuhz@mkffvs45n6ut>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <3nnk4xvmpnum2q6g6c6crjlqq3ra7j2z5zis53xcqbvevymuhz@mkffvs45n6ut>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 03/15] dt-bindings: clock: qcom,
+ dispcc-sm6125: Require GCC PLL0 DIV clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,186 +87,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, wayland-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ dri-devel@lists.freedesktop.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
+ Lux Aliaga <they@mint.lgbt>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---Sig_/cawiMM3/kuZMggByy=fJ+.m
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On 27/06/2023 09:49, Marijn Suijten wrote:
+> On 2023-06-27 09:29:53, Krzysztof Kozlowski wrote:
+>> On 27/06/2023 08:54, Marijn Suijten wrote:
+>>> On 2023-06-27 08:24:41, Krzysztof Kozlowski wrote:
+>>>> On 26/06/2023 20:53, Marijn Suijten wrote:
+>>>>> On 2023-06-26 20:51:38, Marijn Suijten wrote:
+>>>>> <snip>
+>>>>>>> Not really, binding also defines the list of clocks - their order and
+>>>>>>> specific entries. This changes.
+>>>>>>
+>>>>>> And so it does in "dt-bindings: clock: qcom,dispcc-sm6125: Remove unused
+>>>>>> GCC_DISP_AHB_CLK"?
+>>>>>
+>>>>> Never mind: it is the last item so the order of the other items doesn't
+>>>>> change.  The total number of items decreases though, which sounds like
+>>>>> an ABI-break too?
+>>>>
+>>>> How does it break? Old DTS works exactly the same, doesn't it?
+>>>
+>>> So deleting a new item at the end does not matter.  But what if I respin
+>>> this patch to add the new clock _at the end_, which will then be at the
+>>> same index as the previous GCC_DISP_AHB_CLK?
+>>
+>> I think you know the answer, right? What do you want to prove? That two
+>> independent changes can have together negative effect? We know this.
+> 
+> The question is whether this is allowed?
 
-On Mon, 26 Jun 2023 16:02:50 -0700
-Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+That would be an ABI break and I already explained if it is or is not
+allowed.
 
-> On 11/7/2022 11:37 AM, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote: =20
-> >> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
-> >> properties. When the color fill value is set, and the framebuffer is s=
-et
-> >> to NULL, memory fetch will be disabled. =20
-> >=20
-> > Thinking a bit more universally I wonder if there should be
-> > some kind of enum property:
-> >=20
-> > enum plane_pixel_source {
-> > 	FB,
-> > 	COLOR,
-> > 	LIVE_FOO,
-> > 	LIVE_BAR,
-> > 	...
-> > } =20
->=20
-> Reviving this thread as this was the initial comment suggesting to=20
-> implement pixel_source as an enum.
->=20
-> I think the issue with having pixel_source as an enum is how to decide=20
-> what counts as a NULL commit.
->=20
-> Currently, setting the FB to NULL will disable the plane. So I'm=20
-> guessing we will extend that logic to "if there's no pixel_source set=20
-> for the plane, then it will be a NULL commit and disable the plane".
->=20
-> In that case, the question then becomes when to set the pixel_source to=20
-> NONE. Because if we do that when setting a NULL FB (or NULL solid_fill=20
-> blob), it then forces userspace to set one property before the other.
+Best regards,
+Krzysztof
 
-Right, that won't work.
-
-There is no ordering between each property being set inside a single
-atomic commit. They can all be applied to kernel-internal state
-theoretically simultaneously, or any arbitrary random order, and the
-end result must always be the same. Hence, setting one property cannot
-change the state of another mutable property. I believe that doing
-otherwise would make userspace fragile and hard to get right.
-
-I guess there might be an exception to that rule when the same property
-is set multiple times in a single atomic commit; the last setting in
-the array prevails. That's universal and not a special-case between two
-specific properties.
-
-> Because of that, I'm thinking of having pixel_source be represented by a=
-=20
-> bitmask instead. That way, we will simply unset the corresponding=20
-> pixel_source bit when passing in a NULL FB/solid_fill blob. Then, in=20
-> order to detect whether a commit is NULL or has a valid pixel source, we=
-=20
-> can just check if pixel_source =3D=3D 0.
-
-Sounds fine to me at first hand, but isn't there the enum property that
-says if the kernel must look at solid_fill blob *or* FB_ID?
-
-If enum prop says "use solid_fill prop", the why would changes to FB_ID
-do anything? Is it for backwards-compatibility with KMS clients that do
-not know about the enum prop?
-
-It seems like that kind of backwards-compatiblity will cause problems
-in trying to reason about the atomic state, as explained above, leading
-to very delicate and fragile conditions where things work intuitively.
-Hence, I'm not sure backwards-compatibility is wanted. This won't be
-the first or the last KMS property where an unexpected value left over
-will make old atomic KMS clients silently malfunction up to showing no
-recognisable picture at all. *If* that problem needs solving, there
-have been ideas floating around about resetting everything to nice
-values so that userspace can ignore what it does not understand. So far
-there has been no real interest in solving that problem in the kernel
-though.
-
-Legacy non-atomic UAPI wrappers can do whatever they want, and program
-any (new) properties they want in order to implement the legacy
-expectations, so that does not seem to be a problem.
-
-
-Thanks,
-pq
-
-
->=20
-> Would be interested in any feedback on this.
->=20
-> Thanks,
->=20
-> Jessica Zhang
->=20
-> >  =20
-> >> In addition, loosen the NULL FB checks within the atomic commit callst=
-ack
-> >> to allow a NULL FB when color_fill is nonzero and add FB checks in
-> >> methods where the FB was previously assumed to be non-NULL.
-> >>
-> >> Finally, have the DPU driver use drm_plane_state.color_fill and
-> >> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fil=
-l,
-> >> and add extra checks in the DPU atomic commit callstack to account for=
- a
-> >> NULL FB in cases where color_fill is set.
-> >>
-> >> Some drivers support hardware that have optimizations for solid fill
-> >> planes. This series aims to expose these capabilities to userspace as
-> >> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> >> hardware composer HAL) that can be set by apps like the Android Gears
-> >> app.
-> >>
-> >> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to=
- a
-> >> DRM format, setting COLOR_FILL to a color fill value, and setting the
-> >> framebuffer to NULL. =20
-> >=20
-> > Is there some real reason for the format property? Ie. why not
-> > just do what was the plan for the crttc background color and
-> > specify the color in full 16bpc format and just pick as many
-> > msbs from that as the hw can use?
-> >  =20
-> >>
-> >> Jessica Zhang (3):
-> >>    drm: Introduce color fill properties for drm plane
-> >>    drm: Adjust atomic checks for solid fill color
-> >>    drm/msm/dpu: Use color_fill property for DPU planes
-> >>
-> >>   drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++---------=
---
-> >>   drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
-> >>   drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
-> >>   drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
-> >>   drivers/gpu/drm/drm_plane.c               |  8 +--
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
-> >>   include/drm/drm_atomic_helper.h           |  5 +-
-> >>   include/drm/drm_blend.h                   |  2 +
-> >>   include/drm/drm_plane.h                   | 28 ++++++++++
-> >>   10 files changed, 188 insertions(+), 76 deletions(-)
-> >>
-> >> --=20
-> >> 2.38.0 =20
-> >=20
-> > --=20
-> > Ville Syrj=C3=A4l=C3=A4
-> > Intel =20
-
-
---Sig_/cawiMM3/kuZMggByy=fJ+.m
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSalrkACgkQI1/ltBGq
-qqeuGA//T9IdKPztEBLF3Udcj+pDgWM7dy+5zHtaGFRro1Lgivkl8tB2JFcMg0AF
-4RMbjYLF+HPMTJ78W9p6L0BpfHIhj68SdSWO5SOF3EoAqwJ+P3HjZ36eNcdwWhd8
-0wVtd/dNxVkvgDNRNYhWVmTVxTklh4I+iVVUJs9TNhP14CDGONYp5a6Lc31Gf2vW
-lNb0OqfdXdVtX2X7qcIM+LU16DqF3dmKniMRyYYSZtF/IMPO0ZZUV3/C5VKQkk+P
-5sRBafP3Mpb42vjn4czyN9J+175mRlZ80YVMO34u1fCc4MEpQmlqsVNVfgF5n/al
-SjWWxeEPmS3E0+AMKu1P4THHbJw+th/BJnilQPzXBqhCfTvJsbhLLcPa9D8nlSJ0
-k/JjDiTVnVFQXGUw/L5BzeMbWmUkKmAk+eOhB6KTB5GpD8iisM+8ReYfLPnZuCKm
-EGw3iZ5Wm4uLqO3e46jBzgKE0p57aMg/8nnSGQgMgXlksoW4PJsu/jfrk6ERXx5Q
-xJuCLDszcEYK1SsJwqxsgPx//dvC9HVzO0jCxYyshI/8SlFLTfIXkaEzCr+vPU5W
-fq8lDtSbUp24FKjfOfRTc8JDgIOpybUOSaOifXNthTZO2L2vesZS2oW7u1gZqcXz
-JWm5OUHia7dh5sncc8suPN50qmiSQ3gF8LN7z7Zj2OKxZknUefU=
-=4Ljo
------END PGP SIGNATURE-----
-
---Sig_/cawiMM3/kuZMggByy=fJ+.m--
