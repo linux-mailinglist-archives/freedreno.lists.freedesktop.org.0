@@ -2,30 +2,29 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7096F740495
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 22:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D65A740499
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 22:15:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12ED010E330;
-	Tue, 27 Jun 2023 20:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36D3D10E331;
+	Tue, 27 Jun 2023 20:14:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A16910E329
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 20:14:38 +0000 (UTC)
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0038E10E331
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 20:14:39 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 183E03F6B1;
- Tue, 27 Jun 2023 22:14:36 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 632BF3F73D;
+ Tue, 27 Jun 2023 22:14:37 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue, 27 Jun 2023 22:14:26 +0200
+Date: Tue, 27 Jun 2023 22:14:27 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230627-sm6125-dpu-v2-11-03e430a2078c@somainline.org>
+Message-Id: <20230627-sm6125-dpu-v2-12-03e430a2078c@somainline.org>
 References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
 In-Reply-To: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -42,8 +41,8 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Loic Poulain <loic.poulain@linaro.org>, 
  Konrad Dybcio <konrad.dybcio@somainline.org>
 X-Mailer: b4 0.12.3
-Subject: [Freedreno] [PATCH v2 11/15] drm/msm/dsi: Reuse QCM2290 14nm DSI
- PHY configuration for SM6125
+Subject: [Freedreno] [PATCH v2 12/15] arm64: dts: qcom: sm6125: Switch fixed
+ xo_board clock to RPM XO clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,30 +66,56 @@ Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-SM6125 features only a single PHY (despite a secondary PHY PLL source
-being available to the disp_cc_mdss_pclk0_clk_src clock), and downstream
-sources for this "trinket" SoC do not define the typical "vcca"
-regulator to be available nor used.  This, including the register offset
-is identical to QCM2290, whose config struct can trivially be reused.
+We have a working RPM XO clock; no other driver except rpmcc should be
+parenting directly to the fixed-factor xo_board clock nor should it be
+reachable by that global name.  Remove the name to that effect, so that
+every clock relation is explicitly defined in DTS.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/qcom/sm6125.dtsi | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 9d5795c58a98..05621e5e7d63 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -561,6 +561,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
- 	  .data = &dsi_phy_14nm_660_cfgs },
- 	{ .compatible = "qcom,dsi-phy-14nm-8953",
- 	  .data = &dsi_phy_14nm_8953_cfgs },
-+	{ .compatible = "qcom,sm6125-dsi-phy-14nm",
-+	  .data = &dsi_phy_14nm_2290_cfgs },
- #endif
- #ifdef CONFIG_DRM_MSM_DSI_10NM_PHY
- 	{ .compatible = "qcom,dsi-phy-10nm",
+diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+index 722dde560bec..edb03508dba3 100644
+--- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+@@ -22,7 +22,6 @@ xo_board: xo-board {
+ 			compatible = "fixed-clock";
+ 			#clock-cells = <0>;
+ 			clock-frequency = <19200000>;
+-			clock-output-names = "xo_board";
+ 		};
+ 
+ 		sleep_clk: sleep-clk {
+@@ -306,6 +305,8 @@ rpm_requests: rpm-requests {
+ 			rpmcc: clock-controller {
+ 				compatible = "qcom,rpmcc-sm6125", "qcom,rpmcc";
+ 				#clock-cells = <1>;
++				clocks = <&xo_board>;
++				clock-names = "xo";
+ 			};
+ 
+ 			rpmpd: power-controller {
+@@ -713,7 +714,7 @@ sdhc_1: mmc@4744000 {
+ 
+ 			clocks = <&gcc GCC_SDCC1_AHB_CLK>,
+ 				 <&gcc GCC_SDCC1_APPS_CLK>,
+-				 <&xo_board>;
++				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
+ 			clock-names = "iface", "core", "xo";
+ 			iommus = <&apps_smmu 0x160 0x0>;
+ 
+@@ -740,7 +741,7 @@ sdhc_2: mmc@4784000 {
+ 
+ 			clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+ 				 <&gcc GCC_SDCC2_APPS_CLK>,
+-				 <&xo_board>;
++				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
+ 			clock-names = "iface", "core", "xo";
+ 			iommus = <&apps_smmu 0x180 0x0>;
+ 
 
 -- 
 2.41.0
