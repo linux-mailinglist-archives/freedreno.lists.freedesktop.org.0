@@ -1,30 +1,31 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71F0B740479
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 22:14:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13DC574048C
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 22:14:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2BD110E097;
-	Tue, 27 Jun 2023 20:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 871E610E32A;
+	Tue, 27 Jun 2023 20:14:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10DB110E09F
- for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 20:14:29 +0000 (UTC)
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D41410E097
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Jun 2023 20:14:30 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 86C003F74D;
- Tue, 27 Jun 2023 22:14:26 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id E5A803F751;
+ Tue, 27 Jun 2023 22:14:27 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue, 27 Jun 2023 22:14:19 +0200
+Date: Tue, 27 Jun 2023 22:14:20 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230627-sm6125-dpu-v2-4-03e430a2078c@somainline.org>
+Message-Id: <20230627-sm6125-dpu-v2-5-03e430a2078c@somainline.org>
 References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
 In-Reply-To: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -41,8 +42,8 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Loic Poulain <loic.poulain@linaro.org>, 
  Konrad Dybcio <konrad.dybcio@somainline.org>
 X-Mailer: b4 0.12.3
-Subject: [Freedreno] [PATCH v2 04/15] dt-bindings: clock: qcom,
- dispcc-sm6125: Allow power-domains property
+Subject: [Freedreno] [PATCH v2 05/15] dt-bindings: display/msm:
+ dsi-controller-main: Document SM6125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +68,34 @@ Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On SM6125 the dispcc block is gated behind VDDCX: allow this domain to
-be configured.
+Document general compatibility of the DSI controller on SM6125.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-index 8fd29915bf2c..9ab8ddad904b 100644
---- a/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml
-@@ -48,6 +48,11 @@ properties:
-   '#power-domain-cells':
-     const: 1
- 
-+  power-domains:
-+    description:
-+      A phandle and PM domain specifier for the CX power domain.
-+    maxItems: 1
-+
-   reg:
-     maxItems: 1
- 
-@@ -65,6 +70,7 @@ examples:
-   - |
-     #include <dt-bindings/clock/qcom,rpmcc.h>
-     #include <dt-bindings/clock/qcom,gcc-sm6125.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-     clock-controller@5f00000 {
-       compatible = "qcom,sm6125-dispcc";
-       reg = <0x5f00000 0x20000>;
-@@ -84,6 +90,7 @@ examples:
-                     "dp_phy_pll_vco_div_clk",
-                     "cfg_ahb_clk",
-                     "gcc_disp_gpll0_div_clk_src";
-+      power-domains = <&rpmpd SM6125_VDDCX>;
-       #clock-cells = <1>;
-       #power-domain-cells = <1>;
-     };
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index 01848bdd5873..23926c39407e 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -27,6 +27,7 @@ properties:
+               - qcom,sdm660-dsi-ctrl
+               - qcom,sdm845-dsi-ctrl
+               - qcom,sm6115-dsi-ctrl
++              - qcom,sm6125-dsi-ctrl
+               - qcom,sm6350-dsi-ctrl
+               - qcom,sm6375-dsi-ctrl
+               - qcom,sm8150-dsi-ctrl
+@@ -301,6 +302,7 @@ allOf:
+           contains:
+             enum:
+               - qcom,msm8998-dsi-ctrl
++              - qcom,sm6125-dsi-ctrl
+               - qcom,sm6350-dsi-ctrl
+     then:
+       properties:
 
 -- 
 2.41.0
