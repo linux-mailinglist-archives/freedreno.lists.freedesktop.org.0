@@ -1,78 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61F974058F
-	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 23:28:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD477405F5
+	for <lists+freedreno@lfdr.de>; Tue, 27 Jun 2023 23:56:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E288610E338;
-	Tue, 27 Jun 2023 21:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C6110E081;
+	Tue, 27 Jun 2023 21:56:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4255C10E062;
- Tue, 27 Jun 2023 21:28:34 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35RL006N029287; Tue, 27 Jun 2023 21:27:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=32v8zUpAns1bpbcoTXrIfgJK1uukHAZqxRfEdRFtVBE=;
- b=LwTZbsAP6C+aNk3llfyOvxTKeARq+WpN906JLR1OCbWYQgwEKqhrodEq0MpYHRiLOjrU
- T8wc75uagy5Hi0RnS+Q/Fd3QaF6CwxEnHGOYQZvObcAbBD6kXJgb7+3hlwCeaIrSy4ZO
- jXQnnPpD/IL1wPnapigAYgNqOLWFndCdPM486Fr4F87wzcC7tQfKFV2NjSI2sqnDHjwg
- fDVRIQJwf1Q/upBZxqqSJo2CBpT/d8sOWfGM6aEhZe+D+gDkYUELwrhtlgisKF23ApMj
- P2r0EDmfUmOkSpP3BZIiO9ls0msEOI8pLDqRsuRp9wmFZFDiC0Yq3jve35mvM1f4UsdK kA== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rfpd8ae6r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 Jun 2023 21:27:46 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35RLRjTl025904
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 Jun 2023 21:27:45 GMT
-Received: from [10.110.54.235] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 27 Jun
- 2023 14:27:45 -0700
-Message-ID: <5e60fe99-76d5-c242-608e-b74bf6f0e7bd@quicinc.com>
-Date: Tue, 27 Jun 2023 14:27:44 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>, <dmitry.baryshkov@linaro.org>
-References: <20221028225952.160-1-quic_jesszhan@quicinc.com>
- <Y2leZDfLj/5963wl@intel.com>
- <d0b5abdc-85ad-fee2-9760-866c32bab111@quicinc.com>
- <20230627105849.004050b3@eldfell>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20230627105849.004050b3@eldfell>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA29A10E064;
+ Tue, 27 Jun 2023 21:56:35 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-3420dccf277so18580115ab.2; 
+ Tue, 27 Jun 2023 14:56:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687902994; x=1690494994;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=64oZsUuru0HA89uc2YjHgtD5IZLSgmyXIIjxqeMMqhk=;
+ b=YbV/1kJkUzQZ0dPrIpRKHYeiDr2MG+akJzePjjJq308brLTkAqml/swwDZgWeAyjYP
+ 5T6x9KDZ3BJhHcq/V8PTfHyM+NV3FF+vuOxbYvC5E0sRtiVmXYErVxLJ006Ho68FgzwI
+ j9KTk9iSkvdPux4cwxGlPCgH7IZICpRMXRkTFL6el0ok2jXsWIHhPnH1PzamDf4VjamQ
+ swXJGM5xYpAZmASAKWJ3vhDa6rlHtaGk+xXU76w2prfOJ5dyjq6z6dO1zPVrzalOZh9y
+ vnzAy5eUbqS0mOORXjb5SsUXYrSf1YxzklBYVoZloLGRxtlDrr0adfsEPMIi7uYY/40k
+ 94WA==
+X-Gm-Message-State: AC+VfDz40AT/UI/dDJmM0JVLG/g0VKpP2HVYD+CCA3LIwhbquXeGHKqL
+ rksOlEZlLk+E25ujKscN/A==
+X-Google-Smtp-Source: ACHHUZ7DUHS4TrojiJZ3NsBw35j/fMK1gmtN5i++5TIkcjGsL3oli58Kt42Pzl3zrM/8ZzqRDjcw8A==
+X-Received: by 2002:a6b:6604:0:b0:785:d017:c16f with SMTP id
+ a4-20020a6b6604000000b00785d017c16fmr1419772ioc.14.1687902994173; 
+ Tue, 27 Jun 2023 14:56:34 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id
+ k26-20020a02a71a000000b004182f88c368sm37736jam.67.2023.06.27.14.56.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Jun 2023 14:56:33 -0700 (PDT)
+Received: (nullmailer pid 3087346 invoked by uid 1000);
+ Tue, 27 Jun 2023 21:56:30 -0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: WQhEwbghHdy9XqxkV5HbaVdAc5VtSfMw
-X-Proofpoint-GUID: WQhEwbghHdy9XqxkV5HbaVdAc5VtSfMw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-27_14,2023-06-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 mlxscore=0 mlxlogscore=999 phishscore=0 impostorscore=0
- bulkscore=0 suspectscore=0 clxscore=1011 spamscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306270195
-Subject: Re: [Freedreno] [RFC PATCH 0/3] Support for Solid Fill Planes
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+In-Reply-To: <20230627-sm6125-dpu-v2-7-03e430a2078c@somainline.org>
+References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
+ <20230627-sm6125-dpu-v2-7-03e430a2078c@somainline.org>
+Message-Id: <168790299021.3087309.11039202845199087454.robh@kernel.org>
+Date: Tue, 27 Jun 2023 15:56:30 -0600
+Subject: Re: [Freedreno] [PATCH v2 07/15] dt-bindings: display/msm: Add
+ SM6125 MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,190 +65,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, linux-arm-msm@vger.kernel.org,
- wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Lux Aliaga <they@mint.lgbt>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+On Tue, 27 Jun 2023 22:14:22 +0200, Marijn Suijten wrote:
+> Document the SM6125 MDSS.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>  .../bindings/display/msm/qcom,sm6125-mdss.yaml     | 217 +++++++++++++++++++++
+>  1 file changed, 217 insertions(+)
+> 
 
-On 6/27/2023 12:58 AM, Pekka Paalanen wrote:
-> On Mon, 26 Jun 2023 16:02:50 -0700
-> Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> 
->> On 11/7/2022 11:37 AM, Ville Syrjälä wrote:
->>> On Fri, Oct 28, 2022 at 03:59:49PM -0700, Jessica Zhang wrote:
->>>> Introduce and add support for COLOR_FILL and COLOR_FILL_FORMAT
->>>> properties. When the color fill value is set, and the framebuffer is set
->>>> to NULL, memory fetch will be disabled.
->>>
->>> Thinking a bit more universally I wonder if there should be
->>> some kind of enum property:
->>>
->>> enum plane_pixel_source {
->>> 	FB,
->>> 	COLOR,
->>> 	LIVE_FOO,
->>> 	LIVE_BAR,
->>> 	...
->>> }
->>
->> Reviving this thread as this was the initial comment suggesting to
->> implement pixel_source as an enum.
->>
->> I think the issue with having pixel_source as an enum is how to decide
->> what counts as a NULL commit.
->>
->> Currently, setting the FB to NULL will disable the plane. So I'm
->> guessing we will extend that logic to "if there's no pixel_source set
->> for the plane, then it will be a NULL commit and disable the plane".
->>
->> In that case, the question then becomes when to set the pixel_source to
->> NONE. Because if we do that when setting a NULL FB (or NULL solid_fill
->> blob), it then forces userspace to set one property before the other.
-> 
-> Right, that won't work.
-> 
-> There is no ordering between each property being set inside a single
-> atomic commit. They can all be applied to kernel-internal state
-> theoretically simultaneously, or any arbitrary random order, and the
-> end result must always be the same. Hence, setting one property cannot
-> change the state of another mutable property. I believe that doing
-> otherwise would make userspace fragile and hard to get right.
-> 
-> I guess there might be an exception to that rule when the same property
-> is set multiple times in a single atomic commit; the last setting in
-> the array prevails. That's universal and not a special-case between two
-> specific properties.
-> 
->> Because of that, I'm thinking of having pixel_source be represented by a
->> bitmask instead. That way, we will simply unset the corresponding
->> pixel_source bit when passing in a NULL FB/solid_fill blob. Then, in
->> order to detect whether a commit is NULL or has a valid pixel source, we
->> can just check if pixel_source == 0.
-> 
-> Sounds fine to me at first hand, but isn't there the enum property that
-> says if the kernel must look at solid_fill blob *or* FB_ID?
-> 
-> If enum prop says "use solid_fill prop", the why would changes to FB_ID
-> do anything? Is it for backwards-compatibility with KMS clients that do
-> not know about the enum prop?
-> 
-> It seems like that kind of backwards-compatiblity will cause problems
-> in trying to reason about the atomic state, as explained above, leading
-> to very delicate and fragile conditions where things work intuitively.
-> Hence, I'm not sure backwards-compatibility is wanted. This won't be
-> the first or the last KMS property where an unexpected value left over
-> will make old atomic KMS clients silently malfunction up to showing no
-> recognisable picture at all. *If* that problem needs solving, there
-> have been ideas floating around about resetting everything to nice
-> values so that userspace can ignore what it does not understand. So far
-> there has been no real interest in solving that problem in the kernel
-> though.
-> 
-> Legacy non-atomic UAPI wrappers can do whatever they want, and program
-> any (new) properties they want in order to implement the legacy
-> expectations, so that does not seem to be a problem.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Hi Pekka and Dmitry,
+yamllint warnings/errors:
 
-After reading through both of your comments, I think I have a better 
-understanding of the pixel_source implementation now.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.example.dtb: dsi@5e94000: compatible: 'oneOf' conditional failed, one must be fixed:
+	['qcom,sm6125-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
+	'qcom,sm6125-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl', 'qcom,msm8916-dsi-ctrl', 'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl', 'qcom,msm8996-dsi-ctrl', 'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl', 'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl', 'qcom,sdm660-dsi-ctrl', 'qcom,sdm845-dsi-ctrl', 'qcom,sm6115-dsi-ctrl', 'qcom,sm8150-dsi-ctrl', 'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl', 'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl']
+	'qcom,sm6125-dsi-ctrl' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
+	from schema $id: http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
 
-So to summarize, we want to expose another property called 
-"pixel_source" to userspace that will default to FB (as to not break 
-legacy userspace).
+doc reference errors (make refcheckdocs):
 
-If userspace wants to use solid fill planes, it will set both the 
-solid_fill *and* pixel_source properties to a valid blob and COLOR 
-respectively. If it wants to use FB, it will set FB_ID and pixel_source 
-to a valid FB and FB.
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230627-sm6125-dpu-v2-7-03e430a2078c@somainline.org
 
-Here's a table illustrating what I've described above:
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-+-----------------+-------------------------+-------------------------+
-| Use Case        | Legacy Userspace        | solid_fill-aware        |
-|                 |                         | Userspace               |
-+=================+=========================+=========================+
-| Valid FB        | pixel_source = FB       | pixel_source = FB       |
-|                 | FB_ID = valid FB        | FB_ID = valid FB        |
-+-----------------+-------------------------+-------------------------+
-| Valid           | pixel_source = COLOR    | N/A                     |
-| solid_fill blob | solid_fill = valid blob |                         |
-+-----------------+-------------------------+-------------------------+
-| NULL commit     | pixel_source = FB       | pixel_source = FB       |
-|                 | FB_ID = NULL            | FB_ID = NULL            |
-+-----------------+-------------------------+-------------------------+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Is there anything I'm missing or needs to be clarified?
+pip3 install dtschema --upgrade
 
-Thanks,
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-Jessica Zhang
-
-> 
-> 
-> Thanks,
-> pq
-> 
-> 
->>
->> Would be interested in any feedback on this.
->>
->> Thanks,
->>
->> Jessica Zhang
->>
->>>    
->>>> In addition, loosen the NULL FB checks within the atomic commit callstack
->>>> to allow a NULL FB when color_fill is nonzero and add FB checks in
->>>> methods where the FB was previously assumed to be non-NULL.
->>>>
->>>> Finally, have the DPU driver use drm_plane_state.color_fill and
->>>> drm_plane_state.color_fill_format instead of dpu_plane_state.color_fill,
->>>> and add extra checks in the DPU atomic commit callstack to account for a
->>>> NULL FB in cases where color_fill is set.
->>>>
->>>> Some drivers support hardware that have optimizations for solid fill
->>>> planes. This series aims to expose these capabilities to userspace as
->>>> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
->>>> hardware composer HAL) that can be set by apps like the Android Gears
->>>> app.
->>>>
->>>> Userspace can set the color_fill value by setting COLOR_FILL_FORMAT to a
->>>> DRM format, setting COLOR_FILL to a color fill value, and setting the
->>>> framebuffer to NULL.
->>>
->>> Is there some real reason for the format property? Ie. why not
->>> just do what was the plan for the crttc background color and
->>> specify the color in full 16bpc format and just pick as many
->>> msbs from that as the hw can use?
->>>    
->>>>
->>>> Jessica Zhang (3):
->>>>     drm: Introduce color fill properties for drm plane
->>>>     drm: Adjust atomic checks for solid fill color
->>>>     drm/msm/dpu: Use color_fill property for DPU planes
->>>>
->>>>    drivers/gpu/drm/drm_atomic.c              | 68 ++++++++++++-----------
->>>>    drivers/gpu/drm/drm_atomic_helper.c       | 34 +++++++-----
->>>>    drivers/gpu/drm/drm_atomic_uapi.c         |  8 +++
->>>>    drivers/gpu/drm/drm_blend.c               | 38 +++++++++++++
->>>>    drivers/gpu/drm/drm_plane.c               |  8 +--
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  7 ++-
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 66 ++++++++++++++--------
->>>>    include/drm/drm_atomic_helper.h           |  5 +-
->>>>    include/drm/drm_blend.h                   |  2 +
->>>>    include/drm/drm_plane.h                   | 28 ++++++++++
->>>>    10 files changed, 188 insertions(+), 76 deletions(-)
->>>>
->>>> -- 
->>>> 2.38.0
->>>
->>> -- 
->>> Ville Syrjälä
->>> Intel
-> 
