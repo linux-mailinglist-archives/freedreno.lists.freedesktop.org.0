@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A00E742449
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 12:50:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98B2B742459
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 12:52:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D64810E0E8;
-	Thu, 29 Jun 2023 10:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2067810E11F;
+	Thu, 29 Jun 2023 10:52:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E95E10E119
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 10:50:41 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4fb7b2e3dacso835770e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 03:50:40 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A23310E0E8
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 10:52:22 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2b6c5ede714so6142801fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 03:52:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688035839; x=1690627839;
+ d=linaro.org; s=google; t=1688035940; x=1690627940;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=guJGAnCCFO9fo+Q+lePAT4AatbNAwA3TFffGx0GvU2g=;
- b=FeYShU0DV1r0J9WSZmSnq9d2EoVzRoh5p49t+fWb/LGP8ECl+Gy3WSNWdZtVUJHBQv
- zqvtPfCyWiu7RTS6UJyBI4599ar9DmtwSdu/7fh/Vjtucc2wp5m5eXsuNeE5WuX1CAkp
- Ayx2t3b56TRAucWstatE2y1GNO2zkjRXci5Zb3ts9pP9lbOr+CgDBRCOkg5Jto9t9f30
- ftp5lkYdIuSlxkZLePjjCDcrrCm3LOSHoT46eKUjr+fpJfk1aIL33uCMTgNrWd3D1Kye
- jNWN84Kg2J44iAJuyMeLJenjkPuPXNv8JiBsCHnxwWciS/nIa3Db2EawhD3a8rQaStyv
- jx+Q==
+ bh=/ww5r6ehcjTwcaBETj8atUTtDfztCZTd5T+zbk2x5b0=;
+ b=RK8XEAUhfo/4CKAgSU5yoeJ25LM/lt/RQHajNtFocyf9lgSBGTpUTD+9/2CUBq9N9M
+ ZwU7wumFrZgvoX5Xel4e1Z/ObJ0wakytMCATqJ2sekp7ZYGUx54aI++Owoh21ot2Xy++
+ IyRlGvMiwrlvuKNY3bqjpcyhTB2n2gGKhxyDYUwOpQohM3+0xcLsDkRRmrZbydDMDZYE
+ qWWZCBVP+vMrGhbin0ZQ1+3C7hxx1t9uuyNN90nIpl9R1u4MaqtqjknuVNOk7E+Olpia
+ ZKeDNXT/UExnmuxQd67OCp3ihnRy+MG1RXOZaG2ZtIitd5mDrcnMK7xX0/2H5DiMS7T9
+ ch6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688035839; x=1690627839;
+ d=1e100.net; s=20221208; t=1688035940; x=1690627940;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=guJGAnCCFO9fo+Q+lePAT4AatbNAwA3TFffGx0GvU2g=;
- b=hvq9vR0c9VuuLxVYRNMlnSbF4uJXU9B0Z3ETKTfGvtV3H9sZSA8W2r7CqTXuqNdz+W
- UNIi3DLRGSLISiqg62Ec0wdjXtMLLV9wp9Rx5zoTnsrA8YrGaOhnAwHoxwBeR4MppEcO
- KzP6RyizEm7tKW/1u961d+GWRVD50O8jY5NCdOpMQV1NiPnVrMj2LBGnR+Y6of+oROHK
- zvRQyVzfuGX3EA/PvkcWcrX73T8t4CJmJDd/jTHGsuFGN1sRtfw+XIZG3OgCu583CxoB
- wfExC5q+tTUzhxsvI9eltYh1b2myg+BpDXwdAO5qTsZ6oX5tdH71URRCbK96ZBwniP5+
- iXdA==
-X-Gm-Message-State: AC+VfDzUjI9nbqGgc4t/CQDzbONBQMg94a0FcEYDpWBLDU0jTWfFpKZ0
- rZSheToVTIukembDEcrod+4VUw==
-X-Google-Smtp-Source: ACHHUZ5r4m7KdWWjT77yGYOUnmn6vM0l13dgN6t/mdKe0fnH9Xe8pYvpvGlo4fSP5Eyx3hzgL0RLSg==
-X-Received: by 2002:a05:6512:6f:b0:4fb:8987:734e with SMTP id
- i15-20020a056512006f00b004fb8987734emr4131316lfo.68.1688035838866; 
- Thu, 29 Jun 2023 03:50:38 -0700 (PDT)
+ bh=/ww5r6ehcjTwcaBETj8atUTtDfztCZTd5T+zbk2x5b0=;
+ b=ALENqfR3dRGojgc164ICkEcxOKPoBg3nXBLsOoY27ouoG74pamhtcIBaMS2U4jRSff
+ MyUNMI1gqiT2xptks5Jjpn3z9Oje9hGaCtk3mzbcOGA4vVFQrRNR8v31KxuD54GE9stj
+ o1sdOFipACPxsyqjUEV3mEoKzgT9yom0zw4T3DfE23clmZ71YtO3y/9V7IBo2DwXr5T8
+ tiKkVaAtV9C4XWiflPjOGS0bhMqfWci8QBBI7oMSGove589Ooh9LCf/RSrpEgqywB7nh
+ goE6PDEFjOG3QM56Gt7x7PHBMKhNYVgmq0Nko45DBgzZNXlEPfMqNkw4CsWyVXLKaXwH
+ 5EhQ==
+X-Gm-Message-State: AC+VfDzRFHAj9bSHy4x9TtrpoSX0EUyNKgic3Wa6J9kkwzQc+TdD+O4w
+ MO2+7kPWOPE96v+9WuMexnYO3Q==
+X-Google-Smtp-Source: ACHHUZ5/uLH0p626QLEMqtTMX6NRz6Qh5Jj3UWxEK1I0C3SvsxOzlED7EitXGpxRj73sD4YnV05uJg==
+X-Received: by 2002:a19:e05a:0:b0:4f9:56b8:45e5 with SMTP id
+ g26-20020a19e05a000000b004f956b845e5mr1386133lfj.25.1688035940348; 
+ Thu, 29 Jun 2023 03:52:20 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- v15-20020ac2592f000000b004ec6252aa37sm2297812lfi.116.2023.06.29.03.50.37
+ x28-20020ac259dc000000b004fb9d7b9914sm136870lfn.185.2023.06.29.03.52.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jun 2023 03:50:38 -0700 (PDT)
-Message-ID: <0682f82e-0ca8-29c7-0ee6-e2438122bf5c@linaro.org>
-Date: Thu, 29 Jun 2023 13:50:37 +0300
+ Thu, 29 Jun 2023 03:52:19 -0700 (PDT)
+Message-ID: <8b3d708d-58d2-60ff-7acf-8c1eac7d8dc5@linaro.org>
+Date: Thu, 29 Jun 2023 13:52:18 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
@@ -71,13 +71,12 @@ To: Marijn Suijten <marijn.suijten@somainline.org>,
  Loic Poulain <loic.poulain@linaro.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>
 References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
- <20230627-sm6125-dpu-v2-5-03e430a2078c@somainline.org>
+ <20230627-sm6125-dpu-v2-8-03e430a2078c@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230627-sm6125-dpu-v2-5-03e430a2078c@somainline.org>
+In-Reply-To: <20230627-sm6125-dpu-v2-8-03e430a2078c@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 05/15] dt-bindings: display/msm:
- dsi-controller-main: Document SM6125
+Subject: Re: [Freedreno] [PATCH v2 08/15] drm/msm/dpu: Add SM6125 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,9 +92,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Lux Aliaga <they@mint.lgbt>, Martin Botka <martin.botka@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Lux Aliaga <they@mint.lgbt>,
+ Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
  linux-clk@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -103,13 +101,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 27/06/2023 23:14, Marijn Suijten wrote:
-> Document general compatibility of the DSI controller on SM6125.
+> Add definitions for the display hardware used on the Qualcomm SM6125
+> platform.
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->   Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
->   1 file changed, 2 insertions(+)
+>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h | 230 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   6 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>   4 files changed, 238 insertions(+)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
