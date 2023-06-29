@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBEFC742278
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 10:43:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D26074241B
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 12:45:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0158810E0D1;
-	Thu, 29 Jun 2023 08:43:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29CDA10E0E8;
+	Thu, 29 Jun 2023 10:45:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51FA310E0AB
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 08:43:32 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-4fb9ae4cef6so618942e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 01:43:32 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1A8710E100
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 10:45:03 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4f865f0e16cso800115e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 03:45:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688028209; x=1690620209;
- h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Qo4yGUv1TOFCIrsnfkNO3R46DvaHvrlG+9D5FRJF5Jg=;
- b=M3FTGszHO6OJxctxtz0KJywXYYbX7jV/+5rSXgCzHg5cYUb6W+I37sd9TENmRHfi2W
- iSCFErZa/f1Mss1p45fguznG1BbnuGnVkfswH6fkVEwm7ZPs4n/bl96MNFPbI1P4VzUH
- aBsiVd0KgUibCfpQfaKkf26Fk9fk9j6HFRX1NHJYGP5L5fBJZbssEGtgRxP/dLTUQ80A
- FeWpG3prcSUD8CSviJBo7m4EejOXdY7vpCNRM7P/WE53wN6zZcLO7Segdo8LVC1nTnpT
- fVBb3zVv14xqN6KdpY7vNWwbuGgTsn6TTiVdSfjiBIhDlXO2H7yFdMWlVFm7qWzPhxgF
- fufA==
+ d=linaro.org; s=google; t=1688035502; x=1690627502;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ZycAiamSeAOei9N+fAI38YLBVtrmW7Hr+4Gb/tmtJdE=;
+ b=F3yqPKaQcukcWpswKoEnWgsRS8CyP+vjEDX86QbJiUTKAX4Zl3N1i3AD3Dfh+CvFuD
+ 4DZcigkFoaA0A4Lw21po6/5LklYIR8tCeqwZJXRu9K8IyDry5AJHRY7fqCeW1dmgTh7Q
+ 9Jpp/Xy5X8GEFPremmquDrtEfBMIpE+Xu6HVMozAWYx5oF5vI7TXHm3pQklyWxVM5fRi
+ RLLMScYeX0zUKdTRCpQrMxza0ZmyBTnF/a1PBzMBcJVObmSJhztglZgAE3E8LPSSmUHn
+ IPggWVV84cEByw5AMWuSjjwHiG1SNvImf1ckL8KJObjSzIHrfNQJ7TReDUMrtGKMTEDM
+ LXxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688028209; x=1690620209;
- h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
- :content-language:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1688035502; x=1690627502;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Qo4yGUv1TOFCIrsnfkNO3R46DvaHvrlG+9D5FRJF5Jg=;
- b=S01rHMkjC57HryS2r6GlqGqS1Y9JU+TFZGLTx6sHQVyjl9XjzNCWqmuqlLCKz5ruXZ
- RKUDE2ZZsZYxRRc3EM73kw24CH7lldSOs+MuGIqAeNi1SNxVxJ5+CU3cPiFCrV11T22/
- ON12hbdt+DTgt+0RxYBlRsmbVm6z7hHWjnXMWByx07t2KzpX1Imhfu6Hwbk03o1IiGx6
- NAF5szT2b5ACjMPtV3tZ81Gt4wb/QUM5Qee4lQ94RJfH7mxPtQiSK7SNiq9p+8SF7+Fd
- NJfKc2KC6SL4P/RQ0KiM1N6xZnNHP4zBk80q3bCzU0ECR4FxALcCOLsUjS7Y8yqnf0b7
- VF0A==
-X-Gm-Message-State: AC+VfDyWK7ZA0EdJjHmxcl8hQpuSak3/FCjZfgXz8e5WwjrxB+Lm5Qu6
- PK5NtQHpsRjCsOdqx1o/z6njaQ==
-X-Google-Smtp-Source: ACHHUZ7stWXiuLhwXrWPZUUzH7IcRisV14MnYsT7ncg2kjCKJUgtYj6FUKnNJRwbW1MvDGNrQus1SQ==
-X-Received: by 2002:a05:6512:3f01:b0:4fb:89bb:ca19 with SMTP id
- y1-20020a0565123f0100b004fb89bbca19mr5157774lfa.66.1688028209160; 
- Thu, 29 Jun 2023 01:43:29 -0700 (PDT)
+ bh=ZycAiamSeAOei9N+fAI38YLBVtrmW7Hr+4Gb/tmtJdE=;
+ b=FbQ9uP2D+pyARTdyD4xOC/0kdQQUdF/kVDi5CXtmuLtVEywMEiu5VsGbWVziucGGF5
+ 5XXDlGNqqAPoN2+tBkBAcj4N6yJKFrku3feYwAzUXGJayODQvbdWR13/XiAi1RGhYUis
+ T9hRf+g1lhMgpL68hga+GB9oPNOt2XeGjOlESl7vEDB15eVUBdPo3Uey9uiNRRlNM3CW
+ gpSj2vshhfhF7eqPWC2ESnzQgULRWMMt9Hisawz3Ee8zGv1rY+cJBD4wczspX8qU+UBr
+ WOecL5AlBAAl+/ZtRT2tSvqk8NU75OxiYeLD6IebE4zVgRDfumgInionPT5mxtKDxmjL
+ ZCrw==
+X-Gm-Message-State: AC+VfDxCnjpLEpq2BXatorcAIBbku+cQSoCboSG5wIY9Wd28OiCXaezS
+ JEGZEeGzs0bsouUk0gtL9QaaRQ==
+X-Google-Smtp-Source: ACHHUZ75RHc/BSu6OWqTmUPkHeojYgt1q2iHXJcOCWdC36jUqcV9FWlcjMVdvh5PrQGCY+XkgMVQcQ==
+X-Received: by 2002:a05:6512:23a4:b0:4fb:18f4:4cd4 with SMTP id
+ c36-20020a05651223a400b004fb18f44cd4mr10650284lfv.55.1688035501764; 
+ Thu, 29 Jun 2023 03:45:01 -0700 (PDT)
 Received: from [192.168.1.101] (abyk82.neoplus.adsl.tpnet.pl. [83.9.30.82])
  by smtp.gmail.com with ESMTPSA id
- a6-20020a056512390600b004f21f196701sm2241839lfu.203.2023.06.29.01.43.27
+ z8-20020a19f708000000b004f84d7706a7sm2276290lfe.7.2023.06.29.03.44.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jun 2023 01:43:28 -0700 (PDT)
-Message-ID: <6109d966-b705-4e84-d8b3-c895ef540db3@linaro.org>
-Date: Thu, 29 Jun 2023 10:43:26 +0200
+ Thu, 29 Jun 2023 03:45:01 -0700 (PDT)
+Message-ID: <6874227d-ea70-cae3-8267-1dd6baad997c@linaro.org>
+Date: Thu, 29 Jun 2023 12:44:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -61,8 +61,9 @@ To: Mark Brown <broonie@kernel.org>
 References: <20230628-topic-refgen-v1-0-126e59573eeb@linaro.org>
  <20230628-topic-refgen-v1-2-126e59573eeb@linaro.org>
  <76e2f865-1a37-4517-b343-6aaea397fcf7@sirena.org.uk>
+ <6109d966-b705-4e84-d8b3-c895ef540db3@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <76e2f865-1a37-4517-b343-6aaea397fcf7@sirena.org.uk>
+In-Reply-To: <6109d966-b705-4e84-d8b3-c895ef540db3@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH 2/4] regulator: Introduce Qualcomm REFGEN
@@ -94,64 +95,69 @@ Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28.06.2023 21:28, Mark Brown wrote:
-> On Wed, Jun 28, 2023 at 06:29:46PM +0200, Konrad Dybcio wrote:
+On 29.06.2023 10:43, Konrad Dybcio wrote:
+> On 28.06.2023 21:28, Mark Brown wrote:
+>> On Wed, Jun 28, 2023 at 06:29:46PM +0200, Konrad Dybcio wrote:
+>>
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +/*
+>>> + * Copyright (c) 2017, 2019-2020, The Linux Foundation. All rights reserved.
+>>> + * Copyright (c) 2023, Linaro Limited
+>>> + */
+>>
+>> Please use a C++ comment for the whole thing for consistency.
+> Oh that's new!
 > 
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) 2017, 2019-2020, The Linux Foundation. All rights reserved.
->> + * Copyright (c) 2023, Linaro Limited
->> + */
+>>
+>>> +static int qcom_sdm845_refgen_enable(struct regulator_dev *rdev)
+>>> +{
+>>> +	struct qcom_refgen *vreg = rdev_get_drvdata(rdev);
+>>> +
+>>> +	regmap_update_bits(vreg->base, REFGEN_REG_BG_CTRL,
+>>> +			   REFGEN_BG_CTRL_MASK, REFGEN_BG_CTRL_ENABLE);
+>>> +	regmap_write(vreg->base, REFGEN_REG_BIAS_EN, REFGEN_BIAS_EN_ENABLE);
+>>
+>> For the enable and disable operations we use a mix of _update_bits() and
+>> absolute writes with no FIELD_PREP()...
+> This absolute write was accidentally fine as the mask began at bit0...
 > 
-> Please use a C++ comment for the whole thing for consistency.
-Oh that's new!
-
+>>
+>>> +static int qcom_sdm845_refgen_is_enabled(struct regulator_dev *rdev)
+>>> +{
+>>> +	struct qcom_refgen *vreg = rdev_get_drvdata(rdev);
+>>> +	u32 val;
+>>> +
+>>> +	regmap_read(vreg->base, REFGEN_REG_BG_CTRL, &val);
+>>> +	if (FIELD_GET(REFGEN_BG_CTRL_MASK, val) != REFGEN_BG_CTRL_ENABLE)
+>>> +		return 0;
+>>> +
+>>> +	regmap_read(vreg->base, REFGEN_REG_BIAS_EN, &val);
+>>> +	if (FIELD_GET(REFGEN_BIAS_EN_MASK, val) != REFGEN_BIAS_EN_ENABLE)
+>>> +		return 0;
+>>
+>> ...but when we read back the status we use FIELD_GET().  This looks like
+>> a bug, and given that one of the fields starts at bit 1 it presumably is
+>> one - FIELD_GET() will do shifting.
+> ...but a 2-bit-wide field will never equal 6.
+> Looks like I put unshifted values in the defines for REFGEN_BG_CTRL..
 > 
->> +static int qcom_sdm845_refgen_enable(struct regulator_dev *rdev)
->> +{
->> +	struct qcom_refgen *vreg = rdev_get_drvdata(rdev);
->> +
->> +	regmap_update_bits(vreg->base, REFGEN_REG_BG_CTRL,
->> +			   REFGEN_BG_CTRL_MASK, REFGEN_BG_CTRL_ENABLE);
->> +	regmap_write(vreg->base, REFGEN_REG_BIAS_EN, REFGEN_BIAS_EN_ENABLE);
-> 
-> For the enable and disable operations we use a mix of _update_bits() and
-> absolute writes with no FIELD_PREP()...
-This absolute write was accidentally fine as the mask began at bit0...
-
-> 
->> +static int qcom_sdm845_refgen_is_enabled(struct regulator_dev *rdev)
->> +{
->> +	struct qcom_refgen *vreg = rdev_get_drvdata(rdev);
->> +	u32 val;
->> +
->> +	regmap_read(vreg->base, REFGEN_REG_BG_CTRL, &val);
->> +	if (FIELD_GET(REFGEN_BG_CTRL_MASK, val) != REFGEN_BG_CTRL_ENABLE)
->> +		return 0;
->> +
->> +	regmap_read(vreg->base, REFGEN_REG_BIAS_EN, &val);
->> +	if (FIELD_GET(REFGEN_BIAS_EN_MASK, val) != REFGEN_BIAS_EN_ENABLE)
->> +		return 0;
-> 
-> ...but when we read back the status we use FIELD_GET().  This looks like
-> a bug, and given that one of the fields starts at bit 1 it presumably is
-> one - FIELD_GET() will do shifting.
-...but a 2-bit-wide field will never equal 6.
-Looks like I put unshifted values in the defines for REFGEN_BG_CTRL..
-
-Thanks for spotting that!
-
-> 
->> +static int qcom_sm8250_refgen_enable(struct regulator_dev *rdev)
->> +{
->> +	struct qcom_refgen *vreg = rdev_get_drvdata(rdev);
->> +
->> +	regmap_update_bits(vreg->base, REFGEN_REG_PWRDWN_CTRL5,
->> +			   REFGEN_PWRDWN_CTRL5_MASK, REFGEN_PWRDWN_CTRL5_ENABLE);
-> 
-> This is a single bit in a single register so could use the standard
-> helpers rather than open coding, the sdm845 does need custom operations
-> due to having two fields to manage.
-Forgot that's a thing!
+> Thanks for spotting that!
+Even worse, I noticed I've been feeding a raw address into regmap
+functions.. :) 
 
 Konrad
+> 
+>>
+>>> +static int qcom_sm8250_refgen_enable(struct regulator_dev *rdev)
+>>> +{
+>>> +	struct qcom_refgen *vreg = rdev_get_drvdata(rdev);
+>>> +
+>>> +	regmap_update_bits(vreg->base, REFGEN_REG_PWRDWN_CTRL5,
+>>> +			   REFGEN_PWRDWN_CTRL5_MASK, REFGEN_PWRDWN_CTRL5_ENABLE);
+>>
+>> This is a single bit in a single register so could use the standard
+>> helpers rather than open coding, the sdm845 does need custom operations
+>> due to having two fields to manage.
+> Forgot that's a thing!
+> 
+> Konrad
