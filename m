@@ -2,74 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 147F7742DCF
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 21:53:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67BCD742E75
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 22:35:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2E9510E1D5;
-	Thu, 29 Jun 2023 19:53:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32CD510E0A3;
+	Thu, 29 Jun 2023 20:35:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E856010E3F4
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 19:53:28 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4fba03becc6so727497e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 12:53:28 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B06A10E077
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 20:35:50 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b6985de215so18600591fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 13:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688068407; x=1690660407;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6pBbaluuyzwVXP1sHmiMWy/GcrSJJh0VQlK5YIkf6P0=;
- b=edlVolaaYSWq+gCodM88LdgZ4bBSQjITOlBT06sdJFFBKOONKbSncjMaF8s29wapuZ
- xoDUSGdULdCvp20rQCZwzxTBDsG6wVNxGsiAS2PkdRP6dZDjyNVk+0Q/9vCM1yly3VPK
- ESCVLcOqp2KI7Gnl1tmpwKrxG3gUWO/KLmggO+nhdVnbXNh+X9nOVfDwc/C9a5pMJcEz
- e3YTyQxg570Ov6g4ZPwM9FW4o33BAWcV99xTboRQl7WJmZl9cKckH24H+RDj6b6F5nrv
- kBXah+OGDyawAGKb9ol5gZDn+5Ph3G0ai61YWnM1AP+hqa7tRQcp1gYUWWD0C2jrCDIH
- 16Yw==
+ d=linaro.org; s=google; t=1688070948; x=1690662948;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=roO8YrYj9iIU3EjCKgeaxJFuC8MlkPexoI9WwcBfk4M=;
+ b=aL7DwfgqS2nZOiWfMRKgRg8GCSGzlLizCKplh1fLS7f0H0fS9RRyV871dMs8WEpx6O
+ w2yXTGUAqCaC4PQ4CyZ6Wc07E/VzuxRZMu5S3YL1y7OHJCBS0fu0DFmco7gDPNyz1XJL
+ ZyRB+h+o6KOPBJpUbV/o8vmFXFaH8fLdq1WCNby99S+hpY6hSaYbclB/VXz9P3t3ouKj
+ zmCzSJfOkn5Urm2mTYCi6chGG6rBubDwoGWAm3nUK6z6XxAiJuyLFFnK96TKahXHgQzb
+ UcYsOdaZonTln2aa+cWXjc+6wBy5uoit5M1ysqAUf8XPnygDkQ0rR5C8qvKO4AHxbnQM
+ VUBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688068407; x=1690660407;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6pBbaluuyzwVXP1sHmiMWy/GcrSJJh0VQlK5YIkf6P0=;
- b=QVO07KpFOJSmw/SOZnDVSdo8Q1fiwhmNvlkXIMQOJCsvHSRGTwbLb+FkuEgiEHswy6
- g9NNh4aFcxFGDRivuz0P4/u6/Uq3USeU+gPyqWeX6rM4HksQYN7K1De0LXdRuWmygqE9
- 50qMkxb1ew050UYDmxIbQc7QDezp/3g92NvMLiOryd38P2wQWScAiu5bjn2L42btmPUA
- 5uvIB68WD7vKHnu412faMoKSmlXYeChaar7CQE9orfGP73DMPZpwySwAfxakWELYmE9v
- aIvcI3Izw7vSGN/WSivs+Ov8IUGZWhBqjhA/83C9d1knW+83OlZ3qGSAk79QrrX/mxG5
- oLuw==
-X-Gm-Message-State: ABy/qLaQ7v9QZZRA95azQdR4PZ2bOUKvqTYCIQvqF7gAQjXVLBicH8Zx
- b0bm1qt8K5MrUXZG6ON0NgYxGA==
-X-Google-Smtp-Source: APBJJlFEtRmdUeebJYgWsqZgvE8IML5SO44xmsVeT9iQKxrK3gpe0zDMG+bTdRHWyp3TXD/N+iKJaw==
-X-Received: by 2002:a05:6512:3994:b0:4f8:5dd2:21fb with SMTP id
- j20-20020a056512399400b004f85dd221fbmr312467lfu.8.1688068406682; 
- Thu, 29 Jun 2023 12:53:26 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688070948; x=1690662948;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=roO8YrYj9iIU3EjCKgeaxJFuC8MlkPexoI9WwcBfk4M=;
+ b=EiLWnxvLIzy64aluPGKJoxOixxd2WRB2nN9oYQPF9ytyecBX6Tjg1L3yw2m/q2DJn1
+ RU5zoc67iG2XCZM6A9BTkxkK++qlgG3Iv9a3Y8RCbZjF3qqkuqhQlLByMpooREp02bi8
+ ugAYaNJc2KbMx+y2j+f5owosnbel/UQ53AboddlCMCRSWfxlXuZLm5ZmUkzluUOChh7M
+ b1F7+R2exbga1ig7355hwjgNqypOzesT3MvfUOtEjiAb52+IRSuLrK/RvkaRhpb8JKvR
+ wYUweDo4b4njCMTEBmYK8iU+RPS6Yn5WiyQySLDEi71O0VOk06tcsaXrSVjeFX4dpcMp
+ 0gXw==
+X-Gm-Message-State: ABy/qLYiue8CmCmhBvNIAw2ZJWTYwA/rSLlhNAqITfFSZb5DviAb6+gE
+ KpqG6syUCeqZQob96kCYF4SwKQ==
+X-Google-Smtp-Source: APBJJlHmYuIe4jmQmUOHf4LS1a4x4RFAsAsgFkB5nTh0ZJKctX3XwebQ8qIYR4nQuF0TAC/qNt9f0g==
+X-Received: by 2002:a2e:9059:0:b0:2b6:9f95:46d9 with SMTP id
+ n25-20020a2e9059000000b002b69f9546d9mr545726ljg.46.1688070948029; 
+ Thu, 29 Jun 2023 13:35:48 -0700 (PDT)
 Received: from [192.168.1.101] (abyk82.neoplus.adsl.tpnet.pl. [83.9.30.82])
  by smtp.gmail.com with ESMTPSA id
- n30-20020ac2491e000000b004fb82d7532dsm1219419lfi.177.2023.06.29.12.53.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jun 2023 12:53:26 -0700 (PDT)
-Message-ID: <13f29231-692e-b624-bdbd-fa1b2b3e793b@linaro.org>
-Date: Thu, 29 Jun 2023 21:53:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
- <20230627-sm6125-dpu-v2-13-03e430a2078c@somainline.org>
- <4a267feb-5855-1427-c378-b2615eae4f84@linaro.org>
- <kisifidg4bdb4v6fb6nvgt5omsprssd4bxrn6wqehjo66l2y4a@7nfaydtafzpn>
- <CAA8EJpr+PyjehSd4SEUVfh13+i=+-7v1esQasc+7gNaL2iqWJA@mail.gmail.com>
+ k3-20020a2e2403000000b002b6b849c894sm1136008ljk.111.2023.06.29.13.35.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Jun 2023 13:35:47 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <CAA8EJpr+PyjehSd4SEUVfh13+i=+-7v1esQasc+7gNaL2iqWJA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Jun 2023 22:35:40 +0200
+Message-Id: <20230628-topic-refgen-v2-0-6136487c78c5@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 13/15] arm64: dts: qcom: sm6125: Add
- dispcc node
+X-B4-Tracking: v=1; b=H4sIABzrnWQC/3WNwQ6CMBBEf8Xs2TVtEVBP/ofh0OICm5CWbJFoC
+ P/uyt3jm8ybWSGTMGW4HVYQWjhzigrueIB28LEn5KcyOOMKU7kLzmniFoW6niLacxdMqCtnbQm
+ qBJ8Jg/jYDirF1zhqOGmZ3/vHo1EeOM9JPvvlYn/pn/XFokHrKiqvZV0QhfvI0Us6Jemh2bbtC
+ 3Xqv2i+AAAA
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1688070946; l=1730;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=o6C8T/LQ49ia1cOEpHXglcMRSGrmiGdpXmYAdGtJ7Z4=;
+ b=Ex0q08xmxL6AcV018TpSZ/b4gyImH8vj9XCXXL2F+XrwzPusRQOEc3gsYGh6Q8WErt/Xl22a6
+ YSziOTXpLASAMFu25y+vL3MkzJtUXbIUQz/3N+4VTUznwyJ2mRR5a7+
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v2 0/4] Qualcomm REFGEN regulator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,111 +90,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
- Lux Aliaga <they@mint.lgbt>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Loic Poulain <loic.poulain@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29.06.2023 14:24, Dmitry Baryshkov wrote:
-> On Thu, 29 Jun 2023 at 15:14, Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
->>
->> On 2023-06-29 13:56:25, Dmitry Baryshkov wrote:
->>> On 27/06/2023 23:14, Marijn Suijten wrote:
->>>> Enable and configure the dispcc node on SM6125 for consumption by MDSS
->>>> later on.
->>>>
->>>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
->>>> ---
->>>>   arch/arm64/boot/dts/qcom/sm6125.dtsi | 25 +++++++++++++++++++++++++
->>>>   1 file changed, 25 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
->>>> index edb03508dba3..a5cc0d43d2d9 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
->>>> @@ -3,6 +3,7 @@
->>>>    * Copyright (c) 2021, Martin Botka <martin.botka@somainline.org>
->>>>    */
->>>>
->>>> +#include <dt-bindings/clock/qcom,dispcc-sm6125.h>
->>>>   #include <dt-bindings/clock/qcom,gcc-sm6125.h>
->>>>   #include <dt-bindings/clock/qcom,rpmcc.h>
->>>>   #include <dt-bindings/dma/qcom-gpi.h>
->>>> @@ -1203,6 +1204,30 @@ sram@4690000 {
->>>>                     reg = <0x04690000 0x10000>;
->>>>             };
->>>>
->>>> +           dispcc: clock-controller@5f00000 {
->>>> +                   compatible = "qcom,sm6125-dispcc";
->>>> +                   reg = <0x05f00000 0x20000>;
->>>> +                   clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
->>>> +                            <0>,
->>>> +                            <0>,
->>>> +                            <0>,
->>>> +                            <0>,
->>>> +                            <0>,
->>>> +                            <&gcc GCC_DISP_AHB_CLK>,
->>>> +                            <&gcc GCC_DISP_GPLL0_DIV_CLK_SRC>;
->>>> +                   clock-names = "bi_tcxo",
->>>> +                                 "dsi0_phy_pll_out_byteclk",
->>>> +                                 "dsi0_phy_pll_out_dsiclk",
->>>> +                                 "dsi1_phy_pll_out_dsiclk",
->>>> +                                 "dp_phy_pll_link_clk",
->>>> +                                 "dp_phy_pll_vco_div_clk",
->>>> +                                 "cfg_ahb_clk",
->>>> +                                 "gcc_disp_gpll0_div_clk_src";
->>>> +                   power-domains = <&rpmpd SM6125_VDDCX>;
->>>
->>> Would it be logical to specify the required-opps too?
->>
->> Perhaps, but barely any other SoC aside from sm8x50 sets it on dispcc.
->> What should it be, rpmhpd_opp_low_svs?  IIRC we used "svs" for the DSI
->> PHY despite not having a reference value downstream (it sets a range of
->> NOM-TURBO_NO_CPR, and RETENTION when it's off).
-> 
-> Then for DSI PHY the required-opps should be rpmpd_opp_nom.
-Yes
+Recent Qualcomm SoCs have a REFGEN (reference voltage generator) regulator
+responsible for providing a reference voltage to some on-SoC IPs (like DSI
+or PHYs). It can be turned off when unused to save power.
 
-> 
-> For the dispcc I think the rpmpd_opp_ret, the lowest possible vote,
-> should be enough.
-I'm not 100% sure but not specifying an opp and turning on the domain
-*******probably******* just sticks with the lowest vote
+This series introduces the driver for it and lets the DSI driver
+consume it.
 
-Konrad
-> 
->>
->> - Marijn
->>
->>>
->>>> +                   #clock-cells = <1>;
->>>> +                   #power-domain-cells = <1>;
->>>> +           };
->>>> +
->>>>             apps_smmu: iommu@c600000 {
->>>>                     compatible = "qcom,sm6125-smmu-500", "qcom,smmu-500", "arm,mmu-500";
->>>>                     reg = <0x0c600000 0x80000>;
->>>>
->>>
->>> --
->>> With best wishes
->>> Dmitry
->>>
-> 
-> 
-> 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Changes in v2:
+- Remove "|" from bindings description
+- fix 'renegator' typo
+- define number of 'reg'
+- adjust reg= to size/address-cells = 1
+- fix regmap usage
+- use C++ comments for the header
+- remove now-unused struct qcom_refgen
+- use common helpers for sm8250 refgen (simple bit ops)
+- add missing FIELD_PREPs (small brain forgot regmap_update_bits
+  doesn't do shifting)
+- pick up tags
+- Link to v1: https://lore.kernel.org/r/20230628-topic-refgen-v1-0-126e59573eeb@linaro.org
+
+---
+Konrad Dybcio (4):
+      dt-bindings: regulator: Describe Qualcomm REFGEN regulator
+      regulator: Introduce Qualcomm REFGEN regulator driver
+      dt-bindings: display/msm: dsi-controller-main: Allow refgen-supply
+      drm/msm/dsi: Hook up refgen regulator
+
+ .../bindings/display/msm/dsi-controller-main.yaml  |   4 +
+ .../regulator/qcom,sdm845-refgen-regulator.yaml    |  57 ++++++++
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |   2 +
+ drivers/regulator/Kconfig                          |  10 ++
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/qcom-refgen-regulator.c          | 154 +++++++++++++++++++++
+ 6 files changed, 228 insertions(+)
+---
+base-commit: 5c875096d59010cee4e00da1f9c7bdb07a025dc2
+change-id: 20230628-topic-refgen-14fb0b762115
+
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
