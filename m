@@ -1,63 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34557742652
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 14:26:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE7F74299D
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 17:27:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8840D10E3C6;
-	Thu, 29 Jun 2023 12:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 333E610E3E0;
+	Thu, 29 Jun 2023 15:27:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D88BD10E3C6
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 12:26:45 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- 46e09a7af769-6b74b37fbe0so533576a34.1
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 05:26:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688041604; x=1690633604;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=NIk8wJfpH3/FAkecZSGRLuKhBChqs6CWPQ8UTS6BFyg=;
- b=eR/kPUuAd3/af7k4Nbz4TVTCdX1xjvfgAzUSaztt8l1P+l5BEnIae3/gvu6h42hE9G
- /Rs6xuuqPGj78oHLv5cIKvQARlFXqgJwJM5S5bOcoJQfSaUkWsfoHJIYZveMMkzDzWnm
- VJgk/NyNwVcs5RHGSeI7AjySTjefoggCBomRpr3ldjA8sVbPV5XkELdSZwL/SyNY6c5w
- 6ipHpivvrUEDvJIUhAPNOGe+ZvWVf6sYKZGCAhGT5uFL+BQTGKt4OZlV0U5rrbcAlDTM
- nv8YkIs7PJpCXyqGsH2qJsGh7itojyBM88kqCe4nyFOShcmW/UhHIJQhh48mqPpMHOEN
- UpUQ==
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 549B210E18E;
+ Thu, 29 Jun 2023 15:27:49 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id
+ ca18e2360f4ac-783698a37beso34058239f.0; 
+ Thu, 29 Jun 2023 08:27:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688041604; x=1690633604;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NIk8wJfpH3/FAkecZSGRLuKhBChqs6CWPQ8UTS6BFyg=;
- b=NAujSaMChLI0j5SR1SenqRv0OqdOgUHhvQChGgFnuAG7YIsi/K5z9XaLX7WkX7VkyT
- hTzz2Nwm4+wovN1G5foitKgK89vBTTQtCBo3wYJeyR+QcJYpJxe5wATXhe8eKBSpBVUv
- IbTExYAY0SUUd+SFrLsUxYKNC6+aRt2IQXrYyPN4bw+F8PqDpz8DEPIzOL8XeaSEaW8/
- 3Zzg6f0ARCnfwz2K7nLUBq2DBi8CY7c+cKnUAv0JgG47/2NQIPol0JJX35xd28OathCe
- +XsHJTXcec4t8SWtFaxIvJkLmECdwj1dBee9EbvLqGGUEbtzFlHc/G16QS8lR283Z/Ej
- eGHw==
-X-Gm-Message-State: AC+VfDx5mHhuIB2rWcKZKkpz3fYR3whjJmomlAZ6aO8a5qDOIJ39+zmE
- TQrZI4qGm/4A7adrP9DXJ0Dq9aEY3bei4Nvb2StehA==
-X-Google-Smtp-Source: ACHHUZ7elJFZUK/QSAojN3eXj6aPyhL1NPR9xEeFzIAo7HV9CqflV2dOYJOUp8Wkhr8zxc0HCzV1+n6otclDt9K3gI0=
-X-Received: by 2002:a05:6359:601:b0:134:d0d0:c5f1 with SMTP id
- eh1-20020a056359060100b00134d0d0c5f1mr6107800rwb.19.1688041604413; Thu, 29
- Jun 2023 05:26:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
- <20230627-sm6125-dpu-v2-12-03e430a2078c@somainline.org>
- <84eb1d40-436b-a5b4-a4e3-75a511ad5a90@linaro.org>
- <st3nrb54zxa5xp7qqkdyygf7t6ucgzl3xc5w6d426xy6udj4fx@puakunoaoj2l>
-In-Reply-To: <st3nrb54zxa5xp7qqkdyygf7t6ucgzl3xc5w6d426xy6udj4fx@puakunoaoj2l>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 29 Jun 2023 15:26:33 +0300
-Message-ID: <CAA8EJpqHh4ZWZxuRMLN2z8BZYFqzoWxZV=oW1ANzEJy4i-PWNw@mail.gmail.com>
+ d=1e100.net; s=20221208; t=1688052468; x=1690644468;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VZR9sZh+9bjHT/NeBWN3KSD8INZ5F1XGNWsIgo61+bw=;
+ b=abOdShnig4F4jroBwPOcXiG1WJz4IHltGIptbaOegYyCUvhtf2hK9hIb/6bOfqpRSL
+ nZcKkJgIwBRABRa0RDOzZai0p09fcIhNkZs4UQ2E8rg+9fCIrOxEnrFK6Aafq1pAb7W/
+ U4HJvoHRIpzT5BY3W2OQsr5XIDyzpcMXYxAxQad2jjnk1R1OdJpdUmfjcyawkGcjdjp2
+ pxL6MHM7qikKfdLiYko41wnu47S8J6NmFkoYLF/TvEPGF2YeM7D5oC72MiahqvhUlOAS
+ 9hSzDN9LKyqL1Kf0wVaUFsKlaLaNc44Lqn9bxhFmJjiNs8AIP9CVirgldyc6nb3lH5i4
+ ZHgQ==
+X-Gm-Message-State: AC+VfDy5NBw7LbLJR2XtHIdLkozSVU8z/ZJyKJtpstPmqOA0/DTSmc2o
+ daj3NEcHlAVYfuG2MosMeA==
+X-Google-Smtp-Source: ACHHUZ4KLxkCInEQQQCS9qmNAEIF532E5Hd6Y2pqUoJrYe3Vdsqc/jeuYEguX546tpcpPckCkDYkiA==
+X-Received: by 2002:a05:6602:424e:b0:775:5f74:f4c7 with SMTP id
+ cc14-20020a056602424e00b007755f74f4c7mr42469927iob.17.1688052468076; 
+ Thu, 29 Jun 2023 08:27:48 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id
+ t10-20020a02878a000000b00428722c1c51sm3875373jai.32.2023.06.29.08.27.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Jun 2023 08:27:47 -0700 (PDT)
+Received: (nullmailer pid 3066583 invoked by uid 1000);
+ Thu, 29 Jun 2023 15:27:44 -0000
+Date: Thu, 29 Jun 2023 09:27:44 -0600
+From: Rob Herring <robh@kernel.org>
 To: Marijn Suijten <marijn.suijten@somainline.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 12/15] arm64: dts: qcom: sm6125: Switch
- fixed xo_board clock to RPM XO clock
+Message-ID: <168805246390.3066499.7212254924681716912.robh@kernel.org>
+References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
+ <20230627-sm6125-dpu-v2-3-03e430a2078c@somainline.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230627-sm6125-dpu-v2-3-03e430a2078c@somainline.org>
+Subject: Re: [Freedreno] [PATCH v2 03/15] dt-bindings: clock: qcom,
+ dispcc-sm6125: Require GCC PLL0 DIV clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,59 +77,27 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
  Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Loic Poulain <loic.poulain@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
  Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 29 Jun 2023 at 15:09, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
->
-> On 2023-06-29 13:55:28, Dmitry Baryshkov wrote:
-> > On 27/06/2023 23:14, Marijn Suijten wrote:
-> > > We have a working RPM XO clock; no other driver except rpmcc should be
-> > > parenting directly to the fixed-factor xo_board clock nor should it be
-> > > reachable by that global name.  Remove the name to that effect, so that
-> > > every clock relation is explicitly defined in DTS.
-> > >
-> > > Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > > ---
-> > >   arch/arm64/boot/dts/qcom/sm6125.dtsi | 7 ++++---
-> > >   1 file changed, 4 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-> > > index 722dde560bec..edb03508dba3 100644
-> > > --- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
-> > > +++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-> > > @@ -22,7 +22,6 @@ xo_board: xo-board {
-> > >                     compatible = "fixed-clock";
-> > >                     #clock-cells = <0>;
-> > >                     clock-frequency = <19200000>;
-> > > -                   clock-output-names = "xo_board";
-> >
-> > Why? I'd say, leave it.
->
-> The exact reason is explained in the commit message.
 
-Usually we do no not kill the xo_board name for the sake of anybody
-still looking for the old name. Weak argument, I know.
+On Tue, 27 Jun 2023 22:14:18 +0200, Marijn Suijten wrote:
+> The "gcc_disp_gpll0_div_clk_src" clock is consumed by the driver, will
+> be passed from DT, and should be required by the bindings.
+> 
+> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>  Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
 
->
-> >
-> > With that fixed:
->
-> Hence I don't think it makes sense to "fix" this.
->
-> - Marijn
->
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
 
-
-
--- 
-With best wishes
-Dmitry
