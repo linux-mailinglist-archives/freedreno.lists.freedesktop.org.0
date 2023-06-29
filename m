@@ -2,80 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97070742E8B
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 22:36:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB3B7742EBD
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 22:44:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7D310E3EC;
-	Thu, 29 Jun 2023 20:36:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E6EE10E3FB;
+	Thu, 29 Jun 2023 20:44:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E96210E1B4
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 20:35:57 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2b6a16254a4so17775551fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 13:35:57 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79ABB10E3F9
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 20:44:38 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4fb9fd28025so1097628e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Jun 2023 13:44:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688070955; x=1690662955;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=SEhHQ8qdRfQQVMmnLHDVdeTjikaeU7SDTha8pASydDI=;
- b=m3hhlMn60IL1waEjrx0D33Ti5jOy4qgbY1zwxUHKfKVTEGzhFuNiPbZ7tmI6qrrSH2
- 4aOJaC0opR5xQsPOukW/lvTykomgPtkcEXH4CMAed1wt1M7+Pp62YjYMm6zXnL2Heexa
- 8cD1jaM/oTvEiUApCdMpYAOlSO+7ylXRRG4xO1/b1ekgyomZP54dv7Ky/rwwocfSSN69
- m6ZrSmUkP5fFNS0t9sf+/fOZozaxQ6UNxQWxbjnRXoMpEgs+V6ev4HEM6Fvly6zpfwwv
- HsOuAh6YnbqYakHg9hITq+Bya04sWPNalfeDX9TndlCdEOU7519XytxyIlR6GlcO2FIK
- 24rA==
+ d=linaro.org; s=google; t=1688071476; x=1690663476;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Yaz00FEgGCTPJB8nvCETL7NnrgelsFGdklYuZ97nPlY=;
+ b=ZiLvRjrx0hTzcGSqqZFobRZbdbjQYk5Ph8ozUtUffExhYwZt8uGNvPdc+o1z0Ynp4X
+ VZ+tu2UtkoXGOO5pr6F0I+l90UmhOQWGOCBPcFZg8E5oWWVipkpFIZ1zV9ZcgHMYJWkt
+ dTcDBSQW8yiI0G2PBISA6VNQ7Xr7z8j0w0H/y4nDHDXLdG5/yKTTmv5cV5OH+DOWrz9C
+ KdxfJp7VRpS5EI9IocXPkDD2OdnmEmDoozkoyLzlA5VRZEY+LOEmKxtkgVKVHK8JKGWY
+ vr6HKRydRWhVOVLw8HUZLVnqz/TK4EF1jtbIv+SPcfggbpwA3p+8+HfyRkqimRUEyNVU
+ A03w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688070955; x=1690662955;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SEhHQ8qdRfQQVMmnLHDVdeTjikaeU7SDTha8pASydDI=;
- b=fzbKaNI4pfRiZW/TlyJcGUd9F8p6oxmZ25hSBUNQv8s+/xrkAAKAcze3LCxxGhvzry
- MY0Ch8T82QH9rtWzFfLwg15Pl1ZYo/HnoPk2LejWr0kpVOYUkpO5fOOYOtdmRohAtSTW
- JSjdRtORzyhMX1e27bDw3V2G08iiDiVTEgUT4VSb0Yd2iOr1M9PDvtbcyJlTkvE/ai7S
- LYVBKVPn5ThXEXyp9L0dIhpAQ0siIrsEw6owsJczHbc32j5nmLU7lDWaMcvqViwFosxi
- flA97nklFdwki1k4lc8o+WB3+OtiOGAV3TqwSEGAtr3xfAfsdwLmPrQ+k6tNMQWPNGiw
- DLqw==
-X-Gm-Message-State: ABy/qLbMTOnqDZFLz2Ec1l3KSufcLNKnSHDrlZfTLrRwzQacVaLQLljB
- ctan6rdI+yprjyBQLERDHpGsPg==
-X-Google-Smtp-Source: APBJJlFo0T9+tZTTTTFhfzWS0HOJF58QbYMK9rRBBBCNxiXUoTICAC0SLWQJVYDjsz9BS/wGW/cUSA==
-X-Received: by 2002:a2e:494a:0:b0:2b6:c9f9:9f8f with SMTP id
- b10-20020a2e494a000000b002b6c9f99f8fmr577770ljd.4.1688070955475; 
- Thu, 29 Jun 2023 13:35:55 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688071476; x=1690663476;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Yaz00FEgGCTPJB8nvCETL7NnrgelsFGdklYuZ97nPlY=;
+ b=bBAuBiLfZ7SjwZh+V4R6053a7s5HbZ0XpKqkAXz1CyVa5kDJavQ4H/R2f7o7hWUKql
+ bSt4RzNwcRUsC862jJmZNFow47k354STNHLaT84dHHHCZn+etTls37SF7TLfdsa9keB6
+ i9J5IF90sTjigbRhm6fRFSh/l3ClPFlIChjXoOoXoxMK4f/tTXT8u7OvvPfMD1DFY3d7
+ 1iqWZpJNo2oRn2C81Iyf9pjYOmfyXB5Yh2tdMp0q4/j9XxEU+VxiNAOWtrkd5mNBMVsy
+ boKki7A0a3vYs1qDZv4puahwBRv/RDAXcQWRF0Q17+I0/mh7kykrbpB13ok/+XL+rQrS
+ yV/g==
+X-Gm-Message-State: ABy/qLbZKPS+V56F5Ew776N0ECXusFAElcmqaHuKZLcATtFygTc4wMg4
+ 4d8hlUjJjhNp2j25tjZJhHugHw==
+X-Google-Smtp-Source: APBJJlHY6jW97U1D4G7rtrJ9N/FSbLkfUZXVa4JplOMQ3ixUjo5atHOSwdsjaRQRK6wNO8jyUxStRA==
+X-Received: by 2002:a19:4f10:0:b0:4f9:607a:6508 with SMTP id
+ d16-20020a194f10000000b004f9607a6508mr787367lfb.50.1688071476300; 
+ Thu, 29 Jun 2023 13:44:36 -0700 (PDT)
 Received: from [192.168.1.101] (abyk82.neoplus.adsl.tpnet.pl. [83.9.30.82])
  by smtp.gmail.com with ESMTPSA id
- k3-20020a2e2403000000b002b6b849c894sm1136008ljk.111.2023.06.29.13.35.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jun 2023 13:35:55 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Thu, 29 Jun 2023 22:35:44 +0200
+ m11-20020a056512014b00b004fb326d4ff0sm2045647lfo.77.2023.06.29.13.44.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Jun 2023 13:44:35 -0700 (PDT)
+Message-ID: <8ddbd947-6cb6-8c86-eb48-8b6ae9b4be2b@linaro.org>
+Date: Thu, 29 Jun 2023 22:44:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230628-topic-refgen-v2-4-6136487c78c5@linaro.org>
-References: <20230628-topic-refgen-v2-0-6136487c78c5@linaro.org>
-In-Reply-To: <20230628-topic-refgen-v2-0-6136487c78c5@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1688070946; l=1019;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=bdVFkIHME+ksW97iOZJH0yeZoPTsVUfCpblAjJVbJjI=;
- b=WWHSrbYLRRkudi8WmumNn/DjTCsjM+ZBe0IDArrKqLIbchE2qvRZwS1cjEwKIOOjoGwojapCH
- lf+swQw2gHODxIICQ93jYJ+yf4+oZOiY1Zo5FrbmyCxLXFFy07oqzBB
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/dsi: Hook up refgen regulator
+References: <20230628-topic-refgen-v2-0-6136487c78c5@linaro.org>
+ <20230628-topic-refgen-v2-2-6136487c78c5@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230628-topic-refgen-v2-2-6136487c78c5@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 2/4] regulator: Introduce Qualcomm REFGEN
+ regulator driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,40 +88,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Consume the refgen supply on configurations that may use it.
+On 29.06.2023 22:35, Konrad Dybcio wrote:
+> Modern Qualcomm SoCs have a REFGEN (reference voltage generator)
+> regulator, providing reference voltage to on-chip IP, like PHYs.
+> 
+> Add a driver to support toggling that regulator.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+Ugh. Missed the 'const' here and below. LMK if that warrants a resend
+(or.. perhaps you just have other comments)
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 8a5fb6df7210..1f98ff74ceb0 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -160,6 +160,7 @@ static const char * const dsi_v2_4_clk_names[] = {
- 
- static const struct regulator_bulk_data dsi_v2_4_regulators[] = {
- 	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
-+	{ .supply = "refgen" },
- };
- 
- static const struct msm_dsi_config sdm845_dsi_cfg = {
-@@ -191,6 +192,7 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
- 
- static const struct regulator_bulk_data sc7280_dsi_regulators[] = {
- 	{ .supply = "vdda", .init_load_uA = 8350 },	/* 1.2 V */
-+	{ .supply = "refgen" },
- };
- 
- static const struct msm_dsi_config sc7280_dsi_cfg = {
-
--- 
-2.41.0
-
+Konrad
+> +	.ops = &(struct regulator_ops) {
+> +		.enable		= qcom_sdm845_refgen_enable,
+> +		.disable	= qcom_sdm845_refgen_disable,
+> +		.is_enabled	= qcom_sdm845_refgen_is_enabled,
+> +	},
+> +};
+> +
+> +static struct regulator_desc sm8250_refgen_desc = {
+> +	.enable_reg = REFGEN_REG_PWRDWN_CTRL5,
+> +	.enable_mask = REFGEN_PWRDWN_CTRL5_MASK,
+> +	.enable_val = REFGEN_PWRDWN_CTRL5_ENABLE,
+> +	.disable_val = 0,
+> +	.enable_time = 5,
+> +	.name = "refgen",
+> +	.owner = THIS_MODULE,
+> +	.type = REGULATOR_VOLTAGE,
+> +	.ops = &(struct regulator_ops) {
+> +		.enable		= regulator_enable_regmap,
+> +		.disable	= regulator_disable_regmap,
+> +		.is_enabled	= regulator_is_enabled_regmap,
+> +	},
+> +};
+> +
+> +static const struct regmap_config qcom_refgen_regmap_config = {
+> +	.reg_bits = 32,
+> +	.reg_stride = 4,
+> +	.val_bits = 32,
+> +	.fast_io = true,
+> +};
+> +
+> +static int qcom_refgen_probe(struct platform_device *pdev)
+> +{
+> +	struct regulator_init_data *init_data;
+> +	struct regulator_config config = {};
+> +	const struct regulator_desc *rdesc;
+> +	struct device *dev = &pdev->dev;
+> +	struct regulator_dev *rdev;
+> +	struct regmap *regmap;
+> +	void __iomem *base;
+> +
+> +	rdesc = of_device_get_match_data(dev);
+> +	if (!rdesc)
+> +		return -ENODATA;
+> +
+> +	base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	regmap = devm_regmap_init_mmio(dev, base, &qcom_refgen_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return PTR_ERR(regmap);
+> +
+> +	init_data = of_get_regulator_init_data(dev, dev->of_node, rdesc);
+> +	if (!init_data)
+> +		return -ENOMEM;
+> +
+> +	config.dev = dev;
+> +	config.init_data = init_data;
+> +	config.of_node = dev->of_node;
+> +	config.regmap = regmap;
+> +
+> +	rdev = devm_regulator_register(dev, rdesc, &config);
+> +	if (IS_ERR(rdev))
+> +		return PTR_ERR(rdev);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id qcom_refgen_match_table[] = {
+> +	{ .compatible = "qcom,sdm845-refgen-regulator", .data = &sdm845_refgen_desc },
+> +	{ .compatible = "qcom,sm8250-refgen-regulator", .data = &sm8250_refgen_desc },
+> +	{ }
+> +};
+> +
+> +static struct platform_driver qcom_refgen_driver = {
+> +	.probe = qcom_refgen_probe,
+> +	.driver = {
+> +		.name = "qcom-refgen-regulator",
+> +		.of_match_table = qcom_refgen_match_table,
+> +	},
+> +};
+> +module_platform_driver(qcom_refgen_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("Qualcomm REFGEN regulator driver");
+> 
