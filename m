@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE7F74299D
-	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 17:27:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6FC742A5E
+	for <lists+freedreno@lfdr.de>; Thu, 29 Jun 2023 18:12:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 333E610E3E0;
-	Thu, 29 Jun 2023 15:27:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D63E10E3E6;
+	Thu, 29 Jun 2023 16:12:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549B210E18E;
- Thu, 29 Jun 2023 15:27:49 +0000 (UTC)
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-783698a37beso34058239f.0; 
- Thu, 29 Jun 2023 08:27:49 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 209F810E3E3;
+ Thu, 29 Jun 2023 16:12:35 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-77acb944bdfso36806739f.0; 
+ Thu, 29 Jun 2023 09:12:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688052468; x=1690644468;
+ d=1e100.net; s=20221208; t=1688055155; x=1690647155;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VZR9sZh+9bjHT/NeBWN3KSD8INZ5F1XGNWsIgo61+bw=;
- b=abOdShnig4F4jroBwPOcXiG1WJz4IHltGIptbaOegYyCUvhtf2hK9hIb/6bOfqpRSL
- nZcKkJgIwBRABRa0RDOzZai0p09fcIhNkZs4UQ2E8rg+9fCIrOxEnrFK6Aafq1pAb7W/
- U4HJvoHRIpzT5BY3W2OQsr5XIDyzpcMXYxAxQad2jjnk1R1OdJpdUmfjcyawkGcjdjp2
- pxL6MHM7qikKfdLiYko41wnu47S8J6NmFkoYLF/TvEPGF2YeM7D5oC72MiahqvhUlOAS
- 9hSzDN9LKyqL1Kf0wVaUFsKlaLaNc44Lqn9bxhFmJjiNs8AIP9CVirgldyc6nb3lH5i4
- ZHgQ==
-X-Gm-Message-State: AC+VfDy5NBw7LbLJR2XtHIdLkozSVU8z/ZJyKJtpstPmqOA0/DTSmc2o
- daj3NEcHlAVYfuG2MosMeA==
-X-Google-Smtp-Source: ACHHUZ4KLxkCInEQQQCS9qmNAEIF532E5Hd6Y2pqUoJrYe3Vdsqc/jeuYEguX546tpcpPckCkDYkiA==
-X-Received: by 2002:a05:6602:424e:b0:775:5f74:f4c7 with SMTP id
- cc14-20020a056602424e00b007755f74f4c7mr42469927iob.17.1688052468076; 
- Thu, 29 Jun 2023 08:27:48 -0700 (PDT)
+ bh=I3cbrEba2zKCc7+NLRK37Om5CmAjDmmF+NMGLR2TXNw=;
+ b=JizXJAD0wLKpBo3uXfPZWDOeznfJzYQcTqqCfZCd56p+SrdRsNf4cjK68C8hoKfuMv
+ b0bV/8pu/KzYFXYcGDl+pLNHs6cBrc39VPsyM2t6V190kn/Zxlx4yhV2Xy9Z3g1OxXjO
+ GzIwire+kA6fuN+kWMQOOW7SshzVCg3Xh9WE/IwPAekyW/HCEzZjiv02nA6o//VfjmEF
+ nsewAQrfI/cy52WpZyhFfqvKIJPJXYzEeKMLgHiTOqjsz0pN+ExRJm/FX4rgG4FPu+yP
+ 7IOOp1llwgq4/+tfE/8od9ObAecEAiZtu8JZ6iYVM4BWffZR5LlS6MaduwVn/ds5g1Ff
+ CRmA==
+X-Gm-Message-State: AC+VfDwxq37kd8TNyTCXv/kuevmoGWOK1luwM75+3VzRdAh/PppOZAys
+ wSyeG0sTTnEsgdpHWgVvmQ==
+X-Google-Smtp-Source: ACHHUZ705vS8Dn9vGnSlG3J2dxDiTeOe9Cq3FIEpSpo5xeOKdlFlvpHugksZ11fmTkDJxH+5o0uW8Q==
+X-Received: by 2002:a5e:a51a:0:b0:783:62af:fbdf with SMTP id
+ 26-20020a5ea51a000000b0078362affbdfmr11390301iog.14.1688055155018; 
+ Thu, 29 Jun 2023 09:12:35 -0700 (PDT)
 Received: from robh_at_kernel.org ([64.188.179.250])
  by smtp.gmail.com with ESMTPSA id
- t10-20020a02878a000000b00428722c1c51sm3875373jai.32.2023.06.29.08.27.45
+ a21-20020a5d89d5000000b00784315b7f86sm1856336iot.24.2023.06.29.09.12.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jun 2023 08:27:47 -0700 (PDT)
-Received: (nullmailer pid 3066583 invoked by uid 1000);
- Thu, 29 Jun 2023 15:27:44 -0000
-Date: Thu, 29 Jun 2023 09:27:44 -0600
+ Thu, 29 Jun 2023 09:12:34 -0700 (PDT)
+Received: (nullmailer pid 3128049 invoked by uid 1000);
+ Thu, 29 Jun 2023 16:12:31 -0000
+Date: Thu, 29 Jun 2023 10:12:31 -0600
 From: Rob Herring <robh@kernel.org>
 To: Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <168805246390.3066499.7212254924681716912.robh@kernel.org>
+Message-ID: <168805515067.3127989.380988000500770065.robh@kernel.org>
 References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
- <20230627-sm6125-dpu-v2-3-03e430a2078c@somainline.org>
+ <20230627-sm6125-dpu-v2-6-03e430a2078c@somainline.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230627-sm6125-dpu-v2-3-03e430a2078c@somainline.org>
-Subject: Re: [Freedreno] [PATCH v2 03/15] dt-bindings: clock: qcom,
- dispcc-sm6125: Require GCC PLL0 DIV clock
+In-Reply-To: <20230627-sm6125-dpu-v2-6-03e430a2078c@somainline.org>
+Subject: Re: [Freedreno] [PATCH v2 06/15] dt-bindings: display/msm:
+ sc7180-dpu: Describe SM6125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,8 +70,8 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
- Lux Aliaga <they@mint.lgbt>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, Lux Aliaga <they@mint.lgbt>,
+ Andy Gross <agross@kernel.org>, devicetree@vger.kernel.org,
  Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
  Martin Botka <martin.botka@somainline.org>,
@@ -88,15 +88,18 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 27 Jun 2023 22:14:18 +0200, Marijn Suijten wrote:
-> The "gcc_disp_gpll0_div_clk_src" clock is consumed by the driver, will
-> be passed from DT, and should be required by the bindings.
+On Tue, 27 Jun 2023 22:14:21 +0200, Marijn Suijten wrote:
+> SM6125 is identical to SM6375 except that while downstream also defines
+> a throttle clock, its presence results in timeouts whereas SM6375
+> requires it to not observe any timeouts.  This is represented by
+> reducing the clock array length to 6 so that it cannot be passed.  Note
+> that any SoC other than SM6375 (currently SC7180 and SM6350) are
+> unconstrained and could either pass or leave out this "throttle" clock.
 > 
-> Fixes: 8397c9c0c26b ("dt-bindings: clock: add QCOM SM6125 display clock bindings")
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->  Documentation/devicetree/bindings/clock/qcom,dispcc-sm6125.yaml | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>  .../devicetree/bindings/display/msm/qcom,sc7180-dpu.yaml   | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
 
 Reviewed-by: Rob Herring <robh@kernel.org>
