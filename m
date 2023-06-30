@@ -1,84 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66471743332
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jun 2023 05:30:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDC67436EF
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jun 2023 10:22:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFB510E19A;
-	Fri, 30 Jun 2023 03:30:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCBB410E1AD;
+	Fri, 30 Jun 2023 08:22:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB9E10E12C;
- Fri, 30 Jun 2023 03:30:27 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35U3L9GC011810; Fri, 30 Jun 2023 03:30:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=qLQAL5oOwam7hlv102pgTGpwGwpwE4qIl50P6W/t+tw=;
- b=pDbDwlILUlQ8k41kGOjrNWRiEwCff6Zd3fPZ4/OyDdA1BZnxyvRuV1NgIIr1Krq0yFX5
- dr5gHIJTWZ+kXNaVH4Z7SkhBdIzVSufC4IUXTTIbtum3ZxxYJ3yzYqXhYVCwBGmI6BZt
- 6JfGiGq7942CaD+zwfLYw5dyAmBnxGTBthYwC3FTMJOXKqaefzYjQqy/eCfXjlCbJRW6
- FAWpZJYq0ohViYQsrjxYttfLpbGwxpAAUvn09yFBD3jSY/hH9YlCamd98n+TvAzrWqOL
- ywwmrGSeCNj7M0jH0gBdFO+EIDxcjf4OInWNBUx4jCPJ+d4HvHh+5Hi1G03Denev8jZ7 Ow== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rh7s2swp7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Jun 2023 03:30:21 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35U3UKl2030455
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Jun 2023 03:30:20 GMT
-Received: from [10.110.33.67] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Thu, 29 Jun
- 2023 20:30:19 -0700
-Message-ID: <525d4cc8-e3b4-5817-4673-c49b5c2be792@quicinc.com>
-Date: Thu, 29 Jun 2023 20:30:17 -0700
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 337BB10E1A4;
+ Fri, 30 Jun 2023 08:22:10 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4fb94b1423eso2419931e87.1; 
+ Fri, 30 Jun 2023 01:22:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688113326; x=1690705326;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ntQTwtwPH6k2j9EgkW281inSLM7kOUQ10aVVuHlZEc4=;
+ b=ihlKDBEheoZcYHcqOuKu31r8sFkA0nrjiIPwMW3BZcUrW4C9rwA2fzSFXQMBWhEzGr
+ rZD4DOMcqQmnYgHumako0KFVkF6uQRfbyPtCGuC5C7PL+R/TqnoVzqw2uwKkdYR7kNwj
+ p17xabIsSVFLUFyr+pmq0V5+FZsutrILjtF7OvIyVo+xdFHw7NUQXZfgrEZKId+RTGKc
+ kwD18vrla2uVl+qyGEmjdAtbKByW0bT3JXJbZV9c8nn/ApqreNIxS9bV6lPM12TXOxSK
+ iujHBgB+VH24B7tXaX7t8OVBH69OLxD+GKdupORYHv+OAKvHjifd7LBDW+GZ6hJCrZ3J
+ CnSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688113326; x=1690705326;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ntQTwtwPH6k2j9EgkW281inSLM7kOUQ10aVVuHlZEc4=;
+ b=eXiMsq+icRwrXEFfksXD89+xbV1AXhyeJMxy2fpu7ZGJk1H2tqYMTcB3j0ThyZgkFg
+ OzigR/YXepa5/iNlTHGlX6tjUWuhjPB8evDZXlhWiT89fi/ueUIrItIK4B6dS1Qvwbfu
+ lFdf41fNfmPG/9G0LvX5ROZcUd80kRN+B7NLtiACQQizPbD/20IIDJ9GrYF+m2Ip20Dp
+ Cl4VzBqC/9yFRoRYeHQcVcJFW50dOf7AWHnBPkIQJCQvR5FA1moP/407PFvxtRYJowmY
+ luAXc4rmo+0sbXAfDSdysS8rzwfFrvgKg7BJ6O32W3YPBWQR9TqbmLVP6UYLPVyRbE8M
+ nYZw==
+X-Gm-Message-State: ABy/qLbBp39lstFr4EH+DPXfdKeacTpQz8CjTLPpgKq2LHq9WPGZui0U
+ LAIn3zzdeyP+5SGdGWLjkcU=
+X-Google-Smtp-Source: APBJJlExbp8m3ZcjRwFy7mEU1e0ARNuryhyHwt3HSuGcmZLnnFH1KUQwPgPMNpf8oRCelYCSmCVGBQ==
+X-Received: by 2002:a05:6512:3491:b0:4fb:7be5:4870 with SMTP id
+ v17-20020a056512349100b004fb7be54870mr1555220lfr.46.1688113325800; 
+ Fri, 30 Jun 2023 01:22:05 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ f10-20020a19ae0a000000b004fb75142020sm1997184lfc.276.2023.06.30.01.22.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Jun 2023 01:22:05 -0700 (PDT)
+Date: Fri, 30 Jun 2023 11:21:53 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230630112153.5da36b6a@eldfell>
+In-Reply-To: <cca48c01-b84a-dff6-57ae-356971edacf3@linaro.org>
+References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
+ <20230404-solid-fill-v4-6-f4ec0caa742d@quicinc.com>
+ <cca48c01-b84a-dff6-57ae-356971edacf3@linaro.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230629193001.22618-1-quic_abhinavk@quicinc.com>
- <20230629193001.22618-2-quic_abhinavk@quicinc.com>
- <17b3b652-194c-99c2-e460-21663040c398@linaro.org>
- <283a4ae4-c0ea-13f9-fb47-e44f366c26b2@quicinc.com>
- <1962cd48-87e6-4f26-a882-c6648e595a80@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <1962cd48-87e6-4f26-a882-c6648e595a80@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 0mMVGIun-vMqCfPs8dAyYb5NxOJPrv0d
-X-Proofpoint-ORIG-GUID: 0mMVGIun-vMqCfPs8dAyYb5NxOJPrv0d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-30_01,2023-06-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- lowpriorityscore=0 malwarescore=0 mlxlogscore=999 impostorscore=0
- mlxscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306300028
-Subject: Re: [Freedreno] [PATCH v3 2/3] drm/msm/dpu: use dpu core's major
- version to enable data compress
+Content-Type: multipart/signed; boundary="Sig_/07tMRP1ecaqD8UF0TI6/QGP";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [PATCH RFC v4 6/7] drm/msm/dpu: Allow NULL FBs in
+ atomic commit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,228 +74,200 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_jesszhan@quicinc.com, andersson@kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ sebastian.wick@redhat.com, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, laurent.pinchart@ideasonboard.com,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, contact@emersion.fr,
+ David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+--Sig_/07tMRP1ecaqD8UF0TI6/QGP
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 30 Jun 2023 03:52:37 +0300
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+
+> On 30/06/2023 03:25, Jessica Zhang wrote:
+> > Since solid fill planes allow for a NULL framebuffer in a valid commit,
+> > add NULL framebuffer checks to atomic commit calls within DPU.
+> >=20
+> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 ++++++-
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 45 +++++++++++++++++++---=
+---------
+> >   2 files changed, 36 insertions(+), 18 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm=
+/msm/disp/dpu1/dpu_crtc.c
+> > index 1edf2b6b0a26..d1b37d2cc202 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > @@ -451,6 +451,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_=
+crtc *crtc,
+> >   	struct drm_plane_state *state;
+> >   	struct dpu_crtc_state *cstate =3D to_dpu_crtc_state(crtc->state);
+> >   	struct dpu_plane_state *pstate =3D NULL;
+> > +	const struct msm_format *fmt;
+> >   	struct dpu_format *format;
+> >   	struct dpu_hw_ctl *ctl =3D mixer->lm_ctl;
+> >  =20
+> > @@ -470,7 +471,13 @@ static void _dpu_crtc_blend_setup_mixer(struct drm=
+_crtc *crtc,
+> >   		pstate =3D to_dpu_plane_state(state);
+> >   		fb =3D state->fb;
+> >  =20
+> > -		format =3D to_dpu_format(msm_framebuffer_format(pstate->base.fb));
+> > +		if (state->pixel_source =3D=3D DRM_PLANE_PIXEL_SOURCE_FB && fb)
+> > +			fmt =3D msm_framebuffer_format(pstate->base.fb);
+> > +		else
+> > +			fmt =3D dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
+> > +					DRM_FORMAT_RGBA8888, 0); =20
+>=20
+> The DRM_FORMAT_RGBA8888 should be defined somewhere in patch 1 as format=
+=20
+> for the solid_fill, then that define can be used in this patch.
+
+Isn't this just a driver-specific decision to convert a RGB323232
+solid_fill to be presented as a RGBA8888?
+
+Though, below there is ABGR8888 used for something... inconsistent?
 
 
-On 6/29/2023 8:22 PM, Dmitry Baryshkov wrote:
-> On 30/06/2023 06:07, Abhinav Kumar wrote:
->>
->>
->> On 6/29/2023 5:20 PM, Dmitry Baryshkov wrote:
->>> On 29/06/2023 22:29, Abhinav Kumar wrote:
->>>> Instead of using a feature bit to decide whether to enable data
->>>> compress or not for DSC use-cases, use dpu core's major version 
->>>> instead.
->>>> This will avoid defining feature bits for every bit level details of
->>>> registers.
->>>>
->>>> Also, rename the intf's enable_compression() op to program_datapath()
->>>> and allow it to accept a struct intf_dpu_datapath_cfg to program
->>>> all the bits at once. This can be re-used by widebus later on as
->>>> well as it touches the same register.
->>>
->>> Two separate commits please, because...
->>>
->>
->> I thought of it but it seemed better together and was the only way I 
->> could think of. Please see below.
->>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> ---
->>>>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  9 +++++++--
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c      |  9 +++++----
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h      | 16 
->>>> ++++++++++++++--
->>>>   3 files changed, 26 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->>>> index b856c6286c85..f4e15b4c4cc9 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->>>> @@ -50,6 +50,7 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
->>>>               to_dpu_encoder_phys_cmd(phys_enc);
->>>>       struct dpu_hw_ctl *ctl;
->>>>       struct dpu_hw_intf_cfg intf_cfg = { 0 };
->>>> +    struct dpu_kms *dpu_kms = phys_enc->dpu_kms;
->>>>       ctl = phys_enc->hw_ctl;
->>>>       if (!ctl->ops.setup_intf_cfg)
->>>> @@ -68,8 +69,12 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
->>>>                   phys_enc->hw_intf,
->>>>                   phys_enc->hw_pp->idx);
->>>> -    if (intf_cfg.dsc != 0 && 
->>>> phys_enc->hw_intf->ops.enable_compression)
->>>> -        phys_enc->hw_intf->ops.enable_compression(phys_enc->hw_intf);
->>>> +    if (intf_cfg.dsc != 0 && dpu_kms->catalog->core_major_version 
->>>> >= 0x7) {
->>>
->>> ... because this becomes incorrect. The datapath should be programmed 
->>> in all the cases, if there is a corresponding callback. intf_cfg.dsc 
->>> should be used as a condition to set datapath_cfg.
->>>
->>
->> The issue is that today we do not have dpu_mdss_cfg as part of 
->> dpu_hw_intf nor _setup_intf_ops because all of those have been dropped 
->> with some rework or cleanup.
-> 
-> Pass dpu_mdss_cfg to dpu_hw_intf_init(). It was removed as a cleanup, 
-> now we can reintroduce it.
-> 
+Thanks,
+pq
 
-Thanks, that will address all these concerns.
-
-I wanted to get agreement before re-introducing it and also make sure 
-there was no other way.
-
-
->>
->> Ideally even I would like to assign this op only for core_rev >=7 but 
->> that information is no longer available. We would have to start 
->> passing the major and minor versions to _setup_intf_ops() to go with 
->> that approach. So without making all of those changes, the only way I 
->> had was to assign the op unconditionally but call it only for 
->> major_rev >= 7.
->>
->> Passing core_rev to the op itself so that we can write the register 
->> only for core_rev >=7 is an option but then what if some bits start 
->> becoming usable only after minor rev. then we will have to start 
->> passing major and minor rev to program_datapath too. Again getting 
->> little messy.
->>
->> I am open to ideas to achieve the goal of assigning this op only for 
->> core_rev >=7 other than what I wrote above.
->>
->>>
->>>> +        struct intf_dpu_datapath_cfg datapath_cfg = { 0 };
->>>
->>> No need for `0' in the init, empty braces would be enough.
->>>
->>
->> ack.
->>
->>>> +
->>>> +        datapath_cfg.data_compress = true;
->>>> +        phys_enc->hw_intf->ops.program_datapath(phys_enc->hw_intf, 
->>>> &datapath_cfg);
->>>> +    }
->>>>   }
->>>>   static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int 
->>>> irq_idx)
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>> index 5b0f6627e29b..85333df08fbc 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>> @@ -513,11 +513,13 @@ static void 
->>>> dpu_hw_intf_disable_autorefresh(struct dpu_hw_intf *intf,
->>>>   }
->>>> -static void dpu_hw_intf_enable_compression(struct dpu_hw_intf *ctx)
->>>> +static void dpu_hw_intf_program_datapath(struct dpu_hw_intf *ctx,
->>>> +                     struct intf_dpu_datapath_cfg *datapath_cfg)
->>>>   {
->>>>       u32 intf_cfg2 = DPU_REG_READ(&ctx->hw, INTF_CONFIG2);
->>>> -    intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
->>>> +    if (datapath_cfg->data_compress)
->>>> +        intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
->>>>       DPU_REG_WRITE(&ctx->hw, INTF_CONFIG2, intf_cfg2);
->>>>   }
->>>> @@ -543,8 +545,7 @@ static void _setup_intf_ops(struct 
->>>> dpu_hw_intf_ops *ops,
->>>>           ops->disable_autorefresh = dpu_hw_intf_disable_autorefresh;
->>>>       }
->>>> -    if (cap & BIT(DPU_INTF_DATA_COMPRESS))
->>>> -        ops->enable_compression = dpu_hw_intf_enable_compression;
->>>> +    ops->program_datapath = dpu_hw_intf_program_datapath;
->>>
->>> The `core_major_version >= 7' should either be here or in the 
->>> callback itself.
->>>
->>
->> Yes, ideally I would like it like that but please see above why I 
->> couldnt do it.
->>
->>>>   }
->>>>   struct dpu_hw_intf *dpu_hw_intf_init(const struct dpu_intf_cfg *cfg,
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
->>>> index 99e21c4137f9..f736dca38463 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
->>>> @@ -48,6 +48,11 @@ struct intf_status {
->>>>       u32 line_count;        /* current line count including 
->>>> blanking */
->>>>   };
->>>> +struct intf_dpu_datapath_cfg {
->>>> +    u8 data_compress;    /* enable data compress between dpu and 
->>>> dsi */
->>>> +    /* can be expanded for other programmable bits */
->>>> +};
->>>
->>> I'd say, dpu_datapath is too generic. What about  intf_cmd_mode_cfg?
->>>
->>
->> The goal was to keep it generic. Its actually the handshake between 
->> DPU and interface datapath so I chose that name.
-> 
-> Do you have plans of using it for the video mode?
-> 
-
-No because we didnt want to touch the video mode path as that was 
-discussed in the widebus series already.
-
-Ok, I am fine with intf_cmd_mode_cfg in that case.
+>=20
+> > +
+> > +		format =3D to_dpu_format(fmt);
+> >  =20
+> >   		if (pstate->stage =3D=3D DPU_STAGE_BASE && format->alpha_enable)
+> >   			bg_alpha_enable =3D true;
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_plane.c
+> > index 5f0984ce62b1..4476722f03bb 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -837,8 +837,10 @@ static int dpu_plane_atomic_check(struct drm_plane=
+ *plane,
+> >  =20
+> >   	pipe_cfg->dst_rect =3D new_plane_state->dst;
+> >  =20
+> > -	fb_rect.x2 =3D new_plane_state->fb->width;
+> > -	fb_rect.y2 =3D new_plane_state->fb->height;
+> > +	if (new_plane_state->pixel_source =3D=3D DRM_PLANE_PIXEL_SOURCE_FB &&=
+ new_plane_state->fb) {
+> > +		fb_rect.x2 =3D new_plane_state->fb->width;
+> > +		fb_rect.y2 =3D new_plane_state->fb->height;
+> > +	}
+> >  =20
+> >   	/* Ensure fb size is supported */
+> >   	if (drm_rect_width(&fb_rect) > MAX_IMG_WIDTH ||
+> > @@ -848,10 +850,13 @@ static int dpu_plane_atomic_check(struct drm_plan=
+e *plane,
+> >   		return -E2BIG;
+> >   	}
+> >  =20
+> > -	fmt =3D to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+> > -
+> >   	max_linewidth =3D pdpu->catalog->caps->max_linewidth;
+> >  =20
+> > +	if (drm_plane_solid_fill_enabled(new_plane_state))
+> > +		fmt =3D dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
+> > +	else
+> > +		fmt =3D to_dpu_format(msm_framebuffer_format(new_plane_state->fb));
+> > +
+> >   	if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
+> >   		/*
+> >   		 * In parallel multirect case only the half of the usual width
+> > @@ -1082,21 +1087,32 @@ static void dpu_plane_sspp_atomic_update(struct=
+ drm_plane *plane)
+> >   	struct drm_crtc *crtc =3D state->crtc;
+> >   	struct drm_framebuffer *fb =3D state->fb;
+> >   	bool is_rt_pipe;
+> > -	const struct dpu_format *fmt =3D
+> > -		to_dpu_format(msm_framebuffer_format(fb));
+> > +	const struct dpu_format *fmt;
+> >   	struct dpu_sw_pipe_cfg *pipe_cfg =3D &pstate->pipe_cfg;
+> >   	struct dpu_sw_pipe_cfg *r_pipe_cfg =3D &pstate->r_pipe_cfg;
+> >   	struct dpu_kms *kms =3D _dpu_plane_get_kms(&pdpu->base);
+> >   	struct msm_gem_address_space *aspace =3D kms->base.aspace;
+> >   	struct dpu_hw_fmt_layout layout;
+> >   	bool layout_valid =3D false;
+> > -	int ret;
+> >  =20
+> > -	ret =3D dpu_format_populate_layout(aspace, fb, &layout);
+> > -	if (ret)
+> > -		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
+> > -	else
+> > -		layout_valid =3D true;
+> > +	if (state->pixel_source =3D=3D DRM_PLANE_PIXEL_SOURCE_FB && fb) {
+> > +		int ret;
+> > +
+> > +		fmt =3D to_dpu_format(msm_framebuffer_format(fb));
+> > +
+> > +		ret =3D dpu_format_populate_layout(aspace, fb, &layout);
+> > +		if (ret)
+> > +			DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
+> > +		else
+> > +			layout_valid =3D true;
+> > +
+> > +		DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT=
+_FMT
+> > +				", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
+> > +				crtc->base.id, DRM_RECT_ARG(&state->dst),
+> > +				(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
+> > +	} else {
+> > +		fmt =3D dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
+> > +	}
+> >  =20
+> >   	pstate->pending =3D true;
+> >  =20
+> > @@ -1104,11 +1120,6 @@ static void dpu_plane_sspp_atomic_update(struct =
+drm_plane *plane)
+> >   	pstate->needs_qos_remap |=3D (is_rt_pipe !=3D pdpu->is_rt_pipe);
+> >   	pdpu->is_rt_pipe =3D is_rt_pipe;
+> >  =20
+> > -	DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " DRM_RECT_=
+FMT
+> > -			", %4.4s ubwc %d\n", fb->base.id, DRM_RECT_FP_ARG(&state->src),
+> > -			crtc->base.id, DRM_RECT_ARG(&state->dst),
+> > -			(char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
+> > -
+> >   	dpu_plane_sspp_update_pipe(plane, pipe, pipe_cfg, fmt,
+> >   				   drm_mode_vrefresh(&crtc->mode),
+> >   				   layout_valid ? &layout : NULL);
+> >  =20
+>=20
 
 
->>
->> This is not specific to command mode and intf_cfg is already there so 
->> I chose that one :)
->>
->>>> +
->>>>   /**
->>>>    * struct dpu_hw_intf_ops : Interface to the interface Hw driver 
->>>> functions
->>>>    *  Assumption is these functions will be called after clocks are 
->>>> enabled
->>>> @@ -70,7 +75,7 @@ struct intf_status {
->>>>    * @get_autorefresh:            Retrieve autorefresh config from 
->>>> hardware
->>>>    *                              Return: 0 on success, -ETIMEDOUT 
->>>> on timeout
->>>>    * @vsync_sel:                  Select vsync signal for 
->>>> tear-effect configuration
->>>> - * @enable_compression:         Enable data compression
->>>> + * @program_datapath:           Program the DPU to interface 
->>>> datapath for relevant chipsets
->>>>    */
->>>>   struct dpu_hw_intf_ops {
->>>>       void (*setup_timing_gen)(struct dpu_hw_intf *intf,
->>>> @@ -108,7 +113,14 @@ struct dpu_hw_intf_ops {
->>>>        */
->>>>       void (*disable_autorefresh)(struct dpu_hw_intf *intf, uint32_t 
->>>> encoder_id, u16 vdisplay);
->>>> -    void (*enable_compression)(struct dpu_hw_intf *intf);
->>>> +    /**
->>>> +     * Program the DPU to intf datapath by specifying
->>>> +     * which of the settings need to be programmed for
->>>> +     * use-cases which need DPU-intf handshake such as
->>>> +     * widebus, compression etc.
->>>
->>> This is not a valid kerneldoc.
->>>
->>
->> hmmm ... ok so just // ?
->>
->> I referred disable_autorefresh from above and did the same.
->>
->>>> +     */
->>>> +    void (*program_datapath)(struct dpu_hw_intf *intf,
->>>> +                 struct intf_dpu_datapath_cfg *datapath_cfg);
->>>>   };
->>>>   struct dpu_hw_intf {
->>>
-> 
+--Sig_/07tMRP1ecaqD8UF0TI6/QGP
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSekKEACgkQI1/ltBGq
+qqf6Tg//TpfJjrOyp7UIcbIe96gAJnBOQNqjDffE+dXnO9mNHkUfumCAeoL8v0JM
+5JFEABQABEG5k1DVHzZSRcnIVdPMu2WJl0n7RNUM1GH7ANXTxjPW0aReaWFQxyf8
+Pts5v2weaXjUBUGSsiHg+EMRRO951V6W0sOwwAB0Wz+ux6v5i0qWBbDXXE7jquOn
+eNUv1LlNBtqDgpMCxrZFxbR3qJZ0z4HpSrZgzEqJO/XpEN+n/2UlIW2GkocfIzfB
+nxS6jZuhJ40tQJtY4Mo7kZ2U3KD/KpZKbEO10FFYlVMOEhLMuH52k3pLq8dUJ8J2
+Lcc9KaKWIXj00YQUWjHl2ADcsZGR1PU+ZEJrezmx2iu5m0CqiU3wIBJoeIBWmETf
+A2los5HQQH4B3BQnK4s3UcpGbX943Ef9v3QvK5jbymk+cjcWjc44fPFXDgLakqQd
+arX8Prf9u9LWoMaXTLxfwaSt0u2yaJAs6L+cH9BJLDoC0Gq1bWLrPfPxMVn8J8VB
+WuVe2u8JRekuQoPOlgXOGHocz2Wna7j3y7LASbms3UB74rhqfuWz9OdlXmx3I8pU
+ZICFtqqi8OufMkS4qqaQxd0logF2KF/tLlCeuTx52yAdt6o2HTeoVcgx4EPA71OL
+jAuXVgQ7HGsb3ruQZKOs2e0mYfc/VrfDao9ov5ebdMnqeOBdpQU=
+=PGcE
+-----END PGP SIGNATURE-----
+
+--Sig_/07tMRP1ecaqD8UF0TI6/QGP--
