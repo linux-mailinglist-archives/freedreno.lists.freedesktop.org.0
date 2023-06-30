@@ -1,50 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 631DA744001
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jun 2023 18:42:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 885117441A4
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jun 2023 19:55:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A954110E4C5;
-	Fri, 30 Jun 2023 16:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 350AC10E4DC;
+	Fri, 30 Jun 2023 17:55:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A7E10E4C2;
- Fri, 30 Jun 2023 16:42:46 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E26566179E;
- Fri, 30 Jun 2023 16:42:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323A6C433C0;
- Fri, 30 Jun 2023 16:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1688143365;
- bh=AsDLQehiD2Ddz03Ikj9Gqrg+mzel9zl96sFughFSDQ0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T2adtZrDtTG0SQamq18KanY3XaVB6ccsBpmcw0/1XhiyAZkC/QKnn8GJXUoXe1j78
- DnhgYMH14iYbhdJI5PIY38dc3rbXLTv5wKTguP93rqa+oQSfyv+qN+Zgdg3PXngRlG
- 7yLTV3321PSbtLnmRWSazgMNwmMpi2sxIALgkABK4Z+9pKpsRdBrDQrU563JbEBusk
- 59xpwG4OReK9EwJDjaUCLUFi6NrwRsk9hDh7pIJioytFn7T9W+EDIR4pjNtY1ug6dK
- UJOnzoPKIR5lbi8vcbr2rdAw67elfRtLh8tYVsa1zvvj/rrICy+zC5+9hLYBfu0UdU
- wU3KU8xA0XfFQ==
-Date: Fri, 30 Jun 2023 17:42:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <edce1d82-21fa-4a24-bf21-f8d36321a409@sirena.org.uk>
-References: <20230628-topic-refgen-v2-0-6136487c78c5@linaro.org>
- <20230628-topic-refgen-v2-2-6136487c78c5@linaro.org>
- <8ddbd947-6cb6-8c86-eb48-8b6ae9b4be2b@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 636A410E4D9;
+ Fri, 30 Jun 2023 17:55:13 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35UCsMPZ027478; Fri, 30 Jun 2023 17:54:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=bGI605Yt1acHOhpiHV9hMd/eNOoz9Ob1L6r5EwqcJd0=;
+ b=ktMOgEzJKI41XwcxXnfnPymO4Bj+cr/9e24D20egnAru9iPgTzKjF7M56zjE6qv4IiRt
+ Bil078oBvU1bWAN3agzYVdNKR/oYA2QH8G35Ayy1W47FhM3yVLeAkeCEnrK4tltY39xW
+ QO/X/otHrgbNHbc85mbdx96WUo/SFMhNMuw3zaAewmlT1KqHXz3ZClnt7jDhBUJF3qlu
+ O4hRfwg/VR+zG67EwFT6d5O4I/LECY3u09f3PpjgSBYnW9Zy3StpX3wUUKGw2bvJKNKg
+ G5+u29jXAc75zSY4O6FWxc8yMnyUyoqUZ2Rf/5q7pIPudx7ZC3NJUBZpTdZ/zhRSDzMn mA== 
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rhwutrwhd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Jun 2023 17:54:53 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35UHsr4E014727
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Jun 2023 17:54:53 GMT
+Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 30 Jun
+ 2023 10:54:52 -0700
+Message-ID: <d9fa6c9c-d592-658d-404f-47067c70c1e5@quicinc.com>
+Date: Fri, 30 Jun 2023 10:54:52 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8lqkCU9h8Shc3YwO"
-Content-Disposition: inline
-In-Reply-To: <8ddbd947-6cb6-8c86-eb48-8b6ae9b4be2b@linaro.org>
-X-Cookie: Old mail has arrived.
-Subject: Re: [Freedreno] [PATCH v2 2/4] regulator: Introduce Qualcomm REFGEN
- regulator driver
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
+ <20230404-solid-fill-v4-1-f4ec0caa742d@quicinc.com>
+ <972b7cc7-77de-e332-ba41-b96c01dc7939@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <972b7cc7-77de-e332-ba41-b96c01dc7939@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: NXrrFklbUG3ASfSlULzowNIhZFqjz-QV
+X-Proofpoint-GUID: NXrrFklbUG3ASfSlULzowNIhZFqjz-QV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-30_10,2023-06-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0
+ priorityscore=1501 mlxscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 mlxlogscore=901 lowpriorityscore=0
+ impostorscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2305260000 definitions=main-2306300155
+Subject: Re: [Freedreno] [PATCH RFC v4 1/7] drm: Introduce solid fill DRM
+ plane property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,54 +90,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konradybcio@kernel.org>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: sebastian.wick@redhat.com, contact@emersion.fr, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ppaalanen@gmail.com, laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---8lqkCU9h8Shc3YwO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 29, 2023 at 10:44:34PM +0200, Konrad Dybcio wrote:
-> On 29.06.2023 22:35, Konrad Dybcio wrote:
-> > Modern Qualcomm SoCs have a REFGEN (reference voltage generator)
-> > regulator, providing reference voltage to on-chip IP, like PHYs.
-> >=20
-> > Add a driver to support toggling that regulator.
-> >=20
-> > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> > ---
-> Ugh. Missed the 'const' here and below. LMK if that warrants a resend
-> (or.. perhaps you just have other comments)
+On 6/30/2023 3:33 AM, Dmitry Baryshkov wrote:
+> On 30/06/2023 03:25, Jessica Zhang wrote:
+>> Document and add support for solid_fill property to drm_plane. In
+>> addition, add support for setting and getting the values for solid_fill.
+>>
+>> To enable solid fill planes, userspace must assign a property blob to
+>> the "solid_fill" plane property containing the following information:
+>>
+>> struct drm_solid_fill_info {
+>>     u8 version;
+>>     u32 r, g, b;
+>> };
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_state_helper.c |  9 +++++
+>>   drivers/gpu/drm/drm_atomic_uapi.c         | 55 
+>> +++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/drm_blend.c               | 33 +++++++++++++++++++
+>>   include/drm/drm_blend.h                   |  1 +
+>>   include/drm/drm_plane.h                   | 43 ++++++++++++++++++++++++
+>>   5 files changed, 141 insertions(+)
+> 
+> Also, I think the point which we missed up to now. Could you please add 
+> both new properties to dri/N/state debugfs?
 
-Please, there was a build error anyway.
+Hi Dmitry,
 
---8lqkCU9h8Shc3YwO
-Content-Type: application/pgp-signature; name="signature.asc"
+Good catch -- acked.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSfBf0ACgkQJNaLcl1U
-h9DtzQf/YZpKHlgLTdOMFkC3HZ2f3TPMgOKk1lmiFlPQ5fUWfvRGxR+3UFPRhxH3
-obR+n3Ji9r4vNwlUe04KpzhA65zz7YbpLkSLmU2IBagoSyrRktUWz980Km1D0jYP
-aq50iK3sDzpbsp3/EvXTMx36o7PvCw6LksKTeBrQ4Gdt/N8WNnCry+UMEIBaoXLf
-cf5RMuXmMVkJhptiSt4KYtBNq6DsxEJ2FCipz5RnLCg/eqs/9YN+CnKWKGV66QXE
-Q2tsb4NTsIdgkguQSCogUysRtNz6OJIwp1PyYXUud924LDjAIqQ18PdV1vW+ydtV
-3+8KotwTm//MVThoCXKxIHrOc2EH7g==
-=cpsx
------END PGP SIGNATURE-----
+Jessica Zhang
 
---8lqkCU9h8Shc3YwO--
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
