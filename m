@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C55744397
-	for <lists+freedreno@lfdr.de>; Fri, 30 Jun 2023 22:55:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02AB07443A6
+	for <lists+freedreno@lfdr.de>; Fri, 30 Jun 2023 22:56:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C1FC10E4F8;
-	Fri, 30 Jun 2023 20:55:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E336E10E511;
+	Fri, 30 Jun 2023 20:55:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED6410E4F8
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C019A10E4F4
  for <freedreno@lists.freedesktop.org>; Fri, 30 Jun 2023 20:55:32 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2b699284ff4so37990761fa.2
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4fb863edcb6so3914188e87.0
  for <freedreno@lists.freedesktop.org>; Fri, 30 Jun 2023 13:55:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688158530; x=1690750530;
+ d=linaro.org; s=google; t=1688158531; x=1690750531;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fNVmU8HfJzAhSkmsEVuTAg9GbpLxTciOPnh3vvstVXw=;
- b=f//wGEaqZBaUvbk42MTt5ilcOlle2/2QUHaUEk1m/L98MhZWXbU6u/88C7T1pVLtSj
- 6v852L+asxRXX7zt4JWLao6PzRzhe/FNqWduuUWnj2glpHZYJ9qGZL8BQbXwx3tw5ZqS
- XeMfJlkG431lDFMW+VvZQhIa+kIJVFZgpzwuxj8fwpk8mMc9OxoBqGXF73eYHkfjpiwZ
- 0gVHS1VQnT2cGBvQ/2EnNaeMSxKp8cFGW5DjJs5tP949UGKYrAi2zfGhjBXimjzdUw2R
- gZhN7CjudmzgvzmQaCYqDTsJVXNrnJevhW1DHC7t6ah3uEACxtG6ExYpWw+RVVEX48NJ
- YZqA==
+ bh=r18mIVnmzqRHDPtVLwyQfg7CU86v3tvlxJpotfkE8/Y=;
+ b=LUyeVfhqY4vehUN7iaSFHM+uoOBODXHG8w7l6Lw7PspLCfPKldR4KAwZ1W9FkwPAuz
+ kI/Q+1MxAeU1vP5nHpmXjAfiU9JM2e+/iBsUqH0s5rZGQ5euKH3Yt1cji348QgFhMHIq
+ qVrBcQRqzKPK4Aox2BpKJuQiYPSASSiuISu/JXDfBywg65cxJov1vuKP53Moc0HZHebx
+ aR4n0XANAHbQWlhFuZM9jYtEGHCdwcxW1Q5gIVMVXI5MdqMXJiucCr0kBkpepibS8Ziy
+ JORNtbZtmqE2GoUPVrNwAsrmOQWtVoq4RQYaDs34Y9QzFTZEHdg7FMZzquDPDa+YAvLu
+ lluQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688158530; x=1690750530;
+ d=1e100.net; s=20221208; t=1688158531; x=1690750531;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fNVmU8HfJzAhSkmsEVuTAg9GbpLxTciOPnh3vvstVXw=;
- b=MmusSAs3NZg8ar2WWrFenYbMUPGDT0iCNz7QP8r6OArVdX+/6LM92/eKumyId2HQgO
- MO2Nkq3U3C1YLp4tpP1DXVYg0cbPmLWXTWgd7dCfNlQ3+DgB1EL0R5O2AQI7IcaRl6aI
- 2uZ2CubwLN95GetxVbRHMh4OVdlS2cPprcH0JRQn9iZcng9WjSu0a/Ga7uSpMD5PKH0C
- W+PN8Ah7nwk3uuzD6A82Ck8iQJ8AwFowK4F31ieAq1SY6apCiwUv8eUs+4uZnZf5uSUM
- JwqahYA7XS4LbcTqalTA8IxqCE6RVQbsBG1rvkw9FmU2DDzt/KCKSg3A5mN19BbJMuUi
- XtYg==
-X-Gm-Message-State: ABy/qLZc1MMJMo02DTDPca/alvjtvlKdtthb+vUFlfpgTPOnBPz+vfWD
- aieTM+cBf0NjQGU162CeUYbjYA==
-X-Google-Smtp-Source: APBJJlExHsyRDH6kMi2+38aJrM34jptdomKRUlQ6QzHz46r0gnHStPNiGOd6yd259I1hO4NsQCtOvQ==
-X-Received: by 2002:a05:6512:31d6:b0:4f8:46e9:9f19 with SMTP id
- j22-20020a05651231d600b004f846e99f19mr3757977lfe.1.1688158530458; 
- Fri, 30 Jun 2023 13:55:30 -0700 (PDT)
+ bh=r18mIVnmzqRHDPtVLwyQfg7CU86v3tvlxJpotfkE8/Y=;
+ b=bTNBLP9w3w9len/QCbpELXGir0j81r1Puiq/fAFcdoedRG/O6OJR3cDN6//neuzKDi
+ ylkLt6QwAsDjKP2PzSHBKohaC8F40Shl/fI3MkQde+UgvLgh8/hryqvTjCBNu5P1QbNQ
+ d7CAGOyyu/kv8l4aAUqGftTWPFiVCpqQ7QsurH4S2759rq6yrkJiV3XpmaLt3dELB4WF
+ kySYb7JW9M8gTElVH6INo92QQXvkJIow2YSrE1l6t36uIAYRJDUL8wxv53d+YaAMq06W
+ yv1pe35lg3fRZxOXlvi7M3F/TkxZC4GRadv4vy8MK9uiXcKp2v6rMbeSY9cixicjq1i1
+ yrBg==
+X-Gm-Message-State: ABy/qLbyjG1znZ9Db4UmEs1Uy5XZPvIO8oD6D/AX6zbjGNIVnkBgFqPh
+ DngLb0exfNMFPnb4owA1udkdyg==
+X-Google-Smtp-Source: APBJJlE7JZKxqCJN4wJq27EJv5YNxShDUyy9x1y4SLSryjFibDNtFji/MeeW5RVzba70K+QXzWeFZw==
+X-Received: by 2002:a05:6512:3c81:b0:4f5:1418:e230 with SMTP id
+ h1-20020a0565123c8100b004f51418e230mr1018104lfv.52.1688158531172; 
+ Fri, 30 Jun 2023 13:55:31 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- z11-20020ac25deb000000b004fb75943aa0sm2252168lfq.196.2023.06.30.13.55.29
+ z11-20020ac25deb000000b004fb75943aa0sm2252168lfq.196.2023.06.30.13.55.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Jun 2023 13:55:29 -0700 (PDT)
+ Fri, 30 Jun 2023 13:55:30 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri, 30 Jun 2023 23:55:16 +0300
-Message-Id: <20230630205523.76823-9-dmitry.baryshkov@linaro.org>
+Date: Fri, 30 Jun 2023 23:55:17 +0300
+Message-Id: <20230630205523.76823-10-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230630205523.76823-1-dmitry.baryshkov@linaro.org>
 References: <20230630205523.76823-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 08/15] drm/msm/hdmi: switch to
- pm_runtime_resume_and_get()
+Subject: [Freedreno] [PATCH 09/15] drm/msm/hdmi: add runtime PM calls to DDC
+ transfer function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,77 +83,59 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The pm_runtime_get_sync() function is a bad choise for runtime power
-management. Switch HDMI driver to pm_runtime_resume_and_get() and add
-proper error handling, while we are at it.
+We must be sure that the HDMI controller is powered on, while performing
+the DDC transfer. Add corresponding runtime PM calls to
+msm_hdmi_i2c_xfer().
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c |  2 +-
- drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    | 12 ++++++++++--
- drivers/gpu/drm/msm/hdmi/hdmi_phy.c    |  6 +++++-
- 3 files changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_i2c.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index bb10b35194ff..4aa11eabbf2a 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -27,7 +27,7 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 	const struct hdmi_platform_config *config = hdmi->config;
- 	int ret;
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
+index de182c004843..9c78c6c528be 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
+@@ -107,11 +107,15 @@ static int msm_hdmi_i2c_xfer(struct i2c_adapter *i2c,
+ 	if (num == 0)
+ 		return num;
  
--	pm_runtime_get_sync(&hdmi->pdev->dev);
-+	pm_runtime_resume_and_get(&hdmi->pdev->dev);
- 
- 	ret = regulator_bulk_enable(config->pwr_reg_cnt, hdmi->pwr_regs);
- 	if (ret)
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-index 3d3d72ff6a83..7de538046a52 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-@@ -85,7 +85,12 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
- 	if (hdmi->hpd_gpiod)
- 		gpiod_set_value_cansleep(hdmi->hpd_gpiod, 1);
- 
--	pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret) {
-+		DRM_DEV_ERROR(dev, "runtime resume failed: %d\n", ret);
-+		goto fail;
-+	}
-+
- 	ret = clk_bulk_prepare_enable(config->hpd_clk_cnt, hdmi->hpd_clks);
- 	if (ret)
- 		goto fail;
-@@ -179,7 +184,10 @@ static enum drm_connector_status detect_reg(struct hdmi *hdmi)
- 	uint32_t hpd_int_status = 0;
- 	int ret;
- 
--	pm_runtime_get_sync(&hdmi->pdev->dev);
 +	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
 +	if (ret)
-+		goto out;
-+
- 	ret = clk_bulk_prepare_enable(config->hpd_clk_cnt, hdmi->hpd_clks);
- 	if (ret)
- 		goto out;
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-index 9780107e1cc9..d1f6b53c3109 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-@@ -57,7 +57,11 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
- 	struct device *dev = &phy->pdev->dev;
- 	int i, ret = 0;
- 
--	pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret) {
-+		DRM_DEV_ERROR(dev, "runtime resume failed: %d\n", ret);
 +		return ret;
-+	}
++
+ 	init_ddc(hdmi_i2c);
  
- 	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
- 	if (ret) {
+ 	ret = ddc_clear_irq(hdmi_i2c);
+ 	if (ret)
+-		return ret;
++		goto fail;
+ 
+ 	for (i = 0; i < num; i++) {
+ 		struct i2c_msg *p = &msgs[i];
+@@ -169,7 +173,7 @@ static int msm_hdmi_i2c_xfer(struct i2c_adapter *i2c,
+ 				hdmi_read(hdmi, REG_HDMI_DDC_SW_STATUS),
+ 				hdmi_read(hdmi, REG_HDMI_DDC_HW_STATUS),
+ 				hdmi_read(hdmi, REG_HDMI_DDC_INT_CTRL));
+-		return ret;
++		goto fail;
+ 	}
+ 
+ 	ddc_status = hdmi_read(hdmi, REG_HDMI_DDC_SW_STATUS);
+@@ -202,7 +206,13 @@ static int msm_hdmi_i2c_xfer(struct i2c_adapter *i2c,
+ 		}
+ 	}
+ 
++	pm_runtime_put(&hdmi->pdev->dev);
++
+ 	return i;
++
++fail:
++	pm_runtime_put(&hdmi->pdev->dev);
++	return ret;
+ }
+ 
+ static u32 msm_hdmi_i2c_func(struct i2c_adapter *adapter)
 -- 
 2.39.2
 
