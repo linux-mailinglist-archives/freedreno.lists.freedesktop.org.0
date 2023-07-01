@@ -2,82 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D314B7445D7
-	for <lists+freedreno@lfdr.de>; Sat,  1 Jul 2023 03:26:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15215744A5B
+	for <lists+freedreno@lfdr.de>; Sat,  1 Jul 2023 17:50:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE0B10E511;
-	Sat,  1 Jul 2023 01:26:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E458910E0D6;
+	Sat,  1 Jul 2023 15:50:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81B910E510;
- Sat,  1 Jul 2023 01:26:35 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3611GMMM022340; Sat, 1 Jul 2023 01:26:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=c8MoAoczUZ26WVq/Ok65mivZoU6UEi5l4mI5lWL/c9c=;
- b=TkCL+vjk67AFvnDVagB242aMkp6rC3DtHSYA9juIZhuKoP/ZOJ+vHoaF3yiFle22xaJE
- 5YIdQIfXc/+vyNblVZ50YOHab8Z2oIFMYgmvhOkdl62HAnllaAWdHuvc6NtR0dUohTMh
- chbov+Xmag3xBmbsnW/99VujUifbB2xPaep0/S2n6u2yaL8uyhaOrTHnw3B4dvm9jxVH
- Jcvwwwii9waalyFSxOku7Y5E+QB+QnzP0Xu14EB1Bp0XKpkKNYLgFOjsodkTJi6xTVXM
- XXE/0iF2m+ZvdqQGcGvJtU4xnJGTeNEVNdgV1NMG92b25S7MyfA8G67kvaD2Vs9BzWZW RA== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rj6y30d2q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 01 Jul 2023 01:26:16 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3611QGmA016207
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 1 Jul 2023 01:26:16 GMT
-Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 30 Jun
- 2023 18:26:15 -0700
-Message-ID: <f77c33eb-2696-2aa4-9f70-f783a04cf1cc@quicinc.com>
-Date: Fri, 30 Jun 2023 18:26:15 -0700
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8620710E0D0;
+ Sat,  1 Jul 2023 15:50:05 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-55e1a9ff9d4so1800686eaf.1; 
+ Sat, 01 Jul 2023 08:50:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688226604; x=1690818604;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AWux/IF/aECwza6GtENWenn3smgX2WPjU/KjFJmhyNc=;
+ b=l9wb+bOH/n1H8L5N4d9tmf6kooHd3qjzenIY3zLrw0SuFKjc3azDJMYM/nFuXtPALu
+ fwfbHUh51ekSOCL0alqQpF3e466+djZhphZEUWSITdvB9evWLVWX3S1vayFR1fHc0Mtj
+ n7ZX2GfQe/QBd/TwwXrWkReGea1vgdFTgof4jKIefEcFhEjqTqd+zrrL/o1LQbT+9Dm5
+ 1xHsTtQpLYq5NU02jWZYFM3rSVBROZyKfM4GbiF2MmL52G7plaPLkKKb94bkg5vip0pw
+ uhuOLwcqa0/voIsYdbUoYe4XmH0WUWkrykf4nrE5GHvaPQ8XSl25Mw/i8qE8oaDRYIuB
+ 7Etg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688226604; x=1690818604;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AWux/IF/aECwza6GtENWenn3smgX2WPjU/KjFJmhyNc=;
+ b=R/R4NUPumUrmakkVK0yPBuZmhD/8bdgE1PQJBTav5ai1kmV9KrO//kOnHz6yws+qT0
+ 9ah5KuOzXPEDxWG+CcImgHinYaCC79IAjojPQ3RWBRaJLeWvYho3JPfCjDM9dCmUEx4m
+ FltkrWywSgq5LIKOICrRYBCwbShgpcEVMat7B+xnsnDpl3YqBn6KSUnGZkAtVa9E44RC
+ TJxGx8Yx2oMVt/Ty8ER+jVDmdBFNu/maQzZtharnzcLNmeLs6mZSOOCzMbp6r8jb8s2I
+ EVCjXdck8cxU9BvzahsOXorwc5r/KrVCI1la9ovfFLhJ0DM0X5UIEshzWBhwYkAIDNVv
+ ImMg==
+X-Gm-Message-State: AC+VfDy+dGlxU5O3g8n+Bv0I3mFYsWvhAzaueoLNTdOHWkpEoLHI8Ndm
+ yFHJfbAlwtBtns4OajMf48mdbxfybcsFGStCFU0=
+X-Google-Smtp-Source: ACHHUZ5p3Qamj32aSw4TXw6zcYs7G/XAByy351uI6wBsUAb95PSUxyzPUUUpESCbgaw4X1aoUbKIgnqr0SYz7yzOjiQ=
+X-Received: by 2002:a05:6820:447:b0:560:c558:b6f9 with SMTP id
+ p7-20020a056820044700b00560c558b6f9mr6089123oou.2.1688226604145; Sat, 01 Jul
+ 2023 08:50:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
- <20230404-solid-fill-v4-7-f4ec0caa742d@quicinc.com>
- <572ecc01-71c1-6f64-d26c-145b870584d1@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <572ecc01-71c1-6f64-d26c-145b870584d1@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 13yQYUmfowmd0yPAk9jK4uyF3GvcDY2-
-X-Proofpoint-GUID: 13yQYUmfowmd0yPAk9jK4uyF3GvcDY2-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-30_14,2023-06-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 priorityscore=1501 phishscore=0 mlxscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307010012
-Subject: Re: [Freedreno] [PATCH RFC v4 7/7] drm/msm/dpu: Use DRM solid_fill
- property
+References: <20230628-topic-a635-v2-1-5494c881b8be@linaro.org>
+In-Reply-To: <20230628-topic-a635-v2-1-5494c881b8be@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sat, 1 Jul 2023 08:49:52 -0700
+Message-ID: <CAF6AEGsH0BZd_yyn7UtJ3cLbbw2A5qdg8gQ6SORzQKjsMsnvHA@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: Assign revn to A635
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,117 +68,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, contact@emersion.fr, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ppaalanen@gmail.com, laurent.pinchart@ideasonboard.com,
- linux-arm-msm@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, Jun 30, 2023 at 4:12=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+>
+> Recently, a WARN_ON() was introduced to ensure that revn is filled before
+> adreno_is_aXYZ is called. This however doesn't work very well when revn i=
+s
+> 0 by design (such as for A635). Fill it in as a stopgap solution for
+> -fixes.
+>
+> Fixes: cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified befor=
+e being set")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+> Changes in v2:
+> - add fixes
+> - Link to v1: https://lore.kernel.org/r/20230628-topic-a635-v1-1-5056e09c=
+08fb@linaro.org
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm=
+/msm/adreno/adreno_device.c
+> index cb94cfd137a8..8ea7eae9fc52 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -345,6 +345,7 @@ static const struct adreno_info gpulist[] =3D {
+>                 .address_space_size =3D SZ_16G,
+>         }, {
+>                 .rev =3D ADRENO_REV(6, 3, 5, ANY_ID),
+> +               .revn =3D 635,
+>                 .fw =3D {
+>                         [ADRENO_FW_SQE] =3D "a660_sqe.fw",
+>                         [ADRENO_FW_GMU] =3D "a660_gmu.bin",
+>
+
+hmm, I realized a problem with this, it would change what
+MSM_PARAM_GPU_ID and more importantly MSM_PARAM_CHIP_ID return..  The
+former should be "harmless", although it isn't a good idea for uabi
+changes to be a side effect of a fix.  The latter is more problematic.
+
+I think I'm leaning more towards reverting commit cc943f43ece7
+("drm/msm/adreno: warn if chip revn is verified before being set") for
+-fixes.  I'm still thinking about options for a longer term fix.
+
+BR,
+-R
 
 
-On 6/29/2023 5:59 PM, Dmitry Baryshkov wrote:
-> On 30/06/2023 03:25, Jessica Zhang wrote:
->> Drop DPU_PLANE_COLOR_FILL_FLAG and check the DRM solid_fill property to
->> determine if the plane is solid fill. In addition drop the DPU plane
->> color_fill field as we can now use drm_plane_state.solid_fill instead,
->> and pass in drm_plane_state.alpha to _dpu_plane_color_fill_pipe() to
->> allow userspace to configure the alpha value for the solid fill color.
->>
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Minor suggestion below.
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 21 +++++++++++++++------
->>   1 file changed, 15 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index 4476722f03bb..11d4fb771a1f 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -42,7 +42,6 @@
->>   #define SHARP_SMOOTH_THR_DEFAULT    8
->>   #define SHARP_NOISE_THR_DEFAULT    2
->> -#define DPU_PLANE_COLOR_FILL_FLAG    BIT(31)
->>   #define DPU_ZPOS_MAX 255
->>   /*
->> @@ -82,7 +81,6 @@ struct dpu_plane {
->>       enum dpu_sspp pipe;
->> -    uint32_t color_fill;
->>       bool is_error;
->>       bool is_rt_pipe;
->>       const struct dpu_mdss_cfg *catalog;
->> @@ -606,6 +604,17 @@ static void _dpu_plane_color_fill_pipe(struct 
->> dpu_plane_state *pstate,
->>       _dpu_plane_setup_scaler(pipe, fmt, true, &pipe_cfg, 
->> pstate->rotation);
->>   }
->> +static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill 
->> solid_fill)
-> 
-> Please consider accepting drm_plane_state instead and handling alpha 
-> here. Then _dpu_color_fill can accept rgba colour instead of separate 
-> RGB and alpha values.
-
-Hi Dmitry,
-
-Do you mean adding a patch to refactor _dpu_plane_color_fill() to accept 
-an RGBA8888 color?
-
-Since, currently, the `color` parameter gets truncated to a BGR888 value 
-and OR'd with the `alpha` parameter [1].
-
-Thanks,
-
-Jessica Zhang
-
-[1] 
-https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c#L682
-
-> 
->> +{
->> +    uint32_t ret = 0;
->> +
->> +    ret |= ((uint8_t) solid_fill.b) << 16;
->> +    ret |= ((uint8_t) solid_fill.g) << 8;
->> +    ret |= ((uint8_t) solid_fill.r);
->> +
->> +    return ret;
->> +}
->> +
->>   /**
->>    * _dpu_plane_color_fill - enables color fill on plane
->>    * @pdpu:   Pointer to DPU plane object
->> @@ -977,9 +986,9 @@ void dpu_plane_flush(struct drm_plane *plane)
->>       if (pdpu->is_error)
->>           /* force white frame with 100% alpha pipe output on error */
->>           _dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
->> -    else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
->> -        /* force 100% alpha */
->> -        _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
->> +    else if (drm_plane_solid_fill_enabled(plane->state))
->> +        _dpu_plane_color_fill(pdpu, 
->> _dpu_plane_get_fill_color(plane->state->solid_fill),
->> +                plane->state->alpha);
->>       else {
->>           dpu_plane_flush_csc(pdpu, &pstate->pipe);
->>           dpu_plane_flush_csc(pdpu, &pstate->r_pipe);
->> @@ -1024,7 +1033,7 @@ static void dpu_plane_sspp_update_pipe(struct 
->> drm_plane *plane,
->>       }
->>       /* override for color fill */
->> -    if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
->> +    if (drm_plane_solid_fill_enabled(plane->state)) {
->>           _dpu_plane_set_qos_ctrl(plane, pipe, false);
->>           /* skip remaining processing on color fill */
->>
-> 
-> -- 
-> With best wishes
-> Dmitry
-> 
+> ---
+> base-commit: 5c875096d59010cee4e00da1f9c7bdb07a025dc2
+> change-id: 20230628-topic-a635-1b3c2c987417
+>
+> Best regards,
+> --
+> Konrad Dybcio <konrad.dybcio@linaro.org>
+>
