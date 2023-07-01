@@ -2,82 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3AFE744557
-	for <lists+freedreno@lfdr.de>; Sat,  1 Jul 2023 01:42:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFBD27445AC
+	for <lists+freedreno@lfdr.de>; Sat,  1 Jul 2023 02:44:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82D1C10E504;
-	Fri, 30 Jun 2023 23:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C3010E50D;
+	Sat,  1 Jul 2023 00:44:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA43F10E1D3;
- Fri, 30 Jun 2023 23:42:16 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35UNXIdx022615; Fri, 30 Jun 2023 23:42:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=hft4E1gpvCyofLxOPJJzA7qnS+2omo4bn7L5eCF+mp8=;
- b=EgLb37mJpTQMsKkZVfJaKnz56ctDsbNiTYcIEz5lYsxLv5mZr1/7PWNgcrbvVCKjZ+lA
- eGCW8pSRCES+IUWNy5iBHHoiPoimQy727S3K5f/nvz93VdH4BorNCjKmzYA75g/VFNpZ
- LeMPBzMJS2loNREfwHYxiDu7ZH9ICYjYIMw3FfySdj+TwNmaG6WXPqPdEPvQ1fo1ur/z
- OWgylgfO0XlAJTCGv38E2GEoDEsG5KVtB8vQleikTTkHWZzsdNmdx3vz/0EbtXvvSP1X
- 4yjtjgAeXilFGEcToKrsqLuUT1CtoJQkApLp6hbwZeN4fwyoRwC9mb/260ICDSMeJQOQ aw== 
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rhw70sjfq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Jun 2023 23:41:59 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 35UNfwp3024189
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Jun 2023 23:41:58 GMT
-Received: from [10.71.110.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 30 Jun
- 2023 16:41:57 -0700
-Message-ID: <7d7824a9-b57a-182d-ed04-883933ace702@quicinc.com>
-Date: Fri, 30 Jun 2023 16:41:57 -0700
+Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
+ [IPv6:2607:f8b0:4864:20::b29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E99E10E50C
+ for <freedreno@lists.freedesktop.org>; Sat,  1 Jul 2023 00:44:54 +0000 (UTC)
+Received: by mail-yb1-xb29.google.com with SMTP id
+ 3f1490d57ef6-bff27026cb0so2421351276.1
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Jun 2023 17:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1688172293; x=1690764293;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Rb4XLbAa6FHa6f/bZHMtFsSM9z+lq4odMd6vK4N6U0A=;
+ b=HDDOAVVxZmS9WBogOomJ5KhF8WCVKZYzgS9XGBT2dQOaIuUgD99wuLx12AAMrGrtX5
+ CidFk3nKSiYbOOsDoQx3IqW2Ozwk9XWwrjDieUdobowWMzeA7xNVlbvV9/OFVbKJgerR
+ aBUAskHi397/8ji2BnJ2A6Og6EF7DNNA2Ci7HbDj/GAXC3GloWQC4XXzqqg+RCSR+QNj
+ v2kqQJIkTbESJnODAF5p9AnbtStKLO2V22a/AYwl/RmPpBJ5zNrQpFu2A5h/ZXk3Gxdx
+ PfMB/YRwJk6RK+CLb4CQ6Ne34XRqVMOUi/viER6K9lKi+xzvO25xdsbtkI5Ef4VsGBQN
+ QnQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688172293; x=1690764293;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Rb4XLbAa6FHa6f/bZHMtFsSM9z+lq4odMd6vK4N6U0A=;
+ b=i6lrzunCr/JelNwXJ7UMp+LamYbAcU0M75KpMNdJ1spQcaG8xXs2xh2GuKJk1z4wxa
+ Ssvxnw3PtotXQ+zIKJcP+XlbqAgrn7YIxoH447/SsDEP1zQhUT5yyi0QFd+VF0OBmS+J
+ Nx3nr7+MaKV/qt6vg8n5Ic8dso/3nXNMCuUH/AEHQp5drXC0P8R2Tu9umfyvIKIqMWxF
+ SR0jzELApQgV4II9C2Q2h3yufuPzcd2mAIU/++jBt+KAMJVRas7vm1mUVaficAYmKuB7
+ 2NVyXyZsNzaVxAgyseMty0hobx6czhjSwNUpjXwf1YU7237D1++xT6gQJzVmgVrApuQG
+ +7HQ==
+X-Gm-Message-State: ABy/qLY//rZOhitmUsIoPX9TsHcaXu69YrfuMBBfJD7BTrvHfbUNlL/4
+ ZcRC4klpaYYz/pEdw9x8FZY6hqkC9AYyLwYQvUgsCA==
+X-Google-Smtp-Source: APBJJlEL+WwVjxtvdk5GmlBVWtrIkQtRgNljiIk574SW1j79w6jqxyJYHfbUxzZsbWxrQV7bdXvEgAqaCpDsU8DP4VI=
+X-Received: by 2002:a25:2449:0:b0:c28:bcc1:4834 with SMTP id
+ k70-20020a252449000000b00c28bcc14834mr3301600ybk.30.1688172293164; Fri, 30
+ Jun 2023 17:44:53 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
- <20230404-solid-fill-v4-5-f4ec0caa742d@quicinc.com>
- <39ee5eac-1452-1c08-c24f-6c70c13ce804@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <39ee5eac-1452-1c08-c24f-6c70c13ce804@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 9BpfPWOkgs2U29cACyGlkmlvwqEevVMJ
-X-Proofpoint-GUID: 9BpfPWOkgs2U29cACyGlkmlvwqEevVMJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-30_13,2023-06-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0
- mlxlogscore=999 spamscore=0 impostorscore=0 malwarescore=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 bulkscore=0
- suspectscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2305260000 definitions=main-2306300207
-Subject: Re: [Freedreno] [PATCH RFC v4 5/7] drm/msm/dpu: Add solid fill and
- pixel source properties
+References: <20230628-topic-a635-v2-1-5494c881b8be@linaro.org>
+In-Reply-To: <20230628-topic-a635-v2-1-5494c881b8be@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 1 Jul 2023 03:44:41 +0300
+Message-ID: <CAA8EJprYvLXaGmpYaSBt9eW5H1Ec_BKeCLW1qp1FvvR1LpDf6g@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: Assign revn to A635
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,58 +66,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, contact@emersion.fr, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ppaalanen@gmail.com, laurent.pinchart@ideasonboard.com,
- linux-arm-msm@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Sat, 1 Jul 2023 at 02:12, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>
+> Recently, a WARN_ON() was introduced to ensure that revn is filled before
+> adreno_is_aXYZ is called. This however doesn't work very well when revn is
+> 0 by design (such as for A635). Fill it in as a stopgap solution for
+> -fixes.
+>
+> Fixes: cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified before being set")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+As the v1:
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+> ---
+> Changes in v2:
+> - add fixes
+> - Link to v1: https://lore.kernel.org/r/20230628-topic-a635-v1-1-5056e09c08fb@linaro.org
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index cb94cfd137a8..8ea7eae9fc52 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -345,6 +345,7 @@ static const struct adreno_info gpulist[] = {
+>                 .address_space_size = SZ_16G,
+>         }, {
+>                 .rev = ADRENO_REV(6, 3, 5, ANY_ID),
+> +               .revn = 635,
+>                 .fw = {
+>                         [ADRENO_FW_SQE] = "a660_sqe.fw",
+>                         [ADRENO_FW_GMU] = "a660_gmu.bin",
+>
+> ---
+> base-commit: 5c875096d59010cee4e00da1f9c7bdb07a025dc2
+> change-id: 20230628-topic-a635-1b3c2c987417
+>
+> Best regards,
+> --
+> Konrad Dybcio <konrad.dybcio@linaro.org>
+>
 
 
-On 6/29/2023 5:49 PM, Dmitry Baryshkov wrote:
-> On 30/06/2023 03:25, Jessica Zhang wrote:
->> Add solid_fill and pixel_source properties to DPU plane
->>
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 ++
->>   1 file changed, 2 insertions(+)
-> 
-> This should be the last commit.
-
-Hi Dmitry,
-
-Acked, will move this to the end.
-
-Thanks,
-
-Jessica Zhang
-
-> Otherwise:
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index c2aaaded07ed..5f0984ce62b1 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -1429,6 +1429,8 @@ struct drm_plane *dpu_plane_init(struct 
->> drm_device *dev,
->>           DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
->>       drm_plane_create_alpha_property(plane);
->> +    drm_plane_create_solid_fill_property(plane);
->> +    drm_plane_create_pixel_source_property(plane, 
->> BIT(DRM_PLANE_PIXEL_SOURCE_COLOR));
->>       drm_plane_create_blend_mode_property(plane,
->>               BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->>               BIT(DRM_MODE_BLEND_PREMULTI) |
->>
-> 
-> -- 
-> With best wishes
-> Dmitry
-> 
+-- 
+With best wishes
+Dmitry
