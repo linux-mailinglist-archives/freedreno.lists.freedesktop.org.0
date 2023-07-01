@@ -2,60 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15215744A5B
-	for <lists+freedreno@lfdr.de>; Sat,  1 Jul 2023 17:50:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB5C744A81
+	for <lists+freedreno@lfdr.de>; Sat,  1 Jul 2023 18:21:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E458910E0D6;
-	Sat,  1 Jul 2023 15:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77B5A10E0F4;
+	Sat,  1 Jul 2023 16:20:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8620710E0D0;
- Sat,  1 Jul 2023 15:50:05 +0000 (UTC)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- 006d021491bc7-55e1a9ff9d4so1800686eaf.1; 
- Sat, 01 Jul 2023 08:50:05 -0700 (PDT)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75E9810E0F4;
+ Sat,  1 Jul 2023 16:20:57 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-1b801e6ce85so18669115ad.1; 
+ Sat, 01 Jul 2023 09:20:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688226604; x=1690818604;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AWux/IF/aECwza6GtENWenn3smgX2WPjU/KjFJmhyNc=;
- b=l9wb+bOH/n1H8L5N4d9tmf6kooHd3qjzenIY3zLrw0SuFKjc3azDJMYM/nFuXtPALu
- fwfbHUh51ekSOCL0alqQpF3e466+djZhphZEUWSITdvB9evWLVWX3S1vayFR1fHc0Mtj
- n7ZX2GfQe/QBd/TwwXrWkReGea1vgdFTgof4jKIefEcFhEjqTqd+zrrL/o1LQbT+9Dm5
- 1xHsTtQpLYq5NU02jWZYFM3rSVBROZyKfM4GbiF2MmL52G7plaPLkKKb94bkg5vip0pw
- uhuOLwcqa0/voIsYdbUoYe4XmH0WUWkrykf4nrE5GHvaPQ8XSl25Mw/i8qE8oaDRYIuB
- 7Etg==
+ d=gmail.com; s=20221208; t=1688228456; x=1690820456;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5O8JTAv4YKw7uBry2NnIZyVDnMiMWTmml9N1ztNufp0=;
+ b=nSgSStXrnBPo1GTiqMuJEqk85ex8UyRMBoWaZWBjI+ocKbZH5y8hhBzkJ/SRKD2/bf
+ l6OGMMp7W3tj7d2e+XibgAYckXE9Kl+BFxTOJp4/1F1lnnlAlT5tZL0dmBS9Gf0jPZHI
+ 8EKYmS9bIzIIAGXx8AjCnMiYpjkYXnOrJq7oXx5KBL9gksqGdzS6b7TY62KcD0Tababi
+ Qrf1iv2BpJCwNrVbVF6aAwcgpz5+k0faun9aTIGtHIRdxWdrXlD+AYzlWz8xmENplzxz
+ r3LvTB4/otqQiZKfIs87CH4lznWP8jivrX+zhf3T8kOXCPzUlrVt0j0+KEqL25MB1022
+ ZCrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688226604; x=1690818604;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AWux/IF/aECwza6GtENWenn3smgX2WPjU/KjFJmhyNc=;
- b=R/R4NUPumUrmakkVK0yPBuZmhD/8bdgE1PQJBTav5ai1kmV9KrO//kOnHz6yws+qT0
- 9ah5KuOzXPEDxWG+CcImgHinYaCC79IAjojPQ3RWBRaJLeWvYho3JPfCjDM9dCmUEx4m
- FltkrWywSgq5LIKOICrRYBCwbShgpcEVMat7B+xnsnDpl3YqBn6KSUnGZkAtVa9E44RC
- TJxGx8Yx2oMVt/Ty8ER+jVDmdBFNu/maQzZtharnzcLNmeLs6mZSOOCzMbp6r8jb8s2I
- EVCjXdck8cxU9BvzahsOXorwc5r/KrVCI1la9ovfFLhJ0DM0X5UIEshzWBhwYkAIDNVv
- ImMg==
-X-Gm-Message-State: AC+VfDy+dGlxU5O3g8n+Bv0I3mFYsWvhAzaueoLNTdOHWkpEoLHI8Ndm
- yFHJfbAlwtBtns4OajMf48mdbxfybcsFGStCFU0=
-X-Google-Smtp-Source: ACHHUZ5p3Qamj32aSw4TXw6zcYs7G/XAByy351uI6wBsUAb95PSUxyzPUUUpESCbgaw4X1aoUbKIgnqr0SYz7yzOjiQ=
-X-Received: by 2002:a05:6820:447:b0:560:c558:b6f9 with SMTP id
- p7-20020a056820044700b00560c558b6f9mr6089123oou.2.1688226604145; Sat, 01 Jul
- 2023 08:50:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230628-topic-a635-v2-1-5494c881b8be@linaro.org>
-In-Reply-To: <20230628-topic-a635-v2-1-5494c881b8be@linaro.org>
+ d=1e100.net; s=20221208; t=1688228456; x=1690820456;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5O8JTAv4YKw7uBry2NnIZyVDnMiMWTmml9N1ztNufp0=;
+ b=OtUpT/Tg8T7f0rdUrjSKGUKQwVl06ZTb/55KGczPoTCniMx9Xuou+whpivaysCgbZp
+ aBBN4o++JcVEPAI3tKotFM1CbK3Ncb7yjIZRHkJJAZkn95hWmwDCjjNc1Z4Z5sw8y2Pi
+ tONK2CYPyPCaMpcPJIMNOtBECA2qvfd0b3pucUB4ydeTRZnt5tqDAWs2NbMd9pqeXqXp
+ 5vJ7o3V7ygFuw5mPpzhGfytylLW3ZSqJJG6vbdex17qEtbrVESDLhIflmW1Pu+9pHhq1
+ LqU8fitebsFXzfHenxlaKBmNAooaMhSbtevkzH8zIxyfxIGMxwDSJGiJsbTFJbrTuAgV
+ ShMA==
+X-Gm-Message-State: ABy/qLZIzO29nNrUsaLkSylBazCamU9CCS/O5ZmPVacsY1G+aMhAbDRQ
+ 2Ra+t7Mxtozx9uaKSqHK1dzko1b0Vds=
+X-Google-Smtp-Source: APBJJlEkYzb4+ziqA6o0isUYA/IlAPGUGt5QLGTOuwq8cIvD/a7RCSRTrtqk5LiDl6HTuLay0SytTg==
+X-Received: by 2002:a17:902:c406:b0:1b6:783d:9ba7 with SMTP id
+ k6-20020a170902c40600b001b6783d9ba7mr8803589plk.27.1688228456021; 
+ Sat, 01 Jul 2023 09:20:56 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:ae1c:de46:682a:206])
+ by smtp.gmail.com with ESMTPSA id
+ d4-20020a170902aa8400b001b7feed285csm10599352plr.36.2023.07.01.09.20.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 01 Jul 2023 09:20:55 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 1 Jul 2023 08:49:52 -0700
-Message-ID: <CAF6AEGsH0BZd_yyn7UtJ3cLbbw2A5qdg8gQ6SORzQKjsMsnvHA@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: Assign revn to A635
+To: dri-devel@lists.freedesktop.org
+Date: Sat,  1 Jul 2023 09:20:48 -0700
+Message-ID: <20230701162048.6271-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/a690: Remove revn and name
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,70 +70,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 30, 2023 at 4:12=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro=
-.org> wrote:
->
-> Recently, a WARN_ON() was introduced to ensure that revn is filled before
-> adreno_is_aXYZ is called. This however doesn't work very well when revn i=
-s
-> 0 by design (such as for A635). Fill it in as a stopgap solution for
-> -fixes.
->
-> Fixes: cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified befor=
-e being set")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-> Changes in v2:
-> - add fixes
-> - Link to v1: https://lore.kernel.org/r/20230628-topic-a635-v1-1-5056e09c=
-08fb@linaro.org
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm=
-/msm/adreno/adreno_device.c
-> index cb94cfd137a8..8ea7eae9fc52 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -345,6 +345,7 @@ static const struct adreno_info gpulist[] =3D {
->                 .address_space_size =3D SZ_16G,
->         }, {
->                 .rev =3D ADRENO_REV(6, 3, 5, ANY_ID),
-> +               .revn =3D 635,
->                 .fw =3D {
->                         [ADRENO_FW_SQE] =3D "a660_sqe.fw",
->                         [ADRENO_FW_GMU] =3D "a660_gmu.bin",
->
+From: Rob Clark <robdclark@chromium.org>
 
-hmm, I realized a problem with this, it would change what
-MSM_PARAM_GPU_ID and more importantly MSM_PARAM_CHIP_ID return..  The
-former should be "harmless", although it isn't a good idea for uabi
-changes to be a side effect of a fix.  The latter is more problematic.
+These fields are deprecated.  But any userspace new enough to support
+a690 also knows how to identify the GPU based on chip-id.
 
-I think I'm leaning more towards reverting commit cc943f43ece7
-("drm/msm/adreno: warn if chip revn is verified before being set") for
--fixes.  I'm still thinking about options for a longer term fix.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 2 --
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 3 ++-
+ 3 files changed, 3 insertions(+), 4 deletions(-)
 
-BR,
--R
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index ab5c446e4409..a537a3872f01 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -2102,7 +2102,7 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	info = adreno_info(config->rev);
+ 
+ 	if (info && (info->revn == 650 || info->revn == 660 ||
+-		     info->revn == 690 ||
++		     adreno_cmp_rev(ADRENO_REV(6, 9, 0, ANY_ID), info->rev) ||
+ 		     adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), info->rev)))
+ 		adreno_gpu->base.hw_apriv = true;
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index e5a865024e94..ff9f5321f2e6 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -357,8 +357,6 @@ static const struct adreno_info gpulist[] = {
+ 		.hwcg = a640_hwcg,
+ 	}, {
+ 		.rev = ADRENO_REV(6, 9, 0, ANY_ID),
+-		.revn = 690,
+-		.name = "A690",
+ 		.fw = {
+ 			[ADRENO_FW_SQE] = "a660_sqe.fw",
+ 			[ADRENO_FW_GMU] = "a690_gmu.bin",
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index ac9c429ca07b..506001080374 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -274,7 +274,8 @@ static inline int adreno_is_a660(struct adreno_gpu *gpu)
+ 
+ static inline int adreno_is_a690(struct adreno_gpu *gpu)
+ {
+-	return gpu->revn == 690;
++	/* The order of args is important here to handle ANY_ID correctly */
++	return adreno_cmp_rev(ADRENO_REV(6, 9, 0, ANY_ID), gpu->rev);
+ };
+ 
+ /* check for a615, a616, a618, a619 or any derivatives */
+-- 
+2.41.0
 
-
-> ---
-> base-commit: 5c875096d59010cee4e00da1f9c7bdb07a025dc2
-> change-id: 20230628-topic-a635-1b3c2c987417
->
-> Best regards,
-> --
-> Konrad Dybcio <konrad.dybcio@linaro.org>
->
