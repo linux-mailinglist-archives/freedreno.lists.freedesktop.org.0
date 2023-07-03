@@ -1,79 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9B307461FB
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 20:17:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1A47462AD
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 20:46:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB80E10E12E;
-	Mon,  3 Jul 2023 18:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87C6F10E22B;
+	Mon,  3 Jul 2023 18:46:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 224BC10E12E
- for <freedreno@lists.freedesktop.org>; Mon,  3 Jul 2023 18:17:16 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4fafe87c6fbso7317669e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 11:17:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688408234; x=1691000234;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=dSlFXmAt5oolMbr6tP679qhhXZff6RY3Gb+h/82siT8=;
- b=O8V6FIJb6QCwNE55YsoL15LZOs6JdRyMypATmvkcOrDD/Uo37iALfo1ZRFKc+BO+aR
- 6UJD3MuH0mNYJ96fF8hrGxVag6vLz0f4ixxHLSkz5JgROUKhIZYSzNeoO/cMxq1ABOy4
- PHPT0uLnS7cT+TWGf05GJa0HDB3bLOON/484PM7gzWePK/zRKNji7Q++nIiLh6lEe7kL
- Iaci0NY//qtWcM7VcXGqC/G1EqEeaSgGXPqCtV+zPuO4Z4XiAAq0rw2vW+rlyr5VUsX0
- UYRlMmC7cA++U7hbFV2xjKJnvWYCGaw9cHq9OanJNRvVaDd8zK4Ez2vTXELhhQufw4hF
- aApw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688408234; x=1691000234;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dSlFXmAt5oolMbr6tP679qhhXZff6RY3Gb+h/82siT8=;
- b=WiK+TYXEVKFnZcjrHeTWuE87Sy1u+k3Xp+rQAs22kL5RMCEY6EjnrqDnEAVztvFGKE
- i3sxhyL+gbAi4PlW6W70B8NJOXFHudhncNl8zqqtRa5goNeTf5Y5/ZxsodNV9m1IvSOg
- i8op5CiUMxSLGVnOFq68S2PP91sv5lXxpizFSf/2quqMQb8/Em65LhfxLXA6O1wKfbZF
- pxL52Ki1wXeXo4Mj0Z/1xmJ/1zpEwXiYkvBniGX8hWSam4P5Ru7GOqFALsthsfdE+/6E
- a8WR4UpDX43LLtlCfQ2eFt3ba9xDGewEo4/l61EyDLjnh0FzhrJDwkTg77wQTE/pfqFR
- twjA==
-X-Gm-Message-State: ABy/qLb65xp/7C+/Mniq291TnxFxogl9Y1IhMsiT4mCsQWE/LKD+mTh5
- EddwZ3jz/MzGwW8GJMUej3pbbw==
-X-Google-Smtp-Source: APBJJlFYqk8AsjWf9PKxWzhoTDvI2m8S6a20htiKRvrfbyX/L++Ie8ZIJC0YvUXf8qcTvAeLsojqVA==
-X-Received: by 2002:a05:6512:3086:b0:4f9:547c:a3cc with SMTP id
- z6-20020a056512308600b004f9547ca3ccmr8293048lfd.14.1688408234251; 
- Mon, 03 Jul 2023 11:17:14 -0700 (PDT)
-Received: from [192.168.1.101] (abyj26.neoplus.adsl.tpnet.pl. [83.9.29.26])
- by smtp.gmail.com with ESMTPSA id
- q8-20020ac25108000000b004f85628ec34sm2617439lfb.33.2023.07.03.11.17.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jul 2023 11:17:13 -0700 (PDT)
-Message-ID: <847366eb-1a0d-ad58-324c-aa816cc348aa@linaro.org>
-Date: Mon, 3 Jul 2023 20:17:11 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 132EB10E22A;
+ Mon,  3 Jul 2023 18:46:32 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 363Ihdb1028911; Mon, 3 Jul 2023 18:46:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=GO8CxHexeCVWLLHPxaT69D9qf8UdsizXa9GOOiV1+j0=;
+ b=RXwrBoZig5+L7VKHz2g7nmkNuiOnx/hyTR6t5wlPngKt6488mVTrFBnH4oPxKm0wIbub
+ XLsAAHWHLx4Y/dC/CiloxwO6nyP5omLs+F5T0XbEi+mOL5KRcr1pgbXQhCoeFfV/n3ch
+ aW5gt1oTp1VqTA7XSjal9Yq/mzpey/JWNN9B4eDiHxgjRXIbSs1PykZP0UujoYspaViP
+ jnxi2ll35oUCluoDopOEmaAtl4EGrTt6ZbSo0T2VvLXgWEx7BprAFumC6f0jMM9r22b8
+ Gt9xnEVh65tTqUIGsaSa7zWq/KEA2UtaZpIgrnefznYiheKB65iiyN3stl09IwODxTic 1g== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rkyrr8n14-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 03 Jul 2023 18:46:18 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 363IkH6g030843
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 3 Jul 2023 18:46:17 GMT
+Received: from [10.110.19.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Mon, 3 Jul 2023
+ 11:46:17 -0700
+Message-ID: <a0917df0-113d-c26f-614c-08ac18fc6613@quicinc.com>
+Date: Mon, 3 Jul 2023 11:46:16 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-References: <20230628-topic-refgen-v3-0-9fbf0e605d23@linaro.org>
- <20230628-topic-refgen-v3-1-9fbf0e605d23@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230628-topic-refgen-v3-1-9fbf0e605d23@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
+ <20230619212519.875673-13-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230619212519.875673-13-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 1/4] dt-bindings: regulator: Describe
- Qualcomm REFGEN regulator
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 13N-12liZl2K2FC4c6tyDrTDfsstqC6u
+X-Proofpoint-ORIG-GUID: 13N-12liZl2K2FC4c6tyDrTDfsstqC6u
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-03_13,2023-06-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ mlxlogscore=744 spamscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307030170
+Subject: Re: [Freedreno] [PATCH v4 12/19] drm/msm/dpu: inline LM_BLK macros
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,100 +84,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 3.07.2023 20:15, Konrad Dybcio wrote:
-> Modern Qualcomm SoCs have a REFGEN (reference voltage generator)
-> regulator, providing reference voltage to on-chip IP, like PHYs.
-> It's controlled through MMIO and we can toggle it or read its state back.
+
+
+On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
+> To simplify making changes to the hardware block definitions, expand
+> corresponding macros. This way making all the changes are more obvious
+> and visible in the source files.
 > 
-> Describe it.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-I have a chronic issue where I realize I didn't run b4 trailers -u the
-milisecond I hit enter on b4 send.
 
-This was:
+Same comment as the other change, I have cross-checked most of the 
+entries to make sure they match the pre-inlining values.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+For the rest, I am going to rely on Marijn's checksum method.
 
-at
+Hence,
 
-https://lore.kernel.org/linux-arm-msm/168814320140.1876966.17866889850041692910.robh@kernel.org/
-
-Sorry for the inconvenience.
-
-Konrad
->  .../regulator/qcom,sdm845-refgen-regulator.yaml    | 57 ++++++++++++++++++++++
->  1 file changed, 57 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
-> new file mode 100644
-> index 000000000000..f02f97d4fdd2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
-> @@ -0,0 +1,57 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/qcom,sdm845-refgen-regulator.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies, Inc. REFGEN Regulator
-> +
-> +maintainers:
-> +  - Konrad Dybcio <konradybcio@kernel.org>
-> +
-> +description:
-> +  The REFGEN (reference voltage generator) regulator provides reference
-> +  voltage for on-chip IPs (like PHYs) on some Qualcomm SoCs.
-> +
-> +allOf:
-> +  - $ref: regulator.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - qcom,sc7180-refgen-regulator
-> +              - qcom,sc8180x-refgen-regulator
-> +              - qcom,sm8150-refgen-regulator
-> +          - const: qcom,sdm845-refgen-regulator
-> +
-> +      - items:
-> +          - enum:
-> +              - qcom,sc7280-refgen-regulator
-> +              - qcom,sc8280xp-refgen-regulator
-> +              - qcom,sm6350-refgen-regulator
-> +              - qcom,sm6375-refgen-regulator
-> +              - qcom,sm8350-refgen-regulator
-> +          - const: qcom,sm8250-refgen-regulator
-> +
-> +      - enum:
-> +          - qcom,sdm845-refgen-regulator
-> +          - qcom,sm8250-refgen-regulator
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    regulator@162f000 {
-> +      compatible = "qcom,sm8250-refgen-regulator";
-> +      reg = <0x0162f000 0x84>;
-> +    };
-> +...
-> 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
