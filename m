@@ -1,78 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1B367453D9
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 04:28:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9A2C74563D
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 09:43:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A597F10E08D;
-	Mon,  3 Jul 2023 02:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74B4010E176;
+	Mon,  3 Jul 2023 07:43:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F53E10E06F;
- Mon,  3 Jul 2023 02:28:18 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3631hONX028960; Mon, 3 Jul 2023 02:28:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=W0OKPj0iryV17JecrfI4CIlavCEVLuD3ZfDv+b6mIg4=;
- b=fzqZBVWXQLLNk5Ug/qkBY3jpHtiDs+c/B6E8Xv44XsQpxp4eZTVZirEoP6T6t5ttslEg
- 3DYZnop9TZfbSwao6luKegWwLaC8KhYC/are2E0gcQlaP8W6OGQKNNXi0eqGDjaHIEJp
- y+7idO47215WVmAdaOnX0KR7a7Og+TKGPPHtK57sJWzhH3DOljoIV5+3bfU5ZAXEenDb
- +LSbPfcSf59dO3k7++XdDZK1ImOlJ3bb9sdxPRotnlMDvEIr23V/NPHxsCB+ty0dVpon
- +Q2uNRb6eEiTEZESey1JQJrIcAH8tDCVeYnKEEboLcoJp/lb+/LhfwPq2RoaUZkT/c2Z CQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rj9gtu1yb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Jul 2023 02:28:13 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3632SBX8027104
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Jul 2023 02:28:11 GMT
-Received: from [10.110.68.253] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Sun, 2 Jul 2023
- 19:28:11 -0700
-Message-ID: <d2acc651-e173-ed37-356c-d0cce52617aa@quicinc.com>
-Date: Sun, 2 Jul 2023 19:28:10 -0700
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A7110E0B5;
+ Mon,  3 Jul 2023 07:42:58 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2b699a2fe86so67061331fa.3; 
+ Mon, 03 Jul 2023 00:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688370176; x=1690962176;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q1fo/4xJmI/v8Apxv9iZE5rA9bnr+7LUJRY6uhOPxrs=;
+ b=XTuXbF9NC0ZLUFLxZHbCrh3BmMosYZaCcPoeLni+PwhvONO2MBefRwIVdNhR75bJKG
+ XwZKEo9RjfCO7OaaiKzfTjv7G9R17HRp6865LFsLPbmgEc4c1ju6/W9CIOzeuvxOp3im
+ IRhzqK25pn8mJWiUqycZyFM/wAT24ZmeUrQaE5kt+P71VKOl4Yl7aqkS4Mw6Vr8WElKy
+ lUoWAojpHSEyjyXzzCrdbUWhothijb5FFlUGYgKjbmF4NL3VOmX3/gM4WrEuIximSsrn
+ egoeVN2r20c+4kVR/tD+nan5IcPTGaHA46PrObKU8JfE634aoogYUPucgBf066n8gZOh
+ XJ+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688370176; x=1690962176;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q1fo/4xJmI/v8Apxv9iZE5rA9bnr+7LUJRY6uhOPxrs=;
+ b=MpIJfG59+ERhP4P9KxkdnZuRlgfufU8l8aiA3kp1+kxZTTC2lQYqnl/itUA516n5d/
+ N3aH60fYI9jK4MxcOhgn9H3cfE7syL3zlOi8aDczdgNYk311Bz+K6EgeGOO4RTsQnAZ0
+ KmRSwAVo3dZ5aqmBGXS1gl6ufi0gst8JQ33G6ZTN3IsK0nIok2oiTqsrsuPpiickeK86
+ 1FLucB16ZV2kBZHy+23PdT9HH+2OFR9eZ0fPuMzxeo5iuT5oHuZhTAaGFhgB+8C9rqvp
+ RK0VwmILxUZ5MzTDWyNWCha/Ahpb76yGkpTkB+KYOKP1qhml0ZgaOVWbT3oQtPG289qQ
+ CNeg==
+X-Gm-Message-State: ABy/qLZr0dG7SZVXU1nv/K0/oRHz+c9v5ywKmmaYW49bgIVSTJzTfuKH
+ 9VvuoXpGmAguUrPtUjnybCw=
+X-Google-Smtp-Source: APBJJlEihHpYEQV3HBBUGCrGICtVF/Y3mrZuaF6KRazeMHpNXruNvJsym66J/DOXgm+zAeWs8K9cRw==
+X-Received: by 2002:a2e:900e:0:b0:2b6:e121:cf68 with SMTP id
+ h14-20020a2e900e000000b002b6e121cf68mr2760105ljg.5.1688370176174; 
+ Mon, 03 Jul 2023 00:42:56 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ o6-20020a2e7306000000b002b6e77e87fcsm704378ljc.68.2023.07.03.00.42.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Jul 2023 00:42:55 -0700 (PDT)
+Date: Mon, 3 Jul 2023 10:42:46 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Message-ID: <20230703104246.7226953a@eldfell>
+In-Reply-To: <20230630112649.263331b4@eldfell>
+References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
+ <20230404-solid-fill-v4-7-f4ec0caa742d@quicinc.com>
+ <20230630112649.263331b4@eldfell>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
- <20230619212519.875673-8-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230619212519.875673-8-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 5WC-FHo5f5oARjuuFKKL8DAwFOEqloAB
-X-Proofpoint-ORIG-GUID: 5WC-FHo5f5oARjuuFKKL8DAwFOEqloAB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-03_02,2023-06-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- malwarescore=0 priorityscore=1501 impostorscore=0 spamscore=0
- suspectscore=0 bulkscore=0 phishscore=0 mlxlogscore=627 lowpriorityscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307030021
-Subject: Re: [Freedreno] [PATCH v4 07/19] drm/msm/dpu: drop zero features
- from dpu_mdp_cfg data
+Content-Type: multipart/signed; boundary="Sig_/=0TNTkoqRYefLA_rwhlpF9P";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [PATCH RFC v4 7/7] drm/msm/dpu: Use DRM solid_fill
+ property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,22 +74,156 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ sebastian.wick@redhat.com, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
+ contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
+ wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+--Sig_/=0TNTkoqRYefLA_rwhlpF9P
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 30 Jun 2023 11:26:49 +0300
+Pekka Paalanen <ppaalanen@gmail.com> wrote:
+
+> On Thu, 29 Jun 2023 17:25:06 -0700
+> Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>=20
+> > Drop DPU_PLANE_COLOR_FILL_FLAG and check the DRM solid_fill property to
+> > determine if the plane is solid fill. In addition drop the DPU plane
+> > color_fill field as we can now use drm_plane_state.solid_fill instead,
+> > and pass in drm_plane_state.alpha to _dpu_plane_color_fill_pipe() to
+> > allow userspace to configure the alpha value for the solid fill color.
+> >=20
+> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 21 +++++++++++++++------
+> >  1 file changed, 15 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_plane.c
+> > index 4476722f03bb..11d4fb771a1f 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -42,7 +42,6 @@
+> >  #define SHARP_SMOOTH_THR_DEFAULT	8
+> >  #define SHARP_NOISE_THR_DEFAULT	2
+> > =20
+> > -#define DPU_PLANE_COLOR_FILL_FLAG	BIT(31)
+> >  #define DPU_ZPOS_MAX 255
+> > =20
+> >  /*
+> > @@ -82,7 +81,6 @@ struct dpu_plane {
+> > =20
+> >  	enum dpu_sspp pipe;
+> > =20
+> > -	uint32_t color_fill;
+> >  	bool is_error;
+> >  	bool is_rt_pipe;
+> >  	const struct dpu_mdss_cfg *catalog;
+> > @@ -606,6 +604,17 @@ static void _dpu_plane_color_fill_pipe(struct dpu_=
+plane_state *pstate,
+> >  	_dpu_plane_setup_scaler(pipe, fmt, true, &pipe_cfg, pstate->rotation);
+> >  }
+> > =20
+> > +static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill solid_=
+fill)
+> > +{
+> > +	uint32_t ret =3D 0;
+> > +
+> > +	ret |=3D ((uint8_t) solid_fill.b) << 16;
+> > +	ret |=3D ((uint8_t) solid_fill.g) << 8;
+> > +	ret |=3D ((uint8_t) solid_fill.r); =20
+>=20
+> solid_fill.r, g and b are uint32_t, yes?
+>=20
+> What's the value encoding in the UAPI? That doc was missing.
+>=20
+> I wouldn't expect the UAPI to use 32-bit variables if it was
+> essentially 8-bit, so this conversion looks wrong.
+>=20
+> Nominal color value 1.0 in u8 is 0xff. The same in u32 is probably
+> 0xffffffff? So a simple cast to u8 won't work. You'd want to take the
+> upper 8 bits instead.
+>=20
+>=20
+> Thanks,
+> pq
+>=20
+> > +
+> > +	return ret;
+
+Btw. if your driver format is ABGR, then this function leaves alpha as
+zero. That's confusing.
+
+It would be nice to mention the exact pixel format in the function name
+so the consistency is easier to check in both here and in callers.
 
 
-On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
-> Drop useless zero assignments to the dpu_mdp_cfg::features field.
-> 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+Thanks,
+pq
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > +}
+> > +
+> >  /**
+> >   * _dpu_plane_color_fill - enables color fill on plane
+> >   * @pdpu:   Pointer to DPU plane object
+> > @@ -977,9 +986,9 @@ void dpu_plane_flush(struct drm_plane *plane)
+> >  	if (pdpu->is_error)
+> >  		/* force white frame with 100% alpha pipe output on error */
+> >  		_dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
+> > -	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
+> > -		/* force 100% alpha */
+> > -		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
+> > +	else if (drm_plane_solid_fill_enabled(plane->state))
+> > +		_dpu_plane_color_fill(pdpu, _dpu_plane_get_fill_color(plane->state->=
+solid_fill),
+> > +				plane->state->alpha);
+> >  	else {
+> >  		dpu_plane_flush_csc(pdpu, &pstate->pipe);
+> >  		dpu_plane_flush_csc(pdpu, &pstate->r_pipe);
+> > @@ -1024,7 +1033,7 @@ static void dpu_plane_sspp_update_pipe(struct drm=
+_plane *plane,
+> >  	}
+> > =20
+> >  	/* override for color fill */
+> > -	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
+> > +	if (drm_plane_solid_fill_enabled(plane->state)) {
+> >  		_dpu_plane_set_qos_ctrl(plane, pipe, false);
+> > =20
+> >  		/* skip remaining processing on color fill */
+> >  =20
+>=20
+
+
+--Sig_/=0TNTkoqRYefLA_rwhlpF9P
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSie/YACgkQI1/ltBGq
+qqdvWg/+IUlRh8UhRQkQoJS25uUvPZS8VcXCmrgzoWzMxdliGqBuuBZYtX4eY1gZ
+3E1nEhYylI4RoAF6JuNzoHaegBpK8TmFcx60sj1Y8WQnH6DlWni3FsF/+4T9jwbn
+IZDcOl3oihEsOPZgtbHvnpJgpqyVrGG+C7hVIvlLK4j8ngn1FC9aj63mTlluInlS
+ER82vqXHRw+QXOYiyj2XmrylS36mXTambq0iJKYQLLIEz0hJvN6ZEBjd06GZWJTW
+8R24cX6zSTNC9jY4F7aL21i8eUqLLa79/lYQ+kkv28ClsH2xZGr2R2+KiaDVOYaR
+7n74EWWIMyt/f2XYdkzM2K+TMF6P61/CZy9nfW74YeoPadI4oJV5x2Sta3RqtqPH
+TpUmikI9n+LwSEqDjXGmxbI+/xAqt5sfpS0wgBH11tD7R0f41LB98aw6zPcxlR4e
+n4Rvdpow8UpOZv7WSXkLjkU0qto8DOEHANhCUBPFwuqybjlPjvi7w0dNSs7K32xj
+BQiDoBOz2c+8tfpo3KqjJmkxk0r/E0wDwqIh/N/j8Uit6mmbPH62lkwZYLLBkOkg
+mPMDAB8wj1lHazzbGJnvTCCXnsWlNv1eNWGelRHlGFaL7DuQPRZReU1SDfjhU2sH
++DXeGFF7jsTt1Muzt/ol9LhgrHTWsP5N1DtGWayklopgc9nZhJU=
+=OtQx
+-----END PGP SIGNATURE-----
+
+--Sig_/=0TNTkoqRYefLA_rwhlpF9P--
