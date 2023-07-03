@@ -1,74 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB3C7745B93
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 13:50:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F658745D17
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 15:25:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AED3910E101;
-	Mon,  3 Jul 2023 11:50:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1B610E218;
+	Mon,  3 Jul 2023 13:25:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D5810E200
- for <freedreno@lists.freedesktop.org>; Mon,  3 Jul 2023 11:50:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1688385015;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=46Sracu/D/0a4Yd4cBQRbtvN6kMcQIjjw3Sb/7ByX0U=;
- b=T4W4aHNsiDB2za0S2WQIMEr79G5RLYwBdL36imTPEnucUm5Sxitf0/+JGpEg5C2NHdEtpL
- 8Pi2lYQJOuL8sDDT72sh42ZP6ML6IXIBQgqMMB7J5oKCNETT34axmcycOJeG0teMnkRpu0
- TWSdzbJnRTgp0gWaptPrP/UZg1XOX/4=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-455-GgYfxmEPPOWT_PJ-shW7yw-1; Mon, 03 Jul 2023 07:50:11 -0400
-X-MC-Unique: GgYfxmEPPOWT_PJ-shW7yw-1
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-4fb76659d37so4010387e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 04:50:11 -0700 (PDT)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21EA010E218
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Jul 2023 13:25:35 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-3fbc59de009so43532735e9.3
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 06:25:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1688390733; x=1690982733;
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :to:content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=IOndpcYQZRei86HjTSa6sLCOIMedJ10F8ZmbDKThl2M=;
+ b=vd7G70PqJmphoqcC5/iGI9byEgifXwK6Rj3mJrKjAIB8uLw1hpzkudZj36bLUzAfkk
+ CjzNWks5k2enqZ83uiheJk1bPKP4uBNGIYPZq9fUuff3p2KtuZ3rqJncJyFJqF58Wk11
+ z3wyE/Lpomy7vrHjrlZWBHS1lrFctL5sXDGQirjHnrOynrP0Lsyxy/RUFfpaiizpZ15D
+ m2niLhmeobmjKoqyeci4H11VdTtxm8S2YpJ4x7pVGDNNw+N9JpOT8TaCH2LRBE6AMkMV
+ 2n86A3zQAeyy55sfLbSPXNIM5/Y7R6C5jvxqBMMqtnupqZrKysuVl4uSym0zdS0BCsLV
+ ydtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688385010; x=1690977010;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=46Sracu/D/0a4Yd4cBQRbtvN6kMcQIjjw3Sb/7ByX0U=;
- b=foFuClc2psO+kwL1unFOxSxm0puAYNQjDt1WfsfbGyXTiwF26OJA9KVBgOKqNtUUuh
- 1pJMJd3MMtu/qKDsJU9KOD50LCoM4o4Te9pv7d+/IZLCwf6GJJG+FOx5gnYS/pF1up5D
- u5lXce4JA25O/jER0FKFC2x0MUW09EIbyda6/bT1PJszMvkMMF/H8bDB1gI7fqMrN//a
- qw9vCH36Qzlic76sftCMPIEZ416KIfCyrw082YFjcLUr+WRSn+nYmzf1GoZ3IhFwbD7i
- T+OYuZ6ZOzwbADtCjNQomo87nHwNPt/+W45qs1c81M2b16k1JSXjsSRjNvjrFDD0PyNt
- P2YQ==
-X-Gm-Message-State: ABy/qLbOpQiNAC15DUpqxSi0Z/Kd4xje2zqTb7AxgH3xYV39c0QlQI5K
- QA9l6zOeRDZLLrLAdwLf2jmFTBxdeoFaOJ+VOm2Tv+Q7LMzJodign3JRBZYjKNlQq/tU4q4kF+H
- ASQcF8U3XjNjQckve9g2M/N12oFz2rife46I3nKKyzDwg
-X-Received: by 2002:a05:6512:4013:b0:4fb:8939:d962 with SMTP id
- br19-20020a056512401300b004fb8939d962mr7931359lfb.19.1688385010210; 
- Mon, 03 Jul 2023 04:50:10 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlFnpM2bSBA1XglWdQgvquuyBJkuMOOv1oRAzQrb67XquQwB6pE6yMXwU+4MHi0nmAmGO5Fu7XqqEiBMmqUTJDs=
-X-Received: by 2002:a05:6512:4013:b0:4fb:8939:d962 with SMTP id
- br19-20020a056512401300b004fb8939d962mr7931319lfb.19.1688385009760; Mon, 03
- Jul 2023 04:50:09 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688390733; x=1690982733;
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :to:content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IOndpcYQZRei86HjTSa6sLCOIMedJ10F8ZmbDKThl2M=;
+ b=jro3N9gihsJyvqQupLAK0dIsYjFhjz2Bz59fObcA2ah+ThWjFjEf4ondfLiuBIeq/h
+ fKzFn/Mqxp59xwgibr94+sDH3BpJpo7DNyo6jXMafV1ZXrpe77RLegTAAtK1bPiR1I7m
+ ivLjuDmaIZfWdLkNjmNR0KyVE3POeKpP6ANBOohXXU3A+AxOkRPFWnec+1GaYlVKS209
+ XAtYALorfunOKdLZWS7UujR397XloqmdBTBDepetEqqoEVY+QHrCaBe3N1kG+qwSJKce
+ C9uuBOCRSO56DVb2K6L9yhp1ii/eH2gdNXScPhFyTQ/cNO4w+78hyfZJynaNEC/dsY93
+ w/xQ==
+X-Gm-Message-State: ABy/qLYdS6GoBIp7oFME45mp53nPGsUJAKgQBsgfPNLuEkOyJuMgOEZ5
+ Ih7abSihkHxNIoNHZJrRN5FIvA==
+X-Google-Smtp-Source: APBJJlFRFQcvat3EQxFgB5SI6iSmXIGa31iU1VkZvt3I+z99Hnaof/6yj4+br2u7++97LUjZHWQZuw==
+X-Received: by 2002:a1c:790e:0:b0:3fb:db66:8332 with SMTP id
+ l14-20020a1c790e000000b003fbdb668332mr1599049wme.40.1688390733118; 
+ Mon, 03 Jul 2023 06:25:33 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:cf0b:9dd4:190:b74f?
+ ([2a01:e0a:982:cbb0:cf0b:9dd4:190:b74f])
+ by smtp.gmail.com with ESMTPSA id
+ p19-20020a05600c205300b003fbc2c0addbsm10279849wmg.42.2023.07.03.06.25.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Jul 2023 06:25:32 -0700 (PDT)
+Message-ID: <1ed2eca7-b5bf-8d25-d38e-15022a8c8a39@linaro.org>
+Date: Mon, 3 Jul 2023 15:25:31 +0200
 MIME-Version: 1.0
-References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
- <20230404-solid-fill-v4-2-f4ec0caa742d@quicinc.com>
- <CA+hFU4zQFkbi8BjFdWDBDMPR7cC8UqJg0udu7MJYOFac1J8XsQ@mail.gmail.com>
- <68629132-b77a-bfbc-20f7-92a76cf24953@quicinc.com>
-In-Reply-To: <68629132-b77a-bfbc-20f7-92a76cf24953@quicinc.com>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Mon, 3 Jul 2023 13:49:58 +0200
-Message-ID: <CA+hFU4whcUq_0KEPrgk39tL29vsaW4v9MRXjGrPYBKWcVH7hFw@mail.gmail.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH RFC v4 2/7] drm: Introduce pixel_source DRM
- plane property
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Leo Yan <leo.yan@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-iio@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, linux-usb@vger.kernel.org
+References: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Organization: Linaro Developer Services
+In-Reply-To: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] dt-bindings: cleanup DTS example whitespaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,289 +90,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, ppaalanen@gmail.com,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <sean@poorly.run>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- laurent.pinchart@ideasonboard.com
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 30, 2023 at 11:27=E2=80=AFPM Jessica Zhang
-<quic_jesszhan@quicinc.com> wrote:
->
->
->
-> On 6/30/2023 7:43 AM, Sebastian Wick wrote:
-> > On Fri, Jun 30, 2023 at 2:26=E2=80=AFAM Jessica Zhang <quic_jesszhan@qu=
-icinc.com> wrote:
-> >>
-> >> Add support for pixel_source property to drm_plane and related
-> >> documentation.
-> >>
-> >> This enum property will allow user to specify a pixel source for the
-> >> plane. Possible pixel sources will be defined in the
-> >> drm_plane_pixel_source enum.
-> >>
-> >> The current possible pixel sources are DRM_PLANE_PIXEL_SOURCE_FB and
-> >> DRM_PLANE_PIXEL_SOURCE_COLOR. The default value is *_SOURCE_FB.
-> >>
-> >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
-> >>   drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
-> >>   drivers/gpu/drm/drm_blend.c               | 81 +++++++++++++++++++++=
-++++++++++
-> >>   include/drm/drm_blend.h                   |  2 +
-> >>   include/drm/drm_plane.h                   | 21 ++++++++
-> >>   5 files changed, 109 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/d=
-rm/drm_atomic_state_helper.c
-> >> index fe14be2bd2b2..86fb876efbe6 100644
-> >> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> >> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> >> @@ -252,6 +252,7 @@ void __drm_atomic_helper_plane_state_reset(struct =
-drm_plane_state *plane_state,
-> >>
-> >>          plane_state->alpha =3D DRM_BLEND_ALPHA_OPAQUE;
-> >>          plane_state->pixel_blend_mode =3D DRM_MODE_BLEND_PREMULTI;
-> >> +       plane_state->pixel_source =3D DRM_PLANE_PIXEL_SOURCE_FB;
-> >>
-> >>          if (plane_state->solid_fill_blob) {
-> >>                  drm_property_blob_put(plane_state->solid_fill_blob);
-> >> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_a=
-tomic_uapi.c
-> >> index a28b4ee79444..6e59c21af66b 100644
-> >> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> >> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> >> @@ -596,6 +596,8 @@ static int drm_atomic_plane_set_property(struct dr=
-m_plane *plane,
-> >>                  drm_property_blob_put(solid_fill);
-> >>
-> >>                  return ret;
-> >> +       } else if (property =3D=3D plane->pixel_source_property) {
-> >> +               state->pixel_source =3D val;
-> >>          } else if (property =3D=3D plane->alpha_property) {
-> >>                  state->alpha =3D val;
-> >>          } else if (property =3D=3D plane->blend_mode_property) {
-> >> @@ -671,6 +673,8 @@ drm_atomic_plane_get_property(struct drm_plane *pl=
-ane,
-> >>          } else if (property =3D=3D plane->solid_fill_property) {
-> >>                  *val =3D state->solid_fill_blob ?
-> >>                          state->solid_fill_blob->base.id : 0;
-> >> +       } else if (property =3D=3D plane->pixel_source_property) {
-> >> +               *val =3D state->pixel_source;
-> >>          } else if (property =3D=3D plane->alpha_property) {
-> >>                  *val =3D state->alpha;
-> >>          } else if (property =3D=3D plane->blend_mode_property) {
-> >> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
-> >> index 38c3c5d6453a..8c100a957ee2 100644
-> >> --- a/drivers/gpu/drm/drm_blend.c
-> >> +++ b/drivers/gpu/drm/drm_blend.c
-> >> @@ -189,6 +189,18 @@
-> >>    *     solid_fill is set up with drm_plane_create_solid_fill_propert=
-y(). It
-> >>    *     contains pixel data that drivers can use to fill a plane.
-> >>    *
-> >> + * pixel_source:
-> >> + *     pixel_source is set up with drm_plane_create_pixel_source_prop=
-erty().
-> >> + *     It is used to toggle the source of pixel data for the plane.
-> >> + *
-> >> + *     Possible values:
-> >> + *
-> >> + *     "FB":
-> >> + *             Framebuffer source
-> >> + *
-> >> + *     "COLOR":
-> >> + *             solid_fill source
-> >> + *
-> >>    * Note that all the property extensions described here apply either=
- to the
-> >>    * plane or the CRTC (e.g. for the background color, which currently=
- is not
-> >>    * exposed and assumed to be black).
-> >> @@ -648,3 +660,72 @@ int drm_plane_create_solid_fill_property(struct d=
-rm_plane *plane)
-> >>          return 0;
-> >>   }
-> >>   EXPORT_SYMBOL(drm_plane_create_solid_fill_property);
-> >> +
-> >> +/**
-> >> + * drm_plane_create_pixel_source_property - create a new pixel source=
- property
-> >> + * @plane: drm plane
-> >> + * @supported_sources: bitmask of supported pixel_sources for the dri=
-ver (NOT
-> >> + *                     including DRM_PLANE_PIXEL_SOURCE_FB, as it wil=
-l be supported
-> >> + *                     by default).
-> >> + *
-> >> + * This creates a new property describing the current source of pixel=
- data for the
-> >> + * plane.
-> >> + *
-> >> + * The property is exposed to userspace as an enumeration property ca=
-lled
-> >> + * "pixel_source" and has the following enumeration values:
-> >> + *
-> >> + * "FB":
-> >> + *     Framebuffer pixel source
-> >> + *
-> >> + * "COLOR":
-> >> + *     Solid fill color pixel source
-> >
-> > Can we add a "NONE" value?
-> >
-> > I know it has been discussed earlier if we *need*  this and I don't
-> > think we do. I just think it would be better API design to disable
-> > planes this way than having to know that a framebuffer pixel source
-> > with a NULL framebuffer disables the plane. Obviously also keep the
-> > old behavior for backwards compatibility.
->
-> Hi Sebastian,
->
-> Sounds good.
->
-> So if pixel_source =3D=3D NONE disables the planes, would that mean cases
-> where pixel_source =3D=3D COLOR && solid_fill_blob =3D=3D NULL, the atomi=
-c
-> commit should throw an error?
+On 02/07/2023 20:23, Krzysztof Kozlowski wrote:
+> The DTS code coding style expects spaces around '=' sign.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Rob,
+> 
+> Maybe this could go via your tree? Rebased on your for-next:
+> v6.4-rc2-45-gf0ac35049606
+> ---
+>   .../bindings/arm/arm,coresight-cti.yaml        | 18 +++++++++---------
+>   .../bindings/arm/keystone/ti,sci.yaml          |  8 ++++----
+>   .../devicetree/bindings/display/msm/gmu.yaml   |  2 +-
+>   .../display/panel/samsung,s6e8aa0.yaml         |  2 +-
+>   .../display/rockchip/rockchip-vop.yaml         |  4 ++--
+>   .../bindings/iio/adc/ti,adc108s102.yaml        |  2 +-
+>   .../bindings/media/renesas,rzg2l-cru.yaml      |  4 ++--
+>   .../devicetree/bindings/media/renesas,vin.yaml |  4 ++--
+>   .../devicetree/bindings/mtd/mtd-physmap.yaml   |  2 +-
+>   .../bindings/net/mediatek-dwmac.yaml           |  2 +-
+>   .../bindings/perf/amlogic,g12-ddr-pmu.yaml     |  4 ++--
+>   .../bindings/phy/mediatek,dsi-phy.yaml         |  2 +-
+>   .../remoteproc/amlogic,meson-mx-ao-arc.yaml    |  2 +-
 
-I would say so, yes.
+For amlogic ones:
 
-> Thanks,
->
-> Jessica Zhang
->
-> >
-> >> + *
-> >> + * Returns:
-> >> + * Zero on success, negative errno on failure.
-> >> + */
-> >> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
-> >> +                                          unsigned int supported_sour=
-ces)
-> >> +{
-> >> +       struct drm_device *dev =3D plane->dev;
-> >> +       struct drm_property *prop;
-> >> +       const struct drm_prop_enum_list enum_list[] =3D {
-> >> +               { DRM_PLANE_PIXEL_SOURCE_FB, "FB" },
-> >> +               { DRM_PLANE_PIXEL_SOURCE_COLOR, "COLOR" },
-> >> +       };
-> >> +       unsigned int valid_source_mask =3D BIT(DRM_PLANE_PIXEL_SOURCE_=
-FB) |
-> >> +                                      BIT(DRM_PLANE_PIXEL_SOURCE_COLO=
-R);
-> >> +       int i;
-> >> +
-> >> +       /* FB is supported by default */
-> >> +       supported_sources |=3D BIT(DRM_PLANE_PIXEL_SOURCE_FB);
-> >> +
-> >> +       if (WARN_ON(supported_sources & ~valid_source_mask))
-> >> +               return -EINVAL;
-> >> +
-> >> +       prop =3D drm_property_create(dev, DRM_MODE_PROP_ENUM, "pixel_s=
-ource",
-> >> +                       hweight32(supported_sources));
-> >> +
-> >> +       if (!prop)
-> >> +               return -ENOMEM;
-> >> +
-> >> +       for (i =3D 0; i < ARRAY_SIZE(enum_list); i++) {
-> >> +               int ret;
-> >> +
-> >> +               if (!(BIT(enum_list[i].type) & supported_sources))
-> >> +                       continue;
-> >> +
-> >> +               ret =3D drm_property_add_enum(prop, enum_list[i].type,=
- enum_list[i].name);
-> >> +
-> >> +               if (ret) {
-> >> +                       drm_property_destroy(dev, prop);
-> >> +
-> >> +                       return ret;
-> >> +               }
-> >> +       }
-> >> +
-> >> +       drm_object_attach_property(&plane->base, prop, DRM_PLANE_PIXEL=
-_SOURCE_FB);
-> >> +       plane->pixel_source_property =3D prop;
-> >> +
-> >> +       return 0;
-> >> +}
-> >> +EXPORT_SYMBOL(drm_plane_create_pixel_source_property);
-> >> diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
-> >> index 0338a860b9c8..31af7cfa5b1b 100644
-> >> --- a/include/drm/drm_blend.h
-> >> +++ b/include/drm/drm_blend.h
-> >> @@ -59,4 +59,6 @@ int drm_atomic_normalize_zpos(struct drm_device *dev=
-,
-> >>   int drm_plane_create_blend_mode_property(struct drm_plane *plane,
-> >>                                           unsigned int supported_modes=
-);
-> >>   int drm_plane_create_solid_fill_property(struct drm_plane *plane);
-> >> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
-> >> +                                          unsigned int supported_sour=
-ces);
-> >>   #endif
-> >> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> >> index f6ab313cb83e..73fb6cf8a5d9 100644
-> >> --- a/include/drm/drm_plane.h
-> >> +++ b/include/drm/drm_plane.h
-> >> @@ -59,6 +59,12 @@ struct drm_solid_fill {
-> >>          uint32_t b;
-> >>   };
-> >>
-> >> +enum drm_plane_pixel_source {
-> >> +       DRM_PLANE_PIXEL_SOURCE_FB,
-> >> +       DRM_PLANE_PIXEL_SOURCE_COLOR,
-> >> +       DRM_PLANE_PIXEL_SOURCE_MAX
-> >> +};
-> >> +
-> >>   /**
-> >>    * struct drm_plane_state - mutable plane state
-> >>    *
-> >> @@ -152,6 +158,14 @@ struct drm_plane_state {
-> >>           */
-> >>          struct drm_solid_fill solid_fill;
-> >>
-> >> +       /*
-> >> +        * @pixel_source:
-> >> +        *
-> >> +        * Source of pixel information for the plane. See
-> >> +        * drm_plane_create_pixel_source_property() for more details.
-> >> +        */
-> >> +       enum drm_plane_pixel_source pixel_source;
-> >> +
-> >>          /**
-> >>           * @alpha:
-> >>           * Opacity of the plane with 0 as completely transparent and =
-0xffff as
-> >> @@ -742,6 +756,13 @@ struct drm_plane {
-> >>           */
-> >>          struct drm_property *solid_fill_property;
-> >>
-> >> +       /*
-> >> +        * @pixel_source_property:
-> >> +        * Optional pixel_source property for this plane. See
-> >> +        * drm_plane_create_pixel_source_property().
-> >> +        */
-> >> +       struct drm_property *pixel_source_property;
-> >> +
-> >>          /**
-> >>           * @alpha_property:
-> >>           * Optional alpha property for this plane. See
-> >>
-> >> --
-> >> 2.41.0
-> >>
-> >
->
+Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+
+>   .../devicetree/bindings/usb/mediatek,mtu3.yaml |  2 +-
+>   .../devicetree/bindings/usb/ti,am62-usb.yaml   |  2 +-
+>   15 files changed, 30 insertions(+), 30 deletions(-)
+> 
+
+<snip>
 
