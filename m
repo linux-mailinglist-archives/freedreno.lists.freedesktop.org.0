@@ -1,83 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F658745D17
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 15:25:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7493746033
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 17:58:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1B610E218;
-	Mon,  3 Jul 2023 13:25:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4D3310E084;
+	Mon,  3 Jul 2023 15:58:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21EA010E218
- for <freedreno@lists.freedesktop.org>; Mon,  3 Jul 2023 13:25:35 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-3fbc59de009so43532735e9.3
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 06:25:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688390733; x=1690982733;
- h=content-transfer-encoding:in-reply-to:organization:from:references
- :to:content-language:subject:reply-to:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=IOndpcYQZRei86HjTSa6sLCOIMedJ10F8ZmbDKThl2M=;
- b=vd7G70PqJmphoqcC5/iGI9byEgifXwK6Rj3mJrKjAIB8uLw1hpzkudZj36bLUzAfkk
- CjzNWks5k2enqZ83uiheJk1bPKP4uBNGIYPZq9fUuff3p2KtuZ3rqJncJyFJqF58Wk11
- z3wyE/Lpomy7vrHjrlZWBHS1lrFctL5sXDGQirjHnrOynrP0Lsyxy/RUFfpaiizpZ15D
- m2niLhmeobmjKoqyeci4H11VdTtxm8S2YpJ4x7pVGDNNw+N9JpOT8TaCH2LRBE6AMkMV
- 2n86A3zQAeyy55sfLbSPXNIM5/Y7R6C5jvxqBMMqtnupqZrKysuVl4uSym0zdS0BCsLV
- ydtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688390733; x=1690982733;
- h=content-transfer-encoding:in-reply-to:organization:from:references
- :to:content-language:subject:reply-to:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IOndpcYQZRei86HjTSa6sLCOIMedJ10F8ZmbDKThl2M=;
- b=jro3N9gihsJyvqQupLAK0dIsYjFhjz2Bz59fObcA2ah+ThWjFjEf4ondfLiuBIeq/h
- fKzFn/Mqxp59xwgibr94+sDH3BpJpo7DNyo6jXMafV1ZXrpe77RLegTAAtK1bPiR1I7m
- ivLjuDmaIZfWdLkNjmNR0KyVE3POeKpP6ANBOohXXU3A+AxOkRPFWnec+1GaYlVKS209
- XAtYALorfunOKdLZWS7UujR397XloqmdBTBDepetEqqoEVY+QHrCaBe3N1kG+qwSJKce
- C9uuBOCRSO56DVb2K6L9yhp1ii/eH2gdNXScPhFyTQ/cNO4w+78hyfZJynaNEC/dsY93
- w/xQ==
-X-Gm-Message-State: ABy/qLYdS6GoBIp7oFME45mp53nPGsUJAKgQBsgfPNLuEkOyJuMgOEZ5
- Ih7abSihkHxNIoNHZJrRN5FIvA==
-X-Google-Smtp-Source: APBJJlFRFQcvat3EQxFgB5SI6iSmXIGa31iU1VkZvt3I+z99Hnaof/6yj4+br2u7++97LUjZHWQZuw==
-X-Received: by 2002:a1c:790e:0:b0:3fb:db66:8332 with SMTP id
- l14-20020a1c790e000000b003fbdb668332mr1599049wme.40.1688390733118; 
- Mon, 03 Jul 2023 06:25:33 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:cf0b:9dd4:190:b74f?
- ([2a01:e0a:982:cbb0:cf0b:9dd4:190:b74f])
- by smtp.gmail.com with ESMTPSA id
- p19-20020a05600c205300b003fbc2c0addbsm10279849wmg.42.2023.07.03.06.25.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jul 2023 06:25:32 -0700 (PDT)
-Message-ID: <1ed2eca7-b5bf-8d25-d38e-15022a8c8a39@linaro.org>
-Date: Mon, 3 Jul 2023 15:25:31 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6595510E084;
+ Mon,  3 Jul 2023 15:58:20 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 363FtDbF018853; Mon, 3 Jul 2023 15:58:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=Qb+ATlfHsHv3ZFspBYMvpWOWHIVM2WZFQeNbx/eawAs=;
+ b=avBwmVM7OMCZ/eQ9cYpChALgzNVoHxaRt+y+/1pHtBbDshC75YqbW92lESXm0MQiRK/n
+ ophfMfKHUtgc1qhmkU9ILp6oA7LTwQHi6gJnf1KbiTaGYM02Xdm9d6xbm1NJfy+AnVdA
+ xPppu0NL1WBe7ioA8bZdt1I8j0PMPH5N81XLh1SUj6F09TmA4lBNGBB8EDsTpll6b5hQ
+ Lb+DhU8Tadwgvn3q10to1o/HdAZi3QKLXTRygRbTjUPLnlf0m8kmehUdTxxAi/SlXndH
+ aWi+I7YbiQRCvwKITHFy3+y0VwPaqzLAtxMUUQ4DQQ9txKJpz/ZPZqg+wwV+G9Z1/LPq qw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rkyrr88ey-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 03 Jul 2023 15:58:10 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 363FwAaQ019368
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 3 Jul 2023 15:58:10 GMT
+Received: from [10.110.64.205] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Mon, 3 Jul 2023
+ 08:58:09 -0700
+Message-ID: <1e32f665-e6c9-3f4b-c804-296323879269@quicinc.com>
+Date: Mon, 3 Jul 2023 08:58:03 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Leo Yan <leo.yan@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-iio@vger.kernel.org,
- linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
+ <20230619212519.875673-9-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230619212519.875673-9-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] dt-bindings: cleanup DTS example whitespaces
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ewUfgUnNBRwVXXK3qFTMUDjptbRb0cd-
+X-Proofpoint-ORIG-GUID: ewUfgUnNBRwVXXK3qFTMUDjptbRb0cd-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-03_11,2023-06-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ mlxlogscore=627 spamscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307030145
+Subject: Re: [Freedreno] [PATCH v4 08/19] drm/msm/dpu: drop zero features
+ from dpu_ctl_cfg data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,45 +85,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02/07/2023 20:23, Krzysztof Kozlowski wrote:
-> The DTS code coding style expects spaces around '=' sign.
+
+
+On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
+> Drop useless zero assignments to the dpu_ctl_cfg::features field.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-> 
-> Rob,
-> 
-> Maybe this could go via your tree? Rebased on your for-next:
-> v6.4-rc2-45-gf0ac35049606
-> ---
->   .../bindings/arm/arm,coresight-cti.yaml        | 18 +++++++++---------
->   .../bindings/arm/keystone/ti,sci.yaml          |  8 ++++----
->   .../devicetree/bindings/display/msm/gmu.yaml   |  2 +-
->   .../display/panel/samsung,s6e8aa0.yaml         |  2 +-
->   .../display/rockchip/rockchip-vop.yaml         |  4 ++--
->   .../bindings/iio/adc/ti,adc108s102.yaml        |  2 +-
->   .../bindings/media/renesas,rzg2l-cru.yaml      |  4 ++--
->   .../devicetree/bindings/media/renesas,vin.yaml |  4 ++--
->   .../devicetree/bindings/mtd/mtd-physmap.yaml   |  2 +-
->   .../bindings/net/mediatek-dwmac.yaml           |  2 +-
->   .../bindings/perf/amlogic,g12-ddr-pmu.yaml     |  4 ++--
->   .../bindings/phy/mediatek,dsi-phy.yaml         |  2 +-
->   .../remoteproc/amlogic,meson-mx-ao-arc.yaml    |  2 +-
 
-For amlogic ones:
-
-Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-
->   .../devicetree/bindings/usb/mediatek,mtu3.yaml |  2 +-
->   .../devicetree/bindings/usb/ti,am62-usb.yaml   |  2 +-
->   15 files changed, 30 insertions(+), 30 deletions(-)
-> 
-
-<snip>
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
