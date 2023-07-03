@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44B9D7461F5
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 20:16:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C53E7461F1
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jul 2023 20:16:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB7DB10E227;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C20510E22B;
 	Mon,  3 Jul 2023 18:16:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7CD610E227
- for <freedreno@lists.freedesktop.org>; Mon,  3 Jul 2023 18:16:06 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4fb73ba3b5dso7584707e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 11:16:06 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE7A610E227
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Jul 2023 18:16:07 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2b6a662b9adso70462701fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 11:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688408164; x=1691000164;
+ d=linaro.org; s=google; t=1688408166; x=1691000166;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rfbq0gETnI1sgMFmbHrdDFl/8/rFlwdeWeNPy1LZMAk=;
- b=DyUggfEIdkP+zEhWECWn3vTa6gXyOFU9JIQ7hglnUTo1f7fQ6ekt+EV8pgkAYM+Jqf
- kRzL3Brc9MwA3lln/K4xWNuIBlLrkexczZhd4mDKkAia9xe1A0tjxADUmYDSBPqW6d1h
- E7DfxqSpDMkQArzT4/AgXRfTkfg6yNSjRXgwf5fRlrOQrX5dxkTriCF+VBzWjYO9rSv4
- X0SFrTGjs6zw3vDh99ytBEL/MoD5M6TMlizOm7DUR031HFbqBPK+g9gxKZVEqnMPCoZP
- vIJahMZv/da1p+w0+idh6HtVbiJ6uKZhmGLaZGrBChoJW0HSNJdmF+VNGJUDXewvyvZL
- RqSw==
+ :reply-to; bh=SEhHQ8qdRfQQVMmnLHDVdeTjikaeU7SDTha8pASydDI=;
+ b=M3MZVSSvTVZWcSpRhaGpO/4ZkPSOJadnFRhiAWsh68RYeasKrMbEh/oT0RYk3GLYFo
+ k4jwahArOJYgAvQtne7W5fHuj3trxl49qv26FrFAJPDMKnjMa4Hwf1KfrF9RA7dSb306
+ CJxseFXY8lFhRYqn+UhQewllXgn+Ya667F39GD+h//21/3/m9D+GK4CmpZZMtlq3ifTB
+ xu/JJOFXym4Bl3Iy/vnGUSrBd0nM8RWNEGhKDr5xS6CpaOrQTL/r//7ljBrUlwnnkICc
+ rrtEWp8QlX/wSerFxkpNnk1VKPfJVb2Ac/79UNgYBOFvt8bQOCu7wizgPkbl0ydDXUeK
+ 6/8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688408164; x=1691000164;
+ d=1e100.net; s=20221208; t=1688408166; x=1691000166;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rfbq0gETnI1sgMFmbHrdDFl/8/rFlwdeWeNPy1LZMAk=;
- b=ZuMzQNFHDZrPrDdFNNoJMPgCtQAMP7bCIp1gAkKqTNC2USKmWI1Jn9tEsa73BBzsBU
- FpdP4HNLuDmNHMzm9/0LIXOvolAQrdZHxZjg2pgygJp/rM5QQP37Nv6VsPK9M5lmx5ul
- tjXsqIhJGoPyrOihiCwtN2BiiTyMNIdppmZyR5XKvhvNoZQ1EFl9f3qm4niZkue3Oaac
- ae74Kbv6ahZu1rOgFtEWi3EQU1FxU71R8wxTmsDIAwnaiAcyrwrgJds8pVh4mdNlX6GL
- JzsBIHZRZOJaFlovfNbEWjOgOcUbfsMhrPBJovuxLDsiuhegcmZfmb0XAlgdyYrvbyWs
- 2yrA==
-X-Gm-Message-State: ABy/qLaG36qNDCLqNDnditec/yup5/Ofl5pGU05JW1ZBMbTHAXPB2MBA
- Cs/GON1/CIRWSUPcLXOGO5Wl/w==
-X-Google-Smtp-Source: APBJJlEd6e6YYV2peNdIjMzoqqPTLL2+ZbtH8QHhIBO9CiowXKyJWLK4BqfjRZRngtj72+4U1C1Ubg==
-X-Received: by 2002:a19:7418:0:b0:4f9:5d2a:e0f6 with SMTP id
- v24-20020a197418000000b004f95d2ae0f6mr6907671lfe.14.1688408164399; 
- Mon, 03 Jul 2023 11:16:04 -0700 (PDT)
+ bh=SEhHQ8qdRfQQVMmnLHDVdeTjikaeU7SDTha8pASydDI=;
+ b=YsesnAxYI6IX7+PRUmpupCo0LQKa4nvRBkq7R21dUFXXmLA9zxUX5lWCc0upcAaIIq
+ f6amSgbq+s8wCCt7joGFAA/wWtaU3H4H66EvYFMafpO4sDVMBt4oRjvr1xdJh7tJbuB5
+ Q0nsOABmVAyChoD0WTl2lUdQrtEV3ZdtcyTV12X85bLd9j7SDZ8eVzqCKidO8E9J+EJi
+ /CgfTjg85MaqYJoQkloAUE1yVV9oL6GZn0PZ9vwuv3nXzQuJK9rf5C5o7lCKiX2Q3hVN
+ laW6APcEEkF+S3ynpF1vN2K2S9E6sr/19HIsEFUufeRyBbl1/bfi2ucH07O1Md48lxtj
+ OStA==
+X-Gm-Message-State: ABy/qLZU9ynjchawNFTGKgXksQjAQLo6a3t92CnUoSv7SI//s6kR0KH7
+ WTxARXWsJ+fQBYnbubd/FPercw==
+X-Google-Smtp-Source: APBJJlEc4yAktwF7x6gCgekN3+ccCPA50qDBBrH0d+jVm7hR7Bx9KgDlzmfylQS/QgSsNDm8guAWzg==
+X-Received: by 2002:a05:6512:360a:b0:4f7:55e4:4665 with SMTP id
+ f10-20020a056512360a00b004f755e44665mr6488178lfs.56.1688408166353; 
+ Mon, 03 Jul 2023 11:16:06 -0700 (PDT)
 Received: from [192.168.1.101] (abyj26.neoplus.adsl.tpnet.pl. [83.9.29.26])
  by smtp.gmail.com with ESMTPSA id
- a6-20020a056512390600b004f1383d57ecsm4633034lfu.202.2023.07.03.11.16.02
+ a6-20020a056512390600b004f1383d57ecsm4633034lfu.202.2023.07.03.11.16.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jul 2023 11:16:04 -0700 (PDT)
+ Mon, 03 Jul 2023 11:16:06 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 03 Jul 2023 20:15:56 +0200
+Date: Mon, 03 Jul 2023 20:15:57 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230628-topic-refgen-v3-3-9fbf0e605d23@linaro.org>
+Message-Id: <20230628-topic-refgen-v3-4-9fbf0e605d23@linaro.org>
 References: <20230628-topic-refgen-v3-0-9fbf0e605d23@linaro.org>
 In-Reply-To: <20230628-topic-refgen-v3-0-9fbf0e605d23@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -68,15 +68,14 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1688408157; l=960;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1688408157; l=1019;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=UEARP/nzfff11sHWpuDiJ7VAKYi5TYY87h31tjxPZWc=;
- b=2TMqshCBAOBb1jGz8NS6X0REmrqcs64ytZcs8i+mMynKuIQDOWTOhDG/OmtTBPmumuHXIAZkK
- nMkhkBhtndwBN90jKKlwxo8uAZAwxLRYbbcbgtS0ZfB+daC1S74bqu3
+ bh=bdVFkIHME+ksW97iOZJH0yeZoPTsVUfCpblAjJVbJjI=;
+ b=76+Fxu9Mkj2j91rvxqGFAjIS4lnVHjZtvgXD8BN606qTh2MlXXDVLXeY449B7FkmiVfjfKJUE
+ 3PeNBebhJ/3A+sotF6ET4cY+H5e2VvFD/K9b8XQzRdZcHcZMxrMZwBW
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v3 3/4] dt-bindings: display/msm:
- dsi-controller-main: Allow refgen-supply
+Subject: [Freedreno] [PATCH v3 4/4] drm/msm/dsi: Hook up refgen regulator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,38 +88,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DSI host needs REFGEN to be enabled (if it's present on a given platform).
-Allow consuming it.
+Consume the refgen supply on configurations that may use it.
 
-Acked-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml          | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 01848bdd5873..76270992305a 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -166,6 +166,10 @@ properties:
-     description:
-       Phandle to vdd regulator device node
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index 8a5fb6df7210..1f98ff74ceb0 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -160,6 +160,7 @@ static const char * const dsi_v2_4_clk_names[] = {
  
-+  refgen-supply:
-+    description:
-+      Phandle to REFGEN regulator device node
-+
-   vcca-supply:
-     description:
-       Phandle to vdd regulator device node
+ static const struct regulator_bulk_data dsi_v2_4_regulators[] = {
+ 	{ .supply = "vdda", .init_load_uA = 21800 },	/* 1.2 V */
++	{ .supply = "refgen" },
+ };
+ 
+ static const struct msm_dsi_config sdm845_dsi_cfg = {
+@@ -191,6 +192,7 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
+ 
+ static const struct regulator_bulk_data sc7280_dsi_regulators[] = {
+ 	{ .supply = "vdda", .init_load_uA = 8350 },	/* 1.2 V */
++	{ .supply = "refgen" },
+ };
+ 
+ static const struct msm_dsi_config sc7280_dsi_cfg = {
 
 -- 
 2.41.0
