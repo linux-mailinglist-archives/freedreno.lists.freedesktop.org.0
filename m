@@ -1,69 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F0E746780
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 04:22:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C36574683C
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 06:04:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00F0F10E291;
-	Tue,  4 Jul 2023 02:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93B0B10E28A;
+	Tue,  4 Jul 2023 04:04:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF3610E276
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 02:21:53 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b5c231f842so74893741fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 19:21:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688437311; x=1691029311;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WmGHtm3jGXSI4v1qxB94VyOeZX/x+Vgl0xqwxOuhp74=;
- b=vj42jUxZQ9HaJf0dOoNe/L7wmz8IRvlv+/eeCe/Cj4DqlQ/3hjMFktPpoc4ww2eLSL
- l9T1hHQEOj4ewUT5beTRDP2yBAyrTIoDIaEMjIb+AssWyKP0qDfWN6g0AHxCb2A9ot39
- nYCUNdpNCkaz58/4Vo2+69rzAKDwZC6GxQhlkBnderYM8PV3V9GPxPMy4dWzzUjVzi5Z
- ywmQyqDfbD8QbE28uUc4twCB2YiZoKUefDtxzNA8cwVeY5oFcpal0ojlni+10OElAdLj
- redFFJs2Wtl/O5mSiQhxXQQVRP+n/j2naFc93EF5SFDmgrQwUyLzunhlHfIgDhi5rxMQ
- MqpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688437311; x=1691029311;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WmGHtm3jGXSI4v1qxB94VyOeZX/x+Vgl0xqwxOuhp74=;
- b=Lox12hC4VrzX0XuPS13GRXaNWualLdtHZ4VMMzGA+n1aPXlcYC8fKLUSguE5yJhY+f
- /Q/EgdWuqKp41nOUzwdY9FDOzDnTWVKR+z1oxzAxqXyGxzfi3EWU3tqPbpd+n34/oCKc
- ntrPsCr7Lp5pbHtL4pVkT+hGvj3/MJrLVBicJIVPjQKOjMQb1thzFDquy3/l2ACsogXK
- YNhEG0N0sF7vF/EqtFjCXVq0OtnLcWSuF5WEwhAjwv1Lj/ScNQVlrdLASOlGyvuP/Mex
- zArNbVhT1TtTIalDP6IuCaOOIF5E4nX9lnxnMg9zPsHjaE+Q+yZpmsnivGVfVxWmzV7W
- SqYg==
-X-Gm-Message-State: ABy/qLYs4I7M7Qecl4lK3yj4iXuj9oJuqqcBPq/36jg7AnTzKkqvHb0C
- pfYeNLgEJT32jpHe6hZCXNEC7A==
-X-Google-Smtp-Source: APBJJlE/xPX7+5eOnQrw4tzZn5X70UYexYOX/HLMqTh8I3yuktheqYeTgXe5LPaJfhSrN4z5v3ksxQ==
-X-Received: by 2002:a2e:9d03:0:b0:2b6:e623:7b57 with SMTP id
- t3-20020a2e9d03000000b002b6e6237b57mr3770406lji.25.1688437311619; 
- Mon, 03 Jul 2023 19:21:51 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- y16-20020a05651c021000b002b6e863108esm1137830ljn.9.2023.07.03.19.21.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jul 2023 19:21:51 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  4 Jul 2023 05:21:36 +0300
-Message-Id: <20230704022136.130522-20-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230704022136.130522-1-dmitry.baryshkov@linaro.org>
-References: <20230704022136.130522-1-dmitry.baryshkov@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D20510E28A;
+ Tue,  4 Jul 2023 04:04:31 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3643DH3s012310; Tue, 4 Jul 2023 04:04:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=FO4rH8yiwbgjnIGZtETTls5/kiCfby0nXJfAMfRS8Po=;
+ b=SwUlNmlRGZn61T4qUbsUSZof4iowkBN83/7ZcgdBEnpt0TzvNoqU4IXvOrSLicFHO1KU
+ YvYH4tQtPZWrCcWI9IxCFxsKyNru3FmOUjkjs2PMg3zWgEuVjE/WCq3vx1Z8m6oYWFYE
+ Uq+iqDwOFSruf43XEsgTnJuHFJMtco6zY1ThNFqFqt4GTROBKApwOzZUFG3SuGG+qGaQ
+ hvsb3P4OZudAHzPn9V+IcWBcKqaltbNJXfci4iYvrOz1Cv2Pf45gSalrZCTa93Y/WAfR
+ /FinOfjwvN6l12U6ltUsGm264QFuL/uTICzz1YheM1WrjYkqd1dfSLASifLsqZTfQD6q mA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rm006190x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Jul 2023 04:04:24 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36444NYt013655
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 4 Jul 2023 04:04:23 GMT
+Received: from [10.110.19.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Mon, 3 Jul 2023
+ 21:04:22 -0700
+Message-ID: <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
+Date: Mon, 3 Jul 2023 21:04:21 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
+ <20230619212519.875673-5-dmitry.baryshkov@linaro.org>
+ <0aafbba0-52dd-96d9-94a6-0452996e1eba@quicinc.com>
+ <974a294c-d85d-a79f-5b83-bbbac12ff7a2@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <974a294c-d85d-a79f-5b83-bbbac12ff7a2@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 19/19] drm/msm/dpu: drop empty features mask
- INTF_SDM845_MASK
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: TF23xOaRSq_ipwfxkUpkLCkibWnPL-hH
+X-Proofpoint-GUID: TF23xOaRSq_ipwfxkUpkLCkibWnPL-hH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-04_01,2023-06-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 mlxscore=0
+ mlxlogscore=954 adultscore=0 spamscore=0 impostorscore=0 malwarescore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307040033
+Subject: Re: [Freedreno] [PATCH v4 04/19] drm/msm/dpu: drop
+ dpu_mdss_cfg::mdp_count field
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,107 +90,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The INTF_SDM845_MASK features mask is zero. Drop it completely.
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h | 4 ----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h  | 4 ----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 2 --
- 3 files changed, 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-index 4ce25ed4e36f..7d87dc2d7b1b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
-@@ -244,7 +244,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
- 		.base = 0x6a000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 21,
-@@ -254,7 +253,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	}, {
- 		.name = "intf_1", .id = INTF_1,
- 		.base = 0x6a800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 21,
-@@ -264,7 +262,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	}, {
- 		.name = "intf_2", .id = INTF_2,
- 		.base = 0x6b000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 21,
-@@ -274,7 +271,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x6b800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_HDMI,
- 		.prog_fetch_lines_worst_case = 21,
- 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-index 5ad82b109ebb..66e3573eb613 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
-@@ -260,7 +260,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
- 		.base = 0x6a000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 24,
-@@ -270,7 +269,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	}, {
- 		.name = "intf_1", .id = INTF_1,
- 		.base = 0x6a800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_0,
- 		.prog_fetch_lines_worst_case = 24,
-@@ -280,7 +278,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	}, {
- 		.name = "intf_2", .id = INTF_2,
- 		.base = 0x6b000, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DSI,
- 		.controller_id = MSM_DSI_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 24,
-@@ -290,7 +287,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
- 	}, {
- 		.name = "intf_3", .id = INTF_3,
- 		.base = 0x6b800, .len = 0x280,
--		.features = INTF_SDM845_MASK,
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_1,
- 		.prog_fetch_lines_worst_case = 24,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 4a18fc66a412..3efa22429e5f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -95,8 +95,6 @@
- 
- #define DSPP_SC7180_MASK BIT(DPU_DSPP_PCC)
- 
--#define INTF_SDM845_MASK (0)
--
- #define INTF_SC7180_MASK \
- 	(BIT(DPU_INTF_INPUT_CTRL) | \
- 	 BIT(DPU_INTF_TE) | \
--- 
-2.39.2
+On 7/3/2023 7:20 PM, Dmitry Baryshkov wrote:
+> On 03/07/2023 05:01, Abhinav Kumar wrote:
+>>
+>>
+>> On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
+>>> There is always a single MDP TOP block. Drop the mdp_count field and
+>>> stop declaring dpu_mdp_cfg instances as arrays.
+>>>
+>>> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>
+>> The change drops mdp_count and stops using the array which is fine and 
+>> I will support that.
+>>
+>> But looking at the pattern I saw while using core_revision, both 
+>> DPU_MDP_VSYNC_SEL and DPU_MDP_AUDIO_SELECT can also be dropped from 
+>> the catalog in favor of using core_revision.
+>>
+>> Hence for that, I request you not to stop passing dpu_mdss_cfg to 
+>> dpu_hw_mdptop_init as that has the necessary information of 
+>> core_revision.
+> 
+> Sure, I'll restore it. Please note, however, that it might be better to 
+> pass struct dpu_caps instead of the full struct dpu_mdss_cfg.
+> 
 
+Thanks for restoring.
+
+Can you pls explain this better? dpu_core_rev is part of dpu_mdss_cfg, 
+so dpu_caps wont be enough for this one.
+
+>>
+>>>   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  7 +---
+>>>   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  7 +---
+>>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 -
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 38 +++----------------
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 ++--
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  4 +-
+>>>   19 files changed, 41 insertions(+), 115 deletions(-)
+> 
