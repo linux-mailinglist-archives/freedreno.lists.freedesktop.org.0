@@ -1,60 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E78E74746A
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 16:49:29 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 999877474BB
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 17:04:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1192C10E146;
-	Tue,  4 Jul 2023 14:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9330C10E2D0;
+	Tue,  4 Jul 2023 15:04:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe2b.google.com (mail-vs1-xe2b.google.com
- [IPv6:2607:f8b0:4864:20::e2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E48E10E139;
- Tue,  4 Jul 2023 14:42:43 +0000 (UTC)
-Received: by mail-vs1-xe2b.google.com with SMTP id
- ada2fe7eead31-440b9d60606so1920732137.1; 
- Tue, 04 Jul 2023 07:42:43 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B505210E1B8
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 15:03:57 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2b6a1245542so95321721fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 08:03:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688481762; x=1691073762;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=cxhjD7KY5JD674i+41mIILyrwvbeMopv+PbB7rT3+IE=;
- b=qXoDuKf7tijC6nBenqA4HmNXCVz12f5ddVrWo/iBC08Xy5X/GCcU43sZ0mtpwstHzz
- GGG4rED1L0Z3jHx0ObuuPnqTWgOV3lvgb0UgCTp0CeJLzQJEGAmTwNjVcNLWi2mplii/
- gTzcErjfLOJvdkMr/rbh3rwy+y80EnZd7ymGi3sD7e4+hc0QpRfU1gEicpQvVZGtzAVf
- 6EUu76BBqp0jaLUX1ZJLF1j0K7hxvYq5PwkFk8Ccvmvlcutquq7I+RgTWyWu/YG1H3fa
- w3VIu5zXhiZjEGvEfADAqF0uBRfL7T9poR368enlmGkLswEIk/idT17/IjIAC8boz7sh
- McZA==
+ d=linaro.org; s=google; t=1688483035; x=1691075035;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tj0LTLAfRW3eN7Hujj5ZWhl9+2Sp6toZsHXLprydla0=;
+ b=Oc0Ht0ENmTOi5FbZB1qXkgsXbGSfj290T9ms1fVGyZjAf+TvXYp+/XVxkzCCIUGrSN
+ EXJ8sKyrnhtEvoNXAWvuVh5zypAQ9dnK+/nrEJM0S90TWQRgERdcDwt1rJGSR3OtB1GJ
+ c8HsekoMrsGgyoXLkej8cT4EiZGmXZFuy7F8Fpf+2O6unmIpqpzCA3jXn2tUvxji+tEc
+ vblq4c3eF+JzahrKDenDiKVi087tZQT66kmUdvBPD+h5gbPz5Xx33t3bUqOTRXNZ/T7P
+ yUQCpke/VbNqgNBt3L8JccyC0TlbqEDDFSpx9UwY2wtpdt83wBG8jIJZQo3atPTPfMRv
+ h91Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688481762; x=1691073762;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1688483035; x=1691075035;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=cxhjD7KY5JD674i+41mIILyrwvbeMopv+PbB7rT3+IE=;
- b=Nsz5hztDt6EuetV0OqdO+t81sWo/yHYE9ALSwu/cl56ewpHRTfLnJ6X/NlcJLUjq0L
- rkBKEG+sa1wigLR5PQ8Ipr319qDdgAR4VDy82Bbvr9qMN51AHKtkg6/FcVVg+HqJIswN
- tyXDG9Ed4IgLBCBmQlR+3aoXneZ9QASs4tHLDFxOWSavcfNzXZz9XUWoMu0xNhvgHa/k
- wWq4Zv2YcsafrtHXoKmSeLr1Iqv66OJoBoZnFdGxG1J9Nm5Lhb6ijyphxODt09nmp89i
- PFfotsmDS5r0x97E8mDIkEgYw4UaerOgu99ciujlxGvIeop7OjHeaqMKMfA/khgxNf/u
- C0Qw==
-X-Gm-Message-State: ABy/qLZzFlPRrfZSav+WjG56I71wn0eQ8Iyj3L4pkFRtOuhz7iH70rhr
- tydAlTo7225704Pu7ITYfv1cqanw+f7YtGBcrmc=
-X-Google-Smtp-Source: APBJJlEzBfrRFFxw3waM7f1ipL7WWKBgZ8jQmyUjVtnbM0TCNsn4+zGfKdFXtaZmMtcuMEXY1XjZXuAM/dQift4uNtI=
-X-Received: by 2002:a67:f3d5:0:b0:443:7170:b048 with SMTP id
- j21-20020a67f3d5000000b004437170b048mr6639880vsn.27.1688481761915; Tue, 04
- Jul 2023 07:42:41 -0700 (PDT)
+ bh=tj0LTLAfRW3eN7Hujj5ZWhl9+2Sp6toZsHXLprydla0=;
+ b=INJYCTiwaOXzzZYtxH1KwpVH+l2q40Edjfh2Ve078FcCuvUGTsjK/gFhC76eEo1bVJ
+ WBBKCr/kiMGunkNBFXa9ydd1A57JDM1svxqOGobxb3CPW/U5I3cyRtrmzc7sbS4WrpqT
+ B8lWtG4RrJ6IcPkXNtMlHvBW9tUyDIgmUCtYdosiyFJVUazSSL/Hsy0tA1u3bqjsBhfT
+ D7h12DvHFedv1Tf+AIcMpKcon1IUPpJ6Y5F0S3Ub25gAICNzgBWD0Wq06ehe5RAab8jU
+ InjE8OVY9bD+tQUOVZpYD2b/rTKCaxTlCjg9E6IKAxPYMuV9uHKMfETL5kRxnWdcy2qT
+ uWIg==
+X-Gm-Message-State: ABy/qLZfm14INogPKLOhcAK0jFSiOvnydVkCONnUp3Dfk69rKXcnh3Rz
+ Tk36pDAAQp5vdHb3hKDoGcll8Q==
+X-Google-Smtp-Source: APBJJlH/fz7KgnfYa/G7+IktCfZ+NwjetuSkB8OLYtVtfbCSbvd92lztcnUZLLzQ8pUrqydS/i56Fg==
+X-Received: by 2002:a2e:b606:0:b0:2b6:bf9c:d025 with SMTP id
+ r6-20020a2eb606000000b002b6bf9cd025mr9182116ljn.8.1688483035336; 
+ Tue, 04 Jul 2023 08:03:55 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ j10-20020a2e850a000000b002b6ca539d92sm3337354lji.138.2023.07.04.08.03.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Jul 2023 08:03:54 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue,  4 Jul 2023 18:03:40 +0300
+Message-Id: <20230704150354.159882-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
-From: Jonas Gorski <jonas.gorski@gmail.com>
-Date: Tue, 4 Jul 2023 16:42:30 +0200
-Message-ID: <CAOiHx=kreUEnqssO7y_+UqAxsnXaLPbwBz8h3JRkdEq+pkdW2A@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 04 Jul 2023 14:49:26 +0000
-Subject: Re: [Freedreno] [PATCH] dt-bindings: cleanup DTS example whitespaces
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/14] drm/msm/dpu: cleanup dpu_core_perf
+ module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,63 +73,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, linux-usb@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mtd@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Leo Yan <leo.yan@linaro.org>, linux-phy@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 2 Jul 2023 at 20:24, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> The DTS code coding style expects spaces around '=' sign.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->
-> ---
->
-> Rob,
->
-> Maybe this could go via your tree? Rebased on your for-next:
-> v6.4-rc2-45-gf0ac35049606
-> ---
->  .../bindings/arm/arm,coresight-cti.yaml        | 18 +++++++++---------
->  .../bindings/arm/keystone/ti,sci.yaml          |  8 ++++----
->  .../devicetree/bindings/display/msm/gmu.yaml   |  2 +-
->  .../display/panel/samsung,s6e8aa0.yaml         |  2 +-
->  .../display/rockchip/rockchip-vop.yaml         |  4 ++--
->  .../bindings/iio/adc/ti,adc108s102.yaml        |  2 +-
->  .../bindings/media/renesas,rzg2l-cru.yaml      |  4 ++--
->  .../devicetree/bindings/media/renesas,vin.yaml |  4 ++--
->  .../devicetree/bindings/mtd/mtd-physmap.yaml   |  2 +-
->  .../bindings/net/mediatek-dwmac.yaml           |  2 +-
->  .../bindings/perf/amlogic,g12-ddr-pmu.yaml     |  4 ++--
->  .../bindings/phy/mediatek,dsi-phy.yaml         |  2 +-
->  .../remoteproc/amlogic,meson-mx-ao-arc.yaml    |  2 +-
->  .../devicetree/bindings/usb/mediatek,mtu3.yaml |  2 +-
->  .../devicetree/bindings/usb/ti,am62-usb.yaml   |  2 +-
->  15 files changed, 30 insertions(+), 30 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-> index 0c5b875cb654..d6c84b6e7fe6 100644
-> --- a/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-> +++ b/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-> @@ -287,7 +287,7 @@ examples:
->              arm,trig-in-sigs = <0 1>;
->              arm,trig-in-types = <PE_DBGTRIGGER
->                                   PE_PMUIRQ>;
-> -            arm,trig-out-sigs=<0 1 2 >;
-> +            arm,trig-out-sigs = <0 1 2 >;
+Apply several cleanups to the DPU's core_perf module.
 
-There's a space before the closing > you could drop as well.
+Changes since v1:
+- Reworked overrides for the perf parameters instead of completely
+  dropping them. Abhinav described why these overrides are useful.
+- Moved max clock rate determination to dpu_kms.c
 
-Best Regards,
-Jonas
+Dmitry Baryshkov (14):
+  drm/msm/dpu: drop enum dpu_core_perf_data_bus_id
+  drm/msm/dpu: core_perf: extract bandwidth aggregation function
+  drm/msm/dpu: core_perf: bail earlier if there are no ICC paths
+  drm/msm/dpu: drop separate dpu_core_perf_tune overrides
+  drm/msm/dpu: handle perf mode in _dpu_core_perf_crtc_update_bus()
+  drm/msm/dpu: rework core_perf debugfs overrides
+  drm/msm/dpu: drop dpu_core_perf_params::max_per_pipe_ib
+  drm/msm/dpu: rework indentation in dpu_core_perf
+  drm/msm/dpu: drop the dpu_core_perf_crtc_update()'s stop_req param
+  drm/msm/dpu: use dpu_perf_cfg in DPU core_perf code
+  drm/msm/dpu: remove unused fields from struct dpu_core_perf
+  drm/msm/dpu: core_perf: remove extra clk_round_rate() call
+  drm/msm/dpu: move max clock decision to dpu_kms.
+  drm/msm/dpu: drop dpu_core_perf_destroy()
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 265 +++++-------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  60 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  14 +-
+ 4 files changed, 96 insertions(+), 251 deletions(-)
+
+-- 
+2.39.2
+
