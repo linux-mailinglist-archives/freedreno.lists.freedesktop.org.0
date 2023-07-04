@@ -2,68 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DD337477FE
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 19:46:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B25747887
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 21:01:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B3D010E30B;
-	Tue,  4 Jul 2023 17:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D2A410E31F;
+	Tue,  4 Jul 2023 19:01:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BED6110E30C
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 17:45:59 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4fb73ba3b5dso9438208e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 10:45:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688492757; x=1691084757;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cq361WQvKwVqcRhufIcUtyn4OTZxaeJsGxBGpt0ut4M=;
- b=RmZaSCRwC3f5Td1ec785rzY2U9dq0a9UbOX3/qsLSZiS+zjluov7Cxd+3UW14pcXlJ
- 15axgdX996cq+vI9ik9iq6UwIHBViWRn79cA4XV5CS0iDOnjuDKa1dn+7YquKP+NR3S0
- PYRU4MIc5vPtNx2ve43VaxSSCPQDDG0IvgMevKJC8VwEfD/LwYEw1rKbLtHWFTJrDs2S
- A6imxMWkOn+N3zjoM/azVuMAC10e50eiYU2dd03cTnXOhgtfvanw8ROY3dM+5vsZSbGH
- N4Og5rDcXP2wvQmjzyebf60DWIrR7exReDX+OLCONYxDr3SaK3klYshFgM/4JuLes4Xl
- +VTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688492757; x=1691084757;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cq361WQvKwVqcRhufIcUtyn4OTZxaeJsGxBGpt0ut4M=;
- b=FXqi0HUqhtnQr8mCdkzC21fsGqD/NoMSLypdeZRa2TlDQgZ6QQyvBIATcVP/QIoCDP
- ot4rXYfXZhc4AKtR1tTqEjpkfg/NNzTa+YDYW+H8dWL67ca7DVjOmmASZX+T6UTCsfbc
- HOJGCPI8xsmK0tpdGvqCdLXtD+Fu9oh0xqMxVJIgdhC4Z7Te4cc4S+d+UxHxtuRs7mys
- K4UYA+6GNQ9C8n96WmqcZ97VbouRRKOD/NPkR/Bqx5fZUfLrkNtNitpgqeaG+kXtzk/I
- xQzoUmJVcLaMRxjtbWIRupMkIo0rmuptYxMvm0yUm5VMOhuZSICoDQaRaNamOoa8pT4F
- WO+A==
-X-Gm-Message-State: ABy/qLbVJa68fSDbYr8R9C77hjiDSawIWVw1X6c4MYJHPdhznLPotKUw
- bKjiDM/Sqtyyot2M/g8UKsFeNQ==
-X-Google-Smtp-Source: APBJJlFUl00WT8jzitBemmiM1JfL7aZEEnyTzC7J0Eu8HDfCZLRVLU6X7aT/bRGwEtUVrBQ3mE3pZw==
-X-Received: by 2002:a05:6512:1590:b0:4fb:7666:3bbf with SMTP id
- bp16-20020a056512159000b004fb76663bbfmr11483586lfb.26.1688492757635; 
- Tue, 04 Jul 2023 10:45:57 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- n25-20020a195519000000b004fb6c61e79bsm4709779lfe.117.2023.07.04.10.45.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Jul 2023 10:45:57 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  4 Jul 2023 20:45:53 +0300
-Message-Id: <20230704174553.216248-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230704174553.216248-1-dmitry.baryshkov@linaro.org>
-References: <20230704174553.216248-1-dmitry.baryshkov@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC1D110E31C;
+ Tue,  4 Jul 2023 19:01:09 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 364Irefk017669; Tue, 4 Jul 2023 19:01:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=xSvYHS8wj++FsP6awhoFjhBhv1r9P6VsBY1xo//lDXQ=;
+ b=mXQzz9A/Sfwigq8yhIT/nyeYwg8Lsptax64jt7itDB6BJo2BZVqN79RtEUHEZmjB10dr
+ A83TKJAmx6EBAHjYh6uFKgh8k7rH1+ifYWd/tEiD4Y74psCIn5gfhTWgotxe4cDCQQy6
+ 4q/88hqDjUnFawNxfPPJ0O6Hgy0npbZEs6i1F5qzZuVyXeKvh9c2+uL5zZ8xvhEZj7Ze
+ D6D3mt0/qjpxee27MpQ/JcwK1IGtacDR67uEad5iXuta7O0ia0vqg98aaofMtc7l590P
+ KoQ3FWWATJr0mGSsH7iTdI21LqAk+OHYltefZGkavLutf8ZxoR5obpetErRFdzX90O0/ mg== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rm00639e7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Jul 2023 19:01:03 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 364J12ag014623
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 4 Jul 2023 19:01:02 GMT
+Received: from [10.110.19.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Tue, 4 Jul 2023
+ 12:01:01 -0700
+Message-ID: <f2722ecc-6ad7-a2ea-111a-96e665385849@quicinc.com>
+Date: Tue, 4 Jul 2023 12:01:00 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 4/4] drm/msm/mdp5: move resource allocation
- to the _probe function
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
+ <20230619212519.875673-5-dmitry.baryshkov@linaro.org>
+ <0aafbba0-52dd-96d9-94a6-0452996e1eba@quicinc.com>
+ <974a294c-d85d-a79f-5b83-bbbac12ff7a2@linaro.org>
+ <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
+ <CAA8EJprQLpRNHShWWWZeSyKx3erat3Q7WUXhVV1pYp9UtQEgng@mail.gmail.com>
+ <CAA8EJpqysGpZzEs1QGDec9Jian6gDy+SG6a_VormPF_cdq47hA@mail.gmail.com>
+ <99ec07f7-8892-9cfe-e843-c0f2d9eef658@quicinc.com>
+ <CAA8EJprnPzQz2Nj+iA-M63YeE=esdPZs5dYrnkNEmH1wdMn-Xg@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJprnPzQz2Nj+iA-M63YeE=esdPZs5dYrnkNEmH1wdMn-Xg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: AnoRDXf0GG0_rsRgPc-85vnKZ13TfEP2
+X-Proofpoint-GUID: AnoRDXf0GG0_rsRgPc-85vnKZ13TfEP2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-04_12,2023-07-04_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 mlxscore=0
+ mlxlogscore=999 adultscore=0 spamscore=0 impostorscore=0 malwarescore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307040164
+Subject: Re: [Freedreno] [PATCH v4 04/19] drm/msm/dpu: drop
+ dpu_mdss_cfg::mdp_count field
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,185 +91,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To let the probe function bail early if any of the resources is
-unavailable, move resource allocattion from kms_init directly to the
-probe callback.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 100 ++++++++++-------------
- 1 file changed, 44 insertions(+), 56 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 83a5b3bd09d9..52f176e08690 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -554,20 +554,16 @@ static int mdp5_kms_init(struct drm_device *dev)
- 	struct platform_device *pdev;
- 	struct mdp5_kms *mdp5_kms;
- 	struct mdp5_cfg *config;
--	struct msm_kms *kms;
-+	struct msm_kms *kms = priv->kms;
- 	struct msm_gem_address_space *aspace;
--	int irq, i, ret;
-+	int i, ret;
- 
- 	ret = mdp5_init(to_platform_device(dev->dev), dev);
- 	if (ret)
- 		return ret;
- 
--	/* priv->kms would have been populated by the MDP5 driver */
--	kms = priv->kms;
--	if (!kms)
--		return -ENOMEM;
--
- 	mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
-+
- 	pdev = mdp5_kms->pdev;
- 
- 	ret = mdp_kms_init(&mdp5_kms->base, &kms_funcs);
-@@ -576,15 +572,6 @@ static int mdp5_kms_init(struct drm_device *dev)
- 		goto fail;
- 	}
- 
--	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
--	if (!irq) {
--		ret = -EINVAL;
--		DRM_DEV_ERROR(&pdev->dev, "failed to get irq\n");
--		goto fail;
--	}
--
--	kms->irq = irq;
--
- 	config = mdp5_cfg_get_config(mdp5_kms->cfg);
- 
- 	/* make sure things are off before attaching iommu (bootloader could
-@@ -787,60 +774,23 @@ static int interface_init(struct mdp5_kms *mdp5_kms)
- static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
--	struct mdp5_kms *mdp5_kms;
-+	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 	struct mdp5_cfg *config;
- 	u32 major, minor;
- 	int ret;
- 
--	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
--	if (!mdp5_kms) {
--		ret = -ENOMEM;
--		goto fail;
--	}
--
--	spin_lock_init(&mdp5_kms->resource_lock);
--
- 	mdp5_kms->dev = dev;
--	mdp5_kms->pdev = pdev;
- 
- 	ret = mdp5_global_obj_init(mdp5_kms);
- 	if (ret)
- 		goto fail;
- 
--	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
--	if (IS_ERR(mdp5_kms->mmio)) {
--		ret = PTR_ERR(mdp5_kms->mmio);
--		goto fail;
--	}
--
--	/* mandatory clocks: */
--	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
--	if (ret)
--		goto fail;
--	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
--	if (ret)
--		goto fail;
--	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
--	if (ret)
--		goto fail;
--	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
--	if (ret)
--		goto fail;
--
--	/* optional clocks: */
--	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
--	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
--	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
--
- 	/* we need to set a default rate before enabling.  Set a safe
- 	 * rate first, then figure out hw revision, and then set a
- 	 * more optimal rate:
- 	 */
- 	clk_set_rate(mdp5_kms->core_clk, 200000000);
- 
--	/* set uninit-ed kms */
--	priv->kms = &mdp5_kms->base.base;
--
- 	pm_runtime_enable(&pdev->dev);
- 	mdp5_kms->rpm_enabled = true;
- 
-@@ -931,15 +881,53 @@ static int mdp5_setup_interconnect(struct platform_device *pdev)
- 
- static int mdp5_dev_probe(struct platform_device *pdev)
- {
--	int ret;
-+	struct mdp5_kms *mdp5_kms;
-+	int ret, irq;
- 
- 	DBG("");
- 
-+	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
-+	if (!mdp5_kms)
-+		return -ENOMEM;
-+
- 	ret = mdp5_setup_interconnect(pdev);
- 	if (ret)
- 		return ret;
- 
--	return msm_drv_probe(&pdev->dev, mdp5_kms_init, NULL);
-+	mdp5_kms->pdev = pdev;
-+
-+	spin_lock_init(&mdp5_kms->resource_lock);
-+
-+	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
-+	if (IS_ERR(mdp5_kms->mmio))
-+		return PTR_ERR(mdp5_kms->mmio);
-+
-+	/* mandatory clocks: */
-+	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
-+	if (ret)
-+		return ret;
-+	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
-+	if (ret)
-+		return ret;
-+	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
-+	if (ret)
-+		return ret;
-+	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
-+	if (ret)
-+		return ret;
-+
-+	/* optional clocks: */
-+	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
-+	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
-+	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return dev_err_probe(&pdev->dev, irq, "failed to get irq\n");
-+
-+	mdp5_kms->base.base.irq = irq;
-+
-+	return msm_drv_probe(&pdev->dev, mdp5_kms_init, &mdp5_kms->base.base);
- }
- 
- static int mdp5_dev_remove(struct platform_device *pdev)
--- 
-2.39.2
+On 7/4/2023 10:28 AM, Dmitry Baryshkov wrote:
+> On Tue, 4 Jul 2023 at 19:10, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 7/4/2023 4:52 AM, Dmitry Baryshkov wrote:
+>>> On Tue, 4 Jul 2023 at 13:06, Dmitry Baryshkov
+>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>
+>>>> On Tue, 4 Jul 2023 at 07:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 7/3/2023 7:20 PM, Dmitry Baryshkov wrote:
+>>>>>> On 03/07/2023 05:01, Abhinav Kumar wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>> On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
+>>>>>>>> There is always a single MDP TOP block. Drop the mdp_count field and
+>>>>>>>> stop declaring dpu_mdp_cfg instances as arrays.
+>>>>>>>>
+>>>>>>>> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
+>>>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>>>> ---
+>>>>>>>
+>>>>>>> The change drops mdp_count and stops using the array which is fine and
+>>>>>>> I will support that.
+>>>>>>>
+>>>>>>> But looking at the pattern I saw while using core_revision, both
+>>>>>>> DPU_MDP_VSYNC_SEL and DPU_MDP_AUDIO_SELECT can also be dropped from
+>>>>>>> the catalog in favor of using core_revision.
+>>>>>>>
+>>>>>>> Hence for that, I request you not to stop passing dpu_mdss_cfg to
+>>>>>>> dpu_hw_mdptop_init as that has the necessary information of
+>>>>>>> core_revision.
+>>>>>>
+>>>>>> Sure, I'll restore it. Please note, however, that it might be better to
+>>>>>> pass struct dpu_caps instead of the full struct dpu_mdss_cfg.
+>>>>>>
+>>>>>
+>>>>> Thanks for restoring.
+>>>>>
+>>>>> Can you pls explain this better? dpu_core_rev is part of dpu_mdss_cfg,
+>>>>> so dpu_caps wont be enough for this one.
+>>>>
+>>>> Oh, true. For some reason I thought that version is a part of dpu_caps.
+>>>
+>>> And after additional thought. Maybe it would be better to add a
+>>> separate struct dpu_mdss_version and pass it to the hw block init
+>>> functions?
+>>>
+>>
+>> I would like to see this evolve. Today, we are assuming that only the hw
+>> block init functions are the places we would use those.
+>>
+>>   From what I recall, the DSC over DP series needed the core_revision in
+>> the timing gen code somewhere.
+> 
+> I hope you are talking about the DPU driver here, not about the DP
+> driver. For the DP driver please use struct msm_dp_desc.
+> 
 
+Yes DPU driver.
+
+>>
+>> If we see that pattern is possible once that lands, why not.
+>>
+>> Right now, I would leave it at dpu_mdss_cfg.
+>>
+>>>>
+>>>>>
+>>>>>>>
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  7 +---
+>>>>>>>>     .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  7 +---
+>>>>>>>>     .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 -
+>>>>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 38 +++----------------
+>>>>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 ++--
+>>>>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  4 +-
+>>>>>>>>     19 files changed, 41 insertions(+), 115 deletions(-)
+>>>>>>
+>>>>
+>>>>
+>>>>
+>>>> --
+>>>> With best wishes
+>>>> Dmitry
+>>>
+>>>
+>>>
+> 
+> 
+> 
