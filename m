@@ -2,75 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 435AC74764F
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 18:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A3D7476D5
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 18:36:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377C410E2F8;
-	Tue,  4 Jul 2023 16:18:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 266A710E302;
+	Tue,  4 Jul 2023 16:36:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E8510E2F5;
- Tue,  4 Jul 2023 16:18:30 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36461AEF018704; Tue, 4 Jul 2023 16:18:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=ljzIr1GvFkA2L7mrh7r0rOyoGjyhjOhywAgfd8Edlz0=;
- b=hWESQYzJOuXN2zVOv/nQ3MFnLLrnLlaaG6eOSt3YNQ6BI7goy/nDMNskwSlawp0WnFMh
- vsYpJMor9p7QiWXZxHP8vsG5kmn6vIBjpJekT2ypRE/IzH4ET/3DPUhfXvfz0zHkOIum
- jzEJh6KNswnOiVGdijQNTV4QuEpGhAW4OvNzhOKcz8YO80ZoVjEH0FWrseOUf/nvjK+5
- xAhHjMTKlzpzaeeGWPcL6duldH/e59LL+x4FbwsbkFR/OfBMM83iTDtWhy3jYjTTLPmX
- 0vZAl3aFRzjmUH9R53pKtJbpyFisNQp3ByVHKwjxqdHVBK3/pPcIbkG0kH6kLNrGC/OT Aw== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rm1sb2rea-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Jul 2023 16:18:28 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 364GIRTX004772
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 4 Jul 2023 16:18:27 GMT
-Received: from [10.110.19.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Tue, 4 Jul 2023
- 09:18:25 -0700
-Message-ID: <3cc71fbc-c8f6-cff4-adf3-19013bedc98e@quicinc.com>
-Date: Tue, 4 Jul 2023 09:18:23 -0700
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0E6710E2FF;
+ Tue,  4 Jul 2023 16:36:49 +0000 (UTC)
+Received: by mail-pg1-x535.google.com with SMTP id
+ 41be03b00d2f7-55bc22375b9so495754a12.2; 
+ Tue, 04 Jul 2023 09:36:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688488608; x=1691080608;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=LFRDc3E8OmLDCka2bpsiEu+dF663MCo3+8JyB3tlqiA=;
+ b=b8lDTLFAR2docihZsVjV18uNg9C8vC/+5Q0wSbALcHKwcbEq5Ff+VF+6DTFrHT1U6d
+ ct4yryNfOCCR0UftSWdth2TX5yqzp8eGg/bJ9farhTywo+5aWW6iqxdhslhTDHwsGND0
+ rkNhb232i9REaZeEgcoN48m237QjGAW9P8cmYpQ3xjRjOhIXyOxqWc0WXIW4KfCKDipC
+ JoRQwvdyXvFWDAGN3D/o+tyrXe8SE7rfbLYyg+YffM4PFnCmNX/5QzTIQhXPQ4yNqHZR
+ DpXo0rINg6gg/hn/acFSGOQM21bImVdG1ZJ4Uto6TT5BeyXc+bg7nAY8Pb0VEUveC+8H
+ qUxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688488608; x=1691080608;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LFRDc3E8OmLDCka2bpsiEu+dF663MCo3+8JyB3tlqiA=;
+ b=UzSRJv8XLjOwu9N9SkRNl3GeeEbA/mczRoKE42KhUZBDpLnN8SMVwB0uenRfuJCN8b
+ waaHIpUMh17xvkfddRCBX+M+Vun5oaZivhuHWCkprAE+WvkX26Wsim7/YW9e91a0WIGh
+ TdrccTADvAQrLlUDXTYGWl8l+UIBYllK/pZhof75h2JqPcWdOwujWBHh778kbuI/xwid
+ VDCqvRUW1XL6xvfKc91nF0gQLlJpTaacnVqtfbDPwJC57GOt+blEvXi91YDVEr2s3gH1
+ EmY3miJ3sxylCn2XtGeXkuYSoLK9vc4PtH+KNDylyB3fJjvfOqPI9lKgYxX5uMLnNxY/
+ 6Ssg==
+X-Gm-Message-State: ABy/qLaIjzZEa3DETH4ziYcn35mZsgyi21GuSC7ip0A7Ho1ESQ4f+hjg
+ nyzTT04l7JSJv2/2B4NCtLe/efefpQI=
+X-Google-Smtp-Source: APBJJlEbj7WnCbDxIv9ZoCO8MVBlhz3BBSYckJj3OB/5xPq/MNXLATSeykAMPdtKJgs3TAubTtnI9g==
+X-Received: by 2002:a05:6a20:a11a:b0:12f:7a6b:63d2 with SMTP id
+ q26-20020a056a20a11a00b0012f7a6b63d2mr620338pzk.6.1688488607612; 
+ Tue, 04 Jul 2023 09:36:47 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:ae1c:de46:682a:206])
+ by smtp.gmail.com with ESMTPSA id
+ m12-20020aa78a0c000000b00679d3fb2f92sm13044627pfa.154.2023.07.04.09.36.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Jul 2023 09:36:47 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  4 Jul 2023 09:36:39 -0700
+Message-ID: <20230704163640.6162-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Jonathan Marek <jonathan@marek.ca>, <freedreno@lists.freedesktop.org>
-References: <20230704160106.26055-1-jonathan@marek.ca>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230704160106.26055-1-jonathan@marek.ca>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: hK60cDD_ckLgNX1mXqggon0APgjcb59-
-X-Proofpoint-ORIG-GUID: hK60cDD_ckLgNX1mXqggon0APgjcb59-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-04_10,2023-07-04_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- mlxlogscore=695 clxscore=1011 spamscore=0 lowpriorityscore=0 mlxscore=0
- adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307040141
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add missing flush and fetch
- bits for DMA4/DMA5 planes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/2] drm/msm/adreno: Fix warn splat for devices
+ without revn
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,27 +71,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Sean Paul <sean@poorly.run>, open
- list <linux-kernel@vger.kernel.org>, "open
- list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "open
- list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+Recently, a WARN_ON() was introduced to ensure that revn is filled before
+adreno_is_aXYZ is called. This however doesn't work very well when revn is
+0 by design (such as for A635).
 
-On 7/4/2023 9:01 AM, Jonathan Marek wrote:
-> Note that with this, DMA4/DMA5 are still non-functional, but at least
-> display *something* in modetest instead of nothing or underflow.
-> 
-> Fixes: efcd0107727c ("drm/msm/dpu: add support for SM8550")
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
+Fixes: cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified before being set")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 65379e4824d9..ef1bcb6b624e 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -149,7 +149,8 @@ bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2);
+ 
+ static inline bool adreno_is_revn(const struct adreno_gpu *gpu, uint32_t revn)
+ {
+-	WARN_ON_ONCE(!gpu->revn);
++	/* revn can be zero, but if not is set at same time as info */
++	WARN_ON_ONCE(!gpu->info);
+ 
+ 	return gpu->revn == revn;
+ }
+@@ -161,14 +162,16 @@ static inline bool adreno_has_gmu_wrapper(const struct adreno_gpu *gpu)
+ 
+ static inline bool adreno_is_a2xx(const struct adreno_gpu *gpu)
+ {
+-	WARN_ON_ONCE(!gpu->revn);
++	/* revn can be zero, but if not is set at same time as info */
++	WARN_ON_ONCE(!gpu->info);
+ 
+ 	return (gpu->revn < 300);
+ }
+ 
+ static inline bool adreno_is_a20x(const struct adreno_gpu *gpu)
+ {
+-	WARN_ON_ONCE(!gpu->revn);
++	/* revn can be zero, but if not is set at same time as info */
++	WARN_ON_ONCE(!gpu->info);
+ 
+ 	return (gpu->revn < 210);
+ }
+-- 
+2.41.0
 
-Will pick this up for -fixes
