@@ -1,64 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33736746E3F
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 12:07:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7BC746FC3
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 13:22:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C34C310E099;
-	Tue,  4 Jul 2023 10:07:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF6A10E119;
+	Tue,  4 Jul 2023 11:22:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5325510E099
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 10:07:07 +0000 (UTC)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-56fff21c2ebso64484197b3.3
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 03:07:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688465226; x=1691057226;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=W/TU50pqt7852fwznZ8t754nkkl2iciRxHnPHmCyB6U=;
- b=vBnZ6yBjAVZtB9lm+mTYzLyl2NbiVFu3/EqWvjTxAyNh+SLKaoJLvZtGBLcI9x4V4f
- jiJnN+fmGpKxzcn/aLGILdPGAu0anZMoyBay0lzIUmegRkCpT8s0oUjTaHBYHEz6PS5l
- j4YI3LJbrvsKRS8hTwYuf92HVZlLsaeLQtODp6czjfp8FUHZaQWBRHlM/o88nv1HysAE
- nTz68kLGavsR0j5dp8Vk2RK59vaal6ORnlPGMZmsT9zsA8al13u4IVR/HqmMgw6w8RQD
- 43BHqJoyUKSsCGk6Z9vvVlVMJYMm55J530s67InMjX/Tu/uI6Econtus8ioxrOWfXj7b
- 5p7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688465226; x=1691057226;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=W/TU50pqt7852fwznZ8t754nkkl2iciRxHnPHmCyB6U=;
- b=fEar2pRb5BtPX9W0GRLauurdTCFGi7pcy9DBl3S821gDBFOScrnwRNDzJiF7VCx82R
- HXtSjIEf6mPCY2uqmizyRCCW8KUT/vqa7u8pPoKgtWK1IeyivHaOXlzAb/PLSXe6m7OP
- /Wjux8wSjYCYVnp5TSuBE+NUHQaFjcu2AH/YDqxbKig+yJ6LobbRrBtg/sY5F0e7Kw3y
- nwpnKmXlzd5EQ6a/paMBeDbkRrxJ1ZgzeAfFltO9USG8jiYuc3GzAJIZI3XOoYG0wvEh
- x2IxaWgLwJNOfoEgzk0Vi++XfohvErlPfILjigWL+kLbHHXfiRXRt/494/bUtVPBvlPS
- 6IGw==
-X-Gm-Message-State: ABy/qLaHJkdlCP20X69gMNSkQ+yXcQOzLPvWeIxOggNG0m1G7c8EczOb
- NWRpXZFus1HDqvx5zYx7nSBMnH/MwxFW0SNl69jMCg==
-X-Google-Smtp-Source: APBJJlG9beslrUOAlSlPYS9wFzbYRVC5J4X7RDqJStkFhnmcip4kLagbCciA+DPhU9qbHQXZSH34fZLgmBZWNIuVkus=
-X-Received: by 2002:a25:c7cf:0:b0:bd7:545e:ab41 with SMTP id
- w198-20020a25c7cf000000b00bd7545eab41mr11391556ybe.27.1688465226174; Tue, 04
- Jul 2023 03:07:06 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47F8B10E113;
+ Tue,  4 Jul 2023 11:22:30 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AFD4B61193;
+ Tue,  4 Jul 2023 11:22:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9688BC433C9;
+ Tue,  4 Jul 2023 11:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688469749;
+ bh=bWtf92i8/oO3zMlwR5SLYOrLYXhx27D67V8Iypmio+o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rvywrCopXdg0XDl7CE9xtuwtEFzMRdFnLG5B6RMq/g6B8poPgGQYKuYTYBjDTrKo6
+ v9FRy/OxlIpGaB4cCFoX5jMvHX4Wr+2MpZFyMVuUFZyrLAdavaYzj3BWquHzMkMNfO
+ bpoOVkSkpgx3TDxSzYD0gbZTKBqVisLLyYQFePmyHaw6t9/AFj1wnNEIjQ2tUFn53w
+ xEslso4o8h/nlnGoW4LrM8lxpyVELRWR57V6NSbDR3ZlV0YOwEBmHP0hP/qUYPh+Hh
+ ZKBWoHvVOTc1pLMKNxrYL0lo4wH0bdTm1XMfQcws4vk+hw6d7u7g8cL1qy6hloVRLn
+ RD5Ww+GgHPt7Q==
+Date: Tue, 4 Jul 2023 16:52:24 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <ZKQA8HxGavlwq550@matsya>
+References: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
- <20230619212519.875673-5-dmitry.baryshkov@linaro.org>
- <0aafbba0-52dd-96d9-94a6-0452996e1eba@quicinc.com>
- <974a294c-d85d-a79f-5b83-bbbac12ff7a2@linaro.org>
- <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
-In-Reply-To: <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 4 Jul 2023 13:06:55 +0300
-Message-ID: <CAA8EJprQLpRNHShWWWZeSyKx3erat3Q7WUXhVV1pYp9UtQEgng@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 04/19] drm/msm/dpu: drop
- dpu_mdss_cfg::mdp_count field
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Freedreno] [PATCH] dt-bindings: cleanup DTS example whitespaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,78 +53,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ coresight@lists.linaro.org, linux-usb@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-mtd@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Leo Yan <leo.yan@linaro.org>, linux-phy@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 4 Jul 2023 at 07:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 7/3/2023 7:20 PM, Dmitry Baryshkov wrote:
-> > On 03/07/2023 05:01, Abhinav Kumar wrote:
-> >>
-> >>
-> >> On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
-> >>> There is always a single MDP TOP block. Drop the mdp_count field and
-> >>> stop declaring dpu_mdp_cfg instances as arrays.
-> >>>
-> >>> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>> ---
-> >>
-> >> The change drops mdp_count and stops using the array which is fine and
-> >> I will support that.
-> >>
-> >> But looking at the pattern I saw while using core_revision, both
-> >> DPU_MDP_VSYNC_SEL and DPU_MDP_AUDIO_SELECT can also be dropped from
-> >> the catalog in favor of using core_revision.
-> >>
-> >> Hence for that, I request you not to stop passing dpu_mdss_cfg to
-> >> dpu_hw_mdptop_init as that has the necessary information of
-> >> core_revision.
-> >
-> > Sure, I'll restore it. Please note, however, that it might be better to
-> > pass struct dpu_caps instead of the full struct dpu_mdss_cfg.
-> >
->
-> Thanks for restoring.
->
-> Can you pls explain this better? dpu_core_rev is part of dpu_mdss_cfg,
-> so dpu_caps wont be enough for this one.
+On 02-07-23, 20:23, Krzysztof Kozlowski wrote:
+> The DTS code coding style expects spaces around '=' sign.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Rob,
+> 
+> Maybe this could go via your tree? Rebased on your for-next:
+> v6.4-rc2-45-gf0ac35049606
+> ---
+>  .../bindings/arm/arm,coresight-cti.yaml        | 18 +++++++++---------
+>  .../bindings/arm/keystone/ti,sci.yaml          |  8 ++++----
+>  .../devicetree/bindings/display/msm/gmu.yaml   |  2 +-
+>  .../display/panel/samsung,s6e8aa0.yaml         |  2 +-
+>  .../display/rockchip/rockchip-vop.yaml         |  4 ++--
+>  .../bindings/iio/adc/ti,adc108s102.yaml        |  2 +-
+>  .../bindings/media/renesas,rzg2l-cru.yaml      |  4 ++--
+>  .../devicetree/bindings/media/renesas,vin.yaml |  4 ++--
+>  .../devicetree/bindings/mtd/mtd-physmap.yaml   |  2 +-
+>  .../bindings/net/mediatek-dwmac.yaml           |  2 +-
+>  .../bindings/perf/amlogic,g12-ddr-pmu.yaml     |  4 ++--
+>  .../bindings/phy/mediatek,dsi-phy.yaml         |  2 +-
 
-Oh, true. For some reason I thought that version is a part of dpu_caps.
-
->
-> >>
-> >>>   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  7 +---
-> >>>   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  7 +---
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 -
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 38 +++----------------
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 ++--
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  4 +-
-> >>>   19 files changed, 41 insertions(+), 115 deletions(-)
-> >
-
-
+Acked-by: Vinod Koul <vkoul@kernel.org>
 
 -- 
-With best wishes
-Dmitry
+~Vinod
