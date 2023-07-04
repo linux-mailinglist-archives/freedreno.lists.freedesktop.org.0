@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D9627474DD
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 17:04:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 529CF7474DF
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 17:04:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38E0E10E2D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB99810E2EF;
 	Tue,  4 Jul 2023 15:04:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FDAF10E2E1
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 15:04:07 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b6f943383eso11997761fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 08:04:07 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33A0D10E2E7
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 15:04:08 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2b5c2433134so71909511fa.0
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 08:04:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688483045; x=1691075045;
+ d=linaro.org; s=google; t=1688483046; x=1691075046;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K014LgLyPe4aW6ZNHxa+7j6rHR32DjhGHYOOx4vKvz0=;
- b=cW/atZ9p/Z1NbJFRIGf7Y8+A8+yEdtUDWR9e9FUVpr/4X9EiNjcwcUQQyBNFXrYzg9
- +deMu81Lfp9/bcfjw5PHlunXr4S5+SCO7lN9OgHuBUexgv7gMuXp8NWjhNjoOKwf7cDO
- FXvKyQUKaGaXDZAI9J8d7Zs4xBzIuBGbS3G+ZKaH0rBWXJds6seTLzBouxgf1NX23HFm
- Kb09fCviq+qaqa2dk324LKQB4jc1ypFais6nV4xphl1H6JsSZnKFVflYDIaIctv0AzbN
- 8/6X49tBTheNixTm7Z0sfnU+lKxWNHKu/2myypQaTIh/qmmBfJia90wobWJGgnV9PbSG
- me4A==
+ bh=3xZk5vPk29uIzS1RfjK4BQWFnQ4bvdjXpPHBXHvz4II=;
+ b=NYmiUxpvSBe4mTOK8eLkgFsavb3DP2IC2R4Qi1euCOF3BQjEU+n02DzCTCerxqyiKc
+ axiNoOfGlOwEwEh7j4LoM0FEl8qRwQj9E1ngesL1BlJAqVpG3Zfo9cEHyhYpgDBx6nEk
+ Er6HTxocnXgjch+Fx8VeT6mBmxjveQ9m0ST7bEq/bvLaAzx+EwJaZbSgbgLVbXJoLn+Z
+ NQru2E4W+9Xi2j9e4AVhZnsOqJZ3oi0oas11lMWTXItbQlxf8z2rTdGtGLHT7kUwtXc9
+ FCO/fx7dsyKoZH2AtdevK9UuLLt5PophfiFO10Styur0sAl8JvpqLSmah3K8cyZAarnT
+ aIAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688483045; x=1691075045;
+ d=1e100.net; s=20221208; t=1688483046; x=1691075046;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=K014LgLyPe4aW6ZNHxa+7j6rHR32DjhGHYOOx4vKvz0=;
- b=asHOeXGY7DtzxkrM9F9DiTtWe0/9n1OEIFPx+Duy1h4tTo6aMPwehxfdorhTllfy4W
- 1axajKr4084k8fVOw9bDPDTCR9eRP5NoSHEaRL7WurJItXjRIIdBqKqDL6FF2nXXwVi5
- zni7cMnyz5juyoulx83XX8SJhPAgYJNw0lTMXUpk970kOIEo42H+EQnGq6tm23VOXIm1
- x3U1aVhUrCuM2IoDuO3PJ5i8uE4lvBMMR5w8V+maDRikPaGNgmMuBe4APOD+TGmZdj8P
- eXAed96UBJ9d1xAT5O1hG53r1hP0v/ns0+nQ3DysbOr9CrhfMPtrxJ5D0NoYRQHjOqoZ
- VTRA==
-X-Gm-Message-State: ABy/qLZpEGVk79cTmm19QnITfxG1AXLo0z+a879DJPnaSplJZe90WOBk
- oR36W9TwXn+0g6rUCP6Bs6O7eg==
-X-Google-Smtp-Source: APBJJlFL6tCE43hAXSFHpFC901y1JpvL+F43NmKcBa6ZbOeviRZX7bqDm3EOf7P0JSAFnwXnrnMQdw==
-X-Received: by 2002:a2e:8885:0:b0:2b5:80e0:f18e with SMTP id
- k5-20020a2e8885000000b002b580e0f18emr9572371lji.3.1688483045753; 
- Tue, 04 Jul 2023 08:04:05 -0700 (PDT)
+ bh=3xZk5vPk29uIzS1RfjK4BQWFnQ4bvdjXpPHBXHvz4II=;
+ b=Egkzd82PV/11wZwuTQ1zLn9xhHlsqkbtD0Pxpvf9y3q16e7oPRqHxHn/A7VJDWhkrD
+ xN7Ruq6w8EvFi/TgP8y3oVdoiyOUi/xOkB5F/9gf2BhNeUZNBeSsNzw80lGRwP1dr7h2
+ 6XhSGjDY+zzvUzKDZlOIh8vGu7jan5V1KTKfSPSBOOCe6MGEysNKbjtdHKMtQhz6+pUk
+ vRJORgUWAXwvDAclUwWa+vaEvk4vy69udiWx4VXz5FDROQfSA03yEmH5NKlp+q3xfg07
+ 4uM9yMdlIlJjpQJXzeuJ93f2GYRciu0gtSzCXaWH+40C0lZiJlGx3v3fUW51hNCoeWtb
+ M9ug==
+X-Gm-Message-State: ABy/qLbSe2f44i2mYxdISmwK6zd/e/bIVUB9LsQ8tFHwTmxhfxuwD5t6
+ W9n3IgMs1Eo/fswwtqYnC/vxvA==
+X-Google-Smtp-Source: APBJJlGlVAmws/zMk7QPQqjvFWIeZD/9Vb6AMtK23TVaTRNSUSWpkJJOJAyRpJOGtp+pssjCwgW/Pg==
+X-Received: by 2002:a2e:8951:0:b0:2b5:8b02:1000 with SMTP id
+ b17-20020a2e8951000000b002b58b021000mr5575166ljk.8.1688483046494; 
+ Tue, 04 Jul 2023 08:04:06 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  j10-20020a2e850a000000b002b6ca539d92sm3337354lji.138.2023.07.04.08.04.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Jul 2023 08:04:05 -0700 (PDT)
+ Tue, 04 Jul 2023 08:04:06 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  4 Jul 2023 18:03:53 +0300
-Message-Id: <20230704150354.159882-14-dmitry.baryshkov@linaro.org>
+Date: Tue,  4 Jul 2023 18:03:54 +0300
+Message-Id: <20230704150354.159882-15-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230704150354.159882-1-dmitry.baryshkov@linaro.org>
 References: <20230704150354.159882-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 13/14] drm/msm/dpu: move max clock decision
- to dpu_kms.
+Subject: [Freedreno] [PATCH v2 14/14] drm/msm/dpu: drop
+ dpu_core_perf_destroy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,128 +78,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dpu_core_perf should not make decisions on the maximum possible core
-clock rate. Pass the value from dpu_kms_hw_init().
+This function does nothing, just clears several data pointers. Drop it
+now.
 
+Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 11 ++---------
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  8 ++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 13 +++++++++++--
- 3 files changed, 15 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 10 ----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  6 ------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  1 -
+ 3 files changed, 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index d533b63f90f6..608c915a2cab 100644
+index 608c915a2cab..4b8127932e13 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -416,21 +416,14 @@ void dpu_core_perf_destroy(struct dpu_core_perf *perf)
- 	}
- 
- 	perf->max_core_clk_rate = 0;
--	perf->core_clk = NULL;
+@@ -408,16 +408,6 @@ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
  }
+ #endif
  
+-void dpu_core_perf_destroy(struct dpu_core_perf *perf)
+-{
+-	if (!perf) {
+-		DPU_ERROR("invalid parameters\n");
+-		return;
+-	}
+-
+-	perf->max_core_clk_rate = 0;
+-}
+-
  int dpu_core_perf_init(struct dpu_core_perf *perf,
  		const struct dpu_perf_cfg *perf_cfg,
--		struct clk *core_clk)
-+		unsigned long max_core_clk_rate)
- {
- 	perf->perf_cfg = perf_cfg;
--	perf->core_clk = core_clk;
--
--	perf->max_core_clk_rate = clk_get_rate(core_clk);
--	if (!perf->max_core_clk_rate) {
--		DPU_DEBUG("optional max core clk rate, use default\n");
--		perf->max_core_clk_rate = DPU_PERF_DEFAULT_MAX_CORE_CLK_RATE;
--	}
-+	perf->max_core_clk_rate = max_core_clk_rate;
- 
- 	return 0;
- }
+ 		unsigned long max_core_clk_rate)
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-index 7c5142aca4ee..df1fcf28f2a9 100644
+index df1fcf28f2a9..a5a9c3389718 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-@@ -12,8 +12,6 @@
+@@ -66,12 +66,6 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+  */
+ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc);
  
- #include "dpu_hw_catalog.h"
- 
--#define	DPU_PERF_DEFAULT_MAX_CORE_CLK_RATE	412500000
+-/**
+- * dpu_core_perf_destroy - destroy the given core performance context
+- * @perf: Pointer to core performance context
+- */
+-void dpu_core_perf_destroy(struct dpu_core_perf *perf);
 -
  /**
-  * struct dpu_core_perf_params - definition of performance parameters
-  * @bw_ctl: arbitrated bandwidth request
-@@ -27,7 +25,6 @@ struct dpu_core_perf_params {
- /**
-  * struct dpu_core_perf - definition of core performance context
-  * @perf_cfg: Platform-specific performance configuration
-- * @core_clk: Pointer to the core clock
-  * @core_clk_rate: current core clock rate
-  * @max_core_clk_rate: maximum allowable core clock rate
-  * @enable_bw_release: debug control for bandwidth release
-@@ -37,7 +34,6 @@ struct dpu_core_perf_params {
-  */
- struct dpu_core_perf {
- 	const struct dpu_perf_cfg *perf_cfg;
--	struct clk *core_clk;
- 	u64 core_clk_rate;
- 	u64 max_core_clk_rate;
- 	u32 enable_bw_release;
-@@ -80,11 +76,11 @@ void dpu_core_perf_destroy(struct dpu_core_perf *perf);
   * dpu_core_perf_init - initialize the given core performance context
   * @perf: Pointer to core performance context
-  * @perf_cfg: Pointer to platform performance configuration
-- * @core_clk: pointer to core clock
-+ * @max_core_clk_rate: Maximum core clock rate
-  */
- int dpu_core_perf_init(struct dpu_core_perf *perf,
- 		const struct dpu_perf_cfg *perf_cfg,
--		struct clk *core_clk);
-+		unsigned long max_core_clk_rate);
- 
- struct dpu_kms;
- 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 631b6b679bae..f01b2278c01a 100644
+index f01b2278c01a..44b0daf70c4e 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1011,11 +1011,14 @@ unsigned long dpu_kms_get_clk_rate(struct dpu_kms *dpu_kms, char *clock_name)
- 	return clk_get_rate(clk);
- }
+@@ -1171,7 +1171,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 	return 0;
  
-+#define	DPU_PERF_DEFAULT_MAX_CORE_CLK_RATE	412500000
-+
- static int dpu_kms_hw_init(struct msm_kms *kms)
- {
- 	struct dpu_kms *dpu_kms;
- 	struct drm_device *dev;
- 	int i, rc = -EINVAL;
-+	unsigned long max_core_clk_rate;
- 	u32 core_rev;
- 
- 	if (!kms) {
-@@ -1115,8 +1118,14 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 		dpu_kms->hw_vbif[vbif->id] = hw;
- 	}
- 
--	rc = dpu_core_perf_init(&dpu_kms->perf, dpu_kms->catalog->perf,
--			msm_clk_bulk_get_clock(dpu_kms->clocks, dpu_kms->num_clocks, "core"));
-+	/* TODO: use the same max_freq as in dpu_kms_hw_init */
-+	max_core_clk_rate = dpu_kms_get_clk_rate(dpu_kms, "core");
-+	if (!max_core_clk_rate) {
-+		DPU_DEBUG("max core clk rate not determined, using default\n");
-+		max_core_clk_rate = DPU_PERF_DEFAULT_MAX_CORE_CLK_RATE;
-+	}
-+
-+	rc = dpu_core_perf_init(&dpu_kms->perf, dpu_kms->catalog->perf, max_core_clk_rate);
- 	if (rc) {
- 		DPU_ERROR("failed to init perf %d\n", rc);
- 		goto perf_err;
+ drm_obj_init_err:
+-	dpu_core_perf_destroy(&dpu_kms->perf);
+ hw_intr_init_err:
+ perf_err:
+ power_error:
 -- 
 2.39.2
 
