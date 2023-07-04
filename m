@@ -2,66 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D4487477C5
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 19:28:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24FA7477CA
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 19:30:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9703A10E306;
-	Tue,  4 Jul 2023 17:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E9D10E16B;
+	Tue,  4 Jul 2023 17:30:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [IPv6:2607:f8b0:4864:20::b35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E378B10E16B
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 17:28:48 +0000 (UTC)
-Received: by mail-yb1-xb35.google.com with SMTP id
- 3f1490d57ef6-bdd069e96b5so6412162276.2
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 10:28:48 -0700 (PDT)
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6529010E16B
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 17:30:44 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id
+ 3f1490d57ef6-c01e1c0402cso5404549276.0
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 10:30:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688491728; x=1691083728;
+ d=linaro.org; s=google; t=1688491843; x=1691083843;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Rjr5j18p7LKEXxbKYUJKQGvg5Rhqb0XiCKMH8xNravk=;
- b=Td2t4wx2DXLtIfS7dLitB2hxELIP9/ACSNUBY3NgdDETSKFdWpnJ3Cb/2rgBjMvsSY
- NNVVUlrs8Nitjg65EGBxZ+CTXrOt51yTn+jH8T0NONZBJp5eQWAoVbUJKy8f+aaarAzQ
- noELqTuTZPO8lupuI/jByMbxUWruE6hQNTtFxhoGOp/6Tveu6GbYx15ZtMhciUpB7JPe
- 0KZVwLc1QqVHOzKk6Qy4THhE8oxIM808i4oUrqDq0L/Mg9K+eXPQVZkTE5x4nSKwrmxd
- gKb1r+KDSApjXb2VPz9GFbBPobH22oT7CMQX40wemhVa0tFL7zQmXWjcfVRBinP0WvxM
- CbhQ==
+ bh=lZZYhAMS4P0JlyUoFI/yQ9M0e2zsSOScmdbRcE5pQn0=;
+ b=UM9IFKuWSrCweUYM6HcG8i1kc21W08w08Un0FeZKltLdhGE5tddMqCMS0pj3QByN5B
+ df/UvjOowmu9NUv7djy8CQVrlZLzd76LgEgJL362lrQKa2z0wAAF9HPIWBEhEe5sMVDc
+ saIQRfPg/FIwSHJ0jmqopC0sQ5AM8lMyyJOe2rWz4kQAsF6owJqaPxtDyJaqsEZFFDnd
+ 7wFNCUVpwICvhKWJ5QJEzE4v0Y+EZRiobt54BSN6kr81pI/JtQ9uzxwEkbhuz0bG1YtK
+ 3/M5yDLO90U/nuNJYDq16idE6vUbbxhyHObzHc9mwZ6eGXZVbnS9ZlxtISxR/csninvw
+ bL6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688491728; x=1691083728;
+ d=1e100.net; s=20221208; t=1688491843; x=1691083843;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Rjr5j18p7LKEXxbKYUJKQGvg5Rhqb0XiCKMH8xNravk=;
- b=KYVCAMkJ5v10cqIvMh6TcZDau5cPqG8MSBuyI1uEYO/+ce3WYij8inMbTXZGg8d1xH
- nGdyRJi3bKPQSpd69KYryF7ldfCcCCqNE2AGkP7pzcjjgUDz5N5bRk9QJ1PDC12e0Njf
- tln799l7KCu7kI9HPNWL7HyDL01ln47JkYlkJJzQg3aH+tI56m81utcqz1w+apWM+zR/
- 4BD1z8Z7FaBD3Hv7STZMY2qcVODKL/SXtvg4V1XaAdr3Vt6TOhKr+ljO7ZUrOl2GaQcI
- 0v/zvHwroKYNt/7gkQg5agfdJhEQRzKYOHnji90ZDYtKaRnzg7TzISzar8pOHC4THx8x
- PJCQ==
-X-Gm-Message-State: ABy/qLYkS+WfWVg77dadhH65pEq5UaqUwLcKe6Qnprh6i05MB5VMDHUn
- 4PRdi4S8nK1FNLp1T8VS36GKu3Hs8MWTsPmqAyOSBg==
-X-Google-Smtp-Source: APBJJlEl2OEA3aPdrNtBWURoivz8QZynP3kOEqVKAfA9lgAIyr8FABCJ7GuIlvQfSFoPXhrV66HWwG3/SU0t3dV7NnU=
-X-Received: by 2002:a25:1684:0:b0:c41:51cf:f4ed with SMTP id
- 126-20020a251684000000b00c4151cff4edmr10605746ybw.32.1688491727915; Tue, 04
- Jul 2023 10:28:47 -0700 (PDT)
+ bh=lZZYhAMS4P0JlyUoFI/yQ9M0e2zsSOScmdbRcE5pQn0=;
+ b=CnjX5dFyMk0RtCsT4ER9XWWIuGV17rg4HvpD32DgPuqy8tbor5h+IfXYTFlcBcSrhM
+ ncu4D59neqCEY6W81c+46gvsk3VzHsMkw8E66Zr7+lR+2xx4bShFTdBZ0DjFQlEdPJ+P
+ E/x9F3Yge8QMz5xny47Pp18ZuE3euZQRVzRcHlZNE0g3dvUsch6Ns7LZPZCx/RsveMzj
+ ypIEg5lAwepcgRwZVF6uTVh7EUMzjLxbwU3x7dWZy0ntRLH7M0Rv0cp685Dnkqf1sLpc
+ DhSMr6eU6kRvftGWOAIx3VIgbC4G8Rcuy9s8hBBo4m7m/yWuMmKJKK3TbBHjXLy9DOa+
+ zl9g==
+X-Gm-Message-State: ABy/qLaIgHeNlaqW5FOQUKcxbOnAUWcj/AOCLeykGDddH6DHqQZJVt+1
+ 6YCAq/QnzQUT2eMSjGJ/hx5rQw2xSiFZLX76YTaM6A==
+X-Google-Smtp-Source: APBJJlHigHEYKofayb+OxZT57NxYXwngeV93etDN5bhfqo65aLEQgDJMs3OzGpe0jMPLa/Fx9K3i5sg9dz3n6CXd93s=
+X-Received: by 2002:a25:c550:0:b0:c5e:5573:bda with SMTP id
+ v77-20020a25c550000000b00c5e55730bdamr1496102ybe.11.1688491843141; Tue, 04
+ Jul 2023 10:30:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
- <20230619212519.875673-5-dmitry.baryshkov@linaro.org>
- <0aafbba0-52dd-96d9-94a6-0452996e1eba@quicinc.com>
- <974a294c-d85d-a79f-5b83-bbbac12ff7a2@linaro.org>
- <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
- <CAA8EJprQLpRNHShWWWZeSyKx3erat3Q7WUXhVV1pYp9UtQEgng@mail.gmail.com>
- <CAA8EJpqysGpZzEs1QGDec9Jian6gDy+SG6a_VormPF_cdq47hA@mail.gmail.com>
- <99ec07f7-8892-9cfe-e843-c0f2d9eef658@quicinc.com>
-In-Reply-To: <99ec07f7-8892-9cfe-e843-c0f2d9eef658@quicinc.com>
+References: <20230704150354.159882-1-dmitry.baryshkov@linaro.org>
+ <20230704150354.159882-6-dmitry.baryshkov@linaro.org>
+ <3e31a735-a4d1-c8d4-6a83-53e2687c2f18@quicinc.com>
+In-Reply-To: <3e31a735-a4d1-c8d4-6a83-53e2687c2f18@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 4 Jul 2023 20:28:37 +0300
-Message-ID: <CAA8EJprnPzQz2Nj+iA-M63YeE=esdPZs5dYrnkNEmH1wdMn-Xg@mail.gmail.com>
+Date: Tue, 4 Jul 2023 20:30:32 +0300
+Message-ID: <CAA8EJpos_gPPzyTGc56yQM6h0K8XBJKB2STq6eMZCkRpN4uxbw@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 04/19] drm/msm/dpu: drop
- dpu_mdss_cfg::mdp_count field
+Subject: Re: [Freedreno] [PATCH v2 05/14] drm/msm/dpu: handle perf mode in
+ _dpu_core_perf_crtc_update_bus()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,104 +77,93 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 4 Jul 2023 at 19:10, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Tue, 4 Jul 2023 at 18:55, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
 >
 >
-> On 7/4/2023 4:52 AM, Dmitry Baryshkov wrote:
-> > On Tue, 4 Jul 2023 at 13:06, Dmitry Baryshkov
-> > <dmitry.baryshkov@linaro.org> wrote:
-> >>
-> >> On Tue, 4 Jul 2023 at 07:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 7/3/2023 7:20 PM, Dmitry Baryshkov wrote:
-> >>>> On 03/07/2023 05:01, Abhinav Kumar wrote:
-> >>>>>
-> >>>>>
-> >>>>> On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
-> >>>>>> There is always a single MDP TOP block. Drop the mdp_count field and
-> >>>>>> stop declaring dpu_mdp_cfg instances as arrays.
-> >>>>>>
-> >>>>>> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>>> ---
-> >>>>>
-> >>>>> The change drops mdp_count and stops using the array which is fine and
-> >>>>> I will support that.
-> >>>>>
-> >>>>> But looking at the pattern I saw while using core_revision, both
-> >>>>> DPU_MDP_VSYNC_SEL and DPU_MDP_AUDIO_SELECT can also be dropped from
-> >>>>> the catalog in favor of using core_revision.
-> >>>>>
-> >>>>> Hence for that, I request you not to stop passing dpu_mdss_cfg to
-> >>>>> dpu_hw_mdptop_init as that has the necessary information of
-> >>>>> core_revision.
-> >>>>
-> >>>> Sure, I'll restore it. Please note, however, that it might be better to
-> >>>> pass struct dpu_caps instead of the full struct dpu_mdss_cfg.
-> >>>>
-> >>>
-> >>> Thanks for restoring.
-> >>>
-> >>> Can you pls explain this better? dpu_core_rev is part of dpu_mdss_cfg,
-> >>> so dpu_caps wont be enough for this one.
-> >>
-> >> Oh, true. For some reason I thought that version is a part of dpu_caps.
+> On 7/4/2023 8:03 AM, Dmitry Baryshkov wrote:
+> > Move perf mode handling for the bandwidth to
+> > _dpu_core_perf_crtc_update_bus() rather than overriding per-CRTC data
+> > and then aggregating known values.
 > >
-> > And after additional thought. Maybe it would be better to add a
-> > separate struct dpu_mdss_version and pass it to the hw block init
-> > functions?
+> > Note, this changes the fix_core_ab_vote. Previously it would be
+> > multiplied per the CRTC number, now it will be used directly for
+> > interconnect voting.
 > >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >
-> I would like to see this evolve. Today, we are assuming that only the hw
-> block init functions are the places we would use those.
->
->  From what I recall, the DSC over DP series needed the core_revision in
-> the timing gen code somewhere.
+> Break this out into a separate series. This rework doesnt need to be
+> part of this cleanup series.
 
-I hope you are talking about the DPU driver here, not about the DP
-driver. For the DP driver please use struct msm_dp_desc.
+Sure, why not.
 
 >
-> If we see that pattern is possible once that lands, why not.
->
-> Right now, I would leave it at dpu_mdss_cfg.
->
-> >>
-> >>>
-> >>>>>
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  7 +---
-> >>>>>>    .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  7 +---
-> >>>>>>    .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 -
-> >>>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 38 +++----------------
-> >>>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 ++--
-> >>>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  4 +-
-> >>>>>>    19 files changed, 41 insertions(+), 115 deletions(-)
-> >>>>
-> >>
-> >>
-> >>
-> >> --
-> >> With best wishes
-> >> Dmitry
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 37 +++++++++----------
+> >   1 file changed, 18 insertions(+), 19 deletions(-)
 > >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> > index 348550ac7e51..42c03a5f1f3e 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> > @@ -116,21 +116,9 @@ static void _dpu_core_perf_calc_crtc(struct dpu_kms *kms,
+> >               return;
+> >       }
 > >
+> > -     memset(perf, 0, sizeof(struct dpu_core_perf_params));
+> > -
+> > -     if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+> > -             perf->bw_ctl = 0;
+> > -             perf->max_per_pipe_ib = 0;
+> > -             perf->core_clk_rate = 0;
+> > -     } else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
+> > -             perf->bw_ctl = kms->perf.fix_core_ab_vote;
+> > -             perf->max_per_pipe_ib = kms->perf.fix_core_ib_vote;
+> > -             perf->core_clk_rate = kms->perf.fix_core_clk_rate;
+> > -     } else {
+> > -             perf->bw_ctl = _dpu_core_perf_calc_bw(kms, crtc);
+> > -             perf->max_per_pipe_ib = kms->catalog->perf->min_dram_ib;
+> > -             perf->core_clk_rate = _dpu_core_perf_calc_clk(kms, crtc, state);
+> > -     }
+> > +     perf->bw_ctl = _dpu_core_perf_calc_bw(kms, crtc);
+> > +     perf->max_per_pipe_ib = kms->catalog->perf->min_dram_ib;
+> > +     perf->core_clk_rate = _dpu_core_perf_calc_clk(kms, crtc, state);
 > >
+> >       DRM_DEBUG_ATOMIC(
+> >               "crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
+> > @@ -236,17 +224,28 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+> >       struct dpu_core_perf_params perf = { 0 };
+> >       int i, ret = 0;
+> >       u32 avg_bw;
+> > +     u32 peak_bw;
+> >
+> >       if (!kms->num_paths)
+> >               return 0;
+> >
+> > -     dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+> > +     if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+> > +             avg_bw = 0;
+> > +             peak_bw = 0;
+> > +     } else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
+> > +             avg_bw = kms->perf.fix_core_ab_vote;
+> > +             peak_bw = kms->perf.fix_core_ib_vote;
+> > +     } else {
+> > +             dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+> > +
+> > +             avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
+> > +             peak_bw = perf.max_per_pipe_ib;
+> > +     }
+> >
+> > -     avg_bw = perf.bw_ctl;
+> > -     do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
+> > +     avg_bw /= kms->num_paths;
+> >
+> >       for (i = 0; i < kms->num_paths; i++)
+> > -             icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
+> > +             icc_set_bw(kms->path[i], avg_bw, peak_bw);
+> >
+> >       return ret;
+> >   }
 
 
 
