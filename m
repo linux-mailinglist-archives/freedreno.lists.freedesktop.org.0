@@ -1,79 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E13746681
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 02:19:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7259746687
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 02:24:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF05210E255;
-	Tue,  4 Jul 2023 00:19:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2CD10E0FA;
+	Tue,  4 Jul 2023 00:24:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 826A510E094;
- Tue,  4 Jul 2023 00:19:50 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 364060Av027960; Tue, 4 Jul 2023 00:19:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=6ipvdvx1u2BLo3Sd8jimXiWjU9K4sFl/VgO3JgkZe2k=;
- b=YqnupMooAdM/OrMSM2V7dpjP1mzG0wdV1u/PwroBk9tgnGZPAQHahue74P2unINcoeip
- 8OMMuFSup94UMSBUZ/kDuqpp3f1UuH3H2or72AbWqcQV3RAuEWvhyDP4akmnHfcC0b6V
- 4L9R0H7xVgDGXxUnpFwR5lg5/eDkB5oGr8Qt6nVcdv7ivXl6EY7phEN7hmGMtNheAHA9
- ZCoO9V8DsJN9mzDytIX24dSDvuY1ejknHjL7Vdj7Wrtxq0oKY0p8D5tY0ZWiZArdmBv1
- IP6zdeZU8l8DTuEobmao4opMZGNg2CA8EAof014ShOCGsKErU09NbFlt3+VkCOqkKpIf VA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rkwephby8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Jul 2023 00:19:43 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3640Jgua032018
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 4 Jul 2023 00:19:42 GMT
-Received: from [10.110.19.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.7; Mon, 3 Jul 2023
- 17:19:41 -0700
-Message-ID: <9c13ecf8-c093-e145-3a79-d0686fc5d6e7@quicinc.com>
-Date: Mon, 3 Jul 2023 17:19:40 -0700
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA86310E261
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 00:24:09 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-c50c797c31bso2260813276.0
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 17:24:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1688430248; x=1691022248;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=7ooo4dM5jALOtaXQ/scLIfMMHfxc7psGFc61PPL8SXI=;
+ b=EC4ri2XnmUEcT5FMvk1S4XnLO2FYde1MbnG23B0qy9D1+GCfXYLTNHmwycc3q0wrcE
+ 9B37RTnYYPWSj1v9wdi5dXdv7P3/4Ac7BIxWQZolk/Kc2uYG5d5bT6Ki6Nj0BhODFQ0h
+ CxVJ/BOxEsc/hM59vOeh63h5QiHPa3fXeXu6Uh69oNKD99VHeFA3UrkHyQUKk03TST/h
+ 2F6jT9YJ2CJA+LedHj1CNAOT2K44HTN0rTu5jxeb3qp8XEHkUzUOMXKsMhdQoj1Qvral
+ WKGQBBPo37H8byJZb9Cl9z7NEo3oAA2bkSYT44mjeFFp0IrUud2RFaoXTSswBcziv0U3
+ T/lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688430248; x=1691022248;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7ooo4dM5jALOtaXQ/scLIfMMHfxc7psGFc61PPL8SXI=;
+ b=e1V2Wac5Y5UhF31izTBpPK7/BJqurecVvlksP1cS2/1dAjD+bDbiANUbqjqHP5Xy+E
+ mmYCMGGXH2xjzGkq33V0YzhUGuK933R7Mp5GxWmmFprI59b6ICUin4lYkgV1ecIg7TDe
+ 7o2UF0yxHZgsNJyGf3LrSaJyEb+zLpMg/3HUi4DfPfYTcKt/5eq/7O2UFHTx/mnc6K6k
+ j8TjfQzVCRUuZ9kbRuKMRqSNIGVPHdXexTEBBqprpxmUMGfS/YtwYqOMyzJM32ZXdjCt
+ ryA7iUpXDCwKf6kBDeT5Ld+WlO2Fn69V2Xqbyo1cbdlnDLE0myy+Apfe4MHhN8bNiBxC
+ FaAA==
+X-Gm-Message-State: ABy/qLabopKIH5S+MDrTGtsJoG6782MaEj5Ev2HVtidxaOTJ/ia4w9zz
+ fVtsRxHaWEJlklzLGePFsU86jL0gVzl/Pel3XaGAaQ==
+X-Google-Smtp-Source: APBJJlGwBuEBQNkpWTGVzwAN8wHVIS3Z+h6RfADCfyBaNnBSNplPPR2iH9n5YEdPJApMCn3LPV+eq1ag4FSh0bWCATg=
+X-Received: by 2002:a25:3ac5:0:b0:ba8:1aeb:2b68 with SMTP id
+ h188-20020a253ac5000000b00ba81aeb2b68mr10197957yba.41.1688430248788; Mon, 03
+ Jul 2023 17:24:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230620000846.946925-1-dmitry.baryshkov@linaro.org>
- <20230620000846.946925-8-dmitry.baryshkov@linaro.org>
- <b2499f3d-46d4-216e-9142-87d73e26781e@quicinc.com>
- <CAA8EJpq43fKi=L11cyfBddcP+n994bhFchHcNprnR=Vu823BiA@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpq43fKi=L11cyfBddcP+n994bhFchHcNprnR=Vu823BiA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 2hxJPOR7efgFGLdD6NMQxL0vaEw4VkN6
-X-Proofpoint-GUID: 2hxJPOR7efgFGLdD6NMQxL0vaEw4VkN6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-03_17,2023-06-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- phishscore=0 adultscore=0 impostorscore=0 clxscore=1015 mlxlogscore=999
- spamscore=0 suspectscore=0 mlxscore=0 lowpriorityscore=0 bulkscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307040000
-Subject: Re: [Freedreno] [PATCH 7/8] drm/msm/dpu: drop
- dpu_core_perf_destroy()
+References: <20230628-topic-refgen-v3-0-9fbf0e605d23@linaro.org>
+ <b93cb054-fd42-46e5-aef3-dc41b36a85f9@sirena.org.uk>
+In-Reply-To: <b93cb054-fd42-46e5-aef3-dc41b36a85f9@sirena.org.uk>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 4 Jul 2023 03:23:57 +0300
+Message-ID: <CAA8EJpqfF0aep1E26yWQRQT_xUVTQBBUtghGv=hq_2M0w05few@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 0/4] Qualcomm REFGEN regulator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,98 +67,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konradybcio@kernel.org>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 4 Jul 2023 at 01:59, Mark Brown <broonie@kernel.org> wrote:
+>
+> On Mon, Jul 03, 2023 at 08:15:53PM +0200, Konrad Dybcio wrote:
+>
+> > Recent Qualcomm SoCs have a REFGEN (reference voltage generator) regulator
+> > responsible for providing a reference voltage to some on-SoC IPs (like DSI
+> > or PHYs). It can be turned off when unused to save power.
+> >
+> > This series introduces the driver for it and lets the DSI driver
+> > consume it.
+>
+> What's the expected plan for merging this - should I be applying the DRM
+> patch?
 
+I'd pick the least two patches into msm-next after -rc1.
 
-On 7/3/2023 3:59 PM, Dmitry Baryshkov wrote:
-> On Tue, 4 Jul 2023 at 01:57, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 6/19/2023 5:08 PM, Dmitry Baryshkov wrote:
->>> This function does nothing, just clears several data pointers. Drop it
->>> now.
->>>
->>
->> This will undo what dpu_core_perf_init() did when an error happens.
->>
->> Why can we drop that?
-> 
-> Because nothing will use this data in an error case. There is no need
-> to clean it.
-> 
-
-Usage is one thing for sure but I am still inclined to keep it symmetric 
-with dpu_core_perf_init().
-
->>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 12 ------------
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  6 ------
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  1 -
->>>    3 files changed, 19 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->>> index 78a7e3ea27a4..f779ad544347 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->>> @@ -394,18 +394,6 @@ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
->>>    }
->>>    #endif
->>>
->>> -void dpu_core_perf_destroy(struct dpu_core_perf *perf)
->>> -{
->>> -     if (!perf) {
->>> -             DPU_ERROR("invalid parameters\n");
->>> -             return;
->>> -     }
->>> -
->>> -     perf->max_core_clk_rate = 0;
->>> -     perf->core_clk = NULL;
->>> -     perf->dev = NULL;
->>> -}
->>> -
->>>    int dpu_core_perf_init(struct dpu_core_perf *perf,
->>>                struct drm_device *dev,
->>>                const struct dpu_perf_cfg *perf_cfg,
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
->>> index e8a7916b6f71..e1198c104b5e 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
->>> @@ -69,12 +69,6 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
->>>     */
->>>    void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc);
->>>
->>> -/**
->>> - * dpu_core_perf_destroy - destroy the given core performance context
->>> - * @perf: Pointer to core performance context
->>> - */
->>> -void dpu_core_perf_destroy(struct dpu_core_perf *perf);
->>> -
->>>    /**
->>>     * dpu_core_perf_init - initialize the given core performance context
->>>     * @perf: Pointer to core performance context
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>> index 6e62606e32de..4439147d2c35 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>> @@ -1162,7 +1162,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>>        return 0;
->>>
->>>    drm_obj_init_err:
->>> -     dpu_core_perf_destroy(&dpu_kms->perf);
->>>    hw_intr_init_err:
->>>    perf_err:
->>>    power_error:
-> 
-> 
-> 
+-- 
+With best wishes
+Dmitry
