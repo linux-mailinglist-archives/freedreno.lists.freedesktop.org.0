@@ -1,77 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44C7E746BE6
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 10:30:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33736746E3F
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 12:07:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02CAB10E2B2;
-	Tue,  4 Jul 2023 08:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34C310E099;
+	Tue,  4 Jul 2023 10:07:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BACF710E2B2
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 08:30:27 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-986d8332f50so630287866b.0
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 01:30:27 -0700 (PDT)
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [IPv6:2607:f8b0:4864:20::1132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5325510E099
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 10:07:07 +0000 (UTC)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-56fff21c2ebso64484197b3.3
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jul 2023 03:07:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688459425; x=1691051425;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KFaFw3uJoDRm9laNgejEO9i+oEQ6almWqyPQQo3h6WE=;
- b=ZjbvfgYAzGqBD47D3/HU4Ni1J28WS1B5YSh1SFPyYXLkUmMDIN2E/pEoKqc/thhJnc
- EJCRBaAk8au/+WFGd77G2GE6y8PU7GEb3mRq5+f5d4AsjuTfTwRls+apoEeBWhb2H5VZ
- 8AFgoOU45puo+4H7CU4UJ2MPQgcTcn8qAw6oRkDUgYsy284cQfmjn08AWh9izQD0rcdj
- vrBWlheExtcEdjf59szC4Qahl0pCKuKwe1ImyLp1SyyTaCd9WBKmD1dzfyhusWtOzyZk
- Mu7TrkQto5OAFRBhDsAraehkOhPhhiP6UqlqXlSTelHdbK3qfoZZFOsKQymgmDzpY7rh
- wzEw==
+ d=linaro.org; s=google; t=1688465226; x=1691057226;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=W/TU50pqt7852fwznZ8t754nkkl2iciRxHnPHmCyB6U=;
+ b=vBnZ6yBjAVZtB9lm+mTYzLyl2NbiVFu3/EqWvjTxAyNh+SLKaoJLvZtGBLcI9x4V4f
+ jiJnN+fmGpKxzcn/aLGILdPGAu0anZMoyBay0lzIUmegRkCpT8s0oUjTaHBYHEz6PS5l
+ j4YI3LJbrvsKRS8hTwYuf92HVZlLsaeLQtODp6czjfp8FUHZaQWBRHlM/o88nv1HysAE
+ nTz68kLGavsR0j5dp8Vk2RK59vaal6ORnlPGMZmsT9zsA8al13u4IVR/HqmMgw6w8RQD
+ 43BHqJoyUKSsCGk6Z9vvVlVMJYMm55J530s67InMjX/Tu/uI6Econtus8ioxrOWfXj7b
+ 5p7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688459425; x=1691051425;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KFaFw3uJoDRm9laNgejEO9i+oEQ6almWqyPQQo3h6WE=;
- b=Efd89DCK2VD5p01dj/Tw1pPOXtzssOXG5wZCo6poRMyto4ktZnnMACkJ7bvpjkd058
- VwaAqFJAmcydTAvZ3w2VoPPrCbWZI3VGE8yp1zK0rgCxPUnrolufcuqO8xIDK+nlH7tL
- xhDcKuwTY6rYZXZEnWOtlz9lYPaQEQebBIE4X7hwaGrkMlcI+S+43qGx2t/Laii57cTj
- q48baFyAKWAhoO9Dj6m5DdvbHVvO+zf/2mGUjqkoe9JPvvjLrkuJQfOHw2La0XAnpm0B
- rNpbzOJvBfLyQgt7X4rfyTBy/D1Xfh/EsUqn9ECDh77nZrtAK4uXMz6M+epMxMA5Fb1U
- YxFg==
-X-Gm-Message-State: ABy/qLZrnJ92r5FgykGprvoCZxeR7NA2kTbJ26jl8GYGhfpnvqY9L5Z0
- J3n4Yr1bdTrRGzpZLr5AtUeLCw==
-X-Google-Smtp-Source: APBJJlEe8seu86IJuy45hmgLX9aDLTpaeFtaYyGZDUMtQ9+B79h7OgG0fN5PxW+lwAOJaVYdiyE8pw==
-X-Received: by 2002:a17:906:34c9:b0:982:9b01:a582 with SMTP id
- h9-20020a17090634c900b009829b01a582mr9389985ejb.1.1688459425722; 
- Tue, 04 Jul 2023 01:30:25 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
- by smtp.gmail.com with ESMTPSA id
- a16-20020a170906369000b009887c9b2812sm13234240ejc.8.2023.07.04.01.30.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Jul 2023 01:30:25 -0700 (PDT)
-Message-ID: <c6dc324c-2946-3af5-8ddb-11d0a0e824cb@linaro.org>
-Date: Tue, 4 Jul 2023 10:30:23 +0200
+ d=1e100.net; s=20221208; t=1688465226; x=1691057226;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=W/TU50pqt7852fwznZ8t754nkkl2iciRxHnPHmCyB6U=;
+ b=fEar2pRb5BtPX9W0GRLauurdTCFGi7pcy9DBl3S821gDBFOScrnwRNDzJiF7VCx82R
+ HXtSjIEf6mPCY2uqmizyRCCW8KUT/vqa7u8pPoKgtWK1IeyivHaOXlzAb/PLSXe6m7OP
+ /Wjux8wSjYCYVnp5TSuBE+NUHQaFjcu2AH/YDqxbKig+yJ6LobbRrBtg/sY5F0e7Kw3y
+ nwpnKmXlzd5EQ6a/paMBeDbkRrxJ1ZgzeAfFltO9USG8jiYuc3GzAJIZI3XOoYG0wvEh
+ x2IxaWgLwJNOfoEgzk0Vi++XfohvErlPfILjigWL+kLbHHXfiRXRt/494/bUtVPBvlPS
+ 6IGw==
+X-Gm-Message-State: ABy/qLaHJkdlCP20X69gMNSkQ+yXcQOzLPvWeIxOggNG0m1G7c8EczOb
+ NWRpXZFus1HDqvx5zYx7nSBMnH/MwxFW0SNl69jMCg==
+X-Google-Smtp-Source: APBJJlG9beslrUOAlSlPYS9wFzbYRVC5J4X7RDqJStkFhnmcip4kLagbCciA+DPhU9qbHQXZSH34fZLgmBZWNIuVkus=
+X-Received: by 2002:a25:c7cf:0:b0:bd7:545e:ab41 with SMTP id
+ w198-20020a25c7cf000000b00bd7545eab41mr11391556ybe.27.1688465226174; Tue, 04
+ Jul 2023 03:07:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20230628-topic-a7xx_drmmsm-v1-0-a7f4496e0c12@linaro.org>
- <20230628-topic-a7xx_drmmsm-v1-3-a7f4496e0c12@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230628-topic-a7xx_drmmsm-v1-3-a7f4496e0c12@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 03/14] dt-bindings: display/msm/gpu: Allow
- A7xx SKUs
+References: <20230619212519.875673-1-dmitry.baryshkov@linaro.org>
+ <20230619212519.875673-5-dmitry.baryshkov@linaro.org>
+ <0aafbba0-52dd-96d9-94a6-0452996e1eba@quicinc.com>
+ <974a294c-d85d-a79f-5b83-bbbac12ff7a2@linaro.org>
+ <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
+In-Reply-To: <50855184-1fbf-8e36-f0eb-a46be70b1eca@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 4 Jul 2023 13:06:55 +0300
+Message-ID: <CAA8EJprQLpRNHShWWWZeSyKx3erat3Q7WUXhVV1pYp9UtQEgng@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 04/19] drm/msm/dpu: drop
+ dpu_mdss_cfg::mdp_count field
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,22 +71,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/06/2023 22:35, Konrad Dybcio wrote:
-> Allow A7xx SKUs, such as the A730 GPU found on SM8450 and friends.
-> They use GMU for all things DVFS, just like most A6xx GPUs.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
+On Tue, 4 Jul 2023 at 07:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 7/3/2023 7:20 PM, Dmitry Baryshkov wrote:
+> > On 03/07/2023 05:01, Abhinav Kumar wrote:
+> >>
+> >>
+> >> On 6/19/2023 2:25 PM, Dmitry Baryshkov wrote:
+> >>> There is always a single MDP TOP block. Drop the mdp_count field and
+> >>> stop declaring dpu_mdp_cfg instances as arrays.
+> >>>
+> >>> Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
+> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >>> ---
+> >>
+> >> The change drops mdp_count and stops using the array which is fine and
+> >> I will support that.
+> >>
+> >> But looking at the pattern I saw while using core_revision, both
+> >> DPU_MDP_VSYNC_SEL and DPU_MDP_AUDIO_SELECT can also be dropped from
+> >> the catalog in favor of using core_revision.
+> >>
+> >> Hence for that, I request you not to stop passing dpu_mdss_cfg to
+> >> dpu_hw_mdptop_init as that has the necessary information of
+> >> core_revision.
+> >
+> > Sure, I'll restore it. Please note, however, that it might be better to
+> > pass struct dpu_caps instead of the full struct dpu_mdss_cfg.
+> >
+>
+> Thanks for restoring.
+>
+> Can you pls explain this better? dpu_core_rev is part of dpu_mdss_cfg,
+> so dpu_caps wont be enough for this one.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Oh, true. For some reason I thought that version is a part of dpu_caps.
 
-Best regards,
-Krzysztof
+>
+> >>
+> >>>   .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  7 +---
+> >>>   .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  7 +---
+> >>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  1 -
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    | 38 +++----------------
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h    |  8 ++--
+> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  4 +-
+> >>>   19 files changed, 41 insertions(+), 115 deletions(-)
+> >
 
+
+
+-- 
+With best wishes
+Dmitry
