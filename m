@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F6874677E
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 04:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F0E746780
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jul 2023 04:22:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6223710E288;
-	Tue,  4 Jul 2023 02:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00F0F10E291;
+	Tue,  4 Jul 2023 02:21:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 802BC10E275
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 02:21:52 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2b63e5f94f1so63886301fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 19:21:52 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF3610E276
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jul 2023 02:21:53 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2b5c231f842so74893741fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Jul 2023 19:21:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1688437311; x=1691029311;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bb9Z7X9imjc06dAsgGbbVM7zp6yMgVecEP/KTGre5s4=;
- b=yAS/xofGrGfq4LLO8rmW5WapVrWumCPsPQp7ZBXS9H//PbhbsfQORZoSdbZvZYv11x
- dJUovX89cpju4lWkaWxT37ucUz64avzN6wc41vu6mG8gLv57jaCrLmoI5Q8GV6P/BokA
- 0upjZ0mVHr92PQNLGDwyu91PrqBjozRbrCEUFfS1o5HzQN6VbpvjkXwP2gELD3Uqj4Ts
- zZhkYPDGyQAAqB/q9OdCIUvuhOwAyFnnElg3OF3wATG5uS6F4u4Mzg8GZoF22+W9SkFa
- /PpmM2vHrzMxAcJ9d+ZkTYi94xFpMlS77m7O7+cYPxG8n+gXTWh0uLk+rG8QW2a6RSy6
- xzXg==
+ bh=WmGHtm3jGXSI4v1qxB94VyOeZX/x+Vgl0xqwxOuhp74=;
+ b=vj42jUxZQ9HaJf0dOoNe/L7wmz8IRvlv+/eeCe/Cj4DqlQ/3hjMFktPpoc4ww2eLSL
+ l9T1hHQEOj4ewUT5beTRDP2yBAyrTIoDIaEMjIb+AssWyKP0qDfWN6g0AHxCb2A9ot39
+ nYCUNdpNCkaz58/4Vo2+69rzAKDwZC6GxQhlkBnderYM8PV3V9GPxPMy4dWzzUjVzi5Z
+ ywmQyqDfbD8QbE28uUc4twCB2YiZoKUefDtxzNA8cwVeY5oFcpal0ojlni+10OElAdLj
+ redFFJs2Wtl/O5mSiQhxXQQVRP+n/j2naFc93EF5SFDmgrQwUyLzunhlHfIgDhi5rxMQ
+ MqpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1688437311; x=1691029311;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bb9Z7X9imjc06dAsgGbbVM7zp6yMgVecEP/KTGre5s4=;
- b=LZFvfBv2JyK5pafRQ50YSR8ZRAXWAuBv2wXfNlyyUyoG1jmrDgh/krRKg1hP5gxuVa
- 4/BE5tUeXjwPprp4CvN/I21daPiyUnCv92oh7JFDpt1S/jGXG/MGRLD2MNNW4vGEqi4j
- UT3wZY8HoMKzxaII3X+g3Q29ABNyCGrkQ74spRUdoOYsepBiUURkGtMbz0zNrWu025tz
- wtry1K0s4g06cXUaO5HWnt/9XfJPGcyJUBMXcnW0FZdgPZWllrmRtY8b/dysydGb1Jw2
- L4de2fOQ8tnCm46U+W0OILtxkVD/oc114ySv1bTgOrncDYX3pGkX/lrr84iXJujN1rY5
- XLxg==
-X-Gm-Message-State: ABy/qLYrs+1mtERRjBPqdyOBfkbCO5Zy2pr85LYQPEw0XTWu9uFGKGLs
- y2qM1KtTD6WjhdIup5VAiQ1wBQ==
-X-Google-Smtp-Source: APBJJlGkJxsy388PtF4vZ+8IdXgWLjNB6/XEiK7mTm0CqKtRj6lUVovYkztn2FtSJTSasCFv/O4ltA==
-X-Received: by 2002:a2e:b5cb:0:b0:2b6:ef8a:d98d with SMTP id
- g11-20020a2eb5cb000000b002b6ef8ad98dmr755068ljn.20.1688437310889; 
- Mon, 03 Jul 2023 19:21:50 -0700 (PDT)
+ bh=WmGHtm3jGXSI4v1qxB94VyOeZX/x+Vgl0xqwxOuhp74=;
+ b=Lox12hC4VrzX0XuPS13GRXaNWualLdtHZ4VMMzGA+n1aPXlcYC8fKLUSguE5yJhY+f
+ /Q/EgdWuqKp41nOUzwdY9FDOzDnTWVKR+z1oxzAxqXyGxzfi3EWU3tqPbpd+n34/oCKc
+ ntrPsCr7Lp5pbHtL4pVkT+hGvj3/MJrLVBicJIVPjQKOjMQb1thzFDquy3/l2ACsogXK
+ YNhEG0N0sF7vF/EqtFjCXVq0OtnLcWSuF5WEwhAjwv1Lj/ScNQVlrdLASOlGyvuP/Mex
+ zArNbVhT1TtTIalDP6IuCaOOIF5E4nX9lnxnMg9zPsHjaE+Q+yZpmsnivGVfVxWmzV7W
+ SqYg==
+X-Gm-Message-State: ABy/qLYs4I7M7Qecl4lK3yj4iXuj9oJuqqcBPq/36jg7AnTzKkqvHb0C
+ pfYeNLgEJT32jpHe6hZCXNEC7A==
+X-Google-Smtp-Source: APBJJlE/xPX7+5eOnQrw4tzZn5X70UYexYOX/HLMqTh8I3yuktheqYeTgXe5LPaJfhSrN4z5v3ksxQ==
+X-Received: by 2002:a2e:9d03:0:b0:2b6:e623:7b57 with SMTP id
+ t3-20020a2e9d03000000b002b6e6237b57mr3770406lji.25.1688437311619; 
+ Mon, 03 Jul 2023 19:21:51 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  y16-20020a05651c021000b002b6e863108esm1137830ljn.9.2023.07.03.19.21.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jul 2023 19:21:50 -0700 (PDT)
+ Mon, 03 Jul 2023 19:21:51 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  4 Jul 2023 05:21:35 +0300
-Message-Id: <20230704022136.130522-19-dmitry.baryshkov@linaro.org>
+Date: Tue,  4 Jul 2023 05:21:36 +0300
+Message-Id: <20230704022136.130522-20-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230704022136.130522-1-dmitry.baryshkov@linaro.org>
 References: <20230704022136.130522-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 18/19] drm/msm/dpu: drop empty features mask
- MERGE_3D_SM8150_MASK
+Subject: [Freedreno] [PATCH v5 19/19] drm/msm/dpu: drop empty features mask
+ INTF_SDM845_MASK
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,184 +83,103 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The MERGE_3D_SM8150_MASK features mask is zero. Drop it completely.
+The INTF_SDM845_MASK features mask is zero. Drop it completely.
 
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 3 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h  | 3 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 3 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 3 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 3 ---
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 4 ----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 4 ----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           | 2 --
- 8 files changed, 25 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h | 4 ----
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h  | 4 ----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c          | 2 --
+ 3 files changed, 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-index 341ab9b84d20..e6d4a2bfc2be 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-@@ -273,15 +273,12 @@ static const struct dpu_merge_3d_cfg sm8150_merge_3d[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+index 4ce25ed4e36f..7d87dc2d7b1b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h
+@@ -244,7 +244,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
  	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x83000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
+ 		.name = "intf_0", .id = INTF_0,
+ 		.base = 0x6a000, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DP,
+ 		.controller_id = MSM_DP_CONTROLLER_0,
+ 		.prog_fetch_lines_worst_case = 21,
+@@ -254,7 +253,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
  	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x83100, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
+ 		.name = "intf_1", .id = INTF_1,
+ 		.base = 0x6a800, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DSI,
+ 		.controller_id = MSM_DSI_CONTROLLER_0,
+ 		.prog_fetch_lines_worst_case = 21,
+@@ -264,7 +262,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
  	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x83200, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-index 8dd36a85b685..b4baf6707018 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-@@ -272,15 +272,12 @@ static const struct dpu_merge_3d_cfg sc8180x_merge_3d[] = {
+ 		.name = "intf_2", .id = INTF_2,
+ 		.base = 0x6b000, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DSI,
+ 		.controller_id = MSM_DSI_CONTROLLER_1,
+ 		.prog_fetch_lines_worst_case = 21,
+@@ -274,7 +271,6 @@ static const struct dpu_intf_cfg msm8998_intf[] = {
+ 	}, {
+ 		.name = "intf_3", .id = INTF_3,
+ 		.base = 0x6b800, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_HDMI,
+ 		.prog_fetch_lines_worst_case = 21,
+ 		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+index 5ad82b109ebb..66e3573eb613 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h
+@@ -260,7 +260,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
  	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x83000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
+ 		.name = "intf_0", .id = INTF_0,
+ 		.base = 0x6a000, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DP,
+ 		.controller_id = MSM_DP_CONTROLLER_0,
+ 		.prog_fetch_lines_worst_case = 24,
+@@ -270,7 +269,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
  	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x83100, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
+ 		.name = "intf_1", .id = INTF_1,
+ 		.base = 0x6a800, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DSI,
+ 		.controller_id = MSM_DSI_CONTROLLER_0,
+ 		.prog_fetch_lines_worst_case = 24,
+@@ -280,7 +278,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
  	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x83200, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-index e16ffade5aca..265d88b288b6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-@@ -273,15 +273,12 @@ static const struct dpu_merge_3d_cfg sm8250_merge_3d[] = {
- 	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x83000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
+ 		.name = "intf_2", .id = INTF_2,
+ 		.base = 0x6b000, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DSI,
+ 		.controller_id = MSM_DSI_CONTROLLER_1,
+ 		.prog_fetch_lines_worst_case = 24,
+@@ -290,7 +287,6 @@ static const struct dpu_intf_cfg sdm845_intf[] = {
  	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x83100, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x83200, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-index d5191a663ae1..59a96a4b250c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-@@ -271,15 +271,12 @@ static const struct dpu_merge_3d_cfg sm8350_merge_3d[] = {
- 	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x4e000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x4f000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x50000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-index 9f94cc6369dd..7110caae7251 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-@@ -275,15 +275,12 @@ static const struct dpu_merge_3d_cfg sc8280xp_merge_3d[] = {
- 	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x4e000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x4f000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x50000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-index 517629c4a168..dcafab3e4b1a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-@@ -291,19 +291,15 @@ static const struct dpu_merge_3d_cfg sm8450_merge_3d[] = {
- 	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x4e000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x4f000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x50000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_3", .id = MERGE_3D_3,
- 		.base = 0x65f00, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-index ed1d1d4092e8..7b96f827c2b1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-@@ -305,19 +305,15 @@ static const struct dpu_merge_3d_cfg sm8550_merge_3d[] = {
- 	{
- 		.name = "merge_3d_0", .id = MERGE_3D_0,
- 		.base = 0x4e000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_1", .id = MERGE_3D_1,
- 		.base = 0x4f000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_2", .id = MERGE_3D_2,
- 		.base = 0x50000, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	}, {
- 		.name = "merge_3d_3", .id = MERGE_3D_3,
- 		.base = 0x66700, .len = 0x8,
--		.features = MERGE_3D_SM8150_MASK,
- 	},
- };
- 
+ 		.name = "intf_3", .id = INTF_3,
+ 		.base = 0x6b800, .len = 0x280,
+-		.features = INTF_SDM845_MASK,
+ 		.type = INTF_DP,
+ 		.controller_id = MSM_DP_CONTROLLER_1,
+ 		.prog_fetch_lines_worst_case = 24,
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 6acd34e61aca..4a18fc66a412 100644
+index 4a18fc66a412..3efa22429e5f 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -93,8 +93,6 @@
- #define CTL_SM8550_MASK \
- 	(CTL_SC7280_MASK | BIT(DPU_CTL_HAS_LAYER_EXT4))
+@@ -95,8 +95,6 @@
  
--#define MERGE_3D_SM8150_MASK (0)
--
  #define DSPP_SC7180_MASK BIT(DPU_DSPP_PCC)
  
- #define INTF_SDM845_MASK (0)
+-#define INTF_SDM845_MASK (0)
+-
+ #define INTF_SC7180_MASK \
+ 	(BIT(DPU_INTF_INPUT_CTRL) | \
+ 	 BIT(DPU_INTF_TE) | \
 -- 
 2.39.2
 
