@@ -1,56 +1,87 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD2574898A
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 18:54:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80224748DE2
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 21:32:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92B2B10E185;
-	Wed,  5 Jul 2023 16:54:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3521F10E3BC;
+	Wed,  5 Jul 2023 19:32:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91FD110E180;
- Wed,  5 Jul 2023 16:54:01 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8EEE761628;
- Wed,  5 Jul 2023 16:54:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70C1BC433C7;
- Wed,  5 Jul 2023 16:53:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1688576039;
- bh=zpe36HvtOC/2p5wIUyWgUxwi/FgRT6PIqt/x3SW+BlU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Lhcjd5O0YYRww4U/sAWx3osP7tPsKy2GtadQHpt8Xvd68qxHov1MBqb1hvExtYqmu
- 57pCmTMtoeH7+YoKCjhGqsrRwf3AuApbNcSOi2IuKIDkLlPqCgBKrrcQVY3BbkNDBl
- 7fE6teIAijQKdKAFQkay4mC1IMCS9wgNUBQIgd0k4PoYbeoNRIuSxBC9Lf3t08ZeSK
- QY0GzCPdtabD0qZxBHcefUWAgp4FSjPNMFflYi9BasI5oPFwwAC1lO89UwdNP/hd9S
- aNOpsq+nn+dYqke0EHIJDsIkS8SKct8S9SJRKMjFaioHyndCXqukQNDCgwE0xlwhuL
- bE0J0klj4h8oA==
-Date: Wed, 5 Jul 2023 18:53:57 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <djrx34qwb7yen47dmlsym4mg2pib4syncvdy52ma3sin7uhs7j@gi3znayuucnj>
-References: <617c8f8a-1fc7-c6a0-eaa5-ce75ff2adc1b@linaro.org>
- <CAA8EJppG=MAVpK1J_8bNnkJ23y9NtgY7a2GVResXJvhEKyNsrw@mail.gmail.com>
- <739a8bd9-9ff0-5072-fdae-b64efdf86842@collabora.com>
- <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
- <epds77sccy4cc5cdpoc4ir7sfz5sz3biwep6rbks2nuyqncidu@77gb4t2wy6vn>
- <47a5678c-1eb3-dfc2-a9ac-f8e497455d11@linaro.org>
- <unsithzszj7awvsmxwr7reshso5ju7u4nssil5tty6pocictf5@gwoltpgeecer>
- <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
- <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
- <CAA8EJpq_VeY=44FqYm7QAT32AR=rmMOV0RtAfNFkb1hpSp29dw@mail.gmail.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE21710E3B3;
+ Wed,  5 Jul 2023 19:32:19 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 365DLAmX027545; Wed, 5 Jul 2023 19:32:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding : to : cc; s=qcppdkim1;
+ bh=8t9qAMzgTsQUz99/Ke1SCyllQDUBcDRqLoHQpfN2gX0=;
+ b=AjPPOrduCjukD9WnBebklW5Yf+rIrLQsdOMQUzZ7wZPFLLTipFiMsRKGzVfe8QTF1Xpl
+ C0wxiA285MdL4Qbs9Xz5k7JePmeifLOXxoqJ1B02wlCQ0avQ883GADam7AjX4aKBArn1
+ vAn6Pu2D/I4HHOOy0nLCslyJW1w/clS9aMpx8/ToAdtiFALKB938AFwAxNSRWGUm4gmE
+ /dgWMdI94bDh/osAHWs3msqeOhSCL/PL6gqZINvcXQ5HWRLhhLREo2jICm4tx9WZU0jc
+ gasjL8TQ6XhDR/JNi+YKdSI/jwJUuk/4SuS4zc0fKKlEL5AFxhVMWlNHLXoIlSYIWY5l fg== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rn2w59py5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Jul 2023 19:32:13 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 365JWC89019902
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 5 Jul 2023 19:32:12 GMT
+Received: from hu-rmccann-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.7; Wed, 5 Jul 2023 12:32:12 -0700
+From: Ryan McCann <quic_rmccann@quicinc.com>
+Date: Wed, 5 Jul 2023 12:30:14 -0700
+Message-ID: <20230622-devcoredump_patch-v2-0-9e90a87d393f@quicinc.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="a5bose7t54notcfz"
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpq_VeY=44FqYm7QAT32AR=rmMOV0RtAfNFkb1hpSp29dw@mail.gmail.com>
-Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
- drm/panel: Add LGD panel driver for Sony Xperia XZ3)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMbEpWQC/32OQQ6CMBREr2K69hsosRhXrj2Chpjy+wtNbIstN
+ BjC3S0cwOWbzMvMwiIFQ5FdDwsLlEw03mXgxwPDXrqOwKjMjBe8KgTnoCihD6QmO7wGOWIPStd
+ 00UIrUXGWvVZGgjZIh/1m3h9gowVH8wjvycpu6wyBtJn33WeTuTdx9OG730jllv5bTCUUULUcF
+ aKQ51rcPpNB4/CE3rJmXdcfALJwEtgAAAA=
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.13-dev-8a804
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1688585532; l=2012;
+ i=quic_rmccann@quicinc.com; s=20230622; h=from:subject:message-id;
+ bh=CFO75SyInIG+Ex8vWmtEvRKBLBb3YU7p9isOQTlQkfQ=;
+ b=0bNrMK0xpqdPqX3InuL4EIvd9+7/0LXg2srCPOqRS2eSxv21jGRpISqVCYSCfXEv2ekzOLVc3
+ 6aXIlimaM5uAMKRWu6ITTL32tm5zs714iXHTbqPauUsXBTqulMC2OIX
+X-Developer-Key: i=quic_rmccann@quicinc.com; a=ed25519;
+ pk=d/uP3OwPGpj/bTtiHvV1RBZ2S6q4AL6j1+A5y+dmbTI=
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: KsuoXY9Nvh-LwbiY4TZv-8j1gfrMtHi6
+X-Proofpoint-GUID: KsuoXY9Nvh-LwbiY4TZv-8j1gfrMtHi6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-05_10,2023-07-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=809
+ malwarescore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ suspectscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307050178
+Subject: [Freedreno] [PATCH v2 0/5] Add support to print sub-block registers
+ in dpu hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,133 +94,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, Caleb Connolly <caleb@connolly.tech>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sam Ravnborg <sam@ravnborg.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Rob Clark <robdclark@chromium.org>, Ryan McCann <quic_rmccann@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The purpose of this patch series is to add support to print the registers
+of sub-blocks in the DPU hardware catalog and fix the order in which all
+hardware blocks are dumped for a device core dump. This involves:
 
---a5bose7t54notcfz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+1. Changing data structure from stack to queue to fix the printing order
+of the device core dump.
 
-On Wed, Jul 05, 2023 at 06:20:13PM +0300, Dmitry Baryshkov wrote:
-> On Wed, 5 Jul 2023 at 17:24, Maxime Ripard <mripard@kernel.org> wrote:
-> >
-> > On Wed, Jul 05, 2023 at 04:37:57PM +0300, Dmitry Baryshkov wrote:
-> > > > > >
-> > > > > > Either way, I'm not really sure it's a good idea to multiply the
-> > > > > > capabilities flags of the DSI host, and we should just stick to=
- the
-> > > > > > spec. If the spec says that we have to support DSC while video =
-is
-> > > > > > output, then that's what the panels should expect.
-> > > > >
-> > > > > Except some panels supports DSC & non-DSC, Video and Command mode=
-, and
-> > > > > all that is runtime configurable. How do you handle that ?
-> > > >
-> > > > In this case, most of the constraints are going to be on the encoder
-> > > > still so it should be the one driving it. The panel will only care =
-about
-> > > > which mode has been selected, but it shouldn't be the one driving i=
-t,
-> > > > and thus we still don't really need to expose the host capabilities.
-> > >
-> > > This is an interesting perspective. This means that we can and actual=
-ly have
-> > > to extend the drm_display_mode with the DSI data and compression
-> > > information.
-> >
-> > I wouldn't extend drm_display_mode, but extending one of the state
-> > structures definitely.
-> >
-> > We already have some extra variables in drm_connector_state for HDMI,
-> > I don't think it would be a big deal to add a few for MIPI-DSI.
-> >
-> > We also floated the idea for a while to create bus-specific states, with
-> > helpers to match. Maybe it would be a good occasion to start doing it?
-> >
-> > > For example, the panel that supports all four types for the 1080p sho=
-uld
-> > > export several modes:
-> > >
-> > > 1920x1080-command
-> > > 1920x1080-command-DSC
-> > > 1920x1080-video
-> > > 1920x1080-video-DSC
-> > >
-> > > where video/command and DSC are some kinds of flags and/or informatio=
-n in
-> > > the drm_display_mode? Ideally DSC also has several sub-flags, which d=
-enote
-> > > what kind of configuration is supported by the DSC sink (e.g. bpp, yu=
-v,
-> > > etc).
-> >
-> > So we have two things to do, right? We need to expose what the panel can
-> > take (ie, EDID for HDMI), and then we need to tell it what we picked
-> > (infoframes).
-> >
-> > We already express the former in mipi_dsi_device, so we could extend the
-> > flags stored there.
-> >
-> > And then, we need to tie what the DSI host chose to a given atomic state
-> > so the panel knows what was picked and how it should set everything up.
->=20
-> This is definitely something we need. Marijn has been stuck with the
-> panels that support different models ([1]).
->=20
-> Would you prefer a separate API for this kind of information or
-> abusing atomic_enable() is fine from your point of view?
->=20
-> My vote would be for going with existing operations, with the slight
-> fear of ending up with another DSI-specific hack (like
-> pre_enable_prev_first).
+2. Removing redundant suffix of sub-block names.
 
-I don't think we can get away without getting access to the atomic_state
-=66rom the panel at least.
+3. Removing redundant prefix of sub-block names.
 
-Choosing one setup over another is likely going to depend on the mode,
-and that's only available in the state.
+4. Eliminating unused variable from relevant macros.
 
-We don't have to go the whole way though and create the sub-classes of
-drm_connector_state, but I think we should at least provide it to the
-panel.
+5. Defining names for sub-blocks that have not yet been defined.
 
-What do you think of creating a new set of atomic_* callbacks for
-panels, call that new set of functions from msm and start from there?
+6. Implementing wrapper function that prints the registers of sub-blocks
+when there is a need.
 
-Maxime
+Sample Output of the sspp_0 block and its sub-blocks for devcore dump:
+======sspp_0======
+...registers
+...
+====sspp_0_scaler====
+...
+...
+====sspp_0_csc====
+...
+...
+====next_block====
+...
 
---a5bose7t54notcfz
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+Changes in v2:
+- Changed spelling "sub block" to "sub-block" or "sblk".
+- Capitalized DPU.
+- Eliminated multiplexer/wrapper function. Inlined instead.
+- Changed if statements from feature checks to length checks.
+- Squashed prefix and suffix patch into one.
+- Link to v1: https://lore.kernel.org/r/20230622-devcoredump_patch-v1-0-3b2cdcc6a576@quicinc.com
 
------BEGIN PGP SIGNATURE-----
+---
+Ryan McCann (5):
+      drm/msm: Update dev core dump to not print backwards
+      drm/msm/dpu: Drop unused num argument from relevant macros
+      drm/msm/dpu: Define names for unnamed sblks
+      drm/msm/dpu: Remove redundant prefix/suffix in name of sub-blocks
+      drm/msm/dpu: Update dev core dump to dump registers of sub-blocks
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZKWgJQAKCRDj7w1vZxhR
-xQatAP90pD1NWuIrbVbvIO18HW7Hgb8Mr+kSmow/0XcZKKtjowEA01wiFrcPQBdZ
-3zxMfQ8Rm5KcDNCKe6hW3cZCvQ+t+gw=
-=EWmy
------END PGP SIGNATURE-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  90 +++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c           | 106 +++++++++++++++++-----
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c |   2 +-
+ 3 files changed, 128 insertions(+), 70 deletions(-)
+---
+base-commit: a0364260213c96f6817f7e85cdce293cb743460f
+change-id: 20230622-devcoredump_patch-df7e8f6fd632
 
---a5bose7t54notcfz--
+Best regards,
+-- 
+Ryan McCann <quic_rmccann@quicinc.com>
+
