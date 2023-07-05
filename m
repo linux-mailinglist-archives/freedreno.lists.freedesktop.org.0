@@ -1,63 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0360674869A
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 16:43:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE957487C6
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 17:20:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C259910E389;
-	Wed,  5 Jul 2023 14:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2FBD10E394;
+	Wed,  5 Jul 2023 15:20:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22A7710E381;
- Wed,  5 Jul 2023 14:43:11 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id
- 5614622812f47-3a36b309524so5394609b6e.3; 
- Wed, 05 Jul 2023 07:43:11 -0700 (PDT)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15BAC10E38C
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Jul 2023 15:20:27 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-c49777d6e7aso5686698276.1
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jul 2023 08:20:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688568190; x=1691160190;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=A14fZKmtNXyFXPY9J+wKEhzDJ4Yasz3lPL7wl3xXT9o=;
- b=FIi4zGZzJBDn8pZYMtFbQmJtUX0w1mBSjt1CFCfchGzflvfxL8Wc4DBsmeLraczciA
- c9iMzPtumc7Xwtwy2kxuNtLi8CN/ZTHn6+yoFE2fLEt/S2pr4x8KiX0ZE8vsEy6atGZh
- nQOJqfMtd1ISqII0qF6v6HwxnxRPyfEjtPKfSrLXcRJUCTheyMsYzTDWLnFXKu1IiGHc
- RrYKuSULFzNBEjUS1BX/8p66q7y2EKq34iA0HkSwjamLEyAfT1ehovgrDTS6tXrYWaK9
- vxPzZxEg2GmESH4tLOX8DUX/tYf9P+VGYcDH9R5iOcJYalbTup24ABetIf9ghr2PGPPV
- gGwQ==
+ d=linaro.org; s=google; t=1688570425; x=1691162425;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NZAMOcL8Jye/af3yaSjbrvGPJfLK9qoKybBywpqSYP8=;
+ b=jaKnyeXhCzI63IG8PAR3T1afvNEDWJ4QxaglwGJLcLAiMtusHzWDfT3R+7QqeoPZAZ
+ 9S87eUpSgJkC4oT81fduykICvwaAvcudNefYjQFyUNOfI/gJP9iGPbbXyCqtILscp41s
+ fv5eZVSshl+ws7ZrzhiVFxa9pq6drHc48QRv69rDqGaUcSZW7+bApiwqXpNlTifVPhMU
+ 35+5IkVNuj4ZdR1GwzUggPVoIymBswYkanEgiA9MwzWpMe9z0H+QY4B8zVI/HO7DWnsg
+ IsvPUqF7Z4CCu6eOTjFX7WDZxHxX3eTu7pDz0rc2KhrYKd5SuPNEWPB5s7iZXJmWZfmv
+ rjEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688568190; x=1691160190;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=A14fZKmtNXyFXPY9J+wKEhzDJ4Yasz3lPL7wl3xXT9o=;
- b=RhuzhdIsos5+CuONM4G/67GPFYo5vYHnnyIztFC5qM/JhKsu2F+1+05yee/30AmhnB
- WRkzYVSEp59XXONCaoCZQfwfTNcayGR63a/dx8oWJbKsprcs6W7CunDdc2gk1z+Ad0A6
- T7x29tmcFK/j72FXTUi4o5nPEiKYiYDJ0IT0LG0QE+BcAtulK+WqtmjE4Lrma6w/KCgF
- SxrWvpEpFIIZMRxTlfhSh2epIt6JesvmzMdae81mkO+4n1MX4wv1lKJeCZSGQM+Qw7w0
- l08UqcOgismO4pnFsVVizfsq+vcCULMqg5bWGj9csqrW9hd+KWfDSoeK3ZT+2lrDnp1j
- 62Wg==
-X-Gm-Message-State: AC+VfDyUaHnnclJPvXu3cPpHOZs/KQ6WCwFkEFwvifk0YEJL3M1WOvZm
- FcsvXSIjVFc75RIbba6g2tjyzYO+/PfJ0KxOoPC8vY7Q
-X-Google-Smtp-Source: ACHHUZ7wimCD6cHiqgUUi7EIyKNS4Oju/YJSxp80yq2fiPDdvKbbukpLa9lMbEkKnQdf8CYYXHcb5acmpO4Y3of/RI0=
-X-Received: by 2002:a05:6808:164e:b0:39d:adbe:fa29 with SMTP id
- az14-20020a056808164e00b0039dadbefa29mr17369355oib.4.1688568190086; Wed, 05
- Jul 2023 07:43:10 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688570425; x=1691162425;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NZAMOcL8Jye/af3yaSjbrvGPJfLK9qoKybBywpqSYP8=;
+ b=MbEq2o0bF6B3hDeKN7L4q3uVNpwdMy1Qd5mbnII9oNLNlEVGiYH6Hm3IdykrWjh41G
+ 0GAwVrD26IRPftk9cQoZD+ki+sF0PZkTyWgyYfh9P8gv2JZhE+m0vRa8QOFMyJzMqtgd
+ N30xxSzQA43XUw8yqJGb6PXfXNxMuw8dEyWWt7iwNAtN54TB7YrWmVf8YCcYTXlD486L
+ ldHMxI6o9QRBnxaND4023Hv3MMMHywQIUnBoSUzEbCUFGIIq6eLojJtLVyNiExO4WWCw
+ dkbmhDIYKwkqSYtqMV6JytTGAaaGZZYQ6KQrGc8PmAxRz1QAVRvUcLFeIKUH6StzrcFE
+ jKDg==
+X-Gm-Message-State: ABy/qLZWOS+9CLYpY9/wjD/p74t1I8b99hZv0hTWGCpE+Uwd+6RacApF
+ kfvA3mc9asaFPkMjYK4t8y+ykdG/Bi1aNH4VNphU6w==
+X-Google-Smtp-Source: APBJJlHk1vpTA5uaLaRclVjz1s9mRQt4WsK64OE9PqAsFvnK685YLuTLjbg0z+TgfGketcZHx+yKUNgzIr+d1TtcNtU=
+X-Received: by 2002:a25:bbc2:0:b0:bff:3a4:2354 with SMTP id
+ c2-20020a25bbc2000000b00bff03a42354mr17196399ybk.42.1688570425038; Wed, 05
+ Jul 2023 08:20:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230704163640.6162-1-robdclark@gmail.com>
- <CAA8EJpoAZ7z2aURWHs1ouEuTzj2c0O-CypCHmocXO62EpuffsQ@mail.gmail.com>
-In-Reply-To: <CAA8EJpoAZ7z2aURWHs1ouEuTzj2c0O-CypCHmocXO62EpuffsQ@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 5 Jul 2023 07:42:58 -0700
-Message-ID: <CAF6AEGtUq3Y3YjTt1qazWcP4NcH2q_k4p2pfzEcrJMP34n_L+Q@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <ccc97880-8e74-b85b-9679-9c12c44c4b99@linaro.org>
+ <brmrqeajbq3oyp3jjwmc6tuhiftz764u6az444xw6g7pwf5fr3@5tlp375qwhed>
+ <617c8f8a-1fc7-c6a0-eaa5-ce75ff2adc1b@linaro.org>
+ <CAA8EJppG=MAVpK1J_8bNnkJ23y9NtgY7a2GVResXJvhEKyNsrw@mail.gmail.com>
+ <739a8bd9-9ff0-5072-fdae-b64efdf86842@collabora.com>
+ <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
+ <epds77sccy4cc5cdpoc4ir7sfz5sz3biwep6rbks2nuyqncidu@77gb4t2wy6vn>
+ <47a5678c-1eb3-dfc2-a9ac-f8e497455d11@linaro.org>
+ <unsithzszj7awvsmxwr7reshso5ju7u4nssil5tty6pocictf5@gwoltpgeecer>
+ <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
+ <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
+In-Reply-To: <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 5 Jul 2023 18:20:13 +0300
+Message-ID: <CAA8EJpq_VeY=44FqYm7QAT32AR=rmMOV0RtAfNFkb1hpSp29dw@mail.gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/adreno: Fix warn splat for
- devices without revn
+Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
+ drm/panel: Add LGD panel driver for Sony Xperia XZ3)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,88 +77,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- dri-devel@lists.freedesktop.org
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <dri-devel@lists.freedesktop.org>, Caleb Connolly <caleb@connolly.tech>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 4, 2023 at 10:20=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+On Wed, 5 Jul 2023 at 17:24, Maxime Ripard <mripard@kernel.org> wrote:
 >
-> On Tue, 4 Jul 2023 at 19:36, Rob Clark <robdclark@gmail.com> wrote:
+> On Wed, Jul 05, 2023 at 04:37:57PM +0300, Dmitry Baryshkov wrote:
+> > > > >
+> > > > > Either way, I'm not really sure it's a good idea to multiply the
+> > > > > capabilities flags of the DSI host, and we should just stick to the
+> > > > > spec. If the spec says that we have to support DSC while video is
+> > > > > output, then that's what the panels should expect.
+> > > >
+> > > > Except some panels supports DSC & non-DSC, Video and Command mode, and
+> > > > all that is runtime configurable. How do you handle that ?
+> > >
+> > > In this case, most of the constraints are going to be on the encoder
+> > > still so it should be the one driving it. The panel will only care about
+> > > which mode has been selected, but it shouldn't be the one driving it,
+> > > and thus we still don't really need to expose the host capabilities.
 > >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Recently, a WARN_ON() was introduced to ensure that revn is filled befo=
-re
-> > adreno_is_aXYZ is called. This however doesn't work very well when revn=
- is
-> > 0 by design (such as for A635).
-> >
-> > Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
-> > Fixes: cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified bef=
-ore being set")
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 9 ++++++---
-> >  1 file changed, 6 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/=
-msm/adreno/adreno_gpu.h
-> > index 65379e4824d9..ef1bcb6b624e 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > @@ -149,7 +149,8 @@ bool adreno_cmp_rev(struct adreno_rev rev1, struct =
-adreno_rev rev2);
-> >
-> >  static inline bool adreno_is_revn(const struct adreno_gpu *gpu, uint32=
-_t revn)
-> >  {
-> > -       WARN_ON_ONCE(!gpu->revn);
-> > +       /* revn can be zero, but if not is set at same time as info */
-> > +       WARN_ON_ONCE(!gpu->info);
-> >
-> >         return gpu->revn =3D=3D revn;
-> >  }
-> > @@ -161,14 +162,16 @@ static inline bool adreno_has_gmu_wrapper(const s=
-truct adreno_gpu *gpu)
-> >
-> >  static inline bool adreno_is_a2xx(const struct adreno_gpu *gpu)
-> >  {
-> > -       WARN_ON_ONCE(!gpu->revn);
-> > +       /* revn can be zero, but if not is set at same time as info */
-> > +       WARN_ON_ONCE(!gpu->info);
-> >
-> >         return (gpu->revn < 300);
+> > This is an interesting perspective. This means that we can and actually have
+> > to extend the drm_display_mode with the DSI data and compression
+> > information.
 >
-> This is then incorrect for a635 / a690 if they have revn at 0.
+> I wouldn't extend drm_display_mode, but extending one of the state
+> structures definitely.
+>
+> We already have some extra variables in drm_connector_state for HDMI,
+> I don't think it would be a big deal to add a few for MIPI-DSI.
+>
+> We also floated the idea for a while to create bus-specific states, with
+> helpers to match. Maybe it would be a good occasion to start doing it?
+>
+> > For example, the panel that supports all four types for the 1080p should
+> > export several modes:
+> >
+> > 1920x1080-command
+> > 1920x1080-command-DSC
+> > 1920x1080-video
+> > 1920x1080-video-DSC
+> >
+> > where video/command and DSC are some kinds of flags and/or information in
+> > the drm_display_mode? Ideally DSC also has several sub-flags, which denote
+> > what kind of configuration is supported by the DSC sink (e.g. bpp, yuv,
+> > etc).
+>
+> So we have two things to do, right? We need to expose what the panel can
+> take (ie, EDID for HDMI), and then we need to tell it what we picked
+> (infoframes).
+>
+> We already express the former in mipi_dsi_device, so we could extend the
+> flags stored there.
+>
+> And then, we need to tie what the DSI host chose to a given atomic state
+> so the panel knows what was picked and how it should set everything up.
 
-Fortunately not any more broken that it has ever been.  But as long as
-sc7280/sc8280 have GPU OPP tables, you'd never hit this.  I'm working
-on a better solution for next merge window.
+This is definitely something we need. Marijn has been stuck with the
+panels that support different models ([1]).
 
-BR,
--R
+Would you prefer a separate API for this kind of information or
+abusing atomic_enable() is fine from your point of view?
 
-> >  }
-> >
-> >  static inline bool adreno_is_a20x(const struct adreno_gpu *gpu)
-> >  {
-> > -       WARN_ON_ONCE(!gpu->revn);
-> > +       /* revn can be zero, but if not is set at same time as info */
-> > +       WARN_ON_ONCE(!gpu->info);
-> >
-> >         return (gpu->revn < 210);
+My vote would be for going with existing operations, with the slight
+fear of ending up with another DSI-specific hack (like
+pre_enable_prev_first).
+
 >
-> And this too.
+> > Another option would be to get this handled via the bus format negotiation,
+> > but that sounds like worse idea to me.
 >
-> >  }
-> > --
-> > 2.41.0
-> >
->
->
-> --
-> With best wishes
-> Dmitry
+> Yeah, I'm not really fond of the format negociation stuff either.
+
+
+[1] https://lore.kernel.org/linux-arm-msm/20230521-drm-panels-sony-v1-8-541c341d6bee@somainline.org/
+
+-- 
+With best wishes
+Dmitry
