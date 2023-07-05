@@ -1,70 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CE957487C6
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 17:20:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64BE774887A
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 17:54:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2FBD10E394;
-	Wed,  5 Jul 2023 15:20:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2301510E392;
+	Wed,  5 Jul 2023 15:54:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
- [IPv6:2607:f8b0:4864:20::b36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15BAC10E38C
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jul 2023 15:20:27 +0000 (UTC)
-Received: by mail-yb1-xb36.google.com with SMTP id
- 3f1490d57ef6-c49777d6e7aso5686698276.1
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jul 2023 08:20:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688570425; x=1691162425;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=NZAMOcL8Jye/af3yaSjbrvGPJfLK9qoKybBywpqSYP8=;
- b=jaKnyeXhCzI63IG8PAR3T1afvNEDWJ4QxaglwGJLcLAiMtusHzWDfT3R+7QqeoPZAZ
- 9S87eUpSgJkC4oT81fduykICvwaAvcudNefYjQFyUNOfI/gJP9iGPbbXyCqtILscp41s
- fv5eZVSshl+ws7ZrzhiVFxa9pq6drHc48QRv69rDqGaUcSZW7+bApiwqXpNlTifVPhMU
- 35+5IkVNuj4ZdR1GwzUggPVoIymBswYkanEgiA9MwzWpMe9z0H+QY4B8zVI/HO7DWnsg
- IsvPUqF7Z4CCu6eOTjFX7WDZxHxX3eTu7pDz0rc2KhrYKd5SuPNEWPB5s7iZXJmWZfmv
- rjEw==
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB30010E392;
+ Wed,  5 Jul 2023 15:53:59 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-77acb944bdfso334675139f.0; 
+ Wed, 05 Jul 2023 08:53:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688570425; x=1691162425;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NZAMOcL8Jye/af3yaSjbrvGPJfLK9qoKybBywpqSYP8=;
- b=MbEq2o0bF6B3hDeKN7L4q3uVNpwdMy1Qd5mbnII9oNLNlEVGiYH6Hm3IdykrWjh41G
- 0GAwVrD26IRPftk9cQoZD+ki+sF0PZkTyWgyYfh9P8gv2JZhE+m0vRa8QOFMyJzMqtgd
- N30xxSzQA43XUw8yqJGb6PXfXNxMuw8dEyWWt7iwNAtN54TB7YrWmVf8YCcYTXlD486L
- ldHMxI6o9QRBnxaND4023Hv3MMMHywQIUnBoSUzEbCUFGIIq6eLojJtLVyNiExO4WWCw
- dkbmhDIYKwkqSYtqMV6JytTGAaaGZZYQ6KQrGc8PmAxRz1QAVRvUcLFeIKUH6StzrcFE
- jKDg==
-X-Gm-Message-State: ABy/qLZWOS+9CLYpY9/wjD/p74t1I8b99hZv0hTWGCpE+Uwd+6RacApF
- kfvA3mc9asaFPkMjYK4t8y+ykdG/Bi1aNH4VNphU6w==
-X-Google-Smtp-Source: APBJJlHk1vpTA5uaLaRclVjz1s9mRQt4WsK64OE9PqAsFvnK685YLuTLjbg0z+TgfGketcZHx+yKUNgzIr+d1TtcNtU=
-X-Received: by 2002:a25:bbc2:0:b0:bff:3a4:2354 with SMTP id
- c2-20020a25bbc2000000b00bff03a42354mr17196399ybk.42.1688570425038; Wed, 05
- Jul 2023 08:20:25 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688572438; x=1691164438;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3RLbkYBSMtZSZWsdqOipQPRF1AXaIm7IXw5H9F31xDg=;
+ b=X14EQ3xXYd0tVftQ7UhB55Mit5mv3vXvR3zI+d1YmAOiT1YkQFUxUEBN545+aObQOU
+ RMpG4PpgdvNIkveuLqaCn2QzVLEx+9vkPtJBuUrjUm9QtNHwEhf7u11jdt8xD52NjTID
+ hBltD8Es0zL8TgLLDl+EVDx7CUXbZLWxZDlnOTeUkLdhdjN+lxuSUrG8K5thAatwPlci
+ 67UkmEmLH3LvUVK09lwgpQVnD8cJmRlWOy6jZBGjEDp/bI46ucYAqC2Ue1Mh2DJmJK5F
+ +TyjtgB6uykI21d7jFIBCmMrOIDOLjfHUdrkj2kpq2meh67HgJShDj6PfE9dS+YJHP8q
+ 0q2g==
+X-Gm-Message-State: AC+VfDx0vsJVTdA17hKUFwJgSqKjDLt5zbzWGQGwzknL5R82kwYPlfzG
+ sxO8ww8kbW/B0/xbW1+2tg==
+X-Google-Smtp-Source: ACHHUZ73QtYKyynoI9ylI1XEWC2lq+A/sJ6q02lzFpAinNpUOyDvzNhBset5FBiQu0bFE/MLWXDyOg==
+X-Received: by 2002:a5e:8811:0:b0:785:ca70:46a2 with SMTP id
+ l17-20020a5e8811000000b00785ca7046a2mr18137083ioj.4.1688572438444; 
+ Wed, 05 Jul 2023 08:53:58 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id
+ q15-20020a02c8cf000000b0042ad6abe0bbsm6425382jao.20.2023.07.05.08.53.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Jul 2023 08:53:57 -0700 (PDT)
+Received: (nullmailer pid 691642 invoked by uid 1000);
+ Wed, 05 Jul 2023 15:53:55 -0000
+Date: Wed, 5 Jul 2023 09:53:55 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <168857243311.691536.13322875472425620659.robh@kernel.org>
+References: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-References: <ccc97880-8e74-b85b-9679-9c12c44c4b99@linaro.org>
- <brmrqeajbq3oyp3jjwmc6tuhiftz764u6az444xw6g7pwf5fr3@5tlp375qwhed>
- <617c8f8a-1fc7-c6a0-eaa5-ce75ff2adc1b@linaro.org>
- <CAA8EJppG=MAVpK1J_8bNnkJ23y9NtgY7a2GVResXJvhEKyNsrw@mail.gmail.com>
- <739a8bd9-9ff0-5072-fdae-b64efdf86842@collabora.com>
- <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
- <epds77sccy4cc5cdpoc4ir7sfz5sz3biwep6rbks2nuyqncidu@77gb4t2wy6vn>
- <47a5678c-1eb3-dfc2-a9ac-f8e497455d11@linaro.org>
- <unsithzszj7awvsmxwr7reshso5ju7u4nssil5tty6pocictf5@gwoltpgeecer>
- <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
- <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
-In-Reply-To: <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 5 Jul 2023 18:20:13 +0300
-Message-ID: <CAA8EJpq_VeY=44FqYm7QAT32AR=rmMOV0RtAfNFkb1hpSp29dw@mail.gmail.com>
-To: Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
- drm/panel: Add LGD panel driver for Sony Xperia XZ3)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230702182308.7583-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Freedreno] [PATCH] dt-bindings: cleanup DTS example whitespaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,101 +63,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, Caleb Connolly <caleb@connolly.tech>,
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ coresight@lists.linaro.org, linux-usb@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sam Ravnborg <sam@ravnborg.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Leo Yan <leo.yan@linaro.org>, linux-phy@lists.infradead.org,
+ linux-mtd@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 5 Jul 2023 at 17:24, Maxime Ripard <mripard@kernel.org> wrote:
->
-> On Wed, Jul 05, 2023 at 04:37:57PM +0300, Dmitry Baryshkov wrote:
-> > > > >
-> > > > > Either way, I'm not really sure it's a good idea to multiply the
-> > > > > capabilities flags of the DSI host, and we should just stick to the
-> > > > > spec. If the spec says that we have to support DSC while video is
-> > > > > output, then that's what the panels should expect.
-> > > >
-> > > > Except some panels supports DSC & non-DSC, Video and Command mode, and
-> > > > all that is runtime configurable. How do you handle that ?
-> > >
-> > > In this case, most of the constraints are going to be on the encoder
-> > > still so it should be the one driving it. The panel will only care about
-> > > which mode has been selected, but it shouldn't be the one driving it,
-> > > and thus we still don't really need to expose the host capabilities.
-> >
-> > This is an interesting perspective. This means that we can and actually have
-> > to extend the drm_display_mode with the DSI data and compression
-> > information.
->
-> I wouldn't extend drm_display_mode, but extending one of the state
-> structures definitely.
->
-> We already have some extra variables in drm_connector_state for HDMI,
-> I don't think it would be a big deal to add a few for MIPI-DSI.
->
-> We also floated the idea for a while to create bus-specific states, with
-> helpers to match. Maybe it would be a good occasion to start doing it?
->
-> > For example, the panel that supports all four types for the 1080p should
-> > export several modes:
-> >
-> > 1920x1080-command
-> > 1920x1080-command-DSC
-> > 1920x1080-video
-> > 1920x1080-video-DSC
-> >
-> > where video/command and DSC are some kinds of flags and/or information in
-> > the drm_display_mode? Ideally DSC also has several sub-flags, which denote
-> > what kind of configuration is supported by the DSC sink (e.g. bpp, yuv,
-> > etc).
->
-> So we have two things to do, right? We need to expose what the panel can
-> take (ie, EDID for HDMI), and then we need to tell it what we picked
-> (infoframes).
->
-> We already express the former in mipi_dsi_device, so we could extend the
-> flags stored there.
->
-> And then, we need to tie what the DSI host chose to a given atomic state
-> so the panel knows what was picked and how it should set everything up.
 
-This is definitely something we need. Marijn has been stuck with the
-panels that support different models ([1]).
+On Sun, 02 Jul 2023 20:23:08 +0200, Krzysztof Kozlowski wrote:
+> The DTS code coding style expects spaces around '=' sign.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Rob,
+> 
+> Maybe this could go via your tree? Rebased on your for-next:
+> v6.4-rc2-45-gf0ac35049606
+> ---
+>  .../bindings/arm/arm,coresight-cti.yaml        | 18 +++++++++---------
+>  .../bindings/arm/keystone/ti,sci.yaml          |  8 ++++----
+>  .../devicetree/bindings/display/msm/gmu.yaml   |  2 +-
+>  .../display/panel/samsung,s6e8aa0.yaml         |  2 +-
+>  .../display/rockchip/rockchip-vop.yaml         |  4 ++--
+>  .../bindings/iio/adc/ti,adc108s102.yaml        |  2 +-
+>  .../bindings/media/renesas,rzg2l-cru.yaml      |  4 ++--
+>  .../devicetree/bindings/media/renesas,vin.yaml |  4 ++--
+>  .../devicetree/bindings/mtd/mtd-physmap.yaml   |  2 +-
+>  .../bindings/net/mediatek-dwmac.yaml           |  2 +-
+>  .../bindings/perf/amlogic,g12-ddr-pmu.yaml     |  4 ++--
+>  .../bindings/phy/mediatek,dsi-phy.yaml         |  2 +-
+>  .../remoteproc/amlogic,meson-mx-ao-arc.yaml    |  2 +-
+>  .../devicetree/bindings/usb/mediatek,mtu3.yaml |  2 +-
+>  .../devicetree/bindings/usb/ti,am62-usb.yaml   |  2 +-
+>  15 files changed, 30 insertions(+), 30 deletions(-)
+> 
 
-Would you prefer a separate API for this kind of information or
-abusing atomic_enable() is fine from your point of view?
+Applied, thanks!
 
-My vote would be for going with existing operations, with the slight
-fear of ending up with another DSI-specific hack (like
-pre_enable_prev_first).
-
->
-> > Another option would be to get this handled via the bus format negotiation,
-> > but that sounds like worse idea to me.
->
-> Yeah, I'm not really fond of the format negociation stuff either.
-
-
-[1] https://lore.kernel.org/linux-arm-msm/20230521-drm-panels-sony-v1-8-541c341d6bee@somainline.org/
-
--- 
-With best wishes
-Dmitry
