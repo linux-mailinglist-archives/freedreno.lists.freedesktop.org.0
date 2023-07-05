@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D34BD748ECF
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 22:22:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6FA748ED4
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 22:23:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D02D10E3BF;
-	Wed,  5 Jul 2023 20:22:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7045310E3BF;
+	Wed,  5 Jul 2023 20:23:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A68E10E3C0
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jul 2023 20:22:44 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2b6a084a34cso108770801fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jul 2023 13:22:44 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D81810E3BF
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Jul 2023 20:23:25 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-4fb73ba3b5dso11575004e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jul 2023 13:23:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688588562; x=1691180562;
+ d=linaro.org; s=google; t=1688588603; x=1691180603;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=v5iZ905fjA6D/RAQ/gXeEaWqQbihFHI1SgBsGMwVsQM=;
- b=LelmaoSKg0/bHeNHGzz+dNu9LzyFZD2EtFZhv5XZsuaOdemgPb2lmhJifBeZKSbJYZ
- ybK3I1FYEju/HzOnCOcEZaG+tBO2m5YzyLr6VEnY2f3WAOfvoNzMIzrVXb34xKMMfXKf
- 78qETYq2pUA8eLiJ+C7EudLzXiWHpN+UIwrRN8RP2xcDyzEPLhpn0bZkBFb0hokWzQUa
- RGboRYtW2C065onQs33AvU4lj/SEuzsxdBOvOrWurgSAagF3E6HP9hSrZmlTcyzu4ARF
- F2V51DNXK1kS7/xnPuAZdMIdePvnXZvjI3QkVU3dbxLvROC38Qf4Vtd3gB8b/q216Gug
- 9wzw==
+ bh=i4Krz0jpGa+XsfRzmlooU2kh6gKmBpKJ+WGmeH2oOqg=;
+ b=OCJKPDAEF6uYuFYTTRjmoDcNVfCOc3C65oJTLebbJjGX9zDQd1S9oLEPA/8I/1w44l
+ s7aj7glDs6V8m4aLWBr/R7dQljgI8io7/sz9JVKfynw50NweupSgSF8R9wd4JFA4zUJk
+ tTx/Sl93Ao8jqXb/uxZADO5jjMNn1W6HFvnd+LmYyXkSkWVCYgn+D0m/pamm0D5jp4gz
+ tqLFL7F+dPwI/VpZrhPaw/ZdXyMGvlhwJR9svNBUdQIikKCQvmUA6ZsBl+9oMSugjcoI
+ 4cjMXDq8JltvDbRjyiCAFmC5J98GEZP30Iy1xaME6hP3UhenxrnrPRX9rBPmA/wNYeI1
+ b98w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688588562; x=1691180562;
+ d=1e100.net; s=20221208; t=1688588603; x=1691180603;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=v5iZ905fjA6D/RAQ/gXeEaWqQbihFHI1SgBsGMwVsQM=;
- b=GEc6oW+VPdWdgO7BAdz3L6tiliYFzmQ0eaTprvXXg829Bso70m72gmlAxlslKEBtvl
- VtYxRAX3zQmSBRoZgJgPHPo0A6ktXJIXNhaRmwFUC54exIcs84KtX8P50IBS7kasjX/u
- GlIWcOAYZtexOA3LipY+AlMcnoinqPW+nPp4yNpVbs3yuGoldzOJSnG2KIeebhRSM5OM
- 5qJQJDNfSw1P9A9NpOegILEhbCTkIXJbijkwKlNSGsx8OE7CzeYV8FjYymR5B6aoDWBz
- itRo3gGaU1/4GDrMI3I1Yr+Xed3B+DKqofEZIJsfnEMWCW5TxvZOE96ceTvK4kO/vLJC
- SPUA==
-X-Gm-Message-State: ABy/qLY83G9Gf2OyoCEJFhyeGE+8jKuBSeHuSXa5FI8Sc6bmfgIge3HI
- xdGokPNPOYd+abk/JyRRt2Xf7w==
-X-Google-Smtp-Source: APBJJlHKAqREBtzHkxQRp98+f2xj3PZy8rraOQUCsSlLvFiSn+JvY44XP0S2NaqAuwHIuMIU+qHneQ==
-X-Received: by 2002:a2e:2c16:0:b0:2b6:e17c:151e with SMTP id
- s22-20020a2e2c16000000b002b6e17c151emr8460063ljs.48.1688588561772; 
- Wed, 05 Jul 2023 13:22:41 -0700 (PDT)
+ bh=i4Krz0jpGa+XsfRzmlooU2kh6gKmBpKJ+WGmeH2oOqg=;
+ b=B/MlxRQVzkcUze8MwTUFh//w5wYAmqTytxulzX0eNmDeT9uTHVOi+SGYDGI8yD9jtk
+ g68bINZkQVB2aiHWRWA7w5gCHIuCqcgP6wUslO/t/8OeAJ8h4DWNnzNHs+adhDUNFyaa
+ +Cbwqx79oLtZ30fcq4JwjcNxzXC5dIBEcjDbIWnfyj/pFoj9A6mFjr+jkrIqR/0kHcXQ
+ ZrLXEUZvQhGnRUAtxKmEzAAR+cB8wFdUOpw0YqVunKA3RbynTDMIBfnv0qYMfhaw7oX2
+ KTI6RWVbOZpWd20dtnJ71qn9dtaY9vdOMZNVLKbwABQo9hCCId9kBPGEzB1IRY51/lcq
+ TlRA==
+X-Gm-Message-State: ABy/qLaJQ39EueoxI7swR/wUM+jhaICG18vUAOqm71+k1tiuuRSyj20Y
+ TxmBBcWROBa2kJtuoVD4QgOlYQ==
+X-Google-Smtp-Source: APBJJlErhbnzb11CngKsxh5v1reVcDJ9y5He3cf6Hfu/CY4cRjQ5+lMWFHIQ3pvGXPpkL8mDGwPEDA==
+X-Received: by 2002:a05:6512:3d28:b0:4fb:8802:9554 with SMTP id
+ d40-20020a0565123d2800b004fb88029554mr95575lfv.6.1688588603673; 
+ Wed, 05 Jul 2023 13:23:23 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- w15-20020a05651c102f00b002b6ef2fca66sm1355121ljm.41.2023.07.05.13.22.41
+ z14-20020a19f70e000000b004fa35167729sm5492187lfe.159.2023.07.05.13.23.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Jul 2023 13:22:41 -0700 (PDT)
-Message-ID: <cebe822f-2c00-4826-a48e-4344379b3e65@linaro.org>
-Date: Wed, 5 Jul 2023 23:22:40 +0300
+ Wed, 05 Jul 2023 13:23:23 -0700 (PDT)
+Message-ID: <878861f0-f862-f19d-970a-825f660ba281@linaro.org>
+Date: Wed, 5 Jul 2023 23:23:22 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -63,13 +63,13 @@ To: Ryan McCann <quic_rmccann@quicinc.com>, Rob Clark <robdclark@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 References: <20230622-devcoredump_patch-v2-0-9e90a87d393f@quicinc.com>
- <20230622-devcoredump_patch-v2-5-9e90a87d393f@quicinc.com>
+ <20230622-devcoredump_patch-v2-3-9e90a87d393f@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230622-devcoredump_patch-v2-5-9e90a87d393f@quicinc.com>
+In-Reply-To: <20230622-devcoredump_patch-v2-3-9e90a87d393f@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 5/5] drm/msm/dpu: Update dev core dump to
- dump registers of sub-blocks
+Subject: Re: [Freedreno] [PATCH v2 3/5] drm/msm/dpu: Define names for
+ unnamed sblks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,173 +89,18 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 05/07/2023 22:30, Ryan McCann wrote:
-> Currently, the device core dump mechanism does not dump registers of
-> sub-blocks within the DSPP, SSPP, DSC, and PINGPONG blocks. Edit
-> dpu_kms_mdp_snapshot function to account for sub-blocks.
+> Some sub-blocks in the hw catalog have not been given a name, so when the
+> registers from that block are dumped, there is no name to reference.
+> Define names for relevant sub-blocks to fix this.
 > 
 > Signed-off-by: Ryan McCann <quic_rmccann@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 106 ++++++++++++++++++++++++--------
->   1 file changed, 82 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index aa8499de1b9f..c83f5d79e5c5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -890,62 +890,120 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
->   	int i;
->   	struct dpu_kms *dpu_kms;
->   	const struct dpu_mdss_cfg *cat;
-> +	void __iomem *mmio;
-> +	u32 base;
->   
->   	dpu_kms = to_dpu_kms(kms);
->   
->   	cat = dpu_kms->catalog;
-> +	mmio = dpu_kms->mmio;
->   
->   	pm_runtime_get_sync(&dpu_kms->pdev->dev);
->   
->   	/* dump CTL sub-blocks HW regs info */
->   	for (i = 0; i < cat->ctl_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->ctl[i].len,
-> -				dpu_kms->mmio + cat->ctl[i].base, "ctl_%d", i);
-> +		msm_disp_snapshot_add_block(disp_state, cat->ctl[i].len, mmio + cat->ctl[i].base,
-> +					    "%s", cat->ctl[i].name);
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 20 ++++++++++----------
+>   1 file changed, 10 insertions(+), 10 deletions(-)
 
-This is not relevant to sub-blocks. If you wish to refactor the main 
-block printing, please split it to a separate commit.
+I'm not happy with this approach, but let's see how it goes.
 
-Also, please note that `msm_disp_snapshot_add_block(...., "%s", 
-block->name)` is redundant. We do not expect formatting characters in 
-block names. So, "%s" can be dropped.
-
->   
->   	/* dump DSPP sub-blocks HW regs info */
-> -	for (i = 0; i < cat->dspp_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->dspp[i].len,
-> -				dpu_kms->mmio + cat->dspp[i].base, "dspp_%d", i);
-> +	for (i = 0; i < cat->dspp_count; i++) {
-> +		base = cat->dspp[i].base;
-> +		msm_disp_snapshot_add_block(disp_state, cat->dspp[i].len, mmio + base, "%s",
-> +					    cat->dspp[i].name);
-> +
-> +		if (cat->dspp[i].sblk && cat->dspp[i].sblk->pcc.len > 0)
-> +			msm_disp_snapshot_add_block(disp_state, cat->dspp[i].sblk->pcc.len,
-> +						    mmio + base + cat->dspp[i].sblk->pcc.base,
-> +						    "%s_%s", cat->dspp[i].name,
-> +						    cat->dspp[i].sblk->pcc.name);
-> +	}
-> +
->   
->   	/* dump INTF sub-blocks HW regs info */
->   	for (i = 0; i < cat->intf_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->intf[i].len,
-> -				dpu_kms->mmio + cat->intf[i].base, "intf_%d", i);
-> +		msm_disp_snapshot_add_block(disp_state, cat->intf[i].len, mmio + cat->intf[i].base,
-> +					    "%s", cat->intf[i].name);
->   
->   	/* dump PP sub-blocks HW regs info */
-> -	for (i = 0; i < cat->pingpong_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->pingpong[i].len,
-> -				dpu_kms->mmio + cat->pingpong[i].base, "pingpong_%d", i);
-> +	for (i = 0; i < cat->pingpong_count; i++) {
-> +		base = cat->pingpong[i].base;
-> +		msm_disp_snapshot_add_block(disp_state, cat->pingpong[i].len, mmio + base, "%s",
-> +					    cat->pingpong[i].name);
-> +
-> +		/* TE2 block has length of 0, so will not print it */
-> +
-> +		if (cat->pingpong[i].sblk && cat->pingpong[i].sblk->dither.len > 0)
-> +			msm_disp_snapshot_add_block(disp_state, cat->pingpong[i].sblk->dither.len,
-> +						    mmio + base + cat->pingpong[i].sblk->dither.base,
-> +						    "%s_%s", cat->pingpong[i].name,
-> +						    cat->pingpong[i].sblk->dither.name);
-> +	}
->   
->   	/* dump SSPP sub-blocks HW regs info */
-> -	for (i = 0; i < cat->sspp_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->sspp[i].len,
-> -				dpu_kms->mmio + cat->sspp[i].base, "sspp_%d", i);
-> +	for (i = 0; i < cat->sspp_count; i++) {
-> +		base = cat->sspp[i].base;
-> +		msm_disp_snapshot_add_block(disp_state, cat->sspp[i].len, mmio + cat->sspp[i].base,
-> +					    "%s", cat->sspp[i].name);
-> +
-> +		if (cat->sspp[i].sblk && cat->sspp[i].sblk->scaler_blk.len > 0)
-> +			msm_disp_snapshot_add_block(disp_state, cat->sspp[i].sblk->scaler_blk.len,
-> +						    mmio + base + cat->sspp[i].sblk->scaler_blk.base,
-> +						    "%s_%s", cat->sspp[i].name,
-> +						    cat->sspp[i].sblk->scaler_blk.name);
-> +
-> +		if (cat->sspp[i].sblk && cat->sspp[i].sblk->csc_blk.len > 0)
-> +			msm_disp_snapshot_add_block(disp_state, cat->sspp[i].sblk->csc_blk.len,
-> +						    mmio + base + cat->sspp[i].sblk->csc_blk.base,
-> +						    "%s_%s", cat->sspp[i].name,
-> +						    cat->sspp[i].sblk->csc_blk.name);
-> +	}
->   
->   	/* dump LM sub-blocks HW regs info */
->   	for (i = 0; i < cat->mixer_count; i++)
->   		msm_disp_snapshot_add_block(disp_state, cat->mixer[i].len,
-> -				dpu_kms->mmio + cat->mixer[i].base, "lm_%d", i);
-> +					    mmio + cat->mixer[i].base,
-> +					    "%s", cat->mixer[i].name);
->   
->   	/* dump WB sub-blocks HW regs info */
->   	for (i = 0; i < cat->wb_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
-> -				dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
-> +		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len, mmio + cat->wb[i].base,
-> +					    "%s", cat->wb[i].name);
->   
->   	if (cat->mdp[0].features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
-> -		msm_disp_snapshot_add_block(disp_state, MDP_PERIPH_TOP0,
-> -				dpu_kms->mmio + cat->mdp[0].base, "top");
-> +		msm_disp_snapshot_add_block(disp_state, MDP_PERIPH_TOP0, mmio + cat->mdp[0].base,
-> +					    "top");
->   		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len - MDP_PERIPH_TOP0_END,
-> -				dpu_kms->mmio + cat->mdp[0].base + MDP_PERIPH_TOP0_END, "top_2");
-> +					    mmio + cat->mdp[0].base + MDP_PERIPH_TOP0_END,
-> +					    "top_2");
->   	} else {
-> -		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len,
-> -				dpu_kms->mmio + cat->mdp[0].base, "top");
-> +		msm_disp_snapshot_add_block(disp_state, cat->mdp[0].len, mmio + cat->mdp[0].base,
-> +					    "top");
->   	}
->   
->   	/* dump DSC sub-blocks HW regs info */
-> -	for (i = 0; i < cat->dsc_count; i++)
-> -		msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len,
-> -				dpu_kms->mmio + cat->dsc[i].base, "dsc_%d", i);
-> +	for (i = 0; i < cat->dsc_count; i++) {
-> +		base = cat->dsc[i].base;
-> +
-> +		if (cat->dsc[i].features & BIT(DPU_DSC_HW_REV_1_2)) {
-> +			struct dpu_dsc_blk enc = cat->dsc[i].sblk->enc;
-> +			struct dpu_dsc_blk ctl = cat->dsc[i].sblk->ctl;
-> +
-> +			/* For now, pass in a length of 0 because the DSC_BLK register space
-> +			 * overlaps with the sblks' register space.
-> +			 *
-> +			 * TODO: Pass in a length of 0 t0 DSC_BLK_1_2 in the HW catalog where
-> +			 * applicable.
-> +			 */
-> +			msm_disp_snapshot_add_block(disp_state, 0, mmio + base, "%s", cat->dsc[i].name);
-> +			msm_disp_snapshot_add_block(disp_state, enc.len, mmio + base + enc.base,
-> +						    "%s_%s", cat->dsc[i].name, enc.name);
-> +			msm_disp_snapshot_add_block(disp_state, ctl.len, mmio + base + ctl.base,
-> +						    "%s_%s", cat->dsc[i].name, ctl.name);
-> +		} else {
-> +			msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len, mmio + base, "%s",
-> +						    cat->dsc[i].name);
-> +		}
-> +	}
->   
->   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->   }
-> 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
