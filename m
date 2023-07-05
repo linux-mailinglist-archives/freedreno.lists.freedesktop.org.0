@@ -1,73 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2081B748023
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 10:53:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B337483BB
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 14:04:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E430310E1CD;
-	Wed,  5 Jul 2023 08:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F5810E270;
+	Wed,  5 Jul 2023 12:04:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B07BD10E1CD
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jul 2023 08:53:16 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2b701e41cd3so1135391fa.3
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jul 2023 01:53:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688547194; x=1691139194;
- h=content-transfer-encoding:in-reply-to:subject:organization
- :references:cc:to:content-language:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=b/t8zNVTVsg6ienlpH1xhpP3oVWDvisuW/kxWCPhPP0=;
- b=cpm9X//SVQob0n3MjLFkivgbMHtONndE1zDnTrbx0YHqGfdVRU2UrX0P99g9YorsaW
- h5nI8n1UwT1L/MOqA6TDen8C4j9jmAwoz4j16Dpp68iSpGr8JhtY4SjGso98NaA967U6
- AFDIRc1rer8zxF2pfhgo45YWfnUtQNkKgYViqmqnu+ImiecgSNVoeTUqKkOto8Zngx5U
- r5VdvruhmHifZu+XNUETLZnn5YBTkLZyItura4YlO0mxwkx58tSOehXxxqv+r7lNI/7n
- oRMnBHnOpPFFqiizWI5na/xnroCdQvCsZ743j0ZR1VmsRHQuD/GEShGeM3SktrptkesQ
- +JSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688547194; x=1691139194;
- h=content-transfer-encoding:in-reply-to:subject:organization
- :references:cc:to:content-language:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=b/t8zNVTVsg6ienlpH1xhpP3oVWDvisuW/kxWCPhPP0=;
- b=GbqPTyOc9Dq5FtQ/rjThBNt9O8gUWpWVqZJXfkG9E2uTHdkLnTlAMdUs/52875aVt1
- vg7e+tw3Z1/zWXKShSVu0aKel+bu1Ad89TOAdocyhRIAucUGHZ8t2lj0q8fooh8HMFBC
- 1UP9fHiE6ovEmJewESB27KH4s/jEeRjmMnovEeMhOCwn2N1TCPZKCIaOgimBDgUALX3R
- v5dry1pnO0t9ltRYZoigsyinNixQ0bTpq7/eucBTCz39IRK5HMDLSuPQsL86GxigvnmE
- SbKWlj+tvRFhUtofbNRAzGvBY1h837xRUDNBIZdzay3Hfj+t/orVAywiApYlAS6OfCGW
- XGLg==
-X-Gm-Message-State: ABy/qLbjS1os2zpKdAsS4jJEdPKThl5PVz2nX10vL2kCTR9ixU1pIiWx
- XErC6gqXTSp8g+TfrXstfH4ylg==
-X-Google-Smtp-Source: APBJJlHOl9QSHA5N0yXsvfULsijCC69VokhWE58vijIuLlqSVU54KuRRZmPjfvqL69mnb9h+eEINGQ==
-X-Received: by 2002:a2e:8ec3:0:b0:2b6:d631:a1a0 with SMTP id
- e3-20020a2e8ec3000000b002b6d631a1a0mr9872081ljl.12.1688547194393; 
- Wed, 05 Jul 2023 01:53:14 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:65eb:d140:2d45:ee85?
- ([2a01:e0a:982:cbb0:65eb:d140:2d45:ee85])
- by smtp.gmail.com with ESMTPSA id
- z5-20020a05600c220500b003fba6709c68sm1458806wml.47.2023.07.05.01.53.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Jul 2023 01:53:13 -0700 (PDT)
-Message-ID: <92b1146c-be79-4d27-0444-cfc2125547e2@linaro.org>
-Date: Wed, 5 Jul 2023 10:53:12 +0200
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA95810E152;
+ Wed,  5 Jul 2023 12:04:05 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6027F6149F;
+ Wed,  5 Jul 2023 12:04:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C41C433C8;
+ Wed,  5 Jul 2023 12:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688558643;
+ bh=zpQHiah5pU5ivi5QnyiHH3I+kbG+Eq4swtcEgTjXUaA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZsPAFsMvzkFtlDcZtJDpGIX2qQVVvXrwaEzMc7YGvKZhROXNuKvg722OlAweWXL/Z
+ j/jjr5q2t1u9HoihkQya58R90kZ8PdgAnd8yduFaPMAyXzRdjHcwUMfWJeFXrfIJ3G
+ EjC2RAZc6dMyu2vTUkhLFprfZWTXvfJ96Wi2veiK2ujOoYv4keYHeszKrCwk5uXp9Z
+ fDKdRi4Mtl+hulGM3htJArlZxOiz07hCizRGXwqFm6LXkHSfc7u8w8yTPDRbRer9RX
+ 3mpjgitDz4YcBfN48skVFGVMqzApFLpaGUrl/wa9xzf94H/A7MXMOVghnRJEJfUUkP
+ HfXztUJE8FJPA==
+Date: Wed, 5 Jul 2023 14:04:00 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <epds77sccy4cc5cdpoc4ir7sfz5sz3biwep6rbks2nuyqncidu@77gb4t2wy6vn>
+References: <20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org>
+ <20230521-drm-panels-sony-v1-3-541c341d6bee@somainline.org>
+ <ccc97880-8e74-b85b-9679-9c12c44c4b99@linaro.org>
+ <brmrqeajbq3oyp3jjwmc6tuhiftz764u6az444xw6g7pwf5fr3@5tlp375qwhed>
+ <617c8f8a-1fc7-c6a0-eaa5-ce75ff2adc1b@linaro.org>
+ <CAA8EJppG=MAVpK1J_8bNnkJ23y9NtgY7a2GVResXJvhEKyNsrw@mail.gmail.com>
+ <739a8bd9-9ff0-5072-fdae-b64efdf86842@collabora.com>
+ <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US
-To: Jonathan Marek <jonathan@marek.ca>, freedreno@lists.freedesktop.org
-References: <20230704160106.26055-1-jonathan@marek.ca>
-Organization: Linaro Developer Services
-In-Reply-To: <20230704160106.26055-1-jonathan@marek.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add missing flush and fetch
- bits for DMA4/DMA5 planes
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="vjd4hy6ibnmkekav"
+Content-Disposition: inline
+In-Reply-To: <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
+Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
+ drm/panel: Add LGD panel driver for Sony Xperia XZ3)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,71 +62,146 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <dri-devel@lists.freedesktop.org>, Caleb Connolly <caleb@connolly.tech>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/07/2023 18:01, Jonathan Marek wrote:
-> Note that with this, DMA4/DMA5 are still non-functional, but at least
-> display *something* in modetest instead of nothing or underflow.
-> 
-> Fixes: efcd0107727c ("drm/msm/dpu: add support for SM8550")
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index bbdc95ce374a..52222af5975f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -51,7 +51,7 @@
->   
->   static const u32 fetch_tbl[SSPP_MAX] = {CTL_INVALID_BIT, 16, 17, 18, 19,
->   	CTL_INVALID_BIT, CTL_INVALID_BIT, CTL_INVALID_BIT, CTL_INVALID_BIT, 0,
-> -	1, 2, 3, CTL_INVALID_BIT, CTL_INVALID_BIT};
-> +	1, 2, 3, 4, 5};
->   
->   static const struct dpu_ctl_cfg *_ctl_offset(enum dpu_ctl ctl,
->   		const struct dpu_mdss_cfg *m,
-> @@ -206,6 +206,12 @@ static void dpu_hw_ctl_update_pending_flush_sspp(struct dpu_hw_ctl *ctx,
->   	case SSPP_DMA3:
->   		ctx->pending_flush_mask |= BIT(25);
->   		break;
-> +	case SSPP_DMA4:
-> +		ctx->pending_flush_mask |= BIT(13);
-> +		break;
-> +	case SSPP_DMA5:
-> +		ctx->pending_flush_mask |= BIT(14);
-> +		break;
->   	case SSPP_CURSOR0:
->   		ctx->pending_flush_mask |= BIT(22);
->   		break;
 
-It permits displaying something, but the output is still corrupted on both DMA4 & DMA5,
-tested with multiple plane sizes and formats.
+--vjd4hy6ibnmkekav
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-modetest -P 81@93:1080x2400
-and
-modetest -P 87@93:1080x2400
+Hi,
 
-Photo of actual display:
-https://people.linaro.org/~neil.armstrong/sm8550-dma5.jpg
+On Tue, May 30, 2023 at 03:36:04PM +0300, Dmitry Baryshkov wrote:
+> On 30/05/2023 15:15, AngeloGioacchino Del Regno wrote:
+> > Il 30/05/23 13:44, Dmitry Baryshkov ha scritto:
+> > > On Tue, 30 May 2023 at 10:24, Neil Armstrong
+> > > <neil.armstrong@linaro.org> wrote:
+> > > >=20
+> > > > Hi Marijn, Dmitry, Caleb, Jessica,
+> > > >=20
+> > > > On 29/05/2023 23:11, Marijn Suijten wrote:
+> > > > > On 2023-05-22 04:16:20, Dmitry Baryshkov wrote:
+> > > > > <snip>
+> > > > > > > +=A0=A0 if (ctx->dsi->dsc) {
+> > > > > >=20
+> > > > > > dsi->dsc is always set, thus this condition can be dropped.
+> > > > >=20
+> > > > > I want to leave room for possibly running the panel without DSC (=
+at a
+> > > > > lower resolution/refresh rate, or at higher power consumption if =
+there
+> > > > > is enough BW) by not assigning the pointer, if we get access to p=
+anel
+> > > > > documentation: probably one of the magic commands sent in this dr=
+iver
+> > > > > controls it but we don't know which.
+> > > >=20
+> > > > I'd like to investigate if DSC should perhaps only be enabled if we
+> > > > run non certain platforms/socs ?
+> > > >=20
+> > > > I mean, we don't know if the controller supports DSC and those
+> > > > particular
+> > > > DSC parameters so we should probably start adding something like :
+> > > >=20
+> > > > static drm_dsc_config dsc_params_qcom =3D {}
+> > > >=20
+> > > > static const struct of_device_id panel_of_dsc_params[] =3D {
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0 { .compatible =3D "qcom,sm8150", , .data =
+=3D &dsc_params_qcom },
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0 { .compatible =3D "qcom,sm8250", , .data =
+=3D &dsc_params_qcom },
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0 { .compatible =3D "qcom,sm8350", , .data =
+=3D &dsc_params_qcom },
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0 { .compatible =3D "qcom,sm8450", , .data =
+=3D &dsc_params_qcom },
+> > > > };
+> > >=20
+> > > I think this would damage the reusability of the drivers. The panel
+> > > driver does not actually care if the SoC is SM8350, sunxi-something or
+> > > RCar.
+> > > Instead it cares about host capabilities.
+> > >=20
+> > > I think instead we should extend mipi_dsi_host:
+> > >=20
+> > > #define MIPI_DSI_HOST_MODE_VIDEO BIT(0)
+> > > #define MIPI_DSI_HOST_MODE_CMD=A0 BIT(1)
+> > > #define MIPI_DSI_HOST_VIDEO_SUPPORTS_COMMANDS BIT(2)
+> > > // FIXME: do we need to provide additional caps here ?
+> > >=20
+> > > #define MIPI_DSI_DSC_1_1 BIT(0)
+> > > #define MIPI_DSI_DSC_1_2 BIT(1)
+> > > #define MIPI_DSI_DSC_NATIVE_422 BIT(2)
+> > > #define MIPI_DSI_DSC_NATIVE_420 BIT(3)
+> > > #define MIPI_DSI_DSC_FRAC_BPP BIT(4)
+> > > // etc.
+> > >=20
+> > > struct mipi_dsi_host {
+> > > =A0 // new fields only
+> > > =A0=A0 unsigned long mode_flags;
+> > > =A0=A0 unsigned long dsc_flags;
+> > > };
+> > >=20
+> > > Then the panel driver can adapt itself to the host capabilities and
+> > > (possibly) select one of the internally supported DSC profiles.
+> > >=20
+> >=20
+> > I completely agree about extending mipi_dsi_host, other SoCs could reuse
+> > that and
+> > support for DSC panels would become a lot cleaner.
+>=20
+> Sounds good. I will wait for one or two more days (to get the possible
+> feedback on fields/flags/etc) and post an RFC patch to dri-devel.
 
-Works fine with DMA2 & DMA3 planes with same parameters.
+I just came across that discussion, and couldn't find those patches, did
+you ever send them?
 
-Tested with https://patchwork.freedesktop.org/patch/538277/?series=118074&rev=1, and it doesn't change anything.
+Either way, I'm not really sure it's a good idea to multiply the
+capabilities flags of the DSI host, and we should just stick to the
+spec. If the spec says that we have to support DSC while video is
+output, then that's what the panels should expect.
 
-I think this is still accurate:
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
+If a host isn't able to provide that, it's a bug and we should fix the
+controller driver instead of creating a workaround in the core for
+broken drivers.
 
-Thanks,
-Neil
+Another concern I have is that, those broken drivers are usually the
+undocumented ones that already have trouble supporting the most trivial
+setup. Creating more combinations both at the controller and panel level
+will just make it harder for those drivers.
+
+Maxime
+
+--vjd4hy6ibnmkekav
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZKVcMAAKCRDj7w1vZxhR
+xeVgAQDMoWfOkJ4iYKGDevKKuJrt/Yox11zWBcNz3kO+JHvKCgEA1xY50FGJLaT2
+cS39fgkgt4dP5e/C3mtQGra1z+NhNgM=
+=LKUp
+-----END PGP SIGNATURE-----
+
+--vjd4hy6ibnmkekav--
