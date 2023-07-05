@@ -1,68 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71744748524
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 15:38:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D98274863B
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jul 2023 16:24:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0FE210E365;
-	Wed,  5 Jul 2023 13:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 092BA10E377;
+	Wed,  5 Jul 2023 14:24:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D98510E365
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jul 2023 13:38:01 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2b63e5f94f1so9769871fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jul 2023 06:38:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688564279; x=1691156279;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fsrVgZLidtXiSJl+QeeYUBwc0NDQGXHckKC4/BV4xqA=;
- b=bbxpbYFtL8FsxMc3aOYSlPR+clD+JP0/dQYNr7FE7FNyAa0XEk6lAm0fcPvJdx2a6K
- 7usRvsPdOvEp1P1dkSfmp3UQNu8zClEgXEVoZBls6q9zi1+PEWf9EadOCiyx0UShVEEB
- 9w8LZzSop7seDg2MnfLfy4C9hLvY0L7AemvVJgMESwMMt2hAhwv5HT3lbdjsHfxW76K2
- jl7cv74N1nh0X2ug14rRy+SNWRQ6GlTaOzThwM9d/87OYUIzlpd5fCUxNOU8OHYXNu9O
- a262fMo8A9mQeUcD/5vQ1AhfgCgYFdBcNXkFNHYkPqJq94tZ0kXyF/78KVT51UA6OaaH
- Vw0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688564279; x=1691156279;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fsrVgZLidtXiSJl+QeeYUBwc0NDQGXHckKC4/BV4xqA=;
- b=TeA3+MSIWZNPv4JO9VCipVkrraUhfHrjn8e9qV/N9maZ3FqY8BPjVTRqucgCnEHov1
- HJxpFh8YeuVIt8J2kgwBnde/jmLBRnQX/5c+B/qK0bjxwT175ES1+55g30cuLQ9z9FcF
- QnJXl3cRPYvApv1y53GrGh9c8qJOZJErYr/hKxuSY9MsPkuy5BRpysSCz0x2jrfsLZrq
- foptaXXxOtE4PyVH38zT8uYhyTB7aq7sFVR3pcnUvYkM9kZPoJblIQJHTwqIsHkcscUn
- BSgWEh7rMUyXKLlcJ0irjrejlsfVt8Hdmp7oWqYlwNfEwAOZaoQNMIvk2xsRdDHNqDU0
- 6B/g==
-X-Gm-Message-State: ABy/qLa4HwNoqkjOj2acElKSYiWGHoAblS9rFIaneBCR2UulvnyMpOP9
- 43ddB/uMca/xw9hBqjomQPwGpQ==
-X-Google-Smtp-Source: APBJJlF5U/tPgy7TnTyP8b3T4J2uBhyYdvFNzZkSSUM3078KaGv3mUcvpD9rtCs74AguVdgdpgqMVw==
-X-Received: by 2002:a2e:aa13:0:b0:2b6:f942:ad50 with SMTP id
- bf19-20020a2eaa13000000b002b6f942ad50mr911716ljb.11.1688564278758; 
- Wed, 05 Jul 2023 06:37:58 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- k1-20020a2e9201000000b002b6ed0067c9sm1434275ljg.116.2023.07.05.06.37.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Jul 2023 06:37:58 -0700 (PDT)
-Message-ID: <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
-Date: Wed, 5 Jul 2023 16:37:57 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-GB
-To: Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org>
- <20230521-drm-panels-sony-v1-3-541c341d6bee@somainline.org>
- <ccc97880-8e74-b85b-9679-9c12c44c4b99@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBF2610E375;
+ Wed,  5 Jul 2023 14:24:53 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 132C76159F;
+ Wed,  5 Jul 2023 14:24:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F4061C433C8;
+ Wed,  5 Jul 2023 14:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688567092;
+ bh=b4T3vn8kUIesSYDyBrDxM+Xd4flNAla2ptcHctnOz3M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kL3h2m+KfHxmeb+EDxQeM6WzEklBm9lA8n9NV/hKmczejEZaDq0P3LKU+3/vLI15P
+ 9OHzCa9VxKsubz4dd/Y0C89/upnfVqBNV7H5l8qZ0HnKlLe/kerspdmAwVCG0x917q
+ lAirmN5Tzao7sBNDfiC4mOkOGL5d1ZI5j/rr1SBqyF+wlPDn2YmDD9NBRqtOt7CwVG
+ 4/Pp7pU2vlaYx6ljtM+5w3p6YrPzTgyEBE5kU92VVaJilSYJyuVGRGscwb/uTVo2S6
+ KiTMTasEY5z+GnI+xJ73tTLgBJPH8WQVVSUiXE6su5JEN0Xs67sEUXN0HTLyZVz4yP
+ +sX8rmG6eStig==
+Date: Wed, 5 Jul 2023 16:24:49 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
+References: <ccc97880-8e74-b85b-9679-9c12c44c4b99@linaro.org>
  <brmrqeajbq3oyp3jjwmc6tuhiftz764u6az444xw6g7pwf5fr3@5tlp375qwhed>
  <617c8f8a-1fc7-c6a0-eaa5-ce75ff2adc1b@linaro.org>
  <CAA8EJppG=MAVpK1J_8bNnkJ23y9NtgY7a2GVResXJvhEKyNsrw@mail.gmail.com>
@@ -71,10 +43,12 @@ References: <20230521-drm-panels-sony-v1-0-541c341d6bee@somainline.org>
  <epds77sccy4cc5cdpoc4ir7sfz5sz3biwep6rbks2nuyqncidu@77gb4t2wy6vn>
  <47a5678c-1eb3-dfc2-a9ac-f8e497455d11@linaro.org>
  <unsithzszj7awvsmxwr7reshso5ju7u4nssil5tty6pocictf5@gwoltpgeecer>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <unsithzszj7awvsmxwr7reshso5ju7u4nssil5tty6pocictf5@gwoltpgeecer>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ee54vq7zgkfrit3g"
+Content-Disposition: inline
+In-Reply-To: <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
 Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
  drm/panel: Add LGD panel driver for Sony Xperia XZ3)
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,6 +77,7 @@ Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
  Martin Botka <martin.botka@somainline.org>,
  ~postmarketos/upstreaming@lists.sr.ht,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Jami Kettunen <jami.kettunen@somainline.org>,
  Bjorn Andersson <andersson@kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
@@ -111,132 +86,81 @@ Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 05/07/2023 16:29, Maxime Ripard wrote:
-> On Wed, Jul 05, 2023 at 03:05:33PM +0200, Neil Armstrong wrote:
->> On 05/07/2023 14:04, Maxime Ripard wrote:
->>> Hi,
->>>
->>> On Tue, May 30, 2023 at 03:36:04PM +0300, Dmitry Baryshkov wrote:
->>>> On 30/05/2023 15:15, AngeloGioacchino Del Regno wrote:
->>>>> Il 30/05/23 13:44, Dmitry Baryshkov ha scritto:
->>>>>> On Tue, 30 May 2023 at 10:24, Neil Armstrong
->>>>>> <neil.armstrong@linaro.org> wrote:
->>>>>>>
->>>>>>> Hi Marijn, Dmitry, Caleb, Jessica,
->>>>>>>
->>>>>>> On 29/05/2023 23:11, Marijn Suijten wrote:
->>>>>>>> On 2023-05-22 04:16:20, Dmitry Baryshkov wrote:
->>>>>>>> <snip>
->>>>>>>>>> +   if (ctx->dsi->dsc) {
->>>>>>>>>
->>>>>>>>> dsi->dsc is always set, thus this condition can be dropped.
->>>>>>>>
->>>>>>>> I want to leave room for possibly running the panel without DSC (at a
->>>>>>>> lower resolution/refresh rate, or at higher power consumption if there
->>>>>>>> is enough BW) by not assigning the pointer, if we get access to panel
->>>>>>>> documentation: probably one of the magic commands sent in this driver
->>>>>>>> controls it but we don't know which.
->>>>>>>
->>>>>>> I'd like to investigate if DSC should perhaps only be enabled if we
->>>>>>> run non certain platforms/socs ?
->>>>>>>
->>>>>>> I mean, we don't know if the controller supports DSC and those
->>>>>>> particular
->>>>>>> DSC parameters so we should probably start adding something like :
->>>>>>>
->>>>>>> static drm_dsc_config dsc_params_qcom = {}
->>>>>>>
->>>>>>> static const struct of_device_id panel_of_dsc_params[] = {
->>>>>>>            { .compatible = "qcom,sm8150", , .data = &dsc_params_qcom },
->>>>>>>            { .compatible = "qcom,sm8250", , .data = &dsc_params_qcom },
->>>>>>>            { .compatible = "qcom,sm8350", , .data = &dsc_params_qcom },
->>>>>>>            { .compatible = "qcom,sm8450", , .data = &dsc_params_qcom },
->>>>>>> };
->>>>>>
->>>>>> I think this would damage the reusability of the drivers. The panel
->>>>>> driver does not actually care if the SoC is SM8350, sunxi-something or
->>>>>> RCar.
->>>>>> Instead it cares about host capabilities.
->>>>>>
->>>>>> I think instead we should extend mipi_dsi_host:
->>>>>>
->>>>>> #define MIPI_DSI_HOST_MODE_VIDEO BIT(0)
->>>>>> #define MIPI_DSI_HOST_MODE_CMD  BIT(1)
->>>>>> #define MIPI_DSI_HOST_VIDEO_SUPPORTS_COMMANDS BIT(2)
->>>>>> // FIXME: do we need to provide additional caps here ?
->>>>>>
->>>>>> #define MIPI_DSI_DSC_1_1 BIT(0)
->>>>>> #define MIPI_DSI_DSC_1_2 BIT(1)
->>>>>> #define MIPI_DSI_DSC_NATIVE_422 BIT(2)
->>>>>> #define MIPI_DSI_DSC_NATIVE_420 BIT(3)
->>>>>> #define MIPI_DSI_DSC_FRAC_BPP BIT(4)
->>>>>> // etc.
->>>>>>
->>>>>> struct mipi_dsi_host {
->>>>>>     // new fields only
->>>>>>      unsigned long mode_flags;
->>>>>>      unsigned long dsc_flags;
->>>>>> };
->>>>>>
->>>>>> Then the panel driver can adapt itself to the host capabilities and
->>>>>> (possibly) select one of the internally supported DSC profiles.
->>>>>>
->>>>>
->>>>> I completely agree about extending mipi_dsi_host, other SoCs could reuse
->>>>> that and
->>>>> support for DSC panels would become a lot cleaner.
->>>>
->>>> Sounds good. I will wait for one or two more days (to get the possible
->>>> feedback on fields/flags/etc) and post an RFC patch to dri-devel.
->>>
->>> I just came across that discussion, and couldn't find those patches, did
->>> you ever send them?
 
-No, I got sidetracked by other issues.
+--ee54vq7zgkfrit3g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->>>
->>> Either way, I'm not really sure it's a good idea to multiply the
->>> capabilities flags of the DSI host, and we should just stick to the
->>> spec. If the spec says that we have to support DSC while video is
->>> output, then that's what the panels should expect.
->>
->> Except some panels supports DSC & non-DSC, Video and Command mode, and
->> all that is runtime configurable. How do you handle that ?
-> 
-> In this case, most of the constraints are going to be on the encoder
-> still so it should be the one driving it. The panel will only care about
-> which mode has been selected, but it shouldn't be the one driving it,
-> and thus we still don't really need to expose the host capabilities.
+On Wed, Jul 05, 2023 at 04:37:57PM +0300, Dmitry Baryshkov wrote:
+> > > >
+> > > > Either way, I'm not really sure it's a good idea to multiply the
+> > > > capabilities flags of the DSI host, and we should just stick to the
+> > > > spec. If the spec says that we have to support DSC while video is
+> > > > output, then that's what the panels should expect.
+> > >=20
+> > > Except some panels supports DSC & non-DSC, Video and Command mode, and
+> > > all that is runtime configurable. How do you handle that ?
+> >=20
+> > In this case, most of the constraints are going to be on the encoder
+> > still so it should be the one driving it. The panel will only care about
+> > which mode has been selected, but it shouldn't be the one driving it,
+> > and thus we still don't really need to expose the host capabilities.
+>=20
+> This is an interesting perspective. This means that we can and actually h=
+ave
+> to extend the drm_display_mode with the DSI data and compression
+> information.
 
-This is an interesting perspective. This means that we can and actually 
-have to extend the drm_display_mode with the DSI data and compression 
-information.
+I wouldn't extend drm_display_mode, but extending one of the state
+structures definitely.
 
-For example, the panel that supports all four types for the 1080p should 
-export several modes:
+We already have some extra variables in drm_connector_state for HDMI,
+I don't think it would be a big deal to add a few for MIPI-DSI.
 
-1920x1080-command
-1920x1080-command-DSC
-1920x1080-video
-1920x1080-video-DSC
+We also floated the idea for a while to create bus-specific states, with
+helpers to match. Maybe it would be a good occasion to start doing it?
 
-where video/command and DSC are some kinds of flags and/or information 
-in the drm_display_mode? Ideally DSC also has several sub-flags, which 
-denote what kind of configuration is supported by the DSC sink (e.g. 
-bpp, yuv, etc).
+> For example, the panel that supports all four types for the 1080p should
+> export several modes:
+>=20
+> 1920x1080-command
+> 1920x1080-command-DSC
+> 1920x1080-video
+> 1920x1080-video-DSC
+>
+> where video/command and DSC are some kinds of flags and/or information in
+> the drm_display_mode? Ideally DSC also has several sub-flags, which denote
+> what kind of configuration is supported by the DSC sink (e.g. bpp, yuv,
+> etc).
 
-Another option would be to get this handled via the bus format 
-negotiation, but that sounds like worse idea to me.
+So we have two things to do, right? We need to expose what the panel can
+take (ie, EDID for HDMI), and then we need to tell it what we picked
+(infoframes).
 
-> This is very much like HDMI: the encoder knows what the monitor is
-> capable of, will take a decision based on its capabilities and the
-> monitor's and will then let the monitor know. But the monitor never
-> knows what the encoder is truly capable of, nor will it enforce
-> something.
-> 
-> Maxime
+We already express the former in mipi_dsi_device, so we could extend the
+flags stored there.
 
--- 
-With best wishes
-Dmitry
+And then, we need to tie what the DSI host chose to a given atomic state
+so the panel knows what was picked and how it should set everything up.
 
+> Another option would be to get this handled via the bus format negotiatio=
+n,
+> but that sounds like worse idea to me.
+
+Yeah, I'm not really fond of the format negociation stuff either.
+
+Maxime
+
+--ee54vq7zgkfrit3g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZKV9MQAKCRDj7w1vZxhR
+xSs7AQCC8eWrt4gxYNxVJGe1FnjK6alg2IQI4jyWNyUnc7bBNgD+PJHSXUPBnb+n
++z33D23kQsS5sBnGpgFWmyznIOmGJA0=
+=evV5
+-----END PGP SIGNATURE-----
+
+--ee54vq7zgkfrit3g--
