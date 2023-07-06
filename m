@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30EF749248
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jul 2023 02:14:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB3274964E
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jul 2023 09:24:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02B910E086;
-	Thu,  6 Jul 2023 00:14:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB21110E43E;
+	Thu,  6 Jul 2023 07:24:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4774C10E086;
- Thu,  6 Jul 2023 00:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688602453; x=1720138453;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=/J9nMUuxT4c86r11TohlVWN1RySoETq6kRxktqV5kmw=;
- b=dKJoPS0PHydn4ePeOdg9lsaCEPQ5qh156rexDyRciWN2J2n11VK8MQTE
- 5vz/0ZZ+b2QR6AzbsSmc78Glta6XuwLK2OYMA0ULz7Hd3wg9SZEzgRgTG
- ofIRj5MOKtBRk2ylLTsDxx1id2DLUCdXH1pSolg4Bs8J9PZINzVzTL2O3
- E67wS8VOEztstTId+TS0O8wkyEl/2QC4i2PBieRC9VxYG7RVNouC+PWyw
- zRPzsuU8eyAnlB3sKrnkxiV5+uS2cHnMRLoNKxcmfhGPs4fq0xWdDfSac
- yvIjXmnICQD0/IGcC+bLabk0AQz5pBxiryu5LJ2jPAVcwGDUU/utJu5BP w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="449831436"
-X-IronPort-AV: E=Sophos;i="6.01,184,1684825200"; d="scan'208";a="449831436"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 17:14:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="1049882533"
-X-IronPort-AV: E=Sophos;i="6.01,184,1684825200"; d="scan'208";a="1049882533"
-Received: from lkp-server01.sh.intel.com (HELO c544d7fc5005) ([10.239.97.150])
- by fmsmga005.fm.intel.com with ESMTP; 05 Jul 2023 17:14:08 -0700
-Received: from kbuild by c544d7fc5005 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qHCdM-0000tq-12;
- Thu, 06 Jul 2023 00:14:08 +0000
-Date: Thu, 6 Jul 2023 08:13:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <202307060717.Jqn298i0-lkp@intel.com>
-References: <20230704150354.159882-11-dmitry.baryshkov@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A2E910E43D;
+ Thu,  6 Jul 2023 07:24:36 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 19C17618A2;
+ Thu,  6 Jul 2023 07:24:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00539C433C7;
+ Thu,  6 Jul 2023 07:24:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688628274;
+ bh=9YXus58HFCYWUgF7WtrOWJhmbffOAFniPNX7tWAUfxo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tDH99pEA6Fd2mbUppE/ZRMF5kkfzrmNwbrf5813UjgZuLjKhkbnOipsupdOj5+iye
+ SaSxr3F2i4cyJpW13kGIclP9h3VXOI+TxlD1tAdfZ5C8JSjdj1DYxONWVZuNF4xzDG
+ v5XVG1HC9PzEAl3NU0gkw9P0KfzS3Zt3khkpUWkj65DaMfBNJ/7AOLlQdAFMr0Qh0H
+ rxH/0Q1Thzshs/2dx1pElSqMPidv9wx2Pj13PBtgWJH1Pkcak2Iz4Vhhz5RfIzJKgY
+ 11bAYUFtPch/mF5pn18dTt9D5nF4m/1k4/zfbrC1tnm6RlRySlqzRGijS5Th3MRcsX
+ hqjJQdW1+zQ3Q==
+Date: Thu, 6 Jul 2023 09:24:31 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <q7wrbmdhdy2d3gqig3j34lqxdcwzbom7djlncfznxsa6ktm7j2@i5x4ngi7p2ia>
+References: <739a8bd9-9ff0-5072-fdae-b64efdf86842@collabora.com>
+ <e927cfcd-bf34-5daf-0e24-4dd828106968@linaro.org>
+ <epds77sccy4cc5cdpoc4ir7sfz5sz3biwep6rbks2nuyqncidu@77gb4t2wy6vn>
+ <47a5678c-1eb3-dfc2-a9ac-f8e497455d11@linaro.org>
+ <unsithzszj7awvsmxwr7reshso5ju7u4nssil5tty6pocictf5@gwoltpgeecer>
+ <6e070141-8c0e-59ed-8a08-58c3fadb17df@linaro.org>
+ <lidknise4copce3vb2wth4z3fl2p4npsc4u6ajqb6zsp6lnpca@rp6wxcmy2aa4>
+ <CAA8EJpq_VeY=44FqYm7QAT32AR=rmMOV0RtAfNFkb1hpSp29dw@mail.gmail.com>
+ <djrx34qwb7yen47dmlsym4mg2pib4syncvdy52ma3sin7uhs7j@gi3znayuucnj>
+ <a718f7c1-4ef1-18c8-33c7-c5da22e92c89@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ta6lyqgdkmvaizdf"
 Content-Disposition: inline
-In-Reply-To: <20230704150354.159882-11-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 10/14] drm/msm/dpu: use dpu_perf_cfg in
- DPU core_perf code
+In-Reply-To: <a718f7c1-4ef1-18c8-33c7-c5da22e92c89@linaro.org>
+Subject: Re: [Freedreno] RFC: DSI host capabilities (was: [PATCH RFC 03/10]
+ drm/panel: Add LGD panel driver for Sony Xperia XZ3)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,84 +63,150 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <dri-devel@lists.freedesktop.org>, Caleb Connolly <caleb@connolly.tech>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
 
-kernel test robot noticed the following build warnings:
+--ta6lyqgdkmvaizdf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.4 next-20230705]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On Wed, Jul 05, 2023 at 11:09:40PM +0300, Dmitry Baryshkov wrote:
+> On 05/07/2023 19:53, Maxime Ripard wrote:
+> > On Wed, Jul 05, 2023 at 06:20:13PM +0300, Dmitry Baryshkov wrote:
+> > > On Wed, 5 Jul 2023 at 17:24, Maxime Ripard <mripard@kernel.org> wrote:
+> > > >=20
+> > > > On Wed, Jul 05, 2023 at 04:37:57PM +0300, Dmitry Baryshkov wrote:
+> > > > > > > >=20
+> > > > > > > > Either way, I'm not really sure it's a good idea to multipl=
+y the
+> > > > > > > > capabilities flags of the DSI host, and we should just stic=
+k to the
+> > > > > > > > spec. If the spec says that we have to support DSC while vi=
+deo is
+> > > > > > > > output, then that's what the panels should expect.
+> > > > > > >=20
+> > > > > > > Except some panels supports DSC & non-DSC, Video and Command =
+mode, and
+> > > > > > > all that is runtime configurable. How do you handle that ?
+> > > > > >=20
+> > > > > > In this case, most of the constraints are going to be on the en=
+coder
+> > > > > > still so it should be the one driving it. The panel will only c=
+are about
+> > > > > > which mode has been selected, but it shouldn't be the one drivi=
+ng it,
+> > > > > > and thus we still don't really need to expose the host capabili=
+ties.
+> > > > >=20
+> > > > > This is an interesting perspective. This means that we can and ac=
+tually have
+> > > > > to extend the drm_display_mode with the DSI data and compression
+> > > > > information.
+> > > >=20
+> > > > I wouldn't extend drm_display_mode, but extending one of the state
+> > > > structures definitely.
+> > > >=20
+> > > > We already have some extra variables in drm_connector_state for HDM=
+I,
+> > > > I don't think it would be a big deal to add a few for MIPI-DSI.
+> > > >=20
+> > > > We also floated the idea for a while to create bus-specific states,=
+ with
+> > > > helpers to match. Maybe it would be a good occasion to start doing =
+it?
+> > > >=20
+> > > > > For example, the panel that supports all four types for the 1080p=
+ should
+> > > > > export several modes:
+> > > > >=20
+> > > > > 1920x1080-command
+> > > > > 1920x1080-command-DSC
+> > > > > 1920x1080-video
+> > > > > 1920x1080-video-DSC
+> > > > >=20
+> > > > > where video/command and DSC are some kinds of flags and/or inform=
+ation in
+> > > > > the drm_display_mode? Ideally DSC also has several sub-flags, whi=
+ch denote
+> > > > > what kind of configuration is supported by the DSC sink (e.g. bpp=
+, yuv,
+> > > > > etc).
+> > > >=20
+> > > > So we have two things to do, right? We need to expose what the pane=
+l can
+> > > > take (ie, EDID for HDMI), and then we need to tell it what we picked
+> > > > (infoframes).
+> > > >=20
+> > > > We already express the former in mipi_dsi_device, so we could exten=
+d the
+> > > > flags stored there.
+> > > >=20
+> > > > And then, we need to tie what the DSI host chose to a given atomic =
+state
+> > > > so the panel knows what was picked and how it should set everything=
+ up.
+> > >=20
+> > > This is definitely something we need. Marijn has been stuck with the
+> > > panels that support different models ([1]).
+> > >=20
+> > > Would you prefer a separate API for this kind of information or
+> > > abusing atomic_enable() is fine from your point of view?
+> > >=20
+> > > My vote would be for going with existing operations, with the slight
+> > > fear of ending up with another DSI-specific hack (like
+> > > pre_enable_prev_first).
+> >=20
+> > I don't think we can get away without getting access to the atomic_state
+> > from the panel at least.
+> >=20
+> > Choosing one setup over another is likely going to depend on the mode,
+> > and that's only available in the state.
+> >=20
+> > We don't have to go the whole way though and create the sub-classes of
+> > drm_connector_state, but I think we should at least provide it to the
+> > panel.
+> >=20
+> > What do you think of creating a new set of atomic_* callbacks for
+> > panels, call that new set of functions from msm and start from there?
+>=20
+> We are (somewhat) bound by the panel_bridge, but yeah, it seems possible.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-dpu-drop-enum-dpu_core_perf_data_bus_id/20230704-230618
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230704150354.159882-11-dmitry.baryshkov%40linaro.org
-patch subject: [PATCH v2 10/14] drm/msm/dpu: use dpu_perf_cfg in DPU core_perf code
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20230706/202307060717.Jqn298i0-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce: (https://download.01.org/0day-ci/archive/20230706/202307060717.Jqn298i0-lkp@intel.com/reproduce)
+Bridges have access to the atomic state already, so it's another place
+to plumb this through but I guess it would still be doable?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307060717.Jqn298i0-lkp@intel.com/
+Maxime
 
-All warnings (new ones prefixed by >>):
+--ta6lyqgdkmvaizdf
+Content-Type: application/pgp-signature; name="signature.asc"
 
->> drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c:251:25: warning: variable 'kms' is uninitialized when used here [-Wuninitialized]
-           if (atomic_dec_return(&kms->bandwidth_ref) > 0)
-                                  ^~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c:242:21: note: initialize the variable 'kms' to silence this warning
-           struct dpu_kms *kms;
-                              ^
-                               = NULL
-   1 warning generated.
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZKZsLwAKCRDj7w1vZxhR
+xQYLAQDrdn9drGvi55zx4P3Y2raA/CnwNgRdfA3IyCWJWHEDAgEAhpDQWL3p2wMq
+vhnP9QUdDtDLVJB0QOPAk5w1qMBU4w0=
+=CHew
+-----END PGP SIGNATURE-----
 
-vim +/kms +251 drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  230  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  231  /**
-2785fd47959003 Lee Jones         2020-11-23  232   * dpu_core_perf_crtc_release_bw() - request zero bandwidth
-2785fd47959003 Lee Jones         2020-11-23  233   * @crtc: pointer to a crtc
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  234   *
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  235   * Function checks a state variable for the crtc, if all pending commit
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  236   * requests are done, meaning no more bandwidth is needed, release
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  237   * bandwidth request.
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  238   */
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  239  void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc)
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  240  {
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  241  	struct dpu_crtc *dpu_crtc;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  242  	struct dpu_kms *kms;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  243  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  244  	if (!crtc) {
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  245  		DPU_ERROR("invalid crtc\n");
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  246  		return;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  247  	}
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  248  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  249  	dpu_crtc = to_dpu_crtc(crtc);
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  250  
-241b507c166fef Rob Clark         2019-08-20 @251  	if (atomic_dec_return(&kms->bandwidth_ref) > 0)
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  252  		return;
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  253  
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  254  	/* Release the bandwidth */
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  255  	if (kms->perf.enable_bw_release) {
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  256  		trace_dpu_cmd_release_bw(crtc->base.id);
-5b702d787b47e1 Stephen Boyd      2021-04-30  257  		DRM_DEBUG_ATOMIC("Release BW crtc=%d\n", crtc->base.id);
-cb88482e2570f6 Jayant Shekhar    2019-06-18  258  		dpu_crtc->cur_perf.bw_ctl = 0;
-cb88482e2570f6 Jayant Shekhar    2019-06-18  259  		_dpu_core_perf_crtc_update_bus(kms, crtc);
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  260  	}
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  261  }
-25fdd5933e4c0f Jeykumar Sankaran 2018-06-27  262  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--ta6lyqgdkmvaizdf--
