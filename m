@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 413B574A7A8
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 01:27:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CB374A7B9
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 01:29:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 999A510E126;
-	Thu,  6 Jul 2023 23:27:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9494A10E4CD;
+	Thu,  6 Jul 2023 23:29:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01A0510E121
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jul 2023 23:27:50 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4fb7373dd35so3080011e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jul 2023 16:27:50 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4425D10E122
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jul 2023 23:29:49 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4fa48b5dc2eso1966712e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jul 2023 16:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688686069; x=1691278069;
+ d=linaro.org; s=google; t=1688686187; x=1691278187;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7Rc4nEMPiLbzgMMqamf1zMVRPsKfUKUaVx1ZW+XaV+U=;
- b=aH8n5Qd9MK1ANni6dLQxRqCRToB9JSQaIxNTBqd4tfGdAAKgKYbzjnt+b///uWAVSi
- GQKtUZhYr4qRhidQEtnu+Vyh6q5qBT7U7eUmntyMDnXg76nRyPR7GERZ4sn3wbTxcJBG
- zcHgQDBeNWu7o62iK5Fm+Gy6ditfSFR0UjH2T39ob2qQ2lFBFQA1JZZkD/OVlyZkIgun
- Q8d7VB27w/EVkfZYx4oiuvpk019+rrGe9lYHbcF1OC5jeOUdMRQOIAyo1xLqVuRd30Li
- zWmU0IiEhBLhlTSwLcFbyFJn330gDpAyoFFDln1t1BUOlvk6a0lt15ZZopiY1Ea2Hmie
- 5DWQ==
+ bh=nR7BfV8Y4m2rZqr2Qh+049Lu1+M3E7eWXMh5ndBg794=;
+ b=oHca69Yfag7I2KrpX0Eam4LMR73vzVXhBQqtv+q24tQptbsHqvi7usiIvF5ehLg0ir
+ mSi+nl7WjASh73sY7Mt56mWJ47GiRwP3r/SjQ174RFQVlobfmimHPqY3mKOslr67lwG7
+ FfMpi8pgzCZDSrROQTL8w8G5dPBDO2DVkoouUY/I2rABFU4pQkggClgKVquzh/cxtAdZ
+ VDxcIg3gnVWNnjaO9xctSyGE0asuMI4pdaOWDARN683ht5W/hyzq6PIEGw2nMVpOr9/+
+ QOzVWIxjm6eqbZ2onbyjI6fpd4JX7JxbaKBc1SvGZyCE3JkAdnJlilEoOxQTZKXFE4Gs
+ 6q+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688686069; x=1691278069;
+ d=1e100.net; s=20221208; t=1688686187; x=1691278187;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7Rc4nEMPiLbzgMMqamf1zMVRPsKfUKUaVx1ZW+XaV+U=;
- b=TFquXn/JNC0Bl0o+q8vLNFYQlIRmea6S64AjLakz8M7dDUASDL7LvVmCadgN4e5z7c
- EH17Moqo+tn4s3112Mz/bhaLARG93QzgXOsqwekbQ+Tp+Wk6sXm8QZN8wBmtJSrxSDk4
- cUNQczegNcalmwNr8p0jKCFJQUeGmLuUOXu5tyVm6ZIfm/+qcUKxMNsxAGJ33m0VVno8
- bJQ3RME8tUk9p4y73WUzZ/jZo2PWPxQAgL7Azgp7ESWyrYmx1zsov+0cyiLipODlg6q7
- f0aihjxbY1H7dVWpMPchxWxgMn9qqN0u6paIIGKNLIEMbEGibwUC/NeufeKjdklMpldN
- iXsA==
-X-Gm-Message-State: ABy/qLYfj9W46KMD+KZDElCicR5m0zcNn/iPOvPHRiJIGiPshh61KVhE
- G0+Z136YpssxM6FOGomtbuSv6A==
-X-Google-Smtp-Source: APBJJlEDtOM82nO7hOxZ9Ss1rbG8HFdGBF5zph2N6UBqW/8EUNAFOSfGksJg7EkQHZ4oceUCRdtNdA==
-X-Received: by 2002:a05:6512:e9d:b0:4fb:7f45:bcb6 with SMTP id
- bi29-20020a0565120e9d00b004fb7f45bcb6mr2253466lfb.16.1688686068600; 
- Thu, 06 Jul 2023 16:27:48 -0700 (PDT)
+ bh=nR7BfV8Y4m2rZqr2Qh+049Lu1+M3E7eWXMh5ndBg794=;
+ b=UuwxLkW4ifjWe/VSRNMrFiNFDOirYJcLAyk4ZRRmiXQ7ULg3HDHJP5UbHLZwCJFd/2
+ 1T+4MRgVBgyVmHZM/KM9TqNiquW3Yst3pLr9Lplow62GzjCGlHDpXl7WbEck/NyHkIJ3
+ h+iEhBsdFXyED8rrSYxsLh2vMXUiz2UhK5ZFlD7WCShIYXZHbaEBgxD48ntfgXoavGAb
+ TL0K8mnNVCAYKSs0WhdI/OiTQ1utQ926PHR9hk0XMK4P8CMRkB1RfDsf3Np8qs1LrH94
+ cul1YGAWs/sppLfzb+YPS8TALdJTzP6NVJov9KnbpK5FgHTtdyDTroZEK4foWNA7czTs
+ 3i0g==
+X-Gm-Message-State: ABy/qLZUe1GpTEn3CE9N/7RdTWFTMub0vN3aJNR6v3Vyht9956uvNKSR
+ q6xFQGeYHYHH2C//66M5iMGiNRjX/RWdYxX5AuSi8A==
+X-Google-Smtp-Source: APBJJlG1yZzTsvNpFmmqLkCjnCMcgWLOY7Y8cYo2fRWmYUVF5X3pDaji6A9G4a+oNTmvBjNvdmTPGA==
+X-Received: by 2002:a05:6512:3983:b0:4fa:b39f:c629 with SMTP id
+ j3-20020a056512398300b004fab39fc629mr2794546lfu.25.1688686187023; 
+ Thu, 06 Jul 2023 16:29:47 -0700 (PDT)
 Received: from [192.168.1.101] (abyj26.neoplus.adsl.tpnet.pl. [83.9.29.26])
  by smtp.gmail.com with ESMTPSA id
- 16-20020ac24830000000b004faeedbb29dsm438893lft.64.2023.07.06.16.27.47
+ q15-20020ac246ef000000b004fac93bdaecsm433374lfo.242.2023.07.06.16.29.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jul 2023 16:27:48 -0700 (PDT)
-Message-ID: <66dfebe7-1c6a-5bd3-b893-fa43dd5e92ae@linaro.org>
-Date: Fri, 7 Jul 2023 01:27:47 +0200
+ Thu, 06 Jul 2023 16:29:46 -0700 (PDT)
+Message-ID: <94969d3d-eaa7-d0c3-12fc-0f9d26947aa7@linaro.org>
+Date: Fri, 7 Jul 2023 01:29:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
 Content-Language: en-US
 To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20230706211045.204925-1-robdclark@gmail.com>
- <20230706211045.204925-5-robdclark@gmail.com>
+ <20230706211045.204925-6-robdclark@gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230706211045.204925-5-robdclark@gmail.com>
+In-Reply-To: <20230706211045.204925-6-robdclark@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 04/12] drm/msm/adreno: Use quirk identify
- hw_apriv
+Subject: Re: [Freedreno] [PATCH 05/12] drm/msm/adreno: Use quirk to identify
+ cached-coherent support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,77 +86,125 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 6.07.2023 23:10, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> Rather than just open coding a list of gpu-id matches.
+> It is better to explicitly list it.  With the move to opaque chip-id's
+> for future devices, we should avoid trying to infer things like
+> generation from the numerical value.
 > 
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 3 +--
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 4 ++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 1 +
->  3 files changed, 6 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 23 +++++++++++++++-------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
+>  2 files changed, 17 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 5ba8b5aca502..6f8c4381fa4a 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2489,8 +2489,7 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->  	/* Quirk data */
->  	adreno_gpu->info = info;
->  
-> -	if (adreno_is_a650(adreno_gpu) || adreno_is_a660_family(adreno_gpu))
-> -		adreno_gpu->base.hw_apriv = true;
-> +	adreno_gpu->base.hw_apriv = !!(info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
->  
->  	a6xx_llc_slices_init(pdev, a6xx_gpu);
->  
 > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 326912284a95..f469f951a907 100644
+> index f469f951a907..3c531da417b9 100644
 > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
 > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -302,6 +302,7 @@ static const struct adreno_info gpulist[] = {
->  		},
->  		.gmem = SZ_1M + SZ_128K,
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
->  		.init = a6xx_gpu_init,
->  		.zapfw = "a650_zap.mdt",
->  		.hwcg = a650_hwcg,
-> @@ -315,6 +316,7 @@ static const struct adreno_info gpulist[] = {
->  		},
->  		.gmem = SZ_1M + SZ_512K,
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
->  		.init = a6xx_gpu_init,
->  		.zapfw = "a660_zap.mdt",
->  		.hwcg = a660_hwcg,
-> @@ -327,6 +329,7 @@ static const struct adreno_info gpulist[] = {
+> @@ -256,6 +256,7 @@ static const struct adreno_info gpulist[] = {
 >  		},
 >  		.gmem = SZ_512K,
 >  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
+>  		.init = a6xx_gpu_init,
+>  	}, {
+>  		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
+> @@ -266,6 +267,7 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_512K,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
+>  		.init = a6xx_gpu_init,
+>  		.zapfw = "a615_zap.mdt",
+>  		.hwcg = a615_hwcg,
+> @@ -278,6 +280,7 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_1M,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
+>  		.init = a6xx_gpu_init,
+>  		.zapfw = "a630_zap.mdt",
+>  		.hwcg = a630_hwcg,
+> @@ -290,6 +293,7 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_1M,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
+>  		.init = a6xx_gpu_init,
+>  		.zapfw = "a640_zap.mdt",
+>  		.hwcg = a640_hwcg,
+> @@ -302,7 +306,8 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_1M + SZ_128K,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> -		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			ADRENO_QUIRK_HAS_HW_APRIV,
+>  		.init = a6xx_gpu_init,
+>  		.zapfw = "a650_zap.mdt",
+>  		.hwcg = a650_hwcg,
+> @@ -316,7 +321,8 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_1M + SZ_512K,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> -		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			ADRENO_QUIRK_HAS_HW_APRIV,
+>  		.init = a6xx_gpu_init,
+>  		.zapfw = "a660_zap.mdt",
+>  		.hwcg = a660_hwcg,
+> @@ -329,7 +335,8 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_512K,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> -		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			ADRENO_QUIRK_HAS_HW_APRIV,
 >  		.init = a6xx_gpu_init,
 >  		.hwcg = a660_hwcg,
 >  		.address_space_size = SZ_16G,
-> @@ -350,6 +353,7 @@ static const struct adreno_info gpulist[] = {
+> @@ -342,6 +349,7 @@ static const struct adreno_info gpulist[] = {
+>  		},
+>  		.gmem = SZ_2M,
+>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
+>  		.init = a6xx_gpu_init,
+>  		.zapfw = "a640_zap.mdt",
+>  		.hwcg = a640_hwcg,
+> @@ -353,7 +361,8 @@ static const struct adreno_info gpulist[] = {
 >  		},
 >  		.gmem = SZ_4M,
 >  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+> -		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			ADRENO_QUIRK_HAS_HW_APRIV,
 >  		.init = a6xx_gpu_init,
 >  		.zapfw = "a690_zap.mdt",
 >  		.hwcg = a690_hwcg,
+> @@ -565,9 +574,9 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (config.rev.core >= 6)
+> -		if (!adreno_has_gmu_wrapper(to_adreno_gpu(gpu)))
+> -			priv->has_cached_coherent = true;
+> +	priv->has_cached_coherent =
+> +		!!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT) &&
+> +		!adreno_has_gmu_wrapper(to_adreno_gpu(gpu));
+>  
+>  	return 0;
+>  }
 > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index d31e2d37c61b..a7c4a2c536e3 100644
+> index a7c4a2c536e3..e08d41337169 100644
 > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
 > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -32,6 +32,7 @@ enum {
->  #define ADRENO_QUIRK_TWO_PASS_USE_WFI		BIT(0)
+> @@ -33,6 +33,7 @@ enum {
 >  #define ADRENO_QUIRK_FAULT_DETECT_MASK		BIT(1)
 >  #define ADRENO_QUIRK_LMLOADKILL_DISABLE		BIT(2)
-> +#define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
+>  #define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
+> +#define ADRENO_QUIRK_HAS_CACHED_COHERENT	BIT(4)
 >  
 >  struct adreno_rev {
 >  	uint8_t  core;
