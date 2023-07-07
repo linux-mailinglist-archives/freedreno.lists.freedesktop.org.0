@@ -1,80 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0463174AD4C
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 10:47:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0700074B17B
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 15:09:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C220410E53D;
-	Fri,  7 Jul 2023 08:47:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5869B10E5AA;
+	Fri,  7 Jul 2023 13:09:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8649910E53B
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 08:47:47 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-307d58b3efbso1543308f8f.0
- for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 01:47:47 -0700 (PDT)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFDA910E5C3;
+ Fri,  7 Jul 2023 13:09:11 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ 46e09a7af769-6b71ee710edso1703053a34.2; 
+ Fri, 07 Jul 2023 06:09:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688719665; x=1691311665;
- h=content-transfer-encoding:in-reply-to:subject:organization
- :references:cc:to:from:content-language:reply-to:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=7eZbe/XyoM1kx0exxSQOZIhc5pgYclThKrh6yiXDKVs=;
- b=JpxiyQZfXHpfnSz2OkQwyysBeqSToeUcE5I1dQey2GhYdB/qzxFuVHITg0q1QNr9uY
- h1FNzGyVaUI7hgh6UANdjLxrQFDgLwVl9bwJFDLXFgJY3YkYclAVhHo645qFo/Uup5+h
- jR8BuLUBohkPAMxbRsjY5+W+3MBsefXtVlnbMgEsRBRsdUCPucSxKbnYD05UgxCJuNQr
- Wlq0EYi+Cv2rk3cvwwbPJdrsF0ZCueN2GyzkoLUdnohbBLbbj4hOGnWYiwZnwBGIdmw5
- KebUqpMCtG3d7uEKL71+XaaNjjXMNH7JW3AsrEoag1aiCQG5QpG9qJMP1ik+k+7ffxZP
- 6RwA==
+ d=gmail.com; s=20221208; t=1688735350; x=1691327350;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z0E8y4fGYzz8yC2ib/jS3nwnW8qCRpxDzJh1d9RvFtk=;
+ b=bpki2qcB+eLIwKnXEUSSAaEJDJ+snThABPQQqXxBPk54/nWPD+eFJNOIKY0Eu1l4Zv
+ 5eiBL2uAkyORf0Ah1uVUcK1gnzQ6M9u2zKJR5acbFswGDb+z7LEISpKmvPKboCqgpmUI
+ adnw/HP7agE0y5LkPZsvS5CzIf23ONqpjqVuCn1mu2pdccL6bBVjGDzPgxLjVEJ19ZWI
+ p8Xg7Gr/gVKDCqUgmaMnxRaE83f1k0UXfNTXpkqErsAgP12qJh9KiiLqEpKp12KsYOcp
+ JBngbd2hFo6/rzFuG/3NDQUMdIRMDmrrrbcwHcpL33X0pfwUVBidoFps3OWTd5VzneKV
+ sKlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688719665; x=1691311665;
- h=content-transfer-encoding:in-reply-to:subject:organization
- :references:cc:to:from:content-language:reply-to:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=7eZbe/XyoM1kx0exxSQOZIhc5pgYclThKrh6yiXDKVs=;
- b=fFmjMdB3T3kOegFASbIyA7OtHVwg3XokBuUTywnlRVfnnb8zMtxzcBh0o7TbSdVkSi
- yit5XluwhLgfVG4qV5F+hVz7o7Dngm92NikJc6Bm3vEXufRPUddJbD0vXLlsh09CN7mP
- nrlKn93FIRc1Giiu/yRdRDLNtzUKLGbcrFIIcK2WFwVvZ+qOgC/qxJmzLZq51KvM+Yyn
- GEqsNbJHDwIn3MRjyr5qmecDXWQZat8aCqGnnc4JqODT54ycTo4wiYDUtS7kECQ9M4BT
- +BeI716aXqNJUzX+naxGllb47wEFzweBaS9qGx4r4C82sO5vftlRvfJ0tcC2MLiPIqN/
- 07gg==
-X-Gm-Message-State: ABy/qLaB+pcTKcPWvY5G7wUjQW/K4Af9MAt9aSL/T+O9IIxSJ/ZiCf8N
- GUV7nUlShNJB866jpfiwv4iizw==
-X-Google-Smtp-Source: APBJJlEtOj6EMYjuXm8EaEQe72h1l3M6Ieut1MxpZlsLXb7PRlZSOA4stAdW7sy0f6e/MoaRMHIIQA==
-X-Received: by 2002:adf:e0d0:0:b0:313:f463:9d40 with SMTP id
- m16-20020adfe0d0000000b00313f4639d40mr3544981wri.65.1688719665553; 
- Fri, 07 Jul 2023 01:47:45 -0700 (PDT)
-Received: from [192.168.27.65] (home.beaume.starnux.net. [82.66.176.246])
- by smtp.gmail.com with ESMTPSA id
- i8-20020a5d5588000000b0030fa3567541sm3876641wrv.48.2023.07.07.01.47.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Jul 2023 01:47:45 -0700 (PDT)
-Message-ID: <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
-Date: Fri, 7 Jul 2023 10:47:43 +0200
+ d=1e100.net; s=20221208; t=1688735350; x=1691327350;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=z0E8y4fGYzz8yC2ib/jS3nwnW8qCRpxDzJh1d9RvFtk=;
+ b=h51ZtbzZaspp/jGZOxakcA0L7pIycFhAChEtW1P6Yw/1DnePEAkposv5Osi/+JsmBW
+ /DV3pCs/vWMvVD69EnxIwHcadZbXI8YVISx7EEMuUelj0WTCeCS2fVwVHZwPfUsckGJx
+ Du2DLLRpKXPngsylIhK/lfwNGEqEH/nsiLZDSycgCJPopOU16Boi92itqfNXs2PzUXpa
+ ef2y2j5iuTMlL1uGfJtI6W448LteBTik3fux/9fLX6ryNv+ZC5lS+3hhMnsJzALdqM4h
+ SM250FIONPKo3HtalHI4RBPlatY6Uq+zb81AaYw8Re6Gy+Cis/ufpUIpbykUhpCxXetA
+ z/8g==
+X-Gm-Message-State: ABy/qLYwX0qdYPGlcYN89BDaxyoBh5sdZ7aLR2BlpykUeGfFUmDD0Jbq
+ 0vfBcuZU381Q9lBA5umOrFvgUVwgE7OiVEH3yfo=
+X-Google-Smtp-Source: APBJJlFhB3RwSiUYDs/RkJRayf+qGvXgwPyZgkYCBe721q2QnR1H8+yGO6Q2JKqLHwcJBKrUp3iz8c/Q0GropB3/Hfs=
+X-Received: by 2002:a05:6808:178b:b0:39e:ffc5:c450 with SMTP id
+ bg11-20020a056808178b00b0039effc5c450mr5609673oib.47.1688735350309; Fri, 07
+ Jul 2023 06:09:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Amit Pundir <amit.pundir@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230403221233.500485-1-marex@denx.de>
- <20230403221233.500485-2-marex@denx.de>
- <CAMi1Hd0TD=2z_=bcDrht3H_wiLvAFcv8Z-U_r_KUOoeMc6UMjw@mail.gmail.com>
- <CAMty3ZBNFu=f-FS4YFN4wfmiTuk=48nna-vub1eMYwidDt+msg@mail.gmail.com>
- <CAA8EJppbdiUz5m+9EAPnFb916DaS_VKWd30c7_EPWjuid8rtqQ@mail.gmail.com>
- <CAMi1Hd2G5PJmz4wpO1wbdqKd0FA8LBgvRDv2u5ZYAMb5s6Kt0A@mail.gmail.com>
- <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
- HFP/HBP/HSA and EOT packet
+References: <20230706211045.204925-1-robdclark@gmail.com>
+ <20230706211045.204925-12-robdclark@gmail.com>
+ <3bbcabc4-69d2-93e0-a3e6-60d575b40126@kernel.org>
+In-Reply-To: <3bbcabc4-69d2-93e0-a3e6-60d575b40126@kernel.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 7 Jul 2023 06:09:27 -0700
+Message-ID: <CAF6AEGt5b_8eO6oXEt0mK+Rf0UfaEtB8JC+9fz+Wk=H9nWPuwQ@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 11/12] dt-bindings: drm/msm/gpu: Extend
+ bindings for chip-id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,112 +71,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: Marek Vasut <marex@denx.de>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Robert Foss <rfoss@kernel.org>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Michael Walle <michael@walle.cc>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/07/2023 09:18, Neil Armstrong wrote:
-> Hi,
-> 
-> On 06/07/2023 11:20, Amit Pundir wrote:
->> On Wed, 5 Jul 2023 at 11:09, Dmitry Baryshkov
->> <dmitry.baryshkov@linaro.org> wrote:
->>>
->>> [Adding freedreno@ to cc list]
->>>
->>> On Wed, 5 Jul 2023 at 08:31, Jagan Teki <jagan@amarulasolutions.com> wrote:
->>>>
->>>> Hi Amit,
->>>>
->>>> On Wed, Jul 5, 2023 at 10:15 AM Amit Pundir <amit.pundir@linaro.org> wrote:
->>>>>
->>>>> Hi Marek,
->>>>>
->>>>> On Wed, 5 Jul 2023 at 01:48, Marek Vasut <marex@denx.de> wrote:
->>>>>>
->>>>>> Do not generate the HS front and back porch gaps, the HSA gap and
->>>>>> EOT packet, as these packets are not required. This makes the bridge
->>>>>> work with Samsung DSIM on i.MX8MM and i.MX8MP.
->>>>>
->>>>> This patch broke display on Dragonboard 845c (SDM845) devboard running
->>>>> AOSP. This is what I see
->>>>> https://people.linaro.org/~amit.pundir/db845c-userdebug/v6.5-broken-display/PXL_20230704_150156326.jpg.
->>>>> Reverting this patch fixes this regression for me.
->>>>
->>>> Might be msm dsi host require proper handling on these updated
->>>> mode_flags? did they?
->>>
->>> The msm DSI host supports those flags. Also, I'd like to point out
->>> that the patch didn't change the rest of the driver code. So even if
->>> drm/msm ignored some of the flags, it should not have caused the
->>> issue. Most likely the issue is on the lt9611 side. I's suspect that
->>> additional programming is required to make it work with these flags.
->>
->> I spent some time today on smoke testing these flags (individually and
->> in limited combination) on DB845c, to narrow down this breakage to one
->> or more flag(s) triggering it. Here are my observations in limited
->> testing done so far.
->>
->> There is no regression with MIPI_DSI_MODE_NO_EOT_PACKET when enabled
->> alone and system boots to UI as usual.
->>
->> MIPI_DSI_MODE_VIDEO_NO_HFP always trigger the broken display as in the
->> screenshot[1] shared earlier as well.
->>
->> Adding either of MIPI_DSI_MODE_VIDEO_NO_HSA and
->> MIPI_DSI_MODE_VIDEO_NO_HBP always result in no display, unless paired
->> with MIPI_DSI_MODE_VIDEO_NO_HFP and in that case we get the broken
->> display as reported.
->>
->> In short other than MIPI_DSI_MODE_NO_EOT_PACKET flag, all other flags
->> added in this commit break the display on DB845c one way or another.
-> 
-> I think the investigation would be to understand why samsung-dsim requires
-> such flags and/or what are the difference in behavior between MSM DSI and samsung DSIM
-> for those flags ?
-> 
-> If someone has access to the lt9611 datasheet, so it requires HSA/HFP/HBP to be
-> skipped ? and does MSM DSI and samsung DSIM skip them in the same way ?
+On Fri, Jul 7, 2023 at 12:26=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 06/07/2023 23:10, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Upcoming GPUs use an opaque chip-id for identifying the GPU.
+>
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
 
-I think there's a mismatch, where on one side this flags sets the link in LP-11 while
-in HSA/HFP/HPB while on the other it completely removes those blanking packets.
+Oh, whoops, I'd overlooked that I hadn't configured sendemail.cccmd on
+the laptop I was sending this from.  I'll fix that before resending.
 
-The name MIPI_DSI_MODE_VIDEO_NO_HBP suggests removal of HPB, not LP-11 while HPB.
-the registers used in both controllers are different:
-- samsung-dsim: DSIM_HBP_DISABLE_MODE
-- msm dsi: DSI_VID_CFG0_HBP_POWER_STOP
+BR,
+-R
 
-The first one suggest removing the packet, while the second one suggests powering
-off the line while in the blanking packet period.
-
-@Abhinav, can you comment on that ?
-
-@Jagan, Andrezej So you have any documentation on what DSIM_xxx_DISABLE_MODE does ?
-
-@Dmitry, so you have access to the lt9611 datasheet to know what's needed here ?
-
-Neil
-
-> 
-> Neil
-> 
->>
->> Regards,
->> Amit Pundir
->> [1] https://people.linaro.org/~amit.pundir/db845c-userdebug/v6.5-broken-display/PXL_20230704_150156326.jpg
->>
->>>
->>> -- 
->>> With best wishes
->>> Dmitry
-> 
-
+> You missed at least DT list (maybe more), so this won't be tested by
+> automated tooling. Performing review on untested code might be a waste
+> of time, thus I will skip this patch entirely till you follow the
+> process allowing the patch to be tested.
+>
+> Please kindly resend and include all necessary To/Cc entries.
+>
+> Best regards,
+> Krzysztof
+>
