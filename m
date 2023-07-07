@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F39FF74B9EF
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 01:13:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F241974B9F1
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 01:13:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD3EF10E62A;
-	Fri,  7 Jul 2023 23:13:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2895E10E61F;
+	Fri,  7 Jul 2023 23:13:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C7FE10E61A
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 23:13:01 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-4fb73ba3b5dso4016546e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 16:13:01 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36DE510E621
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 23:13:02 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2b6ef9ed2fdso39497311fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 16:13:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688771579; x=1691363579;
+ d=linaro.org; s=google; t=1688771580; x=1691363580;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=F8cU+QrRCAzLPYrbUafgzrXMSnP1bTP1tkhr6YGb1ys=;
- b=j3w/DJyckkz8yOuaDAay61+2DNaDv7U9wdLV01OjJunqgLwBcAgJlFJh7+YzIRSKPp
- k2Y0MT21sPLBzb3YPsc8O42HwmhNGMdT4KTpPj6CQDP5qpI0IsBP5dfo94q+LF/Pe0Ln
- tCk/Lc2/qvWuisnUGD7tH6QC1JOP4xNg54cPcoxiOP8juvF1ox1YXsdJpNN1FY6GhKpJ
- xa9v+RfQMjLPoT/hIk5XLjTk/nTgvRjolYYWC/i/3LsGHh+lC1B+LBWH40HU54ZeYN+8
- N2l75cnZwkVVP5xRSFoXgz4Gd1aH2ZgjzcJUB1mVb06UXbfGBI1ObfBHMLecdSTOIGmv
- +PPA==
+ bh=J4+OIgteCUp6yvV4TFzfxdxo98Q6Tvjyjeta7C9Ua2E=;
+ b=uHDCW//u9IBTxbMFyT+1PkfiqCuw8iKpyPd1x2HEa3xdeoNGSGEasqRFp4g5oZ9ECW
+ ij+EkbhtpObwFigh9k389+2xmDOTPj2nV2btEPJsYNowkbHTGPck3AlmA35eUwaKjpFm
+ lv28f6nUNhuWtqsMnzrVq3RIHTaNN0wA0o+MeiBNnRFZf6BDHLCxshMHuxbc7b/7Rl3m
+ pRWHbGQ9AEXT/3he8RMKp1u0LiqQeEeYLd4OvgcogJyEIPChkP1mAft6lJcMSCifkOUj
+ tFmi8/rbQB64CwyqCPH9NpBZIqL06R/iHMnDg2cA3Ea9Hrx7nVeLvfSMGYcW0a71+YS2
+ niGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688771579; x=1691363579;
+ d=1e100.net; s=20221208; t=1688771580; x=1691363580;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=F8cU+QrRCAzLPYrbUafgzrXMSnP1bTP1tkhr6YGb1ys=;
- b=F8pyxzRK38JTtv8zboNqyQg/B0C+Ji3a9IsYs3pKeKQyW30zSuhs0lYSPpeiHE3CK2
- 58YgrhizUsX5lCh1kX+7cXvN2l4LLHzjFrNItXEMZgWQ3cr2ysonIid/QvBB6i17d1zR
- HUAWEwTHBUObU5N8VDYsmqxHCQdJl+tftuv7rciyfw1KlDE76EH12GR8JMk14PQ1IbFl
- bLsx6gl+PSiMVKiWBAQbCZYTFA53Bg1hxp007SCMAJHvaLPqHkyDkeQwKm0LWQp4pok5
- HhcSE+wDhXOPJofztqMr2q66rk/rViVozjc4uO7vMr6iAuEnntLr59/5zG3w2x7KMyE3
- pnwA==
-X-Gm-Message-State: ABy/qLZuJLECv7UFy7Mz38+8FftE6A9FpI/eIsxRdpmtPAAfZQXYnsth
- ck+6ikIeQAiP7X5w5S8qPup11w==
-X-Google-Smtp-Source: APBJJlHX3yoSp03cZooYO9LLzSDB1zN5F3tfoZgSLcpjHxCzC1U5If5ZNmGIpETGbIVUNPI0xTCpbA==
-X-Received: by 2002:a05:6512:4022:b0:4f9:6528:fb15 with SMTP id
- br34-20020a056512402200b004f96528fb15mr5631688lfb.12.1688771579808; 
- Fri, 07 Jul 2023 16:12:59 -0700 (PDT)
+ bh=J4+OIgteCUp6yvV4TFzfxdxo98Q6Tvjyjeta7C9Ua2E=;
+ b=lkzXxDXzdiUvPSinI0MiZOgq6mUtz6AytNFm7gIVIdxvRgyoiir6xE9yuxi/KoBbeA
+ 2NZoHb4g9lmFgbyE2hrWIywTtYOiHwZenJAFCPE2yCGC+AdYteC6+fkRNhN8iq86vs9w
+ bZB+Ky2BmnzVigApgXajo/5Wlx6xbwl/rWJYtiy+c4KWUTXodklw+gdKiU56cN6YHNrp
+ p5Pa7utMuFM1CRVukiOdh3Y6AD/aGeM77REncQKqH1KC6qib3X9c85yvJJiuqwa9RK8z
+ LApqm44mknOAlC5hac5KuIA9p5TQKpf5QUe+EU3kSgXlg6QRSeCNeNY6V01UzWSjy5wN
+ STBw==
+X-Gm-Message-State: ABy/qLZ7nz0Tfr7NUPDIbCWh0WRyUlAIDr8m3udFBiUm/8nWeJb2g1XQ
+ +TvsHGbciXKBf/Wg4L2SYvk4fQ==
+X-Google-Smtp-Source: APBJJlGFxBaT2+1OBADnFHTPIXBldnLGQxps2zxoWshApEfVhryKLnhsRBKa0sT5gCThHuoSY0hGhg==
+X-Received: by 2002:a05:6512:2814:b0:4f8:83f:babe with SMTP id
+ cf20-20020a056512281400b004f8083fbabemr6204846lfb.62.1688771580449; 
+ Fri, 07 Jul 2023 16:13:00 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  d1-20020ac25441000000b004fb7388360esm841643lfn.188.2023.07.07.16.12.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 16:12:59 -0700 (PDT)
+ Fri, 07 Jul 2023 16:13:00 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat,  8 Jul 2023 02:12:48 +0300
-Message-Id: <20230707231251.3849701-11-dmitry.baryshkov@linaro.org>
+Date: Sat,  8 Jul 2023 02:12:49 +0300
+Message-Id: <20230707231251.3849701-12-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230707231251.3849701-1-dmitry.baryshkov@linaro.org>
 References: <20230707231251.3849701-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 10/13] drm/msm/dpu: use drmm-managed
- allocation for dpu_crtc
+Subject: [Freedreno] [PATCH v2 11/13] drm/msm/dpu: use drmm-managed
+ allocation for dpu_encoder_phys
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,71 +83,267 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Change struct dpu_crtc allocation to use drmm_crtc_alloc_with_planes().
-This removes the need to perform any actions on CRTC destruction.
+Change struct allocation of encoder's phys backend data to use
+drmm_kzalloc(). This removes the need to perform any actions on encoder
+destruction.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 25 +++++++-----------------
- 1 file changed, 7 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  9 ++++----
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  8 ++++---
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 15 ++++---------
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 13 ++++--------
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 21 ++++---------------
+ 5 files changed, 22 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 214229d11e3e..a1fcb690c687 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -51,17 +51,6 @@ static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
- 	return to_dpu_kms(priv->kms);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 493905a5b63a..7c2cd9ce8acd 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -2199,6 +2199,7 @@ static void dpu_encoder_early_unregister(struct drm_encoder *encoder)
  }
  
--static void dpu_crtc_destroy(struct drm_crtc *crtc)
+ static int dpu_encoder_virt_add_phys_encs(
++		struct drm_device *dev,
+ 		struct msm_display_info *disp_info,
+ 		struct dpu_encoder_virt *dpu_enc,
+ 		struct dpu_enc_phys_init_params *params)
+@@ -2220,7 +2221,7 @@ static int dpu_encoder_virt_add_phys_encs(
+ 
+ 
+ 	if (disp_info->intf_type == INTF_WB) {
+-		enc = dpu_encoder_phys_wb_init(params);
++		enc = dpu_encoder_phys_wb_init(dev, params);
+ 
+ 		if (IS_ERR(enc)) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to init wb enc: %ld\n",
+@@ -2231,7 +2232,7 @@ static int dpu_encoder_virt_add_phys_encs(
+ 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
+ 		++dpu_enc->num_phys_encs;
+ 	} else if (disp_info->is_cmd_mode) {
+-		enc = dpu_encoder_phys_cmd_init(params);
++		enc = dpu_encoder_phys_cmd_init(dev, params);
+ 
+ 		if (IS_ERR(enc)) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to init cmd enc: %ld\n",
+@@ -2242,7 +2243,7 @@ static int dpu_encoder_virt_add_phys_encs(
+ 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
+ 		++dpu_enc->num_phys_encs;
+ 	} else {
+-		enc = dpu_encoder_phys_vid_init(params);
++		enc = dpu_encoder_phys_vid_init(dev, params);
+ 
+ 		if (IS_ERR(enc)) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to init vid enc: %ld\n",
+@@ -2333,7 +2334,7 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+ 			break;
+ 		}
+ 
+-		ret = dpu_encoder_virt_add_phys_encs(disp_info,
++		ret = dpu_encoder_virt_add_phys_encs(dpu_kms->dev, disp_info,
+ 				dpu_enc, &phys_params);
+ 		if (ret) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to add phys encs\n");
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+index d48558ede488..4fb0d95f3061 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+@@ -281,22 +281,24 @@ struct dpu_encoder_wait_info {
+  * @p:	Pointer to init params structure
+  * Return: Error code or newly allocated encoder
+  */
+-struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
++struct dpu_encoder_phys *dpu_encoder_phys_vid_init(struct drm_device *dev,
+ 		struct dpu_enc_phys_init_params *p);
+ 
+ /**
+  * dpu_encoder_phys_cmd_init - Construct a new command mode physical encoder
++ * @dev:  Corresponding device for devres management
+  * @p:	Pointer to init params structure
+  * Return: Error code or newly allocated encoder
+  */
+-struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
++struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(struct drm_device *dev,
+ 		struct dpu_enc_phys_init_params *p);
+ 
+ /**
+  * dpu_encoder_phys_wb_init - initialize writeback encoder
++ * @dev:  Corresponding device for devres management
+  * @init:	Pointer to init info structure with initialization params
+  */
+-struct dpu_encoder_phys *dpu_encoder_phys_wb_init(
++struct dpu_encoder_phys *dpu_encoder_phys_wb_init(struct drm_device *dev,
+ 		struct dpu_enc_phys_init_params *p);
+ 
+ /**
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index b856c6286c85..2958b64e6e5e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -13,6 +13,8 @@
+ #include "dpu_trace.h"
+ #include "disp/msm_disp_snapshot.h"
+ 
++#include <drm/drm_managed.h>
++
+ #define DPU_DEBUG_CMDENC(e, fmt, ...) DPU_DEBUG("enc%d intf%d " fmt, \
+ 		(e) && (e)->base.parent ? \
+ 		(e)->base.parent->base.id : -1, \
+@@ -563,14 +565,6 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
+ 	phys_enc->enable_state = DPU_ENC_DISABLED;
+ }
+ 
+-static void dpu_encoder_phys_cmd_destroy(struct dpu_encoder_phys *phys_enc)
 -{
--	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+-	struct dpu_encoder_phys_cmd *cmd_enc =
+-		to_dpu_encoder_phys_cmd(phys_enc);
 -
--	if (!crtc)
--		return;
--
--	drm_crtc_cleanup(crtc);
--	kfree(dpu_crtc);
+-	kfree(cmd_enc);
 -}
 -
- static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
+ static void dpu_encoder_phys_cmd_prepare_for_kickoff(
+ 		struct dpu_encoder_phys *phys_enc)
  {
- 	struct drm_device *dev = crtc->dev;
-@@ -1433,7 +1422,6 @@ static int dpu_crtc_late_register(struct drm_crtc *crtc)
+@@ -736,7 +730,6 @@ static void dpu_encoder_phys_cmd_init_ops(
+ 	ops->atomic_mode_set = dpu_encoder_phys_cmd_atomic_mode_set;
+ 	ops->enable = dpu_encoder_phys_cmd_enable;
+ 	ops->disable = dpu_encoder_phys_cmd_disable;
+-	ops->destroy = dpu_encoder_phys_cmd_destroy;
+ 	ops->control_vblank_irq = dpu_encoder_phys_cmd_control_vblank_irq;
+ 	ops->wait_for_commit_done = dpu_encoder_phys_cmd_wait_for_commit_done;
+ 	ops->prepare_for_kickoff = dpu_encoder_phys_cmd_prepare_for_kickoff;
+@@ -751,7 +744,7 @@ static void dpu_encoder_phys_cmd_init_ops(
+ 	ops->get_line_count = dpu_encoder_phys_cmd_get_line_count;
+ }
  
- static const struct drm_crtc_funcs dpu_crtc_funcs = {
- 	.set_config = drm_atomic_helper_set_config,
--	.destroy = dpu_crtc_destroy,
- 	.page_flip = drm_atomic_helper_page_flip,
- 	.reset = dpu_crtc_reset,
- 	.atomic_duplicate_state = dpu_crtc_duplicate_state,
-@@ -1467,9 +1455,13 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 	struct dpu_crtc *dpu_crtc = NULL;
- 	int i, ret;
+-struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
++struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(struct drm_device *dev,
+ 		struct dpu_enc_phys_init_params *p)
+ {
+ 	struct dpu_encoder_phys *phys_enc = NULL;
+@@ -759,7 +752,7 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
  
--	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
--	if (!dpu_crtc)
--		return ERR_PTR(-ENOMEM);
-+	dpu_crtc = drmm_crtc_alloc_with_planes(dev, struct dpu_crtc, base,
-+					       plane, cursor,
-+					       &dpu_crtc_funcs,
-+					       NULL);
+ 	DPU_DEBUG("intf\n");
+ 
+-	cmd_enc = kzalloc(sizeof(*cmd_enc), GFP_KERNEL);
++	cmd_enc = drmm_kzalloc(dev, sizeof(*cmd_enc), GFP_KERNEL);
+ 	if (!cmd_enc) {
+ 		DPU_ERROR("failed to allocate\n");
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index 662d74ded1b9..bdfce4ccc0a7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -11,6 +11,8 @@
+ #include "dpu_trace.h"
+ #include "disp/msm_disp_snapshot.h"
+ 
++#include <drm/drm_managed.h>
 +
-+	if (IS_ERR(dpu_crtc))
-+		return ERR_CAST(dpu_crtc);
+ #define DPU_DEBUG_VIDENC(e, fmt, ...) DPU_DEBUG("enc%d intf%d " fmt, \
+ 		(e) && (e)->parent ? \
+ 		(e)->parent->base.id : -1, \
+@@ -438,12 +440,6 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
+ 		phys_enc->enable_state = DPU_ENC_ENABLING;
+ }
  
- 	crtc = &dpu_crtc->base;
- 	crtc->dev = dev;
-@@ -1489,9 +1481,6 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 				dpu_crtc_frame_event_work);
+-static void dpu_encoder_phys_vid_destroy(struct dpu_encoder_phys *phys_enc)
+-{
+-	DPU_DEBUG_VIDENC(phys_enc, "\n");
+-	kfree(phys_enc);
+-}
+-
+ static int dpu_encoder_phys_vid_wait_for_vblank(
+ 		struct dpu_encoder_phys *phys_enc)
+ {
+@@ -681,7 +677,6 @@ static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
+ 	ops->atomic_mode_set = dpu_encoder_phys_vid_atomic_mode_set;
+ 	ops->enable = dpu_encoder_phys_vid_enable;
+ 	ops->disable = dpu_encoder_phys_vid_disable;
+-	ops->destroy = dpu_encoder_phys_vid_destroy;
+ 	ops->control_vblank_irq = dpu_encoder_phys_vid_control_vblank_irq;
+ 	ops->wait_for_commit_done = dpu_encoder_phys_vid_wait_for_commit_done;
+ 	ops->wait_for_vblank = dpu_encoder_phys_vid_wait_for_vblank;
+@@ -694,7 +689,7 @@ static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
+ 	ops->get_frame_count = dpu_encoder_phys_vid_get_frame_count;
+ }
+ 
+-struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
++struct dpu_encoder_phys *dpu_encoder_phys_vid_init(struct drm_device *dev,
+ 		struct dpu_enc_phys_init_params *p)
+ {
+ 	struct dpu_encoder_phys *phys_enc = NULL;
+@@ -704,7 +699,7 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
+ 		return ERR_PTR(-EINVAL);
  	}
  
--	drm_crtc_init_with_planes(dev, crtc, plane, cursor, &dpu_crtc_funcs,
--				NULL);
--
- 	drm_crtc_helper_add(crtc, &dpu_crtc_helper_funcs);
+-	phys_enc = kzalloc(sizeof(*phys_enc), GFP_KERNEL);
++	phys_enc = drmm_kzalloc(dev, sizeof(*phys_enc), GFP_KERNEL);
+ 	if (!phys_enc) {
+ 		DPU_ERROR("failed to create encoder due to memory allocation error\n");
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index a466ff70a4d6..9a44a1575682 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -8,6 +8,7 @@
+ #include <linux/debugfs.h>
  
- 	if (dpu_kms->catalog->dspp_count)
+ #include <drm/drm_framebuffer.h>
++#include <drm/drm_managed.h>
+ 
+ #include "dpu_encoder_phys.h"
+ #include "dpu_formats.h"
+@@ -552,20 +553,6 @@ static void dpu_encoder_phys_wb_disable(struct dpu_encoder_phys *phys_enc)
+ 	phys_enc->enable_state = DPU_ENC_DISABLED;
+ }
+ 
+-/**
+- * dpu_encoder_phys_wb_destroy - destroy writeback encoder
+- * @phys_enc:	Pointer to physical encoder
+- */
+-static void dpu_encoder_phys_wb_destroy(struct dpu_encoder_phys *phys_enc)
+-{
+-	if (!phys_enc)
+-		return;
+-
+-	DPU_DEBUG("[wb:%d]\n", phys_enc->hw_wb->idx - WB_0);
+-
+-	kfree(phys_enc);
+-}
+-
+ static void dpu_encoder_phys_wb_prepare_wb_job(struct dpu_encoder_phys *phys_enc,
+ 		struct drm_writeback_job *job)
+ {
+@@ -661,7 +648,6 @@ static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
+ 	ops->atomic_mode_set = dpu_encoder_phys_wb_atomic_mode_set;
+ 	ops->enable = dpu_encoder_phys_wb_enable;
+ 	ops->disable = dpu_encoder_phys_wb_disable;
+-	ops->destroy = dpu_encoder_phys_wb_destroy;
+ 	ops->atomic_check = dpu_encoder_phys_wb_atomic_check;
+ 	ops->wait_for_commit_done = dpu_encoder_phys_wb_wait_for_commit_done;
+ 	ops->prepare_for_kickoff = dpu_encoder_phys_wb_prepare_for_kickoff;
+@@ -677,9 +663,10 @@ static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
+ 
+ /**
+  * dpu_encoder_phys_wb_init - initialize writeback encoder
++ * @dev:  Corresponding device for devres management
+  * @p:	Pointer to init info structure with initialization params
+  */
+-struct dpu_encoder_phys *dpu_encoder_phys_wb_init(
++struct dpu_encoder_phys *dpu_encoder_phys_wb_init(struct drm_device *dev,
+ 		struct dpu_enc_phys_init_params *p)
+ {
+ 	struct dpu_encoder_phys *phys_enc = NULL;
+@@ -692,7 +679,7 @@ struct dpu_encoder_phys *dpu_encoder_phys_wb_init(
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	wb_enc = kzalloc(sizeof(*wb_enc), GFP_KERNEL);
++	wb_enc = drmm_kzalloc(dev, sizeof(*wb_enc), GFP_KERNEL);
+ 	if (!wb_enc) {
+ 		DPU_ERROR("failed to allocate wb phys_enc enc\n");
+ 		return ERR_PTR(-ENOMEM);
 -- 
 2.39.2
 
