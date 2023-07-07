@@ -2,72 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D344474B38F
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 17:03:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B2374B4AB
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 17:53:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E8710E5AD;
-	Fri,  7 Jul 2023 15:03:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1BF210E5BA;
+	Fri,  7 Jul 2023 15:53:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-fw-80008.amazon.com (smtp-fw-80008.amazon.com
- [99.78.197.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B3C10E5AA;
- Fri,  7 Jul 2023 15:03:13 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 666DD10E5B8;
+ Fri,  7 Jul 2023 15:53:33 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3a3a8d21208so1882768b6e.0; 
+ Fri, 07 Jul 2023 08:53:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1688742194; x=1720278194;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4zMRrGRQ9dofsSjrjKdEiubhrk+NqzyaExLwV19ZqVg=;
- b=BHMHSoz9sbWppq/k8+U3do25K5zSgYNtSxrluZQhKB7y7dZ4RBwfs3vx
- 03RnbspDLVXx52wdHxVJF7x4w0X2m2fyUh5+1KZGPimmNURjkkAPCp9WI
- d3OYsMOXg25V8jSL1PkQzpc/6V3uWlrA8yx8Im4akL43sK1ohf4WxUC9Y Y=;
-X-IronPort-AV: E=Sophos;i="6.01,189,1684800000"; d="scan'208";a="14932592"
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2b-m6i4x-cadc3fbd.us-west-2.amazon.com)
- ([10.25.36.210]) by smtp-border-fw-80008.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2023 15:03:12 +0000
-Received: from EX19MTAUWC001.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
- by email-inbound-relay-pdx-2b-m6i4x-cadc3fbd.us-west-2.amazon.com (Postfix)
- with ESMTPS id ADCA8A0B25; Fri,  7 Jul 2023 15:03:11 +0000 (UTC)
-Received: from EX19D047UWB002.ant.amazon.com (10.13.138.34) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.30; Fri, 7 Jul 2023 15:03:11 +0000
-Received: from amazon.com (10.187.171.27) by EX19D047UWB002.ant.amazon.com
- (10.13.138.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 7 Jul
- 2023 15:03:10 +0000
-Date: Fri, 7 Jul 2023 09:03:07 -0600
-From: Jordan Crouse <jorcrous@amazon.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20230707150307.vb4otu5e6hwoadyf@amazon.com>
-Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Nathan Chancellor <nathan@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Ricardo Ribalda <ribalda@chromium.org>,
- "Joel Fernandes (Google)" <joel@joelfernandes.org>,
- David Airlie <airlied@gmail.com>
-References: <20230309222049.4180579-1-jorcrous@amazon.com>
- <d73f6733-e605-0cf8-7909-8cced6e3b70d@linaro.org>
+ d=gmail.com; s=20221208; t=1688745212; x=1691337212;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nCL53aP+hS7tciKjFD7blcuEy36DSLX5ukiouHjZxlI=;
+ b=MD0SFOGCQwWl8ocgrw6iXF5GRCdimdJN1uKsubkVald2jn73QqUSrs2jfiZ9sW2j3D
+ ebk7TnC9/dCgGGz5BGLEmEa3vKzJzE37uk+57QETK52SlEJ7SnFYfjj6hGgN2ytCUgYa
+ QpU7ZRFBU30/aL3xfLrxhqyciH8GCvA7ZYjSQhAZTtazVOAmbMkaUOFm11QnGfhYUUGU
+ dHhnfS0m2oIOQOPIdGKq+UF8Vl00Z4R+4g6jynhIT3nCyB2YAmvWWQDj+seEDf61Lc4d
+ 95xJhRVU6K9C2maYkCKXfR4M4z4ON1tKB78m4ZEg8/VgxmHr+9KNL+q41AiN8ewg9ljk
+ uk0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688745212; x=1691337212;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nCL53aP+hS7tciKjFD7blcuEy36DSLX5ukiouHjZxlI=;
+ b=HSxAcGQC1vCXqwKM3l6/FKOAJ2aEVjW4deqQSA+bvY1huaUKnYtNREMrGhyzFCsAqE
+ W50x+CSBJAU0mkv9tfm+eHs/jf7jRl48xMQ5EQ2rhALfC0tY8+e8eMW2y7cevrYHJQQw
+ xNtSf36Rf8djs2hbslsamoN4wSlClSI8IxmmfRpCiLVZV/0CU9vq+APA7kKqDT++qJhc
+ x3TSIghW03AFwD/hptYQ5JM5SuvvYiHI3XKxwluBXaomEzCCFo64Qwm2K49wPdc3+1yF
+ ZDBKalZcuJPfPP6WX6ODvj+Q4u7bGQlO2HExfNMUKVIkXqTiUWZ6fZ08R6kFMTefsJCB
+ aPFw==
+X-Gm-Message-State: ABy/qLY4BHCAdcFgWK/9Ms2ayWefLwYYVZBH3rucoeIqtsjEHEdNi+NX
+ zJ9UVhDXeOuLH+6cQt0/UKVZK8KBjTRi4EJWeXA=
+X-Google-Smtp-Source: APBJJlEMVoC5fgJnH4032EslDGIrvj1PozPWtG1GU/u4PiOj3BGo1Mq7H5JFzTWtaNqWO+MPSYBtw7CN6so33VTDo0g=
+X-Received: by 2002:a05:6808:2126:b0:3a3:e61a:c7d8 with SMTP id
+ r38-20020a056808212600b003a3e61ac7d8mr4008620oiw.59.1688745212194; Fri, 07
+ Jul 2023 08:53:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <d73f6733-e605-0cf8-7909-8cced6e3b70d@linaro.org>
-X-Originating-IP: [10.187.171.27]
-X-ClientProxiedBy: EX19D032UWB002.ant.amazon.com (10.13.139.190) To
- EX19D047UWB002.ant.amazon.com (10.13.138.34)
-Precedence: Bulk
-Subject: Re: [Freedreno] [PATCH] drm/msm: Check for the GPU IOMMU during bind
+References: <20230706211045.204925-1-robdclark@gmail.com>
+ <20230706211045.204925-6-robdclark@gmail.com>
+ <60df0f9e-9a9c-e55b-6cab-3d89dd90bcdb@linaro.org>
+In-Reply-To: <60df0f9e-9a9c-e55b-6cab-3d89dd90bcdb@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 7 Jul 2023 08:53:21 -0700
+Message-ID: <CAF6AEGs2EGpEaA-sP1Y8cNS5uCyL9gXbe0U3H-jPWSQt1njokw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 05/12] drm/msm/adreno: Use quirk to identify
+ cached-coherent support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -77,134 +71,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, freedreno@lists.freedesktop.org,
- Ricardo Ribalda <ribalda@chromium.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nathan
- Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, "Joel
- Fernandes \(Google\)" <joel@joelfernandes.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 06, 2023 at 09:55:13PM +0300, Dmitry Baryshkov wrote:
-> 
-> On 10/03/2023 00:20, Jordan Crouse wrote:
-> > While booting with amd,imageon on a headless target the GPU probe was
-> > failing with -ENOSPC in get_pages() from msm_gem.c.
-> > 
-> > Investigation showed that the driver was using the default 16MB VRAM
-> > carveout because msm_use_mmu() was returning false since headless devices
-> > use a dummy parent device. Avoid this by extending the existing is_a2xx
-> > priv member to check the GPU IOMMU state on all platforms and use that
-> > check in msm_use_mmu().
-> > 
-> > This works for memory allocations but it doesn't prevent the VRAM carveout
-> > from being created because that happens before we have a chance to check
-> > the GPU IOMMU state in adreno_bind.
-> > 
-> > There are a number of possible options to resolve this but none of them are
-> > very clean. The easiest way is to likely specify vram=0 as module parameter
-> > on headless devices so that the memory doesn't get wasted.
-> 
-> This patch was on my plate for quite a while, please excuse me for
-> taking it so long.
+On Thu, Jul 6, 2023 at 7:29=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 07/07/2023 00:10, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > It is better to explicitly list it.  With the move to opaque chip-id's
+> > for future devices, we should avoid trying to infer things like
+> > generation from the numerical value.
+>
+> Would it be better to push this to DT? I mean, we already have a
+> 'dma-cache-coherent' property for it.
 
-No worries. I'm also chasing a bunch of other stuff too.
+I suppose that would also handle the case where some a6xy are coherent
+but others aren't..  OTOH it isn't the case that dma operations are
+coherent, just that they can be.  It depends on smmu pte bits.  Maybe
+that bit of pedanticism doesn't matter since we mostly bypass the dma
+api, but we still do need to (ab)use dma_map_sgtable/dma_unmap_sgtable
+for cache ops
 
-> I see the following problem with the current code. We have two different
-> instances than can access memory: MDP/DPU and GPU. And each of them can
-> either have or miss the MMU.
-> 
-> For some time I toyed with the idea of determining whether the allocated
-> BO is going to be used by display or by GPU, but then I abandoned it. We
-> can have display BOs being filled by GPU, so handling it this way would
-> complicate things a lot.
-> 
-> This actually rings a tiny bell in my head with the idea of splitting
-> the display and GPU parts to two different drivers, but I'm not sure
-> what would be the overall impact.
+BR,
+-R
 
-As I now exclusively work on headless devices I would be 100% for this,
-but I'm sure that our laptop friends might not agree :)
-
-> More on the msm_use_mmu() below.
-> 
-> > 
-> > Signed-off-by: Jordan Crouse <jorcrous@amazon.com>
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > > ---
-> > 
-> >   drivers/gpu/drm/msm/adreno/adreno_device.c | 6 +++++-
-> >   drivers/gpu/drm/msm/msm_drv.c              | 7 +++----
-> >   drivers/gpu/drm/msm/msm_drv.h              | 2 +-
-> >   3 files changed, 9 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > index 36f062c7582f..4f19da28f80f 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > @@ -539,7 +539,11 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
-> >       DBG("Found GPU: %u.%u.%u.%u", config.rev.core, config.rev.major,
-> >               config.rev.minor, config.rev.patchid);
-> > 
-> > -     priv->is_a2xx = config.rev.core == 2;
-> > +     /*
-> > +      * A2xx has a built in IOMMU and all other IOMMU enabled targets will
-> > +      * have an ARM IOMMU attached
-> > +      */
-> > +     priv->has_gpu_iommu = config.rev.core == 2 || device_iommu_mapped(dev);
-> >       priv->has_cached_coherent = config.rev.core >= 6;
-> > 
-> >       gpu = info->init(drm);
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index aca48c868c14..a125a351ec90 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -318,11 +318,10 @@ bool msm_use_mmu(struct drm_device *dev)
-> >       struct msm_drm_private *priv = dev->dev_private;
-> > 
-> >       /*
-> > -      * a2xx comes with its own MMU
-> > -      * On other platforms IOMMU can be declared specified either for the
-> > -      * MDP/DPU device or for its parent, MDSS device.
-> > +      * Return true if the GPU or the MDP/DPU or parent MDSS device has an
-> > +      * IOMMU
-> >        */
-> > -     return priv->is_a2xx ||
-> > +     return priv->has_gpu_iommu ||
-> >               device_iommu_mapped(dev->dev) ||
-> >               device_iommu_mapped(dev->dev->parent);
-> 
-> I have a generic feeling that both old an new code is not fully correct.
-> Please correct me if I'm wrong:
-> 
-> We should be using VRAM, if either of the blocks can not use remapped
-> memory. So this should have been:
-> 
-> bool msm_use_mmu()
-> {
->  if (!gpu_has_iommu)
->    return false;
-> 
->  if (have_display_part && !display_has_mmu())
->    return false;
-> 
->  return true;
-> }
-> 
-> What do you think.
-
-I would have to see (and try) the real code but that seems like it might
-be reasonable. I would like to hear from some of the a2xx users too
-because this mostly affects them. On 3xx and newer you've always had the
-option of not having a MMU for GPU or display but I can't think of any
-use cases where you wouldn't want it.
-
+> >   drivers/gpu/drm/msm/adreno/adreno_device.c | 23 +++++++++++++++------=
+-
+> >   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
+> >   2 files changed, 17 insertions(+), 7 deletions(-)
+> >
+>
 > --
 > With best wishes
 > Dmitry
-> 
-
-Jordan
+>
