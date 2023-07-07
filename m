@@ -1,76 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC69D74BA19
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 01:49:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50DD474BA1C
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 01:52:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB2F410E61C;
-	Fri,  7 Jul 2023 23:48:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C7A10E619;
+	Fri,  7 Jul 2023 23:52:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 654E910E617
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 23:48:55 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4fba86f069bso3988664e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 16:48:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688773733; x=1691365733;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZAR6us1ginvwagA6iA1+ZaHnkbJvmRpkHBkWSUBw4zI=;
- b=uvURydsxo0LbzY1Q2/aSupUNVxlZygjxYAVrQQTXCMyb6IBVHYTbhYrVjGjci+T9A0
- eEWuurCTIQwj3ixFqT4DnLakYtWPRFyl/umtiCSS7VY612cIH0moX3/+/RziJ+shmQ1G
- wlLlbGyGSXT3sqHu0A2FhHX3zaNtG3CZK4PHThIs2Hfct+jXhVFfSzTv9Fkoe1/2cKtq
- I+luCdnTat4CCdrfyVvoKadAeFWHRTFEp8vcsbRb4sL7UjGOK0sPZkO14r/Y5YmXq44l
- 79GzX4jVFVZTruJMert2w8/8Df+LjwYRcT1TRDYoW8jH9lX2H+1PQLPJkXPjl8XSfigU
- j7Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688773733; x=1691365733;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZAR6us1ginvwagA6iA1+ZaHnkbJvmRpkHBkWSUBw4zI=;
- b=EWz9mqWNLQSE0o/R2J14KHY8h6haxXvpByfUgbZL2QeOEDkxCqBpSfI6rbZagUPvEi
- Ks7Av9Aspb8Qd0RmH2iZldtC7iUFSrZzQLxj1X3dBjcHf3b2Vhc6Xwo9R45E1P71Z2zz
- t8PVN4ZxpoDHnR+434U64DNF+3XgTU3M985qdFV0FxYF3QOIMuQrT++mE5onPDCBiQO/
- B1qTnpeXHWWPh2Vn76Kndbx+yvxbiErQUrDyHkhjqy1a4m7CanycLiK7ldAUgAJ9qEHf
- sW+yzsdIw2d4Y/sx1YlISv9nqR+wibMQmlWw8jL0p8u5hDTvCXrwXiTEZQp0qKPupDS/
- hvNA==
-X-Gm-Message-State: ABy/qLZOjpwJZOyFPsjOkHpxITvyn2dmYctS0Fwx242UUOpnl7Rvc2pi
- Wnh8KMD0Gc89505uOVZ5kxC+vA==
-X-Google-Smtp-Source: APBJJlHcwTn6+gi0XyaxHfo/sKdp+Jvp0ZA0w7IT0pnTqhPPEhXuvL62dJE/e7VxTOTaT1cPNxe/Ng==
-X-Received: by 2002:ac2:58e4:0:b0:4fb:9772:6639 with SMTP id
- v4-20020ac258e4000000b004fb97726639mr4153871lfo.6.1688773733550; 
- Fri, 07 Jul 2023 16:48:53 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- o15-20020ac2494f000000b004fba09ae900sm838031lfi.149.2023.07.07.16.48.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Jul 2023 16:48:53 -0700 (PDT)
-Message-ID: <cc312e51-e0c0-c1f9-aa56-60cf95e23b79@linaro.org>
-Date: Sat, 8 Jul 2023 02:48:52 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 801AC10E619;
+ Fri,  7 Jul 2023 23:52:55 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 367MeErc011322; Fri, 7 Jul 2023 23:52:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=wT7JOXu4/TRkDYOIYxOdT13I2xIXbbEmyVXkgsSeAfE=;
+ b=h3J+LHvLAn+J3uaESPCxuakue4h7ZqSePqCasgVuwFw+VyGeAvP3E4GZK04v6+vWym16
+ E2byva32jhYFrZCKEE8bI6fawYpt+Mjj7yY7yt6KATtlJ++1YATE1V3+os2c0chSx4Hq
+ 5yUlJI7xpC+SAoeBSlzozuFDYOk6iUPJE2iFPI1FTkfmZNZRcWoBo8L+3nOjtffb6dAw
+ HwTdTrjV1AAkoVjbNeLHlZn+ZKL4oKszYSexBqVAjzS8+/AoI8678p6KGsS5gDJF0253
+ s9PJihVqIRFyxAkVFw3gpuWXADrmejZQl1zVkM5QK4lwNmQCkHIfvMkRJ84CXLndlTgD 2w== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rpuas84eh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Jul 2023 23:52:46 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 367Nqjvx006326
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 7 Jul 2023 23:52:45 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.30; Fri, 7 Jul 2023 16:52:45 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Fri, 7 Jul 2023 16:52:18 -0700
+Message-ID: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230707203724.3820757-1-dmitry.baryshkov@linaro.org>
- <20230707203724.3820757-2-dmitry.baryshkov@linaro.org>
- <81ff3de5-4fe4-9c01-5655-78f5311f7817@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <81ff3de5-4fe4-9c01-5655-78f5311f7817@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 01/13] drm/msm/dpu: cleanup dpu_kms_hw_init
- error path
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: b6jjv-QejyjQMr9-8s8W3uE0GP8xBVvE
+X-Proofpoint-GUID: b6jjv-QejyjQMr9-8s8W3uE0GP8xBVvE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-07_14,2023-07-06_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0
+ clxscore=1011 malwarescore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2305260000
+ definitions=main-2307070217
+Subject: [Freedreno] [PATCH v1 0/5] incorporate pm runtime framework and eDP
+ clean up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,120 +80,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/07/2023 02:25, Konrad Dybcio wrote:
-> On 7.07.2023 22:37, Dmitry Baryshkov wrote:
->> It was noticed that dpu_kms_hw_init()'s error path contains several
->> labels which point to the same code path. Replace all of them with a
->> single label.
->>
->> Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> it's the first time I'm seeing this code
-> 
+Incorporate pm runtime framework into DP driver and clean up eDP
+by moving of_dp_aux_populate_bus() to probe()
 
-It is Suggested-by, not something else. And you pointed it out in 
-https://lore.kernel.org/linux-arm-msm/6d598438-f10f-8678-7878-829b8b3ae790@linaro.org/
+Kuogee Hsieh (5):
+  drm/msm/dp: remove pm_runtime_xxx() from dp_power.c
+  drm/msm/dp: incorporate pm_runtime framework into DP driver
+  drm/msm/dp: delete EV_HPD_INIT_SETUP
+  drm/msm/dp: move relevant dp initialization code from bind() to
+    probe()
+  drm/msm/dp: move of_dp_aux_populate_bus() to probe for eDP
 
-> Konrad
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 21 +++++++++------------
->>   1 file changed, 9 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index c11b3ab572ab..e7ac02e92f42 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -1037,7 +1037,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   	if (!dpu_kms->catalog) {
->>   		DPU_ERROR("device config not known!\n");
->>   		rc = -EINVAL;
->> -		goto power_error;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	/*
->> @@ -1047,13 +1047,13 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   	rc = _dpu_kms_mmu_init(dpu_kms);
->>   	if (rc) {
->>   		DPU_ERROR("dpu_kms_mmu_init failed: %d\n", rc);
->> -		goto power_error;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	rc = dpu_rm_init(&dpu_kms->rm, dpu_kms->catalog, dpu_kms->mmio);
->>   	if (rc) {
->>   		DPU_ERROR("rm init failed: %d\n", rc);
->> -		goto power_error;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	dpu_kms->rm_init = true;
->> @@ -1065,7 +1065,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   		rc = PTR_ERR(dpu_kms->hw_mdp);
->>   		DPU_ERROR("failed to get hw_mdp: %d\n", rc);
->>   		dpu_kms->hw_mdp = NULL;
->> -		goto power_error;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
->> @@ -1076,7 +1076,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   		if (IS_ERR(hw)) {
->>   			rc = PTR_ERR(hw);
->>   			DPU_ERROR("failed to init vbif %d: %d\n", vbif->id, rc);
->> -			goto power_error;
->> +			goto err_pm_put;
->>   		}
->>   
->>   		dpu_kms->hw_vbif[vbif->id] = hw;
->> @@ -1092,7 +1092,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   	rc = dpu_core_perf_init(&dpu_kms->perf, dpu_kms->catalog->perf, max_core_clk_rate);
->>   	if (rc) {
->>   		DPU_ERROR("failed to init perf %d\n", rc);
->> -		goto perf_err;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	dpu_kms->hw_intr = dpu_hw_intr_init(dpu_kms->mmio, dpu_kms->catalog);
->> @@ -1100,7 +1100,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   		rc = PTR_ERR(dpu_kms->hw_intr);
->>   		DPU_ERROR("hw_intr init failed: %d\n", rc);
->>   		dpu_kms->hw_intr = NULL;
->> -		goto hw_intr_init_err;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	dev->mode_config.min_width = 0;
->> @@ -1125,7 +1125,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   	rc = _dpu_kms_drm_obj_init(dpu_kms);
->>   	if (rc) {
->>   		DPU_ERROR("modeset init failed: %d\n", rc);
->> -		goto drm_obj_init_err;
->> +		goto err_pm_put;
->>   	}
->>   
->>   	dpu_vbif_init_memtypes(dpu_kms);
->> @@ -1134,10 +1134,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>   
->>   	return 0;
->>   
->> -drm_obj_init_err:
->> -hw_intr_init_err:
->> -perf_err:
->> -power_error:
->> +err_pm_put:
->>   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->>   error:
->>   	_dpu_kms_hw_destroy(dpu_kms);
+ drivers/gpu/drm/msm/dp/dp_aux.c     |  28 +++++
+ drivers/gpu/drm/msm/dp/dp_display.c | 204 +++++++++++++++++++++---------------
+ drivers/gpu/drm/msm/dp/dp_display.h |   1 -
+ drivers/gpu/drm/msm/dp/dp_power.c   |   9 --
+ 4 files changed, 145 insertions(+), 97 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.7.4
 
