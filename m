@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61D274B74B
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 21:40:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D94E74B74D
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 21:40:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC5310E5EB;
-	Fri,  7 Jul 2023 19:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 293A710E5E4;
+	Fri,  7 Jul 2023 19:39:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
  [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 873D410E5E3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55FD10E5E2
  for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 19:39:47 +0000 (UTC)
 Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4fb5bcb9a28so3535629e87.3
+ 2adb3069b0e04-4f4b2bc1565so3705625e87.2
  for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 12:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688758785; x=1691350785;
+ d=linaro.org; s=google; t=1688758786; x=1691350786;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ln26l+vUCSi4edYTgivRAGgTHzh3pendnmUbrCgVtyc=;
- b=TSmNh5jSebPGeymulBDAEcubNE5cn9xQeWeeImrgx/Zzp1QzZacwkj+LIkcUCmXcoX
- UnfhUgHRj5FUcwnyNF05DlhwqEKeolRqmQdfSgfGfz/CsBfzg8iHlx8+cfmiX84bGTjz
- 3Hmujaw7GS1NUQGRzsJxPAbDEHVupaEyenZnkUX7dkToVty+L2Jlqr+emV1Gms+VqrWP
- c80FOzhD48gg7JtasLqCb0zxeqc7rwvkP4hWaixVNQf4lfnkDd6ec6+yIhlIXV7Zds+4
- RzLRBcl7CSrIr1LvcDUs6tcHFqvBDzaWm+2AaAiZum0QOOrf2vV31kaEbe9oTZbCwkw8
- cTtQ==
+ bh=qQpKCEoX0wDzwvYtZYOLMhBvx89hv9TtO2VMOF5Zspg=;
+ b=d8kd4LwCK8JmRRCtZ7vWwUrKfbcjO/NRfw++krZjQ+tGGGt0z1ZUrUP3B/S3fwi1T8
+ IkCVOVTYUW8T7L5vGkXUUPXlF9GKFZqNXq0gzZn0b2MfrxZhjObf9yyNXsV6w1rXPTb2
+ iW8C3LFac4rZoh4Y2kFBBIGc2BQqEeIYnxfVcrHf3AuH4oZ2gdc9GvWnKmqGbQdMV0It
+ CCfn/KFK12jPZrfxxAMu1zqhhWHWqkRq4QIXs/AzMq2/5bEYH3+JnYzUH16ImM+3JUSc
+ 8pxLbaAYAzrQKcbPjdThYknBuIhRiqLZ+aIKuIG5+NMKIz2RVJwtHqxAZMF7GcB1mmJw
+ zMtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688758785; x=1691350785;
+ d=1e100.net; s=20221208; t=1688758786; x=1691350786;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ln26l+vUCSi4edYTgivRAGgTHzh3pendnmUbrCgVtyc=;
- b=kwXT+aH7ruLnkyj/9lKvLTXzzKTFtCUyNHYj/yTzxkMdiccT5z2Cjp2A8DybnZXIx9
- 43aPqjEnoGL7MJRF/NzOnWJ6p5TC5HFjXIHvJXGl4rbpDamSFi/8bcCxPGh7ghzqC0+d
- 51xdOi3AOlvbu8DsZUuA2N6MolHfHRnuGJFE9Iz+5mrNrFye1u50tFrtucWiIhML2JYg
- 38R8WtYP9lHeNYAK8kAekBdbOCAUYLBSvsKyiobb5PoYSo/c5SAZnGQZBizGP8e9C6d2
- 5Inh9A0jQiLEvVOfrDa8zeBgtnkHET8ON8YP0AN5AzyDUtgQulo87m2t5cqdFNmABxfq
- /e2Q==
-X-Gm-Message-State: ABy/qLbKAMk/lvHrg/pGbrWkpkw//UegBdUAM5W0Z4HUcpQSdUb7iqun
- seDScBA9icTPd6cXsoTYyj3LBA==
-X-Google-Smtp-Source: APBJJlF9I+uOMWU3r1bX/Qzz+m3+Ve61FTi0gpIC8FEbD7mHoduGOmKBdvKypzuq/c3Kd4tzp4L0pw==
-X-Received: by 2002:a05:6512:33ce:b0:4f8:5600:9e5e with SMTP id
- d14-20020a05651233ce00b004f856009e5emr5377782lfg.47.1688758785404; 
- Fri, 07 Jul 2023 12:39:45 -0700 (PDT)
+ bh=qQpKCEoX0wDzwvYtZYOLMhBvx89hv9TtO2VMOF5Zspg=;
+ b=Ry+Jx1pfOC+vf5CviCDxXIEmO3OZfC1P+4OKSGpUQPsBjwf7JGKm1S5VAkePbc73zm
+ jzSpSTUaVo2NV1Eq5GsWj7tKltDGYgq0nL1SN71OpYFJdX34Lwgbj0wlNiS68ZyCLR4q
+ bESmwCZyPM3BOW6/Vu/ZEPQo1Y41NM50SF3Im66wZXGvKSqH5j6pDs6Aa4VNw3nqJneN
+ Ydjg7fhYMQ87GJ2PE7jcDjquuklKBcv1TI37R15T/iUau19r+aUI6LgJI6Js1k3RGBx9
+ QLDcT1v0+VcOWhyc82ZxRP9A0bhpRJSMcKPfkUUWJXS1WQ75/u7PvYSRe3XAT8rRFWVn
+ upAA==
+X-Gm-Message-State: ABy/qLYZSF3/LzcnTSv5D1l8B4b2i9Z0jA+0qELP9sEadohYnNEp3URy
+ mqdImBg3nLm/qnXazZ2rBCtinQ==
+X-Google-Smtp-Source: APBJJlHfbUdQtSsSktig1onHXDKAXml/Kgjl06pRamnL6+L3U9sxnMRrUS4tVsN3iFrTAN9JCGYVxA==
+X-Received: by 2002:ac2:57cd:0:b0:4fb:7772:7bae with SMTP id
+ k13-20020ac257cd000000b004fb77727baemr4383238lfo.6.1688758786063; 
+ Fri, 07 Jul 2023 12:39:46 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- q16-20020a19a410000000b004fba759bf44sm778995lfc.277.2023.07.07.12.39.44
+ q16-20020a19a410000000b004fba759bf44sm778995lfc.277.2023.07.07.12.39.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 07 Jul 2023 12:39:45 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri,  7 Jul 2023 22:39:34 +0300
-Message-Id: <20230707193942.3806526-4-dmitry.baryshkov@linaro.org>
+Date: Fri,  7 Jul 2023 22:39:35 +0300
+Message-Id: <20230707193942.3806526-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230707193942.3806526-1-dmitry.baryshkov@linaro.org>
 References: <20230707193942.3806526-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 03/11] drm/msm/dpu: core_perf: bail earlier
- if there are no ICC paths
+Subject: [Freedreno] [PATCH v3 04/11] drm/msm/dpu: drop separate
+ dpu_core_perf_tune overrides
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,32 +83,124 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Skip bandwidth aggregation and return early if there are no interconnect
-paths defined for the DPU device.
+The values in struct dpu_core_perf_tune are fixed per the core perf
+mode. Drop the 'tune' values and substitute them with known values when
+performing perf management.
+
+Note: min_bus_vote was not used at all, so it is just silently dropped.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 29 ++++++++-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  4 ---
+ 2 files changed, 12 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 333dcfe57800..05d340aa18c5 100644
+index 05d340aa18c5..348550ac7e51 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -237,11 +237,11 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+@@ -235,7 +235,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+ {
+ 	struct dpu_core_perf_params perf = { 0 };
  	int i, ret = 0;
- 	u64 avg_bw;
+-	u64 avg_bw;
++	u32 avg_bw;
  
--	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
--
  	if (!kms->num_paths)
  		return 0;
+@@ -291,10 +291,16 @@ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc)
  
-+	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+ static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+ {
+-	u64 clk_rate = kms->perf.perf_tune.min_core_clk;
++	u64 clk_rate;
+ 	struct drm_crtc *crtc;
+ 	struct dpu_crtc_state *dpu_cstate;
+ 
++	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED)
++		return kms->perf.fix_core_clk_rate;
 +
- 	avg_bw = perf.bw_ctl;
- 	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
++	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM)
++		return kms->perf.max_core_clk_rate;
++
+ 	drm_for_each_crtc(crtc, kms->dev) {
+ 		if (crtc->enabled) {
+ 			dpu_cstate = to_dpu_crtc_state(crtc->state);
+@@ -305,11 +311,6 @@ static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+ 		}
+ 	}
  
+-	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED)
+-		clk_rate = kms->perf.fix_core_clk_rate;
+-
+-	DRM_DEBUG_ATOMIC("clk:%llu\n", clk_rate);
+-
+ 	return clk_rate;
+ }
+ 
+@@ -397,6 +398,8 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+ 	if (update_clk) {
+ 		clk_rate = _dpu_core_perf_get_core_clk_rate(kms);
+ 
++		DRM_DEBUG_ATOMIC("clk:%llu\n", clk_rate);
++
+ 		trace_dpu_core_perf_update_clk(kms->dev, stop_req, clk_rate);
+ 
+ 		clk_rate = min(clk_rate, kms->perf.max_core_clk_rate);
+@@ -418,7 +421,6 @@ static ssize_t _dpu_core_perf_mode_write(struct file *file,
+ 		    const char __user *user_buf, size_t count, loff_t *ppos)
+ {
+ 	struct dpu_core_perf *perf = file->private_data;
+-	const struct dpu_perf_cfg *cfg = perf->catalog->perf;
+ 	u32 perf_mode = 0;
+ 	int ret;
+ 
+@@ -433,14 +435,9 @@ static ssize_t _dpu_core_perf_mode_write(struct file *file,
+ 		DRM_INFO("fix performance mode\n");
+ 	} else if (perf_mode == DPU_PERF_MODE_MINIMUM) {
+ 		/* run the driver with max clk and BW vote */
+-		perf->perf_tune.min_core_clk = perf->max_core_clk_rate;
+-		perf->perf_tune.min_bus_vote =
+-				(u64) cfg->max_bw_high * 1000;
+ 		DRM_INFO("minimum performance mode\n");
+ 	} else if (perf_mode == DPU_PERF_MODE_NORMAL) {
+ 		/* reset the perf tune params to 0 */
+-		perf->perf_tune.min_core_clk = 0;
+-		perf->perf_tune.min_bus_vote = 0;
+ 		DRM_INFO("normal performance mode\n");
+ 	}
+ 	perf->perf_tune.mode = perf_mode;
+@@ -456,10 +453,8 @@ static ssize_t _dpu_core_perf_mode_read(struct file *file,
+ 	char buf[128];
+ 
+ 	len = scnprintf(buf, sizeof(buf),
+-			"mode %d min_mdp_clk %llu min_bus_vote %llu\n",
+-			perf->perf_tune.mode,
+-			perf->perf_tune.min_core_clk,
+-			perf->perf_tune.min_bus_vote);
++			"mode %d\n",
++			perf->perf_tune.mode);
+ 
+ 	return simple_read_from_buffer(buff, count, ppos, buf, len);
+ }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+index 29bb8ee2bc26..c965dfbc3007 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+@@ -29,13 +29,9 @@ struct dpu_core_perf_params {
+ /**
+  * struct dpu_core_perf_tune - definition of performance tuning control
+  * @mode: performance mode
+- * @min_core_clk: minimum core clock
+- * @min_bus_vote: minimum bus vote
+  */
+ struct dpu_core_perf_tune {
+ 	u32 mode;
+-	u64 min_core_clk;
+-	u64 min_bus_vote;
+ };
+ 
+ /**
 -- 
 2.39.2
 
