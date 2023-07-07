@@ -1,71 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 537A974A833
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 02:40:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8BF74A8D6
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jul 2023 04:20:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8515410E4E2;
-	Fri,  7 Jul 2023 00:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7021110E063;
+	Fri,  7 Jul 2023 02:20:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3687910E12B
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 00:40:51 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2b5c231c23aso20846641fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jul 2023 17:40:51 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7C010E4EF
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Jul 2023 02:20:00 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4fbcbf4375dso1472379e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jul 2023 19:20:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688690449; x=1691282449;
- h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=caCtxzCdioSZM20BV9njtI8LqLV4HbK9TzfZKIX/D+8=;
- b=NpCp6C39vRLqzNhjoLrSZl231ULplD2bva129qo+DPqFOeQ1jWM+ILKqmK/5Uphjbr
- ydeIdKSakcHVjCOOmmncdJ4emzXyS5Rn3ccUVqe6PPStQye/B5uU7bG8ZoBCI10ZMDoH
- sXXuOEFsAyYHwUfOFZ40ZmuCMnVNZsZMS9QbrydgATGRD4403OA+f/sXsBUyN2lwl2t8
- lIk0QIh8tG2gNHXVz4ap07xoGeENWSpqj4434GtsW3zuZf8pLelqy7/gcxjvq/iyGmQV
- GDYYHJy8567zJ0R9k7waNV9W+BJoOkuIJqZ6u7dy9s7yIFd6jp5NJOLAoy4kSUtn2Arp
- GT0A==
+ d=linaro.org; s=google; t=1688696398; x=1691288398;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tWbvWe+wSPpAfUuNVCuRaGwVFU2OOSKw8sDylC+/9ng=;
+ b=vw4y9fB1R04uqObICIbb69PADoZ+3DDeXGN55GlLzH7uFxQY+cZSypMdOA+GX3BbZB
+ QAMuaN7H9j/xyhtuzMQi7Vi5YVCJzgZpC38onAmDoqnGxNB5+unBSSOPdPCZdZQaIKoZ
+ MQ1psFgz1B4JMV03yurACg/KBtTXD2lbsjBb56ZxY1cWrUx8JLIYFfE1Ge6pK/xj8dtx
+ AF2ebNqyQB49MVCLyLO44PRCHj1Svgma/mjMWzpyDqhG0PQKpzCWi0ePzwGOHwGyWUbw
+ QElOiQLJvTndEZ6g0QzlxaEJAjIrUQjeaZWCO0EqJHHaC8hBiROnFJZChr1cW9p6dFdQ
+ hTeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688690449; x=1691282449;
- h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
- :content-language:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1688696398; x=1691288398;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=caCtxzCdioSZM20BV9njtI8LqLV4HbK9TzfZKIX/D+8=;
- b=gLaf+dY8e4i5lsiwfjnYhvpK3xM/wJRuPLkGNQpsqEzvmFjDA3XPY6HqvnZCYYLcw/
- 7nau5Ie5yw7eTPg2izlvhgPJJ8UkJgi8ec2hMXwo+N1b7oAPbgAi9a7O5aZsk+c0rxqF
- gP1f7Fmen9n3N2fw0uynIuieQF+Vk9AqVKcdG4ZUM6gap95efWBEZErXjlnFObmX6EkQ
- izUB4dcAkwr3cu6ce65BIYRz1JluCnddL07C19+eYuEGrxkwdH9qsqufDvdzNeCIDo+k
- 5YAJE3F4+zxi6C1IyT7aUvpz6qYUphnEPnZKgtXNb90WFuz21KF/dK8k1RJdWXL6upeW
- DNwQ==
-X-Gm-Message-State: ABy/qLagIaUxZPUaBLyz2Cvpwu3Efrachy+7iSDUaxlPY2JoKySACUb+
- +a9khLddWTdIwj2SENFbG8vzlg==
-X-Google-Smtp-Source: APBJJlFLjZSItz4+EEgpANmuYA2UN5Ki56/Etd9V3Fc+BExDCF2PAOZoPbnIsbVABi2fsUQ56AwMnA==
-X-Received: by 2002:a2e:a0d7:0:b0:2b6:d63d:cc1e with SMTP id
- f23-20020a2ea0d7000000b002b6d63dcc1emr2386746ljm.51.1688690449330; 
- Thu, 06 Jul 2023 17:40:49 -0700 (PDT)
-Received: from [192.168.1.101] (abyj26.neoplus.adsl.tpnet.pl. [83.9.29.26])
+ bh=tWbvWe+wSPpAfUuNVCuRaGwVFU2OOSKw8sDylC+/9ng=;
+ b=gsD7MFB7jlRQre4a4DGOgzGRIWHgcVO65wVgGLfRIcpedzdlBG6ovAxcXYB/b3ORJX
+ ze60SWatd0JjR93VywAJNGYOTyq5UPg8EQccqo/Zrf2pPReUDcMd8R73x+9RHXFgDjqn
+ PmJDy8FKjWlBxXkybB+GXPkftU0Rkf1quC/p+EDFWnE8kvFdpW5KYoxhyLXSwdX0ZW8N
+ XU4ULO67y4P0VEW/T0au5PgnBGiWTKKRsvri9oQ7Ls/b0H559xH0B9F5Qa2Av89IXBSt
+ 8Z8n+zW/T4NmiMpzQ9J5/BJFlVpZNdaC2eXC/TnuF1LvFKGQJgmL0E2OxaDy7OZbyOSg
+ djaw==
+X-Gm-Message-State: ABy/qLb6lsSJcsDA86WHHg+vCx0FWYiqaDdGizttiUUMBIUCyhAnHQi3
+ OWuBoPLXiHn3rN/fIA7OtzzSPA==
+X-Google-Smtp-Source: APBJJlHk2zZh/rSPQ2vvGPduKoXp+HDbbEegqAUjUdE8Yj9pQfmDCdPP4rQ+d736yonYTnqVAXEaTg==
+X-Received: by 2002:a05:6512:b8b:b0:4fb:bd93:b239 with SMTP id
+ b11-20020a0565120b8b00b004fbbd93b239mr2874790lfv.13.1688696398511; 
+ Thu, 06 Jul 2023 19:19:58 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- k5-20020a2e2405000000b002b6ed0067c9sm535832ljk.116.2023.07.06.17.40.48
+ l11-20020ac2430b000000b004fb99da37e3sm474865lfh.220.2023.07.06.19.19.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jul 2023 17:40:49 -0700 (PDT)
-Message-ID: <8ee1601d-eb39-2d51-ae52-9bb897a96c07@linaro.org>
-Date: Fri, 7 Jul 2023 02:40:47 +0200
+ Thu, 06 Jul 2023 19:19:58 -0700 (PDT)
+Message-ID: <dc937077-91bd-8c4f-b220-82df11efd215@linaro.org>
+Date: Fri, 7 Jul 2023 05:19:57 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20230706211045.204925-1-robdclark@gmail.com>
- <20230706211045.204925-7-robdclark@gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230706211045.204925-7-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 06/12] drm/msm/adreno: Allow SoC specific
- gpu device table entries
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230622-devcoredump_patch-v4-0-e304ddbe9648@quicinc.com>
+ <20230622-devcoredump_patch-v4-5-e304ddbe9648@quicinc.com>
+ <deb38d54-bf7f-f42a-8b61-f6c8f46370b0@linaro.org>
+ <da04a824-b44c-d6a0-3dfc-f1b8e8272195@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <da04a824-b44c-d6a0-3dfc-f1b8e8272195@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v4 5/6] drm/msm/dpu: Refactor printing of
+ main blocks in device core dump
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,126 +85,118 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 6.07.2023 23:10, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 07/07/2023 03:16, Abhinav Kumar wrote:
 > 
-> There are cases where there are differences due to SoC integration.
-> Such as cache-coherency support, and (in the next patch) e-fuse to
-> speedbin mappings.
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
-of_machine_is_compatible is rather used in extremely desperate
-situations :/ I'm not sure this is the correct way to do this..
-
-Especially since there's a direct correlation between GMU presence
-and ability to do cached coherent.
-
-The GMU mandates presence of RPMh (as most of what the GMU does is
-talk to AOSS through its RSC).
-
-To achieve I/O coherency, there must be some memory that both the
-CPU and GPU (and possibly others) can access through some sort of
-a negotiator/manager.
-
-In our case, I believe that's LLC. And guess what that implies.
-MEMNOC instead of BIMC. And guess what that implies. RPMh!
-
-Now, we know GMU => RPMh, but does it work the other way around?
-
-Yes. GMU wrapper was a hack because probably nobody in the Adreno team
-would have imagined that somebody would be crazy enough to fork
-multiple year old designs multiple times and release them as new
-SoCs with updated arm cores and 5G..
-
-(Except for A612 which has a "Reduced GMU" but that zombie still talks
-to RPMh. And A612 is IO-coherent. So I guess it works anyway.)
-
-Konrad
-
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 34 +++++++++++++++++++---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
->  2 files changed, 31 insertions(+), 4 deletions(-)
+> On 7/6/2023 5:07 PM, Dmitry Baryshkov wrote:
+>> On 06/07/2023 23:48, Ryan McCann wrote:
+>>> Currently, the names of main blocks are hardcoded into the
+>>> msm_disp_snapshot_add_block function rather than using the name that
+>>> already exists in the catalog. Change this to take the name directly 
+>>> from
+>>> the catalog instead of hardcoding it.
+>>>
+>>> Signed-off-by: Ryan McCann <quic_rmccann@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 32 
+>>> ++++++++++++++++----------------
+>>>   1 file changed, 16 insertions(+), 16 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> index aa8499de1b9f..70dbb1204e6c 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> @@ -899,38 +899,38 @@ static void dpu_kms_mdp_snapshot(struct 
+>>> msm_disp_state *disp_state, struct msm_k
+>>>       /* dump CTL sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->ctl_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->ctl[i].len,
+>>> -                dpu_kms->mmio + cat->ctl[i].base, "ctl_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->ctl[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->ctl[i].base, cat->ctl[i].name);
+>>
+>> Splitting on the `+' sign is a bad idea. It makes it harder to read 
+>> the code. Please keep the first line as is, it is perfectly fine on 
+>> its own, and do just what you have stated in the commit message: 
+>> change printed block name.
+>>
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 3c531da417b9..e62bc895a31f 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -258,6 +258,32 @@ static const struct adreno_info gpulist[] = {
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
->  		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
->  		.init = a6xx_gpu_init,
-> +	}, {
-> +		.machine = "qcom,sm4350",
-> +		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
-> +		.revn = 619,
-> +		.fw = {
-> +			[ADRENO_FW_SQE] = "a630_sqe.fw",
-> +			[ADRENO_FW_GMU] = "a619_gmu.bin",
-> +		},
-> +		.gmem = SZ_512K,
-> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.init = a6xx_gpu_init,
-> +		.zapfw = "a615_zap.mdt",
-> +		.hwcg = a615_hwcg,
-> +	}, {
-> +		.machine = "qcom,sm6375",
-> +		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
-> +		.revn = 619,
-> +		.fw = {
-> +			[ADRENO_FW_SQE] = "a630_sqe.fw",
-> +			[ADRENO_FW_GMU] = "a619_gmu.bin",
-> +		},
-> +		.gmem = SZ_512K,
-> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.init = a6xx_gpu_init,
-> +		.zapfw = "a615_zap.mdt",
-> +		.hwcg = a615_hwcg,
->  	}, {
->  		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
->  		.revn = 619,
-> @@ -409,6 +435,8 @@ const struct adreno_info *adreno_info(struct adreno_rev rev)
->  	/* identify gpu: */
->  	for (i = 0; i < ARRAY_SIZE(gpulist); i++) {
->  		const struct adreno_info *info = &gpulist[i];
-> +		if (info->machine && !of_machine_is_compatible(info->machine))
-> +			continue;
->  		if (adreno_cmp_rev(info->rev, rev))
->  			return info;
->  	}
-> @@ -563,6 +591,8 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->  		config.rev.minor, config.rev.patchid);
->  
->  	priv->is_a2xx = config.rev.core == 2;
-> +	priv->has_cached_coherent =
-> +		!!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT);
->  
->  	gpu = info->init(drm);
->  	if (IS_ERR(gpu)) {
-> @@ -574,10 +604,6 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->  	if (ret)
->  		return ret;
->  
-> -	priv->has_cached_coherent =
-> -		!!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT) &&
-> -		!adreno_has_gmu_wrapper(to_adreno_gpu(gpu));
-> -
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index e08d41337169..d5335b99c64c 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -61,6 +61,7 @@ extern const struct adreno_reglist a612_hwcg[], a615_hwcg[], a630_hwcg[], a640_h
->  extern const struct adreno_reglist a660_hwcg[], a690_hwcg[];
->  
->  struct adreno_info {
-> +	const char *machine;
->  	struct adreno_rev rev;
->  	uint32_t revn;
->  	const char *fw[ADRENO_FW_MAX];
+> Actually, I asked Ryan to fix the indent here in the same patch as he 
+> was touching this code anyway.
+> 
+> So you would prefer thats left untouched?
+
+Yes. The current one was definitely better than splitting in the middle 
+of a statement.
+
+> 
+>>>       /* dump DSPP sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->dspp_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->dspp[i].len,
+>>> -                dpu_kms->mmio + cat->dspp[i].base, "dspp_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->dspp[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->dspp[i].base, cat->dspp[i].name);
+>>>       /* dump INTF sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->intf_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->intf[i].len,
+>>> -                dpu_kms->mmio + cat->intf[i].base, "intf_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->intf[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->intf[i].base, cat->intf[i].name);
+>>>       /* dump PP sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->pingpong_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->pingpong[i].len,
+>>> -                dpu_kms->mmio + cat->pingpong[i].base, 
+>>> "pingpong_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, 
+>>> cat->pingpong[i].len, dpu_kms->mmio +
+>>> +                        cat->pingpong[i].base, cat->pingpong[i].name);
+>>>       /* dump SSPP sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->sspp_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->sspp[i].len,
+>>> -                dpu_kms->mmio + cat->sspp[i].base, "sspp_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->sspp[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->sspp[i].base, cat->sspp[i].name);
+>>>       /* dump LM sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->mixer_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->mixer[i].len,
+>>> -                dpu_kms->mmio + cat->mixer[i].base, "lm_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->mixer[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->mixer[i].base, cat->mixer[i].name);
+>>>       /* dump WB sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->wb_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+>>> -                dpu_kms->mmio + cat->wb[i].base, "wb_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->wb[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->wb[i].base, cat->wb[i].name);
+>>>       if (cat->mdp[0].features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
+>>>           msm_disp_snapshot_add_block(disp_state, MDP_PERIPH_TOP0,
+>>> @@ -944,8 +944,8 @@ static void dpu_kms_mdp_snapshot(struct 
+>>> msm_disp_state *disp_state, struct msm_k
+>>>       /* dump DSC sub-blocks HW regs info */
+>>>       for (i = 0; i < cat->dsc_count; i++)
+>>> -        msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len,
+>>> -                dpu_kms->mmio + cat->dsc[i].base, "dsc_%d", i);
+>>> +        msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len, 
+>>> dpu_kms->mmio +
+>>> +                        cat->dsc[i].base, cat->dsc[i].name);
+>>>       pm_runtime_put_sync(&dpu_kms->pdev->dev);
+>>>   }
+>>>
+>>
+
+-- 
+With best wishes
+Dmitry
+
