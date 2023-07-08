@@ -1,74 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E9074BA9C
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 02:38:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B857674BAC0
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 03:04:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F8D10E634;
-	Sat,  8 Jul 2023 00:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F9610E181;
+	Sat,  8 Jul 2023 01:04:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994BF10E634
- for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 00:38:22 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b6a084a34cso38102111fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 17:38:22 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFA7610E05B
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 01:04:12 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2b6b98ac328so38424331fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 18:04:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688776700; x=1691368700;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KeeFW0s8AAxhEGltgT7tiarBzEtrHHtHD4b0DBUGXug=;
- b=xKdvV1oTdSo9n9wuZNX0eObB3h3X6qfR9gS/XuxmG4081OUrFQ/hpdX/V7A7a2XpCZ
- joEAl+9HGbCZ7t6t8O/6HY8aL+nJNFIknKrGzeYcai1W8FNn0I9KypeyYQh5/a/dENP7
- X9BLXlvt42/pLNX0Z/SJiT2NFpTZW8PqTjFWNhODP/wzOvw+VohIrJGrI877gtIPEJLY
- hT/1V2eXj+Ir/rFyXCXzof3JJVIbvaI8LpcKpv373+5USIiz1peBKCMjjGFctRNjh+gR
- HZVGisdQBa92RiRNabuQ6g2+i8brahwMGcgis9OYJVinMm/VfmGwX+YCl0esLB7R7sBR
- cVbA==
+ d=linaro.org; s=google; t=1688778249; x=1691370249;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Wj7LNm7j8uJ6srVzyDHm7xnSDGTFeyf7qEu/J+OSTyk=;
+ b=VzR53hJYdkUKIz0f6Y4HBRN6BwBlIO0nBViJ+QNXHktqVvNlBtgQLuezuTXKpgfAq9
+ CzPw/bP/+MSEANGDX0OEprP+hPvsmbRy+EHgGA0HL5o88aEr0pBfJwElePFPRmL3pVmN
+ vOqHD+Sb2sEoUtWVFH3srdtwYkw8wGAc/BeBMFk/GltTLM0URw5b89621e6d4v0G8EjH
+ 43l3X6eRd869S80/c0yvz8hH4s97YCp/NhH7Y3F5265eo0RuDBvsJU8Up+MoEZ3btG3Y
+ aweQiA9g90GVOUm4hI0LqIsLgFM1wZ0d0/hXdeYM0H08I62/ZBs/VpkyAhZkjqGjw3J2
+ WS0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688776700; x=1691368700;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KeeFW0s8AAxhEGltgT7tiarBzEtrHHtHD4b0DBUGXug=;
- b=cQzx4XLV+Gy7wKLSZ4S5mlpbIwtkQyrC2NWZABzdJKjHb4veRqxXV1fhkV4TvoqPbJ
- jWNGqcX8nviU69LYXu1CN7kZVtBfRtFMvXUq0+uAu3fz+KYFsuB2yL7iQwWcDyClX5W7
- MAYJ72Qm51L34GM5/nOLhSzJQV33m7S4jqwTPWE9ZT6je4tx7juHxNQAv+lSqrSo0EJJ
- YkDBBG8gd3sSkUwPWUN5SXkwuo1wmCTstG2pqOXrs478xvUUW2/Lo5gAegqnUMibWIN3
- cfnelS2Qd8aEL5iovp1cL+PB6gKoNSV/FH9CzFh9hqha8+cHQnulizg4ZWecPYSvro4T
- jPkw==
-X-Gm-Message-State: ABy/qLYIpdFGeeUbHRLNLQP7k4u39gBawmjAIu+pjUdM8FKCLC0PZGRv
- QvgFwbTMjK31H2xL8UQJ2oHw3g==
-X-Google-Smtp-Source: APBJJlE7a66c8lI6xcPQtbOd8zyuPnnzOx8CcphvLu4weCUN1Xmbs/j2CLBDyUfctfXWi1daNHtCPQ==
-X-Received: by 2002:a2e:9289:0:b0:2b5:81bc:43a8 with SMTP id
- d9-20020a2e9289000000b002b581bc43a8mr4509759ljh.0.1688776700712; 
- Fri, 07 Jul 2023 17:38:20 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1688778249; x=1691370249;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Wj7LNm7j8uJ6srVzyDHm7xnSDGTFeyf7qEu/J+OSTyk=;
+ b=eYaYd4QNM61N0GHoSQ21lyQxLbAMNh6E3QXEtFCoHJgw7SpLzVPhgYNqob9xnaDnY9
+ IXg/XAK0+VuAvRdPPGI9ztTzLNQwcJGRiLxUJ9x9xc/3XHmBSNj55e2nv8avkfMnWTo8
+ 6s5peXDLwHdJDdpfezeXQEbjB/u4oOPWVv79dfjyH5+Vx1+Lnucys9VCZfDu5JdThGZ3
+ OUkubLxcJAWDahh048d56KJykAfbMx6V/ASxf2qhauCmTcHZQ8zSBqfCxalhi/hHlW3V
+ Y9zgSMnrYkj7m+dpRP49lszFJixj0ZwfAn+zOlgQHvfPB7Xu45R/bbRGhInQyh7o6QGv
+ z6qw==
+X-Gm-Message-State: ABy/qLZ+lg/i6OXgrhnayIApu3KIUr9dEVlCybGnMOFQON8w+JXaoWRK
+ jGm3uNXT5BXF0B3E5GrwKDFsHw==
+X-Google-Smtp-Source: APBJJlFxsuuokLyKhRQ1fUfj3a1WJAB0a76r5DhYNKwKNL06bFTd/N+9oYHZdjMagvGn11Grjrub6Q==
+X-Received: by 2002:a2e:87c3:0:b0:2b6:bd09:4d64 with SMTP id
+ v3-20020a2e87c3000000b002b6bd094d64mr5007973ljj.34.1688778248725; 
+ Fri, 07 Jul 2023 18:04:08 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- v22-20020a2e9256000000b002b6b849c894sm999362ljg.111.2023.07.07.17.38.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Jul 2023 17:38:20 -0700 (PDT)
-Message-ID: <62114b30-a0bb-0f0a-0686-afb22159c118@linaro.org>
-Date: Sat, 8 Jul 2023 03:38:19 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
- agross@kernel.org, andersson@kernel.org
-References: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
+ l5-20020a2e8685000000b002b6ee99fff2sm1012807lji.34.2023.07.07.18.04.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Jul 2023 18:04:08 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1 0/5] incorporate pm runtime framework and
- eDP clean up
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sat,  8 Jul 2023 04:03:50 +0300
+Message-Id: <20230708010407.3871346-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 00/17] drm/msm/mdp[45]: use managed memory
+ allocations
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +73,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/07/2023 02:52, Kuogee Hsieh wrote:
-> Incorporate pm runtime framework into DP driver and clean up eDP
-> by moving of_dp_aux_populate_bus() to probe()
+Follow the DPU patchset ([1]) and use devm_ and drmm_ functions to
+allocate long-living data structures in mdp4 and mdp5 drivers.
 
-Please use sensible prefix for cover letters too. It helps people 
-understand, which driver/area is touched by the patchset.
+[1] https://patchwork.freedesktop.org/series/120366/
 
-> 
-> Kuogee Hsieh (5):
->    drm/msm/dp: remove pm_runtime_xxx() from dp_power.c
->    drm/msm/dp: incorporate pm_runtime framework into DP driver
->    drm/msm/dp: delete EV_HPD_INIT_SETUP
->    drm/msm/dp: move relevant dp initialization code from bind() to
->      probe()
->    drm/msm/dp: move of_dp_aux_populate_bus() to probe for eDP
-> 
->   drivers/gpu/drm/msm/dp/dp_aux.c     |  28 +++++
->   drivers/gpu/drm/msm/dp/dp_display.c | 204 +++++++++++++++++++++---------------
->   drivers/gpu/drm/msm/dp/dp_display.h |   1 -
->   drivers/gpu/drm/msm/dp/dp_power.c   |   9 --
->   4 files changed, 145 insertions(+), 97 deletions(-)
-> 
+Dmitry Baryshkov (17):
+  drm/msm: add arrays listing formats supported by MDP4/MDP5 hardware
+  drm/msm/mdp5: use devres-managed allocation for configuration data
+  drm/msm/mdp5: use devres-managed allocation for CTL manager data
+  drm/msm/mdp5: use devres-managed allocation for mixer data
+  drm/msm/mdp5: use devres-managed allocation for pipe data
+  drm/msm/mdp5: use devres-managed allocation for SMP data
+  drm/msm/mdp5: use devres-managed allocation for INTF data
+  drm/msm/mdp5: use drmm-managed allocation for mdp5_crtc
+  drm/msm/mdp5: use drmm-managed allocation for mdp5_encoder
+  drm/msm/mdp5: use drmm-managed allocation for mdp5_plane
+  drm/msm/mdp4: use bulk regulators API for LCDC encoder
+  drm/msm/mdp4: use drmm-managed allocation for mdp4_crtc
+  drm/msm/mdp4: use drmm-managed allocation for mdp4_dsi_encoder
+  drm/msm/mdp4: use drmm-managed allocation for mdp4_dtv_encoder
+  drm/msm/mdp4: use drmm-managed allocation for mdp4_lcdc_encoder
+  drm/msm/mdp4: use drmm-managed allocation for mdp4_plane
+  drm/msm: drop mdp_get_formats()
+
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     | 33 +++----
+ .../gpu/drm/msm/disp/mdp4/mdp4_dsi_encoder.c  | 32 ++-----
+ .../gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c  | 37 ++------
+ .../gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c | 87 +++++--------------
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c    | 59 +++++--------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c      | 24 ++---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h      |  1 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     | 30 +++----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c      | 21 +----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.h      |  1 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c  | 29 +------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      | 25 +-----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mixer.c    | 10 +--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mixer.h    |  4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c     | 10 +--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.h     |  4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    | 40 ++-------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c      | 19 +---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h      |  1 -
+ drivers/gpu/drm/msm/disp/mdp_format.c         | 67 +++++++++-----
+ drivers/gpu/drm/msm/disp/mdp_kms.h            |  6 +-
+ 21 files changed, 171 insertions(+), 369 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
