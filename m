@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3DE574BAC4
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 03:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1044B74BAC8
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 03:04:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C09610E179;
-	Sat,  8 Jul 2023 01:04:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A81610E633;
+	Sat,  8 Jul 2023 01:04:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6DB810E175
- for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 01:04:16 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2b6f943383eso40663831fa.2
- for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 18:04:16 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C591010E1A0
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 01:04:17 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2b703a0453fso39809641fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 18:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688778255; x=1691370255;
+ d=linaro.org; s=google; t=1688778256; x=1691370256;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OvkDRRks7g8DySGasu3lXKMzrlSZVaCrNLVNV3AQolk=;
- b=ifWDV/xZ/NflqriQoy/Z+iUwbBprc7ttX3/6aI/mUGnvAICR+Y+k4gBdjgvOjNI5dL
- v73RQcQ9Yvcd4sWFr5PTJbgjq3bWTas2t5tSN9bQDmR2rKGQ7Knel+VEnAvpyka0RKES
- tlHsBDkTSTcrgqT0pVvVPtH51IHApKY1Wbz/a8MyL9e1DwNBKnVdpUiAIQcN2iFVKptx
- ieeapBeAg4pPBR6W0F3afWw0OdNqAZqMinaq15u/CdE9i7uZMAE9xLzCw8SYTw6k86FY
- YjT/2VPAnyQBwgll7vpK4HoABQ79ex/7E6fU9LU//9RTdYgXse6Hn2XlrPv60NcAwWm7
- HJ+A==
+ bh=598BryRQCllm5ISOzEN9gochJO1I/MNw3Ujjm+xPuLs=;
+ b=vj5PfahW28Im1lZ0vTFaFlu7Umhyqg3iCSlOaDS8k71IIhB1GZSrJg+c4K6+enjnfl
+ dgBPf+NLFQxVuV7KrbmNnk9eq44WhovgAFRiCdS4fJC9Vq8yPrym8vvbxZcxvA/igfPA
+ 8zpNyW+ushWolMOSyiMGHnqPGmCzsRet2Pbmk3DV38NSarDX6F/kjBsQsLwmsRDWaRf5
+ yzj4lbQsxaLaScfsQnBQoRK/O42wlwgq+0A9TqeqndlG5F46A5hTIBrct1SvLPc/4QN4
+ ghSCrv3wkt6RKud+OzoQryZWymibgvPJZhRZhVy4Dwi1RJe7/qH3462XUkJbr74LFK0d
+ acKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688778255; x=1691370255;
+ d=1e100.net; s=20221208; t=1688778256; x=1691370256;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OvkDRRks7g8DySGasu3lXKMzrlSZVaCrNLVNV3AQolk=;
- b=GB7ymGvFWTmc7l4eJaAE7kJSesE2hWowNi3fXRZbLaLZb0i+SXHQeugvRdtmWxJg4i
- 2bkEIvYzBJcFAxpvCGQO7H1D5MqqO53C8mpIAsJrpb73tSRERpMO/zLXDD7MihNurJ0F
- yYmDCtVWTVteVIeldTi9Km63za42CQCXiz16dMkMj2HLgVJft7rHSG6Vh1LBxrVvkb3o
- onz9w3iIsHZqQCNTXnf7If8vwzsSNFSbISS3Onw5AGrnLkI4ZDaJ2Aov+GZppeyLtxf4
- 4fsSJqfU0mmnXCIbWY7/FTvd6hg2Jdn1gnNbiodCLztYRmnR6AnSxU0Z5BMCXlkOmGoH
- gL2g==
-X-Gm-Message-State: ABy/qLabwLQPzvclU5IrJpaFlSreFxBWsuyGuoao7VL36egwuipMBtg/
- F04QGcnLw+QomcZm7FJFXahj+g==
-X-Google-Smtp-Source: APBJJlH2oS9vjaxVN82h8YObqDf30t8jTKMDOlnJ86Im09XQHvKw1qwi5FpPGlvOK6RkEXe24D76NA==
-X-Received: by 2002:a2e:95c2:0:b0:2b6:dbf6:6b38 with SMTP id
- y2-20020a2e95c2000000b002b6dbf66b38mr925721ljh.52.1688778255055; 
+ bh=598BryRQCllm5ISOzEN9gochJO1I/MNw3Ujjm+xPuLs=;
+ b=fTmGYO8lZlAddcWPG9ZFAYkfStGPtVgHQzQe7qE1T+S8im0Ejxg7Hu6TdSgKMHGT/N
+ nyrY4UoWAJTzp+/fmIz8Lbw4roVSpmyKRui2suoYj39F/6NGhOwMSIvQgFba9Q2PwyDv
+ 87pns5ic+vU/fMVFYmfUEiw/vsnyHi2ep/xGuKWwxgUkf99/pBgmgPrHIWbfcS6dBsFC
+ odfMREFWKVz4COxOos9qTcVuRwVGam5qyupvb+L906ZNr/X8PR1LnuYXDABHlpgcwO6F
+ XtYGTpqQw8hUBSiPC1Xkox1AmRu1pv161hheWhGi+XMl2PxUbG15KkLmRd9oeAxtArkK
+ gWMw==
+X-Gm-Message-State: ABy/qLZhiWRrcl/lLmlHcGz8W4/mTXXqd7yyYnvGaULOls0oVbLm/M/7
+ khiP33oOYvgih7xiJ9Ou58pENw==
+X-Google-Smtp-Source: APBJJlG0kajx57KenGJOCjZPD7CvtA81GcxS6VxCtq7C2DZCC5UbaybVopoQ7PdMjLL2U15AzqjOPA==
+X-Received: by 2002:a2e:9b44:0:b0:2b7:a64:91bd with SMTP id
+ o4-20020a2e9b44000000b002b70a6491bdmr4427171ljj.35.1688778255736; 
  Fri, 07 Jul 2023 18:04:15 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- l5-20020a2e8685000000b002b6ee99fff2sm1012807lji.34.2023.07.07.18.04.14
+ l5-20020a2e8685000000b002b6ee99fff2sm1012807lji.34.2023.07.07.18.04.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 18:04:14 -0700 (PDT)
+ Fri, 07 Jul 2023 18:04:15 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat,  8 Jul 2023 04:03:59 +0300
-Message-Id: <20230708010407.3871346-10-dmitry.baryshkov@linaro.org>
+Date: Sat,  8 Jul 2023 04:04:00 +0300
+Message-Id: <20230708010407.3871346-11-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230708010407.3871346-1-dmitry.baryshkov@linaro.org>
 References: <20230708010407.3871346-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 09/17] drm/msm/mdp5: use drmm-managed allocation
- for mdp5_encoder
+Subject: [Freedreno] [PATCH 10/17] drm/msm/mdp5: use drmm-managed allocation
+ for mdp5_plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,67 +83,92 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Change struct mdp5_encoder allocation to use drmm_encoder_alloc(). This
-removes the need to perform any actions on encoder destruction.
+Change struct mdp5_plane allocation to use drmm_plane_alloc(). This
+removes the need to perform any actions on plane destruction.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c | 29 +++-----------------
- 1 file changed, 4 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 40 ++++------------------
+ 1 file changed, 6 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c
-index 79d67c495780..8db97083e14d 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c
-@@ -16,17 +16,6 @@ static struct mdp5_kms *get_kms(struct drm_encoder *encoder)
- 	return to_mdp5_kms(to_mdp_kms(priv->kms));
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+index bd2c4ac45601..177fc1a56aad 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+@@ -17,9 +17,6 @@
+ 
+ struct mdp5_plane {
+ 	struct drm_plane base;
+-
+-	uint32_t nformats;
+-	uint32_t formats[32];
+ };
+ #define to_mdp5_plane(x) container_of(x, struct mdp5_plane, base)
+ 
+@@ -38,15 +35,6 @@ static bool plane_enabled(struct drm_plane_state *state)
+ 	return state->visible;
  }
  
--static void mdp5_encoder_destroy(struct drm_encoder *encoder)
+-static void mdp5_plane_destroy(struct drm_plane *plane)
 -{
--	struct mdp5_encoder *mdp5_encoder = to_mdp5_encoder(encoder);
--	drm_encoder_cleanup(encoder);
--	kfree(mdp5_encoder);
+-	struct mdp5_plane *mdp5_plane = to_mdp5_plane(plane);
+-
+-	drm_plane_cleanup(plane);
+-
+-	kfree(mdp5_plane);
 -}
 -
--static const struct drm_encoder_funcs mdp5_encoder_funcs = {
--	.destroy = mdp5_encoder_destroy,
--};
--
- static void mdp5_vid_encoder_mode_set(struct drm_encoder *encoder,
- 				      struct drm_display_mode *mode,
- 				      struct drm_display_mode *adjusted_mode)
-@@ -342,13 +331,11 @@ struct drm_encoder *mdp5_encoder_init(struct drm_device *dev,
- 	struct mdp5_encoder *mdp5_encoder;
- 	int enc_type = (intf->type == INTF_DSI) ?
- 		DRM_MODE_ENCODER_DSI : DRM_MODE_ENCODER_TMDS;
+ /* helper to install properties which are common to planes and crtcs */
+ static void mdp5_plane_install_properties(struct drm_plane *plane,
+ 		struct drm_mode_object *obj)
+@@ -139,7 +127,6 @@ static void mdp5_plane_destroy_state(struct drm_plane *plane,
+ static const struct drm_plane_funcs mdp5_plane_funcs = {
+ 		.update_plane = drm_atomic_helper_update_plane,
+ 		.disable_plane = drm_atomic_helper_disable_plane,
+-		.destroy = mdp5_plane_destroy,
+ 		.reset = mdp5_plane_reset,
+ 		.atomic_duplicate_state = mdp5_plane_duplicate_state,
+ 		.atomic_destroy_state = mdp5_plane_destroy_state,
+@@ -1014,25 +1001,16 @@ struct drm_plane *mdp5_plane_init(struct drm_device *dev,
+ {
+ 	struct drm_plane *plane = NULL;
+ 	struct mdp5_plane *mdp5_plane;
 -	int ret;
  
--	mdp5_encoder = kzalloc(sizeof(*mdp5_encoder), GFP_KERNEL);
--	if (!mdp5_encoder) {
+-	mdp5_plane = kzalloc(sizeof(*mdp5_plane), GFP_KERNEL);
+-	if (!mdp5_plane) {
 -		ret = -ENOMEM;
 -		goto fail;
 -	}
-+	mdp5_encoder = drmm_encoder_alloc(dev, struct mdp5_encoder, base,
-+					  NULL, enc_type, NULL);
-+	if (IS_ERR(mdp5_encoder))
-+		return ERR_CAST(mdp5_encoder);
++	mdp5_plane = drmm_universal_plane_alloc(dev, struct mdp5_plane, base,
++						0xff, &mdp5_plane_funcs,
++						mdp_rgb_yuv_formats, mdp_rgb_yuv_num_formats,
++						NULL, type, NULL);
++	if (IS_ERR(mdp5_plane))
++		return ERR_CAST(mdp5_plane);
  
- 	encoder = &mdp5_encoder->base;
- 	mdp5_encoder->ctl = ctl;
-@@ -356,15 +343,7 @@ struct drm_encoder *mdp5_encoder_init(struct drm_device *dev,
+ 	plane = &mdp5_plane->base;
  
- 	spin_lock_init(&mdp5_encoder->intf_lock);
- 
--	drm_encoder_init(dev, encoder, &mdp5_encoder_funcs, enc_type, NULL);
+-	mdp5_plane->nformats = mdp_get_formats(mdp5_plane->formats,
+-		ARRAY_SIZE(mdp5_plane->formats), false);
 -
- 	drm_encoder_helper_add(encoder, &mdp5_encoder_helper_funcs);
+-	ret = drm_universal_plane_init(dev, plane, 0xff, &mdp5_plane_funcs,
+-			mdp5_plane->formats, mdp5_plane->nformats,
+-			NULL, type, NULL);
+-	if (ret)
+-		goto fail;
+-
+ 	drm_plane_helper_add(plane, &mdp5_plane_helper_funcs);
  
- 	return encoder;
+ 	mdp5_plane_install_properties(plane, &plane->base);
+@@ -1040,10 +1018,4 @@ struct drm_plane *mdp5_plane_init(struct drm_device *dev,
+ 	drm_plane_enable_fb_damage_clips(plane);
+ 
+ 	return plane;
 -
 -fail:
--	if (encoder)
--		mdp5_encoder_destroy(encoder);
+-	if (plane)
+-		mdp5_plane_destroy(plane);
 -
 -	return ERR_PTR(ret);
  }
