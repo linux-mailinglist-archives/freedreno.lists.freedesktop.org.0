@@ -2,68 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A63474BD89
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 15:00:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 631A874BE48
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 17:41:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 006E689CF6;
-	Sat,  8 Jul 2023 13:00:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C4B10E0F3;
+	Sat,  8 Jul 2023 15:41:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DEBF10E0E4
- for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 13:00:46 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4fb960b7c9dso4437924e87.0
- for <freedreno@lists.freedesktop.org>; Sat, 08 Jul 2023 06:00:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688821242; x=1691413242;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dm1KjGkHlrKrzQJ/qXePV964b6OsIyDARoNzyXVIDWI=;
- b=D8z4Ss4KTOKvdJHHxs3LqjidCtsB6+HtTuJuIzgV8NBiJwLUgm6u0JFUvzx+LrB34i
- LTfPf+gdDvzE+zMAE1ZBiEl9Ce4tqP7Zyl3sSKfxKw7eRrYPRoqt3tXLt9PFv2sv9m9j
- NYLezds2faxQeiSeBjSiUGMWBnaoYLuFnPDsDLvpX8j6tSJpVlTTquHcMkBen6XpbY9d
- F82xfUcpyJ/29YUgWsHI+PBZ5FdyhUOfu1obaiL+NyGccdklBBWbh+nau4Nh+UmNvFXa
- JkcQvFvmFm+Ne4KgqYUQPL8tmYkCcXFduCfqbJE0ONc83ZYGaxndNQqfegtGjIP05lVU
- GFnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688821242; x=1691413242;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dm1KjGkHlrKrzQJ/qXePV964b6OsIyDARoNzyXVIDWI=;
- b=H/nkdEmiPhk4hVCZELTIzrKipTS0hN4FQB+ECTvdhKgZDL4s5LZ77NVoXzKjo/Y7iO
- Bdega79D7lS5iZXqebsjdr4Q9b1+tPSDu3nSSlH0GK6vRL8sdm05fkekZfxjASYGYpp2
- A5BhM65pjGkegsHgnij2SnVB7yoN2AXUMZk1Mhhc8IgMtaERbUxbhAjxbc3PPnNaSH1l
- lX0nN01LmQ55+fo9MtsfymoLqozHcQOzYURcPqrE7iJQJREsKX38vnzdT8jVojh/gY25
- EelIvh+VVIgozR2VQpFXCEHyACumbjkEpReJ6RiU9KBhdl4gXDIs0ETN8wdvxul6P9rc
- EOFw==
-X-Gm-Message-State: ABy/qLbLQx1f5qf6IPcOo0U9TCu4HNKsg++/TQsAzdkWp2dJtF6Gg/Vj
- g88YyaUgx7M1vzPlP3DTbwFXAA==
-X-Google-Smtp-Source: APBJJlEeCtPsw5E/78MiWAsmEFeLoaOHSx9CtDtK6CnIsNnvgWYFUmlLt/2Tz4EYpAhCKMSZysqirw==
-X-Received: by 2002:ac2:498e:0:b0:4fa:a0c3:efa1 with SMTP id
- f14-20020ac2498e000000b004faa0c3efa1mr5492354lfl.7.1688821241765; 
- Sat, 08 Jul 2023 06:00:41 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- l10-20020a19c20a000000b004fb96436ac7sm1003839lfc.250.2023.07.08.06.00.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Jul 2023 06:00:41 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat,  8 Jul 2023 16:00:39 +0300
-Message-Id: <20230708130039.1596599-2-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230708130039.1596599-1-dmitry.baryshkov@linaro.org>
-References: <20230708130039.1596599-1-dmitry.baryshkov@linaro.org>
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75F110E0F3
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 15:41:06 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id EA723861A1;
+ Sat,  8 Jul 2023 17:40:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1688830859;
+ bh=Q93i6ZFRqe4Xj0HAnyap24yrBfko+wDS3oDw9gziADI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=AoxxnN9gAF/E0MPV2SZ98pF9jl2blfheyvL0SrwtciUDuiWUhQB1hcIR6xKli+nDh
+ 4DCobKt7lHfSUD31ywWXjsE59C04dOK7Y6wgAfSUcHnYYSzLEgjqXqOckt0BPZDHIu
+ YeIRpP01OLLHFYW0X7PGPn4YYkuOPKz+r3zsalpWjrJtB1JD/dSDrFQnnuQRMcodBR
+ P82AQ3szcuGc2mcyy63YvWowQ8GqbignYB8aUxxAVtjTwyCzL7+B0JS7kdDtpcFLhJ
+ V783SidDBsWMFtIftrOi2FD9Uwtf1p0qXJXTuTBYsaQDNXLy68r8ylDbCDjVhFe+6h
+ 8odn5AxmJ+nAg==
+Message-ID: <800f9e1a-cb66-5bf5-d225-ef338c1c1584@denx.de>
+Date: Sat, 8 Jul 2023 17:40:57 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+To: neil.armstrong@linaro.org, Amit Pundir <amit.pundir@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230403221233.500485-1-marex@denx.de>
+ <20230403221233.500485-2-marex@denx.de>
+ <CAMi1Hd0TD=2z_=bcDrht3H_wiLvAFcv8Z-U_r_KUOoeMc6UMjw@mail.gmail.com>
+ <CAMty3ZBNFu=f-FS4YFN4wfmiTuk=48nna-vub1eMYwidDt+msg@mail.gmail.com>
+ <CAA8EJppbdiUz5m+9EAPnFb916DaS_VKWd30c7_EPWjuid8rtqQ@mail.gmail.com>
+ <CAMi1Hd2G5PJmz4wpO1wbdqKd0FA8LBgvRDv2u5ZYAMb5s6Kt0A@mail.gmail.com>
+ <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
+ <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
+Content-Language: en-US
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: fix DSC 1.2 enc subblock
- length
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
+ HFP/HBP/HSA and EOT packet
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,45 +66,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Robert Foss <rfoss@kernel.org>,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Michael Walle <michael@walle.cc>, Jagan Teki <jagan@amarulasolutions.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Both struct dpu_dsc_sub_blks instances declare enc subblock length to be
-0x100, while the actual length is 0x9c (last register having offset 0x98).
-Reduce subblock length to remove the empty register space from being
-dumped.
+On 7/7/23 10:47, Neil Armstrong wrote:
+> On 07/07/2023 09:18, Neil Armstrong wrote:
+>> Hi,
+>>
+>> On 06/07/2023 11:20, Amit Pundir wrote:
+>>> On Wed, 5 Jul 2023 at 11:09, Dmitry Baryshkov
+>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>
+>>>> [Adding freedreno@ to cc list]
+>>>>
+>>>> On Wed, 5 Jul 2023 at 08:31, Jagan Teki <jagan@amarulasolutions.com> 
+>>>> wrote:
+>>>>>
+>>>>> Hi Amit,
+>>>>>
+>>>>> On Wed, Jul 5, 2023 at 10:15 AM Amit Pundir 
+>>>>> <amit.pundir@linaro.org> wrote:
+>>>>>>
+>>>>>> Hi Marek,
+>>>>>>
+>>>>>> On Wed, 5 Jul 2023 at 01:48, Marek Vasut <marex@denx.de> wrote:
+>>>>>>>
+>>>>>>> Do not generate the HS front and back porch gaps, the HSA gap and
+>>>>>>> EOT packet, as these packets are not required. This makes the bridge
+>>>>>>> work with Samsung DSIM on i.MX8MM and i.MX8MP.
+>>>>>>
+>>>>>> This patch broke display on Dragonboard 845c (SDM845) devboard 
+>>>>>> running
+>>>>>> AOSP. This is what I see
+>>>>>> https://people.linaro.org/~amit.pundir/db845c-userdebug/v6.5-broken-display/PXL_20230704_150156326.jpg.
+>>>>>> Reverting this patch fixes this regression for me.
+>>>>>
+>>>>> Might be msm dsi host require proper handling on these updated
+>>>>> mode_flags? did they?
+>>>>
+>>>> The msm DSI host supports those flags. Also, I'd like to point out
+>>>> that the patch didn't change the rest of the driver code. So even if
+>>>> drm/msm ignored some of the flags, it should not have caused the
+>>>> issue. Most likely the issue is on the lt9611 side. I's suspect that
+>>>> additional programming is required to make it work with these flags.
+>>>
+>>> I spent some time today on smoke testing these flags (individually and
+>>> in limited combination) on DB845c, to narrow down this breakage to one
+>>> or more flag(s) triggering it. Here are my observations in limited
+>>> testing done so far.
+>>>
+>>> There is no regression with MIPI_DSI_MODE_NO_EOT_PACKET when enabled
+>>> alone and system boots to UI as usual.
+>>>
+>>> MIPI_DSI_MODE_VIDEO_NO_HFP always trigger the broken display as in the
+>>> screenshot[1] shared earlier as well.
+>>>
+>>> Adding either of MIPI_DSI_MODE_VIDEO_NO_HSA and
+>>> MIPI_DSI_MODE_VIDEO_NO_HBP always result in no display, unless paired
+>>> with MIPI_DSI_MODE_VIDEO_NO_HFP and in that case we get the broken
+>>> display as reported.
+>>>
+>>> In short other than MIPI_DSI_MODE_NO_EOT_PACKET flag, all other flags
+>>> added in this commit break the display on DB845c one way or another.
+>>
+>> I think the investigation would be to understand why samsung-dsim 
+>> requires
+>> such flags and/or what are the difference in behavior between MSM DSI 
+>> and samsung DSIM
+>> for those flags ?
+>>
+>> If someone has access to the lt9611 datasheet, so it requires 
+>> HSA/HFP/HBP to be
+>> skipped ? and does MSM DSI and samsung DSIM skip them in the same way ?
 
-Fixes: 0d1b10c63346 ("drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets")
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I don't have the LT9611 datasheet, no.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 0de507d4d7b7..dd2f89ada043 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -517,12 +517,12 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
-  * DSC sub blocks config
-  *************************************************************/
- static const struct dpu_dsc_sub_blks dsc_sblk_0 = {
--	.enc = {.base = 0x100, .len = 0x100},
-+	.enc = {.base = 0x100, .len = 0x9c},
- 	.ctl = {.base = 0xF00, .len = 0x10},
- };
- 
- static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
--	.enc = {.base = 0x200, .len = 0x100},
-+	.enc = {.base = 0x200, .len = 0x9c},
- 	.ctl = {.base = 0xF80, .len = 0x10},
- };
- 
--- 
-2.40.1
+The MX8M DSI (samsung-dsim) skips the HSA/HFP/HBP completely (see 
+i.MX8MP RM 13.6.2.7.2 RGB Interface , there is infographics on the 
+following pages).
 
+> I think there's a mismatch, where on one side this flags sets the link 
+> in LP-11 while
+> in HSA/HFP/HPB while on the other it completely removes those blanking 
+> packets.
+> 
+> The name MIPI_DSI_MODE_VIDEO_NO_HBP suggests removal of HPB, not LP-11 
+> while HPB.
+> the registers used in both controllers are different:
+> - samsung-dsim: DSIM_HBP_DISABLE_MODE
+> - msm dsi: DSI_VID_CFG0_HBP_POWER_STOP
+> 
+> The first one suggest removing the packet, while the second one suggests 
+> powering
+> off the line while in the blanking packet period.
+> 
+> @Abhinav, can you comment on that ?
+> 
+> @Jagan, Andrezej So you have any documentation on what 
+> DSIM_xxx_DISABLE_MODE does ?
+
+See above, i.MX8M M/N/P uses the samsung-dsim block .
+
+> @Dmitry, so you have access to the lt9611 datasheet to know what's 
+> needed here ?
+
+[...]
