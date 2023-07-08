@@ -1,79 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D752674BB57
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 04:17:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C9474BD2C
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 12:02:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65FE110E012;
-	Sat,  8 Jul 2023 02:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D43A310E160;
+	Sat,  8 Jul 2023 10:01:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 054D410E012;
- Sat,  8 Jul 2023 02:17:42 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3682Dbdi013126; Sat, 8 Jul 2023 02:17:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=ulqXHTnSVhXeSCsXuK1tQZWJn8XC9VriTf8V1YytK2I=;
- b=Kz7lx1gSwWVdTODR8QNLKnr5ndK+WtMzlfNUEQ0WX5f5TNG66UxTcktQIJrP+bhJjSD1
- Xp+KU7HlneB9ImwqxCZAU9vnPhPTZ3VhlFHV2LrDORZ+fpJqyVNZf38PxOep5C3dbP4C
- l/IhA/TGZ8PrSIXY+6K93UkG3BhLOg+w6kaq+Ds+KBJznV7E3pQIgFKELZrHWt8h3rNK
- 0t719qXbaCXrZRL0sByJKdMmUp7BePmAP4xGxTN6QVrftVHVGGMvoVG4er8aAQM/L2YF
- VuyvTGaV3w6mSH0YeA9YRbIrcWYnf2G13TRo9uWhoJ2nTcSVdYLAIRgBdYIirbZQ+Xyd +w== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rpxter068-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 08 Jul 2023 02:17:37 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3682Ha8Y007962
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 8 Jul 2023 02:17:36 GMT
-Received: from [10.110.118.168] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 7 Jul
- 2023 19:17:35 -0700
-Message-ID: <2c880c8c-0156-e757-8205-8ddba15b85bf@quicinc.com>
-Date: Fri, 7 Jul 2023 19:17:34 -0700
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCDF10E0D8
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 10:01:56 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4fba03becc6so4957134e87.0
+ for <freedreno@lists.freedesktop.org>; Sat, 08 Jul 2023 03:01:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1688810514; x=1691402514;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9rj4Z+mfXCUyYvWmdsCMEO/uJfLE2EY/r48qFdhgyH0=;
+ b=CUXDl9tiMZGH+iNUEyIY1qGILZhIZ9KyvhorLTot++kLhNw2jWrlbYOECjvgSlmHTE
+ gKhvrbp01KSJHGubXkEaVZZOAArHTnFU0NOPYulJJS2IJAj6SG/5+2qaoM9udGQNihXS
+ 6TLN1CWIBcck5b6546uaATY+9n+i9uZGy/Hzk2AcxZ3Oo4kylvU2yKetj0HXZABzicgm
+ xo7p5noonPOno28y7tLO0m2t17sIxskfUvQ/BRQvHqVraOEbq5SUX2vKTmeme+T976H0
+ 1n8Yu9FDna1wpRSQFPE+zF6or9zgjUMFHHKUU3cOJHMjZjCfIRkn7pBvcXtTwtZ0edxT
+ ug9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688810514; x=1691402514;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9rj4Z+mfXCUyYvWmdsCMEO/uJfLE2EY/r48qFdhgyH0=;
+ b=W4lhYaAQRQfbTzisZU2jsPgxdmiNKb7hDLPS1/JOjtkHbbHm1U84eGTA4Bdpw8KjDC
+ j19LoRWzpUVirBidTBK1OcLXPmydXTS8dLr5HfnmGjqHzIvFpXvJKKVaFNUGVeipX2As
+ 2kwEYQuT9cU0gYugBwkJbAzaVrHae7hVWXO+EI6oxWFFQ8MmL/qLz0ME1IuoXp9kLQgk
+ yDtG1bqs920kXK54LElUjt+gX3qzPkcJbXagISfDil1IFsHvOUSml9hNknFzJBVjboKt
+ sebzhQ+AyP4YoERRIDz0goT31KRYwpPD5zLAvNL7WKrfkIvlP9puZmJEKdQLS7FSVi5V
+ nWbA==
+X-Gm-Message-State: ABy/qLZeGoByellGGcBQRMRGo0RSDZjvbiXbCUQYEu95cak/NPZFrz8w
+ Io52m4aI3iIIfLNVPiQCYfn2yQ==
+X-Google-Smtp-Source: APBJJlFtarhQ7GHwzpt/YmIpHZWCB8CH6BbzO3TJOLN98PLGPmi9DfQaZvOvRTZmU8hJUh560F2qRw==
+X-Received: by 2002:a19:2d10:0:b0:4f9:56a5:81d0 with SMTP id
+ k16-20020a192d10000000b004f956a581d0mr2607956lfj.24.1688810514203; 
+ Sat, 08 Jul 2023 03:01:54 -0700 (PDT)
+Received: from [192.168.1.101] (abyj26.neoplus.adsl.tpnet.pl. [83.9.29.26])
+ by smtp.gmail.com with ESMTPSA id
+ q15-20020ac246ef000000b004fac93bdaecsm973139lfo.242.2023.07.08.03.01.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 08 Jul 2023 03:01:53 -0700 (PDT)
+Message-ID: <537dfdac-9a60-34aa-ab60-e09a08792e43@linaro.org>
+Date: Sat, 8 Jul 2023 12:01:51 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230623013731.1088007-1-dmitry.baryshkov@linaro.org>
- <20230623013731.1088007-2-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230623013731.1088007-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: QoWXY8OUPbATiOXeuLnkAvv5Ci-WijTN
-X-Proofpoint-ORIG-GUID: QoWXY8OUPbATiOXeuLnkAvv5Ci-WijTN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-07_16,2023-07-06_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 mlxlogscore=926 bulkscore=0 spamscore=0
- malwarescore=0 adultscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2305260000
- definitions=main-2307080019
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: fix DSC 1.2 enc subblock
- length
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230707203724.3820757-1-dmitry.baryshkov@linaro.org>
+ <20230707203724.3820757-2-dmitry.baryshkov@linaro.org>
+ <81ff3de5-4fe4-9c01-5655-78f5311f7817@linaro.org>
+ <cc312e51-e0c0-c1f9-aa56-60cf95e23b79@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <cc312e51-e0c0-c1f9-aa56-60cf95e23b79@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 01/13] drm/msm/dpu: cleanup dpu_kms_hw_init
+ error path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,19 +90,102 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/22/2023 6:37 PM, Dmitry Baryshkov wrote:
-> Both struct dpu_dsc_sub_blks instances declare enc subblock length to be
-> 0x100, while the actual length is 0x9c (last register having offset 0x98).
-> Reduce subblock length to remove the empty register space from being
-> dumped.
+On 8.07.2023 01:48, Dmitry Baryshkov wrote:
+> On 08/07/2023 02:25, Konrad Dybcio wrote:
+>> On 7.07.2023 22:37, Dmitry Baryshkov wrote:
+>>> It was noticed that dpu_kms_hw_init()'s error path contains several
+>>> labels which point to the same code path. Replace all of them with a
+>>> single label.
+>>>
+>>> Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> it's the first time I'm seeing this code
+>>
 > 
-> Fixes: 0d1b10c63346 ("drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+> It is Suggested-by, not something else. And you pointed it out in https://lore.kernel.org/linux-arm-msm/6d598438-f10f-8678-7878-829b8b3ae790@linaro.org/
+Oh, thanks
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Konrad
+> 
+>> Konrad
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 21 +++++++++------------
+>>>   1 file changed, 9 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> index c11b3ab572ab..e7ac02e92f42 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> @@ -1037,7 +1037,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>       if (!dpu_kms->catalog) {
+>>>           DPU_ERROR("device config not known!\n");
+>>>           rc = -EINVAL;
+>>> -        goto power_error;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         /*
+>>> @@ -1047,13 +1047,13 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>       rc = _dpu_kms_mmu_init(dpu_kms);
+>>>       if (rc) {
+>>>           DPU_ERROR("dpu_kms_mmu_init failed: %d\n", rc);
+>>> -        goto power_error;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         rc = dpu_rm_init(&dpu_kms->rm, dpu_kms->catalog, dpu_kms->mmio);
+>>>       if (rc) {
+>>>           DPU_ERROR("rm init failed: %d\n", rc);
+>>> -        goto power_error;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         dpu_kms->rm_init = true;
+>>> @@ -1065,7 +1065,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>           rc = PTR_ERR(dpu_kms->hw_mdp);
+>>>           DPU_ERROR("failed to get hw_mdp: %d\n", rc);
+>>>           dpu_kms->hw_mdp = NULL;
+>>> -        goto power_error;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+>>> @@ -1076,7 +1076,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>           if (IS_ERR(hw)) {
+>>>               rc = PTR_ERR(hw);
+>>>               DPU_ERROR("failed to init vbif %d: %d\n", vbif->id, rc);
+>>> -            goto power_error;
+>>> +            goto err_pm_put;
+>>>           }
+>>>             dpu_kms->hw_vbif[vbif->id] = hw;
+>>> @@ -1092,7 +1092,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>       rc = dpu_core_perf_init(&dpu_kms->perf, dpu_kms->catalog->perf, max_core_clk_rate);
+>>>       if (rc) {
+>>>           DPU_ERROR("failed to init perf %d\n", rc);
+>>> -        goto perf_err;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         dpu_kms->hw_intr = dpu_hw_intr_init(dpu_kms->mmio, dpu_kms->catalog);
+>>> @@ -1100,7 +1100,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>           rc = PTR_ERR(dpu_kms->hw_intr);
+>>>           DPU_ERROR("hw_intr init failed: %d\n", rc);
+>>>           dpu_kms->hw_intr = NULL;
+>>> -        goto hw_intr_init_err;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         dev->mode_config.min_width = 0;
+>>> @@ -1125,7 +1125,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>       rc = _dpu_kms_drm_obj_init(dpu_kms);
+>>>       if (rc) {
+>>>           DPU_ERROR("modeset init failed: %d\n", rc);
+>>> -        goto drm_obj_init_err;
+>>> +        goto err_pm_put;
+>>>       }
+>>>         dpu_vbif_init_memtypes(dpu_kms);
+>>> @@ -1134,10 +1134,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>>         return 0;
+>>>   -drm_obj_init_err:
+>>> -hw_intr_init_err:
+>>> -perf_err:
+>>> -power_error:
+>>> +err_pm_put:
+>>>       pm_runtime_put_sync(&dpu_kms->pdev->dev);
+>>>   error:
+>>>       _dpu_kms_hw_destroy(dpu_kms);
+> 
