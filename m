@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 756E574BACD
-	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 03:04:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB46E74BAC3
+	for <lists+freedreno@lfdr.de>; Sat,  8 Jul 2023 03:04:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CCB110E63D;
-	Sat,  8 Jul 2023 01:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFE510E169;
+	Sat,  8 Jul 2023 01:04:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6DE10E062
- for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 01:04:14 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2b701e41cd3so40544981fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 18:04:14 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6081910E06D
+ for <freedreno@lists.freedesktop.org>; Sat,  8 Jul 2023 01:04:15 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2b703c900e3so38802041fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 07 Jul 2023 18:04:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1688778253; x=1691370253;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2II3eP/imOK3wgOrSDeLiLVf5Scf+gSw5v2bj8N9xHc=;
- b=RZocBjiVJprEs93xGEUXJmEZg67XQcLKV4GI9CSye+jwEprd1kpbiEBCi4dgD099JV
- YUuv3FlJPcrrk20avme4buforkmOmZqUrykOulLb8jpuqbyzt1zzox+/2G8ONG0Ayl2J
- 52RqOEF0K+eI18akuycEowccqK0k7FCGdG5IGSEq9mkN2QELYa7rHjClfupNsgdFjm9g
- j97SMUhgkLSsLgAPYUOTHGql1pwaTjtiM/oavPOu++HzYBDNh4fVc4azmCHZOPrNNemy
- F9Mip/77U5cPEGYCIof9tmCKVMOteo3JO6E85mOP/rIqlZs+WvvXorhA1lQvKyXFpldk
- 5f3A==
+ bh=1dDa09IPPKyYg+3VZJKhZ3MpuhgcB8Qzz0Yy6G9C0Hg=;
+ b=sCHFkAXRMGNLN34irJotyEcd+hn9zqPWNSmMxcrmEowScO05PBx1OEgjsErNy7P1PG
+ QXZdrUHEYIPrR+ymYAiUKG58rbU8zL1fG4r51xsbnVKXXBObMbA1X1mCUKC1bVHTQFRS
+ 8WIXJ3jMAwr09u8l6CzvDOdFFtbhf//Rub3ZZFqo3T1Qig5jq8ir73cySv3WgSduhQ6p
+ I/25LuuGClWJQrPqfM2rLJPbXDCzGsk+Tgp2/PULNlqG1po4hP2+imGEcEfAidMJoRlQ
+ IcXEeo2rIeVJgfXRzhPgADpTSQ7W/SkLfcN0e2gan23B9L/QREZIqiOTvbrasPG0ICh7
+ faOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1688778253; x=1691370253;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2II3eP/imOK3wgOrSDeLiLVf5Scf+gSw5v2bj8N9xHc=;
- b=eURyStLt1dRS9R33OXUu/txUqUwBvfruHczkyyFqWGoJcpWGxP2AhRmKfxmPckcNo7
- wlY2VjgnXhrWCTpHex9nu4YIQ5Kt5fW7+qrowGv+X0d61393AW3NHKXuQ1NOo4WDaBmX
- JgYPr5vhLcrJ4BCHWw9rSFVMsew/Ak3/ekZKT9FagsJOU/1T5rdoPEiF+09EECMHyziK
- YuPjOLGuV5r+rz63nw9bfiRzvIuHZNTnjaiuor/iInpIEhxxff7QmnWni0IjZGeO2UWg
- 1IjbBhmA004xnetvF/r3hMEQiOpcOF+nuj2lEH69/qnp3vLap8mZDLt6JTRWV4Toa39Y
- vwrA==
-X-Gm-Message-State: ABy/qLZh+bpA9a4LjMYYBRR3BUo4hLE1qzRdpIVUjvXDeNbhg/B0OVKh
- mADYGAGK/+4XrbNgwa5l1fzIxA==
-X-Google-Smtp-Source: APBJJlGP8VAjq6k876CRT56faHFdQfRap+fUYG9xImOyv+dOqSre58JgXws72E9dWNiKNRgoi9Q8oA==
-X-Received: by 2002:a2e:80cd:0:b0:2b6:dd9a:e1d3 with SMTP id
- r13-20020a2e80cd000000b002b6dd9ae1d3mr4753616ljg.44.1688778253013; 
+ bh=1dDa09IPPKyYg+3VZJKhZ3MpuhgcB8Qzz0Yy6G9C0Hg=;
+ b=TKqe56IT0Ug+f7japUd4nx0zC3wQAH991Lcg2BEWc/iiFnQfVGcVD1Lgl+bAPpAFjv
+ bwG5G1Erwev+QWa5T91LYIsWFtAcFPA7dAi3si7j1ZSH8tyvmwOBj84tgl7iI6bulXFu
+ CDFZn6e8/IMhSIe+4G/0swVG+O1LSmU+miwAifF5qVmweRhROQFe97P4XcQZdErOisud
+ 3g6smPxF4Eubk9qUaBCvXrYz/EKFOQ8r/Y6QiaVHBeSXoYnNoamummbMtAG/h+3kBvmy
+ UM/1HjnE/SWv1CZVSwLmAWq0Mm5qDanGWISzG3Biel7xez7eEcc44feaHS0nAf0pPxGh
+ 1MiA==
+X-Gm-Message-State: ABy/qLY3tff3iSWZt0pS7J+cGiNWlP36KG0BWkZCh9lm4cGEZwZHimgF
+ SpODHJSVWO95KLIg8k3I87A/0g==
+X-Google-Smtp-Source: APBJJlFZI7DJACf80E6XDfRqLGI8AxOmzj91GP7D4NEzNyhKdUniENni2CFKzVBC/CXpA+9+td2koQ==
+X-Received: by 2002:a2e:9c8f:0:b0:2b4:6f0c:4760 with SMTP id
+ x15-20020a2e9c8f000000b002b46f0c4760mr4282505lji.11.1688778253718; 
  Fri, 07 Jul 2023 18:04:13 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- l5-20020a2e8685000000b002b6ee99fff2sm1012807lji.34.2023.07.07.18.04.12
+ l5-20020a2e8685000000b002b6ee99fff2sm1012807lji.34.2023.07.07.18.04.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 18:04:12 -0700 (PDT)
+ Fri, 07 Jul 2023 18:04:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat,  8 Jul 2023 04:03:56 +0300
-Message-Id: <20230708010407.3871346-7-dmitry.baryshkov@linaro.org>
+Date: Sat,  8 Jul 2023 04:03:57 +0300
+Message-Id: <20230708010407.3871346-8-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230708010407.3871346-1-dmitry.baryshkov@linaro.org>
 References: <20230708010407.3871346-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 06/17] drm/msm/mdp5: use devres-managed
- allocation for SMP data
+Subject: [Freedreno] [PATCH 07/17] drm/msm/mdp5: use devres-managed
+ allocation for INTF data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,84 +83,39 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use devm_kzalloc to create SMP data structure. This allows us
-to remove corresponding kfree and drop mdp5_smp_destroy() function.
+Use devm_kzalloc to create INTF data structure. This allows us
+to remove corresponding kfree() call.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  3 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 19 ++++---------------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h |  1 -
- 3 files changed, 4 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index be4338a48e52..0a85777625d3 100644
+index 0a85777625d3..fb2b3bf081ee 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -618,9 +618,6 @@ static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
+@@ -616,11 +616,6 @@ static int mdp5_kms_init(struct drm_device *dev)
+ 
+ static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
  {
- 	int i;
- 
--	if (mdp5_kms->smp)
--		mdp5_smp_destroy(mdp5_kms->smp);
+-	int i;
 -
- 	for (i = 0; i < mdp5_kms->num_intfs; i++)
- 		kfree(mdp5_kms->intfs[i]);
- 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
-index 56a3063545ec..d7c957207255 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
-@@ -370,23 +370,17 @@ void mdp5_smp_dump(struct mdp5_smp *smp, struct drm_printer *p)
- 		drm_modeset_unlock(&mdp5_kms->glob_state_lock);
- }
- 
--void mdp5_smp_destroy(struct mdp5_smp *smp)
--{
--	kfree(smp);
--}
- 
- struct mdp5_smp *mdp5_smp_init(struct mdp5_kms *mdp5_kms, const struct mdp5_smp_block *cfg)
- {
-+	struct drm_device *dev = mdp5_kms->dev;
- 	struct mdp5_smp_state *state;
- 	struct mdp5_global_state *global_state;
- 	struct mdp5_smp *smp = NULL;
--	int ret;
- 
--	smp = kzalloc(sizeof(*smp), GFP_KERNEL);
--	if (unlikely(!smp)) {
--		ret = -ENOMEM;
--		goto fail;
--	}
-+	smp = devm_kzalloc(dev->dev, sizeof(*smp), GFP_KERNEL);
-+	if (unlikely(!smp))
-+		return ERR_PTR(-ENOMEM);
- 
- 	smp->dev = mdp5_kms->dev;
- 	smp->blk_cnt = cfg->mmb_count;
-@@ -400,9 +394,4 @@ struct mdp5_smp *mdp5_smp_init(struct mdp5_kms *mdp5_kms, const struct mdp5_smp_
- 	memcpy(smp->reserved, cfg->reserved, sizeof(smp->reserved));
- 
- 	return smp;
--fail:
--	if (smp)
--		mdp5_smp_destroy(smp);
+-	for (i = 0; i < mdp5_kms->num_intfs; i++)
+-		kfree(mdp5_kms->intfs[i]);
 -
--	return ERR_PTR(ret);
- }
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h
-index ba5618e136c3..d8b6a11413d9 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h
-@@ -68,7 +68,6 @@ struct mdp5_smp;
+ 	if (mdp5_kms->rpm_enabled)
+ 		pm_runtime_disable(&mdp5_kms->pdev->dev);
  
- struct mdp5_smp *mdp5_smp_init(struct mdp5_kms *mdp5_kms,
- 		const struct mdp5_smp_block *cfg);
--void  mdp5_smp_destroy(struct mdp5_smp *smp);
+@@ -741,7 +736,7 @@ static int interface_init(struct mdp5_kms *mdp5_kms)
+ 		if (intf_types[i] == INTF_DISABLED)
+ 			continue;
  
- void mdp5_smp_dump(struct mdp5_smp *smp, struct drm_printer *p);
- 
+-		intf = kzalloc(sizeof(*intf), GFP_KERNEL);
++		intf = devm_kzalloc(dev->dev, sizeof(*intf), GFP_KERNEL);
+ 		if (!intf) {
+ 			DRM_DEV_ERROR(dev->dev, "failed to construct INTF%d\n", i);
+ 			return -ENOMEM;
 -- 
 2.39.2
 
