@@ -1,72 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6DDA74C0E6
-	for <lists+freedreno@lfdr.de>; Sun,  9 Jul 2023 06:19:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1AD574C69B
+	for <lists+freedreno@lfdr.de>; Sun,  9 Jul 2023 19:22:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 031CD10E1C0;
-	Sun,  9 Jul 2023 04:19:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 982C310E116;
+	Sun,  9 Jul 2023 17:22:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00E0E10E1AB
- for <freedreno@lists.freedesktop.org>; Sun,  9 Jul 2023 04:19:32 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fafe87c6fbso5063354e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 08 Jul 2023 21:19:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688876371; x=1691468371;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yGG+JMcZKC2KBKr2b78IW5ceoyyRwJ46V91LM7VfQHU=;
- b=wvisemIqP7za0ZyJCs2ZmSXvrug0NlXlxvgg89MYzXFbpxzq84+Z4xC6vRhqw1kyl6
- yWfKDkpY0I+dM3cptMuA9ET7hFN1rp2f2vQf+zIioTNQDLO4KDq0glBRt1KsUPGOf531
- enUS4t+HYwUfPYHFkM10ZWInuGr/mTQyulm9mKizKwI5wAmHF2TuAVKJRL3QStnxCwBw
- qdYHHK8B6/3mK9EphPVTiaY4abPNuhHacyNhddUGjzOMLcj2JKuGjM14RQ46RVwO6j3y
- reovfGbvM3rmjjlB4pVFCTAubVRpVbiJiVHz5o+bpkFylhADfb7AcLkzQPK9NFs/hy9V
- nRSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688876371; x=1691468371;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yGG+JMcZKC2KBKr2b78IW5ceoyyRwJ46V91LM7VfQHU=;
- b=IKM3AkN5nckY5tgMPZGCsLb1SrKSVRjhBxCG6PqUpRPqGCZLHp9Ac3gt7n0OnoQgg3
- EHRzCZlIFo2zLbGDSlijDBvyIrYmp9oGFo6K781NJJ+SxJtwDOc9Da8oYeV6YdEZVP1H
- KDjxQWafBjhI0Yt/EWamDjP9KX1nhb8+XyFcOa9KYEzp5hXGT5xAsJmK53jCOpOdGftq
- 84Nd6HkURK8NrdDvMxcSO4TkGRJ9gCfBHczlqF46TwBMt7Op8VK4ZC+LPbESICi3ANv0
- KUQQXFBx9qG80j/NodHEvyPOoU8Qr4r/5VqGSTD06qcWKU1rtgEDJVfB97oTTAKWMeUx
- rxSA==
-X-Gm-Message-State: ABy/qLYWfBSFD28qgIUfSKrFH/rJ/D8AlIqPv7D0LmRCmyYlravLDx6d
- FQjTK1ZVSvbvIm/B1iN6k1DYFQ==
-X-Google-Smtp-Source: APBJJlE6wrvTHb8QSckdbTF1Klp2Gds2woQb5/MRMIXTBG9WuFTpav+rYAy9iN3mheZax4mltaueSw==
-X-Received: by 2002:a05:6512:39c3:b0:4fb:896d:bd70 with SMTP id
- k3-20020a05651239c300b004fb896dbd70mr8357141lfu.46.1688876371382; 
- Sat, 08 Jul 2023 21:19:31 -0700 (PDT)
-Received: from lothlorien.lan (dzdqv0yyyyyyyyyyybm5y-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::ab2]) by smtp.gmail.com with ESMTPSA id
- r11-20020a19ac4b000000b004fb8603f6e0sm1205851lfc.12.2023.07.08.21.19.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Jul 2023 21:19:30 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sun,  9 Jul 2023 07:19:26 +0300
-Message-Id: <20230709041926.4052245-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
-References: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25AA410E115;
+ Sun,  9 Jul 2023 17:22:06 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 369HLtmI031886; Sun, 9 Jul 2023 17:21:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=5d1LgLh9nuNOMR33H8pyxp1UrgRxhQg0BTYHoVJ3Cgc=;
+ b=OzWUlCRJ0jA20PW4d7zDSdX1t1ZztKIRUkcvZi7QUxREjf/AekRrcYWpfdeX4DYvHyHv
+ nx6G4uSsKbIkwMyLRwqYCEmB8SKgHEzbe7P+dlPfbJRev3SHndCHAEdzpgJkmJCbCkLV
+ QdQx+H4OfWajzRe7gz8nkkvJp6mT1UXq8IAD78j2QNSR8eq55wi2bZgx0skpE5RyvD4Q
+ gHFRMLGq1TJgXb9vSY4JJDNaIkDQ6Q/FX6kI9oq9CmbuTvoMFBt0OtD/w+Maw5Mbw18c
+ pBUx6QEcEmjrfKM1KlvZQ9jV/Z/p5LBC8hg4jeY1rWDdu0EwZdfp3Zmky3sScPGVRXAE +A== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rq01dhumt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 09 Jul 2023 17:21:55 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 369HLsho027370
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 9 Jul 2023 17:21:54 GMT
+Received: from [10.110.47.185] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Sun, 9 Jul
+ 2023 10:21:53 -0700
+Message-ID: <72cb729b-a9d3-3e5b-c70a-0761f47a6779@quicinc.com>
+Date: Sun, 9 Jul 2023 10:21:52 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <andersson@kernel.org>
+References: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
+ <1688773943-3887-2-git-send-email-quic_khsieh@quicinc.com>
+ <fc5501cf-c335-81f7-1ad7-26fdc1b6922d@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <fc5501cf-c335-81f7-1ad7-26fdc1b6922d@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] arm64: dts: qcom: qrb5165-rb5: enable DP
- altmode
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 9CUYSeYKYggZIPaTeM2g9ggGYsSPPaJb
+X-Proofpoint-GUID: 9CUYSeYKYggZIPaTeM2g9ggGYsSPPaJb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-09_12,2023-07-06_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxscore=0
+ priorityscore=1501 clxscore=1015 adultscore=0 mlxlogscore=999
+ malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0 suspectscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307090163
+Subject: Re: [Freedreno] [PATCH v1 1/5] drm/msm/dp: remove pm_runtime_xxx()
+ from dp_power.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,39 +90,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, marijn.suijten@somainline.org,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add displayport altmode declaration to the Type-C controller node to
-enable DP altmode negotiation.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/qrb5165-rb5.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts b/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-index 210c60025c32..5f289bf640f1 100644
---- a/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-@@ -1418,6 +1418,13 @@ PDO_FIXED_DUAL_ROLE |
- 					 PDO_FIXED_USB_COMM |
- 					 PDO_FIXED_DATA_SWAP)>;
- 
-+		altmodes {
-+			displayport {
-+				svid = <0xff01>;
-+				vdo = <0x00001c46>;
-+			};
-+		};
-+
- 		ports {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--- 
-2.39.2
+On 7/7/2023 5:06 PM, Dmitry Baryshkov wrote:
+> On 08/07/2023 02:52, Kuogee Hsieh wrote:
+>> Since both pm_runtime_resume() and pm_runtime_suspend() are not
+>> populated at dp_pm_ops. Those pm_runtime_get/put() functions within
+>> dp_power.c will not have any effects in addition to increase/decrease
+>> power counter.
+> 
+> Lie.
+> 
 
+Even if the commit text is incorrect, review comments like this are not 
+helping the patch nor the author and will just get ignored anyway.
+
+>> Also pm_runtime_xxx() should be executed at top
+>> layer.
+> 
+> Why?
+> 
+
+I guess he meant to centralize this around dp_display.c. Will elaborate 
+while posting the next rev.
+
+>>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_power.c | 9 ---------
+>>   1 file changed, 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c 
+>> b/drivers/gpu/drm/msm/dp/dp_power.c
+>> index 5cb84ca..ed2f62a 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_power.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
+>> @@ -152,8 +152,6 @@ int dp_power_client_init(struct dp_power *dp_power)
+>>       power = container_of(dp_power, struct dp_power_private, dp_power);
+>> -    pm_runtime_enable(power->dev);
+>> -
+>>       return dp_power_clk_init(power);
+>>   }
+>> @@ -162,8 +160,6 @@ void dp_power_client_deinit(struct dp_power 
+>> *dp_power)
+>>       struct dp_power_private *power;
+>>       power = container_of(dp_power, struct dp_power_private, dp_power);
+>> -
+>> -    pm_runtime_disable(power->dev);
+>>   }
+>>   int dp_power_init(struct dp_power *dp_power)
+>> @@ -173,11 +169,7 @@ int dp_power_init(struct dp_power *dp_power)
+>>       power = container_of(dp_power, struct dp_power_private, dp_power);
+>> -    pm_runtime_get_sync(power->dev);
+>> -
+>>       rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
+>> -    if (rc)
+>> -        pm_runtime_put_sync(power->dev);
+>>       return rc;
+>>   }
+>> @@ -189,7 +181,6 @@ int dp_power_deinit(struct dp_power *dp_power)
+>>       power = container_of(dp_power, struct dp_power_private, dp_power);
+>>       dp_power_clk_enable(dp_power, DP_CORE_PM, false);
+>> -    pm_runtime_put_sync(power->dev);
+>>       return 0;
+>>   }
+> 
