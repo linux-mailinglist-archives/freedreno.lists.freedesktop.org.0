@@ -1,55 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DA1A74C0D7
-	for <lists+freedreno@lfdr.de>; Sun,  9 Jul 2023 06:19:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B54474C0D2
+	for <lists+freedreno@lfdr.de>; Sun,  9 Jul 2023 06:19:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCD3110E19D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5DE10E188;
 	Sun,  9 Jul 2023 04:19:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
  [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1549E10E040
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57DDF10E040
  for <freedreno@lists.freedesktop.org>; Sun,  9 Jul 2023 04:19:30 +0000 (UTC)
 Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fb7589b187so5161131e87.1
- for <freedreno@lists.freedesktop.org>; Sat, 08 Jul 2023 21:19:29 -0700 (PDT)
+ 2adb3069b0e04-4f9fdb0ef35so5256555e87.0
+ for <freedreno@lists.freedesktop.org>; Sat, 08 Jul 2023 21:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1688876368; x=1691468368;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=EV4gjfG2h9+eMvOMzJqwLX08mwvLdctC3KQGCJDlteI=;
- b=oUe1HSUEOwKt3tiPcKQxZTqky8YJ/J+TVVTVJj49EcfWUiAmpnIpIL4mSIlM+26kN1
- 7FytEkFeH+4Dk8yENbCXnUWqPEujUkFqs8dkiJ34/aNjAc75DlS/CZH+/AyUsm0JNMW/
- tbREqo3Bq+zUlRHLAvNnXxU0ZwRfPWhQta25cLhr+QrIhmcb2PX4p80IfDodhXaPBTiX
- /PNWNGwg36b6LybvKeFPpCQE1IFLxwV84klPqcxO68hzFf7D6tSmGwmfE09sVu3YrUPY
- tr76tP/441urfBW1eIl2NKwvZEQECSL6WTNVQhQZQ3iJFhZ9UbS8QE4FiIemR42K4C/V
- IV8Q==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Oi8Fp0++hwDQI/DAfLZemJ+jf8MYYU/jQRwlmY9haCs=;
+ b=VO/bld+0I0HysiI8754r00I3bCdlAyMXGQooiO2hSninRTQldu5dSqO6MtSRNUFREQ
+ 6JJiGVZEGtu8HWLnkUSqJeGdhwxC9s1Qj5HeC9mVuhIpx+SLcW5atOAU5p7QHxIeWJ/Q
+ U1pX/2Y91jJ4lFGhpMcMsdiF4YvTXsxu/7DZszOzY8CLnmh8XMU7vLlFU0MERba4lGeN
+ 2YBtp1eiPtw8or9SCflcsV8tEO3HQZ8Ks5tsSFlI21pd9dQzTuTurJTMeRenP9zb1emc
+ qqS/YJVBV3KzYjmGgwf28A7klzocYItCXnUdWayPEFZT+s9+rWwflEKbEa9C/Y31YSSS
+ Urhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1688876368; x=1691468368;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EV4gjfG2h9+eMvOMzJqwLX08mwvLdctC3KQGCJDlteI=;
- b=e3/g04puzMWRBiDS6zOyF5tE2nggnj1+Q2cdAJmbmQlRF1XRWylPNN+WWxdqy7DYMg
- FmU0KvHhm1opneUclw3Bo51ZjeuWQppn34ZdCCC6tCws403fSD9RKp2yo8bvlEvJyeWh
- y2QuTv0Usk9KaHs/fWjwt+HRZcmbE3+fEVwD6VXPU9Oc6KUdTwJDCH5QmYhdWnmeNVwN
- Q1/8PputJYnJeedoVv9+6P0UzSCY5aInYQ3bIRudIjydSiPxNwyr9eMxyTvVXzRUHVvu
- r5EoVSx80AuWovrYnPw52o2m5ehjU4bdFaiwZbj0bOY2shjHYNSPuR7U1fm2XR0nFnQl
- 8EcQ==
-X-Gm-Message-State: ABy/qLbh/7sJh0XGSrZ0nDGR5lzcrTV945nIG4oekpoOspMofNA609jd
- c+insesZXvJnW4hJ1Ebg8qJjuA==
-X-Google-Smtp-Source: APBJJlH1hMwnX24K5ue0eNJ38qb9anodescAmVYDk03Umy+uJIqB4CCuAZUizF0XtCaD0pLclhdRKA==
-X-Received: by 2002:a19:655a:0:b0:4fb:7cea:882a with SMTP id
- c26-20020a19655a000000b004fb7cea882amr6224939lfj.3.1688876367751; 
- Sat, 08 Jul 2023 21:19:27 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Oi8Fp0++hwDQI/DAfLZemJ+jf8MYYU/jQRwlmY9haCs=;
+ b=iOTWHbQ8sxsbqvC2ntB8enzVgj8QtDmkkdGtypOu8Zu3SEySzZNV2LLJ5YLHWcFEJt
+ +bc49UJdRqaeaZLl4oAUYW1J3ATlcGKF7SncIldpREizeNIs65YB3wL3z4wA5gAb4Uch
+ /4EcA1Q7hR4lP0yqmdGRppikj7qvpvzVEVmp5ObG78P0qtNrn+1KC/9XKNfOml2CtE/B
+ LeedpBhY3pV0WcTDn99Imf6I/l0cVJ2UceEZaDIq5yVWRelAOv8DCfd4awRH8BMW8sdr
+ czYaWVqV/vAE+g4rgazE08tXIPrC8s6jEMjaNbL6M33nacLDT6Cn8z+yE+56/Oub+y+9
+ 9WoA==
+X-Gm-Message-State: ABy/qLbQK9z/eLrNtuIXlHOzSwhjMgqIzEk5KXK0uQ41dO9hDyo62Og6
+ dcTvMhhGwXV2cwpd+6ww5mLZog==
+X-Google-Smtp-Source: APBJJlGYMixTS72MV0mt6SRAn5KiXgy0NawZbAhvAYNPp9kX+KvymVPJwyCppGhflQtHkhnxmB3klQ==
+X-Received: by 2002:a05:6512:3ba4:b0:4f8:8be4:8a82 with SMTP id
+ g36-20020a0565123ba400b004f88be48a82mr8134660lfv.22.1688876368572; 
+ Sat, 08 Jul 2023 21:19:28 -0700 (PDT)
 Received: from lothlorien.lan (dzdqv0yyyyyyyyyyybm5y-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::ab2]) by smtp.gmail.com with ESMTPSA id
  r11-20020a19ac4b000000b004fb8603f6e0sm1205851lfc.12.2023.07.08.21.19.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Jul 2023 21:19:27 -0700 (PDT)
+ Sat, 08 Jul 2023 21:19:28 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
@@ -57,13 +58,15 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Sun,  9 Jul 2023 07:19:21 +0300
-Message-Id: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
+Date: Sun,  9 Jul 2023 07:19:22 +0300
+Message-Id: <20230709041926.4052245-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
+References: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 0/5] arm64: dts: qcom: qrb5165-rb5: enable DP
- support
+Subject: [Freedreno] [PATCH 1/5] dt-bindings: display: msm: dp-controller:
+ document SM8250 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,31 +86,26 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Implement DisplayPort support for the Qualcomm RB5 platform.
+It looks like DP controlled on SM8250 is the same as DP controller on
+SM8350. Use the SM8350 compatible as fallback for SM8250.
 
-Note: while testing this, I had link training issues with several
-dongles with DP connectors. Other DisplayPort-USB-C dongles (with HDMI
-or VGA connectors) work perfectly.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Dependencies: [1]
-Soft-dependencies: [2], [3]
-
-[1] https://lore.kernel.org/linux-arm-msm/20230515133643.3621656-1-bryan.odonoghue@linaro.org/
-[2] https://lore.kernel.org/linux-arm-msm/20230709034211.4045004-1-dmitry.baryshkov@linaro.org/
-[3] https://lore.kernel.org/linux-arm-msm/20230709034808.4049383-1-dmitry.baryshkov@linaro.org/
-
-Dmitry Baryshkov (5):
-  dt-bindings: display: msm: dp-controller: document SM8250 compatible
-  arm64: dts: qcom: sm8250: Add DisplayPort device node
-  arm64: dts: qcom: qrb5165-rb5: add onboard USB-C redriver
-  arm64: dts: qcom: qrb5165-rb5: enable displayport controller
-  arm64: dts: qcom: qrb5165-rb5: enable DP altmode
-
- .../bindings/display/msm/dp-controller.yaml   |  1 +
- arch/arm64/boot/dts/qcom/qrb5165-rb5.dts      | 72 +++++++++++++-
- arch/arm64/boot/dts/qcom/sm8250.dtsi          | 93 +++++++++++++++++++
- 3 files changed, 164 insertions(+), 2 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index 7a7cf3fb3e6d..a31ec9a4179f 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -28,6 +28,7 @@ properties:
+           - qcom,sm8350-dp
+       - items:
+           - enum:
++              - qcom,sm8250-dp
+               - qcom,sm8450-dp
+               - qcom,sm8550-dp
+           - const: qcom,sm8350-dp
 -- 
 2.39.2
 
