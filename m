@@ -2,75 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94D974DEDC
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 22:11:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B638274DF1F
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 22:21:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD0210E0B7;
-	Mon, 10 Jul 2023 20:11:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 854FB10E2D3;
+	Mon, 10 Jul 2023 20:21:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4696310E2CF
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 20:11:36 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fbcbf4375dso5871907e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 13:11:36 -0700 (PDT)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA3010E2D3;
+ Mon, 10 Jul 2023 20:21:12 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-1b45fe36cd9so1856607fac.2; 
+ Mon, 10 Jul 2023 13:21:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689019894; x=1691611894;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=63YPDYqKVHA/21Ij1dK8gns5R7NZnbig472At5QRpgU=;
- b=E5N+9eb9VAzhgj2ZYKsctyy6Vz8TFAO+5Sz2nNRXr/jOJR8EGjAA8CAuyBWebysnr6
- pR2zgH426vzjVnzzTZChr+PWfniXXxaJbCZDz2PsQguwuGvjkT0dxU2XbuZXVJzwL3bC
- oAy66hFGaoIJYmkk3B4p2jbNwXgq5Llhb2cm7xDGmuLQH9103Zm+/fWvi8G5vg/yfQOW
- oH7zdYIw27C+WuYzhAIXKAEObGhnGIraP7Zdv/BGuZGz2CNvT6Eg8FQesDKAACVFVnfN
- mZo/a/iiYgXT+EdC6PFqlYwVx8WL4WCJFkz7rUaoyXeAB3o/hd/nY8wF3qfPyHTQdFrE
- eDcg==
+ d=gmail.com; s=20221208; t=1689020471; x=1691612471;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zQI7m/PWW5lx/D1YlUvsvyQDeza06QWfMVyhiJmEv7Y=;
+ b=RnAddbMZgLA1Og/B+xpbcbXdBD0VrjWG1NaGXJ07JDYcAd7mttQcInm7ak3KUcgvgs
+ VS/Oe21tZHO5LUJob8/k9ycA1yIIonZKDl9Tsngj9Y9j9dmgyGPmNz0T/kdFyrD/sxpu
+ oa8nxCKP/L9NkWSJY76ShahPBYulQi1uuR9tUl/FqW7e7i3Z/93fPceRg8+H/CVD3Nwv
+ EngiLnl6gHr2OGQKcwmma/JwnOR5EkHKRGE0Hp6iSQiuiB8uoXP7m5/bzTzCJzzSFAks
+ HUlsePXzctmi0WIBbohNSjrp+UNMVnGJhKYcZYRcMGNSK8Jj3UrTV5rAp38VjhXNkDYb
+ ayug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689019894; x=1691611894;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=63YPDYqKVHA/21Ij1dK8gns5R7NZnbig472At5QRpgU=;
- b=fCjL4iNAGS3rvXyxaigRA4gMatck396d7D4xAWmiSdAeE9PtZNzv0jzK+mNBvNAIH6
- W/Dk1KACn1eqEsA/D8BjkUf3PQyQR4+DyrXYwfQ9feh2uyzg72kjDiWcqFEXCXOp8+Qz
- PONYiOIFHkGmifx748gqf6eQnCUviVQbo0WjLoCpW5Cy547Ah1Ug6a4Dj5ErHMHZBFau
- 152Wa9epzEjEQ21oecd4BVwnXU9x337CbziLqQ1L0WrYbs1IjjUq05u+5F8WrfK2g8oL
- tDI7EVhNcOatrk7qWYpXSC9QkrVUhti5a0aIoCko9IZ87ba4roy8o5EyEyalhAHBJsFO
- Gi2Q==
-X-Gm-Message-State: ABy/qLapafhs9fejym+29aoac0Oz6C17q9ILD2i2k7ANMX2JmXtWwJCj
- ffGuYNhCFz4nKyQu0pLcOWrrdg==
-X-Google-Smtp-Source: APBJJlFLoMG2x7TKa+tE+UsW2e9G6ohcfl0sTmI2Gsdp4Rb+BaoHJaomgBaKIJKM+eosP5hLuRQvjw==
-X-Received: by 2002:a05:6512:6c5:b0:4f8:7041:e46a with SMTP id
- u5-20020a05651206c500b004f87041e46amr6288046lff.18.1689019893816; 
- Mon, 10 Jul 2023 13:11:33 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- u13-20020ac2518d000000b004fbb1f70ceesm32513lfi.227.2023.07.10.13.11.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jul 2023 13:11:33 -0700 (PDT)
-Message-ID: <e17db728-d91b-a2b3-08a9-1dd1fde9c727@linaro.org>
-Date: Mon, 10 Jul 2023 23:11:32 +0300
+ d=1e100.net; s=20221208; t=1689020471; x=1691612471;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zQI7m/PWW5lx/D1YlUvsvyQDeza06QWfMVyhiJmEv7Y=;
+ b=hVK/Y27w9996iiTckTui4Ywz1SkWQzqBFOTfhCK68KsZJB9OldZMaSjxF33mjdfTNw
+ Mj9j5iPGGwmkqNEcadohJPk0mKpD/Lvc4Llv/w8p1Waz2xU/VrXVsjfzoPVJhR/cBg8u
+ 2VBGDRQJKO6CPeC88zFH1PT7BfZHARxmzkutgML8hOy89bZCJsdnpqcd0lKA6iYCHY0t
+ qQDAsxpw+KnmjksIQKzyeld88kVUentoQq7++l5m999NydA5DSmWHvDWyxYM1Zbe/Tmu
+ N1f4XElGgRVtZO7kIwMa28x1ronPoGyb9RAO3JvTTpbLlPXMoD+0G1M3OlrVb59/5/Y6
+ kPgg==
+X-Gm-Message-State: ABy/qLYFI+1fBQy7fCuMqGhDGAog73z/6cnDuHfH3M2/MJHOP5n/y8If
+ c1sDxVnC/QilZQrTRoGdAtTYMMTgADDC0lz8weI=
+X-Google-Smtp-Source: APBJJlFMuBmCDJiTe5d+q61B/wbJExJt0gPJw1oc4QmfseKkn8o+8hegLmwGvAiXF6SS3Y9BxgIni1lufhYJje9rRSo=
+X-Received: by 2002:a05:6870:e2c9:b0:1b7:3065:abe with SMTP id
+ w9-20020a056870e2c900b001b730650abemr3891540oad.26.1689020471456; Mon, 10 Jul
+ 2023 13:21:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>,
- Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
- <20230404-solid-fill-v4-2-f4ec0caa742d@quicinc.com>
- <6e3eec49-f798-ff91-8b4d-417d31089296@linaro.org>
- <20230630112708.4d3a08a7@eldfell>
- <eb78b4d6-6da2-1cb5-5fab-01d7bf233111@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <eb78b4d6-6da2-1cb5-5fab-01d7bf233111@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH RFC v4 2/7] drm: Introduce pixel_source DRM
- plane property
+References: <20230706211045.204925-1-robdclark@gmail.com>
+ <20230706211045.204925-11-robdclark@gmail.com>
+ <1ecc63d0-db62-c8aa-74b7-36ad2eff89a1@linaro.org>
+In-Reply-To: <1ecc63d0-db62-c8aa-74b7-36ad2eff89a1@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 10 Jul 2023 13:21:00 -0700
+Message-ID: <CAF6AEGtJifJZd94iP4n65mrcOda9L367NJGNpR8R2x1kjVZGmQ@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 10/12] drm/msm/adreno: Add helper for
+ formating chip-id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,241 +71,133 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- sebastian.wick@redhat.com, Thomas Zimmermann <tzimmermann@suse.de>,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- contact@emersion.fr, Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/07/2023 22:51, Jessica Zhang wrote:
-> 
-> 
-> On 6/30/2023 1:27 AM, Pekka Paalanen wrote:
->> On Fri, 30 Jun 2023 03:42:28 +0300
->> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
->>
->>> On 30/06/2023 03:25, Jessica Zhang wrote:
->>>> Add support for pixel_source property to drm_plane and related
->>>> documentation.
->>>>
->>>> This enum property will allow user to specify a pixel source for the
->>>> plane. Possible pixel sources will be defined in the
->>>> drm_plane_pixel_source enum.
->>>>
->>>> The current possible pixel sources are DRM_PLANE_PIXEL_SOURCE_FB and
->>>> DRM_PLANE_PIXEL_SOURCE_COLOR. The default value is *_SOURCE_FB.
->>>
->>> I think, this should come before the solid fill property addition. First
->>> you tell that there is a possibility to define other pixel sources, then
->>> additional sources are defined.
->>
->> Hi,
->>
->> that would be logical indeed.
-> 
-> Hi Dmitry and Pekka,
-> 
-> Sorry for the delay in response, was out of office last week.
-> 
-> Acked.
-> 
->>
->>>>
->>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
->>>>    drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
->>>>    drivers/gpu/drm/drm_blend.c               | 81 
->>>> +++++++++++++++++++++++++++++++
->>>>    include/drm/drm_blend.h                   |  2 +
->>>>    include/drm/drm_plane.h                   | 21 ++++++++
->>>>    5 files changed, 109 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c 
->>>> b/drivers/gpu/drm/drm_atomic_state_helper.c
->>>> index fe14be2bd2b2..86fb876efbe6 100644
->>>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
->>>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
->>>> @@ -252,6 +252,7 @@ void 
->>>> __drm_atomic_helper_plane_state_reset(struct drm_plane_state 
->>>> *plane_state,
->>>>        plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
->>>>        plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
->>>> +    plane_state->pixel_source = DRM_PLANE_PIXEL_SOURCE_FB;
->>>>        if (plane_state->solid_fill_blob) {
->>>>            drm_property_blob_put(plane_state->solid_fill_blob);
->>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
->>>> b/drivers/gpu/drm/drm_atomic_uapi.c
->>>> index a28b4ee79444..6e59c21af66b 100644
->>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->>>> @@ -596,6 +596,8 @@ static int drm_atomic_plane_set_property(struct 
->>>> drm_plane *plane,
->>>>            drm_property_blob_put(solid_fill);
->>>>            return ret;
->>>> +    } else if (property == plane->pixel_source_property) {
->>>> +        state->pixel_source = val;
->>>>        } else if (property == plane->alpha_property) {
->>>>            state->alpha = val;
->>>>        } else if (property == plane->blend_mode_property) {
->>>
->>> I think, it was pointed out in the discussion that drm_mode_setplane()
->>> (a pre-atomic IOCTL to turn the plane on and off) should also reset
->>> pixel_source to FB.
-> 
-> I don't remember drm_mode_setplane() being mentioned in the pixel_source 
-> discussion... can you share where it was mentioned?
+On Thu, Jul 6, 2023 at 4:36=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro.=
+org> wrote:
+>
+> On 6.07.2023 23:10, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > This is used in a few places, including one that is parsed by userspace
+> > tools.  So let's standardize it a bit better.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> Userspace parsed this weird string instead of the hex-based chipid?
+>
+> weird^2
 
-https://lore.kernel.org/dri-devel/20230627105849.004050b3@eldfell/
+AFAICT it is just crashdec (the creatively named tool for parsing gpu
+devcore dumps) which parses using "%u.%u.%u.%u"..  I suppose one
+_could_ make the argument that, since userspace doesn't yet support
+any device where "%x.%x.%x.%x" parsing would be different, we could
+get away with switching to hex without it being an ABI break..
 
-Let me quote it here:
-"Legacy non-atomic UAPI wrappers can do whatever they want, and program
-any (new) properties they want in order to implement the legacy
-expectations, so that does not seem to be a problem."
+BR,
+-R
 
-
-> 
-> I'd prefer to avoid having driver change the pixel_source directly as it 
-> could cause some unexpected side effects. In general, I would like 
-> userspace to assign the value of pixel_source without driver doing 
-> anything "under the hood".
-
-s/driver/drm core/
-
-We have to remain compatible with old userspace, especially with the 
-non-atomic one. If the userspace calls ioctl(DRM_IOCTL_MODE_SETPLANE), 
-we have to display the specified FB, no matter what was the value of 
-PIXEL_SOURCE before this ioctl.
-
-
-> 
->>>
->>>> @@ -671,6 +673,8 @@ drm_atomic_plane_get_property(struct drm_plane 
->>>> *plane,
->>>>        } else if (property == plane->solid_fill_property) {
->>>>            *val = state->solid_fill_blob ?
->>>>                state->solid_fill_blob->base.id : 0;
->>>> +    } else if (property == plane->pixel_source_property) {
->>>> +        *val = state->pixel_source;
->>>>        } else if (property == plane->alpha_property) {
->>>>            *val = state->alpha;
->>>>        } else if (property == plane->blend_mode_property) {
->>>> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
->>>> index 38c3c5d6453a..8c100a957ee2 100644
->>>> --- a/drivers/gpu/drm/drm_blend.c
->>>> +++ b/drivers/gpu/drm/drm_blend.c
->>>> @@ -189,6 +189,18 @@
->>>>     *    solid_fill is set up with 
->>>> drm_plane_create_solid_fill_property(). It
->>>>     *    contains pixel data that drivers can use to fill a plane.
->>>>     *
->>>> + * pixel_source:
->>>> + *    pixel_source is set up with 
->>>> drm_plane_create_pixel_source_property().
->>>> + *    It is used to toggle the source of pixel data for the plane.
->>
->> Other sources than the selected one are ignored?
-> 
-> Yep, the plane will only display the data from the set pixel_source.
-> 
-> So if pixel_source == FB and solid_fill_blob is non-NULL, 
-> solid_fill_blob will be ignored and the plane will display the FB that 
-> is set.
-
-correct.
-
-> 
-> Will add a note about this in the comment docs.
-> 
->>
->>>> + *
->>>> + *    Possible values:
->>
->> Wouldn't hurt to explicitly mention here that this is an enum.
-> 
-> Acked.
-> 
->>
->>>> + *
->>>> + *    "FB":
->>>> + *        Framebuffer source
->>>> + *
->>>> + *    "COLOR":
->>>> + *        solid_fill source
->>
->> I think these two should be more explicit. Framebuffer source is the
->> usual source from the property "FB_ID". Solid fill source comes from
->> the property "solid_fill".
-> 
-> Acked.
-> 
->>
->> Why "COLOR" and not, say, "SOLID_FILL"?
-> 
-> Ah, that would make more sense :)
-> 
-> I'll change this to "SOLID_FILL".
-> 
->>
->>>> + *
->>>>     * Note that all the property extensions described here apply 
->>>> either to the
->>>>     * plane or the CRTC (e.g. for the background color, which 
->>>> currently is not
->>>>     * exposed and assumed to be black).
->>>> @@ -648,3 +660,72 @@ int drm_plane_create_solid_fill_property(struct 
->>>> drm_plane *plane)
->>>>        return 0;
->>>>    }
->>>>    EXPORT_SYMBOL(drm_plane_create_solid_fill_property);
->>>> +
->>>> +/**
->>>> + * drm_plane_create_pixel_source_property - create a new pixel 
->>>> source property
->>>> + * @plane: drm plane
->>>> + * @supported_sources: bitmask of supported pixel_sources for the 
->>>> driver (NOT
->>>> + *                     including DRM_PLANE_PIXEL_SOURCE_FB, as it 
->>>> will be supported
->>>> + *                     by default).
->>>
->>> I'd say this is too strong. I'd suggest either renaming this to
->>> extra_sources (mentioning that FB is enabled for all the planes) or
->>> allowing any source bitmask (mentioning that FB should be enabled by the
->>> caller, unless there is a good reason not to do so).
->>
->> Right. I don't see any problem with having planes of type OVERLAY that
->> support only solid_fill and no FB. Planes of type PRIMARY and CURSOR I
->> would expect to always support at least FB.
->>
->> Atomic userspace is prepared to have an OVERLAY plane fail for any
->> arbitrary reason. Legacy userspace probably should not ever see a plane
->> that does not support FB.
-> 
-> Got it... If we allow the possibility of FB sources not being supported, 
-> then should the default pixel_source per plane be decided by the driver 
-> too?
-> 
-> I'd forced FB support so that I could set pixel_source to FB in 
-> __drm_atomic_helper_plane_state_reset(). If we allow more flexibility in 
-> the default pixel_source value, I guess we can also store a 
-> default_pixel_source value in the plane_state.
-
-I'd say, the FB is a sane default. It the driver has other needs, it can 
-override the value in drm_plane_funcs::reset().
-
-> 
-
-[skipped the rest]
-
--- 
-With best wishes
-Dmitry
-
+> Konrad
+> >  drivers/gpu/drm/msm/adreno/adreno_device.c |  8 +++-----
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 19 ++++++++-----------
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  6 ++++++
+> >  3 files changed, 17 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/d=
+rm/msm/adreno/adreno_device.c
+> > index dcd6363ac7b0..fd2e183bce60 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > @@ -661,14 +661,12 @@ static int adreno_bind(struct device *dev, struct=
+ device *master, void *data)
+> >       info =3D adreno_info(config.rev);
+> >
+> >       if (!info) {
+> > -             dev_warn(drm->dev, "Unknown GPU revision: %u.%u.%u.%u\n",
+> > -                     config.rev.core, config.rev.major,
+> > -                     config.rev.minor, config.rev.patchid);
+> > +             dev_warn(drm->dev, "Unknown GPU revision: %"ADRENO_CHIPID=
+_FMT"\n",
+> > +                     ADRENO_CHIPID_ARGS(config.rev));
+> >               return -ENXIO;
+> >       }
+> >
+> > -     DBG("Found GPU: %u.%u.%u.%u", config.rev.core, config.rev.major,
+> > -             config.rev.minor, config.rev.patchid);
+> > +     DBG("Found GPU: %"ADRENO_CHIPID_FMT, ADRENO_CHIPID_ARGS(config.re=
+v));
+> >
+> >       priv->is_a2xx =3D info->family < ADRENO_3XX;
+> >       priv->has_cached_coherent =3D
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/=
+msm/adreno/adreno_gpu.c
+> > index 75ff7fb46099..1a982a926f21 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> > @@ -847,10 +847,9 @@ void adreno_show(struct msm_gpu *gpu, struct msm_g=
+pu_state *state,
+> >       if (IS_ERR_OR_NULL(state))
+> >               return;
+> >
+> > -     drm_printf(p, "revision: %d (%d.%d.%d.%d)\n",
+> > -                     adreno_gpu->info->revn, adreno_gpu->rev.core,
+> > -                     adreno_gpu->rev.major, adreno_gpu->rev.minor,
+> > -                     adreno_gpu->rev.patchid);
+> > +     drm_printf(p, "revision: %u (%"ADRENO_CHIPID_FMT")\n",
+> > +                     adreno_gpu->info->revn,
+> > +                     ADRENO_CHIPID_ARGS(adreno_gpu->rev));
+> >       /*
+> >        * If this is state collected due to iova fault, so fault related=
+ info
+> >        *
+> > @@ -921,10 +920,9 @@ void adreno_dump_info(struct msm_gpu *gpu)
+> >       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> >       int i;
+> >
+> > -     printk("revision: %d (%d.%d.%d.%d)\n",
+> > -                     adreno_gpu->info->revn, adreno_gpu->rev.core,
+> > -                     adreno_gpu->rev.major, adreno_gpu->rev.minor,
+> > -                     adreno_gpu->rev.patchid);
+> > +     printk("revision: %u (%"ADRENO_CHIPID_FMT")\n",
+> > +                     adreno_gpu->info->revn,
+> > +                     ADRENO_CHIPID_ARGS(adreno_gpu->rev));
+> >
+> >       for (i =3D 0; i < gpu->nr_rings; i++) {
+> >               struct msm_ringbuffer *ring =3D gpu->rb[i];
+> > @@ -1105,9 +1103,8 @@ int adreno_gpu_init(struct drm_device *drm, struc=
+t platform_device *pdev,
+> >               speedbin =3D 0xffff;
+> >       adreno_gpu->speedbin =3D (uint16_t) (0xffff & speedbin);
+> >
+> > -     gpu_name =3D devm_kasprintf(dev, GFP_KERNEL, "%d.%d.%d.%d",
+> > -                     rev->core, rev->major, rev->minor,
+> > -                     rev->patchid);
+> > +     gpu_name =3D devm_kasprintf(dev, GFP_KERNEL, "%"ADRENO_CHIPID_FMT=
+,
+> > +                     ADRENO_CHIPID_ARGS(config->rev));
+> >       if (!gpu_name)
+> >               return -ENOMEM;
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/=
+msm/adreno/adreno_gpu.h
+> > index 2fa14dcd4e40..73e7155f164c 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > @@ -66,6 +66,12 @@ struct adreno_rev {
+> >  #define ADRENO_REV(core, major, minor, patchid) \
+> >       ((struct adreno_rev){ core, major, minor, patchid })
+> >
+> > +/* Helper for formating the chip_id in the way that userspace tools li=
+ke
+> > + * crashdec expect.
+> > + */
+> > +#define ADRENO_CHIPID_FMT "u.%u.%u.%u"
+> > +#define ADRENO_CHIPID_ARGS(_r) (_r).core, (_r).major, (_r).minor, (_r)=
+.patchid
+> > +
+> >  struct adreno_gpu_funcs {
+> >       struct msm_gpu_funcs base;
+> >       int (*get_timestamp)(struct msm_gpu *gpu, uint64_t *value);
