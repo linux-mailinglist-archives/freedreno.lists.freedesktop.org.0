@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98D8F74DBC1
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 18:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C578174DC63
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 19:25:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 532CE10E2AB;
-	Mon, 10 Jul 2023 16:57:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 843C910E2AF;
+	Mon, 10 Jul 2023 17:25:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61A3410E2A7;
- Mon, 10 Jul 2023 16:57:37 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295B910E2AF;
+ Mon, 10 Jul 2023 17:25:25 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36AFe7Te025393; Mon, 10 Jul 2023 16:57:29 GMT
+ 36ADrMGU031144; Mon, 10 Jul 2023 17:25:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=DKbIA33gjqsk6nz+ZEZEzCxJNQ4CzWXAhxFOzytqpJM=;
- b=VBS0Uw3Y1YedjdFlfQ1V93d29qkN6wOe6SLqBsWqYLp2aBPUjUrAJIRl+jBt1UrHK+jq
- e2vnLvJ9rY9PnzzYEBp+mRMnNCyCI614qlisbAjP60edCI0fPxF/K0UWz96KlWFutcrY
- Tyl50m9tT073Q39VN3XXBy0MrMV/XljkHJvqttUk8Z33A2B47p6ANSYg1BmqHjnjoEOV
- /Q4e8/CnBA5E/zwCLLaX9F/pjlBDZsemTxLc6hR72O81bNvlKllt7UpGJVl1n+6cbRWa
- nYnw6KNwekTMZbfEPxf2TKW/OBg5EBCeZ2XKqbNri6gknzPtF9R2Ugytwid7DKmhnR5X GA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=bzEbwR0TQhwP3H6/9WLQriTZaxfPzNPwjpCekJsIpKs=;
+ b=Cu4nfM6i+MlB21q9hdoQF23AwPuNy+zdhag73EEGVgFNqDcHGu1t7cQU/M1ZUw0nqUmv
+ TQhZHYTPk2FNSUNo1dneMwoRPfRK7CkQufiy4+vk+53MXWwi9H5Hra5aqqkhNfnz7IWj
+ kHFPPibiWT/CMB1YDAxtJjKOfM3M4gVSQsQtuAsIbvjE26F2CSPg+UD21HtaB3XWvP2j
+ a8JH+uMq3reqEQxr9QDa9eq7LvM8D/K56usijoaBQPW5yeiVCWZz6Ymv8jzaSSzDuXse
+ D3dBxQfXklh82Qx6c+SDOV7KAq0qPO1bb+gbn8Q92w3lWZoKKjqe+yl1eZB0oELVAGar 3A== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rrfw292mk-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rrg8193ke-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jul 2023 16:57:29 +0000
+ Mon, 10 Jul 2023 17:25:17 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36AGvSgm004749
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36AHPGLg020222
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jul 2023 16:57:28 GMT
+ Mon, 10 Jul 2023 17:25:16 GMT
 Received: from [10.110.55.196] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Mon, 10 Jul
- 2023 09:57:27 -0700
-Message-ID: <9df52052-93fd-75a4-b54c-02ed9554e15f@quicinc.com>
-Date: Mon, 10 Jul 2023 09:57:25 -0700
+ 2023 10:25:15 -0700
+Message-ID: <8a8b24ea-1abf-922c-439e-50a27cf2e5fa@quicinc.com>
+Date: Mon, 10 Jul 2023 10:25:14 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <andersson@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
 References: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
- <1688773943-3887-5-git-send-email-quic_khsieh@quicinc.com>
- <121f82ad-9d5d-6d7f-b4ae-9a371ab49ef7@linaro.org>
+ <1688773943-3887-2-git-send-email-quic_khsieh@quicinc.com>
+ <fc5501cf-c335-81f7-1ad7-26fdc1b6922d@linaro.org>
+ <72cb729b-a9d3-3e5b-c70a-0761f47a6779@quicinc.com>
+ <CAA8EJpqKVBKRpFs=sS2rwrJpDP22sNrd00kCYm-b_ZB96O=s5g@mail.gmail.com>
+ <10de9309-19f9-18af-3e01-1cda7d76e73e@quicinc.com>
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <121f82ad-9d5d-6d7f-b4ae-9a371ab49ef7@linaro.org>
+In-Reply-To: <10de9309-19f9-18af-3e01-1cda7d76e73e@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
@@ -64,19 +64,19 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 4iYB8ft1qYH3bK8WHo_8s9xffwdETDSQ
-X-Proofpoint-GUID: 4iYB8ft1qYH3bK8WHo_8s9xffwdETDSQ
+X-Proofpoint-ORIG-GUID: R__4hoOypJnSLxgzPrypwS9OBHYdgWoV
+X-Proofpoint-GUID: R__4hoOypJnSLxgzPrypwS9OBHYdgWoV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-10_12,2023-07-06_02,2023-05-22_02
+ definitions=2023-07-10_13,2023-07-06_02,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 adultscore=0
- malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 suspectscore=0 clxscore=1015 mlxlogscore=999 spamscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307100153
-Subject: Re: [Freedreno] [PATCH v1 4/5] drm/msm/dp: move relevant dp
- initialization code from bind() to probe()
+ clxscore=1015 phishscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 mlxscore=0 suspectscore=0
+ adultscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307100157
+Subject: Re: [Freedreno] [PATCH v1 1/5] drm/msm/dp: remove pm_runtime_xxx()
+ from dp_power.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,149 +89,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ quic_jesszhan@quicinc.com, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
+ swboyd@chromium.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 7/7/2023 5:11 PM, Dmitry Baryshkov wrote:
-> On 08/07/2023 02:52, Kuogee Hsieh wrote:
->> In preparation of moving edp of_dp_aux_populate_bus() to
->> dp_display_probe(), move dp_display_request_irq(),
->> dp->parser->parse() and dp_power_client_init() to dp_display_probe()
->> too.
+On 7/9/2023 1:32 PM, Abhinav Kumar wrote:
+>
+>
+> On 7/9/2023 11:00 AM, Dmitry Baryshkov wrote:
+>> On Sun, 9 Jul 2023 at 20:22, Abhinav Kumar 
+>> <quic_abhinavk@quicinc.com> wrote:
+>>>
+>>>
+>>>
+>>> On 7/7/2023 5:06 PM, Dmitry Baryshkov wrote:
+>>>> On 08/07/2023 02:52, Kuogee Hsieh wrote:
+>>>>> Since both pm_runtime_resume() and pm_runtime_suspend() are not
+>>>>> populated at dp_pm_ops. Those pm_runtime_get/put() functions within
+>>>>> dp_power.c will not have any effects in addition to increase/decrease
+>>>>> power counter.
+>>>>
+>>>> Lie.
+>>>>
+>>>
+>>> Even if the commit text is incorrect, review comments like this are not
+>>> helping the patch nor the author and will just get ignored anyway.
 >>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 48 
->> +++++++++++++++++--------------------
->>   drivers/gpu/drm/msm/dp/dp_display.h |  1 -
->>   2 files changed, 22 insertions(+), 27 deletions(-)
+>> The review comment might be overreacting, excuse me. I was really
+>> impressed by the commit message, which contradicts the basic source
+>> code. pm_runtime_get() does a lot more than just increasing the power
+>> counter.
 >>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->> b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 44580c2..185f1eb 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -290,12 +290,6 @@ static int dp_display_bind(struct device *dev, 
->> struct device *master,
->>           goto end;
->>       }
->>   -    rc = dp_power_client_init(dp->power);
->> -    if (rc) {
->> -        DRM_ERROR("Power client create failed\n");
->> -        goto end;
->> -    }
->> -
->>       rc = dp_register_audio_driver(dev, dp->audio);
->>       if (rc) {
->>           DRM_ERROR("Audio registration Dp failed\n");
->> @@ -752,6 +746,12 @@ static int dp_init_sub_modules(struct 
->> dp_display_private *dp)
->>           goto error;
->>       }
->>   +    rc = dp->parser->parse(dp->parser);
->> +    if (rc) {
->> +        DRM_ERROR("device tree parsing failed\n");
->> +        goto error;
->> +    }
->> +
->>       dp->catalog = dp_catalog_get(dev, &dp->parser->io);
->>       if (IS_ERR(dp->catalog)) {
->>           rc = PTR_ERR(dp->catalog);
->> @@ -768,6 +768,12 @@ static int dp_init_sub_modules(struct 
->> dp_display_private *dp)
->>           goto error;
->>       }
->>   +    rc = dp_power_client_init(dp->power);
->> +    if (rc) {
->> +        DRM_ERROR("Power client create failed\n");
->> +        goto error;
->> +    }
->> +
->>       dp->aux = dp_aux_get(dev, dp->catalog, dp->dp_display.is_edp);
->>       if (IS_ERR(dp->aux)) {
->>           rc = PTR_ERR(dp->aux);
->> @@ -1196,26 +1202,20 @@ static irqreturn_t dp_display_irq_handler(int 
->> irq, void *dev_id)
->>       return ret;
->>   }
->>   -int dp_display_request_irq(struct msm_dp *dp_display)
->> +static int dp_display_request_irq(struct dp_display_private *dp)
->>   {
->>       int rc = 0;
->> -    struct dp_display_private *dp;
->> -
->> -    if (!dp_display) {
->> -        DRM_ERROR("invalid input\n");
->> -        return -EINVAL;
->> -    }
->> -
->> -    dp = container_of(dp_display, struct dp_display_private, 
->> dp_display);
->> +    struct device *dev = &dp->pdev->dev;
->>   -    dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
->>       if (!dp->irq) {
->> -        DRM_ERROR("failed to get irq\n");
->> -        return -EINVAL;
->> +        dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
->> +        if (!dp->irq) {
->> +            DRM_ERROR("failed to get irq\n");
->> +            return -EINVAL;
->> +        }
->>       }
 >
-> Use platform_get_irq() from probe() function.
+> It says within dp_power.c. Nonetheless, please let us know what is 
+> missing in the context of this patch like Bjorn did to make it an 
+> effective review and we can correct it. In its current form, the 
+> review comment is adding no value.
 >
->>   -    rc = devm_request_irq(dp_display->drm_dev->dev, dp->irq,
->> -            dp_display_irq_handler,
->> +    rc = devm_request_irq(dev, dp->irq, dp_display_irq_handler,
->>               IRQF_TRIGGER_HIGH, "dp_display_isr", dp);
->
->
->>       if (rc < 0) {
->>           DRM_ERROR("failed to request IRQ%u: %d\n",
->> @@ -1290,6 +1290,8 @@ static int dp_display_probe(struct 
->> platform_device *pdev)
->>         platform_set_drvdata(pdev, &dp->dp_display);
->>   +    dp_display_request_irq(dp);
->> +
->
-> Error checking?
-> Are we completely ready to handle interrupts at this point?
-not until dp_display_host_init() is called which will be called from 
-pm_runtime_resume() later.
->
->>       rc = component_add(&pdev->dev, &dp_display_comp_ops);
->>       if (rc) {
->>           DRM_ERROR("component add failed, rc=%d\n", rc);
->> @@ -1574,12 +1576,6 @@ int msm_dp_modeset_init(struct msm_dp 
->> *dp_display, struct drm_device *dev,
->>         dp_priv = container_of(dp_display, struct dp_display_private, 
->> dp_display);
->>   -    ret = dp_display_request_irq(dp_display);
->> -    if (ret) {
->> -        DRM_ERROR("request_irq failed, ret=%d\n", ret);
->> -        return ret;
->> -    }
->> -
->>       ret = dp_display_get_next_bridge(dp_display);
->>       if (ret)
->>           return ret;
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h 
->> b/drivers/gpu/drm/msm/dp/dp_display.h
->> index 1e9415a..b3c08de 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
->> @@ -35,7 +35,6 @@ struct msm_dp {
->>   int dp_display_set_plugged_cb(struct msm_dp *dp_display,
->>           hdmi_codec_plugged_cb fn, struct device *codec_dev);
->>   int dp_display_get_modes(struct msm_dp *dp_display);
->> -int dp_display_request_irq(struct msm_dp *dp_display);
->>   bool dp_display_check_video_test(struct msm_dp *dp_display);
->>   int dp_display_get_test_bpp(struct msm_dp *dp_display);
->>   void dp_display_signal_audio_start(struct msm_dp *dp_display);
->
+I am new in pm.
+
+Any recommendation to revise this commit test?
+
+>>>>> Also pm_runtime_xxx() should be executed at top
+>>>>> layer.
+>>>>
+>>>> Why?
+>>>>
+>>>
+>>> I guess he meant to centralize this around dp_display.c. Will elaborate
+>>> while posting the next rev.
+>>>
+>>>>>
+>>>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>> ---
+>>>>>    drivers/gpu/drm/msm/dp/dp_power.c | 9 ---------
+>>>>>    1 file changed, 9 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c
+>>>>> b/drivers/gpu/drm/msm/dp/dp_power.c
+>>>>> index 5cb84ca..ed2f62a 100644
+>>>>> --- a/drivers/gpu/drm/msm/dp/dp_power.c
+>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
+>>>>> @@ -152,8 +152,6 @@ int dp_power_client_init(struct dp_power 
+>>>>> *dp_power)
+>>>>>        power = container_of(dp_power, struct dp_power_private, 
+>>>>> dp_power);
+>>>>> -    pm_runtime_enable(power->dev);
+>>>>> -
+>>>>>        return dp_power_clk_init(power);
+>>>>>    }
+>>>>> @@ -162,8 +160,6 @@ void dp_power_client_deinit(struct dp_power
+>>>>> *dp_power)
+>>>>>        struct dp_power_private *power;
+>>>>>        power = container_of(dp_power, struct dp_power_private, 
+>>>>> dp_power);
+>>>>> -
+>>>>> -    pm_runtime_disable(power->dev);
+>>>>>    }
+>>>>>    int dp_power_init(struct dp_power *dp_power)
+>>>>> @@ -173,11 +169,7 @@ int dp_power_init(struct dp_power *dp_power)
+>>>>>        power = container_of(dp_power, struct dp_power_private, 
+>>>>> dp_power);
+>>>>> -    pm_runtime_get_sync(power->dev);
+>>>>> -
+>>>>>        rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
+>>>>> -    if (rc)
+>>>>> -        pm_runtime_put_sync(power->dev);
+>>>>>        return rc;
+>>>>>    }
+>>>>> @@ -189,7 +181,6 @@ int dp_power_deinit(struct dp_power *dp_power)
+>>>>>        power = container_of(dp_power, struct dp_power_private, 
+>>>>> dp_power);
+>>>>>        dp_power_clk_enable(dp_power, DP_CORE_PM, false);
+>>>>> -    pm_runtime_put_sync(power->dev);
+>>>>>        return 0;
+>>>>>    }
+>>>>
+>>
+>>
+>>
