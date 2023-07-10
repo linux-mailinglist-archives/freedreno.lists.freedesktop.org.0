@@ -1,74 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE1B674DFD5
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 22:54:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D594374E008
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 23:12:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5592410E2DA;
-	Mon, 10 Jul 2023 20:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244A910E2D8;
+	Mon, 10 Jul 2023 21:11:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5279310E2D8
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 20:54:06 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4f766777605so7758282e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 13:54:06 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E63010E2D8
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 21:11:54 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2b702319893so78265681fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 14:11:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689022444; x=1691614444;
+ d=linaro.org; s=google; t=1689023512; x=1691615512;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=G13MU++Hl725dEif28QmMqrP2IERpf/MG7YmFR/Xwy4=;
- b=NLH+BfyIWjRPR682uKLEiGgUxBJuXKiXe08BGf4hxnCLHlIGx87daghOtT9KJ/ktDM
- iL55X76cT2x1pJub77gKLDir3k5/fi7vJuu5BvHtVkwYmDou+f6z3SEWxGFwXGhD+48Y
- HzIw5D3XaD88iSI3+oAtg5TVbYSDF4gA4LVTkMhOSUhu+QtnSBmu38uNzZ4vzDVLF5xp
- PkFZtFSt/NEoA07WdIXD2NECUIS/wGNdohoXtEg7wosH5FXetRsgv1+qCATRkbBXY3fX
- EdtLwMq13hMDsLsTuHlNeExPdw0m8k65/HAxrX0ukHuuO52Kn+Nj91Ur9M2c6Tbwo4aj
- ibgA==
+ bh=GJenQ6f6ywLinDtg4prv44o2QMZjJQ5Y8NtEkgjX+F4=;
+ b=intrAPE1oGXQ5h0kGbkzl21JZwwqG7+xqKe2/OH+7oxAiorT6bS9ZO7mHkQgsgHsGq
+ L1L3N3e4SjqIDcxezdURCPzQu3fk+jZcB+yHa3ys16+shORr8u2MGgLc2NHEVTS8YDnd
+ ObqIIR++a2++vSYd+IuTPgrsfQdEb9gkNdUtAGqwRrZi+PlCR+6SuT1rfgt/B/BZZ9cv
+ j8frFuTe9QdAiiKqmWJbcScCl1I0sJv/H9ocC25IGHU+60n5foxintSmDz8f1Ohok8wk
+ GJU9SicCjy5ye1zt3W9ylisNst67BTMzgtxkh34oSqMvwKILbiCOZAmZEhSah9vELGho
+ 3Fwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689022444; x=1691614444;
+ d=1e100.net; s=20221208; t=1689023512; x=1691615512;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G13MU++Hl725dEif28QmMqrP2IERpf/MG7YmFR/Xwy4=;
- b=A6oU/ZyNie7SYk1JEHQlZ7GKTxoyBObSD1z3EmArMfy9KxfKJh6Mqzpf8PFx/gvuSK
- CVVoSwIbCiMdVXxHqMjl83sT3AEsd+CqvEHpLdFQ2C+7Js+T2K85NUFWJRao4C04f5dR
- gYinvha31du7cjhj1f/9B1s0PP2fJ+iB8TzNNFLD/LeJOpHXer+C6PPXk4OIJef4c8LE
- +vXlO53AvyNhA0bWTryW3tuQo97rP5yYjWkBsLdZoY6aJZA0EBJZLMudfK52L87HiURG
- BZYK1+WtQWvdHA3M/gFz+lzW9q/hq9OZNsHvOmYQDVldrSzow0lLmrXzlfJ2sbXNt0qs
- S2wg==
-X-Gm-Message-State: ABy/qLZbEmCu6xM5ytYbgax7CVZq+wr659EYTVJtApLnmzaFrKpURZtV
- IyaTJimhrW3mraZ/kncx1LfRXw==
-X-Google-Smtp-Source: APBJJlG84vjZD6EToeATX/q3/IrlfPeCZqyrgGIbuplyOgjCIDQQpFiAwqLDp/c7LCPj4C7FK5jvHw==
-X-Received: by 2002:a05:6512:ba1:b0:4f3:80a3:b40a with SMTP id
- b33-20020a0565120ba100b004f380a3b40amr13107838lfv.69.1689022443890; 
- Mon, 10 Jul 2023 13:54:03 -0700 (PDT)
+ bh=GJenQ6f6ywLinDtg4prv44o2QMZjJQ5Y8NtEkgjX+F4=;
+ b=E4GI4njzOtVGQhZD2vx3jUx+IBiMnqeJ3tVbFJoOFgPCHzsg59jFkokF63iCY8Vhhd
+ AUBAd6WNfzKf5dX44ty0iFzYrc5Bw+OM5a9aR48ufV8OqzbGBX9CqKjJ4DI8XP6trQV2
+ 7PYKaPG1yGB49f3riL+FeZ+apE+n7jfixxFiStUoZ+3c6x8i7JZLg8+mgKf+12GFvc3e
+ NaBr8/wUOmXrrMnUy/TsVCH82hY0AQGAmujpzhxzFlYWX1YKlPBRVSiAg5uVcBiP/GH6
+ 7a6+DGElcN//HjIiiactX9sL7e+9YwSwp/HyjYeckY/DNIInpUz/KoxYanglVxmg8AEi
+ SUxQ==
+X-Gm-Message-State: ABy/qLai51vfn2pHR10kX9x038Tt+xTY8kODckojjqvW3fhFX2pKTjDp
+ l7syZKjnIAYBOWCRsaXc6AHQ5g==
+X-Google-Smtp-Source: APBJJlECknYOx1HT0pSCZAbvCXQdaniHuFh6q/nvRIAezFbLQ7Moab69lE7D8j1itiQh6IaRFQ/iFg==
+X-Received: by 2002:a2e:800b:0:b0:2b6:a344:29cf with SMTP id
+ j11-20020a2e800b000000b002b6a34429cfmr9781907ljg.17.1689023512008; 
+ Mon, 10 Jul 2023 14:11:52 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- p16-20020a05651211f000b004fbab80ecefsm44941lfs.145.2023.07.10.13.54.03
+ r6-20020a2e9946000000b002b6d781b60esm138615ljj.82.2023.07.10.14.11.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jul 2023 13:54:03 -0700 (PDT)
-Message-ID: <d3f5cf11-e481-2c50-b712-f8832265e897@linaro.org>
-Date: Mon, 10 Jul 2023 23:54:02 +0300
+ Mon, 10 Jul 2023 14:11:51 -0700 (PDT)
+Message-ID: <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+Date: Tue, 11 Jul 2023 00:11:50 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
 Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>
-References: <20230706211045.204925-1-robdclark@gmail.com>
- <20230706211045.204925-8-robdclark@gmail.com>
- <fa8f72dd-8d74-e941-1b4e-2464a9034424@linaro.org>
- <CAF6AEGv2K9Ar8=96H2_=BJc=hqFNnh2M5fvbG5p5gjoAEfR=-A@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ noralf@tronnes.org
+References: <20230710091029.27503-1-tzimmermann@suse.de>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGv2K9Ar8=96H2_=BJc=hqFNnh2M5fvbG5p5gjoAEfR=-A@mail.gmail.com>
+In-Reply-To: <20230710091029.27503-1-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 07/12] drm/msm/adreno: Move speedbin mapping
- to device table
+Subject: Re: [Freedreno] [PATCH] drm/client: Send hotplug event after
+ registering a client
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,96 +79,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ linux-samsung-soc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
+ Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Inki Dae <inki.dae@samsung.com>, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Moritz Duge <MoritzDuge@kolahilft.de>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/07/2023 22:56, Rob Clark wrote:
-> On Thu, Jul 6, 2023 at 7:54 PM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> On 07/07/2023 00:10, Rob Clark wrote:
->>> From: Rob Clark <robdclark@chromium.org>
->>>
->>> This simplifies the code.
->>>
->>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>> ---
->>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 171 ++-------------------
->>>    drivers/gpu/drm/msm/adreno/adreno_device.c |  51 ++++++
->>>    drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  25 +++
->>>    3 files changed, 92 insertions(+), 155 deletions(-)
->>
->>
->> Interesting hack, I'd say.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>
->> Minor nit below.
->>
->>>
->>
->>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>> index d5335b99c64c..994ac26ce731 100644
->>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>> @@ -72,8 +72,33 @@ struct adreno_info {
->>>        u32 inactive_period;
->>>        const struct adreno_reglist *hwcg;
->>>        u64 address_space_size;
->>> +     /**
->>> +      * @speedbins: Optional table of fuse to speedbin mappings
->>> +      *
->>> +      * Consists of pairs of fuse, index mappings, terminated with
->>> +      * UINT_MAX sentinal.
->>> +      */
->>> +     uint32_t *speedbins;
->>
->> Would it be better to explicitly list this as pairs of uint32_t? And
->> then use braces in ADRENO_SPEEDBIN initialisation.
+On 10/07/2023 12:10, Thomas Zimmermann wrote:
+> Generate a hotplug event after registering a client to allow the
+> client to configure its display. Remove the hotplug calls from the
+> existing clients for fbdev emulation. This change fixes a concurrency
+> bug between registering a client and receiving events from the DRM
+> core. The bug is present in the fbdev emulation of all drivers.
 > 
-> It would mean the sentinel would take 8 bytes instead of 4.. maybe
-> that is over-thinking it, but it was the reason I just stuck with a
-> flat table
+> The fbdev emulation currently generates a hotplug event before
+> registering the client to the device. For each new output, the DRM
+> core sends an additional hotplug event to each registered client.
+> 
+> If the DRM core detects first output between sending the artificial
+> hotplug and registering the device, the output's hotplug event gets
+> lost. If this is the first output, the fbdev console display remains
+> dark. This has been observed with amdgpu and fbdev-generic.
+> 
+> Fix this by adding hotplug generation directly to the client's
+> register helper drm_client_register(). Registering the client and
+> receiving events are serialized by struct drm_device.clientlist_mutex.
+> So an output is either configured by the initial hotplug event, or
+> the client has already been registered.
+> 
+> The bug was originally added in commit 6e3f17ee73f7 ("drm/fb-helper:
+> generic: Call drm_client_add() after setup is done"), in which adding
+> a client and receiving a hotplug event switched order. It was hidden,
+> as most hardware and drivers have at least on static output configured.
+> Other drivers didn't use the internal DRM client or still had struct
+> drm_mode_config_funcs.output_poll_changed set. That callback handled
+> hotplug events as well. After not setting the callback in amdgpu in
+> commit 0e3172bac3f4 ("drm/amdgpu: Don't set struct
+> drm_driver.output_poll_changed"), amdgpu did not show a framebuffer
+> console if output events got lost. The bug got copy-pasted from
+> fbdev-generic into the other fbdev emulation.
+> 
+> Reported-by: Moritz Duge <MoritzDuge@kolahilft.de>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2649
+> Fixes: 6e3f17ee73f7 ("drm/fb-helper: generic: Call drm_client_add() after setup is done")
+> Fixes: 8ab59da26bc0 ("drm/fb-helper: Move generic fbdev emulation into separate source file")
+> Fixes: b79fe9abd58b ("drm/fbdev-dma: Implement fbdev emulation for GEM DMA helpers")
+> Fixes: 63c381552f69 ("drm/armada: Implement fbdev emulation as in-kernel client")
+> Fixes: 49953b70e7d3 ("drm/exynos: Implement fbdev emulation as in-kernel client")
+> Fixes: 8f1aaccb04b7 ("drm/gma500: Implement client-based fbdev emulation")
+> Fixes: 940b869c2f2f ("drm/msm: Implement fbdev emulation as in-kernel client")
+> Fixes: 9e69bcd88e45 ("drm/omapdrm: Implement fbdev emulation as in-kernel client")
+> Fixes: e317a69fe891 ("drm/radeon: Implement client-based fbdev emulation")
+> Fixes: 71ec16f45ef8 ("drm/tegra: Implement fbdev emulation as in-kernel client")
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Tested-by: Moritz Duge <MoritzDuge@kolahilft.de>
+> Tested-by: Torsten Krah <krah.tm@gmail.com>
+> Tested-by: Paul Schyska <pschyska@gmail.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Noralf Trønnes <noralf@tronnes.org>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Inki Dae <inki.dae@samsung.com>
+> Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+> Cc: Kyungmin Park <kyungmin.park@samsung.com>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Mikko Perttunen <mperttunen@nvidia.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-samsung-soc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-tegra@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v5.2+
+> ---
+>   drivers/gpu/drm/armada/armada_fbdev.c     |  4 ----
+>   drivers/gpu/drm/drm_client.c              | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/drm_fbdev_dma.c           |  4 ----
+>   drivers/gpu/drm/drm_fbdev_generic.c       |  4 ----
+>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c |  4 ----
+>   drivers/gpu/drm/gma500/fbdev.c            |  4 ----
+>   drivers/gpu/drm/msm/msm_fbdev.c           |  4 ----
 
-Guessed so. But we are wasting so much memory already... I think that 
-the paired structure would better reflect the data - it's not a flat 
-list, but a list of nvmem <-> speedbin pairs.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
 
-> 
-> BR,
-> -R
-> 
->>>    };
->>>
->>> +/*
->>> + * Helper to build a speedbin table, ie. the table:
->>> + *      fuse | speedbin
->>> + *      -----+---------
->>> + *        0  |   0
->>> + *       169 |   1
->>> + *       174 |   2
->>> + *
->>> + * would be declared as:
->>> + *
->>> + *     .speedbins = ADRENO_SPEEDBINS(
->>> + *                      0,   0,
->>> + *                      169, 1,
->>> + *                      174, 2
->>> + *                  ),
->>> + */
->>> +#define ADRENO_SPEEDBINS(tbl...) (uint32_t[]) { tbl, UINT_MAX }
->>> +
->>>    const struct adreno_info *adreno_info(struct adreno_rev rev);
->>>
->>>    struct adreno_gpu {
->>
->> --
->> With best wishes
->> Dmitry
->>
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c      |  4 ----
+>   drivers/gpu/drm/radeon/radeon_fbdev.c     |  4 ----
+>   drivers/gpu/drm/tegra/fbdev.c             |  4 ----
+>   10 files changed, 21 insertions(+), 36 deletions(-)
+
+BTW: As you have been clearing this area. I see that significant amount 
+of DRM drivers use exactly the same code for msm_fbdev_client_funcs and 
+for the significant part of foo_fbdev_setup(). Do you have any plans for 
+moving that into a library / generic code? If not, I can take a look at 
+crafting the patch.
 
 -- 
 With best wishes
