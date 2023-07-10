@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87A2374DD12
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 20:09:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AF5774DD1E
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 20:13:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF06010E185;
-	Mon, 10 Jul 2023 18:09:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 473BF10E119;
+	Mon, 10 Jul 2023 18:13:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE9510E185
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 18:09:35 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-4fba8f2197bso7621696e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 11:09:35 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 439A010E009
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 18:13:28 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b70404a5a0so74387111fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 11:13:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689012574; x=1691604574;
+ d=linaro.org; s=google; t=1689012806; x=1691604806;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=/+vcMRZuH8e00aADkiBKSPktishrl5OOSExTXTMF+z4=;
- b=IATjbDCla2LKz9dUK0El6aCtxULGWX8iVvBIA4FMhHWcfL2jIwimtK/cc/Ck6fCBv1
- 5EfH8/nEd+iewDcUOoQEuWk8FcFGraf95frc1pYIcyvcsfjKSROs+JGSiK8qAUPZI09u
- OFbl8OKrrHnTSgQ9CQ2U9jQ+7+4BRRpoZT4DFAwzT47oUUf+ic3cFt7mNDCLHoV0t980
- vqY4sgQdj5yTO+m5JqhhUaEWMS3ae/dY91ocgCAhIJyrkpQlnthjOc2KWm10I9UO7iLU
- 8MFMIbFyAH3xt4kqgbGiPxQgR3P2BMVFfovzFvdWrTdjQsN2hMhZbpW0K5dSUBN0vng4
- 6Eow==
+ bh=Y4L/6cXI/F66uyhWJ7oKCzwl/SwVaVVcfFFQRz36p5w=;
+ b=noPDubIdDfSH4R1TDP1/B5TYjS16T9ItZ8CsobJV9xgTSLJhvQIMlZTqrhNAXbFr77
+ W3C/UB9ZzKc/nvBEnrN3knUDPN97IVfecGyIWmbki/CLbPvWv27NHXzSqbLrZRXzHzQ9
+ 9nGp9X24lubQ56grVTW3GZ0nzNtWFAak6OGPs/ndrqzNVFOvvCmTlOk1xKDzwIsY1vUW
+ u5H0/48R0BRP0rp62RovMaqr0pEvyDpEhLxUMpEFeMxGStJIDX26kTvdzHgXD+zeabIe
+ zvjJqx6or8MQ1mjgNnZpjmlV0yWfEAAqwWr6PL88lZZer1d+PP4GfZQw2zZ56qUbM7U+
+ lBHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689012574; x=1691604574;
+ d=1e100.net; s=20221208; t=1689012806; x=1691604806;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/+vcMRZuH8e00aADkiBKSPktishrl5OOSExTXTMF+z4=;
- b=aPpDBHps4BCnJXXYr+npJUGX5JiIy9K+MuTKuBWp5ZNWj0UkFgBU1Sa6+bdhbl1qpO
- qQk4dqjXC5zS/NdcSOgYXWXcHKXkf8W4TXvIx76WtBPaFJ+dxFCiq+tefE6K9IVjaWuG
- Ch+wrIDmSJOE2Iq5VZDqhLTKXg8+5EigTQKyfrChm9MUVkaucb378uSC67dafS6OeirY
- bosMfaSi+TaNmoNR2zu8s1Eu34XcEuoSseWsbmwg/G79VkueyttD7i7GhtvPsdC0Ca1J
- dfylpyG+0qK/Bpgjz3YQs5bq/B+Svch0RGnx9fAUI9zW7QcRcsQ4ietHC57vuacBhA2B
- ly7g==
-X-Gm-Message-State: ABy/qLZaWnGq79EDAbitIbJa4b3z1WWq03N8tiKidXBif9xsD8AAGWrY
- ANSfDorse8b4WnWJGDPwr//+iA==
-X-Google-Smtp-Source: APBJJlEk7Ukp7qTROFnmFRK4CejkXr6Pgwn00QgIFI2J8jJ0nA/c/nqv+AsJeHThB9oSNjLLLAz+WQ==
-X-Received: by 2002:a19:670b:0:b0:4f8:742f:3bed with SMTP id
- b11-20020a19670b000000b004f8742f3bedmr10160306lfc.37.1689012573544; 
- Mon, 10 Jul 2023 11:09:33 -0700 (PDT)
+ bh=Y4L/6cXI/F66uyhWJ7oKCzwl/SwVaVVcfFFQRz36p5w=;
+ b=YxQHQD2oLk3EEDh9wHV3IWEJMcgD+HlgCex1KyQo6B3iY8Z/xMZkkA64zLmwLQeX60
+ TdCbUkbbpTHSkgbeAZeLXUaIAn+v7OUWBT7iMh5Gux7Ooakm1SB5aVM+J7WgP9gTqAY2
+ PjbP68ZSHXZUaqT4Z+gjbUuOaGe81v+2/iR0QI+3eRcxys6BD1Q16OUh7gVf6UivnvWQ
+ 3B28tq0fVAPcX2CfELtVUtb/ZKT9OkQ3V6rC7rjT1wIcpOaySBOzYCDVN9xrTAwWlr/J
+ NHVhSn9+t7dtf4LZ96OVrzuzmYsBCKC9g0lAwihMmBvzRAFmIwCqzQPsUmjKuu2YjTml
+ IP8g==
+X-Gm-Message-State: ABy/qLaCPOOXBAniYf10048V+ZxynEttmnh4eOa8wjJg7Q65VNDIuDEu
+ cPO+Xc8E5fJBFVTq/vPMn0VeyQ==
+X-Google-Smtp-Source: APBJJlEQTkxpXEh7MaLgaA11TtqxwAlcT5KM2HuOPNE2NM+KxLvWGSBoUAhhvAcxRH9SdrNX75+7Hw==
+X-Received: by 2002:a2e:9f07:0:b0:2b7:25b2:e37a with SMTP id
+ u7-20020a2e9f07000000b002b725b2e37amr919668ljk.44.1689012805966; 
+ Mon, 10 Jul 2023 11:13:25 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- eo6-20020a056512480600b004fb81fbeb33sm561lfb.251.2023.07.10.11.09.32
+ j10-20020a2eb70a000000b002b6ad323248sm84978ljo.10.2023.07.10.11.13.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jul 2023 11:09:33 -0700 (PDT)
-Message-ID: <348ec5bf-157b-5d70-4f92-d5623dfc4e68@linaro.org>
-Date: Mon, 10 Jul 2023 21:09:32 +0300
+ Mon, 10 Jul 2023 11:13:25 -0700 (PDT)
+Message-ID: <3fa812d6-9222-065a-8b40-95c2f2c808a6@linaro.org>
+Date: Mon, 10 Jul 2023 21:13:25 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -63,15 +63,15 @@ To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
  dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
  agross@kernel.org, andersson@kernel.org
 References: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
- <1688773943-3887-3-git-send-email-quic_khsieh@quicinc.com>
- <c551f77f-804f-3e45-6b15-680c70b86d37@linaro.org>
- <9d037933-6d55-9a4b-f3e4-8993816c4425@quicinc.com>
+ <1688773943-3887-5-git-send-email-quic_khsieh@quicinc.com>
+ <121f82ad-9d5d-6d7f-b4ae-9a371ab49ef7@linaro.org>
+ <9df52052-93fd-75a4-b54c-02ed9554e15f@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <9d037933-6d55-9a4b-f3e4-8993816c4425@quicinc.com>
+In-Reply-To: <9df52052-93fd-75a4-b54c-02ed9554e15f@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v1 2/5] drm/msm/dp: incorporate pm_runtime
- framework into DP driver
+Subject: Re: [Freedreno] [PATCH v1 4/5] drm/msm/dp: move relevant dp
+ initialization code from bind() to probe()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,264 +91,149 @@ Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/07/2023 19:18, Kuogee Hsieh wrote:
+On 10/07/2023 19:57, Kuogee Hsieh wrote:
 > 
-> On 7/7/2023 5:04 PM, Dmitry Baryshkov wrote:
+> On 7/7/2023 5:11 PM, Dmitry Baryshkov wrote:
 >> On 08/07/2023 02:52, Kuogee Hsieh wrote:
->>> Incorporating pm runtime framework into DP driver so that power
->>> and clock resource handling can be centralized allowing easier
->>> control of these resources in preparation of registering aux bus
->>> uring probe.
+>>> In preparation of moving edp of_dp_aux_populate_bus() to
+>>> dp_display_probe(), move dp_display_request_irq(),
+>>> dp->parser->parse() and dp_power_client_init() to dp_display_probe()
+>>> too.
 >>>
 >>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 >>> ---
->>>   drivers/gpu/drm/msm/dp/dp_aux.c     |  3 ++
->>>   drivers/gpu/drm/msm/dp/dp_display.c | 75 
->>> +++++++++++++++++++++++++++++--------
->>>   2 files changed, 63 insertions(+), 15 deletions(-)
+>>>   drivers/gpu/drm/msm/dp/dp_display.c | 48 
+>>> +++++++++++++++++--------------------
+>>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 -
+>>>   2 files changed, 22 insertions(+), 27 deletions(-)
 >>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c 
->>> b/drivers/gpu/drm/msm/dp/dp_aux.c
->>> index 8e3b677..c592064 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
->>> @@ -291,6 +291,7 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux 
->>> *dp_aux,
->>>           return -EINVAL;
->>>       }
->>>   +    pm_runtime_get_sync(dp_aux->dev);
->>
->> Let me quote the function's documentation:
->> Consider using pm_runtime_resume_and_get() instead of it, especially 
->> if its return value is checked by the caller, as this is likely to 
->> result in cleaner code.
-> 
-> pm_runtime_resume_and_get() will call pm_runtime_resume()  every time.
-> 
-> Since aux_transfer is called very frequently, is it just simple to call 
-> pm_runtiem_get_sync() which will call pm_runtime_reusme() if power 
-> counter is 0 before increased it.
-> 
-> otherwise it just increase power counter?
-
-As you are adding meaningful runtime PM calls, you have to add error 
-checking to these calls. Just calling pm_runtime_get_sync() is not enough.
-
-And once you add error handling, you will see what is the difference 
-between two mentioned functions and why one is suggested to be used 
-instead of the other one.
-
-> 
-> 
->>
->> So two notes concerning the whole patch:
->> - error checking is missing
->> - please use pm_runtime_resume_and_get() instead.
->>
->>>       mutex_lock(&aux->mutex);
->>>       if (!aux->initted) {
->>>           ret = -EIO;
->>> @@ -364,6 +365,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux 
->>> *dp_aux,
->>>     exit:
->>>       mutex_unlock(&aux->mutex);
->>> +    pm_runtime_mark_last_busy(dp_aux->dev);
->>> +    pm_runtime_put_autosuspend(dp_aux->dev);
->>>         return ret;
->>>   }
 >>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
 >>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>> index 76f1395..2c5706a 100644
+>>> index 44580c2..185f1eb 100644
 >>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
 >>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>> @@ -309,6 +309,10 @@ static int dp_display_bind(struct device *dev, 
+>>> @@ -290,12 +290,6 @@ static int dp_display_bind(struct device *dev, 
 >>> struct device *master,
 >>>           goto end;
 >>>       }
->>>   +    pm_runtime_enable(dev);
->>
->> devm_pm_runtime_enable() removes need for a cleanup.
->>
->>> +    pm_runtime_set_autosuspend_delay(dev, 1000);
->>> +    pm_runtime_use_autosuspend(dev);
->>
->> Why do you want to use autosuspend here?
->>
->>> +
->>>       return 0;
->>>   end:
->>>       return rc;
->>> @@ -320,9 +324,8 @@ static void dp_display_unbind(struct device *dev, 
->>> struct device *master,
->>>       struct dp_display_private *dp = dev_get_dp_display_private(dev);
->>>       struct msm_drm_private *priv = dev_get_drvdata(master);
->>>   -    /* disable all HPD interrupts */
->>> -    if (dp->core_initialized)
->>> -        dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, 
->>> false);
->>> +    pm_runtime_dont_use_autosuspend(dev);
->>> +    pm_runtime_disable(dev);
->>>         kthread_stop(dp->ev_tsk);
->>>   @@ -466,10 +469,12 @@ static void dp_display_host_init(struct 
->>> dp_display_private *dp)
->>>           dp->dp_display.connector_type, dp->core_initialized,
->>>           dp->phy_initialized);
->>>   -    dp_power_init(dp->power);
->>> -    dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
->>> -    dp_aux_init(dp->aux);
->>> -    dp->core_initialized = true;
->>> +    if (!dp->core_initialized) {
->>> +        dp_power_init(dp->power);
->>> +        dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
->>> +        dp_aux_init(dp->aux);
->>> +        dp->core_initialized = true;
->>> +    }
->>
->> Is this relevant to PM runtime? I don't think so.
->>
->>>   }
->>>     static void dp_display_host_deinit(struct dp_display_private *dp)
->>> @@ -478,10 +483,12 @@ static void dp_display_host_deinit(struct 
->>> dp_display_private *dp)
->>>           dp->dp_display.connector_type, dp->core_initialized,
->>>           dp->phy_initialized);
->>>   -    dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
->>> -    dp_aux_deinit(dp->aux);
->>> -    dp_power_deinit(dp->power);
->>> -    dp->core_initialized = false;
->>> +    if (dp->core_initialized) {
->>> +        dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
->>> +        dp_aux_deinit(dp->aux);
->>> +        dp_power_deinit(dp->power);
->>> +        dp->core_initialized = false;
->>> +    }
->>>   }
->>>     static int dp_display_usbpd_configure_cb(struct device *dev)
->>> @@ -1304,6 +1311,39 @@ static int dp_display_remove(struct 
->>> platform_device *pdev)
->>>       dp_display_deinit_sub_modules(dp);
->>>         platform_set_drvdata(pdev, NULL);
->>> +    pm_runtime_put_sync_suspend(&pdev->dev);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int dp_pm_runtime_suspend(struct device *dev)
->>> +{
->>> +    struct platform_device *pdev = to_platform_device(dev);
->>> +    struct msm_dp *dp_display = platform_get_drvdata(pdev);
->>> +    struct dp_display_private *dp;
->>> +
->>> +    dp = container_of(dp_display, struct dp_display_private, 
->>> dp_display);
->>> +
->>> +    dp_display_host_phy_exit(dp);
->>> +    dp_catalog_ctrl_hpd_enable(dp->catalog);
->>
->> What? NO!
->>
->>> +    dp_display_host_deinit(dp);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int dp_pm_runtime_resume(struct device *dev)
->>> +{
->>> +    struct platform_device *pdev = to_platform_device(dev);
->>> +    struct msm_dp *dp_display = platform_get_drvdata(pdev);
->>> +    struct dp_display_private *dp;
->>> +
->>> +    dp = container_of(dp_display, struct dp_display_private, 
->>> dp_display);
->>> +
->>> +    dp_display_host_init(dp);
->>> +    if (dp_display->is_edp) {
->>> +        dp_catalog_ctrl_hpd_enable(dp->catalog);
->>> +        dp_display_host_phy_init(dp);
->>> +    }
->>>         return 0;
->>>   }
->>> @@ -1409,6 +1449,7 @@ static int dp_pm_suspend(struct device *dev)
->>>   }
->>>     static const struct dev_pm_ops dp_pm_ops = {
->>> +    SET_RUNTIME_PM_OPS(dp_pm_runtime_suspend, dp_pm_runtime_resume, 
->>> NULL)
->>>       .suspend = dp_pm_suspend,
->>>       .resume =  dp_pm_resume,
->>
->> With the runtime PM in place, can we change suspend/resume to use 
->> pm_runtime_force_suspend() and pm_runtime_force_resume() ?
-> 
-> Let em try if i can move checking device connection status out of 
-> dp_pm_resume(). it handles external dp panel plugin/unplug during 
-> suspend cases.
-
-As we discussed during the telco, it does it in a very strange way, 
-which is not compatible with the external HPD support. Thus it should be 
-rewritten anyway. Yes, this change can be handled in a separate patch,
-
-What bugs me here is that I don't see runtime PM calls in the device's 
-suspend/resume path. Shouldn't you put the runtime PM status in suspend 
-path?
-
-> 
->>
->>
->>>   };
->>> @@ -1493,10 +1534,6 @@ static int dp_display_get_next_bridge(struct 
->>> msm_dp *dp)
->>>       aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
->>>         if (aux_bus && dp->is_edp) {
->>> -        dp_display_host_init(dp_priv);
->>> -        dp_catalog_ctrl_hpd_enable(dp_priv->catalog);
->>> -        dp_display_host_phy_init(dp_priv);
->>
->> Are you going to populate the AUX bus (which can cause AUX bus access) 
->> without waking up the device?
-> 
->> devm_of_dp_aux_populate_ep_devices() ==>  will call 
->> pm_runtiemget_sync() internally which will call pm_runtime_resume() to 
->> wake dp driver
+>>>   -    rc = dp_power_client_init(dp->power);
+>>> -    if (rc) {
+>>> -        DRM_ERROR("Power client create failed\n");
+>>> -        goto end;
+>>> -    }
 >>> -
->>>           /*
->>>            * The code below assumes that the panel will finish probing
->>>            * by the time devm_of_dp_aux_populate_ep_devices() returns.
->>> @@ -1604,6 +1641,7 @@ void dp_bridge_atomic_enable(struct drm_bridge 
->>> *drm_bridge,
->>>           dp_hpd_plug_handle(dp_display, 0);
->>
->> Nearly the same question. Resume device before accessing registers.
->>
->>> mutex_lock(&dp_display->event_mutex);
->>> +    pm_runtime_get_sync(&dp_display->pdev->dev);
->>>         state = dp_display->hpd_state;
->>>       if (state != ST_DISPLAY_OFF && state != ST_MAINLINK_READY) {
->>> @@ -1684,6 +1722,8 @@ void dp_bridge_atomic_post_disable(struct 
->>> drm_bridge *drm_bridge,
+>>>       rc = dp_register_audio_driver(dev, dp->audio);
+>>>       if (rc) {
+>>>           DRM_ERROR("Audio registration Dp failed\n");
+>>> @@ -752,6 +746,12 @@ static int dp_init_sub_modules(struct 
+>>> dp_display_private *dp)
+>>>           goto error;
 >>>       }
->>>         drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
+>>>   +    rc = dp->parser->parse(dp->parser);
+>>> +    if (rc) {
+>>> +        DRM_ERROR("device tree parsing failed\n");
+>>> +        goto error;
+>>> +    }
 >>> +
->>> +    pm_runtime_put_sync(&dp_display->pdev->dev);
->>>       mutex_unlock(&dp_display->event_mutex);
+>>>       dp->catalog = dp_catalog_get(dev, &dp->parser->io);
+>>>       if (IS_ERR(dp->catalog)) {
+>>>           rc = PTR_ERR(dp->catalog);
+>>> @@ -768,6 +768,12 @@ static int dp_init_sub_modules(struct 
+>>> dp_display_private *dp)
+>>>           goto error;
+>>>       }
+>>>   +    rc = dp_power_client_init(dp->power);
+>>> +    if (rc) {
+>>> +        DRM_ERROR("Power client create failed\n");
+>>> +        goto error;
+>>> +    }
+>>> +
+>>>       dp->aux = dp_aux_get(dev, dp->catalog, dp->dp_display.is_edp);
+>>>       if (IS_ERR(dp->aux)) {
+>>>           rc = PTR_ERR(dp->aux);
+>>> @@ -1196,26 +1202,20 @@ static irqreturn_t dp_display_irq_handler(int 
+>>> irq, void *dev_id)
+>>>       return ret;
 >>>   }
->>>   @@ -1723,6 +1763,8 @@ void dp_bridge_hpd_enable(struct drm_bridge 
->>> *bridge)
->>>       struct dp_display_private *dp = container_of(dp_display, struct 
->>> dp_display_private, dp_display);
->>>         mutex_lock(&dp->event_mutex);
->>> +    pm_runtime_get_sync(&dp->pdev->dev);
+>>>   -int dp_display_request_irq(struct msm_dp *dp_display)
+>>> +static int dp_display_request_irq(struct dp_display_private *dp)
+>>>   {
+>>>       int rc = 0;
+>>> -    struct dp_display_private *dp;
+>>> -
+>>> -    if (!dp_display) {
+>>> -        DRM_ERROR("invalid input\n");
+>>> -        return -EINVAL;
+>>> -    }
+>>> -
+>>> -    dp = container_of(dp_display, struct dp_display_private, 
+>>> dp_display);
+>>> +    struct device *dev = &dp->pdev->dev;
+>>>   -    dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
+>>>       if (!dp->irq) {
+>>> -        DRM_ERROR("failed to get irq\n");
+>>> -        return -EINVAL;
+>>> +        dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
+>>> +        if (!dp->irq) {
+>>> +            DRM_ERROR("failed to get irq\n");
+>>> +            return -EINVAL;
+>>> +        }
+>>>       }
+>>
+>> Use platform_get_irq() from probe() function.
+>>
+>>>   -    rc = devm_request_irq(dp_display->drm_dev->dev, dp->irq,
+>>> -            dp_display_irq_handler,
+>>> +    rc = devm_request_irq(dev, dp->irq, dp_display_irq_handler,
+>>>               IRQF_TRIGGER_HIGH, "dp_display_isr", dp);
+>>
+>>
+>>>       if (rc < 0) {
+>>>           DRM_ERROR("failed to request IRQ%u: %d\n",
+>>> @@ -1290,6 +1290,8 @@ static int dp_display_probe(struct 
+>>> platform_device *pdev)
+>>>         platform_set_drvdata(pdev, &dp->dp_display);
+>>>   +    dp_display_request_irq(dp);
 >>> +
->>>       dp_catalog_ctrl_hpd_enable(dp->catalog);
->>>         /* enable HDP interrupts */
->>> @@ -1744,6 +1786,9 @@ void dp_bridge_hpd_disable(struct drm_bridge 
->>> *bridge)
->>>       dp_catalog_ctrl_hpd_disable(dp->catalog);
->>>         dp_display->internal_hpd = false;
->>> +
->>> +    pm_runtime_mark_last_busy(&dp->pdev->dev);
->>> +    pm_runtime_put_autosuspend(&dp->pdev->dev);
->>>       mutex_unlock(&dp->event_mutex);
->>>   }
+>>
+>> Error checking?
+>> Are we completely ready to handle interrupts at this point?
+> not until dp_display_host_init() is called which will be called from 
+> pm_runtime_resume() later.
+
+But once you request_irq(), you should be ready for the IRQs to be 
+delivered right away.
+
+>>
+>>>       rc = component_add(&pdev->dev, &dp_display_comp_ops);
+>>>       if (rc) {
+>>>           DRM_ERROR("component add failed, rc=%d\n", rc);
+>>> @@ -1574,12 +1576,6 @@ int msm_dp_modeset_init(struct msm_dp 
+>>> *dp_display, struct drm_device *dev,
+>>>         dp_priv = container_of(dp_display, struct dp_display_private, 
+>>> dp_display);
+>>>   -    ret = dp_display_request_irq(dp_display);
+>>> -    if (ret) {
+>>> -        DRM_ERROR("request_irq failed, ret=%d\n", ret);
+>>> -        return ret;
+>>> -    }
+>>> -
+>>>       ret = dp_display_get_next_bridge(dp_display);
+>>>       if (ret)
+>>>           return ret;
+>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h 
+>>> b/drivers/gpu/drm/msm/dp/dp_display.h
+>>> index 1e9415a..b3c08de 100644
+>>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>>> @@ -35,7 +35,6 @@ struct msm_dp {
+>>>   int dp_display_set_plugged_cb(struct msm_dp *dp_display,
+>>>           hdmi_codec_plugged_cb fn, struct device *codec_dev);
+>>>   int dp_display_get_modes(struct msm_dp *dp_display);
+>>> -int dp_display_request_irq(struct msm_dp *dp_display);
+>>>   bool dp_display_check_video_test(struct msm_dp *dp_display);
+>>>   int dp_display_get_test_bpp(struct msm_dp *dp_display);
+>>>   void dp_display_signal_audio_start(struct msm_dp *dp_display);
 >>
 
 -- 
