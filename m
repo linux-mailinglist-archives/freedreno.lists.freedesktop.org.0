@@ -1,75 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7965674DD4C
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 20:24:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 679CC74DE98
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 21:52:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8BF10E185;
-	Mon, 10 Jul 2023 18:24:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A22810E2CE;
+	Mon, 10 Jul 2023 19:52:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC1A10E2C0
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 18:24:51 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-6b5d57d7db9so3964995a34.3
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 11:24:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689013490; x=1691605490;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :from:to:cc:subject:date:message-id:reply-to;
- bh=5fYArT4F4wyQhowae//dXBBkxIpu1Zo/tKwap9qaUSc=;
- b=L3dTBdKUkIywU38zEpkMs0y8Xfj7JHyFZvd45bFXZU26770otkc1ngWqbDzoiOOoVy
- ETf8E+Gc6EAhgHnv82ya2BY0SzRU3V3tBXGK9x8KQ+ndaR8nVuPn56ZwbfxPuGMjzbOC
- 6SRu/t4OHyhbspY87kpH9P1shufo26VcUI8zfV3T9WfgZHz9+jCOHLWXTiJf3sJtoIz8
- W+OrK1DwYMX1eOzNdNbUACJ99Fa8p+dQzRBCiozv/TgMXGY78pPju3xPuTgzO6ZlDrfz
- f02cIkADqeMC/GNdIwvLze6wDllGu7HYyBm8dXRAwY33gtmxvvtJNw+TBY113IeFFgUv
- 2A5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689013490; x=1691605490;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5fYArT4F4wyQhowae//dXBBkxIpu1Zo/tKwap9qaUSc=;
- b=L/ZABbDqVC2wPyq3VBAy0CdFuQjT9P0v5XK/lI32eBxicnX7jHqc6ZFotdsAQuqXew
- GCi5bInyXOkMWT7RmPi7DshquKNYUVquzH4vIrCmLNi8ypv/V85nsazW5qVNkukk2ku+
- raGYsDPv/G3MF3lMLiCAm7CDhQ3b1nqp3CFBVBwgchaVsCC60GXPyQTiXNJ8di9Zdmbq
- 5lBNCdlOZsqt3N4QoocEsxtj6n/t6kwrMtkbtTbHXyDG/eQcSKHwBnZCck5uqQJ1FPtU
- FvFP41+wF/VmVk4tMcZHLomTTVHXrk/yOVepylHCkJv4xwUVX3GdprFemCtbooo40eXc
- rUqw==
-X-Gm-Message-State: ABy/qLbSEH+h4ZNDwTfM0IONMpklpu80LvoHjAo4M1s2Fvb4XlFs6uod
- 4FmNTrHwWzaHImopcsbbyahxTG19Hcgb7bWmDrQPSQ==
-X-Google-Smtp-Source: APBJJlHwSLd34YXuyPLg8jXMYmyOVnyot2U91AQJrkOXDKDIjQnuHe7gdhhf/hozkoZHU9BMz3V/yQ53yLONLrXDjtQ=
-X-Received: by 2002:a05:6830:1e33:b0:6b0:c67c:96f3 with SMTP id
- t19-20020a0568301e3300b006b0c67c96f3mr10929476otr.18.1689013490139; Mon, 10
- Jul 2023 11:24:50 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B47210E165;
+ Mon, 10 Jul 2023 19:52:28 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36AJLhvL032553; Mon, 10 Jul 2023 19:52:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : from : subject : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=gjFGz0+qAIfAiEzkSyOdDcBRq0BPkbLjQ/QDgMw2sMo=;
+ b=W38riQZWNpBhjivsmldrTrjZ/vac/ksgdQjn/0XJU+ucRC/TkRWUCXH9OLcbQqgpkGQZ
+ 60E1tZKD4X48AHAMMm7sHXmJncEoKswjB6/ArNsar03a9OqE5LplpCHaR1xTrVAVpbj3
+ vcsL6nftN8p+SG7FEKg6fIOzvmMGzLJBn0b/n7E8wgPLd7oAGU89+kgpzcaWrwF6boVi
+ tOTarA3iUr3s9vHNB0dVydgirHUeo6mZLBwhaM6ET/3THNxJXvi+FCI8FxWPQF/Ar2Rb
+ 7nTBK5MyDB4oSEA2HHWOR6HFMCDqukS94+5P1lNrPg/2a2IsNliLWav+eUaUTri3r0QK jA== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rrfw29dre-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Jul 2023 19:52:12 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36AJqBg2018593
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Jul 2023 19:52:11 GMT
+Received: from [10.71.109.168] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Mon, 10 Jul
+ 2023 12:52:10 -0700
+Message-ID: <eb78b4d6-6da2-1cb5-5fab-01d7bf233111@quicinc.com>
+Date: Mon, 10 Jul 2023 12:51:53 -0700
 MIME-Version: 1.0
-References: <1688773943-3887-1-git-send-email-quic_khsieh@quicinc.com>
- <1688773943-3887-6-git-send-email-quic_khsieh@quicinc.com>
- <0cac7c17-c822-927e-cc15-456b1423689c@linaro.org>
- <2278c46c-cb2c-2842-ab20-e6a334fe002b@quicinc.com>
-In-Reply-To: <2278c46c-cb2c-2842-ab20-e6a334fe002b@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 10 Jul 2023 21:24:39 +0300
-Message-ID: <CAA8EJpoJ4Tqew5oFSE44vnBrnO+nfizffLvHV3uwrvcvjZTk0A@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Stephen Boyd <swboyd@chromium.org>, 
- Douglas Anderson <dianders@chromium.org>, Vinod Koul <vkoul@kernel.org>, 
- Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 5/5] drm/msm/dp: move
- of_dp_aux_populate_bus() to probe for eDP
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
+ <20230404-solid-fill-v4-2-f4ec0caa742d@quicinc.com>
+ <6e3eec49-f798-ff91-8b4d-417d31089296@linaro.org>
+ <20230630112708.4d3a08a7@eldfell>
+Content-Language: en-US
+In-Reply-To: <20230630112708.4d3a08a7@eldfell>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: iIh--FRmjm6GgigNJR8aQnQPODVeeMsa
+X-Proofpoint-GUID: iIh--FRmjm6GgigNJR8aQnQPODVeeMsa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-10_15,2023-07-06_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 adultscore=0
+ malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 clxscore=1015 mlxlogscore=999 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307100180
+Subject: Re: [Freedreno] [PATCH RFC v4 2/7] drm: Introduce pixel_source DRM
+ plane property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,249 +87,361 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ sebastian.wick@redhat.com, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
+ contact@emersion.fr, Marijn Suijten <marijn.suijten@somainline.org>,
+ wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-[Restored CC list]
-
-On Mon, 10 Jul 2023 at 20:08, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 7/7/2023 5:32 PM, Dmitry Baryshkov wrote:
-> > On 08/07/2023 02:52, Kuogee Hsieh wrote:
-> >> Move of_dp_aux_populate_bus() to dp_display_probe() for eDP
-> >> from dp_display_bind() so that probe deferral cases can be
-> >> handled effectively
-> >>
-> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/dp/dp_aux.c     | 25 ++++++++++++
-> >>   drivers/gpu/drm/msm/dp/dp_display.c | 79
-> >> +++++++++++++++++++------------------
-> >>   2 files changed, 65 insertions(+), 39 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> b/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> index c592064..c1baffb 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> @@ -505,6 +505,21 @@ void dp_aux_unregister(struct drm_dp_aux *dp_aux)
-> >>       drm_dp_aux_unregister(dp_aux);
-> >>   }
-> >>   +static int dp_wait_hpd_asserted(struct drm_dp_aux *dp_aux,
-> >> +                 unsigned long wait_us)
-> >> +{
-> >> +    int ret;
-> >> +    struct dp_aux_private *aux;
-> >> +
-> >> +    aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
-> >> +
-> >> +    pm_runtime_get_sync(aux->dev);
-> >> +    ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
-> >> +    pm_runtime_put_sync(aux->dev);
-> >> +
-> >> +    return ret;
-> >> +}
-> >> +
-> >>   struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog
-> >> *catalog,
-> >>                     bool is_edp)
-> >>   {
-> >> @@ -528,6 +543,16 @@ struct drm_dp_aux *dp_aux_get(struct device
-> >> *dev, struct dp_catalog *catalog,
-> >>       aux->catalog = catalog;
-> >>       aux->retry_cnt = 0;
-> >>   +    /*
-> >> +     * Use the drm_dp_aux_init() to use the aux adapter
-> >> +     * before registering aux with the DRM device.
-> >> +     */
-> >> +    aux->dp_aux.name = "dpu_dp_aux";
-> >> +    aux->dp_aux.dev = dev;
-> >> +    aux->dp_aux.transfer = dp_aux_transfer;
-> >> +    aux->dp_aux.wait_hpd_asserted = dp_wait_hpd_asserted;
-> >> +    drm_dp_aux_init(&aux->dp_aux);
-> >> +
-> >>       return &aux->dp_aux;
-> >>   }
-> >>   diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
-> >> b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> index 185f1eb..7ed4bea 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> @@ -302,10 +302,6 @@ static int dp_display_bind(struct device *dev,
-> >> struct device *master,
-> >>           goto end;
-> >>       }
-> >>   -    pm_runtime_enable(dev);
-> >> -    pm_runtime_set_autosuspend_delay(dev, 1000);
-> >> -    pm_runtime_use_autosuspend(dev);
-> >> -
-> >>       return 0;
-> >>   end:
-> >>       return rc;
-> >> @@ -322,8 +318,6 @@ static void dp_display_unbind(struct device *dev,
-> >> struct device *master,
-> >>         kthread_stop(dp->ev_tsk);
-> >>   -    of_dp_aux_depopulate_bus(dp->aux);
-> >> -
-> >>       dp_power_client_deinit(dp->power);
-> >>       dp_unregister_audio_driver(dev, dp->audio);
-> >>       dp_aux_unregister(dp->aux);
-> >> @@ -1245,6 +1239,29 @@ static const struct msm_dp_desc
-> >> *dp_display_get_desc(struct platform_device *pde
-> >>       return NULL;
-> >>   }
-> >>   +static void of_dp_aux_depopulate_bus_void(void *data)
-> >> +{
-> >> +    of_dp_aux_depopulate_bus(data);
-> >> +}
-> >> +
-> >> +static int dp_display_auxbus_emulation(struct dp_display_private *dp)
-> >
-> > Why is it called emulation?
-> >
-> >> +{
-> >> +    struct device *dev = &dp->pdev->dev;
-> >> +    struct device_node *aux_bus;
-> >> +    int ret = 0;
-> >> +
-> >> +    aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-> >> +
-> >> +    if (aux_bus) {
-> >> +        ret = devm_of_dp_aux_populate_bus(dp->aux, NULL);
-> >
-> > And here you missed the whole point of why we have been asking for.
-> > Please add a sensible `done_probing' callback, which will call
-> > component_add(). This way the DP component will only be registered
-> > when the panel has been probed. Keeping us from the component binding
-> > retries and corresponding side effects.
-> >
-> >> +
-> >> +        devm_add_action_or_reset(dev, of_dp_aux_depopulate_bus_void,
-> >> +                     dp->aux);
-> >
-> > Useless, it's already handled by the devm_ part of the
-> > devm_of_dp_aux_populate_bus().
-> >
-> >> +    }
-> >> +
-> >> +    return ret;
-> >> +}
-> >> +
-> >>   static int dp_display_probe(struct platform_device *pdev)
-> >>   {
-> >>       int rc = 0;
-> >> @@ -1290,8 +1307,18 @@ static int dp_display_probe(struct
-> >> platform_device *pdev)
-> >>         platform_set_drvdata(pdev, &dp->dp_display);
-> >>   +    pm_runtime_enable(&pdev->dev);
-> >> +    pm_runtime_set_autosuspend_delay(&pdev->dev, 1000);
-> >> +    pm_runtime_use_autosuspend(&pdev->dev);
-> >
-> > Can we have this in probe right from the patch #2?
->
-> no, at patch#2, devm_of_dp_aux_populate_bus() is done ta bind timing.
->
-> The device used by pm_runtime_get_sync() of generic_edp_panel_probe()
-> which is derived from devm_of_dp_aux_populate_bus() is different the
-> &pdev->dev here.
-
-Excuse me, I don't get your answer. In patch #2 you have added
-pm_runtime_enable() / etc to dp_display_bind().
-In this patch you are moving these calls to dp_display_probe(). I
-think that the latter is a better place for enabling runtime PM and as
-such I've asked you to squash this chunk into patch #2.
-Why isn't that going to work?
-
-If I'm not mistaken here, the panel's call to pm_runtime_get_sync()
-will wake up the panel and all the parent devices, including the DP.
-That's what I meant in my comment regarding PM calls in the patch #1.
-pm_runtime_get_sync() / resume() / etc. do not only increase the
-runtime PM count. They do other things to parent devices, linked
-devices, etc.
-
->
-> >
-> >> +
-> >>       dp_display_request_irq(dp);
-> >>   +    if (dp->dp_display.is_edp) {
-> >> +        rc = dp_display_auxbus_emulation(dp);
-> >> +        if (rc)
-> >> +            DRM_ERROR("eDP aux-bus emulation failed, rc=%d\n", rc);
-> >> +    }
-> >> +
-> >>       rc = component_add(&pdev->dev, &dp_display_comp_ops);
-> >>       if (rc) {
-> >>           DRM_ERROR("component add failed, rc=%d\n", rc);
-> >> @@ -1306,11 +1333,14 @@ static int dp_display_remove(struct
-> >> platform_device *pdev)
-> >>       struct dp_display_private *dp =
-> >> dev_get_dp_display_private(&pdev->dev);
-> >>         component_del(&pdev->dev, &dp_display_comp_ops);
-> >> -    dp_display_deinit_sub_modules(dp);
-> >> -
-> >>       platform_set_drvdata(pdev, NULL);
-> >> +
-> >> +    pm_runtime_dont_use_autosuspend(&pdev->dev);
-> >> +    pm_runtime_disable(&pdev->dev);
-> >>       pm_runtime_put_sync_suspend(&pdev->dev);
-> >>   +    dp_display_deinit_sub_modules(dp);
-> >> +
-> >>       return 0;
-> >>   }
-> >>   @@ -1514,31 +1544,10 @@ void msm_dp_debugfs_init(struct msm_dp
-> >> *dp_display, struct drm_minor *minor)
-> >>     static int dp_display_get_next_bridge(struct msm_dp *dp)
-> >>   {
-> >> -    int rc;
-> >> +    int rc = 0;
-> >>       struct dp_display_private *dp_priv;
-> >> -    struct device_node *aux_bus;
-> >> -    struct device *dev;
-> >>         dp_priv = container_of(dp, struct dp_display_private,
-> >> dp_display);
-> >> -    dev = &dp_priv->pdev->dev;
-> >> -    aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-> >> -
-> >> -    if (aux_bus && dp->is_edp) {
-> >> -        /*
-> >> -         * The code below assumes that the panel will finish probing
-> >> -         * by the time devm_of_dp_aux_populate_ep_devices() returns.
-> >> -         * This isn't a great assumption since it will fail if the
-> >> -         * panel driver is probed asynchronously but is the best we
-> >> -         * can do without a bigger driver reorganization.
-> >> -         */
-> >> -        rc = of_dp_aux_populate_bus(dp_priv->aux, NULL);
-> >> -        of_node_put(aux_bus);
-> >> -        if (rc)
-> >> -            goto error;
-> >> -    } else if (dp->is_edp) {
-> >> -        DRM_ERROR("eDP aux_bus not found\n");
-> >> -        return -ENODEV;
-> >> -    }
-> >>         /*
-> >>        * External bridges are mandatory for eDP interfaces: one has to
-> >> @@ -1551,17 +1560,9 @@ static int dp_display_get_next_bridge(struct
-> >> msm_dp *dp)
-> >>       if (!dp->is_edp && rc == -ENODEV)
-> >>           return 0;
-> >>   -    if (!rc) {
-> >> +    if (!rc)
-> >>           dp->next_bridge = dp_priv->parser->next_bridge;
-> >> -        return 0;
-> >> -    }
-> >>   -error:
-> >> -    if (dp->is_edp) {
-> >> -        of_dp_aux_depopulate_bus(dp_priv->aux);
-> >> -        dp_display_host_phy_exit(dp_priv);
-> >> -        dp_display_host_deinit(dp_priv);
-> >> -    }
-> >>       return rc;
-> >>   }
-> >
 
 
+On 6/30/2023 1:27 AM, Pekka Paalanen wrote:
+> On Fri, 30 Jun 2023 03:42:28 +0300
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> 
+>> On 30/06/2023 03:25, Jessica Zhang wrote:
+>>> Add support for pixel_source property to drm_plane and related
+>>> documentation.
+>>>
+>>> This enum property will allow user to specify a pixel source for the
+>>> plane. Possible pixel sources will be defined in the
+>>> drm_plane_pixel_source enum.
+>>>
+>>> The current possible pixel sources are DRM_PLANE_PIXEL_SOURCE_FB and
+>>> DRM_PLANE_PIXEL_SOURCE_COLOR. The default value is *_SOURCE_FB.
+>>
+>> I think, this should come before the solid fill property addition. First
+>> you tell that there is a possibility to define other pixel sources, then
+>> additional sources are defined.
+> 
+> Hi,
+> 
+> that would be logical indeed.
 
--- 
-With best wishes
-Dmitry
+Hi Dmitry and Pekka,
+
+Sorry for the delay in response, was out of office last week.
+
+Acked.
+
+> 
+>>>
+>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>> ---
+>>>    drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
+>>>    drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
+>>>    drivers/gpu/drm/drm_blend.c               | 81 +++++++++++++++++++++++++++++++
+>>>    include/drm/drm_blend.h                   |  2 +
+>>>    include/drm/drm_plane.h                   | 21 ++++++++
+>>>    5 files changed, 109 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+>>> index fe14be2bd2b2..86fb876efbe6 100644
+>>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+>>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+>>> @@ -252,6 +252,7 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+>>>    
+>>>    	plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
+>>>    	plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
+>>> +	plane_state->pixel_source = DRM_PLANE_PIXEL_SOURCE_FB;
+>>>    
+>>>    	if (plane_state->solid_fill_blob) {
+>>>    		drm_property_blob_put(plane_state->solid_fill_blob);
+>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+>>> index a28b4ee79444..6e59c21af66b 100644
+>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>>> @@ -596,6 +596,8 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
+>>>    		drm_property_blob_put(solid_fill);
+>>>    
+>>>    		return ret;
+>>> +	} else if (property == plane->pixel_source_property) {
+>>> +		state->pixel_source = val;
+>>>    	} else if (property == plane->alpha_property) {
+>>>    		state->alpha = val;
+>>>    	} else if (property == plane->blend_mode_property) {
+>>
+>> I think, it was pointed out in the discussion that drm_mode_setplane()
+>> (a pre-atomic IOCTL to turn the plane on and off) should also reset
+>> pixel_source to FB.
+
+I don't remember drm_mode_setplane() being mentioned in the pixel_source 
+discussion... can you share where it was mentioned?
+
+I'd prefer to avoid having driver change the pixel_source directly as it 
+could cause some unexpected side effects. In general, I would like 
+userspace to assign the value of pixel_source without driver doing 
+anything "under the hood".
+
+>>
+>>> @@ -671,6 +673,8 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
+>>>    	} else if (property == plane->solid_fill_property) {
+>>>    		*val = state->solid_fill_blob ?
+>>>    			state->solid_fill_blob->base.id : 0;
+>>> +	} else if (property == plane->pixel_source_property) {
+>>> +		*val = state->pixel_source;
+>>>    	} else if (property == plane->alpha_property) {
+>>>    		*val = state->alpha;
+>>>    	} else if (property == plane->blend_mode_property) {
+>>> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+>>> index 38c3c5d6453a..8c100a957ee2 100644
+>>> --- a/drivers/gpu/drm/drm_blend.c
+>>> +++ b/drivers/gpu/drm/drm_blend.c
+>>> @@ -189,6 +189,18 @@
+>>>     *	solid_fill is set up with drm_plane_create_solid_fill_property(). It
+>>>     *	contains pixel data that drivers can use to fill a plane.
+>>>     *
+>>> + * pixel_source:
+>>> + *	pixel_source is set up with drm_plane_create_pixel_source_property().
+>>> + *	It is used to toggle the source of pixel data for the plane.
+> 
+> Other sources than the selected one are ignored?
+
+Yep, the plane will only display the data from the set pixel_source.
+
+So if pixel_source == FB and solid_fill_blob is non-NULL, 
+solid_fill_blob will be ignored and the plane will display the FB that 
+is set.
+
+Will add a note about this in the comment docs.
+
+> 
+>>> + *
+>>> + *	Possible values:
+> 
+> Wouldn't hurt to explicitly mention here that this is an enum.
+
+Acked.
+
+> 
+>>> + *
+>>> + *	"FB":
+>>> + *		Framebuffer source
+>>> + *
+>>> + *	"COLOR":
+>>> + *		solid_fill source
+> 
+> I think these two should be more explicit. Framebuffer source is the
+> usual source from the property "FB_ID". Solid fill source comes from
+> the property "solid_fill".
+
+Acked.
+
+> 
+> Why "COLOR" and not, say, "SOLID_FILL"?
+
+Ah, that would make more sense :)
+
+I'll change this to "SOLID_FILL".
+
+> 
+>>> + *
+>>>     * Note that all the property extensions described here apply either to the
+>>>     * plane or the CRTC (e.g. for the background color, which currently is not
+>>>     * exposed and assumed to be black).
+>>> @@ -648,3 +660,72 @@ int drm_plane_create_solid_fill_property(struct drm_plane *plane)
+>>>    	return 0;
+>>>    }
+>>>    EXPORT_SYMBOL(drm_plane_create_solid_fill_property);
+>>> +
+>>> +/**
+>>> + * drm_plane_create_pixel_source_property - create a new pixel source property
+>>> + * @plane: drm plane
+>>> + * @supported_sources: bitmask of supported pixel_sources for the driver (NOT
+>>> + *                     including DRM_PLANE_PIXEL_SOURCE_FB, as it will be supported
+>>> + *                     by default).
+>>
+>> I'd say this is too strong. I'd suggest either renaming this to
+>> extra_sources (mentioning that FB is enabled for all the planes) or
+>> allowing any source bitmask (mentioning that FB should be enabled by the
+>> caller, unless there is a good reason not to do so).
+> 
+> Right. I don't see any problem with having planes of type OVERLAY that
+> support only solid_fill and no FB. Planes of type PRIMARY and CURSOR I
+> would expect to always support at least FB.
+> 
+> Atomic userspace is prepared to have an OVERLAY plane fail for any
+> arbitrary reason. Legacy userspace probably should not ever see a plane
+> that does not support FB.
+
+Got it... If we allow the possibility of FB sources not being supported, 
+then should the default pixel_source per plane be decided by the driver too?
+
+I'd forced FB support so that I could set pixel_source to FB in 
+__drm_atomic_helper_plane_state_reset(). If we allow more flexibility in 
+the default pixel_source value, I guess we can also store a 
+default_pixel_source value in the plane_state.
+
+> 
+>>> + *
+>>> + * This creates a new property describing the current source of pixel data for the
+>>> + * plane.
+>>> + *
+>>> + * The property is exposed to userspace as an enumeration property called
+>>> + * "pixel_source" and has the following enumeration values:
+>>> + *
+>>> + * "FB":
+>>> + *	Framebuffer pixel source
+>>> + *
+>>> + * "COLOR":
+>>> + *	Solid fill color pixel source
+>>> + *
+>>> + * Returns:
+>>> + * Zero on success, negative errno on failure.
+>>> + */
+>>> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
+>>> +					   unsigned int supported_sources)
+>>> +{
+>>> +	struct drm_device *dev = plane->dev;
+>>> +	struct drm_property *prop;
+>>> +	const struct drm_prop_enum_list enum_list[] = {
+>>> +		{ DRM_PLANE_PIXEL_SOURCE_FB, "FB" },
+>>> +		{ DRM_PLANE_PIXEL_SOURCE_COLOR, "COLOR" },
+>>> +	};
+>>> +	unsigned int valid_source_mask = BIT(DRM_PLANE_PIXEL_SOURCE_FB) |
+>>> +				       BIT(DRM_PLANE_PIXEL_SOURCE_COLOR);
+>>
+>>
+>> static const?
+
+Acked.
+
+>>
+>>> +	int i;
+>>> +
+>>> +	/* FB is supported by default */
+>>> +	supported_sources |= BIT(DRM_PLANE_PIXEL_SOURCE_FB);
+>>> +
+>>> +	if (WARN_ON(supported_sources & ~valid_source_mask))
+>>> +		return -EINVAL;
+>>> +
+>>> +	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM, "pixel_source",
+> 
+> Shouldn't this be an atomic prop?
+
+Acked.
+
+> 
+> 
+>>> +			hweight32(supported_sources));
+>>> +
+>>> +	if (!prop)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	for (i = 0; i < ARRAY_SIZE(enum_list); i++) {
+>>> +		int ret;
+>>> +
+>>> +		if (!(BIT(enum_list[i].type) & supported_sources))
+>>
+>> test_bit?
+
+Acked.
+
+>>
+>>> +			continue;
+>>> +
+>>> +		ret = drm_property_add_enum(prop, enum_list[i].type, enum_list[i].name);
+>>> +
+>>
+>> No need for an empty line in such cases. Please drop it.
+
+Acked.
+
+>>
+>>> +		if (ret) {
+>>> +			drm_property_destroy(dev, prop);
+>>> +
+>>> +			return ret;
+>>> +		}
+>>> +	}
+>>> +
+>>> +	drm_object_attach_property(&plane->base, prop, DRM_PLANE_PIXEL_SOURCE_FB);
+>>> +	plane->pixel_source_property = prop;
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +EXPORT_SYMBOL(drm_plane_create_pixel_source_property);
+>>> diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
+>>> index 0338a860b9c8..31af7cfa5b1b 100644
+>>> --- a/include/drm/drm_blend.h
+>>> +++ b/include/drm/drm_blend.h
+>>> @@ -59,4 +59,6 @@ int drm_atomic_normalize_zpos(struct drm_device *dev,
+>>>    int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>>>    					 unsigned int supported_modes);
+>>>    int drm_plane_create_solid_fill_property(struct drm_plane *plane);
+>>> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
+>>> +					   unsigned int supported_sources);
+>>>    #endif
+>>> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+>>> index f6ab313cb83e..73fb6cf8a5d9 100644
+>>> --- a/include/drm/drm_plane.h
+>>> +++ b/include/drm/drm_plane.h
+>>> @@ -59,6 +59,12 @@ struct drm_solid_fill {
+>>>    	uint32_t b;
+>>>    };
+>>>    
+>>> +enum drm_plane_pixel_source {
+>>> +	DRM_PLANE_PIXEL_SOURCE_FB,
+>>> +	DRM_PLANE_PIXEL_SOURCE_COLOR,
+>>> +	DRM_PLANE_PIXEL_SOURCE_MAX
+>>> +};
+> 
+> Just to be very clear that I'm not confusing you with my comment about
+> UAPI headers in the previous patch, this enum is already in a good
+> place. It does not belong in a UAPI header, because userspace
+> recognises enum values by the name string.
+
+Got it.
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> 
+> Thanks,
+> pq
+> 
+>>> +
+>>>    /**
+>>>     * struct drm_plane_state - mutable plane state
+>>>     *
+>>> @@ -152,6 +158,14 @@ struct drm_plane_state {
+>>>    	 */
+>>>    	struct drm_solid_fill solid_fill;
+>>>    
+>>> +	/*
+>>> +	 * @pixel_source:
+>>> +	 *
+>>> +	 * Source of pixel information for the plane. See
+>>> +	 * drm_plane_create_pixel_source_property() for more details.
+>>> +	 */
+>>> +	enum drm_plane_pixel_source pixel_source;
+>>> +
+>>>    	/**
+>>>    	 * @alpha:
+>>>    	 * Opacity of the plane with 0 as completely transparent and 0xffff as
+>>> @@ -742,6 +756,13 @@ struct drm_plane {
+>>>    	 */
+>>>    	struct drm_property *solid_fill_property;
+>>>    
+>>> +	/*
+>>> +	 * @pixel_source_property:
+>>> +	 * Optional pixel_source property for this plane. See
+>>> +	 * drm_plane_create_pixel_source_property().
+>>> +	 */
+>>> +	struct drm_property *pixel_source_property;
+>>> +
+>>>    	/**
+>>>    	 * @alpha_property:
+>>>    	 * Optional alpha property for this plane. See
+>>>    
+>>
+> 
