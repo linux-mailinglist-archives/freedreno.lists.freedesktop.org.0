@@ -1,56 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B078674CBA4
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 07:05:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 09AE374D0B6
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jul 2023 10:58:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6806510E196;
-	Mon, 10 Jul 2023 05:05:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF22110E23A;
+	Mon, 10 Jul 2023 08:58:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97D1710E0CF;
- Mon, 10 Jul 2023 05:05:02 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AD86460DF7;
- Mon, 10 Jul 2023 05:05:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86FB5C433C9;
- Mon, 10 Jul 2023 05:04:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1688965501;
- bh=YFjhvatW0hePg8+5hNpwF77bjV3DIDQRM2rj8LszAm4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BjK9vKsICxkBzHxVV9KtYyBijYI6tgdX9QYtoOWg6L7+/JDlKnDhbxtK/9FahkIl0
- zUTbWmrMvS6Pxv3h9q252yotY3DmxSkxPQCr5KW+RFSOEsQauzoi0nvgEa00mNlQjF
- I9fbiUlmlNckU9Siw3tXNCbxGAtNn0rgR0sJziArV8BCAwwAlUDZkQFFqQg5kWBI+R
- Oq1hNzx1EMtssEgR36aX3JrPwLfzpsPVdsV0aHltTOxiMd97KQo/495SQarz/ZVcjd
- e1SzxOf+DeBtecRcFR0PUEjYDiksO0wEx4XAhHTnFb+/AxxBxStNgj8YTRKycDL3MM
- 6ycnuKZCaZGew==
-From: Bjorn Andersson <andersson@kernel.org>
-To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Luca Weiss <luca@z3ntu.xyz>
-Date: Sun,  9 Jul 2023 22:07:38 -0700
-Message-ID: <168896565945.1376307.16565002896351645834.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230308-msm8226-mdp-v3-0-b6284145d67a@z3ntu.xyz>
-References: <20230308-msm8226-mdp-v3-0-b6284145d67a@z3ntu.xyz>
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED9A10E23E
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 08:58:41 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2b703caf344so61630091fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 01:58:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1688979519; x=1691571519;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=u1UIiLg+gT8qOjGtWi3Tbab4/yTpTJvmt9y9TmQ5/zA=;
+ b=EQKuXWGbXfD9YroxK3ye/LIBLgh8YRx5MkDCKqZXONhJuzG8BXXQYniZadZGY4K5ho
+ RDEeah0l91/2rkYjwDeRRXf3dy/9k90efi0Tq86lx/V83eJ1bqeuDWx1EVkGoqwlcyrn
+ N8frMSSbQdl5q9wfS2nyJSaYEt7W1GcFj+5mR2qSa+qhTGvmn/f/l+Db9e6N3hcisjaq
+ dx75ofebgpR9tpbI1BPpGBwdsnVqzA+SIQebZG4ho7lFOW69eMGpKtjnWhVQ7ntPOdHF
+ 9RWm0S7zYjWTpU76mU4kILQchki9fH4qSpGGyhPho+qEX1V2FW7QJaeUjgwI7i4egQ7Q
+ 7leg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688979519; x=1691571519;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=u1UIiLg+gT8qOjGtWi3Tbab4/yTpTJvmt9y9TmQ5/zA=;
+ b=dF9OIh6atFeBF3ldpIp7JEtvl0LxK5975FOUYX91FnOiP47IEZqC9+psqrwJN9rgFN
+ 7Gm5c9ty264Rs5yEAAJW0CSjiahG9ZVDO6P9mCwAvwJakwn8feakIX9i8xuIQjVAQaVt
+ mn59gnvwa+DFH/atV4CuI37s/spHWj0pH/veHFit5dDuIILllHUpHYsxtt1jIUQIrc2j
+ nAR6uTvNmMGEW8T4L6UguAsBnXb5KmwWnJBoiXAxGcWbwLd36vVxtPZ8NlNHsHiBVBy/
+ oJ2heWyQiTGNt/ehn4IkNCVxJ84vHJR825dB+oV8YkmRt4QCBKPZiJkIzQ9weLe/IQYH
+ xR6A==
+X-Gm-Message-State: ABy/qLYjyinNIlT2M6hrNuJoUhTLVKAz4+VnIHiLZL2oyHjAvhvNNQAO
+ ERoJUYoY8JoNfB7mS3rt18yd2TQbIc71LX8SoKKApQ==
+X-Google-Smtp-Source: APBJJlERlzwAqBH/Uv5aSLjcEewODCu8JlenZIe3+3H6pzXx2WIrny8mnU1JjbuxVqM8sFJI3AhPwQ==
+X-Received: by 2002:a2e:9497:0:b0:2b6:decf:5cbd with SMTP id
+ c23-20020a2e9497000000b002b6decf5cbdmr8633024ljh.36.1688979519283; 
+ Mon, 10 Jul 2023 01:58:39 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+ by smtp.gmail.com with ESMTPSA id
+ ay26-20020a170906d29a00b009887f4e0291sm5800767ejb.27.2023.07.10.01.58.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Jul 2023 01:58:38 -0700 (PDT)
+Message-ID: <db81d100-1ed6-19a1-14f6-8cacf71bb1bd@linaro.org>
+Date: Mon, 10 Jul 2023 10:58:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v3 0/7] Display support for MSM8226
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
+ <20230709041926.4052245-2-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230709041926.4052245-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/5] dt-bindings: display: msm:
+ dp-controller: document SM8250 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,27 +85,22 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Conor Dooley <conor.dooley@microchip.com>, freedreno@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Thu, 01 Jun 2023 19:00:07 +0200, Luca Weiss wrote:
-> This series adds the required configs for MDP5 and DSI blocks that are
-> needed for MDSS on MSM8226. Finally we can add the new nodes into the
-> dts.
+On 09/07/2023 06:19, Dmitry Baryshkov wrote:
+> It looks like DP controlled on SM8250 is the same as DP controller on
+> SM8350. Use the SM8350 compatible as fallback for SM8250.
 > 
-> Tested on apq8026-lg-lenok and msm8926-htc-memul.
-> 
-> 
-> [...]
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Applied, thanks!
 
-[7/7] ARM: dts: qcom: msm8226: Add mdss nodes
-      commit: d5fb01ad5eb449ccfd950e946a882639cad168b3
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+Krzysztof
+
