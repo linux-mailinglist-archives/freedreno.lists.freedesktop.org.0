@@ -2,73 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D30B74E269
-	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 02:04:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13AD74E444
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 04:32:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52B1A10E16D;
-	Tue, 11 Jul 2023 00:04:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83C7310E30F;
+	Tue, 11 Jul 2023 02:32:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4725610E16D
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 00:04:04 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b5c231c23aso80803671fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jul 2023 17:04:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689033842; x=1691625842;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=V/dX5K/ss3x0ciVNd3aGlR4JXcHpqL/PpCCOLWFx+LU=;
- b=bff2RHeCIczRdsZbNq2tUaXQiFpucPzuUmWWOXPGQ4SAr6olSBCt7WL2nUpZzrF1gt
- gSZ5+lUbOASJpXJ7IOfH4AFidBOgj6GWWYBt11VauuiijYUhlF5WfrY7wSo/OxxeDNc6
- xRVL5RXhcVFwIlByLXbXlxUmm92OXePSiiOIzo0nWCKvww3YXP09N1ZkyvNCI3s99k+3
- /iqXTuI7JeiDVN9e2Rm3Y9BqzR9g1BEeGNtqi/XqjG2y4FYwQ5WxL7Mz5lw931ZCyU0+
- qkrWyozbhuySBBMS+nsM3Ok7XruduIOm5IOquzTEVTlFWfgtVtMKTxf0GbIrdCeaw08k
- nfKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689033842; x=1691625842;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=V/dX5K/ss3x0ciVNd3aGlR4JXcHpqL/PpCCOLWFx+LU=;
- b=gABO5wyoB3Hu20k17NbPZAgbqjMo8Sodq0o1R+m+atqLDyYjfdwsNpArUpDjCuIO9B
- QVj6JUsNvieUj3mJeYZrnPv6TabfOOO8ZtHEJ+YHPkoi0OJ19OAjzgPcLMpnu8BpJeuE
- Eb/+WSRCMsOXzHZwfumjmxFYpUcWkbXhw/bicYa7T+4aftbHYVGC86GtmecHmwqg3tag
- tF7TZ+fCZ7dLEuuTGoJWz9xoEnH+yQJ0SBcoXq0/B/OVoHNdOrse6wPg1Ypm1axv/OPm
- X+KylLmPp+gMXwyRSSmRBx3JM48KS1DYSN5K0RLXv3umIRFvcPeH409Em/x5fKuCgC1v
- 8r6g==
-X-Gm-Message-State: ABy/qLaPyyhbP+gCNs+sYZ4bMSsMeb2Ry5HTH+EOoc0IypXZ9sM7xqst
- 8+hPTNzDy9ivGDc+AtZk61xKNw==
-X-Google-Smtp-Source: APBJJlEuKphZX/mQW/8zaQsAfg/oLoPfdo42uJwdfWTi2a1CBy9Un701xs1VX++nJ0yk9il+OIo1vw==
-X-Received: by 2002:a2e:8eca:0:b0:2b6:a827:164f with SMTP id
- e10-20020a2e8eca000000b002b6a827164fmr11447647ljl.10.1689033841931; 
- Mon, 10 Jul 2023 17:04:01 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- n24-20020a2e86d8000000b002b6cde9f325sm173232ljj.105.2023.07.10.17.04.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Jul 2023 17:04:01 -0700 (PDT)
-Message-ID: <25c12da7-e79d-af19-fbc9-47ebf7041406@linaro.org>
-Date: Tue, 11 Jul 2023 03:04:00 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A55D10E30F;
+ Tue, 11 Jul 2023 02:32:02 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36B2Aob2007693; Tue, 11 Jul 2023 02:31:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=xD5SsMtOnNufdqNgaLLKWwccIQ4sQv48THVGulvdeZo=;
+ b=UwDdYrKJjNq6RHaz13GCYZZaKIlS5MOH00uYNX8NMSqq6+iOX0WvyKwP9U+JVe8osV/n
+ DfgvfJvEwR3FgORNkaSzOJYpcRfeCF1tx80YdLXSl4B5OqWN0e5c0Aq1nEGT9umXqqqR
+ 3jc8ZD5jyVG0ie+V9yPh7lUdg+UuAtsT1cicixJ6fQ27DOOZs747+ZVQ27otXAjuTskv
+ QBOuf/gGs7razK52Nfv8Wg31LDK+aPOOQDLMsj6+X5NYk1MVS15bc412g6mq9CzYn1bT
+ EmCtwJ01nOptqGzrtSHlxKkycXGYSG5xJF+JclxV8o73D/R5S/2Jh6Tpkyar9dkrSrGF EQ== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rrwm1g27t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 02:31:52 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36B2Vp66014728
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 02:31:51 GMT
+Received: from [10.110.47.185] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Mon, 10 Jul
+ 2023 19:31:50 -0700
+Message-ID: <729de13d-6fb7-ff1c-8660-4710d914258b@quicinc.com>
+Date: Mon, 10 Jul 2023 19:31:49 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230608-b4-add-burst-mode-v2-1-2ff468457d46@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230608-b4-add-burst-mode-v2-1-2ff468457d46@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20230707193942.3806526-1-dmitry.baryshkov@linaro.org>
+ <20230707193942.3806526-5-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230707193942.3806526-5-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Enable BURST_MODE for
- command mode for DSI 6G v1.3+
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 7NeTYd12_-HjGjfBzYRpd7eOn9rwoNGl
+X-Proofpoint-GUID: 7NeTYd12_-HjGjfBzYRpd7eOn9rwoNGl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-10_18,2023-07-06_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ suspectscore=0 spamscore=0 mlxscore=0 malwarescore=0 adultscore=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 mlxlogscore=999
+ phishscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307110021
+Subject: Re: [Freedreno] [PATCH v3 04/11] drm/msm/dpu: drop separate
+ dpu_core_perf_tune overrides
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,65 +86,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/06/2023 23:31, Jessica Zhang wrote:
-> During a frame transfer in command mode, there could be frequent
-> LP11 <-> HS transitions when multiple DCS commands are sent mid-frame or
-> if the DSI controller is running on slow clock and is throttled. To
-> minimize frame latency due to these transitions, it is recommended to
-> send the frame in a single burst.
-> 
-> This feature is supported for DSI 6G 1.3 and above, thus enable burst
-> mode if supported.
-> 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
-> Changes in v2:
-> - Moved MDP_CTRL2 register setting to dsi_ctrl_config() (Dmitry/Marijn)
-> - Read previous value of MDP_CTRL2 register before writing to it
->    (Dmitry)
-> - Link to v1: https://lore.kernel.org/r/20230608-b4-add-burst-mode-v1-1-55dfbcfada55@quicinc.com
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 7 +++++++
->   1 file changed, 7 insertions(+)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+On 7/7/2023 12:39 PM, Dmitry Baryshkov wrote:
+> The values in struct dpu_core_perf_tune are fixed per the core perf
+> mode. Drop the 'tune' values and substitute them with known values when
+> performing perf management.
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 3f6dfb4f9d5a..cdb404885f3c 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -752,6 +752,13 @@ static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
->   		/* Always insert DCS command */
->   		data |= DSI_CMD_CFG1_INSERT_DCS_COMMAND;
->   		dsi_write(msm_host, REG_DSI_CMD_CFG1, data);
+> Note: min_bus_vote was not used at all, so it is just silently dropped.
+> 
+
+Interesting ..... should bring this back properly. Will take it up.
+
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 29 ++++++++-----------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  4 ---
+>   2 files changed, 12 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> index 05d340aa18c5..348550ac7e51 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> @@ -235,7 +235,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+>   {
+>   	struct dpu_core_perf_params perf = { 0 };
+>   	int i, ret = 0;
+> -	u64 avg_bw;
+> +	u32 avg_bw;
+>   
+
+avg_bw seems unused in this patch, so unrelated change?
+
+>   	if (!kms->num_paths)
+>   		return 0;
+> @@ -291,10 +291,16 @@ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc)
+>   
+>   static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+>   {
+> -	u64 clk_rate = kms->perf.perf_tune.min_core_clk;
+> +	u64 clk_rate;
+>   	struct drm_crtc *crtc;
+>   	struct dpu_crtc_state *dpu_cstate;
+>   
+> +	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED)
+> +		return kms->perf.fix_core_clk_rate;
 > +
-> +		if (msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
-> +				msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V1_3) {
-
-Nit: please intent in future to the same level (vim: "set cino=(0").
-
-> +			data = dsi_read(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2);
-> +			data |= DSI_CMD_MODE_MDP_CTRL2_BURST_MODE;
-> +			dsi_write(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2, data);
-> +		}
+> +	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM)
+> +		return kms->perf.max_core_clk_rate;
+> +
+>   	drm_for_each_crtc(crtc, kms->dev) {
+>   		if (crtc->enabled) {
+>   			dpu_cstate = to_dpu_crtc_state(crtc->state);
+> @@ -305,11 +311,6 @@ static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+>   		}
 >   	}
 >   
->   	dsi_write(msm_host, REG_DSI_CMD_DMA_CTRL,
-> 
-> ---
-> base-commit: a0364260213c96f6817f7e85cdce293cb743460f
-> change-id: 20230608-b4-add-burst-mode-a5bb144069fa
-> 
-> Best regards,
+> -	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED)
+> -		clk_rate = kms->perf.fix_core_clk_rate;
+> -
+> -	DRM_DEBUG_ATOMIC("clk:%llu\n", clk_rate);
+> -
 
--- 
-With best wishes
-Dmitry
+Why dont you move both FIXED and MINIMUM handling below instead of above.
 
+So that they will just override the clk_rate and you can keep this 
+useful log here and it matches where the function is.
+
+This chunk looks better that way.
+
+<skipping the rest as it LGTM>
