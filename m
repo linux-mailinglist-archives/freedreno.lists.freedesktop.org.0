@@ -1,74 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4548F74EB80
-	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 12:09:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4045F74F1C9
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 16:22:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3A9610E35B;
-	Tue, 11 Jul 2023 10:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1A510E090;
+	Tue, 11 Jul 2023 14:21:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F49810E357
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 10:09:31 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4fafe87c6fbso8721769e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 03:09:31 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C575010E090
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 14:21:57 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2b734aea34aso1201941fa.0
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 07:21:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689070169; x=1691662169;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7dRYhDe8BiVEV0EBlHbMEnxi5wvB4qWMFbFVB8lXRts=;
- b=aFgnj794CZ/PSLsUzrOXSBGzhI4B7HswMutmsFqschHSz8cORA+/pDetACQMnLtiVf
- SmrzCFCT/cs+yM6BikKD/fqtRXullzc+RV31vTmrAL7rMnzI7g16FM72t2KqZivXVtiL
- fMRV7ruLnrIMLDcjsLJWEglSNQS1EXdKxUdtJ7xeV2OpYxq6LtL3o6/GCUCTxNGksEAq
- OaXuZwr3JCMIQ1l/iQaAsAXZe5TMsMdztIpr3EeEXtf9nprw/1zwlBw+P4lNXSRt+M6k
- rXc9W4f0n7upozPz3dJJtgCxGq6YYdfg3Q3boXohjB+hDA1PLH4SmzjbP61YS/E3XkvU
- pJlA==
+ d=linaro.org; s=google; t=1689085316; x=1691677316;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=m4OHhf//BH7yn6Q/Ot3BJTEK+Wcory0adfABT5r6wUE=;
+ b=tyWb6Y5kdmHtSYc89DJi1+pl8lGEj05MyNn/Zv1MCiy8+izcQ+Vp8EUkoZ3o5QHUwA
+ QErrdevOrnHl7ZVkvMXUf5eAJmT2FEEibUl/eWrQFeNZ5KhBM8sF6D7pkY6P8hiLEneC
+ RXgxh2TOoi7msRqZWLV9/qhG+9WxnnjEehnGHMJ6AGiD5rTirRDezXqOaBLNrTCD+PQW
+ QwHIRS1IncPuoOgatcUULna+4VK6MKjmstJl+hUQ13m5n/xq/u1V84O9WBN+ddOTjFVV
+ U6Q0NOeB+I1oiAcI7+NKaB6fFMJ9Qdtnp4IuEu3LCMGqkKMu0JvVAku8l8gWrRwBwPoA
+ PX8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689070169; x=1691662169;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7dRYhDe8BiVEV0EBlHbMEnxi5wvB4qWMFbFVB8lXRts=;
- b=VKt4oPHXNS1CnaBc2ZrhUM4y8I1tHl044rtuHK3ax4fmESmJJHUc9NnvX3Sabl3GcT
- Dl0HHP9W9JkmbGvhcDuhxlDY09CatqQrlugOXE06ovIbsr9HMo7IGIPTFYn6Xmrv1/MY
- VESi+3LHHxR+XOZq9ExyXpuiWwfjnHjH/T7kjtge0+eP8/AWX+0onclU1Fmd3cHW7CMm
- oGSYllDMUStMBtDNRLjsHjIbvGdrXvNu/scpjfosoBmhY4n/qvqo5c1Jqfzm7740Qh5j
- IvUzidnzfAjmbBCHwIMS2Uu3Ysj601FI4tlred7PIky06YSle9DvH2f00Q67vJuzj772
- XKXA==
-X-Gm-Message-State: ABy/qLYh4foPvwokf4hyYsMquLQIbs6dCNPSYsNSI3NgL79rZY91F/3J
- jC+SYWOJ6yjixEAUlSRPprtxww==
-X-Google-Smtp-Source: APBJJlHdaYP6KQEeXomKRN9uoCu1+yo8uHO71sdRJ/mNUCNoupGWQiJZQ4tH2nJN9kqa4WSAGURoBQ==
-X-Received: by 2002:a05:6512:2346:b0:4fb:7be5:8f4e with SMTP id
- p6-20020a056512234600b004fb7be58f4emr3008339lfu.6.1689070168929; 
- Tue, 11 Jul 2023 03:09:28 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- 15-20020ac2482f000000b004fb88fffd19sm256372lft.146.2023.07.11.03.09.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jul 2023 03:09:28 -0700 (PDT)
-Message-ID: <1090089b-2fa9-9781-51a8-38957e261bfd@linaro.org>
-Date: Tue, 11 Jul 2023 13:09:27 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-GB
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- noralf@tronnes.org
-References: <20230710091029.27503-1-tzimmermann@suse.de>
- <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
- <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
+ d=1e100.net; s=20221208; t=1689085316; x=1691677316;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=m4OHhf//BH7yn6Q/Ot3BJTEK+Wcory0adfABT5r6wUE=;
+ b=C0rumnhJ1KOD1lLhzuooHe3q1TDkB/VcH2GtS4AppHhz3WRH5I3rDZOplJnMTUcuEW
+ C3MlxMhKj/Y1KqMSFNITYUO9tgsO5xNjl0isJMEG9s4rJXhOm5iBgEjjLfHPGNA3hnIy
+ +TIzN4Es2A3HSYc8nb3bQXHEmsuAPDxf/UoP+GLFDe59eGR3/s5GZwcgg7TdOOeY1RLI
+ UU8IaVufl/czCieUZ/TQot6hU1tZE+0RbcXMXqU4Zj+RbnGxTLPYb4Jg3Z+fg6Hf6OOJ
+ YIwytEUiGkdWWqTWm+o+UTD3YNAWtOF3wZ0Ay2Dr+jmZO63a7lqieIcFp/l1mqqDiN5G
+ 2lEA==
+X-Gm-Message-State: ABy/qLY7hfXDpnm82KJqMqw3vOxVKZjfahHJntZ2dl0X+1+364p8t3iz
+ gEW8URPkyJzR+FrX0ftJHdtdug==
+X-Google-Smtp-Source: APBJJlFAMhH5pIJfp4bCLgKjGyunfjO3nmFym3bFGd0v6tXuy2T+eDybgK8uyTe2IuT1NOb+EJ5WvA==
+X-Received: by 2002:a2e:8887:0:b0:2b6:e719:324e with SMTP id
+ k7-20020a2e8887000000b002b6e719324emr12798365lji.49.1689085315755; 
+ Tue, 11 Jul 2023 07:21:55 -0700 (PDT)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ v9-20020a2e87c9000000b002b6b4424a28sm487934ljj.13.2023.07.11.07.21.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jul 2023 07:21:55 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 11 Jul 2023 17:21:44 +0300
+Message-Id: <168908465040.1869384.6896423598850742702.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
+References: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/client: Send hotplug event after
- registering a client
+Subject: Re: [Freedreno] [PATCH 0/5] arm64: dts: qcom: qrb5165-rb5: enable
+ DP support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,63 +81,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
- Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Moritz Duge <MoritzDuge@kolahilft.de>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/07/2023 09:07, Thomas Zimmermann wrote:
-> Hi
+
+On Sun, 09 Jul 2023 07:19:21 +0300, Dmitry Baryshkov wrote:
+> Implement DisplayPort support for the Qualcomm RB5 platform.
 > 
-> Am 10.07.23 um 23:11 schrieb Dmitry Baryshkov:
+> Note: while testing this, I had link training issues with several
+> dongles with DP connectors. Other DisplayPort-USB-C dongles (with HDMI
+> or VGA connectors) work perfectly.
+> 
+> Dependencies: [1]
+> Soft-dependencies: [2], [3]
+> 
 > [...]
->>> ---
->>>   drivers/gpu/drm/armada/armada_fbdev.c     |  4 ----
->>>   drivers/gpu/drm/drm_client.c              | 21 +++++++++++++++++++++
->>>   drivers/gpu/drm/drm_fbdev_dma.c           |  4 ----
->>>   drivers/gpu/drm/drm_fbdev_generic.c       |  4 ----
->>>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c |  4 ----
->>>   drivers/gpu/drm/gma500/fbdev.c            |  4 ----
->>>   drivers/gpu/drm/msm/msm_fbdev.c           |  4 ----
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
-> 
-> Thanks.
-> 
->>
->>>   drivers/gpu/drm/omapdrm/omap_fbdev.c      |  4 ----
->>>   drivers/gpu/drm/radeon/radeon_fbdev.c     |  4 ----
->>>   drivers/gpu/drm/tegra/fbdev.c             |  4 ----
->>>   10 files changed, 21 insertions(+), 36 deletions(-)
->>
->> BTW: As you have been clearing this area. I see that significant 
->> amount of DRM drivers use exactly the same code for 
->> msm_fbdev_client_funcs and for the significant part of 
->> foo_fbdev_setup(). Do you have any plans for moving that into a 
->> library / generic code? If not, I can take a look at crafting the patch.
->>
-> 
-> You're not the first to ask. :) I've so far not attempted to address 
-> this duplication. I've been bitten by premature helperization before, so 
-> I wanted to wait a bit longer. A lot of the fbdev and client code is 
-> changing quite a bit. After things stabilized, I want to to try to do 
-> some more code sharing.
 
-Ack, thank you for sharing this.
+Applied, thanks!
 
+[1/5] dt-bindings: display: msm: dp-controller: document SM8250 compatible
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/5ce85953cc45
+
+Best regards,
 -- 
-With best wishes
-Dmitry
-
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
