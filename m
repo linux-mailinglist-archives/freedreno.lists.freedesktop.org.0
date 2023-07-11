@@ -1,62 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AFB974FB99
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 01:01:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F1B74FBB3
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 01:05:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F128610E45B;
-	Tue, 11 Jul 2023 23:01:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC9010E45D;
+	Tue, 11 Jul 2023 23:05:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 068F610E45E
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 23:01:14 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-3a36b309524so5409250b6e.3
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 16:01:13 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A94E10E453
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 23:05:00 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2b6f9edac8dso96886371fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 16:05:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689116473; x=1691708473;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=sNgvvti22BaVOQpn7FMXRFccxTxteRm9qMZTNS49wJc=;
- b=SnsZzYcxC8uETuqw89Oj9ypwhEjQ5xsUGI4SCT2U/HLgMMEp7sCEUWb8Vfj8I33+63
- oFukQSrN7Qm89fretmaq0T4Dew04HmVnlsTcP8GFhXCFKKtYp0x6/Q0p9T8S8J4DhpTh
- BuAWsNJv/LJdL6mBX762L1gy5A8LxqvQMHjVoK08oJPeaNxpbVtPR27aIDI0FbinbM7a
- fanXkh2FvbI3T7LhG0lTeaEhfgZ2CdTQMSC8/XbuLMjxgIxl3lwLuq7MsRVt69g5VV1G
- 7nmWluz6vuiaiquNi3nwbiScFyynqIVDVaC5AwmdOakV5IyV+Ld2qNRworcXYC6cwOkA
- 0i1w==
+ d=linaro.org; s=google; t=1689116698; x=1691708698;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=HrPGRPC6HG0U2FML7Fsc9fdI4MG3WoxSDfYEpjLufj4=;
+ b=hyk6BzvMm+cF73GKAxkljHynA3RbjXkc1rW5YudTd/1PQubEtGU7RFbes5TqouW+pO
+ PJX7UaUQXG43XULLItyQw2ALn4u/scZ+32rJExJvDfG0NF2DBywIiErLkiZ5XoWqk3Y7
+ OpqzA6Wz+IJ/5xG/SecPt2VcTuN+92k+QbyBlBAy2Hj/ac1u4V4rh/RgOjHsj7m7K+bz
+ OI5CntiUFwnh/PQx1JJ56hNpKC6853HHS/kjAzBqotYh47YxREZTHRSugxDQgyRdqZ/R
+ LhQNxKkp5QI5/Mp9LF2RYmmXecqqekoWGLj4QHC7in2b32STxJ/eQfL9eBaiCXHsnp1G
+ TJ0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689116473; x=1691708473;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sNgvvti22BaVOQpn7FMXRFccxTxteRm9qMZTNS49wJc=;
- b=F9w0xO1upjse9GQ1IFG15ul6z3bS8GmYDPeHIbwcJyYunHQO/I2a3FUUFGZF5KN98D
- OzWXWvkxBbXkYdor0cwP9s1PGZ1L8cmmZqkZzVHWYR/f6pZs6YIz5rbAqbmbJuKK+VrE
- ijnJzOxaUucyg5ctmTrcAb6O3jxlcYv+AxGTDrOyHPxHy7DBQC0ZhGoTd/5yFdA9zJNP
- ME7WgmbLr8EYZ9xQLIEA0eA69HMIlWNXT2z4OeBrFD0j0Cg9Ggu6ymd1v13KQayvWkLG
- Fv0dBYOCqt6DuCbaFICDwK3ysUT6G/QvR+FAffUCO++KkfQkBpqhBBG7Aq/P2UOSVspy
- plPQ==
-X-Gm-Message-State: ABy/qLbyMIg87Bcv7ZWXnpsCcq7h3mx5bL0mUZI0rlHVf3+M2+mp4lee
- 0wNG5HgYeyBIl7aicn/aX1KGORzJPwcjiykvDUv2NQ==
-X-Google-Smtp-Source: APBJJlEkQ9HSi+CqGWUfrEa9mQbC5ePz8PSqoOABC9giUvRXnz9F6mkPYDAMXjPDWPnX5V9zeoA+Hz8x45tFMf9ARu4=
-X-Received: by 2002:a05:6808:1441:b0:3a4:1319:9af1 with SMTP id
- x1-20020a056808144100b003a413199af1mr6467128oiv.51.1689116473078; Tue, 11 Jul
- 2023 16:01:13 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1689116698; x=1691708698;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HrPGRPC6HG0U2FML7Fsc9fdI4MG3WoxSDfYEpjLufj4=;
+ b=Hy0CPX9Qweyez67UGQYtrK2wMGS7p7623h8ppNRfT8r1EIb8dpixQ2kS6yzMzwYoQN
+ HsJyzErZLCq+ydwdvnojqgQPKhRMkzIn0BBb5ptn+Z+Zi4dlSuOdQvBO5SYzoDsxeagt
+ J3JVpiCO4k1mX1mwMMhzFPnR57h5FSd2jHuzrPMoCTl21hGVsCDlAzjv2JVhjbugolPb
+ Ial6T7Mk7ozkGoIVKmxMIgaT7p/60V10/JODp8Qu5r0iCcs4vuIqQjcaWp/joJZd+04d
+ pZRSP4Xeg1ja2sGPqj3YlU7GxRjp1Eh3E1mV/Fm25SSXVEmlTjHYesmrDnqKA3NomRdv
+ KBNw==
+X-Gm-Message-State: ABy/qLYcU6+R0qS+0Kleim0I2DwnvrDVfOS6Vwyq3++kayOZEol/Lfwh
+ LBGT89YF+NOkpfqEVtwPhdoErA==
+X-Google-Smtp-Source: APBJJlEg2hw+MBpZNNOeJN2GtjgzeJrhXA9r4AsOhwLh9cl0w2ck9Kf3KdlFd+1EhzlAggXvIfxSJQ==
+X-Received: by 2002:a05:651c:201:b0:2b6:dbc5:5ca4 with SMTP id
+ y1-20020a05651c020100b002b6dbc55ca4mr13049709ljn.16.1689116697997; 
+ Tue, 11 Jul 2023 16:04:57 -0700 (PDT)
+Received: from [192.168.1.101] (abyl96.neoplus.adsl.tpnet.pl. [83.9.31.96])
+ by smtp.gmail.com with ESMTPSA id
+ u4-20020a2ea164000000b002b6e973f8cfsm648369ljl.36.2023.07.11.16.04.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jul 2023 16:04:57 -0700 (PDT)
+Message-ID: <2c9d4d18-48c8-12b0-a971-62138b318c5b@linaro.org>
+Date: Wed, 12 Jul 2023 01:04:56 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230709041926.4052245-1-dmitry.baryshkov@linaro.org>
  <20230709041926.4052245-4-dmitry.baryshkov@linaro.org>
  <d80fab4d-f581-f6fa-4aa8-f8952f0c710c@linaro.org>
  <6968f4a5-fc5d-e166-3262-dc83762eeec1@linaro.org>
  <766ade98-f3c7-89a3-d3e0-63c8d01a8498@linaro.org>
-In-Reply-To: <766ade98-f3c7-89a3-d3e0-63c8d01a8498@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 12 Jul 2023 02:01:02 +0300
-Message-ID: <CAA8EJpqxuziMGqkCZsE18K6z=WyQ44nxo3+-He=SZhH7Gfggkg@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAA8EJpqxuziMGqkCZsE18K6z=WyQ44nxo3+-He=SZhH7Gfggkg@mail.gmail.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <CAA8EJpqxuziMGqkCZsE18K6z=WyQ44nxo3+-He=SZhH7Gfggkg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH 3/5] arm64: dts: qcom: qrb5165-rb5: add
  onboard USB-C redriver
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -82,80 +93,83 @@ Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 12 Jul 2023 at 01:59, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> On 12.07.2023 00:39, Dmitry Baryshkov wrote:
-> > On 12/07/2023 00:36, Konrad Dybcio wrote:
-> >> On 9.07.2023 06:19, Dmitry Baryshkov wrote:
-> >>> Add the nb7vpq904m, onboard USB-C redriver / retimer.
-> >>>
-> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>> ---
-> >> [...]
-> >>
-> >>> +            port@1 {
-> >>> +                reg = <1>;
-> >>> +
-> >>> +                redriver_phy_con_ss: endpoint {
-> >>> +                    remote-endpoint = <&usb_1_qmpphy_typec_mux_in>;
-> >>> +                    data-lanes = <0 1 2 3>;
-> >> That's USB+DP lines combined, or how does it work? I'm confused :/
-> >
-> > 4 generic purpose SS lanes, which can be purposed for USB or for DP.
-> Okay, so my gut did better than my brain.
->
-> Other than that, I'm reading the bindings and it looks like ports 0 and
-> 1 may possibly be swapped?
+On 12.07.2023 01:01, Dmitry Baryshkov wrote:
+> On Wed, 12 Jul 2023 at 01:59, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>
+>> On 12.07.2023 00:39, Dmitry Baryshkov wrote:
+>>> On 12/07/2023 00:36, Konrad Dybcio wrote:
+>>>> On 9.07.2023 06:19, Dmitry Baryshkov wrote:
+>>>>> Add the nb7vpq904m, onboard USB-C redriver / retimer.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>> [...]
+>>>>
+>>>>> +            port@1 {
+>>>>> +                reg = <1>;
+>>>>> +
+>>>>> +                redriver_phy_con_ss: endpoint {
+>>>>> +                    remote-endpoint = <&usb_1_qmpphy_typec_mux_in>;
+>>>>> +                    data-lanes = <0 1 2 3>;
+>>>> That's USB+DP lines combined, or how does it work? I'm confused :/
+>>>
+>>> 4 generic purpose SS lanes, which can be purposed for USB or for DP.
+>> Okay, so my gut did better than my brain.
+>>
+>> Other than that, I'm reading the bindings and it looks like ports 0 and
+>> 1 may possibly be swapped?
+> 
+> Yes. But if I get schematics right, the lanes are not swapped in this case.
+I'm not talking about the 0123-3210 swap, but rather in/out being swapped.
+Unless I'm reading the bindings wrong (or they may be written in a
+confusing way).
 
-Yes. But if I get schematics right, the lanes are not swapped in this case.
-
->
-> Konrad
-> >
-> >>
-> >> Konrad
-> >>> +                };
-> >>> +            };
-> >>> +
-> >>> +            port@2 {
-> >>> +                reg = <2>;
-> >>> +
-> >>> +                redriver_usb_con_sbu: endpoint {
-> >>> +                    remote-endpoint = <&pm8150b_typec_sbu_out>;
-> >>> +                };
-> >>> +            };
-> >>> +        };
-> >>> +    };
-> >>>   };
-> >>>     &mdss {
-> >>> @@ -1294,7 +1334,7 @@ &usb_1_qmpphy {
-> >>>   };
-> >>>     &usb_1_qmpphy_typec_mux_in {
-> >>> -    remote-endpoint = <&pm8150b_typec_mux_out>;
-> >>> +    remote-endpoint = <&redriver_phy_con_ss>;
-> >>>   };
-> >>>     &usb_2 {
-> >>> @@ -1382,7 +1422,15 @@ pm8150b_role_switch_out: endpoint {
-> >>>               port@1 {
-> >>>                   reg = <1>;
-> >>>                   pm8150b_typec_mux_out: endpoint {
-> >>> -                    remote-endpoint = <&usb_1_qmpphy_typec_mux_in>;
-> >>> +                    remote-endpoint = <&redriver_usb_con_ss>;
-> >>> +                };
-> >>> +            };
-> >>> +
-> >>> +            port@2 {
-> >>> +                reg = <2>;
-> >>> +
-> >>> +                pm8150b_typec_sbu_out: endpoint {
-> >>> +                    remote-endpoint = <&redriver_usb_con_sbu>;
-> >>>                   };
-> >>>               };
-> >>>           };
-> >
-
-
-
--- 
-With best wishes
-Dmitry
+Konrad
+> 
+>>
+>> Konrad
+>>>
+>>>>
+>>>> Konrad
+>>>>> +                };
+>>>>> +            };
+>>>>> +
+>>>>> +            port@2 {
+>>>>> +                reg = <2>;
+>>>>> +
+>>>>> +                redriver_usb_con_sbu: endpoint {
+>>>>> +                    remote-endpoint = <&pm8150b_typec_sbu_out>;
+>>>>> +                };
+>>>>> +            };
+>>>>> +        };
+>>>>> +    };
+>>>>>   };
+>>>>>     &mdss {
+>>>>> @@ -1294,7 +1334,7 @@ &usb_1_qmpphy {
+>>>>>   };
+>>>>>     &usb_1_qmpphy_typec_mux_in {
+>>>>> -    remote-endpoint = <&pm8150b_typec_mux_out>;
+>>>>> +    remote-endpoint = <&redriver_phy_con_ss>;
+>>>>>   };
+>>>>>     &usb_2 {
+>>>>> @@ -1382,7 +1422,15 @@ pm8150b_role_switch_out: endpoint {
+>>>>>               port@1 {
+>>>>>                   reg = <1>;
+>>>>>                   pm8150b_typec_mux_out: endpoint {
+>>>>> -                    remote-endpoint = <&usb_1_qmpphy_typec_mux_in>;
+>>>>> +                    remote-endpoint = <&redriver_usb_con_ss>;
+>>>>> +                };
+>>>>> +            };
+>>>>> +
+>>>>> +            port@2 {
+>>>>> +                reg = <2>;
+>>>>> +
+>>>>> +                pm8150b_typec_sbu_out: endpoint {
+>>>>> +                    remote-endpoint = <&redriver_usb_con_sbu>;
+>>>>>                   };
+>>>>>               };
+>>>>>           };
+>>>
+> 
+> 
+> 
