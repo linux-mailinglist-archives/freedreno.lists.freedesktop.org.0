@@ -1,72 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3777A74F1E1
-	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 16:22:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5569E74F531
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 18:31:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5783910E091;
-	Tue, 11 Jul 2023 14:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1473510E3DC;
+	Tue, 11 Jul 2023 16:31:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA4BC10E3B9
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 14:22:06 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2b69923a715so91351171fa.0
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 07:22:06 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF6310E3DC
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 16:31:25 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4fba74870abso8951062e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jul 2023 09:31:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689085325; x=1691677325;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OV++g5l7T0tRimgh3Jdezm1NyLyIWbATkO5QIhsASFo=;
- b=GOGEgC2ipXyiP3z8IPmu6hx07i1nnE6D8nNnrVDnxnbxtZ00eD2Z4AxKmABjOTqqAA
- XWdJo20QqnwehJwRel3LDfnq7n12b1GXNLh8u65COO29VUqTk/gF3m04MAw7nSvKNAL0
- fC/irLnhTiQG6Swu05WSTLjE4vIJwN4Q61xD5OTqkWBppG31WsujxCFYHedJlaikqAny
- aRJ7PLjY8zchGwRbsqnk6nJ8LMRCVZYijeBuBKwSUhU1NbrR/GUT6TAEOwG07UdxpZZD
- nN/CbN8MIdqJL2+esbOxHqKxFHiUjl6FN4cZeVcTabmq+PTEC11Ly+CeXUxYUQ6hjaR2
- EayQ==
+ d=linaro.org; s=google; t=1689093083; x=1691685083;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zKYYp8rVnqq2DLqZW/bklzE/ZMHurz3rrSzMUFEOKHM=;
+ b=zFzIfPOJtTc3JedXcpf8f5wS9UMptT+LC3Rv6KrrdCaUkFkC+aWbgJWIvV7e4K/4rm
+ fi0wVwyU3bRBNsJ+fJjqLSB/DKGs2tgfxxjucIXjuN+qnPg4YMMn1/dUJ/kK+2JIfkSp
+ qvySgPXy0X/Vcv8RAjVmAz8u6hZgFRO3mLxlVyB4BG0Fg5vnZ7PFY92lBx13VhkPrbBN
+ qagAI6+itiefX27A2SDas+Cf31AeM+LHVuTvejbci8ciAjyE5OGTQcOQkNkk+1Ij501N
+ iOtLS8xzNLfR8mwUAZrRCCsyobcYfUWxZa7juQ+W8rkhKnyS4NyTu89VPtGJFs4beqDc
+ EVSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689085325; x=1691677325;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OV++g5l7T0tRimgh3Jdezm1NyLyIWbATkO5QIhsASFo=;
- b=UYBGjWXP4b9dUQcTELM+LG9zVaBmTu0WBE3dn6k6zVQkWeyt/AKBrI3q84PkVQzexy
- o1K2v2bN/8a+agvzgZUOaqjZD0J3e92KExzWXeVz6CEnjfTwD6HjJ9Vu4fG3ZPbHVs1c
- jP53D0az+GzdkbR+cxk6WGGnwSDC+eET4g12dB9QJiNCx/zoOqFZKq2cZDxiP07A8yD6
- CJz7XJ1Afp1f4Pl4NRiv+6dygT7h39xo0BM+JL2D90GYUns0W34GoPYM6nFazMjD6OZ5
- zjOXl5UZv3+cql81k6svAlD67eqrRq4Voi+9TA2GlwANvjJLCRFyR49NkAiyncVzkrUu
- mtAQ==
-X-Gm-Message-State: ABy/qLack7HU1/6Rn4RuCJKg1v0PYrtGHB/U8aiSQD6RrGNCpMAvnLoD
- kVpmcXVOO0cJESfSqqnfsaLUdg==
-X-Google-Smtp-Source: APBJJlE5VMnrx88cqkH8qJJRYAzPzrxXbOp0E7ZXLk5iTSk06igrGHB6WXj0hcZsVHc8i8W/u5edgA==
-X-Received: by 2002:a2e:700e:0:b0:2b5:97a3:3ba5 with SMTP id
- l14-20020a2e700e000000b002b597a33ba5mr12518675ljc.10.1689085324766; 
- Tue, 11 Jul 2023 07:22:04 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- v9-20020a2e87c9000000b002b6b4424a28sm487934ljj.13.2023.07.11.07.22.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Jul 2023 07:22:04 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Ryan McCann <quic_rmccann@quicinc.com>
-Date: Tue, 11 Jul 2023 17:21:54 +0300
-Message-Id: <168908465040.1869384.8490726560198921888.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230622-devcoredump_patch-v5-0-67e8b66c4723@quicinc.com>
-References: <20230622-devcoredump_patch-v5-0-67e8b66c4723@quicinc.com>
+ d=1e100.net; s=20221208; t=1689093083; x=1691685083;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zKYYp8rVnqq2DLqZW/bklzE/ZMHurz3rrSzMUFEOKHM=;
+ b=a12wAxfiXUqAaDixQZWqOw9r4NLD0VK5V5EFdAoUXhkpevqBusvr5MqU9v5IIfTlhB
+ kwI5WQ7TAq7sMrdO6k1R3E9GentcVFCFtSPrAz8i1N3VR9NG37nPNSOzUBiny1eKoSCa
+ JG1Gex8YryLbFfNdlIwDEebd6TcN+UWISWu6dtj8qmmBgn11+76kGasyToRwJzteUZbl
+ Sc51/SYsPWL8CiOFc0c22NsUaeguk+vR6RPiPnJXEPewGQ3npSZ64iAplENVpU0MwutW
+ J2MSeP37t+8o358XZ7Zkr7aaYOryEglhx2J+WYDbgYoPMzgkneoD8kGKp7yTI5vfi2tz
+ 6BuQ==
+X-Gm-Message-State: ABy/qLZnFMfA3oJXk7G0Jic5q44+2lXzyjl49Wz34O3x80BV9Oa4GsbC
+ us7xI290q6rlWq3gA5DmRkvjOw==
+X-Google-Smtp-Source: APBJJlHRxzjd3W9HsTSu5RyuJ6elWYXh3WoAGvEetwlsHWPL0V89iyKDGu23q05iykeuv9Xrc7aNUA==
+X-Received: by 2002:a05:6512:3090:b0:4f8:4512:c844 with SMTP id
+ z16-20020a056512309000b004f84512c844mr16215043lfd.48.1689093082805; 
+ Tue, 11 Jul 2023 09:31:22 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ v5-20020a197405000000b004fbc01e17c0sm376987lfe.82.2023.07.11.09.31.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jul 2023 09:31:22 -0700 (PDT)
+Message-ID: <3b4865d7-2730-1ea9-d75b-a015d27aa84d@linaro.org>
+Date: Tue, 11 Jul 2023 19:31:21 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v5 0/6] Add support to print sub-block
- registers in dpu hw catalog
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20230620-topic-dsiphy_rpm-v2-0-a11a751f34f0@linaro.org>
+ <168908465045.1869384.1893558597710112842.b4-ty@linaro.org>
+In-Reply-To: <168908465045.1869384.1893558597710112842.b4-ty@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 0/2] DSIPHY RPM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,38 +81,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Fri, 07 Jul 2023 18:24:39 -0700, Ryan McCann wrote:
-> The purpose of this patch series is to add support to print the registers
-> of sub-blocks in the DPU hardware catalog and fix the order in which all
-> hardware blocks are dumped for a device core dump. This involves:
+On 11/07/2023 17:21, Dmitry Baryshkov wrote:
 > 
-> 1. Changing data structure from stack to queue to fix the printing order
-> of the device core dump.
+> On Tue, 20 Jun 2023 13:43:19 +0200, Konrad Dybcio wrote:
+>> Some recent SoCs use power rails that we model as GENPDs to power the
+>> DSIPHY. This series attempts to make such configurations suspendable.
+>>
+>> Tested on SM6375.
+>>
+>>
 > 
-> [...]
+> Applied, thanks!
+> 
+> [1/2] drm/msm/dsi: Use pm_runtime_resume_and_get to prevent refcnt leaks
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/a402e0e61b75
+> [2/2] drm/msm/dsi: Enable runtime PM
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/4e905c2acc9d
 
-Applied, thanks!
+Unfortunately this series breaks our CI, see [1], [2]. I had to remove 
+these patches for now.
 
-[1/6] drm/msm: Update dev core dump to not print backwards
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/beef5b6c4050
-[2/6] drm/msm/dpu: Drop unused num argument from relevant macros
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c8c931fb7426
-[3/6] drm/msm/dpu: Define names for unnamed sblks
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/785150043166
-[4/6] drm/msm/dpu: Remove redundant prefix/suffix in name of sub-blocks
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/8875840d60a8
-[5/6] drm/msm/dpu: Refactor printing of main blocks in device core dump
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/f63f29b1d2d5
-[6/6] drm/msm/dpu: Update dev core dump to dump registers of sub-blocks
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/4183857e5747
+I suppose this is either because of a probe deferral or because of 
+having subset of drivers built as module. Konrad, could you please take 
+a look?
 
-Best regards,
+[1] https://gitlab.freedesktop.org/drm/msm/-/jobs/45271774
+[2] https://gitlab.freedesktop.org/drm/msm/-/jobs/45271775
+
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+With best wishes
+Dmitry
+
