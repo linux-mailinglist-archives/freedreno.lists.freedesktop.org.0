@@ -1,65 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A568F74E6CA
-	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 08:07:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB96A74E7E2
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jul 2023 09:23:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BCE10E308;
-	Tue, 11 Jul 2023 06:07:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8136410E324;
+	Tue, 11 Jul 2023 07:23:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F0A10E304;
- Tue, 11 Jul 2023 06:07:27 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B4310E322;
+ Tue, 11 Jul 2023 07:23:53 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7EC6C20462;
- Tue, 11 Jul 2023 06:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689055646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SNB82qjZdLZ7yUY3NNXPS6LIosP+r/Oq/i6spbJvFKk=;
- b=uGwAmGri6HCVTDVupX3AnI3pntTkCdCYgBe4MXKpKqrFFM9L58lddK9Gt4ijMk4oe12EKn
- wkZlNhXoT6cUArvw8yZhpNIa/MdNQ2aoLAzzkOX+GJZ8zZTBVtIho0NqepELBnDZss5J1q
- Qz4ED8AO8IXfoitx78CrV1zzRaCsFFs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689055646;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SNB82qjZdLZ7yUY3NNXPS6LIosP+r/Oq/i6spbJvFKk=;
- b=GIPxzBl4JRtB2A6zRvJSVOga3qJTO27JVaOO67Q1PDgWQ8Q7AxmxjwVP1QcGLy5J5JrJYb
- 2W+F1yRrdWlZNaBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F20F21391C;
- Tue, 11 Jul 2023 06:07:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fIv0OZ3xrGRCBwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 11 Jul 2023 06:07:25 +0000
-Message-ID: <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
-Date: Tue, 11 Jul 2023 08:07:25 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 702FD61353;
+ Tue, 11 Jul 2023 07:23:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5387BC433C7;
+ Tue, 11 Jul 2023 07:23:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1689060230;
+ bh=qbYz4YdnlVBC6ZlboMa+Y4t1L+EDVjf+K2hHxKyDeIU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LJm9vYPH+i6cTqoyiVXY602PAkAC2TRSs4UxCtOaDbFddCcYQQWQTXsnWeoCwehw8
+ w9rJyMyf0rIWIRQj/HZKcke7wsNDlRZ+warix2eYyo2z2ycLP+G/UkrftS7Hw4UuPU
+ 8YVMnFOy+wzceRjI4CPcCS8oe/NZz0hnYApq+3V/nG1T/6gYkk63YYHwCQ36cNrI6D
+ 5Cd5sRzcMMBuJ+nq8r8yzSprjfpxkk2bsSMH2gxanAdjgHDeGRQsmC1qWQEEQV6gzP
+ AvNhUBizZgecVardW/d3ZCwMIGpK+WRBWgnWQJuyUcGGoHwxpcTKD+F5kDrcZWcTZH
+ YTEHn/X5OOgew==
+Date: Tue, 11 Jul 2023 12:53:46 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZK0DgqRyTLE8OS/V@matsya>
+References: <20230523121454.3460634-1-dmitry.baryshkov@linaro.org>
+ <20230523121454.3460634-3-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, javierm@redhat.com,
- noralf@tronnes.org
-References: <20230710091029.27503-1-tzimmermann@suse.de>
- <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------kv6LGauRuWxMfjHq4DW99D2e"
-Subject: Re: [Freedreno] [PATCH] drm/client: Send hotplug event after
- registering a client
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230523121454.3460634-3-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 02/15] phy: qualcomm: add QMP HDMI PHY driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,112 +54,402 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
- Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Moritz Duge <MoritzDuge@kolahilft.de>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Kishon Vijay Abraham I <kishon@kernel.org>, freedreno@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kv6LGauRuWxMfjHq4DW99D2e
-Content-Type: multipart/mixed; boundary="------------0zZdJ0TsnxmlWUefzoq8m39A";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, javierm@redhat.com,
- noralf@tronnes.org
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska
- <pschyska@gmail.com>, Torsten Krah <krah.tm@gmail.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Moritz Duge <MoritzDuge@kolahilft.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
-Subject: Re: [PATCH] drm/client: Send hotplug event after registering a client
-References: <20230710091029.27503-1-tzimmermann@suse.de>
- <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
-In-Reply-To: <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+On 23-05-23, 15:14, Dmitry Baryshkov wrote:
+> Port Qualcomm QMP HDMI PHY to the generic PHY framework. Split the
+> generic part and the msm8996 part. When adding support for msm8992/4 and
+> msm8998 (which also employ QMP for HDMI PHY), one will have to provide
+> the PLL programming part only.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/phy/qualcomm/Kconfig                  |   7 +
+>  drivers/phy/qualcomm/Makefile                 |   5 +
+>  drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c | 184 ++++++++
+>  .../phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c  | 441 ++++++++++++++++++
+>  drivers/phy/qualcomm/phy-qcom-qmp-hdmi.h      |  75 +++
+>  5 files changed, 712 insertions(+)
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-hdmi.h
+> 
+> diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
+> index 4850d48f31fa..94fb5679df4a 100644
+> --- a/drivers/phy/qualcomm/Kconfig
+> +++ b/drivers/phy/qualcomm/Kconfig
+> @@ -65,6 +65,13 @@ config PHY_QCOM_QMP_COMBO
+>  	  Enable this to support the QMP Combo PHY transceiver that is used
+>  	  with USB3 and DisplayPort controllers on Qualcomm chips.
+>  
+> +config PHY_QCOM_QMP_HDMI
+> +	tristate "Qualcomm QMP HDMI PHY Driver"
+> +	default PHY_QCOM_QMP && DRM_MSM_HDMI
+> +	help
+> +	  Enable this to support the QMP HDMI PHY transceiver that is used
+> +	  with HDMI output on Qualcomm MSM8996 chips.
+> +
+>  config PHY_QCOM_QMP_PCIE
+>  	tristate "Qualcomm QMP PCIe PHY Driver"
+>  	depends on PCI || COMPILE_TEST
+> diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+> index de3dc9ccf067..b877d86ea0b1 100644
+> --- a/drivers/phy/qualcomm/Makefile
+> +++ b/drivers/phy/qualcomm/Makefile
+> @@ -6,7 +6,12 @@ obj-$(CONFIG_PHY_QCOM_IPQ4019_USB)	+= phy-qcom-ipq4019-usb.o
+>  obj-$(CONFIG_PHY_QCOM_IPQ806X_SATA)	+= phy-qcom-ipq806x-sata.o
+>  obj-$(CONFIG_PHY_QCOM_PCIE2)		+= phy-qcom-pcie2.o
+>  
+> +phy-qcom-qmp-hdmi-y := \
+> +	phy-qcom-qmp-hdmi-base.o \
+> +	phy-qcom-qmp-hdmi-msm8996.o \
+> +
+>  obj-$(CONFIG_PHY_QCOM_QMP_COMBO)	+= phy-qcom-qmp-combo.o
+> +obj-$(CONFIG_PHY_QCOM_QMP_HDMI)		+= phy-qcom-qmp-hdmi.o
+>  obj-$(CONFIG_PHY_QCOM_QMP_PCIE)		+= phy-qcom-qmp-pcie.o
+>  obj-$(CONFIG_PHY_QCOM_QMP_PCIE_8996)	+= phy-qcom-qmp-pcie-msm8996.o
+>  obj-$(CONFIG_PHY_QCOM_QMP_UFS)		+= phy-qcom-qmp-ufs.o
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c b/drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c
+> new file mode 100644
+> index 000000000000..08132b3f82af
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c
+> @@ -0,0 +1,184 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2016, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023, Linaro Ltd.
+> + */
+> +
+> +#include <linux/of_device.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include "phy-qcom-qmp-hdmi.h"
+> +
+> +int qmp_hdmi_phy_init(struct phy *phy)
+> +{
+> +	struct qmp_hdmi_phy *hdmi_phy = phy_get_drvdata(phy);
+> +
+> +	return pm_runtime_resume_and_get(hdmi_phy->dev);
+> +}
+> +
+> +int qmp_hdmi_phy_configure(struct phy *phy, union phy_configure_opts *opts)
+> +{
+> +        const struct phy_configure_opts_hdmi *hdmi_opts = &opts->hdmi;
+> +	struct qmp_hdmi_phy *hdmi_phy = phy_get_drvdata(phy);
 
---------------0zZdJ0TsnxmlWUefzoq8m39A
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+wrong alignment
 
-SGkNCg0KQW0gMTAuMDcuMjMgdW0gMjM6MTEgc2NocmllYiBEbWl0cnkgQmFyeXNoa292Og0K
-Wy4uLl0NCj4+IC0tLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfZmJk
-ZXYuY8KgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9kcm1fY2xp
-ZW50LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIxICsrKysrKysrKysrKysrKysr
-KysrKw0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2RybV9mYmRldl9kbWEuY8KgwqDCoMKgwqDC
-oMKgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9kcm1fZmJkZXZf
-Z2VuZXJpYy5jwqDCoMKgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2Ry
-bS9leHlub3MvZXh5bm9zX2RybV9mYmRldi5jIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMv
-Z3B1L2RybS9nbWE1MDAvZmJkZXYuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDQgLS0t
-LQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZmJkZXYuY8KgwqDCoMKgwqDCoMKg
-wqDCoMKgIHzCoCA0IC0tLS0NCj4gDQo+IFJldmlld2VkLWJ5OiBEbWl0cnkgQmFyeXNoa292
-IDxkbWl0cnkuYmFyeXNoa292QGxpbmFyby5vcmc+ICMgbXNtDQoNClRoYW5rcy4NCg0KPiAN
-Cj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL29tYXBfZmJkZXYuY8KgwqDCoMKgwqAg
-fMKgIDQgLS0tLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZmJkZXYu
-Y8KgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS90ZWdyYS9mYmRl
-di5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIDEwIGZpbGVz
-IGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDM2IGRlbGV0aW9ucygtKQ0KPiANCj4gQlRX
-OiBBcyB5b3UgaGF2ZSBiZWVuIGNsZWFyaW5nIHRoaXMgYXJlYS4gSSBzZWUgdGhhdCBzaWdu
-aWZpY2FudCBhbW91bnQgDQo+IG9mIERSTSBkcml2ZXJzIHVzZSBleGFjdGx5IHRoZSBzYW1l
-IGNvZGUgZm9yIG1zbV9mYmRldl9jbGllbnRfZnVuY3MgYW5kIA0KPiBmb3IgdGhlIHNpZ25p
-ZmljYW50IHBhcnQgb2YgZm9vX2ZiZGV2X3NldHVwKCkuIERvIHlvdSBoYXZlIGFueSBwbGFu
-cyBmb3IgDQo+IG1vdmluZyB0aGF0IGludG8gYSBsaWJyYXJ5IC8gZ2VuZXJpYyBjb2RlPyBJ
-ZiBub3QsIEkgY2FuIHRha2UgYSBsb29rIGF0IA0KPiBjcmFmdGluZyB0aGUgcGF0Y2guDQo+
-IA0KDQpZb3UncmUgbm90IHRoZSBmaXJzdCB0byBhc2suIDopIEkndmUgc28gZmFyIG5vdCBh
-dHRlbXB0ZWQgdG8gYWRkcmVzcyANCnRoaXMgZHVwbGljYXRpb24uIEkndmUgYmVlbiBiaXR0
-ZW4gYnkgcHJlbWF0dXJlIGhlbHBlcml6YXRpb24gYmVmb3JlLCBzbyANCkkgd2FudGVkIHRv
-IHdhaXQgYSBiaXQgbG9uZ2VyLiBBIGxvdCBvZiB0aGUgZmJkZXYgYW5kIGNsaWVudCBjb2Rl
-IGlzIA0KY2hhbmdpbmcgcXVpdGUgYSBiaXQuIEFmdGVyIHRoaW5ncyBzdGFiaWxpemVkLCBJ
-IHdhbnQgdG8gdG8gdHJ5IHRvIGRvIA0Kc29tZSBtb3JlIGNvZGUgc2hhcmluZy4NCg0KQmVz
-dCByZWdhcmRzDQpUaG9tYXMNCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3Mg
-RHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJI
-DQpGcmFua2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0KR0Y6IEl2
-byBUb3RldiwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4gTW9lcm1h
-bg0KSFJCIDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
+> +        int ret = 0;
+> +
+> +        memcpy(&hdmi_phy->hdmi_opts, hdmi_opts, sizeof(*hdmi_opts));
+> +
+> +        return ret;
 
---------------0zZdJ0TsnxmlWUefzoq8m39A--
+drop ret, and return 0 here?
 
---------------kv6LGauRuWxMfjHq4DW99D2e
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> +}
+> +
+> +int qmp_hdmi_phy_exit(struct phy *phy)
+> +{
+> +	struct qmp_hdmi_phy *hdmi_phy = phy_get_drvdata(phy);
+> +
+> +	pm_runtime_put_noidle(hdmi_phy->dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused qmp_hdmi_runtime_resume(struct device *dev)
+> +{
+> +	struct qmp_hdmi_phy *hdmi_phy = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(hdmi_phy->supplies), hdmi_phy->supplies);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = clk_bulk_prepare_enable(ARRAY_SIZE(hdmi_phy->clks), hdmi_phy->clks);
+> +	if (ret)
+> +		goto out_disable_supplies;
+> +
+> +	return 0;
+> +
+> +out_disable_supplies:
+> +	regulator_bulk_disable(ARRAY_SIZE(hdmi_phy->supplies), hdmi_phy->supplies);
+> +
+> +	return ret;
+> +}
+> +
+> +static int __maybe_unused qmp_hdmi_runtime_suspend(struct device *dev)
+> +{
+> +	struct qmp_hdmi_phy *hdmi_phy = dev_get_drvdata(dev);
+> +
+> +	clk_bulk_disable_unprepare(ARRAY_SIZE(hdmi_phy->clks), hdmi_phy->clks);
+> +	regulator_bulk_disable(ARRAY_SIZE(hdmi_phy->supplies), hdmi_phy->supplies);
+> +
+> +	return 0;
+> +}
+> +
+> +static int qmp_hdmi_probe(struct platform_device *pdev)
+> +{
+> +	struct clk_init_data init = {
+> +		.name = "hdmipll",
+> +		.parent_data = (const struct clk_parent_data[]) {
+> +			{ .fw_name = "xo", .name = "xo_board" },
+> +		},
+> +		.flags = CLK_GET_RATE_NOCACHE,
+> +		.num_parents = 1,
+> +	};
+> +	const struct qmp_hdmi_cfg *cfg = of_device_get_match_data(&pdev->dev);
+> +	struct phy_provider *phy_provider;
+> +	struct device *dev = &pdev->dev;
+> +	struct qmp_hdmi_phy *hdmi_phy;
+> +	int ret, i;
+> +
+> +	hdmi_phy = devm_kzalloc(dev, sizeof(*hdmi_phy), GFP_KERNEL);
+> +	if (!hdmi_phy)
+> +		return -ENOMEM;
+> +
+> +	hdmi_phy->dev = dev;
+> +
+> +	hdmi_phy->serdes = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(hdmi_phy->serdes))
+> +		return PTR_ERR(hdmi_phy->serdes);
+> +
+> +	for (i = 0; i < HDMI_NUM_TX_CHANNEL; i++) {
+> +		hdmi_phy->tx[i] = devm_platform_ioremap_resource(pdev, 1 + i);
+> +		if (IS_ERR(hdmi_phy->tx[i]))
+> +			return PTR_ERR(hdmi_phy->tx[i]);
+> +	}
+> +
+> +	hdmi_phy->phy_reg = devm_platform_ioremap_resource(pdev, 5);
+> +	if (IS_ERR(hdmi_phy->phy_reg))
+> +		return PTR_ERR(hdmi_phy->phy_reg);
+> +
+> +	hdmi_phy->clks[0].id = "iface";
+> +	hdmi_phy->clks[1].id = "ref";
+> +	ret = devm_clk_bulk_get(dev, ARRAY_SIZE(hdmi_phy->clks), hdmi_phy->clks);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hdmi_phy->supplies[0].supply = "vddio";
+> +	hdmi_phy->supplies[0].init_load_uA = 100000;
+> +	hdmi_phy->supplies[1].supply = "vcca";
+> +	hdmi_phy->supplies[1].init_load_uA = 10000;
+> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(hdmi_phy->supplies), hdmi_phy->supplies);
+> +	if (ret)
+> +		return ret;
+> +
+> +	platform_set_drvdata(pdev, hdmi_phy);
+> +
+> +	ret = devm_pm_runtime_enable(&pdev->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pm_runtime_resume_and_get(&pdev->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	init.ops = cfg->pll_ops;
+> +	hdmi_phy->pll_hw.init = &init;
+> +	ret = devm_clk_hw_register(hdmi_phy->dev, &hdmi_phy->pll_hw);
+> +	if (ret)
+> +		goto err;
+> +
+> +	ret = devm_of_clk_add_hw_provider(hdmi_phy->dev, of_clk_hw_simple_get, &hdmi_phy->pll_hw);
+> +	if (ret)
+> +		goto err;
+> +
+> +	hdmi_phy->phy = devm_phy_create(dev, pdev->dev.of_node, cfg->phy_ops);
+> +	if (IS_ERR(hdmi_phy->phy)) {
+> +		ret = PTR_ERR(hdmi_phy->phy);
+> +		goto err;
+> +	}
+> +
+> +	phy_set_drvdata(hdmi_phy->phy, hdmi_phy);
+> +
+> +	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+> +	pm_runtime_put_noidle(&pdev->dev);
+> +	return PTR_ERR_OR_ZERO(phy_provider);
+> +
+> +err:
+> +	pm_runtime_put_noidle(&pdev->dev);
+> +	return ret;
+> +}
+> +
+> +static const struct of_device_id qmp_hdmi_of_match_table[] = {
+> +	{
+> +		.compatible = "qcom,hdmi-phy-8996", .data = &qmp_hdmi_8996_cfg,
+> +	},
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, qmp_hdmi_of_match_table);
+> +
+> +DEFINE_RUNTIME_DEV_PM_OPS(qmp_hdmi_pm_ops,
+> +			  qmp_hdmi_runtime_suspend,
+> +			  qmp_hdmi_runtime_resume,
+> +			  NULL);
+> +
+> +static struct platform_driver qmp_hdmi_driver = {
+> +	.probe		= qmp_hdmi_probe,
+> +	.driver = {
+> +		.name	= "qcom-qmp-hdmi-phy",
+> +		.of_match_table = qmp_hdmi_of_match_table,
+> +		.pm     = &qmp_hdmi_pm_ops,
+> +	},
+> +};
+> +
+> +module_platform_driver(qmp_hdmi_driver);
+> +
+> +MODULE_AUTHOR("Dmitry Baryshkov <dmitry.baryshkov@linaro.org>");
+> +MODULE_DESCRIPTION("Qualcomm QMP HDMI PHY driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c b/drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c
+> new file mode 100644
+> index 000000000000..27ffa70d0faa
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c
+> @@ -0,0 +1,441 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2016, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2023, Linaro Ltd.
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/phy/phy.h>
+> +
+> +#include "phy-qcom-qmp-hdmi.h"
+> +#include "phy-qcom-qmp-qserdes-com.h"
+> +#include "phy-qcom-qmp-qserdes-txrx.h"
+> +
+> +#define HDMI_VCO_MAX_FREQ			12000000000UL
+> +#define HDMI_VCO_MIN_FREQ			8000000000UL
 
------BEGIN PGP SIGNATURE-----
+I prefer using 12 * GIGA etc to define these
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmSs8Z0FAwAAAAAACgkQlh/E3EQov+Cd
-3RAAplv7WxkxYt9N5gWJ/rlj3B0OIploEOnOdhJzsoMpnmg5IExLL5tbSbEydTMAZy4OV1UbFNlu
-gB4XDUfES5IOfn/YMVl8L5uC+FXRrnZfbLqjBKsfycA6CdbMg3GEpiW0u/OUquqkTx7mT4+iICLD
-IrLoigA9AHh5KCeXC8aj9TTntbujd8PNfrP0QbBdjOm/81BEVpQTRwHNaqnJcvKXiq9kxARrnZ/1
-4TUkPXNiMLdVUX42yN5pEdnUESTsYu6aDCDGN2e67l86wZ4v2Wt5Pi2Y+F3Z5rRLVe0XU1vak1be
-vDHhEM5ZSvnJhI/jfJWnx+025vHZ0JqX1jTZ+OrMlREn13ktSJ1R6lQwLSSEMAXAscvvhWEejSGj
-xtWwmQ/bzfjuQ7/1TWZDu3MRqKby9U0LOcyOkUakhTKUX8VbZ3Rih7HFxZiEvloiYGVT68sfEyg+
-e4z0ahGgZ7gOKpSuIoN6iFfIFg3BfOoGe1UqJKcQLzhmUCv+FutskpJ8ZVZZ+5JeOCFF0Kfe/0AT
-kru8rxC7cOVpFqtUEtaX+PwdBAqM5sRLKBx4k+PpoqXzOSAfXgAQUk9Ga53GRQHgW3ekTBedj50a
-uGhCCyQHr0fj7qlDjwAbv9hBQ4eN4cDTeeRaHj81jnEeDTldB5P0QZIa+HjgCA8NUHSUEWQJ74zS
-dXk=
-=E/ok
------END PGP SIGNATURE-----
+> +static int qmp_hdmi_8996_phy_set_rate(struct qmp_hdmi_phy *hdmi_phy)
+> +{
+> +	unsigned long parent_rate = HDMI_DEFAULT_REF_CLOCK;
+> +	unsigned long rate = hdmi_phy->hdmi_opts.pixel_clk_rate * 1000;
+> +	struct qmp_hdmi_8996_post_divider pd;
+> +	bool gen_ssc = false;
+> +	u64 bclk;
+> +	u64 dec_start;
+> +	u64 frac_start;
+> +	u64 fdata;
+> +	u32 pll_divisor;
+> +	u32 rem;
+> +	u32 integloop_gain;
+> +	u32 pll_cmp;
+> +	int i, ret;
+> +
+> +	bclk = ((u64)rate) * 10;
+> +	ret = qmp_hdmi_8996_pll_get_post_div(&pd, bclk);
+> +	if (ret) {
+> +		dev_err(hdmi_phy->dev, "PLL calculation failed\n");
+> +		return ret;
+> +	}
+> +
+> +	dec_start = pd.vco_freq;
+> +	pll_divisor = 4 * parent_rate;
+> +	do_div(dec_start, pll_divisor);
+> +
+> +	frac_start = pd.vco_freq * (1 << 20);
+> +
+> +	rem = do_div(frac_start, pll_divisor);
+> +	frac_start -= dec_start * (1 << 20);
+> +	if (rem > (pll_divisor >> 1))
+> +		frac_start++;
+> +
+> +	fdata = pd.vco_freq;
+> +	do_div(fdata, pd.vco_ratio);
+> +
+> +	pll_cmp = qmp_hdmi_8996_pll_get_pll_cmp(fdata, parent_rate);
+> +
+> +	/* Initially shut down PHY */
+> +	dev_dbg(hdmi_phy->dev, "Disabling PHY");
+> +	hdmi_phy_write(hdmi_phy, REG_HDMI_8996_PHY_PD_CTL, 0x0);
+> +	udelay(500);
+> +
+> +	/* Power up sequence */
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_BG_CTRL, 0x04);
+> +
+> +	hdmi_phy_write(hdmi_phy, REG_HDMI_8996_PHY_PD_CTL, 0x1);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_RESETSM_CNTRL, 0x20);
+> +	hdmi_phy_write(hdmi_phy, REG_HDMI_8996_PHY_TX0_TX1_LANE_CTL, 0x0f);
+> +	hdmi_phy_write(hdmi_phy, REG_HDMI_8996_PHY_TX2_TX3_LANE_CTL, 0x0f);
+> +
+> +	hdmi_tx_chan_write(hdmi_phy, 0, QSERDES_TX_LANE_MODE, 0x43);
+> +	hdmi_tx_chan_write(hdmi_phy, 2, QSERDES_TX_LANE_MODE, 0x43);
+> +
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_SYSCLK_BUF_ENABLE, 0x1e);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_BIAS_EN_CLKBUFLR_EN, 0x07);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_SYSCLK_EN_SEL, 0x37);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_SYS_CLK_CTRL, 0x02);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_CLK_ENABLE1, 0x0e);
+> +
+> +	if (frac_start != 0 || gen_ssc) {
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_PLL_CCTRL_MODE0, 0x28);
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_PLL_RCTRL_MODE0, 0x16);
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_CP_CTRL_MODE0,
+> +			       11000000 / (parent_rate/ 20));
+> +		integloop_gain = (64 * parent_rate) / HDMI_DEFAULT_REF_CLOCK;
+> +	} else {
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_PLL_CCTRL_MODE0, 0x01);
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_PLL_RCTRL_MODE0, 0x10);
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_CP_CTRL_MODE0, 0x23);
+> +		integloop_gain = (1022 * parent_rate) / (100 * 1000 * 1000);
+> +	}
+> +
+> +	/* Bypass VCO calibration */
+> +	if (bclk > HDMI_DIG_FREQ_BIT_CLK_THRESHOLD) {
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_SVS_MODE_CLK_SEL, 1);
+> +		integloop_gain <<= 1;
+> +	} else {
+> +		hdmi_pll_write(hdmi_phy, QSERDES_COM_SVS_MODE_CLK_SEL, 2);
+> +		integloop_gain <<= 2;
+> +	}
+> +
+> +	integloop_gain = min_t(u32, integloop_gain, 2046);
+> +
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_BG_TRIM, 0x0f);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_PLL_IVCO, 0x0f);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_VCO_TUNE_CTRL, 0);
+> +
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_BG_CTRL, 0x06);
+> +
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_CLK_SELECT, 0x30);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_HSCLK_SEL, 0x20 | pd.hsclk_divsel);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_LOCK_CMP_EN, 0x0);
+> +
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_DEC_START_MODE0, dec_start);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_DIV_FRAC_START1_MODE0,
+> +		       frac_start & 0xff);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_DIV_FRAC_START2_MODE0,
+> +		       (frac_start >> 8) & 0xff);
+> +	hdmi_pll_write(hdmi_phy, QSERDES_COM_DIV_FRAC_START3_MODE0,
+> +		       (frac_start >> 16) & 0xf);
 
---------------kv6LGauRuWxMfjHq4DW99D2e--
+FIELD_{PREP|GET} please
+
+> +static int qmp_hdmi_8996_phy_power_on(struct phy *phy)
+> +{
+> +	struct qmp_hdmi_phy *hdmi_phy = phy_get_drvdata(phy);
+> +	u32 status;
+> +	int i, ret = 0;
+
+superfluous init for ret
+-- 
+~Vinod
