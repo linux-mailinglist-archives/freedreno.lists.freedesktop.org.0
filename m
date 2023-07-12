@@ -2,62 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98DB7751381
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 00:25:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5725B751498
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 01:43:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD22A10E592;
-	Wed, 12 Jul 2023 22:25:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55A5C10E5F9;
+	Wed, 12 Jul 2023 23:43:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDB710E00D;
- Wed, 12 Jul 2023 22:25:29 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-666e64e97e2so72351b3a.1; 
- Wed, 12 Jul 2023 15:25:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689200728; x=1691792728;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=p16HJUeFjh0Up2EuZ/dd2QVMrO3mMIhcqelMbrELgUs=;
- b=AS3vGV8GaYrFYrEl8H7hKOjmb4Es0czMAC6TL+m1BtL8qPw1sXJihYI42F4fQzasCr
- 9C/y54pmvfVY9HMvfXgQdtw4Dg9mHXrMPvs5VDa9hXep9esXb/RyZvxjNfMvsYcmnTMJ
- ocpZaEc7VznJX4Es9MCc/gosChAkNclEWfsQ1LzguTrGQsuHe8ivx1aoV4U52w3gRZd1
- qZsRONMzbiDqyWR73A3DZ3K7r1Was6iNreseQs4VmEeXtoGKGC18Wefn0FQ+w4mhF049
- sjq6dTthUjmgvqR6YZ9s3TqubH7fPlMeM6m33OUtbuIclNjP+ZtOTBA0A25zi/fln4hk
- NM+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689200728; x=1691792728;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=p16HJUeFjh0Up2EuZ/dd2QVMrO3mMIhcqelMbrELgUs=;
- b=Fs7DeJoMBD5hQx9Gqy62n4hmqIA7HbHC0Orv89iLa2Nb29nwtnoW3iUIlid0jxYN13
- gS/hKKt85PGrIOjNTXKYp6T/NUYj/GV25AHelHA7TqK7B9WwNgjCqtB1QMlTeYK8CP+g
- NeP3LxAHlQkWBp7Yl+ywbNy0m/VYqjEbt4iQCWLTGUTCEVLaFKlbcDsttFtbn4JhHQq/
- DAyYnApcbjlhGjQhK3QVmobiCVlZjpmFXGPfxUYqfzzcWVI3Wcq0NECz2rK+g9ZHPFFd
- t8eNPlHk4Yic1pk45iV4IRopYeJQdEzdsxo93EZz/LNup5oBWWfKimfZBSoZnWg5r2dd
- z9Cw==
-X-Gm-Message-State: ABy/qLYzfrb29SEdYmWw0R3cy+lXC6KLHlN5/dVM+Wr/vrswQe3ZMX6B
- Bf/SHef+wKDed4skgOmXmVXJFZtxN3A=
-X-Google-Smtp-Source: APBJJlG3beF7ERt/uLgX1UHxkuEN/pg8U+e7c3SJSiwKs5FaMN/c4UXTKiygCxqrZPeQl6oKY+i78g==
-X-Received: by 2002:a05:6a00:23ca:b0:668:8596:7524 with SMTP id
- g10-20020a056a0023ca00b0066885967524mr21229199pfc.20.1689200727294; 
- Wed, 12 Jul 2023 15:25:27 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:69d1:d8aa:25be:a2b6])
- by smtp.gmail.com with ESMTPSA id
- i23-20020aa78b57000000b00662610cf7a8sm4174893pfd.172.2023.07.12.15.25.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jul 2023 15:25:26 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 12 Jul 2023 15:25:23 -0700
-Message-ID: <20230712222523.7404-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.41.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3551310E5F9;
+ Wed, 12 Jul 2023 23:43:08 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36CNX1Tg030629; Wed, 12 Jul 2023 23:42:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=fJ7MHhQYTWb7ko2Juqp3TSzCdz39xMhEI0nHD1lAB6I=;
+ b=DBhBnpp5CqdREEX8yCJClLfgStyT2VhI04Gvm4QeWdqSQQvVNhZYAIlu0r+ONXhfdP8w
+ 7ycx7L1J/RHiW8SrzAMafL6juGEno9xnGs4YwfLMxpexRDpGHjpDTn0Lhvm6B4MV9yb3
+ rAN0vtPKGv+MiYkdQ5IA9ONB2u6xWq1BU8XKTn9Lmhumlecd9OIW8CneS8eUkNU34C8D
+ A7gRLkmK60hjIkvh4omOsaR19LOQe+/EPTXhmyWhowRa8Lep/2RHoSWSQ1GU5Cm73W0W
+ n2yppc9SlEZeyghhiJR8B8el4ZephSOgH9xW+5q3p7GM/8UYRl7mEuJ53b8ahzj/LDrh YQ== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rsetdtv1y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jul 2023 23:42:46 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36CNgjp7032605
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jul 2023 23:42:46 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 12 Jul
+ 2023 16:42:45 -0700
+Message-ID: <efaf59e0-f51a-6de9-4d12-a795ed84cbab@quicinc.com>
+Date: Wed, 12 Jul 2023 16:42:44 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix hw_fence error path cleanup
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Gaosheng Cui <cuigaosheng1@huawei.com>, <james.qian.wang@arm.com>,
+ <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>,
+ <brian.starkey@arm.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <robdclark@gmail.com>, <dmitry.baryshkov@linaro.org>,
+ <sean@poorly.run>, <thierry.reding@gmail.com>, <sam@ravnborg.org>,
+ <emma@anholt.net>, <mripard@kernel.org>, <vladimir.lypak@gmail.com>,
+ <quic_akhilpo@quicinc.com>, <dianders@chromium.org>,
+ <olvaffe@gmail.com>, <angelogioacchino.delregno@somainline.org>,
+ <marijn.suijten@somainline.org>
+References: <20221110094445.2930509-1-cuigaosheng1@huawei.com>
+ <20221110094445.2930509-3-cuigaosheng1@huawei.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20221110094445.2930509-3-cuigaosheng1@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: y9XMVHdNrXlOCJYIos_FHM2aaSJ9GO8w
+X-Proofpoint-GUID: y9XMVHdNrXlOCJYIos_FHM2aaSJ9GO8w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-12_15,2023-07-11_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 clxscore=1011 priorityscore=1501
+ mlxlogscore=999 spamscore=0 mlxscore=0 adultscore=0 malwarescore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307120210
+Subject: Re: [Freedreno] [PATCH 2/5] drm/msm: Fix IS_ERR() vs NULL check in
+ a5xx_submit_in_rb()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,74 +92,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-In an error path where the submit is free'd without the job being run,
-the hw_fence pointer is simply a kzalloc'd block of memory.  In this
-case we should just kfree() it, rather than trying to decrement it's
-reference count.  Fortunately we can tell that this is the case by
-checking for a zero refcount, since if the job was run, the submit would
-be holding a reference to the hw_fence.
 
-Fixes: f94e6a51e17c ("drm/msm: Pre-allocate hw_fence")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_fence.c      |  6 ++++++
- drivers/gpu/drm/msm/msm_gem_submit.c | 14 +++++++++++++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
+On 11/10/2022 1:44 AM, Gaosheng Cui wrote:
+> The msm_gem_get_vaddr() returns an ERR_PTR() on failure, we should
+> use IS_ERR() to check the return value.
+> 
+> Fixes: 6a8bd08d0465 ("drm/msm: add sudo flag to submit ioctl")
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+> ---
+>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
-index 96599ec3eb78..1a5d4f1c8b42 100644
---- a/drivers/gpu/drm/msm/msm_fence.c
-+++ b/drivers/gpu/drm/msm/msm_fence.c
-@@ -191,6 +191,12 @@ msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx)
- 
- 	f->fctx = fctx;
- 
-+	/*
-+	 * Until this point, the fence was just some pre-allocated memory,
-+	 * no-one should have taken a reference to it yet.
-+	 */
-+	WARN_ON(kref_read(&fence->refcount));
-+
- 	dma_fence_init(&f->base, &msm_fence_ops, &fctx->spinlock,
- 		       fctx->context, ++fctx->last_fence);
- }
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 3f1aa4de3b87..9d66498cdc04 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -86,7 +86,19 @@ void __msm_gem_submit_destroy(struct kref *kref)
- 	}
- 
- 	dma_fence_put(submit->user_fence);
--	dma_fence_put(submit->hw_fence);
-+
-+	/*
-+	 * If the submit is freed before msm_job_run(), then hw_fence is
-+	 * just some pre-allocated memory, not a reference counted fence.
-+	 * Once the job runs and the hw_fence is initialized, it will
-+	 * have a refcount of at least one, since the submit holds a ref
-+	 * to the hw_fence.
-+	 */
-+	if (kref_read(&submit->hw_fence->refcount) == 0) {
-+		kfree(submit->hw_fence);
-+	} else {
-+		dma_fence_put(submit->hw_fence);
-+	}
- 
- 	put_pid(submit->pid);
- 	msm_submitqueue_put(submit->queue);
--- 
-2.41.0
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
