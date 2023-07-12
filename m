@@ -2,59 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 430A4750FD3
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 19:41:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4FE751138
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 21:29:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADB410E5C1;
-	Wed, 12 Jul 2023 17:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04BC310E5D6;
+	Wed, 12 Jul 2023 19:29:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from phobos.denx.de (phobos.denx.de
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF57E10E5C1;
- Wed, 12 Jul 2023 17:41:13 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id DDAFC86B58;
- Wed, 12 Jul 2023 19:41:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1689183670;
- bh=Fp7N3sRZ5ZZmDH2BLoJqfemPcNUZIJugo+MlROK92bI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Uq18a/yFaOczmeV5zZFlgJ4fjjkfIRbjlf8KFSi+JpLdC1nq7jPr9602ABRQaddvI
- uk/0NkNrfR7uOWANzEihuYFfaQW7lTrodu4AUhIWktGeUN8yOf07X3B24bVcIPBx3H
- PwUUKDnZtutxe+GXLQjqrGnku+6dUIpFSD/zryAnemXh4IGOh5rJoOm/ch/HuLB4+T
- /yVsdFaMIiMCeOa8QcUESB1Jz0uSv165L8Xfwv2Yy+f0dYxSssCuwXPRuc6BNpw11v
- /b47GGRbLqHJ0AVtkt7I3YZZcw5xuWsQrk0EU9ix+OrEfkKjqbyK7JQAqjojUGTlfy
- XEckFi/345/mw==
-Message-ID: <961b4747-c9f1-a31c-c33c-475b4803f832@denx.de>
-Date: Wed, 12 Jul 2023 19:41:08 +0200
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE7A10E58C
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 16:14:22 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJcQH-0000ws-J6; Wed, 12 Jul 2023 18:10:37 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJcQ7-00DvHU-NY; Wed, 12 Jul 2023 18:10:27 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJcQ6-004LMY-OR; Wed, 12 Jul 2023 18:10:26 +0200
+Date: Wed, 12 Jul 2023 18:10:25 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20230712161025.22op3gtzgujrhytb@pengutronix.de>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <87fs5tgpvv.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, neil.armstrong@linaro.org,
- Amit Pundir <amit.pundir@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230403221233.500485-1-marex@denx.de>
- <20230403221233.500485-2-marex@denx.de>
- <CAMi1Hd0TD=2z_=bcDrht3H_wiLvAFcv8Z-U_r_KUOoeMc6UMjw@mail.gmail.com>
- <CAMty3ZBNFu=f-FS4YFN4wfmiTuk=48nna-vub1eMYwidDt+msg@mail.gmail.com>
- <CAA8EJppbdiUz5m+9EAPnFb916DaS_VKWd30c7_EPWjuid8rtqQ@mail.gmail.com>
- <CAMi1Hd2G5PJmz4wpO1wbdqKd0FA8LBgvRDv2u5ZYAMb5s6Kt0A@mail.gmail.com>
- <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
- <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
- <4396d197-f16f-92bd-727c-eb8c78016198@quicinc.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <4396d197-f16f-92bd-727c-eb8c78016198@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
- HFP/HBP/HSA and EOT packet
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="fzugsjz5u2erhwcr"
+Content-Disposition: inline
+In-Reply-To: <87fs5tgpvv.fsf@intel.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
+X-Mailman-Approved-At: Wed, 12 Jul 2023 19:29:05 +0000
+Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
+ drm_crtc::dev to drm_dev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,159 +56,248 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Robert Foss <rfoss@kernel.org>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Michael Walle <michael@walle.cc>, Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
+ Vandita Kulkarni <vandita.kulkarni@intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Liu Shixin <liushixin2@huawei.com>, linux-samsung-soc@vger.kernel.org,
+ Samuel Holland <samuel@sholland.org>, Matt Roper <matthew.d.roper@intel.com>,
+ Wenjing Liu <wenjing.liu@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ spice-devel@lists.freedesktop.org,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>,
+ Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, Fei Yang <fei.yang@intel.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ David Lechner <david@lechnology.com>,
+ Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Jouni =?utf-8?B?SMO2Z2FuZGVy?= <jouni.hogander@intel.com>,
+ Dave Airlie <airlied@redhat.com>, linux-mips@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
+ linux-renesas-soc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ Swati Sharma <swati2.sharma@intel.com>, John Stultz <jstultz@google.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Drew Davenport <ddavenport@chromium.org>, Kevin Hilman <khilman@baylibre.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Anusha Srivatsa <anusha.srivatsa@intel.com>, Dan Carpenter <error27@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
+ Luca Coelho <luciano.coelho@intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Alain Volmat <alain.volmat@foss.st.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Joel Stanley <joel@jms.id.au>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, Lyude Paul <lyude@redhat.com>,
+ intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Khaled Almahallawy <khaled.almahallawy@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li <roman.li@amd.com>,
+ Paul Cercueil <paul@crapouillou.net>, Rob Clark <robdclark@gmail.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Russell King <linux@armlinux.org.uk>, Uma Shankar <uma.shankar@intel.com>,
+ Mika Kahola <mika.kahola@intel.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ linux-tegra@vger.kernel.org,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/9/23 03:03, Abhinav Kumar wrote:
-> 
-> 
-> On 7/7/2023 1:47 AM, Neil Armstrong wrote:
->> On 07/07/2023 09:18, Neil Armstrong wrote:
->>> Hi,
->>>
->>> On 06/07/2023 11:20, Amit Pundir wrote:
->>>> On Wed, 5 Jul 2023 at 11:09, Dmitry Baryshkov
->>>> <dmitry.baryshkov@linaro.org> wrote:
->>>>>
->>>>> [Adding freedreno@ to cc list]
->>>>>
->>>>> On Wed, 5 Jul 2023 at 08:31, Jagan Teki 
->>>>> <jagan@amarulasolutions.com> wrote:
->>>>>>
->>>>>> Hi Amit,
->>>>>>
->>>>>> On Wed, Jul 5, 2023 at 10:15 AM Amit Pundir 
->>>>>> <amit.pundir@linaro.org> wrote:
->>>>>>>
->>>>>>> Hi Marek,
->>>>>>>
->>>>>>> On Wed, 5 Jul 2023 at 01:48, Marek Vasut <marex@denx.de> wrote:
->>>>>>>>
->>>>>>>> Do not generate the HS front and back porch gaps, the HSA gap and
->>>>>>>> EOT packet, as these packets are not required. This makes the 
->>>>>>>> bridge
->>>>>>>> work with Samsung DSIM on i.MX8MM and i.MX8MP.
->>>>>>>
->>>>>>> This patch broke display on Dragonboard 845c (SDM845) devboard 
->>>>>>> running
->>>>>>> AOSP. This is what I see
->>>>>>> https://people.linaro.org/~amit.pundir/db845c-userdebug/v6.5-broken-display/PXL_20230704_150156326.jpg.
->>>>>>> Reverting this patch fixes this regression for me.
->>>>>>
->>>>>> Might be msm dsi host require proper handling on these updated
->>>>>> mode_flags? did they?
->>>>>
->>>>> The msm DSI host supports those flags. Also, I'd like to point out
->>>>> that the patch didn't change the rest of the driver code. So even if
->>>>> drm/msm ignored some of the flags, it should not have caused the
->>>>> issue. Most likely the issue is on the lt9611 side. I's suspect that
->>>>> additional programming is required to make it work with these flags.
->>>>
->>>> I spent some time today on smoke testing these flags (individually and
->>>> in limited combination) on DB845c, to narrow down this breakage to one
->>>> or more flag(s) triggering it. Here are my observations in limited
->>>> testing done so far.
->>>>
->>>> There is no regression with MIPI_DSI_MODE_NO_EOT_PACKET when enabled
->>>> alone and system boots to UI as usual.
->>>>
->>>> MIPI_DSI_MODE_VIDEO_NO_HFP always trigger the broken display as in the
->>>> screenshot[1] shared earlier as well.
->>>>
->>>> Adding either of MIPI_DSI_MODE_VIDEO_NO_HSA and
->>>> MIPI_DSI_MODE_VIDEO_NO_HBP always result in no display, unless paired
->>>> with MIPI_DSI_MODE_VIDEO_NO_HFP and in that case we get the broken
->>>> display as reported.
->>>>
->>>> In short other than MIPI_DSI_MODE_NO_EOT_PACKET flag, all other flags
->>>> added in this commit break the display on DB845c one way or another.
->>>
->>> I think the investigation would be to understand why samsung-dsim 
->>> requires
->>> such flags and/or what are the difference in behavior between MSM DSI 
->>> and samsung DSIM
->>> for those flags ?
->>>
->>> If someone has access to the lt9611 datasheet, so it requires 
->>> HSA/HFP/HBP to be
->>> skipped ? and does MSM DSI and samsung DSIM skip them in the same way ?
->>
->> I think there's a mismatch, where on one side this flags sets the link 
->> in LP-11 while
->> in HSA/HFP/HPB while on the other it completely removes those blanking 
->> packets.
->>
->> The name MIPI_DSI_MODE_VIDEO_NO_HBP suggests removal of HPB, not LP-11 
->> while HPB.
->> the registers used in both controllers are different:
->> - samsung-dsim: DSIM_HBP_DISABLE_MODE
->> - msm dsi: DSI_VID_CFG0_HBP_POWER_STOP
->>
->> The first one suggest removing the packet, while the second one 
->> suggests powering
->> off the line while in the blanking packet period.
->>
->> @Abhinav, can you comment on that ?
->>
-> 
-> I dont get what it means by completely removes blanking packets in DSIM.
 
-MIPI_DSI_MODE_VIDEO_NO_HFP means the HBP period is just skipped by DSIM.
+--fzugsjz5u2erhwcr
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Maybe there is a need for new set of flags which differentiate between 
-HBP skipped (i.e. NO HBP) and HBP LP11 ?
+Hello Jani,
 
-> It should be replacing those periods with LP11 too.
-> 
-> The traffic mode being used on this bridge is 
-> MIPI_DSI_MODE_VIDEO_SYNC_PULSE which is "Non-Burst Mode with Sync Pulses".
-> 
-> As per this traffic mode in the DSI spec,
-> 
-> "Normally, periods shown as HSA (Horizontal Sync Active), HBP 
-> (Horizontal Back Porch) and HFP (Horizontal Front Porch) are filled by 
-> Blanking Packets, with lengths (including packet overhead)  calculated 
-> to match the period specified by the peripheral’s data sheet. 
-> Alternatively, if there is sufficient time to transition from HS to LP 
-> mode and back again, a timed interval in LP mode may substitute for a 
-> Blanking Packet, thus saving power. During HSA, HBP and HFP periods, the 
-> bus should stay in the LP-11 state."
-> 
-> So we can either send the blanking packets or transition to LP state and 
-> those 3 flags are controlling exactly that during those periods for MSM 
-> driver.
-> 
-> If you stop sending the blanking packets, you need to replace that gap 
-> with LP.
+On Wed, Jul 12, 2023 at 05:34:28PM +0300, Jani Nikula wrote:
+> On Wed, 12 Jul 2023, Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de> =
+wrote:
+> > Hello,
+> >
+> > while I debugged an issue in the imx-lcdc driver I was constantly
+> > irritated about struct drm_device pointer variables being named "dev"
+> > because with that name I usually expect a struct device pointer.
+> >
+> > I think there is a big benefit when these are all renamed to "drm_dev".
+> > I have no strong preference here though, so "drmdev" or "drm" are fine
+> > for me, too. Let the bikesheding begin!
+> >
+> > Some statistics:
+> >
+> > $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort | un=
+iq -c | sort -n
+> >       1 struct drm_device *adev_to_drm
+> >       1 struct drm_device *drm_
+> >       1 struct drm_device          *drm_dev
+> >       1 struct drm_device        *drm_dev
+> >       1 struct drm_device *pdev
+> >       1 struct drm_device *rdev
+> >       1 struct drm_device *vdev
+> >       2 struct drm_device *dcss_drv_dev_to_drm
+> >       2 struct drm_device **ddev
+> >       2 struct drm_device *drm_dev_alloc
+> >       2 struct drm_device *mock
+> >       2 struct drm_device *p_ddev
+> >       5 struct drm_device *device
+> >       9 struct drm_device * dev
+> >      25 struct drm_device *d
+> >      95 struct drm_device *
+> >     216 struct drm_device *ddev
+> >     234 struct drm_device *drm_dev
+> >     611 struct drm_device *drm
+> >    4190 struct drm_device *dev
+> >
+> > This series starts with renaming struct drm_crtc::dev to drm_dev. If
+> > it's not only me and others like the result of this effort it should be
+> > followed up by adapting the other structs and the individual usages in
+> > the different drivers.
+>=20
+> I think this is an unnecessary change. In drm, a dev is usually a drm
+> device, i.e. struct drm_device *.
 
-I don't think that's what MIPI_DSI_MODE_VIDEO_NO_HBP means, the way I 
-understand MIPI_DSI_MODE_VIDEO_NO_HBP is that it skips the HBP 
-completely. So if you want HBP, then do not set 
-MIPI_DSI_MODE_VIDEO_NO_HBP . And if you want LP11 during HBP, that is I 
-think up to the controller (or maybe another new flag?).
+Well, unless it's not. Prominently there is
 
-> One reason I can think of why this could break with MSM is perhaps we do 
-> not have sufficient time in those periods for the LP-HS transition like 
-> the spec has written.
-> 
-> 1) What is the resolution which is getting broken on db845c with this? I 
-> would like to know the full drm_display_mode for it to see how much time 
-> we have in those periods. Is any resolution working or all are broken.
-> 
-> 2) I also do not completely get the last line of the DSI spec on this 
-> traffic mode. Is it suggesting that we *must* use only LP11 for those 
-> periods in this traffic mode? I need to check little more on that. 
-> Because if thats the case the change is doing just that and we need to 
-> investigate the MSM failure little more. If not and its indeed optional 
-> to save power like the DSI spec says, then its weird why DSIM should be 
-> blank without that too.
+	struct drm_device {
+		...
+		struct device *dev;
+		...
+	};
 
-[...]
+which yields quite a few code locations using dev->dev which is
+IMHO unnecessary irritating:
+
+	$ git grep '\<dev->dev' v6.5-rc1 drivers/gpu/drm | wc -l
+	1633
+
+Also the functions that deal with both a struct device and a struct
+drm_device often use "dev" for the struct device and then "ddev" for
+the drm_device (see for example amdgpu_device_get_pcie_replay_count()).
+
+> If folks insist on following through with this anyway, I'm firmly in the
+> camp the name should be "drm" and nothing else.
+
+Up to now positive feedback is in the majority.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--fzugsjz5u2erhwcr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSu0HEACgkQj4D7WH0S
+/k4tEAgAjSlm+m9acQMJLbHVbIAaWzq11GFCJMY9/BGZLpqO6K6E9a01pfO8fCgN
+isja7eDWpKflOXKYWqhmcSssK1xwJLNSKt8+htEafh6mxWV5HU0jyoWvSxTnQ1gL
+nWDFOPr3pLhv1CGL5/k0t1+hd+ECL1khVbWpQFdBDTjwwqD6TfY0iTXxGaZuGxa8
+lJUBRc+bVymGD1u+8ox4REDSHSpNH5sz5k4aGUyv1NQmIFYZJL/BkV8FDSJ5ch4S
+9zSAf5yMI9E3lXBKmepbTTTUk3sobZSO4cb1acQreVw0dx3kVtIw3yq1clLJcajd
+E9HRqReDdg8q7s08KuyJFhsdIlCQLQ==
+=sqnn
+-----END PGP SIGNATURE-----
+
+--fzugsjz5u2erhwcr--
