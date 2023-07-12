@@ -1,78 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 259BA74FBFC
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 02:02:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87AE374FC24
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 02:34:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188FF10E463;
-	Wed, 12 Jul 2023 00:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33D2410E463;
+	Wed, 12 Jul 2023 00:34:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED9F10E122;
- Wed, 12 Jul 2023 00:01:59 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F51210E463;
+ Wed, 12 Jul 2023 00:34:08 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36BNgCZt016694; Wed, 12 Jul 2023 00:01:45 GMT
+ 36C0I5R0031906; Wed, 12 Jul 2023 00:34:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=jTeqAFlCLv+oA4IEJ6lncMyInSn/hwY65e4xFEskncs=;
- b=eEFiOkbIvJwmFZVvX8HrtUagIs/ZFjwMRereS5FHcSN07k4CyNXYMkrSMXV9riZ8DEZl
- SygegICUqKTVY5dvIqe8aLRUA09c8VfxQY8VbC1bCiiUh7XlUupM0nM76C747f3X90SL
- mHw/OLebApUBZeUGI/YgNskRR1b0O4V3Is5Zmg6uLaVsYDWKMmQ7aPgqU2ed18i9U4Rp
- cSbQlqxTflg4XXvMfDXInR+s4OsMJzS1h+15U+W4tHOutbAVOxtXzZrfRzHd4g/Iicvc
- jt1Xbrx5rSmQm/tCPfcJDxJ81pZv3ruPQ4F4ujTBxOSEWfAZvwpgLd6hvHLmkN0EI0Ux PA== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rsgar82ky-1
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=V3kOupI2+zPUUBVhvbOLc1sNnyjIW4o6i/NwgoF9m18=;
+ b=on+TXMAIqjg3xuXLShaJ/E1kzTpf48rfGm8RwanzNkXfIBOVwquw/cKXgs2d2B8Nk/b4
+ lhWagOcJX/6HE4B/aQQYhw4niEX0gU6j4XgN6sZ4FQTxxqfrMh2HmZkl0cVI0bTh+sGu
+ LNxtAGa0DxiRrEsGBwZqA8vsvo3CmRA0bt+qddzgJlCSa+HZrulPJi8DUiJgrH/8vA2Y
+ j/RzcESpbNKoUkZuw6F4lZiM/NZr/mKuOfjCjJHX15p03Np+O1YwgloWB9DjkTXYvTzi
+ NT7W5ag47/GvGQA10+K3kOLvkKO76APwNxvRB/r6wYSwGGkp8XfBquxGpaNqh7S4K4+v Hw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rser0r9df-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Jul 2023 00:01:44 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36C01hC3006897
+ Wed, 12 Jul 2023 00:34:05 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36C0Y3Bi014320
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Jul 2023 00:01:43 GMT
-Received: from [10.71.109.168] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 11 Jul
- 2023 17:01:42 -0700
-Message-ID: <f2a50fb0-f9d3-d884-8f67-28591413e935@quicinc.com>
-Date: Tue, 11 Jul 2023 17:01:42 -0700
+ Wed, 12 Jul 2023 00:34:04 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.30; Tue, 11 Jul 2023 17:34:03 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Tue, 11 Jul 2023 17:33:05 -0700
+Message-ID: <20230712003310.31961-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
- <20230404-solid-fill-v4-7-f4ec0caa742d@quicinc.com>
- <20230630112649.263331b4@eldfell> <20230703104246.7226953a@eldfell>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20230703104246.7226953a@eldfell>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: oFwOyZwqsZYVkYdAEu2o9Yhp6v4rLfha
-X-Proofpoint-ORIG-GUID: oFwOyZwqsZYVkYdAEu2o9Yhp6v4rLfha
+X-Proofpoint-GUID: sPf6UEIqx4DXn3je-qkV74enGLRgzXJl
+X-Proofpoint-ORIG-GUID: sPf6UEIqx4DXn3je-qkV74enGLRgzXJl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-11_13,2023-07-11_01,2023-05-22_02
+ definitions=2023-07-11_14,2023-07-11_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 suspectscore=0
- mlxlogscore=999 spamscore=0 priorityscore=1501 impostorscore=0
- phishscore=0 clxscore=1015 adultscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307110219
-Subject: Re: [Freedreno] [PATCH RFC v4 7/7] drm/msm/dpu: Use DRM solid_fill
- property
+ clxscore=1015
+ priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0 mlxscore=0
+ suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307120002
+Subject: [Freedreno] [PATCH v4 0/4] drm/msm/dpu: Re-introduce dpu core
+ revision
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,143 +79,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- sebastian.wick@redhat.com, Thomas Zimmermann <tzimmermann@suse.de>, Sean
- Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+Cc: quic_jesszhan@quicinc.com, andersson@kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+With commit dac76a0144d31 ("fetch DPU configuration from match data"),
+dpu core revision was dropped in favor of using the compatible string
+from the device tree to select the dpu catalog being used in the device.
 
+This approach works well however also necessitates adding catalog
+entries for small register level details as dpu capabilities and/or
+features bloating the catalog unnecessarily. Examples include but
+are not limited to data_compress, interrupt register set, widebus etc.
 
-On 7/3/2023 12:42 AM, Pekka Paalanen wrote:
-> On Fri, 30 Jun 2023 11:26:49 +0300
-> Pekka Paalanen <ppaalanen@gmail.com> wrote:
-> 
->> On Thu, 29 Jun 2023 17:25:06 -0700
->> Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->>
->>> Drop DPU_PLANE_COLOR_FILL_FLAG and check the DRM solid_fill property to
->>> determine if the plane is solid fill. In addition drop the DPU plane
->>> color_fill field as we can now use drm_plane_state.solid_fill instead,
->>> and pass in drm_plane_state.alpha to _dpu_plane_color_fill_pipe() to
->>> allow userspace to configure the alpha value for the solid fill color.
->>>
->>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 21 +++++++++++++++------
->>>   1 file changed, 15 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index 4476722f03bb..11d4fb771a1f 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -42,7 +42,6 @@
->>>   #define SHARP_SMOOTH_THR_DEFAULT	8
->>>   #define SHARP_NOISE_THR_DEFAULT	2
->>>   
->>> -#define DPU_PLANE_COLOR_FILL_FLAG	BIT(31)
->>>   #define DPU_ZPOS_MAX 255
->>>   
->>>   /*
->>> @@ -82,7 +81,6 @@ struct dpu_plane {
->>>   
->>>   	enum dpu_sspp pipe;
->>>   
->>> -	uint32_t color_fill;
->>>   	bool is_error;
->>>   	bool is_rt_pipe;
->>>   	const struct dpu_mdss_cfg *catalog;
->>> @@ -606,6 +604,17 @@ static void _dpu_plane_color_fill_pipe(struct dpu_plane_state *pstate,
->>>   	_dpu_plane_setup_scaler(pipe, fmt, true, &pipe_cfg, pstate->rotation);
->>>   }
->>>   
->>> +static uint32_t _dpu_plane_get_fill_color(struct drm_solid_fill solid_fill)
->>> +{
->>> +	uint32_t ret = 0;
->>> +
->>> +	ret |= ((uint8_t) solid_fill.b) << 16;
->>> +	ret |= ((uint8_t) solid_fill.g) << 8;
->>> +	ret |= ((uint8_t) solid_fill.r);
->>
->> solid_fill.r, g and b are uint32_t, yes?
->>
->> What's the value encoding in the UAPI? That doc was missing.
+Introduce the dpu core revision back as an entry to the catalog so that
+we can just use dpu revision checks for setting register bits based
+on the dpu's core revision rather than catalog feature bits.
 
-Hi Pekka,
+changes in v4:
+        - added a cover letter explaining the feature
+        - introduce struct dpu_mdss_version to hold the core revision
+        - rebased and added support for sm6125 into this
+        - removed hex prefix from the revisions
+        - renamed enable_compression() to program_intf_cmd_cfg()
 
-The solid fill blob will accept an RGB323232 value -- will document this 
-in the drm_solid_fill_info struct
+Abhinav Kumar (4):
+  drm/msm/dpu: re-introduce dpu core revision to the catalog
+  drm/msm/dpu: use dpu core's major version to enable data compress
+  drm/msm/dpu: rename enable_compression() to program_intf_cmd_cfg()
+  drm/msm/dpu: drop DPU_INTF_DATA_COMPRESS from dpu catalog
 
->>
->> I wouldn't expect the UAPI to use 32-bit variables if it was
->> essentially 8-bit, so this conversion looks wrong.
->>
->> Nominal color value 1.0 in u8 is 0xff. The same in u32 is probably
->> 0xffffffff? So a simple cast to u8 won't work. You'd want to take the
->> upper 8 bits instead.
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  6 ++++++
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  6 ++++++
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  8 ++++++--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  2 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 19 +++++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 16 +++++++++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   | 14 +++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  2 +-
+ 22 files changed, 139 insertions(+), 18 deletions(-)
 
-Acked.
+-- 
+2.40.1
 
->>
->>
->> Thanks,
->> pq
->>
->>> +
->>> +	return ret;
-> 
-> Btw. if your driver format is ABGR, then this function leaves alpha as
-> zero. That's confusing.
-> 
-> It would be nice to mention the exact pixel format in the function name
-> so the consistency is easier to check in both here and in callers.
-
-Acked.
-
-Thanks,
-
-Jessica Zhang
-
-> 
-> 
-> Thanks,
-> pq
-> 
->>> +}
->>> +
->>>   /**
->>>    * _dpu_plane_color_fill - enables color fill on plane
->>>    * @pdpu:   Pointer to DPU plane object
->>> @@ -977,9 +986,9 @@ void dpu_plane_flush(struct drm_plane *plane)
->>>   	if (pdpu->is_error)
->>>   		/* force white frame with 100% alpha pipe output on error */
->>>   		_dpu_plane_color_fill(pdpu, 0xFFFFFF, 0xFF);
->>> -	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
->>> -		/* force 100% alpha */
->>> -		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
->>> +	else if (drm_plane_solid_fill_enabled(plane->state))
->>> +		_dpu_plane_color_fill(pdpu, _dpu_plane_get_fill_color(plane->state->solid_fill),
->>> +				plane->state->alpha);
->>>   	else {
->>>   		dpu_plane_flush_csc(pdpu, &pstate->pipe);
->>>   		dpu_plane_flush_csc(pdpu, &pstate->r_pipe);
->>> @@ -1024,7 +1033,7 @@ static void dpu_plane_sspp_update_pipe(struct drm_plane *plane,
->>>   	}
->>>   
->>>   	/* override for color fill */
->>> -	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
->>> +	if (drm_plane_solid_fill_enabled(plane->state)) {
->>>   		_dpu_plane_set_qos_ctrl(plane, pipe, false);
->>>   
->>>   		/* skip remaining processing on color fill */
->>>    
->>
-> 
