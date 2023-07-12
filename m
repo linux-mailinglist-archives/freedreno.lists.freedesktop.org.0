@@ -1,73 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0CC975001F
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 09:35:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26DC57503A1
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 11:47:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD3E10E4A3;
-	Wed, 12 Jul 2023 07:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D2910E4BF;
+	Wed, 12 Jul 2023 09:47:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 151CE10E49F;
- Wed, 12 Jul 2023 07:35:32 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-4f9fdb0ef35so10829343e87.0; 
- Wed, 12 Jul 2023 00:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689147331; x=1691739331;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=/PE2l96LFO78ASyoK1rIpXPjUnfUbV0qJEzUZeBNGTE=;
- b=Bx3Ueff9WHXlKvS/70TUr1hwkp9KgqrIJ/VQXFUzEq9WtJpNgByppCFtNqcWpKAm+W
- GVOFUQjPUlazNF8aTjULXG0U1Q56yADKq4tlhQQqPfntdy8qkbOS8qCOyWiH8BUFvk7H
- uQbkpBOEpbvjcUuRi/KCCAoaf8x1klSRh/KFkN3pnV0Nii/y9rU7Wv8fLAt1ll8FY8Rp
- YnkzVcYkJej49Xe7MoODZaSLL8T00AmdP5g8LbZPt0Vjna76FCYVG0vbG6k75fET3I3p
- aV2hDbNDywu0oWjqXD/NbzNEiDowiuqIccux1+7I4x2CX41e27mZh0CdV4SKdeLF8nLC
- +fjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689147331; x=1691739331;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/PE2l96LFO78ASyoK1rIpXPjUnfUbV0qJEzUZeBNGTE=;
- b=GpC+vLCvKOnr9PmhpY1xIPxR7tiNKrImGkbMUKrD7olXOY/bjIK6C3m7xiqrsakIU/
- SNh0sonQc1Sg1RMpuo8dCdDEL2WcHCZ0vRtvTMvKQJ8GV7JrNpGvdSMdv5qi/kepQV3y
- 6QRAYZ5hIyplPHwICTV0SBRnoO+ik3AGwIwA/PiBPnz04//pLgqN95dmIvIHvUV3xNNI
- Z4TCBRqFC46Tj1D2S+A/EJzJzhHpqKnt4PkqS9GLLPJOocgW+FXIfHxr1cNedTzo7Rw5
- 1/GT02l+t/EmDgKzSSYJDFSTmzDhWMxIZMRU7Vq8mw4c4on92RW2/sf27VcrI21VHFCC
- Jvtw==
-X-Gm-Message-State: ABy/qLbd3YwlXCZ+m1LbugBjoaFL1DIg8TR2FGbRzxn+18Cr5KcIykXt
- JIaczdC2CUN+faVjTDxowdA=
-X-Google-Smtp-Source: APBJJlECOmtP22hrQRQPHUAyhMTCH4MMW99NWkLufXU/36WFrjC0ehSY2SUAZ6vxYmQzgTOmL8legA==
-X-Received: by 2002:a05:6512:3d28:b0:4fb:8802:9554 with SMTP id
- d40-20020a0565123d2800b004fb88029554mr18715169lfv.6.1689147330175; 
- Wed, 12 Jul 2023 00:35:30 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- o1-20020ac24341000000b004eff1163c37sm588675lfl.308.2023.07.12.00.35.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jul 2023 00:35:29 -0700 (PDT)
-Date: Wed, 12 Jul 2023 10:35:19 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <20230712103519.1a941d26@eldfell>
-In-Reply-To: <79eb29b5-f018-d92c-b514-5ae0c954ff46@quicinc.com>
-References: <20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com>
- <20230404-solid-fill-v4-2-f4ec0caa742d@quicinc.com>
- <6e3eec49-f798-ff91-8b4d-417d31089296@linaro.org>
- <20230630112708.4d3a08a7@eldfell>
- <eb78b4d6-6da2-1cb5-5fab-01d7bf233111@quicinc.com>
- <e17db728-d91b-a2b3-08a9-1dd1fde9c727@linaro.org>
- <53ca10d5-c1e0-285a-30b9-4e9a2a1b70c9@quicinc.com>
- <916d6b67-0f37-3814-4a15-d4a6fd6891ab@linaro.org>
- <79eb29b5-f018-d92c-b514-5ae0c954ff46@quicinc.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D90BF10E431
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 09:47:32 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJWRF-0001Nx-Oy; Wed, 12 Jul 2023 11:47:13 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJWRC-00Dr4w-PP; Wed, 12 Jul 2023 11:47:10 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJWRB-004GTQ-KV; Wed, 12 Jul 2023 11:47:09 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>
+Date: Wed, 12 Jul 2023 11:46:34 +0200
+Message-Id: <20230712094702.1770121-25-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Koo4mZ9l75IMKSB1KGUOoX.";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: Re: [Freedreno] [PATCH RFC v4 2/7] drm: Introduce pixel_source DRM
- plane property
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19657;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=VQG15DFowrVWE8JyLfc0TKgexFlTmbe28KFNFHyLyjA=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkrnZyQO1+RjcXv2U/8kwsfICkIdvqQaN83Zacg
+ A6AzKWDvJaJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZK52cgAKCRCPgPtYfRL+
+ Trj9CACo4TAecOkYVCGE/2kz3gNKcWDD9RAVpBN7CAm6rTqB75PweedEjzkCdL8C3HFUikORkRZ
+ i10t4KFZli0DooZvTCoqnFa/+A6GmERgnuAvkSdd47avtbtrUZcKaPP/4v4hqvozlXIj9SXudCe
+ 6GeIq6gsPkgBfaNysUj12WnIMd2OwNuHZDqg5pmQ4x3ZAP0kpT2bLnTEtGRt0/LVkVHX6+2iNmW
+ pI37prkiahQ481T85XduvF0/JUJhc7Kp5JbNYa1c/sZ+RjFD3ZK4K+5lUx4ZwnWZ2sKbqfKjkrG
+ 15Cjoxet4hbsOGrKi53JY0UzQzqrK1FbqBkhPSahC2rAF0ks
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
+Subject: [Freedreno] [PATCH RFC v1 24/52] drm/msm: Use struct
+ drm_crtc::drm_dev instead of struct drm_crtc::dev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,246 +73,502 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- sebastian.wick@redhat.com, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- wayland-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ kernel@pengutronix.de, linux-arm-msm@vger.kernel.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, contact@emersion.fr,
- David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---Sig_/Koo4mZ9l75IMKSB1KGUOoX.
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Prepare dropping the alias "dev" for struct drm_crtc::drm_dev. "drm_dev"
+is the better name as "dev" is usually a struct device pointer.
 
-On Tue, 11 Jul 2023 15:42:28 -0700
-Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+No semantic changes.
 
-> On 7/11/2023 3:19 PM, Dmitry Baryshkov wrote:
-> > On 12/07/2023 01:07, Jessica Zhang wrote: =20
-> >>
-> >>
-> >> On 7/10/2023 1:11 PM, Dmitry Baryshkov wrote: =20
-> >>> On 10/07/2023 22:51, Jessica Zhang wrote: =20
-> >>>>
-> >>>>
-> >>>> On 6/30/2023 1:27 AM, Pekka Paalanen wrote: =20
-> >>>>> On Fri, 30 Jun 2023 03:42:28 +0300
-> >>>>> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> >>>>> =20
-> >>>>>> On 30/06/2023 03:25, Jessica Zhang wrote: =20
-> >>>>>>> Add support for pixel_source property to drm_plane and related
-> >>>>>>> documentation.
-> >>>>>>>
-> >>>>>>> This enum property will allow user to specify a pixel source for =
-the
-> >>>>>>> plane. Possible pixel sources will be defined in the
-> >>>>>>> drm_plane_pixel_source enum.
-> >>>>>>>
-> >>>>>>> The current possible pixel sources are DRM_PLANE_PIXEL_SOURCE_FB =
-and
-> >>>>>>> DRM_PLANE_PIXEL_SOURCE_COLOR. The default value is *_SOURCE_FB. =
-=20
-> >>>>>>
-> >>>>>> I think, this should come before the solid fill property addition.=
-=20
-> >>>>>> First
-> >>>>>> you tell that there is a possibility to define other pixel=20
-> >>>>>> sources, then
-> >>>>>> additional sources are defined. =20
-> >>>>>
-> >>>>> Hi,
-> >>>>>
-> >>>>> that would be logical indeed. =20
-> >>>>
-> >>>> Hi Dmitry and Pekka,
-> >>>>
-> >>>> Sorry for the delay in response, was out of office last week.
-> >>>>
-> >>>> Acked.
-> >>>> =20
-> >>>>> =20
-> >>>>>>>
-> >>>>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >>>>>>> ---
-> >>>>>>> =C2=A0=C2=A0 drivers/gpu/drm/drm_atomic_state_helper.c |=C2=A0 1 +
-> >>>>>>> =C2=A0=C2=A0 drivers/gpu/drm/drm_atomic_uapi.c=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++
-> >>>>>>> =C2=A0=C2=A0 drivers/gpu/drm/drm_blend.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 81=20
-> >>>>>>> +++++++++++++++++++++++++++++++
-> >>>>>>> =C2=A0=C2=A0 include/drm/drm_blend.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0|=C2=A0 2 +
-> >>>>>>> =C2=A0=C2=A0 include/drm/drm_plane.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0| 21 ++++++++
-> >>>>>>> =C2=A0=C2=A0 5 files changed, 109 insertions(+)
-> >>>>>>>
-> >>>>>>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c=20
-> >>>>>>> b/drivers/gpu/drm/drm_atomic_state_helper.c
-> >>>>>>> index fe14be2bd2b2..86fb876efbe6 100644
-> >>>>>>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> >>>>>>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> >>>>>>> @@ -252,6 +252,7 @@ void=20
-> >>>>>>> __drm_atomic_helper_plane_state_reset(struct drm_plane_state=20
-> >>>>>>> *plane_state,
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane_state->alpha =3D DRM_B=
-LEND_ALPHA_OPAQUE;
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane_state->pixel_blend_mod=
-e =3D DRM_MODE_BLEND_PREMULTI;
-> >>>>>>> +=C2=A0=C2=A0=C2=A0 plane_state->pixel_source =3D DRM_PLANE_PIXEL=
-_SOURCE_FB;
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (plane_state->solid_fill_=
-blob) {
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_=
-property_blob_put(plane_state->solid_fill_blob);
-> >>>>>>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c=20
-> >>>>>>> b/drivers/gpu/drm/drm_atomic_uapi.c
-> >>>>>>> index a28b4ee79444..6e59c21af66b 100644
-> >>>>>>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> >>>>>>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> >>>>>>> @@ -596,6 +596,8 @@ static int=20
-> >>>>>>> drm_atomic_plane_set_property(struct drm_plane *plane,
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_=
-property_blob_put(solid_fill);
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
-rn ret;
-> >>>>>>> +=C2=A0=C2=A0=C2=A0 } else if (property =3D=3D plane->pixel_sourc=
-e_property) {
-> >>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 state->pixel_source =
-=3D val;
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else if (property =3D=3D p=
-lane->alpha_property) {
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 stat=
-e->alpha =3D val;
-> >>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else if (property =3D=3D p=
-lane->blend_mode_property) { =20
-> >>>>>>
-> >>>>>> I think, it was pointed out in the discussion that=20
-> >>>>>> drm_mode_setplane()
-> >>>>>> (a pre-atomic IOCTL to turn the plane on and off) should also reset
-> >>>>>> pixel_source to FB. =20
-> >>>>
-> >>>> I don't remember drm_mode_setplane() being mentioned in the=20
-> >>>> pixel_source discussion... can you share where it was mentioned? =20
-> >>>
-> >>> https://lore.kernel.org/dri-devel/20230627105849.004050b3@eldfell/
-> >>>
-> >>> Let me quote it here:
-> >>> "Legacy non-atomic UAPI wrappers can do whatever they want, and progr=
-am
-> >>> any (new) properties they want in order to implement the legacy
-> >>> expectations, so that does not seem to be a problem."
-> >>>
-> >>> =20
-> >>>>
-> >>>> I'd prefer to avoid having driver change the pixel_source directly=20
-> >>>> as it could cause some unexpected side effects. In general, I would=
-=20
-> >>>> like userspace to assign the value of pixel_source without driver=20
-> >>>> doing anything "under the hood". =20
-> >>>
-> >>> s/driver/drm core/
-> >>>
-> >>> We have to remain compatible with old userspace, especially with the=
-=20
-> >>> non-atomic one. If the userspace calls=20
-> >>> ioctl(DRM_IOCTL_MODE_SETPLANE), we have to display the specified FB,=
-=20
-> >>> no matter what was the value of PIXEL_SOURCE before this ioctl. =20
-> >>
-> >>
-> >> Got it, thanks the clarification -- I see your point.
-> >>
-> >> I'm already setting plane_state->pixel_source to FB in=20
-> >> __drm_atomic_helper_plane_reset() and it seems to me that all drivers=
-=20
-> >> are calling that within their respective plane_funcs->reset().
-> >>
-> >> Since (as far as I know) reset() is being called for both the atomic=20
-> >> and non-atomic paths, shouldn't that be enough to default pixel_source=
-=20
-> >> to FB for old userspace? =20
-> >=20
-> > No, this will not clean up the state between userspace apps. Currently=
-=20
-> > the rule is simple: call DRM_IOCTL_MODE_SETPLANE, get the image from FB=
-=20
-> > displayed. We should keep it so.
-> >  =20
->=20
-> Ok, so you are considering a use-case where we bootup with a userspace=20
-> (which is aware of pixel_source), that one uses the pixel_source to=20
-> switch the property to solid_color and then we kill this userspace and=20
-> bootup one which is unaware of this property and uses=20
-> DRM_IOCTL_MODE_SETPLANE, then we should default back to FB.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |  6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 70 +++++++++++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     | 12 ++--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     | 20 +++---
+ drivers/gpu/drm/msm/msm_drv.c                 |  4 +-
+ 6 files changed, 62 insertions(+), 52 deletions(-)
 
-Not even that complex. There is no need to reboot and no need to kill
-anything to hit this. A simple VT-switch can switch between two
-different KMS clients, one could be using atomic with solid_fill, and
-the other is an old legacy UAPI user. If the atomic client leaves stuff
-up in KMS state, it would be nice if the legacy app still worked.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 1d9d83d7b99e..a71169776690 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -102,7 +102,7 @@ static u64 _dpu_core_perf_calc_clk(struct dpu_kms *kms,
+ static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+ {
+ 	struct msm_drm_private *priv;
+-	priv = crtc->dev->dev_private;
++	priv = crtc->drm_dev->dev_private;
+ 	return to_dpu_kms(priv->kms);
+ }
+ 
+@@ -171,7 +171,7 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+ 	bw_sum_of_intfs = dpu_cstate->new_perf.bw_ctl;
+ 	curr_client_type = dpu_crtc_get_client_type(crtc);
+ 
+-	drm_for_each_crtc(tmp_crtc, crtc->dev) {
++	drm_for_each_crtc(tmp_crtc, crtc->drm_dev) {
+ 		if (tmp_crtc->enabled &&
+ 		    (dpu_crtc_get_client_type(tmp_crtc) ==
+ 				curr_client_type) && (tmp_crtc != crtc)) {
+@@ -217,7 +217,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+ 	int i, ret = 0;
+ 	u64 avg_bw;
+ 
+-	drm_for_each_crtc(tmp_crtc, crtc->dev) {
++	drm_for_each_crtc(tmp_crtc, crtc->drm_dev) {
+ 		if (tmp_crtc->enabled &&
+ 			curr_client_type ==
+ 				dpu_crtc_get_client_type(tmp_crtc)) {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 1edf2b6b0a26..ca9a95a0b028 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -46,7 +46,7 @@
+ 
+ static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+ {
+-	struct msm_drm_private *priv = crtc->dev->dev_private;
++	struct msm_drm_private *priv = crtc->drm_dev->dev_private;
+ 
+ 	return to_dpu_kms(priv->kms);
+ }
+@@ -64,7 +64,7 @@ static void dpu_crtc_destroy(struct drm_crtc *crtc)
+ 
+ static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct drm_encoder *encoder;
+ 
+ 	drm_for_each_encoder(encoder, dev)
+@@ -106,7 +106,7 @@ static int dpu_crtc_verify_crc_source(struct drm_crtc *crtc,
+ 
+ 		*values_cnt = 0;
+ 
+-		drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask)
++		drm_for_each_encoder_mask(drm_enc, crtc->drm_dev, crtc->state->encoder_mask)
+ 			*values_cnt += dpu_encoder_get_crc_values_cnt(drm_enc);
+ 	}
+ 
+@@ -133,7 +133,8 @@ static void dpu_crtc_setup_encoder_misr(struct drm_crtc *crtc)
+ {
+ 	struct drm_encoder *drm_enc;
+ 
+-	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask)
++	drm_for_each_encoder_mask(drm_enc, crtc->drm_dev,
++				  crtc->state->encoder_mask)
+ 		dpu_encoder_setup_misr(drm_enc);
+ }
+ 
+@@ -142,7 +143,7 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+ 	enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
+ 	enum dpu_crtc_crc_source current_source;
+ 	struct dpu_crtc_state *crtc_state;
+-	struct drm_device *drm_dev = crtc->dev;
++	struct drm_device *drm_dev = crtc->drm_dev;
+ 
+ 	bool was_enabled;
+ 	bool enable = false;
+@@ -244,7 +245,8 @@ static int dpu_crtc_get_encoder_crc(struct drm_crtc *crtc)
+ 	int rc, pos = 0;
+ 	u32 crcs[INTF_MAX];
+ 
+-	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask) {
++	drm_for_each_encoder_mask(drm_enc, crtc->drm_dev,
++				  crtc->state->encoder_mask) {
+ 		rc = dpu_encoder_get_crc(drm_enc, crcs, pos);
+ 		if (rc < 0) {
+ 			if (rc != -ENODATA)
+@@ -569,7 +571,7 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+ static void _dpu_crtc_complete_flip(struct drm_crtc *crtc)
+ {
+ 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&dev->event_lock, flags);
+@@ -599,7 +601,8 @@ enum dpu_intf_mode dpu_crtc_get_intf_mode(struct drm_crtc *crtc)
+ 	WARN_ON(!drm_modeset_is_locked(&crtc->mutex));
+ 
+ 	/* TODO: Returns the first INTF_MODE, could there be multiple values? */
+-	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++				  crtc->state->encoder_mask)
+ 		return dpu_encoder_get_intf_mode(encoder);
+ 
+ 	return INTF_MODE_NONE;
+@@ -692,7 +695,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
+ 		return;
+ 
+ 	dpu_crtc = to_dpu_crtc(crtc);
+-	priv = crtc->dev->dev_private;
++	priv = crtc->drm_dev->dev_private;
+ 	crtc_id = drm_crtc_index(crtc);
+ 
+ 	trace_dpu_crtc_frame_event_cb(DRMID(crtc), event);
+@@ -817,7 +820,8 @@ static void dpu_crtc_atomic_begin(struct drm_crtc *crtc,
+ 	_dpu_crtc_setup_lm_bounds(crtc, crtc->state);
+ 
+ 	/* encoder will trigger pending mask now */
+-	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++				  crtc->state->encoder_mask)
+ 		dpu_encoder_trigger_kickoff_pending(encoder);
+ 
+ 	/*
+@@ -861,7 +865,7 @@ static void dpu_crtc_atomic_flush(struct drm_crtc *crtc,
+ 
+ 	dpu_crtc = to_dpu_crtc(crtc);
+ 	cstate = to_dpu_crtc_state(crtc->state);
+-	dev = crtc->dev;
++	dev = crtc->drm_dev;
+ 	priv = dev->dev_private;
+ 
+ 	if (crtc->index >= ARRAY_SIZE(priv->event_thread)) {
+@@ -956,8 +960,8 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+ 
+ 	DPU_ATRACE_BEGIN("crtc_commit");
+ 
+-	drm_for_each_encoder_mask(encoder, crtc->dev,
+-			crtc->state->encoder_mask) {
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++				  crtc->state->encoder_mask) {
+ 		if (!dpu_encoder_is_valid_for_commit(encoder)) {
+ 			DRM_DEBUG_ATOMIC("invalid FB not kicking off crtc\n");
+ 			goto end;
+@@ -967,7 +971,7 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+ 	 * Encoder will flush/start now, unless it has a tx pending. If so, it
+ 	 * may delay and flush at an irq event (e.g. ppdone)
+ 	 */
+-	drm_for_each_encoder_mask(encoder, crtc->dev,
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
+ 				  crtc->state->encoder_mask)
+ 		dpu_encoder_prepare_for_kickoff(encoder);
+ 
+@@ -981,7 +985,8 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+ 
+ 	dpu_vbif_clear_errors(dpu_kms);
+ 
+-	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++				  crtc->state->encoder_mask)
+ 		dpu_encoder_kickoff(encoder);
+ 
+ 	reinit_completion(&dpu_crtc->frame_done_comp);
+@@ -1055,8 +1060,8 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+ 	 * it won't trigger a warn while assigning crtc.
+ 	 */
+ 	if (old_crtc_state->self_refresh_active) {
+-		drm_for_each_encoder_mask(encoder, crtc->dev,
+-					old_crtc_state->encoder_mask) {
++		drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++					  old_crtc_state->encoder_mask) {
+ 			dpu_encoder_assign_crtc(encoder, NULL);
+ 		}
+ 		return;
+@@ -1065,7 +1070,7 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+ 	/* Disable/save vblank irq handling */
+ 	drm_crtc_vblank_off(crtc);
+ 
+-	drm_for_each_encoder_mask(encoder, crtc->dev,
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
+ 				  old_crtc_state->encoder_mask) {
+ 		/* in video mode, we hold an extra bandwidth reference
+ 		 * as we cannot drop bandwidth at frame-done if any
+@@ -1102,7 +1107,8 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+ 
+ 	dpu_core_perf_crtc_update(crtc, 0, true);
+ 
+-	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++				  crtc->state->encoder_mask)
+ 		dpu_encoder_register_frame_event_callback(encoder, NULL, NULL);
+ 
+ 	memset(cstate->mixers, 0, sizeof(cstate->mixers));
+@@ -1113,13 +1119,13 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+ 	cstate->bw_split_vote = false;
+ 
+ 	if (crtc->state->event && !crtc->state->active) {
+-		spin_lock_irqsave(&crtc->dev->event_lock, flags);
++		spin_lock_irqsave(&crtc->drm_dev->event_lock, flags);
+ 		drm_crtc_send_vblank_event(crtc, crtc->state->event);
+ 		crtc->state->event = NULL;
+-		spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
++		spin_unlock_irqrestore(&crtc->drm_dev->event_lock, flags);
+ 	}
+ 
+-	pm_runtime_put_sync(crtc->dev->dev);
++	pm_runtime_put_sync(crtc->drm_dev->dev);
+ }
+ 
+ static void dpu_crtc_enable(struct drm_crtc *crtc,
+@@ -1132,11 +1138,12 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+ 
+ 	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
+ 
+-	pm_runtime_get_sync(crtc->dev->dev);
++	pm_runtime_get_sync(crtc->drm_dev->dev);
+ 
+ 	DRM_DEBUG_KMS("crtc%d\n", crtc->base.id);
+ 
+-	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask) {
++	drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++				  crtc->state->encoder_mask) {
+ 		/* in video mode, we hold an extra bandwidth reference
+ 		 * as we cannot drop bandwidth at frame-done if any
+ 		 * crtc is being used in video mode.
+@@ -1154,7 +1161,8 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+ 	dpu_crtc->enabled = true;
+ 
+ 	if (!old_crtc_state->self_refresh_active) {
+-		drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
++		drm_for_each_encoder_mask(encoder, crtc->drm_dev,
++					  crtc->state->encoder_mask)
+ 			dpu_encoder_assign_crtc(encoder, crtc);
+ 	}
+ 
+@@ -1170,7 +1178,8 @@ static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
+ 	if (cstate->self_refresh_active)
+ 		return true;
+ 
+-	drm_for_each_encoder_mask (encoder, crtc->dev, cstate->encoder_mask) {
++	drm_for_each_encoder_mask (encoder, crtc->drm_dev,
++				   cstate->encoder_mask) {
+ 		if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_CMD) {
+ 			return true;
+ 		}
+@@ -1262,7 +1271,8 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
+ 	 * about the assigned crtcs being inconsistent with the current state
+ 	 * (which means no need to worry about modeset locks).
+ 	 */
+-	list_for_each_entry(enc, &crtc->dev->mode_config.encoder_list, head) {
++	list_for_each_entry(enc, &crtc->drm_dev->mode_config.encoder_list,
++			    head) {
+ 		trace_dpu_crtc_vblank_enable(DRMID(crtc), DRMID(enc), en,
+ 					     dpu_crtc);
+ 
+@@ -1291,7 +1301,7 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
+ 	dpu_crtc = s->private;
+ 	crtc = &dpu_crtc->base;
+ 
+-	drm_modeset_lock_all(crtc->dev);
++	drm_modeset_lock_all(crtc->drm_dev);
+ 	cstate = to_dpu_crtc_state(crtc->state);
+ 
+ 	mode = &crtc->state->adjusted_mode;
+@@ -1383,7 +1393,7 @@ static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
+ 		dpu_crtc->vblank_cb_time = ktime_set(0, 0);
+ 	}
+ 
+-	drm_modeset_unlock_all(crtc->dev);
++	drm_modeset_unlock_all(crtc->drm_dev);
+ 
+ 	return 0;
+ }
+@@ -1474,7 +1484,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	crtc = &dpu_crtc->base;
+-	crtc->dev = dev;
++	crtc->drm_dev = dev;
+ 
+ 	spin_lock_init(&dpu_crtc->spin_lock);
+ 	atomic_set(&dpu_crtc->frame_pending, 0);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index aa8499de1b9f..eb2442dba92f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -468,7 +468,7 @@ static void dpu_kms_wait_for_commit_done(struct msm_kms *kms,
+ 		return;
+ 	}
+ 
+-	dev = crtc->dev;
++	dev = crtc->drm_dev;
+ 
+ 	if (!crtc->state->enable) {
+ 		DPU_DEBUG("[crtc:%d] not enable\n", crtc->base.id);
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+index 169f9de4a12a..dcfe20fe78cc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+@@ -61,7 +61,7 @@ struct mdp4_crtc {
+ 
+ static struct mdp4_kms *get_kms(struct drm_crtc *crtc)
+ {
+-	struct msm_drm_private *priv = crtc->dev->dev_private;
++	struct msm_drm_private *priv = crtc->drm_dev->dev_private;
+ 	return to_mdp4_kms(to_mdp_kms(priv->kms));
+ }
+ 
+@@ -98,7 +98,7 @@ static void crtc_flush(struct drm_crtc *crtc)
+ static void complete_flip(struct drm_crtc *crtc, struct drm_file *file)
+ {
+ 	struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct drm_pending_vblank_event *event;
+ 	unsigned long flags;
+ 
+@@ -327,7 +327,7 @@ static void mdp4_crtc_atomic_flush(struct drm_crtc *crtc,
+ 				   struct drm_atomic_state *state)
+ {
+ 	struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	unsigned long flags;
+ 
+ 	DBG("%s: event: %p", mdp4_crtc->name, crtc->state->event);
+@@ -407,7 +407,7 @@ static int mdp4_crtc_cursor_set(struct drm_crtc *crtc,
+ 	struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
+ 	struct mdp4_kms *mdp4_kms = get_kms(crtc);
+ 	struct msm_kms *kms = &mdp4_kms->base.base;
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct drm_gem_object *cursor_bo, *old_bo;
+ 	unsigned long flags;
+ 	uint64_t iova;
+@@ -499,7 +499,7 @@ static void mdp4_crtc_vblank_irq(struct mdp_irq *irq, uint32_t irqstatus)
+ {
+ 	struct mdp4_crtc *mdp4_crtc = container_of(irq, struct mdp4_crtc, vblank);
+ 	struct drm_crtc *crtc = &mdp4_crtc->base;
+-	struct msm_drm_private *priv = crtc->dev->dev_private;
++	struct msm_drm_private *priv = crtc->drm_dev->dev_private;
+ 	unsigned pending;
+ 
+ 	mdp_irq_unregister(&get_kms(crtc)->base, &mdp4_crtc->vblank);
+@@ -526,7 +526,7 @@ static void mdp4_crtc_err_irq(struct mdp_irq *irq, uint32_t irqstatus)
+ 
+ static void mdp4_crtc_wait_for_flush_done(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
+ 	struct mdp4_kms *mdp4_kms = get_kms(crtc);
+ 	int ret;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+index 86036dd4e1e8..0718eea32ecc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+@@ -69,7 +69,7 @@ static void mdp5_crtc_restore_cursor(struct drm_crtc *crtc);
+ 
+ static struct mdp5_kms *get_kms(struct drm_crtc *crtc)
+ {
+-	struct msm_drm_private *priv = crtc->dev->dev_private;
++	struct msm_drm_private *priv = crtc->drm_dev->dev_private;
+ 	return to_mdp5_kms(to_mdp_kms(priv->kms));
+ }
+ 
+@@ -140,7 +140,7 @@ static void complete_flip(struct drm_crtc *crtc, struct drm_file *file)
+ 	struct mdp5_pipeline *pipeline = &mdp5_cstate->pipeline;
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_ctl *ctl = mdp5_cstate->ctl;
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct drm_pending_vblank_event *event;
+ 	unsigned long flags;
+ 
+@@ -412,7 +412,7 @@ static void mdp5_crtc_mode_set_nofb(struct drm_crtc *crtc)
+ 
+ static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct drm_encoder *encoder;
+ 
+ 	drm_for_each_encoder(encoder, dev)
+@@ -701,7 +701,7 @@ static int mdp5_crtc_atomic_check(struct drm_crtc *crtc,
+ 	struct mdp5_interface *intf = mdp5_cstate->pipeline.intf;
+ 	struct mdp5_kms *mdp5_kms = get_kms(crtc);
+ 	struct drm_plane *plane;
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct plane_state pstates[STAGE_MAX + 1];
+ 	const struct mdp5_cfg_hw *hw_cfg;
+ 	const struct drm_plane_state *pstate;
+@@ -800,7 +800,7 @@ static void mdp5_crtc_atomic_flush(struct drm_crtc *crtc,
+ {
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	unsigned long flags;
+ 
+ 	DBG("%s: event: %p", crtc->name, crtc->state->event);
+@@ -954,7 +954,7 @@ static int mdp5_crtc_cursor_set(struct drm_crtc *crtc,
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
+ 	struct mdp5_pipeline *pipeline = &mdp5_cstate->pipeline;
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct mdp5_kms *mdp5_kms = get_kms(crtc);
+ 	struct platform_device *pdev = mdp5_kms->pdev;
+ 	struct msm_kms *kms = &mdp5_kms->base.base;
+@@ -1042,7 +1042,7 @@ static int mdp5_crtc_cursor_move(struct drm_crtc *crtc, int x, int y)
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
+ 	uint32_t flush_mask = mdp_ctl_flush_mask_cursor(0);
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	uint32_t roi_w;
+ 	uint32_t roi_h;
+ 	unsigned long flags;
+@@ -1189,7 +1189,7 @@ static void mdp5_crtc_vblank_irq(struct mdp_irq *irq, uint32_t irqstatus)
+ {
+ 	struct mdp5_crtc *mdp5_crtc = container_of(irq, struct mdp5_crtc, vblank);
+ 	struct drm_crtc *crtc = &mdp5_crtc->base;
+-	struct msm_drm_private *priv = crtc->dev->dev_private;
++	struct msm_drm_private *priv = crtc->drm_dev->dev_private;
+ 	unsigned pending;
+ 
+ 	mdp_irq_unregister(&get_kms(crtc)->base, &mdp5_crtc->vblank);
+@@ -1221,7 +1221,7 @@ static void mdp5_crtc_pp_done_irq(struct mdp_irq *irq, uint32_t irqstatus)
+ 
+ static void mdp5_crtc_wait_for_pp_done(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
+ 	int ret;
+@@ -1235,7 +1235,7 @@ static void mdp5_crtc_wait_for_pp_done(struct drm_crtc *crtc)
+ 
+ static void mdp5_crtc_wait_for_flush_done(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	struct mdp5_crtc *mdp5_crtc = to_mdp5_crtc(crtc);
+ 	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc->state);
+ 	struct mdp5_ctl *ctl = mdp5_cstate->ctl;
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 891eff8433a9..92d3a803b814 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -638,7 +638,7 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
+ 
+ int msm_crtc_enable_vblank(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	unsigned int pipe = crtc->index;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+@@ -650,7 +650,7 @@ int msm_crtc_enable_vblank(struct drm_crtc *crtc)
+ 
+ void msm_crtc_disable_vblank(struct drm_crtc *crtc)
+ {
+-	struct drm_device *dev = crtc->dev;
++	struct drm_device *dev = crtc->drm_dev;
+ 	unsigned int pipe = crtc->index;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+-- 
+2.39.2
 
-Or, maybe it's not a VT-switch but switching from, say, a graphical
-login manager to a desktop or back. The same thing, different KMS
-clients. But in this case it is more likely that userspace follows
-common play rules, so it's less likely to have problematic left-over
-KMS state.
-
-Or, maybe you simply quit the atomic KMS client and expect fbcon to
-successfully take over. I don't know what APIs fbcon uses inside the
-kernel, but it definitely should clean up any mess left over by an
-atomic (or legacy) KMS client to make sure it shows itself.
-Traditionally it has failed to do that though, I don't know if things
-are better nowadays (GAMMA_LUT, HDR_OUTPUT_METADATA, probably more).
-
-Switching between two KMS clients is fundamentally problematic. If both
-old and new KMS client are atomic, the kernel cannot simply go
-resetting any KMS state automatically, because the kernel does not
-know which part of state is good to reset and which would just cause
-unwanted flicker and delays. That means that it is up to the two atomic
-KMS clients to agree on common play rules and not leave funny state up.
-IOW, not the kernel's problem, by what I have understood from kernel
-developer opinions.
-
-However, legacy KMS clients are different. As legacy clients, they may
-not even have access to the properties they might need to clean up
-after a previous atomic KMS client. The legacy UAPI is expected to
-be slow and glitchy, but also Just Work(TM), so the kernel can reset
-everything a legacy KMS client would not have access to when a legacy
-KMS client issues drmModeSetPlane or drmModeSetCrtc (pardon for using
-libdrm API functions for the ioctls whose names I never memorised).
-
-
-Thanks,
-pq
-
---Sig_/Koo4mZ9l75IMKSB1KGUOoX.
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSuV7cACgkQI1/ltBGq
-qqe1bhAAjr/t3vy/wQYTZoNif5ySebXZ0/JcaGv9X5OWb6H3K3IgxruypCHW+Qzu
-fgYX+fFAxl58FaqnMu4USebdshELA9FFrq3dbrNeSWvo9/AzdTeoNhhYatcMlgJq
-H0f5Gs+h2/va7PIav3guMlyVcJYRIT8mzjE5SUrVPDnF8t7lyqbYmdBXE59dEvFD
-xpMP2aRjtEyu4zqP7q9VjK63QddhlOgo/Fl6+3zuaPH0mdEOnO4ZssC2zGB7OL0l
-DwSh6QR7R+os+WVdPFyCZVlp0FbGltSK5UdcsArHKhgNVjwtETrTJHZYmRMmzFzy
-VVez22vHgdijfAsmLG+GHG0eQYkOu8MDujaIi1UooEAa6AGQvvsji9jWfglnN6z6
-+bQLYif2JVhawUc3T/+8+ey5gMDIgRyUzRGv1pa3Z2bUGVRLYtdTQ75POlYtkZM0
-bBK4QKjV8rXVEJ9JTS7ElB6tesFrPSHdQinoAHU3YB4ZPkxksQiLdBfDtnp/4Tca
-p7tFuSVjg1zwWyoUHTADVlgG7BF4IcW6FjeeC657+2S3XFhXSOEV2RE1A+zGICnK
-K2BpLuWqFLepK+LESBfQvKV5plFWrLpIM+5HNIaPt1lwNF4AFVPVGLowOt0oGU0f
-LcKiJzDn6moVLQc5fU8nPrQD9rseXyG2Y6kDSdDC3OFCrSj2jnw=
-=nBtI
------END PGP SIGNATURE-----
-
---Sig_/Koo4mZ9l75IMKSB1KGUOoX.--
