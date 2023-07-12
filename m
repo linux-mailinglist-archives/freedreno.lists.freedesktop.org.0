@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CDE9751365
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 00:12:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E02751369
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 00:12:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16F8A10E5E5;
-	Wed, 12 Jul 2023 22:12:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A773810E5E1;
+	Wed, 12 Jul 2023 22:12:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51D4E10E5E0
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 22:12:34 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fb7dc16ff0so80347e87.2
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 15:12:34 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFC910E5E1
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 22:12:49 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b703a0453fso121410601fa.3
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 15:12:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689199952; x=1689804752;
+ d=linaro.org; s=google; t=1689199967; x=1689804767;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=EqJysxxH1qyXFydxpNCv52Aaqqbtf6IwIITmwO/wNJQ=;
- b=JBQeOa4LORI6IiOjXziMyaosDGZUzKT8grbrXHAZmLPrP8dHVOYLwvub8tlUqcaVVB
- giXaxvW6g9aVaw2k9tFBQPZWgdaMoFodILOEXc0p6pg2IELeA5TWjRWuMDTiAquAfmZK
- iel7rZZVdH8ucTP/q/y3ILDsYgLTWRT3HzCyTV52VYnyZf9get3Pyq/UdgiF/gO/fnQ3
- o8xV7l70pRaRwkFWw5v6poV7RzWOfFAyZLuibSMEhV31HywY9qSsdt6tL1rypspLJsgT
- r8v76q5j/6f5IxrzWM9p/Fa7iwKmT58lhz/qlfvUq8mmmIbvZKm1r927Xd/4s6lDNY3Q
- v8fQ==
+ bh=kkGA8tuEErOePoNy3EdHOL/zl3SZc+Vt0Ew0ErvT8mU=;
+ b=lH2FqqhDHHDX36mNRP/QdjgoIz4yvtCqadkC3gKCh3ThuFdDHClo2jZlds1KG8lkwN
+ gzJ1nKu4NQmKv7GICs9P1ecvCJkvJw6tau5QrWbeD95xUjPB3Duf0Lw0GYL96cnksZHx
+ ONM9++tCPFu7CDYRl/fufHQOs+oHp46HtoRhfKCd0WZJw/zx/I1QjB0QaFIpjaJ9ULbH
+ r+2nn+E3W4BeDZHWXZh8+igM6t4tIQcxwsup201uccwvNPYAUgJ4mAM3A1NQW1wS/dyV
+ 9TNhoN3C48NRAj8nzMNhcUBeTV0x7r1ZcNwq/v4AGTCw00Ub+B3iePymOi4M25mUxDbo
+ xSDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689199952; x=1689804752;
+ d=1e100.net; s=20221208; t=1689199967; x=1689804767;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EqJysxxH1qyXFydxpNCv52Aaqqbtf6IwIITmwO/wNJQ=;
- b=Mq/Frb2xY/HbWOhQiOhRaeYoyn1qbWPrGnEinsj2sT0iTC0ZOv++uo6rXgUY+3uPvA
- kGKtvRnsLA/oecWI0n59Euus31kBuNMECo20jZDZyQ8xyhJYJHoOEX7vN6Tu7i0+f8nT
- /RnfLUd24DEqoVZRGyoBsqZJI3UV2NK6EM8v7qOW5LqXT8gARSFbX7HhKxzFTo73LBQF
- 09VuP/AqIx6hxKLDl9ukQ0/skFtpN/xVGWBHvo9ZvHDV+VJ4S7FezBqoDBM7aCochJYW
- 1IKJhWgRaZXDOXSvA7voONnRSQ/PWNg5cpK581zEpaeBVijVu62Dm6cz/VOZZMqzccGD
- /0ew==
-X-Gm-Message-State: ABy/qLbcEKPp6U8v66BAN7tCqUDJVIayRKMtd3xi0Kj3/gK0ddF7p0S1
- XfmAMpsSWALe3EGw4HEVFj7PQQ==
-X-Google-Smtp-Source: APBJJlEYK5pVKISzqJSpYdTFE5+RBHoJVqo0NACxt7MWjJFIbYGhPLLWT27+wIuJW1HjBYGUyJft+g==
-X-Received: by 2002:a05:6512:230a:b0:4fa:a217:1e76 with SMTP id
- o10-20020a056512230a00b004faa2171e76mr20605162lfu.9.1689199952649; 
- Wed, 12 Jul 2023 15:12:32 -0700 (PDT)
+ bh=kkGA8tuEErOePoNy3EdHOL/zl3SZc+Vt0Ew0ErvT8mU=;
+ b=iiPJcqYclUcufW0ziMUXAuGf32WqKR+E00CZtT8erERUY8GAM6W7Yf2A5os57r0EFn
+ K1qIF/R+tD80lhy1B+KJHxNQGFHquzbfAopVi7cfvZacEJdeDGSjmbGEBW/Jiqxy3aOw
+ yl5wPOQ5ibaGulA0XRTevQlP6GG+s43z5sr12sVCT8nLs95ajnJM5ApjU7TDkuFuX0Zb
+ 2ETdiSQxatRS1rh0Qiukc6A/Q+lRCGcY9Vggj45c2aturRhR7fFsUeTnkcUz0qe9X34I
+ OUZGcireSONKoIDfZC3B3e+uz3fHLnsl7+msaZvUsAJFN5o092a/0tfBKmYQ3wnT28NC
+ yChA==
+X-Gm-Message-State: ABy/qLbTGAb5EbW899jZd1mJ1aomT/6d3GDNZ2LbCKSYio3wQToUQsSn
+ CoFSwYz1089A/57m5/pcO1WkxQ==
+X-Google-Smtp-Source: APBJJlELSBRlCxDuYvGE7L2An9o9WYKFyL7A0pAsvhe/Ya45rkgFuRs7wWsnMf4bQu4Oushng93JFA==
+X-Received: by 2002:a2e:9295:0:b0:2b6:9ed0:46f4 with SMTP id
+ d21-20020a2e9295000000b002b69ed046f4mr18641190ljh.23.1689199967579; 
+ Wed, 12 Jul 2023 15:12:47 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- c5-20020ac25305000000b004f3789c8bd5sm866377lfh.132.2023.07.12.15.12.31
+ c18-20020a2e9d92000000b002b6b7a98c4bsm1167725ljj.77.2023.07.12.15.12.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jul 2023 15:12:32 -0700 (PDT)
-Message-ID: <f0778167-17c7-b072-1e44-e8b6cdeb29d6@linaro.org>
-Date: Thu, 13 Jul 2023 01:12:31 +0300
+ Wed, 12 Jul 2023 15:12:47 -0700 (PDT)
+Message-ID: <005a1c19-2ff4-f00b-6c88-42cf343651a8@linaro.org>
+Date: Thu, 13 Jul 2023 01:12:46 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -63,13 +63,13 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 References: <20230712012003.2212-1-quic_abhinavk@quicinc.com>
- <20230712012003.2212-5-quic_abhinavk@quicinc.com>
+ <20230712012003.2212-4-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230712012003.2212-5-quic_abhinavk@quicinc.com>
+In-Reply-To: <20230712012003.2212-4-quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 4/5] drm/msm/dpu: rename
- enable_compression() to program_intf_cmd_cfg()
+Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm/dpu: rename all hw_intf
+ structs to have dpu_hw prefix
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,21 +89,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 12/07/2023 04:20, Abhinav Kumar wrote:
-> Rename the intf's enable_compression() op to program_intf_cmd_cfg()
-> and allow it to accept a struct intf_cmd_mode_cfg to program
-> all the bits at once. This can be re-used by widebus later on as
-> well as it touches the same register.
-> 
-> changes in v5:
-> 	- rename struct intf_cmd_mode_cfg to dpu_hw_intf_cmd_mode_cfg
-> 	- remove couple of comments
+> dpu_hw_intf has a few instances of structs which do not have
+> the dpu_hw prefix. Lets fix this by renaming those structs
+> and updating the usage of those accordingly.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 8 ++++++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 8 +++++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          | 9 +++++++--
->   3 files changed, 18 insertions(+), 7 deletions(-)
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 18 +++++++++---------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c    |  6 +++---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h    | 12 ++++++------
+>   3 files changed, 18 insertions(+), 18 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
