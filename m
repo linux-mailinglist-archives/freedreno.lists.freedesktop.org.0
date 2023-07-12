@@ -2,53 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D827504B0
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 12:36:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDF0D7505D0
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jul 2023 13:18:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F54B10E4CD;
-	Wed, 12 Jul 2023 10:36:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E40A510E4D8;
+	Wed, 12 Jul 2023 11:18:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627A310E4CD;
- Wed, 12 Jul 2023 10:36:00 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 89FC66173B;
- Wed, 12 Jul 2023 10:35:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9964EC433C9;
- Wed, 12 Jul 2023 10:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689158158;
- bh=1ZR/RKV2DlzbR3SX6BTWRQmsK1bpq2+ZztUMiAfbqKc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=R9SLZ09m1Rh3AEsPeUTnzP3pcQtwTY1lZJL2z1st0pNXkxRqvxcn/Nmx9tV4p9OF0
- dfh1or+wnApHIvgivfrqFfPCjcdleJk3HlTrT544ztJCqGqpe7xYEc/sQdCzTcr9uW
- HDZkEZxfUJR4t/ZezHV8ZmrbzE+sknAXDs+Pf+X9rWmVNtR70N5X9iYYz0+S6vWhXd
- XWP0U61oJttz8YxhSwptD2oXxk+s22duHZAL11/mNC8Gul82BU/V9jiwNdfZzcL0fW
- fDG+96uazkTSKaZ9A2UQtBOryEDfydBGaMzMhI+8+Xyp0KR3MUMFyQC7OqBA+tS+KH
- iipaGVMPqQP7g==
-From: Mark Brown <broonie@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230628-topic-refgen-v3-0-9fbf0e605d23@linaro.org>
-References: <20230628-topic-refgen-v3-0-9fbf0e605d23@linaro.org>
-Message-Id: <168915815219.10612.17171163066599783994.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 11:35:52 +0100
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E07510E4D0
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 11:18:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1689160698;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=sqF46ZIeTTxnF0x2v0q2HtXa3ZhclBx145UBtd0H60M=;
+ b=JxFM7DLx2MYoQZCczMjBskftkfA1LJHcKtpnLuc6wNHq4zYUdo2IXKrHwbcp3ykwgTmUqA
+ OckkZVElV8PTHNOM9oKnEFdYVdviOp+zr/y+tlSfk5dP2IQNcfTA2MfoA83bSaPs+dPw8j
+ tdQ3A9FK9zcHE8/22HOWbsPADNM2F5g=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-219-GiVBcfJPNaqkypH08BWhKw-1; Wed, 12 Jul 2023 07:18:16 -0400
+X-MC-Unique: GiVBcfJPNaqkypH08BWhKw-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-3f41a04a297so39635925e9.3
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jul 2023 04:18:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689160696; x=1691752696;
+ h=content-transfer-encoding:mime-version:message-id:date:references
+ :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mGmoSdcAtbAnvFmDIfmKNE01xrI5yfsr2LA1G6eD+Js=;
+ b=LRoLAHvx7cxZwPNnjuU3Gf1ofKSkYUrhyO/zZafd8L2MmHGjr+qFV+taKP3bcrIXdl
+ wQ1m7FfF0XZhyijLR7lQROD82vFeqp4z32m9JrnYZ5q0XxEULfg9nkrD+NdFjnAcJoBW
+ GZLw8xt3rMZ2Q9EiwDWexzWtiAHno+52ZUVXAGFOnamCQejgw9uWuGCkN7Qls3Jb9u8G
+ Tp6niXizONXftPaUuJwHmVhruf5Rx04JrHGei2joOcS/f9kbhunKe0LzuogYkB84phsP
+ /Ox2L6p55/yVwTMNDAvKqgW1LuBV6qfeKCB6aztm23faTcXiNjLZh7CyNy4AgeJakM1G
+ Ml4w==
+X-Gm-Message-State: ABy/qLakUunp9i647Y1QqZ9o74AnN/DXkS4nkPlGGlALItUZw04E8i85
+ 6BhvnAlBuwBM04dAvQrUtLlwlUhQx9gWZD7w54XrsndvQmV9U8Ehv6fRNXiw+0SolFR1NirqPOQ
+ Rq19bcPoDMwlS+D6tmJqw6RckzUfq
+X-Received: by 2002:a05:600c:3644:b0:3fc:627:ea31 with SMTP id
+ y4-20020a05600c364400b003fc0627ea31mr12056759wmq.38.1689160695900; 
+ Wed, 12 Jul 2023 04:18:15 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlHe6rz0BytbzD5//h/wnxrk0jp/oOEOt3AbTKSXStRClYkvIUVNGHa0orOjttguAlZUCgSKTg==
+X-Received: by 2002:a05:600c:3644:b0:3fc:627:ea31 with SMTP id
+ y4-20020a05600c364400b003fc0627ea31mr12056740wmq.38.1689160695625; 
+ Wed, 12 Jul 2023 04:18:15 -0700 (PDT)
+Received: from localhost (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ k6-20020a05600c0b4600b003fc00702f65sm14151776wmr.46.2023.07.12.04.18.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Jul 2023 04:18:15 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20230712105432.urgwb4zzwgsyfbwq@pengutronix.de>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <abf26a82-4f17-51f2-5753-785f8516a81a@suse.de>
+ <20230712105432.urgwb4zzwgsyfbwq@pengutronix.de>
+Date: Wed, 12 Jul 2023 13:18:14 +0200
+Message-ID: <87r0pdgyyx.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Subject: Re: [Freedreno] (subset) [PATCH v3 0/4] Qualcomm REFGEN regulator
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
+ drm_crtc::dev to drm_dev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,51 +86,100 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ John Stultz <jstultz@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-samsung-soc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ NXP Linux Team <linux-imx@nxp.com>, xen-devel@lists.xenproject.org,
+ linux-sunxi@lists.linux.dev,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, spice-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-mips@vger.kernel.org,
+ Chia-I Wu <olvaffe@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ kernel@pengutronix.de, freedreno@lists.freedesktop.org,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 03 Jul 2023 20:15:53 +0200, Konrad Dybcio wrote:
-> Recent Qualcomm SoCs have a REFGEN (reference voltage generator) regulator
-> responsible for providing a reference voltage to some on-SoC IPs (like DSI
-> or PHYs). It can be turned off when unused to save power.
-> 
-> This series introduces the driver for it and lets the DSI driver
-> consume it.
-> 
-> [...]
+Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de> writes:
 
-Applied to
+[dropping some recipients since my SMTP server was complaining about the si=
+ze]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+> Hello Thomas,
+>
+> On Wed, Jul 12, 2023 at 12:19:37PM +0200, Thomas Zimmermann wrote:
+>> Am 12.07.23 um 11:46 schrieb Uwe Kleine-K=C3=B6nig:
+>> > Hello,
+>> >=20
+>> > while I debugged an issue in the imx-lcdc driver I was constantly
+>> > irritated about struct drm_device pointer variables being named "dev"
+>> > because with that name I usually expect a struct device pointer.
+>> >=20
+>> > I think there is a big benefit when these are all renamed to "drm_dev"=
+.
+>>=20
+>> If you rename drm_crtc.dev, you should also address *all* other data
+>> structures.
+>
+> Yes. Changing drm_crtc::dev was some effort, so I thought to send that
+> one out before doing the same to
+>
+> =09drm_dp_mst_topology_mgr
+> =09drm_atomic_state
+> =09drm_master
+> =09drm_bridge
+> =09drm_client_dev
+> =09drm_connector
+> =09drm_debugfs_entry
+> =09drm_encoder
+> =09drm_fb_helper
+> =09drm_minor
+> =09drm_framebuffer
+> =09drm_gem_object
+> =09drm_plane
+> =09drm_property
+> =09drm_property_blob
+> =09drm_vblank_crtc
+>
+> when in the end the intention isn't welcome.
+>
+>> > I have no strong preference here though, so "drmdev" or "drm" are fine
+>> > for me, too. Let the bikesheding begin!
+>>=20
+>> We've discussed this to death. IIRC 'drm' would be the prefered choice.
+>
+> "drm" at least has the advantage to be the 2nd most common name. With
+> Paul Kocialkowski prefering "drm_dev" there is no clear favourite yet.
 
-Thanks!
+I think that either "drm" or "drm_dev" would be more clear than "dev",
+which I also found it confusing and thinking about a "struct device".
 
-[1/4] dt-bindings: regulator: Describe Qualcomm REFGEN regulator
-      commit: d16db38c2a66060ee25c6b86ee7b6d66d40fc8e0
-[2/4] regulator: Introduce Qualcomm REFGEN regulator driver
-      commit: 7cbfbe23796086fdb72b681e2c182b02acd36a04
+Probably leaning to "drm", since as you said is the second most used name
+in drivers that assign crtc->dev to a local variable.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Maybe all the other people with strong opinions are dead if this was
+> "discussed to death" before? :-)
+>
+> Best regards
+> Uwe
+>
+> --=20
+> Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig       =
+     |
+> Industrial Linux Solutions                 | https://www.pengutronix.de/ =
+|
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--=20
+Best regards,
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
