@@ -2,51 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B9B752796
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 17:44:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3502B752788
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 17:43:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACB0810E709;
-	Thu, 13 Jul 2023 15:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD7A10E700;
+	Thu, 13 Jul 2023 15:43:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DAE510E6FC
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 15:39:43 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJyPr-00033a-NE; Thu, 13 Jul 2023 17:39:39 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJyPp-00E9Ic-HG; Thu, 13 Jul 2023 17:39:37 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJyPo-004aZX-PQ; Thu, 13 Jul 2023 17:39:36 +0200
-Date: Thu, 13 Jul 2023 17:39:36 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Sean Paul <seanpaul@chromium.org>
-Message-ID: <20230713153936.k2m6aj34vptj5vf7@pengutronix.de>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <87fs5tgpvv.fsf@intel.com>
- <CAOw6vbLO_UaXDbTCtAQJgthXOUMPqEV+c2MQhP-1DuK44OhGxw@mail.gmail.com>
- <20230713130337.fd2l67r23g2irifx@pengutronix.de>
- <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
+Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
+ [IPv6:2607:f8b0:4864:20::b2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F77E10E703
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 15:43:19 +0000 (UTC)
+Received: by mail-yb1-xb2e.google.com with SMTP id
+ 3f1490d57ef6-c7a5600d04dso814026276.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 08:43:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1689262998; x=1689867798;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=91vNV3YrdzSjKOSREPIs1wSiF2NAZ5QLx0dAx8l+9Cs=;
+ b=rDxvl6mZuriokxBHc27a1IvWgQXE5WtWQswiLsM4jHgQP7vkELi7SgUvleLqEdYIIi
+ B9/qrxBoc+4j0fCZdTZIhjUHaRaf40Fse3iVbhOvpxTQxsHQgptK4AL7qbTv6mB/8g98
+ 4kd0ufDwOyI8auYr+orVFJKIBCOxqO2WwlCZwsEpqVtWc5lWRgcC3RRHlwfWeecgV38y
+ nGBAe6NgwdEV6LivipYtblUKtzZmvJtqLRDZx3WnJBwQ1N1inP+HXpt4X1iLE6Vq6wY5
+ G7s/7BE9oCLkKLnlY2c7E2dPVpBKOHQ2ES1DRWo6GHXAqteGNAQeb4eyzFFVI9vySks/
+ cdyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689262998; x=1689867798;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=91vNV3YrdzSjKOSREPIs1wSiF2NAZ5QLx0dAx8l+9Cs=;
+ b=IKNKobivu59jj8lESEAPuG6V6j9p25F6rmt2lcEaLxyI/bCd0qN3NmacNNZb7yKZMA
+ /2yQqRcHv1/FhMde8urr1jWVOKl56MAOsQFpqPvd1kOVdGx06RprT20Q0jiVLTxzJ/Yn
+ XO28+w2VtBEUOKmrYppMqf6H8cvUSlttY5Z2WLUD/63hUUhctgyC2Tl2FAKNcHeqoOlw
+ KAcjllKc56xoVW2e6+dI37ejj3DMCduqQ5due2uKxt6oYm2ZZXbdhcUy+iZihuzr7pvr
+ r3pQrIsEc0UYw+dkDP8Q/lptLtQraubNSf4lKLCVmuskuUXPxiq8XUiknS4lGyszugA/
+ 4lkw==
+X-Gm-Message-State: ABy/qLaGeWdaqYHOGxyOoGqYlA+SyKkUhLASAN7I1HnZv1MXms0W4ylS
+ 8ZOwBvOJhfqsLyQBkZD0KekcXW3UZtTwPQmnJDvDxA==
+X-Google-Smtp-Source: APBJJlEzqkIycBpd/dk78rxLiZ5DOQgoh2uewJ9I1h61UlwEZbrwkONkI8ayCwX25DFG4WRdWqcFsLGGtlya5l1nooE=
+X-Received: by 2002:a25:c0c8:0:b0:c4f:43d7:7daf with SMTP id
+ c191-20020a25c0c8000000b00c4f43d77dafmr1554760ybf.1.1689262997949; Thu, 13
+ Jul 2023 08:43:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mnk65dkcvejfh2ja"
-Content-Disposition: inline
-In-Reply-To: <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
-X-Mailman-Approved-At: Thu, 13 Jul 2023 15:43:55 +0000
-Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
- drm_crtc::dev to drm_dev
+References: <20230712130215.666924-1-amit.pundir@linaro.org>
+ <3b677200-a201-680b-391f-fbf73064496a@linaro.org>
+ <CAMi1Hd003r1kJ6e4r2urFtN1BEnCRatLcQ1Q7Eh5wBdj=2WDFA@mail.gmail.com>
+In-Reply-To: <CAMi1Hd003r1kJ6e4r2urFtN1BEnCRatLcQ1Q7Eh5wBdj=2WDFA@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 13 Jul 2023 18:43:06 +0300
+Message-ID: <CAA8EJpp6yprRL3qzM9pHt2uJ6sb-nPhwas5qm9aDthegSaw7DQ@mail.gmail.com>
+To: Amit Pundir <amit.pundir@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display/msm: qcom,
+ sdm845-mdss: add memory-region property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,207 +69,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
- Russell King <linux@armlinux.org.uk>,
- Vandita Kulkarni <vandita.kulkarni@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Conor Dooley <conor+dt@kernel.org>, Caleb Connolly <caleb.connolly@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, dt <devicetree@vger.kernel.org>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Arun R Murthy <arun.r.murthy@intel.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Jerome Brunet <jbrunet@baylibre.com>, Liu Shixin <liushixin2@huawei.com>,
- linux-samsung-soc@vger.kernel.org, Drew Davenport <ddavenport@chromium.org>,
- Samuel Holland <samuel@sholland.org>, Matt Roper <matthew.d.roper@intel.com>,
- Wenjing Liu <wenjing.liu@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
- spice-devel@lists.freedesktop.org,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-sunxi@lists.linux.dev,
- Stylon Wang <stylon.wang@amd.com>, Tim Huang <Tim.Huang@amd.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
- Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- amd-gfx@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
- virtualization@lists.linux-foundation.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Fei Yang <fei.yang@intel.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, David Francis <David.Francis@amd.com>,
- Aaron Liu <aaron.liu@amd.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
- Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Jouni =?utf-8?B?SMO2Z2FuZGVy?= <jouni.hogander@intel.com>,
- Dave Airlie <airlied@redhat.com>, linux-mips@vger.kernel.org,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
- Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Sandy Huang <hjc@rock-chips.com>, Swati Sharma <swati2.sharma@intel.com>,
- linux-renesas-soc@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Anusha Srivatsa <anusha.srivatsa@intel.com>, Dan Carpenter <error27@gmail.com>,
- Karol Herbst <kherbst@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
- Luca Coelho <luciano.coelho@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
- "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
- Alan Liu <haoping.liu@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Lyude Paul <lyude@redhat.com>, intel-gfx@lists.freedesktop.org,
- Alison Wang <alison.wang@nxp.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Gustavo Sousa <gustavo.sousa@intel.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Roman Li <roman.li@amd.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Khaled Almahallawy <khaled.almahallawy@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Paul Cercueil <paul@crapouillou.net>,
- Rob Clark <robdclark@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Jani Nikula <jani.nikula@intel.com>, Uma Shankar <uma.shankar@intel.com>,
- Mika Kahola <mika.kahola@intel.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- David Lechner <david@lechnology.com>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>,
- Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-tegra@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, John Stultz <jstultz@google.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
+ Bryan Donoghue <bryan.odonoghue@linaro.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, 13 Jul 2023 at 18:34, Amit Pundir <amit.pundir@linaro.org> wrote:
+>
+> On Wed, 12 Jul 2023 at 18:45, Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+> >
+> > On 12/07/2023 16:02, Amit Pundir wrote:
+> > > Add and document the reserved memory region property
+> > > in the qcom,sdm845-mdss schema.
+> > >
+> > > Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
+> > > ---
+> > >   .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml    | 5 +++++
+> > >   1 file changed, 5 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+> > > index 6ecb00920d7f..3ea1dbd7e317 100644
+> > > --- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+> > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+> > > @@ -39,6 +39,11 @@ properties:
+> > >     interconnect-names:
+> > >       maxItems: 2
+> > >
+> > > +  memory-region:
+> > > +    maxItems: 1
+> > > +    description:
+> > > +      Phandle to a node describing a reserved memory region.
+> > > +
+> >
+> > Please add it to mdss-common.yaml instead
+>
+> mdss-common.yaml didn't like this property at all and
+> I ran into a lot of new dtbs_check warnings:
+> https://www.irccloud.com/pastebin/raw/pEYAeaB1
+>
+> I need some help in decoding these please.
 
---mnk65dkcvejfh2ja
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm not sure what happened there (and it's hard to understand without
+seeing your patch). But after applying your patch to mdss-common.yaml,
+`make dt_binding_check' passes:
 
-On Thu, Jul 13, 2023 at 10:41:45AM -0400, Sean Paul wrote:
-> On Thu, Jul 13, 2023 at 9:04=E2=80=AFAM Uwe Kleine-K=C3=B6nig
-> > But even with the one-patch-per-rename approach I'd consider the
-> > renaming a net win, because ease of understanding code has a big value.
-> > It's value is not so easy measurable as "conflicts when backporting",
-> > but it also matters in say two years from now, while backporting
-> > shouldn't be an issue then any more.
->=20
-> You've rightly identified the conjecture in your statement. I've been
-> on both sides of the argument, having written/maintained drm code
-> upstream and cherry-picked changes to a downstream kernel. Perhaps
-> it's because drm's definition of dev is ingrained in my muscle memory,
-> or maybe it's because I don't do a lot of upstream development these
-> days, but I just have a hard time seeing the benefit here.
+diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+index ccd7d6417523..924fe383e4a1 100644
+--- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
++++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+@@ -77,6 +77,11 @@ properties:
+     items:
+       - description: MDSS_CORE reset
 
-I see that my change doesn't immediately benefit those who are already
-at home in drivers/gpu/drm. So it's quite understandable that someone in
-a senior role (long time contributor or maintainer) doesn't see a big
-upside.
++  memory-region:
++    maxItems: 1
++    description:
++      Phandle to a node describing a reserved memory region.
++
+ required:
+   - reg
+   - reg-names
 
-In contrast I think my change (with its indisputable cost) lowers the
-bar for new contributors to drm. IMHO that's something a maintainer has
-to have on their radar, too, and that's easily undervalued in my
-experience.
 
-Of course in the end it's about weighting the ups and downs.=20
+>
+> Regards,
+> Amit Pundir
+>
+> >
+> > >   patternProperties:
+> > >     "^display-controller@[0-9a-f]+$":
+> > >       type: object
+> >
+> > --
+> > With best wishes
+> > Dmitry
+> >
 
-Thanks
-Uwe
 
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
-   |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
---mnk65dkcvejfh2ja
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSwGrcACgkQj4D7WH0S
-/k5Z8gf+L2DppHWGxGaiKRiYvHQTrpom5T4lLxWIcMzNp/SZXGce+FkxNCXXp4ev
-Fm4EE5lHyGkTfeMAeH8KSvtkAT3Lf/Bifz3Ij2fmsLRLCJdOxIA9Zra8u3cWmLdd
-JX+wb8zFJARzb/u+kG6ZD4IgJ+39LqIZ9JLUqaV4jyZZps2Vf8cvPDNYp96vAwdB
-GUECE+pPcMQvSkBdwy5pCGdEatjq9O12xWwv6uvNcJqbIbToJVVsUHLBjTGEJfGI
-PgyrtoM72NQY/p5d9veqBKCQTkKUBW5Ly+HbKzey9Dy/IPWeSU1Q/1WH/hUphbbs
-k0+Jh4Ot72m5BF8rwKgRu0NikQcP4A==
-=OtIn
------END PGP SIGNATURE-----
-
---mnk65dkcvejfh2ja--
+-- 
+With best wishes
+Dmitry
