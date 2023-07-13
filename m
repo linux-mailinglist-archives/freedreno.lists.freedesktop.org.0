@@ -2,62 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D85E7752908
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 18:48:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F51752922
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 18:52:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA41210E70E;
-	Thu, 13 Jul 2023 16:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B99410E70E;
+	Thu, 13 Jul 2023 16:52:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [IPv6:2607:f8b0:4864:20::f2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D154F10E042
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 16:48:39 +0000 (UTC)
-Received: by mail-qv1-xf2d.google.com with SMTP id
- 6a1803df08f44-63719ad32e7so5114466d6.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 09:48:39 -0700 (PDT)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 946EF10E70E
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 16:52:48 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 46e09a7af769-6b9b4a1211fso346467a34.0
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 09:52:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689266918; x=1691858918;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=zuZZdpDlXu2E+ps9F16vASGwEyrMSuGUChzbHgZ0Zbs=;
- b=Ogwo7zVaqznAygJZ64nNImcrzVqyHaNv1JhPNxCXMoYrn0vRt8xhbcP4qLsA/hHaCr
- 6YqgywJHZLKtAZ3Xi+JFu9W82Iv59mNGnx8UQgHPfUIKlB7cq+ZRuGSIwskgs+8PP0me
- bCLT31PX1RJOdqyTZl490fK+v4f/x9LBvXlVA5Vqkp357+/ru6ASnkg3+S+pzWdXeWQj
- khN23h7A6iGMRVSJ29G8BsWlwtUAnE0s1RlbPMuoDi13f50rIIiIwJ5/R6WUJ46U9Bpp
- 8Hk99ouZpIetg22Y1sn+jcXCPABe0lcId4t3tBbtC3K2fTu6Gbl7aVyMWW/FMOXNjKKc
- 1f6Q==
+ d=linaro.org; s=google; t=1689267167; x=1691859167;
+ h=content-transfer-encoding:author:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/TQQu9i4zVTx/pAbl1XLa7p043pJkUqA0em0AaQVe1Q=;
+ b=EOJTZVfBLXbJ+tgLJUJRaAhYQO95hGodf9yyM3ZyJmDrHCRlhC2xTABoIUd+3Cl1Yo
+ XO6MFz+wN+mKMs6tq2jcRQ64XxumnSH7k9awmG8P4d7raV506yyFNuk+QzDmoxlG7chk
+ Xm8c4ZN86UiZ92TA62A3E7CqOGXkzsg58hlso09jztugiWJsrZlajfgdFEImk3AudVEl
+ cx4jXLpbjX+rbI6inQvzyxatK+J3NV0dtyEMl2rdalG0LM16oQKztrzu1e9wqiv4IAZx
+ OywlZGqh1gyC+BOajdMLtm5QuJcdzMOffKpKItqBLM8fiPpYEPx/vCTS+0PA28sPaCRn
+ hNEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689266918; x=1691858918;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=zuZZdpDlXu2E+ps9F16vASGwEyrMSuGUChzbHgZ0Zbs=;
- b=VtMqmJPq3ruoM4QDJlZAq+isfTdSBtjrdzUrUkYAPWgG0e7PfECL6w5/K41XoZH8d2
- yNJyrtPpn1QLC2P2WiH6Tay5L2UvZnEfEQyB+TcRXPQTYp76wAaOQZ6zcOQ1JTu3DECk
- h76FbxJEJFzXVtfd0NqyVrxVIStnfmyMDkoUqMlX0Yws/SciLTYh/Wmv6yy6Q2sYudY/
- joBSeE+dlftR1CwMvNVsi8P+re+voGHZ4GFjySyhWezroaiLllG4ZR///lKDseTT6bb+
- iZk5yaEClQO89nwlTfPQGwxPjYcU1shBimVA6TK1H/tFX7uV3E7Txya8w9Pc4oC+Psvz
- SHfw==
-X-Gm-Message-State: ABy/qLauJMgoGskZnmfefROSWcJu2/qiFY09btgoZqVAL1iTmt/Wc4JT
- 8Oic5KRpynUcAF6AL9JnPYG8YGGfvh1y0CvXxIEdsA==
-X-Google-Smtp-Source: APBJJlHZwOI2tfJYeqnIeiHgdRI9RlwmUCq3/HcwtNHtwOl/71PhsX6rco20RR1e9u0i0qN9ydSDmR92GEl8DF+4B7U=
-X-Received: by 2002:a0c:e0c9:0:b0:635:dfe1:c203 with SMTP id
- x9-20020a0ce0c9000000b00635dfe1c203mr1754444qvk.64.1689266918558; Thu, 13 Jul
- 2023 09:48:38 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230712130215.666924-1-amit.pundir@linaro.org>
- <3b677200-a201-680b-391f-fbf73064496a@linaro.org>
- <CAMi1Hd003r1kJ6e4r2urFtN1BEnCRatLcQ1Q7Eh5wBdj=2WDFA@mail.gmail.com>
- <CAA8EJpp6yprRL3qzM9pHt2uJ6sb-nPhwas5qm9aDthegSaw7DQ@mail.gmail.com>
-In-Reply-To: <CAA8EJpp6yprRL3qzM9pHt2uJ6sb-nPhwas5qm9aDthegSaw7DQ@mail.gmail.com>
+ d=1e100.net; s=20221208; t=1689267167; x=1691859167;
+ h=content-transfer-encoding:author:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/TQQu9i4zVTx/pAbl1XLa7p043pJkUqA0em0AaQVe1Q=;
+ b=Jq0WCAi35xtYcZn8sHPJy1THqO0b51aaeP0FC4KZaVTDAxS4ylBmUJi7YmW+wNYaWc
+ R5rjcuqgaroBuJBJoEwLwjk6ZR5EQ6FUpXmif5WoTta+RAJo2LVgo9dSdiINyCk1c5De
+ N9DpQFkm63gX38/CxTRPSLgSn4Ylce6MyNwoz/n2+z/mJn2RePQikht662fo79AYv+8F
+ SjFT9pdgcZxIvbMOopU5fMFbvw21uS2d4IRC2rK18izMqJLIPPB8uTsxq31ub13vbgsE
+ T83PqNfIekjPj2FlF0LBq/+d4VrWXzx2ra3Oxr3tus103dFfnjKjrCmkn29udZ//PR9E
+ T+oA==
+X-Gm-Message-State: ABy/qLb4hAMCQoFj+xJtixeUsDNwHUdUt5KkHFIHvUpTBy8byNv8gD6n
+ Xe6reApttUyVfyQtgwqZMzN1Ew==
+X-Google-Smtp-Source: APBJJlECN8Pkf5oJl1wriKAi9i7oMviETr74ANXnYL6u7bXmI8D7Lz2S54OFWvuw32qLmK8Qci/xoA==
+X-Received: by 2002:a05:6870:c188:b0:19f:5c37:abb9 with SMTP id
+ h8-20020a056870c18800b0019f5c37abb9mr2495348oad.12.1689267167408; 
+ Thu, 13 Jul 2023 09:52:47 -0700 (PDT)
+Received: from x-wing.lan ([49.207.50.231]) by smtp.gmail.com with ESMTPSA id
+ d3-20020a17090abf8300b002633fa95ac2sm12009150pjs.13.2023.07.13.09.52.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Jul 2023 09:52:46 -0700 (PDT)
 From: Amit Pundir <amit.pundir@linaro.org>
-Date: Thu, 13 Jul 2023 22:18:02 +0530
-Message-ID: <CAMi1Hd14Y4bByO9abr-nFppS2m5CiSyLVQ9ev7+bx55rRL5GjA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display/msm: qcom,
- sdm845-mdss: add memory-region property
+To: Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Caleb Connolly <caleb.connolly@linaro.org>,
+ Bryan Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+Date: Thu, 13 Jul 2023 22:22:37 +0530
+Message-Id: <20230713165238.2814849-1-amit.pundir@linaro.org>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Author: Amit Pundir <amit.pundir@linaro.org>
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5 1/2] dt-bindings: display/msm: mdss-common:
+ add memory-region property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,110 +82,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Conor Dooley <conor+dt@kernel.org>, Caleb Connolly <caleb.connolly@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, dt <devicetree@vger.kernel.org>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- lkml <linux-kernel@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bryan Donoghue <bryan.odonoghue@linaro.org>, Sean Paul <sean@poorly.run>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, dt <devicetree@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 13 Jul 2023 at 21:13, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Thu, 13 Jul 2023 at 18:34, Amit Pundir <amit.pundir@linaro.org> wrote:
-> >
-> > On Wed, 12 Jul 2023 at 18:45, Dmitry Baryshkov
-> > <dmitry.baryshkov@linaro.org> wrote:
-> > >
-> > > On 12/07/2023 16:02, Amit Pundir wrote:
-> > > > Add and document the reserved memory region property
-> > > > in the qcom,sdm845-mdss schema.
-> > > >
-> > > > Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-> > > > ---
-> > > >   .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml    | 5 +++++
-> > > >   1 file changed, 5 insertions(+)
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-> > > > index 6ecb00920d7f..3ea1dbd7e317 100644
-> > > > --- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-> > > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-> > > > @@ -39,6 +39,11 @@ properties:
-> > > >     interconnect-names:
-> > > >       maxItems: 2
-> > > >
-> > > > +  memory-region:
-> > > > +    maxItems: 1
-> > > > +    description:
-> > > > +      Phandle to a node describing a reserved memory region.
-> > > > +
-> > >
-> > > Please add it to mdss-common.yaml instead
-> >
-> > mdss-common.yaml didn't like this property at all and
-> > I ran into a lot of new dtbs_check warnings:
-> > https://www.irccloud.com/pastebin/raw/pEYAeaB1
-> >
-> > I need some help in decoding these please.
->
-> I'm not sure what happened there (and it's hard to understand without
-> seeing your patch).
+Add and document the reserved memory region property in the
+mdss-common schema.
 
-Yup.. It was my broken patch. I used "For example:" in the property
-description and it tripped off the checks. Didn't realise that
-casually used ":" can break yaml parsing until now. Sorry for all the
-noise.
+For now (sdm845-db845c), it points to a framebuffer memory
+region reserved by the bootloader for splash screen.
 
-Regards,
-Amit Pundir
+Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
+---
+v5: Moving the dt-binding to mdss-common schema with
+    updated commit message and property description.
 
-> But after applying your patch to mdss-common.yaml,
-> `make dt_binding_check' passes:
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> index ccd7d6417523..924fe383e4a1 100644
-> --- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> @@ -77,6 +77,11 @@ properties:
->      items:
->        - description: MDSS_CORE reset
->
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Phandle to a node describing a reserved memory region.
-> +
->  required:
->    - reg
->    - reg-names
->
->
-> >
-> > Regards,
-> > Amit Pundir
-> >
-> > >
-> > > >   patternProperties:
-> > > >     "^display-controller@[0-9a-f]+$":
-> > > >       type: object
-> > >
-> > > --
-> > > With best wishes
-> > > Dmitry
-> > >
->
->
->
-> --
-> With best wishes
-> Dmitry
+v4: Adding this new dt-binding patch, in qcom,sdm845-mdss
+    schema, in the v4 of the follow-up patch for
+    sdm845-db845c.
+    https://lore.kernel.org/lkml/20230712130215.666924-2-amit.pundir@linaro.org/
+
+ .../devicetree/bindings/display/msm/mdss-common.yaml         | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+index ccd7d6417523..84ed2757ded5 100644
+--- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
++++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
+@@ -77,6 +77,12 @@ properties:
+     items:
+       - description: MDSS_CORE reset
+ 
++  memory-region:
++    maxItems: 1
++    description:
++      Phandle to a node describing a reserved framebuffer memory region.
++      For example, the splash memory region set up by the bootloader.
++
+ required:
+   - reg
+   - reg-names
+-- 
+2.25.1
+
