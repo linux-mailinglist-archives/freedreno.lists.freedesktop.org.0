@@ -1,73 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DF99752ABD
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 21:08:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7913B752B17
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jul 2023 21:40:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEB4910E772;
-	Thu, 13 Jul 2023 19:08:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1315D10E0A8;
+	Thu, 13 Jul 2023 19:40:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1810E770;
- Thu, 13 Jul 2023 19:08:43 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C53B10E0A8;
+ Thu, 13 Jul 2023 19:40:15 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36DIlKje026233; Thu, 13 Jul 2023 19:08:28 GMT
+ 36DIjVOu004450; Thu, 13 Jul 2023 19:40:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=date : from : to :
  cc : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=qcppdkim1; bh=TnHCf7l6vXUqMxsQyDFpqBhLp/0PL/InN/4OikML8K0=;
- b=hK020tfprhYumNg5t7yFYxogIbY9jXtweMX7PuoQ3J2TT32G9dFTz5GHpbw7O3MNSG6Z
- X4cyJaWNPqKsQafVuBN4lsJDoWiKLQq8odcCnWKhyZ0JfuifvQOqtr9bRIZd/rfd1rni
- YHHKsJ4RmB9pHgvOHXgwHK1BmfjPrN2REpmDpPd8ZnvL+lEeOfqHCfQwHTd6zu1eYU0I
- yR2kNlGP1hYkeZRWcxzV2T+I85IosaVhrpByzs+UBHiBTPw/K1m33RPacif2x/akVLUX
- GQL4wi/7sA4xBLqyuB5ou+PhPuWvhurQTx9bsWWFfsLiftz3SANIorJLOXOoSZwIIT2H Fw== 
+ in-reply-to; s=qcppdkim1; bh=jt3RhznHwuPHljelU3LuQE6YZCsogGmreeQYaKkdCpw=;
+ b=cdfLuyiKEvcj32OQZIwqdqCWcmFjLVhwGiyqScuhg6tfAn8mw7gufTyiZS06/rkrqKmg
+ cgmUVeHDlmyMtI7+CkV8w3R8GvogBq1VZqYOsCcNOh0Zj4L9MO1YH62scWdhY8+z/86D
+ Ax4+bROsN8lJ0+Pjs/59OR3irVj+P3ywS0GwHEHs9TRgT3m4V//k37VhMCUdBrjfqpT6
+ Gf+y/kpGB1vZhYYQZkvbYCZgmnk9jn6Twy50jQV7QUrXKj33xqKEXGznt40fQE68OMs6
+ WguRh8ax7rN8NloBSxtXQPahtpQSWw9au0AfnyLlEm7Y/onn1RcjGow2+G3OpLZXiCvf EA== 
 Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rtpub81c6-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rtpts03h5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Jul 2023 19:08:27 +0000
+ Thu, 13 Jul 2023 19:40:12 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36DJ8Peh016003
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36DJeCZl023395
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 13 Jul 2023 19:08:25 GMT
+ Thu, 13 Jul 2023 19:40:12 GMT
 Received: from akhilpo-linux.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.30; Thu, 13 Jul 2023 12:08:19 -0700
-Date: Fri, 14 Jul 2023 00:38:16 +0530
+ 15.2.1118.30; Thu, 13 Jul 2023 12:40:10 -0700
+Date: Fri, 14 Jul 2023 01:10:07 +0530
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>, <g@akhilpo-linux.qualcomm.com>
-Message-ID: <gk5ttqzmz6psggq6xybpsmad63gimlwj6bsbpkhvqfd3htcddc@zveituq6siwa>
-References: <20230713020556.1956639-1-cuigaosheng1@huawei.com>
- <20230713020556.1956639-3-cuigaosheng1@huawei.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <zl2agkz6rcdvocmgiyszege7evbdcboz65u3w2gypizzdqdixi@ellnjfax5qrg>
+References: <20230630162043.79198-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20230713020556.1956639-3-cuigaosheng1@huawei.com>
+In-Reply-To: <20230630162043.79198-1-robdclark@gmail.com>
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: XM25HRTeJyR88ftCR6A1GDGFl-zepvyU
-X-Proofpoint-GUID: XM25HRTeJyR88ftCR6A1GDGFl-zepvyU
+X-Proofpoint-GUID: 4jsYCokDZTRxuSgom5UlsU-rVkdzNtp1
+X-Proofpoint-ORIG-GUID: 4jsYCokDZTRxuSgom5UlsU-rVkdzNtp1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-07-13_08,2023-07-13_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- priorityscore=1501 spamscore=0 mlxlogscore=999 bulkscore=0 phishscore=0
- suspectscore=0 adultscore=0 malwarescore=0 clxscore=1011
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307130169
-Subject: Re: [Freedreno] [PATCH v2 2/3] drm/msm: Fix IS_ERR() vs NULL check
- in a5xx_submit_in_rb()
+ suspectscore=0
+ impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 malwarescore=0
+ lowpriorityscore=0 mlxscore=0 priorityscore=1501 mlxlogscore=861
+ clxscore=1015 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307130173
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Fix misleading comment
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,49 +78,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, quic_eberman@quicinc.com, sam@ravnborg.org,
- quic_gurus@quicinc.com, sean@poorly.run, linux-arm-msm@vger.kernel.org,
- a39.skl@gmail.com, liviu.dudau@arm.com, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, james.qian.wang@arm.com,
- daniel@ffwll.ch, angelogioacchino.delregno@somainline.org,
- dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org,
- freedreno@lists.freedesktop.org, airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 13, 2023 at 10:05:55AM +0800, Gaosheng Cui wrote:
+On Fri, Jun 30, 2023 at 09:20:43AM -0700, Rob Clark wrote:
 > 
-> The msm_gem_get_vaddr() returns an ERR_PTR() on failure, we should
-> use IS_ERR() to check the return value.
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Fixes: 6a8bd08d0465 ("drm/msm: add sudo flag to submit ioctl")
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> The range is actually len+1.
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index a99310b68793..a499e3b350fc 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -89,7 +89,7 @@ static void a5xx_submit_in_rb(struct msm_gpu *gpu, struct msm_gem_submit *submit
->  			 * since we've already mapped it once in
->  			 * submit_reloc()
->  			 */
-> -			if (WARN_ON(!ptr))
-> +			if (WARN_ON(IS_ERR(ptr)))
-nit: can we make this IS_ERR_OR_NULL() check to retain the current
-validation? A null is catastrophic here. Yeah, I see that the current
-implementation of ...get_vaddr() doesn't return a NULL.
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
 Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
 -Akhil
-
->  				return;
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index eea2e60ce3b7..edf76a4b16bd 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -39,8 +39,8 @@ struct a6xx_gpu {
 >  
->  			for (i = 0; i < dwords; i++) {
+>  /*
+>   * Given a register and a count, return a value to program into
+> - * REG_CP_PROTECT_REG(n) - this will block both reads and writes for _len
+> - * registers starting at _reg.
+> + * REG_CP_PROTECT_REG(n) - this will block both reads and writes for
+> + * _len + 1 registers starting at _reg.
+>   */
+>  #define A6XX_PROTECT_NORDWR(_reg, _len) \
+>  	((1 << 31) | \
 > -- 
-> 2.25.1
+> 2.41.0
 > 
