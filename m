@@ -1,69 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF8B3752EF7
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jul 2023 03:55:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 893AE753126
+	for <lists+freedreno@lfdr.de>; Fri, 14 Jul 2023 07:30:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4279910E7C0;
-	Fri, 14 Jul 2023 01:55:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5884110E128;
+	Fri, 14 Jul 2023 05:30:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5EE110E7B6
- for <freedreno@lists.freedesktop.org>; Fri, 14 Jul 2023 01:55:08 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4fb7769f15aso2389605e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jul 2023 18:55:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689299707; x=1689904507;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2JquCHecjR3dbAA9U6QNcI85J+r2eu2ORSn/fq669QI=;
- b=pzLMHR1mAk1KQV3ru54HqO7JHXu4tv4ICgOMhdY3t6WWFqP3B2lHYq+WN//EhSKEqW
- SmvECA2CTPOMY+OlCAufgAo3PwjQoNtil7+HXhRMypwdrOT/gpd9YGvjhR0qcbSaofTD
- 4rJoWcB65M4H3jkt88Ll3SEPdp+R0Dz6AaNgiiFj8MuRDAyhGJV4kE3SwrzDP9yBIcyf
- aK6WSOSOG7yExB1MJhQ61ShriY47GdvJgIhWKFs0588ESpVVu1vTj4U9fxTO7URarvbO
- umrRZyce7/22TRM+c15CEAiqeafh/XkCKtM9P2EuKLXdA9SDXngebiAV90HlkQMCVvLT
- j+dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689299707; x=1689904507;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2JquCHecjR3dbAA9U6QNcI85J+r2eu2ORSn/fq669QI=;
- b=XHWzhDqpHormoeeidJkeoXcpnds/ziIY1pn0xlNdJuEKVFuD5mqy2Yzxo7Fz3iknpq
- w7IRCpXpd1TD1ZshTIXo5voE95TjbbYVVWqrQoLdGfOjgclXlaQOEaER4DVktCqHPawe
- 0GxGH24IF+x5OalFx0Afuz2x+SlOCPekXKz32PwcXE6FgjjD9Yza7ckpYOIgP4W83wpA
- u4eyLVEErP4zjZPefPgDwQU+IAVpPQYN5VbAa60ZD84KoRNpemOr9WXgrm7WYTwJ7r6m
- xA2xVUjB6eLmoU7vA7T8UJ+w/R++/UEDGFF5a36g9Sm3baOyhhOfoQB5R/VubszSsAMr
- Vxsw==
-X-Gm-Message-State: ABy/qLakYKdtgIrlZhoF6IbhC7gXXYJ7fRd5TOqgi4AjZUiOXelPUOo9
- vhhAWde8rn9LFce5p16CgYrXyg==
-X-Google-Smtp-Source: APBJJlEqY+gt/9wM8NakxtplQkZAgTGBOPl9wANXF1y1GsQH1RjFfBBArLBFEI0Hueu65lE26kdL+g==
-X-Received: by 2002:a05:6512:3b9d:b0:4fb:8c52:611 with SMTP id
- g29-20020a0565123b9d00b004fb8c520611mr3477364lfv.38.1689299707104; 
- Thu, 13 Jul 2023 18:55:07 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- q8-20020ac25148000000b004f3afa1767dsm1297550lfd.197.2023.07.13.18.55.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 18:55:06 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB27910E118;
+ Fri, 14 Jul 2023 05:30:41 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0A12D61BEC;
+ Fri, 14 Jul 2023 05:30:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A629C433CA;
+ Fri, 14 Jul 2023 05:30:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1689312639;
+ bh=Zmn4NeheusfOk3tm5PX2lZHGmvP/Ct+fKQyBjBgdVT8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=b59UApgjxctYKqLTMw5dpvyKH+L+luO0L14Jbi+NwMAnkJgpd6urUBhq4yxT/V83w
+ KqUjJYJTGLA24mwfrUiBjInhA9iVIn/jH5EIvevx8mya3tCARsE4evg63LaQDT519v
+ eIqA5Pi7EWWV7oyntjgt1KLj/KUXI8aIYv6SyxoTMjpdT70mTrxRQYmE7MR8QUvWxF
+ ShLRgWZPpUAEqsVboF1hgiUNUFajQ5V3nqGijMUc+YjjF0NW5vzqSR4iNPAD/XYW4i
+ tYFbxl4MPeYyBry2qHOYHc1u1lgEwUeQDzW1BgvOJ/TKUM2xxxR7346geCQWaqFpl6
+ v914/2rKxyIxQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri, 14 Jul 2023 04:55:03 +0300
-Message-Id: <20230714015503.3198971-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230714015503.3198971-1-dmitry.baryshkov@linaro.org>
-References: <20230714015503.3198971-1-dmitry.baryshkov@linaro.org>
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 13 Jul 2023 22:33:55 -0700
+Message-ID: <168931284127.1538684.17964708755226748693.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230712121145.1994830-1-dmitry.baryshkov@linaro.org>
+References: <20230712121145.1994830-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/dpu: drop DPU_HW_SUBBLK_INFO
- macro
+Subject: Re: [Freedreno] (subset) [PATCH v2 0/8] MDSS reg bus interconnect
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,95 +60,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the subblock info is now mostly gone, inline and drop the macro
-DPU_HW_SUBBLK_INFO.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 40 ++++++++++---------
- 1 file changed, 21 insertions(+), 19 deletions(-)
+On Wed, 12 Jul 2023 15:11:37 +0300, Dmitry Baryshkov wrote:
+> Per agreement with Konrad, picked up this patch series.
+> 
+> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
+> another path that needs to be handled to ensure MDSS functions properly,
+> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+> 
+> Gating that path may have a variety of effects. from none to otherwise
+> inexplicable DSI timeouts.
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index cc1800e324dd..61c6caf1b185 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -271,48 +271,50 @@ enum {
- 	u32 len; \
- 	unsigned long features
- 
--/**
-- * MACRO DPU_HW_SUBBLK_INFO - information of HW sub-block inside DPU
-- * @name:              string name for debug purposes
-- * @base:              offset of this sub-block relative to the block
-- *                     offset
-- * @len                register block length of this sub-block
-- */
--#define DPU_HW_SUBBLK_INFO \
--	char name[DPU_HW_BLK_NAME_LEN]; \
--	u32 base; \
--	u32 len
--
- /**
-  * struct dpu_scaler_blk: Scaler information
-- * @info:   HW register and features supported by this sub-blk
-+ * @name: string name for debug purposes
-+ * @base: offset of this sub-block relative to the block offset
-+ * @len: register block length of this sub-block
-  * @version: qseed block revision
-  */
- struct dpu_scaler_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- 	u32 version;
- };
- 
- struct dpu_csc_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- };
- 
- /**
-  * struct dpu_pp_blk : Pixel processing sub-blk information
-- * @info:   HW register and features supported by this sub-blk
-+ * @name: string name for debug purposes
-+ * @base: offset of this sub-block relative to the block offset
-+ * @len: register block length of this sub-block
-  * @version: HW Algorithm version
-  */
- struct dpu_pp_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- 	u32 version;
- };
- 
- /**
-  * struct dpu_dsc_blk - DSC Encoder sub-blk information
-- * @info:   HW register and features supported by this sub-blk
-+ * @name: string name for debug purposes
-+ * @base: offset of this sub-block relative to the block offset
-+ * @len: register block length of this sub-block
-  */
- struct dpu_dsc_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- };
- 
- /**
+Applied, thanks!
+
+[8/8] arm64: dts: qcom: sm8450: provide MDSS cfg interconnect
+      commit: 4e125191e6cb00d6c3f3a8e1b67fd242e639b3c3
+
+Best regards,
 -- 
-2.39.2
-
+Bjorn Andersson <andersson@kernel.org>
