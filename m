@@ -2,76 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD3507548B1
-	for <lists+freedreno@lfdr.de>; Sat, 15 Jul 2023 15:19:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 099D87548C6
+	for <lists+freedreno@lfdr.de>; Sat, 15 Jul 2023 15:38:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B13F510E148;
-	Sat, 15 Jul 2023 13:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF24710E105;
+	Sat, 15 Jul 2023 13:38:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06CC510E148
- for <freedreno@lists.freedesktop.org>; Sat, 15 Jul 2023 13:19:15 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4f95bf5c493so4792520e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 15 Jul 2023 06:19:15 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 230FA10E105
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Jul 2023 13:38:54 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-4fb7b2e3dacso4772718e87.0
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Jul 2023 06:38:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689427154; x=1692019154;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FXoY4wuUPjDOldwD7dE7gOpwgLhPzZMlyDRvF1aAR3s=;
- b=C2axjIxHAFyqA4pUT/iwr5T1Zw72zeD8qKwd9L/sJczW2aQrkfwLl4JweSQOSQ/EJK
- wVy804oYSTkALOAsniiYbueY8iRQSAHpgUqGMiQfsGikk4rRU85fZmGLJV9oPK6SxvjF
- 0xEwTpEdWmO2XItPKI8ISVG3r4XGuiCTAVkljGB3f0JF2sLBm0iLFRN7kjNJ5JykAmav
- TRc28QFk5wjdlNIxAF7/z5sT44YxJE5v6DLDUuJL1f3D1yR5GzsRPpBKZ8kOPewVYOCY
- OAmFCh+7zAxA/VxU9a7qN5g6c/kFKFzlQrSt1JIbKpOxedTGVFXt49J4/XAoi+1a96nd
- oepQ==
+ d=linaro.org; s=google; t=1689428333; x=1692020333;
+ h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=e7iB5/lpO1JuU19PICV3atLqXB4y67HnlijWrnqa84c=;
+ b=HUP8DL4kOv/M4AYGzejB0C5FePTHR/UvMh6RWDYl0OfeHGzTTyjDovqKrBAgw0OIJt
+ sy2ShgFqFToqppcsIomHkKakUKJeKZx0kb/SC8LuSio5xA/994uER2P8wQs6XrY3Hg23
+ RwW9yWMkjWhutcnezy4aZOGQAox3gNjHYbktyBPiY+l3Y79Sd2iWmdFlHM4p547E28vW
+ 18e2x0oXeNdftsDCH3D6VF3MsUNjqy80tb5QGLTSG90XqQ2F0F1mlJsV41X9vDU7qLex
+ U+7J1U4KINYvvmo63Bv8GgO4cot8m5FNngGNvyGkoKJCHIOy+VOcPqiYSx8ccd2Uohyz
+ E5cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689427154; x=1692019154;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1689428333; x=1692020333;
+ h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+ :content-language:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FXoY4wuUPjDOldwD7dE7gOpwgLhPzZMlyDRvF1aAR3s=;
- b=NOLercbV+i40kcujvpszNQocXMwErloNkdvmeNX+g0BvU/sg75YmbT1ETNx9xAx8lP
- DykiEJvkOoXeX8OXAROSMVTPsRFqjvtjPIXOV3cHKdiivf1KQ8TRB7EL1EJsA6IgFldr
- uEG9/WV0XYPJL6sMwtVTk2gZvXYcX78KNff8NJQ2D2cGgR8cEkniIKwwTrCu3lgIEDjD
- Rgk09aVnIMp6Oo6l6Pm7+hrcniMzuGRJkdZ15HhzHLMhwu4dUbIhq0aaFNGTWZ9GaU8n
- FKwBmeSA7exSANsDsPhxdDpch5yS9g+rB9SDIjXsl8gHhCKXTLzI2GKMjV2N9dtq8f32
- XDdQ==
-X-Gm-Message-State: ABy/qLYrJfz0aoEXqAs6D6x7GodVhaN6heRwmXrB7uyBFCawj1fhW+mG
- oU0XAceVf6LHIbJ78oDaBs8uFw==
-X-Google-Smtp-Source: APBJJlHNHGPM6ATv15FJZUAumex5mVufXUwPA28GGXr0NLXlGIQ+FshHvcE2kpVgnkdPPX9VCM7m1A==
-X-Received: by 2002:a05:6512:3b14:b0:4fb:8771:e898 with SMTP id
- f20-20020a0565123b1400b004fb8771e898mr7541862lfv.15.1689427153761; 
- Sat, 15 Jul 2023 06:19:13 -0700 (PDT)
+ bh=e7iB5/lpO1JuU19PICV3atLqXB4y67HnlijWrnqa84c=;
+ b=MD3XyjJHR1JcYQtWJS+r3ht37HuPjOg+TA5IHD8v7oCCJaqjufIeszWAUIC9A7bM2a
+ Ut5OSqTh0sdoc0GDfJLjy4L/hUa3fFvnEzxefvPwJSprr1ayhbUpzbwpJmHhCjAkf5E2
+ oF88alQdrOj1/WrwrxF0bWkMaXX+OY2kE9PMJeMlN+kTdf2s95s7ZR/6FeT9lNuGHHQ7
+ QdoAnnD2kieX6PfaGrUO7H6mc5JtAo9iSJuTheEWbpimJ+3+PUfoY00oMbcZScFC7Ib2
+ uwt+hfptqTcNOwtnaFK9I3B7vDQuviPF8FXBKhrp3jK50UJQjSGVLujpqhqFsCcuLaaK
+ d7bQ==
+X-Gm-Message-State: ABy/qLZ5qs6tMSH/QyKE3ZNaDlVx5/qGPm5/7OLoFpFj2SWtCYKuJvm1
+ b70tnTDotGj+1oAMdZlL1NR4Yw==
+X-Google-Smtp-Source: APBJJlEXILyVEP7YpScm3p7DEsiQ1SWV26NgOjJSRxdfBd5MGi5EuoIcP+uhLEXDtEBpWRI2e2Wztw==
+X-Received: by 2002:a05:6512:3087:b0:4fb:8435:3efc with SMTP id
+ z7-20020a056512308700b004fb84353efcmr5908202lfd.16.1689428333197; 
+ Sat, 15 Jul 2023 06:38:53 -0700 (PDT)
 Received: from [192.168.1.101] (abxi167.neoplus.adsl.tpnet.pl. [83.9.2.167])
  by smtp.gmail.com with ESMTPSA id
- v3-20020ac25583000000b004fcdd81355csm591322lfg.269.2023.07.15.06.19.11
+ m7-20020a195207000000b004fb504b0f32sm1894166lfb.69.2023.07.15.06.38.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 15 Jul 2023 06:19:12 -0700 (PDT)
-Message-ID: <6d709bda-afb3-35ce-7653-7703120699af@linaro.org>
-Date: Sat, 15 Jul 2023 15:19:11 +0200
+ Sat, 15 Jul 2023 06:38:52 -0700 (PDT)
+Message-ID: <0e805cae-d311-2b8c-cead-62621288a34f@linaro.org>
+Date: Sat, 15 Jul 2023 15:38:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230712121145.1994830-1-dmitry.baryshkov@linaro.org>
- <20230712121145.1994830-8-dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+References: <20230706211045.204925-1-robdclark@gmail.com>
+ <20230706211045.204925-13-robdclark@gmail.com>
+ <4cdceddb-033a-6301-163e-89d27152e242@linaro.org>
+ <CAF6AEGvtMRnWBQz_KOi5b1p40HjvAAHYdd64kiR3KsKWPBO+bg@mail.gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230712121145.1994830-8-dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAF6AEGvtMRnWBQz_KOi5b1p40HjvAAHYdd64kiR3KsKWPBO+bg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 7/8] drm/msm/mdss: Handle the reg bus ICC
- path
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 12/12] drm/msm/adreno: Switch to chip-id for
+ identifying GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,240 +80,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12.07.2023 14:11, Dmitry Baryshkov wrote:
-> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
-> another path that needs to be handled to ensure MDSS functions properly,
-> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+On 7.07.2023 18:08, Rob Clark wrote:
+> On Thu, Jul 6, 2023 at 5:25 PM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>
+>> On 6.07.2023 23:10, Rob Clark wrote:
+>>> From: Rob Clark <robdclark@chromium.org>
+>>>
+>>> Since the revision becomes an opaque identifier with future GPUs, move
+>>> away from treating different ranges of bits as having a given meaning.
+>>> This means that we need to explicitly list different patch revisions in
+>>> the device table.
+>>>
+>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>> ---
+[...]
+
+>>>  static inline int adreno_is_7c3(const struct adreno_gpu *gpu)
+>>>  {
+>>> -     /* The order of args is important here to handle ANY_ID correctly */
+>>> -     return adreno_cmp_rev(ADRENO_REV(6, 3, 5, ANY_ID), gpu->rev);
+>>> +     return gpu->info->chip_ids[0] == 0x06030500;
+>>>  }
+>> I'm sorry, but this screams trouble.. and doesn't sound very maintainable :/
+>>
 > 
-> Gating that path may have a variety of effects, from none to otherwise
-> inexplicable DSI timeouts.
+> why? It is intentionally checking the first chip-id so that nothing
+> breaks if later chip-ids are added
+checking for magic numbers and magic array indices at the same time is
+very prone to breaking, as breaking this check would not at all be easy
+to spot in code review.
+
 > 
-> Provide a way for MDSS driver to vote on this bus.
+>> Apart from all these comments, I don't really see the point of this patch,
+>> other than trying to tie together Qualcomm's almost-meaningless chipids on
+>> a7xx into the picture..
+>>
+>> Since they can't even be read back from the hardware, I don't think trying
+>> to force them into the upstream kernel makes any sense.
 > 
-> A note regarding vote values. Newer platforms have corresponding
-> bandwidth values in the vendor DT files. For the older platforms there
-> was a static vote in the mdss_mdp and rotator drivers. I choose to be
-> conservative here and choose this value as a default.
+> Sure, we _could_ pick our own arbitrary identifiers, we don't have to
+> align with kgsl.  But that would be a super huge PITA for mesa, which
+> has support for both kernels.
+Perhaps I'm biased towards keeping this kind of stuff out of the kernel,
+but I'd say that Linux should decide on one logical path.
+
+In between us starting this discussion, Qualcomm managed to introduce
+yet another way of deciding what GPU is present on the system in their
+downstream driver[1]. We're at like 5 now. Do we wanna keep up each time?
+New ID rework for A8xx when that comes out one day?
+
 > 
-> Co-developed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-We can store data in icc units (without the *1000).
+>> On a different note, I think we could try to blockify Adreno definitions a
+>> bit by splitting things into:
+>>
+>> - Core GPU propeties (revision, fw name, GMEM size)
+>>
+>> - G(P)MU properties
+>>
+>> - Family data (quirks, reg presets in some config struct which could be a
+>>   union of config structs per generation, hwcg, maybe protected regs ptr
+>>   should also be moved there)
+> 
+> We do something like this on the mesa side.  But we also get to use
+> python tricks to generate code as part of the build process which
+> makes things a bit more elegant.
+> 
+> Fwiw, I was already thinking about splitting the gpu "hw catalog" from
+> a flat table, to probably something more like a table of tables, so
+> that we can split a2xx/a3xx/a4xx/a5xx/a6xx tables into separate files.
+> And then we could move hwcg/protect/etc tables into the same file.
+> But I thought that might be a bit too conflicty for the a7xx series so
+> was thinking to wait until after that landed.. unless you don't think
+> it will be a problem.
+Yeah I'd like to get a7xx landed this season..
 
 Konrad
->  drivers/gpu/drm/msm/msm_mdss.c | 51 +++++++++++++++++++++++++++++++---
->  1 file changed, 47 insertions(+), 4 deletions(-)
+
+[1] they now read parts of socinfo from smem and decide the CHIPID and
+    speedbin based on that, but it's not available on most existing SoCs,
+    that was thrown in with SOCID v17
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index b7765e63d549..ee31a9ab88d4 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -26,6 +26,8 @@
->  
->  #define MIN_IB_BW	400000000UL /* Min ib vote 400MB */
->  
-> +#define DEFAULT_REG_BW	153600000UL /* Used in mdss fbdev driver */
-> +
->  struct msm_mdss_data {
->  	u32 ubwc_version;
->  	/* can be read from register 0x58 */
-> @@ -34,6 +36,8 @@ struct msm_mdss_data {
->  	u32 ubwc_static;
->  	u32 highest_bank_bit;
->  	u32 macrotile_mode;
-> +
-> +	unsigned long reg_bus_bw;
->  };
->  
->  struct msm_mdss {
-> @@ -50,6 +54,7 @@ struct msm_mdss {
->  	const struct msm_mdss_data *mdss_data;
->  	struct icc_path *mdp_path[2];
->  	u32 num_mdp_paths;
-> +	struct icc_path *reg_bus_path;
->  };
->  
->  static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
-> @@ -57,6 +62,7 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
->  {
->  	struct icc_path *path0;
->  	struct icc_path *path1;
-> +	struct icc_path *reg_bus_path;
->  
->  	path0 = devm_of_icc_get(dev, "mdp0-mem");
->  	if (IS_ERR_OR_NULL(path0))
-> @@ -71,6 +77,10 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
->  		msm_mdss->num_mdp_paths++;
->  	}
->  
-> +	reg_bus_path = of_icc_get(dev, "cpu-cfg");
-> +	if (!IS_ERR_OR_NULL(reg_bus_path))
-> +		msm_mdss->reg_bus_path = reg_bus_path;
-> +
->  	return 0;
->  }
->  
-> @@ -231,6 +241,13 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
->  	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
->  		icc_set_bw(msm_mdss->mdp_path[i], 0, Bps_to_icc(MIN_IB_BW));
->  
-> +	if (msm_mdss->mdss_data && msm_mdss->mdss_data->reg_bus_bw)
-> +		icc_set_bw(msm_mdss->reg_bus_path, 0,
-> +			   Bps_to_icc(msm_mdss->mdss_data->reg_bus_bw));
-> +	else
-> +		icc_set_bw(msm_mdss->reg_bus_path, 0,
-> +			   Bps_to_icc(DEFAULT_REG_BW));
-> +
->  	ret = clk_bulk_prepare_enable(msm_mdss->num_clocks, msm_mdss->clocks);
->  	if (ret) {
->  		dev_err(msm_mdss->dev, "clock enable failed, ret:%d\n", ret);
-> @@ -288,6 +305,9 @@ static int msm_mdss_disable(struct msm_mdss *msm_mdss)
->  	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
->  		icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
->  
-> +	if (msm_mdss->reg_bus_path)
-> +		icc_set_bw(msm_mdss->reg_bus_path, 0, 0);
-> +
->  	return 0;
->  }
->  
-> @@ -374,6 +394,8 @@ static struct msm_mdss *msm_mdss_init(struct platform_device *pdev, bool is_mdp5
->  	if (!msm_mdss)
->  		return ERR_PTR(-ENOMEM);
->  
-> +	msm_mdss->mdss_data = of_device_get_match_data(&pdev->dev);
-> +
->  	msm_mdss->mmio = devm_platform_ioremap_resource_byname(pdev, is_mdp5 ? "mdss_phys" : "mdss");
->  	if (IS_ERR(msm_mdss->mmio))
->  		return ERR_CAST(msm_mdss->mmio);
-> @@ -464,8 +486,6 @@ static int mdss_probe(struct platform_device *pdev)
->  	if (IS_ERR(mdss))
->  		return PTR_ERR(mdss);
->  
-> -	mdss->mdss_data = of_device_get_match_data(&pdev->dev);
-> -
->  	platform_set_drvdata(pdev, mdss);
->  
->  	/*
-> @@ -499,11 +519,13 @@ static const struct msm_mdss_data msm8998_data = {
->  	.ubwc_version = UBWC_1_0,
->  	.ubwc_dec_version = UBWC_1_0,
->  	.highest_bank_bit = 1,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data qcm2290_data = {
->  	/* no UBWC */
->  	.highest_bank_bit = 0x2,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sc7180_data = {
-> @@ -511,6 +533,7 @@ static const struct msm_mdss_data sc7180_data = {
->  	.ubwc_dec_version = UBWC_2_0,
->  	.ubwc_static = 0x1e,
->  	.highest_bank_bit = 0x3,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sc7280_data = {
-> @@ -520,6 +543,7 @@ static const struct msm_mdss_data sc7280_data = {
->  	.ubwc_static = 1,
->  	.highest_bank_bit = 1,
->  	.macrotile_mode = 1,
-> +	.reg_bus_bw = 74000 * 1000,
->  };
->  
->  static const struct msm_mdss_data sc8180x_data = {
-> @@ -527,6 +551,7 @@ static const struct msm_mdss_data sc8180x_data = {
->  	.ubwc_dec_version = UBWC_3_0,
->  	.highest_bank_bit = 3,
->  	.macrotile_mode = 1,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sc8280xp_data = {
-> @@ -536,12 +561,14 @@ static const struct msm_mdss_data sc8280xp_data = {
->  	.ubwc_static = 1,
->  	.highest_bank_bit = 2,
->  	.macrotile_mode = 1,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sdm845_data = {
->  	.ubwc_version = UBWC_2_0,
->  	.ubwc_dec_version = UBWC_2_0,
->  	.highest_bank_bit = 2,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sm6350_data = {
-> @@ -550,12 +577,14 @@ static const struct msm_mdss_data sm6350_data = {
->  	.ubwc_swizzle = 6,
->  	.ubwc_static = 0x1e,
->  	.highest_bank_bit = 1,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sm8150_data = {
->  	.ubwc_version = UBWC_3_0,
->  	.ubwc_dec_version = UBWC_3_0,
->  	.highest_bank_bit = 2,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sm6115_data = {
-> @@ -564,6 +593,7 @@ static const struct msm_mdss_data sm6115_data = {
->  	.ubwc_swizzle = 7,
->  	.ubwc_static = 0x11f,
->  	.highest_bank_bit = 0x1,
-> +	.reg_bus_bw = 76800 * 1000,
->  };
->  
->  static const struct msm_mdss_data sm8250_data = {
-> @@ -574,6 +604,18 @@ static const struct msm_mdss_data sm8250_data = {
->  	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
->  	.highest_bank_bit = 3,
->  	.macrotile_mode = 1,
-> +	.reg_bus_bw = 76800 * 1000,
-> +};
-> +
-> +static const struct msm_mdss_data sm8350_data = {
-> +	.ubwc_version = UBWC_4_0,
-> +	.ubwc_dec_version = UBWC_4_0,
-> +	.ubwc_swizzle = 6,
-> +	.ubwc_static = 1,
-> +	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-> +	.highest_bank_bit = 3,
-> +	.macrotile_mode = 1,
-> +	.reg_bus_bw = 74000 * 1000,
->  };
->  
->  static const struct msm_mdss_data sm8550_data = {
-> @@ -584,6 +626,7 @@ static const struct msm_mdss_data sm8550_data = {
->  	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
->  	.highest_bank_bit = 3,
->  	.macrotile_mode = 1,
-> +	.reg_bus_bw = 57000 * 1000,
->  };
->  
->  static const struct of_device_id mdss_dt_match[] = {
-> @@ -600,8 +643,8 @@ static const struct of_device_id mdss_dt_match[] = {
->  	{ .compatible = "qcom,sm6375-mdss", .data = &sm6350_data },
->  	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
->  	{ .compatible = "qcom,sm8250-mdss", .data = &sm8250_data },
-> -	{ .compatible = "qcom,sm8350-mdss", .data = &sm8250_data },
-> -	{ .compatible = "qcom,sm8450-mdss", .data = &sm8250_data },
-> +	{ .compatible = "qcom,sm8350-mdss", .data = &sm8350_data },
-> +	{ .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
->  	{ .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
->  	{}
->  };
+> BR,
+> -R
+> 
+>> - Generation data (init function, a2xx and a6xx specifics)
+>>
+>> - Speedbin LUTs matched against socid
+>>
+>>
+>> or something like that.. there's a whole lot of duplicated data atm
+>>
+>> Konrad
+>>>
+>>>  static inline int adreno_is_a660(const struct adreno_gpu *gpu)
+>>> @@ -358,8 +364,7 @@ static inline int adreno_is_a680(const struct adreno_gpu *gpu)
+>>>
+>>>  static inline int adreno_is_a690(const struct adreno_gpu *gpu)
+>>>  {
+>>> -     /* The order of args is important here to handle ANY_ID correctly */
+>>> -     return adreno_cmp_rev(ADRENO_REV(6, 9, 0, ANY_ID), gpu->rev);
+>>> +     return gpu->info->chip_ids[0] == 0x06090000;
+>>>  };
+>>>  /* check for a615, a616, a618, a619 or any a630 derivatives */
+>>>  static inline int adreno_is_a630_family(const struct adreno_gpu *gpu)
