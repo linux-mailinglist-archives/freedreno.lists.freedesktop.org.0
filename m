@@ -2,46 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D667F756B0D
-	for <lists+freedreno@lfdr.de>; Mon, 17 Jul 2023 19:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6F87756B2C
+	for <lists+freedreno@lfdr.de>; Mon, 17 Jul 2023 20:01:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE43710E296;
-	Mon, 17 Jul 2023 17:55:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E96210E29B;
+	Mon, 17 Jul 2023 18:01:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BAF610E296;
- Mon, 17 Jul 2023 17:55:25 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE0C10E29B;
+ Mon, 17 Jul 2023 18:01:40 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36HFVbAb011909; Mon, 17 Jul 2023 17:55:17 GMT
+ 36H8Xnm0002821; Mon, 17 Jul 2023 18:01:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=TBUZ8U/cPXfL5ZEfE5u/WCLkOI2O+FEYA482bH/5CD8=;
- b=j3SdNFyE9BPlcP/1qW1aUdtRSTz7BcG3DJNSTLYAyVVxtMxKoRMqHVFaWTICB8+I1YNM
- GPEAjVL2a1kvYr8gEnRgt7rgOckym5DxK+S2Qrzu54fopU3BBYpjIxlpX1tOhVJu/A9m
- 3quZ6H26WVnvrUCIC4+AuckvWVHhttcW2HLWFWB5Q6GlsoY6ZoY1JSN5Ptwicq3/UIeR
- xgdzxx3YpyqM10Aa/2U3ByeWaUCKzjSS/BITnHXZ788QtJ1UyS3WgdtMAo2iRkW5SmfR
- bB8Mby1d77lb++b3+45YhIrBvE+2ZwkjdlTxT+QqIWmEULw6s39zyBf0OwaWwRnI+1aK Jw== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=KKlsC7b6SrWfsEcUjeoGhZk4s6DanCMTqIy61nwVuKc=;
+ b=goHMfWoL0fie/Jn/Nlx+JC9qpIoCyWKFur2g8E9fss/PrVf1lAS7wDBiSUioVlba0bzN
+ d+gFTwpm3+i3hnGTQJ2ROlIf0Mnmgr1J0rx+Qu/8qXTSlVj+rBr5OcZLaODU/f6sV6zc
+ Y1s1yDY8oI1Pt5qMOjXxjjttKQC8dQg1vxb8e6bC79mAQexO0/pVN3xuT/mfsGss7upF
+ mavlaiYAt9yw8SEZQYwbieOAWPrP22qGtBgwX4khyRSThC2JnCrf7bdJ+J3+b9R2tbld
+ 4QvMS6VZDqJK0XmmqH4tAFxdM+cEZqfGTQ/xXBi69qqSv+eDuhVJgbwwCr672q0pvnjD Jw== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rw3yv11mj-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rw289se5t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jul 2023 17:55:16 +0000
+ Mon, 17 Jul 2023 18:01:31 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36HHtFNx016027
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36HI1Vhj024270
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jul 2023 17:55:15 GMT
+ Mon, 17 Jul 2023 18:01:31 GMT
 Received: from [10.110.91.201] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Mon, 17 Jul
- 2023 10:55:15 -0700
-Message-ID: <72867325-8b6f-0863-c637-2ec73583a2fb@quicinc.com>
-Date: Mon, 17 Jul 2023 10:55:12 -0700
+ 2023 11:01:30 -0700
+Message-ID: <f91da49c-4d78-5a85-0d54-f79ec23309ef@quicinc.com>
+Date: Mon, 17 Jul 2023 11:01:30 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
@@ -50,30 +50,30 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
  <marijn.suijten@somainline.org>
 References: <20230712221139.313729-1-dmitry.baryshkov@linaro.org>
- <20230712221139.313729-10-dmitry.baryshkov@linaro.org>
+ <20230712221139.313729-12-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230712221139.313729-10-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230712221139.313729-12-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 4-wYPfq_h5Rmg0ViAPWDc8S8mZaV-wIG
-X-Proofpoint-GUID: 4-wYPfq_h5Rmg0ViAPWDc8S8mZaV-wIG
+X-Proofpoint-ORIG-GUID: d154v0mCLomAqW8RoBJ0MhQKnnHKy6U6
+X-Proofpoint-GUID: d154v0mCLomAqW8RoBJ0MhQKnnHKy6U6
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-07-17_13,2023-07-13_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- spamscore=0 impostorscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0
- bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
- definitions=main-2307170163
-Subject: Re: [Freedreno] [PATCH v4 09/11] drm/msm/dpu: remove extra
- clk_round_rate() call
+ malwarescore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 mlxscore=0 adultscore=0 spamscore=0
+ impostorscore=0 phishscore=0 priorityscore=1501 mlxlogscore=999
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307170164
+Subject: Re: [Freedreno] [PATCH v4 11/11] drm/msm/dpu: drop
+ dpu_core_perf_destroy()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,21 +88,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
 On 7/12/2023 3:11 PM, Dmitry Baryshkov wrote:
-> The dev_pm_opp_set_rate() already contains a call for clk_round_rate for
-> the passed value. Stop calling it manually from
-> _dpu_core_perf_get_core_clk_rate(). It is slightly incorrect to call it
-> this way, as we should round the final calculated clock rate rather than
-> rounding all the intermediate values.
+> This function does nothing, just clears one struct field. Drop it now.
 > 
+> Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 10 ----------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  6 ------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  1 -
+>   3 files changed, 17 deletions(-)
+> 
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
