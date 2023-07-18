@@ -1,49 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3586A7675CE
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 20:47:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 045227675CC
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 20:47:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF61110E77C;
-	Fri, 28 Jul 2023 18:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D607F10E77A;
+	Fri, 28 Jul 2023 18:47:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D80AD10E2E9
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 08:13:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7889B10E2F5
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 08:33:26 +0000 (UTC)
 Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R4sCD5HJKzBQskq
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 16:13:12 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTP id 4R4sfW5YYKzBR9sk
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 16:33:23 +0800 (CST)
 Authentication-Results: mail.208.org (amavisd-new); dkim=pass
  reason="pass (just generated, assumed good)" header.d=208.org
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
  content-transfer-encoding:content-type:message-id:user-agent
  :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1689667992; x=1692259993; bh=LG0T886Vu8AJTsc+7oZfNzu2+Ji
- dEY9VAvk+e3RZR7s=; b=BZVhFBUDrjKvjv3PA4MXF/uUDPXq76DC3NAnF8Vbx8D
- 2BDhT0p2i85F93whBcD2xqas7b+8tvaiZSFIPWV2ALfcCXorHfDvSt4ptAE0t7TL
- R0IQyhaFUuzLPlhgp1yvfXXjlg0qjRnH3irzSVBQRdrCrPzuJDaJUHw7+JrxQoZ8
- tRA1VytoyRpCPZPnjV5JNzrPz6IeSA8nnJl7z6HTXWOurAVedGx0gM1Pr7kg86cx
- p8NUHoMmlQlfp466zUQPPecNxAhzVet0k7fRkfJuPZKA0bN7ltGrB8kG/0ipnJSI
- wduGs2WD12kIksbpk9cnEFr4LWC+xUtc7gVWKVCYxmw==
+ dkim; t=1689669203; x=1692261204; bh=9692ZzsrczkdihRNiWFTcjEgW54
+ h208pZatp5xPJadg=; b=zsOBdYFusN0CaVsamgWdkXWQHhVVFz5+w0dZ2iIVMAT
+ m/f6el4k34ESupKF1HomWsvKO6xjExtykVaK7TQoy3+Cf8PwrxC/Aqh9yebX4Q3/
+ I+onZRDXZ95KoFqO5B8bksWHtp+dF6T4BcLv3REZEn9cbGvyeVh+kphWQj4AVZrZ
+ x6dJLwbvT2SFAKdMEpaVI3Li4u35cgjPkSh4t+xkQGeTTURQnJJHy7lzQgzC19d1
+ 1h+EvIInp0f6Qm0caT5RYH3yWHWgJ/RXpbZvhN+MCyy7Pwr4RIMMjd8nmK0CTxJ2
+ qYWbxye8YqBUpqF5O21XtIdYdMDb7QRc0Pq5ohebeXg==
 X-Virus-Scanned: amavisd-new at mail.208.org
 Received: from mail.208.org ([127.0.0.1])
  by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 9b6RUOW9HBjq for <freedreno@lists.freedesktop.org>;
- Tue, 18 Jul 2023 16:13:12 +0800 (CST)
+ with ESMTP id n3vON4dAz26f for <freedreno@lists.freedesktop.org>;
+ Tue, 18 Jul 2023 16:33:23 +0800 (CST)
 Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R4sCD2cmjzBJBf8;
- Tue, 18 Jul 2023 16:13:12 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTPSA id 4R4sfW1qkXzBR7bp;
+ Tue, 18 Jul 2023 16:33:23 +0800 (CST)
 MIME-Version: 1.0
-Date: Tue, 18 Jul 2023 16:13:12 +0800
+Date: Tue, 18 Jul 2023 16:33:23 +0800
 From: sunran001@208suo.com
 To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
  dmitry.baryshkov@linaro.org, airlied@gmail.com, daniel@ffwll.ch
-In-Reply-To: <20230718081139.16918-1-xujianghui@cdjrlc.com>
-References: <20230718081139.16918-1-xujianghui@cdjrlc.com>
+In-Reply-To: <20230718083149.17178-1-xujianghui@cdjrlc.com>
+References: <20230718083149.17178-1-xujianghui@cdjrlc.com>
 User-Agent: Roundcube Webmail
-Message-ID: <c07be8cdf5ceceeec6bc7918774c18e0@208suo.com>
+Message-ID: <225e67f32dbc423daa4a83bc0c4f2179@208suo.com>
 X-Sender: sunran001@208suo.com
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
@@ -82,7 +82,7 @@ Signed-off-by: Ran Sun <sunran001@208suo.com>
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi.c 
 b/drivers/gpu/drm/msm/dsi/dsi.c
-index baab79ab6e74..81461e8852a7 100644
+index 81461e8852a7..5e3cc287f0d3 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi.c
 @@ -46,7 +46,7 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
@@ -90,7 +90,7 @@ index baab79ab6e74..81461e8852a7 100644
 __func__);
           return -EPROBE_DEFER;
       }
--
-+    put_device(&pdev->dev);
+-    put_device(&pdev->dev);
++    put_device(&phy_pdev->dev);
       return 0;
   }
