@@ -1,75 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2FAB756FE0
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jul 2023 00:35:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E607570BD
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jul 2023 02:05:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 645D610E2B6;
-	Mon, 17 Jul 2023 22:35:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C525510E061;
+	Tue, 18 Jul 2023 00:05:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE11D10E00C;
- Mon, 17 Jul 2023 22:35:38 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F3310E00D;
+ Tue, 18 Jul 2023 00:05:08 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36HMTpRn006684; Mon, 17 Jul 2023 22:35:30 GMT
+ 36HNvkZ2027844; Tue, 18 Jul 2023 00:04:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=6MJknHTOvGIsh1ufa2YfCm6oqXwZLuROTT92LY6WcEw=;
- b=ax6+58UNRefdDPJopPx3ITJkFhe4Yxnn9LbTtgPIuwSmHquSVR2ubHTkC3Lmk1pi/pe3
- o/3bE13Hx5hIfQOzWVvE8EBUfaWQb1GdUJ6jaa5294l+NCIJQbasdFbIzagLkwVc8Uko
- rDhxeCLTAaDEHXuuXXaaGVMB/ncl3BAaURl2ghvoU+XD50m4HKyElJCL3E4rkYT7IedS
- p/LGazJkzPq63keLcD0gFwuCGNauFWw0QU9Z+rsY3AL45WkNt5bFPCKmMChsJ0SugIii
- UmajClEprayMvaludcWt5iZ5sISb8B0eg57FBHQbXDs07D6/QejWRwt96zhmrW4V8p4B yg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=0HUhWxdMwZ0PMjwDvay/KmMYU3EJdqBOAhqegS7k2ro=;
+ b=IM1iC8xiFV25YSMnQJNntvQn6c9+Qf7t4O1UIUse/I7yHPlBK1u4a6pmRHl6kVCg3x2/
+ 4E2SB4KYwfOYJQzBYvWF8TUrOy+5jUP2gKMkjSWpxmvZWTMb5LkcuA45LkgTXWxJZWwX
+ T3Fr9Up1O0pswzPYRCeAokWRMehNUsOXQWWCUe4TRcJnulBAyf7TvtvjXWeY4SxZfWCG
+ lqubGPxc+mlU2bqMk9ExctC00T7lKlyNTB8qGiEUKd92E4DY6TwBslk7tXVvb9Bb4HlV
+ pm2o5jlmi+tI63KZpcLX6bkcPisecNdpDh00YElvVT7aQZdPIpfJoWvsr+Gv/mEcApaU hg== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3run0avpnw-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rw3yv1my1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jul 2023 22:35:30 +0000
+ Tue, 18 Jul 2023 00:04:59 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36HMZ9gw027973
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36I04wVc031572
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jul 2023 22:35:09 GMT
+ Tue, 18 Jul 2023 00:04:58 GMT
 Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.30; Mon, 17 Jul 2023 15:35:08 -0700
+ 15.2.1118.30; Mon, 17 Jul 2023 17:04:57 -0700
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 17 Jul 2023 15:34:51 -0700
-Message-ID: <20230717223451.16783-1-quic_abhinavk@quicinc.com>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+Date: Mon, 17 Jul 2023 17:04:45 -0700
+Message-ID: <168963837489.9267.8179776097855928911.b4-ty@quicinc.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230712121145.1994830-1-dmitry.baryshkov@linaro.org>
+References: <20230712121145.1994830-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: hApjDzxgwLNOgSFs745jCdxe3Dh76AKd
-X-Proofpoint-ORIG-GUID: hApjDzxgwLNOgSFs745jCdxe3Dh76AKd
+X-Proofpoint-ORIG-GUID: 2ljxW3q5_TvsiaTbwaFLPD9KX00TnnSc
+X-Proofpoint-GUID: 2ljxW3q5_TvsiaTbwaFLPD9KX00TnnSc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-07-17_15,2023-07-13_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0
- mlxlogscore=810 bulkscore=0 priorityscore=1501 mlxscore=0 suspectscore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307170205
-Subject: [Freedreno] [PATCH] drm: remove drm_bridge_hpd_disable() from
- drm_bridge_connector_destroy()
+ clxscore=1015 adultscore=0
+ spamscore=0 impostorscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0
+ bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=730
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
+ definitions=main-2307170219
+Subject: Re: [Freedreno] (subset) [PATCH v2 0/8] MDSS reg bus interconnect
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,56 +86,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: andersson@kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-kernel@vger.kernel.org, robdclark@gmail.com,
- laurent.pinchart@ideasonboard.com, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-drm_bridge_hpd_enable()/drm_bridge_hpd_disable() callbacks call into
-the respective driver's hpd_enable()/hpd_disable() ops. These ops control
-the HPD enable/disable logic which in some cases like MSM can be a
-dedicate hardware block to control the HPD.
 
-During probe_defer cases, a connector can be initialized and then later
-destroyed till the probe is retried. During connector destroy in these
-cases, the hpd_disable() callback gets called without a corresponding
-hpd_enable() leading to an unbalanced state potentially causing even
-a crash.
+On Wed, 12 Jul 2023 15:11:37 +0300, Dmitry Baryshkov wrote:
+> Per agreement with Konrad, picked up this patch series.
+> 
+> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
+> another path that needs to be handled to ensure MDSS functions properly,
+> namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+> 
+> Gating that path may have a variety of effects. from none to otherwise
+> inexplicable DSI timeouts.
+> 
+> [...]
 
-This can be avoided by the respective drivers maintaining their own
-state logic to ensure that a hpd_disable() without a corresponding
-hpd_enable() just returns without doing anything.
+Applied, thanks!
 
-However, to have a generic fix it would be better to avoid the
-hpd_disable() callback from the connector destroy path and let
-the hpd_enable() / hpd_disable() balance be maintained by the
-corresponding drm_bridge_connector_enable_hpd() /
-drm_bridge_connector_disable_hpd() APIs.
+[2/8] drm/msm/mdss: correct UBWC programming for SM8550
+      https://gitlab.freedesktop.org/drm/msm/-/commit/a85c238c5ccd
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/drm_bridge_connector.c | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
-index 19ae4a177ac3..3d4e25c2f3d7 100644
---- a/drivers/gpu/drm/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/drm_bridge_connector.c
-@@ -187,12 +187,6 @@ static void drm_bridge_connector_destroy(struct drm_connector *connector)
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
- 
--	if (bridge_connector->bridge_hpd) {
--		struct drm_bridge *hpd = bridge_connector->bridge_hpd;
--
--		drm_bridge_hpd_disable(hpd);
--	}
--
- 	drm_connector_unregister(connector);
- 	drm_connector_cleanup(connector);
- 
+Best regards,
 -- 
-2.40.1
-
+Abhinav Kumar <quic_abhinavk@quicinc.com>
