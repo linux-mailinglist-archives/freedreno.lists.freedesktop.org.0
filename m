@@ -2,73 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F0FE758801
-	for <lists+freedreno@lfdr.de>; Wed, 19 Jul 2023 00:02:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ED19758817
+	for <lists+freedreno@lfdr.de>; Wed, 19 Jul 2023 00:03:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B443210E3C6;
-	Tue, 18 Jul 2023 22:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCFD10E3DB;
+	Tue, 18 Jul 2023 22:03:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A26F810E3C6
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 22:01:57 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-4fba74870abso10200807e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 15:01:57 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6041B10E0BA
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 22:03:00 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-4fba03becc6so229860e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 15:03:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689717716; x=1690322516;
+ d=linaro.org; s=google; t=1689717778; x=1690322578;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Ef2ucOyrPFztJ167afpvPjPuWEm3c8OP5Iwr/4gr8wk=;
- b=rVijO4CFPg5o/ZAiyDM/6ao45V3lgDpgIuiPGl+Zkz81TNAG8UmbA0PNEmHUn8OICH
- dmNbY/KD+IIV/+e7OzaYDkquo0uWRz2ehH3FqM8FlDwm+qQFX2ftQBNI7szBKXf9AKu0
- gZ1PT+YKup8ADhqPIE7NVnFhRFdrhLoF485gKxBKVUoPqE7O24w7eUMs5b65T8zfuk0o
- xVWc/Ydd01e8+5gF2PfYjR/4rrbY3VySueIbThtJBS7EFHWvs6lKB1++In8e9EMFZkCL
- FweHyAhlbos9becjugcIyCWLETFKVIL+jCn7ZP4trb+mwYLw5ExDYH31tNlQgghewWeR
- pHew==
+ bh=rNDKOzlYPxGuMs2KncsT0nwhwoFvuzBBjJp1G8pPnVI=;
+ b=vuZIUV0MiW49B1TR2RK+zQrigyap1MzpeYpQr5n+DE/3s2R6OB3VXg+eUeNSA2wqwu
+ dYTjRPR2v0yrtgdEhzKD5hpgEf2V5Cub4MA/Nkq/vEBwf/2dss24wWvT4aMK2kZsls1d
+ 5vJfVRBtNE9MHqGHkqxv3k9wfZ0PwOXygRTOQ5JIklydupo/LhD8XiA3VK1q9hYeue6t
+ tKLjWTrl2D88zC+ihLPYVIwwHKnzx1eMR7zBKHU4MVHq+XJsO9HF5/3mGE9tRa+31Ifp
+ hIypLS+CHYwBfwj8bDXVmkoQNxZMDkZCFZRsuCfhmbBl270ihN+STJzxACCADrNlhANs
+ cT+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689717716; x=1690322516;
+ d=1e100.net; s=20221208; t=1689717778; x=1690322578;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ef2ucOyrPFztJ167afpvPjPuWEm3c8OP5Iwr/4gr8wk=;
- b=Fcf6u1I8PAweV9PPwJln0FiZSxZDV58JpKX4hg0cDnv4d6BexXvKmHp1cndZjiGyew
- 6voQKENYRXVDYQybjKxbaXdpt6I6JXSWxMKp+tbX5J9nenVwZTlkfAPzzlaUTELOr8Dy
- /eTCdeHdJeSrm7D40M0FMVis/LPEHp2SwalHlNgMIWinWbz7w+n0zwXFkhGMikg1Hwgt
- BPxxbzYPBWzCA0gV6jo3hsWnh0SxQqrJ9K6pVB6t8uSSbMcPFMZ/MtrfWFHIME+CVuuK
- mE/MrSC92znrPa7+cb7ZrugGdaXLZcmwcGlUOWhTiYmKWAQE8oE9E5n4NcQOdemRzbq8
- tV4g==
-X-Gm-Message-State: ABy/qLYvhe258R+/PavT8mAUgAQmQagh23AENd5ue8pwb68czEiZtckz
- oBfN0W2sK+VpqrIbMDrxvsHYMQ==
-X-Google-Smtp-Source: APBJJlEqQ6B3fMFXYN0weJXmUvo7Xz+RzFP6n1yfq5Vj0oMcfhZDr4qgLS5BY56lgOux4N5gGlD1oQ==
-X-Received: by 2002:a05:651c:157:b0:2b4:5cad:f246 with SMTP id
- c23-20020a05651c015700b002b45cadf246mr420563ljd.7.1689717715701; 
- Tue, 18 Jul 2023 15:01:55 -0700 (PDT)
+ bh=rNDKOzlYPxGuMs2KncsT0nwhwoFvuzBBjJp1G8pPnVI=;
+ b=Rao/o2sjsI7Ex5OYhze00pxDIZ2Idt+weI1ztWt+rMCHE8sVe+iwjAZo5scCWRcfpY
+ 8fMaCsExGnORIqwaYRskB8rVelq7Ito9RNqMIIyaoecUlvltvM0rMf/70kwC0Z2TZA4s
+ E+nr8aNc162LRrwznkQDgRZ6jcNu1GZvftYUEfOr8jNRvkSj3FXoV/eT6sGbMZi41uO3
+ Z8JymL9J8mmQvoSVV2F4MXPUDirIwkmq5+r+rNRXcBBwkO0im4qcscozFxIZf5/Qn+Lc
+ G+cHQGb6SUsERLSM6KXg5aeO6XnnRtA9L08K7n83MPYdGJ08TmU68HuCEIyE7glKhXGY
+ FdSA==
+X-Gm-Message-State: ABy/qLaWOq6NTbaBzS3Lbo0Psqd6sTOioThnWeyscBInA3unCztcYYVP
+ MfoUxW9a+zHN8t+mdrdWtd//ww==
+X-Google-Smtp-Source: APBJJlEzzO92pAca9uOAcmF9Oxp3Fq4quU2D8QWHbF3UNYaUO4bu8i3x2boSfuxbQYAJ/7rubYq1CA==
+X-Received: by 2002:a05:6512:3da4:b0:4fd:c8fb:eb71 with SMTP id
+ k36-20020a0565123da400b004fdc8fbeb71mr132296lfv.11.1689717778055; 
+ Tue, 18 Jul 2023 15:02:58 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
  (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- 11-20020a05651c00cb00b002b6ce06618dsm700546ljr.21.2023.07.18.15.01.54
+ f25-20020ac251b9000000b004eb0c51780bsm636973lfk.29.2023.07.18.15.02.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jul 2023 15:01:55 -0700 (PDT)
-Message-ID: <d5f925e4-fbfe-cbb2-c3e6-8e806761d61e@linaro.org>
-Date: Wed, 19 Jul 2023 01:01:54 +0300
+ Tue, 18 Jul 2023 15:02:57 -0700 (PDT)
+Message-ID: <149d15e6-4995-8ff6-5191-77783c3dedb8@linaro.org>
+Date: Wed, 19 Jul 2023 01:02:56 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
- <20230627-sm6125-dpu-v2-10-03e430a2078c@somainline.org>
- <285facd1-bf20-aff2-b680-f796e8830038@linaro.org>
- <yzz4dddlh2no3lmuxrkuxhsuaf3brruo635pgfpnaxwffmnl6j@uk3jxtoarg7w>
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>
+References: <20230718-sm6125-dpu-v3-0-6c5a56e99820@somainline.org>
+ <20230718-sm6125-dpu-v3-2-6c5a56e99820@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <yzz4dddlh2no3lmuxrkuxhsuaf3brruo635pgfpnaxwffmnl6j@uk3jxtoarg7w>
+In-Reply-To: <20230718-sm6125-dpu-v3-2-6c5a56e99820@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 10/15] dt-bindings: msm: dsi-phy-14nm:
- Document SM6125 variant
+Subject: Re: [Freedreno] [PATCH v3 02/15] arm64: dts: qcom: sm6125: Sort
+ spmi_bus node numerically by reg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,92 +90,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
- Lux Aliaga <they@mint.lgbt>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Lux Aliaga <they@mint.lgbt>,
  Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Loic Poulain <loic.poulain@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/07/2023 00:00, Marijn Suijten wrote:
-> On 2023-06-29 13:54:13, Dmitry Baryshkov wrote:
->> On 27/06/2023 23:14, Marijn Suijten wrote:
->>> Document availability of the 14nm DSI PHY on SM6125.  Note that this
->>> compatible uses the SoC-suffix variant, intead of postfixing an
->>> arbitrary number without the sm/sdm portion.  The PHY is not powered by
->>> a vcca regulator like on most SoCs, but by the MX power domain that is
->>> provided via the power-domains property and a single corresponding
->>> required-opps.
->>>
->>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
->>> ---
->>>    .../devicetree/bindings/display/msm/dsi-phy-14nm.yaml         | 11 +++++++++++
->>>    1 file changed, 11 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
->>> index a43e11d3b00d..183a26f8a6dc 100644
->>> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
->>> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
->>> @@ -19,6 +19,7 @@ properties:
->>>          - qcom,dsi-phy-14nm-2290
->>>          - qcom,dsi-phy-14nm-660
->>>          - qcom,dsi-phy-14nm-8953
->>> +      - qcom,sm6125-dsi-phy-14nm
->>>    
->>>      reg:
->>>        items:
->>> @@ -35,6 +36,16 @@ properties:
->>>      vcca-supply:
->>>        description: Phandle to vcca regulator device node.
->>>    
->>> +  power-domains:
->>> +    description:
->>> +      A phandle and PM domain specifier for an optional power domain.
->>> +    maxItems: 1
->>> +
->>> +  required-opps:
->>> +    description:
->>> +      A phandle to an OPP node describing an optional performance point.
->>
->> I'd rephrase this to be something more exact, like 'desribing power
->> domain's performance point'.
+On 19/07/2023 00:24, Marijn Suijten wrote:
+> This node has always resided in the wrong spot, making it somewhat
+> harder to contribute new node entries while maintaining proper sorting
+> around it.  Move the node up to sit after hsusb_phy1 where it maintains
+> proper numerical sorting on the (first of its many) reg address
+> property.
 > 
-> Sure.  I'll leave out the word "optional", that becomes obvious from
-> maxItems:1 without minItems, together with referencing a PM which itself
-> is already optional.
+> Fixes: cff4bbaf2a2d ("arm64: dts: qcom: Add support for SM6125")
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sm6125.dtsi | 38 ++++++++++++++++++------------------
+>   1 file changed, 19 insertions(+), 19 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+> index 6937c7ebdb81..cfd0901d4555 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+> @@ -684,6 +684,24 @@ hsusb_phy1: phy@1613000 {
+>   			status = "disabled";
+>   		};
+>   
+> +		spmi_bus: spmi@1c40000 {
+> +			compatible = "qcom,spmi-pmic-arb";
+> +			reg = <0x01c40000 0x1100>,
+> +			      <0x01e00000 0x2000000>,
+> +			      <0x03e00000 0x100000>,
+> +			      <0x03f00000 0xa0000>,
+> +			      <0x01c0a000 0x26000>;
+> +			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
+> +			interrupt-names = "periph_irq";
+> +			interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
+> +			qcom,ee = <0>;
+> +			qcom,channel = <0>;
+> +			#address-cells = <2>;
+> +			#size-cells = <0>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <4>;
+> +		};
+> +
+>   		rpm_msg_ram: sram@45f0000 {
+>   			compatible = "qcom,rpm-msg-ram";
+>   			reg = <0x045f0000 0x7000>;
+> @@ -1189,27 +1207,9 @@ sram@4690000 {
+>   			reg = <0x04690000 0x10000>;
+>   		};
+>   
+> -		spmi_bus: spmi@1c40000 {
+> -			compatible = "qcom,spmi-pmic-arb";
+> -			reg = <0x01c40000 0x1100>,
+> -			      <0x01e00000 0x2000000>,
+> -			      <0x03e00000 0x100000>,
+> -			      <0x03f00000 0xa0000>,
+> -			      <0x01c0a000 0x26000>;
+> -			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
+> -			interrupt-names = "periph_irq";
+> -			interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
+> -			qcom,ee = <0>;
+> -			qcom,channel = <0>;
+> -			#address-cells = <2>;
+> -			#size-cells = <0>;
+> -			interrupt-controller;
+> -			#interrupt-cells = <4>;
+> -		};
+> -
+>   		apps_smmu: iommu@c600000 {
+>   			compatible = "qcom,sm6125-smmu-500", "qcom,smmu-500", "arm,mmu-500";
+> -			reg = <0xc600000 0x80000>;
+> +			reg = <0x0c600000 0x80000>;
 
-no, default minItems is equal to maxItems. It is not listing this 
-property under the required what makes it optional.
+Irrelevant, please split.
 
+>   			interrupts = <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>,
+>   				     <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>,
+>   				     <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>,
 > 
-> - Marijn
-> 
->>> +    maxItems: 1
->>> +
->>>    required:
->>>      - compatible
->>>      - reg
->>>
->>
->> -- 
->> With best wishes
->> Dmitry
->>
 
 -- 
 With best wishes
