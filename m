@@ -1,30 +1,30 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4394B7586FE
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jul 2023 23:25:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56FD4758702
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jul 2023 23:25:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19BF810E3DC;
-	Tue, 18 Jul 2023 21:25:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFE110E3E1;
+	Tue, 18 Jul 2023 21:25:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD7F10E3D2
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 21:24:57 +0000 (UTC)
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE0010E3D2
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jul 2023 21:24:59 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id EBC3A3F5C7;
- Tue, 18 Jul 2023 23:24:54 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 4A54D3F6D4;
+ Tue, 18 Jul 2023 23:24:56 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue, 18 Jul 2023 23:24:48 +0200
+Date: Tue, 18 Jul 2023 23:24:49 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230718-sm6125-dpu-v3-12-6c5a56e99820@somainline.org>
+Message-Id: <20230718-sm6125-dpu-v3-13-6c5a56e99820@somainline.org>
 References: <20230718-sm6125-dpu-v3-0-6c5a56e99820@somainline.org>
 In-Reply-To: <20230718-sm6125-dpu-v3-0-6c5a56e99820@somainline.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -41,8 +41,8 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Loic Poulain <loic.poulain@linaro.org>, 
  Konrad Dybcio <konrad.dybcio@somainline.org>
 X-Mailer: b4 0.12.3
-Subject: [Freedreno] [PATCH v3 12/15] arm64: dts: qcom: sm6125: Switch fixed
- xo_board clock to RPM XO clock
+Subject: [Freedreno] [PATCH v3 13/15] arm64: dts: qcom: sm6125: Add dispcc
+ node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +66,61 @@ Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We have a working RPM XO clock; no other driver except rpmcc should be
-parenting directly to the fixed-factor xo_board clock nor should it be
-reachable by that global name.  Remove the name to that effect, so that
-every clock relation is explicitly defined in DTS.
+Enable and configure the dispcc node on SM6125 for consumption by MDSS
+later on.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- arch/arm64/boot/dts/qcom/sm6125.dtsi | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/sm6125.dtsi | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-index cfd0901d4555..90e242ad7943 100644
+index 90e242ad7943..23d1284793d2 100644
 --- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-@@ -23,7 +23,6 @@ xo_board: xo-board {
- 			compatible = "fixed-clock";
- 			#clock-cells = <0>;
- 			clock-frequency = <19200000>;
--			clock-output-names = "xo_board";
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2021, Martin Botka <martin.botka@somainline.org>
+  */
+ 
++#include <dt-bindings/clock/qcom,dispcc-sm6125.h>
+ #include <dt-bindings/clock/qcom,gcc-sm6125.h>
+ #include <dt-bindings/clock/qcom,sm6125-gpucc.h>
+ #include <dt-bindings/clock/qcom,rpmcc.h>
+@@ -1208,6 +1209,34 @@ sram@4690000 {
+ 			reg = <0x04690000 0x10000>;
  		};
  
- 		sleep_clk: sleep-clk {
-@@ -199,6 +198,8 @@ rpm_requests: rpm-requests {
- 				rpmcc: clock-controller {
- 					compatible = "qcom,rpmcc-sm6125", "qcom,rpmcc";
- 					#clock-cells = <1>;
-+					clocks = <&xo_board>;
-+					clock-names = "xo";
- 				};
- 
- 				rpmpd: power-controller {
-@@ -718,7 +719,7 @@ sdhc_1: mmc@4744000 {
- 
- 			clocks = <&gcc GCC_SDCC1_AHB_CLK>,
- 				 <&gcc GCC_SDCC1_APPS_CLK>,
--				 <&xo_board>;
-+				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
- 			clock-names = "iface", "core", "xo";
- 			iommus = <&apps_smmu 0x160 0x0>;
- 
-@@ -745,7 +746,7 @@ sdhc_2: mmc@4784000 {
- 
- 			clocks = <&gcc GCC_SDCC2_AHB_CLK>,
- 				 <&gcc GCC_SDCC2_APPS_CLK>,
--				 <&xo_board>;
-+				 <&rpmcc RPM_SMD_XO_CLK_SRC>;
- 			clock-names = "iface", "core", "xo";
- 			iommus = <&apps_smmu 0x180 0x0>;
- 
++		dispcc: clock-controller@5f00000 {
++			compatible = "qcom,sm6125-dispcc";
++			reg = <0x05f00000 0x20000>;
++
++			clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
++				 <0>,
++				 <0>,
++				 <0>,
++				 <0>,
++				 <0>,
++				 <&gcc GCC_DISP_AHB_CLK>,
++				 <&gcc GCC_DISP_GPLL0_DIV_CLK_SRC>;
++			clock-names = "bi_tcxo",
++				      "dsi0_phy_pll_out_byteclk",
++				      "dsi0_phy_pll_out_dsiclk",
++				      "dsi1_phy_pll_out_dsiclk",
++				      "dp_phy_pll_link_clk",
++				      "dp_phy_pll_vco_div_clk",
++				      "cfg_ahb_clk",
++				      "gcc_disp_gpll0_div_clk_src";
++
++			required-opps = <&rpmpd_opp_ret>;
++			power-domains = <&rpmpd SM6125_VDDCX>;
++
++			#clock-cells = <1>;
++			#power-domain-cells = <1>;
++		};
++
+ 		apps_smmu: iommu@c600000 {
+ 			compatible = "qcom,sm6125-smmu-500", "qcom,smmu-500", "arm,mmu-500";
+ 			reg = <0x0c600000 0x80000>;
 
 -- 
 2.41.0
