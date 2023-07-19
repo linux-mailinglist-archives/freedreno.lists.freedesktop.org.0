@@ -2,48 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8A0759F59
-	for <lists+freedreno@lfdr.de>; Wed, 19 Jul 2023 22:09:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF02475A0C3
+	for <lists+freedreno@lfdr.de>; Wed, 19 Jul 2023 23:52:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B6C10E50D;
-	Wed, 19 Jul 2023 20:09:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC0BA10E056;
+	Wed, 19 Jul 2023 21:52:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46D2C10E50B;
- Wed, 19 Jul 2023 20:09:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB13B10E056;
+ Wed, 19 Jul 2023 21:52:40 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 96EE561807;
- Wed, 19 Jul 2023 20:09:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F24EC433C7;
- Wed, 19 Jul 2023 20:09:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689797363;
- bh=klqOWFOUh1QB5odPiLwWfeNWJcVb2PU7gijJT32YqNc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A/2dYFF4KVhoHbqExV9WPBfS6C4fOHioJbj1B0mpePbgVhxjl+2zzBPGfp70rL5Dk
- LC0wykkcZrebfGspQLokwey+kP4xeSWCPaQO7vxVeq5rmNY8Ma0TYwI5c3G56Bdksn
- FQcFBYnlefuUVlBkvyEcDtZWip7j1OtLXXGDst3abhqiNtPIAz7j7JmXh2FX/kVk0b
- LqlA6yfDeEJJQmkrp4xAuI2511AJKjSBzRC63H85DyePlqWPkMmV0IF3bMMp6T9/Ns
- 4lVVS593VTU/O7DQN2AmYKl027Xxu2ccsdR73CTL6Ly/qBtPWkdEw0kL3rKywZPEe/
- KGn90hFEjFTSw==
-Received: (nullmailer pid 687249 invoked by uid 1000);
- Wed, 19 Jul 2023 20:09:20 -0000
-Date: Wed, 19 Jul 2023 14:09:19 -0600
-From: Rob Herring <robh@kernel.org>
-To: Amit Pundir <amit.pundir@linaro.org>
-Message-ID: <168979735935.687074.3349593216589059012.robh@kernel.org>
-References: <20230713165238.2814849-1-amit.pundir@linaro.org>
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 12D6F20388;
+ Wed, 19 Jul 2023 23:52:36 +0200 (CEST)
+Date: Wed, 19 Jul 2023 23:52:33 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <wr2f6uzgam72ykgrjgalmo2h2ye2xlzgh4v3utxqed4isyfkau@aarofkuvysuk>
+References: <20230627-sm6125-dpu-v2-0-03e430a2078c@somainline.org>
+ <20230627-sm6125-dpu-v2-10-03e430a2078c@somainline.org>
+ <285facd1-bf20-aff2-b680-f796e8830038@linaro.org>
+ <yzz4dddlh2no3lmuxrkuxhsuaf3brruo635pgfpnaxwffmnl6j@uk3jxtoarg7w>
+ <d5f925e4-fbfe-cbb2-c3e6-8e806761d61e@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230713165238.2814849-1-amit.pundir@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 1/2] dt-bindings: display/msm:
- mdss-common: add memory-region property
+In-Reply-To: <d5f925e4-fbfe-cbb2-c3e6-8e806761d61e@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 10/15] dt-bindings: msm: dsi-phy-14nm:
+ Document SM6125 variant
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,44 +46,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, dt <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Caleb Connolly <caleb.connolly@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- lkml <linux-kernel@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Andy Gross <agross@kernel.org>,
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bryan Donoghue <bryan.odonoghue@linaro.org>, David Airlie <airlied@gmail.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andy Gross <agross@kernel.org>,
+ Lux Aliaga <they@mint.lgbt>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Loic Poulain <loic.poulain@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 2023-07-19 01:01:54, Dmitry Baryshkov wrote:
+> On 19/07/2023 00:00, Marijn Suijten wrote:
+> > On 2023-06-29 13:54:13, Dmitry Baryshkov wrote:
+> >> On 27/06/2023 23:14, Marijn Suijten wrote:
+> >>> Document availability of the 14nm DSI PHY on SM6125.  Note that this
+> >>> compatible uses the SoC-suffix variant, intead of postfixing an
+> >>> arbitrary number without the sm/sdm portion.  The PHY is not powered by
+> >>> a vcca regulator like on most SoCs, but by the MX power domain that is
+> >>> provided via the power-domains property and a single corresponding
+> >>> required-opps.
+> >>>
+> >>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> >>> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> >>> ---
+> >>>    .../devicetree/bindings/display/msm/dsi-phy-14nm.yaml         | 11 +++++++++++
+> >>>    1 file changed, 11 insertions(+)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+> >>> index a43e11d3b00d..183a26f8a6dc 100644
+> >>> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+> >>> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+> >>> @@ -19,6 +19,7 @@ properties:
+> >>>          - qcom,dsi-phy-14nm-2290
+> >>>          - qcom,dsi-phy-14nm-660
+> >>>          - qcom,dsi-phy-14nm-8953
+> >>> +      - qcom,sm6125-dsi-phy-14nm
+> >>>    
+> >>>      reg:
+> >>>        items:
+> >>> @@ -35,6 +36,16 @@ properties:
+> >>>      vcca-supply:
+> >>>        description: Phandle to vcca regulator device node.
+> >>>    
+> >>> +  power-domains:
+> >>> +    description:
+> >>> +      A phandle and PM domain specifier for an optional power domain.
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  required-opps:
+> >>> +    description:
+> >>> +      A phandle to an OPP node describing an optional performance point.
+> >>
+> >> I'd rephrase this to be something more exact, like 'desribing power
+> >> domain's performance point'.
+> > 
+> > Sure.  I'll leave out the word "optional", that becomes obvious from
+> > maxItems:1 without minItems, together with referencing a PM which itself
+> > is already optional.
+> 
+> no, default minItems is equal to maxItems. It is not listing this 
+> property under the required what makes it optional.
 
-On Thu, 13 Jul 2023 22:22:37 +0530, Amit Pundir wrote:
-> Add and document the reserved memory region property in the
-> mdss-common schema.
-> 
-> For now (sdm845-db845c), it points to a framebuffer memory
-> region reserved by the bootloader for splash screen.
-> 
-> Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-> ---
-> v5: Moving the dt-binding to mdss-common schema with
->     updated commit message and property description.
-> 
-> v4: Adding this new dt-binding patch, in qcom,sdm845-mdss
->     schema, in the v4 of the follow-up patch for
->     sdm845-db845c.
->     https://lore.kernel.org/lkml/20230712130215.666924-2-amit.pundir@linaro.org/
-> 
->  .../devicetree/bindings/display/msm/mdss-common.yaml         | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
+I thought it was both.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Magic.
 
+- Marijn
