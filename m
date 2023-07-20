@@ -1,72 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5DC275B541
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jul 2023 19:11:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E134975B624
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jul 2023 20:10:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8323C10E5E2;
-	Thu, 20 Jul 2023 17:11:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2373E10E5FE;
+	Thu, 20 Jul 2023 18:10:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2CDA10E5EB
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jul 2023 17:11:25 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fdd31bf179so1660550e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jul 2023 10:11:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689873084; x=1690477884;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bALuSQOEaIXV7+8g1kPlEIEXPY6havyGO8belxbKINE=;
- b=QM+Bk2/Ep503vHxFU8hlMOEKrBdsf2QJ5ANYqnZh42ITGinI8GBXKbTrrxD6zGYeu7
- 10HHp1LKK6rHEXKzoHqGBXXAWEAxt4Ql9azpLo33NnKNSX8fMH7WKRQZcyi0afkOapKl
- Qoy7bPCufCiIvnbBN4bU82vxImNCcUOFdMJw9dlHTz92SQVN2eFmbkKJ7mSEyuQ1dss7
- 3K4KQDTdz364IpO+9GYipvo4LE7O1z/0psgrMbi5h7gHfC1DEuXsUMdJ2nbeI4Z7q5m4
- ZqFhplW+oC9hQKkgVZerbV72KjJPuu4ZYpGT+03zFJgiZ8tbBgZGlnJ9rTSjLae473Ud
- 2WKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689873084; x=1690477884;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bALuSQOEaIXV7+8g1kPlEIEXPY6havyGO8belxbKINE=;
- b=B5SutKVhS9i3oZgj8nzMyxuurpreUPG0d/bWOYAyH//+gIBvEtpDyAmGeuM3F9hglb
- fj5T9HPcCIrptY/k+96vgwxxGbPtmPOE6HSNKoqTVjBnmSWGKLNk20FxBaGS1y2OWm5R
- 944QYREvht0psT0ChOzhKBypb+GzPaLmeSGxrGjIEQ0B6IifJBpuFaHfMWjF4AqxKwCX
- FtnKtqQX26VU2u9CtjJUY3cP6fsp+/dmFjeixH0W3VSHkSIFhOeqxsG/Sh8ZRSqy4SLI
- Y4h+Hsmx8KOyiyKED8omd+3fBNeUZ5KqbH17h+Pi6bdPLYrC5bMSeKMap32zl6+2Ifw5
- ddww==
-X-Gm-Message-State: ABy/qLbXbwsDEeC38KPK4A6Q8AD9b65uqsUej6gHlsvvoeC9luq/gQPi
- XwDw3Ud3mnehC5uNeniX2pjzNQ==
-X-Google-Smtp-Source: APBJJlGOiKHsb1V0MVEKlaWuSBLsg+MjtKiZQvBXh+G+6GT0IskQ2rgyrt8zPoyO3+O22tAEZL2Zrw==
-X-Received: by 2002:a19:2d05:0:b0:4fa:5e76:7ad4 with SMTP id
- k5-20020a192d05000000b004fa5e767ad4mr2564840lfj.10.1689873083816; 
- Thu, 20 Jul 2023 10:11:23 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- r6-20020ac25a46000000b004fdc0023a50sm286045lfn.232.2023.07.20.10.11.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jul 2023 10:11:23 -0700 (PDT)
-Message-ID: <5f903395-9e5a-d4bc-067a-91256588c661@linaro.org>
-Date: Thu, 20 Jul 2023 20:11:22 +0300
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6BF110E5FB;
+ Thu, 20 Jul 2023 18:10:26 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 22B8D61B7F;
+ Thu, 20 Jul 2023 18:10:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05DA6C433C8;
+ Thu, 20 Jul 2023 18:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1689876625;
+ bh=N/wsQNOLSdYXcfNS6ldcXlg9JbOA2i8x5WgK1L3Hj+g=;
+ h=Subject:To:Cc:From:Date:From;
+ b=ZAqAXo4GfgesxiAHH+HpvR/D4p36no6fc3LeBpeZrbo0TeN5/45427E10OixhD1j+
+ CT+7DDKsrftqTf7qChruT4l4E4pTClpnnGM0kKqCEksxkhx6RrtU386dIPm7que1Sf
+ e0Dl5XiWIKGmEUgCUI0d8j1aaKMTe4sOGLCqfgnQ=
+To: MoritzDuge@kolahilft.de, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alexander.deucher@amd.com, alexandru.gagniuc@hp.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ daniel.vetter@ffwll.ch, dmitry.baryshkov@linaro.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, inki.dae@samsung.com, javierm@redhat.com,
+ krah.tm@gmail.com, krzysztof.kozlowski@linaro.org, kyungmin.park@samsung.com,
+ linux-arm-kernel@lists.infradead.org, linux@armlinux.org.uk,
+ maarten.lankhorst@linux.intel.com, mario.limonciello@amd.com,
+ mperttunen@nvidia.com, mripard@kernel.org, noralf@tronnes.org,
+ patrik.r.jakobsson@gmail.com, pschyska@gmail.com, quic_abhinavk@quicinc.com,
+ robdclark@gmail.com, sw0312.kim@samsung.com, thierry.reding@gmail.com,
+ tomi.valkeinen@ideasonboard.com, tzimmermann@suse.de
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 20 Jul 2023 20:10:14 +0200
+Message-ID: <2023072014-imprison-spelling-8d29@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: Rob Clark <robdclark@gmail.com>
-References: <20230309222049.4180579-1-jorcrous@amazon.com>
- <d73f6733-e605-0cf8-7909-8cced6e3b70d@linaro.org>
- <CAF6AEGs89FRmFsENLkP-Dg1ZJN2LzCfxY2-+do9jH9b8L-XZxg@mail.gmail.com>
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGs89FRmFsENLkP-Dg1ZJN2LzCfxY2-+do9jH9b8L-XZxg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Check for the GPU IOMMU during bind
+X-stable: commit
+X-Patchwork-Hint: ignore 
+Subject: [Freedreno] Patch "drm/client: Send hotplug event after registering
+ a client" has been added to the 6.1-stable tree
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,175 +62,204 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Jordan Crouse <jorcrous@amazon.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Ricardo Ribalda <ribalda@chromium.org>,
- "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
- David Airlie <airlied@gmail.com>
+Cc: stable-commits@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/07/2023 18:52, Rob Clark wrote:
-> On Thu, Jul 6, 2023 at 11:55 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> On 10/03/2023 00:20, Jordan Crouse wrote:
->>> While booting with amd,imageon on a headless target the GPU probe was
->>> failing with -ENOSPC in get_pages() from msm_gem.c.
->>>
->>> Investigation showed that the driver was using the default 16MB VRAM
->>> carveout because msm_use_mmu() was returning false since headless devices
->>> use a dummy parent device. Avoid this by extending the existing is_a2xx
->>> priv member to check the GPU IOMMU state on all platforms and use that
->>> check in msm_use_mmu().
->>>
->>> This works for memory allocations but it doesn't prevent the VRAM carveout
->>> from being created because that happens before we have a chance to check
->>> the GPU IOMMU state in adreno_bind.
->>>
->>> There are a number of possible options to resolve this but none of them are
->>> very clean. The easiest way is to likely specify vram=0 as module parameter
->>> on headless devices so that the memory doesn't get wasted.
->>
->> This patch was on my plate for quite a while, please excuse me for
->> taking it so long.
->>
->> I see the following problem with the current code. We have two different
->> instances than can access memory: MDP/DPU and GPU. And each of them can
->> either have or miss the MMU.
->>
->> For some time I toyed with the idea of determining whether the allocated
->> BO is going to be used by display or by GPU, but then I abandoned it. We
->> can have display BOs being filled by GPU, so handling it this way would
->> complicate things a lot.
-> 
-> There is MSM_BO_SCANOUT .. but it wouldn't completely surprise me if
-> it isn't used in some place where it should somewhere or other.  But
-> that is the hint that contiguous allocation should be used if the
-> display doesn't support some sort of iommu.  (Using a GPU without some
-> sort of mmu/iommu isn't something sane to do.. the only reason the
-> support for that exists at all is to aid bringup.  I wouldn't call
-> that a "supported" configuration.)
-> 
->> This actually rings a tiny bell in my head with the idea of splitting
->> the display and GPU parts to two different drivers, but I'm not sure
->> what would be the overall impact.
-> 
-> Userspace does have better support for split display/gpu these days
-> than it did when drm/msm was first merged.  It _might_ just work if
-> one device only advertised DRIVER_RENDER and the other
-> MODESET/ATOMIC.. but I'd be a bit concerned about breaking things.  I
-> guess you could try some sort of kconfig knob to have two "msm"
-> devices and see what breaks, but I'm a bit skeptical that we could
-> make this the default anytime soon.
 
-Thanks. Yes, breaking userspace would be a bad thing. I do not know if 
-we should consider a single GPU+KMS driver to be an ABI and thus set in 
-stone.
+This is a note to let you know that I've just added the patch titled
 
-> 
-> For now, just addressing the only-display and only-gpu cases
-> (continuing with the single device arrangement when you have both
-> display and gpu), maybe split up drm_dev_alloc() and drm_dev_init() so
-> that we could use drm_device::driver_features to mask out
-> DRIVER_RENDER if needed.
+    drm/client: Send hotplug event after registering a client
 
-Yep. I'll continue following that path.
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-> 
-> BR,
-> -R
-> 
->> More on the msm_use_mmu() below.
->>
->>>
->>> Signed-off-by: Jordan Crouse <jorcrous@amazon.com>
->>> ---
->>>
->>>    drivers/gpu/drm/msm/adreno/adreno_device.c | 6 +++++-
->>>    drivers/gpu/drm/msm/msm_drv.c              | 7 +++----
->>>    drivers/gpu/drm/msm/msm_drv.h              | 2 +-
->>>    3 files changed, 9 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
->>> index 36f062c7582f..4f19da28f80f 100644
->>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->>> @@ -539,7 +539,11 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->>>        DBG("Found GPU: %u.%u.%u.%u", config.rev.core, config.rev.major,
->>>                config.rev.minor, config.rev.patchid);
->>>
->>> -     priv->is_a2xx = config.rev.core == 2;
->>> +     /*
->>> +      * A2xx has a built in IOMMU and all other IOMMU enabled targets will
->>> +      * have an ARM IOMMU attached
->>> +      */
->>> +     priv->has_gpu_iommu = config.rev.core == 2 || device_iommu_mapped(dev);
->>>        priv->has_cached_coherent = config.rev.core >= 6;
->>>
->>>        gpu = info->init(drm);
->>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->>> index aca48c868c14..a125a351ec90 100644
->>> --- a/drivers/gpu/drm/msm/msm_drv.c
->>> +++ b/drivers/gpu/drm/msm/msm_drv.c
->>> @@ -318,11 +318,10 @@ bool msm_use_mmu(struct drm_device *dev)
->>>        struct msm_drm_private *priv = dev->dev_private;
->>>
->>>        /*
->>> -      * a2xx comes with its own MMU
->>> -      * On other platforms IOMMU can be declared specified either for the
->>> -      * MDP/DPU device or for its parent, MDSS device.
->>> +      * Return true if the GPU or the MDP/DPU or parent MDSS device has an
->>> +      * IOMMU
->>>         */
->>> -     return priv->is_a2xx ||
->>> +     return priv->has_gpu_iommu ||
->>>                device_iommu_mapped(dev->dev) ||
->>>                device_iommu_mapped(dev->dev->parent);
->>
->> I have a generic feeling that both old an new code is not fully correct.
->> Please correct me if I'm wrong:
->>
->> We should be using VRAM, if either of the blocks can not use remapped
->> memory. So this should have been:
->>
->> bool msm_use_mmu()
->> {
->>    if (!gpu_has_iommu)
->>      return false;
->>
->>    if (have_display_part && !display_has_mmu())
->>      return false;
->>
->>    return true;
->> }
->>
->> What do you think.
->>
->>>    }
->>> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
->>> index 9f0c184b02a0..f33f94acd1b9 100644
->>> --- a/drivers/gpu/drm/msm/msm_drv.h
->>> +++ b/drivers/gpu/drm/msm/msm_drv.h
->>> @@ -126,7 +126,7 @@ struct msm_drm_private {
->>>        struct msm_gpu *gpu;
->>>
->>>        /* gpu is only set on open(), but we need this info earlier */
->>> -     bool is_a2xx;
->>> +     bool has_gpu_iommu;
->>>        bool has_cached_coherent;
->>>
->>>        struct drm_fb_helper *fbdev;
->>
->> --
->> With best wishes
->> Dmitry
->>
+The filename of the patch is:
+     drm-client-send-hotplug-event-after-registering-a-client.patch
+and it can be found in the queue-6.1 subdirectory.
 
--- 
-With best wishes
-Dmitry
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
+
+From 27655b9bb9f0d9c32b8de8bec649b676898c52d5 Mon Sep 17 00:00:00 2001
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Mon, 10 Jul 2023 11:10:17 +0200
+Subject: drm/client: Send hotplug event after registering a client
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+commit 27655b9bb9f0d9c32b8de8bec649b676898c52d5 upstream.
+
+Generate a hotplug event after registering a client to allow the
+client to configure its display. Remove the hotplug calls from the
+existing clients for fbdev emulation. This change fixes a concurrency
+bug between registering a client and receiving events from the DRM
+core. The bug is present in the fbdev emulation of all drivers.
+
+The fbdev emulation currently generates a hotplug event before
+registering the client to the device. For each new output, the DRM
+core sends an additional hotplug event to each registered client.
+
+If the DRM core detects first output between sending the artificial
+hotplug and registering the device, the output's hotplug event gets
+lost. If this is the first output, the fbdev console display remains
+dark. This has been observed with amdgpu and fbdev-generic.
+
+Fix this by adding hotplug generation directly to the client's
+register helper drm_client_register(). Registering the client and
+receiving events are serialized by struct drm_device.clientlist_mutex.
+So an output is either configured by the initial hotplug event, or
+the client has already been registered.
+
+The bug was originally added in commit 6e3f17ee73f7 ("drm/fb-helper:
+generic: Call drm_client_add() after setup is done"), in which adding
+a client and receiving a hotplug event switched order. It was hidden,
+as most hardware and drivers have at least on static output configured.
+Other drivers didn't use the internal DRM client or still had struct
+drm_mode_config_funcs.output_poll_changed set. That callback handled
+hotplug events as well. After not setting the callback in amdgpu in
+commit 0e3172bac3f4 ("drm/amdgpu: Don't set struct
+drm_driver.output_poll_changed"), amdgpu did not show a framebuffer
+console if output events got lost. The bug got copy-pasted from
+fbdev-generic into the other fbdev emulation.
+
+Reported-by: Moritz Duge <MoritzDuge@kolahilft.de>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2649
+Fixes: 6e3f17ee73f7 ("drm/fb-helper: generic: Call drm_client_add() after setup is done")
+Fixes: 8ab59da26bc0 ("drm/fb-helper: Move generic fbdev emulation into separate source file")
+Fixes: b79fe9abd58b ("drm/fbdev-dma: Implement fbdev emulation for GEM DMA helpers")
+Fixes: 63c381552f69 ("drm/armada: Implement fbdev emulation as in-kernel client")
+Fixes: 49953b70e7d3 ("drm/exynos: Implement fbdev emulation as in-kernel client")
+Fixes: 8f1aaccb04b7 ("drm/gma500: Implement client-based fbdev emulation")
+Fixes: 940b869c2f2f ("drm/msm: Implement fbdev emulation as in-kernel client")
+Fixes: 9e69bcd88e45 ("drm/omapdrm: Implement fbdev emulation as in-kernel client")
+Fixes: e317a69fe891 ("drm/radeon: Implement client-based fbdev emulation")
+Fixes: 71ec16f45ef8 ("drm/tegra: Implement fbdev emulation as in-kernel client")
+Fixes: 0e3172bac3f4 ("drm/amdgpu: Don't set struct drm_driver.output_poll_changed")
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Tested-by: Moritz Duge <MoritzDuge@kolahilft.de>
+Tested-by: Torsten Krah <krah.tm@gmail.com>
+Tested-by: Paul Schyska <pschyska@gmail.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Noralf Trønnes <noralf@tronnes.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.2+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
+Link: https://patchwork.freedesktop.org/patch/msgid/20230710091029.27503-1-tzimmermann@suse.de
+(cherry picked from commit 27655b9bb9f0d9c32b8de8bec649b676898c52d5)
+[ Dropped changes to drivers/gpu/drm/armada/armada_fbdev.c as
+  174c3c38e3a2 drm/armada: Initialize fbdev DRM client
+  was introduced in 6.5-rc1.
+
+  Dropped changes to exynos, msm, omapdrm, radeon, tegra drivers
+  as missing code these commits introduced:
+
+  99286486d674 drm/exynos: Initialize fbdev DRM client
+  841ef552b141 drm/msm: Initialize fbdev DRM client
+  9e69bcd88e45 drm/omapdrm: Implement fbdev emulation as in-kernel client
+  e317a69fe891 drm/radeon: Implement client-based fbdev emulation
+  9b926bcf2636 drm/radeon: Only build fbdev if DRM_FBDEV_EMULATION is set
+  25dda38e0b07 drm/tegra: Initialize fbdev DRM client
+  8f1aaccb04b7 drm/gma500: Implement client-based fbdev emulation
+  b79fe9abd58b drm/fbdev-dma: Implement fbdev emulation for GEM DMA helpers
+
+  Move code for drm-fbdev-generic.c to matching file in 6.1.y because
+  these commits haven't happened in 6.1.y.
+  8ab59da26bc0 drm/fb-helper: Move generic fbdev emulation into separate source file
+  b9c93f4ec737 drm/fbdev-generic: Rename symbols ]
+Cc: alexandru.gagniuc@hp.com
+Link: https://lore.kernel.org/stable/SJ0PR84MB20882EEA1ABB36F60E845E378F5AA@SJ0PR84MB2088.NAMPRD84.PROD.OUTLOOK.COM/
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/drm_client.c    |   21 +++++++++++++++++++++
+ drivers/gpu/drm/drm_fb_helper.c |    4 ----
+ 2 files changed, 21 insertions(+), 4 deletions(-)
+
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -122,13 +122,34 @@ EXPORT_SYMBOL(drm_client_init);
+  * drm_client_register() it is no longer permissible to call drm_client_release()
+  * directly (outside the unregister callback), instead cleanup will happen
+  * automatically on driver unload.
++ *
++ * Registering a client generates a hotplug event that allows the client
++ * to set up its display from pre-existing outputs. The client must have
++ * initialized its state to able to handle the hotplug event successfully.
+  */
+ void drm_client_register(struct drm_client_dev *client)
+ {
+ 	struct drm_device *dev = client->dev;
++	int ret;
+ 
+ 	mutex_lock(&dev->clientlist_mutex);
+ 	list_add(&client->list, &dev->clientlist);
++
++	if (client->funcs && client->funcs->hotplug) {
++		/*
++		 * Perform an initial hotplug event to pick up the
++		 * display configuration for the client. This step
++		 * has to be performed *after* registering the client
++		 * in the list of clients, or a concurrent hotplug
++		 * event might be lost; leaving the display off.
++		 *
++		 * Hold the clientlist_mutex as for a regular hotplug
++		 * event.
++		 */
++		ret = client->funcs->hotplug(client);
++		if (ret)
++			drm_dbg_kms(dev, "client hotplug ret=%d\n", ret);
++	}
+ 	mutex_unlock(&dev->clientlist_mutex);
+ }
+ EXPORT_SYMBOL(drm_client_register);
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -2634,10 +2634,6 @@ void drm_fbdev_generic_setup(struct drm_
+ 		preferred_bpp = 32;
+ 	fb_helper->preferred_bpp = preferred_bpp;
+ 
+-	ret = drm_fbdev_client_hotplug(&fb_helper->client);
+-	if (ret)
+-		drm_dbg_kms(dev, "client hotplug ret=%d\n", ret);
+-
+ 	drm_client_register(&fb_helper->client);
+ }
+ EXPORT_SYMBOL(drm_fbdev_generic_setup);
+
+
+Patches currently in stable-queue which might be from tzimmermann@suse.de are
+
+queue-6.1/drm-client-send-hotplug-event-after-registering-a-client.patch
