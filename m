@@ -1,30 +1,30 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A6975E310
-	for <lists+freedreno@lfdr.de>; Sun, 23 Jul 2023 18:08:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CA9B75E312
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jul 2023 18:08:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FFB010E0E0;
-	Sun, 23 Jul 2023 16:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B67E710E1C7;
+	Sun, 23 Jul 2023 16:08:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it [5.144.164.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEBFB10E02C
- for <freedreno@lists.freedesktop.org>; Sun, 23 Jul 2023 16:08:46 +0000 (UTC)
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0308510E0E4;
+ Sun, 23 Jul 2023 16:08:47 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id C8FF03F1DA;
- Sun, 23 Jul 2023 18:08:43 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 1DEC53F1DE;
+ Sun, 23 Jul 2023 18:08:45 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sun, 23 Jul 2023 18:08:41 +0200
+Date: Sun, 23 Jul 2023 18:08:42 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230723-sm6125-dpu-v4-3-a3f287dd6c07@somainline.org>
+Message-Id: <20230723-sm6125-dpu-v4-4-a3f287dd6c07@somainline.org>
 References: <20230723-sm6125-dpu-v4-0-a3f287dd6c07@somainline.org>
 In-Reply-To: <20230723-sm6125-dpu-v4-0-a3f287dd6c07@somainline.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -41,8 +41,8 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Loic Poulain <loic.poulain@linaro.org>, 
  Konrad Dybcio <konrad.dybcio@somainline.org>
 X-Mailer: b4 0.12.3
-Subject: [Freedreno] [PATCH v4 03/17] arm64: dts: qcom: sm6125: Sort
- spmi_bus node numerically by reg
+Subject: [Freedreno] [PATCH v4 04/17] dt-bindings: display/msm: Remove DSI1
+ ports from SM6350/SM6375 example
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,73 +66,56 @@ Cc: devicetree@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This node has always resided in the wrong spot, making it somewhat
-harder to contribute new node entries while maintaining proper sorting
-around it.  Move the node up to sit after hsusb_phy1 where it maintains
-proper numerical sorting on the (first of its many) reg address
-property.
+Both SM6350 and SM6375 support only a single DSI link, and don't have a
+corresponding dsi1 node in DTS.  Their examples should not suggest an
+output interface port on the display-controller node to this inexistant
+DSI host, with a dsi1_in label reference that doesn't exist in the
+example either.
 
-Fixes: cff4bbaf2a2d ("arm64: dts: qcom: Add support for SM6125")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Fixes: 3b7502b0c205 ("dt-bindings: display/msm: Add SM6350 MDSS")
+Fixes: 2a5c1021bc77 ("dt-bindings: display/msm: Add SM6375 MDSS")
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- arch/arm64/boot/dts/qcom/sm6125.dtsi | 36 ++++++++++++++++++------------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml          | 7 -------
+ .../devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml          | 7 -------
+ 2 files changed, 14 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-index 7feb6feffa40..cfd0901d4555 100644
---- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
-@@ -684,6 +684,24 @@ hsusb_phy1: phy@1613000 {
- 			status = "disabled";
- 		};
- 
-+		spmi_bus: spmi@1c40000 {
-+			compatible = "qcom,spmi-pmic-arb";
-+			reg = <0x01c40000 0x1100>,
-+			      <0x01e00000 0x2000000>,
-+			      <0x03e00000 0x100000>,
-+			      <0x03f00000 0xa0000>,
-+			      <0x01c0a000 0x26000>;
-+			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
-+			interrupt-names = "periph_irq";
-+			interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
-+			qcom,ee = <0>;
-+			qcom,channel = <0>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+			interrupt-controller;
-+			#interrupt-cells = <4>;
-+		};
-+
- 		rpm_msg_ram: sram@45f0000 {
- 			compatible = "qcom,rpm-msg-ram";
- 			reg = <0x045f0000 0x7000>;
-@@ -1189,24 +1207,6 @@ sram@4690000 {
- 			reg = <0x04690000 0x10000>;
- 		};
- 
--		spmi_bus: spmi@1c40000 {
--			compatible = "qcom,spmi-pmic-arb";
--			reg = <0x01c40000 0x1100>,
--			      <0x01e00000 0x2000000>,
--			      <0x03e00000 0x100000>,
--			      <0x03f00000 0xa0000>,
--			      <0x01c0a000 0x26000>;
--			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
--			interrupt-names = "periph_irq";
--			interrupts = <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>;
--			qcom,ee = <0>;
--			qcom,channel = <0>;
--			#address-cells = <2>;
--			#size-cells = <0>;
--			interrupt-controller;
--			#interrupt-cells = <4>;
--		};
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+index ed0ad194d4ce..63962a8f2faf 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+@@ -131,13 +131,6 @@ examples:
+                         remote-endpoint = <&dsi0_in>;
+                     };
+                 };
 -
- 		apps_smmu: iommu@c600000 {
- 			compatible = "qcom,sm6125-smmu-500", "qcom,smmu-500", "arm,mmu-500";
- 			reg = <0x0c600000 0x80000>;
+-                port@1 {
+-                    reg = <1>;
+-                    dpu_intf2_out: endpoint {
+-                        remote-endpoint = <&dsi1_in>;
+-                    };
+-                };
+             };
+         };
+ 
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
+index 76369a4f7c4d..595a9d56949c 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
+@@ -132,13 +132,6 @@ examples:
+                         remote-endpoint = <&dsi0_in>;
+                     };
+                 };
+-
+-                port@1 {
+-                    reg = <1>;
+-                    dpu_intf2_out: endpoint {
+-                        remote-endpoint = <&dsi1_in>;
+-                    };
+-                };
+             };
+         };
+ 
 
 -- 
 2.41.0
