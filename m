@@ -2,52 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5081675FDB9
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jul 2023 19:30:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE573760078
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jul 2023 22:28:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4F310E0DD;
-	Mon, 24 Jul 2023 17:30:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89C9D10E11F;
+	Mon, 24 Jul 2023 20:28:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 963 seconds by postgrey-1.36 at gabe;
- Mon, 24 Jul 2023 17:30:09 UTC
-Received: from mailrelay5-1.pub.mailoutpod2-cph3.one.com
- (mailrelay5-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:404::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC4410E0DD
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jul 2023 17:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa1;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=YrKdfEJPkp8cxcYIrOqeYx8cgaV2LlCIos+ktOgi4tw=;
- b=saRRZ3U1tsP1vn/cPMCdIb5jqYhCpwBkqKLeCDsQkiB834DbR181G0Qm2Z9na9pbPBlgmdLUtecqX
- F8X2ubMsWwqSLyOCWsXY58d0xyqHduWLmCISSX0CjLRH/7FoXQFfKcAD2tYiUTt1khQQ4dK2IIfiak
- SJ+xexvx0x58FONQrs0WgRT2bSHDTNmBDOl2qQRSWflj5DB1fVF+WaZU/sZQ3McrF6OH5TOMkpj3jE
- uIOq9wyZHKJ+xuu5MrGFSqbuicnTtdL96MyJ+dOHg+EX2yn6b2pIeDW6JXn4ERcDUe7zRDnaWh87tq
- Fn/Pcbz/J6UkYCeK94wnS9h0LouZbSw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=ravnborg.org; s=ed1;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=YrKdfEJPkp8cxcYIrOqeYx8cgaV2LlCIos+ktOgi4tw=;
- b=bkdXlnVRZmif/n8pH0YuZcafk4/jZR/NeUeMmRYsGOiFrQKSVMi213IBNI+85h5xuSDLzQoKLkdag
- RfngfPYBw==
-X-HalOne-ID: 7c739322-2a45-11ee-984b-55333ba73462
-Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
- by mailrelay5 (Halon) with ESMTPSA
- id 7c739322-2a45-11ee-984b-55333ba73462;
- Mon, 24 Jul 2023 17:14:03 +0000 (UTC)
-Date: Mon, 24 Jul 2023 19:14:02 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>
-Message-ID: <20230724171402.GB692753@ravnborg.org>
-References: <20230724140036.1022676-1-cuigaosheng1@huawei.com>
- <20230724140036.1022676-2-cuigaosheng1@huawei.com>
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6601210E02A;
+ Mon, 24 Jul 2023 20:28:25 +0000 (UTC)
+Received: by mail-pg1-x533.google.com with SMTP id
+ 41be03b00d2f7-56366112d64so498016a12.0; 
+ Mon, 24 Jul 2023 13:28:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690230505; x=1690835305;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ACVhCuYbyTCIAXi4CT8CW18d9cUT7JCXdATdUoNDmWs=;
+ b=Hcr9k3R+2iloLepjZWsAwwEgWWeBSFwGB8SpLVs8XIo/jatRaNsS/2pAv/79QVaTi3
+ GbZ/w/WCJqqrKzUMrb4Z0Z308oRtLHXbkpY0jQhQQZXBy8CJgtRQdylhz/q5PBqKSME+
+ gkcDs5/hn1t7YrwJwq+ERLH1CgC/mM3c7L87Ati6rMyt7uLLgxrCOsseFykTWKGPTnaV
+ 0eu42SzyPBw8ImQnHheewncD96i1KLk1gSO+gXHqfLub1fip32UIYbctNUzyPHQI7KFl
+ 21Wi/jr5wNyz4Z+j+C8fND4G/3K5Qw1V8asd3ysmUxKoRkqmV90yy/TO1+Ssn8Rl+qZ8
+ ZY7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690230505; x=1690835305;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ACVhCuYbyTCIAXi4CT8CW18d9cUT7JCXdATdUoNDmWs=;
+ b=cFhrxxRUue3K3qA83u19sR7E9spxaTff9Ld6Regu8s3WgD8YIn3mrk2ihtnKzEPKFm
+ maeabGY0l3eVtEj6NX7WCbinijbu4Z67IDl6OfzhKEnch+R+jqg/Db3dkXR/J6KLCsS2
+ OjfVKXR416HY55NUUIXSXwWwvQkqcMZy8ilJ0fhPAL8tSq43CL9iQO/bGi5rT28VdG7M
+ TPPHUHOOjdJSSvkDhfksFARg8xUoRWkr4Z1Ee8ybj6Vkc/XRpgNVrHaNuvpOMdu7UweI
+ K0PUgSymqOVn7XtcEahuXJbFAD4BFRpjCjBtzMqvKPAuj0WS6YF2zWHdGxjh1qCRx/PZ
+ MNpA==
+X-Gm-Message-State: ABy/qLa3OT1N3/MLO2RKUcv4986RZW8PLygFfcTxpVCNBEZPDCcHqxFi
+ DjBFZtmps8GpCE/PUur8ndtMyUsQmV6lcliQ+tnShdL5
+X-Google-Smtp-Source: APBJJlEYsRZBAMzp7x8BefRfbyg3z4U3yjNd+OM5D4p6LZ+2GBnOrrJJ9Sg6/mS6KF0C3DgJcqVH8eW5jA814zVFPSo=
+X-Received: by 2002:a17:902:cecd:b0:1b8:70d2:eb3a with SMTP id
+ d13-20020a170902cecd00b001b870d2eb3amr14111006plg.0.1690230504894; Mon, 24
+ Jul 2023 13:28:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230724140036.1022676-2-cuigaosheng1@huawei.com>
-Subject: Re: [Freedreno] [PATCH v5 1/3] drm/panel: Fix IS_ERR() vs NULL
- check in nt35950_probe()
+References: <20230620232319.991918-1-festevam@gmail.com>
+ <33390a7a-f6f6-f2c5-1574-970ed1dc3a20@linaro.org>
+In-Reply-To: <33390a7a-f6f6-f2c5-1574-970ed1dc3a20@linaro.org>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Mon, 24 Jul 2023 17:28:12 -0300
+Message-ID: <CAOMZO5AYWpTPGuUEpXzGoH_Rr1=Xaz1BnJiRjdhvyWuoHq+1XQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, robdclark@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/a2xx: Call adreno_gpu_init()
+ earlier
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,49 +70,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, quic_eberman@quicinc.com, quic_gurus@quicinc.com,
- sean@poorly.run, linux-arm-msm@vger.kernel.org, a39.skl@gmail.com,
- liviu.dudau@arm.com, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, james.qian.wang@arm.com,
- daniel@ffwll.ch, angelogioacchino.delregno@somainline.org,
- dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org,
- freedreno@lists.freedesktop.org, airlied@gmail.com
+Cc: Fabio Estevam <festevam@denx.de>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jonathan@marek.ca
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Gaosheng,
-On Mon, Jul 24, 2023 at 10:00:34PM +0800, Gaosheng Cui wrote:
-> The mipi_dsi_device_register_full() returns an ERR_PTR() on failure,
-> we should use IS_ERR() to check the return value.
-> 
-> By the way, use dev_err_probe instead of dev_err to print the error code.
-> 
-> Fixes: 623a3531e9cf ("drm/panel: Add driver for Novatek NT35950 DSI DriverIC panels")
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
-> ---
->  drivers/gpu/drm/panel/panel-novatek-nt35950.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-> index 8b108ac80b55..2731ce02ce53 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-> @@ -571,8 +571,8 @@ static int nt35950_probe(struct mipi_dsi_device *dsi)
->  		}
->  
->  		nt->dsi[1] = mipi_dsi_device_register_full(dsi_r_host, info);
-> -		if (!nt->dsi[1]) {
-> -			dev_err(dev, "Cannot get secondary DSI node\n");
-> +		if (IS_ERR(nt->dsi[1])) {
-> +			dev_err_probe(dev, PTR_ERR(nt->dsi[1]), "Cannot get secondary DSI node\n");
->  			return -ENODEV;
-This code should return the error code we get from
-mipi_dsi_device_register_full().
+Hi Rob,
 
-To do so use:
-	
-	return dev_err_probe(...);
+A gentle ping.
 
-Please fix and sorry for not noticing before.
-
-	Sam
+On Thu, Jun 22, 2023 at 3:37=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 21/06/2023 02:23, Fabio Estevam wrote:
+> > From: Fabio Estevam <festevam@denx.de>
+> >
+> > The adreno_is_a20x() and adreno_is_a225() functions rely on the
+> > GPU revision, but such information is retrieved inside adreno_gpu_init(=
+),
+> > which is called afterwards.
+> >
+> > Fix this problem by caling adreno_gpu_init() earlier, so that
+> > the GPU information revision is available when adreno_is_a20x()
+> > and adreno_is_a225() run.
+> >
+> > Tested on a imx53-qsb board.
+> >
+> > Fixes: 21af872cd8c6 ("drm/msm/adreno: add a2xx")
+> > Signed-off-by: Fabio Estevam <festevam@denx.de>
+> > ---
+> > Hi,
+> >
+> > This error has been exposed by a recent commit in linux-next:
+> >
+> > cc943f43ece7 ("drm/msm/adreno: warn if chip revn is verified before bei=
+ng set")
+> >
+> > , but the error has been present since the very first a2xx commit.
+> >
+> > Changes since v2:
+> > - Call adreno_gpu_init() earlier.
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+>
+> >
+> >   drivers/gpu/drm/msm/adreno/a2xx_gpu.c | 8 ++++----
+> >   1 file changed, 4 insertions(+), 4 deletions(-)
+>
+>
+> --
+> With best wishes
+> Dmitry
+>
