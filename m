@@ -2,45 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 800E17604D0
-	for <lists+freedreno@lfdr.de>; Tue, 25 Jul 2023 03:40:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C71D761068
+	for <lists+freedreno@lfdr.de>; Tue, 25 Jul 2023 12:16:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ADDA10E10C;
-	Tue, 25 Jul 2023 01:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B0610E3C6;
+	Tue, 25 Jul 2023 10:16:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E5510E0C2;
- Tue, 25 Jul 2023 01:40:03 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4R906X55XQzVjs0;
- Tue, 25 Jul 2023 09:38:28 +0800 (CST)
-Received: from cgs.huawei.com (10.244.148.83) by
- kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Tue, 25 Jul 2023 09:40:00 +0800
-From: Gaosheng Cui <cuigaosheng1@huawei.com>
-To: <liviu.dudau@arm.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <neil.armstrong@linaro.org>,
- <sam@ravnborg.org>, <quic_eberman@quicinc.com>, <a39.skl@gmail.com>,
- <quic_gurus@quicinc.com>, <cuigaosheng1@huawei.com>,
- <angelogioacchino.delregno@somainline.org>, <james.qian.wang@arm.com>
-Date: Tue, 25 Jul 2023 09:39:57 +0800
-Message-ID: <20230725013957.1237590-4-cuigaosheng1@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230725013957.1237590-1-cuigaosheng1@huawei.com>
-References: <20230725013957.1237590-1-cuigaosheng1@huawei.com>
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF02D10E072
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jul 2023 10:16:17 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-51e2a6a3768so7932280a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jul 2023 03:16:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690280176; x=1690884976;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kgjzM14QEiL69p/YLX8lqgzuetXlnguUNrcPLd50K6I=;
+ b=C4czm/+Xz2UutJXlca3VkY/5VlywrDLHuMNp4CGjo7VZ0TpqzJjydvmrSDzTVSgAEt
+ +K3IZtgfB7epGyj4hbxX3wdBDlHFLyGYF8k87sMiH+G1gcqAMx40aZLy7MF9s5xeQP5x
+ fhnbmSwYWkAVdLsXKHBG7KQami1/9ue4beRYmJdyrSe/ka3umBmFTIAsEMhYhkmED0+n
+ h/tD+XzOhnhPcv7zRtsI2fsZdxpvyQNcwnEGlJZJJczCbDOtfM40WLASHHbA4aiLIfjA
+ D/rEU4Og78VLM9QbuzZ0XS+STA60ygyZjzHaQn79vehoGSKmUMX5h5wYMfmhLuvrMwXR
+ vuJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690280176; x=1690884976;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kgjzM14QEiL69p/YLX8lqgzuetXlnguUNrcPLd50K6I=;
+ b=lOGqeVga+izx9iGWHtpN4ZcnzS0Mis5UZUHq7esrGKaoW9R+jTHEAG/l8Ik6mn911w
+ JTUfWIAPYDkJcrQVq8H3B9G1P8wAM/2RWKw+SRp8TscLzaYhO8gtuY7tuexX0o4y7OMa
+ 9dY5PonKLTms7iFTtXbGeJ7AgfqgAjHdSNy2diu7Zot/L8Q5MBlPAGI5mKwF3dkotkAd
+ OH/GHRSBrMk0FL4CtnIkN5jI+4teqCq1s+fiO+S9yJClC9ZVcVmCyi0jeOOQSAJQvWqr
+ 3cpg9Vg/Qt4WWZByZbKmcUCcV3eabchVRxvRomb3KHiVS60NFz4IlYOlWCpLdeTqcTI/
+ 9Xgg==
+X-Gm-Message-State: ABy/qLYA3Q8aYAws2c7KN+BbknUty1MlLZo0KbaAzUOXqVGIt1gkgnM5
+ ezA53hEOBURmihacQqYQWW2y0w==
+X-Google-Smtp-Source: APBJJlGBMU5DGuFGwk0qtfh0c2aQo1t0zRXQTiXXDi0POVtlnNNbgD2TyBllza9yPhuzHMFnWRx1Kg==
+X-Received: by 2002:aa7:d410:0:b0:522:3a0d:38c2 with SMTP id
+ z16-20020aa7d410000000b005223a0d38c2mr3214909edq.9.1690280176127; 
+ Tue, 25 Jul 2023 03:16:16 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.223.104]) by smtp.gmail.com with ESMTPSA id
+ f23-20020a05640214d700b005224ec27dd7sm544171edx.66.2023.07.25.03.16.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Jul 2023 03:16:15 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 25 Jul 2023 12:16:10 +0200
+Message-Id: <20230725101610.75122-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.244.148.83]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- kwepemi500012.china.huawei.com (7.221.188.12)
-X-CFilter-Loop: Reflected
-Subject: [Freedreno] [PATCH v6 3/3] drm/komeda: Fix IS_ERR_OR_NULL() vs NULL
- check in komeda_component_get_avail_scaler()
+Subject: [Freedreno] [PATCH] dt-bindings: display: msm: sm6125-mdss: drop
+ unneeded status from examples
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,35 +79,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The komeda_pipeline_get_state() returns an ERR_PTR() on failure,
-and a null is catastrophic here we should use IS_ERR_OR_NULL()
-to check the return value.
+Example DTS should not have 'status' property.
 
-Fixes: 502932a03fce ("drm/komeda: Add the initial scaler support for CORE")
-Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml   | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-index 3276a3e82c62..f7281dd99727 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
-@@ -259,7 +259,7 @@ komeda_component_get_avail_scaler(struct komeda_component *c,
- 	u32 avail_scalers;
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
+index 2525482424cb..479c82e6a0d8 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
+@@ -95,8 +95,6 @@ examples:
+         #size-cells = <1>;
+         ranges;
  
- 	pipe_st = komeda_pipeline_get_state(c->pipeline, state);
--	if (!pipe_st)
-+	if (IS_ERR_OR_NULL(pipe_st))
- 		return NULL;
+-        status = "disabled";
+-
+         display-controller@5e01000 {
+             compatible = "qcom,sm6125-dpu";
+             reg = <0x05e01000 0x83208>,
+@@ -170,8 +168,6 @@ examples:
+             #address-cells = <1>;
+             #size-cells = <0>;
  
- 	avail_scalers = (pipe_st->active_comps & KOMEDA_PIPELINE_SCALERS) ^
+-            status = "disabled";
+-
+             ports {
+                 #address-cells = <1>;
+                 #size-cells = <0>;
+@@ -210,8 +206,6 @@ examples:
+ 
+             required-opps = <&rpmpd_opp_svs>;
+             power-domains = <&rpmpd SM6125_VDDMX>;
+-
+-            status = "disabled";
+         };
+     };
+ ...
 -- 
-2.25.1
+2.34.1
 
