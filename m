@@ -2,66 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0358764050
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jul 2023 22:11:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC857640E8
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jul 2023 23:08:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 999BD10E4B9;
-	Wed, 26 Jul 2023 20:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E01AF10E063;
+	Wed, 26 Jul 2023 21:08:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35B7810E4B9;
- Wed, 26 Jul 2023 20:11:17 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-51e2a6a3768so220309a12.0; 
- Wed, 26 Jul 2023 13:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690402275; x=1691007075;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1xYKHJ5/etFd16tPRddbfvAUapClOXUqBeGaHhRjOng=;
- b=iHJ1v8D93nw1gklYrNOeekr/JI8BB9N4zQbZ/E022CXUZNWts6KCb76rsqcMTc5HHq
- N8cOuGxfzBzl3txBFzeFZf6PLFHHx5HP2C2MEtJSf21909ByTpe5+aiDZ0eKgWgiT/jg
- gZ+9wmZ1XGdkfwUoPHIlfdApib2mp4ZxOyw+OKSnzTS//dwFPdH4D6ub6bY/0Ez/14hH
- JmK7IxO/5D1AMicivSSSTf9WbzKSzMuMULpm0BVHJj1N050HwPaj+b6vE2EPqeHZ7dN6
- vN3fT+ne7Q1C2Ot0m05VRmkiQeN9274PrR6b4i0CmhrHjy9S+l7oY/rFSk7JPBveqhaE
- XQXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690402275; x=1691007075;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1xYKHJ5/etFd16tPRddbfvAUapClOXUqBeGaHhRjOng=;
- b=febRc6ztx55qiRlx8hrG7m/KEKTg9LIw58QnqhoPGFegha15KB5fzSY5+KD7hzBueu
- uDc55zKjQ4xiXlkHuuw4GR0fFhu7xDgJcN1AbYu4kAxsvkiGXJQDrmfVHr7JSx8piN94
- w8V5J1JrgBALpZ6VYI0H8shJnbf0FqLDihm/33abLi61e5DxuEy1MubRGoZhngjGFgIe
- E5zUfEChT55eupEQfNgINB8BWidAeCir73GvWWCWCM40XQUKfNeASorgdbQMj1kmuh13
- TxalH9eVe1xsxqtE9ZB6RuSL8syn/Fzoj2yfKs4KWsQetF8LBvtCPr12T58xH+cY9hhn
- se5Q==
-X-Gm-Message-State: ABy/qLZYZeJiyF5HZZz3HwdYQUqAJFof9Tjtkfy+p7OW3A8F3eJQ7uf9
- 9jqkSunalnA8eVD3tNyQxySu7hxVBppUkIuKsGw=
-X-Google-Smtp-Source: APBJJlG1S6YdJyIrIDaD0fAMiwW+Hko0p6k0XWKIEW30NqVTiWlcQpOsDvQThys2q+JWE6zdMH/+d+cBcf71v39eJ2w=
-X-Received: by 2002:aa7:c517:0:b0:518:7a3b:e9fb with SMTP id
- o23-20020aa7c517000000b005187a3be9fbmr148846edq.19.1690402274692; Wed, 26 Jul
- 2023 13:11:14 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3331E10E02B;
+ Wed, 26 Jul 2023 21:08:20 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36QJxad9032282; Wed, 26 Jul 2023 21:08:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=RDT4y8jep5SxiYU+ubXStOfwIUHntx8B3vxshCpbyao=;
+ b=gtDC227i0Z1c0j91TOnf90AbVlERVk/LUzL+8/qGCsmgpih2DNJMJ/EV7vpq+J28ZqWC
+ zxz4tghm6lyE61d2Bz/ojM+2/e58l8JaeKwWdK6eFVbJdBZ7feGlFCrzvaa6ATIjtcIE
+ XbHFCMPeoKLfbDiH0iE2jieZ0J41qZDplILIsJNSd/WokdrnNMQd25ziWYtT05ad4JrF
+ z6uOvzeWxXIbqtGJUPofHEwwEYptl+zsg9E0oAzAsm56VSE0fL2yiv1rfzzDA7uXlFL6
+ DhqH0nxvOjxZwzRGLSPvwt9xD++a0lhp8y8TbXXL2O/OlOj1WSpZxu62ifWNKkw1wpvM 7w== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s2daukwm0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Jul 2023 21:08:07 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36QL86NJ028683
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Jul 2023 21:08:06 GMT
+Received: from [10.110.29.149] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 26 Jul
+ 2023 14:08:06 -0700
+Message-ID: <1582c537-5a11-80fa-4ebd-6ef31277d0c2@quicinc.com>
+Date: Wed, 26 Jul 2023 14:07:35 -0700
 MIME-Version: 1.0
-References: <20230706211045.204925-1-robdclark@gmail.com>
- <20230706211045.204925-7-robdclark@gmail.com>
- <ccbe9ed4-7def-b0d1-2d1c-e2550d212943@linaro.org>
- <fpwpc7oyxzbfndojr2o2rkv2i66is4ylrtxh4equms7eyu4afc@cwyfgqanhlbo>
- <CAF6AEGt+qnUBAq3CHS4eTO1YQsbLjj3Urtt2LuSwRJ7XpzPBww@mail.gmail.com>
- <CAA8EJppJNrcXp8yswDycqA5HuK6bDCKrAkT4ttkGJvsWqD_YMg@mail.gmail.com>
-In-Reply-To: <CAA8EJppJNrcXp8yswDycqA5HuK6bDCKrAkT4ttkGJvsWqD_YMg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 26 Jul 2023 13:11:02 -0700
-Message-ID: <CAF6AEGtLcwKRCMGgLAuABEbSR1CeYKF+D=ffsQLRo-f1BiprbA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 06/12] drm/msm/adreno: Allow SoC specific
- gpu device table entries
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20230521171026.4159495-1-dmitry.baryshkov@linaro.org>
+ <20230521171026.4159495-3-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230521171026.4159495-3-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: AdhKNE8-BG4OVHTsiFKMkQL8XNSKoE89
+X-Proofpoint-ORIG-GUID: AdhKNE8-BG4OVHTsiFKMkQL8XNSKoE89
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-26_08,2023-07-26_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 mlxscore=0 phishscore=0 mlxlogscore=998 adultscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307260188
+Subject: Re: [Freedreno] [PATCH 2/6] drm/msm/mdss: rename ubwc_version to
+ ubwc_enc_version
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,181 +85,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 26, 2023 at 1:00=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Wed, 26 Jul 2023 at 21:28, Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > On Thu, Jul 13, 2023 at 1:26=E2=80=AFPM Akhil P Oommen <quic_akhilpo@qu=
-icinc.com> wrote:
-> > >
-> > > On Fri, Jul 07, 2023 at 05:34:04AM +0300, Dmitry Baryshkov wrote:
-> > > >
-> > > > On 07/07/2023 00:10, Rob Clark wrote:
-> > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > >
-> > > > > There are cases where there are differences due to SoC integratio=
-n.
-> > > > > Such as cache-coherency support, and (in the next patch) e-fuse t=
-o
-> > > > > speedbin mappings.
-> > > >
-> > > > I have the feeling that we are trying to circumvent the way DT work=
-s. I'd
-> > > > suggest adding explicit SoC-compatible strings to Adreno bindings a=
-nd then
-> > > > using of_device_id::data and then of_device_get_match_data().
-> > > >
-> > > Just thinking, then how about a unique compatible string which we mat=
-ch
-> > > to identify gpu->info and drop chip-id check completely here?
-> >
-> > Ok, I think we could do this, so something like:
-> >
-> >   compatible =3D "qcom,sm4350-adreno-619.0", qcom,adreno-619.0", "qcom,=
-adreno"
-> >
-> > ?
-> >
-> > It looks like we don't have gpu dt bits upstream yet for either sm4350
-> > or sm6375, so I suppose we could get away with this change
->
-> I think we can even skip the 619.0 part in the SoC compat string.
-> So it will be:
->
-> compatible =3D "qcom,sm4350-adreno", qcom,adreno-619.0", "qcom,adreno";
->
-> In future we can drop the chipid part completely and handle that as a
-> part of SoC data:
->
-> compatible =3D "qcom,sm4350-adreno", "qcom,adreno";
->
-> With the driver knowing that sm4350-adreno means ADRENO_ID(6,1,9,0)
->
 
-I don't think we can do that, there are cases where the same SoC had
-multiple revisions of adreno.  We could possibly do that with future
-things where we can read the chip-id from fw.
 
-What we _could_ do at the expense of making the compatible parsing a
-tiny bit more complex is something like:
+On 5/21/2023 10:10 AM, Dmitry Baryshkov wrote:
+> Rename the ubwc_version field to ubwc_enc_version, it denotes the
+> version of the UBWC encoder, not the "UBWC version".
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/msm_mdss.c | 26 +++++++++++++-------------
+>   1 file changed, 13 insertions(+), 13 deletions(-)
+> 
 
-   compatible =3D "qcom,sm4350-adreno-619.0", "qcom,adreno"
+Yes, this is the encoder version
 
-BR,
--R
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-> >
-> > BR,
-> > -R
-> >
-> > > -Akhil
-> > >
-> > > > >
-> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > ---
-> > > > >   drivers/gpu/drm/msm/adreno/adreno_device.c | 34 +++++++++++++++=
-++++---
-> > > > >   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
-> > > > >   2 files changed, 31 insertions(+), 4 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers=
-/gpu/drm/msm/adreno/adreno_device.c
-> > > > > index 3c531da417b9..e62bc895a31f 100644
-> > > > > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > > > > @@ -258,6 +258,32 @@ static const struct adreno_info gpulist[] =
-=3D {
-> > > > >             .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> > > > >             .quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT,
-> > > > >             .init =3D a6xx_gpu_init,
-> > > > > +   }, {
-> > > > > +           .machine =3D "qcom,sm4350",
-> > > > > +           .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
-> > > > > +           .revn =3D 619,
-> > > > > +           .fw =3D {
-> > > > > +                   [ADRENO_FW_SQE] =3D "a630_sqe.fw",
-> > > > > +                   [ADRENO_FW_GMU] =3D "a619_gmu.bin",
-> > > > > +           },
-> > > > > +           .gmem =3D SZ_512K,
-> > > > > +           .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> > > > > +           .init =3D a6xx_gpu_init,
-> > > > > +           .zapfw =3D "a615_zap.mdt",
-> > > > > +           .hwcg =3D a615_hwcg,
-> > > > > +   }, {
-> > > > > +           .machine =3D "qcom,sm6375",
-> > > > > +           .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
-> > > > > +           .revn =3D 619,
-> > > > > +           .fw =3D {
-> > > > > +                   [ADRENO_FW_SQE] =3D "a630_sqe.fw",
-> > > > > +                   [ADRENO_FW_GMU] =3D "a619_gmu.bin",
-> > > > > +           },
-> > > > > +           .gmem =3D SZ_512K,
-> > > > > +           .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> > > > > +           .init =3D a6xx_gpu_init,
-> > > > > +           .zapfw =3D "a615_zap.mdt",
-> > > > > +           .hwcg =3D a615_hwcg,
-> > > > >     }, {
-> > > > >             .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
-> > > > >             .revn =3D 619,
-> > > > > @@ -409,6 +435,8 @@ const struct adreno_info *adreno_info(struct =
-adreno_rev rev)
-> > > > >     /* identify gpu: */
-> > > > >     for (i =3D 0; i < ARRAY_SIZE(gpulist); i++) {
-> > > > >             const struct adreno_info *info =3D &gpulist[i];
-> > > > > +           if (info->machine && !of_machine_is_compatible(info->=
-machine))
-> > > > > +                   continue;
-> > > > >             if (adreno_cmp_rev(info->rev, rev))
-> > > > >                     return info;
-> > > > >     }
-> > > > > @@ -563,6 +591,8 @@ static int adreno_bind(struct device *dev, st=
-ruct device *master, void *data)
-> > > > >             config.rev.minor, config.rev.patchid);
-> > > > >     priv->is_a2xx =3D config.rev.core =3D=3D 2;
-> > > > > +   priv->has_cached_coherent =3D
-> > > > > +           !!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT);
-> > > > >     gpu =3D info->init(drm);
-> > > > >     if (IS_ERR(gpu)) {
-> > > > > @@ -574,10 +604,6 @@ static int adreno_bind(struct device *dev, s=
-truct device *master, void *data)
-> > > > >     if (ret)
-> > > > >             return ret;
-> > > > > -   priv->has_cached_coherent =3D
-> > > > > -           !!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT) &=
-&
-> > > > > -           !adreno_has_gmu_wrapper(to_adreno_gpu(gpu));
-> > > > > -
-> > > > >     return 0;
-> > > > >   }
-> > > > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gp=
-u/drm/msm/adreno/adreno_gpu.h
-> > > > > index e08d41337169..d5335b99c64c 100644
-> > > > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > > > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > > > > @@ -61,6 +61,7 @@ extern const struct adreno_reglist a612_hwcg[],=
- a615_hwcg[], a630_hwcg[], a640_h
-> > > > >   extern const struct adreno_reglist a660_hwcg[], a690_hwcg[];
-> > > > >   struct adreno_info {
-> > > > > +   const char *machine;
-> > > > >     struct adreno_rev rev;
-> > > > >     uint32_t revn;
-> > > > >     const char *fw[ADRENO_FW_MAX];
-> > > >
-> > > > --
-> > > > With best wishes
-> > > > Dmitry
-> > > >
->
->
->
-> --
-> With best wishes
-> Dmitry
