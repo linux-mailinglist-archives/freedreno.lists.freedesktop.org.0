@@ -2,53 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52D6C76341F
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jul 2023 12:44:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9BE17634EA
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jul 2023 13:29:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDB010E453;
-	Wed, 26 Jul 2023 10:44:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3663910E45D;
+	Wed, 26 Jul 2023 11:29:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 2144 seconds by postgrey-1.36 at gabe;
- Wed, 26 Jul 2023 10:44:51 UTC
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD69310E453
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jul 2023 10:44:51 +0000 (UTC)
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1qObS2-0000qa-MB; Wed, 26 Jul 2023 12:09:02 +0200
-Message-ID: <a86a756c-4b44-1be4-cea6-a6e525970326@leemhuis.info>
-Date: Wed, 26 Jul 2023 12:09:01 +0200
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6E310E45F
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jul 2023 11:29:27 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5221ee899a0so5815629a12.1
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jul 2023 04:29:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690370966; x=1690975766;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Q/+qs7g1gY1JEPTRBZFLaASNIU4sFMJxs/L0tYvhMjY=;
+ b=LMOTOExY/Ce2QY2Gt8va7AB1wsxRDCK59KI0IIXoXQ4umPJtpsNtQIaFxj0I79btPg
+ /w+x3huP2IS7bkIy/8oyamDSwNo9DhuMf67w8IufA1znp8QofXt6EMKTUXFFaa28hWYv
+ KrzNlThQEt3QLwH4NSd9cgucLag+9SvS1hr6112LjOrCQ7VrQGK62TSNo5amOQSf8Kt1
+ PBBbIkJ3xci+fMPCxnswDal15zmHGeQsEgn6OEQOlhDaNTGJ/jpneDx+ZpQghYccJO4c
+ rNnAfwE6jshbRiJNmXGjXYE1YWdyvGXIkkkTOYprxM6KGaJ7wTFhALdvJAUaTcJ9/+K4
+ oj9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690370966; x=1690975766;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q/+qs7g1gY1JEPTRBZFLaASNIU4sFMJxs/L0tYvhMjY=;
+ b=d9SiX3feLMfnDMipNbaC+BZv0x65++KbCB3FpHFptbhBrLo3nOZ+JoRZ3WQCWyx8Ss
+ 5CX+Cu+HKpQ2rURcwjjENDtQukbKbgWqaO92fZU7N8fItk54ESnNpRyH9il40xGG1Mip
+ nyx/uyUpZC79bEig2mRsuupN9Ytrpk78rdwPM6XqFdYfR9uWB6JnjJH/TD30fIJS18Zo
+ Zfb5zetr1XQVd313mS6kW4j/gbUTH5BHty/ANfNfVM9PxNFEEhdrkyReBDhfQxPHKYpS
+ WjY2KiyclyYuc+ZuXVNGHa49GXlm46I4pd1fjDVWTdvqa1xWfQw60TX1bGh3X+3RjGIu
+ /uEw==
+X-Gm-Message-State: ABy/qLYnHWIA/9OlXlsIQwJN7X5HXlPPQrbvsYAwQMbHOvBa/dFlNQUf
+ LM02Mjwo5cVnrEIA0Fvv16KDJQ==
+X-Google-Smtp-Source: APBJJlFXaiNUU2g8AEtAdBi80dzeE4xS5unNsLEWeVyMmrC1zd+jJ/UWtOksRH2QuqpxDrlxqiew1A==
+X-Received: by 2002:aa7:d9c9:0:b0:522:4d16:752 with SMTP id
+ v9-20020aa7d9c9000000b005224d160752mr1298800eds.21.1690370965884; 
+ Wed, 26 Jul 2023 04:29:25 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+ by smtp.gmail.com with ESMTPSA id
+ g8-20020a056402114800b0051dd16f7e50sm8626244edw.44.2023.07.26.04.29.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Jul 2023 04:29:25 -0700 (PDT)
+Message-ID: <43b4b62d-edea-c571-4f80-b0d4be78e527@linaro.org>
+Date: Wed, 26 Jul 2023 13:29:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Content-Language: en-US, de-DE
-To: Amit Pundir <amit.pundir@linaro.org>, Marek Vasut <marex@denx.de>
-References: <20230403221233.500485-1-marex@denx.de>
- <20230403221233.500485-2-marex@denx.de>
- <CAMi1Hd0TD=2z_=bcDrht3H_wiLvAFcv8Z-U_r_KUOoeMc6UMjw@mail.gmail.com>
- <CAMty3ZBNFu=f-FS4YFN4wfmiTuk=48nna-vub1eMYwidDt+msg@mail.gmail.com>
- <CAA8EJppbdiUz5m+9EAPnFb916DaS_VKWd30c7_EPWjuid8rtqQ@mail.gmail.com>
- <CAMi1Hd2G5PJmz4wpO1wbdqKd0FA8LBgvRDv2u5ZYAMb5s6Kt0A@mail.gmail.com>
- <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
- <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
- <4396d197-f16f-92bd-727c-eb8c78016198@quicinc.com>
- <961b4747-c9f1-a31c-c33c-475b4803f832@denx.de>
- <64c3352f-c2aa-5260-c6ff-4a607ce219a2@quicinc.com>
- <f768950b-0406-1f03-86a5-50d5794bb060@denx.de>
- <CAMi1Hd0LUk__=mz8_+ZTwh=E9wm+abX_4D4XmEO1Jb8uDnPu3A@mail.gmail.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <CAMi1Hd0LUk__=mz8_+ZTwh=E9wm+abX_4D4XmEO1Jb8uDnPu3A@mail.gmail.com>
+To: Amit Pundir <amit.pundir@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Caleb Connolly <caleb.connolly@linaro.org>,
+ Bryan Donoghue <bryan.odonoghue@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+References: <20230713165238.2814849-1-amit.pundir@linaro.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230713165238.2814849-1-amit.pundir@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1690368291;
- 06c5372e; 
-X-HE-SMSGID: 1qObS2-0000qa-MB
-Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
- HFP/HBP/HSA and EOT packet
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 1/2] dt-bindings: display/msm:
+ mdss-common: add memory-region property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,233 +88,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: neil.armstrong@linaro.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Robert Foss <rfoss@kernel.org>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Michael Walle <michael@walle.cc>, Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  freedreno <freedreno@lists.freedesktop.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+ lkml <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, dt <devicetree@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi, Thorsten here, the Linux kernel's regression tracker. Top-posting
-for once, to make this easily accessible to everyone.
+On 13/07/2023 18:52, Amit Pundir wrote:
+> Add and document the reserved memory region property in the
+> mdss-common schema.
+> 
+> For now (sdm845-db845c), it points to a framebuffer memory
+> region reserved by the bootloader for splash screen.
+> 
+> Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
+> ---
 
-What's the status wrt to this regression (caused by 8ddce13ae69 from
-Marek)? It looks like things are stalled and the regression still is
-unresolved, but I ask because I might be missing something.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+Best regards,
+Krzysztof
 
-#regzbot poke
-
-On 14.07.23 08:11, Amit Pundir wrote:
-> On Thu, 13 Jul 2023 at 23:58, Marek Vasut <marex@denx.de> wrote:
->>
->> On 7/13/23 20:09, Abhinav Kumar wrote:
->>>
->>>
->>> On 7/12/2023 10:41 AM, Marek Vasut wrote:
->>>> On 7/9/23 03:03, Abhinav Kumar wrote:
->>>>>
->>>>>
->>>>> On 7/7/2023 1:47 AM, Neil Armstrong wrote:
->>>>>> On 07/07/2023 09:18, Neil Armstrong wrote:
->>>>>>> Hi,
->>>>>>>
->>>>>>> On 06/07/2023 11:20, Amit Pundir wrote:
->>>>>>>> On Wed, 5 Jul 2023 at 11:09, Dmitry Baryshkov
->>>>>>>> <dmitry.baryshkov@linaro.org> wrote:
->>>>>>>>>
->>>>>>>>> [Adding freedreno@ to cc list]
->>>>>>>>>
->>>>>>>>> On Wed, 5 Jul 2023 at 08:31, Jagan Teki
->>>>>>>>> <jagan@amarulasolutions.com> wrote:
->>>>>>>>>>
->>>>>>>>>> Hi Amit,
->>>>>>>>>>
->>>>>>>>>> On Wed, Jul 5, 2023 at 10:15 AM Amit Pundir
->>>>>>>>>> <amit.pundir@linaro.org> wrote:
->>>>>>>>>>>
->>>>>>>>>>> Hi Marek,
->>>>>>>>>>>
->>>>>>>>>>> On Wed, 5 Jul 2023 at 01:48, Marek Vasut <marex@denx.de> wrote:
->>>>>>>>>>>>
->>>>>>>>>>>> Do not generate the HS front and back porch gaps, the HSA gap and
->>>>>>>>>>>> EOT packet, as these packets are not required. This makes the
->>>>>>>>>>>> bridge
->>>>>>>>>>>> work with Samsung DSIM on i.MX8MM and i.MX8MP.
->>>>>>>>>>>
->>>>>>>>>>> This patch broke display on Dragonboard 845c (SDM845) devboard
->>>>>>>>>>> running
->>>>>>>>>>> AOSP. This is what I see
->>>>>>>>>>> https://people.linaro.org/~amit.pundir/db845c-userdebug/v6.5-broken-display/PXL_20230704_150156326.jpg.
->>>>>>>>>>> Reverting this patch fixes this regression for me.
->>>>>>>>>>
->>>>>>>>>> Might be msm dsi host require proper handling on these updated
->>>>>>>>>> mode_flags? did they?
->>>>>>>>>
->>>>>>>>> The msm DSI host supports those flags. Also, I'd like to point out
->>>>>>>>> that the patch didn't change the rest of the driver code. So even if
->>>>>>>>> drm/msm ignored some of the flags, it should not have caused the
->>>>>>>>> issue. Most likely the issue is on the lt9611 side. I's suspect that
->>>>>>>>> additional programming is required to make it work with these flags.
->>>>>>>>
->>>>>>>> I spent some time today on smoke testing these flags (individually
->>>>>>>> and
->>>>>>>> in limited combination) on DB845c, to narrow down this breakage to
->>>>>>>> one
->>>>>>>> or more flag(s) triggering it. Here are my observations in limited
->>>>>>>> testing done so far.
->>>>>>>>
->>>>>>>> There is no regression with MIPI_DSI_MODE_NO_EOT_PACKET when enabled
->>>>>>>> alone and system boots to UI as usual.
->>>>>>>>
->>>>>>>> MIPI_DSI_MODE_VIDEO_NO_HFP always trigger the broken display as in
->>>>>>>> the
->>>>>>>> screenshot[1] shared earlier as well.
->>>>>>>>
->>>>>>>> Adding either of MIPI_DSI_MODE_VIDEO_NO_HSA and
->>>>>>>> MIPI_DSI_MODE_VIDEO_NO_HBP always result in no display, unless paired
->>>>>>>> with MIPI_DSI_MODE_VIDEO_NO_HFP and in that case we get the broken
->>>>>>>> display as reported.
->>>>>>>>
->>>>>>>> In short other than MIPI_DSI_MODE_NO_EOT_PACKET flag, all other flags
->>>>>>>> added in this commit break the display on DB845c one way or another.
->>>>>>>
->>>>>>> I think the investigation would be to understand why samsung-dsim
->>>>>>> requires
->>>>>>> such flags and/or what are the difference in behavior between MSM
->>>>>>> DSI and samsung DSIM
->>>>>>> for those flags ?
->>>>>>>
->>>>>>> If someone has access to the lt9611 datasheet, so it requires
->>>>>>> HSA/HFP/HBP to be
->>>>>>> skipped ? and does MSM DSI and samsung DSIM skip them in the same
->>>>>>> way ?
->>>>>>
->>>>>> I think there's a mismatch, where on one side this flags sets the
->>>>>> link in LP-11 while
->>>>>> in HSA/HFP/HPB while on the other it completely removes those
->>>>>> blanking packets.
->>>>>>
->>>>>> The name MIPI_DSI_MODE_VIDEO_NO_HBP suggests removal of HPB, not
->>>>>> LP-11 while HPB.
->>>>>> the registers used in both controllers are different:
->>>>>> - samsung-dsim: DSIM_HBP_DISABLE_MODE
->>>>>> - msm dsi: DSI_VID_CFG0_HBP_POWER_STOP
->>>>>>
->>>>>> The first one suggest removing the packet, while the second one
->>>>>> suggests powering
->>>>>> off the line while in the blanking packet period.
->>>>>>
->>>>>> @Abhinav, can you comment on that ?
->>>>>>
->>>>>
->>>>> I dont get what it means by completely removes blanking packets in DSIM.
->>>>
->>>> MIPI_DSI_MODE_VIDEO_NO_HFP means the HBP period is just skipped by DSIM.
->>>>
->>>> Maybe there is a need for new set of flags which differentiate between
->>>> HBP skipped (i.e. NO HBP) and HBP LP11 ?
->>>>
->>>
->>> No, the section of the MIPI DSI spec I posted below clearly states there
->>> are two options:
->>>
->>> 1) send blanking packets during those periods
->>> 2) transition to LP11 during those periods
->>>
->>> There is no 3rd option in the spec of not doing both like what you are
->>> suggesting. So DSIM should also be only transitioning to LP11 during
->>> those periods if its not sending the blanking packets with those flags set.
->>>
->>> So, there is no need for any new set of flags to differentiate.
->>>
->>> The flags and their interpretation is correct in MSM driver. I cannot
->>> comment on what exactly DSIM does with those flags.
->>
->> How do you explain the comment in include/drm/drm_mipi_dsi.h:
->>
->> 128 /* disable hback-porch area */
->> 129 #define MIPI_DSI_MODE_VIDEO_NO_HBP      BIT(6)
->>
->> Esp. the "disable" part. That to me reads as "don't send HBP packet".
->>
->> Where do you see that quote above in the DSI spec (which chapter and
->> which version do you read) ?
->>
->>>>> It should be replacing those periods with LP11 too.
->>>>>
->>>>> The traffic mode being used on this bridge is
->>>>> MIPI_DSI_MODE_VIDEO_SYNC_PULSE which is "Non-Burst Mode with Sync
->>>>> Pulses".
->>>>>
->>>>> As per this traffic mode in the DSI spec,
->>>>>
->>>>> "Normally, periods shown as HSA (Horizontal Sync Active), HBP
->>>>> (Horizontal Back Porch) and HFP (Horizontal Front Porch) are filled
->>>>> by Blanking Packets, with lengths (including packet overhead)
->>>>> calculated to match the period specified by the peripheral’s data
->>>>> sheet. Alternatively, if there is sufficient time to transition from
->>>>> HS to LP mode and back again, a timed interval in LP mode may
->>>>> substitute for a Blanking Packet, thus saving power. During HSA, HBP
->>>>> and HFP periods, the bus should stay in the LP-11 state."
->>>>>
->>>>> So we can either send the blanking packets or transition to LP state
->>>>> and those 3 flags are controlling exactly that during those periods
->>>>> for MSM driver.
->>>>>
->>>>> If you stop sending the blanking packets, you need to replace that
->>>>> gap with LP.
->>>>
->>>> I don't think that's what MIPI_DSI_MODE_VIDEO_NO_HBP means, the way I
->>>> understand MIPI_DSI_MODE_VIDEO_NO_HBP is that it skips the HBP
->>>> completely. So if you want HBP, then do not set
->>>> MIPI_DSI_MODE_VIDEO_NO_HBP . And if you want LP11 during HBP, that is
->>>> I think up to the controller (or maybe another new flag?).
->>>>
->>>
->>> No, there is no need of another new flag. There are only two options as
->>> per the spec.
->>>
->>> In fact, as per my checking with more folks, requiring LP11 during those
->>> periods is something very rare.
->>>
->>> Because usually horizontal period is usually a very short period, most
->>> of the time we do not use the LP11 option and send the blanking packets
->>> instead.
->>>
->>> So its something very unusual for DSIM.
->>>
->>> That being said, I still think my previous question is important.
->>>
->>> 1) What is the difference between the resolution you are trying Vs what
->>> Amit is trying?
->>>
->>> 2) Are you both using just standard HDMI monitors?
->>
->> What is a "standard HDMI monitor" ?
->> I use DELL U2713HM .
-> 
-> I see this breakage on portable HDMI monitors Viewsonic TD1655 [1] and
-> Cocopar Z173FH7F [2], both running at 1920x1080 resolution.
-> 
-> Regards,
-> Amit Pundir
-> [1] https://www.amazon.in/ViewSonic-TD1655-Portable-Touchscreen-Frameless/dp/B08778F756
-> [2] https://www.amazon.com/Portable-Monitor-FreeSync-Speaker-Nintendo/dp/B07ZLXCVPN
-> 
->>
->> [...]
-> 
-> 
