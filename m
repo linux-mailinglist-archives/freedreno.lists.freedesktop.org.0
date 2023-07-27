@@ -1,83 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63824765420
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 14:37:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1EA0765434
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 14:41:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24DBD10E573;
-	Thu, 27 Jul 2023 12:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6AE10E577;
+	Thu, 27 Jul 2023 12:41:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F256410E573;
- Thu, 27 Jul 2023 12:36:58 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36RBa6Kf031550; Thu, 27 Jul 2023 12:36:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : from : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=/OBMCCZYUe8Iprz1xJ2SgsVJioEcIiN0YQpth44Qq0U=;
- b=hcrzSIjEwe0xcwNKbd7Xxm01QeTKmxGbc0Qp9NuMSMx2wNDmCypPajscT65qUaFvPoE1
- Clo1VOnptMTeh2Zk4Au5kMgIvgGqsqCkFhE6w8jnXAJCq4vqnLpFeMExudeAcswV754f
- f/APzazSOzigaL1PzzMpEKbD22gKYn1FtqbDKFO3+gvBYrjZQPHeZnB7rEehZtlZ7iVB
- Q9rrRuWe091ALAnmWGNWBo97im/TZf40tNpDmj4tAM/ewmwOrA/DXwf+L8ocy/tBmsxO
- TKKdfjX4qEnIck1K6yA8LbUNImI4BmM4e9vX86ofRSL4NiQ/AL1BcZn73ZD0nWReZZGA WQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s336t2q75-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Jul 2023 12:36:46 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36RCaiwx030116
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Jul 2023 12:36:44 GMT
-Received: from [10.216.40.41] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Thu, 27 Jul
- 2023 05:36:33 -0700
-Message-ID: <50417a2f-9ed9-54a0-fea2-c6bce8abb050@quicinc.com>
-Date: Thu, 27 Jul 2023 18:06:29 +0530
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD77B10E573
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 12:41:28 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-99bc9e3cbf1so190365766b.0
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 05:41:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690461687; x=1691066487;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=HjBJjl/cCX4vEWyKNms/km6uOt5DMZJukD+50VeOffY=;
+ b=ExnaZyrwtLvkYGT/AkVSjMfJGskxoE/UoCJAV4cKlbqVlRwstKt7QgzM+symK3mwmM
+ +Xb9W1oNW/WbmKRFPCNO7qRzfFZvLd4TNlDQeyQ5Y1gcZbzcO+0+x0RG6kyvQzN/emvP
+ lSiM6rWh0JrFVK6YmO/4yZjvWQrloanNH2i7FEzSrc6qvYx+tKrCEdK3/963vcf4XQ6X
+ FS9TySWj85WGkHtyAqVyIPb1zru0MtCDLJjeyJuXkNWyx0StTFQwZoqZNlxi268cEIXz
+ A4xBWIl90YmblX+PGPt+i/L9sbHjE2hp3pfKYfNiQ8JY4A/6CU8lhb3nZkhGthHEyTSG
+ uYPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690461687; x=1691066487;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HjBJjl/cCX4vEWyKNms/km6uOt5DMZJukD+50VeOffY=;
+ b=LzmdzP4RxgfacaAQTupjsoOdfmuBDRwo5UKqabmtizZC68sCxuiBAu7UEGHKluOTRn
+ 3fzYPs7Fc9kEUdT15wsU2Zh7sNYwWserGZBsiK3ILMO051ZcsQlzsObR9Wy+8VX2+ODe
+ 3A3gann0T2JJG9m9dO0j9QgDd78vx9m2OYESaudfvJulrvdrVYITxaflYd9eyWnyNj6k
+ W9bjHZ+lehW+qza7tXeJk0pTnmYwhc9/7fmPt/O1RXS0X+6xLr5iZkjm1wU+2QZy/s+P
+ AJztmOCFQ2WC2Jul/sOhPPKo30NANIk6vIfTtVD+erVqHNde6b4wd0a/8YMyqM/fkTxr
+ wEkg==
+X-Gm-Message-State: ABy/qLbp9cEbUXOGfvFVY/g9crKU1LxaJOikE7wMTidTtFl5ZrlbQKbU
+ lruFp620ASJb3es5PW59W0Nw1A==
+X-Google-Smtp-Source: APBJJlF0eTncr47QXn2NfX9KjZxGJ70nljJprgIhEG8JAZC8IUT1oV70c9ZTz81ZXKwDDdcebClONw==
+X-Received: by 2002:a17:907:7e94:b0:96a:2dd7:2ee0 with SMTP id
+ qb20-20020a1709077e9400b0096a2dd72ee0mr2453345ejc.5.1690461687099; 
+ Thu, 27 Jul 2023 05:41:27 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ qq5-20020a17090720c500b009882e53a42csm734454ejb.81.2023.07.27.05.41.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Jul 2023 05:41:26 -0700 (PDT)
+Message-ID: <9fe65e98-6f53-030f-c68c-45537e892e40@linaro.org>
+Date: Thu, 27 Jul 2023 15:41:25 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-US
-From: Rohit Agarwal <quic_rohiagar@quicinc.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Herring
- <robh@kernel.org>
-References: <1690448953-23425-1-git-send-email-quic_rohiagar@quicinc.com>
- <169045659774.1058731.6391693092002547810.robh@kernel.org>
- <fa84ec4f-bdb9-dace-c56a-46174a9b47ee@quicinc.com>
- <2edb92b8-a6a8-c115-757c-daccef6be5f0@linaro.org>
- <432ab1d3-0f9e-4072-ff4d-6362886584b8@quicinc.com>
- <e9a4e015-7e25-92be-9a7a-8e5dcf3848fa@linaro.org>
- <2790272a-7290-f780-d5ca-108e2df57363@quicinc.com>
-In-Reply-To: <2790272a-7290-f780-d5ca-108e2df57363@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: EqyGf4TByUBzdooJY3LHm6utiiXw7uKr
-X-Proofpoint-GUID: EqyGf4TByUBzdooJY3LHm6utiiXw7uKr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-27_07,2023-07-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- clxscore=1015 mlxlogscore=768 adultscore=0 lowpriorityscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307270112
-Subject: Re: [Freedreno] [PATCH v2] dt-bindings: qcom: Update RPMHPD entries
- for some SoCs
+Subject: Re: [Freedreno] [PATCH] drm/drv: propagate errors from
+ drm_modeset_register_all()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,48 +79,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: ulf.hansson@linaro.org, mturquette@baylibre.com,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_vgarodia@quicinc.com, krzysztof.kozlowski+dt@linaro.org,
- marijn.suijten@somainline.org, airlied@gmail.com, linux-clk@vger.kernel.org,
- rfoss@kernel.org, jonathan@marek.ca, stanimir.k.varbanov@gmail.com,
- agross@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, bhupesh.sharma@linaro.org, mani@kernel.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, robh+dt@kernel.org,
- mchehab@kernel.org, sean@poorly.run, neil.armstrong@linaro.org,
- mathieu.poirier@linaro.org, sboyd@kernel.org, andersson@kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- konrad.dybcio@linaro.org, robdclark@gmail.com, quic_tdas@quicinc.com,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
- vladimir.zapolskiy@linaro.org
+Cc: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 21/05/2023 20:34, Dmitry Baryshkov wrote:
+> In case the drm_modeset_register_all() function fails, its error code
+> will be ignored. Instead make the drm_dev_register() bail out in case of
+> such an error.
+> 
+> Fixes: 79190ea2658a ("drm: Add callbacks for late registering")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-On 7/27/2023 6:00 PM, Rohit Agarwal wrote:
->
-> On 7/27/2023 5:57 PM, Krzysztof Kozlowski wrote:
->> On 27/07/2023 14:21, Rohit Agarwal wrote:
->>>>> https://lore.kernel.org/all/1689744162-9421-1-git-send-email-quic_rohiagar@quicinc.com/ 
->>>>>
->>>> Please mention the dependency in patch changelog ---, so it is obvious
->>>> for people applying it and also for the bot.
->>> Sure. Will send a cover letter for this patch mentioning the changelogs
->>> and will
->>> keep the version as v2 since there no change at all in the patch.
->> There is no need for cover letter for one patch.
-> Yes, I thought the same and thus didnt include the cover letter and 
-> changelogs initially.
-> Can you please help where I can add the changelogs and the dependency 
-> link?
-Sorry! Got it.
+Colleagues, gracious ping.
 
-Thanks,
-Rohit.
->
-> Thanks,
-> Rohit.
->>
->> Best regards,
->> Krzysztof
->>
+> ---
+>   drivers/gpu/drm/drm_drv.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index c6eb8972451a..dc4a496795ee 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -938,8 +938,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+>   			goto err_minors;
+>   	}
+>   
+> -	if (drm_core_check_feature(dev, DRIVER_MODESET))
+> -		drm_modeset_register_all(dev);
+> +	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+> +		ret = drm_modeset_register_all(dev);
+> +		if (ret)
+> +			goto err_unload;
+> +	}
+>   
+>   	DRM_INFO("Initialized %s %d.%d.%d %s for %s on minor %d\n",
+>   		 driver->name, driver->major, driver->minor,
+> @@ -949,6 +952,9 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+>   
+>   	goto out_unlock;
+>   
+> +err_unload:
+> +	if (dev->driver->unload)
+> +		dev->driver->unload(dev);
+>   err_minors:
+>   	remove_compat_control_link(dev);
+>   	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+
+-- 
+With best wishes
+Dmitry
+
