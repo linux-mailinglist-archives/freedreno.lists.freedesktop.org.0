@@ -1,69 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586E1765882
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 18:21:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DF21765BF0
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 21:15:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6CA10E5CC;
-	Thu, 27 Jul 2023 16:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2A210E5E9;
+	Thu, 27 Jul 2023 19:15:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3AA410E5C7
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 16:21:15 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5217ad95029so1446774a12.2
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 09:21:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690474874; x=1691079674;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FuApF2tyajHL/s2/ZcYG8M2Dg4vS+5aqnQz+jLrEH3M=;
- b=dDEQdWseFklTkgszol5mc6NqRBQPRwcLuQLK8rx3rGK4FeqxoTdKXYnwhPnWtDp+Ue
- Vb7rZKl0pt1DWYdGIrS2KnH9h9Nhk+4EZii0j+3+XBY6T/PaaIIe6ZjTr9gD2gqHgy7Z
- E8f+ezZtcpwiLzwzEfJw6ZeNeEl0Flj3IUZHpGiosy/8tb0USyTYcmDScit6cDG/AbN+
- Vqenz0DZkX2OO9cnEtBadDwisbl28fCqvnDC0jF8PXMy2lH3DmSuMXjtWpXoUiTVOFB8
- 3WB5G/urRdy3T0Y8DXVANKnTJW5sgPQfnN5btRMXrrOnv0xtiTfN415h2fO4O+qz7MB4
- h1OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690474874; x=1691079674;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=FuApF2tyajHL/s2/ZcYG8M2Dg4vS+5aqnQz+jLrEH3M=;
- b=AJDrOOslOlgaW3xab1Ye1fFUHn/0rbp++HTHgdrunIPp0GlpDs8+qmD61TAa5ODEjB
- I/Fj/OMFr8ZxFMvxvTLz8yMwpEwoBB67I2Zp3H9/r9ONzY32y1rnjSqMBaSOnnBxhuDr
- HjYyHeWdx+HWvBwuYPW2D753aJLpKt/yDKVqdChKhAIVcKT7mhOWIWKemQJYGH8PUzkW
- WCGBEXRDUkWjPXV127hM457gfwCtA7xsfulELXggH/+0SwfKpUJMTI3F1rV0Xoz4zM+z
- jccv8j7kxLXugDwnb60US8a9bIPkl/AmNNx2Rd1zY8OKdRESxZ4h+vj3PB8Eq+6l6MYp
- TDIQ==
-X-Gm-Message-State: ABy/qLZOPbRXCsG+q0uZcXlWfBoiclPqpZcxVF6KujH2b2Bz/hy/dSWt
- Qrj+Y0oUpTu/PGFJhhiQ86ockA==
-X-Google-Smtp-Source: APBJJlGaoWleLDRiMflrFY4jdKgQODEhZRFM+2J6NesFgS8dSuuubTF9uG1sTs08BdI9WELgtgOSjw==
-X-Received: by 2002:a05:6402:341:b0:522:5873:d4aa with SMTP id
- r1-20020a056402034100b005225873d4aamr2411878edw.23.1690474874205; 
- Thu, 27 Jul 2023 09:21:14 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- a15-20020aa7d90f000000b00521953ce6e0sm808027edr.93.2023.07.27.09.21.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 09:21:13 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 27 Jul 2023 19:21:04 +0300
-Message-Id: <20230727162104.1497483-8-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230727162104.1497483-1-dmitry.baryshkov@linaro.org>
-References: <20230727162104.1497483-1-dmitry.baryshkov@linaro.org>
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C63C10E5DE;
+ Thu, 27 Jul 2023 19:15:38 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 956F920215;
+ Thu, 27 Jul 2023 21:15:35 +0200 (CEST)
+Date: Thu, 27 Jul 2023 21:15:33 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <hlfikr2mhsqjoydcfwaveexafnwbubehyluibx23cpsgu3stcm@dgxnhps34ys2>
+References: <20230727144543.1483630-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 7/7] drm/msm/dpu: move INTF tearing checks to
- dpu_encoder_phys_cmd_init
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230727144543.1483630-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v4 0/5] drm/msm/dpu: rework interrupt
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,84 +43,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the INTF is fixed at the encoder creation time, we can move the
-check whether INTF supports tearchck to dpu_encoder_phys_cmd_init().
-This function can return an error if INTF doesn't have required feature.
-Performing this check in dpu_encoder_phys_cmd_tearcheck_config() is less
-useful, as this function returns void.
+On 2023-07-27 17:45:38, Dmitry Baryshkov wrote:
+> Please exuse me for the spam, I missed the triggered WARN_ON because of
+> the dropped patch.
+> 
+> Declaring the mask of supported interrupts proved to be error-prone. It
+> is very easy to add a bit with no corresponding backing block or to miss
+> the INTF TE bit. Replace this static configuration with the irq mask
+> calculated from the HW catalog data.
+> 
+> Changes since v3:
+>  - Rework INTF_TE handling. Stop depending on DPU_INTF_TE and enable the
+>    relevant interrupt explicitly.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 37 +++++++++++--------
- 1 file changed, 21 insertions(+), 16 deletions(-)
+Yeah that seems like a good idea.  I had at some point considered, but
+it would be much more messy, to collect all the `.intr_` members of
+every cfg structure to accumulate the used flags instead.  But that's
+more cumbersome especially since everything uses TOP0 etc anyway.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 04a1106101a7..e1dd0e1b4793 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -325,24 +325,17 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	unsigned long vsync_hz;
- 	struct dpu_kms *dpu_kms;
- 
--	if (phys_enc->has_intf_te) {
--		if (!phys_enc->hw_intf ||
--		    !phys_enc->hw_intf->ops.enable_tearcheck) {
--			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
--			return;
--		}
--
--		DPU_DEBUG_CMDENC(cmd_enc, "");
--	} else {
--		if (!phys_enc->hw_pp ||
--		    !phys_enc->hw_pp->ops.enable_tearcheck) {
--			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
--			return;
--		}
--
--		DPU_DEBUG_CMDENC(cmd_enc, "pp %d\n", phys_enc->hw_pp->idx - PINGPONG_0);
-+	if (!phys_enc->has_intf_te &&
-+	    (!phys_enc->hw_pp ||
-+	     !phys_enc->hw_pp->ops.enable_tearcheck)) {
-+		DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
-+		return;
- 	}
- 
-+	DPU_DEBUG_CMDENC(cmd_enc, "intf %d pp %d\n",
-+			 phys_enc->hw_intf->idx - INTF_0,
-+			 phys_enc->hw_pp->idx - PINGPONG_0);
-+
- 	mode = &phys_enc->cached_mode;
- 
- 	dpu_kms = phys_enc->dpu_kms;
-@@ -768,9 +761,21 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
- 	phys_enc->intf_mode = INTF_MODE_CMD;
- 	cmd_enc->stream_sel = 0;
- 
-+	if (!phys_enc->hw_intf) {
-+		DPU_ERROR_CMDENC(cmd_enc, "no INTF provided\n");
-+
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	if (phys_enc->dpu_kms->catalog->mdss_ver->core_major_ver >= 5)
- 		phys_enc->has_intf_te = true;
- 
-+	if (phys_enc->has_intf_te && !phys_enc->hw_intf->ops.enable_tearcheck) {
-+		DPU_ERROR_CMDENC(cmd_enc, "tearcheck not supported\n");
-+
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	atomic_set(&cmd_enc->pending_vblank_cnt, 0);
- 	init_waitqueue_head(&cmd_enc->pending_vblank_wq);
- 
--- 
-2.39.2
+I do miss b4 inserting links to lore.kernel.org for earlier series
+revisions though.
 
+Finally I retested this whole series on sdm845 (PP TE) and sm6125 (INTF
+TE) and both behave fine.
+
+- Marijn
+
+> Changes since v2:
+>  - Rebased on top of msm-next-lumag to be able to use core_major_ver
+>    instead of adding yet another flag.
+>  - Dropped the DPU_INTF_TE movement patch, useless after rebasing.
+> 
+> Changes since v1:
+>  - Enable dpu_caps::has_7xxx_intr for DPU >= 7.0 (Neil)
+> 
+> Dmitry Baryshkov (5):
+>   drm/msm/dpu: inline __intr_offset
+>   drm/msm/dpu: split interrupt address arrays
+>   drm/msm/dpu: autodetect supported interrupts
+>   drm/msm/dpu: drop now-unused mdss_irqs field from hw catalog
+>   drm/msm/dpu: drop compatibility INTR defines
+> 
+>  .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |   8 --
+>  .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |   9 --
+>  .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  11 --
+>  .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  13 ---
+>  .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |   6 -
+>  .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  10 --
+>  .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |   6 -
+>  .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   5 -
+>  .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |   6 -
+>  .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   5 -
+>  .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   5 -
+>  .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  13 +--
+>  .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   9 +-
+>  .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  18 +--
+>  .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  13 +--
+>  .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  13 +--
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 -
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 106 ++++++++++++------
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  18 ++-
+>  19 files changed, 87 insertions(+), 190 deletions(-)
+> 
+> -- 
+> 2.39.2
+> 
