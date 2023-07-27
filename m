@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF1A765877
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 18:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7055276587B
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 18:21:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6667110E5BF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAA9B10E5C4;
 	Thu, 27 Jul 2023 16:21:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D5AC10E5BD
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 16:21:09 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5227799c224so1478016a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 09:21:09 -0700 (PDT)
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D3C10E5C3
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 16:21:10 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-522382c4840so1519502a12.2
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 09:21:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690474867; x=1691079667;
+ d=linaro.org; s=google; t=1690474868; x=1691079668;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ff7pcNWnC+mCuZW5Iqk7Mr4Q5RnrHyj1/dSEByNgwvE=;
- b=F7pTPmX05AChk1JmSOZtUfjAyYV+Q2cFNbhOlOCcypcVPx+lBq5wHlzB5rvZCDdrTr
- ggAZcQ3p9w9XVkVkzwCaJk8iyHjEjh74/xUs5MlBz2xtByIImX0q1tOdDmoJ84XotkXz
- 2ZowCpOR05X0F5YL625Y2QFaxccIbeZ+BPjm8JDzm+Ala7MKIP0OZFrruhwh7mZoVSsW
- lq3R25/UZsLptTYgrgNPViPntqdd6Mxc5vxhlLHpuTZ7EgkNApJ/xCjPOVutSQ6SZ8pM
- xJRkT2VweOVWB4hX2uAosPDL33Fb5rX8SyiYATmrixO9lvMUgVWzOVTL+RKD3KBfQUv2
- rmiA==
+ bh=Hss43lOMtTWZaP6PSxJpTqk3ynxiZmBIfWetPiB5OU4=;
+ b=y/qEf/U9N0vmnlPM4Sya0OVBl059hMk+Q/cFoYuhWfv7iNuWhWX9al27Jh7m1iEGcp
+ XzPkjf3d77I2S35ixUHETdxtTZaV27QHBAjhtUFg8hvF2XDtmFqMjHPbzdqD1y0Jcn/b
+ P9mI7k6RADgTimuohuHwIPtN04cSmf8yYWYtr+4AtCmU0Mvn+FdwXX5U/XrQqyTGalUS
+ //FZtyv0mXrKK4mccZn50MK1ui1Xb1/3kp7WtmsDXJGpT2JTCmrE7c1Znw+f1eeAW53w
+ UCsqldfFCzco3puoaBzcyAdfA/OdIRocAClRWdDHbHgoKkvquv0TlwyiNAj0e3UAUnim
+ 179w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690474867; x=1691079667;
+ d=1e100.net; s=20221208; t=1690474868; x=1691079668;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ff7pcNWnC+mCuZW5Iqk7Mr4Q5RnrHyj1/dSEByNgwvE=;
- b=aIO0Mf1MynKS60GlJO5tZp8AKCc4EY6+rB8/C0P5jGNBSgCEk60QW9kiQaXfj581z0
- QHP44aOLdSlQN7/vij1fwEiqCEprsWQyEviBgT2k1R+k6Z4oGFABgLxYUkQoshcJdAVr
- Pimk/D3FRzrWqkinqaCF/tJld9D3cXmxgDc926J6qNdg+0H2QX2iFBRr+998vm8MqYDu
- hS5IcGaikl9bQLNmp+gLfi2MRNOpIabO4jX8AnhLqu/f/7ZYywV/SEnHUzzydZR93EmK
- +N9WpfdvCYR8jgWwUa+J4rw8eeyjS2mgL/iUdyi0N62LCaj4prwUNERG6HKh6nAvUci0
- YU5A==
-X-Gm-Message-State: ABy/qLYH5enYOWN0XzlghxtstA0sAp3bdfjG/QnzBWjkrEjkRRzZ9lTH
- 1yrxOa+lCH/BrzGtVBKAnVrBGw==
-X-Google-Smtp-Source: APBJJlHUnevxUVtsFnPoIsbTNstCQExHnpMiK/GlYKJcitznW/AdxALaLgtqVPtPPWeDNk6ZiSqicg==
-X-Received: by 2002:a05:6402:785:b0:522:1f09:dde3 with SMTP id
- d5-20020a056402078500b005221f09dde3mr2395007edy.3.1690474867464; 
- Thu, 27 Jul 2023 09:21:07 -0700 (PDT)
+ bh=Hss43lOMtTWZaP6PSxJpTqk3ynxiZmBIfWetPiB5OU4=;
+ b=EBuKYL9dAOyxXIx4HZqBJPdnj4qZxuUxk0cHYDQ3D3Nj0kPTsrPYuoVJpPzwqiVzYu
+ amczvW99gTPSs8pppstiaLOaz4bzyViZl1fz798e4459F1YiV42W0Uio4ButuSrBjFLr
+ kB4AcKyvXEGlbeGFZgayN0gdadzNtCmy6L1W08cNcp4JoHhsmMs/63JEuYD/+tL0W/Xh
+ FLn25eWvcMiJVIiC2IapUGJe/ioDHT8glynDFGDy+riZ5qtxeXNfqtBbKKAGM4Q+v45C
+ qhHI0kFaStGJ3coR4Cjpjic4LkjsH28PIZGvQOoZ46sck1zqcrro/g3dsbSVEIwY9Z+W
+ v0oQ==
+X-Gm-Message-State: ABy/qLbwkPSJYMuPupjWXcM6Bt+cTPBxIgzUL9ua/I0vhaIcmyeUo5DQ
+ eL7Y4zeChiqnS5kJwl67R/8DdQ==
+X-Google-Smtp-Source: APBJJlH/fIxEZ729kMD+e6bMyn267HlAYoWAPHkICnfabMa1VE0mlPeQcN1xXdi7j7obwrk87PK3Uw==
+X-Received: by 2002:aa7:c68f:0:b0:522:3ef1:b10 with SMTP id
+ n15-20020aa7c68f000000b005223ef10b10mr2113757edq.6.1690474868671; 
+ Thu, 27 Jul 2023 09:21:08 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- a15-20020aa7d90f000000b00521953ce6e0sm808027edr.93.2023.07.27.09.21.06
+ a15-20020aa7d90f000000b00521953ce6e0sm808027edr.93.2023.07.27.09.21.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 09:21:07 -0700 (PDT)
+ Thu, 27 Jul 2023 09:21:08 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 27 Jul 2023 19:20:58 +0300
-Message-Id: <20230727162104.1497483-2-dmitry.baryshkov@linaro.org>
+Date: Thu, 27 Jul 2023 19:20:59 +0300
+Message-Id: <20230727162104.1497483-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230727162104.1497483-1-dmitry.baryshkov@linaro.org>
 References: <20230727162104.1497483-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 1/7] drm/msm/dpu: enable PINGPONG TE operations
- only when supported by HW
+Subject: [Freedreno] [PATCH 2/7] drm/msm/dpu: drop the DPU_PINGPONG_TE flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,28 +82,49 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The DPU_PINGPONG_TE bit is set for all PINGPONG blocks on DPU < 5.0.
-Rather than checking for the flag, check for the presense of the
-corresponding interrupt line.
+The DPU_PINGPONG_TE flag became unused, we can drop it now.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 4 +---
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-index 9298c166b213..912a3bdf8ad4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
-@@ -296,7 +296,7 @@ struct dpu_hw_pingpong *dpu_hw_pingpong_init(const struct dpu_pingpong_cfg *cfg,
- 	c->idx = cfg->id;
- 	c->caps = cfg;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 3ff07d7cbf4b..c19dc70d4456 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -79,7 +79,7 @@
+ 	(BIT(DPU_DIM_LAYER) | BIT(DPU_MIXER_COMBINED_ALPHA))
  
--	if (test_bit(DPU_PINGPONG_TE, &cfg->features)) {
-+	if (cfg->intr_rdptr) {
- 		c->ops.enable_tearcheck = dpu_hw_pp_enable_te;
- 		c->ops.disable_tearcheck = dpu_hw_pp_disable_te;
- 		c->ops.connect_external_te = dpu_hw_pp_connect_external_te;
+ #define PINGPONG_SDM845_MASK \
+-	(BIT(DPU_PINGPONG_DITHER) | BIT(DPU_PINGPONG_TE) | BIT(DPU_PINGPONG_DSC))
++	(BIT(DPU_PINGPONG_DITHER) | BIT(DPU_PINGPONG_DSC))
+ 
+ #define PINGPONG_SDM845_TE2_MASK \
+ 	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 945b88c5ab58..a6f8eee58b92 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -136,7 +136,6 @@ enum {
+ 
+ /**
+  * PINGPONG sub-blocks
+- * @DPU_PINGPONG_TE         Tear check block
+  * @DPU_PINGPONG_TE2        Additional tear check block for split pipes
+  * @DPU_PINGPONG_SPLIT      PP block supports split fifo
+  * @DPU_PINGPONG_SLAVE      PP block is a suitable slave for split fifo
+@@ -145,8 +144,7 @@ enum {
+  * @DPU_PINGPONG_MAX
+  */
+ enum {
+-	DPU_PINGPONG_TE = 0x1,
+-	DPU_PINGPONG_TE2,
++	DPU_PINGPONG_TE2 = 0x1,
+ 	DPU_PINGPONG_SPLIT,
+ 	DPU_PINGPONG_SLAVE,
+ 	DPU_PINGPONG_DITHER,
 -- 
 2.39.2
 
