@@ -1,79 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B0D765388
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 14:22:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB70765389
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jul 2023 14:22:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C25B210E576;
-	Thu, 27 Jul 2023 12:22:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2763C10E57C;
+	Thu, 27 Jul 2023 12:22:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7182E10E579
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 12:22:20 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-51de9c2bc77so1122135a12.3
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 05:22:20 -0700 (PDT)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B8910E0E6
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 12:22:21 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-992e22c09edso113986166b.2
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 05:22:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690460539; x=1691065339;
+ d=linaro.org; s=google; t=1690460540; x=1691065340;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KBcPaBCD15GVUt1t8fe+n3lTCxT4h0u6r6X0oXlZlwc=;
- b=e081yBpEl6WUyQ7DrRPgXBrwcqwu4Zlr+puzBZS56IJgd0T++PdR0LhMQQP9+eGBJh
- vPp2ek8dutLOQ45EtSbH11eENOOFmTYHYPNub1vraSKWz5mXM8gJEBy/MTOuCXtqrXRC
- tUa06KALw5Q4Qzz9oDT5BK81+Mk0yoWq7dvHwgQZvkgGS10I6gUXftd6LCfAUO6lE0aR
- b2SefsYc+gYmH/yfi2HAGUuP460jJ89FaOtEgtKbWo3FteTCJhNTjwhDSeYxyEoVbNaR
- WSg2mfD3JYetOQu43w+k9PyfmRvgcrMmw3lM9SteyO+TLxiNEr7Q8+oBstysJ//7cqW+
- l73A==
+ bh=1SBb6yr6qVk1D7aIwvF+MuMXcq5rUsptu3VpKsdh/uY=;
+ b=E/t0YpIRUSdA8qUkKEVwwAbxzJDIw7ZP8JFIlc4qS696AzVGKHZQqeXa5X0v7ynftz
+ gWjhCDZ/sxQETJ8KDD0mumZe4SiyyMPQ30LOis/xGakb3U6B5WDQd8yRw9xu73MkEsWA
+ vz4knJda8i9mkCBSvKIrANnBbYbWWaaAxjIhLUU5d58Ic+TjSHFelYYLCSlX7YJO+c3M
+ nq3lpVGn5sOsQlJ4riCSXqZ2XOmZ7L54K7y5cabw9RIVyZ8BCx2HVtkELtmhASi1FNiP
+ 7Ty9Nt7wnId/CX0VfxeopkjJChIWLPn5B7UTa+0HQO7nLKyWgzl9aYPVG4xRtdK17s1Z
+ Vdpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690460539; x=1691065339;
+ d=1e100.net; s=20221208; t=1690460540; x=1691065340;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KBcPaBCD15GVUt1t8fe+n3lTCxT4h0u6r6X0oXlZlwc=;
- b=lE3/YzlMoltJJ7X66wberS5ATuiF4/MC12/PNtLE8VpHk6YJbSdXS2Q9dvaNEAkqzG
- qTZB9vTquYSVvROa0Q2KXgOF6tKc9uegL9uyerhIAAO/Zvd/w5uamCYBnbj0sQ0ediTe
- Faz3Dc0d2dxi+PIt/rAW/liIMdo21giDFB03IeQuK/g83lCIjQjo0S1Gm7NiXsgN5eFE
- LO6jmyYnudV23kAfUNjewN4d5mMgLnqKYe8gf7z7XSYAf670WS98ZEGNcIA60vs8/S14
- uWyvF8wIy6pMxS5P4BUj9tU9dro+JonwzPCnIxLcMf+r7yMOf5egFtfJIYUO9pIpSjuQ
- Vx1w==
-X-Gm-Message-State: ABy/qLa8txTJ5z5zr7SEPq5sm3b13sTGVG+AfzahyvyuSQywW1x5WrLC
- xGHewzG/HSRF8ky6TTnIfCbbLw==
-X-Google-Smtp-Source: APBJJlG8c4LaXOrZrh8NyuL1H8V9TCwkuizDCvPywRcH0BHTiQ4d0Yy80J1WZnSmA2GAgK4iabH5rA==
-X-Received: by 2002:a17:907:a075:b0:99b:64ca:6999 with SMTP id
- ia21-20020a170907a07500b0099b64ca6999mr1967077ejc.7.1690460538803; 
- Thu, 27 Jul 2023 05:22:18 -0700 (PDT)
+ bh=1SBb6yr6qVk1D7aIwvF+MuMXcq5rUsptu3VpKsdh/uY=;
+ b=AFE5Wraxi47tmQbhkzf6rRofcQJGQnsvvAboE1oMT4dDCSAhcCOXb4vzsBzJdw0obY
+ 5k0GXkgNyNtZ66OmILohrS5bLkTM/R1GYCKRc4K/l0bnIYdulyZm1x4Vt4IPB7Rc2Zxo
+ g8fF+ZlqSNrsdin4c4pTHDoyYFeMBzzodA2H5lINHWEN0JmWAjKLSsfh+K6Wdh+5Ip+9
+ Lp2HjjOAo7svutkcY6T4DCtkFmR/YCxRuFm+wDRTGe1uFcqSyqY2TxlvuDS6q+BKWxOG
+ Z3gy2JLHR9kgi1BgVro0tsIaZ7mXxSs6JLQVAKhA1Yw2YoeiuyStd+Bk9kEW+TkBDwYA
+ cqHw==
+X-Gm-Message-State: ABy/qLZ7+J0jenT6thCxQoAHqKGsXcDyeZf13rVnWnSZGSlfPKCc0iCY
+ JU+kpF227snB6zNgaiIW+pSbwnnDc9yQr91EpDc=
+X-Google-Smtp-Source: APBJJlGMdqN9pdEZl9yeo9ApSXHdIn1KgioXc6BrkcQ3JO+iOZr18yfYrhhsELVum+BCBEMCfSnItg==
+X-Received: by 2002:a17:907:a057:b0:997:decf:11e7 with SMTP id
+ gz23-20020a170907a05700b00997decf11e7mr1850833ejc.12.1690460539893; 
+ Thu, 27 Jul 2023 05:22:19 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- v23-20020a1709067d9700b00993860a6d37sm717844ejo.40.2023.07.27.05.22.17
+ v23-20020a1709067d9700b00993860a6d37sm717844ejo.40.2023.07.27.05.22.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 05:22:18 -0700 (PDT)
+ Thu, 27 Jul 2023 05:22:19 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 27 Jul 2023 15:22:15 +0300
-Message-Id: <169046051039.1413710.12901529844343078449.b4-ty@linaro.org>
+To: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 27 Jul 2023 15:22:16 +0300
+Message-Id: <169046051039.1413710.6891392677797766408.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230723-sm6125-dpu-v4-0-a3f287dd6c07@somainline.org>
-References: <20230723-sm6125-dpu-v4-0-a3f287dd6c07@somainline.org>
+In-Reply-To: <20230712012003.2212-1-quic_abhinavk@quicinc.com>
+References: <20230712012003.2212-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v4 00/17] drm/msm: Add SM6125 MDSS/DPU
- hardware and enable Sony Xperia 10 II panel
+Subject: Re: [Freedreno] [PATCH v5 0/5] drm/msm/dpu: Re-introduce dpu core
+ revision
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,60 +75,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Lux Aliaga <they@mint.lgbt>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: quic_jesszhan@quicinc.com, andersson@kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 23 Jul 2023 18:08:38 +0200, Marijn Suijten wrote:
-> Bring up the SM6125 DPU now that all preliminary series (such as INTF
-> TE) have been merged (for me to test the hardware properly), and most
-> other conflicting work (barring ongoing catalog *improvements*) has made
-> its way in as well or is still being discussed.
+On Tue, 11 Jul 2023 18:19:58 -0700, Abhinav Kumar wrote:
+> With commit dac76a0144d31 ("fetch DPU configuration from match data"),
+> dpu core revision was dropped in favor of using the compatible string
+> from the device tree to select the dpu catalog being used in the device.
 > 
-> The second part of the series complements that by immediately utilizing
-> this hardware in DT, and even enabling the MDSS/DSI nodes complete with
-> a 6.0" 1080x2520 panel for Sony's Seine PDX201 (Xperia 10 II).
+> This approach works well however also necessitates adding catalog
+> entries for small register level details as dpu capabilities and/or
+> features bloating the catalog unnecessarily. Examples include but
+> are not limited to data_compress, interrupt register set, widebus etc.
 > 
 > [...]
 
 Applied, thanks!
 
-[01/17] drm/msm/dsi: Drop unused regulators from QCM2290 14nm DSI PHY config
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a7e3fda5948a
-[02/17] arm64: dts: qcom: sm6125: Pad APPS IOMMU address to 8 characters
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/b7d35a8eae54
-[03/17] arm64: dts: qcom: sm6125: Sort spmi_bus node numerically by reg
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/2be52ca96a71
-[04/17] dt-bindings: display/msm: Remove DSI1 ports from SM6350/SM6375 example
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/4be2c19261fc
-[05/17] dt-bindings: clock: qcom,dispcc-sm6125: Require GCC PLL0 DIV clock
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/4f86e343f3c6
-[06/17] dt-bindings: clock: qcom,dispcc-sm6125: Allow power-domains property
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/91043642f28c
-[07/17] dt-bindings: display/msm: dsi-controller-main: Document SM6125
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/cf5859476e5d
-[08/17] dt-bindings: display/msm: sc7180-dpu: Describe SM6125
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/04a664dffd19
-[09/17] dt-bindings: display/msm: Add SM6125 MDSS
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/3bde3b8f8a04
-[10/17] drm/msm/dpu: Add SM6125 support
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/76c5dffd0bc4
-[11/17] drm/msm/mdss: Add SM6125 support
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/de50357565d3
-[12/17] dt-bindings: msm: dsi-phy-14nm: Document SM6125 variant
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/cdac445883cc
-[13/17] drm/msm/dsi: Reuse QCM2290 14nm DSI PHY configuration for SM6125
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/7638d8059ace
+[1/5] drm/msm/dpu: re-introduce dpu core revision to the catalog
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d5ffd30bf168
+[2/5] drm/msm/dpu: use dpu core's major version to enable data compress
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/51e9b25c7818
+[3/5] drm/msm/dpu: rename all hw_intf structs to have dpu_hw prefix
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/4c6df9a40bbc
+[4/5] drm/msm/dpu: rename enable_compression() to program_intf_cmd_cfg()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/143dfccad3da
+[5/5] drm/msm/dpu: drop DPU_INTF_DATA_COMPRESS from dpu catalog
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/781452286aeb
 
 Best regards,
 -- 
