@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AF08765F20
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 00:15:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1492A765FEB
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 00:50:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E34010E628;
-	Thu, 27 Jul 2023 22:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2AF10E644;
+	Thu, 27 Jul 2023 22:50:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CE5810E62A
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 22:15:50 +0000 (UTC)
-Received: by mail-yb1-xb34.google.com with SMTP id
- 3f1490d57ef6-cf284f4d7afso1373507276.3
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 15:15:50 -0700 (PDT)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7066910E642
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 22:50:29 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-577497ec6c6so16677207b3.2
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 15:50:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690496149; x=1691100949;
+ d=linaro.org; s=google; t=1690498228; x=1691103028;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wOD8KgEEEOPljbiXkTM7e1vfVTCZeMVuNm+H/5ZnzWI=;
- b=GF4vQe9Q2QXiQ5WqN59LH2CNoeRi202CwB4ya41H6AykiczHuvb3xG7B9i0XkWfSfu
- Q373vkJ0dfBCgTbdj2Ah4chkhSclTnE9x/rRp6Nw0C51Wg23bAfqRJl5nMDYR/TgyfCw
- 8ei61KySxvKUxN8R/Mvg48HyG2oHfvYRGHRfXVsXl6O1HFcJbkPpLFVUP3ZkEEtpGFQC
- 35dCp96KyFPyZ3wVBzADGxTnXGR7/J7j6duhBE7cT04CsstMEbrEihLsYTKQPxe/7ceI
- Wu1Fs2DXxGwUGe9W6MBfBuoDYMkANMrNUHoh0KHRSEbofSezXX6mX/rC0Vilgz4OPWpy
- 0M3Q==
+ bh=IacxlEjz7I0pKANVMIoEfAvY9SNWx/TOEgfD76ScziE=;
+ b=hTRIUAovwyusBAov6dP/PzlxQdpp53Dx8/9qF1r/Nbocte5YooJVA/yXssgaa6Zspx
+ IqydTk2G8nj9CaIe0nWup+8mBFa/2Ge33I4TT4By4DikcwdpsHDVkevS1HqN3XPFdDvh
+ Bz+SQU86HD3QMd4Gm5T0x7iUHfh4S2RzKdYlCzQAsEcGWr8e4alopWWZNZXqsWjxw4L7
+ QjaBynrimhUKZHjGA46gfCgoZTIUevARZRpoa4qfMdLUWX/3WEIFqybipguKOlARnCy1
+ oqO0IxeLf05qB/ZsThWkC42mPTV61TJVJVNg78D6Xb0RBJYiQC+PtC3cT3Xu2gM4GFAn
+ coxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690496149; x=1691100949;
+ d=1e100.net; s=20221208; t=1690498228; x=1691103028;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=wOD8KgEEEOPljbiXkTM7e1vfVTCZeMVuNm+H/5ZnzWI=;
- b=YFmkzUkEuRvVInc/WAyf+8uvjgDHTL1oQTckd6Jld5dgfPk5E3yCvZtcNnAESmk73o
- lksFW96Eys6htjJCHpkmRKXdsiLxvmUw318tBquPvT9PwZc2fkPvp2M8m1gKJ25BQbDX
- FjOhhYrVeYueZhHsRRW44CvPn4PTox5ZfkJfsKBrwbhDBkJUZip/4/nb63xEldFzrpc/
- IfALDFJZGlMxyd/Ei2mxQIqb/2myOOUPeuBdCfexZfw+2nh4T6DWcaTIs1rIwAHasyvL
- 84B5pkCM9XzeDSYMoqAStxGtqlHR06lZnM7TizHnSjktMD8oTPUqOPMUaOYO9CDqh8PK
- a2LA==
-X-Gm-Message-State: ABy/qLbW+IUTNRzUoV+R4yenSRKKshtL228A/TPT1fYf3IUqfEmk80QA
- FFDSWiJ+CEh1hTlJhpkALNCBLuByGgHL1j0iqba+tQ==
-X-Google-Smtp-Source: APBJJlFzvXJKovMYoMWH82NS6t0YgsjfzUuSbj76qs0bG32xlSJYCovy3Xv5KwXJHF2gt393R3/Esr0VFOB/cKbMMZM=
-X-Received: by 2002:a25:c78b:0:b0:d12:25d:fd5c with SMTP id
- w133-20020a25c78b000000b00d12025dfd5cmr698418ybe.13.1690496149389; Thu, 27
- Jul 2023 15:15:49 -0700 (PDT)
+ bh=IacxlEjz7I0pKANVMIoEfAvY9SNWx/TOEgfD76ScziE=;
+ b=OK7yqgjjyZfgFrMBAipVz+qU6OuXppJ+yMWZtT8KpkGxCIRTvDVQNnxsG+5yCGIAVA
+ XX2+WH18v2WJWs8Dvmeu1d8Twmuaqq2tGjcjL/3kQE/Vv+zkV4SOrFxriauF0xDgc7BC
+ u5eGJNljuidiDIpicQ0rWJtxkBlx92F9+DcLLt4r5KhFb0GYwOIaokW20HCulXHqFuyU
+ VHRg8DSWZXcfKmUNBZKXBb7iHbak65Dv1VvQiTxNb8Vqpkp5+Lpe5fydq4hBtuNnOgGK
+ 4lw9ZivFwpEphpIgYdMRj4NNygIsc1hBcF+7Z4e2C1ChhwFXnoZNRRJI6VowhppnIhL1
+ F7HA==
+X-Gm-Message-State: ABy/qLaJ41rHZ9Zb0ZdusJWuwBW3atwrVh1Rc+uUeSjqcpAvWM2QDZdK
+ V3DobhNGgTJvLeKjen4W5BOaH2DTgKGJkAZTmgCZ0w==
+X-Google-Smtp-Source: APBJJlEiSr802YZ16rdHuXKHxTCkHUN85vRlxaGAzoACRRi7R+TLr1ZB+C5cOeKBxtuibFykQpiiqrAIl567cV846CM=
+X-Received: by 2002:a0d:e647:0:b0:576:91e0:b8c5 with SMTP id
+ p68-20020a0de647000000b0057691e0b8c5mr45212ywe.0.1690498228308; Thu, 27 Jul
+ 2023 15:50:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230727212208.102501-1-robdclark@gmail.com>
- <20230727212208.102501-10-robdclark@gmail.com>
-In-Reply-To: <20230727212208.102501-10-robdclark@gmail.com>
+ <20230727212208.102501-12-robdclark@gmail.com>
+In-Reply-To: <20230727212208.102501-12-robdclark@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 28 Jul 2023 01:15:38 +0300
-Message-ID: <CAA8EJpo4hGkB=DMyCM+gU11Mfiqd2S9J660P+GtVUZSuDBCCNA@mail.gmail.com>
+Date: Fri, 28 Jul 2023 01:50:17 +0300
+Message-ID: <CAA8EJpoECsKVgat85LFyWaibOZ+O9t8GFBwxsFhOFf7GTf6DzQ@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 09/13] drm/msm/adreno: Add adreno family
+Subject: Re: [Freedreno] [PATCH v2 11/13] drm/msm/adreno: Move adreno info
+ to config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,11 +69,12 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, Rob Herring <robh@kernel.org>,
- Elliot Berman <quic_eberman@quicinc.com>,
+ Guru Das Srinagesh <quic_gurus@quicinc.com>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  open list <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
  Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -85,129 +87,123 @@ On Fri, 28 Jul 2023 at 00:23, Rob Clark <robdclark@gmail.com> wrote:
 >
 > From: Rob Clark <robdclark@chromium.org>
 >
-> Sometimes it is useful to know the sub-generation (or "family").  And in
-> any case, this helps us get away from infering the generation from the
+> Let's just stash it in adreno_platform_config rather than looking it up
+> in N different places.
 
-Nit: inferring
-
-> numerical chip-id.
->
-> v2: Fix is_a2xx() typo
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 31 ++++++++++++++-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 11 +++---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 46 ++++++++++++++++------
->  3 files changed, 70 insertions(+), 18 deletions(-)
+This leaves me with the feeling that we are abusing the
+dev->platform_data, but we were doing it anyway even before the patch.
+So:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 >
-
-[skipped]
-
-
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 15 +++------------
+>  drivers/gpu/drm/msm/adreno/adreno_device.c |  5 +++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  3 +--
+>  4 files changed, 8 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index a81a6459c656..9be3260c8033 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -2316,7 +2316,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>         struct msm_drm_private *priv = dev->dev_private;
+>         struct platform_device *pdev = priv->gpu_pdev;
+>         struct adreno_platform_config *config = pdev->dev.platform_data;
+> -       const struct adreno_info *info;
+>         struct device_node *node;
+>         struct a6xx_gpu *a6xx_gpu;
+>         struct adreno_gpu *adreno_gpu;
+> @@ -2341,20 +2340,12 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>
+>         adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
+>
+> -       /*
+> -        * We need to know the platform type before calling into adreno_gpu_init
+> -        * so that the hw_apriv flag can be correctly set. Snoop into the info
+> -        * and grab the revision number
+> -        */
+> -       info = adreno_info(config->rev);
+> -       if (!info)
+> -               return ERR_PTR(-EINVAL);
+> -
+> -       adreno_gpu->base.hw_apriv = !!(info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
+> +       adreno_gpu->base.hw_apriv =
+> +               !!(config->info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
+>
+>         a6xx_llc_slices_init(pdev, a6xx_gpu);
+>
+> -       ret = a6xx_set_supported_hw(&pdev->dev, info);
+> +       ret = a6xx_set_supported_hw(&pdev->dev, config->info);
+>         if (ret) {
+>                 a6xx_destroy(&(a6xx_gpu->base.base));
+>                 return ERR_PTR(ret);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index 7448f299b77c..332cb804a45d 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -508,7 +508,7 @@ bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2)
+>                 _rev_match(rev1.patchid, rev2.patchid);
+>  }
+>
+> -const struct adreno_info *adreno_info(struct adreno_rev rev)
+> +static const struct adreno_info *adreno_info(struct adreno_rev rev)
+>  {
+>         int i;
+>
+> @@ -659,13 +659,14 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
+>         priv->gpu_pdev = to_platform_device(dev);
+>
+>         info = adreno_info(config.rev);
+> -
+>         if (!info) {
+>                 dev_warn(drm->dev, "Unknown GPU revision: %"ADRENO_CHIPID_FMT"\n",
+>                         ADRENO_CHIPID_ARGS(config.rev));
+>                 return -ENXIO;
+>         }
+>
+> +       config.info = info;
+> +
+>         DBG("Found GPU: %"ADRENO_CHIPID_FMT, ADRENO_CHIPID_ARGS(config.rev));
+>
+>         priv->is_a2xx = info->family < ADRENO_3XX;
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index a775b4d82735..865ff4c1eaf6 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -1079,7 +1079,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>         int ret;
+>
+>         adreno_gpu->funcs = funcs;
+> -       adreno_gpu->info = adreno_info(config->rev);
+> +       adreno_gpu->info = config->info;
+>         adreno_gpu->rev = *rev;
+>
+>         /* Only handle the core clock when GMU is not in use (or is absent). */
 > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index fe7afac5b059..14af16080bd0 100644
+> index c6fd6f9016d3..81a1396e124d 100644
 > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
 > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -29,6 +29,25 @@ enum {
->         ADRENO_FW_MAX,
+> @@ -130,8 +130,6 @@ struct adreno_info {
+>   */
+>  #define ADRENO_SPEEDBINS(tbl...) (struct adreno_speedbin[]) { tbl {SHRT_MAX, 0} }
+>
+> -const struct adreno_info *adreno_info(struct adreno_rev rev);
+> -
+>  struct adreno_gpu {
+>         struct msm_gpu base;
+>         struct adreno_rev rev;
+> @@ -185,6 +183,7 @@ struct adreno_ocmem {
+>  /* platform config data (ie. from DT, or pdata) */
+>  struct adreno_platform_config {
+>         struct adreno_rev rev;
+> +       const struct adreno_info *info;
 >  };
 >
-> +/**
-> + * @enum adreno_family: identify generation and possibly sub-generation
-> + *
-> + * In some cases there are distinct sub-generations within a major revision
-> + * so it helps to be able to group the GPU devices by generation and if
-> + * necessary sub-generation.
-> + */
-> +enum adreno_family {
-> +       ADRENO_2XX_GEN1,  /* a20x */
-> +       ADRENO_2XX_GEN2,  /* a22x */
-> +       ADRENO_3XX,
-> +       ADRENO_4XX,
-> +       ADRENO_5XX,
-
-reserves himself a right to glance at splitting 3xx and 5xx later on.
-
-> +       ADRENO_6XX_GEN1,  /* a630 family */
-> +       ADRENO_6XX_GEN2,  /* a640 family */
-> +       ADRENO_6XX_GEN3,  /* a650 family */
-> +       ADRENO_6XX_GEN4,  /* a660 family */
-> +};
-> +
->  #define ADRENO_QUIRK_TWO_PASS_USE_WFI          BIT(0)
->  #define ADRENO_QUIRK_FAULT_DETECT_MASK         BIT(1)
->  #define ADRENO_QUIRK_LMLOADKILL_DISABLE                BIT(2)
-> @@ -68,6 +87,7 @@ struct adreno_speedbin {
->  struct adreno_info {
->         const char *machine;
->         struct adreno_rev rev;
-> +       enum adreno_family family;
->         uint32_t revn;
->         const char *fw[ADRENO_FW_MAX];
->         uint32_t gmem;
-> @@ -193,14 +213,14 @@ static inline bool adreno_is_a2xx(const struct adreno_gpu *gpu)
->  {
->         if (WARN_ON_ONCE(!gpu->info))
->                 return false;
-> -       return (gpu->info->revn < 300);
-> +       return gpu->info->family <= ADRENO_2XX_GEN2;
->  }
->
->  static inline bool adreno_is_a20x(const struct adreno_gpu *gpu)
->  {
->         if (WARN_ON_ONCE(!gpu->info))
->                 return false;
-> -       return (gpu->info->revn < 210);
-> +       return gpu->info->family == ADRENO_2XX_GEN1;
->  }
->
->  static inline bool adreno_is_a225(const struct adreno_gpu *gpu)
-> @@ -343,29 +363,31 @@ static inline int adreno_is_a690(const struct adreno_gpu *gpu)
->  /* check for a615, a616, a618, a619 or any a630 derivatives */
->  static inline int adreno_is_a630_family(const struct adreno_gpu *gpu)
->  {
-> -       return adreno_is_revn(gpu, 630) ||
-> -               adreno_is_revn(gpu, 615) ||
-> -               adreno_is_revn(gpu, 616) ||
-> -               adreno_is_revn(gpu, 618) ||
-> -               adreno_is_revn(gpu, 619);
-> +       if (WARN_ON_ONCE(!gpu->info))
-> +               return false;
-> +       return gpu->info->family == ADRENO_6XX_GEN1;
->  }
->
->  static inline int adreno_is_a660_family(const struct adreno_gpu *gpu)
->  {
-> -       return adreno_is_a660(gpu) || adreno_is_a690(gpu) || adreno_is_7c3(gpu);
-> +       if (WARN_ON_ONCE(!gpu->info))
-> +               return false;
-> +       return gpu->info->family == ADRENO_6XX_GEN4;
->  }
->
->  /* check for a650, a660, or any derivatives */
->  static inline int adreno_is_a650_family(const struct adreno_gpu *gpu)
->  {
-> -       return adreno_is_revn(gpu, 650) ||
-> -               adreno_is_revn(gpu, 620) ||
-> -               adreno_is_a660_family(gpu);
-> +       if (WARN_ON_ONCE(!gpu->info))
-> +               return false;
-> +       return gpu->info->family >= ADRENO_6XX_GEN3;
->  }
->
->  static inline int adreno_is_a640_family(const struct adreno_gpu *gpu)
->  {
-> -       return adreno_is_a640(gpu) || adreno_is_a680(gpu);
-> +       if (WARN_ON_ONCE(!gpu->info))
-> +               return false;
-> +       return gpu->info->family == ADRENO_6XX_GEN2;
->  }
->
->  u64 adreno_private_address_space_size(struct msm_gpu *gpu);
+>  #define ADRENO_IDLE_TIMEOUT msecs_to_jiffies(1000)
 > --
 > 2.41.0
 >
