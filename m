@@ -1,81 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612EC767856
-	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 00:03:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4523B7678E3
+	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 01:21:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE3610E79A;
-	Fri, 28 Jul 2023 22:03:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1199210E79F;
+	Fri, 28 Jul 2023 23:21:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83E8510E074;
- Fri, 28 Jul 2023 22:03:40 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36SKD7ti003012; Fri, 28 Jul 2023 22:03:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=o1FP8h0mkAcpWJcg40IbtTM6Kjno4lK9SISLsVdh+EY=;
- b=XXBZ2TPFLPohlmY27+W1F7cs9+UZX09Ow1cbr2ysrfBKjzcf3OdO+Aj9LQinl9t77PEO
- vzggNOJuqYuOgpWT8E1P83T7w0j8+SJ7DNrvgMoNPpK5n5jHBV/E4iY9JZ9Ln9CMbILp
- i+sgXgQyaoevgsnWyawsx4mXBCVzQ9NlQoNGbPKOiz13vyyigymU7UnXi1G9K3gex+3p
- Zdw99B5hdlLMMH3cEyoXKy6hS3PSnGrPVzdHlaCQFDhvvaIi/4aMWR0lyc9oNtGp0V8o
- DDLzTxZexWkT4z+6PmJQRJ680LsjiT9Y2jyJD8OTL48xiCrPELJ0pTJtJIF3tRUcbW27 gg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s448hj8p5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 22:03:33 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36SM3X5J028185
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 22:03:33 GMT
-Received: from [10.110.77.76] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 28 Jul
- 2023 15:03:32 -0700
-Message-ID: <bd0c6333-97a8-5dca-f818-7671b6423c98@quicinc.com>
-Date: Fri, 28 Jul 2023 15:03:24 -0700
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 895F510E79F
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 23:21:26 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-99bccc9ec02so370915466b.2
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 16:21:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690586485; x=1691191285;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VU71FgufItpAe9P79uaTKO9H7QH05QlgbBDklotULzo=;
+ b=vemgNTR6NtNoy9u+J7GEAdpNdpIFDV05joXBhwXHc/YZ4ADJTx/rf/0i5MgpMjtYFu
+ mBmNd5q+tsTdhbNHKpjezbYYP2HEOFRC3W6gYkqhlq4Ww+LnX6Ir2HSnCD/KmSNcxg3U
+ ZB2pVlyqpuqoUlHIiegyiXMEfg8N2OpN4SDZiXM+rXDdXI3XPHP9lABGUGMePYEgSH+V
+ kE2BDPEvt+QIHduWdXEbmOX5sg7SrcKGJURJFnqyYl7Fp+8j3TdaFUHSlTKIZNE0EHBP
+ XZ2dLZY4BZag0pAIOW2/GQ9bqKpt8iKZjCG7j8R+xG9dLPFBEb5t4KswQ+41h+9Dr/Wg
+ WzyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690586485; x=1691191285;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VU71FgufItpAe9P79uaTKO9H7QH05QlgbBDklotULzo=;
+ b=Buy830l8a58MMKYfsF1FxLv5VH4+bKIm5Xh74WpE0mi5kK9AM+UB/3cBzBUz/ezKW+
+ DfVhxWrSuCGhMbJu5vvluJ6XxXiTF+Q1PIQgKZhI56j3jQnb1uSsZ2XYBojwwFr+ZOda
+ 5FA9xrY8+uhJZBrrcBuScKRSJZRP4bwYQMCxKmNevFr1WKebyAe2Qgzy+Bra2r4lI0Q1
+ CC0dY3GNU2c7YtivdRLc+V8Cbk0p3G+bTbpmRxuzHCPRmr74/X1g0yEuTyDxFYn79+0s
+ WjRBRMyWIriqGus2qUkfcRybmjjmeICqueTphVOsYSJ8O2cVxyQ/zoudoUrTJsOp8idt
+ ixdw==
+X-Gm-Message-State: ABy/qLYJ66+OqhlqVsunF1IeF1nqjytQ6n5fvU43cY9OnD/5A9I2DQx4
+ m/DU7YVusTg1P6Ue+uABw5wZxw==
+X-Google-Smtp-Source: APBJJlGZqsd2mYBLFuMjvJCA2YQtko2DmjgMB55M8W3KCCvUboBJ7oPuw3San47k9EUkpJyK44dHCQ==
+X-Received: by 2002:a17:906:844b:b0:99b:415f:2e4f with SMTP id
+ e11-20020a170906844b00b0099b415f2e4fmr539179ejy.57.1690586484553; 
+ Fri, 28 Jul 2023 16:21:24 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ m10-20020a17090607ca00b0099bcf9c2ec6sm2570119ejc.75.2023.07.28.16.21.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Jul 2023 16:21:24 -0700 (PDT)
+Message-ID: <32b995e7-e418-f442-f976-8247dd66c578@linaro.org>
+Date: Sat, 29 Jul 2023 02:21:22 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230728213320.97309-1-dmitry.baryshkov@linaro.org>
- <20230728213320.97309-6-dmitry.baryshkov@linaro.org>
- <27ae3603-4527-8c3a-23e6-5d4934de9d69@quicinc.com>
- <098e89eb-d69b-4a3c-840d-d7fd560fe2f9@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <098e89eb-d69b-4a3c-840d-d7fd560fe2f9@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Paloma Arellano <quic_parellan@quicinc.com>
+References: <20230728012623.22991-1-quic_parellan@quicinc.com>
+ <CAA8EJpqPgzd4ZSP948MQW=f4EVBHxajj4nwYq5s-OConBP7Vvg@mail.gmail.com>
+ <a03e4ec2-0516-7d4c-180f-e0916c83373b@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <a03e4ec2-0516-7d4c-180f-e0916c83373b@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: nLha5tCF-LgQtHDkGHPJwJvBoLBB5Wrx
-X-Proofpoint-ORIG-GUID: nLha5tCF-LgQtHDkGHPJwJvBoLBB5Wrx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-27_10,2023-07-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
- mlxscore=0 priorityscore=1501 mlxlogscore=999 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307280201
-Subject: Re: [Freedreno] [PATCH v2 5/7] drm/msm/dpu: use MDSS data for
- programming SSPP
+Subject: Re: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
+ Visionox VTDR6130 panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,219 +80,252 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: neil.armstrong@linaro.org, sam@ravnborg.org,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ marijn.suijten@somainline.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 7/28/2023 2:39 PM, Dmitry Baryshkov wrote:
-> On 29/07/2023 00:36, Abhinav Kumar wrote:
->>
->>
->> On 7/28/2023 2:33 PM, Dmitry Baryshkov wrote:
->>> Switch to using data from MDSS driver to program the SSPP fetch and UBWC
->>> configuration. As a side-effect, this also swithes the DPU driver from
->>> DPU_HW_UBWC_VER_xx values to the UBWC_x_y enum, which reflects
->>> the hardware register values.
+On 29/07/2023 00:44, Jessica Zhang wrote:
+> 
+> 
+> On 7/28/2023 2:37 AM, Dmitry Baryshkov wrote:
+>> On Fri, 28 Jul 2023 at 04:26, Paloma Arellano 
+>> <quic_parellan@quicinc.com> wrote:
 >>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> Enable display compression (DSC v1.2) and CMD mode for 1080x2400 
+>>> Visionox
+>>> VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
+>>> to command mode with DSC enabled.
+>>>
+>>> Note: This patch has only been validated DSC over command mode as DSC 
+>>> over
+>>> video mode has never been validated for the MSM driver before.
+>>>
+>>> Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
+>>>
+>>> Changes since v1:
+>>>   - Changed from email address
+>>>
+>>> [1] https://patchwork.freedesktop.org/series/121337/
+>>>
+>>> Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 >>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 18 ++++++++++--------
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |  6 +++---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 16 +++++++++++++++-
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 +
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |  3 ++-
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |  2 ++
->>>   6 files changed, 33 insertions(+), 13 deletions(-)
+>>>   .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
+>>>   1 file changed, 73 insertions(+), 4 deletions(-)
 >>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>> index b364cf75bb3f..f2192de93713 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>> @@ -8,6 +8,8 @@
->>>   #include "dpu_hw_sspp.h"
->>>   #include "dpu_kms.h"
->>> +#include "msm_mdss.h"
+>>> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c 
+>>> b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+>>> index e1363e128e7e..5658d39a3a6b 100644
+>>> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+>>> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+>>> @@ -9,6 +9,7 @@
+>>>   #include <linux/of.h>
+>>>
+>>>   #include <drm/display/drm_dsc.h>
+>>> +#include <drm/display/drm_dsc_helper.h>
+>>>   #include <drm/drm_mipi_dsi.h>
+>>>   #include <drm/drm_modes.h>
+>>>   #include <drm/drm_panel.h>
+>>> @@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
+>>>          struct mipi_dsi_device *dsi;
+>>>          struct gpio_desc *reset_gpio;
+>>>          struct regulator_bulk_data supplies[3];
+>>> -       bool prepared;
+>>> +       bool prepared, enabled;
+>>> +       bool video_mode;
+>>>   };
+>>>
+>>>   static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct 
+>>> drm_panel *panel)
+>>> @@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct 
+>>> visionox_vtdr6130 *ctx)
+>>>          if (ret)
+>>>                  return ret;
+>>>
+>>> +       mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
+>>>          mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 
+>>> 0x20);
+>>>          mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 
+>>> 0x00, 0x00);
+>>>          mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
+>>>          mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
+>>>          mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
+>>> -       mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
 >>> +
->>>   #include <drm/drm_file.h>
->>>   #define DPU_FETCH_CONFIG_RESET_VALUE   0x00000087
->>> @@ -270,26 +272,26 @@ static void dpu_hw_sspp_setup_format(struct 
->>> dpu_sw_pipe *pipe,
->>>           DPU_REG_WRITE(c, SSPP_FETCH_CONFIG,
->>>               DPU_FETCH_CONFIG_RESET_VALUE |
->>>               ctx->ubwc->highest_bank_bit << 18);
->>> -        switch (ctx->ubwc->ubwc_version) {
->>> -        case DPU_HW_UBWC_VER_10:
->>> +        switch (ctx->ubwc->ubwc_enc_version) {
+>>> +       if (ctx->video_mode)
+>>> +               mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
+>>> +       else
+>>> +               mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
+>>> +
+>>>          mipi_dsi_dcs_write_seq(dsi, 0x70,
+>>>                                 0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 
+>>> 0x09, 0x60, 0x04,
+>>>                                 0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 
+>>> 0x1c, 0x02, 0x00,
+>>> @@ -214,6 +222,42 @@ static const struct drm_display_mode 
+>>> visionox_vtdr6130_mode = {
+>>>          .height_mm = 157,
+>>>   };
+>>>
+>>> +static int visionox_vtdr6130_enable(struct drm_panel *panel)
+>>> +{
+>>> +       struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+>>> +       struct mipi_dsi_device *dsi = ctx->dsi;
+>>> +       struct drm_dsc_picture_parameter_set pps;
+>>> +       int ret;
+>>> +
+>>> +       if (ctx->enabled)
+>>> +               return 0;
+>>> +
+>>> +       if (!dsi->dsc) {
+>>> +               dev_err(&dsi->dev, "DSC not attached to DSI\n");
+>>> +               return -ENODEV;
+>>> +       }
 >>
->> Didnt we agree to protect this with if (ctx->ubwc) ?
-> 
-> Yes. However ctx->ubwc is set to mdss_data and in dpu_kms_hw_init() we 
-> ensure that mdss_data is not NULL, so this check is not necessary.
-> 
-
-Ack
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
+>> The error message is misleading. Also, if you don't want to enable DSC
+>> for the video mode, this will break.
 >>
->>> +        case UBWC_1_0:
->>>               fast_clear = fmt->alpha_enable ? BIT(31) : 0;
->>>               DPU_REG_WRITE(c, SSPP_UBWC_STATIC_CTRL,
->>>                       fast_clear | (ctx->ubwc->ubwc_swizzle & 0x1) |
->>>                       BIT(8) |
->>>                       (ctx->ubwc->highest_bank_bit << 4));
->>>               break;
->>> -        case DPU_HW_UBWC_VER_20:
->>> +        case UBWC_2_0:
->>>               fast_clear = fmt->alpha_enable ? BIT(31) : 0;
->>>               DPU_REG_WRITE(c, SSPP_UBWC_STATIC_CTRL,
->>>                       fast_clear | (ctx->ubwc->ubwc_swizzle) |
->>>                       (ctx->ubwc->highest_bank_bit << 4));
->>>               break;
->>> -        case DPU_HW_UBWC_VER_30:
->>> +        case UBWC_3_0:
->>>               DPU_REG_WRITE(c, SSPP_UBWC_STATIC_CTRL,
->>>                       BIT(30) | (ctx->ubwc->ubwc_swizzle) |
->>>                       (ctx->ubwc->highest_bank_bit << 4));
->>>               break;
->>> -        case DPU_HW_UBWC_VER_40:
->>> +        case UBWC_4_0:
->>>               DPU_REG_WRITE(c, SSPP_UBWC_STATIC_CTRL,
->>>                       DPU_FORMAT_IS_YUV(fmt) ? 0 : BIT(30));
->>>               break;
->>> @@ -670,11 +672,11 @@ int _dpu_hw_sspp_init_debugfs(struct 
->>> dpu_hw_sspp *hw_pipe, struct dpu_kms *kms,
->>>   #endif
->>>   struct dpu_hw_sspp *dpu_hw_sspp_init(const struct dpu_sspp_cfg *cfg,
->>> -        void __iomem *addr, const struct dpu_ubwc_cfg *ubwc)
->>> +        void __iomem *addr, const struct msm_mdss_data *mdss_data)
->>>   {
->>>       struct dpu_hw_sspp *hw_pipe;
->>> -    if (!addr || !ubwc)
->>> +    if (!addr)
->>>           return ERR_PTR(-EINVAL);
->>>       hw_pipe = kzalloc(sizeof(*hw_pipe), GFP_KERNEL);
->>> @@ -685,7 +687,7 @@ struct dpu_hw_sspp *dpu_hw_sspp_init(const struct 
->>> dpu_sspp_cfg *cfg,
->>>       hw_pipe->hw.log_mask = DPU_DBG_MASK_SSPP;
->>>       /* Assign ops */
->>> -    hw_pipe->ubwc = ubwc;
->>> +    hw_pipe->ubwc = mdss_data;
->>>       hw_pipe->idx = cfg->id;
->>>       hw_pipe->cap = cfg;
->>>       _setup_layer_ops(hw_pipe, hw_pipe->cap->features);
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
->>> index 085f34bc6b88..cbf4f95ff0fd 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
->>> @@ -317,7 +317,7 @@ struct dpu_hw_sspp_ops {
->>>   struct dpu_hw_sspp {
->>>       struct dpu_hw_blk base;
->>>       struct dpu_hw_blk_reg_map hw;
->>> -    const struct dpu_ubwc_cfg *ubwc;
->>> +    const struct msm_mdss_data *ubwc;
->>>       /* Pipe */
->>>       enum dpu_sspp idx;
->>> @@ -333,10 +333,10 @@ struct dpu_kms;
->>>    * Should be called once before accessing every pipe.
->>>    * @cfg:  Pipe catalog entry for which driver object is required
->>>    * @addr: Mapped register io address of MDP
->>> - * @ubwc: UBWC configuration data
->>> + * @mdss_data: UBWC / MDSS configuration data
->>>    */
->>>   struct dpu_hw_sspp *dpu_hw_sspp_init(const struct dpu_sspp_cfg *cfg,
->>> -        void __iomem *addr, const struct dpu_ubwc_cfg *ubwc);
->>> +        void __iomem *addr, const struct msm_mdss_data *mdss_data);
->>>   /**
->>>    * dpu_hw_sspp_destroy(): Destroys SSPP driver context
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>> index c1d06e19b237..2da9eef687af 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->>> @@ -22,6 +22,7 @@
->>>   #include "msm_drv.h"
->>>   #include "msm_mmu.h"
->>> +#include "msm_mdss.h"
->>>   #include "msm_gem.h"
->>>   #include "disp/msm_disp_snapshot.h"
->>> @@ -1124,7 +1125,20 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>>           goto power_error;
->>>       }
->>> -    rc = dpu_rm_init(&dpu_kms->rm, dpu_kms->catalog, dpu_kms->mmio);
->>> +    dpu_kms->mdss = msm_mdss_get_mdss_data(dpu_kms->pdev->dev.parent);
->>> +    if (IS_ERR(dpu_kms->mdss)) {
->>> +        rc = PTR_ERR(dpu_kms->mdss);
->>> +        DPU_ERROR("failed to get MDSS data: %d\n", rc);
->>> +        goto power_error;
->>> +    }
 >>> +
->>> +    if (!dpu_kms->mdss) {
->>> +        rc = -EINVAL;
->>> +        DPU_ERROR("NULL MDSS data\n");
->>> +        goto power_error;
->>> +    }
+>>> +       drm_dsc_pps_payload_pack(&pps, dsi->dsc);
+>>> +       ret = mipi_dsi_picture_parameter_set(dsi, &pps);
+>>> +       if (ret) {
+>>> +               dev_err(&dsi->dev, "Failed to set PPS\n");
+>>> +               return ret;
+>>> +       }
 >>> +
->>> +    rc = dpu_rm_init(&dpu_kms->rm, dpu_kms->catalog, dpu_kms->mdss, 
->>> dpu_kms->mmio);
->>>       if (rc) {
->>>           DPU_ERROR("rm init failed: %d\n", rc);
->>>           goto power_error;
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->>> index f3bdd4f11108..b6f53ca6e962 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->>> @@ -67,6 +67,7 @@ struct dpu_kms {
->>>       struct msm_kms base;
->>>       struct drm_device *dev;
->>>       const struct dpu_mdss_cfg *catalog;
->>> +    const struct msm_mdss_data *mdss;
->>>       /* io/register spaces: */
->>>       void __iomem *mmio, *vbif[VBIF_MAX];
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>> index 4a53e2c931d6..f9215643c71a 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>> @@ -101,6 +101,7 @@ int dpu_rm_destroy(struct dpu_rm *rm)
->>>   int dpu_rm_init(struct dpu_rm *rm,
->>>           const struct dpu_mdss_cfg *cat,
->>> +        const struct msm_mdss_data *mdss_data,
->>>           void __iomem *mmio)
+>>> +       ctx->enabled = true;
+>>
+>> Do we need this refcount just for PPS upload? What will happen if PPS
+>> is uploaded several times?
+>>
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>> +static int visionox_vtdr6130_disable(struct drm_panel *panel)
+>>> +{
+>>> +       struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+>>> +
+>>> +       ctx->enabled = false;
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>>   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+>>>                                         struct drm_connector *connector)
 >>>   {
->>>       int rc, i;
->>> @@ -230,7 +231,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>>           struct dpu_hw_sspp *hw;
->>>           const struct dpu_sspp_cfg *sspp = &cat->sspp[i];
->>> -        hw = dpu_hw_sspp_init(sspp, mmio, cat->ubwc);
->>> +        hw = dpu_hw_sspp_init(sspp, mmio, mdss_data);
->>>           if (IS_ERR(hw)) {
->>>               rc = PTR_ERR(hw);
->>>               DPU_ERROR("failed sspp object creation: err %d\n", rc);
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
->>> index d62c2edb2460..2b551566cbf4 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
->>> @@ -40,11 +40,13 @@ struct dpu_rm {
->>>    *    for all HW blocks.
->>>    * @rm: DPU Resource Manager handle
->>>    * @cat: Pointer to hardware catalog
->>> + * @mdss_data: Pointer to MDSS / UBWC configuration
->>>    * @mmio: mapped register io address of MDP
->>>    * @Return: 0 on Success otherwise -ERROR
->>>    */
->>>   int dpu_rm_init(struct dpu_rm *rm,
->>>           const struct dpu_mdss_cfg *cat,
->>> +        const struct msm_mdss_data *mdss_data,
->>>           void __iomem *mmio);
->>>   /**
+>>> @@ -237,6 +281,8 @@ static const struct drm_panel_funcs 
+>>> visionox_vtdr6130_panel_funcs = {
+>>>          .prepare = visionox_vtdr6130_prepare,
+>>>          .unprepare = visionox_vtdr6130_unprepare,
+>>>          .get_modes = visionox_vtdr6130_get_modes,
+>>> +       .enable = visionox_vtdr6130_enable,
+>>> +       .disable = visionox_vtdr6130_disable,
+>>>   };
+>>>
+>>>   static int visionox_vtdr6130_bl_update_status(struct 
+>>> backlight_device *bl)
+>>> @@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct 
+>>> mipi_dsi_device *dsi)
+>>>   {
+>>>          struct device *dev = &dsi->dev;
+>>>          struct visionox_vtdr6130 *ctx;
+>>> +       struct drm_dsc_config *dsc;
+>>>          int ret;
+>>>
+>>>          ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+>>>          if (!ctx)
+>>>                  return -ENOMEM;
+>>> +
+>>> +       ctx->video_mode = of_property_read_bool(dev->of_node, 
+>>> "enforce-video-mode");
+>>
+>> Please also add a DT bindings patch.
+>>
+>>> +
+>>> +       dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
+>>> +       if (!dsc)
+>>> +               return -ENOMEM;
+>>
+>> You can add struct drm_dsc_config to struct visionox_vtdr6130 instead
+>> of allocating it.
+>>
+>>> +
+>>> +       /* Set DSC params */
+>>> +       dsc->dsc_version_major = 0x1;
+>>> +       dsc->dsc_version_minor = 0x2;
+>>> +
+>>> +       dsc->slice_height = 40;
+>>> +       dsc->slice_width = 540;
+>>> +       dsc->slice_count = 2;
+>>> +       dsc->bits_per_component = 8;
+>>> +       dsc->bits_per_pixel = 8 << 4;
+>>> +       dsc->block_pred_enable = true;
+>>> +
+>>> +       dsi->dsc = dsc;
+>>
+>> Only in command mode?
 > 
+> Hi Dmitry,
+> 
+> The intention of the patch wasn't to enable DSC for only command mode.
+> 
+> We didn't want to limit DSC to only command mode because, while the MSM 
+> DPU driver isn't able to validate DSC on video mode, other vendors might 
+> have already validated DSC on video mode and would benefit from this patch.
+> 
+> FWIW, inital driver commit [1] notes that the panel is meant to work 
+> with compressed streams in general and DSC support was tob be added 
+> later on.
+
+Ack.
+
+> 
+> Thanks,
+> 
+> Jessica Zhang
+> 
+> [1] https://patchwork.freedesktop.org/patch/517483/?series=112369&rev=2
+> 
+>>
+>>>
+>>>          ctx->supplies[0].supply = "vddio";
+>>>          ctx->supplies[1].supply = "vci";
+>>> @@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct 
+>>> mipi_dsi_device *dsi)
+>>>
+>>>          dsi->lanes = 4;
+>>>          dsi->format = MIPI_DSI_FMT_RGB888;
+>>> -       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | 
+>>> MIPI_DSI_MODE_NO_EOT_PACKET |
+>>> -                         MIPI_DSI_CLOCK_NON_CONTINUOUS;
+>>> +
+>>> +       dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | 
+>>> MIPI_DSI_CLOCK_NON_CONTINUOUS;
+>>
+>> Keep the line split please.
+>>
+>>> +       if (ctx->video_mode)
+>>> +               dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
+>>> +
+>>>          ctx->panel.prepare_prev_first = true;
+>>>
+>>>          drm_panel_init(&ctx->panel, dev, 
+>>> &visionox_vtdr6130_panel_funcs,
+>>> -- 
+>>> 2.41.0
+>>>
+>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
+
+-- 
+With best wishes
+Dmitry
+
