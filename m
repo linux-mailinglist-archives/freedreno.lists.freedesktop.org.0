@@ -2,31 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B1D976768D
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 21:47:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A9E57677A2
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 23:33:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4C210E78C;
-	Fri, 28 Jul 2023 19:47:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3010B10E042;
+	Fri, 28 Jul 2023 21:33:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from soltyk.jannau.net (soltyk.jannau.net [144.76.91.90])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6DC610E789;
- Fri, 28 Jul 2023 19:44:03 +0000 (UTC)
-Received: by soltyk.jannau.net (Postfix, from userid 1000)
- id 539692701FE; Fri, 28 Jul 2023 21:44:02 +0200 (CEST)
-Date: Fri, 28 Jul 2023 21:44:02 +0200
-From: Janne Grunau <janne@jannau.net>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ZMQaguWtUjYMxw7l@jannau.net>
-References: <20230709202511.287794-1-dmitry.baryshkov@linaro.org>
- <20230709202511.287794-4-dmitry.baryshkov@linaro.org>
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C5910E04F
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 21:33:25 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2b72161c6e9so48071011fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 14:33:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690580003; x=1691184803;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=F7AFpVLhQJ5PQc/Bf5DhP3xmGWkfC7iIPHliAm6mja0=;
+ b=w0L3KwsYOQUAN+diOBY57sZAYZHnhjzw6UGdkhWBaGp9ISM3Ur15ffpL/3w6hZmMcQ
+ amkK+hLMd5BrmtjZ+7oAQ6+GeLJR+4kVbMnPWs7Hfx7F79s/dSaGgUq1E+dTthwj1hEJ
+ 23d5i8tuhkDB6hn4GEAgl8VUPjzLWrL3RlV5cFfZBhcrX7OhD203WOfdB/wk4/ZjXD7g
+ m4qAsi8VzNP/unJZdL6LfdELMXysxzPnqFXOPDggyluA8xs+fPO+TGSM745RoHoUvKzJ
+ K6ieqeh/f6ND/aiHvcyC3KvFz5Qg+mTevTciEVYnXzhbmiWravrvA8/e8ft6CRiOtoJv
+ udrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690580003; x=1691184803;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=F7AFpVLhQJ5PQc/Bf5DhP3xmGWkfC7iIPHliAm6mja0=;
+ b=CfY23vmew21/0cyjA6jAvXmrI5safUmQmbsh827Rz5fn1syHIPPPFehqk5wWZGaVEG
+ mk1RAUemDRxC1EF+0X2hTjRAUAdWiGFGKBGJXYD3JOpkzH9gqKKQq2aZHALHyJs6d3hM
+ YhFj12fxM6NzqdbsaWN/eX59qYVsXFBgw2GUhfQakBbo9IIjpAddZNPmK/6g5VNUW4Ei
+ YssMimfgFzZp9wzPjNPwJbPvT3tBO2gjQItSjYbyMqI2FfTId+AfDPTLiM2iY37YQdFz
+ GrXAAb4Iff5V7B4H+CDP2HgbTX51o806aaM0X9eu5wv4TokSaoeJUIVwyPdvqCl5sjL8
+ IpPw==
+X-Gm-Message-State: ABy/qLYpmWRtGEgaQiDRR30x4aUBl0KAXVaEBOcMzFRrOWrMajPadOp1
+ tsHORPKwxxsJCp1NpLshnenN8Q==
+X-Google-Smtp-Source: APBJJlHxGbDJja2pdb+Wwf+iFSEYszqRvIhTT2xYVNPer07dc5u/0DQg0cL916VpbKbH90v0/mN/MQ==
+X-Received: by 2002:a05:6512:3118:b0:4fb:a088:cfca with SMTP id
+ n24-20020a056512311800b004fba088cfcamr1289422lfb.6.1690580002982; 
+ Fri, 28 Jul 2023 14:33:22 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ n16-20020a056512389000b004fe13318aeesm956832lft.166.2023.07.28.14.33.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Jul 2023 14:33:21 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sat, 29 Jul 2023 00:33:13 +0300
+Message-Id: <20230728213320.97309-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230709202511.287794-4-dmitry.baryshkov@linaro.org>
-X-Mailman-Approved-At: Fri, 28 Jul 2023 19:47:40 +0000
-Subject: Re: [Freedreno] [PATCH v6 3/3] drm/bridge_connector: implement
- oob_hotplug_event
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/7] drm/msm/dpu: use UBWC data from MDSS
+ driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,103 +73,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-arm-msm@vger.kernel.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <sean@poorly.run>,
- linux-usb@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-07-09 23:25:11 +0300, Dmitry Baryshkov wrote:
-> Implement the oob_hotplug_event() callback. Translate it to the HPD
-> notification sent to the HPD bridge in the chain.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Both DPU and MDSS programming requires knowledge of some of UBWC
+parameters. This results in duplication of UBWC data between MDSS and
+DPU drivers. To remove such duplication and make the driver more
+error-prone, export respective configuration from the MDSS driver and
+make DPU use it, instead of bundling a copy of such data.
 
-Reviewed-by: Janne Grunau <j@jannau.net>
-> ---
->  drivers/gpu/drm/drm_bridge_connector.c | 29 +++++++++++++++++++++++---
->  1 file changed, 26 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
-> index 84d8d310ef04..364f6e37fbdc 100644
-> --- a/drivers/gpu/drm/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/drm_bridge_connector.c
-> @@ -5,6 +5,8 @@
->  
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/property.h>
->  #include <linux/slab.h>
->  
->  #include <drm/drm_atomic_state_helper.h>
-> @@ -107,10 +109,9 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
->  	}
->  }
->  
-> -static void drm_bridge_connector_hpd_cb(void *cb_data,
-> -					enum drm_connector_status status)
-> +static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bridge_connector,
-> +					    enum drm_connector_status status)
->  {
-> -	struct drm_bridge_connector *drm_bridge_connector = cb_data;
->  	struct drm_connector *connector = &drm_bridge_connector->base;
->  	struct drm_device *dev = connector->dev;
->  
-> @@ -123,6 +124,21 @@ static void drm_bridge_connector_hpd_cb(void *cb_data,
->  	drm_kms_helper_hotplug_event(dev);
->  }
->  
-> +static void drm_bridge_connector_hpd_cb(void *cb_data,
-> +					enum drm_connector_status status)
-> +{
-> +	drm_bridge_connector_handle_hpd(cb_data, status);
-> +}
-> +
-> +static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connector,
-> +						   enum drm_connector_status status)
-> +{
-> +	struct drm_bridge_connector *bridge_connector =
-> +		to_drm_bridge_connector(connector);
-> +
-> +	drm_bridge_connector_handle_hpd(bridge_connector, status);
-> +}
-> +
->  static void drm_bridge_connector_enable_hpd(struct drm_connector *connector)
->  {
->  	struct drm_bridge_connector *bridge_connector =
-> @@ -216,6 +232,7 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
->  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
->  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
->  	.debugfs_init = drm_bridge_connector_debugfs_init,
-> +	.oob_hotplug_event = drm_bridge_connector_oob_hotplug_event,
->  };
->  
->  /* -----------------------------------------------------------------------------
-> @@ -351,6 +368,12 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->  		if (!drm_bridge_get_next_bridge(bridge))
->  			connector_type = bridge->type;
->  
-> +#ifdef CONFIG_OF
-> +		if (!drm_bridge_get_next_bridge(bridge) &&
-> +		    bridge->of_node)
-> +			connector->fwnode = fwnode_handle_get(of_fwnode_handle(bridge->of_node));
-> +#endif
-> +
->  		if (bridge->ddc)
->  			ddc = bridge->ddc;
->  
-> -- 
-> 2.39.2
-> 
+Changes since v1:
+ - Rebased on top of msm-next-lumag
+ - Reworked commit message by patch #5, following the request by Abhinav
+ - Dropped DPU_HW_UBWC_VER_xx values
+ - Also removed DPU_MDP_*BWC* defines
+
+Dmitry Baryshkov (7):
+  drm/msm/mdss: correct UBWC programming for SM8550
+  drm/msm/mdss: rename ubwc_version to ubwc_enc_version
+  drm/msm/mdss: export UBWC data
+  drm/msm/mdss: populate missing data
+  drm/msm/dpu: use MDSS data for programming SSPP
+  drm/msm/dpu: drop UBWC configuration
+  drm/msm/dpu: drop BWC features from DPU_MDP_foo namespace
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  6 --
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  6 --
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  6 --
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  6 --
+ .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  6 --
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |  5 -
+ .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  6 --
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  7 --
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  7 --
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  6 --
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 32 -------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 18 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 16 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |  2 +
+ drivers/gpu/drm/msm/msm_mdss.c                | 94 ++++++++++++-------
+ drivers/gpu/drm/msm/msm_mdss.h                | 27 ++++++
+ 25 files changed, 121 insertions(+), 181 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/msm_mdss.h
+
+-- 
+2.39.2
+
