@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A7147677A7
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 23:33:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2CB97677AA
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 23:33:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51A510E479;
-	Fri, 28 Jul 2023 21:33:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB2DB10E78D;
+	Fri, 28 Jul 2023 21:33:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5429F10E479
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 21:33:29 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fe1c285690so3166457e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 14:33:29 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBDC10E497
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 21:33:31 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-4fe1489ced6so4447947e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 14:33:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690580007; x=1691184807;
+ d=linaro.org; s=google; t=1690580009; x=1691184809;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zfE1L2H8AJhwbvwdI3x7uxXE4yUvRsy3KKDO7xKa8+8=;
- b=oPCh/MnViaN0eJIQ9zVxch8uKF324MPV/COzPKKr29yzx7GX4rBFlYGZ/tLCshFjei
- 2suiFGWvUIyn3cYrGMxgqpDmzX0lKnlSXNVFKIM2K/8m11AGtfDdJJ2iYIMCqU5z0K6U
- HtTEhnJroBJ+8pcZpiH19ToDliE08V8Z80yOO1kXA6oTfo74MY4aGNkpaIJU1NvdVYKK
- rKpwXAWVa05fnUIsUpoqYm6Nf1uykk9TrbdxthrNP21X5a3+4gWdxvoOVFPQZT1RtsTX
- ifL79RkNJlrYyfFA+XsnB4cfssmwVdb7UiOxgMZYNCHJeMiDDbMZ55EojC91VYraOK53
- MwOA==
+ bh=n0nmQkrFJ1qTPckiGBd/pQx7xzpmDvjfPbdpqRUAvKg=;
+ b=IZYBx41OdMDoVKczPPi9p+OFE/GF68QAiP/6RdFsxBz1dvHDdk1U6fApz34gJ1nkhq
+ qFmhuqPTRH9L9sknWaTZFh/2yvxpAX5svFrnlFh5R8N3YE55Qq/AU5JKDX6iBnAZPOCy
+ J+wOyPjYeeqAEn6AZLAZZeNZd/rH0ppH6sxk5YCrmG+N7Ypn1dKD7H+QP3CyymIRdIuz
+ bVoG0oH3OyfBgIoMOLuizs8uPrBMN9+ky6aRh0wXzf1Zh4vBNUceCHI1jUkUuY0VXFSe
+ tKmW5zlg1syNmrSJNEDyw2z+Z8DVkEGoX/3rggDP1V2uinIMxIM2i6yPgVyoyt9Qbf4r
+ T+MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690580007; x=1691184807;
+ d=1e100.net; s=20221208; t=1690580009; x=1691184809;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zfE1L2H8AJhwbvwdI3x7uxXE4yUvRsy3KKDO7xKa8+8=;
- b=OQYfazhxjfzCAx1MJ2nPPu6+PJP3ka+6sU1LC2KAcHCdJxK2i3o2xwUqNwxj6uGHoC
- oVChH6D4w46qLMFXl821/1Xml3Q6qrszLQbUTtrxr7OLJoGfuh1iahgRPXNLfaGoiMIO
- Ft6xt31gIVZcP0cwJf1Sp/FzJoV9p7cTvk5sKzLU0vxTZYsgUVIHPQhoPFFqZmnMAr9N
- qsXRo6G9raw72ZiAyvPjSCb04eoWod0Sp1u2rRbNzlZANnr/XXtjdyW9W+uBlxs5B4Hh
- Le6A1u3SWqRLAltbCKA6UAD0n8R4qe47SSrsatwuEES2nGZXDwS/abuUXpDHGFzi4tkC
- 5jbA==
-X-Gm-Message-State: ABy/qLZizuIJfYcU0MZ41ner191fQ+szzcqfqHvaPUoeYljX2iTzCmfi
- TT5YFumS87cGBKWBePJwJ0FgoA==
-X-Google-Smtp-Source: APBJJlGt8RJK8xWb4OYVlKtW/lsZu2UwRnAUNXDIQOaNIt5YnkDoYcltwl6rIfU4HNpnK/q/d4A+rA==
-X-Received: by 2002:a19:7b14:0:b0:4f8:5755:5b22 with SMTP id
- w20-20020a197b14000000b004f857555b22mr2045199lfc.27.1690580007645; 
- Fri, 28 Jul 2023 14:33:27 -0700 (PDT)
+ bh=n0nmQkrFJ1qTPckiGBd/pQx7xzpmDvjfPbdpqRUAvKg=;
+ b=gtolnk7SbF4ikWHPollJae2bTGNO7wvgvaGMG1ff7JdXDakqZKx8v54ckhucbcx1W1
+ r9jFPCXc4hfEuk8Q/XoE3tmJUiqHx/kAVB4pWUHaPdZqk1bKTqNcvYG+FFAjDnXRU+0x
+ HPpqx5HWmEUZe5Lra5mdqUu1VSqlN7kKaYEsDuVIEBlSDK4MKPVSgW81aMa9okCFk0et
+ adhquYIBAe40bjIU2R74My0r6tFt/K80qTTukiluF6ycYhMoqL+sdevwJLdEqaBiy12c
+ vT1VKZDVavqDpznoO58RtKCcZx799ls9G3dAb7p+KvVnGdkJqcbRjVwx0uW0g93R3hDt
+ CoPg==
+X-Gm-Message-State: ABy/qLaZqCpjIbo/J45i+K6WHdiXKRI4Uv2eRu8SYXtqqL7R4rs1zzv2
+ KDwleyi4CWn1epA6lMc2bZuqlw==
+X-Google-Smtp-Source: APBJJlG2M61J+6qFH5o3JAMVC7nbKN6aqxJaAONR/c9d/dlPYtaMAQvSYGfPBTm2RiGt+Zk1b6+uJA==
+X-Received: by 2002:ac2:5f7a:0:b0:4fe:f24:cbf3 with SMTP id
+ c26-20020ac25f7a000000b004fe0f24cbf3mr2431232lfc.63.1690580009632; 
+ Fri, 28 Jul 2023 14:33:29 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- n16-20020a056512389000b004fe13318aeesm956832lft.166.2023.07.28.14.33.26
+ n16-20020a056512389000b004fe13318aeesm956832lft.166.2023.07.28.14.33.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Jul 2023 14:33:26 -0700 (PDT)
+ Fri, 28 Jul 2023 14:33:28 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat, 29 Jul 2023 00:33:16 +0300
-Message-Id: <20230728213320.97309-4-dmitry.baryshkov@linaro.org>
+Date: Sat, 29 Jul 2023 00:33:17 +0300
+Message-Id: <20230728213320.97309-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230728213320.97309-1-dmitry.baryshkov@linaro.org>
 References: <20230728213320.97309-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/7] drm/msm/mdss: export UBWC data
+Subject: [Freedreno] [PATCH v2 4/7] drm/msm/mdss: populate missing data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,113 +82,72 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DPU programming requires knowledge of some of UBWC parameters. This
-results in duplication of UBWC data between MDSS and DPU drivers. Export
-the required data from MDSS driver.
+As we are going to use MDSS data for DPU programming, populate missing
+MDSS data. The UBWC 1.0 and no UBWC cases do not require MDSS
+programming, so skip them.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 30 +++++++++++++-----------------
- drivers/gpu/drm/msm/msm_mdss.h | 27 +++++++++++++++++++++++++++
- 2 files changed, 40 insertions(+), 17 deletions(-)
- create mode 100644 drivers/gpu/drm/msm/msm_mdss.h
+ drivers/gpu/drm/msm/msm_mdss.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 67436a5a8cf1..0189811bce4d 100644
+index 0189811bce4d..c2b4cf9ad2eb 100644
 --- a/drivers/gpu/drm/msm/msm_mdss.c
 +++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -13,7 +13,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- 
--#include "msm_drv.h"
-+#include "msm_mdss.h"
- #include "msm_kms.h"
- 
- #define HW_REV				0x0
-@@ -26,16 +26,6 @@
- 
- #define MIN_IB_BW	400000000UL /* Min ib vote 400MB */
- 
--struct msm_mdss_data {
--	u32 ubwc_enc_version;
--	/* can be read from register 0x58 */
--	u32 ubwc_dec_version;
--	u32 ubwc_swizzle;
--	u32 ubwc_static;
--	u32 highest_bank_bit;
--	u32 macrotile_mode;
--};
--
- struct msm_mdss {
- 	struct device *dev;
- 
-@@ -185,12 +175,6 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *msm_mdss)
+@@ -264,6 +264,10 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+ 	 * UBWC_n and the rest of params comes from hw data.
+ 	 */
+ 	switch (msm_mdss->mdss_data->ubwc_dec_version) {
++	case 0: /* no UBWC */
++	case UBWC_1_0:
++		/* do nothing */
++		break;
+ 	case UBWC_2_0:
+ 		msm_mdss_setup_ubwc_dec_20(msm_mdss);
+ 		break;
+@@ -502,10 +506,22 @@ static int mdss_remove(struct platform_device *pdev)
  	return 0;
  }
  
--#define UBWC_1_0 0x10000000
--#define UBWC_2_0 0x20000000
--#define UBWC_3_0 0x30000000
--#define UBWC_4_0 0x40000000
--#define UBWC_4_3 0x40030000
--
- static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss)
- {
- 	const struct msm_mdss_data *data = msm_mdss->mdss_data;
-@@ -236,6 +220,18 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
- 	}
- }
- 
-+const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev)
-+{
-+	struct msm_mdss *mdss;
-+
-+	if (!dev)
-+		return ERR_PTR(-EINVAL);
-+
-+	mdss = dev_get_drvdata(dev);
-+
-+	return mdss->mdss_data;
-+}
-+
- static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- {
- 	int ret;
-diff --git a/drivers/gpu/drm/msm/msm_mdss.h b/drivers/gpu/drm/msm/msm_mdss.h
-new file mode 100644
-index 000000000000..02bbab42adbc
---- /dev/null
-+++ b/drivers/gpu/drm/msm/msm_mdss.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2018, The Linux Foundation
-+ */
-+
-+#ifndef __MSM_MDSS_H__
-+#define __MSM_MDSS_H__
-+
-+struct msm_mdss_data {
-+	u32 ubwc_enc_version;
-+	/* can be read from register 0x58 */
-+	u32 ubwc_dec_version;
-+	u32 ubwc_swizzle;
-+	u32 ubwc_static;
-+	u32 highest_bank_bit;
-+	u32 macrotile_mode;
++static const struct msm_mdss_data msm8998_data = {
++	.ubwc_enc_version = UBWC_1_0,
++	.ubwc_dec_version = UBWC_1_0,
++	.highest_bank_bit = 1,
 +};
 +
-+#define UBWC_1_0 0x10000000
-+#define UBWC_2_0 0x20000000
-+#define UBWC_3_0 0x30000000
-+#define UBWC_4_0 0x40000000
-+#define UBWC_4_3 0x40030000
++static const struct msm_mdss_data qcm2290_data = {
++	/* no UBWC */
++	.highest_bank_bit = 0x2,
++};
 +
-+const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev);
-+
-+#endif /* __MSM_MDSS_H__ */
+ static const struct msm_mdss_data sc7180_data = {
+ 	.ubwc_enc_version = UBWC_2_0,
+ 	.ubwc_dec_version = UBWC_2_0,
+ 	.ubwc_static = 0x1e,
++	.highest_bank_bit = 0x3,
+ };
+ 
+ static const struct msm_mdss_data sc7280_data = {
+@@ -558,6 +574,7 @@ static const struct msm_mdss_data sm6115_data = {
+ 	.ubwc_dec_version = UBWC_2_0,
+ 	.ubwc_swizzle = 7,
+ 	.ubwc_static = 0x11f,
++	.highest_bank_bit = 0x1,
+ };
+ 
+ static const struct msm_mdss_data sm6125_data = {
+@@ -589,8 +606,8 @@ static const struct msm_mdss_data sm8550_data = {
+ 
+ static const struct of_device_id mdss_dt_match[] = {
+ 	{ .compatible = "qcom,mdss" },
+-	{ .compatible = "qcom,msm8998-mdss" },
+-	{ .compatible = "qcom,qcm2290-mdss" },
++	{ .compatible = "qcom,msm8998-mdss", .data = &msm8998_data },
++	{ .compatible = "qcom,qcm2290-mdss", .data = &qcm2290_data },
+ 	{ .compatible = "qcom,sdm845-mdss", .data = &sdm845_data },
+ 	{ .compatible = "qcom,sc7180-mdss", .data = &sc7180_data },
+ 	{ .compatible = "qcom,sc7280-mdss", .data = &sc7280_data },
 -- 
 2.39.2
 
