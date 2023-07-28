@@ -1,77 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3AA3766380
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 07:08:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E60766550
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 09:27:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88CA710E012;
-	Fri, 28 Jul 2023 05:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62BE510E061;
+	Fri, 28 Jul 2023 07:27:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3B5210E012;
- Fri, 28 Jul 2023 05:08:54 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36S4F6Nq030590; Fri, 28 Jul 2023 05:08:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=iScrItQIzPsIt3AApI8NNBT+ho/72fIhG7KNr+pP66U=;
- b=S1qIaH+DofRLPMwv2eE5rgkh6bXaECZLvzKp9aAQKT3OH460k43aGSHFCpkIah/AuC/U
- PfTF5GYTHCEZdN1qKtpIdTynzhzv/pedYKyLLvEwKqjPWo5SxhGeKVSXt2mxPzcTD1OT
- ayo0FAZGGZOqDP0wc/LlZEVg9+lTZSykgUiuMCbXo38HI5Z60hYDdNrXFMjFXCW3AipL
- UwEO8od7FSsiY7wbMGEjnvIUPP/pkuTBIShstasUaV8fN8zBnuPNW7rDO8NI5zOkNTQe
- o8qU0IQMOBka9prdGxy3/1XbWYyXlR5/9IPFiyZz/tmw3Hu51aGSB5gpMPrKJWW/yQay XQ== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s3n2kaesm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 05:08:46 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36S58iG2012467
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 05:08:44 GMT
-Received: from [10.214.66.58] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Thu, 27 Jul
- 2023 22:08:35 -0700
-Message-ID: <98ef61af-8b90-cf9b-2c54-935156c39785@quicinc.com>
-Date: Fri, 28 Jul 2023 10:38:32 +0530
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3718410E65D
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 07:27:52 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2b6f97c7115so29212911fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 00:27:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690529270; x=1691134070;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YNafLEWKCWHk1Q/GCD8fpQN53csIuJxGCApzHzUl+J4=;
+ b=cvbyYal9w/8O6TpbNSfZiSB3NPbKpNrbwA0Pl8KoO5akeSN1cstQQ/3b0Fwq5nboJa
+ W08NUyupLmp7hVAHqGvmTwGWEGWFcoJkFHiRpf3aSGISo6EOlUr58+O1Pq8nh6qD8Vel
+ F5lc7uKMMCdsGa/lT6eEXEp2HB5NxHnf/6OgoZ3Rv+76Beok3p2FReGLgoN66L48ODYs
+ hZjqrlnys23DUbaZ/bMns+GJOosP8dE4lok2/iWDK2md5NnzBPteZaFOcZ8Gb4AdoOss
+ FmoH0YZQnBM8pZ2bpljO4kMA0tkUFV0HwoBUIlVCPZtQCZFk4ZEfRJ3gOOAFZGiRntch
+ 9/mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690529270; x=1691134070;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YNafLEWKCWHk1Q/GCD8fpQN53csIuJxGCApzHzUl+J4=;
+ b=gVSSGSZogGB2wb4bEJvznzOASXUfREz0BpVQ+tWIbe3bgFyVk6/SrZ8QI0h9S1Jl6f
+ J9U2TrULZEQ8E+1ewfDln6ivo/tKj4cLgCubyVRk9Dos8zBGt3e178Tv3suJbRXT98TI
+ /DUBkNqRFlS0TSQXVyUF40d5L1RGGhEmj/6J5QZ4t0Y/JgfPv9YSX4y2Fz211IROlOmt
+ O3IU7InufNRYx6ZDtdRpWsvCuN9k6CrAos4fXn4eiEOza0aE56ZsUaHa7ux9XdmZGeea
+ lPrv8YC60Icqtzabbewrob4nmmNdiRiB2QlwYgUp0qfZNBtBAS40VtdS7qJqDxsYHgQV
+ nSXA==
+X-Gm-Message-State: ABy/qLZ6irjBIXjx+tPp4Pn9QyxUucTb5i/JB9dR6nO8yy5C87/KIi7l
+ ZX5husreUY0ENdOhLMG6fOaLOw==
+X-Google-Smtp-Source: APBJJlHbQY+iRJVVhNPkSxL+x0Z0ZzSaBO/HRp6/q5HSe9MRZCYGRTErk6fUi0vWZuvnX7tYEjn/Ew==
+X-Received: by 2002:a2e:2e17:0:b0:2b9:6d6e:df5c with SMTP id
+ u23-20020a2e2e17000000b002b96d6edf5cmr1067297lju.5.1690529270007; 
+ Fri, 28 Jul 2023 00:27:50 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+ by smtp.gmail.com with ESMTPSA id
+ n5-20020a7bc5c5000000b003fbe4cecc3bsm6430037wmk.16.2023.07.28.00.27.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Jul 2023 00:27:49 -0700 (PDT)
+Message-ID: <08cd9bb5-678f-e03e-4598-dd1785f0d7a7@linaro.org>
+Date: Fri, 28 Jul 2023 09:27:47 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-References: <1690461813-22564-1-git-send-email-quic_rohiagar@quicinc.com>
- <169046381501.1270011.10571652656239031435.robh@kernel.org>
-From: Rohit Agarwal <quic_rohiagar@quicinc.com>
-In-Reply-To: <169046381501.1270011.10571652656239031435.robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230727212208.102501-1-robdclark@gmail.com>
+ <20230727212208.102501-13-robdclark@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230727212208.102501-13-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: UJBo0UO0ZrykV2Zf3ieuP02yT_uehX8T
-X-Proofpoint-ORIG-GUID: UJBo0UO0ZrykV2Zf3ieuP02yT_uehX8T
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-27_10,2023-07-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- lowpriorityscore=0 phishscore=0 impostorscore=0 mlxscore=0 suspectscore=0
- spamscore=0 clxscore=1015 bulkscore=0 mlxlogscore=996 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307280046
-Subject: Re: [Freedreno] [PATCH v2] dt-bindings: qcom: Update RPMHPD entries
- for some SoCs
+Subject: Re: [Freedreno] [PATCH v2 12/13] dt-bindings: drm/msm/gpu: Extend
+ bindings for chip-id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,92 +78,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: ulf.hansson@linaro.org, mturquette@baylibre.com,
- linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_vgarodia@quicinc.com, krzysztof.kozlowski+dt@linaro.org,
- marijn.suijten@somainline.org, airlied@gmail.com, linux-clk@vger.kernel.org,
- rfoss@kernel.org, jonathan@marek.ca, stanimir.k.varbanov@gmail.com,
- agross@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, bhupesh.sharma@linaro.org, mani@kernel.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, robh+dt@kernel.org,
- mchehab@kernel.org, sean@poorly.run, neil.armstrong@linaro.org,
- mathieu.poirier@linaro.org, sboyd@kernel.org, andersson@kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- konrad.dybcio@linaro.org, robdclark@gmail.com, quic_tdas@quicinc.com,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
- vladimir.zapolskiy@linaro.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 27/07/2023 23:20, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Upcoming GPUs use an opaque chip-id for identifying the GPU.
 
-On 7/27/2023 6:46 PM, Rob Herring wrote:
-> On Thu, 27 Jul 2023 18:13:33 +0530, Rohit Agarwal wrote:
->> Update the RPMHPD references with new bindings defined in rpmhpd.h
->> for Qualcomm SoCs SM8[2345]50.
->>
->> Signed-off-by: Rohit Agarwal <quic_rohiagar@quicinc.com>
->> ---
->>
->> Changes in v2:
->>   - Removed the unnecessary inclusion of header rpmpd.h.
->>
->> This patch is dependent on the series that includes the new rpmhpd.h header
->> https://lore.kernel.org/all/1689744162-9421-1-git-send-email-quic_rohiagar@quicinc.com/
->>
->>   Documentation/devicetree/bindings/clock/qcom,dispcc-sm8x50.yaml   | 4 ++--
->>   Documentation/devicetree/bindings/clock/qcom,sm8350-videocc.yaml  | 4 ++--
->>   Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml    | 4 ++--
->>   Documentation/devicetree/bindings/clock/qcom,sm8450-dispcc.yaml   | 4 ++--
->>   Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml  | 4 ++--
->>   Documentation/devicetree/bindings/clock/qcom,sm8550-dispcc.yaml   | 4 ++--
->>   Documentation/devicetree/bindings/clock/qcom,videocc.yaml         | 4 ++--
->>   .../devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml          | 4 ++--
->>   .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml         | 8 ++++----
->>   .../devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml          | 4 ++--
->>   .../devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml         | 6 +++---
->>   .../devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml          | 4 ++--
->>   .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml         | 8 ++++----
->>   .../devicetree/bindings/display/msm/qcom,sm8550-dpu.yaml          | 4 ++--
->>   .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 8 ++++----
->>   Documentation/devicetree/bindings/media/qcom,sm8250-venus.yaml    | 4 ++--
->>   Documentation/devicetree/bindings/mmc/sdhci-msm.yaml              | 4 ++--
->>   Documentation/devicetree/bindings/remoteproc/qcom,sm8350-pas.yaml | 6 +++---
->>   18 files changed, 44 insertions(+), 44 deletions(-)
->>
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
->
-> yamllint warnings/errors:
->
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/remoteproc/qcom,sm8350-pas.example.dts:21:18: fatal error: dt-bindings/power/qcom,rpmhpd.h: No such file or directory
->     21 |         #include <dt-bindings/power/qcom,rpmhpd.h>
->        |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> compilation terminated.
-> make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/remoteproc/qcom,sm8350-pas.example.dtb] Error 1
-> make[2]: *** Waiting for unfinished jobs....
-> make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1500: dt_binding_check] Error 2
-> make: *** [Makefile:234: __sub-make] Error 2
->
-> doc reference errors (make refcheckdocs):
->
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/1690461813-22564-1-git-send-email-quic_rohiagar@quicinc.com
->
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
->
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
->
-> pip3 install dtschema --upgrade
->
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-We can ignore this error as the dependency is mentioned in the changelog 
-that adds
-this new header. Also have tested locally with these dependencies in place.
+Examples?
 
-Thanks,
-Rohit.
+Anyway, I think we should insist here of using something human-readable,
+even if Qualcomm/Adreno internally use some weird numbers.
+
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/gpu.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> index 58ca8912a8c3..56b9b247e8c2 100644
+> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> @@ -13,6 +13,12 @@ maintainers:
+>  properties:
+>    compatible:
+>      oneOf:
+> +      - description: |
+> +          The driver is parsing the compat string for Adreno to
+> +          figure out the chip-id.
+> +        items:
+> +          - pattern: '^qcom,adreno-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$'
+
+{8} should work?
+
+
+
+Best regards,
+Krzysztof
+
