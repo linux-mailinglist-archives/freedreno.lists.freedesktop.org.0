@@ -2,59 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3D6676690D
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 11:37:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A56C766FAA
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 16:43:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3079F10E6C4;
-	Fri, 28 Jul 2023 09:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 007F110E0D9;
+	Fri, 28 Jul 2023 14:43:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE45B10E6C2
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 09:37:28 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id
- 3f1490d57ef6-d18566dc0c1so1805080276.0
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 02:37:28 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB31110E0D9;
+ Fri, 28 Jul 2023 14:43:50 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-4fe1b00fce2so2830432e87.3; 
+ Fri, 28 Jul 2023 07:43:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690537048; x=1691141848;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=JlZf2RL3i6UDORQb9mZw6fYIEm2cS2iGuc+pwaym0fI=;
- b=uUz/3R3iJOplNYB1AkkHSjLhoozRziAFHJjM631Jfbue8Cm+UFJjT0tGZCToZB1gcU
- 4IyPWiViAfuq6WdsCO23qHimmlsX0XzNNE7K9OxEU99kmjk/fxyA37ByIf5gDDICcBuZ
- Q3G++K7KkaqCZkMCXAnPkDuDlyX1mjsAf8wyXiPqrLxA/AW9GcLzl6ul3rk4iSreEC2Y
- BUcIoCMXwphAz8I2/h1BC0TWhRmmjf/MaixUsxb72SuMSdj5ejdQ5q5s7usOup9rK+Zk
- XZtxodYYQYsWVhwofTSMzWCoUFFIWxU99JPF7pIOkpCn1Gi67VBlsruBKj9D7FR3Sfiq
- DRLQ==
+ d=gmail.com; s=20221208; t=1690555429; x=1691160229;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qHzUY9sYMItLasKpt4uG/MHkQcPQOL+MsJeYY06IBUU=;
+ b=OZlVW/1N+7b9oDDNV6D8sCeYYoq5+CFVC7BFZYUFeVle884vF2/SSqBLtBEjVfaUfW
+ drAiQWCNTEq9DHFmx2tIx5NDTMxatGYdvl2qNUyAPPJlSgUxZVcLcWDpU31YdiWb/oOE
+ QvSLf5/M/SDpTtF/9S2oZTPaHLuoIWLotoQb1RhwxWYJ6JE6KNNcbnE/RlzZBq3SCFK7
+ K6ig68ERvt84LejC1lZKgoxLlzx/jzON7DHoH3I4J8qP5euvbiP4LOPee24LlGCMvgzD
+ ESknGtO3iDvPsTEQJoJn5a4e7h7WmDQI410RXS86/1xVuAIWqrmmZi/pUsxfm6HwoG2j
+ XlvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690537048; x=1691141848;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JlZf2RL3i6UDORQb9mZw6fYIEm2cS2iGuc+pwaym0fI=;
- b=XsMhjhCBTN5C77L9vebxF6bo5TinuyC2PFsyT5umM2fW+lDZ+CcXGcTHulXG/rJK+f
- /f9Yufi/QPModIqyKhWe1nwsDgRq9ZqufgIKkAH5tgpFmoPSuzXf+C9HzDRS151RsQHK
- Gsllavj7/ooLx+1xATclfkDOUHhVTfdpXVk75I/MC17MmR3ANgMbthHN+ImX133zkA+P
- w8vXR2PddKOGmm2MsVxAE4R2vgsB3ucATxgplCF/GFoTZLyxsL92c0uDL1fCxeC34ODb
- k0ZxkOmkIemUwi+8sF6mnqCEdE5SJRbWw/pbLbiGhenGTiIKVqvLkkqUJZkXnNDrVGfr
- PNuA==
-X-Gm-Message-State: ABy/qLaQI8nkjOCloO78gGTuurThhZ3RjAayDY3x9FsnjJuSLTN/BqsU
- aS+TF/CraVdptSzGO/E2+anCR3+8kgMKn6C3gnZHjw==
-X-Google-Smtp-Source: APBJJlHP+0vhBr5pqqSindcVAEKtPZL7T+Mqdb+FcAqoZgG9TNDCetnFMDUrGRwkofjLPfASs0KY9UC1k96BrCfnA5Q=
-X-Received: by 2002:a5b:88c:0:b0:bca:7cd:7f32 with SMTP id
- e12-20020a5b088c000000b00bca07cd7f32mr1208001ybq.48.1690537048006; 
- Fri, 28 Jul 2023 02:37:28 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1690555429; x=1691160229;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qHzUY9sYMItLasKpt4uG/MHkQcPQOL+MsJeYY06IBUU=;
+ b=MXElX9HbWdnCW3EamhNYLbijLAskgwgEleANe2TFlJHoomRkocOMF+tJ3F4kSXBHQj
+ ODU04lDT2mail0mZkRmCdfsJ4zYmCasesRtj8iuLgUcfW/Vu1XQvVQ21GWw4YJ9o4SuE
+ qopmrFkSwhldac3D/eTFU3a8vRNrNQXDiwvyow6QbH1zesU2qMX6ek0lN/ZcVmGuGPle
+ dzjYuPsOpDvQLxjsZEsovPDZOH4CSMLEiIzc1E4jAXfkwUVLp8osPJTklC8dHX3VMZzI
+ vfibYe5cZh+YOjnIANMfdiRAVAOnbUjsxDPEXeW8IVm036DSpgl/+f9B8igIwdO27ABA
+ RX2w==
+X-Gm-Message-State: ABy/qLag8iLT9g+/MPf6TvPSePVVH343PFo+m9IIztkXt7pQG0WAznbX
+ mZZZ8hfEqsVl3bIccp78PoIja3LbKQm+G1YSKNY=
+X-Google-Smtp-Source: APBJJlEiCi1ztnb5VEvUBph+MaUcqhJjJh7os+xkTNI+vPTwQ4wcs69s0jkiJXtjqd3HECMpaP2G2R9iVuC3rTD5KWU=
+X-Received: by 2002:a05:6512:3e6:b0:4fb:73ce:8e7d with SMTP id
+ n6-20020a05651203e600b004fb73ce8e7dmr1740686lfq.15.1690555428780; Fri, 28 Jul
+ 2023 07:43:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230728012623.22991-1-quic_parellan@quicinc.com>
-In-Reply-To: <20230728012623.22991-1-quic_parellan@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 28 Jul 2023 12:37:17 +0300
-Message-ID: <CAA8EJpqPgzd4ZSP948MQW=f4EVBHxajj4nwYq5s-OConBP7Vvg@mail.gmail.com>
-To: Paloma Arellano <quic_parellan@quicinc.com>
+References: <20230706211045.204925-1-robdclark@gmail.com>
+ <20230706211045.204925-7-robdclark@gmail.com>
+ <ccbe9ed4-7def-b0d1-2d1c-e2550d212943@linaro.org>
+ <fpwpc7oyxzbfndojr2o2rkv2i66is4ylrtxh4equms7eyu4afc@cwyfgqanhlbo>
+ <CAF6AEGt+qnUBAq3CHS4eTO1YQsbLjj3Urtt2LuSwRJ7XpzPBww@mail.gmail.com>
+ <CAA8EJppJNrcXp8yswDycqA5HuK6bDCKrAkT4ttkGJvsWqD_YMg@mail.gmail.com>
+ <CAF6AEGtLcwKRCMGgLAuABEbSR1CeYKF+D=ffsQLRo-f1BiprbA@mail.gmail.com>
+ <f58998c9-82d3-d2fe-6f1c-801e616467be@linaro.org>
+ <CAF6AEGu4_9kWyHCV0TOOU0vCqLBmrtEZDm9fAeMHNeDei7K8aQ@mail.gmail.com>
+ <CAA8EJpr7Ed3ZBXfFxPV4u0t5obsP8yL5h3vwPMZSHjAMDQaA9w@mail.gmail.com>
+ <CAF6AEGsMx3dfn5AiFyiacH22Zhf6jcO7+apam_mckhLreNCRtA@mail.gmail.com>
+ <CAA8EJpoZhw1k5b346YDFX_cpSNG22NYRUsckA0hKiTspC8on6g@mail.gmail.com>
+In-Reply-To: <CAA8EJpoZhw1k5b346YDFX_cpSNG22NYRUsckA0hKiTspC8on6g@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 28 Jul 2023 07:43:37 -0700
+Message-ID: <CAF6AEGtM6_R=PeLTFA+V_116kjGzCM7GoSCvDMzyrx8Z7j=8Qg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
- Visionox VTDR6130 panel
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 06/12] drm/msm/adreno: Allow SoC specific
+ gpu device table entries
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,202 +80,289 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org, sam@ravnborg.org,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- quic_jesszhan@quicinc.com, airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 28 Jul 2023 at 04:26, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+On Thu, Jul 27, 2023 at 3:02=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
-> VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
-> to command mode with DSC enabled.
+> On Fri, 28 Jul 2023 at 00:13, Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > On Wed, Jul 26, 2023 at 3:33=E2=80=AFPM Dmitry Baryshkov
+> > <dmitry.baryshkov@linaro.org> wrote:
+> > >
+> > > On Thu, 27 Jul 2023 at 01:04, Rob Clark <robdclark@gmail.com> wrote:
+> > > >
+> > > > On Wed, Jul 26, 2023 at 2:43=E2=80=AFPM Dmitry Baryshkov
+> > > > <dmitry.baryshkov@linaro.org> wrote:
+> > > > >
+> > > > > On 26/07/2023 23:11, Rob Clark wrote:
+> > > > > > On Wed, Jul 26, 2023 at 1:00=E2=80=AFPM Dmitry Baryshkov
+> > > > > > <dmitry.baryshkov@linaro.org> wrote:
+> > > > > >>
+> > > > > >> On Wed, 26 Jul 2023 at 21:28, Rob Clark <robdclark@gmail.com> =
+wrote:
+> > > > > >>>
+> > > > > >>> On Thu, Jul 13, 2023 at 1:26=E2=80=AFPM Akhil P Oommen <quic_=
+akhilpo@quicinc.com> wrote:
+> > > > > >>>>
+> > > > > >>>> On Fri, Jul 07, 2023 at 05:34:04AM +0300, Dmitry Baryshkov w=
+rote:
+> > > > > >>>>>
+> > > > > >>>>> On 07/07/2023 00:10, Rob Clark wrote:
+> > > > > >>>>>> From: Rob Clark <robdclark@chromium.org>
+> > > > > >>>>>>
+> > > > > >>>>>> There are cases where there are differences due to SoC int=
+egration.
+> > > > > >>>>>> Such as cache-coherency support, and (in the next patch) e=
+-fuse to
+> > > > > >>>>>> speedbin mappings.
+> > > > > >>>>>
+> > > > > >>>>> I have the feeling that we are trying to circumvent the way=
+ DT works. I'd
+> > > > > >>>>> suggest adding explicit SoC-compatible strings to Adreno bi=
+ndings and then
+> > > > > >>>>> using of_device_id::data and then of_device_get_match_data(=
+).
+> > > > > >>>>>
+> > > > > >>>> Just thinking, then how about a unique compatible string whi=
+ch we match
+> > > > > >>>> to identify gpu->info and drop chip-id check completely here=
+?
+> > > > > >>>
+> > > > > >>> Ok, I think we could do this, so something like:
+> > > > > >>>
+> > > > > >>>    compatible =3D "qcom,sm4350-adreno-619.0", qcom,adreno-619=
+.0", "qcom,adreno"
+> > > > > >>>
+> > > > > >>> ?
+> > > > > >>>
+> > > > > >>> It looks like we don't have gpu dt bits upstream yet for eith=
+er sm4350
+> > > > > >>> or sm6375, so I suppose we could get away with this change
+> > > > > >>
+> > > > > >> I think we can even skip the 619.0 part in the SoC compat stri=
+ng.
+> > > > > >> So it will be:
+> > > > > >>
+> > > > > >> compatible =3D "qcom,sm4350-adreno", qcom,adreno-619.0", "qcom=
+,adreno";
+> > > > > >>
+> > > > > >> In future we can drop the chipid part completely and handle th=
+at as a
+> > > > > >> part of SoC data:
+> > > > > >>
+> > > > > >> compatible =3D "qcom,sm4350-adreno", "qcom,adreno";
+> > > > > >>
+> > > > > >> With the driver knowing that sm4350-adreno means ADRENO_ID(6,1=
+,9,0)
+> > > > > >>
+> > > > > >
+> > > > > > I don't think we can do that, there are cases where the same So=
+C had
+> > > > > > multiple revisions of adreno.
+> > > > >
+> > > > > Is that the case for the production versions of the SoC? In other
+> > > > > subsystems what we usually do is that we add support only for the=
+ latest
+> > > > > SoC revision (which would probably mean the latest GPU patch revi=
+sion).
+> > > > > Previous GPU revisions can be added in the following way (pure ex=
+ample):
+> > > > >
+> > > > > qcom,sm4350-adreno -> 6,1,9,1 // assuming v2.0 or v1.1 is the com=
+mercial
+> > > > > sample
+> > > > > qcom,sm4350-v1-adreno -> 6,1,9,0
+> > > > >
+> > > >
+> > > > My recollection was that nexus4 shipped with an early version of 80=
+64
+> > > > which needed userspace workarounds that later 8064 did not.  Not su=
+re
+> > > > if that is the only such example, but it is one that userspace need=
+ed
+> > > > to be aware of.
+> > >
+> > > Good question. I don't have nexus4, and both nexus7 and ifc6410 work =
+fine.
+> > >
+> > > And this is a perfect use case for "qcom,apq8064-v1.1-adreno" compat =
+string.
+> >
+> > At this point, I'm failing to see why my original solution of just
+> > checking of_machine_is_compatible() is worse ;-)
+> >
+> > I mean what is the difference between checking
+> > "qcom,apq8064-v1.1-adreno" and "qcom,apq8064-v1.1".  I wouldn't really
+> > want to use of_match_node() in either case.
 >
-> Note: This patch has only been validated DSC over command mode as DSC over
-> video mode has never been validated for the MSM driver before.
->
-> Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
->
-> Changes since v1:
->  - Changed from email address
->
-> [1] https://patchwork.freedesktop.org/series/121337/
->
-> Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> ---
->  .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
->  1 file changed, 73 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> index e1363e128e7e..5658d39a3a6b 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> @@ -9,6 +9,7 @@
->  #include <linux/of.h>
->
->  #include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
->  #include <drm/drm_mipi_dsi.h>
->  #include <drm/drm_modes.h>
->  #include <drm/drm_panel.h>
-> @@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
->         struct mipi_dsi_device *dsi;
->         struct gpio_desc *reset_gpio;
->         struct regulator_bulk_data supplies[3];
-> -       bool prepared;
-> +       bool prepared, enabled;
-> +       bool video_mode;
->  };
->
->  static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
-> @@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
->         if (ret)
->                 return ret;
->
-> +       mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
->         mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
->         mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
->         mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
->         mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
->         mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
-> -       mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
-> +
-> +       if (ctx->video_mode)
-> +               mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
-> +       else
-> +               mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
-> +
->         mipi_dsi_dcs_write_seq(dsi, 0x70,
->                                0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
->                                0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
-> @@ -214,6 +222,42 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
->         .height_mm = 157,
->  };
->
-> +static int visionox_vtdr6130_enable(struct drm_panel *panel)
-> +{
-> +       struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-> +       struct mipi_dsi_device *dsi = ctx->dsi;
-> +       struct drm_dsc_picture_parameter_set pps;
-> +       int ret;
-> +
-> +       if (ctx->enabled)
-> +               return 0;
-> +
-> +       if (!dsi->dsc) {
-> +               dev_err(&dsi->dev, "DSC not attached to DSI\n");
-> +               return -ENODEV;
-> +       }
+> I have been proposing to use of_device_get_match_data().
 
-The error message is misleading. Also, if you don't want to enable DSC
-for the video mode, this will break.
+That has the same limitation when it comes to our needs.. our current
+setup lets us have a single table entry that matches multiple
+chip-id's.  I don't really see the point of using of_match_node() or
+of_device_get_match_data() just for the sake of using them.
 
-> +
-> +       drm_dsc_pps_payload_pack(&pps, dsi->dsc);
-> +       ret = mipi_dsi_picture_parameter_set(dsi, &pps);
-> +       if (ret) {
-> +               dev_err(&dsi->dev, "Failed to set PPS\n");
-> +               return ret;
-> +       }
-> +
-> +       ctx->enabled = true;
+BR,
+-R
 
-Do we need this refcount just for PPS upload? What will happen if PPS
-is uploaded several times?
-
-> +
-> +       return 0;
-> +}
-> +
-> +static int visionox_vtdr6130_disable(struct drm_panel *panel)
-> +{
-> +       struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-> +
-> +       ctx->enabled = false;
-> +
-> +       return 0;
-> +}
-> +
->  static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
->                                        struct drm_connector *connector)
->  {
-> @@ -237,6 +281,8 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
->         .prepare = visionox_vtdr6130_prepare,
->         .unprepare = visionox_vtdr6130_unprepare,
->         .get_modes = visionox_vtdr6130_get_modes,
-> +       .enable = visionox_vtdr6130_enable,
-> +       .disable = visionox_vtdr6130_disable,
->  };
+> >
+> > BR,
+> > -R
+> >
+> > > >
+> > > > Anyways, future things, it sounds like we'll be able to read the id
+> > > > from the hw/fw.  I'm not really a fan of breaking dtb fwd/bk compat=
+,
+> > > > so I don't want to change any of the existing compat strings.
+> > >
+> > > I think so too. Current compat strings should stay.
+> > >
+> > > >
+> > > > BR,
+> > > > -R
+> > > >
+> > > > > >  We could possibly do that with future
+> > > > > > things where we can read the chip-id from fw.
+> > > > > >
+> > > > > > What we _could_ do at the expense of making the compatible pars=
+ing a
+> > > > > > tiny bit more complex is something like:
+> > > > > >
+> > > > > >     compatible =3D "qcom,sm4350-adreno-619.0", "qcom,adreno"
+> > > > > >
+> > > > > > BR,
+> > > > > > -R
+> > > > > >
+> > > > > >>>
+> > > > > >>> BR,
+> > > > > >>> -R
+> > > > > >>>
+> > > > > >>>> -Akhil
+> > > > > >>>>
+> > > > > >>>>>>
+> > > > > >>>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > >>>>>> ---
+> > > > > >>>>>>    drivers/gpu/drm/msm/adreno/adreno_device.c | 34 +++++++=
+++++++++++++---
+> > > > > >>>>>>    drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
+> > > > > >>>>>>    2 files changed, 31 insertions(+), 4 deletions(-)
+> > > > > >>>>>>
+> > > > > >>>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/=
+drivers/gpu/drm/msm/adreno/adreno_device.c
+> > > > > >>>>>> index 3c531da417b9..e62bc895a31f 100644
+> > > > > >>>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > > > > >>>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > > > > >>>>>> @@ -258,6 +258,32 @@ static const struct adreno_info gpuli=
+st[] =3D {
+> > > > > >>>>>>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> > > > > >>>>>>              .quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT,
+> > > > > >>>>>>              .init =3D a6xx_gpu_init,
+> > > > > >>>>>> +   }, {
+> > > > > >>>>>> +           .machine =3D "qcom,sm4350",
+> > > > > >>>>>> +           .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
+> > > > > >>>>>> +           .revn =3D 619,
+> > > > > >>>>>> +           .fw =3D {
+> > > > > >>>>>> +                   [ADRENO_FW_SQE] =3D "a630_sqe.fw",
+> > > > > >>>>>> +                   [ADRENO_FW_GMU] =3D "a619_gmu.bin",
+> > > > > >>>>>> +           },
+> > > > > >>>>>> +           .gmem =3D SZ_512K,
+> > > > > >>>>>> +           .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> > > > > >>>>>> +           .init =3D a6xx_gpu_init,
+> > > > > >>>>>> +           .zapfw =3D "a615_zap.mdt",
+> > > > > >>>>>> +           .hwcg =3D a615_hwcg,
+> > > > > >>>>>> +   }, {
+> > > > > >>>>>> +           .machine =3D "qcom,sm6375",
+> > > > > >>>>>> +           .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
+> > > > > >>>>>> +           .revn =3D 619,
+> > > > > >>>>>> +           .fw =3D {
+> > > > > >>>>>> +                   [ADRENO_FW_SQE] =3D "a630_sqe.fw",
+> > > > > >>>>>> +                   [ADRENO_FW_GMU] =3D "a619_gmu.bin",
+> > > > > >>>>>> +           },
+> > > > > >>>>>> +           .gmem =3D SZ_512K,
+> > > > > >>>>>> +           .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> > > > > >>>>>> +           .init =3D a6xx_gpu_init,
+> > > > > >>>>>> +           .zapfw =3D "a615_zap.mdt",
+> > > > > >>>>>> +           .hwcg =3D a615_hwcg,
+> > > > > >>>>>>      }, {
+> > > > > >>>>>>              .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
+> > > > > >>>>>>              .revn =3D 619,
+> > > > > >>>>>> @@ -409,6 +435,8 @@ const struct adreno_info *adreno_info(=
+struct adreno_rev rev)
+> > > > > >>>>>>      /* identify gpu: */
+> > > > > >>>>>>      for (i =3D 0; i < ARRAY_SIZE(gpulist); i++) {
+> > > > > >>>>>>              const struct adreno_info *info =3D &gpulist[i=
+];
+> > > > > >>>>>> +           if (info->machine && !of_machine_is_compatible=
+(info->machine))
+> > > > > >>>>>> +                   continue;
+> > > > > >>>>>>              if (adreno_cmp_rev(info->rev, rev))
+> > > > > >>>>>>                      return info;
+> > > > > >>>>>>      }
+> > > > > >>>>>> @@ -563,6 +591,8 @@ static int adreno_bind(struct device *=
+dev, struct device *master, void *data)
+> > > > > >>>>>>              config.rev.minor, config.rev.patchid);
+> > > > > >>>>>>      priv->is_a2xx =3D config.rev.core =3D=3D 2;
+> > > > > >>>>>> +   priv->has_cached_coherent =3D
+> > > > > >>>>>> +           !!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHE=
+RENT);
+> > > > > >>>>>>      gpu =3D info->init(drm);
+> > > > > >>>>>>      if (IS_ERR(gpu)) {
+> > > > > >>>>>> @@ -574,10 +604,6 @@ static int adreno_bind(struct device =
+*dev, struct device *master, void *data)
+> > > > > >>>>>>      if (ret)
+> > > > > >>>>>>              return ret;
+> > > > > >>>>>> -   priv->has_cached_coherent =3D
+> > > > > >>>>>> -           !!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHE=
+RENT) &&
+> > > > > >>>>>> -           !adreno_has_gmu_wrapper(to_adreno_gpu(gpu));
+> > > > > >>>>>> -
+> > > > > >>>>>>      return 0;
+> > > > > >>>>>>    }
+> > > > > >>>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/dri=
+vers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > > > >>>>>> index e08d41337169..d5335b99c64c 100644
+> > > > > >>>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > > > >>>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > > > >>>>>> @@ -61,6 +61,7 @@ extern const struct adreno_reglist a612_=
+hwcg[], a615_hwcg[], a630_hwcg[], a640_h
+> > > > > >>>>>>    extern const struct adreno_reglist a660_hwcg[], a690_hw=
+cg[];
+> > > > > >>>>>>    struct adreno_info {
+> > > > > >>>>>> +   const char *machine;
+> > > > > >>>>>>      struct adreno_rev rev;
+> > > > > >>>>>>      uint32_t revn;
+> > > > > >>>>>>      const char *fw[ADRENO_FW_MAX];
+> > > > > >>>>>
+> > > > > >>>>> --
+> > > > > >>>>> With best wishes
+> > > > > >>>>> Dmitry
+> > > > > >>>>>
+> > > > > >>
+> > > > > >>
+> > > > > >>
+> > > > > >> --
+> > > > > >> With best wishes
+> > > > > >> Dmitry
+> > > > >
+> > > > > --
+> > > > > With best wishes
+> > > > > Dmitry
+> > > > >
+> > >
+> > >
+> > >
+> > > --
+> > > With best wishes
+> > > Dmitry
 >
->  static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
-> @@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->  {
->         struct device *dev = &dsi->dev;
->         struct visionox_vtdr6130 *ctx;
-> +       struct drm_dsc_config *dsc;
->         int ret;
 >
->         ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
->         if (!ctx)
->                 return -ENOMEM;
-> +
-> +       ctx->video_mode = of_property_read_bool(dev->of_node, "enforce-video-mode");
-
-Please also add a DT bindings patch.
-
-> +
-> +       dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
-> +       if (!dsc)
-> +               return -ENOMEM;
-
-You can add struct drm_dsc_config to struct visionox_vtdr6130 instead
-of allocating it.
-
-> +
-> +       /* Set DSC params */
-> +       dsc->dsc_version_major = 0x1;
-> +       dsc->dsc_version_minor = 0x2;
-> +
-> +       dsc->slice_height = 40;
-> +       dsc->slice_width = 540;
-> +       dsc->slice_count = 2;
-> +       dsc->bits_per_component = 8;
-> +       dsc->bits_per_pixel = 8 << 4;
-> +       dsc->block_pred_enable = true;
-> +
-> +       dsi->dsc = dsc;
-
-Only in command mode?
-
 >
->         ctx->supplies[0].supply = "vddio";
->         ctx->supplies[1].supply = "vci";
-> @@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->
->         dsi->lanes = 4;
->         dsi->format = MIPI_DSI_FMT_RGB888;
-> -       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
-> -                         MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +
-> +       dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS;
-
-Keep the line split please.
-
-> +       if (ctx->video_mode)
-> +               dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
-> +
->         ctx->panel.prepare_prev_first = true;
->
->         drm_panel_init(&ctx->panel, dev, &visionox_vtdr6130_panel_funcs,
 > --
-> 2.41.0
->
-
-
--- 
-With best wishes
-Dmitry
+> With best wishes
+> Dmitry
