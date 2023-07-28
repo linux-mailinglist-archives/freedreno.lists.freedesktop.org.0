@@ -1,61 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1492A765FEB
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 00:50:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2818766107
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 03:12:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2AF10E644;
-	Thu, 27 Jul 2023 22:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8DE610E183;
+	Fri, 28 Jul 2023 01:12:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [IPv6:2607:f8b0:4864:20::1136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7066910E642
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 22:50:29 +0000 (UTC)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-577497ec6c6so16677207b3.2
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jul 2023 15:50:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690498228; x=1691103028;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IacxlEjz7I0pKANVMIoEfAvY9SNWx/TOEgfD76ScziE=;
- b=hTRIUAovwyusBAov6dP/PzlxQdpp53Dx8/9qF1r/Nbocte5YooJVA/yXssgaa6Zspx
- IqydTk2G8nj9CaIe0nWup+8mBFa/2Ge33I4TT4By4DikcwdpsHDVkevS1HqN3XPFdDvh
- Bz+SQU86HD3QMd4Gm5T0x7iUHfh4S2RzKdYlCzQAsEcGWr8e4alopWWZNZXqsWjxw4L7
- QjaBynrimhUKZHjGA46gfCgoZTIUevARZRpoa4qfMdLUWX/3WEIFqybipguKOlARnCy1
- oqO0IxeLf05qB/ZsThWkC42mPTV61TJVJVNg78D6Xb0RBJYiQC+PtC3cT3Xu2gM4GFAn
- coxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690498228; x=1691103028;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IacxlEjz7I0pKANVMIoEfAvY9SNWx/TOEgfD76ScziE=;
- b=OK7yqgjjyZfgFrMBAipVz+qU6OuXppJ+yMWZtT8KpkGxCIRTvDVQNnxsG+5yCGIAVA
- XX2+WH18v2WJWs8Dvmeu1d8Twmuaqq2tGjcjL/3kQE/Vv+zkV4SOrFxriauF0xDgc7BC
- u5eGJNljuidiDIpicQ0rWJtxkBlx92F9+DcLLt4r5KhFb0GYwOIaokW20HCulXHqFuyU
- VHRg8DSWZXcfKmUNBZKXBb7iHbak65Dv1VvQiTxNb8Vqpkp5+Lpe5fydq4hBtuNnOgGK
- 4lw9ZivFwpEphpIgYdMRj4NNygIsc1hBcF+7Z4e2C1ChhwFXnoZNRRJI6VowhppnIhL1
- F7HA==
-X-Gm-Message-State: ABy/qLaJ41rHZ9Zb0ZdusJWuwBW3atwrVh1Rc+uUeSjqcpAvWM2QDZdK
- V3DobhNGgTJvLeKjen4W5BOaH2DTgKGJkAZTmgCZ0w==
-X-Google-Smtp-Source: APBJJlEiSr802YZ16rdHuXKHxTCkHUN85vRlxaGAzoACRRi7R+TLr1ZB+C5cOeKBxtuibFykQpiiqrAIl567cV846CM=
-X-Received: by 2002:a0d:e647:0:b0:576:91e0:b8c5 with SMTP id
- p68-20020a0de647000000b0057691e0b8c5mr45212ywe.0.1690498228308; Thu, 27 Jul
- 2023 15:50:28 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177A910E183;
+ Fri, 28 Jul 2023 01:12:48 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36S0iVcO008778; Fri, 28 Jul 2023 01:12:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=KhcCqwVaz3UL4ECXqC1Z980gukwotXZHOchHP5gPpb4=;
+ b=TZ5/s8/B1zClwVxUZen/c+oM7CGAMyIlfTDc4GO2B6CLs6kgOAySpAbfBzL8JYPurNtD
+ EIGwG9ey4BV1cHcuvvZwqr7EHF6PGrx5P/G7Qzc7mNwM5pDdrprfsuOV75mXQ7oAwtk6
+ iMM1qLITLxODDkpgr1uuJKOPT5v3E9dc0wmwu7cJq4W84qcBsRzmzxoCOzUBLIMnK7GO
+ mz5VEXXPZhh3CiSYpJateqY7SBxybOTapm+SFmXhsxotP+quD3fpFeO+PQR9PVFexrye
+ ON2WZye0uzJzWdcY3DjhjuPkif7+y4wmf+Z6OkuZqt6TKqXl1qLh0lZkdXwFDv1QSkAr tA== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s336t48aq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Jul 2023 01:12:35 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36S1CWvk022058
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Jul 2023 01:12:32 GMT
+Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.30; Thu, 27 Jul 2023 18:12:31 -0700
+From: parellan <parellan@quicinc.com>
+To: <neil.armstrong@linaro.org>, <sam@ravnborg.org>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>
+Date: Thu, 27 Jul 2023 18:12:15 -0700
+Message-ID: <20230728011218.14630-1-parellan@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20230727212208.102501-1-robdclark@gmail.com>
- <20230727212208.102501-12-robdclark@gmail.com>
-In-Reply-To: <20230727212208.102501-12-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 28 Jul 2023 01:50:17 +0300
-Message-ID: <CAA8EJpoECsKVgat85LFyWaibOZ+O9t8GFBwxsFhOFf7GTf6DzQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 11/13] drm/msm/adreno: Move adreno info
- to config
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 7hbaKR9C9i608I0ieQIBn3o_E-mVLs7s
+X-Proofpoint-GUID: 7hbaKR9C9i608I0ieQIBn3o_E-mVLs7s
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-27_10,2023-07-26_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0
+ clxscore=1011 mlxlogscore=999 adultscore=0 lowpriorityscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 mlxscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307280009
+Subject: [Freedreno] [PATCH] drm/panel: Enable DSC and CMD mode for Visionox
+ VTDR6130 panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,147 +80,173 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Rob Herring <robh@kernel.org>,
- Guru Das Srinagesh <quic_gurus@quicinc.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- Johan Hovold <johan+linaro@kernel.org>
+Cc: marijn.suijten@somainline.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
+ Paloma Arellano <quic_parellan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 28 Jul 2023 at 00:23, Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Let's just stash it in adreno_platform_config rather than looking it up
-> in N different places.
+From: Paloma Arellano <quic_parellan@quicinc.com>
 
-This leaves me with the feeling that we are abusing the
-dev->platform_data, but we were doing it anyway even before the patch.
-So:
+Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
+VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
+to command mode with DSC enabled.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Note: This patch has only been validated DSC over command mode as DSC over
+video mode has never been validated for the MSM driver before.
 
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 15 +++------------
->  drivers/gpu/drm/msm/adreno/adreno_device.c |  5 +++--
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  2 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  3 +--
->  4 files changed, 8 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index a81a6459c656..9be3260c8033 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2316,7 +2316,6 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->         struct msm_drm_private *priv = dev->dev_private;
->         struct platform_device *pdev = priv->gpu_pdev;
->         struct adreno_platform_config *config = pdev->dev.platform_data;
-> -       const struct adreno_info *info;
->         struct device_node *node;
->         struct a6xx_gpu *a6xx_gpu;
->         struct adreno_gpu *adreno_gpu;
-> @@ -2341,20 +2340,12 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
->
->         adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
->
-> -       /*
-> -        * We need to know the platform type before calling into adreno_gpu_init
-> -        * so that the hw_apriv flag can be correctly set. Snoop into the info
-> -        * and grab the revision number
-> -        */
-> -       info = adreno_info(config->rev);
-> -       if (!info)
-> -               return ERR_PTR(-EINVAL);
-> -
-> -       adreno_gpu->base.hw_apriv = !!(info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
-> +       adreno_gpu->base.hw_apriv =
-> +               !!(config->info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
->
->         a6xx_llc_slices_init(pdev, a6xx_gpu);
->
-> -       ret = a6xx_set_supported_hw(&pdev->dev, info);
-> +       ret = a6xx_set_supported_hw(&pdev->dev, config->info);
->         if (ret) {
->                 a6xx_destroy(&(a6xx_gpu->base.base));
->                 return ERR_PTR(ret);
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 7448f299b77c..332cb804a45d 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -508,7 +508,7 @@ bool adreno_cmp_rev(struct adreno_rev rev1, struct adreno_rev rev2)
->                 _rev_match(rev1.patchid, rev2.patchid);
->  }
->
-> -const struct adreno_info *adreno_info(struct adreno_rev rev)
-> +static const struct adreno_info *adreno_info(struct adreno_rev rev)
->  {
->         int i;
->
-> @@ -659,13 +659,14 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
->         priv->gpu_pdev = to_platform_device(dev);
->
->         info = adreno_info(config.rev);
-> -
->         if (!info) {
->                 dev_warn(drm->dev, "Unknown GPU revision: %"ADRENO_CHIPID_FMT"\n",
->                         ADRENO_CHIPID_ARGS(config.rev));
->                 return -ENXIO;
->         }
->
-> +       config.info = info;
-> +
->         DBG("Found GPU: %"ADRENO_CHIPID_FMT, ADRENO_CHIPID_ARGS(config.rev));
->
->         priv->is_a2xx = info->family < ADRENO_3XX;
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index a775b4d82735..865ff4c1eaf6 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -1079,7 +1079,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->         int ret;
->
->         adreno_gpu->funcs = funcs;
-> -       adreno_gpu->info = adreno_info(config->rev);
-> +       adreno_gpu->info = config->info;
->         adreno_gpu->rev = *rev;
->
->         /* Only handle the core clock when GMU is not in use (or is absent). */
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index c6fd6f9016d3..81a1396e124d 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -130,8 +130,6 @@ struct adreno_info {
->   */
->  #define ADRENO_SPEEDBINS(tbl...) (struct adreno_speedbin[]) { tbl {SHRT_MAX, 0} }
->
-> -const struct adreno_info *adreno_info(struct adreno_rev rev);
-> -
->  struct adreno_gpu {
->         struct msm_gpu base;
->         struct adreno_rev rev;
-> @@ -185,6 +183,7 @@ struct adreno_ocmem {
->  /* platform config data (ie. from DT, or pdata) */
->  struct adreno_platform_config {
->         struct adreno_rev rev;
-> +       const struct adreno_info *info;
->  };
->
->  #define ADRENO_IDLE_TIMEOUT msecs_to_jiffies(1000)
-> --
-> 2.41.0
->
+Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
 
+[1] https://patchwork.freedesktop.org/series/121337/
 
+Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+---
+ .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
+ 1 file changed, 73 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+index e1363e128e7e..5658d39a3a6b 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
++++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+@@ -9,6 +9,7 @@
+ #include <linux/of.h>
+ 
+ #include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
+@@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
+ 	struct mipi_dsi_device *dsi;
+ 	struct gpio_desc *reset_gpio;
+ 	struct regulator_bulk_data supplies[3];
+-	bool prepared;
++	bool prepared, enabled;
++	bool video_mode;
+ };
+ 
+ static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
+@@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
+ 	if (ret)
+ 		return ret;
+ 
++	mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
+ 	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
+ 	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
+ 	mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
+ 	mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
+ 	mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
+-	mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
++	
++	if (ctx->video_mode)
++		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
++	else
++		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
++
+ 	mipi_dsi_dcs_write_seq(dsi, 0x70,
+ 			       0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
+ 			       0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
+@@ -214,6 +222,42 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
+ 	.height_mm = 157,
+ };
+ 
++static int visionox_vtdr6130_enable(struct drm_panel *panel)
++{
++	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
++	struct mipi_dsi_device *dsi = ctx->dsi;
++	struct drm_dsc_picture_parameter_set pps;
++	int ret;
++
++	if (ctx->enabled)
++		return 0;
++
++	if (!dsi->dsc) {
++		dev_err(&dsi->dev, "DSC not attached to DSI\n");
++		return -ENODEV;
++	}
++
++	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
++	ret = mipi_dsi_picture_parameter_set(dsi, &pps);
++	if (ret) {
++		dev_err(&dsi->dev, "Failed to set PPS\n");
++		return ret;
++	}
++
++	ctx->enabled = true;
++
++	return 0;
++}
++
++static int visionox_vtdr6130_disable(struct drm_panel *panel)
++{
++	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
++
++	ctx->enabled = false;
++
++	return 0;
++}
++
+ static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+ 				       struct drm_connector *connector)
+ {
+@@ -237,6 +281,8 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
+ 	.prepare = visionox_vtdr6130_prepare,
+ 	.unprepare = visionox_vtdr6130_unprepare,
+ 	.get_modes = visionox_vtdr6130_get_modes,
++	.enable = visionox_vtdr6130_enable,
++	.disable = visionox_vtdr6130_disable,
+ };
+ 
+ static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
+@@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ {
+ 	struct device *dev = &dsi->dev;
+ 	struct visionox_vtdr6130 *ctx;
++	struct drm_dsc_config *dsc;
+ 	int ret;
+ 
+ 	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx)
+ 		return -ENOMEM;
++	
++	ctx->video_mode = of_property_read_bool(dev->of_node, "enforce-video-mode");
++
++	dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
++	if (!dsc)
++		return -ENOMEM;
++
++	/* Set DSC params */
++	dsc->dsc_version_major = 0x1;
++	dsc->dsc_version_minor = 0x2;
++
++	dsc->slice_height = 40;
++	dsc->slice_width = 540;
++	dsc->slice_count = 2;
++	dsc->bits_per_component = 8;
++	dsc->bits_per_pixel = 8 << 4;
++	dsc->block_pred_enable = true;
++
++	dsi->dsc = dsc;
+ 
+ 	ctx->supplies[0].supply = "vddio";
+ 	ctx->supplies[1].supply = "vci";
+@@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ 
+ 	dsi->lanes = 4;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+-	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
+-			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++
++	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS;
++	if (ctx->video_mode)
++		dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
++
+ 	ctx->panel.prepare_prev_first = true;
+ 
+ 	drm_panel_init(&ctx->panel, dev, &visionox_vtdr6130_panel_funcs,
 -- 
-With best wishes
-Dmitry
+2.41.0
+
