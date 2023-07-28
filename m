@@ -2,49 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2818766107
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 03:12:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47C6766131
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 03:26:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8DE610E183;
-	Fri, 28 Jul 2023 01:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4B2B10E1E2;
+	Fri, 28 Jul 2023 01:26:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 177A910E183;
- Fri, 28 Jul 2023 01:12:48 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C87410E1A3;
+ Fri, 28 Jul 2023 01:26:42 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36S0iVcO008778; Fri, 28 Jul 2023 01:12:36 GMT
+ 36S18fwU029674; Fri, 28 Jul 2023 01:26:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-transfer-encoding :
  content-type; s=qcppdkim1;
- bh=KhcCqwVaz3UL4ECXqC1Z980gukwotXZHOchHP5gPpb4=;
- b=TZ5/s8/B1zClwVxUZen/c+oM7CGAMyIlfTDc4GO2B6CLs6kgOAySpAbfBzL8JYPurNtD
- EIGwG9ey4BV1cHcuvvZwqr7EHF6PGrx5P/G7Qzc7mNwM5pDdrprfsuOV75mXQ7oAwtk6
- iMM1qLITLxODDkpgr1uuJKOPT5v3E9dc0wmwu7cJq4W84qcBsRzmzxoCOzUBLIMnK7GO
- mz5VEXXPZhh3CiSYpJateqY7SBxybOTapm+SFmXhsxotP+quD3fpFeO+PQR9PVFexrye
- ON2WZye0uzJzWdcY3DjhjuPkif7+y4wmf+Z6OkuZqt6TKqXl1qLh0lZkdXwFDv1QSkAr tA== 
+ bh=rqxlredsJljdATZS+d+V6fisQlDqVYemyYL2cjd1oTA=;
+ b=RVtd5aRxPdrE30MPD7kJxL/4M11qiSbVlo3qMZHS1uwidBLdE9SIWs5DbFah+o6mg8Q/
+ ua9s5LwYcREvJHDxqK8b18fde0R1EQlq7GC296fRmmsWNw8etngYGiloOVre3hfr+/J9
+ McjXYSGjx1w7hsWkVq5JkWc3iuoM4gZN5ILr18T3xz0DAVODR+x0kZFipvv1t8Oc9EuY
+ lARst51xaL9p3A8OT6+tDOZurfry81bgHmi8FSRTJar+oEvNbbttJBwWvoO8ILjb6Y5m
+ r4uc/srppHM7juld6lJIpCD8ZUYqv1Cu9TxhtgD7iZV01NY9EBQkzt7KmgNCsdBHK9ZJ qw== 
 Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s336t48aq-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s403vgbte-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 01:12:35 +0000
+ Fri, 28 Jul 2023 01:26:38 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36S1CWvk022058
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36S1QbIG004989
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 01:12:32 GMT
+ Fri, 28 Jul 2023 01:26:37 GMT
 Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.30; Thu, 27 Jul 2023 18:12:31 -0700
-From: parellan <parellan@quicinc.com>
+ 15.2.1118.30; Thu, 27 Jul 2023 18:26:36 -0700
+From: Paloma Arellano <quic_parellan@quicinc.com>
 To: <neil.armstrong@linaro.org>, <sam@ravnborg.org>, <airlied@gmail.com>,
  <daniel@ffwll.ch>
-Date: Thu, 27 Jul 2023 18:12:15 -0700
-Message-ID: <20230728011218.14630-1-parellan@quicinc.com>
+Date: Thu, 27 Jul 2023 18:26:21 -0700
+Message-ID: <20230728012623.22991-1-quic_parellan@quicinc.com>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -55,19 +55,19 @@ X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 7hbaKR9C9i608I0ieQIBn3o_E-mVLs7s
-X-Proofpoint-GUID: 7hbaKR9C9i608I0ieQIBn3o_E-mVLs7s
+X-Proofpoint-GUID: Zb6XWpmL5bImyASv3HtE6iQuTsMBd_cK
+X-Proofpoint-ORIG-GUID: Zb6XWpmL5bImyASv3HtE6iQuTsMBd_cK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-07-27_10,2023-07-26_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- clxscore=1011 mlxlogscore=999 adultscore=0 lowpriorityscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307280009
-Subject: [Freedreno] [PATCH] drm/panel: Enable DSC and CMD mode for Visionox
- VTDR6130 panel
+ clxscore=1011 suspectscore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0
+ mlxlogscore=999 mlxscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2307280011
+Subject: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
+ Visionox VTDR6130 panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,8 +88,6 @@ Cc: marijn.suijten@somainline.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Paloma Arellano <quic_parellan@quicinc.com>
-
 Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
 VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
 to command mode with DSC enabled.
@@ -98,6 +96,9 @@ Note: This patch has only been validated DSC over command mode as DSC over
 video mode has never been validated for the MSM driver before.
 
 Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
+
+Changes since v1:
+ - Changed from email address
 
 [1] https://patchwork.freedesktop.org/series/121337/
 
