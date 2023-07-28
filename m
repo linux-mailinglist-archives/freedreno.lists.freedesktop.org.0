@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85BEF767083
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 17:29:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96F957670D5
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jul 2023 17:43:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27B1B10E718;
-	Fri, 28 Jul 2023 15:29:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88EEA10E724;
+	Fri, 28 Jul 2023 15:43:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE17410E718;
- Fri, 28 Jul 2023 15:29:33 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4fe1a35a135so3146811e87.1; 
- Fri, 28 Jul 2023 08:29:33 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49D6010E723;
+ Fri, 28 Jul 2023 15:43:19 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4f95bf5c493so3883297e87.3; 
+ Fri, 28 Jul 2023 08:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690558172; x=1691162972;
+ d=gmail.com; s=20221208; t=1690558997; x=1691163797;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=sWY5MitYzqJ4d1bWl5n1gXmIbqPwv+V3mvdT6pw4Joo=;
- b=spL3/dRcoa3f8wiIiP4KqpRnJi5z+v7W8ANf+zhQjBOBZZo931y9+BgkQkiNBesEtg
- atYPhabihDsA3VLHbn7Dz08mDbJGqwdJPsliHSHanX0fVDB6WEFf1WnCiJjkrk195LtG
- WimZisfkapB/STS57H7637OhqQ5SuV1fA3uiQCk5QwCD5Lc/bSizj6/trIl/g6AxU2H2
- FiUnXlPE6e9l1sKVkqU0w9etFNmp1tDgw/etFEND+xo7SPaVF0cHQe0smbkpyBNQMLHS
- quujH7k9Vk0rZwusd+jLvaKgIonLmUT/JCeO+57s/O/3oTEGSuPTvF3Khbc8HTkvrCxO
- gBfQ==
+ bh=5qUegsQd5geq70uC9trjOu0ai6s0gUokUruDL+wWW60=;
+ b=IzSt+uVpLJLxvCeinHyisgxbG7dY9Sc0QMF3eimu9y0phKbWKT9sK+lLaQf9GVJJkh
+ Um2v8FwF6AO0vbHNdsxGdeSyKArDFRPiS5476j/GBnuwCetn+EPk3uccSHgUyzorrj0/
+ QSsBdrdIBtpzEdKM89Xv2i2+u1iRW2QGO76hLchm/5dmnhtwpbaaHZjhe5qthJZDZQk2
+ MijUMOhkXvDXbeShDX9OtoGIk9HUsFL09vx363Xw5emoPB18LozFV2NWR0Fe6yHaJsZj
+ uwaEULgufFqYfa+6pGCWxarAg393oHmX7pCifWh9wXhltwNwQdiv/NwKOmWwJAlNfRD8
+ fY9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690558172; x=1691162972;
+ d=1e100.net; s=20221208; t=1690558997; x=1691163797;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=sWY5MitYzqJ4d1bWl5n1gXmIbqPwv+V3mvdT6pw4Joo=;
- b=LXV/LjVdOsy0ymw7egkcLJRaMz60V1IJpyo98AV2r62abEzsO+RkBoJa5hS0vazKnM
- hwlXXEIwXOAgJHMOKqEm4Zy6eT6/H6Ad9RfoEmF41s2uRTEZeoxjvzdvPTI1vSsTJQGZ
- K6Tc5Ebc74hWwEJEyfgyoYhSBLRRndBonrCBmHP+UVg6cZqXUknkk2/FEmB2h5V6L0zP
- MFr2WiS2z0Q/QY9UyRbgqbaCA0WhpKgkbZ6vaGjaUOCHEGKZ/WwsGMKuTcZ9XxNO2/kq
- Txe2eOnInUuNm3O/HiAd66nxvwZyKiSTbDLY3REdjU69RBtO4fnORprCMfmVrn/cwwPR
- BlWg==
-X-Gm-Message-State: ABy/qLYWTQmCh7OvpXfsuJu7AxUoRz+61J6IcckLa64ATW8HYElDeW2c
- INoR46/TdzYyxxIwwtF6IgN9BQHz8JPeGmvLMZc=
-X-Google-Smtp-Source: APBJJlG9HA1renQSWWmK4jFIFA634+RbkACkuwQYa0S4sEwxKAw6D1WHjQhQGkb90LkAwDcSFZFj21mMVuuM+mbHCA4=
-X-Received: by 2002:a05:6512:2253:b0:4fd:faa5:64ed with SMTP id
- i19-20020a056512225300b004fdfaa564edmr2283534lfu.11.1690558171553; Fri, 28
- Jul 2023 08:29:31 -0700 (PDT)
+ bh=5qUegsQd5geq70uC9trjOu0ai6s0gUokUruDL+wWW60=;
+ b=cbeW9KyMPtO5axjTrONT0u74ejyUMwiV7nBxC4I1pcGlFHvSOB18o/L71t9DYkKjxr
+ ecf2sFgIf7mHXufcUaZAaqqhzhrXZQjM7+NfWGEd3SrlujJV+RazRpGd/3cwF2m1Kep6
+ U2m113K8vLoLH42yXU9k9i8p54qpUMcHx6uFmNSaVABJju3JV0NDBb0/ggFgD8B9zedl
+ pQBaYwvNSV09vnVJUIfallqgwlvESpoKCxINqcsQffD9sw/BW01GGIZK2r0/wHPM6b8/
+ iYFqir4J/rKB2bzaaLHD/Ftcwp/tpWPxwnd0UDM978JE07RcojQArdbZrmt2nfT13e2u
+ GKxQ==
+X-Gm-Message-State: ABy/qLaT4V/yo+HO3GPhYeYgTHMwc70nr59o2N5Q21WuyU7J1w35J3ls
+ 33lY2jptmhemw91qhvHVxW4jLRHFQQscOXi0yS4=
+X-Google-Smtp-Source: APBJJlEj5oxZrJF1ebawGSqL1PKm40oC6dlbNJR2YWsyY+WH36f4S34nP+xeFeDa7vGG+CS2r0Ye4ZNKEJHihbUadpg=
+X-Received: by 2002:a05:6512:3caa:b0:4f9:607a:6508 with SMTP id
+ h42-20020a0565123caa00b004f9607a6508mr2580891lfv.50.1690558997327; Fri, 28
+ Jul 2023 08:43:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230727212208.102501-1-robdclark@gmail.com>
- <20230727212208.102501-13-robdclark@gmail.com>
- <08cd9bb5-678f-e03e-4598-dd1785f0d7a7@linaro.org>
-In-Reply-To: <08cd9bb5-678f-e03e-4598-dd1785f0d7a7@linaro.org>
+ <20230727212208.102501-7-robdclark@gmail.com>
+ <CAA8EJposUxVoqApJwx0g5D_6Zw0DOs=OVmYwoUNXWYue7w2PQg@mail.gmail.com>
+In-Reply-To: <CAA8EJposUxVoqApJwx0g5D_6Zw0DOs=OVmYwoUNXWYue7w2PQg@mail.gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 28 Jul 2023 08:29:19 -0700
-Message-ID: <CAF6AEGu-aRzi6ADqCnLU46DC0ZoWmSmhYU2sZj83wTyTbazbxg@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Date: Fri, 28 Jul 2023 08:43:05 -0700
+Message-ID: <CAF6AEGth6STq8EtS=PX8vybV9_sDb0YTytJG10UxGGFjYc2rsw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2 12/13] dt-bindings: drm/msm/gpu: Extend
- bindings for chip-id
+Subject: Re: [Freedreno] [PATCH v2 06/13] drm/msm/adreno: Allow SoC specific
+ gpu device table entries
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,80 +72,139 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  open list <linux-kernel@vger.kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jul 28, 2023 at 12:27=E2=80=AFAM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
+On Thu, Jul 27, 2023 at 3:12=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> On 27/07/2023 23:20, Rob Clark wrote:
+> On Fri, 28 Jul 2023 at 00:23, Rob Clark <robdclark@gmail.com> wrote:
+> >
 > > From: Rob Clark <robdclark@chromium.org>
 > >
-> > Upcoming GPUs use an opaque chip-id for identifying the GPU.
->
-> Examples?
-
-We'll know when we bring up the hw.  But the main point is that we
-shouldn't expect, for example, the high 8 bits to tell us the
-generation, any more than we could if it was a pci id.
-
-We may not end up needing to use this new binding much, I _think_ we
-should be able to read it from the fw in most cases, at least for
-android devices.  I'm unsure at this point about windows/chromebooks.
-
-> Anyway, I think we should insist here of using something human-readable,
-> even if Qualcomm/Adreno internally use some weird numbers.
-
-I mean qcom,sc8280cx-adreno is human readable but not really very
-informative.  Encoding the chip-id is just a way to avoid the
-qcom,chipid field in the bindings, which qcom used downstream.  The
-new pattern accomplishes the same thing as the existing one, but
-without trying to imply some meaning that becomes increasingly
-non-existent as qc moves to decouple the id from marketing names.
-
+> > There are cases where there are differences due to SoC integration.
+> > Such as cache-coherency support, and (in the next patch) e-fuse to
+> > speedbin mappings.
 > >
 > > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > > ---
-> >  Documentation/devicetree/bindings/display/msm/gpu.yaml | 6 ++++++
-> >  1 file changed, 6 insertions(+)
+> >  drivers/gpu/drm/msm/adreno/adreno_device.c | 34 +++++++++++++++++++---
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
+> >  2 files changed, 31 insertions(+), 4 deletions(-)
 > >
-> > diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/D=
-ocumentation/devicetree/bindings/display/msm/gpu.yaml
-> > index 58ca8912a8c3..56b9b247e8c2 100644
-> > --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> > +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> > @@ -13,6 +13,12 @@ maintainers:
-> >  properties:
-> >    compatible:
-> >      oneOf:
-> > +      - description: |
-> > +          The driver is parsing the compat string for Adreno to
-> > +          figure out the chip-id.
-> > +        items:
-> > +          - pattern: '^qcom,adreno-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-=
-9a-f][0-9a-f][0-9a-f][0-9a-f]$'
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/d=
+rm/msm/adreno/adreno_device.c
+> > index 3c531da417b9..e62bc895a31f 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> > @@ -258,6 +258,32 @@ static const struct adreno_info gpulist[] =3D {
+> >                 .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >                 .quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT,
+> >                 .init =3D a6xx_gpu_init,
+> > +       }, {
+> > +               .machine =3D "qcom,sm4350",
+> > +               .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
+> > +               .revn =3D 619,
+> > +               .fw =3D {
+> > +                       [ADRENO_FW_SQE] =3D "a630_sqe.fw",
+> > +                       [ADRENO_FW_GMU] =3D "a619_gmu.bin",
 >
-> {8} should work?
->
+> If those are GMU-less platforms, do we need the ADRENO_FW_GMU firmware?
 
-so '^qcom,adreno-[0-9a-f]{8}$'
+ahh, good point, fixed that locally
+
+> Other than that:
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+thanks
 
 BR,
 -R
 
+> > +               },
+> > +               .gmem =3D SZ_512K,
+> > +               .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> > +               .init =3D a6xx_gpu_init,
+> > +               .zapfw =3D "a615_zap.mdt",
+> > +               .hwcg =3D a615_hwcg,
+> > +       }, {
+> > +               .machine =3D "qcom,sm6375",
+> > +               .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
+> > +               .revn =3D 619,
+> > +               .fw =3D {
+> > +                       [ADRENO_FW_SQE] =3D "a630_sqe.fw",
+> > +                       [ADRENO_FW_GMU] =3D "a619_gmu.bin",
+> > +               },
+> > +               .gmem =3D SZ_512K,
+> > +               .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> > +               .init =3D a6xx_gpu_init,
+> > +               .zapfw =3D "a615_zap.mdt",
+> > +               .hwcg =3D a615_hwcg,
+> >         }, {
+> >                 .rev =3D ADRENO_REV(6, 1, 9, ANY_ID),
+> >                 .revn =3D 619,
+> > @@ -409,6 +435,8 @@ const struct adreno_info *adreno_info(struct adreno=
+_rev rev)
+> >         /* identify gpu: */
+> >         for (i =3D 0; i < ARRAY_SIZE(gpulist); i++) {
+> >                 const struct adreno_info *info =3D &gpulist[i];
+> > +               if (info->machine && !of_machine_is_compatible(info->ma=
+chine))
+> > +                       continue;
+> >                 if (adreno_cmp_rev(info->rev, rev))
+> >                         return info;
+> >         }
+> > @@ -563,6 +591,8 @@ static int adreno_bind(struct device *dev, struct d=
+evice *master, void *data)
+> >                 config.rev.minor, config.rev.patchid);
+> >
+> >         priv->is_a2xx =3D config.rev.core =3D=3D 2;
+> > +       priv->has_cached_coherent =3D
+> > +               !!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT);
+> >
+> >         gpu =3D info->init(drm);
+> >         if (IS_ERR(gpu)) {
+> > @@ -574,10 +604,6 @@ static int adreno_bind(struct device *dev, struct =
+device *master, void *data)
+> >         if (ret)
+> >                 return ret;
+> >
+> > -       priv->has_cached_coherent =3D
+> > -               !!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT) &&
+> > -               !adreno_has_gmu_wrapper(to_adreno_gpu(gpu));
+> > -
+> >         return 0;
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/=
+msm/adreno/adreno_gpu.h
+> > index e08d41337169..d5335b99c64c 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > @@ -61,6 +61,7 @@ extern const struct adreno_reglist a612_hwcg[], a615_=
+hwcg[], a630_hwcg[], a640_h
+> >  extern const struct adreno_reglist a660_hwcg[], a690_hwcg[];
+> >
+> >  struct adreno_info {
+> > +       const char *machine;
+> >         struct adreno_rev rev;
+> >         uint32_t revn;
+> >         const char *fw[ADRENO_FW_MAX];
+> > --
+> > 2.41.0
+> >
 >
 >
-> Best regards,
-> Krzysztof
->
+> --
+> With best wishes
+> Dmitry
