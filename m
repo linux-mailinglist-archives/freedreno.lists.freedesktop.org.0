@@ -1,72 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F138767938
-	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 01:59:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82CD876794E
+	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 02:04:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C447F10E79F;
-	Fri, 28 Jul 2023 23:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72D1510E7B2;
+	Sat, 29 Jul 2023 00:04:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 383B910E79F
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 23:59:36 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5221b90f763so3403684a12.0
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 16:59:36 -0700 (PDT)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C57110E7AD
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 00:04:11 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-991c786369cso356938766b.1
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jul 2023 17:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690588774; x=1691193574;
+ d=linaro.org; s=google; t=1690589050; x=1691193850;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=9kqDR+gYxI0WrHXLyeEIAHFRT0r1ybmEtGMOrfNZ584=;
- b=Tc0wphbbxfm9O2B0ehlGXg4Xw4QqX4IOSagQYjNoN38Dowjt5CGj6XENdjXc2NBYM0
- pCo6O1I0+web9tC3/vquiqUAKICYZLIhz+18P9jGVd4/tSp3v2LMjilFSpo8M5e2Db59
- LZTCjgh4lPbuOsl/nTWwSn7PpnI2TFCZD9GtFYm/GzOIXhFoebTPCJ03y1vcKM7/ATBV
- 1O+FTo2G0Pbl0aFe+juAjfN+IUrnTnYS609cF4ouzkDJYw974ZOXMhYaArKKETZAF6NB
- guQiELXSLn71F4DOGdwEEyZ581FzYQAznkVDeojK3D9lPl9n8Mr/TcmKciUGKoTeAiDy
- a2HQ==
+ bh=dfRG5rD0scPqsV1FykBsfcvR1VHSdVrA0sLu02AnWOM=;
+ b=eUzCyV0J1fb+2uOtbl0SEoizsUk8+EHyYPjj46asco+D7r6nKAR5UdkQWLdBTxiBNR
+ /kMUlDjX2Nx8COxm2TubVPSp8PwBvk74b0z67yuIFPL/D/Jl7Krlyzkw392cWq6g/5uX
+ +k+lFYjONRxxC52gDChAF1VqCdQmWluIid4PmDezq2IuUUfHSlM1wsb3tMBGgRRTI5PR
+ k3Fl5NkS71cYjavLyMhl5K65uVMyG/cIc1n03mDNl3KLZfYVSrgglB/AH6BW9XBHubIy
+ YuqFnwAAvYtBvBKvofZ3GF5BvXTtr+OfKs0nxO39FO5OsaqA96RQ1YvjWwTmrSwxRswK
+ RZDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690588774; x=1691193574;
+ d=1e100.net; s=20221208; t=1690589050; x=1691193850;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9kqDR+gYxI0WrHXLyeEIAHFRT0r1ybmEtGMOrfNZ584=;
- b=I4X2DusPoLkyneOAmyqbtx81UnNMrL+BDHZx0AqetS/dL2zuwhBbrf7CTlQ55b2Ecl
- T2qZPSX8KbFn4VplQcKmyGdr2PMT7MW+ebyW95iZgLyjF1zMuN/8zt/jaIvBeJJEVDlD
- O+izgCVAL29GuyTrUNUbOXtag6npv0DAkhwPS/nhg1vds4cKeyKV04jh5lWsAkHm5GGA
- nv6udlCnCTMbYTlRmNwyHi6ohiTQV3OcKfYSZSzHBjAiWaL/Ki1bYV4cTmLEujl7cKPV
- L4Vhz6bFBO8AtYzKQy+Ta7uLisPhsZu4kx99mrCPpEZlFK+RLOFqkLWJGhv0cLnssW6J
- i+2g==
-X-Gm-Message-State: ABy/qLYwuWNwRjSsLI1tup03d+0in4eOPqglRvBPOg948HQIQujWfMEW
- VsOAAryyfhYFxT+N8Yd26z1uaw==
-X-Google-Smtp-Source: APBJJlEIy2d3ZrA7+NcNoTs2/vz7hH8S6b+sy/peh9Yw91p+0JyXTHFn6ajEj8qf14VFxR+vX13AzQ==
-X-Received: by 2002:a17:906:18:b0:99b:504d:d9c7 with SMTP id
- 24-20020a170906001800b0099b504dd9c7mr669088eja.67.1690588774689; 
- Fri, 28 Jul 2023 16:59:34 -0700 (PDT)
+ bh=dfRG5rD0scPqsV1FykBsfcvR1VHSdVrA0sLu02AnWOM=;
+ b=DxwyCTRS00CCprz1VZJD2ccXYzlzuZmp5JLAzgY5Wy+aK3ROmHoN1y4sLXCc5it9qG
+ H3ZN9dbsmRnTkFm1aXC5ctWEDmFpgw73amz671jIftAtur1f/MizUFm/Bnv3IN3RslY2
+ +Tl+pf+G+wi8GNWf0tiAgntiLJsNjxVPhm8dXkUZap24cmaLTB9knUHT20d9p8xREk62
+ HBUqF/x6AKZBxLFccBjbynRS6YbiV4AtHKf+V10vM5OAqNH/laWOc8iPQFN5Qj79+966
+ sVc8/xGvs9gYuE+mEhViUvkEU4ded4XamQBfFaDASTWXGpAwfYFK8s2BpYkONVa0fB0J
+ zhtw==
+X-Gm-Message-State: ABy/qLaLqSOlrwxqr+Ko08XyD/ji/QeCaD6eId2hus2QwZ0d4hXtTMu6
+ /R2v4MBnyswd5+dDejKEbG59Vg==
+X-Google-Smtp-Source: APBJJlGMAZ6zWddJfPSlsMqE6/T2h9lEEfiEuE7orHv0MziUXyZjseGTaz1a/33UmEYRkyhFTyDMzg==
+X-Received: by 2002:a17:907:7850:b0:99b:44aa:fae0 with SMTP id
+ lb16-20020a170907785000b0099b44aafae0mr610136ejc.21.1690589050045; 
+ Fri, 28 Jul 2023 17:04:10 -0700 (PDT)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- u7-20020a170906408700b0098de7d28c34sm2585366ejj.193.2023.07.28.16.59.33
+ i18-20020a170906115200b00992665694f7sm2587634eja.107.2023.07.28.17.04.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Jul 2023 16:59:34 -0700 (PDT)
-Message-ID: <c9d7994d-5781-41b0-6af0-cc45d4ebf6fb@linaro.org>
-Date: Sat, 29 Jul 2023 02:59:32 +0300
+ Fri, 28 Jul 2023 17:04:09 -0700 (PDT)
+Message-ID: <de6abbcf-9c0d-f51e-b140-938f2c537f74@linaro.org>
+Date: Sat, 29 Jul 2023 03:04:07 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230727162104.1497483-1-dmitry.baryshkov@linaro.org>
- <20230727162104.1497483-2-dmitry.baryshkov@linaro.org>
- <byxscievxgqwcdu56mebkoy4jpgogzy3euddz73u2qryh3itwb@to3pyltcqqxg>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230728-solid-fill-v5-0-053dbefa909c@quicinc.com>
+ <20230728-solid-fill-v5-4-053dbefa909c@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <byxscievxgqwcdu56mebkoy4jpgogzy3euddz73u2qryh3itwb@to3pyltcqqxg>
+In-Reply-To: <20230728-solid-fill-v5-4-053dbefa909c@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/dpu: enable PINGPONG TE
- operations only when supported by HW
+Subject: Re: [Freedreno] [PATCH RFC v5 04/10] drm/atomic: Add pixel source
+ to plane state dump
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,63 +83,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: sebastian.wick@redhat.com, contact@emersion.fr, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ppaalanen@gmail.com, laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/07/2023 23:03, Marijn Suijten wrote:
-> On 2023-07-27 19:20:58, Dmitry Baryshkov wrote:
->> The DPU_PINGPONG_TE bit is set for all PINGPONG blocks on DPU < 5.0.
->> Rather than checking for the flag, check for the presense of the
->> corresponding interrupt line.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 28/07/2023 20:02, Jessica Zhang wrote:
+> Add pixel source to the atomic plane state dump
 > 
-> That's a smart use of the interrupt field.  I both like it, and I do
-> not.  While we didn't do any validation for consistency previously, this
-> means we now have multiple ways of controlling available "features":
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/drm_atomic.c        |  1 +
+>   drivers/gpu/drm/drm_crtc_internal.h |  2 ++
+>   drivers/gpu/drm/drm_plane.c         | 12 ++++++++++++
+>   3 files changed, 15 insertions(+)
 > 
-> - Feature flags on hardware blocks;
-> - Presence of certain IRQs;
-> - DPU core revision.
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index b4c6ffc438da..c38014abc590 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -713,6 +713,7 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
+>   
+>   	drm_printf(p, "plane[%u]: %s\n", plane->base.id, plane->name);
+>   	drm_printf(p, "\tcrtc=%s\n", state->crtc ? state->crtc->name : "(null)");
+> +	drm_printf(p, "\tpixel-source=%s\n", drm_plane_get_pixel_source_name(state->pixel_source));
+>   	drm_printf(p, "\tfb=%u\n", state->fb ? state->fb->base.id : 0);
+>   	if (state->fb)
+>   		drm_framebuffer_print_info(p, 2, state->fb);
+> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+> index 501a10edd0e1..75b59ec9f1be 100644
+> --- a/drivers/gpu/drm/drm_crtc_internal.h
+> +++ b/drivers/gpu/drm/drm_crtc_internal.h
+> @@ -38,6 +38,7 @@ enum drm_color_encoding;
+>   enum drm_color_range;
+>   enum drm_connector_force;
+>   enum drm_mode_status;
+> +enum drm_plane_pixel_source;
+>   
+>   struct drm_atomic_state;
+>   struct drm_bridge;
+> @@ -267,6 +268,7 @@ int drm_plane_check_pixel_format(struct drm_plane *plane,
+>   				 u32 format, u64 modifier);
+>   struct drm_mode_rect *
+>   __drm_plane_get_damage_clips(const struct drm_plane_state *state);
+> +const char *drm_plane_get_pixel_source_name(enum drm_plane_pixel_source pixel_source);
+>   
+>   /* drm_bridge.c */
+>   void drm_bridge_detach(struct drm_bridge *bridge);
+> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+> index f342cf15412b..4188b3491625 100644
+> --- a/drivers/gpu/drm/drm_plane.c
+> +++ b/drivers/gpu/drm/drm_plane.c
+> @@ -1487,6 +1487,18 @@ __drm_plane_get_damage_clips(const struct drm_plane_state *state)
+>   					state->fb_damage_clips->data : NULL);
+>   }
+>   
+> +const char *drm_plane_get_pixel_source_name(enum drm_plane_pixel_source pixel_source)
+> +{
+> +	switch(pixel_source) {
+> +	case DRM_PLANE_PIXEL_SOURCE_NONE:
+> +		return "NONE";
+> +	case DRM_PLANE_PIXEL_SOURCE_FB:
+> +		return "fb";
+> +	default:
+> +		return "";
+> +	}
+> +}
 
-I hesitated here too. For INTF it is clear that there is no other good 
-way to check for the TE feature. For PP we can just check for the DPU 
-revision.
+Please use DRM_ENUM_NAME_FN instead.
 
+> +
+>   /**
+>    * drm_plane_get_damage_clips - Returns damage clips.
+>    * @state: Plane state.
 > 
-> Maybe that is more confusing to follow?  Regardless of that I'm
-> convinced that this patch does what it's supposed to and gets rid of
-> some ambiguity.  Maybe a comment above the IF explaining the "PP TE"
-> feature could alleviate the above concerns thoo.  Hence:
-> 
-> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> index 9298c166b213..912a3bdf8ad4 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c
->> @@ -296,7 +296,7 @@ struct dpu_hw_pingpong *dpu_hw_pingpong_init(const struct dpu_pingpong_cfg *cfg,
->>   	c->idx = cfg->id;
->>   	c->caps = cfg;
->>   
->> -	if (test_bit(DPU_PINGPONG_TE, &cfg->features)) {
->> +	if (cfg->intr_rdptr) {
->>   		c->ops.enable_tearcheck = dpu_hw_pp_enable_te;
->>   		c->ops.disable_tearcheck = dpu_hw_pp_disable_te;
->>   		c->ops.connect_external_te = dpu_hw_pp_connect_external_te;
->> -- 
->> 2.39.2
->>
 
 -- 
 With best wishes
