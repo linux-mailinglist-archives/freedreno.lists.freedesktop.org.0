@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70CD4768119
-	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 20:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDD57768121
+	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 21:01:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6424C10E1F5;
-	Sat, 29 Jul 2023 18:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D22E10E210;
+	Sat, 29 Jul 2023 19:01:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F196110E1F5
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:52:46 +0000 (UTC)
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A09310E209;
+ Sat, 29 Jul 2023 19:01:35 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 3879B3EB5B;
- Sat, 29 Jul 2023 20:52:45 +0200 (CEST)
-Date: Sat, 29 Jul 2023 20:52:43 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 447393F34C;
+ Sat, 29 Jul 2023 21:01:33 +0200 (CEST)
+Date: Sat, 29 Jul 2023 21:01:31 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ejtvrqpxyd4y7b7mahvv4d6fw5sx726bv5epuqorks5buxsdt2@ydybjy6kr565>
+Message-ID: <e56epivej35nflx3bvs4noiyjilasxeintrlnvmva27x6nmitf@mdasompabaq7>
 References: <20230728233200.151735-1-dmitry.baryshkov@linaro.org>
- <20230728233200.151735-5-dmitry.baryshkov@linaro.org>
+ <20230728233200.151735-6-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230728233200.151735-5-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 4/6] drm/msm/dpu: make the irq table size
- static
+In-Reply-To: <20230728233200.151735-6-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 5/6] drm/msm/dpu: stop using raw IRQ
+ indices in the kernel output
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,129 +52,204 @@ Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-07-29 02:31:58, Dmitry Baryshkov wrote:
-> The size of the irq table is static, it has MDP_INTR_MAX * 32 interrupt
-> entries. Provide the fixed length and drop struct_size() statement.
+Title suggestion: replace "stop using" with "Replace RAW IRQ indices in
+prints with tuple" or something else that describes what the new case is
+that we can expect after this PR was applied (at your discretion, it
+might be hard to fit that in 72 chars).  Otherwise this reads as if you
+just dropped the index from printk's and systfs altogether.
 
-Good call.  I thought it was supposed to be allocated based on enabled
-interrupts (but then indexing becomes a big problem) to lighten the
-tables on platforms where the higher registers aren't even used, but it
-was always the constant MDP_INTR_MAX * 32.  It's even better now that
-you removed all the 7xxx defines of which there were 11, times 32
-interrupts, times sizeof(dpu_hw_intr_entry)=20 (or 24).
+On 2023-07-29 02:31:59, Dmitry Baryshkov wrote:
+> In preparation to reworking IRQ indcies, stop using raw indices in
+> kernel output (both printk and debugfs). Instead use a pair of register
+> index and bit. This corresponds closer to the values in HW catalog.
 
+This is rather painful to read:
+
+irq=[%d, %d]
+IRQ:[%d, %d]
+IRQ: [%d, %d]
+IRQ [%d, %d]
+
+Four variations within the first **four** hunks.  It looks like you
+tried to consistenize some of them, but can we please go all the way?
+
+Perhaps we also want to correct the format in dpu_trace.h?
+
+> 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 13 +++++--------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  6 +++---
->  2 files changed, 8 insertions(+), 11 deletions(-)
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 49 ++++++++++++-------
+>  1 file changed, 31 insertions(+), 18 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index 14d374de30c5..308b122059cd 100644
+> index 308b122059cd..6071d3f05b0c 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -203,7 +203,7 @@ static const struct dpu_intr_reg dpu_intr_set_7xxx[] = {
+> @@ -199,6 +199,7 @@ static const struct dpu_intr_reg dpu_intr_set_7xxx[] = {
+>  
+>  #define DPU_IRQ_REG(irq_idx)	(irq_idx / 32)
+>  #define DPU_IRQ_MASK(irq_idx)	(BIT(irq_idx % 32))
+> +#define DPU_IRQ_BIT(irq_idx)	(ffs(DPU_IRQ_MASK(irq_idx)) - 1)
+>  
 >  static inline bool dpu_core_irq_is_valid(struct dpu_hw_intr *intr,
-
-Now you can drop the intr argument :)
-
-After fixing that:
-
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-
 >  					 int irq_idx)
+> @@ -221,10 +222,11 @@ static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, int irq_idx)
 >  {
-> -	return irq_idx >= 0 && irq_idx < intr->total_irqs;
-> +	return irq_idx >= 0 && irq_idx < DPU_NUM_IRQS;
->  }
+>  	struct dpu_hw_intr_entry *irq_entry = dpu_core_irq_get_entry(dpu_kms->hw_intr, irq_idx);
 >  
->  static inline struct dpu_hw_intr_entry *dpu_core_irq_get_entry(struct dpu_hw_intr *intr,
-> @@ -470,13 +470,12 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
->  		const struct dpu_mdss_cfg *m)
->  {
->  	struct dpu_hw_intr *intr;
-> -	int nirq = MDP_INTR_MAX * 32;
->  	unsigned int i;
+> -	VERB("irq_idx=%d\n", irq_idx);
+> +	VERB("irq=[%d, %d]\n", DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
 >  
->  	if (!addr || !m)
->  		return ERR_PTR(-EINVAL);
+>  	if (!irq_entry->cb)
+> -		DRM_ERROR("no registered cb, idx:%d\n", irq_idx);
+> +		DRM_ERROR("no registered cb, IRQ:[%d, %d]\n",
+> +			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
 >  
-> -	intr = kzalloc(struct_size(intr, irq_tbl, nirq), GFP_KERNEL);
-> +	intr = kzalloc(sizeof(*intr), GFP_KERNEL);
->  	if (!intr)
->  		return ERR_PTR(-ENOMEM);
+>  	atomic_inc(&irq_entry->count);
 >  
-> @@ -487,8 +486,6 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
+> @@ -306,7 +308,8 @@ static int dpu_hw_intr_enable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
+>  		return -EINVAL;
 >  
->  	intr->hw.blk_addr = addr + m->mdp[0].base;
->  
-> -	intr->total_irqs = nirq;
-> -
->  	intr->irq_mask = BIT(MDP_SSPP_TOP0_INTR) |
->  			 BIT(MDP_SSPP_TOP0_INTR2) |
->  			 BIT(MDP_SSPP_TOP0_HIST_INTR);
-> @@ -601,7 +598,7 @@ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
->  	int i, irq_count;
->  	void *cb;
->  
-> -	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++) {
-> +	for (i = 0; i < DPU_NUM_IRQS; i++) {
->  		spin_lock_irqsave(&dpu_kms->hw_intr->irq_lock, irq_flags);
->  		irq_entry = dpu_core_irq_get_entry(dpu_kms->hw_intr, i);
->  		irq_count = atomic_read(&irq_entry->count);
-> @@ -636,7 +633,7 @@ void dpu_core_irq_preinstall(struct msm_kms *kms)
->  	dpu_disable_all_irqs(dpu_kms);
->  	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->  
-> -	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++) {
-> +	for (i = 0; i < DPU_NUM_IRQS; i++) {
->  		irq_entry = dpu_core_irq_get_entry(dpu_kms->hw_intr, i);
->  		atomic_set(&irq_entry->count, 0);
+>  	if (!dpu_core_irq_is_valid(intr, irq_idx)) {
+> -		pr_err("invalid IRQ index: [%d]\n", irq_idx);
+> +		pr_err("invalid IRQ: [%d, %d]\n",
+> +		       DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  		return -EINVAL;
 >  	}
-> @@ -652,7 +649,7 @@ void dpu_core_irq_uninstall(struct msm_kms *kms)
->  		return;
 >  
->  	pm_runtime_get_sync(&dpu_kms->pdev->dev);
-> -	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++) {
-> +	for (i = 0; i < DPU_NUM_IRQS; i++) {
+> @@ -342,7 +345,8 @@ static int dpu_hw_intr_enable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
+>  		intr->cache_irq_mask[reg_idx] = cache_irq_mask;
+>  	}
+>  
+> -	pr_debug("DPU IRQ %d %senabled: MASK:0x%.8lx, CACHE-MASK:0x%.8x\n", irq_idx, dbgstr,
+> +	pr_debug("DPU IRQ [%d, %d] %senabled: MASK:0x%.8lx, CACHE-MASK:0x%.8x\n",
+> +		 DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx), dbgstr,
+>  			DPU_IRQ_MASK(irq_idx), cache_irq_mask);
+>  
+>  	return 0;
+> @@ -359,7 +363,8 @@ static int dpu_hw_intr_disable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
+>  		return -EINVAL;
+>  
+>  	if (!dpu_core_irq_is_valid(intr, irq_idx)) {
+> -		pr_err("invalid IRQ index: [%d]\n", irq_idx);
+> +		pr_err("invalid IRQ: [%d, %d]\n",
+> +		       DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  		return -EINVAL;
+>  	}
+>  
+> @@ -391,7 +396,8 @@ static int dpu_hw_intr_disable_irq_locked(struct dpu_hw_intr *intr, int irq_idx)
+>  		intr->cache_irq_mask[reg_idx] = cache_irq_mask;
+>  	}
+>  
+> -	pr_debug("DPU IRQ %d %sdisabled: MASK:0x%.8lx, CACHE-MASK:0x%.8x\n", irq_idx, dbgstr,
+> +	pr_debug("DPU IRQ [%d, %d] %sdisabled: MASK:0x%.8lx, CACHE-MASK:0x%.8x\n",
+> +		 DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx), dbgstr,
+>  			DPU_IRQ_MASK(irq_idx), cache_irq_mask);
+>  
+>  	return 0;
+> @@ -444,7 +450,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms, int irq_idx)
+>  		return 0;
+>  
+>  	if (!dpu_core_irq_is_valid(intr, irq_idx)) {
+> -		pr_err("invalid IRQ index: [%d]\n", irq_idx);
+> +		pr_err("invalid IRQ: [%d, %d]\n", DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  		return 0;
+>  	}
+>  
+> @@ -520,16 +526,19 @@ int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
+>  	int ret;
+>  
+>  	if (!irq_cb) {
+> -		DPU_ERROR("invalid ird_idx:%d irq_cb:%ps\n", irq_idx, irq_cb);
+> +		DPU_ERROR("invalid ird_IRQ:[%d, %d] irq_cb:%ps\n",
+
+I think this was a typo that should have been irq_idx in the original
+code, so this just becomes IRQ (with one of the variations to settle on,
+as brought up above).
+
+> +			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx), irq_cb);
+>  		return -EINVAL;
+>  	}
+>  
+>  	if (!dpu_core_irq_is_valid(dpu_kms->hw_intr, irq_idx)) {
+> -		DPU_ERROR("invalid IRQ index: [%d]\n", irq_idx);
+> +		DPU_ERROR("invalid IRQ: [%d, %d]\n",
+> +			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  		return -EINVAL;
+>  	}
+>  
+> -	VERB("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
+> +	VERB("[%pS] irq=[%d, %d]\n", __builtin_return_address(0),
+> +	     DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  
+>  	spin_lock_irqsave(&dpu_kms->hw_intr->irq_lock, irq_flags);
+>  
+> @@ -548,8 +557,8 @@ int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
+>  				dpu_kms->hw_intr,
+>  				irq_idx);
+>  	if (ret)
+> -		DPU_ERROR("Fail to enable IRQ for irq_idx:%d\n",
+> -					irq_idx);
+> +		DPU_ERROR("Fail to enable IRQ for [%d, %d]\n",
+
+And let's just make this `Failed to enable IRQ:[%d, %d]`, following one
+of the variations discussed above.
+
+> +			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  	spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
+>  
+>  	trace_dpu_irq_register_success(irq_idx);
+> @@ -564,19 +573,21 @@ int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int irq_idx)
+>  	int ret;
+>  
+>  	if (!dpu_core_irq_is_valid(dpu_kms->hw_intr, irq_idx)) {
+> -		DPU_ERROR("invalid IRQ index: [%d]\n", irq_idx);
+> +		DPU_ERROR("invalid IRQ: [%d, %d]\n",
+> +			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  		return -EINVAL;
+>  	}
+>  
+> -	VERB("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
+> +	VERB("[%pS] irq=[%d, %d]\n", __builtin_return_address(0),
+> +	     DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+>  
+>  	spin_lock_irqsave(&dpu_kms->hw_intr->irq_lock, irq_flags);
+>  	trace_dpu_core_irq_unregister_callback(irq_idx);
+>  
+>  	ret = dpu_hw_intr_disable_irq_locked(dpu_kms->hw_intr, irq_idx);
+>  	if (ret)
+> -		DPU_ERROR("Fail to disable IRQ for irq_idx:%d: %d\n",
+> -					irq_idx, ret);
+> +		DPU_ERROR("Fail to disable IRQ for [%d, %d]: %d\n",
+
+And let's drop "for" here too, it's unreadable.
+
+- Marijn
+
+> +			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx), ret);
+>  
+>  	irq_entry = dpu_core_irq_get_entry(dpu_kms->hw_intr, irq_idx);
+>  	irq_entry->cb = NULL;
+> @@ -606,7 +617,8 @@ static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
+>  		spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
+>  
+>  		if (irq_count || cb)
+> -			seq_printf(s, "idx:%d irq:%d cb:%ps\n", i, irq_count, cb);
+> +			seq_printf(s, "IRQ:[%d, %d] count:%d cb:%ps\n",
+> +				   DPU_IRQ_REG(i), DPU_IRQ_BIT(i), irq_count, cb);
+>  	}
+>  
+>  	return 0;
+> @@ -652,7 +664,8 @@ void dpu_core_irq_uninstall(struct msm_kms *kms)
+>  	for (i = 0; i < DPU_NUM_IRQS; i++) {
 >  		irq_entry = dpu_core_irq_get_entry(dpu_kms->hw_intr, i);
 >  		if (irq_entry->cb)
->  			DPU_ERROR("irq_idx=%d still enabled/registered\n", i);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> index 391fb268ad90..bb775b6a2432 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> @@ -38,6 +38,8 @@ enum dpu_hw_intr_reg {
+> -			DPU_ERROR("irq_idx=%d still enabled/registered\n", i);
+> +			DPU_ERROR("irq=[%d, %d] still enabled/registered\n",
+> +				  DPU_IRQ_REG(i), DPU_IRQ_BIT(i));
+>  	}
 >  
->  #define DPU_IRQ_IDX(reg_idx, offset)	(reg_idx * 32 + offset)
->  
-> +#define DPU_NUM_IRQS		(MDP_INTR_MAX * 32)
-> +
->  struct dpu_hw_intr_entry {
->  	void (*cb)(void *arg);
->  	void *arg;
-> @@ -50,7 +52,6 @@ struct dpu_hw_intr_entry {
->   * @ops:              function pointer mapping for IRQ handling
->   * @cache_irq_mask:   array of IRQ enable masks reg storage created during init
->   * @save_irq_status:  array of IRQ status reg storage created during init
-> - * @total_irqs: total number of irq_idx mapped in the hw_interrupts
->   * @irq_lock:         spinlock for accessing IRQ resources
->   * @irq_cb_tbl:       array of IRQ callbacks
->   */
-> @@ -58,12 +59,11 @@ struct dpu_hw_intr {
->  	struct dpu_hw_blk_reg_map hw;
->  	u32 cache_irq_mask[MDP_INTR_MAX];
->  	u32 *save_irq_status;
-> -	u32 total_irqs;
->  	spinlock_t irq_lock;
->  	unsigned long irq_mask;
->  	const struct dpu_intr_reg *intr_set;
->  
-> -	struct dpu_hw_intr_entry irq_tbl[];
-> +	struct dpu_hw_intr_entry irq_tbl[DPU_NUM_IRQS];
->  };
->  
->  /**
+>  	dpu_clear_irqs(dpu_kms);
 > -- 
 > 2.39.2
 > 
