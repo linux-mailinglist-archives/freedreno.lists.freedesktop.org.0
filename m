@@ -2,77 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34B96767A87
-	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 03:11:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C3527680F5
+	for <lists+freedreno@lfdr.de>; Sat, 29 Jul 2023 20:28:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C791610E7BE;
-	Sat, 29 Jul 2023 01:11:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7876F10E0DD;
+	Sat, 29 Jul 2023 18:28:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C41B510E7BD;
- Sat, 29 Jul 2023 01:11:17 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36SNfs52031718; Sat, 29 Jul 2023 01:11:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=UWsGmsJb3Fzw/lgOq0BQ3++Iwqp1MJeniobuGbmbC9I=;
- b=iwASIXv16WtByPmXorqpTOQnnLGzPcXVD3TO77w9E4Eci1D59BB4ht73Gz2s12fCPcLt
- wa9poZFK9FxT8BP3PIiwcJsDLyLGLHFAAtwHDBoFJJbZEGKN4ZI50U2zmQ9cgF7NrhKT
- /h6nbwOrw04/AjWUK4gfaxw0iBq2FRLSgNG+Kwh4YW56jgDaaWaDvNaskP894suxV65t
- IHWwVa8Lzq2P/uz4v0hLmBomnuwUWs4QxNEhHTIi8gU8oF9eULsJxK4PPQAG3T8Q4KDe
- 80a/SYKzcrZCBcJlviasUtJuS4fJqW9tVM/wPrvSwmI2ZU4XzUeBa+JAmqT0JQBFRPcI dg== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s46ttj8ut-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 29 Jul 2023 01:11:12 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36T1BB48029792
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 29 Jul 2023 01:11:11 GMT
-Received: from [10.110.51.188] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 28 Jul
- 2023 18:11:10 -0700
-Message-ID: <4705e582-1fcb-cf5a-a05d-cf2c76c38253@quicinc.com>
-Date: Fri, 28 Jul 2023 18:11:10 -0700
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C81D10E0E5
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:28:11 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 5668E3F1FA;
+ Sat, 29 Jul 2023 20:28:08 +0200 (CEST)
+Date: Sat, 29 Jul 2023 20:28:06 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <kszqijb63rplnqczrw6xuzs5mci33w2qgn6c2ujxeag4x7ych3@7etvtti7ah4x>
+References: <20230727162104.1497483-1-dmitry.baryshkov@linaro.org>
+ <20230727162104.1497483-4-dmitry.baryshkov@linaro.org>
+ <wv556zme7i33pczp7aqln5xcljz4xuygmqkmcrw2jayrmu4tsh@ohrbffyirknb>
+ <e421a9b0-5943-faff-ebde-dc94cce43e69@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230707231251.3849701-1-dmitry.baryshkov@linaro.org>
- <20230707231251.3849701-13-dmitry.baryshkov@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20230707231251.3849701-13-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: jnMUhHDuZRQ4tqd4vA3zoGHE4EWmLIMK
-X-Proofpoint-GUID: jnMUhHDuZRQ4tqd4vA3zoGHE4EWmLIMK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-27_10,2023-07-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 suspectscore=0
- impostorscore=0 clxscore=1015 priorityscore=1501 mlxlogscore=999
- lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0 bulkscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2307290009
-Subject: Re: [Freedreno] [PATCH v2 12/13] drm/msm/dpu: drop
- dpu_encoder_phys_ops::destroy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e421a9b0-5943-faff-ebde-dc94cce43e69@linaro.org>
+Subject: Re: [Freedreno] [PATCH 3/7] drm/msm/dpu: inline _setup_intf_ops()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,77 +44,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 7/7/2023 4:12 PM, Dmitry Baryshkov wrote:
-> Drop the dpu_encoder_phys_ops' destroy() callback. No phys backend
-> implements it anymore, so it is useless.
+On 2023-07-29 02:45:43, Dmitry Baryshkov wrote:
+> On 27/07/2023 23:10, Marijn Suijten wrote:
+> > On 2023-07-27 19:21:00, Dmitry Baryshkov wrote:
+> >> Inline the _setup_intf_ops() function, it makes it easier to handle
+> >> different conditions involving INTF configuration.
+> >>
+> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > 
+> > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > 
+> >> ---
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 47 +++++++++------------
+> >>   1 file changed, 21 insertions(+), 26 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> >> index 8ec6505d9e78..7ca772791a73 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> >> @@ -524,31 +524,6 @@ static void dpu_hw_intf_program_intf_cmd_cfg(struct dpu_hw_intf *ctx,
+> >>   	DPU_REG_WRITE(&ctx->hw, INTF_CONFIG2, intf_cfg2);
+> >>   }
+> >>   
+> >> -static void _setup_intf_ops(struct dpu_hw_intf_ops *ops,
+> >> -		unsigned long cap, const struct dpu_mdss_version *mdss_rev)
+> >> -{
+> >> -	ops->setup_timing_gen = dpu_hw_intf_setup_timing_engine;
+> >> -	ops->setup_prg_fetch  = dpu_hw_intf_setup_prg_fetch;
+> >> -	ops->get_status = dpu_hw_intf_get_status;
+> >> -	ops->enable_timing = dpu_hw_intf_enable_timing_engine;
+> >> -	ops->get_line_count = dpu_hw_intf_get_line_count;
+> >> -	if (cap & BIT(DPU_INTF_INPUT_CTRL))
+> >> -		ops->bind_pingpong_blk = dpu_hw_intf_bind_pingpong_blk;
+> >> -	ops->setup_misr = dpu_hw_intf_setup_misr;
+> >> -	ops->collect_misr = dpu_hw_intf_collect_misr;
+> >> -
+> >> -	if (cap & BIT(DPU_INTF_TE)) {
+> >> -		ops->enable_tearcheck = dpu_hw_intf_enable_te;
+> >> -		ops->disable_tearcheck = dpu_hw_intf_disable_te;
+> >> -		ops->connect_external_te = dpu_hw_intf_connect_external_te;
+> >> -		ops->vsync_sel = dpu_hw_intf_vsync_sel;
+> >> -		ops->disable_autorefresh = dpu_hw_intf_disable_autorefresh;
+> >> -	}
+> >> -
+> >> -	if (mdss_rev->core_major_ver >= 7)
+> >> -		ops->program_intf_cmd_cfg = dpu_hw_intf_program_intf_cmd_cfg;
+> >> -}
+> >> -
+> >>   struct dpu_hw_intf *dpu_hw_intf_init(const struct dpu_intf_cfg *cfg,
+> >>   		void __iomem *addr, const struct dpu_mdss_version *mdss_rev)
+> >>   {
+> >> @@ -571,7 +546,27 @@ struct dpu_hw_intf *dpu_hw_intf_init(const struct dpu_intf_cfg *cfg,
+> >>   	 */
+> >>   	c->idx = cfg->id;
+> >>   	c->cap = cfg;
+> >> -	_setup_intf_ops(&c->ops, c->cap->features, mdss_rev);
+> >> +
+> >> +	c->ops.setup_timing_gen = dpu_hw_intf_setup_timing_engine;
+> >> +	c->ops.setup_prg_fetch  = dpu_hw_intf_setup_prg_fetch;
+> >> +	c->ops.get_status = dpu_hw_intf_get_status;
+> >> +	c->ops.enable_timing = dpu_hw_intf_enable_timing_engine;
+> >> +	c->ops.get_line_count = dpu_hw_intf_get_line_count;
+> >> +	if (cfg->features & BIT(DPU_INTF_INPUT_CTRL))
+> >> +		c->ops.bind_pingpong_blk = dpu_hw_intf_bind_pingpong_blk;
+> > 
+> > While at it, could we sort these down with the other conditional
+> > callbacks?
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> What kind of sorting do you have in mind?
 
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Moving this conditional ( if (...) ) down with the other conditional
+assignment below, instead of being right in the middle of get_line_count
+and setup_misr, both which are not conditional and make it harder to
+read, especially considering the lack of newlines and/or curly braces.
 
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c    | 18 ------------------
->   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  2 --
->   2 files changed, 20 deletions(-)
+> >> +	c->ops.setup_misr = dpu_hw_intf_setup_misr;
+> >> +	c->ops.collect_misr = dpu_hw_intf_collect_misr;
+> >> +
+> >> +	if (cfg->features & BIT(DPU_INTF_TE)) {
+> > 
+> > Any clue why we're not using test_bit()?  Feels a bit inconsistent.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 7c2cd9ce8acd..b42176ce4a3a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -456,24 +456,6 @@ static void dpu_encoder_destroy(struct drm_encoder *drm_enc)
->   	dpu_enc = to_dpu_encoder_virt(drm_enc);
->   	DPU_DEBUG_ENC(dpu_enc, "\n");
->   
-> -	mutex_lock(&dpu_enc->enc_lock);
-> -
-> -	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-> -		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-> -
-> -		if (phys->ops.destroy) {
-> -			phys->ops.destroy(phys);
-> -			--dpu_enc->num_phys_encs;
-> -			dpu_enc->phys_encs[i] = NULL;
-> -		}
-> -	}
-> -
-> -	if (dpu_enc->num_phys_encs)
-> -		DPU_ERROR_ENC(dpu_enc, "expected 0 num_phys_encs not %d\n",
-> -				dpu_enc->num_phys_encs);
-> -	dpu_enc->num_phys_encs = 0;
-> -	mutex_unlock(&dpu_enc->enc_lock);
-> -
->   	drm_encoder_cleanup(drm_enc);
->   	mutex_destroy(&dpu_enc->enc_lock);
->   }
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> index 4fb0d95f3061..757ce58f958b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> @@ -72,7 +72,6 @@ struct dpu_encoder_phys;
->    * @enable:			DRM Call. Enable a DRM mode.
->    * @disable:			DRM Call. Disable mode.
->    * @atomic_check:		DRM Call. Atomic check new DRM state.
-> - * @destroy:			DRM Call. Destroy and release resources.
->    * @control_vblank_irq		Register/Deregister for VBLANK IRQ
->    * @wait_for_commit_done:	Wait for hardware to have flushed the
->    *				current pending frames to hardware
-> @@ -102,7 +101,6 @@ struct dpu_encoder_phys_ops {
->   	int (*atomic_check)(struct dpu_encoder_phys *encoder,
->   			    struct drm_crtc_state *crtc_state,
->   			    struct drm_connector_state *conn_state);
-> -	void (*destroy)(struct dpu_encoder_phys *encoder);
->   	int (*control_vblank_irq)(struct dpu_encoder_phys *enc, bool enable);
->   	int (*wait_for_commit_done)(struct dpu_encoder_phys *phys_enc);
->   	int (*wait_for_tx_complete)(struct dpu_encoder_phys *phys_enc);
+> Yes, some files use test_bit(), others just check the bit directly. 
+> Maybe after moving some/most of conditionals to core_major_ver we can 
+> clean that too.
+
+Sounds good.
+
+- Marijn
+
+> >> +		c->ops.enable_tearcheck = dpu_hw_intf_enable_te;
+> >> +		c->ops.disable_tearcheck = dpu_hw_intf_disable_te;
+> >> +		c->ops.connect_external_te = dpu_hw_intf_connect_external_te;
+> >> +		c->ops.vsync_sel = dpu_hw_intf_vsync_sel;
+> >> +		c->ops.disable_autorefresh = dpu_hw_intf_disable_autorefresh;
+> >> +	}
+> >> +
+> >> +	if (mdss_rev->core_major_ver >= 7)
+> >> +		c->ops.program_intf_cmd_cfg = dpu_hw_intf_program_intf_cmd_cfg;
+> >>   
+> >>   	return c;
+> >>   }
+> >> -- 
+> >> 2.39.2
+> >>
+> 
 > -- 
-> 2.39.2
+> With best wishes
+> Dmitry
 > 
