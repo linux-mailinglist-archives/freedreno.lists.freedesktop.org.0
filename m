@@ -1,69 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B4877682DF
-	for <lists+freedreno@lfdr.de>; Sun, 30 Jul 2023 02:35:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C2D7682F5
+	for <lists+freedreno@lfdr.de>; Sun, 30 Jul 2023 03:01:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8497E10E12F;
-	Sun, 30 Jul 2023 00:35:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6CFD10E0DB;
+	Sun, 30 Jul 2023 01:01:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C82E210E240
- for <freedreno@lists.freedesktop.org>; Sun, 30 Jul 2023 00:35:28 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2b9ba3d6157so49564891fa.3
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 17:35:28 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB75B10E0DB
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Jul 2023 01:01:05 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-4fe2503e3easo2254315e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:01:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690677327; x=1691282127;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SmjGd6hQg5+KzT5ujuzMh2o3ciL+YNI2GkvXWKUqqAs=;
- b=ZgJVLnAfJAQUM4bSILyTLf+Im47B/dyNmIyjpw4oLc7ObYAql/7HIJvFcc5f5ihTYT
- i9Ln4Mx04ujT9NUQWmmTbnq2NPgsbno7+kUVJWslgHnU0kk+YrAXB2n6PnOZuPK3iu2q
- ZM1fOzodAF9BzogVBY/7FuouLzzYKpeMyBwCtX5hVxKNpG+FsQa5igVuW1CPKj96xrSq
- nZkom/2QU0nJ5vgVrMr3kiQjoD98jU6Gd8i7H2EimBllj+MmF3AKfI1A2lywH24Um7m/
- NOsb38b5TXSVTAjkLyiqQxZOIR6rMROneXCiKZLru4YgDJWKPp3cK99x1iyGtdx5BAOl
- Ifag==
+ d=linaro.org; s=google; t=1690678864; x=1691283664;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fZFRcwHJeVSh65Kz3mZ7lpYUowAafMtprlMPT1r95fA=;
+ b=D+kDYvMnwANwr1qh4aSkCWNS+hW/sQ8dmmOxM15zbfx/N75PKrr+7nt522kqc0hrBK
+ IfYb2TVbnH2jKJLHpaKlZGQNqS5rW2XWjFiugMzy45Ffxmt5s3kryxSUID2rRR5Cu6H+
+ WODDu025368gjog7RMq2oMTBd62YGF+ghob7zqtrvTXuAmU18AMuKeV1UMawtfhJ6nSg
+ Ydha1n5LnNt/Urzja5Rz4v6n7ZUw0ixKcHjPlJ4uY3PaJfJG/xCbINnOliVmhtYy0/Xg
+ kdbXk2L03htEH/zQc/VbPjt1wEpJsscg/tN7mE+X73ydkHZD4Ty7xsous2ssXVkxEMaB
+ 61uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690677327; x=1691282127;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SmjGd6hQg5+KzT5ujuzMh2o3ciL+YNI2GkvXWKUqqAs=;
- b=cDCE+CXG2TJub2Mg7PkIRk9VBR+mxsLuVryOSQW9/8JJFreKCY7gcL3U0rB+bpvaCS
- TNBehQ34+Vqr52dk/aD035N8JGanGFzjRwRovxcFk3RDHWFK2SwAaan97UFpmRJbRzMM
- qRXDenLaVa5NAfrpixuUbJoujHBZEsbmx1krExTic63EQz6NHq55OCk97ZMxXpvn3eUk
- qb7cJPHNe7wMGmJLSAcz2pXylO/ohlWJSgeTYvI+XT4JEDJZ3HcmxC4XvuspITtHcjSI
- dSiN13VHtZYLZLpKh60wVWERn68nM9+2c+YNOs+E7LTqCDINLA0ZaDstY3zHuVYYO0xg
- RKlw==
-X-Gm-Message-State: ABy/qLac1OOb/iuKQKZjP5rpPv1X1FJmy+OXSJAZr8vfb2LMZn0xCLTt
- K+gbVg1nVay55EX5qoQWbSwP5w==
-X-Google-Smtp-Source: APBJJlE/Masgcy12zxqKZTm46aarOd7BSDmEN/SL2Jz+5EdmLFdorC+H60FSJfrmlnBy05dFeOevtg==
-X-Received: by 2002:a2e:c51:0:b0:2b9:e053:7a01 with SMTP id
- o17-20020a2e0c51000000b002b9e0537a01mr925423ljd.43.1690677327182; 
- Sat, 29 Jul 2023 17:35:27 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1690678864; x=1691283664;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fZFRcwHJeVSh65Kz3mZ7lpYUowAafMtprlMPT1r95fA=;
+ b=QfL6Wz/h0NHOc9l3SNVUcza891iG9M1CtAyRb3JyT/4z+zJ4am/RDpdzV9fpdqaTwn
+ Fpe4br4DVcs420NLLmoQJoebzea7jyVA+4U1t7Jxnu1TJiiTpHinwXUFoDNd2JEt5oaQ
+ 0+LUJDkOU7C+BUNx/kpiJKaDp9CVASIx93Y2kQ3xCkouojYCZg3PyToIjSYDg0nW1Fk2
+ upKdxEn97ODLODZqtflbP5DSIp02TE9gclJRed2++QKD7t9YHYfMNmg5wVy056DuXlP3
+ qysHI51g7SjFDh4i+qP6ExJG2YoZOWn9J7IHaRuN2zG84/zbN0AfCoZUrmX9zoXZHwrF
+ sJqg==
+X-Gm-Message-State: ABy/qLYuWNIE/wTyu5DycBRMSqZyCljxwam9n9HGZItTQyh6wjqx8cFa
+ KuK5Hy84j0J9k2PoeFr/FP3sog==
+X-Google-Smtp-Source: APBJJlGtmyY9p+cYGHzyJojaq+edbB2ZxTMVxZv+lA2/UTIIcqd5S9h+Jmc+h8AX0z53+TobLbWANQ==
+X-Received: by 2002:a2e:9a89:0:b0:2b9:e701:ac48 with SMTP id
+ p9-20020a2e9a89000000b002b9e701ac48mr174745lji.32.1690678863977; 
+ Sat, 29 Jul 2023 18:01:03 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- j22-20020a2e8016000000b002b6ffa50896sm1780482ljg.128.2023.07.29.17.35.26
+ 22-20020a05651c009600b002b9e501a6acsm169898ljq.3.2023.07.29.18.01.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Jul 2023 17:35:26 -0700 (PDT)
+ Sat, 29 Jul 2023 18:01:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sun, 30 Jul 2023 03:35:18 +0300
-Message-Id: <20230730003518.349197-9-dmitry.baryshkov@linaro.org>
+Date: Sun, 30 Jul 2023 04:00:52 +0300
+Message-Id: <20230730010102.350713-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230730003518.349197-1-dmitry.baryshkov@linaro.org>
-References: <20230730003518.349197-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 8/8] drm/msm/dpu: move INTF tearing checks to
- dpu_encoder_phys_cmd_init
+Subject: [Freedreno] [PATCH v5 00/10] drm/msm/dpu: cleanup dpu_core_perf
+ module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,82 +80,46 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the INTF is fixed at the encoder creation time, we can move the
-check whether INTF supports tearchck to dpu_encoder_phys_cmd_init().
-This function can return an error if INTF doesn't have required feature.
-Performing this check in dpu_encoder_phys_cmd_tearcheck_config() is less
-useful, as this function returns void.
+Apply several cleanups to the DPU's core_perf module.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 41 +++++++++++--------
- 1 file changed, 25 insertions(+), 16 deletions(-)
+Changes since v4:
+- Dropped the 'extract bandwidth aggregation function' (Abhinav)
+- Fixed commit message for the patch 9 (Abhinav)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 012986cff38c..adbd559a5290 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -325,24 +325,21 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	unsigned long vsync_hz;
- 	struct dpu_kms *dpu_kms;
- 
--	if (phys_enc->has_intf_te) {
--		if (!phys_enc->hw_intf ||
--		    !phys_enc->hw_intf->ops.enable_tearcheck) {
--			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
--			return;
--		}
--
--		DPU_DEBUG_CMDENC(cmd_enc, "");
--	} else {
--		if (!phys_enc->hw_pp ||
--		    !phys_enc->hw_pp->ops.enable_tearcheck) {
--			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
--			return;
--		}
--
--		DPU_DEBUG_CMDENC(cmd_enc, "pp %d\n", phys_enc->hw_pp->idx - PINGPONG_0);
-+	/*
-+	 * TODO: if/when resource allocation is refactored, move this to a
-+	 * place where the driver can actually return an error.
-+	 */
-+	if (!phys_enc->has_intf_te &&
-+	    (!phys_enc->hw_pp ||
-+	     !phys_enc->hw_pp->ops.enable_tearcheck)) {
-+		DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
-+		return;
- 	}
- 
-+	DPU_DEBUG_CMDENC(cmd_enc, "intf %d pp %d\n",
-+			 phys_enc->hw_intf->idx - INTF_0,
-+			 phys_enc->hw_pp->idx - PINGPONG_0);
-+
- 	mode = &phys_enc->cached_mode;
- 
- 	dpu_kms = phys_enc->dpu_kms;
-@@ -768,10 +765,22 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
- 	phys_enc->intf_mode = INTF_MODE_CMD;
- 	cmd_enc->stream_sel = 0;
- 
-+	if (!phys_enc->hw_intf) {
-+		DPU_ERROR_CMDENC(cmd_enc, "no INTF provided\n");
-+
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	/* DPU before 5.0 use PINGPONG for TE handling */
- 	if (phys_enc->dpu_kms->catalog->mdss_ver->core_major_ver >= 5)
- 		phys_enc->has_intf_te = true;
- 
-+	if (phys_enc->has_intf_te && !phys_enc->hw_intf->ops.enable_tearcheck) {
-+		DPU_ERROR_CMDENC(cmd_enc, "tearcheck not supported\n");
-+
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	atomic_set(&cmd_enc->pending_vblank_cnt, 0);
- 	init_waitqueue_head(&cmd_enc->pending_vblank_wq);
- 
+Changes since v3:
+- Dropped avg_bw type change (Abhinav)
+- Removed core_perf from the commit cubject (Abhinav)
+
+Changes since v2:
+- Dropped perf tuning patches for now (Abhinav)
+- Restored kms variable assignment in dpu_core_perf_crtc_release_bw
+  (LKP)
+- Fixed description for the last patch (Abhinav)
+
+Changes since v1:
+- Reworked overrides for the perf parameters instead of completely
+  dropping them. Abhinav described why these overrides are useful.
+- Moved max clock rate determination to dpu_kms.c
+
+Dmitry Baryshkov (10):
+  drm/msm/dpu: drop enum dpu_core_perf_data_bus_id
+  drm/msm/dpu: bail from _dpu_core_perf_crtc_update_bus if there are no
+    ICC paths
+  drm/msm/dpu: drop separate dpu_core_perf_tune overrides
+  drm/msm/dpu: rework indentation in dpu_core_perf
+  drm/msm/dpu: drop the dpu_core_perf_crtc_update()'s stop_req param
+  drm/msm/dpu: use dpu_perf_cfg in DPU core_perf code
+  drm/msm/dpu: remove unused fields from struct dpu_core_perf
+  drm/msm/dpu: remove extra clk_round_rate() call
+  drm/msm/dpu: move max clock decision to dpu_kms.
+  drm/msm/dpu: drop dpu_core_perf_destroy()
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 154 +++++++-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  48 +-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  14 +-
+ 4 files changed, 77 insertions(+), 145 deletions(-)
+
 -- 
 2.39.2
 
