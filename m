@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 055FC768303
-	for <lists+freedreno@lfdr.de>; Sun, 30 Jul 2023 03:01:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2A876830E
+	for <lists+freedreno@lfdr.de>; Sun, 30 Jul 2023 03:01:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 909C410E196;
-	Sun, 30 Jul 2023 01:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6EEA10E24D;
+	Sun, 30 Jul 2023 01:01:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 857B810E12F
- for <freedreno@lists.freedesktop.org>; Sun, 30 Jul 2023 01:01:08 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2b9c66e2e36so35828531fa.1
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:01:08 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 504CA10E23A
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Jul 2023 01:01:09 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2b9bf52cd08so50909711fa.2
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:01:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1690678867; x=1691283667;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EZNp47+5mB8X0hcppySWiLzPp8uuJeeDzihUIEzaqAU=;
- b=d0aLnx44WreqBxfzVKUyHNRC/2znwkN7OM8Tji+REbbNyPGLBq/IH4t/qbJsm5oNLG
- Qf1hc7aknH3OfUZyp9RIcBdxOSm79q954WelFeI/roGpJyqZjdBBNcS7IJjuxUIhUcEu
- 22EhGmlhhUv9eFcazbD/b5X9itTR6IXAyW2RFMo7DD8NzdVVguWs9ecyqDCIZF7yb75f
- skJjp5JGSy0QmdUCyxH4ABDCyojviAkYQmeqHpV/FKLXOLUVzn+oiqmf1E5UJDBlvFuC
- BCd61/qOYVvyrtePtiQ6e4MrV24FW+YIX4neCrv4Z865kTzKMX+vuWLaAmzh1XPGbnfD
- 5BBg==
+ bh=1x16f2677yMvn8p9Tc4LjBAWfMsgUmqS2/jV7nCAisU=;
+ b=lV0BAjOH+wRjxN5dANzATcw9bmzL/neC67sxbHn5deChZdG1m+cXw4GoUETj/aVmvS
+ qYh/ujcXh9H1nrKNDpEjaLMFmRCjdxPKuE+V5MLs1y6mNPfyllrNWoOjMCIV3YWllHWr
+ Ar5CuW24gDO923hwQbM8/jbbmQDhRF4vm+gIKjzm4aSLg1ghakLsK7j4Co9YHrZnwWT+
+ fUDvCyKCo1pc+ztjAxzEVP9S4q34ckeBeFD63zn74+GxeBo5MFs36SUwsJsq/Sa/9Z/M
+ hg3c4laXFuSr6taIa+6Gy2Nc83FwU5njpsfz2Xo4uyOTgYr1Cwula3V7y/XNuW0HCbI6
+ A5mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1690678867; x=1691283667;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EZNp47+5mB8X0hcppySWiLzPp8uuJeeDzihUIEzaqAU=;
- b=D6t6RCCPbfJ6gZpsEUTdl3kaEshAvH+WTKZrRhZ7D/URGVL8LeNC+1zSyZIIJi2pFd
- lodLk2j5LY3pexyrmV0ySFCvkIIh+c7UXuRCcaR9KugnGKeAx9FkNtRuLpGvGmRslqvw
- 0BSaavVxNNAQCfl9TVgWaOyA45LURMMAHHo+mNKTpyGSLcNREBj0rC18n1i1p7TTQPYE
- oI0QifPEIHjsnvwQsWdbKQVUAWnagfZ0uQBq6zwsDGMFV6JDcIuUVLtsAiicwYKtTNZO
- YUZXdh2gSd8HkNoA7pJcYXUhi0QVkwipJs6xFn1C+3J2p8/xgvrP5ZGxlH4b+BIJgKRM
- dskw==
-X-Gm-Message-State: ABy/qLayINRaaPRehf2o+DaUy8A6wBZg+icKTJfbt1IrRo5HvWrbjHFw
- cZ/Edau8qbFwaAnVuTX8aMAhQA==
-X-Google-Smtp-Source: APBJJlFqXEBAJVvdNEpnw4uL7J0jdLoGKMd2O45vURHylZnvimMbfKv+vUqEa42Drvky3tUeT5Xm6A==
-X-Received: by 2002:a2e:b601:0:b0:2b4:50b8:5d3b with SMTP id
- r1-20020a2eb601000000b002b450b85d3bmr2202311ljn.0.1690678866934; 
- Sat, 29 Jul 2023 18:01:06 -0700 (PDT)
+ bh=1x16f2677yMvn8p9Tc4LjBAWfMsgUmqS2/jV7nCAisU=;
+ b=UWbp0m9a6U4dTrR0f+Sa6TkHDKxI4bcC4VZT9MROr9KF5bm0J+2Ip1uXXKguZX9/Ig
+ 6dUgP5HreKSaeS8nKOgAaxNHTdRqXlhhqWor4RMa6h2fnSwC/Ftcsm7rg7hXDSSGEp8h
+ 0Fb4wWJ/b3206gDojqeaS212fs+ZJOHHlDWcmIQ6xq0JmfNKu17lJylpsq5sUlV0Vvoc
+ aiiWDdvRgnFlbtk6srVFd9B9+1g/lAMpxuAS29pSHTyKLYu6k5lZRiTNJviQ9wioq94i
+ oeFbkSmKZkoVrchqKU4NB+WN5Sc2O/FzQrdhHJ3FUnpEWzRSMz1hO46ADmLSdUAw51Ai
+ d5eQ==
+X-Gm-Message-State: ABy/qLbI6zK4svUBaktNscU41c0hP7c35p+8GKIt+J7ArAW7zPSasphl
+ WzSin0YtOMUb/23wWRxr6Jsjgw==
+X-Google-Smtp-Source: APBJJlF8B80jEgBDW0OaMwIed0/s4T/DLr3iGJZN40RdVIickdgcf2Rr7yUYwDmNNRdfudoiKPpKBQ==
+X-Received: by 2002:a2e:8751:0:b0:2b6:d8d5:15b1 with SMTP id
+ q17-20020a2e8751000000b002b6d8d515b1mr3929373ljj.50.1690678867652; 
+ Sat, 29 Jul 2023 18:01:07 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- 22-20020a05651c009600b002b9e501a6acsm169898ljq.3.2023.07.29.18.01.06
+ 22-20020a05651c009600b002b9e501a6acsm169898ljq.3.2023.07.29.18.01.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Jul 2023 18:01:06 -0700 (PDT)
+ Sat, 29 Jul 2023 18:01:07 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sun, 30 Jul 2023 04:00:56 +0300
-Message-Id: <20230730010102.350713-5-dmitry.baryshkov@linaro.org>
+Date: Sun, 30 Jul 2023 04:00:57 +0300
+Message-Id: <20230730010102.350713-6-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230730010102.350713-1-dmitry.baryshkov@linaro.org>
 References: <20230730010102.350713-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 04/10] drm/msm/dpu: rework indentation in
- dpu_core_perf
+Subject: [Freedreno] [PATCH v5 05/10] drm/msm/dpu: drop the
+ dpu_core_perf_crtc_update()'s stop_req param
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,50 +78,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dpu_core_perf.c contains several multi-line conditions which are hard to
-comprehent because of the indentation. Rework the identation of these
-conditions to make it easier to understand them.
+The stop_req is true only in the dpu_crtc_disable() case, when
+crtc->enable has already been set to false. This renders the stop_req
+argument useless. Remove it completely.
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 12 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  6 +++---
+ 3 files changed, 10 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 34f3d30ab7d6..6ddbedb83e66 100644
+index 6ddbedb83e66..209e4fcca663 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -173,8 +173,8 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+@@ -310,7 +310,7 @@ static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+ }
  
- 	drm_for_each_crtc(tmp_crtc, crtc->dev) {
- 		if (tmp_crtc->enabled &&
--		    (dpu_crtc_get_client_type(tmp_crtc) ==
--				curr_client_type) && (tmp_crtc != crtc)) {
-+		    dpu_crtc_get_client_type(tmp_crtc) == curr_client_type &&
-+		    tmp_crtc != crtc) {
- 			struct dpu_crtc_state *tmp_cstate =
- 				to_dpu_crtc_state(tmp_crtc->state);
+ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+-		int params_changed, bool stop_req)
++			      int params_changed)
+ {
+ 	struct dpu_core_perf_params *new, *old;
+ 	bool update_bus = false, update_clk = false;
+@@ -334,13 +334,13 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+ 	dpu_crtc = to_dpu_crtc(crtc);
+ 	dpu_cstate = to_dpu_crtc_state(crtc->state);
  
-@@ -360,10 +360,8 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
- 			update_bus = true;
- 		}
+-	DRM_DEBUG_ATOMIC("crtc:%d stop_req:%d core_clk:%llu\n",
+-			crtc->base.id, stop_req, kms->perf.core_clk_rate);
++	DRM_DEBUG_ATOMIC("crtc:%d enabled:%d core_clk:%llu\n",
++			crtc->base.id, crtc->enabled, kms->perf.core_clk_rate);
  
--		if ((params_changed &&
--			(new->core_clk_rate > old->core_clk_rate)) ||
--			(!params_changed &&
--			(new->core_clk_rate < old->core_clk_rate))) {
-+		if ((params_changed && new->core_clk_rate > old->core_clk_rate) ||
-+		    (!params_changed && new->core_clk_rate < old->core_clk_rate)) {
- 			old->core_clk_rate = new->core_clk_rate;
- 			update_clk = true;
- 		}
+ 	old = &dpu_crtc->cur_perf;
+ 	new = &dpu_cstate->new_perf;
+ 
+-	if (crtc->enabled && !stop_req) {
++	if (crtc->enabled) {
+ 		/*
+ 		 * cases for bus bandwidth update.
+ 		 * 1. new bandwidth vote - "ab or ib vote" is higher
+@@ -373,7 +373,7 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+ 	}
+ 
+ 	trace_dpu_perf_crtc_update(crtc->base.id, new->bw_ctl,
+-		new->core_clk_rate, stop_req, update_bus, update_clk);
++		new->core_clk_rate, !crtc->enabled, update_bus, update_clk);
+ 
+ 	if (update_bus) {
+ 		ret = _dpu_core_perf_crtc_update_bus(kms, crtc);
+@@ -393,7 +393,7 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+ 
+ 		DRM_DEBUG_ATOMIC("clk:%llu\n", clk_rate);
+ 
+-		trace_dpu_core_perf_update_clk(kms->dev, stop_req, clk_rate);
++		trace_dpu_core_perf_update_clk(kms->dev, !crtc->enabled, clk_rate);
+ 
+ 		clk_rate = min(clk_rate, kms->perf.max_core_clk_rate);
+ 		ret = dev_pm_opp_set_rate(&kms->pdev->dev, clk_rate);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+index c965dfbc3007..c0097b67f9dd 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+@@ -75,11 +75,10 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+  * dpu_core_perf_crtc_update - update performance of the given crtc
+  * @crtc: Pointer to crtc
+  * @params_changed: true if crtc parameters are modified
+- * @stop_req: true if this is a stop request
+  * return: zero if success, or error code otherwise
+  */
+ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+-		int params_changed, bool stop_req);
++			      int params_changed);
+ 
+ /**
+  * dpu_core_perf_crtc_release_bw - release bandwidth of the given crtc
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 1edf2b6b0a26..8ce7586e2ddf 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -718,7 +718,7 @@ static void dpu_crtc_frame_event_cb(void *data, u32 event)
+ void dpu_crtc_complete_commit(struct drm_crtc *crtc)
+ {
+ 	trace_dpu_crtc_complete_commit(DRMID(crtc));
+-	dpu_core_perf_crtc_update(crtc, 0, false);
++	dpu_core_perf_crtc_update(crtc, 0);
+ 	_dpu_crtc_complete_flip(crtc);
+ }
+ 
+@@ -884,7 +884,7 @@ static void dpu_crtc_atomic_flush(struct drm_crtc *crtc,
+ 		return;
+ 
+ 	/* update performance setting before crtc kickoff */
+-	dpu_core_perf_crtc_update(crtc, 1, false);
++	dpu_core_perf_crtc_update(crtc, 1);
+ 
+ 	/*
+ 	 * Final plane updates: Give each plane a chance to complete all
+@@ -1100,7 +1100,7 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+ 		atomic_set(&dpu_crtc->frame_pending, 0);
+ 	}
+ 
+-	dpu_core_perf_crtc_update(crtc, 0, true);
++	dpu_core_perf_crtc_update(crtc, 0);
+ 
+ 	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
+ 		dpu_encoder_register_frame_event_callback(encoder, NULL, NULL);
 -- 
 2.39.2
 
