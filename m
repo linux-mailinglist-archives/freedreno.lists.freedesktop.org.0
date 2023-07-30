@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F6176833C
-	for <lists+freedreno@lfdr.de>; Sun, 30 Jul 2023 03:19:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A8A3C768330
+	for <lists+freedreno@lfdr.de>; Sun, 30 Jul 2023 03:19:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFF6210E259;
-	Sun, 30 Jul 2023 01:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7B9510E250;
+	Sun, 30 Jul 2023 01:19:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
  [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4057610E250
- for <freedreno@lists.freedesktop.org>; Sun, 30 Jul 2023 01:19:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A6D610E250
+ for <freedreno@lists.freedesktop.org>; Sun, 30 Jul 2023 01:19:35 +0000 (UTC)
 Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-99bcd6c0282so505384766b.1
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:19:34 -0700 (PDT)
+ a640c23a62f3a-99c0cb7285fso22822166b.0
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jul 2023 18:19:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690679973; x=1691284773;
+ d=linaro.org; s=google; t=1690679974; x=1691284774;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zhsx7GBIayg1d2EQrr5L0MXpOvxIQMLvILidhQwKLhE=;
- b=F3Nx7+e0VegjEgUw1G0wu2eDE9Z45SdjXoDyGorpWhAShwFYDNSwUe3tl+h5/EqQfc
- JP5zV8hxF/zbk87NocjF6qxNz+T1XHq8wD7VBRA4kBonRmjR2WatUM+KchVMBwTyZkq4
- po31vz9bLoxSxolEWbp95M/9yJwJMtKY6utCr+SzOQvY/EuGIRjHwh14f1qxy6AnfJtL
- YutmcIzO88LbOqK5y1IrD+JZdROp+K7BHVOwLvR6XBeDbACQXpNldILd32ZT2TjnaKbi
- ervH4kOZ3gFKunlCOE8282YdIs6eQ+yUtej8kCEqvOzK7fJ9dhUZjC3l/FPE8vmLvchG
- nEEg==
+ bh=yioIe+uTAjNaWqFB/KksKTj56LTjkm6FaSe/0rqQ0vE=;
+ b=J9H6HlmR9Y3e51QNmRQFXSa8NtX2eZFtlfvSJ1oTq1l9thQrclE8DkHzsLbc3rwVr8
+ coT//6Zuik0GsyME2RKZ0oNR5jOITZUeOx6WLwOkphjwmkO1lmShROA6REBODw/FTbnq
+ h5FOD+sUMM1/iTAhxAGccRU+28uzx5eEvMyn6GAydg0g1GQvxIfQG57HDI1Ij1y6nIJ/
+ eb1o+GQbtIEXpdzoCWIY53bJUhfMJlFG3jXkiey80dNAicsfDDtbglVYaNt2ZWwn1bcg
+ v2BojPAXEHlnnwJZixZp5SEXxln3SXe5ZubrKVHpraP8jKZTb+HwiChmc6dzYxj4Qn7J
+ BsbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690679973; x=1691284773;
+ d=1e100.net; s=20221208; t=1690679974; x=1691284774;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zhsx7GBIayg1d2EQrr5L0MXpOvxIQMLvILidhQwKLhE=;
- b=FQpaGWSMzdrtruWa4rSU9HJHeDWpRR+QJV7Wkdw1eXquz+h7ut3tNl7yjAL8xG8k93
- NjiFb2DLUHy0iNgqbQLgW7tYu7UVSJiNgbPanT1/XyEMfdAtJzS0rGtSYZ40lkzOQqmv
- djNbYaweumYOIlE8lLaAU0QSJKJ3V1vH5fvm65ZNw3/6CrlokAhO1Pz0ixoQ1Ll83Dsa
- yABl7EdZ+/9bRJ4pb+l+fpkFQgHWChSPex7EGIQ0JR9Mm1A3oubm4YCPHHSiqR5ylP0R
- 9P0OqgqIAbOgXSMpEdxP4OTUyGuhEbRof6ima8rBXPfqULZ+hLwhBRKLQZT3EFEnjErA
- f/ug==
-X-Gm-Message-State: ABy/qLb1xa/j8eAl9H04jjoc2uijF1Cq1pjEOKJMPGlcG2jZUhsf8jJr
- P7yVIz5VHZ6K8stzICJWkK0M1w==
-X-Google-Smtp-Source: APBJJlEG5W+E9VP89/jmfwQVUoqTXpMGTUf5maMauxazGsh3X96NMK2ctHZzMFv3Yfu0zDVtJzFEaA==
-X-Received: by 2002:a17:906:8a70:b0:993:d7c4:1a78 with SMTP id
- hy16-20020a1709068a7000b00993d7c41a78mr3475810ejc.10.1690679972753; 
- Sat, 29 Jul 2023 18:19:32 -0700 (PDT)
+ bh=yioIe+uTAjNaWqFB/KksKTj56LTjkm6FaSe/0rqQ0vE=;
+ b=WPcAg2VsxVzE0LSzpTr5zI11onzUpFYJ4O/xYy0UCTqnv0Bz8jmXmwtJCY9uIvwfIB
+ ghSA9mqWZDt92TlfSx+AIYOCR7BZBGlv1MhCbbNacm14BREmipT5CKkK5xpGu4Segayk
+ ab1q18mkiw4WPVxvrOJJ3ZIf16eBg3RlgksSnYRwPPsKYzB2xlHtupvvYT4VDfjamjge
+ Ztaq6Rxq6GW0M91X1C0SG965kxgIwyyn4EmbZTbyMxbBSKZHTy6ZBybXMUlu2HBy/lPQ
+ UOL29O0mWiz/6wXkatUCYC6UhmGTzVYH6DnJ6KFNkvK++gKHB/h2ijp3IjYYgAgXv+sD
+ bcpA==
+X-Gm-Message-State: ABy/qLZ/hTGHM3BJqhUC47oi9DorGL9ctNYdcbKPBSEYuab2rg1BqxdC
+ lSvTU0RG1PUcbXh3gJWPXI1UbQ==
+X-Google-Smtp-Source: APBJJlGNKzI082+s3Hh7aKa5+/unvv/JBT17q7Rre+YQi87qky0rO3wYheyt4VpN1PfNXHp2tQ/YaQ==
+X-Received: by 2002:a17:906:10c:b0:993:8d16:4c22 with SMTP id
+ 12-20020a170906010c00b009938d164c22mr2908357eje.75.1690679974099; 
+ Sat, 29 Jul 2023 18:19:34 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- rk21-20020a170907215500b00992ea405a79sm3915835ejb.166.2023.07.29.18.19.31
+ rk21-20020a170907215500b00992ea405a79sm3915835ejb.166.2023.07.29.18.19.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Jul 2023 18:19:32 -0700 (PDT)
+ Sat, 29 Jul 2023 18:19:33 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sun, 30 Jul 2023 04:19:14 +0300
-Message-Id: <20230730011920.354575-8-dmitry.baryshkov@linaro.org>
+Date: Sun, 30 Jul 2023 04:19:15 +0300
+Message-Id: <20230730011920.354575-9-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230730011920.354575-1-dmitry.baryshkov@linaro.org>
 References: <20230730011920.354575-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 07/13] drm/msm/dpu: drop unused
- dpu_plane::lock
+Subject: [Freedreno] [PATCH v3 08/13] drm/msm/dpu: remove QoS teardown on
+ plane destruction
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +79,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The field dpu_plane::lock was never used for protecting any kind of
-data. Drop it now.
+There is little point in disabling QoS on plane destruction: it happens
+during DPU device destruction process, after which there will be no
+running planes.
 
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index c2aaaded07ed..aba5185e1d66 100644
+index aba5185e1d66..f114efee1b57 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -78,8 +78,6 @@ static const uint32_t qcom_compressed_supported_formats[] = {
- struct dpu_plane {
- 	struct drm_plane base;
+@@ -1173,17 +1173,10 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
+ static void dpu_plane_destroy(struct drm_plane *plane)
+ {
+ 	struct dpu_plane *pdpu = plane ? to_dpu_plane(plane) : NULL;
+-	struct dpu_plane_state *pstate;
  
--	struct mutex lock;
+ 	DPU_DEBUG_PLANE(pdpu, "\n");
+ 
+ 	if (pdpu) {
+-		pstate = to_dpu_plane_state(plane->state);
+-		_dpu_plane_set_qos_ctrl(plane, &pstate->pipe, false);
 -
- 	enum dpu_sspp pipe;
- 
- 	uint32_t color_fill;
-@@ -1186,8 +1184,6 @@ static void dpu_plane_destroy(struct drm_plane *plane)
- 		if (pstate->r_pipe.sspp)
- 			_dpu_plane_set_qos_ctrl(plane, &pstate->r_pipe, false);
- 
--		mutex_destroy(&pdpu->lock);
+-		if (pstate->r_pipe.sspp)
+-			_dpu_plane_set_qos_ctrl(plane, &pstate->r_pipe, false);
 -
  		/* this will destroy the states as well */
  		drm_plane_cleanup(plane);
  
-@@ -1447,8 +1443,6 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 	/* success! finalize initialization */
- 	drm_plane_helper_add(plane, &dpu_plane_helper_funcs);
- 
--	mutex_init(&pdpu->lock);
--
- 	DPU_DEBUG("%s created for pipe:%u id:%u\n", plane->name,
- 					pipe, plane->base.id);
- 	return plane;
 -- 
 2.39.2
 
