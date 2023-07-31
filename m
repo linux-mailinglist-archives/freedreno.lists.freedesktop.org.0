@@ -2,59 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFDC876925C
-	for <lists+freedreno@lfdr.de>; Mon, 31 Jul 2023 11:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 087FC769617
+	for <lists+freedreno@lfdr.de>; Mon, 31 Jul 2023 14:22:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0603010E193;
-	Mon, 31 Jul 2023 09:52:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47B5110E268;
+	Mon, 31 Jul 2023 12:22:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (unknown [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4869610E18A;
- Mon, 31 Jul 2023 09:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1690797157; x=1722333157;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=PAoEQuTB+M6/Mb3C/VaAtLqfjQYPblPsfV7KVnusHG0=;
- b=YzPHm1Q3hi8/2AYsbJyHVAPlaqXePkq3O4+hSt3pbeMrakxm9PzQvTLl
- KJbP7kmcGgKvRVh+Hp80VcUMwADezo/C5Op5BzCsrKijgjvxk97FM3PP3
- T4ZfQys6wamgORceTKweBslPS+ziBLdldn8udOCpX8G4bf74HsBu3u9LW
- sI6fipK+o8K7nwBCWPqOwA7kSEcSS0uJPM3VtYt4QaQ4h/7A+cm3YUAUR
- N8Et4nW+P87uJmLAmDwohCF4yWm1jBXEiNpKpAnKyaZRsHR9HkR7OICg+
- 7x/eBy6X50y4bcLz3n7OYxZjTpv3PEc4MOS/WLTFEnmmMZSlVDtmmF0Fp g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="348573366"
-X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; d="scan'208";a="348573366"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 02:52:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="902059850"
-X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; d="scan'208";a="902059850"
-Received: from lkp-server02.sh.intel.com (HELO 953e8cd98f7d) ([10.239.97.151])
- by orsmga005.jf.intel.com with ESMTP; 31 Jul 2023 02:52:32 -0700
-Received: from kbuild by 953e8cd98f7d with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qQPZn-00053G-25;
- Mon, 31 Jul 2023 09:52:31 +0000
-Date: Mon, 31 Jul 2023 17:51:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Message-ID: <202307311724.2bAqJu6o-lkp@intel.com>
-References: <20230731071930.3928150-4-dmitry.baryshkov@linaro.org>
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9079810E268
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jul 2023 12:22:09 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-3fe24b794e5so3501975e9.1
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jul 2023 05:22:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690806128; x=1691410928;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=A4mgsWIblbleGBgZVE8mWDeP/VSm/Wrg5gNu6XuDsk8=;
+ b=mwqpL+fowHFu3QuTmqTSjyE9Fi2R3A1QOOoxFb4T/iUBlBnYzwNXiVvRyylPs+lPWZ
+ eoMfVtqbM6heWPDVJjTO6zzENSYsZ40jXTyvufnuU8X6FmjvphEtiRSrCLrpzXfJ6BwO
+ YB97kBguqbEpH5yhQYWk1K6RSFMDuZHYff1cKyXsSr1RFhG7rWUIMsVO655JQJ7ixPzZ
+ I88huzZVwQD05XNLLBe7FKoQa6yyMahing0V2nL+F9oHo4BBajSCRkzTktwLpDR6ZkIM
+ wVt7JFfY4/h/xKLZMxXhfF06BFtyyFIw0+AWeVaJxsiM0nylSEPMhPe55A8+0oRY4a7K
+ F/aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690806128; x=1691410928;
+ h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+ :content-language:subject:reply-to:from:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=A4mgsWIblbleGBgZVE8mWDeP/VSm/Wrg5gNu6XuDsk8=;
+ b=lUZ69m+Dd1JoQqHvyao9drBE14s3uLXFt1Am+wcyJWTIXE8z7DHEA2qbIZsZPDipki
+ ByTxQPg8WbArtxZLge/iWjc+hFkZ/G5uEZR2xRT911t0guHq1vW/TVAbXU8P9Maay8gU
+ cOmlW9ckhT5XkC/vQ3Xbt3dRdWpB6BQw3UqFmAVQ5p1xnGkodItVn4Hja97wuTIUgR7H
+ NOB2E+MgZxpcpNdRcdcW9hmXwXDVxvQ6P1CK6/R63NZz1OToIJAQ+v47ieH++MObs90B
+ V5/Cw3hM80fdtAQlJ4zTvvC9VaGw887d9CsRLURIpaskPzeYPOZEI9dltJp7+Ij5toKh
+ I42A==
+X-Gm-Message-State: ABy/qLY/HOP1pDKj5U6iJcqeDukXM9byBOpG3UVWIxC0eDxFjKw2vyy4
+ w44T5/qfkNDIUksPoOphVor8Jg==
+X-Google-Smtp-Source: APBJJlFmp3FCugsBi3ORgXdIQH09ClZ2ur7LmT6VOBu0l3eAanlyXQSMpH7kRAK1vERaZslxZqRkOw==
+X-Received: by 2002:a05:600c:2053:b0:3fe:1dad:5403 with SMTP id
+ p19-20020a05600c205300b003fe1dad5403mr2353449wmg.23.1690806127898; 
+ Mon, 31 Jul 2023 05:22:07 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:f723:b60b:92cd:4df4?
+ ([2a01:e0a:982:cbb0:f723:b60b:92cd:4df4])
+ by smtp.gmail.com with ESMTPSA id
+ x1-20020a5d54c1000000b003176f2d9ce5sm13030166wrv.71.2023.07.31.05.22.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Jul 2023 05:22:07 -0700 (PDT)
+Message-ID: <bbf20a36-3c78-7488-f5c9-82ad62f6fc2b@linaro.org>
+Date: Mon, 31 Jul 2023 14:22:06 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230731071930.3928150-4-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 3/3] usb: typec: nb7vpq904m: switch to
- DRM_SIMPLE_BRIDGE
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+From: neil.armstrong@linaro.org
+Content-Language: en-US
+To: Paloma Arellano <quic_parellan@quicinc.com>, sam@ravnborg.org,
+ airlied@gmail.com, daniel@ffwll.ch
+References: <20230728012623.22991-1-quic_parellan@quicinc.com>
+Organization: Linaro Developer Services
+In-Reply-To: <20230728012623.22991-1-quic_parellan@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
+ Visionox VTDR6130 panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,69 +81,182 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
- linux-phy@lists.infradead.org, freedreno@lists.freedesktop.org
+Reply-To: neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, marijn.suijten@somainline.org,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Hi,
 
-kernel test robot noticed the following build errors:
+On 28/07/2023 03:26, Paloma Arellano wrote:
+> Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
+> VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
+> to command mode with DSC enabled.
+> 
+> Note: This patch has only been validated DSC over command mode as DSC over
+> video mode has never been validated for the MSM driver before.
+> 
+> Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on usb/usb-testing usb/usb-next usb/usb-linus drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc4 next-20230731]
-[cannot apply to drm-intel/for-linux-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+I'll run a test on my SM8550 platform,
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-display-add-transparent-bridge-helper/20230731-152746
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230731071930.3928150-4-dmitry.baryshkov%40linaro.org
-patch subject: [PATCH v2 3/3] usb: typec: nb7vpq904m: switch to DRM_SIMPLE_BRIDGE
-config: xtensa-randconfig-r004-20230731 (https://download.01.org/0day-ci/archive/20230731/202307311724.2bAqJu6o-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230731/202307311724.2bAqJu6o-lkp@intel.com/reproduce)
+Thanks,
+Neil
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307311724.2bAqJu6o-lkp@intel.com/
+> 
+> Changes since v1:
+>   - Changed from email address
+> 
+> [1] https://patchwork.freedesktop.org/series/121337/
+> 
+> Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> ---
+>   .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
+>   1 file changed, 73 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> index e1363e128e7e..5658d39a3a6b 100644
+> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/of.h>
+>   
+>   #include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+>   #include <drm/drm_mipi_dsi.h>
+>   #include <drm/drm_modes.h>
+>   #include <drm/drm_panel.h>
+> @@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
+>   	struct mipi_dsi_device *dsi;
+>   	struct gpio_desc *reset_gpio;
+>   	struct regulator_bulk_data supplies[3];
+> -	bool prepared;
+> +	bool prepared, enabled;
+> +	bool video_mode;
+>   };
+>   
+>   static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
+> @@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
+>   	if (ret)
+>   		return ret;
+>   
+> +	mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
+>   	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
+>   	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
+>   	mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
+>   	mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
+>   	mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
+> -	mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
+> +	
+> +	if (ctx->video_mode)
+> +		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
+> +	else
+> +		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
+> +
+>   	mipi_dsi_dcs_write_seq(dsi, 0x70,
+>   			       0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
+>   			       0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
+> @@ -214,6 +222,42 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
+>   	.height_mm = 157,
+>   };
+>   
+> +static int visionox_vtdr6130_enable(struct drm_panel *panel)
+> +{
+> +	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+> +	struct mipi_dsi_device *dsi = ctx->dsi;
+> +	struct drm_dsc_picture_parameter_set pps;
+> +	int ret;
+> +
+> +	if (ctx->enabled)
+> +		return 0;
+> +
+> +	if (!dsi->dsc) {
+> +		dev_err(&dsi->dev, "DSC not attached to DSI\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
+> +	ret = mipi_dsi_picture_parameter_set(dsi, &pps);
+> +	if (ret) {
+> +		dev_err(&dsi->dev, "Failed to set PPS\n");
+> +		return ret;
+> +	}
+> +
+> +	ctx->enabled = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int visionox_vtdr6130_disable(struct drm_panel *panel)
+> +{
+> +	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+> +
+> +	ctx->enabled = false;
+> +
+> +	return 0;
+> +}
+> +
+>   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+>   				       struct drm_connector *connector)
+>   {
+> @@ -237,6 +281,8 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
+>   	.prepare = visionox_vtdr6130_prepare,
+>   	.unprepare = visionox_vtdr6130_unprepare,
+>   	.get_modes = visionox_vtdr6130_get_modes,
+> +	.enable = visionox_vtdr6130_enable,
+> +	.disable = visionox_vtdr6130_disable,
+>   };
+>   
+>   static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
+> @@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+>   {
+>   	struct device *dev = &dsi->dev;
+>   	struct visionox_vtdr6130 *ctx;
+> +	struct drm_dsc_config *dsc;
+>   	int ret;
+>   
+>   	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+>   	if (!ctx)
+>   		return -ENOMEM;
+> +	
+> +	ctx->video_mode = of_property_read_bool(dev->of_node, "enforce-video-mode");
+> +
+> +	dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
+> +	if (!dsc)
+> +		return -ENOMEM;
+> +
+> +	/* Set DSC params */
+> +	dsc->dsc_version_major = 0x1;
+> +	dsc->dsc_version_minor = 0x2;
+> +
+> +	dsc->slice_height = 40;
+> +	dsc->slice_width = 540;
+> +	dsc->slice_count = 2;
+> +	dsc->bits_per_component = 8;
+> +	dsc->bits_per_pixel = 8 << 4;
+> +	dsc->block_pred_enable = true;
+> +
+> +	dsi->dsc = dsc;
+>   
+>   	ctx->supplies[0].supply = "vddio";
+>   	ctx->supplies[1].supply = "vci";
+> @@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+>   
+>   	dsi->lanes = 4;
+>   	dsi->format = MIPI_DSI_FMT_RGB888;
+> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
+> -			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +	if (ctx->video_mode)
+> +		dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
+> +
+>   	ctx->panel.prepare_prev_first = true;
+>   
+>   	drm_panel_init(&ctx->panel, dev, &visionox_vtdr6130_panel_funcs,
 
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/display/drm_simple_bridge.c: In function 'drm_simple_bridge_probe':
->> drivers/gpu/drm/display/drm_simple_bridge.c:105:21: error: 'struct drm_bridge' has no member named 'of_node'
-     105 |         data->bridge.of_node = data->dev->of_node;
-         |                     ^
-
-
-vim +105 drivers/gpu/drm/display/drm_simple_bridge.c
-
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   88  
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   89  static int drm_simple_bridge_probe(struct auxiliary_device *auxdev,
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   90  				   const struct auxiliary_device_id *id)
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   91  {
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   92  	struct drm_simple_bridge_data *data;
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   93  
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   94  	data = devm_kzalloc(&auxdev->dev, sizeof(*data), GFP_KERNEL);
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   95  	if (!data)
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   96  		return -ENOMEM;
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   97  
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   98  	data->dev = &auxdev->dev;
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31   99  	data->next_bridge = devm_drm_of_get_bridge(&auxdev->dev, auxdev->dev.of_node, 0, 0);
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  100  	if (IS_ERR(data->next_bridge))
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  101  		return dev_err_probe(&auxdev->dev, PTR_ERR(data->next_bridge),
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  102  				     "failed to acquire drm_bridge\n");
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  103  
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  104  	data->bridge.funcs = &drm_simple_bridge_funcs;
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31 @105  	data->bridge.of_node = data->dev->of_node;
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  106  
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  107  	return devm_drm_bridge_add(data->dev, &data->bridge);
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  108  }
-1b4ddd588d7e97 Dmitry Baryshkov 2023-07-31  109  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
