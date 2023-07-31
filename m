@@ -2,73 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087FC769617
-	for <lists+freedreno@lfdr.de>; Mon, 31 Jul 2023 14:22:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2037769CF6
+	for <lists+freedreno@lfdr.de>; Mon, 31 Jul 2023 18:41:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47B5110E268;
-	Mon, 31 Jul 2023 12:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6305110E2D3;
+	Mon, 31 Jul 2023 16:41:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9079810E268
- for <freedreno@lists.freedesktop.org>; Mon, 31 Jul 2023 12:22:09 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-3fe24b794e5so3501975e9.1
- for <freedreno@lists.freedesktop.org>; Mon, 31 Jul 2023 05:22:09 -0700 (PDT)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E840210E2D2
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jul 2023 16:41:42 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2b9b6e943ebso69605651fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jul 2023 09:41:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690806128; x=1691410928;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=A4mgsWIblbleGBgZVE8mWDeP/VSm/Wrg5gNu6XuDsk8=;
- b=mwqpL+fowHFu3QuTmqTSjyE9Fi2R3A1QOOoxFb4T/iUBlBnYzwNXiVvRyylPs+lPWZ
- eoMfVtqbM6heWPDVJjTO6zzENSYsZ40jXTyvufnuU8X6FmjvphEtiRSrCLrpzXfJ6BwO
- YB97kBguqbEpH5yhQYWk1K6RSFMDuZHYff1cKyXsSr1RFhG7rWUIMsVO655JQJ7ixPzZ
- I88huzZVwQD05XNLLBe7FKoQa6yyMahing0V2nL+F9oHo4BBajSCRkzTktwLpDR6ZkIM
- wVt7JFfY4/h/xKLZMxXhfF06BFtyyFIw0+AWeVaJxsiM0nylSEPMhPe55A8+0oRY4a7K
- F/aQ==
+ d=linaro.org; s=google; t=1690821701; x=1691426501;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RQv86VcHfpMwMS2LVbhjU4S3QgVY8yDLOOaRvsR6rV0=;
+ b=RfbbU2HgmatPwvrC//dbLuQXOVnc667SB4KhJWbEjwvwNyHphbiyTy5nUB+kYihbga
+ ivaBPdWT3ovWMDEEQogTkth+p3Kmgpxmr+f2mDDUPtjIHC60okRWJa9cg+deA9HUqeNB
+ QSR0l8XlR9ENHlsk/VFyPPj2pq7t5AmSUQK6+Ps7mRrCHsae08V2Xe3IWl1G2rFderu9
+ t3mRudo2V52m7g/VLqmFL4cTquPwGbdhlq6ayZiwNaKEUk5Rtt1M5nyzFareG6Tw5SQB
+ 2O5izFF/s11H3vIyVP5fThQwjBuSr1vlBDtiIjcYCaT2eds2Abe6MiumRtuEL8NlHzGO
+ 4nsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690806128; x=1691410928;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=A4mgsWIblbleGBgZVE8mWDeP/VSm/Wrg5gNu6XuDsk8=;
- b=lUZ69m+Dd1JoQqHvyao9drBE14s3uLXFt1Am+wcyJWTIXE8z7DHEA2qbIZsZPDipki
- ByTxQPg8WbArtxZLge/iWjc+hFkZ/G5uEZR2xRT911t0guHq1vW/TVAbXU8P9Maay8gU
- cOmlW9ckhT5XkC/vQ3Xbt3dRdWpB6BQw3UqFmAVQ5p1xnGkodItVn4Hja97wuTIUgR7H
- NOB2E+MgZxpcpNdRcdcW9hmXwXDVxvQ6P1CK6/R63NZz1OToIJAQ+v47ieH++MObs90B
- V5/Cw3hM80fdtAQlJ4zTvvC9VaGw887d9CsRLURIpaskPzeYPOZEI9dltJp7+Ij5toKh
- I42A==
-X-Gm-Message-State: ABy/qLY/HOP1pDKj5U6iJcqeDukXM9byBOpG3UVWIxC0eDxFjKw2vyy4
- w44T5/qfkNDIUksPoOphVor8Jg==
-X-Google-Smtp-Source: APBJJlFmp3FCugsBi3ORgXdIQH09ClZ2ur7LmT6VOBu0l3eAanlyXQSMpH7kRAK1vERaZslxZqRkOw==
-X-Received: by 2002:a05:600c:2053:b0:3fe:1dad:5403 with SMTP id
- p19-20020a05600c205300b003fe1dad5403mr2353449wmg.23.1690806127898; 
- Mon, 31 Jul 2023 05:22:07 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:f723:b60b:92cd:4df4?
- ([2a01:e0a:982:cbb0:f723:b60b:92cd:4df4])
+ d=1e100.net; s=20221208; t=1690821701; x=1691426501;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RQv86VcHfpMwMS2LVbhjU4S3QgVY8yDLOOaRvsR6rV0=;
+ b=P6rPyhEoesC5yVwhwIPG7Z/rjhna65gVM4d5tQ9GD0zFp4pyMnaW5Acwf3gu7NMZiM
+ h5uIxNvE6m/k5ozDIZG5X1nmhWw2GoRPSHKsEqVBHOxtnEHolj7LccndQq9zeNuL4DRe
+ vRRoLRHx6HtXbnwBMA6fWiKgIgPUFEetliXUnyL3TEuIVSbhhtR/sHOPIv8IglKCulee
+ KqpS7YR2w+K1IUJXjEx4GvojDwMJ5CrA+6JHTV6dD5lZRBA9ept3Qh6lKAFDi0gav5tf
+ 9rQwmoxS7iUm776gkJ2M0X1jBZJXW60AfV28x+H1SzQd7YdVvy4S2o4gZRfrKECRwQgF
+ S6aQ==
+X-Gm-Message-State: ABy/qLbeEA1I8q/Xvs5A6H9p5tAcMZuxYpDVSW/7d9GlncdL6hG+/sAW
+ ohf9Q/gSETX+abqzEKn0YEnxhg==
+X-Google-Smtp-Source: APBJJlF2EjET63K8oUdWU3gEtypE5eh3Hae3V6G1xKCpe6AfA4xCM7ppXdhkuHv1u6N59BejlR4nwQ==
+X-Received: by 2002:a05:651c:10b6:b0:2b6:b30f:5bf with SMTP id
+ k22-20020a05651c10b600b002b6b30f05bfmr114908ljn.13.1690821701085; 
+ Mon, 31 Jul 2023 09:41:41 -0700 (PDT)
+Received: from [192.168.1.101] (abyk53.neoplus.adsl.tpnet.pl. [83.9.30.53])
  by smtp.gmail.com with ESMTPSA id
- x1-20020a5d54c1000000b003176f2d9ce5sm13030166wrv.71.2023.07.31.05.22.06
+ e9-20020a2e9309000000b002b6cdbd9e35sm2617266ljh.55.2023.07.31.09.41.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Jul 2023 05:22:07 -0700 (PDT)
-Message-ID: <bbf20a36-3c78-7488-f5c9-82ad62f6fc2b@linaro.org>
-Date: Mon, 31 Jul 2023 14:22:06 +0200
+ Mon, 31 Jul 2023 09:41:40 -0700 (PDT)
+Message-ID: <afccb93b-2db8-97bb-1746-ac78c850b61f@linaro.org>
+Date: Mon, 31 Jul 2023 18:41:38 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: neil.armstrong@linaro.org
+User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Paloma Arellano <quic_parellan@quicinc.com>, sam@ravnborg.org,
- airlied@gmail.com, daniel@ffwll.ch
-References: <20230728012623.22991-1-quic_parellan@quicinc.com>
-Organization: Linaro Developer Services
-In-Reply-To: <20230728012623.22991-1-quic_parellan@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20230517-topic-a7xx_prep-v4-0-b16f273a91d4@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20230517-topic-a7xx_prep-v4-0-b16f273a91d4@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
- Visionox VTDR6130 panel
+Subject: Re: [Freedreno] [PATCH v4 0/6] Adreno QoL changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,182 +113,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, marijn.suijten@somainline.org,
- dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+Cc: Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 28/07/2023 03:26, Paloma Arellano wrote:
-> Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
-> VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
-> to command mode with DSC enabled.
+On 20.06.2023 13:10, Konrad Dybcio wrote:
+> This series brings some niceties in preparation for A7xx introduction.
 > 
-> Note: This patch has only been validated DSC over command mode as DSC over
-> video mode has never been validated for the MSM driver before.
+> It should be fully independent of the GMU wrapper series.
 > 
-> Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
-
-I'll run a test on my SM8550 platform,
-
-Thanks,
-Neil
-
-> 
-> Changes since v1:
->   - Changed from email address
-> 
-> [1] https://patchwork.freedesktop.org/series/121337/
-> 
-> Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->   .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
->   1 file changed, 73 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> index e1363e128e7e..5658d39a3a6b 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> @@ -9,6 +9,7 @@
->   #include <linux/of.h>
->   
->   #include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
->   #include <drm/drm_mipi_dsi.h>
->   #include <drm/drm_modes.h>
->   #include <drm/drm_panel.h>
-> @@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
->   	struct mipi_dsi_device *dsi;
->   	struct gpio_desc *reset_gpio;
->   	struct regulator_bulk_data supplies[3];
-> -	bool prepared;
-> +	bool prepared, enabled;
-> +	bool video_mode;
->   };
->   
->   static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
-> @@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
->   	if (ret)
->   		return ret;
->   
-> +	mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
->   	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
->   	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
->   	mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
->   	mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
->   	mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
-> -	mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
-> +	
-> +	if (ctx->video_mode)
-> +		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
-> +	else
-> +		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
-> +
->   	mipi_dsi_dcs_write_seq(dsi, 0x70,
->   			       0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
->   			       0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
-> @@ -214,6 +222,42 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
->   	.height_mm = 157,
->   };
->   
-> +static int visionox_vtdr6130_enable(struct drm_panel *panel)
-> +{
-> +	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	int ret;
-> +
-> +	if (ctx->enabled)
-> +		return 0;
-> +
-> +	if (!dsi->dsc) {
-> +		dev_err(&dsi->dev, "DSC not attached to DSI\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
-> +	ret = mipi_dsi_picture_parameter_set(dsi, &pps);
-> +	if (ret) {
-> +		dev_err(&dsi->dev, "Failed to set PPS\n");
-> +		return ret;
-> +	}
-> +
-> +	ctx->enabled = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static int visionox_vtdr6130_disable(struct drm_panel *panel)
-> +{
-> +	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-> +
-> +	ctx->enabled = false;
-> +
-> +	return 0;
-> +}
-> +
->   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
->   				       struct drm_connector *connector)
->   {
-> @@ -237,6 +281,8 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
->   	.prepare = visionox_vtdr6130_prepare,
->   	.unprepare = visionox_vtdr6130_unprepare,
->   	.get_modes = visionox_vtdr6130_get_modes,
-> +	.enable = visionox_vtdr6130_enable,
-> +	.disable = visionox_vtdr6130_disable,
->   };
->   
->   static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
-> @@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->   {
->   	struct device *dev = &dsi->dev;
->   	struct visionox_vtdr6130 *ctx;
-> +	struct drm_dsc_config *dsc;
->   	int ret;
->   
->   	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
->   	if (!ctx)
->   		return -ENOMEM;
-> +	
-> +	ctx->video_mode = of_property_read_bool(dev->of_node, "enforce-video-mode");
-> +
-> +	dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
-> +	if (!dsc)
-> +		return -ENOMEM;
-> +
-> +	/* Set DSC params */
-> +	dsc->dsc_version_major = 0x1;
-> +	dsc->dsc_version_minor = 0x2;
-> +
-> +	dsc->slice_height = 40;
-> +	dsc->slice_width = 540;
-> +	dsc->slice_count = 2;
-> +	dsc->bits_per_component = 8;
-> +	dsc->bits_per_pixel = 8 << 4;
-> +	dsc->block_pred_enable = true;
-> +
-> +	dsi->dsc = dsc;
->   
->   	ctx->supplies[0].supply = "vddio";
->   	ctx->supplies[1].supply = "vci";
-> @@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->   
->   	dsi->lanes = 4;
->   	dsi->format = MIPI_DSI_FMT_RGB888;
-> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
-> -			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +
-> +	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +	if (ctx->video_mode)
-> +		dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
-> +
->   	ctx->panel.prepare_prev_first = true;
->   
->   	drm_panel_init(&ctx->panel, dev, &visionox_vtdr6130_panel_funcs,
+Bump
 
+Konrad
