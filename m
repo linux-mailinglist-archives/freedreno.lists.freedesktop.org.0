@@ -2,76 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BECB76AAEA
-	for <lists+freedreno@lfdr.de>; Tue,  1 Aug 2023 10:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B12CE76B295
+	for <lists+freedreno@lfdr.de>; Tue,  1 Aug 2023 13:03:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B35C10E333;
-	Tue,  1 Aug 2023 08:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88E3B10E3DC;
+	Tue,  1 Aug 2023 11:03:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D8E10E327
- for <freedreno@lists.freedesktop.org>; Tue,  1 Aug 2023 08:26:58 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-31758eb5db8so5530042f8f.2
- for <freedreno@lists.freedesktop.org>; Tue, 01 Aug 2023 01:26:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690878416; x=1691483216;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=+nRWq/96dxS9n2YgnBMagUisRdHMaBpUSasoWYOjHMo=;
- b=IqKMeTr3bFTNFBkho9ygyZ1jRUPbElHs+p9G1g+zG/bOf5K3a0uTrzde/Y0q6LHSoo
- VCwWFr/lstkVOMxwK6js/apwEzn9OlJUgiSdBEa/6sjFivPh6X6vEPnKb3ksf6ufhVuq
- wf8ojj3w6n3NXqP6ilVF5x9dHW+U+ev+xuDhvnInai74cehiXFB4eCrPbVSNfTuwLgxb
- OFJ7UnwemrdwCQbIo9aWNqH4XU6SdyqG9KCXLAP7iQHgRoY4RFbiHC5V/FatsjTNj/nA
- af67+uWjb/iZ8AoU+2EhKnNuVwSK1l9lEpNWWch3J8NaGFvfT2cbnjS/qkx7XjMq2Moo
- UFxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690878416; x=1691483216;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :content-language:subject:reply-to:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+nRWq/96dxS9n2YgnBMagUisRdHMaBpUSasoWYOjHMo=;
- b=Yx4uxrAW6ssz3V78Vu29vrQd5Q7OKvdMqScrFUwfhSSXFIE9tKnJr5YQcE7fkn9Od5
- DYhL0iroMf6XF8DrZ8Z7whBHNpuCXsR5FZ5Y8GFoY1pijKwwX8qhzcVfznKqb4qeqiQi
- HcQnL2TQ03Nu+xqAgC3xWrmSjLcAFxfs4bw+bd24bOhsQ1zYvUiJRETQ22mq42Fj1B0x
- aGVxsW3mUfzna76uBrX9cdPXjN7KK3PGyW58FFU2lca+SQGNNDfKBm/hXsFiwmC6IGdy
- Mk0mbSiU0/QeNl7QAsV9+GPOkRiWRg1nYmtUisobWGNOVAXtb0YpIPSlr/kzyEmIen5m
- jQfw==
-X-Gm-Message-State: ABy/qLY5KJys1j6IIkY5t3ULdIVAZQdjlYk33k4fyJPxNjbhyzLIfiNs
- WxoR5Dk2Kf4VaqKmLfI/AJNITg==
-X-Google-Smtp-Source: APBJJlGzOpuW6TY0UwgTTC3QzJ1OrugfkPTBkP7S/s+Gc/Gp3RhNyBtF3IIYqFCoMFJYeSOU9t8d2w==
-X-Received: by 2002:a5d:6391:0:b0:315:7d2f:fc36 with SMTP id
- p17-20020a5d6391000000b003157d2ffc36mr1790495wru.20.1690878416496; 
- Tue, 01 Aug 2023 01:26:56 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:b92a:81a9:df6e:1e3?
- ([2a01:e0a:982:cbb0:b92a:81a9:df6e:1e3])
- by smtp.gmail.com with ESMTPSA id
- s6-20020a5d6a86000000b003143add4396sm15383146wru.22.2023.08.01.01.26.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Aug 2023 01:26:55 -0700 (PDT)
-Message-ID: <70875c10-9f9d-a084-d0f0-aaf80f56cb1e@linaro.org>
-Date: Tue, 1 Aug 2023 10:26:54 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: neil.armstrong@linaro.org
-Content-Language: en-US
-To: Jessica Zhang <quic_jesszhan@quicinc.com>,
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5323B10E3DC
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Aug 2023 11:03:47 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qQn9L-0006er-TG; Tue, 01 Aug 2023 13:02:47 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qQn9G-000MYc-Qz; Tue, 01 Aug 2023 13:02:42 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qQn9F-009bb2-Rs; Tue, 01 Aug 2023 13:02:41 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Russell King <linux@armlinux.org.uk>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Edmund Dea <edmund.j.dea@intel.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Paloma Arellano <quic_parellan@quicinc.com>
-References: <20230728012623.22991-1-quic_parellan@quicinc.com>
- <CAA8EJpqPgzd4ZSP948MQW=f4EVBHxajj4nwYq5s-OConBP7Vvg@mail.gmail.com>
- <a03e4ec2-0516-7d4c-180f-e0916c83373b@quicinc.com>
-Organization: Linaro Developer Services
-In-Reply-To: <a03e4ec2-0516-7d4c-180f-e0916c83373b@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Johan Hovold <johan+linaro@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ "Joel Fernandes (Google)" <joel@joelfernandes.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Su Hui <suhui@nfschina.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>, Rob Herring <robh@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Danilo Krummrich <dakr@redhat.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Deepak R Varma <drv@mailo.com>,
+ Steven Price <steven.price@arm.com>, Thierry Reding <treding@nvidia.com>,
+ Jani Nikula <jani.nikula@intel.com>, Alexey Brodkin <abrodkin@synopsys.com>
+Date: Tue,  1 Aug 2023 13:02:27 +0200
+Message-Id: <20230801110239.831099-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4647;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=lLYOduakdAZPV7h2t7p0GtcJJgBTffjjiGktWPRzcYQ=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkyOWz7AY2J/amMZa1ly1xZnt1qVfdI+rjtzZOC
+ 8JCyUY0p4KJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZMjlswAKCRCPgPtYfRL+
+ ToYFCACzSxwyZvnMzJgJyOkvEePf/ZXRnGrtlXaVQ3ZoUTHkj+i/+jpBQWVCP7WrMGN7DsJJNtK
+ 0JA9E3Yn8ljBPqK2hZbNAJIiaj3l1RjP00t00TVHzUaRcD8bpf0MQbCl7XVh+S1lGpscwAhUhU5
+ EuB/uIagIPze58OicfVqTEO6iH3tvWG6Tiw+Vj2etWniKNEhnyG94qzpKxsJ1UQxqjG+th5ODs2
+ R/fbiH6ltN6uLcrT7oBmUbtwgnmFm0z6KSzEqBKSAi6WhI4Cz6iIb1+Kt+G3TH2c0+5ZjkMcAix
+ V3zjdSfyyffaoQc3LkxVPtw9eSDLh/jJp7lNI4Ci05e+WBPm
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
- Visionox VTDR6130 panel
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
+Subject: [Freedreno] [PATCH v2 00/12] drm: Convert to platform remove
+ callback returning void
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,232 +101,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: sam@ravnborg.org, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
- airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ linux-mediatek@lists.infradead.org, NXP Linux Team <linux-imx@nxp.com>,
+ kernel@pengutronix.de, Russell King <linux+etnaviv@armlinux.org.uk>,
+ nouveau@lists.freedesktop.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/07/2023 23:44, Jessica Zhang wrote:
-> 
-> 
-> On 7/28/2023 2:37 AM, Dmitry Baryshkov wrote:
->> On Fri, 28 Jul 2023 at 04:26, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->>>
->>> Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
->>> VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
->>> to command mode with DSC enabled.
->>>
->>> Note: This patch has only been validated DSC over command mode as DSC over
->>> video mode has never been validated for the MSM driver before.
->>>
->>> Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
->>>
->>> Changes since v1:
->>>   - Changed from email address
->>>
->>> [1] https://patchwork.freedesktop.org/series/121337/
->>>
->>> Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
->>> ---
->>>   .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
->>>   1 file changed, 73 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
->>> index e1363e128e7e..5658d39a3a6b 100644
->>> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
->>> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
->>> @@ -9,6 +9,7 @@
->>>   #include <linux/of.h>
->>>
->>>   #include <drm/display/drm_dsc.h>
->>> +#include <drm/display/drm_dsc_helper.h>
->>>   #include <drm/drm_mipi_dsi.h>
->>>   #include <drm/drm_modes.h>
->>>   #include <drm/drm_panel.h>
->>> @@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
->>>          struct mipi_dsi_device *dsi;
->>>          struct gpio_desc *reset_gpio;
->>>          struct regulator_bulk_data supplies[3];
->>> -       bool prepared;
->>> +       bool prepared, enabled;
->>> +       bool video_mode;
->>>   };
->>>
->>>   static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
->>> @@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
->>>          if (ret)
->>>                  return ret;
->>>
->>> +       mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
->>>          mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
->>>          mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
->>>          mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
->>>          mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
->>>          mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
->>> -       mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
->>> +
->>> +       if (ctx->video_mode)
->>> +               mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
->>> +       else
->>> +               mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
->>> +
->>>          mipi_dsi_dcs_write_seq(dsi, 0x70,
->>>                                 0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
->>>                                 0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
->>> @@ -214,6 +222,42 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
->>>          .height_mm = 157,
->>>   };
->>>
->>> +static int visionox_vtdr6130_enable(struct drm_panel *panel)
->>> +{
->>> +       struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
->>> +       struct mipi_dsi_device *dsi = ctx->dsi;
->>> +       struct drm_dsc_picture_parameter_set pps;
->>> +       int ret;
->>> +
->>> +       if (ctx->enabled)
->>> +               return 0;
->>> +
->>> +       if (!dsi->dsc) {
->>> +               dev_err(&dsi->dev, "DSC not attached to DSI\n");
->>> +               return -ENODEV;
->>> +       }
->>
->> The error message is misleading. Also, if you don't want to enable DSC
->> for the video mode, this will break.
->>
->>> +
->>> +       drm_dsc_pps_payload_pack(&pps, dsi->dsc);
->>> +       ret = mipi_dsi_picture_parameter_set(dsi, &pps);
->>> +       if (ret) {
->>> +               dev_err(&dsi->dev, "Failed to set PPS\n");
->>> +               return ret;
->>> +       }
->>> +
->>> +       ctx->enabled = true;
->>
->> Do we need this refcount just for PPS upload? What will happen if PPS
->> is uploaded several times?
->>
->>> +
->>> +       return 0;
->>> +}
->>> +
->>> +static int visionox_vtdr6130_disable(struct drm_panel *panel)
->>> +{
->>> +       struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
->>> +
->>> +       ctx->enabled = false;
->>> +
->>> +       return 0;
->>> +}
->>> +
->>>   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
->>>                                         struct drm_connector *connector)
->>>   {
->>> @@ -237,6 +281,8 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
->>>          .prepare = visionox_vtdr6130_prepare,
->>>          .unprepare = visionox_vtdr6130_unprepare,
->>>          .get_modes = visionox_vtdr6130_get_modes,
->>> +       .enable = visionox_vtdr6130_enable,
->>> +       .disable = visionox_vtdr6130_disable,
->>>   };
->>>
->>>   static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
->>> @@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->>>   {
->>>          struct device *dev = &dsi->dev;
->>>          struct visionox_vtdr6130 *ctx;
->>> +       struct drm_dsc_config *dsc;
->>>          int ret;
->>>
->>>          ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
->>>          if (!ctx)
->>>                  return -ENOMEM;
->>> +
->>> +       ctx->video_mode = of_property_read_bool(dev->of_node, "enforce-video-mode");
->>
->> Please also add a DT bindings patch.
->>
->>> +
->>> +       dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
->>> +       if (!dsc)
->>> +               return -ENOMEM;
->>
->> You can add struct drm_dsc_config to struct visionox_vtdr6130 instead
->> of allocating it.
->>
->>> +
->>> +       /* Set DSC params */
->>> +       dsc->dsc_version_major = 0x1;
->>> +       dsc->dsc_version_minor = 0x2;
->>> +
->>> +       dsc->slice_height = 40;
->>> +       dsc->slice_width = 540;
->>> +       dsc->slice_count = 2;
->>> +       dsc->bits_per_component = 8;
->>> +       dsc->bits_per_pixel = 8 << 4;
->>> +       dsc->block_pred_enable = true;
->>> +
->>> +       dsi->dsc = dsc;
->>
->> Only in command mode?
-> 
-> Hi Dmitry,
-> 
-> The intention of the patch wasn't to enable DSC for only command mode.
-> 
-> We didn't want to limit DSC to only command mode because, while the MSM DPU driver isn't able to validate DSC on video mode, other vendors might have already validated DSC on video mode and would benefit from this patch.
-> 
-> FWIW, inital driver commit [1] notes that the panel is meant to work with compressed streams in general and DSC support was tob be added later on.
+Hello,
 
-The panel supports Video, Video+DSC, CMD, CMD+DSC, so it would be great to be able to
-select any of the supported modes, including the non-compressed ones.
+(implicit) v1 of this series can be found at
+https://lore.kernel.org/dri-devel/20230507162616.1368908-1-u.kleine-koenig@pengutronix.de
 
-So enforce-video-mode is great, but an enforce-uncompressed-mode would be necessary
-aswell.
+Back then the series contained 53 patches. A big bunch was already
+applied to drm-misc, this is the remainder; with only little changes
+compared to v1:
 
-Neil
+ - rebased to todays drm-misc-next
+ - Squashed together the two mediatek patches
+ - Adapted the subject prefix for the arcpgu as pointed out by Thomas
+   Zimmermann. (This affected two patches originally, one of them was merged
+   already before anyhow (next-20230801~41^2~34^2~179).)
 
-> 
-> Thanks,
-> 
-> Jessica Zhang
-> 
-> [1] https://patchwork.freedesktop.org/patch/517483/?series=112369&rev=2
-> 
->>
->>>
->>>          ctx->supplies[0].supply = "vddio";
->>>          ctx->supplies[1].supply = "vci";
->>> @@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->>>
->>>          dsi->lanes = 4;
->>>          dsi->format = MIPI_DSI_FMT_RGB888;
->>> -       dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
->>> -                         MIPI_DSI_CLOCK_NON_CONTINUOUS;
->>> +
->>> +       dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS;
->>
->> Keep the line split please.
->>
->>> +       if (ctx->video_mode)
->>> +               dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
->>> +
->>>          ctx->panel.prepare_prev_first = true;
->>>
->>>          drm_panel_init(&ctx->panel, dev, &visionox_vtdr6130_panel_funcs,
->>> -- 
->>> 2.41.0
->>>
->>
->>
->> -- 
->> With best wishes
->> Dmitry
+All these patches are pairwise independant of each other and so can be
+applied individually to their respective maintainer trees. I'm open to
+get these all in together via drm-misc, but each maintainer picking the
+individual patches that they are repsonsible for is maybe the easier
+approach?!
+
+Best regards
+Uwe
+   
+
+Uwe Kleine-König (12):
+  drm/armada: Convert to platform remove callback returning void
+  drm/etnaviv: Convert to platform remove callback returning void
+  drm/imx/dcss: Convert to platform remove callback returning void
+  drm/imx/ipuv3: Convert to platform remove callback returning void
+  drm/ingenic: Convert to platform remove callback returning void
+  drm/kmb: Convert to platform remove callback returning void
+  drm/mediatek: Convert to platform remove callback returning void
+  drm/msm: Convert to platform remove callback returning void
+  drm/nouveau: Convert to platform remove callback returning void
+  drm/shmobile: Convert to platform remove callback returning void
+  drm/sprd: Convert to platform remove callback returning void
+  drm/arcpgu: Convert to platform remove callback returning void
+
+ drivers/gpu/drm/armada/armada_crtc.c             | 5 ++---
+ drivers/gpu/drm/armada/armada_drv.c              | 5 ++---
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c            | 6 ++----
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c            | 5 ++---
+ drivers/gpu/drm/imx/dcss/dcss-drv.c              | 6 ++----
+ drivers/gpu/drm/imx/ipuv3/dw_hdmi-imx.c          | 6 ++----
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c         | 5 ++---
+ drivers/gpu/drm/imx/ipuv3/imx-ldb.c              | 5 ++---
+ drivers/gpu/drm/imx/ipuv3/imx-tve.c              | 5 ++---
+ drivers/gpu/drm/imx/ipuv3/ipuv3-crtc.c           | 5 ++---
+ drivers/gpu/drm/imx/ipuv3/parallel-display.c     | 6 ++----
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c        | 6 ++----
+ drivers/gpu/drm/ingenic/ingenic-ipu.c            | 5 ++---
+ drivers/gpu/drm/kmb/kmb_drv.c                    | 5 ++---
+ drivers/gpu/drm/mediatek/mtk_cec.c               | 5 ++---
+ drivers/gpu/drm/mediatek/mtk_disp_aal.c          | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_disp_ccorr.c        | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_disp_color.c        | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_disp_gamma.c        | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_disp_merge.c        | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.c          | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_disp_rdma.c         | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_dp.c                | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_dpi.c               | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c           | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_dsi.c               | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_hdmi.c              | 5 ++---
+ drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c          | 6 ++----
+ drivers/gpu/drm/mediatek/mtk_mdp_rdma.c          | 5 ++---
+ drivers/gpu/drm/msm/adreno/adreno_device.c       | 5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c          | 6 ++----
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c         | 6 ++----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c         | 5 ++---
+ drivers/gpu/drm/msm/dp/dp_display.c              | 6 ++----
+ drivers/gpu/drm/msm/dsi/dsi.c                    | 6 ++----
+ drivers/gpu/drm/msm/hdmi/hdmi.c                  | 6 ++----
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c              | 6 ++----
+ drivers/gpu/drm/msm/msm_drv.c                    | 6 ++----
+ drivers/gpu/drm/msm/msm_mdss.c                   | 6 ++----
+ drivers/gpu/drm/nouveau/nouveau_platform.c       | 5 ++---
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_drv.c | 6 ++----
+ drivers/gpu/drm/sprd/sprd_dpu.c                  | 6 ++----
+ drivers/gpu/drm/sprd/sprd_drm.c                  | 5 ++---
+ drivers/gpu/drm/sprd/sprd_dsi.c                  | 6 ++----
+ drivers/gpu/drm/tiny/arcpgu.c                    | 6 ++----
+ 45 files changed, 90 insertions(+), 164 deletions(-)
+
+base-commit: 290cdd7959a734a0ef20ec096af7810177c4b9f8
+-- 
+2.39.2
 
