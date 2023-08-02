@@ -1,79 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3241C76C090
-	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 00:48:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A358676C207
+	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 03:18:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EA9C10E030;
-	Tue,  1 Aug 2023 22:48:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 052B510E14E;
+	Wed,  2 Aug 2023 01:18:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 339AE10E030;
- Tue,  1 Aug 2023 22:48:37 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 371MN9RD021288; Tue, 1 Aug 2023 22:48:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=n3XquJvtqxm8VOK7bgZR86v6Z7bolj/OZFMU6knvcek=;
- b=conCe+JSIQvObmuHKIsoMxZ+99H+2HZ4uDqUSpS4CFWT1itCcZAZG5cA/piCMh/kUEVN
- Nk4wXtPfiYQvPlwekd+QBc1MBSzCZd2vtzUATol7p2iOPcHca5YwLw8lmyVfUx4WhwpK
- kHnYS6BbbbLgPCncfk/21QOkn9B755mmfancnKWow18EzCDunAjr06E+wk007spRNp/H
- Ta9lYJiOqKVEI95Ph3jzd3xzkQ8/+N0CUbtr3ctgxItrxLkP3dFvAy9GpsGPI4VCvs8l
- kXlzO5AtdLba7Vq29XWMvA6siUgojTHVwae0FJy2ZWABRgXi6LCXP2NFqghF79bJBplz qg== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s760c0mdf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 01 Aug 2023 22:48:29 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 371MmSOl015293
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 1 Aug 2023 22:48:28 GMT
-Received: from [10.110.113.146] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 1 Aug
- 2023 15:48:28 -0700
-Message-ID: <c88034e9-7785-bc9d-ebda-bd441106872e@quicinc.com>
-Date: Tue, 1 Aug 2023 15:48:16 -0700
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8A9110E14E
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 01:18:48 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2b9e6cc93c6so46553971fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Aug 2023 18:18:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690939127; x=1691543927;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=V+gWA/tO3az5qnPtCpr5Q7+4MvP6fpYV/Vi7gO7EqLw=;
+ b=WkuenX1ZTdY/VOYXWxbQJV8Vc00bZbCUdBzSDngguxOoG6ibp25OywDJSSx75jNId8
+ jEp4UwttDm1pFZfJzhWp2WIC26nRfduG+Xj1bwckcg87vt1Rv5z+dyqKqMtVMWv/fk1r
+ 8eCoraLT1t5H4p7VcZUH7mNNXZi5x3qcTSK7qeTzNSBlEae8I15/yGpZW1cKnJQxdXRt
+ Cf54hC/ZeMUw2oCwHMmhkZapJFk8YDQr0HSpMrvpR9Uua+ODp+fWyy69iFkIXzWmDZE6
+ bqzMpzt1MyzIfu8TXYeFCny+buMiUmGpa+ZU2Ws+bfzwyo0Yvq+KRWYBlzB4F9nuXUXo
+ /1cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690939127; x=1691543927;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=V+gWA/tO3az5qnPtCpr5Q7+4MvP6fpYV/Vi7gO7EqLw=;
+ b=MYoWIQ9sj6tPsvKWx7i9YIc9+unC/j4Y9Zh+RaqgR+B9w8YNTKDNHpG75y3SQtP01n
+ uL+4zPycDbAdUZxiLcrX8Ec03u3Tr+A3KSb0pF6U+U/ww0c7zzSjiMcvkxYwftlmeyTP
+ 0IN4QJ3+o/jMWvAKretTQZpQOpX0MbYGLnrht26dzZJq5/ovYElR9ZzSKNAcmyN6TtW0
+ 83mzbkH9HbOwPg/Acwxbq46gllwLzcrIj/Uo7R5ka/n+opdXFLm1UaeU9YLLLRzC0f/q
+ JmItngPR88Ra77tEXBydumJfe53LYlUZsJm+VJAgUKZ6+BXv78SVh3J1v9UWpbnEaI61
+ zrYQ==
+X-Gm-Message-State: ABy/qLZP9i2edn0VA6jU0fp3BflHwrvlgCNw+/ELEFMg021aImMjEFD8
+ KmbgeHIUMQtV+YHDg+8NhTqqPg==
+X-Google-Smtp-Source: APBJJlGTXU+qU/iB+Qs91qxaj6dsnClWjqfDO9bvss9c5WHdTTrVKMq8s3kynB6XVZ1Gf6nY1uUfuw==
+X-Received: by 2002:a19:2d4b:0:b0:4fb:89e3:5ac6 with SMTP id
+ t11-20020a192d4b000000b004fb89e35ac6mr3626211lft.62.1690939126825; 
+ Tue, 01 Aug 2023 18:18:46 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ n14-20020a056512388e00b004faeedbb29dsm2775842lft.64.2023.08.01.18.18.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Aug 2023 18:18:46 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Date: Wed,  2 Aug 2023 04:18:42 +0300
+Message-Id: <20230802011845.4176631-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230730010102.350713-1-dmitry.baryshkov@linaro.org>
- <20230730010102.350713-3-dmitry.baryshkov@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230730010102.350713-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 009Uj0GFaBT2Lr1dIqHh3BhsgH1_y4BF
-X-Proofpoint-ORIG-GUID: 009Uj0GFaBT2Lr1dIqHh3BhsgH1_y4BF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-01_19,2023-08-01_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 adultscore=0 mlxlogscore=999 impostorscore=0 mlxscore=0
- phishscore=0 clxscore=1011 bulkscore=0 priorityscore=1501 spamscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308010204
-Subject: Re: [Freedreno] [PATCH v5 02/10] drm/msm/dpu: bail from
- _dpu_core_perf_crtc_update_bus if there are no ICC paths
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/3] drm/display: simplify support for
+ transparent DRM bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,24 +77,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-usb@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Supporting DP/USB-C can result in a chain of several transparent
+bridges (PHY, redrivers, mux, etc). This results in drivers having
+similar boilerplate code for such bridges.
 
+Next, these drivers are susceptible to -EPROBE_DEFER loops: the next
+bridge can either be probed from the bridge->attach callback, when it is
+too late to return -EPROBE_DEFER, or from the probe() callback, when the
+next bridge might not yet be available, because it depends on the
+resources provided by the probing device.
 
-On 7/29/2023 6:00 PM, Dmitry Baryshkov wrote:
-> Skip bandwidth aggregation and return early if there are no interconnect
-> paths defined for the DPU device.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
+Last, but not least, this results in the the internal knowledge of DRM
+subsystem slowly diffusing into other subsystems, like PHY or USB/TYPEC.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To solve all these issues, define a separate DRM helper, which creates
+separate aux device just for the bridge. During probe such aux device
+doesn't result in the EPROBE_DEFER loops. Instead it allows the device
+drivers to probe properly, according to the actual resource
+dependencies. The bridge auxdevs are then probed when the next bridge
+becomes available, sparing drivers from drm_bridge_attach() returning
+-EPROBE_DEFER.
+
+Proposed merge strategy: immutable branch with the drm commit, which is
+then merged into PHY and USB subsystems together with the corresponding
+patch.
+
+Changes since v2:
+ - ifdef'ed bridge->of_node access (LKP)
+
+Changes since v1:
+ - Added EXPORT_SYMBOL_GPL / MODULE_LICENSE / etc. to drm_simple_bridge
+
+Dmitry Baryshkov (3):
+  drm/display: add transparent bridge helper
+  phy: qcom: qmp-combo: switch to DRM_SIMPLE_BRIDGE
+  usb: typec: nb7vpq904m: switch to DRM_SIMPLE_BRIDGE
+
+ drivers/gpu/drm/display/Kconfig             |   9 ++
+ drivers/gpu/drm/display/Makefile            |   2 +
+ drivers/gpu/drm/display/drm_simple_bridge.c | 127 ++++++++++++++++++++
+ drivers/phy/qualcomm/Kconfig                |   2 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c   |  44 +------
+ drivers/usb/typec/mux/Kconfig               |   2 +-
+ drivers/usb/typec/mux/nb7vpq904m.c          |  44 +------
+ include/drm/display/drm_simple_bridge.h     |  19 +++
+ 8 files changed, 163 insertions(+), 86 deletions(-)
+ create mode 100644 drivers/gpu/drm/display/drm_simple_bridge.c
+ create mode 100644 include/drm/display/drm_simple_bridge.h
+
+-- 
+2.39.2
 
