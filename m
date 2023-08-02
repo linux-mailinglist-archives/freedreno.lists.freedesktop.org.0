@@ -2,74 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CE0D76C98B
-	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 11:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD56676C9E1
+	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 11:55:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF8C910E0A1;
-	Wed,  2 Aug 2023 09:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F88E10E1EB;
+	Wed,  2 Aug 2023 09:55:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36F9D10E062
- for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 09:35:52 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4fe1344b707so10589916e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 02 Aug 2023 02:35:52 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47BA310E52D
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 09:55:49 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4fe2de785e7so6057940e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Aug 2023 02:55:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690968950; x=1691573750;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pohg9zSaMOJCBUazSnms5q/h+HApb0cmdo5z/ZK/mUQ=;
- b=ZC+Grn4yM3PgtUUEkhcgq4sTNTV+3REq8KjNQiY1swdBRWPGO3kM790yIOM832qrp0
- nFwJMjrgw9cXxoLFcNhPmV4TmmCujAh85rXMbvW0RDAai+cuLYpsHqiLWOuUnGrE4o8M
- CG3tlLBcmXglNsuW9MjYctyhnvDq6qtHyS8AmzJTTn6GZULEradARsrD5gZkINDvC5qL
- m/7nuSeWzA1qccmWZcCEYR0LwNOojikWz2tTv4cOEB5FbizxJZIQMPo4xHJqKTZlgOi6
- spaF+F4YD5qgUeMGcUos8qO5FSiZqL0d+p0IYy59QfsK7oiiKCa4lFzK114iZi+3X6QN
- uVUw==
+ d=linaro.org; s=google; t=1690970147; x=1691574947;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iphRN0MY2MtgUPU4uH8Er2X1AyiNge9v/N2Rem14Rkk=;
+ b=kDG43E3P3uN1JBiNHnopTh43p3mXSgOkLZK6mwJSdib/57no5KTRao5OzZBLuhptDC
+ ghR39QWLnru3WOP7sAD4T/t3C46Xemqit2GoPULrPAEEyNWwmqaabkZJfNNLd0LUKt+4
+ BmnvkorSd67mZd3TRZnJbjIwPjfrpvlGfXna9rVCogjrG8wZyyHVoq0xuuh/M5zLGmrK
+ ZIMb9hmToJTPPCN/mdFfncrcewaLF3lUmaUc9YWUbAhRzEzKl+7B7QBqfcfuISWgF1P4
+ 3Fofq9ZDMmYSPgFhxsd0nvBUBqBwoNZVYyfRmIcn04lfGWCP8hkCioiBiijqXG1P+leE
+ SbfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690968950; x=1691573750;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pohg9zSaMOJCBUazSnms5q/h+HApb0cmdo5z/ZK/mUQ=;
- b=S8qOZcSU8JXkL9PQQ7wBwUTb4djh3gGvZEc6ITUvCeVQtTngXWyFMKVKBrdGiD4I7Q
- bdl0hyov1eMIMivRNSlMLM3WU4wN/dxeNiiUkrYDc3koLb/cIHXYQnNC/Mbf5u+t1hpf
- inZqNyul4/QYlF4capOc586ofG+Ny3UD/6lmjDJ97TztcNe8UMMurTMvPQ1RQ0/1glFQ
- A4QpNPZTvG9924GI37dFwZ5hA9YRwWqbE44zPDJVqwvXY+9XKT5TL/XYJusXemPuXs3n
- tfF7oA0GzBdrhTOHapwaVFKY4d4LsSGM+WnrFA7ldHSCcLtfDt54j/HpxIwJqLwthC//
- zbHA==
-X-Gm-Message-State: ABy/qLaf7m9x5zKlCducrUzhgaZ93v5FODEaSls352EZEeeB5GFMAE2H
- hznrH0TpAaNQk7ODgTrVoCKEeQ==
-X-Google-Smtp-Source: APBJJlHJTVMe30C4pbnicvRVJ2SsKv2DoOIoce/FePG1RZbhSiexihUJ5NXl7ZGcJyuxBNgNRnGWHg==
-X-Received: by 2002:a05:6512:3b2:b0:4fe:df7:bcf5 with SMTP id
- v18-20020a05651203b200b004fe0df7bcf5mr3523141lfp.8.1690968950204; 
- Wed, 02 Aug 2023 02:35:50 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1690970147; x=1691574947;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iphRN0MY2MtgUPU4uH8Er2X1AyiNge9v/N2Rem14Rkk=;
+ b=b5KzcCCvUSDlTdOjydtykAEG4wmBPWE7qfuqZCvigUpHq4T4PEsWMyd10OaUHbSRpO
+ 7THiWlOPn1CiH1HiHzZSE2IKOA4uXfrk4X7BMwE19vVPUD0Dx+uIDrgGsV3D6IUgYyPx
+ HHL3CB6D1qFErGv7SuAaOZQ2ezolXK8JDaVuCNpJXAAqwKR1x+pWe+9NWNlfpb0ocXw9
+ vdKExxKROzrsdcbJ5+wbkZg4j2jWcf3J5kugReHQckFxfRkU+hdX2473fT1UEfT+MnUq
+ Bbgfg8rx5X97fTtmPNxmtkfKEntLMIbgDntZRtceCz7G1adl/JUTH2ExgFnADOkbY2u2
+ gB1g==
+X-Gm-Message-State: ABy/qLb40CzJiNgexqZYgMbeE86/imOW8YUc+y1Ze8qxzQ2GfISikecc
+ ffrFwkfP1zZh2M9Bc9MNW/UGhw==
+X-Google-Smtp-Source: APBJJlFze9oTSl4rl4neTa9DH2tYbdCR8ijsBfdrqqCX/nt9jY3FI/jy/9N/lk9Os3h4JTx/WBMWHg==
+X-Received: by 2002:a05:6512:78c:b0:4fd:fc3d:cce7 with SMTP id
+ x12-20020a056512078c00b004fdfc3dcce7mr3645729lfr.44.1690970147400; 
+ Wed, 02 Aug 2023 02:55:47 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- k19-20020ac257d3000000b004fb8c31c8desm2909996lfo.208.2023.08.02.02.35.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Aug 2023 02:35:49 -0700 (PDT)
-Message-ID: <131f9c51-10d6-c4b4-4e7f-c3c30480d385@linaro.org>
-Date: Wed, 2 Aug 2023 12:35:49 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-GB
-To: Ruan Jinjie <ruanjinjie@huawei.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20230727112407.2916029-1-ruanjinjie@huawei.com>
+ x17-20020ac24891000000b004fe1960dd7csm2779762lfc.132.2023.08.02.02.55.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Aug 2023 02:55:46 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230727112407.2916029-1-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH -next] drm/msm: Remove redundant
- DRM_DEV_ERROR()
+To: Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Caleb Connolly <caleb.connolly@linaro.org>,
+ Bryan Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Amit Pundir <amit.pundir@linaro.org>
+Date: Wed,  2 Aug 2023 12:55:42 +0300
+Message-Id: <169096995982.4183272.12912811169015846101.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230726132719.2117369-1-amit.pundir@linaro.org>
+References: <20230726132719.2117369-1-amit.pundir@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v6 1/2] dt-bindings: display/msm:
+ mdss-common: add memory-region property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,24 +86,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: dt <devicetree@vger.kernel.org>, Rob Herring <robh@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/07/2023 14:24, Ruan Jinjie wrote:
-> There is no need to call the DRM_DEV_ERROR() function directly to print
-> a custom message when handling an error from platform_get_irq() function
-> as it is going to display an appropriate error message
-> in case of a failure.
+
+On Wed, 26 Jul 2023 18:57:18 +0530, Amit Pundir wrote:
+> Add and document the reserved memory region property in the
+> mdss-common schema.
 > 
-> Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
-> ---
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 1 -
->   drivers/gpu/drm/msm/msm_gpu.c            | 1 -
->   2 files changed, 2 deletions(-)
+> For now (sdm845-db845c), it points to a framebuffer memory
+> region reserved by the bootloader for splash screen.
+> 
+> 
+> [...]
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Applied, thanks!
 
+[1/2] dt-bindings: display/msm: mdss-common: add memory-region property
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/b4b405040689
+
+Best regards,
 -- 
-With best wishes
-Dmitry
-
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
