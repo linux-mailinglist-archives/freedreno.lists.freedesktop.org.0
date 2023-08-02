@@ -2,65 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327DA76CA50
+	by mail.lfdr.de (Postfix) with ESMTPS id CE37B76CA51
 	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 12:04:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F33A210E52E;
-	Wed,  2 Aug 2023 10:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9777810E538;
+	Wed,  2 Aug 2023 10:04:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAF110E52E
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC49E10E531
  for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 10:04:29 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4fe216edaf7so946057e87.0
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-4fe3c7f16bbso4401999e87.0
  for <freedreno@lists.freedesktop.org>; Wed, 02 Aug 2023 03:04:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690970667; x=1691575467;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=izmDC9RsdCQbJBlU11/lW4sdu4loxNg0jjfHkErdNjU=;
- b=nnXoe2hPcIEKxrCfIDgp36+gTLaXhE+3V34AfVaeJ7+slZE9m3Jt3UEDg+9fpVrEQs
- AxCXj10Oho+pJzRhWRABQKfEkI8RRDL/q6bTJPvHbRThmmCeaoGMXpQZsKutsKR8blfQ
- KrqJhrEF9n5skgk9Npl49mEs4WWn6959iXbJzie57MY5tAiJk07B4x5/TZKOoxjYrwzQ
- RYzDLoGFaguBVKKemaetzrbBVBxaR2gzaK9oWid3gsi8njWUYiL6unAILcfL9A0GAvhP
- PFFVJMDVFVyVM44Ow1daerxrhZB/RcQLLHKn2LCpyPjOuE7rMgUivrkhY8tQp8Hoogz0
- KE3A==
+ d=linaro.org; s=google; t=1690970668; x=1691575468;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pz9p9H1gH6Z2qG0n33HfyJPwsmR7261k80eGvXXicJE=;
+ b=ix2Tn2myJSxhFqIoer/5iWlas3B0FRrEcSoDHBqKcSgHR+dfxV0eWePnnKTMmG+FOA
+ o1VxnhvzPMyVaaVLxIJDKyKqNqS2f8HbLzbKBVkKonU2sEeYGnN9HO1TzYV7NZpQKE1U
+ seykqfqVMGXUmBRQ756RYtxAad7QlHjg96GmHh89yJHfQj6YSfpAjzCSVDpw+Mmj9RH+
+ krLm+NVtavYO8txFnmXwIQchKh/kc//mW0HORoH+lCKx7yLgpn4ls8QLLozxVgWiYmTh
+ IeuzkFY7YbexKOSFsGK++jJtfa0UdiDMjhOO60LPT7IOGxFnPtSf7n4DLJTDJJ320OyK
+ t5bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690970667; x=1691575467;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=izmDC9RsdCQbJBlU11/lW4sdu4loxNg0jjfHkErdNjU=;
- b=mGDtyl/Hs1243v9+BWtl1t0LlkWlPBm8cOP0Upqp3mqjWyPxAUbr0N7Ib5J2de/zS0
- aYME7j/as7D8pCQtrpxjT6cwNgPIGfIeBrIrKp3jRrx8rmSkdbLtfZkluE1CEiQk6sBU
- WdQBlMsRl/WPhUWiTo2yh6ISguNfWt94A6+VTDCSpmSEJiDEjTGL3LKv/ilZrwim0VJg
- ybrgvxN4liuxTZbLxqVqcoMRQqB6ZdHcXC1XEbuf7EEyZN5dPLaFTrG8W/ld5uD7VyeV
- FF9up3Ew6KFujCCluUJlTNFo8OPgC1LBAjZ5+zFvWINny7hyUiiwyODqIjbkvOe7o0j+
- AfqQ==
-X-Gm-Message-State: ABy/qLaQOKK1DYl4dJi/VluGcJWe85DzNF1jpJpkOnfcBDNi5ON5PENl
- eCz+ffR8muQPVHXRhoGLaRgOJg==
-X-Google-Smtp-Source: APBJJlHtKlpldz5wlYRKarTCXQhtHX8P4JyvRE88Iz1/6nXjMw2GVdxgC67DCrCFuhOwZ0NGT4Es6Q==
-X-Received: by 2002:ac2:465e:0:b0:4f9:5693:3d2c with SMTP id
- s30-20020ac2465e000000b004f956933d2cmr1735049lfo.34.1690970667406; 
- Wed, 02 Aug 2023 03:04:27 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1690970668; x=1691575468;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pz9p9H1gH6Z2qG0n33HfyJPwsmR7261k80eGvXXicJE=;
+ b=jnJyI3qnvAfhwoQlxyN4D2dPhKOmucu1ai0yl8p76SppwuzfQn1vNINm76n2CzDO1Y
+ Fafu293LMa6MXqqttDjIcbvBRPSB9tKZnjYmaPwFzDMQuBQCd3/1O+fbl40I0njOJ8gn
+ 9UasHKisQz1iWZnuAGczNtolxv6KORnoiQHjOxQovLGcsR0ufiy4LPP1ubGB25JDAVQm
+ 8WiuG4A8WA8UoMDaCb5qI9bQutVUBNEfgjEvb65/cPynWCfL165rT7Q5HDJG9CN9VFO5
+ NoR2UQEoaA+cPSZZ2NS7jpYoGJ+BSGhLmPw1YcIJCsoa4ts/WCZER8uy/r0eObOMAX1R
+ brUg==
+X-Gm-Message-State: ABy/qLbWlpq47cN6gCg/DugI7suspYDzyxpd0lQv6vwkjj5xL/OoDidN
+ GhboYK6nkVSkueO+WQkCtJiguw==
+X-Google-Smtp-Source: APBJJlFtVRVPgbYw1NzWRXDam1xhTvn+p1AKo13hr3Lc0+Jw87f8yJNa7r4Y1W7+jEnmVEOX85Nu4Q==
+X-Received: by 2002:a19:2d42:0:b0:4fb:8948:2b8e with SMTP id
+ t2-20020a192d42000000b004fb89482b8emr4153860lft.8.1690970668076; 
+ Wed, 02 Aug 2023 03:04:28 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- p21-20020a19f015000000b004fbf5242e8bsm2402353lfc.231.2023.08.02.03.04.26
+ p21-20020a19f015000000b004fbf5242e8bsm2402353lfc.231.2023.08.02.03.04.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Aug 2023 03:04:26 -0700 (PDT)
+ Wed, 02 Aug 2023 03:04:27 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed,  2 Aug 2023 13:04:18 +0300
-Message-Id: <20230802100426.4184892-1-dmitry.baryshkov@linaro.org>
+Date: Wed,  2 Aug 2023 13:04:19 +0300
+Message-Id: <20230802100426.4184892-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230802100426.4184892-1-dmitry.baryshkov@linaro.org>
+References: <20230802100426.4184892-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 0/8] drm/msm/dpu: change interrupts code to
- make 0 be the no IRQ
+Subject: [Freedreno] [PATCH v5 1/8] drm/msm/dpu: fix the irq index in
+ dpu_encoder_phys_wb_wait_for_commit_done
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,78 +83,33 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Having an explicit init of interrupt fields to -1 for not existing IRQs
-makes it easier to forget and/or miss such initialisation, resulting in
-a wrong interrupt definition.
+Since commit 1e7ac595fa46 ("drm/msm/dpu: pass irq to
+dpu_encoder_helper_wait_for_irq()") the
+dpu_encoder_phys_wb_wait_for_commit_done expects the IRQ index rather
+than the IRQ index in phys_enc->intr table, however writeback got the
+older invocation in place. This was unnoticed for several releases, but
+now it's time to fix it.
 
-Instead shift all IRQ indices to turn '0' to be the non-existing IRQ.
+Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Dependencies: [1]
-
-[1] https://patchwork.freedesktop.org/series/118088/
-
-Changes since v4:
- - Really add a fix for writeback code (got missing in the previous
-   series)
- - Reworked several printk formats strings to always use IRQ=[%d, %d]
-   (Marijn)
-
-Changes since v3:
- - Added a fix for writeback code
- - Fixed articles in commit message (Marijn)
- - Dropped dpu_hw_intr argument of dpu_core_irq_is_valid() (Marijn)
- - Reworked REG_IRQ_BIT / REG_IRQ_MASK / REG_IRQ_IDX (Marijn)
- - Fixed irq format strings (Marijn)
- - Also updated all trace points to use reg/bit pairs instead of raw
-   index
-
-Changes since v2:
- - Added the dpu_core_irq_is_valid() helper
- - Replaced irq_idx with reg/big pairs in kernel output
- - Readded -1 when accessing the IRQ structure.
-
-Changes since v1:
- - Rebased on top of msm-next-lumag and updated IRQ rework series.
-
-Dmitry Baryshkov (8):
-  drm/msm/dpu: fix the irq index in
-    dpu_encoder_phys_wb_wait_for_commit_done
-  drm/msm/dpu: remove irq_idx argument from IRQ callbacks
-  drm/msm/dpu: extract dpu_core_irq_is_valid() helper
-  drm/msm/dpu: add helper to get IRQ-related data
-  drm/msm/dpu: make the irq table size static
-  drm/msm/dpu: stop using raw IRQ indices in the kernel output
-  drm/msm/dpu: stop using raw IRQ indices in the kernel traces
-  drm/msm/dpu: shift IRQ indices by 1
-
- .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |   4 -
- .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |   4 -
- .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |   8 -
- .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  10 --
- .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |   3 -
- .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |   8 -
- .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |   3 -
- .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   1 -
- .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |   3 -
- .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   1 -
- .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   1 -
- .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |   8 -
- .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   6 -
- .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  13 --
- .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  12 --
- .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  12 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h  |   8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  41 +++--
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |   6 +-
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |   8 +-
- .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   4 +-
- .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  19 +--
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  14 +-
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 160 +++++++++++-------
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  20 ++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |  72 ++++----
- 26 files changed, 195 insertions(+), 254 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index a466ff70a4d6..78037a697633 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -446,7 +446,8 @@ static int dpu_encoder_phys_wb_wait_for_commit_done(
+ 	wait_info.atomic_cnt = &phys_enc->pending_kickoff_cnt;
+ 	wait_info.timeout_ms = KICKOFF_TIMEOUT_MS;
+ 
+-	ret = dpu_encoder_helper_wait_for_irq(phys_enc, INTR_IDX_WB_DONE,
++	ret = dpu_encoder_helper_wait_for_irq(phys_enc,
++			phys_enc->irq[INTR_IDX_WB_DONE],
+ 			dpu_encoder_phys_wb_done_irq, &wait_info);
+ 	if (ret == -ETIMEDOUT)
+ 		_dpu_encoder_phys_wb_handle_wbdone_timeout(phys_enc);
 -- 
 2.39.2
 
