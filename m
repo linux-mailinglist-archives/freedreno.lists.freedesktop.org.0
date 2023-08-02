@@ -1,88 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4239976CDEB
-	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 15:08:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A5EC76CF33
+	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 15:51:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0559D10E171;
-	Wed,  2 Aug 2023 13:08:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDEAA10E1A2;
+	Wed,  2 Aug 2023 13:51:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C99A910E179
- for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 13:08:44 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3175d5ca8dbso6036063f8f.2
- for <freedreno@lists.freedesktop.org>; Wed, 02 Aug 2023 06:08:44 -0700 (PDT)
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43ABA10E1A2
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 13:51:48 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id
+ af79cd13be357-76cab6fe9c0so330497985a.0
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Aug 2023 06:51:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690981723; x=1691586523;
- h=content-transfer-encoding:in-reply-to:subject:organization
- :references:cc:to:content-language:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=2gKqfx6Ptiw0IBGAk/3SH2zWXJ1w9LfF+qPC02xaE30=;
- b=P/EWJoARx3LF+9GRRrMNDO5ED5UI+uBEVUm/4dN9aG/einEUFd3LJPgFt6J1yY2A1R
- 21KN7UiekIiFUxocGJ8aX0bfEzvP+bqAXKZMQrugVgu/2m0dOnBnEi9W4G4tTSFDjbej
- Kqjcm94Qs3QYQRvgvW01wYn9ySkuBCm9qoeycc5TMTPfSQdF8XoR64AhaR5z6r/9GLxb
- qJ9jFJN7CKIaYSOcUJfopvQsXpgDVrOM3UAb2mYBwt52S6bQQQ4ZgN15T1L3mBCN23Ku
- JAQA8XjpaVIKQiPRj66vCrsRfOQQf0RoT2vsnLeWMI8dwfynmRG00J3d6tgnuig29I9C
- SKiw==
+ d=marek-ca.20221208.gappssmtp.com; s=20221208; t=1690984307; x=1691589107;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l1zIwGQ1HZMb0pN+mUSGNHuePnalac4Pl8tVWYqsfVw=;
+ b=nn/5AxkS768/jvAiPhVwNmrYfMymkvIhBxizk84LoThX/jtNxpq5b3gruU6lrYUmjS
+ yLmNxZXOnJ3yALNI2clOe97krKwCf2yvznzlmKTEau/BsR4mntw25XMynGRXjWaqFMip
+ 9wsASCi70GrftHbVGekSQyLRUqFTiLc8d0SP9o/SUo2LaJxwl8WP4H0xoEDgCTcnSD41
+ Eo2U3DmxIJtXBOsUv3C6VCAIGn3iThTkb+50kSPenb3KkBl/wW73UfggTC6N31jeoVzr
+ Ya5YIK3zv0vx0gF9aPvVnsErWu3NXu4jqH/N1DE1pJCkZBwkAL2HUOv1g/M88qwPd9LB
+ K5vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690981723; x=1691586523;
- h=content-transfer-encoding:in-reply-to:subject:organization
- :references:cc:to:content-language:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=2gKqfx6Ptiw0IBGAk/3SH2zWXJ1w9LfF+qPC02xaE30=;
- b=cZ+mIdYHaPDuVWP1MQWAtwDtWseSbwNlS0NPl+NAgEBaubEAn9YCRDURr+3S+E3LcI
- l7CEAmRar0KmA7FrUEfREgVjf9m0U4EAfX7BkjPwC4Ey4DrT7WoaWsS2OGhOsodlZqVF
- bOugG04LSfTH0L9EuMbaLohWM5BdDK/A8qJOW8A4J02naBsodGW7usd/owHwbqyrKhOw
- jkZaebCC4446vEQXKZCpJVE+360u7fzWIg4w8VldUEvorimLLV+cZcvIA4+fzIgOt8d9
- Bg1gvfM/3yrhHVxCHuABmNWmHBkIrJoVpsFtss9UcGX6V0CCeXCX5AOtfMjWUGtF863Z
- nkVg==
-X-Gm-Message-State: ABy/qLYIpT9vmETAp+dP2hh+k8mGM8obrGnkuAxYnijM5q+jxGxjvxDY
- +Yes2G8/XKjz/90FmHwtTmLZRg==
-X-Google-Smtp-Source: APBJJlG8sr5jUWBVjL3BRFAbmn29x9oHMrYNBecenH9BIKBdXscxcFgCB56BCi9tNLKpz3rMG31rBg==
-X-Received: by 2002:adf:face:0:b0:313:f07b:801f with SMTP id
- a14-20020adfface000000b00313f07b801fmr4563714wrs.44.1690981722963; 
- Wed, 02 Aug 2023 06:08:42 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:c5bb:5b4:61e3:d196?
- ([2a01:e0a:982:cbb0:c5bb:5b4:61e3:d196])
+ d=1e100.net; s=20221208; t=1690984307; x=1691589107;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l1zIwGQ1HZMb0pN+mUSGNHuePnalac4Pl8tVWYqsfVw=;
+ b=MC3SYYN7LX62hGX+kOFvoolwkjlztUnDV30rV5IqIeT9GakpwNZG8UEjHEBlThqMhV
+ nmUXqDu5mxHDnsMtdS2fE7nWNrIVFSirENY/E7OJGmbZamCG4vZn5mcpoveUoXyuk1/c
+ H1DM4jFus4fvo3/Val9EasMuEf+OojkXRl8MsISLBnjFJk0XbRO/UgkYKgH5rDSzJRZb
+ 50tZl1yjokHrFVe0BlDQizS7EtU0BZ5CtjIeVHptUB8rKG9wyASElIiciD3bxx5/pmhC
+ iZ4ftTrTZbKHCH8c+47DCcNmkdJ4Wg3Vlh3dTGE6lo3C2bgYJ4Iic3bv1oXTS/uXNyIC
+ +6cQ==
+X-Gm-Message-State: ABy/qLa6U3X27lnZJloncGNLkhO8hbJDnJa9tb1uWFBTln7dp1ijsCcb
+ 7aATGuAOidZLLxfLNRDcAfT8192v7EG8k/S5LOk=
+X-Google-Smtp-Source: APBJJlFmLcYtLxH6sMGVtzSX8BEJweW9TY6EYu1M71HYfJNUqmKuzhIUPnezEohxfEVeACGveZXtog==
+X-Received: by 2002:a0c:e448:0:b0:63d:4a9b:b29f with SMTP id
+ d8-20020a0ce448000000b0063d4a9bb29fmr14482083qvm.65.1690984307163; 
+ Wed, 02 Aug 2023 06:51:47 -0700 (PDT)
+Received: from localhost.localdomain
+ (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
  by smtp.gmail.com with ESMTPSA id
- m12-20020adff38c000000b00313f031876esm19063623wro.43.2023.08.02.06.08.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Aug 2023 06:08:42 -0700 (PDT)
-Message-ID: <d4b778f6-35b6-fc1b-014d-eaa9b3b900a4@linaro.org>
-Date: Wed, 2 Aug 2023 15:08:41 +0200
+ k24-20020a05620a143800b0076c9e981b6bsm3492191qkj.57.2023.08.02.06.51.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Aug 2023 06:51:46 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Wed,  2 Aug 2023 09:48:53 -0400
+Message-Id: <20230802134900.30435-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-From: neil.armstrong@linaro.org
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Amit Pundir <amit.pundir@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230403221233.500485-1-marex@denx.de>
- <20230403221233.500485-2-marex@denx.de>
- <CAMi1Hd0TD=2z_=bcDrht3H_wiLvAFcv8Z-U_r_KUOoeMc6UMjw@mail.gmail.com>
- <CAMty3ZBNFu=f-FS4YFN4wfmiTuk=48nna-vub1eMYwidDt+msg@mail.gmail.com>
- <CAA8EJppbdiUz5m+9EAPnFb916DaS_VKWd30c7_EPWjuid8rtqQ@mail.gmail.com>
- <CAMi1Hd2G5PJmz4wpO1wbdqKd0FA8LBgvRDv2u5ZYAMb5s6Kt0A@mail.gmail.com>
- <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
- <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
- <4396d197-f16f-92bd-727c-eb8c78016198@quicinc.com>
- <961b4747-c9f1-a31c-c33c-475b4803f832@denx.de>
- <64c3352f-c2aa-5260-c6ff-4a607ce219a2@quicinc.com>
- <f768950b-0406-1f03-86a5-50d5794bb060@denx.de>
- <51d782c4-3539-c3d3-6844-d6b9a39c09eb@linaro.org>
- <88a49ed7-8132-3212-1f7a-9378eb640d68@denx.de>
-Organization: Linaro Developer Services
-In-Reply-To: <88a49ed7-8132-3212-1f7a-9378eb640d68@denx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
- HFP/HBP/HSA and EOT packet
+Subject: [Freedreno] [PATCH] drm/msm/dpu: increase memtype count to 16 for
+ sm8550
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,86 +72,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: Robert Foss <rfoss@kernel.org>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Michael Walle <michael@walle.cc>, Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Marek,
+sm8550 has 16 vbif clients.
 
-On 02/08/2023 14:25, Marek Vasut wrote:
-> On 8/2/23 10:39, neil.armstrong@linaro.org wrote:
->> Hi Marek,
-> 
-> Hi,
-> 
->> On 13/07/2023 20:28, Marek Vasut wrote:
->>
->> <snip>
->>
->>>>>
->>>>> MIPI_DSI_MODE_VIDEO_NO_HFP means the HBP period is just skipped by DSIM.
->>>>>
->>>>> Maybe there is a need for new set of flags which differentiate between HBP skipped (i.e. NO HBP) and HBP LP11 ?
->>>>>
->>>>
->>>> No, the section of the MIPI DSI spec I posted below clearly states there are two options:
->>>>
->>>> 1) send blanking packets during those periods
->>>> 2) transition to LP11 during those periods
->>>>
->>>> There is no 3rd option in the spec of not doing both like what you are suggesting. So DSIM should also be only transitioning to LP11 during those periods if its not sending the blanking packets with those flags set.
->>>>
->>>> So, there is no need for any new set of flags to differentiate.
->>>>
->>>> The flags and their interpretation is correct in MSM driver. I cannot comment on what exactly DSIM does with those flags.
->>>
->>> How do you explain the comment in include/drm/drm_mipi_dsi.h:
->>>
->>> 128 /* disable hback-porch area */
->>> 129 #define MIPI_DSI_MODE_VIDEO_NO_HBP      BIT(6)
->>
->> Can you specify how you determined those flags were needed on DSIM ? a vendor tree ? a datasheet ?
-> 
-> The following upstream commit:
-> 
-> 996e1defca344 ("drm: exynos: dsi: Fix MIPI_DSI*_NO_* mode flags")
-> 
->> In the meantime, we should revert this patch because it regresses some Qcom
->> based platforms until we figure out what's missing to make DSIM based boards
->> happy.
->>
->> I'll send a revert change afterwards.
-> 
-> That change would break existing use case on i.MX8M then, I disagree with that revert.
+This fixes the extra 2 clients (DMA4/DMA5) not having their memtype
+initialized. This fixes DMA4/DMA5 planes not displaying correctly.
 
-As I understand the timeline is :
+Fixes: efcd0107 ("drm/msm/dpu: add support for SM8550")
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+---
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  4 ++--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 20 +++++++++++++++++++
+ 2 files changed, 22 insertions(+), 2 deletions(-)
 
-- 996e1defca344 was merged in v6.2-rc2 and caused regression on NXP platforms
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+index f17b9a7fee85..89a2ac1e840d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+@@ -245,8 +245,8 @@ const struct dpu_mdss_cfg dpu_sm8550_cfg = {
+ 	.merge_3d = sm8550_merge_3d,
+ 	.intf_count = ARRAY_SIZE(sm8550_intf),
+ 	.intf = sm8550_intf,
+-	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+-	.vbif = sdm845_vbif,
++	.vbif_count = ARRAY_SIZE(sm8550_vbif),
++	.vbif = sm8550_vbif,
+ 	.perf = &sm8550_perf_data,
+ 	.mdss_irqs = BIT(MDP_SSPP_TOP0_INTR) | \
+ 		     BIT(MDP_SSPP_TOP0_INTR2) | \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 0de507d4d7b7..8b17a4a9b438 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -663,6 +663,26 @@ static const struct dpu_vbif_cfg sdm845_vbif[] = {
+ 	},
+ };
+ 
++static const struct dpu_vbif_cfg sm8550_vbif[] = {
++	{
++	.name = "vbif_rt", .id = VBIF_RT,
++	.base = 0, .len = 0x1040,
++	.features = BIT(DPU_VBIF_QOS_REMAP),
++	.xin_halt_timeout = 0x4000,
++	.qos_rp_remap_size = 0x40,
++	.qos_rt_tbl = {
++		.npriority_lvl = ARRAY_SIZE(sdm845_rt_pri_lvl),
++		.priority_lvl = sdm845_rt_pri_lvl,
++		},
++	.qos_nrt_tbl = {
++		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
++		.priority_lvl = sdm845_nrt_pri_lvl,
++		},
++	.memtype_count = 16,
++	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
++	},
++};
++
+ /*************************************************************
+  * PERF data config
+  *************************************************************/
+-- 
+2.26.1
 
-- 8ddce13ae696 was merged in v6.5-rc1 to fix that but caused regression on QCOM platforms
-
-Did I miss something ?
-
-I don't know how to handle this apart reverting 8ddce13ae696 and trying to find a proper fix that doesn't regress QCOM.
-
-So, The main issue is around the real meaning of the IPI_DSI_MODE_VIDEO_NO_* flags,
-Exynos DRM removed the HSA, HBP and HFP packets, Qcom DSI moves the DSI lanes
-state to LP-11 during the period.
-
-The behavior is significantly different and the naming doesn't suggest any
-correct behavior.
-
-The only solution is to find out why :
-- On Qcom platforms, having the HSA, HBP and HFP periods is OK, but not on DSIM
-- On DSIM, removing the HSA, HBP and HFP periods is fine
-- What's the exact requirement of the lt9611 bridge concerning those periods
-
-Neil
