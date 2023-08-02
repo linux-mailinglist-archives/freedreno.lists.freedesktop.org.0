@@ -1,40 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6EA076CC94
-	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 14:25:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4239976CDEB
+	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 15:08:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 746C310E0B5;
-	Wed,  2 Aug 2023 12:25:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0559D10E171;
+	Wed,  2 Aug 2023 13:08:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 501AC10E0B5;
- Wed,  2 Aug 2023 12:25:25 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 4F8BE86839;
- Wed,  2 Aug 2023 14:25:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1690979123;
- bh=lG/SL2bAOZTbz6YJmrIJViDYuRVyF1NDlcj3sZIb0iM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hnE8WtIASiyatRx+LvqTvUNOLL0QRQW2sNai260TIls9FJC9uTMxxc08WUm/H/doT
- uszoDbblktLiWpcTFRUPrQfU5/ih7QivweZQx3cu+LFurZ2AOXVl4gVVV+rjgQUJ0B
- O/p3rGExvUB9ImkX+0QYglUzNjpPTtjQSdKSTI8SBqwL90A4n7/mb/NK2o/K7dukzg
- NLy+Ql/C7mJJJ4jgI8KyudSirFx+NraolBxLKS099Lph682K3BhRqEoc3Ddrh7dCaD
- c6zk9QT8OiRDbVvTtHAp0Kwt98PVDXNb5pIDe9novcx4mpUba+HYFsXJhKPsVQylyf
- 2FGGdDn34uITQ==
-Message-ID: <88a49ed7-8132-3212-1f7a-9378eb640d68@denx.de>
-Date: Wed, 2 Aug 2023 14:25:21 +0200
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C99A910E179
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Aug 2023 13:08:44 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3175d5ca8dbso6036063f8f.2
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Aug 2023 06:08:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690981723; x=1691586523;
+ h=content-transfer-encoding:in-reply-to:subject:organization
+ :references:cc:to:content-language:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=2gKqfx6Ptiw0IBGAk/3SH2zWXJ1w9LfF+qPC02xaE30=;
+ b=P/EWJoARx3LF+9GRRrMNDO5ED5UI+uBEVUm/4dN9aG/einEUFd3LJPgFt6J1yY2A1R
+ 21KN7UiekIiFUxocGJ8aX0bfEzvP+bqAXKZMQrugVgu/2m0dOnBnEi9W4G4tTSFDjbej
+ Kqjcm94Qs3QYQRvgvW01wYn9ySkuBCm9qoeycc5TMTPfSQdF8XoR64AhaR5z6r/9GLxb
+ qJ9jFJN7CKIaYSOcUJfopvQsXpgDVrOM3UAb2mYBwt52S6bQQQ4ZgN15T1L3mBCN23Ku
+ JAQA8XjpaVIKQiPRj66vCrsRfOQQf0RoT2vsnLeWMI8dwfynmRG00J3d6tgnuig29I9C
+ SKiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690981723; x=1691586523;
+ h=content-transfer-encoding:in-reply-to:subject:organization
+ :references:cc:to:content-language:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=2gKqfx6Ptiw0IBGAk/3SH2zWXJ1w9LfF+qPC02xaE30=;
+ b=cZ+mIdYHaPDuVWP1MQWAtwDtWseSbwNlS0NPl+NAgEBaubEAn9YCRDURr+3S+E3LcI
+ l7CEAmRar0KmA7FrUEfREgVjf9m0U4EAfX7BkjPwC4Ey4DrT7WoaWsS2OGhOsodlZqVF
+ bOugG04LSfTH0L9EuMbaLohWM5BdDK/A8qJOW8A4J02naBsodGW7usd/owHwbqyrKhOw
+ jkZaebCC4446vEQXKZCpJVE+360u7fzWIg4w8VldUEvorimLLV+cZcvIA4+fzIgOt8d9
+ Bg1gvfM/3yrhHVxCHuABmNWmHBkIrJoVpsFtss9UcGX6V0CCeXCX5AOtfMjWUGtF863Z
+ nkVg==
+X-Gm-Message-State: ABy/qLYIpT9vmETAp+dP2hh+k8mGM8obrGnkuAxYnijM5q+jxGxjvxDY
+ +Yes2G8/XKjz/90FmHwtTmLZRg==
+X-Google-Smtp-Source: APBJJlG8sr5jUWBVjL3BRFAbmn29x9oHMrYNBecenH9BIKBdXscxcFgCB56BCi9tNLKpz3rMG31rBg==
+X-Received: by 2002:adf:face:0:b0:313:f07b:801f with SMTP id
+ a14-20020adfface000000b00313f07b801fmr4563714wrs.44.1690981722963; 
+ Wed, 02 Aug 2023 06:08:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:c5bb:5b4:61e3:d196?
+ ([2a01:e0a:982:cbb0:c5bb:5b4:61e3:d196])
+ by smtp.gmail.com with ESMTPSA id
+ m12-20020adff38c000000b00313f031876esm19063623wro.43.2023.08.02.06.08.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Aug 2023 06:08:42 -0700 (PDT)
+Message-ID: <d4b778f6-35b6-fc1b-014d-eaa9b3b900a4@linaro.org>
+Date: Wed, 2 Aug 2023 15:08:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
+ Thunderbird/102.13.0
+From: neil.armstrong@linaro.org
 Content-Language: en-US
-To: neil.armstrong@linaro.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Marek Vasut <marex@denx.de>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Amit Pundir <amit.pundir@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230403221233.500485-1-marex@denx.de>
@@ -50,12 +76,11 @@ References: <20230403221233.500485-1-marex@denx.de>
  <64c3352f-c2aa-5260-c6ff-4a607ce219a2@quicinc.com>
  <f768950b-0406-1f03-86a5-50d5794bb060@denx.de>
  <51d782c4-3539-c3d3-6844-d6b9a39c09eb@linaro.org>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <51d782c4-3539-c3d3-6844-d6b9a39c09eb@linaro.org>
+ <88a49ed7-8132-3212-1f7a-9378eb640d68@denx.de>
+Organization: Linaro Developer Services
+In-Reply-To: <88a49ed7-8132-3212-1f7a-9378eb640d68@denx.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
 Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
  HFP/HBP/HSA and EOT packet
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -70,6 +95,7 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Cc: Robert Foss <rfoss@kernel.org>,
  Linux regressions mailing list <regressions@lists.linux.dev>,
  Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
@@ -81,57 +107,74 @@ Cc: Robert Foss <rfoss@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/2/23 10:39, neil.armstrong@linaro.org wrote:
-> Hi Marek,
+Hi Marek,
 
-Hi,
-
-> On 13/07/2023 20:28, Marek Vasut wrote:
+On 02/08/2023 14:25, Marek Vasut wrote:
+> On 8/2/23 10:39, neil.armstrong@linaro.org wrote:
+>> Hi Marek,
 > 
-> <snip>
+> Hi,
 > 
->>>>
->>>> MIPI_DSI_MODE_VIDEO_NO_HFP means the HBP period is just skipped by 
->>>> DSIM.
->>>>
->>>> Maybe there is a need for new set of flags which differentiate 
->>>> between HBP skipped (i.e. NO HBP) and HBP LP11 ?
->>>>
->>>
->>> No, the section of the MIPI DSI spec I posted below clearly states 
->>> there are two options:
->>>
->>> 1) send blanking packets during those periods
->>> 2) transition to LP11 during those periods
->>>
->>> There is no 3rd option in the spec of not doing both like what you 
->>> are suggesting. So DSIM should also be only transitioning to LP11 
->>> during those periods if its not sending the blanking packets with 
->>> those flags set.
->>>
->>> So, there is no need for any new set of flags to differentiate.
->>>
->>> The flags and their interpretation is correct in MSM driver. I cannot 
->>> comment on what exactly DSIM does with those flags.
+>> On 13/07/2023 20:28, Marek Vasut wrote:
 >>
->> How do you explain the comment in include/drm/drm_mipi_dsi.h:
+>> <snip>
 >>
->> 128 /* disable hback-porch area */
->> 129 #define MIPI_DSI_MODE_VIDEO_NO_HBP      BIT(6)
+>>>>>
+>>>>> MIPI_DSI_MODE_VIDEO_NO_HFP means the HBP period is just skipped by DSIM.
+>>>>>
+>>>>> Maybe there is a need for new set of flags which differentiate between HBP skipped (i.e. NO HBP) and HBP LP11 ?
+>>>>>
+>>>>
+>>>> No, the section of the MIPI DSI spec I posted below clearly states there are two options:
+>>>>
+>>>> 1) send blanking packets during those periods
+>>>> 2) transition to LP11 during those periods
+>>>>
+>>>> There is no 3rd option in the spec of not doing both like what you are suggesting. So DSIM should also be only transitioning to LP11 during those periods if its not sending the blanking packets with those flags set.
+>>>>
+>>>> So, there is no need for any new set of flags to differentiate.
+>>>>
+>>>> The flags and their interpretation is correct in MSM driver. I cannot comment on what exactly DSIM does with those flags.
+>>>
+>>> How do you explain the comment in include/drm/drm_mipi_dsi.h:
+>>>
+>>> 128 /* disable hback-porch area */
+>>> 129 #define MIPI_DSI_MODE_VIDEO_NO_HBP      BIT(6)
+>>
+>> Can you specify how you determined those flags were needed on DSIM ? a vendor tree ? a datasheet ?
 > 
-> Can you specify how you determined those flags were needed on DSIM ? a 
-> vendor tree ? a datasheet ?
-
-The following upstream commit:
-
-996e1defca344 ("drm: exynos: dsi: Fix MIPI_DSI*_NO_* mode flags")
-
-> In the meantime, we should revert this patch because it regresses some Qcom
-> based platforms until we figure out what's missing to make DSIM based 
-> boards
-> happy.
+> The following upstream commit:
 > 
-> I'll send a revert change afterwards.
+> 996e1defca344 ("drm: exynos: dsi: Fix MIPI_DSI*_NO_* mode flags")
+> 
+>> In the meantime, we should revert this patch because it regresses some Qcom
+>> based platforms until we figure out what's missing to make DSIM based boards
+>> happy.
+>>
+>> I'll send a revert change afterwards.
+> 
+> That change would break existing use case on i.MX8M then, I disagree with that revert.
 
-That change would break existing use case on i.MX8M then, I disagree 
-with that revert.
+As I understand the timeline is :
+
+- 996e1defca344 was merged in v6.2-rc2 and caused regression on NXP platforms
+
+- 8ddce13ae696 was merged in v6.5-rc1 to fix that but caused regression on QCOM platforms
+
+Did I miss something ?
+
+I don't know how to handle this apart reverting 8ddce13ae696 and trying to find a proper fix that doesn't regress QCOM.
+
+So, The main issue is around the real meaning of the IPI_DSI_MODE_VIDEO_NO_* flags,
+Exynos DRM removed the HSA, HBP and HFP packets, Qcom DSI moves the DSI lanes
+state to LP-11 during the period.
+
+The behavior is significantly different and the naming doesn't suggest any
+correct behavior.
+
+The only solution is to find out why :
+- On Qcom platforms, having the HSA, HBP and HFP periods is OK, but not on DSIM
+- On DSIM, removing the HSA, HBP and HFP periods is fine
+- What's the exact requirement of the lt9611 bridge concerning those periods
+
+Neil
