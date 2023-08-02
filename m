@@ -1,92 +1,85 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E999576D5FF
-	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 19:49:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B3D76D685
+	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 20:09:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC06C10E1B3;
-	Wed,  2 Aug 2023 17:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8C910E565;
+	Wed,  2 Aug 2023 18:09:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 460AB10E1B3;
- Wed,  2 Aug 2023 17:49:18 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD65610E55D;
+ Wed,  2 Aug 2023 18:09:11 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 372DO9o1026791; Wed, 2 Aug 2023 17:49:06 GMT
+ 372HYZln001884; Wed, 2 Aug 2023 18:09:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=/h5iN9dUI/LoZOiwTjf8345ud477edgZpv5BBlPCv7A=;
- b=CoAECWefA/Szyp4QPHeJvvYuSZWgoRgSGWZbUokzvHktUriMjtNZdlx5F8TRViJxr8dU
- nlV+yfgnJVKuV4hDnl/stfK2utfe1MqpiehNVQR2Ukug1NLvSSSG3DnRQfLGbDSkvAr/
- 9qAaE/8V6nIx2H/XbUJ0doOt7bEJnhEnrNuW76LCBr2Zrn6P/OXTUVoHGCFupxP4a1Y7
- O4lj4Dsbl8D2Qk1ob5ZvrvJfO467iO8xIUYTmigC4fdhw48Dpr1PJklAmrxVsiUafEXa
- 2P+dJLmBKr/eeqsiz2eV6Wm/gaTy60AJ6bXP8KEAj/Lon1gnF1SyYinB+DND9sbNi324 KQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s75dgb3wf-1
+ h=from : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding : to : cc; s=qcppdkim1;
+ bh=Z7+m9MRkLgFH+BPGaAMKQBZw7dNNSAUMw86L9LjuQT4=;
+ b=pBYWg6bqqO+P7gm0idvDtquXErMi287qKDhleNpSRDQZQBx/qBwFZynSwHXrSpha8ctk
+ mBYLxQ8rB8g2gZo7p+I/8U0M5XgvoakfLrJF3MF2c0bi+wXpPUyxn6+z0Zy+T3q4yYRQ
+ gAAfc+98qXL79qyCbbu9c9+AvHk0uYrL1QtR7/eV9yHT8Gh51BP8JQwUGc/QeUMvIZWU
+ j2au4T7dM/lmidqDBdafg3dQHVMJwYEiHLvsLwSNQtp+/n/fTcoUK+WH2CE367KvtQ3l
+ O/4fKZxQ4AMvpuoygdJBgMFEFDDYlZuGv/dPVJDk6pF66dsMdDqyBBF9wq4pz680nzD3 Jg== 
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s72gquknk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Aug 2023 17:49:05 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 372Hn4M4011685
+ Wed, 02 Aug 2023 18:09:08 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 372I97aP031812
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 2 Aug 2023 17:49:04 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 2 Aug
- 2023 10:49:03 -0700
-Message-ID: <9fae9cc5-7de0-7a65-8400-bb55263c0377@quicinc.com>
-Date: Wed, 2 Aug 2023 10:49:02 -0700
+ Wed, 2 Aug 2023 18:09:07 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.30; Wed, 2 Aug 2023 11:09:07 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Wed, 2 Aug 2023 11:08:47 -0700
+Message-ID: <20230802-add-widebus-support-v3-0-2661706be001@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <neil.armstrong@linaro.org>, Amit Pundir
- <amit.pundir@linaro.org>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230403221233.500485-1-marex@denx.de>
- <20230403221233.500485-2-marex@denx.de>
- <CAMi1Hd0TD=2z_=bcDrht3H_wiLvAFcv8Z-U_r_KUOoeMc6UMjw@mail.gmail.com>
- <CAMty3ZBNFu=f-FS4YFN4wfmiTuk=48nna-vub1eMYwidDt+msg@mail.gmail.com>
- <CAA8EJppbdiUz5m+9EAPnFb916DaS_VKWd30c7_EPWjuid8rtqQ@mail.gmail.com>
- <CAMi1Hd2G5PJmz4wpO1wbdqKd0FA8LBgvRDv2u5ZYAMb5s6Kt0A@mail.gmail.com>
- <d5fb8106-b8f3-0acf-1267-d4d6d0860e25@linaro.org>
- <d28b0090-bd1e-6737-d92b-348dc6c30750@linaro.org>
- <4396d197-f16f-92bd-727c-eb8c78016198@quicinc.com>
- <961b4747-c9f1-a31c-c33c-475b4803f832@denx.de>
- <64c3352f-c2aa-5260-c6ff-4a607ce219a2@quicinc.com>
- <f768950b-0406-1f03-86a5-50d5794bb060@denx.de>
- <51d782c4-3539-c3d3-6844-d6b9a39c09eb@linaro.org>
- <88a49ed7-8132-3212-1f7a-9378eb640d68@denx.de>
- <d4b778f6-35b6-fc1b-014d-eaa9b3b900a4@linaro.org>
- <c9e42b81-f0b4-05a7-03db-786fa7d38135@denx.de>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <c9e42b81-f0b4-05a7-03db-786fa7d38135@denx.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK+bymQC/32OwQ6CMBBEf8X07Jq2WKqePPsJGg+lXWQTKdgCY
+ gz/bvFiTIzH2dl5M08WMRBGtls8WcCBIjU+iWy5YLYy/oJALmkmucy4kgqMc3Anh0UfIfZt24Q
+ OSr1Rap0jaiVYShYmIhTBeFvN2cMR6liDx7GDa1+by/zTBixpfDefzklXFLsmPN5DBjFf/3cOA
+ jhYzfNtKbG0RuxvPVnydmWbms3EQX4oWmS/KRJEMnjy0Ald5N+UaZpe/xzU9yIBAAA=
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>
+X-Mailer: b4 0.13-dev-034f2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1690999747; l=2617;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=KSfiJP412T3sckmGlUyt/6jwYPL+0fA6TPTN0rnG9v8=;
+ b=S4OFU+fQO4meMNBdHdwTBiylgxl45k+bnNV2xiuZnMKzOtbFSBbMTtXy3Nl48xWRB+Nw3GsqM
+ NLFkcdPK7ycDa2WZMCaF6N46g6h3+PWRePFQji9WyMz7EssgBenpehQ
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: ECGW1qWEatLmkMpazbtMdmmABW7dPkqk
-X-Proofpoint-ORIG-GUID: ECGW1qWEatLmkMpazbtMdmmABW7dPkqk
+X-Proofpoint-GUID: HQVgJKg8RMigtvrwcskcpUvataQOK3pP
+X-Proofpoint-ORIG-GUID: HQVgJKg8RMigtvrwcskcpUvataQOK3pP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-02_14,2023-08-01_01,2023-05-22_02
+ definitions=2023-08-02_15,2023-08-01_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- phishscore=0 priorityscore=1501 clxscore=1011 malwarescore=0
- suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
- mlxlogscore=882 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308020157
-Subject: Re: [Freedreno] [PATCH 2/2] drm/bridge: lt9611: Do not generate
- HFP/HBP/HSA and EOT packet
+ mlxlogscore=999 adultscore=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
+ definitions=main-2308020160
+Subject: [Freedreno] [PATCH v3 0/4] drm/msm: Enable widebus for DSI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,141 +92,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Robert Foss <rfoss@kernel.org>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Michael Walle <michael@walle.cc>, Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Marek
+DSI 6G v2.5.x+ and DPU support a data-bus widen mode that allows DSI
+to send 48 bits of compressed data per pclk instead of 24.
 
-On 8/2/2023 10:25 AM, Marek Vasut wrote:
-> On 8/2/23 15:08, neil.armstrong@linaro.org wrote:
->> Hi Marek,
->>
->> On 02/08/2023 14:25, Marek Vasut wrote:
->>> On 8/2/23 10:39, neil.armstrong@linaro.org wrote:
->>>> Hi Marek,
->>>
->>> Hi,
->>>
->>>> On 13/07/2023 20:28, Marek Vasut wrote:
->>>>
->>>> <snip>
->>>>
->>>>>>>
->>>>>>> MIPI_DSI_MODE_VIDEO_NO_HFP means the HBP period is just skipped 
->>>>>>> by DSIM.
->>>>>>>
->>>>>>> Maybe there is a need for new set of flags which differentiate 
->>>>>>> between HBP skipped (i.e. NO HBP) and HBP LP11 ?
->>>>>>>
->>>>>>
->>>>>> No, the section of the MIPI DSI spec I posted below clearly states 
->>>>>> there are two options:
->>>>>>
->>>>>> 1) send blanking packets during those periods
->>>>>> 2) transition to LP11 during those periods
->>>>>>
->>>>>> There is no 3rd option in the spec of not doing both like what you 
->>>>>> are suggesting. So DSIM should also be only transitioning to LP11 
->>>>>> during those periods if its not sending the blanking packets with 
->>>>>> those flags set.
->>>>>>
->>>>>> So, there is no need for any new set of flags to differentiate.
->>>>>>
->>>>>> The flags and their interpretation is correct in MSM driver. I 
->>>>>> cannot comment on what exactly DSIM does with those flags.
->>>>>
->>>>> How do you explain the comment in include/drm/drm_mipi_dsi.h:
->>>>>
->>>>> 128 /* disable hback-porch area */
->>>>> 129 #define MIPI_DSI_MODE_VIDEO_NO_HBP      BIT(6)
->>>>
->>>> Can you specify how you determined those flags were needed on DSIM ? 
->>>> a vendor tree ? a datasheet ?
->>>
->>> The following upstream commit:
->>>
->>> 996e1defca344 ("drm: exynos: dsi: Fix MIPI_DSI*_NO_* mode flags")
->>>
->>>> In the meantime, we should revert this patch because it regresses 
->>>> some Qcom
->>>> based platforms until we figure out what's missing to make DSIM 
->>>> based boards
->>>> happy.
->>>>
->>>> I'll send a revert change afterwards.
->>>
->>> That change would break existing use case on i.MX8M then, I disagree 
->>> with that revert.
->>
->> As I understand the timeline is :
->>
->> - 996e1defca344 was merged in v6.2-rc2 and caused regression on NXP 
->> platforms
->>
->> - 8ddce13ae696 was merged in v6.5-rc1 to fix that but caused 
->> regression on QCOM platforms
->>
->> Did I miss something ?
-> 
-> That looks about right.
-> 
->> I don't know how to handle this apart reverting 8ddce13ae696 and 
->> trying to find a proper fix that doesn't regress QCOM.
-> 
-> I provided a suggestion above -- I believe QCOM is misinterpreting the 
-> NO_H* flags and it needs separate flags for its behavior. The NXP 
-> hardware per MX8M{M,N,P} reference manual (which is available at 
-> NXP.com) skips the H* areas in the transfer, which matches the flags 
-> description:
-> 
-> include/drm/drm_mipi_dsi.h-/* disable hback-porch area */
-> include/drm/drm_mipi_dsi.h:#define MIPI_DSI_MODE_VIDEO_NO_HBP   BIT(6)
-> 
-> If the QCOM hardware does something else, it should introduce its own 
-> set of flags for that something else and that would be problem solved, 
-> for both platforms.
-> 
-> I don't have access to the QCOM hardware or datasheet however, is either 
-> available ?
-> 
+For all chipsets that support this mode, enable it whenever DSC is
+enabled as recommended by the hardware programming guide.
 
-Like I have written above, the DSI spec gives two options which we can 
-do in the HBP/HSA/HFP periods:
+Only enable this for command mode as we are currently unable to validate
+widebus for video mode.
 
-1) Transition to LP11 which means blanking packets will not be sent
-2) Send blanking packets during those periods
+Depends on: "drm/msm/dpu: Drop encoder vsync_event" [1]
 
-That flag controls exactly that and thats what MSM does.
+Note: The dsi.xml.h changes were generated using the headergen2 script in
+envytools [2], but the changes to the copyright and rules-ng-ng source file
+paths were dropped.
 
-There is no third option in the spec to not do either.
+[1] https://patchwork.freedesktop.org/series/121742/
+[2] https://github.com/freedreno/envytools/
 
-Now, are you saying that those flags are providing some other third 
-option which is not even there in the DSI spec?
+--
+Changes in v3:
+- Split commit into DPU, dsi.xml.h, and DSI changes (Dmitry)
+- Add DSC enabled check to DSI *_is_widebus_enabled() helper (Dmitry)
+- Dropped mention of DPU in cover letter title
+- Moved setting of dpu_enc->wide_bus_en to dpu_encoder_virt_atomic_enable()
+- Link to v2: https://lore.kernel.org/r/20230713-add-widebus-support-v2-1-ad0added17b6@quicinc.com
 
+Changes in v2:
+- Rebased on top of "drm/msm/dpu: Re-introduce dpu core revision"
+- Squashed all commits to avoid breaking feature if the series is only partially applied
+- Moved DATABUS_WIDEN bit setting to dsi_ctr_enable() (Marijn)
+- Have DPU check if wide bus is requested by output driver (Dmitry)
+- Introduced bytes_per_pclk variable for dsi_timing_setup() hdisplay adjustment (Marijn)
+- Link to v1: https://lore.kernel.org/r/20230525-add-widebus-support-v1-0-c7069f2efca1@quicinc.com
 
->> So, The main issue is around the real meaning of the 
->> IPI_DSI_MODE_VIDEO_NO_* flags,
->> Exynos DRM removed the HSA, HBP and HFP packets, Qcom DSI moves the 
->> DSI lanes
->> state to LP-11 during the period.
->>
->> The behavior is significantly different and the naming doesn't suggest 
->> any
->> correct behavior.
->>
->> The only solution is to find out why :
->> - On Qcom platforms, having the HSA, HBP and HFP periods is OK, but 
->> not on DSIM
->> - On DSIM, removing the HSA, HBP and HFP periods is fine
->> - What's the exact requirement of the lt9611 bridge concerning those 
->> periods
-> 
-> See above.
+---
+Jessica Zhang (4):
+      drm/msm/dpu: Move DPU encoder wide_bus_en setting
+      drm/msm/dpu: Enable widebus for DSI INTF
+      drm/msm/dsi: Add DATABUS_WIDEN MDP_CTRL2 bit
+      drm/msm/dsi: Enable widebus for DSI
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 16 +++++++++---
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |  4 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  3 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  1 +
+ drivers/gpu/drm/msm/dsi/dsi.c                      |  5 ++++
+ drivers/gpu/drm/msm/dsi/dsi.h                      |  1 +
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 | 30 +++++++++++++++++++---
+ drivers/gpu/drm/msm/msm_drv.h                      |  6 ++++-
+ 9 files changed, 57 insertions(+), 10 deletions(-)
+---
+base-commit: e5046e719774f833d32e3e6064416bb792564c95
+change-id: 20230525-add-widebus-support-f785546ee751
+
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
