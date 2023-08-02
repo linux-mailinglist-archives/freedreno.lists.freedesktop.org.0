@@ -1,79 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5695376D8D7
-	for <lists+freedreno@lfdr.de>; Wed,  2 Aug 2023 22:49:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 19E8876DA71
+	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 00:11:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51D110E0AC;
-	Wed,  2 Aug 2023 20:49:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5C6110E05D;
+	Wed,  2 Aug 2023 22:10:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24C4A10E0AC;
- Wed,  2 Aug 2023 20:49:55 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 372DfL5I019235; Wed, 2 Aug 2023 20:49:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=LJ3/05DaywZuZ4/vziTgFISmUA89IEZ+tH1Ta7LeZns=;
- b=CnqTmOA9VD48EI8M7D+s/9T0nGUlc1bcL+Tt2vWNAhGALcNiUFN9mRIw7QiT2AhEDL6i
- bsxj9v8Zk7iXP8wU5BdOZumksbabmCVHYjQPGy1qyGGX5FtJjNbEU9cn8yp7C67pvJbc
- wf3ZyLj1aafYVWQUBfMVErTE8xa+fT3tEYDCMDlwG5e8jgiefNe2PjXgkd+wJ349Wzfi
- SH7z6Z9COm9Xc7o9EBqMpZw6Elmpd523+D+1ozR8FCr5NG2kJ382UzoqrUkOh67mr1FF
- umPo7eFwJK+y3CAndVer+buR6+glv58MPti8vueH9WK2UiyOaX7SFdjwpGdt1Lq4hdmr rA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s75dgbgb6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Aug 2023 20:49:46 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 372Knirg029796
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 2 Aug 2023 20:49:44 GMT
-Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 2 Aug
- 2023 13:49:44 -0700
-Message-ID: <e97d37d4-77bb-7e7d-073f-290088b63d5f@quicinc.com>
-Date: Wed, 2 Aug 2023 13:49:40 -0700
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1451F10E05D;
+ Wed,  2 Aug 2023 22:10:57 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-686f94328a4so230451b3a.0; 
+ Wed, 02 Aug 2023 15:10:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1691014256; x=1691619056;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZS7jKywCwzPEYTek2DVZfa+QW/jrs4EVMkt69yjjB4g=;
+ b=DM5GmrSrp7pkb96vFp0am+4e0FOtX8mlij/Tn+iVrr8Ot2sIwBau8udRx3G/H77fGB
+ xuqQ6Zg/gZv/DNaq+ZWWWPcR2KmOVYyev64d3HQV6c+LGsiKZruxPXKKGaPr8nmLuztM
+ mGseP5Re6VhyufBN1pVpf/Dca5YRxjO3wnkSlvveH72a86YvDYY4f+fuePY3H1tvnPBz
+ FzSyXTfclNUFncdAMwlPtT/+gJqZn2M6VYbuOODH5jS8bLjv0WFcA6p2GAX/g2Wq+Xs3
+ kkB7H7BOxODlq5DMtwOlNB4uNVFSbAA7I/dDzpYXI50vm3g/Coxii9wJe0prkhOh1td6
+ ggsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691014256; x=1691619056;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZS7jKywCwzPEYTek2DVZfa+QW/jrs4EVMkt69yjjB4g=;
+ b=WE++pz/HHRoEH9JcUzUzMl5SYmS/foqtunBZjLZQknIfu/xu2f7MdgxZkpAeEkSdgE
+ ATmFhvpaF1zboP4Ko/cYPnwmiNfEdD6uiyu2ZnBRkGFLASYVUD6mkKfCi5n/L/IADuOv
+ wMP466ew5H7fEez+kVcV8+WaTXNJCGzzGJ9dfYVo14H+ITnrZcPBbyMiWfgZApmzV3nR
+ fW7M40Ix14Oi4h8ycChuS+/XxMyvdouNs7P+g86+66fgAXDCWLhRFgBhDH72S5hcfOYN
+ YKW729a85aePKuQk1ajbEAhzIqxg3/KjrlQ6KEaw6RvhYWegiUZ3+Oqwr+b78HDdD9Y/
+ tAAQ==
+X-Gm-Message-State: ABy/qLa9yP6pXW5Rk2XbHNSSw1o+ep9oABhDg/QIcXPtCg3BHUUBq0R/
+ uNtlEV59MhkZ+Zj0Nmouw3i3ZfOYAZQ=
+X-Google-Smtp-Source: APBJJlFEQNzOIOSaw5Pe1VIp3Muf2+ySX824Yhcd2Q2fgmtJ9+vtqc93rg73zYoliwszPRCir3NZjw==
+X-Received: by 2002:a05:6a00:847:b0:67a:52a7:b278 with SMTP id
+ q7-20020a056a00084700b0067a52a7b278mr22331335pfk.9.1691014255942; 
+ Wed, 02 Aug 2023 15:10:55 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:33de:aac3:fe1d:788])
+ by smtp.gmail.com with ESMTPSA id
+ ey2-20020a056a0038c200b006829969e3b0sm11460134pfb.85.2023.08.02.15.10.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Aug 2023 15:10:55 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed,  2 Aug 2023 15:10:44 -0700
+Message-ID: <20230802221047.9944-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Marijn Suijten <marijn.suijten@somainline.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <20230802183655.4188640-1-dmitry.baryshkov@linaro.org>
- <20230802183655.4188640-2-dmitry.baryshkov@linaro.org>
- <qphzjpmmqfhti3tblhtv26xl4erzyi6xi6piyjvdzhji6bdnik@ivsgw364ea5u>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <qphzjpmmqfhti3tblhtv26xl4erzyi6xi6piyjvdzhji6bdnik@ivsgw364ea5u>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: zXLl8UJjNikW4vwiwj39MxHcWVqilb_I
-X-Proofpoint-ORIG-GUID: zXLl8UJjNikW4vwiwj39MxHcWVqilb_I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-02_18,2023-08-01_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- phishscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
- suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
- mlxlogscore=999 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308020183
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: fix DSC 1.2 enc
- subblock length
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC] drm/msm: Disallow relocs on a6xx+
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,66 +70,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+Mesa stopped using these pretty early in a6xx bringup.  Take advantage
+of this to disallow some legacy UABI.
 
-On 8/2/2023 12:46 PM, Marijn Suijten wrote:
-> On 2023-08-02 21:36:55, Dmitry Baryshkov wrote:
->> Both struct dpu_dsc_sub_blks instances declare enc subblock length to be
->> 0x100, while the actual length is 0x9c (last register having offset 0x98).
->> Reduce subblock length to remove the empty register space from being
->> dumped.
->>
->> Fixes: 0d1b10c63346 ("drm/msm/dpu: add DSC 1.2 hw blocks for relevant chipsets")
->> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>
->> Changes since v1:
->>   - Rebased on top of the catalog changes
->>
->> ---
->>
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> index 3ff07d7cbf4b..f1bac5e88249 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> @@ -456,12 +456,12 @@ static const struct dpu_pingpong_sub_blks sc7280_pp_sblk = {
->>    * DSC sub blocks config
->>    *************************************************************/
->>   static const struct dpu_dsc_sub_blks dsc_sblk_0 = {
->> -	.enc = {.name = "enc", .base = 0x100, .len = 0x100},
->> +	.enc = {.name = "enc", .base = 0x100, .len = 0x9c},
->>   	.ctl = {.name = "ctl", .base = 0xF00, .len = 0x10},
-> 
-> For the time being only ctl register 0x00 and 0x04 is touched,
-> DATA_IN_SWAP and CLK_CTRL at 0x08 and 0x0c are defined but not used,
-> though it might still be useful to see their current value in the dump.
-> 
-> - Marijn
-> 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+So, it was late 2018 when mesa stopped using relocs.  At that point a6xx
+support was still in a pretty early state.  I guess you _could_ use such
+an old version of mesa with a6xx hw.. but you really shouldn't.
 
-Yes, we should keep them.
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  2 ++
+ drivers/gpu/drm/msm/msm_gem_submit.c    | 10 ++++++++++
+ drivers/gpu/drm/msm/msm_gpu.h           |  9 +++++++++
+ 3 files changed, 21 insertions(+)
 
->>   };
->>   
->>   static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
->> -	.enc = {.name = "enc", .base = 0x200, .len = 0x100},
->> +	.enc = {.name = "enc", .base = 0x200, .len = 0x9c},
->>   	.ctl = {.name = "ctl", .base = 0xF80, .len = 0x10},
->>   };
->>   
->> -- 
->> 2.39.2
->>
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index ba35c2a87021..695cce82d914 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -1078,6 +1078,8 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	adreno_gpu->info = config->info;
+ 	adreno_gpu->chip_id = config->chip_id;
+ 
++	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
++
+ 	/* Only handle the core clock when GMU is not in use (or is absent). */
+ 	if (adreno_has_gmu_wrapper(adreno_gpu) ||
+ 	    adreno_gpu->info->family < ADRENO_6XX_GEN1) {
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 63c96416e183..3b908f9f5493 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -882,6 +882,16 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		if (submit->valid)
+ 			continue;
+ 
++		if (!gpu->allow_relocs) {
++			if (submit->cmd[i].nr_relocs) {
++				DRM_ERROR("relocs not allowed\n");
++				ret = -EINVAL;
++				goto out;
++			}
++
++			continue;
++		}
++
+ 		ret = submit_reloc(submit, msm_obj, submit->cmd[i].offset * 4,
+ 				submit->cmd[i].nr_relocs, submit->cmd[i].relocs);
+ 		if (ret)
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 7a4fa1b8655b..4252e3839fbc 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -285,6 +285,15 @@ struct msm_gpu {
+ 	/* True if the hardware supports expanded apriv (a650 and newer) */
+ 	bool hw_apriv;
+ 
++	/**
++	 * @allow_relocs: allow relocs in SUBMIT ioctl
++	 *
++	 * Mesa won't use relocs for driver version 1.4.0 and later.  This
++	 * switch-over happened early enough in mesa a6xx bringup that we
++	 * can disallow relocs for a6xx and newer.
++	 */
++	bool allow_relocs;
++
+ 	struct thermal_cooling_device *cooling;
+ };
+ 
+-- 
+2.41.0
+
