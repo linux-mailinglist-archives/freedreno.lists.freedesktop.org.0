@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E397676E334
-	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 10:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 954E876E349
+	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 10:38:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA20410E5CF;
-	Thu,  3 Aug 2023 08:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6138210E5D3;
+	Thu,  3 Aug 2023 08:38:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3453B10E5CF
- for <freedreno@lists.freedesktop.org>; Thu,  3 Aug 2023 08:35:20 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5230f92b303so78501a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 03 Aug 2023 01:35:20 -0700 (PDT)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2021E10E5D4
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Aug 2023 08:38:03 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-98273ae42d0so21205266b.0
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Aug 2023 01:38:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1691051718; x=1691656518;
+ d=ffwll.ch; s=google; t=1691051881; x=1691656681;
  h=in-reply-to:content-disposition:mime-version:references
  :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+nym283wLVf/ofUyIRllrpdMxMhpWulj6DQA5tLBOCs=;
- b=U1btXfNHgkSw67b9y5Ateu4cMgn1vtw7k2bxBzgT7E5JMW/kySvRli/gC4fFOoE4VC
- Vi8SFXnpnCvX2xKUxS1X/aT0Ijy1YGR7akJjwAcRrcbmDkSDi+wEtHV0ftZ8qS6MjqGA
- zvXfos5vDZDGf+RhpEj29P+Y4/lCsFQ+98jdI=
+ bh=YLeBA2gvCKSwrQ2IvmVGA7dsAuidJbK+oOtl2KRNGpE=;
+ b=dkoz6pqa4E8bxR4RkItrXILd3Y/VJzIvTG++n03jk/d8c59UylipU/Ba3IwteUXleg
+ DnpklusI8Og2PfgPLyG6IY//WsWP/Fl3CKJ8K91058WfHk5snuYIzZLwBjcT1MPiQ5gs
+ GQi6UsHsMfrjgwhiHG7GBTtxJRlCmOAfdTMGE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691051718; x=1691656518;
+ d=1e100.net; s=20221208; t=1691051881; x=1691656681;
  h=in-reply-to:content-disposition:mime-version:references
  :mail-followup-to:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+nym283wLVf/ofUyIRllrpdMxMhpWulj6DQA5tLBOCs=;
- b=FxCX5qci3OjQl0ShEEb1lbKxsLRgWgDCmruEGaUh7h0RM7D7++dgZpH5GR2uWsumxb
- VUwMHAvt4LGc/Oz5n+F8vWAUXKdnfCklcPMI6GCpekaDWLBNbPR4UpEgGlQfldFjrQJu
- L50hr2ipJGLr/ftfsTCxXnvTQ4bN0wuBMRHxuOvy83WaAFAdszWjQKI/VKipm6N9/HyY
- f1OEIE3o9pXcqfjFctKBFG7x3XB3q78nAGg14UuLjr55mv8j/+Xk74C1Gm5Oh8tk1Xe4
- yJIu4csTm6C+k6iZkcpfQniS+GOiWPV/bcJ7dG4HjDwH0EQ5nKgneUZ16ZNjUNwiihqO
- rxlQ==
-X-Gm-Message-State: ABy/qLZUnnr2xJHcJ2RLtJBXvziUc9tfsLyozPAVEwhAFdUsBYYppz8L
- wtdY0KF8C5X83cNy0A4K9NvpUg==
-X-Google-Smtp-Source: APBJJlHR5HZIx8b6Bh12zKXRTxSAfFBj8gJM1k630umLgblmMmLiGD1pmEbvvLNQvVT3Eye0kTiaOQ==
-X-Received: by 2002:a17:906:5303:b0:99b:4670:aca9 with SMTP id
- h3-20020a170906530300b0099b4670aca9mr11386895ejo.1.1691051718456; 
- Thu, 03 Aug 2023 01:35:18 -0700 (PDT)
+ bh=YLeBA2gvCKSwrQ2IvmVGA7dsAuidJbK+oOtl2KRNGpE=;
+ b=Rrh9GMZtQ81qrfRD6geoekqutWrMFi6Jf1gRLf2ZvDcQS5MXRvcoliYWLNF8FrKRsW
+ cf9bLVtkKGW4xRVx8IxIlsDVzoHNya9Y0RJtJW4PkRZs3z74Bxzzbw9sL0+IYr4N22nC
+ BvJ1zpXqVnNybiiiKj1QQTKHzDmbbOo3Gyk+4f5q3iqQAT62Py2NeUZEOcOEp/PfXIX/
+ EY+TumRSCkvyy7I/33tnjKQ/Ohc8hRZy9/FmjAPVG4SnhcPPqEMvqsNLq2SQaSZUOarx
+ mNrAb9itanb53kYQTwspF480sFoKU/YVuWHAyTuWr3qWlothjXmWXHBgqxDGMiAzUwsm
+ 21ug==
+X-Gm-Message-State: ABy/qLbLd3tl5Shh7zInTLKg/SjIWeHXPSf1evKv+BnRDbC6xjywMfnB
+ r91Jui8c9k8YQQbCrdSr1D/Dwg==
+X-Google-Smtp-Source: APBJJlEPTLJ8mnYKZG5mALpz1XgrinUrw5SQRSvDFIWcwmGgjU0tebOBnTwaHBT9+oxIBjM2QZQkWA==
+X-Received: by 2002:a17:906:112:b0:99b:c845:7917 with SMTP id
+ 18-20020a170906011200b0099bc8457917mr13076136eje.4.1691051881488; 
+ Thu, 03 Aug 2023 01:38:01 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- a18-20020a1709065f9200b0099c53c44083sm1218165eju.79.2023.08.03.01.35.17
+ y9-20020a170906470900b0099bc8db97bcsm10143956ejq.131.2023.08.03.01.38.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Aug 2023 01:35:17 -0700 (PDT)
-Date: Thu, 3 Aug 2023 10:35:15 +0200
+ Thu, 03 Aug 2023 01:38:00 -0700 (PDT)
+Date: Thu, 3 Aug 2023 10:37:58 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZMtmw8pzLXy/ndCw@phenom.ffwll.local>
+Message-ID: <ZMtnZgpv4TQtYybA@phenom.ffwll.local>
 Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
@@ -60,16 +60,15 @@ Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
  open list <linux-kernel@vger.kernel.org>
-References: <20230802221047.9944-1-robdclark@gmail.com>
+References: <20230802222158.11838-1-robdclark@gmail.com>
+ <20230802222158.11838-5-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230802221047.9944-1-robdclark@gmail.com>
+In-Reply-To: <20230802222158.11838-5-robdclark@gmail.com>
 X-Operating-System: Linux phenom 6.3.0-2-amd64 
-Subject: Re: [Freedreno] [RFC] drm/msm: Disallow relocs on a6xx+
+Subject: Re: [Freedreno] [PATCH 4/4] drm/msm: Remove vma use tracking
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,11 +81,9 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
  Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -94,84 +91,303 @@ Cc: Rob Clark <robdclark@chromium.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 02, 2023 at 03:10:44PM -0700, Rob Clark wrote:
+On Wed, Aug 02, 2023 at 03:21:52PM -0700, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> Mesa stopped using these pretty early in a6xx bringup.  Take advantage
-> of this to disallow some legacy UABI.
+> This was not strictly necessary, as page unpinning (ie. shrinker) only
+> cares about the resv.  It did give us some extra sanity checking for
+> userspace controlled iova, and was useful to catch issues on kernel and
+> userspace side when enabling userspace iova.  But if userspace screws
+> this up, it just corrupts it's own gpu buffers and/or gets iova faults.
+> So we can just let userspace shoot it's own foot and drop the extra per-
+> buffer SUBMIT overhead.
 > 
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
-> So, it was late 2018 when mesa stopped using relocs.  At that point a6xx
-> support was still in a pretty early state.  I guess you _could_ use such
-> an old version of mesa with a6xx hw.. but you really shouldn't.
+
+I did check a few things (like that the gem lru helpers have all the
+needed lockdep_assert_held) and I think aside from the optimization this
+is a nice semantic cleanup. Since iirc we've had a locking inversion
+discussion and the vma tracking here came up as a culprit. On the series:
 
 Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Might be good to cite the mesa commit that removed the a6xx reloc code in
-the commit message.
--Sima
-
+> ---
+>  drivers/gpu/drm/msm/msm_gem.c        |  9 +---
+>  drivers/gpu/drm/msm/msm_gem.h        | 12 +----
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 14 ++----
+>  drivers/gpu/drm/msm/msm_gem_vma.c    | 67 +---------------------------
+>  drivers/gpu/drm/msm/msm_ringbuffer.c |  3 +-
+>  5 files changed, 9 insertions(+), 96 deletions(-)
 > 
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  2 ++
->  drivers/gpu/drm/msm/msm_gem_submit.c    | 10 ++++++++++
->  drivers/gpu/drm/msm/msm_gpu.h           |  9 +++++++++
->  3 files changed, 21 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index ba35c2a87021..695cce82d914 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -1078,6 +1078,8 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  	adreno_gpu->info = config->info;
->  	adreno_gpu->chip_id = config->chip_id;
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 1c81ff6115ac..ce1ed0f9ad2d 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -607,9 +607,6 @@ static int clear_iova(struct drm_gem_object *obj,
+>  	if (!vma)
+>  		return 0;
 >  
-> +	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
-> +
->  	/* Only handle the core clock when GMU is not in use (or is absent). */
->  	if (adreno_has_gmu_wrapper(adreno_gpu) ||
->  	    adreno_gpu->info->family < ADRENO_6XX_GEN1) {
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 63c96416e183..3b908f9f5493 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -882,6 +882,16 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->  		if (submit->valid)
->  			continue;
+> -	if (msm_gem_vma_inuse(vma))
+> -		return -EBUSY;
+> -
+>  	msm_gem_vma_purge(vma);
+>  	msm_gem_vma_close(vma);
+>  	del_vma(vma);
+> @@ -660,7 +657,6 @@ void msm_gem_unpin_iova(struct drm_gem_object *obj,
+>  	msm_gem_lock(obj);
+>  	vma = lookup_vma(obj, aspace);
+>  	if (!GEM_WARN_ON(!vma)) {
+> -		msm_gem_vma_unpin(vma);
+>  		msm_gem_unpin_locked(obj);
+>  	}
+>  	msm_gem_unlock(obj);
+> @@ -991,11 +987,10 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
+>  			} else {
+>  				name = comm = NULL;
+>  			}
+> -			seq_printf(m, " [%s%s%s: aspace=%p, %08llx,%s,inuse=%d]",
+> +			seq_printf(m, " [%s%s%s: aspace=%p, %08llx,%s]",
+>  				name, comm ? ":" : "", comm ? comm : "",
+>  				vma->aspace, vma->iova,
+> -				vma->mapped ? "mapped" : "unmapped",
+> -				msm_gem_vma_inuse(vma));
+> +				vma->mapped ? "mapped" : "unmapped");
+>  			kfree(comm);
+>  		}
 >  
-> +		if (!gpu->allow_relocs) {
-> +			if (submit->cmd[i].nr_relocs) {
-> +				DRM_ERROR("relocs not allowed\n");
-> +				ret = -EINVAL;
-> +				goto out;
-> +			}
-> +
-> +			continue;
-> +		}
-> +
->  		ret = submit_reloc(submit, msm_obj, submit->cmd[i].offset * 4,
->  				submit->cmd[i].nr_relocs, submit->cmd[i].relocs);
->  		if (ret)
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 7a4fa1b8655b..4252e3839fbc 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -285,6 +285,15 @@ struct msm_gpu {
->  	/* True if the hardware supports expanded apriv (a650 and newer) */
->  	bool hw_apriv;
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index 2ddd896aac68..8ddef5443140 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -59,24 +59,16 @@ struct msm_fence_context;
 >  
-> +	/**
-> +	 * @allow_relocs: allow relocs in SUBMIT ioctl
-> +	 *
-> +	 * Mesa won't use relocs for driver version 1.4.0 and later.  This
-> +	 * switch-over happened early enough in mesa a6xx bringup that we
-> +	 * can disallow relocs for a6xx and newer.
-> +	 */
-> +	bool allow_relocs;
-> +
->  	struct thermal_cooling_device *cooling;
+>  struct msm_gem_vma {
+>  	struct drm_mm_node node;
+> -	spinlock_t lock;
+>  	uint64_t iova;
+>  	struct msm_gem_address_space *aspace;
+>  	struct list_head list;    /* node in msm_gem_object::vmas */
+>  	bool mapped;
+> -	int inuse;
+> -	uint32_t fence_mask;
+> -	uint32_t fence[MSM_GPU_MAX_RINGS];
+> -	struct msm_fence_context *fctx[MSM_GPU_MAX_RINGS];
 >  };
 >  
+>  struct msm_gem_vma *msm_gem_vma_new(struct msm_gem_address_space *aspace);
+>  int msm_gem_vma_init(struct msm_gem_vma *vma, int size,
+>  		u64 range_start, u64 range_end);
+> -bool msm_gem_vma_inuse(struct msm_gem_vma *vma);
+>  void msm_gem_vma_purge(struct msm_gem_vma *vma);
+> -void msm_gem_vma_unpin(struct msm_gem_vma *vma);
+> -void msm_gem_vma_unpin_fenced(struct msm_gem_vma *vma, struct msm_fence_context *fctx);
+>  int msm_gem_vma_map(struct msm_gem_vma *vma, int prot, struct sg_table *sgt, int size);
+>  void msm_gem_vma_close(struct msm_gem_vma *vma);
+>  
+> @@ -298,15 +290,13 @@ struct msm_gem_submit {
+>  /* make sure these don't conflict w/ MSM_SUBMIT_BO_x */
+>  #define BO_VALID	0x8000	/* is current addr in cmdstream correct/valid? */
+>  #define BO_LOCKED	0x4000	/* obj lock is held */
+> -#define BO_OBJ_PINNED	0x2000	/* obj (pages) is pinned and on active list */
+> -#define BO_VMA_PINNED	0x1000	/* vma (virtual address) is pinned */
+> +#define BO_PINNED	0x2000	/* obj (pages) is pinned and on active list */
+>  		uint32_t flags;
+>  		union {
+>  			struct drm_gem_object *obj;
+>  			uint32_t handle;
+>  		};
+>  		uint64_t iova;
+> -		struct msm_gem_vma *vma;
+>  	} bos[];
+>  };
+>  
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index b17561ebd518..5f90cc8e7b7f 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -261,10 +261,7 @@ static void submit_cleanup_bo(struct msm_gem_submit *submit, int i,
+>  	 */
+>  	submit->bos[i].flags &= ~cleanup_flags;
+>  
+> -	if (flags & BO_VMA_PINNED)
+> -		msm_gem_vma_unpin(submit->bos[i].vma);
+> -
+> -	if (flags & BO_OBJ_PINNED)
+> +	if (flags & BO_PINNED)
+>  		msm_gem_unpin_locked(obj);
+>  
+>  	if (flags & BO_LOCKED)
+> @@ -273,7 +270,7 @@ static void submit_cleanup_bo(struct msm_gem_submit *submit, int i,
+>  
+>  static void submit_unlock_unpin_bo(struct msm_gem_submit *submit, int i)
+>  {
+> -	unsigned cleanup_flags = BO_VMA_PINNED | BO_OBJ_PINNED | BO_LOCKED;
+> +	unsigned cleanup_flags = BO_PINNED | BO_LOCKED;
+>  	submit_cleanup_bo(submit, i, cleanup_flags);
+>  
+>  	if (!(submit->bos[i].flags & BO_VALID))
+> @@ -404,9 +401,6 @@ static int submit_pin_objects(struct msm_gem_submit *submit)
+>  		if (ret)
+>  			break;
+>  
+> -		submit->bos[i].flags |= BO_VMA_PINNED;
+> -		submit->bos[i].vma = vma;
+> -
+>  		if (vma->iova == submit->bos[i].iova) {
+>  			submit->bos[i].flags |= BO_VALID;
+>  		} else {
+> @@ -420,7 +414,7 @@ static int submit_pin_objects(struct msm_gem_submit *submit)
+>  	mutex_lock(&priv->lru.lock);
+>  	for (i = 0; i < submit->nr_bos; i++) {
+>  		msm_gem_pin_obj_locked(submit->bos[i].obj);
+> -		submit->bos[i].flags |= BO_OBJ_PINNED;
+> +		submit->bos[i].flags |= BO_PINNED;
+>  	}
+>  	mutex_unlock(&priv->lru.lock);
+>  
+> @@ -547,7 +541,7 @@ static void submit_cleanup(struct msm_gem_submit *submit, bool error)
+>  	unsigned i;
+>  
+>  	if (error)
+> -		cleanup_flags |= BO_VMA_PINNED | BO_OBJ_PINNED;
+> +		cleanup_flags |= BO_PINNED;
+>  
+>  	for (i = 0; i < submit->nr_bos; i++) {
+>  		struct drm_gem_object *obj = submit->bos[i].obj;
+> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+> index 98287ed99960..11e842dda73c 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+> @@ -38,41 +38,12 @@ msm_gem_address_space_get(struct msm_gem_address_space *aspace)
+>  	return aspace;
+>  }
+>  
+> -bool msm_gem_vma_inuse(struct msm_gem_vma *vma)
+> -{
+> -	bool ret = true;
+> -
+> -	spin_lock(&vma->lock);
+> -
+> -	if (vma->inuse > 0)
+> -		goto out;
+> -
+> -	while (vma->fence_mask) {
+> -		unsigned idx = ffs(vma->fence_mask) - 1;
+> -
+> -		if (!msm_fence_completed(vma->fctx[idx], vma->fence[idx]))
+> -			goto out;
+> -
+> -		vma->fence_mask &= ~BIT(idx);
+> -	}
+> -
+> -	ret = false;
+> -
+> -out:
+> -	spin_unlock(&vma->lock);
+> -
+> -	return ret;
+> -}
+> -
+>  /* Actually unmap memory for the vma */
+>  void msm_gem_vma_purge(struct msm_gem_vma *vma)
+>  {
+>  	struct msm_gem_address_space *aspace = vma->aspace;
+>  	unsigned size = vma->node.size;
+>  
+> -	/* Print a message if we try to purge a vma in use */
+> -	GEM_WARN_ON(msm_gem_vma_inuse(vma));
+> -
+>  	/* Don't do anything if the memory isn't mapped */
+>  	if (!vma->mapped)
+>  		return;
+> @@ -82,33 +53,6 @@ void msm_gem_vma_purge(struct msm_gem_vma *vma)
+>  	vma->mapped = false;
+>  }
+>  
+> -static void vma_unpin_locked(struct msm_gem_vma *vma)
+> -{
+> -	if (GEM_WARN_ON(!vma->inuse))
+> -		return;
+> -	if (!GEM_WARN_ON(!vma->iova))
+> -		vma->inuse--;
+> -}
+> -
+> -/* Remove reference counts for the mapping */
+> -void msm_gem_vma_unpin(struct msm_gem_vma *vma)
+> -{
+> -	spin_lock(&vma->lock);
+> -	vma_unpin_locked(vma);
+> -	spin_unlock(&vma->lock);
+> -}
+> -
+> -/* Replace pin reference with fence: */
+> -void msm_gem_vma_unpin_fenced(struct msm_gem_vma *vma, struct msm_fence_context *fctx)
+> -{
+> -	spin_lock(&vma->lock);
+> -	vma->fctx[fctx->index] = fctx;
+> -	vma->fence[fctx->index] = fctx->last_fence;
+> -	vma->fence_mask |= BIT(fctx->index);
+> -	vma_unpin_locked(vma);
+> -	spin_unlock(&vma->lock);
+> -}
+> -
+>  /* Map and pin vma: */
+>  int
+>  msm_gem_vma_map(struct msm_gem_vma *vma, int prot,
+> @@ -120,11 +64,6 @@ msm_gem_vma_map(struct msm_gem_vma *vma, int prot,
+>  	if (GEM_WARN_ON(!vma->iova))
+>  		return -EINVAL;
+>  
+> -	/* Increase the usage counter */
+> -	spin_lock(&vma->lock);
+> -	vma->inuse++;
+> -	spin_unlock(&vma->lock);
+> -
+>  	if (vma->mapped)
+>  		return 0;
+>  
+> @@ -146,9 +85,6 @@ msm_gem_vma_map(struct msm_gem_vma *vma, int prot,
+>  
+>  	if (ret) {
+>  		vma->mapped = false;
+> -		spin_lock(&vma->lock);
+> -		vma->inuse--;
+> -		spin_unlock(&vma->lock);
+>  	}
+>  
+>  	return ret;
+> @@ -159,7 +95,7 @@ void msm_gem_vma_close(struct msm_gem_vma *vma)
+>  {
+>  	struct msm_gem_address_space *aspace = vma->aspace;
+>  
+> -	GEM_WARN_ON(msm_gem_vma_inuse(vma) || vma->mapped);
+> +	GEM_WARN_ON(vma->mapped);
+>  
+>  	spin_lock(&aspace->lock);
+>  	if (vma->iova)
+> @@ -179,7 +115,6 @@ struct msm_gem_vma *msm_gem_vma_new(struct msm_gem_address_space *aspace)
+>  	if (!vma)
+>  		return NULL;
+>  
+> -	spin_lock_init(&vma->lock);
+>  	vma->aspace = aspace;
+>  
+>  	return vma;
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> index 6fa427d2992e..7f5e0a961bba 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> @@ -26,9 +26,8 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+>  	for (i = 0; i < submit->nr_bos; i++) {
+>  		struct drm_gem_object *obj = submit->bos[i].obj;
+>  
+> -		msm_gem_vma_unpin_fenced(submit->bos[i].vma, fctx);
+>  		msm_gem_unpin_active(obj);
+> -		submit->bos[i].flags &= ~(BO_VMA_PINNED | BO_OBJ_PINNED);
+> +		submit->bos[i].flags &= ~BO_PINNED;
+>  	}
+>  
+>  	mutex_unlock(&priv->lru.lock);
 > -- 
 > 2.41.0
 > 
