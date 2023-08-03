@@ -1,42 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C79F76F3D8
-	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 22:08:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F6876F40D
+	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 22:33:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2974810E0E8;
-	Thu,  3 Aug 2023 20:08:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C999910E113;
+	Thu,  3 Aug 2023 20:33:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1222 seconds by postgrey-1.36 at gabe;
- Thu, 03 Aug 2023 20:08:12 UTC
-Received: from fallback23.i.mail.ru (fallback23.i.mail.ru [79.137.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A8DC10E0E8;
- Thu,  3 Aug 2023 20:08:12 +0000 (UTC)
+Received: from fallback16.i.mail.ru (fallback16.i.mail.ru [79.137.243.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0D2410E113;
+ Thu,  3 Aug 2023 20:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com;
  s=mailru; 
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=iTra02Ediikpqje5A6Bp6qJxv4AcXgJrNuCR+ibsPzA=; 
- t=1691093292;x=1691183292; 
- b=BoNxVkws6GwQbB9Mr9J8dEpUPOlLd+HAW2erOwAxN7VAWMBQTg7RHdHE75QGoaCyFmyDFrKXVTZz9kNHLFL2c4vw9ELKycisletX/Yj3PJSUJeNDJm2AJrf5qT+boMcK64EFm9+9weHlUpqrvJeULfaVgP+PBP/DTMyPQb2OCf4=;
-Received: from [10.12.4.30] (port=43586 helo=smtp55.i.mail.ru)
- by fallback23.i.mail.ru with esmtp (envelope-from <danila@jiaxyga.com>)
- id 1qReIW-001rTu-AY; Thu, 03 Aug 2023 22:47:48 +0300
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
+ bh=0RACq9NMCN+9wopJJDzqad53or83+Seb+JcQTqyteAU=; 
+ t=1691094831;x=1691184831; 
+ b=IJWJunVog73G0BrPPQHYFOPrIkokuMehnsnWHkvId29cYINsZocjtEYlARwpbI472imREJmE5RXSA7nnRYtHzPLWBFIFdLHe+Patxq1eCZv0fX7x90TT1jlRybCPYm21KDlPfeSjkg2Ct6euBxiivoykanNBicVyn55d/eztvQQ=;
+Received: from [10.12.4.30] (port=45584 helo=smtp55.i.mail.ru)
+ by fallback16.i.mail.ru with esmtp (envelope-from <danila@jiaxyga.com>)
+ id 1qReIZ-004I7p-JY; Thu, 03 Aug 2023 22:47:51 +0300
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
  ; s=mailru;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
  X-Cloud-Ids:Disposition-Notification-To;
- bh=iTra02Ediikpqje5A6Bp6qJxv4AcXgJrNuCR+ibsPzA=; t=1691092068; x=1691182068; 
- b=LtJ1Zwfzp1O0mmZNPC/2GtDgssRfheh+seNTqcmSQP4DCM3xmp8TsYzp3D1ijLJVWjRK3SNTNxV
- ogfABAUYvg72couU/PhlBD6oJfI1DlZYOcTE1/twqaXCBiy7YIfjWZzX8FaI1SSQM5cMiSh5l5kho
- +keuEiPYfFOAuhDy8dg=;
+ bh=0RACq9NMCN+9wopJJDzqad53or83+Seb+JcQTqyteAU=; t=1691092071; x=1691182071; 
+ b=ji1B/RNQYzTC50CHF4HSAoc7EZM3MR/yxe680kYvBmAedakD9PCBJUj0Tk4BFIB4DeBSKxowWwk
+ RG74SEDFxnfgQoY/OBr22WkgpxdxYTEnc5/GSedH17JKiJm51penOMWnSXFL0dBPy6JnkUHGs/tTp
+ ks1fYtPwY3fNg+rsiY4=;
 Received: by smtp55.i.mail.ru with esmtpa (envelope-from <danila@jiaxyga.com>)
- id 1qReIF-000Y8b-1D; Thu, 03 Aug 2023 22:47:32 +0300
+ id 1qReIJ-000Y8b-1W; Thu, 03 Aug 2023 22:47:36 +0300
 From: Danila Tikhonov <danila@jiaxyga.com>
 To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
  dmitry.baryshkov@linaro.org, sean@poorly.run,
@@ -45,27 +43,29 @@ To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
  konrad.dybcio@linaro.org, neil.armstrong@linaro.org, rfoss@kernel.org,
  andersson@kernel.org, quic_khsieh@quicinc.com, quic_vpolimer@quicinc.com,
  quic_rmccann@quicinc.com, quic_jesszhan@quicinc.com, liushixin2@huawei.com
-Date: Thu,  3 Aug 2023 22:47:22 +0300
-Message-ID: <20230803194724.154591-1-danila@jiaxyga.com>
+Date: Thu,  3 Aug 2023 22:47:23 +0300
+Message-ID: <20230803194724.154591-2-danila@jiaxyga.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230803194724.154591-1-danila@jiaxyga.com>
+References: <20230803194724.154591-1-danila@jiaxyga.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailru-Src: smtp
-X-7564579A: B8F34718100C35BD
-X-77F55803: 4F1203BC0FB41BD969E04B5EED670DC804E38A5F9341E5D89B81E0241E25E490182A05F5380850404956DBABBA104F5FC0371154B7EC49AB4725CEA1E008296B39AA2D5375D91353
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE792C68BF9CD4C0E9EEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F790063702DFA59B3C994360EA1F7E6F0F101C6723150C8DA25C47586E58E00D9D99D84E1BDDB23E98D2D38BE5CCB53A13BC8DBAFE95369BFF9F28ACBE51E9D3B700B82ACC7F00164DA146DAFE8445B8C89999728AA50765F790063741F7343E26298569389733CBF5DBD5E9C8A9BA7A39EFB766F5D81C698A659EA7CC7F00164DA146DA9985D098DBDEAEC8B4B51A2BAB7FBE05117882F4460429728AD0CFFFB425014E868A13BD56FB6657D81D268191BDAD3DC09775C1D3CA48CF09122B91796FF21F76E601842F6C81A12EF20D2F80756B5FB606B96278B59C4276E601842F6C81A127C277FBC8AE2E8BC493A577044FAF45D81D268191BDAD3D3666184CF4C3C14F3FC91FA280E0CE3D1A620F70A64A45A98AA50765F79006372E808ACE2090B5E1725E5C173C3A84C3E478A468B35FE767089D37D7C0E48F6C8AA50765F79006378869069EDD29A933EFF80C71ABB335746BA297DBC24807EABDAD6C7F3747799A
-X-C1DE0DAB: 0D63561A33F958A559534B36F856F636C6B9CF6467323EFF3FE6D546EE1A1C12F87CCE6106E1FC07E67D4AC08A07B9B02A336C65186350919C5DF10A05D560A950611B66E3DA6D700B0A020F03D25A0997E3FB2386030E77
-X-C8649E89: 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CF1C9BDDA6ADD3F3559C0B754327D96BA611C6B588A75B544C32CBB7507AF2458966401EE05C14F77D8553022043D0BC9A573643C06B71491413B3302F2BCC8771D8EBEDE01CE1B1DA4C41F94D744909CE4BCAC77546666B612CC0CD5AA9A1B9887EE09F5AAA95A50543082AE146A756F3
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojbL9S8ysBdXjcAvAxsrA9Nc61Ffb2ik/x
-X-Mailru-Sender: 9EB879F2C80682A09F26F806C7394981B7B6FBA8BC574666C2C88AB10BE24B30A02093AA449391CF643683D8C0F3ED1CA3C71A376745D86BBE86167304C7680C3980CE5AAA35C7CD60F22E8815EDE5EAEAB4BC95F72C04283CDA0F3B3F5B9367
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD969E04B5EED670DC864E28ABE09E133B4A5846C191BD37C58182A05F5380850403434C4E83CAFBCFCC0371154B7EC49ABC37BD9D95F0813D09C35240DA3207908
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7D43AAFBA4462143CEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637F907CB39E8CA2E228638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8C4DC3A94E990531FE5F480F2563EA2F8117882F4460429724CE54428C33FAD305F5C1EE8F4F765FCEA77C8EAE1CE44B0A471835C12D1D9774AD6D5ED66289B52BA9C0B312567BB23117882F4460429728776938767073520CCD848CCB6FE560CC26CFBAC0749D213D2E47CDBA5A96583BA9C0B312567BB2376E601842F6C81A19E625A9149C048EEB28585415E75ADA99100238FE36DC7A2D8FC6C240DEA76429C9F4D5AE37F343AA9539A8B242431040A6AB1C7CE11FEE3CF7CD7A0D5AA5F256136E347CC761E07C4224003CC836476E2F48590F00D11D6E2021AF6380DFAD1A18204E546F3947CB11811A4A51E3B096D1867E19FE1407978DA827A17800CE7649B83402744A6742DBA43225CD8A89F1B3F1E879BC1E2F16D8C47C27EEC5E9FB5C8C57E37DE458BEDA766A37F9254B7
+X-C1DE0DAB: 0D63561A33F958A562383D38FA60F744C6B9CF6467323EFFC21289126A9F8A8DF87CCE6106E1FC07E67D4AC08A07B9B0251EFD5447B32ED69C5DF10A05D560A950611B66E3DA6D700B0A020F03D25A0997E3FB2386030E77
+X-C8649E89: 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CFFFC51D7AB0E131C85429A1869283E2444C124F3CF48BEE8179019061DD297C3EA7825560E8A5912C8553022043D0BC9A7D1DDF772BF0A8A51EEF30F80AA15FCFD8EBEDE01CE1B1DA4C41F94D744909CE4BCAC77546666B612CC0CD5AA9A1B9887EE09F5AAA95A50543082AE146A756F3
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojcir52QaMQ827VfcgMyi3Mg==
+X-Mailru-Sender: 9EB879F2C80682A09F26F806C7394981B7B6FBA8BC574666F8036A48FDA55E384331A046F79FC67F643683D8C0F3ED1CA3C71A376745D86BBE86167304C7680C3980CE5AAA35C7CD60F22E8815EDE5EAEAB4BC95F72C04283CDA0F3B3F5B9367
 X-Mras: Ok
 X-7564579A: B8F34718100C35BD
-X-77F55803: 6242723A09DB00B4C2CC63398298511D1E4750FD930E01DF28F9632845AEBDC5049FFFDB7839CE9E588CC25E272B312A963AD72AB2970178919A6105FB5EA3FE856E214AADB1F5AE
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5xhPKz0ZEsZ5k6NOOPWz5QAiZSCXKGQRq3/7KxbCLSB2ESzQkaOXqCBFZPLWFrEGlV1shfWe2EVcxl5toh0c/aCGOghz/frdRhzMe95NxDFd3RriuhA+6EbCfILZkkgHmg==
+X-77F55803: 6242723A09DB00B4C2CC63398298511D1E4750FD930E01DF28F9632845AEBDC5049FFFDB7839CE9E588CC25E272B312A4B8237A43458167B78B7756247A8256846EA42ECDDC8E1D1
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5xhPKz0ZEsZ5k6NOOPWz5QAiZSCXKGQRq3/7KxbCLSB2ESzQkaOXqCBFZPLWFrEGlV1shfWe2EVcxl5toh0c/aCGOghz/frdRhzMe95NxDFd3RriuhA+6EboYtJCDiDjPg==
 X-Mailru-MI: C000000000000800
 X-Mras: Ok
-X-Mailman-Approved-At: Thu, 03 Aug 2023 20:08:53 +0000
-Subject: [Freedreno] [PATCH 0/2] drm/msm/dpu: Add support for SM7150
+Subject: [Freedreno] [PATCH 1/2] dt-bindings: display/msm: document DPU on
+ SM7150
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,21 +85,136 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series adds DPU support for Qualcomm SM7150 SoC.
+Document the DPU hardware found on the Qualcomm SM7150 platform.
 
-Danila Tikhonov (2):
-  dt-bindings: display/msm: document DPU on SM7150
-  drm/msm/dpu: Add SM7150 support
-
- .../bindings/display/msm/qcom,sm7150-dpu.yaml | 116 ++++++++
- .../msm/disp/dpu1/catalog/dpu_5_2_sm7150.h    | 277 ++++++++++++++++++
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   1 +
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
- 5 files changed, 396 insertions(+)
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+---
+ .../bindings/display/msm/qcom,sm7150-dpu.yaml | 116 ++++++++++++++++++
+ 1 file changed, 116 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
- create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h
 
---
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
+new file mode 100644
+index 000000000000..0d86997ae09f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
+@@ -0,0 +1,116 @@
++# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/msm/qcom,sm7150-dpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm SM7150 Display DPU
++
++maintainers:
++  - Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
++  - Danila Tikhonov <danila@jiaxyga.com>
++
++$ref: /schemas/display/msm/dpu-common.yaml#
++
++properties:
++  compatible:
++    const: qcom,sm7150-dpu
++
++  reg:
++    items:
++      - description: Address offset and size for mdp register set
++      - description: Address offset and size for vbif register set
++
++  reg-names:
++    items:
++      - const: mdp
++      - const: vbif
++
++  clocks:
++    items:
++      - description: Display hf axi clock
++      - description: Display ahb clock
++      - description: Display rotator clock
++      - description: Display lut clock
++      - description: Display core clock
++      - description: Display vsync clock
++
++  clock-names:
++    items:
++      - const: bus
++      - const: iface
++      - const: rot
++      - const: lut
++      - const: core
++      - const: vsync
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - clock-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,sm7150-dispcc.h>
++    #include <dt-bindings/clock/qcom,sm7150-gcc.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++
++    display-controller@ae01000 {
++        compatible = "qcom,sm7150-dpu";
++        reg = <0x0ae01000 0x8f000>,
++              <0x0aeb0000 0x2008>;
++        reg-names = "mdp", "vbif";
++
++        clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
++                 <&dispcc DISP_CC_MDSS_AHB_CLK>,
++                 <&dispcc DISP_CC_MDSS_ROT_CLK>,
++                 <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
++                 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
++        clock-names = "bus", "iface", "rot", "lut", "core",
++                      "vsync";
++
++        assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
++                          <&dispcc DISP_CC_MDSS_ROT_CLK>,
++                          <&dispcc DISP_CC_MDSS_AHB_CLK>;
++        assigned-clock-rates = <19200000>,
++                               <19200000>,
++                               <19200000>;
++
++        operating-points-v2 = <&mdp_opp_table>;
++        power-domains = <&rpmhpd SM7150_CX>;
++
++        interrupt-parent = <&mdss>;
++        interrupts = <0>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                endpoint {
++                    remote-endpoint = <&dsi0_in>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++                endpoint {
++                    remote-endpoint = <&dsi1_in>;
++                };
++
++            port@2 {
++                reg = <2>;
++                endpoint {
++                    remote-endpoint = <&dp_in>;
++                };
++            };
++        };
++    };
++...
+-- 
 2.41.0
 
