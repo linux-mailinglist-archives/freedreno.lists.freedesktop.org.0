@@ -1,58 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2A3D76F44E
-	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 22:53:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2156F76F46F
+	for <lists+freedreno@lfdr.de>; Thu,  3 Aug 2023 23:06:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9614C10E239;
-	Thu,  3 Aug 2023 20:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE92910E664;
+	Thu,  3 Aug 2023 21:06:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
- [IPv6:2607:f8b0:4864:20::b29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 337F910E227
- for <freedreno@lists.freedesktop.org>; Thu,  3 Aug 2023 20:53:56 +0000 (UTC)
-Received: by mail-yb1-xb29.google.com with SMTP id
- 3f1490d57ef6-d0b597e7ac1so1649189276.1
- for <freedreno@lists.freedesktop.org>; Thu, 03 Aug 2023 13:53:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691096035; x=1691700835;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1Mmv+/pXamB9oY0WEXeNBKPJsXGa3jNSNiztILLlTY4=;
- b=QG64sPxmlvnELJ1w3jUSh5YAd3vTo7EpCd65fa7G5iQBLlIkMAy+VRbHdR+BrW/wGt
- JljRATuIXnWdSvseD5g/VZ6+QGB0gMo4l2kBhhKjYnANbjiNRLgMSpI2e8svUet48pAN
- kVTz+8wD4JIKeHJQgNjv/4WfP6XFZfuNPvUMlQCQCC+5IEWmeCms9hBh43gw5dW/ASLo
- tWJElpEvC4pAQgv258VS5VlXUrGEaze3zVBFkd+zJ8hLGErHGyGG3qVW5QSR1xNXeRYK
- G62J6VtPPqy+/9UPrwdl6cGEgRw0iSWeBjyzH9LyhMfebZYHI+tt27+pYdOM8DaAgZdq
- yxJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691096035; x=1691700835;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1Mmv+/pXamB9oY0WEXeNBKPJsXGa3jNSNiztILLlTY4=;
- b=SNjw6YpNtQNVvV+nCd1HaB4CxNT/KqruErdYXo2RdzDC3kAnQaB/CRnISKEXEospFG
- vxAKI+dtW8Cla32yh62D8W2q7d/6EM/imraa7yhjNyxHBYnTzaJQE+KCRXaCyswdFMun
- GsUqIn4aS5X6gQLRaDkPUQ3vI737IiIskbKSkx6+MG/ZPqeNAU3qcL/Sw/T1AJAFo+Ix
- 250Uk7dQiEY5ZFAjXh3gv/5ufzAdGcyew20kdGuT8pQT2EfNSetmsHDg1weM09ZZI/EX
- bzcp/6Kub7Y3C3FxVMggzGtYKhD6uE5wM2s7fqpTnvBI2ztEQADHLsX2wppF+yHCv2ga
- xUtg==
-X-Gm-Message-State: ABy/qLZjueNZm3Y0f6onD69C/qia4xZJQDubkqnbjTkJRcx7LGZo01zO
- ZSognQEiLWECEOevyl++DUds6UY0nzsldOGsZnMdVw==
-X-Google-Smtp-Source: APBJJlF7XEIRCehOg8x18n+pAj6XjXh60FKRDpRItIlpCDy80h1FjXBqaG/sPhrf8edAz5AfQWjU0XJhdNgH+HQrRCI=
-X-Received: by 2002:a25:694b:0:b0:d19:40c2:eb03 with SMTP id
- e72-20020a25694b000000b00d1940c2eb03mr20833186ybc.54.1691096035371; Thu, 03
- Aug 2023 13:53:55 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E74B310E115;
+ Thu,  3 Aug 2023 21:06:31 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 373KkVbY008015; Thu, 3 Aug 2023 21:06:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=7XYGNJwUP2VKmFtxs1N0kzZeF4GKJrwRRHMePG6EE0g=;
+ b=ENWgF92CUgi//ntsT7FWSoB2+AfAhHOb5aLlu/LYQyDwxw2fBjTmUI3Xs+4CVWRc2USh
+ qoQ118t09dZ8ZSbhcFoGSoqbrdEecDow16hQoRTQNuZqMJO0SAFIU/bfxEck7XmznUUQ
+ RMh6g4T55VFT3ZHHg76hwa4wclwNNx+0TiG0PAdp7uUf3bhQDxx00HM9vy9xs7q5XNY4
+ 6YTMjo2Qpdr4l9MykWOJ25HGajHsPRySGjxlOPo9TxdB3airrKOADDrSxfCJkv4TQ4rz
+ /ntm9y6E9kOSTYXfkqCLO3Bu3Ktk1QrN96gmyubJafcFluhYpsfiVayHJOdMXHlr2ztj KA== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s8kfx0152-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Aug 2023 21:06:25 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 373L6OQx003927
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 3 Aug 2023 21:06:24 GMT
+Received: from [10.134.70.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Thu, 3 Aug
+ 2023 14:06:23 -0700
+Message-ID: <f3bb8699-2e4d-f9b2-0dff-267b058bc24b@quicinc.com>
+Date: Thu, 3 Aug 2023 14:06:22 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, DRI Development
+ <dri-devel@lists.freedesktop.org>
 References: <20230803204521.928582-1-daniel.vetter@ffwll.ch>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 In-Reply-To: <20230803204521.928582-1-daniel.vetter@ffwll.ch>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 3 Aug 2023 23:53:44 +0300
-Message-ID: <CAA8EJppW6s4DgQDamAumYcSP7mqKD1zNrVAtKMabAK5bh3iPnA@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: -NaBc_DQYG0YuEtkkwDHacXM-jtGJ6qm
+X-Proofpoint-GUID: -NaBc_DQYG0YuEtkkwDHacXM-jtGJ6qm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-03_22,2023-08-03_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0
+ mlxlogscore=999 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ clxscore=1011 malwarescore=0 mlxscore=0 impostorscore=0 suspectscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2308030189
 Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: Don't leak some plane state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,22 +85,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel.vetter@intel.com>,
- freedreno@lists.freedesktop.org, dorum@noisolation.com
+ Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org,
+ dorum@noisolation.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 3 Aug 2023 at 23:45, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
->
+
+
+On 8/3/2023 1:45 PM, Daniel Vetter wrote:
 > Apparently no one noticed that mdp5 plane states leak like a sieve
 > ever since we introduced plane_state->commit refcount a few years ago
 > in 21a01abbe32a ("drm/atomic: Fix freeing connector/plane state too
 > early by tracking commits, v3.")
->
+> 
 > Fix it by using the right helpers.
->
+> 
 > Fixes: 21a01abbe32a ("drm/atomic: Fix freeing connector/plane state too early by tracking commits, v3.")
 > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
@@ -96,12 +114,9 @@ On Thu, 3 Aug 2023 at 23:45, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 > Cc: dorum@noisolation.com
 > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 > ---
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-
--- 
-With best wishes
-Dmitry
