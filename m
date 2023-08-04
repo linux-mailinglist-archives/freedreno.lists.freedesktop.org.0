@@ -2,68 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D2077704D2
-	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 17:33:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B0107704D6
+	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 17:33:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816BC10E726;
-	Fri,  4 Aug 2023 15:33:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2791610E72D;
+	Fri,  4 Aug 2023 15:33:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A76EF10E72A
- for <freedreno@lists.freedesktop.org>; Fri,  4 Aug 2023 15:33:25 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4fe28e4671dso3909678e87.0
- for <freedreno@lists.freedesktop.org>; Fri, 04 Aug 2023 08:33:25 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7972F10E726
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Aug 2023 15:33:26 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4fe0d5f719dso3886439e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Aug 2023 08:33:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691163204; x=1691768004;
+ d=linaro.org; s=google; t=1691163205; x=1691768005;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ct+HhFSf3JuuA0pS4qW/YHF3pCVOsmudw0iO0Dt49tI=;
- b=O+O0DdJB7gDBLNjPG25N+i5iYBocWpOSXo1e9KKSn+uIzN4wAkWVfWxNpAQshTubR9
- hIsogftgGgdnA573RdL2yI/56LIDgGsrEFwi/idXWw91cGDCG9kdxQ1qOVF88OmOfRBz
- ebA+TEDovyrAC24Acvnr78RW5R3lvnA73XPnz7TaA+MHOBaQF6KsdxZrqF1aYIZH2RM5
- DzPjNzVL+YCdXTSwKiAecoe6klmEvqqyJYM6+wUuOJ9I+TwV+ST5yg0s4DJhWyi0g1Ez
- vDrRPQ4GcQr2jAsH5tXyi003crAiyZfRiJv7wFvJTWzS+i/xLVQUa2A9jvEDarwGe6Tp
- PDKA==
+ bh=fZ+UX1NFwtdq8c+iNmJ6Kjt37lTomrC2VolEknshN2I=;
+ b=FbnVAHsKr4U1dcpMmZk1EFlJmERuXHrZkmOGYjmh2gKCAKrRGwLm4ooHJWQlqHYQmo
+ 6KQqNZvfDMu1RR42234Gn3XodSlUVEvP/reVoUpLvgOKliqyYySYJ5PkgcxXqKgOshio
+ UzYD6h+bNfiIAcswQwtwDd3PJhkxGzBUpPVJL6mUekTZUpySWg/AUJT5s5b2gTLsGzqg
+ EObkcpIasQXl1TYTSg5zN0ORw8TgMfYNOhAJO4w2YtMl+plcdLMePrYOi2sNJzyshhwL
+ 1cL9yreZMnSABTA7SfrfMnwky9dv6/6mp6swbzglyC9m+dkzPKTUgLHqbY8los7kuioD
+ Vffw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691163204; x=1691768004;
+ d=1e100.net; s=20221208; t=1691163205; x=1691768005;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ct+HhFSf3JuuA0pS4qW/YHF3pCVOsmudw0iO0Dt49tI=;
- b=SDCSSAV/wXCNYt1GD39GplmHW8M8aa02nGWaf4omkAOrHZsr08EUtVVzU1XWPPitkY
- phCOEJixMQukMhivLTK/1+IDnFNOuyvyj2BzqXW2NSVlISrG0wXihyww9cUhEwZLaKwe
- HiUSnOvDsZ1wktYp1pBqcm6r6BZ9+1OoVq6tSPNPM4nDv3D3Mblvg60vRRtVDwKhoB7k
- SmtFSumb5Vi+B9rOm1g9en7pUo9g63SKpLH06P0bpgrGzikyYKUCedX9M7SjwKRizsG5
- axNgZHUBa9QK8OHmtgrl81EMZFBjx/1tPhxDt4ZkLBzL0LTfAbDbl/xZ8cglf5zzJl7z
- qInA==
-X-Gm-Message-State: AOJu0YyR1jY3YN2tRpyK4p56avYixQmJ9wsMzCj7h/mtht2CHJ0sWKge
- CNZv+WCvgyKbeMCcVVfpQwCghQ==
-X-Google-Smtp-Source: AGHT+IHEKmz6wgZTpApnn2eeHnpWC8wifjJXIPan0+O+hTJlVADjPVgOzrAW4CFWVh8fXkk9hmfB9w==
-X-Received: by 2002:a19:4f5e:0:b0:4fe:89f:cbad with SMTP id
- a30-20020a194f5e000000b004fe089fcbadmr1431945lfk.51.1691163203868; 
- Fri, 04 Aug 2023 08:33:23 -0700 (PDT)
+ bh=fZ+UX1NFwtdq8c+iNmJ6Kjt37lTomrC2VolEknshN2I=;
+ b=liUeNq5xuN1N/XQXRdgvnw5qAhc7fk0kh53NYcjkt5E7Ln0ok29p9VwUBWkhJM1xjA
+ ydKPVTNLNcSxsKkKLxXZcA83YisEo4mCKmOhCvj5euf1/AaWDI1aZ20aPyw3VgFKNsj8
+ Q6+Mv+0CXrl+3qyjwUioOoa2myEi9sp8U7Cc1fJPwjEI4GbU6nj6S5rqID7NWOsWmzMm
+ AdK4zqmkJy33ReB6FolpNhFuFIQKRozeUSCFt8exZRlJMA5ZGLM7Q5cY3qzLQBq/qf8+
+ SbHpANv45lkvlHJ+jkZno22QjC5cR4QcxAkOwKV6oDdTvLDYXa4gMvaSko23MdfCRmaF
+ cztA==
+X-Gm-Message-State: AOJu0YwXoTKShrFooftcAr7Gek+czGJ6fPp4AZMWRrD6BCAB417OZcZZ
+ 4B0wweMdSRFJw/a/Gss1X0C9kQ==
+X-Google-Smtp-Source: AGHT+IHPMJn8VQ3AtatE6gTGK3ZvQ45T13iV669EXbp2wGSgRQ16VEeobcma+WYpj77O1b8gMGqTwA==
+X-Received: by 2002:ac2:48ba:0:b0:4f8:6e52:68ae with SMTP id
+ u26-20020ac248ba000000b004f86e5268aemr1457306lfg.31.1691163204836; 
+ Fri, 04 Aug 2023 08:33:24 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- w12-20020a05651204cc00b004f873ca4139sm411874lfq.71.2023.08.04.08.33.22
+ w12-20020a05651204cc00b004f873ca4139sm411874lfq.71.2023.08.04.08.33.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Aug 2023 08:33:23 -0700 (PDT)
+ Fri, 04 Aug 2023 08:33:24 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com,
-	Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Date: Fri,  4 Aug 2023 18:33:18 +0300
-Message-Id: <169116308155.148471.3951374224625324432.b4-ty@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Fri,  4 Aug 2023 18:33:19 +0300
+Message-Id: <169116308156.148471.598909628622762541.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230804075746.77435-1-jiapeng.chong@linux.alibaba.com>
-References: <20230804075746.77435-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20230802-encoder-cleanup-v2-1-5bfdec0ce765@quicinc.com>
+References: <20230802-encoder-cleanup-v2-1-5bfdec0ce765@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: clean up some inconsistent
- indenting
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Drop encoder vsync_event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,26 +77,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, sean@poorly.run,
- Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org,
- airlied@gmail.com
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Fri, 04 Aug 2023 15:57:46 +0800, Jiapeng Chong wrote:
-> No functional modification involved.
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c:183 dpu_core_perf_crtc_check() warn: inconsistent indenting.
+On Wed, 02 Aug 2023 10:01:13 -0700, Jessica Zhang wrote:
+> Drop vsync_event and vsync_event_work handlers as they are unnecessary.
+> In addition drop the dpu_enc_ktime_template event class as it will be
+> unused after the vsync_event handlers are dropped.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: clean up some inconsistent indenting
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b0fe70105056
+[1/1] drm/msm/dpu: Drop encoder vsync_event
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/fdcb8fe0c9f0
 
 Best regards,
 -- 
