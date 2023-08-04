@@ -2,77 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FFE47703AF
-	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 16:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797A577049B
+	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 17:28:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 586B810E71E;
-	Fri,  4 Aug 2023 14:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A98B10E0C5;
+	Fri,  4 Aug 2023 15:28:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33BA710E71B;
- Fri,  4 Aug 2023 14:56:46 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 374DUbND023322; Fri, 4 Aug 2023 14:56:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=Yy63cY2c8mMV4uwlV+S8qlhtYkmmuk+gr2jKr7o2IPU=;
- b=pMI4XgUA5xhrLt3DGo2ghw09RUwBCeLOi3/UtHLrI8w/qYL7AOCl7dIyhcWGyIiVttMX
- AXXJVbqiV+gH/bI2Otx7wEr5ivJyjLM68rceUL9bLpxT6xNw88r9mQQlubBq2nGwGZ0c
- GO+7rz7YPplXXYlRmw6JtsE0i+ED4/tePPDfga7+Wq+mxErsmHysz1LzMShY/dosekNo
- dGTYvoXbt2ruv1JWOiLc/bTU/FRxmcx4mHr9WSE6VoWZuY+VMlaWHfMtJx87nTwwFsU4
- WVRrHA1Hxeiv2BvGVwplnY5WSN8taDUjxWl4RshlTGixtdXQBGj3eDKA0jPKj3Uu4TRP Tg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s8kfuspaq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Aug 2023 14:56:39 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 374Euc6C012747
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 4 Aug 2023 14:56:38 GMT
-Received: from [10.110.124.174] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 4 Aug
- 2023 07:56:37 -0700
-Message-ID: <9b6a125c-707e-39eb-7773-679d8a516442@quicinc.com>
-Date: Fri, 4 Aug 2023 07:56:36 -0700
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD9910E0C5
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Aug 2023 15:28:26 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id
+ 3f1490d57ef6-d066d72eb12so3256786276.1
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Aug 2023 08:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691162905; x=1691767705;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=bOp+t06WK94f00hVoOjlTqLRBmqA68qFwjlm/n5u6Ec=;
+ b=xHyAU5gFLrQk/gFvvaEuvE4iL524vBoq3VFKmFGmMrJmlrLhZ8ekaq6F3/eh661EnK
+ UJx8eo2HkhJY/2v3qR0pPpqKEkGXXLOzA/IvPPkd+5jaEPwY1Ngv3Ljw4B/mGDWp6aJK
+ U2OEf6+L1JpngBNlD6LdMhd5wf8Rx7GSYyBh3eQtosM8yz2CH69AJQohmY3pnrKAv2zn
+ Yu6NCNB4LW4fzH5xJj4Kkt3EPcv8LFnL16A+0GbnMWkHwa6PHFgSRbJlFmYNrQTwnFCw
+ fQwlAwv2JxvwaL/Gi26pgvLI04zes8zfaEXA0T6hfuDa/bxieF4/dpfgGKWORaWxaDyO
+ bvQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691162905; x=1691767705;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bOp+t06WK94f00hVoOjlTqLRBmqA68qFwjlm/n5u6Ec=;
+ b=EzddqpNMHEBaG2OgnKahqDMHnAMm5iw9uCje7kdBB3HFf3MuXrhH3eBkVPpqXUWxPl
+ NOgqjh4qDD2BIZRPx1yap1OCFeFF6VkVQ4/YL1QKDGY0pozeWUwy1lstOcaAOChwREoP
+ YqVSo2/K/sWk9XQfaYazd9gwWKXQz7QMbyvW6QzFaM+szcvSVXNzIPobQZrr/7CU9X3w
+ BLzKEqh7bfjbDw71jMNBgRrGyBM2gDSGi8WmAncp5N4n3rDg/xWOF7v9HcIMkLnBIfzN
+ mGexyoTJlRaLCY26zrGasW6lKWUBzQwyyKG0KpRA7NpxRGww1vXYP3tnHdaORKk18ZyT
+ 10tw==
+X-Gm-Message-State: AOJu0Yzj+MbuQ2ATWbvMYSgOGLjKWMtotZh36AtP2zMIi4RDA7Oh6B1h
+ xwEA4kpouPuLLKIEWL83SyenuXISGPtmVXqz1lwJ/Mbm8W4aIoNAjhg=
+X-Google-Smtp-Source: AGHT+IHqkYFEA1xwnINMzjY1othogdYg+XLYUdXpv/bsW9GIOBmficGrOej0iBqP7HOWy9w0haZ7t5epondlOjOTEac=
+X-Received: by 2002:a25:fc5:0:b0:cee:639a:be94 with SMTP id
+ 188-20020a250fc5000000b00cee639abe94mr78778ybp.0.1691162905601; Fri, 04 Aug
+ 2023 08:28:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230804094804.36053-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230804094804.36053-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ug2pjIj9bc4BNZTpU8rtLCrQuNFT1jY4
-X-Proofpoint-ORIG-GUID: ug2pjIj9bc4BNZTpU8rtLCrQuNFT1jY4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-04_14,2023-08-03_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxscore=0
- impostorscore=0 lowpriorityscore=0 mlxlogscore=999 suspectscore=0
- spamscore=0 bulkscore=0 clxscore=1011 phishscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308040133
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: initialise clk_rate to 0 in
- _dpu_core_perf_get_core_clk_rate
+References: <20230727212208.102501-1-robdclark@gmail.com>
+ <20230727212208.102501-14-robdclark@gmail.com>
+In-Reply-To: <20230727212208.102501-14-robdclark@gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 4 Aug 2023 18:28:14 +0300
+Message-ID: <CAA8EJpq-Z7vNJjQML6waeHOAvQ_1EtU0Zx5-9f_q9j-KyOq4Tg@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 13/13] drm/msm/adreno: Switch to chip-id
+ for identifying GPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,27 +68,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Rob Clark <robdclark@chromium.org>, Rob Herring <robh@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Elliot Berman <quic_eberman@quicinc.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Adam Skladowski <a39.skl@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Liu Ying <victor.liu@nxp.com>, Mukesh Ojha <quic_mojha@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 8/4/2023 2:48 AM, Dmitry Baryshkov wrote:
-> When removing the core perf tune overrides, I also occasionaly removed the
-> initialisation of the clk_rate variable. Initialise it to 0 to let max()
-> correctly calculate the maximum of requested clock rates.
-> 
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Fixes: 6a4bc73915af ("drm/msm/dpu: drop separate dpu_core_perf_tune overrides")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Fri, 28 Jul 2023 at 00:23, Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Since the revision becomes an opaque identifier with future GPUs, move
+> away from treating different ranges of bits as having a given meaning.
+> This means that we need to explicitly list different patch revisions in
+> the device table.
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
+>  drivers/gpu/drm/msm/adreno/a4xx_gpu.c      |   2 +-
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c      |   2 +-
+>  drivers/gpu/drm/msm/adreno/a5xx_power.c    |   2 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c      |  14 ++-
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 137 +++++++++++----------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  14 +--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  49 ++++----
+>  7 files changed, 115 insertions(+), 105 deletions(-)
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+-- 
+With best wishes
+Dmitry
