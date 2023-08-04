@@ -2,65 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 333E376FDC7
-	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 11:48:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A35877700E8
+	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 15:14:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4F5C10E143;
-	Fri,  4 Aug 2023 09:48:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B1C10E083;
+	Fri,  4 Aug 2023 13:14:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4E2B10E143
- for <freedreno@lists.freedesktop.org>; Fri,  4 Aug 2023 09:48:07 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b962535808so28918861fa.0
- for <freedreno@lists.freedesktop.org>; Fri, 04 Aug 2023 02:48:07 -0700 (PDT)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA3110E087
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Aug 2023 13:14:35 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-d0a8ae5f8a6so2285632276.0
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Aug 2023 06:14:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691142486; x=1691747286;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Ia7ixFWhmmaN0o7SC42Vjj/tmV60762EI0Hz3GNAHW8=;
- b=hNE792IZkYahHM15H25k7VCHg9L338Ls2XiVE1JZvlbICnqcAMQzIIoIu/pxeqqvGH
- NC1LLLpw8HIdYhoyIIoP9M3cDsaNfm60mFQ2ELWcdiUxP4H3HrFSVj/jX6t81AxyS88X
- uOrn3rQPaK5fnDoGuvl+iub52NEj6drd59MR+Fxljs17Yk0SKnG8iued9fJs+08YZy+j
- j2th4ttvgSU8umJ4L3QUFiaPkFhpusn6jyry5QNpnGZdXIj8m7wp5XcFarFgcxouJbcl
- 22XHe9uaZxwJfO8z3Lfee/DCP6zkGj7h0JKN9Qfp0StFSLiAasObwhQvUdtDdoo/IA46
- FX8Q==
+ d=linaro.org; s=google; t=1691154874; x=1691759674;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=D4FGrRKKqr6fNENlJ4HUuscXPUM5XRYzhDK7WNtt/9c=;
+ b=Mrg4Xr5v0lFTFocRyHHEc/zy5oeKvOxVeaf08lVJ7qOu9G25xP8Yl2opzmsjEGYjsW
+ 0Om3zPnCCY0EABOYWclpfzyb+ZiGjyUErocqO/LbH1SMmdC1cHvm0nefne0a4NwzTe3o
+ ue082SJuCjExtQm7w3FilO5271WrroN8Tr/rEi0ohb4LtN6m69c3a2n96V8XNIyxBUx4
+ tlauYnDu6Qi2QCQrDTUpc4Zi2ML5ZWE3rse4yDzvKi8Bn7tARoEZpjPHp9q1TR1d3WoE
+ nkAXfDqMUV7FVUs6eeffv5TVKg9VO3vYmspm+FS25ZPGsZV5vLgpC6mPw4o9Th0llI1s
+ HipQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691142486; x=1691747286;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1691154874; x=1691759674;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Ia7ixFWhmmaN0o7SC42Vjj/tmV60762EI0Hz3GNAHW8=;
- b=MvRdCPYw0zQN8TZDp1QUH9rXvso13hUHxRa+PidkEZLHkvRfYaAH7KM2CaE2ZSi38J
- owNqnT1DjaVZ2vs/g+46lXjyKIFjRZ3vC21Ea2WyXRfds1hWTXpv0OL36iY4WuaT93fA
- E9uZ31vgEqTz6kwuRFGTrzleadn7A9nUpast+yI+Ed+FG4CqWCHas9rhUVhQnPC+9HSw
- YZsOULJomZ8Hv+4KKgwn7VQ+uwmBeKFXPMbhraCrYbzGJ6iMClTuB6+391JnkcyC9qG1
- 2C58L+2ClTCqoomvJ0F6qGEmzHwo4pIisvNL/z6P+QNiy6haYF7uuFp7OBeVAVAYCppQ
- 5D5Q==
-X-Gm-Message-State: AOJu0YwHkAQV4qRlsm1AQU5O9rB9rFBQRe0gd9gP012ySwWK14QsYmHg
- Lq6MANx6H+Qul2vy0AmfEfZUqw==
-X-Google-Smtp-Source: AGHT+IFFYyMhY/dwT3vckRQ4+nd0tP7F/nqRCzwAkUASSgIB7U7IV8MP40hPgycRnIa+74Q4HnzxzQ==
-X-Received: by 2002:a2e:b0c6:0:b0:2b9:ea6b:64b with SMTP id
- g6-20020a2eb0c6000000b002b9ea6b064bmr1092055ljl.37.1691142485789; 
- Fri, 04 Aug 2023 02:48:05 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- y3-20020a2e3203000000b002b9de06f119sm364670ljy.67.2023.08.04.02.48.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Aug 2023 02:48:05 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri,  4 Aug 2023 12:48:04 +0300
-Message-Id: <20230804094804.36053-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
+ bh=D4FGrRKKqr6fNENlJ4HUuscXPUM5XRYzhDK7WNtt/9c=;
+ b=I8wzoMNWvqafH3SSdowXKFHlcvQi5eFZ1sjGeP04RpgRvD1PsAMBGTTEsEmKmvwCAm
+ fpyxxsPZ3/J6RlvgDKUHcJkpySoCyK5DKoJNuAB/lsqrkJ1IftKgTr3cJpVmS7EXSm2/
+ bcc8lo7VnEKvTi2PBQO8R5xunwbGCst957WYX4KgiXXuVcj03XQE7J5NmV8t6M5e9e1Y
+ We48/GWu5gLHJKt/AxkFGoG6a6J68eyi1aiL9VouG2e1/eTm4Ii8XajM8UAErn0eCS8K
+ 0/9UegtDAhxor5IQYO9ESEqzcv8jXtSZmVSkky5VDY+0slQAe0Rv5Z9R1lNhKtV2x4zA
+ m3xA==
+X-Gm-Message-State: AOJu0YyWxt68F0PusmpXhEUJFjMllh5KyMAq4wmPyHqDj/JxRWz9s/Sk
+ zXbQcTo0shF1skK8t9o/mGiG7ly+BHIW2uUGaQL64Q==
+X-Google-Smtp-Source: AGHT+IG/YtX9++/di3aekXINcH9r4zmIZn1VPvqr+jVi9AWhqoV2uRrOWWP2zNSUOl6v7/OqmARiYdzthQYNo4Bm61c=
+X-Received: by 2002:a25:29c2:0:b0:c62:2320:2598 with SMTP id
+ p185-20020a2529c2000000b00c6223202598mr1173682ybp.62.1691154874341; Fri, 04
+ Aug 2023 06:14:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: initialise clk_rate to 0 in
- _dpu_core_perf_get_core_clk_rate
+References: <20230802-encoder-cleanup-v2-1-5bfdec0ce765@quicinc.com>
+In-Reply-To: <20230802-encoder-cleanup-v2-1-5bfdec0ce765@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 4 Aug 2023 16:14:23 +0300
+Message-ID: <CAA8EJpp6mijmo2A5xn2aG2PwsAh9mr0v3+ruDgoqLKTawme-xA@mail.gmail.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Drop encoder vsync_event
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,36 +66,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When removing the core perf tune overrides, I also occasionaly removed the
-initialisation of the clk_rate variable. Initialise it to 0 to let max()
-correctly calculate the maximum of requested clock rates.
+On Wed, 2 Aug 2023 at 20:01, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>
+> Drop vsync_event and vsync_event_work handlers as they are unnecessary.
+> In addition drop the dpu_enc_ktime_template event class as it will be
+> unused after the vsync_event handlers are dropped.
+>
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+> Changes in v2:
+> - Dropped dpu_enc_early_kickoff event and dpu_enc_ktime_template event class
+> - Link to v1: https://lore.kernel.org/r/20230801-encoder-cleanup-v1-1-f9e37fe27997@quicinc.com
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 65 +----------------------------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h   | 23 ----------
+>  2 files changed, 1 insertion(+), 87 deletions(-)
 
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Fixes: 6a4bc73915af ("drm/msm/dpu: drop separate dpu_core_perf_tune overrides")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 0b54a659a940..e843e5f3b3dd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -289,6 +289,7 @@ static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
- 	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM)
- 		return kms->perf.max_core_clk_rate;
- 
-+	clk_rate = 0;
- 	drm_for_each_crtc(crtc, kms->dev) {
- 		if (crtc->enabled) {
- 			dpu_cstate = to_dpu_crtc_state(crtc->state);
+
+
 -- 
-2.39.2
-
+With best wishes
+Dmitry
