@@ -1,65 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5B6E770265
-	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 15:59:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FFE47703AF
+	for <lists+freedreno@lfdr.de>; Fri,  4 Aug 2023 16:56:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C35C10E70F;
-	Fri,  4 Aug 2023 13:59:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586B810E71E;
+	Fri,  4 Aug 2023 14:56:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11BF410E70E
- for <freedreno@lists.freedesktop.org>; Fri,  4 Aug 2023 13:59:12 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-d16639e16e6so2152258276.3
- for <freedreno@lists.freedesktop.org>; Fri, 04 Aug 2023 06:59:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691157551; x=1691762351;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DJuBvH0EIpSoFqEkm/B6EmdRFQqZeZkFyC39as5wyuQ=;
- b=a0AwIpYge7ZpXGBnZ7hAx8NoI0dMDa3j0+DheJnLZ0iPHHyFlKduNUbqX7+aWm/eeY
- fiQuYxr0nXAE5V2ca9rFbuKun6lrGufYUc4dJFV6ADTlzfUir1n0usHCGm0aAVA3djB7
- ylZ5ds/mY7EDUo0t/eC3zKRTWZdouh3076HyeGW9vTrtmssz9HbkApCXcLPoxGDF/I/D
- EtCqZdEsx1S0eyvKAq1b8ARYpgmnrFZGRHYSeLm5yDJnrXxHD/PDvyjpHHlOZ+WUWhdu
- HvFFQblh8Ve0+O4rbTuQU2xXymoekvVk2kjgm4i2VKoycci/Q/Tb9J4XHEIbwcp8j80A
- KJVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691157551; x=1691762351;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DJuBvH0EIpSoFqEkm/B6EmdRFQqZeZkFyC39as5wyuQ=;
- b=TCvNbpl/f+lcRWsuMrQ6Nxv+yeOzSSYHzG/igEC4kv9+KomMpghdUVXQicEAx9c+wx
- pbaVam+UmmfzqCupsjEqzvvKuF5lIciNcLOhoSDqQ0vqmxy3Jar14TEIf/qUMaEXDKva
- obCPNCYqLriuZfDqcbA9lG8mdIUW3pal+8SFg20b5s5EcHl4Ss7O9fjrPHcpYM1Af/dG
- Lnvfs2zjojB2s2JIRQuIJvulkK9ubP/buYWN/cku6sU1IUHVECOcUKo4S4AhwgIqr8RP
- +MW8mIJHdEHq/WoaioDRvQsw/KzOmKv+lid5ShdUFldJmpgVehGgXfPJwsv5ZrKBAb2y
- TPeQ==
-X-Gm-Message-State: AOJu0YxIXHlpHGul8id55bHuKobzapEVxJS0mxt6tXO8SZ3M2zXO5Bqu
- pemv+MSsKlXr63zAJ+PxEzwwiaHeG8SjmVanbfLcWQ==
-X-Google-Smtp-Source: AGHT+IEg3icS2up1U2YECkZK61975lB4ZzvrVvkVcezIC6iFuvUc9eDNMeDwecxHjPBtUHO+XEBrIPPy7XH+Aw6sj1U=
-X-Received: by 2002:a25:6a82:0:b0:d00:cc5b:8a9f with SMTP id
- f124-20020a256a82000000b00d00cc5b8a9fmr1438160ybc.16.1691157551130; Fri, 04
- Aug 2023 06:59:11 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33BA710E71B;
+ Fri,  4 Aug 2023 14:56:46 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 374DUbND023322; Fri, 4 Aug 2023 14:56:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=Yy63cY2c8mMV4uwlV+S8qlhtYkmmuk+gr2jKr7o2IPU=;
+ b=pMI4XgUA5xhrLt3DGo2ghw09RUwBCeLOi3/UtHLrI8w/qYL7AOCl7dIyhcWGyIiVttMX
+ AXXJVbqiV+gH/bI2Otx7wEr5ivJyjLM68rceUL9bLpxT6xNw88r9mQQlubBq2nGwGZ0c
+ GO+7rz7YPplXXYlRmw6JtsE0i+ED4/tePPDfga7+Wq+mxErsmHysz1LzMShY/dosekNo
+ dGTYvoXbt2ruv1JWOiLc/bTU/FRxmcx4mHr9WSE6VoWZuY+VMlaWHfMtJx87nTwwFsU4
+ WVRrHA1Hxeiv2BvGVwplnY5WSN8taDUjxWl4RshlTGixtdXQBGj3eDKA0jPKj3Uu4TRP Tg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s8kfuspaq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Aug 2023 14:56:39 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 374Euc6C012747
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 4 Aug 2023 14:56:38 GMT
+Received: from [10.110.124.174] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 4 Aug
+ 2023 07:56:37 -0700
+Message-ID: <9b6a125c-707e-39eb-7773-679d8a516442@quicinc.com>
+Date: Fri, 4 Aug 2023 07:56:36 -0700
 MIME-Version: 1.0
-References: <20230728-solid-fill-v5-0-053dbefa909c@quicinc.com>
- <20230728-solid-fill-v5-2-053dbefa909c@quicinc.com>
- <CAA8EJpq=pbDoYc9wqKKrX+RahXp8zWTPFqVqA=S-0TkWXXJUjQ@mail.gmail.com>
- <CA+hFU4y38MTTUsbri1jy=n4Vyp7xx2CosD9Nmk97z_au6NHCdQ@mail.gmail.com>
-In-Reply-To: <CA+hFU4y38MTTUsbri1jy=n4Vyp7xx2CosD9Nmk97z_au6NHCdQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 4 Aug 2023 16:59:00 +0300
-Message-ID: <CAA8EJpoFpUcQL_7pb0toDoLFsK=9GdBLQH+h_MMffrp9k7eCyw@mail.gmail.com>
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH RFC v5 02/10] drm: Introduce solid fill DRM
- plane property
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20230804094804.36053-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230804094804.36053-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ug2pjIj9bc4BNZTpU8rtLCrQuNFT1jY4
+X-Proofpoint-ORIG-GUID: ug2pjIj9bc4BNZTpU8rtLCrQuNFT1jY4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-04_14,2023-08-03_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 mlxscore=0
+ impostorscore=0 lowpriorityscore=0 mlxlogscore=999 suspectscore=0
+ spamscore=0 bulkscore=0 clxscore=1011 phishscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2308040133
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: initialise clk_rate to 0 in
+ _dpu_core_perf_get_core_clk_rate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,117 +85,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- ppaalanen@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, laurent.pinchart@ideasonboard.com,
- Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, contact@emersion.fr,
- David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Dan Carpenter <dan.carpenter@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 4 Aug 2023 at 16:44, Sebastian Wick <sebastian.wick@redhat.com> wro=
-te:
->
-> On Fri, Aug 4, 2023 at 3:27=E2=80=AFPM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Fri, 28 Jul 2023 at 20:03, Jessica Zhang <quic_jesszhan@quicinc.com>=
- wrote:
-> > >
-> > > Document and add support for solid_fill property to drm_plane. In
-> > > addition, add support for setting and getting the values for solid_fi=
-ll.
-> > >
-> > > To enable solid fill planes, userspace must assign a property blob to
-> > > the "solid_fill" plane property containing the following information:
-> > >
-> > > struct drm_mode_solid_fill {
-> > >         u32 version;
-> > >         u32 r, g, b;
-> > > };
-> > >
-> > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> > > ---
-> > >  drivers/gpu/drm/drm_atomic_state_helper.c |  9 +++++
-> > >  drivers/gpu/drm/drm_atomic_uapi.c         | 55 +++++++++++++++++++++=
-++++++++++
-> > >  drivers/gpu/drm/drm_blend.c               | 30 +++++++++++++++++
-> > >  include/drm/drm_blend.h                   |  1 +
-> > >  include/drm/drm_plane.h                   | 35 ++++++++++++++++++++
-> > >  include/uapi/drm/drm_mode.h               | 24 ++++++++++++++
-> > >  6 files changed, 154 insertions(+)
-> > >
-> >
-> > [skipped most of the patch]
-> >
-> > > diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.=
-h
-> > > index 43691058d28f..53c8efa5ad7f 100644
-> > > --- a/include/uapi/drm/drm_mode.h
-> > > +++ b/include/uapi/drm/drm_mode.h
-> > > @@ -259,6 +259,30 @@ struct drm_mode_modeinfo {
-> > >         char name[DRM_DISPLAY_MODE_LEN];
-> > >  };
-> > >
-> > > +/**
-> > > + * struct drm_mode_solid_fill - User info for solid fill planes
-> > > + *
-> > > + * This is the userspace API solid fill information structure.
-> > > + *
-> > > + * Userspace can enable solid fill planes by assigning the plane "so=
-lid_fill"
-> > > + * property to a blob containing a single drm_mode_solid_fill struct=
- populated with an RGB323232
-> > > + * color and setting the pixel source to "SOLID_FILL".
-> > > + *
-> > > + * For information on the plane property, see drm_plane_create_solid=
-_fill_property()
-> > > + *
-> > > + * @version: Version of the blob. Currently, there is only support f=
-or version =3D=3D 1
-> > > + * @r: Red color value of single pixel
-> > > + * @g: Green color value of single pixel
-> > > + * @b: Blue color value of single pixel
-> > > + */
-> > > +struct drm_mode_solid_fill {
-> > > +       __u32 version;
-> > > +       __u32 r;
-> > > +       __u32 g;
-> > > +       __u32 b;
-> >
-> > Another thought about the drm_mode_solid_fill uABI. I still think we
-> > should add alpha here. The reason is the following:
-> >
-> > It is true that we have  drm_plane_state::alpha and the plane's
-> > "alpha" property. However it is documented as "the plane-wide opacity
-> > [...] It can be combined with pixel alpha. The pixel values in the
-> > framebuffers are expected to not be pre-multiplied by the global alpha
-> > associated to the plane.".
-> >
-> > I can imagine a use case, when a user might want to enable plane-wide
-> > opacity, set "pixel blend mode" to "Coverage" and then switch between
-> > partially opaque framebuffer and partially opaque solid-fill without
-> > touching the plane's alpha value.
->
-> The only reason I see against this is that there might be some
-> hardware which supports only RGB but not alpha on planes and they
-> could then not use this property.
 
-Fair enough.
 
-> Maybe another COLOR_FILL enum value
-> with alpha might be better? Maybe just doing the alpha via the alpha
-> property is good enough.
+On 8/4/2023 2:48 AM, Dmitry Baryshkov wrote:
+> When removing the core perf tune overrides, I also occasionaly removed the
+> initialisation of the clk_rate variable. Initialise it to 0 to let max()
+> correctly calculate the maximum of requested clock rates.
+> 
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Fixes: 6a4bc73915af ("drm/msm/dpu: drop separate dpu_core_perf_tune overrides")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
 
-One of our customers has a use case for setting the opaque solid fill,
-while keeping the plane's alpha intact.
 
---=20
-With best wishes
-Dmitry
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
