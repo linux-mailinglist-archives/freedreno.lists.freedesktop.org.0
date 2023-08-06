@@ -2,59 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BE65771509
-	for <lists+freedreno@lfdr.de>; Sun,  6 Aug 2023 14:31:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82AE771661
+	for <lists+freedreno@lfdr.de>; Sun,  6 Aug 2023 20:04:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB09810E0FD;
-	Sun,  6 Aug 2023 12:31:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1F010E0FC;
+	Sun,  6 Aug 2023 18:04:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEFA10E0EF;
- Sun,  6 Aug 2023 12:31:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691325076; x=1722861076;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=WG+jMRSs1giuugV7/S2AhBZlclIgxIwrnVuxY1rUKxk=;
- b=BCs3+kiehhqOrCpV/Z/f5S97PlFN1A6wYhpy6ORsv1eYKL5Qxvvcbzgc
- caO3EQuLYbuEeMlYMKK1o4x2RZZ2ybGuxHiuDNjA3QDr7lXngLWKdwt+Y
- +8I6GOPVC7kVJs09gOlIc6vTL4OBIxyjKGHVOfZ9YbtGiM2GL+VP96DJl
- Y//+dXqN5TZGthzUJHWOxEj7ReZbF9DQFMbhkLyceG2pN7nshgdvBA/mz
- foa8pbZC0ZNae8zSuHlP94ElxG8CAtWlg3+lOp05SjyGhQB/GbPJiUbSO
- AwbTJ0xClkBmPduyu3+FGQhHxL6ifQN8MzB7eaPd03L0W8Lejulfk84bE Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10794"; a="434222194"
-X-IronPort-AV: E=Sophos;i="6.01,259,1684825200"; d="scan'208";a="434222194"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2023 05:31:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10794"; a="760144574"
-X-IronPort-AV: E=Sophos;i="6.01,259,1684825200"; d="scan'208";a="760144574"
-Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 06 Aug 2023 05:31:11 -0700
-Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qScub-0004Df-34;
- Sun, 06 Aug 2023 12:31:09 +0000
-Date: Sun, 6 Aug 2023 20:30:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Message-ID: <202308062017.iKU92hML-lkp@intel.com>
-References: <20230802011845.4176631-2-dmitry.baryshkov@linaro.org>
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA4D10E0FC
+ for <freedreno@lists.freedesktop.org>; Sun,  6 Aug 2023 18:04:38 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 40D971F533;
+ Sun,  6 Aug 2023 20:04:36 +0200 (CEST)
+Date: Sun, 6 Aug 2023 20:04:33 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ydpbdzuesywyhvdp4te4xyzzb3blykbfftkuieqjtr5ujjtlwx@rhmxsmfnbbwz>
+References: <20230802100426.4184892-1-dmitry.baryshkov@linaro.org>
+ <20230802100426.4184892-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230802011845.4176631-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 1/3] drm/display: add transparent bridge
- helper
+In-Reply-To: <20230802100426.4184892-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v5 1/8] drm/msm/dpu: fix the irq index in
+ dpu_encoder_phys_wb_wait_for_commit_done
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +43,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
- linux-phy@lists.infradead.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+On 2023-08-02 13:04:19, Dmitry Baryshkov wrote:
+> Since commit 1e7ac595fa46 ("drm/msm/dpu: pass irq to
+> dpu_encoder_helper_wait_for_irq()") the
+> dpu_encoder_phys_wb_wait_for_commit_done expects the IRQ index rather
+> than the IRQ index in phys_enc->intr table, however writeback got the
+> older invocation in place. This was unnoticed for several releases, but
+> now it's time to fix it.
+> 
+> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-kernel test robot noticed the following build warnings:
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on usb/usb-testing usb/usb-next usb/usb-linus drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc4 next-20230804]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-display-add-transparent-bridge-helper/20230802-091932
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230802011845.4176631-2-dmitry.baryshkov%40linaro.org
-patch subject: [PATCH v3 1/3] drm/display: add transparent bridge helper
-config: i386-randconfig-r072-20230806 (https://download.01.org/0day-ci/archive/20230806/202308062017.iKU92hML-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230806/202308062017.iKU92hML-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308062017.iKU92hML-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/display/drm_simple_bridge.c:118:25: sparse: sparse: symbol 'drm_simple_bridge_drv' was not declared. Should it be static?
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> index a466ff70a4d6..78037a697633 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> @@ -446,7 +446,8 @@ static int dpu_encoder_phys_wb_wait_for_commit_done(
+>  	wait_info.atomic_cnt = &phys_enc->pending_kickoff_cnt;
+>  	wait_info.timeout_ms = KICKOFF_TIMEOUT_MS;
+>  
+> -	ret = dpu_encoder_helper_wait_for_irq(phys_enc, INTR_IDX_WB_DONE,
+> +	ret = dpu_encoder_helper_wait_for_irq(phys_enc,
+> +			phys_enc->irq[INTR_IDX_WB_DONE],
+>  			dpu_encoder_phys_wb_done_irq, &wait_info);
+>  	if (ret == -ETIMEDOUT)
+>  		_dpu_encoder_phys_wb_handle_wbdone_timeout(phys_enc);
+> -- 
+> 2.39.2
+> 
