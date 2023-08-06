@@ -1,49 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6EB2770C42
-	for <lists+freedreno@lfdr.de>; Sat,  5 Aug 2023 01:12:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BE65771509
+	for <lists+freedreno@lfdr.de>; Sun,  6 Aug 2023 14:31:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5A210E16E;
-	Fri,  4 Aug 2023 23:12:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB09810E0FD;
+	Sun,  6 Aug 2023 12:31:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4286110E147;
- Fri,  4 Aug 2023 23:12:33 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6593D62168;
- Fri,  4 Aug 2023 23:12:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F794C433C8;
- Fri,  4 Aug 2023 23:12:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691190751;
- bh=0huTYlOJ7ehSTpvXygP50IFdkKHSLFUaNDSomV/oL2s=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=COsw38xLrXJZtdKt2cIk6TcwwogHZlQxG7I3f07LaPeBZO1zTPZoE6l/oBymxpAZU
- 5qe/YFXj5kh/yAjR+PjMTo9PI8F48UvEEoUOnR6LOJFiccBPR2QRgP/YKj2m5WfjvK
- ueXUEREPXhK8FxpVnpDpPgQMnQM+K79OCwaTLo2/acBLUsqQyRQQAtClVs5RFMCshi
- UU5S6ADPnpmbLMhiHj2bqQjznnSbRfRrPMvSWHI6kvdSkLDZK61nTiN5GuWEeNBu2k
- 3mNsFjeUhAHeKKsUslMM0DGeLjyqibKe0lH7R+re759TslgJDcjC3Ir9AE4lBDxL/1
- T9xZrJbVh9Rdg==
-Received: (nullmailer pid 62476 invoked by uid 1000);
- Fri, 04 Aug 2023 23:12:28 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEFA10E0EF;
+ Sun,  6 Aug 2023 12:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1691325076; x=1722861076;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=WG+jMRSs1giuugV7/S2AhBZlclIgxIwrnVuxY1rUKxk=;
+ b=BCs3+kiehhqOrCpV/Z/f5S97PlFN1A6wYhpy6ORsv1eYKL5Qxvvcbzgc
+ caO3EQuLYbuEeMlYMKK1o4x2RZZ2ybGuxHiuDNjA3QDr7lXngLWKdwt+Y
+ +8I6GOPVC7kVJs09gOlIc6vTL4OBIxyjKGHVOfZ9YbtGiM2GL+VP96DJl
+ Y//+dXqN5TZGthzUJHWOxEj7ReZbF9DQFMbhkLyceG2pN7nshgdvBA/mz
+ foa8pbZC0ZNae8zSuHlP94ElxG8CAtWlg3+lOp05SjyGhQB/GbPJiUbSO
+ AwbTJ0xClkBmPduyu3+FGQhHxL6ifQN8MzB7eaPd03L0W8Lejulfk84bE Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10794"; a="434222194"
+X-IronPort-AV: E=Sophos;i="6.01,259,1684825200"; d="scan'208";a="434222194"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2023 05:31:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10794"; a="760144574"
+X-IronPort-AV: E=Sophos;i="6.01,259,1684825200"; d="scan'208";a="760144574"
+Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 06 Aug 2023 05:31:11 -0700
+Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qScub-0004Df-34;
+ Sun, 06 Aug 2023 12:31:09 +0000
+Date: Sun, 6 Aug 2023 20:30:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Message-ID: <202308062017.iKU92hML-lkp@intel.com>
+References: <20230802011845.4176631-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Danila Tikhonov <danila@jiaxyga.com>
-In-Reply-To: <20230803194724.154591-2-danila@jiaxyga.com>
-References: <20230803194724.154591-1-danila@jiaxyga.com>
- <20230803194724.154591-2-danila@jiaxyga.com>
-Message-Id: <169119074853.62442.8646318839779071410.robh@kernel.org>
-Date: Fri, 04 Aug 2023 17:12:28 -0600
-Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display/msm: document DPU
- on SM7150
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230802011845.4176631-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 1/3] drm/display: add transparent bridge
+ helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,58 +67,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_rmccann@quicinc.com, dri-devel@lists.freedesktop.org,
- liushixin2@huawei.com, krzysztof.kozlowski+dt@linaro.org,
- marijn.suijten@somainline.org, quic_khsieh@quicinc.com, airlied@gmail.com,
- rfoss@kernel.org, davidwronek@gmail.com, quic_vpolimer@quicinc.com,
- quic_jesszhan@quicinc.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, robh+dt@kernel.org,
- sean@poorly.run, neil.armstrong@linaro.org, andersson@kernel.org,
- linux-kernel@vger.kernel.org, konrad.dybcio@linaro.org, robdclark@gmail.com,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
+ linux-phy@lists.infradead.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
-On Thu, 03 Aug 2023 22:47:23 +0300, Danila Tikhonov wrote:
-> Document the DPU hardware found on the Qualcomm SM7150 platform.
-> 
-> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> ---
->  .../bindings/display/msm/qcom,sm7150-dpu.yaml | 116 ++++++++++++++++++
->  1 file changed, 116 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
-> 
+kernel test robot noticed the following build warnings:
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on usb/usb-testing usb/usb-next usb/usb-linus drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc4 next-20230804]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-yamllint warnings/errors:
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-display-add-transparent-bridge-helper/20230802-091932
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230802011845.4176631-2-dmitry.baryshkov%40linaro.org
+patch subject: [PATCH v3 1/3] drm/display: add transparent bridge helper
+config: i386-randconfig-r072-20230806 (https://download.01.org/0day-ci/archive/20230806/202308062017.iKU92hML-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20230806/202308062017.iKU92hML-lkp@intel.com/reproduce)
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dts:24:18: fatal error: dt-bindings/clock/qcom,sm7150-dispcc.h: No such file or directory
-   24 |         #include <dt-bindings/clock/qcom,sm7150-dispcc.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1500: dt_binding_check] Error 2
-make: *** [Makefile:234: __sub-make] Error 2
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308062017.iKU92hML-lkp@intel.com/
 
-doc reference errors (make refcheckdocs):
+sparse warnings: (new ones prefixed by >>)
+>> drivers/gpu/drm/display/drm_simple_bridge.c:118:25: sparse: sparse: symbol 'drm_simple_bridge_drv' was not declared. Should it be static?
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230803194724.154591-2-danila@jiaxyga.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
