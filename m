@@ -1,77 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC14772D4A
-	for <lists+freedreno@lfdr.de>; Mon,  7 Aug 2023 19:52:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 451D577315B
+	for <lists+freedreno@lfdr.de>; Mon,  7 Aug 2023 23:40:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7CF310E37B;
-	Mon,  7 Aug 2023 17:52:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 072DA10E0AC;
+	Mon,  7 Aug 2023 21:40:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7252310E02C;
- Mon,  7 Aug 2023 17:52:13 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E84D10E0AC;
+ Mon,  7 Aug 2023 21:40:43 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 377Hp2m7004859; Mon, 7 Aug 2023 17:51:51 GMT
+ 377LATvV004734; Mon, 7 Aug 2023 21:40:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=wGnefafxofA/RVQ+OffCzfRbL3qD9TS2E/5iOEgKjVI=;
- b=LhgBwzcz08mzMWy/osBRlzAXy6nsEWKO9+n8kYrBABipg8e+cWE7bAG3RY4phehz7Isj
- BhBE98DxmBSOqj0bISa2+J+0HHBW2PGwZxGnoODiKZd6GlGhn1bXpJOpXsycm0w+dqeR
- /76t/OdySSkgO//LeXQTLsUDI1xp/6z8D8cgm/ovjjp/yvnUvC4ZiwBzDnUB0F5/cqnC
- dIOcNwKxcpRZ6iXv0orajWtLbGF0ZBqcUgFDlL7P4pWfk5y9uwgtH/fI3beDjrua68tz
- +rawpSLbuWUQHkF4w0hFAA0knEskIrB8Fje0uSYsHKnH2pdVQ5suRYoHQra/SGy9Q+6Z IQ== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ bh=ChsA3fQqo7pMelUu1Wxd5L7I56cDMAE/LAQ7Yun13uM=;
+ b=iK94d53sHuLNqSTOKYhgxqMXJSjwWn8wpoL8ltPaDK/bt6+9eJszUI+ar3nnSgVpSqbQ
+ naqWU91whC2Q+qTSFD9HCDXZFAPy3BCQp+IoX1SobRATOTbcGMbvdQOv8loyNk/oKrud
+ s2y4U/oT7wHMTxF7rQPdB3dHu9BXwP6U4OPLSTQ18+07yoq56IzvsamgNixpPL6njYEk
+ dOGH9kgX/Gv5zqIQR2r9mDP8VqUdKjoGgbAbuvpd6b1Zo3XVVsEN/vy8xvylDoVVQFd3
+ mF/Cr4aftazeNcQz9m5LA2MUj6+o6s6zD+uTIsCXZSdtAztHXSZ4S6pOxvrZ8PP87DXO OA== 
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3saw0r97qx-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3s9endme20-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 07 Aug 2023 17:51:51 +0000
+ Mon, 07 Aug 2023 21:40:32 +0000
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 377HpotR027651
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 377LeWjj028653
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 7 Aug 2023 17:51:50 GMT
+ Mon, 7 Aug 2023 21:40:32 GMT
 Received: from [10.71.109.168] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Mon, 7 Aug
- 2023 10:51:49 -0700
-Message-ID: <71e9cc67-3aed-f1b7-33b7-1bf9faa0d6ae@quicinc.com>
-Date: Mon, 7 Aug 2023 10:51:49 -0700
+ 2023 14:40:31 -0700
+Message-ID: <34598a37-7431-4f7e-7809-928bce65d237@quicinc.com>
+Date: Mon, 7 Aug 2023 14:40:31 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Sebastian Wick <sebastian.wick@redhat.com>
-References: <20230728-solid-fill-v5-0-053dbefa909c@quicinc.com>
- <20230728-solid-fill-v5-1-053dbefa909c@quicinc.com>
- <CA+hFU4ywNbK77Nj+AVkRbgnomyP-YHhP6pKvNhFG-6HXwAY=Yw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20230802-add-widebus-support-v3-0-2661706be001@quicinc.com>
+ <20230802-add-widebus-support-v3-2-2661706be001@quicinc.com>
+ <CAA8EJpoPd_T+vLVrJ6RpCrYY6H1xLF4eFYVGV4N-wS3g+5cR-w@mail.gmail.com>
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <CA+hFU4ywNbK77Nj+AVkRbgnomyP-YHhP6pKvNhFG-6HXwAY=Yw@mail.gmail.com>
+In-Reply-To: <CAA8EJpoPd_T+vLVrJ6RpCrYY6H1xLF4eFYVGV4N-wS3g+5cR-w@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: Q7sAW3KP6Or0ZrdsZP-Lur5ymK01wbPl
-X-Proofpoint-ORIG-GUID: Q7sAW3KP6Or0ZrdsZP-Lur5ymK01wbPl
+X-Proofpoint-GUID: 0WR781ITtUQ-NXFs6o9OiUX1qKSmN2Vq
+X-Proofpoint-ORIG-GUID: 0WR781ITtUQ-NXFs6o9OiUX1qKSmN2Vq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-07_19,2023-08-03_01,2023-05-22_02
+ definitions=2023-08-07_24,2023-08-03_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0
- phishscore=0 adultscore=0 impostorscore=0 mlxlogscore=999 clxscore=1015
- spamscore=0 lowpriorityscore=0 priorityscore=1501 mlxscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308070163
-Subject: Re: [Freedreno] [PATCH RFC v5 01/10] drm: Introduce pixel_source
- DRM plane property
+ suspectscore=0
+ lowpriorityscore=0 mlxlogscore=999 adultscore=0 clxscore=1015 mlxscore=0
+ priorityscore=1501 phishscore=0 malwarescore=0 impostorscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2306200000 definitions=main-2308070198
+Subject: Re: [Freedreno] [PATCH v3 2/4] drm/msm/dpu: Enable widebus for DSI
+ INTF
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,279 +84,167 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- ppaalanen@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>, Sean
- Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, Marijn
+ Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 8/4/2023 6:15 AM, Sebastian Wick wrote:
-> On Fri, Jul 28, 2023 at 7:03 PM Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+On 8/2/2023 11:20 AM, Dmitry Baryshkov wrote:
+> On Wed, 2 Aug 2023 at 21:09, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
 >>
->> Add support for pixel_source property to drm_plane and related
->> documentation. In addition, force pixel_source to
->> DRM_PLANE_PIXEL_SOURCE_FB in DRM_IOCTL_MODE_SETPLANE as to not break
->> legacy userspace.
+>> DPU supports a data-bus widen mode for DSI INTF.
 >>
->> This enum property will allow user to specify a pixel source for the
->> plane. Possible pixel sources will be defined in the
->> drm_plane_pixel_source enum.
->>
->> The current possible pixel sources are DRM_PLANE_PIXEL_SOURCE_NONE and
->> DRM_PLANE_PIXEL_SOURCE_FB with *_PIXEL_SOURCE_FB being the default value.
+>> Enable this mode for all supported chipsets if widebus is enabled for DSI.
 >>
 >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 >> ---
->>   drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
->>   drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
->>   drivers/gpu/drm/drm_blend.c               | 85 +++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/drm_plane.c               |  3 ++
->>   include/drm/drm_blend.h                   |  2 +
->>   include/drm/drm_plane.h                   | 21 ++++++++
->>   6 files changed, 116 insertions(+)
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          | 11 ++++++++---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  4 +++-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          |  3 +++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          |  1 +
+>>   drivers/gpu/drm/msm/msm_drv.h                        |  6 +++++-
+>>   5 files changed, 20 insertions(+), 5 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
->> index 784e63d70a42..01638c51ce0a 100644
->> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
->> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
->> @@ -252,6 +252,7 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index 3dcd37c48aac..de08aad39e15 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -1196,15 +1196,20 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
+>>          struct drm_display_mode *cur_mode = NULL;
+>>          struct msm_drm_private *priv = drm_enc->dev->dev_private;
+>>          struct msm_display_info *disp_info;
+>> +       int index;
 >>
->>          plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
->>          plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
->> +       plane_state->pixel_source = DRM_PLANE_PIXEL_SOURCE_FB;
+>>          dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>          disp_info = &dpu_enc->disp_info;
 >>
->>          if (plane->color_encoding_property) {
->>                  if (!drm_object_property_get_default_value(&plane->base,
->> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
->> index d867e7f9f2cd..454f980e16c9 100644
->> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->> @@ -544,6 +544,8 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
->>                  state->src_w = val;
->>          } else if (property == config->prop_src_h) {
->>                  state->src_h = val;
->> +       } else if (property == plane->pixel_source_property) {
->> +               state->pixel_source = val;
->>          } else if (property == plane->alpha_property) {
->>                  state->alpha = val;
->>          } else if (property == plane->blend_mode_property) {
->> @@ -616,6 +618,8 @@ drm_atomic_plane_get_property(struct drm_plane *plane,
->>                  *val = state->src_w;
->>          } else if (property == config->prop_src_h) {
->>                  *val = state->src_h;
->> +       } else if (property == plane->pixel_source_property) {
->> +               *val = state->pixel_source;
->>          } else if (property == plane->alpha_property) {
->>                  *val = state->alpha;
->>          } else if (property == plane->blend_mode_property) {
->> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
->> index 6e74de833466..c500310a3d09 100644
->> --- a/drivers/gpu/drm/drm_blend.c
->> +++ b/drivers/gpu/drm/drm_blend.c
->> @@ -185,6 +185,21 @@
->>    *              plane does not expose the "alpha" property, then this is
->>    *              assumed to be 1.0
->>    *
->> + * pixel_source:
->> + *     pixel_source is set up with drm_plane_create_pixel_source_property().
->> + *     It is used to toggle the active source of pixel data for the plane.
->> + *     The plane will only display data from the set pixel_source -- any
->> + *     data from other sources will be ignored.
->> + *
->> + *     Possible values:
->> + *
->> + *     "NONE":
->> + *             No active pixel source.
->> + *             Committing with a NONE pixel source will disable the plane.
->> + *
->> + *     "FB":
->> + *             Framebuffer source set by the "FB_ID" property.
->> + *
->>    * Note that all the property extensions described here apply either to the
->>    * plane or the CRTC (e.g. for the background color, which currently is not
->>    * exposed and assumed to be black).
->> @@ -615,3 +630,73 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
->>          return 0;
->>   }
->>   EXPORT_SYMBOL(drm_plane_create_blend_mode_property);
+>> +       disp_info = &dpu_enc->disp_info;
+>> +       index = disp_info->h_tile_instance[0];
 >> +
->> +/**
->> + * drm_plane_create_pixel_source_property - create a new pixel source property
->> + * @plane: DRM plane
->> + * @extra_sources: Bitmask of additional supported pixel_sources for the driver.
->> + *                DRM_PLANE_PIXEL_SOURCE_FB always be enabled as a supported
->> + *                source.
->> + *
->> + * This creates a new property describing the current source of pixel data for the
->> + * plane. The pixel_source will be initialized as DRM_PLANE_PIXEL_SOURCE_FB by default.
->> + *
->> + * Drivers can set a custom default source by overriding the pixel_source value in
->> + * drm_plane_funcs.reset()
->> + *
->> + * The property is exposed to userspace as an enumeration property called
->> + * "pixel_source" and has the following enumeration values:
->> + *
->> + * "NONE":
->> + *      No active pixel source
->> + *
->> + * "FB":
->> + *     Framebuffer pixel source
->> + *
->> + * Returns:
->> + * Zero on success, negative errno on failure.
->> + */
->> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
->> +                                          unsigned long extra_sources)
->> +{
->> +       struct drm_device *dev = plane->dev;
->> +       struct drm_property *prop;
->> +       static const struct drm_prop_enum_list enum_list[] = {
->> +               { DRM_PLANE_PIXEL_SOURCE_NONE, "NONE" },
->> +               { DRM_PLANE_PIXEL_SOURCE_FB, "FB" },
->> +       };
->> +       static const unsigned int valid_source_mask = BIT(DRM_PLANE_PIXEL_SOURCE_FB);
->> +       int i;
->> +
->> +       /* FB is supported by default */
->> +       unsigned long supported_sources = extra_sources | BIT(DRM_PLANE_PIXEL_SOURCE_FB);
+>>          dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
+>>
+>> -       if (disp_info->intf_type == INTF_DP)
+>> -               dpu_enc->wide_bus_en = msm_dp_wide_bus_available(
+>> -                               priv->dp[disp_info->h_tile_instance[0]]);
+>> +       if (disp_info->intf_type == INTF_DSI)
+>> +               dpu_enc->wide_bus_en = msm_dsi_is_widebus_enabled(priv->dsi[index]);
+>> +       else if (disp_info->intf_type == INTF_DP)
+>> +               dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
 > 
-> The DRM_PLANE_PIXEL_SOURCE_NONE property should also be enabled by
-> default and in the valid_source_mask. 
+> If you change the order, you won't have to touch DP lines.
 
-Hi Sebastian,
+Hi Dmitry,
 
 Acked.
 
+> 
+>>
+>>          mutex_lock(&dpu_enc->enc_lock);
+>>          cur_mode = &dpu_enc->base.crtc->state->adjusted_mode;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+>> index df88358e7037..dace6168be2d 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+>> @@ -69,8 +69,10 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
+>>                                  phys_enc->hw_intf,
+>>                                  phys_enc->hw_pp->idx);
+>>
+>> -       if (intf_cfg.dsc != 0)
+>> +       if (intf_cfg.dsc != 0) {
+>>                  cmd_mode_cfg.data_compress = true;
+>> +               cmd_mode_cfg.wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
+>> +       }
+> 
+> This embeds the knowledge that a wide bus can only be enabled when DSC
+> is in use. Please move the wide_bus_en assignment out of conditional
+> code.
 
-> In a later patch you implement
-> the DRM_PLANE_PIXEL_SOURCE_NONE logic in drm core so everyone gets the
-> enum value for free. Might want to pull that logic into its own patch
-> and move it before this one.
+Wide bus for DSI will only be enabled if DSC is enabled, so this is 
+technically not wrong, as DP will use the video mode path.
 
-Can you elaborate on this? Are you referring to the "Loosen FB atomic 
-checks" patch?
+> 
+>>
+>>          if (phys_enc->hw_intf->ops.program_intf_cmd_cfg)
+>>                  phys_enc->hw_intf->ops.program_intf_cmd_cfg(phys_enc->hw_intf, &cmd_mode_cfg);
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> index 8ec6505d9e78..dc6f3febb574 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> @@ -521,6 +521,9 @@ static void dpu_hw_intf_program_intf_cmd_cfg(struct dpu_hw_intf *ctx,
+> 
+> This function is only enabled for DPU >= 7.0, while IIRC wide bus can
+> be enabled even for some of the earlier chipsets.
 
-Not sure why it would make sense to loosen the checks before non-FB 
-pixel sources are introduced.
+The command mode path is only called for DSI, which only supports wide 
+bus for DPU 7.0+.
+
+> 
+>>          if (cmd_mode_cfg->data_compress)
+>>                  intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
+>>
+>> +       if (cmd_mode_cfg->wide_bus_en)
+>> +               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
+>> +
+>>          DPU_REG_WRITE(&ctx->hw, INTF_CONFIG2, intf_cfg2);
+>>   }
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> index 77f80531782b..c539025c418b 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> @@ -50,6 +50,7 @@ struct dpu_hw_intf_status {
+>>
+>>   struct dpu_hw_intf_cmd_mode_cfg {
+>>          u8 data_compress;       /* enable data compress between dpu and dsi */
+>> +       u8 wide_bus_en;         /* enable databus widen mode */
+>>   };
+>>
+>>   /**
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+>> index 9d9d5e009163..e4f706b16aad 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.h
+>> +++ b/drivers/gpu/drm/msm/msm_drv.h
+>> @@ -344,6 +344,7 @@ void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi
+>>   bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
+>>   bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
+>>   bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
+>> +bool msm_dsi_is_widebus_enabled(struct msm_dsi *msm_dsi);
+>>   struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi);
+>>   #else
+>>   static inline void __init msm_dsi_register(void)
+>> @@ -373,7 +374,10 @@ static inline bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
+>>   {
+>>          return false;
+>>   }
+>> -
+>> +static inline bool msm_dsi_is_widebus_enabled(struct msm_dsi *msm_dsi)
+>> +{
+>> +       return false;
+>> +}
+> 
+> Empty line, please.
+
+Acked.
 
 Thanks,
 
 Jessica Zhang
 
 > 
->> +
->> +       if (WARN_ON(supported_sources & ~valid_source_mask))
->> +               return -EINVAL;
->> +
->> +       prop = drm_property_create(dev, DRM_MODE_PROP_ENUM | DRM_MODE_PROP_ATOMIC, "pixel_source",
->> +                       hweight32(supported_sources));
->> +
->> +       if (!prop)
->> +               return -ENOMEM;
->> +
->> +       for (i = 0; i < ARRAY_SIZE(enum_list); i++) {
->> +               int ret;
->> +
->> +               if (!test_bit(enum_list[i].type, &supported_sources))
->> +                       continue;
->> +
->> +               ret = drm_property_add_enum(prop, enum_list[i].type, enum_list[i].name);
->> +               if (ret) {
->> +                       drm_property_destroy(dev, prop);
->> +
->> +                       return ret;
->> +               }
->> +       }
->> +
->> +       drm_object_attach_property(&plane->base, prop, DRM_PLANE_PIXEL_SOURCE_FB);
->> +       plane->pixel_source_property = prop;
->> +
->> +       return 0;
->> +}
->> +EXPORT_SYMBOL(drm_plane_create_pixel_source_property);
->> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
->> index 24e7998d1731..f342cf15412b 100644
->> --- a/drivers/gpu/drm/drm_plane.c
->> +++ b/drivers/gpu/drm/drm_plane.c
->> @@ -987,6 +987,9 @@ int drm_mode_setplane(struct drm_device *dev, void *data,
->>                  return -ENOENT;
->>          }
->>
->> +       if (plane->state && plane->state->pixel_source != DRM_PLANE_PIXEL_SOURCE_FB)
->> +               plane->state->pixel_source = DRM_PLANE_PIXEL_SOURCE_FB;
->> +
->>          if (plane_req->fb_id) {
->>                  fb = drm_framebuffer_lookup(dev, file_priv, plane_req->fb_id);
->>                  if (!fb) {
->> diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
->> index 88bdfec3bd88..122bbfbaae33 100644
->> --- a/include/drm/drm_blend.h
->> +++ b/include/drm/drm_blend.h
->> @@ -58,4 +58,6 @@ int drm_atomic_normalize_zpos(struct drm_device *dev,
->>                                struct drm_atomic_state *state);
->>   int drm_plane_create_blend_mode_property(struct drm_plane *plane,
->>                                           unsigned int supported_modes);
->> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
->> +                                          unsigned long extra_sources);
->>   #endif
->> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
->> index 51291983ea44..89508b4dea4a 100644
->> --- a/include/drm/drm_plane.h
->> +++ b/include/drm/drm_plane.h
->> @@ -40,6 +40,12 @@ enum drm_scaling_filter {
->>          DRM_SCALING_FILTER_NEAREST_NEIGHBOR,
->>   };
->>
->> +enum drm_plane_pixel_source {
->> +       DRM_PLANE_PIXEL_SOURCE_NONE,
->> +       DRM_PLANE_PIXEL_SOURCE_FB,
->> +       DRM_PLANE_PIXEL_SOURCE_MAX
->> +};
->> +
->>   /**
->>    * struct drm_plane_state - mutable plane state
->>    *
->> @@ -116,6 +122,14 @@ struct drm_plane_state {
->>          /** @src_h: height of visible portion of plane (in 16.16) */
->>          uint32_t src_h, src_w;
->>
->> +       /**
->> +        * @pixel_source:
->> +        *
->> +        * Source of pixel information for the plane. See
->> +        * drm_plane_create_pixel_source_property() for more details.
->> +        */
->> +       enum drm_plane_pixel_source pixel_source;
->> +
->>          /**
->>           * @alpha:
->>           * Opacity of the plane with 0 as completely transparent and 0xffff as
->> @@ -699,6 +713,13 @@ struct drm_plane {
->>           */
->>          struct drm_plane_state *state;
->>
->> +       /*
->> +        * @pixel_source_property:
->> +        * Optional pixel_source property for this plane. See
->> +        * drm_plane_create_pixel_source_property().
->> +        */
->> +       struct drm_property *pixel_source_property;
->> +
->>          /**
->>           * @alpha_property:
->>           * Optional alpha property for this plane. See
+>>   static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+>>   {
+>>          return NULL;
 >>
 >> --
 >> 2.41.0
 >>
 > 
+> 
+> -- 
+> With best wishes
+> Dmitry
