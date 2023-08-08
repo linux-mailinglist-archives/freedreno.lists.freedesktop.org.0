@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBDB5774C1D
-	for <lists+freedreno@lfdr.de>; Tue,  8 Aug 2023 23:03:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5DA8774C10
+	for <lists+freedreno@lfdr.de>; Tue,  8 Aug 2023 23:03:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72EA010E21D;
-	Tue,  8 Aug 2023 21:03:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0E710E19D;
+	Tue,  8 Aug 2023 21:03:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56EBF10E21D
- for <freedreno@lists.freedesktop.org>; Tue,  8 Aug 2023 21:02:58 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2b9bf52cd08so95238451fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 08 Aug 2023 14:02:58 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5202A10E112
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Aug 2023 21:03:00 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2b962c226ceso98240131fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Aug 2023 14:03:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691528576; x=1692133376;
+ d=linaro.org; s=google; t=1691528578; x=1692133378;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=lqz7w9DN46LollZ8B8cwAps5w+FdCgj3qIXMhHKzaOA=;
- b=w7TM1+29aq7mu8DdyFgFg7q+tgvrgq72wC0QJ1yMpAwOb7RgSgZuGmuKEmbwBXvDzu
- ZORquxMncRCJAal/oUKm5zZRUGD1FqYFfzQ+4NTN6QCZ0Y3Asgd/KkBWNo83AxuryI1P
- NQSnjjqfQXWMDTi2eZdHcQY761nqfLPi6OY8rh5nBD0ll44gRz/jzi769Z7XLoYuTpij
- KBrP87k27wq+4TguJ2Yp7Y0Ckz+HjaXAf6AAVgEo+iBKZv6sNjDiHAUjGYfSq7mNB6mg
- YAx08WwEv6X0ml8XbTkRlerFClWzFHI+E+h8nagjK0xKUFXVCFyQcD/ze9bF7Sw1u+0z
- wzdw==
+ :reply-to; bh=a13TlERjZ/yvBKly/AGOqrMMiFpj1YGs0Ux9Op8gIVs=;
+ b=H1PJZYsx2T7Rn4anW5XSQZA9afRmTh9NeBPbPqfY5kvZSO7R3brHeG7mSPb196jYXp
+ as+6wGFHIpLIkpo05bugbQcrX5qR2Ebpkn6ed8+aILzxYjkn6PuuE712VVxPGQaWX7M+
+ 5NBikVn9aUZFcus7i5zrpnizNJLXYu36sdpOrX6mwtHGATCsuI+YblaIJpk2zchk/5JX
+ O3hZP+rlOzYOwv3puSthY9wWsnCp65dMLr53Djrp/5kKCEaIoFOh1pmvhLy27gDU2iGc
+ 58cf36uzHg12bXUm0xrhKQIrnsu48m0IULJEYJUkCGgXDKKamKQZuvNAfUgbARKcgBIj
+ 3gPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691528576; x=1692133376;
+ d=1e100.net; s=20221208; t=1691528578; x=1692133378;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lqz7w9DN46LollZ8B8cwAps5w+FdCgj3qIXMhHKzaOA=;
- b=DVL+ZxysxIKO3Ph0oTN9UM3Z2qb+uUZcBe7l6B/hFc/gr6lx2Nw2SN4AirYAPMD3nE
- WRjajl/MbZqa9zG5MDRGzCx96IxOy2Wr3hg3oGY8lLju81RBV20v7Jw3Xn9TstJ77a/v
- Xu8TGcwf05YSFN5NZmGz7JdNRGkfeBo589IzFlHWmhsKP0OlDAVJMAhKuXQ0loVou2A7
- iFYEjFGvBo0J2b6hp8ZIfKIyB/E6NeCLMeQxZPfC06j/hpT5Gs6Ap/ALV0BvwWTsUFo2
- FKGiNkfr1m2GoUNgRj1rLyWhbxhEFH35bxcQPqPn7aU8uEMKyUSkDpzX94r+W946qluN
- hpoA==
-X-Gm-Message-State: AOJu0YxkbZ0QBQToBpFW1AS8QGh3hxXi8hldAQ71JB7eYxc22UNWeI83
- R9s4ytH0KH/DmG8lu4TQxgp+3w==
-X-Google-Smtp-Source: AGHT+IE0PLzf8rTXtsLHDVnz0HqqaD6Vde/Y6FvOMzx+RT7sb+AooJgdWRW4uKO3Beejot6Pj8JL3g==
-X-Received: by 2002:a2e:a307:0:b0:2b6:c886:681 with SMTP id
- l7-20020a2ea307000000b002b6c8860681mr492063lje.6.1691528576656; 
- Tue, 08 Aug 2023 14:02:56 -0700 (PDT)
+ bh=a13TlERjZ/yvBKly/AGOqrMMiFpj1YGs0Ux9Op8gIVs=;
+ b=iO9tSes/Ilz2EuKmXX+LbiVlw9LDASMNqQREMDSylk35KiiMIM8bmgff+AAU6SO702
+ h2dnPC436p9FU7iienvA3lRRT+L8n6R7k1QQluaBn2rCOQzNR+pgNdcaDYkhyIQi3u9G
+ i7nGYpjKhihLlQZl1hsVVtOsMUtAggtdU5chM4BFneJFsgehoY/3IqkDHJuq2yLlpihn
+ IZXxlDPI1HxgDXH2Uy0uaNnhb6p+ZL4GreUv/CnfOHI9dJGSud7P5bC7G41SrHZ8s6SC
+ 886o9nFfnnew73R9RIW1UFhlY7uVEkUFCjoUQk4N+N8Ankq4TfIT0pGCfGZPBusn1rBZ
+ qlGw==
+X-Gm-Message-State: AOJu0Ywdw17+ugfK/tdjs6WL5r23IZbwd1mAOyDw88V7Ri6ys2p09Oi5
+ 2A3iyJLhVi78vVn1x5LO+JRCFg==
+X-Google-Smtp-Source: AGHT+IHwifWAFYokdWjpmdSh19UTnzHvP19artpwYL3ci97p4SwBhNfIJcamjQIDm7o3EPSEFxwWEg==
+X-Received: by 2002:a2e:86c3:0:b0:2b9:f1ad:94f5 with SMTP id
+ n3-20020a2e86c3000000b002b9f1ad94f5mr438696ljj.40.1691528578674; 
+ Tue, 08 Aug 2023 14:02:58 -0700 (PDT)
 Received: from [192.168.1.101] (abxi185.neoplus.adsl.tpnet.pl. [83.9.2.185])
  by smtp.gmail.com with ESMTPSA id
- h11-20020a2eb0eb000000b002b6cc17add3sm2431483ljl.25.2023.08.08.14.02.55
+ h11-20020a2eb0eb000000b002b6cc17add3sm2431483ljl.25.2023.08.08.14.02.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Aug 2023 14:02:56 -0700 (PDT)
+ Tue, 08 Aug 2023 14:02:57 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 08 Aug 2023 23:02:43 +0200
+Date: Tue, 08 Aug 2023 23:02:44 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230628-topic-a7xx_drmmsm-v2-5-1439e1b2343f@linaro.org>
+Message-Id: <20230628-topic-a7xx_drmmsm-v2-6-1439e1b2343f@linaro.org>
 References: <20230628-topic-a7xx_drmmsm-v2-0-1439e1b2343f@linaro.org>
 In-Reply-To: <20230628-topic-a7xx_drmmsm-v2-0-1439e1b2343f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -66,14 +66,15 @@ To: Rob Clark <robdclark@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1691528566; l=1048;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1691528566; l=2192;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=TnlFTvDdHhoi4rVAYZ2tyAwm56dDVRIuWBaJyWSlozw=;
- b=a/SUmHuwx6GbHQKZ+zB6XePPj9sI9E9dNkhNkm4geJQBC/XMyObKFtFrnDWlvJ+i/rulMyMRt
- UaeyhJm1kS7BUbCC3ZrXmWHAvbWEMsshMCIBeYdQFx+cLTGdOsb1k+7
+ bh=tUfU3+ovsnb6sldTwSDEUkthoS8ftGWI68xnQOhZSl8=;
+ b=Gg1/EQ7JSx1ssTGQaOw1FYx7cTycHkjbtlzVhlDG270vRIUCbgfLbg3AMBVJC2fNsPnBawSiU
+ TqXDjJXP2rWABo0WNT8X5kzfCnD17h/qGOicpiVO/tFfqtlvDgapl0L
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v2 05/14] drm/msm/a6xx: Introduce a6xx_llc_read
+Subject: [Freedreno] [PATCH v2 06/14] drm/msm/a6xx: Move LLC accessors to
+ the common header
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,32 +95,68 @@ Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add a helper that does exactly what it says on the can, it'll be
-required for A7xx.
+Move these wrappers in preparation for use in a6xx_gmu.c
 
 Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
 Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # sm8450
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 15 ---------------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 15 +++++++++++++++
+ 2 files changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 1ed202c4e497..0fef92f71c4e 100644
+index 0fef92f71c4e..6dd6d72bcd86 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1740,6 +1740,11 @@ static void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u32 or)
- 	return msm_rmw(a6xx_gpu->llc_mmio + (reg << 2), mask, or);
+@@ -1735,21 +1735,6 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
+ 	return IRQ_HANDLED;
  }
  
-+static u32 a6xx_llc_read(struct a6xx_gpu *a6xx_gpu, u32 reg)
+-static void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u32 or)
+-{
+-	return msm_rmw(a6xx_gpu->llc_mmio + (reg << 2), mask, or);
+-}
+-
+-static u32 a6xx_llc_read(struct a6xx_gpu *a6xx_gpu, u32 reg)
+-{
+-	return msm_readl(a6xx_gpu->llc_mmio + (reg << 2));
+-}
+-
+-static void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
+-{
+-	msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
+-}
+-
+ static void a6xx_llc_deactivate(struct a6xx_gpu *a6xx_gpu)
+ {
+ 	llcc_slice_deactivate(a6xx_gpu->llc_slice);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index ab66d281828c..34822b080759 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -62,6 +62,21 @@ static inline bool a6xx_has_gbif(struct adreno_gpu *gpu)
+ 	return true;
+ }
+ 
++static inline void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u32 or)
++{
++	return msm_rmw(a6xx_gpu->llc_mmio + (reg << 2), mask, or);
++}
++
++static inline u32 a6xx_llc_read(struct a6xx_gpu *a6xx_gpu, u32 reg)
 +{
 +	return msm_readl(a6xx_gpu->llc_mmio + (reg << 2));
 +}
 +
- static void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
- {
- 	msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
++static inline void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
++{
++	msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
++}
++
+ #define shadowptr(_a6xx_gpu, _ring) ((_a6xx_gpu)->shadow_iova + \
+ 		((_ring)->id * sizeof(uint32_t)))
+ 
 
 -- 
 2.41.0
