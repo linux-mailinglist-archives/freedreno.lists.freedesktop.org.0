@@ -1,103 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BF317793FF
-	for <lists+freedreno@lfdr.de>; Fri, 11 Aug 2023 18:11:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EF7E77943A
+	for <lists+freedreno@lfdr.de>; Fri, 11 Aug 2023 18:21:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D1A10E6B5;
-	Fri, 11 Aug 2023 16:11:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5066710E6B5;
+	Fri, 11 Aug 2023 16:21:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77ECF10E6B2
- for <freedreno@lists.freedesktop.org>; Fri, 11 Aug 2023 16:11:38 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2b9cbaee7a9so33960851fa.0
- for <freedreno@lists.freedesktop.org>; Fri, 11 Aug 2023 09:11:38 -0700 (PDT)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B899A10E6B3;
+ Fri, 11 Aug 2023 16:21:36 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5236a9788a7so2866328a12.0; 
+ Fri, 11 Aug 2023 09:21:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691770296; x=1692375096;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=s9ZAMNQoymALcBO/YXbYxLOGCttwEzlATxN39tlKZ04=;
- b=fNa+PgzzPdYbITjpJAUXp2GrOx+clAFsasfMkdYezWUZCvAEQuWtSZBojr8jxVnvPk
- Ws9f8X/xizsi5nN1+T4MRBgX1rSG/elFH+a31SoIY1szS76XtAv2ELyWLKIzn10eF9TF
- niVOzRSzfP5oCnoavgevMwdMfF/Id7UhdURjMyS2rWidUDiA+R7sO8+BWC+dsHjEWos/
- KmqzadzN7CszS8nG2uemtr0heBYLt2vMmZdNjGJ2S4T9z7RqzgLI3nTT7lyC6czv+hgG
- 00g1A7CaMMnfhZUMaSMel1nvO2ATsIyf8G3Bvf2Jz43UutxPQam8QUo6bf+2vlZKbPPV
- Cl9g==
+ d=gmail.com; s=20221208; t=1691770895; x=1692375695;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gu8V37ck4bhW/MDHFFxPdQxj3+UGhQMkMY7C4RdA7kU=;
+ b=iE5QNHzCs/a84dftki8VPTvxzfS4UsEgOLYbiwuZGVELYQrM2auOZfRbn2xmXEaybz
+ LniC3FU0oDl/F+bCXaqR+mdTR2tYvlGPKSpXA2WGpX2/0T62EpBViCPJE+J8uSlJdd4f
+ B9zRO3ZU9LE3B93qLUU+LQTF7A3kovZzRMTl1UB+rMLIpPorGCl/Qv+MvWtpd9SH60i8
+ YigMmy8UUL1rBUauj/6gMTUfEui7sBuIp7YCDhqF0nUhzcK8cYQ3GHwn+GQq6exDw8Su
+ 5ZqwSQDQ3xiHLdGobRkcra8le1Hq9jONgFb8MId+bscgVlWoy7JOwl6WsPRHd0E2v2Yd
+ UpKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691770296; x=1692375096;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=s9ZAMNQoymALcBO/YXbYxLOGCttwEzlATxN39tlKZ04=;
- b=Az+l7XcHcuQTcr3/DPupD1HSCwrM81KnVdByca9moUjPmYZdvHp6PaDKOSo/T4LO58
- F1GMNnff80/92L3A/snGmRijL3x7KmjjLDG2S7e7uXZcFQEKkUhcRJowwqCtdUIUBv0y
- bRt3atjB+i5XJ6B1kf+DjeQYlKZ27/kUFaYXqFi5D85m1LrmdbItdsucPv3utJWwnTTL
- 6i7suy48J9j34mhfiFcxkfPYUs/qVgkkxBSbfzThbjs83fiX7v7RfL7rStniRXsjmxdj
- aOoUQs6MuzyLCHQ3nVutLP8sH6CfykUtwfNCo2ARm0rzPL+MSZLzdE+FUPvZzwkWU/HP
- DhHw==
-X-Gm-Message-State: AOJu0Yzqq5I22dqzRzdtbbaew67oM1y+4Xxcg8aDRP/+i8ODUeBq0sgR
- roTl3SA9Rg83N8XDU8G8AJwUhw==
-X-Google-Smtp-Source: AGHT+IGD4iru4OlZyO5VyYD4jF4S5cGBNWpAly//GJxDIREQZP5T3IlLN48pB9ByIbg+DjpW8Ef/8A==
-X-Received: by 2002:a2e:7c03:0:b0:2b9:e93e:65e6 with SMTP id
- x3-20020a2e7c03000000b002b9e93e65e6mr2003908ljc.35.1691770296329; 
- Fri, 11 Aug 2023 09:11:36 -0700 (PDT)
-Received: from [192.168.1.101] (abyj188.neoplus.adsl.tpnet.pl. [83.9.29.188])
- by smtp.gmail.com with ESMTPSA id
- l13-20020a2e908d000000b002b70a8478ddsm932084ljg.44.2023.08.11.09.11.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Aug 2023 09:11:35 -0700 (PDT)
-Message-ID: <d400c787-3c81-4e37-b541-371d6096cf7e@linaro.org>
-Date: Fri, 11 Aug 2023 18:11:34 +0200
+ d=1e100.net; s=20221208; t=1691770895; x=1692375695;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gu8V37ck4bhW/MDHFFxPdQxj3+UGhQMkMY7C4RdA7kU=;
+ b=YsMwiClf34o6A5DAY0JR8GAR3KPDzeIlSNmadG/wv634HKWip2NCtbALvmMAKzwyWg
+ LSqyOL0tNQVvUKW5LXIHwKuuYU0Yotrf6K3yICBV6TFvQpV1tTn49MQOhqU0MRNmatVJ
+ g/83CGLO/JkCwUi2oEubSH/bgj4Umo6w2J+029S+LtNPTRY1P5aEIgTs/T+Fp+ikrxjK
+ dfMHl9CQz1WhQxTsEZ2/Ul7mh9JJDDOvwpWqire+cWg4MRHOlSRLg1YNsOJcONYy+W7o
+ Jd/7bIucAUAruTxM1Q6EM++61p8D8LFCn5KEYga2HUaT/oI5TJ8YLWDPD2R2HVj6DthE
+ s/Fw==
+X-Gm-Message-State: AOJu0YygzHac09w01bUvXtKAGUtpCYPdc0XSyjMlb3OcIqyrzJH2LzAu
+ zDu35TytNPX+GbOI5IMjh12zwpMqnRDfAHm5eak=
+X-Google-Smtp-Source: AGHT+IHxJ7loqb9uBPUfzjEVz2W5ApsU10Ng4qTENXy3nPtyg76zYG6eo2MZZO+e2x4Qu1z+qceCnvjHoMnNVoJMK9Y=
+X-Received: by 2002:aa7:c956:0:b0:523:b1b0:f69f with SMTP id
+ h22-20020aa7c956000000b00523b1b0f69fmr2241060edt.32.1691770894855; Fri, 11
+ Aug 2023 09:21:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20230811160505.174574-1-robdclark@gmail.com>
  <CAF6AEGtNgCxsOLyF31=WCdag4Gb7+2FvFEvOWDcqd_TxiTeE3w@mail.gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <CAF6AEGtNgCxsOLyF31=WCdag4Gb7+2FvFEvOWDcqd_TxiTeE3w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <d400c787-3c81-4e37-b541-371d6096cf7e@linaro.org>
+In-Reply-To: <d400c787-3c81-4e37-b541-371d6096cf7e@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 11 Aug 2023 09:21:22 -0700
+Message-ID: <CAF6AEGuHKuW_LGYfC640fBHsf3xzxSiyqL0YVpb5HqE=HSiL4w@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Subject: Re: [Freedreno] [PATCH] drm/msm/a690: Switch to a660_gmu.bin
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,63 +70,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
  Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11.08.2023 18:09, Rob Clark wrote:
-> On Fri, Aug 11, 2023 at 9:05 AM Rob Clark <robdclark@gmail.com> wrote:
->>
->> From: Rob Clark <robdclark@chromium.org>
->>
->> There isn't actually a a690_gmu.bin.  But it appears that the normal
->> a660_gmu.bin works fine.  Normally all the devices within a sub-
->> generation (or "family") will use the same fw, and a690 is in the a660
->> family.
->>
-> 
-> possibly this could be considered as:
-> 
-> Fixes: 5e7665b5e484 ("drm/msm/adreno: Add Adreno A690 support")
-For a lack of a better response, "meh"
+On Fri, Aug 11, 2023 at 9:11=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+>
+> On 11.08.2023 18:09, Rob Clark wrote:
+> > On Fri, Aug 11, 2023 at 9:05=E2=80=AFAM Rob Clark <robdclark@gmail.com>=
+ wrote:
+> >>
+> >> From: Rob Clark <robdclark@chromium.org>
+> >>
+> >> There isn't actually a a690_gmu.bin.  But it appears that the normal
+> >> a660_gmu.bin works fine.  Normally all the devices within a sub-
+> >> generation (or "family") will use the same fw, and a690 is in the a660
+> >> family.
+> >>
+> >
+> > possibly this could be considered as:
+> >
+> > Fixes: 5e7665b5e484 ("drm/msm/adreno: Add Adreno A690 support")
+> For a lack of a better response, "meh"
 
-Other than that:
+It would help route the change back to 6.4.y so we can stop explaining
+to folks that they should create a symlink ;-)
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Other than that:
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>
+> Perhaps we could take this further and do something like
+>
+> if (failed to load gmu fw)
+>         try loading "gmu.bin"
 
-Perhaps we could take this further and do something like
+that (loading random fw) sounds like a bad idea.. plus gmu.bin doesn't exis=
+t
 
-if (failed to load gmu fw)
-	try loading "gmu.bin"
+BR,
+-R
 
-
-Konrad
-> 
->> Signed-off-by: Rob Clark <robdclark@chromium.org>
->> ---
->>  drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> index 1ed270dae148..756a9cfe1cbf 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> @@ -478,7 +478,7 @@ static const struct adreno_info gpulist[] = {
->>                 .family = ADRENO_6XX_GEN4,
->>                 .fw = {
->>                         [ADRENO_FW_SQE] = "a660_sqe.fw",
->> -                       [ADRENO_FW_GMU] = "a690_gmu.bin",
->> +                       [ADRENO_FW_GMU] = "a660_gmu.bin",
->>                 },
->>                 .gmem = SZ_4M,
->>                 .inactive_period = DRM_MSM_INACTIVE_PERIOD,
->> --
->> 2.41.0
->>
+>
+> Konrad
+> >
+> >> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >> ---
+> >>  drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/=
+drm/msm/adreno/adreno_device.c
+> >> index 1ed270dae148..756a9cfe1cbf 100644
+> >> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> >> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> >> @@ -478,7 +478,7 @@ static const struct adreno_info gpulist[] =3D {
+> >>                 .family =3D ADRENO_6XX_GEN4,
+> >>                 .fw =3D {
+> >>                         [ADRENO_FW_SQE] =3D "a660_sqe.fw",
+> >> -                       [ADRENO_FW_GMU] =3D "a690_gmu.bin",
+> >> +                       [ADRENO_FW_GMU] =3D "a660_gmu.bin",
+> >>                 },
+> >>                 .gmem =3D SZ_4M,
+> >>                 .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >> --
+> >> 2.41.0
+> >>
