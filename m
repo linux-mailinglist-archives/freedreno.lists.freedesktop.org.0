@@ -2,70 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F9F577A47F
-	for <lists+freedreno@lfdr.de>; Sun, 13 Aug 2023 03:15:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A8B77C1E3
+	for <lists+freedreno@lfdr.de>; Mon, 14 Aug 2023 22:59:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BFB010E044;
-	Sun, 13 Aug 2023 01:14:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDC5310E10B;
+	Mon, 14 Aug 2023 20:59:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4314810E044;
- Sun, 13 Aug 2023 01:14:57 +0000 (UTC)
-Received: from [192.168.2.249] (109-252-150-127.dynamic.spd-mgts.ru
- [109.252.150.127])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id F222866071B8;
- Sun, 13 Aug 2023 02:14:51 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1691889295;
- bh=bPp/hkEoDS0ZxAQiv7IPH0ePMv+YAdVNwR7xflkKTfA=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=Uz8KDonPc/gBgbinrFzsCdc6rgNcwCbXiIogKVRXysqJJtxOGqNEF2OUOR+rVnrXd
- VwOSU59ZkqE9I2R9CNOpO28dhmbVc2RZcZcaxEONC0OAH+wxz6POH8Rza1irhAgWQX
- 3jNxUqWp9qemwwuadE6DSax0voEzK6ad/MwWNwyqoUmdMClJ0GuN+GntG6o/Y2+G20
- US0ec6J00OLr7/jjIhU8IlmjV5yvwReELAfpnaFBKL055tF1xHd83m+Q1gCsxqJfu1
- GvuSjjhWUWtbQvALG3p1XUa66zNV9izcGryYx+W8Bq2+CW9UGz0xQnSZk7uepiAzPw
- 5WLxzXW8kcnpw==
-Message-ID: <325014e7-cb8d-54e0-eead-7727c8ec2f07@collabora.com>
-Date: Sun, 13 Aug 2023 04:14:49 +0300
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC20010E101;
+ Mon, 14 Aug 2023 20:59:21 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5234f2c6c1dso6500941a12.1; 
+ Mon, 14 Aug 2023 13:59:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692046760; x=1692651560;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=N1mAIR32hNZWrf1+R+AprBLrBz5L9RjZMLxPc7Z5zHs=;
+ b=ORPQUcuDHZ9ButxoKtIk5eEB/aKakq6X2T2Z2x9vr+6O0veDl2O5AS9xcAfughT2lY
+ WJ1SLrvOqZJuizFTMut7yMIw93MtRV/tTSIkPACTHytZInxKlzLhNjTkoUX7pdk8doeV
+ k1rdaOzI4uq5WFMve14NN4jDwAGTXAOIomt4Y3ZptIr9WvfTZ8ojO9iFgZ4b6RFzlIPk
+ quMqsV5+k6Bzo9EJJoP5iKINnQtBqbWYs+gp9m+NK86Ajj9w0bMCG11NajUGCaNsEADU
+ WeflfM5HcC5KyNBo7pffdWVbnjuMw+wiyO9wT8VD0Bv/aKplyEFoIPLkTjUkzL3whJDy
+ rkCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692046760; x=1692651560;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=N1mAIR32hNZWrf1+R+AprBLrBz5L9RjZMLxPc7Z5zHs=;
+ b=Lkt2poCjcB6wFd7shEK3scQAlu78wt8zZDD+TZMO7NQTiUbAqFIicHdmbF/A2Zm0wQ
+ hj3UasxvNG4fG0Sn+M824WYA56/ckqQ9xcoTEH4RhKLmwQsNJMB/vmfaeSL0DIcB9yWQ
+ +yk5GlWWfQphRJ4Y4UUo96qNbbmg3AGcdRnKQPK2eSywOzcfS3DBrUSkzpHh6UemtQue
+ Ga7B8fKRdJDDvyBxW1ssJ/YrZRR0qCm6lWhAa18ODtIgU5ExZYptJP8gnwZvLCaO8E28
+ BMBXMQN2k6CL5FrUQWiYAVb6aR3ebFaXWS5UWACChRWyzZncLJc95DGntcYr1kSeUw/Q
+ bBdQ==
+X-Gm-Message-State: AOJu0Yy6mPr00zM6iYxX7keS0e8eVntaPWlo2Ez7CQwBwlTnxZXJAphg
+ NexD3GDfWdpnLgGmhgad1Is9Z44Q123Dwb4wNqY=
+X-Google-Smtp-Source: AGHT+IGnaMFQ8n9yvntKC+C+AAM0KQGIRcN7cA5qijB3IvqT7ZXVWCwk1VGgT2CWDi3iKfKEZWAhMNzr0926xZ1dSi8=
+X-Received: by 2002:a05:6402:1245:b0:525:5ed2:abed with SMTP id
+ l5-20020a056402124500b005255ed2abedmr3774395edw.30.1692046760052; Mon, 14 Aug
+ 2023 13:59:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Ruan Jinjie <ruanjinjie@huawei.com>, Felix.Kuehling@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- krzysztof.kozlowski@linaro.org, alim.akhtar@samsung.com,
- robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
- sean@poorly.run, marijn.suijten@somainline.org, bskeggs@redhat.com,
- kherbst@redhat.com, lyude@redhat.com, kraxel@redhat.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com,
- paulo.miguel.almeida.rodenas@gmail.com, wenjing.liu@amd.com,
- haoping.liu@amd.com, Charlene.Liu@amd.com, chiahsuan.chung@amd.com,
- george.shen@amd.com, sancchen@amd.com, tony.tascioglu@amd.com,
- jaehyun.chung@amd.com, tales.aparecida@gmail.com, drv@mailo.com,
- aurabindo.pillai@amd.com, quic_vpolimer@quicinc.com, jiasheng@iscas.ac.cn,
- noralf@tronnes.org, jose.exposito89@gmail.com, javierm@redhat.com,
- mairacanal@riseup.net, davidgow@google.com, arthurgrillo@riseup.net,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux-foundation.org
-References: <20230809034445.434902-1-ruanjinjie@huawei.com>
- <20230809034445.434902-6-ruanjinjie@huawei.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20230809034445.434902-6-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH -next 5/7] drm/virtio: Remove an unnecessary
- NULL value
+References: <20230628-topic-a7xx_drmmsm-v2-0-1439e1b2343f@linaro.org>
+ <20230628-topic-a7xx_drmmsm-v2-8-1439e1b2343f@linaro.org>
+In-Reply-To: <20230628-topic-a7xx_drmmsm-v2-8-1439e1b2343f@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 14 Aug 2023 13:59:07 -0700
+Message-ID: <CAF6AEGvFHDv47DMeLTVjp5wepuvCpQrNu7a_ijifhUUcsT30tg@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 08/14] drm/msm/a6xx: Add skeleton A7xx
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,36 +70,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/9/23 06:44, Ruan Jinjie wrote:
-> The NULL initialization of the pointer assigned by kzalloc() first is
-> not necessary, because if the kzalloc() failed, the pointer will be
-> assigned NULL, otherwise it works as usual. so remove it.
-> 
-> Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_submit.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> index 3c00135ead45..82563dbec2ab 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> @@ -274,7 +274,7 @@ static int virtio_gpu_fence_event_create(struct drm_device *dev,
->  					 struct virtio_gpu_fence *fence,
->  					 u32 ring_idx)
->  {
-> -	struct virtio_gpu_fence_event *e = NULL;
-> +	struct virtio_gpu_fence_event *e;
->  	int ret;
->  
->  	e = kzalloc(sizeof(*e), GFP_KERNEL);
+On Tue, Aug 8, 2023 at 2:03=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro.=
+org> wrote:
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.h
+> index 49f38edf9854..3e69ef9dde3f 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -46,6 +46,7 @@ enum adreno_family {
+>         ADRENO_6XX_GEN2,  /* a640 family */
+>         ADRENO_6XX_GEN3,  /* a650 family */
+>         ADRENO_6XX_GEN4,  /* a660 family */
+> +       ADRENO_7XX_GEN1,  /* a730 family */
+>  };
+>
+>  #define ADRENO_QUIRK_TWO_PASS_USE_WFI          BIT(0)
+> @@ -401,6 +402,17 @@ static inline int adreno_is_a640_family(const struct=
+ adreno_gpu *gpu)
+>         return gpu->info->family =3D=3D ADRENO_6XX_GEN2;
+>  }
+>
+> +static inline int adreno_is_a730(struct adreno_gpu *gpu)
+> +{
+> +       return gpu->info->chip_ids[0] =3D=3D 0x07030001;
+> +}
+> +
+> +static inline int adreno_is_a7xx(struct adreno_gpu *gpu)
+> +{
+> +       /* Update with non-fake (i.e. non-A702) Gen 7 GPUs */
+> +       return adreno_is_a730(gpu);
 
-Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+just use the family enum here.. that lets you move the
+adreno_is_a730() helper into the patch that actually adds a730
 
--- 
-Best regards,
-Dmitry
+BR,
+-R
 
+> +}
+> +
