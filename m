@@ -1,77 +1,82 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2640B77C72D
-	for <lists+freedreno@lfdr.de>; Tue, 15 Aug 2023 07:43:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18B1877CC3A
+	for <lists+freedreno@lfdr.de>; Tue, 15 Aug 2023 13:59:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F33D110E0CC;
-	Tue, 15 Aug 2023 05:43:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD54110E0F7;
+	Tue, 15 Aug 2023 11:59:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7FB10E14C
- for <freedreno@lists.freedesktop.org>; Tue, 15 Aug 2023 05:43:13 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2b9dc1bff38so74614671fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 14 Aug 2023 22:43:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1692078191; x=1692682991;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jw6ZKn2vNcjA9MqDmrsGFXdRmKd5KhjNUkjx2Uq1Kd0=;
- b=BKPeeD2U5MUnrhf2RZMUCETsWAXISwTYH1oSOI+t2Vck3SDjGoEiNzMWDyFmdcHs/j
- uyTL46pkrEV5ecqCe3sq2Pnn6PUCw/k+qZsRw471glKKDFPifLXrTwy2V40oVR7V+rEQ
- q3jBlmWdxIrFdkIho2LetNiOrmtJnPyxYIEXGh5vtVMQRgT3UFee42wen2p8fcX0zbg6
- 0QTT1v/c2mt1LDGjwZCnJsAZqyDF1qW5UCUXq8znpC/GwRrsQMAOo2wrp950tBowieZB
- rizyV7w0X1IOn7f34tjjcw5F5PoRHjKpvJn//xBWCEld44q4wJsYWMzXy7IFITeD4IeO
- kGMQ==
+X-Greylist: delayed 456 seconds by postgrey-1.36 at gabe;
+ Tue, 15 Aug 2023 11:59:54 UTC
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA81A10E0F7
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Aug 2023 11:59:54 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 85DFA3F20F
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Aug 2023 11:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1692100336;
+ bh=C7DwVUcSx3lMMADwShmbJqderoSd3gR00V23Q/iPW+s=;
+ h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+ MIME-Version:Content-Type;
+ b=ErF0+kwnXOf+IQIc0dWTI0wMNUOP69PdVRzVE0exWfqF+2v3c+8y0GjzHnD2xsBY8
+ DbSCPLIny11p+YdWuECvLfNE8AOELdk5HIeAXbdjkRldDJ/DgAcCq96G9KjP8TnH4m
+ IO8rEejrrHtnhpeIrL/oK9GxDdalJ+RNvY8F2BQrsJhY8XxskSej+3O8GiJCM7xTXh
+ APfeKYpucPAZdWd+FxaGkHvQEKdu98BDWvyXQisFauQfJh6LoVUjqViP0L/Vsw19Nw
+ I6HOCTerCH0gojSCCmEOGFcSWp7P9wrX2dX0opwZL/8+P4079YOGVPsLi8hYr2a7Zh
+ aWM8xXQHLRl9A==
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-3f5df65fa35so33434555e9.3
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Aug 2023 04:52:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692078191; x=1692682991;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jw6ZKn2vNcjA9MqDmrsGFXdRmKd5KhjNUkjx2Uq1Kd0=;
- b=Lkr3Nhq+tYxqkRoNVw8oxFn3yy22n10X3CAqfksjD74q0JocSPJd+7lq5OhHJDmB+h
- m8sHAG3Y30K9Czpg2G3d7JF+AKKp5mp/A7AYOPl8LM03hMaDhXXZRdZi3CN/+C7Nr5GV
- 0fFGqVn/uKaJdpFPcGa6j3r1PPxARbHJHEiqjqFJ9BIDYKDq2jqa61qrC1reIiGoDQtl
- DRjeahUjnpFXMjIfFYRhlyTRp/60Y1Q3h20rp5hfIeTyYhiUZvlb8Oy7MrksMzSVM8qN
- lIMdbdDNIH43NSEP8KIyGbctXnAbrKbig0ljJQoFzrwTaq5hcZsvQAmrDY9qhlO2cMoU
- Hp/Q==
-X-Gm-Message-State: AOJu0YwiGNaLqhSMBch3Qm71mpoUngxB4EOUCjQo3g/kAjJGJRw3/jGs
- 0EVIIP/EglnqMgUTiFhN8YsaHg==
-X-Google-Smtp-Source: AGHT+IEvyC3KHqPI4Aqoe7nlXlx/XKraQasiWSzM4QIIBy+bofI9pfUzQQxcwHNZtVA6mH3J4pDrQQ==
-X-Received: by 2002:a2e:8317:0:b0:2b9:ecc5:d1de with SMTP id
- a23-20020a2e8317000000b002b9ecc5d1demr6962968ljh.37.1692078191458; 
- Mon, 14 Aug 2023 22:43:11 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.214.188])
- by smtp.gmail.com with ESMTPSA id
- u11-20020a05600c00cb00b003fe29f6b61bsm16416026wmm.46.2023.08.14.22.43.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Aug 2023 22:43:11 -0700 (PDT)
-Message-ID: <c70422eb-ca6d-ed86-dd15-dfa555e64c89@linaro.org>
-Date: Tue, 15 Aug 2023 07:43:09 +0200
+ d=1e100.net; s=20221208; t=1692100336; x=1692705136;
+ h=mime-version:organization:references:in-reply-to:message-id:subject
+ :cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C7DwVUcSx3lMMADwShmbJqderoSd3gR00V23Q/iPW+s=;
+ b=HzNxqFeI3LVkDJLszYVsfZsWDZfMeagHS1f+rWA+SL1pS+CeNF+t7x70UPW4tEgk87
+ H90i7lz82tPtLjLypwelDJ6JEQ64YTjevEaHJFXaQfNTpHlcljxFHxWS59t8DvPgh6sr
+ KzeECHAB7E0U7qmUueGgcDOJMqSOZC2cO64oJDsUxPz2wnbnuI118oxaLOOTtbj8QkNZ
+ fURE9ZLHmZAWtI61xoNei8HBU0SPHOypfNeOha36mcpTB74rPMzb/fUt/wKHnOGrFZg4
+ I6aT4QKT7eGGywu49jNt60D2aEFiAN/YzCFt+n0WwBTFbvR3LUyY/ygJ+kGf/IHR+0wM
+ auIg==
+X-Gm-Message-State: AOJu0Yxe14kJDuZNIrWO1GNMHRjYEWp/96a621AUQQ4hAvyIRSuPKKTM
+ /gr9PeUEeYn7W0+FUjUFOSyMc2cTR7oei3aLZt1mQnIFBRiUtFmQHCurPmZfz+79H25cjKvgrY5
+ Z1YK9//nLtgIpINdoCZwYwcIYvmknoaCUkSQnUoJ8Q2ihTA==
+X-Received: by 2002:adf:e9c9:0:b0:319:8b21:b050 with SMTP id
+ l9-20020adfe9c9000000b003198b21b050mr388512wrn.61.1692100336175; 
+ Tue, 15 Aug 2023 04:52:16 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEbVNNrLF0rpeAxAN4xCQRWR3gy4KLXXalr3mFCIQPw+9VnlGKRxgZ6SkAXXFQkvb6dfVbzHA==
+X-Received: by 2002:adf:e9c9:0:b0:319:8b21:b050 with SMTP id
+ l9-20020adfe9c9000000b003198b21b050mr388493wrn.61.1692100335875; 
+ Tue, 15 Aug 2023 04:52:15 -0700 (PDT)
+Received: from gollum ([194.191.244.86]) by smtp.gmail.com with ESMTPSA id
+ g5-20020adfe405000000b0031773a8e5c4sm17709446wrm.37.2023.08.15.04.52.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Aug 2023 04:52:15 -0700 (PDT)
+Date: Tue, 15 Aug 2023 13:52:14 +0200
+From: Juerg Haefliger <juerg.haefliger@canonical.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230815135214.15aeff63@gollum>
+In-Reply-To: <b0460532-b5f1-7efc-49af-8d4feecc1085@linaro.org>
+References: <20230616122815.1037425-1-juerg.haefliger@canonical.com>
+ <20230620054031.1203960-1-juerg.haefliger@canonical.com>
+ <b0460532-b5f1-7efc-49af-8d4feecc1085@linaro.org>
+Organization: Canonical Ltd
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-References: <20230628-topic-a7xx_drmmsm-v2-0-1439e1b2343f@linaro.org>
- <20230628-topic-a7xx_drmmsm-v2-2-1439e1b2343f@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230628-topic-a7xx_drmmsm-v2-2-1439e1b2343f@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 02/14] dt-bindings: display/msm/gmu:
- Allow passing QMP handle
+Content-Type: multipart/signed; boundary="Sig_/Vv7PBfafaUhFIXtl8vRRuy7";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: Add missing
+ MODULE_FIRMWARE macros
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,28 +89,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: sean@poorly.run, quic_akhilpo@quicinc.com, airlied@gmail.com,
+ ribalda@chromium.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ konrad.dybcio@linaro.org, robdclark@gmail.com, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, joel@joelfernandes.org,
+ freedreno@lists.freedesktop.org, johan+linaro@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/08/2023 23:02, Konrad Dybcio wrote:
-> When booting the GMU, the QMP mailbox should be pinged about some tunables
-> (e.g. adaptive clock distribution state). To achieve that, a reference to
-> it is necessary. Allow it and require it with A730.
-> 
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # sm8450
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/gmu.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
+--Sig_/Vv7PBfafaUhFIXtl8vRRuy7
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+On Thu, 22 Jun 2023 21:44:25 +0300
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
 
-Best regards,
-Krzysztof
+> On 20/06/2023 08:40, Juerg Haefliger wrote:
+> > The driver references some firmware files that don't have corresponding
+> > MODULE_FIRMWARE macros and thus won't be listed via modinfo. Fix that.
+> >=20
+> > Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+> >=20
+> > ---
+> > v2:
+> >    - Drop addition and removal of zap files (needs more discussion)
+> >    - Add new a690_gmu.bin
+> >    - Update commit subject and message accordingly
+> > ---
+> >   drivers/gpu/drm/msm/adreno/adreno_device.c | 11 +++++++++++
+> >   1 file changed, 11 insertions(+) =20
+>=20
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>=20
 
+It looks like this didn't go anywhere. Is there something missing?
+
+...Juerg
+
+--Sig_/Vv7PBfafaUhFIXtl8vRRuy7
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEhZfU96IuprviLdeLD9OLCQumQrcFAmTbZu4ACgkQD9OLCQum
+QrcZ2xAAg4LyZtCle1bB0fPoNTnHgzF+qA1aRvXE7v67vPpOMn3Q2uY4LpSs3YKJ
+Fumq39oRZ0KkNtNuKaUxF9xIkbZOXIYfERvok7LMSp2SQJfa+mEI4j0kT1Lc8ER7
+kKeRLZV2ASC+KA1EcxBINfyNi6wm/MxWWwQj98IzLHJxMu6+lTFoXsko4A7+TWOl
+7Y0lqb/keVeYYHzMcTehoC9pF1HrIXdAMhP2OrczTkynWHU5eolQHWncCix83d1V
+vz1ovozrGRCsvi6XHc8WSdWhhmp4JfbZXwTCEvG3riyAnUu5IbgQa5FGkiYXLrq8
+QUgOXLsMsa7rA0WW5RoUp+wLhOIrwXZFZp7+1IbNAA4U53GMzpTSMTvnA6TBDrPC
+VgC0KAqxoC3HzYL/1k1kaYybAw3HXBjaE0K2IiGHyY8YM4MDZoWBUxRiR0lAcKlB
+XCpt6KbiFMvz4NYtw2EVeSeOUFPld3g+aIqHk578fnEse+gCegxyCc9X4auIGPND
+lVNvPGZcIRcJypw9kkWZOJ1Uhhpm2y8/xUkhVMECQV3uyzLr02dFnA6Cuw/0+KOZ
+Yrr7F37Lk8RkKqqQbBSWOYh49Y63ZDLOa+gts3+TzpiJS8YuXyXCSRQwJDN1r1fu
+oAqaxGqhfpYZp4xZ/SMN70VepPX7rZCbc5f7BOFSxaXleJNcmGY=
+=A5x/
+-----END PGP SIGNATURE-----
+
+--Sig_/Vv7PBfafaUhFIXtl8vRRuy7--
