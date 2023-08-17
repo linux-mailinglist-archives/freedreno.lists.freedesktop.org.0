@@ -1,72 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC47577FA07
-	for <lists+freedreno@lfdr.de>; Thu, 17 Aug 2023 17:00:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 151FA77FC7C
+	for <lists+freedreno@lfdr.de>; Thu, 17 Aug 2023 19:07:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4F510E4BD;
-	Thu, 17 Aug 2023 14:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5750310E51D;
+	Thu, 17 Aug 2023 17:07:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DADE10E4D3
- for <freedreno@lists.freedesktop.org>; Thu, 17 Aug 2023 14:59:49 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-99bcc0adab4so1007237066b.2
- for <freedreno@lists.freedesktop.org>; Thu, 17 Aug 2023 07:59:49 -0700 (PDT)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4DC10E515
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Aug 2023 17:07:08 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5259cf39154so2229654a12.2
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Aug 2023 10:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1692284387; x=1692889187;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jyrnYd+/grcDQWPBP5YRxE3h8w3O63U4ojbQQv8+188=;
- b=i8FbFHOG1mmFj7PIdrs6Zmo5zyhxgDtP2ATKD8llf4JJfnMx7olqSqs+54+VgSSKlo
- J2oO8jVUS+elgWtZxpzcG8A53UMIypAcb7xJfBARwXOwtaRQpBpMcIxq5yIplYJAoKWt
- P1azHtVrokAvSW1fGaO69NqqtMo62ut9prYyWQqEybIM7yGealQUycmM28RpwAgVzYNp
- CBN0dZm2e8nxsNELv9aHp5yEd70V8jVxipzWI+pmn2QqiXUQ20phD1fbXHppYwifwS+o
- Fy8KNZ1Z/8y0DCPcqYTCLc/lBZExIxGTRe6K4gAYuvxmADo17shmuGBJ2vqSJUxhGClO
- 2VYA==
+ d=linaro.org; s=google; t=1692292027; x=1692896827;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=A+SXi8NxNvzClt206ZYu7BQotGewF/k7fWXbsVFMs0g=;
+ b=MD3wZSf6KPnikBXVO7cWOAPTpV4s8nTFPFX1YpgpF6YAddXF4riEdJSbkxZ2d9sz5V
+ Dsna/rKX9OgnOf2A/POCxcOd9ygNG/RDWmugUAZQlIRs0L0LtNI/xURGUVwuZGIHetnT
+ PYd/593qRgzRFx3aQZ2MXhsu2EINCI2gBXV/ysouOEh25BF6fU2Rmxp/bsD+cRPbTtfW
+ 9tROMtyrA7TrJHAE9aGZidkT/WsgGwFqdywqbWAI8FOrJxgXEEKInzeNODEAz9uvBA9+
+ d0DhYiLMCw/0QX/sc9SzCu8WVrrVXhtNP+8ZzG82vv3cKwQmzZDXDzcIXHHasleuWWdH
+ /Alg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692284387; x=1692889187;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jyrnYd+/grcDQWPBP5YRxE3h8w3O63U4ojbQQv8+188=;
- b=Go0eP4CJiaJMUgn0CwOEphkXtbPmn8ZBIkqepZzHMFH9cxy+mrg7+G5Z+jkVR0Y3Ne
- KQE/TLJ63cWxtZqNfz309u7sTOpE1ANPOnMNuXaQ/lJ8kjGTZ4BdC04ZgSMkhX/+zJGt
- z0bQKBdp5qcAgGYBZ2yJFw3jioRerto+5khnv/EjFNdKhxPZubjChKfy1fjRVLCM0Zqy
- F21kxNS0BYGB3uGPC96EyPugxB2E8UrgGqJE85oFq5DtrbJZpIUssar8WkxpnM/pxuZ0
- UPugGA5N4XoHnvRcNu2+jP2rNe3gSHkf11EV0DRDQQ89lckVGkKfAPO5TL8HyldobFAP
- fJKQ==
-X-Gm-Message-State: AOJu0YwP7EBpR25HMd/WFx3XWkPeVRa1DsnmFdnDDw0QXsPQfVT8qSJT
- YXgN7c954h7VjHklf9nMwKfKkQ==
-X-Google-Smtp-Source: AGHT+IFrDXU9RyQ2b51UNFwD8gODzimUQlViN1buaLRaNRS/xBOehnJnNWmJk7sJ/VfKKwLbM4dG8g==
-X-Received: by 2002:a17:906:31cf:b0:99c:5623:a2f1 with SMTP id
- f15-20020a17090631cf00b0099c5623a2f1mr3775578ejf.48.1692284387650; 
- Thu, 17 Aug 2023 07:59:47 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20221208; t=1692292027; x=1692896827;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=A+SXi8NxNvzClt206ZYu7BQotGewF/k7fWXbsVFMs0g=;
+ b=afRmtPQErxSsfB4sGGpp5EgNV+GYtaVFC84JJQMzhmOGnbJjfRmy2DoMNjBl+7FfnV
+ XbeV+1qafoK5RROrUBhz5NWLUNbbc6dld6EG+wGh9T5CRm+ikaBdL3bXqg9VFtHDasuz
+ HejsTgnSrpTogq9+RE0kokrEWdob+Sz40orgRduD8pFCnTOkJTZfT7xhQ7M6TPAWq5kc
+ /Q2N289rMXvStz//FmGeZNiTBI7ZTE8lCTpgBifYArMgPVenlqof4bSrOtNG8skoA169
+ q4qi9HVZ/yGTwjFYLKFn43VjIPqTu8EkTnLT8L+2Cgx/Eh4PmfzOZSmznOr/0gm2AJ6y
+ AeOA==
+X-Gm-Message-State: AOJu0YxnqIkcNQBxryxQhgAgEQYoJgBQOvI+V48bdQM3cODby6Xndy61
+ S4xpsCdtyNTMDl6z0pSLEKDSIQ==
+X-Google-Smtp-Source: AGHT+IGR6FHDHLEB7JT4lPOySOl0W5l8tLy4Ib1OMiQcJHZZ+sD6GWAjdH84ie6V1awGmErBWSvPtg==
+X-Received: by 2002:a17:906:59:b0:99d:f3ae:9a3e with SMTP id
+ 25-20020a170906005900b0099df3ae9a3emr49117ejg.38.1692292027065; 
+ Thu, 17 Aug 2023 10:07:07 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- lj9-20020a170906f9c900b00988be3c1d87sm10233557ejb.116.2023.08.17.07.59.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Aug 2023 07:59:47 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu, 17 Aug 2023 17:59:40 +0300
-Message-Id: <20230817145940.9887-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
-References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
+ kk3-20020a170907766300b0098e2eaec395sm10388443ejc.130.2023.08.17.10.07.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Aug 2023 10:07:06 -0700 (PDT)
+Message-ID: <f1b89b4c-bf6c-42c9-8a62-acc41747cb1e@linaro.org>
+Date: Thu, 17 Aug 2023 20:07:04 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+References: <20230802-add-widebus-support-v3-0-2661706be001@quicinc.com>
+ <20230802-add-widebus-support-v3-2-2661706be001@quicinc.com>
+ <CAA8EJpoPd_T+vLVrJ6RpCrYY6H1xLF4eFYVGV4N-wS3g+5cR-w@mail.gmail.com>
+ <34598a37-7431-4f7e-7809-928bce65d237@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <34598a37-7431-4f7e-7809-928bce65d237@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/4] arm64: dts: qcom: qrb5165-rb5: enable DP
- altmode
+Subject: Re: [Freedreno] [PATCH v3 2/4] drm/msm/dpu: Enable widebus for DSI
+ INTF
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,39 +79,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add displayport altmode declaration to the Type-C controller node to
-enable DP altmode negotiation.
+On 08/08/2023 00:40, Jessica Zhang wrote:
+> 
+> 
+> On 8/2/2023 11:20 AM, Dmitry Baryshkov wrote:
+>> On Wed, 2 Aug 2023 at 21:09, Jessica Zhang <quic_jesszhan@quicinc.com> 
+>> wrote:
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/qrb5165-rb5.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+>>> index df88358e7037..dace6168be2d 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+>>> @@ -69,8 +69,10 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
+>>>                                  phys_enc->hw_intf,
+>>>                                  phys_enc->hw_pp->idx);
+>>>
+>>> -       if (intf_cfg.dsc != 0)
+>>> +       if (intf_cfg.dsc != 0) {
+>>>                  cmd_mode_cfg.data_compress = true;
+>>> +               cmd_mode_cfg.wide_bus_en = 
+>>> dpu_encoder_is_widebus_enabled(phys_enc->parent);
+>>> +       }
+>>
+>> This embeds the knowledge that a wide bus can only be enabled when DSC
+>> is in use. Please move the wide_bus_en assignment out of conditional
+>> code.
+> 
+> Wide bus for DSI will only be enabled if DSC is enabled, so this is 
+> technically not wrong, as DP will use the video mode path.
+> 
+>>
+>>>
+>>>          if (phys_enc->hw_intf->ops.program_intf_cmd_cfg)
+>>>                  
+>>> phys_enc->hw_intf->ops.program_intf_cmd_cfg(phys_enc->hw_intf, 
+>>> &cmd_mode_cfg);
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>> index 8ec6505d9e78..dc6f3febb574 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>> @@ -521,6 +521,9 @@ static void 
+>>> dpu_hw_intf_program_intf_cmd_cfg(struct dpu_hw_intf *ctx,
+>>
+>> This function is only enabled for DPU >= 7.0, while IIRC wide bus can
+>> be enabled even for some of the earlier chipsets.
+> 
+> The command mode path is only called for DSI, which only supports wide 
+> bus for DPU 7.0+.
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts b/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-index 3bd0c06e7315..c8cd40a462a3 100644
---- a/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-@@ -1423,6 +1423,13 @@ PDO_FIXED_DUAL_ROLE |
- 					 PDO_FIXED_USB_COMM |
- 					 PDO_FIXED_DATA_SWAP)>;
- 
-+		altmodes {
-+			displayport {
-+				svid = <0xff01>;
-+				vdo = <0x00001c46>;
-+			};
-+		};
-+
- 		ports {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
+After second consideration, let's ignore this part, as wide bus will 
+only be enabled for DSI / CMD after 7.0. If we ever have SoC that has 
+CMD + wide_bus earlier than 5.0, we can reconsider this code pice.
+
+Can you please add a comment that the register itself is present earlier 
+(5.0), but it doesn't have to be programmed since the flags will not be 
+set anyway.
+
+> 
+>>
+>>>          if (cmd_mode_cfg->data_compress)
+>>>                  intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
+>>>
+>>> +       if (cmd_mode_cfg->wide_bus_en)
+>>> +               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
+>>> +
+>>>          DPU_REG_WRITE(&ctx->hw, INTF_CONFIG2, intf_cfg2);
+>>>   }
+>>>
+
+
+
 -- 
-2.39.2
+With best wishes
+Dmitry
 
