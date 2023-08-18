@@ -2,77 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53CEF77FF27
-	for <lists+freedreno@lfdr.de>; Thu, 17 Aug 2023 22:34:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB7A780A7F
+	for <lists+freedreno@lfdr.de>; Fri, 18 Aug 2023 12:51:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D37110E254;
-	Thu, 17 Aug 2023 20:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A842A10E4E3;
+	Fri, 18 Aug 2023 10:51:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6751E10E090
- for <freedreno@lists.freedesktop.org>; Thu, 17 Aug 2023 20:34:11 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3fe426b8583so2482085e9.2
- for <freedreno@lists.freedesktop.org>; Thu, 17 Aug 2023 13:34:10 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F2E10E4D7;
+ Fri, 18 Aug 2023 10:51:51 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4ff9121fd29so1083612e87.3; 
+ Fri, 18 Aug 2023 03:51:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=nexus-software-ie.20221208.gappssmtp.com; s=20221208; t=1692304449;
- x=1692909249; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=aJanSbcbdRbqlFQWo2SBp1vOjmdCAm9+u8RhmfEAHas=;
- b=HokACvUW0mjpLc8YiUL9KCHIpjZi7PunfjPeUHX6F+hjAFZ8BdwqsjEvDvr+7iRwVG
- 4RUuiYx72kRPxCLwwB7DdFYF8LNXJ3naJlB86oAWLH1YmN47FzCgCLklB55s8jPnmKSv
- htCVokwgGAVZVfCchsvs3EHYtrIfyJGhbyy/int/Mmafg9jCf7KOSyodZjfmmPR91HGa
- vfqJcPLKBW6Hu4qVQ8QLDIIE5mMlYp4V8C/+6JToFay+dieiQWQWy269oXSrq9rPtrUe
- 52UHXxT6IHvN+zic1Nru5lJKeD9q0GRPM2I09yq5wLSQp4EPMDxX6fz9RH8ROpVRu3Ox
- 3NPQ==
+ d=gmail.com; s=20221208; t=1692355909; x=1692960709;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=hkeICbNdfxJsBWI7sD4bsVRnOby+SBnRlBrjmgj38YY=;
+ b=bCoN9c9sk4XAZ1BQgK41E9SayBbdc+V7sZhlpuyhP1ewtQPB8+gW10JIg/kU/F6o+6
+ M6x+meIRrn/CWZisxKubEDffISXUHZklOrIOoyXhYe+9I/Va4fQACGf8Ewf5gvMnQHoa
+ fC/1SscxQIGFxwTTPS0PBq0igH8MZrHtJoIa3Uk+usEAs+U0b6Rq/ujItsPKhGP+NN0g
+ 3sqFjmfAFV3UXgtUCvYxwUnEvi64SmeqL1RrO8jTIsmLs6U8NFBJKUEzVwV4+wSIFajC
+ L5WMqPV9byXjcHGL7APJhFHa9Lp9lM9BlKlBx7/CBeowWAUNVogomNkdDaNmfJjw5DgP
+ DzBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692304449; x=1692909249;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aJanSbcbdRbqlFQWo2SBp1vOjmdCAm9+u8RhmfEAHas=;
- b=Iz9ccfUQ8X0wCdhF6d5ebpZ8BwUcN7f6o8cvXFydL3xAhVr3XoZUJmxunWcwb/sBQj
- Tlf9ZGZ9/8LoiN/J+R6Q3MCYUq5YEKzTdlgyXX8kX1FH0rPXi6AdbjkZPrNziBbEwN4n
- vvWCg6RlyJ2oFqZdEYqxdaqgIfTaP37e5IAeqmeIFcrZt1hxVYMLGGk6xxqVqCQ/8XXg
- RH3ltH9F/ECsmkqALtJ7qT/NuRBXkhMOsQOHKyN/RL7qdKetwuZIGP2dvLM8GimN6o3u
- urStF1yxF9XwzQ1flibZw4RDCAJZbCgBwATy+3lAw5OCJDvJEQ7Zc+T4mdRdEVj4Xz/N
- RwgA==
-X-Gm-Message-State: AOJu0YyudL157K/Qz/QTqNKUw2leun5J6+Y9dbab0B+VgGSSNsWrWZfu
- ChK5w4fuKUwyRBxUYJBEiRrdHQ==
-X-Google-Smtp-Source: AGHT+IFq0O851NzocA+e/CpjQ6uPrVChiJJ+FMGBCKsk+tDIGC8ffOouYN49JM4byaw7gqWx2KgfSA==
-X-Received: by 2002:adf:de8c:0:b0:317:e515:d623 with SMTP id
- w12-20020adfde8c000000b00317e515d623mr416308wrl.60.1692304449002; 
- Thu, 17 Aug 2023 13:34:09 -0700 (PDT)
-Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
- by smtp.gmail.com with ESMTPSA id
- o2-20020adfcf02000000b0031423a8f4f7sm323543wrj.56.2023.08.17.13.34.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Aug 2023 13:34:08 -0700 (PDT)
-Message-ID: <653fd80b-0055-ddbd-3641-a38efaa3be9c@nexus-software.ie>
-Date: Thu, 17 Aug 2023 21:34:06 +0100
+ d=1e100.net; s=20221208; t=1692355909; x=1692960709;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hkeICbNdfxJsBWI7sD4bsVRnOby+SBnRlBrjmgj38YY=;
+ b=IF4RWlG7kAvcuv1c2tXbv4wDZ5XzFRqBV/x+QONWijTi86uSYWx+Bza0zaNRWxH47r
+ 85yQoTNT/wEQ+9Mq0yx8ERW7R7P0bAAT/2PU0nG9X/93z4gB/JC9dOPTdeyH0EPZBjuN
+ jRpxcR3HQ7iQXd/nFKNtXBzUE6b+GJxv5SOl163Q4JJPT38bNGLqmw+nM5aZv1ZH0Rc9
+ Xlpl1FKy4isxN2Xv9IqnyoRJEscy/neZbcgPhDdxJr6q5owUTiX4rZ0d7qLw2kVybJq+
+ SL/xSaEisACIJBtY78+TcQ1cZXYkTBpn7XybMpcuABbTatsgAsj++/fau3Alk+hoJJ0o
+ yB/Q==
+X-Gm-Message-State: AOJu0Yzlo3yveFBT3cq+FN5MkPcbUBT8wyDZN8+ikGvQ2ZESB5Qt8H2Y
+ vY9oUKmKPqnJBa7BG5mSZ80=
+X-Google-Smtp-Source: AGHT+IHk/C/1Je9Ar+GDssePJWr5JIjySkW3mkRzF+sXJC6OPdOOEFDfukYJEgi7yOVcgrmtvWTRgw==
+X-Received: by 2002:a05:6512:3ba5:b0:4f8:4512:c844 with SMTP id
+ g37-20020a0565123ba500b004f84512c844mr2065735lfv.48.1692355909245; 
+ Fri, 18 Aug 2023 03:51:49 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ g1-20020ac25381000000b004ff8cf787cbsm290098lfh.125.2023.08.18.03.51.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Aug 2023 03:51:48 -0700 (PDT)
+Date: Fri, 18 Aug 2023 13:51:33 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20230818135133.3fdeddba@eldfell>
+In-Reply-To: <CAA8EJpoFpUcQL_7pb0toDoLFsK=9GdBLQH+h_MMffrp9k7eCyw@mail.gmail.com>
+References: <20230728-solid-fill-v5-0-053dbefa909c@quicinc.com>
+ <20230728-solid-fill-v5-2-053dbefa909c@quicinc.com>
+ <CAA8EJpq=pbDoYc9wqKKrX+RahXp8zWTPFqVqA=S-0TkWXXJUjQ@mail.gmail.com>
+ <CA+hFU4y38MTTUsbri1jy=n4Vyp7xx2CosD9Nmk97z_au6NHCdQ@mail.gmail.com>
+ <CAA8EJpoFpUcQL_7pb0toDoLFsK=9GdBLQH+h_MMffrp9k7eCyw@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
- <20230817145940.9887-3-dmitry.baryshkov@linaro.org>
-From: Bryan O'Donoghue <pure.logic@nexus-software.ie>
-In-Reply-To: <20230817145940.9887-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/4] arm64: dts: qcom: qrb5165-rb5: add
- onboard USB-C redriver
+Content-Type: multipart/signed; boundary="Sig_/2O=Q20cfS_1km8U=i7GOGD9";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [PATCH RFC v5 02/10] drm: Introduce solid fill DRM
+ plane property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,99 +76,157 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Sebastian Wick <sebastian.wick@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, laurent.pinchart@ideasonboard.com,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, contact@emersion.fr,
+ David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/08/2023 15:59, Dmitry Baryshkov wrote:
-> Add the nb7vpq904m, onboard USB-C redriver / retimer.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/qrb5165-rb5.dts | 52 +++++++++++++++++++++++-
->   1 file changed, 50 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts b/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-> index 303d07f9c6e5..a4f7a9f9c22c 100644
-> --- a/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-> +++ b/arch/arm64/boot/dts/qcom/qrb5165-rb5.dts
-> @@ -610,6 +610,46 @@ lt9611_out: endpoint {
->   /* LS-I2C1 */
->   &i2c15 {
->   	status = "okay";
-> +
-> +	typec-mux@1c {
-> +		compatible = "onnn,nb7vpq904m";
-> +		reg = <0x1c>;
-> +
-> +		vcc-supply = <&vreg_s4a_1p8>;
-> +
-> +		retimer-switch;
-> +		orientation-switch;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +
-> +				redriver_usb_con_ss: endpoint {
-> +					remote-endpoint = <&pm8150b_typec_mux_in>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +
-> +				redriver_phy_con_ss: endpoint {
-> +					remote-endpoint = <&usb_1_qmpphy_out>;
-> +					data-lanes = <0 1 2 3>;
-> +				};
-> +			};
-> +
-> +			port@2 {
-> +				reg = <2>;
-> +
-> +				redriver_usb_con_sbu: endpoint {
-> +					remote-endpoint = <&pm8150b_typec_sbu_out>;
-> +				};
-> +			};
-> +		};
-> +	};
->   };
->   
->   &mdss {
-> @@ -1299,7 +1339,7 @@ &usb_1_qmpphy {
->   };
->   
->   &usb_1_qmpphy_out {
-> -	remote-endpoint = <&pm8150b_typec_mux_in>;
-> +	remote-endpoint = <&redriver_phy_con_ss>;
->   };
->   
->   &usb_2 {
-> @@ -1388,7 +1428,15 @@ pm8150b_role_switch_in: endpoint {
->   			port@1 {
->   				reg = <1>;
->   				pm8150b_typec_mux_in: endpoint {
-> -					remote-endpoint = <&usb_1_qmpphy_out>;
-> +					remote-endpoint = <&redriver_usb_con_ss>;
-> +				};
-> +			};
-> +
-> +			port@2 {
-> +				reg = <2>;
-> +
-> +				pm8150b_typec_sbu_out: endpoint {
-> +					remote-endpoint = <&redriver_usb_con_sbu>;
->   				};
->   			};
->   		};
+--Sig_/2O=Q20cfS_1km8U=i7GOGD9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-LGTM
+On Fri, 4 Aug 2023 16:59:00 +0300
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> On Fri, 4 Aug 2023 at 16:44, Sebastian Wick <sebastian.wick@redhat.com> w=
+rote:
+> >
+> > On Fri, Aug 4, 2023 at 3:27=E2=80=AFPM Dmitry Baryshkov
+> > <dmitry.baryshkov@linaro.org> wrote: =20
+> > >
+> > > On Fri, 28 Jul 2023 at 20:03, Jessica Zhang <quic_jesszhan@quicinc.co=
+m> wrote: =20
+> > > >
+> > > > Document and add support for solid_fill property to drm_plane. In
+> > > > addition, add support for setting and getting the values for solid_=
+fill.
+> > > >
+> > > > To enable solid fill planes, userspace must assign a property blob =
+to
+> > > > the "solid_fill" plane property containing the following informatio=
+n:
+> > > >
+> > > > struct drm_mode_solid_fill {
+> > > >         u32 version;
+> > > >         u32 r, g, b;
+> > > > };
+> > > >
+> > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > > > ---
+> > > >  drivers/gpu/drm/drm_atomic_state_helper.c |  9 +++++
+> > > >  drivers/gpu/drm/drm_atomic_uapi.c         | 55 +++++++++++++++++++=
+++++++++++++
+> > > >  drivers/gpu/drm/drm_blend.c               | 30 +++++++++++++++++
+> > > >  include/drm/drm_blend.h                   |  1 +
+> > > >  include/drm/drm_plane.h                   | 35 ++++++++++++++++++++
+> > > >  include/uapi/drm/drm_mode.h               | 24 ++++++++++++++
+> > > >  6 files changed, 154 insertions(+)
+> > > > =20
+> > >
+> > > [skipped most of the patch]
+> > > =20
+> > > > diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mod=
+e.h
+> > > > index 43691058d28f..53c8efa5ad7f 100644
+> > > > --- a/include/uapi/drm/drm_mode.h
+> > > > +++ b/include/uapi/drm/drm_mode.h
+> > > > @@ -259,6 +259,30 @@ struct drm_mode_modeinfo {
+> > > >         char name[DRM_DISPLAY_MODE_LEN];
+> > > >  };
+> > > >
+> > > > +/**
+> > > > + * struct drm_mode_solid_fill - User info for solid fill planes
+> > > > + *
+> > > > + * This is the userspace API solid fill information structure.
+> > > > + *
+> > > > + * Userspace can enable solid fill planes by assigning the plane "=
+solid_fill"
+> > > > + * property to a blob containing a single drm_mode_solid_fill stru=
+ct populated with an RGB323232
+> > > > + * color and setting the pixel source to "SOLID_FILL".
+> > > > + *
+> > > > + * For information on the plane property, see drm_plane_create_sol=
+id_fill_property()
+> > > > + *
+> > > > + * @version: Version of the blob. Currently, there is only support=
+ for version =3D=3D 1
+> > > > + * @r: Red color value of single pixel
+> > > > + * @g: Green color value of single pixel
+> > > > + * @b: Blue color value of single pixel
+> > > > + */
+> > > > +struct drm_mode_solid_fill {
+> > > > +       __u32 version;
+> > > > +       __u32 r;
+> > > > +       __u32 g;
+> > > > +       __u32 b; =20
+> > >
+> > > Another thought about the drm_mode_solid_fill uABI. I still think we
+> > > should add alpha here. The reason is the following:
+> > >
+> > > It is true that we have  drm_plane_state::alpha and the plane's
+> > > "alpha" property. However it is documented as "the plane-wide opacity
+> > > [...] It can be combined with pixel alpha. The pixel values in the
+> > > framebuffers are expected to not be pre-multiplied by the global alpha
+> > > associated to the plane.".
+> > >
+> > > I can imagine a use case, when a user might want to enable plane-wide
+> > > opacity, set "pixel blend mode" to "Coverage" and then switch between
+> > > partially opaque framebuffer and partially opaque solid-fill without
+> > > touching the plane's alpha value. =20
+> >
+> > The only reason I see against this is that there might be some
+> > hardware which supports only RGB but not alpha on planes and they
+> > could then not use this property. =20
+>=20
+> Fair enough.
+>=20
+> > Maybe another COLOR_FILL enum value
+> > with alpha might be better? Maybe just doing the alpha via the alpha
+> > property is good enough. =20
+>=20
+> One of our customers has a use case for setting the opaque solid fill,
+> while keeping the plane's alpha intact.
+
+Could you explain more about why they must keep plane alpha intact
+instead of reprogramming everything with atomic? Is there some
+combination that just cannot reach the same end result via userspace
+manipulation of the solid fill values with plane alpha?
+
+Or is it a matter of userspace architecture where you have independent
+components responsible for different KMS property values?
+
+
+Thanks,
+pq
+
+--Sig_/2O=Q20cfS_1km8U=i7GOGD9
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmTfTTUACgkQI1/ltBGq
+qqcVahAAk81/dxiCTJQmQ/4ep7SBcUer1Fg/PYKUcGTuPcR9ieYQBIsKKCPThjTU
+Vpt99KGwvaPx/zvnEwIKdrA7f/5Y5JTYxSEhcjdt82yqEjE4zWbnSgF1pXbM6tln
+IFwCyjeaANKqimKPyYoMGnf4bB5A9GoXS4dv6Uj2mfm0SLzuRPcwwu2LZ+LTPpzj
+30mgEq0nLN77FwMOHwEKXJaDHkNTuqmbgCwcplD3kCFJMM1ghvoJ3fUkCW5sNzJq
+ReBYkbW091cRYNmfWwv8OUQ8Gim3BQLXq1qMzqowzuqPqQXJBeUbRYoh5CYkdjZG
+hN7HiUkSGzdeKhkvFjVgnfGK+LRhgGBjiS2gOYZCtEmEG485jcBGEkjSEt8dB8z0
+sHDMhqqT5V7m3M17DM6ARiZbcyzgTJpwpIJoExRle1L6XyBCEgUDWcB0S8tM5sFo
+3SKhsDVhJvkYHKirpIc/SjrjsDBH7CsJL74hjfd2rAANBSEQZtzpyW7xCfz7tQTa
+Qyjcm7zkD6E3RHCAfR077MFn/OMNHGXYI1eTRm/W6hZJ0yXyjLwMEPKSZV9WbcHd
+O3dLutN1XojGBJe1ULMwG76zHO3iU0L4uOJZJUaTicNbn939vfko3kgBZzfImafb
+d6HsAcLpwtYcK88IShe3Y+p1WYNY2GdV6PcFAOO8rd3AhwQ/ZcM=
+=U13j
+-----END PGP SIGNATURE-----
+
+--Sig_/2O=Q20cfS_1km8U=i7GOGD9--
