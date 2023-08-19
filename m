@@ -1,48 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40605781580
-	for <lists+freedreno@lfdr.de>; Sat, 19 Aug 2023 00:47:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6EF78173C
+	for <lists+freedreno@lfdr.de>; Sat, 19 Aug 2023 05:43:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D59EB10E0E8;
-	Fri, 18 Aug 2023 22:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B5AA10E010;
+	Sat, 19 Aug 2023 03:43:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6BE10E086;
- Fri, 18 Aug 2023 22:47:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB5AD10E010;
+ Sat, 19 Aug 2023 03:43:49 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D06A363A4D;
- Fri, 18 Aug 2023 22:47:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5936C433C8;
- Fri, 18 Aug 2023 22:47:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0E4E763986;
+ Sat, 19 Aug 2023 03:43:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB2EC433C8;
+ Sat, 19 Aug 2023 03:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692398846;
- bh=GERRINsAE4jFIhYWdb4073xkrV0e7fJw3JwzPleFkGE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cyuL5Iht3FYQhRsQPZ882/GmkeF4L5szu8lARMrLLwnl/0ywm7mtvMs22mHQfpQEV
- PfMAoZI9wLWJ88CsiWMyPcyIZlbf2PVYElReCYpEyqPx79/9xEz0p2o24WJqS7cfEd
- 3ppg3GlffC8lgib60tR67hmDMT96+jDVyO7khBg5IfTrrrzO8vR2si+EvKu7D/bwFl
- BOQJwbKJE47igkOtaP04PX5ASifTwmFRyzEb76CWj1pq1lFsCFcdYnoSNsmw3bbopA
- jb4Cy2tCBGbxN1MIv7KK7Nkz6ZeGN4hzis7MN6B2iZymCsTslqic6QQ0etjZshT3RI
- t7o66s2q1HFRw==
-Date: Fri, 18 Aug 2023 23:47:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <1b53ea1e-3522-43db-a7db-dd4b460f0bc6@sirena.org.uk>
-References: <0-v1-98d20e768c66+7-of_dma_lock_jgg@nvidia.com>
+ s=k20201202; t=1692416628;
+ bh=WSE734VY3ZnmlV6G0lUar/9DJf0XC0U6UkYAUOV3ACI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AXTyCP+UWMMgiqgYsTyHl8tUeQmXeaQjmcFQLxx7Ey4xL+FAcoAnPUTAFrn6g8EKT
+ Qwag9GMj5XxSp+0geXKrIlfDioXyBqFmMsssf+0O4kN6bLo3dNKDfAICmMZXf3pQjg
+ W2SfyWDsFJddmk30udPhF82RZcFwMzDpFvKV5rnZe7KXijlPC+H1vHvp7DPYGGWPk2
+ KJOE369/Sg9TAgtyzThKRTK2aqB2eSID3rCSAiFvXHr7jTmRFlGpg5VdftaXLTbegd
+ 6KlYAm34hkBaBWkJepnEs4tzDh4Ln4e9QabTqxgVRj5GsHPeW8F8lpMiysnPtHDswc
+ ImJvCNFdKaf7w==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Andy Gross <agross@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Caleb Connolly <caleb.connolly@linaro.org>,
+ Bryan Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Amit Pundir <amit.pundir@linaro.org>
+Date: Fri, 18 Aug 2023 20:46:27 -0700
+Message-ID: <169241678226.2537898.15004991100741182949.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230726132719.2117369-1-amit.pundir@linaro.org>
+References: <20230726132719.2117369-1-amit.pundir@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sBznzgBGlLdaocvC"
-Content-Disposition: inline
-In-Reply-To: <0-v1-98d20e768c66+7-of_dma_lock_jgg@nvidia.com>
-X-Cookie: Your aim is high and to the right.
-Subject: Re: [Freedreno] [PATCH] iommu: Remove the device_lock_assert() from
- __iommu_probe_device()
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] (subset) [PATCH v6 1/2] dt-bindings: display/msm:
+ mdss-common: add memory-region property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +66,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Emma Anholt <emma@anholt.net>, Kevin Tian <kevin.tian@intel.com>,
- dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>, Chen-Yu Tsai <wens@csie.org>,
- Thierry Reding <thierry.reding@gmail.com>, ath10k@lists.infradead.org,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Frank Rowand <frowand.list@gmail.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Samuel Holland <samuel@sholland.org>, David Airlie <airlied@gmail.com>,
- Joerg Roedel <joro@8bytes.org>, Takashi Iwai <tiwai@suse.com>,
- Sinan Kaya <okaya@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, iommu@lists.linux.dev,
- Andy Gross <agross@kernel.org>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, ath11k@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Joerg Roedel <jroedel@suse.de>,
- Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
- Kalle Valo <kvalo@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
- etnaviv@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dmaengine@vger.kernel.org,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Jeff Johnson <quic_jjohnson@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- linux-wireless@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-sunxi@lists.linux.dev, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Robin Murphy <robin.murphy@arm.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- freedreno@lists.freedesktop.org, Lucas Stach <l.stach@pengutronix.de>
+Cc: dt <devicetree@vger.kernel.org>, Rob Herring <robh@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---sBznzgBGlLdaocvC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed, 26 Jul 2023 18:57:18 +0530, Amit Pundir wrote:
+> Add and document the reserved memory region property in the
+> mdss-common schema.
+> 
+> For now (sdm845-db845c), it points to a framebuffer memory
+> region reserved by the bootloader for splash screen.
+> 
+> 
+> [...]
 
-On Fri, Aug 18, 2023 at 06:32:28PM -0300, Jason Gunthorpe wrote:
-> It turns out several drivers are calling of_dma_configure() outside the
-> expected bus_type.dma_configure op. This ends up being mis-locked and
-> triggers a lockdep assertion, or instance:
+Applied, thanks!
 
-Acked-by: Mark Brown <broonie@kernel.org>
+[2/2] arm64: dts: qcom: sdm845-db845c: Mark cont splash memory region as reserved
+      commit: 110e70fccce4f22b53986ae797d665ffb1950aa6
 
---sBznzgBGlLdaocvC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTf9O4ACgkQJNaLcl1U
-h9CQkgf/U+glO2B163vQwi/fCAxSj8fyw/4Fx89WMOmUEwj0C05hkeR75k8U4pW8
-4U0vPSpT0yaPcjKGpztFpE3uMIf/40CZ1SbbKuvZ4RcYoumOqLIWVcQzYmEiQSml
-M4NjnYXvs3xppLRtxlnWYCzwmvijPoQfs/Ot1VBn9TsoGz70YwLD3JfjHXnztUHF
-y9wAVvMF5OgDayDuWedbuh63H4kRGS7LIhIu9cPgnV14RWL9SmYat6UKcto2FePd
-th2ai/d8CMoJ8oHV7BOaf86sQXul26EvMiWSqgyc9uGX/ag9RYCA465U/QXlVQZc
-M7hwZKW9rlZZsKXxSdbNPklRZ/Mdqg==
-=cHW/
------END PGP SIGNATURE-----
-
---sBznzgBGlLdaocvC--
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
