@@ -2,82 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14DFD784891
-	for <lists+freedreno@lfdr.de>; Tue, 22 Aug 2023 19:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CCB47848F7
+	for <lists+freedreno@lfdr.de>; Tue, 22 Aug 2023 20:02:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9F4010E3C2;
-	Tue, 22 Aug 2023 17:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09C5710E3BF;
+	Tue, 22 Aug 2023 18:02:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F36E10E3C2;
- Tue, 22 Aug 2023 17:42:57 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37MEMJA6017712; Tue, 22 Aug 2023 17:42:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : date :
- subject : mime-version : content-type : content-transfer-encoding :
- message-id : references : in-reply-to : to : cc; s=qcppdkim1;
- bh=ANZ/5JO75v6RleqSRulh7VZmcQ9jzPREAfF247WfYYY=;
- b=eYc6xMZBqbdK6eyHH/1PR1LqmrygixSEIAbwc3kofYroTMNVT6NQ7XlOlH/v9ceJ2JcB
- YoPIMCWpytnk1GJTWrrvtrbI1p3SqqEpAzWg36OON5FMeaKxwShPFrNz5fJ4mUgTGori
- XsaZKe03XcZ0l0GmbsXtxjw21sFxbuNh4UJo+SJ20QGBqF58Gxz3aiiJVDzC6474LQt4
- 0rtchAT5TCqOb/HQBh0bqkOP9bsyBfUtQc0m6jgLG4nmzgl58VIA8TGsOlgyAEe7JViV
- UJkF5P78VkXrWoIlqq0712e354N9eOSeksQtsWUkOQuveB+5sGGx+0RHeHEzEMgseWkt 1w== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3smreu1fu0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Aug 2023 17:42:47 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 37MHgkIC003050
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Aug 2023 17:42:46 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.36; Tue, 22 Aug 2023 10:42:46 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Tue, 22 Aug 2023 10:42:07 -0700
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1BA10E3BF;
+ Tue, 22 Aug 2023 18:02:30 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id
+ d2e1a72fcca58-68a40d8557eso1809941b3a.1; 
+ Tue, 22 Aug 2023 11:02:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692727349; x=1693332149;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=cv12IOdait6ymjaYszXMAGuiT9Jd+UPhC/JiVaEEqfY=;
+ b=fcG17FQQRsQANikmQNoBQ1b7CbblUulB4/6CIZfIMksNwrQGmSCfc0GXvHR7o8+9Dp
+ p8jr0/i0v+5w05s6LQ0GWwaeda0mq5QxIikM+xfhTVKS8ai/dTUVUz8Rps0UBH2E7ufe
+ EfFVcu+XqMNN97alHgi152v9eAWYG/GGMXe4N6VvZtxxFsbnWBFQb+DsZD+IwsoB+Ha9
+ bYmbK1OTUSfbwpB6PsTHPWoeYEwPjA49parPWOAJI4BvKvNdz0Xk0fz+596EGPIcVcVO
+ NplcmJdlB/CEzcPqlc/Vmg1/97IXuO1mWmJKpo0Zb5G/KDvcN5Q/1dJ7KW7N46IdQWih
+ PmaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692727349; x=1693332149;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cv12IOdait6ymjaYszXMAGuiT9Jd+UPhC/JiVaEEqfY=;
+ b=ESzTimq7wyICCiBAOg8kt/RDffsAlj2XQ1o2asH7OL2VJu+MpvYHDAk7TZmloldFK2
+ qbn3FcuDJK+u6tnxYDZXA0NyeCGOMwoowX64bjLvfryN1Hcop3RPAgh3u1pidPt3Kk2m
+ qdHsNphDYEWgR4EjV+RIvvE5pk//hLbwuZ8ue+qPUaA6NAPQoOxgUx/YjLJH5X8HdNaR
+ VWZBkIzG3N0aaAJPm5eDpbND54YTlj6NrIlT+nR/YgpshgJTjoNirG10njm42hCxn8E7
+ KJ2MAqcP0mnvwsutyiRZd2o636BKPB9GtSLn8dlbPEghlEKC/x+FGBEASXHZ50xDoEZ/
+ AGSw==
+X-Gm-Message-State: AOJu0Yx2mJgvxSxCpXQLzaNtv3ntSY9obZKY1Qr0GMnU6rNaATU9IcOw
+ 7SQp52dpGYQINBACn5YMZAVuysbun4c=
+X-Google-Smtp-Source: AGHT+IHivdlTA5i8F2mOxuTTgQNpG6QN0iSZpJjTDEPGyc+27OY/9g3vLdDskpUqLo68wCNoUTn3kg==
+X-Received: by 2002:a05:6a00:17aa:b0:68b:a137:373d with SMTP id
+ s42-20020a056a0017aa00b0068ba137373dmr2036907pfg.17.1692727349165; 
+ Tue, 22 Aug 2023 11:02:29 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
+ by smtp.gmail.com with ESMTPSA id
+ z25-20020aa785d9000000b0068783a2dfdasm3320769pfn.104.2023.08.22.11.02.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Aug 2023 11:02:28 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 22 Aug 2023 11:01:47 -0700
+Message-ID: <20230822180208.95556-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20230822-add-widebus-support-v4-4-9dc86083d6ea@quicinc.com>
-References: <20230822-add-widebus-support-v4-0-9dc86083d6ea@quicinc.com>
-In-Reply-To: <20230822-add-widebus-support-v4-0-9dc86083d6ea@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>
-X-Mailer: b4 0.13-dev-83828
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1692726164; l=4272;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=11wAmANhEabHWMY3IbrT61xx3EGxeAL5CSIYq61dff4=;
- b=MqXuhgHJlwSqQ6A4OiyL+zYz+jviT+552gbjpCCoEYS3QOAUd4iOpMMUdD51vlTfG/UtJ5Rci
- gfUAe1tEusFBfufi6TfpK728LPVIxCsUd/1m/JYJnD0yT67Hszep4Zy
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: BBBekK5OGg8jWAFSyf8GDqIkrrz7W_R0
-X-Proofpoint-ORIG-GUID: BBBekK5OGg8jWAFSyf8GDqIkrrz7W_R0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-22_14,2023-08-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- clxscore=1015 bulkscore=0 mlxscore=0 priorityscore=1501 mlxlogscore=840
- impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0 phishscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2306200000 definitions=main-2308220140
-Subject: [Freedreno] [PATCH v4 4/4] drm/msm/dsi: Enable widebus for DSI
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5 00/11] drm/msm+PM+icc: Make job_run()
+ reclaim-safe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,121 +71,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:DEVICE FREQUENCY DEVFREQ" <linux-pm@vger.kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DSI 6G v2.5.x+ supports a data-bus widen mode that allows DSI to send
-48 bits of compressed data instead of 24.
+From: Rob Clark <robdclark@chromium.org>
 
-Enable this mode whenever DSC is enabled for supported chipsets.
+Inspired by https://lore.kernel.org/dri-devel/20200604081224.863494-10-daniel.vetter@ffwll.ch/
+it seemed like a good idea to get rid of memory allocation in job_run()
+fence signaling path, and use lockdep annotations to yell at us about
+anything that could deadlock against shrinker/reclaim.  Anything that
+can trigger reclaim, or block on any other thread that has triggered
+reclaim, can block the GPU shrinker from releasing memory if it is
+waiting the job to complete, causing deadlock.
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/dsi/dsi.c      |  2 +-
- drivers/gpu/drm/msm/dsi/dsi.h      |  1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c | 31 +++++++++++++++++++++++++++----
- 3 files changed, 29 insertions(+), 5 deletions(-)
+The first two patches decouple allocation from devfreq->lock, and teach
+lockdep that devfreq->lock can be acquired in paths that the shrinker
+indirectly depends on.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 4cf424b3509f..7327bfc06a84 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -19,7 +19,7 @@ struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
- 
- bool msm_dsi_wide_bus_enabled(struct msm_dsi *msm_dsi)
- {
--	return false;
-+	return msm_dsi_host_is_widebus_enabled(msm_dsi->host);
- }
- 
- static int dsi_get_phy(struct msm_dsi *msm_dsi)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index bd3763a5d723..a557d2c1aaff 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -134,6 +134,7 @@ int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
- void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
- void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
- struct drm_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
-+bool msm_dsi_host_is_widebus_enabled(struct mipi_dsi_host *host);
- 
- /* dsi phy */
- struct msm_dsi_phy;
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 645927214871..267c7fda8854 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -710,6 +710,15 @@ static void dsi_ctrl_disable(struct msm_dsi_host *msm_host)
- 	dsi_write(msm_host, REG_DSI_CTRL, 0);
- }
- 
-+bool msm_dsi_host_is_widebus_enabled(struct mipi_dsi_host *host)
-+{
-+	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+
-+	return msm_host->dsc &&
-+		(msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
-+		 msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V2_5_0);
-+}
-+
- static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct msm_dsi_phy *phy)
- {
-@@ -753,10 +762,16 @@ static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
- 		data |= DSI_CMD_CFG1_INSERT_DCS_COMMAND;
- 		dsi_write(msm_host, REG_DSI_CMD_CFG1, data);
- 
--		if (msm_host->cfg_hnd->major == MSM_DSI_VER_MAJOR_6G &&
--		    msm_host->cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V1_3) {
-+		if (cfg_hnd->major == MSM_DSI_VER_MAJOR_6G) {
- 			data = dsi_read(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2);
--			data |= DSI_CMD_MODE_MDP_CTRL2_BURST_MODE;
-+
-+			if (cfg_hnd->minor >= MSM_DSI_6G_VER_MINOR_V1_3)
-+				data |= DSI_CMD_MODE_MDP_CTRL2_BURST_MODE;
-+
-+			/* TODO: Allow for video-mode support once tested/fixed */
-+			if (msm_dsi_host_is_widebus_enabled(&msm_host->base))
-+				data |= DSI_CMD_MODE_MDP_CTRL2_DATABUS_WIDEN;
-+
- 			dsi_write(msm_host, REG_DSI_CMD_MODE_MDP_CTRL2, data);
- 		}
- 	}
-@@ -894,6 +909,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 	u32 hdisplay = mode->hdisplay;
- 	u32 wc;
- 	int ret;
-+	bool widebus_enabled = msm_dsi_host_is_widebus_enabled(&msm_host->base);
- 
- 	DBG("");
- 
-@@ -914,6 +930,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 
- 	if (msm_host->dsc) {
- 		struct drm_dsc_config *dsc = msm_host->dsc;
-+		u32 bytes_per_pclk;
- 
- 		/* update dsc params with timing params */
- 		if (!dsc || !mode->hdisplay || !mode->vdisplay) {
-@@ -937,7 +954,13 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		 * pulse width same
- 		 */
- 		h_total -= hdisplay;
--		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), 3);
-+		if (widebus_enabled && !(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO))
-+			bytes_per_pclk = 6;
-+		else
-+			bytes_per_pclk = 3;
-+
-+		hdisplay = DIV_ROUND_UP(msm_dsc_get_bytes_per_line(msm_host->dsc), bytes_per_pclk);
-+
- 		h_total += hdisplay;
- 		ha_end = ha_start + hdisplay;
- 	}
+The next three patches do the same for PM QoS.  And the next two do a
+similar thing for interconnect.
+
+And then finally the last two patches enable the lockdep fence-
+signalling annotations.
+
+
+v2: Switch from embedding hw_fence in submit/job object to preallocating
+    the hw_fence.  Rework "fenced unpin" locking to drop obj lock from
+    fence signaling path (ie. the part that was still WIP in the first
+    iteration of the patchset).  Adds the final patch to enable fence
+    signaling annotations now that job_run() and job_free() are safe.
+    The PM devfreq/QoS and interconnect patches are unchanged.
+
+v3: Mostly unchanged, but series is much smaller now that drm changes
+    have landed, mostly consisting of the remaining devfreq/qos/
+    interconnect fixes.
+
+v4: Re-work PM / QoS patch based on Rafael's suggestion
+
+v5: Add a couple more drm/msm patches for issues I found as making
+    my way to the bottom of the rabbit hole.  In particular, I had
+    to move power enable earlier, before enqueing to the scheduler,
+    rather than after the scheduler waits for in-fences, which means
+    we could be powering up slightly earlier than needed.  If runpm
+    had a separate prepare + enable similar to the clk framework, we
+    wouldn't need this.
+
+Rob Clark (11):
+  PM / devfreq: Drop unneed locking to appease lockdep
+  PM / devfreq: Teach lockdep about locking order
+  PM / QoS: Fix constraints alloc vs reclaim locking
+  PM / QoS: Decouple request alloc from dev_pm_qos_mtx
+  PM / QoS: Teach lockdep about dev_pm_qos_mtx locking order
+  interconnect: Fix locking for runpm vs reclaim
+  interconnect: Teach lockdep about icc_bw_lock order
+  drm/msm/a6xx: Remove GMU lock from runpm paths
+  drm/msm: Move runpm enable in submit path
+  drm/sched: Add (optional) fence signaling annotation
+  drm/msm: Enable fence signalling annotations
+
+ drivers/base/power/qos.c               | 98 +++++++++++++++++++-------
+ drivers/devfreq/devfreq.c              | 52 +++++++-------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c  | 15 +---
+ drivers/gpu/drm/msm/msm_gem_submit.c   |  2 +
+ drivers/gpu/drm/msm/msm_gpu.c          |  2 -
+ drivers/gpu/drm/msm/msm_ringbuffer.c   |  1 +
+ drivers/gpu/drm/scheduler/sched_main.c |  9 +++
+ drivers/interconnect/core.c            | 18 ++++-
+ include/drm/gpu_scheduler.h            |  2 +
+ 9 files changed, 130 insertions(+), 69 deletions(-)
 
 -- 
-2.42.0
+2.41.0
 
