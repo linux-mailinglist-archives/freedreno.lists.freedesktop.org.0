@@ -1,50 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0913E7866CB
-	for <lists+freedreno@lfdr.de>; Thu, 24 Aug 2023 06:35:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 190F6786681
+	for <lists+freedreno@lfdr.de>; Thu, 24 Aug 2023 06:13:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6C2310E4EF;
-	Thu, 24 Aug 2023 04:35:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC55910E4E1;
+	Thu, 24 Aug 2023 04:13:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E28A10E4B2;
- Thu, 24 Aug 2023 01:36:22 +0000 (UTC)
-Received: from localhost.localdomain (unknown
- [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9677A66072F0;
- Thu, 24 Aug 2023 02:36:20 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1692840980;
- bh=yD9wfCKvqna1/wmDIoUeYBMCMGlTtWCx7RFZbYt6L/k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H6QU8hEq4NObU93r9/Sv8bLtE0pFe80qIP0YaAdX9yK4T7vWEJPvWvWMvKZCUzIEw
- Rc79fq7RWjJ+mWwSsdLcJhaZY2rNG8yK/5jupxjwZ6Ru1Yxvdp6u2ZIYIzAzJ7HIJi
- fS7MgtlbeU17k4ORS7yKtXdjKllgX1UcFfy5FHnnNxBjAUxlwkHzzbRVr7uSmrJpXI
- dmSI34LRoMyE91cYwsQJFErYdyugdTPc8M1xALXHQYiKE7bMXBrGjW2v+Za0VrEzk+
- GYuWpywcmz8numCax/EJTnSe8WymYCcN0KKvebRejJPcyvf8Sge0hbtQmg0VVbTqca
- IO/CA6SaooHcw==
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, daniel@ffwll.ch, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8436A10E4E0;
+ Thu, 24 Aug 2023 04:13:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1692850387; x=1724386387;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8DGmYpo5e1+4XY98tv7NyzBwr148Xio3UFlCxazJQUg=;
+ b=J3P3KGmprcF25yhDR4it+Md4M/roNOdMq0rgLbIyiOg7Ss4djbxTelCE
+ jEI0L5bsG6EXOQc5e6b+eKAJwmNzf4SBaKf7E67QGlSYPblPijvI6xmcT
+ ttBG//wSjZWnFLBg38Gw/TFR7dhaEwaira8TR9je2gXkX5mBwIQBQXFKr
+ chIUnXu52mcHmkBThDNZgC7j49qImahlX4m0c6buWinF0AI8Hw9uYNQrF
+ TWHgWNlVftUPyd3oVSKz3d1H0oIrArnolgNAf8VS2pjTOYxtYB67HLG+v
+ KGJcv9mK1h7hPE48J+cLB6GyQlDVGuKtDKuF8g5TRa/1rxL7LnBGKsiUf A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="353883744"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="353883744"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2023 21:13:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="851313291"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="851313291"
+Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
+ by fmsmga002.fm.intel.com with ESMTP; 23 Aug 2023 21:13:01 -0700
+Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qZ1iP-0001ke-08;
+ Thu, 24 Aug 2023 04:13:01 +0000
+Date: Thu, 24 Aug 2023 12:12:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
  marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
-Date: Thu, 24 Aug 2023 02:34:49 +0100
-Message-ID: <20230824013604.466224-7-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230824013604.466224-1-adrian.larumbe@collabora.com>
-References: <20230824013604.466224-1-adrian.larumbe@collabora.com>
+Message-ID: <202308241240.ngAywBMr-lkp@intel.com>
+References: <20230824013604.466224-3-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 24 Aug 2023 04:35:12 +0000
-Subject: [Freedreno] [PATCH v2 6/6] drm/drm-file: Allow size unit selection
- in drm_show_memory_stats
+In-Reply-To: <20230824013604.466224-3-adrian.larumbe@collabora.com>
+Subject: Re: [Freedreno] [PATCH v2 2/6] drm/panfrost: Add fdinfo support GPU
+ load metrics
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,141 +67,75 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- healych@amazon.com, kernel@collabora.com, freedreno@lists.freedesktop.org
+ healych@amazon.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ kernel@collabora.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The current implementation will try to pick the highest available
-unit. This is rather unflexible, and allowing drivers to display BO size
-statistics through fdinfo in units of their choice might be desirable.
+Hi Adri·n,
 
-The new argument to drm_show_memory_stats is to be interpreted as the
-integer multiplier of a 10-power of 2, so 1 would give us size in Kib and 2
-in Mib. If we want drm-file functions to pick the highest unit, then 0
-should be passed.
+kernel test robot noticed the following build warnings:
 
-Signed-off-by: Adri√°n Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/drm_file.c              | 22 +++++++++++++---------
- drivers/gpu/drm/msm/msm_drv.c           |  2 +-
- drivers/gpu/drm/panfrost/panfrost_drv.c |  2 +-
- include/drm/drm_file.h                  |  5 +++--
- 4 files changed, 18 insertions(+), 13 deletions(-)
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v6.5-rc7 next-20230823]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 762965e3d503..517e1fb8072a 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -873,7 +873,7 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
- EXPORT_SYMBOL(drm_send_event);
- 
- static void print_size(struct drm_printer *p, const char *stat,
--		       const char *region, u64 sz)
-+		       const char *region, u64 sz, unsigned int unit)
- {
- 	const char *units[] = {"", " KiB", " MiB"};
- 	unsigned u;
-@@ -881,6 +881,8 @@ static void print_size(struct drm_printer *p, const char *stat,
- 	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
- 		if (sz < SZ_1K)
- 			break;
-+		if (unit > 0 && unit == u)
-+			break;
- 		sz = div_u64(sz, SZ_1K);
- 	}
- 
-@@ -898,17 +900,18 @@ static void print_size(struct drm_printer *p, const char *stat,
- void drm_print_memory_stats(struct drm_printer *p,
- 			    const struct drm_memory_stats *stats,
- 			    enum drm_gem_object_status supported_status,
--			    const char *region)
-+			    const char *region,
-+			    unsigned int unit)
- {
--	print_size(p, "total", region, stats->private + stats->shared);
--	print_size(p, "shared", region, stats->shared);
--	print_size(p, "active", region, stats->active);
-+	print_size(p, "total", region, stats->private + stats->shared, unit);
-+	print_size(p, "shared", region, stats->shared, unit);
-+	print_size(p, "active", region, stats->active, unit);
- 
- 	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
--		print_size(p, "resident", region, stats->resident);
-+		print_size(p, "resident", region, stats->resident, unit);
- 
- 	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
--		print_size(p, "purgeable", region, stats->purgeable);
-+		print_size(p, "purgeable", region, stats->purgeable, unit);
- }
- EXPORT_SYMBOL(drm_print_memory_stats);
- 
-@@ -916,11 +919,12 @@ EXPORT_SYMBOL(drm_print_memory_stats);
-  * drm_show_memory_stats - Helper to collect and show standard fdinfo memory stats
-  * @p: the printer to print output to
-  * @file: the DRM file
-+ * @unit: multipliyer of power of two exponent of desired unit
-  *
-  * Helper to iterate over GEM objects with a handle allocated in the specified
-  * file.
-  */
--void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
-+void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, unsigned int unit)
- {
- 	struct drm_gem_object *obj;
- 	struct drm_memory_stats status = {};
-@@ -967,7 +971,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
- 	}
- 	spin_unlock(&file->table_lock);
- 
--	drm_print_memory_stats(p, &status, supported_status, "memory");
-+	drm_print_memory_stats(p, &status, supported_status, "memory", unit);
- }
- EXPORT_SYMBOL(drm_show_memory_stats);
- 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 2a0e3529598b..cd1198151744 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1067,7 +1067,7 @@ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 
- 	msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, p);
- 
--	drm_show_memory_stats(p, file);
-+	drm_show_memory_stats(p, file, 0);
- }
- 
- static const struct file_operations fops = {
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 93d5f5538c0b..79c08cee3e9d 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -563,7 +563,7 @@ static void panfrost_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 
- 	panfrost_gpu_show_fdinfo(pfdev, file->driver_priv, p);
- 
--	drm_show_memory_stats(p, file);
-+	drm_show_memory_stats(p, file, 1);
- }
- 
- static const struct file_operations panfrost_drm_driver_fops = {
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 010239392adf..21a3b022dd63 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -466,9 +466,10 @@ enum drm_gem_object_status;
- void drm_print_memory_stats(struct drm_printer *p,
- 			    const struct drm_memory_stats *stats,
- 			    enum drm_gem_object_status supported_status,
--			    const char *region);
-+			    const char *region,
-+			    unsigned int unit);
- 
--void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
-+void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, unsigned int unit);
- void drm_show_fdinfo(struct seq_file *m, struct file *f);
- 
- struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
+url:    https://github.com/intel-lab-lkp/linux/commits/Adri-n-Larumbe/drm-panfrost-Add-cycle-count-GPU-register-definitions/20230824-093848
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230824013604.466224-3-adrian.larumbe%40collabora.com
+patch subject: [PATCH v2 2/6] drm/panfrost: Add fdinfo support GPU load metrics
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20230824/202308241240.ngAywBMr-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20230824/202308241240.ngAywBMr-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308241240.ngAywBMr-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/panfrost/panfrost_drv.c: In function 'panfrost_gpu_show_fdinfo':
+>> drivers/gpu/drm/panfrost/panfrost_drv.c:551:50: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'long unsigned int' [-Wformat=]
+     551 |                 drm_printf(p, "drm-curfreq-%s:\t%u Hz\n",
+         |                                                 ~^
+         |                                                  |
+         |                                                  unsigned int
+         |                                                 %lu
+     552 |                            ei->name, pfdev->pfdevfreq.current_frequency);
+         |                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                                      |
+         |                                                      long unsigned int
+
+
+vim +551 drivers/gpu/drm/panfrost/panfrost_drv.c
+
+   534	
+   535	
+   536	static void panfrost_gpu_show_fdinfo(struct panfrost_device *pfdev,
+   537					     struct panfrost_file_priv *panfrost_priv,
+   538					     struct drm_printer *p)
+   539	{
+   540		int i;
+   541	
+   542		for (i = 0; i < NUM_JOB_SLOTS - 1; i++) {
+   543			struct engine_info *ei = &panfrost_priv->fdinfo.engines[i];
+   544	
+   545			drm_printf(p, "drm-engine-%s:\t%llu ns\n",
+   546				   ei->name, ei->elapsed_ns);
+   547			drm_printf(p, "drm-cycles-%s:\t%llu\n",
+   548				   ei->name, ei->cycles);
+   549			drm_printf(p, "drm-maxfreq-%s:\t%u Hz\n",
+   550				   ei->name, panfrost_priv->fdinfo.maxfreq);
+ > 551			drm_printf(p, "drm-curfreq-%s:\t%u Hz\n",
+   552				   ei->name, pfdev->pfdevfreq.current_frequency);
+   553		}
+   554	}
+   555	
+
 -- 
-2.42.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
