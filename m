@@ -1,68 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B6817862CB
-	for <lists+freedreno@lfdr.de>; Wed, 23 Aug 2023 23:56:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F37C7866CD
+	for <lists+freedreno@lfdr.de>; Thu, 24 Aug 2023 06:35:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE9DA10E47E;
-	Wed, 23 Aug 2023 21:56:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0AE10E4F0;
+	Thu, 24 Aug 2023 04:35:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BFCD10E479;
- Wed, 23 Aug 2023 21:56:15 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- 98e67ed59e1d1-26d1e5f2c35so4199181a91.2; 
- Wed, 23 Aug 2023 14:56:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692827774; x=1693432574;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=U38bdq29Dgw0wCI6R6HBdmbsK4pnEF7143GlmYr1GwQ=;
- b=Mrp6jmUu4GpWFoHogKWjjzeO8Ax1IMjdXWlBJAyGzSAElDqk5H7ZtCmITp4Sqe+vny
- j6iUs/esYyj3bXbRkTT5SbVQoqkrYQZGOpsIQmhySD/rpljYsfMrd3tkYpMNDvMYTAZi
- WACdRZ/DJll+s+LvToCsB45E+xQdGvQvDwb12Q8C1Clo9AHvrlgUgzF1YHeCvhEe2Lom
- jdsyFO7ARX169jOQOcId8oFe7lZthRfWJ+IBIL5H/BA3QmypSNyccRSmpjPsxibGsX2e
- cz+DNLYhO8WlbsPY2NMwrso3/OTGR+Mi4kLoSqMSO3al8DTWJgpU2Ct8I4vLXXQJxLhy
- AqSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692827774; x=1693432574;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=U38bdq29Dgw0wCI6R6HBdmbsK4pnEF7143GlmYr1GwQ=;
- b=iwOXId3dnZz/zt3e80isMNmfbUpkuVsQAW7BTBQxFMg03/nrP/z4puzFDmDP4njtpC
- ZrOd7w4UNy3fu6hfm3L5x4aDIkoEEyep/KIWQtUtCeFqy5PuliwL5XEAXQ/SVyZt/4YY
- iHrPPSlTuuadC37SgNhIAQJi9vJ/HhuDqWuq0fmfQn4fCUu/EJWQh24xOq0NFYHaj8/L
- f64tiEc3ufm9y8ZGrg0/enfTSgnQSROVAK426J2vzPUCzJU0XfumyGkgs7yaP904h3vx
- tizZAoCBVhdsQoDT+UbKGbzJI/Mf2jKc4y67T6vyQNEOD8Rvq3UwZb4//7J1vGDxluGC
- 6QAQ==
-X-Gm-Message-State: AOJu0Yw4FveTulvnIpsJeUfdMdnP0xghzTEy3GiOEBsAAbnmuqHLfQ8E
- 1IBTp/zee+UnUxlNWWeRUVGSOPLh0gY=
-X-Google-Smtp-Source: AGHT+IEK9f5kg8gg9H6xaZEI7BweoTyMRpa0VDsD1a1KvfcF409tN8lu1SQutdkpLIAzoxCQZvZB/A==
-X-Received: by 2002:a17:90a:bc98:b0:268:b682:23de with SMTP id
- x24-20020a17090abc9800b00268b68223demr13483090pjr.28.1692827774403; 
- Wed, 23 Aug 2023 14:56:14 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
- by smtp.gmail.com with ESMTPSA id
- 23-20020a17090a1a1700b00263e4dc33aasm271029pjk.11.2023.08.23.14.56.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Aug 2023 14:56:13 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 14:54:56 -0700
-Message-ID: <20230823215458.203366-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230823215458.203366-1-robdclark@gmail.com>
-References: <20230823215458.203366-1-robdclark@gmail.com>
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05AE210E4AA;
+ Thu, 24 Aug 2023 01:36:20 +0000 (UTC)
+Received: from localhost.localdomain (unknown
+ [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 234F86607186;
+ Thu, 24 Aug 2023 02:36:19 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1692840979;
+ bh=CTem+vlDOUjPRaoGMpRBhvncae1lgfwc6Fj1M1O4Rf0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=GDW0sV3Ym09BdZH5iPbMQ7DDt3jRbkBGpybyCnYvafe/FSNas9aSusXMzSzSP/gsY
+ mYvq747rG8SJTcQyaAAhL8Qlc+a8DoPavfPlveT55aFnY1UopgnWt8C7fcfMdFft8l
+ vqcLTN7Sc7sDaa5mvPsANtna9ehysDr0a4PbqxqJxFeuV/e7ibh/cYucu9U3i0S0RU
+ 48Qg01yFS4NSGSPJdM5AbD8MINYTrDILIGXGWBFHTDCBMEEGHMVNXPkgek5P9zIGvs
+ KQbF1PyIAn7S2fGWGrSHSVlqwsL7wMiqVDFz39cwIloCgn8VSLk3L7KfDzjD63MZRT
+ MdaUdpM4fvwSA==
+From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
+Date: Thu, 24 Aug 2023 02:34:43 +0100
+Message-ID: <20230824013604.466224-1-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v9 3/3] dma-buf/sw_sync: Add fence deadline
- support
+X-Mailman-Approved-At: Thu, 24 Aug 2023 04:35:12 +0000
+Subject: [Freedreno] [PATCH v2 0/6] Add fdinfo support to Panfrost
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,183 +55,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Gustavo Padovan <gustavo@padovan.org>, Xaver Hugl <xaver.hugl@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ healych@amazon.com, kernel@collabora.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+This patch series adds fdinfo support to the Panfrost DRM driver. It will
+display a series of key:value pairs under /proc/pid/fdinfo/fd for render
+processes that open the Panfrost DRM file.
 
-This consists of simply storing the most recent deadline, and adding an
-ioctl to retrieve the deadline.  This can be used in conjunction with
-the SET_DEADLINE ioctl on a fence fd for testing.  Ie. create various
-sw_sync fences, merge them into a fence-array, set deadline on the
-fence-array and confirm that it is propagated properly to each fence.
+The pairs contain basic drm gpu engine and memory region information that
+can either be cat by a privileged user or accessed with IGT's gputop
+utility.
 
-v2: Switch UABI to express deadline as u64
-v3: More verbose UAPI docs, show how to convert from timespec
-v4: Better comments, track the soonest deadline, as a normal fence
-    implementation would, return an error if no deadline set.
+Changelog:
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
----
- drivers/dma-buf/sw_sync.c    | 82 ++++++++++++++++++++++++++++++++++++
- drivers/dma-buf/sync_debug.h |  2 +
- 2 files changed, 84 insertions(+)
+v2:
+ - Changed the way gpu cycles and engine time are calculated, using GPU
+ registers and taking into account potential resets.
+ - Split render engine values into fragment and vertex/tiler ones.
+ - Added more fine-grained calculation of RSS size for BO's.
+ - Implemente selection of drm-memory region size units
+ - Removed locking of shrinker's mutex in GEM obj status function
 
-diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-index f0a35277fd84..c353029789cf 100644
---- a/drivers/dma-buf/sw_sync.c
-+++ b/drivers/dma-buf/sw_sync.c
-@@ -52,12 +52,33 @@ struct sw_sync_create_fence_data {
- 	__s32	fence; /* fd of new fence */
- };
- 
-+/**
-+ * struct sw_sync_get_deadline - get the deadline hint of a sw_sync fence
-+ * @deadline_ns: absolute time of the deadline
-+ * @pad:	must be zero
-+ * @fence_fd:	the sw_sync fence fd (in)
-+ *
-+ * Return the earliest deadline set on the fence.  The timebase for the
-+ * deadline is CLOCK_MONOTONIC (same as vblank).  If there is no deadline
-+ * set on the fence, this ioctl will return -ENOENT.
-+ */
-+struct sw_sync_get_deadline {
-+	__u64	deadline_ns;
-+	__u32	pad;
-+	__s32	fence_fd;
-+};
-+
- #define SW_SYNC_IOC_MAGIC	'W'
- 
- #define SW_SYNC_IOC_CREATE_FENCE	_IOWR(SW_SYNC_IOC_MAGIC, 0,\
- 		struct sw_sync_create_fence_data)
- 
- #define SW_SYNC_IOC_INC			_IOW(SW_SYNC_IOC_MAGIC, 1, __u32)
-+#define SW_SYNC_GET_DEADLINE		_IOWR(SW_SYNC_IOC_MAGIC, 2, \
-+		struct sw_sync_get_deadline)
-+
-+
-+#define SW_SYNC_HAS_DEADLINE_BIT	DMA_FENCE_FLAG_USER_BITS
- 
- static const struct dma_fence_ops timeline_fence_ops;
- 
-@@ -171,6 +192,22 @@ static void timeline_fence_timeline_value_str(struct dma_fence *fence,
- 	snprintf(str, size, "%d", parent->value);
- }
- 
-+static void timeline_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
-+{
-+	struct sync_pt *pt = dma_fence_to_sync_pt(fence);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(fence->lock, flags);
-+	if (test_bit(SW_SYNC_HAS_DEADLINE_BIT, &fence->flags)) {
-+		if (ktime_before(deadline, pt->deadline))
-+			pt->deadline = deadline;
-+	} else {
-+		pt->deadline = deadline;
-+		__set_bit(SW_SYNC_HAS_DEADLINE_BIT, &fence->flags);
-+	}
-+	spin_unlock_irqrestore(fence->lock, flags);
-+}
-+
- static const struct dma_fence_ops timeline_fence_ops = {
- 	.get_driver_name = timeline_fence_get_driver_name,
- 	.get_timeline_name = timeline_fence_get_timeline_name,
-@@ -179,6 +216,7 @@ static const struct dma_fence_ops timeline_fence_ops = {
- 	.release = timeline_fence_release,
- 	.fence_value_str = timeline_fence_value_str,
- 	.timeline_value_str = timeline_fence_timeline_value_str,
-+	.set_deadline = timeline_fence_set_deadline,
- };
- 
- /**
-@@ -387,6 +425,47 @@ static long sw_sync_ioctl_inc(struct sync_timeline *obj, unsigned long arg)
- 	return 0;
- }
- 
-+static int sw_sync_ioctl_get_deadline(struct sync_timeline *obj, unsigned long arg)
-+{
-+	struct sw_sync_get_deadline data;
-+	struct dma_fence *fence;
-+	unsigned long flags;
-+	struct sync_pt *pt;
-+	int ret = 0;
-+
-+	if (copy_from_user(&data, (void __user *)arg, sizeof(data)))
-+		return -EFAULT;
-+
-+	if (data.deadline_ns || data.pad)
-+		return -EINVAL;
-+
-+	fence = sync_file_get_fence(data.fence_fd);
-+	if (!fence)
-+		return -EINVAL;
-+
-+	pt = dma_fence_to_sync_pt(fence);
-+	if (!pt)
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(fence->lock, flags);
-+	if (test_bit(SW_SYNC_HAS_DEADLINE_BIT, &fence->flags)) {
-+		data.deadline_ns = ktime_to_ns(pt->deadline);
-+	} else {
-+		ret = -ENOENT;
-+	}
-+	spin_unlock_irqrestore(fence->lock, flags);
-+
-+	dma_fence_put(fence);
-+
-+	if (ret)
-+		return ret;
-+
-+	if (copy_to_user((void __user *)arg, &data, sizeof(data)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static long sw_sync_ioctl(struct file *file, unsigned int cmd,
- 			  unsigned long arg)
- {
-@@ -399,6 +478,9 @@ static long sw_sync_ioctl(struct file *file, unsigned int cmd,
- 	case SW_SYNC_IOC_INC:
- 		return sw_sync_ioctl_inc(obj, arg);
- 
-+	case SW_SYNC_GET_DEADLINE:
-+		return sw_sync_ioctl_get_deadline(obj, arg);
-+
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/dma-buf/sync_debug.h b/drivers/dma-buf/sync_debug.h
-index 6176e52ba2d7..a1bdd62efccd 100644
---- a/drivers/dma-buf/sync_debug.h
-+++ b/drivers/dma-buf/sync_debug.h
-@@ -55,11 +55,13 @@ static inline struct sync_timeline *dma_fence_parent(struct dma_fence *fence)
-  * @base: base fence object
-  * @link: link on the sync timeline's list
-  * @node: node in the sync timeline's tree
-+ * @deadline: the earliest fence deadline hint
-  */
- struct sync_pt {
- 	struct dma_fence base;
- 	struct list_head link;
- 	struct rb_node node;
-+	ktime_t deadline;
- };
- 
- extern const struct file_operations sw_sync_debugfs_fops;
+Adrián Larumbe (6):
+  drm/panfrost: Add cycle count GPU register definitions
+  drm/panfrost: Add fdinfo support GPU load metrics
+  drm/panfrost: Add fdinfo support for memory stats
+  drm/drm_file: Add DRM obj's RSS reporting function for fdinfo
+  drm/panfrost: Implement generic DRM object RSS reporting function
+  drm/drm-file: Allow size unit selection in drm_show_memory_stats
+
+ drivers/gpu/drm/drm_file.c                  | 27 +++++++----
+ drivers/gpu/drm/msm/msm_drv.c               |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c |  8 +++
+ drivers/gpu/drm/panfrost/panfrost_devfreq.h |  3 ++
+ drivers/gpu/drm/panfrost/panfrost_device.h  | 13 +++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c     | 54 +++++++++++++++++++--
+ drivers/gpu/drm/panfrost/panfrost_gem.c     | 34 +++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.h     |  6 +++
+ drivers/gpu/drm/panfrost/panfrost_job.c     | 30 ++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_job.h     |  4 ++
+ drivers/gpu/drm/panfrost/panfrost_mmu.c     | 16 ++++--
+ drivers/gpu/drm/panfrost/panfrost_regs.h    |  5 ++
+ include/drm/drm_file.h                      |  5 +-
+ include/drm/drm_gem.h                       |  9 ++++
+ 14 files changed, 195 insertions(+), 21 deletions(-)
+
 -- 
-2.41.0
+2.42.0
 
