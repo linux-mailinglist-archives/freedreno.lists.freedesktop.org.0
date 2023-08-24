@@ -1,43 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E689D7867C5
-	for <lists+freedreno@lfdr.de>; Thu, 24 Aug 2023 08:50:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1AC786D83
+	for <lists+freedreno@lfdr.de>; Thu, 24 Aug 2023 13:15:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D03810E489;
-	Thu, 24 Aug 2023 06:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0998B10E527;
+	Thu, 24 Aug 2023 11:15:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A257910E486;
- Thu, 24 Aug 2023 06:50:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9327410E524;
+ Thu, 24 Aug 2023 11:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692859825; x=1724395825;
+ t=1692875701; x=1724411701;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=7c1u4LL4oLHnfK/HLKKjWnjJYUV11K5kwkL59BvWvZQ=;
- b=lfRUAr/vpKBhF23uxrxiiKODvBBdwDLTybzk0XsyyZ9MBYV5FvTD2Muo
- UeKjUjT/ZTYnePPcLE6wugw/KgWThuzVJapHukm2q30dnmX6ChBkEYLMz
- CNMKU90xgvu1j5GEnDo19fdER6+7uMg1c0wS20WBEP9xYZeFMqCRtNTmH
- RPYefKTB1m+O7DUAn3y94T6g84jNhP5YCrg1DcHsxCmG2BT5ZWl/L31OS
- nwzA2iVcMgngnXsuTkQlEhHCTP65lre7GAWVk0Mkq/yJOgByDR4d8ivZA
- gTYFduUaNAa1serZa2/0vqrUUaJA4gmtmb7BHyhCitCm7sgQ7YAosnWx1 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="378114828"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="378114828"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ bh=CtK1R/zQ6fsYubBUoIg4emRPJbgoJXj1/hZIVxAHWHw=;
+ b=YV2t4b9GBw7eyuX+blxqXajmwmtTo5M2Rl7RAckpOS0/sJbgtylhmxBT
+ a5Euql5mGEiTs5rfQVOTfcPaQiCwC+3dSTwHo7fog4ClDmSTaO4Sn0p1L
+ BZr/7pJ6qfX8xUgjwAotyb/wewVf/Lt8je4mbOEIanLypEGs7Kfl+VoO6
+ 94BiTfdP7zJeOMGKL0JucRAPP/pdw1SPIZSvOt+/ftcROnOOGV2/PwTge
+ 66SLppA3u9kYnopxjJBnn/yhKyjU9etfBQnhHCCmrTjNUn1oDaCY1FqXB
+ fxQULUG2UU+PhfeGZvapI6BuaIWytLk0AX2a+/foe4v97i6EVKJcgqb8D g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="378164704"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="378164704"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 23:50:24 -0700
+ 24 Aug 2023 04:15:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="910789373"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="910789373"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="766502137"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="766502137"
 Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
- by orsmga005.jf.intel.com with ESMTP; 23 Aug 2023 23:50:19 -0700
+ by orsmga008.jf.intel.com with ESMTP; 24 Aug 2023 04:14:55 -0700
 Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qZ4Ac-0001oG-27;
- Thu, 24 Aug 2023 06:50:18 +0000
-Date: Thu, 24 Aug 2023 14:49:52 +0800
+ (envelope-from <lkp@intel.com>) id 1qZ8IX-0001ye-2N;
+ Thu, 24 Aug 2023 11:14:48 +0000
+Date: Thu, 24 Aug 2023 19:13:48 +0800
 From: kernel test robot <lkp@intel.com>
 To: =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org,
@@ -45,15 +45,15 @@ To: =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
  robdclark@gmail.com, quic_abhinavk@quicinc.com,
  dmitry.baryshkov@linaro.org, sean@poorly.run,
  marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
-Message-ID: <202308241401.Hr6gvevs-lkp@intel.com>
-References: <20230824013604.466224-7-adrian.larumbe@collabora.com>
+Message-ID: <202308241850.UjqyDaGz-lkp@intel.com>
+References: <20230824013604.466224-6-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230824013604.466224-7-adrian.larumbe@collabora.com>
-Subject: Re: [Freedreno] [PATCH v2 6/6] drm/drm-file: Allow size unit
- selection in drm_show_memory_stats
+In-Reply-To: <20230824013604.466224-6-adrian.larumbe@collabora.com>
+Subject: Re: [Freedreno] [PATCH v2 5/6] drm/panfrost: Implement generic DRM
+ object RSS reporting function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,58 +78,44 @@ Hi Adrián,
 kernel test robot noticed the following build warnings:
 
 [auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.5-rc7 next-20230823]
+[also build test WARNING on linus/master v6.5-rc7 next-20230824]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Adri-n-Larumbe/drm-panfrost-Add-cycle-count-GPU-register-definitions/20230824-093848
 base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230824013604.466224-7-adrian.larumbe%40collabora.com
-patch subject: [PATCH v2 6/6] drm/drm-file: Allow size unit selection in drm_show_memory_stats
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20230824/202308241401.Hr6gvevs-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230824/202308241401.Hr6gvevs-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20230824013604.466224-6-adrian.larumbe%40collabora.com
+patch subject: [PATCH v2 5/6] drm/panfrost: Implement generic DRM object RSS reporting function
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20230824/202308241850.UjqyDaGz-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20230824/202308241850.UjqyDaGz-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308241401.Hr6gvevs-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308241850.UjqyDaGz-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
->> drivers/gpu/drm/drm_file.c:905: warning: Function parameter or member 'unit' not described in 'drm_print_memory_stats'
+>> drivers/gpu/drm/panfrost/panfrost_gem.c:210:8: warning: no previous prototype for 'panfrost_gem_rss' [-Wmissing-prototypes]
+     210 | size_t panfrost_gem_rss(struct drm_gem_object *obj)
+         |        ^~~~~~~~~~~~~~~~
 
 
-vim +905 drivers/gpu/drm/drm_file.c
+vim +/panfrost_gem_rss +210 drivers/gpu/drm/panfrost/panfrost_gem.c
 
-686b21b5f6ca2f Rob Clark      2023-05-24  891  
-686b21b5f6ca2f Rob Clark      2023-05-24  892  /**
-686b21b5f6ca2f Rob Clark      2023-05-24  893   * drm_print_memory_stats - A helper to print memory stats
-686b21b5f6ca2f Rob Clark      2023-05-24  894   * @p: The printer to print output to
-686b21b5f6ca2f Rob Clark      2023-05-24  895   * @stats: The collected memory stats
-686b21b5f6ca2f Rob Clark      2023-05-24  896   * @supported_status: Bitmask of optional stats which are available
-686b21b5f6ca2f Rob Clark      2023-05-24  897   * @region: The memory region
-686b21b5f6ca2f Rob Clark      2023-05-24  898   *
-686b21b5f6ca2f Rob Clark      2023-05-24  899   */
-686b21b5f6ca2f Rob Clark      2023-05-24  900  void drm_print_memory_stats(struct drm_printer *p,
-686b21b5f6ca2f Rob Clark      2023-05-24  901  			    const struct drm_memory_stats *stats,
-686b21b5f6ca2f Rob Clark      2023-05-24  902  			    enum drm_gem_object_status supported_status,
-cccad8cb432637 Adrián Larumbe 2023-08-24  903  			    const char *region,
-cccad8cb432637 Adrián Larumbe 2023-08-24  904  			    unsigned int unit)
-686b21b5f6ca2f Rob Clark      2023-05-24 @905  {
-cccad8cb432637 Adrián Larumbe 2023-08-24  906  	print_size(p, "total", region, stats->private + stats->shared, unit);
-cccad8cb432637 Adrián Larumbe 2023-08-24  907  	print_size(p, "shared", region, stats->shared, unit);
-cccad8cb432637 Adrián Larumbe 2023-08-24  908  	print_size(p, "active", region, stats->active, unit);
-686b21b5f6ca2f Rob Clark      2023-05-24  909  
-686b21b5f6ca2f Rob Clark      2023-05-24  910  	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
-cccad8cb432637 Adrián Larumbe 2023-08-24  911  		print_size(p, "resident", region, stats->resident, unit);
-686b21b5f6ca2f Rob Clark      2023-05-24  912  
-686b21b5f6ca2f Rob Clark      2023-05-24  913  	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
-cccad8cb432637 Adrián Larumbe 2023-08-24  914  		print_size(p, "purgeable", region, stats->purgeable, unit);
-686b21b5f6ca2f Rob Clark      2023-05-24  915  }
-686b21b5f6ca2f Rob Clark      2023-05-24  916  EXPORT_SYMBOL(drm_print_memory_stats);
-686b21b5f6ca2f Rob Clark      2023-05-24  917  
+   209	
+ > 210	size_t panfrost_gem_rss(struct drm_gem_object *obj)
+   211	{
+   212		struct panfrost_gem_object *bo = to_panfrost_bo(obj);
+   213	
+   214		if (!bo->base.pages)
+   215			return 0;
+   216	
+   217		return bo->rss_size;
+   218	}
+   219	
 
 -- 
 0-DAY CI Kernel Test Service
