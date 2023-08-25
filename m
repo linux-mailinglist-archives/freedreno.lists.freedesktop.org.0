@@ -2,58 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D1AC786D83
-	for <lists+freedreno@lfdr.de>; Thu, 24 Aug 2023 13:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 692B2788FF3
+	for <lists+freedreno@lfdr.de>; Fri, 25 Aug 2023 22:45:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0998B10E527;
-	Thu, 24 Aug 2023 11:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244E210E6E6;
+	Fri, 25 Aug 2023 20:45:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9327410E524;
- Thu, 24 Aug 2023 11:15:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692875701; x=1724411701;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=CtK1R/zQ6fsYubBUoIg4emRPJbgoJXj1/hZIVxAHWHw=;
- b=YV2t4b9GBw7eyuX+blxqXajmwmtTo5M2Rl7RAckpOS0/sJbgtylhmxBT
- a5Euql5mGEiTs5rfQVOTfcPaQiCwC+3dSTwHo7fog4ClDmSTaO4Sn0p1L
- BZr/7pJ6qfX8xUgjwAotyb/wewVf/Lt8je4mbOEIanLypEGs7Kfl+VoO6
- 94BiTfdP7zJeOMGKL0JucRAPP/pdw1SPIZSvOt+/ftcROnOOGV2/PwTge
- 66SLppA3u9kYnopxjJBnn/yhKyjU9etfBQnhHCCmrTjNUn1oDaCY1FqXB
- fxQULUG2UU+PhfeGZvapI6BuaIWytLk0AX2a+/foe4v97i6EVKJcgqb8D g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="378164704"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="378164704"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2023 04:15:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="766502137"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="766502137"
-Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
- by orsmga008.jf.intel.com with ESMTP; 24 Aug 2023 04:14:55 -0700
-Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qZ8IX-0001ye-2N;
- Thu, 24 Aug 2023 11:14:48 +0000
-Date: Thu, 24 Aug 2023 19:13:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
- robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
-Message-ID: <202308241850.UjqyDaGz-lkp@intel.com>
-References: <20230824013604.466224-6-adrian.larumbe@collabora.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0859310E6E6;
+ Fri, 25 Aug 2023 20:45:03 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37PKIG0F028065; Fri, 25 Aug 2023 20:44:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=rCbT+9n5oZd2fu4/AHpTd1uvnXAylvuuPvz5cdeX7To=;
+ b=Sx+a9DMnEXz7b5bgezSZt8ZwcQ2pGwkhaGTUlsDpoYdb/EElVNiJOJik0T2uRGGaDdGd
+ kanEHiByoEw847vOsPJ4XNvPpPB8kUGTOfufVt9lQHt5s1mVbNd1kJhxbnXe5UlCf81t
+ 6Tz1zdOZFR6oWWrSrUyqjmY7Q6yd8o8zvJDso1dcvagAHM3/SuGUj3BJlx6/aFOqAgl2
+ 5MNGr4TEQE3weQRg4VjEIMroSd1hngx+3jU2rGBZnC4vVXLqEKTDa3n//UghLmd3IfYA
+ Xpz1hpNt5L443G9QFLygiJQppYWuvKo3QYalKBbE86UWqMzzMBEPp5hUeoZB09qIK9FT Wg== 
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3spmm69xxd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Aug 2023 20:44:49 +0000
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 37PKimSG007359
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Aug 2023 20:44:48 GMT
+Received: from [10.110.6.4] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Fri, 25 Aug
+ 2023 13:44:47 -0700
+Message-ID: <832a55a6-9914-a5f1-5bef-30421e47181d@quicinc.com>
+Date: Fri, 25 Aug 2023 13:44:46 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230824013604.466224-6-adrian.larumbe@collabora.com>
-Subject: Re: [Freedreno] [PATCH v2 5/6] drm/panfrost: Implement generic DRM
- object RSS reporting function
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <andersson@kernel.org>, <marijn.suijten@somainline.org>
+References: <1691533190-19335-1-git-send-email-quic_khsieh@quicinc.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <1691533190-19335-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: NFxw4VKgL6xi8hVhddxdorYnjj4U6Uxg
+X-Proofpoint-GUID: NFxw4VKgL6xi8hVhddxdorYnjj4U6Uxg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-25_19,2023-08-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ impostorscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ clxscore=1011 mlxscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308250185
+Subject: Re: [Freedreno] [PATCH v1] drm/msm/dp: do not reinitialize phy
+ unless retry during link training
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,57 +87,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
- healych@amazon.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- kernel@collabora.com, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Adrián,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.5-rc7 next-20230824]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Adri-n-Larumbe/drm-panfrost-Add-cycle-count-GPU-register-definitions/20230824-093848
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230824013604.466224-6-adrian.larumbe%40collabora.com
-patch subject: [PATCH v2 5/6] drm/panfrost: Implement generic DRM object RSS reporting function
-config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20230824/202308241850.UjqyDaGz-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230824/202308241850.UjqyDaGz-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308241850.UjqyDaGz-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/panfrost/panfrost_gem.c:210:8: warning: no previous prototype for 'panfrost_gem_rss' [-Wmissing-prototypes]
-     210 | size_t panfrost_gem_rss(struct drm_gem_object *obj)
-         |        ^~~~~~~~~~~~~~~~
 
 
-vim +/panfrost_gem_rss +210 drivers/gpu/drm/panfrost/panfrost_gem.c
+On 8/8/2023 3:19 PM, Kuogee Hsieh wrote:
+> DP PHY re-initialization done using dp_ctrl_reinitialize_mainlink() will
+> cause PLL unlocked initially and then PLL gets locked at the end of
+> initialization. PLL_UNLOCKED interrupt will fire during this time if the
+> interrupt mask is enabled.
 
-   209	
- > 210	size_t panfrost_gem_rss(struct drm_gem_object *obj)
-   211	{
-   212		struct panfrost_gem_object *bo = to_panfrost_bo(obj);
-   213	
-   214		if (!bo->base.pages)
-   215			return 0;
-   216	
-   217		return bo->rss_size;
-   218	}
-   219	
+There should be a line break here.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> However currently DP driver link training implementation incorrectly
+> re-initializes PHY unconditionally during link training as the PHY was
+> already configured in dp_ctrl_enable_mainlink_clocks().
+> 
+> Fix this by re-initializing the PHY only if the previous link training
+> failed.
+> 
+> [drm:dp_aux_isr] *ERROR* Unexpected DP AUX IRQ 0x01000000 when not busy
+> 
+> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/30
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+
+I tested and confirm that without this patch, I see this spam atleast 
+once per reboot but after this patch, I have not seen this for 5 
+consecutive reboots.
+
+Hence,
+
+Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
+
+Looking at the code flow, the dp_ctrl_reinitialize_mainlink() certainly 
+looks redundant where it is, considering that the clks were enabled just 
+a couple of lines above in dp_ctrl_enable_mainlink_clocks().
+
+Hence with the minor fix in the commit,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+> ---
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 13 ++++++-------
+>   1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index a7a5c7e..77a8d93 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1774,13 +1774,6 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>   		return rc;
+>   
+>   	while (--link_train_max_retries) {
+> -		rc = dp_ctrl_reinitialize_mainlink(ctrl);
+> -		if (rc) {
+> -			DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n",
+> -					rc);
+> -			break;
+> -		}
+> -
+>   		training_step = DP_TRAINING_NONE;
+>   		rc = dp_ctrl_setup_main_link(ctrl, &training_step);
+>   		if (rc == 0) {
+> @@ -1832,6 +1825,12 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>   			/* stop link training before start re training  */
+>   			dp_ctrl_clear_training_pattern(ctrl);
+>   		}
+> +
+> +		rc = dp_ctrl_reinitialize_mainlink(ctrl);
+> +		if (rc) {
+> +			DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n", rc);
+> +			break;
+> +		}
+>   	}
+>   
+>   	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN)
