@@ -1,58 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61B3789256
-	for <lists+freedreno@lfdr.de>; Sat, 26 Aug 2023 01:30:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B36AF789288
+	for <lists+freedreno@lfdr.de>; Sat, 26 Aug 2023 01:58:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9166610E160;
-	Fri, 25 Aug 2023 23:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2B8110E6F0;
+	Fri, 25 Aug 2023 23:57:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF68210E160
- for <freedreno@lists.freedesktop.org>; Fri, 25 Aug 2023 23:30:52 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-d7830c5b20aso1713028276.0
- for <freedreno@lists.freedesktop.org>; Fri, 25 Aug 2023 16:30:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693006252; x=1693611052;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Ey6d5gZX4O+5Ormvdw+/edKbvFqUfGvPPdAwBns5XZ0=;
- b=YHweFZN6GWWe9k+V0XvG5rYvHDivYVgMTQvoLW7JqGs9V57KqEMh6nTzyqMyJL6+/c
- s140AfjtRqHCG1/0hCF6C9gMhAY+tEA2aYYkowHtj1IKRtu5k7c40MK1YyUtqmVqZAYF
- VDBXC2/ohxwnd83Z1nFnA2SIed4XNoM918BSHyBRJNkUQQXXB/AeV7anRnURqmWmj5oB
- DkFvwRIu8uavah6wkkOOelblaW4sDJRrCAVmX+IApCje0g0Myy2CIMg4fMoaVli9w6eh
- a4EZZyD/MlvDAiYn2i+hOeIIAgxn+ctWAVAlg9j4LiE7bmAxEmPctT1CsDKNdLFJKodV
- bgeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693006252; x=1693611052;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ey6d5gZX4O+5Ormvdw+/edKbvFqUfGvPPdAwBns5XZ0=;
- b=InhmLhYVHwpoS+YNKhI0DrHCFGBpotjBsiGTUBW0/IhhKIkaAn0JFnVX9PIHmJ8iNh
- FZpJ5gPnCIkWPv231XAr2+DSIDoCXuHdBMNRgt+zYAPnPN1LvaE7BfjulokJFWj2yI3s
- BsIKixyXQhlw1Oma3SsJGVnKiRJUtp7B8uuHKblZ4/gA4yf1VeK4XwVd/uimncCLSygm
- mlVTvlRhE/3ijAD0+c582b8Y2PUuOeZSAXdiP8d8fy7u+LFLBfSV1UFu+MuAnH8cEanE
- XNN+98n4elSyiCuxJ4MSagot/H3drbfkKvwspFHlkOCLzuG6nesNzq9MN+1i6yHwGidd
- tghQ==
-X-Gm-Message-State: AOJu0YxEbU66C/U3gh/+sjHv0s8lMTKGRt0+pf9eBAY2xaPiTl/nKXoQ
- Jdd4+kz/sVBwj/zisQjVsMKO3RK3wjUDMNJUpl9uKg==
-X-Google-Smtp-Source: AGHT+IH96iZdBFBpub3t9rZ+AHNDzp0KpWqQfScrAOFxIgwNDRNv8otji8p9J6NWQaVh/hdaQCLvseVk6BJ7yxkTnWk=
-X-Received: by 2002:a05:6902:185:b0:d4b:a962:76a3 with SMTP id
- t5-20020a056902018500b00d4ba96276a3mr14239474ybh.29.1693006251979; Fri, 25
- Aug 2023 16:30:51 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEAA910E05F;
+ Fri, 25 Aug 2023 23:57:56 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37PNmNBv014063; Fri, 25 Aug 2023 23:57:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=KoF9wl0GgT/DGQMTTMM+L3Y9798bfjFqBmcVrq7K6TI=;
+ b=J5smUHO3d7od2mnkGJT18rbAS6IDALWlKS7PkdPESVzM5CQLjxgyXPUpxd7s+AHGOcAM
+ 3jPphnkmEJ5G83LfazTCTSC+oKwK+lj5I9wss2Eax+fBwLG22YhM1fJ0Ru5PIDDdds/0
+ 8J1euS4zjz8USAivGHRa0mILaPeh05tLiJn9rY7hmk14BUXBaH5Ef4fa3hGTBNjJzTa6
+ Efm3679yJ4OWY6i2IvFbvnt1HN8NUfZ096OdG1bLxgIY6uS0yb2UL+Vxc18wOvAZ/6fe
+ 5mMFh0p51YTUw9GfJNlvhquFtRdAv4sA0jot5hVAJbmmRlTbIzdzrap33FeKNfEg7KUL 1w== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3spmtxt3kq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Aug 2023 23:57:54 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 37PNvr39017061
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Aug 2023 23:57:53 GMT
+Received: from [10.110.6.4] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Fri, 25 Aug
+ 2023 16:57:51 -0700
+Message-ID: <c229f00b-5e8b-b010-70bd-3478216c65a3@quicinc.com>
+Date: Fri, 25 Aug 2023 16:57:51 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230825230109.2264345-1-swboyd@chromium.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 In-Reply-To: <20230825230109.2264345-1-swboyd@chromium.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 26 Aug 2023 02:30:40 +0300
-Message-ID: <CAA8EJprmvczug0zxuhrHuK2kBYtnkLfkZmYwS78hdVRe8waDXA@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: PNniYBoW1ULYTyXTx-ztQig96nOHizxK
+X-Proofpoint-GUID: PNniYBoW1ULYTyXTx-ztQig96nOHizxK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-25_19,2023-08-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011
+ lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0 mlxlogscore=698
+ mlxscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308250214
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add newlines to debug printks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,63 +83,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, patches@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- freedreno@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
- linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ patches@lists.linux.dev, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 26 Aug 2023 at 02:01, Stephen Boyd <swboyd@chromium.org> wrote:
->
+
+
+On 8/25/2023 4:01 PM, Stephen Boyd wrote:
 > These debug printks are missing newlines, causing drm debug logs to be
 > hard to read. Add newlines so that the messages are on their own line.
->
+> 
 > Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
 > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_link.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-
-
-Fixes: 601f0479c583 ("drm/msm/dp: add logs across DP driver for ease
-of debugging")
-Fixes: cd779808cccd ("drm/msm/dp: Add basic PSR support for eDP")
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
->
+>   drivers/gpu/drm/msm/dp/dp_link.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
 > index 42427129acea..6375daaeb98e 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_link.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_link.c
 > @@ -1090,7 +1090,7 @@ int dp_link_process_request(struct dp_link *dp_link)
->         } else if (dp_link_read_psr_error_status(link)) {
->                 DRM_ERROR("PSR IRQ_HPD received\n");
->         } else if (dp_link_psr_capability_changed(link)) {
-> -               drm_dbg_dp(link->drm_dev, "PSR Capability changed");
-> +               drm_dbg_dp(link->drm_dev, "PSR Capability changed\n");
->         } else {
->                 ret = dp_link_process_link_status_update(link);
->                 if (!ret) {
+>   	} else if (dp_link_read_psr_error_status(link)) {
+>   		DRM_ERROR("PSR IRQ_HPD received\n");
+>   	} else if (dp_link_psr_capability_changed(link)) {
+> -		drm_dbg_dp(link->drm_dev, "PSR Capability changed");
+> +		drm_dbg_dp(link->drm_dev, "PSR Capability changed\n");
+>   	} else {
+>   		ret = dp_link_process_link_status_update(link);
+>   		if (!ret) {
 > @@ -1107,7 +1107,7 @@ int dp_link_process_request(struct dp_link *dp_link)
->                 }
->         }
->
-> -       drm_dbg_dp(link->drm_dev, "sink request=%#x",
-> +       drm_dbg_dp(link->drm_dev, "sink request=%#x\n",
->                                 dp_link->sink_request);
->         return ret;
->  }
->
+>   		}
+>   	}
+>   
+> -	drm_dbg_dp(link->drm_dev, "sink request=%#x",
+> +	drm_dbg_dp(link->drm_dev, "sink request=%#x\n",
+>   				dp_link->sink_request);
+
+perhaps we can move sink_request to the previous line itself with this 
+patch and we can avoid the line break.
+
+But thats a very minor comment, otherwise LGTM
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+>   	return ret;
+>   }
+> 
 > base-commit: 706a741595047797872e669b3101429ab8d378ef
-> --
-> https://chromeos.dev
->
-
-
--- 
-With best wishes
-Dmitry
