@@ -2,64 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B0B7894F0
-	for <lists+freedreno@lfdr.de>; Sat, 26 Aug 2023 10:59:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82BD0789521
+	for <lists+freedreno@lfdr.de>; Sat, 26 Aug 2023 11:31:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88A0B10E187;
-	Sat, 26 Aug 2023 08:59:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC05710E18C;
+	Sat, 26 Aug 2023 09:31:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 245A210E187
- for <freedreno@lists.freedesktop.org>; Sat, 26 Aug 2023 08:59:08 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-4ff8cf11b90so2594457e87.1
- for <freedreno@lists.freedesktop.org>; Sat, 26 Aug 2023 01:59:08 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2BD10E047
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Aug 2023 09:31:07 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2bccda76fb1so24910451fa.2
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Aug 2023 02:31:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693040347; x=1693645147;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=VMV0LkL6XTvk7F0cHIqMZf1QrNVpfMIvkj9fG41FagQ=;
- b=lgk2m4D5SV3fD/P2u4/1d+8AR6SPFpPi+2GPAd3p+2w4cKz0cR+4UosIMI/GZIwuiG
- 32WstuPhV1vP1jVIZPJad66p7yFiwZe6qAuseRXmMNCWjqJ3GWKNjP0H2gGTHIcewCe7
- YrZvAbTwmF3C+Vi6Limdkzb8MihLQYT2aQNni5guI4Tk0994CuKSg+yQY+ZYQY1NRxr8
- 603vcX7SftjJaZsKCRFS24pAiQqbtVirE4Ci4AigQjRhaXw1nkXmW/ZFUCAai0dw5EhQ
- OGzkuXdUa8DmlxtyHKY+zNd+lyPkCuGHHyZ2+1suZOUxANqqfoVI9weuDEbQuvZLdUg2
- iC5A==
+ d=linaro.org; s=google; t=1693042265; x=1693647065;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kW3cwGOUfDCCz5svTKX2PRzwrIu+ggpw8BxMFNARbCI=;
+ b=J6AtFAS1H4nGWTpnqD2lOC7FciVB1ySdN3JDCNaJpNjNhJxFE+eS9zThXbArvZ7S2S
+ 65fojQ/ciio/e6V0OiDfTaY87kWK4rH6ZcBkEgeHtdVDIyNdUyrnVZjb6NSEpjrpac/5
+ h4z5W7SBzJ0jEy+fatM+tdGValsoAzI+EPkiH44EbcsuPyLzpykdu8Os1AjtA8Y6d3E9
+ yWuNyzhpXlL6Vw3/GvVDaUSdU35l2CRrWQfs4tH2j5hfwKYCl2pG53Wn2JXOxBEQEcLU
+ EN79kowVZvU7lrw6Cighkq1cfInOJuOwLYxTnPMqDMgC7DxzThSNmVw8AXxOuCLmU/vh
+ L/+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693040347; x=1693645147;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VMV0LkL6XTvk7F0cHIqMZf1QrNVpfMIvkj9fG41FagQ=;
- b=eIe7lDG/jdUiYKmFc+Elnnc1xIdYN0lPC/YZ1EPZmz2nZSQob9Dx1bjBCpsNWON0OZ
- 8jCsuAxz2Gh4BRV8Jndg6kTqVYfX+F2aFhIsSXPXMcL89b8xPZzeZUQzf3ULOI7SyMOe
- 22xio1gvRTpDY3B8AaEyOViCfD/NqF30pGpsxIiUNZjoox7VMF9Kx6Q7VRLQ6M1aUfmx
- VsqwScfBCjk3qTrDTnPnYjYVXAzea78URoz6kHhKfe7RHizil0WuCYXbQgynQO+oyRAz
- zwRJLkVLrHsYZbMrSGy2TKQptW2OK3bG3ULUQndh4HZ07OLqHH7A+h1as2HflZWRIbTX
- zuiw==
-X-Gm-Message-State: AOJu0Yw+jEbfl30nLuGiXxQ6fqfoYkuFjSpZJLaUdvyYf8lAuktelKIM
- gTGz03CgYX6r/OcwhWQP9ItQTQ==
-X-Google-Smtp-Source: AGHT+IGNz3iCa5gUvcXoBK3a6bk4ESqUsl3Vqx26TgGDafVng3nY3NLrZPaFN8CklqhDuZLTOwb8nA==
-X-Received: by 2002:ac2:4c82:0:b0:4ff:87f6:6ee5 with SMTP id
- d2-20020ac24c82000000b004ff87f66ee5mr13340004lfl.10.1693040346718; 
- Sat, 26 Aug 2023 01:59:06 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1693042265; x=1693647065;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kW3cwGOUfDCCz5svTKX2PRzwrIu+ggpw8BxMFNARbCI=;
+ b=QjGEO/hEeP6r8eEdSeqdnA+VquyWCCQ1oZm+Uusv+ynBpQhaEjoxt8ZrH8YlZgox0G
+ RcGR4oQHL9YNs8N23LrMsN0YeX1+fqWut2jidSTtO4fLCieMdzZzi8IpKvrSmIn3Fl2v
+ j0CnL8/XbqnlLfPUkKQJe+gt0WCfAVLrXjk2UAsVZE8FdgdFoEQ4ZP5jv/npIzJMVkRR
+ aYt+jWNUQERUMQqpHn3r/DbBabV0fpY1Rb6ZWuCBuTV5AiY/xr2+SwskqZX+zaOYLzkk
+ dUW+DHH5u8CECnRlTE4qT5f16cB/yT2TQHgu6I0FST8xsqoJiVY9cA77WVLdy//kE538
+ 3rtw==
+X-Gm-Message-State: AOJu0YwuaWHLXWnU9DJlD+/QqkeY1MUO/RGf7It4Ny56uUAykdxNnraT
+ MZrIGK+0IUHzhkbV2y5U2GJ17g==
+X-Google-Smtp-Source: AGHT+IHhTMqp5TfIReMhP9LuTbSpZqr9+fHdpNecD2x33WO97Ko5AKcE3mKlTbcO49r9UesHLMhc+g==
+X-Received: by 2002:a2e:b7d5:0:b0:2bc:fd7c:cd6d with SMTP id
+ p21-20020a2eb7d5000000b002bcfd7ccd6dmr1024775ljo.4.1693042265614; 
+ Sat, 26 Aug 2023 02:31:05 -0700 (PDT)
 Received: from [192.168.1.101] (abyl74.neoplus.adsl.tpnet.pl. [83.9.31.74])
  by smtp.gmail.com with ESMTPSA id
- w12-20020a05651204cc00b004fe0760354bsm631206lfq.275.2023.08.26.01.59.04
+ y23-20020a2e7d17000000b002b94b355527sm718050ljc.32.2023.08.26.02.31.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 26 Aug 2023 01:59:06 -0700 (PDT)
-Message-ID: <83b9eb79-ba6d-4485-a945-c9a14bbd18d2@linaro.org>
-Date: Sat, 26 Aug 2023 10:59:04 +0200
+ Sat, 26 Aug 2023 02:31:05 -0700 (PDT)
+Message-ID: <96bdddce-5573-44cd-98da-795b4479e97c@linaro.org>
+Date: Sat, 26 Aug 2023 11:31:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Rob Clark <robdclark@gmail.com>
-References: <20230825-topic-6375_gpu_id-v1-1-e24f46d7f139@linaro.org>
- <CAF6AEGsNr+5zaXqKRhyeY6NV+iRD+Yz8ftqiX6Z08esoyh=DzQ@mail.gmail.com>
 Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
+ <20230817145940.9887-4-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -96,10 +101,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <CAF6AEGsNr+5zaXqKRhyeY6NV+iRD+Yz8ftqiX6Z08esoyh=DzQ@mail.gmail.com>
+In-Reply-To: <20230817145940.9887-4-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: Fix SM6375 GPU ID
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 3/4] arm64: dts: qcom: qrb5165-rb5:
+ enable displayport controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,59 +118,18 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.08.2023 03:29, Rob Clark wrote:
-> On Fri, Aug 25, 2023 at 2:11 PM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->> SM6375 comes with a patchlevel=1. Fix the chipid up to reflect that.
->>
->> Fixes: 90b593ce1c9e ("drm/msm/adreno: Switch to chip-id for identifying GPU")
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
->>  drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> index 575e7c56219f..f2d9d34ed50f 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> @@ -331,7 +331,7 @@ static const struct adreno_info gpulist[] = {
->>                 ),
->>         }, {
->>                 .machine = "qcom,sm6375",
->> -               .chip_ids = ADRENO_CHIP_IDS(0x06010900),
->> +               .chip_ids = ADRENO_CHIP_IDS(0x06010901),
+On 17.08.2023 16:59, Dmitry Baryshkov wrote:
+> Enable the onboard displayport controller, connect it to QMP PHY.
 > 
-> r-b, but maybe we should list both to be safe?  But unsure if any
-> patchlevel=0 things are out there in the wild...
-AFAICT only 1 for this soc
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
-
-I guess we could add
-> it back in later if needed
-> 
-> BR,
-> -
-> 
->>                 .family = ADRENO_6XX_GEN1,
->>                 .revn = 619,
->>                 .fw = {
->>
->> ---
->> base-commit: 6269320850097903b30be8f07a5c61d9f7592393
->> change-id: 20230825-topic-6375_gpu_id-cf1596e2b147
->>
->> Best regards,
->> --
->> Konrad Dybcio <konrad.dybcio@linaro.org>
->>
