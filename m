@@ -2,110 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82BD0789521
-	for <lists+freedreno@lfdr.de>; Sat, 26 Aug 2023 11:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE9078B3D0
+	for <lists+freedreno@lfdr.de>; Mon, 28 Aug 2023 17:00:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC05710E18C;
-	Sat, 26 Aug 2023 09:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7436D10E2F6;
+	Mon, 28 Aug 2023 15:00:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2BD10E047
- for <freedreno@lists.freedesktop.org>; Sat, 26 Aug 2023 09:31:07 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2bccda76fb1so24910451fa.2
- for <freedreno@lists.freedesktop.org>; Sat, 26 Aug 2023 02:31:07 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E751E10E2F5;
+ Mon, 28 Aug 2023 15:00:20 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50091b91a83so5032385e87.3; 
+ Mon, 28 Aug 2023 08:00:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693042265; x=1693647065;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kW3cwGOUfDCCz5svTKX2PRzwrIu+ggpw8BxMFNARbCI=;
- b=J6AtFAS1H4nGWTpnqD2lOC7FciVB1ySdN3JDCNaJpNjNhJxFE+eS9zThXbArvZ7S2S
- 65fojQ/ciio/e6V0OiDfTaY87kWK4rH6ZcBkEgeHtdVDIyNdUyrnVZjb6NSEpjrpac/5
- h4z5W7SBzJ0jEy+fatM+tdGValsoAzI+EPkiH44EbcsuPyLzpykdu8Os1AjtA8Y6d3E9
- yWuNyzhpXlL6Vw3/GvVDaUSdU35l2CRrWQfs4tH2j5hfwKYCl2pG53Wn2JXOxBEQEcLU
- EN79kowVZvU7lrw6Cighkq1cfInOJuOwLYxTnPMqDMgC7DxzThSNmVw8AXxOuCLmU/vh
- L/+Q==
+ d=gmail.com; s=20221208; t=1693234819; x=1693839619;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=v/Iv+UJrS/3Ac+CBpzamiE2539VuRhYJEwYN53j5C48=;
+ b=XEC6EQXO+tUhRz9PO98p2Sa2QVpVl4AhyDeqQHMbryX4dXPEF3x8ZPiEBi8CPvSMcb
+ GzjyoPH5RYGrnrxYPeQVIszcalsKk+YzRKY8BRn+VB+TZ6cN7bpysBwaOaGgtBziwF+4
+ CmtglG6KPwGlbOvqEKC28fE5jbhIVyuLmF5FG/l5PYKDtphIs8ROePpWrY8sdQtBCwfP
+ 7QOnrBm7t+ZWgcDf0PBZQRZa1kAI45N0NFjUUPt58dvwQQApbSM6LxfSeflfISRSc0no
+ hI08V8pI/f54n6qZrfmNOyY1np8jmBLkHPGpeVq7OTE27D17OyZzz0C9iUxxJeTBzX5V
+ ZbwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693042265; x=1693647065;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kW3cwGOUfDCCz5svTKX2PRzwrIu+ggpw8BxMFNARbCI=;
- b=QjGEO/hEeP6r8eEdSeqdnA+VquyWCCQ1oZm+Uusv+ynBpQhaEjoxt8ZrH8YlZgox0G
- RcGR4oQHL9YNs8N23LrMsN0YeX1+fqWut2jidSTtO4fLCieMdzZzi8IpKvrSmIn3Fl2v
- j0CnL8/XbqnlLfPUkKQJe+gt0WCfAVLrXjk2UAsVZE8FdgdFoEQ4ZP5jv/npIzJMVkRR
- aYt+jWNUQERUMQqpHn3r/DbBabV0fpY1Rb6ZWuCBuTV5AiY/xr2+SwskqZX+zaOYLzkk
- dUW+DHH5u8CECnRlTE4qT5f16cB/yT2TQHgu6I0FST8xsqoJiVY9cA77WVLdy//kE538
- 3rtw==
-X-Gm-Message-State: AOJu0YwuaWHLXWnU9DJlD+/QqkeY1MUO/RGf7It4Ny56uUAykdxNnraT
- MZrIGK+0IUHzhkbV2y5U2GJ17g==
-X-Google-Smtp-Source: AGHT+IHhTMqp5TfIReMhP9LuTbSpZqr9+fHdpNecD2x33WO97Ko5AKcE3mKlTbcO49r9UesHLMhc+g==
-X-Received: by 2002:a2e:b7d5:0:b0:2bc:fd7c:cd6d with SMTP id
- p21-20020a2eb7d5000000b002bcfd7ccd6dmr1024775ljo.4.1693042265614; 
- Sat, 26 Aug 2023 02:31:05 -0700 (PDT)
-Received: from [192.168.1.101] (abyl74.neoplus.adsl.tpnet.pl. [83.9.31.74])
- by smtp.gmail.com with ESMTPSA id
- y23-20020a2e7d17000000b002b94b355527sm718050ljc.32.2023.08.26.02.31.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 26 Aug 2023 02:31:05 -0700 (PDT)
-Message-ID: <96bdddce-5573-44cd-98da-795b4479e97c@linaro.org>
-Date: Sat, 26 Aug 2023 11:31:03 +0200
+ d=1e100.net; s=20221208; t=1693234819; x=1693839619;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=v/Iv+UJrS/3Ac+CBpzamiE2539VuRhYJEwYN53j5C48=;
+ b=Of2hEBS5/UxCC6UXbP1apmQl4UF3BSfgDOVHxKhvrK57pzavNJvMHzTQHrVqMyGceF
+ t2GH7+sAq2RCI5dcGHxNuoq7eYbeAuGtHtXI1eewy8+q2VcmTMsyILilMLQwRG+lk58g
+ tp/QRoOMZWoZ1hY+0H7k878Er8ghzmgOJz0DSh0OQZvzlhlc+cxNMggIIMPU463ffQgk
+ IiwA3OI1jO86dFUHb2R1Nd9T6JYRX760wkOWuWpgTDUvQ6zursNqUaM5Sl6unmWcD6n6
+ G+QKYeIjwySz4i8BDyuX3cEkD4+/fPWBIxlIvIHiG3chYCLOAFvVcy3jzvJ4RKOlwKM5
+ sQpg==
+X-Gm-Message-State: AOJu0YweH2hUdSSQu3PrYUEXGUUasqXBjt6AiRc+SIUhc18xXYe2ca04
+ cEjNNeB8NjM3ywZBgm/DHte6O4BW0VTqtB28KWA=
+X-Google-Smtp-Source: AGHT+IETY9abOfDkwuwAfP8oxiTrbKWtuyVO2Jf40soOOV3pmIaGIJrqyaxIUb/iRIeotvbn3JYjwWDVrv8Su0Xk6mQ=
+X-Received: by 2002:a05:6512:1088:b0:4fb:89b3:3373 with SMTP id
+ j8-20020a056512108800b004fb89b33373mr21789410lfg.43.1693234818641; Mon, 28
+ Aug 2023 08:00:18 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
- <20230817145940.9887-4-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20230817145940.9887-4-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 3/4] arm64: dts: qcom: qrb5165-rb5:
- enable displayport controller
+References: <20230824013604.466224-1-adrian.larumbe@collabora.com>
+ <20230824013604.466224-7-adrian.larumbe@collabora.com>
+In-Reply-To: <20230824013604.466224-7-adrian.larumbe@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 28 Aug 2023 08:00:06 -0700
+Message-ID: <CAF6AEGtXUTs3ta0N+0hiORa+Tsyh94AXPYm9XdaK6xZbqf+nzA@mail.gmail.com>
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 6/6] drm/drm-file: Allow size unit
+ selection in drm_show_memory_stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,18 +70,178 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: robh@kernel.org, kernel@collabora.com, tzimmermann@suse.de,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, sean@poorly.run,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, healych@amazon.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
+ airlied@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17.08.2023 16:59, Dmitry Baryshkov wrote:
-> Enable the onboard displayport controller, connect it to QMP PHY.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Wed, Aug 23, 2023 at 6:36=E2=80=AFPM Adri=C3=A1n Larumbe
+<adrian.larumbe@collabora.com> wrote:
+>
+> The current implementation will try to pick the highest available
+> unit. This is rather unflexible, and allowing drivers to display BO size
+> statistics through fdinfo in units of their choice might be desirable.
+>
+> The new argument to drm_show_memory_stats is to be interpreted as the
+> integer multiplier of a 10-power of 2, so 1 would give us size in Kib and=
+ 2
+> in Mib. If we want drm-file functions to pick the highest unit, then 0
+> should be passed.
+>
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>  drivers/gpu/drm/drm_file.c              | 22 +++++++++++++---------
+>  drivers/gpu/drm/msm/msm_drv.c           |  2 +-
+>  drivers/gpu/drm/panfrost/panfrost_drv.c |  2 +-
+>  include/drm/drm_file.h                  |  5 +++--
+>  4 files changed, 18 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 762965e3d503..517e1fb8072a 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -873,7 +873,7 @@ void drm_send_event(struct drm_device *dev, struct dr=
+m_pending_event *e)
+>  EXPORT_SYMBOL(drm_send_event);
+>
+>  static void print_size(struct drm_printer *p, const char *stat,
+> -                      const char *region, u64 sz)
+> +                      const char *region, u64 sz, unsigned int unit)
+>  {
+>         const char *units[] =3D {"", " KiB", " MiB"};
+>         unsigned u;
+> @@ -881,6 +881,8 @@ static void print_size(struct drm_printer *p, const c=
+har *stat,
+>         for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
+>                 if (sz < SZ_1K)
+>                         break;
+> +               if (unit > 0 && unit =3D=3D u)
+> +                       break;
+>                 sz =3D div_u64(sz, SZ_1K);
+>         }
+>
+> @@ -898,17 +900,18 @@ static void print_size(struct drm_printer *p, const=
+ char *stat,
+>  void drm_print_memory_stats(struct drm_printer *p,
+>                             const struct drm_memory_stats *stats,
+>                             enum drm_gem_object_status supported_status,
+> -                           const char *region)
+> +                           const char *region,
+> +                           unsigned int unit)
 
-Konrad
+I'm not really adverse to changing what units we use.. or perhaps
+changing the threshold to go to higher units to be 10000x or 100000x
+of the previous unit.  But I'm less excited about having different
+drivers using different units.
+
+BR,
+-R
+
+
+>  {
+> -       print_size(p, "total", region, stats->private + stats->shared);
+> -       print_size(p, "shared", region, stats->shared);
+> -       print_size(p, "active", region, stats->active);
+> +       print_size(p, "total", region, stats->private + stats->shared, un=
+it);
+> +       print_size(p, "shared", region, stats->shared, unit);
+> +       print_size(p, "active", region, stats->active, unit);
+>
+>         if (supported_status & DRM_GEM_OBJECT_RESIDENT)
+> -               print_size(p, "resident", region, stats->resident);
+> +               print_size(p, "resident", region, stats->resident, unit);
+>
+>         if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
+> -               print_size(p, "purgeable", region, stats->purgeable);
+> +               print_size(p, "purgeable", region, stats->purgeable, unit=
+);
+>  }
+>  EXPORT_SYMBOL(drm_print_memory_stats);
+>
+> @@ -916,11 +919,12 @@ EXPORT_SYMBOL(drm_print_memory_stats);
+>   * drm_show_memory_stats - Helper to collect and show standard fdinfo me=
+mory stats
+>   * @p: the printer to print output to
+>   * @file: the DRM file
+> + * @unit: multipliyer of power of two exponent of desired unit
+>   *
+>   * Helper to iterate over GEM objects with a handle allocated in the spe=
+cified
+>   * file.
+>   */
+> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file,=
+ unsigned int unit)
+>  {
+>         struct drm_gem_object *obj;
+>         struct drm_memory_stats status =3D {};
+> @@ -967,7 +971,7 @@ void drm_show_memory_stats(struct drm_printer *p, str=
+uct drm_file *file)
+>         }
+>         spin_unlock(&file->table_lock);
+>
+> -       drm_print_memory_stats(p, &status, supported_status, "memory");
+> +       drm_print_memory_stats(p, &status, supported_status, "memory", un=
+it);
+>  }
+>  EXPORT_SYMBOL(drm_show_memory_stats);
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
+c
+> index 2a0e3529598b..cd1198151744 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -1067,7 +1067,7 @@ static void msm_show_fdinfo(struct drm_printer *p, =
+struct drm_file *file)
+>
+>         msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, p);
+>
+> -       drm_show_memory_stats(p, file);
+> +       drm_show_memory_stats(p, file, 0);
+>  }
+>
+>  static const struct file_operations fops =3D {
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 93d5f5538c0b..79c08cee3e9d 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -563,7 +563,7 @@ static void panfrost_show_fdinfo(struct drm_printer *=
+p, struct drm_file *file)
+>
+>         panfrost_gpu_show_fdinfo(pfdev, file->driver_priv, p);
+>
+> -       drm_show_memory_stats(p, file);
+> +       drm_show_memory_stats(p, file, 1);
+>  }
+>
+>  static const struct file_operations panfrost_drm_driver_fops =3D {
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 010239392adf..21a3b022dd63 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -466,9 +466,10 @@ enum drm_gem_object_status;
+>  void drm_print_memory_stats(struct drm_printer *p,
+>                             const struct drm_memory_stats *stats,
+>                             enum drm_gem_object_status supported_status,
+> -                           const char *region);
+> +                           const char *region,
+> +                           unsigned int unit);
+>
+> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)=
+;
+> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file,=
+ unsigned int unit);
+>  void drm_show_fdinfo(struct seq_file *m, struct file *f);
+>
+>  struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flag=
+s);
+> --
+> 2.42.0
+>
