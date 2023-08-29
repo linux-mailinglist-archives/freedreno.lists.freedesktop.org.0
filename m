@@ -1,66 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2753A78BBDC
-	for <lists+freedreno@lfdr.de>; Tue, 29 Aug 2023 02:06:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3823D78BF98
+	for <lists+freedreno@lfdr.de>; Tue, 29 Aug 2023 09:49:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C7710E39C;
-	Tue, 29 Aug 2023 00:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F0B10E0A6;
+	Tue, 29 Aug 2023 07:49:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1AA910E397
- for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 00:06:29 +0000 (UTC)
-Received: by mail-yb1-xb2a.google.com with SMTP id
- 3f1490d57ef6-d6b1025fc7aso3404656276.3
- for <freedreno@lists.freedesktop.org>; Mon, 28 Aug 2023 17:06:29 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C22610E0A6;
+ Tue, 29 Aug 2023 07:49:03 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5007616b756so6518109e87.3; 
+ Tue, 29 Aug 2023 00:49:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693267589; x=1693872389;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=NyT3vK31IPrSFR9t47ow0q9aTbU6VUd3gAc2WbXeYIQ=;
- b=K49qP+RM+YGZHGLGfDOZcQrv7y2Rk03KlmSBNaPaApU27Z4ONen0XHzXfbnQAdgL7O
- 41VoyK9oeL86CRyFBvsxyp0i6pkNSAqdKLXD+1r5pCFLiCcoZLQ80MCtrxAh8Pkuy6fC
- 0/9d9lYaD33NSvbcYCBzEL4pkoAwpuVM7zAhrRHiWzy0kV7r3UEfMCD8wXrhmjlMbTRq
- kMzy972lhQo53GP+k8zs+uXsFSECdnSI2f5EiOUQixq/4L/ORVEXAyzJ0ud9ylCaTboq
- dBVop0sMf9pQETQKP+BH07zEmH7l4p38O6DVEK0YycVazFAegp9EoaY7vYtbDYnHyBPr
- 7HpQ==
+ d=gmail.com; s=20221208; t=1693295341; x=1693900141;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=OI1R5ue1l4PwCG2oi/y01LYQvO74RnqK27QxURC5nsg=;
+ b=eP601AowgqNwM3BD8z2/bvld0CsvKwhr9cjQO77ANQJMtKiQWJJ4DwrM7bbQsPJYFK
+ /8FELTL+8pvo8H8DuzDqstKrOPeFonP7oZZ+RmMDNYi1rVXb8v+rMo49cJeRGlN3gsQi
+ 2F3/2nA4G3YpWbnY15TSF+U9dGben0keGIUQMXP84bMYsNp3SiEvCh7UMwPGSX9rU5YC
+ zkfUYelPFLHrNYG6QRqt/FKoEmOpQN9KOdb07A9uEYB7tAafvjHwAWHX1DVN2qmf8EKE
+ a1ir6xqNv7bcX/P/pbzQdGvVBhdQmRuXQ19EJEIpw+5Ob+B9aHDV9QC8SAgOoZcpaW2P
+ 6UaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693267589; x=1693872389;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NyT3vK31IPrSFR9t47ow0q9aTbU6VUd3gAc2WbXeYIQ=;
- b=Oba8BEcjFp5lrujU1C176PtVpkERZ0wYKQz8tDAc2oc7F7Aausk8mBZdsLoUX563Aq
- 8K3Z6MfzYAg/6jMKpMIZ9cs2QQ9Am3nWM3rEaasBXdeZGVdHh3mEn6NrXyL895fFPia5
- avkeZLY7ggNFTTpZUexm9HZEKuUPfDRgsl1K6lTt7EZaE5VyfEYeOcSEgL7GCYFwt6Lf
- FRUWqE4t1yz8xgvtuMgBTg5ToimiKoD5CA5sTmUKAkBgHn/fYC6oEYPogYhTE17NuoN4
- i+uPih0WZZcP4IAtk4xh9rDgbuwF+8aGn1tH6Tg4YB1u8ZT46+/pE7DXQwmE3AlVKRL6
- GP6w==
-X-Gm-Message-State: AOJu0YyxoxzNE29hZAhrvFpD3L0pwJIrmyEfY8MyoWk8HrYzxmirUsTf
- FGpdDkGmsjowfK0HCkYng4WXqHcSTqpOyaLqtZg5aA==
-X-Google-Smtp-Source: AGHT+IEcaEy+asw8tMhYSo1Hv+7c+zGN66bTgKLzbphf2kb1mwQwkyFdO4JLRv0N94tRpZZoBCAjfW5Te4vzdnTQVtw=
-X-Received: by 2002:a25:23cc:0:b0:d7b:2299:555a with SMTP id
- j195-20020a2523cc000000b00d7b2299555amr3714684ybj.17.1693267589082; Mon, 28
- Aug 2023 17:06:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230728-solid-fill-v5-0-053dbefa909c@quicinc.com>
- <20230728-solid-fill-v5-2-053dbefa909c@quicinc.com>
- <CAA8EJpq=pbDoYc9wqKKrX+RahXp8zWTPFqVqA=S-0TkWXXJUjQ@mail.gmail.com>
- <26b4bb91-8786-c7cf-a821-eb2b881a42ab@quicinc.com>
- <656526F6-C123-4A5A-9E62-6ED092474113@linaro.org>
- <1dfcd37e-11a6-fa77-6440-f0e6bd06998d@quicinc.com>
- <ae98c379-2ddb-6b4e-0de3-2b1c68a99ee7@quicinc.com>
-In-Reply-To: <ae98c379-2ddb-6b4e-0de3-2b1c68a99ee7@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 29 Aug 2023 03:06:17 +0300
-Message-ID: <CAA8EJpq8nPDHPsi+qEUTePCVFYR5xbn1_4Odoqmf5-rJioYmQA@mail.gmail.com>
+ d=1e100.net; s=20221208; t=1693295341; x=1693900141;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OI1R5ue1l4PwCG2oi/y01LYQvO74RnqK27QxURC5nsg=;
+ b=INvo4+80G5i7CPkd0iK2ZANqu39LqODg3X/HO9pDqt6cn0+OHBnYy3zl3l8YRG2dWT
+ xaPUt7QbB5dyYpCxxm7qqZLtckbzwh2F79ExiGNhfE6URh2XD+BLkgxLgc6L+0nhCKR3
+ SmO5VIdkIlQXI4cXbAkARz8kGgX33yH6CCiw6JNK3XYMltuz3Ssyh5QpOXGZGad5B6mA
+ 1vdelsDA5m3bbrY+s62SBfWATeTr1N/XvPAvMj8rqCdjxeRLIJXwUOYxTPNjk+BMRu3d
+ 0FUxcsD4YTE+zYUJbQZ5hD676e74jymQC3wMTuT/dzRoQiAo67JHnoySxg00Yk++rZFV
+ 71kA==
+X-Gm-Message-State: AOJu0YxVNlS3iBtjmiuVZeLNj6HOdP7TuGnP7Y4ATfEK4V/aihpfBYfH
+ PCJCkapOEggRT5sEMAKJK2o=
+X-Google-Smtp-Source: AGHT+IGIlCEkJil4AnAwfWLiAfpjl2igqxZQluROeJEGmtOcAHN0LTRShvTWhmTqQEjer/Yqx7Vqxw==
+X-Received: by 2002:a19:385e:0:b0:4fd:d517:fbcd with SMTP id
+ d30-20020a19385e000000b004fdd517fbcdmr16742007lfj.6.1693295341041; 
+ Tue, 29 Aug 2023 00:49:01 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ o21-20020a056512051500b004ff8f090057sm1871769lfb.59.2023.08.29.00.49.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Aug 2023 00:49:00 -0700 (PDT)
+Date: Tue, 29 Aug 2023 10:48:16 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH RFC v5 02/10] drm: Introduce solid fill DRM
- plane property
+Message-ID: <20230829104816.19122c6d@eldfell>
+In-Reply-To: <20230828-solid-fill-v6-1-a820efcce852@quicinc.com>
+References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
+ <20230828-solid-fill-v6-1-a820efcce852@quicinc.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/kN5KPVrZpDI_roK/yihBVMo";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] [PATCH RFC v6 01/10] drm: Introduce pixel_source
+ DRM plane property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,167 +74,106 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- sebastian.wick@redhat.com, ppaalanen@gmail.com,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <sean@poorly.run>,
- dri-devel@lists.freedesktop.org,
+ sebastian.wick@redhat.com, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
  linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
  laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- contact@emersion.fr, Marijn Suijten <marijn.suijten@somainline.org>,
+ contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 29 Aug 2023 at 02:45, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->
->
->
-> On 8/8/2023 3:57 PM, Jessica Zhang wrote:
-> >
-> >
-> > On 8/7/2023 6:07 PM, Dmitry Baryshkov wrote:
-> >>
-> >>
-> >> On 8 August 2023 00:41:07 GMT+03:00, Jessica Zhang
-> >> <quic_jesszhan@quicinc.com> wrote:
-> >>>
-> >>>
-> >>> On 8/4/2023 6:27 AM, Dmitry Baryshkov wrote:
-> >>>> On Fri, 28 Jul 2023 at 20:03, Jessica Zhang
-> >>>> <quic_jesszhan@quicinc.com> wrote:
-> >>>>>
-> >>>>> Document and add support for solid_fill property to drm_plane. In
-> >>>>> addition, add support for setting and getting the values for
-> >>>>> solid_fill.
-> >>>>>
-> >>>>> To enable solid fill planes, userspace must assign a property blob to
-> >>>>> the "solid_fill" plane property containing the following information:
-> >>>>>
-> >>>>> struct drm_mode_solid_fill {
-> >>>>>           u32 version;
-> >>>>>           u32 r, g, b;
-> >>>>> };
-> >>>>>
-> >>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >>>>> ---
-> >>>>>    drivers/gpu/drm/drm_atomic_state_helper.c |  9 +++++
-> >>>>>    drivers/gpu/drm/drm_atomic_uapi.c         | 55
-> >>>>> +++++++++++++++++++++++++++++++
-> >>>>>    drivers/gpu/drm/drm_blend.c               | 30 +++++++++++++++++
-> >>>>>    include/drm/drm_blend.h                   |  1 +
-> >>>>>    include/drm/drm_plane.h                   | 35 ++++++++++++++++++++
-> >>>>>    include/uapi/drm/drm_mode.h               | 24 ++++++++++++++
-> >>>>>    6 files changed, 154 insertions(+)
-> >>>>>
-> >>>>
-> >>>> [skipped most of the patch]
-> >>>>
-> >>>>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> >>>>> index 43691058d28f..53c8efa5ad7f 100644
-> >>>>> --- a/include/uapi/drm/drm_mode.h
-> >>>>> +++ b/include/uapi/drm/drm_mode.h
-> >>>>> @@ -259,6 +259,30 @@ struct drm_mode_modeinfo {
-> >>>>>           char name[DRM_DISPLAY_MODE_LEN];
-> >>>>>    };
-> >>>>>
-> >>>>> +/**
-> >>>>> + * struct drm_mode_solid_fill - User info for solid fill planes
-> >>>>> + *
-> >>>>> + * This is the userspace API solid fill information structure.
-> >>>>> + *
-> >>>>> + * Userspace can enable solid fill planes by assigning the plane
-> >>>>> "solid_fill"
-> >>>>> + * property to a blob containing a single drm_mode_solid_fill
-> >>>>> struct populated with an RGB323232
-> >>>>> + * color and setting the pixel source to "SOLID_FILL".
-> >>>>> + *
-> >>>>> + * For information on the plane property, see
-> >>>>> drm_plane_create_solid_fill_property()
-> >>>>> + *
-> >>>>> + * @version: Version of the blob. Currently, there is only support
-> >>>>> for version == 1
-> >>>>> + * @r: Red color value of single pixel
-> >>>>> + * @g: Green color value of single pixel
-> >>>>> + * @b: Blue color value of single pixel
-> >>>>> + */
-> >>>>> +struct drm_mode_solid_fill {
-> >>>>> +       __u32 version;
-> >>>>> +       __u32 r;
-> >>>>> +       __u32 g;
-> >>>>> +       __u32 b;
-> >>>>
-> >>>> Another thought about the drm_mode_solid_fill uABI. I still think we
-> >>>> should add alpha here. The reason is the following:
-> >>>>
-> >>>> It is true that we have  drm_plane_state::alpha and the plane's
-> >>>> "alpha" property. However it is documented as "the plane-wide opacity
-> >>>> [...] It can be combined with pixel alpha. The pixel values in the
-> >>>> framebuffers are expected to not be pre-multiplied by the global alpha
-> >>>> associated to the plane.".
-> >>>>
-> >>>> I can imagine a use case, when a user might want to enable plane-wide
-> >>>> opacity, set "pixel blend mode" to "Coverage" and then switch between
-> >>>> partially opaque framebuffer and partially opaque solid-fill without
-> >>>> touching the plane's alpha value.
-> >>>
-> >>> Hi Dmitry,
-> >>>
-> >>> I don't really agree that adding a solid fill alpha would be a good
-> >>> idea. Since the intent behind solid fill is to have a single color
-> >>> for the entire plane, I think it makes more sense to have solid fill
-> >>> rely on the global plane alpha.
-> >>>
-> >>> As stated in earlier discussions, I think having both a
-> >>> solid_fill.alpha and a plane_state.alpha would be redundant and serve
-> >>> to confuse the user as to which one to set.
-> >>
-> >> That depends on the blending mode: in Coverage mode one has
-> >> independent plane and contents alpha values. And I consider alpha
-> >> value to be a part of the colour in the rgba/bgra modes.
-> >
-> > Acked -- taking Sebastian's concern into consideration, I think I'll
-> > have "PIXEL_SOURCE_SOLID_FILL_RGB" and add a separate
-> > "PIXEL_SOURCE_SOLID_FILL_RGBA".
->
-> Hi Dmitry,
->
-> Since it looks like there's still some ongoing discussion with Pekka
-> about whether to support an RGBA solid fill source, I'll just leave a
-> note to add an RGBA source in the future.
+--Sig_/kN5KPVrZpDI_roK/yihBVMo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Sure! Let's get the basic framework landed. After that we can extend
-it with RGBA, if that seems sensible.
+On Mon, 28 Aug 2023 17:05:07 -0700
+Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
 
->
-> Thanks,
->
-> Jessica Zhang
->
-> >
-> > Thanks,
-> >
-> > Jessica Zhang
-> >
-> >>
-> >>
-> >>>
-> >>> Thanks,
-> >>>
-> >>> Jessica Zhang
-> >>>
-> >>>>
-> >>>> --
-> >>>> With best wishes
-> >>>> Dmitry
-> >>
-> >> --
-> >> With best wishes
-> >> Dmitry
+> Add support for pixel_source property to drm_plane and related
+> documentation. In addition, force pixel_source to
+> DRM_PLANE_PIXEL_SOURCE_FB in DRM_IOCTL_MODE_SETPLANE as to not break
+> legacy userspace.
+>=20
+> This enum property will allow user to specify a pixel source for the
+> plane. Possible pixel sources will be defined in the
+> drm_plane_pixel_source enum.
+>=20
+> Currently, the only pixel sources are DRM_PLANE_PIXEL_SOURCE_FB (the
+> default value) and DRM_PLANE_PIXEL_SOURCE_NONE.
+>=20
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>  drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
+>  drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
+>  drivers/gpu/drm/drm_blend.c               | 90 +++++++++++++++++++++++++=
+++++++
+>  drivers/gpu/drm/drm_plane.c               | 19 +++++--
+>  include/drm/drm_blend.h                   |  2 +
+>  include/drm/drm_plane.h                   | 21 ++++++++
+>  6 files changed, 133 insertions(+), 4 deletions(-)
+
+...
+
+> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+> index 6e74de833466..c3c57bae06b7 100644
+> --- a/drivers/gpu/drm/drm_blend.c
+> +++ b/drivers/gpu/drm/drm_blend.c
+> @@ -185,6 +185,21 @@
+>   *		 plane does not expose the "alpha" property, then this is
+>   *		 assumed to be 1.0
+>   *
+> + * pixel_source:
+> + *	pixel_source is set up with drm_plane_create_pixel_source_property().
+> + *	It is used to toggle the active source of pixel data for the plane.
+> + *	The plane will only display data from the set pixel_source -- any
+> + *	data from other sources will be ignored.
+> + *
+> + *	Possible values:
+> + *
+> + *	"NONE":
+> + *		No active pixel source.
+> + *		Committing with a NONE pixel source will disable the plane.
+> + *
+> + *	"FB":
+> + *		Framebuffer source set by the "FB_ID" property.
+> + *
+>   * Note that all the property extensions described here apply either to =
+the
+>   * plane or the CRTC (e.g. for the background color, which currently is =
+not
+>   * exposed and assumed to be black).
+
+This UAPI:
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
 
 
+Thanks,
+pq
 
--- 
-With best wishes
-Dmitry
+--Sig_/kN5KPVrZpDI_roK/yihBVMo
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmTtosAACgkQI1/ltBGq
+qqebyRAAi5m4OshgltcLENupHhZJbAyOF4Vgz6aKR+OJ9smMDKbW6FmmNZmJqtj7
+qq4Vb00Id6DDEnZidpPvMFRIoS10VChTqEF/kptq47/xoAtXmjeansqskKT6m6h5
+rLuURGUKNRDy+r54irp86Gz5PPAwCUQEW+1WQebI2ph7I1wAkFp065LCf0zoJiQv
+9z/hmqjnt6aiiGlDvc0IuRitiJp25VZa0p/FPW3eI/ob6zxT10r9lFAkvRz0UikE
+ICw7tqEAVWJPQaqCOuJbRMR7fEmPhVYWj/sQ0wZqB75FQTzyay4zEHGwANyyXfFd
+eMgKNv+Vn350Vari1CxY1nEvFC0/BIJT6s7G4h/bFZuaJebqQn7i1g05LRxY5WbK
+g4c6kMIN26dJei4yHkPE22yFf9hPyx8mNK/EfC3LZ4LN2oIfimiUqH/mSSKkahLc
+3RHN1zQ7TwlcLkHT9lVggZFFjhsv2YuACf9O34KzrAbh9ta0Nh1HOfazh3XxLrs5
+WcFecPziUw/jT5HwdpsdENePJ9iMhds4/7aKx951HSXUdparXEaO7gjyy++7JqcE
+5X80m73A321nxOSa6JLICiFMWHTobI3Qc+0nbanQElxcmDNFDyQrYP+du+dPCTXa
+m+KUEU5syHRTxg7t51Acpjv7lVCec+Zgj+t+sfG8rxZKa5ziX88=
+=eLDG
+-----END PGP SIGNATURE-----
+
+--Sig_/kN5KPVrZpDI_roK/yihBVMo--
