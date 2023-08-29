@@ -1,74 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC34478C8CE
-	for <lists+freedreno@lfdr.de>; Tue, 29 Aug 2023 17:42:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FABE78CC58
+	for <lists+freedreno@lfdr.de>; Tue, 29 Aug 2023 20:47:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2D5C10E3BF;
-	Tue, 29 Aug 2023 15:42:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA65910E47F;
+	Tue, 29 Aug 2023 18:47:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 604E810E3BE
- for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 15:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1693323769;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=u6sDIU3K4vYx0nS6YYLcsSqypEnaVcZpJGHz3tdgGMc=;
- b=CJvCt50fqCMAh9COza3e0t/bdXTWQcGT8SnEnOeawlDYM/O5H0tQcxEp3cEjfGURpd8IMy
- PYCkMlGPfQMb4GE7SwP1N3TRSHTNH5li1P8MMezr7OheBxLJjCfdZdUB47o660BC3Fl4La
- l7qkjfRsZuBUeiYg0EwHLavF9qc3ADY=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-325-lABx2M6_OEyglPY9KpeD0Q-1; Tue, 29 Aug 2023 11:42:48 -0400
-X-MC-Unique: lABx2M6_OEyglPY9KpeD0Q-1
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-31c5cc3b512so2874006f8f.1
- for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 08:42:47 -0700 (PDT)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE20B10E11F
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 18:47:39 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-1c0d5b16aacso27958495ad.1
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 11:47:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1693334859; x=1693939659;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=dx+edCyWT7zKxIInG8qNdrcdM7Jww6Q6gVOtGT7ALUw=;
+ b=NXBOd2mkw+gBkwUStDBV8PaGrgZhqCKwaBrY9Usk61+UBBtfDS7Uj7teurMoc22HQb
+ 3V5SHImgrwViJcGhvlCFMtXqOLx3dqfDPhULkiewQIPMxijOSEnXsKzFpiSIxv02jyRE
+ +Jf3CDHT970kefX0aposB1huf8Yi6tErzFupQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693323767; x=1693928567;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=u6sDIU3K4vYx0nS6YYLcsSqypEnaVcZpJGHz3tdgGMc=;
- b=Qk3RcMQXVMHHWmtAjGfsT9yUd053k7yTGOS8Hnrp1ytm7h/TTO0dH8aGJHDjDOjgQJ
- 20aWZ5BraJvsuvHXMjsTF8qb6bdCO0uPYhd6nMYqvhrnUNuEyMdtREi7dVOgyzTO1AF2
- A0J6pi/yhtcv8fBx9oi0OAD0yGxONv/gIyjO91VRSFu7JiDMClp4cVhBzxqtfPKGMRAw
- j/Oe2i9vxtn7mzDIKR+ysGFwPJyVIJDrOnsWzfZ2Qqv2S24+bE3wzMdmpfnJ+4r8SQiv
- HqIZYzP6zgg3kgXiz2gfWk7RQU3gsTO8/3RoNaVvhrXcw3TeLafJVIwV2FbZYgkFu49l
- CFOw==
-X-Gm-Message-State: AOJu0YxjLJzrFW9GMkIBWfl4h9i8bJOMrw8eHVagMVgntGHDpRBqmn0j
- IFx2JapGMR3lGgQtnuRabxM8uLcb22c1oshqst4wjYiTQ5CdbQ029uyRjpn0TmaWZO6GlaWBT3Y
- ej+lklQflOiDjrvrArIzdIleE5I5P
-X-Received: by 2002:a05:6000:98c:b0:31d:caae:982c with SMTP id
- by12-20020a056000098c00b0031dcaae982cmr5603165wrb.47.1693323766840; 
- Tue, 29 Aug 2023 08:42:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE68Tjgg1iNWjdiPHoiTE7fPT5ClNu+9OggcScdoXXlRdgxO5W4SL2VyHLt3ahqOCnHuM4ilw==
-X-Received: by 2002:a05:6000:98c:b0:31d:caae:982c with SMTP id
- by12-20020a056000098c00b0031dcaae982cmr5603141wrb.47.1693323766510; 
- Tue, 29 Aug 2023 08:42:46 -0700 (PDT)
-Received: from toolbox ([2001:9e8:898c:cd00:3d7e:40e1:d773:8f52])
+ d=1e100.net; s=20221208; t=1693334859; x=1693939659;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dx+edCyWT7zKxIInG8qNdrcdM7Jww6Q6gVOtGT7ALUw=;
+ b=TtCY87plJt6NxpUOI0Qp8tCTpAcyyIresZC1S0sD0stKIYd9Mj+M5rGSzGq9OVFkF6
+ 6glsgjqPRjOdWV2Y4oS7H8dhPfi8sGmwT33bL2u2RShrcbhj8Mfif1rmlE/+VgXYZe7g
+ eYh7lOhdCGNVdC9vNhsqNXGJowzmpwT0EK8X/I9NbRhRhpFcjZd30Hu20IueT7DO+Oe0
+ BCXh+SnNMWqjDwKBagiTOsG541k+qovtS5hc+/kNKPKMrvUkIsHI8CoKBsfG6tDeEr0U
+ ew/Mw27z2MokxPiNu1ku1WN6+0j7wJK1xLYA69HyAIV2r8G5TitoFyxDQGc93nz+NIEH
+ sVGw==
+X-Gm-Message-State: AOJu0YyT5BQXmlyx5RPJueJpTl4XdQqamlRibI8lPrEnyVnEdTjIdoHu
+ iorPhWbwZarPW/7vLJKr1aUvgA==
+X-Google-Smtp-Source: AGHT+IES+SJEkk4EUF9mvR0kkp/iKD9S9fLPoptNHth9XsbuVQ5O48L+bHDHC/h6NFzIK11AbzCyfA==
+X-Received: by 2002:a17:903:1205:b0:1c2:54c:8beb with SMTP id
+ l5-20020a170903120500b001c2054c8bebmr1955615plh.31.1693334858992; 
+ Tue, 29 Aug 2023 11:47:38 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:11a:201:d603:22a7:5e5e:d239])
  by smtp.gmail.com with ESMTPSA id
- f19-20020a1c6a13000000b003fefcbe7fa8sm14264216wmc.28.2023.08.29.08.42.45
+ o15-20020a170902d4cf00b001b9e86e05b7sm9697953plg.0.2023.08.29.11.47.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Aug 2023 08:42:46 -0700 (PDT)
-Date: Tue, 29 Aug 2023 17:42:44 +0200
-From: Sebastian Wick <sebastian.wick@redhat.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <20230829154244.GA260653@toolbox>
-References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
+ Tue, 29 Aug 2023 11:47:38 -0700 (PDT)
+From: Stephen Boyd <swboyd@chromium.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 29 Aug 2023 11:47:25 -0700
+Message-ID: <20230829184735.2841739-1-swboyd@chromium.org>
+X-Mailer: git-send-email 2.42.0.rc2.253.gd59a3bf2b4-goog
 MIME-Version: 1.0
-In-Reply-To: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [Freedreno] [PATCH RFC v6 00/10] Support for Solid Fill Planes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/7] drm/msm/dp: Simplify DPCD related code with
+ helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,172 +69,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- ppaalanen@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ patches@lists.linux.dev, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 28, 2023 at 05:05:06PM -0700, Jessica Zhang wrote:
-> Some drivers support hardware that have optimizations for solid fill
-> planes. This series aims to expose these capabilities to userspace as
-> some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> hardware composer HAL) that can be set by apps like the Android Gears
-> app.
-> 
-> In order to expose this capability to userspace, this series will:
-> 
-> - Introduce solid_fill and pixel_source properties to allow userspace to
->   toggle between FB and solid fill sources
-> - Loosen NULL FB checks within the DRM atomic commit callstack to allow
->   for NULL FB when solid fill is enabled.
-> - Add NULL FB checks in methods where FB was previously assumed to be
->   non-NULL
-> - Have MSM DPU driver use drm_plane_state.solid_fill instead of
->   dpu_plane_state.color_fill
-> 
-> Note: The solid fill planes feature depends on both the solid_fill *and*
-> pixel_source properties.
-> 
-> To use this feature, userspace can set the solid_fill property to a blob
-> containing the appropriate version number and solid fill color (in
-> RGB323232 format) and and setting the pixel_source property to
-> DRM_PLANE_PIXEL_SOURCE_COLOR. This will disable memory fetch and the
-> resulting plane will display the color specified by the solid_fill blob.
-> 
-> Currently, there's only one version of the solid_fill blob property.
-> However if other drivers want to support a similar feature, but require
-> more than just the solid fill color, they can extend this feature by
-> creating additional versions of the drm_solid_fill struct.
-> 
-> This 2 property approach was chosen because passing in a special 1x1 FB
-> with the necessary color information would have unecessary overhead that
-> does not reflect the behavior of the solid fill feature. In addition,
-> assigning the solid fill blob to FB_ID would require loosening some core
-> drm_property checks that might cause unwanted side effects elsewhere.
+This driver open-codes a few of the DPCD register reads when it can be
+simplified by using the helpers instead. This series reworks the MSM DP
+driver to use the DPCD helpers and removes some dead code along the way.
+There's the potential for even more code reduction around the test
+registers, but I haven't tried to do that yet.
 
-The cover letter is a bit outdated by now. Anyway, with Pekkas issues
-addressed the core drm parts are
+Stephen Boyd (7):
+  drm/msm/dp: Replace open-coded drm_dp_read_dpcd_caps()
+  drm/msm/dp: Use drm_dp_read_sink_count() helper
+  drm/msm/dp: Remove dead code related to downstream cap info
+  drm/msm/dp: Remove aux_cfg_update_done and related code
+  drm/msm/dp: Simplify with drm_dp_{max_link_rate,max_lane_count}()
+  drm/msm/dp: Inline dp_link_parse_sink_count()
+  drm/msm/dp: Remove dp_display_is_ds_bridge()
 
-Acked-by: Sebastian Wick <sebastian@sebastianwick.net>
- 
-> ---
-> Changes in v6:
-> - Have _dpu_plane_color_fill() take in a single ABGR8888 color instead
->   of having separate alpha and BGR color parameters (Dmitry)
-> - Drop plane->state->pixel_source != DRM_PLANE_PIXEL_SOURCE_FB check
->   in SetPlane ioctl (Dmitry)
-> - Add DRM_PLANE_PIXEL_SOURCE_NONE as a default pixel source (Sebastian)
-> - Dropped versioning from solid fill property blob (Dmitry)
-> - Use DRM_ENUM_NAME_FN (Dmitry)
-> - Use drm_atomic_replace_property_blob_from_id() (Dmitry)
-> - drm_atomic_check_fb -> drm_atomic_plane_check_fb (Dmitry)
-> - Group redundant NULL FB checks (Dmitry)
-> - Squashed drm_plane_needs_disable() implementation with 
->   DRM_PLANE_PIXEL_SOURCE_NONE declaration (Sebastian)
-> - Add comment to support RGBA solid fill color in the future (Dmitry)
-> - Link to v5: https://lore.kernel.org/r/20230728-solid-fill-v5-0-053dbefa909c@quicinc.com
-> 
-> Changes in v5:
-> - Added support for PIXEL_SOURCE_NONE (Sebastian)
-> - Added WARN_ON() in drm_plane_has_visible_data() if pixel_source isn't
->   set (Dmitry)
-> - Added debugfs support for both properties (Dmitry)
-> - Corrected u32 to u8 conversion (Pekka)
-> - Moved drm_solid_fill_info struct and related documentation to
->   include/uapi (Pekka)
-> - Changed drm_solid_fill_info.version to __u32 for data alignment (Pekka)
-> - Added more detailed UAPI and kernel documentation (Pekka)
-> - Reordered patch series so that the pixel_source property is introduced
->   before solid_fill (Dmitry)
-> - Fixed inconsistent ABGR8888/RGBA8888 format declaration (Pekka)
-> - Reset pixel_source to FB in drm_mode_setplane() (Dmitry)
-> - Rename supported_sources to extra_sources (Dmitry)
-> - Only destroy old solid_fill blob state if new state is valid (Pekka)
-> - Link to v4: https://lore.kernel.org/r/20230404-solid-fill-v4-0-f4ec0caa742d@quicinc.com
-> 
-> Changes in v4:
-> - Rebased onto latest kernel
-> - Reworded cover letter for clarity (Dmitry)
-> - Reworded commit messages for clarity
-> - Split existing changes into smaller commits
-> - Added pixel_source enum property (Dmitry, Pekka, Ville)
-> - Updated drm-kms comment docs with pixel_source and solid_fill
->   properties (Dmitry)
-> - Inlined drm_atomic_convert_solid_fill_info() (Dmitry)
-> - Passed in plane state alpha value to _dpu_plane_color_fill_pipe()
-> - Link to v3: https://lore.kernel.org/r/20230104234036.636-1-quic_jesszhan@quicinc.com
-> 
-> Changes in v3:
-> - Fixed some logic errors in atomic checks (Dmitry)
-> - Introduced drm_plane_has_visible_data() and drm_atomic_check_fb() helper
->   methods (Dmitry)
-> - Fixed typo in drm_solid_fill struct documentation
-> - Created drm_plane_has_visible_data() helper and corrected CRTC and FB
->   NULL-check logic (Dmitry)
-> - Merged `if (fb)` blocks in drm_atomic_plane_check() and abstracted
->   them into helper method (Dmitry)
-> - Inverted `if (solid_fill_enabled) else if (fb)` check order (Dmitry)
-> - Fixed indentation (Dmitry)
-> 
-> Changes in v2:
-> - Dropped SOLID_FILL_FORMAT property (Simon)
-> - Switched to implementing solid_fill property as a blob (Simon, Dmitry)
-> - Added drm_solid_fill and drm_solid_fill_info structs (Simon)
-> - Changed to checks for if solid_fill_blob is set (Dmitry)
-> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
->   (Dmitry)
-> - Removed DPU_PLANE_COLOR_FILL_FLAG
-> - Fixed whitespace and indentation issues (Dmitry)
-> - Changed to checks for if solid_fill_blob is set (Dmitry)
-> - Abstracted (plane_state && !solid_fill_blob) checks to helper method
->   (Dmitry)
-> - Fixed dropped 'const' warning
-> - Added helper to convert color fill to BGR888 (Rob)
-> - Fixed indentation issue (Dmitry)
-> - Added support for solid fill on planes of varying sizes
-> 
-> ---
-> Jessica Zhang (10):
->       drm: Introduce pixel_source DRM plane property
->       drm: Introduce solid fill DRM plane property
->       drm: Add solid fill pixel source
->       drm/atomic: Add pixel source to plane state dump
->       drm/atomic: Add solid fill data to plane state dump
->       drm/atomic: Move framebuffer checks to helper
->       drm/atomic: Loosen FB atomic checks
->       drm/msm/dpu: Allow NULL FBs in atomic commit
->       drm/msm/dpu: Use DRM solid_fill property
->       drm/msm/dpu: Add solid fill and pixel source properties
-> 
->  drivers/gpu/drm/drm_atomic.c              | 147 +++++++++++++++++-------------
->  drivers/gpu/drm/drm_atomic_helper.c       |  36 ++++----
->  drivers/gpu/drm/drm_atomic_state_helper.c |  10 ++
->  drivers/gpu/drm/drm_atomic_uapi.c         |  30 ++++++
->  drivers/gpu/drm/drm_blend.c               | 129 ++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_crtc_internal.h       |   1 +
->  drivers/gpu/drm/drm_plane.c               |  27 +++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |   9 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c |  80 ++++++++++------
->  include/drm/drm_atomic_helper.h           |   4 +-
->  include/drm/drm_blend.h                   |   3 +
->  include/drm/drm_plane.h                   |  90 ++++++++++++++++++
->  include/uapi/drm/drm_mode.h               |  24 +++++
->  13 files changed, 478 insertions(+), 112 deletions(-)
-> ---
-> base-commit: 00ee72279c963989ab435b0bc90b5dc05a9aab79
-> change-id: 20230404-solid-fill-05016175db36
-> 
-> Best regards,
-> -- 
-> Jessica Zhang <quic_jesszhan@quicinc.com>
-> 
+Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
+
+ drivers/gpu/drm/msm/dp/dp_display.c |   9 +--
+ drivers/gpu/drm/msm/dp/dp_link.c    |  38 +---------
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 105 +++++-----------------------
+ drivers/gpu/drm/msm/dp/dp_panel.h   |  10 +--
+ 4 files changed, 22 insertions(+), 140 deletions(-)
+
+
+base-commit: 2dde18cd1d8fac735875f2e4987f11817cc0bc2c
+-- 
+https://chromeos.dev
 
