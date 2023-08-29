@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054D978CC63
-	for <lists+freedreno@lfdr.de>; Tue, 29 Aug 2023 20:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC44378CC65
+	for <lists+freedreno@lfdr.de>; Tue, 29 Aug 2023 20:47:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE2010E488;
-	Tue, 29 Aug 2023 18:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAAFE10E11F;
+	Tue, 29 Aug 2023 18:47:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD3FC10E485
- for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 18:47:48 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id
- d9443c01a7336-1bf5c314a57so29268365ad.1
- for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 11:47:48 -0700 (PDT)
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC4F10E485
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 18:47:50 +0000 (UTC)
+Received: by mail-pf1-x42a.google.com with SMTP id
+ d2e1a72fcca58-68a440a8a20so4075441b3a.3
+ for <freedreno@lists.freedesktop.org>; Tue, 29 Aug 2023 11:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1693334868; x=1693939668;
+ d=chromium.org; s=google; t=1693334869; x=1693939669;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bWWE+N/R8MiRAhT7N6s5ExY6HMGHBM00+QOLGgmHjWE=;
- b=mrtXzVZv/KtID+AV6F+cCpMInKxZHGRb0bBendDZgPdkcKmAzQGqQ+ZfWZFBY+ru1E
- UC/pUTMGqdkddvAH8TZ3C3zr9F1lD7Jmp0Kmi9Lw5pnIBCe53lZHPHQJaHqFY5F4yjLn
- 8Cj7jg9NNMfz9KpAxC++fNWntkAgsRMVsvhcU=
+ bh=KDFi+t2HGk6Ez2m1E1bDJmYF5dLdXGiplCl4kzCCGIw=;
+ b=gsCbMBR5Lecvz+ZcNZT/qBLNklHHMP4hX3WGRxf77E0eEMgtc9pldRrw0vjiYiNMim
+ sX1KPPir2HF9wiexfHHP39pVxRsRl818JbRrab9L6lIOLj1EB07IpibP/WMoqW4h5RQn
+ n4bt/bkcAHLxIBrRrkMgX26eG/7QXhzxKDUzA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693334868; x=1693939668;
+ d=1e100.net; s=20221208; t=1693334869; x=1693939669;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bWWE+N/R8MiRAhT7N6s5ExY6HMGHBM00+QOLGgmHjWE=;
- b=A7l8dAcRM9Hp+utKmwP3DutSTsBm0GtCJQ/8JqbGY/6NpRFhd123+UWG/DeNin3yfs
- 7rMCAmQyvroINIVOAKZZwuH5jxuemN1a51MVBy/ZuM9y/cfJ2LhmnRok/E2UKHCM4Qfv
- HMmtX48+W7QSzFq+o42O/m1pmtA3rDebHzYoQSZkzNhZpowGgGAM6SdSVuUTLprK4R2s
- Ej9IxWe6+FI55rCGG93kBlioCQiCwFE15RzCwNuWh0Tx7GwVCAjPytCw6HMuSDCCBJcj
- f9DLnO8KYD+u7IbjnNBOt6/MHX+ejyRlqAjBqLQqWdmM6kRgvkJehzkXPhfvXo5ebYQB
- UF1Q==
-X-Gm-Message-State: AOJu0Yzr0sPoUs3joAsRR99dqc0JVI2kzX2o+Z1OP+blMcd1k7hoc760
- ACtO6ACp4zAudUoOTU/2pSmYzA==
-X-Google-Smtp-Source: AGHT+IELsr0TJIiQh5QAqmKXDgO6soZkpyO0kaROc+iBPItyZos4zaQHhCtRtZNlvZlNH7/nSZbiMw==
-X-Received: by 2002:a17:902:e74b:b0:1c1:f5a6:bdfa with SMTP id
- p11-20020a170902e74b00b001c1f5a6bdfamr5479880plf.7.1693334868188; 
- Tue, 29 Aug 2023 11:47:48 -0700 (PDT)
+ bh=KDFi+t2HGk6Ez2m1E1bDJmYF5dLdXGiplCl4kzCCGIw=;
+ b=iJvOqd+oVrlZe9d5oQC7ShDSFWCqwF1lIxkmZqs5D7zrr9eAXcquHdwAFlV1sjMHBd
+ CCZnxfKO40KODlbx+zkax1GoOjm0MVSPL8IyHa1y7wKddmVERwa5TO7sy2NJyw3Q3U9N
+ yza4ywOSn76hRD5X3wZd1tIIf396WLfIUlVl4qFE6H0pZyKpc8Sz9tXoGc0WbYGuamen
+ cYDtt0/RaMYgZOYHyjiYUGcxZt+MVkh16bZDGy3nfKAzycK+c+FClcugpsCrIgQKeQwZ
+ IVTEb5jr5sEQmMZwT2reonV68pdVy2+vyadFm/D3+cKW46PzYs7AWYmneZyFqujpdvUI
+ xQyQ==
+X-Gm-Message-State: AOJu0YyPs93sIGiB0zA4pJIoubTDHBMbxMqYTabz2lAHaNC5vbdbcrdw
+ 5IgFTeEO2sbDmij/dqkroqdveA==
+X-Google-Smtp-Source: AGHT+IG58CNBx1V/eqpVdTw/QvBwIlAZBBILyaosLO9zrBbi7Cn4JE3QPxGI+6zG/AqLakLHAjK+GQ==
+X-Received: by 2002:a05:6a21:66cb:b0:138:2fb8:6b42 with SMTP id
+ ze11-20020a056a2166cb00b001382fb86b42mr180543pzb.14.1693334869676; 
+ Tue, 29 Aug 2023 11:47:49 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:11a:201:d603:22a7:5e5e:d239])
  by smtp.gmail.com with ESMTPSA id
- o15-20020a170902d4cf00b001b9e86e05b7sm9697953plg.0.2023.08.29.11.47.46
+ o15-20020a170902d4cf00b001b9e86e05b7sm9697953plg.0.2023.08.29.11.47.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Aug 2023 11:47:47 -0700 (PDT)
+ Tue, 29 Aug 2023 11:47:49 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 29 Aug 2023 11:47:31 -0700
-Message-ID: <20230829184735.2841739-7-swboyd@chromium.org>
+Date: Tue, 29 Aug 2023 11:47:32 -0700
+Message-ID: <20230829184735.2841739-8-swboyd@chromium.org>
 X-Mailer: git-send-email 2.42.0.rc2.253.gd59a3bf2b4-goog
 In-Reply-To: <20230829184735.2841739-1-swboyd@chromium.org>
 References: <20230829184735.2841739-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 6/7] drm/msm/dp: Inline
- dp_link_parse_sink_count()
+Subject: [Freedreno] [PATCH 7/7] drm/msm/dp: Remove dp_display_is_ds_bridge()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,77 +79,41 @@ Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The function dp_link_parse_sink_count() is really just
-drm_dp_read_sink_count(). It debug prints out the bit for content
-protection (DP_SINK_CP_READY), but that is not useful beyond debug
-because 'link->dp_link.sink_count' is overwritten to only contain the
-sink_count in this same function. Just use drm_dp_read_sink_count() in
-the one place this function is called to simplify.
+This function is simply drm_dp_is_branch() so use that instead of
+open-coding it.
 
 Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
 Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_link.c | 38 +++-----------------------------
- 1 file changed, 3 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 42427129acea..94a37914a47f 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -712,49 +712,17 @@ static int dp_link_parse_request(struct dp_link_private *link)
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 76f13954015b..96bbf6fec2f1 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -341,19 +341,12 @@ static const struct component_ops dp_display_comp_ops = {
+ 	.unbind = dp_display_unbind,
+ };
  
--/**
-- * dp_link_parse_sink_count() - parses the sink count
-- * @dp_link: pointer to link module data
-- *
-- * Parses the DPCD to check if there is an update to the sink count
-- * (Byte 0x200), and whether all the sink devices connected have Content
-- * Protection enabled.
-- */
--static int dp_link_parse_sink_count(struct dp_link *dp_link)
+-static bool dp_display_is_ds_bridge(struct dp_panel *panel)
 -{
--	ssize_t rlen;
--	bool cp_ready;
--
--	struct dp_link_private *link = container_of(dp_link,
--			struct dp_link_private, dp_link);
--
--	rlen = drm_dp_dpcd_readb(link->aux, DP_SINK_COUNT,
--				 &link->dp_link.sink_count);
--	if (rlen < 0) {
--		DRM_ERROR("sink count read failed. rlen=%zd\n", rlen);
--		return rlen;
--	}
--
--	cp_ready = link->dp_link.sink_count & DP_SINK_CP_READY;
--
--	link->dp_link.sink_count =
--		DP_GET_SINK_COUNT(link->dp_link.sink_count);
--
--	drm_dbg_dp(link->drm_dev, "sink_count = 0x%x, cp_ready = 0x%x\n",
--				link->dp_link.sink_count, cp_ready);
--	return 0;
+-	return (panel->dpcd[DP_DOWNSTREAMPORT_PRESENT] &
+-		DP_DWN_STRM_PORT_PRESENT);
 -}
 -
- static int dp_link_parse_sink_status_field(struct dp_link_private *link)
+ static bool dp_display_is_sink_count_zero(struct dp_display_private *dp)
  {
--	int len = 0;
-+	int len;
+ 	drm_dbg_dp(dp->drm_dev, "present=%#x sink_count=%d\n",
+ 			dp->panel->dpcd[DP_DOWNSTREAMPORT_PRESENT],
+ 		dp->link->sink_count);
+-	return dp_display_is_ds_bridge(dp->panel) &&
+-		(dp->link->sink_count == 0);
++	return drm_dp_is_branch(dp->panel->dpcd) && dp->link->sink_count == 0;
+ }
  
- 	link->prev_sink_count = link->dp_link.sink_count;
--	len = dp_link_parse_sink_count(&link->dp_link);
-+	len = drm_dp_read_sink_count(link->aux);
- 	if (len < 0) {
- 		DRM_ERROR("DP parse sink count failed\n");
- 		return len;
- 	}
-+	link->dp_link.sink_count = len;
- 
- 	len = drm_dp_dpcd_read_link_status(link->aux,
- 		link->link_status);
+ static void dp_display_send_hpd_event(struct msm_dp *dp_display)
 -- 
 https://chromeos.dev
 
