@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7390A78E2E3
-	for <lists+freedreno@lfdr.de>; Thu, 31 Aug 2023 00:57:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 689CC78E354
+	for <lists+freedreno@lfdr.de>; Thu, 31 Aug 2023 01:38:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9924210E156;
-	Wed, 30 Aug 2023 22:57:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE0F210E167;
+	Wed, 30 Aug 2023 23:38:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
  [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627D210E638
- for <freedreno@lists.freedesktop.org>; Wed, 30 Aug 2023 22:57:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692D310E167
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Aug 2023 23:38:20 +0000 (UTC)
 Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-d7b8d2631fdso56808276.3
- for <freedreno@lists.freedesktop.org>; Wed, 30 Aug 2023 15:57:51 -0700 (PDT)
+ 3f1490d57ef6-d7260fae148so84630276.1
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Aug 2023 16:38:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693436270; x=1694041070; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1693438699; x=1694043499; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jbesLFZn89QtS3Nk/fxwNNUghSnqXExXEAIFGNCDeeM=;
- b=MbV0uVyDZmgGJsoIglbyEHlg2dx1YlV6BxlcXZBEuodhjb5uyiviUUSV5LMCV1wqy8
- VtaCFA4oY++Q8Ymeq0dQ68Hq9euArOWS5mHg/a6BIOcRPElX89tMYmKpeFhmQ02muFH0
- A5tDKGacrs5VWcl70KmLti/TyzHLdl2lSb7/4dyRMVPnPRTbvKqka2VlV29PQqTKKXwg
- o/VNocIG3ZcOk72yftLNPVaO6O6V5IVkOgo8tfBNvy79rVvDWPE88eAWvqRd5XyT+dV0
- xeVWl/rWtaPjV0MGwIgQgImbO5OZjbuIsQ3QVQeQZKz2wpugz6cGMUJJaetH+EXCnwWv
- fqOA==
+ bh=0OA6F/cJGjE0KJb9/0REuMAEmnQQM4Zu3TAc/AkZeiw=;
+ b=eHraIArB8V1+WU7w6iuTLDhZIsWWCYBUDBH6lMVcJIq9/jZk+wA0ZD2MHojViR/HEp
+ wNxx2KEkOY/uO6Kz/sb8bC+sMpy/X7hdOh1ORq4/7kTdb4MCeKpz0RTtx8q+Vfka7mVE
+ euv/1/aL1QbbWIACTnQt4J8GjEuiX+309Ov6KKgC9AH4vlfsqgYzAprmqDG9p2OzBMla
+ qXOm4er8JnIGh/FNzWBFJau9AJL3kuCip6/O2/8PyVSzVmRiMYrjctW2p9iJnyjV7dS/
+ sv4WybaVqv2B3Ndn1QSGzaf392NE5rFcrL1X1bkpiWf0jJowPqHyj0JzCkCx1O3fJkF/
+ TJEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693436270; x=1694041070;
+ d=1e100.net; s=20221208; t=1693438699; x=1694043499;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jbesLFZn89QtS3Nk/fxwNNUghSnqXExXEAIFGNCDeeM=;
- b=eNhSXCya8Zh92T41pX/8CrjNungCk89JMVmd8uKgXnFbeyBB8zj45yWSCPSJFbyvHg
- EVd0uay0ND6fyscv05IbGjaAunq6yrauN+TNC2KH3FjT37NB5bgHSxajkTwcDpV6wJJP
- NuZPDzXhNLPyAWANKFlh/0ZqF0YyXEQt89ophdXfujJXe06VMOiEtsk5822d4P2G607w
- tsWP1to9Z1GYWmICayXh5scVA3KkTxHwYHMxnFz/gU2oVOLWuqBZiICY+RbAz/+PfATW
- jkQDHw6FMjAFOHWEPUYhQXbaCwTE+kedF2JegzRwmnTlKZpAfFl5wycoiUnxPDEBwI7d
- JHRQ==
-X-Gm-Message-State: AOJu0Yzt1WYIa3Dw2YW+XPjKTuj3js/FEEDmXIdWaalB7+Dnmrdt/330
- 2LSALgreurmWgAIUxgoqYyzZOWLqPi6rPXeiD4HWvg==
-X-Google-Smtp-Source: AGHT+IG3oe2ouCAeqBMeWjd+y2neQTbmLX7tFZM/1DYvgEWwNCBSvEIBngqoyJWkuhznJGDIW/5TaccccPTX2hs78ug=
-X-Received: by 2002:a25:b188:0:b0:d71:c54:6821 with SMTP id
- h8-20020a25b188000000b00d710c546821mr3826853ybj.35.1693436270486; Wed, 30 Aug
- 2023 15:57:50 -0700 (PDT)
+ bh=0OA6F/cJGjE0KJb9/0REuMAEmnQQM4Zu3TAc/AkZeiw=;
+ b=eioAP7bZ3+N/52JzC4cypuicK9QjOHeFg9+EkZtWvmnb9LCqmyIvqLxwyv8RpujQ12
+ D1sh0nce+zuMYg5tzPJhmsy3laVx17UC0sMgsjDjGK0V7cYAWYWfgnWqEZwJUTJEn+Wl
+ Q+gTVs8TD9MPKRgX9CycSTJ6nkaKJ9aak/5/eTxvj8Ck/+/fFOJJRcfy1ldW2XgHm+Z9
+ eu3/QjlP4lMCo8lQuyYnL3vP3simPJONNKxE7wiKHclS7gzajhguKarQbr7tzcYBFzAl
+ PIKLa8IFJs4TQJW8C+owxQ5MFwV8Wmuw1gmS1Ln6tJbAZy5y1nBqaty22t4k3GfAeuew
+ gzhA==
+X-Gm-Message-State: AOJu0Yy5mqrRcdwTo6it4MPX6srpi/U2Nqda6B76v7spJ+MrT6GI1KCX
+ h9wRpkomsFdO3SEcrvH8KxSeS6doIMZ8fembUSoPzA==
+X-Google-Smtp-Source: AGHT+IGeQW7IWHk2KJWCy3x28ARi2otnY3Ztho5B4SiUmBLUWIBSTp+/mtvRVCUvyoWZFH12R61ivtvnFWmJDdFi1/M=
+X-Received: by 2002:a5b:748:0:b0:d3f:208:b8ea with SMTP id
+ s8-20020a5b0748000000b00d3f0208b8eamr3491103ybq.11.1693438699616; 
+ Wed, 30 Aug 2023 16:38:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
- <20230830224910.8091-5-quic_abhinavk@quicinc.com>
-In-Reply-To: <20230830224910.8091-5-quic_abhinavk@quicinc.com>
+ <20230830224910.8091-2-quic_abhinavk@quicinc.com>
+In-Reply-To: <20230830224910.8091-2-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 31 Aug 2023 01:57:39 +0300
-Message-ID: <CAA8EJpoQ0L_b=KDQxuXEL4KbaP1DACq1Qpw6m_ot6m+UYsHZWg@mail.gmail.com>
+Date: Thu, 31 Aug 2023 02:38:08 +0300
+Message-ID: <CAA8EJpoc6ig=Vy7gFJ0nnsAP5HvFB+=ajk94x26Ah0D_g2yJug@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 04/16] drm/msm/dpu: add cdm blocks to sc7280
- dpu_hw_catalog
+Subject: Re: [Freedreno] [PATCH 01/16] drm/msm/dpu: fix writeback
+ programming for YUV cases
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,93 +79,34 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu, 31 Aug 2023 at 01:49, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> Add CDM blocks to the sc7280 dpu_hw_catalog to support
-> YUV format output from writeback block.
+> For YUV cases, setting the required format bits was missed
+> out in the register programming. Lets fix it now in preparation
+> of adding YUV formats support for writeback.
 >
+> Fixes: 84a33d0fd921 ("drm/msm/dpu: add dpu_hw_wb abstraction for writeback blocks")
+
+Since we were not exporting YUV formats, this tag is not correct. This
+is a mere functional change, not a fix.
+
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h  |  9 +++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h      | 13 +++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h         |  5 +++++
->  3 files changed, 27 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> index 3b5061c4402a..5252170f216d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> @@ -251,10 +251,19 @@ static const struct dpu_mdss_version sc7280_mdss_ver = {
->         .core_minor_ver = 2,
->  };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+> index ebc416400382..0aa598b355e9 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+> @@ -86,6 +86,9 @@ static void dpu_hw_wb_setup_format(struct dpu_hw_wb *ctx,
+>                         dst_format |= BIT(14); /* DST_ALPHA_X */
+>         }
 >
-> +static const struct dpu_cdm_cfg sc7280_cdm = {
-> +       .name = "cdm_0",
-> +       .id = CDM_0,
-> +       .len = 0x228,
-> +       .base = 0x79200,
-> +       .features = 0,
-
-No need to.
-Also, as the CDM block seems to be common to all existing platforms,
-what about moving this definition to dpu_hw_catalog.c next to VBIF
-settings?
-
-> +};
+> +       if (DPU_FORMAT_IS_YUV(fmt))
+> +               dst_format |= BIT(15);
 > +
->  const struct dpu_mdss_cfg dpu_sc7280_cfg = {
->         .mdss_ver = &sc7280_mdss_ver,
->         .caps = &sc7280_dpu_caps,
->         .mdp = &sc7280_mdp,
-> +       .cdm = &sc7280_cdm,
->         .ctl_count = ARRAY_SIZE(sc7280_ctl),
->         .ctl = sc7280_ctl,
->         .sspp_count = ARRAY_SIZE(sc7280_sspp),
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index 6c9634209e9f..4ea7c3f85a95 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -693,6 +693,17 @@ struct dpu_vbif_cfg {
->         u32 memtype[MAX_XIN_COUNT];
->  };
->
-> +/**
-> + * struct dpu_cdm_cfg - information of chroma down blocks
-> + * @name               string name for debug purposes
-> + * @id                 enum identifying this block
-> + * @base               register offset of this block
-> + * @features           bit mask identifying sub-blocks/features
-> + */
-> +struct dpu_cdm_cfg {
-> +       DPU_HW_BLK_INFO;
-> +};
-> +
->  /**
->   * Define CDP use cases
->   * @DPU_PERF_CDP_UDAGE_RT: real-time use cases
-> @@ -816,6 +827,8 @@ struct dpu_mdss_cfg {
->         u32 wb_count;
->         const struct dpu_wb_cfg *wb;
->
-> +       const struct dpu_cdm_cfg *cdm;
-> +
->         u32 ad_count;
->
->         u32 dspp_count;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index d85157acfbf8..4d6dba18caf0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -185,6 +185,11 @@ enum dpu_dsc {
->         DSC_MAX
->  };
->
-> +enum dpu_cdm {
-> +       CDM_0 = 1,
-> +       CDM_MAX
-> +};
-> +
->  enum dpu_pingpong {
->         PINGPONG_NONE,
->         PINGPONG_0,
+>         pattern = (fmt->element[3] << 24) |
+>                 (fmt->element[2] << 16) |
+>                 (fmt->element[1] << 8)  |
 > --
 > 2.40.1
 >
