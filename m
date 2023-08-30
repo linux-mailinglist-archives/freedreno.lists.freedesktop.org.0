@@ -1,48 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC67078D749
-	for <lists+freedreno@lfdr.de>; Wed, 30 Aug 2023 17:51:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 665F678E297
+	for <lists+freedreno@lfdr.de>; Thu, 31 Aug 2023 00:49:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 734BF10E556;
-	Wed, 30 Aug 2023 15:51:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA2810E161;
+	Wed, 30 Aug 2023 22:49:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6135210E550;
- Wed, 30 Aug 2023 15:51:19 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id C084D66071C9;
- Wed, 30 Aug 2023 16:51:17 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693410677;
- bh=kjUaL5VR03TEh1MPjIv78EGFfK/hRCmMtUCTAAdazBc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GukEUIfKnpFKvAszreQSRQAt6GYkCQaSzGgV7+bPCcAEFLBL1TsDtLAgZ4Uu6B9Ck
- S4JzqnYTBrMnTsl3nON6wFXADZAZ9ZV4gtS+R3Y2WBEwMH4jN//LLVtZYE8cfcGPmE
- 9x9J6KOX/jdB2LsHF3BdFkd4HifeIs9D5hqZgkt3S537FFnJWObNqYETpCxK4qMBAN
- LU4Y/LbaZDn9p6svH8gBC5xD4u9oIrVWE4onSyqUPBrYVty56x3V/qbaBAmJkxPx5W
- vGkg5/PO7rmy+LBwQSc3U1QpydyVmMzE/tyPyKchthI7INU1KefPF3CIUP3Ap2zao4
- d9UK9/dxkQ4pA==
-Date: Wed, 30 Aug 2023 16:51:15 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <tc7x4uzxvfwakzoqxgaxbkzh3nyhub56ksrgaqmrb4uaq4rruw@7xwan7qfofw7>
-References: <20230824013604.466224-1-adrian.larumbe@collabora.com>
- <20230824013604.466224-7-adrian.larumbe@collabora.com>
- <CAF6AEGtXUTs3ta0N+0hiORa+Tsyh94AXPYm9XdaK6xZbqf+nzA@mail.gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0971D10E161;
+ Wed, 30 Aug 2023 22:49:45 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37UMb5Dv007237; Wed, 30 Aug 2023 22:49:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=sjBhFRt7Da6DMTS5j7RsIzQExhOD/0qVXrzP3XUT67s=;
+ b=hmyQQCpyo08LhUegE2K05llINiAbHrpWHwreb5Yv+bC9d3hjmM2XEe1CRD6SL+okhcd/
+ qWhfOtBwy1vTSGn/+Cl6YNNpoQ57TbRiwBZNwNxCx+jIFqMYJbzYoY4pB8E8Jzz5t7Tx
+ ryFLB63kcLkw2pjC3aVy0FNCi/exUS9jl8zY9xhvm0fZ1UqX7H/bf963k76S/hL9fuEF
+ SrGwETUKCXmRb7HFuPlQK7JNNmupleBRA+jQNBQ58PWjPn/Z77qqTUmLmbzb+laZ9jow
+ euTL84Spma5UjEnjtAL2cHCK7mAGKSNpYnKQywBkBkDrD+DZZlPt5dHy96FsL2rWRK0r mA== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3st6ct93uu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Aug 2023 22:49:44 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 37UMnh65027294
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Aug 2023 22:49:43 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Wed, 30 Aug 2023 15:49:43 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Wed, 30 Aug 2023 15:48:53 -0700
+Message-ID: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtXUTs3ta0N+0hiORa+Tsyh94AXPYm9XdaK6xZbqf+nzA@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 6/6] drm/drm-file: Allow size unit
- selection in drm_show_memory_stats
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: VwT-aqWhQG75a3yGYtULEjRgkKzi6-wN
+X-Proofpoint-ORIG-GUID: VwT-aqWhQG75a3yGYtULEjRgkKzi6-wN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-30_18,2023-08-29_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ clxscore=1015 malwarescore=0 phishscore=0 adultscore=0 mlxlogscore=755
+ suspectscore=0 spamscore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308300206
+Subject: [Freedreno] [PATCH 00/16] Add CDM support for MSM writeback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,159 +78,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, kernel@collabora.com, tzimmermann@suse.de,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, healych@amazon.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- airlied@gmail.com, linux-kernel@vger.kernel.org
+Cc: quic_jesszhan@quicinc.com, quic_parellan@quicinc.com,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
->> The current implementation will try to pick the highest available
->> unit. This is rather unflexible, and allowing drivers to display BO size
->> statistics through fdinfo in units of their choice might be desirable.
->>
->> The new argument to drm_show_memory_stats is to be interpreted as the
->> integer multiplier of a 10-power of 2, so 1 would give us size in Kib and 2
->> in Mib. If we want drm-file functions to pick the highest unit, then 0
->> should be passed.
->>
->> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
->> ---
->>  drivers/gpu/drm/drm_file.c              | 22 +++++++++++++---------
->>  drivers/gpu/drm/msm/msm_drv.c           |  2 +-
->>  drivers/gpu/drm/panfrost/panfrost_drv.c |  2 +-
->>  include/drm/drm_file.h                  |  5 +++--
->>  4 files changed, 18 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
->> index 762965e3d503..517e1fb8072a 100644
->> --- a/drivers/gpu/drm/drm_file.c
->> +++ b/drivers/gpu/drm/drm_file.c
->> @@ -873,7 +873,7 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->>  EXPORT_SYMBOL(drm_send_event);
->>
->>  static void print_size(struct drm_printer *p, const char *stat,
->> -                      const char *region, u64 sz)
->> +                      const char *region, u64 sz, unsigned int unit)
->>  {
->>         const char *units[] = {"", " KiB", " MiB"};
->>         unsigned u;
->> @@ -881,6 +881,8 @@ static void print_size(struct drm_printer *p, const char *stat,
->>         for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
->>                 if (sz < SZ_1K)
->>                         break;
->> +               if (unit > 0 && unit == u)
->> +                       break;
->>                 sz = div_u64(sz, SZ_1K);
->>         }
->>
->> @@ -898,17 +900,18 @@ static void print_size(struct drm_printer *p, const char *stat,
->>  void drm_print_memory_stats(struct drm_printer *p,
->>                             const struct drm_memory_stats *stats,
->>                             enum drm_gem_object_status supported_status,
->> -                           const char *region)
->> +                           const char *region,
->> +                           unsigned int unit)
->
->I'm not really adverse to changing what units we use.. or perhaps
->changing the threshold to go to higher units to be 10000x or 100000x
->of the previous unit.  But I'm less excited about having different
->drivers using different units.
->
->BR,
->-R
+Chroma Down Sampling (CDM) block is a hardware block in the DPU pipeline
+which among other things has a CSC block that can convert RGB input
+from the DPU to YUV data.
 
-Would it be alright if I left it set to the default unit, and allow changing it
-at runtime with a debugfs file?
+This block can be used with either HDMI, DP or writeback interface.
 
->>  {
->> -       print_size(p, "total", region, stats->private + stats->shared);
->> -       print_size(p, "shared", region, stats->shared);
->> -       print_size(p, "active", region, stats->active);
->> +       print_size(p, "total", region, stats->private + stats->shared, unit);
->> +       print_size(p, "shared", region, stats->shared, unit);
->> +       print_size(p, "active", region, stats->active, unit);
->>
->>         if (supported_status & DRM_GEM_OBJECT_RESIDENT)
->> -               print_size(p, "resident", region, stats->resident);
->> +               print_size(p, "resident", region, stats->resident, unit);
->>
->>         if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
->> -               print_size(p, "purgeable", region, stats->purgeable);
->> +               print_size(p, "purgeable", region, stats->purgeable, unit);
->>  }
->>  EXPORT_SYMBOL(drm_print_memory_stats);
->>
->> @@ -916,11 +919,12 @@ EXPORT_SYMBOL(drm_print_memory_stats);
->>   * drm_show_memory_stats - Helper to collect and show standard fdinfo memory stats
->>   * @p: the printer to print output to
->>   * @file: the DRM file
->> + * @unit: multipliyer of power of two exponent of desired unit
->>   *
->>   * Helper to iterate over GEM objects with a handle allocated in the specified
->>   * file.
->>   */
->> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, unsigned int unit)
->>  {
->>         struct drm_gem_object *obj;
->>         struct drm_memory_stats status = {};
->> @@ -967,7 +971,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->>         }
->>         spin_unlock(&file->table_lock);
->>
->> -       drm_print_memory_stats(p, &status, supported_status, "memory");
->> +       drm_print_memory_stats(p, &status, supported_status, "memory", unit);
->>  }
->>  EXPORT_SYMBOL(drm_show_memory_stats);
->>
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index 2a0e3529598b..cd1198151744 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -1067,7 +1067,7 @@ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->>
->>         msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, p);
->>
->> -       drm_show_memory_stats(p, file);
->> +       drm_show_memory_stats(p, file, 0);
->>  }
->>
->>  static const struct file_operations fops = {
->> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
->> index 93d5f5538c0b..79c08cee3e9d 100644
->> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
->> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
->> @@ -563,7 +563,7 @@ static void panfrost_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->>
->>         panfrost_gpu_show_fdinfo(pfdev, file->driver_priv, p);
->>
->> -       drm_show_memory_stats(p, file);
->> +       drm_show_memory_stats(p, file, 1);
->>  }
->>
->>  static const struct file_operations panfrost_drm_driver_fops = {
->> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
->> index 010239392adf..21a3b022dd63 100644
->> --- a/include/drm/drm_file.h
->> +++ b/include/drm/drm_file.h
->> @@ -466,9 +466,10 @@ enum drm_gem_object_status;
->>  void drm_print_memory_stats(struct drm_printer *p,
->>                             const struct drm_memory_stats *stats,
->>                             enum drm_gem_object_status supported_status,
->> -                           const char *region);
->> +                           const char *region,
->> +                           unsigned int unit);
->>
->> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
->> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, unsigned int unit);
->>  void drm_show_fdinfo(struct seq_file *m, struct file *f);
->>
->>  struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
->> --
->> 2.42.0
->>
+In this series, lets first add the support for CDM block to be used
+with writeback and then follow-up with support for other interfaces such
+as DP.
+
+This was validated by adding support to pass custom output format to the
+IGT's kms_writeback test-case, specifically only for the output dump
+test-case [1].
+
+The usage for this is:
+
+./kms_writeback -d -f <name of the DRM YUV fmt from igt_fb>
+
+So for NV12, this can be verified with the below command:
+
+./kms_writeback -d -f NV12
+
+[1] : https://patchwork.freedesktop.org/series/122125/
+
+
+Abhinav Kumar (16):
+  drm/msm/dpu: fix writeback programming for YUV cases
+  drm/msm/dpu: add formats check for writeback encoder
+  drm/msm/dpu: rename dpu_encoder_phys_wb_setup_cdp to match its
+    functionality
+  drm/msm/dpu: add cdm blocks to sc7280 dpu_hw_catalog
+  drm/msm/dpu: add cdm blocks to sm8250 dpu_hw_catalog
+  drm/msm/dpu: add dpu_hw_cdm abstraction for CDM block
+  drm/msm/dpu: add cdm blocks to RM
+  drm/msm/dpu: add support to allocate CDM from RM
+  drm/msm/dpu: add CDM related logic to dpu_hw_ctl layer
+  drm/msm/dpu: add support to disable CDM block during encoder cleanup
+  drm/msm/dpu: add an API to setup the CDM block for writeback
+  drm/msm/dpu: plug-in the cdm related bits to writeback setup
+  drm/msm/dpu: reserve cdm blocks for writeback in case of YUV output
+  drm/msm/dpu: do not allow YUV formats if no CDM block is present
+  drm/msm/dpu: add NV12 in the list of supported WB formats
+  drm/msm/dpu: add cdm blocks to dpu snapshot
+
+ drivers/gpu/drm/msm/Makefile                  |   1 +
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |   9 +
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   9 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  43 ++-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |   5 +
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 150 +++++++++-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   1 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  13 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c    | 272 ++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h    | 135 +++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  34 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |  11 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |   7 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  62 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   6 +-
+ 18 files changed, 758 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h
+
+-- 
+2.40.1
+
