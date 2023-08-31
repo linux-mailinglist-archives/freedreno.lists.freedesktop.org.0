@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2F478E3EA
-	for <lists+freedreno@lfdr.de>; Thu, 31 Aug 2023 02:26:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 085B478E3F0
+	for <lists+freedreno@lfdr.de>; Thu, 31 Aug 2023 02:27:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0619610E640;
-	Thu, 31 Aug 2023 00:26:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C27F410E63B;
+	Thu, 31 Aug 2023 00:27:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE2E10E63D
- for <freedreno@lists.freedesktop.org>; Thu, 31 Aug 2023 00:26:31 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id
- 3f1490d57ef6-d77f614243aso113837276.0
- for <freedreno@lists.freedesktop.org>; Wed, 30 Aug 2023 17:26:31 -0700 (PDT)
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0927210E63B
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Aug 2023 00:27:20 +0000 (UTC)
+Received: by mail-yb1-xb34.google.com with SMTP id
+ 3f1490d57ef6-d7b91422da8so101733276.2
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Aug 2023 17:27:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693441591; x=1694046391; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1693441639; x=1694046439; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=H3zj4E10NO9siAHOXcmUeyO6qgzIlCjzw1ywFvHQe48=;
- b=WyC+vUXUafQBZxal/9eC9sBHD+CxgXdx1kbzHnnDO4poVmxDC/2dPclR62WBAPT5/R
- gUv4w1tV0N72VbyssDEavt1MJWF8jCBoTwfLONmZMVeOThsCqkhGN5sM5DP5NkPFz4Ef
- p0g36YlPKEH8a/6qSl5M1CtG4zwQZRB2n0T6tWXILq276uk6BZf0rFtC1EPgYng48QwM
- QPMUGMJdj5H4qsO2MFgW4/7buAOdnUdH3qzPLaDy3QIoAfKyUCABsUARUeKmHX6XaaOS
- YXb7AOdPjaLIdFqcY8QMKYfZTeBDgAi23eIfwpg50jsvlS6BufgW5II6KzZwjyC3gRdQ
- jfQg==
+ bh=6XFUVRQ182BzKxaOieUisigxEXwKIxFTn7N8wbJlC7c=;
+ b=ZWvhJunR8bUShFQZx5RV8K2if3pwXJJDewMvca3xAuPAAsJG6zauh4xl1JEzF+Ngo5
+ Pk1deyaoIXECS4jZROM36vEUion4kccMzyrMx3RyJK8fwSbMms1wLZE2jteEtE4FsF2l
+ wILxPhLcEQUPk7izjBRdgWkJSp2kA9PL/y0OcVFb228oAeSg/EAM8YRvIyJpMZsYqTHO
+ nDJQhTb+FviPl+M3bjfxx/SmwJfvgKkL0/YLQUTW4ljQw85i2NewklGaeKnVkdhwIc0Z
+ VhgYt8SBJmPoanzYx03vN2k6h+8zXH3EBCnLZrZ8Cnocur0pyCFcHDy9q0rXu9VcXdQ/
+ qT6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693441591; x=1694046391;
+ d=1e100.net; s=20221208; t=1693441639; x=1694046439;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=H3zj4E10NO9siAHOXcmUeyO6qgzIlCjzw1ywFvHQe48=;
- b=kN4gP3SbwhDDEBiB632LxC3AgygftL7NMteJYKcRS0eL0VPXGRKB/7xnRocw6jTtLm
- p6scWm+50sIY5sDu0bbvMYWQu8YY6eqiniHiBoMvse2SWEkNV2UKhQKuXrSLLoOnMs87
- vf8ILpuwADjXWGSYibKmVo0nHH1b3cTqZNhod1vw/J12bnx0j7pVwU+AXE9h3QaZKB44
- yjYDnl5SrEV3hs04LiIZYoEF6mCESzJc8yfalr+kEdo6F/yEZx31/cUQymwmLAVFos58
- VMC3d82xh97s34RH/sih4fWaU4zTIEFnX7US4lcDTw8s3N87WFt1gfKHI0rTexEHAbSg
- Twrg==
-X-Gm-Message-State: AOJu0YzXoEZp0G+0oEfts7DMqeMgbGX8ZKXE+uQC5aU5qnZRFbglHhaH
- iZQJqMtVPcRw1BBuM7Db7dbE+rTdT1L6kQz8XuEr4w==
-X-Google-Smtp-Source: AGHT+IEC6wjyhLHuyq2sowvLpwNst9mi9DaKnAVZfuuF7YmSGM5ILBiZEq62yGcwMVvFIDZCywIaEKK97E/8B6+kyt4=
-X-Received: by 2002:a25:2901:0:b0:d7b:969b:f3e with SMTP id
- p1-20020a252901000000b00d7b969b0f3emr3293721ybp.11.1693441590996; Wed, 30 Aug
- 2023 17:26:30 -0700 (PDT)
+ bh=6XFUVRQ182BzKxaOieUisigxEXwKIxFTn7N8wbJlC7c=;
+ b=bjZtBefmZMimNB1kcaIN+izhKQVSvAfcb3bUZ8S4tHjpQZBmTivWaAVJygFTnQlSZL
+ foMIdAjXd5rI9HJsjIVyivmyrQtlT5xCXf/psQr7MYLoRnd63y56CN9ewgcu/aKSyJSO
+ etTnzrCO2enlXF3qi5pjKrZBIezh5/fc/dykX5EHvEy4MsfMdGJ7Dy+5DBHVdCzjFMuK
+ 5HT3+4qbcgCGwFPjOdW2WjK/8zxQ9n0tJn/+BmKRYLCrbvrSBhPpg/U/GcgkhsEjBPYw
+ s/EzNO01Z+ka6HSZHI3GLnFRy3QVLKqj0pERB5zRvG/gawuNgE7ndtCWRElklZCEj3wU
+ yqhw==
+X-Gm-Message-State: AOJu0YzyANw6TZ3Bcm2CKp+92Zcz9FFLC3h3y9gxW+KngvlkCqStzA2f
+ scIsycJvbcXUbE1kRKFWUO+JYYcz8fkdt8uIyYZs+A==
+X-Google-Smtp-Source: AGHT+IHknU6BC0qcHumWwJIB4jFHAfeTNSsm6jtFd9ikSrfRePOl4XXsKx1ygwxm0Sd1L8EI6HuBz53qqJL+YdpvGZ8=
+X-Received: by 2002:a25:e7d1:0:b0:bcb:9b43:5a89 with SMTP id
+ e200-20020a25e7d1000000b00bcb9b435a89mr3433973ybh.61.1693441639229; Wed, 30
+ Aug 2023 17:27:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
- <20230830224910.8091-16-quic_abhinavk@quicinc.com>
-In-Reply-To: <20230830224910.8091-16-quic_abhinavk@quicinc.com>
+ <20230830224910.8091-17-quic_abhinavk@quicinc.com>
+In-Reply-To: <20230830224910.8091-17-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 31 Aug 2023 03:26:20 +0300
-Message-ID: <CAA8EJpp=kr0XTrzq0sjssDh3oJYLqYHZjpDxeyKDxV5jfTcaBA@mail.gmail.com>
+Date: Thu, 31 Aug 2023 03:27:08 +0300
+Message-ID: <CAA8EJpqwzbBA6HPfW_ruAUxAv88AZwS4hSuCU47qydM8H+Qsyg@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 15/16] drm/msm/dpu: add NV12 in the list of
- supported WB formats
+Subject: Re: [Freedreno] [PATCH 16/16] drm/msm/dpu: add cdm blocks to dpu
+ snapshot
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,36 +79,16 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu, 31 Aug 2023 at 01:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> Since CDM block support has now been added for writeback blocks
-> add NV12 in the list of supported WB formats.
+> Now that CDM block support has been added to DPU lets also add its
+> entry to the DPU snapshot to help debugging.
 >
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 713dfc079718..978330c6678e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -244,6 +244,7 @@ static const uint32_t wb2_formats[] = {
->         DRM_FORMAT_BGRA4444,
->         DRM_FORMAT_BGRX4444,
->         DRM_FORMAT_XBGR4444,
-> +       DRM_FORMAT_NV12,
->  };
-
-No. This way the driver would announce availability of NV12 even on
-chipsets where NV12 is not supported for the writeback. Please define
-separate formats array.
-
-BTW: does HW only support NV12 for the writeback? What about YV12 or e.g. NV21?
-
->
->  /*************************************************************
-> --
-> 2.40.1
->
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 
 
 -- 
