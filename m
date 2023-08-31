@@ -1,49 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5099578F4B4
-	for <lists+freedreno@lfdr.de>; Thu, 31 Aug 2023 23:34:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48B4378F5DC
+	for <lists+freedreno@lfdr.de>; Fri,  1 Sep 2023 00:58:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1158D10E6F9;
-	Thu, 31 Aug 2023 21:34:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC61D10E10C;
+	Thu, 31 Aug 2023 22:58:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8FA10E6F2;
- Thu, 31 Aug 2023 21:34:55 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id A778D660729F;
- Thu, 31 Aug 2023 22:34:53 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693517693;
- bh=Tr8cyPxFm6NZJjvBVjrX3JuZaQwyE6Fdkowrsree0xs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Mn8k0oE/cQXiOiLUmMg2x4XuYG4KUdEds/qopnG47Q0gRnUUy59Ft3CrIFpPexG6c
- pWwEICfNLvNY4CR5bCqciVW+I8/LQcmeEyykG4yVKoHnpiDlUTwSgrRfi9G1/DmCF8
- i738yfgmrKIpxvNrmISsjPxyGgM5PWMZ+G+4/KkU1Lx1fzhYhr8tSOSjeePBAFzBQG
- QY9RoHaPuaJ+2Bsv++Pw3r1yW8c4bNOIeZsjnV4c2QJUGlDMtQvIRUzaFwaK836cW2
- EPog7es5q68Rc0HglgV/cpVdQhwU7+nYrqINO1tVsFEq+MTmPi1QWeDIT3Fx14U5IF
- m5xCT2YI6DK1g==
-Date: Thu, 31 Aug 2023 22:34:51 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Message-ID: <enzglusbu4anwaqyalsyan3bfzecbpxttnq5v2o65hun4foj7s@ql5byzj6krk2>
-References: <20230824013604.466224-1-adrian.larumbe@collabora.com>
- <20230824013604.466224-3-adrian.larumbe@collabora.com>
- <23f38307-3246-28a9-f396-5660acb21a18@arm.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF97E10E03F;
+ Thu, 31 Aug 2023 22:58:00 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37VMuBtP016084; Thu, 31 Aug 2023 22:57:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=LeHx/bu9sqzcu7iYGYVOTU8QERkVIKa6K4Xyoea483A=;
+ b=CbUBseVo13MM8E0VjdZKk26eFfu75f2WXvfEyzBtKiqbu/ANPNgS65QvE4iORbaxmwql
+ 4iVGwbYQ+VNPOa0OVW3bwfVgBbh+EvHOhH5drS5xzktzn78GU9qkRi02yDJY2ngLLHvn
+ OFLP+1Bo/ZNASB2l8JAc8eZCEKVDMUv4f1Y1fIuwZZ5UJaoRyYEUQFlIh+Z0xJvcPPiW
+ L4vRi1JSZRY7m5LLM1l3YTLTvF0haTLhKEPSKtXFTkvCrXc32gtNDEfKPfU6OtE+l4nP
+ Ry3unE+StmI7sXe6woOGXmX1BijVbbqykSdajxe9mww6XCWOuEx/xo2UOJ93/qLA7Jik 0Q== 
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3str1nj0xf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Aug 2023 22:57:59 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 37VMvwwh023987
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Aug 2023 22:57:58 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Thu, 31 Aug 2023 15:57:57 -0700
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+To: <neil.armstrong@linaro.org>
+Date: Thu, 31 Aug 2023 15:57:36 -0700
+Message-ID: <20230831225738.26527-1-quic_jesszhan@quicinc.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <23f38307-3246-28a9-f396-5660acb21a18@arm.com>
-Subject: Re: [Freedreno] [PATCH v2 2/6] drm/panfrost: Add fdinfo support GPU
- load metrics
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 6xYigDXDExkppwKFHZIV3AaAvV3viZgI
+X-Proofpoint-ORIG-GUID: 6xYigDXDExkppwKFHZIV3AaAvV3viZgI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-31_20,2023-08-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0
+ mlxlogscore=999 spamscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308310204
+Subject: [Freedreno] [PATCH] MAINTAINERS: Add Jessica as a reviewer for
+ drm/panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,104 +79,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, kernel@collabora.com, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, linux-kernel@vger.kernel.org, robdclark@gmail.com,
- healych@amazon.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- airlied@gmail.com
+Cc: sam@ravnborg.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, dmitry.baryshkov@linaro.org,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 31.08.2023 16:54, Steven Price wrote:
->On 24/08/2023 02:34, Adrián Larumbe wrote:
->> The drm-stats fdinfo tags made available to user space are drm-engine,
->> drm-cycles, drm-max-freq and drm-curfreq, one per job slot.
->> 
->> This deviates from standard practice in other DRM drivers, where a single
->> set of key:value pairs is provided for the whole render engine. However,
->> Panfrost has separate queues for fragment and vertex/tiler jobs, so a
->> decision was made to calculate bus cycles and workload times separately.
->> 
->> Maximum operating frequency is calculated at devfreq initialisation time.
->> Current frequency is made available to user space because nvtop uses it
->> when performing engine usage calculations.
->> 
->> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
->> ---
->>  drivers/gpu/drm/panfrost/panfrost_devfreq.c |  8 ++++
->>  drivers/gpu/drm/panfrost/panfrost_devfreq.h |  3 ++
->>  drivers/gpu/drm/panfrost/panfrost_device.h  | 13 ++++++
->>  drivers/gpu/drm/panfrost/panfrost_drv.c     | 45 ++++++++++++++++++++-
->>  drivers/gpu/drm/panfrost/panfrost_job.c     | 30 ++++++++++++++
->>  drivers/gpu/drm/panfrost/panfrost_job.h     |  4 ++
->>  6 files changed, 102 insertions(+), 1 deletion(-)
->> 
->
->[...]
->
->> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
->> index a2ab99698ca8..3fd372301019 100644
->> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
->> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
->> @@ -267,6 +267,7 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
->>  	job->requirements = args->requirements;
->>  	job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
->>  	job->mmu = file_priv->mmu;
->> +	job->priv = file_priv;
->>  
->>  	slot = panfrost_job_get_slot(job);
->>  
->> @@ -483,6 +484,14 @@ panfrost_open(struct drm_device *dev, struct drm_file *file)
->>  		goto err_free;
->>  	}
->>  
->> +	snprintf(panfrost_priv->fdinfo.engines[0].name, MAX_SLOT_NAME_LEN, "frg");
->> +	snprintf(panfrost_priv->fdinfo.engines[1].name, MAX_SLOT_NAME_LEN, "vtx");
->> +#if 0
->> +	/* Add compute engine in the future */
->> +	snprintf(panfrost_priv->fdinfo.engines[2].name, MAX_SLOT_NAME_LEN, "cmp");
->> +#endif
->
->I'm not sure what names are best, but slot 2 isn't actually a compute slot.
->
->Slot 0 is fragment, that name is fine.
->
->Slot 1 and 2 are actually the same (from a hardware perspective) but the
->core affinity of the two slots cannot overlap which means you need to
->divide the GPU in two to usefully use both slots. The only GPU that this
->actually makes sense for is the T628[1] as it has two (non-coherent)
->core groups.
->
->The upshot is that slot 1 is used for all of vertex, tiling and compute.
->Slot 2 is currently never used, but kbase will use it only for compute
->(and only on the two core group GPUs).
+As I participate more actively in the drm/panel subsystem, I would
+like to get notified about new changes in this area.
 
-I think I might've be rushed to draw inspiration for this from a comment in panfrost_job.c:
+Since I have contributed and continue to contribute to drm/panel,
+add myself as a reviewer for the DRM panel drivers to help the review
+process
 
-int panfrost_job_get_slot(struct panfrost_job *job)
-{
-	/* JS0: fragment jobs.
-	 * JS1: vertex/tiler jobs
-	 * JS2: compute jobs
-	 */
-         [...]
-}
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-Maybe I could rename the engine names to "fragment", "vertex-tiler" and "compute-only"?
-There's no reason why I would skimp on engine name length, and anything more
-descriptive would be just as good.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 60ecad7576ff..797c1823d420 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7096,6 +7096,7 @@ F:	include/drm/gpu_scheduler.h
+ 
+ DRM PANEL DRIVERS
+ M:	Neil Armstrong <neil.armstrong@linaro.org>
++R:	Jessica Zhang <quic_jesszhan@quicinc.com>
+ R:	Sam Ravnborg <sam@ravnborg.org>
+ L:	dri-devel@lists.freedesktop.org
+ S:	Maintained
+-- 
+2.42.0
 
->Personally I'd be tempted to call them "slot 0", "slot 1" and "slot 2" -
->but I appreciate that's not very helpful to people who aren't intimately
->familiar with the hardware ;)
-
-The downside of this is that both IGT's fdinfo library and nvtop will use the
-engime name for display, and like you said these numbers might mean nothing to
-someone who isn't acquainted with the hardware.
-
->Steve
->
->[1] And technically the T608 but that's even rarer and the T60x isn't
->(yet) supported by Panfrost.
