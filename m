@@ -2,48 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5231A78F8AD
-	for <lists+freedreno@lfdr.de>; Fri,  1 Sep 2023 08:45:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40A278FDE8
+	for <lists+freedreno@lfdr.de>; Fri,  1 Sep 2023 14:59:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95B5410E721;
-	Fri,  1 Sep 2023 06:45:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D04910E1B6;
+	Fri,  1 Sep 2023 12:59:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26E4010E71E;
- Fri,  1 Sep 2023 06:45:03 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E6941660728E;
- Fri,  1 Sep 2023 07:45:00 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693550701;
- bh=xNJ/JsssI9AvwYvwzTZkZ5foAHHEAsCmcEIqq3AhxhY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bTvk5hB3bcbHHptFnVoC2Sbc8fsX4l4fGhveQSe9keJt9UZ1zZAhUuxCoeD4NkJmM
- GEUQX7N7j9KSYsKhIfIbUxVZxgvDXPR7uKdTKeFoupCnnwSX8Gq2LwMyf/73wAqEx+
- JV+8g0cjpOPQ4dHTCEA8otwzhyFHhvGhJtVTCaZZ4gpgNmnj8UxDB3cPoJl7Jr9wUK
- PShRV20mt9N+upwTqBX9lrmdjAHaUCl+Zchoyx5n3bG5VnpEHGiZMJWlKobizQNCAm
- y3mEM1Urr0Uxq+GULrHcEOkE5g7T82gt6DZiaAaqiBa7zK/q9IpSIdAfoqHSYUA6Y2
- oXDHjoAW9jAyg==
-Date: Fri, 1 Sep 2023 08:44:57 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Message-ID: <20230901084457.5bc1ad69@collabora.com>
-In-Reply-To: <jev3jdwfkdoqbdhdgapfyb2fghpmw4lzhozi6m2ylfvsofwstv@4uj624i74i3e>
-References: <20230824013604.466224-1-adrian.larumbe@collabora.com>
- <20230824013604.466224-6-adrian.larumbe@collabora.com>
- <20230830125210.3d1172db@collabora.com>
- <jev3jdwfkdoqbdhdgapfyb2fghpmw4lzhozi6m2ylfvsofwstv@4uj624i74i3e>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2928010E1B6
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Sep 2023 12:59:36 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-401ceda85cdso19919135e9.1
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Sep 2023 05:59:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1693573174; x=1694177974; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=N1OixA/DzZJDLAfPgb6GOqk+Nq/ho6spafYJiFqeikk=;
+ b=ZVOu5Lj2+6FvCxFMSK4drxasli+wLILlSPXkXQc5O7LPdDn1JV20Howevvytganzux
+ 9H42O81dP5lxbL3jO+2+13tw3dEhDsUQjl9R7dZGlcXM2+wxZ4hPEfTsAuuZ1XEAidG2
+ p6v/FtG0ozdwbFQZgUiz+8BJcH90qvsixmSgS8ZhyhSEeZULYuezLPalsnrNd1/Xm6DA
+ 9XST13DslkI9rEhc+m7+wU+0n6f/Eg/dlN9Q7LH8IysAMFHscpY9VJjSYJik5qaLa2MV
+ rACP3NGvxq729lLH/Gmd612wQndcwK5p523eyLOq/gIZdd/EmevSFfD5PIffTRmUOD8r
+ zsVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693573174; x=1694177974;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=N1OixA/DzZJDLAfPgb6GOqk+Nq/ho6spafYJiFqeikk=;
+ b=XO+fsNYum4vc00DQrjnQ+SWT6vCr9AFp4clzBB7Jgc973TVa3uVsbGtEU2/MPcRr7J
+ WdYNkmHvoa59vpFmchvBFYAP4QPIEFPcPDKg9ZaVqvjfnID/taWnKk2TTxJTW/XrV8hJ
+ Y/xM0Ny3Y/DqzTCRymJEzWdQxZ6J4LeRyB0fUuLBlvnmZM3rrjMzhaYKzb12DD86xejZ
+ PtUEqth0NNozW9asJPU5R53TI5WpYNpYY4DNq1H6wVkoMM83WeUN+Dnhh9Jsj4CKMEap
+ HXAMSO5mFToacy28SVvZ4JfNJjfnUDig8k2L3G+a2BiY1D8pZYylVOPa1qbfssAAZMgs
+ wWkA==
+X-Gm-Message-State: AOJu0YxOXertJJzjxY1fYCFoJaSV+zwUEnLXoR8/Wg9FpnQshUZqY2c+
+ 2aDDm9TqxNXJ4NYjahEUbblovHHJA37DQaNp+d/EBXTE
+X-Google-Smtp-Source: AGHT+IHxSewTU6hFkzAFO0bORDvuyOVT12MExZQwyZ0kjOXLTHosgWXWqNFQgNbT4IUSp4J6SzGfhg==
+X-Received: by 2002:a5d:452c:0:b0:317:393f:8633 with SMTP id
+ j12-20020a5d452c000000b00317393f8633mr1802216wra.58.1693573174232; 
+ Fri, 01 Sep 2023 05:59:34 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:3703:9105:daa9:3af3?
+ ([2a01:e0a:982:cbb0:3703:9105:daa9:3af3])
+ by smtp.gmail.com with ESMTPSA id
+ c26-20020a05600c0ada00b00401c944b7adsm7892942wmr.26.2023.09.01.05.59.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Sep 2023 05:59:33 -0700 (PDT)
+Message-ID: <25fb0b08-15ef-4a73-a991-30bd4920514c@linaro.org>
+Date: Fri, 1 Sep 2023 14:59:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2 5/6] drm/panfrost: Implement generic DRM
- object RSS reporting function
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+References: <20230831225738.26527-1-quic_jesszhan@quicinc.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <20230831225738.26527-1-quic_jesszhan@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] MAINTAINERS: Add Jessica as a reviewer for
+ drm/panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,42 +103,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
- robdclark@gmail.com, healych@amazon.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Reply-To: neil.armstrong@linaro.org
+Cc: dmitry.baryshkov@linaro.org, sam@ravnborg.org,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 1 Sep 2023 01:03:23 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On 01/09/2023 00:57, Jessica Zhang wrote:
+> As I participate more actively in the drm/panel subsystem, I would
+> like to get notified about new changes in this area.
+> 
+> Since I have contributed and continue to contribute to drm/panel,
+> add myself as a reviewer for the DRM panel drivers to help the review
+> process
+> 
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   MAINTAINERS | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 60ecad7576ff..797c1823d420 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7096,6 +7096,7 @@ F:	include/drm/gpu_scheduler.h
+>   
+>   DRM PANEL DRIVERS
+>   M:	Neil Armstrong <neil.armstrong@linaro.org>
+> +R:	Jessica Zhang <quic_jesszhan@quicinc.com>
+>   R:	Sam Ravnborg <sam@ravnborg.org>
+>   L:	dri-devel@lists.freedesktop.org
+>   S:	Maintained
 
-> >> @@ -274,13 +286,23 @@ panfrost_gem_prime_import_sg_table(struct drm_de=
-vice *dev,
-> >>  {
-> >>  	struct drm_gem_object *obj;
-> >>  	struct panfrost_gem_object *bo;
-> >> +	struct scatterlist *sgl;
-> >> +	unsigned int count;
-> >> +	size_t total =3D 0;
-> >> =20
-> >>  	obj =3D drm_gem_shmem_prime_import_sg_table(dev, attach, sgt);
-> >>  	if (IS_ERR(obj))
-> >>  		return ERR_CAST(obj);
-> >> =20
-> >> +	for_each_sgtable_dma_sg(sgt, sgl, count) {
-> >> +		size_t len =3D sg_dma_len(sgl);
-> >> +
-> >> +		total +=3D len;
-> >> +	} =20
-> >
-> >Why not simply have bo->rss_size =3D obj->size here? Not sure I see a
-> >reason to not trust dma_buf? =20
->=20
-> Can PRIME-imported BO's ever be heap objects?
+You're welcome !
 
-Nope, heap BOs can't be exported, and if they can, that's probably a
-bug we need to fix.
+Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
