@@ -1,61 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1610790E10
-	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:02:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC07E790E44
+	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:41:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F51C10E20D;
-	Sun,  3 Sep 2023 21:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC0A510E21B;
+	Sun,  3 Sep 2023 21:41:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A31710E127
- for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:02:31 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-58dce1f42d6so23742667b3.0
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:02:30 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E42C10E002
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:41:53 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-500bbe3ef0eso992556e87.1
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:41:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693774950; x=1694379750; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wyrVivbOL8H2+2oy0DBeynxfE8rpivKsaojvi9l90MQ=;
- b=sYS08vOXtCEZzh9ct+27+u5tK0zTymhgvpFxl0XLQq79llmSQlna/4+DJEwnRMbbHA
- vlXk+1hZQEGSGDcQ+eTPiOFbNogH7x2Nsfbg+Ps5nYd3naWVHrk8rmcSzvUgwsAHnclk
- CCM6QkDxPLzBBe2jfU3SB4Utl8bwv5YWSKFZettnTTfLU6US09JWOdVci4QjjHQxvJj0
- 6oc1qZ4Tr/97aMurS6P9ycLzQxyb6WHTtCTpyCeiO1gpg6T5Wf4bUyDkfHfV+e2S2C61
- uDUvYITeg7POCrvnLhUTS1Z+tG+pzRMwiJMhwR0LdlIDcIzA79nzpPWYR3FupBI0mMJe
- v8gQ==
+ d=linaro.org; s=google; t=1693777311; x=1694382111; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=V8+6hRoyuo0w27wr7qjZ8oFHPY2yc7kx8FAgPsdCc/g=;
+ b=GGENpY+oo0Ai/+V+hw3qwbuTYKgYBR2/N4EIjBCYS5ubgAv6NmahR7OO1n7yIM9T7A
+ MPrHhByqA3OJuOdXgGtksjzGvnC9cAG/9QOIBD3zzmpx32EL058UyBsBGdXhSMCuwEq+
+ USQYUL7KsAr41teXi3d1MqLzasjh9OLQWdE8CCUbhghFZuYpPIDt+jqFtRcE4Thcpfeo
+ oXKJwMz2HvDBPR/A/LlpPnuVvYWthlIs9YIZqE0AuYWVGufCN8TCqQLzy/PLOdRpXXOp
+ VAGCRR1EKHb+Oqc3hGsWWD3ujvvL6M6AIB9/Nu8nBxjbGsqw27qyn+j542EIau7H+tDZ
+ yGcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693774950; x=1694379750;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1693777311; x=1694382111;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=wyrVivbOL8H2+2oy0DBeynxfE8rpivKsaojvi9l90MQ=;
- b=LedLD0c0YDw2cUaBP4k9eRhHjUMmAT/18uvQbYFf2b1qHmVdHNE8J0BNCLsHu73fbu
- L9IoKXRoqxOpL8gPWAjGihxCZphoPhaO+hqB0Pf7ARn/S6lmFg1Un6LEErV00DUD/RyD
- tCjZPJnP6IkE5xWKvi47U7Ag+zkjcCHhqR+YIJZpS+iFD+AIHjTERJc7N0Ovs5avCmj2
- 6sOo4qXi37JxHNnnNWJCillS1Te34WDXnGeI6jfRBF5mzoXyMPwYx+vytd2z0emlUpw7
- l2ZQmPZZ3gqodGjIROKxCLXErcclPHartCvaP8G68AN/USHGE2vKU0CBBftSV5d0hnhe
- Th0g==
-X-Gm-Message-State: AOJu0Yw5mGCl8G/MxLDiwABkMe/ssfsn6RQFIrOuQacDf+aeveFp0nhO
- e7qi7JHI5RTmzbb391W6Xykb1obu1bTsDPiVIOUPgg==
-X-Google-Smtp-Source: AGHT+IEIksLV6i1JQnXxmFBaEbAx0vYPQzKu+YxnPk5mSfeHKOjrFxxCLATBwQ5f3mGZqO72LEeDFc4Kwock6sj7f10=
-X-Received: by 2002:a25:d20e:0:b0:d74:6cb3:bb77 with SMTP id
- j14-20020a25d20e000000b00d746cb3bb77mr10416043ybg.28.1693774950042; Sun, 03
- Sep 2023 14:02:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230817145516.5924-1-dmitry.baryshkov@linaro.org>
- <20230822141735.GA14396@pendragon.ideasonboard.com>
-In-Reply-To: <20230822141735.GA14396@pendragon.ideasonboard.com>
+ bh=V8+6hRoyuo0w27wr7qjZ8oFHPY2yc7kx8FAgPsdCc/g=;
+ b=B6/PnXIOFt7LnH2xlNrrjFzCete/yusIIAGTrmYfyStIh6VHPEWkGyw9Js00dG4cAJ
+ Bplnqq7HhmnBhH7QGRjMePSA2ILIiwI6MX0Kedxd2aY/af1XJ/Akwz/MwaELRgTWUyMN
+ yju9a+tQMmtRBa81ylYPpuGa1AuynDaVI67Mn/FNgzt75p4W2Dhk02F7bj1IrlTHMHi4
+ P4iORi0T5+3AQz/u/UdhRAsk4zMrfMrRjJQj7a3NCWaLAW3nc4FMA1aIFi+nVnZUPYvC
+ SaZvidYmCPB8SD3tBCWCeAKBg/8++/Vdh2jyIPzT/B7+awBroceu7Zz2ymbdOxKz8PVW
+ N3Fg==
+X-Gm-Message-State: AOJu0YwigL0JASwVXlr/1GNi9nNEX4HIKG/fAskrZ0u6q7odC5/HC9wU
+ d7/S2MC0DGACnusejPYchWrziw==
+X-Google-Smtp-Source: AGHT+IGtFPj/i132V84gFgb+9UX2XVd1+6zrpeCc6Tu4V8tR6EXyMighkqxBy2CLmJBokzxnUP+RZQ==
+X-Received: by 2002:ac2:498d:0:b0:500:91f6:f129 with SMTP id
+ f13-20020ac2498d000000b0050091f6f129mr2178545lfl.26.1693777311128; 
+ Sun, 03 Sep 2023 14:41:51 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ x17-20020ac25dd1000000b004f8555f7aa1sm1422506lfq.52.2023.09.03.14.41.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Sep 2023 14:41:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 4 Sep 2023 00:02:18 +0300
-Message-ID: <CAA8EJpp_FYOKHziHOWF6E1RTkHEJ8oXXH90EDmJbLG1UDO1ofA@mail.gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 0/3] drm: simplify support for
- transparent DRM bridges
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Janne Grunau <j@jannau.net>, Simon Ser <contact@emersion.fr>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Mon,  4 Sep 2023 00:41:38 +0300
+Message-Id: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC PATCH v1 00/12] drm,
+ usb/typec: uABI for USB-C DisplayPort connectors
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,89 +85,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kishon Vijay Abraham I <kishon@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Robert Foss <rfoss@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <andrzej.hajda@intel.com>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 22 Aug 2023 at 17:17, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> Hi Dmitry,
->
-> Thank you for the patches.
->
-> On Thu, Aug 17, 2023 at 05:55:13PM +0300, Dmitry Baryshkov wrote:
-> > Supporting DP/USB-C can result in a chain of several transparent
-> > bridges (PHY, redrivers, mux, etc). This results in drivers having
-> > similar boilerplate code for such bridges.
->
-> What do you mean by transparent bridge here ? Bridges are a DRM concept,
-> and as far as I can tell, a PHY isn't a bridge. Why does it need to be
-> handled as one, especially if it's completely transparent ?
->
-> > Next, these drivers are susceptible to -EPROBE_DEFER loops: the next
-> > bridge can either be probed from the bridge->attach callback, when it is
-> > too late to return -EPROBE_DEFER, or from the probe() callback, when the
-> > next bridge might not yet be available, because it depends on the
-> > resources provided by the probing device.
->
-> Can't device links help avoiding defer probing in those cases ?
+During the discussion regarding DisplayPort wrapped in the USB-C
+connectors (via the USB-C altmode) it was pointed out that currently
+there is no good way to let userspace know if the DRM connector in
+question is the 'native' DP connector or if it is the USB-C connector.
 
-It looks like both Neil and I missed this question.
+An attempt to use DRM_MODE_CONNECTOR_USB for such connectors was
+declined, as existing DP drivers (i915, AMD) use
+DRM_MODE_CONNECTOR_DisplayPort. New drivers should behave in the same
+way.
 
-Two items wrt devlinks. First, I view them as a helper. So if one
-disables the devlinks enforcement, he'd still get a deferral loop.
+An attempt to use subconnector property was also declined. It is defined
+to the type of the DP dongle connector rather than the host connector.
 
-Second, in this case we can not enforce devlinks (or return
--EPROBE_DEFER from the probe() function) because the next bridge is
-not yet available when the main driver probes. Unfortunately bridges
-are allocated in the opposite order. So, using AUX devices helps us to
-break it. Because first typec mux/retimer/switch/etc devices probe (in
-the direction from the typec source to the typec port). Then DRM
-bridge devices are probed starting from the end of the chain
-(connector) to the DP source (root DP bridge/controller).
+This attempt targets reusing the connector's PATH property. Currently
+this property is only used for the DP MST connectors. This patchset
+reuses it to point out to the corresponding registered typec port
+device.
 
->
-> > Last, but not least, this results in the the internal knowledge of DRM
-> > subsystem slowly diffusing into other subsystems, like PHY or USB/TYPEC.
->
-> Why so ? The PHY subsystem should provide a PHY, without considering
-> what subsystem it will be used by. This patch series seems to me to
-> actually create this DRM dependency in other subsystems, which I don't
-> think is a very good idea. Resources should be registered in their own
-> subsystem with the appropriate API, not in a way that is tied to a
-> particular consumer.
->
-> > To solve all these issues, define a separate DRM helper, which creates
-> > separate aux device just for the bridge. During probe such aux device
-> > doesn't result in the EPROBE_DEFER loops. Instead it allows the device
-> > drivers to probe properly, according to the actual resource
-> > dependencies. The bridge auxdevs are then probed when the next bridge
-> > becomes available, sparing drivers from drm_bridge_attach() returning
-> > -EPROBE_DEFER.
->
-> I'm not thrilled :-( Let's discuss the questions above first.
+Dmitry Baryshkov (12):
+  Revert "drm/sysfs: Link DRM connectors to corresponding Type-C
+    connectors"
+  drm/sysfs: link DRM connector device to the connector's fw nodes
+  drm/connector: extend PATH property to covert Type-C case
+  drm/bridge-connector: set the PATH property for the connector
+  drm/bridge: remove conditionals around devicetree pointers
+  soc: qcom: pmic_glink_altmode: fix DRM connector type
+  soc: qcom: pmic_glink_altmode: report that this is a Type-C connector
+  usb: typec: support generating Type-C port names for userspace
+  usb: typec: tcpm: support generating Type-C port names for userspace
+  usb: typec: qcom: implement proper error path in probe()
+  usb: typec: qcom: extract DRM bridge functionality to separate file
+  usb: typec: qcom: define the bridge's path
 
-Laurent, please excuse me for the ping. Any further response from your side?
-I'd like to send the next iteration of this patchset.
-
-> > Proposed merge strategy: immutable branch with the drm commit, which is
-> > then merged into PHY and USB subsystems together with the corresponding
-> > patch.
-
+ drivers/gpu/drm/bridge/panel.c                |  2 -
+ drivers/gpu/drm/drm_bridge_connector.c        | 14 ++++-
+ drivers/gpu/drm/drm_connector.c               | 10 +++-
+ drivers/gpu/drm/drm_sysfs.c                   | 42 +-------------
+ drivers/soc/qcom/pmic_glink_altmode.c         |  3 +-
+ drivers/usb/typec/class.c                     | 14 +++++
+ drivers/usb/typec/tcpm/qcom/Makefile          |  4 ++
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c | 56 ++++++-------------
+ .../usb/typec/tcpm/qcom/qcom_pmic_typec_drm.c | 40 +++++++++++++
+ .../usb/typec/tcpm/qcom/qcom_pmic_typec_drm.h | 22 ++++++++
+ drivers/usb/typec/tcpm/tcpm.c                 | 14 +++++
+ include/drm/drm_bridge.h                      |  9 ++-
+ include/linux/usb/tcpm.h                      |  2 +
+ include/linux/usb/typec.h                     |  2 +
+ 14 files changed, 146 insertions(+), 88 deletions(-)
+ create mode 100644 drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_drm.c
+ create mode 100644 drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_drm.h
 
 -- 
-With best wishes
-Dmitry
+2.39.2
+
