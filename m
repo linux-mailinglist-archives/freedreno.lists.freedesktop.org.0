@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60D69790E6C
-	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:42:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D99C3790E53
+	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:42:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6110E24F;
-	Sun,  3 Sep 2023 21:42:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0AC410E21A;
+	Sun,  3 Sep 2023 21:42:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E14F10E218
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE2110E219
  for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:41:56 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4ff09632194so1457225e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:41:55 -0700 (PDT)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-500bb392ab7so1457647e87.1
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:41:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693777314; x=1694382114; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1693777315; x=1694382115; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rp5vM1gl9RU86RuI50kxi2LQD61SiuVQj5J5+OGEdj8=;
- b=AsLIfc9KlErEBs2iMPgpXR47uae5RVwfjG0IScPMHHU7OqG0wPh1Xk+f/66f6sHG/+
- e/L9R/l4wbr3dhD1XsIuleO6e8zd1iOJqBeGeA8BHaY/uM4np9HfX/ZlmVROAnEnPTXr
- puVnAzz7MBR5glR2jswhxaUhK/DHOqT9uDOEFF18y5ORQD+fKvN6UYSlLUOzFfJktf1R
- 5nyrUN0qwkzLwbg4lhPKRsFvlzbze7CwcbtRh2+cEveZDz/lqldM1Aeey5hsR4HxbRyv
- Y6fw4ANHMVk8i8VYZcO178fIOpocHEMssaPh+ssWhc0Yo/zhMpvQTCcfHqQzNNIE9SDS
- dUYw==
+ bh=xxzYLYfsMsF6kZIITXju1taC/sMkbxWNFfavaK+QQhU=;
+ b=b90yBlRd4yXafLAjQ91D1az30fDLrfUbmaDjs12oYAJxoxWTuniV3YjnvuAr5ZIJEl
+ BlBEEza2c2G2GfB4ZvoBRoXTaM2YmO1BBydWcAJZDyfR3LJK7pWQiGBNuhxhZDousQpL
+ eLS0cHgIr5PLNG9tdEck1cUiZurb0OXO34ltiFeqgq/F7Gb9ZaW2utTyePLZFCLJPl2i
+ /6C22Zl3EqP/5Yb5D9cQ8bz1MpppMtzA5DruQIpb5+42cykl4urAfbstOeekyg5VySZy
+ lAMqGa4fLdOLdnxItUYYqrVUGa+8qSVaIfrDxopOMbik0dlDGoh+3P81qV6Dk7qP3BUg
+ +k0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693777314; x=1694382114;
+ d=1e100.net; s=20221208; t=1693777315; x=1694382115;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rp5vM1gl9RU86RuI50kxi2LQD61SiuVQj5J5+OGEdj8=;
- b=gHegspK4svwLy8QildTJwYMfla2goYGFgOPFxSEcJKrov5bzYXaDgyMewYfCvc1ofA
- ohD9tY7+KwcdNOeYw9IdQ/YIfXhseEYVNrzlqIN9AhJAkOszBfq+tSN28TEMRVLK3u22
- 0F2LQPO2bRepfmB6DLfcyNnY11BwCOUP71Pfa8VnBspHvzkMQPuiYexbE1mxYg0vDhp3
- zhobPfM8GMijTRyreAycOgj7m9oOhE1dGh0UvD75yutOXP9X8aSR9nDS0GrOAyBO+N1F
- SxbKRu7Hmxxs8pyfAjmOhmsLKI7S3vOQ2ZeE1MR+Gh96D+GNXQN5tbXkw8Ba8qY8krne
- ksXA==
-X-Gm-Message-State: AOJu0YyIIC4L+02PRkCI7branJzBiiwmdFoq1hk7k+tegnRQEwir5Mg8
- CSPyu9s72iLn6Vs0P6TTxEw2aw==
-X-Google-Smtp-Source: AGHT+IGDQQbfVXjBOtsl8V14iEcrDkjhs9AHs4yCZXqJ/byBpZFqNkhX6ECkcKXY9MxCWwyt+uunZA==
-X-Received: by 2002:a05:6512:711:b0:4fe:5860:7abf with SMTP id
- b17-20020a056512071100b004fe58607abfmr4579227lfs.13.1693777314266; 
- Sun, 03 Sep 2023 14:41:54 -0700 (PDT)
+ bh=xxzYLYfsMsF6kZIITXju1taC/sMkbxWNFfavaK+QQhU=;
+ b=Fp8FPaJZtYTtAMYNbQy8v/oy+UZ8uAUei3AYuByaNAEKzVFUNRu3eEC/tcxmcBxGaV
+ jjwxRmZoey2f10JaPIAKTn5IwvgKQqMUHSErAGH+zNFJYWGsb4WgGSWv/tzeOqJuMyIp
+ 3e18oWGweNPg7RkPuE4qfqvI+Q92eS03xfSW/DwFsTc7nMGU9Yo6PBMg9LawuNBYlmoU
+ gpg8xE07rVu6ir7PvIwvamq+wQ1qZ5ryl1oKoZYVDF4DgCBDziTddxYDZ6gvOMK4R6uE
+ Sakui0Ii5W34yoRFnc2/YDtLkIuovb5lVmuEV1HOCynrqbcj8JNxy9DqL60WiQ0+Lrn5
+ idgg==
+X-Gm-Message-State: AOJu0YzhPWJYvfjUixOmxRcvlhc+L1lk+tn2o6PSAcXJ5KwDP2V3O/Sg
+ PrtI3S7cdZpXI9o+9EG11ypxtw==
+X-Google-Smtp-Source: AGHT+IHkhutnflS0UUIMoJstZXZDY/ceuTUjBBh2pmrIlmKpCCqxCMZjLAzGe9MmdoJHda/q0FEUHw==
+X-Received: by 2002:a19:4f4f:0:b0:500:a1e4:fc44 with SMTP id
+ a15-20020a194f4f000000b00500a1e4fc44mr4968258lfk.61.1693777315009; 
+ Sun, 03 Sep 2023 14:41:55 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- x17-20020ac25dd1000000b004f8555f7aa1sm1422506lfq.52.2023.09.03.14.41.53
+ x17-20020ac25dd1000000b004f8555f7aa1sm1422506lfq.52.2023.09.03.14.41.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 14:41:53 -0700 (PDT)
+ Sun, 03 Sep 2023 14:41:54 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -67,15 +67,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Mon,  4 Sep 2023 00:41:42 +0300
-Message-Id: <20230903214150.2877023-5-dmitry.baryshkov@linaro.org>
+Date: Mon,  4 Sep 2023 00:41:43 +0300
+Message-Id: <20230903214150.2877023-6-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
 References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v1 04/12] drm/bridge-connector: set the PATH
- property for the connector
+Subject: [Freedreno] [RFC PATCH v1 05/12] drm/bridge: remove conditionals
+ around devicetree pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,71 +94,64 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In order to properly identify connectors (in particular, DisplayPort
-connectors wrapped into USB-C) allow bridge drivers to specify the value
-to be used for connector's PATH property.
+Remove ifdef CONFIG_OF around the drm_bridge::of_node field. This follow
+the correponding change to struct device we had since 2.6.39. Having
+conditional around the of_node pointers turns out to make driver code
+use ugly #ifdef blocks. Drop the conditionals and remove the #ifdef
+blocks from the affected drivers.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_bridge_connector.c | 12 ++++++++++++
- include/drm/drm_bridge.h               |  7 +++++++
- 2 files changed, 19 insertions(+)
+ drivers/gpu/drm/bridge/panel.c         | 2 --
+ drivers/gpu/drm/drm_bridge_connector.c | 2 --
+ include/drm/drm_bridge.h               | 2 --
+ 3 files changed, 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+index 9316384b4474..7f41525f7a6e 100644
+--- a/drivers/gpu/drm/bridge/panel.c
++++ b/drivers/gpu/drm/bridge/panel.c
+@@ -302,9 +302,7 @@ struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
+ 	panel_bridge->panel = panel;
+ 
+ 	panel_bridge->bridge.funcs = &panel_bridge_bridge_funcs;
+-#ifdef CONFIG_OF
+ 	panel_bridge->bridge.of_node = panel->dev->of_node;
+-#endif
+ 	panel_bridge->bridge.ops = DRM_BRIDGE_OP_MODES;
+ 	panel_bridge->bridge.type = connector_type;
+ 
 diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
-index bf73960c2c2a..008d730e1c2f 100644
+index 008d730e1c2f..ca255609fb08 100644
 --- a/drivers/gpu/drm/drm_bridge_connector.c
 +++ b/drivers/gpu/drm/drm_bridge_connector.c
-@@ -331,6 +331,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	struct drm_connector *connector;
- 	struct i2c_adapter *ddc = NULL;
- 	struct drm_bridge *bridge, *panel_bridge = NULL;
-+	const char *path = NULL;
- 	int connector_type;
- 	int ret;
+@@ -372,11 +372,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 		if (!drm_bridge_get_next_bridge(bridge))
+ 			connector_type = bridge->type;
  
-@@ -377,6 +378,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+-#ifdef CONFIG_OF
+ 		if (!drm_bridge_get_next_bridge(bridge) &&
+ 		    bridge->of_node)
  			connector->fwnode = fwnode_handle_get(of_fwnode_handle(bridge->of_node));
- #endif
+-#endif
  
-+		if (bridge->path)
-+			path = bridge->path;
-+
- 		if (bridge->ddc)
- 			ddc = bridge->ddc;
- 
-@@ -405,6 +409,14 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		connector->polled = DRM_CONNECTOR_POLL_CONNECT
- 				  | DRM_CONNECTOR_POLL_DISCONNECT;
- 
-+	if (path) {
-+		drm_object_attach_property(&connector->base,
-+					   drm->mode_config.path_property,
-+					   0);
-+
-+		drm_connector_set_path_property(connector, path);
-+	}
-+
- 	if (panel_bridge)
- 		drm_panel_bridge_set_orientation(connector, panel_bridge);
- 
+ 		if (bridge->path)
+ 			path = bridge->path;
 diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index c339fc85fd07..98e9d76474f4 100644
+index 98e9d76474f4..afa1de791075 100644
 --- a/include/drm/drm_bridge.h
 +++ b/include/drm/drm_bridge.h
-@@ -753,6 +753,13 @@ struct drm_bridge {
- 	 * before the peripheral.
- 	 */
- 	bool pre_enable_prev_first;
-+	/**
-+	 * @path: the 'path' of the bridge. For bridges at the end of this
-+	 * chain this is used to set the 'PATH' property of the connector.
-+	 * This string is not freed manually, so one either should use a static
-+	 * string here or a devres-allocated one.
-+	 */
-+	const char *path;
+@@ -716,10 +716,8 @@ struct drm_bridge {
+ 	struct drm_encoder *encoder;
+ 	/** @chain_node: used to form a bridge chain */
+ 	struct list_head chain_node;
+-#ifdef CONFIG_OF
+ 	/** @of_node: device node pointer to the bridge */
+ 	struct device_node *of_node;
+-#endif
+ 	/** @list: to keep track of all added bridges */
+ 	struct list_head list;
  	/**
- 	 * @ddc: Associated I2C adapter for DDC access, if any.
- 	 */
 -- 
 2.39.2
 
