@@ -1,72 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94067790D51
-	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 19:34:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BDCD790D75
+	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 20:46:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF51710E17B;
-	Sun,  3 Sep 2023 17:34:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9FAF10E06B;
+	Sun,  3 Sep 2023 18:46:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98A4210E17B
- for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 17:34:51 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-99357737980so112406666b.2
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 10:34:51 -0700 (PDT)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56F2510E008;
+ Sun,  3 Sep 2023 18:46:20 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id
+ ca18e2360f4ac-792623074edso32724039f.1; 
+ Sun, 03 Sep 2023 11:46:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693762490; x=1694367290; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cFnqV560lAZ6YF/3E3DhwgPICGzqwbi6MBKG22yTZ8I=;
- b=R/P2p4+JgOPYpoUfJNb2idt7bjgbBE5627T1IEcnHRX1fsoTa32xQfmG6I0QLGUk+C
- lwUBhjQuOjuxOIt/Aujtvxnuf45NLqh2KC9LkMAd+IGSCsxCo4Hq39bkb/+o6vDHtHvZ
- DhS/4oZny83q40o2p2FuV2HFyZkSchZICMtRfG4mtq0J+OMG7/MiO7vV64+CVxImGRZE
- AvRKioLbINDbOGmrpjDzXz+uQiqI69bFoDWJxSMk5l1RTX4i3LgjWPiki5+JUtIpQDUO
- XH8c8jxxDGqyKn8f0jb5WyIVtqO0zIXp441IdDDE6dUBvcv9SiPq4d9VIO8OyVkG2Yoh
- HEDg==
+ d=gmail.com; s=20221208; t=1693766779; x=1694371579; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VQ/W1vAuvct0eQaNfV42dDs6Is2Bz/K+5cHGfVn4Nlg=;
+ b=MNEL8PWtVnTFfXGWQnjgJ8oYdsYcbHT3eg6KZg/PG6PM/uNg3Z/D8s5yvxKvCtpeVp
+ kIUa2J0191+tPntP/bXNg31kfYU8ynX0Q0r21h9EHEAi46PVs8yY4oyxK6XRKaeVK8kT
+ RU8XXmyyUXAh9XfKqzN9MhVURXma68yjKr3vKAEGHmq7LC+dunUeST3RDAdOtOnXQHXC
+ C6o0JDsW9NekeKrJMDKrP+Ko2YFXy33wZlg5KJ47wckgTu6gIyy4/ysRTnxbBDKQaSEt
+ sE6BIoGrPu4c1hF9ee3AGG5JI8FsYqOqOkKROzO59+3509R1ReFbWlsxjfrOccWZ6cA4
+ XhtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693762490; x=1694367290;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cFnqV560lAZ6YF/3E3DhwgPICGzqwbi6MBKG22yTZ8I=;
- b=AhdMmM3rrT6CYRCHm+ziWVip5co73VvKXh/Yt4zPDCdSxtlOCD1+K8f71HVuHE2z0M
- q7budqLhKElPvlVMbM25rOH4FT+dfUZIr2VMBO4bo45FYtQYA0Z6P0qlEi2FpD2l8qXB
- eb1tgyCaC7qhQ5XpTtWmxcmCQdpn4+Z5s8wK9kV8EnN+4jM4GIGEDZsNFUq3YxKNN8Gk
- b1WspkqcuVDSPyafjNymwQ/27E/+Sg35CpH9omeVRAxg5I9mUHnc5GJtBigy0oy+8FGo
- 6Ak0F0ssejFIJWtKmJmBCUqehOnq64PFJP0lNo9OO6I/D/GK9BgfJJfupUHp421fgLsp
- Sbgg==
-X-Gm-Message-State: AOJu0YzWqtk/N2FqaZ9Ca2tLBr29Xnh5Ernsj1/l9LvmS+QfnftdFu4t
- hqha+FO3cVXiNdkMOZhUt5iBBA==
-X-Google-Smtp-Source: AGHT+IEe6KGCoDHH6YmYaRNcmoMmo0Ktbkc6BF0JUnIO99xIaVatxGpDQLavUlCRkTk6k8m2js43ww==
-X-Received: by 2002:a17:906:f252:b0:9a1:eb67:c0ce with SMTP id
- gy18-20020a170906f25200b009a1eb67c0cemr6189371ejb.50.1693762490088; 
- Sun, 03 Sep 2023 10:34:50 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- l13-20020a170906078d00b009a5f1d15642sm4955313ejc.158.2023.09.03.10.34.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 03 Sep 2023 10:34:49 -0700 (PDT)
-Message-ID: <0fef71be-91c7-41ed-bb2c-965b8aa4e8e3@linaro.org>
-Date: Sun, 3 Sep 2023 20:34:48 +0300
+ d=1e100.net; s=20221208; t=1693766779; x=1694371579;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VQ/W1vAuvct0eQaNfV42dDs6Is2Bz/K+5cHGfVn4Nlg=;
+ b=UcJ8feBDIBxbZsbwb8N1rWXkKV/sWVBymOSAXQggo3h/m13qW1jDpJBtJlTSJsyPOD
+ UPS9cLHkI8pusk1OHqvM525a7ctBRvtGhijGd7/eC70i/6/Jkswi9tIBv4Bxo53f1R+C
+ NPodn1+ztIFqbk01Brhsmp0o9+CM4JXnJNXdTe7yORn6ItmZBackov06uL/exDIWXB8s
+ vRvAk0J0ltCO6f54LM1tcOZLKi77RODrgGfs8sodAo1BhK3ROdnoy2ExW6U4vvdRVYzG
+ UZ/NHzssqJWj4qcedhX6pS+A+q1OwQgvITdJuyDB27XzVESngxt7K3Gbj0TyufZRanWs
+ j1Pw==
+X-Gm-Message-State: AOJu0YybP5G9P/m501qzML4kbdKD3NFh3MimyWznggXPbriBj3WSSoCD
+ 36VWrZGeBx1u+/yJUgx8734=
+X-Google-Smtp-Source: AGHT+IG0oYogHO+wAh1Qc2b0RpBbRi8d3sGxNY89NwIzDxZvPXy3apKKIsYkF1LHmvM+09NoaEvKYw==
+X-Received: by 2002:a05:6e02:184e:b0:34d:ecbb:9cc4 with SMTP id
+ b14-20020a056e02184e00b0034decbb9cc4mr10979635ilv.3.1693766779453; 
+ Sun, 03 Sep 2023 11:46:19 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Sep 2023 11:46:19 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Date: Sun,  3 Sep 2023 12:46:01 -0600
+Message-ID: <20230903184607.272198-5-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230903184607.272198-1-jim.cromie@gmail.com>
+References: <20230903184607.272198-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230822-add-widebus-support-v4-0-9dc86083d6ea@quicinc.com>
- <20230822-add-widebus-support-v4-4-9dc86083d6ea@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230822-add-widebus-support-v4-4-9dc86083d6ea@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 4/4] drm/msm/dsi: Enable widebus for DSI
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 4/6] drm_dbg: add trailing newlines to msgs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +75,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, jani.nikula@intel.com,
+ daniel.vetter@ffwll.ch, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/08/2023 20:42, Jessica Zhang wrote:
-> DSI 6G v2.5.x+ supports a data-bus widen mode that allows DSI to send
-> 48 bits of compressed data instead of 24.
-> 
-> Enable this mode whenever DSC is enabled for supported chipsets.
-> 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi.c      |  2 +-
->   drivers/gpu/drm/msm/dsi/dsi.h      |  1 +
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 31 +++++++++++++++++++++++++++----
->   3 files changed, 29 insertions(+), 5 deletions(-)
+By at least strong convention, a print-buffer's trailing newline says
+"message complete, send it".  The exception (no TNL, followed by a call
+to pr_cont) proves the general rule.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Most DRM.debug calls already comport with this: 207 DRM_DEV_DEBUG,
+1288 drm_dbg.  Clean up the remainders, in maintainer sized chunks.
 
+No functional changes.
 
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/msm/msm_fb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+index e3f61c39df69..80166f702a0d 100644
+--- a/drivers/gpu/drm/msm/msm_fb.c
++++ b/drivers/gpu/drm/msm/msm_fb.c
+@@ -89,7 +89,7 @@ int msm_framebuffer_prepare(struct drm_framebuffer *fb,
+ 
+ 	for (i = 0; i < n; i++) {
+ 		ret = msm_gem_get_and_pin_iova(fb->obj[i], aspace, &msm_fb->iova[i]);
+-		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)",
++		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n",
+ 			      fb->base.id, i, msm_fb->iova[i], ret);
+ 		if (ret)
+ 			return ret;
+@@ -176,7 +176,7 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 	const struct msm_format *format;
+ 	int ret, i, n;
+ 
+-	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)",
++	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)\n",
+ 			mode_cmd, mode_cmd->width, mode_cmd->height,
+ 			(char *)&mode_cmd->pixel_format);
+ 
+@@ -232,7 +232,7 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 
+ 	refcount_set(&msm_fb->dirtyfb, 1);
+ 
+-	drm_dbg_state(dev, "create: FB ID: %d (%p)", fb->base.id, fb);
++	drm_dbg_state(dev, "create: FB ID: %d (%p)\n", fb->base.id, fb);
+ 
+ 	return fb;
+ 
 -- 
-With best wishes
-Dmitry
+2.41.0
 
