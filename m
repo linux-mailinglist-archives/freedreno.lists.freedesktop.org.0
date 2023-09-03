@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1EFF790E4E
-	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:42:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60D69790E6C
+	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:42:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9A0910E222;
-	Sun,  3 Sep 2023 21:41:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6110E24F;
+	Sun,  3 Sep 2023 21:42:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3AF10E218
- for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:41:55 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-5007abb15e9so1436441e87.0
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E14F10E218
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:41:56 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4ff09632194so1457225e87.2
  for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:41:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693777313; x=1694382113; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1693777314; x=1694382114; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=f4CGlwIh3CaiNYfDE8T4/N3NKVw9L1KuLHleXxMGA8k=;
- b=KNA+iMyUQFJUdz/HiCbUktzZqZCX9ilawVn7nJ9pdABcuhwtHH5a9L7GC2Tsqqx026
- 9bidKpanLs41y+2KRIqYubg1VHaQZAOaRuvpD8c4S2j+ZguquVtEIraWsqpyN9gv34Lb
- KqhEA7hQ9IAwfEpwMsPIZncyJoMbLYHw5YeJJf6pvKzTUhAIqoN9Vf4Dave/y91g0tU2
- A1YNg9pPGTEMHw6GlW0eR2/kSPA8FzYBCS2OEhS7U+QXIbnAdwWaY6nC71zDSKLnEMsw
- YtdV/YG+fj1Mrd9RRQ59I5/9TK98nD6Sdwx53wmkmjo4rF6k7TzRrQpJu11+0RcmSsB7
- Pcxg==
+ bh=rp5vM1gl9RU86RuI50kxi2LQD61SiuVQj5J5+OGEdj8=;
+ b=AsLIfc9KlErEBs2iMPgpXR47uae5RVwfjG0IScPMHHU7OqG0wPh1Xk+f/66f6sHG/+
+ e/L9R/l4wbr3dhD1XsIuleO6e8zd1iOJqBeGeA8BHaY/uM4np9HfX/ZlmVROAnEnPTXr
+ puVnAzz7MBR5glR2jswhxaUhK/DHOqT9uDOEFF18y5ORQD+fKvN6UYSlLUOzFfJktf1R
+ 5nyrUN0qwkzLwbg4lhPKRsFvlzbze7CwcbtRh2+cEveZDz/lqldM1Aeey5hsR4HxbRyv
+ Y6fw4ANHMVk8i8VYZcO178fIOpocHEMssaPh+ssWhc0Yo/zhMpvQTCcfHqQzNNIE9SDS
+ dUYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693777313; x=1694382113;
+ d=1e100.net; s=20221208; t=1693777314; x=1694382114;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=f4CGlwIh3CaiNYfDE8T4/N3NKVw9L1KuLHleXxMGA8k=;
- b=YJYzjkxq8wJYG8sazzdZpl/fyjpIL4BE0i38L2qsZg/HtPI5fVF1w10//Mh/kZYSIP
- XneFpv9SqbkCCau8Z/o7MDsCJdCzyiumOnTnXT/NFI3V5dLhOX++0w+oas4vku1hxdgd
- 2GXxGf/qcMTCs0C0r0WWZQUsyGpPaQgDj9DcQyOT12bQoEUzn0uSvODuuvh8lY34ZIcc
- pE9zem2k/HV3vhVi6cQ9//9gWjd0oD2vcisiZjqujdnTsfpIULBAliDC2nUxAKPyIN5+
- giO78PAn/QPu7kVKjLwlnt4AzzAc0N3L+zbMpR2M++xekOp/8wAv30xbp8e5Pxl7dit2
- UMuw==
-X-Gm-Message-State: AOJu0YwjU8H3NKbpxteXXailW8cM7KYAvMvGLzqWjz+Zy1CqB1yO+IB+
- UEoxzKto7N5WB4yg/SL5zlzNAw==
-X-Google-Smtp-Source: AGHT+IHZcZHwPmZz/G9GJYrJdaFt/yh7kFkMispc1XECmMNIp6Mo7eyJQIJfgGNG8gZdXS8BoslEpA==
-X-Received: by 2002:a05:6512:3444:b0:4fb:911b:4e19 with SMTP id
- j4-20020a056512344400b004fb911b4e19mr3890157lfr.35.1693777313473; 
- Sun, 03 Sep 2023 14:41:53 -0700 (PDT)
+ bh=rp5vM1gl9RU86RuI50kxi2LQD61SiuVQj5J5+OGEdj8=;
+ b=gHegspK4svwLy8QildTJwYMfla2goYGFgOPFxSEcJKrov5bzYXaDgyMewYfCvc1ofA
+ ohD9tY7+KwcdNOeYw9IdQ/YIfXhseEYVNrzlqIN9AhJAkOszBfq+tSN28TEMRVLK3u22
+ 0F2LQPO2bRepfmB6DLfcyNnY11BwCOUP71Pfa8VnBspHvzkMQPuiYexbE1mxYg0vDhp3
+ zhobPfM8GMijTRyreAycOgj7m9oOhE1dGh0UvD75yutOXP9X8aSR9nDS0GrOAyBO+N1F
+ SxbKRu7Hmxxs8pyfAjmOhmsLKI7S3vOQ2ZeE1MR+Gh96D+GNXQN5tbXkw8Ba8qY8krne
+ ksXA==
+X-Gm-Message-State: AOJu0YyIIC4L+02PRkCI7branJzBiiwmdFoq1hk7k+tegnRQEwir5Mg8
+ CSPyu9s72iLn6Vs0P6TTxEw2aw==
+X-Google-Smtp-Source: AGHT+IGDQQbfVXjBOtsl8V14iEcrDkjhs9AHs4yCZXqJ/byBpZFqNkhX6ECkcKXY9MxCWwyt+uunZA==
+X-Received: by 2002:a05:6512:711:b0:4fe:5860:7abf with SMTP id
+ b17-20020a056512071100b004fe58607abfmr4579227lfs.13.1693777314266; 
+ Sun, 03 Sep 2023 14:41:54 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- x17-20020ac25dd1000000b004f8555f7aa1sm1422506lfq.52.2023.09.03.14.41.52
+ x17-20020ac25dd1000000b004f8555f7aa1sm1422506lfq.52.2023.09.03.14.41.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sun, 03 Sep 2023 14:41:53 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -67,15 +67,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Mon,  4 Sep 2023 00:41:41 +0300
-Message-Id: <20230903214150.2877023-4-dmitry.baryshkov@linaro.org>
+Date: Mon,  4 Sep 2023 00:41:42 +0300
+Message-Id: <20230903214150.2877023-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
 References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v1 03/12] drm/connector: extend PATH
- property to covert Type-C case
+Subject: [Freedreno] [RFC PATCH v1 04/12] drm/bridge-connector: set the PATH
+ property for the connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,48 +94,71 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Userspace needs to identify whether the DisplayPort connector is a
-native one or it is wrapped into the USB-C port. Moreover the userspace
-might need to point user to the exact location of this Type-C port on
-the laptop case.
-
-Existing USB-C altmode implementations (i915, amdgpu) have used the
-DRM_MODE_CONNECTOR_DisplayPort even for such ports. To keep backwards
-compatibility we can not change this to DRM_MODE_CONNECTOR_USB.
-Therefore the kernel needs some other way to represent this information.
-
-To facilitate this, reuse the 'PATH' property, which was used to
-describe the DP port in the DP MST configuration. Use either
-'typec:portN' to point out to the Type-C port class device, or just
-'typec:' if the corresponding port can not be identified.
+In order to properly identify connectors (in particular, DisplayPort
+connectors wrapped into USB-C) allow bridge drivers to specify the value
+to be used for connector's PATH property.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_connector.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_bridge_connector.c | 12 ++++++++++++
+ include/drm/drm_bridge.h               |  7 +++++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 05fc29a54801..a326782e936e 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1185,10 +1185,14 @@ static const u32 dp_colorspaces =
-  * 	never read back the value of "DPMS" because it can be incorrect.
-  * PATH:
-  * 	Connector path property to identify how this sink is physically
-- * 	connected. Used by DP MST. This should be set by calling
-- * 	drm_connector_set_path_property(), in the case of DP MST with the
-- * 	path property the MST manager created. Userspace cannot change this
-+ * 	connected. This should be set by calling
-+ * 	drm_connector_set_path_property(). Userspace cannot change this
-  * 	property.
-+ * 	In the case of DP MST this is equal to the path property the MST
-+ * 	manager created. It is equal to 'mst:baseID-port-port...'.
-+ * 	In the case of DP USB-C connector this is equal to the 'typec:portN',
-+ * 	pointing to the corresponding Type-C port device or just 'typec' if the
-+ * 	corresponding Type-C port can not be identified.
-  * TILE:
-  * 	Connector tile group property to indicate how a set of DRM connector
-  * 	compose together into one logical screen. This is used by both high-res
+diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
+index bf73960c2c2a..008d730e1c2f 100644
+--- a/drivers/gpu/drm/drm_bridge_connector.c
++++ b/drivers/gpu/drm/drm_bridge_connector.c
+@@ -331,6 +331,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	struct drm_connector *connector;
+ 	struct i2c_adapter *ddc = NULL;
+ 	struct drm_bridge *bridge, *panel_bridge = NULL;
++	const char *path = NULL;
+ 	int connector_type;
+ 	int ret;
+ 
+@@ -377,6 +378,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			connector->fwnode = fwnode_handle_get(of_fwnode_handle(bridge->of_node));
+ #endif
+ 
++		if (bridge->path)
++			path = bridge->path;
++
+ 		if (bridge->ddc)
+ 			ddc = bridge->ddc;
+ 
+@@ -405,6 +409,14 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 		connector->polled = DRM_CONNECTOR_POLL_CONNECT
+ 				  | DRM_CONNECTOR_POLL_DISCONNECT;
+ 
++	if (path) {
++		drm_object_attach_property(&connector->base,
++					   drm->mode_config.path_property,
++					   0);
++
++		drm_connector_set_path_property(connector, path);
++	}
++
+ 	if (panel_bridge)
+ 		drm_panel_bridge_set_orientation(connector, panel_bridge);
+ 
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index c339fc85fd07..98e9d76474f4 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -753,6 +753,13 @@ struct drm_bridge {
+ 	 * before the peripheral.
+ 	 */
+ 	bool pre_enable_prev_first;
++	/**
++	 * @path: the 'path' of the bridge. For bridges at the end of this
++	 * chain this is used to set the 'PATH' property of the connector.
++	 * This string is not freed manually, so one either should use a static
++	 * string here or a devres-allocated one.
++	 */
++	const char *path;
+ 	/**
+ 	 * @ddc: Associated I2C adapter for DDC access, if any.
+ 	 */
 -- 
 2.39.2
 
