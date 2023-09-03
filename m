@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C6A3790E65
-	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:42:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1EFF790E4E
+	for <lists+freedreno@lfdr.de>; Sun,  3 Sep 2023 23:42:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A6F10E245;
-	Sun,  3 Sep 2023 21:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9A0910E222;
+	Sun,  3 Sep 2023 21:41:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D3410E217
- for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:41:54 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4ff09632194so1457203e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:41:54 -0700 (PDT)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3AF10E218
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 21:41:55 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5007abb15e9so1436441e87.0
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 14:41:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1693777313; x=1694382113; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ma99b4LHGq53HSGcZQ6vjRnRZEGnePGsfNP3DlvaRh0=;
- b=f1NyVWOtreRaKAcKFlQgUdauoznmfWFtMDHk34+u038++CcF6kyfyyd7+g55J6nKlm
- G0cH8OBVQGaTjjNb+Up2w4H34JiySAQwDOtRbLeEbi2IUde0DNxqlu5B+mOAb26al44S
- wrnOyTuQdgJKzlr4BJbx0jNkiW5D0prWBlwy3APOEsLeg5w0SQbkRv17GBwihETN/PxZ
- 6+JLy/B5RTFQurg/mlvzHd+PaY6BOGcfHgHJNOab/O+Ldf5VdW3Ddy7vZVIIlPEal9Kw
- CbHVAbiTggjd5uVyk/qFc6te/HPGdNRn6fliFpjQSF9EeQIDqMBpFEb5JTlV2r04BAX6
- rHIg==
+ bh=f4CGlwIh3CaiNYfDE8T4/N3NKVw9L1KuLHleXxMGA8k=;
+ b=KNA+iMyUQFJUdz/HiCbUktzZqZCX9ilawVn7nJ9pdABcuhwtHH5a9L7GC2Tsqqx026
+ 9bidKpanLs41y+2KRIqYubg1VHaQZAOaRuvpD8c4S2j+ZguquVtEIraWsqpyN9gv34Lb
+ KqhEA7hQ9IAwfEpwMsPIZncyJoMbLYHw5YeJJf6pvKzTUhAIqoN9Vf4Dave/y91g0tU2
+ A1YNg9pPGTEMHw6GlW0eR2/kSPA8FzYBCS2OEhS7U+QXIbnAdwWaY6nC71zDSKLnEMsw
+ YtdV/YG+fj1Mrd9RRQ59I5/9TK98nD6Sdwx53wmkmjo4rF6k7TzRrQpJu11+0RcmSsB7
+ Pcxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1693777313; x=1694382113;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ma99b4LHGq53HSGcZQ6vjRnRZEGnePGsfNP3DlvaRh0=;
- b=ahtMqaxLQ4hqVY+XUEQuLOVecdGWgkFySdLwCaJR2e1iGbUrKxBU5w9JPkfTNlJvve
- iZsag9iHJRDaJ1YkjvWH4ZJax8y6OzIfzaIgFWkqUKkYoZKKnFwnsUdxChS4IvcfTrJU
- udeCqLVCbuUgqOiayR2hnKc4N1i/221dBrnHRdfhMYDRVHd7XdMvIxdDXpcZtPrUnins
- kR0SGJnyazNZg2hxxPmL1BjX+5Tn5flb3xJT9Mn6+DLaQPiVtg0hO0pHNLOxn+IDkLDt
- RJDUW5qy2aRTpDsr9+qqGkGHkDThK4ZcDV2JCFMHW3NNB5V36GdS2/MlvRGfUOg3l5Ih
- QT3A==
-X-Gm-Message-State: AOJu0Yx/+wx89URRLC+AfCNqWxFhfUxV9Cp5gUHoCaN9V/2eP2w4/f5/
- YUihT5xnKxB405b+4ocXVuFi+w==
-X-Google-Smtp-Source: AGHT+IHJVW1SRXqtDqVwoMB9XSCNYSPZYNLw0l5nqazh953B3y2RWKaTYGlv3/IkcL42Y/AtV9dO0g==
-X-Received: by 2002:a05:6512:44c:b0:4fd:d517:fbcd with SMTP id
- y12-20020a056512044c00b004fdd517fbcdmr4553861lfk.6.1693777312712; 
- Sun, 03 Sep 2023 14:41:52 -0700 (PDT)
+ bh=f4CGlwIh3CaiNYfDE8T4/N3NKVw9L1KuLHleXxMGA8k=;
+ b=YJYzjkxq8wJYG8sazzdZpl/fyjpIL4BE0i38L2qsZg/HtPI5fVF1w10//Mh/kZYSIP
+ XneFpv9SqbkCCau8Z/o7MDsCJdCzyiumOnTnXT/NFI3V5dLhOX++0w+oas4vku1hxdgd
+ 2GXxGf/qcMTCs0C0r0WWZQUsyGpPaQgDj9DcQyOT12bQoEUzn0uSvODuuvh8lY34ZIcc
+ pE9zem2k/HV3vhVi6cQ9//9gWjd0oD2vcisiZjqujdnTsfpIULBAliDC2nUxAKPyIN5+
+ giO78PAn/QPu7kVKjLwlnt4AzzAc0N3L+zbMpR2M++xekOp/8wAv30xbp8e5Pxl7dit2
+ UMuw==
+X-Gm-Message-State: AOJu0YwjU8H3NKbpxteXXailW8cM7KYAvMvGLzqWjz+Zy1CqB1yO+IB+
+ UEoxzKto7N5WB4yg/SL5zlzNAw==
+X-Google-Smtp-Source: AGHT+IHZcZHwPmZz/G9GJYrJdaFt/yh7kFkMispc1XECmMNIp6Mo7eyJQIJfgGNG8gZdXS8BoslEpA==
+X-Received: by 2002:a05:6512:3444:b0:4fb:911b:4e19 with SMTP id
+ j4-20020a056512344400b004fb911b4e19mr3890157lfr.35.1693777313473; 
+ Sun, 03 Sep 2023 14:41:53 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  x17-20020ac25dd1000000b004f8555f7aa1sm1422506lfq.52.2023.09.03.14.41.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 14:41:52 -0700 (PDT)
+ Sun, 03 Sep 2023 14:41:53 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -67,15 +67,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Mon,  4 Sep 2023 00:41:40 +0300
-Message-Id: <20230903214150.2877023-3-dmitry.baryshkov@linaro.org>
+Date: Mon,  4 Sep 2023 00:41:41 +0300
+Message-Id: <20230903214150.2877023-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
 References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v1 02/12] drm/sysfs: link DRM connector
- device to the connector's fw nodes
+Subject: [Freedreno] [RFC PATCH v1 03/12] drm/connector: extend PATH
+ property to covert Type-C case
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,27 +94,48 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Setup the of_node and fwnode fields for the DRM connector device,
-making respective links to appear in /sys.
+Userspace needs to identify whether the DisplayPort connector is a
+native one or it is wrapped into the USB-C port. Moreover the userspace
+might need to point user to the exact location of this Type-C port on
+the laptop case.
+
+Existing USB-C altmode implementations (i915, amdgpu) have used the
+DRM_MODE_CONNECTOR_DisplayPort even for such ports. To keep backwards
+compatibility we can not change this to DRM_MODE_CONNECTOR_USB.
+Therefore the kernel needs some other way to represent this information.
+
+To facilitate this, reuse the 'PATH' property, which was used to
+describe the DP port in the DP MST configuration. Use either
+'typec:portN' to point out to the Type-C port class device, or just
+'typec:' if the corresponding port can not be identified.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_sysfs.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_connector.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index 06662cc8d3f4..cb926d95ef0e 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -345,6 +345,8 @@ int drm_sysfs_connector_add(struct drm_connector *connector)
- 	kdev->class = drm_class;
- 	kdev->type = &drm_sysfs_device_connector;
- 	kdev->parent = dev->primary->kdev;
-+	kdev->of_node = to_of_node(connector->fwnode);
-+	kdev->fwnode = connector->fwnode;
- 	kdev->groups = connector_dev_groups;
- 	kdev->release = drm_sysfs_release;
- 	dev_set_drvdata(kdev, connector);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 05fc29a54801..a326782e936e 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1185,10 +1185,14 @@ static const u32 dp_colorspaces =
+  * 	never read back the value of "DPMS" because it can be incorrect.
+  * PATH:
+  * 	Connector path property to identify how this sink is physically
+- * 	connected. Used by DP MST. This should be set by calling
+- * 	drm_connector_set_path_property(), in the case of DP MST with the
+- * 	path property the MST manager created. Userspace cannot change this
++ * 	connected. This should be set by calling
++ * 	drm_connector_set_path_property(). Userspace cannot change this
+  * 	property.
++ * 	In the case of DP MST this is equal to the path property the MST
++ * 	manager created. It is equal to 'mst:baseID-port-port...'.
++ * 	In the case of DP USB-C connector this is equal to the 'typec:portN',
++ * 	pointing to the corresponding Type-C port device or just 'typec' if the
++ * 	corresponding Type-C port can not be identified.
+  * TILE:
+  * 	Connector tile group property to indicate how a set of DRM connector
+  * 	compose together into one logical screen. This is used by both high-res
 -- 
 2.39.2
 
