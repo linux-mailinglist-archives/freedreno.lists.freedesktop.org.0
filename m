@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA81C790F00
-	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 00:37:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86AA6790F07
+	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 00:37:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C14A10E24F;
-	Sun,  3 Sep 2023 22:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC42410E253;
+	Sun,  3 Sep 2023 22:37:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6E510E24F
- for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 22:37:18 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-52a39a1c4d5so1068329a12.3
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 15:37:18 -0700 (PDT)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F0710E24F
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 22:37:43 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-31f2f43d5a0so762434f8f.1
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 15:37:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693780636; x=1694385436; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1693780661; x=1694385461; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=JTU8KrO8RUU8FiWRZw+rl4K+4j0rOVVykAlc2x+Gur8=;
- b=nBd9hH6CDLNyUtBypKW8x03anF/EmjxdvGuYR6nuoBo1KVUIOL9Mv03tw9xJK3pW9J
- gaqOPObzcKs6E4nS1MYa4dxgpMKEq+swdxm5sp4P1UmiQiypN1oQJOzBNU1vuODzIf4H
- +bN44nWMDVFfPH1Mk/i4gGwb9gccF9h70d89hqphsEs3Lo0VIM00luBT2eHRXwREGAGs
- B507bDhzh2p95UU+b1uMo3QLo0HOeVcw8U2R3UOeMmVmcu15rCDIICLYsSO/qQzSLR0g
- SIn33Enkh2pddw5CG5K9SdkWQTY/HkoLCPFgf/pMngp6Kz0F++D6HM/ck5I1Rggrn+qA
- 5+nQ==
+ bh=iuInZybgE5C4HgdNIAED9cdqS6tn29myqOzFJ+qiKTc=;
+ b=hJuj/K1v6iSGJeiLRDQfLOTn67YzO7E8ISF8uBKRG1mq3zPNybguwmc9T8C026USFX
+ s3zixRtzv5PkDAuBQqUDxGiyRhI3g9tVl1zXoUkwFnDqMdB3moIQ5lIjaF7PM4tXnqXN
+ DiC54JXPWn6NGl0Z6bZUDl2gxlKGKHj6gDlc/G+NNhUpgr0EU1ZKJzYnBv3isJb63Fw5
+ YImO+qtHs5s6fKuvrPkH/H8QzYZe5r6aESnAInSi31m4AUiyDWrg33nRus+TABIiaBPU
+ 0HIf016PIwzpKjeHYe5eI0jVwkepwUzn2a1kDma8Hsk6n4M3YHVynkLfSREMd+1F6CAS
+ FkzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693780637; x=1694385437;
+ d=1e100.net; s=20221208; t=1693780661; x=1694385461;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JTU8KrO8RUU8FiWRZw+rl4K+4j0rOVVykAlc2x+Gur8=;
- b=lrDndCRewy5iMpJeQxGCvPHFAzEaYqT0tsU1/HpBxG7PoufAmPDnaVgRIP56kbEVqv
- vCQxW9anI4fn5hIVf55tnnhzSwC8wxuAm77xrTFSrScIxNm8HYktK8OB8Zw6H8315yIc
- +xAMs8/kI1NzRiDNzT2xMPOsgNScKvNoL1ZC/EMR2jey9WCFHaljkqjFTbd2CznUFwTv
- QobmQ9f3gUp4piM43phmGUePeeSoIbJoDepC+NPmSwhPItebFhoUxgfHSEY/pf33P1qk
- F9TW+Je3Yr6V1TC+0z4v+tECEz3wG9hxnRGRP/O5vxR2xwwXfB908d0KPxHJTaEU6GPd
- f6Pg==
-X-Gm-Message-State: AOJu0YybOVjBbvNldQW3/TVAYDlSTphHPPJY9DvHo9GG6dgTZGsq8HAE
- jMokFPzrri4/77BEKZFyIz0vGQ==
-X-Google-Smtp-Source: AGHT+IH887EsApjxxqgeKDwZfphqZJP+92AGGLQhQH1W/cbewlBiwmTzV6SErfuj2s5lfRAgmYmXeg==
-X-Received: by 2002:a50:ec90:0:b0:523:3e90:68b0 with SMTP id
- e16-20020a50ec90000000b005233e9068b0mr5378864edr.21.1693780636732; 
- Sun, 03 Sep 2023 15:37:16 -0700 (PDT)
+ bh=iuInZybgE5C4HgdNIAED9cdqS6tn29myqOzFJ+qiKTc=;
+ b=BLVLesNU+9VIpITT3eTFbFuiwnrq6uLeCVJzUs8zrHcItKRTHoGrxJ2LEG/ifeRlJl
+ y7lapHD+cx1JcoTSZB9n1U4klSZkHbkwlFXZJOczg2ulKNJJ+IhUkaKVtqEM5k66O68s
+ V7ic6GoNodQNiSrcsw4v/MEbE9OrPfic6NWhIM0cy/AkLYQ/PJy570syOY7DUx0bvyLA
+ bLArUh08/Lr2mRoQUqKkEyK1IrNbRri5ptiALcgwPKUleUoQSTIvAWsMekZt+YiUvOWj
+ 6ermTKL+Id2s2IedUXDHIQJJ7fjmdKh4XtF8WLKPwtfaTzErjgGzdLUSbfkwUeQvgzXu
+ PRhA==
+X-Gm-Message-State: AOJu0Yztp0eyMOUSK8Vg2vRyVfftmb37/wqR0yvcglzoJxiA64KUowhr
+ lU909/tHgfBLZOojVWHObqIA7A==
+X-Google-Smtp-Source: AGHT+IEE16n0PDj07eAurnl3CVbsLgtJrkqgHUlTveydUibtGonutI7dAHGUS2oR1eZ0UqelpiUnPg==
+X-Received: by 2002:a5d:424b:0:b0:317:3dff:7189 with SMTP id
+ s11-20020a5d424b000000b003173dff7189mr6066598wrr.66.1693780661484; 
+ Sun, 03 Sep 2023 15:37:41 -0700 (PDT)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- bo9-20020a0564020b2900b0052889d090bfsm4972604edb.79.2023.09.03.15.37.15
+ bo9-20020a0564020b2900b0052889d090bfsm4972604edb.79.2023.09.03.15.37.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 03 Sep 2023 15:37:16 -0700 (PDT)
-Message-ID: <1c7b1397-de05-49f7-8e26-3244fbd1573f@linaro.org>
-Date: Mon, 4 Sep 2023 01:37:15 +0300
+ Sun, 03 Sep 2023 15:37:41 -0700 (PDT)
+Message-ID: <642a5b5b-0979-4d9b-a5e3-9432afe062d4@linaro.org>
+Date: Mon, 4 Sep 2023 01:37:40 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-GB
 To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20230829184735.2841739-1-swboyd@chromium.org>
- <20230829184735.2841739-2-swboyd@chromium.org>
+ <20230829184735.2841739-3-swboyd@chromium.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230829184735.2841739-2-swboyd@chromium.org>
+In-Reply-To: <20230829184735.2841739-3-swboyd@chromium.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/7] drm/msm/dp: Replace open-coded
- drm_dp_read_dpcd_caps()
+Subject: Re: [Freedreno] [PATCH 2/7] drm/msm/dp: Use
+ drm_dp_read_sink_count() helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,18 +86,15 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 29/08/2023 21:47, Stephen Boyd wrote:
-> This function duplicates the common function drm_dp_read_dpcd_caps().
-> The array of DPCD registers filled in is one size larger than the
-> function takes, but from what I can tell that extra byte was never used.
-> Resize the array and use the common function to reduce the code here.
+> Use the common function drm_dp_read_sink_count() instead of open-coding
+> it. This shrinks the kernel text a tiny bit.
 > 
 > Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
 > Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 > ---
->   drivers/gpu/drm/msm/dp/dp_panel.c | 42 ++++---------------------------
->   drivers/gpu/drm/msm/dp/dp_panel.h |  4 +--
->   2 files changed, 6 insertions(+), 40 deletions(-)
+>   drivers/gpu/drm/msm/dp/dp_panel.c | 19 +++++++------------
+>   1 file changed, 7 insertions(+), 12 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
