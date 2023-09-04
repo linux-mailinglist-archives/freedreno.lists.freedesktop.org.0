@@ -2,71 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051697919E4
-	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 16:44:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A41E9791AD1
+	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 17:45:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECBA10E373;
-	Mon,  4 Sep 2023 14:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 117D810E38E;
+	Mon,  4 Sep 2023 15:45:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA8210E374
- for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 14:44:33 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2bce552508fso23042421fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 04 Sep 2023 07:44:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693838672; x=1694443472; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kH7WX/bL02gBNSwkaIeLx/wyDLsKZbgUWcH4uKnAa/o=;
- b=oeptpTFFPzq+mFlS4rzqZfD52qmWXUDvY2Dq6lkE0eZCukXMAjhtSV/H2sYK7hzS9P
- b+8bMioJR88n0U7koCbyyl+14MEp9qmPz3U5ZbF1/p0Ayt0tyXyRbkw/IAaQ12ZYLTnh
- bnreyct8OKIMAnJ2l4bW5Hn55uELUl6zf3iOAr0yfNkJbP0dILLi3S2nK0eFY1aHvd4N
- LRv/ybp/cyjU2wRiN3iksWjhdtgGchyXnavWlh40V9avcmKBBldoVb6Y0gWxwCABF339
- 9BCB6sJse0kBV4hf4iMqAqB3S44XWgxykmEw86bo76ZLAUYwpyktxSvLuFYvUt61uihB
- 71kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693838672; x=1694443472;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kH7WX/bL02gBNSwkaIeLx/wyDLsKZbgUWcH4uKnAa/o=;
- b=Xg56baybK5eRHqV+akwwWnOGXZ4OQzMaztiqWAhkmS7c8FrArkGjD9KE1ya0UXc5vL
- iltqEuqyz1mYQda5ecsqHr0qnXwQKuupiVCv50wDdPjrDlRfIUwo8KbGE5JycOk76awA
- 4Sz46g+gMY/VvY0W0TElCJIWeN26ndH26df4EWUX+P8kLS5Cy4Ss2epO6sxPrWqywcQX
- HaUz+wC0Q0YdkLEkhjwJ0hNpXGma+0oxIYULaLYFSVcwkCz/S2y/PunNbRp4DR2Sclry
- r1jxkIgndrP5r9OsLzpmGGoTD0Mpu8Dy248+qtQN02ULCDWnOPZOZyMvinRRNtMZQBoI
- gzpA==
-X-Gm-Message-State: AOJu0YxF/DRXMJVNdr/fM9muTH8Py5ybF9wOEUgJZqVIfJJwZ/pahf5P
- XTS9g0+nZDgedyoHIEmNzF5r0g==
-X-Google-Smtp-Source: AGHT+IEErqFoQDFEzrD9081gh8cXtiVUP+rR3xhizgoZsbXsVV7hp8UJS6hWIuK/ebDqwwBDgJ6ljQ==
-X-Received: by 2002:a2e:3e15:0:b0:2bd:ddf:8aa6 with SMTP id
- l21-20020a2e3e15000000b002bd0ddf8aa6mr6774021lja.23.1693838671794; 
- Mon, 04 Sep 2023 07:44:31 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- v10-20020a2e7a0a000000b002bce8404157sm2177440ljc.12.2023.09.04.07.44.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Sep 2023 07:44:31 -0700 (PDT)
-Message-ID: <9bfdbcb5-bb17-471c-ba79-5e215e440928@linaro.org>
-Date: Mon, 4 Sep 2023 17:44:30 +0300
+X-Greylist: delayed 311 seconds by postgrey-1.36 at gabe;
+ Mon, 04 Sep 2023 15:45:02 UTC
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE9B10E38B;
+ Mon,  4 Sep 2023 15:45:02 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id DC6A0CE0ED3;
+ Mon,  4 Sep 2023 15:39:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C24C433C7;
+ Mon,  4 Sep 2023 15:39:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1693841985;
+ bh=biK94lBbgt1pnt3KPbgjV2mjHY/WPTUANiaYAFj3hnE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tk0DR0TJA8XaoYlsyz7s3yTLGRb8OPMGbQQ9R4Ab0qT1Mw1mF0bRVm/VULSyVHsnb
+ +ipBAL0t2lfIzxyS6rZCHYVv5vyV1ShhPRqsaaz069pu/jqcxp1Ku6KjUeryHIYEdH
+ hWH+KUp2xRkNf26zT/Ldkt0kkw0TgMYKeZ3q9OIe4GzQTEvr0A1XVWAnMC549adr9o
+ C4VtbhrNg8doUP6AgEcmMh34fGSI/JjWQf2GEqaH0UygW0lt25QhyWrEbhMQw/znjA
+ a8KDp6P6XqLiZcDqzC3Q6pSuLLi8bowdOSwE0pnKzGlAcjy7hrTG7FmHE5yMZiSgQf
+ WaSBEqZnGYKuw==
+Date: Mon, 4 Sep 2023 08:42:00 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <u5jciyc42wbclgcznuyxrub6lfhkqixpcsgx656afmqmx5m7er@xktdvhzwbuzu>
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-7-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 0/8] drm/msm/dpu: move INTF tearing
- checks to dpu_encoder_phys_cmd_ini
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230903214150.2877023-7-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [RFC PATCH v1 06/12] soc: qcom: pmic_glink_altmode:
+ fix DRM connector type
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,53 +57,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Simon Ser <contact@emersion.fr>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Of course this should be 'drm/msm/dpu: drop DPU_INTF_TE and 
-DPU_PINGPONG_TE' series
+On Mon, Sep 04, 2023 at 12:41:44AM +0300, Dmitry Baryshkov wrote:
+> During discussions regarding USB-C vs native DisplayPort it was pointed
+> out that other implementations (i915, AMD) are using
+> DRM_MODE_CONNECTOR_DisplayPort for both native and USB-C-wrapped DP
+> output. Follow this example and make the pmic_glink_altmode driver also
+> report DipslayPort connector rather than the USB one.
 
-On 04/09/2023 05:04, Dmitry Baryshkov wrote:
-> rop two feature flags, DPU_INTF_TE and DPU_PINGPONG_TE, in favour of
-> performing the MDSS revision checks instead.
-> 
-> Changes since v2:
-> - Added guarding checks for hw_intf and hw_pp in debug print (Marijn)
-> - Removed extra empty lines (Marijn)
-> 
-> Changes since v1:
-> - Added missing patch
-> - Reworked commit messages (following suggestions by Marijn)
-> - Changed code to check for major & INTF type rather than checking for
->    intr presence in catalog. Added WARN_ON()s instead. (Marijn)
-> - Added severall comments & TODO item.
-> 
-> Dmitry Baryshkov (8):
->    drm/msm/dpu: inline _setup_pingpong_ops()
->    drm/msm/dpu: enable PINGPONG TE operations only when supported by HW
->    drm/msm/dpu: drop the DPU_PINGPONG_TE flag
->    drm/msm/dpu: inline _setup_intf_ops()
->    drm/msm/dpu: enable INTF TE operations only when supported by HW
->    drm/msm/dpu: drop DPU_INTF_TE feature flag
->    drm/msm/dpu: drop useless check from
->      dpu_encoder_phys_cmd_te_rd_ptr_irq()
->    drm/msm/dpu: move INTF tearing checks to dpu_encoder_phys_cmd_init
-> 
->   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 52 +++++++++----------
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  3 +-
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  6 +--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 51 +++++++++---------
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   | 41 +++++++--------
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   |  3 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  2 +-
->   7 files changed, 75 insertions(+), 83 deletions(-)
-> 
+I started off with this, but on devices with both USB Type-C and
+(native) DisplayPort, it seemed much more reasonable to make the
+distinction; and thereby get the outputs named "USB-n".
 
--- 
-With best wishes
-Dmitry
+Similarly, it looks quite reasonable that the output on my laptop are
+eDP-1, USB-1 and USB-2.
 
+
+But, if this is not the way its intended to be used, feel free to pick
+this together with the other patches.
+
+Acked-by: Bjorn Andersson <andersson@kernel.org>
+
+Regards,
+Bjorn
