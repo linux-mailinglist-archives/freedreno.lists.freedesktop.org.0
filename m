@@ -1,69 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87539790FE0
-	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 04:06:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 051697919E4
+	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 16:44:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33C4410E282;
-	Mon,  4 Sep 2023 02:06:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BECBA10E373;
+	Mon,  4 Sep 2023 14:44:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6222F10E284
- for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 02:05:03 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2b974031aeaso15082901fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 19:05:02 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA8210E374
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 14:44:33 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2bce552508fso23042421fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Sep 2023 07:44:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693793101; x=1694397901; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ND9TWls6WljGZ9WIziWPWxaNspuAqLv4XdjEfOK8lUI=;
- b=tXPqHQzu366K1ZgguB+79Evf9eAwFRHStoLhVAZzy4x2MeyfMLzafRpbzLmfovy7d7
- GC3S2BJU9Xs+C60HmnV95l/LsY1tBl9wC/3QijevUoQCWkTotHJeRCHaLW6DUs9WXyrQ
- tRWj5nwdct6Cjye2Uacih1KbRvYMEG1EZDn9Ig4y16W8CcJr2o9wXJGmZk/P9sc+eG2O
- 6Lm2Y1UmlCXGNAbFWnADRR/candtJEZ0Naj4Ip4c/T1Jy01+byqxJfWkZJF/EP4qBN++
- 7ZI7Y0DcgcUE8TneLRSH1xlk190nQD2Yup89mx1/ap/XzcSl0sbHyoGjSfZFQIn7aNMk
- NuNQ==
+ d=linaro.org; s=google; t=1693838672; x=1694443472; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kH7WX/bL02gBNSwkaIeLx/wyDLsKZbgUWcH4uKnAa/o=;
+ b=oeptpTFFPzq+mFlS4rzqZfD52qmWXUDvY2Dq6lkE0eZCukXMAjhtSV/H2sYK7hzS9P
+ b+8bMioJR88n0U7koCbyyl+14MEp9qmPz3U5ZbF1/p0Ayt0tyXyRbkw/IAaQ12ZYLTnh
+ bnreyct8OKIMAnJ2l4bW5Hn55uELUl6zf3iOAr0yfNkJbP0dILLi3S2nK0eFY1aHvd4N
+ LRv/ybp/cyjU2wRiN3iksWjhdtgGchyXnavWlh40V9avcmKBBldoVb6Y0gWxwCABF339
+ 9BCB6sJse0kBV4hf4iMqAqB3S44XWgxykmEw86bo76ZLAUYwpyktxSvLuFYvUt61uihB
+ 71kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693793101; x=1694397901;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ND9TWls6WljGZ9WIziWPWxaNspuAqLv4XdjEfOK8lUI=;
- b=Ux30PC4VVyN7c1IL8/qPv0gHHui7wRruXHG15Y/LBF4AMIr+kcoSjyR9l146OhQl5M
- 5ySKPxa4VKfS8CxtlT85n21ykKX6XR5IARo80fIH07KdmgB++sgPzDFs4gqZ5co8W3eK
- OyaR2Z2wYoT4r2bHjmxjU4QKFAKNkyjIBbugKfwPw8LroRSrknHbJKItAn0ijNgTP64u
- QrNHJiODrmbiWnVkxeIYJ/wPe7br2FqutuojgqiNZwgte23LJsl3Ux0/YmgNecDbBXby
- lmNsxiKhjFTqnoCzEFTLojadc0K+i/jUs45+13Wj9mUZsJi8BROW28emeYFYv2AxoMiA
- GXNA==
-X-Gm-Message-State: AOJu0Yx2z6zuf/ny6thHMFdB/uus5bC1vlSXkSVv4Hhmp8NpMnCsG1tW
- W3y6Bcwam8xb4sHGqbA/nR86UQ==
-X-Google-Smtp-Source: AGHT+IFWbfGA5SPwQb9KAW491TGzx4BsLhxrFJCHwvDlY00nbTmmGEYFV+xN3Jn9gSryCqTk/mI8/A==
-X-Received: by 2002:a2e:8608:0:b0:2bc:dada:dbe0 with SMTP id
- a8-20020a2e8608000000b002bcdadadbe0mr6270880lji.10.1693793101188; 
- Sun, 03 Sep 2023 19:05:01 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20221208; t=1693838672; x=1694443472;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kH7WX/bL02gBNSwkaIeLx/wyDLsKZbgUWcH4uKnAa/o=;
+ b=Xg56baybK5eRHqV+akwwWnOGXZ4OQzMaztiqWAhkmS7c8FrArkGjD9KE1ya0UXc5vL
+ iltqEuqyz1mYQda5ecsqHr0qnXwQKuupiVCv50wDdPjrDlRfIUwo8KbGE5JycOk76awA
+ 4Sz46g+gMY/VvY0W0TElCJIWeN26ndH26df4EWUX+P8kLS5Cy4Ss2epO6sxPrWqywcQX
+ HaUz+wC0Q0YdkLEkhjwJ0hNpXGma+0oxIYULaLYFSVcwkCz/S2y/PunNbRp4DR2Sclry
+ r1jxkIgndrP5r9OsLzpmGGoTD0Mpu8Dy248+qtQN02ULCDWnOPZOZyMvinRRNtMZQBoI
+ gzpA==
+X-Gm-Message-State: AOJu0YxF/DRXMJVNdr/fM9muTH8Py5ybF9wOEUgJZqVIfJJwZ/pahf5P
+ XTS9g0+nZDgedyoHIEmNzF5r0g==
+X-Google-Smtp-Source: AGHT+IEErqFoQDFEzrD9081gh8cXtiVUP+rR3xhizgoZsbXsVV7hp8UJS6hWIuK/ebDqwwBDgJ6ljQ==
+X-Received: by 2002:a2e:3e15:0:b0:2bd:ddf:8aa6 with SMTP id
+ l21-20020a2e3e15000000b002bd0ddf8aa6mr6774021lja.23.1693838671794; 
+ Mon, 04 Sep 2023 07:44:31 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- t13-20020a2e9c4d000000b002bce0e9385asm1818237ljj.9.2023.09.03.19.05.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 19:05:00 -0700 (PDT)
+ v10-20020a2e7a0a000000b002bce8404157sm2177440ljc.12.2023.09.04.07.44.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Sep 2023 07:44:31 -0700 (PDT)
+Message-ID: <9bfdbcb5-bb17-471c-ba79-5e215e440928@linaro.org>
+Date: Mon, 4 Sep 2023 17:44:30 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  4 Sep 2023 05:04:54 +0300
-Message-Id: <20230904020454.2945667-9-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
 References: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 8/8] drm/msm/dpu: move INTF tearing checks to
- dpu_encoder_phys_cmd_init
+In-Reply-To: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 0/8] drm/msm/dpu: move INTF tearing
+ checks to dpu_encoder_phys_cmd_ini
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,80 +86,46 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the INTF is fixed at the encoder creation time, we can move the
-check whether INTF supports tearchck to dpu_encoder_phys_cmd_init().
-This function can return an error if INTF doesn't have required feature.
-Performing this check in dpu_encoder_phys_cmd_tearcheck_config() is less
-useful, as this function returns void.
+Of course this should be 'drm/msm/dpu: drop DPU_INTF_TE and 
+DPU_PINGPONG_TE' series
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 39 +++++++++++--------
- 1 file changed, 23 insertions(+), 16 deletions(-)
+On 04/09/2023 05:04, Dmitry Baryshkov wrote:
+> rop two feature flags, DPU_INTF_TE and DPU_PINGPONG_TE, in favour of
+> performing the MDSS revision checks instead.
+> 
+> Changes since v2:
+> - Added guarding checks for hw_intf and hw_pp in debug print (Marijn)
+> - Removed extra empty lines (Marijn)
+> 
+> Changes since v1:
+> - Added missing patch
+> - Reworked commit messages (following suggestions by Marijn)
+> - Changed code to check for major & INTF type rather than checking for
+>    intr presence in catalog. Added WARN_ON()s instead. (Marijn)
+> - Added severall comments & TODO item.
+> 
+> Dmitry Baryshkov (8):
+>    drm/msm/dpu: inline _setup_pingpong_ops()
+>    drm/msm/dpu: enable PINGPONG TE operations only when supported by HW
+>    drm/msm/dpu: drop the DPU_PINGPONG_TE flag
+>    drm/msm/dpu: inline _setup_intf_ops()
+>    drm/msm/dpu: enable INTF TE operations only when supported by HW
+>    drm/msm/dpu: drop DPU_INTF_TE feature flag
+>    drm/msm/dpu: drop useless check from
+>      dpu_encoder_phys_cmd_te_rd_ptr_irq()
+>    drm/msm/dpu: move INTF tearing checks to dpu_encoder_phys_cmd_init
+> 
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 52 +++++++++----------
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  3 +-
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  6 +--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 51 +++++++++---------
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   | 41 +++++++--------
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   |  3 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  2 +-
+>   7 files changed, 75 insertions(+), 83 deletions(-)
+> 
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index d18236bd98e6..ca1296379c4d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -325,24 +325,21 @@ static void dpu_encoder_phys_cmd_tearcheck_config(
- 	unsigned long vsync_hz;
- 	struct dpu_kms *dpu_kms;
- 
--	if (phys_enc->has_intf_te) {
--		if (!phys_enc->hw_intf ||
--		    !phys_enc->hw_intf->ops.enable_tearcheck) {
--			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
--			return;
--		}
--
--		DPU_DEBUG_CMDENC(cmd_enc, "");
--	} else {
--		if (!phys_enc->hw_pp ||
--		    !phys_enc->hw_pp->ops.enable_tearcheck) {
--			DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
--			return;
--		}
--
--		DPU_DEBUG_CMDENC(cmd_enc, "pp %d\n", phys_enc->hw_pp->idx - PINGPONG_0);
-+	/*
-+	 * TODO: if/when resource allocation is refactored, move this to a
-+	 * place where the driver can actually return an error.
-+	 */
-+	if (!phys_enc->has_intf_te &&
-+	    (!phys_enc->hw_pp ||
-+	     !phys_enc->hw_pp->ops.enable_tearcheck)) {
-+		DPU_DEBUG_CMDENC(cmd_enc, "tearcheck not supported\n");
-+		return;
- 	}
- 
-+	DPU_DEBUG_CMDENC(cmd_enc, "intf %d pp %d\n",
-+			 phys_enc->hw_intf ? phys_enc->hw_intf->idx - INTF_0 : -1,
-+			 phys_enc->hw_pp ? phys_enc->hw_pp->idx - PINGPONG_0 : -1);
-+
- 	mode = &phys_enc->cached_mode;
- 
- 	dpu_kms = phys_enc->dpu_kms;
-@@ -768,10 +765,20 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
- 	phys_enc->intf_mode = INTF_MODE_CMD;
- 	cmd_enc->stream_sel = 0;
- 
-+	if (!phys_enc->hw_intf) {
-+		DPU_ERROR_CMDENC(cmd_enc, "no INTF provided\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	/* DPU before 5.0 use PINGPONG for TE handling */
- 	if (phys_enc->dpu_kms->catalog->mdss_ver->core_major_ver >= 5)
- 		phys_enc->has_intf_te = true;
- 
-+	if (phys_enc->has_intf_te && !phys_enc->hw_intf->ops.enable_tearcheck) {
-+		DPU_ERROR_CMDENC(cmd_enc, "tearcheck not supported\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	atomic_set(&cmd_enc->pending_vblank_cnt, 0);
- 	init_waitqueue_head(&cmd_enc->pending_vblank_wq);
- 
 -- 
-2.39.2
+With best wishes
+Dmitry
 
