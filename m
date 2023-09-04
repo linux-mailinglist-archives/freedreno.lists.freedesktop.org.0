@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26411790FD9
-	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 04:06:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 547B8790FD0
+	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 04:05:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B54F10E273;
-	Mon,  4 Sep 2023 02:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D20510E273;
+	Mon,  4 Sep 2023 02:05:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 465B610E281
- for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 02:05:00 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2bbbda48904so14971051fa.2
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 19:05:00 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A9710E27F
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 02:05:01 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2bcc4347d2dso12734021fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 19:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1693793099; x=1694397899; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CCn7+1TWey1NAyg48VCJdA+g41kuesm/Pl4ROBz08nY=;
- b=sUeH70mqnL4fYGAihVHFkaPkhu1Ui/tppRnEbCI65EVoYH+gIb60HCY6udD3Ey1p4H
- AuOWwDkQ7rvWec0pKOe2zcdfq6/K2ObDgLHZNvfkA+W7MvqJ4s0d6PualeqTWUjjIVKz
- HxgalKpwpyXcqlBgyFBcdvxJ6auLeok0DgcoK32dMQEYM6/bRyDtV6SaThA9W8LfyU1O
- v6vf7BwoaHFXHnRRj860zUZ8UdGqGJHs044/9ruHe86wNgWqddjzFtAaA2nwsj416qiy
- vydpZ2bXyvkM8/qvFmgQZ3YFpLf4rm739WZB3Oqy4B6ElcjHhL9dbvxGDQaFk+DIIpFh
- pl6g==
+ bh=y/rDp6IsMw91trU1zOp/Hjm/TPrfSTJ5k8RTiYBXbIA=;
+ b=my6+o13XTmAe3Mb/i1IsvcFGJYbywYxFa9q3LgqvndnCqRsrg87pG6FGe0dgXldZ03
+ tFolYJiOtaLJN6kLC8E7oEpGWSDlZeyKY76fg1EVdvESfQF+FudrOx9pZBQO2QOSturo
+ JWhAyyr3qZkC3iv12jNlsqvAV1rFIhLOid8UoPQmafdtGImA+zcLEvOWtT/XED9th+4+
+ mW+ZHZLYO5WGP2hhcUHmXgNB0kfqinKyM59Eeav0Qwogy7X09Rv3QhtC/wZtqKcacJ8w
+ Go/IR2r5YSnqJJNPGbYz2ZIGpmm5KXdp9q7JcMTX8yLN5o/Ikl7vWlb41pBY/zTmOcda
+ JB+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1693793099; x=1694397899;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CCn7+1TWey1NAyg48VCJdA+g41kuesm/Pl4ROBz08nY=;
- b=JB/pU9uQ4OWXaqnlPpsXdbBDD5Kh6zZtZb5MdjAzulqM+Wb5KD940XIE3nXDTlXrQ4
- dypIXiLVar2Sy1UaNEslMwlL9NibH7ABylioEKeaa28REIHlGcCxFJ5tCgLkTdM23ysy
- LCBda11Nu8dFYykTp9bWCXL49cjteeVhLWHUzUljZDYqUWmOIIP3p9p9FdUAZ89eln73
- a9BXZyHrVt5r3u+Gd+U0jwkFN5JeIlZ4Lgl027VaeuGIqSxsIhZaJC7IZ8kfUSFGVsfL
- 6xdcUgklfhcLjV5hNSA3Wbl4pywV98GCwGgclWspWufj3RZGz4DoF23NBbyHAhK+cRB+
- IFdA==
-X-Gm-Message-State: AOJu0YxDhrzJ9CcDFUZw1b4Rm+jkukiXmc4nFQ5x4Cfuq8noyVcDGnVK
- gIwCgp8Bu+YpGBQEm6+pGsNuSQ==
-X-Google-Smtp-Source: AGHT+IF36i9EswZo4RNOjRcQk+JyB3dMeWEVFibQ53tNc3oIsE2tmIGKKysdXisyKNbLEyJDlchwQQ==
-X-Received: by 2002:a2e:9890:0:b0:2bc:b6ce:eab with SMTP id
- b16-20020a2e9890000000b002bcb6ce0eabmr5348791ljj.51.1693793098906; 
- Sun, 03 Sep 2023 19:04:58 -0700 (PDT)
+ bh=y/rDp6IsMw91trU1zOp/Hjm/TPrfSTJ5k8RTiYBXbIA=;
+ b=IeeNTfh2HYM9he6j4XnkukkQe/bqrppDwhSOwat12+Kuwpn09LRasGz2wrocy3IK0t
+ lVvtBq2rLflVdoPEkn3mhYqvwXC5yQ2fxtNETgikN3C7jZkl2CuOijabqMMjiLpSaphJ
+ g2TlHYXPLCEjrwK44xXDPPAmIue/rOG0YBuTLUj/RAWmWG/O0LXlI67Vckq6ZeAC+ymt
+ BqxM2zEvvcphPZF1fTJcgs3lOaNw5s3vjELIrZ77t5ulAM9cDK0MJzLVRv49TCx9oJYE
+ UZTxkIS/rJaWhvW1/vD0OsZV747wbKJ0owQKGTw3BhPf6uy/xflw2O0V+cGnQP9k1r91
+ tenQ==
+X-Gm-Message-State: AOJu0YxFtBYd+Z8V2xOra7pOeXH58GpRz3iIsTqJLLvnoVvgS4gtPnYb
+ qSAUedYdAUe0eZ6nT8hcDcWkHw==
+X-Google-Smtp-Source: AGHT+IGc6DjrSpswdTIrEcQhdnq2iRRuzXUIadPblyBTMgGfolFtfbD0pPK6ytUe2ccHrV35qZiVIg==
+X-Received: by 2002:a2e:804e:0:b0:2bd:169e:3819 with SMTP id
+ p14-20020a2e804e000000b002bd169e3819mr5684898ljg.17.1693793099632; 
+ Sun, 03 Sep 2023 19:04:59 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  t13-20020a2e9c4d000000b002bce0e9385asm1818237ljj.9.2023.09.03.19.04.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 19:04:58 -0700 (PDT)
+ Sun, 03 Sep 2023 19:04:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  4 Sep 2023 05:04:51 +0300
-Message-Id: <20230904020454.2945667-6-dmitry.baryshkov@linaro.org>
+Date: Mon,  4 Sep 2023 05:04:52 +0300
+Message-Id: <20230904020454.2945667-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
 References: <20230904020454.2945667-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 5/8] drm/msm/dpu: enable INTF TE operations
- only when supported by HW
+Subject: [Freedreno] [PATCH v3 6/8] drm/msm/dpu: drop DPU_INTF_TE feature
+ flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +83,65 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The DPU_INTF_TE bit is set for all INTF blocks on DPU >= 5.0, however
-only INTF_1 and INTF_2 actually support tearing control (both are
-INTF_DSI). Rather than trying to limit the DPU_INTF_TE feature bit to
-those two INTF instances, check for the major && INTF type.
+Replace the only user of the DPU_INTF_TE feature flag with the direct
+DPU version comparison.
 
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 5 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c       | 1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h       | 2 --
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-index dd67686f5403..95ff2f5ebbaa 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -558,7 +558,10 @@ struct dpu_hw_intf *dpu_hw_intf_init(const struct dpu_intf_cfg *cfg,
- 	if (cfg->features & BIT(DPU_INTF_INPUT_CTRL))
- 		c->ops.bind_pingpong_blk = dpu_hw_intf_bind_pingpong_blk;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index df88358e7037..e03b2075639d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -776,8 +776,9 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
+ 	phys_enc->intf_mode = INTF_MODE_CMD;
+ 	cmd_enc->stream_sel = 0;
  
--	if (cfg->features & BIT(DPU_INTF_TE)) {
-+	/* INTF TE is only for DSI interfaces */
-+	if (mdss_rev->core_major_ver >= 5 && cfg->type == INTF_DSI) {
-+		WARN_ON(!cfg->intr_tear_rd_ptr);
-+
- 		c->ops.enable_tearcheck = dpu_hw_intf_enable_te;
- 		c->ops.disable_tearcheck = dpu_hw_intf_disable_te;
- 		c->ops.connect_external_te = dpu_hw_intf_connect_external_te;
+-	phys_enc->has_intf_te = test_bit(DPU_INTF_TE,
+-					 &phys_enc->hw_intf->cap->features);
++	/* DPU before 5.0 use PINGPONG for TE handling */
++	if (phys_enc->dpu_kms->catalog->mdss_ver->core_major_ver >= 5)
++		phys_enc->has_intf_te = true;
+ 
+ 	atomic_set(&cmd_enc->pending_vblank_cnt, 0);
+ 	init_waitqueue_head(&cmd_enc->pending_vblank_wq);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index d89bdd0dd27a..a1aada630780 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -100,7 +100,6 @@
+ 
+ #define INTF_SC7180_MASK \
+ 	(BIT(DPU_INTF_INPUT_CTRL) | \
+-	 BIT(DPU_INTF_TE) | \
+ 	 BIT(DPU_INTF_STATUS_SUPPORTED) | \
+ 	 BIT(DPU_DATA_HCTL_EN))
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 9aac937285b1..e5add4384830 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -158,7 +158,6 @@ enum {
+  * INTF sub-blocks
+  * @DPU_INTF_INPUT_CTRL             Supports the setting of pp block from which
+  *                                  pixel data arrives to this INTF
+- * @DPU_INTF_TE                     INTF block has TE configuration support
+  * @DPU_DATA_HCTL_EN                Allows data to be transferred at different rate
+  *                                  than video timing
+  * @DPU_INTF_STATUS_SUPPORTED       INTF block has INTF_STATUS register
+@@ -166,7 +165,6 @@ enum {
+  */
+ enum {
+ 	DPU_INTF_INPUT_CTRL = 0x1,
+-	DPU_INTF_TE,
+ 	DPU_DATA_HCTL_EN,
+ 	DPU_INTF_STATUS_SUPPORTED,
+ 	DPU_INTF_MAX
 -- 
 2.39.2
 
