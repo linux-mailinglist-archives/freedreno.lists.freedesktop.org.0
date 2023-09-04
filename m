@@ -1,70 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DAFE790F1B
-	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 00:45:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 43226790FC1
+	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 03:53:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C7610E261;
-	Sun,  3 Sep 2023 22:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A690910E273;
+	Mon,  4 Sep 2023 01:53:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 527DB10E261
- for <freedreno@lists.freedesktop.org>; Sun,  3 Sep 2023 22:45:40 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-99bf3f59905so131803066b.3
- for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 15:45:40 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D001410E26B
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 01:53:41 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2bc63e0d8cdso12905011fa.2
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Sep 2023 18:53:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693781138; x=1694385938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=icCZ5tdF61yj1pSKhn/ffpI/X+SJfCRYhcOnGB1o1ts=;
- b=WsG6rorQ+MGwH5ie/9DoJ9D9spRa8cnwY9wbj8DMw5/c2Wx1AajRnDCymCt7bd1osf
- 9lVnf/2/MVElBbX9AVyXoQOPyUbcOM0RGoTZgnHWcRcuCCSq89TYY0orrSUJozPgh3ZA
- i92yeaZJBzgpfmL4MvG0EcBWQnglZZ5i4Zkx5N3Js2kpdVlyfQ4N2gXOQwVsXX54tw0h
- UM+eWoIJwKs+tpW2UdIWHe3asEZ9xQDPkj+S3jW8NAoL5WQ3rPYQJ34D1tdTbUcJYjcL
- qwxRU3Et8r2rlksw+B625WBDKqDtiOlFfNG7ilvl1P2xhYsRhaO3cGLG4Y5q91jyLKmp
- /KgA==
+ d=linaro.org; s=google; t=1693792419; x=1694397219; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=dy2kbeuiRBdiBUHn2uNtKw0zEJJVCb8NdeL9BezpnxE=;
+ b=Ao8QGKokdqahh13NZeGQWRDu0WI5nI5ZnsD7kWD3jBTuJox/YbnIpnJd5ZQSbgj945
+ ZEz/UBorhcDKB3A2DhOBCVsO/DxDLc6x+YZAQUhOX02EUVzIvlhZdcYDOrmH5L48Cs5U
+ dmuoJv+L2n3aNBhNqP1cyIZy3cdSlFHBw8cIh+ddiIpVaFF0LxCc/Kj8jXfCEgCaNuxq
+ d2/0A1Wy5HxMCZoayxhKI5m8W3rMEv1h1PYtzK7Vdr8LHucvZxXCTKMX4yWHLC8bBzHf
+ az+RqJbFpWmvrJt3UrIpGUWWCRwoexfsSWXh3KhO/+yWPkhWlIXNHM2tqr+hA/rHDqIO
+ bmiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693781138; x=1694385938;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=icCZ5tdF61yj1pSKhn/ffpI/X+SJfCRYhcOnGB1o1ts=;
- b=AWDzubWifaZmqNm/R2tJtZBOSPnhW952sosucN7dNj4eWwBEv/0/npcZIXEy70vqW/
- vaHjIEJAcCIFyU9LGYAuIDMg/tbp+VS5otw48WPtw/lfzCP4IPeKm9kJWK52tIRosn31
- i3QTfiiDaeSmt8J6eB+otlzyXA7vtb0WE1K6x6pD4RDvQgLzzMI2OewRqQH/XLs6KHl3
- t1bj4/yCNeLlYUXLyCgXD6Uj25KtuKY07MVvKR7lJn/GwfeWDvmqwSMSooAvVLtTyaVj
- 5l1m1I+GlkaroXQAiaSSYtVHMhPIigXvKnDYBY9fBpXpR5U9mrHJd8ku00w21McrVmkX
- vR5A==
-X-Gm-Message-State: AOJu0YzpHDmdHsyxyf3RG0gIEMik4HPX5D84EfD7ickoLZgxNAk+nrmw
- QXKjFRpQ32jMcp9ZkgQ9kPqyWg==
-X-Google-Smtp-Source: AGHT+IH4gRHcH2C56k65qmxY/tgOsFae4qzfQvdNHKXi+ydhfItRS40/B9o9IDmJDqAt517CDjrUBw==
-X-Received: by 2002:a17:907:7798:b0:9a1:c669:6e66 with SMTP id
- ky24-20020a170907779800b009a1c6696e66mr6491833ejc.70.1693781138694; 
- Sun, 03 Sep 2023 15:45:38 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
+ d=1e100.net; s=20221208; t=1693792419; x=1694397219;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dy2kbeuiRBdiBUHn2uNtKw0zEJJVCb8NdeL9BezpnxE=;
+ b=DnbjeWp7MWyOubhqi4zqxxrahD/tvEQsyYHO3KPTqfRjmkIBjzSvGmSOAyR5oNJh+W
+ vr5pGUpSSxJO3pFlAFfVoLIA5ldTtauD1EkVlZyKWsnn3yn1jeS8vlleLUg5sa+r2QO5
+ cbR/gY9JpM37nDVilfaQ/GMdFRKyQ4yphQI5D5TthFZnMYLmld5UmHDFrWzvNA2nvmeB
+ vjUBsxVP3aeXLsaD9GE+5qfYZJrZkUntQNKMBPx49dxk0CjpVfTwAdX3uOPb/saEwW7A
+ t7bIXoX8zZ16qNXM95NZPkrTblUyFtIz/wqiANaZOeJ5U2p36Kqtav2VPE/chbTUPQJ+
+ JlGQ==
+X-Gm-Message-State: AOJu0YxbgpPqq6ZDYnwQyoU/A75FnkrKpv2vi4f+uKl2cZyqTPg3VazC
+ myCFFCVIWvRxGwx/H4RNoqZL1w==
+X-Google-Smtp-Source: AGHT+IEr0RCH4tYSkpwLMyNrd6sFeVftt2qeSJkJg6rBPTOdgqkf2WJkV6CnkFDa+VVNamWPRzGQhQ==
+X-Received: by 2002:a2e:7812:0:b0:2bc:fb79:d165 with SMTP id
+ t18-20020a2e7812000000b002bcfb79d165mr6335992ljc.39.1693792419380; 
+ Sun, 03 Sep 2023 18:53:39 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- lz20-20020a170906fb1400b009929d998abcsm5223365ejb.209.2023.09.03.15.45.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 03 Sep 2023 15:45:38 -0700 (PDT)
-Message-ID: <cefd4c7a-3b98-4a4c-be03-a8b02d35de3c@linaro.org>
-Date: Mon, 4 Sep 2023 01:45:37 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230829184735.2841739-1-swboyd@chromium.org>
+ o14-20020a2e9b4e000000b002b6d68b520esm1736657ljj.65.2023.09.03.18.53.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Sep 2023 18:53:38 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230829184735.2841739-1-swboyd@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 0/7] drm/msm/dp: Simplify DPCD related code
- with helpers
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Mon,  4 Sep 2023 04:53:35 +0300
+Message-Id: <20230904015338.2941417-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/3] drm: introduce per-encoder debugfs directory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,51 +78,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
- patches@lists.linux.dev, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29/08/2023 21:47, Stephen Boyd wrote:
-> This driver open-codes a few of the DPCD register reads when it can be
-> simplified by using the helpers instead. This series reworks the MSM DP
-> driver to use the DPCD helpers and removes some dead code along the way.
-> There's the potential for even more code reduction around the test
-> registers, but I haven't tried to do that yet.
+Each of connectors and CRTCs used by the DRM device provides debugfs
+directory, which is used by several standard debugfs files and can
+further be extended by the driver. Add such generic debugfs directories
+for encoder. As a showcase for this dir, migrate `bridge_chains' debugfs
+file (which contains per-encoder data) and MSM custom encoder status to
+this new debugfs directory.
 
-For the whole series:
+Dmitry Baryshkov (3):
+  drm/encoder: register per-encoder debugfs dir
+  drm/bridge: migrate bridge_chains to per-encoder file
+  drm/msm/dpu: move encoder status to standard encoder debugfs dir
 
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Using drm_dp_get_phy_test_pattern() / drm_dp_set_phy_test_pattern() 
-would be definitely a benefit, especially since the latter one has 
-support for DP >= 1.2, while msm DP code doesn't.
-
-> 
-> Stephen Boyd (7):
->    drm/msm/dp: Replace open-coded drm_dp_read_dpcd_caps()
->    drm/msm/dp: Use drm_dp_read_sink_count() helper
->    drm/msm/dp: Remove dead code related to downstream cap info
->    drm/msm/dp: Remove aux_cfg_update_done and related code
->    drm/msm/dp: Simplify with drm_dp_{max_link_rate,max_lane_count}()
->    drm/msm/dp: Inline dp_link_parse_sink_count()
->    drm/msm/dp: Remove dp_display_is_ds_bridge()
-> 
-> Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
-> Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> 
->   drivers/gpu/drm/msm/dp/dp_display.c |   9 +--
->   drivers/gpu/drm/msm/dp/dp_link.c    |  38 +---------
->   drivers/gpu/drm/msm/dp/dp_panel.c   | 105 +++++-----------------------
->   drivers/gpu/drm/msm/dp/dp_panel.h   |  10 +--
->   4 files changed, 22 insertions(+), 140 deletions(-)
-> 
-> 
-> base-commit: 2dde18cd1d8fac735875f2e4987f11817cc0bc2c
+ drivers/gpu/drm/drm_bridge.c                | 44 --------------
+ drivers/gpu/drm/drm_debugfs.c               | 64 ++++++++++++++++++++-
+ drivers/gpu/drm/drm_encoder.c               |  4 ++
+ drivers/gpu/drm/drm_internal.h              |  9 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 45 ++-------------
+ include/drm/drm_bridge.h                    |  2 -
+ include/drm/drm_encoder.h                   | 16 +++++-
+ 7 files changed, 95 insertions(+), 89 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
