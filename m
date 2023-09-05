@@ -2,61 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7647921FE
-	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 12:57:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47189792CA5
+	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 19:43:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B42310E4A5;
-	Tue,  5 Sep 2023 10:57:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8809A10E0C2;
+	Tue,  5 Sep 2023 17:43:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D51910E4A5
- for <freedreno@lists.freedesktop.org>; Tue,  5 Sep 2023 10:57:12 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-58c92a2c52dso22096287b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 05 Sep 2023 03:57:12 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED0E010E0BD
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Sep 2023 17:43:55 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2bcda0aaf47so867251fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Sep 2023 10:43:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693911431; x=1694516231; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nFp9JN673sSpwa45B4q2HQSN730WX8grbrKR4m9d76A=;
- b=i6+pVCzECF2oVmJH63wW8MbDK5jHRu8rSD5Omo67duOlg9UDorMTWvugVfitB1s1S1
- oUXshRsxWh95RT/s0MGK2lmXZfWk+B3fqY6bLz9Vb0zc0H2T6qicyWpnOXz/rlItSUIS
- 5qJBCTSWrKWjXFpVgi0elVoIUyvZU/6GdEbxZSfUMuQEQF5EcLf2X1d5bI22muynB3A+
- 1vwkmQcwzcGoDzUvg2ymPhgvofGBrME8OtLHT6g36nc7+qFOMzCH/0tRgIGFSbgt+XVd
- kgpUe55gNjaQVstYxQsXosO9FjPBq0/Rl3hlruEI3LzhiWIHRmsozj+b75WJNf8VlalA
- xbtw==
+ d=linaro.org; s=google; t=1693935834; x=1694540634; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2OkBEAPevcriKHohaNDw8qazVjEEi9PkNyUZ5jiXpJY=;
+ b=beQG9AgIs+kZ0h4inoONWMPHXbD4Z0JlFJ5Hfw2gjqi5RDjDMjy7nostpkPTlMVB/6
+ 3JnXKCmmtZHV9lBvA/mVg3zqSEu3bNR073f+EmoYiH2WDm/WUXZR2NP8IkMCOZvbeX9E
+ xGvPdCd6KWA6NpTDoD76I/UfpHhgVscGyP4x5IXb3jPqIBblFo0SCaq2e31LFMLcVwWf
+ EfPcF7iBwsoF5vA7YlfVwvz492dAiU6SDbJPq72rfgEWz7ITQQASB/XJhhr51P/wccmr
+ dJd1vx53mzEhnU8lVzue0m4YGzVjCCgMhNfkGHw+G+hXYMZeK+0EgeeQBGfERRyfHmkn
+ C4Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693911431; x=1694516231;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20221208; t=1693935834; x=1694540634;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=nFp9JN673sSpwa45B4q2HQSN730WX8grbrKR4m9d76A=;
- b=LHq5hKXFrrzC02XO7WSgL0ijjBwXSf9lCdRWEzpM1NE0aeItONK7Uv7TnLSmvd110E
- Mv1TlUcHRVQjrTRjF4UhY0FT51vVa7dwUo2xi5WfO85YCtOpgq6CtRybdKPLQusCFZjr
- WoFA2sJjOsT+rEUeY7FeVACN+QgAkWX1GjV+Dq7xxe+s0QZaDQ4nPMtnby4GRnbJX1UR
- rhlqMb/nwJcJgOZzZ7qEHqqLddq1YXv6y3vjEy0N32uicL4MO9Me6TCLT5QCKs0mwMvW
- lBCOhAyLIm9c3GAmT0SdTFIRgoxEAL0g3AGNkbPHQ+/0bFq2QNfvcDv/JhTGvGr/58G8
- t3NQ==
-X-Gm-Message-State: AOJu0YyTGDejlopJxjJR/xv70P3FAGbES4I8KL+i5sSYTL+ysFpLFTPU
- QgjVH3xuXHW4gd37045HuHOFB8+C5Ua6yaCYGAFaug==
-X-Google-Smtp-Source: AGHT+IGZHwMQlo/ityKImZ2VeEtB90rqhklF5U6Gv8PiiU7XpveUbpNUVJmNlPMw3mBk4Obk/SUY2ph1gPYN6jbIHDo=
-X-Received: by 2002:a25:ac20:0:b0:d53:f98f:8018 with SMTP id
- w32-20020a25ac20000000b00d53f98f8018mr13526068ybi.65.1693911431284; Tue, 05
- Sep 2023 03:57:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
- <20230903214150.2877023-2-dmitry.baryshkov@linaro.org>
- <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
-In-Reply-To: <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
+ bh=2OkBEAPevcriKHohaNDw8qazVjEEi9PkNyUZ5jiXpJY=;
+ b=cpdvAftj1wTDgmjveNEl/yK8QD2PG2o3hGstZwSuAkg3jPwf/dKhOWE9XPAY++W7Ym
+ 0/rZHwKOzGecFkRUpEV+C6T7R2P9uI+Ag3jeDW30cKZt9fHDyhYNTX2ItO/DF/rPs09Z
+ n+OG4bo/GWLDJAlF5qWW7+SGMjptlgc/vfSlmMuM3RQ/hLd6obwlMrph9d0uePLygm03
+ qYOsq7Ov1OJ0YTNtiz8gz0Pd258jISrWNeLTc2EyIU3p9YrxH2xPIpbv/hz3E+KV4oF0
+ oQRSWWlUGlBhDvZpDHYP6kunvDA8b9moWKszRJ3WtapKYKB4/kI4tDyD8PNpS508iCRD
+ ZLZw==
+X-Gm-Message-State: AOJu0YzdDf0NZxXou/rfuMXdY+eP//U0kfobxalLLtQSpKpYJ4oW1BAc
+ JLu6AqdD3IuvHSt4pOL1orYm4g==
+X-Google-Smtp-Source: AGHT+IGOcmIUS8yzOr2fJPFQEQ+/KEPQd8cKVszbnsNYXjvmDrQlbZpUn/HJlSNBPH6Suw9MJo0JKQ==
+X-Received: by 2002:a2e:805a:0:b0:2bc:bc6f:e296 with SMTP id
+ p26-20020a2e805a000000b002bcbc6fe296mr206904ljg.13.1693935833953; 
+ Tue, 05 Sep 2023 10:43:53 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ v10-20020a2e7a0a000000b002bce8404157sm3045922ljc.12.2023.09.05.10.43.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Sep 2023 10:43:53 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 5 Sep 2023 13:56:59 +0300
-Message-ID: <CAA8EJpqUg2-k7LLBL38RHU1sThkXB54ca68xEMd1yMnHQcQ++w@mail.gmail.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v1 01/12] Revert "drm/sysfs: Link DRM
- connectors to corresponding Type-C connectors"
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue,  5 Sep 2023 20:43:47 +0300
+Message-Id: <20230905174353.3118648-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/6] drm/msm: provide migration path from MDP5
+ to DPU driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,82 +73,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Won Chung <wonchung@google.com>, Daniel Vetter <daniel@ffwll.ch>,
- Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Heikki,
+Over the last several years the DPU driver has been actively developed,
+while the MDP5 is mostly in the maintenance mode. This results in some
+features being available only in the DPU driver. For example, bandwidth
+scaling, writeback support, properly supported bonded DSI aka dual DSI
+support.
 
-On Tue, 5 Sept 2023 at 11:50, Heikki Krogerus
-<heikki.krogerus@linux.intel.com> wrote:
->
-> Hi Dmitry,
->
-> On Mon, Sep 04, 2023 at 12:41:39AM +0300, Dmitry Baryshkov wrote:
-> > The kdev->fwnode pointer is never set in drm_sysfs_connector_add(), so
-> > dev_fwnode() checks never succeed, making the respective commit NOP.
->
-> That's not true. The dev->fwnode is assigned when the device is
-> created on ACPI platforms automatically. If the drm_connector fwnode
-> member is assigned before the device is registered, then that fwnode
-> is assigned also to the device - see drm_connector_acpi_find_companion().
->
-> But please note that even if drm_connector does not have anything in
-> its fwnode member, the device may still be assigned fwnode, just based
-> on some other logic (maybe in drivers/acpi/acpi_video.c?).
->
-> > And if drm_sysfs_connector_add() is modified to set kdev->fwnode, it
-> > breaks drivers already using components (as it was pointed at [1]),
-> > resulting in a deadlock. Lockdep trace is provided below.
-> >
-> > Granted these two issues, it seems impractical to fix this commit in any
-> > sane way. Revert it instead.
->
-> I think there is already user space stuff that relies on these links,
-> so I'm not sure you can just remove them like that. If the component
-> framework is not the correct tool here, then I think you need to
-> suggest some other way of creating them.
+All the pre-SDM845 platforms were originally supported by the MDP5
+driver only. However it is possible and easy to support some of the
+older SoCs in the DPU driver. For example in the v5.18 it got
+support for MSM8998.  This can not be considered as a proper migration,
+since there msm8998.dtsi didn't describe the display hardware
+beforehand. Instead new bindings were added, making MSM8998 just another
+display hardware to be supported by the DPU driver.
 
-The issue (that was pointed out during review) is that having a
-component code in the framework code can lead to lockups. With the
-patch #2 in place (which is the only logical way to set kdev->fwnode
-for non-ACPI systems) probing of drivers which use components and set
-drm_connector::fwnode breaks immediately.
+This series provides a way to gradually migrate support for several
+existing and well-supported SoCs from the MDP5 to the DPU driver without
+changing the DT. From the user experience point of view this is
+facilitated by the `msm.prefer_mdp5' kernel param. If the parameter is
+set to `true' (current default), all `shared' platforms will be handled
+by the MDP5 driver. If the switch is flipped to `false' (or if the MDP5
+driver is disabled), these platforms will be handled by the DPU driver.
+Handling this by the modparam (rather than solely by kernel config)
+allows one to easly switch between the drivers, simplifying testing.
 
-Can we move the component part to the respective drivers? With the
-patch 2 in place, connector->fwnode will be copied to the created
-kdev's fwnode pointer.
+This series implements support for two DPU 3.n platforms, SDM660 and
+SDM630, and a classical MDP5 1.7 (MSM8996) SoC. It should be easy to
+implement similar support for MSM8937 aka SDM430, MSM8917 aka SDM425,
+MSM8953 aka SDM625 / SDM632 / SDM450 and QCS405. They were left out
+beacuse of the lack of the hardware on my side. Then it should be
+relatively easy to also add support for MSM8992, MSM8994, MSM8956 and
+MSM8976. The major missing piece is the SharedMemoryPool, SMP.
 
-Another option might be to make this drm_sysfs component registration optional.
+In theory after additional testing we can drop most of migration code
+and some parts of MDP5 driver. The proposed boundary is to move all
+platforms supporting cursor planes to the DPU driver, while limiting
+MDP5 to support only the older platforms which implement cursor as a
+part of the LM hardware block (MSM8974, APQ8084, MSM8x26, MSM8x16 and
+MSM8x39).
 
-> Side note. The problem you are describing here is a limitation in the
-> component framework - right now it's made with the idea that a device
-> can represent a single component, but it really should allow a device
-> to represent multiple components. I'm not saying that you should try
-> to fix the component framework, but I just wanted to make a note about
-> this (and this is not the only problem with the component framework).
->
-> I like the component framework as a concept, but I think it needs a
-> lot of improvements - possibly rewrite.
+Dependencies: [1]
 
-Yes. There were several attempts to rewrite the component framework,
-but none succeeded up to now. Anyway, I consider rewriting components
-framework to be a bigger topic compared to drm connector fwnode setup.
+[1] https://patchwork.freedesktop.org/series/119804/
 
---
-With best wishes
-Dmitry
+Dmitry Baryshkov (5):
+  drm/msm/mdss: fix highest-bank-bit for msm8998
+  drm/msm/mdss: generate MDSS data for MDP5 platforms
+  drm/msm/dpu: support binding to the mdp5 devices
+  drm/msm: add a kernel param to select between MDP5 and DPU drivers
+  drm/msm/dpu: add support for SDM660 and SDM630 platforms
+
+Konrad Dybcio (1):
+  drm/msm/dpu: Add MSM8996 support
+
+ .../msm/disp/dpu1/catalog/dpu_1_7_msm8996.h   | 353 ++++++++++++++++++
+ .../msm/disp/dpu1/catalog/dpu_3_2_sdm660.h    | 291 +++++++++++++++
+ .../msm/disp/dpu1/catalog/dpu_3_3_sdm630.h    | 225 +++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  97 +++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  94 ++++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      |   3 +
+ drivers/gpu/drm/msm/msm_drv.c                 |  34 ++
+ drivers/gpu/drm/msm/msm_drv.h                 |   4 +
+ drivers/gpu/drm/msm/msm_io_utils.c            |  18 +
+ drivers/gpu/drm/msm/msm_mdss.c                |  39 +-
+ 11 files changed, 1142 insertions(+), 19 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
+
+-- 
+2.39.2
+
