@@ -1,71 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFEDB791AD9
-	for <lists+freedreno@lfdr.de>; Mon,  4 Sep 2023 17:49:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4B8A791FE0
+	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 03:25:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB2C210E38C;
-	Mon,  4 Sep 2023 15:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E93A10E075;
+	Tue,  5 Sep 2023 01:25:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 981FC10E38C
- for <freedreno@lists.freedesktop.org>; Mon,  4 Sep 2023 15:49:05 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-500aed06ffcso2483575e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 04 Sep 2023 08:49:05 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EEE210E075
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Sep 2023 01:25:29 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-50078eba7afso3251776e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Sep 2023 18:25:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693842543; x=1694447343; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1Mr4a2ALFhDpVZdNIQ8Ux/W/wDhbSFit8lx1g0WE8sQ=;
- b=JOSfxCun/+vRTTNPuVPAuyFJeSIyRhid6dbAOo45tmpuMCgj5iOASZhN71Nxbev1XS
- oCP9B2y3jymMzhlBqexTNzy8FqOYPNLDJUgFT7wVrvUR5YWU1fZKmcAOm1iqJLLS3h+y
- axARp/Ls0ntcw+8aRVEwImcDpNUS0XRO3svG1NZgyToS3XvbKW/zs1ZLhxbhrZY6klMv
- HgBqwSsihFsttAmlWkx8zYB3RFSW+1NfzyYBNRBpYGHIvQLpATDJORd2D6gBxR0AtwCa
- LGhC23WGctFPUI0CRzNFfVokCU5kah11BbL/tiquIH5MZk8t1pPfJaLf0dDjI1NfK02k
- oNnA==
+ d=linaro.org; s=google; t=1693877128; x=1694481928; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PGSesLieEcOqw+a0zaRz86MzyUui+iQO73QMhXr0n6w=;
+ b=uohdsAKtnjNDP6o6Hdn2furkry2HfWuRtxbaURpuJ3NdJQUjdstZZIy23uDch1oO/V
+ GrQSPjwhZgg1qQcc3dSIRQOxaD7de9krmNgCY+AeVsX2y0y+WMCVMnSIeM1QpNU1/4k8
+ LokRIQbBOYMuYqx60we8YqbQjFCJjrSgM0PmiO2Xo9uIBCS4832M/vs2SLjTg4FDWJ5n
+ 8FrXO5lQoBxjhpRTWb6jtLsA+nip/0UYWx19vHMMLNCjEuc9GFgwjclSASsuRV6p2I8p
+ DkHgwlyfeeKOnpcla63tdMBM330Tg200gDoPjD/CWbvlrjblu/l4MTq++HY9ZbFVmhvY
+ 6+JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693842543; x=1694447343;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1Mr4a2ALFhDpVZdNIQ8Ux/W/wDhbSFit8lx1g0WE8sQ=;
- b=TyC0wDiLTIMGAiuQ9lC1NfLn/9N/HKsdzydgMr2+4qRsT5IkmbNoSzw8l66gwP8jNl
- u6y+TlO7zvEvyZCEhXbeRoVN0DcD6EK17639dWAL9bjU9sUb/MN23lfgJBcVeJ3rSA5J
- 6EvhmGGdI1S+woBJEyosM+IPCvn29agIDoB3+BALRX3Oi/RI+e6B0wJVZ0jpNAT7xQXQ
- iR0wtaUqYtnqa2QbhS3cEA/9LEy4OiWYe2FA50qZdwUpVLOWwJqbXYpJBsr/AejvfMqV
- 13ibkomJ6YaN5+1j4u9IONK3ySud5hSJ/rUTNcfnEVvjVdSaKBlFJh7sTW6sTdvQk8L0
- 2crA==
-X-Gm-Message-State: AOJu0YxPlwSZqPo18YRIiPG1P26jo6jPklLaErkRTdDqzEQX3Ld4GmEJ
- 25KhyNMvjrYARduZoR9yXnJJFQ==
-X-Google-Smtp-Source: AGHT+IE4v4l6ymY3DjZh2dEcApIj4aqYKl5Mc+y05e23cKNGlbJ9nuy4qF058Dp4ZWgy6wbza5M/ZA==
-X-Received: by 2002:a05:6512:3446:b0:500:12c6:c91b with SMTP id
- j6-20020a056512344600b0050012c6c91bmr6396413lfr.40.1693842543157; 
- Mon, 04 Sep 2023 08:49:03 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20221208; t=1693877128; x=1694481928;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PGSesLieEcOqw+a0zaRz86MzyUui+iQO73QMhXr0n6w=;
+ b=Ws6BgUdbm7cLzHDwpquBQbtWKBoaC+dQxat5CAAOKSftMGI1QMn381EWj8YBYf25nI
+ eCiOBG3492OBCffA6Pr+aw5mkfpG7ZNGOalADiGHfMw/DBFoFf0cr0qYK0ld+IMf0wsN
+ +qNgoFNgYyOWGPpAFPEs7ca3186zkR0q1JlbE3ypvPyIShdi0j430aTErMEHI4tE+C2Z
+ xZQzc019lEYNSpgcn+RF7yjX7GdXJ+RPHzuP7WTSPEB3J+ynEBnja2Z8VjAfBOPU2C1n
+ ACmYXbGxfyxYTacFrTvDipVUWkTaNc/p5/7D6vvACEyyOhFyXTrMdpIhOlCRyHRWahEO
+ ZgPQ==
+X-Gm-Message-State: AOJu0YzPl5RVwg96H8RteAcUxEK0ZuJEqlQpKYL0knILWebcecbC7tlw
+ qQaf8qkjaU0dpKgWcRkRlePYuw==
+X-Google-Smtp-Source: AGHT+IHe9bGHOI7psm5y3VviCTDtNbE7xdf/6oJt+4/eT8OCnPsStODTGj/Zjuha2AzL9WjlQUTxAg==
+X-Received: by 2002:ac2:482d:0:b0:500:a2d3:3e65 with SMTP id
+ 13-20020ac2482d000000b00500a2d33e65mr7703889lft.23.1693877127724; 
+ Mon, 04 Sep 2023 18:25:27 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- u11-20020ac2518b000000b005009920b6afsm1791519lfi.9.2023.09.04.08.49.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Sep 2023 08:49:02 -0700 (PDT)
-Message-ID: <11765348-1d5c-41aa-babc-7c6da68cd9f1@linaro.org>
-Date: Mon, 4 Sep 2023 18:49:02 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Bjorn Andersson <andersson@kernel.org>
-References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
- <tsvdc6jm7rtnqjcygn7lhzspheomqbwjejoastr7kcfs22btdr@gy2s57cuwsxy>
+ v25-20020ac25599000000b004ff70c76208sm2062369lfg.84.2023.09.04.18.25.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Sep 2023 18:25:27 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <tsvdc6jm7rtnqjcygn7lhzspheomqbwjejoastr7kcfs22btdr@gy2s57cuwsxy>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH v1 00/12] drm,
- usb/typec: uABI for USB-C DisplayPort connectors
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue,  5 Sep 2023 04:25:18 +0300
+Message-Id: <20230905012526.3010798-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/8] drm/msm/dpu: simplify DPU sub-blocks info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,67 +72,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Simon Ser <contact@emersion.fr>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/09/2023 18:46, Bjorn Andersson wrote:
-> On Mon, Sep 04, 2023 at 12:41:38AM +0300, Dmitry Baryshkov wrote:
->> During the discussion regarding DisplayPort wrapped in the USB-C
->> connectors (via the USB-C altmode) it was pointed out that currently
->> there is no good way to let userspace know if the DRM connector in
->> question is the 'native' DP connector or if it is the USB-C connector.
->>
->> An attempt to use DRM_MODE_CONNECTOR_USB for such connectors was
->> declined, as existing DP drivers (i915, AMD) use
->> DRM_MODE_CONNECTOR_DisplayPort. New drivers should behave in the same
->> way.
->>
-> 
-> Sorry, didn't see the commit message before posting my complaint about
-> USB -> DisplayPort.
-> 
->> An attempt to use subconnector property was also declined. It is defined
->> to the type of the DP dongle connector rather than the host connector.
->>
->> This attempt targets reusing the connector's PATH property. Currently
->> this property is only used for the DP MST connectors. This patchset
->> reuses it to point out to the corresponding registered typec port
->> device.
->>
-> 
-> Still interested in understanding how the path string should look like.
+The handling code also usually knows, which sub-block it is now looking
+at. Drop unused 'id' field and arguments and merge some of sub-block
+declarations.
 
-As wrote in the other letter, on RB5 it is 'typec:port0'. If the machine 
-has two Type-C ports and two connected DP blocks, one of them will have 
-'typec:port0', another one 'typec:port1'. This way one can further look 
-under /sys/class/typec/portN/physical_localtion/ and find corresponding 
-location, etc.
+While we are at it, also fix all VIG subblocks to contain correct scaler
+block version and drop the becoming unused QSEED-related feature bits.
 
-> Is the path expected to be consumed by machine, or is it only there for
-> human convenience?
+Changes since v2:
+- Reworked the VIG SBLK definitions to set the scaler version (Marijn,
+  Abhinav)
+- Rebased the reset of the patches on top of this (intrusive) change.
+- Folded QSEED3LITE and QSEED4 feature bits into QSEED3
 
-As with DP MST it is expected that userspace will consume this 
-information, possibly renaming the connector. For example, on my laptop 
-I have DP-1, ... DP-5 connectors (with DP-2 -- DP-5 being DP MST ones). 
-Xorg renames them to DP-1, DP-2, DP-1-1, DP-1-2, DP-1-3, because the MST 
-ones are branches for the DP-1.
+Changes since v1:
+- Dropped the patch dropping 'name' field (Abhinav).
+- Deduplicate equivalent SBLK definitions.
+- Dropped the dpu_csc_blk and dpu_dsc_blk merge.
+
+Dmitry Baryshkov (8):
+  drm/msm/dpu: populate SSPP scaler block version
+  drm/msm/dpu: drop the `id' field from DPU_HW_SUBBLK_INFO
+  drm/msm/dpu: drop the `smart_dma_priority' field from struct
+    dpu_sspp_sub_blks
+  drm/msm/dpu: deduplicate some (most) of SSPP sub-blocks
+  drm/msm/dpu: drop DPU_HW_SUBBLK_INFO macro
+  drm/msm/dpu: drop the dpu_caps::qseed_type field
+  drm/msm/dpu: merge DPU_SSPP_SCALER_QSEED3, QSEED3LITE, QSEED4
+  drm/msm/gpu: drop duplicating VIG feature masks
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |   8 +-
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  11 +-
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   7 +-
+ .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  11 +-
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   4 +-
+ .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   7 +-
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   9 +-
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  29 ++--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 145 +++++++-----------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  52 +++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   3 +-
+ 21 files changed, 198 insertions(+), 269 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
