@@ -1,49 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B40C792D96
-	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 20:46:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56A1D79315A
+	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 23:52:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C50BA10E422;
-	Tue,  5 Sep 2023 18:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9667610E0AE;
+	Tue,  5 Sep 2023 21:52:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9444A10E1A7;
- Tue,  5 Sep 2023 18:45:47 +0000 (UTC)
-Received: from localhost.localdomain (unknown
- [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 1D71A66072B1;
- Tue,  5 Sep 2023 19:45:46 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693939546;
- bh=/++GjTI/qMqzskPDEJeSXv7mzw9FD5fHfY1lAL+uK60=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MSdMHnxFCvB7g/mjGI/EVGU5LPnt05aiikstG4ovb4UAk7nvluMUlTQdg3efzTDH+
- J4ddyTO0hTck2F5y3W8xHNkwxrpGMQc4ZSZmwPLkiS+rHsAEaC9ehAV2mEsd6pIVpx
- uIt3YObU65QtRztDv/CLXyQr/uqEhWllHfUnlJxBi604KWaWADEyjjuggl0ZeOKhS8
- fw3DOW8G7kwYHIfEb0XHg0LXzemH88yJni8UXm1ZmIQ1uyJ3Ik29p9uOUKR+XuN32l
- x4+HtdoRpIlIMJDSAQU6r3NixRn8Q1hzhtG7ouHEAE/upErS0b4Eg0JBU1XzWy0x1I
- Mai/lZW+TsnEA==
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, daniel@ffwll.ch, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
-Date: Tue,  5 Sep 2023 19:45:24 +0100
-Message-ID: <20230905184533.959171-9-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230905184533.959171-1-adrian.larumbe@collabora.com>
-References: <20230905184533.959171-1-adrian.larumbe@collabora.com>
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1612910E09C
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Sep 2023 21:52:40 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-5007f3d3235so4798790e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Sep 2023 14:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1693950758; x=1694555558;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=poTEsy/DpCYMp8kn/k9olR9s+199uTi+MS4Yqzd7g30=;
+ b=cREgeim7Z+/K5/YgBrNHqHlcoaZLr5sZpO4OXvL0AeiZ2spCUjJgLisXkf1kOevHi4
+ IYwjzi2GZzjeqBEdq9s0tu52fPYltFHMOU/O3VS3x+1b5DGyiMyVwnmzr/nhPyX9xaEc
+ ppinVBAsHEnM7qKgSQGaGv1Vn5r3ueXFSVxGY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693950758; x=1694555558;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=poTEsy/DpCYMp8kn/k9olR9s+199uTi+MS4Yqzd7g30=;
+ b=I4vLdnuCpMM9ndkHVegSNn7/ZDauedXds7bGA4LFuVFGYeRA1vnZ7aToCuydnp5mfb
+ aOqAiBLv+uVpxkrbs3Jiu320JctOFJS75UJ457y/hL4lQQBaIxaepapep5eDpBhnCxyy
+ i8/7Sk3tFozqQAvXpt2knj/Gy7wUvllKhywsoPW5sZuIM8UYussTLjQkmYjtt3O5TfSG
+ jf3FJoM0QZd1V/EwqpsrBr4BrcxN4rhdfYsW+pBxy7PdpVqvSm0NvAyPUJQhaYbfHrZ3
+ 5Igi0CEdLkiwxUFM4lDgowssaewADZDDnw6kLOARQgKILiBFxYFAbfWIj1XH6APUIWrN
+ A2Xg==
+X-Gm-Message-State: AOJu0YyS3XTwtLdlRm9s79Wk/v0E210UpZbYnKmvDr2wRefayhz8kYS+
+ 3uKdJy0x/qflYaKTuovW43fUoYcR+dXds0eWYXgXYg==
+X-Google-Smtp-Source: AGHT+IE3JWihciGf0rRrSsH9PjyDJ4bYAVgfmGDiVcDY3TEzyqBgkL1t/dLNdH5Gs/1zTaB+TQSko2czegvMLQZy5cI=
+X-Received: by 2002:a19:671a:0:b0:4fe:1681:9378 with SMTP id
+ b26-20020a19671a000000b004fe16819378mr706226lfc.66.1693950758130; Tue, 05 Sep
+ 2023 14:52:38 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 5 Sep 2023 16:52:37 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 8/8] drm/drm-file: Show finer-grained BO
- sizes in drm_show_memory_stats
+In-Reply-To: <726d4be5-d207-4176-bc0d-43492eb2c4e5@linaro.org>
+References: <20230829184735.2841739-1-swboyd@chromium.org>
+ <20230829184735.2841739-8-swboyd@chromium.org>
+ <726d4be5-d207-4176-bc0d-43492eb2c4e5@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 5 Sep 2023 16:52:37 -0500
+Message-ID: <CAE-0n50Ka++WMKey_Nqm1drkQZLj6gnPSf=P2NX9=diQ_qCgtg@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 7/7] drm/msm/dp: Remove
+ dp_display_is_ds_bridge()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,36 +71,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- healych@amazon.com, kernel@collabora.com, freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ patches@lists.linux.dev, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The current implementation will try to pick the highest available size
-display unit as soon as the BO size exceeds that of the previous
-multiplier.
+Quoting Dmitry Baryshkov (2023-09-03 15:40:49)
+> On 29/08/2023 21:47, Stephen Boyd wrote:
+> > This function is simply drm_dp_is_branch() so use that instead of
+> > open-coding it.
+> >
+> > Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
+> > Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> > ---
+> >   drivers/gpu/drm/msm/dp/dp_display.c | 9 +--------
+> >   1 file changed, 1 insertion(+), 8 deletions(-)
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-By selecting a higher threshold, we could show more accurate size numbers.
+Thanks.
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/drm_file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > index 76f13954015b..96bbf6fec2f1 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > @@ -341,19 +341,12 @@ static const struct component_ops dp_display_comp_ops = {
+> >       .unbind = dp_display_unbind,
+> >   };
+> >
+> > -static bool dp_display_is_ds_bridge(struct dp_panel *panel)
+> > -{
+> > -     return (panel->dpcd[DP_DOWNSTREAMPORT_PRESENT] &
+> > -             DP_DWN_STRM_PORT_PRESENT);
+> > -}
+> > -
+> >   static bool dp_display_is_sink_count_zero(struct dp_display_private *dp)
+>
+> Nit: you might as well inline this function
 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 762965e3d503..0b5fbd493e05 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -879,7 +879,7 @@ static void print_size(struct drm_printer *p, const char *stat,
- 	unsigned u;
- 
- 	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
--		if (sz < SZ_1K)
-+		if (sz < (SZ_1K * 10000))
- 			break;
- 		sz = div_u64(sz, SZ_1K);
- 	}
--- 
-2.42.0
+Ok. I'll send a followup to this series with a patch for that. I found
+that with an Apple dongle it always prints out a message to the kernel
+log when I have HDMI disconnected that there isn't a sink connected,
+which is annoying.
 
+So at least two more patches are incoming.
