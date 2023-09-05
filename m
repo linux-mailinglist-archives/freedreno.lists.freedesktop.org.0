@@ -1,69 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89B6F791FEF
-	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 03:25:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7647921FE
+	for <lists+freedreno@lfdr.de>; Tue,  5 Sep 2023 12:57:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB1C10E15F;
-	Tue,  5 Sep 2023 01:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B42310E4A5;
+	Tue,  5 Sep 2023 10:57:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F9A10E16A
- for <freedreno@lists.freedesktop.org>; Tue,  5 Sep 2023 01:25:35 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-500c7796d8eso3081074e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 04 Sep 2023 18:25:35 -0700 (PDT)
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [IPv6:2607:f8b0:4864:20::1134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D51910E4A5
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Sep 2023 10:57:12 +0000 (UTC)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-58c92a2c52dso22096287b3.2
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Sep 2023 03:57:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693877134; x=1694481934; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uQN1Ap/4XKz/5aS/uJ7pfsyxpBDq8/WGhMf2e10wfUM=;
- b=cquvylxmM1R7W7ETvfF4RoJwYTqQUk4arvIO1fXTOn/cdVegNX1csaYh8Xq20ljpyB
- NKYha8m6TPPI9LHAZZKiDJuY7Gkv50h4UNF1hIBKqqVVdpmoDsKq46B+opbQZZjW9Jz3
- a1Wpo8zN6uxECqmgZZriVYl/7VQlRM8B+W45ppcsEbpoBiXki7/MHODQkpPAV5yHA6vj
- NxLvPaZoDgEOVH6MyYpaYrstNExqky6XOxyI7uZ4Rf6mlVMOmuTEiafRuTYvLAB8c6Y9
- yQkxjELolt+g3y3e13VvBbYMDqry5L17pGNtrDn3yeUVvRHji4G4QstjZ0jnV6Bjov6e
- HvTA==
+ d=linaro.org; s=google; t=1693911431; x=1694516231; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=nFp9JN673sSpwa45B4q2HQSN730WX8grbrKR4m9d76A=;
+ b=i6+pVCzECF2oVmJH63wW8MbDK5jHRu8rSD5Omo67duOlg9UDorMTWvugVfitB1s1S1
+ oUXshRsxWh95RT/s0MGK2lmXZfWk+B3fqY6bLz9Vb0zc0H2T6qicyWpnOXz/rlItSUIS
+ 5qJBCTSWrKWjXFpVgi0elVoIUyvZU/6GdEbxZSfUMuQEQF5EcLf2X1d5bI22muynB3A+
+ 1vwkmQcwzcGoDzUvg2ymPhgvofGBrME8OtLHT6g36nc7+qFOMzCH/0tRgIGFSbgt+XVd
+ kgpUe55gNjaQVstYxQsXosO9FjPBq0/Rl3hlruEI3LzhiWIHRmsozj+b75WJNf8VlalA
+ xbtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693877134; x=1694481934;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uQN1Ap/4XKz/5aS/uJ7pfsyxpBDq8/WGhMf2e10wfUM=;
- b=kd2b123VdPAsY0JlJ0vEuKmYWJpgKy/7GSFu+G0L3yQuWZSbPL/dzjThTxJEB/JV9S
- 9dm1Zq5/rU34nviyp2CceaUJn0a7WnsRm4FqQ5O2lvg/gjsfOPjiQjkLgJgBF+CZOxDA
- GNW9HOb0drVbSfwB/W/7h4Iexf6EeMJBsGbwLj7RpKjB00ZQTXI8uBqYfuCEvOoKj0Zt
- rUCebRbtVktq/WgrtkRdRsn1xGvMDaXN5HQO6vpOHwoCMNbNFBZm8a1IssJdA4U0M0ij
- GcF8hAbkJT0xj+GSxp47YE9Ar2ciO+yCsoABbCzcSjR41GV57CeyXvGJVk4C8JxE2jtM
- cIOQ==
-X-Gm-Message-State: AOJu0YxAZWwpX3q4i2RQc1nImT63w6LGpnERPmppFkyzAf3gguLLo6hm
- ZpzzQ9INTYVHrgr+nsIdQLK95Q==
-X-Google-Smtp-Source: AGHT+IFgZpzdyYlSNWhGAlu/VvmDMtFOE5/yU1q9JCDPkK5ohNNOiI9l6k6Oh63CaMCW9FyqOUQEKg==
-X-Received: by 2002:ac2:4d84:0:b0:4fb:7559:aea3 with SMTP id
- g4-20020ac24d84000000b004fb7559aea3mr6253582lfe.39.1693877133998; 
- Mon, 04 Sep 2023 18:25:33 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- v25-20020ac25599000000b004ff70c76208sm2062369lfg.84.2023.09.04.18.25.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Sep 2023 18:25:33 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue,  5 Sep 2023 04:25:26 +0300
-Message-Id: <20230905012526.3010798-9-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230905012526.3010798-1-dmitry.baryshkov@linaro.org>
-References: <20230905012526.3010798-1-dmitry.baryshkov@linaro.org>
+ d=1e100.net; s=20221208; t=1693911431; x=1694516231;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nFp9JN673sSpwa45B4q2HQSN730WX8grbrKR4m9d76A=;
+ b=LHq5hKXFrrzC02XO7WSgL0ijjBwXSf9lCdRWEzpM1NE0aeItONK7Uv7TnLSmvd110E
+ Mv1TlUcHRVQjrTRjF4UhY0FT51vVa7dwUo2xi5WfO85YCtOpgq6CtRybdKPLQusCFZjr
+ WoFA2sJjOsT+rEUeY7FeVACN+QgAkWX1GjV+Dq7xxe+s0QZaDQ4nPMtnby4GRnbJX1UR
+ rhlqMb/nwJcJgOZzZ7qEHqqLddq1YXv6y3vjEy0N32uicL4MO9Me6TCLT5QCKs0mwMvW
+ lBCOhAyLIm9c3GAmT0SdTFIRgoxEAL0g3AGNkbPHQ+/0bFq2QNfvcDv/JhTGvGr/58G8
+ t3NQ==
+X-Gm-Message-State: AOJu0YyTGDejlopJxjJR/xv70P3FAGbES4I8KL+i5sSYTL+ysFpLFTPU
+ QgjVH3xuXHW4gd37045HuHOFB8+C5Ua6yaCYGAFaug==
+X-Google-Smtp-Source: AGHT+IGZHwMQlo/ityKImZ2VeEtB90rqhklF5U6Gv8PiiU7XpveUbpNUVJmNlPMw3mBk4Obk/SUY2ph1gPYN6jbIHDo=
+X-Received: by 2002:a25:ac20:0:b0:d53:f98f:8018 with SMTP id
+ w32-20020a25ac20000000b00d53f98f8018mr13526068ybi.65.1693911431284; Tue, 05
+ Sep 2023 03:57:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 8/8] drm/msm/gpu: drop duplicating VIG
- feature masks
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-2-dmitry.baryshkov@linaro.org>
+ <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
+In-Reply-To: <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 5 Sep 2023 13:56:59 +0300
+Message-ID: <CAA8EJpqUg2-k7LLBL38RHU1sThkXB54ca68xEMd1yMnHQcQ++w@mail.gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH v1 01/12] Revert "drm/sysfs: Link DRM
+ connectors to corresponding Type-C connectors"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,325 +69,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Won Chung <wonchung@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-After folding QSEED3LITE and QSEED4 feature bits into QSEED3 several
-VIG feature masks became equal. Drop these duplicates.
+Hi Heikki,
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c        | 11 +----------
- 11 files changed, 26 insertions(+), 35 deletions(-)
+On Tue, 5 Sept 2023 at 11:50, Heikki Krogerus
+<heikki.krogerus@linux.intel.com> wrote:
+>
+> Hi Dmitry,
+>
+> On Mon, Sep 04, 2023 at 12:41:39AM +0300, Dmitry Baryshkov wrote:
+> > The kdev->fwnode pointer is never set in drm_sysfs_connector_add(), so
+> > dev_fwnode() checks never succeed, making the respective commit NOP.
+>
+> That's not true. The dev->fwnode is assigned when the device is
+> created on ACPI platforms automatically. If the drm_connector fwnode
+> member is assigned before the device is registered, then that fwnode
+> is assigned also to the device - see drm_connector_acpi_find_companion().
+>
+> But please note that even if drm_connector does not have anything in
+> its fwnode member, the device may still be assigned fwnode, just based
+> on some other logic (maybe in drivers/acpi/acpi_video.c?).
+>
+> > And if drm_sysfs_connector_add() is modified to set kdev->fwnode, it
+> > breaks drivers already using components (as it was pointed at [1]),
+> > resulting in a deadlock. Lockdep trace is provided below.
+> >
+> > Granted these two issues, it seems impractical to fix this commit in any
+> > sane way. Revert it instead.
+>
+> I think there is already user space stuff that relies on these links,
+> so I'm not sure you can just remove them like that. If the component
+> framework is not the correct tool here, then I think you need to
+> suggest some other way of creating them.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-index c5c44e15a8ea..e196f9e7fd82 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-@@ -68,7 +68,7 @@ static const struct dpu_sspp_cfg sm6125_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f0,
--		.features = VIG_SM6125_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_2_4,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-index e1a06e609cc1..c9576a7b8bef 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-@@ -74,7 +74,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -82,7 +82,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -90,7 +90,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -98,7 +98,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-index 206e5a64e5e4..7e1156f1ef54 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-@@ -51,7 +51,7 @@ static const struct dpu_sspp_cfg sc7180_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-index 1122a62acddf..49d360d2b73b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-@@ -38,7 +38,7 @@ static const struct dpu_sspp_cfg sm6115_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-index 8aea53d5c86f..ce54e0c695d6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-@@ -58,7 +58,7 @@ static const struct dpu_sspp_cfg sm6350_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-index 73756ee7bba7..b03f23a0359f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-@@ -39,7 +39,7 @@ static const struct dpu_sspp_cfg sm6375_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-index fcefb7a66bec..928d62caf8c8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-@@ -73,7 +73,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -81,7 +81,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -89,7 +89,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -97,7 +97,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-index 332097f8799f..6e3a05666be6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-@@ -74,7 +74,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -82,7 +82,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -90,7 +90,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -98,7 +98,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_0,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-index 90977084958a..09c589207d74 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-@@ -74,7 +74,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_1,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -82,7 +82,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_1,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -90,7 +90,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_1,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -98,7 +98,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_1,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-index 23f4d8d8e22b..e1f872efb5b2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-@@ -76,7 +76,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_2,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -84,7 +84,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_2,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -92,7 +92,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_2,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -100,7 +100,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_3_2,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 67d66319a825..337d4f612f9a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -30,15 +30,6 @@
- #define VIG_SDM845_MASK_SDMA \
- 	(VIG_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
- 
--#define VIG_SC7180_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
--
--#define VIG_SM6125_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
--
--#define VIG_SC7180_MASK_SDMA \
--	(VIG_SC7180_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
--
- #define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
- 
- #define DMA_MSM8998_MASK \
-@@ -47,7 +38,7 @@
- 	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
- 
- #define VIG_SC7280_MASK \
--	(VIG_SC7180_MASK | BIT(DPU_SSPP_INLINE_ROTATION))
-+	(VIG_SDM845_MASK | BIT(DPU_SSPP_INLINE_ROTATION))
- 
- #define VIG_SC7280_MASK_SDMA \
- 	(VIG_SC7280_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
--- 
-2.39.2
+The issue (that was pointed out during review) is that having a
+component code in the framework code can lead to lockups. With the
+patch #2 in place (which is the only logical way to set kdev->fwnode
+for non-ACPI systems) probing of drivers which use components and set
+drm_connector::fwnode breaks immediately.
 
+Can we move the component part to the respective drivers? With the
+patch 2 in place, connector->fwnode will be copied to the created
+kdev's fwnode pointer.
+
+Another option might be to make this drm_sysfs component registration optional.
+
+> Side note. The problem you are describing here is a limitation in the
+> component framework - right now it's made with the idea that a device
+> can represent a single component, but it really should allow a device
+> to represent multiple components. I'm not saying that you should try
+> to fix the component framework, but I just wanted to make a note about
+> this (and this is not the only problem with the component framework).
+>
+> I like the component framework as a concept, but I think it needs a
+> lot of improvements - possibly rewrite.
+
+Yes. There were several attempts to rewrite the component framework,
+but none succeeded up to now. Anyway, I consider rewriting components
+framework to be a bigger topic compared to drm connector fwnode setup.
+
+--
+With best wishes
+Dmitry
