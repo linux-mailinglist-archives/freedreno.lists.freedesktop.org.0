@@ -1,48 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D8A79364A
-	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 09:33:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C43179365B
+	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 09:34:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A7310E122;
-	Wed,  6 Sep 2023 07:33:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C4910E593;
+	Wed,  6 Sep 2023 07:34:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4231B10E122;
- Wed,  6 Sep 2023 07:32:59 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 1282F6606EE0;
- Wed,  6 Sep 2023 08:32:57 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693985577;
- bh=Suut8+s0FHTKuSqrkmmDOEiABmt5dMjN+myE+DMpao4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=hP3EMHCEoghTEeD4tl3WsCO1XIdu67KmZR38wNRd/4Wagzj0jsM64RYBvocyOkqi8
- srNX9OgvWK+ZK4m4IE9GC5MKtDN+OocUlJKLPABGFt9Z+WOqPKRrW+tTNyD+NUdX+0
- 6s2o+NSbS053mRwxzD39ECWOQFvTVwHyB6VmiWchab/BTcT5pikQbkbw5E7op8jy49
- yl+EcMYPDY4M7aWfaPLr1uoW0Z92iso8bX4ZG4edIvZiCPoRKlOV+a7t6kkrV/KZmj
- YSwc2Lm7D792dIbXofG1+zPQzNO9+KFRY1J98SG1/CNyqxh48DlQF1YdHToecvVIwu
- KjHRkzuCOawtQ==
-Date: Wed, 6 Sep 2023 09:32:54 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Message-ID: <20230906093254.1f078b88@collabora.com>
-In-Reply-To: <20230905184533.959171-4-adrian.larumbe@collabora.com>
-References: <20230905184533.959171-1-adrian.larumbe@collabora.com>
- <20230905184533.959171-4-adrian.larumbe@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A91210E122
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Sep 2023 07:34:49 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-31f4a286ae1so2109901f8f.3
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Sep 2023 00:34:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1693985688; x=1694590488; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CMSRLHXlFi+3qNI1oF/iiV7PXrA/nSM0CvaGy0w7SXc=;
+ b=NaBkF33vbTET3jc7DGJBjlmhVvLrUHmkjpfoQ9Y/prsRFCQjEQaU1NULjWmT1bOimL
+ rg+csFt+B/FyPycukGjsCWHSxY/L1XpLm7CdfF4LpA+XcgbVlsWK32kQbzzJGaWefzQF
+ rhnS9eI8PLD2IR4uyPdxDMaoMS6VrXQMdn/BklHx6iKmQ8FtByGbAASw4ybyyrWm9Xn4
+ SqH+SS/Uc4ZeDFHa5DQp4gJels1UI13Wrh82IL82CYM/X+8NzwqF28tuhrsOwmptlDJ4
+ ze9GVPz5f5mkAwp687SjKdAGEoWlfPXETERDAplk8wl5NHDfky7v63J9Us9mBzkif++h
+ CPJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693985688; x=1694590488;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CMSRLHXlFi+3qNI1oF/iiV7PXrA/nSM0CvaGy0w7SXc=;
+ b=Nybpbzjgr1NoEZ/K5AHg68AobZd3tyvRiEue1RNiT+GrYflA1/zqgDeCbNlNd1hGm8
+ b6RlYPsOj5d0tVj0O3Dn75HLRndp6IJuG2ZjygN5DkQdSPrrJ+27uPPLVQup9Jlnuk88
+ r2/pRaGfF9xqZmdXjg4yENwtTpPqA2Gyn0rG53aMbIG2+xb6q/Ixexf1+ynJfBPadmQx
+ 0dO1vmceT42UIWt0zd9JyOmJJ524bgL4xF9eikkXl6+irI1gu5fDtSOa1b7tdpMiEfbv
+ LvFXIojB8iszwdEx8yO9xkrOq1lUvykwT+B57TIF1lUZGsL4DoeB8+dA+FzTdNv+Exy7
+ F9kA==
+X-Gm-Message-State: AOJu0YzvyyLq0SPGAo2wyxySjEzD+a0f5Lneoei8+LTjBCpMxY7Gs0Yc
+ BtWdVUBeLtYu8OlmjVpnO/lYcA==
+X-Google-Smtp-Source: AGHT+IE3sb3hti0p58bOyqh94e0W5av0EGUu5XQJfY0ge33yXzp+ulTksbLVlMy+IMnfpoe6+6+qqg==
+X-Received: by 2002:a5d:4fc8:0:b0:31a:d8be:d6f4 with SMTP id
+ h8-20020a5d4fc8000000b0031ad8bed6f4mr1329142wrw.10.1693985688339; 
+ Wed, 06 Sep 2023 00:34:48 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ l16-20020adfe9d0000000b00317e77106dbsm19508192wrn.48.2023.09.06.00.34.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Sep 2023 00:34:47 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20230831225738.26527-1-quic_jesszhan@quicinc.com>
+References: <20230831225738.26527-1-quic_jesszhan@quicinc.com>
+Message-Id: <169398568750.126904.4693079366206552749.b4-ty@linaro.org>
+Date: Wed, 06 Sep 2023 09:34:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v3 3/8] drm/panfrost: Enable debugfs
- toggling of cycle counter register
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.3
+Subject: Re: [Freedreno] [PATCH] MAINTAINERS: Add Jessica as a reviewer for
+ drm/panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,160 +75,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
- robdclark@gmail.com, healych@amazon.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org,
+ sam@ravnborg.org, quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue,  5 Sep 2023 19:45:19 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+Hi,
 
-> Allow user space to decide whether the cycle counting register should be
-> enabled. The main goal is letting tools like nvtop or IGT's gputop access
-> this information in debug builds to obtain engine utilisation numbers.
+On Thu, 31 Aug 2023 15:57:36 -0700, Jessica Zhang wrote:
+> As I participate more actively in the drm/panel subsystem, I would
+> like to get notified about new changes in this area.
+> 
+> Since I have contributed and continue to contribute to drm/panel,
+> add myself as a reviewer for the DRM panel drivers to help the review
+> process
+> 
+> [...]
 
-Given you add a debugfs knob, I would simply drop the module param
-introduced in the previous patch, it's just redundant, and I'd expect
-people who care about profiling to have DEBUGFS enabled anyway.
+Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
 
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/Makefile           |  2 +
->  drivers/gpu/drm/panfrost/panfrost_debugfs.c | 51 +++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_debugfs.h | 13 ++++++
->  drivers/gpu/drm/panfrost/panfrost_drv.c     |  5 ++
->  4 files changed, 71 insertions(+)
->  create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.c
->  create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.h
->=20
-> diff --git a/drivers/gpu/drm/panfrost/Makefile b/drivers/gpu/drm/panfrost=
-/Makefile
-> index 7da2b3f02ed9..2c01c1e7523e 100644
-> --- a/drivers/gpu/drm/panfrost/Makefile
-> +++ b/drivers/gpu/drm/panfrost/Makefile
-> @@ -12,4 +12,6 @@ panfrost-y :=3D \
->  	panfrost_perfcnt.o \
->  	panfrost_dump.o
-> =20
-> +panfrost-$(CONFIG_DEBUG_FS) +=3D panfrost_debugfs.o
-> +
->  obj-$(CONFIG_DRM_PANFROST) +=3D panfrost.o
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_debugfs.c b/drivers/gpu/dr=
-m/panfrost/panfrost_debugfs.c
-> new file mode 100644
-> index 000000000000..48d5ddfcb1c6
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panfrost/panfrost_debugfs.c
-> @@ -0,0 +1,51 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/* Copyright 2023 Collabora ltd. */
-> +
-> +#include <linux/debugfs.h>
-> +#include <drm/drm_debugfs.h>
-> +#include <drm/drm_file.h>
-> +#include <drm/panfrost_drm.h>
-> +
-> +#include "panfrost_device.h"
-> +#include "panfrost_gpu.h"
-> +#include "panfrost_debugfs.h"
-> +
-> +static int
-> +profile_get(void *data, u64 *val)
-> +{
-> +	struct drm_device *dev =3D data;
-> +	struct panfrost_device *pfdev =3D dev->dev_private;
-> +
-> +	*val =3D atomic_read(&pfdev->profile_mode);
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +profile_set(void *data, u64 val)
-> +{
-> +	struct drm_device *dev =3D data;
-> +	struct panfrost_device *pfdev =3D dev->dev_private;
-> +
-> +	if (atomic_read(&pfdev->profile_mode) =3D=3D val)
-> +		return 0;
-> +
-> +	if (val =3D=3D false)
-> +		panfrost_cycle_counter_stop(pfdev);
+[1/1] MAINTAINERS: Add Jessica as a reviewer for drm/panel
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=6bd3d8da51ca1ec97c724016466606aec7739b9f
 
-I don't think we want to stop the counter immediately. We should
-instead let the job logic switch it off when all jobs with profiling
-enabled are done.
-
-> +	else
-> +		atomic_set(&pfdev->profile_mode, 1);
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(profile_fops,
-> +			 profile_get, profile_set,
-> +			 "%llu\n");
-> +
-> +void panfrost_debugfs_init(struct drm_minor *minor)
-> +{
-> +	struct drm_device *dev =3D minor->dev;
-> +
-> +	debugfs_create_file("profile", 0600, minor->debugfs_root,
-> +		dev, &profile_fops);
-
-With the panfrost_cycle_counter_stop() call in profile_set() dropped,
-you should be able to use debugfs_create_atomic_t() here.
-
-> +}
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_debugfs.h b/drivers/gpu/dr=
-m/panfrost/panfrost_debugfs.h
-> new file mode 100644
-> index 000000000000..db1c158bcf2f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panfrost/panfrost_debugfs.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright 2023 Collabora ltd.
-> + */
-> +
-> +#ifndef PANFROST_DEBUGFS_H
-> +#define PANFROST_DEBUGFS_H
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +void panfrost_debugfs_init(struct drm_minor *minor);
-> +#endif
-> +
-> +#endif  /* PANFROST_DEBUGFS_H */
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index a2ab99698ca8..2dfd9f79a31b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -20,6 +20,7 @@
->  #include "panfrost_job.h"
->  #include "panfrost_gpu.h"
->  #include "panfrost_perfcnt.h"
-> +#include "panfrost_debugfs.h"
-> =20
->  static bool unstable_ioctls;
->  module_param_unsafe(unstable_ioctls, bool, 0600);
-> @@ -546,6 +547,10 @@ static const struct drm_driver panfrost_drm_driver =
-=3D {
-> =20
->  	.gem_create_object	=3D panfrost_gem_create_object,
->  	.gem_prime_import_sg_table =3D panfrost_gem_prime_import_sg_table,
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +	.debugfs_init		=3D panfrost_debugfs_init,
-> +#endif
->  };
-> =20
->  static int panfrost_probe(struct platform_device *pdev)
+-- 
+Neil
 
