@@ -2,65 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 385677942DD
-	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 20:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9575779436D
+	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 21:02:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFEF810E6EA;
-	Wed,  6 Sep 2023 18:12:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8E3C10E712;
+	Wed,  6 Sep 2023 19:02:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C4C10E6E8
- for <freedreno@lists.freedesktop.org>; Wed,  6 Sep 2023 18:12:32 +0000 (UTC)
-Received: by mail-pf1-x42c.google.com with SMTP id
- d2e1a72fcca58-68c0d886ea0so107408b3a.2
- for <freedreno@lists.freedesktop.org>; Wed, 06 Sep 2023 11:12:32 -0700 (PDT)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1891610E706;
+ Wed,  6 Sep 2023 19:02:34 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id
+ ca18e2360f4ac-79536bc6697so4638039f.1; 
+ Wed, 06 Sep 2023 12:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1694023952; x=1694628752;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20221208; t=1694026953; x=1694631753; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3gX80LwLt7yqAMwtFkIm6jGbzuAJp27nwGBhP1SlyP8=;
- b=krQpeucon1782RMuH7OGV8/c8AjeTBjCDhNOYsvhcNutJwIOBnlnPK35U6wzNzsEQi
- f1PPeKmAozTAa7GGWFiWBB5GJWgUcn/Aplx3Uf8J+r84q0F4SXw/BLe3y8QYgDZlljQf
- +dc5//GF/P0/+Dp5z3k1rLG0JEdLxH/TEGlHA=
+ bh=Shuu74iNOrUzggTrIzmIdLUSQe5OqUirbEavz/33+0U=;
+ b=EZ5rL+Vy7fZNCPDyFWaHJA72AYBctyaxYn8neQ0YHBNe1EQmdLfknVcTrvsMG6m6rT
+ qe/zJvwwY/XqjU2MXxlnl9gxfKHVttaESfADVdntc3Znmvz2UZBIA8uLRFUmRqUTWslO
+ 5sRjCzeZGsuhJX27bfbdt2M3T5ZtJ6DZEKqHoYGroC0uwtcRVBZAGml4l5VhR5OsjU1F
+ BAn5SItD8ryndij55O+tZAH6UhvFyy2xZ17L70d16cUeGWt3eBdZQXlow5XYy9fYeu/q
+ 1BacKv6JoMK/tBHIlnJJxNH9f0ertXf7dH7z1zHP7NW/O65ssKdVguhtw4GQzBmR65/y
+ cUfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1694023952; x=1694628752;
+ d=1e100.net; s=20221208; t=1694026953; x=1694631753;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3gX80LwLt7yqAMwtFkIm6jGbzuAJp27nwGBhP1SlyP8=;
- b=NfqspckDQAHfgmjzqw64WxxJDfnFtc0XwJIY46wRnP4w7LTOpeyNKrKdmutJrBrBvT
- wk+7pZZ/eQcWH4NN3vIVYm6biJulTzbnDXjZLY+XyzqFunmLSq660V6wyOfxfTE+pY+3
- l++YoyL7H3VMWKKarslJhxF9b2GXd5oejNs5KIbiBPk+5fBsC2oZCJ0m3jXNlmZo23cM
- 82tc1a7wtpN7WI/Z0r8xibIen+F4tn7FTmnVNrWBu76nwS5GqokPXBImHfftafFAfVve
- ni8Rv1zI0cJ7WToHkLqBhI1Yt4fP1tmZIudTmPAE2bmVEA6JMceDq2wVe5pK2XwbKsJS
- 9NuQ==
-X-Gm-Message-State: AOJu0YzmkdhoYz3+XnDOltARsNh9klBKR0Gccq0he41J0JKlSOW2QNDb
- N/QCgdfX4MURnhI8zAoz+v+v+Q==
-X-Google-Smtp-Source: AGHT+IHYryhBVKMRFl+PLP7r/f1UH6A77UNtFPyGP0NNScxozW3TWUyTHquM31nYS+ZjqN4OBSdKsw==
-X-Received: by 2002:a05:6a20:6a04:b0:14d:f087:c0cc with SMTP id
- p4-20020a056a206a0400b0014df087c0ccmr21393765pzk.48.1694023951909; 
- Wed, 06 Sep 2023 11:12:31 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:11a:201:a404:ed4a:5a1e:3b4a])
- by smtp.gmail.com with ESMTPSA id
- c10-20020a62e80a000000b0064fde7ae1ffsm11080552pfi.38.2023.09.06.11.12.30
+ bh=Shuu74iNOrUzggTrIzmIdLUSQe5OqUirbEavz/33+0U=;
+ b=eVQdKOPKtYvi+MuxoeWx0WewST6r3L5nswwfGyGmXEKv4JIJ7hMqqFfMI/IOS9iK+2
+ qIxqX4jLqhYlCvnp9HME8qFC25QfXo5Sx+y69DrwbJiSAXmnBS8RhEHp9LrOmmRX+Mhp
+ YZVcSMu32ZtPEaMZRjEw8n5V1MzwtP+uLiSWokI5PoCH2l0Hv1CGJ9XJb9JN9UE1fNRU
+ b4X617dgi5Xf5zLmCpA4MI0eiUMksR23sbZZuu15nkahtHn89b1/WMTgLKhcPfmiLLyB
+ Wann3OE3KXpn12HFeKGcK9uJIuvsZQh5nxpjHsT9pa4jOr+BeXtPZP4XuqO7jkgMrm1n
+ iVGg==
+X-Gm-Message-State: AOJu0YyRfu1biFpt82S0TPTLsT6yU+Lg9wCVIDr4b3TO9LhpwZT1Ichc
+ 1Hwf1CahRZY9RGqAn8WXQDw=
+X-Google-Smtp-Source: AGHT+IG8dUwsOLP2n+Ukg0ohoD1JineJZS15vcrecPVQqbrwV1b9zykvv4DUg7GBrgG/kgmfyMJyGQ==
+X-Received: by 2002:a6b:dc17:0:b0:792:8d16:91ef with SMTP id
+ s23-20020a6bdc17000000b007928d1691efmr16839930ioc.18.1694026953259; 
+ Wed, 06 Sep 2023 12:02:33 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ w11-20020a5d844b000000b0076ffebfc9fasm5152306ior.47.2023.09.06.12.02.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Sep 2023 11:12:31 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed,  6 Sep 2023 11:12:26 -0700
-Message-ID: <20230906181226.2198441-3-swboyd@chromium.org>
-X-Mailer: git-send-email 2.42.0.283.g2d96d420d3-goog
-In-Reply-To: <20230906181226.2198441-1-swboyd@chromium.org>
-References: <20230906181226.2198441-1-swboyd@chromium.org>
+ Wed, 06 Sep 2023 12:02:32 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Date: Wed,  6 Sep 2023 13:02:21 -0600
+Message-ID: <20230906190224.583577-4-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230906190224.583577-1-jim.cromie@gmail.com>
+References: <20230906190224.583577-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dp: Remove error message when
- downstream port not connected
+Subject: [Freedreno] [PATCH v3 3/5] drm/msm: add trailing newlines to
+ drm_dbg msgs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,40 +76,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
- patches@lists.linux.dev, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, jani.nikula@intel.com,
+ daniel.vetter@ffwll.ch, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Plugging in an Apple dongle without the HDMI cable attached prints out
-an error message in the kernel logs when nothing is actually wrong.
+By at least strong convention, a print-buffer's trailing newline says
+"message complete, send it".  The exception (no TNL, followed by a call
+to pr_cont) proves the general rule.
 
-   no downstream ports connected
+Most DRM.debug calls already comport with this: 207 DRM_DEV_DEBUG,
+1288 drm_dbg.  Clean up the remainders, in maintainer sized chunks.
 
-This is because the downstream port for the HDMI connector is not
-connected, so the Apple dongle reports that as a zero sink count device.
+No functional changes.
 
-Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
-Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/msm/dp/dp_panel.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/msm/msm_fb.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 97ba41593820..ae778e1a6fd0 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -156,7 +156,6 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
- 	if (drm_dp_is_branch(dp_panel->dpcd)) {
- 		count = drm_dp_read_sink_count(panel->aux);
- 		if (!count) {
--			DRM_ERROR("no downstream ports connected\n");
- 			panel->link->sink_count = 0;
- 			return -ENOTCONN;
- 		}
+diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+index e3f61c39df69..88bb5fa23bb1 100644
+--- a/drivers/gpu/drm/msm/msm_fb.c
++++ b/drivers/gpu/drm/msm/msm_fb.c
+@@ -89,7 +89,7 @@ int msm_framebuffer_prepare(struct drm_framebuffer *fb,
+ 
+ 	for (i = 0; i < n; i++) {
+ 		ret = msm_gem_get_and_pin_iova(fb->obj[i], aspace, &msm_fb->iova[i]);
+-		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)",
++		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n",
+ 			      fb->base.id, i, msm_fb->iova[i], ret);
+ 		if (ret)
+ 			return ret;
+@@ -176,9 +176,9 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 	const struct msm_format *format;
+ 	int ret, i, n;
+ 
+-	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)",
+-			mode_cmd, mode_cmd->width, mode_cmd->height,
+-			(char *)&mode_cmd->pixel_format);
++	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)\n",
++		      mode_cmd, mode_cmd->width, mode_cmd->height,
++		      (char *)&mode_cmd->pixel_format);
+ 
+ 	n = info->num_planes;
+ 	format = kms->funcs->get_format(kms, mode_cmd->pixel_format,
+@@ -232,7 +232,7 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 
+ 	refcount_set(&msm_fb->dirtyfb, 1);
+ 
+-	drm_dbg_state(dev, "create: FB ID: %d (%p)", fb->base.id, fb);
++	drm_dbg_state(dev, "create: FB ID: %d (%p)\n", fb->base.id, fb);
+ 
+ 	return fb;
+ 
 -- 
-https://chromeos.dev
+2.41.0
 
