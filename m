@@ -1,37 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547107932FF
-	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 02:47:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9279C79361D
+	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 09:21:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13B4E10E100;
-	Wed,  6 Sep 2023 00:47:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 279F310E587;
+	Wed,  6 Sep 2023 07:21:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F91210E100;
- Wed,  6 Sep 2023 00:47:17 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2DE810E120;
+ Wed,  6 Sep 2023 07:21:45 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 2EB113F7B7;
- Wed,  6 Sep 2023 02:47:14 +0200 (CEST)
-Date: Wed, 6 Sep 2023 02:47:12 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <np3oijyeopbqv426joa3dg4cxqfcd4oo7gu3lwjlhoqtaygpkx@syrouhnomodg>
-References: <20230905012526.3010798-1-dmitry.baryshkov@linaro.org>
- <20230905012526.3010798-2-dmitry.baryshkov@linaro.org>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 889B36606EE0;
+ Wed,  6 Sep 2023 08:21:43 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1693984904;
+ bh=EF969BTemrCj+elk34sHicqOXNgpSQV8cf+02Jqqu/s=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MY/a2+BTMSgpaGUVmiczwcIuSp+MWRXdCAeSyvlX1BKSMH+/BVDn4SBre1uymh5sO
+ QsXes405U2zNM1kM0JyhS0YJoej659WbjDZARTWZj0AZRNDJWuCTRDrboW32u57/Te
+ piZ4WqpaW/kO9BJRpIAzE1fZsgGI7IdHGbi/HpoYpsnCWxezkL8IYTPUfyUHiclVcE
+ pPUbBz3T/o2oj3EMbnk4AJLFeAS2po8SMXZzfdOe0ceJfMJU9zFGYwbKFtkA30s5mD
+ 8X5a4D1oncrM9tYfar3+lA6JUqGJe0vWhnyRrfQ0a6CE89yrm/70XTU/E1sdSH4LMr
+ EsoFbV+3uPkAw==
+Date: Wed, 6 Sep 2023 09:21:40 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Message-ID: <20230906092140.3993d40a@collabora.com>
+In-Reply-To: <20230905184533.959171-3-adrian.larumbe@collabora.com>
+References: <20230905184533.959171-1-adrian.larumbe@collabora.com>
+ <20230905184533.959171-3-adrian.larumbe@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230905012526.3010798-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v3 1/8] drm/msm/dpu: populate SSPP scaler
- block version
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3 2/8] drm/panfrost: Enable cycle counter
+ register upon job submission
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,352 +55,276 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
+ robdclark@gmail.com, healych@amazon.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-09-05 04:25:19, Dmitry Baryshkov wrote:
-> The function _dpu_hw_sspp_setup_scaler3() passes and
-> dpu_hw_setup_scaler3() uses scaler_blk.version to determine in which way
-> the scaler (QSEED3) block should be programmed. However up to now we
-> were not setting this field. Set it now, splitting the vig_sblk data
-> which has different version fields.
-> 
-> Reported-by: Marijn Suijten <marijn.suijten@somainline.org>
-> Fixes: 9b6f4fedaac2 ("drm/msm/dpu: Add SM6125 support")
-> Fixes: 27f0df03f3ff ("drm/msm/dpu: Add SM6375 support")
-> Fixes: 3186acba5cdc ("drm/msm/dpu: Add SM6350 support")
-> Fixes: efcd0107727c ("drm/msm/dpu: add support for SM8550")
-> Fixes: 4a352c2fc15a ("drm/msm/dpu: Introduce SC8280XP")
-> Fixes: 0e91bcbb0016 ("drm/msm/dpu: Add SM8350 to hw catalog")
-> Fixes: 100d7ef6995d ("drm/msm/dpu: add support for SM8450")
-> Fixes: 3581b7062cec ("drm/msm/disp/dpu1: add support for display on SM6115")
-> Fixes: dabfdd89eaa9 ("drm/msm/disp/dpu1: add inline rotation support for sc7280")
-> Fixes: f3af2d6ee9ab ("drm/msm/dpu: Add SC8180x to hw catalog")
-> Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
-> Fixes: af776a3e1c30 ("drm/msm/dpu: add SM8250 to hw catalog")
-> Fixes: 386fced3f76f ("drm/msm/dpu: add SM8150 to hw catalog")
-> Fixes: b75ab05a3479 ("msm:disp:dpu1: add scaler support on SC7180 display")
-> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Tue,  5 Sep 2023 19:45:18 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-So as it turns out this patch is basically [1] with review comments
-applied, though no mention whatsoever that .version isn't just a
-convenient way to represent the version but what the register read by
-_dpu_hw_sspp_get_scaler3_ver() contains? (That was the review: hardcode the
-constants instead of doing runtime register reads)
-
-With that, `_dpu_hw_sspp_get_scaler3_ver()` and `dpu_hw_sspp->get_scaler_ver`
-must now be completely unused?
-
-[1]: https://lore.kernel.org/linux-arm-msm/CAA8EJpobXPSyEqZQ3zgwSqg6fC7pzQumWR9dDPdmGOemtS-epw@mail.gmail.com/#t
-
-It seems patch 6 in this series also has a matching - r-b'd - patch in that
-series ;)
-
-- Marijn
-
+> In a future development, we will want to keep track of the number of GPU
+> cycles spent on a given job. That means we should enable it only when the
+> GPU has work to do, and switch it off whenever it is idle to avoid power
+> waste.
+>=20
+> To avoid race conditions during enablement/disabling, a reference counting
+> mechanism was introduced, and a job flag that tells us whether a given job
+> increased the refcount. This is necessary, because a future development
+> will let user space toggle cycle counting through a debugfs file, and a
+> given job might have been in flight by the time cycle counting was
+> disabled.
+>=20
+> Toggling of GPU cycle counting has to be done through a module parameter.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
->  .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  8 +-
->  .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  8 +-
->  .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  8 +-
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 95 ++++++++++++++-----
->  4 files changed, 85 insertions(+), 34 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-> index 99acaf917e43..f0c3804f4258 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
-> @@ -77,7 +77,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
->  		.name = "sspp_0", .id = SSPP_VIG0,
->  		.base = 0x4000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_0,
-> +		.sblk = &sm8150_vig_sblk_0,
->  		.xin_id = 0,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG0,
-> @@ -85,7 +85,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
->  		.name = "sspp_1", .id = SSPP_VIG1,
->  		.base = 0x6000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_1,
-> +		.sblk = &sm8150_vig_sblk_1,
->  		.xin_id = 4,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG1,
-> @@ -93,7 +93,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
->  		.name = "sspp_2", .id = SSPP_VIG2,
->  		.base = 0x8000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_2,
-> +		.sblk = &sm8150_vig_sblk_2,
->  		.xin_id = 8,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG2,
-> @@ -101,7 +101,7 @@ static const struct dpu_sspp_cfg sm8150_sspp[] = {
->  		.name = "sspp_3", .id = SSPP_VIG3,
->  		.base = 0xa000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_3,
-> +		.sblk = &sm8150_vig_sblk_3,
->  		.xin_id = 12,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG3,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> index f3de21025ca7..3ec954722a8e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> @@ -76,7 +76,7 @@ static const struct dpu_sspp_cfg sc8180x_sspp[] = {
->  		.name = "sspp_0", .id = SSPP_VIG0,
->  		.base = 0x4000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_0,
-> +		.sblk = &sm8150_vig_sblk_0,
->  		.xin_id = 0,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG0,
-> @@ -84,7 +84,7 @@ static const struct dpu_sspp_cfg sc8180x_sspp[] = {
->  		.name = "sspp_1", .id = SSPP_VIG1,
->  		.base = 0x6000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_1,
-> +		.sblk = &sm8150_vig_sblk_1,
->  		.xin_id = 4,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG1,
-> @@ -92,7 +92,7 @@ static const struct dpu_sspp_cfg sc8180x_sspp[] = {
->  		.name = "sspp_2", .id = SSPP_VIG2,
->  		.base = 0x8000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_2,
-> +		.sblk = &sm8150_vig_sblk_2,
->  		.xin_id = 8,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG2,
-> @@ -100,7 +100,7 @@ static const struct dpu_sspp_cfg sc8180x_sspp[] = {
->  		.name = "sspp_3", .id = SSPP_VIG3,
->  		.base = 0xa000, .len = 0x1f0,
->  		.features = VIG_SDM845_MASK,
-> -		.sblk = &sdm845_vig_sblk_3,
-> +		.sblk = &sm8150_vig_sblk_3,
->  		.xin_id = 12,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG3,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> index 1b12178dfbca..3aed290a4111 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-> @@ -76,7 +76,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
->  		.name = "sspp_0", .id = SSPP_VIG0,
->  		.base = 0x4000, .len = 0x32c,
->  		.features = VIG_SC7180_MASK,
-> -		.sblk = &sm8250_vig_sblk_0,
-> +		.sblk = &sm8450_vig_sblk_0,
->  		.xin_id = 0,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG0,
-> @@ -84,7 +84,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
->  		.name = "sspp_1", .id = SSPP_VIG1,
->  		.base = 0x6000, .len = 0x32c,
->  		.features = VIG_SC7180_MASK,
-> -		.sblk = &sm8250_vig_sblk_1,
-> +		.sblk = &sm8450_vig_sblk_1,
->  		.xin_id = 4,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG1,
-> @@ -92,7 +92,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
->  		.name = "sspp_2", .id = SSPP_VIG2,
->  		.base = 0x8000, .len = 0x32c,
->  		.features = VIG_SC7180_MASK,
-> -		.sblk = &sm8250_vig_sblk_2,
-> +		.sblk = &sm8450_vig_sblk_2,
->  		.xin_id = 8,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG2,
-> @@ -100,7 +100,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
->  		.name = "sspp_3", .id = SSPP_VIG3,
->  		.base = 0xa000, .len = 0x32c,
->  		.features = VIG_SC7180_MASK,
-> -		.sblk = &sm8250_vig_sblk_3,
-> +		.sblk = &sm8450_vig_sblk_3,
->  		.xin_id = 12,
->  		.type = SSPP_TYPE_VIG,
->  		.clk_ctrl = DPU_CLK_CTRL_VIG3,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 713dfc079718..77d09f961d86 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -250,14 +250,17 @@ static const uint32_t wb2_formats[] = {
->   * SSPP sub blocks config
->   *************************************************************/
->  
-> +#define SSPP_SCALER_VER(maj, min) (((maj) << 16) | (min))
+>  drivers/gpu/drm/panfrost/panfrost_device.c |  5 +++
+>  drivers/gpu/drm/panfrost/panfrost_device.h |  6 +++
+>  drivers/gpu/drm/panfrost/panfrost_gpu.c    | 43 ++++++++++++++++++++++
+>  drivers/gpu/drm/panfrost/panfrost_gpu.h    |  6 +++
+>  drivers/gpu/drm/panfrost/panfrost_job.c    | 10 +++++
+>  drivers/gpu/drm/panfrost/panfrost_job.h    |  1 +
+>  6 files changed, 71 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index fa1a086a862b..1ea2ac3804f0 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -18,6 +18,9 @@
+>  #include "panfrost_mmu.h"
+>  #include "panfrost_perfcnt.h"
+> =20
+> +static bool profile;
+> +module_param(profile, bool, 0600);
+
+Not sure if we should make that a module parameter. Might be better
+exposed as a debugfs knob attached to the device (even if having
+multiple Mali devices is rather unlikely, I think I'd prefer to make
+this toggle per-device).
+
 > +
->  /* SSPP common configuration */
-> -#define _VIG_SBLK(sdma_pri, qseed_ver) \
-> +#define _VIG_SBLK(sdma_pri, qseed_ver, scaler_ver) \
->  	{ \
->  	.maxdwnscale = MAX_DOWNSCALE_RATIO, \
->  	.maxupscale = MAX_UPSCALE_RATIO, \
->  	.smart_dma_priority = sdma_pri, \
->  	.scaler_blk = {.name = "scaler", \
->  		.id = qseed_ver, \
-> +		.version = scaler_ver, \
->  		.base = 0xa00, .len = 0xa0,}, \
->  	.csc_blk = {.name = "csc", \
->  		.id = DPU_SSPP_CSC_10BIT, \
-> @@ -269,13 +272,14 @@ static const uint32_t wb2_formats[] = {
->  	.rotation_cfg = NULL, \
->  	}
->  
-> -#define _VIG_SBLK_ROT(sdma_pri, qseed_ver, rot_cfg) \
-> +#define _VIG_SBLK_ROT(sdma_pri, qseed_ver, scaler_ver, rot_cfg) \
->  	{ \
->  	.maxdwnscale = MAX_DOWNSCALE_RATIO, \
->  	.maxupscale = MAX_UPSCALE_RATIO, \
->  	.smart_dma_priority = sdma_pri, \
->  	.scaler_blk = {.name = "scaler", \
->  		.id = qseed_ver, \
-> +		.version = scaler_ver, \
->  		.base = 0xa00, .len = 0xa0,}, \
->  	.csc_blk = {.name = "csc", \
->  		.id = DPU_SSPP_CSC_10BIT, \
-> @@ -299,13 +303,17 @@ static const uint32_t wb2_formats[] = {
->  	}
->  
->  static const struct dpu_sspp_sub_blks msm8998_vig_sblk_0 =
-> -				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 2));
->  static const struct dpu_sspp_sub_blks msm8998_vig_sblk_1 =
-> -				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 2));
->  static const struct dpu_sspp_sub_blks msm8998_vig_sblk_2 =
-> -				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 2));
->  static const struct dpu_sspp_sub_blks msm8998_vig_sblk_3 =
-> -				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(0, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 2));
->  
->  static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 = {
->  	.rot_maxheight = 1088,
-> @@ -314,13 +322,30 @@ static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 = {
+>  static int panfrost_reset_init(struct panfrost_device *pfdev)
+>  {
+>  	pfdev->rstc =3D devm_reset_control_array_get_optional_exclusive(pfdev->=
+dev);
+> @@ -207,6 +210,8 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+> =20
+>  	spin_lock_init(&pfdev->as_lock);
+> =20
+> +	atomic_set(&pfdev->profile_mode, profile);
+
+So, profile_mode can only be set at probe time, meaning any changes to
+the profile module param is not taken into account after that point.
+
+> +
+>  	err =3D panfrost_clk_init(pfdev);
+>  	if (err) {
+>  		dev_err(pfdev->dev, "clk init failed %d\n", err);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm=
+/panfrost/panfrost_device.h
+> index b0126b9fbadc..5c09c9f3ae08 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+> @@ -107,6 +107,7 @@ struct panfrost_device {
+>  	struct list_head scheduled_jobs;
+> =20
+>  	struct panfrost_perfcnt *perfcnt;
+> +	atomic_t profile_mode;
+> =20
+>  	struct mutex sched_lock;
+> =20
+> @@ -121,6 +122,11 @@ struct panfrost_device {
+>  	struct shrinker shrinker;
+> =20
+>  	struct panfrost_devfreq pfdevfreq;
+> +
+> +	struct {
+> +		atomic_t use_count;
+> +		spinlock_t lock;
+> +	} cycle_counter;
 >  };
->  
->  static const struct dpu_sspp_sub_blks sdm845_vig_sblk_0 =
-> -				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 3));
->  static const struct dpu_sspp_sub_blks sdm845_vig_sblk_1 =
-> -				_VIG_SBLK(6, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(6, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 3));
->  static const struct dpu_sspp_sub_blks sdm845_vig_sblk_2 =
-> -				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 3));
->  static const struct dpu_sspp_sub_blks sdm845_vig_sblk_3 =
-> -				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED3);
-> +				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 3));
+> =20
+>  struct panfrost_mmu {
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_gpu.c
+> index 2faa344d89ee..fddbc72bf093 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> @@ -73,6 +73,8 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pfd=
+ev)
+>  	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_MASK_ALL);
+>  	gpu_write(pfdev, GPU_INT_MASK, GPU_IRQ_MASK_ALL);
+> =20
+> +	atomic_set(&pfdev->cycle_counter.use_count, 0);
+
+I think I'd prefer if the jobs that were in-flight at the time a GPU
+hang occurred explicitly release their reference on use_count. So maybe
+something like
+
+	/* When we reset the GPU we should have no cycle-counter users
+	 * left.
+	 */
+	if (drm_WARN_ON(cycle_counter.use_count !=3D 0))
+		atomic_set(&pfdev->cycle_counter.use_count, 0);
+
+to catch unbalanced get/put situations.
+
 > +
-> +static const struct dpu_sspp_sub_blks sm8150_vig_sblk_0 =
-> +				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 4));
-> +static const struct dpu_sspp_sub_blks sm8150_vig_sblk_1 =
-> +				_VIG_SBLK(6, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 4));
-> +static const struct dpu_sspp_sub_blks sm8150_vig_sblk_2 =
-> +				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 4));
-> +static const struct dpu_sspp_sub_blks sm8150_vig_sblk_3 =
-> +				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED3,
-> +					  SSPP_SCALER_VER(1, 4));
->  
->  static const struct dpu_sspp_sub_blks sdm845_dma_sblk_0 = _DMA_SBLK(1);
->  static const struct dpu_sspp_sub_blks sdm845_dma_sblk_1 = _DMA_SBLK(2);
-> @@ -328,34 +353,60 @@ static const struct dpu_sspp_sub_blks sdm845_dma_sblk_2 = _DMA_SBLK(3);
->  static const struct dpu_sspp_sub_blks sdm845_dma_sblk_3 = _DMA_SBLK(4);
->  
->  static const struct dpu_sspp_sub_blks sc7180_vig_sblk_0 =
-> -				_VIG_SBLK(4, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(4, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 0));
->  
->  static const struct dpu_sspp_sub_blks sc7280_vig_sblk_0 =
-> -			_VIG_SBLK_ROT(4, DPU_SSPP_SCALER_QSEED4, &dpu_rot_sc7280_cfg_v2);
-> +			_VIG_SBLK_ROT(4, DPU_SSPP_SCALER_QSEED4,
-> +				      SSPP_SCALER_VER(3, 0),
-> +				      &dpu_rot_sc7280_cfg_v2);
->  
->  static const struct dpu_sspp_sub_blks sm6115_vig_sblk_0 =
-> -				_VIG_SBLK(2, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(2, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 0));
->  
->  static const struct dpu_sspp_sub_blks sm6125_vig_sblk_0 =
-> -				_VIG_SBLK(3, DPU_SSPP_SCALER_QSEED3LITE);
-> +				_VIG_SBLK(3, DPU_SSPP_SCALER_QSEED3LITE,
-> +					  SSPP_SCALER_VER(2, 4));
->  
->  static const struct dpu_sspp_sub_blks sm8250_vig_sblk_0 =
-> -				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 0));
->  static const struct dpu_sspp_sub_blks sm8250_vig_sblk_1 =
-> -				_VIG_SBLK(6, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(6, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 0));
->  static const struct dpu_sspp_sub_blks sm8250_vig_sblk_2 =
-> -				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 0));
->  static const struct dpu_sspp_sub_blks sm8250_vig_sblk_3 =
-> -				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 0));
+>  	return 0;
+>  }
+> =20
+> @@ -321,6 +323,46 @@ static void panfrost_gpu_init_features(struct panfro=
+st_device *pfdev)
+>  		 pfdev->features.shader_present, pfdev->features.l2_present);
+>  }
+> =20
+> +void panfrost_cycle_counter_get(struct panfrost_device *pfdev)
+> +{
+> +	if (atomic_inc_not_zero(&pfdev->cycle_counter.use_count))
+> +		return;
 > +
-> +static const struct dpu_sspp_sub_blks sm8450_vig_sblk_0 =
-> +				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 1));
-> +static const struct dpu_sspp_sub_blks sm8450_vig_sblk_1 =
-> +				_VIG_SBLK(6, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 1));
-> +static const struct dpu_sspp_sub_blks sm8450_vig_sblk_2 =
-> +				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 1));
-> +static const struct dpu_sspp_sub_blks sm8450_vig_sblk_3 =
-> +				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 1));
->  
->  static const struct dpu_sspp_sub_blks sm8550_vig_sblk_0 =
-> -				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(7, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 2));
->  static const struct dpu_sspp_sub_blks sm8550_vig_sblk_1 =
-> -				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(8, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 2));
->  static const struct dpu_sspp_sub_blks sm8550_vig_sblk_2 =
-> -				_VIG_SBLK(9, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(9, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 2));
->  static const struct dpu_sspp_sub_blks sm8550_vig_sblk_3 =
-> -				_VIG_SBLK(10, DPU_SSPP_SCALER_QSEED4);
-> +				_VIG_SBLK(10, DPU_SSPP_SCALER_QSEED4,
-> +					  SSPP_SCALER_VER(3, 2));
->  static const struct dpu_sspp_sub_blks sm8550_dma_sblk_4 = _DMA_SBLK(5);
->  static const struct dpu_sspp_sub_blks sm8550_dma_sblk_5 = _DMA_SBLK(6);
->  
-> -- 
-> 2.39.2
-> 
+> +	spin_lock(&pfdev->cycle_counter.lock);
+> +	if (atomic_inc_return(&pfdev->cycle_counter.use_count) =3D=3D 1)
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CYCLE_COUNT_START);
+> +	spin_unlock(&pfdev->cycle_counter.lock);
+> +}
+> +
+> +void panfrost_cycle_counter_put(struct panfrost_device *pfdev)
+> +{
+> +	if (atomic_add_unless(&pfdev->cycle_counter.use_count, -1, 1))
+> +		return;
+> +
+> +	spin_lock(&pfdev->cycle_counter.lock);
+> +	if (atomic_dec_return(&pfdev->cycle_counter.use_count) =3D=3D 0)
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CYCLE_COUNT_STOP);
+> +	spin_unlock(&pfdev->cycle_counter.lock);
+> +}
+> +
+> +void panfrost_cycle_counter_stop(struct panfrost_device *pfdev)
+> +{
+> +	atomic_set(&pfdev->profile_mode, 0);
+> +	gpu_write(pfdev, GPU_CMD, GPU_CMD_CYCLE_COUNT_STOP);
+
+Why do we need to issue a STOP here. Setting profile_mode to false
+should be enough to prevent future jobs from enabling the
+cycle-counter, and the counter will be naturally disabled when all
+in-flight jobs that had profiling enabled are done.
+
+Actually I'm not even sure I understand why this function exists.
+
+> +}
+> +
+> +unsigned long long panfrost_cycle_counter_read(struct panfrost_device *p=
+fdev)
+> +{
+> +	u32 hi, lo;
+> +
+> +	do {
+> +		hi =3D gpu_read(pfdev, GPU_CYCLE_COUNT_HI);
+> +		lo =3D gpu_read(pfdev, GPU_CYCLE_COUNT_LO);
+> +	} while (hi !=3D gpu_read(pfdev, GPU_CYCLE_COUNT_HI));
+> +
+> +	return ((u64)hi << 32) | lo;
+> +}
+> +
+>  void panfrost_gpu_power_on(struct panfrost_device *pfdev)
+>  {
+>  	int ret;
+> @@ -367,6 +409,7 @@ void panfrost_gpu_power_on(struct panfrost_device *pf=
+dev)
+> =20
+>  void panfrost_gpu_power_off(struct panfrost_device *pfdev)
+>  {
+> +	panfrost_cycle_counter_stop(pfdev);
+
+So, you're setting profile_mode =3D 0 in the suspend path, but AFAICT,
+it's not set back to the module param profile value on resume, which
+means it's disabled on suspend and never re-enabled after that.
+
+Besides, I don't really see a reason to change the pfdev->profile_mode
+value in this path. If we suspend the device, that means we have no
+jobs running, and the use_count refcount should have dropped to zero,
+thus disabling cycle counting.
+
+>  	gpu_write(pfdev, TILER_PWROFF_LO, 0);
+>  	gpu_write(pfdev, SHADER_PWROFF_LO, 0);
+>  	gpu_write(pfdev, L2_PWROFF_LO, 0);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_gpu.h
+> index 468c51e7e46d..4d62e8901c79 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.h
+> @@ -16,6 +16,12 @@ int panfrost_gpu_soft_reset(struct panfrost_device *pf=
+dev);
+>  void panfrost_gpu_power_on(struct panfrost_device *pfdev);
+>  void panfrost_gpu_power_off(struct panfrost_device *pfdev);
+> =20
+> +void panfrost_stop_cycle_counter(struct panfrost_device *pfdev);
+> +void panfrost_cycle_counter_get(struct panfrost_device *pfdev);
+> +void panfrost_cycle_counter_stop(struct panfrost_device *pfdev);
+> +void panfrost_cycle_counter_put(struct panfrost_device *pfdev);
+> +unsigned long long panfrost_cycle_counter_read(struct panfrost_device *p=
+fdev);
+> +
+>  void panfrost_gpu_amlogic_quirk(struct panfrost_device *pfdev);
+> =20
+>  #endif
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_job.c
+> index 033f5e684707..8b1bf6ac48f8 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -297,6 +297,11 @@ int panfrost_job_push(struct panfrost_job *job)
+> =20
+>  	kref_get(&job->refcount); /* put by scheduler job completion */
+> =20
+> +	if (atomic_read(&pfdev->profile_mode)) {
+> +		panfrost_cycle_counter_get(pfdev);
+> +		job->is_profiled =3D true;
+> +	}
+> +
+>  	drm_sched_entity_push_job(&job->base);
+> =20
+>  	mutex_unlock(&pfdev->sched_lock);
+> @@ -351,6 +356,9 @@ static void panfrost_job_free(struct drm_sched_job *s=
+ched_job)
+> =20
+>  	drm_sched_job_cleanup(sched_job);
+> =20
+> +	if (job->is_profiled)
+> +		panfrost_cycle_counter_put(job->pfdev);
+> +
+>  	panfrost_job_put(job);
+>  }
+> =20
+> @@ -842,6 +850,8 @@ int panfrost_job_init(struct panfrost_device *pfdev)
+>  		}
+>  	}
+> =20
+> +	spin_lock_init(&pfdev->cycle_counter.lock);
+> +
+>  	panfrost_job_enable_interrupts(pfdev);
+> =20
+>  	return 0;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_job.h
+> index 8becc1ba0eb9..2aa0add35459 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.h
+> @@ -32,6 +32,7 @@ struct panfrost_job {
+> =20
+>  	/* Fence to be signaled by drm-sched once its done with the job */
+>  	struct dma_fence *render_done_fence;
+> +	bool is_profiled;
+>  };
+> =20
+>  int panfrost_job_init(struct panfrost_device *pfdev);
+
