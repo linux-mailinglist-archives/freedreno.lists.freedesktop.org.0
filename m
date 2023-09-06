@@ -2,61 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 664E47942DB
-	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 20:12:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A482E7942DC
+	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 20:12:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24D5C10E6E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D346510E6E7;
 	Wed,  6 Sep 2023 18:12:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2D9610E6E0
- for <freedreno@lists.freedesktop.org>; Wed,  6 Sep 2023 18:12:29 +0000 (UTC)
-Received: by mail-pf1-x42a.google.com with SMTP id
- d2e1a72fcca58-68a3f1d8be2so106112b3a.3
- for <freedreno@lists.freedesktop.org>; Wed, 06 Sep 2023 11:12:29 -0700 (PDT)
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D32210E6E6
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Sep 2023 18:12:31 +0000 (UTC)
+Received: by mail-pf1-x436.google.com with SMTP id
+ d2e1a72fcca58-68bec3a1c0fso121763b3a.1
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Sep 2023 11:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1694023949; x=1694628749;
+ d=chromium.org; s=google; t=1694023950; x=1694628750;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rzB/a+Y/lgN6TI3eOxXMKAuw0gNhLZ5Kr4Exadxywqo=;
- b=kUHIg/vrpkZ227PBq7l2JQ3bn8Cn8M3N2V1H6W7bP09l8G+W5Tisn7iNWzw7jZ3mcw
- 4Kelm2/lV214yHogWVraa3lq+zMm9BbGhz7U5Aa99nrxDNxL5PCvLYHTGzU1uRWek7IP
- TXR94WoICtOkNAfrZpX+5I7LovmR4rInYL/gM=
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Edgvbmd5y4jUc7RB+Rf63E6o4J7BSjl9P5UimGRUsdQ=;
+ b=koHxt7D+O6BOJEKa0gWBtS92xD/mDT8aLB31iTNnl9jj91xI2I15kpZdGoLkKcgygF
+ 4qGX5AJ/Wh7Am9GVcEnLo1ZDV3Am2HlstODzWKJI/agnxatG173IBWSvOv9ItiVbj4Mi
+ XB9m1iI+HC4AJ7YkyrS47AO0e2TAbGX1TokSQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1694023949; x=1694628749;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rzB/a+Y/lgN6TI3eOxXMKAuw0gNhLZ5Kr4Exadxywqo=;
- b=FGmFpxMnGvARCGTOAJuEgs9DWZre/9Z1TCy9/4vdusoWlPt7PWFbyBk8Aywz4qu8cZ
- sLQ9F8QG5IhCYQuEOKE8cFiFazIfljn+Xzsbv+Ofp8wRDAkOSLTCiNBTbBR1TSq09T0j
- gQ3vlfM1xxfLHUiwWRfFqO4ISZudS1+eAEkBgHhbre44SZmK+q8Wmsj4F1tuRVXNiEaN
- b7ihMNOoarot+7UU5oMdh9VcRIIyLsx6Ec0S006jNpbqhigCUeSkN4nJ4tIJWFHr3G25
- ufyOKZ/DLHfiPjhJzRjQ4vkMRJ9XL/PkQ6LMFhIjeboPw0yGy3U4miWsTtf2ns3Qgecs
- oR6g==
-X-Gm-Message-State: AOJu0YxvaJy1xtMNHSgdyE945GVtX9ILStkA7rLmvkSiBaoMF5gw2LRQ
- jjg5Alg1gbV/81o7FaPMeDeyug==
-X-Google-Smtp-Source: AGHT+IFw80g3ey9sUj6HYD/2kE56XDAkqaOhhVXfaGukTfoWlgxr29tf8KH2PEk4eYpkhtgk61cguQ==
-X-Received: by 2002:a05:6a21:3e0b:b0:14c:5dc3:f1d5 with SMTP id
- bk11-20020a056a213e0b00b0014c5dc3f1d5mr15722364pzc.32.1694023949115; 
- Wed, 06 Sep 2023 11:12:29 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1694023950; x=1694628750;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Edgvbmd5y4jUc7RB+Rf63E6o4J7BSjl9P5UimGRUsdQ=;
+ b=H0ncm0OuCOxOhSreB3FiuNKXTMyQgrYZGNTjJCqdDSbmKiqUu+U4OLMedLYQV/ZKfJ
+ 66x0BZyvblzSqpTcr4AEZRDeDQRwX6Zp4v1+L5hOnhNZBD0oWBXb7O4lzeMoFuTe6wyc
+ 61t4WulPqbBO6XF/mNZ4YYYoNjmkemp+aHRyVV3TF9ey95pRc3QQ0QNTm6yX0zmvGAMz
+ U7lNfHB6qBj2OG75upTuTUHYEYYnsw/5UD/ZShDeGl0GI1gOWTUYCx/9UuWM1eNjq1Se
+ JbZb47PKw98KCHZDNRU42geekOojzejF+DXmuhx8I541BqE46KmG1Rfr8sywNmp3JZiI
+ Bm+Q==
+X-Gm-Message-State: AOJu0YzgUwm012dtFqTtLXizJL6L2uLEZMTaOVkUm8HDXDS8JjSV8En0
+ e+zX7IUDvjdclx5tJ0nHC/79rQ==
+X-Google-Smtp-Source: AGHT+IH6kSrFTL9eIlfDr/vwL8Fsw7IYLh/XA+8fJSBKdMHvlaTDr5JYbfbs2SSDKsWyskvF1jKHrg==
+X-Received: by 2002:a05:6a00:1786:b0:68a:3e68:f8ab with SMTP id
+ s6-20020a056a00178600b0068a3e68f8abmr16812291pfg.14.1694023950511; 
+ Wed, 06 Sep 2023 11:12:30 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:11a:201:a404:ed4a:5a1e:3b4a])
  by smtp.gmail.com with ESMTPSA id
- c10-20020a62e80a000000b0064fde7ae1ffsm11080552pfi.38.2023.09.06.11.12.27
+ c10-20020a62e80a000000b0064fde7ae1ffsm11080552pfi.38.2023.09.06.11.12.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Sep 2023 11:12:28 -0700 (PDT)
+ Wed, 06 Sep 2023 11:12:30 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed,  6 Sep 2023 11:12:24 -0700
-Message-ID: <20230906181226.2198441-1-swboyd@chromium.org>
+Date: Wed,  6 Sep 2023 11:12:25 -0700
+Message-ID: <20230906181226.2198441-2-swboyd@chromium.org>
 X-Mailer: git-send-email 2.42.0.283.g2d96d420d3-goog
+In-Reply-To: <20230906181226.2198441-1-swboyd@chromium.org>
+References: <20230906181226.2198441-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 0/2] drm/msm/dp: More DPCD cleanups
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dp: Inline
+ dp_display_is_sink_count_zero()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,34 +73,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- patches@lists.linux.dev
+Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ patches@lists.linux.dev, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a follow-on to this series[1]. I can resend the whole pile if
-desired.
+This function is basically a one-liner when you ignore the debug
+logging. Just inline the function and drop the log to simplify the code.
 
-[1] https://lore.kernel.org/r/20230829184735.2841739-1-swboyd@chromium.org
-
-Stephen Boyd (2):
-  drm/msm/dp: Inline dp_display_is_sink_count_zero()
-  drm/msm/dp: Remove error message when downstream port not connected
-
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+---
  drivers/gpu/drm/msm/dp/dp_display.c | 10 +---------
- drivers/gpu/drm/msm/dp/dp_panel.c   |  1 -
- 2 files changed, 1 insertion(+), 10 deletions(-)
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-
-base-commit: 2dde18cd1d8fac735875f2e4987f11817cc0bc2c
-prerequisite-patch-id: c637903336fb0fd5593f0016f0c863305c43a6b9
-prerequisite-patch-id: 8610693078de9cd5041266c70c4d044d15a5f701
-prerequisite-patch-id: e10675f41cc68dcefa566f7f288b2df72afdb116
-prerequisite-patch-id: 63280d764b830e3d25455ae642840cff5f90e118
-prerequisite-patch-id: 567e00d48c5a296b454079a51483f2acce357347
-prerequisite-patch-id: 1c18472728edc1ca8800dd6ed6ff12cb98084ea8
-prerequisite-patch-id: c6f74b922b3a4f2255bcdab11fe3a2ecf7891262
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 96bbf6fec2f1..2a5f1ab9a65b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -341,14 +341,6 @@ static const struct component_ops dp_display_comp_ops = {
+ 	.unbind = dp_display_unbind,
+ };
+ 
+-static bool dp_display_is_sink_count_zero(struct dp_display_private *dp)
+-{
+-	drm_dbg_dp(dp->drm_dev, "present=%#x sink_count=%d\n",
+-			dp->panel->dpcd[DP_DOWNSTREAMPORT_PRESENT],
+-		dp->link->sink_count);
+-	return drm_dp_is_branch(dp->panel->dpcd) && dp->link->sink_count == 0;
+-}
+-
+ static void dp_display_send_hpd_event(struct msm_dp *dp_display)
+ {
+ 	struct dp_display_private *dp;
+@@ -507,7 +499,7 @@ static int dp_display_handle_port_ststus_changed(struct dp_display_private *dp)
+ {
+ 	int rc = 0;
+ 
+-	if (dp_display_is_sink_count_zero(dp)) {
++	if (drm_dp_is_branch(dp->panel->dpcd) && dp->link->sink_count == 0) {
+ 		drm_dbg_dp(dp->drm_dev, "sink count is zero, nothing to do\n");
+ 		if (dp->hpd_state != ST_DISCONNECTED) {
+ 			dp->hpd_state = ST_DISCONNECT_PENDING;
 -- 
 https://chromeos.dev
 
