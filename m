@@ -2,47 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2BE7936E5
-	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 10:11:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97717793CF9
+	for <lists+freedreno@lfdr.de>; Wed,  6 Sep 2023 14:48:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5297D10E59B;
-	Wed,  6 Sep 2023 08:11:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABE7E10E625;
+	Wed,  6 Sep 2023 12:48:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 006E210E591;
- Wed,  6 Sep 2023 08:11:06 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 231EF6600BB0;
- Wed,  6 Sep 2023 09:11:05 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693987865;
- bh=8bSTrWbaMc1d/WyrUSjc3GFi3A3hna8Y85gKyKeZ2QE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=A6irFNZNcrndI+FVnSuQe06fuZ1lV4On04bGSuwM3m51elPTmgtclWNK7Ru7tTz0S
- CI153LatWq7IsT87scPUnmoZRN0AoUu2+FBh903IZgY/hF9txKqcppB9Ma9oc4D02C
- ceZlwTYD/7dZpQf4atTnb5/ku4ksxGfcH8gWFMYhxFF0M4cYFa8mOAfD++5tbyoi8b
- mHlbBCY2K4UIlIbr7w+avVxl0oi0KQN4ZznpMhCylFpN++IUw/pdhlP+qAlQrPhENI
- 4WEQacSCxAl8dkq6puZEBEyx5Ezc14EwdFguepGJ1mBWWfF+bY9urrIDvHwlan+Aw7
- 9RYLoWcWd+c1A==
-Date: Wed, 6 Sep 2023 10:11:01 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Message-ID: <20230906101101.04f4e1a2@collabora.com>
-In-Reply-To: <20230905184533.959171-9-adrian.larumbe@collabora.com>
-References: <20230905184533.959171-1-adrian.larumbe@collabora.com>
- <20230905184533.959171-9-adrian.larumbe@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6D3A10E628
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Sep 2023 12:48:47 +0000 (UTC)
+Received: by mail-yb1-xb30.google.com with SMTP id
+ 3f1490d57ef6-d7e87b4a0f2so3025852276.0
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Sep 2023 05:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1694004527; x=1694609327; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=92om2bQSNnR9D1DHhKVFZqGrlhplU+xlpPXmIDI9/fQ=;
+ b=cNt7ygyq4ZuGnMyDaFviRwTFHvyRciYe4AIDWLbPc7NM8TlDTazedFB129QgfDVzZZ
+ 9MG6YvYq7U7P8adfy0ZCnwXfjLMwglKvEXxXrkUx4+oxX7aXg/GJlvtwnxRpmCAbTgic
+ d5HHmYIyKdfjlC7+H0XseFKi06drKJp6bR/hpNs5OH8jMyXSI44jNLTx7OzCYHRtgTXy
+ JNLqohlmjWyOAuyI+/5Guh77Y7AQUaQ+C4UIGoi651QBC7CvA1ynt4UTPv7/UFAeigKf
+ 6UC1Has2Utzdwws0uFt+MpuaQFA3F2dGsWZBq6TzpKKpB5Mj9uR6AGuT+AmJ+o0/GRmx
+ gtHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1694004527; x=1694609327;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=92om2bQSNnR9D1DHhKVFZqGrlhplU+xlpPXmIDI9/fQ=;
+ b=CiZ9TkgsUq1kQdPWfyujY+BZKs0+Zr2QKafXLI9v0zDiZu+zZEVqJih8Wmtgg4Tsir
+ VcoLZ//wSgk2Z8RTTgi7RclRGOu50ORZzzSOgQrlW+MB+70KJsE3m6E/KPKrqv3mXhUb
+ GkmAyu3sa9CAY0MDF3tZtjA80o4fdHSp59WU73fKAaCCTI7ghUPzQaIMi1gGeUGU5ce0
+ 2P8XDi8nbgVDPmCb/W0SEYaqcYO2AvSFU23KWozZI6GtZCmByAnBbhrKkNrdZzkJCBnH
+ uKl+AXg2ul8g5l/HPSCnT9eAYh3Wo1vaKlEY01ECHGKSZAAPEN2fysdlaOIPHlu2ou4C
+ tENg==
+X-Gm-Message-State: AOJu0YxYp7t6o+m9lM2HDjGYLhMA36qOVVPNyhUG0UrAvzv46VP5gadn
+ zBqiDmOGh+H7/CohKvzSEF2vIhQ1EncvOBBKLgMNDQ==
+X-Google-Smtp-Source: AGHT+IG22IPQGRrf8eEKph8YYMyYOGggoX0BSU0gnlm3GqlA+rCxg8GxZJknwqypa88MgH+7q+/GwfJRCMq11nNuXqM=
+X-Received: by 2002:a25:81d2:0:b0:d74:5f61:15b1 with SMTP id
+ n18-20020a2581d2000000b00d745f6115b1mr15250331ybm.26.1694004526735; Wed, 06
+ Sep 2023 05:48:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v3 8/8] drm/drm-file: Show finer-grained BO
- sizes in drm_show_memory_stats
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-2-dmitry.baryshkov@linaro.org>
+ <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
+ <CAA8EJpqUg2-k7LLBL38RHU1sThkXB54ca68xEMd1yMnHQcQ++w@mail.gmail.com>
+ <ZPh0Ps9UJ3HLzdeR@kuha.fi.intel.com>
+In-Reply-To: <ZPh0Ps9UJ3HLzdeR@kuha.fi.intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 6 Sep 2023 15:48:35 +0300
+Message-ID: <CAA8EJpratbBybgk8woD3maA=J_HuQis44Unq0n+c_UvaFs__AA@mail.gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH v1 01/12] Revert "drm/sysfs: Link DRM
+ connectors to corresponding Type-C connectors"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,52 +71,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
- robdclark@gmail.com, healych@amazon.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Won Chung <wonchung@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue,  5 Sep 2023 19:45:24 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On Wed, 6 Sept 2023 at 15:44, Heikki Krogerus
+<heikki.krogerus@linux.intel.com> wrote:
+>
+> On Tue, Sep 05, 2023 at 01:56:59PM +0300, Dmitry Baryshkov wrote:
+> > Hi Heikki,
+> >
+> > On Tue, 5 Sept 2023 at 11:50, Heikki Krogerus
+> > <heikki.krogerus@linux.intel.com> wrote:
+> > >
+> > > Hi Dmitry,
+> > >
+> > > On Mon, Sep 04, 2023 at 12:41:39AM +0300, Dmitry Baryshkov wrote:
+> > > > The kdev->fwnode pointer is never set in drm_sysfs_connector_add(), so
+> > > > dev_fwnode() checks never succeed, making the respective commit NOP.
+> > >
+> > > That's not true. The dev->fwnode is assigned when the device is
+> > > created on ACPI platforms automatically. If the drm_connector fwnode
+> > > member is assigned before the device is registered, then that fwnode
+> > > is assigned also to the device - see drm_connector_acpi_find_companion().
+> > >
+> > > But please note that even if drm_connector does not have anything in
+> > > its fwnode member, the device may still be assigned fwnode, just based
+> > > on some other logic (maybe in drivers/acpi/acpi_video.c?).
+> > >
+> > > > And if drm_sysfs_connector_add() is modified to set kdev->fwnode, it
+> > > > breaks drivers already using components (as it was pointed at [1]),
+> > > > resulting in a deadlock. Lockdep trace is provided below.
+> > > >
+> > > > Granted these two issues, it seems impractical to fix this commit in any
+> > > > sane way. Revert it instead.
+> > >
+> > > I think there is already user space stuff that relies on these links,
+> > > so I'm not sure you can just remove them like that. If the component
+> > > framework is not the correct tool here, then I think you need to
+> > > suggest some other way of creating them.
+> >
+> > The issue (that was pointed out during review) is that having a
+> > component code in the framework code can lead to lockups. With the
+> > patch #2 in place (which is the only logical way to set kdev->fwnode
+> > for non-ACPI systems) probing of drivers which use components and set
+> > drm_connector::fwnode breaks immediately.
+> >
+> > Can we move the component part to the respective drivers? With the
+> > patch 2 in place, connector->fwnode will be copied to the created
+> > kdev's fwnode pointer.
+> >
+> > Another option might be to make this drm_sysfs component registration optional.
+>
+> You don't need to use the component framework at all if there is
+> a better way of determining the connection between the DP and its
+> Type-C connector (I'm assuming that that's what this series is about).
+> You just need the symlinks, not the component.
 
-> The current implementation will try to pick the highest available size
-> display unit as soon as the BO size exceeds that of the previous
-> multiplier.
->=20
-> By selecting a higher threshold, we could show more accurate size numbers.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/drm_file.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 762965e3d503..0b5fbd493e05 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -879,7 +879,7 @@ static void print_size(struct drm_printer *p, const c=
-har *stat,
->  	unsigned u;
-> =20
->  	for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
-> -		if (sz < SZ_1K)
-> +		if (sz < (SZ_1K * 10000))
->  			break;
+The problem is that right now this component registration has become
+mandatory. And if I set the kdev->fwnode manually (like in the patch
+2), the kernel hangs inside the component code.
+That's why I proposed to move the components to the place where they
+are really necessary, e.g. i915 and amd drivers.
 
-This threshold looks a bit random. How about picking a unit that allows
-us to print the size with no precision loss?
-
-	for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
-		if (sz & (SZ_1K - 1))
-			break;
-	}
-
-
->  		sz =3D div_u64(sz, SZ_1K);
->  	}
-
+-- 
+With best wishes
+Dmitry
