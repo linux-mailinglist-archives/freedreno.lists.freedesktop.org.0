@@ -2,65 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA91797E2B
-	for <lists+freedreno@lfdr.de>; Thu,  7 Sep 2023 23:57:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 702D1797EDD
+	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 00:55:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2049510E81E;
-	Thu,  7 Sep 2023 21:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3445E10E838;
+	Thu,  7 Sep 2023 22:55:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A26BC10E817
- for <freedreno@lists.freedesktop.org>; Thu,  7 Sep 2023 21:57:35 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-501bd7711e8so2498098e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 14:57:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1694123854; x=1694728654;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=Jwvl3f1dyM/ZwqDQJcr1BuQmvzMJTBmDU+AvdLd8dGM=;
- b=CvfIzeCdGmEm+r++KeqKd6xWcX9Cah3cK/LyOEbsL+IUGwUlQjC5m4PmPchjVbPDzH
- a+xTLstH43XfdC5nhBqcGDaeH0DwdYPJONXK7wqdXK19ZdJQPsSGnT8jI1N1tZCZx00S
- oNcT0OP6xwC9d3WMtGPmvjnfQhkxFVyvITudo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694123854; x=1694728654;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Jwvl3f1dyM/ZwqDQJcr1BuQmvzMJTBmDU+AvdLd8dGM=;
- b=Z4rySZHVsXmS0B+PAkatHlVrGAMpE0wp8YQpbU0m7FCGz6/Vik3oe8iUcrjTEZw95x
- +luL5wY1RS0gVJOYzydjOd0wPNbghrXFqnV/l8Li4fwreGhub188MPzG/qWh1F4eSKDA
- fYwjTCqjnjD5pXgRv90R6d0zAv4RmBf8vo95QhdzwxPwelRmLBZcA/8QFEN+tG3SCTXs
- hmyxd6U1k+bQDENhnuW8LpxxBw6Lm7snlth9LlPcJtLU2eFzSf8yWc/H+Ia6C13Wv9JX
- h5IBnL4SE0oII7npFZHT7SmDibYUgo3ceJ5WbobxpjNnJoshy1e5FMEoNYRPCmpzikvP
- Z+mA==
-X-Gm-Message-State: AOJu0YxzUNWKKiLCGJ4RjOGd/28AYDu/ugXnOY1u9arUJfNLteqypv/f
- 2L+4yVLMDEHgJzRG46yeNcRRQr00Ivw7aQ4H7I3ScA==
-X-Google-Smtp-Source: AGHT+IGVSSijOPnlfNzQCrbEnJgfe4rGMSL8CGoZtaBOJk5rkFQD9fHQL9VYUx5D2OjlyhMtzOcbJflmFOcVz9tYUIQ=
-X-Received: by 2002:ac2:5e8a:0:b0:500:9f03:9157 with SMTP id
- b10-20020ac25e8a000000b005009f039157mr433183lfq.65.1694123853885; Thu, 07 Sep
- 2023 14:57:33 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 7 Sep 2023 14:57:33 -0700
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 777CB10E838
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Sep 2023 22:55:08 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 387MY0fK017277
+ for <freedreno@lists.freedesktop.org>; Thu, 7 Sep 2023 22:55:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=HhLM6ej3AmbxZiUO6A4DuZ3xXH3NVnForY0/iGCGAPE=;
+ b=b/ioUPE7YhnOcOfAJ0WFZJiQniggBImlbfYjkdzQVXhiyqPFl5dVlXvhNu1STNqyZgvC
+ W989b0o9r3sQEyQhgiQBmhlN8aC3HI6AvnNAiBUFOB8jreGO7DdFPXmzZn9Xph0drO3V
+ VoUotOh7yro3Hv9GQvfXTdxJjGyuGRe5SsgKvr0Dq7cNz+kpyBRWTgG4KO6Kxk3MXpp6
+ At4BfdfCv7u1qgdznBUZlFG1eSirP6ddcFcVz9YaczNJwRFJJsdBzr6b++iOXikFsGOT
+ KXa6zuloysbfFiUDx9/w7WgM+D8Gtxd0n8ZchdqqChbe1VPohuSR/ErHYthvGindZ2I4 SQ== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3sy4s7tht7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 22:55:07 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 387Mt7wb024938
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 7 Sep 2023 22:55:07 GMT
+Received: from [10.110.64.42] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Thu, 7 Sep
+ 2023 15:55:06 -0700
+Message-ID: <42067d84-b46d-3627-c363-90f9e2a0faa8@quicinc.com>
+Date: Thu, 7 Sep 2023 15:54:58 -0700
 MIME-Version: 1.0
-In-Reply-To: <bd833f26-ba76-4e9a-a158-d1e5eb4152cb@linaro.org>
-References: <20230903222432.2894093-1-dmitry.baryshkov@linaro.org>
- <CAE-0n53c2kGcR-OWsTn4s2wuLQ+j7WTA9Ho9CEG=cGNEFT-3iA@mail.gmail.com>
- <bd833f26-ba76-4e9a-a158-d1e5eb4152cb@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 7 Sep 2023 14:57:33 -0700
-Message-ID: <CAE-0n52F-fwjiwmeO9wZE_kKKpo+DDnuL-nCxX4f2rODrdTzRg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: support setting the DP
- subconnector type
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: <freedreno@lists.freedesktop.org>
+References: <20230901142034.580802-1-jani.nikula@intel.com>
+ <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 1YJK2QfhVPIUEOUKnhQDGQmOTFxHuLni
+X-Proofpoint-ORIG-GUID: 1YJK2QfhVPIUEOUKnhQDGQmOTFxHuLni
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-07_13,2023-09-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 mlxscore=0 clxscore=1015 adultscore=0 spamscore=0
+ mlxlogscore=999 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2308100000 definitions=main-2309070204
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: skip validity check for DP CTS
+ EDID checksum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,52 +85,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2023-09-07 14:48:54)
-> On 08/09/2023 00:34, Stephen Boyd wrote:
-> > Quoting Dmitry Baryshkov (2023-09-03 15:24:32)
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> >> index 97ba41593820..1cb54f26f5aa 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> >> @@ -162,6 +162,11 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
-> >>                  }
-> >>          }
-> >>
-> >> +       rc = drm_dp_read_downstream_info(panel->aux, dp_panel->dpcd,
-> >> +                                        dp_panel->downstream_ports);
-> >> +       if (rc)
-> >> +               return rc;
-> >
-> > I haven't been able to test it yet, but I think with an apple dongle
-> > we'll never populate the 'downstream_ports' member if the HDMI cable is
-> > not connected when this runs. That's because this function bails out
-> > early before trying to read the downstream ports when there isn't a
-> > sink. Perhaps we need to read it again when an hpd_irq comes in, or we
-> > need to read it before bailing out from here?
->
-> I don't have an Apple dongle here. But I'll run a check with first
-> connecting the dongle and plugging the HDMI afterwards.
->
-> However my expectation based on my previous tests is that we only get
-> here when the actual display is connected.
->
 
-We get here when HPD is high. With an apple dongle, hpd is high when
-just the dongle is plugged in. That calls dp_display_process_hpd_high()
-which calls dp_panel_read_sink_caps(), but that returns with an error
-(-ENOTCONN) and then we wait for something to change. When the HDMI
-cable is plugged in (i.e. an actual display) we get an irq_hpd. That
-causes dp_irq_hpd_handle() to call dp_display_usbpd_attention_cb() which
-calls dp_link_process_request() that sees 'sink_request &
-DS_PORT_STATUS_CHANGED' and thus calls
-dp_display_handle_port_ststus_changed() (that has a typo right?) which
-hits the else condition and calls dp_display_process_hpd_high().
+On 9/7/2023 2:46 PM, Stephen Boyd wrote:
+> Quoting Jani Nikula (2023-09-01 07:20:34)
+>> The DP CTS test for EDID last block checksum expects the checksum for
+>> the last block, invalid or not. Skip the validity check.
+>>
+>> For the most part (*), the EDIDs returned by drm_get_edid() will be
+>> valid anyway, and there's the CTS workaround to get the checksum for
+>> completely invalid EDIDs. See commit 7948fe12d47a ("drm/msm/dp: return
+>> correct edid checksum after corrupted edid checksum read").
+>>
+>> This lets us remove one user of drm_edid_block_valid() with hopes the
+>> function can be removed altogether in the future.
+>>
+>> (*) drm_get_edid() ignores checksum errors on CTA extensions.
+>>
+>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
+>> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+>> Cc: Rob Clark <robdclark@gmail.com>
+>> Cc: Sean Paul <sean@poorly.run>
+>> Cc: Stephen Boyd <swboyd@chromium.org>
+>> Cc: linux-arm-msm@vger.kernel.org
+>> Cc: freedreno@lists.freedesktop.org
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-So yes? We will eventually call dp_panel_read_sink_caps() again, and
-this time not bail out early. It's probably fine.
+> Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+>> index 42d52510ffd4..86a8e06c7a60 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+>> @@ -289,26 +289,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+>>
+>>   static u8 dp_panel_get_edid_checksum(struct edid *edid)
+> It would be nice to make 'edid' const here in another patch.
