@@ -1,71 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F01797E17
-	for <lists+freedreno@lfdr.de>; Thu,  7 Sep 2023 23:49:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA91797E2B
+	for <lists+freedreno@lfdr.de>; Thu,  7 Sep 2023 23:57:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0224F10E817;
-	Thu,  7 Sep 2023 21:48:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2049510E81E;
+	Thu,  7 Sep 2023 21:57:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A01F10E819
- for <freedreno@lists.freedesktop.org>; Thu,  7 Sep 2023 21:48:57 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-52e828ad46bso1939805a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 14:48:57 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A26BC10E817
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Sep 2023 21:57:35 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-501bd7711e8so2498098e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 14:57:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694123336; x=1694728136; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NQJgEH3f9fUyW9GofjnZwi+SALtmAUwJX7vDCsMBypg=;
- b=D9W3BY1z2fjD3W4A2bfmRlVk3Fd+IQ+wF1xWJQ4l/oUKao6JNe+MlgDmKyhDLAQbfJ
- OWrdFAxjDm8dguaTfolOgIgJNUM6Bj8QctC+G7NDm2TP7agGFTsfl4TAotsCdN8Uq2ps
- HBO19mHrLKpsW/PjogvOfYhzPxi6k6qXqgcHDc39VUVciumRaiwo0eOeSliay7jQtpzp
- 1vVuSLqT0o1EL4LW4KapnnHrUBUS+g+kdLI2zX8/kBI978rTnphLdx0vz2aGJ6ofBGLb
- eC+tnZr2VnnruagC+BJjcLnvtr5VonhHtkr2m8HIh8oc1uGBNzxKlIpREYy2Udu9ABuc
- a4kw==
+ d=chromium.org; s=google; t=1694123854; x=1694728654;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=Jwvl3f1dyM/ZwqDQJcr1BuQmvzMJTBmDU+AvdLd8dGM=;
+ b=CvfIzeCdGmEm+r++KeqKd6xWcX9Cah3cK/LyOEbsL+IUGwUlQjC5m4PmPchjVbPDzH
+ a+xTLstH43XfdC5nhBqcGDaeH0DwdYPJONXK7wqdXK19ZdJQPsSGnT8jI1N1tZCZx00S
+ oNcT0OP6xwC9d3WMtGPmvjnfQhkxFVyvITudo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694123336; x=1694728136;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NQJgEH3f9fUyW9GofjnZwi+SALtmAUwJX7vDCsMBypg=;
- b=LRm0Z00hKgtddmQBgl8eTdCXYQQKYPmvKKT2/SrIvKzvtfAOLOb+sQWDgLKDRldAqa
- z6iPkohcut4fESDGDuvuMA6n2mjisETSKI8s/gR4GQk9h2bXlrSTAiwE6B7j8ShGCWdR
- RiZBWqwbshLbQaVyWlT+u7nFsGMQgV988j4HIe0B2NqmVk+FvhILyYPOf1SVDXy5nLnv
- 7sr8ONRTGz251h3xjgyIeAbNYekzf5TqSSUi4UM91FNDzGmVDGEZOGBp2lDsc+nvZE+W
- 3q5XzcA6HrkkJz0OM2P5GsCDMtAB3PlRn7NSp7+DbhzAzxS6d4TwzkB1J24LS2P4pbQK
- sjiw==
-X-Gm-Message-State: AOJu0YxdL2KOO4Vai2mmpviouQBTzhz9P7W2dQ1PgF9v5GRQW45y18JJ
- 8EosMuCONDeFyvTvRHLq8/Z39w==
-X-Google-Smtp-Source: AGHT+IHt8dq+fHGWcodmuk5PMPvb2LZ/t1lPkyNiWwgmY6kA/kRGNzdelYlTvJ+cJXNgTUJ62I/msg==
-X-Received: by 2002:a05:6402:2d9:b0:525:691c:cd50 with SMTP id
- b25-20020a05640202d900b00525691ccd50mr432973edx.24.1694123335807; 
- Thu, 07 Sep 2023 14:48:55 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- c10-20020aa7df0a000000b00525c01f91b0sm268738edy.42.2023.09.07.14.48.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Sep 2023 14:48:55 -0700 (PDT)
-Message-ID: <bd833f26-ba76-4e9a-a158-d1e5eb4152cb@linaro.org>
-Date: Fri, 8 Sep 2023 00:48:54 +0300
+ d=1e100.net; s=20230601; t=1694123854; x=1694728654;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Jwvl3f1dyM/ZwqDQJcr1BuQmvzMJTBmDU+AvdLd8dGM=;
+ b=Z4rySZHVsXmS0B+PAkatHlVrGAMpE0wp8YQpbU0m7FCGz6/Vik3oe8iUcrjTEZw95x
+ +luL5wY1RS0gVJOYzydjOd0wPNbghrXFqnV/l8Li4fwreGhub188MPzG/qWh1F4eSKDA
+ fYwjTCqjnjD5pXgRv90R6d0zAv4RmBf8vo95QhdzwxPwelRmLBZcA/8QFEN+tG3SCTXs
+ hmyxd6U1k+bQDENhnuW8LpxxBw6Lm7snlth9LlPcJtLU2eFzSf8yWc/H+Ia6C13Wv9JX
+ h5IBnL4SE0oII7npFZHT7SmDibYUgo3ceJ5WbobxpjNnJoshy1e5FMEoNYRPCmpzikvP
+ Z+mA==
+X-Gm-Message-State: AOJu0YxzUNWKKiLCGJ4RjOGd/28AYDu/ugXnOY1u9arUJfNLteqypv/f
+ 2L+4yVLMDEHgJzRG46yeNcRRQr00Ivw7aQ4H7I3ScA==
+X-Google-Smtp-Source: AGHT+IGVSSijOPnlfNzQCrbEnJgfe4rGMSL8CGoZtaBOJk5rkFQD9fHQL9VYUx5D2OjlyhMtzOcbJflmFOcVz9tYUIQ=
+X-Received: by 2002:ac2:5e8a:0:b0:500:9f03:9157 with SMTP id
+ b10-20020ac25e8a000000b005009f039157mr433183lfq.65.1694123853885; Thu, 07 Sep
+ 2023 14:57:33 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 7 Sep 2023 14:57:33 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+In-Reply-To: <bd833f26-ba76-4e9a-a158-d1e5eb4152cb@linaro.org>
 References: <20230903222432.2894093-1-dmitry.baryshkov@linaro.org>
  <CAE-0n53c2kGcR-OWsTn4s2wuLQ+j7WTA9Ho9CEG=cGNEFT-3iA@mail.gmail.com>
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n53c2kGcR-OWsTn4s2wuLQ+j7WTA9Ho9CEG=cGNEFT-3iA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <bd833f26-ba76-4e9a-a158-d1e5eb4152cb@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 7 Sep 2023 14:57:33 -0700
+Message-ID: <CAE-0n52F-fwjiwmeO9wZE_kKKpo+DDnuL-nCxX4f2rODrdTzRg@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: support setting the DP
  subconnector type
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -86,35 +79,46 @@ Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/09/2023 00:34, Stephen Boyd wrote:
-> Quoting Dmitry Baryshkov (2023-09-03 15:24:32)
->> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
->> index 97ba41593820..1cb54f26f5aa 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->> @@ -162,6 +162,11 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
->>                  }
->>          }
->>
->> +       rc = drm_dp_read_downstream_info(panel->aux, dp_panel->dpcd,
->> +                                        dp_panel->downstream_ports);
->> +       if (rc)
->> +               return rc;
-> 
-> I haven't been able to test it yet, but I think with an apple dongle
-> we'll never populate the 'downstream_ports' member if the HDMI cable is
-> not connected when this runs. That's because this function bails out
-> early before trying to read the downstream ports when there isn't a
-> sink. Perhaps we need to read it again when an hpd_irq comes in, or we
-> need to read it before bailing out from here?
+Quoting Dmitry Baryshkov (2023-09-07 14:48:54)
+> On 08/09/2023 00:34, Stephen Boyd wrote:
+> > Quoting Dmitry Baryshkov (2023-09-03 15:24:32)
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> index 97ba41593820..1cb54f26f5aa 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> >> @@ -162,6 +162,11 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
+> >>                  }
+> >>          }
+> >>
+> >> +       rc = drm_dp_read_downstream_info(panel->aux, dp_panel->dpcd,
+> >> +                                        dp_panel->downstream_ports);
+> >> +       if (rc)
+> >> +               return rc;
+> >
+> > I haven't been able to test it yet, but I think with an apple dongle
+> > we'll never populate the 'downstream_ports' member if the HDMI cable is
+> > not connected when this runs. That's because this function bails out
+> > early before trying to read the downstream ports when there isn't a
+> > sink. Perhaps we need to read it again when an hpd_irq comes in, or we
+> > need to read it before bailing out from here?
+>
+> I don't have an Apple dongle here. But I'll run a check with first
+> connecting the dongle and plugging the HDMI afterwards.
+>
+> However my expectation based on my previous tests is that we only get
+> here when the actual display is connected.
+>
 
-I don't have an Apple dongle here. But I'll run a check with first 
-connecting the dongle and plugging the HDMI afterwards.
+We get here when HPD is high. With an apple dongle, hpd is high when
+just the dongle is plugged in. That calls dp_display_process_hpd_high()
+which calls dp_panel_read_sink_caps(), but that returns with an error
+(-ENOTCONN) and then we wait for something to change. When the HDMI
+cable is plugged in (i.e. an actual display) we get an irq_hpd. That
+causes dp_irq_hpd_handle() to call dp_display_usbpd_attention_cb() which
+calls dp_link_process_request() that sees 'sink_request &
+DS_PORT_STATUS_CHANGED' and thus calls
+dp_display_handle_port_ststus_changed() (that has a typo right?) which
+hits the else condition and calls dp_display_process_hpd_high().
 
-However my expectation based on my previous tests is that we only get 
-here when the actual display is connected.
-
--- 
-With best wishes
-Dmitry
-
+So yes? We will eventually call dp_panel_read_sink_caps() again, and
+this time not bail out early. It's probably fine.
