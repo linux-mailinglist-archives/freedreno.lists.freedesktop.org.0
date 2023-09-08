@@ -1,78 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 702D1797EDD
-	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 00:55:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB46797FC2
+	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 02:33:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3445E10E838;
-	Thu,  7 Sep 2023 22:55:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59EDB10E0E0;
+	Fri,  8 Sep 2023 00:33:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 777CB10E838
- for <freedreno@lists.freedesktop.org>; Thu,  7 Sep 2023 22:55:08 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A13210E0CF;
+ Fri,  8 Sep 2023 00:33:13 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 387MY0fK017277
- for <freedreno@lists.freedesktop.org>; Thu, 7 Sep 2023 22:55:07 GMT
+ 387NqSfT032621; Fri, 8 Sep 2023 00:32:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=HhLM6ej3AmbxZiUO6A4DuZ3xXH3NVnForY0/iGCGAPE=;
- b=b/ioUPE7YhnOcOfAJ0WFZJiQniggBImlbfYjkdzQVXhiyqPFl5dVlXvhNu1STNqyZgvC
- W989b0o9r3sQEyQhgiQBmhlN8aC3HI6AvnNAiBUFOB8jreGO7DdFPXmzZn9Xph0drO3V
- VoUotOh7yro3Hv9GQvfXTdxJjGyuGRe5SsgKvr0Dq7cNz+kpyBRWTgG4KO6Kxk3MXpp6
- At4BfdfCv7u1qgdznBUZlFG1eSirP6ddcFcVz9YaczNJwRFJJsdBzr6b++iOXikFsGOT
- KXa6zuloysbfFiUDx9/w7WgM+D8Gtxd0n8ZchdqqChbe1VPohuSR/ErHYthvGindZ2I4 SQ== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=By8t/LVc9BtixrRYz4a2HRQgNTaIqjVmNrDhk0me8jI=;
+ b=J/tgchuQbq12wNissktoJKTXzRD1oYWkzgSSrU+kYWcu8RvuvWdBjXBUY0AXQoErTywS
+ I3vOkdetZaGOXGLWVE7b/LCZoosC9yIBa/vjBkTocg0HAFUxo6OIxKyVDx6RhF2Nhvis
+ umg2p1/NGr2T2mdodR4bT9TeyvcZBt9NtIfqbVLRfC+d6prQ512kQ6a40SPP8Btzfqmw
+ STBAwX83CSu+Sg4pSVLKhL4Do7B4fL5eqs0YcXAx/8pHCQ/NSBuBHHgOeMnZX83iRgrF
+ xxQBmIYZU2/O7NLPMEseeXM07IL7UiFJrznFQ8F6T9i3rD+GXt/Gd7F+p+oHOKAgER0H 0A== 
 Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3sy4s7tht7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 22:55:07 +0000
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3sy4bqjq1a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 08 Sep 2023 00:32:51 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 387Mt7wb024938
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 7 Sep 2023 22:55:07 GMT
-Received: from [10.110.64.42] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Thu, 7 Sep
- 2023 15:55:06 -0700
-Message-ID: <42067d84-b46d-3627-c363-90f9e2a0faa8@quicinc.com>
-Date: Thu, 7 Sep 2023 15:54:58 -0700
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3880Wo6e002931
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 8 Sep 2023 00:32:50 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Thu, 7 Sep 2023 17:32:50 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Kalyan Thota <quic_kalyant@quicinc.com>
+Date: Thu, 7 Sep 2023 17:32:40 -0700
+Message-ID: <20230908003240.14104-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: <freedreno@lists.freedesktop.org>
-References: <20230901142034.580802-1-jani.nikula@intel.com>
- <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 1YJK2QfhVPIUEOUKnhQDGQmOTFxHuLni
-X-Proofpoint-ORIG-GUID: 1YJK2QfhVPIUEOUKnhQDGQmOTFxHuLni
+X-Proofpoint-GUID: DgmdaCt2AuzMq5yMhhOTUaYiOUNm5U3B
+X-Proofpoint-ORIG-GUID: DgmdaCt2AuzMq5yMhhOTUaYiOUNm5U3B
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-07_13,2023-09-05_01,2023-05-22_02
+ definitions=2023-09-07_14,2023-09-05_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 mlxscore=0 clxscore=1015 adultscore=0 spamscore=0
- mlxlogscore=999 suspectscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2308100000 definitions=main-2309070204
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: skip validity check for DP CTS
- EDID checksum
+ adultscore=0 clxscore=1011
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 spamscore=0 mlxlogscore=842 mlxscore=0 impostorscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2309080003
+Subject: [Freedreno] [PATCH] drm/msm/dpu: change _dpu_plane_calc_bw() to use
+ u64 to avoid overflow
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,45 +83,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_parellan@quicinc.com, quic_jesszhan@quicinc.com, nespera@igalia.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+_dpu_plane_calc_bw() uses integer variables to calculate the bandwidth
+used during plane bandwidth calculations. However for high resolution
+displays this overflows easily and leads to below errors
 
-On 9/7/2023 2:46 PM, Stephen Boyd wrote:
-> Quoting Jani Nikula (2023-09-01 07:20:34)
->> The DP CTS test for EDID last block checksum expects the checksum for
->> the last block, invalid or not. Skip the validity check.
->>
->> For the most part (*), the EDIDs returned by drm_get_edid() will be
->> valid anyway, and there's the CTS workaround to get the checksum for
->> completely invalid EDIDs. See commit 7948fe12d47a ("drm/msm/dp: return
->> correct edid checksum after corrupted edid checksum read").
->>
->> This lets us remove one user of drm_edid_block_valid() with hopes the
->> function can be removed altogether in the future.
->>
->> (*) drm_get_edid() ignores checksum errors on CTA extensions.
->>
->> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
->> Cc: Marijn Suijten <marijn.suijten@somainline.org>
->> Cc: Rob Clark <robdclark@gmail.com>
->> Cc: Sean Paul <sean@poorly.run>
->> Cc: Stephen Boyd <swboyd@chromium.org>
->> Cc: linux-arm-msm@vger.kernel.org
->> Cc: freedreno@lists.freedesktop.org
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+[dpu error]crtc83 failed performance check -7
 
-> Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->
->> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
->> index 42d52510ffd4..86a8e06c7a60 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->> @@ -289,26 +289,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
->>
->>   static u8 dp_panel_get_edid_checksum(struct edid *edid)
-> It would be nice to make 'edid' const here in another patch.
+Promote the intermediate variables to u64 to avoid overflow.
+
+Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
+Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/32
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index ae970af1154f..c6193131beec 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -118,7 +118,7 @@ static u64 _dpu_plane_calc_bw(const struct dpu_mdss_cfg *catalog,
+ 	const struct drm_display_mode *mode,
+ 	struct dpu_sw_pipe_cfg *pipe_cfg)
+ {
+-	int src_width, src_height, dst_height, fps;
++	u64 src_width, src_height, dst_height, fps;
+ 	u64 plane_prefill_bw;
+ 	u64 plane_bw;
+ 	u32 hw_latency_lines;
+-- 
+2.40.1
+
