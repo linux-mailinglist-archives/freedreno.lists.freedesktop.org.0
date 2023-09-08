@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8017980C7
-	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 05:05:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA587980C8
+	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 05:05:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D477910E57E;
-	Fri,  8 Sep 2023 03:05:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06E0E10E854;
+	Fri,  8 Sep 2023 03:05:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB14910E57E
- for <freedreno@lists.freedesktop.org>; Fri,  8 Sep 2023 03:05:25 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2bcc14ea414so27051901fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 20:05:25 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EFD510E760
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Sep 2023 03:05:26 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2bcb0b973a5so26521001fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 20:05:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694142324; x=1694747124; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1694142325; x=1694747125; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PjF+Ni17TVCwIorp3DZ1/pP2g7KWsdAJkvzgXwIGnZs=;
- b=dpOGhSqrR9FTcJWoCmMS+HY/1mRULQozEF6AYS2uLuSXx8kl+zIGMBzTrx/9TTYPAP
- i+Xcmn95a1QwVZiHRJpIJuEz1FfntUq+ztfWnn05PYJ2WJd05I9P/mHiOIx7m/jUP696
- 3pnPZVk7FzpC6ODFs00LjdpqN28uZwsFsqhw1f0zm9mbcT442tut3gX7YK6ejWNLnk/w
- q3Fp4kv8oKxEw8mglbU+7UnE3CVnUP+11v1adox7AuWt1pZRYZ/owakS0aPbLDtZnV30
- mp9vOCnmexKd8cYQk6esxyCxK759+B0VOZf4RbnVRyGm5fyLEDYmzFkeHdCl9LsC9A3s
- tIOg==
+ bh=FX3U4Kv6boSoIeXiFA0GqPmb+Xk7f6TWSY7AwcdRtXw=;
+ b=Y+S0fjxYOQ9vdF6wm/8JWTuB4NTjsY8X+sCyE/gCvTeFu3uQuNuYO5kzRB72Dz8Upl
+ GpOYzLOs+pQL6A0YfnaJjIUBCit24JOhcbBNtTVcunJtqw5qcAtVZ2AsYZ0LfbYNSZtB
+ RTrN4JGhLSM7GdjNv8NNsZKaG9mSk6ISTxixLGkNg490z8gKHwQ5jI+A57VsoRYiOoDA
+ MmFu4SAhYLxpfuSrh5fa3uxiporgnuv8Uhr2plp/u3XfyBXBZZ9mQBpfd1BW1WSQeWNs
+ bxyDKt4jMdsFLUR09iLv1vZTm3kG5FsUP9QKTbSqhphBnCYNwQjCKLzfAV8H9d5pxBBh
+ M6Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694142324; x=1694747124;
+ d=1e100.net; s=20230601; t=1694142325; x=1694747125;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=PjF+Ni17TVCwIorp3DZ1/pP2g7KWsdAJkvzgXwIGnZs=;
- b=gcIDu/Zz/m9F6fwZEnxG4D46GnE0PmTVqTmbDO4nM6inYScixP1pQDhQtpJuFg3G1Y
- wZxIl8MEWXSJT/liSYIYVUBzMZggE2sHmPBqOZOv/5GhL/Z2/7lxYbWGkR/lPRCAW4/D
- i3CGm2bnU3xfnMX4SsRIfNSL9Bu8+4iIwrtSVGItjqR7Ba3QsIHr9iMSNq/YlvEfGlGw
- B7FxWhfE+7KCjt95AYjwvxiJEC3LPA6usK84sNGlXgyqwE6avHp7EYqlVqahmUnPgY/7
- vXH2rkoxk+Ya6aWx2OeodLZzXUZT9KEGx9PwpEoG2jx9K5ar5/k+5iU2Lt4ciizfpcKO
- U3+Q==
-X-Gm-Message-State: AOJu0YwgXyu9N5du7H4iJeOXW+6nebM34uCG9sd6SxYnavsoNf73k9Gq
- QexscFlrZCYHe95gXK9Ug3+BOg==
-X-Google-Smtp-Source: AGHT+IEPZQBKLVkp0sj0YHhbSBoBG7ps4S6wXzS+PGeOdpT3sIK8s0aBEQUUBdV9d5V+uIjuBNLNIw==
-X-Received: by 2002:a2e:b044:0:b0:2bc:befb:b602 with SMTP id
- d4-20020a2eb044000000b002bcbefbb602mr776445ljl.1.1694142324074; 
+ bh=FX3U4Kv6boSoIeXiFA0GqPmb+Xk7f6TWSY7AwcdRtXw=;
+ b=lUFxZN2CavGFRdalPxFigl1DrwsWhnFKm9q8E5PgOcCt1gMMVDAteq5gkkILtmSuLm
+ KrDHEvZ7+gpQ+6cxUGBh3V8C2V7BSXpWqZ5AN82FdzOMb7/y7QILCUM4MiWjwDYaBPB0
+ TwD9s7H40lg4M7Tsa5NTNKddBSJ9bM7H1NWQh6x4TbGU/PCBndMt5FJEL68/A9rqp6Ga
+ HnJkV0VtPpXtUx/JQbkJd6XD/QkmRc6/+Hax3ZB74wh+TvRWfZn6RP5aqjBLFlBlsM6F
+ ZjESw5lUFY7j1QfzvR5KcrXxiJ1+E0jEXTigfa/6nx1KtImNZ4FY5kHLFJ7FOpwSwlaZ
+ S5EA==
+X-Gm-Message-State: AOJu0YytRci4MEHUvO/TTVsBQ+QQZ0Me3XfA3+Ii71a9HtN2Wygf/oq2
+ xfBAyrA1wuyh+DgNuM4CoSZzng==
+X-Google-Smtp-Source: AGHT+IE1UWo6gyoG9WOKNs/u/38JmWyXkL5hWEPnw8XhwXskinhp5YUgh8TkpIKV0TF6lTqgb7Va+A==
+X-Received: by 2002:a2e:97d7:0:b0:2b9:f13b:6139 with SMTP id
+ m23-20020a2e97d7000000b002b9f13b6139mr782892ljj.20.1694142324853; 
  Thu, 07 Sep 2023 20:05:24 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- z10-20020a2e8e8a000000b002b93d66b82asm128332ljk.112.2023.09.07.20.05.23
+ z10-20020a2e8e8a000000b002b93d66b82asm128332ljk.112.2023.09.07.20.05.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Sep 2023 20:05:23 -0700 (PDT)
+ Thu, 07 Sep 2023 20:05:24 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>
-Date: Fri,  8 Sep 2023 06:05:18 +0300
-Message-Id: <20230908030521.236309-3-dmitry.baryshkov@linaro.org>
+Date: Fri,  8 Sep 2023 06:05:19 +0300
+Message-Id: <20230908030521.236309-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230908030521.236309-1-dmitry.baryshkov@linaro.org>
 References: <20230908030521.236309-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/5] drm/msm/dpu: finalise global state object
+Subject: [Freedreno] [PATCH 3/5] drm/msm/dpu: drop global_state_lock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,40 +82,62 @@ Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add calls to finalise global state object and corresponding lock.
+Since the commit b962a12050a3 ("drm/atomic: integrate modeset lock with
+private objects") the DRM framework no longer requires the external
+lock for private objects. Drop the lock, letting the DRM to manage
+private object locking.
 
-Fixes: de3916c70a24 ("drm/msm/dpu: Track resources in global state")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 8 --------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 1 -
+ 2 files changed, 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index aa6ba2cf4b84..fba2294e329f 100644
+index fba2294e329f..ee84160592ce 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -385,6 +385,12 @@ static int dpu_kms_global_obj_init(struct dpu_kms *dpu_kms)
- 	return 0;
+@@ -328,11 +328,6 @@ struct dpu_global_state *dpu_kms_get_global_state(struct drm_atomic_state *s)
+ 	struct msm_drm_private *priv = s->dev->dev_private;
+ 	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+ 	struct drm_private_state *priv_state;
+-	int ret;
+-
+-	ret = drm_modeset_lock(&dpu_kms->global_state_lock, s->acquire_ctx);
+-	if (ret)
+-		return ERR_PTR(ret);
+ 
+ 	priv_state = drm_atomic_get_private_obj_state(s,
+ 						&dpu_kms->global_state);
+@@ -373,8 +368,6 @@ static int dpu_kms_global_obj_init(struct dpu_kms *dpu_kms)
+ {
+ 	struct dpu_global_state *state;
+ 
+-	drm_modeset_lock_init(&dpu_kms->global_state_lock);
+-
+ 	state = kzalloc(sizeof(*state), GFP_KERNEL);
+ 	if (!state)
+ 		return -ENOMEM;
+@@ -388,7 +381,6 @@ static int dpu_kms_global_obj_init(struct dpu_kms *dpu_kms)
+ static void dpu_kms_global_obj_fini(struct dpu_kms *dpu_kms)
+ {
+ 	drm_atomic_private_obj_fini(&dpu_kms->global_state);
+-	drm_modeset_lock_fini(&dpu_kms->global_state_lock);
  }
  
-+static void dpu_kms_global_obj_fini(struct dpu_kms *dpu_kms)
-+{
-+	drm_atomic_private_obj_fini(&dpu_kms->global_state);
-+	drm_modeset_lock_fini(&dpu_kms->global_state_lock);
-+}
-+
  static int dpu_kms_parse_data_bus_icc_path(struct dpu_kms *dpu_kms)
- {
- 	struct icc_path *path0;
-@@ -827,6 +833,8 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
- 		dpu_rm_destroy(&dpu_kms->rm);
- 	dpu_kms->rm_init = false;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index b6f53ca6e962..ed549f0f7c65 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -84,7 +84,6 @@ struct dpu_kms {
+ 	 * Global private object state, Do not access directly, use
+ 	 * dpu_kms_global_get_state()
+ 	 */
+-	struct drm_modeset_lock global_state_lock;
+ 	struct drm_private_obj global_state;
  
-+	dpu_kms_global_obj_fini(dpu_kms);
-+
- 	dpu_kms->catalog = NULL;
- 
- 	if (dpu_kms->vbif[VBIF_NRT])
+ 	struct dpu_rm rm;
 -- 
 2.39.2
 
