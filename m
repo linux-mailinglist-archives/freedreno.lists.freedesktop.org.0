@@ -2,77 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF4C2798E7D
-	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 20:55:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50591798F45
+	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 21:31:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8A7882AF;
-	Fri,  8 Sep 2023 18:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E49C10E175;
+	Fri,  8 Sep 2023 19:31:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E03010E0FF;
- Fri,  8 Sep 2023 18:55:22 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 388Cf1dQ026960; Fri, 8 Sep 2023 18:54:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=VQa+l5fjSpshTSgHvyDB3UkN94/rJpy8jWTI3ZYkuBg=;
- b=OKRy8SdWNg78t4ZJiaWublCuoLyCFzPl+fyvXDVJ3VgD5EvzoNIFRMaz9QovhnnLQaw+
- TiXODJObVN1Oa/GphqJzAwckJGSVUMkdLRBe1mN0G7UIrBnGuq2DeAqYN7HUshaDdvVO
- 7yPSEWAW9vvsB/nu0R3TLmHTev45JiU4tpNvKIFOgANWPizFHvvBdHebX53vWW2kWMk8
- OunPHkS0GHVle5R3v9L9OHoyUpOoEfcOAt3SR0kNuYsQrus33icxtkU0zQrv1HiN5nlP
- D/TeP+SxXBlZCYp0FHmZpFx3bK7ML2h+KM0LOkwhM3zSOgmpFcwwQCy/91nL2P3mBr0W oQ== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3syu01229s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Sep 2023 18:54:58 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 388IsvTU012976
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 8 Sep 2023 18:54:57 GMT
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.36; Fri, 8 Sep 2023 11:54:57 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>
-Date: Fri, 8 Sep 2023 11:54:27 -0700
-Message-ID: <20230908185427.29026-2-quic_abhinavk@quicinc.com>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 195CC10E138;
+ Fri,  8 Sep 2023 19:31:19 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CD3C3B821E7;
+ Fri,  8 Sep 2023 19:31:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1E3C433C7;
+ Fri,  8 Sep 2023 19:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694201477;
+ bh=SfVdZao8/lvmacCnZXsfaOMnq2FGvbw1vbpw+ZorL4g=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=i546ArwW0barsCTpuWIdShFrJnGqFavnz1OpG370tdC/gLnwb6Vg2OzID4Wpt51JE
+ qkJLizdnjBnLBNM2PQeSEuBl+n3O4zCbHkwOMKoznhC93iL+r0gN2O0S6aKgXB0o+G
+ 1eWCr3kQqFMPmHrT+EfOa1lkJBY3U2cM5e18m3H4jzocTD5xz1WN3fFQ9/AhbdqQUy
+ UBAVpPa/XKmmtL/ahyQxY3MtS0wsHP5BwOjyo0gMs2G2KyEN0q1Llk81yTAADna4DW
+ DRJvjOJf64Dm+PZYLlS0IJqFeUnG1e1lyZNySwivlxPvggfg29pRE4jpnAPmb3ff11
+ 6QO5fmm5ldGJA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Fri,  8 Sep 2023 15:28:35 -0400
+Message-Id: <20230908192848.3462476-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230908185427.29026-1-quic_abhinavk@quicinc.com>
-References: <20230908185427.29026-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20230908192848.3462476-1-sashal@kernel.org>
+References: <20230908192848.3462476-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.5.2
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 8WmarzNsTZcJqPehkHvTiXOyRIDRCLU0
-X-Proofpoint-GUID: 8WmarzNsTZcJqPehkHvTiXOyRIDRCLU0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-08_15,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- lowpriorityscore=0 mlxscore=0 suspectscore=0 adultscore=0 bulkscore=0
- phishscore=0 impostorscore=0 clxscore=1015 spamscore=0 malwarescore=0
- mlxlogscore=718 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309080173
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dpu: try multirect based on mdp
- clock limits
+Subject: [Freedreno] [PATCH AUTOSEL 6.5 24/36] drm/msm/adreno: Use quirk
+ identify hw_apriv
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,50 +58,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_parellan@quicinc.com,
- quic_jesszhan@quicinc.com, nespera@igalia.com
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ quic_akhilpo@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+ freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, joel@joelfernandes.org,
+ robdclark@gmail.com, daniel@ffwll.ch,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, swboyd@chromium.org,
+ airlied@gmail.com, johan+linaro@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It's certainly possible that for large resolutions a single DPU SSPP
-cannot process the image without exceeding the MDP clock limits but
-it can still process it in multirect mode because the source rectangles
-will get divided and can fall within the MDP clock limits.
+From: Rob Clark <robdclark@chromium.org>
 
-If the SSPP cannot process the image even in multirect mode, then it
-will be rejected in dpu_plane_atomic_check_pipe().
+[ Upstream commit 459f9e26e7d49f80f587d7592ccb78e00ab458e4 ]
 
-Hence try using multirect for resolutions which cannot be processed
-by a single SSPP without exceeding the MDP clock limits.
+Rather than just open coding a list of gpu-id matches.
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Patchwork: https://patchwork.freedesktop.org/patch/549764/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 3 +--
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 4 ++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 1 +
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 62dd9f9b4dce..85072328cd53 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -792,6 +792,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 										 plane);
- 	int ret = 0, min_scale;
- 	struct dpu_plane *pdpu = to_dpu_plane(plane);
-+	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
- 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
- 	struct dpu_sw_pipe *pipe = &pstate->pipe;
- 	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
-@@ -860,7 +861,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index b3ada1e7b598b..77901af95b5a3 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -2491,8 +2491,7 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	/* Quirk data */
+ 	adreno_gpu->info = info;
  
- 	max_linewidth = pdpu->catalog->caps->max_linewidth;
+-	if (adreno_is_a650(adreno_gpu) || adreno_is_a660_family(adreno_gpu))
+-		adreno_gpu->base.hw_apriv = true;
++	adreno_gpu->base.hw_apriv = !!(info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
  
--	if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
-+	if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-+	     _dpu_plane_calc_clk(&crtc_state->mode, pipe_cfg) > kms->perf.max_core_clk_rate) {
- 		/*
- 		 * In parallel multirect case only the half of the usual width
- 		 * is supported for tiled formats. If we are here, we know that
+ 	a6xx_llc_slices_init(pdev, a6xx_gpu);
+ 
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index ce8d0b2475bf1..5751077c201eb 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -325,6 +325,7 @@ static const struct adreno_info gpulist[] = {
+ 		},
+ 		.gmem = SZ_1M + SZ_128K,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+ 		.init = a6xx_gpu_init,
+ 		.zapfw = "a650_zap.mdt",
+ 		.hwcg = a650_hwcg,
+@@ -339,6 +340,7 @@ static const struct adreno_info gpulist[] = {
+ 		},
+ 		.gmem = SZ_1M + SZ_512K,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+ 		.init = a6xx_gpu_init,
+ 		.zapfw = "a660_zap.mdt",
+ 		.hwcg = a660_hwcg,
+@@ -351,6 +353,7 @@ static const struct adreno_info gpulist[] = {
+ 		},
+ 		.gmem = SZ_512K,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+ 		.init = a6xx_gpu_init,
+ 		.hwcg = a660_hwcg,
+ 		.address_space_size = SZ_16G,
+@@ -375,6 +378,7 @@ static const struct adreno_info gpulist[] = {
+ 		},
+ 		.gmem = SZ_4M,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+ 		.init = a6xx_gpu_init,
+ 		.zapfw = "a690_zap.mdt",
+ 		.hwcg = a690_hwcg,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 845019891ad19..a925e04a2283c 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -32,6 +32,7 @@ enum {
+ #define ADRENO_QUIRK_TWO_PASS_USE_WFI		BIT(0)
+ #define ADRENO_QUIRK_FAULT_DETECT_MASK		BIT(1)
+ #define ADRENO_QUIRK_LMLOADKILL_DISABLE		BIT(2)
++#define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
+ 
+ struct adreno_rev {
+ 	uint8_t  core;
 -- 
 2.40.1
 
