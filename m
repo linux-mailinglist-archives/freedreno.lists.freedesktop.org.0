@@ -1,50 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6193798F4E
-	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 21:31:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E16E798FA6
+	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 21:33:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F00E10E1C2;
-	Fri,  8 Sep 2023 19:31:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1BEB10E92D;
+	Fri,  8 Sep 2023 19:33:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA1B110E1C2;
- Fri,  8 Sep 2023 19:31:28 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 23528614BF;
- Fri,  8 Sep 2023 19:31:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6997C433D9;
- Fri,  8 Sep 2023 19:31:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694201487;
- bh=UtXPPDzp/BTiZR0qZBQsbPCE0DChlHRJw03YA8zf+8Y=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=l8VYtTomeaLjNrNBJIpjZsIp8WsyCiFb93Reew3XqCoarivgGx1gItZfdKWVjeK+P
- S3d7D6/my8DHpHVr1orvy5FU6ulQUyjl+WKmxpqHCbcquM8wKkw3tUY5v5yxajBEcd
- 8dI4gfi1u5VAwFqde6Clh0HWF3Hkb1aZAG7kP39O8J0td4AYWp3c2y415NrWVFZDJD
- werLGoF6WT+3bYt/RpIw+QHDRFjd2g7d0Bomddw6YGRaGbyF6sr+G5KhucM2wggvUV
- zM4Dg/mxtF1gq5y+z/JrOTmmZD1YvmmSm+gqkH307AbWSPajzUyMhl5zGlZt1+6CFD
- NIQrrc2m0Ncgg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Fri,  8 Sep 2023 15:28:36 -0400
-Message-Id: <20230908192848.3462476-25-sashal@kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA68C10E925;
+ Fri,  8 Sep 2023 19:33:44 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 388DQ47J032223; Fri, 8 Sep 2023 19:33:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=OzGNwjcc50LkSrOJdANUK7aPfJUfQ/XVLzwpb4msOrU=;
+ b=lXzKnrslkOSQZ75BJAFJmHKvW66Jw66RZSPkmH9+jeqP+rjw3FoEcbBR7XrppGhxQmcC
+ 6j5gz2yWdxV2YttW8J0dMWJo34q9/lJVe9LL9RJtIfkAzUxOmQQBlHhydLvJTlpnlT5C
+ pUtiHXuwvUpfx+b8ugnTZfXtX1/so4ha/toKWQMBL9ZXZ0Ojc/2lEoUxjV1bgoXDFBK1
+ ZgxqOz+7wSlCHg23wozZDsuIOI9k+GjDN0tDiT6EMJCDC0F7epcxiUnWj9aWMk6wFkTa
+ o2b571+fVU66Zf6ULjnn1nqevXebyz18BpKpLTz6o1pOf0Kz3sqqk2wnU90/CAMSpiS1 0A== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3syu0124s1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 08 Sep 2023 19:33:23 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 388JXNfJ002755
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 8 Sep 2023 19:33:23 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Fri, 8 Sep 2023 12:33:22 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>
+Date: Fri, 8 Sep 2023 12:33:13 -0700
+Message-ID: <20230908193314.27008-1-quic_abhinavk@quicinc.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230908192848.3462476-1-sashal@kernel.org>
-References: <20230908192848.3462476-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.5.2
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.5 25/36] drm/msm/adreno: Use quirk to
- identify cached-coherent support
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: RKoONVGGYzYANLCU15hwHsifUV1rWJ5D
+X-Proofpoint-GUID: RKoONVGGYzYANLCU15hwHsifUV1rWJ5D
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-08_15,2023-09-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 mlxscore=0 suspectscore=0 adultscore=0 bulkscore=0
+ phishscore=0 impostorscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2309080177
+Subject: [Freedreno] [PATCH] drm/msm/dpu: enable smartdma on sm8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,142 +82,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- quic_akhilpo@quicinc.com, linux-arm-msm@vger.kernel.org, andersson@kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, robdclark@gmail.com, daniel@ffwll.ch,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, airlied@gmail.com, johan+linaro@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, quic_parellan@quicinc.com,
+ quic_jesszhan@quicinc.com, nespera@igalia.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+To support high resolutions on sm8350, enable smartdma
+in its catalog.
 
-[ Upstream commit 155668ef412fc82ff3172666831d95770141cdd6 ]
-
-It is better to explicitly list it.  With the move to opaque chip-id's
-for future devices, we should avoid trying to infer things like
-generation from the numerical value.
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Patchwork: https://patchwork.freedesktop.org/patch/549765/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_device.c | 23 +++++++++++++++-------
- drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  1 +
- 2 files changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 5751077c201eb..715ec4139b626 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -275,6 +275,7 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_512K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 	}, {
- 		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
-@@ -286,6 +287,7 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_512K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a615_zap.mdt",
- 		.hwcg = a615_hwcg,
-@@ -299,6 +301,7 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_1M,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a630_zap.mdt",
- 		.hwcg = a630_hwcg,
-@@ -312,6 +315,7 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_1M,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a640_zap.mdt",
- 		.hwcg = a640_hwcg,
-@@ -325,7 +329,8 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_1M + SZ_128K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			ADRENO_QUIRK_HAS_HW_APRIV,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a650_zap.mdt",
- 		.hwcg = a650_hwcg,
-@@ -340,7 +345,8 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_1M + SZ_512K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			ADRENO_QUIRK_HAS_HW_APRIV,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a660_zap.mdt",
- 		.hwcg = a660_hwcg,
-@@ -353,7 +359,8 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_512K,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			ADRENO_QUIRK_HAS_HW_APRIV,
- 		.init = a6xx_gpu_init,
- 		.hwcg = a660_hwcg,
- 		.address_space_size = SZ_16G,
-@@ -367,6 +374,7 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_2M,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a640_zap.mdt",
- 		.hwcg = a640_hwcg,
-@@ -378,7 +386,8 @@ static const struct adreno_info gpulist[] = {
- 		},
- 		.gmem = SZ_4M,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
--		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			ADRENO_QUIRK_HAS_HW_APRIV,
- 		.init = a6xx_gpu_init,
- 		.zapfw = "a690_zap.mdt",
- 		.hwcg = a690_hwcg,
-@@ -590,9 +599,9 @@ static int adreno_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
+Notes:
+    only compile tested, to be landed after sufficient testing
+
+ .../drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+index 8da424eaee6a..a32d235ff08e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+@@ -82,21 +82,21 @@ static const struct dpu_ctl_cfg sm8350_ctl[] = {
+ };
  
--	if (config.rev.core >= 6)
--		if (!adreno_has_gmu_wrapper(to_adreno_gpu(gpu)))
--			priv->has_cached_coherent = true;
-+	priv->has_cached_coherent =
-+		!!(info->quirks & ADRENO_QUIRK_HAS_CACHED_COHERENT) &&
-+		!adreno_has_gmu_wrapper(to_adreno_gpu(gpu));
+ static const struct dpu_sspp_cfg sm8350_sspp[] = {
+-	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
++	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK_SDMA,
+ 		sm8250_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+-	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, 0x1f8, VIG_SC7180_MASK,
++	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, 0x1f8, VIG_SC7180_MASK_SDMA,
+ 		sm8250_vig_sblk_1, 4, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
+-	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, 0x1f8, VIG_SC7180_MASK,
++	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, 0x1f8, VIG_SC7180_MASK_SDMA,
+ 		sm8250_vig_sblk_2, 8, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG2),
+-	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, 0x1f8, VIG_SC7180_MASK,
++	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, 0x1f8, VIG_SC7180_MASK_SDMA,
+ 		sm8250_vig_sblk_3, 12, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG3),
+-	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
++	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK_SDMA,
+ 		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+-	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_SDM845_MASK,
++	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_SDM845_MASK_SDMA,
+ 		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
+-	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK,
++	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK_SDMA,
+ 		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
+-	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1f8, DMA_CURSOR_SDM845_MASK,
++	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1f8, DMA_CURSOR_SDM845_MASK_SDMA,
+ 		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
+ };
  
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index a925e04a2283c..129771563f3fd 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -33,6 +33,7 @@ enum {
- #define ADRENO_QUIRK_FAULT_DETECT_MASK		BIT(1)
- #define ADRENO_QUIRK_LMLOADKILL_DISABLE		BIT(2)
- #define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
-+#define ADRENO_QUIRK_HAS_CACHED_COHERENT	BIT(4)
- 
- struct adreno_rev {
- 	uint8_t  core;
 -- 
 2.40.1
 
