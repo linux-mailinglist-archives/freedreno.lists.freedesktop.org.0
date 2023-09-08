@@ -2,68 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88A167980CA
-	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 05:05:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E187982F8
+	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 09:00:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67C7A10E861;
-	Fri,  8 Sep 2023 03:05:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA46D10E87A;
+	Fri,  8 Sep 2023 07:00:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFCDE10E57E
- for <freedreno@lists.freedesktop.org>; Fri,  8 Sep 2023 03:05:27 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2bcb89b4767so27116741fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 07 Sep 2023 20:05:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694142326; x=1694747126; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4EuRyGB2FCn8eHtdShX5HJtuBHexPXckCeOw+rDTXl8=;
- b=r+FuWbVjv/e39xXFHzvP3qKZVniQ/hwkw2/39kqBmTt2B7mwXS1JHUp4a/ZWGE75BH
- jUp41Zu4gOlQT0Tt0/1Vfp0+xG0wi5E+6M3F/fVJZogZjUjxKHO0rp6+SkrNKHRuPUu/
- mtM69aQmOvtmzpgBB7gRgOBUioFNbW6tYFbPCO6i3Z71oFGCsZJSoJVpqCL7IZ4URO0y
- PSQnhfG5gvw1I727hdU/E0VFHOdj3Hathkh83ovB2N5VWmZXIIZ31ihgrI4Y9i5Yvxhc
- 1VNWtK1ZxsBY4Oo+kumj4Uq9c9eV8+mYDzsT/rli3p8XIFVEPtGWt45YQ+Igl+J2dI3D
- bsLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694142326; x=1694747126;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4EuRyGB2FCn8eHtdShX5HJtuBHexPXckCeOw+rDTXl8=;
- b=ZepQST3wE30WVf5AAnApcJeU+xB2xDsYIsVy0CRxXp7wZlJ8xkPqyMV9hqcx6gAfxk
- cCJVeWffg79iQ53yRq9MoyhFUOgfC7HPac+kpwxjOsiDJRy/lGC5ak3PC3ex1kraZtJE
- qMYZ/5lnoIrqP/wqblP+3tZDJiWL67n2HCunqavTYRtZKuT/2q/DI605KY8WoJJwsgKN
- IFlW+DF4kcDS/nbe/f1ROmYyJBTiLWFnyAQ0HyOc/uc8iWzhN3w2UDBB84BsAAXjJHnO
- EeSC85bBwvIIzf3aE1C6Ikog8OFcmSeqIgXDUmlkfJpmYs9P5NTFFh2vgZ8lUA7fB+i5
- 5XpA==
-X-Gm-Message-State: AOJu0Yw4WmvY6WpjzodQ8Q03TThA3rCnwgUiVBmo2mFt6KUGyx/Ukkr1
- T3ESuQOoJt1DVlZnzDg9oQ0zMQ==
-X-Google-Smtp-Source: AGHT+IFb1SE2OljNZih8LbGcYPj0m1xg2/28UjpUhM0NBZt6+shhbkdtZRJ7HtZ9/1kaAYxCIHjKQw==
-X-Received: by 2002:a2e:88d4:0:b0:2bc:cee6:4342 with SMTP id
- a20-20020a2e88d4000000b002bccee64342mr644830ljk.13.1694142326362; 
- Thu, 07 Sep 2023 20:05:26 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- z10-20020a2e8e8a000000b002b93d66b82asm128332ljk.112.2023.09.07.20.05.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Sep 2023 20:05:25 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Fri,  8 Sep 2023 06:05:21 +0300
-Message-Id: <20230908030521.236309-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2527610E875;
+ Fri,  8 Sep 2023 07:00:00 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 011C561454;
+ Fri,  8 Sep 2023 06:59:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1426CC433CA;
+ Fri,  8 Sep 2023 06:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694156398;
+ bh=zbZ1I7JzmzE453M4flL7FQ8fpJujMB0sIcmHWS3u5BY=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=VRuzso6N4nYp1eIKoN5VPAJpbswVbGZQ3MUYebMdiLjN6ffhy3tU0Upzx4BQtmyrT
+ oBbGNHqehmxMsgqLOEX6nNoxV0cdnIprz2KrumXBW5GGUE/HRoO3HOA57UM2/xcoqS
+ hC1U5Bb2UDITRrJV2ak/6h3PEbZq530Okjvk/+6MR+M4yimBq68prS1XSZ7ST9GB/h
+ MF6JvpXepgVeknPkrPig7JPm51BAd+0qQNI5tuYh/ylB9LQFVSpi9rGzQorF+HURRP
+ 5vDruVJpxHDzppNCpn83Lmt2FmcYoZXLg4E1ivqMI8VKDNRC0/FQXO/1EirHNselER
+ GgC+fIjRKBWSg==
+Message-ID: <79decdf3b3d30c90467b6048a5928cf7.mripard@kernel.org>
+Date: Fri, 08 Sep 2023 06:59:55 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
 In-Reply-To: <20230908030521.236309-1-dmitry.baryshkov@linaro.org>
 References: <20230908030521.236309-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] drm/msm/mdp5: drop global_state_lock
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 0/5] drm/msm: cleanup private obj handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,68 +50,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Thomas
+ Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Abhinav
+ Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Maxime
+ Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>, David
+ Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since the commit b962a12050a3 ("drm/atomic: integrate modeset lock with
-private objects") the DRM framework no longer requires the external
-lock for private objects. Drop the lock, letting the DRM to manage
-private object locking.
+On Fri, 8 Sep 2023 06:05:16 +0300, Dmitry Baryshkov wrote:
+> While debugging one of the features in DRM/MSM I noticed that MSM
+> subdrivers still wrap private object access with manual modeset locking.
+> Since commit b962a12050a3 ("drm/atomic: integrate modeset lock with
+> private objects") this is no longer required, as the DRM framework
+> handles private objects internally. Drop these custom locks, while also
+> 
+> [ ... ]
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 8 --------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h | 1 -
- 2 files changed, 9 deletions(-)
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 4d51a736d1d0..c15fa9dafe55 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -84,11 +84,6 @@ struct mdp5_global_state *mdp5_get_global_state(struct drm_atomic_state *s)
- 	struct msm_drm_private *priv = s->dev->dev_private;
- 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 	struct drm_private_state *priv_state;
--	int ret;
--
--	ret = drm_modeset_lock(&mdp5_kms->glob_state_lock, s->acquire_ctx);
--	if (ret)
--		return ERR_PTR(ret);
- 
- 	priv_state = drm_atomic_get_private_obj_state(s, &mdp5_kms->glob_state);
- 	if (IS_ERR(priv_state))
-@@ -138,8 +133,6 @@ static int mdp5_global_obj_init(struct mdp5_kms *mdp5_kms)
- {
- 	struct mdp5_global_state *state;
- 
--	drm_modeset_lock_init(&mdp5_kms->glob_state_lock);
--
- 	state = kzalloc(sizeof(*state), GFP_KERNEL);
- 	if (!state)
- 		return -ENOMEM;
-@@ -626,7 +619,6 @@ static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
- 		pm_runtime_disable(&mdp5_kms->pdev->dev);
- 
- 	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
--	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
- }
- 
- static int construct_pipes(struct mdp5_kms *mdp5_kms, int cnt,
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-index 29bf11f08601..70fdc0b6c7c5 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-@@ -40,7 +40,6 @@ struct mdp5_kms {
- 	 * Global private object state, Do not access directly, use
- 	 * mdp5_global_get_state()
- 	 */
--	struct drm_modeset_lock glob_state_lock;
- 	struct drm_private_obj glob_state;
- 
- 	struct mdp5_smp *smp;
--- 
-2.39.2
-
+Thanks!
+Maxime
