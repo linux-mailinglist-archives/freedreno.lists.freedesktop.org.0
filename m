@@ -1,75 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E16E798FA6
-	for <lists+freedreno@lfdr.de>; Fri,  8 Sep 2023 21:33:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E8727992A4
+	for <lists+freedreno@lfdr.de>; Sat,  9 Sep 2023 01:06:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1BEB10E92D;
-	Fri,  8 Sep 2023 19:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFAB10E08A;
+	Fri,  8 Sep 2023 23:06:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA68C10E925;
- Fri,  8 Sep 2023 19:33:44 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 388DQ47J032223; Fri, 8 Sep 2023 19:33:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=OzGNwjcc50LkSrOJdANUK7aPfJUfQ/XVLzwpb4msOrU=;
- b=lXzKnrslkOSQZ75BJAFJmHKvW66Jw66RZSPkmH9+jeqP+rjw3FoEcbBR7XrppGhxQmcC
- 6j5gz2yWdxV2YttW8J0dMWJo34q9/lJVe9LL9RJtIfkAzUxOmQQBlHhydLvJTlpnlT5C
- pUtiHXuwvUpfx+b8ugnTZfXtX1/so4ha/toKWQMBL9ZXZ0Ojc/2lEoUxjV1bgoXDFBK1
- ZgxqOz+7wSlCHg23wozZDsuIOI9k+GjDN0tDiT6EMJCDC0F7epcxiUnWj9aWMk6wFkTa
- o2b571+fVU66Zf6ULjnn1nqevXebyz18BpKpLTz6o1pOf0Kz3sqqk2wnU90/CAMSpiS1 0A== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3syu0124s1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Sep 2023 19:33:23 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 388JXNfJ002755
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 8 Sep 2023 19:33:23 GMT
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.36; Fri, 8 Sep 2023 12:33:22 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>
-Date: Fri, 8 Sep 2023 12:33:13 -0700
-Message-ID: <20230908193314.27008-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.40.1
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3EA10E08A
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Sep 2023 23:06:49 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id
+ 3f1490d57ef6-d80089712e5so2548499276.1
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Sep 2023 16:06:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1694214408; x=1694819208; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=86RlDu4KqfPGl13CQGEE6BLG6WN5cGi5lzDtXCFU4ls=;
+ b=qPF6xyiEVjSN9nL0Mzepi9hdcDvTrzOZrlEBvdWMKOiyA4Vh0pn++6aBHZelF0iSpr
+ jUYecmEADBGhCR6jVKc+9uWKz46YhjkDU3B8JO6ooOvBWMOxoC+UNxZwsnmFoY7tNhFm
+ mu4rrGkvS0hMomPpXejIlPI57TEF/wAQqvpZHcbQpbK/7Y6LP7XtIL3LSMaE2dQjygVr
+ p0UE7WpStNwTGoimVL0OgAmNlr5H/TjB1wQQgXtTzuAC1aS7Dde6QPo77Vfw6PM+Zv2K
+ 8ydgjsn+IPlWMo6ojgYnGhOjkuHtxktuz3ShME+OF46OAV4CSTKfPYVOs/mQA4IMocRi
+ ZebA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694214408; x=1694819208;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=86RlDu4KqfPGl13CQGEE6BLG6WN5cGi5lzDtXCFU4ls=;
+ b=S6CIvVxPvocS2qTpvlcm4uOcgrEJdCsXzRaltdPO2MkvDbDuCpESSruk6HKh3rT2Vn
+ DGWQz0HOKMXRai4gC5jrYCjrx9zdRnoMjUoOAPTUSGKyO2TXEGVHSnfUo9F4vYabldaP
+ 4/HZH/ip3iwQfPVBNR+6GCdfdjA74qEmL0m81E8h80p7NhP4eFjdUcAOp5qMIeeLUyih
+ Yb2q6KDbWAF4we7n7bLJgCIT2WFd/3FgbAeJIjKesWsDVyMmVJq9hr9wneZeeM/Ya7LN
+ K9jLdaZAbzr9h+ha3Qn+NzjguCJcAWsZMqX+bmxAeAPA6QTLD+AkLVZSxbRByQUqX/7F
+ K9AA==
+X-Gm-Message-State: AOJu0Yw13FJtvuhdhHQD9AgFx9smP6k07qXmiMhCohE+I/SrDVO0mOl3
+ yE0504Yf1JyhJZHTLp4Pzb5hSMR5e63mKakn64hTai9g0K4wmrKlXHc=
+X-Google-Smtp-Source: AGHT+IFGUWQMquiV1p5Biddee7eFZ8X4Ye5n5mZrkJXgfPJ2Z7XVNhyb5TswwcnVancJAh6r2Fz3DqTPsR37P4YgODY=
+X-Received: by 2002:a25:73c1:0:b0:d78:477e:442d with SMTP id
+ o184-20020a2573c1000000b00d78477e442dmr5044363ybc.8.1694214407734; Fri, 08
+ Sep 2023 16:06:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: RKoONVGGYzYANLCU15hwHsifUV1rWJ5D
-X-Proofpoint-GUID: RKoONVGGYzYANLCU15hwHsifUV1rWJ5D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-08_15,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- lowpriorityscore=0 mlxscore=0 suspectscore=0 adultscore=0 bulkscore=0
- phishscore=0 impostorscore=0 clxscore=1015 spamscore=0 malwarescore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309080177
-Subject: [Freedreno] [PATCH] drm/msm/dpu: enable smartdma on sm8350
+References: <20230908185427.29026-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20230908185427.29026-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 9 Sep 2023 02:06:36 +0300
+Message-ID: <CAA8EJprD4nJ=wGZ3XUoxAXi0ybPsGPUOg22FwXVg+dzAmJ8v1Q@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: fail
+ dpu_plane_atomic_check() based on mdp clk limits
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,58 +67,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_parellan@quicinc.com,
- quic_jesszhan@quicinc.com, nespera@igalia.com
+Cc: Archit Taneja <architt@codeaurora.org>,
+ Rajesh Yadav <ryadav@codeaurora.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
+ Rob Clark <robdclark@gmail.com>, nespera@igalia.com, quic_parellan@quicinc.com,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, quic_jesszhan@quicinc.com,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To support high resolutions on sm8350, enable smartdma
-in its catalog.
+On Fri, 8 Sept 2023 at 21:56, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> Currently, dpu_plane_atomic_check() does not check whether the
+> plane can process the image without exceeding the per chipset
+> limits for MDP clock. This leads to underflow issues because the
+> SSPP is not able to complete the processing for the data rate of
+> the display.
+>
+> Fail the dpu_plane_atomic_check() if the SSPP cannot process the
+> image without exceeding the MDP clock limits.
+>
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 98c1b22e9bca..62dd9f9b4dce 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -733,9 +733,11 @@ static int dpu_plane_check_inline_rotation(struct dpu_plane *pdpu,
+>  static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
+>                 struct dpu_sw_pipe *pipe,
+>                 struct dpu_sw_pipe_cfg *pipe_cfg,
+> -               const struct dpu_format *fmt)
+> +               const struct dpu_format *fmt,
+> +               const struct drm_display_mode *mode)
+>  {
+>         uint32_t min_src_size;
+> +       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+>
+>         min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
+>
+> @@ -774,6 +776,12 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
+>                 return -EINVAL;
+>         }
+>
+> +       /* max clk check */
+> +       if (_dpu_plane_calc_clk(mode, pipe_cfg) > kms->perf.max_core_clk_rate) {
+> +               DPU_DEBUG_PLANE(pdpu, "plane exceeds max mdp core clk limits\n");
+> +               return -E2BIG;
+> +       }
+> +
+>         return 0;
+>  }
+>
+> @@ -899,12 +907,13 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>                 r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
+>         }
+>
+> -       ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
+> +       ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt, &crtc_state->mode);
+>         if (ret)
+>                 return ret;
+>
+>         if (r_pipe->sspp) {
+> -               ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt);
+> +               ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt,
+> +                                                 &crtc_state->mode);
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
+I think this should be adjusted_mode. In the end, according to the
+docs CRTC should be programmed with the adjusted_mode, while the
+state->mode is the mode at the end of the pipeline (if I got it
+correct).
 
-Notes:
-    only compile tested, to be landed after sufficient testing
+So e.g. if we add DS to the picture, state->mode will be screen
+resolution, while adjusted_moe will be pre-scale resolution, which is
+the one that matters from the bandwidth point of view.
 
- .../drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-index 8da424eaee6a..a32d235ff08e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-@@ -82,21 +82,21 @@ static const struct dpu_ctl_cfg sm8350_ctl[] = {
- };
- 
- static const struct dpu_sspp_cfg sm8350_sspp[] = {
--	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x1f8, VIG_SC7180_MASK_SDMA,
- 		sm8250_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
--	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, 0x1f8, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, 0x1f8, VIG_SC7180_MASK_SDMA,
- 		sm8250_vig_sblk_1, 4, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
--	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, 0x1f8, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, 0x1f8, VIG_SC7180_MASK_SDMA,
- 		sm8250_vig_sblk_2, 8, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG2),
--	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, 0x1f8, VIG_SC7180_MASK,
-+	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, 0x1f8, VIG_SC7180_MASK_SDMA,
- 		sm8250_vig_sblk_3, 12, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG3),
--	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK,
-+	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x1f8, DMA_SDM845_MASK_SDMA,
- 		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
--	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_SDM845_MASK,
-+	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x1f8, DMA_SDM845_MASK_SDMA,
- 		sdm845_dma_sblk_1, 5, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
--	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK,
-+	SSPP_BLK("sspp_10", SSPP_DMA2, 0x28000, 0x1f8, DMA_CURSOR_SDM845_MASK_SDMA,
- 		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA2),
--	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1f8, DMA_CURSOR_SDM845_MASK,
-+	SSPP_BLK("sspp_11", SSPP_DMA3, 0x2a000, 0x1f8, DMA_CURSOR_SDM845_MASK_SDMA,
- 		sdm845_dma_sblk_3, 13, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA3),
- };
- 
 -- 
-2.40.1
-
+With best wishes
+Dmitry
