@@ -2,60 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFD727992D5
-	for <lists+freedreno@lfdr.de>; Sat,  9 Sep 2023 01:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038B87998DD
+	for <lists+freedreno@lfdr.de>; Sat,  9 Sep 2023 16:37:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B4510E218;
-	Fri,  8 Sep 2023 23:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3643710E143;
+	Sat,  9 Sep 2023 14:37:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D2210E218
- for <freedreno@lists.freedesktop.org>; Fri,  8 Sep 2023 23:30:18 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-d7ba4c5f581so2317739276.0
- for <freedreno@lists.freedesktop.org>; Fri, 08 Sep 2023 16:30:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694215817; x=1694820617; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PY75H1jflFjdwbxljuQ1fV6R6iCKvsQ0y9zdUNKFhfE=;
- b=tzhzux5QpRse9Q13q9YGwZewV9UqYnjBa8sapVd3S3eKJ0YfIRgScU709gzZgzVfbA
- EKFnSfI7QfQs8gMR9HPPoa7hyW5KjcvMBrMiY5Z36wAdBCaEyI4KeFbilfPtaXAmIlwf
- aJT50/QjD3VQ74yLLsz5/oKxhnVG1Gxy1J2jMwGadLj6RmrhNu22Ffv87sHCTylislvD
- KDzi9DIIpiR+a+J/Pk56RXCyhMUaCycJQJYatM64I7LymjJQOJlyYXM/M2M3fEebs6Xq
- jvKGQS9IIm4jxsKF7p1W2vRotZ2/Iq7beEbfOG2zvLH43W9DOdRLsPamKYap45UIYfF6
- rk+Q==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 031C910E143
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Sep 2023 14:37:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1694270254;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eRcOkbLQiqXFau3Lzv+lkDuNMwp9k8LF7/IY5MKHdsU=;
+ b=bnnApBcf60vae7tliVwdHA+pct60LsMIfRrNJXGprwIAg/n9D/Tul3s9nsXiREU04Bsokq
+ ucaa3y6pgxKQFJm+pKCznkFCB+UOjQPHTeHj/Sav075IwogNvr/sFkMorckftne4Q5yFa0
+ u1B4Ob2JcHj8nCPNvTYvSY9+KhMGP28=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-662-S0_X09MEMiu_Rbc5gns4rw-1; Sat, 09 Sep 2023 10:37:31 -0400
+X-MC-Unique: S0_X09MEMiu_Rbc5gns4rw-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-401ea9bf934so23638065e9.2
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Sep 2023 07:37:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694215817; x=1694820617;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PY75H1jflFjdwbxljuQ1fV6R6iCKvsQ0y9zdUNKFhfE=;
- b=qZ6jvQ4i6gGWfpk5qslhnhBxbyNmzApR3aoft+o/Tv9h0QYqFqyOqZ9uE7gBOJGvM2
- xeZuZqTjxm7+1wbkWvdeqBFCTO+mmXEG2qBzZaPvN+3/q3s2NR5EfOhnL37rHQQyfMqz
- Bwr7jTXYWkhvduu4+9xkyKe6T/07hRAiyGEvPMyYQDjgMLj0r9JNYZqS6Y7Dvk5tjEJM
- 8qsbFk4wDhzU3w/B4x4w2fajteMRczDnfmISaYBhcGKhnDPOxrC2qnmzEiYUxZMf/r1B
- la0pRaC6D8aioXjm/MMQY9WNuIs4GbwuKXIlYBCfHGC2qx9gmdFBmHQCNapZOafciNUv
- vScA==
-X-Gm-Message-State: AOJu0YxjfFL8LS7ReiidLdYEjS5TlKPzduE1TCs3Z1SfU9EqTVeunP56
- uHWXFkZXbEE7XMjxGNMtW/PTGe4AXkc6xwtRe58F9Q==
-X-Google-Smtp-Source: AGHT+IFf/w3Ll2Vi98yCb/MLhf+vlwG+jwysyimZL9ykydnejFlmX6x8jbG6nmN39VVCN6dQagU++csT2yUv+wExVNk=
-X-Received: by 2002:a25:d050:0:b0:d78:2967:93ea with SMTP id
- h77-20020a25d050000000b00d78296793eamr3687368ybg.1.1694215817318; Fri, 08 Sep
- 2023 16:30:17 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1694270250; x=1694875050;
+ h=content-transfer-encoding:mime-version:message-id:date:references
+ :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eRcOkbLQiqXFau3Lzv+lkDuNMwp9k8LF7/IY5MKHdsU=;
+ b=j3HECTU7LhBq8WzViWyFAkHXxKJiXw2iMdquOYUP2EE/MoyHYDBHppEC4RLnYX5VE6
+ U+3ZTw57LbhoV9nPmHHNIf7pjaw1iyC81ScbvlLGf6bvkOleeRajJrOczoqUMuAWJqQQ
+ RJtzaO6thscxnlxptMod/0HAxXVqAwhdUb98uma2YPlVoAnsr/tqUl4oat6uQ11s8Pkx
+ zeSElyn+UIEqlo13SvDSWDoIVialjCyEnV1KzGK06TRJiyNULxwMh/x8vlY58ESUIGvn
+ RgCEaQ0DLDcU66WetaVvaxGFGamCN7qE7yzQZPcs87eVBM6gMfaMcImA7kOF+sCJoLAm
+ NrFw==
+X-Gm-Message-State: AOJu0YwRuaMyszsbUekSt7WudubkH/9iwdjJu/msHyCx1uUBBqU30saD
+ zIPybm/xgI/cCMLCy1x7XV6jMUJSoypnfDgejwXEeV6xGsoMoXG2tU+ui8kCu4S8vM8hpb42l7f
+ YIeaoW31+srZtDnx4x9FGMqwAkdH/
+X-Received: by 2002:a05:600c:2483:b0:401:d2cb:e6f3 with SMTP id
+ 3-20020a05600c248300b00401d2cbe6f3mr5088942wms.1.1694270250171; 
+ Sat, 09 Sep 2023 07:37:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFuI0CHTrTRuHu7U+ySuZ17CrBG1YsmWNBf7nwWhsv6ytgzHpvaJlIL3zjF99nLHiP4wc2jkQ==
+X-Received: by 2002:a05:600c:2483:b0:401:d2cb:e6f3 with SMTP id
+ 3-20020a05600c248300b00401d2cbe6f3mr5088899wms.1.1694270249806; 
+ Sat, 09 Sep 2023 07:37:29 -0700 (PDT)
+Received: from localhost (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ k20-20020a7bc414000000b003fd2e898aa3sm3071184wmi.0.2023.09.09.07.37.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 Sep 2023 07:37:28 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+Date: Sat, 09 Sep 2023 16:37:28 +0200
+Message-ID: <8734znjtuf.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
-References: <20230908185427.29026-1-quic_abhinavk@quicinc.com>
- <20230908185427.29026-2-quic_abhinavk@quicinc.com>
-In-Reply-To: <20230908185427.29026-2-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 9 Sep 2023 02:30:05 +0300
-Message-ID: <CAA8EJppj+JTA8iZ6+Ui8JkD-kP54YKObRDK2_Oh+Wpn4XjU-4Q@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: try multirect based on mdp
- clock limits
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 00/53] drm: Convert to platform remove
+ callback returning void
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,66 +83,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, quic_parellan@quicinc.com,
- Daniel Vetter <daniel@ffwll.ch>, quic_jesszhan@quicinc.com,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- nespera@igalia.com
+Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, John Stultz <jstultz@google.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ Steven Price <steven.price@arm.com>, linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Mali DP Maintainers <malidp@foss.arm.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Russell King <linux+etnaviv@armlinux.org.uk>, linux-sunxi@lists.linux.dev,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ kernel@pengutronix.de, Yongqin Liu <yongqin.liu@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 8 Sept 2023 at 21:55, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> It's certainly possible that for large resolutions a single DPU SSPP
-> cannot process the image without exceeding the MDP clock limits but
-> it can still process it in multirect mode because the source rectangles
-> will get divided and can fall within the MDP clock limits.
->
-> If the SSPP cannot process the image even in multirect mode, then it
-> will be rejected in dpu_plane_atomic_check_pipe().
->
-> Hence try using multirect for resolutions which cannot be processed
-> by a single SSPP without exceeding the MDP clock limits.
->
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 62dd9f9b4dce..85072328cd53 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -792,6 +792,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->                                                                                  plane);
->         int ret = 0, min_scale;
->         struct dpu_plane *pdpu = to_dpu_plane(plane);
-> +       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->         struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
->         struct dpu_sw_pipe *pipe = &pstate->pipe;
->         struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
-> @@ -860,7 +861,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->
->         max_linewidth = pdpu->catalog->caps->max_linewidth;
->
-> -       if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
-> +       if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-> +            _dpu_plane_calc_clk(&crtc_state->mode, pipe_cfg) > kms->perf.max_core_clk_rate) {
+Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de> writes:
 
-First, I think this should be an adjusted_mode too. And this probably
-needs some more attention in the next few lines of code, since .e.g
-the UBWC case also needs to be adjusted.
+Hello Uwe,
 
->                 /*
->                  * In parallel multirect case only the half of the usual width
->                  * is supported for tiled formats. If we are here, we know that
-> --
-> 2.40.1
+> Hello,
 >
+> this patch series adapts the platform drivers below drivers/gpu/drm
+> to use the .remove_new() callback. Compared to the traditional .remove()
+> callback .remove_new() returns no value. This is a good thing because
+> the driver core doesn't (and cannot) cope for errors during remove. The
+> only effect of a non-zero return value in .remove() is that the driver
+> core emits a warning. The device is removed anyhow and an early return
+> from .remove() usually yields a resource leak.
+>
+> By changing the remove callback to return void driver authors cannot
+> reasonably (but wrongly) assume any more that there happens some kind of
+> cleanup later.
+>
+> Best regards
+> Uwe
+>
+> Uwe Kleine-K=C3=B6nig (53):
 
+[...]
 
--- 
-With best wishes
-Dmitry
+>   drm/imx/ipuv3: Convert to platform remove callback returning void
+>   drm/ingenic: Convert to platform remove callback returning void
+
+[...]
+
+>   drm/mediatek: Convert to platform remove callback returning void
+>   drm/mediatek: Convert to platform remove callback returning void
+
+[...]
+
+>   drm/msm: Convert to platform remove callback returning void
+
+[...]
+
+>   drm/shmobile: Convert to platform remove callback returning void
+
+Pushed these to drm-misc (drm-misc-next). Thanks!
+
+--=20
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
