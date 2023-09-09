@@ -2,75 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038B87998DD
-	for <lists+freedreno@lfdr.de>; Sat,  9 Sep 2023 16:37:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0EA799949
+	for <lists+freedreno@lfdr.de>; Sat,  9 Sep 2023 17:28:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3643710E143;
-	Sat,  9 Sep 2023 14:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDC8710E13D;
+	Sat,  9 Sep 2023 15:28:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031C910E143
- for <freedreno@lists.freedesktop.org>; Sat,  9 Sep 2023 14:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1694270254;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eRcOkbLQiqXFau3Lzv+lkDuNMwp9k8LF7/IY5MKHdsU=;
- b=bnnApBcf60vae7tliVwdHA+pct60LsMIfRrNJXGprwIAg/n9D/Tul3s9nsXiREU04Bsokq
- ucaa3y6pgxKQFJm+pKCznkFCB+UOjQPHTeHj/Sav075IwogNvr/sFkMorckftne4Q5yFa0
- u1B4Ob2JcHj8nCPNvTYvSY9+KhMGP28=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-662-S0_X09MEMiu_Rbc5gns4rw-1; Sat, 09 Sep 2023 10:37:31 -0400
-X-MC-Unique: S0_X09MEMiu_Rbc5gns4rw-1
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-401ea9bf934so23638065e9.2
- for <freedreno@lists.freedesktop.org>; Sat, 09 Sep 2023 07:37:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694270250; x=1694875050;
- h=content-transfer-encoding:mime-version:message-id:date:references
- :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eRcOkbLQiqXFau3Lzv+lkDuNMwp9k8LF7/IY5MKHdsU=;
- b=j3HECTU7LhBq8WzViWyFAkHXxKJiXw2iMdquOYUP2EE/MoyHYDBHppEC4RLnYX5VE6
- U+3ZTw57LbhoV9nPmHHNIf7pjaw1iyC81ScbvlLGf6bvkOleeRajJrOczoqUMuAWJqQQ
- RJtzaO6thscxnlxptMod/0HAxXVqAwhdUb98uma2YPlVoAnsr/tqUl4oat6uQ11s8Pkx
- zeSElyn+UIEqlo13SvDSWDoIVialjCyEnV1KzGK06TRJiyNULxwMh/x8vlY58ESUIGvn
- RgCEaQ0DLDcU66WetaVvaxGFGamCN7qE7yzQZPcs87eVBM6gMfaMcImA7kOF+sCJoLAm
- NrFw==
-X-Gm-Message-State: AOJu0YwRuaMyszsbUekSt7WudubkH/9iwdjJu/msHyCx1uUBBqU30saD
- zIPybm/xgI/cCMLCy1x7XV6jMUJSoypnfDgejwXEeV6xGsoMoXG2tU+ui8kCu4S8vM8hpb42l7f
- YIeaoW31+srZtDnx4x9FGMqwAkdH/
-X-Received: by 2002:a05:600c:2483:b0:401:d2cb:e6f3 with SMTP id
- 3-20020a05600c248300b00401d2cbe6f3mr5088942wms.1.1694270250171; 
- Sat, 09 Sep 2023 07:37:30 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFuI0CHTrTRuHu7U+ySuZ17CrBG1YsmWNBf7nwWhsv6ytgzHpvaJlIL3zjF99nLHiP4wc2jkQ==
-X-Received: by 2002:a05:600c:2483:b0:401:d2cb:e6f3 with SMTP id
- 3-20020a05600c248300b00401d2cbe6f3mr5088899wms.1.1694270249806; 
- Sat, 09 Sep 2023 07:37:29 -0700 (PDT)
-Received: from localhost (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- k20-20020a7bc414000000b003fd2e898aa3sm3071184wmi.0.2023.09.09.07.37.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Sep 2023 07:37:28 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
-References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
-Date: Sat, 09 Sep 2023 16:37:28 +0200
-Message-ID: <8734znjtuf.fsf@minerva.mail-host-address-is-not-set>
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EFA710E13D;
+ Sat,  9 Sep 2023 15:28:25 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: alarumbe)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id F28386607285;
+ Sat,  9 Sep 2023 16:28:23 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1694273304;
+ bh=Z2MxcuZipWd2FvUe1wHWLtIgtX0SLjGKnDFobgnzFmI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=apF2hSiCUJLj7Lrao1jzKltnLzYQZMqEizjoWJBKM2J63ernRl+9AOMUSwPt/YcJz
+ sFLPmG2QVMtkqu4jjo2SxLAgK3Tvmw3cxF1e/bdkK6plxjr1cklJq3b4whRaDuBZMl
+ Faj+sIkytZQIEwUAkPsKwg5aBPRtznNvkodpbhZ3LKOSqsbGJ8XrWean5kjOpbwn7w
+ HnpgJmIdKCR8uLZgEFPcs7AXtARSXFcxJXfb97o4OC3yWHJFA6FPkvb7/d0yXzHOxj
+ CEs3qokHYxwKRE9sIoK35koa70nqXdU6xdRSvgGLgmSWwFyF5ZHccqNhHWpMb+TGZp
+ rYgQIOv8T34zA==
+Date: Sat, 9 Sep 2023 16:28:22 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Message-ID: <2bw3su4ev5cnyienhfrxbpingtfjbz7nii3npnp7hyllby3n2k@pvzuhrmmfge2>
+References: <20230905184533.959171-1-adrian.larumbe@collabora.com>
+ <20230905184533.959171-3-adrian.larumbe@collabora.com>
+ <20230906095730.27cb394f@collabora.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 00/53] drm: Convert to platform remove
- callback returning void
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230906095730.27cb394f@collabora.com>
+Subject: Re: [Freedreno] [PATCH v3 2/8] drm/panfrost: Enable cycle counter
+ register upon job submission
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,79 +55,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, John Stultz <jstultz@google.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- Steven Price <steven.price@arm.com>, linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Mali DP Maintainers <malidp@foss.arm.com>, NXP Linux Team <linux-imx@nxp.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>, linux-sunxi@lists.linux.dev,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, etnaviv@lists.freedesktop.org,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andrew Jeffery <andrew@aj.id.au>, linux-stm32@st-md-mailman.stormreply.com,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- kernel@pengutronix.de, Yongqin Liu <yongqin.liu@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
+ robdclark@gmail.com, healych@amazon.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de> writes:
-
-Hello Uwe,
-
-> Hello,
+On 06.09.2023 09:57, Boris Brezillon wrote:
+>On Tue,  5 Sep 2023 19:45:18 +0100
+>Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
 >
-> this patch series adapts the platform drivers below drivers/gpu/drm
-> to use the .remove_new() callback. Compared to the traditional .remove()
-> callback .remove_new() returns no value. This is a good thing because
-> the driver core doesn't (and cannot) cope for errors during remove. The
-> only effect of a non-zero return value in .remove() is that the driver
-> core emits a warning. The device is removed anyhow and an early return
-> from .remove() usually yields a resource leak.
+>> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+>> index 033f5e684707..8b1bf6ac48f8 100644
+>> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+>> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+>> @@ -297,6 +297,11 @@ int panfrost_job_push(struct panfrost_job *job)
+>>  
+>>  	kref_get(&job->refcount); /* put by scheduler job completion */
+>>  
+>> +	if (atomic_read(&pfdev->profile_mode)) {
+>> +		panfrost_cycle_counter_get(pfdev);
 >
-> By changing the remove callback to return void driver authors cannot
-> reasonably (but wrongly) assume any more that there happens some kind of
-> cleanup later.
+>This one should go in panfrost_job_hw_submit() IMO, otherwise you're
+>enabling the cycle-counter before the job has its dependencies met, and
+>depending on what the job depends on, it might take some time.
+
+I think at first I decided against this because of a previous thread about
+enabling the cycle counters:
+https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg352508.html
+
+But it turns out the fix suggested by Steven Price was what I was doing already
+in the previous patch revision, namely tagging the job with whether it
+had taken the cycle counter refcnt, so I guess it should be fine.
+
+>> +		job->is_profiled = true;
+>> +	}
+>> +
+>>  	drm_sched_entity_push_job(&job->base);
+>>  
+>>  	mutex_unlock(&pfdev->sched_lock);
+>> @@ -351,6 +356,9 @@ static void panfrost_job_free(struct drm_sched_job *sched_job)
+>>  
+>>  	drm_sched_job_cleanup(sched_job);
+>>  
+>> +	if (job->is_profiled)
+>> +		panfrost_cycle_counter_put(job->pfdev);
 >
-> Best regards
-> Uwe
+>I think I'd move this panfrost_cycle_counter_put() to
+>panfrost_job_handle_{err,done}(), to release the counter as soon as
+>we're done executing the job. We also need to make sure we release
+>cycle counter refs in the reset path (here [1]), to keep get/put
+>balanced when jobs are resubmitted.
 >
-> Uwe Kleine-K=C3=B6nig (53):
-
-[...]
-
->   drm/imx/ipuv3: Convert to platform remove callback returning void
->   drm/ingenic: Convert to platform remove callback returning void
-
-[...]
-
->   drm/mediatek: Convert to platform remove callback returning void
->   drm/mediatek: Convert to platform remove callback returning void
-
-[...]
-
->   drm/msm: Convert to platform remove callback returning void
-
-[...]
-
->   drm/shmobile: Convert to platform remove callback returning void
-
-Pushed these to drm-misc (drm-misc-next). Thanks!
-
---=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+>> +
+>>  	panfrost_job_put(job);
+>>  }
+>
+>[1]https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/panfrost/panfrost_job.c#L666
