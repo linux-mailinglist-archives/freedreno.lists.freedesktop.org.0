@@ -1,78 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51A5979AA9B
-	for <lists+freedreno@lfdr.de>; Mon, 11 Sep 2023 19:46:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF43B79AB7B
+	for <lists+freedreno@lfdr.de>; Mon, 11 Sep 2023 23:15:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70A3C10E1B1;
-	Mon, 11 Sep 2023 17:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83AF310E1EB;
+	Mon, 11 Sep 2023 21:15:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAD9E10E1B1;
- Mon, 11 Sep 2023 17:46:49 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38BGL1X7022836; Mon, 11 Sep 2023 17:46:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=tUtEZn658uuIEeAhGleeCRrPIUW33MXT85cB6oBl1xI=;
- b=YETj3TqMbpOUXf3Y3E7lTuIRCRN4SK5hIrRMo+PCyV35rZN72/nECoETX9r6LyMBlFg9
- NAKOBychCnKT0jQkHJYb4gpN9C6QoLQ19RMeBYvK7EDPNlOQn2Op5fOllobtFCiKfD8O
- AsAibdNSa9yE/08erSfKD8/zAyoADYEQsFtgtl1BvBT6Y/hYYaEgV8ep+I+LTtLJPiVi
- jCvsEIHXvSFUNMOjvnNBK/iGVxRqUgI+dxAv37HtaD/AcgkU53I4suvvycoh8qCCLUe+
- WYaX7tpb1YD8J5fYhR53iggl7lpCIajsh34Yyuto8Rg5jTQZbjtO3BmenQ+Tj9q4cSri dw== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t22hygsuw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Sep 2023 17:46:29 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38BHkSMr030743
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Sep 2023 17:46:28 GMT
-Received: from [10.71.110.104] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 11 Sep
- 2023 10:46:24 -0700
-Message-ID: <f4e0d437-bb11-2590-30d1-4feab703306f@quicinc.com>
-Date: Mon, 11 Sep 2023 10:46:23 -0700
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8868010E1EB
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Sep 2023 21:15:13 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-501b9f27eb2so7372872e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Sep 2023 14:15:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1694466911; x=1695071711; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EzaancVSFfUidUOe21cHWlakGP7DZJNGuUTO/mcEdwE=;
+ b=rZacUvs9uTTqyQIiPU18/xKoy7YeDEJf8a+sHZ5Ql0JddxoIGmN50VA7TWljp5BsCW
+ iScJrjtnCXHEfnJLoVaP3q5tuBHIlMdKBggT64ftek1WCYMCjq+H1DpqEWQ2zQ4YSriz
+ +9iI75PeVBuw6zbI6zYYHIF2SLIC7lzxc7PgsRRO6PvKixxklLCqO/vG0HtZ3w2Hl/Tw
+ 1XqwzPGPGLzwCmvHo60aqgfJdD+jDgA2U4kMB5xO5+Lxqe/qZv3d+MDDdDNgGqBXu6Bs
+ 0lpi00Zs8iV5VzcLS4Urt8pvQsB0GU68CTZzc3VaBCqx+sX6FNq9PGQhnndJulAsHCsE
+ kzwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694466911; x=1695071711;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=EzaancVSFfUidUOe21cHWlakGP7DZJNGuUTO/mcEdwE=;
+ b=DltZEnpz+zqf38XXo+Dt8kDpj2a37+Er3PSkX61THff/m5MtLnl4skt8LSoHkVp/IU
+ BDGGdG9oSkZe38TZSnlrBM3Ksy3xACobg7Zoj1eXXx2n/Vy8bm4kkW9TMjt820RV/yyP
+ 8MFDajy2M0icIReaKXia6Hf6LLtc+01NYC6PXr1xrkrGlpSpD8Nk8v8Kd3P4CMotwuht
+ eMMTvI0WO2nS4ls8prFNJs7DTCXaHrp0uN0+tCNpRwZqvnbmiHeKG9glLcsMBLfEtfN3
+ RZiGpo8llihpLNjdQkzHYM61YTax0KHt4u0NGuGPSgryxw36GNb+MVTGfVLiLIj2s2fF
+ +t2Q==
+X-Gm-Message-State: AOJu0Yz1AqT22fe1FfNbkvbDpYm8EaRT8/POIQceKZy6oLZ1AppeE+mx
+ 11/QvCnqehs9bN/6Kt+ydIxquw==
+X-Google-Smtp-Source: AGHT+IETWWawdiEO2xkwIL7nt23BxWlpmnqPOF3sikig+xaeKeM9I+kDLN/rZ03iVnX9tQbikD28Ig==
+X-Received: by 2002:a05:6512:3d0d:b0:502:a964:84b1 with SMTP id
+ d13-20020a0565123d0d00b00502a96484b1mr302575lfv.25.1694466911540; 
+ Mon, 11 Sep 2023 14:15:11 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ 23-20020ac24837000000b005008286c06bsm1483944lft.91.2023.09.11.14.15.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Sep 2023 14:15:11 -0700 (PDT)
+Message-ID: <6b6bacee-f7b6-4cfe-be3d-24bda44bfbcf@linaro.org>
+Date: Tue, 12 Sep 2023 00:15:10 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230908185427.29026-1-quic_abhinavk@quicinc.com>
- <20230908185427.29026-2-quic_abhinavk@quicinc.com>
- <CAA8EJppj+JTA8iZ6+Ui8JkD-kP54YKObRDK2_Oh+Wpn4XjU-4Q@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJppj+JTA8iZ6+Ui8JkD-kP54YKObRDK2_Oh+Wpn4XjU-4Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-2-dmitry.baryshkov@linaro.org>
+ <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
+ <CAA8EJpqUg2-k7LLBL38RHU1sThkXB54ca68xEMd1yMnHQcQ++w@mail.gmail.com>
+ <ZPh0Ps9UJ3HLzdeR@kuha.fi.intel.com>
+ <CAA8EJpratbBybgk8woD3maA=J_HuQis44Unq0n+c_UvaFs__AA@mail.gmail.com>
+ <ZPiAwOf00RREiYPr@kuha.fi.intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <ZPiAwOf00RREiYPr@kuha.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 1aNjUn8nbCt_cfxS5iTozcgbxSTDex57
-X-Proofpoint-GUID: 1aNjUn8nbCt_cfxS5iTozcgbxSTDex57
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-11_13,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 mlxlogscore=742 phishscore=0 spamscore=0
- impostorscore=0 mlxscore=0 adultscore=0 suspectscore=0 malwarescore=0
- bulkscore=0 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2308100000 definitions=main-2309110162
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: try multirect based on mdp
- clock limits
+Subject: Re: [Freedreno] [RFC PATCH v1 01/12] Revert "drm/sysfs: Link DRM
+ connectors to corresponding Type-C connectors"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,85 +83,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, quic_parellan@quicinc.com,
- Daniel Vetter <daniel@ffwll.ch>, quic_jesszhan@quicinc.com,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean
- Paul <sean@poorly.run>, nespera@igalia.com
+Cc: dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Won Chung <wonchung@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 9/8/2023 4:30 PM, Dmitry Baryshkov wrote:
-> On Fri, 8 Sept 2023 at 21:55, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On 06/09/2023 16:38, Heikki Krogerus wrote:
+> On Wed, Sep 06, 2023 at 03:48:35PM +0300, Dmitry Baryshkov wrote:
+>> On Wed, 6 Sept 2023 at 15:44, Heikki Krogerus
+>> <heikki.krogerus@linux.intel.com> wrote:
+>>>
+>>> On Tue, Sep 05, 2023 at 01:56:59PM +0300, Dmitry Baryshkov wrote:
+>>>> Hi Heikki,
+>>>>
+>>>> On Tue, 5 Sept 2023 at 11:50, Heikki Krogerus
+>>>> <heikki.krogerus@linux.intel.com> wrote:
+>>>>>
+>>>>> Hi Dmitry,
+>>>>>
+>>>>> On Mon, Sep 04, 2023 at 12:41:39AM +0300, Dmitry Baryshkov wrote:
+>>>>>> The kdev->fwnode pointer is never set in drm_sysfs_connector_add(), so
+>>>>>> dev_fwnode() checks never succeed, making the respective commit NOP.
+>>>>>
+>>>>> That's not true. The dev->fwnode is assigned when the device is
+>>>>> created on ACPI platforms automatically. If the drm_connector fwnode
+>>>>> member is assigned before the device is registered, then that fwnode
+>>>>> is assigned also to the device - see drm_connector_acpi_find_companion().
+>>>>>
+>>>>> But please note that even if drm_connector does not have anything in
+>>>>> its fwnode member, the device may still be assigned fwnode, just based
+>>>>> on some other logic (maybe in drivers/acpi/acpi_video.c?).
+>>>>>
+>>>>>> And if drm_sysfs_connector_add() is modified to set kdev->fwnode, it
+>>>>>> breaks drivers already using components (as it was pointed at [1]),
+>>>>>> resulting in a deadlock. Lockdep trace is provided below.
+>>>>>>
+>>>>>> Granted these two issues, it seems impractical to fix this commit in any
+>>>>>> sane way. Revert it instead.
+>>>>>
+>>>>> I think there is already user space stuff that relies on these links,
+>>>>> so I'm not sure you can just remove them like that. If the component
+>>>>> framework is not the correct tool here, then I think you need to
+>>>>> suggest some other way of creating them.
+>>>>
+>>>> The issue (that was pointed out during review) is that having a
+>>>> component code in the framework code can lead to lockups. With the
+>>>> patch #2 in place (which is the only logical way to set kdev->fwnode
+>>>> for non-ACPI systems) probing of drivers which use components and set
+>>>> drm_connector::fwnode breaks immediately.
+>>>>
+>>>> Can we move the component part to the respective drivers? With the
+>>>> patch 2 in place, connector->fwnode will be copied to the created
+>>>> kdev's fwnode pointer.
+>>>>
+>>>> Another option might be to make this drm_sysfs component registration optional.
+>>>
+>>> You don't need to use the component framework at all if there is
+>>> a better way of determining the connection between the DP and its
+>>> Type-C connector (I'm assuming that that's what this series is about).
+>>> You just need the symlinks, not the component.
 >>
->> It's certainly possible that for large resolutions a single DPU SSPP
->> cannot process the image without exceeding the MDP clock limits but
->> it can still process it in multirect mode because the source rectangles
->> will get divided and can fall within the MDP clock limits.
->>
->> If the SSPP cannot process the image even in multirect mode, then it
->> will be rejected in dpu_plane_atomic_check_pipe().
->>
->> Hence try using multirect for resolutions which cannot be processed
->> by a single SSPP without exceeding the MDP clock limits.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index 62dd9f9b4dce..85072328cd53 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -792,6 +792,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>                                                                                   plane);
->>          int ret = 0, min_scale;
->>          struct dpu_plane *pdpu = to_dpu_plane(plane);
->> +       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->>          struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
->>          struct dpu_sw_pipe *pipe = &pstate->pipe;
->>          struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
->> @@ -860,7 +861,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->>
->>          max_linewidth = pdpu->catalog->caps->max_linewidth;
->>
->> -       if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
->> +       if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
->> +            _dpu_plane_calc_clk(&crtc_state->mode, pipe_cfg) > kms->perf.max_core_clk_rate) {
+>> The problem is that right now this component registration has become
+>> mandatory. And if I set the kdev->fwnode manually (like in the patch
+>> 2), the kernel hangs inside the component code.
+>> That's why I proposed to move the components to the place where they
+>> are really necessary, e.g. i915 and amd drivers.
 > 
-> First, I think this should be an adjusted_mode too. And this probably
-> needs some more attention in the next few lines of code, since .e.g
-> the UBWC case also needs to be adjusted.
-> 
+> So why can't we replace the component with the method you are
+> proposing in this series of finding out the Type-C port also with
+> i915, AMD, or whatever driver and platform (that's the only thing that
+> component is used for)?
 
-Ack, will change this to adjusted_mode as well
+The drm/msm driver uses drm_bridge for the pipeline (including the last 
+DP entry) and the drm_bridge_connector to create the connector. I think 
+that enabling i915 and AMD drivers to use drm_bridge fells out of scope 
+for this series.
 
-Yes, need to update UBWC check like below, thanks for catching it.
 
-@@ -869,7 +878,7 @@ static int dpu_plane_atomic_check(struct drm_plane 
-*plane,
-                  * full width is more than max_linewidth, thus each rect is
-                  * wider than allowed.
-                  */
--               if (DPU_FORMAT_IS_UBWC(fmt)) {
-+               if (DPU_FORMAT_IS_UBWC(fmt) && 
-drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
-                         DPU_DEBUG_PLANE(pdpu, "invalid src " 
-DRM_RECT_FMT " line:%u, tiled format\n",
- 
-DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
-                         return -E2BIG;
+> Determining the connection between a DP and its Type-C connector is
+> starting to get really important, so ideally we have a common solution
+> for that.
 
->>                  /*
->>                   * In parallel multirect case only the half of the usual width
->>                   * is supported for tiled formats. If we are here, we know that
->> --
->> 2.40.1
->>
-> 
-> 
+Yes. This is what we have been discussing with Simon for quite some time 
+on #dri-devel.
+
+Unfortunately I think the solution that got merged was pretty much 
+hastened in instead of being well-thought. For example, it is also not 
+always possible to provide the drm_connector / typec_connector links (as 
+you can see from the patch7. Sometimes we can only express that this is 
+a Type-C DP connector, but we can not easily point it to the particular 
+USB-C port.
+
+So, I'm not sure, how can we proceed here. Currently merged patch breaks 
+drm/msm if we even try to use it by setting kdef->fwnode to 
+drm_connector->fwnode. The pointed out `drivers/usb/typec/port-mapper.c` 
+is an ACPI-only thing, which is not expected to work in a non-ACPI cases.
+
+-- 
+With best wishes
+Dmitry
+
