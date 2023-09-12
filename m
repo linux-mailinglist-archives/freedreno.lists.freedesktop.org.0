@@ -2,46 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A02079CBDB
-	for <lists+freedreno@lfdr.de>; Tue, 12 Sep 2023 11:32:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1A1679CCE9
+	for <lists+freedreno@lfdr.de>; Tue, 12 Sep 2023 12:04:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1C2D10E08E;
-	Tue, 12 Sep 2023 09:32:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA3510E3D8;
+	Tue, 12 Sep 2023 10:04:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ECB110E08E;
- Tue, 12 Sep 2023 09:32:14 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9A7DE66072F2;
- Tue, 12 Sep 2023 10:32:12 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1694511133;
- bh=eeI0C4r6TV9rH54wW4ZS7WZ8fXen+SsJRbpmKuHbmrQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=F3XA6ZMRhxEcRaaIG78QIW35HZz81I/2rWotiaTcVL5WU/TWALitPEZKC7YJbesGk
- plFU7O+4PzdXq5QBTfMurrOPmctAlTA5LH+rb5OTsi0Z1deJhaiYZ0DAaEmu1eW62A
- z9w/P/KGBNcqm5yDBF3tVk1YlwSzsklzR5bqw7gCTF4ApVuZM0nTvuMlmUYXVVKtxI
- av5ef2inX/fYZrGIRiLI81XBtN7wTd2IJw0macH5QgZ5xyg3VQh6m7ETMkTP611rl8
- /8ehZH38kro0WXptil0SQQsDozxYDcoI4/gmS/0BOtxVY5naMBvNMseKVbQt/EQTUH
- dnVzdy6cU5X5g==
-Date: Tue, 12 Sep 2023 11:32:10 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Message-ID: <20230912113210.65897aab@collabora.com>
-In-Reply-To: <20230912084044.955864-7-adrian.larumbe@collabora.com>
-References: <20230912084044.955864-1-adrian.larumbe@collabora.com>
- <20230912084044.955864-7-adrian.larumbe@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB7910E3D8
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 10:04:49 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-99de884ad25so709783966b.3
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 03:04:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1694513088; x=1695117888; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+FXwfnE1IauPupm8A637R7g09Mpy9nxtGCWUnLceXME=;
+ b=WIbdy3CmptzG2eWDuTXhS4YH0KYgJYHe8uO+KQ1WzEMQJ1aj2ZkvXUfpjKKJgGLgfP
+ t9VwA5JRyeMGOl09g6sXtuUuyeYW9XtD5FDzqK5T4lIBSQS/HBO65MFE/9aLRF70jDCW
+ PtSi28WSJs9vtuNPxQ35Psp6DYbIwo7I/EwE1Q1Br57UvxkLCacLWt4hQacQLgsFkKTN
+ lKoeh2qKpnRxJYa0xiBdPD5cx5x7Pul7y3xvslED90BwRuL+fh8SZi1K1gaLAF9iGZ3p
+ FMGQA90z9okyyf9LLMOhgVhddJMgPcfAcZkfKZ346d4XSN2UB7thrUD1N9jSUwFuUmg4
+ HFWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694513088; x=1695117888;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+FXwfnE1IauPupm8A637R7g09Mpy9nxtGCWUnLceXME=;
+ b=SCgOfbgr+if2tUHr6Fx68U9ZmWm2z1HCRIflohLhB5yJLK1lzIv9ipvGL453lV+VY7
+ vAVCM2SZvS21YthJrxO+RXabVK24S+s3remt4JjwzWnRGOEao+e/BOWzCXrCM8gKmIB+
+ kzM0DZ4RzJ2E6HqwuCW1RSKia2uEejxfORo6Q/6tBoP9etnR9zThJV0Y5SorbvJSke+y
+ DklPnba8iHWZSj/jn9TqorAiDZZ+CzcOwO9wxSil7e1ypmxTAMAcugRTuYKkDNJTCCby
+ 6MKANq/c7+Ll2JAfSnyL2Dem6+dpTQn7RZQ1BSpVtWmWzyx8d7v9qoIikj+cTexxCj03
+ t7xw==
+X-Gm-Message-State: AOJu0YypuFf9EoAVmonQFgDD9rbArKE51A4mF6XWI9LHeCTUljvkIfen
+ 1ecq+kNtKVnG2BAT9egxMOBRvg==
+X-Google-Smtp-Source: AGHT+IFzgbzl/uJDW7dtEb2254RLpIB27LBZCoeWRRGAxq284SAAcjUFpd5pUqDRGmvTffzcr4no+A==
+X-Received: by 2002:a17:906:af65:b0:9a2:40e:2cad with SMTP id
+ os5-20020a170906af6500b009a2040e2cadmr9532513ejb.48.1694513087854; 
+ Tue, 12 Sep 2023 03:04:47 -0700 (PDT)
+Received: from [10.167.154.1]
+ (178235177248.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.248])
+ by smtp.gmail.com with ESMTPSA id
+ s3-20020a170906060300b0099ce188be7fsm6592053ejb.3.2023.09.12.03.04.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Sep 2023 03:04:47 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Tue, 12 Sep 2023 12:04:42 +0200
+Message-Id: <20230628-topic-a7xx_drmmsm-v4-0-8b3e402795c1@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v4 6/6] drm/drm-file: Show finer-grained BO
- sizes in drm_show_memory_stats
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALo3AGUC/4WNQQ6DIBQFr2JYlwaBQO2q92iaBuGjJAoGLLEx3
+ r3orpt2OZO8eStKEB0kdK1WFCG75IIvwE8V0r3yHWBnCiNKKCOCXvAcJqexksvyNHEc04hryiw
+ jRgptJSq7ViXAbVRe92XpX8NQ5BTBuuU4uj8K9y7NIb6P31zv9tdFrjEpwnLeCCC6prfBeRXDO
+ cQO7bnM/iZYSXAAIbVulW3MV2Lbtg+o+2LKCwEAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1694513085; l=4257;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=mnEzEN3kzO27Wu8x2zYyICU3fm4Imda0yizn/egK3F0=;
+ b=y1YPlIPygVnicpEtAQyzeFxo2RDYfebJPKwp2jNAk/b9zQemsZLPxbqE5R+lDerY2y2qnqw1/
+ FR5/IMvuD33CKoxVvw46ZCpZkSDPVKUHdkIIWdM4s73s3KV09BupPPg
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v4 00/10] A7xx support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,50 +89,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
- robdclark@gmail.com, healych@amazon.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 12 Sep 2023 09:37:00 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+This series attempts to introduce Adreno 700 support (with A730 and A740
+found on SM8450 and SM8550 respectively), reusing much of the existing
+A6xx code. This submission largely lays the groundwork for expansion and
+more or less gives us feature parity (on the kernel side, that is) with
+existing A6xx parts.
 
-> The current implementation will try to pick the highest available size
-> display unit as soon as the BO size exceeds that of the previous
-> multiplier. That can lead to loss of precision in BO's whose size is
-> not a multiple of a MiB.
->=20
-> Fix it by changing the unit selection criteria.
->=20
-> For much bigger BO's, their size will naturally be aligned on something
-> bigger than a 4 KiB page, so in practice it is very unlikely their display
-> unit would default to KiB.
+On top of introducing a very messy set of three (!) separate and
+obfuscated deivce identifiers for each 7xx part, this generation
+introduces very sophisticated hardware multi-threading and (on some SKUs)
+hardware ray-tracing (not supported yet).
 
-Let's wait for Rob's opinion on this.
+After this series, a long-overdue cleanup of drm/msm/adreno is planned
+in preparation for adding more features and removing some hardcoding.
 
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/drm_file.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index 762965e3d503..bf7d2fe46bfa 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -879,7 +879,7 @@ static void print_size(struct drm_printer *p, const c=
-har *stat,
->  	unsigned u;
-> =20
->  	for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
-> -		if (sz < SZ_1K)
-> +		if (sz & (SZ_1K - 1))
->  			break;
->  		sz =3D div_u64(sz, SZ_1K);
->  	}
+The last patch is a hack that may or may not be necessary depending
+on your board's humour.. eh.. :/
+
+Developed atop (and hence depends on) [1]
+
+The corresponding devicetree patches are initially available at [2] and
+will be posted after this series gets merged. To test it, you'll also need
+firmware that you need to obtain from your board (there's none with a
+redistributable license, sorry..). Most likely it will be in one of
+these directories on your stock android installation:
+
+* /vendor/firmware
+* /vendor/firmware_mnt
+* /system
+
+..but some vendors make it hard and you have to do some grepping ;)
+
+Requires [3] to work on the userspace side. You'll almost cerainly want
+to test it alongside Zink with a lot of debug flags (early impl), like:
+
+TU_DEBUG=sysmem,nolrz,flushall,noubwc MESA_LOADER_DRIVER_OVERRIDE=zink kmscube
+
+[1] https://lore.kernel.org/linux-arm-msm/20230517-topic-a7xx_prep-v4-0-b16f273a91d4@linaro.org/
+[2] https://github.com/SoMainline/linux/commits/topic/a7xx_dt
+[3] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/23217
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Changes in v4:
+- Add missing bitops.h in patch 5 for arm32 compilation (Dmitry)
+- Link to v3: https://lore.kernel.org/r/20230628-topic-a7xx_drmmsm-v3-0-4ee67ccbaf9d@linaro.org
+
+Changes in v3:
+- Pick up tags
+- Drop "increase HFI timeout", will revisit another day
+- Use family identifiers in "add skeleton a7xx support"
+- Drop patches that Rob already picked up
+- Retest on A730, didn't explode
+- Link to v2: https://lore.kernel.org/linux-arm-msm/20230628-topic-a7xx_drmmsm-v2-0-1439e1b2343f@linaro.org/#t
+
+Changes in v2:
+- Rebase on chipid changes
+- Reuse existing description for qcom,aoss in patch 2
+- Pick up tags
+- Link to v1: https://lore.kernel.org/r/20230628-topic-a7xx_drmmsm-v1-0-a7f4496e0c12@linaro.org
+
+---
+Konrad Dybcio (10):
+      dt-bindings: display/msm/gmu: Add Adreno 7[34]0 GMU
+      dt-bindings: display/msm/gmu: Allow passing QMP handle
+      dt-bindings: display/msm/gpu: Allow A7xx SKUs
+      drm/msm/a6xx: Add missing regs for A7XX
+      drm/msm/a6xx: Add skeleton A7xx support
+      drm/msm/a6xx: Send ACD state to QMP at GMU resume
+      drm/msm/a6xx: Mostly implement A7xx gpu_state
+      drm/msm/a6xx: Add A730 support
+      drm/msm/a6xx: Add A740 support
+      drm/msm/a6xx: Poll for GBIF unhalt status in hw_init
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  47 +-
+ .../devicetree/bindings/display/msm/gpu.yaml       |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              |   9 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 205 +++++--
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   3 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   8 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 653 +++++++++++++++++++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |  52 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |  61 +-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |  88 +++
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  30 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   7 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  32 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.h               |   2 +
+ 14 files changed, 1079 insertions(+), 122 deletions(-)
+---
+base-commit: c26a0f88bc21bf52303b5a5fbf8edb0cc7723037
+change-id: 20230628-topic-a7xx_drmmsm-123f30d76cf7
+
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
