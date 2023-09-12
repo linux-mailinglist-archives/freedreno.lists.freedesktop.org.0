@@ -1,79 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39BC79AC80
-	for <lists+freedreno@lfdr.de>; Tue, 12 Sep 2023 01:26:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9604979CA3E
+	for <lists+freedreno@lfdr.de>; Tue, 12 Sep 2023 10:40:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E4A10E1E8;
-	Mon, 11 Sep 2023 23:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55FD410E3C1;
+	Tue, 12 Sep 2023 08:40:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 748D410E011;
- Mon, 11 Sep 2023 23:26:53 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38BNIOUq015413; Mon, 11 Sep 2023 23:26:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=VkRaopVEX/DP3e9b/4nnuaT4G9CYo3ylaFZZ2kDUjAA=;
- b=MGpLRfeSrljgt0bYgrIPc62xnMdwJpGo3ypYKo6PLQiIszoQ0g5W3M1+c3uTg8gSIEu+
- Q+gxTdWapttOZLH4RBKnh4C1L5ICNCzS7c+AuCWc8YItJZYjAFvqrYin6ybXE67Q76TC
- eWNQeWWQ1Rnbfi06nZM5l4cOy6BEu9ejnZBm8SGWVzf5Q6myEeP1s61Q4ElGwOtaFamq
- 5gB3Zp4J86SVthqHgdsP1GDcPopEaQG/ItM/frPqwW7v/lcH/E5n+Z+fVLhNeNajs8Xj
- tRqAvf7PhxF6WiHZ0sYdgPjtmUKdEGkGfHEAuBNMNmDaAASK5BcU41gVS4MF1sVKlU1W 4A== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t1xjmt1h9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Sep 2023 23:26:47 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38BNQkUj024990
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Sep 2023 23:26:46 GMT
-Received: from [10.71.110.104] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 11 Sep
- 2023 16:26:44 -0700
-Message-ID: <b3f8c1d7-0830-e46b-81da-e1927e2f68df@quicinc.com>
-Date: Mon, 11 Sep 2023 16:26:42 -0700
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7916510E3BE;
+ Tue, 12 Sep 2023 08:40:56 +0000 (UTC)
+Received: from localhost.localdomain (unknown
+ [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id E88AF6607313;
+ Tue, 12 Sep 2023 09:40:54 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1694508055;
+ bh=w+tcMCWhbhlMMnhUWPHaPPRBgo43Wyhwkl2rJlFQENM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=TRFqL8cul6z54KxnfS3jUXo1wpxEQkoEa1/Q554N6pbt5XPWuBU4r9gph2jvCF2XF
+ iiSbTNwqgYIqhpMUOApAvJmYsKXUbtvPbvROsmtSeRYnThNTdyJOQ1huT014djuvj3
+ 9I6/lndAMor664DBtM3PnSjRJPmWSsVecB7KYumB34BmL6MCWggJvknNrXHkBtiJgF
+ 5XXPNs79XA/c+zxmAoeofH2lws2uPl2kLuovaWC+YIlWomR1P2gN0x58kv6teiHqgK
+ CexFruPyHZ/W1PAiBMf7tilp97SE7FAZDBunFOggg4rKh2VQdUExgXIihzZ++fOusJ
+ LzWk9gICSQJuw==
+From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
+Date: Tue, 12 Sep 2023 09:36:54 +0100
+Message-ID: <20230912084044.955864-1-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230911214521.787453-1-dmitry.baryshkov@linaro.org>
- <20230911214521.787453-6-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230911214521.787453-6-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: AND2oahaCW80OAGE3l8lw2JRHQ-XWoAo
-X-Proofpoint-GUID: AND2oahaCW80OAGE3l8lw2JRHQ-XWoAo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-11_19,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=938
- malwarescore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309110215
-Subject: Re: [Freedreno] [PATCH v4 5/9] drm/msm/dpu: drop the
- `smart_dma_priority' field from struct dpu_sspp_sub_blks
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 0/6] Add fdinfo support to Panfrost
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,29 +54,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ healych@amazon.com, kernel@collabora.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This patch series adds fdinfo support to the Panfrost DRM driver. It will
+display a series of key:value pairs under /proc/pid/fdinfo/fd for render
+processes that open the Panfrost DRM file.
+
+The pairs contain basic drm gpu engine and memory region information that
+can either be cat by a privileged user or accessed with IGT's gputop
+utility.
+
+Changelog:
+
+v1: https://lore.kernel.org/lkml/bb52b872-e41b-3894-285e-b52cfc849782@arm.com/T/
+
+v2: https://lore.kernel.org/lkml/20230901084457.5bc1ad69@collabora.com/T/
+ - Changed the way gpu cycles and engine time are calculated, using GPU
+ registers and taking into account potential resets.
+ - Split render engine values into fragment and vertex/tiler ones.
+ - Added more fine-grained calculation of RSS size for BO's.
+ - Implemente selection of drm-memory region size units
+ - Removed locking of shrinker's mutex in GEM obj status function
+
+v3: https://lore.kernel.org/lkml/20230905184533.959171-1-adrian.larumbe@collabora.com/
+ - Changed fdinfo engine names to something more descriptive
+ - Mentioned GPU cycle counts aren't an exact measure
+ - Handled the case when job->priv might be NULL
+ - Handled 32 bit overflow of cycle register
+ - Kept fdinfo drm memory stats size unit display within 10k times the
+   previous multiplier for more accurate BO size numbers
+ - Removed special handling of Prime imported BO RSS
+ - Use rss_size only for heap objects
+ - Use bo->base.madv instead of specific purgeable flag
+ - Fixed kernel test robot warnings
+
+v4:
+ - Move cycle counter get and put to panfrost_job_hw_submit and
+   panfrost_job_handle_{err,done} for more accuracy
+ - Make sure cycle counter refs are released in reset path
+ - Drop the model param for toggling cycle counting and do
+   leave it down to the debugfs file
+ - Don't disable cycle counter when togglint debugfs file,
+   let refcounting logic handle it instead.
+ - Remove fdinfo data nested structure definion and 'names' field
+ - When incrementing BO RSS size in GPU MMU page fault IRQ handler, assume
+  granuality of 2MiB for every successful mapping.
+ - drm-file picks an fdinfo memory object size unit that doesn't lose precision.
+
+Adrián Larumbe (6):
+  drm/panfrost: Add cycle count GPU register definitions
+  drm/panfrost: Add fdinfo support GPU load metrics
+  drm/panfrost: Add fdinfo support for memory stats
+  drm/drm_file: Add DRM obj's RSS reporting function for fdinfo
+  drm/panfrost: Implement generic DRM object RSS reporting function
+  drm/drm-file: Show finer-grained BO sizes in drm_show_memory_stats
+
+ drivers/gpu/drm/drm_file.c                  |  7 ++-
+ drivers/gpu/drm/panfrost/Makefile           |  2 +
+ drivers/gpu/drm/panfrost/panfrost_debugfs.c | 20 +++++++
+ drivers/gpu/drm/panfrost/panfrost_debugfs.h | 13 +++++
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c |  8 +++
+ drivers/gpu/drm/panfrost/panfrost_devfreq.h |  3 ++
+ drivers/gpu/drm/panfrost/panfrost_device.c  |  2 +
+ drivers/gpu/drm/panfrost/panfrost_device.h  | 13 +++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c     | 59 ++++++++++++++++++++-
+ drivers/gpu/drm/panfrost/panfrost_gem.c     | 29 ++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.h     |  5 ++
+ drivers/gpu/drm/panfrost/panfrost_gpu.c     | 41 ++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gpu.h     |  6 +++
+ drivers/gpu/drm/panfrost/panfrost_job.c     | 39 ++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_job.h     |  5 ++
+ drivers/gpu/drm/panfrost/panfrost_mmu.c     |  1 +
+ drivers/gpu/drm/panfrost/panfrost_regs.h    |  5 ++
+ include/drm/drm_gem.h                       |  9 ++++
+ 18 files changed, 264 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.c
+ create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.h
 
 
-On 9/11/2023 2:45 PM, Dmitry Baryshkov wrote:
-> In preparation to deduplicating SSPP subblocks, drop the (unused)
-> `smart_dma_priority' field from struct dpu_sspp_sub_blks. If it is
-> needed later (e.g. for SmartDMA v1), it should be added to the SSPP
-> declarations themselves.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 112 +++++++-----------
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   2 -
->   2 files changed, 40 insertions(+), 74 deletions(-)
-> 
-
-Alright, if we need it later, we can add it to the SSPP itself
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+base-commit: f45acf7acf75921c0409d452f0165f51a19a74fd
+-- 
+2.42.0
 
