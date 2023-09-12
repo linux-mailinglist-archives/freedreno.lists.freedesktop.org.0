@@ -1,110 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A170F79D165
-	for <lists+freedreno@lfdr.de>; Tue, 12 Sep 2023 14:52:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D6A79D68D
+	for <lists+freedreno@lfdr.de>; Tue, 12 Sep 2023 18:42:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 095DE10E074;
-	Tue, 12 Sep 2023 12:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18B5410E43C;
+	Tue, 12 Sep 2023 16:42:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA3B210E074
- for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 12:52:45 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-52683da3f5cso7195161a12.3
- for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 05:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694523164; x=1695127964; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=u9jJ5YX4xBOqwnaDAA68a0z5gq1OlAA8KPc5IjRYAL0=;
- b=Z8oKXaezBHAdF1OK6Mnhyrq1mnEsJTnoZFXpPNAugX/5Ssbmes+7gyLgnv10ml5X1s
- J5JmMPDmRqHaE9so7qwtbGHYimxdnw4xEwqxwvs2TpCaonFjpcbxqHv7LELvQnZ9NlqY
- kgicUWZ1pCOygfRW335nuwKUxf4majzyf3mM2g5bwFve8n1Ukn/NVtl8oYQzkWEpHU52
- Auuf6d31JS1P9XCq4xXEPNskY+EHFawBNFUok5CuJBVynAce1JwBFv3EOT4FfL7fqVY6
- TPTsNfWplsLkNzbgfTYAmOI9+yHUH9QAcKfZzeSZjsE+68QLdfTI8gfumUEOc0EDDc1f
- c7OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694523164; x=1695127964;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u9jJ5YX4xBOqwnaDAA68a0z5gq1OlAA8KPc5IjRYAL0=;
- b=VeManTfmTMXLhm11faBtZEA0XZSqjHbNFalxdtvgO9LebpKyFqSMd7q3vA8M7S1V5x
- Up68xK60MNmlr1V6HckQkJFF2twj4zML1ZgRG0tJDvS6cB+kOFz/4H4JCnd/YatmeXf2
- PKdEM+PZCY3th7bBC0PtLn9WkYKVRLF3QxvL9XcZ2248bZT4zD+HyQzmQXUMbxFZbDaH
- VhC5c2rY7w0Sc9vAna9lNKjdaI3szbUU+j1sNuLoUGwHpwW1s/+v2325sO6yQ5ok9B3+
- yAonfMQEcPMhRowMkDSDDwoYUnIKmge/WlCiN3G0g8XeOH4bJE22weJJhgUn3bpfYZSZ
- TohA==
-X-Gm-Message-State: AOJu0Yxv9ck21dh2RnxjUsCo11bOaykiTWeDttdHEP0od5WFmZrcvvNV
- Xh7FpJzNNnPJEnsT1X4sTAybkA==
-X-Google-Smtp-Source: AGHT+IH7nhx4jfbGgITc9GdSYQHAbQFjAg2RV99LbZV7dHCx51LUIjf5t0mtTdLSyctO699x7bk/HA==
-X-Received: by 2002:a05:6402:1bc1:b0:52f:bd62:2219 with SMTP id
- ch1-20020a0564021bc100b0052fbd622219mr25440edb.37.1694523164009; 
- Tue, 12 Sep 2023 05:52:44 -0700 (PDT)
-Received: from [192.168.37.232]
- (178235177248.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.248])
- by smtp.gmail.com with ESMTPSA id
- r18-20020aa7cfd2000000b00527e7087d5dsm5807381edy.15.2023.09.12.05.52.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Sep 2023 05:52:43 -0700 (PDT)
-Message-ID: <50d7a478-5d4e-40fc-9c1b-e4f99b17a11d@linaro.org>
-Date: Tue, 12 Sep 2023 14:52:41 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043EB10E43B;
+ Tue, 12 Sep 2023 16:42:09 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38C9S7Cm011359; Tue, 12 Sep 2023 16:41:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=AsHXnwwbd7YXERWnnmLVg0c25HPkD9xWV8YP8pooxf0=;
+ b=mxllP2p9q+5EdPMYjhbRhcIeIB4LU1PZuigR6UfU3OTOWOlb0nen09hAYNVgaEFNmUiR
+ MgC+UdeOiql1NvBf2ZRFPsBhmZ1ng55sy77h8IXnfwKs6RpSZBbuD20bSKIz8tAKUdbE
+ U6Ke9gCkknLHh5h2GT2BXKuWgxnXIEFHDhuKTKSkKQYTzVwgWk32X6XYeH1nIl/+YZ0S
+ 1sWleM6NmulzDmfLOXqvUEw5xboKBc9erGmE0INdJOWXm5PlA/MQ4Z+cYD97iXTMIzFf
+ ioTiqHHuQVGnmJ1mzFKrhtmzdtb9Cr3xHOGQcLY+ecRDPfTL5rPYp0/CFTPs7z4ykSzp zQ== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t2ncp19md-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Sep 2023 16:41:43 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38CGfgQv001003
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Sep 2023 16:41:42 GMT
+Received: from [10.71.110.104] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Tue, 12 Sep
+ 2023 09:41:40 -0700
+Message-ID: <36b5dd86-0532-882a-4220-33b38fab2a63@quicinc.com>
+Date: Tue, 12 Sep 2023 09:41:37 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-References: <20230628-topic-a7xx_drmmsm-v3-0-4ee67ccbaf9d@linaro.org>
- <20230628-topic-a7xx_drmmsm-v3-9-4ee67ccbaf9d@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
- BB/OmIWU6X+LZW6P88ZmHe+KeyABLMP5s1tJNK1j4ntT7mECcWZDzafPWF4F6m4WJOG27kTJ
- HGWdmtO+RvadOVi6CoUDqALsmfS3MUG5Pj2Ne9+0jRg4hEnB92AyF9rW2G3qisFcwPgvatt7
- TXD5E38mLyOPOUyXNj9XpDbt1hNwKQfiidmPh5e7VNAWRnW1iCMMoKqzM1Anzq7e5Afyeifz
- zRcQPLaqrPjnKqZGL2BKQSZDh6NkI5ZLRhhHQf61fkWcUpTp1oDC6jWVfT7hwRVIQLrrNj9G
- MpPzrlN4YuAqKeIer1FMt8cq64ifgTzxHzXsMcUdclzq2LTk2RXaPl6Jg/IXWqUClJHbamSk
- t1bfif3SnmhA6TiNvEpDKPiT3IDs42THU6ygslrBxyROQPWLI9IL1y8S6RtEh8H+NZQWZNzm
- UQ3imZirlPjxZtvz1BtnnBWS06e7x/UEAguj7VHCuymVgpl2Za17d1jj81YN5Rp5L9GXxkV1
- aUEwONM3eCI3qcYm5JNc5X+JthZOWsbIPSC1Rhxz3JmWIwP1udr5E3oNRe9u2LIEq+wH/toH
- kpPDhTeMkvt4KfE5m5ercid9+ZXAqoaYLUL4HCEw+HW0DXcKDwARAQABzShLb25yYWQgRHli
- Y2lvIDxrb25yYWQuZHliY2lvQGxpbmFyby5vcmc+wsGOBBMBCAA4FiEEU24if9oCL2zdAAQV
- R4cBcg5dfFgFAmQ5bqwCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQR4cBcg5dfFjO
- BQ//YQV6fkbqQCceYebGg6TiisWCy8LG77zV7DB0VMIWJv7Km7Sz0QQrHQVzhEr3trNenZrf
- yy+o2tQOF2biICzbLM8oyQPY8B///KJTWI2khoB8IJSJq3kNG68NjPg2vkP6CMltC/X3ohAo
- xL2UgwN5vj74QnlNneOjc0vGbtA7zURNhTz5P/YuTudCqcAbxJkbqZM4WymjQhe0XgwHLkiH
- 5LHSZ31MRKp/+4Kqs4DTXMctc7vFhtUdmatAExDKw8oEz5NbskKbW+qHjW1XUcUIrxRr667V
- GWH6MkVceT9ZBrtLoSzMLYaQXvi3sSAup0qiJiBYszc/VOu3RbIpNLRcXN3KYuxdQAptacTE
- mA+5+4Y4DfC3rUSun+hWLDeac9z9jjHm5rE998OqZnOU9aztbd6zQG5VL6EKgsVXAZD4D3RP
- x1NaAjdA3MD06eyvbOWiA5NSzIcC8UIQvgx09xm7dThCuQYJR4Yxjd+9JPJHI6apzNZpDGvQ
- BBZzvwxV6L1CojUEpnilmMG1ZOTstktWpNzw3G2Gis0XihDUef0MWVsQYJAl0wfiv/0By+XK
- mm2zRR+l/dnzxnlbgJ5pO0imC2w0TVxLkAp0eo0LHw619finad2u6UPQAkZ4oj++iIGrJkt5
- Lkn2XgB+IW8ESflz6nDY3b5KQRF8Z6XLP0+IEdLOOARkOW7yEgorBgEEAZdVAQUBAQdAwmUx
- xrbSCx2ksDxz7rFFGX1KmTkdRtcgC6F3NfuNYkYDAQgHwsF2BBgBCAAgFiEEU24if9oCL2zd
- AAQVR4cBcg5dfFgFAmQ5bvICGwwACgkQR4cBcg5dfFju1Q//Xta1ShwL0MLSC1KL1lXGXeRM
- 8arzfyiB5wJ9tb9U/nZvhhdfilEDLe0jKJY0RJErbdRHsalwQCrtq/1ewQpMpsRxXzAjgfRN
- jc4tgxRWmI+aVTzSRpywNahzZBT695hMz81cVZJoZzaV0KaMTlSnBkrviPz1nIGHYCHJxF9r
- cIu0GSIyUjZ/7xslxdvjpLth16H27JCWDzDqIQMtg61063gNyEyWgt1qRSaK14JIH/DoYRfn
- jfFQSC8bffFjat7BQGFz4ZpRavkMUFuDirn5Tf28oc5ebe2cIHp4/kajTx/7JOxWZ80U70mA
- cBgEeYSrYYnX+UJsSxpzLc/0sT1eRJDEhI4XIQM4ClIzpsCIN5HnVF76UQXh3a9zpwh3dk8i
- bhN/URmCOTH+LHNJYN/MxY8wuukq877DWB7k86pBs5IDLAXmW8v3gIDWyIcgYqb2v8QO2Mqx
- YMqL7UZxVLul4/JbllsQB8F/fNI8AfttmAQL9cwo6C8yDTXKdho920W4WUR9k8NT/OBqWSyk
- bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
- nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
- izWDgYvmBE8=
-In-Reply-To: <20230628-topic-a7xx_drmmsm-v3-9-4ee67ccbaf9d@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Jani Nikula <jani.nikula@intel.com>, Stephen Boyd <swboyd@chromium.org>,
+ <dri-devel@lists.freedesktop.org>
+References: <20230901142034.580802-1-jani.nikula@intel.com>
+ <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
+ <877covy4bl.fsf@intel.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <877covy4bl.fsf@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 09/10] drm/msm/a6xx: Add A740 support
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 69tF28V0oyckKYoNOHdDKVSMpFy5Sg-G
+X-Proofpoint-ORIG-GUID: 69tF28V0oyckKYoNOHdDKVSMpFy5Sg-G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-12_16,2023-09-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0
+ bulkscore=0 spamscore=0 priorityscore=1501 mlxscore=0 suspectscore=0
+ clxscore=1011 malwarescore=0 mlxlogscore=999 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2309120140
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: skip validity check for DP CTS
+ EDID checksum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,34 +86,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23.08.2023 14:56, Konrad Dybcio wrote:
-> A740 builds upon the A730 IP, shuffling some values and registers
-> around. More differences will appear when things like BCL are
-> implemented.
-> 
-> adreno_is_a740_family is added in preparation for more A7xx GPUs,
-> the logic checks will be valid resulting in smaller diffs.
-> 
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # sm8450
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
-[...]
+Hi Jani
 
->  		.gmem = SZ_2M,
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-> +			  ADRENO_QUIRK_HAS_HW_APRIV,
-That's a funny conflict resolution (should have been in the previous
-commit..). If there are no other comments, could you fix this up while
-applying, Rob?
+On 9/12/2023 5:16 AM, Jani Nikula wrote:
+> On Thu, 07 Sep 2023, Stephen Boyd <swboyd@chromium.org> wrote:
+>> Quoting Jani Nikula (2023-09-01 07:20:34)
+>>> The DP CTS test for EDID last block checksum expects the checksum for
+>>> the last block, invalid or not. Skip the validity check.
+>>>
+>>> For the most part (*), the EDIDs returned by drm_get_edid() will be
+>>> valid anyway, and there's the CTS workaround to get the checksum for
+>>> completely invalid EDIDs. See commit 7948fe12d47a ("drm/msm/dp: return
+>>> correct edid checksum after corrupted edid checksum read").
+>>>
+>>> This lets us remove one user of drm_edid_block_valid() with hopes the
+>>> function can be removed altogether in the future.
+>>>
+>>> (*) drm_get_edid() ignores checksum errors on CTA extensions.
+>>>
+>>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
+>>> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+>>> Cc: Rob Clark <robdclark@gmail.com>
+>>> Cc: Sean Paul <sean@poorly.run>
+>>> Cc: Stephen Boyd <swboyd@chromium.org>
+>>> Cc: linux-arm-msm@vger.kernel.org
+>>> Cc: freedreno@lists.freedesktop.org
+>>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>> ---
+>>
+>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> 
+> Thanks; is that enough to merge? I can't claim I would have been able to
+> test this.
+> 
 
-Konrad
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+Change looks fine.
+
+We can pick this up in the MSM tree if you would like.
+
+Dmitry, you can please pick this up along with my R-b and Kuogee's R-b 
+as well.
+
+I think his R-b got misformatted. I can ask him to add that again.
+
+>>
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>> index 42d52510ffd4..86a8e06c7a60 100644
+>>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+>>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+>>> @@ -289,26 +289,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+>>>
+>>>   static u8 dp_panel_get_edid_checksum(struct edid *edid)
+>>
+>> It would be nice to make 'edid' const here in another patch.
+> 
+> Sure.
+> 
+> BR,
+> Jani.
+> 
+> 
