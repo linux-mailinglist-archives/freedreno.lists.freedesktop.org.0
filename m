@@ -1,71 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD92079EA02
-	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 15:47:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F58979EF2E
+	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 18:47:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9AF10E4C2;
-	Wed, 13 Sep 2023 13:47:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7016010E0D1;
+	Wed, 13 Sep 2023 16:47:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 231F210E4C2
- for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 13:47:25 +0000 (UTC)
-Received: by mail-yb1-xb34.google.com with SMTP id
- 3f1490d57ef6-d77ad095e5cso6437694276.0
- for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 06:47:25 -0700 (PDT)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4B4A10E0D1;
+ Wed, 13 Sep 2023 16:46:59 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-523100882f2so9093195a12.2; 
+ Wed, 13 Sep 2023 09:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694612844; x=1695217644; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=is9cdLO5+cOFX9KoTOVrU11g6HK91XFN6r2/gXT1uNU=;
- b=oCFhmqjO5S0eFEig1A2w0Z1gLMUpTI9Ncc+FU4bVM/8j1nxDPxWK9Yj8jlFWHq9U4F
- O98j/xkeaag4gQI2k0OAYLr50YHBXS/MfBHCKziHaoLqfBaQIyqskiyfOYbTql6ef9GN
- wXNdW+fecHAnn1VEUxvqB43JLF+xzn1JPus1ZOH+g8Og/1J6qrZBXktsEjN8OHlAmiYm
- wlTc2kRO3kyC4bKhrPAUu9IpfcUnt0VjHq9nw3IdzfOb7NQO2DoKt0Y4kcUvXQVzhK7j
- wLnx9LDYgqrcU7e+rmO7ocsu1osazlAULxte3JdHuwHUoBQbvO79HEZXckpu98FqGwIh
- Gzgg==
+ d=gmail.com; s=20221208; t=1694623618; x=1695228418; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C5YGng7LquR7VbitExATGwfX7+5OwRblTGs4u5vbxVs=;
+ b=KHzfbAcjiSU5PsCXgrJOAClcDT/KvtiW0NHnAu5MDN5cO6Q9mxGxMN0sMYBurBS8Aj
+ MIaN4i1BTZ0RGJjFgDblLl+t858X5iaNTuhmMUJ6xQivBhq6NRIsecu8D4Y0xChu1JM7
+ bYxH6akfWAt1yFYyMowF6fHu+hpMVWhuzxOP4o7KmbtrHtTTPODaS2p+ryAMZixFt5Xe
+ eew/XdlS039UbSsHFBXy8p2U4A0Os7g4u8XID/whyAAQC24S1b4Q79j/GCDpParHTGF9
+ TgSdQrmg+/a2QpnwFyJvcmL80x6E9boWjC+jx5gtasS98FDq8MQHkVhqLDvPShQxJgjb
+ C07A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694612844; x=1695217644;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=is9cdLO5+cOFX9KoTOVrU11g6HK91XFN6r2/gXT1uNU=;
- b=tpHvpYgqR352vrBlLbTt4kbsCbs+13FVz4/Ms2brzMcM1YBdOgYjxvltFE8hgR/alN
- sQHO4jPiFaaDuMu3hvwlhfDCfhz+zjv9TzzI6An0IKFhKho02KYELUiTmCRVuSvtNM9R
- TwGCNwAuMHkPZoLUjm21YN3LKJ7e2fatDMn3cMITpl9A2euKrxGH+RIf7D7A8ApaGVvM
- KVgP4y0jX9VUIBB5b4kvuVjFqbaP5u8GQwi/qpRIbJtBgB28Q/AiY076fcaICjL731ld
- PruawYQH6j8iTA1zm9mB6AXwX0YBCDIdS/AMAVfAEXyyyEUHxvXMeJPDO2BS72IlZOjN
- kwYA==
-X-Gm-Message-State: AOJu0YwuteBfmWQbsHxqrXP2mhimGJduzs6GiRNcKlaw4+pEJFOgzzY7
- 8R1nyG5OI1hNrr5B4D6YRT1/R5QWZ+ZIoyIKOGMlYg==
-X-Google-Smtp-Source: AGHT+IFxCiG9u6lIipgUoy0QS1uO4PJPB3nTYZBJw50uTJqek9gf1nKD/yCjVXaUf2NNCT7T+LgQUT8ewycoL/GkLa4=
-X-Received: by 2002:a25:9108:0:b0:d7f:2cb6:7d89 with SMTP id
- v8-20020a259108000000b00d7f2cb67d89mr1865898ybl.39.1694612843877; Wed, 13 Sep
- 2023 06:47:23 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1694623618; x=1695228418;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=C5YGng7LquR7VbitExATGwfX7+5OwRblTGs4u5vbxVs=;
+ b=TK7k6LHAep8aJ3XtOYECY1bsLRcX+f07OVzcM1ULlpquWYxacsag4czw5asUFlWbWR
+ 4Mju/JcDo/2JRY1Nu1NNZU1GLStKyxNmTMM2dmQDk/5va8mHCPW6rc+2sIN0NNagiLXI
+ KB/zMxd1XyyfLOUZv6ZLUI7CMMEbf6BbLB9wuOVe0LtPcSA/aPUDb1Vk87Ju18AbVe6H
+ JHhlyp+UNVZRtGW7CCcdQPpjNTZAWtLPeOzCvJ/dVfiq2r3NHrCkGRaVOtKVHZI7wgx5
+ rWISP5XDv7YRreZR/pkadTDMTtoKsj9hsLupFjnUfVSpO2+lV5xFdd4TVNYJ8MlULpS/
+ lmqA==
+X-Gm-Message-State: AOJu0Yy8YSjQEGUY/ST/oJm+NP9kHBYJ4/Bwr+pBI2CGiJ8gmHIcOPeo
+ 5ei+3x1sfGZFs8cHreIYF9vYsKcS24ZmSdI+pqrIsDCf
+X-Google-Smtp-Source: AGHT+IEc2KBgN3FRWC0KNxdRSFvRYj33UjiqQW/x5aJZfHR0AmWtDWPkiHn6xF3C8Knu1WGuANLSFzngKfOIKzJec/o=
+X-Received: by 2002:aa7:c0cb:0:b0:523:47b0:9077 with SMTP id
+ j11-20020aa7c0cb000000b0052347b09077mr2728747edp.38.1694623617692; Wed, 13
+ Sep 2023 09:46:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
- <CAA8EJpqUg2-k7LLBL38RHU1sThkXB54ca68xEMd1yMnHQcQ++w@mail.gmail.com>
- <ZPh0Ps9UJ3HLzdeR@kuha.fi.intel.com>
- <CAA8EJpratbBybgk8woD3maA=J_HuQis44Unq0n+c_UvaFs__AA@mail.gmail.com>
- <ZPiAwOf00RREiYPr@kuha.fi.intel.com>
- <6b6bacee-f7b6-4cfe-be3d-24bda44bfbcf@linaro.org>
- <ZQBGD8CY5OVKYX63@kuha.fi.intel.com>
- <a97a33f4-71f3-4610-a59e-0c2d5ae86670@linaro.org>
- <ZQGAfnKt9HMB7j6H@kuha.fi.intel.com>
- <CAA8EJpqaipCT66x698R6dKDTSMk-D2iNHv8NSnMzPy-X_jFJ1Q@mail.gmail.com>
- <ZQG1zMbjWNLtx8lk@kuha.fi.intel.com>
-In-Reply-To: <ZQG1zMbjWNLtx8lk@kuha.fi.intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 13 Sep 2023 16:47:12 +0300
-Message-ID: <CAA8EJprSH1jTa74c2P91SEC84eM8w=ACC4o2xM8t9eShvC9UeQ@mail.gmail.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20230912084044.955864-1-adrian.larumbe@collabora.com>
+ <20230912084044.955864-7-adrian.larumbe@collabora.com>
+ <20230912113210.65897aab@collabora.com>
+ <CAF6AEGtzOS89V1vbobpSEb9KX8x9T0FfmkW2OAaxAKLs+GugKA@mail.gmail.com>
+ <CAF6AEGup93tQMYrmx6iKex2Fxz+Yu5m-MMWPmeOQ4yx_Racnag@mail.gmail.com>
+ <20230913093637.2748d217@collabora.com>
+In-Reply-To: <20230913093637.2748d217@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 13 Sep 2023 09:46:45 -0700
+Message-ID: <CAF6AEGu+NeMfeP3yVLr76fUmXeWPx86D9ckw_WjXu+Xpn6DJvA@mail.gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v1 01/12] Revert "drm/sysfs: Link DRM
- connectors to corresponding Type-C connectors"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v4 6/6] drm/drm-file: Show finer-grained BO
+ sizes in drm_show_memory_stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,277 +74,140 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Won Chung <wonchung@google.com>, Daniel Vetter <daniel@ffwll.ch>,
- Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
+Cc: robh@kernel.org, tzimmermann@suse.de,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, sean@poorly.run,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
+ healych@amazon.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 13 Sept 2023 at 16:15, Heikki Krogerus
-<heikki.krogerus@linux.intel.com> wrote:
+On Wed, Sep 13, 2023 at 12:36=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
 >
-> On Wed, Sep 13, 2023 at 01:26:14PM +0300, Dmitry Baryshkov wrote:
-> > Hi Heikki,
-> >
-> > On Wed, 13 Sept 2023 at 12:27, Heikki Krogerus
-> > <heikki.krogerus@linux.intel.com> wrote:
-> > > On Tue, Sep 12, 2023 at 08:39:45PM +0300, Dmitry Baryshkov wrote:
-> > > > On 12/09/2023 14:05, Heikki Krogerus wrote:
-> > > > > On Tue, Sep 12, 2023 at 12:15:10AM +0300, Dmitry Baryshkov wrote:
-> > > > > > On 06/09/2023 16:38, Heikki Krogerus wrote:
-> > > > > > > On Wed, Sep 06, 2023 at 03:48:35PM +0300, Dmitry Baryshkov wrote:
-> > > > > > > > On Wed, 6 Sept 2023 at 15:44, Heikki Krogerus
-> > > > > > > > <heikki.krogerus@linux.intel.com> wrote:
-> > > > > > > > >
-> > > > > > > > > On Tue, Sep 05, 2023 at 01:56:59PM +0300, Dmitry Baryshkov wrote:
-> > > > > > > > > > Hi Heikki,
-> > > > > > > > > >
-> > > > > > > > > > On Tue, 5 Sept 2023 at 11:50, Heikki Krogerus
-> > > > > > > > > > <heikki.krogerus@linux.intel.com> wrote:
-> > > > > > > > > > >
-> > > > > > > > > > > Hi Dmitry,
-> > > > > > > > > > >
-> > > > > > > > > > > On Mon, Sep 04, 2023 at 12:41:39AM +0300, Dmitry Baryshkov wrote:
-> > > > > > > > > > > > The kdev->fwnode pointer is never set in drm_sysfs_connector_add(), so
-> > > > > > > > > > > > dev_fwnode() checks never succeed, making the respective commit NOP.
-> > > > > > > > > > >
-> > > > > > > > > > > That's not true. The dev->fwnode is assigned when the device is
-> > > > > > > > > > > created on ACPI platforms automatically. If the drm_connector fwnode
-> > > > > > > > > > > member is assigned before the device is registered, then that fwnode
-> > > > > > > > > > > is assigned also to the device - see drm_connector_acpi_find_companion().
-> > > > > > > > > > >
-> > > > > > > > > > > But please note that even if drm_connector does not have anything in
-> > > > > > > > > > > its fwnode member, the device may still be assigned fwnode, just based
-> > > > > > > > > > > on some other logic (maybe in drivers/acpi/acpi_video.c?).
-> > > > > > > > > > >
-> > > > > > > > > > > > And if drm_sysfs_connector_add() is modified to set kdev->fwnode, it
-> > > > > > > > > > > > breaks drivers already using components (as it was pointed at [1]),
-> > > > > > > > > > > > resulting in a deadlock. Lockdep trace is provided below.
-> > > > > > > > > > > >
-> > > > > > > > > > > > Granted these two issues, it seems impractical to fix this commit in any
-> > > > > > > > > > > > sane way. Revert it instead.
-> > > > > > > > > > >
-> > > > > > > > > > > I think there is already user space stuff that relies on these links,
-> > > > > > > > > > > so I'm not sure you can just remove them like that. If the component
-> > > > > > > > > > > framework is not the correct tool here, then I think you need to
-> > > > > > > > > > > suggest some other way of creating them.
-> > > > > > > > > >
-> > > > > > > > > > The issue (that was pointed out during review) is that having a
-> > > > > > > > > > component code in the framework code can lead to lockups. With the
-> > > > > > > > > > patch #2 in place (which is the only logical way to set kdev->fwnode
-> > > > > > > > > > for non-ACPI systems) probing of drivers which use components and set
-> > > > > > > > > > drm_connector::fwnode breaks immediately.
-> > > > > > > > > >
-> > > > > > > > > > Can we move the component part to the respective drivers? With the
-> > > > > > > > > > patch 2 in place, connector->fwnode will be copied to the created
-> > > > > > > > > > kdev's fwnode pointer.
-> > > > > > > > > >
-> > > > > > > > > > Another option might be to make this drm_sysfs component registration optional.
-> > > > > > > > >
-> > > > > > > > > You don't need to use the component framework at all if there is
-> > > > > > > > > a better way of determining the connection between the DP and its
-> > > > > > > > > Type-C connector (I'm assuming that that's what this series is about).
-> > > > > > > > > You just need the symlinks, not the component.
-> > > > > > > >
-> > > > > > > > The problem is that right now this component registration has become
-> > > > > > > > mandatory. And if I set the kdev->fwnode manually (like in the patch
-> > > > > > > > 2), the kernel hangs inside the component code.
-> > > > > > > > That's why I proposed to move the components to the place where they
-> > > > > > > > are really necessary, e.g. i915 and amd drivers.
-> > > > > > >
-> > > > > > > So why can't we replace the component with the method you are
-> > > > > > > proposing in this series of finding out the Type-C port also with
-> > > > > > > i915, AMD, or whatever driver and platform (that's the only thing that
-> > > > > > > component is used for)?
-> > > > > >
-> > > > > > The drm/msm driver uses drm_bridge for the pipeline (including the last DP
-> > > > > > entry) and the drm_bridge_connector to create the connector. I think that
-> > > > > > enabling i915 and AMD drivers to use drm_bridge fells out of scope for this
-> > > > > > series.
-> > > > > >
-> > > > > >
-> > > > > > > Determining the connection between a DP and its Type-C connector is
-> > > > > > > starting to get really important, so ideally we have a common solution
-> > > > > > > for that.
-> > > > > >
-> > > > > > Yes. This is what we have been discussing with Simon for quite some time on
-> > > > > > #dri-devel.
-> > > > > >
-> > > > > > Unfortunately I think the solution that got merged was pretty much hastened
-> > > > > > in instead of being well-thought. For example, it is also not always
-> > > > > > possible to provide the drm_connector / typec_connector links (as you can
-> > > > > > see from the patch7. Sometimes we can only express that this is a Type-C DP
-> > > > > > connector, but we can not easily point it to the particular USB-C port.
-> > > > > >
-> > > > > > So, I'm not sure, how can we proceed here. Currently merged patch breaks
-> > > > > > drm/msm if we even try to use it by setting kdef->fwnode to
-> > > > > > drm_connector->fwnode. The pointed out `drivers/usb/typec/port-mapper.c` is
-> > > > > > an ACPI-only thing, which is not expected to work in a non-ACPI cases.
-> > > > >
-> > > > > You really have to always supply not only the Type-C ports and partners,
-> > > > > but also the alt modes. You need them, firstly to keep things sane
-> > > > > inside kernel, but more importantly, so they are always exposed to the
-> > > > > user space, AND, always the same way. We have ABIs for all this stuff,
-> > > > > including the DP alt mode. Use them. No shortcuts.
-> > > > >
-> > > > > So here's what you need to do. UCSI does not seem to bring you
-> > > > > anything useful, so just disable it for now. You don't need it. Your
-> > > > > port driver is clearly drivers/soc/qcom/pmic_glink_altmode.c, so
-> > > > > that's where you need to register all these components - the ports,
-> > > > > partners and alt modes. You have all the needed information there.
-> > > >
-> > > > To make things even more complicate, UCSI is necessary for the USB part of
-> > > > the story. It handles vbus and direction.
-> > > >
-> > > > > Only after you've done that we can start to look at how should the
-> > > > > connection between the DPs and their USB Type-C connectors be handled.
-> > > >
-> > > > But sure enough, I can add typec port registration to the altmode driver.
-> > > > This will solve the 'port not existing' part of the story.
-> > > >
-> > > > I'd like to hear your opinion on:
-> > > >
-> > > > - components. Using them breaks drm/msm. How can we proceed?
+> On Tue, 12 Sep 2023 19:14:35 -0700
+> Rob Clark <robdclark@gmail.com> wrote:
+>
+> > On Tue, Sep 12, 2023 at 6:46=E2=80=AFPM Rob Clark <robdclark@gmail.com>=
+ wrote:
 > > >
-> > > I don't think replacing the components is going to be a problem once
-> > > you have described everything properly in you DT. I'm fairly certain now
-> > > that that is the main problem here. You don't have this connection
-> > > described in your DT as it should.
-> >
-> > We have. See https://lore.kernel.org/linux-arm-msm/20230817145940.9887-1-dmitry.baryshkov@linaro.org/
-> > (for non-PMIC-GLINK platform)
-> > Or arch/arm64/boot/dts/qcom/sm8350-hdk.dts, which already has a full
-> > description of USB-C connector and signal flow.
-> >
-> > In fact, thanks to this representation I can properly set
-> > 'connector->fwnode' to point to the OF node corresponding to the
-> > connector's drm_bridge. I can even propagate it to the kdef->fwnode /
-> > kdev->of_node in drm_sysfs_connector_add(). But then a component_add()
-> > call looks the kernel up.
-> >
-> > And to add on top of that, here is another reason why I think that
-> > this sysfs links ABI/implementation was not well thought. The
-> > typec_connector_ops are added to all fwnode-enabled connector devices.
-> > It doesn't even bother checking that the device is really the DP
-> > connector and that the device on the other side of fwnode link is a
-> > typec port device. The symlink is named 'typec_connector', so one can
-> > not easily extend this ABI to support SlimPort aka MyDP (which uses
-> > micro-USB-B connectors instead of USB-C). Neither can we extend it to
-> > represent MHL connections (again, micro-USB-B).
-> >
-> > > > - PATH property usage. This way we make USB-C DisplayPort behave like the
-> > > > MST ports.
+> > > On Tue, Sep 12, 2023 at 2:32=E2=80=AFAM Boris Brezillon
+> > > <boris.brezillon@collabora.com> wrote:
+> > > >
+> > > > On Tue, 12 Sep 2023 09:37:00 +0100
+> > > > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+> > > >
+> > > > > The current implementation will try to pick the highest available=
+ size
+> > > > > display unit as soon as the BO size exceeds that of the previous
+> > > > > multiplier. That can lead to loss of precision in BO's whose size=
+ is
+> > > > > not a multiple of a MiB.
+> > > > >
+> > > > > Fix it by changing the unit selection criteria.
+> > > > >
+> > > > > For much bigger BO's, their size will naturally be aligned on som=
+ething
+> > > > > bigger than a 4 KiB page, so in practice it is very unlikely thei=
+r display
+> > > > > unit would default to KiB.
+> > > >
+> > > > Let's wait for Rob's opinion on this.
 > > >
-> > > That looks to me like an attempt to exploit a feature that is not
-> > > designed for this purposes at all. Just drop all that.
-> >
-> > But why? From the docs: 'Connector path property to identify how this
-> > sink is physically connected.'
-> >
-> > So far we have been using it for MST only. But the description above
-> > also suits properly for the 'connected to the Type-C port0 device'
-> > kind of data. Then the userspace can use this property to change the
-> > representation of the controller. Or to rename it as it does for
-> > DP-MST connectors. Or just add the USB-C icon in the UI.
-> >
-> > Having this data in sysfs only requires userspace first to map the
-> > connector to the device under sysfs (which is not trivial since Xorg
-> > renames DP-MST connectors), then to look for the symlink value. Quite
-> > complicated compared to checking the DRM property.
-> >
-> > Moreover, once we get to the SlimPort / MyDP / MHL, we can extend the
-> > schema to support 'microusb:something' values for this property.
-> >
-> > > The connection has to be first described in your DT, and the way you
-> > > usually describe connections in DT is by using the device graph (OF
-> > > graph). It seems that you have everything needed for that - the USB
-> > > Type-C connectors have their own OF nodes (what you register as
-> > > drm_bridges are in fact USB Type-C connectors), and presumable you
-> > > also have OF nodes for all your video ports (DisplayPorts) - so
-> > > applying the graph between the two really should not be a problem. The
-> > > DP is endpoint for the USB Type-C connector, and vice versa.
-> >
-> > Not quite. There is no direct connection between the USB Type-C
-> > connector and DP controller. The USB-C connector has three ports.
-> >
-> > port@0 goes to theHS-USB controller. This is simple.
-> >
-> > port@1 goes to the USB+DP PHY. All retimers and SS line muxes are
-> > included in between. And it is the USB+DP PHY that is connected to the
-> > DP and USB-SS controllers.
-> >
-> > port@2 goes to SBU lines mux (e.g. fsa4480).
-> >
-> > > After you have everything needed in your DT, the problem here isn't
-> > > actually much of a problem at all. We will have options how to move
-> > > forward after that.
-> >
-> > Could you please describe what is missing there?
+> > > This would mean that if you have SZ_1G + SZ_1K worth of buffers, you'=
+d
+> > > report the result in KiB.. which seems like overkill to me, esp given
+> > > that the result is just a snapshot in time of a figure that
+> > > realistically is dynamic.
 >
-> We are not after the direct connections here, we are after the final
-> endpoints. So you are missing description of the logical connection
-> between your DP and Type-C connector.
+> Yeah, my point was that, generally, such big buffers tend to have
+> a bigger size alignment (like 2MB for anything bigger than 1GB), but
+> maybe this assumption doesn't stand for all drivers.
 
-Adding Krzysztof, as one of DT maintainers, to the CC list.
+Maybe for CMA?  Regardless, this # is the sum of buffer sizes, so you
+could still get that 1G+1K scenario
 
-From what I understand, DT describes hardware. There is no description
-for the 'logical' connections.
-
+> > >
+> > > Maybe if you have SZ_1G+SZ_1K worth of buffers you should report the
+> > > result with more precision than GiB, but more than MiB seems a bit
+> > > overkill.
+> > >
+> > > BR,
+> > > -R
+> > >
+> > > > >
+> > > > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/drm_file.c | 2 +-
+> > > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_fil=
+e.c
+> > > > > index 762965e3d503..bf7d2fe46bfa 100644
+> > > > > --- a/drivers/gpu/drm/drm_file.c
+> > > > > +++ b/drivers/gpu/drm/drm_file.c
+> > > > > @@ -879,7 +879,7 @@ static void print_size(struct drm_printer *p,=
+ const char *stat,
+> > > > >       unsigned u;
+> > > > >
+> > > > >       for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
+> > > > > -             if (sz < SZ_1K)
+> >
+> > btw, I was thinking more along the lines of:
+> >
+> >    if (sz < 10*SZ_1K)
+> >
+> > (or perhaps maybe 100*SZ_1K)
 >
-> I understand that the idea is to build the graph to describe only the
-> physical connections, but with just the physical connections you are
-> doomed to write separate software solution for almost every single
-> platform, even though the final endpoints are always the same (DP to
-> Type-C). You just can not generalise the components (muxes, phys,
-> retimers, etc.) behind USB Type-C connectors (or anything else for
-> that matter), it's not possible. The components and their order vary
-> on almost every single platform. On some platforms the stack of parts
-> after the connector is also incredibly complex.
+> I think I suggested doing that at some point:
+>
+>                 if ((sz & (SZ_1K - 1)) &&
+>                     sz < UPPER_UNIT_THRESHOLD * SZ_1K)
+>                         break;
+>
+> so we can keep using the upper unit if the size is a multiple of this
+> upper unit, even if it's smaller than the selected threshold.
 
-Yes. And this is why we have a chain of DRM bridges, going from the DP
-controller to the final drm_bridge at the Type-C port manager. When
-there is the altmode event, it gets sent via this chain using the
-normal DRM HPD event.
+yeah, that wfm
 
-> Having the logical final endpoint connection described in your DT/ACPI
-> on top of the physical connections costs very little, but at the same
-> time it's usually the only thing that the software needs (like in this
-> case).
-
-Maybe there is some misunderstanding here. We have this connection. We
-have connector->fwnode and connector->of_node pointing to the correct
-device - the last bridge in the chain. Each TCPM driver knows the
-relationship between the in-built drm_bridge and the Type-C port. The
-DP host controller port can be terminated with other endpoints, e.g.
-eDP panel. Or there can be a non-DP host, which is then connected
-through a series of bridges to the eDP or external DP port. This is
-what anx78xx bridge does: it converts the HDMI link into an external
-DP (SlimPort) connection. Bridge chains permit this to be handled in a
-seamless way.
-
-What you are asking for looks like a step backwards to me: it requires
-the host to know that there is a USB-C connector.
+BR,
+-R
 
 >
-> So, either you add one more port to your graph for the DP to Type-C
-> connection, or, if that's not an option, then you need to describe
-> that connection in some other way. Named references work also quite
-> well in my experience.
-
-Named references were considered and frowned upon by DT maintainers.
-
--- 
-With best wishes
-Dmitry
+> >
+> > I mean, any visualization tool is going to scale the y axis based on
+> > the order of magnitude.. and if I'm looking at the fdinfo with my
+> > eyeballs I don't want to count the # of digits manually to do the
+> > conversion in my head.  The difference btwn 4 or 5 or maybe 6 digits
+> > is easy enough to eyeball, but more than that is too much for my
+> > eyesight, and I'm not seeing how it is useful ;-)
+> >
+> > But if someone really has a valid use case for having precision in 1KB
+> > then I'm willing to be overruled.
+>
+> So, precision loss was one aspect, but my main concern was having
+> things displayed in KiB when they could have been displayed in MiB,
+> because the size is a multiple of a MiB but still not big enough to
+> pass the threshold test (which was set to 10000x in the previous
+> version).
+>
+> > But I'm not a fan of the earlier
+> > approach of different drivers reporting results differently, the whole
+> > point of fdinfo was to have some standardized reporting.
+>
+> Totally agree with that.
+>
+> >
+> > BR,
+> > -R
+> >
+> > > > > +             if (sz & (SZ_1K - 1))
+> > > > >                       break;
+> > > > >               sz =3D div_u64(sz, SZ_1K);
+> > > > >       }
+> > > >
+>
