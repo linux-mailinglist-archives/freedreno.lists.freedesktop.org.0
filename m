@@ -2,49 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3162679E0ED
-	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 09:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B6B79E3E1
+	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 11:38:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8459510E473;
-	Wed, 13 Sep 2023 07:36:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32F0310E48D;
+	Wed, 13 Sep 2023 09:38:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4FE10E470;
- Wed, 13 Sep 2023 07:36:42 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 29A3C6607319;
- Wed, 13 Sep 2023 08:36:40 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1694590600;
- bh=BoaxSmoEMOcQoMOW33cqNIU5YTH3LaR/kBpDcxa9Mtg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=MVB4UZdGG1sGVKpv2lA3Ecoc1NWOzsc+C/PO55PphJsf94STiVCVsDY2R3D7RQuHX
- bB1H6jIjjFuswdr7pyL0clLnmEFe+HCxHyGxdbtcBYuGrqCXanA+N7bnCL+1AMcvkH
- LXL1X03aCVuheK5YjaOj9xx1p2NS8aQegZoWzih2qDRGLz47mz5EfZ0sPHq2cBtkAh
- Hj0uPC6QxDFcjug7ldcQR6GDLm91ruCD4xhSTgZyJvp2cZLraWmPrSSC+1LnuArx7Q
- QlJXWR5lg3+vw19v7UzSZLgsrHSSW3UsR3xf6h8rTjg4rwtDi+dNYuKFPTKJ6mdK7c
- RW+DbDu7jt9FA==
-Date: Wed, 13 Sep 2023 09:36:37 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20230913093637.2748d217@collabora.com>
-In-Reply-To: <CAF6AEGup93tQMYrmx6iKex2Fxz+Yu5m-MMWPmeOQ4yx_Racnag@mail.gmail.com>
-References: <20230912084044.955864-1-adrian.larumbe@collabora.com>
- <20230912084044.955864-7-adrian.larumbe@collabora.com>
- <20230912113210.65897aab@collabora.com>
- <CAF6AEGtzOS89V1vbobpSEb9KX8x9T0FfmkW2OAaxAKLs+GugKA@mail.gmail.com>
- <CAF6AEGup93tQMYrmx6iKex2Fxz+Yu5m-MMWPmeOQ4yx_Racnag@mail.gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 234CC10E046
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 09:38:24 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-401da71b85eso71649005e9.1
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 02:38:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1694597902; x=1695202702; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=HghA1siuHL9d2wGLlLawICtcF9c56YFhd/CcEs0FY+k=;
+ b=M/iRFYjouWfmKVn9wLmx10nvJEM9IxfX1SckGFey+wIQjj3ddsSJ4OdGQMzK0AqAuW
+ w8mhANPEAt1IQcRp8MsrCpTnkY4EgWA2gorOVeXSxFpMTqZprAzEH4EAW94RGH9ndZu5
+ xLEZFkwseXWfYTb9pXwH1gQqr6fMxz23OUzzGsfMDte03VVXhztsV1YExwV5XpP9LCvC
+ Tdj7cUC55xEd0+93mrFI1bObcSyjmxjMZbZYI2xLie1FBoMhh/f/plqhIjra3qnNzI8D
+ DjmC6Rq223cwqfNdJJrwFQ+KxxY4nRjswEGCxRr7YUYuy37HHd4IQN644e5G861gdQ8J
+ 21OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694597902; x=1695202702;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=HghA1siuHL9d2wGLlLawICtcF9c56YFhd/CcEs0FY+k=;
+ b=XT7kGyKQr9jdFlTn7hqaAWhLc7P/yqxJyJBTDxpdjx+NUWhFOR59s+SELtKvat/Nv/
+ E3O3X6IB1TPoZ7O39Z2d6D9cEqdpBH7cwe9IEW9NxALEy8njvlCBhp3d+ZplkpQzYR2x
+ NuSuWVjVg/kkqA/U/Aac7+u2/vGttgr17qK/l3+PaYavOEViS29eYJULHePTBWTUy2YR
+ eRyw3WYIkX7V+NiEqjeW9BePmq/iQaoM+0n9fwZ68yW2BgQFLCvYC97PPUWdFita86ZS
+ dglkqtkPhjiMTVf9HOwcaL2fhvq6RAB/jR9DbxIZCLUkcqWmfyULmpxvGpdUWlBIbzQ5
+ I8wA==
+X-Gm-Message-State: AOJu0YwTUQEKzdbqM115c/ISANqWB7Oa3q/aiVc5Ekj1fRNOBY7DuNTi
+ rTLibiNHgmAn2N9NzK4U2Tu1Lw==
+X-Google-Smtp-Source: AGHT+IGzPFZa4ciCM9gg7jqd6a4bYXRlZBRHfHrRnIoKHfsBinXmu8RJMCcG+sl9GZOOhjAlfWeKow==
+X-Received: by 2002:a7b:c8c4:0:b0:3fb:e2af:49f6 with SMTP id
+ f4-20020a7bc8c4000000b003fbe2af49f6mr1461695wml.39.1694597902398; 
+ Wed, 13 Sep 2023 02:38:22 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:47c3:1e57:f54:3370?
+ ([2a01:e0a:982:cbb0:47c3:1e57:f54:3370])
+ by smtp.gmail.com with ESMTPSA id
+ m13-20020a7bca4d000000b003fe4548188bsm1501531wml.48.2023.09.13.02.38.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Sep 2023 02:38:21 -0700 (PDT)
+Message-ID: <a36d7b75-b072-4202-8f09-9eab0dfd52ed@linaro.org>
+Date: Wed, 13 Sep 2023 11:38:19 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v4 6/6] drm/drm-file: Show finer-grained BO
- sizes in drm_show_memory_stats
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-2-dmitry.baryshkov@linaro.org>
+ <ZPbrtAlO2Y+bjDhf@kuha.fi.intel.com>
+ <CAA8EJpqUg2-k7LLBL38RHU1sThkXB54ca68xEMd1yMnHQcQ++w@mail.gmail.com>
+ <ZPh0Ps9UJ3HLzdeR@kuha.fi.intel.com>
+ <CAA8EJpratbBybgk8woD3maA=J_HuQis44Unq0n+c_UvaFs__AA@mail.gmail.com>
+ <ZPiAwOf00RREiYPr@kuha.fi.intel.com>
+ <6b6bacee-f7b6-4cfe-be3d-24bda44bfbcf@linaro.org>
+ <ZQBGD8CY5OVKYX63@kuha.fi.intel.com>
+ <a97a33f4-71f3-4610-a59e-0c2d5ae86670@linaro.org>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <a97a33f4-71f3-4610-a59e-0c2d5ae86670@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC PATCH v1 01/12] Revert "drm/sysfs: Link DRM
+ connectors to corresponding Type-C connectors"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,125 +113,146 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, sean@poorly.run,
- =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
- healych@amazon.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Reply-To: neil.armstrong@linaro.org
+Cc: dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Won Chung <wonchung@google.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 12 Sep 2023 19:14:35 -0700
-Rob Clark <robdclark@gmail.com> wrote:
+On 12/09/2023 19:39, Dmitry Baryshkov wrote:
+> On 12/09/2023 14:05, Heikki Krogerus wrote:
+>> On Tue, Sep 12, 2023 at 12:15:10AM +0300, Dmitry Baryshkov wrote:
+>>> On 06/09/2023 16:38, Heikki Krogerus wrote:
+>>>> On Wed, Sep 06, 2023 at 03:48:35PM +0300, Dmitry Baryshkov wrote:
+>>>>> On Wed, 6 Sept 2023 at 15:44, Heikki Krogerus
+>>>>> <heikki.krogerus@linux.intel.com> wrote:
+>>>>>>
+>>>>>> On Tue, Sep 05, 2023 at 01:56:59PM +0300, Dmitry Baryshkov wrote:
+>>>>>>> Hi Heikki,
+>>>>>>>
+>>>>>>> On Tue, 5 Sept 2023 at 11:50, Heikki Krogerus
+>>>>>>> <heikki.krogerus@linux.intel.com> wrote:
+>>>>>>>>
+>>>>>>>> Hi Dmitry,
+>>>>>>>>
+>>>>>>>> On Mon, Sep 04, 2023 at 12:41:39AM +0300, Dmitry Baryshkov wrote:
+>>>>>>>>> The kdev->fwnode pointer is never set in drm_sysfs_connector_add(), so
+>>>>>>>>> dev_fwnode() checks never succeed, making the respective commit NOP.
+>>>>>>>>
+>>>>>>>> That's not true. The dev->fwnode is assigned when the device is
+>>>>>>>> created on ACPI platforms automatically. If the drm_connector fwnode
+>>>>>>>> member is assigned before the device is registered, then that fwnode
+>>>>>>>> is assigned also to the device - see drm_connector_acpi_find_companion().
+>>>>>>>>
+>>>>>>>> But please note that even if drm_connector does not have anything in
+>>>>>>>> its fwnode member, the device may still be assigned fwnode, just based
+>>>>>>>> on some other logic (maybe in drivers/acpi/acpi_video.c?).
+>>>>>>>>
+>>>>>>>>> And if drm_sysfs_connector_add() is modified to set kdev->fwnode, it
+>>>>>>>>> breaks drivers already using components (as it was pointed at [1]),
+>>>>>>>>> resulting in a deadlock. Lockdep trace is provided below.
+>>>>>>>>>
+>>>>>>>>> Granted these two issues, it seems impractical to fix this commit in any
+>>>>>>>>> sane way. Revert it instead.
+>>>>>>>>
+>>>>>>>> I think there is already user space stuff that relies on these links,
+>>>>>>>> so I'm not sure you can just remove them like that. If the component
+>>>>>>>> framework is not the correct tool here, then I think you need to
+>>>>>>>> suggest some other way of creating them.
+>>>>>>>
+>>>>>>> The issue (that was pointed out during review) is that having a
+>>>>>>> component code in the framework code can lead to lockups. With the
+>>>>>>> patch #2 in place (which is the only logical way to set kdev->fwnode
+>>>>>>> for non-ACPI systems) probing of drivers which use components and set
+>>>>>>> drm_connector::fwnode breaks immediately.
+>>>>>>>
+>>>>>>> Can we move the component part to the respective drivers? With the
+>>>>>>> patch 2 in place, connector->fwnode will be copied to the created
+>>>>>>> kdev's fwnode pointer.
+>>>>>>>
+>>>>>>> Another option might be to make this drm_sysfs component registration optional.
+>>>>>>
+>>>>>> You don't need to use the component framework at all if there is
+>>>>>> a better way of determining the connection between the DP and its
+>>>>>> Type-C connector (I'm assuming that that's what this series is about).
+>>>>>> You just need the symlinks, not the component.
+>>>>>
+>>>>> The problem is that right now this component registration has become
+>>>>> mandatory. And if I set the kdev->fwnode manually (like in the patch
+>>>>> 2), the kernel hangs inside the component code.
+>>>>> That's why I proposed to move the components to the place where they
+>>>>> are really necessary, e.g. i915 and amd drivers.
+>>>>
+>>>> So why can't we replace the component with the method you are
+>>>> proposing in this series of finding out the Type-C port also with
+>>>> i915, AMD, or whatever driver and platform (that's the only thing that
+>>>> component is used for)?
+>>>
+>>> The drm/msm driver uses drm_bridge for the pipeline (including the last DP
+>>> entry) and the drm_bridge_connector to create the connector. I think that
+>>> enabling i915 and AMD drivers to use drm_bridge fells out of scope for this
+>>> series.
+>>>
+>>>
+>>>> Determining the connection between a DP and its Type-C connector is
+>>>> starting to get really important, so ideally we have a common solution
+>>>> for that.
+>>>
+>>> Yes. This is what we have been discussing with Simon for quite some time on
+>>> #dri-devel.
+>>>
+>>> Unfortunately I think the solution that got merged was pretty much hastened
+>>> in instead of being well-thought. For example, it is also not always
+>>> possible to provide the drm_connector / typec_connector links (as you can
+>>> see from the patch7. Sometimes we can only express that this is a Type-C DP
+>>> connector, but we can not easily point it to the particular USB-C port.
+>>>
+>>> So, I'm not sure, how can we proceed here. Currently merged patch breaks
+>>> drm/msm if we even try to use it by setting kdef->fwnode to
+>>> drm_connector->fwnode. The pointed out `drivers/usb/typec/port-mapper.c` is
+>>> an ACPI-only thing, which is not expected to work in a non-ACPI cases.
+>>
+>> You really have to always supply not only the Type-C ports and partners,
+>> but also the alt modes. You need them, firstly to keep things sane
+>> inside kernel, but more importantly, so they are always exposed to the
+>> user space, AND, always the same way. We have ABIs for all this stuff,
+>> including the DP alt mode. Use them. No shortcuts.
+>>
+>> So here's what you need to do. UCSI does not seem to bring you
+>> anything useful, so just disable it for now. You don't need it. Your
+>> port driver is clearly drivers/soc/qcom/pmic_glink_altmode.c, so
+>> that's where you need to register all these components - the ports,
+>> partners and alt modes. You have all the needed information there.
+> 
+> To make things even more complicate, UCSI is necessary for the USB part of the story. It handles vbus and direction.
 
-> On Tue, Sep 12, 2023 at 6:46=E2=80=AFPM Rob Clark <robdclark@gmail.com> w=
-rote:
-> >
-> > On Tue, Sep 12, 2023 at 2:32=E2=80=AFAM Boris Brezillon
-> > <boris.brezillon@collabora.com> wrote: =20
-> > >
-> > > On Tue, 12 Sep 2023 09:37:00 +0100
-> > > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
-> > > =20
-> > > > The current implementation will try to pick the highest available s=
-ize
-> > > > display unit as soon as the BO size exceeds that of the previous
-> > > > multiplier. That can lead to loss of precision in BO's whose size is
-> > > > not a multiple of a MiB.
-> > > >
-> > > > Fix it by changing the unit selection criteria.
-> > > >
-> > > > For much bigger BO's, their size will naturally be aligned on somet=
-hing
-> > > > bigger than a 4 KiB page, so in practice it is very unlikely their =
-display
-> > > > unit would default to KiB. =20
-> > >
-> > > Let's wait for Rob's opinion on this. =20
-> >
-> > This would mean that if you have SZ_1G + SZ_1K worth of buffers, you'd
-> > report the result in KiB.. which seems like overkill to me, esp given
-> > that the result is just a snapshot in time of a figure that
-> > realistically is dynamic.
+On new platforms (starting from SM8450) UCSI is mandatory to have pmic_glink_altmode events triggering.
 
-Yeah, my point was that, generally, such big buffers tend to have
-a bigger size alignment (like 2MB for anything bigger than 1GB), but
-maybe this assumption doesn't stand for all drivers.
+Neil
 
-> >
-> > Maybe if you have SZ_1G+SZ_1K worth of buffers you should report the
-> > result with more precision than GiB, but more than MiB seems a bit
-> > overkill.
-> >
-> > BR,
-> > -R
-> > =20
-> > > >
-> > > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_file.c | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> > > > index 762965e3d503..bf7d2fe46bfa 100644
-> > > > --- a/drivers/gpu/drm/drm_file.c
-> > > > +++ b/drivers/gpu/drm/drm_file.c
-> > > > @@ -879,7 +879,7 @@ static void print_size(struct drm_printer *p, c=
-onst char *stat,
-> > > >       unsigned u;
-> > > >
-> > > >       for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
-> > > > -             if (sz < SZ_1K) =20
->=20
-> btw, I was thinking more along the lines of:
->=20
->    if (sz < 10*SZ_1K)
->=20
-> (or perhaps maybe 100*SZ_1K)
-
-I think I suggested doing that at some point:
-
-		if ((sz & (SZ_1K - 1)) &&
-		    sz < UPPER_UNIT_THRESHOLD * SZ_1K)
-			break;
-
-so we can keep using the upper unit if the size is a multiple of this
-upper unit, even if it's smaller than the selected threshold.
-
->=20
-> I mean, any visualization tool is going to scale the y axis based on
-> the order of magnitude.. and if I'm looking at the fdinfo with my
-> eyeballs I don't want to count the # of digits manually to do the
-> conversion in my head.  The difference btwn 4 or 5 or maybe 6 digits
-> is easy enough to eyeball, but more than that is too much for my
-> eyesight, and I'm not seeing how it is useful ;-)
->=20
-> But if someone really has a valid use case for having precision in 1KB
-> then I'm willing to be overruled.
-
-So, precision loss was one aspect, but my main concern was having
-things displayed in KiB when they could have been displayed in MiB,
-because the size is a multiple of a MiB but still not big enough to
-pass the threshold test (which was set to 10000x in the previous
-version).
-
-> But I'm not a fan of the earlier
-> approach of different drivers reporting results differently, the whole
-> point of fdinfo was to have some standardized reporting.
-
-Totally agree with that.
-
->=20
-> BR,
-> -R
->=20
-> > > > +             if (sz & (SZ_1K - 1))
-> > > >                       break;
-> > > >               sz =3D div_u64(sz, SZ_1K);
-> > > >       } =20
-> > > =20
+> 
+>> Only after you've done that we can start to look at how should the
+>> connection between the DPs and their USB Type-C connectors be handled.
+> 
+> But sure enough, I can add typec port registration to the altmode driver. This will solve the 'port not existing' part of the story.
+> 
+> I'd like to hear your opinion on:
+> 
+> - components. Using them breaks drm/msm. How can we proceed?
+> 
+> - PATH property usage. This way we make USB-C DisplayPort behave like the MST ports.
+> 
 
