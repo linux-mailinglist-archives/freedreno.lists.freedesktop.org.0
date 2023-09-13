@@ -1,78 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05CE379DC56
-	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 01:01:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6216279DDE6
+	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 03:47:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0055C10E00E;
-	Tue, 12 Sep 2023 23:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C68A610E24B;
+	Wed, 13 Sep 2023 01:47:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 622F610E00E
- for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 23:01:08 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38CMF8I5020182
- for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 23:01:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=Zc0vZJyJWfFNyosgi8H2tJOHP1IfA4elI2XGiPuhFF8=;
- b=Pj8pi283MekIiqwpb5RnjSK5Jm07Z/59xJ48C7pc5u4Q9SEvjry4THaCtRJL0cIxe1yY
- HjB7or+sqEZpEmvr1X1pwjoSbZ9QNerhhY7AvB+WulaxUBfa30Lz5yVXR9Z7KjZHCqAh
- HrcihURvy1xEuCUa3iY4jv5V098caPwMp2vTg3dobmkM6zSkcmQfzNGCWvVqwDZvknfX
- YKlvbcyf9A5DFio1K8GUG4dPBLyonBrCNAr9hvNSP6OONhz4x9cn+asJI9SsNL6ChF3a
- ZTa7A3CzmULcPlGFTbPb0Ia7sSXZwINuFWc44J32XHXQ8CwU5R8lcVNecBNL2I+K8vin mA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t2y8e06u4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 23:01:07 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38CN0me9030573
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 12 Sep 2023 23:00:48 GMT
-Received: from [10.110.110.137] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Tue, 12 Sep
- 2023 16:00:47 -0700
-Message-ID: <f535858e-0d91-4dae-f10d-a16c1f1f4c7a@quicinc.com>
-Date: Tue, 12 Sep 2023 16:00:46 -0700
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15AE810E037;
+ Wed, 13 Sep 2023 01:47:07 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-9a9d6b98845so97014866b.0; 
+ Tue, 12 Sep 2023 18:47:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1694569625; x=1695174425; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Nw2vbwh9Prl2aL4eCjxqEEuY3ibeNqCIYYpwmGgbBKk=;
+ b=KD8xTCPA+gK/N4QuzSRFl9NaqOUpAE2q6vDSzozOveyWkMjVsy5DGCI3P1F7D9l19U
+ G6i7TZZBHxjTZhrIYCYrLX8logRAlEqMjFAHXyNKO5m7cxhpYQ5B+xR9qTsh+8MxdfKO
+ w5CPqz2XD+seGcsZs+DD6/XiCfTVFa7Hc0Ziu5UBxodptx0bId2pE3jP0CJJDZA8Lfy1
+ pakPe4/xdbdDsLtXvATs/m9IMcPgAqmo5mu+AFStLMZ4cI+1LHhJG4MZgPRUPKfAS13L
+ JRT6EHC5MmjaNX8H0SP+gvQAdbTnsQUCPxAnUAMIRQT9fIzo5mtr3sWAcuXb/FjFXF5E
+ qiBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694569625; x=1695174425;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Nw2vbwh9Prl2aL4eCjxqEEuY3ibeNqCIYYpwmGgbBKk=;
+ b=f6F902h+MwqjiFpLI3cOpVOlKQ4WX4pG5+LLj8H5YSicaT0UEvh1l0OOV3R8vJvBg0
+ aeJl2Ruv2USIIi6HO7y21k2OhpI4i7ME+vnuYHzU82szk2zTZ3mdBrbHWMh6rkLwge4Q
+ 0EhqcpmhuZ1onRCoQjGHEB1jc1NpjoBVxxtun/yPREHU8/JTwjFhYigg8FWShyVZm7dt
+ +EQr9C/nZqiPGOED0E9AgIL2IUVrZJc/njsbUhW185YPQd9WKSOo+z9vFWbZOUpALxlq
+ eIIoeyUUQfCRt4gZQsqHcgh2Mc7eisyY+JMvGHtDUqgoa2iyZ6bOYKwo4D+Rs1bRmdpC
+ Ix1g==
+X-Gm-Message-State: AOJu0Yyhtc9UFOL525tSY1uCbgMAZMpiyUMdsElqwYgtbHgBtUx5z+JR
+ Jh1LQtryRw//YojrYWLTqxl30HHRfoqjCVxMFS4=
+X-Google-Smtp-Source: AGHT+IH9cpCU/7Zs/hX2BjtG9840MbiSgk277qyUw73/CDt/MTKZHbRGAldZh5h9dMja6DQe2blemM8bcrEFXPMnBd0=
+X-Received: by 2002:a17:906:cc0d:b0:9a2:86a:f9c0 with SMTP id
+ ml13-20020a170906cc0d00b009a2086af9c0mr1955824ejb.1.1694569625097; Tue, 12
+ Sep 2023 18:47:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: <freedreno@lists.freedesktop.org>
-References: <20230901142034.580802-1-jani.nikula@intel.com>
- <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n52T4VGVVKqZCJwhpxe=vLUb7WNi=J0hdsHFOqA95u-Ymg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: dWbIzmpRLIr0mWqew_27SrGbtF3-vhyc
-X-Proofpoint-GUID: dWbIzmpRLIr0mWqew_27SrGbtF3-vhyc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-12_22,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- mlxlogscore=999 phishscore=0 impostorscore=0 lowpriorityscore=0 mlxscore=0
- clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2308100000
- definitions=main-2309120196
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: skip validity check for DP CTS
- EDID checksum
+References: <20230912084044.955864-1-adrian.larumbe@collabora.com>
+ <20230912084044.955864-7-adrian.larumbe@collabora.com>
+ <20230912113210.65897aab@collabora.com>
+In-Reply-To: <20230912113210.65897aab@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 12 Sep 2023 18:46:52 -0700
+Message-ID: <CAF6AEGtzOS89V1vbobpSEb9KX8x9T0FfmkW2OAaxAKLs+GugKA@mail.gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v4 6/6] drm/drm-file: Show finer-grained BO
+ sizes in drm_show_memory_stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,44 +71,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
+ healych@amazon.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 9/7/2023 2:46 PM, Stephen Boyd wrote:
-> Quoting Jani Nikula (2023-09-01 07:20:34)
->> The DP CTS test for EDID last block checksum expects the checksum for
->> the last block, invalid or not. Skip the validity check.
->>
->> For the most part (*), the EDIDs returned by drm_get_edid() will be
->> valid anyway, and there's the CTS workaround to get the checksum for
->> completely invalid EDIDs. See commit 7948fe12d47a ("drm/msm/dp: return
->> correct edid checksum after corrupted edid checksum read").
->>
->> This lets us remove one user of drm_edid_block_valid() with hopes the
->> function can be removed altogether in the future.
->>
->> (*) drm_get_edid() ignores checksum errors on CTA extensions.
->>
->> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Cc: Kuogee Hsieh <khsieh@codeaurora.org>
->> Cc: Marijn Suijten <marijn.suijten@somainline.org>
->> Cc: Rob Clark <robdclark@gmail.com>
->> Cc: Sean Paul <sean@poorly.run>
->> Cc: Stephen Boyd <swboyd@chromium.org>
->> Cc: linux-arm-msm@vger.kernel.org
->> Cc: freedreno@lists.freedesktop.org
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+On Tue, Sep 12, 2023 at 2:32=E2=80=AFAM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
 >
->> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
->> index 42d52510ffd4..86a8e06c7a60 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->> @@ -289,26 +289,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
->>
->>   static u8 dp_panel_get_edid_checksum(struct edid *edid)
-> It would be nice to make 'edid' const here in another patch.
+> On Tue, 12 Sep 2023 09:37:00 +0100
+> Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+>
+> > The current implementation will try to pick the highest available size
+> > display unit as soon as the BO size exceeds that of the previous
+> > multiplier. That can lead to loss of precision in BO's whose size is
+> > not a multiple of a MiB.
+> >
+> > Fix it by changing the unit selection criteria.
+> >
+> > For much bigger BO's, their size will naturally be aligned on something
+> > bigger than a 4 KiB page, so in practice it is very unlikely their disp=
+lay
+> > unit would default to KiB.
+>
+> Let's wait for Rob's opinion on this.
+
+This would mean that if you have SZ_1G + SZ_1K worth of buffers, you'd
+report the result in KiB.. which seems like overkill to me, esp given
+that the result is just a snapshot in time of a figure that
+realistically is dynamic.
+
+Maybe if you have SZ_1G+SZ_1K worth of buffers you should report the
+result with more precision than GiB, but more than MiB seems a bit
+overkill.
+
+BR,
+-R
+
+> >
+> > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/drm_file.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> > index 762965e3d503..bf7d2fe46bfa 100644
+> > --- a/drivers/gpu/drm/drm_file.c
+> > +++ b/drivers/gpu/drm/drm_file.c
+> > @@ -879,7 +879,7 @@ static void print_size(struct drm_printer *p, const=
+ char *stat,
+> >       unsigned u;
+> >
+> >       for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
+> > -             if (sz < SZ_1K)
+> > +             if (sz & (SZ_1K - 1))
+> >                       break;
+> >               sz =3D div_u64(sz, SZ_1K);
+> >       }
+>
