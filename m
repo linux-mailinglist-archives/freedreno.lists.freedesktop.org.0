@@ -2,107 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2182279F1F0
-	for <lists+freedreno@lfdr.de>; Wed, 13 Sep 2023 21:23:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7039D79F9E2
+	for <lists+freedreno@lfdr.de>; Thu, 14 Sep 2023 07:07:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7C8310E0F4;
-	Wed, 13 Sep 2023 19:23:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B20C810E50B;
+	Thu, 14 Sep 2023 05:07:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45C1010E0F9
- for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 19:23:57 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2bcb50e194dso2508351fa.3
- for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 12:23:57 -0700 (PDT)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD37110E50B
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Sep 2023 05:07:29 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-9ad8bf9bfabso70150266b.3
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 22:07:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694633035; x=1695237835; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=yb6IOfY9+vEec+6xIf+iuXQW3Hl/QkNUzvliIRsca1Y=;
- b=Hd5HDjEGSn6/KRZLtmXwc+lJOJnxNBsYQbK/rSXkzW0TSVam1v4k6hZ8Yamda8zm18
- zeSu27gx1FKWEcNib2jRQCsB1QiJGPoz2ZLu+MWYCLxsNhS+pR9cDf38BhrDYr2pO2p3
- qYRGbkklMcSEYquVzE5g/MIOshL7RSLeYUGjDu36B+XG7bvVqyESWNdwvTxX0eiaDubO
- z77AiYMDr9xGyRwWaeTsjMb/K5KJ3szSVDOkOqNvRd87O728JQT1xRgGuWheiwAWzfgR
- wH3Dvq7eDTfQgQiVoAyzbgNKgDwFZX0MsbhlWHKf/ZE7bK+2FgwUhVw+FxP+a+zqol0k
- bpKw==
+ d=linaro.org; s=google; t=1694668048; x=1695272848; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/FDKM0kqt8x0UbxVfV3bjcjIyAdF1y2yMeGqfjlTgnI=;
+ b=PHtODBl4oagIf+hSXAMFtFo4uqAP1wVTzIk+3USutvDNSwFxrbg03yQDVVqWo010s5
+ WpaUMTwMhdshXi6B00qRXyBn11MHPhAF3wSPt7zzZ/t3lLR90h9fcXJCY6kWdeeeKY46
+ 5Opz4JYDmzD84Mu/+p3asRz6VylJTJu31EAuRFcwkcXf0N0rEGFZSmDOd3ZcmTnpQ2Tv
+ ufCJmIMuS+v3mHr9YF38MWF4hrgsT9xQTpqdvCbIUXBOg0Gbut2QZROl1m9f8ndE3cYj
+ cljmEax3Xt4ibSinY3tFcj+/02V0DYAhA+PACKnKaREbTdS2Jm3MqOVxkLJhnRlDRPlS
+ p+Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694633035; x=1695237835;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=yb6IOfY9+vEec+6xIf+iuXQW3Hl/QkNUzvliIRsca1Y=;
- b=PVEcg+AbyspVXuTFYV9WZ0VpVe4jcFj9ceQ9j01F32of74Y05xIKAFMZ/PqPNfbHSs
- qj1aVu37Vb6FkoFWPjN/kVaIhpvGD0AbkOwX/5oIHcw3PvFAvcgsfq5VXWVfxpOGnj2W
- +shiJe9ozxTJzLT65F5svVqefEOXrwwcSyPwJeVQ5ay5VfxBW9ZceAZYh+8T+Cof30V1
- Z2Vwzgi+XnfKOi62iHFyoULekltasBlG5Wq64nbjHgg3pft5NpOTub5XpqA59OlgnFQW
- tzdcUg4kRlKY+saVV9iGsbevbUknKvz77Je0aLG8rYRKoUWzwwIa00CZkcmYufdOY3N1
- Fesg==
-X-Gm-Message-State: AOJu0Yy9QFk1dg8z/0gz8Q3Z8K08SkzmxYSXZ9NEYyRt+iYlpmfjxplh
- M50xa50xQN7AOkB8fVGWw5zN3A==
-X-Google-Smtp-Source: AGHT+IHibaQxC9XZMGvabyKpHwLmuXyW3R2maLcNHh7+1SVimBcufnescH/IK6NeInai3SZgIMv2kg==
-X-Received: by 2002:a2e:8182:0:b0:2bf:a0d1:b122 with SMTP id
- e2-20020a2e8182000000b002bfa0d1b122mr2926640ljg.5.1694633035453; 
- Wed, 13 Sep 2023 12:23:55 -0700 (PDT)
-Received: from [192.168.37.232]
- (178235177172.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.172])
+ d=1e100.net; s=20230601; t=1694668048; x=1695272848;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/FDKM0kqt8x0UbxVfV3bjcjIyAdF1y2yMeGqfjlTgnI=;
+ b=fGS/TZg/qQ9P1XmITfGF6gcGkZWBRrYH/e6LUVaRTIPkdhpSOa0B5oNQeLUMloAwYe
+ mU3PMDHRp4B9ueaqRHdZfNcpCEx+Txm7qLdVtJz/PO0HIkgn00WkI3r6nfbZve+wZYSO
+ fig1y783NuEA0SqTmWnatecIwlR/HN+9+wC1qbFxSglHWEfynOrMNln4zoYFaGlEdMTe
+ w1f0LC0dJnnY+1wRBbxWKMzQDmQ0lRLQV5HCzaT6V8T2qWBrs8nwpLz5Iq6o+z3kd3kn
+ VOg4pQCQGp5tH8TaxwnHpx5p1EmEjFuLKwopaq61L6UoagFdu+LMnpLDm3PjLfBGYlPP
+ CI7Q==
+X-Gm-Message-State: AOJu0Yx5m0MmTc4xXdv4X079njWNytOSEGrkg8yN9kw0h+wywWRrOtFq
+ XAYXinXMBETa9o0SNGjm0zwg7Ll10WfgmL+3qGk=
+X-Google-Smtp-Source: AGHT+IHtMHUUYGm+veS7ba1V0nWBgHsVD++J4m55U2tdtgdIV/FDoAJGB8Y/p4NrroeH4BC5sdNsBw==
+X-Received: by 2002:a2e:9791:0:b0:2bc:c557:848a with SMTP id
+ y17-20020a2e9791000000b002bcc557848amr3834635lji.50.1694668027841; 
+ Wed, 13 Sep 2023 22:07:07 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- q18-20020a170906a09200b0099b8234a9fesm8901041ejy.1.2023.09.13.12.23.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Sep 2023 12:23:54 -0700 (PDT)
-Message-ID: <7671aa93-3967-45c0-bf09-a2d63a99ced6@linaro.org>
-Date: Wed, 13 Sep 2023 21:23:51 +0200
+ y15-20020a2e978f000000b002bce38190a3sm124777lji.34.2023.09.13.22.07.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Sep 2023 22:07:07 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Thu, 14 Sep 2023 08:06:54 +0300
+Message-Id: <20230914050706.1058620-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Danila Tikhonov <danila@jiaxyga.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- johan+linaro@kernel.org, andersson@kernel.org
-References: <20230913191957.26537-1-danila@jiaxyga.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20230913191957.26537-1-danila@jiaxyga.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: Add support for SM7150 SoC
- machine
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/12] drm/msm/dpu: support virtual wide
+ planes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,65 +73,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13.09.2023 21:19, Danila Tikhonov wrote:
-> SM7150 has 5 power levels which correspond to 5 speed-bin values: 0,
-> 128, 146, 167, 172. Speed-bin value is calulated as FMAX/4.8MHz round up
-> to zero decimal places.
-> 
-> The vendor's FW GMU is called a618_gmu.bin. And also a618 on SM7150 uses
-> a615 zapfw.
-Interesting.
+As promised in the basic wide planes support ([1]) here comes a series
+supporting 2*max_linewidth for all the planes.
 
-GMU fw comes from Qualcomm and should not(?) have any
-vendor modifications, btw.
+Note: Unlike v1 and v2 this series finally includes support for
+additional planes - having more planes than the number of SSPP blocks.
 
-Can you try loading the upstream a630_gmu.bin or a619_gmu.bin
-from linux-firmware and seeing if anything changes?
+Note: this iteration features handling of rotation and reflection of the
+wide plane. However rot90 is still not tested: it is enabled on sc7280
+and it only supports UBWC (tiled) framebuffers, it was quite low on my
+priority list.
 
-> +	}, {
-> +		.machine = "qcom,sm7150",
-> +		.chip_ids = ADRENO_CHIP_IDS(0x06010800),
-> +		.family = ADRENO_6XX_GEN1,
-> +		.revn = 618,
-I'm not sure what Rob's stance on using revn is for values
-that have already been used before..
+[1] https://patchwork.freedesktop.org/series/99909/
 
-Konrad
-> +		.fw = {
-> +			[ADRENO_FW_SQE] = "a630_sqe.fw",
-> +			[ADRENO_FW_GMU] = "a618_gmu.bin",
-> +		},
-> +		.gmem = SZ_512K,
-> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT,
-> +		.init = a6xx_gpu_init,
-> +		.zapfw = "a615_zap.mdt",
-.mbn?
+Changes since v2:
+- Dropped the encoder-related parts, leave all resource allocation as is
+  (Abhinav)
+- Significantly reworked the SSPP allocation code
+- Added debugging code to dump RM state in dri/N/state
 
-> +		.hwcg = a615_hwcg,
-> +		.speedbins = ADRENO_SPEEDBINS(
-> +			{ 0,   0 },
-> +			{ 128, 1 },
-> +			{ 146, 2 },
-> +			{ 167, 3 },
-> +			{ 172, 4 },
-> +		),
->  	}, {
->  		.chip_ids = ADRENO_CHIP_IDS(0x06010800),
->  		.family = ADRENO_6XX_GEN1,
-> @@ -507,6 +529,10 @@ MODULE_FIRMWARE("qcom/a530_zap.b00");
->  MODULE_FIRMWARE("qcom/a530_zap.b01");
->  MODULE_FIRMWARE("qcom/a530_zap.b02");
->  MODULE_FIRMWARE("qcom/a540_gpmu.fw2");
-> +MODULE_FIRMWARE("qcom/a615_zap.mbt");
-> +MODULE_FIRMWARE("qcom/a615_zap.b00");
-> +MODULE_FIRMWARE("qcom/a615_zap.b01");
-> +MODULE_FIRMWARE("qcom/a615_zap.b02");
-and here too?
+Changes since v1:
+- Fixed build error due to me missing one of fixups, it was left
+  uncommitted.
+- Implementated proper handling of wide plane rotation & reflection.
 
-Konrad
+Dmitry Baryshkov (12):
+  drm/atomic-helper: split not-scaling part of
+    drm_atomic_helper_check_plane_state
+  drm/msm/dpu: add current resource allocation to dumped state
+  drm/msm/dpu: take plane rotation into account for wide planes
+  drm/msm/dpu: move pstate->pipe initialization to
+    dpu_plane_atomic_check
+  drm/msm/dpu: split dpu_plane_atomic_check()
+  drm/msm/dpu: move rot90 checking to dpu_plane_atomic_check_pipe()
+  drm/msm/dpu: add support for virtual planes
+  drm/msm/dpu: allow using two SSPP blocks for a single plane
+  drm/msm/dpu: allow sharing SSPP between planes
+  drm/msm/dpu: create additional virtual planes
+  drm/msm/dpu: allow sharing of blending stages
+  drm/msm/dpu: include SSPP allocation state into the dumped state
+
+ drivers/gpu/drm/drm_atomic_helper.c         | 110 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  59 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  26 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 671 ++++++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |  29 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 130 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |  36 ++
+ include/drm/drm_atomic_helper.h             |   7 +
+ 10 files changed, 924 insertions(+), 152 deletions(-)
+
+-- 
+2.39.2
+
