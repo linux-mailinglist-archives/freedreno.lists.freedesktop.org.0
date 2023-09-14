@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015BE79F9C3
-	for <lists+freedreno@lfdr.de>; Thu, 14 Sep 2023 07:07:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC39B79F9D2
+	for <lists+freedreno@lfdr.de>; Thu, 14 Sep 2023 07:07:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C22CE10E4F8;
-	Thu, 14 Sep 2023 05:07:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB6EF10E4FD;
+	Thu, 14 Sep 2023 05:07:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B036610E4F7
- for <freedreno@lists.freedesktop.org>; Thu, 14 Sep 2023 05:07:11 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b95d5ee18dso8314951fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 22:07:11 -0700 (PDT)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C53B10E4F8
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Sep 2023 05:07:12 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2bf78950354so8016441fa.1
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Sep 2023 22:07:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1694668030; x=1695272830; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WDVBklRS/zpCaNNSChXZ8oT1YIvTUFQciSEHjoiQ7eM=;
- b=SxswQ2tzER7E7PXyTXo3LVl/GteC1m+ZfDokJubsUWzW35duOfEkVfi+yuUCLPH+z/
- KApM8NK1QIZke/yv7QF4cWYeyjz5DpJKjR6x0BQIueCJ99Ismy9V2SYtSJGl6F25rmdb
- 8zS4GiVcsi0SIX5mJOzBGYUEIWhHfPBp0QWr+OnKC2ap9rOezwgbyTR3i9RNlEwr9jpz
- nRl5eu7FUQwENB/x5xb5kvJDm4n39xeHIiZto1SxOph025mFo1h2KDCIovpWAVCpAls6
- URwSQrm3hWfkOENgJaofcEGl7YbEk0g+XnZqD2yzReajHR1zKyDmQi7+mMTA3qG75zS0
- KmKQ==
+ bh=9suomYc4Vzy5AzZapu1YS94KIOUFW2mKCkcKbShlaQ0=;
+ b=J2bVcJ8t9U5Jbht3Fb6+Z7LuHNhHz6/rcTGB1ZzhONOaliW0+z7c6FwQbEpVqcTZZ7
+ /jiXfs/Bwi1GLr+faMNt/BecXIJAWnB09WuxNVi3j9HuZvvohGC6TJQ70+HYxK1WMP1T
+ ggLLOoFzuTLFD9C872ZI/RHWWK1PJKbl8oI/amhqqZiI5IRMKLRgI08WxMb+Gd3s2kix
+ QlYXOHt7orfbsjtb2IzDGxpsGzsRJysOy36yLAKvqcD+TxxBQT9BFj0h00J/5ste+9me
+ N+iBAwCH4ERP3T9O69Rm1vNIZUc8pZ6eELuwj5pFZd5UtSvAdETbkuPIf8ZNKad4FijE
+ 9Xiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1694668030; x=1695272830;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WDVBklRS/zpCaNNSChXZ8oT1YIvTUFQciSEHjoiQ7eM=;
- b=NYzZF6jsMcacRbLfpkwF0QzXV6IDiHprSNVEFTvhWYovfkH53DOja5XrfsHGe3Mld2
- 66RoWsQmS18g0KMLgYtPyf9QL0F/rRKlKAWCG4DgKSrERIkXMnTWK7j/DeNMIn4eaZ9f
- uOOKI4xfVx4I3E57ZtAruCt9yJTT9GbZFvM3b8nw9hKvBQ7bPQ3EyWj5sCZjD68xx4Ob
- sapsHX6DVR19LfkBgLxwfh6p+FE6ugwawLcfRYOnSrjlca6pK4L7f+Vlzybx/VkCs/Ne
- VuES6Nq73lIssYsKRAsjMXmhRBSONcx6ntw2zFghonbKInh//zFmnyMX5XxWr/ekwzfe
- m7mg==
-X-Gm-Message-State: AOJu0YzG53sL8EICxm7A6Z0Cu2zc4arrUZ1jQXncjAmwvEbAmfKMfBT/
- HEp+lgVgb3pSXyYVhfflSSwcqw==
-X-Google-Smtp-Source: AGHT+IHPChJTKjldNEoz195k+W1j/GESq9pdPTvGHhkhrGfQyU4w3OWF9yh/r4UEcZrnrjDEfCYaoQ==
-X-Received: by 2002:a2e:9bc3:0:b0:2b9:3684:165 with SMTP id
- w3-20020a2e9bc3000000b002b936840165mr3830429ljj.8.1694668030013; 
+ bh=9suomYc4Vzy5AzZapu1YS94KIOUFW2mKCkcKbShlaQ0=;
+ b=j0a34aFs0VGCrfNY7jAB8E1pFPFrMTcUkaW57Id/MkWLZhjVGzBlfHtbWyjvMxVu4s
+ bacvH9hIZamnpSEWeDCDEInUkEjqGszPVH5BKiFTMPILLCf9AhKbEgRBEK9aVfD76M71
+ D1NMjJE0vFPCeakNFb4HlSkVTFq5ZnqVbn6uZ5sD42hHs+y1OUThXWVQKj7po7MK9jp8
+ WFyzAjYj0c0fBcTa5cvyoq5Cf+bucudrvm7/0kp+3StTbaHkeKRCOWIfp9/OVKu9/Tyg
+ GYBKxBIqWYAO3HIQVF6a7b9mqSN1wslV1CNNQam69Z2YK0Ol91tOb2N7ftXNxOiTdm6H
+ Q5MA==
+X-Gm-Message-State: AOJu0YwS3+n3KuiLzHnGJMhrCToj+PW9ymVNvciBoZGNHutMc4p6rU3x
+ guqKdMturGSB5FL5gmMmVli0rQ==
+X-Google-Smtp-Source: AGHT+IFzh7nuOGuYt7kBaOeC/F2AShvtY1dotEATTEeEelVA9Whsa3NrVOS8Dd0XTgDG1CedEoLzcg==
+X-Received: by 2002:a2e:9590:0:b0:2bf:b142:bd13 with SMTP id
+ w16-20020a2e9590000000b002bfb142bd13mr4352252ljh.4.1694668030746; 
  Wed, 13 Sep 2023 22:07:10 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- y15-20020a2e978f000000b002bce38190a3sm124777lji.34.2023.09.13.22.07.09
+ y15-20020a2e978f000000b002bce38190a3sm124777lji.34.2023.09.13.22.07.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Sep 2023 22:07:09 -0700 (PDT)
+ Wed, 13 Sep 2023 22:07:10 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 14 Sep 2023 08:06:57 +0300
-Message-Id: <20230914050706.1058620-4-dmitry.baryshkov@linaro.org>
+Date: Thu, 14 Sep 2023 08:06:58 +0300
+Message-Id: <20230914050706.1058620-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230914050706.1058620-1-dmitry.baryshkov@linaro.org>
 References: <20230914050706.1058620-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 03/12] drm/msm/dpu: take plane rotation into
- account for wide planes
+Subject: [Freedreno] [PATCH v3 04/12] drm/msm/dpu: move pstate->pipe
+ initialization to dpu_plane_atomic_check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,73 +83,86 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Take into account the plane rotation and flipping when calculating src
-positions for the wide plane parts.
+In preparation for virtualized planes support, move pstate->pipe
+initialization from dpu_plane_reset() to dpu_plane_atomic_check(). In
+case of virtual planes the plane's pipe will not be known up to the
+point of atomic_check() callback.
 
-This is not an issue yet, because rotation is only supported for the
-UBWC planes and wide UBWC planes are rejected anyway because in parallel
-multirect case only the half of the usual width is supported for tiled
-formats. However it's better to fix this now rather than stumbling upon
-it later.
-
-Fixes: 80e8ae3b38ab ("drm/msm/dpu: add support for wide planes")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++---------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 26 +++++++++++------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index c2aaaded07ed..67f9c2a62a17 100644
+index 67f9c2a62a17..3a75c474c4cd 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -827,16 +827,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		return -EINVAL;
+@@ -785,6 +785,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 	int ret = 0, min_scale;
+ 	struct dpu_plane *pdpu = to_dpu_plane(plane);
+ 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
++	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+ 	struct dpu_sw_pipe *pipe = &pstate->pipe;
+ 	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
+ 	const struct drm_crtc_state *crtc_state = NULL;
+@@ -795,13 +796,22 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 	uint32_t max_linewidth;
+ 	unsigned int rotation;
+ 	uint32_t supported_rotations;
+-	const struct dpu_sspp_cfg *pipe_hw_caps = pstate->pipe.sspp->cap;
+-	const struct dpu_sspp_sub_blks *sblk = pstate->pipe.sspp->cap->sblk;
++	const struct dpu_sspp_cfg *pipe_hw_caps;
++	const struct dpu_sspp_sub_blks *sblk;
+ 
+ 	if (new_plane_state->crtc)
+ 		crtc_state = drm_atomic_get_new_crtc_state(state,
+ 							   new_plane_state->crtc);
+ 
++	pipe->sspp = dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
++	r_pipe->sspp = NULL;
++
++	if (!pipe->sspp)
++		return -EINVAL;
++
++	pipe_hw_caps = pipe->sspp->cap;
++	sblk = pipe->sspp->cap->sblk;
++
+ 	min_scale = FRAC_16_16(1, sblk->maxupscale);
+ 	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+ 						  min_scale,
+@@ -818,7 +828,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 	pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+ 	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+ 	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+-	r_pipe->sspp = NULL;
+ 
+ 	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
+ 	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
+@@ -1302,7 +1311,6 @@ static void dpu_plane_reset(struct drm_plane *plane)
+ {
+ 	struct dpu_plane *pdpu;
+ 	struct dpu_plane_state *pstate;
+-	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+ 
+ 	if (!plane) {
+ 		DPU_ERROR("invalid plane\n");
+@@ -1324,16 +1332,6 @@ static void dpu_plane_reset(struct drm_plane *plane)
+ 		return;
  	}
  
--	pipe_cfg->src_rect = new_plane_state->src;
+-	/*
+-	 * Set the SSPP here until we have proper virtualized DPU planes.
+-	 * This is the place where the state is allocated, so fill it fully.
+-	 */
+-	pstate->pipe.sspp = dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
+-	pstate->pipe.multirect_index = DPU_SSPP_RECT_SOLO;
+-	pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
 -
--	/* state->src is 16.16, src_rect is not */
--	pipe_cfg->src_rect.x1 >>= 16;
--	pipe_cfg->src_rect.x2 >>= 16;
--	pipe_cfg->src_rect.y1 >>= 16;
--	pipe_cfg->src_rect.y2 >>= 16;
+-	pstate->r_pipe.sspp = NULL;
 -
--	pipe_cfg->dst_rect = new_plane_state->dst;
--
- 	fb_rect.x2 = new_plane_state->fb->width;
- 	fb_rect.y2 = new_plane_state->fb->height;
+ 	__drm_atomic_helper_plane_reset(plane, &pstate->base);
+ }
  
-@@ -852,6 +842,15 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 
- 	max_linewidth = pdpu->catalog->caps->max_linewidth;
- 
-+	/* state->src is 16.16, src_rect is not */
-+	drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
-+
-+	pipe_cfg->dst_rect = new_plane_state->dst;
-+
-+	drm_rect_rotate(&pipe_cfg->src_rect,
-+			new_plane_state->fb->width, new_plane_state->fb->height,
-+			new_plane_state->rotation);
-+
- 	if (drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) {
- 		/*
- 		 * In parallel multirect case only the half of the usual width
-@@ -899,6 +898,14 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 		r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
- 	}
- 
-+	drm_rect_rotate_inv(&pipe_cfg->src_rect,
-+			    new_plane_state->fb->width, new_plane_state->fb->height,
-+			    new_plane_state->rotation);
-+	if (r_pipe->sspp)
-+		drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
-+				    new_plane_state->fb->width, new_plane_state->fb->height,
-+				    new_plane_state->rotation);
-+
- 	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
- 	if (ret)
- 		return ret;
 -- 
 2.39.2
 
