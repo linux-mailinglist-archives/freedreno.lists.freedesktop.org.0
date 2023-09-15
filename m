@@ -2,48 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 929877A1123
-	for <lists+freedreno@lfdr.de>; Fri, 15 Sep 2023 00:39:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC337A19B7
+	for <lists+freedreno@lfdr.de>; Fri, 15 Sep 2023 10:56:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD6910E5AA;
-	Thu, 14 Sep 2023 22:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83EE110E5FD;
+	Fri, 15 Sep 2023 08:55:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAE9C10E59C;
- Thu, 14 Sep 2023 22:39:39 +0000 (UTC)
-Received: from localhost.localdomain (unknown
- [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D97E610E5FB;
+ Fri, 15 Sep 2023 08:55:44 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 4F8406607356;
- Thu, 14 Sep 2023 23:39:38 +0100 (BST)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id F198966072BB;
+ Fri, 15 Sep 2023 09:55:42 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1694731178;
- bh=o/iAnyoRLcVir53WqRf/gPFuGD/IX2JK6SO8vfDKfz0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i2va4uwsWHN9fBDL6qqNuj/kVsL2ikwCM6q5Lr9UruIrghN9Dt/0Kzi0VWXE+Kzp5
- RifYuBnRSONBHEjiU6YLR+SVptssqyOBjeS9e5Tm2hLIVAOtHMM+3PWtQ7LY7Ot5Qg
- vN674UVRBrbbGqPX25s9I2q3opABis+IEdKSsurmqxGACR0sjvUFDZMIhyjZAk/1we
- HM43AC40Hnpjw7V43rZS7DDFqgJAK2xLGQ8qCC9AD8oJCH/2J3IGTurrBrLIvnNBG8
- G3w3dyhuCT0CgJBAy7vRqx6danx3WfK8jNSk74oW8Wt2UkTAXhwWVZ5KfQUmvbeQyD
- ZJrprymAfvRfg==
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, daniel@ffwll.ch, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
-Date: Thu, 14 Sep 2023 23:38:44 +0100
-Message-ID: <20230914223928.2374933-7-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230914223928.2374933-1-adrian.larumbe@collabora.com>
+ s=mail; t=1694768143;
+ bh=+lTKM1jeejz9rZU9eT5TrluIuSbG1Vh8fDRF3LgkNnI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=SI3i9Zhj0Qsd/nfH6idkojingBexc2muS7LOU6kgO+YvSTWmnAZgZITNki40fV4tY
+ LUwABop1vgFEjK7f4d8nof45yOERdeRyD0Do6IB5GXgrbCOxCsP9NhKDujWUm0AqHH
+ vtBuDgFWnODvdO8SLMNUcu7PPOzC/2HAFzJLoaVqEPjdixXHZEJntaZU+2siPos/tJ
+ 6CQ+/CYsn5qFcCayqgvAKbAB9nlYHs4TeCIhVx2j0XEh6J9dBAKA2Maodu1+bUc+9V
+ 1bhU1pNw1NlQGeiOUclOX3QC+yqie0qDlbLj4g4AUMEih0R/aVyDeqpG15e1ZL0tZ9
+ X7mSLmf2cdmMA==
+Date: Fri, 15 Sep 2023 10:55:39 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Message-ID: <20230915105539.23724780@collabora.com>
+In-Reply-To: <20230914223928.2374933-7-adrian.larumbe@collabora.com>
 References: <20230914223928.2374933-1-adrian.larumbe@collabora.com>
+ <20230914223928.2374933-7-adrian.larumbe@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 6/6] drm/drm-file: Show finer-grained BO
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v5 6/6] drm/drm-file: Show finer-grained BO
  sizes in drm_show_memory_stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,49 +54,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- healych@amazon.com, kernel@collabora.com, freedreno@lists.freedesktop.org
+Cc: robh@kernel.org, kernel@collabora.com, tzimmermann@suse.de, sean@poorly.run,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, robdclark@gmail.com,
+ healych@amazon.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
+ airlied@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The current implementation will try to pick the highest available size
-display unit as soon as the BO size exceeds that of the previous
-multiplier. That can lead to loss of precision in contexts of low memory
-usage.
+On Thu, 14 Sep 2023 23:38:44 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-The new selection criteria try to preserve precision, whilst also
-increasing the display unit selection threshold to render more accurate
-values.
+> The current implementation will try to pick the highest available size
+> display unit as soon as the BO size exceeds that of the previous
+> multiplier. That can lead to loss of precision in contexts of low memory
+> usage.
+>=20
+> The new selection criteria try to preserve precision, whilst also
+> increasing the display unit selection threshold to render more accurate
+> values.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/drm_file.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 762965e3d503..34cfa128ffe5 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -872,6 +872,8 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
- }
- EXPORT_SYMBOL(drm_send_event);
- 
-+#define UPPER_UNIT_THRESHOLD 100
-+
- static void print_size(struct drm_printer *p, const char *stat,
- 		       const char *region, u64 sz)
- {
-@@ -879,7 +881,8 @@ static void print_size(struct drm_printer *p, const char *stat,
- 	unsigned u;
- 
- 	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
--		if (sz < SZ_1K)
-+		if ((sz & (SZ_1K - 1)) &&
-+		    sz < UPPER_UNIT_THRESHOLD * SZ_1K)
- 			break;
- 		sz = div_u64(sz, SZ_1K);
- 	}
--- 
-2.42.0
+> ---
+>  drivers/gpu/drm/drm_file.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 762965e3d503..34cfa128ffe5 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -872,6 +872,8 @@ void drm_send_event(struct drm_device *dev, struct dr=
+m_pending_event *e)
+>  }
+>  EXPORT_SYMBOL(drm_send_event);
+> =20
+> +#define UPPER_UNIT_THRESHOLD 100
+> +
+>  static void print_size(struct drm_printer *p, const char *stat,
+>  		       const char *region, u64 sz)
+>  {
+> @@ -879,7 +881,8 @@ static void print_size(struct drm_printer *p, const c=
+har *stat,
+>  	unsigned u;
+> =20
+>  	for (u =3D 0; u < ARRAY_SIZE(units) - 1; u++) {
+> -		if (sz < SZ_1K)
+> +		if ((sz & (SZ_1K - 1)) &&
+> +		    sz < UPPER_UNIT_THRESHOLD * SZ_1K)
+>  			break;
+>  		sz =3D div_u64(sz, SZ_1K);
+>  	}
 
