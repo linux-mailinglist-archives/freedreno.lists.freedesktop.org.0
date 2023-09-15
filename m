@@ -2,104 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31AE7A1F7F
-	for <lists+freedreno@lfdr.de>; Fri, 15 Sep 2023 15:06:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E676A7A25C4
+	for <lists+freedreno@lfdr.de>; Fri, 15 Sep 2023 20:31:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85BB210E628;
-	Fri, 15 Sep 2023 13:06:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C26B10E673;
+	Fri, 15 Sep 2023 18:31:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB7A10E628
- for <freedreno@lists.freedesktop.org>; Fri, 15 Sep 2023 13:06:04 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5007616b756so3385767e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 15 Sep 2023 06:06:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694783163; x=1695387963; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rMQU2iB6d4JbJ9Lix0AyO92KSE3XJoqrLgHyeWAj8aA=;
- b=ZKu97LcABUhCohGojJMgnkRgyFP3OpYPw05a3xX6kDxJ/hEf2yezqAHtvErSH6Uwep
- SLt9dyR0WP8YRACIflxKlD+lzrFvv11BhQsuoqFUnauMiWJyt0hCW9bqndVNx85X53KZ
- 6QPwDDTWWGY6JplOs54CGI24fKp5GaWLUO6P2qY6TfgwNhdyJnAmiBUU+Fvi04CTb4Cj
- wzlg7NPuZnrUXZJuB9bvD54Qt7Tt18aKD56HOJz6xA/9iEFXIZn+vwuv4iXdQHQtuD2e
- r28TRVasz8ALAxQD4pmz1rPeoRw1FuJ99zQKypA4RZL/QElTLRYVoK8pBEsaEMQhEnAI
- As5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694783163; x=1695387963;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rMQU2iB6d4JbJ9Lix0AyO92KSE3XJoqrLgHyeWAj8aA=;
- b=xKlN6n+FuqGC16cji/eaYE1nJ977jUTtklk1V0JVBUMu2j5c3Mv/NBSuGA8gyJEHVJ
- zLF1wpSR0E3dAuVfnPCY6mu3fWxFI2spsLQecQIimX3dC0TiqREFf9UGpwgrm3YwVPKb
- Q0T9UfKd3TWFPW33VPyNs07wwtPzETeAHcUABmsxnrQg+jEUoEMjYF+LklVcSaSRriJi
- bO3yaazqy4g7prrqJ9Y/r3OdwgtyVAGLyt6XaPDGcCIAnDWw0cL3rSxh6+xTmIZEve3g
- D1W/bLG0HD4XNyNsfHpjXEpUTM2t2YYOGem+r7pjJxGDqJ1WHrEKNBF6PVe1i8yai5JD
- TKig==
-X-Gm-Message-State: AOJu0YyZOCggAHZE9dTlzbte3NUnEDV4RmdGI35t0aPS89xzznuTKtuh
- WANE860TQ7rbJZjiClLanv+rfw==
-X-Google-Smtp-Source: AGHT+IEZ0pUZ+ocKIuGOC+X+hvZ+8BwKaiYpFipQ5GcK+OX2vM1EYW4zDF92ZhgsXc5RvIi51R8qxg==
-X-Received: by 2002:a05:6512:3f15:b0:4fd:d92e:31ca with SMTP id
- y21-20020a0565123f1500b004fdd92e31camr1865778lfa.36.1694783163099; 
- Fri, 15 Sep 2023 06:06:03 -0700 (PDT)
-Received: from ?IPV6:2a00:f41:cbe:bc7d:62a6:5d09:5ba7:be5b?
- ([2a00:f41:cbe:bc7d:62a6:5d09:5ba7:be5b])
- by smtp.gmail.com with ESMTPSA id
- h17-20020a197011000000b004fe4d45f56bsm642070lfc.68.2023.09.15.06.06.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Sep 2023 06:06:02 -0700 (PDT)
-Message-ID: <49b5d2ae-994e-4db2-b01d-edb573cc2513@linaro.org>
-Date: Fri, 15 Sep 2023 15:06:00 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496A910E672;
+ Fri, 15 Sep 2023 18:31:01 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38FDXXmO026417; Fri, 15 Sep 2023 18:30:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=R4xBY1UUZCfkSUnpw+JHzAtgUmwmgVegPSoN6/p3CIU=;
+ b=d7yX0ANCVS4FlggXku0F/7T/c43meGS0VyFEpskwXsXmDEL/08tNIIy077F7DO53wv/2
+ ejoQmSWVcDKPq/SKqLjTgFesDuqFnmtZecKOszfhOC+is5Q/IsH/DT0r5oHwoTad8+TY
+ 0AjZx9pFnZ9zBPxKfdb81I20YsDXOvu67rxcXsGlRceC9aE99ub/EP4/Iwu6ZHH4vjaP
+ nq5akeaxelSG2coIgv8hiBXz8iAHrd0nNWPel1QfIv0MZutiZav1YJezQQDUOOQ36s/5
+ h5+/SZrBZjh+SiL57VffndXhZoIRZkk4W/tssoUv7holAaNW/Df6bdxDYjX60AoqVeDU lA== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t4g2xhwun-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Sep 2023 18:30:25 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38FIUPC7006174
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Sep 2023 18:30:25 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Fri, 15 Sep 2023 11:30:24 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Hai Li <hali@codeaurora.org>
+Date: Fri, 15 Sep 2023 11:30:10 -0700
+Message-ID: <20230915183010.32077-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@linaro.org>, Hai Li <hali@codeaurora.org>
-References: <4f3c5c98-04f7-43f7-900f-5d7482c83eef@moroto.mountain>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <4f3c5c98-04f7-43f7-900f-5d7482c83eef@moroto.mountain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: fix irq_of_parse_and_map()
- error checking
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: hndVajsFzIa8dLFhtWYczTtZ2is2qXDo
+X-Proofpoint-ORIG-GUID: hndVajsFzIa8dLFhtWYczTtZ2is2qXDo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-15_15,2023-09-15_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1011
+ phishscore=0 impostorscore=0 adultscore=0 mlxlogscore=999 bulkscore=0
+ mlxscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2309150166
+Subject: [Freedreno] [PATCH] drm/msm/dsi: skip the wait for video mode done
+ if not applicable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,25 +83,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: quic_jesszhan@quicinc.com, quic_parellan@quicinc.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15.09.2023 14:59, Dan Carpenter wrote:
-> The irq_of_parse_and_map() function returns zero on error.  It
-> never returns negative error codes.  Fix the check.
-> 
-> Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+dsi_wait4video_done() API wait for the DSI video mode engine to
+become idle so that we can transmit the DCS commands in the
+beginning of BLLP. However, with the current sequence, the MDP
+timing engine is turned on after the panel's pre_enable() callback
+which can send out the DCS commands needed to power up the panel.
 
-Nice catch!
+During those cases, this API will always timeout and print out the
+error spam leading to long bootup times and log flooding.
 
-Konrad
+Fix this by checking if the DSI video engine was actually busy before
+waiting for it to become idle otherwise this is a redundant wait.
+
+Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 0c4ec0530efc..31495e423c56 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1075,9 +1075,21 @@ static void dsi_wait4video_done(struct msm_dsi_host *msm_host)
+ 
+ static void dsi_wait4video_eng_busy(struct msm_dsi_host *msm_host)
+ {
++	u32 data;
++
++	data = dsi_read(msm_host, REG_DSI_STATUS0);
++
+ 	if (!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO))
+ 		return;
+ 
++	/* if video mode engine is not busy, its because
++	 * either timing engine was not turned on or the
++	 * DSI controller has finished transmitting the video
++	 * data already, so no need to wait in those cases
++	 */
++	if (!(data & DSI_STATUS0_VIDEO_MODE_ENGINE_BUSY))
++		return;
++
+ 	if (msm_host->power_on && msm_host->enabled) {
+ 		dsi_wait4video_done(msm_host);
+ 		/* delay 4 ms to skip BLLP */
+-- 
+2.40.1
+
