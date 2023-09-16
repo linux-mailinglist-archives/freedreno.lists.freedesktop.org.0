@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8574C7A2D00
-	for <lists+freedreno@lfdr.de>; Sat, 16 Sep 2023 03:22:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F7937A2D19
+	for <lists+freedreno@lfdr.de>; Sat, 16 Sep 2023 03:49:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B6C10E6BD;
-	Sat, 16 Sep 2023 01:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFBF10E0A2;
+	Sat, 16 Sep 2023 01:49:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
  [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E45D210E6BC
- for <freedreno@lists.freedesktop.org>; Sat, 16 Sep 2023 01:21:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9C3E10E0A2
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Sep 2023 01:48:58 +0000 (UTC)
 Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-59c0442a359so19231497b3.0
- for <freedreno@lists.freedesktop.org>; Fri, 15 Sep 2023 18:21:56 -0700 (PDT)
+ 00721157ae682-59c0442a359so19339097b3.0
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Sep 2023 18:48:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694827316; x=1695432116; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1694828938; x=1695433738; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=m8BKz5UCMmU/bXzuDaUcle9qWzHdZ3DqG5/pm4LxWZc=;
- b=bSA58/J3fJxX6keyVUKPEX1kt1iSnIXNMWtGHlMLxdVoktZCiCN3dsh9wnqBCnVj5M
- +8I1ubZTRrv8n9Kdj+/9VTdeyqvNHgLuFnrt2g3FE+BZTgMnYud9FtMEu4XkFkdk6t/N
- yxtG/qYQtdyb9MIpb20d38167xX/3vkqsGxtt4X0ToxNDqfJnANht/6nP/1GnsxmpCW0
- b35qWjir7fOTlN9oc40QKKEqatDbo9MsWfVZY9fRulK2pHo+Vfy99/B3G09qH2LJu8aE
- ZJE0qcDx71/wUH2Cpt39c/cPOZYN83aFH30CznL/+lpNtf/YObCLGfuQgZVuho39BwwP
- VQsA==
+ bh=5JTYH8flv3ccT8c+yWqT7G6+6E5/spC5WmqITXpaM+4=;
+ b=japIyZ/SIP4BczgLqfjOuRTGhXxCOFEpqwQQYIOJRVzXjjAzPp2Wqor2e+Ek++R4uP
+ UbzcCwbzZ+qQk5M696sZOEv9+RE4PrBS427ZesRdB4Yy0wMdAJ+JsG3+6cOQRwDtKEBW
+ 9+500L6VJL+CLHYhjOGtL022uDPPJKQyRNGUFauk+hP09u2nwbXtkHVHmzPSor7RRzvv
+ XnadYKqLZTUusL4jrlUMne2U2vKNd3RsU2zqflZWA4vNe1Kh89ncPF7e3YU9Vuy/f4KE
+ HF80RBK5qnKHkM4eOhyAQzoNxyg7elyBCQHWpBrnDWTjlaGsQNpD6ZyrjDSbcS6hKeCg
+ fhgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694827316; x=1695432116;
+ d=1e100.net; s=20230601; t=1694828938; x=1695433738;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=m8BKz5UCMmU/bXzuDaUcle9qWzHdZ3DqG5/pm4LxWZc=;
- b=LgUpW8j/YYfPWdWZrGJ+RI+5vor1fPudLwVfPZCihl54QW5qKzaPft1Qe6zzSbvX7t
- 7tuqoh8nXWe0ioIxAbyobFB96O6TIr0G3amebRG5bChrReLe+SrBOQsdP6aH8hzcShFa
- Mc6nIe7ns2KYCpPeuJ/kW76ss5JmA+y8xQHUBNZOx7Ib/Sl26iD8Gvx4U6PzYqETm4xZ
- aj3+lz1XxmBV6gLXJyxBv/xrwgAPn9Pw5pjL5s5LDTdffbHnTfzqlaCkxB1tr7PwPKUa
- KBIf7R5MFxy+8oWfyICumvTYwiAgSU5mBOelzZwIlEwbSDLz6rjMNWzHyQ4kxKoaYXx9
- pGww==
-X-Gm-Message-State: AOJu0YxfLh8e7764yGxpIE7qSMr9iNbtifB/f/FqeHAaxA/E24YNNQdB
- liM15BHyStXqPGPoXxy+Ks/m66vWR83PUsPjsXArXw==
-X-Google-Smtp-Source: AGHT+IGirGUvVmFPjV1cL+A1J69fNhmFXvjIP8Zn0NDxSV0Q4j7kEjWfjiCMmV5s1uEqTsShPsx9NphwFc9WmDZ13ck=
-X-Received: by 2002:a81:914d:0:b0:570:65df:21dc with SMTP id
- i74-20020a81914d000000b0057065df21dcmr3509921ywg.3.1694827316007; Fri, 15 Sep
- 2023 18:21:56 -0700 (PDT)
+ bh=5JTYH8flv3ccT8c+yWqT7G6+6E5/spC5WmqITXpaM+4=;
+ b=wx/YngMBPs5H0CCyPgZGoyetjv66Z2YRIx0LloNGidz5oPZOxRl+2McFH7K5SgaV2C
+ ruBh8DJY5gSLdeSad5U2qEQF1bvgAUnJnUamIloQNdRbWnQ2kcTTxTZqeDV14Pw/nH5b
+ j0YD4GZ8/xDLiOVD5v34pDC0TBoISU5ZSrnffuk32ylao6BQ9bl1uT0l5yaYlN0r1Iib
+ YKTvTiGhrencMdJTVt8ZSAAQTDBCvnZM3vdMXMVuOU6AADHJXjKmSzsfaUXNi9F7vNjj
+ kFirP3oF9TaZREPzyHPWGRoomCddNZWmF52m7agq0il+CMJCvSmkIYAJm3j/VvrzEqUG
+ gV6g==
+X-Gm-Message-State: AOJu0Yz/OSD6EVPWz151ysfiOLf2ReaColzSgVfD7HvS7ZmP5spLoWT5
+ jK/rGzIBLrbDsO5+kk2G+0RcjkAaOUNIMjl2W0qVJA==
+X-Google-Smtp-Source: AGHT+IGRwD+CVCZwzYDp2F79teBO7fCL/jHf+5wWXzV3pA94Oz27NZOScR4iVc75l04OEdB8BVk2xlaaSO+CFmQeENU=
+X-Received: by 2002:a81:d551:0:b0:599:241d:3a31 with SMTP id
+ l17-20020a81d551000000b00599241d3a31mr3623512ywj.43.1694828937863; Fri, 15
+ Sep 2023 18:48:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
- <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-8-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1694813901-26952-8-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 16 Sep 2023 04:21:44 +0300
-Message-ID: <CAA8EJpqPXoFX4LXyXYgfh07Vpxg-KgD8VBR6x5bXf4GOJmbOtw@mail.gmail.com>
+Date: Sat, 16 Sep 2023 04:48:46 +0300
+Message-ID: <CAA8EJpo7tM+DHWhWD8o2oXU+Htosqv5q6JfzK3hrNi-h8fwRFg@mail.gmail.com>
 To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dp: add
- pm_runtime_force_suspend()/resume()
+Subject: Re: [Freedreno] [PATCH v3 7/7] drm/msm/dp: move
+ of_dp_aux_populate_bus() to eDP probe()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,169 +77,229 @@ Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+On Sat, 16 Sept 2023 at 00:39, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
-> Add pm_runtime_force_suspend()/resume() to complete incorporating pm
-> runtime framework into DP driver. Both dp_pm_prepare() and dp_pm_complete()
-> are added to set hpd_state to correct state. After resume, DP driver will
-> re training its main link after .hpd_enable() callback enabled HPD
-> interrupts and bring up display accordingly.
-
-How will it re-train the main link? What is the code path for that?
-
-I think this is a misuse for prepare/complete callbacks, at least
-judging from their documentation.
-
+> Currently eDP population is done at msm_dp_modeset_init() which happen
+> at binding time. Move eDP population to be done at display probe time
+> so that probe deferral cases can be handled effectively.
+> wait_for_hpd_asserted callback is added during drm_dp_aux_init()
+> to ensure eDP's HPD is up before proceeding eDP population.
 >
 > Changes in v3:
-> -- replace dp_pm_suspend() with pm_runtime_force_suspend()
-> -- replace dp_pm_resume() with pm_runtime_force_resume()
+> -- add done_probing callback into devm_of_dp_aux_populate_bus()
 >
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 87 +++++--------------------------------
->  1 file changed, 10 insertions(+), 77 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_aux.c     | 25 ++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_display.c | 79 ++++++++++++++++++-------------------
+>  2 files changed, 64 insertions(+), 40 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+> index 8fa93c5..79f0c6e 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> @@ -507,6 +507,21 @@ void dp_aux_unregister(struct drm_dp_aux *dp_aux)
+>         drm_dp_aux_unregister(dp_aux);
+>  }
+>
+> +static int dp_wait_hpd_asserted(struct drm_dp_aux *dp_aux,
+> +                                unsigned long wait_us)
+> +{
+> +       int ret;
+> +       struct dp_aux_private *aux;
+> +
+> +       aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
+> +
+> +       pm_runtime_get_sync(aux->dev);
+> +       ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
+> +       pm_runtime_put_sync(aux->dev);
+> +
+> +       return ret;
+> +}
+> +
+>  struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
+>                               bool is_edp)
+>  {
+> @@ -530,6 +545,16 @@ struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
+>         aux->catalog = catalog;
+>         aux->retry_cnt = 0;
+>
+> +       /*
+> +        * Use the drm_dp_aux_init() to use the aux adapter
+> +        * before registering aux with the DRM device.
+> +        */
+
+Usual comment: this describes what, but should be documenting why.
+
+> +       aux->dp_aux.name = "dpu_dp_aux";
+> +       aux->dp_aux.dev = dev;
+> +       aux->dp_aux.transfer = dp_aux_transfer;
+> +       aux->dp_aux.wait_hpd_asserted = dp_wait_hpd_asserted;
+
+Then the relevant code should be removed before a call to drm_dp_aux_register().
+
+> +       drm_dp_aux_init(&aux->dp_aux);
+> +
+>         return &aux->dp_aux;
+>  }
 >
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index b6992202..b58cb02 100644
+> index b58cb02..886fae5 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1333,101 +1333,35 @@ static int dp_pm_runtime_resume(struct device *dev)
+> @@ -310,8 +310,6 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+>
+>         kthread_stop(dp->ev_tsk);
+>
+> -       of_dp_aux_depopulate_bus(dp->aux);
+> -
+>         dp_power_client_deinit(dp->power);
+>         dp_unregister_audio_driver(dev, dp->audio);
+>         dp_aux_unregister(dp->aux);
+> @@ -1217,6 +1215,31 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
+>         return NULL;
+>  }
+>
+> +static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
+> +{
+> +       int rc;
+> +
+> +       rc = component_add(aux->dev, &dp_display_comp_ops);
+> +       if (rc)
+> +               DRM_ERROR("eDP component add failed, rc=%d\n", rc);
+> +
+> +       return rc;
+> +}
+> +
+> +static int dp_display_auxbus_population(struct dp_display_private *dp)
+> +{
+> +       struct device *dev = &dp->pdev->dev;
+> +       struct device_node *aux_bus;
+> +       int ret = 0;
+> +
+> +       aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
+
+device_node refcount leak.
+
+But I think that the aux-bus existence check is incorrect here.
+of_dp_aux_populate_bus() will check and return -ENODEV if there is no
+aux-bus subnode.
+
+And once you have dropped the aux_bus check, you can safely inline
+this function.
+
+> +
+> +       if (aux_bus)
+> +               ret = devm_of_dp_aux_populate_bus(dp->aux, dp_auxbus_done_probe);
+> +
+> +       return ret;
+> +}
+> +
+>  static int dp_display_probe(struct platform_device *pdev)
+>  {
+>         int rc = 0;
+> @@ -1282,10 +1305,16 @@ static int dp_display_probe(struct platform_device *pdev)
+>         if (rc)
+>                 return rc;
+>
+> -       rc = component_add(&pdev->dev, &dp_display_comp_ops);
+> -       if (rc) {
+> -               DRM_ERROR("component add failed, rc=%d\n", rc);
+> -               dp_display_deinit_sub_modules(dp);
+> +       if (dp->dp_display.is_edp) {
+> +               rc = dp_display_auxbus_population(dp);
+> +               if (rc)
+> +                       DRM_ERROR("eDP auxbus population failed, rc=%d\n", rc);
+> +       } else {
+> +               rc = component_add(&pdev->dev, &dp_display_comp_ops);
+> +               if (rc) {
+> +                       DRM_ERROR("component add failed, rc=%d\n", rc);
+> +                       dp_display_deinit_sub_modules(dp);
+> +               }
+>         }
+>
+>         return rc;
+> @@ -1296,14 +1325,13 @@ static int dp_display_remove(struct platform_device *pdev)
+>         struct dp_display_private *dp = dev_get_dp_display_private(&pdev->dev);
+>
+>         component_del(&pdev->dev, &dp_display_comp_ops);
+> -       dp_display_deinit_sub_modules(dp);
+> -
+>         platform_set_drvdata(pdev, NULL);
+>
+> -       pm_runtime_put_sync_suspend(&pdev->dev);
+>         pm_runtime_dont_use_autosuspend(&pdev->dev);
+>         pm_runtime_disable(&pdev->dev);
+>
+> +       dp_display_deinit_sub_modules(dp);
+
+These changes should be reasoned.
+
+> +
 >         return 0;
 >  }
 >
-> -static int dp_pm_resume(struct device *dev)
-> +static void dp_pm_complete(struct device *dev)
+> @@ -1432,31 +1460,10 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
+>
+>  static int dp_display_get_next_bridge(struct msm_dp *dp)
 >  {
-> -       struct platform_device *pdev = to_platform_device(dev);
-> -       struct msm_dp *dp_display = platform_get_drvdata(pdev);
-> -       struct dp_display_private *dp;
-> -       int sink_count = 0;
+> -       int rc;
+> +       int rc = 0;
+
+Is there a need to set it to 0?
+
+
+>         struct dp_display_private *dp_priv;
+> -       struct device_node *aux_bus;
+> -       struct device *dev;
+>
+>         dp_priv = container_of(dp, struct dp_display_private, dp_display);
+> -       dev = &dp_priv->pdev->dev;
+> -       aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
 > -
-> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
-> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
->
->         mutex_lock(&dp->event_mutex);
->
->         drm_dbg_dp(dp->drm_dev,
-> -               "Before, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
-> +               "type=%d core_inited=%d phy_inited=%d power_on=%d\n",
->                 dp->dp_display.connector_type, dp->core_initialized,
-> -               dp->phy_initialized, dp_display->power_on);
-> +               dp->phy_initialized, dp->dp_display.power_on);
->
->         /* start from disconnected state */
->         dp->hpd_state = ST_DISCONNECTED;
->
-> -       /* turn on dp ctrl/phy */
-> -       dp_display_host_init(dp);
-> -
-> -       if (dp_display->is_edp)
-> -               dp_catalog_ctrl_hpd_enable(dp->catalog);
-> -
-> -       if (dp_catalog_link_is_connected(dp->catalog)) {
+> -       if (aux_bus && dp->is_edp) {
 > -               /*
-> -                * set sink to normal operation mode -- D0
-> -                * before dpcd read
+> -                * The code below assumes that the panel will finish probing
+> -                * by the time devm_of_dp_aux_populate_ep_devices() returns.
+> -                * This isn't a great assumption since it will fail if the
+> -                * panel driver is probed asynchronously but is the best we
+> -                * can do without a bigger driver reorganization.
 > -                */
-> -               dp_display_host_phy_init(dp);
-> -               dp_link_psm_config(dp->link, &dp->panel->link_info, false);
-> -               sink_count = drm_dp_read_sink_count(dp->aux);
-> -               if (sink_count < 0)
-> -                       sink_count = 0;
-> -
-> -               dp_display_host_phy_exit(dp);
+> -               rc = of_dp_aux_populate_bus(dp_priv->aux, NULL);
+> -               of_node_put(aux_bus);
+> -               if (rc)
+> -                       goto error;
+> -       } else if (dp->is_edp) {
+> -               DRM_ERROR("eDP aux_bus not found\n");
+> -               return -ENODEV;
 > -       }
-> -
-> -       dp->link->sink_count = sink_count;
-> -       /*
-> -        * can not declared display is connected unless
-> -        * HDMI cable is plugged in and sink_count of
-> -        * dongle become 1
-> -        * also only signal audio when disconnected
-> -        */
-> -       if (dp->link->sink_count) {
-> -               dp->dp_display.link_ready = true;
-> -       } else {
-> -               dp->dp_display.link_ready = false;
-> -               dp_display_handle_plugged_change(dp_display, false);
+>
+>         /*
+>          * External bridges are mandatory for eDP interfaces: one has to
+> @@ -1469,17 +1476,9 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>         if (!dp->is_edp && rc == -ENODEV)
+>                 return 0;
+>
+> -       if (!rc) {
+> +       if (!rc)
+>                 dp->next_bridge = dp_priv->parser->next_bridge;
+> -               return 0;
 > -       }
-> -
-> -       drm_dbg_dp(dp->drm_dev,
-> -               "After, type=%d sink=%d conn=%d core_init=%d phy_init=%d power=%d\n",
-> -               dp->dp_display.connector_type, dp->link->sink_count,
-> -               dp->dp_display.link_ready, dp->core_initialized,
-> -               dp->phy_initialized, dp_display->power_on);
-> -
->         mutex_unlock(&dp->event_mutex);
-> -
-> -       return 0;
+>
+> -error:
+> -       if (dp->is_edp) {
+> -               of_dp_aux_depopulate_bus(dp_priv->aux);
+> -               dp_display_host_phy_exit(dp_priv);
+> -               dp_display_host_deinit(dp_priv);
+> -       }
+>         return rc;
 >  }
 >
-> -static int dp_pm_suspend(struct device *dev)
-> +static int dp_pm_prepare(struct device *dev)
->  {
-> -       struct platform_device *pdev = to_platform_device(dev);
-> -       struct msm_dp *dp_display = platform_get_drvdata(pdev);
-> -       struct dp_display_private *dp;
-> -
-> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
-> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
->
->         mutex_lock(&dp->event_mutex);
->
-> -       drm_dbg_dp(dp->drm_dev,
-> -               "Before, type=%d core_inited=%d  phy_inited=%d power_on=%d\n",
-> -               dp->dp_display.connector_type, dp->core_initialized,
-> -               dp->phy_initialized, dp_display->power_on);
-> -
->         /* mainlink enabled */
->         if (dp_power_clk_status(dp->power, DP_CTRL_PM))
->                 dp_ctrl_off_link_stream(dp->ctrl);
->
-> -       dp_display_host_phy_exit(dp);
-> -
-> -       /* host_init will be called at pm_resume */
-> -       dp_display_host_deinit(dp);
-> -
->         dp->hpd_state = ST_SUSPENDED;
->
-> -       drm_dbg_dp(dp->drm_dev,
-> -               "After, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
-> -               dp->dp_display.connector_type, dp->core_initialized,
-> -               dp->phy_initialized, dp_display->power_on);
-> -
->         mutex_unlock(&dp->event_mutex);
->
->         return 0;
-> @@ -1435,8 +1369,10 @@ static int dp_pm_suspend(struct device *dev)
->
->  static const struct dev_pm_ops dp_pm_ops = {
->         SET_RUNTIME_PM_OPS(dp_pm_runtime_suspend, dp_pm_runtime_resume, NULL)
-> -       .suspend = dp_pm_suspend,
-> -       .resume =  dp_pm_resume,
-> +       SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> +                                pm_runtime_force_resume)
-> +       .prepare = dp_pm_prepare,
-> +       .complete = dp_pm_complete,
->  };
->
->  static struct platform_driver dp_display_driver = {
-> @@ -1670,9 +1606,6 @@ void dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
->
->         dp_display = container_of(dp, struct dp_display_private, dp_display);
->
-> -       if (dp->is_edp)
-> -               dp_hpd_unplug_handle(dp_display, 0);
-> -
->         mutex_lock(&dp_display->event_mutex);
->
->         state = dp_display->hpd_state;
 > --
 > 2.7.4
 >
 
 
--- 
+--
 With best wishes
 Dmitry
