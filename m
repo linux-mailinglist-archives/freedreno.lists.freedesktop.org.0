@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7937A2D19
-	for <lists+freedreno@lfdr.de>; Sat, 16 Sep 2023 03:49:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C932E7A2D26
+	for <lists+freedreno@lfdr.de>; Sat, 16 Sep 2023 03:51:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFBF10E0A2;
-	Sat, 16 Sep 2023 01:49:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09DAB8825E;
+	Sat, 16 Sep 2023 01:51:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9C3E10E0A2
- for <freedreno@lists.freedesktop.org>; Sat, 16 Sep 2023 01:48:58 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-59c0442a359so19339097b3.0
- for <freedreno@lists.freedesktop.org>; Fri, 15 Sep 2023 18:48:58 -0700 (PDT)
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 113A510E6A1
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Sep 2023 01:51:48 +0000 (UTC)
+Received: by mail-yb1-xb2d.google.com with SMTP id
+ 3f1490d57ef6-d81d09d883dso1130047276.0
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Sep 2023 18:51:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694828938; x=1695433738; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1694829107; x=1695433907; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=5JTYH8flv3ccT8c+yWqT7G6+6E5/spC5WmqITXpaM+4=;
- b=japIyZ/SIP4BczgLqfjOuRTGhXxCOFEpqwQQYIOJRVzXjjAzPp2Wqor2e+Ek++R4uP
- UbzcCwbzZ+qQk5M696sZOEv9+RE4PrBS427ZesRdB4Yy0wMdAJ+JsG3+6cOQRwDtKEBW
- 9+500L6VJL+CLHYhjOGtL022uDPPJKQyRNGUFauk+hP09u2nwbXtkHVHmzPSor7RRzvv
- XnadYKqLZTUusL4jrlUMne2U2vKNd3RsU2zqflZWA4vNe1Kh89ncPF7e3YU9Vuy/f4KE
- HF80RBK5qnKHkM4eOhyAQzoNxyg7elyBCQHWpBrnDWTjlaGsQNpD6ZyrjDSbcS6hKeCg
- fhgg==
+ bh=eqNQwvCRvzhNFUM4Xk8w/poEBc9Vi+BUYPDpyIE14H8=;
+ b=R9AVqKClwAaygegMND9QoUFTK1o7d9IoCGcmU3ExmsfsAU1NN0z9I7WZWkpIi8h99f
+ fu1YTASqr+jjnQdRdzyCsWtxRDYQjCXJpNix7a9VgETmYIYu2zTHhRgIWMaCRGKM1Wpr
+ 2CWj03zvIq/SS3/YGHtSvdBDjHTV2zH0FOx09Q6rTvxlD6MP8g+CmjiwF7pAzEXzCkxL
+ reXQiJUYWHbTGb7d3HHNQXOFA9MeeY4LOXBUeOtw7vOcDJO8PN7IoxyqmOFLK0gbYLGa
+ ER1T+zMthb2XauxhJ6Igcyxm6DM1E+vQhOFdqnlN2y48I/c9TJLOceH0hY+jLilRc1cN
+ Z2iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694828938; x=1695433738;
+ d=1e100.net; s=20230601; t=1694829107; x=1695433907;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=5JTYH8flv3ccT8c+yWqT7G6+6E5/spC5WmqITXpaM+4=;
- b=wx/YngMBPs5H0CCyPgZGoyetjv66Z2YRIx0LloNGidz5oPZOxRl+2McFH7K5SgaV2C
- ruBh8DJY5gSLdeSad5U2qEQF1bvgAUnJnUamIloQNdRbWnQ2kcTTxTZqeDV14Pw/nH5b
- j0YD4GZ8/xDLiOVD5v34pDC0TBoISU5ZSrnffuk32ylao6BQ9bl1uT0l5yaYlN0r1Iib
- YKTvTiGhrencMdJTVt8ZSAAQTDBCvnZM3vdMXMVuOU6AADHJXjKmSzsfaUXNi9F7vNjj
- kFirP3oF9TaZREPzyHPWGRoomCddNZWmF52m7agq0il+CMJCvSmkIYAJm3j/VvrzEqUG
- gV6g==
-X-Gm-Message-State: AOJu0Yz/OSD6EVPWz151ysfiOLf2ReaColzSgVfD7HvS7ZmP5spLoWT5
- jK/rGzIBLrbDsO5+kk2G+0RcjkAaOUNIMjl2W0qVJA==
-X-Google-Smtp-Source: AGHT+IGRwD+CVCZwzYDp2F79teBO7fCL/jHf+5wWXzV3pA94Oz27NZOScR4iVc75l04OEdB8BVk2xlaaSO+CFmQeENU=
-X-Received: by 2002:a81:d551:0:b0:599:241d:3a31 with SMTP id
- l17-20020a81d551000000b00599241d3a31mr3623512ywj.43.1694828937863; Fri, 15
- Sep 2023 18:48:57 -0700 (PDT)
+ bh=eqNQwvCRvzhNFUM4Xk8w/poEBc9Vi+BUYPDpyIE14H8=;
+ b=k8IaMkLsdk6lNvldT2FGZVC4spy34C7ONM5i+/Jm2DPvwLtE0g6p3dtdkl5MghW8CL
+ YPQ1l4z00kGJKQ17XPtDQpKywb9aGLF8ebuWNLDG7LwroR+ZXx35aMi/iYOV+gj/Ytgc
+ DCDCa0VX46PkocMzcg8zmMAE3ZbULjS/gyDg4lRI4We473+Z+9y6KGyy7QYY8PFp1lIH
+ 8RxOmKjfIVu3HvZSXU19KLJVHwjxdfpKLffhXFuEwDm3pmAEReAUkU6r3gCcid45Qcc0
+ hS52gF/uJSzLFfehYzaN8GapJzONaBWfBcDsSYSCo5CFqXo3pOXgNA5jyruuU2+hODln
+ 6opw==
+X-Gm-Message-State: AOJu0Yzg7rowT+tHfjGyoMW0UMkKbcpDfYcB3c1kxCRUIao0PjiYpMpS
+ sPJaRVlc5OY/MkmFB4tn2l5p3DuDsp5+VpjavgRz/Q==
+X-Google-Smtp-Source: AGHT+IG71idRyutnZFqe2Q+EcTypw3iqJoSMsXZ5Cl3htTxCNf0SRBSzc4iZj/PuWdGVOHoBt8xeITM4p606svQV468=
+X-Received: by 2002:a25:e644:0:b0:d0a:fbef:1590 with SMTP id
+ d65-20020a25e644000000b00d0afbef1590mr2856112ybh.37.1694829106986; Fri, 15
+ Sep 2023 18:51:46 -0700 (PDT)
 MIME-Version: 1.0
 References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
- <1694813901-26952-8-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1694813901-26952-8-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1694813901-26952-3-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 16 Sep 2023 04:48:46 +0300
-Message-ID: <CAA8EJpo7tM+DHWhWD8o2oXU+Htosqv5q6JfzK3hrNi-h8fwRFg@mail.gmail.com>
+Date: Sat, 16 Sep 2023 04:51:36 +0300
+Message-ID: <CAA8EJprRrTW3pqmjVbfKG5t8t_QNGvPboETNgaAUxg3PvkRjcA@mail.gmail.com>
 To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 7/7] drm/msm/dp: move
- of_dp_aux_populate_bus() to eDP probe()
+Subject: Re: [Freedreno] [PATCH v3 2/7] drm/msm/dp: replace is_connected
+ with link_ready
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,229 +77,159 @@ Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 16 Sept 2023 at 00:39, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
-> Currently eDP population is done at msm_dp_modeset_init() which happen
-> at binding time. Move eDP population to be done at display probe time
-> so that probe deferral cases can be handled effectively.
-> wait_for_hpd_asserted callback is added during drm_dp_aux_init()
-> to ensure eDP's HPD is up before proceeding eDP population.
->
-> Changes in v3:
-> -- add done_probing callback into devm_of_dp_aux_populate_bus()
+> The is_connected flag is set to true after DP mainlink successfully
+> finish link training. Replace the is_connected flag with link_ready
+
+finishes.
+Also this is not a replace, this patch renames the flag.
+
+> flag to avoid confusing.
+
+confusing what with what?
+
 >
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_aux.c     | 25 ++++++++++++
->  drivers/gpu/drm/msm/dp/dp_display.c | 79 ++++++++++++++++++-------------------
->  2 files changed, 64 insertions(+), 40 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index 8fa93c5..79f0c6e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -507,6 +507,21 @@ void dp_aux_unregister(struct drm_dp_aux *dp_aux)
->         drm_dp_aux_unregister(dp_aux);
->  }
->
-> +static int dp_wait_hpd_asserted(struct drm_dp_aux *dp_aux,
-> +                                unsigned long wait_us)
-> +{
-> +       int ret;
-> +       struct dp_aux_private *aux;
-> +
-> +       aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
-> +
-> +       pm_runtime_get_sync(aux->dev);
-> +       ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
-> +       pm_runtime_put_sync(aux->dev);
-> +
-> +       return ret;
-> +}
-> +
->  struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
->                               bool is_edp)
->  {
-> @@ -530,6 +545,16 @@ struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
->         aux->catalog = catalog;
->         aux->retry_cnt = 0;
->
-> +       /*
-> +        * Use the drm_dp_aux_init() to use the aux adapter
-> +        * before registering aux with the DRM device.
-> +        */
-
-Usual comment: this describes what, but should be documenting why.
-
-> +       aux->dp_aux.name = "dpu_dp_aux";
-> +       aux->dp_aux.dev = dev;
-> +       aux->dp_aux.transfer = dp_aux_transfer;
-> +       aux->dp_aux.wait_hpd_asserted = dp_wait_hpd_asserted;
-
-Then the relevant code should be removed before a call to drm_dp_aux_register().
-
-> +       drm_dp_aux_init(&aux->dp_aux);
-> +
->         return &aux->dp_aux;
->  }
+>  drivers/gpu/drm/msm/dp/dp_display.c | 19 +++++++++----------
+>  drivers/gpu/drm/msm/dp/dp_display.h |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_drm.c     | 14 +++++++-------
+>  3 files changed, 17 insertions(+), 18 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index b58cb02..886fae5 100644
+> index c217430..18d16c7 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -310,8 +310,6 @@ static void dp_display_unbind(struct device *dev, struct device *master,
->
->         kthread_stop(dp->ev_tsk);
->
-> -       of_dp_aux_depopulate_bus(dp->aux);
-> -
->         dp_power_client_deinit(dp->power);
->         dp_unregister_audio_driver(dev, dp->audio);
->         dp_aux_unregister(dp->aux);
-> @@ -1217,6 +1215,31 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
->         return NULL;
+> @@ -367,12 +367,11 @@ static void dp_display_send_hpd_event(struct msm_dp *dp_display)
+>         drm_helper_hpd_irq_event(connector->dev);
 >  }
 >
-> +static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
-> +{
-> +       int rc;
-> +
-> +       rc = component_add(aux->dev, &dp_display_comp_ops);
-> +       if (rc)
-> +               DRM_ERROR("eDP component add failed, rc=%d\n", rc);
-> +
-> +       return rc;
-> +}
-> +
-> +static int dp_display_auxbus_population(struct dp_display_private *dp)
-> +{
-> +       struct device *dev = &dp->pdev->dev;
-> +       struct device_node *aux_bus;
-> +       int ret = 0;
-> +
-> +       aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-
-device_node refcount leak.
-
-But I think that the aux-bus existence check is incorrect here.
-of_dp_aux_populate_bus() will check and return -ENODEV if there is no
-aux-bus subnode.
-
-And once you have dropped the aux_bus check, you can safely inline
-this function.
-
-> +
-> +       if (aux_bus)
-> +               ret = devm_of_dp_aux_populate_bus(dp->aux, dp_auxbus_done_probe);
-> +
-> +       return ret;
-> +}
-> +
->  static int dp_display_probe(struct platform_device *pdev)
+> -
+>  static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+>                                             bool hpd)
 >  {
->         int rc = 0;
-> @@ -1282,10 +1305,16 @@ static int dp_display_probe(struct platform_device *pdev)
->         if (rc)
->                 return rc;
+> -       if ((hpd && dp->dp_display.is_connected) ||
+> -                       (!hpd && !dp->dp_display.is_connected)) {
+> +       if ((hpd && dp->dp_display.link_ready) ||
+> +                       (!hpd && !dp->dp_display.link_ready)) {
+>                 drm_dbg_dp(dp->drm_dev, "HPD already %s\n",
+>                                 (hpd ? "on" : "off"));
+>                 return 0;
+> @@ -382,7 +381,7 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+>         if (!hpd)
+>                 dp->panel->video_test = false;
 >
-> -       rc = component_add(&pdev->dev, &dp_display_comp_ops);
-> -       if (rc) {
-> -               DRM_ERROR("component add failed, rc=%d\n", rc);
-> -               dp_display_deinit_sub_modules(dp);
-> +       if (dp->dp_display.is_edp) {
-> +               rc = dp_display_auxbus_population(dp);
-> +               if (rc)
-> +                       DRM_ERROR("eDP auxbus population failed, rc=%d\n", rc);
-> +       } else {
-> +               rc = component_add(&pdev->dev, &dp_display_comp_ops);
-> +               if (rc) {
-> +                       DRM_ERROR("component add failed, rc=%d\n", rc);
-> +                       dp_display_deinit_sub_modules(dp);
-> +               }
+> -       dp->dp_display.is_connected = hpd;
+> +       dp->dp_display.link_ready = hpd;
+>
+>         drm_dbg_dp(dp->drm_dev, "type=%d hpd=%d\n",
+>                         dp->dp_display.connector_type, hpd);
+> @@ -922,7 +921,7 @@ int dp_display_set_plugged_cb(struct msm_dp *dp_display,
+>
+>         dp_display->plugged_cb = fn;
+>         dp_display->codec_dev = codec_dev;
+> -       plugged = dp_display->is_connected;
+> +       plugged = dp_display->link_ready;
+>         dp_display_handle_plugged_change(dp_display, plugged);
+>
+>         return 0;
+> @@ -1352,16 +1351,16 @@ static int dp_pm_resume(struct device *dev)
+>          * also only signal audio when disconnected
+>          */
+>         if (dp->link->sink_count) {
+> -               dp->dp_display.is_connected = true;
+> +               dp->dp_display.link_ready = true;
+>         } else {
+> -               dp->dp_display.is_connected = false;
+> +               dp->dp_display.link_ready = false;
+>                 dp_display_handle_plugged_change(dp_display, false);
 >         }
 >
->         return rc;
-> @@ -1296,14 +1325,13 @@ static int dp_display_remove(struct platform_device *pdev)
->         struct dp_display_private *dp = dev_get_dp_display_private(&pdev->dev);
+>         drm_dbg_dp(dp->drm_dev,
+>                 "After, type=%d sink=%d conn=%d core_init=%d phy_init=%d power=%d\n",
+>                 dp->dp_display.connector_type, dp->link->sink_count,
+> -               dp->dp_display.is_connected, dp->core_initialized,
+> +               dp->dp_display.link_ready, dp->core_initialized,
+>                 dp->phy_initialized, dp_display->power_on);
 >
->         component_del(&pdev->dev, &dp_display_comp_ops);
-> -       dp_display_deinit_sub_modules(dp);
-> -
->         platform_set_drvdata(pdev, NULL);
+>         mutex_unlock(&dp->event_mutex);
+> @@ -1754,8 +1753,8 @@ void dp_bridge_hpd_notify(struct drm_bridge *bridge,
+>                 return;
+>         }
 >
-> -       pm_runtime_put_sync_suspend(&pdev->dev);
->         pm_runtime_dont_use_autosuspend(&pdev->dev);
->         pm_runtime_disable(&pdev->dev);
+> -       if (!dp_display->is_connected && status == connector_status_connected)
+> +       if (!dp_display->link_ready && status == connector_status_connected)
+>                 dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+> -       else if (dp_display->is_connected && status == connector_status_disconnected)
+> +       else if (dp_display->link_ready && status == connector_status_disconnected)
+>                 dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+>  }
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+> index b3c08de..d65693e 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+> @@ -16,7 +16,7 @@ struct msm_dp {
+>         struct drm_bridge *bridge;
+>         struct drm_connector *connector;
+>         struct drm_bridge *next_bridge;
+> -       bool is_connected;
+> +       bool link_ready;
+>         bool audio_enabled;
+>         bool power_on;
+>         unsigned int connector_type;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 785d766..ee945ca 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -24,10 +24,10 @@ static enum drm_connector_status dp_bridge_detect(struct drm_bridge *bridge)
 >
-> +       dp_display_deinit_sub_modules(dp);
-
-These changes should be reasoned.
-
-> +
->         return 0;
+>         dp = to_dp_bridge(bridge)->dp_display;
+>
+> -       drm_dbg_dp(dp->drm_dev, "is_connected = %s\n",
+> -               (dp->is_connected) ? "true" : "false");
+> +       drm_dbg_dp(dp->drm_dev, "link_ready = %s\n",
+> +               (dp->link_ready) ? "true" : "false");
+>
+> -       return (dp->is_connected) ? connector_status_connected :
+> +       return (dp->link_ready) ? connector_status_connected :
+>                                         connector_status_disconnected;
 >  }
 >
-> @@ -1432,31 +1460,10 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
+> @@ -40,8 +40,8 @@ static int dp_bridge_atomic_check(struct drm_bridge *bridge,
 >
->  static int dp_display_get_next_bridge(struct msm_dp *dp)
->  {
-> -       int rc;
-> +       int rc = 0;
-
-Is there a need to set it to 0?
-
-
->         struct dp_display_private *dp_priv;
-> -       struct device_node *aux_bus;
-> -       struct device *dev;
+>         dp = to_dp_bridge(bridge)->dp_display;
 >
->         dp_priv = container_of(dp, struct dp_display_private, dp_display);
-> -       dev = &dp_priv->pdev->dev;
-> -       aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-> -
-> -       if (aux_bus && dp->is_edp) {
-> -               /*
-> -                * The code below assumes that the panel will finish probing
-> -                * by the time devm_of_dp_aux_populate_ep_devices() returns.
-> -                * This isn't a great assumption since it will fail if the
-> -                * panel driver is probed asynchronously but is the best we
-> -                * can do without a bigger driver reorganization.
-> -                */
-> -               rc = of_dp_aux_populate_bus(dp_priv->aux, NULL);
-> -               of_node_put(aux_bus);
-> -               if (rc)
-> -                       goto error;
-> -       } else if (dp->is_edp) {
-> -               DRM_ERROR("eDP aux_bus not found\n");
-> -               return -ENODEV;
-> -       }
+> -       drm_dbg_dp(dp->drm_dev, "is_connected = %s\n",
+> -               (dp->is_connected) ? "true" : "false");
+> +       drm_dbg_dp(dp->drm_dev, "link_ready = %s\n",
+> +               (dp->link_ready) ? "true" : "false");
 >
 >         /*
->          * External bridges are mandatory for eDP interfaces: one has to
-> @@ -1469,17 +1476,9 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
->         if (!dp->is_edp && rc == -ENODEV)
->                 return 0;
+>          * There is no protection in the DRM framework to check if the display
+> @@ -55,7 +55,7 @@ static int dp_bridge_atomic_check(struct drm_bridge *bridge,
+>          * After that this piece of code can be removed.
+>          */
+>         if (bridge->ops & DRM_BRIDGE_OP_HPD)
+> -               return (dp->is_connected) ? 0 : -ENOTCONN;
+> +               return (dp->link_ready) ? 0 : -ENOTCONN;
 >
-> -       if (!rc) {
-> +       if (!rc)
->                 dp->next_bridge = dp_priv->parser->next_bridge;
-> -               return 0;
-> -       }
->
-> -error:
-> -       if (dp->is_edp) {
-> -               of_dp_aux_depopulate_bus(dp_priv->aux);
-> -               dp_display_host_phy_exit(dp_priv);
-> -               dp_display_host_deinit(dp_priv);
-> -       }
->         return rc;
+>         return 0;
 >  }
+> @@ -78,7 +78,7 @@ static int dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *
+>         dp = to_dp_bridge(bridge)->dp_display;
 >
+>         /* pluggable case assumes EDID is read when HPD */
+> -       if (dp->is_connected) {
+> +       if (dp->link_ready) {
+>                 rc = dp_display_get_modes(dp);
+>                 if (rc <= 0) {
+>                         DRM_ERROR("failed to get DP sink modes, rc=%d\n", rc);
 > --
 > 2.7.4
 >
 
 
---
+-- 
 With best wishes
 Dmitry
