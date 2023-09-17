@@ -2,56 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 403957A2E0B
-	for <lists+freedreno@lfdr.de>; Sat, 16 Sep 2023 07:26:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD5227A37DC
+	for <lists+freedreno@lfdr.de>; Sun, 17 Sep 2023 21:26:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED2C110E0BB;
-	Sat, 16 Sep 2023 05:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 731E410E08E;
+	Sun, 17 Sep 2023 19:26:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C19910E0BB;
- Sat, 16 Sep 2023 05:26:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694841983; x=1726377983;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=sQqNUz8NvUk6DBasGIZFf64Imf283b8WYPr38zLikEA=;
- b=OIZ4pbKaFCn0nM0FDzobFYXxyceV5hWbYn0mEmLEFnHci7Sygv12/SRe
- Wlsnh5OZJvLbHoi5J23cz9+iAfYvFAWzX7SBu3nUeExPQB/DbLkSZ+cKD
- 0QhlR+dImVEMSv2U6y/drkDcRvrcmFThB854oYUjrSqdqfPtSwiJSUmgt
- Xy3/0hQmm2NALE9UVhDNRPnkeMbyNihs/+bLu3smHin3T3LnFqE/77Muv
- iMiYFkE3ZM5AciacFWkkT3G6cuhCCsbw99WXzjMECE+uchKoc5r+fd69F
- FpHNXHZ5qmkAGSjUymnmP+tuxYO4op07iBlI2h9CpEsRBd8OvxiphWxzH A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445860726"
-X-IronPort-AV: E=Sophos;i="6.02,151,1688454000"; d="scan'208";a="445860726"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 22:26:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="860400269"
-X-IronPort-AV: E=Sophos;i="6.02,151,1688454000"; d="scan'208";a="860400269"
-Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
- by fmsmga002.fm.intel.com with ESMTP; 15 Sep 2023 22:26:18 -0700
-Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qhNou-0003ts-09;
- Sat, 16 Sep 2023 05:26:16 +0000
-Date: Sat, 16 Sep 2023 13:25:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
- airlied@gmail.com, agross@kernel.org, dmitry.baryshkov@linaro.org,
- andersson@kernel.org
-Message-ID: <202309161321.UeiYRcIs-lkp@intel.com>
-References: <1694813901-26952-5-git-send-email-quic_khsieh@quicinc.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED28410E08E
+ for <freedreno@lists.freedesktop.org>; Sun, 17 Sep 2023 19:26:21 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E311860D2C;
+ Sun, 17 Sep 2023 19:26:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1E8C433A9;
+ Sun, 17 Sep 2023 19:26:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1694978780;
+ bh=XTziQflBtU2AkACxr/MEtdaIzxCY2gQQPHQEj56nd50=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cYQTENl93CszGXYt8aPSk1yUD7xFAi5Kg1byJGx9hiDrgATs3eEPDuL/aQVJhi6E7
+ MV3USSSJPTJ9HhEUmzB+Rs8jMoS5z+IAB8+CdZYeXCm0LUgiVC3uyOznCAv9l1bS4R
+ 6QA37W75/V4MDGcHSn18Sq2DHnluM/PP/cWWENoQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Date: Sun, 17 Sep 2023 21:10:12 +0200
+Message-ID: <20230917191105.347169382@linuxfoundation.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230917191101.035638219@linuxfoundation.org>
+References: <20230917191101.035638219@linuxfoundation.org>
+User-Agent: quilt/0.67
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1694813901-26952-5-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v3 4/7] drm/msm/dp: incorporate pm_runtime
- framework into DP driver
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 5.10 158/406] drm/msm/mdp5: Dont leak some plane
+ state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,65 +53,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_jesszhan@quicinc.com,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, oe-kbuild-all@lists.linux.dev,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, patches@lists.linux.dev,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org,
+ dorum@noisolation.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Kuogee,
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-kernel test robot noticed the following build warnings:
+------------------
 
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes linus/master v6.6-rc1]
-[cannot apply to drm-misc/drm-misc-next drm-tip/drm-tip next-20230915]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/drm-msm-dp-tie-dp_display_irq_handler-with-dp-driver/20230916-054014
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/1694813901-26952-5-git-send-email-quic_khsieh%40quicinc.com
-patch subject: [PATCH v3 4/7] drm/msm/dp: incorporate pm_runtime framework into DP driver
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230916/202309161321.UeiYRcIs-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230916/202309161321.UeiYRcIs-lkp@intel.com/reproduce)
+[ Upstream commit fd0ad3b2365c1c58aa5a761c18efc4817193beb6 ]
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309161321.UeiYRcIs-lkp@intel.com/
+Apparently no one noticed that mdp5 plane states leak like a sieve
+ever since we introduced plane_state->commit refcount a few years ago
+in 21a01abbe32a ("drm/atomic: Fix freeing connector/plane state too
+early by tracking commits, v3.")
 
-All warnings (new ones prefixed by >>):
+Fix it by using the right helpers.
 
-   drivers/gpu/drm/msm/dp/dp_power.c: In function 'dp_power_client_deinit':
->> drivers/gpu/drm/msm/dp/dp_power.c:160:34: warning: variable 'power' set but not used [-Wunused-but-set-variable]
-     160 |         struct dp_power_private *power;
-         |                                  ^~~~~
-   drivers/gpu/drm/msm/dp/dp_power.c: In function 'dp_power_init':
-   drivers/gpu/drm/msm/dp/dp_power.c:168:34: warning: variable 'power' set but not used [-Wunused-but-set-variable]
-     168 |         struct dp_power_private *power = NULL;
-         |                                  ^~~~~
-   drivers/gpu/drm/msm/dp/dp_power.c: In function 'dp_power_deinit':
-   drivers/gpu/drm/msm/dp/dp_power.c:179:34: warning: variable 'power' set but not used [-Wunused-but-set-variable]
-     179 |         struct dp_power_private *power;
-         |                                  ^~~~~
+Fixes: 21a01abbe32a ("drm/atomic: Fix freeing connector/plane state too early by tracking commits, v3.")
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Reported-and-tested-by: dorum@noisolation.com
+Cc: dorum@noisolation.com
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Patchwork: https://patchwork.freedesktop.org/patch/551236/
+Link: https://lore.kernel.org/r/20230803204521.928582-1-daniel.vetter@ffwll.ch
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-
-vim +/power +160 drivers/gpu/drm/msm/dp/dp_power.c
-
-c943b4948b5848 Chandan Uddaraju 2020-08-27  157  
-c943b4948b5848 Chandan Uddaraju 2020-08-27  158  void dp_power_client_deinit(struct dp_power *dp_power)
-c943b4948b5848 Chandan Uddaraju 2020-08-27  159  {
-c943b4948b5848 Chandan Uddaraju 2020-08-27 @160  	struct dp_power_private *power;
-c943b4948b5848 Chandan Uddaraju 2020-08-27  161  
-c943b4948b5848 Chandan Uddaraju 2020-08-27  162  	power = container_of(dp_power, struct dp_power_private, dp_power);
-c943b4948b5848 Chandan Uddaraju 2020-08-27  163  }
-c943b4948b5848 Chandan Uddaraju 2020-08-27  164  
-
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+index 0dc23c86747e8..e1c1b4ad5ed04 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+@@ -221,8 +221,7 @@ static void mdp5_plane_destroy_state(struct drm_plane *plane,
+ {
+ 	struct mdp5_plane_state *pstate = to_mdp5_plane_state(state);
+ 
+-	if (state->fb)
+-		drm_framebuffer_put(state->fb);
++	__drm_atomic_helper_plane_destroy_state(state);
+ 
+ 	kfree(pstate);
+ }
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.40.1
+
+
+
