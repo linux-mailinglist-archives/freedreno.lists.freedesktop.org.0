@@ -1,49 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB537A4712
-	for <lists+freedreno@lfdr.de>; Mon, 18 Sep 2023 12:32:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B9D67A5051
+	for <lists+freedreno@lfdr.de>; Mon, 18 Sep 2023 19:03:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A1A910E272;
-	Mon, 18 Sep 2023 10:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6111710E034;
+	Mon, 18 Sep 2023 17:03:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0048110E04E;
- Mon, 18 Sep 2023 10:32:22 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 03E856607033;
- Mon, 18 Sep 2023 11:32:20 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1695033141;
- bh=HGMvGDB1wXK1aRkUwoJnCxcXLdv/SVTCzXE3f2Tt9xM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=RsE+wqV8sbDR9OSTd+VuqzXCftzJcvO21AdTW1ssvOFGHr0mdkQUHpA6Gf2pDQS8M
- MFb7079lvPGsDPOwehksrjU4P0lBX+pv+EFkh+KT94I96tHIIIhq/8dnPe0Ahcgc5C
- cdujUQ7GSp2mQ+rJ9BbCcBxu3duhnxAyltmQpyU/P7pUurHHlt6UsIZWso7fyb4Jd9
- rW7FllLfPZBHluppsY+e8LYxKFlx1amx076LYhLbyK597vh3WW0XBNWzrd44ISk+5f
- j71082ERaq4BvLeNkcGVo1uOSqr2quygMvWnFydnCU521gtWKZEgiRfa38aSToeau8
- J2uVpMSO+8WJQ==
-Date: Mon, 18 Sep 2023 12:32:18 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Message-ID: <20230918123218.14ca9fde@collabora.com>
-In-Reply-To: <a8d9fe07-7acc-db10-5660-293a449d9dd2@arm.com>
-References: <20230914223928.2374933-1-adrian.larumbe@collabora.com>
- <20230914223928.2374933-6-adrian.larumbe@collabora.com>
- <a8d9fe07-7acc-db10-5660-293a449d9dd2@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B397410E034;
+ Mon, 18 Sep 2023 17:03:14 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38IEvJSv026033; Mon, 18 Sep 2023 17:02:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=lbb9poKKnoIX5f99teaqOdZfia9gsHyX0zdOJWkDC/w=;
+ b=gB0k+5Yvi9ejpCfMAIp91MV5IikEfIYphWkqT7Us4KMLqkSTJfhm/OPgoBopzp1qoX85
+ 1iG1nP0o709Wd2PaDVCi9zonv1sgVNfwkh2xNDXPSdedJdO7zI/voA3DwjLRqbHZfoEo
+ pQKWrrTBNvxgamQ2MsfimaAT0vwCiKcU1daTenCZgOswzB8RlquPY0Mnsqqk6jElp+ly
+ qUw6fOi58OhWcU//vk3OVa3S9CBaDDWr68stfZiyGg8DctL0r/AyZP8ovIcQyqiPJ6D+
+ VFDnFNPayA96Uf9hmO/TnAMD2h8sRNm2dNJyyP83MyXvmV/gnnUckUGvpZOyZYANscBo Cg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t6pmq0mxj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Sep 2023 17:02:57 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38IH2ucq028956
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Sep 2023 17:02:56 GMT
+Received: from [10.71.109.209] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 18 Sep
+ 2023 10:02:55 -0700
+Message-ID: <4634ca79-e12b-0608-a123-6ed123f4a03c@quicinc.com>
+Date: Mon, 18 Sep 2023 10:02:44 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v5 5/6] drm/panfrost: Implement generic DRM
- object RSS reporting function
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-2-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJprRFYMF-6yxcL75rftfii0kt7hmg_+TeOMJw+BRyDYdeg@mail.gmail.com>
+Content-Language: en-US
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAA8EJprRFYMF-6yxcL75rftfii0kt7hmg_+TeOMJw+BRyDYdeg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: yDS0sS-dKLbuPrJtNyiZxcMdH_2Qzb9r
+X-Proofpoint-ORIG-GUID: yDS0sS-dKLbuPrJtNyiZxcMdH_2Qzb9r
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-18_08,2023-09-18_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 mlxlogscore=999 mlxscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2308100000
+ definitions=main-2309180150
+Subject: Re: [Freedreno] [PATCH v3 1/7] drm/msm/dp: tie
+ dp_display_irq_handler() with dp driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,132 +85,131 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, kernel@collabora.com, tzimmermann@suse.de, sean@poorly.run,
- =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, linux-kernel@vger.kernel.org, robdclark@gmail.com,
- healych@amazon.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
- airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 18 Sep 2023 11:01:43 +0100
-Steven Price <steven.price@arm.com> wrote:
 
-> On 14/09/2023 23:38, Adri=C3=A1n Larumbe wrote:
-> > BO's RSS is updated every time new pages are allocated on demand and ma=
-pped
-> > for the object at GPU page fault's IRQ handler, but only for heap buffe=
-rs.
-> > The reason this is unnecessary for non-heap buffers is that they are ma=
-pped
-> > onto the GPU's VA space and backed by physical memory in their entirety=
- at
-> > BO creation time.
-> >=20
-> > This calculation is unnecessary for imported PRIME objects, since heap
-> > buffers cannot be exported by our driver, and the actual BO RSS size is=
- the
-> > one reported in its attached dmabuf structure.
-> >=20
-> > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> =20
->=20
-> Am I missing something, or are we missing a way of resetting
-> heap_rss_size when the shrinker purges? It looks like after several
-> grow/purge cycles, heap_rss_size could actually grow to be larger than
-> the BO which is clearly wrong.
+On 9/15/2023 5:29 PM, Dmitry Baryshkov wrote:
+> On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>> Currently the dp_display_irq_handler() is executed at msm_dp_modeset_init()
+>> which ties irq registration to the DPU device's life cycle, while depending on
+>> resources that are released as the DP device is torn down. Move register DP
+>> driver irq handler at dp_display_probe() to have dp_display_irq_handler()
+>> is tied with DP device.
+>>
+>> Changes in v3:
+>> -- move calling dp_display_irq_handler() to probe
+> Was there a changelog for the previous reivions? What is the
+> difference between v1 and v2?
 
-Didn't even consider this case since we don't flag heap BOs purgeable
-in mesa(panfrost), but let's assume we did. If the BO is purged, I'd
-expect the core to report 0MB of resident memory anyway. And purged BOs
-are not supposed to be re-used if MADVISE(WILL_NEED) returns
-retained=3Dfalse, they should be destroyed. Not 100% sure this is
-enforced everywhere though (we might actually miss tests to make sure
-users don't pass purged BOs to jobs, or make the alloc-on-fault logic
-doesn't try to grow a purged GEM).
+Sorry, v2 is same as v3.
 
-If we want to implement transparent BO swap{out,in} (Dmitry's
-patchset), that's be a different story, and we'll indeed have to set
-heap_rss_size back to zero on eviction.
+I submitted v2 first but found i forget to add change logs from review 
+comments of v1.
 
->=20
-> Steve
->=20
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_gem.c | 15 +++++++++++++++
-> >  drivers/gpu/drm/panfrost/panfrost_gem.h |  5 +++++
-> >  drivers/gpu/drm/panfrost/panfrost_mmu.c |  1 +
-> >  3 files changed, 21 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/=
-panfrost/panfrost_gem.c
-> > index 7d8f83d20539..4365434b48db 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> > @@ -208,6 +208,20 @@ static enum drm_gem_object_status panfrost_gem_sta=
-tus(struct drm_gem_object *obj
-> >  	return res;
-> >  }
-> > =20
-> > +static size_t panfrost_gem_rss(struct drm_gem_object *obj)
-> > +{
-> > +	struct panfrost_gem_object *bo =3D to_panfrost_bo(obj);
-> > +
-> > +	if (bo->is_heap) {
-> > +		return bo->heap_rss_size;
-> > +	} else if (bo->base.pages) {
-> > +		WARN_ON(bo->heap_rss_size);
-> > +		return bo->base.base.size;
-> > +	} else {
-> > +		return 0;
-> > +	}
-> > +}
-> > +
-> >  static const struct drm_gem_object_funcs panfrost_gem_funcs =3D {
-> >  	.free =3D panfrost_gem_free_object,
-> >  	.open =3D panfrost_gem_open,
-> > @@ -220,6 +234,7 @@ static const struct drm_gem_object_funcs panfrost_g=
-em_funcs =3D {
-> >  	.vunmap =3D drm_gem_shmem_object_vunmap,
-> >  	.mmap =3D drm_gem_shmem_object_mmap,
-> >  	.status =3D panfrost_gem_status,
-> > +	.rss =3D panfrost_gem_rss,
-> >  	.vm_ops =3D &drm_gem_shmem_vm_ops,
-> >  };
-> > =20
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/=
-panfrost/panfrost_gem.h
-> > index ad2877eeeccd..13c0a8149c3a 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> > @@ -36,6 +36,11 @@ struct panfrost_gem_object {
-> >  	 */
-> >  	atomic_t gpu_usecount;
-> > =20
-> > +	/*
-> > +	 * Object chunk size currently mapped onto physical memory
-> > +	 */
-> > +	size_t heap_rss_size;
-> > +
-> >  	bool noexec		:1;
-> >  	bool is_heap		:1;
-> >  };
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/=
-panfrost/panfrost_mmu.c
-> > index d54d4e7b2195..7b1490cdaa48 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> > @@ -522,6 +522,7 @@ static int panfrost_mmu_map_fault_addr(struct panfr=
-ost_device *pfdev, int as,
-> >  		   IOMMU_WRITE | IOMMU_READ | IOMMU_NOEXEC, sgt);
-> > =20
-> >  	bomapping->active =3D true;
-> > +	bo->heap_rss_size +=3D SZ_2;
-> > =20
-> >  	dev_dbg(pfdev->dev, "mapped page fault @ AS%d %llx", as, addr);
-> >   =20
->=20
+Therefore i submit v3 to add changes logs which missing at v2.
 
+
+
+>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 35 +++++++++++++----------------------
+>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 -
+>>   2 files changed, 13 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 76f1395..c217430 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1193,30 +1193,23 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+>>          return ret;
+>>   }
+>>
+>> -int dp_display_request_irq(struct msm_dp *dp_display)
+>> +static int dp_display_request_irq(struct dp_display_private *dp)
+>>   {
+>>          int rc = 0;
+>> -       struct dp_display_private *dp;
+>> -
+>> -       if (!dp_display) {
+>> -               DRM_ERROR("invalid input\n");
+>> -               return -EINVAL;
+>> -       }
+>> -
+>> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
+>> +       struct device *dev = &dp->pdev->dev;
+>>
+>> -       dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
+>>          if (!dp->irq) {
+> What is the point in this check?
+>
+>> -               DRM_ERROR("failed to get irq\n");
+>> -               return -EINVAL;
+>> +               dp->irq = platform_get_irq(dp->pdev, 0);
+>> +               if (!dp->irq) {
+>> +                       DRM_ERROR("failed to get irq\n");
+>> +                       return -EINVAL;
+>> +               }
+>>          }
+>>
+>> -       rc = devm_request_irq(dp_display->drm_dev->dev, dp->irq,
+>> -                       dp_display_irq_handler,
+>> +       rc = devm_request_irq(dev, dp->irq, dp_display_irq_handler,
+>>                          IRQF_TRIGGER_HIGH, "dp_display_isr", dp);
+>>          if (rc < 0) {
+>> -               DRM_ERROR("failed to request IRQ%u: %d\n",
+>> -                               dp->irq, rc);
+>> +               DRM_ERROR("failed to request IRQ%u: %d\n", dp->irq, rc);
+>>                  return rc;
+>>          }
+>>
+>> @@ -1287,6 +1280,10 @@ static int dp_display_probe(struct platform_device *pdev)
+>>
+>>          platform_set_drvdata(pdev, &dp->dp_display);
+>>
+>> +       rc = dp_display_request_irq(dp);
+>> +       if (rc)
+>> +               return rc;
+> This way the IRQ ends up being enabled in _probe. Are we ready to
+> handle it here? Is the DP device fully setup at this moment?
+>
+>> +
+>>          rc = component_add(&pdev->dev, &dp_display_comp_ops);
+>>          if (rc) {
+>>                  DRM_ERROR("component add failed, rc=%d\n", rc);
+>> @@ -1549,12 +1546,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>>
+>>          dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
+>>
+>> -       ret = dp_display_request_irq(dp_display);
+>> -       if (ret) {
+>> -               DRM_ERROR("request_irq failed, ret=%d\n", ret);
+>> -               return ret;
+>> -       }
+>> -
+>>          ret = dp_display_get_next_bridge(dp_display);
+>>          if (ret)
+>>                  return ret;
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index 1e9415a..b3c08de 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -35,7 +35,6 @@ struct msm_dp {
+>>   int dp_display_set_plugged_cb(struct msm_dp *dp_display,
+>>                  hdmi_codec_plugged_cb fn, struct device *codec_dev);
+>>   int dp_display_get_modes(struct msm_dp *dp_display);
+>> -int dp_display_request_irq(struct msm_dp *dp_display);
+>>   bool dp_display_check_video_test(struct msm_dp *dp_display);
+>>   int dp_display_get_test_bpp(struct msm_dp *dp_display);
+>>   void dp_display_signal_audio_start(struct msm_dp *dp_display);
+>> --
+>> 2.7.4
+>>
+>
