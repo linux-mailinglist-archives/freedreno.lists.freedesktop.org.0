@@ -1,77 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4761C7A6EDD
-	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 00:53:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B93087A6EF0
+	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 01:03:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4650710E419;
-	Tue, 19 Sep 2023 22:53:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD3110E419;
+	Tue, 19 Sep 2023 23:03:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 335DD10E12D;
- Tue, 19 Sep 2023 22:53:35 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38JLOoaq007293; Tue, 19 Sep 2023 22:53:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=yFvkAN2U77GZQzYs3I/vg/aVIL6xZ9s/4RXI0DI68lo=;
- b=WPCKnLsYZhN6BwmrysIUYUlg90n9pWY/zcmazsA2k1asDuyTBSfdqCB2T0CoCdonBLTt
- oVydH4SMZxnL5NzSStxs272Uz14shqozZ1YDHXvMRi8p0hS97mzxydYps5p/Q8IMphNZ
- DXMNDAQyAgH/mXY7KaklugF9Jw6ddo0xNzEKc/pGb5f1RL53IkdOYCZlU6RY3Qje4FVZ
- 3XnwUS9bAYHtOI+y4tpNV1ng7t3mHEzm41nsaDT+LPeVnW/a5RKSdVi6XXknUA61ie1p
- g6I/SsGHTPO6/jbjOX1VGDROTNmktoqo0jjWip63Vv/6IaWZTEXrQsYiEw0smy3rp9Nm vw== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t6pmq3upq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Sep 2023 22:53:18 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38JMrHU5027195
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Sep 2023 22:53:17 GMT
-Received: from [10.71.111.102] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Tue, 19 Sep
- 2023 15:53:16 -0700
-Message-ID: <24afa449-afe5-fdf4-0ad4-f2174e412569@quicinc.com>
-Date: Tue, 19 Sep 2023 15:53:16 -0700
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED70910E418;
+ Tue, 19 Sep 2023 23:03:53 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 139C8617EF;
+ Tue, 19 Sep 2023 23:03:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B73C433CB;
+ Tue, 19 Sep 2023 23:03:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1695164632;
+ bh=9JPk/GnPXNyAivpcwuGojuU8M2bc6bbcZIAp5O0Gbao=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YjsvT1wovZ3ZyCQBHj+1+2m/Rnv0NEX90ttFgKP0/X3WyrSjL7169o07sOV+qkSJO
+ neQomVybJTjDhRNwaQ4cRvi1+M0z0lT/LDVIQrBdtX165x7MuhHviWBYliotN25ITz
+ DQAJ2li6LuLYPR+JwZ8n8ant18yFzgfIiAbYJ637qbpyilUTrb4r1TGe8ZdGWFbm6h
+ CBYnyVJbUA4fMrCRBarg9YUGA5ddA4G6g7K8zTEJLo7EqW5Cj0/FHjPK7JPQMX4B17
+ T/vvdQyHQVd0K/ZNwrx3XhSQnjD7EWD24MqG3/s1QrrIFGnBe0GzlEBzKbZLW2kNBd
+ YpLPuzmUhpEWQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue, 19 Sep 2023 16:07:40 -0700
+Message-ID: <169516485993.787935.1547209942193391755.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230723-sm6125-dpu-v4-0-a3f287dd6c07@somainline.org>
+References: <20230723-sm6125-dpu-v4-0-a3f287dd6c07@somainline.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20230919174813.26958-1-quic_abhinavk@quicinc.com>
- <20230919181246.GA24325@pendragon.ideasonboard.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230919181246.GA24325@pendragon.ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: -C_-drNL20fqcxiFF3LbtRn6farci87o
-X-Proofpoint-ORIG-GUID: -C_-drNL20fqcxiFF3LbtRn6farci87o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-19_12,2023-09-19_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0
- priorityscore=1501 impostorscore=0 mlxlogscore=813 mlxscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2308100000
- definitions=main-2309190195
-Subject: Re: [Freedreno] [PATCH] drm: remove drm_bridge_hpd_disable() from
- drm_bridge_connector_destroy()
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] (subset) [PATCH v4 00/17] drm/msm: Add SM6125
+ MDSS/DPU hardware and enable Sony Xperia 10 II panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,95 +67,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@linux.intel.com, Thomas Zimmermann <tzimmermann@suse.de>,
- freedreno@lists.freedesktop.org, andersson@kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- quic_parellan@quicinc.com, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, quic_jesszhan@quicinc.com,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Lux Aliaga <they@mint.lgbt>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Laurent
 
-On 9/19/2023 11:12 AM, Laurent Pinchart wrote:
-> Hi Abhinav,
+On Sun, 23 Jul 2023 18:08:38 +0200, Marijn Suijten wrote:
+> Bring up the SM6125 DPU now that all preliminary series (such as INTF
+> TE) have been merged (for me to test the hardware properly), and most
+> other conflicting work (barring ongoing catalog *improvements*) has made
+> its way in as well or is still being discussed.
 > 
-> Thank you for the patch.
+> The second part of the series complements that by immediately utilizing
+> this hardware in DT, and even enabling the MDSS/DSI nodes complete with
+> a 6.0" 1080x2520 panel for Sony's Seine PDX201 (Xperia 10 II).
 > 
-> On Tue, Sep 19, 2023 at 10:48:12AM -0700, Abhinav Kumar wrote:
->> drm_bridge_hpd_enable()/drm_bridge_hpd_disable() callbacks call into
->> the respective driver's hpd_enable()/hpd_disable() ops. These ops control
->> the HPD enable/disable logic which in some cases like MSM can be a
->> dedicate hardware block to control the HPD.
->>
->> During probe_defer cases, a connector can be initialized and then later
->> destroyed till the probe is retried. During connector destroy in these
->> cases, the hpd_disable() callback gets called without a corresponding
->> hpd_enable() leading to an unbalanced state potentially causing even
->> a crash.
->>
->> This can be avoided by the respective drivers maintaining their own
->> state logic to ensure that a hpd_disable() without a corresponding
->> hpd_enable() just returns without doing anything.
->>
->> However, to have a generic fix it would be better to avoid the
->> hpd_disable() callback from the connector destroy path and let
->> the hpd_enable() / hpd_disable() balance be maintained by the
->> corresponding drm_bridge_connector_enable_hpd() /
->> drm_bridge_connector_disable_hpd() APIs which should get called by
->> drm_kms_helper_disable_hpd().
-> 
-> The change makes sense to me, but I'm a bit worried this could introduce
-> a regression by leaving HPD enabled in some cases.
-> 
-> I agree that bridges shouldn't track the HPD state, it should be tracked
-> by the core and the .enable_hpd() and .disable_hpd() operations should
-> be balanced. Their documentation, however, doesn't clearly state this,
-> and the documentation of the callers of these operations is also fairly
-> unclear.
-> 
-> Could you perhaps try to improve the documentation ? With that,
-> 
+> [...]
 
-Yes, sure, Let me upload another patch to improve the documentation of 
-.enable_hpd(), .disable_hpd() and its callers.
+Applied, thanks!
 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-> for this patch.
-> 
+[02/17] arm64: dts: qcom: sm6125: Pad APPS IOMMU address to 8 characters
+        commit: 310cdafc4a56827d1aeda7cc297939034adb8f99
+[03/17] arm64: dts: qcom: sm6125: Sort spmi_bus node numerically by reg
+        commit: 3d06cee2249f4764f01a9f602ec1cc1bf4562ca6
+[14/17] arm64: dts: qcom: sm6125: Switch fixed xo_board clock to RPM XO clock
+        commit: cbe82d7d0b149aa9c0c000f7ffd2b18bfd248d35
+[15/17] arm64: dts: qcom: sm6125: Add dispcc node
+        commit: 4988881ec067c3e6d382de1583b7f5b1095ddea2
+[16/17] arm64: dts: qcom: sm6125: Add display hardware nodes
+        commit: 0865d23a02260a76963bd18d9ae603e77cdd0eba
+[17/17] arm64: dts: qcom: sm6125-seine: Configure MDSS, DSI and panel
+        commit: 5078dfe3c5c7b8d2d6494c26de81a4f3d4a5a3d7
 
-Thanks
-
-Abhinav
-
->> changes in v2:
->> 	- minor change in commit text (Dmitry)
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/drm_bridge_connector.c | 6 ------
->>   1 file changed, 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
->> index 1da93d5a1f61..c4dba39acfd8 100644
->> --- a/drivers/gpu/drm/drm_bridge_connector.c
->> +++ b/drivers/gpu/drm/drm_bridge_connector.c
->> @@ -187,12 +187,6 @@ static void drm_bridge_connector_destroy(struct drm_connector *connector)
->>   	struct drm_bridge_connector *bridge_connector =
->>   		to_drm_bridge_connector(connector);
->>   
->> -	if (bridge_connector->bridge_hpd) {
->> -		struct drm_bridge *hpd = bridge_connector->bridge_hpd;
->> -
->> -		drm_bridge_hpd_disable(hpd);
->> -	}
->> -
->>   	drm_connector_unregister(connector);
->>   	drm_connector_cleanup(connector);
->>   
-> 
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
