@@ -1,79 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 515A27A8F24
-	for <lists+freedreno@lfdr.de>; Thu, 21 Sep 2023 00:13:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66FE27A8F8A
+	for <lists+freedreno@lfdr.de>; Thu, 21 Sep 2023 00:46:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD8D10E089;
-	Wed, 20 Sep 2023 22:13:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F326710E54B;
+	Wed, 20 Sep 2023 22:46:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF57410E082;
- Wed, 20 Sep 2023 22:13:47 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38KLvnqQ013400; Wed, 20 Sep 2023 22:13:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=wLy9ZuT3wPvKTwBKpSkA0+5HBXOIkeLFyP43M1pbTXI=;
- b=DTsM1gxLESbGBPPe0gy8ZesfDdJl2Bwz9a9HI60kKfUrzHKNF08VjFcJbfMiLeSGA5Dd
- qWkJRtVq9QiDwAC52Z/1NxSbLPcEfHoW7yMtublcEQ7EqUlYJFALsZR3xyOg23njWFn2
- bJ8E+1SMaGGEzZDlf3v0zPisfC+IIMIWMqyPJuKX8CMQz82c0ikUIe5UeJuc+wGOnrhB
- a3TU9f4Gw5hBpmy/PUIkDw0ug9EdfLPWJvKNsBM2tX+mG6kwgmyjXIvCJQ1kmDayICuy
- uX8zLKw2T4C8JXzzK5dXOBL8kuhj8ZLbfVRZmlGmb1IUMSaFUxFzNdUiVKbfTCsJihoP kg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t7qj92hww-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Sep 2023 22:13:33 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38KMDWHw018308
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Sep 2023 22:13:32 GMT
-Received: from [10.71.111.102] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Wed, 20 Sep
- 2023 15:13:31 -0700
-Message-ID: <d2df8304-76c1-6918-35bf-6b2886568fb3@quicinc.com>
-Date: Wed, 20 Sep 2023 15:13:31 -0700
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF25110E53B
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Sep 2023 22:46:09 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-9a58dbd5daeso29473766b.2
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Sep 2023 15:46:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695249968; x=1695854768; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oYdcY0DcGe67NgqwyBu5FTTz8YAdNQwb3MR5ZbpO8t0=;
+ b=d3rOOkGjmJYH6RU2ifJCQWpI9dUqT6LEpSerRW1Mm5CXzWAV8WciZsWIf0dJhGGQf0
+ vj6d1eVTABd4qpJrEZ9BC0Rr0kpg4LB6dym/Zv6kLHU4e0YfS4ngWC6dDPUiDLMsHCiY
+ 22IF5mNLtoaUbsXrJNSkghAYv5IMYJlFGViP8thANKU050N5ZnSElfeNNHMb7osARnPl
+ GQ8IwPJwJisMXbVn6SkEipNEug8bBSNZJfyenNgdvuQbzTIZSAa1jAngZT2uh4YwraDM
+ 7RqW7AY+MflXitEUV3J34/UhuzYBKuknZAXwVRTnueIYUgsB912oBA6xKLuyVOJTG3Jz
+ uk/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695249968; x=1695854768;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oYdcY0DcGe67NgqwyBu5FTTz8YAdNQwb3MR5ZbpO8t0=;
+ b=I0ED1wuwXnxI04MR7MZt5MU2gz3716A11kGvDoOd6P6u9q+9KXwlbqzhn9iSWR0zYB
+ hpufTtIVAqOoS1J3Dtec0H9vPzQq2kS7h6uaWC3elT705g+zj1TAqvsL5e6ZzuyXnkwO
+ jM8ZTmZfDKj5E+k5r9ShKhn/5JdyM9D1I8GgvAE9lKhkibPkYtIBR3B86g90tY0XVg4U
+ jIy4DzYULu2VpMJ8cNqUdQUKUc+K1gge1baSa81/cO/UxD33oS8VR+YpsL7NNkNLECde
+ IBg0TrJ4YxMVqlOa94BTsVvDGgf5agfXXXBu/lYTShnwr5f3nGiCMCL6TS1KW436jFRf
+ h9Dg==
+X-Gm-Message-State: AOJu0YxhjluY0NbU81yf1lr3JGr7gBxqhvttkqoMK2ITZjOf0dq+RQsv
+ Tl2DlTH599tmlKb9ARaKbWvSxg==
+X-Google-Smtp-Source: AGHT+IFa3rKPBGbMiv5r+wZtefSamWAegDbMuYEFn/StayXODb0Qn9SHx1kh5ZK8H8oo42epAKi5/w==
+X-Received: by 2002:a17:906:209a:b0:9a5:da6c:6539 with SMTP id
+ 26-20020a170906209a00b009a5da6c6539mr3585083ejq.75.1695249968267; 
+ Wed, 20 Sep 2023 15:46:08 -0700 (PDT)
+Received: from [127.0.1.1] ([217.67.225.27]) by smtp.gmail.com with ESMTPSA id
+ z23-20020a170906435700b00992f309cfe8sm118285ejm.178.2023.09.20.15.46.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Sep 2023 15:46:07 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Thu, 21 Sep 2023 00:46:05 +0200
+Message-Id: <20230921-topic-7280_dpu-v1-0-6912a97183d5@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230905174353.3118648-1-dmitry.baryshkov@linaro.org>
- <20230905174353.3118648-2-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230905174353.3118648-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: cO8i2DOl1L8P7Z3NtatouXqH-0WZ1AB-
-X-Proofpoint-ORIG-GUID: cO8i2DOl1L8P7Z3NtatouXqH-0WZ1AB-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-20_11,2023-09-20_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 impostorscore=0 suspectscore=0 mlxlogscore=759
- mlxscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- malwarescore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309200186
-Subject: Re: [Freedreno] [PATCH 1/6] drm/msm/mdss: fix highest-bank-bit for
- msm8998
+X-B4-Tracking: v=1; b=H4sIAC12C2UC/x3MTQqAIBBA4avErBNsoh+7SkSITjUbE60IxLsnL
+ b/FewkiBaYIU5Ug0MORT1fQ1BWYQ7udBNtiQImtVCjFdXo2YsBRrtbfolMalSFrdE9QIh9o4/c
+ fzkvOH7K9vZJgAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+X-Mailer: b4 0.13-dev-0438c
+Subject: [Freedreno] [PATCH 0/3] SC7280 DPU fixups
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,25 +78,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Found a couple mistakes, this series attempts to fix it.
 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (3):
+      drm/msm/dpu: Fix SC7280 PP length
+      drm/msm/dpu: Add missing DPU_DSC_OUTPUT_CTRL to SC7280
+      drm/msm/dpu: Fix SC7280 DSC block length
 
-On 9/5/2023 10:43 AM, Dmitry Baryshkov wrote:
-> According to the vendor DT files, msm8998 has highest-bank-bit equal to
-> 2. Update the data accordingly.
-> 
-> Fixes: 6f410b246209 ("drm/msm/mdss: populate missing data")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/msm_mdss.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+---
+base-commit: 926f75c8a5ab70567eb4c2d82fbc96963313e564
+change-id: 20230920-topic-7280_dpu-59a29cedca6e
 
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
