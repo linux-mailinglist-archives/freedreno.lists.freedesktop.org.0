@@ -2,53 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 499437A7035
-	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 04:10:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C789C7A740C
+	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 09:28:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D64B010E2BF;
-	Wed, 20 Sep 2023 02:10:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE0F10E162;
+	Wed, 20 Sep 2023 07:28:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1C3A10E2BC;
- Wed, 20 Sep 2023 02:10:00 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DD1206183D;
- Wed, 20 Sep 2023 02:09:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91D46C433C8;
- Wed, 20 Sep 2023 02:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695175799;
- bh=DFfP4IoEJmoEfhZtfQJFBZL2aVXZkiydQfe+9+2kgQY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vAKQN8fdlgDjnF5U+3vA0iXnpdayVzjAbSyG2Z3Hx5HU5DYaH4lja6E5mZ8Z7dJyu
- Z4ZuwAS3TpH4nLQ9WU1qQrjhn71WzW/BLVV88q2B3pumEHwOvNgtfyGroSAeYQZRxL
- aTPla5ROb598YNQSmwDksQZIurUQ9RVOyjciZVMOuTAQhSFLSvITcKlxlzHhXmrtNQ
- LXVWS3nwzc+vI5FYCgL6/0cSOFdzhq6T7TKmpbg3wKKwm0On/eZPZu8cbHKzW+Uqk/
- Iig9bx/oANd4xS7utlOxymgTKhYVYfFdr8DHy71lRX3WHURNXH9iyXwWHJOfuJszD5
- bc8Sf1VEt4sdA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 19 Sep 2023 19:13:59 -0700
-Message-ID: <169517603994.822793.9794338866644758315.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
-References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B1510E161
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Sep 2023 07:28:02 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-59bbdb435bfso64952047b3.3
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Sep 2023 00:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695194882; x=1695799682; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=gwW/aKgkBI8jvoRbmdXukbiIBoNPv5CCX3I1vI78hY0=;
+ b=whfn6B49YV+aXQ0xP/vIm8YzUst5z/UBqttdmpQEBPBN7F+G60c1MHfm7J88qIsZGX
+ MSAiizcySFkjTJgXh/2ltoAOSqHUVL4k/RGrfkvbptFXppmjT3MEvbyYy2a7FxwScRlw
+ nPkmaMyX/f3VaIXSl+fGun8JPt6DrQrF4wh3ZlW4tihnZHCmQx4PCATy4UGgTixc6P8Q
+ HJYmuT2/2HjStQUE5A5BWYr25RWY0gMEBzYoH6TAayykC2NLKcjR2nTIRJ38Fqotu4EQ
+ Uw37ylIymbkaSpXjPLyKYDrdsVuK/GzzFX2BBTxEBr8I5c0xDYeUew9Fjt/BaXO7kekT
+ G64A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695194882; x=1695799682;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gwW/aKgkBI8jvoRbmdXukbiIBoNPv5CCX3I1vI78hY0=;
+ b=bcype3dgR7l9znMRI24P+VS7iOhszVQeq3eoaXjT5wS3IueB6IEqx1hI6ldMU2Cihh
+ waHR5oLZwbCLh0ROW0xYNInRt+tvHEFzyELmog1y9+W1kXkyVehAVHlcMsTcWWnT9N/p
+ gWqIhacHz6x3bfcZDc7v6DuWIm8uBbglMUYL9jYDyl+3u5yHXmpCwXHqk7WzSN87zPqD
+ 8+G7pKpMMyZEokamLG9kwy2CQE+zlhwi0A+5To39kpwyCXcejXOuQjwX6eu/HV80VIle
+ z+JJEms/5TLqnIzWQk0kBLKppezzlgjTas7Ph7gAqO7izt9du8r8uJKgi+isABIrlaDJ
+ NraQ==
+X-Gm-Message-State: AOJu0YyjZJKaipZBGTMSAom8OzH22cZJWM/8TzGmkwz0vu++ls371kIx
+ vQWyupIOX11ogKGdjltTCtARkC9fHwgbY0rcUSR+Dw==
+X-Google-Smtp-Source: AGHT+IFcGwxsD14iTBsfb5A6WM9HKpgER1VektslYkA2MPFERnEZVoaEsnHQM17447rTKPxBIUUzlSQbAxSsLf5oFEA=
+X-Received: by 2002:a81:9e10:0:b0:579:effb:ae1c with SMTP id
+ m16-20020a819e10000000b00579effbae1cmr1828509ywj.26.1695194881940; Wed, 20
+ Sep 2023 00:28:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 0/4] arm64: dts: qcom: qrb5165-rb5:
- enable DP support
+References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
+ <20230817145940.9887-2-dmitry.baryshkov@linaro.org>
+ <4eaekxgmikdacvvprysb6btdqootbc6paomzhuqjtzd6rgqxkc@birohtqp4rbo>
+In-Reply-To: <4eaekxgmikdacvvprysb6btdqootbc6paomzhuqjtzd6rgqxkc@birohtqp4rbo>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 20 Sep 2023 10:27:50 +0300
+Message-ID: <CAA8EJpozPp2-oqr2mWAuA_8mTSc8whnOAg+zYZSWNmQBg_eLxw@mail.gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 1/4] arm64: dts: qcom: sm8250: Add
+ DisplayPort device node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,37 +69,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, 20 Sept 2023 at 05:08, Bjorn Andersson <andersson@kernel.org> wrote:
+>
+> On Thu, Aug 17, 2023 at 05:59:37PM +0300, Dmitry Baryshkov wrote:
+> > Declare the displayport controller present on the Qualcomm SM8250 SoC.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  arch/arm64/boot/dts/qcom/sm8250.dtsi | 89 ++++++++++++++++++++++++++++
+> >  1 file changed, 89 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> > index eb00bbd3e1f3..8d705a1713fb 100644
+> > --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> > @@ -3638,6 +3638,8 @@ port@1 {
+> >
+> >                               port@2 {
+> >                                       reg = <2>;
+> > +
+> > +                                     usb_1_qmpphy_dp_in: endpoint {};
+> >                               };
+> >                       };
+> >               };
+> > @@ -4405,6 +4407,14 @@ dpu_intf2_out: endpoint {
+> >                                                       remote-endpoint = <&mdss_dsi1_in>;
+> >                                               };
+> >                                       };
+> > +
+> > +                                     port@2 {
+> > +                                             reg = <2>;
+> > +
+> > +                                             dpu_intf0_out: endpoint {
+> > +                                                     remote-endpoint = <&mdss_dp_in>;
+> > +                                             };
+> > +                                     };
+> >                               };
+> >
+> >                               mdp_opp_table: opp-table {
+> > @@ -4432,6 +4442,85 @@ opp-460000000 {
+> >                               };
+> >                       };
+> >
+> > +                     mdss_dp: displayport-controller@ae90000 {
+>
+> displayport-controller does not seem to be a valid child node of the
+> sm8250 mdss. Please make sure that the binding is updated, if not
+> already done.
 
-On Thu, 17 Aug 2023 17:59:36 +0300, Dmitry Baryshkov wrote:
-> Implement DisplayPort support for the Qualcomm RB5 platform.
-> 
-> Note: while testing this, I had link training issues with several
-> dongles with DP connectors. Other DisplayPort-USB-C dongles (with HDMI
-> or VGA connectors) work perfectly.
-> 
-> Dependencies: [1]
-> Soft-dependencies: [2], [3]
-> 
-> [...]
+True. I added the compatibility string to dp-controller.yaml, but
+missed the mdss schema. I'll send a fix ASAP.
 
-Applied, thanks!
+>
+> Thanks,
+> Bjorn
 
-[1/4] arm64: dts: qcom: sm8250: Add DisplayPort device node
-      commit: 956aa24b16350a50d3a6beb9237bc35aa2f447d6
-[2/4] arm64: dts: qcom: qrb5165-rb5: add onboard USB-C redriver
-      commit: d342e1c993bd7589cad9d2da099c6a9c652ecb9f
-[3/4] arm64: dts: qcom: qrb5165-rb5: enable displayport controller
-      commit: 96387ee7534dc449be35a9bb98b7668da2bed545
-[4/4] arm64: dts: qcom: qrb5165-rb5: enable DP altmode
-      commit: b3dea914127e9065df003002ed13a2ef40d19877
 
-Best regards,
+
 -- 
-Bjorn Andersson <andersson@kernel.org>
+With best wishes
+Dmitry
