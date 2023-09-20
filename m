@@ -2,45 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E27897A7FB4
-	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 14:29:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1705B7A7DD6
+	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 14:12:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A831810E17F;
-	Wed, 20 Sep 2023 12:29:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE03410E497;
+	Wed, 20 Sep 2023 12:12:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 950ED10E17F
- for <freedreno@lists.freedesktop.org>; Wed, 20 Sep 2023 12:29:50 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02B6210E497
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Sep 2023 12:12:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A911F61B7A;
- Wed, 20 Sep 2023 12:29:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A94C433C7;
- Wed, 20 Sep 2023 12:29:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 65DB161B4C;
+ Wed, 20 Sep 2023 12:12:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA93C433C8;
+ Wed, 20 Sep 2023 12:12:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1695212989;
- bh=6Rg3unSvWYSsp0hWbI6MvyG8TL1XdbjTiOvMbSUH7LM=;
+ s=korg; t=1695211963;
+ bh=d37Gyg8cP1lMGqwkL3ikoJgK1UnSNQutYmkWCKZnmJI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VNZ97r/dX0P1BK6JS0DrCTT77tk/ldPa01Lvc0Cue+KDyUAbGOXs7QyWqKs5C7MsR
- GEuQIeynUYzr/vqeCuQpvLae9YZNaFP/NDzNXnsys2yswP0mzn4xcRh1+x2XKALxnt
- m0m8r2pqFRj/H/+lzWrPeeoyAbp+ORTYXoinjLY4=
+ b=ntjx+xE+C3AH2oQIPsPbfWVVRdDswmLiUhE3GRsEFL/zASj1cXeLI+2SAgjiFLrFz
+ 626cmIamDZiazR8DLJNcLjOc0WV9m6o0KlZ5mveEmNAU8MbNM3e9rA3CrH+9bSce8F
+ cagQzX0KLF9OS5O3zjx/rH534Z5LzWlpBPC3NaMo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Wed, 20 Sep 2023 13:28:16 +0200
-Message-ID: <20230920112901.722382039@linuxfoundation.org>
+Date: Wed, 20 Sep 2023 13:29:01 +0200
+Message-ID: <20230920112849.570791208@linuxfoundation.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230920112858.471730572@linuxfoundation.org>
-References: <20230920112858.471730572@linuxfoundation.org>
+In-Reply-To: <20230920112846.440597133@linuxfoundation.org>
+References: <20230920112846.440597133@linuxfoundation.org>
 User-Agent: quilt/0.67
 X-stable: review
 X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5.4 119/367] drm/msm/mdp5: Dont leak some plane
+Subject: [Freedreno] [PATCH 4.19 101/273] drm/msm/mdp5: Dont leak some plane
  state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,7 +64,7 @@ Cc: Sasha Levin <sashal@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-5.4-stable review patch.  If anyone has any objections, please let me know.
+4.19-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -103,10 +102,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 0dc23c86747e8..e1c1b4ad5ed04 100644
+index 0cbc43f61d9c7..cd5b9ee22a5bb 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -221,8 +221,7 @@ static void mdp5_plane_destroy_state(struct drm_plane *plane,
+@@ -230,8 +230,7 @@ static void mdp5_plane_destroy_state(struct drm_plane *plane,
  {
  	struct mdp5_plane_state *pstate = to_mdp5_plane_state(state);
  
