@@ -1,50 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CB67A6F87
-	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 01:36:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC1F7A7023
+	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 04:08:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C70FE10E41C;
-	Tue, 19 Sep 2023 23:36:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4E110E2BF;
+	Wed, 20 Sep 2023 02:08:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 493CF10E1F6;
- Tue, 19 Sep 2023 23:36:08 +0000 (UTC)
-Received: from localhost.localdomain (unknown
- [IPv6:2a02:8010:65b5:0:1ac0:4dff:feee:236a])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98EE610E2BC;
+ Wed, 20 Sep 2023 02:08:10 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BA73966071A9;
- Wed, 20 Sep 2023 00:36:06 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1695166566;
- bh=fsXk4Gu75MgGG6vNMPuwnxFfx901KJO2Un2zim24NTM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Dq5b59vhlYoNpLOW5qFt0Bk73Ed7dsZ6/s8FLoFexKkdanEzvgulyJ/glb9OcZBqD
- kPG1j/DenYrFKPpxvA/O/P7UJyULnjmBQpo7GuqQ60pszHZwJ700dXUt9blsbyJG99
- HCNcd6iaCDq0g3L21X+G3lz4RfBHcO8Dycaqv4wCma4opNSboztcaI0Do/Vy2SZc1e
- AvQfaKoxU35FWQr738ZezlmdDFR5g1x2e8xC9Few10Vl4qFivODIQkFPtgJg9+ge0A
- fWqOec2wtLPCNeO2gGzr5UpdITgCq4SsqXzKrU+J1t74X0krAMoMsLZtP8dTP8ovQY
- PTw/l6lECRW8w==
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, daniel@ffwll.ch, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, robh@kernel.org, steven.price@arm.com
-Date: Wed, 20 Sep 2023 00:34:54 +0100
-Message-ID: <20230919233556.1458793-7-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230919233556.1458793-1-adrian.larumbe@collabora.com>
-References: <20230919233556.1458793-1-adrian.larumbe@collabora.com>
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A420FB8171C;
+ Wed, 20 Sep 2023 02:08:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426BBC433C8;
+ Wed, 20 Sep 2023 02:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1695175687;
+ bh=YUTPoteLEsnI9uYlbmDVFgO/ezPSaPVSmDi66jXEgj0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=F5wWhvhVK0q6mN8GzybymtBfptjKK6Kk9ncXw2rJL58oP6UNhOMi6YLNr7QqikZ6G
+ Q+z3QVzyyvXRQ5pkvLpsqP0+h8hUxw30Si3mCtkA79TzPbshOF2qzkxiQ62OpTrIir
+ I5nFmLX67VH8BBodvHclrsbbNvTt250oU4VOnRCwqFW2xCk3KRCu4sJC+vOC8U8ito
+ HS+euQbZA2wWH66n9Ks0JNKVyZe+ZziYe6AxtpYVJt+fkPlb9cnli0rvtCwv/wb5YB
+ fyzVS6FycCfjC+Pv2lHesvFRFwkZJO3hI0Y+n+aCcvlrw33e9CkE963rBYuBnlXX3+
+ b7ts/F6s5Mx/g==
+Date: Tue, 19 Sep 2023 19:12:15 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <4eaekxgmikdacvvprysb6btdqootbc6paomzhuqjtzd6rgqxkc@birohtqp4rbo>
+References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
+ <20230817145940.9887-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 6/6] drm/drm-file: Show finer-grained BO
- sizes in drm_show_memory_stats
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230817145940.9887-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/4] arm64: dts: qcom: sm8250: Add
+ DisplayPort device node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,52 +55,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, adrian.larumbe@collabora.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- healych@amazon.com, Boris Brezillon <boris.brezillon@collabora.com>,
- kernel@collabora.com, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The current implementation will try to pick the highest available size
-display unit as soon as the BO size exceeds that of the previous
-multiplier. That can lead to loss of precision in contexts of low memory
-usage.
+On Thu, Aug 17, 2023 at 05:59:37PM +0300, Dmitry Baryshkov wrote:
+> Declare the displayport controller present on the Qualcomm SM8250 SoC.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi | 89 ++++++++++++++++++++++++++++
+>  1 file changed, 89 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index eb00bbd3e1f3..8d705a1713fb 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -3638,6 +3638,8 @@ port@1 {
+>  
+>  				port@2 {
+>  					reg = <2>;
+> +
+> +					usb_1_qmpphy_dp_in: endpoint {};
+>  				};
+>  			};
+>  		};
+> @@ -4405,6 +4407,14 @@ dpu_intf2_out: endpoint {
+>  							remote-endpoint = <&mdss_dsi1_in>;
+>  						};
+>  					};
+> +
+> +					port@2 {
+> +						reg = <2>;
+> +
+> +						dpu_intf0_out: endpoint {
+> +							remote-endpoint = <&mdss_dp_in>;
+> +						};
+> +					};
+>  				};
+>  
+>  				mdp_opp_table: opp-table {
+> @@ -4432,6 +4442,85 @@ opp-460000000 {
+>  				};
+>  			};
+>  
+> +			mdss_dp: displayport-controller@ae90000 {
 
-The new selection criteria try to preserve precision, whilst also
-increasing the display unit selection threshold to render more accurate
-values.
+displayport-controller does not seem to be a valid child node of the
+sm8250 mdss. Please make sure that the binding is updated, if not
+already done.
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
----
- drivers/gpu/drm/drm_file.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 762965e3d503..34cfa128ffe5 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -872,6 +872,8 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
- }
- EXPORT_SYMBOL(drm_send_event);
- 
-+#define UPPER_UNIT_THRESHOLD 100
-+
- static void print_size(struct drm_printer *p, const char *stat,
- 		       const char *region, u64 sz)
- {
-@@ -879,7 +881,8 @@ static void print_size(struct drm_printer *p, const char *stat,
- 	unsigned u;
- 
- 	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
--		if (sz < SZ_1K)
-+		if ((sz & (SZ_1K - 1)) &&
-+		    sz < UPPER_UNIT_THRESHOLD * SZ_1K)
- 			break;
- 		sz = div_u64(sz, SZ_1K);
- 	}
--- 
-2.42.0
-
+Thanks,
+Bjorn
