@@ -1,80 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086D97A8D15
-	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 21:49:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 755CA7A8D9D
+	for <lists+freedreno@lfdr.de>; Wed, 20 Sep 2023 22:14:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0D110E53B;
-	Wed, 20 Sep 2023 19:49:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D7C10E558;
+	Wed, 20 Sep 2023 20:14:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A145010E53B;
- Wed, 20 Sep 2023 19:49:38 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0AA10E556;
+ Wed, 20 Sep 2023 20:14:25 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38KIEwvg020193; Wed, 20 Sep 2023 19:49:23 GMT
+ 38KIEkJu007325; Wed, 20 Sep 2023 20:14:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=WeywDlCOIdwYl34bVTgy3VkUkdmS227lBW5hfd2vf9s=;
- b=C0gInY75Ewi75AdQUy2oqTdnaVMkFoa5ycIpifEWyjSQ5pFLmXkic9yT7TSg756uGWJF
- GTmEuXS5uWSasfAgQxWHQXouygpWjXNeETIiOat9s06X9+ED0Y5BdXMXl8fFo6f9JlxP
- GNQsATHM7OmmfdpMCaBr1ZJOqsba7Pz0IbBbHVSYQSCQmIw9Wv8tbkriAFr90eLjtQlh
- cgbqjZ4ADSAJylNiXNrVNNJISYqZrQPL0VVWSyMuVLp1b/PMG3u8mH3Lk3Gx7XlpLxQJ
- DrUVMqHrG/62siAoBiVSU3jWxZzT4E/km74jFboR16hqptbYwMpGgFyXndWQ8Wx0gLbi fA== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=zZxXZJcu+7jXEdG3EFHrpNBrQsAQooeCP1LQOLZ2Bn8=;
+ b=TSZ3pmbwR1v/s1rbAkTttx5/DlgE2d8YUDo2uDRebvgHgeiO7VPJRlpUepT5/5NN8vm+
+ 9CuSyhSE2kuVEasCrjTjoKkBcdi0zWiktlajCcjepXGLFgnIq485aOk/j023P8UxdVRa
+ eLJp4TipiWnZtW4/SwGGhmJ1RlDsLHM0979SbYjHgUm044BwcQNLJgPhGlLyvw4Pcy0l
+ XPY/7rXvd+Ij6/6oC7SgzvuqBjq8aPKsc/4dSz+pIYBl/ve+YBopU8Nnz8Ep8rCnPu2R
+ QJcMfJNs1eg/J3MOheK1sNqCMwFKmd1MUdq9iqxxAeTxIKUEGf9vZvo4pRYEltx3BwTk WQ== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t7sh3t19p-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t7amnc39y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Sep 2023 19:49:22 +0000
+ Wed, 20 Sep 2023 20:14:11 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38KJnMFt005660
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38KKEBmg008113
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Sep 2023 19:49:22 GMT
-Received: from [10.110.124.221] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Wed, 20 Sep
- 2023 12:49:20 -0700
-Message-ID: <cc9d09f1-2f59-19ae-8c69-15caaadf264a@quicinc.com>
-Date: Wed, 20 Sep 2023 12:49:19 -0700
+ Wed, 20 Sep 2023 20:14:11 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Wed, 20 Sep 2023 13:14:10 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 20 Sep 2023 13:13:58 -0700
+Message-ID: <20230920201358.27597-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
- <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpqPXoFX4LXyXYgfh07Vpxg-KgD8VBR6x5bXf4GOJmbOtw@mail.gmail.com>
- <2f98d5f1-57c1-d9fe-cb1c-b975db057287@quicinc.com>
- <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: v8-4G4iyIqSJyx0Kdmmcrc340zaj0COa
-X-Proofpoint-GUID: v8-4G4iyIqSJyx0Kdmmcrc340zaj0COa
+X-Proofpoint-GUID: 0uNC1Bf6DvnlTR5LUYEFIAAstZHZIdEl
+X-Proofpoint-ORIG-GUID: 0uNC1Bf6DvnlTR5LUYEFIAAstZHZIdEl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-20_09,2023-09-20_01,2023-05-22_02
+ definitions=2023-09-20_10,2023-09-20_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxlogscore=999
- spamscore=0 adultscore=0 mlxscore=0 phishscore=0 impostorscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309200165
-Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dp: add
- pm_runtime_force_suspend()/resume()
+ impostorscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ lowpriorityscore=0 malwarescore=0 mlxlogscore=825 mlxscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2308100000
+ definitions=main-2309200169
+Subject: [Freedreno] [PATCH] drm: improve the documentation of connector hpd
+ ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,203 +82,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ jani.nikula@linux.intel.com, linux-kernel@vger.kernel.org,
+ quic_parellan@quicinc.com, laurent.pinchart@ideasonboard.com,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+While making the changes in [1], it was noted that the documentation
+of the enable_hpd() and disable_hpd() does not make it clear that
+these ops should not try to do hpd state maintenance and should only
+attempt to enable/disable hpd related hardware for the connector.
 
-On 9/19/2023 2:50 AM, Dmitry Baryshkov wrote:
-> On Mon, 18 Sept 2023 at 20:48, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>
->> On 9/15/2023 6:21 PM, Dmitry Baryshkov wrote:
->>> On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>>> Add pm_runtime_force_suspend()/resume() to complete incorporating pm
->>>> runtime framework into DP driver. Both dp_pm_prepare() and dp_pm_complete()
->>>> are added to set hpd_state to correct state. After resume, DP driver will
->>>> re training its main link after .hpd_enable() callback enabled HPD
->>>> interrupts and bring up display accordingly.
->>> How will it re-train the main link? What is the code path for that?
->> 1) for edp, dp_bridge_atomic_enable(), called from framework, to start
->> link training and bring up display.
-> And this path doesn't use .hpd_enable() which you have mentioned in
-> the commit message. Please don't try to shorten the commit message.
-> You see, I have had questions to several of them, which means that
-> they were not verbose enough.
+The state management of these calls to make sure these calls are
+balanced is handled by the DRM core and we should keep it that way
+to minimize the overhead in the drivers which implement these ops.
 
-ok, my bad,
+[1]: https://patchwork.freedesktop.org/patch/558387/
 
-I will add more explain to commit text.
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ include/drm/drm_modeset_helper_vtables.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
->> 2) for external DP, HPD_PLUG_INT will be generated to start link
->> training and bring up display.
-> This should be hpd_notify, who starts link training, not some event.
->
->>> I think this is a misuse for prepare/complete callbacks, at least
->>> judging from their documentation.
->> 1) dp_pm_prepare() is called to make sure eDP/DP related power/clocks
->> are off and set hpd_state  to ST_SUSPENDED and nothing else.
->>
->> 2) dp_pm_completed() is called to set hpd_state to ST_ST_DISCONNECTED
->> (default state) and nothing else.
->>
->> I think both are doing proper action.
-> Have you read the prepare() / complete() documentation? Does your
-> usage follow the documented use case?
-I think I can just remove both dp_pm_prepare and dp_pm_complete fro 
-this  patch.
->
->>
->>>> Changes in v3:
->>>> -- replace dp_pm_suspend() with pm_runtime_force_suspend()
->>>> -- replace dp_pm_resume() with pm_runtime_force_resume()
->>>>
->>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_display.c | 87 +++++--------------------------------
->>>>    1 file changed, 10 insertions(+), 77 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> index b6992202..b58cb02 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> @@ -1333,101 +1333,35 @@ static int dp_pm_runtime_resume(struct device *dev)
->>>>           return 0;
->>>>    }
->>>>
->>>> -static int dp_pm_resume(struct device *dev)
->>>> +static void dp_pm_complete(struct device *dev)
->>>>    {
->>>> -       struct platform_device *pdev = to_platform_device(dev);
->>>> -       struct msm_dp *dp_display = platform_get_drvdata(pdev);
->>>> -       struct dp_display_private *dp;
->>>> -       int sink_count = 0;
->>>> -
->>>> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
->>>> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
->>>>
->>>>           mutex_lock(&dp->event_mutex);
->>>>
->>>>           drm_dbg_dp(dp->drm_dev,
->>>> -               "Before, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
->>>> +               "type=%d core_inited=%d phy_inited=%d power_on=%d\n",
->>>>                   dp->dp_display.connector_type, dp->core_initialized,
->>>> -               dp->phy_initialized, dp_display->power_on);
->>>> +               dp->phy_initialized, dp->dp_display.power_on);
->>>>
->>>>           /* start from disconnected state */
->>>>           dp->hpd_state = ST_DISCONNECTED;
->>>>
->>>> -       /* turn on dp ctrl/phy */
->>>> -       dp_display_host_init(dp);
->>>> -
->>>> -       if (dp_display->is_edp)
->>>> -               dp_catalog_ctrl_hpd_enable(dp->catalog);
->>>> -
->>>> -       if (dp_catalog_link_is_connected(dp->catalog)) {
->>>> -               /*
->>>> -                * set sink to normal operation mode -- D0
->>>> -                * before dpcd read
->>>> -                */
->>>> -               dp_display_host_phy_init(dp);
->>>> -               dp_link_psm_config(dp->link, &dp->panel->link_info, false);
->>>> -               sink_count = drm_dp_read_sink_count(dp->aux);
->>>> -               if (sink_count < 0)
->>>> -                       sink_count = 0;
->>>> -
->>>> -               dp_display_host_phy_exit(dp);
->>>> -       }
->>>> -
->>>> -       dp->link->sink_count = sink_count;
->>>> -       /*
->>>> -        * can not declared display is connected unless
->>>> -        * HDMI cable is plugged in and sink_count of
->>>> -        * dongle become 1
->>>> -        * also only signal audio when disconnected
->>>> -        */
->>>> -       if (dp->link->sink_count) {
->>>> -               dp->dp_display.link_ready = true;
->>>> -       } else {
->>>> -               dp->dp_display.link_ready = false;
->>>> -               dp_display_handle_plugged_change(dp_display, false);
->>>> -       }
->>>> -
->>>> -       drm_dbg_dp(dp->drm_dev,
->>>> -               "After, type=%d sink=%d conn=%d core_init=%d phy_init=%d power=%d\n",
->>>> -               dp->dp_display.connector_type, dp->link->sink_count,
->>>> -               dp->dp_display.link_ready, dp->core_initialized,
->>>> -               dp->phy_initialized, dp_display->power_on);
->>>> -
->>>>           mutex_unlock(&dp->event_mutex);
->>>> -
->>>> -       return 0;
->>>>    }
->>>>
->>>> -static int dp_pm_suspend(struct device *dev)
->>>> +static int dp_pm_prepare(struct device *dev)
->>>>    {
->>>> -       struct platform_device *pdev = to_platform_device(dev);
->>>> -       struct msm_dp *dp_display = platform_get_drvdata(pdev);
->>>> -       struct dp_display_private *dp;
->>>> -
->>>> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
->>>> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
->>>>
->>>>           mutex_lock(&dp->event_mutex);
->>>>
->>>> -       drm_dbg_dp(dp->drm_dev,
->>>> -               "Before, type=%d core_inited=%d  phy_inited=%d power_on=%d\n",
->>>> -               dp->dp_display.connector_type, dp->core_initialized,
->>>> -               dp->phy_initialized, dp_display->power_on);
->>>> -
->>>>           /* mainlink enabled */
->>>>           if (dp_power_clk_status(dp->power, DP_CTRL_PM))
->>>>                   dp_ctrl_off_link_stream(dp->ctrl);
->>>>
->>>> -       dp_display_host_phy_exit(dp);
->>>> -
->>>> -       /* host_init will be called at pm_resume */
->>>> -       dp_display_host_deinit(dp);
->>>> -
->>>>           dp->hpd_state = ST_SUSPENDED;
->>>>
->>>> -       drm_dbg_dp(dp->drm_dev,
->>>> -               "After, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
->>>> -               dp->dp_display.connector_type, dp->core_initialized,
->>>> -               dp->phy_initialized, dp_display->power_on);
->>>> -
->>>>           mutex_unlock(&dp->event_mutex);
->>>>
->>>>           return 0;
->>>> @@ -1435,8 +1369,10 @@ static int dp_pm_suspend(struct device *dev)
->>>>
->>>>    static const struct dev_pm_ops dp_pm_ops = {
->>>>           SET_RUNTIME_PM_OPS(dp_pm_runtime_suspend, dp_pm_runtime_resume, NULL)
->>>> -       .suspend = dp_pm_suspend,
->>>> -       .resume =  dp_pm_resume,
->>>> +       SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
->>>> +                                pm_runtime_force_resume)
->>>> +       .prepare = dp_pm_prepare,
->>>> +       .complete = dp_pm_complete,
->>>>    };
->>>>
->>>>    static struct platform_driver dp_display_driver = {
->>>> @@ -1670,9 +1606,6 @@ void dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
->>>>
->>>>           dp_display = container_of(dp, struct dp_display_private, dp_display);
->>>>
->>>> -       if (dp->is_edp)
->>>> -               dp_hpd_unplug_handle(dp_display, 0);
->>>> -
->>>>           mutex_lock(&dp_display->event_mutex);
->>>>
->>>>           state = dp_display->hpd_state;
->>>> --
->>>> 2.7.4
->>>>
->
->
+diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+index e3c3ac615909..a33cf7488737 100644
+--- a/include/drm/drm_modeset_helper_vtables.h
++++ b/include/drm/drm_modeset_helper_vtables.h
+@@ -1154,6 +1154,11 @@ struct drm_connector_helper_funcs {
+ 	 * This operation is optional.
+ 	 *
+ 	 * This callback is used by the drm_kms_helper_poll_enable() helpers.
++	 *
++	 * This operation does not need to perform any hpd state tracking as
++	 * the DRM core handles that maintenance and ensures the calls to enable
++	 * and disable hpd are balanced.
++	 *
+ 	 */
+ 	void (*enable_hpd)(struct drm_connector *connector);
+ 
+@@ -1165,6 +1170,11 @@ struct drm_connector_helper_funcs {
+ 	 * This operation is optional.
+ 	 *
+ 	 * This callback is used by the drm_kms_helper_poll_disable() helpers.
++	 *
++	 * This operation does not need to perform any hpd state tracking as
++	 * the DRM core handles that maintenance and ensures the calls to enable
++	 * and disable hpd are balanced.
++	 *
+ 	 */
+ 	void (*disable_hpd)(struct drm_connector *connector);
+ };
+-- 
+2.40.1
+
