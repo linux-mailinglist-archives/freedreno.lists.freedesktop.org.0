@@ -1,81 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3AD7A9011
-	for <lists+freedreno@lfdr.de>; Thu, 21 Sep 2023 02:10:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F09077A91D9
+	for <lists+freedreno@lfdr.de>; Thu, 21 Sep 2023 09:02:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41F2410E515;
-	Thu, 21 Sep 2023 00:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B49710E568;
+	Thu, 21 Sep 2023 07:01:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A8A10E515;
- Thu, 21 Sep 2023 00:10:47 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38KNPmx6028711; Thu, 21 Sep 2023 00:10:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=qneqChtbcPJwHLGFVb5R0IVC9y05pxxQTCA5porCVq4=;
- b=olRyOq8qJO0hAqgugwkkdFv/gp944EqmpoF/PEc2CDTwPlk3++zQ09xW5D60hp4VT5E2
- XtxuPU8tDEWvEtpcInE7KwqpEpRRA9+XxrS+s8SLlPsDnefsW8xzjGp4OOBPC5j5ZvpS
- 7kEg9PFf/AbU/EKz0OIQuy+/QxdcmemisSzOgRHPj9IrZQS/u5s7iMnNhTpzyb99RsJC
- glaUhMEIG6YfyVQubXkd8qvd1hQbNk3dnzIEZU+GWF3uzWio6zd+N57QizopB3ycrSxC
- MlHop92f8gj1SEnOaa7BNTxcQntr/XenRZpsvr20qFbNgg0wkTnWaxBytMQkbJgxDvGl QA== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t7r8w2f45-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Sep 2023 00:10:45 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38L0Ahb0012680
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Sep 2023 00:10:43 GMT
-Received: from [10.71.111.102] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Wed, 20 Sep
- 2023 17:10:43 -0700
-Message-ID: <d5304033-143b-f093-a58b-67a809ac4540@quicinc.com>
-Date: Wed, 20 Sep 2023 17:10:42 -0700
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E781D10E564
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Sep 2023 07:01:51 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-51e28cac164so3749260a12.1
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Sep 2023 00:01:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695279710; x=1695884510; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TXv2swyixrrXvv0zGvrj0+c4WbYkAz74mw7u1eEONl8=;
+ b=m7MO/vNzO7+eTU+iOCsbIFp7QY0xRktgjJ/seYmeT9emZpPRU6hZo7EwyBl43pIqUk
+ r7WE+cWcf1DSWOsg4JKskwS/ZrxSy1VRMOLOH6qc9bW6XbMvDKuiuwqY0nvngo4gBmcd
+ RSkl5UPpAwqlb4zYZp2w4yEXufKAhFSOcU7ng51swv8BRV1uL9tU/90dKKm7QjQ58hkw
+ k2Uh5TbTnIRCvLzoguzhx90lfqxEQL6QLgCLa6GNaQQ/FtlmrfQ/mS9XEbq7MTY68uX2
+ gJSG6sVmMkHWQ5JIF872/0SLGwcD8urwUFMqkkc8hJffCyeV0zdIbmLfROb9O3u+sJLW
+ YSeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695279710; x=1695884510;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TXv2swyixrrXvv0zGvrj0+c4WbYkAz74mw7u1eEONl8=;
+ b=wZeyjQXuPfoOIjQQcr2iwT3nqZmDRXo/nU634QN9qfQDv5V4QjJjfAuSYESEUVtK0p
+ ZGrmBWiwp1MLKpa2SD2a8lc5cCIZJs6uKXBZbPUNU5X3q+qG0TlO21YxPFMVBXIMdHN4
+ DJOW0eDwV5Zw6IUpfxI3BmAEt6WXpfoC+mRFdUwTOCB76FcHTfvyoXcvr2f+KhMxObnH
+ 1qbo5/2Cu4G/SOcPZcL7gknmAUdLB71ne0SA3jY33fNHLjIB+mV2pFyTbH55Cl4OSk1t
+ 2+7TWvBSwMlAkgBWWkHFGDQmmfSjcfr+s2iuk+V2G5COVDsycSZfYwMesWogmIZ0TZnm
+ lkCA==
+X-Gm-Message-State: AOJu0YzZcoPl7Oi9Z06KlKLEYi/BuaKoc1DwOEYl+4BLHwDZnZaQVH2x
+ 6spsJ1rqee9MPhS74X63jp+vCw==
+X-Google-Smtp-Source: AGHT+IF33ZszVwsMibxsoJczJ31Md6SkIWFl+NgIPjyaeu55oxkozMwjQ2+h4m7DsUHVeCJrMeMh0Q==
+X-Received: by 2002:a50:ec83:0:b0:531:1f3b:cb47 with SMTP id
+ e3-20020a50ec83000000b005311f3bcb47mr7302479edr.0.1695279710178; 
+ Thu, 21 Sep 2023 00:01:50 -0700 (PDT)
+Received: from [172.20.15.189] (static-212-193-78-212.thenetworkfactory.nl.
+ [212.78.193.212]) by smtp.gmail.com with ESMTPSA id
+ m26-20020a056402051a00b00532d2b5126bsm389571edv.94.2023.09.21.00.01.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Sep 2023 00:01:49 -0700 (PDT)
+Message-ID: <8f24963f-a016-3095-29da-a2fcae5ec9eb@linaro.org>
+Date: Thu, 21 Sep 2023 09:01:50 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
 References: <20230921-topic-7280_dpu-v1-0-6912a97183d5@linaro.org>
- <20230921-topic-7280_dpu-v1-3-6912a97183d5@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230921-topic-7280_dpu-v1-3-6912a97183d5@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ <20230921-topic-7280_dpu-v1-1-6912a97183d5@linaro.org>
+ <3b23270c-ec89-2177-8252-6ccaf58d37ac@quicinc.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <3b23270c-ec89-2177-8252-6ccaf58d37ac@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: MfPBCMWuGdqGjSre9CD2k9i64Os-ty7y
-X-Proofpoint-ORIG-GUID: MfPBCMWuGdqGjSre9CD2k9i64Os-ty7y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-20_12,2023-09-20_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- mlxscore=0 suspectscore=0 bulkscore=0 mlxlogscore=999 adultscore=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309200202
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: Fix SC7280 DSC block length
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Fix SC7280 PP length
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,51 +89,21 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/20/2023 3:46 PM, Konrad Dybcio wrote:
-> Commit e550ad0e5c3d ("drm/msm/dpu: fix DSC 1.2 block lengths") changed
-> the block length from a wrong value to another wrong value.
+On 9/21/23 01:41, Abhinav Kumar wrote:
 > 
-> Use the correct one this time.
 > 
-
-No that change is correct as well.
-
-After we moved to sub-blk parsing, we have enc and ctl blocks length 
-used from the dsc_sblk_* instead:
-
-static const struct dpu_dsc_sub_blks dsc_sblk_0 = {
-         .enc = {.name = "enc", .base = 0x100, .len = 0x9c},
-         .ctl = {.name = "ctl", .base = 0xF00, .len = 0x10},
-};
-
-static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
-         .enc = {.name = "enc", .base = 0x200, .len = 0x9c},
-         .ctl = {.name = "ctl", .base = 0xF80, .len = 0x10},
-};
-
-The main block has only one register now which is the DSC_CMN register.
-
-Hence len = 0x4 is correct for that.
-
-Sorry, but this is right too :)
-
-> Fixes: e550ad0e5c3d ("drm/msm/dpu: fix DSC 1.2 block lengths")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> On 9/20/2023 3:46 PM, Konrad Dybcio wrote:
+>> Commit 194347df5844 ("drm/msm/dpu: inline DSC_BLK and DSC_BLK_1_2
+>> macros") unrolled a macro incorrectly. Fix that.
+>>
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> index b6a59d7b94c4..de5e1a57a142 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> @@ -163,7 +163,7 @@ static const struct dpu_pingpong_cfg sc7280_pp[] = {
->   static const struct dpu_dsc_cfg sc7280_dsc[] = {
->   	{
->   		.name = "dce_0_0", .id = DSC_0,
-> -		.base = 0x80000, .len = 0x4,
-> +		.base = 0x80000, .len = 0x10,
->   		.features = BIT(DPU_DSC_HW_REV_1_2) | BIT(DPU_DSC_NATIVE_42x_EN) | BIT(DPU_DSC_OUTPUT_CTRL),
->   		.sblk = &dsc_sblk_0,
->   	},
+> No, its correct from what i can tell.
 > 
+> Before inlining it was using PP_BLK_DITHER macro and not PP_BLK.
+> 
+> PP_BLK_DITHER has a len of 0 and not 0xd4.
+> 
+> Hence I cannot see whats wrong here.
+Right, I misread the thing..
+
+Konrad
