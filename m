@@ -2,74 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09077A91D9
-	for <lists+freedreno@lfdr.de>; Thu, 21 Sep 2023 09:02:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE057A91DF
+	for <lists+freedreno@lfdr.de>; Thu, 21 Sep 2023 09:04:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B49710E568;
-	Thu, 21 Sep 2023 07:01:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47DBB10E568;
+	Thu, 21 Sep 2023 07:04:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E781D10E564
- for <freedreno@lists.freedesktop.org>; Thu, 21 Sep 2023 07:01:51 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-51e28cac164so3749260a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 21 Sep 2023 00:01:51 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 867E710E568
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Sep 2023 07:04:40 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2c038a1e2e6so8885691fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Sep 2023 00:04:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695279710; x=1695884510; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1695279879; x=1695884679; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=TXv2swyixrrXvv0zGvrj0+c4WbYkAz74mw7u1eEONl8=;
- b=m7MO/vNzO7+eTU+iOCsbIFp7QY0xRktgjJ/seYmeT9emZpPRU6hZo7EwyBl43pIqUk
- r7WE+cWcf1DSWOsg4JKskwS/ZrxSy1VRMOLOH6qc9bW6XbMvDKuiuwqY0nvngo4gBmcd
- RSkl5UPpAwqlb4zYZp2w4yEXufKAhFSOcU7ng51swv8BRV1uL9tU/90dKKm7QjQ58hkw
- k2Uh5TbTnIRCvLzoguzhx90lfqxEQL6QLgCLa6GNaQQ/FtlmrfQ/mS9XEbq7MTY68uX2
- gJSG6sVmMkHWQ5JIF872/0SLGwcD8urwUFMqkkc8hJffCyeV0zdIbmLfROb9O3u+sJLW
- YSeQ==
+ bh=vwmvG5vLsSx5qVJpIDAQauKd5SFkomPYwP2Gxr7JRg4=;
+ b=GHH5/DzRjlH8VLf64u+fkfkKmhpO+Y+8z7bm/pPcN3M/OfoLgfHC+kAdx0nlxC2hoD
+ zbbM7z3Bl7Vl06Yoti1ZGF9mLQjTHIeQUYFfDDJpHJ4gy4cP8B5ix7QfY+oc0qe0Esol
+ zRBpi0/WJcRgFCk4T7EekaA0Sm9e/c6Q9uj/7Jlv15rmtPpEEgdwohebheps7IobYk35
+ rLRIvSDTrZIVMhx2JaOI+xeiKA0qvIR+vOMLxTev/WSk4t7R7JfzBWpBlJ1dSgKPFhjy
+ GGpViKIrG6jTUTccLFJUY6r/6fQs2Rryuj2IjUFOj9atWK4hm2onHmf5ppRRnol6asaD
+ Yq1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695279710; x=1695884510;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1695279879; x=1695884679;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TXv2swyixrrXvv0zGvrj0+c4WbYkAz74mw7u1eEONl8=;
- b=wZeyjQXuPfoOIjQQcr2iwT3nqZmDRXo/nU634QN9qfQDv5V4QjJjfAuSYESEUVtK0p
- ZGrmBWiwp1MLKpa2SD2a8lc5cCIZJs6uKXBZbPUNU5X3q+qG0TlO21YxPFMVBXIMdHN4
- DJOW0eDwV5Zw6IUpfxI3BmAEt6WXpfoC+mRFdUwTOCB76FcHTfvyoXcvr2f+KhMxObnH
- 1qbo5/2Cu4G/SOcPZcL7gknmAUdLB71ne0SA3jY33fNHLjIB+mV2pFyTbH55Cl4OSk1t
- 2+7TWvBSwMlAkgBWWkHFGDQmmfSjcfr+s2iuk+V2G5COVDsycSZfYwMesWogmIZ0TZnm
- lkCA==
-X-Gm-Message-State: AOJu0YzZcoPl7Oi9Z06KlKLEYi/BuaKoc1DwOEYl+4BLHwDZnZaQVH2x
- 6spsJ1rqee9MPhS74X63jp+vCw==
-X-Google-Smtp-Source: AGHT+IF33ZszVwsMibxsoJczJ31Md6SkIWFl+NgIPjyaeu55oxkozMwjQ2+h4m7DsUHVeCJrMeMh0Q==
-X-Received: by 2002:a50:ec83:0:b0:531:1f3b:cb47 with SMTP id
- e3-20020a50ec83000000b005311f3bcb47mr7302479edr.0.1695279710178; 
- Thu, 21 Sep 2023 00:01:50 -0700 (PDT)
+ bh=vwmvG5vLsSx5qVJpIDAQauKd5SFkomPYwP2Gxr7JRg4=;
+ b=VSlTjFwWV3t4O4fLURx/1cnTbzLDpEvF9d6ShFwp/xR8wvUt/hREdSF9PHVAgRq0W+
+ 380sCk1uf8xKd4YBOxWR0GDAx/CnMTXM8TWsLxCmhdRQXz10ADeDq/GbMqXqyCdii/GQ
+ vPnqzE5pgcRwNIDjxavTnm8ND3vvIEMP5FLfqbmM0OiDyAtpBLC8iRYra3wJoEriejvP
+ M4n2WnP59U9pndLO8iq382cTl139LXIIvYKaj6wicREMznhmmW3oTX2rYWzg/acLTkH7
+ iUVJ0SwG5RcaJqj2gTHAYxx3t16ROa4fVViC6D/wp3pxSoD52KomHce8Bp9bLptIpuYA
+ ocLA==
+X-Gm-Message-State: AOJu0YzH2M021USswEJGP4HXtXZTQs7b2eJuXKitMR/pZGMZgRp7Nqs1
+ 2VMpeyA9GS9ypladTSBJoGk50XH9CjEWBxRfHyzACA==
+X-Google-Smtp-Source: AGHT+IFhVm19T+LegUcKx3F6tIXfI3FFKdbMKTy0n/7EXfRWUf6QpqiIp9wLl2V2H4TrPU4Mt8A7rQ==
+X-Received: by 2002:a2e:b608:0:b0:2bc:b54b:c03f with SMTP id
+ r8-20020a2eb608000000b002bcb54bc03fmr4204197ljn.5.1695279878602; 
+ Thu, 21 Sep 2023 00:04:38 -0700 (PDT)
 Received: from [172.20.15.189] (static-212-193-78-212.thenetworkfactory.nl.
  [212.78.193.212]) by smtp.gmail.com with ESMTPSA id
- m26-20020a056402051a00b00532d2b5126bsm389571edv.94.2023.09.21.00.01.49
+ b18-20020a170906039200b009ae5674825asm590222eja.47.2023.09.21.00.04.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Sep 2023 00:01:49 -0700 (PDT)
-Message-ID: <8f24963f-a016-3095-29da-a2fcae5ec9eb@linaro.org>
-Date: Thu, 21 Sep 2023 09:01:50 +0200
+ Thu, 21 Sep 2023 00:04:38 -0700 (PDT)
+Message-ID: <ce67c10d-a589-dc2e-76cf-fb5cfaa48c66@linaro.org>
+Date: Thu, 21 Sep 2023 09:04:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
+Content-Language: en-US
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>
 References: <20230921-topic-7280_dpu-v1-0-6912a97183d5@linaro.org>
- <20230921-topic-7280_dpu-v1-1-6912a97183d5@linaro.org>
- <3b23270c-ec89-2177-8252-6ccaf58d37ac@quicinc.com>
-Content-Language: en-US
+ <20230921-topic-7280_dpu-v1-2-6912a97183d5@linaro.org>
+ <444d125c-2a87-3bae-6ea0-b76dffeb63ef@quicinc.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <3b23270c-ec89-2177-8252-6ccaf58d37ac@quicinc.com>
+In-Reply-To: <444d125c-2a87-3bae-6ea0-b76dffeb63ef@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Fix SC7280 PP length
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Add missing
+ DPU_DSC_OUTPUT_CTRL to SC7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,21 +90,20 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/21/23 01:41, Abhinav Kumar wrote:
+On 9/21/23 02:01, Abhinav Kumar wrote:
 > 
 > 
 > On 9/20/2023 3:46 PM, Konrad Dybcio wrote:
->> Commit 194347df5844 ("drm/msm/dpu: inline DSC_BLK and DSC_BLK_1_2
->> macros") unrolled a macro incorrectly. Fix that.
+>> DPU_DSC_OUTPUT_CTRL should be enabled for all platforms with a CTL
+>> CFG 1.0.0. SC7280 is one of them. Add it.
 >>
 > 
-> No, its correct from what i can tell.
+> sc7280 and all other chipsets using DSC 1.2 use dpu_hw_dsc_init_1_2 and 
+> not dpu_hw_dsc_init.
 > 
-> Before inlining it was using PP_BLK_DITHER macro and not PP_BLK.
+> dpu_hw_dsc_init_1_2 assigns the dsc_bind_pingpong_blk op by default.
 > 
-> PP_BLK_DITHER has a len of 0 and not 0xd4.
-> 
-> Hence I cannot see whats wrong here.
-Right, I misread the thing..
+> So this change is not needed.
+Gah, I don't like that we do it behind the scenes but I agree it's a NOP..
 
 Konrad
