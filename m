@@ -2,58 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0EE7AB31C
-	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 15:53:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57E117AB342
+	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 16:04:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5F0310E66B;
-	Fri, 22 Sep 2023 13:53:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAC8710E1D8;
+	Fri, 22 Sep 2023 14:04:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A857710E192;
- Fri, 22 Sep 2023 13:53:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 440EF10E689;
+ Fri, 22 Sep 2023 14:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695390806; x=1726926806;
+ t=1695391450; x=1726927450;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=fHzqMNg62b1G73PiXOrYN6KRfPM9WDVRb9/gxvCfRQY=;
- b=nzrKAKYN0UoFaApxTa6MoXwE6zTGskw5vnMevJ8n+NQDGCg9PZfw4XsP
- H3PC65EOkQymiUhHwq5k7ft6a62QfBFQeZJLWtA8jU2BiUyPcf/Du1Egl
- jzkQ1peEmP4SfIKIL+odp2MxJqCShNlr21cBYl8iP2U7TSO9XekefNA/C
- Ua/77Om9WSgMqjlucoTALZJgL94RqFAzukagMy6wJwgCxQy8hW/7I3gEr
- OcXBtFCUSG/Qc5Hslp3W9YqbuGyXa5l1WNEbgRG6Hg3G8rxDLpfNWFJ4e
- O610FuDHZ/8ZzH7Dkb0crFcBearEbVgy7mtKJSLc1S29Iw0N/nnL8sBPs A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="467127546"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="467127546"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:53:26 -0700
+ bh=BTfvrs5EOPQJfVJYIu6aaO3NsW53LRV0R0jYG09hQ3Y=;
+ b=Dr87weIne0i6h6VKp92QFKpDrksSuKtgIhC7pRYW99wgharn5yhOikzB
+ mZGh+CuuMvv8y7uhuVe6L4pibRMbvz/1Csu/spdeWly8ZuaLU6qWrRtaj
+ QsIsvZ00LioXEI8Ajh2VIX/kXl/w9dyb0WlEvs1iLRwszX7UNQFEbi5XI
+ h9Tiz4TLkwpPYmh2j6WLMLiYFTYYAeue+QOhM9FIZcH2F/hQkmcdVrhCy
+ 56NRZ5oWBvhyZYY99BZNVlNoaMWJ26noa9Xu4QdRYIJoByu10OVIFDURa
+ ob8Sn7/qLCLCpyvi1EercxuIEIRiH4Sqix2i4kXXX302zdfFSEzY6XoIg w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378122886"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378122886"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2023 07:03:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="1078377321"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="1078377321"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871253379"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871253379"
 Received: from placki-mobl.ger.corp.intel.com (HELO [10.213.200.149])
  ([10.213.200.149])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:53:21 -0700
-Message-ID: <68cbe1af-f485-41a4-111a-c695697ef26f@linux.intel.com>
-Date: Fri, 22 Sep 2023 14:53:19 +0100
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2023 07:02:32 -0700
+Message-ID: <5a92b93c-6c6c-059a-c07b-a8b0b4b2b364@linux.intel.com>
+Date: Fri, 22 Sep 2023 15:02:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
 Content-Language: en-US
 To: =?UTF-8?Q?Adri=c3=a1n_Larumbe?= <adrian.larumbe@collabora.com>
 References: <20230919233556.1458793-1-adrian.larumbe@collabora.com>
- <20230919233556.1458793-3-adrian.larumbe@collabora.com>
- <b23eb1dc-dd01-2086-f4e8-a5c3db389a14@linux.intel.com>
- <chpqiov6y5gbnx3cnmrxkijperhgjhtrrsk556jbumrihs3pxm@ahq3kuehj7xp>
+ <20230919233556.1458793-7-adrian.larumbe@collabora.com>
+ <ccfa3697-b015-ff35-fb92-0efcbd1d7d7c@linux.intel.com>
+ <6b9c8566-926d-40ff-7907-228d317fab3d@linux.intel.com>
+ <rn5metso2yr2kyxix3fh2ub77jpjf6avs754eshgpd2lu33bkw@33way22pozgh>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Organization: Intel Corporation UK Plc
-In-Reply-To: <chpqiov6y5gbnx3cnmrxkijperhgjhtrrsk556jbumrihs3pxm@ahq3kuehj7xp>
+In-Reply-To: <rn5metso2yr2kyxix3fh2ub77jpjf6avs754eshgpd2lu33bkw@33way22pozgh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v6 2/6] drm/panfrost: Add fdinfo support GPU
- load metrics
+Subject: Re: [Freedreno] [PATCH v6 6/6] drm/drm-file: Show finer-grained BO
+ sizes in drm_show_memory_stats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,280 +80,85 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 22/09/2023 11:57, Adrián Larumbe wrote:
-> On 20.09.2023 16:40, Tvrtko Ursulin wrote:
->> On 20/09/2023 00:34, Adrián Larumbe wrote:
->>> The drm-stats fdinfo tags made available to user space are drm-engine,
->>> drm-cycles, drm-max-freq and drm-curfreq, one per job slot.
->>>
->>> This deviates from standard practice in other DRM drivers, where a single
->>> set of key:value pairs is provided for the whole render engine. However,
->>> Panfrost has separate queues for fragment and vertex/tiler jobs, so a
->>> decision was made to calculate bus cycles and workload times separately.
->>>
->>> Maximum operating frequency is calculated at devfreq initialisation time.
->>> Current frequency is made available to user space because nvtop uses it
->>> when performing engine usage calculations.
->>>
->>> It is important to bear in mind that both GPU cycle and kernel time numbers
->>> provided are at best rough estimations, and always reported in excess from
->>> the actual figure because of two reasons:
->>>    - Excess time because of the delay between the end of a job processing,
->>>      the subsequent job IRQ and the actual time of the sample.
->>>    - Time spent in the engine queue waiting for the GPU to pick up the next
->>>      job.
->>>
->>> To avoid race conditions during enablement/disabling, a reference counting
->>> mechanism was introduced, and a job flag that tells us whether a given job
->>> increased the refcount. This is necessary, because user space can toggle
->>> cycle counting through a debugfs file, and a given job might have been in
->>> flight by the time cycle counting was disabled.
->>>
->>> The main goal of the debugfs cycle counter knob is letting tools like nvtop
->>> or IGT's gputop switch it at any time, to avoid power waste in case no
->>> engine usage measuring is necessary.
->>>
->>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
->>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
->>> Reviewed-by: Steven Price <steven.price@arm.com>
->>> ---
->>>    drivers/gpu/drm/panfrost/Makefile           |  2 +
->>>    drivers/gpu/drm/panfrost/panfrost_debugfs.c | 20 ++++++++
->>>    drivers/gpu/drm/panfrost/panfrost_debugfs.h | 13 +++++
->>>    drivers/gpu/drm/panfrost/panfrost_devfreq.c |  8 +++
->>>    drivers/gpu/drm/panfrost/panfrost_devfreq.h |  3 ++
->>>    drivers/gpu/drm/panfrost/panfrost_device.c  |  2 +
->>>    drivers/gpu/drm/panfrost/panfrost_device.h  | 13 +++++
->>>    drivers/gpu/drm/panfrost/panfrost_drv.c     | 57 ++++++++++++++++++++-
->>>    drivers/gpu/drm/panfrost/panfrost_gpu.c     | 41 +++++++++++++++
->>>    drivers/gpu/drm/panfrost/panfrost_gpu.h     |  4 ++
->>>    drivers/gpu/drm/panfrost/panfrost_job.c     | 24 +++++++++
->>>    drivers/gpu/drm/panfrost/panfrost_job.h     |  5 ++
->>>    12 files changed, 191 insertions(+), 1 deletion(-)
->>>    create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>>    create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>>
->>> diff --git a/drivers/gpu/drm/panfrost/Makefile b/drivers/gpu/drm/panfrost/Makefile
->>> index 7da2b3f02ed9..2c01c1e7523e 100644
->>> --- a/drivers/gpu/drm/panfrost/Makefile
->>> +++ b/drivers/gpu/drm/panfrost/Makefile
->>> @@ -12,4 +12,6 @@ panfrost-y := \
->>>    	panfrost_perfcnt.o \
->>>    	panfrost_dump.o
->>> +panfrost-$(CONFIG_DEBUG_FS) += panfrost_debugfs.o
->>> +
->>>    obj-$(CONFIG_DRM_PANFROST) += panfrost.o
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_debugfs.c b/drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>> new file mode 100644
->>> index 000000000000..cc14eccba206
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>> @@ -0,0 +1,20 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +/* Copyright 2023 Collabora ltd. */
->>> +
->>> +#include <linux/debugfs.h>
->>> +#include <linux/platform_device.h>
->>> +#include <drm/drm_debugfs.h>
->>> +#include <drm/drm_file.h>
->>> +#include <drm/panfrost_drm.h>
->>> +
->>> +#include "panfrost_device.h"
->>> +#include "panfrost_gpu.h"
->>> +#include "panfrost_debugfs.h"
->>> +
->>> +void panfrost_debugfs_init(struct drm_minor *minor)
->>> +{
->>> +	struct drm_device *dev = minor->dev;
->>> +	struct panfrost_device *pfdev = platform_get_drvdata(to_platform_device(dev->dev));
->>> +
->>> +	debugfs_create_atomic_t("profile", 0600, minor->debugfs_root, &pfdev->profile_mode);
->>> +}
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_debugfs.h b/drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>> new file mode 100644
->>> index 000000000000..db1c158bcf2f
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>> @@ -0,0 +1,13 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +/*
->>> + * Copyright 2023 Collabora ltd.
->>> + */
->>> +
->>> +#ifndef PANFROST_DEBUGFS_H
->>> +#define PANFROST_DEBUGFS_H
->>> +
->>> +#ifdef CONFIG_DEBUG_FS
->>> +void panfrost_debugfs_init(struct drm_minor *minor);
->>> +#endif
->>> +
->>> +#endif  /* PANFROST_DEBUGFS_H */
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>> index 58dfb15a8757..28caffc689e2 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>> @@ -58,6 +58,7 @@ static int panfrost_devfreq_get_dev_status(struct device *dev,
->>>    	spin_lock_irqsave(&pfdevfreq->lock, irqflags);
->>>    	panfrost_devfreq_update_utilization(pfdevfreq);
->>> +	pfdevfreq->current_frequency = status->current_frequency;
->>>    	status->total_time = ktime_to_ns(ktime_add(pfdevfreq->busy_time,
->>>    						   pfdevfreq->idle_time));
->>> @@ -117,6 +118,7 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
->>>    	struct devfreq *devfreq;
->>>    	struct thermal_cooling_device *cooling;
->>>    	struct panfrost_devfreq *pfdevfreq = &pfdev->pfdevfreq;
->>> +	unsigned long freq = ULONG_MAX;
->>>    	if (pfdev->comp->num_supplies > 1) {
->>>    		/*
->>> @@ -172,6 +174,12 @@ int panfrost_devfreq_init(struct panfrost_device *pfdev)
->>>    		return ret;
->>>    	}
->>> +	/* Find the fastest defined rate  */
->>> +	opp = dev_pm_opp_find_freq_floor(dev, &freq);
->>> +	if (IS_ERR(opp))
->>> +		return PTR_ERR(opp);
->>> +	pfdevfreq->fast_rate = freq;
->>> +
->>>    	dev_pm_opp_put(opp);
->>>    	/*
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.h b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>> index 1514c1f9d91c..48dbe185f206 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>> @@ -19,6 +19,9 @@ struct panfrost_devfreq {
->>>    	struct devfreq_simple_ondemand_data gov_data;
->>>    	bool opp_of_table_added;
->>> +	unsigned long current_frequency;
->>> +	unsigned long fast_rate;
->>> +
->>>    	ktime_t busy_time;
->>>    	ktime_t idle_time;
->>>    	ktime_t time_last_update;
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
->>> index fa1a086a862b..28f7046e1b1a 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
->>> @@ -207,6 +207,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->>>    	spin_lock_init(&pfdev->as_lock);
->>> +	spin_lock_init(&pfdev->cycle_counter.lock);
->>> +
->>>    	err = panfrost_clk_init(pfdev);
->>>    	if (err) {
->>>    		dev_err(pfdev->dev, "clk init failed %d\n", err);
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
->>> index b0126b9fbadc..1e85656dc2f7 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
->>> @@ -107,6 +107,7 @@ struct panfrost_device {
->>>    	struct list_head scheduled_jobs;
->>>    	struct panfrost_perfcnt *perfcnt;
->>> +	atomic_t profile_mode;
->>>    	struct mutex sched_lock;
->>> @@ -121,6 +122,11 @@ struct panfrost_device {
->>>    	struct shrinker shrinker;
->>>    	struct panfrost_devfreq pfdevfreq;
->>> +
->>> +	struct {
->>> +		atomic_t use_count;
->>> +		spinlock_t lock;
->>> +	} cycle_counter;
->>>    };
->>>    struct panfrost_mmu {
->>> @@ -135,12 +141,19 @@ struct panfrost_mmu {
->>>    	struct list_head list;
->>>    };
->>> +struct panfrost_engine_usage {
->>> +	unsigned long long elapsed_ns[NUM_JOB_SLOTS];
->>> +	unsigned long long cycles[NUM_JOB_SLOTS];
->>> +};
->>> +
->>>    struct panfrost_file_priv {
->>>    	struct panfrost_device *pfdev;
->>>    	struct drm_sched_entity sched_entity[NUM_JOB_SLOTS];
->>>    	struct panfrost_mmu *mmu;
->>> +
->>> +	struct panfrost_engine_usage engine_usage;
->>>    };
->>>    static inline struct panfrost_device *to_panfrost_device(struct drm_device *ddev)
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
->>> index a2ab99698ca8..3c93a11deab1 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
->>> @@ -20,6 +20,7 @@
->>>    #include "panfrost_job.h"
->>>    #include "panfrost_gpu.h"
->>>    #include "panfrost_perfcnt.h"
->>> +#include "panfrost_debugfs.h"
->>>    static bool unstable_ioctls;
->>>    module_param_unsafe(unstable_ioctls, bool, 0600);
->>> @@ -267,6 +268,7 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
->>>    	job->requirements = args->requirements;
->>>    	job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
->>>    	job->mmu = file_priv->mmu;
->>> +	job->engine_usage = &file_priv->engine_usage;
->>>    	slot = panfrost_job_get_slot(job);
->>> @@ -523,7 +525,55 @@ static const struct drm_ioctl_desc panfrost_drm_driver_ioctls[] = {
->>>    	PANFROST_IOCTL(MADVISE,		madvise,	DRM_RENDER_ALLOW),
->>>    };
->>> -DEFINE_DRM_GEM_FOPS(panfrost_drm_driver_fops);
->>> +
->>> +static void panfrost_gpu_show_fdinfo(struct panfrost_device *pfdev,
->>> +				     struct panfrost_file_priv *panfrost_priv,
->>> +				     struct drm_printer *p)
->>> +{
->>> +	int i;
->>> +
->>> +	/*
->>> +	 * IMPORTANT NOTE: drm-cycles and drm-engine measurements are not
->>> +	 * accurate, as they only provide a rough estimation of the number of
->>> +	 * GPU cycles and CPU time spent in a given context. This is due to two
->>> +	 * different factors:
->>> +	 * - Firstly, we must consider the time the CPU and then the kernel
->>> +	 *   takes to process the GPU interrupt, which means additional time and
->>> +	 *   GPU cycles will be added in excess to the real figure.
->>> +	 * - Secondly, the pipelining done by the Job Manager (2 job slots per
->>> +	 *   engine) implies there is no way to know exactly how much time each
->>> +	 *   job spent on the GPU.
->>> +	 */
->>> +
->>> +	static const char * const engine_names[] = {
->>> +		"fragment", "vertex-tiler", "compute-only"
->>> +	};
->>> +
->>> +	for (i = 0; i < NUM_JOB_SLOTS - 1; i++) {
+On 22/09/2023 12:03, Adrián Larumbe wrote:
+> On 21.09.2023 11:14, Tvrtko Ursulin wrote:
 >>
->> FWIW you could future proof this a bit by using "i < ARRAY_SIZE(engine_names)"
->> and avoid maybe silent out of bounds reads if someone updates NUM_JOB_SLOTS
->> and forgets about this loop. Or stick a warning of some sort.
+>> On 20/09/2023 16:32, Tvrtko Ursulin wrote:
+>>>
+>>> On 20/09/2023 00:34, Adrián Larumbe wrote:
+>>>> The current implementation will try to pick the highest available size
+>>>> display unit as soon as the BO size exceeds that of the previous
+>>>> multiplier. That can lead to loss of precision in contexts of low memory
+>>>> usage.
+>>>>
+>>>> The new selection criteria try to preserve precision, whilst also
+>>>> increasing the display unit selection threshold to render more accurate
+>>>> values.
+>>>>
+>>>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+>>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>>> Reviewed-by: Steven Price <steven.price@arm.com>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_file.c | 5 ++++-
+>>>>    1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>>>> index 762965e3d503..34cfa128ffe5 100644
+>>>> --- a/drivers/gpu/drm/drm_file.c
+>>>> +++ b/drivers/gpu/drm/drm_file.c
+>>>> @@ -872,6 +872,8 @@ void drm_send_event(struct drm_device *dev, struct
+>>>> drm_pending_event *e)
+>>>>    }
+>>>>    EXPORT_SYMBOL(drm_send_event);
+>>>> +#define UPPER_UNIT_THRESHOLD 100
+>>>> +
+>>>>    static void print_size(struct drm_printer *p, const char *stat,
+>>>>                   const char *region, u64 sz)
+>>>>    {
+>>>> @@ -879,7 +881,8 @@ static void print_size(struct drm_printer *p,
+>>>> const char *stat,
+>>>>        unsigned u;
+>>>>        for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
+>>>> -        if (sz < SZ_1K)
+>>>> +        if ((sz & (SZ_1K - 1)) &&
+>>>
+>>> IS_ALIGNED worth it at all?
+>>>
+>>>> +            sz < UPPER_UNIT_THRESHOLD * SZ_1K)
+>>>>                break;
+>>>
+>>> Excuse me for a late comment (I was away). I did not get what what is
+>>> special about a ~10% threshold? Sounds to me just going with the lower
+>>> unit, when size is not aligned to the higher one, would be better than
+>>> sometimes precision-sometimes-not.
 >>
-> NUM_JOB_SLOTS is actually the same as the number of engines in the device. I decided to follow
-> this loop convention because that's what's being done across the driver when manipulating
-> the engine queues, so I thought I'd stick to it for the sake of consistency. Bear in mind
-> the loop doesn't pick up the compute-only engine because it's still not exposed to user space.
+>> FWIW both current and the threshold option make testing the feature very
+>> annoying.
 > 
-> So NUM_JOB_SLOTS cannot change, unless a new engine were introduced, and then someone would
-> have to update this array accordingly.
+> How so?
 
-Exactly, and until they would, here we'd have a be silent out of bound 
-memory access. Content of which even gets shared with userspace. ;)
+I have to build in the knowledge of implementation details of 
+print_size() into my IGT in order to use the right size BOs, so test is 
+able to verify stats move as expected. It just feels wrong.
 
->>> +		drm_printf(p, "drm-engine-%s:\t%llu ns\n",
->>> +			   engine_names[i], panfrost_priv->engine_usage.elapsed_ns[i]);
->>> +		drm_printf(p, "drm-cycles-%s:\t%llu\n",
->>> +			   engine_names[i], panfrost_priv->engine_usage.cycles[i]);
->>> +		drm_printf(p, "drm-maxfreq-%s:\t%lu Hz\n",
->>> +			   engine_names[i], pfdev->pfdevfreq.fast_rate);
->>> +		drm_printf(p, "drm-curfreq-%s:\t%lu Hz\n",
->>> +			   engine_names[i], pfdev->pfdevfreq.current_frequency);
->>
->> I envisaged a link to driver specific docs at the bottom of
->> drm-usage-stats.rst so it would be nice if drivers would be adding those
->> sections and describing their private keys, engine names etc. ;)
->>
-> Currently there's no panfrost.rst file under Documentation/gpu. I guess I'll create a new
-> one and add the engine descriptions and meaning of drm-curfreq key.
+>> So I'd really propose we simply use smaller unit when unaligned.
+> 
+> Like I said in the previous reply, for drm files whose overall BO size sum is enormous
+> but not a multiple of a MiB, this would render huge number representations in KiB.
+> I don't find this particularly comfortable to read, and then this extra precision
+> would mean nothing to nvtop or gputop, which would have to scale the size to their
+> available screen dimensions when plotting them.
 
-Yeah I have to do the same for i915 in my memory stats series. :)
+I don't think numbers in KiB are so huge.
+
+And I don't think people will end up reading them manually a lot anyway, 
+since you have to hunt the pid, and fd, etc.. It is much more realistic 
+that some tool like gputop will be used.
+
+And I don't think consistency of units across drivers or whatever 
+matters. Even better to keep userspace parser on their toes and make 
+then follow drm-usage-stats.rst and not any implementations, at some 
+point in time.
 
 Regards,
 
