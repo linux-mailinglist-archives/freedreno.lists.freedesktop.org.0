@@ -1,88 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 619597ABA87
-	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 22:29:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7247ABC22
+	for <lists+freedreno@lfdr.de>; Sat, 23 Sep 2023 01:03:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8CF10E713;
-	Fri, 22 Sep 2023 20:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BCCE10E720;
+	Fri, 22 Sep 2023 23:03:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 453 seconds by postgrey-1.36 at gabe;
- Fri, 22 Sep 2023 20:29:13 UTC
-Received: from omta036.useast.a.cloudfilter.net
- (omta036.useast.a.cloudfilter.net [44.202.169.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 016AB10E70F;
- Fri, 22 Sep 2023 20:29:13 +0000 (UTC)
-Received: from eig-obgw-5010a.ext.cloudfilter.net ([10.0.29.199])
- by cmsmtp with ESMTP
- id jm9xqZ0f2DKaKjmehqEjuC; Fri, 22 Sep 2023 20:21:39 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id jmegqraPwIDdmjmegq25ta; Fri, 22 Sep 2023 20:21:39 +0000
-X-Authority-Analysis: v=2.4 cv=HcYH8wI8 c=1 sm=1 tr=0 ts=650df753
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=P7XfKmiOJ4/qXqHZrN7ymg==:17
- a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
- a=IkcTkHD0fZMA:10 a=zNV7Rl7Rt7sA:10 a=wYkD_t78qR0A:10 a=NEAV23lmAAAA:8
- a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=taGs_qngAAAA:8 a=e5mUnYsNAAAA:8
- a=cm27Pg_UAAAA:8 a=VwQbUJbxAAAA:8 a=HvF037n1xESchLcPDVoA:9 a=QEXdDO2ut3YA:10
- a=DM_PlaNYpjARcMQr2apF:22 a=Vxmtnl_E_bksehYqCbjh:22 a=xmb-EsYY8bH0VWELuYED:22
- a=AjGcO6oz07-iQ99wixmX:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5CZfeSfhVDdG7js/oL8luePAjmy7SVUuGo6ktj3BCGU=; b=eTuJfvywo6DWZd+lB5E62XGp81
- 52RafMEQrw+IvXaGOipkv/jAwnqlJIjEqGWWSVqnjuJ1oUzn0kui852bg12vld7VilT7KTQCA9+9/
- zr4s099Uyvv/SEYB08E/h1Oq8xy3yM/bkraCwyFAyTdZPYWz27LU6CoPiR+zevWgOS4Ch6ZuLkhTN
- 6OEb6LgtnbgPmMsDYkZ7Jr7Ur5T/k3FkuU+ZRRIQIY6a7D+BSFR7WQLZL0ztkNT6eBRgLFWu1FZIU
- NUmvFgfJb6EN0cvDue5TyJvAzSQCFiHT2shFOYxBedm+35vuFcSoY02lo/bpAUcWe+C4bLS/48Jf+
- ln9JUBGA==;
-Received: from [94.239.20.48] (port=57726 helo=[192.168.1.98])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <gustavo@embeddedor.com>) id 1qjkfA-000Nms-2z;
- Fri, 22 Sep 2023 13:14:01 -0500
-Message-ID: <7ad534fe-3494-9915-1663-a3aafcb41b0e@embeddedor.com>
-Date: Fri, 22 Sep 2023 20:14:52 -0600
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF3C410E720;
+ Fri, 22 Sep 2023 23:03:27 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38MMOiM1009053; Fri, 22 Sep 2023 23:03:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=4FWnjfTUwLDhTdM8E7W9GOoGO7Th99GujB8c2w0lai4=;
+ b=IYcQ/rfrbWiUBQMtwif+AcTEz99gK3Rj339YLSRt/bL2dfJqfK/5Kc067sod4sYhexPk
+ MHw7HkZODMtnK92KgqK9sqaBdyi1P/i3j7ZmXCLwrLeMWtKckF1QGkMOuV1nOrLKvZQQ
+ Jspuitx94QDyznoEHB17WT+xEAYyBEjnPu7XiYtuQmLaXgUHu3T6TYgTcvrOAlo7k39s
+ Fn9AGIhbVX2SYuDppMWh7y91S4H9tFcuermq13PBxPS3P66OUCvvDrVO1MaCutTVfjYW
+ FhOmr6R19ITyTBU0LMc+epW/hr9TLsCx7qBJMBHiz2e5Ge37rzzCm7iUcl3+0KUI8iVC 5g== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t9cq3s85u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Sep 2023 23:03:06 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38MN36Cm007060
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Sep 2023 23:03:06 GMT
+Received: from [10.110.46.220] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Fri, 22 Sep
+ 2023 16:03:04 -0700
+Message-ID: <1c82a0a6-d85f-9800-bdc4-2a4892b4239b@quicinc.com>
+Date: Fri, 22 Sep 2023 16:02:53 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-2-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJprRFYMF-6yxcL75rftfii0kt7hmg_+TeOMJw+BRyDYdeg@mail.gmail.com>
 Content-Language: en-US
-To: Kees Cook <keescook@chromium.org>, David Airlie <airlied@gmail.com>
-References: <20230922173110.work.084-kees@kernel.org>
- <20230922173216.3823169-3-keescook@chromium.org>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20230922173216.3823169-3-keescook@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 94.239.20.48
-X-Source-L: No
-X-Exim-ID: 1qjkfA-000Nms-2z
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.1.98]) [94.239.20.48]:57726
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 0
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAY8rV2me6F2mDt66pQHEuC+vtaVKa3wVbK9rBNbPMa0TznnFiUVIHaNG6O9nEd6j0mneUGz+URBy95vU15OHkcsR6v2DqGXOmKPGFSUWhv91A9Ue6TS
- Ouhgb1MO+0WBgaA+LT+0E5mdw0N86tLkJwArkYETXDhPl979GhQreptXVBZ5GIbbrSoI9snd2w/1ldP+eh9mmtJzs3lbZxrUb6Sj9l5QzHyRF50V13qtR9zG
- mvb85Y5+sFK6FG99FcoJxdCmLoyXZIrlZBvEBQhf2RNm620Y4wFxMur5xrGcbfsdqAKHgsKsqqNUH9bxkBawuXO+ogHoqTz+oFgxJHcU6jrRnnjZkYn3tyIK
- bYEBZdT5m6+KBTKIvVmV9kJZS/DYWwZEOq7JTbifTE+cmd1z6nU=
-Subject: Re: [Freedreno] [PATCH 3/9] drm/i915/selftests: Annotate struct
- perf_series with __counted_by
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAA8EJprRFYMF-6yxcL75rftfii0kt7hmg_+TeOMJw+BRyDYdeg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: fgRZ9UUsYCfUmguX4vV3LDvHAahEoaSI
+X-Proofpoint-ORIG-GUID: fgRZ9UUsYCfUmguX4vV3LDvHAahEoaSI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-22_19,2023-09-21_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ mlxlogscore=999 bulkscore=0 spamscore=0 phishscore=0 mlxscore=0
+ adultscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2309180000 definitions=main-2309220197
+Subject: Re: [Freedreno] [PATCH v3 1/7] drm/msm/dp: tie
+ dp_display_irq_handler() with dp driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,90 +85,133 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Lyude Paul <lyude@redhat.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Kevin Wang <kevin1.wang@amd.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- John Harrison <john.c.harrison@Intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+On 9/15/2023 5:29 PM, Dmitry Baryshkov wrote:
+> On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>> Currently the dp_display_irq_handler() is executed at msm_dp_modeset_init()
+>> which ties irq registration to the DPU device's life cycle, while depending on
+>> resources that are released as the DP device is torn down. Move register DP
+>> driver irq handler at dp_display_probe() to have dp_display_irq_handler()
+>> is tied with DP device.
+>>
+>> Changes in v3:
+>> -- move calling dp_display_irq_handler() to probe
+> Was there a changelog for the previous reivions? What is the
+> difference between v1 and v2?
+>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 35 +++++++++++++----------------------
+>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 -
+>>   2 files changed, 13 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 76f1395..c217430 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1193,30 +1193,23 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+>>          return ret;
+>>   }
+>>
+>> -int dp_display_request_irq(struct msm_dp *dp_display)
+>> +static int dp_display_request_irq(struct dp_display_private *dp)
+>>   {
+>>          int rc = 0;
+>> -       struct dp_display_private *dp;
+>> -
+>> -       if (!dp_display) {
+>> -               DRM_ERROR("invalid input\n");
+>> -               return -EINVAL;
+>> -       }
+>> -
+>> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
+>> +       struct device *dev = &dp->pdev->dev;
+>>
+>> -       dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
+>>          if (!dp->irq) {
+> What is the point in this check?
+>
+>> -               DRM_ERROR("failed to get irq\n");
+>> -               return -EINVAL;
+>> +               dp->irq = platform_get_irq(dp->pdev, 0);
+>> +               if (!dp->irq) {
+>> +                       DRM_ERROR("failed to get irq\n");
+>> +                       return -EINVAL;
+>> +               }
+>>          }
+>>
+>> -       rc = devm_request_irq(dp_display->drm_dev->dev, dp->irq,
+>> -                       dp_display_irq_handler,
+>> +       rc = devm_request_irq(dev, dp->irq, dp_display_irq_handler,
+>>                          IRQF_TRIGGER_HIGH, "dp_display_isr", dp);
+>>          if (rc < 0) {
+>> -               DRM_ERROR("failed to request IRQ%u: %d\n",
+>> -                               dp->irq, rc);
+>> +               DRM_ERROR("failed to request IRQ%u: %d\n", dp->irq, rc);
+>>                  return rc;
+>>          }
+>>
+>> @@ -1287,6 +1280,10 @@ static int dp_display_probe(struct platform_device *pdev)
+>>
+>>          platform_set_drvdata(pdev, &dp->dp_display);
+>>
+>> +       rc = dp_display_request_irq(dp);
+>> +       if (rc)
+>> +               return rc;
+> This way the IRQ ends up being enabled in _probe. Are we ready to
+> handle it here? Is the DP device fully setup at this moment?
 
-On 9/22/23 11:32, Kees Cook wrote:
-> Prepare for the coming implementation by GCC and Clang of the __counted_by
-> attribute. Flexible array members annotated with __counted_by can have
-> their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
-> (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-> functions).
-> 
-> As found with Coccinelle[1], add __counted_by for struct perf_series.
-> 
-> [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
-> 
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: John Harrison <john.c.harrison@Intel.com>
-> Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+The irq is enabled here.
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+but DP driver hpd hardware block has not yet be enabled. this means no 
+irq will be delivered.
 
-Thanks
--- 
-Gustavo
+  .hpd_enable() will call pm_runtime_resume_and_get() and 
+dp_catalog_ctrl_hpd_enable().
 
-> ---
->   drivers/gpu/drm/i915/selftests/i915_request.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-> index a9b79888c193..acae30a04a94 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_request.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-> @@ -1924,7 +1924,7 @@ struct perf_stats {
->   struct perf_series {
->   	struct drm_i915_private *i915;
->   	unsigned int nengines;
-> -	struct intel_context *ce[];
-> +	struct intel_context *ce[] __counted_by(nengines);
->   };
->   
->   static int cmp_u32(const void *A, const void *B)
+after .hpd_enable() irq will be delivered and handled properly.
+
+
+
+>> +
+>>          rc = component_add(&pdev->dev, &dp_display_comp_ops);
+>>          if (rc) {
+>>                  DRM_ERROR("component add failed, rc=%d\n", rc);
+>> @@ -1549,12 +1546,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>>
+>>          dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
+>>
+>> -       ret = dp_display_request_irq(dp_display);
+>> -       if (ret) {
+>> -               DRM_ERROR("request_irq failed, ret=%d\n", ret);
+>> -               return ret;
+>> -       }
+>> -
+>>          ret = dp_display_get_next_bridge(dp_display);
+>>          if (ret)
+>>                  return ret;
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index 1e9415a..b3c08de 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -35,7 +35,6 @@ struct msm_dp {
+>>   int dp_display_set_plugged_cb(struct msm_dp *dp_display,
+>>                  hdmi_codec_plugged_cb fn, struct device *codec_dev);
+>>   int dp_display_get_modes(struct msm_dp *dp_display);
+>> -int dp_display_request_irq(struct msm_dp *dp_display);
+>>   bool dp_display_check_video_test(struct msm_dp *dp_display);
+>>   int dp_display_get_test_bpp(struct msm_dp *dp_display);
+>>   void dp_display_signal_audio_start(struct msm_dp *dp_display);
+>> --
+>> 2.7.4
+>>
+>
