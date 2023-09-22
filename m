@@ -2,59 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E117AB342
-	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 16:04:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00687AB77E
+	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 19:32:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC8710E1D8;
-	Fri, 22 Sep 2023 14:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D26210E6BD;
+	Fri, 22 Sep 2023 17:32:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 440EF10E689;
- Fri, 22 Sep 2023 14:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695391450; x=1726927450;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=BTfvrs5EOPQJfVJYIu6aaO3NsW53LRV0R0jYG09hQ3Y=;
- b=Dr87weIne0i6h6VKp92QFKpDrksSuKtgIhC7pRYW99wgharn5yhOikzB
- mZGh+CuuMvv8y7uhuVe6L4pibRMbvz/1Csu/spdeWly8ZuaLU6qWrRtaj
- QsIsvZ00LioXEI8Ajh2VIX/kXl/w9dyb0WlEvs1iLRwszX7UNQFEbi5XI
- h9Tiz4TLkwpPYmh2j6WLMLiYFTYYAeue+QOhM9FIZcH2F/hQkmcdVrhCy
- 56NRZ5oWBvhyZYY99BZNVlNoaMWJ26noa9Xu4QdRYIJoByu10OVIFDURa
- ob8Sn7/qLCLCpyvi1EercxuIEIRiH4Sqix2i4kXXX302zdfFSEzY6XoIg w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378122886"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378122886"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 07:03:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871253379"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871253379"
-Received: from placki-mobl.ger.corp.intel.com (HELO [10.213.200.149])
- ([10.213.200.149])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 07:02:32 -0700
-Message-ID: <5a92b93c-6c6c-059a-c07b-a8b0b4b2b364@linux.intel.com>
-Date: Fri, 22 Sep 2023 15:02:30 +0100
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0049510E6B3
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 17:32:18 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-1c328b53aeaso21920595ad.2
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 10:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1695403937; x=1696008737;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=maP8YXhB08F9LY5OG0jMprTbidCF0YS16nloYI5WUaA=;
+ b=PhHSuC1wjXTZo6C6EONzQQR73/4KIT4V+Dk30na4BzElBNJ8xT97dRy064hbzVrLqZ
+ 8KqDuCJYmW+yxw41I1gRn0F8kmzaMdq+9p1qj5W2MUmZp1IOHGuG+HT7OSf4DxyI8K53
+ QRYsmpJnMH6odYkxDLC0bk+kBqRH8/iNWTbl0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695403937; x=1696008737;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=maP8YXhB08F9LY5OG0jMprTbidCF0YS16nloYI5WUaA=;
+ b=I6+Gu/KfURlf5HfuFb0CDxwK3co9CnQjAuysVA5fT8nfATLceiStejADx5k3eB/PTF
+ vywhjL+tFOiwXU3nmMfRZlpCjCGO+lpVQG8AgGX2OIWratoxCBfL9mWjSkjdIWUFRdCz
+ 7Er9xMwnZdD+ULUFACr+o7hf0b4xt/zZHnjB4fEC3vGUG54bFhyLUCMMUIn2C5NdIurm
+ 3qGXpb/TlEEG3NwtuUjJ3QAcKohEJ6rZhKXpbr6GvWLjTapela1LhHSS2U2JG8REctbP
+ 9drjFyjyfzayZn9+f9EqyP17oeJaITQ4CGaDmQGZebi+l0hV8SexWww7Xu1P339ljEqT
+ 3hnA==
+X-Gm-Message-State: AOJu0Ywi/JM/Ss1ms5yiIAEBMUqAdINzoUl25BSp01t5cfdwHfSrzbvt
+ EPe0nQqCmqOsNN9jK3NQNcsilA==
+X-Google-Smtp-Source: AGHT+IEElaiJXwd+cHN0UEyfbPuovVQdbx97tEz5jWVvCwnMzBcyrsLzHF1i0U0dBU7w1PZYxVLT7w==
+X-Received: by 2002:a17:903:1cf:b0:1bd:d911:2a85 with SMTP id
+ e15-20020a17090301cf00b001bdd9112a85mr102054plh.12.1695403937531; 
+ Fri, 22 Sep 2023 10:32:17 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ v10-20020a1709029a0a00b001b53953f306sm3755352plp.178.2023.09.22.10.32.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Sep 2023 10:32:17 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: David Airlie <airlied@gmail.com>
+Date: Fri, 22 Sep 2023 10:32:05 -0700
+Message-Id: <20230922173110.work.084-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: =?UTF-8?Q?Adri=c3=a1n_Larumbe?= <adrian.larumbe@collabora.com>
-References: <20230919233556.1458793-1-adrian.larumbe@collabora.com>
- <20230919233556.1458793-7-adrian.larumbe@collabora.com>
- <ccfa3697-b015-ff35-fb92-0efcbd1d7d7c@linux.intel.com>
- <6b9c8566-926d-40ff-7907-228d317fab3d@linux.intel.com>
- <rn5metso2yr2kyxix3fh2ub77jpjf6avs754eshgpd2lu33bkw@33way22pozgh>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <rn5metso2yr2kyxix3fh2ub77jpjf6avs754eshgpd2lu33bkw@33way22pozgh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2029; i=keescook@chromium.org; 
+ h=from:subject:message-id;
+ bh=YV47XR+Dr1NybdP/JWrsHmoQYKkqVQbnuP88RsqPU7s=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBlDc+dsj3+Vh5qemjuEPg29sGFlFmzA+yi/v3Rh
+ XtvZqOfqaGJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZQ3PnQAKCRCJcvTf3G3A
+ JiHwEACLzTcgywMl1i+ngflg0YluRoEeJQAxOBHxuE5H6DZMdzVg2q1O7AYcZvuFgGEob07505+
+ PzEtpDzTZH/46SXLgI4Sgl0XmudzghRjlp0XTK1UC22xnOBNM9k0OIJif5wStFA/0uiZLRrHII7
+ A/+AqzgBiY88gBa4O+x8Vj0+JBJGnDCr0QudEO6XyIcvvmLLgiRCce78vOKBXTXq6Dktknkayr7
+ GSRsmx3ZTid9GiUDFYYu7/JLETFdk3ZPoT0iX6O1OocWU9VVd8IE71u38u38X+AdokHQtuEXbCe
+ GXNdGJrLV9VqJ6qvypVr3S1EhagL/Z+f7Xz/GMY6nMu+6H9YM0Nbh7PQ8fyD/y9rlT2jcsSJY3r
+ eqE3X+ATIdov/4puub/Z5OUm9R4z3dXWHGfnc/vb5l24ZPzLfhFdjlnbl4LYKnZyxK/lH0OGSkH
+ 9Wks6MuSdRE+bNJFV0VibfzZlV0+wemFXXSlAxxVQGcZ7CWgQaV2w7wE1Y3AMJLRthOuVUU6Kts
+ VfGI7p8XZRScEI6mnWSh8w9zLZOftTtdiCxcVj1gdXRTx2/K3Xfv0UkoHgdzOBqTTEPqGetCOjs
+ WS30PIjoUXxpO+DRvCTjySDsnQXksC7AsjBRhvnXyIR8tgFSEAywP6FcLYaX3ltdG79BvgAkkzq
+ Bs7QmlF kGRGYttQ==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v6 6/6] drm/drm-file: Show finer-grained BO
- sizes in drm_show_memory_stats
+Subject: [Freedreno] [PATCH 0/9] drm: Annotate structs with __counted_by
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,99 +86,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, steven.price@arm.com, freedreno@lists.freedesktop.org,
- robdclark@gmail.com, healych@amazon.com,
- Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
+ Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Lyude Paul <lyude@redhat.com>, Kees Cook <keescook@chromium.org>,
+ Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ John Harrison <john.c.harrison@Intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 22/09/2023 12:03, Adrián Larumbe wrote:
-> On 21.09.2023 11:14, Tvrtko Ursulin wrote:
->>
->> On 20/09/2023 16:32, Tvrtko Ursulin wrote:
->>>
->>> On 20/09/2023 00:34, Adrián Larumbe wrote:
->>>> The current implementation will try to pick the highest available size
->>>> display unit as soon as the BO size exceeds that of the previous
->>>> multiplier. That can lead to loss of precision in contexts of low memory
->>>> usage.
->>>>
->>>> The new selection criteria try to preserve precision, whilst also
->>>> increasing the display unit selection threshold to render more accurate
->>>> values.
->>>>
->>>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
->>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
->>>> Reviewed-by: Steven Price <steven.price@arm.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_file.c | 5 ++++-
->>>>    1 file changed, 4 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
->>>> index 762965e3d503..34cfa128ffe5 100644
->>>> --- a/drivers/gpu/drm/drm_file.c
->>>> +++ b/drivers/gpu/drm/drm_file.c
->>>> @@ -872,6 +872,8 @@ void drm_send_event(struct drm_device *dev, struct
->>>> drm_pending_event *e)
->>>>    }
->>>>    EXPORT_SYMBOL(drm_send_event);
->>>> +#define UPPER_UNIT_THRESHOLD 100
->>>> +
->>>>    static void print_size(struct drm_printer *p, const char *stat,
->>>>                   const char *region, u64 sz)
->>>>    {
->>>> @@ -879,7 +881,8 @@ static void print_size(struct drm_printer *p,
->>>> const char *stat,
->>>>        unsigned u;
->>>>        for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
->>>> -        if (sz < SZ_1K)
->>>> +        if ((sz & (SZ_1K - 1)) &&
->>>
->>> IS_ALIGNED worth it at all?
->>>
->>>> +            sz < UPPER_UNIT_THRESHOLD * SZ_1K)
->>>>                break;
->>>
->>> Excuse me for a late comment (I was away). I did not get what what is
->>> special about a ~10% threshold? Sounds to me just going with the lower
->>> unit, when size is not aligned to the higher one, would be better than
->>> sometimes precision-sometimes-not.
->>
->> FWIW both current and the threshold option make testing the feature very
->> annoying.
-> 
-> How so?
+This is a batch of patches touching drm for preparing for the coming
+implementation by GCC and Clang of the __counted_by attribute. Flexible
+array members annotated with __counted_by can have their accesses
+bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
+indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
 
-I have to build in the knowledge of implementation details of 
-print_size() into my IGT in order to use the right size BOs, so test is 
-able to verify stats move as expected. It just feels wrong.
+As found with Coccinelle[1], add __counted_by to structs that would
+benefit from the annotation.
 
->> So I'd really propose we simply use smaller unit when unaligned.
-> 
-> Like I said in the previous reply, for drm files whose overall BO size sum is enormous
-> but not a multiple of a MiB, this would render huge number representations in KiB.
-> I don't find this particularly comfortable to read, and then this extra precision
-> would mean nothing to nvtop or gputop, which would have to scale the size to their
-> available screen dimensions when plotting them.
+Since the element count member must be set before accessing the annotated
+flexible array member, some patches also move the member's initialization
+earlier. (These are noted in the individual patches.)
 
-I don't think numbers in KiB are so huge.
+-Kees
 
-And I don't think people will end up reading them manually a lot anyway, 
-since you have to hunt the pid, and fd, etc.. It is much more realistic 
-that some tool like gputop will be used.
+[1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 
-And I don't think consistency of units across drivers or whatever 
-matters. Even better to keep userspace parser on their toes and make 
-then follow drm-usage-stats.rst and not any implementations, at some 
-point in time.
+Kees Cook (9):
+  drm/amd/pm: Annotate struct smu10_voltage_dependency_table with
+    __counted_by
+  drm/amdgpu/discovery: Annotate struct ip_hw_instance with __counted_by
+  drm/i915/selftests: Annotate struct perf_series with __counted_by
+  drm/msm/dpu: Annotate struct dpu_hw_intr with __counted_by
+  drm/nouveau/pm: Annotate struct nvkm_perfdom with __counted_by
+  drm/vc4: Annotate struct vc4_perfmon with __counted_by
+  drm/virtio: Annotate struct virtio_gpu_object_array with __counted_by
+  drm/vmwgfx: Annotate struct vmw_surface_dirty with __counted_by
+  drm/v3d: Annotate struct v3d_perfmon with __counted_by
 
-Regards,
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c        | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.h | 2 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c        | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h    | 2 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h        | 2 +-
+ drivers/gpu/drm/v3d/v3d_drv.h                        | 2 +-
+ drivers/gpu/drm/vc4/vc4_drv.h                        | 2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.h                 | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c              | 2 +-
+ 9 files changed, 9 insertions(+), 9 deletions(-)
 
-Tvrtko
+-- 
+2.34.1
+
