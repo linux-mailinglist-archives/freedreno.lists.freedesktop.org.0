@@ -1,77 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24877AB825
-	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 19:50:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C8CF7AB9B3
+	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 21:01:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00D7710E6C9;
-	Fri, 22 Sep 2023 17:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7A110E6FA;
+	Fri, 22 Sep 2023 19:01:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 532BB10E6B7;
- Fri, 22 Sep 2023 17:50:14 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38MHKlot017535; Fri, 22 Sep 2023 17:49:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=Tq6gJJYKIaOR288NhHGipRUExs1TJ3M3G1f6vr3gs7Q=;
- b=l0Y0qgLJaJOsjU3zSDtYSahlztNYDtgEoMnCKSDcRh3/0OXX2hDi429f0czi5vjWlfb+
- Hl65x3gq8GxRgmqeQhdBDsg3zj3jLVVR3mJNaaxUKesX6VM99QezrNpAGsfjmtd4g3V7
- 5OOJpW7aho/tL5OQyOZ+gkNcdRM1InLlWdpJ8DGTqAVSueK/7LKr2+utN4VXwueqjDWV
- 5THLkxGFY39R18qt7M8sLrXGJ0hrbyzbcrcO85msuIgSiEzEAEaVthQRcRkY6MOjLpze
- uPeOkt/PRCQvk7sxUjsdLlqrTMM5hotdv+nVtDxk6DKX6RqWbUP5E+vuw4UrMX76gotV dQ== 
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t9f8b038p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Sep 2023 17:49:35 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38MHnYM2010168
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Sep 2023 17:49:34 GMT
-Received: from [10.110.112.217] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Fri, 22 Sep
- 2023 10:49:33 -0700
-Message-ID: <752176d8-23f4-4689-8bf4-db27f153fd39@quicinc.com>
-Date: Fri, 22 Sep 2023 10:49:23 -0700
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF6910E6FF
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 19:00:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1695409252;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NE66f7DfP4/A2VOZXmvxuXHt1FmCuY2Q51yLIoHLwck=;
+ b=VK9ia1C69p2AuLThkIIK0LKPkgnCxZHYupo7R9S74tkSAk8r6gwbVDQYYrsAM0Ip6iNFy9
+ j4M8VDrWQznepxL1eNNSw8ofkdCPXkJuawhjH+UUt6dWoENcXeICIbyE5BfWbZ8nOwiciT
+ z+uoTgfOxo+fBYy6496qiNDjRRGDQYM=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-515-a-N3G-RtPUebhxkWE_feFQ-1; Fri, 22 Sep 2023 15:00:51 -0400
+X-MC-Unique: a-N3G-RtPUebhxkWE_feFQ-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-774086da4dbso259446585a.0
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 12:00:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695409250; x=1696014050;
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=llC9/wUzzd4JVzDSD0PHMCO4lX+W74lZOeDntPKMIjc=;
+ b=RuUqKBksHv3Sld8CA8pcDfnXy4/iz/UnpGC5+nwtAW3cFlmuLpX3IVQpWusiVbjBsc
+ qA+puE8lwiRa+RwjqLzfiQo+AYp8/jV6zcQXmi/iGxzIParewTYYFXUPA8DQlLHh6H8Z
+ cCT9LKeW2WJ27cz0fP/g0U4f4Eo7r4T/B91vGTD6/j/5ZEtrTEI0oILnGugcVFSOCH9t
+ BJp37mOQrvD3QchjVsgmhivVOQjr4gYEDNReaAIohRdUS5r0VyDNItl/ZCrWJfiINSEL
+ VsbFSFpz+h4QsFQmpVmpqq8xCvdxBuJZLnBiTvhwvyMPXsYrTVlcQFhJ3XfoYNvAzQkD
+ 7yFA==
+X-Gm-Message-State: AOJu0YyX7W+o46BpPWAQFH+sCIOtPOzobPHVnBBfOBsqjzW4g499vxga
+ nY3l5I/V+SrXWS1qH50bZu9Rjn3Tj3aJjBZJIb9pTRdhjzGdDyTU961+h6wJsDmuz6pa+NMDtH/
+ cXq9K7LNX2/afH2uCGuXB5jy+Os2f
+X-Received: by 2002:a05:6214:1845:b0:655:d2c7:a9d1 with SMTP id
+ d5-20020a056214184500b00655d2c7a9d1mr187766qvy.14.1695409250676; 
+ Fri, 22 Sep 2023 12:00:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHcAhYi3agHEIh1mExaRpOkIAUDfxEWkbuUfbk0Y5Ex6ReRQkYaRYp/G33/F11gHisOBD3h3Q==
+X-Received: by 2002:a05:6214:1845:b0:655:d2c7:a9d1 with SMTP id
+ d5-20020a056214184500b00655d2c7a9d1mr187719qvy.14.1695409250417; 
+ Fri, 22 Sep 2023 12:00:50 -0700 (PDT)
+Received: from ?IPv6:2600:4040:5c6c:a300::feb? ([2600:4040:5c6c:a300::feb])
+ by smtp.gmail.com with ESMTPSA id
+ w6-20020a0ce106000000b0064f50e2c551sm1671895qvk.1.2023.09.22.12.00.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Sep 2023 12:00:49 -0700 (PDT)
+Message-ID: <1fc22ed54041660dfff5b7f3cc69708fd4ac0472.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Kees Cook <keescook@chromium.org>, David Airlie <airlied@gmail.com>
+Date: Fri, 22 Sep 2023 15:00:47 -0400
+In-Reply-To: <20230922173216.3823169-5-keescook@chromium.org>
+References: <20230922173110.work.084-kees@kernel.org>
+ <20230922173216.3823169-5-keescook@chromium.org>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
- <20230828-solid-fill-v6-7-a820efcce852@quicinc.com>
- <20230829112230.7106a8bf@eldfell>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20230829112230.7106a8bf@eldfell>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: uf7t3up0j0GwKZ7poXrDXC5KIWUYWgH1
-X-Proofpoint-ORIG-GUID: uf7t3up0j0GwKZ7poXrDXC5KIWUYWgH1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-09-22_15,2023-09-21_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 suspectscore=0
- spamscore=0 adultscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- phishscore=0 mlxscore=0 mlxlogscore=999 impostorscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2309180000
- definitions=main-2309220154
-Subject: Re: [Freedreno] [PATCH RFC v6 07/10] drm/atomic: Loosen FB atomic
- checks
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 5/9] drm/nouveau/pm: Annotate struct
+ nvkm_perfdom with __counted_by
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,107 +86,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, sebastian.wick@redhat.com,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, Maxime
- Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, wayland-devel@lists.freedesktop.org, Sean
- Paul <sean@poorly.run>, ville.syrjala@linux.intel.com,
- laurent.pinchart@ideasonboard.com
+ Matthew Brost <matthew.brost@intel.com>, Emma Anholt <emma@anholt.net>,
+ Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ Tom Rix <trix@redhat.com>, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@intel.com>,
+ Lang Yu <Lang.Yu@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ John Harrison <john.c.harrison@Intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
+Thanks!
 
-On 8/29/2023 1:22 AM, Pekka Paalanen wrote:
-> On Mon, 28 Aug 2023 17:05:13 -0700
-> Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> 
->> Loosen the requirements for atomic and legacy commit so that, in cases
->> where pixel_source != FB, the commit can still go through.
->>
->> This includes adding framebuffer NULL checks in other areas to account for
->> FB being NULL when non-FB pixel sources are enabled.
->>
->> To disable a plane, the pixel_source must be NONE or the FB must be NULL
->> if pixel_source == FB.
->>
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->> ---
->>   drivers/gpu/drm/drm_atomic.c        | 20 +++++++++++---------
->>   drivers/gpu/drm/drm_atomic_helper.c | 36 ++++++++++++++++++++----------------
->>   include/drm/drm_atomic_helper.h     |  4 ++--
->>   include/drm/drm_plane.h             | 29 +++++++++++++++++++++++++++++
->>   4 files changed, 62 insertions(+), 27 deletions(-)
-> 
-> ...
-> 
->> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
->> index a58f84b6bd5e..4c5b7bcdb25c 100644
->> --- a/include/drm/drm_plane.h
->> +++ b/include/drm/drm_plane.h
->> @@ -992,6 +992,35 @@ static inline struct drm_plane *drm_plane_find(struct drm_device *dev,
->>   #define drm_for_each_plane(plane, dev) \
->>   	list_for_each_entry(plane, &(dev)->mode_config.plane_list, head)
->>   
->> +/**
->> + * drm_plane_solid_fill_enabled - Check if solid fill is enabled on plane
->> + * @state: plane state
->> + *
->> + * Returns:
->> + * Whether the plane has been assigned a solid_fill_blob
->> + */
->> +static inline bool drm_plane_solid_fill_enabled(struct drm_plane_state *state)
->> +{
->> +	if (!state)
->> +		return false;
->> +	return state->pixel_source == DRM_PLANE_PIXEL_SOURCE_SOLID_FILL && state->solid_fill_blob;
->> +}
->> +
->> +static inline bool drm_plane_has_visible_data(const struct drm_plane_state *state)
->> +{
->> +	switch (state->pixel_source) {
->> +	case DRM_PLANE_PIXEL_SOURCE_NONE:
->> +		return false;
->> +	case DRM_PLANE_PIXEL_SOURCE_SOLID_FILL:
->> +		return state->solid_fill_blob != NULL;
-> 
-> This reminds me, new UAPI docs did not say what the requirements are for
-> choosing solid fill pixel source. Is the atomic commit rejected if
-> pixel source is solid fill, but solid_fill property has no blob?
+On Fri, 2023-09-22 at 10:32 -0700, Kees Cook wrote:
+> Prepare for the coming implementation by GCC and Clang of the __counted_b=
+y
+> attribute. Flexible array members annotated with __counted_by can have
+> their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUND=
+S
+> (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+> functions).
+>=20
+> As found with Coccinelle[1], add __counted_by for struct nvkm_perfdom.
+>=20
+> [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/c=
+ounted_by.cocci
+>=20
+> Cc: Ben Skeggs <bskeggs@redhat.com>
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Signed-off-by: Kees Cook <keescook@chromium.org>
+> ---
+>  drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h b/drivers/gpu/=
+drm/nouveau/nvkm/engine/pm/priv.h
+> index 6ae25d3e7f45..c011227f7052 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
+> @@ -82,7 +82,7 @@ struct nvkm_perfdom {
+>  =09u8  mode;
+>  =09u32 clk;
+>  =09u16 signal_nr;
+> -=09struct nvkm_perfsig signal[];
+> +=09struct nvkm_perfsig signal[] __counted_by(signal_nr);
+>  };
+> =20
+>  struct nvkm_funcdom {
 
-Hi Pekka,
+--=20
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
-Yes, if pixel_source is solid_fill and the solid_fill property blob 
-isn't set, the atomic commit should throw an error.
-
-Will document this in the UAPI.
-
-Thanks,
-
-Jessica Zhang
-
-> 
-> This should be doc'd.
-> 
-> 
-> Thanks,
-> pq
-> 
->> +	case DRM_PLANE_PIXEL_SOURCE_FB:
->> +	default:
->> +		WARN_ON(state->pixel_source != DRM_PLANE_PIXEL_SOURCE_FB);
->> +	}
->> +
->> +	return state->fb != NULL;
->> +}
->> +
->>   bool drm_any_plane_has_format(struct drm_device *dev,
->>   			      u32 format, u64 modifier);
->>   
->>
-> 
