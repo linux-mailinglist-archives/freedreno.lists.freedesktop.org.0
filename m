@@ -1,79 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C8CF7AB9B3
-	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 21:01:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FF767ABB43
+	for <lists+freedreno@lfdr.de>; Fri, 22 Sep 2023 23:54:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7A110E6FA;
-	Fri, 22 Sep 2023 19:01:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E78F10E705;
+	Fri, 22 Sep 2023 21:54:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF6910E6FF
- for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 19:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1695409252;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NE66f7DfP4/A2VOZXmvxuXHt1FmCuY2Q51yLIoHLwck=;
- b=VK9ia1C69p2AuLThkIIK0LKPkgnCxZHYupo7R9S74tkSAk8r6gwbVDQYYrsAM0Ip6iNFy9
- j4M8VDrWQznepxL1eNNSw8ofkdCPXkJuawhjH+UUt6dWoENcXeICIbyE5BfWbZ8nOwiciT
- z+uoTgfOxo+fBYy6496qiNDjRRGDQYM=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-515-a-N3G-RtPUebhxkWE_feFQ-1; Fri, 22 Sep 2023 15:00:51 -0400
-X-MC-Unique: a-N3G-RtPUebhxkWE_feFQ-1
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-774086da4dbso259446585a.0
- for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 12:00:51 -0700 (PDT)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 054F210E705
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 21:54:49 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2c02e232c48so48670071fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Sep 2023 14:54:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1695419688; x=1696024488;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=/7c/oVDshAtS1tuVwC10Rg8pKnTEHEmvA4PAkfR7yFw=;
+ b=Ix9GeKSa0x+4Ep7Aktyxfb91P05y0HSIZ+6DyM4b8fTM5ignEs6MrhK+Ct2D9rvOJe
+ lE/fiy/Wp6lbUAsIvsV6QRdD9r5bPQ21HFrCPkBPnU9H86n0qLFHbdT+pCDD+m9rpaeW
+ p8E0wBp8yCgKXz3e+npjGqYUW14zL6Ju+nwTg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695409250; x=1696014050;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=llC9/wUzzd4JVzDSD0PHMCO4lX+W74lZOeDntPKMIjc=;
- b=RuUqKBksHv3Sld8CA8pcDfnXy4/iz/UnpGC5+nwtAW3cFlmuLpX3IVQpWusiVbjBsc
- qA+puE8lwiRa+RwjqLzfiQo+AYp8/jV6zcQXmi/iGxzIParewTYYFXUPA8DQlLHh6H8Z
- cCT9LKeW2WJ27cz0fP/g0U4f4Eo7r4T/B91vGTD6/j/5ZEtrTEI0oILnGugcVFSOCH9t
- BJp37mOQrvD3QchjVsgmhivVOQjr4gYEDNReaAIohRdUS5r0VyDNItl/ZCrWJfiINSEL
- VsbFSFpz+h4QsFQmpVmpqq8xCvdxBuJZLnBiTvhwvyMPXsYrTVlcQFhJ3XfoYNvAzQkD
- 7yFA==
-X-Gm-Message-State: AOJu0YyX7W+o46BpPWAQFH+sCIOtPOzobPHVnBBfOBsqjzW4g499vxga
- nY3l5I/V+SrXWS1qH50bZu9Rjn3Tj3aJjBZJIb9pTRdhjzGdDyTU961+h6wJsDmuz6pa+NMDtH/
- cXq9K7LNX2/afH2uCGuXB5jy+Os2f
-X-Received: by 2002:a05:6214:1845:b0:655:d2c7:a9d1 with SMTP id
- d5-20020a056214184500b00655d2c7a9d1mr187766qvy.14.1695409250676; 
- Fri, 22 Sep 2023 12:00:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHcAhYi3agHEIh1mExaRpOkIAUDfxEWkbuUfbk0Y5Ex6ReRQkYaRYp/G33/F11gHisOBD3h3Q==
-X-Received: by 2002:a05:6214:1845:b0:655:d2c7:a9d1 with SMTP id
- d5-20020a056214184500b00655d2c7a9d1mr187719qvy.14.1695409250417; 
- Fri, 22 Sep 2023 12:00:50 -0700 (PDT)
-Received: from ?IPv6:2600:4040:5c6c:a300::feb? ([2600:4040:5c6c:a300::feb])
- by smtp.gmail.com with ESMTPSA id
- w6-20020a0ce106000000b0064f50e2c551sm1671895qvk.1.2023.09.22.12.00.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Sep 2023 12:00:49 -0700 (PDT)
-Message-ID: <1fc22ed54041660dfff5b7f3cc69708fd4ac0472.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Kees Cook <keescook@chromium.org>, David Airlie <airlied@gmail.com>
-Date: Fri, 22 Sep 2023 15:00:47 -0400
-In-Reply-To: <20230922173216.3823169-5-keescook@chromium.org>
-References: <20230922173110.work.084-kees@kernel.org>
- <20230922173216.3823169-5-keescook@chromium.org>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38)
+ d=1e100.net; s=20230601; t=1695419688; x=1696024488;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/7c/oVDshAtS1tuVwC10Rg8pKnTEHEmvA4PAkfR7yFw=;
+ b=uE9KIHMZ6Kquk1It0EK+auGy//LR7k+toCDFzWNc8BCPzm6B0QRdCtyK2dbznXL83X
+ BEUNOYXA/WzK2KcUt6vh2vWbCEN3pQgzXWz16YQ9XDqnMVg2Ee3vPobK9HKY6DWQMVea
+ 5UWKANE0wh1vsoCaf9xhjI4SptTM397JUBTYn4f4NR5cbKIc592fcuUo/Sw33RlVL+M1
+ +JsbE481X/wjawRn6ZJ5AFshzDlYNm4bCkcHTIbcyQdUK3ntBNZ+odnezfU+a5eRRQ+8
+ Wv1dXCKUEbfqef14KVEqydroGF9zbQAOWGD0jymmLGFyAbs3VlT2UwcXH4o+jdLk//zW
+ ZbMg==
+X-Gm-Message-State: AOJu0YzNzVNnC1gfVFJnHI8eSMHUbMMiT4J4rJxttGGQua42nkeiwRWf
+ cen6m1SjK6tbSVrGbG0MUBHBpRgexuPuDIkoE3rjFg==
+X-Google-Smtp-Source: AGHT+IFqBQ9m6cEHlfgPZ1B6LtM3dzQO5UTlrujPO5byQq0rStgb2iQQqBzg/dzkHnhTV6MLei3X7/hNVsZxdNYxgNY=
+X-Received: by 2002:a2e:3505:0:b0:2bc:d8cb:59fe with SMTP id
+ z5-20020a2e3505000000b002bcd8cb59femr424762ljz.8.1695419688131; Fri, 22 Sep
+ 2023 14:54:48 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 22 Sep 2023 14:54:47 -0700
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
+References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJpqPXoFX4LXyXYgfh07Vpxg-KgD8VBR6x5bXf4GOJmbOtw@mail.gmail.com>
+ <2f98d5f1-57c1-d9fe-cb1c-b975db057287@quicinc.com>
+ <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 22 Sep 2023 14:54:47 -0700
+Message-ID: <CAE-0n53dqHONzMTd_ZC-fKWTzDVq6Wqwo4OFZMUcghZ5SD5RhA@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 5/9] drm/nouveau/pm: Annotate struct
- nvkm_perfdom with __counted_by
+Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dp: add
+ pm_runtime_force_suspend()/resume()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,90 +73,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Matthew Brost <matthew.brost@intel.com>, Emma Anholt <emma@anholt.net>,
- Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Tom Rix <trix@redhat.com>, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- John Harrison <john.c.harrison@Intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, sean@poorly.run,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Quoting Dmitry Baryshkov (2023-09-19 02:50:12)
+> On Mon, 18 Sept 2023 at 20:48, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> >
+> >
+> > On 9/15/2023 6:21 PM, Dmitry Baryshkov wrote:
+> > > On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> > >> Add pm_runtime_force_suspend()/resume() to complete incorporating pm
+> > >> runtime framework into DP driver. Both dp_pm_prepare() and dp_pm_complete()
+> > >> are added to set hpd_state to correct state. After resume, DP driver will
+> > >> re training its main link after .hpd_enable() callback enabled HPD
+> > >> interrupts and bring up display accordingly.
+> > > How will it re-train the main link? What is the code path for that?
+> >
+> > 1) for edp, dp_bridge_atomic_enable(), called from framework, to start
+> > link training and bring up display.
+>
+> And this path doesn't use .hpd_enable() which you have mentioned in
+> the commit message. Please don't try to shorten the commit message.
+> You see, I have had questions to several of them, which means that
+> they were not verbose enough.
+>
+> >
+> > 2) for external DP, HPD_PLUG_INT will be generated to start link
+> > training and bring up display.
+>
+> This should be hpd_notify, who starts link training, not some event.
 
-Thanks!
+I think this driver should train the link during atomic_enable(), not
+hpd_notify() (or directly from the irq handler). The drm_bridge_funcs
+talk a bit about when the clocks and timing signals are supposed to be
+enabled. For example, struct drm_bridge_funcs::atomic_pre_enable() says
+the "display pipe (i.e.  clocks and timing signals) feeding this bridge
+will not yet be running when this callback is called". And struct
+drm_bridge_funcs::atomic_enable() says "this callback must enable the
+display link feeding the next bridge in the chain if there is one."
 
-On Fri, 2023-09-22 at 10:32 -0700, Kees Cook wrote:
-> Prepare for the coming implementation by GCC and Clang of the __counted_b=
-y
-> attribute. Flexible array members annotated with __counted_by can have
-> their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUND=
-S
-> (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-> functions).
->=20
-> As found with Coccinelle[1], add __counted_by for struct nvkm_perfdom.
->=20
-> [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/c=
-ounted_by.cocci
->=20
-> Cc: Ben Skeggs <bskeggs@redhat.com>
-> Cc: Karol Herbst <kherbst@redhat.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
-> ---
->  drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h b/drivers/gpu/=
-drm/nouveau/nvkm/engine/pm/priv.h
-> index 6ae25d3e7f45..c011227f7052 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/pm/priv.h
-> @@ -82,7 +82,7 @@ struct nvkm_perfdom {
->  =09u8  mode;
->  =09u32 clk;
->  =09u16 signal_nr;
-> -=09struct nvkm_perfsig signal[];
-> +=09struct nvkm_perfsig signal[] __counted_by(signal_nr);
->  };
-> =20
->  struct nvkm_funcdom {
+That looks to me like link training, i.e. the display link, should
+happen in the enable path and not hpd_notify. It looks like link
+training could fail, but when that happens I believe the driver should
+call drm_connector_set_link_status_property() with
+DRM_MODE_LINK_STATUS_BAD. The two callers of that which exist in the
+tree also call drm_kms_helper_hotplug_event() or
+drm_kms_helper_connector_hotplug_event() after updating the link so that
+userspace knows to try again.
 
---=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+It would be nice if there was some drm_bridge_set_link_status_bad() API
+that bridge drivers could use to signal that the link status is bad and
+call the hotplug helper. Maybe it could also record some diagnostics
+about which bridge failed to setup the link and stop the atomic_enable()
+chain for that connector.
