@@ -2,62 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5037AC47D
-	for <lists+freedreno@lfdr.de>; Sat, 23 Sep 2023 20:45:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655647AC542
+	for <lists+freedreno@lfdr.de>; Sat, 23 Sep 2023 23:49:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A230C10E0A8;
-	Sat, 23 Sep 2023 18:45:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B09110E041;
+	Sat, 23 Sep 2023 21:49:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD0910E0A9
- for <freedreno@lists.freedesktop.org>; Sat, 23 Sep 2023 18:45:36 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-59f630612a4so5594247b3.1
- for <freedreno@lists.freedesktop.org>; Sat, 23 Sep 2023 11:45:36 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F33210E008
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Sep 2023 21:49:15 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-50435ad51bbso4679011e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Sep 2023 14:49:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695494735; x=1696099535; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GmaXvBuWa7AvubraK1rqvA0Y3W4i4RTGV9iuI7F73tQ=;
- b=Tf898/TJ2q0pqn02s9D2eX0oLWjSjdawzjlYYoEnCm6f/fZKKejEdBJwsxxRUBOZ6l
- NrYDQpallYY8Nw/6tZdV5QpShlr9Oq9uKhkd4ZOn7gzGwBAsZgPDtyLYf4f29/aIrSgo
- PrhB+hgbKY8Ual1AU2uI9ons0wGDknPtFzC2prsnouyp2bK0LhnbpeoSQGtW0/BM5rUH
- bdDCP6HcDmomBSfEvoebBICQNzmD0FfGcZvKawFMBVVxzc+dtkYr1re2bMrNTao5RxVy
- UzoO2TjqJPLmzsh5bX7I27Sz0gFu4vuZ575peU7EwqSmGLWEycsaQn2Q8ZWqxFaMyIc7
- BmWg==
+ d=linaro.org; s=google; t=1695505753; x=1696110553; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0mKikz6iQlf/2X/8udeNvqptmCav0BXWVkbR1ppszpA=;
+ b=HBoeRZsnjtnC9ixRKA4jXNVh7y+H5GZiCqMSSpMqoNNB4AcqIFsfq879tVhZypQ8Aa
+ 6AWTdQVWNM5OTyWQtxlDpCuY+SO+9nlXaq4c8/7b+l4d5+uEN+ImKN5HDiC8yjNtDtK6
+ SQ1wB/JjlTHrU2h549C42FV2voysr8u5Fd/nLjdLyYp+uMGZn0PRlffQOStUhrZBWt+C
+ w93cVnfEK0QjRYYKnMev23uFuOiYnoJMi1RNrhBFW/NqwfVRGHK7T4VGy5NaN8rpTz0L
+ N6mV469sxgMS+8/zNQlgoWEUelsttlyED8nU/t6UWZf12iWsNKieCQ6d1uv9DtghVXCj
+ DYbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695494735; x=1696099535;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1695505753; x=1696110553;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=GmaXvBuWa7AvubraK1rqvA0Y3W4i4RTGV9iuI7F73tQ=;
- b=V+tgN3HU1f0ozGlRS1pGT/If6NeRj3h84+Pk49558WMW3KfGqLVlJ47TSO5MkLA1Of
- wzzLkv4w99Il6cxbHZwMguyBF89AlsCbJ1AixqgsupxpAnU9PKZnkVYSgepgxHTPCsVv
- rUyj6Au63Py0STiQ3hEiNmnqdtznNnLX/rTDf/UswxpbC8VsEORfxCRfB1xLoBwEDJCu
- c3vv16FXnzgAG1jCPNL8/ho5Y62aCNhbdVF1Sfqi49ZdVx9IG1f2XTRRYZ/AcwDW8jj3
- vHRR2/66R0K5fo42qHlZYbs+ZhRB9hmhIs5MHvGbjkxhPGz+xB3HplDOnupFmRK/0+RN
- ub0w==
-X-Gm-Message-State: AOJu0YzkTgCryUqH4y2LwvJp/okuXMztDiNBfpXTSeAfRSxW8vMcSUol
- S7ieB8CQHc6rVFXussBjn69WpNAb/RJib36d29QU0Q==
-X-Google-Smtp-Source: AGHT+IHUX/HpZOHnPohy3vbcV4DvnRkwtBEzkQ60I21JGnwItYErq9DaNssYhIBNS9II39Q3/GLOrpeU1DuEsvI6y4A=
-X-Received: by 2002:a81:bc0c:0:b0:59f:3343:951b with SMTP id
- a12-20020a81bc0c000000b0059f3343951bmr3528849ywi.4.1695494735537; Sat, 23 Sep
- 2023 11:45:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
- <1694813901-26952-2-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJprRFYMF-6yxcL75rftfii0kt7hmg_+TeOMJw+BRyDYdeg@mail.gmail.com>
- <1c82a0a6-d85f-9800-bdc4-2a4892b4239b@quicinc.com>
-In-Reply-To: <1c82a0a6-d85f-9800-bdc4-2a4892b4239b@quicinc.com>
+ bh=0mKikz6iQlf/2X/8udeNvqptmCav0BXWVkbR1ppszpA=;
+ b=V/Wjy2Uq6XDjxB1xWhbfheKEfqoFWYi3SSJ4Mc9di9gG9n33NHnIr/Vv+vloyIGSYY
+ BGEDDR9OGOX1cKb0NjNIMrVurN/s8tssJLSHsAvGfF6qM24mVdDcrHcsmO94JoEb3EZg
+ WUkEF1ocxHDLnSkEsv+JQRw8cjo4iYb1wJScxGNoCT2vvUqcmdkC8bZgXoBI8GNo8ut/
+ 6MIwNkX/E9FZZqjnhmCX6nLKcrTJX1+fxnk69w7Z95CW13hP6S1jq7JWXyZKFvSUuhjR
+ S6Pr2w8wFwl6z4IE2AIxg6KCAV+16HY3OFmnhOwRLwQm7Yp4Vl0KwkcsjYXfXBJ5ErKh
+ CJhg==
+X-Gm-Message-State: AOJu0YyY2dCFMAt8speQyLty2ku6rWnizfn5VsuDtsikMaeEU4/EB1cV
+ tqCvMrcoVbiWOm5GpUL66KzqkQ==
+X-Google-Smtp-Source: AGHT+IHfMWz0YFTxERDUiIQgVQVWvbsVCtLPEAqGh68CRmNrR2JB/mBEc7E8zYr1iE8TPrS5PMEC9w==
+X-Received: by 2002:a19:6905:0:b0:503:26b0:e126 with SMTP id
+ e5-20020a196905000000b0050326b0e126mr2010709lfc.59.1695505753532; 
+ Sat, 23 Sep 2023 14:49:13 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ m12-20020a19520c000000b004fe0760354bsm1196590lfb.275.2023.09.23.14.49.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 Sep 2023 14:49:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 23 Sep 2023 21:45:23 +0300
-Message-ID: <CAA8EJpoW8COZD7+yg9oZ=k=x36+XQKaJgvhab=XZPwTVuixh2A@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 1/7] drm/msm/dp: tie
- dp_display_irq_handler() with dp driver
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sun, 24 Sep 2023 00:49:09 +0300
+Message-Id: <20230923214912.1095024-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC PATCH 0/3] drm/msm/dpu: convert even more MDP5
+ platforms
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,144 +73,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 23 Sept 2023 at 02:03, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 9/15/2023 5:29 PM, Dmitry Baryshkov wrote:
-> > On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >> Currently the dp_display_irq_handler() is executed at msm_dp_modeset_init()
-> >> which ties irq registration to the DPU device's life cycle, while depending on
-> >> resources that are released as the DP device is torn down. Move register DP
-> >> driver irq handler at dp_display_probe() to have dp_display_irq_handler()
-> >> is tied with DP device.
-> >>
-> >> Changes in v3:
-> >> -- move calling dp_display_irq_handler() to probe
-> > Was there a changelog for the previous reivions? What is the
-> > difference between v1 and v2?
-> >
-> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/dp/dp_display.c | 35 +++++++++++++----------------------
-> >>   drivers/gpu/drm/msm/dp/dp_display.h |  1 -
-> >>   2 files changed, 13 insertions(+), 23 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> index 76f1395..c217430 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> @@ -1193,30 +1193,23 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
-> >>          return ret;
-> >>   }
-> >>
-> >> -int dp_display_request_irq(struct msm_dp *dp_display)
-> >> +static int dp_display_request_irq(struct dp_display_private *dp)
-> >>   {
-> >>          int rc = 0;
-> >> -       struct dp_display_private *dp;
-> >> -
-> >> -       if (!dp_display) {
-> >> -               DRM_ERROR("invalid input\n");
-> >> -               return -EINVAL;
-> >> -       }
-> >> -
-> >> -       dp = container_of(dp_display, struct dp_display_private, dp_display);
-> >> +       struct device *dev = &dp->pdev->dev;
-> >>
-> >> -       dp->irq = irq_of_parse_and_map(dp->pdev->dev.of_node, 0);
-> >>          if (!dp->irq) {
-> > What is the point in this check?
-> >
-> >> -               DRM_ERROR("failed to get irq\n");
-> >> -               return -EINVAL;
-> >> +               dp->irq = platform_get_irq(dp->pdev, 0);
-> >> +               if (!dp->irq) {
-> >> +                       DRM_ERROR("failed to get irq\n");
-> >> +                       return -EINVAL;
-> >> +               }
-> >>          }
-> >>
-> >> -       rc = devm_request_irq(dp_display->drm_dev->dev, dp->irq,
-> >> -                       dp_display_irq_handler,
-> >> +       rc = devm_request_irq(dev, dp->irq, dp_display_irq_handler,
-> >>                          IRQF_TRIGGER_HIGH, "dp_display_isr", dp);
-> >>          if (rc < 0) {
-> >> -               DRM_ERROR("failed to request IRQ%u: %d\n",
-> >> -                               dp->irq, rc);
-> >> +               DRM_ERROR("failed to request IRQ%u: %d\n", dp->irq, rc);
-> >>                  return rc;
-> >>          }
-> >>
-> >> @@ -1287,6 +1280,10 @@ static int dp_display_probe(struct platform_device *pdev)
-> >>
-> >>          platform_set_drvdata(pdev, &dp->dp_display);
-> >>
-> >> +       rc = dp_display_request_irq(dp);
-> >> +       if (rc)
-> >> +               return rc;
-> > This way the IRQ ends up being enabled in _probe. Are we ready to
-> > handle it here? Is the DP device fully setup at this moment?
->
-> The irq is enabled here.
->
-> but DP driver hpd hardware block has not yet be enabled. this means no
-> irq will be delivered.
+Extend DPU driver with experimental support for even more MDP5
+platforms: MSM8937, MSM8917, MSM8953.
 
-There are other IRQ kinds, not only just HPD ones.
+As with other MDP5 devices, one has to pass `msm.prefer_mdp5=false`
+kernel param to test DPU driver insead of using MDP5.
 
->
->   .hpd_enable() will call pm_runtime_resume_and_get() and
-> dp_catalog_ctrl_hpd_enable().
->
-> after .hpd_enable() irq will be delivered and handled properly.
->
->
->
-> >> +
-> >>          rc = component_add(&pdev->dev, &dp_display_comp_ops);
-> >>          if (rc) {
-> >>                  DRM_ERROR("component add failed, rc=%d\n", rc);
-> >> @@ -1549,12 +1546,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
-> >>
-> >>          dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
-> >>
-> >> -       ret = dp_display_request_irq(dp_display);
-> >> -       if (ret) {
-> >> -               DRM_ERROR("request_irq failed, ret=%d\n", ret);
-> >> -               return ret;
-> >> -       }
-> >> -
-> >>          ret = dp_display_get_next_bridge(dp_display);
-> >>          if (ret)
-> >>                  return ret;
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> >> index 1e9415a..b3c08de 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> >> @@ -35,7 +35,6 @@ struct msm_dp {
-> >>   int dp_display_set_plugged_cb(struct msm_dp *dp_display,
-> >>                  hdmi_codec_plugged_cb fn, struct device *codec_dev);
-> >>   int dp_display_get_modes(struct msm_dp *dp_display);
-> >> -int dp_display_request_irq(struct msm_dp *dp_display);
-> >>   bool dp_display_check_video_test(struct msm_dp *dp_display);
-> >>   int dp_display_get_test_bpp(struct msm_dp *dp_display);
-> >>   void dp_display_signal_audio_start(struct msm_dp *dp_display);
-> >> --
-> >> 2.7.4
-> >>
-> >
+Dependencies: [1]
 
+[1] https://patchwork.freedesktop.org/series/123294/
 
+Dmitry Baryshkov (3):
+  drm/msm/dpu: add support for MSM8953
+  drm/msm/dpu: add support for MSM8937
+  drm/msm/dpu: add support for MSM8917
+
+ .../msm/disp/dpu1/catalog/dpu_1_14_msm8937.h  | 213 +++++++++++++++++
+ .../msm/disp/dpu1/catalog/dpu_1_15_msm8917.h  | 190 +++++++++++++++
+ .../msm/disp/dpu1/catalog/dpu_1_16_msm8953.h  | 221 ++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  14 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   3 +
+ 6 files changed, 644 insertions(+)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
 
 -- 
-With best wishes
-Dmitry
+2.39.2
+
