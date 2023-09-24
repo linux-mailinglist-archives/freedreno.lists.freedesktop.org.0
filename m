@@ -1,51 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657487AC73E
-	for <lists+freedreno@lfdr.de>; Sun, 24 Sep 2023 10:59:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFC617AC753
+	for <lists+freedreno@lfdr.de>; Sun, 24 Sep 2023 11:34:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 946FF10E0F5;
-	Sun, 24 Sep 2023 08:59:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46F3C10E002;
+	Sun, 24 Sep 2023 09:34:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1616610E0F5;
- Sun, 24 Sep 2023 08:59:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695545985; x=1727081985;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=bBFElxUO241xaAvnbHFo2DA22JmPV94Jq2K50cyALrw=;
- b=ZyLBM5Em5lDB13R8oEzhyxd7twTnkLc2EdOfWUt4+YR73tjIJ9wzwbCx
- ytzqvLHg1tkEnl2tET/oTXxXVcDblMh8vqBGpPUW6f8cQHL/sk57Em481
- oCZ1sqB48uF8XMCcYL7c/G/vg2fkbQ2x5TVcOXFBSdUbexqZLRSIjzwI0
- SkdypuhKwLQQeyOgoUERzMrQyP90YPm+TTqGip7GgVjhZlLWu6PxI7DjM
- 8tNUgP3wTVbhi19YWMdZ1xe+Y/sS7f6O7jASn7sZvLzlywRnjLVruTgJ8
- 6+NNoFpVyWq9zM+BNvDydu3C/lrUum+MlJ6P97VcJjUbcRqixvj5TKjU8 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10842"; a="383842824"
-X-IronPort-AV: E=Sophos;i="6.03,173,1694761200"; d="scan'208";a="383842824"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2023 01:59:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10842"; a="741584796"
-X-IronPort-AV: E=Sophos;i="6.03,173,1694761200"; d="scan'208";a="741584796"
-Received: from lkp-server02.sh.intel.com (HELO 493f6c7fed5d) ([10.239.97.151])
- by orsmga007.jf.intel.com with ESMTP; 24 Sep 2023 01:59:42 -0700
-Received: from kbuild by 493f6c7fed5d with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qkKxn-0003Q5-30;
- Sun, 24 Sep 2023 08:59:39 +0000
-Date: Sun, 24 Sep 2023 16:59:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: liuhaoran <liuhaoran14@163.com>, robdclark@gmail.com
-Message-ID: <202309241619.RHCRkWza-lkp@intel.com>
-References: <20230924064159.14739-1-liuhaoran14@163.com>
+Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
+ [IPv6:2607:f8b0:4864:20::1135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D980810E0C0
+ for <freedreno@lists.freedesktop.org>; Sun, 24 Sep 2023 09:33:59 +0000 (UTC)
+Received: by mail-yw1-x1135.google.com with SMTP id
+ 00721157ae682-59f50087ae2so25730567b3.0
+ for <freedreno@lists.freedesktop.org>; Sun, 24 Sep 2023 02:33:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695548039; x=1696152839; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=kHH2nT1UzZYRScO9kjwwzj9/M7QjVis56Gg6U4ewg1s=;
+ b=FjQKUYgT45mAM60TtI7EZoBjdc9uusOCZR0g+zaOZoodlLmojbOEUR5bBT99HC6UWO
+ n6UlQmM7Fo4KeSGQmZN4j+3Y11nSFfpm7wrGxlRvBbX8MV0Q9cEFYCZhkfpsPp8VWQnX
+ EwfN7R1WehmYYpyL38SMLLFWCWkiUNA9+rO3PBfRP2ZJ4zjxcoc6Fh776ndR72Ri8can
+ 6FflNmt7z44MJLAhYWUacL7Txt0SUbEkcvhi0ZZrWsps0uEoRCJgWTSWm8dzP0ELQ9Wq
+ XXxtmU0nWJQW5Vw7+u8UcMK2wOdnVQsZpQXiZslLZu6Hs33aT1H3QXK8CNxyzs616SrL
+ emvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695548039; x=1696152839;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kHH2nT1UzZYRScO9kjwwzj9/M7QjVis56Gg6U4ewg1s=;
+ b=CoKw56M9b2uHyfRHGH0c/V7kQosMlLvubGMOzb8HvMhEE0YToPojGt9aBi/tDqf6MJ
+ 4CHKE36sy3mYJ6BguZ6iplpI5IeY8bNMQwjk8QGLzETViDJSeYBeX1mOE8aELWNURG5k
+ cCO1+DPzFKJjEr86aUXYwxzVLa+Ejn0VRsdewDJV+yoOQSgRieeZY6fHQDBmUIMyLfIA
+ Lcqir/UvzneXRN/M6ZEAl1NdDRZkkh5bxCezQPZ1JvqhNQEIzNpe7ZPBJvukQBMNwxpE
+ G9VepsZblx5fh+W7w8TPf8vjiThnkMgKIPINxduJtUn1SDOMjy6peW7Ao3V5yC9nAWhh
+ OIGg==
+X-Gm-Message-State: AOJu0YzJiO/OhpB0X5h8egah0YM1fCAKyeg3pKvyWKGoHv6w2y4Hx0tx
+ OQhccsTtBzKbgekyRIzuGtX8fJxGb6xkVoHL5Hz9DQ==
+X-Google-Smtp-Source: AGHT+IF1KO4KdnzBFi/BrVM3qc6nlsiamtIrO+y+KCxeRFCJb7bBZ4Nw8TZsXNuFdCCaFm3/UJiHt462fMrm2ydqK/o=
+X-Received: by 2002:a0d:d103:0:b0:577:51cd:1b4a with SMTP id
+ t3-20020a0dd103000000b0057751cd1b4amr4024641ywd.41.1695548038873; Sun, 24 Sep
+ 2023 02:33:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20230924064159.14739-1-liuhaoran14@163.com>
 In-Reply-To: <20230924064159.14739-1-liuhaoran14@163.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 24 Sep 2023 12:33:46 +0300
+Message-ID: <CAA8EJpq9x5RY05cKzq7MoMzdKRBkj3y_Hy3gpmKfZVMqK123ow@mail.gmail.com>
+To: liuhaoran <liuhaoran14@163.com>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] drm/msm/mdp4: Add error handling in
  mdp4_lvds_connector_init()
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -60,73 +67,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: liuhaoran <liuhaoran14@163.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, oe-kbuild-all@lists.linux.dev,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
+ airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi liuhaoran,
+On Sun, 24 Sept 2023 at 09:42, liuhaoran <liuhaoran14@163.com> wrote:
+>
+> This patch adds error-handling for the drm_connector_init() and
+> drm_connector_attach_encoder inside the mdp4_lvds_connector_init().
+>
+> Signed-off-by: liuhaoran <liuhaoran14@163.com>
 
-kernel test robot noticed the following build warnings:
+As pointed out by the kernel robot, this was not even compile tested.
+So NAK. Please use proper casts for error returns.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.6-rc2 next-20230921]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> ---
+>  .../gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c    | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> index 7444b75c4215..62eb363ba90f 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> @@ -96,6 +96,7 @@ struct drm_connector *mdp4_lvds_connector_init(struct drm_device *dev,
+>  {
+>         struct drm_connector *connector = NULL;
+>         struct mdp4_lvds_connector *mdp4_lvds_connector;
+> +       int ret;
+>
+>         mdp4_lvds_connector = kzalloc(sizeof(*mdp4_lvds_connector), GFP_KERNEL);
+>         if (!mdp4_lvds_connector)
+> @@ -106,8 +107,12 @@ struct drm_connector *mdp4_lvds_connector_init(struct drm_device *dev,
+>
+>         connector = &mdp4_lvds_connector->base;
+>
+> -       drm_connector_init(dev, connector, &mdp4_lvds_connector_funcs,
+> -                       DRM_MODE_CONNECTOR_LVDS);
+> +       ret = drm_connector_init(dev, connector, &mdp4_lvds_connector_funcs,
+> +                                DRM_MODE_CONNECTOR_LVDS);
+> +
+> +       if (ret)
+> +               return ret;
+> +
+>         drm_connector_helper_add(connector, &mdp4_lvds_connector_helper_funcs);
+>
+>         connector->polled = 0;
+> @@ -115,7 +120,10 @@ struct drm_connector *mdp4_lvds_connector_init(struct drm_device *dev,
+>         connector->interlace_allowed = 0;
+>         connector->doublescan_allowed = 0;
+>
+> -       drm_connector_attach_encoder(connector, encoder);
+> +       ret = drm_connector_attach_encoder(connector, encoder);
+> +
+> +       if (ret)
+> +               return ret;
+>
+>         return connector;
+>  }
+> --
+> 2.17.1
+>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/liuhaoran/drm-msm-mdp4-Add-error-handling-in-mdp4_lvds_connector_init/20230924-144326
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230924064159.14739-1-liuhaoran14%40163.com
-patch subject: [PATCH] drm/msm/mdp4: Add error handling in mdp4_lvds_connector_init()
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20230924/202309241619.RHCRkWza-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230924/202309241619.RHCRkWza-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309241619.RHCRkWza-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c: In function 'mdp4_lvds_connector_init':
->> drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c:114:24: warning: returning 'int' from a function with return type 'struct drm_connector *' makes pointer from integer without a cast [-Wint-conversion]
-     114 |                 return ret;
-         |                        ^~~
-   drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c:126:24: warning: returning 'int' from a function with return type 'struct drm_connector *' makes pointer from integer without a cast [-Wint-conversion]
-     126 |                 return ret;
-         |                        ^~~
-
-
-vim +114 drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
-
-    92	
-    93	/* initialize connector */
-    94	struct drm_connector *mdp4_lvds_connector_init(struct drm_device *dev,
-    95			struct device_node *panel_node, struct drm_encoder *encoder)
-    96	{
-    97		struct drm_connector *connector = NULL;
-    98		struct mdp4_lvds_connector *mdp4_lvds_connector;
-    99		int ret;
-   100	
-   101		mdp4_lvds_connector = kzalloc(sizeof(*mdp4_lvds_connector), GFP_KERNEL);
-   102		if (!mdp4_lvds_connector)
-   103			return ERR_PTR(-ENOMEM);
-   104	
-   105		mdp4_lvds_connector->encoder = encoder;
-   106		mdp4_lvds_connector->panel_node = panel_node;
-   107	
-   108		connector = &mdp4_lvds_connector->base;
-   109	
-   110		ret = drm_connector_init(dev, connector, &mdp4_lvds_connector_funcs,
-   111					 DRM_MODE_CONNECTOR_LVDS);
-   112	
-   113		if (ret)
- > 114			return ret;
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With best wishes
+Dmitry
