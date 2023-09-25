@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89837AD3E7
-	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 10:58:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A477AD42F
+	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 11:06:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB0B10E036;
-	Mon, 25 Sep 2023 08:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4080F10E219;
+	Mon, 25 Sep 2023 09:06:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B6210E036;
- Mon, 25 Sep 2023 08:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695632278; x=1727168278;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=O3vOXezClvUBhd6ocET+nDRIldXxUso1uAzXlBHUvGU=;
- b=Ixa1riS0mfb9OTIre6h9Mqf/N3m4HZXwPkJS5DMDW4qzruD4lid14Mo1
- N7nEoU08xLVf/2neV6bXVlXWLLZOEl1nid34c4rVJiCSRIJ6qg3RZuW55
- XQf5ZstnmceJHTdgzQ3WgJn6GjTMZVqSXA+aBHgd7w8h1cBWkN6L9GIfv
- DFwwGufO3umYV+6aDKDQ8b4ZAnQ0Mkx2p8FUPrT1sbU7Z9xk1fGDyD3IN
- JXAxjLYvamMXPHjauAwFlRGwMLUjL1K/r9s3rzQE3a7qc5pkKq56cuCpJ
- A/MnEZbmlfy8kjjghuefwMYyYspGk9Nv5ulCflXhhMsm4fvZrHPzVDEmL g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="447693442"
-X-IronPort-AV: E=Sophos;i="6.03,174,1694761200"; d="scan'208";a="447693442"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2023 01:57:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="871988781"
-X-IronPort-AV: E=Sophos;i="6.03,174,1694761200"; d="scan'208";a="871988781"
-Received: from shaunbis-mobl4.ger.corp.intel.com (HELO [10.213.220.248])
- ([10.213.220.248])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2023 01:57:52 -0700
-Message-ID: <c73ad42b-a8db-23c2-86c7-1a2939dba044@linux.intel.com>
-Date: Mon, 25 Sep 2023 09:57:50 +0100
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE9110E1E8
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Sep 2023 09:06:47 +0000 (UTC)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-59bf1dde73fso74334517b3.3
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Sep 2023 02:06:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695632806; x=1696237606; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=+urIhpwTEkz79Am9RJHC2fm0g6Ug78XuKIyvd3DUPuQ=;
+ b=WV3ZgNAejdV9ytH17ZA85GidiCl0IFuwBGcetU9AWDMkuF7mpfjwI5je7UUo2dg/8/
+ GUqMbmVElPZ1s/BtXBsqQEFpfHJGSq6tfE+fn5igmdLO44BDX19DY6JgMPTL1oJB/54i
+ stSh2Lv1yiizHRD4b/U6NtIPLKqKYgGpMExfBjrysCzKKjg3AdDiUbeJeoOBocHyDRjz
+ k0FPTCBFhr3k6YDhOAK0+tkWUeGHUNFy4sg+go6rUBW9KoBOm8NOOIfVtMJjIRAa0ebN
+ wprdu18wN1E8fyyzjhWuTmSBiS1LLY4oJJkay24mUDVq25K7nyuQxP6pmRGXHVy0eZDU
+ hYSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695632806; x=1696237606;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+urIhpwTEkz79Am9RJHC2fm0g6Ug78XuKIyvd3DUPuQ=;
+ b=hwsl+AHFT9Yi/l4vrii/3qevl2R6JSFz19xrxQTV4OU1YaWkgkCuFz00C7XB8etTOY
+ nzmAF2h11lDUXpebG4CoAazggVT6rQ3EfN5KmgkMp+NM6hp+OabWwPaQnpkNPhWN3xUz
+ V3sJ8Uefl59490QayHj23E/xBJEp6XgkitlB9uPirG/ipYtLIHRRzhyHQ7M+PGbiLvJo
+ xjRmxo8VLgAVeaQXmGfCuqIHBWKVM07GX2U0vfAwpuEaL0PHwckHvfnbPvq/ebxdAX+0
+ vCRk/V6XonRCvlHrLRT1ZGob3ZKIA9sJrNbfURaTJGdiSs5xdKSjFkS9Ghy0C4x5/2iO
+ 6RLw==
+X-Gm-Message-State: AOJu0YxEIlXIFyouuLU6hv3WycmIRfGpBkn7Mz4cq329xPi5/Fu2iyLb
+ TbMSdacwh6zSztOjHhja50DMHlpuTx6DhcL8dFw/VQ==
+X-Google-Smtp-Source: AGHT+IE64N8skrf+Bmn4uvgUUnI55Ok8J2iAxLChmf8aSNWlCtr5mJztZE3sYT3WrMo31YsKjBNpaLKXZvSajNObFV4=
+X-Received: by 2002:a05:690c:e17:b0:59f:4dcd:227e with SMTP id
+ cp23-20020a05690c0e1700b0059f4dcd227emr5678550ywb.37.1695632805969; Mon, 25
+ Sep 2023 02:06:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Steven Price <steven.price@arm.com>,
- =?UTF-8?Q?Adri=c3=a1n_Larumbe?= <adrian.larumbe@collabora.com>
-References: <20230919233556.1458793-1-adrian.larumbe@collabora.com>
- <20230919233556.1458793-3-adrian.larumbe@collabora.com>
- <b23eb1dc-dd01-2086-f4e8-a5c3db389a14@linux.intel.com>
- <chpqiov6y5gbnx3cnmrxkijperhgjhtrrsk556jbumrihs3pxm@ahq3kuehj7xp>
- <68cbe1af-f485-41a4-111a-c695697ef26f@linux.intel.com>
- <1e9e2849-6549-7a67-32e4-5b80ba269f82@arm.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <1e9e2849-6549-7a67-32e4-5b80ba269f82@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v6 2/6] drm/panfrost: Add fdinfo support GPU
- load metrics
+References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-5-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJprxf5RBfuiJVJsfnb7buC9Mbxr=U7VSaPRc1+OMJcBFZg@mail.gmail.com>
+ <febc4aaf-c36c-b683-d1c5-403279bd980a@quicinc.com>
+In-Reply-To: <febc4aaf-c36c-b683-d1c5-403279bd980a@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 25 Sep 2023 12:06:34 +0300
+Message-ID: <CAA8EJprcKwGRjsORCMRObjd5XvF2CQMtV41OM82EgHfwBYZQNQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 4/7] drm/msm/dp: incorporate pm_runtime
+ framework into DP driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,365 +70,401 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, tzimmermann@suse.de, sean@poorly.run,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, linux-kernel@vger.kernel.org,
- freedreno@lists.freedesktop.org, robdclark@gmail.com, healych@amazon.com,
- Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, kernel@collabora.com, airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, 21 Sept 2023 at 01:46, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+>
+> On 9/15/2023 6:07 PM, Dmitry Baryshkov wrote:
+> > On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> >> Currently DP driver is executed independent of PM runtime framework.
+> >> This lead DP driver incompatible with others. Incorporating pm runtime
+> > Why is it incompatible? Which others are mentioned here?
+> >
+> >> framework into DP driver so that both power and clocks to enable/disable
+> >> host controller fits with PM runtime mechanism. Once pm runtime framework
+> >> is incorporated into DP driver, wake up device from power up path is not
+> >> necessary. Hence remove it. Both EV_POWER_PM_GET and EV_POWER_PM_PUT events
+> >> are introduced to perform pm runtime control for the HPD GPIO routing to a
+> >> display-connector case.
+> >>
+> >> Changes in v3:
+> >> -- incorporate removing pm_runtime_xx() from dp_pwer.c to this patch
+> >> -- use pm_runtime_resume_and_get() instead of pm_runtime_get()
+> >> -- error checking pm_runtime_resume_and_get() return value
+> >> -- add EV_POWER_PM_GET and PM_EV_POWER_PUT to handle HPD_GPIO case
+> > Previous changelog?
+> >
+> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> >> ---
+> >>   drivers/gpu/drm/msm/dp/dp_aux.c     |   5 ++
+> >>   drivers/gpu/drm/msm/dp/dp_display.c | 114 +++++++++++++++++++++++++++---------
+> >>   drivers/gpu/drm/msm/dp/dp_power.c   |   9 ---
+> >>   3 files changed, 90 insertions(+), 38 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+> >> index 8e3b677..8fa93c5 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> >> @@ -291,6 +291,9 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
+> >>                  return -EINVAL;
+> >>          }
+> >>
+> >> +       if (pm_runtime_resume_and_get(dp_aux->dev))
+> >> +               return  -EINVAL;
+> > Please propagate error values instead of reinventing them.
+> >
+> >> +
+> >>          mutex_lock(&aux->mutex);
+> >>          if (!aux->initted) {
+> >>                  ret = -EIO;
+> >> @@ -364,6 +367,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
+> >>
+> >>   exit:
+> >>          mutex_unlock(&aux->mutex);
+> >> +       pm_runtime_mark_last_busy(dp_aux->dev);
+> >> +       pm_runtime_put_autosuspend(dp_aux->dev);
+> > What is the reason for using autosuspend? Such design decisions should
+> > be described in the commit message.
+> >
+> >>          return ret;
+> >>   }
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> >> index 59f9d85..e7af7f7 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> >> @@ -60,6 +60,8 @@ enum {
+> >>          EV_IRQ_HPD_INT,
+> >>          EV_HPD_UNPLUG_INT,
+> >>          EV_USER_NOTIFICATION,
+> >> +       EV_POWER_PM_GET,
+> >> +       EV_POWER_PM_PUT,
+> >>   };
+> >>
+> >>   #define EVENT_TIMEOUT  (HZ/10) /* 100ms */
+> >> @@ -276,13 +278,6 @@ static int dp_display_bind(struct device *dev, struct device *master,
+> >>          dp->dp_display.drm_dev = drm;
+> >>          priv->dp[dp->id] = &dp->dp_display;
+> >>
+> >> -       rc = dp->parser->parse(dp->parser);
+> >> -       if (rc) {
+> >> -               DRM_ERROR("device tree parsing failed\n");
+> >> -               goto end;
+> >> -       }
+> >> -
+> >> -
+> >>          dp->drm_dev = drm;
+> >>          dp->aux->drm_dev = drm;
+> >>          rc = dp_aux_register(dp->aux);
+> >> @@ -291,12 +286,6 @@ static int dp_display_bind(struct device *dev, struct device *master,
+> >>                  goto end;
+> >>          }
+> >>
+> >> -       rc = dp_power_client_init(dp->power);
+> >> -       if (rc) {
+> >> -               DRM_ERROR("Power client create failed\n");
+> >> -               goto end;
+> >> -       }
+> >> -
+> >>          rc = dp_register_audio_driver(dev, dp->audio);
+> >>          if (rc) {
+> >>                  DRM_ERROR("Audio registration Dp failed\n");
+> >> @@ -320,10 +309,6 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+> >>          struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> >>          struct msm_drm_private *priv = dev_get_drvdata(master);
+> >>
+> >> -       /* disable all HPD interrupts */
+> >> -       if (dp->core_initialized)
+> >> -               dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
+> >> -
+> >>          kthread_stop(dp->ev_tsk);
+> >>
+> >>          of_dp_aux_depopulate_bus(dp->aux);
+> >> @@ -467,6 +452,18 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
+> >>          dp->core_initialized = false;
+> >>   }
+> >>
+> >> +static void dp_display_pm_get(struct dp_display_private *dp)
+> >> +{
+> >> +       if (pm_runtime_resume_and_get(&dp->pdev->dev))
+> >> +               DRM_ERROR("failed to start power\n");
+> >> +}
+> > Huge NAK here. This means that the error is completely ignored (other
+> > than being dumped to the log). This is a short path to Sync error and
+> > other kinds of reboot.
+> >
+> >> +
+> >> +static void dp_display_pm_put(struct dp_display_private *dp)
+> >> +{
+> >> +       pm_runtime_mark_last_busy(&dp->pdev->dev);
+> >> +       pm_runtime_put_autosuspend(&dp->pdev->dev);
+> >> +}
+> >> +
+> >>   static int dp_display_usbpd_configure_cb(struct device *dev)
+> >>   {
+> >>          struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> >> @@ -1096,7 +1093,6 @@ static int hpd_event_thread(void *data)
+> >>
+> >>                  switch (todo->event_id) {
+> >>                  case EV_HPD_INIT_SETUP:
+> >> -                       dp_display_host_init(dp_priv);
+> >>                          break;
+> >>                  case EV_HPD_PLUG_INT:
+> >>                          dp_hpd_plug_handle(dp_priv, todo->data);
+> >> @@ -1111,6 +1107,12 @@ static int hpd_event_thread(void *data)
+> >>                          dp_display_send_hpd_notification(dp_priv,
+> >>                                                  todo->data);
+> >>                          break;
+> >> +               case EV_POWER_PM_GET:
+> >> +                       dp_display_pm_get(dp_priv);
+> >> +                       break;
+> >> +               case EV_POWER_PM_PUT:
+> >> +                       dp_display_pm_put(dp_priv);
+> >> +                       break;
+> > No. runtime_get / runtime_put are not HPD events. They should be
+> > executed directly from the place where the drivers needs the device to
+> > be powered up.
+> >
+> >>                  default:
+> >>                          break;
+> >>                  }
+> >> @@ -1251,6 +1253,18 @@ static int dp_display_probe(struct platform_device *pdev)
+> >>                  return -EPROBE_DEFER;
+> >>          }
+> >>
+> >> +       rc = dp->parser->parse(dp->parser);
+> >> +       if (rc) {
+> >> +               DRM_ERROR("device tree parsing failed\n");
+> >> +               return -EPROBE_DEFER;
+> >> +       }
+> >> +
+> >> +       rc = dp_power_client_init(dp->power);
+> >> +       if (rc) {
+> >> +               DRM_ERROR("Power client create failed\n");
+> >> +               return -EPROBE_DEFER;
+> >> +       }
+> > Why? This moves resource allocation to the probe function, which is
+> > irrelevant to the pm_runtime code. If this is required, you can move
+> > these changes to a separate patch.
+> >
+> >> +
+> >>          /* setup event q */
+> >>          mutex_init(&dp->event_mutex);
+> >>          init_waitqueue_head(&dp->event_q);
+> >> @@ -1263,6 +1277,10 @@ static int dp_display_probe(struct platform_device *pdev)
+> >>
+> >>          platform_set_drvdata(pdev, &dp->dp_display);
+> >>
+> >> +       devm_pm_runtime_enable(&pdev->dev);
+> > error code handling?
+> >
+> >> +       pm_runtime_set_autosuspend_delay(&pdev->dev, 1000);
+> >> +       pm_runtime_use_autosuspend(&pdev->dev);
+> >> +
+> >>          rc = dp_display_request_irq(dp);
+> >>          if (rc)
+> >>                  return rc;
+> >> @@ -1285,6 +1303,36 @@ static int dp_display_remove(struct platform_device *pdev)
+> >>
+> >>          platform_set_drvdata(pdev, NULL);
+> >>
+> >> +       pm_runtime_put_sync_suspend(&pdev->dev);
+> > Why? Who is holding the pm count here?
+> >
+> >> +       pm_runtime_dont_use_autosuspend(&pdev->dev);
+> >> +       pm_runtime_disable(&pdev->dev);
+> > Why do you need _disable if you have a devm_pm_runtime_enable()? Not
+> > to mention that pm_runtime_disable_action() already has a call to
+> > pm_runtime_dont_use_autosuspend()
+> >
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +static int dp_pm_runtime_suspend(struct device *dev)
+> >> +{
+> >> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> >> +
+> >> +       if (dp->dp_display.is_edp) {
+> >> +               dp_display_host_phy_exit(dp);
+> >> +               dp_catalog_ctrl_hpd_disable(dp->catalog);
+> >> +       }
+> >> +       dp_display_host_deinit(dp);
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +static int dp_pm_runtime_resume(struct device *dev)
+> >> +{
+> >> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> >> +
+> >> +       dp_display_host_init(dp);
+> >> +       if (dp->dp_display.is_edp) {
+> >> +               dp_catalog_ctrl_hpd_enable(dp->catalog);
+> >> +               dp_display_host_phy_init(dp);
+> >> +       }
+> >> +
+> >>          return 0;
+> >>   }
+> >>
+> >> @@ -1389,6 +1437,7 @@ static int dp_pm_suspend(struct device *dev)
+> >>   }
+> >>
+> >>   static const struct dev_pm_ops dp_pm_ops = {
+> >> +       SET_RUNTIME_PM_OPS(dp_pm_runtime_suspend, dp_pm_runtime_resume, NULL)
+> >>          .suspend = dp_pm_suspend,
+> >>          .resume =  dp_pm_resume,
+> >>   };
+> >> @@ -1473,10 +1522,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+> >>          aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
+> >>
+> >>          if (aux_bus && dp->is_edp) {
+> >> -               dp_display_host_init(dp_priv);
+> >> -               dp_catalog_ctrl_hpd_enable(dp_priv->catalog);
+> >> -               dp_display_host_phy_init(dp_priv);
+> >> -
+> >>                  /*
+> >>                   * The code below assumes that the panel will finish probing
+> >>                   * by the time devm_of_dp_aux_populate_ep_devices() returns.
+> >> @@ -1578,6 +1623,11 @@ void dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+> >>                  dp_hpd_plug_handle(dp_display, 0);
+> >>
+> >>          mutex_lock(&dp_display->event_mutex);
+> >> +       if (pm_runtime_resume_and_get(&dp_display->pdev->dev)) {
+> >> +               DRM_ERROR("failed to start power\n");
+> >> +               mutex_unlock(&dp_display->event_mutex);
+> >> +               return;
+> >> +       }
+> >>
+> >>          state = dp_display->hpd_state;
+> >>          if (state != ST_DISPLAY_OFF && state != ST_MAINLINK_READY) {
+> >> @@ -1658,6 +1708,8 @@ void dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
+> >>          }
+> >>
+> >>          drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
+> >> +
+> >> +       pm_runtime_put_sync(&dp_display->pdev->dev);
+> > So, no autosuspend now?
+> >
+> > Also, I think we can get an unbalanced runtime status, as there is no
+> > guarantee that atomic_enable / atomic_disable will be paired. Please
+> > correct me if I'm wrong.
+>
+>   I always assume atomic_enable / atomic_disable should be paired.
+> Otherwise nothing will work.
+> Could you please give me example what situations they are not paired?
 
-On 22/09/2023 16:23, Steven Price wrote:
-> On 22/09/2023 14:53, Tvrtko Ursulin wrote:
->>
->> On 22/09/2023 11:57, Adrián Larumbe wrote:
->>> On 20.09.2023 16:40, Tvrtko Ursulin wrote:
->>>> On 20/09/2023 00:34, Adrián Larumbe wrote:
->>>>> The drm-stats fdinfo tags made available to user space are drm-engine,
->>>>> drm-cycles, drm-max-freq and drm-curfreq, one per job slot.
->>>>>
->>>>> This deviates from standard practice in other DRM drivers, where a
->>>>> single
->>>>> set of key:value pairs is provided for the whole render engine.
->>>>> However,
->>>>> Panfrost has separate queues for fragment and vertex/tiler jobs, so a
->>>>> decision was made to calculate bus cycles and workload times
->>>>> separately.
->>>>>
->>>>> Maximum operating frequency is calculated at devfreq initialisation
->>>>> time.
->>>>> Current frequency is made available to user space because nvtop uses it
->>>>> when performing engine usage calculations.
->>>>>
->>>>> It is important to bear in mind that both GPU cycle and kernel time
->>>>> numbers
->>>>> provided are at best rough estimations, and always reported in
->>>>> excess from
->>>>> the actual figure because of two reasons:
->>>>>     - Excess time because of the delay between the end of a job
->>>>> processing,
->>>>>       the subsequent job IRQ and the actual time of the sample.
->>>>>     - Time spent in the engine queue waiting for the GPU to pick up
->>>>> the next
->>>>>       job.
->>>>>
->>>>> To avoid race conditions during enablement/disabling, a reference
->>>>> counting
->>>>> mechanism was introduced, and a job flag that tells us whether a
->>>>> given job
->>>>> increased the refcount. This is necessary, because user space can
->>>>> toggle
->>>>> cycle counting through a debugfs file, and a given job might have
->>>>> been in
->>>>> flight by the time cycle counting was disabled.
->>>>>
->>>>> The main goal of the debugfs cycle counter knob is letting tools
->>>>> like nvtop
->>>>> or IGT's gputop switch it at any time, to avoid power waste in case no
->>>>> engine usage measuring is necessary.
->>>>>
->>>>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
->>>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
->>>>> Reviewed-by: Steven Price <steven.price@arm.com>
->>>>> ---
->>>>>     drivers/gpu/drm/panfrost/Makefile           |  2 +
->>>>>     drivers/gpu/drm/panfrost/panfrost_debugfs.c | 20 ++++++++
->>>>>     drivers/gpu/drm/panfrost/panfrost_debugfs.h | 13 +++++
->>>>>     drivers/gpu/drm/panfrost/panfrost_devfreq.c |  8 +++
->>>>>     drivers/gpu/drm/panfrost/panfrost_devfreq.h |  3 ++
->>>>>     drivers/gpu/drm/panfrost/panfrost_device.c  |  2 +
->>>>>     drivers/gpu/drm/panfrost/panfrost_device.h  | 13 +++++
->>>>>     drivers/gpu/drm/panfrost/panfrost_drv.c     | 57
->>>>> ++++++++++++++++++++-
->>>>>     drivers/gpu/drm/panfrost/panfrost_gpu.c     | 41 +++++++++++++++
->>>>>     drivers/gpu/drm/panfrost/panfrost_gpu.h     |  4 ++
->>>>>     drivers/gpu/drm/panfrost/panfrost_job.c     | 24 +++++++++
->>>>>     drivers/gpu/drm/panfrost/panfrost_job.h     |  5 ++
->>>>>     12 files changed, 191 insertions(+), 1 deletion(-)
->>>>>     create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>>>>     create mode 100644 drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>>>>
->>>>> diff --git a/drivers/gpu/drm/panfrost/Makefile
->>>>> b/drivers/gpu/drm/panfrost/Makefile
->>>>> index 7da2b3f02ed9..2c01c1e7523e 100644
->>>>> --- a/drivers/gpu/drm/panfrost/Makefile
->>>>> +++ b/drivers/gpu/drm/panfrost/Makefile
->>>>> @@ -12,4 +12,6 @@ panfrost-y := \
->>>>>         panfrost_perfcnt.o \
->>>>>         panfrost_dump.o
->>>>> +panfrost-$(CONFIG_DEBUG_FS) += panfrost_debugfs.o
->>>>> +
->>>>>     obj-$(CONFIG_DRM_PANFROST) += panfrost.o
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>>>> b/drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>>>> new file mode 100644
->>>>> index 000000000000..cc14eccba206
->>>>> --- /dev/null
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_debugfs.c
->>>>> @@ -0,0 +1,20 @@
->>>>> +// SPDX-License-Identifier: GPL-2.0
->>>>> +/* Copyright 2023 Collabora ltd. */
->>>>> +
->>>>> +#include <linux/debugfs.h>
->>>>> +#include <linux/platform_device.h>
->>>>> +#include <drm/drm_debugfs.h>
->>>>> +#include <drm/drm_file.h>
->>>>> +#include <drm/panfrost_drm.h>
->>>>> +
->>>>> +#include "panfrost_device.h"
->>>>> +#include "panfrost_gpu.h"
->>>>> +#include "panfrost_debugfs.h"
->>>>> +
->>>>> +void panfrost_debugfs_init(struct drm_minor *minor)
->>>>> +{
->>>>> +    struct drm_device *dev = minor->dev;
->>>>> +    struct panfrost_device *pfdev =
->>>>> platform_get_drvdata(to_platform_device(dev->dev));
->>>>> +
->>>>> +    debugfs_create_atomic_t("profile", 0600, minor->debugfs_root,
->>>>> &pfdev->profile_mode);
->>>>> +}
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>>>> b/drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>>>> new file mode 100644
->>>>> index 000000000000..db1c158bcf2f
->>>>> --- /dev/null
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_debugfs.h
->>>>> @@ -0,0 +1,13 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>>> +/*
->>>>> + * Copyright 2023 Collabora ltd.
->>>>> + */
->>>>> +
->>>>> +#ifndef PANFROST_DEBUGFS_H
->>>>> +#define PANFROST_DEBUGFS_H
->>>>> +
->>>>> +#ifdef CONFIG_DEBUG_FS
->>>>> +void panfrost_debugfs_init(struct drm_minor *minor);
->>>>> +#endif
->>>>> +
->>>>> +#endif  /* PANFROST_DEBUGFS_H */
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>>>> b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>>>> index 58dfb15a8757..28caffc689e2 100644
->>>>> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
->>>>> @@ -58,6 +58,7 @@ static int panfrost_devfreq_get_dev_status(struct
->>>>> device *dev,
->>>>>         spin_lock_irqsave(&pfdevfreq->lock, irqflags);
->>>>>         panfrost_devfreq_update_utilization(pfdevfreq);
->>>>> +    pfdevfreq->current_frequency = status->current_frequency;
->>>>>         status->total_time = ktime_to_ns(ktime_add(pfdevfreq->busy_time,
->>>>>                                pfdevfreq->idle_time));
->>>>> @@ -117,6 +118,7 @@ int panfrost_devfreq_init(struct panfrost_device
->>>>> *pfdev)
->>>>>         struct devfreq *devfreq;
->>>>>         struct thermal_cooling_device *cooling;
->>>>>         struct panfrost_devfreq *pfdevfreq = &pfdev->pfdevfreq;
->>>>> +    unsigned long freq = ULONG_MAX;
->>>>>         if (pfdev->comp->num_supplies > 1) {
->>>>>             /*
->>>>> @@ -172,6 +174,12 @@ int panfrost_devfreq_init(struct
->>>>> panfrost_device *pfdev)
->>>>>             return ret;
->>>>>         }
->>>>> +    /* Find the fastest defined rate  */
->>>>> +    opp = dev_pm_opp_find_freq_floor(dev, &freq);
->>>>> +    if (IS_ERR(opp))
->>>>> +        return PTR_ERR(opp);
->>>>> +    pfdevfreq->fast_rate = freq;
->>>>> +
->>>>>         dev_pm_opp_put(opp);
->>>>>         /*
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>>>> b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>>>> index 1514c1f9d91c..48dbe185f206 100644
->>>>> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.h
->>>>> @@ -19,6 +19,9 @@ struct panfrost_devfreq {
->>>>>         struct devfreq_simple_ondemand_data gov_data;
->>>>>         bool opp_of_table_added;
->>>>> +    unsigned long current_frequency;
->>>>> +    unsigned long fast_rate;
->>>>> +
->>>>>         ktime_t busy_time;
->>>>>         ktime_t idle_time;
->>>>>         ktime_t time_last_update;
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c
->>>>> b/drivers/gpu/drm/panfrost/panfrost_device.c
->>>>> index fa1a086a862b..28f7046e1b1a 100644
->>>>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
->>>>> @@ -207,6 +207,8 @@ int panfrost_device_init(struct panfrost_device
->>>>> *pfdev)
->>>>>         spin_lock_init(&pfdev->as_lock);
->>>>> +    spin_lock_init(&pfdev->cycle_counter.lock);
->>>>> +
->>>>>         err = panfrost_clk_init(pfdev);
->>>>>         if (err) {
->>>>>             dev_err(pfdev->dev, "clk init failed %d\n", err);
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h
->>>>> b/drivers/gpu/drm/panfrost/panfrost_device.h
->>>>> index b0126b9fbadc..1e85656dc2f7 100644
->>>>> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
->>>>> @@ -107,6 +107,7 @@ struct panfrost_device {
->>>>>         struct list_head scheduled_jobs;
->>>>>         struct panfrost_perfcnt *perfcnt;
->>>>> +    atomic_t profile_mode;
->>>>>         struct mutex sched_lock;
->>>>> @@ -121,6 +122,11 @@ struct panfrost_device {
->>>>>         struct shrinker shrinker;
->>>>>         struct panfrost_devfreq pfdevfreq;
->>>>> +
->>>>> +    struct {
->>>>> +        atomic_t use_count;
->>>>> +        spinlock_t lock;
->>>>> +    } cycle_counter;
->>>>>     };
->>>>>     struct panfrost_mmu {
->>>>> @@ -135,12 +141,19 @@ struct panfrost_mmu {
->>>>>         struct list_head list;
->>>>>     };
->>>>> +struct panfrost_engine_usage {
->>>>> +    unsigned long long elapsed_ns[NUM_JOB_SLOTS];
->>>>> +    unsigned long long cycles[NUM_JOB_SLOTS];
->>>>> +};
->>>>> +
->>>>>     struct panfrost_file_priv {
->>>>>         struct panfrost_device *pfdev;
->>>>>         struct drm_sched_entity sched_entity[NUM_JOB_SLOTS];
->>>>>         struct panfrost_mmu *mmu;
->>>>> +
->>>>> +    struct panfrost_engine_usage engine_usage;
->>>>>     };
->>>>>     static inline struct panfrost_device *to_panfrost_device(struct
->>>>> drm_device *ddev)
->>>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c
->>>>> b/drivers/gpu/drm/panfrost/panfrost_drv.c
->>>>> index a2ab99698ca8..3c93a11deab1 100644
->>>>> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
->>>>> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
->>>>> @@ -20,6 +20,7 @@
->>>>>     #include "panfrost_job.h"
->>>>>     #include "panfrost_gpu.h"
->>>>>     #include "panfrost_perfcnt.h"
->>>>> +#include "panfrost_debugfs.h"
->>>>>     static bool unstable_ioctls;
->>>>>     module_param_unsafe(unstable_ioctls, bool, 0600);
->>>>> @@ -267,6 +268,7 @@ static int panfrost_ioctl_submit(struct
->>>>> drm_device *dev, void *data,
->>>>>         job->requirements = args->requirements;
->>>>>         job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
->>>>>         job->mmu = file_priv->mmu;
->>>>> +    job->engine_usage = &file_priv->engine_usage;
->>>>>         slot = panfrost_job_get_slot(job);
->>>>> @@ -523,7 +525,55 @@ static const struct drm_ioctl_desc
->>>>> panfrost_drm_driver_ioctls[] = {
->>>>>         PANFROST_IOCTL(MADVISE,        madvise,    DRM_RENDER_ALLOW),
->>>>>     };
->>>>> -DEFINE_DRM_GEM_FOPS(panfrost_drm_driver_fops);
->>>>> +
->>>>> +static void panfrost_gpu_show_fdinfo(struct panfrost_device *pfdev,
->>>>> +                     struct panfrost_file_priv *panfrost_priv,
->>>>> +                     struct drm_printer *p)
->>>>> +{
->>>>> +    int i;
->>>>> +
->>>>> +    /*
->>>>> +     * IMPORTANT NOTE: drm-cycles and drm-engine measurements are not
->>>>> +     * accurate, as they only provide a rough estimation of the
->>>>> number of
->>>>> +     * GPU cycles and CPU time spent in a given context. This is
->>>>> due to two
->>>>> +     * different factors:
->>>>> +     * - Firstly, we must consider the time the CPU and then the
->>>>> kernel
->>>>> +     *   takes to process the GPU interrupt, which means additional
->>>>> time and
->>>>> +     *   GPU cycles will be added in excess to the real figure.
->>>>> +     * - Secondly, the pipelining done by the Job Manager (2 job
->>>>> slots per
->>>>> +     *   engine) implies there is no way to know exactly how much
->>>>> time each
->>>>> +     *   job spent on the GPU.
->>>>> +     */
->>>>> +
->>>>> +    static const char * const engine_names[] = {
->>>>> +        "fragment", "vertex-tiler", "compute-only"
->>>>> +    };
->>>>> +
->>>>> +    for (i = 0; i < NUM_JOB_SLOTS - 1; i++) {
->>>>
->>>> FWIW you could future proof this a bit by using "i <
->>>> ARRAY_SIZE(engine_names)"
->>>> and avoid maybe silent out of bounds reads if someone updates
->>>> NUM_JOB_SLOTS
->>>> and forgets about this loop. Or stick a warning of some sort.
->>>>
->>> NUM_JOB_SLOTS is actually the same as the number of engines in the
->>> device. I decided to follow
->>> this loop convention because that's what's being done across the
->>> driver when manipulating
->>> the engine queues, so I thought I'd stick to it for the sake of
->>> consistency. Bear in mind
->>> the loop doesn't pick up the compute-only engine because it's still
->>> not exposed to user space.
->>>
->>> So NUM_JOB_SLOTS cannot change, unless a new engine were introduced,
->>> and then someone would
->>> have to update this array accordingly.
->>
->> Exactly, and until they would, here we'd have a be silent out of bound
->> memory access. Content of which even gets shared with userspace. ;)
-> 
-> I think using NUM_JOB_SLOTS here seems sensible (as Adrián points out
-> it's consistent with the rest of the driver). But a BUILD_BUG_ON
-> checking the array size is could make sense.
-> 
-> In reality I don't see the number of job slots ever changing - panfrost
-> is now for the 'old' architecture (panthor being the new driver for
-> later 'CSF' architecture). And even if there was a new design for
-> pre-CSF - it would be a very big change to the architecture: we've kept
-> the 3 slots all the way through even though the 3rd is never used on
-> most GPUs. But equally I've been wrong before ;)
+Please excuse me, it took a while to check the docs. Indeed, you were
+right. For atomic drivers corresponding encoder helper calls are
+required to be inverse pairs. Thus bridge calls should also be an
+inverse of each other.
 
-Thanks for this explanation - with that it indeed isn't much need to 
-robustify it.
+>
+> > And also there is a possible return earlier in this function. The
+> > driver will leak the runtime status again.
+> >
+> >>          mutex_unlock(&dp_display->event_mutex);
+> >>   }
+> >>
+> >> @@ -1697,6 +1749,9 @@ void dp_bridge_hpd_enable(struct drm_bridge *bridge)
+> >>          struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
+> >>
+> >>          mutex_lock(&dp->event_mutex);
+> >> +       if (pm_runtime_resume_and_get(&dp->pdev->dev))
+> >> +               DRM_ERROR("failed to start power\n");
+> > Return?
+> >
+> >> +
+> >>          dp_catalog_ctrl_hpd_enable(dp->catalog);
+> >>
+> >>          /* enable HDP interrupts */
+> >> @@ -1718,6 +1773,9 @@ void dp_bridge_hpd_disable(struct drm_bridge *bridge)
+> >>          dp_catalog_ctrl_hpd_disable(dp->catalog);
+> >>
+> >>          dp_display->internal_hpd = false;
+> >> +
+> >> +       pm_runtime_mark_last_busy(&dp->pdev->dev);
+> >> +       pm_runtime_put_autosuspend(&dp->pdev->dev);
+> >>          mutex_unlock(&dp->event_mutex);
+> >>   }
+> >>
+> >> @@ -1732,13 +1790,11 @@ void dp_bridge_hpd_notify(struct drm_bridge *bridge,
+> >>          if (dp_display->internal_hpd)
+> >>                  return;
+> >>
+> >> -       if (!dp->core_initialized) {
+> >> -               drm_dbg_dp(dp->drm_dev, "not initialized\n");
+> >> -               return;
+> >> -       }
+> >> -
+> >> -       if (!dp_display->link_ready && status == connector_status_connected)
+> >> +       if (!dp_display->link_ready && status == connector_status_connected) {
+> >> +               dp_add_event(dp, EV_POWER_PM_GET, 0, 0);
+> > Why? What for?
+> >
+> >>                  dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+> >> -       else if (dp_display->link_ready && status == connector_status_disconnected)
+> >> +       } else if (dp_display->link_ready && status == connector_status_disconnected) {
+> >>                  dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+> >> +               dp_add_event(dp, EV_POWER_PM_PUT, 0, 0);
+> >> +       }
+> >>   }
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
+> >> index 5cb84ca..ed2f62a 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_power.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
+> >> @@ -152,8 +152,6 @@ int dp_power_client_init(struct dp_power *dp_power)
+> >>
+> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
+> >>
+> >> -       pm_runtime_enable(power->dev);
+> >> -
+> >>          return dp_power_clk_init(power);
+> >>   }
+> >>
+> >> @@ -162,8 +160,6 @@ void dp_power_client_deinit(struct dp_power *dp_power)
+> >>          struct dp_power_private *power;
+> >>
+> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
+> >> -
+> >> -       pm_runtime_disable(power->dev);
+> >>   }
+> >>
+> >>   int dp_power_init(struct dp_power *dp_power)
+> >> @@ -173,11 +169,7 @@ int dp_power_init(struct dp_power *dp_power)
+> >>
+> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
+> >>
+> >> -       pm_runtime_get_sync(power->dev);
+> >> -
+> >>          rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
+> >> -       if (rc)
+> >> -               pm_runtime_put_sync(power->dev);
+> >>
+> >>          return rc;
+> >>   }
+> >> @@ -189,7 +181,6 @@ int dp_power_deinit(struct dp_power *dp_power)
+> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
+> >>
+> >>          dp_power_clk_enable(dp_power, DP_CORE_PM, false);
+> >> -       pm_runtime_put_sync(power->dev);
+> >>          return 0;
+> >>   }
+> >>
+> >> --
+> >> 2.7.4
+> >>
+> >
 
-Regards,
 
-Tvrtko
 
-> 
-> Steve
-> 
->>>>> +        drm_printf(p, "drm-engine-%s:\t%llu ns\n",
->>>>> +               engine_names[i],
->>>>> panfrost_priv->engine_usage.elapsed_ns[i]);
->>>>> +        drm_printf(p, "drm-cycles-%s:\t%llu\n",
->>>>> +               engine_names[i],
->>>>> panfrost_priv->engine_usage.cycles[i]);
->>>>> +        drm_printf(p, "drm-maxfreq-%s:\t%lu Hz\n",
->>>>> +               engine_names[i], pfdev->pfdevfreq.fast_rate);
->>>>> +        drm_printf(p, "drm-curfreq-%s:\t%lu Hz\n",
->>>>> +               engine_names[i], pfdev->pfdevfreq.current_frequency);
->>>>
->>>> I envisaged a link to driver specific docs at the bottom of
->>>> drm-usage-stats.rst so it would be nice if drivers would be adding those
->>>> sections and describing their private keys, engine names etc. ;)
->>>>
->>> Currently there's no panfrost.rst file under Documentation/gpu. I
->>> guess I'll create a new
->>> one and add the engine descriptions and meaning of drm-curfreq key.
->>
->> Yeah I have to do the same for i915 in my memory stats series. :)
->>
->> Regards,
->>
->> Tvrtko
-> 
+-- 
+With best wishes
+Dmitry
