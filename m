@@ -2,56 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77F757AE0AC
-	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 23:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB7D27AE25F
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 01:37:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6C810E32D;
-	Mon, 25 Sep 2023 21:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A92410E260;
+	Mon, 25 Sep 2023 23:37:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5857E10E32D;
- Mon, 25 Sep 2023 21:25:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4DD4A61217;
- Mon, 25 Sep 2023 21:25:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1181C433C7;
- Mon, 25 Sep 2023 21:25:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695677103;
- bh=HoOnTELEcUC85sif82a+6bfiATqMr00eOOaa4KC4gpo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BaR9zA9GFDh0IduIP+JwLkT+fzYHeiEqp81N3/bOmQjfHVlXgtMcBTrd21OJ/GR9u
- NfXLKx2Pq8BJRMOvO+ObbrzK3edKY4d7s+JPcTTZjPjzEpzDg2nsyfXksamX9ebDnq
- hbZl0gI7ojAmdWmTEjmQ2NQPBQhzpo+7JtYviBLDoXGk0mk/tvMuo70qSFg/M1KfQD
- yxEnq6uSadlkDXKy/Gb33eyO7TGX40jJn99BufVVSXmyX8s150DoOo8VIU1T71otwi
- UxT1OsuDfReK0LTnogl2esFAYKW+xp06UEHZR6juHUaS2JSBDJDwkzPGtoBingxz50
- Fz1mEB+w28AiQ==
-Received: (nullmailer pid 1973086 invoked by uid 1000);
- Mon, 25 Sep 2023 21:24:59 -0000
-From: Rob Herring <robh@kernel.org>
+Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
+ [IPv6:2607:f8b0:4864:20::112d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E30010E260;
+ Mon, 25 Sep 2023 23:37:07 +0000 (UTC)
+Received: by mail-yw1-x112d.google.com with SMTP id
+ 00721157ae682-59c215f2f4aso96829007b3.1; 
+ Mon, 25 Sep 2023 16:37:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695685026; x=1696289826; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XusWQaiVLnnypr9tEOMeBvsSPZlhaNXNSC6Pr95vupU=;
+ b=FH4N0abWvw5zXVgFwKBBMhZAN0TT+OVNIp+eyjDh7YRlCPPDHqZmWMpAVtsQuE8Zk/
+ JotAR2WlZfohU6ZSy8jAaNx+Cod+yWephpNlMuTDGHcvz/8rIZeDq1WrTdVi4ycdxdA+
+ j3z4C5axt457Vg5NN1y43dpHn9gH4VtcJRZzXcrgPNRndbR1vHgMpn3NAPTcE/XUFbBz
+ uvOrXD7UWU9wvC/K9cuil2BU5f4Wjzm2Sr+tLVCijF2JxhsK1GicJ/HcsCRlmsGEavnI
+ fujDfnfkbaQg32Mfkk+zHDp9lOdRaz7C9EA29o7OnWLCgsHL1Swmft+iBFpaJ/RCOLFs
+ z7Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695685026; x=1696289826;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XusWQaiVLnnypr9tEOMeBvsSPZlhaNXNSC6Pr95vupU=;
+ b=q2ZPl9q3H7clgtyNJ2FChoKHWMrxpnxwp19l3qa+3338NjlDlVEaW21pGMIzZxiIqx
+ YeaLJmVthNFFwk9EnAkQwS0Mo1p1T7VXhLm3aUW7SbLExa3RuqYAPJe7kmfM5bOz/d7C
+ q09W1AnkjjhX9R5h6Pv05Tj7UyZ1ES6FlT4SnEaFTqrlctwRPePGNBYJe0RkOep6f8Bl
+ Sqo6vf1ArpcRab524Dgdz8CRw5yQ00MjavuyyG2a9n53aPdUW4EBd3GANQ5f38x01ALa
+ U6xYDYV0TxP803btel9o+CmZgwqebnlNjP6BJSPpFg6P3WIUFutwXFkh8HBAo7t0GUPp
+ JmJw==
+X-Gm-Message-State: AOJu0YxTjcyqcw8EHVPQFG9rIR4i0qQ8AhnQPYLJpu5JciBpLNxuyauc
+ iJgZwGe+/BqXM4Aw1L8j6Vg=
+X-Google-Smtp-Source: AGHT+IGWYEcfZBHT8tIWl1aa1+4+LVlzd5+IjI30XfF1jhF0OnlyzN7cwbBtYzp2chrfmVlAzzzZ5g==
+X-Received: by 2002:a0d:c381:0:b0:592:9035:834f with SMTP id
+ f123-20020a0dc381000000b005929035834fmr8800286ywd.34.1695685026161; 
+ Mon, 25 Sep 2023 16:37:06 -0700 (PDT)
+Received: from localhost ([2607:fea8:529e:7800::efbe])
+ by smtp.gmail.com with ESMTPSA id
+ e11-20020a81690b000000b0059b20231f1dsm2699161ywc.121.2023.09.25.16.37.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Sep 2023 16:37:05 -0700 (PDT)
+From: Richard Acayan <mailingradian@gmail.com>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Del Regno <angelogioacchino.delregno@somainline.org>,
- Loic Poulain <loic.poulain@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 25 Sep 2023 16:24:25 -0500
-Message-Id: <20230925212434.1972368-2-robh@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230925212434.1972368-1-robh@kernel.org>
-References: <20230925212434.1972368-1-robh@kernel.org>
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon, 25 Sep 2023 19:26:27 -0400
+Message-ID: <20230925232625.846666-9-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] dt-bindings: display: msm: Make
- "additionalProperties: true" explicit
+Subject: [Freedreno] [PATCH 0/6] SDM670 display subsystem support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,533 +88,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Richard Acayan <mailingradian@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Make it explicit that child nodes have additional properties and the
-child node schema is not complete. The complete schemas are applied
-separately based the compatible strings.
+This series adds support for the display subsystem on the Snapdragon
+670. It is based on an earlier patch a few versions back, which had
+missing device tree bindings and device tree changes.
 
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- .../bindings/display/msm/qcom,msm8998-mdss.yaml        |  6 ++++++
- .../bindings/display/msm/qcom,qcm2290-mdss.yaml        |  6 ++++++
- .../bindings/display/msm/qcom,sc7180-mdss.yaml         |  8 ++++++++
- .../bindings/display/msm/qcom,sc7280-mdss.yaml         | 10 ++++++++++
- .../bindings/display/msm/qcom,sc8280xp-mdss.yaml       |  4 ++++
- .../bindings/display/msm/qcom,sdm845-mdss.yaml         |  8 ++++++++
- .../bindings/display/msm/qcom,sm6115-mdss.yaml         |  6 ++++++
- .../bindings/display/msm/qcom,sm6125-mdss.yaml         |  6 ++++++
- .../bindings/display/msm/qcom,sm6350-mdss.yaml         |  6 ++++++
- .../bindings/display/msm/qcom,sm6375-mdss.yaml         |  6 ++++++
- .../bindings/display/msm/qcom,sm8150-mdss.yaml         |  6 ++++++
- .../bindings/display/msm/qcom,sm8250-mdss.yaml         |  6 ++++++
- .../bindings/display/msm/qcom,sm8350-mdss.yaml         |  8 ++++++++
- .../bindings/display/msm/qcom,sm8450-mdss.yaml         |  8 ++++++++
- .../bindings/display/msm/qcom,sm8550-mdss.yaml         |  8 ++++++++
- 15 files changed, 102 insertions(+)
+There is a separate IOMMU patch which adds the MDSS compatible to a
+workaround.
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-index e320ab1de6de..2d9edab5a30d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
-@@ -38,12 +38,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,msm8998-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -52,6 +56,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-10nm-8998
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-index 4184b84d4c21..5ad155612b6c 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
-@@ -44,18 +44,24 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,qcm2290-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-ctrl-6g-qcm2290
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-14nm-2290
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-index 3b9c103e504a..3432a2407caa 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
-@@ -44,18 +44,24 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sc7180-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sc7180-dp
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -64,6 +70,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-10nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
-index 43500dad66e7..bbb727831fca 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
-@@ -44,18 +44,24 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sc7280-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sc7280-dp
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -64,12 +70,16 @@ patternProperties:
- 
-   "^edp@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sc7280-edp
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         enum:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml
-index db680fb12b6a..af79406e1604 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-mdss.yaml
-@@ -34,12 +34,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sc8280xp-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         enum:
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-index d6d7ac1b2ef8..6e8b69e5ec62 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
-@@ -42,18 +42,24 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sdm845-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sdm845-dp
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -62,6 +68,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-10nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-index 17221b62a642..dde5c2acead5 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
-@@ -32,12 +32,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm6115-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         oneOf:
-@@ -50,6 +54,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-14nm-2290
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
-index 57f0e3647711..671c2c2aa896 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
-@@ -43,12 +43,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm6125-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -57,6 +61,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm6125-dsi-phy-14nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
-index db255b1f4c20..e1dcb453762e 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
-@@ -43,12 +43,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm6350-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -57,6 +61,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-10nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
-index 30d36fffaedb..b15c3950f09d 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
-@@ -43,12 +43,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm6375-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -57,6 +61,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm6375-dsi-phy-7nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-index 54cdaa827cd3..a2a8be7f64a9 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-@@ -47,12 +47,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8150-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -61,6 +65,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-7nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-index e887f031b8be..994975909fea 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
-@@ -46,12 +46,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8250-dpu
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -60,6 +64,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,dsi-phy-7nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-index 60d4aae1131b..163fc83c1e80 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
-@@ -48,18 +48,24 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8350-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8350-dp
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -68,6 +74,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8350-dsi-phy-5nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-index bb22940b9385..001b26e65301 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-@@ -38,12 +38,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8450-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -52,6 +56,8 @@ patternProperties:
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -60,6 +66,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8450-dsi-phy-5nm
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-index 48aea8005c86..1ea50a2c7c8e 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
-@@ -38,12 +38,16 @@ properties:
- patternProperties:
-   "^display-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8550-dpu
- 
-   "^displayport-controller@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -52,6 +56,8 @@ patternProperties:
- 
-   "^dsi@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         items:
-@@ -60,6 +66,8 @@ patternProperties:
- 
-   "^phy@[0-9a-f]+$":
-     type: object
-+    additionalProperties: true
-+
-     properties:
-       compatible:
-         const: qcom,sm8550-dsi-phy-4nm
+Richard Acayan (6):
+  dt-bindings: display/msm: dsi-controller-main: add SDM670 compatible
+  dt-bindings: display/msm: sdm845-dpu: Describe SDM670
+  dt-bindings: display: msm: Add SDM670 MDSS
+  drm/msm: mdss: add support for SDM670
+  drm/msm/dpu: Add hw revision 4.1 (SDM670)
+  arm64: dts: qcom: sdm670: add display subsystem
+
+ .../display/msm/dsi-controller-main.yaml      |   1 +
+ .../display/msm/qcom,sdm670-mdss.yaml         | 280 +++++++++++++++++
+ .../bindings/display/msm/qcom,sdm845-dpu.yaml |   4 +-
+ arch/arm64/boot/dts/qcom/sdm670.dtsi          | 294 ++++++++++++++++++
+ .../msm/disp/dpu1/catalog/dpu_4_1_sdm670.h    | 105 +++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   6 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   7 +
+ 9 files changed, 698 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+
 -- 
-2.40.1
+2.42.0
 
