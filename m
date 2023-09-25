@@ -1,39 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833357ADE15
-	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 19:54:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4327ADE1E
+	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 19:56:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 249BE10E2C0;
-	Mon, 25 Sep 2023 17:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6835310E2C7;
+	Mon, 25 Sep 2023 17:56:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id AF9C810E2C0;
- Mon, 25 Sep 2023 17:54:53 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67E3BDA7;
- Mon, 25 Sep 2023 10:55:31 -0700 (PDT)
-Received: from [10.57.0.188] (unknown [10.57.0.188])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 909AF3F59C;
- Mon, 25 Sep 2023 10:54:51 -0700 (PDT)
-Message-ID: <b1434fe7-3128-f390-7b13-3d460378e231@arm.com>
-Date: Mon, 25 Sep 2023 18:54:42 +0100
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCF5A10E2C0;
+ Mon, 25 Sep 2023 17:56:27 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1bba7717d3bso3845714fac.1; 
+ Mon, 25 Sep 2023 10:56:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695664587; x=1696269387; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a1F9rg4X23ujFzzgF5l8L8aKk/znEnb8MB1jEXGz6ng=;
+ b=j2z5q5BckrDbmoUOo5nYCB7I35nP3ucKlIXaalGileiGe6gpPplxWHRsvbV3OiLNxs
+ 4M5tr8annXnt6ADod2C2hNHf8ps6wA/7UD0PWA9ieJ4Rz2CCtKQ6zmFIeR/HmrgqUROf
+ F5JBJxA8bAv6m0A+lmn/K66ZsB2x8nULnGpdPzGTJMgfJTrvcbsVVOdp+t8PaJoNfTvY
+ ghHEuXOn3Oyel9c7y5Wlq1xtURr8z+mIs2a/sSnH6wjWo8hzMsTEGDAj+7Qiqbt0op0y
+ dXdDz3xMmGu1Mz72A+E9mdb3nF6NMz82ApiiBOcSxyRP8wjKhWcoPjSn91aKvNaRbccZ
+ hmVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695664587; x=1696269387;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=a1F9rg4X23ujFzzgF5l8L8aKk/znEnb8MB1jEXGz6ng=;
+ b=tEzbJShwrtxfTkECV2hhxAmdsreUDuVdWrJHLebBfNDs6jsQ/xehg13L6OHejAaYYQ
+ jkU0nbQ93oOpMHNaugReBVDOTbgjOs7PLWfADNWBVXB/kA7QPpS0C6j+XlDV/5gLCD3q
+ UnLcVf91ZirraqxfgwdG4SndR1O6bEE5BA7D8Ssdye7VlawlrmJ4wsH/IP5qisk1Xfzc
+ sua+xPvvnICE9hgwVsltyObMlKwbhqNnnOR9VxrwQKhQtxkUejPN2VoidLZwwR4XC94W
+ OLASRDaJVJQ8oITKKKI3i4g0quNiTMbY4V+Qauo0caiFg5nCNbCa1swCS7dtGBRJ4iFZ
+ nojQ==
+X-Gm-Message-State: AOJu0YzmqFg0lxbRfe7t4WKi2irZgJwbh5OvUQESdEzmDQEVKtgSusgD
+ poiPliBhmFeDvli8wBfcZHghbipM4sYV3q8Dh+g=
+X-Google-Smtp-Source: AGHT+IHKGmpSNoLKRlPKgMz3PfLu9l0asTJ/KJeRR4YlCqKx/0xgmJzaJCWHK+NWln0berAZsxELHx2SNeMkUMNHpCU=
+X-Received: by 2002:a05:6870:c227:b0:1db:3679:198a with SMTP id
+ z39-20020a056870c22700b001db3679198amr8758871oae.24.1695664587047; Mon, 25
+ Sep 2023 10:56:27 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-GB
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230410185226.3240336-1-dmitry.baryshkov@linaro.org>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <20230410185226.3240336-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: don't set
- IO_PGTABLE_QUIRK_ARM_OUTER_WBWA with coherent SMMU
+References: <20230922173110.work.084-kees@kernel.org>
+ <20230922173216.3823169-1-keescook@chromium.org>
+ <CADnq5_P2p3bmczci=pU+pG6f9+hqn=-xp1EynP2345CJZRW08w@mail.gmail.com>
+ <2635922e-f52a-4e91-40c6-4f1358972786@amd.com>
+ <202309251051.EE3ECE7B@keescook>
+In-Reply-To: <202309251051.EE3ECE7B@keescook>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 25 Sep 2023 13:56:16 -0400
+Message-ID: <CADnq5_PaXmFa6N_2-NRp7_2+m3TYt8s--4aYm1UTnQKXDUhwYw@mail.gmail.com>
+To: Kees Cook <keescook@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 1/9] drm/amd/pm: Annotate struct
+ smu10_voltage_dependency_table with __counted_by
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,56 +73,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, David Heidelberg <david@ixit.cz>,
- Stephen Boyd <swboyd@chromium.org>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Karol Herbst <kherbst@redhat.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Emma Anholt <emma@anholt.net>,
+ amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Nathan Chancellor <nathan@kernel.org>, Le Ma <le.ma@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ virtualization@lists.linux-foundation.org, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ Lang Yu <Lang.Yu@amd.com>, Bjorn Andersson <andersson@kernel.org>,
+ Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Nirmoy Das <nirmoy.das@intel.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ John Harrison <john.c.harrison@intel.com>, linux-hardening@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-04-10 19:52, Dmitry Baryshkov wrote:
-> If the Adreno SMMU is dma-coherent, allocation will fail unless we
-> disable IO_PGTABLE_QUIRK_ARM_OUTER_WBWA. Skip setting this quirk for the
-> coherent SMMUs (like we have on sm8350 platform).
+On Mon, Sep 25, 2023 at 1:52=E2=80=AFPM Kees Cook <keescook@chromium.org> w=
+rote:
+>
+> On Mon, Sep 25, 2023 at 08:30:30AM +0200, Christian K=C3=B6nig wrote:
+> > Am 22.09.23 um 19:41 schrieb Alex Deucher:
+> > > On Fri, Sep 22, 2023 at 1:32=E2=80=AFPM Kees Cook <keescook@chromium.=
+org> wrote:
+> > > > Prepare for the coming implementation by GCC and Clang of the __cou=
+nted_by
+> > > > attribute. Flexible array members annotated with __counted_by can h=
+ave
+> > > > their accesses bounds-checked at run-time checking via CONFIG_UBSAN=
+_BOUNDS
+> > > > (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-f=
+amily
+> > > > functions).
+> > > >
+> > > > As found with Coccinelle[1], add __counted_by for struct smu10_volt=
+age_dependency_table.
+> > > >
+> > > > [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/exam=
+ples/counted_by.cocci
+> > > >
+> > > > Cc: Evan Quan <evan.quan@amd.com>
+> > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> > > > Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> > > > Cc: David Airlie <airlied@gmail.com>
+> > > > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > > > Cc: Xiaojian Du <Xiaojian.Du@amd.com>
+> > > > Cc: Huang Rui <ray.huang@amd.com>
+> > > > Cc: Kevin Wang <kevin1.wang@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org
+> > > > Cc: dri-devel@lists.freedesktop.org
+> > > > Signed-off-by: Kees Cook <keescook@chromium.org>
+> > > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> >
+> > Mhm, I'm not sure if this is a good idea. That is a structure filled in=
+ by
+> > the firmware, isn't it?
+> >
+> > That would imply that we might need to byte swap count before it is
+> > checkable.
+>
+> The script found this instance because of this:
+>
+> static int smu10_get_clock_voltage_dependency_table(struct pp_hwmgr *hwmg=
+r,
+>                         struct smu10_voltage_dependency_table **pptable,
+>                         uint32_t num_entry, const DpmClock_t *pclk_depend=
+ency_table)
+> {
+>         uint32_t i;
+>         struct smu10_voltage_dependency_table *ptable;
+>
+>         ptable =3D kzalloc(struct_size(ptable, entries, num_entry), GFP_K=
+ERNEL);
+>         if (NULL =3D=3D ptable)
+>                 return -ENOMEM;
+>
+>         ptable->count =3D num_entry;
+>
+> So the implication is that it's native byte order... but you tell me! I
+> certainly don't want this annotation if it's going to break stuff. :)
 
-Hmm, but is it right that it should fail in the first place? The fact is 
-that if the SMMU is coherent then walks *will* be outer-WBWA, so I 
-honestly can't see why the io-pgtable code is going out of its way to 
-explicitly reject a request to give them the same attribute it's already 
-giving then anyway :/
+In this case, the code is for an integrated GPU in an x86 CPU so the
+firmware and driver endianness match.  You wouldn't find a stand alone
+dGPU that uses this structure.  In this case it's ok.  False alarm.
 
-Even if the original intent was for the quirk to have an over-specific 
-implication of representing inner-NC as well, that hardly seems useful 
-if what we've ended up with in practice is a nonsensical-looking check 
-in one place and then a weird hacky bodge in another purely to work 
-around it.
-
-Does anyone know a good reason why this is the way it is?
-
-[ just came across this code in the tree while trying to figure out what 
-to do with iommu_set_pgtable_quirks()... ]
-
-Thanks,
-Robin.
-
-> Fixes: 54af0ceb7595 ("arm64: dts: qcom: sm8350: add GPU, GMU, GPU CC and SMMU nodes")
-> Reported-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 2942d2548ce6..f74495dcbd96 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1793,7 +1793,8 @@ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
->   	 * This allows GPU to set the bus attributes required to use system
->   	 * cache on behalf of the iommu page table walker.
->   	 */
-> -	if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice))
-> +	if (!IS_ERR_OR_NULL(a6xx_gpu->htw_llc_slice) &&
-> +	    !device_iommu_capable(&pdev->dev, IOMMU_CAP_CACHE_COHERENCY))
->   		quirks |= IO_PGTABLE_QUIRK_ARM_OUTER_WBWA;
->   
->   	return adreno_iommu_create_address_space(gpu, pdev, quirks);
+Alex
