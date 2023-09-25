@@ -1,82 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D879C7ADA7B
-	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 16:51:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC0E57ADCB5
+	for <lists+freedreno@lfdr.de>; Mon, 25 Sep 2023 18:07:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A60B710E278;
-	Mon, 25 Sep 2023 14:51:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5482E10E28F;
+	Mon, 25 Sep 2023 16:07:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 978AD10E273
- for <freedreno@lists.freedesktop.org>; Mon, 25 Sep 2023 14:50:54 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2b95d5ee18dso111522571fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 25 Sep 2023 07:50:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695653453; x=1696258253; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=WML/yephaQhDmSkYaQilPoOdlfPN/mMwj3HRzRGa9sQ=;
- b=cono78bk31nxfg21QNExk3Z5ywUe++GWyDgRI3Nww8Xykk2Z++pQBqU3Sn0RdejBvH
- gEwUnNlO7JhgT/HwLXCpeVrPpcTE6E3t2keeiVM5tzoKPPhByRFEJn0kEgSSzNp0W2Hh
- R5zkj/DaKVS/x/T4gz+X8XaXQO7a6Zs2g8g1LozaD9zLv/prSDnFh6ILS2w281FfQhxi
- cztdI6ty/zatVKN05b7tFM1c1QaHqu96piUVbjDxFLmD1mTkaobhAAX9dJcJmf/ewNkb
- Ai4k5uBOHjhelHTSKyJ59Gq2kKdE63hN2Auh/obDnJ62AckLMVoKXn+Hdh9YgGfvJST3
- 6HCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695653453; x=1696258253;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WML/yephaQhDmSkYaQilPoOdlfPN/mMwj3HRzRGa9sQ=;
- b=ksqRKmL41pEPYu8jawzWddt0zXc+ckDWxCEBjYh3HwLeMoqqX8FApOVup9JKqnQurz
- gx5AMYKqo2qKu1lhq3vIIIkUEB3RQpCAnIMOS84kckJCxdudZd3I8yUBluIUeatkAFTA
- CctNPagdDBGGX9uVxm6YimsoDLtcseq1Tk4SBbO1zaXY8UoHCEs19SU/XmfE+fHb/Trh
- WM/iEh6jMVgyh0TW/vFZVCbAukRjRMlRnXm/fNC6Og1wmhTWlAlKpUynBfKimL6ARHk2
- /bdZxDVboIz54KWC7v++atGjT6i5/HKTIPXsmfm5czNKVvBOTcEaWpLvOGXZ7Q2akPc9
- WmTQ==
-X-Gm-Message-State: AOJu0YysZfheb8pZ7ZPne/5FFKTYNdOsYOqyuC/c4LMjLgdhaRefd3sS
- IJT30Z6cpky2N2NHq/iFx5IUlw==
-X-Google-Smtp-Source: AGHT+IGngHh1lJzYut0axATUq1RD4igrxqprEB7ZDSJGxzmibNVKlh4pMxU3t9l8VHC4gxFNKD1PFA==
-X-Received: by 2002:a2e:800c:0:b0:2bc:efa4:2c36 with SMTP id
- j12-20020a2e800c000000b002bcefa42c36mr5755576ljg.11.1695653452875; 
- Mon, 25 Sep 2023 07:50:52 -0700 (PDT)
-Received: from [10.167.154.1]
- (178235177023.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.23])
- by smtp.gmail.com with ESMTPSA id
- k8-20020a170906a38800b0099bc2d1429csm6426640ejz.72.2023.09.25.07.50.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Sep 2023 07:50:52 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 25 Sep 2023 16:50:39 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CAAF10E289;
+ Mon, 25 Sep 2023 16:07:37 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38PEGBFt007267; Mon, 25 Sep 2023 16:07:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=JAoOarfwvRZXn1BQvmqwapFIbkl3fBs0IHfImvog/zI=;
+ b=aiOKnXcw7wl0G0ITN3J/vczi8Kh32vc1HHKXjyzgTXrA60pXUzHE2v5wHFFiEhjZde9U
+ sRaveN32STxxQcpSuxGiUznzYM78ODWB6+pkAQtkQ0wlmXbg/ET3rfh6CpJ4eJDC97wq
+ RmsWtKgtjtKL4aD7fUFYcXOVh4buTV+xiPO1f6SMXgpEemlTGSM1F28DCJD4sgYnkO+i
+ SRTJAPxUSm/WtmebBRT9Ow/vBWFWQsKPPkmRIwtw66miNPKyg96bl3vUxrXz4W1Uwns+
+ IDrf7B8t15FOcAE5piowVGX7YBs99kLZIj/LVv/w1ErLKRkvR5ngFjxTjJTEsTfK9cod pA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tb5n89877-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Sep 2023 16:07:21 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 38PG7LFQ027910
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Sep 2023 16:07:21 GMT
+Received: from [10.110.46.220] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 25 Sep
+ 2023 09:07:19 -0700
+Message-ID: <1d9bf80d-0267-937b-4dd9-c57db7a89cb4@quicinc.com>
+Date: Mon, 25 Sep 2023 09:07:18 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230628-topic-a7xx_drmmsm-v5-10-3dc527b472d7@linaro.org>
-References: <20230628-topic-a7xx_drmmsm-v5-0-3dc527b472d7@linaro.org>
-In-Reply-To: <20230628-topic-a7xx_drmmsm-v5-0-3dc527b472d7@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Andy Gross <agross@kernel.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1695653434; l=1394;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=S69YtysEIHJMxY5KNnuCyMTYR/1rqHR9OdffW35mR5k=;
- b=deWqc3xOp1yizqjDENR+XaQW6wnaaeSKpTpreg+G3/p7xbkHMY61wviNuH6/V3VKcF9ePxP+W
- PDwN6oVPiqRCms8n3osJOWf/yJd48uaIscbJVT9/lMgwkRDys++aKk1
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH v5 10/10] drm/msm/a6xx: Poll for GBIF unhalt
- status in hw_init
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd
+ <swboyd@chromium.org>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
+ <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJpqPXoFX4LXyXYgfh07Vpxg-KgD8VBR6x5bXf4GOJmbOtw@mail.gmail.com>
+ <2f98d5f1-57c1-d9fe-cb1c-b975db057287@quicinc.com>
+ <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
+ <CAE-0n53dqHONzMTd_ZC-fKWTzDVq6Wqwo4OFZMUcghZ5SD5RhA@mail.gmail.com>
+ <65566a68-3510-2e5f-7d57-e4dba08c008c@quicinc.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <65566a68-3510-2e5f-7d57-e4dba08c008c@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Wij6QzDqF0P95Gh71wzbih36j-IAi5RL
+X-Proofpoint-GUID: Wij6QzDqF0P95Gh71wzbih36j-IAi5RL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-25_13,2023-09-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 mlxscore=0
+ adultscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 malwarescore=0 mlxlogscore=999 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2309250124
+Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dp: add
+ pm_runtime_force_suspend()/resume()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,48 +90,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, andersson@kernel.org,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, sean@poorly.run,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Some GPUs - particularly A7xx ones - are really really stubborn and
-sometimes take a longer-than-expected time to finish unhalting GBIF.
 
-Note that this is not caused by the request a few lines above.
+On 9/22/2023 6:35 PM, Abhinav Kumar wrote:
+> Hi Stephen
+>
+> On 9/22/2023 2:54 PM, Stephen Boyd wrote:
+>> Quoting Dmitry Baryshkov (2023-09-19 02:50:12)
+>>> On Mon, 18 Sept 2023 at 20:48, Kuogee Hsieh 
+>>> <quic_khsieh@quicinc.com> wrote:
+>>>>
+>>>>
+>>>> On 9/15/2023 6:21 PM, Dmitry Baryshkov wrote:
+>>>>> On Sat, 16 Sept 2023 at 00:38, Kuogee Hsieh 
+>>>>> <quic_khsieh@quicinc.com> wrote:
+>>>>>> Add pm_runtime_force_suspend()/resume() to complete incorporating pm
+>>>>>> runtime framework into DP driver. Both dp_pm_prepare() and 
+>>>>>> dp_pm_complete()
+>>>>>> are added to set hpd_state to correct state. After resume, DP 
+>>>>>> driver will
+>>>>>> re training its main link after .hpd_enable() callback enabled HPD
+>>>>>> interrupts and bring up display accordingly.
+>>>>> How will it re-train the main link? What is the code path for that?
+>>>>
+>>>> 1) for edp, dp_bridge_atomic_enable(), called from framework, to start
+>>>> link training and bring up display.
+>>>
+>>> And this path doesn't use .hpd_enable() which you have mentioned in
+>>> the commit message. Please don't try to shorten the commit message.
+>>> You see, I have had questions to several of them, which means that
+>>> they were not verbose enough.
+>>>
+>>>>
+>>>> 2) for external DP, HPD_PLUG_INT will be generated to start link
+>>>> training and bring up display.
+>>>
+>>> This should be hpd_notify, who starts link training, not some event.
+>>
+>> I think this driver should train the link during atomic_enable(), not
+>> hpd_notify() (or directly from the irq handler). The drm_bridge_funcs
+>> talk a bit about when the clocks and timing signals are supposed to be
+>> enabled. For example, struct drm_bridge_funcs::atomic_pre_enable() says
+>> the "display pipe (i.e.  clocks and timing signals) feeding this bridge
+>> will not yet be running when this callback is called". And struct
+>> drm_bridge_funcs::atomic_enable() says "this callback must enable the
+>> display link feeding the next bridge in the chain if there is one."
+>>
+>> That looks to me like link training, i.e. the display link, should
+>> happen in the enable path and not hpd_notify. It looks like link
+>> training could fail, but when that happens I believe the driver should
+>> call drm_connector_set_link_status_property() with
+>> DRM_MODE_LINK_STATUS_BAD. The two callers of that which exist in the
+>> tree also call drm_kms_helper_hotplug_event() or
+>> drm_kms_helper_connector_hotplug_event() after updating the link so that
+>> userspace knows to try again.
+>>
+>> It would be nice if there was some drm_bridge_set_link_status_bad() API
+>> that bridge drivers could use to signal that the link status is bad and
+>> call the hotplug helper. Maybe it could also record some diagnostics
+>> about which bridge failed to setup the link and stop the atomic_enable()
+>> chain for that connector.
+>
+> Doing link training when we get hpd instead of atomic_enable() is a 
+> design choice we have been following for a while because for the case 
+> when link training fails in atomic_enable() and setting the link 
+> status property as you mentioned, the compositor needs to be able to 
+> handle that and also needs to try with a different resolution or take 
+> some other corrective action. We have seen many compositors not able 
+> to handle this complexity. So the design sends the hotplug to usermode 
+> only after link training succeeds.
+>
+> I do not think we should change this design unless prototyped with an 
+> existing compositor such as chrome or android at this point.
+>
+> Thanks
+>
+> Abhinav
 
-Poll for the unhalt ack to make sure we're not trying to write bits to
-an essentially dead GPU that can't receive data on its end of the bus.
-Failing to do this will result in inexplicable GMU timeouts or worse.
 
-This is a rather ugly hack which introduces a whole lot of latency.
+We did perform link training at atomic_enable() at eDP case since we can 
+assume link training will always success without link rate or link lane 
+being reduced.
 
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # sm8450
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+However for external DP case, link training can not be guarantee always 
+success without link rate or lane being reduced as Abhinav mentioned.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 2313620084b6..11cb410e0ac7 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1629,6 +1629,10 @@ static int hw_init(struct msm_gpu *gpu)
- 		mb();
- 	}
- 
-+	/* Some GPUs are stubborn and take their sweet time to unhalt GBIF! */
-+	if (adreno_is_a7xx(adreno_gpu) && a6xx_has_gbif(adreno_gpu))
-+		spin_until(!gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK));
-+
- 	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TSB_CNTL, 0);
- 
- 	if (adreno_is_a619_holi(adreno_gpu))
+In addition,  CTS (compliance test) it required to complete link 
+training within 10ms after hpd asserted.
 
--- 
-2.42.0
+I am not sure do link training at atomic_enable() can meet this timing 
+requirement.
+
+
 
