@@ -2,72 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DE767AF2D4
-	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 20:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E307AF313
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 20:40:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB93D10E420;
-	Tue, 26 Sep 2023 18:27:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C554010E422;
+	Tue, 26 Sep 2023 18:40:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4952E10E420
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 18:27:36 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-50309daf971so15358780e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 11:27:36 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6ED10E426
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 18:40:36 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2c008d8fd07so158060411fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 11:40:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695752854; x=1696357654; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1695753634; x=1696358434; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=w+WhEvVzq354lp8en3vleqjPVBkIdxbFh2tnxte7FFY=;
- b=JF6c+juuJ7sO4YgG6zsKvDpLgB+SDsmY7vigAjkVDAnP2BlXbtxmmjbKokmSPv12IL
- Z/sJVYvCD0oM2HvJuUWnemRat2J+QtBAfjNxk+4fB95+oF07iaTyTmY6Oa1BWmBMvNYn
- ElobclUcGy9jREWL+RnmhnZQD1v/x7ndvyKjQDfLY3lHy369VgokqH9h4QYZMq/JiFEJ
- ZAzyF6CiSp/VDNkhIM1AbjoxlfrokWz96sSeqMJzL4+cL1bz/MResOxh2JMocCa3fbe7
- R83zo7chuCd/+Re1rRJ80MXEdki8FECxyKnrmX/Y5f1TZ8btuGGtuuNZsRoPSMWu8/7P
- QdgQ==
+ bh=Cbj7xG6ItjgyzB3JMPXb9POyuicvcin6fqpj2Mlq0nA=;
+ b=xtpoZKuTYZONC6CjDhE0ChIMqaFNe6UML0HRHfbeMFFUr5d10a5x9nca1/fS70K9P3
+ SoWLNiMTerb4e7SOpn4bjFlEzSziFsAt4EGNgogx7qJwEYyuYpf5qMg+l347/bemdR1j
+ Nu9EiwmUvgydH2HgEoW3Q9BDESYOmTvF9OtWaI/SKRarBfNroQMpZTANGLCaAFiiQF89
+ 5ttu/hXkt6bY1QGMRXTSnXCs3fofvaN4TkC90xNo4d3ixmxgb3kTeBR0NdCO44mVOTAk
+ QZcNu+uFnBFJ45qprCqxOPgNH+3c3uJdr7mgRJN9NNHu4VpDD9ZeiHdxWRMNFgVJjXuV
+ cFiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695752854; x=1696357654;
+ d=1e100.net; s=20230601; t=1695753634; x=1696358434;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=w+WhEvVzq354lp8en3vleqjPVBkIdxbFh2tnxte7FFY=;
- b=l67mgMz+SS3zCWZ3OPY7miZIwUQXqjzMrF4HradNocXTokiaS07BAB8knXMbCIPj4g
- WuYkK9bH0j6LGnyxxUBP9j1v9wwsWVdt4f6hjN4HU7RqJK30FY51TpCIlQ7OFPVOSzSu
- dmlRRxac0jbb7RVrwyDYp8I42QJM4t4PpJyx97qGH+DtObJ5E45BctRwtJUTj1KBJg9u
- SAhj/E6DGnisVJDpxGt4cSTcF3QMJ60Xb1GlAkOcvzSRizWH+/khgOYvC/NDgL+TPZYU
- z4cPGH2ICY8fDxj4JZeNt+VxaIX6zj0jrH5CdmAfQKAT+vmJvlKp3239uj7lm2uJy6qB
- 2RnQ==
-X-Gm-Message-State: AOJu0YygSDQ6HtQeCsanFvZq1PT5xAqsTtUHrzu/Ut5gxILyDlSofA4d
- PkPXvQpeEekxK8MSK67iZRwDSg==
-X-Google-Smtp-Source: AGHT+IGEOwe5h8wRsbW86uovHuF6C3KdXUg4eQbG+lGNwE4BDIcXlWp3pHYrGv6+2lPWBKDyxbsq9A==
-X-Received: by 2002:a05:6512:3b98:b0:500:be57:ce53 with SMTP id
- g24-20020a0565123b9800b00500be57ce53mr11045472lfv.42.1695752854381; 
- Tue, 26 Sep 2023 11:27:34 -0700 (PDT)
+ bh=Cbj7xG6ItjgyzB3JMPXb9POyuicvcin6fqpj2Mlq0nA=;
+ b=rRTT08YIYUozblBm7SQP2Va6lk10TtcAl8uYDjjHszx8+cGKgdyoVanr5GGMhVdy12
+ DEcRCyqwTrw/sQYJv5wZ5joaXujg7r182DIR6hx4vZvrXcu0/V65OtIzWn3LkNwb9Hpz
+ Ih6ICAomfeThAIbTisS1wPwNB1PQYmSO+mazkUONDaAOzCDpfeuy4LXi2JGagndrGs17
+ 7vAwg6ZGuDq+fp1fz4DM40K+irIHE7iwITUHJYbbh+HdMV1iRivhyQFtuQjlDywEvuDo
+ HIpl+r9p7ql3t/q5jVglvWAryxMmMe03PPh9N+7zEELiJDs7g8tmsMdjOVledDyE9E+D
+ UQqQ==
+X-Gm-Message-State: AOJu0YweCWrGNK0pgIXwDpvAWMUN02824v902lPRIiRxEbLVz40PV4m/
+ 1fYlaJY+JYabjKDoHnFz41uMjA==
+X-Google-Smtp-Source: AGHT+IG0KLoWhYGIScPU0gY7MREMIOVjC/ozkDwJXiLjuGVLdz5Jw6Tn3wLyJn4evDa/npr+KgmZJQ==
+X-Received: by 2002:a2e:9788:0:b0:2bc:b9c7:7ba3 with SMTP id
+ y8-20020a2e9788000000b002bcb9c77ba3mr9035168lji.12.1695753634185; 
+ Tue, 26 Sep 2023 11:40:34 -0700 (PDT)
 Received: from [192.168.33.189]
  (178235177023.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.23])
  by smtp.gmail.com with ESMTPSA id
- eo2-20020a056512480200b004fe7011072fsm2292076lfb.58.2023.09.26.11.27.31
+ v16-20020a2e9f50000000b002c12c2094e4sm2740700ljk.74.2023.09.26.11.40.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Sep 2023 11:27:34 -0700 (PDT)
-Message-ID: <1736686f-d7b5-4433-aa45-2369a1e9b53e@linaro.org>
-Date: Tue, 26 Sep 2023 20:27:31 +0200
+ Tue, 26 Sep 2023 11:40:33 -0700 (PDT)
+Message-ID: <42a1d0ab-4e8d-461d-bb2c-977a793e52b2@linaro.org>
+Date: Tue, 26 Sep 2023 20:40:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, cros-qcom-dts-watchers@chromium.org,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230926-topic-a643-v1-0-7af6937ac0a3@linaro.org>
- <20230926-topic-a643-v1-4-7af6937ac0a3@linaro.org>
+To: Danila Tikhonov <danila@jiaxyga.com>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
+ johan+linaro@kernel.org, andersson@kernel.org
+References: <20230926174243.161422-1-danila@jiaxyga.com>
+ <20230926174243.161422-2-danila@jiaxyga.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -104,11 +99,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20230926-topic-a643-v1-4-7af6937ac0a3@linaro.org>
+In-Reply-To: <20230926174243.161422-2-danila@jiaxyga.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 4/7] arm64: dts: qcom: sc7280: Add ZAP
- shader support
+Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/adreno: Add support for
+ SM7150 SoC machine
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,62 +116,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Luca Weiss <luca.weiss@fairphone.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.09.2023 20:24, Konrad Dybcio wrote:
-> Non-Chrome SC7280-family platforms ship a ZAP shader with the Adreno GPU.
-> Describe that and make sure it doesn't interfere with Chrome devices.
+On 26.09.2023 19:42, Danila Tikhonov wrote:
+> SM7150 has 5 power levels which correspond to 5 speed-bin values: 0,
+> 128, 146, 167, 172. Speed-bin value is calulated as FMAX/4.8MHz round up
+> to zero decimal places.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Also a618 on SM7150 uses a615 zapfw. Add a squashed version (.mbn).
+> 
+> Add this as machine = "qcom,sm7150", because speed-bin values are
+> different from atoll (sc7180/sm7125).
+> 
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
 > ---
->  arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi |  2 ++
->  arch/arm64/boot/dts/qcom/sc7280.dtsi               | 10 ++++++++++
->  2 files changed, 12 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
-> index 5d462ae14ba1..88fc67c3646e 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
-> @@ -17,6 +17,8 @@
->   * required by the setup for Chrome boards.
->   */
->  
-> +/delete-node/ &gpu_zap_mem;
-> +/delete-node/ &gpu_zap_shader;
->  /delete-node/ &hyp_mem;
->  /delete-node/ &xbl_mem;
->  /delete-node/ &reserved_xbl_uefi_log;
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index 66f1eb83cca7..c38ddf267ef5 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -152,6 +152,11 @@ ipa_fw_mem: memory@8b700000 {
->  			no-map;
->  		};
->  
-> +		gpu_zap_mem: zap@8b71a000 {
-> +			reg = <0 0x8b71a000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
->  		rmtfs_mem: memory@9c900000 {
->  			compatible = "qcom,rmtfs-mem";
->  			reg = <0x0 0x9c900000 0x0 0x280000>;
-> @@ -2608,6 +2613,11 @@ gpu: gpu@3d00000 {
->  			nvmem-cells = <&gpu_speed_bin>;
->  			nvmem-cell-names = "speed_bin";
->  
-> +			gpu_zap_shader: zap-shader {
-> +				memory-region = <&gpu_zap_mem>;
-> +				firmware-name = "qcom/a660_zap.mdt";
-Gah. This line shouldn't have been there.
+What's the downstream dt name for 7150?
 
-Considering it's not the only oops, I'll resend.
+Do you have some more complete tree published somewhere?
 
 Konrad
