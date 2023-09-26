@@ -1,83 +1,114 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 562047AF2AF
-	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 20:25:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8436C7AF2C0
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 20:27:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B187610E425;
-	Tue, 26 Sep 2023 18:24:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A84410E419;
+	Tue, 26 Sep 2023 18:27:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF89210E41F
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 18:24:55 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-533d6a8d6b6so7580353a12.2
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 11:24:55 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C63510E41D
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 18:27:02 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5041bb9ce51so15131433e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 11:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695752694; x=1696357494; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=gcsTNpsjbN2SKqWT86OIi6rzpyQaQonBZGDEar8VbjY=;
- b=cz9tx9i+2pWWUfcvKbiVzglo5IAxUXaK1SSTSlxMFb41/75iqRvKrQhowL4h1JWRCx
- NYFjiYh0gbq8iuwrICGWiffNa9KaUh5R/KdtdpOz0p+DaGg9citjY7Jn2/SGzolzlsPV
- WtjkVgsqKXCzUnjOzdTO5kJeJtqnLOFDatEEf6xnQV3AmwQIXv3auoCkcQ+S0H7fixdK
- w1Ea0OSs/niS2xS3eaElmaGavYvVd2p3V3iRcd7t3kUGeEHqS55WqVd/cO2tEKgkHSh/
- ZLy68ujXbYXFO7GHfyxH9Xkn1oC6GQlKsWMFn5brGQiJgeE1sQQjiMUMX8Jh8zRY473Z
- TWqQ==
+ d=linaro.org; s=google; t=1695752820; x=1696357620; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vTLNwViOe5m9gPGr07BjzMggYdw+lKweFfmGHhfhfs4=;
+ b=bbvOXBJYwNavRyKSBHQiOJtv/NLH9Nrusc851WVvhz1rEs3V7WVQEtFxArnZWgh7UH
+ /Z3g++YgDq5vvadUZDHU58FppNE1z12rf0OZyAH4mMBliLT+A5r4OTNl51fkLxmrNrHp
+ 2xlGUERsDAP7ZCJ+5VSQaExYr3fuZoN8yDFpeA/Gm19/10FFDxzQPyUnP82+rIW8+k2b
+ o9L5E4M0ufaEafGamx70EVJ9IEVVOX+q9/hW+K/1S7w7+AYfUuVU1+XEKv1Bx/6rfYS6
+ XOTWwPMWEwSCoygmVfMvGGwRGfkwcXqXofMZRhpRZivdczunfu0D7B394zucf+JnWgDC
+ zFtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695752694; x=1696357494;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gcsTNpsjbN2SKqWT86OIi6rzpyQaQonBZGDEar8VbjY=;
- b=F7RMV9aMCA1XDuM6lIJDMGaiT+w4KZULmUaT3HtTpdn8MB3k8y8vbx/hBGm6mNnhMK
- N6ZfLrGbQUzDbDfWVD+KHgYgsRKtPghi/9L9iaskKFhFDYRADtsIbWCXZZHZFZo5Iq0y
- t6qS6vQhjSlfo5+otd6VcHA0Mk74es0FDT6C+2s1wOblujMPq0QAx9WYmexDnNb3hf3B
- fP2LjXyxjt5DRB30dQVfKOtAsrT4fsw023GA/2K1RXEOuuSxaE3xQVCIVUuhQwlYsZ1J
- TXc/lrKDN20UjBzYenhfAAM7smj6Qttoq3H/tOm/R3Eib1zObNt/bTOMrqwN8n9Zda0c
- Wnsg==
-X-Gm-Message-State: AOJu0YytYGzt1KB21eUXHVYkye2U9+k8BFSQTx6p5UcrnmqFH069evHn
- HZul/xo+Omfl4AskKhrgKCxnSwzOiap5/DdTJcMPiQ==
-X-Google-Smtp-Source: AGHT+IHSDS5XqFLTJ3Fj4mnDdxfJXQcOrG9mYsIt1RG52uxZWsc1JdF5u15aBVAjCYJy3NW7NDbP+g==
-X-Received: by 2002:aa7:da8b:0:b0:52a:66c0:1e9b with SMTP id
- q11-20020aa7da8b000000b0052a66c01e9bmr8454988eds.30.1695752694412; 
- Tue, 26 Sep 2023 11:24:54 -0700 (PDT)
-Received: from [10.167.154.1]
+ d=1e100.net; s=20230601; t=1695752820; x=1696357620;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vTLNwViOe5m9gPGr07BjzMggYdw+lKweFfmGHhfhfs4=;
+ b=RueKLZyQEJ2z95RI66R/2ucXZsxUQC3M9a3DDkNsx5dyzHjf0KIWlE55ZdrVX67w27
+ NV+nWPVMjwCM/P7tooQhG+F4ECx1eYYsK9TTAPlwCa3E5bi4ZaZOLQn4ZmsvfWr6xQww
+ ZDPXzcPlZlEBP/TY/TlHzop9+2CxcGO2w68SQRi+UYbJEU9zCaVRUno/fQ6kx18RLFlt
+ PIdqK5HlVlukv70jDBHZwffwIKwGI3oLkLIwRayHrzSly2H0YICofw0YIuTXduPEDBSS
+ gRaV/ncCmCQQtMhuB43BBjGLS1WeCZOkYm5WCZZ0Do8B0WeeyTFwxyYO0o2vs/DgSmi+
+ idZg==
+X-Gm-Message-State: AOJu0YwufdxqQ/3ykAl5jB7yQKRaP7DviKRb+ZRhn2NcCDVcIXm1Mti9
+ gtOoeCXorvQGHPyS+1EYUx2WbA==
+X-Google-Smtp-Source: AGHT+IEItoYPB7nIesNR5cDDEWTvSDiEGrmr/1eAZ4KTrqt9XRTMXRRy2PBiiLBmQQIYzNe6Y5f4Cw==
+X-Received: by 2002:a05:6512:2103:b0:503:26bc:b08f with SMTP id
+ q3-20020a056512210300b0050326bcb08fmr8003107lfr.24.1695752819917; 
+ Tue, 26 Sep 2023 11:26:59 -0700 (PDT)
+Received: from [192.168.33.189]
  (178235177023.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.23])
  by smtp.gmail.com with ESMTPSA id
- f19-20020a056402151300b0053090e2afafsm7020643edw.22.2023.09.26.11.24.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Sep 2023 11:24:54 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 26 Sep 2023 20:24:42 +0200
+ eo2-20020a056512480200b004fe7011072fsm2292076lfb.58.2023.09.26.11.26.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Sep 2023 11:26:59 -0700 (PDT)
+Message-ID: <ffe64462-b2ca-41d7-a895-09014aadd9c5@linaro.org>
+Date: Tue, 26 Sep 2023 20:26:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230926-topic-a643-v1-7-7af6937ac0a3@linaro.org>
-References: <20230926-topic-a643-v1-0-7af6937ac0a3@linaro.org>
-In-Reply-To: <20230926-topic-a643-v1-0-7af6937ac0a3@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- cros-qcom-dts-watchers@chromium.org, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>, 
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, cros-qcom-dts-watchers@chromium.org,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1695752677; l=2100;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=9BePAqziunVu9kZivYgvv/caBkDoTl2qS9g1hj02Wgg=;
- b=DftHVsKPD4gXQnOXwv6J08JDe4kPe9q61Uq+Yk6OGVwbAalLbxGFp7JSs/NLklUN8hzuG4ORl
- P20Q6ZH69KsAaETW8eBjDpCidhznk2dyYWm7+g8ddSZevjirhjhF8yS
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH 7/7] arm64: dts: qcom: sc7280: Add 0xac Adreno
- speed bin
+References: <20230926-topic-a643-v1-0-7af6937ac0a3@linaro.org>
+ <20230926-topic-a643-v1-6-7af6937ac0a3@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20230926-topic-a643-v1-6-7af6937ac0a3@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 6/7] arm64: dts: qcom: sc7280: Mark Adreno
+ SMMU as DMA coherent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,78 +124,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Luca Weiss <luca.weiss@fairphone.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A643 (A635 speedbin 0xac) tops out at 812 MHz. Fill in the
-opp-supported-hw appropriately.
+On 26.09.2023 20:24, Konrad Dybcio wrote:
+> The SMMUs on sc7280 are cache-coherent. APPS_SMMU is marked as such,
+> mark the GPU one as well.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+Fixes: 96c471970b7b ("arm64: dts: qcom: sc7280: Add gpu support")
 
-Note that fuseval 0xac is referred to as speedbin 1 downstream, but
-that was already in use upstream, so 2 was chosen instead.
+Sorry.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index edaca6c2cf8c..ccc2dd6c45de 100644
---- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -2626,14 +2626,14 @@ opp-315000000 {
- 					opp-hz = /bits/ 64 <315000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
- 					opp-peak-kBps = <1804000>;
--					opp-supported-hw = <0x03>;
-+					opp-supported-hw = <0x07>;
- 				};
- 
- 				opp-450000000 {
- 					opp-hz = /bits/ 64 <450000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
- 					opp-peak-kBps = <4068000>;
--					opp-supported-hw = <0x03>;
-+					opp-supported-hw = <0x07>;
- 				};
- 
- 				/* Only applicable for SKUs which has 550Mhz as Fmax */
-@@ -2648,28 +2648,28 @@ opp-550000000-1 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
- 					opp-peak-kBps = <6832000>;
--					opp-supported-hw = <0x02>;
-+					opp-supported-hw = <0x06>;
- 				};
- 
- 				opp-608000000 {
- 					opp-hz = /bits/ 64 <608000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
- 					opp-peak-kBps = <8368000>;
--					opp-supported-hw = <0x02>;
-+					opp-supported-hw = <0x06>;
- 				};
- 
- 				opp-700000000 {
- 					opp-hz = /bits/ 64 <700000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
- 					opp-peak-kBps = <8532000>;
--					opp-supported-hw = <0x02>;
-+					opp-supported-hw = <0x06>;
- 				};
- 
- 				opp-812000000 {
- 					opp-hz = /bits/ 64 <812000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
- 					opp-peak-kBps = <8532000>;
--					opp-supported-hw = <0x02>;
-+					opp-supported-hw = <0x06>;
- 				};
- 
- 				opp-840000000 {
-
--- 
-2.42.0
-
+Konrad
