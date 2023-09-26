@@ -2,72 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC3077AF3DC
-	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 21:11:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E747AF4A4
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 22:03:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8572610E152;
-	Tue, 26 Sep 2023 19:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB38510E434;
+	Tue, 26 Sep 2023 20:03:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fallback23.i.mail.ru (fallback23.i.mail.ru [79.137.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3486510E436;
- Tue, 26 Sep 2023 19:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com;
- s=mailru; 
- h=References:In-Reply-To:Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=C1hrNzze3e8S39u0TqV+utTukVdkeOuKW+hUO0svl3M=; 
- t=1695755470;x=1695845470; 
- b=0pawBN06UO2CH93rXcsOt3rfOZqj8YujATuzeIU/JLJnlvocOKsQeN9qE2p89THmHfyFfuGqm46Asx/yjLyEMc5M/RAXQovUDK+q9XbVC/Eeq9p2dQpIHtzPTvX0nvadqa59UEzG1KgAIEVYwQlp85TmRrcDNO5fjUGVoH/Jm70=;
-Received: from [10.14.54.68] (port=36706 helo=f161.i.mail.ru)
- by fallback23.i.mail.ru with esmtp (envelope-from <danila@jiaxyga.com>)
- id 1qlDSd-00CAAc-T1; Tue, 26 Sep 2023 22:11:08 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com;
- s=mailru; 
- h=References:In-Reply-To:Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=C1hrNzze3e8S39u0TqV+utTukVdkeOuKW+hUO0svl3M=; 
- t=1695755467;x=1695845467; 
- b=Ch1Njr1sUDm+P0CAlSsuZkaDkpfjGaOu1tZVlz9CSVGg0OSGYq91HWQEj8yhvQL3gsLra127yNqR63jnAR4GKBUyFLpcKLLzqUfigSnzsGyWl4zfjxZrysTx/4e//KZI4p2saVoHXPJbI3ZiHKirdbuJ/qYfCq8aAuPMy0i/2mI=;
-Received: by f161.i.mail.ru with local (envelope-from <danila@jiaxyga.com>)
- id 1qlDSH-0006W9-Ls; Tue, 26 Sep 2023 22:10:46 +0300
-Received: by e.mail.ru with HTTP;
-	Tue, 26 Sep 2023 22:10:45 +0300
-From: =?UTF-8?B?RGFuaWxhIFRpa2hvbm92?= <danila@jiaxyga.com>
-To: =?UTF-8?B?S29ucmFkIER5YmNpbw==?= <konrad.dybcio@linaro.org>,
- robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run,
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90FAA10E42E
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 20:03:46 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2b95d5ee18dso163634651fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 13:03:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1695758624; x=1696363424; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Nm8GBgmcikOdNvX8wfIBZbzYflQISfBjRI/dXwUjBnU=;
+ b=G02KWeqhSpiIlgSh51fmIC7qOO8pt3hqoAb+GdHkBJtYjak8sCUxdY1xgEFe6LX0FY
+ w3EDF36Go7qCgkSrFNlFnc8ixKmmTLoXfq5fv/ID11e8FcUedN1X6LQZpe3oddM7Er6z
+ cKSJ0L+z3ufRC/c9o3ht/9xGCITNTZOO12fDGXrIYCZn7B+Il1se4tb4I3tFI8KcrT+X
+ /+d01LP8nHY4UMpXlSiGa0b9rbmWJ8+bvEtd/LuDC8caAJMikr014GToTy6C7NdFsB9Y
+ yFjLn0VDXTEkoJXs4lX6DdyGy/2Q8zTxQFPCK62Nggi9E8shUEiQHaGyjyihtsEMAofE
+ k7sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695758624; x=1696363424;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Nm8GBgmcikOdNvX8wfIBZbzYflQISfBjRI/dXwUjBnU=;
+ b=RJixhe1w7LCJX+73QHwuw4ZlYofz0Im7XdtoAxX3XH3p/3u8ksdOF6t5S4wAX6wudl
+ FerWY03D4H20Y1hkrTJXwJ4KJAx0DJhADFQ4ebLOz89ub9HNQSxJw2DPWVPDSmVyiWOH
+ DhRBI6NQivysDoNjGF5H+4iBGSh9M7vmXBckZyNPprx9pdxQHW9hmfoPd+HgF9O3f43H
+ hiWtLlkhlcuCuDiNGP69OTbZHZUkIsH0Br/FRF+HPDgv5zpkFaUF9/aKDBcq5bNj+ysw
+ 3NvWBJ7tT2NLYVco2nM6JoMzISmX8nJhjQNFOQxdXgWce3XEwm3VoLdpwv22FSfqY0YD
+ 5rgQ==
+X-Gm-Message-State: AOJu0YwtbEI/oLRatWxQqRAGi7ZVJ7P1NtgSGEyeBBcdj+taFvD2YM/U
+ rcj0kXjAbPVd58gZxPdjXkye2w==
+X-Google-Smtp-Source: AGHT+IGeipwcDBWcSLPGgovpnpzSz+I4k/YDje2FhGHgtpOSdtIU9pLq9f6wkifWJeipt95IYsSbBA==
+X-Received: by 2002:a2e:3211:0:b0:2bc:b9c7:7ba8 with SMTP id
+ y17-20020a2e3211000000b002bcb9c77ba8mr65338ljy.43.1695758624594; 
+ Tue, 26 Sep 2023 13:03:44 -0700 (PDT)
+Received: from [192.168.33.189]
+ (178235177023.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.23])
+ by smtp.gmail.com with ESMTPSA id
+ v13-20020a17090606cd00b009ae5e46210asm8169519ejb.99.2023.09.26.13.03.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Sep 2023 13:03:44 -0700 (PDT)
+Message-ID: <84e63b82-4fef-416b-8dbe-3838ad788824@linaro.org>
+Date: Tue, 26 Sep 2023 22:03:42 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Danila Tikhonov <danila@jiaxyga.com>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
  marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
  johan+linaro@kernel.org, andersson@kernel.org
-MIME-Version: 1.0
-X-Mailer: Mail.Ru Mailer 1.0
-X-SenderField-ReMsg: 16957536351362476620
-X-SenderField-Remind: 0
-Date: Tue, 26 Sep 2023 22:10:45 +0300
-X-Priority: 3 (Normal)
-Message-ID: <1695755445.902336096@f165.i.mail.ru>
-Content-Type: multipart/alternative;
- boundary="--ALT--f720445CCa7C4Ac7b7E4923Ab293A1551695755445"
-In-Reply-To: <42a1d0ab-4e8d-461d-bb2c-977a793e52b2@linaro.org>
 References: <20230926174243.161422-1-danila@jiaxyga.com>
  <20230926174243.161422-2-danila@jiaxyga.com>
  <42a1d0ab-4e8d-461d-bb2c-977a793e52b2@linaro.org>
-X-4EC0790: 10
-X-7564579A: EEAE043A70213CC8
-X-77F55803: 119C1F4DF6A9251CF73D76D4E4C9BD3E056BCC589CC1252BF1B73AB4CBDEB7FC8FD872164937FA4CABE1C92B99EA00F80F8D4EE3B3E410704E27E1E683F30127B4AB33DE25D233C6
-X-7FA49CB5: 70AAF3C13DB70168C09775C1D3CA48CF9FB48EC6ABDE20F9B2086D80B0504778CF19DD082D7633A0ACBFF42033827DA764CD17681C2FEB7A1661749BA6B9773573359DDD8AF29CF9C4224003CC836476ABE134FDCE4E2725BFD28B28ED4578739E625A9149C048EE85C08DA1A1AB276A6CEA61CADDE926D9B287FD4696A6DC2FA8DF7F3B2552694A4E2F5AFA99E116B42401471946AA11AF176DF2183F8FC7C0E30E47A50CB819D68F08D7030A58E5AD1A62830130A00468AEEEE3FBA3A834EE7353EFBB55337566C0F5A4AAB5B46AE5A2745E20EE35C7C9374F998B5D7A0733A471835C12D1D9774AD6D5ED66289B5278DA827A17800CE74A95F4E53E8DCE969FA2833FD35BB23D2EF20D2F80756B5F868A13BD56FB6657A471835C12D1D977725E5C173C3A84C34C82C86BFC697D19117882F4460429728AD0CFFFB425014E868A13BD56FB6657E2021AF6380DFAD1A18204E546F3947CB11811A4A51E3B096D1867E19FE1407959CC434672EE6371089D37D7C0E48F6C8AA50765F790063764BD0C886786234BEFF80C71ABB335746BA297DBC24807EABDAD6C7F3747799A
-X-C1DE0DAB: 0D63561A33F958A59906A4E1A7480ABE8E1328F09C90019D8EAEE71F5D471625F87CCE6106E1FC07E67D4AC08A07B9B01DAA61796BF5227BCB5012B2E24CD356
-X-C8649E89: 1C3962B70DF3F0ADE2815F1F17DA7190F22D334B9B612B432CCB5A6D6581D03D0776B5B2C279835F17BCBE6708A5A68D02015372BE9702A2F43CD6ECAE3025E5F3A0CD457D5C16F38612C0C7C9FBB7130A5BF8E07B53D74699FFF1B1798022BD9B815B7972F6FBBE74A5804DDE94125EC5B556352360135B52EE4E5D9E54FDA4F32EBBB8949988C80AABF6830182CDC9E1F4741733316EBDB0B8481A162AEBC83FCF178C6DD14203
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5+wYjsrrSY/u8Y3PrTqANeitKFiSd6Yd7yPpbiiZ/d5BsxIjK0jGQgCHUM3Ry2Lt2G3MDkMauH3h0dBdQGj+BB/iPzQYh7XS329fgu+/vnDhbEi5da5Hd1dz6bjCCUCtmQ==
-X-Mailru-Sender: 9EB879F2C80682A09F26F806C73949817175F76E90FA14EDA4535C8A5111848B9243D542AFF315F476E149BFDDB39AAECE8A2F3DBBBC97BDE9B87AE30867F65D7C36821DA1248F511E60DA90B68B17485C53A21392A0CCF5CA6C87A068E2D173C003600472B6CB9B67EA787935ED9F1B
-X-Mras: Ok
-X-Spam: undefined
-X-7564579A: B8F34718100C35BD
-X-77F55803: 6242723A09DB00B42F09C957A29A94C9A7C8380B1CF4C65499907AD2CE2C9CBC049FFFDB7839CE9E0C19EBD0229312D8E0A7C1C2E118C41AB3EED93F8DFD6F72705DF0F4659FE485
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5xhPKz0ZEsZ5k6NOOPWz5QAiZSCXKGQRq3/7KxbCLSB2ESzQkaOXqCBFZPLWFrEGlV1shfWe2EVcxl5toh0c/aCGOghz/frdRhzMe95NxDFdPOFkVkQ4Q/kx1DpDvGWhSg==
-X-Mailru-MI: C000000000000800
-X-Mras: Ok
-Subject: Re: [Freedreno] 
- =?utf-8?q?=5BPATCH_v2_1/1=5D_drm/msm/adreno=3A_Add_s?=
- =?utf-8?q?upport_for_SM7150_SoC_machine?=
+ <1695755445.902336096@f165.i.mail.ru>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <1695755445.902336096@f165.i.mail.ru>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/adreno: Add support for
+ SM7150 SoC machine
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,69 +118,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: =?UTF-8?B?RGFuaWxhIFRpa2hvbm92?= <danila@jiaxyga.com>
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 26.09.2023 21:10, Danila Tikhonov wrote:
+> 
+> I think you mean by name downstream dt - sdmmagpie-gpu.dtsi
+> 
+> You can see the forked version of the mainline here:
+> https://github.com/sm7150-mainline/linux/blob/next/arch/arm64/boot/dts/qcom/sm7150.dtsi
+> 
+> All fdt that we got here, if it is useful for you:
+> https://github.com/sm7150-mainline/downstream-fdt
+> 
+> Best wishes, Danila
+Taking a look at downstream, atoll.dtsi (SC7180) includes
+sdmmagpie-gpu.dtsi.
 
-----ALT--f720445CCa7C4Ac7b7E4923Ab293A1551695755445
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+Bottom line is, they share the speed bins, so it should be
+fine to just extend the existing entry.
 
-CkkgdGhpbmsgeW91IG1lYW4gYnkgbmFtZSBkb3duc3RyZWFtIGR0IC0gc2RtbWFncGllLWdwdS5k
-dHNpCgpZb3UgY2FuIHNlZSB0aGUgZm9ya2VkIHZlcnNpb24gb2YgdGhlIG1haW5saW5lIGhlcmU6
-Cmh0dHBzOi8vZ2l0aHViLmNvbS9zbTcxNTAtbWFpbmxpbmUvbGludXgvYmxvYi9uZXh0L2FyY2gv
-YXJtNjQvYm9vdC9kdHMvcWNvbS9zbTcxNTAuZHRzaQoKQWxsIGZkdCB0aGF0IHdlIGdvdCBoZXJl
-LCBpZiBpdCBpcyB1c2VmdWwgZm9yIHlvdToKaHR0cHM6Ly9naXRodWIuY29tL3NtNzE1MC1tYWlu
-bGluZS9kb3duc3RyZWFtLWZkdAoKQmVzdCB3aXNoZXMsIERhbmlsYQrCoApPbiAyNi4wOS4yMDIz
-wqAyMDo0MCwgS29ucmFkIER5YmNpbyA8a29ucmFkLmR5YmNpb0BsaW5hcm8ub3JnPsKgd3JvdGU6
-Cj7CoE9uIDI2LjA5LjIwMjMgMTk6NDIsIERhbmlsYSBUaWtob25vdiB3cm90ZToKPsKgPiBTTTcx
-NTAgaGFzIDUgcG93ZXIgbGV2ZWxzIHdoaWNoIGNvcnJlc3BvbmQgdG8gNSBzcGVlZC1iaW4gdmFs
-dWVzOiAwLAo+wqA+IDEyOCwgMTQ2LCAxNjcsIDE3Mi4gU3BlZWQtYmluIHZhbHVlIGlzIGNhbHVs
-YXRlZCBhcyBGTUFYLzQuOE1IeiByb3VuZCB1cAo+wqA+IHRvIHplcm8gZGVjaW1hbCBwbGFjZXMu
-Cj7CoD4KPsKgPiBBbHNvIGE2MTggb24gU003MTUwIHVzZXMgYTYxNSB6YXBmdy4gQWRkIGEgc3F1
-YXNoZWQgdmVyc2lvbiAoLm1ibikuCj7CoD4KPsKgPiBBZGQgdGhpcyBhcyBtYWNoaW5lID0gInFj
-b20sc203MTUwIiwgYmVjYXVzZSBzcGVlZC1iaW4gdmFsdWVzIGFyZQo+wqA+IGRpZmZlcmVudCBm
-cm9tIGF0b2xsIChzYzcxODAvc203MTI1KS4KPsKgPgo+wqA+IFNpZ25lZC1vZmYtYnk6IERhbmls
-YSBUaWtob25vdiA8IGRhbmlsYUBqaWF4eWdhLmNvbSA+Cj7CoD4gLS0tID7CoFdoYXQncyB0aGUg
-ZG93bnN0cmVhbSBkdCBuYW1lIGZvciA3MTUwPwo+wqAKPsKgRG8geW91IGhhdmUgc29tZSBtb3Jl
-IGNvbXBsZXRlIHRyZWUgcHVibGlzaGVkIHNvbWV3aGVyZT8KPgo+wqBLb25yYWQKwqA=
-
-----ALT--f720445CCa7C4Ac7b7E4923Ab293A1551695755445
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
-
-CjxIVE1MPjxCT0RZPjxkaXY+SSB0aGluayB5b3UgbWVhbiBieSBuYW1lIGRvd25zdHJlYW0gZHQg
-LSBzZG1tYWdwaWUtZ3B1LmR0c2k8YnI+PGJyPllvdSBjYW4gc2VlIHRoZSBmb3JrZWQgdmVyc2lv
-biBvZiB0aGUgbWFpbmxpbmUgaGVyZTo8YnI+PGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL3Nt
-NzE1MC1tYWlubGluZS9saW51eC9ibG9iL25leHQvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL3Nt
-NzE1MC5kdHNpIj5odHRwczovL2dpdGh1Yi5jb20vc203MTUwLW1haW5saW5lL2xpbnV4L2Jsb2Iv
-bmV4dC9hcmNoL2FybTY0L2Jvb3QvZHRzL3Fjb20vc203MTUwLmR0c2k8L2E+PGJyPjxicj5BbGwg
-ZmR0IHRoYXQgd2UgZ290IGhlcmUsIGlmIGl0IGlzIHVzZWZ1bCBmb3IgeW91Ojxicj48YSBocmVm
-PSJodHRwczovL2dpdGh1Yi5jb20vc203MTUwLW1haW5saW5lL2Rvd25zdHJlYW0tZmR0Ij5odHRw
-czovL2dpdGh1Yi5jb20vc203MTUwLW1haW5saW5lL2Rvd25zdHJlYW0tZmR0PC9hPjxicj48YnI+
-QmVzdCB3aXNoZXMsIERhbmlsYTwvZGl2PjxkaXY+Jm5ic3A7PC9kaXY+PGRpdj5PbiAyNi4wOS4y
-MDIzJm5ic3A7MjA6NDAsIEtvbnJhZCBEeWJjaW8gJmx0O2tvbnJhZC5keWJjaW9AbGluYXJvLm9y
-ZyZndDsmbmJzcDt3cm90ZTo8ZGl2IGlkPSIiPjxkaXYgY2xhc3M9ImpzLWhlbHBlciBqcy1yZWFk
-bXNnLW1zZyI+PGRpdj48ZGl2IGlkPSJzdHlsZV8xNjk1NzUzNjM1MTM2MjQ3NjYyMF9CT0RZIj4m
-Z3Q7Jm5ic3A7T24gMjYuMDkuMjAyMyAxOTo0MiwgRGFuaWxhIFRpa2hvbm92IHdyb3RlOjxkaXYg
-Y2xhc3M9Im1haWwtcXVvdGUtY29sbGFwc2UiPiZndDsmbmJzcDsmZ3Q7IFNNNzE1MCBoYXMgNSBw
-b3dlciBsZXZlbHMgd2hpY2ggY29ycmVzcG9uZCB0byA1IHNwZWVkLWJpbiB2YWx1ZXM6IDAsPGJy
-PiZndDsmbmJzcDsmZ3Q7IDEyOCwgMTQ2LCAxNjcsIDE3Mi4gU3BlZWQtYmluIHZhbHVlIGlzIGNh
-bHVsYXRlZCBhcyBGTUFYLzQuOE1IeiByb3VuZCB1cDxicj4mZ3Q7Jm5ic3A7Jmd0OyB0byB6ZXJv
-IGRlY2ltYWwgcGxhY2VzLjxicj4mZ3Q7Jm5ic3A7Jmd0Ozxicj4mZ3Q7Jm5ic3A7Jmd0OyBBbHNv
-IGE2MTggb24gU003MTUwIHVzZXMgYTYxNSB6YXBmdy4gQWRkIGEgc3F1YXNoZWQgdmVyc2lvbiAo
-Lm1ibikuPGJyPiZndDsmbmJzcDsmZ3Q7PGJyPiZndDsmbmJzcDsmZ3Q7IEFkZCB0aGlzIGFzIG1h
-Y2hpbmUgPSAicWNvbSxzbTcxNTAiLCBiZWNhdXNlIHNwZWVkLWJpbiB2YWx1ZXMgYXJlPGJyPiZn
-dDsmbmJzcDsmZ3Q7IGRpZmZlcmVudCBmcm9tIGF0b2xsIChzYzcxODAvc203MTI1KS48YnI+Jmd0
-OyZuYnNwOyZndDs8YnI+Jmd0OyZuYnNwOyZndDsgU2lnbmVkLW9mZi1ieTogRGFuaWxhIFRpa2hv
-bm92ICZsdDs8YSBocmVmPSIvY29tcG9zZT9Ubz1kYW5pbGFAamlheHlnYS5jb20iPmRhbmlsYUBq
-aWF4eWdhLmNvbTwvYT4mZ3Q7PGJyPiZndDsmbmJzcDsmZ3Q7IC0tLTwvZGl2PiZndDsmbmJzcDtX
-aGF0J3MgdGhlIGRvd25zdHJlYW0gZHQgbmFtZSBmb3IgNzE1MD88YnI+Jmd0OyZuYnNwOzxicj4m
-Z3Q7Jm5ic3A7RG8geW91IGhhdmUgc29tZSBtb3JlIGNvbXBsZXRlIHRyZWUgcHVibGlzaGVkIHNv
-bWV3aGVyZT88YnI+Jmd0Ozxicj4mZ3Q7Jm5ic3A7S29ucmFkPC9kaXY+PC9kaXY+PC9kaXY+PC9k
-aXY+PC9kaXY+PGRpdj4mbmJzcDs8L2Rpdj48L0JPRFk+PC9IVE1MPgo=
-
-----ALT--f720445CCa7C4Ac7b7E4923Ab293A1551695755445--
+Konrad
