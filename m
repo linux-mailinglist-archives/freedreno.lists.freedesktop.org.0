@@ -2,69 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E747AF4A4
-	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 22:03:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC6A7AF4CF
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 22:08:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB38510E434;
-	Tue, 26 Sep 2023 20:03:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F23310E42E;
+	Tue, 26 Sep 2023 20:08:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90FAA10E42E
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 20:03:46 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b95d5ee18dso163634651fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 13:03:46 -0700 (PDT)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6906310E42F
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 20:08:40 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-9936b3d0286so1211254466b.0
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 13:08:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695758624; x=1696363424; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1695758919; x=1696363719; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Nm8GBgmcikOdNvX8wfIBZbzYflQISfBjRI/dXwUjBnU=;
- b=G02KWeqhSpiIlgSh51fmIC7qOO8pt3hqoAb+GdHkBJtYjak8sCUxdY1xgEFe6LX0FY
- w3EDF36Go7qCgkSrFNlFnc8ixKmmTLoXfq5fv/ID11e8FcUedN1X6LQZpe3oddM7Er6z
- cKSJ0L+z3ufRC/c9o3ht/9xGCITNTZOO12fDGXrIYCZn7B+Il1se4tb4I3tFI8KcrT+X
- /+d01LP8nHY4UMpXlSiGa0b9rbmWJ8+bvEtd/LuDC8caAJMikr014GToTy6C7NdFsB9Y
- yFjLn0VDXTEkoJXs4lX6DdyGy/2Q8zTxQFPCK62Nggi9E8shUEiQHaGyjyihtsEMAofE
- k7sQ==
+ bh=conOmV4UnpH+Q2D4qTpLIFkdyVF7jD1Has9tIlu1nh8=;
+ b=CyNn0jjTzWGK9rOH56332I1TSLaa080Mrq+tlHRe2YicMtvOhv3SduOgAvqQiMhux4
+ 3afll+bJx4RznSs8JKiGy7iOx0sR580nvLl9UrfOHNL48/efNT49oZs4bRf6QAT8/hJA
+ ERkKPmy61oPVNzyMCOGpOH4q5YjLzSveVN+9YAAIfbW+s0iYv3Xv2qq3oF7R+bhbLgQV
+ rVX2eGWouU+K/nTFO22xod7FWywHiGO5gXJRPx0a1BHHtHYj2pogOKpTJZw1xc7EVQyA
+ rV4C1VuRP8VXeIc0Cax692oaROhSHAS5PzRW/OQVeHFSCOMfczEVTYqOGghwKgTuzbQ7
+ Q/Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695758624; x=1696363424;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1695758919; x=1696363719;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Nm8GBgmcikOdNvX8wfIBZbzYflQISfBjRI/dXwUjBnU=;
- b=RJixhe1w7LCJX+73QHwuw4ZlYofz0Im7XdtoAxX3XH3p/3u8ksdOF6t5S4wAX6wudl
- FerWY03D4H20Y1hkrTJXwJ4KJAx0DJhADFQ4ebLOz89ub9HNQSxJw2DPWVPDSmVyiWOH
- DhRBI6NQivysDoNjGF5H+4iBGSh9M7vmXBckZyNPprx9pdxQHW9hmfoPd+HgF9O3f43H
- hiWtLlkhlcuCuDiNGP69OTbZHZUkIsH0Br/FRF+HPDgv5zpkFaUF9/aKDBcq5bNj+ysw
- 3NvWBJ7tT2NLYVco2nM6JoMzISmX8nJhjQNFOQxdXgWce3XEwm3VoLdpwv22FSfqY0YD
- 5rgQ==
-X-Gm-Message-State: AOJu0YwtbEI/oLRatWxQqRAGi7ZVJ7P1NtgSGEyeBBcdj+taFvD2YM/U
- rcj0kXjAbPVd58gZxPdjXkye2w==
-X-Google-Smtp-Source: AGHT+IGeipwcDBWcSLPGgovpnpzSz+I4k/YDje2FhGHgtpOSdtIU9pLq9f6wkifWJeipt95IYsSbBA==
-X-Received: by 2002:a2e:3211:0:b0:2bc:b9c7:7ba8 with SMTP id
- y17-20020a2e3211000000b002bcb9c77ba8mr65338ljy.43.1695758624594; 
- Tue, 26 Sep 2023 13:03:44 -0700 (PDT)
+ bh=conOmV4UnpH+Q2D4qTpLIFkdyVF7jD1Has9tIlu1nh8=;
+ b=mR5x/s8KU/1sE75hc7JmAfXmBQbT8PopA9NsGVsZBHTN9wR68cuRSoaGgd+n6Ur/F6
+ 1cXG29rgX/pX69fuj6jIBve7Wtk58IAJuGfnR0iOG6fNHM0Ez5/3cV3YgNVOeApb7vgV
+ VhxrKGj05VblrksP/Di2bGBFh2VIwg+4KA2dhl/rl8neonzri+y+JMYaqOjY+tBOJt2J
+ qIt2E9M5CD5iOP2h9q8Kr1Sr7+ryK7Oxzal4oKcrhGNWhscd7P/eU20hqBjWvJcqU7c0
+ GcMBIqptBRM1T0nwG35PCf9eyy+O4sKaScwCKaLH6o1InWgCMi7s5VHzbS9+UoMmaf39
+ 8UDQ==
+X-Gm-Message-State: AOJu0YyR6ro+yLFK8l+aseT1ZU/oagGVB8PnNApitpBeFcPbFSbV2ski
+ WpXV5dBQSp8uw0uqigtcMRd1+A==
+X-Google-Smtp-Source: AGHT+IE3mX7XtIp2+XFL8eoufFAwfUsDD8mUXJ93RlWKtM2nL1m+4rhbELs1gfs8dFpzVoAXOTj/PQ==
+X-Received: by 2002:a17:906:8445:b0:9ae:5493:2e0e with SMTP id
+ e5-20020a170906844500b009ae54932e0emr7949763ejy.24.1695758918655; 
+ Tue, 26 Sep 2023 13:08:38 -0700 (PDT)
 Received: from [192.168.33.189]
  (178235177023.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.23])
  by smtp.gmail.com with ESMTPSA id
- v13-20020a17090606cd00b009ae5e46210asm8169519ejb.99.2023.09.26.13.03.42
+ h9-20020a17090619c900b009ae54eba5casm8218821ejd.102.2023.09.26.13.08.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Sep 2023 13:03:44 -0700 (PDT)
-Message-ID: <84e63b82-4fef-416b-8dbe-3838ad788824@linaro.org>
-Date: Tue, 26 Sep 2023 22:03:42 +0200
+ Tue, 26 Sep 2023 13:08:38 -0700 (PDT)
+Message-ID: <1faee5fe-3873-47ad-99d4-d264aedb0572@linaro.org>
+Date: Tue, 26 Sep 2023 22:08:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Danila Tikhonov <danila@jiaxyga.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- johan+linaro@kernel.org, andersson@kernel.org
-References: <20230926174243.161422-1-danila@jiaxyga.com>
- <20230926174243.161422-2-danila@jiaxyga.com>
- <42a1d0ab-4e8d-461d-bb2c-977a793e52b2@linaro.org>
- <1695755445.902336096@f165.i.mail.ru>
+To: Richard Acayan <mailingradian@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Liu Shixin
+ <liushixin2@huawei.com>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20230925232625.846666-9-mailingradian@gmail.com>
+ <20230925232625.846666-14-mailingradian@gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -101,11 +112,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <1695755445.902336096@f165.i.mail.ru>
+In-Reply-To: <20230925232625.846666-14-mailingradian@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/adreno: Add support for
- SM7150 SoC machine
+Subject: Re: [Freedreno] [PATCH 5/6] drm/msm/dpu: Add hw revision 4.1
+ (SDM670)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,26 +129,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.09.2023 21:10, Danila Tikhonov wrote:
+On 26.09.2023 01:26, Richard Acayan wrote:
+> The Snapdragon 670 uses similar clocks (with one frequency added) to the
+> Snapdragon 845 but reports DPU revision 4.1. Add support for this DPU
+> with configuration from the Pixel 3a downstream kernel.
 > 
-> I think you mean by name downstream dt - sdmmagpie-gpu.dtsi
+> Since revision 4.0 is SDM845, reuse some configuration from its catalog
+> entry.
 > 
-> You can see the forked version of the mainline here:
-> https://github.com/sm7150-mainline/linux/blob/next/arch/arm64/boot/dts/qcom/sm7150.dtsi
+> Link: https://android.googlesource.com/kernel/msm/+/368478b0ae76566927a2769a2bf24dfe7f38bb78/arch/arm64/boot/dts/qcom/sdm670-sde.dtsi
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  .../msm/disp/dpu1/catalog/dpu_4_1_sdm670.h    | 105 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   6 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>  4 files changed, 113 insertions(+)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
 > 
-> All fdt that we got here, if it is useful for you:
-> https://github.com/sm7150-mainline/downstream-fdt
-> 
-> Best wishes, Danila
-Taking a look at downstream, atoll.dtsi (SC7180) includes
-sdmmagpie-gpu.dtsi.
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+> new file mode 100644
+> index 000000000000..eaccb16b5db9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+> @@ -0,0 +1,105 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2023, Richard Acayan. All rights reserved.
+> + */
+> +
+> +#ifndef _DPU_4_1_SDM670_H
+> +#define _DPU_4_1_SDM670_H
+> +
+> +static const struct dpu_mdp_cfg sdm670_mdp = {
+> +	.name = "top_0",
+> +	.base = 0x0, .len = 0x45c,
+> +	.features = BIT(DPU_MDP_AUDIO_SELECT),
+> +	.clk_ctrls = {
+> +		[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0},
+space before the closing curly bracket, please
 
-Bottom line is, they share the speed bins, so it should be
-fine to just extend the existing entry.
+[...]
+
+> +
+> +static struct dpu_dsc_cfg sdm670_dsc[] = {
+const
 
 Konrad
