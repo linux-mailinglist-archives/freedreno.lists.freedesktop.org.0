@@ -1,59 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C2B7AEC0D
-	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 14:02:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8257AED58
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 14:56:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F054710E3B9;
-	Tue, 26 Sep 2023 12:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 872ED10E3D0;
+	Tue, 26 Sep 2023 12:56:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFA310E161;
- Tue, 26 Sep 2023 12:02:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695729767; x=1727265767;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=SP3EbuY1pr3nX/kVEaXbBUjA6EJivYJ3T6z0pZl7O7Q=;
- b=euvei/xoi6xC2mePoA9b8cO9lS8sQCnpxYfu+9hli5dBU3cWoVLXokeU
- 1EzWNqlraBk42DxODsJOCr/tJf/M3NGtIBHW6fM6kIDWLyMKgM9o2JI/d
- nMGLAcuxXDz8hcnvU+kDyFiFc22+Oid8wRzIpz2lgfUK/qYZmhm1t2XiG
- JoHnUxMWzPoNmfsHZkvdvH6P1hrpQixqnJXwsUQERj5ApGETvQpzEYvn8
- hTBMmNHseznaYrZNCTbI/leB3fJKVp+ViC1D0rRT0QyirS6wKy3xN02m+
- BEtKAHeuc0rW7mf/gO9nSSEksetognRztmogqPL5YR0fa8MT39CFTRV4r g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="381448625"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="381448625"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 05:02:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="752153507"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="752153507"
-Received: from lkp-server02.sh.intel.com (HELO 32c80313467c) ([10.239.97.151])
- by fmsmga007.fm.intel.com with ESMTP; 26 Sep 2023 05:02:32 -0700
-Received: from kbuild by 32c80313467c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ql6lq-0002mp-22;
- Tue, 26 Sep 2023 12:02:30 +0000
-Date: Tue, 26 Sep 2023 20:02:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>
-Message-ID: <202309261932.Dha9doOl-lkp@intel.com>
-References: <20230628-topic-a7xx_drmmsm-v5-7-3dc527b472d7@linaro.org>
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8291A10E3D0;
+ Tue, 26 Sep 2023 12:56:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id E9FBDCE138C;
+ Tue, 26 Sep 2023 12:56:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D568C433C8;
+ Tue, 26 Sep 2023 12:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1695732985;
+ bh=DkboLss2t1a5JtYCh172h81RMP48iGgistWARFrFkWQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MbdWM83JQwKefVUx2T9uRoC5zW6mv9Iux8XOuxN/0MByxiAy8EtIhDK7yTj/LDs/y
+ 7OfFuJrHJFFvr40qX2RjF2LwzCLenKrxarBApDsZLJd0OzWEPlOih9XDLGoZEakwZ2
+ ziNmOMOWYofd4pSdGww4YVWBGcAsOovQZjTVx9dhsZk7DODFQjnvXewfmI8F5AlkzC
+ BXWzHs8T+ZTq8PGBo5FLXcxdWJ+6DQBl4qbRQ7jayrFnsTROl+jAVnzl16XGTlt9zY
+ DfbYq9ADUgz6TCsF/0j7R5JfMjyEj73xzw878bV2R4/BEO6eyV42JhNn4YgY0nFzRx
+ Xb11gybOOT1sw==
+Date: Tue, 26 Sep 2023 13:56:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <20230926-chemo-autopilot-b9323784886a@spud>
+References: <20230925212434.1972368-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="W4wHTtiqSi8PKbBJ"
 Content-Disposition: inline
-In-Reply-To: <20230628-topic-a7xx_drmmsm-v5-7-3dc527b472d7@linaro.org>
-Subject: Re: [Freedreno] [PATCH v5 07/10] drm/msm/a6xx: Mostly implement
- A7xx gpu_state
+In-Reply-To: <20230925212434.1972368-1-robh@kernel.org>
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: display: msm: Add missing
+ unevaluatedProperties on child node schemas
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,55 +51,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- oe-kbuild-all@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Konrad,
 
-kernel test robot noticed the following build warnings:
+--W4wHTtiqSi8PKbBJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[auto build test WARNING on 8fff9184d1b5810dca5dd1a02726d4f844af88fc]
+On Mon, Sep 25, 2023 at 04:24:24PM -0500, Rob Herring wrote:
+> Just as unevaluatedProperties or additionalProperties are required at
+> the top level of schemas, they should (and will) also be required for
+> child node schemas. That ensures only documented properties are
+> present for any node.
+>=20
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/dt-bindings-display-msm-gmu-Add-Adreno-7-34-0-GMU/20230925-225348
-base:   8fff9184d1b5810dca5dd1a02726d4f844af88fc
-patch link:    https://lore.kernel.org/r/20230628-topic-a7xx_drmmsm-v5-7-3dc527b472d7%40linaro.org
-patch subject: [PATCH v5 07/10] drm/msm/a6xx: Mostly implement A7xx gpu_state
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230926/202309261932.Dha9doOl-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230926/202309261932.Dha9doOl-lkp@intel.com/reproduce)
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309261932.Dha9doOl-lkp@intel.com/
+Thanks,
+Conor.
 
-All warnings (new ones prefixed by >>):
+> ---
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.=
+yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index f12558960cd8..dbe398f84ffb 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -114,6 +114,7 @@ properties:
+> =20
+>        port@1:
+>          $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+>          description: Output endpoint of the controller
+>          properties:
+>            endpoint:
+> --=20
+> 2.40.1
+>=20
 
-   In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:8:
->> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:360:36: warning: 'a7xx_gbif_reglist' defined but not used [-Wunused-const-variable=]
-     360 | static const struct a6xx_registers a7xx_gbif_reglist =
-         |                                    ^~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:356:36: warning: 'a7xx_ahb_reglist' defined but not used [-Wunused-const-variable=]
-     356 | static const struct a6xx_registers a7xx_ahb_reglist[] = {
-         |                                    ^~~~~~~~~~~~~~~~
+--W4wHTtiqSi8PKbBJ
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-vim +/a7xx_gbif_reglist +360 drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZRLU8wAKCRB4tDGHoIJi
+0siFAQCPIJw0ImQkf/uczQd3qHyCH5x7Fpe36rqmG+BfDzkraQD9FTGjRiM9TQXb
+q+Q5fUiiaZa7v9r6fe0HMjHSzIRytws=
+=k8M0
+-----END PGP SIGNATURE-----
 
-   355	
- > 356	static const struct a6xx_registers a7xx_ahb_reglist[] = {
-   357		REGS(a7xx_ahb_registers, 0, 0),
-   358	};
-   359	
- > 360	static const struct a6xx_registers a7xx_gbif_reglist =
-   361		REGS(a7xx_gbif_registers, 0, 0);
-   362	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--W4wHTtiqSi8PKbBJ--
