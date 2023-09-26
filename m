@@ -1,60 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311867AEA41
-	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 12:22:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4C2B7AEC0D
+	for <lists+freedreno@lfdr.de>; Tue, 26 Sep 2023 14:02:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE4A610E39B;
-	Tue, 26 Sep 2023 10:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F054710E3B9;
+	Tue, 26 Sep 2023 12:02:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62E9110E39B
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 10:22:15 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-59c04237bf2so107356767b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Sep 2023 03:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695723734; x=1696328534; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=a98I+/enWVs0BEjUps7tbFx8/Tj78e5XZIx5A8fkfhE=;
- b=Sibc/bqUS3AWLdefV57rcyC285iY9lZiAVOI9Ha54jKDTL5eYo9EXIL+OLU81vOAcs
- ANNnW7Alg59c8SwF7RB7fql8I5693Hprz59kAQ0QryO1xXalN/JV6bB9JzsC8EtygKHM
- +d15qbkaEkjxN+AuTz8dH7HXq49qvFsVEB4/2qzAOgeMWxkxcTCY6hXcoHrBXebHCgBz
- 6/HjunhnxPhjNirSxc5kVweJliPl6YplP0WrCxUHGPtYVFINgPQU44iSUf2vP0q2kk50
- 428FOty/MGvW9WjYBV3GcrLI3M0lflK0gypTIogRJZGiioyypcyJktDCgsAZ/WbZs12B
- 2XLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695723734; x=1696328534;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=a98I+/enWVs0BEjUps7tbFx8/Tj78e5XZIx5A8fkfhE=;
- b=ig/jQDiDJY1PbmL77TNfLBUQ40FLCbs8FarO+9QOaXu9mAxKR+5xZ1FaYpIeja/3TX
- hz7O6lmAEYw3AcpLisfco80RMCqWigmMxz9opM6NiCd4vtb/jc5dc7pUdrQii+scM4av
- sWElTkTUQo18gC0b9GAda6R1GprBq5yKU8n8k3L3EeK4OkGkeZWggeQe6HVjz0k2qea5
- Vp+3Hj8X1B9ryCtquNubrXKCyiaF72LOWqanMBBkyzO7c0/Ouf+19NShl+SR/PAbUOlv
- 8hbVK9FgM5mT4JJGWomWj40oW6c3UeTTmPwrZsU3Q+Pq/qY4UiMoODEayDpXM5Q+jA3B
- vuPQ==
-X-Gm-Message-State: AOJu0YwjLrHfiENB9/6Ee8F7hgpNyROC4jng2qS2M8Ek56AW7hCzLKJH
- SfxNc2XbEwxPED1YxivcBV7TLcbTzaTMV7+ihjLISw==
-X-Google-Smtp-Source: AGHT+IGmLuat8sSPGzk/B0CHDauKNfvhdOvdCcSe26K4vrmzaiM9ls0m20+5wDgFIeDnTqlnb5On9IWTdPLMoG6LBvQ=
-X-Received: by 2002:a0d:d046:0:b0:586:c27c:3eee with SMTP id
- s67-20020a0dd046000000b00586c27c3eeemr10831532ywd.38.1695723734453; Tue, 26
- Sep 2023 03:22:14 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFA310E161;
+ Tue, 26 Sep 2023 12:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695729767; x=1727265767;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=SP3EbuY1pr3nX/kVEaXbBUjA6EJivYJ3T6z0pZl7O7Q=;
+ b=euvei/xoi6xC2mePoA9b8cO9lS8sQCnpxYfu+9hli5dBU3cWoVLXokeU
+ 1EzWNqlraBk42DxODsJOCr/tJf/M3NGtIBHW6fM6kIDWLyMKgM9o2JI/d
+ nMGLAcuxXDz8hcnvU+kDyFiFc22+Oid8wRzIpz2lgfUK/qYZmhm1t2XiG
+ JoHnUxMWzPoNmfsHZkvdvH6P1hrpQixqnJXwsUQERj5ApGETvQpzEYvn8
+ hTBMmNHseznaYrZNCTbI/leB3fJKVp+ViC1D0rRT0QyirS6wKy3xN02m+
+ BEtKAHeuc0rW7mf/gO9nSSEksetognRztmogqPL5YR0fa8MT39CFTRV4r g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="381448625"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="381448625"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 05:02:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="752153507"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="752153507"
+Received: from lkp-server02.sh.intel.com (HELO 32c80313467c) ([10.239.97.151])
+ by fmsmga007.fm.intel.com with ESMTP; 26 Sep 2023 05:02:32 -0700
+Received: from kbuild by 32c80313467c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ql6lq-0002mp-22;
+ Tue, 26 Sep 2023 12:02:30 +0000
+Date: Tue, 26 Sep 2023 20:02:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>
+Message-ID: <202309261932.Dha9doOl-lkp@intel.com>
+References: <20230628-topic-a7xx_drmmsm-v5-7-3dc527b472d7@linaro.org>
 MIME-Version: 1.0
-References: <20230911221627.9569-1-quic_abhinavk@quicinc.com>
-In-Reply-To: <20230911221627.9569-1-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 26 Sep 2023 13:21:08 +0300
-Message-ID: <CAA8EJppsY059KXaw6fh2Rdyuh210ibMa_MwsPz-mxivK3QE=Zw@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: fail
- dpu_plane_atomic_check() based on mdp clk limits
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230628-topic-a7xx_drmmsm-v5-7-3dc527b472d7@linaro.org>
+Subject: Re: [Freedreno] [PATCH v5 07/10] drm/msm/a6xx: Mostly implement
+ A7xx gpu_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,92 +66,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Archit Taneja <architt@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>, freedreno@lists.freedesktop.org,
+Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- quic_parellan@quicinc.com, nespera@igalia.com, Daniel Vetter <daniel@ffwll.ch>,
- quic_jesszhan@quicinc.com, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
+ dri-devel@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ oe-kbuild-all@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 12 Sept 2023 at 01:18, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> Currently, dpu_plane_atomic_check() does not check whether the
-> plane can process the image without exceeding the per chipset
-> limits for MDP clock. This leads to underflow issues because the
-> SSPP is not able to complete the processing for the data rate of
-> the display.
->
-> Fail the dpu_plane_atomic_check() if the SSPP cannot process the
-> image without exceeding the MDP clock limits.
->
-> changes in v2:
->         - use crtc_state's adjusted_mode instead of mode
->
-> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Hi Konrad,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+kernel test robot noticed the following build warnings:
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 98c1b22e9bca..0be195f9149c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -733,9 +733,11 @@ static int dpu_plane_check_inline_rotation(struct dpu_plane *pdpu,
->  static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
->                 struct dpu_sw_pipe *pipe,
->                 struct dpu_sw_pipe_cfg *pipe_cfg,
-> -               const struct dpu_format *fmt)
-> +               const struct dpu_format *fmt,
-> +               const struct drm_display_mode *mode)
->  {
->         uint32_t min_src_size;
-> +       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->
->         min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
->
-> @@ -774,6 +776,12 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
->                 return -EINVAL;
->         }
->
-> +       /* max clk check */
-> +       if (_dpu_plane_calc_clk(mode, pipe_cfg) > kms->perf.max_core_clk_rate) {
-> +               DPU_DEBUG_PLANE(pdpu, "plane exceeds max mdp core clk limits\n");
-> +               return -E2BIG;
-> +       }
-> +
->         return 0;
->  }
->
-> @@ -899,12 +907,13 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->                 r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
->         }
->
-> -       ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt);
-> +       ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt, &crtc_state->adjusted_mode);
->         if (ret)
->                 return ret;
->
->         if (r_pipe->sspp) {
-> -               ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt);
-> +               ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt,
-> +                                                 &crtc_state->adjusted_mode);
->                 if (ret)
->                         return ret;
->         }
-> --
-> 2.40.1
->
+[auto build test WARNING on 8fff9184d1b5810dca5dd1a02726d4f844af88fc]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/dt-bindings-display-msm-gmu-Add-Adreno-7-34-0-GMU/20230925-225348
+base:   8fff9184d1b5810dca5dd1a02726d4f844af88fc
+patch link:    https://lore.kernel.org/r/20230628-topic-a7xx_drmmsm-v5-7-3dc527b472d7%40linaro.org
+patch subject: [PATCH v5 07/10] drm/msm/a6xx: Mostly implement A7xx gpu_state
+config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230926/202309261932.Dha9doOl-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230926/202309261932.Dha9doOl-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309261932.Dha9doOl-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:8:
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:360:36: warning: 'a7xx_gbif_reglist' defined but not used [-Wunused-const-variable=]
+     360 | static const struct a6xx_registers a7xx_gbif_reglist =
+         |                                    ^~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:356:36: warning: 'a7xx_ahb_reglist' defined but not used [-Wunused-const-variable=]
+     356 | static const struct a6xx_registers a7xx_ahb_reglist[] = {
+         |                                    ^~~~~~~~~~~~~~~~
+
+
+vim +/a7xx_gbif_reglist +360 drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+
+   355	
+ > 356	static const struct a6xx_registers a7xx_ahb_reglist[] = {
+   357		REGS(a7xx_ahb_registers, 0, 0),
+   358	};
+   359	
+ > 360	static const struct a6xx_registers a7xx_gbif_reglist =
+   361		REGS(a7xx_gbif_registers, 0, 0);
+   362	
 
 -- 
-With best wishes
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
