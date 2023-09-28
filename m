@@ -2,67 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF82B7B1B2B
-	for <lists+freedreno@lfdr.de>; Thu, 28 Sep 2023 13:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C63AF7B1BFA
+	for <lists+freedreno@lfdr.de>; Thu, 28 Sep 2023 14:17:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D206B10E056;
-	Thu, 28 Sep 2023 11:35:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7369910E637;
+	Thu, 28 Sep 2023 12:17:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C54410E605
- for <freedreno@lists.freedesktop.org>; Thu, 28 Sep 2023 11:35:43 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5041d6d8b10so21200624e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 28 Sep 2023 04:35:43 -0700 (PDT)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D0110E639
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Sep 2023 12:17:56 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-9a9cd066db5so1728397866b.0
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Sep 2023 05:17:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695900941; x=1696505741; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/fwhI2JTC3I7SxCkx+J8L5zOr7zua8cn0F2DT/hEPac=;
- b=K0vHC+iAQMvO//EWfhnlyYvZaqZE+tuYdFJ+dahZDFcC7w58UhyZ9zODhKj4kbKiEt
- Xe/ThgJ2M7HW7SeDTnhWWEqwHQGty/zD25hAYQlYnVPH0MfZFBxmSDWQd6eAXa+F0dkK
- Hd+PUwVS0f9e9KV2DVNnuQPQVHJGf1v311H2Nq9MIXh57qMCAmYm9mBM/6vJ6mtIKDRi
- S2Z/P0AyuA2HtDmDCGgGPWEO7wdbElMI17R2DlDwMCBsT5dVjMnDk14Z0o4WGATTb6HP
- q92+DmtBFZqA6AVFNQQh2J4rNmkBQK4WL3TULJ9xeJu+0BKQ/hGrgHip/Ij/rlo+tHXn
- G9eA==
+ d=linaro.org; s=google; t=1695903474; x=1696508274; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=znfPGieE8dPei/VfBg/KjsI/MM6FzB61gFrznkV3gNA=;
+ b=oW8Z1kGQZQQ+ySNowFjKDJIFZxlhKxHT4ubi0qYXD5qClwuotaOOWe7iWnRgFE+11O
+ 1EzTui1BfnDwMlwy09D5jF0+akM23d+Z/+MRyWPFmoE1uzLpm+CDIQUvojIq8pfY6k5E
+ yRCZIavu9ZbwsIWi9K0Bn3SypwLzlWiUsdbkkY0ewfXqbe2aBuD8ROlBwbECY7KA77aM
+ 7Z/x68KKmvd5mKnEmrd2coTWnueFPySZJ8U4i/yIekorQBrq297agZSNyhErSUVDIrik
+ EdsBMRYa1XxRnWpepFrKZGkkrzF0WRGPBkol/auZZ8BUzLU14aiTBtTRHkU/wl1VO8ds
+ OkgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695900941; x=1696505741;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/fwhI2JTC3I7SxCkx+J8L5zOr7zua8cn0F2DT/hEPac=;
- b=U7mmdCwYNwqfa6xjZ+uvV3X9jIjo9KTejhB0jBNf0OKJ8DYJsISTeDmKpj4YHrAWnT
- qlofHPnHrBWxDlb9YeloPZN7yxbPX1SZkLbaeYo+RCt33fwUE5DxshU5P5UnO6xoe5Wf
- IDrXjeWP45HastWnoTWg4++v5aUM6oFTsmQtXXIdANE917JCd1KHlIU1FMoaU5g9Yxam
- J5rUM9M6oTLP+ie4i2bnQnLVjzlNvoyEpYf26euLgXiB7Zk4BvWgM2wVYKyxYBR4W1jh
- AxF8RltVIS3OK07X/qeCNRFuFeg5ZUxrkKWbel0VHFHe5XfJHFZy5M2v5XHNtWJNYzof
- mGEQ==
-X-Gm-Message-State: AOJu0YwonUWWnWhzBkNhVyMYUYc9nMj+3Uro/i4urLOh4VQs/b/zAxkm
- d1PWpOocI3nPAaimH4gwaE+bvg==
-X-Google-Smtp-Source: AGHT+IFD5PCTDzr19qu4nO+aDLfN021hSk1y0D8apXFNENgpI7aBsQGQy+zMBewKR9V/bGn+xcJmUw==
-X-Received: by 2002:a05:6512:3b90:b0:503:258f:fd1b with SMTP id
- g16-20020a0565123b9000b00503258ffd1bmr1286554lfv.18.1695900941446; 
- Thu, 28 Sep 2023 04:35:41 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20230601; t=1695903474; x=1696508274;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=znfPGieE8dPei/VfBg/KjsI/MM6FzB61gFrznkV3gNA=;
+ b=xBpb/Pt24tDUF4TPpZDIgzimwfvS63/1ntkX9WIiIEio3p8Gery7wbOqvRzQe/xKMG
+ DcZf6zv8J4FqKyoD4t0jeF06OJJCwgnK3pFipx82zxAYkp0PFSZ4q/MfnnjuHN6W4YdJ
+ 9J5U7c0dupAnfEZP58qdNewCNYbCJbBiKLpqnFSZBcEVBLUYNW/wIrWfuKouhD4CYTfy
+ DK3Utd+vX2+4ojDw5Y53RNtIVX/wNWdHYkPAjInTBcgKlwXyJ4pz6FO+dbHTsTpSKFfH
+ a1omX71mI1jkqqSWALX3BnJ93TLDeblJf4++dXimhsUUgOnR2SDt3nBKl5v2N/DjeqAo
+ pUsg==
+X-Gm-Message-State: AOJu0YzonpIyQUp7CSXF4t6jqVimTKRx/NJt5QWDbHsuqbjrSCa0xopl
+ 2b78vIxBtJtdMUQ/IpohS0SrGA==
+X-Google-Smtp-Source: AGHT+IEe4HFAbbyxyxZUKZ92nQPvvIIDu2Hm7ptnYFyScmyeL2DRA5e1UEd7k2BVQ305MvEHRrAr4Q==
+X-Received: by 2002:a17:906:6a19:b0:9a9:eef6:434a with SMTP id
+ qw25-20020a1709066a1900b009a9eef6434amr1148525ejc.36.1695903474434; 
+ Thu, 28 Sep 2023 05:17:54 -0700 (PDT)
+Received: from [192.168.33.189]
+ (178235177217.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.217])
  by smtp.gmail.com with ESMTPSA id
- k14-20020a0565123d8e00b00504816564c7sm704327lfv.104.2023.09.28.04.35.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Sep 2023 04:35:41 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 28 Sep 2023 14:35:35 +0300
-Message-Id: <20230928113535.1217613-7-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230928113535.1217613-1-dmitry.baryshkov@linaro.org>
-References: <20230928113535.1217613-1-dmitry.baryshkov@linaro.org>
+ t11-20020a1709066bcb00b009a0955a7ad0sm10838086ejs.128.2023.09.28.05.17.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Sep 2023 05:17:54 -0700 (PDT)
+Message-ID: <989bce8a-1047-4b7a-977b-6c725679d6a9@linaro.org>
+Date: Thu, 28 Sep 2023 14:17:51 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 6/6] drm/msm/mdss: Handle the reg bus ICC path
+User-Agent: Mozilla Thunderbird
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
+References: <20230928111630.1217419-1-dmitry.baryshkov@linaro.org>
+ <20230928111630.1217419-2-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
+ BB/OmIWU6X+LZW6P88ZmHe+KeyABLMP5s1tJNK1j4ntT7mECcWZDzafPWF4F6m4WJOG27kTJ
+ HGWdmtO+RvadOVi6CoUDqALsmfS3MUG5Pj2Ne9+0jRg4hEnB92AyF9rW2G3qisFcwPgvatt7
+ TXD5E38mLyOPOUyXNj9XpDbt1hNwKQfiidmPh5e7VNAWRnW1iCMMoKqzM1Anzq7e5Afyeifz
+ zRcQPLaqrPjnKqZGL2BKQSZDh6NkI5ZLRhhHQf61fkWcUpTp1oDC6jWVfT7hwRVIQLrrNj9G
+ MpPzrlN4YuAqKeIer1FMt8cq64ifgTzxHzXsMcUdclzq2LTk2RXaPl6Jg/IXWqUClJHbamSk
+ t1bfif3SnmhA6TiNvEpDKPiT3IDs42THU6ygslrBxyROQPWLI9IL1y8S6RtEh8H+NZQWZNzm
+ UQ3imZirlPjxZtvz1BtnnBWS06e7x/UEAguj7VHCuymVgpl2Za17d1jj81YN5Rp5L9GXxkV1
+ aUEwONM3eCI3qcYm5JNc5X+JthZOWsbIPSC1Rhxz3JmWIwP1udr5E3oNRe9u2LIEq+wH/toH
+ kpPDhTeMkvt4KfE5m5ercid9+ZXAqoaYLUL4HCEw+HW0DXcKDwARAQABzShLb25yYWQgRHli
+ Y2lvIDxrb25yYWQuZHliY2lvQGxpbmFyby5vcmc+wsGOBBMBCAA4FiEEU24if9oCL2zdAAQV
+ R4cBcg5dfFgFAmQ5bqwCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQR4cBcg5dfFjO
+ BQ//YQV6fkbqQCceYebGg6TiisWCy8LG77zV7DB0VMIWJv7Km7Sz0QQrHQVzhEr3trNenZrf
+ yy+o2tQOF2biICzbLM8oyQPY8B///KJTWI2khoB8IJSJq3kNG68NjPg2vkP6CMltC/X3ohAo
+ xL2UgwN5vj74QnlNneOjc0vGbtA7zURNhTz5P/YuTudCqcAbxJkbqZM4WymjQhe0XgwHLkiH
+ 5LHSZ31MRKp/+4Kqs4DTXMctc7vFhtUdmatAExDKw8oEz5NbskKbW+qHjW1XUcUIrxRr667V
+ GWH6MkVceT9ZBrtLoSzMLYaQXvi3sSAup0qiJiBYszc/VOu3RbIpNLRcXN3KYuxdQAptacTE
+ mA+5+4Y4DfC3rUSun+hWLDeac9z9jjHm5rE998OqZnOU9aztbd6zQG5VL6EKgsVXAZD4D3RP
+ x1NaAjdA3MD06eyvbOWiA5NSzIcC8UIQvgx09xm7dThCuQYJR4Yxjd+9JPJHI6apzNZpDGvQ
+ BBZzvwxV6L1CojUEpnilmMG1ZOTstktWpNzw3G2Gis0XihDUef0MWVsQYJAl0wfiv/0By+XK
+ mm2zRR+l/dnzxnlbgJ5pO0imC2w0TVxLkAp0eo0LHw619finad2u6UPQAkZ4oj++iIGrJkt5
+ Lkn2XgB+IW8ESflz6nDY3b5KQRF8Z6XLP0+IEdLOOARkOW7yEgorBgEEAZdVAQUBAQdAwmUx
+ xrbSCx2ksDxz7rFFGX1KmTkdRtcgC6F3NfuNYkYDAQgHwsF2BBgBCAAgFiEEU24if9oCL2zd
+ AAQVR4cBcg5dfFgFAmQ5bvICGwwACgkQR4cBcg5dfFju1Q//Xta1ShwL0MLSC1KL1lXGXeRM
+ 8arzfyiB5wJ9tb9U/nZvhhdfilEDLe0jKJY0RJErbdRHsalwQCrtq/1ewQpMpsRxXzAjgfRN
+ jc4tgxRWmI+aVTzSRpywNahzZBT695hMz81cVZJoZzaV0KaMTlSnBkrviPz1nIGHYCHJxF9r
+ cIu0GSIyUjZ/7xslxdvjpLth16H27JCWDzDqIQMtg61063gNyEyWgt1qRSaK14JIH/DoYRfn
+ jfFQSC8bffFjat7BQGFz4ZpRavkMUFuDirn5Tf28oc5ebe2cIHp4/kajTx/7JOxWZ80U70mA
+ cBgEeYSrYYnX+UJsSxpzLc/0sT1eRJDEhI4XIQM4ClIzpsCIN5HnVF76UQXh3a9zpwh3dk8i
+ bhN/URmCOTH+LHNJYN/MxY8wuukq877DWB7k86pBs5IDLAXmW8v3gIDWyIcgYqb2v8QO2Mqx
+ YMqL7UZxVLul4/JbllsQB8F/fNI8AfttmAQL9cwo6C8yDTXKdho920W4WUR9k8NT/OBqWSyk
+ bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
+ nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
+ izWDgYvmBE8=
+In-Reply-To: <20230928111630.1217419-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 01/15] phy: Add HDMI configuration options
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,243 +117,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sandor Yu <Sandor.yu@nxp.com>,
+ linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there's
-another path that needs to be handled to ensure MDSS functions properly,
-namely the "reg bus", a.k.a the CPU-MDSS interconnect.
+On 28.09.2023 13:16, Dmitry Baryshkov wrote:
+> From: Sandor Yu <Sandor.yu@nxp.com>
+> 
+> Allow HDMI PHYs to be configured through the generic
+> functions through a custom structure added to the generic union.
+> 
+> The parameters added here are based on HDMI PHY
+> implementation practices.  The current set of parameters
+> should cover the potential users.
+> 
+> Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+[...]
 
-Gating that path may have a variety of effects, from none to otherwise
-inexplicable DSI timeouts.
+> + * struct phy_configure_opts_hdmi - HDMI configuration set
+> + * @pixel_clk_rate: Pixel clock of video modes in KHz.
+> + * @bpc: Maximum bits per color channel.
+> + * @color_space: Colorspace in enum hdmi_colorspace.
+> + *
+> + * This structure is used to represent the configuration state of a HDMI phy.
+an HDMI
 
-Provide a way for MDSS driver to vote on this bus.
-
-A note regarding vote values. Newer platforms have corresponding
-bandwidth values in the vendor DT files. For the older platforms there
-was a static vote in the mdss_mdp and rotator drivers. I choose to be
-conservative here and choose this value as a default.
-
-Co-developed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 49 +++++++++++++++++++++++++++++++---
- drivers/gpu/drm/msm/msm_mdss.h |  1 +
- 2 files changed, 46 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 1a921e9107b1..0eb765147600 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -28,6 +28,8 @@
- 
- #define MIN_IB_BW	400000000UL /* Min ib vote 400MB */
- 
-+#define DEFAULT_REG_BW	153600 /* Used in mdss fbdev driver */
-+
- struct msm_mdss {
- 	struct device *dev;
- 
-@@ -42,6 +44,7 @@ struct msm_mdss {
- 	const struct msm_mdss_data *mdss_data;
- 	struct icc_path *mdp_path[2];
- 	u32 num_mdp_paths;
-+	struct icc_path *reg_bus_path;
- };
- 
- static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
-@@ -49,6 +52,7 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
- {
- 	struct icc_path *path0;
- 	struct icc_path *path1;
-+	struct icc_path *reg_bus_path;
- 
- 	path0 = devm_of_icc_get(dev, "mdp0-mem");
- 	if (IS_ERR_OR_NULL(path0))
-@@ -63,6 +67,10 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
- 		msm_mdss->num_mdp_paths++;
- 	}
- 
-+	reg_bus_path = of_icc_get(dev, "cpu-cfg");
-+	if (!IS_ERR_OR_NULL(reg_bus_path))
-+		msm_mdss->reg_bus_path = reg_bus_path;
-+
- 	return 0;
- }
- 
-@@ -229,6 +237,13 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
- 	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
- 		icc_set_bw(msm_mdss->mdp_path[i], 0, Bps_to_icc(MIN_IB_BW));
- 
-+	if (msm_mdss->mdss_data && msm_mdss->mdss_data->reg_bus_bw)
-+		icc_set_bw(msm_mdss->reg_bus_path, 0,
-+			   msm_mdss->mdss_data->reg_bus_bw);
-+	else
-+		icc_set_bw(msm_mdss->reg_bus_path, 0,
-+			   DEFAULT_REG_BW);
-+
- 	ret = clk_bulk_prepare_enable(msm_mdss->num_clocks, msm_mdss->clocks);
- 	if (ret) {
- 		dev_err(msm_mdss->dev, "clock enable failed, ret:%d\n", ret);
-@@ -286,6 +301,9 @@ static int msm_mdss_disable(struct msm_mdss *msm_mdss)
- 	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
- 		icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
- 
-+	if (msm_mdss->reg_bus_path)
-+		icc_set_bw(msm_mdss->reg_bus_path, 0, 0);
-+
- 	return 0;
- }
- 
-@@ -372,6 +390,8 @@ static struct msm_mdss *msm_mdss_init(struct platform_device *pdev, bool is_mdp5
- 	if (!msm_mdss)
- 		return ERR_PTR(-ENOMEM);
- 
-+	msm_mdss->mdss_data = of_device_get_match_data(&pdev->dev);
-+
- 	msm_mdss->mmio = devm_platform_ioremap_resource_byname(pdev, is_mdp5 ? "mdss_phys" : "mdss");
- 	if (IS_ERR(msm_mdss->mmio))
- 		return ERR_CAST(msm_mdss->mmio);
-@@ -462,8 +482,6 @@ static int mdss_probe(struct platform_device *pdev)
- 	if (IS_ERR(mdss))
- 		return PTR_ERR(mdss);
- 
--	mdss->mdss_data = of_device_get_match_data(&pdev->dev);
--
- 	platform_set_drvdata(pdev, mdss);
- 
- 	/*
-@@ -497,11 +515,13 @@ static const struct msm_mdss_data msm8998_data = {
- 	.ubwc_enc_version = UBWC_1_0,
- 	.ubwc_dec_version = UBWC_1_0,
- 	.highest_bank_bit = 1,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data qcm2290_data = {
- 	/* no UBWC */
- 	.highest_bank_bit = 0x2,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sc7180_data = {
-@@ -509,6 +529,7 @@ static const struct msm_mdss_data sc7180_data = {
- 	.ubwc_dec_version = UBWC_2_0,
- 	.ubwc_static = 0x1e,
- 	.highest_bank_bit = 0x3,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sc7280_data = {
-@@ -518,6 +539,7 @@ static const struct msm_mdss_data sc7280_data = {
- 	.ubwc_static = 1,
- 	.highest_bank_bit = 1,
- 	.macrotile_mode = 1,
-+	.reg_bus_bw = 74000,
- };
- 
- static const struct msm_mdss_data sc8180x_data = {
-@@ -525,6 +547,7 @@ static const struct msm_mdss_data sc8180x_data = {
- 	.ubwc_dec_version = UBWC_3_0,
- 	.highest_bank_bit = 3,
- 	.macrotile_mode = 1,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sc8280xp_data = {
-@@ -534,12 +557,14 @@ static const struct msm_mdss_data sc8280xp_data = {
- 	.ubwc_static = 1,
- 	.highest_bank_bit = 2,
- 	.macrotile_mode = 1,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sdm845_data = {
- 	.ubwc_enc_version = UBWC_2_0,
- 	.ubwc_dec_version = UBWC_2_0,
- 	.highest_bank_bit = 2,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sm6350_data = {
-@@ -548,12 +573,14 @@ static const struct msm_mdss_data sm6350_data = {
- 	.ubwc_swizzle = 6,
- 	.ubwc_static = 0x1e,
- 	.highest_bank_bit = 1,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sm8150_data = {
- 	.ubwc_enc_version = UBWC_3_0,
- 	.ubwc_dec_version = UBWC_3_0,
- 	.highest_bank_bit = 2,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sm6115_data = {
-@@ -562,6 +589,7 @@ static const struct msm_mdss_data sm6115_data = {
- 	.ubwc_swizzle = 7,
- 	.ubwc_static = 0x11f,
- 	.highest_bank_bit = 0x1,
-+	.reg_bus_bw = 76800,
- };
- 
- static const struct msm_mdss_data sm6125_data = {
-@@ -579,6 +607,18 @@ static const struct msm_mdss_data sm8250_data = {
- 	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
- 	.highest_bank_bit = 3,
- 	.macrotile_mode = 1,
-+	.reg_bus_bw = 76800,
-+};
-+
-+static const struct msm_mdss_data sm8350_data = {
-+	.ubwc_enc_version = UBWC_4_0,
-+	.ubwc_dec_version = UBWC_4_0,
-+	.ubwc_swizzle = 6,
-+	.ubwc_static = 1,
-+	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
-+	.highest_bank_bit = 3,
-+	.macrotile_mode = 1,
-+	.reg_bus_bw = 74000,
- };
- 
- static const struct msm_mdss_data sm8550_data = {
-@@ -589,6 +629,7 @@ static const struct msm_mdss_data sm8550_data = {
- 	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
- 	.highest_bank_bit = 3,
- 	.macrotile_mode = 1,
-+	.reg_bus_bw = 57000,
- };
- static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,mdss" },
-@@ -605,8 +646,8 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sm6375-mdss", .data = &sm6350_data },
- 	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
- 	{ .compatible = "qcom,sm8250-mdss", .data = &sm8250_data },
--	{ .compatible = "qcom,sm8350-mdss", .data = &sm8250_data },
--	{ .compatible = "qcom,sm8450-mdss", .data = &sm8250_data },
-+	{ .compatible = "qcom,sm8350-mdss", .data = &sm8350_data },
-+	{ .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
- 	{ .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
- 	{}
- };
-diff --git a/drivers/gpu/drm/msm/msm_mdss.h b/drivers/gpu/drm/msm/msm_mdss.h
-index 02bbab42adbc..3afef4b1786d 100644
---- a/drivers/gpu/drm/msm/msm_mdss.h
-+++ b/drivers/gpu/drm/msm/msm_mdss.h
-@@ -14,6 +14,7 @@ struct msm_mdss_data {
- 	u32 ubwc_static;
- 	u32 highest_bank_bit;
- 	u32 macrotile_mode;
-+	u32 reg_bus_bw;
- };
- 
- #define UBWC_1_0 0x10000000
--- 
-2.39.2
-
+Konrad
