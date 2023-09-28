@@ -1,68 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C7087B0EC3
-	for <lists+freedreno@lfdr.de>; Thu, 28 Sep 2023 00:05:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26F557B1A4C
+	for <lists+freedreno@lfdr.de>; Thu, 28 Sep 2023 13:16:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A84010E5C6;
-	Wed, 27 Sep 2023 22:05:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAE5A10E606;
+	Thu, 28 Sep 2023 11:16:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [IPv6:2607:f8b0:4864:20::112d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D81510E5C6
- for <freedreno@lists.freedesktop.org>; Wed, 27 Sep 2023 22:05:41 +0000 (UTC)
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-59eb8ec5e20so149828257b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 27 Sep 2023 15:05:41 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDDF010E604
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Sep 2023 11:16:32 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-502e7d66c1eso20703878e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Sep 2023 04:16:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695852340; x=1696457140; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=CNs9Uy0sZIcXogJDKuzAoviMSMHPVfDjWIe9eamVRQE=;
- b=T2Jra29zhKUqXGddUeI9haiC3O5ewhVcaleNE5ixsJ+zllLTTvSz2txR3sVLhAEgkw
- maVdptCj1H6bKdGeDOJVdBv07qrs1L0uLILsX+8YCTG+XbRjx/otTKWbbrqz6lLZgDUn
- NIXFZScrCqJpa3vTG5MQakCplw62jFKwsv4r/AEBGjicZDMOgyXKdOVryJKzCHQXTFuo
- QeavfdCCZoeg1lEWBXWUpfwTiy+8daakhmcr0IxiW5ZhmKCePob+eWcVhGT7ncsv3RuH
- 4IVKDK4I3j38cO32svMaEnOsnWHYR8fiuNR1BxN8mxh0Ug7D45/1D0dIbBmR0BujvdG/
- F8rw==
+ d=linaro.org; s=google; t=1695899791; x=1696504591; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xfjzMYGKRcXefgtoWm3YdeqDuz+ynlx3ahQEYUJ7hGE=;
+ b=JrHxpCgVHjHS54fVMcXb2V/u2FBrvP4xYjZukc6KHdtTQaFqAC7C3NIJXqMwkoFUVb
+ ZLupfVoDh1KuARQqVTukPOizQ1Gw6tq10Ve6ub4ifeCbsrYFiJBVOURtQDnzGZfSyS60
+ wytLYgI+rojoMrTVZ33wRVLonnOegZiDJB5xP2QZL8UD4cyRZUgqcjKna/sDVcbA7eaG
+ SJLzjOr4NsuhoU4nlgtk4qIQbn57oTpnME1BX71IvIDWOYDe3gEMX9BDW36R9tjugD7Q
+ K0O7fiAPYetlDho4Ml3kDe/1GN5jwKSmr15Zm6BkVZomq9dMMwwcoAha7r0//nkG+8Eh
+ uUhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695852340; x=1696457140;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1695899791; x=1696504591;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=CNs9Uy0sZIcXogJDKuzAoviMSMHPVfDjWIe9eamVRQE=;
- b=DxdT0AF2XaydbjH6OvYw05BZmZO6i0Ba4CrLuc55adZpghZwjTFCzf537LOtpTc95D
- u1pN7bmQ8ebteKzHV6f06wtAP6sO6K6H6bJoF0ETFrkriNQHKDxTH8iKkfIqQ2ZI2tKo
- wZUXyJ64Z8LNJtaw9p/W8pigsutQY0dp9UiE2e0l2wsPCLVBf2f40w6CcMUhJ/cxy8/w
- 5ZLudAGVu7iERGA2ZVP6gjoXCYNKN75hjvQA2bW68PRauME+OuvW9HcxTlh7yDs1E0xj
- 08PPL8z1O6apjKSHVpzztP2eFlTAWK6TZxHWKermkRd3Jeq6n7oVJyYsaS2LyCph/ijL
- /4GQ==
-X-Gm-Message-State: AOJu0YwnwtVVkBOnXDdqMddKt49qVwfMx4B0C3bnbcxf2YXJlLoqNV3j
- Jxl5bY5toZMbighJnbhKESXQ/PWo98mO2D6pBT4m2A==
-X-Google-Smtp-Source: AGHT+IHR+moAslgN5T2iYRiOJljTYTXI9au6Nrv8poHtrZJxnq88ULiQGkND2FasIyvPuzQVl0Il+NK5ZQcIELMzmQs=
-X-Received: by 2002:a81:9186:0:b0:59f:4c52:2f51 with SMTP id
- i128-20020a819186000000b0059f4c522f51mr3574047ywg.17.1695852340711; Wed, 27
- Sep 2023 15:05:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
- <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpqPXoFX4LXyXYgfh07Vpxg-KgD8VBR6x5bXf4GOJmbOtw@mail.gmail.com>
- <2f98d5f1-57c1-d9fe-cb1c-b975db057287@quicinc.com>
- <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
- <CAE-0n53dqHONzMTd_ZC-fKWTzDVq6Wqwo4OFZMUcghZ5SD5RhA@mail.gmail.com>
- <65566a68-3510-2e5f-7d57-e4dba08c008c@quicinc.com>
- <1d9bf80d-0267-937b-4dd9-c57db7a89cb4@quicinc.com>
- <CAE-0n51Hrs66oG4NF5rDETkVO-ocG_6_=Aqc5cE-qPDViSgKyA@mail.gmail.com>
-In-Reply-To: <CAE-0n51Hrs66oG4NF5rDETkVO-ocG_6_=Aqc5cE-qPDViSgKyA@mail.gmail.com>
+ bh=xfjzMYGKRcXefgtoWm3YdeqDuz+ynlx3ahQEYUJ7hGE=;
+ b=hYIziJ+qCsWysTYaR4pAIO++foelAySC6WvINMBd0IK0/JFT7s52u2ryTtw1GsgmbH
+ zIx1ynEAlaT6mK5g1zx9e0KuwBSWa1dpCr0WSqCwIAIoqqBaOEHFUKQ+Vi1dOBHHd+qF
+ huJ2lOHfaSuOqaHyjyljZ1QX+Bk6Pn4xSFw/MH9MKA+w4kPI+3Vsut5DeJSgzj8ubNJ7
+ rl1CFtp1rXe9ssCFto0pzqpMrEvufuNaoqVbJxJM/R5VP6GLYwk1BWWdeIOu6ERwa3+0
+ YmgV1/98O7cMDdyPGL5/ZiaVg8oBryaGIFNS2LFL1ErsXRO93fQW59eFQUQ+ysUV+v6p
+ c+IQ==
+X-Gm-Message-State: AOJu0YzthyVu5GEhQAwzRv6Ym0UZHQpOcI3HlpQl+ZZuS88wwI3n3c4i
+ gfEQagopWJSIY3bz5DHwCJAPCQ==
+X-Google-Smtp-Source: AGHT+IFr9L7bAhBwAUOHZefNcwby9mlsY0cuDdJajWMQoylsh247Y8Hh7skR/x+U6DtxV1husNY3qg==
+X-Received: by 2002:a05:6512:6c8:b0:503:a82:b379 with SMTP id
+ u8-20020a05651206c800b005030a82b379mr952499lff.12.1695899791034; 
+ Thu, 28 Sep 2023 04:16:31 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ j18-20020ac253b2000000b004fb738796casm3086623lfh.40.2023.09.28.04.16.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Sep 2023 04:16:30 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 28 Sep 2023 01:04:31 +0300
-Message-ID: <CAA8EJppNSS-ZUoJRbLaO7XHr+69Th6ANU5KGrnbj8eWGyGFQDw@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dp: add
- pm_runtime_force_suspend()/resume()
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
+Date: Thu, 28 Sep 2023 14:16:14 +0300
+Message-Id: <20230928111630.1217419-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/15] drm/msm/hdmi & phy: use generic PHY
+ framework
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,78 +74,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, linux-kernel@vger.kernel.org,
- airlied@gmail.com, andersson@kernel.org, freedreno@lists.freedesktop.org,
- dianders@chromium.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, marijn.suijten@somainline.org,
- quic_jesszhan@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-phy@lists.infradead.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 28 Sept 2023 at 01:01, Stephen Boyd <swboyd@chromium.org> wrote:
->
-> Quoting Kuogee Hsieh (2023-09-25 09:07:18)
-> >
-> > On 9/22/2023 6:35 PM, Abhinav Kumar wrote:
-> > >
-> > > Doing link training when we get hpd instead of atomic_enable() is a
-> > > design choice we have been following for a while because for the case
-> > > when link training fails in atomic_enable() and setting the link
-> > > status property as you mentioned, the compositor needs to be able to
-> > > handle that and also needs to try with a different resolution or take
-> > > some other corrective action. We have seen many compositors not able
-> > > to handle this complexity. So the design sends the hotplug to usermode
-> > > only after link training succeeds.
-> > >
-> > > I do not think we should change this design unless prototyped with an
-> > > existing compositor such as chrome or android at this point.
-> > >
-> > > Thanks
-> > >
-> > > Abhinav
-> >
-> >
-> > We did perform link training at atomic_enable() at eDP case since we can
-> > assume link training will always success without link rate or link lane
-> > being reduced.
-> >
-> > However for external DP case, link training can not be guarantee always
-> > success without link rate or lane being reduced as Abhinav mentioned.
-> >
-> > In addition,  CTS (compliance test) it required to complete link
-> > training within 10ms after hpd asserted.
->
-> Is it possible to change that timeout? I have to look around for the CTS
-> parameters because I'm pretty confused how it can work. What do we do if
-> DP wakes the system from suspend and asserts HPD? We need resume time to
-> be < 10ms?  That's not realistic.
->
-> >
-> > I am not sure do link training at atomic_enable() can meet this timing
-> > requirement.
-> >
->
-> At least in the DP spec itself it doesn't require the link to be trained
-> within 10ms of HPD being asserted. Instead it simply recommends that the
-> OS start configuring the display promptly after HPD is asserted, e.g.
-> within 100ms. There's some strict timing on IRQ_HPD, so the driver must
-> read DPCD registers within 100ms of IRQ_HPD rising edge; maybe that is
-> what CTS is checking for?
->
-> TL;DR: I don't see why CTS should stop us from link training in
-> atomic_enable(). It would be beneficial to do so to make eDP and DP the
-> same. It would also help to report a drm connector being connected
-> _before_ link training so that userspace knows the link itself is the
-> bad part of the equation (and not that the DP connector looks
-> disconnected to userspace when in fact it really is connected and the
-> monitor is asserting HPD, just the link training failed).
+The MSM HDMI PHYs have been using the ad-hoc approach / API instead of
+using the generic API framework. Move all the PHYs to
+drivers/phy/qualcomm and rework them to use generic PHY framework. This
+way all the QMP-related code is kept close. Also in future this will
+allow us to use a common set of functions to setup msm8974 HDMI PHY,
+28nm DSI PHY and apq8964 SATA PHY (which all use UNI PLL internally).
 
-Also this will move us closer to i915 user experience: failing link
-training in the display enablement part. So that a part of xrandr
-calls can retry link training.
+This also causes some design changes. Currently on msm8996 the HDMI PLL
+implements clock's set_rate(), while other HDMI PHY drivers used the
+ad-hoc PHY API for setting the PLL rate (this includes in-tree msm8960
+driver and posted, but not merged, msm8974 driver). This might result in
+the PLL being set to one rate, while the rest of the PHY being tuned to
+work at another rate. Adopt the latter idea and always use
+phy_configure() to tune the PHY and set the PLL rate.
+
+Merge strategy: unsure. I'd probably prefer for this to be merged
+through the drm/msm tree. Also, this patchset first adds new drivers,
+then drops old ones, which might be not optimal. I might rework this to
+squash add and drop patches into a single commit.
+
+Changes since v2:
+- Rebased on top of linux-next, solving conflicts
+- Updated Sandor's HDMI PHY patch to the version from v9
+
+Changes since v1:
+- Changed msm8960 / apq8064 to calculate register data instead of using
+  fixed tables. This extends the list of supported modes.
+  (Implementation is based on mdss-hdmi-pll-28lpm.c from msm-4.14).
+
+- Fixed the reprogramming of PLL rate on apq8064.
+
+- Merged all non-QMP HDMI PHY drivers into a common PHY_QCOM_HDMI
+  driver (suggested by Rob Clark)
+
+Dmitry Baryshkov (14):
+  phy: qualcomm: add QMP HDMI PHY driver
+  phy: qcom: apq8064-sata: extract UNI PLL register defines
+  phy: qcom-uniphy: add more registers from display PHYs
+  phy: qualcomm: add legacy HDMI PHY driver
+  phy: qualcomm: add MSM8974 HDMI PHY support
+  phy: qualcomm: add MSM8x60 HDMI PHY support
+  drm/msm/hdmi: move the alt_iface clock to the hpd list
+  drm/msm/hdmi: simplify extp clock handling
+  drm/msm/hdmi: correct indentation of HDMI bridge functions
+  drm/msm/hdmi: switch to atomic_pre_enable/post_disable
+  drm/msm/hdmi: set infoframes on all pre_enable calls
+  drm/msm/hdmi: pair msm_hdmi_phy_powerup with msm_hdmi_phy_powerdown
+  drm/msm/hdmi: switch to generic PHY subsystem
+  drm/msm/hdmi: drop old HDMI PHY code
+
+Sandor Yu (1):
+  phy: Add HDMI configuration options
+
+ drivers/gpu/drm/msm/Makefile                  |   6 -
+ drivers/gpu/drm/msm/hdmi/hdmi.c               |  88 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.h               |  79 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c        | 108 ++-
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c           | 216 -----
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8960.c      |  51 --
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c      | 765 ------------------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c      | 141 ----
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8x74.c      |  44 -
+ drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c      | 458 -----------
+ drivers/phy/qualcomm/Kconfig                  |  21 +
+ drivers/phy/qualcomm/Makefile                 |  13 +
+ drivers/phy/qualcomm/phy-qcom-apq8064-sata.c  |  23 +-
+ drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c    | 327 ++++++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c    | 439 ++++++++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-45nm.c     | 184 +++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.c   | 211 +++++
+ drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.h   |  81 ++
+ drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c | 184 +++++
+ .../phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c  | 441 ++++++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-hdmi.h      |  75 ++
+ drivers/phy/qualcomm/phy-qcom-uniphy.h        |  65 ++
+ include/linux/phy/phy-hdmi.h                  |  24 +
+ include/linux/phy/phy.h                       |   7 +-
+ 24 files changed, 2153 insertions(+), 1898 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8960.c
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8x74.c
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-hdmi-28hpm.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-hdmi-28lpm.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-hdmi-45nm.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-hdmi-preqmp.h
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-hdmi-base.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-hdmi-msm8996.c
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-hdmi.h
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-uniphy.h
+ create mode 100644 include/linux/phy/phy-hdmi.h
 
 -- 
-With best wishes
-Dmitry
+2.39.2
+
