@@ -1,51 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CAC17B215F
-	for <lists+freedreno@lfdr.de>; Thu, 28 Sep 2023 17:32:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF7117B2223
+	for <lists+freedreno@lfdr.de>; Thu, 28 Sep 2023 18:20:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF4C10E682;
-	Thu, 28 Sep 2023 15:32:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F39010E691;
+	Thu, 28 Sep 2023 16:20:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C12610E679;
- Thu, 28 Sep 2023 15:32:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=IY6QJvsYOVkfVjESwEsZSzvy5/PW5y+hYpTRWIbF1DE=; b=pO5UG8gbA47CC4mG+FX9JaYnNk
- vAFlPsv/3cTCmvpX2NSU6vkaWRdVD/8C3T1sU481EtvBArnBnu6OnyJ+roHZb80PgZgZfWXIRnZAa
- sr5CvItUmArl+tdgE7lrZvNfSDNwcH+9/+o+3mDqP8WyHf7y6bMUY7E6HtygcBV+AfQwd31oyiloR
- QIEY9lyB54IK9YbOfYfSRluqh5Nq8YM3m+Qg8eAwmqm4WGubGf5uc865NBbTLi6KXirB+YzdT+KIa
- AXibMZXfbavBSrIduDtiv+285Hd/+zDR5nGIXfxyOQGka9NdxG2XyfZ7h0Q8s30Kg79RoJRRo6Ch1
- XCIS5OHg==;
-Received: from [83.53.107.208] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qlsze-009KQD-5Y; Thu, 28 Sep 2023 17:31:58 +0200
-Message-ID: <801899ab00d617ece02e84c536ae7f7ee64b6794.camel@igalia.com>
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- libre-soc-dev <libre-soc-dev@lists.libre-soc.org>
-Date: Thu, 28 Sep 2023 17:31:57 +0200
-In-Reply-To: <086c491482404be792c72798f5fc840cc5625715.camel@igalia.com>
-References: <086c491482404be792c72798f5fc840cc5625715.camel@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0154A10E68B;
+ Thu, 28 Sep 2023 16:20:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 5511FB81D31;
+ Thu, 28 Sep 2023 16:20:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771B6C433C7;
+ Thu, 28 Sep 2023 16:20:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1695918038;
+ bh=UlmHL2MYIeetXX5KGpkapFIPaVtMKWJwuBP9544pnao=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RGJH7sGHDCCRByzAB10xIGEEni1DnJfJy2JvFhPdHSIytggfSgwIFMzw9bFHfFTfZ
+ 2acZhEPPXXiQ+46eCnSpX2cZDBpQDKypnDVegs9fAqYb1uzr2kGSqYPlfaxX921rVR
+ UlH6WJ5uYRmYqmn7ztkX11QD8N1OyxTviyZXgwIy/pJmDtnU1Ui8TtQSa0FA3mlRwt
+ lRZWVmAHIvUkIfMi4QHMAJpXWAVrYrX1B1UmpCxJjBjrAeur7YijJgNphgVpx6rig1
+ 8EiDuD2cXyyhJ9FDvD7T/w+WGF3TSzwKeY2K2hpw/hhO3RnMXmnzFOcrI2GVfVdQFp
+ MU4L8IRA+bXMw==
+Received: (nullmailer pid 756683 invoked by uid 1000);
+ Thu, 28 Sep 2023 16:20:33 -0000
+Date: Thu, 28 Sep 2023 11:20:33 -0500
+From: Rob Herring <robh@kernel.org>
+To: Richard Acayan <mailingradian@gmail.com>
+Message-ID: <169591803268.756483.10293315880191956926.robh@kernel.org>
+References: <20230925232625.846666-9-mailingradian@gmail.com>
+ <20230925232625.846666-10-mailingradian@gmail.com>
 MIME-Version: 1.0
-Subject: Re: [Freedreno] Requests For Proposals for hosting XDC 2024 are now
- open
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230925232625.846666-10-mailingradian@gmail.com>
+Subject: Re: [Freedreno] [PATCH 1/6] dt-bindings: display/msm:
+ dsi-controller-main: add SDM670 compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,43 +54,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: board@foundation.x.org
+Cc: Ryan McCann <quic_rmccann@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Robert Foss <rfoss@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The period to submit XDC 2024 hosting proposals has been extended and
-the new deadline is **November 1, 2023**
 
-Please, submit your proposals as soon as possible, thank you!
+On Mon, 25 Sep 2023 19:26:28 -0400, Richard Acayan wrote:
+> The SDM670 has DSI ports. Add the compatible for the controller.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  .../devicetree/bindings/display/msm/dsi-controller-main.yaml     | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-On Mon, 2023-06-19 at 15:43 +0200, Ricardo Garcia wrote:
-> Hello everyone!
->=20
-> The X.org board is soliciting proposals to host XDC in 2024. Since XDC
-> 2023 is being held in Europe this year, we've decided to host in North
-> America. However, the board is open to other locations, especially if
-> there's an interesting co-location with another conference.
->=20
-> If you're considering hosting XDC, we've assembled a wiki page with
-> what's generally expected and needed:
->=20
-> https://www.x.org/wiki/Events/RFP/
->=20
-> When submitting your proposal, please make sure to include at least the
-> key information about the potential location in question, possible
-> dates along with estimated costs. Proposals can be submitted to board
-> at foundation.x.org until the deadline of *September 17th, 2023*.=20
->=20
-> Additionally, an quirk early heads-up to the board if you're
-> considering hosting would be appreciated, in case we need to adjust the
-> schedule a bit. Also, earlier is better since there generally will be a
-> bit of Q&A with organizers.
->=20
-> And if you just have some questions about what organizing XDC entails,
-> please feel free to chat with previous organizers, or someone from the
-> board.
->=20
-> Thanks,
-> Ricardo Garcia, on behalf of X.Org
->=20
+Acked-by: Rob Herring <robh@kernel.org>
 
