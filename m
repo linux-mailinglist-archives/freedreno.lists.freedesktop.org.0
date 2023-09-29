@@ -2,42 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CAA87B3730
-	for <lists+freedreno@lfdr.de>; Fri, 29 Sep 2023 17:45:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E327B3897
+	for <lists+freedreno@lfdr.de>; Fri, 29 Sep 2023 19:25:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A42D10E15C;
-	Fri, 29 Sep 2023 15:45:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95FDB8910E;
+	Fri, 29 Sep 2023 17:25:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5884110E155;
- Fri, 29 Sep 2023 15:45:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 785A961F65;
- Fri, 29 Sep 2023 15:45:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF5EC433C8;
- Fri, 29 Sep 2023 15:45:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696002313;
- bh=0hDyT9MUh8730O65k81LE+Nwv/GSPLBC8hZOSfjcJio=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L89p6HObshK63IiZfGBnFLEiyJRV5qx5Ylk0YL8Em55VwmFMHeCK2rH3SCRf+qpHc
- r+1rMwkT+ur98q+lKztETgV8XwMUJBrwY9LDe++xxAjkVQp3i2KOzh2+7VepJnf/jx
- jBQ65yqRLTapKyLmIucukAd5W70gfCcaz060PYGVONOjzpLkz+AclAREjr8nC3sZE7
- bkSxXw6SOnJ88nPHQkfTl/nhjvPRicb369IojHETjWINtL9Awbi031+LrxTVoE5Dr4
- uv+UfTKKyEw489m3VNPwVWM3ttRZtrMVISqRNSEOcNgHQKgxs50+wQHICadF9X5G/D
- fH2LHeuhwIsww==
-Date: Fri, 29 Sep 2023 16:45:07 +0100
-From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20230929154507.GA30764@willie-the-truck>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AF5518910E;
+ Fri, 29 Sep 2023 17:25:34 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 666101FB;
+ Fri, 29 Sep 2023 10:26:12 -0700 (PDT)
+Received: from [10.1.196.40] (e121345-lin.cambridge.arm.com [10.1.196.40])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B96DD3F59C;
+ Fri, 29 Sep 2023 10:25:32 -0700 (PDT)
+Message-ID: <70d975d0-8ee7-9f08-7fae-4652a18df598@arm.com>
+Date: Fri, 29 Sep 2023 18:25:21 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-GB
+To: Will Deacon <will@kernel.org>
 References: <20230410185226.3240336-1-dmitry.baryshkov@linaro.org>
  <b1434fe7-3128-f390-7b13-3d460378e231@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b1434fe7-3128-f390-7b13-3d460378e231@arm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20230929154507.GA30764@willie-the-truck>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <20230929154507.GA30764@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: don't set
  IO_PGTABLE_QUIRK_ARM_OUTER_WBWA with coherent SMMU
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -61,27 +55,51 @@ Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 25, 2023 at 06:54:42PM +0100, Robin Murphy wrote:
-> On 2023-04-10 19:52, Dmitry Baryshkov wrote:
-> > If the Adreno SMMU is dma-coherent, allocation will fail unless we
-> > disable IO_PGTABLE_QUIRK_ARM_OUTER_WBWA. Skip setting this quirk for the
-> > coherent SMMUs (like we have on sm8350 platform).
+On 29/09/2023 4:45 pm, Will Deacon wrote:
+> On Mon, Sep 25, 2023 at 06:54:42PM +0100, Robin Murphy wrote:
+>> On 2023-04-10 19:52, Dmitry Baryshkov wrote:
+>>> If the Adreno SMMU is dma-coherent, allocation will fail unless we
+>>> disable IO_PGTABLE_QUIRK_ARM_OUTER_WBWA. Skip setting this quirk for the
+>>> coherent SMMUs (like we have on sm8350 platform).
+>>
+>> Hmm, but is it right that it should fail in the first place? The fact is
+>> that if the SMMU is coherent then walks *will* be outer-WBWA, so I honestly
+>> can't see why the io-pgtable code is going out of its way to explicitly
+>> reject a request to give them the same attribute it's already giving then
+>> anyway :/
+>>
+>> Even if the original intent was for the quirk to have an over-specific
+>> implication of representing inner-NC as well, that hardly seems useful if
+>> what we've ended up with in practice is a nonsensical-looking check in one
+>> place and then a weird hacky bodge in another purely to work around it.
+>>
+>> Does anyone know a good reason why this is the way it is?
 > 
-> Hmm, but is it right that it should fail in the first place? The fact is
-> that if the SMMU is coherent then walks *will* be outer-WBWA, so I honestly
-> can't see why the io-pgtable code is going out of its way to explicitly
-> reject a request to give them the same attribute it's already giving then
-> anyway :/
-> 
-> Even if the original intent was for the quirk to have an over-specific
-> implication of representing inner-NC as well, that hardly seems useful if
-> what we've ended up with in practice is a nonsensical-looking check in one
-> place and then a weird hacky bodge in another purely to work around it.
-> 
-> Does anyone know a good reason why this is the way it is?
+> I think it was mainly because the quick doesn't make sense for a coherent
+> page-table walker and we could in theory use that bit for something else
+> in that case.
 
-I think it was mainly because the quick doesn't make sense for a coherent
-page-table walker and we could in theory use that bit for something else
-in that case.
+Yuck, even if we did want some horrible notion of quirks being 
+conditional on parts of the config rather than just the format, then the 
+users would need to be testing for the same condition as the pagetable 
+code itself (i.e. cfg->coherent_walk), rather than hoping some other 
+property of something else indirectly reflects the right information - 
+e.g. there'd be no hope of backporting this particular bodge before 5.19 
+where the old iommu_capable(IOMMU_CAP_CACHE_COHERENCY) always returned 
+true, and in future we could conceivably support coherent SMMUs being 
+configured for non-coherent walks on a per-domain basis.
 
-Will
+Furthermore, if we did overload a flag to have multiple meanings, then 
+we'd have no way of knowing which one the caller was actually expecting, 
+thus the illusion of being able to validate calls in the meantime isn't 
+necessarily as helpful as it seems, particularly in a case where the 
+"wrong" interpretation would be to have no effect anyway. Mostly though 
+I'd hope that if we ever got anywhere near the point of running out of 
+quirk bits we'd have already realised that it's time for a better 
+interface :(
+
+Based on that, I think that when I do get round to needing to touch this 
+code, I'll propose just streamlining the whole quirk.
+
+Cheers,
+Robin.
