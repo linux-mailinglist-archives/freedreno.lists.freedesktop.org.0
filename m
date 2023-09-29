@@ -2,65 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C01157B3AB3
-	for <lists+freedreno@lfdr.de>; Fri, 29 Sep 2023 21:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DCFF7B3BB4
+	for <lists+freedreno@lfdr.de>; Fri, 29 Sep 2023 23:03:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720EF10E1B4;
-	Fri, 29 Sep 2023 19:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43A7510E13D;
+	Fri, 29 Sep 2023 21:03:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B266D10E1B4
- for <freedreno@lists.freedesktop.org>; Fri, 29 Sep 2023 19:34:02 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-1c328b53aeaso130498775ad.2
- for <freedreno@lists.freedesktop.org>; Fri, 29 Sep 2023 12:34:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696016042; x=1696620842;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ym+ucW6MHQZimVVr4/aWJAbaMhbjuFeNaLImS0cTOp0=;
- b=TixVQg9xRTeGHwlfS9n7MYmhEjXR+UZBfzh37C5jBHYIYqFoQfwdyK1wK+Tatkhd2E
- 0h85oIfUEYFLzsfSV9ee8gE63919elODziLyRQ2VU4R6CyT0ZhWmfXgTpT+gha4ejyuS
- HiFdd1skfdqQsWthB0iAnmt3peidGawHG0cXo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696016042; x=1696620842;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Ym+ucW6MHQZimVVr4/aWJAbaMhbjuFeNaLImS0cTOp0=;
- b=DnMo/rEdUm2Pwag4g8kCPe3dkZ06eXLICEtf9mmUK1iTGUnVEmIKJx7wG5AkJ8bLBR
- qt5fyFi3yt3D/BQU2QALanoWLnAp69MKsBVoH8w0f+XBr6ezAMrWEdse+Q08bVlQAX0V
- L4dWb2rgGQS34ajEj3kODNaTx8cz1G4x9OE98fI5NllPaGez32fuBWThpzbsjbsz+TzW
- eJL/Pk0ok6c9JxxIDg/+M5H/lNjCFI4NVBf58lzFAe43TO5SxOIRef1EAE//7vlKMhbb
- h8a0Wv9XOvmtVTOlRZislEJZh4zOqCF0qZFSpzvfP1FUMNkkQdXMX+ojp7yI5hqKzkuf
- 4qiQ==
-X-Gm-Message-State: AOJu0YzcpI9pVGxItUnIOoko92RKVsqTxGSbNp0L14weAVIAqc7EqnYN
- 5N25c1VsJaHRR3h8wyDRfChaOQ==
-X-Google-Smtp-Source: AGHT+IGQWTdEpdWeBEvd5foAb6HBvD/EqemA8SP9BycZ81OPm2PcYAndv1e0P5bQalrHP7ERsAZdBw==
-X-Received: by 2002:a17:902:720a:b0:1c1:dbd6:9bf6 with SMTP id
- ba10-20020a170902720a00b001c1dbd69bf6mr4494391plb.41.1696016042045; 
- Fri, 29 Sep 2023 12:34:02 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- jg6-20020a17090326c600b001c61df93afdsm10225856plb.59.2023.09.29.12.34.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Sep 2023 12:34:01 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: David Airlie <airlied@gmail.com>,
-	Kees Cook <keescook@chromium.org>
-Date: Fri, 29 Sep 2023 12:33:24 -0700
-Message-Id: <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230922173110.work.084-kees@kernel.org>
-References: <20230922173110.work.084-kees@kernel.org>
+X-Greylist: delayed 590 seconds by postgrey-1.36 at gabe;
+ Fri, 29 Sep 2023 21:03:13 UTC
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA5210E13D;
+ Fri, 29 Sep 2023 21:03:13 +0000 (UTC)
+Received: from g550jk.localnet (k10064.upc-k.chello.nl [62.108.10.64])
+ by mail.z3ntu.xyz (Postfix) with ESMTPSA id E8FA8CFAC3;
+ Fri, 29 Sep 2023 20:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1696020771; bh=rOwWRnzmTEhtrBiWpnqo0qRH9l50Qc4w3CK50V3P6gw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=GcQgubjfrbPW1OMbQBBs7RzwO2dsvGsEVXsvh2h4+nUrb28CfQ0LZgU+QgMKKBeFV
+ j2o+7JmzB38gg4D9EPfdeF3YqArrlOa5XHrPG7XB9/uvab9ZKUVfoOWEXMOP6WE8+M
+ YFdGBB5Rwmd2u6CFtGmPiZa3wTtSpLSS2+JhcnDQ=
+From: Luca Weiss <luca@z3ntu.xyz>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 29 Sep 2023 22:52:48 +0200
+Message-ID: <5711857.DvuYhMxLoT@z3ntu.xyz>
+In-Reply-To: <20230923214912.1095024-2-dmitry.baryshkov@linaro.org>
+References: <20230923214912.1095024-1-dmitry.baryshkov@linaro.org>
+ <20230923214912.1095024-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 0/9] drm: Annotate structs with __counted_by
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Freedreno] [RFC PATCH 1/3] drm/msm/dpu: add support for MSM8953
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,81 +49,348 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Matthew Brost <matthew.brost@intel.com>, Karol Herbst <kherbst@redhat.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Nathan Chancellor <nathan@kernel.org>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Lyude Paul <lyude@redhat.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Kevin Wang <kevin1.wang@amd.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Le Ma <le.ma@amd.com>,
- freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- John Harrison <john.c.harrison@Intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
-> This is a batch of patches touching drm for preparing for the coming
-> implementation by GCC and Clang of the __counted_by attribute. Flexible
-> array members annotated with __counted_by can have their accesses
-> bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
-> indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
+On Samstag, 23. September 2023 23:49:10 CEST Dmitry Baryshkov wrote:
+> Experimental support for MSM8953, which has MDP5 v1.16. It looks like
+> trimmed down version of MSM8996. Less SSPP, LM and PP blocks. No DSC,
+> etc.
 > 
-> As found with Coccinelle[1], add __counted_by to structs that would
-> benefit from the annotation.
+
+Hi Dmitry,
+
+As written on IRC, on sdm632-fairphone-fp3 with this DPU patches the screen is
+initializing and displaying stuff :) But there's some errors, which presumably
+are the reason that the screen is only updating a few times per second.
+
+[   22.774205] [drm:dpu_kms_hw_init:1164] dpu hardware revision:0x10100000
+[   23.099806] [drm:_dpu_encoder_phys_cmd_wait_for_ctl_start:657] [dpu error]enc31 intf1 ctl start interrupt wait failed
+[   23.099821] [drm:dpu_kms_wait_for_commit_done:495] [dpu error]wait for commit done returned -22
+
+These messages appear about 13 times per second but as I mentioned, the screen
+*is* updating (slowly) there.
+
+Also you for sure forgot to add "qcom,msm8953-mdp5" to the
+msm_mdp5_dpu_migration list, without this DPU is never even considered for
+8953.
+
+Regards
+Luca
+
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../msm/disp/dpu1/catalog/dpu_1_16_msm8953.h  | 221 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  12 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>  4 files changed, 235 insertions(+)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
 > 
-> [...]
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
+> b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h new file mode
+> 100644
+> index 000000000000..6944bfa4568a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
+> @@ -0,0 +1,221 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2023, Linaro Limited
+> + */
+> +
+> +#ifndef _DPU_1_16_MSM8953_H
+> +#define _DPU_1_16_MSM8953_H
+> +
+> +static const struct dpu_caps msm8953_dpu_caps = {
+> +	.max_mixer_width = DEFAULT_DPU_LINE_WIDTH,
+> +	.max_mixer_blendstages = 0x4,
+> +	.max_linewidth = DEFAULT_DPU_LINE_WIDTH,
+> +	.pixel_ram_size = 40 * 1024,
+> +	.max_hdeci_exp = MAX_HORZ_DECIMATION,
+> +	.max_vdeci_exp = MAX_VERT_DECIMATION,
+> +};
+> +
+> +static const struct dpu_mdp_cfg msm8953_mdp[] = {
+> +	{
+> +		.name = "top_0",
+> +		.base = 0x0, .len = 0x454,
+> +		.features = BIT(DPU_MDP_VSYNC_SEL),
+> +		.clk_ctrls = {
+> +			[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
+> +			[DPU_CLK_CTRL_RGB0] = { .reg_off = 0x2ac, .bit_off = 4 },
+> +			[DPU_CLK_CTRL_RGB1] = { .reg_off = 0x2b4, .bit_off = 4 },
+> +			[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+> +			[DPU_CLK_CTRL_CURSOR0] = { .reg_off = 0x3a8, .bit_off = 16 },
+> +		},
+> +	},
+> +};
+> +
+> +static const struct dpu_ctl_cfg msm8953_ctl[] = {
+> +	{
+> +		.name = "ctl_0", .id = CTL_0,
+> +		.base = 0x1000, .len = 0x64,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+> +	}, {
+> +		.name = "ctl_1", .id = CTL_1,
+> +		.base = 0x1200, .len = 0x64,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+> +	}, {
+> +		.name = "ctl_2", .id = CTL_2,
+> +		.base = 0x1400, .len = 0x64,
+> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+> +	},
+> +};
+> +
+> +static const struct dpu_sspp_cfg msm8953_sspp[] = {
+> +	{
+> +		.name = "sspp_0", .id = SSPP_VIG0,
+> +		.base = 0x4000, .len = 0x150,
+> +		.features = VIG_MSM8953_MASK,
+> +		.sblk = &dpu_vig_sblk_qseed2,
+> +		.xin_id = 0,
+> +		.type = SSPP_TYPE_VIG,
+> +		.clk_ctrl = DPU_CLK_CTRL_VIG0,
+> +	}, {
+> +		.name = "sspp_4", .id = SSPP_RGB0,
+> +		.base = 0x14000, .len = 0x150,
+> +		.features = RGB_MSM8953_MASK,
+> +		.sblk = &dpu_rgb_sblk,
+> +		.xin_id = 1,
+> +		.type = SSPP_TYPE_RGB,
+> +		.clk_ctrl = DPU_CLK_CTRL_RGB0,
+> +	}, {
+> +		.name = "sspp_5", .id = SSPP_RGB1,
+> +		.base = 0x16000, .len = 0x150,
+> +		.features = RGB_MSM8953_MASK,
+> +		.sblk = &dpu_rgb_sblk,
+> +		.xin_id = 5,
+> +		.type = SSPP_TYPE_RGB,
+> +		.clk_ctrl = DPU_CLK_CTRL_RGB1,
+> +	}, {
+> +		.name = "sspp_8", .id = SSPP_DMA0,
+> +		.base = 0x24000, .len = 0x150,
+> +		.features = DMA_MSM8953_MASK | BIT(DPU_SSPP_CURSOR),
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 2,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA0,
+> +	},
+> +};
+> +
+> +static const struct dpu_lm_cfg msm8953_lm[] = {
+> +	{
+> +		.name = "lm_0", .id = LM_0,
+> +		.base = 0x44000, .len = 0x320,
+> +		.sblk = &msm8998_lm_sblk,
+> +		.lm_pair = LM_1,
+> +		.pingpong = PINGPONG_0,
+> +		.dspp = DSPP_0,
+> +	}, {
+> +		.name = "lm_1", .id = LM_1,
+> +		.base = 0x45000, .len = 0x320,
+> +		.sblk = &msm8998_lm_sblk,
+> +		.lm_pair = LM_0,
+> +		.pingpong = PINGPONG_1,
+> +	},
+> +};
+> +
+> +static const struct dpu_pingpong_cfg msm8953_pp[] = {
+> +	{
+> +		.name = "pingpong_0", .id = PINGPONG_0,
+> +		.base = 0x70000, .len = 0xd4,
+> +		.features = PINGPONG_MSM8996_MASK,
+> +		.sblk = &msm8996_pp_sblk,
+> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
+> +		.intr_rdptr = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
+> +	}, {
+> +		.name = "pingpong_1", .id = PINGPONG_1,
+> +		.base = 0x70800, .len = 0xd4,
+> +		.features = PINGPONG_MSM8996_MASK,
+> +		.sblk = &msm8996_pp_sblk,
+> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
+> +		.intr_rdptr = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13),
+> +	},
+> +};
+> +
+> +static const struct dpu_dspp_cfg msm8953_dspp[] = {
+> +	{
+> +		.name = "dspp_0", .id = DSPP_0,
+> +		.base = 0x54000, .len = 0x1800,
+> +		.features = DSPP_SC7180_MASK,
+> +		.sblk = &msm8998_dspp_sblk,
+> +	},
+> +};
+> +
+> +static const struct dpu_intf_cfg msm8953_intf[] = {
+> +	{
+> +		.name = "intf_0", .id = INTF_0,
+> +		.base = 0x6a000, .len = 0x268,
+> +		.type = INTF_NONE,
+> +		.prog_fetch_lines_worst_case = 14,
+> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
+> +		.intr_tear_rd_ptr = -1,
+> +	}, {
+> +		.name = "intf_1", .id = INTF_1,
+> +		.base = 0x6a800, .len = 0x268,
+> +		.type = INTF_DSI,
+> +		.controller_id = MSM_DSI_CONTROLLER_0,
+> +		.prog_fetch_lines_worst_case = 14,
+> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+> +		.intr_tear_rd_ptr = -1,
+> +	}, {
+> +		.name = "intf_2", .id = INTF_2,
+> +		.base = 0x6b000, .len = 0x268,
+> +		.type = INTF_DSI,
+> +		.controller_id = MSM_DSI_CONTROLLER_1,
+> +		.prog_fetch_lines_worst_case = 14,
+> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
+> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
+> +		.intr_tear_rd_ptr = -1,
+> +	},
+> +};
+> +
+> +static const struct dpu_perf_cfg msm8953_perf_data = {
+> +	.max_bw_low = 3400000,
+> +	.max_bw_high = 3400000,
+> +	.min_core_ib = 2400000,
+> +	.min_llcc_ib = 0, /* No LLCC on this SoC */
+> +	.min_dram_ib = 800000,
+> +	.undersized_prefill_lines = 2,
+> +	.xtra_prefill_lines = 2,
+> +	.dest_scale_prefill_lines = 3,
+> +	.macrotile_prefill_lines = 4,
+> +	.yuv_nv12_prefill_lines = 8,
+> +	.linear_prefill_lines = 1,
+> +	.downscaling_prefill_lines = 1,
+> +	.amortizable_threshold = 25,
+> +	.min_prefill_lines = 14,
+> +	.danger_lut_tbl = {0xf, 0xffff, 0x0},
+> +	.safe_lut_tbl = {0xfffc, 0xff00, 0xffff},
+> +	.qos_lut_tbl = {
+> +		{.nentry = ARRAY_SIZE(msm8998_qos_linear),
+> +		.entries = msm8998_qos_linear
+> +		},
+> +		{.nentry = ARRAY_SIZE(msm8998_qos_macrotile),
+> +		.entries = msm8998_qos_macrotile
+> +		},
+> +		{.nentry = ARRAY_SIZE(msm8998_qos_nrt),
+> +		.entries = msm8998_qos_nrt
+> +		},
+> +	},
+> +	.cdp_cfg = {
+> +		{.rd_enable = 1, .wr_enable = 1},
+> +		{.rd_enable = 1, .wr_enable = 0}
+> +	},
+> +	.clk_inefficiency_factor = 105,
+> +	.bw_inefficiency_factor = 120,
+> +};
+> +
+> +static const struct dpu_mdss_version msm8953_mdss_ver = {
+> +	.core_major_ver = 1,
+> +	.core_minor_ver = 16,
+> +};
+> +
+> +const struct dpu_mdss_cfg dpu_msm8953_cfg = {
+> +	.mdss_ver = &msm8953_mdss_ver,
+> +	.caps = &msm8953_dpu_caps,
+> +	.mdp = msm8953_mdp,
+> +	.ctl_count = ARRAY_SIZE(msm8953_ctl),
+> +	.ctl = msm8953_ctl,
+> +	.sspp_count = ARRAY_SIZE(msm8953_sspp),
+> +	.sspp = msm8953_sspp,
+> +	.mixer_count = ARRAY_SIZE(msm8953_lm),
+> +	.mixer = msm8953_lm,
+> +	.dspp_count = ARRAY_SIZE(msm8953_dspp),
+> +	.dspp = msm8953_dspp,
+> +	.pingpong_count = ARRAY_SIZE(msm8953_pp),
+> +	.pingpong = msm8953_pp,
+> +	.intf_count = ARRAY_SIZE(msm8953_intf),
+> +	.intf = msm8953_intf,
+> +	.vbif_count = ARRAY_SIZE(msm8996_vbif),
+> +	.vbif = msm8996_vbif,
+> +	.perf = &msm8953_perf_data,
+> +};
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c index
+> 5446a86308bf..20e31115e26d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -21,6 +21,11 @@
+>  	(VIG_BASE_MASK | \
+>  	BIT(DPU_SSPP_CSC_10BIT))
+> 
+> +#define VIG_MSM8953_MASK \
+> +	(BIT(DPU_SSPP_QOS) |\
+> +	 BIT(DPU_SSPP_SCALER_QSEED2) |\
+> +	 BIT(DPU_SSPP_CSC))
+> +
+>  #define VIG_MSM8996_MASK \
+>  	(BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_CDP) |\
+>  	 BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_SCALER_QSEED2) |\
+> @@ -37,6 +42,9 @@
+> 
+>  #define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
+> 
+> +#define DMA_MSM8953_MASK \
+> +	(BIT(DPU_SSPP_QOS))
+> +
+>  #define DMA_MSM8996_MASK \
+>  	(BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_CDP))
+> 
+> @@ -71,6 +79,9 @@
+>  #define DMA_CURSOR_MSM8998_MASK \
+>  	(DMA_MSM8998_MASK | BIT(DPU_SSPP_CURSOR))
+> 
+> +#define RGB_MSM8953_MASK \
+> +	(BIT(DPU_SSPP_QOS))
+> +
+>  #define RGB_MSM8996_MASK \
+>  	(BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_CDP) |\
+>  	 BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_SCALER_RGB))
+> @@ -705,6 +716,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] =
+> { *************************************************************/
+> 
+>  #include "catalog/dpu_1_7_msm8996.h"
+> +#include "catalog/dpu_1_16_msm8953.h"
+> 
+>  #include "catalog/dpu_3_0_msm8998.h"
+>  #include "catalog/dpu_3_2_sdm660.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h index
+> 8c3c6cd2a186..58891a19d2b0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -822,6 +822,7 @@ struct dpu_mdss_cfg {
+>  	const struct dpu_format_extended *vig_formats;
+>  };
+> 
+> +extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
+>  extern const struct dpu_mdss_cfg dpu_msm8996_cfg;
+>  extern const struct dpu_mdss_cfg dpu_msm8998_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sdm630_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c index 288458dcf234..5099618bfe11
+> 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1415,6 +1415,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
+>  };
+> 
+>  static const struct of_device_id dpu_dt_match[] = {
+> +	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
+>  	{ .compatible = "qcom,msm8996-mdp5", .data = &dpu_msm8996_cfg, },
+>  	{ .compatible = "qcom,msm8998-dpu", .data = &dpu_msm8998_cfg, },
+>  	{ .compatible = "qcom,qcm2290-dpu", .data = &dpu_qcm2290_cfg, },
 
-Since this got Acks, I figure I should carry it in my tree. Let me know
-if this should go via drm instead.
 
-Applied to for-next/hardening, thanks!
 
-[1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
-      https://git.kernel.org/kees/c/a6046ac659d6
-[2/9] drm/amdgpu/discovery: Annotate struct ip_hw_instance with __counted_by
-      https://git.kernel.org/kees/c/4df33089b46f
-[3/9] drm/i915/selftests: Annotate struct perf_series with __counted_by
-      https://git.kernel.org/kees/c/ffd3f823bdf6
-[4/9] drm/msm/dpu: Annotate struct dpu_hw_intr with __counted_by
-      https://git.kernel.org/kees/c/2de35a989b76
-[5/9] drm/nouveau/pm: Annotate struct nvkm_perfdom with __counted_by
-      https://git.kernel.org/kees/c/188aeb08bfaa
-[6/9] drm/vc4: Annotate struct vc4_perfmon with __counted_by
-      https://git.kernel.org/kees/c/59a54dc896c3
-[7/9] drm/virtio: Annotate struct virtio_gpu_object_array with __counted_by
-      https://git.kernel.org/kees/c/5cd476de33af
-[8/9] drm/vmwgfx: Annotate struct vmw_surface_dirty with __counted_by
-      https://git.kernel.org/kees/c/b426f2e5356a
-[9/9] drm/v3d: Annotate struct v3d_perfmon with __counted_by
-      https://git.kernel.org/kees/c/dc662fa1b0e4
-
-Take care,
-
--- 
-Kees Cook
 
