@@ -2,71 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D99C77B59EB
-	for <lists+freedreno@lfdr.de>; Mon,  2 Oct 2023 20:22:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 540F77B5C77
+	for <lists+freedreno@lfdr.de>; Mon,  2 Oct 2023 23:27:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1BE10E07E;
-	Mon,  2 Oct 2023 18:22:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAD2410E107;
+	Mon,  2 Oct 2023 21:27:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4382110E07E
- for <freedreno@lists.freedesktop.org>; Mon,  2 Oct 2023 18:22:25 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- 98e67ed59e1d1-279294d94acso2406964a91.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Oct 2023 11:22:25 -0700 (PDT)
+Received: from mail-vk1-xa2a.google.com (mail-vk1-xa2a.google.com
+ [IPv6:2607:f8b0:4864:20::a2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAA9910E107;
+ Mon,  2 Oct 2023 21:27:16 +0000 (UTC)
+Received: by mail-vk1-xa2a.google.com with SMTP id
+ 71dfb90a1353d-48feedb90d2so113248e0c.1; 
+ Mon, 02 Oct 2023 14:27:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696270944; x=1696875744;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=6vMwsjYrlAei3Hxc6ZjjNt+EO9kZEbPnxPSvxjTe6qw=;
- b=YA5vJ2kOSGxG50joUtzSs/L4e15mwaXH4uM82nG4NZP+zmfW4Nm07LHBb+QkJz6r8E
- BnDzVDPSszu9zqbF0CcnvWNAdTInvlwrqOdUx59bRd1Qkf6qULtXECxyJOWCJJ1EYRul
- 6H9u9Dub2377LWy/8ErYzGzEMzcgGoDiBdOco=
+ d=gmail.com; s=20230601; t=1696282036; x=1696886836; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4tNkOteVS/UaA3JNDYOSsQf9478faNkt86P9y0gbwNo=;
+ b=MLrc6x3HVC4Lqr67n5DqjtlLVbr6ytGkm3fTDJx8WvToU4bdgcHHRBlcWHRyJiTluX
+ maP2WP8jMZhiq84PirOgqG0UkA1sSwqoJHlZU/4CZZiJDsYCAy1vjPn9fN/nVfZBx5uG
+ yKgPBEa8mdboyEQ8QGCW3o3VZNHi2B3FxWR5SOvtkC9Kq2CZvQcYix08HjRITLaQtN7D
+ jP8iTZ0bGjTYrHwrF5zQ1lMdjAps2WzV0Q6KDZoxgfCbJYpp2SaaNe/RAh2i3yD4V9tf
+ ykIEAVSsd5XCi2k8Q8GCCSCyF29p/32xINiYrpMxxiI4EZ3hXCoy0ziiXeI375xEGfLJ
+ XZNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696270944; x=1696875744;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6vMwsjYrlAei3Hxc6ZjjNt+EO9kZEbPnxPSvxjTe6qw=;
- b=DFqfzRbC2b7Hgz03Va6go/kLkADXXh823mn6YK6dxB3+EunHmIxvsf4W4MUuW38G8R
- m9xqySPp5gkHbLZgbF+DJdgDQMo1mN9YO+49EofvXFNhYrrmKJ7c5sBUuwA3QPZy/iX4
- hpzKH0ZuSXXv0/bYP8wJZl0DVCqkzulZX4ZJyYp4xgIixDepznh1QP0LSF35KMQuolsd
- 5P96Os1PLDkPwMx1qwRpmOXl4uaomRNTP3fcgNgUADkGBEF9Ck/T1hlGZsaIBd4jE1DE
- WqO7i210QzbsaO7/ajx3I1UM8SsxOjabvBgIfkR92dg6dtu63OWwRFTjz4p7P+4LBx1m
- DgXg==
-X-Gm-Message-State: AOJu0YwfMXbzIFu9Kggh7yoKkJTpZxbPe4srjfQ8/DSgGlzC8L7scFU6
- UgAMqe95FTaqZLLhC893RJUxvw==
-X-Google-Smtp-Source: AGHT+IFu7XIuUCGOlcsyNLly9unt/oHCJHSK53R4jpfqHFz2qYx70ADEn6oBAlKq5k57qw3fzv2Kwg==
-X-Received: by 2002:a17:90b:4a42:b0:277:3afc:f27 with SMTP id
- lb2-20020a17090b4a4200b002773afc0f27mr561738pjb.1.1696270944558; 
- Mon, 02 Oct 2023 11:22:24 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- d12-20020a17090a498c00b0026b3ed37ddcsm6358499pjh.32.2023.10.02.11.22.23
+ d=1e100.net; s=20230601; t=1696282036; x=1696886836;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4tNkOteVS/UaA3JNDYOSsQf9478faNkt86P9y0gbwNo=;
+ b=WtAoqQXJPlPnBTUgq50CJmkM/CtgJ0Yt7lvT17SeDYKACavugt5VTV5Xe0t15Nkh+S
+ PqwmOVd2ISV068euHXr5T2Nvdca316Ryqxau7dLs4I4iPCdk9T3pEcosGiRsUdkGCp1O
+ AUArJ2+g8X0r7WkAWLs4yR2VeLMWVeNhx/EtE3gy0F7OQGd9feECaer+yeOnBUbr7jca
+ xbT+Sp3udRzTSkuLddhx3meb7QNAx2tZQ1bdszcU/8yPcW+nulqa6bTx+1+o6GPkZ/wU
+ 6xjsGxydLYl5p0kgZq0ncpKQufZjR5fMG4twws9iMq6plo5j07ZCxwjDwEKxTc54fTBH
+ wN9A==
+X-Gm-Message-State: AOJu0Yx503tOnx2L7xqL63/zAf4FO1u8dtOe4/MPAKBBUqfE7GODisq6
+ mUZcpKKDkgW2VVMR58tdg7U=
+X-Google-Smtp-Source: AGHT+IGfcXn0kkMpQQ4lKn2ewW7zeEGedrPcMk1LY9cm9IBX+BrAm59deZ7oOIMqZU39gtqDFaJICA==
+X-Received: by 2002:a1f:e041:0:b0:495:be1c:5be9 with SMTP id
+ x62-20020a1fe041000000b00495be1c5be9mr9124261vkg.1.1696282035662; 
+ Mon, 02 Oct 2023 14:27:15 -0700 (PDT)
+Received: from localhost ([2607:fea8:529e:7800::efbe])
+ by smtp.gmail.com with ESMTPSA id
+ k9-20020a0cf289000000b0064f53943626sm6472330qvl.89.2023.10.02.14.27.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Oct 2023 11:22:23 -0700 (PDT)
-Date: Mon, 2 Oct 2023 11:22:22 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Message-ID: <202310021122.B6DA850FB0@keescook>
-References: <20230922173110.work.084-kees@kernel.org>
- <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
- <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
- <CADnq5_Ma2CrLYggJHKFEObsNmUoqJwb2p1xai5DfL=m43U6zEA@mail.gmail.com>
- <202310020952.E7DE0948C0@keescook>
- <10644b5f-b0a7-85ef-0658-2353ee14df0d@gmail.com>
- <202310021107.9BB46FB8E@keescook>
- <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
+ Mon, 02 Oct 2023 14:27:14 -0700 (PDT)
+Date: Mon, 2 Oct 2023 17:27:13 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Message-ID: <ZRs1se3P44_PjZ_P@radian>
+References: <20230925232625.846666-9-mailingradian@gmail.com>
+ <20230925232625.846666-14-mailingradian@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
-Subject: Re: [Freedreno] [PATCH 0/9] drm: Annotate structs with __counted_by
+In-Reply-To: <20230925232625.846666-14-mailingradian@gmail.com>
+Subject: Re: [Freedreno] [PATCH 5/6] drm/msm/dpu: Add hw revision 4.1
+ (SDM670)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,108 +92,189 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, linux-arm-msm@vger.kernel.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Karol Herbst <kherbst@redhat.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Yifan Zhang <yifan1.zhang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
- Le Ma <le.ma@amd.com>, freedreno@lists.freedesktop.org,
- Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Melissa Wen <mwen@igalia.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexdeucher@gmail.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>, John Harrison <john.c.harrison@intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 02, 2023 at 08:11:41PM +0200, Christian König wrote:
-> Am 02.10.23 um 20:08 schrieb Kees Cook:
-> > On Mon, Oct 02, 2023 at 08:01:57PM +0200, Christian König wrote:
-> > > Am 02.10.23 um 18:53 schrieb Kees Cook:
-> > > > On Mon, Oct 02, 2023 at 11:06:19AM -0400, Alex Deucher wrote:
-> > > > > On Mon, Oct 2, 2023 at 5:20 AM Christian König
-> > > > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > > > > Am 29.09.23 um 21:33 schrieb Kees Cook:
-> > > > > > > On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
-> > > > > > > > This is a batch of patches touching drm for preparing for the coming
-> > > > > > > > implementation by GCC and Clang of the __counted_by attribute. Flexible
-> > > > > > > > array members annotated with __counted_by can have their accesses
-> > > > > > > > bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
-> > > > > > > > indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
-> > > > > > > > 
-> > > > > > > > As found with Coccinelle[1], add __counted_by to structs that would
-> > > > > > > > benefit from the annotation.
-> > > > > > > > 
-> > > > > > > > [...]
-> > > > > > > Since this got Acks, I figure I should carry it in my tree. Let me know
-> > > > > > > if this should go via drm instead.
-> > > > > > > 
-> > > > > > > Applied to for-next/hardening, thanks!
-> > > > > > > 
-> > > > > > > [1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
-> > > > > > >          https://git.kernel.org/kees/c/a6046ac659d6
-> > > > > > STOP! In a follow up discussion Alex and I figured out that this won't work.
-> > > > I'm so confused; from the discussion I saw that Alex said both instances
-> > > > were false positives?
-> > > > 
-> > > > > > The value in the structure is byte swapped based on some firmware
-> > > > > > endianness which not necessary matches the CPU endianness.
-> > > > > SMU10 is APU only so the endianess of the SMU firmware and the CPU
-> > > > > will always match.
-> > > > Which I think is what is being said here?
-> > > > 
-> > > > > > Please revert that one from going upstream if it's already on it's way.
-> > > > > > 
-> > > > > > And because of those reasons I strongly think that patches like this
-> > > > > > should go through the DRM tree :)
-> > > > Sure, that's fine -- please let me know. It was others Acked/etc. Who
-> > > > should carry these patches?
-> > > Probably best if the relevant maintainer pick them up individually.
-> > > 
-> > > Some of those structures are filled in by firmware/hardware and only the
-> > > maintainers can judge if that value actually matches what the compiler
-> > > needs.
-> > > 
-> > > We have cases where individual bits are used as flags or when the size is
-> > > byte swapped etc...
-> > > 
-> > > Even Alex and I didn't immediately say how and where that field is actually
-> > > used and had to dig that up. That's where the confusion came from.
-> > Okay, I've dropped them all from my tree. Several had Acks/Reviews, so
-> > hopefully those can get picked up for the DRM tree?
-> 
-> I will pick those up to go through drm-misc-next.
-> 
-> Going to ping maintainers once more when I'm not sure if stuff is correct or
-> not.
+On Mon, Sep 25, 2023 at 07:26:32PM -0400, Richard Acayan wrote:
+> The Snapdragon 670 uses similar clocks (with one frequency added) to the
+> Snapdragon 845 but reports DPU revision 4.1. Add support for this DPU
+> with configuration from the Pixel 3a downstream kernel.
+>
+> Since revision 4.0 is SDM845, reuse some configuration from its catalog
+> entry.
+>
+> Link: https://android.googlesource.com/kernel/msm/+/368478b0ae76566927a2769a2bf24dfe7f38bb78/arch/arm64/boot/dts/qcom/sdm670-sde.dtsi
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  .../msm/disp/dpu1/catalog/dpu_4_1_sdm670.h    | 105 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   6 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>  4 files changed, 113 insertions(+)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+> new file mode 100644
+> index 000000000000..eaccb16b5db9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+> @@ -0,0 +1,105 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2023, Richard Acayan. All rights reserved.
+> + */
+> +
+> +#ifndef _DPU_4_1_SDM670_H
+> +#define _DPU_4_1_SDM670_H
+> +
+> +static const struct dpu_mdp_cfg sdm670_mdp = {
+> +	.name = "top_0",
+> +	.base = 0x0, .len = 0x45c,
+> +	.features = BIT(DPU_MDP_AUDIO_SELECT),
+> +	.clk_ctrls = {
+> +		[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0},
+> +		[DPU_CLK_CTRL_VIG1] = { .reg_off = 0x2b4, .bit_off = 0},
+> +		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8},
+> +		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8},
+> +		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8},
+> +	},
+> +};
+> +
+> +static const struct dpu_sspp_cfg sdm670_sspp[] = {
+> +	{
+> +		.name = "sspp_0", .id = SSPP_VIG0,
+> +		.base = 0x4000, .len = 0x1c8,
+> +		.features = VIG_SDM845_MASK_SDMA,
+> +		.sblk = &sdm670_vig_sblk_0,
+> +		.xin_id = 0,
+> +		.type = SSPP_TYPE_VIG,
+> +		.clk_ctrl = DPU_CLK_CTRL_VIG0,
+> +	}, {
+> +		.name = "sspp_1", .id = SSPP_VIG1,
+> +		.base = 0x6000, .len = 0x1c8,
+> +		.features = VIG_SDM845_MASK_SDMA,
+> +		.sblk = &sdm670_vig_sblk_1,
+> +		.xin_id = 4,
+> +		.type = SSPP_TYPE_VIG,
+> +		.clk_ctrl = DPU_CLK_CTRL_VIG0,
+> +	}, {
+> +		.name = "sspp_8", .id = SSPP_DMA0,
+> +		.base = 0x24000, .len = 0x1c8,
+> +		.features = DMA_SDM845_MASK_SDMA,
+> +		.sblk = &sdm845_dma_sblk_0,
+> +		.xin_id = 1,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA0,
+> +	}, {
+> +		.name = "sspp_9", .id = SSPP_DMA1,
+> +		.base = 0x26000, .len = 0x1c8,
+> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
+> +		.sblk = &sdm845_dma_sblk_1,
+> +		.xin_id = 5,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA1,
+> +	}, {
+> +		.name = "sspp_10", .id = SSPP_DMA2,
+> +		.base = 0x28000, .len = 0x1c8,
+> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
+> +		.sblk = &sdm845_dma_sblk_2,
+> +		.xin_id = 9,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA2,
+> +	},
+> +};
+> +
+> +static struct dpu_dsc_cfg sdm670_dsc[] = {
+> +	{
+> +		.name = "dsc_0", .id = DSC_0,
+> +		.base = 0x80000, .len = 0x140,
+> +	},
+> +	{
 
-Sounds great; thanks!
+Let's join these braces on the same line.
 
--Kees
-
--- 
-Kees Cook
+> +		.name = "dsc_1", .id = DSC_1,
+> +		.base = 0x80400, .len = 0x140,
+> +	},
+> +};
+> +
+> +static struct dpu_mdss_version sdm670_mdss_ver = {
+> +	.core_major_ver = 4,
+> +	.core_minor_ver = 1,
+> +};
+> +
+> +const struct dpu_mdss_cfg dpu_sdm670_cfg = {
+> +	.mdss_ver = &sdm670_mdss_ver,
+> +	.caps = &sdm845_dpu_caps,
+> +	.mdp = &sdm670_mdp,
+> +	.ctl_count = ARRAY_SIZE(sdm845_ctl),
+> +	.ctl = sdm845_ctl,
+> +	.sspp_count = ARRAY_SIZE(sdm670_sspp),
+> +	.sspp = sdm670_sspp,
+> +	.mixer_count = ARRAY_SIZE(sdm845_lm),
+> +	.mixer = sdm845_lm,
+> +	.pingpong_count = ARRAY_SIZE(sdm845_pp),
+> +	.pingpong = sdm845_pp,
+> +	.dsc_count = ARRAY_SIZE(sdm670_dsc),
+> +	.dsc = sdm670_dsc,
+> +	.intf_count = ARRAY_SIZE(sdm845_intf),
+> +	.intf = sdm845_intf,
+> +	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+> +	.vbif = sdm845_vbif,
+> +	.perf = &sdm845_perf_data,
+> +};
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 713dfc079718..63b274ae032a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -313,6 +313,11 @@ static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 = {
+>  	.rot_format_list = rotation_v2_formats,
+>  };
+>  
+> +static const struct dpu_sspp_sub_blks sdm670_vig_sblk_0 =
+> +				_VIG_SBLK(4, DPU_SSPP_SCALER_QSEED3);
+> +static const struct dpu_sspp_sub_blks sdm670_vig_sblk_1 =
+> +				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED3);
+> +
+>  static const struct dpu_sspp_sub_blks sdm845_vig_sblk_0 =
+>  				_VIG_SBLK(5, DPU_SSPP_SCALER_QSEED3);
+>  static const struct dpu_sspp_sub_blks sdm845_vig_sblk_1 =
+> @@ -655,6 +660,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+>  #include "catalog/dpu_3_0_msm8998.h"
+>  
+>  #include "catalog/dpu_4_0_sdm845.h"
+> +#include "catalog/dpu_4_1_sdm670.h"
+>  
+>  #include "catalog/dpu_5_0_sm8150.h"
+>  #include "catalog/dpu_5_1_sc8180x.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 6c9634209e9f..dae5a1555e44 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -831,6 +831,7 @@ struct dpu_mdss_cfg {
+>  
+>  extern const struct dpu_mdss_cfg dpu_msm8998_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sdm845_cfg;
+> +extern const struct dpu_mdss_cfg dpu_sdm670_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm8150_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sc8180x_cfg;
+>  extern const struct dpu_mdss_cfg dpu_sm8250_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index aa6ba2cf4b84..0049fb1de1e8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1362,6 +1362,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
+>  static const struct of_device_id dpu_dt_match[] = {
+>  	{ .compatible = "qcom,msm8998-dpu", .data = &dpu_msm8998_cfg, },
+>  	{ .compatible = "qcom,qcm2290-dpu", .data = &dpu_qcm2290_cfg, },
+> +	{ .compatible = "qcom,sdm670-dpu", .data = &dpu_sdm670_cfg, },
+>  	{ .compatible = "qcom,sdm845-dpu", .data = &dpu_sdm845_cfg, },
+>  	{ .compatible = "qcom,sc7180-dpu", .data = &dpu_sc7180_cfg, },
+>  	{ .compatible = "qcom,sc7280-dpu", .data = &dpu_sc7280_cfg, },
+> -- 
+> 2.42.0
+>
