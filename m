@@ -2,47 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 625307B4FE9
-	for <lists+freedreno@lfdr.de>; Mon,  2 Oct 2023 12:11:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2081C7B55FD
+	for <lists+freedreno@lfdr.de>; Mon,  2 Oct 2023 17:06:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4725810E276;
-	Mon,  2 Oct 2023 10:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28EEB88E26;
+	Mon,  2 Oct 2023 15:06:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5646910E278;
- Mon,  2 Oct 2023 10:10:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 47677CE0EEB;
- Mon,  2 Oct 2023 10:10:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F3DC433C7;
- Mon,  2 Oct 2023 10:10:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696241438;
- bh=VuU6DqtVO4nBU2yJ2rp1XU31YLvfaorg9TJX6ZIVBbc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CgEIElYPdQaQZwrle5dYtgDrMvD3XH/9IKv7n+6YVqMdQaTYBthOHHSt5PmsLvnGj
- 2lOcXFLRnKAgahZXCiV7fUhLibj6m4SeKUMzl256EQB/RJT4dw/ao5Dcxo4i0ScdrC
- QuIJ3XPJbT7sgEnIyyEsEiyXXp2yu1viwypwdrlOhF9MoLWHK9/o3DeF2wE3gAzNIi
- HPz4f0zqF3v7pPR4zEUnvxhDISy0mxaQpISh8WMGFZQ92D8hQRnwfqjq96zvMOGvi0
- urds0zWAohSLITJMokdZ1ZLItjYnX19kaES9J3YdGZxAym777tCvnI8lXD0CLxATAO
- mP9VKHrODW8uw==
-Date: Mon, 2 Oct 2023 11:10:32 +0100
-From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20231002101032.GA1079@willie-the-truck>
-References: <20230410185226.3240336-1-dmitry.baryshkov@linaro.org>
- <b1434fe7-3128-f390-7b13-3d460378e231@arm.com>
- <20230929154507.GA30764@willie-the-truck>
- <70d975d0-8ee7-9f08-7fae-4652a18df598@arm.com>
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A86AC88E26;
+ Mon,  2 Oct 2023 15:06:31 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ 46e09a7af769-6bf58009a8dso9892354a34.1; 
+ Mon, 02 Oct 2023 08:06:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696259191; x=1696863991; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c0wIcnLi0eW3KIpAYRJEn1N+1DF/SZtUbN/0mO//zy4=;
+ b=I1ra9ji8G8Gw+IhCfKKz7yTW+qJiR4KI1kig0rnxcjQh4v5eh7Vblv4fX+cIknaLKq
+ jgKUnfN0IJxk7ZvIRM1It+NOS6fjTrpseFqmwcCMO7G4nkZNzT46PAgINYQMqTlnhUZA
+ ZZD0DUYcGChwdkESPP5SPjSc6zg7jmTnKOVTZzKFGibhCAmMQQbl3V+RcjlNltpD3dtv
+ inVlg+OtOVbDt51Nc/zOZ30O6n2SdZuJsIXWZA1EuKBWJxoko20X69/y4jZO+DtV24VQ
+ zUAlY0PD6ZolNUwfscrQ7xtVeaOnuudatuCG6nk0oibo+J2Cq2WCm0f4+QLD+SSC2lyn
+ vZqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696259191; x=1696863991;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=c0wIcnLi0eW3KIpAYRJEn1N+1DF/SZtUbN/0mO//zy4=;
+ b=BxQb1xvb9kg/mpheLvvjSGdVPKaJ6njHE/bNcaAr5wYkKU1R1yccWMEVk1wfAwHwaJ
+ i8QAhAWOiqtGSYf8017D83I57H4nE5iueStmF5axCiUuLsSlMPTI/Jbkbj/sMk1UUWVi
+ RCl4GLlSZ1GhwAUmCrKxjA3dtAqeDzB5dYFM/Va/o4UM+nI7fQxzrcI5hNV/vv64Gsp0
+ afVFc6+gwgsVvFe64HziU2bsuxb8R+K5apG9CFPYtW0UgEWj+d2dS9o3UNgmCTV4boz/
+ c46Im0d9bC+by5BikFscPuvb1pUMPVTCnAmUjSe9JBssXAqLlpKeRA6iMEBJtHWFQ63g
+ ZLKQ==
+X-Gm-Message-State: AOJu0YxvoZauq8Ne8p+7Ze73kTeaMRPuJQtcUkQb8J+gPnIrNDMDbiAl
+ LrULL5mE9ltbXGL85N2AydUnYZDnx+/cpgkE9Vg=
+X-Google-Smtp-Source: AGHT+IEX1je+61h+JUKWDKJZA+eu4NOUlivFnUEzoxSozC/G9+CulawvWCmD9DLQxtVZD1wdvqrdGNPyL3ZP6lrp6ME=
+X-Received: by 2002:a05:6870:a115:b0:1dd:7fa9:ed52 with SMTP id
+ m21-20020a056870a11500b001dd7fa9ed52mr15044564oae.17.1696259190738; Mon, 02
+ Oct 2023 08:06:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <70d975d0-8ee7-9f08-7fae-4652a18df598@arm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: don't set
- IO_PGTABLE_QUIRK_ARM_OUTER_WBWA with coherent SMMU
+References: <20230922173110.work.084-kees@kernel.org>
+ <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
+ <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
+In-Reply-To: <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Oct 2023 11:06:19 -0400
+Message-ID: <CADnq5_Ma2CrLYggJHKFEObsNmUoqJwb2p1xai5DfL=m43U6zEA@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 0/9] drm: Annotate structs with __counted_by
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +70,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org,
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Karol Herbst <kherbst@redhat.com>, Tom Rix <trix@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Emma Anholt <emma@anholt.net>, Neil Armstrong <neil.armstrong@linaro.org>,
+ amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
+ virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-hardening@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kees Cook <keescook@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Nathan Chancellor <nathan@kernel.org>, Le Ma <le.ma@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Zack Rusin <zackr@vmware.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ John Harrison <john.c.harrison@intel.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 29, 2023 at 06:25:21PM +0100, Robin Murphy wrote:
-> On 29/09/2023 4:45 pm, Will Deacon wrote:
-> > On Mon, Sep 25, 2023 at 06:54:42PM +0100, Robin Murphy wrote:
-> > > On 2023-04-10 19:52, Dmitry Baryshkov wrote:
-> > > > If the Adreno SMMU is dma-coherent, allocation will fail unless we
-> > > > disable IO_PGTABLE_QUIRK_ARM_OUTER_WBWA. Skip setting this quirk for the
-> > > > coherent SMMUs (like we have on sm8350 platform).
-> > > 
-> > > Hmm, but is it right that it should fail in the first place? The fact is
-> > > that if the SMMU is coherent then walks *will* be outer-WBWA, so I honestly
-> > > can't see why the io-pgtable code is going out of its way to explicitly
-> > > reject a request to give them the same attribute it's already giving then
-> > > anyway :/
-> > > 
-> > > Even if the original intent was for the quirk to have an over-specific
-> > > implication of representing inner-NC as well, that hardly seems useful if
-> > > what we've ended up with in practice is a nonsensical-looking check in one
-> > > place and then a weird hacky bodge in another purely to work around it.
-> > > 
-> > > Does anyone know a good reason why this is the way it is?
-> > 
-> > I think it was mainly because the quick doesn't make sense for a coherent
-> > page-table walker and we could in theory use that bit for something else
-> > in that case.
-> 
-> Yuck, even if we did want some horrible notion of quirks being conditional
-> on parts of the config rather than just the format, then the users would
-> need to be testing for the same condition as the pagetable code itself (i.e.
-> cfg->coherent_walk), rather than hoping some other property of something
-> else indirectly reflects the right information - e.g. there'd be no hope of
-> backporting this particular bodge before 5.19 where the old
-> iommu_capable(IOMMU_CAP_CACHE_COHERENCY) always returned true, and in future
-> we could conceivably support coherent SMMUs being configured for
-> non-coherent walks on a per-domain basis.
+On Mon, Oct 2, 2023 at 5:20=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 29.09.23 um 21:33 schrieb Kees Cook:
+> > On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
+> >> This is a batch of patches touching drm for preparing for the coming
+> >> implementation by GCC and Clang of the __counted_by attribute. Flexibl=
+e
+> >> array members annotated with __counted_by can have their accesses
+> >> bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
+> >> indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family function=
+s).
+> >>
+> >> As found with Coccinelle[1], add __counted_by to structs that would
+> >> benefit from the annotation.
+> >>
+> >> [...]
+> > Since this got Acks, I figure I should carry it in my tree. Let me know
+> > if this should go via drm instead.
+> >
+> > Applied to for-next/hardening, thanks!
+> >
+> > [1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with _=
+_counted_by
+> >        https://git.kernel.org/kees/c/a6046ac659d6
+>
+> STOP! In a follow up discussion Alex and I figured out that this won't wo=
+rk.
+>
+> The value in the structure is byte swapped based on some firmware
+> endianness which not necessary matches the CPU endianness.
 
-That doesn't sound like an insurmountable problem to me. Either a bunch of
-other stuff has to be backported as well, or the msm_iommu driver can fish
-the pgtable configuration out of the SMMU, like it already does elsewhere.
+SMU10 is APU only so the endianess of the SMU firmware and the CPU
+will always match.
 
-> Furthermore, if we did overload a flag to have multiple meanings, then we'd
-> have no way of knowing which one the caller was actually expecting, thus the
-> illusion of being able to validate calls in the meantime isn't necessarily
-> as helpful as it seems, particularly in a case where the "wrong"
-> interpretation would be to have no effect anyway. Mostly though I'd hope
-> that if we ever got anywhere near the point of running out of quirk bits
-> we'd have already realised that it's time for a better interface :(
+Alex
 
-Although I agree that practically I can't see us reusing quirk bits, I do
-much prefer that we reject quirks that don't make sense. Yes, in this case
-it happens that the quirk is expressing something which is already true
-for the coherent walker, but that feels like a special case to me rather
-than something which is likely to be true in general, for example, the
-system cache quirk proposed by Qualcomm to expose the unused
-inner-NC-outer-WBWRA MAIR configuration.
-
-Implicitly accepting quirks also makes it more difficult if we wanted to
-change the default configuration in future; for example if we wanted to
-adjust the default allocation hints.
-
-So I'd prefer to leave the page-table code as-is.
-
-Will
+>
+> Please revert that one from going upstream if it's already on it's way.
+>
+> And because of those reasons I strongly think that patches like this
+> should go through the DRM tree :)
+>
+> Regards,
+> Christian.
+>
+> > [2/9] drm/amdgpu/discovery: Annotate struct ip_hw_instance with __count=
+ed_by
+> >        https://git.kernel.org/kees/c/4df33089b46f
+> > [3/9] drm/i915/selftests: Annotate struct perf_series with __counted_by
+> >        https://git.kernel.org/kees/c/ffd3f823bdf6
+> > [4/9] drm/msm/dpu: Annotate struct dpu_hw_intr with __counted_by
+> >        https://git.kernel.org/kees/c/2de35a989b76
+> > [5/9] drm/nouveau/pm: Annotate struct nvkm_perfdom with __counted_by
+> >        https://git.kernel.org/kees/c/188aeb08bfaa
+> > [6/9] drm/vc4: Annotate struct vc4_perfmon with __counted_by
+> >        https://git.kernel.org/kees/c/59a54dc896c3
+> > [7/9] drm/virtio: Annotate struct virtio_gpu_object_array with __counte=
+d_by
+> >        https://git.kernel.org/kees/c/5cd476de33af
+> > [8/9] drm/vmwgfx: Annotate struct vmw_surface_dirty with __counted_by
+> >        https://git.kernel.org/kees/c/b426f2e5356a
+> > [9/9] drm/v3d: Annotate struct v3d_perfmon with __counted_by
+> >        https://git.kernel.org/kees/c/dc662fa1b0e4
+> >
+> > Take care,
+> >
+>
