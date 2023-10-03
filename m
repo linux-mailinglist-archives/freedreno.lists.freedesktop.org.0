@@ -1,116 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 527617B6752
-	for <lists+freedreno@lfdr.de>; Tue,  3 Oct 2023 13:12:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79C9B7B6D56
+	for <lists+freedreno@lfdr.de>; Tue,  3 Oct 2023 17:42:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 190A810E0CB;
-	Tue,  3 Oct 2023 11:12:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B21D910E2CB;
+	Tue,  3 Oct 2023 15:42:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79C4710E0CB
- for <freedreno@lists.freedesktop.org>; Tue,  3 Oct 2023 11:12:33 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-99bdeae1d0aso134311466b.1
- for <freedreno@lists.freedesktop.org>; Tue, 03 Oct 2023 04:12:33 -0700 (PDT)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9138E10E2B7;
+ Tue,  3 Oct 2023 15:42:04 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-533d31a8523so1954400a12.1; 
+ Tue, 03 Oct 2023 08:42:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696331552; x=1696936352; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=EPTTNXhP8n0kRkKvH2dqfTNO64xQ4C814TDzd2IJmuE=;
- b=K6bEb/lTxbOEDgQvf6C0hmLPzBqlUxy9Z/DbXqVCtQ/9vt+F+25qmNNHmvwbzKBIfD
- kbEDXaJJofVkLUHTep9n4+UGPhRn0Nn75H/B+8rkPP7hTgeZ65i4C+2ryBWAm8EdHi68
- 4ObTs9ze2Fyo7xCkjZgZqGq7SaHGYGSYz4ocz+8C8GOaNb76icTHl2T7Cbu3aRKC65Im
- xMOQUhVJVZb/JGljKnS1eMglFbV52lAaq6EQhLNJ2beU0WAy3Q5WMJDdoetxPMS6ov0H
- atyAmmEzbd7bjutRr2auIfbCRpAsH7xiEX8CXMJEkoqJz0D8/LQ9UhGVhH8VbWjYDORO
- HmwA==
+ d=gmail.com; s=20230601; t=1696347723; x=1696952523; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zwcIH/MJaknxI2AysetsnqfxTchI6FhcS9I0JiipDi8=;
+ b=GjlPMV7fpxE49vm/ctofHH4//YYxtyK/wcLjszYQ9nUnilT90BJYZOquv9Gp8XDYhj
+ LOcWyBBMPmk7UYw1ZxqjTMGnPtjMDlYk9T+xFdEk3S9hDxJlxamtqtYHtaPawj4/butk
+ HGgTxhMQO7CA9KClFdH8i6Q4H/Jr6HVGxIIG7XbGW2QTeKXsglrTm74sMQWWbaRk1UiC
+ uENyn6Z+uEkukZ5nCp/207keKsY40sDdm+AqjpHXFyXjb5S9eFmI1DcTE0sNojDIMNaR
+ Kvlb2mh3AiYf/t+1EKje8ZU34ZGTVrvFlh8z4XCSlAP5VSoUearOR/2KBIkXtgwdsbzb
+ D+fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696331552; x=1696936352;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EPTTNXhP8n0kRkKvH2dqfTNO64xQ4C814TDzd2IJmuE=;
- b=fZx55GQy65yq86L+NPkoE2TtNfZpPJV7YtK0iI8EJ/UiE5nRNn6EL6HXSQRD30RChH
- AyqQbCKqRYY4ZLuMrIq2Mcb1MtE3XzRyzdAWmKm9bwTACVazVsz7ZA0eBiDaqY614icL
- am0QJTMlFZGfOcsKuTfZfp1DVt+WoQ9ZX5+Bs2TvMSCUnGHLXt0A1coFj+1dwQESek31
- ddUVkkSYOJccQ10rHeGLAN9PTatcCymFBRndki6JbfhPxIlufkCkcDV0Tqa8UamrBalz
- /8tWmt4Xbh70FRMRA8gaRfUFTdCatASRu8UH+6ddSAo4IF9mL0WwfNXkO4axEItkFPe/
- K7Yw==
-X-Gm-Message-State: AOJu0YxRWdu0Couutt6NmVSjT+I0tOxE8i8oVLmcP59Pbc7Qr1i8SFSd
- DyCefgyr9fKee+qEOfJw7/by9Q==
-X-Google-Smtp-Source: AGHT+IFqHg0kx2RWxf972jQKVm268qDKt60nP19u4DZYSPKFvJE5xraLNylJQKM7/K5V/yONNEkbwA==
-X-Received: by 2002:a17:907:78c4:b0:9b2:b768:3cfc with SMTP id
- kv4-20020a17090778c400b009b2b7683cfcmr13620053ejc.1.1696331551830; 
- Tue, 03 Oct 2023 04:12:31 -0700 (PDT)
-Received: from [192.168.1.197] (5-157-101-10.dyn.eolo.it. [5.157.101.10])
- by smtp.gmail.com with ESMTPSA id
- gh18-20020a170906e09200b009b27d4153cfsm894576ejb.176.2023.10.03.04.12.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Oct 2023 04:12:31 -0700 (PDT)
-Message-ID: <387bf3df-ee1a-4d21-8141-c3b00eb23991@linaro.org>
-Date: Tue, 3 Oct 2023 13:12:28 +0200
+ d=1e100.net; s=20230601; t=1696347723; x=1696952523;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zwcIH/MJaknxI2AysetsnqfxTchI6FhcS9I0JiipDi8=;
+ b=ryYXQUcSXzM/zjS5wdudFnTqF7do+0/1sa1lMwd2wyzADx7IH59NLNEbcSZWAfIK+E
+ dbiq3bHGcK9YsETc4KyVWagjSdffosaM5amVhkddrY4qOdFTqKgCi3XaEfpdvORRB740
+ TO0qWSM93HKWSSjgFd1xAxUdJEWxaVBxluAekJOrzxp73t2X8kljbjhQaXJT9AtR+lZD
+ aRFjqH9k9UTn6Bu2I7LMTUj3vvYmLJwkY+QLfxPt6yv27LbQah8crSASSqt/trOhg0UX
+ opIb7GgHjb+KeoiJN+hzapOg6Bbm4zEZyNelvhDpWWWNtVnoOr/wDd8/p8sFzRVctENJ
+ Gkeg==
+X-Gm-Message-State: AOJu0YwXCvmRqfYKJscKKgQV6fPdXa3nBgLLQb7c1vmy6PJTDyLm/7B9
+ CZJ3hdYorfjqj1qpBCYUvlIzf0RppKHmk3En1PM=
+X-Google-Smtp-Source: AGHT+IFfYq7iZhbGBkD+298cNE5AGyY/ae4vqG/gUVjcZgH8FPFdolrszeguKhwmL4VBTmQ0KiloX9AVBu/Hy81fRBA=
+X-Received: by 2002:a05:6402:d0:b0:530:ccf7:37af with SMTP id
+ i16-20020a05640200d000b00530ccf737afmr12920690edu.12.1696347722588; Tue, 03
+ Oct 2023 08:42:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231003012119.857198-9-mailingradian@gmail.com>
- <20231003012119.857198-12-mailingradian@gmail.com>
- <fa926d91-f748-4886-ae6d-f55541e40f5c@linaro.org>
- <CAA8EJpqPP=X8-jD_mwSmO8OMaxb_0Yo3j-b9chyChORDyvdWAQ@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <CAA8EJpqPP=X8-jD_mwSmO8OMaxb_0Yo3j-b9chyChORDyvdWAQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 3/6] dt-bindings: display: msm: Add
- SDM670 MDSS
+References: <20230929181616.2769345-1-adrian.larumbe@collabora.com>
+ <20230929181616.2769345-5-adrian.larumbe@collabora.com>
+In-Reply-To: <20230929181616.2769345-5-adrian.larumbe@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 3 Oct 2023 08:41:49 -0700
+Message-ID: <CAF6AEGuQEi8piaw60ySOqfQpjr-cvR0cw8U78=kG3UyMv-NQYg@mail.gmail.com>
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v8 4/5] drm/drm_file: Add DRM obj's RSS
+ reporting function for fdinfo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,68 +70,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ryan McCann <quic_rmccann@quicinc.com>, dri-devel@lists.freedesktop.org,
- Liu Shixin <liushixin2@huawei.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, David Airlie <airlied@gmail.com>,
- Robert Foss <rfoss@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Richard Acayan <mailingradian@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: robh@kernel.org, kernel@collabora.com, tzimmermann@suse.de,
+ tvrtko.ursulin@linux.intel.com, sean@poorly.run,
+ maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
+ mripard@kernel.org, steven.price@arm.com, healych@amazon.com,
+ boris.brezillon@collabora.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, freedreno@lists.freedesktop.org,
+ airlied@gmail.com, linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/10/2023 12:31, Dmitry Baryshkov wrote:
->>> +patternProperties:
->>> +  "^display-controller@[0-9a-f]+$":
->>> +    type: object
->>> +    additionalProperties: true
->>> +
->>> +    properties:
->>> +      compatible:
->>> +        const: qcom,sdm670-dpu
->>> +
->>> +  "^displayport-controller@[0-9a-f]+$":
->>> +    type: object
->>> +    additionalProperties: true
->>> +
->>> +    properties:
->>> +      compatible:
->>> +        const: qcom,sdm670-dp
->>> +
->>> +  "^dsi@[0-9a-f]+$":
->>> +    type: object
->>> +    additionalProperties: true
->>> +
->>> +    properties:
->>> +      compatible:
->>> +        contains:
->>> +          const: qcom,sdm670-dsi-ctrl
->>> +
->>> +  "^phy@[0-9a-f]+$":
->>> +    type: object
->>> +    additionalProperties: true
->>> +
->>> +    properties:
->>> +      compatible:
->>> +        const: qcom,dsi-phy-10nm
->>
->> This does not look right. Why the compatible is generic, not SoC-specific?
-> 
-> Because for 10nm DSI PHY we don't have SoC-specific compatibles other
-> than the ugly 8998 compat string.
+On Fri, Sep 29, 2023 at 11:16=E2=80=AFAM Adri=C3=A1n Larumbe
+<adrian.larumbe@collabora.com> wrote:
+>
+> Some BO's might be mapped onto physical memory chunkwise and on demand,
+> like Panfrost's tiler heap. In this case, even though the
+> drm_gem_shmem_object page array might already be allocated, only a very
+> small fraction of the BO is currently backed by system memory, but
+> drm_show_memory_stats will then proceed to add its entire virtual size to
+> the file's total resident size regardless.
+>
+> This led to very unrealistic RSS sizes being reckoned for Panfrost, where
+> said tiler heap buffer is initially allocated with a virtual size of 128
+> MiB, but only a small part of it will eventually be backed by system memo=
+ry
+> after successive GPU page faults.
+>
+> Provide a new DRM object generic function that would allow drivers to
+> return a more accurate RSS and purgeable sizes for their BOs.
+>
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Reviewed-by: Steven Price <steven.price@arm.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
 
-OK.
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-
-Best regards,
-Krzysztof
-
+> ---
+>  drivers/gpu/drm/drm_file.c | 8 +++++---
+>  include/drm/drm_gem.h      | 9 +++++++++
+>  2 files changed, 14 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 883d83bc0e3d..9a1bd8d0d785 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -930,6 +930,8 @@ void drm_show_memory_stats(struct drm_printer *p, str=
+uct drm_file *file)
+>         spin_lock(&file->table_lock);
+>         idr_for_each_entry (&file->object_idr, obj, id) {
+>                 enum drm_gem_object_status s =3D 0;
+> +               size_t add_size =3D (obj->funcs && obj->funcs->rss) ?
+> +                       obj->funcs->rss(obj) : obj->size;
+>
+>                 if (obj->funcs && obj->funcs->status) {
+>                         s =3D obj->funcs->status(obj);
+> @@ -944,7 +946,7 @@ void drm_show_memory_stats(struct drm_printer *p, str=
+uct drm_file *file)
+>                 }
+>
+>                 if (s & DRM_GEM_OBJECT_RESIDENT) {
+> -                       status.resident +=3D obj->size;
+> +                       status.resident +=3D add_size;
+>                 } else {
+>                         /* If already purged or not yet backed by pages, =
+don't
+>                          * count it as purgeable:
+> @@ -953,14 +955,14 @@ void drm_show_memory_stats(struct drm_printer *p, s=
+truct drm_file *file)
+>                 }
+>
+>                 if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(=
+true))) {
+> -                       status.active +=3D obj->size;
+> +                       status.active +=3D add_size;
+>
+>                         /* If still active, don't count as purgeable: */
+>                         s &=3D ~DRM_GEM_OBJECT_PURGEABLE;
+>                 }
+>
+>                 if (s & DRM_GEM_OBJECT_PURGEABLE)
+> -                       status.purgeable +=3D obj->size;
+> +                       status.purgeable +=3D add_size;
+>         }
+>         spin_unlock(&file->table_lock);
+>
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index bc9f6aa2f3fe..16364487fde9 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -208,6 +208,15 @@ struct drm_gem_object_funcs {
+>          */
+>         enum drm_gem_object_status (*status)(struct drm_gem_object *obj);
+>
+> +       /**
+> +        * @rss:
+> +        *
+> +        * Return resident size of the object in physical memory.
+> +        *
+> +        * Called by drm_show_memory_stats().
+> +        */
+> +       size_t (*rss)(struct drm_gem_object *obj);
+> +
+>         /**
+>          * @vm_ops:
+>          *
+> --
+> 2.42.0
+>
