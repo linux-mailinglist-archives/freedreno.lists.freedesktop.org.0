@@ -2,62 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B6B7B631F
-	for <lists+freedreno@lfdr.de>; Tue,  3 Oct 2023 10:05:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDA97B64A4
+	for <lists+freedreno@lfdr.de>; Tue,  3 Oct 2023 10:48:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D21AB10E212;
-	Tue,  3 Oct 2023 08:05:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C36510E263;
+	Tue,  3 Oct 2023 08:48:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [IPv6:2607:f8b0:4864:20::112a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7B0B10E212
- for <freedreno@lists.freedesktop.org>; Tue,  3 Oct 2023 08:05:23 +0000 (UTC)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-59f6441215dso7523787b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 03 Oct 2023 01:05:23 -0700 (PDT)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 780D910E263
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Oct 2023 08:48:27 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-53639fb0ba4so1060411a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Oct 2023 01:48:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696320323; x=1696925123; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nufGQlUY1g0bNPBzNKnu5ueYWDa3BB18SZWYQxNJbuE=;
- b=sJ5VrBJcAPPbRJqgKaJHpSfokq//RC7qKLG+5JCZU6X//ZD61T0tayYpxZ6Rc7BTAL
- +A1r7YUhfm1PDmMFBgDOqgt+Zh1SgBfN67qTq+xZAy3+w7An8Kvt5YhJyMZXfqUmoWN5
- 9SvOc33HhWmmuyANI7XWCxekZoKfDAHlgi3Cq2pMcARHfjzRT2uFMhnFoMRB7razGKyP
- AUVaiI7iaAkhAakOA9zmVVkdwxYXce25RWJaoSPfEaJAse/Dedx4zvMcTSZ6JzBKYSBp
- F+ymTgxQhzRR9nLkY94+dzlicDMTXsZHOq+xK+biFAytMONsbUhc1LuEe5GKgXT1rHoZ
- wDNA==
+ d=linaro.org; s=google; t=1696322906; x=1696927706; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qTcWqA2vsTFKtEgPZaGtKswQTXArLPU951N5/Ch92Cw=;
+ b=bilGbrEBhKAxN6aCMWleW7yXmm04tr+exGOQzDmLNULfBprZUhD+6JsOCEQT0YOuEL
+ EzNnPEsad9in2vmYnckInmhYfzf1/kbFO8u8d2kPJNlgukw11d35uGvlZg/gedvdaP4K
+ sE2KhSFqNqD2nh17IRXWdrDLGmInZBOVM4/3bm7DyA644MjhFb3gAjjQNSpfuSmdlngc
+ scd1SjT+f0sZhVZH1IV+3bN7QTfyGxhEXUNytb1TxN8p4QgChgqkRaOl0Os/Hm49mxGo
+ figUvPp7y6cXEQlOSZB0ZAgr/jSsf0NqKOQB8Rgdmfo2Rv8zeZEmzNI9frQuy3a78AKS
+ BI5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696320323; x=1696925123;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nufGQlUY1g0bNPBzNKnu5ueYWDa3BB18SZWYQxNJbuE=;
- b=vfc4Vuk70/3DtXufxEWdAQhThaRRlQhACSAvKN0UJxg6OXY5ksiiRAgZjBE2TLeB5y
- 1bWg7xqtFDYPjfAPZgvx2Ub6PrU5yebfb+sKxg9UyhLNky+HkOkmtv+mMxH8p12PQKsd
- 19dJPoiP+zWZbNKg6X2ycNmI+hVIxUcdCpkeheMhKEGSeGgtgM5oNIyUBAVfxkdBaAGV
- 18GJGg3pAORivXOBJJLRzHWNTb/XceD7C+Ih9D3sNRsEeQX8RFxhSMax7MzwOeUARwaR
- uJhkHP0TcxkvMGoHczl29KAh4QXWe5hFcAuBW93RuwXCJjMbQaYYnxtlOBcVMkZMMx1P
- dnwg==
-X-Gm-Message-State: AOJu0YyzMEFdCDn9MK6Iw3PaYobNGGkK8Gmz94R4KpzUpyXPU31yh+9Y
- SkQWJwOjBUHzeTS2/a7GfhVO8MErFOT31qCnXraahw==
-X-Google-Smtp-Source: AGHT+IGJNdTggw+v5zN/tnXiaXhsuH6O03O3jJEdpfd5l4sddq/Tscn5KfgwU2UDyTWDoWOA/EJPNA5rRNbhs7huPnA=
-X-Received: by 2002:a0d:e645:0:b0:58c:4e63:109 with SMTP id
- p66-20020a0de645000000b0058c4e630109mr14406575ywe.0.1696320322762; Tue, 03
- Oct 2023 01:05:22 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696322906; x=1696927706;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qTcWqA2vsTFKtEgPZaGtKswQTXArLPU951N5/Ch92Cw=;
+ b=pmsNmGyKabJaRSsFIeuR1a/kgZxT1/KhcsZ2BuC5FW6mf3ZcguaQs0EJtswrEqyyp9
+ 5ZsvPbubTmo0KUMUfvDU/UIl7QbYM38eJu0bqwSjwH5IiFIfalTg69R175ePuv1vV4ak
+ hhI6O5kCOTJN0wmtGuFDXiCdJOs/PIluPbd169BRkMCQ8iry1MJXYfSQvSF9+c/beNLg
+ aBJZL8PpU/JPGZxsDmgaQToiQH+KccNH1kityKTDgz+484j41OS4k78cMtCHhMiS0kd/
+ BCCr6L3+PfVqejkuRCF7mUeyN27WKXPHjgYUOW7O9DEsHuNUR9eohmID8CfCP2u+WNsc
+ kQmQ==
+X-Gm-Message-State: AOJu0Yy6ayfwxXf6PNzoqXcBW1a783oKj3OqUa3DFn2ruEcfL6r0JglE
+ NLHtfh+VUMYkNmpvUC9CCDUjXg==
+X-Google-Smtp-Source: AGHT+IHXR9RhgBYz0tuezZk3uuqteFyHlD9+xcQtR+vV2iKN8TOWV2B9/HM+IIjGy1hGhw9Z9R/dZA==
+X-Received: by 2002:aa7:d492:0:b0:522:2782:537 with SMTP id
+ b18-20020aa7d492000000b0052227820537mr11860149edr.15.1696322905726; 
+ Tue, 03 Oct 2023 01:48:25 -0700 (PDT)
+Received: from [192.168.1.197] (5-157-101-10.dyn.eolo.it. [5.157.101.10])
+ by smtp.gmail.com with ESMTPSA id
+ d18-20020a50fb12000000b0053801ca9a09sm512238edq.33.2023.10.03.01.48.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Oct 2023 01:48:25 -0700 (PDT)
+Message-ID: <fa926d91-f748-4886-ae6d-f55541e40f5c@linaro.org>
+Date: Tue, 3 Oct 2023 10:48:22 +0200
 MIME-Version: 1.0
-References: <1695848028-18023-1-git-send-email-quic_khsieh@quicinc.com>
- <1695848028-18023-6-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpptTDQVO189OcXqJw+VN+1EkgaQd6TJwcGpGxdYTR1vhQ@mail.gmail.com>
- <f55ae4d0-f051-9bce-e571-11613cae2465@quicinc.com>
-In-Reply-To: <f55ae4d0-f051-9bce-e571-11613cae2465@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 3 Oct 2023 11:05:11 +0300
-Message-ID: <CAA8EJppQizXAwN3gyWoyfDoAc6xGcZDrpDNemfXE_vrbp5yxnw@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 5/8] drm/msm/dp: incorporate pm_runtime
- framework into DP driver
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Richard Acayan <mailingradian@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Liu Shixin
+ <liushixin2@huawei.com>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20231003012119.857198-9-mailingradian@gmail.com>
+ <20231003012119.857198-12-mailingradian@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20231003012119.857198-12-mailingradian@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 3/6] dt-bindings: display: msm: Add
+ SDM670 MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,420 +138,142 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 3 Oct 2023 at 01:48, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 9/27/2023 2:41 PM, Dmitry Baryshkov wrote:
-> > On Wed, 27 Sept 2023 at 23:54, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >> Currently DP driver is executed independent of PM runtime framework.
-> >> This lead to msm edp panel can not be detected by edp_panel driver at
-> >> generic_edp_panel_probe() due to aux dpcd read failed at msm edp driver.
-> > eDP, AUX, DPCD. leads. not being detected, s/at/during.
-> >
-> > Also there is no msm eDP driver.
-> >
-> >> Incorporating pm runtime framework into DP driver so that both power and
-> > Incorporate. PM
-> >
-> >> clocks to enable/disable host controller fits with PM runtime mechanism.
-> > Ugh?
-> >
-> >> Once pm runtime framework is incorporated into DP driver, wake up device
-> > waking
-> >
-> >> from power up path is not necessary. Hence remove it.
-> >> Since DP is part of user interface, we choice to use autosuspend feature
-> >> with timer of one second. pm runtime suspends is prevented from happening
-> >> until timer expired.
-> > No, this is not the right reason to use autosuspend. Please use normal
-> > suspend unless there is a performance regression caused by the
-> > suspend/resume paths.
-> >
-> >> Changes in v4:
-> >> -- reworded commit text to explain why pm_framework is required for edp panel
-> >> -- reworded commit text to explain autosuspend is choiced
-> >> -- delete EV_POWER_PM_GET and PM_EV_POWER_PUT from changes #3
-> >> -- delete dp_display_pm_get() and dp_display_pm_Put() from changes #3
-> >> -- return value from pm_runtime_resume_and_get() directly
-> >> -- check return value of devm_pm_runtime_enable()
-> >> -- delete pm_runtime_xxx from dp_display_remove()
-> >> -- drop dp_display_host_init() from EV_HPD_INIT_SETUP
-> >>
-> >> Changes in v3:
-> >> -- incorporate removing pm_runtime_xx() from dp_pwer.c to this patch
-> >> -- use pm_runtime_resume_and_get() instead of pm_runtime_get()
-> >> -- error checking pm_runtime_resume_and_get() return value
-> >> -- add EV_POWER_PM_GET and PM_EV_POWER_PUT to handle HPD_GPIO case
-> >>
-> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> >> Reported-by: kernel test robot <lkp@intel.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/dp/dp_aux.c     |  6 +++
-> >>   drivers/gpu/drm/msm/dp/dp_display.c | 95 +++++++++++++++++++++++++++----------
-> >>   drivers/gpu/drm/msm/dp/dp_power.c   | 16 -------
-> >>   drivers/gpu/drm/msm/dp/dp_power.h   | 11 -----
-> >>   4 files changed, 77 insertions(+), 51 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> index 8e3b677..22eb774 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> >> @@ -291,6 +291,10 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
-> >>                  return -EINVAL;
-> >>          }
-> >>
-> >> +       ret = pm_runtime_resume_and_get(dp_aux->dev);
-> >> +       if (ret)
-> >> +               return  ret;
-> >> +
-> >>          mutex_lock(&aux->mutex);
-> >>          if (!aux->initted) {
-> >>                  ret = -EIO;
-> >> @@ -364,6 +368,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
-> >>
-> >>   exit:
-> >>          mutex_unlock(&aux->mutex);
-> >> +       pm_runtime_mark_last_busy(dp_aux->dev);
-> >> +       pm_runtime_put_autosuspend(dp_aux->dev);
-> >>
-> >>          return ret;
-> >>   }
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> index 3ef141c..bfb4692 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> @@ -276,8 +276,6 @@ static int dp_display_bind(struct device *dev, struct device *master,
-> >>          dp->dp_display.drm_dev = drm;
-> >>          priv->dp[dp->id] = &dp->dp_display;
-> >>
-> >> -
-> >> -
-> > Is this also a part of pm_runtime support? No, it is not.
-> >
-> >>          dp->drm_dev = drm;
-> >>          dp->aux->drm_dev = drm;
-> >>          rc = dp_aux_register(dp->aux);
-> >> @@ -286,7 +284,6 @@ static int dp_display_bind(struct device *dev, struct device *master,
-> >>                  goto end;
-> >>          }
-> >>
-> >> -
-> > And this. If you want to clean up stray empty lines, please split that
-> > to a separate patch.
-> >
-> >>          rc = dp_register_audio_driver(dev, dp->audio);
-> >>          if (rc) {
-> >>                  DRM_ERROR("Audio registration Dp failed\n");
-> >> @@ -310,15 +307,10 @@ static void dp_display_unbind(struct device *dev, struct device *master,
-> >>          struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> >>          struct msm_drm_private *priv = dev_get_drvdata(master);
-> >>
-> >> -       /* disable all HPD interrupts */
-> >> -       if (dp->core_initialized)
-> >> -               dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
-> >> -
-> >>          kthread_stop(dp->ev_tsk);
-> >>
-> >>          of_dp_aux_depopulate_bus(dp->aux);
-> >>
-> >> -       dp_power_client_deinit(dp->power);
-> >>          dp_unregister_audio_driver(dev, dp->audio);
-> >>          dp_aux_unregister(dp->aux);
-> >>          dp->drm_dev = NULL;
-> >> @@ -460,6 +452,16 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
-> >>   static int dp_display_usbpd_configure_cb(struct device *dev)
-> >>   {
-> >>          struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> >> +       int ret;
-> >> +
-> >> +       if (!dp->dp_display.internal_hpd) {
-> > I'd say, drop the condition here.
-> >
-> >> +               /* hpd through gpio */
-> > Why? !internal_hpd means any possible way of delivering an HPD event.
-> > For example, via the USB-C TCPM.
-> >
-> >> +               ret = pm_runtime_resume_and_get(&dp->pdev->dev);
-> > Which function contains corresponding pm_runtime_put()?
-> >
-> >> +               if (ret) {
-> >> +                       DRM_ERROR("failed to start power\n");
-> > failed to resume
-> >
-> >> +                       return ret;
-> >> +               }
-> >> +       }
-> >>
-> >>          dp_display_host_phy_init(dp);
-> >>
-> >> @@ -1086,7 +1088,6 @@ static int hpd_event_thread(void *data)
-> >>
-> >>                  switch (todo->event_id) {
-> >>                  case EV_HPD_INIT_SETUP:
-> >> -                       dp_display_host_init(dp_priv);
-> >>                          break;
-> >>                  case EV_HPD_PLUG_INT:
-> >>                          dp_hpd_plug_handle(dp_priv, todo->data);
-> >> @@ -1263,6 +1264,13 @@ static int dp_display_probe(struct platform_device *pdev)
-> >>
-> >>          platform_set_drvdata(pdev, &dp->dp_display);
-> >>
-> >> +       rc = devm_pm_runtime_enable(&pdev->dev);
-> >> +       if (rc)
-> >> +               return rc;
-> > Missing submodules deinit.
-> >
-> >> +
-> >> +       pm_runtime_set_autosuspend_delay(&pdev->dev, 1000);
-> >> +       pm_runtime_use_autosuspend(&pdev->dev);
-> >> +
-> >>          rc = dp_display_request_irq(dp);
-> >>          if (rc)
-> >>                  return rc;
-> >> @@ -1285,6 +1293,34 @@ static int dp_display_remove(struct platform_device *pdev)
-> >>
-> >>          platform_set_drvdata(pdev, NULL);
-> >>
-> >> +       dp_display_deinit_sub_modules(dp);
-> > There is already a call to dp_display_deinit_sub_modules() in
-> > dp_display_remove().
-> >> +
-> >> +       return 0;
-> >> +}
-> >> +
-> >> +static int dp_pm_runtime_suspend(struct device *dev)
-> >> +{
-> >> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> >> +
-> >> +       if (dp->dp_display.is_edp) {
-> >> +               dp_display_host_phy_exit(dp);
-> >> +               dp_catalog_ctrl_hpd_disable(dp->catalog);
-> >> +       }
-> > I don't see where this code was removed.
->
-> this code block is adapted from dp_pm_suspend().
->
-> dp_pm_suspend() will be removed at "add
-> pm_runtime_force_suspend()/resume()" patch.
+On 03/10/2023 03:21, Richard Acayan wrote:
+> Add documentation for the SDM670 display subsystem, adapted from the
+> SDM845 and SM6125 documentation.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  .../display/msm/qcom,sdm670-mdss.yaml         | 287 ++++++++++++++++++
+>  1 file changed, 287 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+> new file mode 100644
+> index 000000000000..9995b018cd9e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+> @@ -0,0 +1,287 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sdm670-mdss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SDM670 Display MDSS
+> +
+> +maintainers:
+> +  - Richard Acayan <mailingradian@gmail.com>
+> +
+> +description:
+> +  SDM670 MSM Mobile Display Subsystem (MDSS), which encapsulates sub-blocks
+> +  like DPU display controller, DSI and DP interfaces etc.
+> +
+> +$ref: /schemas/display/msm/mdss-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sdm670-mdss
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB clock from gcc
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: core
+> +
+> +  iommus:
+> +    maxItems: 2
+> +
+> +  interconnects:
+> +    maxItems: 2
+> +
+> +  interconnect-names:
+> +    maxItems: 2
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        const: qcom,sdm670-dpu
+> +
+> +  "^displayport-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        const: qcom,sdm670-dp
+> +
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        contains:
+> +          const: qcom,sdm670-dsi-ctrl
+> +
+> +  "^phy@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        const: qcom,dsi-phy-10nm
 
-Each patch should be atomic. Adding code here, while removing it
-later, breaks that assumption.
+This does not look right. Why the compatible is generic, not SoC-specific?
 
->
-> >
-> >> +       dp_display_host_deinit(dp);
-> >> +
-> >> +       return 0;
-> >> +}
-> >> +
-> >> +static int dp_pm_runtime_resume(struct device *dev)
-> >> +{
-> >> +       struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> >> +
-> >> +       dp_display_host_init(dp);
-> >> +       if (dp->dp_display.is_edp) {
-> >> +               dp_catalog_ctrl_hpd_enable(dp->catalog);
-> >> +               dp_display_host_phy_init(dp);
-> >> +       }
-> >> +
-> >>          return 0;
-> >>   }
-> >>
-> >> @@ -1389,6 +1425,7 @@ static int dp_pm_suspend(struct device *dev)
-> >>   }
-> >>
-> >>   static const struct dev_pm_ops dp_pm_ops = {
-> >> +       SET_RUNTIME_PM_OPS(dp_pm_runtime_suspend, dp_pm_runtime_resume, NULL)
-> >>          .suspend = dp_pm_suspend,
-> >>          .resume =  dp_pm_resume,
-> >>   };
-> >> @@ -1473,10 +1510,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
-> >>          aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-> >>
-> >>          if (aux_bus && dp->is_edp) {
-> >> -               dp_display_host_init(dp_priv);
-> >> -               dp_catalog_ctrl_hpd_enable(dp_priv->catalog);
-> >> -               dp_display_host_phy_init(dp_priv);
-> >> -
-> >>                  /*
-> >>                   * The code below assumes that the panel will finish probing
-> >>                   * by the time devm_of_dp_aux_populate_ep_devices() returns.
-> >> @@ -1578,6 +1611,11 @@ void dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
-> >>                  dp_hpd_plug_handle(dp_display, 0);
-> >>
-> >>          mutex_lock(&dp_display->event_mutex);
-> >> +       if (pm_runtime_resume_and_get(&dp_display->pdev->dev)) {
-> >> +               DRM_ERROR("failed to start power\n");
-> > failed to resume.
-> >
-> >> +               mutex_unlock(&dp_display->event_mutex);
-> >> +               return;
-> >> +       }
-> >>
-> >>          state = dp_display->hpd_state;
-> >>          if (state != ST_DISPLAY_OFF && state != ST_MAINLINK_READY) {
-> >> @@ -1642,10 +1680,9 @@ void dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
-> >>          mutex_lock(&dp_display->event_mutex);
-> >>
-> >>          state = dp_display->hpd_state;
-> >> -       if (state != ST_DISCONNECT_PENDING && state != ST_CONNECTED) {
-> >> -               mutex_unlock(&dp_display->event_mutex);
-> >> -               return;
-> >> -       }
-> >> +       if (state != ST_DISCONNECT_PENDING && state != ST_CONNECTED)
-> >> +               drm_dbg_dp(dp->drm_dev, "type=%d wrong hpd_state=%d\n",
-> >> +                          dp->connector_type, state);
-> >>
-> >>          dp_display_disable(dp_display);
-> >>
-> >> @@ -1658,6 +1695,9 @@ void dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
-> >>          }
-> >>
-> >>          drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
-> >> +
-> >> +       pm_runtime_mark_last_busy(&dp_display->pdev->dev);
-> >> +       pm_runtime_put_autosuspend(&dp_display->pdev->dev);
-> >>          mutex_unlock(&dp_display->event_mutex);
-> >>   }
-> >>
-> >> @@ -1697,6 +1737,12 @@ void dp_bridge_hpd_enable(struct drm_bridge *bridge)
-> >>          struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
-> >>
-> >>          mutex_lock(&dp->event_mutex);
-> >> +       if (pm_runtime_resume_and_get(&dp->pdev->dev)) {
-> >> +               DRM_ERROR("failed to start power\n");
-> >> +               mutex_unlock(&dp->event_mutex);
-> >> +               return;
-> >> +       }
-> >> +
-> >>          dp_catalog_ctrl_hpd_enable(dp->catalog);
-> >>
-> >>          /* enable HDP interrupts */
-> >> @@ -1718,6 +1764,9 @@ void dp_bridge_hpd_disable(struct drm_bridge *bridge)
-> >>          dp_catalog_ctrl_hpd_disable(dp->catalog);
-> >>
-> >>          dp_display->internal_hpd = false;
-> >> +
-> >> +       pm_runtime_mark_last_busy(&dp->pdev->dev);
-> >> +       pm_runtime_put_autosuspend(&dp->pdev->dev);
-> >>          mutex_unlock(&dp->event_mutex);
-> >>   }
-> >>
-> >> @@ -1732,13 +1781,11 @@ void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-> >>          if (dp_display->internal_hpd)
-> >>                  return;
-> >>
-> >> -       if (!dp->core_initialized) {
-> >> -               drm_dbg_dp(dp->drm_dev, "not initialized\n");
-> >> -               return;
-> >> -       }
-> >> -
-> >> -       if (!dp_display->link_ready && status == connector_status_connected)
-> >> +       /* hpd through gpio */
-> > Lack of the comment might be better than the incorrect comment.
-> >
-> >> +       if (!dp_display->link_ready && status == connector_status_connected) {
-> >> +               dp->hpd_state = ST_DISCONNECTED;
-> > Is this also a part of pm_runtime support?
->
-> yes, this is for hpd_internal == false case.
->
-> The hpd_state need to be at init state.
+> +
+> +required:
+> +  - compatible
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,dispcc-sdm845.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sdm845.h>
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    display-subsystem@ae00000 {
+> +        compatible = "qcom,sdm670-mdss";
+> +        reg = <0x0ae00000 0x1000>;
+> +        reg-names = "mdss";
+> +        power-domains = <&dispcc MDSS_GDSC>;
+> +
+> +        clocks = <&gcc GCC_DISP_AHB_CLK>,
+> +                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> +        clock-names = "iface", "core";
+> +
+> +        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <1>;
+> +
 
-Why do you have to add this line now, in this patch? What has changed
-compared to the previous patch, which just added an event?
+Please add interconnects. They do not have to be 100% exact with DTS
+(unless interconnect header is not merged?). This is just an example.
 
->
-> >
-> >>                  dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
-> >> -       else if (dp_display->link_ready && status == connector_status_disconnected)
-> >> +       } else if (dp_display->link_ready && status == connector_status_disconnected) {
-> >>                  dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
-> >> +       }
-> >>   }
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-> >> index 5cb84ca..863c766 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_power.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
-> >> @@ -152,20 +152,9 @@ int dp_power_client_init(struct dp_power *dp_power)
-> >>
-> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
-> >>
-> >> -       pm_runtime_enable(power->dev);
-> >> -
-> >>          return dp_power_clk_init(power);
-> >>   }
-> >>
-> >> -void dp_power_client_deinit(struct dp_power *dp_power)
-> >> -{
-> >> -       struct dp_power_private *power;
-> >> -
-> >> -       power = container_of(dp_power, struct dp_power_private, dp_power);
-> >> -
-> >> -       pm_runtime_disable(power->dev);
-> >> -}
-> >> -
-> >>   int dp_power_init(struct dp_power *dp_power)
-> >>   {
-> >>          int rc = 0;
-> >> @@ -173,11 +162,7 @@ int dp_power_init(struct dp_power *dp_power)
-> >>
-> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
-> >>
-> >> -       pm_runtime_get_sync(power->dev);
-> >> -
-> >>          rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
-> >> -       if (rc)
-> >> -               pm_runtime_put_sync(power->dev);
-> >>
-> >>          return rc;
-> >>   }
-> >> @@ -189,7 +174,6 @@ int dp_power_deinit(struct dp_power *dp_power)
-> >>          power = container_of(dp_power, struct dp_power_private, dp_power);
-> >>
-> >>          dp_power_clk_enable(dp_power, DP_CORE_PM, false);
-> >> -       pm_runtime_put_sync(power->dev);
-> >>          return 0;
-> >>   }
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
-> >> index a3dec20..55ada51 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_power.h
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_power.h
-> >> @@ -81,17 +81,6 @@ int dp_power_clk_enable(struct dp_power *power, enum dp_pm_type pm_type,
-> >>   int dp_power_client_init(struct dp_power *power);
-> >>
-> >>   /**
-> >> - * dp_power_clinet_deinit() - de-initialize clock and regulator modules
-> >> - *
-> >> - * @power: instance of power module
-> >> - * return: 0 for success, error for failure.
-> >> - *
-> >> - * This API will de-initialize the DisplayPort's clocks and regulator
-> >> - * modules.
-> >> - */
-> >> -void dp_power_client_deinit(struct dp_power *power);
-> >> -
-> >> -/**
-> >>    * dp_power_get() - configure and get the DisplayPort power module data
-> >>    *
-> >>    * @parser: instance of parser module
-> >> --
-> >> 2.7.4
-> >>
-> >
+> +        iommus = <&apps_smmu 0x880 0x8>,
+> +                 <&apps_smmu 0xc80 0x8>;
 
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
+> +
 
+Best regards,
+Krzysztof
 
--- 
-With best wishes
-Dmitry
