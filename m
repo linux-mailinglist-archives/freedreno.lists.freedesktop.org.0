@@ -1,74 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 356DE7B5D70
-	for <lists+freedreno@lfdr.de>; Tue,  3 Oct 2023 00:58:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F4F37B5E8E
+	for <lists+freedreno@lfdr.de>; Tue,  3 Oct 2023 03:21:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 021AC10E02D;
-	Mon,  2 Oct 2023 22:58:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA9B10E196;
+	Tue,  3 Oct 2023 01:21:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40B4410E02D
- for <freedreno@lists.freedesktop.org>; Mon,  2 Oct 2023 22:58:09 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-5041335fb9cso294846e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Oct 2023 15:58:09 -0700 (PDT)
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [IPv6:2607:f8b0:4864:20::f2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39ACC10E195;
+ Tue,  3 Oct 2023 01:21:40 +0000 (UTC)
+Received: by mail-qv1-xf2f.google.com with SMTP id
+ 6a1803df08f44-65b051a28b3so2600756d6.2; 
+ Mon, 02 Oct 2023 18:21:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696287487; x=1696892287;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:user-agent
- :from:references:in-reply-to:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZLskpeXIHd9AQB0pmS0kpklk4pQMX38Kb28MEbiPPRc=;
- b=jlGq35V820LhliD0xtui8aaBvcHYBM7wL+6VkFMo3fsH7/epobbVp/3UCnXUbQ0Wqa
- IsjAdugTWJ1Ejsh5lGiV3h9puBguA4+QTg7p5NpOsi/oSUPcs9aTnXuE7DO0dna434/F
- 2BgBTvpFFIMfmN+nYtgTDDT+JS0+RwWpox1Fg=
+ d=gmail.com; s=20230601; t=1696296099; x=1696900899; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0vhZi82yU9f+9I66zAblRTPICxvjbQ5OMGMGyPzNQBM=;
+ b=XSJH6FDHvfDGlCwVsdlzWuDbSUluH1CKr+4R7/VZAPKufLiAhCjddArHz8WNiFTpwX
+ yYdFUMzcitvuyZjZe3AaUCdlBJNGNQA5cuSpLKZv59tn6hKzsWJDzRBtKwdlmGZyQ3N3
+ g4OYq+nEhsg9QTBOLN9vbd4tsWiCidbLlFgPVoFq8uAPEuIWsswzy1TNL/BDN8+3RzXQ
+ OILIDYueBC163S3ch6Y7mND1w1RPrXeW6yF//hNruvfRrYqDdYxYRIv3wOw2waFcdcJR
+ +vm+Df4aY2EU4jrgo2V6u5eTyHfRmZveV4Sfz3SuoW7h22N6IMSWbXJMu4zX5C8GZHUv
+ YKaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696287487; x=1696892287;
- h=content-transfer-encoding:cc:to:subject:message-id:date:user-agent
- :from:references:in-reply-to:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=ZLskpeXIHd9AQB0pmS0kpklk4pQMX38Kb28MEbiPPRc=;
- b=EtnGqpjd3bGNnWTTkCGBS/lf8v8u/cHREwPDpmC6PjFD7GkSLs5l2ZVVwFoRL35vxc
- hJ6SHHz4DoPFnX9VRyBCY4M0tfjSsq41Ayl7hFskvXcj1v3q7T3obqZMLgyFU/EUrmRr
- frNbWzEwWeUG5hvMbNIXiQtahf/LmmHJmh4HyA7gydWzS/1Js6y69R4m9TP9rCFmfEi+
- ggSF69SIT0/RL2DS8K8MENKNs5B2r5B4I31zIxsxoYAcsU0EvciBcMXhn1ikvQbl5vhZ
- UN+U4B90nBXY8I96V15E/UwmWn9swX17YN5VHIu0M5jMnhHka48ff15uQi5pUAOJLQj9
- Eywg==
-X-Gm-Message-State: AOJu0Yzynu1UQj1zHnAcly1eEKFpcSUYNQXY4OicfyyPWifdPv+UUGCK
- EXW2rFUBVFk66zvgc1qHniK6rpHLcWFZVs632IhY8Q==
-X-Google-Smtp-Source: AGHT+IG+XhRlziyXPAe6ffwhzMLbjXiah5u75GSqQh8c9zq4Zet1s6oInEMhAykPawNg7FfVh+RZo7+rNd/AUX798AU=
-X-Received: by 2002:a05:6512:3b28:b0:500:7de4:300e with SMTP id
- f40-20020a0565123b2800b005007de4300emr13351747lfv.58.1696287487183; Mon, 02
- Oct 2023 15:58:07 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 2 Oct 2023 17:58:06 -0500
-MIME-Version: 1.0
-In-Reply-To: <58701008-bb93-e5c6-9ca0-5bc43f9a46f0@quicinc.com>
-References: <1694813901-26952-1-git-send-email-quic_khsieh@quicinc.com>
- <1694813901-26952-7-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpqPXoFX4LXyXYgfh07Vpxg-KgD8VBR6x5bXf4GOJmbOtw@mail.gmail.com>
- <2f98d5f1-57c1-d9fe-cb1c-b975db057287@quicinc.com>
- <CAA8EJpr2wRq6Txi7YAQpJKa_9UGqH_nmHzvVOaAPkwOrtDg4Tw@mail.gmail.com>
- <CAE-0n53dqHONzMTd_ZC-fKWTzDVq6Wqwo4OFZMUcghZ5SD5RhA@mail.gmail.com>
- <65566a68-3510-2e5f-7d57-e4dba08c008c@quicinc.com>
- <1d9bf80d-0267-937b-4dd9-c57db7a89cb4@quicinc.com>
- <CAE-0n51Hrs66oG4NF5rDETkVO-ocG_6_=Aqc5cE-qPDViSgKyA@mail.gmail.com>
- <58701008-bb93-e5c6-9ca0-5bc43f9a46f0@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Mon, 2 Oct 2023 17:58:06 -0500
-Message-ID: <CAE-0n50N6hXM7qQZzccKy2X-kcru9n7Nvgn_V4tOHTnLn64qjw@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ d=1e100.net; s=20230601; t=1696296099; x=1696900899;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0vhZi82yU9f+9I66zAblRTPICxvjbQ5OMGMGyPzNQBM=;
+ b=tkK5+fiCVt2d+cytV3UFq79l3FHp2QX4xX+825V4vmQKBbVy8sJBJAktqto4D8Fou4
+ 9EPYEtFb+47d0APaqG7ubBRF+jEXrb1gFHM5xlId2uwhOtx8lLBS4d6Sb6n1R+gdArpd
+ x09wPIvxx99Ow3z+LRbvhpgjVbiD95X1E10ZPpAm2qrqj4H5yN6kRfZhQ4Lw5bURCxAq
+ vtuqn4CARjRsO4no2seZyZrOm94JQ4uQ5eQhks9BqnAkVM58TbUcYMDbOBhcCwP/u62u
+ ZMkkqqury4y7ykyHQLZbBTMSr8NwEw8VQ29oc1uaIzNkCxQAaph7XjHKGbiqgNj0yKmz
+ Dr2Q==
+X-Gm-Message-State: AOJu0YxEzldLLasuFK83/7+8wvt6HeKGtRx+kO4cnTlw5EC3zWNstM5p
+ WPVki1IpcyB8pRkXJbXLeR0=
+X-Google-Smtp-Source: AGHT+IGkrxlOmVZRgiW1JdvxZW/v1DIl0xUWG2ue6i5gqYguwaGs+Oc5zoGwPn1UiqL60jwhHSP3tw==
+X-Received: by 2002:a0c:e30b:0:b0:65b:229e:cb8a with SMTP id
+ s11-20020a0ce30b000000b0065b229ecb8amr12256754qvl.44.1696296098801; 
+ Mon, 02 Oct 2023 18:21:38 -0700 (PDT)
+Received: from localhost ([2607:fea8:529e:7800::efbe])
+ by smtp.gmail.com with ESMTPSA id
+ j15-20020a0ce00f000000b0063d038df3f3sm56569qvk.52.2023.10.02.18.21.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Oct 2023 18:21:38 -0700 (PDT)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v3 6/7] drm/msm/dp: add
- pm_runtime_force_suspend()/resume()
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon,  2 Oct 2023 21:21:21 -0400
+Message-ID: <20231003012119.857198-9-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/6] SDM670 display subsystem support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,99 +88,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, airlied@gmail.com, andersson@kernel.org,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, dianders@chromium.org,
- vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, sean@poorly.run,
- linux-arm-msm@vger.kernel.org
+Cc: Richard Acayan <mailingradian@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Abhinav Kumar (2023-09-28 17:46:11)
-> On 9/27/2023 3:01 PM, Stephen Boyd wrote:
-> > Quoting Kuogee Hsieh (2023-09-25 09:07:18)
-> >>
-> >> However for external DP case, link training can not be guarantee alway=
-s
-> >> success without link rate or lane being reduced as Abhinav mentioned.
-> >>
-> >> In addition,=C2=A0 CTS (compliance test) it required to complete link
-> >> training within 10ms after hpd asserted.
-> >
-> > Is it possible to change that timeout? I have to look around for the CT=
-S
-> > parameters because I'm pretty confused how it can work. What do we do i=
-f
-> > DP wakes the system from suspend and asserts HPD? We need resume time t=
-o
-> > be < 10ms?  That's not realistic.
-> >
->
-> No, the CTS doesnt say we need to finish link training within 10ms after
-> HPD is asserted. It says it must be completed in 10ms after
-> TRAINING_PATTERN_SET dpcd write.
->
-> "Wait until the Source DUT writes 00h to the TRAINING_PATTERN_SET byte
-> of Reference Sink DPCD Link Configuration Field to indicate the end of
-> the link training. Stop the link training timer. Verify that link
-> training completed in 10ms or less"
->
-> That needs to be done independent of HPD so we can ignore the CTS point.
+Changes since v1 (20230925232625.846666-9-mailingradian@gmail.com):
+ - prefix dsi1 labels with `mdss_` in example dts (3/6)
+ - make all parts of catalog entry const (5/6)
+ - add spaces before closing brackets on same line (5/6)
+ - join opening and closing braces on the same line in dsc array (5/6)
 
-Great!
+This series adds support for the display subsystem on the Snapdragon
+670. It is based on an earlier patch a few versions back, which had
+missing device tree bindings and device tree changes.
 
->
-> >>
-> >> I am not sure do link training at atomic_enable() can meet this timing
-> >> requirement.
+There is a separate IOMMU patch which adds the MDSS compatible to a
+workaround.
 
-Why? It's putting some time bound on link training in general to only
-take 10ms, right?
+Richard Acayan (6):
+  dt-bindings: display/msm: dsi-controller-main: add SDM670 compatible
+  dt-bindings: display/msm: sdm845-dpu: Describe SDM670
+  dt-bindings: display: msm: Add SDM670 MDSS
+  drm/msm: mdss: add support for SDM670
+  drm/msm/dpu: Add hw revision 4.1 (SDM670)
+  arm64: dts: qcom: sdm670: add display subsystem
 
-> >>
-> >
-> > At least in the DP spec itself it doesn't require the link to be traine=
-d
-> > within 10ms of HPD being asserted. Instead it simply recommends that th=
-e
-> > OS start configuring the display promptly after HPD is asserted, e.g.
-> > within 100ms. There's some strict timing on IRQ_HPD, so the driver must
-> > read DPCD registers within 100ms of IRQ_HPD rising edge; maybe that is
-> > what CTS is checking for?
-> >
-> > TL;DR: I don't see why CTS should stop us from link training in
-> > atomic_enable(). It would be beneficial to do so to make eDP and DP the
-> > same. It would also help to report a drm connector being connected
-> > _before_ link training so that userspace knows the link itself is the
-> > bad part of the equation (and not that the DP connector looks
-> > disconnected to userspace when in fact it really is connected and the
-> > monitor is asserting HPD, just the link training failed).
->
-> Its the corrective action of the userspace when it finds link is bad is
-> the concern as I highlighted in the other response. Just reading and
-> resetting link_status is not enough to recover.
+ .../display/msm/dsi-controller-main.yaml      |   1 +
+ .../display/msm/qcom,sdm670-mdss.yaml         | 287 +++++++++++++++++
+ .../bindings/display/msm/qcom,sdm845-dpu.yaml |   4 +-
+ arch/arm64/boot/dts/qcom/sdm670.dtsi          | 294 ++++++++++++++++++
+ .../msm/disp/dpu1/catalog/dpu_4_1_sdm670.h    | 104 +++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   6 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                |   7 +
+ 9 files changed, 704 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
 
-What needs to be done to recover? Userspace will try to set a mode on
-the connector again if the link status is bad and there were some modes
-available. If there are zero modes and the link is bad, then it ignores
-the connector. I'm not sure what else could be done to recover besides
-try again and stop trying if no modes exist.
+-- 
+2.42.0
 
-Acting like the connector isn't connected makes the situation worse for
-ChromeOS because userspace thinks there's nothing there so it can't try
-to retrain the link again. Instead, userspace has to rely on the kernel
-driver to train the link again. The kernel should just tell userspace
-the link is bad so userspace can implement the policy to either ignore
-the connector entirely or to consider it a display that is having link
-training problems.
-
-So again, I see no reason why the kernel driver thinks it can implement
-a policy to train the link before indicating the drm connector is
-connected. It should stop doing that. Instead it should tell userspace
-that the connector is connected and then train the link when there's a
-modeset. If the modeset fails then userspace can take action to either
-figure out that the link is bad, or notify the user that the cable is
-bad, or to try replugging or power cycle the monitor, etc. None of that
-can be done if the kernel lies about the state of the connector because
-the link training failed.
