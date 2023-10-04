@@ -2,71 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 119F37B7FCB
-	for <lists+freedreno@lfdr.de>; Wed,  4 Oct 2023 14:52:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D15DF7B851A
+	for <lists+freedreno@lfdr.de>; Wed,  4 Oct 2023 18:27:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACD9A10E109;
-	Wed,  4 Oct 2023 12:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE5B10E391;
+	Wed,  4 Oct 2023 16:27:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5399A10E109
- for <freedreno@lists.freedesktop.org>; Wed,  4 Oct 2023 12:52:17 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40684f53ef3so6067625e9.3
- for <freedreno@lists.freedesktop.org>; Wed, 04 Oct 2023 05:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696423935; x=1697028735; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QbDugttl8nO7QnKFiEkqSWobIkIULpVRulw4zvA/9Ss=;
- b=HzocKrYsrVKXKTfF+iJAfhfUcbqF48z3/9HowIgwPfs5H7isaeFmtTAu54CvLEaUze
- haDRkRwykCM0BXcd0bO1HhQRxAQ8WKOV8HKfIjD1WsAR7JJgoN5/Yx4Qef1wi5zI7Rmd
- CQTvbLv16O3SyZcdixqEwpAyvoRSdG+SYAoB7ody2/Rnj7zmlONrww9OFMFaJrGsL3yl
- cT1FqVDGJ/o4wJft/7Omwh0LJyHNjLXTglhW9R2CJ/z2oxVRiU6GPnxYH+h5Gmdxommq
- xqVLVmHFHRggaDLdUI/nPkWhbxt6zKslBh3LsazBizHadE3ZZNae6Bpv8VRjAdScHTcr
- RC8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696423935; x=1697028735;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QbDugttl8nO7QnKFiEkqSWobIkIULpVRulw4zvA/9Ss=;
- b=ZmfmbrUftCVfMcTybqUqNI82t6US2JdkB1k+98nx4r9loC0tlLObR1QUZUgX7K/6wy
- xWY5yspTYMo0xjqHl4O4DzBMOVFbPvi41kGxoFrL0177zfMRD3IVIAVewYGMkoRxrHdS
- xcZfHEzZrf0IGj+LCylogykp6wCZwtj+ow5DsNU93LnGoZzhmOy8nqd5c0ADYHk4CdEN
- 8bctZGLP/FzzHGJgEpZzMptSclmQcy4cliWMmbqg1PqnY0VgqdyZKwMBOjGUFvCO4a4W
- yE4sJlhdsuVeoYhih1CJ3TPPXjeRkV1VG5/8P9L5Vdqylb3slF26MHn4pVxFEOkHUkgy
- E0SA==
-X-Gm-Message-State: AOJu0Yw9uygWd+/JLp1dCEWEB7Dq6laepZRhSZwXUqe8l87GFi1G2fNp
- PvRIPuPvDBVk04MKmPmJHpfkog==
-X-Google-Smtp-Source: AGHT+IGJ+zdeWqpzPPRNv7wIiJfoVXE4TrlF8rAbJtAcx3+5BGhrWDha7q+twXf5IEiIS8VaX5i7gA==
-X-Received: by 2002:adf:ec82:0:b0:321:65f3:4100 with SMTP id
- z2-20020adfec82000000b0032165f34100mr2027993wrn.7.1696423935197; 
- Wed, 04 Oct 2023 05:52:15 -0700 (PDT)
-Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
- by smtp.gmail.com with ESMTPSA id
- a12-20020a5d570c000000b00327bf4f2f16sm3927903wrv.30.2023.10.04.05.52.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Oct 2023 05:52:14 -0700 (PDT)
-Message-ID: <e96499ff-76ec-482b-b18c-ee293259b8a7@linaro.org>
-Date: Wed, 4 Oct 2023 13:52:13 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2745010E38F;
+ Wed,  4 Oct 2023 16:27:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 394FBFAr023314; Wed, 4 Oct 2023 16:27:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=4sMTiwH8iXpu9oHsTfWkBaXLdHkyzNNv2sceXB6RLyU=;
+ b=AKCKG3pdCsNIYsMBHvpCphw6XrUCne0Pj6/ntF2YlI/K2PZyJWSq4jp4HXqiikBHyWtv
+ zDPj55Zfu1LrhtEh+c8V/8CQCyqJjsIaBWw5rrqYCqLR4uWaEiuxnMCq783aJcWKO3Wd
+ FVcggBfS0bumgvpQ+ee7Xlb7WbFgfgOMgB2Cj6tL8QAdVLslHj+lq+YlZ8TesCpXheDC
+ jbRRsTWF3ZX0tBXP/kmXzIyedcmO4K7F0wM6N5uB2oweyjuOrb2Xt8mLisgW/gUb8t6w
+ 6gCTT+kTDRHgjI3nnLmKOCJUJXsTjB6It61DPQ46yDYEpgGE/0YUMR7w3aLb79iR+t5l fw== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tgqth2j3m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Oct 2023 16:27:12 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 394GRBgG018941
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 4 Oct 2023 16:27:11 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Wed, 4 Oct 2023 09:27:10 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Wed, 4 Oct 2023 09:26:54 -0700
+Message-ID: <1696436821-14261-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
- <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
- <f129633e-4df7-4984-a19e-c16e6c7c8f3f@linaro.org>
- <CAA8EJprGfS5x89FOWhjPCdLzSNbEK-U1h8qVmfiLc6+4NjEiNA@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <CAA8EJprGfS5x89FOWhjPCdLzSNbEK-U1h8qVmfiLc6+4NjEiNA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
- clock support
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: nxJjepADqCuTdnHz0E0UICzW2Ydks5yR
+X-Proofpoint-GUID: nxJjepADqCuTdnHz0E0UICzW2Ydks5yR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-04_07,2023-10-02_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ adultscore=0 suspectscore=0 phishscore=0 spamscore=0 mlxlogscore=764
+ impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310040117
+Subject: [Freedreno] [PATCH v5 0/7] incorporate pm runtime framework and eDP
+ clean up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,48 +80,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
- Taniya Das <quic_tdas@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- freedreno@lists.freedesktop.org, Michael Turquette <mturquette@baylibre.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/10/2023 13:08, Dmitry Baryshkov wrote:
-> On Wed, 4 Oct 2023 at 12:27, Bryan O'Donoghue
-> <bryan.odonoghue@linaro.org> wrote:
->>
->> On 04/10/2023 01:31, Dmitry Baryshkov wrote:
->>> clk_rcg2_shared_ops implements support for the case of the RCG which
->>> must not be completely turned off. However its design has one major
->>> drawback: it doesn't allow us to properly implement the is_enabled
->>> callback, which causes different kinds of misbehaviour from the CCF.
->>>
->>> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
->>> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
->>> switched off (and shared most of the implementation with
->>> clk_rcg2_shared_ops). The major difference is that it requires that the
->>> parent map doesn't conain the safe (parked) clock source. Instead if the
->>> CFG_REG register points to the safe source, the clock is considered to
->>> be disabled.
->>
->> Why not have a new bit in .flags ?
->>
->> Instead of lying about the clock being off, mark the clock as "parked",
->> or "safe parked" or whatever term we choose for it ?
-> 
-> The main problem with adding flags doesn't fully scale. From the CCF
-> perspective, what should be the difference between parked and disabled
-> clocks? How should it treat the parked one?
+The purpose of this patch series is to incorporate pm runtime framework
+into MSM eDP/DP driver so that eDP panel can be detected by DRM eDP panel
+driver during system probe time. During incorporating procedure, original
+customized pm realted fucntions, such as dp_pm_prepare(), dp_pm_suspend(),
+dp_pm_resume() and dp_pm_prepare(), are removed and replaced with functions
+provided by pm runtiem framework such as pm_runtime_force_suspend() and
+pm_runtime_force_resume(). In addition, both eDP aux-bus and irq handler
+are bound at system probe time too.
 
-Exactly the same as a disabled clock, except you get a "parked" instead 
-of a "disabled" when looking up its state and you don't have to
+Kuogee Hsieh (7):
+  drm/msm/dp: tie dp_display_irq_handler() with dp driver
+  drm/msm/dp: rename is_connected with link_ready
+  drm/msm/dp: use drm_bridge_hpd_notify() to report HPD status changes
+  drm/msm/dp: move parser->parse() and dp_power_client_init() to probe
+  drm/msm/dp: incorporate pm_runtime framework into DP driver
+  drm/msm/dp: delete EV_HPD_INIT_SETUP
+  drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()
 
--	{ .fw_name = "bi_tcxo" },
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |   4 -
+ drivers/gpu/drm/msm/dp/dp_aux.c         |  39 +++-
+ drivers/gpu/drm/msm/dp/dp_display.c     | 318 +++++++++++---------------------
+ drivers/gpu/drm/msm/dp/dp_display.h     |   3 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c         |  14 +-
+ drivers/gpu/drm/msm/dp/dp_power.c       |  16 --
+ drivers/gpu/drm/msm/dp/dp_power.h       |  11 --
+ drivers/gpu/drm/msm/msm_drv.h           |   5 -
+ 8 files changed, 146 insertions(+), 264 deletions(-)
 
-Also you can then flag for branch2 clocks the same thing - so parking 
-would be done at a higher level in the CCF.
+-- 
+2.7.4
 
----
-bod
