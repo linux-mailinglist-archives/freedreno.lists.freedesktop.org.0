@@ -1,70 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 167AC7B75E6
-	for <lists+freedreno@lfdr.de>; Wed,  4 Oct 2023 02:31:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 416A07B763E
+	for <lists+freedreno@lfdr.de>; Wed,  4 Oct 2023 03:23:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2CF10E329;
-	Wed,  4 Oct 2023 00:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 131F010E32F;
+	Wed,  4 Oct 2023 01:23:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E92010E327
- for <freedreno@lists.freedesktop.org>; Wed,  4 Oct 2023 00:31:30 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4066241289bso15140095e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Oct 2023 17:31:29 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0677110E32F
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Oct 2023 01:23:11 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-504a7f9204eso1773745e87.3
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Oct 2023 18:23:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696379488; x=1696984288; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aLl0HwSpebHQPe1HZIMtv8j9E/LK6fVYcwfGDJYdmX8=;
- b=PFled2FGshvc2P8bvLeMOo2FN9st0O56dXpCc3RoXpCvlAm5khLG5/WMvS/Z45X+II
- MObiAnQhFUKSWiIePuzBrGhrUDxZA7lajy23mJlrS+mq/O3ESBv/PhmPYnnWUIouhU3R
- BgLCCpva0RCuSS58P+3cI1Doi7GNTeIZ7XuQvMH1UdWO71VUUjYZUP+7NsZ6+x+RJjzD
- X7h1KSjnqzY0Ea9SYtpivfAN264M8n9XscnRpUlZC14X1hEZ5y15k1fxCFRX58l5M6X2
- YmhYFXqu8vS05KQaVjcDQIHtFwgHNcaU8cWPrMe62j5KDsZUN4bT0Pk0GdfyJPDL18BS
- 6Ozw==
+ d=linaro.org; s=google; t=1696382590; x=1696987390; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zZOGHdiWccaH+lI+d4c46L7IxfGyvf8H8j4Ss2u6XUM=;
+ b=CyRp0Ck+ncUMunWxh4+g8hJM3RiXT4u508GETC4cabK93+b69z6Y2qyZWqTDT4U4KN
+ cq5uKEik3U2tXNjyErInV+6IwTSnuIn50tIdPJ+0wr8JKBKVVmbY+eQl/qKx0g4f5j1v
+ 9EhNrNZwzP5AUb4XcSFU5d4k3Ojv3a90fv3agwF6EJjWGHJy61nI8CPuaSsvM0uhcMYO
+ 0sv6qpRUC2qmr/YFFUTsJT2Fwz6Kt6ktJaFhElaLZEnAjvru3YjvmL3tnkySSy7zSYWv
+ wrorp+iZnPrxr3YDJswo31Q5tvNb9sGqOxzNLUD+KN+yAOjLO2+BcaOrBFfdjJd7x3tj
+ J+MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696379488; x=1696984288;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aLl0HwSpebHQPe1HZIMtv8j9E/LK6fVYcwfGDJYdmX8=;
- b=n2Nib2stgvLD9mi2XNALN98dy/RCozIFjRdcEbW1LGcFI4B6QjNNFjQzoUTdzQeYjh
- WYK8HGC8vMN7plg2BScLCZpkSSQNVPe1CagzMo/eVhL6o3FBlDoEHvyKgUrMZIs8f0eo
- xrkIwLX2wsrlwuTGwXf0PWQn8zmTnAt80M0eFguVW6mzXZUdabCTTeM8yrA7UD2HjEcS
- A72/m5z1Ae8yHQ+8xPGbgjiXTuhpclyuU5FWm62DTEk9+yYfigs1+d9P0W3VKUVGGLJl
- iT1Kl4k/DWJUATPu6Uv1gHXxJz//cXqfCN3C2hcmTHbKIVYUWaaGyiKnzM+yI14fbQhk
- 0wDA==
-X-Gm-Message-State: AOJu0YwwLzIgRK7pv7PvTE2v0XxUUsUtDT4RgqfyiIwvOQsXGmjT467W
- OCmtQXkWstcv8e2juoeJxwBsQhjkGl7LG7t71Kg=
-X-Google-Smtp-Source: AGHT+IGd0wiDCW72fyJSci0cDwyaeDLNNsCxDImCmLd2d9uiLe8TptjX5U3tzlSjXQIbCu490pQpww==
-X-Received: by 2002:a7b:cb8c:0:b0:405:3f19:fc49 with SMTP id
- m12-20020a7bcb8c000000b004053f19fc49mr935957wmi.34.1696379488521; 
- Tue, 03 Oct 2023 17:31:28 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696382590; x=1696987390;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zZOGHdiWccaH+lI+d4c46L7IxfGyvf8H8j4Ss2u6XUM=;
+ b=D965WKLkBD01AxvQbiEahuKAlG0ycAz3zg/ocq3FaEKD2HUhV3xCetffd1auT9wzcN
+ 6TaL24RSbebzIOJwftLirTlPTfQx0ugLr3JYQmYL1gkIQ/ENbNHWgz6rGOMtelNiY2Qs
+ P1hWR98ITnlBDKeFalHRZRwyeATLfCYnBJXdZpdKiN0tGvkykJbly6JKCfRIEO0fWpF9
+ /REiIlNkkuYNoWAu1Sr1JpTXUFMwy7VlZABEPox8H0CcolWggqapYEPZGFsjIIUEWv5M
+ zTIzDJFGPBiKKxP4CR4LPoSrS13MYnM3YifCEV0OXy/Q+bBiryNYLHYcY/IyyG5X65ZD
+ q6RQ==
+X-Gm-Message-State: AOJu0YyTi7tdJBwxopWINodB0yFyhyIYHDEMZ6qxgc7r+dPHKidRakqy
+ 2MARIComH78myA4s4npcHbHrYg==
+X-Google-Smtp-Source: AGHT+IG+sf42x5UqgX6/tUnADMw8ywfyluNYFJxrjCn5F89fxCcebmJvXrjI2e0zvbIZZXO7gGVTKg==
+X-Received: by 2002:a05:6512:b1a:b0:500:9a29:bcb8 with SMTP id
+ w26-20020a0565120b1a00b005009a29bcb8mr785860lfu.4.1696382590028; 
+ Tue, 03 Oct 2023 18:23:10 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- u15-20020a056512094f00b005056e8bebb8sm366937lft.124.2023.10.03.17.31.27
+ w17-20020ac24431000000b004fdbb36a677sm381979lfl.288.2023.10.03.18.23.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Oct 2023 17:31:28 -0700 (PDT)
+ Tue, 03 Oct 2023 18:23:09 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>,
  Taniya Das <quic_tdas@quicinc.com>
-Date: Wed,  4 Oct 2023 03:31:25 +0300
-Message-Id: <20231004003125.2289613-3-dmitry.baryshkov@linaro.org>
+Date: Wed,  4 Oct 2023 04:23:05 +0300
+Message-Id: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
-References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH 2/2] clk: qcom: dispcc-sm8250: switch to
- clk_rcg2_parked_ops
+Subject: [Freedreno] [RFC PATCH v2 0/3] clk: qcom: provide alternative
+ 'parked' RCG
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,72 +79,31 @@ Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Switch MDP, AHB and ROT clocks to the clk_rcg2_parked_ops so that the
-CCF can properly determine if the clock is enabled or disabled.
+Implement an alternative for the clk_rcg2_shared_ops, which also
+implements a proper is_enabled callback. Note, to use
+clk_rcg2_parked_ops one must remove XO (safe source) from the
+parent_data, parent_map and freq_table.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/clk/qcom/dispcc-sm8250.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+Changes since v1:
+- Replaced a call to clk_rcg2_is_enabled() with check of the CFG_ROOT_EN
+  field (Stephen Boyd).
+- Added the init function, reading the default clock configuration and
+  then defaulting to the lowest supported freq / parent if the clock was
+  not configured at all (Stephen Boyd).
+- Dropped P_BI_TCXO from freq_tables too.
 
-diff --git a/drivers/clk/qcom/dispcc-sm8250.c b/drivers/clk/qcom/dispcc-sm8250.c
-index e17bb8b543b5..229d32aee431 100644
---- a/drivers/clk/qcom/dispcc-sm8250.c
-+++ b/drivers/clk/qcom/dispcc-sm8250.c
-@@ -144,12 +144,10 @@ static const struct clk_parent_data disp_cc_parent_data_2[] = {
- };
- 
- static const struct parent_map disp_cc_parent_map_3[] = {
--	{ P_BI_TCXO, 0 },
- 	{ P_DISP_CC_PLL1_OUT_MAIN, 4 },
- };
- 
- static const struct clk_parent_data disp_cc_parent_data_3[] = {
--	{ .fw_name = "bi_tcxo" },
- 	{ .hw = &disp_cc_pll1.clkr.hw },
- };
- 
-@@ -166,13 +164,11 @@ static const struct clk_parent_data disp_cc_parent_data_4[] = {
- };
- 
- static const struct parent_map disp_cc_parent_map_5[] = {
--	{ P_BI_TCXO, 0 },
- 	{ P_DISP_CC_PLL0_OUT_MAIN, 1 },
- 	{ P_DISP_CC_PLL1_OUT_MAIN, 4 },
- };
- 
- static const struct clk_parent_data disp_cc_parent_data_5[] = {
--	{ .fw_name = "bi_tcxo" },
- 	{ .hw = &disp_cc_pll0.clkr.hw },
- 	{ .hw = &disp_cc_pll1.clkr.hw },
- };
-@@ -219,7 +215,7 @@ static struct clk_rcg2 disp_cc_mdss_ahb_clk_src = {
- 		.parent_data = disp_cc_parent_data_3,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_3),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_ops,
-+		.ops = &clk_rcg2_parked_ops,
- 	},
- };
- 
-@@ -565,7 +561,7 @@ static struct clk_rcg2 disp_cc_mdss_mdp_clk_src = {
- 		.parent_data = disp_cc_parent_data_5,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_5),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_ops,
-+		.ops = &clk_rcg2_parked_ops,
- 	},
- };
- 
-@@ -617,7 +613,7 @@ static struct clk_rcg2 disp_cc_mdss_rot_clk_src = {
- 		.parent_data = disp_cc_parent_data_5,
- 		.num_parents = ARRAY_SIZE(disp_cc_parent_data_5),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_ops,
-+		.ops = &clk_rcg2_parked_ops,
- 	},
- };
- 
+Dmitry Baryshkov (3):
+  clk: qcom: add helper to map parent source to cfg value
+  clk: qcom: implement RCG2 'parked' clock support
+  clk: qcom: dispcc-sm8250: switch to clk_rcg2_parked_ops
+
+ drivers/clk/qcom/clk-rcg.h       |  1 +
+ drivers/clk/qcom/clk-rcg2.c      | 56 ++++++++++++++++++++++++++++++++
+ drivers/clk/qcom/common.c        | 12 +++++++
+ drivers/clk/qcom/common.h        |  2 ++
+ drivers/clk/qcom/dispcc-sm8250.c | 13 ++------
+ 5 files changed, 74 insertions(+), 10 deletions(-)
+
 -- 
 2.39.2
 
