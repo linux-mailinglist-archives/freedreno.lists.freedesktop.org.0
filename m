@@ -1,76 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BB057B8536
-	for <lists+freedreno@lfdr.de>; Wed,  4 Oct 2023 18:27:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EC927B870B
+	for <lists+freedreno@lfdr.de>; Wed,  4 Oct 2023 19:57:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAACE10E390;
-	Wed,  4 Oct 2023 16:27:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD43410E395;
+	Wed,  4 Oct 2023 17:57:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0202B10E39A;
- Wed,  4 Oct 2023 16:27:28 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 394F9MdC026971; Wed, 4 Oct 2023 16:27:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=nG38MyMQZUo1+nDmSmoF18hVuuDXrNzWpZOrgAEYFTI=;
- b=G9RcHQ9yzaWTJzSbmf8P2ukLCz+pZToSpA3FYejeR8z4fqWLNiJ5/+n7DcqhFeSue5LW
- a2X45G0IFT/mG2JR/1oByfj+GaFlymTc4YtLvw5+43m3TZR7GlZLZPtoE+IjwazMBLDX
- 2q5lMwVqOD8HgC0ycik/maqVohBf/HUSCbx0TMKoa6n/3/VltIHKvVOJzDWo27gfHUbO
- V1COsmyrc98PEgvRJd1Vi9HmDm1hAkvYWaaA/MRZinAuLKE0RPUznjG2PCHCaOcFyq8I
- clMN9Xf5BJO6YC4Odp7X+11TO4/Ztif1p16jD+G90H/SzCG3Z1v3oZJT/BJ5tG/JXiTr +Q== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3th18jhhk0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Oct 2023 16:27:23 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 394GRMt1019543
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 4 Oct 2023 16:27:22 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.36; Wed, 4 Oct 2023 09:27:22 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Date: Wed, 4 Oct 2023 09:27:01 -0700
-Message-ID: <1696436821-14261-8-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1696436821-14261-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1696436821-14261-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 335D410E395
+ for <freedreno@lists.freedesktop.org>; Wed,  4 Oct 2023 17:57:20 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-50573e85ee0so125259e87.3
+ for <freedreno@lists.freedesktop.org>; Wed, 04 Oct 2023 10:57:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1696442238; x=1697047038; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/zKg7f6kpVshrRISQ4xbKZAM7kHw6RbXQvKDo5fo5gI=;
+ b=AKcYWZFQmo29LsCfzzRduMFzdbWJoC4Fe0ehccYk4D4tspYMLQW3Vj8HkBZj3kgQ/x
+ pf+4FXK5DvdFslhkUpvL0RYisU8zCVTvh074T1ByIFvKBuqg8ew0vXIXX2SFQqOgU707
+ Aln5OCY+vVlPGfNqvFKFpLVBXd1zgb8nhV43V4/w6ABJKCZBeOwXZFmuuRxOEGAs5YKQ
+ iqMYeFkc0WNRGJWoGl8pGc78g7kRVh8Pfq8A76XbAeQDPxk6f8TFV7UiaMCDKHOoOd1z
+ z3ijsdCpxnbBA6zMBZvYu7i+iihcT4pFJ97JZfLM0ENzroDizGoE2jQdThSksT/kaALi
+ ZQKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696442238; x=1697047038;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/zKg7f6kpVshrRISQ4xbKZAM7kHw6RbXQvKDo5fo5gI=;
+ b=DMhq14teG952obJ60zfimyCPcrUESc5tl/TN6dsOsy1TzOrLrzycbJaEzM17pZvhA3
+ qTrAYEIIQ2mU93mwBc+DDawTB4behP9IWCgCZoGjHORVTSDpOkxwRWO+hms6PtxF/5ka
+ v+4EDtxcW3/4FRJ+02N4ZAzMyilyJqIplLYWm3h7jd30P2WDeb5DrpySZJlQuSPY5W5f
+ CMUtLK9FvKhUd41cq5KEtTuoEjlD2MKLWZHCWbA7sACrCZIdAjJqf+2ntuJiA+Wph6W8
+ dpbO7Toz24UmT+h/IvH+y0no35DEiaiEv5+pzXDkiNT8B+ftw/R0jSo3o6jeZWzAWUDI
+ cTQQ==
+X-Gm-Message-State: AOJu0YzdhZiqpqBIP2pLZ3zUebQDngEC3KXcfHWQgJiwDzvcmXT4r3JF
+ s6hWSfMOaeK9usPUSrmBRq1urZiwrRvwkCWIBJU=
+X-Google-Smtp-Source: AGHT+IECOXMOL4C0XYUOKmTR5hKYMMj/PCobgcCBBRPWv6ENacPOxkFttgRQ8wL39jthck2CPNQxcg==
+X-Received: by 2002:a05:6512:3190:b0:500:d8d6:fc5a with SMTP id
+ i16-20020a056512319000b00500d8d6fc5amr3960473lfe.37.1696442238325; 
+ Wed, 04 Oct 2023 10:57:18 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ r14-20020ac252ae000000b00505723e56acsm679513lfm.273.2023.10.04.10.57.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Oct 2023 10:57:17 -0700 (PDT)
+Message-ID: <7e28c09b-f2fd-4a42-b4f3-a337ec31a073@linaro.org>
+Date: Wed, 4 Oct 2023 20:57:16 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: f31v7cQg46cSTQhNeq9XKDYtonUlv27e
-X-Proofpoint-ORIG-GUID: f31v7cQg46cSTQhNeq9XKDYtonUlv27e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-04_07,2023-10-02_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- mlxlogscore=999 bulkscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 mlxscore=0 adultscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2310040117
-Subject: [Freedreno] [PATCH v5 7/7] drm/msm/dp: move
- of_dp_aux_populate_bus() to eDP probe()
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
+ <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
+ <f129633e-4df7-4984-a19e-c16e6c7c8f3f@linaro.org>
+ <CAA8EJprGfS5x89FOWhjPCdLzSNbEK-U1h8qVmfiLc6+4NjEiNA@mail.gmail.com>
+ <e96499ff-76ec-482b-b18c-ee293259b8a7@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <e96499ff-76ec-482b-b18c-ee293259b8a7@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
+ clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,204 +81,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
+ Taniya Das <quic_tdas@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ freedreno@lists.freedesktop.org, Michael Turquette <mturquette@baylibre.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently eDP population is done at msm_dp_modeset_init() which happen
-at binding time. Move eDP population to be done at display probe time
-so that probe deferral cases can be handled effectively.
-wait_for_hpd_asserted callback is added during drm_dp_aux_init()
-to ensure eDP's HPD is up before proceeding eDP population.
+On 04/10/2023 15:52, Bryan O'Donoghue wrote:
+> On 04/10/2023 13:08, Dmitry Baryshkov wrote:
+>> On Wed, 4 Oct 2023 at 12:27, Bryan O'Donoghue
+>> <bryan.odonoghue@linaro.org> wrote:
+>>>
+>>> On 04/10/2023 01:31, Dmitry Baryshkov wrote:
+>>>> clk_rcg2_shared_ops implements support for the case of the RCG which
+>>>> must not be completely turned off. However its design has one major
+>>>> drawback: it doesn't allow us to properly implement the is_enabled
+>>>> callback, which causes different kinds of misbehaviour from the CCF.
+>>>>
+>>>> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
+>>>> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
+>>>> switched off (and shared most of the implementation with
+>>>> clk_rcg2_shared_ops). The major difference is that it requires that the
+>>>> parent map doesn't conain the safe (parked) clock source. Instead if 
+>>>> the
+>>>> CFG_REG register points to the safe source, the clock is considered to
+>>>> be disabled.
+>>>
+>>> Why not have a new bit in .flags ?
+>>>
+>>> Instead of lying about the clock being off, mark the clock as "parked",
+>>> or "safe parked" or whatever term we choose for it ?
+>>
+>> The main problem with adding flags doesn't fully scale. From the CCF
+>> perspective, what should be the difference between parked and disabled
+>> clocks? How should it treat the parked one?
+> 
+> Exactly the same as a disabled clock, except you get a "parked" instead 
+> of a "disabled" when looking up its state and you don't have to
+> 
+> -    { .fw_name = "bi_tcxo" },
+> 
+> Also you can then flag for branch2 clocks the same thing - so parking 
+> would be done at a higher level in the CCF.
 
-Changes in v5:
--- inline dp_display_auxbus_population() and delete it
+Without this removal there is no easy way to identify if the clock is 
+parked to XO or if it is reparented to that clock.
 
-Changes in v4:
--- delete duplicate initialize code to dp_aux before drm_dp_aux_register()
--- delete of_get_child_by_name(dev->of_node, "aux-bus") and inline the function
--- not initialize rc = 0
 
-Changes in v3:
--- add done_probing callback into devm_of_dp_aux_populate_bus()
-
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_aux.c     | 34 ++++++++++++++++-----
- drivers/gpu/drm/msm/dp/dp_display.c | 59 +++++++++++++++----------------------
- 2 files changed, 51 insertions(+), 42 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 10b6eeb..03f4951 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -479,7 +479,6 @@ void dp_aux_deinit(struct drm_dp_aux *dp_aux)
- 
- int dp_aux_register(struct drm_dp_aux *dp_aux)
- {
--	struct dp_aux_private *aux;
- 	int ret;
- 
- 	if (!dp_aux) {
-@@ -487,12 +486,7 @@ int dp_aux_register(struct drm_dp_aux *dp_aux)
- 		return -EINVAL;
- 	}
- 
--	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
--
--	aux->dp_aux.name = "dpu_dp_aux";
--	aux->dp_aux.dev = aux->dev;
--	aux->dp_aux.transfer = dp_aux_transfer;
--	ret = drm_dp_aux_register(&aux->dp_aux);
-+	ret = drm_dp_aux_register(dp_aux);
- 	if (ret) {
- 		DRM_ERROR("%s: failed to register drm aux: %d\n", __func__,
- 				ret);
-@@ -507,6 +501,21 @@ void dp_aux_unregister(struct drm_dp_aux *dp_aux)
- 	drm_dp_aux_unregister(dp_aux);
- }
- 
-+static int dp_wait_hpd_asserted(struct drm_dp_aux *dp_aux,
-+				 unsigned long wait_us)
-+{
-+	int ret;
-+	struct dp_aux_private *aux;
-+
-+	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
-+
-+	pm_runtime_get_sync(aux->dev);
-+	ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
-+	pm_runtime_put_sync(aux->dev);
-+
-+	return ret;
-+}
-+
- struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
- 			      bool is_edp)
- {
-@@ -530,6 +539,17 @@ struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
- 	aux->catalog = catalog;
- 	aux->retry_cnt = 0;
- 
-+	/*
-+	 * Use the drm_dp_aux_init() to use the aux adapter
-+	 * before registering AUX with the DRM device so that
-+	 * msm eDP panel can be detected by generic_dep_panel_probe().
-+	 */
-+	aux->dp_aux.name = "dpu_dp_aux";
-+	aux->dp_aux.dev = dev;
-+	aux->dp_aux.transfer = dp_aux_transfer;
-+	aux->dp_aux.wait_hpd_asserted = dp_wait_hpd_asserted;
-+	drm_dp_aux_init(&aux->dp_aux);
-+
- 	return &aux->dp_aux;
- }
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 79e56d9..df15145 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1207,6 +1207,17 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
- 	return NULL;
- }
- 
-+static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
-+{
-+	int rc;
-+
-+	rc = component_add(aux->dev, &dp_display_comp_ops);
-+	if (rc)
-+		DRM_ERROR("eDP component add failed, rc=%d\n", rc);
-+
-+	return rc;
-+}
-+
- static int dp_display_probe(struct platform_device *pdev)
- {
- 	int rc = 0;
-@@ -1272,10 +1283,18 @@ static int dp_display_probe(struct platform_device *pdev)
- 	if (rc)
- 		goto err;
- 
--	rc = component_add(&pdev->dev, &dp_display_comp_ops);
--	if (rc) {
--		DRM_ERROR("component add failed, rc=%d\n", rc);
--		goto err;
-+	if (dp->dp_display.is_edp) {
-+		rc = devm_of_dp_aux_populate_bus(dp->aux, dp_auxbus_done_probe);
-+		if (rc) {
-+			DRM_ERROR("eDP auxbus population failed, rc=%d\n", rc);
-+			goto err;
-+		}
-+	} else {
-+		rc = component_add(&pdev->dev, &dp_display_comp_ops);
-+		if (rc) {
-+			DRM_ERROR("component add failed, rc=%d\n", rc);
-+			goto err;
-+		}
- 	}
- 
- 	return rc;
-@@ -1291,7 +1310,6 @@ static int dp_display_remove(struct platform_device *pdev)
- 
- 	component_del(&pdev->dev, &dp_display_comp_ops);
- 	dp_display_deinit_sub_modules(dp);
--
- 	platform_set_drvdata(pdev, NULL);
- 
- 	return 0;
-@@ -1388,29 +1406,8 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- {
- 	int rc;
- 	struct dp_display_private *dp_priv;
--	struct device_node *aux_bus;
--	struct device *dev;
- 
- 	dp_priv = container_of(dp, struct dp_display_private, dp_display);
--	dev = &dp_priv->pdev->dev;
--	aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
--
--	if (aux_bus && dp->is_edp) {
--		/*
--		 * The code below assumes that the panel will finish probing
--		 * by the time devm_of_dp_aux_populate_ep_devices() returns.
--		 * This isn't a great assumption since it will fail if the
--		 * panel driver is probed asynchronously but is the best we
--		 * can do without a bigger driver reorganization.
--		 */
--		rc = of_dp_aux_populate_bus(dp_priv->aux, NULL);
--		of_node_put(aux_bus);
--		if (rc)
--			goto error;
--	} else if (dp->is_edp) {
--		DRM_ERROR("eDP aux_bus not found\n");
--		return -ENODEV;
--	}
- 
- 	/*
- 	 * External bridges are mandatory for eDP interfaces: one has to
-@@ -1423,17 +1420,9 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 	if (!dp->is_edp && rc == -ENODEV)
- 		return 0;
- 
--	if (!rc) {
-+	if (!rc)
- 		dp->next_bridge = dp_priv->parser->next_bridge;
--		return 0;
--	}
- 
--error:
--	if (dp->is_edp) {
--		of_dp_aux_depopulate_bus(dp_priv->aux);
--		dp_display_host_phy_exit(dp_priv);
--		dp_display_host_deinit(dp_priv);
--	}
- 	return rc;
- }
- 
 -- 
-2.7.4
+With best wishes
+Dmitry
 
