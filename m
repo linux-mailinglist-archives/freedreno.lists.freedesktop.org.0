@@ -2,68 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E4F37BABFF
-	for <lists+freedreno@lfdr.de>; Thu,  5 Oct 2023 23:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD8207BAE9B
+	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 00:07:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D44B710E49D;
-	Thu,  5 Oct 2023 21:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6FD10E499;
+	Thu,  5 Oct 2023 22:07:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C15B710E4A0
- for <freedreno@lists.freedesktop.org>; Thu,  5 Oct 2023 21:27:12 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-505a62d24b9so1786855e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 05 Oct 2023 14:27:12 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E741F10E499
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Oct 2023 22:07:01 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-50481a0eee7so3239223e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Oct 2023 15:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696541231; x=1697146031; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4lkSHeqO9Bom7EjeP/DfvGg2iy3weXU2vvyf5P5euXQ=;
- b=ZY/dSnuZkqO6Kvcuo8vnLW/OLi8HhbTiCvCYYPJsjZH9zXdMBO4SZoT+403nLYyPug
- tvYfc/+MtVlm4Mvuh1dtUpm9TmkFHuN7+hWGAIcswJQBfyXwBI7xyxzDQBomnyJcEHk2
- PrWxss3bXiK4NAEn/cEPtNlOv9Fjj6KCIOer15x2PgWotDJkY/VYtGrfeZNo8DMudPdb
- 679AHkEc42cijjk3jf/z75m2Cbc+ka8lQw9WomIQWm9Lf8sUBSn/b3HLwpN4mN+S3y6T
- VHL0yHh3Qlxe7+5BGUGHBRnMPBFhwRe+teb3kG2ekUTQa9T1nCG566pKBbrO9wtaj99B
- JD9w==
+ d=linaro.org; s=google; t=1696543620; x=1697148420; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+eiNNMbRuHcjPQp0/LssXGygCRwjOZULScFReylZuVg=;
+ b=tVjlfKfnc5GjRNoCPmBE8TZBMtiwLjEx1bHXF2lLpJbh3Z6hSMyA6E8QosGm/SoF1j
+ HMVnGkH269mk4Mb5OYhlx8glk/vKGPEGTwnek7CW4ivmWKuhniAIqbPcPZ0Azrv/AGDq
+ JojS3wFkbqQmww3YYDo0MlMCykB8dohpDW7ocSnxEZfo23FY+vEnVY6TCAJRZ2u3OSbZ
+ OwZneM/gAH9vTm/rK0j3hdvBYg32WY5tC/LXe3IvuSb1oGz04vImHR/G276NhEWYesno
+ PaCGBZVK6IZVwDZ97GjDOyN34CVieeiMcAx1vnj1iqjGoRd85wlWkPzyPd2/xtuBL5Wm
+ 4SXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696541231; x=1697146031;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4lkSHeqO9Bom7EjeP/DfvGg2iy3weXU2vvyf5P5euXQ=;
- b=CUx0SIDDpokI2CC/2GezAr79LuWsVNKRpqQpl5QpVpdsOpl3T1eH/FeyM5QVo/OH0d
- /p6kz7BOlN0NTNu3uG+DEN4FKLOlKtlaF7Nfgc7xAFFVLczIUXVTvIvrL/P8zgz6mhNT
- xu5JufqZQvEOFgGZdxWxOlPNTsUTsrkps9Hedko9mJt5cXtmRl9nIQEyuMyOxJNMXsgn
- b7P6g2yZCqz5ePjbF0kxBdxcjxP7SXI549QWGAnGf0RyDY9dpSgEUQr1oqfjMdbm2PVz
- l7Udqueb6EF1VKV4C9B5kR7TmI6L/SCQfkCpX08okXvA24ZdG5qaeq7WaLrK8Y1PaWHv
- e+KQ==
-X-Gm-Message-State: AOJu0Yx35sQ7FFIDX78jJ30anHjnyXS7ZDRz4RTlkHLL3RHnb/I7itaY
- NAvoJZiZ6O02EGkT/WMpN4Ks5DdrTuAm0nLoIdE=
-X-Google-Smtp-Source: AGHT+IE2BN+Bg3ZNk0p35bPEQMMk8lXTcIPMgGO+w+EIzxW9lcC3BzXaocpuaALLwJm9MGvGGr4gSw==
-X-Received: by 2002:a05:6512:1289:b0:501:c406:c296 with SMTP id
- u9-20020a056512128900b00501c406c296mr7757598lfs.31.1696541231039; 
- Thu, 05 Oct 2023 14:27:11 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696543620; x=1697148420;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+eiNNMbRuHcjPQp0/LssXGygCRwjOZULScFReylZuVg=;
+ b=mKGd8dn7DdjQbFizUNk8/ulfqPEV8mJQzbBM6SdXj6S4RfXkH8FssySpTFPi0pxRPB
+ BiZdqBP4S/SnWqLvJyjLyJr/A7znZXYpG+dYPyrfEf7qZoHcrJDoVkGjGAeDZyz+GDxW
+ HkrZnxjR9/Z8nm0llUBsLzHkE9Lyn08/O8jsuTM7XteEdsQ/nRGHqbPuN7bjWEdVt8M1
+ ZROvgGoc9/lnFZthuD6S4bp07EX1cZBO9idZUoA8hIBjDm/HHgBcaRwyZbqGjoc9WAtD
+ k9rDzErs5zJRDNI6/K3RJg7avEboPSMWm73toaa2Zo0cln3HeVP1CSE52aailM6iQ9N7
+ VH7A==
+X-Gm-Message-State: AOJu0YxsKqJsjB6mHEndSWVMnM/Q+Q+Angqrjoagw6FMQKPALx04q6T3
+ FPwl7meMqAgcGVSG7/53KDBmEQ==
+X-Google-Smtp-Source: AGHT+IEZUdjUBSuoD1ZodWD5BwKmd7jJQHLpsoHzmeIaA3g3wSQtr1yU3BpFkBIquzhqWT7H1MW8pw==
+X-Received: by 2002:ac2:5b10:0:b0:4fe:8ba8:1a8b with SMTP id
+ v16-20020ac25b10000000b004fe8ba81a8bmr3145577lfn.7.1696543620058; 
+ Thu, 05 Oct 2023 15:07:00 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- a6-20020a19f806000000b00500b3157ec6sm8435lff.143.2023.10.05.14.27.10
+ a6-20020a19f806000000b00500b3157ec6sm20863lff.143.2023.10.05.15.06.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Oct 2023 14:27:10 -0700 (PDT)
+ Thu, 05 Oct 2023 15:06:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri,  6 Oct 2023 00:27:03 +0300
-Message-Id: <20231005212703.2400237-11-dmitry.baryshkov@linaro.org>
+Date: Fri,  6 Oct 2023 01:06:59 +0300
+Message-Id: <20231005220659.2404199-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231005212703.2400237-1-dmitry.baryshkov@linaro.org>
-References: <20231005212703.2400237-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 10/10] drm/msm/gpu: drop duplicating VIG
- feature masks
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: remove CRTC frame event
+ callback registration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,318 +80,221 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-After folding QSEED3LITE and QSEED4 feature bits into QSEED3 several
-VIG feature masks became equal. Drop these duplicates.
+The frame event callback is always set to dpu_crtc_frame_event_cb() (or
+to NULL) and the data is always either the CRTC itself or NULL
+(correpondingly). Thus drop the event callback registration, call the
+dpu_crtc_frame_event_cb() directly and gate on the dpu_enc->crtc
+assigned using dpu_encoder_assign_crtc().
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |  2 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  8 ++++----
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  8 ++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c        | 11 +----------
- 11 files changed, 26 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-index 047dd6d4f5c0..7e43b1b86227 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h
-@@ -68,7 +68,7 @@ static const struct dpu_sspp_cfg sm6125_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f0,
--		.features = VIG_SM6125_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_2_4,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-index 2aa4c792b306..eb80cc127f53 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
-@@ -74,7 +74,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -82,7 +82,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -90,7 +90,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -98,7 +98,7 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK_SDMA,
-+		.features = VIG_SDM845_MASK_SDMA,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-index c5687571ea6b..07a0cda45766 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
-@@ -51,7 +51,7 @@ static const struct dpu_sspp_cfg sc7180_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-index f9e4ce9d9f2a..4f602a95ced2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h
-@@ -38,7 +38,7 @@ static const struct dpu_sspp_cfg sm6115_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-index 46d6eca81eed..1d83db69ae97 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-@@ -58,7 +58,7 @@ static const struct dpu_sspp_cfg sm6350_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-index a8a4fab22c6a..d4d783288bdd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h
-@@ -39,7 +39,7 @@ static const struct dpu_sspp_cfg sm6375_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-index be05b7ed2013..d18f753febdc 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
-@@ -73,7 +73,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -81,7 +81,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -89,7 +89,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -97,7 +97,7 @@ static const struct dpu_sspp_cfg sm8350_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x1f8,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-index ff6cfd612f7b..82aafc67125b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h
-@@ -74,7 +74,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -82,7 +82,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -90,7 +90,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -98,7 +98,7 @@ static const struct dpu_sspp_cfg sc8280xp_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x2ac,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_0,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-index 04d69182ec64..43827df36494 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-@@ -74,7 +74,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_1,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -82,7 +82,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_1,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -90,7 +90,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_1,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -98,7 +98,7 @@ static const struct dpu_sspp_cfg sm8450_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x32c,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_1,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-index 860feb9c54e6..fb85168be3e2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-@@ -76,7 +76,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	{
- 		.name = "sspp_0", .id = SSPP_VIG0,
- 		.base = 0x4000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_2,
- 		.xin_id = 0,
- 		.type = SSPP_TYPE_VIG,
-@@ -84,7 +84,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	}, {
- 		.name = "sspp_1", .id = SSPP_VIG1,
- 		.base = 0x6000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_2,
- 		.xin_id = 4,
- 		.type = SSPP_TYPE_VIG,
-@@ -92,7 +92,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	}, {
- 		.name = "sspp_2", .id = SSPP_VIG2,
- 		.base = 0x8000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_2,
- 		.xin_id = 8,
- 		.type = SSPP_TYPE_VIG,
-@@ -100,7 +100,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
- 	}, {
- 		.name = "sspp_3", .id = SSPP_VIG3,
- 		.base = 0xa000, .len = 0x344,
--		.features = VIG_SC7180_MASK,
-+		.features = VIG_SDM845_MASK,
- 		.sblk = &dpu_vig_sblk_qseed3_3_2,
- 		.xin_id = 12,
- 		.type = SSPP_TYPE_VIG,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index cccafee33825..5dd227f53d8f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -30,15 +30,6 @@
- #define VIG_SDM845_MASK_SDMA \
- 	(VIG_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+This patch was previously posted as a part of the [1]
+
+Changes since v1:
+- Rebased on top of linux-next
+
+[1] https://patchwork.freedesktop.org/series/112353/
+
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 17 +--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    | 14 +++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 41 +++------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 10 -----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h   |  4 --
+ 5 files changed, 21 insertions(+), 65 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 8ce7586e2ddf..dec5417b69d8 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -669,18 +669,8 @@ static void dpu_crtc_frame_event_work(struct kthread_work *work)
+ 	DPU_ATRACE_END("crtc_frame_event");
+ }
  
--#define VIG_SC7180_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
+-/*
+- * dpu_crtc_frame_event_cb - crtc frame event callback API. CRTC module
+- * registers this API to encoder for all frame event callbacks like
+- * frame_error, frame_done, idle_timeout, etc. Encoder may call different events
+- * from different context - IRQ, user thread, commit_thread, etc. Each event
+- * should be carefully reviewed and should be processed in proper task context
+- * to avoid schedulin delay or properly manage the irq context's bottom half
+- * processing.
+- */
+-static void dpu_crtc_frame_event_cb(void *data, u32 event)
++void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event)
+ {
+-	struct drm_crtc *crtc = (struct drm_crtc *)data;
+ 	struct dpu_crtc *dpu_crtc;
+ 	struct msm_drm_private *priv;
+ 	struct dpu_crtc_frame_event *fevent;
+@@ -1102,9 +1092,6 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+ 
+ 	dpu_core_perf_crtc_update(crtc, 0);
+ 
+-	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
+-		dpu_encoder_register_frame_event_callback(encoder, NULL, NULL);
 -
--#define VIG_SM6125_MASK \
--	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
+ 	memset(cstate->mixers, 0, sizeof(cstate->mixers));
+ 	cstate->num_mixers = 0;
+ 
+@@ -1143,8 +1130,6 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+ 		 */
+ 		if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_VIDEO)
+ 			request_bandwidth = true;
+-		dpu_encoder_register_frame_event_callback(encoder,
+-				dpu_crtc_frame_event_cb, (void *)crtc);
+ 	}
+ 
+ 	if (request_bandwidth)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index 539b68b1626a..3aa536d95721 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -300,4 +300,18 @@ static inline enum dpu_crtc_client_type dpu_crtc_get_client_type(
+ 	return crtc && crtc->state ? RT_CLIENT : NRT_CLIENT;
+ }
+ 
++/**
++ * dpu_crtc_frame_event_cb - crtc frame event callback API
++ * @crtc: Pointer to crtc
++ * @event: Event to process
++ *
++ * CRTC module registers this API to encoder for all frame event callbacks like
++ * frame_error, frame_done, idle_timeout, etc. Encoder may call different events
++ * from different context - IRQ, user thread, commit_thread, etc. Each event
++ * should be carefully reviewed and should be processed in proper task context
++ * to avoid schedulin delay or properly manage the irq context's bottom half
++ * processing.
++ */
++void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
++
+ #endif /* _DPU_CRTC_H_ */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index d34e684a4178..709fffa4dfa7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -148,8 +148,6 @@ enum dpu_enc_rc_states {
+  * @frame_busy_mask:		Bitmask tracking which phys_enc we are still
+  *				busy processing current command.
+  *				Bit0 = phys_encs[0] etc.
+- * @crtc_frame_event_cb:	callback handler for frame event
+- * @crtc_frame_event_cb_data:	callback handler private data
+  * @frame_done_timeout_ms:	frame done timeout in ms
+  * @frame_done_timer:		watchdog timer for frame done event
+  * @disp_info:			local copy of msm_display_info struct
+@@ -187,8 +185,6 @@ struct dpu_encoder_virt {
+ 	struct dentry *debugfs_root;
+ 	struct mutex enc_lock;
+ 	DECLARE_BITMAP(frame_busy_mask, MAX_PHYS_ENCODERS_PER_VIRTUAL);
+-	void (*crtc_frame_event_cb)(void *, u32 event);
+-	void *crtc_frame_event_cb_data;
+ 
+ 	atomic_t frame_done_timeout_ms;
+ 	struct timer_list frame_done_timer;
+@@ -1377,28 +1373,6 @@ void dpu_encoder_toggle_vblank_for_crtc(struct drm_encoder *drm_enc,
+ 	}
+ }
+ 
+-void dpu_encoder_register_frame_event_callback(struct drm_encoder *drm_enc,
+-		void (*frame_event_cb)(void *, u32 event),
+-		void *frame_event_cb_data)
+-{
+-	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+-	unsigned long lock_flags;
+-	bool enable;
 -
--#define VIG_SC7180_MASK_SDMA \
--	(VIG_SC7180_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+-	enable = frame_event_cb ? true : false;
 -
- #define VIG_QCM2290_MASK (VIG_BASE_MASK | BIT(DPU_SSPP_QOS_8LVL))
+-	if (!drm_enc) {
+-		DPU_ERROR("invalid encoder\n");
+-		return;
+-	}
+-	trace_dpu_enc_frame_event_cb(DRMID(drm_enc), enable);
+-
+-	spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
+-	dpu_enc->crtc_frame_event_cb = frame_event_cb;
+-	dpu_enc->crtc_frame_event_cb_data = frame_event_cb_data;
+-	spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
+-}
+-
+ void dpu_encoder_frame_done_callback(
+ 		struct drm_encoder *drm_enc,
+ 		struct dpu_encoder_phys *ready_phys, u32 event)
+@@ -1438,15 +1412,12 @@ void dpu_encoder_frame_done_callback(
+ 			dpu_encoder_resource_control(drm_enc,
+ 					DPU_ENC_RC_EVENT_FRAME_DONE);
  
- #define DMA_MSM8998_MASK \
-@@ -47,7 +38,7 @@
- 	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
+-			if (dpu_enc->crtc_frame_event_cb)
+-				dpu_enc->crtc_frame_event_cb(
+-					dpu_enc->crtc_frame_event_cb_data,
+-					event);
++			if (dpu_enc->crtc)
++				dpu_crtc_frame_event_cb(dpu_enc->crtc, event);
+ 		}
+ 	} else {
+-		if (dpu_enc->crtc_frame_event_cb)
+-			dpu_enc->crtc_frame_event_cb(
+-				dpu_enc->crtc_frame_event_cb_data, event);
++		if (dpu_enc->crtc)
++			dpu_crtc_frame_event_cb(dpu_enc->crtc, event);
+ 	}
+ }
  
- #define VIG_SC7280_MASK \
--	(VIG_SC7180_MASK | BIT(DPU_SSPP_INLINE_ROTATION))
-+	(VIG_SDM845_MASK | BIT(DPU_SSPP_INLINE_ROTATION))
+@@ -2318,7 +2289,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+ 		return;
+ 	}
  
- #define VIG_SC7280_MASK_SDMA \
- 	(VIG_SC7280_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
+-	if (!dpu_enc->frame_busy_mask[0] || !dpu_enc->crtc_frame_event_cb) {
++	if (!dpu_enc->frame_busy_mask[0] || !dpu_enc->crtc) {
+ 		DRM_DEBUG_KMS("id:%u invalid timeout frame_busy_mask=%lu\n",
+ 			      DRMID(drm_enc), dpu_enc->frame_busy_mask[0]);
+ 		return;
+@@ -2331,7 +2302,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+ 
+ 	event = DPU_ENCODER_FRAME_EVENT_ERROR;
+ 	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
+-	dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
++	dpu_crtc_frame_event_cb(dpu_enc->crtc, event);
+ }
+ 
+ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index 4c05fd5e9ed1..dfa8edeca925 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -55,16 +55,6 @@ void dpu_encoder_assign_crtc(struct drm_encoder *encoder,
+ void dpu_encoder_toggle_vblank_for_crtc(struct drm_encoder *encoder,
+ 					struct drm_crtc *crtc, bool enable);
+ 
+-/**
+- * dpu_encoder_register_frame_event_callback - provide callback to encoder that
+- *	will be called after the request is complete, or other events.
+- * @encoder:	encoder pointer
+- * @cb:		callback pointer, provide NULL to deregister
+- * @data:	user data provided to callback
+- */
+-void dpu_encoder_register_frame_event_callback(struct drm_encoder *encoder,
+-		void (*cb)(void *, u32), void *data);
+-
+ /**
+  * dpu_encoder_prepare_for_kickoff - schedule double buffer flip of the ctl
+  *	path (i.e. ctl flush and start) at next appropriate time.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+index c74b9be25e68..dc097e109fd2 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+@@ -346,10 +346,6 @@ DEFINE_EVENT(dpu_enc_id_enable_template, dpu_enc_vblank_cb,
+ 	TP_PROTO(uint32_t drm_id, bool enable),
+ 	TP_ARGS(drm_id, enable)
+ );
+-DEFINE_EVENT(dpu_enc_id_enable_template, dpu_enc_frame_event_cb,
+-	TP_PROTO(uint32_t drm_id, bool enable),
+-	TP_ARGS(drm_id, enable)
+-);
+ DEFINE_EVENT(dpu_enc_id_enable_template, dpu_enc_phys_cmd_connect_te,
+ 	TP_PROTO(uint32_t drm_id, bool enable),
+ 	TP_ARGS(drm_id, enable)
 -- 
 2.39.2
 
