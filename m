@@ -2,73 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 233DA7BA553
-	for <lists+freedreno@lfdr.de>; Thu,  5 Oct 2023 18:16:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12AA57BABD4
+	for <lists+freedreno@lfdr.de>; Thu,  5 Oct 2023 23:10:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7C3D10E429;
-	Thu,  5 Oct 2023 16:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE41C10E42C;
+	Thu,  5 Oct 2023 21:10:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B09AB10E427
- for <freedreno@lists.freedesktop.org>; Thu,  5 Oct 2023 16:16:23 +0000 (UTC)
-Received: by mail-pf1-x429.google.com with SMTP id
- d2e1a72fcca58-6969b391791so905475b3a.3
- for <freedreno@lists.freedesktop.org>; Thu, 05 Oct 2023 09:16:23 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43B5D10E19D
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Oct 2023 21:09:59 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5042bfb4fe9so1834716e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Oct 2023 14:09:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696522583; x=1697127383;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=xpZu6lqlyEvAN7T4WQyZZbFvUnbP262xmkxGmbRAMgI=;
- b=R4aGLuFVebVY+lCBlJ+k0wRGf9TtF80WpFxII0nsVbe1M69zwkBEC+6IaEZqfNS61Q
- GnRhvmPEPdWBeLeL738JgsM1cZYycVzK26nT32E6y5ez0lhfppfijxAkRYh0jdz/dm5D
- 7ygr4qt4A7vx45HaMaPKID2z9z9oNGNoOMSiA=
+ d=linaro.org; s=google; t=1696540197; x=1697144997; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4l+rmSaO9D8iSzAn40goBP/fmnV3QN4/WS3vTxGlc4Q=;
+ b=Tpa8HHSv0GuWsZClwgvFQ79gjzwoJlhtiGab6dLITC9dag7UQCVACsi4bNYNRuT7PL
+ EDIL+HnXncPF6uYEsiCruQUeYFD9277dFbn0oRd2rqIzyDQGmO1dFxXkobButv9VfwSu
+ 94MlQXAxIxZoUUqUin/ouBhO86nY5Nv1lg65MXPWtlR1+m1Wvx1+sT60E/SHomLd0Ild
+ aUfNXZEfbK0ukEgeSVbnc44DnrIfNCDjCNxFGkksTD4mZYvLLfdMRmCSMnVejuzeUmk9
+ A47J3jIf/CVLqiD294HRHkqOPbbntmxahEiAjFab9pggrmlMKQIHrNS5ohyP1dkLJpMy
+ TzXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696522583; x=1697127383;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xpZu6lqlyEvAN7T4WQyZZbFvUnbP262xmkxGmbRAMgI=;
- b=fqPOSaBaaF56sVhFoliEcyp5xZVrVtUJArJ5S8J5U8SAmIw6AyRPkL1lOnWZP77373
- azWbVO4F9CZTSxH/chAWguc+50ksONJgk2UbtyOUibn4zMUnxRAPX6/Iim35/R2CSZK8
- N3B1wBwybyXb1/4TdE1XuBEGLZv/KTgzFF6ol10iXYHgqT7jXDHrZ4FI0VfgijN5nlkO
- DXDIYFv4Xf/oJ+NVvnNKDngAfPhSnO6wp3ZmuupUYiLj3Al9z4Jb3HY5LieZ7fjl/OzR
- Q6YPx0Rot3YwT45h4BEmlu3dj9PKP+oRM6Vxm/vCOtrxdrHKtnfoVqBAE9Uv67d/wj8T
- gdfg==
-X-Gm-Message-State: AOJu0Yz+uo+9phvyqRGAyRUGJ/MJArA96FNg+l4yxvCOghBjxqQe6gCB
- xXJ0X1fFWSB1ejsdRTXLRO8eAA==
-X-Google-Smtp-Source: AGHT+IFXrkOsf8NbaVIJ+XbxUqZLmBzsbpEzEa+s/qtoOV9I4bEmWp8zGBhz1z3Jkv2V6R2XFzEStQ==
-X-Received: by 2002:a05:6a20:9152:b0:14e:509:1d7b with SMTP id
- x18-20020a056a20915200b0014e05091d7bmr6301990pzc.8.1696522583218; 
- Thu, 05 Oct 2023 09:16:23 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- a26-20020a62e21a000000b00672ea40b8a9sm1612998pfi.170.2023.10.05.09.16.22
+ d=1e100.net; s=20230601; t=1696540197; x=1697144997;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4l+rmSaO9D8iSzAn40goBP/fmnV3QN4/WS3vTxGlc4Q=;
+ b=VLDs8gBs4PNoZ1mPLYd+A7T8LDADOG/Vf9zxVDTQEstzKj4lHfw7F3pHz7G6W5AF1d
+ XESPd4xY3pjSqH1jefjLjdTCvCbMARXoGcCPuFpauUVTqAWlN8mGpZjNhfQNiRbkWzVW
+ MpcLjOu6mJ9PColLlZ9iHIPCvpowbzt62I5KXgKpx2njnZuZXzKG9cGfL7jkMzvrtlZp
+ TuNZROEtIgAwfCvZhEXQoZcLgi9GUeBNVqFhHZRm0SteXtyk4wmVFf85qeepFnJS348f
+ K2koLn1/Qoi9L7MZatsDToVSDqwOYQKh/MwxG0nLXx841oHIkc/GZlp3+YJs9TQvDOW8
+ zPJw==
+X-Gm-Message-State: AOJu0Yyga9TdeVqBoRBpDoal6MoqQ79F/qDzbspi9GwhDe/L8YU6BhNV
+ gKa62+goVXGmsPb4DTAVzCRw69D0m9PzExfXs+4=
+X-Google-Smtp-Source: AGHT+IEYVg+CSuQrNBKI48gPbxx4BwvxFlxcmM6lxBSIw2BuJU+k4acAlh6XKoVSZnul4P6Nst19Dw==
+X-Received: by 2002:a19:2d56:0:b0:505:8075:7c17 with SMTP id
+ t22-20020a192d56000000b0050580757c17mr5077413lft.22.1696540197311; 
+ Thu, 05 Oct 2023 14:09:57 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ l4-20020ac24304000000b0050481c400e9sm3440lfh.287.2023.10.05.14.09.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Oct 2023 09:16:23 -0700 (PDT)
-Date: Thu, 5 Oct 2023 09:16:21 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <202310050915.ABB0419C@keescook>
-References: <20230922173110.work.084-kees@kernel.org>
- <169601600138.3014939.8511343741428844249.b4-ty@chromium.org>
- <83cd056c-52ae-01dd-7576-42d41da64c26@gmail.com>
- <CADnq5_Ma2CrLYggJHKFEObsNmUoqJwb2p1xai5DfL=m43U6zEA@mail.gmail.com>
- <202310020952.E7DE0948C0@keescook>
- <10644b5f-b0a7-85ef-0658-2353ee14df0d@gmail.com>
- <202310021107.9BB46FB8E@keescook>
- <0be2dfa4-b6c1-f62a-66e1-615da7aa3c76@amd.com>
- <202310021122.B6DA850FB0@keescook>
- <d58bbe17-efa7-4548-9c7d-bf0310d31ef5@gmail.com>
+ Thu, 05 Oct 2023 14:09:56 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Fri,  6 Oct 2023 00:09:56 +0300
+Message-Id: <20231005210956.2393366-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d58bbe17-efa7-4548-9c7d-bf0310d31ef5@gmail.com>
-Subject: Re: [Freedreno] [PATCH 0/9] drm: Annotate structs with __counted_by
+Subject: [Freedreno] [PATCH] drm/atomic-helper: rename
+ drm_atomic_helper_check_wb_encoder_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,116 +74,103 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>, Emma Anholt <emma@anholt.net>,
- Tom Rix <trix@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Prike Liang <Prike.Liang@amd.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Karol Herbst <kherbst@redhat.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- amd-gfx@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- nouveau@lists.freedesktop.org, David Airlie <airlied@redhat.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-hardening@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Kevin Wang <kevin1.wang@amd.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Evan Quan <evan.quan@amd.com>, Sean Paul <sean@poorly.run>,
- Yifan Zhang <yifan1.zhang@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
- Le Ma <le.ma@amd.com>, freedreno@lists.freedesktop.org,
- Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Melissa Wen <mwen@igalia.com>,
- Zack Rusin <zackr@vmware.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexdeucher@gmail.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Lang Yu <Lang.Yu@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- John Harrison <john.c.harrison@intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 05, 2023 at 11:42:38AM +0200, Christian König wrote:
-> Am 02.10.23 um 20:22 schrieb Kees Cook:
-> > On Mon, Oct 02, 2023 at 08:11:41PM +0200, Christian König wrote:
-> > > Am 02.10.23 um 20:08 schrieb Kees Cook:
-> > > > On Mon, Oct 02, 2023 at 08:01:57PM +0200, Christian König wrote:
-> > > > > Am 02.10.23 um 18:53 schrieb Kees Cook:
-> > > > > > On Mon, Oct 02, 2023 at 11:06:19AM -0400, Alex Deucher wrote:
-> > > > > > > On Mon, Oct 2, 2023 at 5:20 AM Christian König
-> > > > > > > <ckoenig.leichtzumerken@gmail.com> wrote:
-> > > > > > > > Am 29.09.23 um 21:33 schrieb Kees Cook:
-> > > > > > > > > On Fri, 22 Sep 2023 10:32:05 -0700, Kees Cook wrote:
-> > > > > > > > > > This is a batch of patches touching drm for preparing for the coming
-> > > > > > > > > > implementation by GCC and Clang of the __counted_by attribute. Flexible
-> > > > > > > > > > array members annotated with __counted_by can have their accesses
-> > > > > > > > > > bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS (for array
-> > > > > > > > > > indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family functions).
-> > > > > > > > > > 
-> > > > > > > > > > As found with Coccinelle[1], add __counted_by to structs that would
-> > > > > > > > > > benefit from the annotation.
-> > > > > > > > > > 
-> > > > > > > > > > [...]
-> > > > > > > > > Since this got Acks, I figure I should carry it in my tree. Let me know
-> > > > > > > > > if this should go via drm instead.
-> > > > > > > > > 
-> > > > > > > > > Applied to for-next/hardening, thanks!
-> > > > > > > > > 
-> > > > > > > > > [1/9] drm/amd/pm: Annotate struct smu10_voltage_dependency_table with __counted_by
-> > > > > > > > >           https://git.kernel.org/kees/c/a6046ac659d6
-> > > > > > > > STOP! In a follow up discussion Alex and I figured out that this won't work.
-> > > > > > I'm so confused; from the discussion I saw that Alex said both instances
-> > > > > > were false positives?
-> > > > > > 
-> > > > > > > > The value in the structure is byte swapped based on some firmware
-> > > > > > > > endianness which not necessary matches the CPU endianness.
-> > > > > > > SMU10 is APU only so the endianess of the SMU firmware and the CPU
-> > > > > > > will always match.
-> > > > > > Which I think is what is being said here?
-> > > > > > 
-> > > > > > > > Please revert that one from going upstream if it's already on it's way.
-> > > > > > > > 
-> > > > > > > > And because of those reasons I strongly think that patches like this
-> > > > > > > > should go through the DRM tree :)
-> > > > > > Sure, that's fine -- please let me know. It was others Acked/etc. Who
-> > > > > > should carry these patches?
-> > > > > Probably best if the relevant maintainer pick them up individually.
-> > > > > 
-> > > > > Some of those structures are filled in by firmware/hardware and only the
-> > > > > maintainers can judge if that value actually matches what the compiler
-> > > > > needs.
-> > > > > 
-> > > > > We have cases where individual bits are used as flags or when the size is
-> > > > > byte swapped etc...
-> > > > > 
-> > > > > Even Alex and I didn't immediately say how and where that field is actually
-> > > > > used and had to dig that up. That's where the confusion came from.
-> > > > Okay, I've dropped them all from my tree. Several had Acks/Reviews, so
-> > > > hopefully those can get picked up for the DRM tree?
-> > > I will pick those up to go through drm-misc-next.
-> > > 
-> > > Going to ping maintainers once more when I'm not sure if stuff is correct or
-> > > not.
-> > Sounds great; thanks!
-> 
-> I wasn't 100% sure for the VC4 patch, but pushed the whole set to
-> drm-misc-next anyway.
-> 
-> This also means that the patches are now auto merged into the drm-tip
-> integration branch and should any build or unit test go boom we should
-> notice immediately and can revert it pretty easily.
+The drm_atomic_helper_check_wb_encoder_state() function doesn't use
+encoder for anything other than getting the drm_device instance. The
+function's description talks about checking the writeback connector
+state, not the encoder state. Moreover, there is no such thing as an
+encoder state, encoders generally do not have a state on their own.
 
-Thanks very much; I'll keep an eye out for any reports.
+Drop the first argument and rename the function to
+drm_atomic_helper_check_wb_connector_state().
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+
+Abhinav at [1] pointed me to this function as one of the reasons to keep
+WB check state in the encoder part of the MSM driver. However after a
+second glance, it looks like this function isn't really concerned with
+the encoder state and checks the connector state. Let's rename it to
+make this more clear.
+
+[1] https://lore.kernel.org/dri-devel/9a2e3ab2-a95f-3dee-b89c-aa69ffd9387e@quicinc.com/
+
+---
+ drivers/gpu/drm/drm_atomic_helper.c   | 10 ++++------
+ drivers/gpu/drm/vkms/vkms_writeback.c |  2 +-
+ include/drm/drm_atomic_helper.h       |  3 +--
+ 3 files changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 71d399397107..f32bf0212453 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -786,8 +786,7 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
+ 
+ /**
+- * drm_atomic_helper_check_wb_encoder_state() - Check writeback encoder state
+- * @encoder: encoder state to check
++ * drm_atomic_helper_check_wb_connector_state() - Check writeback connector state
+  * @conn_state: connector state to check
+  *
+  * Checks if the writeback connector state is valid, and returns an error if it
+@@ -797,8 +796,7 @@ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
+  * Zero for success or -errno
+  */
+ int
+-drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+-					 struct drm_connector_state *conn_state)
++drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *conn_state)
+ {
+ 	struct drm_writeback_job *wb_job = conn_state->writeback_job;
+ 	struct drm_property_blob *pixel_format_blob;
+@@ -818,11 +816,11 @@ drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+ 		if (fb->format->format == formats[i])
+ 			return 0;
+ 
+-	drm_dbg_kms(encoder->dev, "Invalid pixel format %p4cc\n", &fb->format->format);
++	drm_dbg_kms(conn_state->connector->dev, "Invalid pixel format %p4cc\n", &fb->format->format);
+ 
+ 	return -EINVAL;
+ }
+-EXPORT_SYMBOL(drm_atomic_helper_check_wb_encoder_state);
++EXPORT_SYMBOL(drm_atomic_helper_check_wb_connector_state);
+ 
+ /**
+  * drm_atomic_helper_check_plane_state() - Check plane state for validity
+diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+index d7e63aa14663..56edec6f1634 100644
+--- a/drivers/gpu/drm/vkms/vkms_writeback.c
++++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+@@ -48,7 +48,7 @@ static int vkms_wb_encoder_atomic_check(struct drm_encoder *encoder,
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = drm_atomic_helper_check_wb_encoder_state(encoder, conn_state);
++	ret = drm_atomic_helper_check_wb_connector_state(conn_state);
+ 	if (ret < 0)
+ 		return ret;
+ 
+diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+index 536a0b0091c3..742ccbcd7809 100644
+--- a/include/drm/drm_atomic_helper.h
++++ b/include/drm/drm_atomic_helper.h
+@@ -50,8 +50,7 @@ struct drm_private_state;
+ int drm_atomic_helper_check_modeset(struct drm_device *dev,
+ 				struct drm_atomic_state *state);
+ int
+-drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+-					 struct drm_connector_state *conn_state);
++drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *conn_state);
+ int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+ 					const struct drm_crtc_state *crtc_state,
+ 					int min_scale,
 -- 
-Kees Cook
+2.39.2
+
