@@ -1,67 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12AA57BABD4
-	for <lists+freedreno@lfdr.de>; Thu,  5 Oct 2023 23:10:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C38597BABE9
+	for <lists+freedreno@lfdr.de>; Thu,  5 Oct 2023 23:27:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE41C10E42C;
-	Thu,  5 Oct 2023 21:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFB7B10E409;
+	Thu,  5 Oct 2023 21:27:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B5D10E19D
- for <freedreno@lists.freedesktop.org>; Thu,  5 Oct 2023 21:09:59 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5042bfb4fe9so1834716e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 05 Oct 2023 14:09:59 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77C7610E409
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Oct 2023 21:27:06 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50308217223so1791787e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Oct 2023 14:27:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696540197; x=1697144997; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1696541224; x=1697146024; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4l+rmSaO9D8iSzAn40goBP/fmnV3QN4/WS3vTxGlc4Q=;
- b=Tpa8HHSv0GuWsZClwgvFQ79gjzwoJlhtiGab6dLITC9dag7UQCVACsi4bNYNRuT7PL
- EDIL+HnXncPF6uYEsiCruQUeYFD9277dFbn0oRd2rqIzyDQGmO1dFxXkobButv9VfwSu
- 94MlQXAxIxZoUUqUin/ouBhO86nY5Nv1lg65MXPWtlR1+m1Wvx1+sT60E/SHomLd0Ild
- aUfNXZEfbK0ukEgeSVbnc44DnrIfNCDjCNxFGkksTD4mZYvLLfdMRmCSMnVejuzeUmk9
- A47J3jIf/CVLqiD294HRHkqOPbbntmxahEiAjFab9pggrmlMKQIHrNS5ohyP1dkLJpMy
- TzXw==
+ bh=1TqfAnPm+aqKJ7RICtUDzyL8tsOmR1pfL3HN7VslD1A=;
+ b=nlf3I9CVXttHMiKNeVLagwSiOOsGz4ZuBFT9oj/cgAIIx5qw7kml6+Dr3k4y1SLeSV
+ tdpIj4FCis9mdTP7TmFW/h7i4KgVZY6sZGA+D1GbyiPLxmoRm5yM6GjQg0BAmaQ6Izuz
+ wLzVmVss14p4I9s5SF2U9UcsviNs/IFikedX+nXJD7CxjPpOFB3dxbP4k+Np+Bpqno1X
+ L6+J++fDT28Qaue0YGjNS9IZHhHvQWjVjaW1Z6K0hJXrNVjVi9X1jLJvD+vTZx3N3N54
+ uWYv+T4K4XVctJSBruX+gm7B2FJ/TYf5KIByGGhiZ+j6/lji2oSV/LR9OT5QOlFw3nRY
+ 3kvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696540197; x=1697144997;
+ d=1e100.net; s=20230601; t=1696541224; x=1697146024;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4l+rmSaO9D8iSzAn40goBP/fmnV3QN4/WS3vTxGlc4Q=;
- b=VLDs8gBs4PNoZ1mPLYd+A7T8LDADOG/Vf9zxVDTQEstzKj4lHfw7F3pHz7G6W5AF1d
- XESPd4xY3pjSqH1jefjLjdTCvCbMARXoGcCPuFpauUVTqAWlN8mGpZjNhfQNiRbkWzVW
- MpcLjOu6mJ9PColLlZ9iHIPCvpowbzt62I5KXgKpx2njnZuZXzKG9cGfL7jkMzvrtlZp
- TuNZROEtIgAwfCvZhEXQoZcLgi9GUeBNVqFhHZRm0SteXtyk4wmVFf85qeepFnJS348f
- K2koLn1/Qoi9L7MZatsDToVSDqwOYQKh/MwxG0nLXx841oHIkc/GZlp3+YJs9TQvDOW8
- zPJw==
-X-Gm-Message-State: AOJu0Yyga9TdeVqBoRBpDoal6MoqQ79F/qDzbspi9GwhDe/L8YU6BhNV
- gKa62+goVXGmsPb4DTAVzCRw69D0m9PzExfXs+4=
-X-Google-Smtp-Source: AGHT+IEYVg+CSuQrNBKI48gPbxx4BwvxFlxcmM6lxBSIw2BuJU+k4acAlh6XKoVSZnul4P6Nst19Dw==
-X-Received: by 2002:a19:2d56:0:b0:505:8075:7c17 with SMTP id
- t22-20020a192d56000000b0050580757c17mr5077413lft.22.1696540197311; 
- Thu, 05 Oct 2023 14:09:57 -0700 (PDT)
+ bh=1TqfAnPm+aqKJ7RICtUDzyL8tsOmR1pfL3HN7VslD1A=;
+ b=GlNTadMPzH4ypG9eAteSHQ8l464pred3gAooToqhDERyvMWSB3MpFi+Jgc0/4tNoth
+ 9tE8ZWjpGme2NBojjk5X9j3F8pQv+EkiP1m26e1sYaSqqFlBBgZleY7bfeF6k9p4JL/7
+ COze8LcwGDR5EwhBZD9zBsO4uFdlkXIn2if8Cmpo2ucm/EjKceIrMJMk+0g9eajxQapc
+ qEyayPx/mMw5URXN22xci76UwBgTbl9kuSASj3wq0aomhfumylFgoQiKh6Hcl0fBHqI+
+ 1fYEXRjqmqDt5x1vuV+68MTQbQsiWXj6vL7GutyMrMFt393icvbibvrkrcxw908d81a4
+ PZcg==
+X-Gm-Message-State: AOJu0Yy8Xgkc8F+gQwaxmYMYZWWa7zUla23PzlcPLGhUbWnAJluKmEG9
+ 4LvcWLBMJDubzRzuEW7guK3IAQ==
+X-Google-Smtp-Source: AGHT+IE8eeNcaGwdHHDKL7oAQH/f8hwSAGWHRjnz17Ynq4w9wAL3eMkq28AUxhtbQsWQJguCw23EIQ==
+X-Received: by 2002:a19:6518:0:b0:500:acf1:b42f with SMTP id
+ z24-20020a196518000000b00500acf1b42fmr4576828lfb.53.1696541224048; 
+ Thu, 05 Oct 2023 14:27:04 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- l4-20020ac24304000000b0050481c400e9sm3440lfh.287.2023.10.05.14.09.56
+ a6-20020a19f806000000b00500b3157ec6sm8435lff.143.2023.10.05.14.27.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Oct 2023 14:09:56 -0700 (PDT)
+ Thu, 05 Oct 2023 14:27:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Fri,  6 Oct 2023 00:09:56 +0300
-Message-Id: <20231005210956.2393366-1-dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Fri,  6 Oct 2023 00:26:53 +0300
+Message-Id: <20231005212703.2400237-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/atomic-helper: rename
- drm_atomic_helper_check_wb_encoder_state
+Subject: [Freedreno] [PATCH v5 00/10] drm/msm/dpu: simplify DPU sub-blocks
+ info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,103 +73,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The drm_atomic_helper_check_wb_encoder_state() function doesn't use
-encoder for anything other than getting the drm_device instance. The
-function's description talks about checking the writeback connector
-state, not the encoder state. Moreover, there is no such thing as an
-encoder state, encoders generally do not have a state on their own.
+The handling code also usually knows, which sub-block it is now looking
+at. Drop unused 'id' field and arguments and merge some of sub-block
+declarations.
 
-Drop the first argument and rename the function to
-drm_atomic_helper_check_wb_connector_state().
+While we are at it, also fix all VIG subblocks to contain correct scaler
+block version and drop the becoming unused QSEED-related feature bits.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
+Changes since v4:
+- Renamed dpu_vig_sblk_x_y to dpu_vig_sblk_qseed3_1_2 (Abhinav)
+  Note: I've choosen _qseed3_ instead of the suggested _scaler_, as
+  there are other scaler types which might have their own versioning
+  scheme
+- Dropped the DPU_SSPP_SCALER and DPU_SSPP_CSC_ANY defines (Abhinav)
 
-Abhinav at [1] pointed me to this function as one of the reasons to keep
-WB check state in the encoder part of the MSM driver. However after a
-second glance, it looks like this function isn't really concerned with
-the encoder state and checks the connector state. Let's rename it to
-make this more clear.
+Changes since v3:
+- Proprely describe dpu_scaler_blk::version field as the register value
+  (Marijn)
+- Picked up Marijn's prior art patches (sorry, missed them while
+  preparing v3) (Marijn)
 
-[1] https://lore.kernel.org/dri-devel/9a2e3ab2-a95f-3dee-b89c-aa69ffd9387e@quicinc.com/
+Changes since v2:
+- Reworked the VIG SBLK definitions to set the scaler version (Marijn,
+  Abhinav)
+- Rebased the reset of the patches on top of this (intrusive) change.
+- Folded QSEED3LITE and QSEED4 feature bits into QSEED3
 
----
- drivers/gpu/drm/drm_atomic_helper.c   | 10 ++++------
- drivers/gpu/drm/vkms/vkms_writeback.c |  2 +-
- include/drm/drm_atomic_helper.h       |  3 +--
- 3 files changed, 6 insertions(+), 9 deletions(-)
+Dmitry Baryshkov (8):
+  drm/msm/dpu: populate SSPP scaler block version
+  drm/msm/dpu: drop the `id' field from DPU_HW_SUBBLK_INFO
+  drm/msm/dpu: drop the `smart_dma_priority' field from struct
+    dpu_sspp_sub_blks
+  drm/msm/dpu: deduplicate some (most) of SSPP sub-blocks
+  drm/msm/dpu: drop DPU_HW_SUBBLK_INFO macro
+  drm/msm/dpu: rewrite scaler and CSC presense checks
+  drm/msm/dpu: merge DPU_SSPP_SCALER_QSEED3, QSEED3LITE, QSEED4
+  drm/msm/gpu: drop duplicating VIG feature masks
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 71d399397107..f32bf0212453 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -786,8 +786,7 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
- EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
- 
- /**
-- * drm_atomic_helper_check_wb_encoder_state() - Check writeback encoder state
-- * @encoder: encoder state to check
-+ * drm_atomic_helper_check_wb_connector_state() - Check writeback connector state
-  * @conn_state: connector state to check
-  *
-  * Checks if the writeback connector state is valid, and returns an error if it
-@@ -797,8 +796,7 @@ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
-  * Zero for success or -errno
-  */
- int
--drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
--					 struct drm_connector_state *conn_state)
-+drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *conn_state)
- {
- 	struct drm_writeback_job *wb_job = conn_state->writeback_job;
- 	struct drm_property_blob *pixel_format_blob;
-@@ -818,11 +816,11 @@ drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
- 		if (fb->format->format == formats[i])
- 			return 0;
- 
--	drm_dbg_kms(encoder->dev, "Invalid pixel format %p4cc\n", &fb->format->format);
-+	drm_dbg_kms(conn_state->connector->dev, "Invalid pixel format %p4cc\n", &fb->format->format);
- 
- 	return -EINVAL;
- }
--EXPORT_SYMBOL(drm_atomic_helper_check_wb_encoder_state);
-+EXPORT_SYMBOL(drm_atomic_helper_check_wb_connector_state);
- 
- /**
-  * drm_atomic_helper_check_plane_state() - Check plane state for validity
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index d7e63aa14663..56edec6f1634 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -48,7 +48,7 @@ static int vkms_wb_encoder_atomic_check(struct drm_encoder *encoder,
- 		return -EINVAL;
- 	}
- 
--	ret = drm_atomic_helper_check_wb_encoder_state(encoder, conn_state);
-+	ret = drm_atomic_helper_check_wb_connector_state(conn_state);
- 	if (ret < 0)
- 		return ret;
- 
-diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-index 536a0b0091c3..742ccbcd7809 100644
---- a/include/drm/drm_atomic_helper.h
-+++ b/include/drm/drm_atomic_helper.h
-@@ -50,8 +50,7 @@ struct drm_private_state;
- int drm_atomic_helper_check_modeset(struct drm_device *dev,
- 				struct drm_atomic_state *state);
- int
--drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
--					 struct drm_connector_state *conn_state);
-+drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *conn_state);
- int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
- 					const struct drm_crtc_state *crtc_state,
- 					int min_scale,
+Marijn Suijten (2):
+  drm/msm/dpu: Drop unused get_scaler_ver callback from SSPP
+  drm/msm/dpu: Drop unused qseed_type from catalog dpu_caps
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |   8 +-
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  11 +-
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   7 +-
+ .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  11 +-
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   4 +-
+ .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   7 +-
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   9 +-
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  29 ++--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 145 +++++++-----------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  55 +++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  20 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  21 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   3 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   7 +-
+ 23 files changed, 201 insertions(+), 310 deletions(-)
+
 -- 
 2.39.2
 
