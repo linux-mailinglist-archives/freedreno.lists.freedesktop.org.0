@@ -2,62 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B290D7BAEF6
-	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 00:50:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C727BB21C
+	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 09:25:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FA510E4AA;
-	Thu,  5 Oct 2023 22:49:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D56010E22B;
+	Fri,  6 Oct 2023 07:25:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5353F10E4A0;
- Thu,  5 Oct 2023 22:49:45 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-533d9925094so2674808a12.2; 
- Thu, 05 Oct 2023 15:49:45 -0700 (PDT)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A2FB10E22E
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 07:25:31 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4066692ad35so16139075e9.1
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 00:25:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696546183; x=1697150983; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ruHF2qY6fIMsnHXSXu/O5UBGCOEh6ZYhOkBWuKb5maU=;
- b=BDXwnOP9ITJf9dCGerRwxhZaiMyUYoS5+hSYr73Ib7F7OF6rwvSvjU51C2ROaT1HMr
- auciggcE1dAcFKDylNrYOdarU7h8mKDmJkfOeC4mMUpTWYIe1ajDXl0J0bLO8r52Iiq9
- qlnhHjgOi5T11QiErIUcxdro2S3y5AMrPpYwERyGh1PcsH7nW/7bgJYS9wOwlsYVbKgT
- Dam4EEoIQGaYD/gkxmGqdH53WEkNZtqxeJ89fIXD5ozi2KiZnP3jrqgY/JkdCGiU3M4M
- 2/hmte++K4GaJ1/hrda5Tfsm9bVuE1UYDemSySLgoxflrGMiZWdWS8PciafP7Ll0DLM/
- 9xPg==
+ d=linaro.org; s=google; t=1696577129; x=1697181929; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :reply-to:references:cc:to:content-language:subject:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=qV2VQja5LmTI1m7w9ESi1On28HXQZUxRwyeDFL5MFzw=;
+ b=YDP/Ljve1kG559QQ2E8eB1iLWSPHT443XH1nycqLIqzj6uVJ61ozs6/IyV9ovkS4Zh
+ RQmHDykZQYtAGGp4/8SFiIci0FB/tVYKy7W5ocNZVLq4e8td7mNyOqoItkY9XKwXva3m
+ KqmYA7J5KqwvsABn9LKRCP/268wrCws/0VX1ly3MfxEowCBLx6DwgT28p6HROcqgrzhd
+ hZyNXcR7eaugOydHNWVjnvLhqosBD9SD4bEKMdPZ/RcosEckXm2aYn0uhZ6CV2SFjwJr
+ it/UyXVXCDmcxiVQoMUdDT/xf++0caSvCdrXKGLqKGPCfKgxrSCUPusJeqSIrCEFnRus
+ 3bQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696546183; x=1697150983;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ruHF2qY6fIMsnHXSXu/O5UBGCOEh6ZYhOkBWuKb5maU=;
- b=mJTYanhbUCV0Pq95NlK07dG5BQN6h27FeDNFD6TYuJ1NK3cA7OjQKRmUzBpwFeCu15
- IB4Qx5aAbIaGVijPxIblOozq4YGcNSB4xUASoPYfVwIUslHO/UHCBpC02v1XRseHSIkA
- v0QGQsUALqF5wrkL89im5lJFQ+C6iFe3y8FoRQs+Cvc+blPTxJJu9wJ1vcE3dbajua7M
- F1ZZgm3QDxQn9nNHqfgHOz8YujN06lwJHwTm/VjYSY5cWVLPfKp3kRqQqmm2bZN2YBgW
- TVk67S1DisahWPDfYogqHWp2FBaZxRJm1jNMV80EtdVXcqCV5A4WmuhT56x6mo6IhJ2w
- m7WA==
-X-Gm-Message-State: AOJu0Yzr9FBtJ+vl4XKsL09RZfPLgj5v/3uVsHzKd17mO3bSvLDEZWlh
- QjpqX/vjpJZoNvVFbXrT6jct2pk77jpdt/JXa74=
-X-Google-Smtp-Source: AGHT+IEaPo1RQwkwbado7ahDJti9JqEe1+NqsIklGIQLHN+kXVQ7cUg7odehdVdsbOarTJ1lMbCsCv9jOV+26I2ZaJw=
-X-Received: by 2002:aa7:c991:0:b0:536:e5f7:b329 with SMTP id
- c17-20020aa7c991000000b00536e5f7b329mr6086237edt.33.1696546183113; Thu, 05
- Oct 2023 15:49:43 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696577129; x=1697181929;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :reply-to:references:cc:to:content-language:subject:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=qV2VQja5LmTI1m7w9ESi1On28HXQZUxRwyeDFL5MFzw=;
+ b=JSYrgjYk4SGHZhtKUQKcnyb1a6n5pRYE5Ukl5vsKQZrVu2hQCthfFbU6mDIEKYRP+6
+ nNP2WUUyuLkluBCF9F1W/ubHGvB6zUgw0AKdYZWJCgm58GAWkdu8WuOQ+vdrsFahwSys
+ 6MgWcPJldddulRtFFqqbENQWf20BzIv5izrrhx4btUnV7zgrxtxZ/CahseWxtpRMfpL9
+ FTdL8j0Q/T+ZqVlcF1OO4cR1p4GlIXfQ9ZVzcjsVil9lJX/y+sq+sGqYQTKHJR5R8+//
+ jXBlvsbj3/urhJkeEa9h/cW07NEfAtEXT8CRO3qLnjh99rsrfKTun1Gv5nr4H97deQHo
+ ZMdQ==
+X-Gm-Message-State: AOJu0Yx/WKHcnE9/1mpMUIPvWZs7+pqJWYd9wGznw29ngI5Tb+wjvJi7
+ HeQd3kZjnYVthT/BJHql6V32sg==
+X-Google-Smtp-Source: AGHT+IExQtnuJP7YV0qbSmQKcunP4pBKCF++x/8NQW+Qp/omqRbNlFQUw/gOwbYoHglyahyLaI9D5g==
+X-Received: by 2002:a7b:c397:0:b0:401:b53e:6c40 with SMTP id
+ s23-20020a7bc397000000b00401b53e6c40mr6743451wmj.10.1696577129452; 
+ Fri, 06 Oct 2023 00:25:29 -0700 (PDT)
+Received: from [192.168.7.189] (679773502.box.freepro.com. [212.114.21.58])
+ by smtp.gmail.com with ESMTPSA id
+ x9-20020a05600c21c900b003fefe70ec9csm5354547wmj.10.2023.10.06.00.25.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Oct 2023 00:25:29 -0700 (PDT)
+Message-ID: <f9776050-0388-4136-bcc2-589468da9e55@linaro.org>
+Date: Fri, 6 Oct 2023 09:25:28 +0200
 MIME-Version: 1.0
-References: <20230908030521.236309-1-dmitry.baryshkov@linaro.org>
- <20230908030521.236309-2-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230908030521.236309-2-dmitry.baryshkov@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 5 Oct 2023 15:49:31 -0700
-Message-ID: <CAF6AEGvThK5L-UTAsHwH1_xH5R0zNT+dL6DHvBQUYm3hq9uBdQ@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 1/5] drm/atomic: add private obj state to
- state dump
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, fr
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/drv: propagate errors from
+ drm_modeset_register_all()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,59 +105,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
+Reply-To: neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 7, 2023 at 8:05=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> The drm_atomic_print_new_state() already prints private object state via
-> drm_atomic_private_obj_print_state(). Add private object state dumping
-> to __drm_state_dump(), so that it is also included into drm_state_dump()
-> output and into debugfs/dri/N/state file.
->
+On 21/05/2023 19:34, Dmitry Baryshkov wrote:
+> In case the drm_modeset_register_all() function fails, its error code
+> will be ignored. Instead make the drm_dev_register() bail out in case of
+> such an error.
+> 
+> Fixes: 79190ea2658a ("drm: Add callbacks for late registering")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-
 > ---
->  drivers/gpu/drm/drm_atomic.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index c277b198fa3f..9543e284dc15 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1773,6 +1773,7 @@ static void __drm_state_dump(struct drm_device *dev=
-, struct drm_printer *p,
->         struct drm_crtc *crtc;
->         struct drm_connector *connector;
->         struct drm_connector_list_iter conn_iter;
-> +       struct drm_private_obj *obj;
->
->         if (!drm_drv_uses_atomic_modeset(dev))
->                 return;
-> @@ -1801,6 +1802,14 @@ static void __drm_state_dump(struct drm_device *de=
-v, struct drm_printer *p,
->         if (take_locks)
->                 drm_modeset_unlock(&dev->mode_config.connection_mutex);
->         drm_connector_list_iter_end(&conn_iter);
-> +
-> +       list_for_each_entry(obj, &config->privobj_list, head) {
-> +               if (take_locks)
-> +                       drm_modeset_lock(&obj->lock, NULL);
-> +               drm_atomic_private_obj_print_state(p, obj->state);
-> +               if (take_locks)
-> +                       drm_modeset_unlock(&obj->lock);
-> +       }
->  }
->
->  /**
-> --
-> 2.39.2
->
+>   drivers/gpu/drm/drm_drv.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index c6eb8972451a..dc4a496795ee 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -938,8 +938,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+>   			goto err_minors;
+>   	}
+>   
+> -	if (drm_core_check_feature(dev, DRIVER_MODESET))
+> -		drm_modeset_register_all(dev);
+> +	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+> +		ret = drm_modeset_register_all(dev);
+> +		if (ret)
+> +			goto err_unload;
+> +	}
+>   
+>   	DRM_INFO("Initialized %s %d.%d.%d %s for %s on minor %d\n",
+>   		 driver->name, driver->major, driver->minor,
+> @@ -949,6 +952,9 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+>   
+>   	goto out_unlock;
+>   
+> +err_unload:
+> +	if (dev->driver->unload)
+> +		dev->driver->unload(dev);
+>   err_minors:
+>   	remove_compat_control_link(dev);
+>   	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+
+Looks sane to report this error:
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
