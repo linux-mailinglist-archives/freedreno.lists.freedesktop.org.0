@@ -1,62 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93A827BBD83
-	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 19:15:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F2A27BBE19
+	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 19:56:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40ED910E544;
-	Fri,  6 Oct 2023 17:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC59C10E533;
+	Fri,  6 Oct 2023 17:56:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
- [IPv6:2607:f8b0:4864:20::112c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9B3B10E544
- for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 17:15:38 +0000 (UTC)
-Received: by mail-yw1-x112c.google.com with SMTP id
- 00721157ae682-59e77e4f707so29481017b3.0
- for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 10:15:38 -0700 (PDT)
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B374110E533
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 17:56:43 +0000 (UTC)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-5a24b03e22eso29429717b3.0
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 10:56:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696612538; x=1697217338; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1696615003; x=1697219803; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DgysTirqmULG/J429nwx5y0fkZ/uHjK7hUfCCLd/fc0=;
- b=mlLPdzjY/KrxF3IJsuIu9PPd2XVtOI7cx/blK4O2DC5AMw0tINfeIB520fp9zBfMBR
- yQU5mNo/gpsLqkh5tI9zGLxjkT1mc7FnMlgIqcciCqKVBeapFj+1h1O5u99sLFVwsmAW
- sjnW0JH676RKCdulqli+wLD/HChtPzjAIwr6WDn/8P+VMK3dsbZwAt4VpLlgL2muvg45
- zgA4MNvcS2dp2h4BFZko68/IH2mJW9vKnt/img9FDJNbCJAuER/OBrqqIV85q2XK0msP
- m2c85hw5LQxp+U1u4LOzAKI+COk+Sxd6/3N722Ujjbs/PiUvx0s5x6YP2A1WR0nRKl2F
- TSTA==
+ bh=KSCSizx6FgkyRIW0X32uY+4ZXkb204qdp7z+rYedcrk=;
+ b=ASOiN3S4WauqGQOetH7YzVSpZ4YD74piJ5aNfS0JTYXYpBjpxKMawrmn/C1V1mjVeG
+ ecQUn6VjvdoUjqIiPIDNE1saSRF54QoPm5zBEjQ4RlX2IFII4BZqez7fQyw08qGvzbBo
+ dIOMug1o8BsCogT5GvQjiLeZ6Pjo8wiuRZL6qzfk3LZ0DEuwuoDs2A6ukAjLhct7FaJO
+ 0/w8VWR76XuHW31/sHS4+dolHOgsvI3F86ts1KHtcRmxy/TAvjvfT9h4Y/ZTAueW3OWW
+ AvGI3U9NC6/N4tPitm/X7eMXNohCdrUks88791C0WQ3bItoaRT8AJIfn37NP43DvzLqK
+ SpaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696612538; x=1697217338;
+ d=1e100.net; s=20230601; t=1696615003; x=1697219803;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=DgysTirqmULG/J429nwx5y0fkZ/uHjK7hUfCCLd/fc0=;
- b=GeqUig8kFEn8j5a8Mak0R3/hFU3/p8Y9JK7wwI8u7ZSUPCtjRS7uCG70oA+HGmXKL0
- MBQKz8TnMXU4c2DZNA4SBPYkdPTScEyj/El2vTEfaXFytd3YB0xeA7BHOBL3EYKDQkh6
- AJDjYMj+BBLE0e9QOGFOs1dWYDEEFu3Ck0oTwxOU4B4xz8T7WqXVr/vFe2VxHTf6jxMm
- qVpnBKxDjI94jIBegVdXn2ste46zMzQFJLVaz8OEJRE9wfZKaSoPNDgmmRST/NZYDN6v
- 9OUBX05IENQHCKzCTDHq9R0ISrWFoEgjPDvtUaPM7LVMskhuLYMG/yNswWVJWq7ciUNO
- g/yQ==
-X-Gm-Message-State: AOJu0YwEU+0OH875D/NLDwS7Y/sBDKsF5soDTglqGfw9PnZdKt0Hbz7P
- wVbdAClY3LW0v8Lnh69TQMW5pNrTHLJYLvz27DEz6w==
-X-Google-Smtp-Source: AGHT+IEKS/WdshJVLzFYtfc+kTkKycORuNFX2eq0C2F534RbLGQrBtGUUIf2RHNfP7s3/ACwciMLZLlk6De/E4lepuc=
-X-Received: by 2002:a05:690c:2908:b0:5a5:7ea:5d0e with SMTP id
- eg8-20020a05690c290800b005a507ea5d0emr5903018ywb.2.1696612537776; Fri, 06 Oct
- 2023 10:15:37 -0700 (PDT)
+ bh=KSCSizx6FgkyRIW0X32uY+4ZXkb204qdp7z+rYedcrk=;
+ b=n5E72pNA6rpoYodv+Hg8xY3KuBekGybDl4u3bAW3UqGKlWl22SsWL2d/YC+BpLVMRZ
+ UUre4nko5CKF20bwKSf3rl7wG3jHYOOfXy1VSO8jQYSDfqtyITVeievPsead5gGIv5bB
+ HU9kSCkXmYsDxnVacxiHAgNVnX5kQ2SGPrhlLjd0vy9QZQ/bzHvG6ATgp6nX5bKSGY0Y
+ EWbeUNaSNzVxLyTiGK2g6JQv2wzDR7krRqPdJuu31NpN44vIB99NkAIr9mOjsSu7tiPm
+ iC92efMaUIL2HypYZhKXmIDUDs0KW9c9ScJPAnG9d5ds6pf8QizlbrQ69Ayt0QfAIQPV
+ mnQg==
+X-Gm-Message-State: AOJu0YxaZ7fKXlVWTasi6CJUy+VVtQTqnvHF5E3qNjOGDOjVGK4wWPuF
+ zE+qBdmOd8P8Rii++bhpk1YLRyI3cOmNKLc+es4Hpw==
+X-Google-Smtp-Source: AGHT+IFginRxo8IyMdo5XT8uPhfon+vST76i33p+mAlSB+loxSygqvparl4usE/bieB3hvzQ+T43mG/e0PrIrtMO1wU=
+X-Received: by 2002:a0d:d611:0:b0:577:1560:9e17 with SMTP id
+ y17-20020a0dd611000000b0057715609e17mr9380421ywd.35.1696615002833; Fri, 06
+ Oct 2023 10:56:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230923214912.1095024-1-dmitry.baryshkov@linaro.org>
- <5711857.DvuYhMxLoT@z3ntu.xyz>
- <019e66c4-8188-4fbb-b169-d2cec165c91b@linaro.org>
- <12295796.O9o76ZdvQC@z3ntu.xyz>
-In-Reply-To: <12295796.O9o76ZdvQC@z3ntu.xyz>
+References: <1696436821-14261-1-git-send-email-quic_khsieh@quicinc.com>
+ <1696436821-14261-6-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1696436821-14261-6-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 6 Oct 2023 20:15:26 +0300
-Message-ID: <CAA8EJpq2i+Ha33jPdCdHmi1jBFz+LzCia_bw-cDj8BsyrvSx8A@mail.gmail.com>
-To: Luca Weiss <luca@z3ntu.xyz>
+Date: Fri, 6 Oct 2023 20:56:31 +0300
+Message-ID: <CAA8EJprAQqNUvY8CMkKbUNEWo1vO1ZkgZzk4zhvAsuLc46KeXg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 1/3] drm/msm/dpu: add support for MSM8953
+Subject: Re: [Freedreno] [PATCH v5 5/7] drm/msm/dp: incorporate pm_runtime
+ framework into DP driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,76 +68,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 6 Oct 2023 at 19:26, Luca Weiss <luca@z3ntu.xyz> wrote:
+On Wed, 4 Oct 2023 at 19:27, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
-> On Freitag, 6. Oktober 2023 15:38:51 CEST Dmitry Baryshkov wrote:
-> > On 29/09/2023 23:52, Luca Weiss wrote:
-> > > On Samstag, 23. September 2023 23:49:10 CEST Dmitry Baryshkov wrote:
-> > >> Experimental support for MSM8953, which has MDP5 v1.16. It looks like
-> > >> trimmed down version of MSM8996. Less SSPP, LM and PP blocks. No DSC,
-> > >> etc.
-> > >
-> > > Hi Dmitry,
-> > >
-> > > As written on IRC, on sdm632-fairphone-fp3 with this DPU patches the
-> > > screen is initializing and displaying stuff :) But there's some errors,
-> > > which presumably are the reason that the screen is only updating a few
-> > > times per second.
-> > >
-> > > [   22.774205] [drm:dpu_kms_hw_init:1164] dpu hardware revision:0x10100000
-> > > [   23.099806] [drm:_dpu_encoder_phys_cmd_wait_for_ctl_start:657] [dpu
-> > > error]enc31 intf1 ctl start interrupt wait failed [   23.099821]
-> > > [drm:dpu_kms_wait_for_commit_done:495] [dpu error]wait for commit done
-> > > returned -22
-> > >
-> > > These messages appear about 13 times per second but as I mentioned, the
-> > > screen *is* updating (slowly) there.
-> >
-> > For my understanding, does it work with the MDP5 driver?
+> Currently DP driver is executed independent of PM runtime framework.
+> This leads msm eDP panel can not being detected by edp_panel driver during
+> generic_edp_panel_probe() due to AUX DPCD read failed at edp panel driver.
+> Incorporate PM runtime framework into DP driver so that host controller's
+> power and clocks are enable/disable through PM runtime mechanism.
+> Once PM runtime framework is incorporated into DP driver, waking up device
+> from power up path is not necessary. Hence remove it.
 >
-> Not perfectly, but it does work. What I mean is that the panel is running at
-> 30Hz (shown e.g. with kmscube) instead of the 60Hz it should run at.
-
-Interesting. If you have register dumps, it might be interesting to
-compare them.
-For DPU you can get them from debugfs/dri/0/kms. For MDP5 it is
-necessary to hook snapshotting first. The patch will be appreciated
-though ;-)
-
-Also, the CTL timeouts look familiar to what we saw on the FP while
-hacking it. I can suppose that it is a generic issue, just manifesting
-more visibly on the older platforms.
-
+> After incorporating pm_runtime framework into eDP/DP driver, dp_pm_suspend()
+> to handle power off both DP phy and controller during suspend and
+> dp_pm_resume() to handle power on both DP phy and controller during resume
+> are not necessary. Therefore both dp_pm_suspend() and dp_pm_resume() are
+> dropped and replace with dp_pm_runtime_suspend() and dp_pm_runtime_resume()
+> respectively.
 >
-> One of the comments I got is that mdp5 is essentially unmaintained so I should
-> try DPU ;)
-
-I'd say, it is mostly in the fixes-only mode.
-
-> Also I can ask someone with a video-mode panel to test, maybe it works better
-> there. At least good to have more data points?
-
-Yes, please. Testing video panels would prove that the whole pipeline
-is working and we have only CMD-related issues.
-
+> Changes in v5:
+> -- remove pm_runtime_put_autosuspend feature, use pm_runtime_put_sync() directly
+> -- squash add pm_runtime_force_suspend()/resume() patch into this patch
 >
-> Regards
-> Luca
+> Changes in v4:
+> -- reworded commit text to explain why pm_framework is required for edp panel
+> -- reworded commit text to explain autosuspend is choiced
+> -- delete EV_POWER_PM_GET and PM_EV_POWER_PUT from changes #3
+> -- delete dp_display_pm_get() and dp_display_pm_Put() from changes #3
+> -- return value from pm_runtime_resume_and_get() directly
+> -- check return value of devm_pm_runtime_enable()
+> -- delete pm_runtime_xxx from dp_display_remove()
+> -- drop dp_display_host_init() from EV_HPD_INIT_SETUP
+> -- drop both dp_pm_prepare() and dp_pm_compete() from this change
+> -- delete ST_SUSPENDED state
+> -- rewording commit text to add more details regrading the purpose
+>    of this change
 >
-> >
-> > > Also you for sure forgot to add "qcom,msm8953-mdp5" to the
-> > > msm_mdp5_dpu_migration list, without this DPU is never even considered for
-> > > 8953.
+> Changes in v3:
+> -- incorporate removing pm_runtime_xx() from dp_pwer.c to this patch
+> -- use pm_runtime_resume_and_get() instead of pm_runtime_get()
+> -- error checking pm_runtime_resume_and_get() return value
+> -- add EV_POWER_PM_GET and PM_EV_POWER_PUT to handle HPD_GPIO case
+> -- replace dp_pm_suspend() with pm_runtime_force_suspend()
+> -- replace dp_pm_resume() with pm_runtime_force_resume()
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reported-by: kernel test robot <lkp@intel.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_aux.c     |   5 ++
+>  drivers/gpu/drm/msm/dp/dp_display.c | 166 ++++++++++++------------------------
+>  drivers/gpu/drm/msm/dp/dp_power.c   |  16 ----
+>  drivers/gpu/drm/msm/dp/dp_power.h   |  11 ---
+>  4 files changed, 59 insertions(+), 139 deletions(-)
 
+[skipped]
+
+> @@ -1702,6 +1638,12 @@ void dp_bridge_hpd_enable(struct drm_bridge *bridge)
+>         struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
+>
+>         mutex_lock(&dp->event_mutex);
+> +       if (pm_runtime_resume_and_get(&dp->pdev->dev)) {
+> +               DRM_ERROR("failed to start power\n");
+
+It was in the previous review comment:
+
+"failed to resume".
+
+> +               mutex_unlock(&dp->event_mutex);
+> +               return;
+> +       }
+> +
 
 -- 
 With best wishes
