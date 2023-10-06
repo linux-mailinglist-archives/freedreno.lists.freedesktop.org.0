@@ -1,68 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60C727BB21C
-	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 09:25:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C3677BB22E
+	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 09:33:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D56010E22B;
-	Fri,  6 Oct 2023 07:25:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A60610E238;
+	Fri,  6 Oct 2023 07:33:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A2FB10E22E
- for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 07:25:31 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4066692ad35so16139075e9.1
- for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 00:25:31 -0700 (PDT)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC14D10E22E
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 07:33:15 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40535597f01so16273485e9.3
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 00:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696577129; x=1697181929; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :reply-to:references:cc:to:content-language:subject:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=qV2VQja5LmTI1m7w9ESi1On28HXQZUxRwyeDFL5MFzw=;
- b=YDP/Ljve1kG559QQ2E8eB1iLWSPHT443XH1nycqLIqzj6uVJ61ozs6/IyV9ovkS4Zh
- RQmHDykZQYtAGGp4/8SFiIci0FB/tVYKy7W5ocNZVLq4e8td7mNyOqoItkY9XKwXva3m
- KqmYA7J5KqwvsABn9LKRCP/268wrCws/0VX1ly3MfxEowCBLx6DwgT28p6HROcqgrzhd
- hZyNXcR7eaugOydHNWVjnvLhqosBD9SD4bEKMdPZ/RcosEckXm2aYn0uhZ6CV2SFjwJr
- it/UyXVXCDmcxiVQoMUdDT/xf++0caSvCdrXKGLqKGPCfKgxrSCUPusJeqSIrCEFnRus
- 3bQQ==
+ d=linaro.org; s=google; t=1696577594; x=1697182394; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:reply-to
+ :organization:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=igBVYuYeU6Z/6Ww2yei9L3lDx8aWMI/z7rQ7x2JaBS8=;
+ b=pKSv4NIFVzR1NrdUYrqtPe0AmxMtZrZXYSaXzLXCjTjJhgG+FKUqPQ+jKtK6RL/azA
+ 7qgYSa5Gkvx9sDlrDlgES30AZOKgrh01YtVtBj30xHwI3eQx2r8GNBqqx7H5dgLvTzQh
+ X0EjT5LhG6VemAlHkTjkWNYAYV/EiAT/wBVxNEF+XS7kKJpNAcPTQ4V46kDN9KIoXWLs
+ JnC8NPRbZqG0f/Ap4NiLg7voMTeVqN/dR82U+KdO2Of6tojFhiQL0CBzifPc31eR6wMt
+ NRrVDAZTmZJnXF2PEhdRu7WJh8foq5hTFZYoTi9LAYu0QIYsazXjYrz+csOkdyMmZ9UN
+ nxNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696577129; x=1697181929;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :reply-to:references:cc:to:content-language:subject:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=qV2VQja5LmTI1m7w9ESi1On28HXQZUxRwyeDFL5MFzw=;
- b=JSYrgjYk4SGHZhtKUQKcnyb1a6n5pRYE5Ukl5vsKQZrVu2hQCthfFbU6mDIEKYRP+6
- nNP2WUUyuLkluBCF9F1W/ubHGvB6zUgw0AKdYZWJCgm58GAWkdu8WuOQ+vdrsFahwSys
- 6MgWcPJldddulRtFFqqbENQWf20BzIv5izrrhx4btUnV7zgrxtxZ/CahseWxtpRMfpL9
- FTdL8j0Q/T+ZqVlcF1OO4cR1p4GlIXfQ9ZVzcjsVil9lJX/y+sq+sGqYQTKHJR5R8+//
- jXBlvsbj3/urhJkeEa9h/cW07NEfAtEXT8CRO3qLnjh99rsrfKTun1Gv5nr4H97deQHo
- ZMdQ==
-X-Gm-Message-State: AOJu0Yx/WKHcnE9/1mpMUIPvWZs7+pqJWYd9wGznw29ngI5Tb+wjvJi7
- HeQd3kZjnYVthT/BJHql6V32sg==
-X-Google-Smtp-Source: AGHT+IExQtnuJP7YV0qbSmQKcunP4pBKCF++x/8NQW+Qp/omqRbNlFQUw/gOwbYoHglyahyLaI9D5g==
-X-Received: by 2002:a7b:c397:0:b0:401:b53e:6c40 with SMTP id
- s23-20020a7bc397000000b00401b53e6c40mr6743451wmj.10.1696577129452; 
- Fri, 06 Oct 2023 00:25:29 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696577594; x=1697182394;
+ h=content-transfer-encoding:in-reply-to:autocrypt:reply-to
+ :organization:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=igBVYuYeU6Z/6Ww2yei9L3lDx8aWMI/z7rQ7x2JaBS8=;
+ b=w8nBsHSt8Fq4ZHUJO1VEWcMZWe48YXK9Qbzg8UmqOjgJBvrKIxVTKVbTpyre/AzvGz
+ CRAJu+Hpn7uXACYDfxeFOvVJfchvxCrRsnvKU25kNX/vHgzjwZaG7kLStx/TncaeMvwv
+ C6+HEwAg5ZtbGNUbGunffSTR16aOjCy1aTGE77iSKV+n1SV7Kv1XmkYZUUn0GA4DnCUL
+ D82/RjZ0AGos+j8pbFQ+inRqGT2ugWrrdzaO3j5nADAo0k5lOE5lYgr92BpZGY4im5Bj
+ 4fx0aapBocesNNPqF6eQcug8EYbAYyZkr2s6F4YWNMAIzatEYerKQW/sIEcg/UUAUffr
+ Z54A==
+X-Gm-Message-State: AOJu0Yw6GpJJyG8fD0sg7Cgb0C3tnr5/nF1138fMotBa2z7gwKJ8gk+r
+ MMgWKU1E6zPzpE4NbZRn4rr5aA==
+X-Google-Smtp-Source: AGHT+IFBaGjdHqQusz+QfpIanXT6nugFKblX9KIqp0YD7q5Pc87iWPJ41fVUct4hYmP6ZqkzVCt+dQ==
+X-Received: by 2002:adf:e507:0:b0:324:8536:f582 with SMTP id
+ j7-20020adfe507000000b003248536f582mr6709679wrm.27.1696577594172; 
+ Fri, 06 Oct 2023 00:33:14 -0700 (PDT)
 Received: from [192.168.7.189] (679773502.box.freepro.com. [212.114.21.58])
  by smtp.gmail.com with ESMTPSA id
- x9-20020a05600c21c900b003fefe70ec9csm5354547wmj.10.2023.10.06.00.25.28
+ o14-20020a5d4a8e000000b003197b85bad2sm974445wrq.79.2023.10.06.00.33.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Oct 2023 00:25:29 -0700 (PDT)
-Message-ID: <f9776050-0388-4136-bcc2-589468da9e55@linaro.org>
-Date: Fri, 6 Oct 2023 09:25:28 +0200
+ Fri, 06 Oct 2023 00:33:13 -0700 (PDT)
+Message-ID: <825983dc-9a41-4222-8d9c-cbadf25f54d5@linaro.org>
+Date: Fri, 6 Oct 2023 09:33:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US, fr
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20230904015338.2941417-1-dmitry.baryshkov@linaro.org>
+ <20230904015338.2941417-2-dmitry.baryshkov@linaro.org>
 From: Neil Armstrong <neil.armstrong@linaro.org>
+Organization: Linaro Developer Services
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -87,12 +95,11 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20230521173410.4163983-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230904015338.2941417-2-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/drv: propagate errors from
- drm_modeset_register_all()
+Subject: Re: [Freedreno] [PATCH 1/3] drm/encoder: register per-encoder
+ debugfs dir
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,50 +113,160 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: neil.armstrong@linaro.org
-Cc: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/05/2023 19:34, Dmitry Baryshkov wrote:
-> In case the drm_modeset_register_all() function fails, its error code
-> will be ignored. Instead make the drm_dev_register() bail out in case of
-> such an error.
+On 04/09/2023 03:53, Dmitry Baryshkov wrote:
+> Each of connectors and CRTCs used by the DRM device provides debugfs
+> directory, which is used by several standard debugfs files and can
+> further be extended by the driver. Add such generic debugfs directories
+> for encoder.
 > 
-> Fixes: 79190ea2658a ("drm: Add callbacks for late registering")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/drm_drv.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/drm_debugfs.c  | 25 +++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_encoder.c  |  4 ++++
+>   drivers/gpu/drm/drm_internal.h |  9 +++++++++
+>   include/drm/drm_encoder.h      | 16 +++++++++++++++-
+>   4 files changed, 53 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index c6eb8972451a..dc4a496795ee 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -938,8 +938,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
->   			goto err_minors;
+> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+> index 2de43ff3ce0a..cf7f33bdc963 100644
+> --- a/drivers/gpu/drm/drm_debugfs.c
+> +++ b/drivers/gpu/drm/drm_debugfs.c
+> @@ -603,4 +603,29 @@ void drm_debugfs_crtc_remove(struct drm_crtc *crtc)
+>   	crtc->debugfs_entry = NULL;
+>   }
+>   
+> +void drm_debugfs_encoder_add(struct drm_encoder *encoder)
+> +{
+> +	struct drm_minor *minor = encoder->dev->primary;
+> +	struct dentry *root;
+> +	char *name;
+> +
+> +	name = kasprintf(GFP_KERNEL, "encoder-%d", encoder->index);
+> +	if (!name)
+> +		return;
+> +
+> +	root = debugfs_create_dir(name, minor->debugfs_root);
+> +	kfree(name);
+> +
+> +	encoder->debugfs_entry = root;
+> +
+> +	if (encoder->funcs->debugfs_init)
+> +		encoder->funcs->debugfs_init(encoder, root);
+> +}
+> +
+> +void drm_debugfs_encoder_remove(struct drm_encoder *encoder)
+> +{
+> +	debugfs_remove_recursive(encoder->debugfs_entry);
+> +	encoder->debugfs_entry = NULL;
+> +}
+> +
+>   #endif /* CONFIG_DEBUG_FS */
+> diff --git a/drivers/gpu/drm/drm_encoder.c b/drivers/gpu/drm/drm_encoder.c
+> index 1143bc7f3252..8f2bc6a28482 100644
+> --- a/drivers/gpu/drm/drm_encoder.c
+> +++ b/drivers/gpu/drm/drm_encoder.c
+> @@ -30,6 +30,7 @@
+>   #include <drm/drm_print.h>
+>   
+>   #include "drm_crtc_internal.h"
+> +#include "drm_internal.h"
+>   
+>   /**
+>    * DOC: overview
+> @@ -74,6 +75,8 @@ int drm_encoder_register_all(struct drm_device *dev)
+>   	int ret = 0;
+>   
+>   	drm_for_each_encoder(encoder, dev) {
+> +		drm_debugfs_encoder_add(encoder);
+> +
+>   		if (encoder->funcs && encoder->funcs->late_register)
+>   			ret = encoder->funcs->late_register(encoder);
+>   		if (ret)
+> @@ -90,6 +93,7 @@ void drm_encoder_unregister_all(struct drm_device *dev)
+>   	drm_for_each_encoder(encoder, dev) {
+>   		if (encoder->funcs && encoder->funcs->early_unregister)
+>   			encoder->funcs->early_unregister(encoder);
+> +		drm_debugfs_encoder_remove(encoder);
 >   	}
+>   }
 >   
-> -	if (drm_core_check_feature(dev, DRIVER_MODESET))
-> -		drm_modeset_register_all(dev);
-> +	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
-> +		ret = drm_modeset_register_all(dev);
-> +		if (ret)
-> +			goto err_unload;
-> +	}
+> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+> index ba12acd55139..173b4d872431 100644
+> --- a/drivers/gpu/drm/drm_internal.h
+> +++ b/drivers/gpu/drm/drm_internal.h
+> @@ -189,6 +189,8 @@ void drm_debugfs_connector_remove(struct drm_connector *connector);
+>   void drm_debugfs_crtc_add(struct drm_crtc *crtc);
+>   void drm_debugfs_crtc_remove(struct drm_crtc *crtc);
+>   void drm_debugfs_crtc_crc_add(struct drm_crtc *crtc);
+> +void drm_debugfs_encoder_add(struct drm_encoder *encoder);
+> +void drm_debugfs_encoder_remove(struct drm_encoder *encoder);
+>   #else
+>   static inline int drm_debugfs_init(struct drm_minor *minor, int minor_id,
+>   				   struct dentry *root)
+> @@ -222,6 +224,13 @@ static inline void drm_debugfs_crtc_crc_add(struct drm_crtc *crtc)
+>   {
+>   }
 >   
->   	DRM_INFO("Initialized %s %d.%d.%d %s for %s on minor %d\n",
->   		 driver->name, driver->major, driver->minor,
-> @@ -949,6 +952,9 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+> +static inline void drm_debugfs_encoder_add(struct drm_encoder *encoder)
+> +{
+> +}
+> +static inline void drm_debugfs_encoder_remove(struct drm_encoder *encoder)
+> +{
+> +}
+> +
+>   #endif
 >   
->   	goto out_unlock;
+>   drm_ioctl_t drm_version;
+> diff --git a/include/drm/drm_encoder.h b/include/drm/drm_encoder.h
+> index 3a09682af685..977a9381c8ba 100644
+> --- a/include/drm/drm_encoder.h
+> +++ b/include/drm/drm_encoder.h
+> @@ -60,7 +60,7 @@ struct drm_encoder_funcs {
+>   	 * @late_register:
+>   	 *
+>   	 * This optional hook can be used to register additional userspace
+> -	 * interfaces attached to the encoder like debugfs interfaces.
+> +	 * interfaces attached to the encoder.
+>   	 * It is called late in the driver load sequence from drm_dev_register().
+>   	 * Everything added from this callback should be unregistered in
+>   	 * the early_unregister callback.
+> @@ -81,6 +81,13 @@ struct drm_encoder_funcs {
+>   	 * before data structures are torndown.
+>   	 */
+>   	void (*early_unregister)(struct drm_encoder *encoder);
+> +
+> +	/**
+> +	 * @debugfs_init:
+> +	 *
+> +	 * Allows encoders to create encoder-specific debugfs files.
+> +	 */
+> +	void (*debugfs_init)(struct drm_encoder *encoder, struct dentry *root);
+>   };
 >   
-> +err_unload:
-> +	if (dev->driver->unload)
-> +		dev->driver->unload(dev);
->   err_minors:
->   	remove_compat_control_link(dev);
->   	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+>   /**
+> @@ -184,6 +191,13 @@ struct drm_encoder {
+>   
+>   	const struct drm_encoder_funcs *funcs;
+>   	const struct drm_encoder_helper_funcs *helper_private;
+> +
+> +	/**
+> +	 * @debugfs_entry:
+> +	 *
+> +	 * Debugfs directory for this CRTC.
+> +	 */
+> +	struct dentry *debugfs_entry;
+>   };
+>   
+>   #define obj_to_encoder(x) container_of(x, struct drm_encoder, base)
 
-Looks sane to report this error:
+Looks fine:
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+I'll need a core ack to apply to drm-misc with patch 2
+
+Neil
