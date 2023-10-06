@@ -2,67 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDDB97BC303
-	for <lists+freedreno@lfdr.de>; Sat,  7 Oct 2023 01:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C477BC309
+	for <lists+freedreno@lfdr.de>; Sat,  7 Oct 2023 01:46:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE20510E579;
-	Fri,  6 Oct 2023 23:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A398610E579;
+	Fri,  6 Oct 2023 23:46:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
  [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA9E410E048
- for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 23:43:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80B7E10E579
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 23:45:59 +0000 (UTC)
 Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2c00e1d4c08so33223231fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 16:43:28 -0700 (PDT)
+ 38308e7fff4ca-2c038a1e2e6so31151861fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 16:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696635807; x=1697240607; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1696635958; x=1697240758; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Udnrsdga7Lt6ZHJT3xgzhh6kpUlzceS9OuIqPLo71jo=;
- b=qgBnAtloijG3LYMOHBkkh/IZHn2K47M56KcYg7v+EsBgnh+PFoVLIt7wwUrIGNEpDl
- B8q+3RYB7eBgCXaadw/mgZsRLT1kor1rmWelBPVt5gVt0l5EmTF4fQi0iKUVHmyd9GQG
- 2hP63HSbJmDQ/WYdTA+9HUqEBd7zf2l3JEv+3/j3uuXHRmN9D0U1W+qKYwUI/R+Xw+jT
- yBOEvBTjh07m3dJ/WBwDzbyCtMYK986MIbsd7AYULSopStPbrcEaxHvsk0WSyOrVDaD+
- d43GBTDQpi/+EpPfyCymNUfCMmHwboY6NSWzJKB4QnzcTfo/M3/Sei7M6SKfg4W1DCgM
- 9ChQ==
+ bh=rvelsamPvTxHOBaQ+6PwUaQ1Qg42PthwNqUIdGwRmec=;
+ b=U5GpauDr0afyVViseKqDrLw5h3yQuTDkdfu+t49IfDgoUN8Zkow+SOLdUDEjqiFhEC
+ TvXhEo7cQ/XmHNiXO8i0Xgczb3e1JuOHFvGsvoM1ymPxenOK/eGb3fm3wMi8lR4Y5nwU
+ ZvOmHlfALn7xaVwimuDjfG5wScBH13ItP+UCFA0TecXILX20viM8vFEB6hN7gnE/n7jC
+ DCwl8WH+ONf+Z1RaxozVDtWKvcLOR8MPgU0c0kztCh1mdws99bwAA5IfXb57Q3ICDWSJ
+ 3YW/BctEHcWwTyXfhiq1ypllTZlF+GjntgEr0rrrhDIw4cLJF07X65Rj79DGtpMF6Py7
+ xoKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696635807; x=1697240607;
+ d=1e100.net; s=20230601; t=1696635958; x=1697240758;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Udnrsdga7Lt6ZHJT3xgzhh6kpUlzceS9OuIqPLo71jo=;
- b=HbuLAcmDf8ON92zyPP6q2VPs5w2aTzJvqHIriap+SPTVF3tAWCaexhxLmloMPFb995
- DCYO3STWEZBTmO7WL7pNwxDrhZG1NSC8Sh7fg4FYiqaeTLMvlHYAohZ+4CGPJRMK2WSG
- M5E4OnPnogYZtbpzxmaIUxWG8sHPmqHg9KYw9XAyxnvULp1Af7Xm4fG0iS+Zyavt9s5i
- 1Ra58b+scWdgA9IZHsmnU5SIQ6L2mZB3Yj7ct29JmxjiGgOJoajvJjL3Kx66DpQC1F2K
- DHU7dC7ij3GAI29CPUs+lF1CmJMqZlxdQyKuZ2rDHxzxQ7+vvCpmpFxVuJ7jBFSZptl5
- otbg==
-X-Gm-Message-State: AOJu0YyH0vUaSLw31mOqdpC8zpj7IkGEcAxE+tfsUtpKbGqClLM6xLxv
- AxhbasoVV/MiNj9SoVfjtT93Lg==
-X-Google-Smtp-Source: AGHT+IFNm6POimBbxfQ6AKW5ME67I3mh1BugiJD2TjFUpgdXgwNVpV4jx3AJ6wUAoOzUktremiP2Kg==
-X-Received: by 2002:a2e:8816:0:b0:2bc:db99:1775 with SMTP id
- x22-20020a2e8816000000b002bcdb991775mr8246099ljh.26.1696635806802; 
- Fri, 06 Oct 2023 16:43:26 -0700 (PDT)
+ bh=rvelsamPvTxHOBaQ+6PwUaQ1Qg42PthwNqUIdGwRmec=;
+ b=VtzPsOlLFwKD0BCOH8YR5EMgedHa/9V8FvcYUvTUGOi9cFCdxTBPeWBn9tCoyC8Xoe
+ 4PcDHOtoSFXF5EiusT7twz20IQ92kP6cxkwAyGumRqJ8lJ/RHQCZvXsKDn7ebQmJ9lUR
+ DGoxrcK0kfWRJtMCAqtiJdHc5E+DU6G+wNXekMnoM9iGqlPn2S3fNyd0MomPk1PWpIwH
+ jIjJOb737JGrc2WW9ATSYnFneDEoYRfaJKowVOvqUDtuspPp2i3fKVLq3WzOG1idx2Zi
+ ztRHOhoaPefm+7oLjTGrtkn317VllKUN1GzDmvjnm2uS03W9rAEaBXO62I+vAZ51TSTU
+ f/HA==
+X-Gm-Message-State: AOJu0YyFLXPtc5gGVrHJgpGxkB6ByxjQt/zIk7zRqXUCvr03ryYuMjIv
+ 7a74g9dxvJpIjjxNkM1pohAKww==
+X-Google-Smtp-Source: AGHT+IEOCKgJL1qXywn2BuU9lbIJOiEjNMxQKYK7ZaGD8BuwIfJdzhbeeoXSG95n92rY5lguCXZOAw==
+X-Received: by 2002:a2e:9f08:0:b0:2c0:300a:82ed with SMTP id
+ u8-20020a2e9f08000000b002c0300a82edmr7787668ljk.7.1696635957713; 
+ Fri, 06 Oct 2023 16:45:57 -0700 (PDT)
 Received: from [192.168.200.173]
  (178235177147.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.147])
  by smtp.gmail.com with ESMTPSA id
- q2-20020a2e9682000000b002b9ef00b10csm980621lji.2.2023.10.06.16.43.25
+ l16-20020a2ea310000000b002b6ce8b0dd6sm976572lje.75.2023.10.06.16.45.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Oct 2023 16:43:26 -0700 (PDT)
-Message-ID: <abc36c33-bfd9-4451-80ab-a631492044de@linaro.org>
-Date: Sat, 7 Oct 2023 01:43:24 +0200
+ Fri, 06 Oct 2023 16:45:57 -0700 (PDT)
+Message-ID: <55293371-9d7c-404b-a969-81248bf55e24@linaro.org>
+Date: Sat, 7 Oct 2023 01:45:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Taniya Das <quic_tdas@quicinc.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
  <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
+ <f129633e-4df7-4984-a19e-c16e6c7c8f3f@linaro.org>
+ <CAA8EJprGfS5x89FOWhjPCdLzSNbEK-U1h8qVmfiLc6+4NjEiNA@mail.gmail.com>
+ <e96499ff-76ec-482b-b18c-ee293259b8a7@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -99,7 +100,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <e96499ff-76ec-482b-b18c-ee293259b8a7@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
@@ -116,27 +117,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
+ Taniya Das <quic_tdas@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ Michael Turquette <mturquette@baylibre.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4.10.2023 02:31, Dmitry Baryshkov wrote:
-> clk_rcg2_shared_ops implements support for the case of the RCG which
-> must not be completely turned off. However its design has one major
-> drawback: it doesn't allow us to properly implement the is_enabled
-> callback, which causes different kinds of misbehaviour from the CCF.
+On 4.10.2023 14:52, Bryan O'Donoghue wrote:
+> On 04/10/2023 13:08, Dmitry Baryshkov wrote:
+>> On Wed, 4 Oct 2023 at 12:27, Bryan O'Donoghue
+>> <bryan.odonoghue@linaro.org> wrote:
+>>>
+>>> On 04/10/2023 01:31, Dmitry Baryshkov wrote:
+>>>> clk_rcg2_shared_ops implements support for the case of the RCG which
+>>>> must not be completely turned off. However its design has one major
+>>>> drawback: it doesn't allow us to properly implement the is_enabled
+>>>> callback, which causes different kinds of misbehaviour from the CCF.
+>>>>
+>>>> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
+>>>> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
+>>>> switched off (and shared most of the implementation with
+>>>> clk_rcg2_shared_ops). The major difference is that it requires that the
+>>>> parent map doesn't conain the safe (parked) clock source. Instead if the
+>>>> CFG_REG register points to the safe source, the clock is considered to
+>>>> be disabled.
+>>>
+>>> Why not have a new bit in .flags ?
+>>>
+>>> Instead of lying about the clock being off, mark the clock as "parked",
+>>> or "safe parked" or whatever term we choose for it ?
+>>
+>> The main problem with adding flags doesn't fully scale. From the CCF
+>> perspective, what should be the difference between parked and disabled
+>> clocks? How should it treat the parked one?
 > 
-> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
-> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
-> switched off (and shared most of the implementation with
-> clk_rcg2_shared_ops). The major difference is that it requires that the
-> parent map doesn't conain the safe (parked) clock source. Instead if the
-> CFG_REG register points to the safe source, the clock is considered to
-> be disabled.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-Would the intention here be to replace all usages of _shared_?
+> Exactly the same as a disabled clock, except you get a "parked" instead of a "disabled" when looking up its state and you don't have to
+The thing is that currently there's only the notion of "enabled"
+or "not enabled".. Introducing a third state here would be the
+jump from boolean to quantum logic!
+
+I think that abstracting this information away from Linux is not
+an issue.. These clocks "can't be any more off", or the SoC will
+explode badly and Linux will be unusable..
+
+Think of it like CPUs with a hypervisor, you shut them down, but
+the physical number crunchers on the host CPU may not actually
+get cut off from their power source, but there's no reason for
+the VM to know that. That's probably what happens on our little
+virtualized snapdragons anyway..
 
 Konrad
