@@ -2,53 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3097BB2AE
-	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 09:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E5EE7BB671
+	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 13:31:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC71110E4BD;
-	Fri,  6 Oct 2023 07:51:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1BA10E1EA;
+	Fri,  6 Oct 2023 11:31:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DED2F10E4B8;
- Fri,  6 Oct 2023 07:51:48 +0000 (UTC)
-Received: from [192.168.88.20] (91-157-153-81.elisa-laajakaista.fi
- [91.157.153.81])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 33F1D63B;
- Fri,  6 Oct 2023 09:49:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1696578599;
- bh=XWtAQg8GXgTWs7nmApGqhg31c28AEyTd1g3eZbcqhO4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aeP5qpBnSbnZG+DsOqgQtq4FMrlZgbktqUO7jK3W8CNPZFlrAmKs/XXIgSCk8zuO9
- p+yi5Z24BFVD3BUnJ2s5KkRLmCIrEUxxLUlItv7JDFAc1Bd8pHIqPXVCh27O3RH6S3
- /foHQwOGF0a88y4rueasTzjT43Cbco4wM6iZmklA=
-Message-ID: <aae055a1-6925-ce2f-1d17-7e119c78e9f7@ideasonboard.com>
-Date: Fri, 6 Oct 2023 10:51:41 +0300
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DC9D10E1EA
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 11:31:32 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2c131ddfeb8so23370061fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 04:31:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1696591890; x=1697196690; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5KXF1BPtCc4Qnp06IeKWmuYEI/cvy2qSDqKPkYcCjtk=;
+ b=jjdAgI/n0v1c6lUmxLp5H2USIFlxEgYHqBHgjxIzO4kyRJbYVH+xSSu9FP20pDDdST
+ 9/0XSiRLKt5vzwOF+ypj30B5aOIys2ksjfe2lEDHO9qgxNApBtE1HFPJLD4S/ZzzfgYp
+ gUtCGlaobQcnzhMWIbjmXvmTelphB6+W4A63opNHOPvw+iJMVpzb+eu0Ju6WjvIEf+Pm
+ pVclJ8I1kmlK8TGEWZENooS0dSte/KXvr7bDRwvVW55mgvKz7xssCOgvuC5COgGDFP68
+ AIT6i96DYkWanjQ98ipxWEi7H+E3cm/WQzOSWbE3+LYCs8vig1IwwQGCk/UsfxA+llHc
+ uwiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696591890; x=1697196690;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5KXF1BPtCc4Qnp06IeKWmuYEI/cvy2qSDqKPkYcCjtk=;
+ b=NJ7TJRj/oNIXiJDkwO7blR2j5Za+ZfNwPBFrdewc4uphh7Nr0BYPQJOgw/yJ3Nwo/r
+ UyihhffBeF1cY0crOnzufHxmEHlvTrVJ9cAy73Xp3q9FN51cL94KOhiBVaSke5KunsF/
+ iYyUCH/S9VXjuDoPuoqYz0d4hbuvev6z+w28NT1uDTVEFNwOQosHnw7Gf4L/0LZgD4jt
+ DHNjjMEGS7paTTydA4tTg3bXwIBIHHm1/54rkNZPaugWXCe3VU53M6OGmNV13nAL6rQk
+ ffypJIlnMD+55gptU5oMEkGUi/z0AgduZQfiHIiPaCkqCXO6+epYK9/yg7HfNYHh+H3b
+ dOWg==
+X-Gm-Message-State: AOJu0YxODjrCoPrMt6FnHlTDeqZ6PfN3EHIp8mENKuNJT1LmLsYpRli3
+ lggifLc2KS8hwjtBr0n2rL8J9Q==
+X-Google-Smtp-Source: AGHT+IFnb4SzgNnqN1744K1drSFI1lxMxH0rmjdh00B4/aRtrjljwPbT5PoXIyoAxOYKsWxiAGDzgA==
+X-Received: by 2002:a2e:96c6:0:b0:2bc:ce85:2de2 with SMTP id
+ d6-20020a2e96c6000000b002bcce852de2mr7283181ljj.37.1696591889169; 
+ Fri, 06 Oct 2023 04:31:29 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ r6-20020a2e9946000000b002bce3123639sm743777ljj.98.2023.10.06.04.31.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Oct 2023 04:31:28 -0700 (PDT)
+Message-ID: <f9a97fe6-89d1-40d7-8e13-c756f341bf39@linaro.org>
+Date: Fri, 6 Oct 2023 14:31:27 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: neil.armstrong@linaro.org, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20230904015338.2941417-1-dmitry.baryshkov@linaro.org>
- <20230904015338.2941417-3-dmitry.baryshkov@linaro.org>
- <11a07867-8799-479f-b5b6-e3fd9bb31dbc@linaro.org>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <11a07867-8799-479f-b5b6-e3fd9bb31dbc@linaro.org>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, andersson@kernel.org
+References: <1696436821-14261-1-git-send-email-quic_khsieh@quicinc.com>
+ <1696436821-14261-2-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1696436821-14261-2-git-send-email-quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 2/3] drm/bridge: migrate bridge_chains to
- per-encoder file
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v5 1/7] drm/msm/dp: tie
+ dp_display_irq_handler() with dp driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,185 +81,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 06/10/2023 10:35, Neil Armstrong wrote:
-> Hi,
+On 04/10/2023 19:26, Kuogee Hsieh wrote:
+> Currently the dp_display_request_irq() is executed at msm_dp_modeset_init()
+> which ties irq registering to the DPU device's life cycle, while depending on
+> resources that are released as the DP device is torn down. Move register DP
+> driver irq handler to dp_display_probe() to have dp_display_irq_handler()
+> IRQ tied with DP device. In addition, use platform_get_irq() to retrieve irq
+> number from platform device directly.
 > 
-> On 04/09/2023 03:53, Dmitry Baryshkov wrote:
->> Instead of having a single file with all bridge chains, list bridges
->> under a corresponding per-encoder debugfs directory.
->>
->> Example of the listing:
->>
->> $ cat /sys/kernel/debug/dri/0/encoder-0/bridges
->> bridge[0]: dsi_mgr_bridge_funcs
->>     type: [0] Unknown
->>     ops: [0]
->> bridge[1]: lt9611uxc_bridge_funcs
->>     type: [11] HDMI-A
->>     OF: /soc@0/geniqup@9c0000/i2c@994000/hdmi-bridge@2b:lontium,lt9611uxc
->>     ops: [7] detect edid hpd
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/drm_bridge.c  | 44 -----------------------------------
->>   drivers/gpu/drm/drm_debugfs.c | 39 ++++++++++++++++++++++++++++---
->>   include/drm/drm_bridge.h      |  2 --
->>   3 files changed, 36 insertions(+), 49 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
->> index 39e68e45bb12..cee3188adf3d 100644
->> --- a/drivers/gpu/drm/drm_bridge.c
->> +++ b/drivers/gpu/drm/drm_bridge.c
->> @@ -1347,50 +1347,6 @@ struct drm_bridge *of_drm_find_bridge(struct 
->> device_node *np)
->>   EXPORT_SYMBOL(of_drm_find_bridge);
->>   #endif
->> -#ifdef CONFIG_DEBUG_FS
->> -static int drm_bridge_chains_info(struct seq_file *m, void *data)
->> -{
->> -    struct drm_debugfs_entry *entry = m->private;
->> -    struct drm_device *dev = entry->dev;
->> -    struct drm_printer p = drm_seq_file_printer(m);
->> -    struct drm_mode_config *config = &dev->mode_config;
->> -    struct drm_encoder *encoder;
->> -    unsigned int bridge_idx = 0;
->> -
->> -    list_for_each_entry(encoder, &config->encoder_list, head) {
->> -        struct drm_bridge *bridge;
->> -
->> -        drm_printf(&p, "encoder[%u]\n", encoder->base.id);
->> -
->> -        drm_for_each_bridge_in_chain(encoder, bridge) {
->> -            drm_printf(&p, "\tbridge[%u] type: %u, ops: %#x",
->> -                   bridge_idx, bridge->type, bridge->ops);
->> -
->> -#ifdef CONFIG_OF
->> -            if (bridge->of_node)
->> -                drm_printf(&p, ", OF: %pOFfc", bridge->of_node);
->> -#endif
->> -
->> -            drm_printf(&p, "\n");
->> -
->> -            bridge_idx++;
->> -        }
->> -    }
->> -
->> -    return 0;
->> -}
->> -
->> -static const struct drm_debugfs_info drm_bridge_debugfs_list[] = {
->> -    { "bridge_chains", drm_bridge_chains_info, 0 },
->> -};
->> -
->> -void drm_bridge_debugfs_init(struct drm_minor *minor)
->> -{
->> -    drm_debugfs_add_files(minor->dev, drm_bridge_debugfs_list,
->> -                  ARRAY_SIZE(drm_bridge_debugfs_list));
->> -}
->> -#endif
->> -
->>   MODULE_AUTHOR("Ajay Kumar <ajaykumar.rs@samsung.com>");
->>   MODULE_DESCRIPTION("DRM bridge infrastructure");
->>   MODULE_LICENSE("GPL and additional rights");
->> diff --git a/drivers/gpu/drm/drm_debugfs.c 
->> b/drivers/gpu/drm/drm_debugfs.c
->> index cf7f33bdc963..70913067406d 100644
->> --- a/drivers/gpu/drm/drm_debugfs.c
->> +++ b/drivers/gpu/drm/drm_debugfs.c
->> @@ -273,10 +273,8 @@ int drm_debugfs_init(struct drm_minor *minor, int 
->> minor_id,
->>       drm_debugfs_add_files(minor->dev, drm_debugfs_list, 
->> DRM_DEBUGFS_ENTRIES);
->> -    if (drm_drv_uses_atomic_modeset(dev)) {
->> +    if (drm_drv_uses_atomic_modeset(dev))
->>           drm_atomic_debugfs_init(minor);
->> -        drm_bridge_debugfs_init(minor);
->> -    }
->>       if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->>           drm_framebuffer_debugfs_init(minor);
->> @@ -603,6 +601,37 @@ void drm_debugfs_crtc_remove(struct drm_crtc *crtc)
->>       crtc->debugfs_entry = NULL;
->>   }
->> +static int bridges_show(struct seq_file *m, void *data)
->> +{
->> +    struct drm_encoder *encoder = m->private;
->> +    struct drm_bridge *bridge;
->> +    unsigned int idx = 0;
->> +
->> +    drm_for_each_bridge_in_chain(encoder, bridge) {
->> +        seq_printf(m, "bridge[%d]: %ps\n", idx++, bridge->funcs);
->> +        seq_printf(m, "\ttype: [%d] %s\n",
->> +               bridge->type,
->> +               drm_get_connector_type_name(bridge->type));
->> +#ifdef CONFIG_OF
->> +        if (bridge->of_node)
->> +            seq_printf(m, "\tOF: %pOFfc\n", bridge->of_node);
->> +#endif
->> +        seq_printf(m, "\tops: [0x%x]", bridge->ops);
->> +        if (bridge->ops & DRM_BRIDGE_OP_DETECT)
->> +            seq_puts(m, " detect");
->> +        if (bridge->ops & DRM_BRIDGE_OP_EDID)
->> +            seq_puts(m, " edid");
->> +        if (bridge->ops & DRM_BRIDGE_OP_HPD)
->> +            seq_puts(m, " hpd");
->> +        if (bridge->ops & DRM_BRIDGE_OP_MODES)
->> +            seq_puts(m, " modes");
->> +        seq_puts(m, "\n");
->> +    }
->> +
->> +    return 0;
->> +}
->> +DEFINE_SHOW_ATTRIBUTE(bridges);
->> +
->>   void drm_debugfs_encoder_add(struct drm_encoder *encoder)
->>   {
->>       struct drm_minor *minor = encoder->dev->primary;
->> @@ -618,6 +647,10 @@ void drm_debugfs_encoder_add(struct drm_encoder 
->> *encoder)
->>       encoder->debugfs_entry = root;
->> +    /* bridges list */
->> +    debugfs_create_file("bridges", 0444, root, encoder,
->> +                &bridges_fops);
->> +
->>       if (encoder->funcs->debugfs_init)
->>           encoder->funcs->debugfs_init(encoder, root);
->>   }
->> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
->> index c339fc85fd07..902bc3f99c2a 100644
->> --- a/include/drm/drm_bridge.h
->> +++ b/include/drm/drm_bridge.h
->> @@ -950,6 +950,4 @@ static inline struct drm_bridge 
->> *drmm_of_get_bridge(struct drm_device *drm,
->>   }
->>   #endif
->> -void drm_bridge_debugfs_init(struct drm_minor *minor);
->> -
->>   #endif
+> Changes in v5:
+> -- reworded commit text as review comments at change #4
+> -- tear down component if failed at dp_display_request_irq()
 > 
-> It would be nice to have a review from Tomi since he pushed the bridge 
-> chains debugfs.
+> Changes in v4:
+> -- delete dp->irq check at dp_display_request_irq()
 > 
-> Apart that it looks fine:
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Changes in v3:
+> -- move calling dp_display_irq_handler() to probe
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 32 +++++++++++++-------------------
+>   drivers/gpu/drm/msm/dp/dp_display.h |  1 -
+>   2 files changed, 13 insertions(+), 20 deletions(-)
 
-This change does more than move the code to per-encoder debugfs file: it 
-changes the formatting, adding textual representations for the flags, 
-and drops the use of drm_printer.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-I'd prefer to have such changes separately, but as it's a small patch I 
-guess it's fine-ish. But they should at least be mentioned in the patch 
-description.
 
-With that addressed:
-
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-  Tomi
+-- 
+With best wishes
+Dmitry
 
