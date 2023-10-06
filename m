@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86AC7BB8C4
-	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 15:15:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C4987BB8CC
+	for <lists+freedreno@lfdr.de>; Fri,  6 Oct 2023 15:15:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2A910E4EC;
-	Fri,  6 Oct 2023 13:15:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31EE210E4F6;
+	Fri,  6 Oct 2023 13:15:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
  [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C65A710E4F1
- for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 13:14:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C0C10E4E9
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Oct 2023 13:15:00 +0000 (UTC)
 Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-50337b43ee6so2738376e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 06:14:59 -0700 (PDT)
+ 2adb3069b0e04-5033918c09eso2691328e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Oct 2023 06:15:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1696598098; x=1697202898; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2hPtVzzZO9pBznL56T6VYtPDn+5rPWC88sELbHece2w=;
- b=w6c3MBf7jJm1QQnPomoDsX3oLX4eL75/TYeZqcpZP64fwdYXbgux+BiKWepvvpXBsu
- MeHOdzWLgYxs/vTVsyttQvC29gfJic2RWOR4tEF7IqmnNDzyeftze6UIvRjWrPHbItY2
- B5gw9MHjr182U4sRoHANM/NZ8XB+TOM7HA7wS9uZtsO+IIqr35HVTg4By60uGihiAg1b
- bQxGrDEFhpfc42sZjuqEmfOZv0ZmIEOF15u72/yc/NMDLTvaPluPzYg76Tcr0jpiL/bL
- a0qDudPhJS262NzuitAUnTJB0p53loq1wQMOpzN02PzKUDvyhS9LkcN4eFW7O6Tj69EK
- dbJA==
+ bh=HqxEMpUKQ/G8V5waQaP2laENlyhCdS/+wJeXJU7A8oM=;
+ b=oQAWUHqgSR4qkasSmc6yBOvNWytY6jSUhgswtP4qJzLSSlWQklax/gQq6hgOnt2ntj
+ wrLpo6nX9GXe8+ppyg2S5SY8V6s4vU3ZDj3YDrC3rWSbA9cKFx9k0KpsqFd2kkFqITNH
+ sYxo+F4H2LvP8DucI4bYdNKOpK9+lYkmwK3ZgH2inu/RhNVO8Yy5TOHyldBMTTIWVviH
+ hRZx/WGrWJLNfwhhZzPXxpAAgJz4saR5j1lAo50ajtDQz4w4bfZ6viUPsM4b8ToAXrIw
+ X0y90K/6oOvYPaMTxLhqFCoizfOXtK4AFlqOkt0+5XylHUOirCOh1LGlVD4cykGuOC/+
+ 13VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1696598098; x=1697202898;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2hPtVzzZO9pBznL56T6VYtPDn+5rPWC88sELbHece2w=;
- b=HmYdKckQRAB/An9xyEGzfG8+NWSKWAgDOCNs89M7SJyAWrRYe8wrAQcqQJIWdQbKwY
- /edQVQ7/KWN/Es1L27nYLQMAWqTdlASpLbJJnKsANnmsk/8SL9iyiMhAWaESMjg5nkq2
- Oq3iNV7AUy4d4O+sV5Dp1G8vd4Kg4RybJu5NpdcJ4cvnkib8FJbPEoeVmLx1Em6TtJhW
- iQunOrPXz1tUSHguzDXB29VuihsDF2vKAmOHiz3OS+3J7/TMvGxGD4zCpQSsY8Tq2dxI
- IZwWAzaHyT5ya6TRZErGisn0IIxSEpcHTZk6fN83dg2AGut5B5WijslgxtKo7wHJ9Ocj
- EuBA==
-X-Gm-Message-State: AOJu0Ywcv23uwYXj3+GMxy5DwJ5rr+B7HBMIxxg/6knoj0I/MD2bne+W
- A6uDdu6T7Ig0h3I1NCkMTBvUwA==
-X-Google-Smtp-Source: AGHT+IEuGpQwunStAna/0FlSh6OhnJihhmODGHxngnzadM5uiN1WYGPNdJl/Uf8diykblnyD56W4qg==
-X-Received: by 2002:a05:6512:794:b0:500:7cab:efc3 with SMTP id
- x20-20020a056512079400b005007cabefc3mr5765830lfr.11.1696598097818; 
- Fri, 06 Oct 2023 06:14:57 -0700 (PDT)
+ bh=HqxEMpUKQ/G8V5waQaP2laENlyhCdS/+wJeXJU7A8oM=;
+ b=EwNXSCIPhRid+rA2aNxQZqS1Ei9xUePXWxI/1f60XvIILJOPtP1FKa011XEr+wEC3M
+ vSqxiBuBsYSlSezm307yGegkHEBH54B7kBSO48JeqAFxHwF2YadJ4PWgXFBdV7JIC2oM
+ fpfzQDPNwYfcKhVIglIWPlcJcqzrNVzz9BdHgCN4KrqUktRs23YOB8B6P3KT79v1ESix
+ m3tKMmty5ssw7ko8PAfi1KLklJQn2ze6MHAEJR5zzJEhmJfsAWtoCfXwDgf579smXJ8v
+ 4sQZdVhSj4EyjaZ9wOy+J/HZInWOzfeTWAUNBGol+bsV6YU1BBAI9yGc0l9b+EUtedRw
+ OabQ==
+X-Gm-Message-State: AOJu0YwYeTAqdmD0PHjyxPWwlq/4/l4k7S0rFNAvUag7J8o/qDbB9zzS
+ mnirOo1QulmtStYwo8S2YaB5Pg==
+X-Google-Smtp-Source: AGHT+IHE2FyzNcrKHkVaynk0WbV6tf0To7tYw1CaUf9mbDynfP5XagW+DdMNn9k6qlOmzZlebP2R+g==
+X-Received: by 2002:a05:6512:3450:b0:501:c3ee:62ec with SMTP id
+ j16-20020a056512345000b00501c3ee62ecmr5851622lfr.12.1696598098430; 
+ Fri, 06 Oct 2023 06:14:58 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  g9-20020a19ee09000000b004fbb011c9bcsm301285lfb.161.2023.10.06.06.14.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Oct 2023 06:14:57 -0700 (PDT)
+ Fri, 06 Oct 2023 06:14:58 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Fri,  6 Oct 2023 16:14:47 +0300
-Message-Id: <20231006131450.2436688-8-dmitry.baryshkov@linaro.org>
+Date: Fri,  6 Oct 2023 16:14:48 +0300
+Message-Id: <20231006131450.2436688-9-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231006131450.2436688-1-dmitry.baryshkov@linaro.org>
 References: <20231006131450.2436688-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 07/10] drm/msm/dpu: drop DPU_HW_SUBBLK_INFO
- macro
+Subject: [Freedreno] [PATCH v6 08/10] drm/msm/dpu: rewrite scaler and CSC
+ presense checks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,90 +83,60 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the subblock info is now mostly gone, inline and drop the macro
-DPU_HW_SUBBLK_INFO.
+In order to check whether the SSPP block has scaler and CSC subblocks
+the funcion dpu_plane_atomic_check_pipe() uses macros which enumerate
+all possible scaler and CSC features. Replace those checks with the
+scaler and CSC subblock length checks in order to be able to drop those
+two macros.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Suggested-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    | 40 ++++++++++---------
- 1 file changed, 21 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 15 ---------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   |  4 ++--
+ 2 files changed, 2 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 19ab36ae6765..fc5027b0123a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -252,49 +252,51 @@ enum {
- 	u32 len; \
- 	unsigned long features
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+index ca02f86c94ed..d1480ff2574a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+@@ -21,21 +21,6 @@ struct dpu_hw_sspp;
+ #define DPU_SSPP_ROT_90			BIT(3)
+ #define DPU_SSPP_SOLID_FILL		BIT(4)
  
 -/**
-- * MACRO DPU_HW_SUBBLK_INFO - information of HW sub-block inside DPU
-- * @name:              string name for debug purposes
-- * @base:              offset of this sub-block relative to the block
-- *                     offset
-- * @len                register block length of this sub-block
+- * Define all scaler feature bits in catalog
 - */
--#define DPU_HW_SUBBLK_INFO \
--	char name[DPU_HW_BLK_NAME_LEN]; \
--	u32 base; \
--	u32 len
+-#define DPU_SSPP_SCALER (BIT(DPU_SSPP_SCALER_RGB) | \
+-			 BIT(DPU_SSPP_SCALER_QSEED2) | \
+-			 BIT(DPU_SSPP_SCALER_QSEED3) | \
+-			 BIT(DPU_SSPP_SCALER_QSEED3LITE) | \
+-			 BIT(DPU_SSPP_SCALER_QSEED4))
+-
+-/*
+- * Define all CSC feature bits in catalog
+- */
+-#define DPU_SSPP_CSC_ANY (BIT(DPU_SSPP_CSC) | \
+-			  BIT(DPU_SSPP_CSC_10BIT))
 -
  /**
-  * struct dpu_scaler_blk: Scaler information
-- * @info:   HW register and features supported by this sub-blk
-+ * @name: string name for debug purposes
-+ * @base: offset of this sub-block relative to the block offset
-+ * @len: register block length of this sub-block
-  * @version: qseed block revision, on QSEED3+ platforms this is the value of
-  *           scaler_blk.base + QSEED3_HW_VERSION registers.
+  * Component indices
   */
- struct dpu_scaler_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- 	u32 version;
- };
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index c2aaaded07ed..43135894263c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -740,8 +740,8 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
+ 	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
  
- struct dpu_csc_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- };
- 
- /**
-  * struct dpu_pp_blk : Pixel processing sub-blk information
-- * @info:   HW register and features supported by this sub-blk
-+ * @name: string name for debug purposes
-+ * @base: offset of this sub-block relative to the block offset
-+ * @len: register block length of this sub-block
-  * @version: HW Algorithm version
-  */
- struct dpu_pp_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- 	u32 version;
- };
- 
- /**
-  * struct dpu_dsc_blk - DSC Encoder sub-blk information
-- * @info:   HW register and features supported by this sub-blk
-+ * @name: string name for debug purposes
-+ * @base: offset of this sub-block relative to the block offset
-+ * @len: register block length of this sub-block
-  */
- struct dpu_dsc_blk {
--	DPU_HW_SUBBLK_INFO;
-+	char name[DPU_HW_BLK_NAME_LEN];
-+	u32 base;
-+	u32 len;
- };
- 
- /**
+ 	if (DPU_FORMAT_IS_YUV(fmt) &&
+-	    (!(pipe->sspp->cap->features & DPU_SSPP_SCALER) ||
+-	     !(pipe->sspp->cap->features & DPU_SSPP_CSC_ANY))) {
++	    (!pipe->sspp->cap->sblk->scaler_blk.len ||
++	     !pipe->sspp->cap->sblk->csc_blk.len)) {
+ 		DPU_DEBUG_PLANE(pdpu,
+ 				"plane doesn't have scaler/csc for yuv\n");
+ 		return -EINVAL;
 -- 
 2.39.2
 
