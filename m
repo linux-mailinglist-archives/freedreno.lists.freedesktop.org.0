@@ -1,61 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4BB77BC72E
-	for <lists+freedreno@lfdr.de>; Sat,  7 Oct 2023 13:35:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 08FBF7BC90E
+	for <lists+freedreno@lfdr.de>; Sat,  7 Oct 2023 18:24:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62A9E10E042;
-	Sat,  7 Oct 2023 11:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C77710E040;
+	Sat,  7 Oct 2023 16:24:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41F1A10E03A
- for <freedreno@lists.freedesktop.org>; Sat,  7 Oct 2023 11:34:59 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-59f4bc88f9fso34557227b3.2
- for <freedreno@lists.freedesktop.org>; Sat, 07 Oct 2023 04:34:59 -0700 (PDT)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BD610E040;
+ Sat,  7 Oct 2023 16:24:45 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-536b39daec1so5442016a12.2; 
+ Sat, 07 Oct 2023 09:24:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696678498; x=1697283298; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jSGXM9PaTj8Iqla8u7waxHlJMDX8neA9/CvBL3oU1vs=;
- b=wWsHRETh33sAxw51WMj2HVIFqRzBZKD376ul1aPX4FiJ1HJeYngsyMdbeQrcQ7QMhv
- arjwgcgejGfm7dnr7xZbibd+PcCDp9/8iyhtruIWWuCSnPEsQyNMf0Vi0Vtbe52v5yhs
- 23k1JjpichvIN8IYaEvTxdW/an/6/JRmyc7ygUdIiHG0o81HDV/ZRz6A7SwvGIPyeVvI
- IEbvSOxgNkexyMsRDRqgpicRPthuUJD8JlPTXcj8pM5EtB+NG8KBtZEsbYNIU7eCmzB4
- klZmwAnQ6hV0ivBMkl/aL7hwOow2v/QXyPCz5FNGSglzw7Lgo68sHssqlwyOVDXErq/t
- 9EYw==
+ d=gmail.com; s=20230601; t=1696695884; x=1697300684; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=vFIriXocAA6Pr+bHRL9FIc9QJhfcR0NHPuOKRd2IbkI=;
+ b=CLnjpsVoCn8T6cSSW3ADMM8Eo6qKlFr+aK0ZYdQE8H9RuYkXp22aj/hK2DWK95BBsm
+ 33FriDIwiqDqIFQ1imBlZ+6rg716n1ItL+QUOv3e5N/XCpOwlw1T3cl5Fw051wniC0cC
+ /S6lpXhWAdRR8CDv+0i4jEzqCx11/gu9C7366bvNljybmDfErygtFO9Wausc5f6SY7RQ
+ yp8Z04jKh1W9ThrrldB58uzW18j/e00IATz5WSRL++etZalhanETESlTqzYWtbecR2L6
+ ykQZPHOJRGPy1CY93OkG1SqsCiuECBRfqixxbJvGFQkPYmKlnT0yYMGpykuPodnQgLfa
+ tdwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696678498; x=1697283298;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jSGXM9PaTj8Iqla8u7waxHlJMDX8neA9/CvBL3oU1vs=;
- b=NZToSfFcz+olk4fm0p5OKJ6tUKRax7R4SyLDpuWfUHr5axce5UK4VPBKJzU8z3VxUf
- YRCMmj8TusyRJp6/9CJhnwUORhmsEjhaB850Itw6dLbsVl7XZf2xQUODOKwq4NsZ5mYH
- cJRvKOZhsboi2py4ldfTywjmnOKnjUHRqyGbKrujSu/0rQOJTB07xWx81CKVJRCkIfFX
- tgUTRUW+Aeh5fnOeLq5V3Sx39Hd+tK9MWVeBi6pyhbHEz4C+Eflomf4eqVq6NSQT587X
- LtsKmnkcOZjtIRy21zatb6M0UH7huNgQWWz4Ku+ln/zDe8/7UTtmlkI3tVgY3oSiiBJ3
- rTUg==
-X-Gm-Message-State: AOJu0Ywa9Y6Xu6Fgo1tixXGepXXg3CZ2sRgUwk6Lu46TSLTXa0skQNvG
- XhWx1iKS55B38FEJ42qIT0fouPO/caR09gdwyVgMWQ==
-X-Google-Smtp-Source: AGHT+IHKG97Lbeo+UsrdR1nmTFCgOqLGW2T7I5kZ+QxpgcEZM+JxKgbJ1VtzfFGONuwMVUMAzhcrWeC5dW14K+7atQ8=
-X-Received: by 2002:a81:7b8a:0:b0:59b:c805:de60 with SMTP id
- w132-20020a817b8a000000b0059bc805de60mr10110241ywc.45.1696678498310; Sat, 07
- Oct 2023 04:34:58 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696695884; x=1697300684;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vFIriXocAA6Pr+bHRL9FIc9QJhfcR0NHPuOKRd2IbkI=;
+ b=vBqAHDeRPMsmyAj3cPK8z3fWg7NuBgTAgbpo/KJS/kWP4tkXKAWlSDiA/4xnyKTozc
+ +2qmVeLEZJgzEZoz38CBVn70xlCP3cmGa9P6qmvck0NvSMeeZkIWjLMUxS1Yk4FGIi3q
+ Vluw7TVO26MqAJxLQKa9VHTZzphHdK1p32sNJrxUymOtcWus6iZug980c77XzmtMaoWF
+ FiPf31GFblB6HqtBm9t9eaDHWUnm4tNGnOywT89dOelcXobFg0SGFKg+hVravI0R26gI
+ KsrxRQBF/wzbb09ZkM6yH+dCbO9+pdXIcoVCySIrlg33HNWgNQN5i9Hn5CZgYw/DimJg
+ Lk5g==
+X-Gm-Message-State: AOJu0Ywie6UJrQaomS0OiQYDVEwG/RgV/AT0ZjbeSHv79huJIQKA20zl
+ lp9lVh6mzn4ngfLAuXq4xZnH6D4WekbF8cHLys0=
+X-Google-Smtp-Source: AGHT+IHsD4j1DRc/IkP3+RAGwobooxqBt64YmDAsovbTVmBVaJWqPkWECd69kpfWAN3zIo/dDfY1AkNerWDQ66imRaw=
+X-Received: by 2002:a05:6402:1b0e:b0:532:b974:671e with SMTP id
+ by14-20020a0564021b0e00b00532b974671emr10209082edb.41.1696695884006; Sat, 07
+ Oct 2023 09:24:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
- <1696632910-21942-5-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1696632910-21942-5-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 7 Oct 2023 14:34:47 +0300
-Message-ID: <CAA8EJpocnfaoJ9syC8YahfwgRad7sCEhJx_njEVpkY66HSMvOA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sat, 7 Oct 2023 09:24:32 -0700
+Message-ID: <CAF6AEGv-HNxQ=VBtZ8geGzYJum9jtManEdbvhcjo_WWF_J9Ziw@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v7 4/7] drm/msm/dp: move parser->parse() and
- dp_power_client_init() to probe
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2023-10-07 for v6.6-rc5
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,41 +63,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 7 Oct 2023 at 01:55, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> Original both parser->parse() and dp_power_client_init() are done at
-> dp_display_bind() since eDP population is done at binding time.
-> In the preparation of having eDP population done at probe() time,
-> move both function from dp_display_bind() to dp_display_probe().
->
-> Changes in v6:
-> -- move dp_power_client_deinit() to remove()
->
-> Changes in v5:
-> -- explain why parser->parse() and dp_power_client_init() are moved to
->    probe time
-> -- tear down sub modules if failed
->
-> Changes in v4:
-> -- split this patch out of "incorporate pm_runtime framework into DP
->    driver" patch
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 24 +++++++++++++-----------
->  1 file changed, 13 insertions(+), 11 deletions(-)
+Hi Dave,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Late fixes for v6.6, description below.
 
--- 
-With best wishes
-Dmitry
+The following changes since commit ce9ecca0238b140b88f43859b211c9fdfd8e5b70:
+
+  Linux 6.6-rc2 (2023-09-17 14:40:24 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2023-10-07
+
+for you to fetch changes up to 10f20628c9b8e924b8046e63b36b2cea4d2c85e4:
+
+  drm/msm/dpu: fail dpu_plane_atomic_check() based on mdp clk limits
+(2023-10-05 10:18:10 -0700)
+
+----------------------------------------------------------------
+Fixes for v6.6-rc5
+
+- fix to not reset the PHY everytime we start link training but only
+  do it if link training fails. Without this, the PLL unlocked
+  interrupt fires causing "Unexpected DP AUX IRQ 0x01000000 when
+  not busy" spam in the logs since last 2-3 cycles
+- correct the highest bank bit to match downstream device tree for
+  msm8998
+- skip the video mode wait if the timing engine is not enabled. This
+  was introduced after pre_enable flag for DSI video mode panels
+  where we would end up waiting for the video mode done interrupt
+  even before enabling timing engine causing error spam and long
+  bootup times.
+- check the correct return code of irq_of_parse_and_map() in DSI code
+- avoid overflow issues in the dpu bandwidth calculation . This was
+  exposed for high resolution displays and a critical fix to avoid
+  atomic_check failure
+- minor fix to add new lines in DP print messages.
+- Fix to fail atomic_check() if the resolution exceeds max mdp clk.
+  This leads to underflow otherwise if we try to allow that frame.
+
+----------------------------------------------------------------
+Abhinav Kumar (3):
+      drm/msm/dsi: skip the wait for video mode done if not applicable
+      drm/msm/dpu: change _dpu_plane_calc_bw() to use u64 to avoid overflow
+      drm/msm/dpu: fail dpu_plane_atomic_check() based on mdp clk limits
+
+Dan Carpenter (1):
+      drm/msm/dsi: fix irq_of_parse_and_map() error checking
+
+Dmitry Baryshkov (1):
+      drm/msm/mdss: fix highest-bank-bit for msm8998
+
+Kuogee Hsieh (1):
+      drm/msm/dp: do not reinitialize phy unless retry during link training
+
+Stephen Boyd (1):
+      drm/msm/dp: Add newlines to debug printks
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 27 ++++++++++++++++++---------
+ drivers/gpu/drm/msm/dp/dp_ctrl.c          | 13 ++++++-------
+ drivers/gpu/drm/msm/dp/dp_link.c          |  4 ++--
+ drivers/gpu/drm/msm/dsi/dsi_host.c        | 19 +++++++++++++++----
+ drivers/gpu/drm/msm/msm_mdss.c            |  2 +-
+ 5 files changed, 42 insertions(+), 23 deletions(-)
