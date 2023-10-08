@@ -1,69 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78C8C7BCEC6
-	for <lists+freedreno@lfdr.de>; Sun,  8 Oct 2023 16:01:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07CA47BCF75
+	for <lists+freedreno@lfdr.de>; Sun,  8 Oct 2023 19:56:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A000C10E195;
-	Sun,  8 Oct 2023 14:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F23A10E19F;
+	Sun,  8 Oct 2023 17:56:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16EE10E195
- for <freedreno@lists.freedesktop.org>; Sun,  8 Oct 2023 14:01:30 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2bfea381255so43679221fa.3
- for <freedreno@lists.freedesktop.org>; Sun, 08 Oct 2023 07:01:30 -0700 (PDT)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1C410E027;
+ Sun,  8 Oct 2023 17:56:25 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id
+ d2e1a72fcca58-68bed2c786eso2836446b3a.0; 
+ Sun, 08 Oct 2023 10:56:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696773689; x=1697378489; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zFEz00dZt8b8WAE9A9YPgyljR1B8wQKrMenQPX4nHKw=;
- b=YRuzrK4Djd7bBYlQmgCQyGSyam61UGAyUNjSs8V/Sf4Fas2p8SlVy9Nbzn30bcbMIA
- GTKbF+zVj0SfIWdDtjuWLTUkTZRlQuT/cmDDLuFNngy7Ukr9OTK7/6dQRce14SUTC81Z
- JGkeyhaX1QXw1ihLTyL44fBTbQVigY1WSNbfR3yafjG9usqA4ChzztVLewlTg6d05pC+
- GgIjRMpRgEfVWKLpxQ95u7OORz736kFKai7dd8gMRujULTg3e+tc9QDZUaPFVZsZrMOi
- 9OcV/HJbAj3AODFZdoBNK30U1LkSkG9OkBCpyOw/HHQDa+Hso6y/ypP5w2YQ6Xg1hHaF
- Jx9w==
+ d=gmail.com; s=20230601; t=1696787785; x=1697392585; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vzldSszU6MMY3+BPZFEE+sdPY1rkhW3V7SWMFRFvi3c=;
+ b=X+08X8OHzC4AM9nlTxTWRK+lwu4eNE8LAjXeQt7QfSs+g62tL9dIZHNsB0xd4edQRF
+ Wtan+meThCIXsO8367wFMGbx8Q+C6aEc3l0bWJhchadoIxZxJ3lh9y3mwnKvikBEIQV/
+ iLq1F0UlSOsrPqjgdWUjAjzJGaKFO/wcTghERObrYW/ZrX8+RTLzLJURwPSTs9UO1XxC
+ sbLBbvzGpuj480fzRjXHfPf5ddzqRxEBPbPrnggNxzGyyc5YhxQPJ+fJgLFV+Ir4HH2C
+ 3j/bIIDWcRfbPIyBE12g4hmnZgOqZvI8yH2h5uFxvzJ8rXqYJDkgDcGjcSm05qCztvGN
+ 6AIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696773689; x=1697378489;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zFEz00dZt8b8WAE9A9YPgyljR1B8wQKrMenQPX4nHKw=;
- b=MBzaJenUqJONB9Rui6iQMqVphDQQ5Q9MKcPv7I8sVwG9Fw4gsaLgYRmAPhzt3iQEUn
- Zy0UWEbL1VYjG/afp0tIf+X61pMccCf4MUkjwF1xcS9hQ1jMaOupfLkeBZRGxMy+JSEN
- rnwUo5z8kfB51qnVT7CN+bO3MwvRS2cO+b9OG6n/Q+dPe5hjCBWYasgx4f7rcthMisJa
- 5wZ2fyj3jHR5WVFMiWVRNNoQ0FlvGMLtWydTPrAVSikQAPSr+jLvjJ6cZDo7/yMxUaL0
- fqnmaSEEH+A1jIpJuWVpQSmgafWHgvD45ZuL9ek5Bxyn3XXn6+90W3MBP4ZaDR7Q9A6d
- AYKw==
-X-Gm-Message-State: AOJu0YxgnExrc6IISzcl9rdPcuDY0ewYw2XnngBz9pdqxqIIXX7B9EA8
- ubrOExrdhpUyWfuU7kSfImDavw==
-X-Google-Smtp-Source: AGHT+IFOU5uXWmhXrIYbhgEpr4JZ8+yZty98yxpFi9UjGcKnTHEbTZyEkAOOOPx1Erbruxp2wwdBBQ==
-X-Received: by 2002:a05:6512:68a:b0:503:26bc:b08f with SMTP id
- t10-20020a056512068a00b0050326bcb08fmr13838821lfe.24.1696773688970; 
- Sun, 08 Oct 2023 07:01:28 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20230601; t=1696787785; x=1697392585;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vzldSszU6MMY3+BPZFEE+sdPY1rkhW3V7SWMFRFvi3c=;
+ b=ZGwr63CvaYLWGHmhj5i/+bozDRXBU2vRyLnGmtwMcNs/n9vGUp4U6u6fzxVVwST3Gt
+ JFXMje5rxgXInYD1QnCTs8ey7o2N6vpjIMZriRMVctEEM3ecrzSmwQ2NBs8a1F3fI4Ue
+ 5CltH9inSjog5CgnBNSMEmeRLy4xhnU8Rw5E0DVpaQcUfnw/MSFA04s8bXjI0sqAscWM
+ j7CbFgw0MTWlz1vBdesypZc0hiwCL++CQJNYOVSIsqxKB1puxOa4IwvRA+XwrPhbPzyo
+ xPm6TnpRRrbcKD1sVoq5vitnQMknFxsVfIam8jnPrMPOzkUKT+EzJsgrWHB49BovkdhW
+ a93A==
+X-Gm-Message-State: AOJu0Yx0lq2J/Tf586iqFpkzSJcDsxFr4na2EPH5xoti2/8i0amOolAL
+ iMiv21/xVG+OCYlUcGc/iKn7f5wZyto=
+X-Google-Smtp-Source: AGHT+IHqQ/Vyp0H3SIe36vYhUTFYZOV3Jn9KI7Rwe/TDcLX9WK8K9IRoidQS4zA/CzHtqqtXwbRB+g==
+X-Received: by 2002:a05:6a21:a5a7:b0:15d:721e:44d5 with SMTP id
+ gd39-20020a056a21a5a700b0015d721e44d5mr15053674pzc.49.1696787784604; 
+ Sun, 08 Oct 2023 10:56:24 -0700 (PDT)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
  by smtp.gmail.com with ESMTPSA id
- q14-20020ac24a6e000000b00504211d2a73sm1080455lfp.230.2023.10.08.07.01.28
+ jb17-20020a170903259100b001c8836a3795sm7741992plb.271.2023.10.08.10.56.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Oct 2023 07:01:28 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>
-Date: Sun,  8 Oct 2023 17:01:20 +0300
-Message-Id: <169677306906.2570646.11717295539692431609.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230829184735.2841739-1-swboyd@chromium.org>
-References: <20230829184735.2841739-1-swboyd@chromium.org>
+ Sun, 08 Oct 2023 10:56:23 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sun,  8 Oct 2023 10:55:59 -0700
+Message-ID: <20231008175615.413497-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 0/7] drm/msm/dp: Simplify DPCD related code
- with helpers
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Use the encoder for default CRC
+ source
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,49 +71,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
- patches@lists.linux.dev, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Kalyan Thota <quic_kalyant@quicinc.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>, linux-arm-msm@vger.kernel.org,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Helen Koike <helen.koike@collabora.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
-On Tue, 29 Aug 2023 11:47:25 -0700, Stephen Boyd wrote:
-> This driver open-codes a few of the DPCD register reads when it can be
-> simplified by using the helpers instead. This series reworks the MSM DP
-> driver to use the DPCD helpers and removes some dead code along the way.
-> There's the potential for even more code reduction around the test
-> registers, but I haven't tried to do that yet.
-> 
-> Stephen Boyd (7):
->   drm/msm/dp: Replace open-coded drm_dp_read_dpcd_caps()
->   drm/msm/dp: Use drm_dp_read_sink_count() helper
->   drm/msm/dp: Remove dead code related to downstream cap info
->   drm/msm/dp: Remove aux_cfg_update_done and related code
->   drm/msm/dp: Simplify with drm_dp_{max_link_rate,max_lane_count}()
->   drm/msm/dp: Inline dp_link_parse_sink_count()
->   drm/msm/dp: Remove dp_display_is_ds_bridge()
-> 
-> [...]
+i-g-t expects the CRC to reflect any applied CTM.  But the layer mixer
+source is upstream of the DSPP, so it is before the CTM is applied.
 
-Applied, thanks!
+Switch the default source to 'encoder' instead so that the CRC is
+captured downstream of the DSPP.
 
-[1/7] drm/msm/dp: Replace open-coded drm_dp_read_dpcd_caps()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/f906b95755f7
-[2/7] drm/msm/dp: Use drm_dp_read_sink_count() helper
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/284a245d8bdc
-[3/7] drm/msm/dp: Remove dead code related to downstream cap info
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/8bddc2d12e9c
-[4/7] drm/msm/dp: Remove aux_cfg_update_done and related code
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/62ebb19fb32d
-[5/7] drm/msm/dp: Simplify with drm_dp_{max_link_rate,max_lane_count}()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/a9905b469931
-[6/7] drm/msm/dp: Inline dp_link_parse_sink_count()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/d89ce4cdb7a6
-[7/7] drm/msm/dp: Remove dp_display_is_ds_bridge()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b41c5ca70684
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt |  4 ----
+ drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt |  5 -----
+ drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt | 11 +----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  6 +++---
+ 4 files changed, 4 insertions(+), 22 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
+index faf2702c223f..a51950746443 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
+@@ -1,10 +1,6 @@
+ kms_cursor_legacy@cursor-vs-flip-toggle,Fail
+ kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
+ kms_cursor_legacy@cursorA-vs-flipA-atomic-transitions,Crash
+-kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
+-kms_plane_alpha_blend@alpha-7efc,Fail
+-kms_plane_alpha_blend@coverage-7efc,Fail
+-kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
+ kms_plane_alpha_blend@pipe-A-alpha-7efc,Fail
+ kms_plane_alpha_blend@pipe-A-coverage-7efc,Fail
+ kms_plane_alpha_blend@pipe-A-coverage-vs-premult-vs-constant,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
+index 612f7e822c80..327039f70252 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
+@@ -1,7 +1,2 @@
+ # Suspend to RAM seems to be broken on this machine
+ .*suspend.*
+-
+-# Test incorrectly assumes that CTM support implies gamma/degamma
+-# LUT support.  None of the subtests handle the case of only having
+-# CTM support
+-kms_color.*
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
+index ba36b92e3325..3d53c53a0659 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
+@@ -1,20 +1,11 @@
+ kms_color@ctm-0-25,Fail
+ kms_color@ctm-0-50,Fail
+-kms_color@ctm-0-75,Fail
+ kms_color@ctm-blue-to-red,Fail
+ kms_color@ctm-green-to-red,Fail
+ kms_color@ctm-negative,Fail
+ kms_color@ctm-red-to-blue,Fail
+ kms_color@ctm-signed,Fail
+-kms_color@pipe-A-ctm-0-25,Fail
+-kms_color@pipe-A-ctm-0-5,Fail
+-kms_color@pipe-A-ctm-0-75,Fail
+-kms_color@pipe-A-ctm-blue-to-red,Fail
+-kms_color@pipe-A-ctm-green-to-red,Fail
+-kms_color@pipe-A-ctm-max,Fail
+-kms_color@pipe-A-ctm-negative,Fail
+-kms_color@pipe-A-ctm-red-to-blue,Fail
+-kms_color@pipe-A-legacy-gamma,Fail
++kms_color@ctm-max,Fail
+ kms_cursor_legacy@basic-flip-after-cursor-atomic,Fail
+ kms_cursor_legacy@basic-flip-after-cursor-legacy,Fail
+ kms_cursor_legacy@basic-flip-after-cursor-varying-size,Fail
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 8ce7586e2ddf..5eacf19382b5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -79,10 +79,10 @@ static enum dpu_crtc_crc_source dpu_crtc_parse_crc_source(const char *src_name)
+ 	if (!src_name ||
+ 	    !strcmp(src_name, "none"))
+ 		return DPU_CRTC_CRC_SOURCE_NONE;
+-	if (!strcmp(src_name, "auto") ||
+-	    !strcmp(src_name, "lm"))
++	if (!strcmp(src_name, "lm"))
+ 		return DPU_CRTC_CRC_SOURCE_LAYER_MIXER;
+-	if (!strcmp(src_name, "encoder"))
++	if (!strcmp(src_name, "encoder") ||
++	    !strcmp(src_name, "auto"))
+ 		return DPU_CRTC_CRC_SOURCE_ENCODER;
+ 
+ 	return DPU_CRTC_CRC_SOURCE_INVALID;
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.41.0
+
