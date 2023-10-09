@@ -1,69 +1,96 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 665577BD703
-	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 11:29:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9559D7BD8A5
+	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 12:32:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377D010E255;
-	Mon,  9 Oct 2023 09:29:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 057EB10E25E;
+	Mon,  9 Oct 2023 10:32:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AD7210E254
- for <freedreno@lists.freedesktop.org>; Mon,  9 Oct 2023 09:29:28 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-50308217223so5367721e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 02:29:27 -0700 (PDT)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D688610E25C
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Oct 2023 10:32:06 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4064867903cso43553675e9.2
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 03:32:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696843766; x=1697448566; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=D+Mqi5c1Bq5zEgEXT+2RNxnYSta98kdM85CCq97LjCY=;
- b=bTO4Fx640nW06h1l2aF6aEU9dnlQqPl4tcBsKste0kXfzc2h4GUz0hec8Un2QV75bH
- dJC42T36sOqtVrMuYTDPsPvn2vWSlaSJ3QDE5zLU975kSQATWP8K118hKq6hxI3oejIk
- AZC8zq6yWSs0QnmX21+4C4n7AxW4jB/aWTwR5qkvDNuWd7qnfODFui/HIw19zMu/eCWv
- kK6Wggim8sb0gJlyGueBSkBZoptiQ8nFDUeF7QmDAVecmCeR6dE+DJ05aUQ2v5Y7tLk/
- PH8plFhcWwN0WDZoqLJvJCqiDrkizJniJy3hkLMegnBja3dY9mCkar7qXyzvXNsiHX+p
- AFGw==
+ d=linaro.org; s=google; t=1696847525; x=1697452325; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=PPyMXLVeyZxntEhe+ZOBCkIdu/OIW+dkqZd8SlAez0E=;
+ b=SScXtUAbauq0C0xjU4tCGV6qZttwyMQZnSn79r+5IuuuyQvGU7082P++mNYNLlDXFC
+ CyaHUclo9lwPCUYKO24+3PlugG4VlxWmdBx15xKmzj4bCFLHnpmmzXKZh6ajzeLVEhQZ
+ EZhOqKAW+UQD4MNZ3AWwEamjLqqS9yw5DgcNfqytZEMnI5y8tzaXFvTVZe4Tz4QaeN3V
+ sMUYulzSf+UJuRzdGl45CsRpw6u5uTgDeKkj+pcGTDpioox4zrt3Z/+NRGY1XCgOY1Q8
+ dM7Q7DFjMurDL0Kcleav5bYmYTSkZUZGBxo95jBbytBAQs82H/oAN/qJDcUhx+7hTwE0
+ VjfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696843766; x=1697448566;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=D+Mqi5c1Bq5zEgEXT+2RNxnYSta98kdM85CCq97LjCY=;
- b=sl5M77HCVp7ZO6zp3P+8yLyh21u0+EaYXGTCO1S+nL2go+B7GlPrxl4xYb2RoqCxDD
- dvsEE3F7SHzRcq7VRGuEOv04+iVn/jGel//1pDk2g+7FnRMqZIKkSqlDWQ2FpjedtTZk
- LfSkhzbsfm062RfZWX14kqr2o0NNJtWyfaBicjRLaT6Ofe3iKKW2DCDBvkdY34zirPrA
- aONf4OI+wMXEUcTsXCSushrkEA3renbI0kjIXQw42v3das70gF0SMMBK5ne1B1liSA8U
- 4JSuj+Q+kZl64wFbdbf8uxftG7v0xkaTqQkf9IQOmQ57WtvryAwOO9rJ3P9kKS9HLhSS
- 945A==
-X-Gm-Message-State: AOJu0YytFQojcT5P/j0srOsQjb6pAhAU5vDYmEduhRUJmAbazRDwZeZQ
- wUiVyfE5Td6qw8VeyU1FYPJyeQ==
-X-Google-Smtp-Source: AGHT+IGjqHc0m60QQgu6hLj2HGT74p5zL6ya1rpdmNQN6x0kGgxWTzSnMtHMe9KEyQbBjP2E1DW27w==
-X-Received: by 2002:a05:6512:4026:b0:500:94c5:6e06 with SMTP id
- br38-20020a056512402600b0050094c56e06mr16091853lfb.56.1696843766326; 
- Mon, 09 Oct 2023 02:29:26 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20230601; t=1696847525; x=1697452325;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=PPyMXLVeyZxntEhe+ZOBCkIdu/OIW+dkqZd8SlAez0E=;
+ b=ZRwtAa4f9CThdvex8fAv5HV0uBW2P08NegGDPQ8Pk+GENoz1b9rHaRcZ00W6WvUTGV
+ BlF5en5Z7qeC8U4EFxmZW+Yljoz7hmXrj2IfMGm2Yuq3oAI2qM9vo8dslqL/Kd93libL
+ nXNM7n49jVt/FgfhbGGGqZd0PfiiFXZTF1qAFMHlC7eVf5tozgDvyb47FlNN28yPAkfi
+ oAFxXQYDn58KEOCbcdxjIfHQaRx+GhQ7+thenLKDfNmkTtQmYf0LpinedWvmrRM1348A
+ UaoBQ+tsdZ1IiKP3Xjf3hsxvClilrdMPyk3DawFyn6spQXDlDZg8c5NKjHBni0qKIBmA
+ ek5Q==
+X-Gm-Message-State: AOJu0YzvOMEbleJfFSTMRBwcGg08uhekE4+nQGBdR/LWLAM3QgRvMqtO
+ o7CZQSLt/eAJuBJxhP1TLnuHXwyJmuLt6bCHQUQvf1NA
+X-Google-Smtp-Source: AGHT+IG99Er9hAyGpkSogyprWJxHtspegKMzgkDrvHXSDYjUbGWzWi0x8BGDnKRLPAfpdN3vV4m54g==
+X-Received: by 2002:adf:fb0b:0:b0:31f:c1b5:d4c1 with SMTP id
+ c11-20020adffb0b000000b0031fc1b5d4c1mr12148894wrr.35.1696847525104; 
+ Mon, 09 Oct 2023 03:32:05 -0700 (PDT)
+Received: from [192.168.27.65] (home.beaume.starnux.net. [82.66.176.246])
  by smtp.gmail.com with ESMTPSA id
- n24-20020a195518000000b004ff9ab6463fsm1377495lfe.87.2023.10.09.02.29.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 02:29:25 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  9 Oct 2023 12:29:22 +0300
-Message-Id: <20231009092922.2590891-4-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231009092922.2590891-1-dmitry.baryshkov@linaro.org>
-References: <20231009092922.2590891-1-dmitry.baryshkov@linaro.org>
+ e15-20020adff34f000000b0031c6e1ea4c7sm9258837wrp.90.2023.10.09.03.32.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Oct 2023 03:32:04 -0700 (PDT)
+Message-ID: <b1626143-747f-41b1-9b7b-18a2d4f9ffc4@linaro.org>
+Date: Mon, 9 Oct 2023 12:32:02 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: drop
- dpu_encoder_phys_ops.atomic_mode_set
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Content-Language: en-US, fr
+To: Paloma Arellano <quic_parellan@quicinc.com>, quic_abhinavk@quicinc.com,
+ quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org
+References: <20230728012623.22991-1-quic_parellan@quicinc.com>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <20230728012623.22991-1-quic_parellan@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2] drm/panel: Enable DSC and CMD mode for
+ Visionox VTDR6130 panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,212 +103,192 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Reply-To: neil.armstrong@linaro.org
+Cc: sam@ravnborg.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, marijn.suijten@somainline.org,
+ airlied@gmail.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The atomic_mode_set() callback only sets the phys_enc's IRQ data. As the
-INTF and WB are statically allocated to each encoder/phys_enc, drop the
-atomic_mode_set callback and set the IRQs during encoder init.
+Hi Paloma,
 
-For the CMD panel usecase some of IRQ indexes depend on the selected
-resources. Move setting them to the irq_enable() callback.
+On 28/07/2023 03:26, Paloma Arellano wrote:
+> Enable display compression (DSC v1.2) and CMD mode for 1080x2400 Visionox
+> VTDR6130 AMOLED DSI panel. In addition, this patch will set the default
+> to command mode with DSC enabled.
+> 
+> Note: This patch has only been validated DSC over command mode as DSC over
+> video mode has never been validated for the MSM driver before.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  2 --
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  5 ---
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 32 ++++++++-----------
- .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 13 ++------
- .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 11 +------
- 5 files changed, 17 insertions(+), 46 deletions(-)
+I was able to test this on the QRD8550 on top of v6.6-rc5, display works fine,
+but when runnning:
+# modetest -r -v
+<snip>
+setting mode 1080x2400-144.00Hz on connectors 32, crtc 95
+failed to set gamma: Function not implemented
+freq: 74.22Hz
+freq: 73.09Hz
+freq: 72.48Hz
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 30c457541645..0551851fdfed 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1158,8 +1158,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 		phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
- 
- 		phys->cached_mode = crtc_state->adjusted_mode;
--		if (phys->ops.atomic_mode_set)
--			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index f241d7312279..eb811cbc420d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -67,8 +67,6 @@ struct dpu_encoder_phys;
-  * @is_master:			Whether this phys_enc is the current master
-  *				encoder. Can be switched at enable time. Based
-  *				on split_role and current mode (CMD/VID).
-- * @atomic_mode_set:		DRM Call. Set a DRM mode.
-- *				This likely caches the mode, for use at enable.
-  * @enable:			DRM Call. Enable a DRM mode.
-  * @disable:			DRM Call. Disable mode.
-  * @atomic_check:		DRM Call. Atomic check new DRM state.
-@@ -95,9 +93,6 @@ struct dpu_encoder_phys;
- struct dpu_encoder_phys_ops {
- 	void (*prepare_commit)(struct dpu_encoder_phys *encoder);
- 	bool (*is_master)(struct dpu_encoder_phys *encoder);
--	void (*atomic_mode_set)(struct dpu_encoder_phys *encoder,
--			struct drm_crtc_state *crtc_state,
--			struct drm_connector_state *conn_state);
- 	void (*enable)(struct dpu_encoder_phys *encoder);
- 	void (*disable)(struct dpu_encoder_phys *encoder);
- 	int (*atomic_check)(struct dpu_encoder_phys *encoder,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 6b902d3fcebe..8c203da5c653 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -140,23 +140,6 @@ static void dpu_encoder_phys_cmd_underrun_irq(void *arg)
- 	dpu_encoder_underrun_callback(phys_enc->parent, phys_enc);
- }
- 
--static void dpu_encoder_phys_cmd_atomic_mode_set(
--		struct dpu_encoder_phys *phys_enc,
--		struct drm_crtc_state *crtc_state,
--		struct drm_connector_state *conn_state)
--{
--	phys_enc->irq[INTR_IDX_CTL_START] = phys_enc->hw_ctl->caps->intr_start;
--
--	phys_enc->irq[INTR_IDX_PINGPONG] = phys_enc->hw_pp->caps->intr_done;
--
--	if (phys_enc->has_intf_te)
--		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_intf->cap->intr_tear_rd_ptr;
--	else
--		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
--
--	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
--}
--
- static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
- 		struct dpu_encoder_phys *phys_enc)
- {
-@@ -286,6 +269,14 @@ static void dpu_encoder_phys_cmd_irq_enable(struct dpu_encoder_phys *phys_enc)
- 					  phys_enc->hw_pp->idx - PINGPONG_0,
- 					  atomic_read(&phys_enc->vblank_refcount));
- 
-+	phys_enc->irq[INTR_IDX_CTL_START] = phys_enc->hw_ctl->caps->intr_start;
-+	phys_enc->irq[INTR_IDX_PINGPONG] = phys_enc->hw_pp->caps->intr_done;
-+
-+	if (phys_enc->has_intf_te)
-+		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_intf->cap->intr_tear_rd_ptr;
-+	else
-+		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
-+
- 	dpu_core_irq_register_callback(phys_enc->dpu_kms,
- 				       phys_enc->irq[INTR_IDX_PINGPONG],
- 				       dpu_encoder_phys_cmd_pp_tx_done_irq,
-@@ -316,6 +307,10 @@ static void dpu_encoder_phys_cmd_irq_disable(struct dpu_encoder_phys *phys_enc)
- 	dpu_core_irq_unregister_callback(phys_enc->dpu_kms, phys_enc->irq[INTR_IDX_UNDERRUN]);
- 	dpu_encoder_phys_cmd_control_vblank_irq(phys_enc, false);
- 	dpu_core_irq_unregister_callback(phys_enc->dpu_kms, phys_enc->irq[INTR_IDX_PINGPONG]);
-+
-+	phys_enc->irq[INTR_IDX_CTL_START] = 0;
-+	phys_enc->irq[INTR_IDX_PINGPONG] = 0;
-+	phys_enc->irq[INTR_IDX_RDPTR] = 0;
- }
- 
- static void dpu_encoder_phys_cmd_tearcheck_config(
-@@ -730,7 +725,6 @@ static void dpu_encoder_phys_cmd_init_ops(
- 		struct dpu_encoder_phys_ops *ops)
- {
- 	ops->is_master = dpu_encoder_phys_cmd_is_master;
--	ops->atomic_mode_set = dpu_encoder_phys_cmd_atomic_mode_set;
- 	ops->enable = dpu_encoder_phys_cmd_enable;
- 	ops->disable = dpu_encoder_phys_cmd_disable;
- 	ops->destroy = dpu_encoder_phys_cmd_destroy;
-@@ -768,6 +762,8 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(
- 
- 	dpu_encoder_phys_cmd_init_ops(&phys_enc->ops);
- 	phys_enc->intf_mode = INTF_MODE_CMD;
-+	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
-+
- 	cmd_enc->stream_sel = 0;
- 
- 	if (!phys_enc->hw_intf) {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index d9dcf3e87bd1..29ea0c9fcd55 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -347,16 +347,6 @@ static bool dpu_encoder_phys_vid_needs_single_flush(
- 	return phys_enc->split_role != ENC_ROLE_SOLO;
- }
- 
--static void dpu_encoder_phys_vid_atomic_mode_set(
--		struct dpu_encoder_phys *phys_enc,
--		struct drm_crtc_state *crtc_state,
--		struct drm_connector_state *conn_state)
--{
--	phys_enc->irq[INTR_IDX_VSYNC] = phys_enc->hw_intf->cap->intr_vsync;
--
--	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
--}
--
- static int dpu_encoder_phys_vid_control_vblank_irq(
- 		struct dpu_encoder_phys *phys_enc,
- 		bool enable)
-@@ -681,7 +671,6 @@ static int dpu_encoder_phys_vid_get_frame_count(
- static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
- {
- 	ops->is_master = dpu_encoder_phys_vid_is_master;
--	ops->atomic_mode_set = dpu_encoder_phys_vid_atomic_mode_set;
- 	ops->enable = dpu_encoder_phys_vid_enable;
- 	ops->disable = dpu_encoder_phys_vid_disable;
- 	ops->destroy = dpu_encoder_phys_vid_destroy;
-@@ -720,6 +709,8 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
- 
- 	dpu_encoder_phys_vid_init_ops(&phys_enc->ops);
- 	phys_enc->intf_mode = INTF_MODE_VIDEO;
-+	phys_enc->irq[INTR_IDX_VSYNC] = phys_enc->hw_intf->cap->intr_vsync;
-+	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
- 
- 	DPU_DEBUG_VIDENC(phys_enc, "created intf idx:%d\n", p->hw_intf->idx);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index 9b0f73955d9f..d7ef36a2d315 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -404,15 +404,6 @@ static void dpu_encoder_phys_wb_irq_disable(struct dpu_encoder_phys *phys)
- 		dpu_core_irq_unregister_callback(phys->dpu_kms, phys->irq[INTR_IDX_WB_DONE]);
- }
- 
--static void dpu_encoder_phys_wb_atomic_mode_set(
--		struct dpu_encoder_phys *phys_enc,
--		struct drm_crtc_state *crtc_state,
--		struct drm_connector_state *conn_state)
--{
--
--	phys_enc->irq[INTR_IDX_WB_DONE] = phys_enc->hw_wb->caps->intr_wb_done;
--}
--
- static void _dpu_encoder_phys_wb_handle_wbdone_timeout(
- 		struct dpu_encoder_phys *phys_enc)
- {
-@@ -663,7 +654,6 @@ static bool dpu_encoder_phys_wb_is_valid_for_commit(struct dpu_encoder_phys *phy
- static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
- {
- 	ops->is_master = dpu_encoder_phys_wb_is_master;
--	ops->atomic_mode_set = dpu_encoder_phys_wb_atomic_mode_set;
- 	ops->enable = dpu_encoder_phys_wb_enable;
- 	ops->disable = dpu_encoder_phys_wb_disable;
- 	ops->destroy = dpu_encoder_phys_wb_destroy;
-@@ -710,6 +700,7 @@ struct dpu_encoder_phys *dpu_encoder_phys_wb_init(
- 
- 	dpu_encoder_phys_wb_init_ops(&phys_enc->ops);
- 	phys_enc->intf_mode = INTF_MODE_WB_LINE;
-+	phys_enc->irq[INTR_IDX_WB_DONE] = phys_enc->hw_wb->caps->intr_wb_done;
- 
- 	atomic_set(&wb_enc->wbirq_refcount, 0);
- 
--- 
-2.39.2
+We get a correct 144Hz vsync test in video mode.
+
+Do you know why this happens ?
+
+Neil
+
+> 
+> Depends on: "Add prepare_prev_first flag to Visionox VTDR6130" [1]
+> 
+> Changes since v1:
+>   - Changed from email address
+> 
+> [1] https://patchwork.freedesktop.org/series/121337/
+> 
+> Suggested-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> ---
+>   .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 77 ++++++++++++++++++-
+>   1 file changed, 73 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> index e1363e128e7e..5658d39a3a6b 100644
+> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/of.h>
+>   
+>   #include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+>   #include <drm/drm_mipi_dsi.h>
+>   #include <drm/drm_modes.h>
+>   #include <drm/drm_panel.h>
+> @@ -20,7 +21,8 @@ struct visionox_vtdr6130 {
+>   	struct mipi_dsi_device *dsi;
+>   	struct gpio_desc *reset_gpio;
+>   	struct regulator_bulk_data supplies[3];
+> -	bool prepared;
+> +	bool prepared, enabled;
+> +	bool video_mode;
+>   };
+>   
+>   static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
+> @@ -50,12 +52,18 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
+>   	if (ret)
+>   		return ret;
+>   
+> +	mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
+>   	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
+>   	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
+>   	mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
+>   	mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
+>   	mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
+> -	mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
+> +	
+> +	if (ctx->video_mode)
+> +		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
+> +	else
+> +		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
+> +
+>   	mipi_dsi_dcs_write_seq(dsi, 0x70,
+>   			       0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
+>   			       0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
+> @@ -214,6 +222,42 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
+>   	.height_mm = 157,
+>   };
+>   
+> +static int visionox_vtdr6130_enable(struct drm_panel *panel)
+> +{
+> +	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+> +	struct mipi_dsi_device *dsi = ctx->dsi;
+> +	struct drm_dsc_picture_parameter_set pps;
+> +	int ret;
+> +
+> +	if (ctx->enabled)
+> +		return 0;
+> +
+> +	if (!dsi->dsc) {
+> +		dev_err(&dsi->dev, "DSC not attached to DSI\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
+> +	ret = mipi_dsi_picture_parameter_set(dsi, &pps);
+> +	if (ret) {
+> +		dev_err(&dsi->dev, "Failed to set PPS\n");
+> +		return ret;
+> +	}
+> +
+> +	ctx->enabled = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int visionox_vtdr6130_disable(struct drm_panel *panel)
+> +{
+> +	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
+> +
+> +	ctx->enabled = false;
+> +
+> +	return 0;
+> +}
+> +
+>   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+>   				       struct drm_connector *connector)
+>   {
+> @@ -237,6 +281,8 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
+>   	.prepare = visionox_vtdr6130_prepare,
+>   	.unprepare = visionox_vtdr6130_unprepare,
+>   	.get_modes = visionox_vtdr6130_get_modes,
+> +	.enable = visionox_vtdr6130_enable,
+> +	.disable = visionox_vtdr6130_disable,
+>   };
+>   
+>   static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
+> @@ -269,11 +315,31 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+>   {
+>   	struct device *dev = &dsi->dev;
+>   	struct visionox_vtdr6130 *ctx;
+> +	struct drm_dsc_config *dsc;
+>   	int ret;
+>   
+>   	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+>   	if (!ctx)
+>   		return -ENOMEM;
+> +	
+> +	ctx->video_mode = of_property_read_bool(dev->of_node, "enforce-video-mode");
+> +
+> +	dsc = devm_kzalloc(dev, sizeof(*dsc), GFP_KERNEL);
+> +	if (!dsc)
+> +		return -ENOMEM;
+> +
+> +	/* Set DSC params */
+> +	dsc->dsc_version_major = 0x1;
+> +	dsc->dsc_version_minor = 0x2;
+> +
+> +	dsc->slice_height = 40;
+> +	dsc->slice_width = 540;
+> +	dsc->slice_count = 2;
+> +	dsc->bits_per_component = 8;
+> +	dsc->bits_per_pixel = 8 << 4;
+> +	dsc->block_pred_enable = true;
+> +
+> +	dsi->dsc = dsc;
+>   
+>   	ctx->supplies[0].supply = "vddio";
+>   	ctx->supplies[1].supply = "vci";
+> @@ -294,8 +360,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+>   
+>   	dsi->lanes = 4;
+>   	dsi->format = MIPI_DSI_FMT_RGB888;
+> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
+> -			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +	if (ctx->video_mode)
+> +		dsi->mode_flags |= MIPI_DSI_MODE_VIDEO;
+> +
+>   	ctx->panel.prepare_prev_first = true;
+>   
+>   	drm_panel_init(&ctx->panel, dev, &visionox_vtdr6130_panel_funcs,
 
