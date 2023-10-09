@@ -1,68 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0D627BE794
-	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 19:18:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A3F7BE863
+	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 19:40:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0837910E29B;
-	Mon,  9 Oct 2023 17:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029A010E29F;
+	Mon,  9 Oct 2023 17:40:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0646810E291
- for <freedreno@lists.freedesktop.org>; Mon,  9 Oct 2023 17:18:06 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2bff776fe0bso60857871fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 10:18:05 -0700 (PDT)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B85310E29E;
+ Mon,  9 Oct 2023 17:40:28 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-533c5d10dc7so8432505a12.3; 
+ Mon, 09 Oct 2023 10:40:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696871884; x=1697476684; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1696873226; x=1697478026; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CEblOIocXlow3cb9XQyMsSKR9zDBhqpUmKljUztzkSU=;
- b=QltQiY34VaFMNgesPhftD4xlPCX0DJzmb1hfTHnqR6wst7mcUjIVZcRESPqLpMdSF9
- GHcLLLezU5mFDOe0BFgAUpzqQnBfkXf+0CVnlMZX/ChpDkrBetNCsObzYS+vGcpYQmt2
- efoRtNAlZ7R3tf+HGi/cccX9V9/0zFGdBmzT5e4FGCT906Ke7K9SSm4piN5p0MGFtbMm
- LjK+g4mG7HzApCIeUhtwkX/1fgM3NmBiI5xJ0OsUPCNMgJXbyltwzP+pn4ejoOx5gabk
- y8137L6TyZSCFtGCccQAxrXreo3ueA47t6CvwTMVYW+q7mA9uP2wl0P4OBwnuL42x6pI
- Zxcw==
+ bh=W0Hg74zU6ESH8XSh7ezPeKEnzmx/gMQe+/lsq3fFNmM=;
+ b=QYjBYeHYLkmbgFB/iPCPLGUtIThS5wU9AzPKfOwRyv9VZy+Z6kqQsNalfdpdYOa10v
+ y6OxcS9agc2egNk1glKWW/a7CHaqTphLKx1BHjrH2CuZSQfk+/650TAYjcIUrFAdtl4W
+ rDWaV/ORMl6QS1HuFFTuX1SzW8kmHGHPI6Q2H0FyPHWyT+8dCREEV1vl+SOvxkGj4NwL
+ Fe0VTZVfQi0lKf+E96MzWhSucTF9NyNng6JJ43am0QEPUDux+I/6HyOHTTM8fMWdJ1+m
+ /ULAMp+bet/luhx1Iuqw85BHDasMHqyvb4l/l32M5Ll5HFiL7wqf+SzS0qYn40xKNnP7
+ zNlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696871884; x=1697476684;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1696873226; x=1697478026;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CEblOIocXlow3cb9XQyMsSKR9zDBhqpUmKljUztzkSU=;
- b=NuOcKralMwdu0x1jNW/Tm4X6040v6MPpehSvbKqYSbZ4p5rOewLfRtfXF7ta6DkQlf
- c7ZTtkRdpLLfcYRdEdR+rDIaLQG8cenRzFEcPoNW1dFleI6j3agHvyzg1O1gC8pKLLRt
- hdF/CB5fvVwoMY1rzlDOeIJl1qwvm45A6EOUvI0krDTLW0GvdtE77UKLIWzmOI23MVwQ
- CU4AGV9vWBIDTSDpoOdnX0ebOHaHy35x2kTbBRMwmO//TLuMpQsmd27ES7t0lWBiCj87
- Kat3RmYogYp338sqrU80aMTrDDO2Kdh/nznWNQH15Kkta2IhX2jqAxy4rEN6fCvj4eLu
- sXew==
-X-Gm-Message-State: AOJu0YwkA/PoT/Zc8S8ZKmIQWXIConTUuG4Pq7Wt6e2djc+aUyiokJPq
- B/itSE39iORxAOyA+0eGx2GR4g==
-X-Google-Smtp-Source: AGHT+IG4RdCPzZlKt6l4Watu6D2W7vlq+2/tsr/8tE/NcaZWsglRlppVXo11VIt0pfqpBekhWpNfEA==
-X-Received: by 2002:a05:651c:87:b0:2c0:a2:77d7 with SMTP id
- 7-20020a05651c008700b002c000a277d7mr13038278ljq.24.1696871884288; 
- Mon, 09 Oct 2023 10:18:04 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- p18-20020a2e7412000000b002bcd2653872sm2088284ljc.30.2023.10.09.10.18.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 10:18:03 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  9 Oct 2023 20:18:00 +0300
-Message-Id: <20231009171800.2691247-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231009171800.2691247-1-dmitry.baryshkov@linaro.org>
-References: <20231009171800.2691247-1-dmitry.baryshkov@linaro.org>
+ bh=W0Hg74zU6ESH8XSh7ezPeKEnzmx/gMQe+/lsq3fFNmM=;
+ b=wzqVbwWu4I/meEtpGoBKuI/J4c3yyP9Ee6Qz/kI8LRHTfDm0qMIZ07jxg4y2V2kaSc
+ w7fWlguLTJjrahNCT6FF0ehRPh3AQd/xyIz6QXA9UDpdowWVUGCgraKpAKnNORfqWTwt
+ vcRe/URy5D5eAi5tJ9VrbZkB0XjV1KQXBd4SSeWxsHh29mgMFeTpTfH6A67sdbKu5NCj
+ TK3SFg22i6ZJk4qGeZJ4xjF8SoZv6atmkjA+0miiJBCxO3afnEfri35nqdtHnggENoTb
+ oQOdqgvBjKc4ehB/MEHo/UMbafTnice8YCN6FCCovnJvH8wZ7yd4wkqtWPhAS+a+hKDR
+ axZg==
+X-Gm-Message-State: AOJu0YxKzMTuW4i2vNgvds9CObkzUvyQ6+mm0UG0JrRNaIlRYSY8ev1P
+ H3FmUOwf9TQsOeVCbbMlNhVyv65eeNNvMOagmS0=
+X-Google-Smtp-Source: AGHT+IEsjuGbN899zDjU9g+Ja6nOILX/d8R6MyZMLqwXE7TZqyeBrzEE089Layp1ZBdFnj1gZy4x69oWN2wfKnmsCPo=
+X-Received: by 2002:aa7:d1d7:0:b0:52f:a42a:85a3 with SMTP id
+ g23-20020aa7d1d7000000b0052fa42a85a3mr13979430edp.0.1696873226254; Mon, 09
+ Oct 2023 10:40:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFT PATCH 4/4] drm/msm/dpu: enable writeback on SM6350
+References: <20230703003745.34239-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230703003745.34239-1-dmitry.baryshkov@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 9 Oct 2023 10:40:13 -0700
+Message-ID: <CAF6AEGs-Ar0+gRrsEg_LuAXmsAhFg7MKZ=kLpQ=jZKTfdXBtOQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 00/13] drm/msm: move KMS code from msm_drv.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,63 +68,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable WB2 hardware block, enabling writeback support on this platform.
+On Sun, Jul 2, 2023 at 5:37=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Currently both msm_drm_init() and msm_drm_uninit() functions are trying
+> to handle both normal and headless Adreno cases. This results in a
+> suboptimal code, since headless case still gets modesetting and atomic
+> interfaces enabled. Two mentioned functions are a spaghetti of
+> `if (priv->kms)' conditional code.
+>
+> Move all KMS-related code (not limiting the init / teardown path) from
+> msm_drv.c to msm_kms.c, making it more self-contained. This also
+> disables ATOMIC and MODESET features for the headless case.
+>
+> Dependencies: [1]
+> [1] https://patchwork.freedesktop.org/series/105392/
+>
+> Dmitry Baryshkov (13):
+>   drm/msm/dsi: switch to devm_drm_bridge_add()
+>   drm/msm/hdmi: switch to devm_drm_bridge_add()
+>   drm/msm/dp: move pdev from struct dp_display_private to struct msm_dp
+>   drm/msm/dp: switch to devm_drm_bridge_add()
+>   drm/msm: remove msm_drm_private::bridges field
+>   drm/msm: drop pm ops from the headless msm driver
+>   drm/msm: rename msm_pm_prepare/complete to note the KMS nature
+>   drm/msm: remove shutdown callback from msm_platform_driver
+>   drm/msm: rename msm_drv_shutdown() to msm_kms_shutdown()
+>   drm/msm: switch to drmm_mode_config_init()
+>   drm/msm: only register 'kms' debug file if KMS is used
+>   drm/msm: make fb debugfs file available only in KMS case
+>   drm/msm: carve out KMS code from msm_drv.c
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-index cf5db6f296bd..206ee16acb86 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-@@ -27,6 +27,7 @@ static const struct dpu_mdp_cfg sm6350_mdp = {
- 		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
- 		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
- 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
-+		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
- 		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
- 	},
- };
-@@ -148,6 +149,21 @@ static const struct dpu_dsc_cfg sm6350_dsc[] = {
- 	},
- };
- 
-+static const struct dpu_wb_cfg sm6350_wb[] = {
-+	{
-+		.name = "wb_2", .id = WB_2,
-+		.base = 0x65000, .len = 0x2c8,
-+		.features = WB_SM8250_MASK,
-+		.format_list = wb2_formats,
-+		.num_formats = ARRAY_SIZE(wb2_formats),
-+		.clk_ctrl = DPU_CLK_CTRL_WB2,
-+		.xin_id = 6,
-+		.vbif_idx = VBIF_RT,
-+		.maxlinewidth = 1920,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-+	},
-+};
-+
- static const struct dpu_intf_cfg sm6350_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
-@@ -222,6 +238,8 @@ const struct dpu_mdss_cfg dpu_sm6350_cfg = {
- 	.dsc = sm6350_dsc,
- 	.pingpong_count = ARRAY_SIZE(sm6350_pp),
- 	.pingpong = sm6350_pp,
-+	.wb_count = ARRAY_SIZE(sm6350_wb),
-+	.wb = sm6350_wb,
- 	.intf_count = ARRAY_SIZE(sm6350_intf),
- 	.intf = sm6350_intf,
- 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
--- 
-2.39.2
-
+>
+>  drivers/gpu/drm/msm/Makefile             |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |   6 +-
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |   6 +-
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |   6 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c      |  34 +--
+>  drivers/gpu/drm/msm/dp/dp_display.h      |   1 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c          |  21 +-
+>  drivers/gpu/drm/msm/dp/dp_drm.h          |   2 +-
+>  drivers/gpu/drm/msm/dsi/dsi.c            |  28 +-
+>  drivers/gpu/drm/msm/dsi/dsi.h            |   3 +-
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c    |  30 +-
+>  drivers/gpu/drm/msm/hdmi/hdmi.c          |  22 +-
+>  drivers/gpu/drm/msm/hdmi/hdmi.h          |   5 +-
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c   |  30 +-
+>  drivers/gpu/drm/msm/hdmi/hdmi_hpd.c      |   3 +-
+>  drivers/gpu/drm/msm/msm_debugfs.c        |  12 +-
+>  drivers/gpu/drm/msm/msm_drv.c            | 363 ++---------------------
+>  drivers/gpu/drm/msm/msm_drv.h            |   9 +-
+>  drivers/gpu/drm/msm/msm_kms.c            | 345 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_kms.h            |   3 +
+>  20 files changed, 452 insertions(+), 478 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/msm_kms.c
+>
+> --
+> 2.39.2
+>
