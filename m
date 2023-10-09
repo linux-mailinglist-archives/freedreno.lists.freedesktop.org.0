@@ -2,78 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C2B97BEB1F
-	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 22:00:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A0F7BEC02
+	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 22:53:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E722610E2DF;
-	Mon,  9 Oct 2023 20:00:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5792D10E1A7;
+	Mon,  9 Oct 2023 20:53:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3961410E2E2;
- Mon,  9 Oct 2023 20:00:06 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 399JY3RK010296; Mon, 9 Oct 2023 19:59:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=ukyla1Gh8KXTgVlJgQmTBf0Q2jNgG7LONWE6Fy16jMs=;
- b=Lu6PUXZPoHPDXDS5j6tmrs+MAK8F6KWpgNXFymX3deAvw9Bj4xuHXTw5zHgvjsy9KXaN
- Q9UPPp1IzJ0KyWIRZn893OB9MGcWVg3Pwxta6xc+XArgciGrFpKEikmtZwSWIGE/AA+y
- WUKH05OiAdxrZ+Sne2Ni4021rI8V5W9c5SJQMOsH+7Ee97RD++NWNJcxd2japXPBlIsX
- mB/baAPyG6FrUUISZ2lXp6pPpGIaZ9D0HqiySS5796xkF3EPhdbiDdERoIYNl22uIhxs
- ys7fwh1dMSdez0XJ/AR0hBE5OQ7jJwjnjwz/Oh5Dk4JSHl1dwpt7Vc2VhFaJkN44T8nw Lw== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tmj0d8w6n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Oct 2023 19:59:50 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 399JxnAN007167
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 9 Oct 2023 19:59:49 GMT
-Received: from [10.110.90.239] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 9 Oct
- 2023 12:59:49 -0700
-Message-ID: <6a40489e-3504-3dc5-4c97-fc0522ebb5e7@quicinc.com>
-Date: Mon, 9 Oct 2023 12:59:48 -0700
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E2DC10E1A7
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Oct 2023 20:53:47 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-5043a01ee20so5950218e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 13:53:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1696884825; x=1697489625; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+NsT8wiOulucIWx22N4JZ3mBmzzP+oqgix2ms+capXo=;
+ b=JaAqM2NWUJpoN2u84MpeXcEzbU4DP82ttbVlzMH2oZaGLXwXb9Bq7VDGv5fbHm81QO
+ osHoZFBr48DAlbpE5c3VKi3/gzdHyn5uP53wDrtkBulAk6s6EaX+tqabeWKSm4SQoHv9
+ YJRqzbKrtFpDlr7jNECRWXUFlEKRHvL88n8Dwe+ENuTaNQU45f6YNvB9ULjeV5XKg92p
+ /oO84tzREdlqd2TCE8p+eJMQri2sKq1g3NiOMOFFuTFBktownTolq5f5QY6Rjg/FqRO+
+ JSEz637pfFgBdOFZqwvlVkQbeDWkq9zipOITK7faoiMUB1Iz4+7eZA/lQx1YNTp3tcdU
+ x39w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696884825; x=1697489625;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+NsT8wiOulucIWx22N4JZ3mBmzzP+oqgix2ms+capXo=;
+ b=LFR/EGT+JwFHQpSC9n0G9bt1TYCHwNc6pUU8YZRZixo8WzBqMtkqvdKq6CFBODFPvk
+ /11bcIOV8MPu8E6cllcTVa1aDY9Hc0ZSWchqGwjRaS9EkWrUCaH+OtvG/KHvep+UBB+7
+ Io4OJzLgSCNkiFBeoJZ6Gp42uPXSisKiSe+U/c8ZulbLig6RHKiZWvk8LOtkhDOoytTe
+ WDFgOG0yHFwf8wyHdyMEbMJlDJu3VNU+Oy2OZ0HyRfMbjco85WC8DXzR3SOH/ky8zJvc
+ suI0C3K5U1vRTA7bYNumivNPTpf+Osg7QbLgKwUf+OHbz6Sf8AYMcpIkjEfIrd6t28dW
+ YUrQ==
+X-Gm-Message-State: AOJu0YzllZ+p63VkKWZDjcJvPQTjHVtkwbsT/UuVYJ3X0CKn0NSH3e5w
+ N07ZSTA3YV+QJ1B/Hd6CibgpTg==
+X-Google-Smtp-Source: AGHT+IExWiGWcZpJT182d6s2keHa1ddzZaoRcYRDgsEC2X/7DnYTgcW15uIwZa3T7mY58M0PcbCPNQ==
+X-Received: by 2002:a05:651c:87:b0:2bb:b626:5044 with SMTP id
+ 7-20020a05651c008700b002bbb6265044mr13302731ljq.6.1696884825287; 
+ Mon, 09 Oct 2023 13:53:45 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ k19-20020a2e2413000000b002bcdeeecd11sm2091722ljk.66.2023.10.09.13.53.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Oct 2023 13:53:44 -0700 (PDT)
+Message-ID: <8ef34ba0-f30a-45b0-991e-0a7eb573956d@linaro.org>
+Date: Mon, 9 Oct 2023 23:53:43 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
 References: <20231009181040.2743847-1-dmitry.baryshkov@linaro.org>
- <20231009181040.2743847-9-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231009181040.2743847-9-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: quzWq7AVtj07P_FnmyltSIsRl-Y1Bl4R
-X-Proofpoint-ORIG-GUID: quzWq7AVtj07P_FnmyltSIsRl-Y1Bl4R
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-09_18,2023-10-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- adultscore=0 spamscore=0 mlxscore=0 mlxlogscore=879 clxscore=1015
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
- suspectscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2309180000 definitions=main-2310090162
-Subject: Re: [Freedreno] [PATCH v2 08/13] drm/msm: remove shutdown callback
- from msm_platform_driver
+ <20231009181040.2743847-3-dmitry.baryshkov@linaro.org>
+ <d56daed9-35ac-0ee3-a0b4-f8596b0490fc@quicinc.com>
+ <aafb04ea-fde3-4c1b-aae4-5e7e50a945d6@linaro.org>
+In-Reply-To: <aafb04ea-fde3-4c1b-aae4-5e7e50a945d6@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v2 02/13] drm/msm/hdmi: switch to
+ devm_drm_bridge_add()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,18 +89,87 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 10/9/2023 11:10 AM, Dmitry Baryshkov wrote:
-> The msm_drv_shutdown only makes sense for the KMS-enabled devices, while
-> msm_platform_driver is only used in the headless case. Remove the
-> shutdown callback from the driver structure.
+On 09/10/2023 22:21, Dmitry Baryshkov wrote:
+> On 09/10/2023 22:19, Abhinav Kumar wrote:
+>>
+>>
+>> On 10/9/2023 11:10 AM, Dmitry Baryshkov wrote:
+>>> Make MSM HDMI driver use devm_drm_bridge_add() instead of plain
+>>> drm_bridge_add(). As the driver doesn't require any additional cleanup,
+>>> stop adding created bridge to the priv->bridges array.
+>>>
+>>> Reviewed-by: Rob Clark <robdclark@gmail.com>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>   drivers/gpu/drm/msm/hdmi/hdmi.c        | 22 +++++--------------
+>>>   drivers/gpu/drm/msm/hdmi/hdmi.h        |  5 ++---
+>>>   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 ++++++++------------------
+>>>   drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    |  3 +--
+>>>   4 files changed, 17 insertions(+), 43 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c 
+>>> b/drivers/gpu/drm/msm/hdmi/hdmi.c
+>>> index b6bcb9f675fe..c8ebd75176bb 100644
+>>> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
+>>> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+>>> @@ -160,24 +160,16 @@ static int msm_hdmi_init(struct hdmi *hdmi)
+>>>   int msm_hdmi_modeset_init(struct hdmi *hdmi,
+>>>           struct drm_device *dev, struct drm_encoder *encoder)
+>>>   {
+>>> -    struct msm_drm_private *priv = dev->dev_private;
+>>>       int ret;
+>>> -    if (priv->num_bridges == ARRAY_SIZE(priv->bridges)) {
+>>> -        DRM_DEV_ERROR(dev->dev, "too many bridges\n");
+>>> -        return -ENOSPC;
+>>> -    }
+>>> -
+>>>       hdmi->dev = dev;
+>>>       hdmi->encoder = encoder;
+>>>       hdmi_audio_infoframe_init(&hdmi->audio.infoframe);
+>>> -    hdmi->bridge = msm_hdmi_bridge_init(hdmi);
+>>> -    if (IS_ERR(hdmi->bridge)) {
+>>> -        ret = PTR_ERR(hdmi->bridge);
+>>> +    ret = msm_hdmi_bridge_init(hdmi);
+>>> +    if (ret) {
+>>>           DRM_DEV_ERROR(dev->dev, "failed to create HDMI bridge: 
+>>> %d\n", ret);
+>>> -        hdmi->bridge = NULL;
+>>>           goto fail;
+>>>       }
+>>> @@ -215,16 +207,9 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
+>>>           goto fail;
+>>>       }
+>>> -    priv->bridges[priv->num_bridges++]       = hdmi->bridge;
+>>> -
+>>>       return 0;
+>>>   fail:
+>>> -    /* bridge is normally destroyed by drm: */
+>>> -    if (hdmi->bridge) {
+>>> -        msm_hdmi_bridge_destroy(hdmi->bridge);
+>>> -        hdmi->bridge = NULL;
+>>> -    }
+>>>       if (hdmi->connector) {
+>>>           hdmi->connector->funcs->destroy(hdmi->connector);
+>>>           hdmi->connector = NULL;
+>>> @@ -395,6 +380,9 @@ static void msm_hdmi_unbind(struct device *dev, 
+>>> struct device *master,
+>>>           if (priv->hdmi->audio_pdev)
+>>>               platform_device_unregister(priv->hdmi->audio_pdev);
+>>> +        if (priv->hdmi->bridge)
+>>> +            msm_hdmi_hpd_disable(priv->hdmi);
+>>> +
+>>
+>> Now is this the only place where hdmi->bridge is used?
+>>
+>> Why cant we just keep msm_hdmi_hpd_disable(priv->hdmi) here since its 
+>> anyway protected by if (priv->hdmi) and drop hdmi->bridge completely?
 > 
-> Reviewed-by: Rob Clark <robdclark@gmail.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/msm_drv.c | 1 -
->   1 file changed, 1 deletion(-)
-> 
+> Sure, sounds like a good idea, same followup as for the DSI.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+I was wrong here. hdmi::bridge is used by the driver (e.g. for HPD 
+reporting).
+
+-- 
+With best wishes
+Dmitry
+
