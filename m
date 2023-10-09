@@ -2,46 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8E3A7BD120
-	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 01:21:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CD27BD15E
+	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 02:09:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C288D10E09E;
-	Sun,  8 Oct 2023 23:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D45BE10E19F;
+	Mon,  9 Oct 2023 00:09:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EDD210E09E;
- Sun,  8 Oct 2023 23:21:18 +0000 (UTC)
-Received: from [192.168.0.206] (unknown [179.221.49.143])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: koike)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 5F5AB660708F;
- Mon,  9 Oct 2023 00:21:12 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1696807277;
- bh=n6FyZS8CpZQUQ33bu6wL3AYnS1Dftji3soEkyzZ0Od8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GSjmJuCEEU/d63ysqmYNF+ppD8PPHjhJmgIZCbe/H2M9L+kqYc1HsZB+5ouw1YaDF
- tgvM4WojDp1WpdjG+iCtOQpQphyhycBHXKhR23lmFys6vSioZxfjnAuezCLXVl3YB3
- Qz9BH2x80q5aU19QDIWGVXUIGxbuIBuKel1eeS+oVmEk/qlji5E7Pf14retQP7WY2X
- a2LBo3FgO6cvptP3lJfZ0wID7eyIB9FcnvV2P/c3Si+KM7Cuzi4U48YrQ6AigPSM82
- 7dXbSSR8kAE3jw4DqAauqNJFlBKxMNKQttu8LyKAFRXvg2R4Ih2N2qE5MqTe2H4c6+
- /jEgajdueChEQ==
-Message-ID: <526457dd-37f2-467d-b583-b710a5e84b97@collabora.com>
-Date: Sun, 8 Oct 2023 20:21:07 -0300
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3E5B10E19F;
+ Mon,  9 Oct 2023 00:09:09 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-53627feca49so6611710a12.1; 
+ Sun, 08 Oct 2023 17:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696810148; x=1697414948; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9OeAouwbiIW3oa603x3NICDHKjYzU+b9TyziED7iPnQ=;
+ b=Gl2vBR8CCr0uTOaY8QCBo1Yyxm8nqjwlcaQzlIDHRLZhGuIzkQ6XZMOc8oMwvtyTZ4
+ wO1tN0MvIhFISiXXKey4m1Nobrg7CV5OeOtT+WTpEriUrLlHoWVmn+Y3Fgy9NU4KOmLW
+ 4x8Bc7UT/9b/gBzsiNwHNsEE1mMDYHrrclD0zff39+QwQ1EumsAzyjHc6Z7nMJAM97yH
+ P3sl/J2E40OAOASyXvVIYpo5oSef7LtMPOOGvYmG/XmLQ7nPfbTAos5nFhtFxTprfX1O
+ sALyRrAtj5jScmd80+yqL8pEZAE5Tr7OktdnlXdKTUPAZjB67kwzMwTxKCw1WoOUtM7V
+ vIrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696810148; x=1697414948;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9OeAouwbiIW3oa603x3NICDHKjYzU+b9TyziED7iPnQ=;
+ b=OKqIpVtg/9Dg1K+fPejal+pK9Eby6UxGf9oEcvMEejL2hM0h7LV8ooHVKI+q9013hv
+ ZF9Ho3m5C0+QDv/MIZ92khjdid9Ez1z2T6yFe2knFMlDbI2ELiOaFnIOJ6qZMZqCH27l
+ Gc3tsAdeKjnPtsWw+NAs14W2qGOEGtlLjrE/TCj8go9mygJplp72kGvR/Fwvm51JpzMK
+ NRTrzqHstd4Op8lhGt1DtotrApFJRYpyfll8HN8MqOvMqI6VFLxSyZSpB+GLt8c9UId3
+ MjcBQva1TLmFQYPCo/6pKkb+ClVYpTTFo35NImfKPURvy3Y6Kqj3GYCtYIgOzxH6PnzU
+ cJnQ==
+X-Gm-Message-State: AOJu0YxpwKtwAVmU5xf6SsP18v1TKltEa1GmD/zT2UVieL1esFctS+nI
+ ECURpeCspZirymhvrDF6r19csO0Zs+gDBgsdQSA=
+X-Google-Smtp-Source: AGHT+IEmRGETHMC0oZivK2NW82/PXGmCkgOWv6RewoLXm/o/GSIZ8n2ZVNbmKSZMKbASRhS9km/BFJ9w09k2uM9DQC8=
+X-Received: by 2002:aa7:da44:0:b0:532:aaca:d39d with SMTP id
+ w4-20020aa7da44000000b00532aacad39dmr11921076eds.6.1696810147764; Sun, 08 Oct
+ 2023 17:09:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>
 References: <20231008175615.413497-1-robdclark@gmail.com>
  <CAA8EJppgUmkLrhTw779tq5wkgXfu4sypGrQbJFYtrnCrbwa3=Q@mail.gmail.com>
-From: Helen Koike <helen.koike@collabora.com>
-In-Reply-To: <CAA8EJppgUmkLrhTw779tq5wkgXfu4sypGrQbJFYtrnCrbwa3=Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <526457dd-37f2-467d-b583-b710a5e84b97@collabora.com>
+In-Reply-To: <526457dd-37f2-467d-b583-b710a5e84b97@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 8 Oct 2023 17:08:55 -0700
+Message-ID: <CAF6AEGukUgPfa2h17oNt9QEP7b6AqUWR5EwK3bP3W9tj6yX2Lg@mail.gmail.com>
+To: Helen Koike <helen.koike@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Use the encoder for default
  CRC source
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -62,47 +77,62 @@ Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Vinod Polimera <quic_vpolimer@quicinc.com>, Sean Paul <sean@poorly.run>,
  Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, open list <linux-kernel@vger.kernel.org>,
  Kalyan Thota <quic_kalyant@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Sun, Oct 8, 2023 at 4:21=E2=80=AFPM Helen Koike <helen.koike@collabora.c=
+om> wrote:
+>
+>
+>
+> On 08/10/2023 16:59, Dmitry Baryshkov wrote:
+> > On Sun, 8 Oct 2023 at 20:56, Rob Clark <robdclark@gmail.com> wrote:
+> >>
+> >> From: Rob Clark <robdclark@chromium.org>
+> >>
+> >> i-g-t expects the CRC to reflect any applied CTM.  But the layer mixer
+> >> source is upstream of the DSPP, so it is before the CTM is applied.
+> >>
+> >> Switch the default source to 'encoder' instead so that the CRC is
+> >> captured downstream of the DSPP.
+> >>
+> >> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >> ---
+> >>   drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt |  4 ----
+> >>   drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt |  5 -----
+> >>   drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt | 11 +----------
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  6 +++---
+> >
+> > I'm not sure, if updating the CI skip list together with the
+> > functional changs is a good idea, my preference would be towards two
+> > separate patches.
+>
+> On the other hand, having both together in the same patch documents
+> which tests this PATCH is fixing.
 
+on the mesa side of things, where we have more experience with CI,
+I've found updating expectations in same patch as code change to be
+hugely useful.  I *might* end up dropping the xfails changes when I
+apply this patch (because there are some dependencies on igt uprev and
+I'm not sure we have enough CI runs to be confident about flakes) but
+I definitely believe that we should be updating expectations along
+with code changes.
 
-On 08/10/2023 16:59, Dmitry Baryshkov wrote:
-> On Sun, 8 Oct 2023 at 20:56, Rob Clark <robdclark@gmail.com> wrote:
->>
->> From: Rob Clark <robdclark@chromium.org>
->>
->> i-g-t expects the CRC to reflect any applied CTM.  But the layer mixer
->> source is upstream of the DSPP, so it is before the CTM is applied.
->>
->> Switch the default source to 'encoder' instead so that the CRC is
->> captured downstream of the DSPP.
->>
->> Signed-off-by: Rob Clark <robdclark@chromium.org>
->> ---
->>   drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt |  4 ----
->>   drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt |  5 -----
->>   drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt | 11 +----------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  6 +++---
-> 
-> I'm not sure, if updating the CI skip list together with the
-> functional changs is a good idea, my preference would be towards two
-> separate patches.
+BR,
+-R
 
-On the other hand, having both together in the same patch documents 
-which tests this PATCH is fixing.
-
-Regards,
-Helen
-
-> 
-> Nevertheless:
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
->>   4 files changed, 4 insertions(+), 22 deletions(-)
-> 
-> 
+> Regards,
+> Helen
+>
+> >
+> > Nevertheless:
+> >
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >
+> >>   4 files changed, 4 insertions(+), 22 deletions(-)
+> >
+> >
