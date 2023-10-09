@@ -1,68 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2A527BE773
-	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 19:11:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B1B7BE776
+	for <lists+freedreno@lfdr.de>; Mon,  9 Oct 2023 19:11:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0438710E290;
-	Mon,  9 Oct 2023 17:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADFA310E28B;
+	Mon,  9 Oct 2023 17:11:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8955210E289
- for <freedreno@lists.freedesktop.org>; Mon,  9 Oct 2023 17:11:15 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5068692b0d9so3769483e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 10:11:15 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091ED10E28C
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Oct 2023 17:11:42 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-503056c8195so6094762e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 10:11:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696871474; x=1697476274; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Yj6njcBJvVSdEt/itrCaxDqmJfa3khgLnrpbIsNXMlQ=;
- b=WAxXBS1s8wZft5xayMMV2tf0xvc3KYVZy4cZAySjMgqQqOHo0f3+KENDxbXrKNbkSg
- AqdWRayE9tZRR5boUrfvLiHILbyAErq1uEht+N9m1anPKgZxqNFMGq4l8xE0XB0Ux0IP
- 1R8X0CVVGghVGY1flZauXVKNO5oVDYxGuJWUDl7fdA1Ho5aEdzm2XpAhuKrTkwZSnnh3
- NYpTCsyKmBR1KtYgiaRxCLbeHHUz+bp2bgazI3F2fUTuF6cCizZ+QGsynCLSSLqZuLhO
- PGeVzr1LThX04rS0v3w95X3a/blqIWeUDaZD0MHrZPpedme1gUCmxpVPrdLVGczatsUb
- nMJA==
+ d=linaro.org; s=google; t=1696871500; x=1697476300; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5Ecd1PChzNNllioksjF5X+EC2tvJe0Y+6IeY9h8SeAA=;
+ b=V3J/7bJdLO/tCT40he7J3HjsB0JYmdJXjNABBa29ZZEGQX0+2LG3LjUjynwKM8ZA5W
+ KPxQrolUz3moBCJGbRVVDzqXVij2MBfXr6rwfzOA/kgVbmqODQWvg7/IQlthKisytDx8
+ eQGAUj6npEWNNxhnY4HqOzkMCHsao4Xm/+Gq1/U56BRfw949me2uwDwMpxOJ8YqMiQpp
+ 5lXzQ2TkRJ+mgRa//THNUehip9HArcud/nTBdHFBgT4UIkKL0Fl3EUf0nHDiOE6os/aE
+ aPcsQiXDVqw2+t5EPqelNVVd/T1ffLs+dPSVQA5eld2VMrLRmzUqB/OpmgoPfsDlUuBp
+ 4mfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696871474; x=1697476274;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Yj6njcBJvVSdEt/itrCaxDqmJfa3khgLnrpbIsNXMlQ=;
- b=t9w9KX9Ik6SEAKOYa+D2KTfe1T0f6wJb95HOpnZdflrG2w3kXCZCvDpNhw6IJPBfkH
- hAcKaauzOtELXJdASzMIHi5EmMGKdk2AOaAw2prvrwGpIGABnY2JHDdazoaKaBi1AxGc
- fIXRn/ICiWVBu39/2JO6adm2ux3iCVuvlVC4AwPR93fnXqd29QoG7zruAPGKtGvQTG/J
- 0yzEI1e7LnwC35cQVUFK+vW+9PY4F1axFcOj4Fqv2Co32ynm2aFcdMQeogU8hX7cR9kY
- CpfN2sioILLEMtZ3DvPfnHVbfEPm06tHnaj2RkBaEQbcG5GqdV6EtyA6i4zUeH7r6t1Q
- ouVg==
-X-Gm-Message-State: AOJu0Yx+Jgtxw8allWB1/P1XpcYjw7uxdZYQ4n6pYx6DEqB6Xz43upVV
- st3BhuIRB/4z79doZOJEsXeBtw==
-X-Google-Smtp-Source: AGHT+IF6x9eUIfqM1YlOqJeCkA5+e7lU1HnygagGf6z5gj4tauD5DVNCC9HYvmV7lqMjEci6dxJsVA==
-X-Received: by 2002:a19:771d:0:b0:505:6ede:20b0 with SMTP id
- s29-20020a19771d000000b005056ede20b0mr12446558lfc.58.1696871473848; 
- Mon, 09 Oct 2023 10:11:13 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696871500; x=1697476300;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5Ecd1PChzNNllioksjF5X+EC2tvJe0Y+6IeY9h8SeAA=;
+ b=V75nwOFAahJnUDdG/aWQzh7RIdFKTbSMIYRnrfvQ00358aOrYkLRP64ayXYMDhPlRM
+ EDFcXsrnykiDycx7gKvPHY9m9tmaCOJWr1qJ695Pvsy12V2draYuWaBtO/ww1ik8YYll
+ dIA92FmVOqlALz3PMO+G9DLbkvd2RkiOTdXWQy9SAxOq7ob244hbjfT5gTi9PL+YXttv
+ NOgUqWDJtgUZeBN9cnq9h32HKt18rkbHbQqRS901z0tjo0MCafIVKIuFJeR7DiBq+Xmw
+ gHF68f7QCPmBQU0T0hPmG1SMFhJ6+THvjVCdbPU34kzfnEPqlr/ynWYryd0tJ9TJ4ShD
+ 92zg==
+X-Gm-Message-State: AOJu0YwlFf7vVBpA6e1qt2qEdc/1iv7cM/Lo0CAFJr426GnXio8piBwy
+ dfELYjwhB3YCKYlubPlRXFSscQ==
+X-Google-Smtp-Source: AGHT+IEf//wBEmW4CzrPJydxJldnlCzJv8ir8rAarHGZky2u3mCkBKCaeshO1HnrkGHVAEXnN+ATjg==
+X-Received: by 2002:a19:ee17:0:b0:503:2891:444d with SMTP id
+ g23-20020a19ee17000000b005032891444dmr11904188lfb.64.1696871500325; 
+ Mon, 09 Oct 2023 10:11:40 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- x14-20020a19f60e000000b00502e0388846sm1475991lfe.244.2023.10.09.10.11.13
+ d1-20020ac24c81000000b005007e7211f7sm1517748lfl.21.2023.10.09.10.11.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 10:11:13 -0700 (PDT)
+ Mon, 09 Oct 2023 10:11:39 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  9 Oct 2023 20:11:10 +0300
-Message-Id: <20231009171110.2691115-4-dmitry.baryshkov@linaro.org>
+Date: Mon,  9 Oct 2023 20:11:39 +0300
+Message-Id: <20231009171139.2691218-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231009171110.2691115-1-dmitry.baryshkov@linaro.org>
-References: <20231009171110.2691115-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/dpu: enable writeback on SM8450
+Subject: [Freedreno] [PATCH] drm/msm/dpu: correct clk bit for WB2 block
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,56 +79,31 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable WB2 hardware block, enabling writeback support on this platform.
+On sc7280 there are two clk bits for WB2: control and status. While
+programming the VBIF params of WB, the driver should be toggling the
+former bit, while the sc7280_mdp struct lists the latter one.
 
+Correct that to ensure proper programming sequence for WB2 on sc7280.
+
+Fixes: 3ce166380567 ("drm/msm/dpu: add writeback support for sc7280")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-index d0214edcbb0e..9a3d1286d160 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h
-@@ -32,6 +32,7 @@ static const struct dpu_mdp_cfg sm8450_mdp = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+index 3b5061c4402a..9195cb996f44 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+@@ -25,7 +25,7 @@ static const struct dpu_mdp_cfg sc7280_mdp = {
+ 		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
  		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
- 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
- 		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
+-		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
 +		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
- 		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
- 	},
- };
-@@ -326,6 +327,21 @@ static const struct dpu_dsc_cfg sm8450_dsc[] = {
  	},
  };
  
-+static const struct dpu_wb_cfg sm8450_wb[] = {
-+	{
-+		.name = "wb_2", .id = WB_2,
-+		.base = 0x65000, .len = 0x2c8,
-+		.features = WB_SM8250_MASK,
-+		.format_list = wb2_formats,
-+		.num_formats = ARRAY_SIZE(wb2_formats),
-+		.clk_ctrl = DPU_CLK_CTRL_WB2,
-+		.xin_id = 6,
-+		.vbif_idx = VBIF_RT,
-+		.maxlinewidth = 4096,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-+	},
-+};
-+
- static const struct dpu_intf_cfg sm8450_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
-@@ -423,6 +439,8 @@ const struct dpu_mdss_cfg dpu_sm8450_cfg = {
- 	.dsc = sm8450_dsc,
- 	.merge_3d_count = ARRAY_SIZE(sm8450_merge_3d),
- 	.merge_3d = sm8450_merge_3d,
-+	.wb_count = ARRAY_SIZE(sm8450_wb),
-+	.wb = sm8450_wb,
- 	.intf_count = ARRAY_SIZE(sm8450_intf),
- 	.intf = sm8450_intf,
- 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
 -- 
 2.39.2
 
