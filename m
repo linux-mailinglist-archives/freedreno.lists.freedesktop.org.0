@@ -1,65 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3987F7BF273
-	for <lists+freedreno@lfdr.de>; Tue, 10 Oct 2023 07:49:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FE47BF281
+	for <lists+freedreno@lfdr.de>; Tue, 10 Oct 2023 07:54:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664FB10E1A8;
-	Tue, 10 Oct 2023 05:49:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6542910E1AD;
+	Tue, 10 Oct 2023 05:54:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C53A10E1A8
- for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 05:49:24 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2c124adf469so59716651fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 22:49:23 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64BD810E1AD
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 05:54:28 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-504b84d59cbso7008389e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Oct 2023 22:54:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696916962; x=1697521762; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1696917266; x=1697522066; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=CFbHOAgZVXSg1kKOflBZaq1B31YfZJPkEFEvk9ENnLs=;
- b=rJeJA/UNIRaRkR1+DNYfe5cm39Hs1ObLsC1Po1xohqggxSzNVd4kopqkClzSazB1Rf
- ElgST5msdj2VCuvgnfLB+6p45Ji2IZFOMhWxi6Cs0WSEBw12NM5koVsNgCAQ3ZVn5t/6
- lNnRbHRjaz9HBhADvbyGMolyoxEZy8gmYbE4j1yiE070/EkLaNURUgMeRWmm0++DECTo
- CWN6arnEkgyPSQl3aQeFXuxeRKZLfqjFpktNO1qHsmjfV20k+rfe0OWhadU9umBApkFA
- 2KwrxgGs9bUee4vhOCOja6VpbNYj4SomBABTNGS5S9Agf4wS1l5PrnvodWgEksRDbPA6
- xNBA==
+ bh=QEUI7WElxyrFqo5uc28jvvLJFsc02bWiPPqj3cviB+U=;
+ b=sSM3RybzMb5kpbyxds/N++WpiwE+00M3H42N2h9WeY6E99D6GcAFKRqIhYv8MHM+wK
+ gxxQOzylph2BDgYesDOkv0buSRTLRmSiubbUvI1RzqA5dLPC0fETTlw93d2/TEC+YAPH
+ diyQQYcQvFPxUHr1eobYKEdKO1OyYRYhzsccJQ4fjU73ryVUoliVsyyT4eJZBagDWUBT
+ IDXQZcoM7+mjVSTNGia9ZFair1XXGUqW1rG2lvR+Ngx/Zrb51LqQAiWay/p0gdEbqwgx
+ m5oG8kYw6jNJ901BowlmXJkVLtWBnT5mUXu56INOgOkFQ5qsHQhuTGhhMSCzWhvHX7va
+ Q2Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696916962; x=1697521762;
+ d=1e100.net; s=20230601; t=1696917266; x=1697522066;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=CFbHOAgZVXSg1kKOflBZaq1B31YfZJPkEFEvk9ENnLs=;
- b=gLItGr846AGzZzkNxKFhscVWeLvfOxd+8OQr8NC/BgP92XGLzaxz3lpXxqN44wrJb5
- 8p559U4Qsej6kcc44CIaF35DoWZCfsmEBzf08hBUhpGMWM+UYuCZY/3WVWfg4hMtCODD
- SrbVwkrz36568qnbvBK/iXd1RtmL7covaqYqoOkWU9iFMdmytOSOSPJIGDN8CNrjBkRR
- QljD7fc8Lj6HGfJE9hiyColFK+EG3uGOjeURYkLZzLWsSUu8X4l65QDFMtervkqv9ygb
- S0T0UnV2tqE9mbJKAEHnx3zjhxJeop5TJ7k9/1MNgUQcoD9IgeMAzsahOQFZqaFgE7B5
- DukA==
-X-Gm-Message-State: AOJu0YyppVixy+vaK53NHPoBQjnDKUpM33Q/HRcguuAj559J96m3ID6m
- VUqB5o3rJCq/whVKR2i6paHwgw==
-X-Google-Smtp-Source: AGHT+IFJ0hwFexb/Jn2jlVn3hI6Fio1n0bEXN8vdVrCP2YpJpdTs8EeiniK6yetHCXyfssGsOUG1oA==
-X-Received: by 2002:a2e:7310:0:b0:2bc:fd50:573a with SMTP id
- o16-20020a2e7310000000b002bcfd50573amr14953125ljc.6.1696916962099; 
- Mon, 09 Oct 2023 22:49:22 -0700 (PDT)
+ bh=QEUI7WElxyrFqo5uc28jvvLJFsc02bWiPPqj3cviB+U=;
+ b=DQ/bdNl9zAT8awVJ2pjMkFZOX2fHgZ+0i1l4RPt1GK2V7yhkAVdlPPGLC2dcEvO05M
+ 1/LpUic9g4iOp/k/cid9SWwpqEpa8bR79dNuTGPVOisxENEDelGD3RSaceR84V1GvLJE
+ Ii13AxkQb8IuxPaWJBoO4BE4zXkIRj//blOnoaXle1tZWiIv9nHxdHsFaSKySKwMXfZ+
+ BkHzFDYmbZIGTw9whKMirdpey7M8HVYxR/tObxlOYzeoAKJlLRoKy5oN3NLHXCo/Stw2
+ CWAEx008HuAquhOf+AoW3bYzruD82XMriwuca+FIApd+YW0c6SKeC8IvsehYiZvm+pQQ
+ pjbA==
+X-Gm-Message-State: AOJu0Yx8s9EgjqzomYvKT7r35IkKqhqitGks/hU1mhjz8dGB8XVWVTo/
+ 9KN05oGS0GKB8UF57MFvVBjdaA==
+X-Google-Smtp-Source: AGHT+IGieqVKjLlnVHtcDymyKdRInCVinttJ4Uwo0Ld2tiGJ7uOdN5rtYPVDF6+cDspnRVciNuzVWg==
+X-Received: by 2002:a05:6512:758:b0:503:59d:fbff with SMTP id
+ c24-20020a056512075800b00503059dfbffmr6273168lfs.2.1696917266417; 
+ Mon, 09 Oct 2023 22:54:26 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- w22-20020a2e8216000000b002bba9a4f715sm2280398ljg.11.2023.10.09.22.49.21
+ v2-20020ac25582000000b004fe1f1c0ee4sm1668371lfg.82.2023.10.09.22.54.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 22:49:21 -0700 (PDT)
+ Mon, 09 Oct 2023 22:54:26 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Tue, 10 Oct 2023 08:49:20 +0300
-Message-Id: <20231010054920.2821140-1-dmitry.baryshkov@linaro.org>
+Date: Tue, 10 Oct 2023 08:54:25 +0300
+Message-Id: <20231010055425.2851776-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: fix fault injection support
+Subject: [Freedreno] [PATCH] drm/msm: don't create GPU-related debugfs files
+ with no GPU present
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,36 +73,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Readd the header that was erroneously dropped during KMS code
-refactoring.
+If there is no GPU present, skip creation of the GPU-related debugfs
+files, making the MSM's debugfs more usable.
 
-Fixes: 506efcba3129 ("drm/msm: carve out KMS code from msm_drv.c")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202310100836.6E6zjEcE-lkp@intel.com/
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/msm_debugfs.c | 41 +++++++++++++++++++------------
+ drivers/gpu/drm/msm/msm_rd.c      |  3 +++
+ 2 files changed, 28 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 93c026d79aea..2aae7d107f33 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index 04d304eed223..4494f6d1c7cb 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -304,36 +304,21 @@ int msm_debugfs_late_init(struct drm_device *dev)
+ 	return ret;
+ }
  
- #include <linux/dma-mapping.h>
-+#include <linux/fault-inject.h>
- #include <linux/of_address.h>
- #include <linux/uaccess.h>
+-void msm_debugfs_init(struct drm_minor *minor)
++static void msm_debugfs_gpu_init(struct drm_minor *minor)
+ {
+ 	struct drm_device *dev = minor->dev;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct dentry *gpu_devfreq;
  
+-	drm_debugfs_create_files(msm_debugfs_list,
+-				 ARRAY_SIZE(msm_debugfs_list),
+-				 minor->debugfs_root, minor);
+-
+ 	debugfs_create_file("gpu", S_IRUSR, minor->debugfs_root,
+ 		dev, &msm_gpu_fops);
+ 
+-	if (priv->kms) {
+-		drm_debugfs_create_files(msm_kms_debugfs_list,
+-					 ARRAY_SIZE(msm_kms_debugfs_list),
+-					 minor->debugfs_root, minor);
+-		debugfs_create_file("kms", S_IRUSR, minor->debugfs_root,
+-				    dev, &msm_kms_fops);
+-	}
+-
+ 	debugfs_create_u32("hangcheck_period_ms", 0600, minor->debugfs_root,
+ 		&priv->hangcheck_period);
+ 
+ 	debugfs_create_bool("disable_err_irq", 0600, minor->debugfs_root,
+ 		&priv->disable_err_irq);
+ 
+-	debugfs_create_file("shrink", S_IRWXU, minor->debugfs_root,
+-		dev, &shrink_fops);
+-
+ 	gpu_devfreq = debugfs_create_dir("devfreq", minor->debugfs_root);
+ 
+ 	debugfs_create_bool("idle_clamp",0600, gpu_devfreq,
+@@ -344,6 +329,30 @@ void msm_debugfs_init(struct drm_minor *minor)
+ 
+ 	debugfs_create_u32("downdifferential",0600, gpu_devfreq,
+ 			   &priv->gpu_devfreq_config.downdifferential);
++}
++
++void msm_debugfs_init(struct drm_minor *minor)
++{
++	struct drm_device *dev = minor->dev;
++	struct msm_drm_private *priv = dev->dev_private;
++
++	drm_debugfs_create_files(msm_debugfs_list,
++				 ARRAY_SIZE(msm_debugfs_list),
++				 minor->debugfs_root, minor);
++
++	if (priv->gpu_pdev)
++		msm_debugfs_gpu_init(minor);
++
++	if (priv->kms) {
++		drm_debugfs_create_files(msm_kms_debugfs_list,
++					 ARRAY_SIZE(msm_kms_debugfs_list),
++					 minor->debugfs_root, minor);
++		debugfs_create_file("kms", S_IRUSR, minor->debugfs_root,
++				    dev, &msm_kms_fops);
++	}
++
++	debugfs_create_file("shrink", S_IRWXU, minor->debugfs_root,
++		dev, &shrink_fops);
+ 
+ 	if (priv->kms && priv->kms->funcs->debugfs_init)
+ 		priv->kms->funcs->debugfs_init(priv->kms, minor);
+diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
+index 5adc51f7ab59..ca44fd291c5b 100644
+--- a/drivers/gpu/drm/msm/msm_rd.c
++++ b/drivers/gpu/drm/msm/msm_rd.c
+@@ -270,6 +270,9 @@ int msm_rd_debugfs_init(struct drm_minor *minor)
+ 	struct msm_rd_state *rd;
+ 	int ret;
+ 
++	if (!priv->gpu_pdev)
++		return 0;
++
+ 	/* only create on first minor: */
+ 	if (priv->rd)
+ 		return 0;
 -- 
 2.39.2
 
