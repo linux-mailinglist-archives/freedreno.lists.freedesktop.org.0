@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 018E37BF50B
-	for <lists+freedreno@lfdr.de>; Tue, 10 Oct 2023 09:58:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C99357BF528
+	for <lists+freedreno@lfdr.de>; Tue, 10 Oct 2023 10:00:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C440510E323;
-	Tue, 10 Oct 2023 07:58:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0322F10E328;
+	Tue, 10 Oct 2023 08:00:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 796E210E323
- for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 07:58:39 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-32157c8e4c7so5319664f8f.1
- for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 00:58:39 -0700 (PDT)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AECE410E323
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 08:00:33 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40566f89f6eso54416005e9.3
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 01:00:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696924718; x=1697529518; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1696924832; x=1697529632; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=DuF08tiAL2vBsnI7ItZlNLjLI9/OSkp0LDsu4D+EiFA=;
- b=reknD0Rvzfpl0msmSUMhhcBniWqgLTyubslCMovH+Ap1w2UglUapugXEosV1+RGBen
- oW1RWrc0BvQ4fnnnhrJkwQBLuBGtEtoZuTs6Dhz/9jTkQVNWVtjvLpNqgXeHfp4Wb7af
- arCDISC/qOl74pVAxjjT7CI2qdGNxKvpMcrkgUKzMXySAQNVo9KkYSaC2dvWUq8QOEpD
- 8Fc31Kz3zqfRnD4pUOmnvRrvf3hi8cUDsQ2vq9wf+5HrdWxWtbVuARuxW1mYYjKZwRMb
- bvHWTS+DwDcV8+4+TDngeJOqiesC6UiG9KoLUAytEX2Svv+JXJ+Y1Bve4x81eAH9B1mr
- TEPQ==
+ :reply-to; bh=E/jaDSg0h2/4Ol0qLjrsxRCrbIypE21zhgm82wEWYc8=;
+ b=EUHxjIk20NqTALAXRfdxW2QMt0WZD7t3v+lTqfcItrOpqdNP9xeLXwQ/AUqSmpM/p4
+ D4J+2CrUl1Ub/S/T4FzokbpP0ac/Hf+bKX/vzD9/dwL/06ji/rKurVud4a7hRAbgOK2Q
+ t1sIiKOoc0RYF4M0+ma4aOHQYxf2PrOPGJ26b1Q8RDNzC/h8lPdUlMLfD+bYoepvl/DP
+ X74dyVy+lq393DgLMl4EY0IOC7h+HdDu6Q8KZUcyUUdwEzgFU9mzKTRE2lXCr9gQ9Lq5
+ TGj3XcH9Pm+dMVwk53hZiN2rZnJr4+V/CdvIhxaUnt+yo3R7+WRfdQ3OgxQoAGls1+mp
+ t3UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696924718; x=1697529518;
+ d=1e100.net; s=20230601; t=1696924832; x=1697529632;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=DuF08tiAL2vBsnI7ItZlNLjLI9/OSkp0LDsu4D+EiFA=;
- b=edIR4y1gdrGl/1JCwVWlFf2htKYy3HPfK18VeZRUuH1DsDamWRwG70eKAF4qLY0V8F
- Rd61qD2Xqm2Hf9K70Dshwjn/Zf7Ge4wZYz/tRg/IAdwk7fwJRvk0ap4YHbLkBhWLSxY+
- 0IH1R7ZZj8YkMHugVcAh9RXUiPVNQ0b8wMgihYxpNswVG9UPiRnY6sc6dKGNrqVFx8dy
- kI8jx/fVrN+MxGCOm5akvXShvsnhDMWE0ycyw6Liwfpm4beO5wM+nzEmkrLcqWdVy1jw
- s3zJJbDKFr/VlHxjkCNqppUjcUXuBF3wV6dmAaDZEZlN3d075i82jIpyFi29IOIfaUTP
- QnWQ==
-X-Gm-Message-State: AOJu0YxzxXQ553+tHtqH0TaRaYv+Pyj7CYC4c6roT/e9WpGFUag1MOh/
- s4jaw5gsC7z5Y0IN9x/aFmFlPg==
-X-Google-Smtp-Source: AGHT+IHfVtV+fM/y8bb4Y20eH4zD+GGKjiUOYYRNx1gqzX/XHYwbaChonFJ07oxttNsmMG54NZcuEQ==
-X-Received: by 2002:a05:6000:1f0a:b0:32c:a930:fe0d with SMTP id
- bv10-20020a0560001f0a00b0032ca930fe0dmr1261947wrb.4.1696924717664; 
- Tue, 10 Oct 2023 00:58:37 -0700 (PDT)
+ bh=E/jaDSg0h2/4Ol0qLjrsxRCrbIypE21zhgm82wEWYc8=;
+ b=ZHjbB4/iEUA2SGfUpxHIs6ZKWwkx6XZCI/qcKinoWkoWxt6dxVkYpV/sNJJymCRljF
+ WN22cPDf2O4ukNuV4iNSFyVKAdVlDRmWXPmIbgAsrjJjHovoY8JfhzBCyKxOe3wW+s8u
+ 8y+XWh/C/FHq0XdOkVCFxp9ClQOXqKAkpN02cMi9z/mGqqhwaWlcVBUiabKr9to4u4q6
+ ot5hER9PjFNl5sM3/msbccoGQ+XZ0NCxf7RlLMtvk8G9ZXW/i0DWVkfndZzTU8YJCBs0
+ n2LJkNEg+5EPqKfOc+VoX+8qDFKQhb2wHM9QpZRmp9uunAuWeZAwhn2jCNxrCuvQFuID
+ 2y5A==
+X-Gm-Message-State: AOJu0YzRMJolx/fEHIemYWAFIZUVcV+nPXOaExeIi0Pucq6pqNIk9HiL
+ 2mdXaEaKujzt88A3Sbq6dhELCQ==
+X-Google-Smtp-Source: AGHT+IGcAr508rP9+dsaanjr3QBcaQhwx3fzN42TuNZvxPJX593aRXRJzKo3GlE55wFgZuFWw7m/lw==
+X-Received: by 2002:a1c:4c03:0:b0:405:770b:e90a with SMTP id
+ z3-20020a1c4c03000000b00405770be90amr15985758wmf.34.1696924831929; 
+ Tue, 10 Oct 2023 01:00:31 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:982:cbb0:2eac:5b51:e0a4:4807?
  ([2a01:e0a:982:cbb0:2eac:5b51:e0a4:4807])
  by smtp.gmail.com with ESMTPSA id
- t11-20020a5d534b000000b003232380ffd5sm11816539wrv.106.2023.10.10.00.58.36
+ n24-20020a1c7218000000b004065e235417sm15483645wmc.21.2023.10.10.01.00.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Oct 2023 00:58:37 -0700 (PDT)
-Message-ID: <6ba6331c-12c6-4cce-bbf9-0255d4f17118@linaro.org>
-Date: Tue, 10 Oct 2023 09:58:35 +0200
+ Tue, 10 Oct 2023 01:00:31 -0700 (PDT)
+Message-ID: <cd6c14ad-dd86-4fe3-8264-5ec70cffdd1e@linaro.org>
+Date: Tue, 10 Oct 2023 10:00:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
@@ -64,8 +64,8 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 References: <20231009-topic-sm8550-graphics-sspp-split-clk-v1-0-806c0dee4e43@linaro.org>
- <20231009-topic-sm8550-graphics-sspp-split-clk-v1-4-806c0dee4e43@linaro.org>
- <e1f70025-f93d-4d1f-bafa-1e834324ce62@linaro.org>
+ <20231009-topic-sm8550-graphics-sspp-split-clk-v1-5-806c0dee4e43@linaro.org>
+ <7eecc9af-3d4f-43ba-8262-e58858bbe417@linaro.org>
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -91,11 +91,11 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro Developer Services
-In-Reply-To: <e1f70025-f93d-4d1f-bafa-1e834324ce62@linaro.org>
+In-Reply-To: <7eecc9af-3d4f-43ba-8262-e58858bbe417@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH RFC 4/5] drm/msm: dpu1: call wb & sspp
- clk_force_ctrl op if split clock control
+Subject: Re: [Freedreno] [PATCH RFC 5/5] drm/msm: dpu1: sm8550: move split
+ clock controls to sspp entries
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,226 +114,149 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 09/10/2023 19:07, Dmitry Baryshkov wrote:
+On 09/10/2023 19:10, Dmitry Baryshkov wrote:
 > On 09/10/2023 19:36, Neil Armstrong wrote:
->> Now clk_ctrl IDs can be optional and the clk_ctrl_reg can be specified
->> on the SSPP & WB caps directly, pass the SSPP & WB hw struct to the
->> qos & limit params then call the clk_force_ctrl() op accordingly.
+>> The SM8550 has the SSPP clk_ctrl in the SSPP registers, move them
+>> out of the MDP top.
 >>
 >> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 >> ---
->>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  4 +--
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  9 +++---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           | 37 +++++++++++++++-------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h           | 12 ++++---
->>   4 files changed, 40 insertions(+), 22 deletions(-)
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 35 ++++++++++------------
+>>   1 file changed, 15 insertions(+), 20 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
->> index 78037a697633..e4dfe0be7207 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
->> @@ -45,6 +45,7 @@ static void dpu_encoder_phys_wb_set_ot_limit(
->>       struct dpu_vbif_set_ot_params ot_params;
->>       memset(&ot_params, 0, sizeof(ot_params));
->> +    ot_params.wb = hw_wb;
->>       ot_params.xin_id = hw_wb->caps->xin_id;
->>       ot_params.num = hw_wb->idx - WB_0;
->>       ot_params.width = phys_enc->cached_mode.hdisplay;
->> @@ -52,7 +53,6 @@ static void dpu_encoder_phys_wb_set_ot_limit(
->>       ot_params.is_wfd = true;
->>       ot_params.frame_rate = drm_mode_vrefresh(&phys_enc->cached_mode);
->>       ot_params.vbif_idx = hw_wb->caps->vbif_idx;
->> -    ot_params.clk_ctrl = hw_wb->caps->clk_ctrl;
->>       ot_params.rd = false;
->>       dpu_vbif_set_ot_limit(phys_enc->dpu_kms, &ot_params);
->> @@ -81,9 +81,9 @@ static void dpu_encoder_phys_wb_set_qos_remap(
->>       hw_wb = phys_enc->hw_wb;
->>       memset(&qos_params, 0, sizeof(qos_params));
->> +    qos_params.wb = hw_wb;
->>       qos_params.vbif_idx = hw_wb->caps->vbif_idx;
->>       qos_params.xin_id = hw_wb->caps->xin_id;
->> -    qos_params.clk_ctrl = hw_wb->caps->clk_ctrl;
->>       qos_params.num = hw_wb->idx - WB_0;
->>       qos_params.is_rt = false;
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index c2aaaded07ed..b0b662068377 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -350,6 +350,7 @@ static void _dpu_plane_set_ot_limit(struct drm_plane *plane,
->>       struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
->>       memset(&ot_params, 0, sizeof(ot_params));
->> +    ot_params.sspp = pipe->sspp;
->>       ot_params.xin_id = pipe->sspp->cap->xin_id;
->>       ot_params.num = pipe->sspp->idx - SSPP_NONE;
->>       ot_params.width = drm_rect_width(&pipe_cfg->src_rect);
->> @@ -357,7 +358,6 @@ static void _dpu_plane_set_ot_limit(struct drm_plane *plane,
->>       ot_params.is_wfd = !pdpu->is_rt_pipe;
->>       ot_params.frame_rate = frame_rate;
->>       ot_params.vbif_idx = VBIF_RT;
->> -    ot_params.clk_ctrl = pipe->sspp->cap->clk_ctrl;
->>       ot_params.rd = true;
->>       dpu_vbif_set_ot_limit(dpu_kms, &ot_params);
->> @@ -377,16 +377,15 @@ static void _dpu_plane_set_qos_remap(struct drm_plane *plane,
->>       memset(&qos_params, 0, sizeof(qos_params));
->>       qos_params.vbif_idx = VBIF_RT;
->> -    qos_params.clk_ctrl = pipe->sspp->cap->clk_ctrl;
->> +    qos_params.sspp = pipe->sspp;
->>       qos_params.xin_id = pipe->sspp->cap->xin_id;
->>       qos_params.num = pipe->sspp->idx - SSPP_VIG0;
->>       qos_params.is_rt = pdpu->is_rt_pipe;
->> -    DPU_DEBUG_PLANE(pdpu, "pipe:%d vbif:%d xin:%d rt:%d, clk_ctrl:%d\n",
->> +    DPU_DEBUG_PLANE(pdpu, "pipe:%d vbif:%d xin:%d rt:%d\n",
->>               qos_params.num,
->>               qos_params.vbif_idx,
->> -            qos_params.xin_id, qos_params.is_rt,
->> -            qos_params.clk_ctrl);
->> +            qos_params.xin_id, qos_params.is_rt);
->>       dpu_vbif_set_qos_remap(dpu_kms, &qos_params);
->>   }
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> index 2ae5cba1848b..a79559084a91 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
->> @@ -158,11 +158,19 @@ static u32 _dpu_vbif_get_ot_limit(struct dpu_hw_vbif *vbif,
->>       return ot_lim;
->>   }
->> -static bool dpu_vbif_setup_clk_force_ctrl(struct dpu_hw_mdp *mdp,
->> -                      unsigned int clk_ctrl,
->> +static bool dpu_vbif_setup_clk_force_ctrl(struct dpu_hw_sspp *sspp,
->> +                      struct dpu_hw_wb *wb,
->> +                      struct dpu_hw_mdp *mdp,
->>                         bool enable)
->>   {
->> -    return mdp->ops.setup_clk_force_ctrl(mdp, clk_ctrl, enable);
->> +    if (sspp && sspp->cap->clk_ctrl_reg)
->> +        return sspp->ops.setup_clk_force_ctrl(sspp, enable);
->> +    else if (wb && wb->caps->clk_ctrl_reg)
->> +        return wb->ops.setup_clk_force_ctrl(wb, enable);
->> +    else
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> index 7bed819dfc39..527ec020fba4 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
+>> @@ -24,16 +24,6 @@ static const struct dpu_mdp_cfg sm8550_mdp = {
+>>       .base = 0, .len = 0x494,
+>>       .features = BIT(DPU_MDP_PERIPH_0_REMOVED),
+>>       .clk_ctrls = {
+>> -        [DPU_CLK_CTRL_VIG0] = { .reg_off = 0x4330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_VIG1] = { .reg_off = 0x6330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_VIG2] = { .reg_off = 0x8330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_VIG3] = { .reg_off = 0xa330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_DMA0] = { .reg_off = 0x24330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_DMA1] = { .reg_off = 0x26330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_DMA2] = { .reg_off = 0x28330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2a330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_DMA4] = { .reg_off = 0x2c330, .bit_off = 0 },
+>> -        [DPU_CLK_CTRL_DMA5] = { .reg_off = 0x2e330, .bit_off = 0 },
+>>           [DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
 > 
-> This is what I wanted to avoid.
-> 
-> If we move the caller function to the sspp / WB, we will not need this kind of wrapper.
+> Hmm, interesting. I even double-checked this. SSPP and WB have their own clock registers now. But the REG_DMA uses the main area (0x2bc).
 
-I tried it, but it requires passing the mdp pointer to the setup_clk_force_ctrl op,
-which is IMHO not super clean... or if you have a way to get dpu_hw_mdp from
-within hw_sspp/hw_wb it would help.
+yeah
 
 > 
->> +        return mdp->ops.setup_clk_force_ctrl(mdp,
->> +                sspp ? sspp->cap->clk_ctrl : wb->caps->clk_ctrl,
->> +                enable);
->>   }
->>   /**
->> @@ -190,9 +198,13 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
->>           return;
->>       }
->> -    if (!mdp->ops.setup_clk_force_ctrl ||
->> -            !vbif->ops.set_limit_conf ||
->> -            !vbif->ops.set_halt_ctrl)
->> +    if ((!params->sspp && !params->wb) ||
->> +        (params->sspp && !params->sspp->ops.setup_clk_force_ctrl) ||
->> +        (params->wb && !params->wb->ops.setup_clk_force_ctrl) ||
->> +        !mdp->ops.setup_clk_force_ctrl)
->> +        return;
->> +
->> +    if (!vbif->ops.set_limit_conf || !vbif->ops.set_halt_ctrl)
->>           return;
->>       /* set write_gather_en for all write clients */
->> @@ -207,7 +219,7 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
->>       trace_dpu_perf_set_ot(params->num, params->xin_id, ot_lim,
->>           params->vbif_idx);
->> -    forced_on = dpu_vbif_setup_clk_force_ctrl(mdp, params->clk_ctrl, true);
->> +    forced_on = dpu_vbif_setup_clk_force_ctrl(params->sspp, params->wb, mdp, true);
-> 
-> I'd suggest removing the setup_clk_force_ctrl from dpu_vbif_set_ot_limit() and dpu_vbif_set_qos_remap(). Instead make dpu_plane / dpu_encoder_phys_wb call into dpu_hw_sspp / dpu_hw_wb, which will enable the clock, call dpu_vbif then disable the clock.
-> 
-> In my opinion this is simpler than the condition in the previous chunk.
-
-Indeed this is a nice option, but the hw_mdp pointer requirement into hw_sspp/hw_wb
-still puzzles me.
-
-> 
->>       vbif->ops.set_limit_conf(vbif, params->xin_id, params->rd, ot_lim);
->> @@ -220,7 +232,7 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
->>       vbif->ops.set_halt_ctrl(vbif, params->xin_id, false);
->>       if (forced_on)
->> -        dpu_vbif_setup_clk_force_ctrl(mdp,  params->clk_ctrl, false);
->> +        dpu_vbif_setup_clk_force_ctrl(params->sspp, params->wb, mdp, false);
->>   }
->>   void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
->> @@ -245,7 +257,10 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
->>           return;
->>       }
->> -    if (!vbif->ops.set_qos_remap || !mdp->ops.setup_clk_force_ctrl) {
->> +    if ((!params->sspp && !params->wb) ||
->> +        (params->sspp && !params->sspp->ops.setup_clk_force_ctrl) ||
->> +        (params->wb && !params->wb->ops.setup_clk_force_ctrl) ||
->> +        !mdp->ops.setup_clk_force_ctrl || !vbif->ops.set_qos_remap) {
->>           DRM_DEBUG_ATOMIC("qos remap not supported\n");
->>           return;
->>       }
->> @@ -258,7 +273,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
->>           return;
->>       }
->> -    forced_on = dpu_vbif_setup_clk_force_ctrl(mdp, params->clk_ctrl, true);
->> +    forced_on = dpu_vbif_setup_clk_force_ctrl(params->sspp, params->wb, mdp, true);
->>       for (i = 0; i < qos_tbl->npriority_lvl; i++) {
->>           DRM_DEBUG_ATOMIC("%s xin:%d lvl:%d/%d\n",
->> @@ -269,7 +284,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
->>       }
->>       if (forced_on)
->> -        dpu_vbif_setup_clk_force_ctrl(mdp, params->clk_ctrl, false);
->> +        dpu_vbif_setup_clk_force_ctrl(params->sspp, params->wb, mdp, false);
->>   }
->>   void dpu_vbif_clear_errors(struct dpu_kms *dpu_kms)
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h
->> index ab490177d886..a4fe76e390d9 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h
->> @@ -7,7 +7,12 @@
->>   #include "dpu_kms.h"
->> +struct dpu_hw_sspp;
->> +struct dpu_hw_wb;
->> +
->>   struct dpu_vbif_set_ot_params {
->> +    struct dpu_hw_sspp *sspp;
->> +    struct dpu_hw_wb *wb;
->>       u32 xin_id;
->>       u32 num;
->>       u32 width;
->> @@ -16,28 +21,27 @@ struct dpu_vbif_set_ot_params {
->>       bool rd;
->>       bool is_wfd;
->>       u32 vbif_idx;
->> -    u32 clk_ctrl;
+>>       },
 >>   };
->>   struct dpu_vbif_set_memtype_params {
->>       u32 xin_id;
->>       u32 vbif_idx;
->> -    u32 clk_ctrl;
->>       bool is_cacheable;
+>> @@ -73,6 +63,11 @@ static const struct dpu_ctl_cfg sm8550_ctl[] = {
+>>       },
 >>   };
->>   /**
->>    * struct dpu_vbif_set_qos_params - QoS remapper parameter
->> + * @sspp: backing SSPP
->>    * @vbif_idx: vbif identifier
->>    * @xin_id: client interface identifier
->> - * @clk_ctrl: clock control identifier of the xin
->>    * @num: pipe identifier (debug only)
->>    * @is_rt: true if pipe is used in real-time use case
->>    */
->>   struct dpu_vbif_set_qos_params {
->> +    struct dpu_hw_sspp *sspp;
->> +    struct dpu_hw_wb *wb;
->>       u32 vbif_idx;
->>       u32 xin_id;
->> -    u32 clk_ctrl;
->>       u32 num;
->>       bool is_rt;
+>> +static const struct dpu_clk_ctrl_reg sm8550_sspp_clk_ctrl = {
+>> +    .reg_off = 0x330,
+>> +    .bit_off = 0
+>> +};
+> 
+> I don't think we even need this outside of dpu_hw_sspp. You can use core_major_rev to check whether the driver should use global clocks or per-SSPP / per-WB clocks register instead.
+
+Ack
+
+> 
+>> +
+>>   static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>       {
+>>           .name = "sspp_0", .id = SSPP_VIG0,
+>> @@ -81,7 +76,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sm8550_vig_sblk_0,
+>>           .xin_id = 0,
+>>           .type = SSPP_TYPE_VIG,
+>> -        .clk_ctrl = DPU_CLK_CTRL_VIG0,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_1", .id = SSPP_VIG1,
+>>           .base = 0x6000, .len = 0x344,
+>> @@ -89,7 +84,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sm8550_vig_sblk_1,
+>>           .xin_id = 4,
+>>           .type = SSPP_TYPE_VIG,
+>> -        .clk_ctrl = DPU_CLK_CTRL_VIG1,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_2", .id = SSPP_VIG2,
+>>           .base = 0x8000, .len = 0x344,
+>> @@ -97,7 +92,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sm8550_vig_sblk_2,
+>>           .xin_id = 8,
+>>           .type = SSPP_TYPE_VIG,
+>> -        .clk_ctrl = DPU_CLK_CTRL_VIG2,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_3", .id = SSPP_VIG3,
+>>           .base = 0xa000, .len = 0x344,
+>> @@ -105,7 +100,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sm8550_vig_sblk_3,
+>>           .xin_id = 12,
+>>           .type = SSPP_TYPE_VIG,
+>> -        .clk_ctrl = DPU_CLK_CTRL_VIG3,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_8", .id = SSPP_DMA0,
+>>           .base = 0x24000, .len = 0x344,
+>> @@ -113,7 +108,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sdm845_dma_sblk_0,
+>>           .xin_id = 1,
+>>           .type = SSPP_TYPE_DMA,
+>> -        .clk_ctrl = DPU_CLK_CTRL_DMA0,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_9", .id = SSPP_DMA1,
+>>           .base = 0x26000, .len = 0x344,
+>> @@ -121,7 +116,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sdm845_dma_sblk_1,
+>>           .xin_id = 5,
+>>           .type = SSPP_TYPE_DMA,
+>> -        .clk_ctrl = DPU_CLK_CTRL_DMA1,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_10", .id = SSPP_DMA2,
+>>           .base = 0x28000, .len = 0x344,
+>> @@ -129,7 +124,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sdm845_dma_sblk_2,
+>>           .xin_id = 9,
+>>           .type = SSPP_TYPE_DMA,
+>> -        .clk_ctrl = DPU_CLK_CTRL_DMA2,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_11", .id = SSPP_DMA3,
+>>           .base = 0x2a000, .len = 0x344,
+>> @@ -137,7 +132,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sdm845_dma_sblk_3,
+>>           .xin_id = 13,
+>>           .type = SSPP_TYPE_DMA,
+>> -        .clk_ctrl = DPU_CLK_CTRL_DMA3,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_12", .id = SSPP_DMA4,
+>>           .base = 0x2c000, .len = 0x344,
+>> @@ -145,7 +140,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sm8550_dma_sblk_4,
+>>           .xin_id = 14,
+>>           .type = SSPP_TYPE_DMA,
+>> -        .clk_ctrl = DPU_CLK_CTRL_DMA4,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       }, {
+>>           .name = "sspp_13", .id = SSPP_DMA5,
+>>           .base = 0x2e000, .len = 0x344,
+>> @@ -153,7 +148,7 @@ static const struct dpu_sspp_cfg sm8550_sspp[] = {
+>>           .sblk = &sm8550_dma_sblk_5,
+>>           .xin_id = 15,
+>>           .type = SSPP_TYPE_DMA,
+>> -        .clk_ctrl = DPU_CLK_CTRL_DMA5,
+>> +        .clk_ctrl_reg = &sm8550_sspp_clk_ctrl,
+>>       },
 >>   };
 >>
 > 
 
-Thanks,
-Neil
