@@ -2,64 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9727C044C
-	for <lists+freedreno@lfdr.de>; Tue, 10 Oct 2023 21:19:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFAB67C4085
+	for <lists+freedreno@lfdr.de>; Tue, 10 Oct 2023 22:01:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21F3610E3D2;
-	Tue, 10 Oct 2023 19:19:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4941810E3D7;
+	Tue, 10 Oct 2023 20:01:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4C310E11E
- for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 19:19:21 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-50435a9f800so7868722e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 12:19:21 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9550810E186
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 20:01:47 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2bfea381255so74404901fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Oct 2023 13:01:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696965559; x=1697570359;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=AvjZzz7pnTqNFU2kq8efpY866MOjCfg9gpj/PxH4/+k=;
- b=JOVduy6X+Xf59gJvP3cuSApC302olN7Ym2KJPGGQt/wWwqJ72lH6pd8yDPSxYbT57Z
- UgKZGWUpAFkMAduCiXuXKnYdlooF7S3VN7h5NswBsnw/7ogSbgOmhKJlSagOBGGwAXdF
- xqM0IpsAWmG6lLyQdUriYzsy1MDCKsHkAMed0=
+ d=linaro.org; s=google; t=1696968106; x=1697572906; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OXX99+sRerDKMbWnSh/67eMjmbNfBWKGv387Abrjh24=;
+ b=hXGbk3MjHn4Udbteg/9sG0w5rynJ2vqrxg9FoiNHDhuZYMYJFnnAC1gJtadNW4OCbl
+ ikSp+bKWKAtt8llZwaietxWGM5Au12kK6fo81M5CR+9u90HiRm9ri4iRI7CiMQwfmqaA
+ yDzTgb9m2AQ7R9O+j7lsK/PPAzfsH21Ajb9NDDg09SlR5D7rEDEr8aw0VlUAuWZcH93M
+ ZH/9sK1vPMbfcfmrVGLpXHV4UcXgUsAb78RNDdzsyDisBSX+tMcEl+B79KM8+hGzoxoQ
+ 8qYSSfm796Q5vwIzHGl9he3ezY/VwinSo3Ru87+YLtdIk0AzZK4YTNSzZevq2i/X6rd+
+ DiuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696965559; x=1697570359;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AvjZzz7pnTqNFU2kq8efpY866MOjCfg9gpj/PxH4/+k=;
- b=u602krSzpRNfgNDSlHmpQnFGXzPIBO+PHubgFWceDaC2mKK16wvuKbRlOgncn/62z1
- QhOAupywfjEfvPR3g5OPd7gsVzpw839covfF0orlMNf5tojNjO3F6o02IOuDfdgrTnme
- j+2S5/mislHhMNurJPKflcqGUSdZzdwYYtu1VmPddnuSj0ANouobTXlZDYyLlQEZ8Cuy
- EJ0M6TuSUplJQF/jbHBkUicSp25k3x5tOz/Kc0U6ePHPR6fgNSnqw3KzDEGyXwRACEJ/
- gomx/cvdf2qPVtqThio44lbJ0ytzQuJoBejxg1Z4Jv3R9uXnM1+OJf8K4gNioyBQ7yUe
- Fv3A==
-X-Gm-Message-State: AOJu0YxiqGwG9gwP4yfi4nkv2Vaqn9jqbbbiLS1zNMWX1sl+UhWus14l
- wsCrIo872Qx/P/6z86tRk6yhVP8XYJGgAjQDrhz0vg==
-X-Google-Smtp-Source: AGHT+IFq1y8usHuuOq0+zCRJnPaJsNG4I0nxxNL8AuiMb1KSaafC1SKCCoNyc4Vky58f9BXOh0ClpevLdtstLOMN0FI=
-X-Received: by 2002:a05:6512:ac5:b0:500:8f66:5941 with SMTP id
- n5-20020a0565120ac500b005008f665941mr19661687lfu.50.1696965559028; Tue, 10
- Oct 2023 12:19:19 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 10 Oct 2023 19:19:18 +0000
+ d=1e100.net; s=20230601; t=1696968106; x=1697572906;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OXX99+sRerDKMbWnSh/67eMjmbNfBWKGv387Abrjh24=;
+ b=irVjTjtCDAoFdDluA8iKowMy6yR8JYAfXtfFLgGCZ0+ps2Q1CPdaF0/9Fm9xfAxRWK
+ jKWYXe1aigVqGOXE8z9EkX39TFNh4VESGAezEnr/Xnb5fpuyvg6l3Psv96KDxqrfxjP6
+ aRP341W8R2e+WAdTuHTPCVw2MAUvJSr1Hk3EUsH/JAg90likuDWbEXm0yHtxo9hz31rG
+ 86yj0u1NgQTMbyTNVv+bK7i6sz7bwsf0LqXv0VeUleU+54Y94LPaNu8YeBxrlY1V5TCO
+ u39SGhxDptP0SS5tJ6RBjYL3YihdtTsNB+Lv91oRgXEjDCZhRLJrDXBiYgk4SJHQJEJX
+ wK/A==
+X-Gm-Message-State: AOJu0Yyxc+3OoFx4yJh4LtCPP+y7n8IU+Wb+UrdbHn2Z1du5hNH1NsNR
+ GfwH/95QUsj65AwSGOmuh04+3g==
+X-Google-Smtp-Source: AGHT+IES3FOwekUeUGnjvqsmKjGckDU98IL22Hd2kvjiIaEQqJaS4k4NQC94gT8gK/ckEx1HG4UMWQ==
+X-Received: by 2002:a2e:870f:0:b0:2b6:da1e:d063 with SMTP id
+ m15-20020a2e870f000000b002b6da1ed063mr15571978lji.45.1696968105737; 
+ Tue, 10 Oct 2023 13:01:45 -0700 (PDT)
+Received: from [172.30.204.182] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ d17-20020a2e3311000000b002bcb9956a69sm2575632ljc.41.2023.10.10.13.01.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Oct 2023 13:01:45 -0700 (PDT)
+Message-ID: <f8ecba86-2cce-48db-bf56-7d4ab2a1ef39@linaro.org>
+Date: Tue, 10 Oct 2023 22:01:40 +0200
 MIME-Version: 1.0
-In-Reply-To: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 10 Oct 2023 19:19:18 +0000
-Message-ID: <CAE-0n50GR2YXpZVANQEns4W5TEFoR7n80PFuoyMOs8vo=MDkgw@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org,
- airlied@gmail.com, 
- andersson@kernel.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v7 0/7] incorporate pm runtime framework and
- eDP clean up
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Richard Acayan <mailingradian@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Liu Shixin
+ <liushixin2@huawei.com>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20231009233337.485054-8-mailingradian@gmail.com>
+ <20231009233337.485054-14-mailingradian@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20231009233337.485054-14-mailingradian@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 6/6] arm64: dts: qcom: sdm670: add
+ display subsystem
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,36 +93,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2023-10-06 15:55:03)
-> The purpose of this patch series is to incorporate pm runtime framework
-> into MSM eDP/DP driver so that eDP panel can be detected by DRM eDP panel
-> driver during system probe time. During incorporating procedure, original
-> customized pm realted fucntions, such as dp_pm_prepare(), dp_pm_suspend(),
-> dp_pm_resume() and dp_pm_prepare(), are removed and replaced with functions
-> provided by pm runtiem framework such as pm_runtime_force_suspend() and
-> pm_runtime_force_resume(). In addition, both eDP aux-bus and irq handler
-> are bound at system probe time too.
->
-> Kuogee Hsieh (7):
->   drm/msm/dp: tie dp_display_irq_handler() with dp driver
->   drm/msm/dp: rename is_connected with link_ready
->   drm/msm/dp: use drm_bridge_hpd_notify() to report HPD status changes
->   drm/msm/dp: move parser->parse() and dp_power_client_init() to probe
->   drm/msm/dp: incorporate pm_runtime framework into DP driver
->   drm/msm/dp: delete EV_HPD_INIT_SETUP
->   drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()
->
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |   4 -
->  drivers/gpu/drm/msm/dp/dp_aux.c         |  39 +++-
->  drivers/gpu/drm/msm/dp/dp_display.c     | 333 ++++++++++++--------------------
 
-Tested-by: Stephen Boyd <swboyd@chromium.org> # Trogdor.Lazor
 
-I ran some suspend cycles too with the lid open and closed.
+On 10/10/23 01:33, Richard Acayan wrote:
+> The Snapdragon 670 has a display subsystem for controlling and
+> outputting to the display. Add support for it in the device tree.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+[...]
+
+> +			interconnects = <&mmss_noc MASTER_MDP_PORT0 0 &mem_noc SLAVE_EBI_CH0 0>,
+> +					<&mmss_noc MASTER_MDP_PORT1 0 &mem_noc SLAVE_EBI_CH0 0>;
+0 -> QCOM_ICC_TAG_ALWAYS (dt-bindings/interconnect/qcom,icc.h)
+
+> +			interconnect-names = "mdp0-mem", "mdp1-mem";
+> +
+> +			iommus = <&apps_smmu 0x880 0x8>,
+> +				 <&apps_smmu 0xc80 0x8>;
+> +
+> +			status = "disabled";
+status after the block below, please
+
+and similarly below
+
+Konrad
