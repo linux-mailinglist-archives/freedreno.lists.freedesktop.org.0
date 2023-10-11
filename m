@@ -1,97 +1,89 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D88857C4D4B
-	for <lists+freedreno@lfdr.de>; Wed, 11 Oct 2023 10:34:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6164E7C52AF
+	for <lists+freedreno@lfdr.de>; Wed, 11 Oct 2023 13:59:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92A8910E23E;
-	Wed, 11 Oct 2023 08:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE3010E105;
+	Wed, 11 Oct 2023 11:59:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A6010E23E
- for <freedreno@lists.freedesktop.org>; Wed, 11 Oct 2023 08:34:40 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-503397ee920so8299014e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Oct 2023 01:34:40 -0700 (PDT)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF3310E1F0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Oct 2023 11:59:34 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-32c9f2ce71aso1558178f8f.1
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Oct 2023 04:59:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697013279; x=1697618079; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :references:cc:to:content-language:subject:reply-to:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=FKjNKmVwLteJ2rdG4Wdm/YqXtcBPxrCX3IBRkzT5D44=;
- b=mzuKACvNorVchNG9fvJazPbhcjo1i3HtGmz4Gnu0qkY13m+yY6+mROMVGBEjX/nDrq
- z7+wW/V9Uf33Fw3TC/T4n5kar7YKdafbCkyLvPSaVUpNYF5wZrtbArvF4hY/Vdh1lziY
- XfYBBmKjdRrWdImbI4nXzZxOagUQdclzR0+YEFbAmmGb+h0xBjT5xA0pPJUQcDuqXAiq
- 18zsL2jR4LIaBz24eQje89GiXHnJJw8qCDFRkIn05t3lK87kJwKZaWh+m8wtMFQHgV0e
- tcRvunXoM1a7af5qtLB8JWP/jXoPoXz+kTzMWgpUFMGlfoECAxOufswju+KtevQDkuBq
- 10wA==
+ d=linaro.org; s=google; t=1697025572; x=1697630372; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2ot7f93Hp27r8qDVUnK9M/4a8sldkjXGML24/ocHHa0=;
+ b=I3b7RMFbuk2Sij+wxsN1reXeMad5jB91HJThHiq7WkMl73Jbwel1JU+MmoL9f4rmWJ
+ kHDAIBfccgeb0huIeDwxzXjFZOlkKUaTqoGxguN3oSQQvt5jylxZAo15A1s1xFv/C/dS
+ 7ctBJdqcYCxIfDBuX4DSFcy7gIRB3QlcmQxuwo5Ay5zFDdfNNoVMI9aTNioqNToZJzOi
+ MGQan8u4YuRh3TyQFdpjkvICQ3QPwk+m/wu2C+PnaVifk1RCuQybNwb8x7JgsjshJOA8
+ q+uJmuBc4K5/NjSbrpOdO5vD2M+1IGQMlYb5lmxaK011V9G3rDOXDLTNUIErKaBxJFIh
+ KAIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697013279; x=1697618079;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :references:cc:to:content-language:subject:reply-to:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=FKjNKmVwLteJ2rdG4Wdm/YqXtcBPxrCX3IBRkzT5D44=;
- b=aSM66SZzhlMn/uyRc3uVCRXivAj9mWSJ5epq6WCDo3RH1eZw2vJWDyupz9O7mFSByC
- Wx6sT8IbouHCNr1Hrg6NUWodBoCSGTFLCWJluSzChKXsD97xoVePXhNZlXbQiupkRfFo
- tfUPiw58byLd4RXC1VU9vzTgTL9+pRfeQJzU8y7O9LSNeVh3Q2+OQwsVaE9m+UlMcX+f
- w9jHEAtvDSbrzhMIc2IjJZ6QXcN9HVR7zXC6rz9g0mPSSkT4b/UJ4T7M1BTo3XeyQGK5
- zmcz1abrMLYFtIH5L5KphRVpkRQlUJS9f81Q7PFhNglJjq0JymqZdxy3nlc9c8eLRP/+
- MdNw==
-X-Gm-Message-State: AOJu0YwmTlhDGDcaGujDBbCxHaoEJwJ3eOznQsLzYn50VgvcPus5LSFt
- 0XOoBPKoh2NztbNTEKsaCxYRUg==
-X-Google-Smtp-Source: AGHT+IEZ+xF7gk+iiMVaYujK7+HvKygwHOtNr4X6sKuh1VeAOiudExW5SBYVdPOvx4vKD+tuVThMIA==
-X-Received: by 2002:a19:4f4d:0:b0:503:2683:ec7b with SMTP id
- a13-20020a194f4d000000b005032683ec7bmr15734530lfk.33.1697013278872; 
- Wed, 11 Oct 2023 01:34:38 -0700 (PDT)
-Received: from [192.168.27.65] (home.beaume.starnux.net. [82.66.176.246])
+ d=1e100.net; s=20230601; t=1697025572; x=1697630372;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2ot7f93Hp27r8qDVUnK9M/4a8sldkjXGML24/ocHHa0=;
+ b=NuQZQbPeDw/hGwLWetJoLJUBOkvqiSlWwUBy4KAQWJmaNz5y9U9SiWewRzqcx5/uUs
+ UPuAFsTdR+pw1WcWsfMSeMPrQa/tSu5fWJRGOhtRPX1JPQTksh7V1XPOlfu2YfHykWsi
+ swlRQswbKW0wtQGCB8VXo4MR1T4XeIskR5jA5hEP1b25NTtWQ+jN7Xhk6tdbGo6aXgaV
+ KZPBSKS7ndcggmwKdzHd0wiiYG2FiMyK6epXhuyxLq7sA+n5C24ajQNodjBuycfKVnzs
+ i3hOZ0lwcddlQCGfCidRzk4oK8S8veIZ3jm8eHnRcNTTF/ssM/uK0ZHG4Mwt6krkPAoD
+ Mykg==
+X-Gm-Message-State: AOJu0Yw/baYEze+Ri8wrM32clV6APy1LYtHurg5WQjZylLIhtFrB45/4
+ h7PpGCeVFd35Wxk3B3VkSO1z3QJVNL7dfSFHa20rSgJp
+X-Google-Smtp-Source: AGHT+IFvb4wQ7UoKHHqPU5Z1zSsGTL3s+VszjaFbAitgWa03jJE1oir8cPoJz9cdsQrlfvSOMExq6w==
+X-Received: by 2002:a5d:456f:0:b0:31a:e744:1297 with SMTP id
+ a15-20020a5d456f000000b0031ae7441297mr18257419wrc.50.1697025572317; 
+ Wed, 11 Oct 2023 04:59:32 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- v3-20020adfa1c3000000b0032d8354fb43sm1523507wrv.76.2023.10.11.01.34.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Oct 2023 01:34:38 -0700 (PDT)
-Message-ID: <f7ec06f9-7c03-4614-9b3b-d09dad0c6c46@linaro.org>
-Date: Wed, 11 Oct 2023 10:34:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US, fr
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20231010225229.77027-1-dmitry.baryshkov@linaro.org>
+ x11-20020adff0cb000000b00323293bd023sm15447805wro.6.2023.10.11.04.59.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Oct 2023 04:59:31 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20231010225229.77027-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Wed, 11 Oct 2023 13:59:20 +0200
+Message-Id: <20231011-topic-sm8550-graphics-sspp-split-clk-v2-0-b219c945df53@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] soc: qcom: pmic_glink: fix connector type
- to be DisplayPort
+X-B4-Tracking: v=1; b=H4sIABiOJmUC/5XNQQ6CMBCF4auQrh0ztIDoynsYFrWMMBHbpkOIh
+ nB3Kzdw+b/F+1YllJhEXYpVJVpYOPgc+lAoN1o/EHCfW2nUpkQ8wxwiO5BXW9cIQ7JxZCcgEiN
+ InHgGNz2hMs5oMqd7Y63KVzHRg987c+tyjyxzSJ9dXcrf+iewlIDQYuOwJ6qoMteJvU3hGNKgu
+ m3bvr8cjavZAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2125;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=joBcCYvrr2YjxuEEXxOdU1twtKRFCTePE37s1QUybRI=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlJo4g2CKQ7ubfvzj0hhrQwGQnuVMtuiepqig177fs
+ ofm/zTqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZSaOIAAKCRB33NvayMhJ0bM7EA
+ DHv7nTNQ1a57fU//Fy6d2Uw9rd/ryhaKQTzT/j9Za2XG2zyrMGgW76JxShYe4Euy1nL2U9ATL4vPkg
+ PtTL9315D6Of2aoG0BRxGeW1jLi8ekmJ2kz6tI6rgUZffXIaC8xn/m62ftvlyMKL86dWg4dc4WiICm
+ 79bR7hHRZxa7STbVgumFtU3OT+ctrNeuukEA2VQgA3/EkLrO7lWL2dp1UZP0eNZOOnNjahKx39XpHP
+ podQbv62AncujQEkp9gh2aOmZ+omfOkCTiKNwMWCWpuhCE1XVNGV475xQxLFidB/TRoG6cMnGdNEhK
+ /7b80QP7PMLMGSxBcGbzeMd+YqNUdoT9P6kYSEzD+DcN0CMGWp8bJcE9BQgbOBtIxTSLA03kiZ9fq7
+ gM6fv6kfIvXtI+rpckps4hFGbvT3DyyRnG2x7rV+JL8hdacIBnTB3LNlte2qCHTYVauK/hGGZxZfwe
+ kS/PrJXZ2BciNIpuRfSWv2Z0uAcBatz5SMiD8CwxsIF2FuaOmfRO9nsMO1BNxm1tHG5IA4jtS1BdBF
+ z1x1qF8GAoMTxzVVkOgU2FCun6l6lRqge08QWpKaZCqj6Zx9LBf4r8/9s4xACDYomuOVmZysvfJZkP
+ oHGszs0ah8hBX9HxEf5SZYR+Pceo3wjY6pliIo/DUVBKW4F6nkyV0yjtBxyg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Subject: [Freedreno] [PATCH v2 0/5] drm/msm/dpu: correctly implement SSPP &
+ WB Clock Control Split
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,39 +96,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Simon Ser <contact@emersion.fr>
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/10/2023 00:52, Dmitry Baryshkov wrote:
-> As it was pointed out by Simon Ser, the DRM_MODE_CONNECTOR_USB connector
-> is reserved for the GUD devices. Other drivers (i915, amdgpu) use
-> DRM_MODE_CONNECTOR_DisplayPort even if the DP stream is handled by the
-> USB-C altmode. While we are still working on implementing the proper way
-> to let userspace know that the DP is wrapped into USB-C, change
-> connector type to be DRM_MODE_CONNECTOR_DisplayPort.
-> 
-> Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
-> Cc: Simon Ser <contact@emersion.fr>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/soc/qcom/pmic_glink_altmode.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
-> index 9569d999391d..6f8b2f7ae3cc 100644
-> --- a/drivers/soc/qcom/pmic_glink_altmode.c
-> +++ b/drivers/soc/qcom/pmic_glink_altmode.c
-> @@ -467,7 +467,7 @@ static int pmic_glink_altmode_probe(struct auxiliary_device *adev,
->   		alt_port->bridge.funcs = &pmic_glink_altmode_bridge_funcs;
->   		alt_port->bridge.of_node = to_of_node(fwnode);
->   		alt_port->bridge.ops = DRM_BRIDGE_OP_HPD;
-> -		alt_port->bridge.type = DRM_MODE_CONNECTOR_USB;
-> +		alt_port->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
->   
->   		ret = devm_drm_bridge_add(dev, &alt_port->bridge);
->   		if (ret) {
+Starting with the SM8550 platform, the SSPP & WB Clock Controls are
+no more in the MDP TOP registers, but in the SSPP & WB register space.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Add the corresponding SSPP & WB ops and use them before/after calling the
+QoS and OT limit setup functions.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- moved all force_clk_ctrl code out of vbif
+- use major ver test to add force_clk_ctrl op
+- do not add clk_ctrl reg into sspp/wb cap struct
+- add WB2 on sm8550
+- Link to v1: https://lore.kernel.org/r/20231009-topic-sm8550-graphics-sspp-split-clk-v1-0-806c0dee4e43@linaro.org
+
+---
+Neil Armstrong (5):
+      drm/msm/dpu: create a dpu_hw_clk_force_ctrl() helper
+      drm/msm/dpu: add setup_clk_force_ctrl() op to sspp & wb
+      drm/msm/dpu: move setup_force_clk_ctrl handling into plane and wb
+      drm/msm/dpu: sm8550: remove unused VIG and DMA clock controls entries
+      drm/msm/dpu: enable writeback on SM8550
+
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 36 +++++++++----------
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 37 +++++++++++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        | 21 +++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        | 12 ++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         | 23 +-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c        | 21 +++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h        |  4 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          | 20 +++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |  7 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 42 +++++++++++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  4 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           | 30 +++-------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h           |  4 ---
+ 13 files changed, 173 insertions(+), 88 deletions(-)
+---
+base-commit: 9119cf579b4432b36be9d33a92f4331922067d92
+change-id: 20231009-topic-sm8550-graphics-sspp-split-clk-43c32e37b6aa
+
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
+
