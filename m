@@ -2,85 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9F27C68D7
-	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 11:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4077C690D
+	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 11:11:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2087F10E483;
-	Thu, 12 Oct 2023 09:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB0210E471;
+	Thu, 12 Oct 2023 09:10:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED4EF10E474
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 09:01:39 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-32d8c2c6dfdso694289f8f.1
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 02:01:39 -0700 (PDT)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3198D10E471
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 09:10:57 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-31f71b25a99so670268f8f.2
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 02:10:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697101298; x=1697706098; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Wp9e51zMSM1A4LjQRlP8e6Z2OMJhjsVvUn5sJ7CbDOY=;
- b=Wchj6AQKPm84zHPkG9iZhE3JMtb9yZxbXmvG2BfnOK9lXgrMxlPeQJx7NrzqQwy+kW
- uMTYXJ4bFIt8LKTWBSjUm+PahYInuF5s3amlCJVSf8wCSuElU+L9KDSpvGup90o08ot6
- 2v90ewJJ+BQCohpwiyQyHreV91rE/OwaGk52LilWmzBB3QtEuanlI1O+zKKbLf5RflCR
- N8bj/wFhqkUX7T8EbYplJyHnoqNNsxl87L/JxgyBNYeUYWw6zgGgu5/B6LVBGKgb+vMF
- apWDma+1bZkYfc16eGaofAuwOOYeyb/54hl3++npq3fYjXHnFSxCxfsq7QQ25Gl/3M5k
- kZzQ==
+ d=linaro.org; s=google; t=1697101855; x=1697706655; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/SD0ghqA+f46JIuv/otTszlqWrZVg/1MVNDFjObCbSc=;
+ b=YifDs71dWOrHMNafjvByesdko+haCGNxMh8r8I5Oa4ugt4j/n7I/DEAbrAyab57MD6
+ xtlZOp70FtKruDwiHxVth0wsLav3tIZm0wqVCJYo/bQgR6Q//xh/kN+Qbn1/nOqOGbcU
+ cdkOCxpYavlpx4O8x+PwMYtkKdy8oxZ2jFAo9V77tCtxV7FzYVkgMPgeigNevj1WkzEE
+ K2Q+hiC8NwW/O75wrkrOoLJoVyUXgCIsugOe3xWhYddRcmS0oDlIr/DflPIhS+PhnLPi
+ VtF895Arq0nkVArkcoHoGESry0uKdEomExS2yV9RiC6bmi9zgkKAw2Yr2lKIWl7ebOGj
+ T7kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697101298; x=1697706098;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Wp9e51zMSM1A4LjQRlP8e6Z2OMJhjsVvUn5sJ7CbDOY=;
- b=dL24JeOLZD3uHYt16CMik31kKrjQFW6ArWsp0k74iXPcB8QxQEmaG6lHhXcLO6BD/t
- xXCEAarUVcC7+rn5BTh/Fs2XEcCQfCv6RgdK+zqQ0m5cQn6leYpcCHG7wP4p8ofMbOpX
- KTIfs185IIcj58k/whh6clBF4DBWdYfIich208/1LSv1U16Vqxw7P8WU97N7MHt6y2fv
- UL0RoyROS3zNMdZsQuRNQ7lmMfgtZyk5r7+m+LsKr7jjNaLMc8OxMIRV84m15PKmGBLO
- LYPz5dDIukizPENXxA+XmVr46s9MrLDOl8Pcj9VlFsqHAAFylFPQy3oKR8o67eZxHFWi
- mEWA==
-X-Gm-Message-State: AOJu0YxlW7uDxwXGXBZ6/RUw+tPaGjEN7I0xY/2vWSGBiCraDUxVnohj
- lCUpDvMu41PHC5LpBZfEeyTOkw==
-X-Google-Smtp-Source: AGHT+IGicf280BeC13aU4D8azDk2sM0JZfJD4dJzon56oGdvxPEpCe7im5WssqaYhxwsggfRMUTu8A==
-X-Received: by 2002:adf:f4ce:0:b0:32d:857c:d51d with SMTP id
- h14-20020adff4ce000000b0032d857cd51dmr3181321wrp.60.1697101298393; 
- Thu, 12 Oct 2023 02:01:38 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- c16-20020a5d4f10000000b00324ae863ac1sm17811176wru.35.2023.10.12.02.01.37
+ d=1e100.net; s=20230601; t=1697101855; x=1697706655;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/SD0ghqA+f46JIuv/otTszlqWrZVg/1MVNDFjObCbSc=;
+ b=vQ6ICceT9e0lnngB6hQ4XYYsfjXGR/kh1RwJgW1XM2cL3ZYD+j7a71mtJ7g0rNb9bK
+ VUZB/IY4XwAVLtVtMMhwqMae3g85PWLRKssAcXsccPJgDAE4OBpQWEKJ7qKhD8qtGULz
+ VOVrzJKRtMX28NSz0pjoWOFNw7h3Ir4FFbz0IP9ixI+OGn61AlFTpb8/wCwEzlLhdANY
+ 9T5fDdN8xEwjFJm1RAROgmFVAt8XD6OSzz8Ae/kT3r31XNaP8b4Xb0qjXBxRBbBiqpvj
+ zucgrSIu05JtIwEdKvRILdrI0yjwcbA9fgWycOoI+ElGSiFAFJbUzRu1gOeqeOh+MVYU
+ Oe6g==
+X-Gm-Message-State: AOJu0YxHI2LYy8vrW3Bk7TkrvnJHcGwhYxjhXyBkci6gnXgkLO0QfPRQ
+ JTFjDHQV6DceJOnDXZvOV2zLJQ==
+X-Google-Smtp-Source: AGHT+IElnNycLUKx9T7MY+cizlZ2JUNDozNjnF+7DphXS34rTneKgxK+DgVlN70enpXAduZQIZfPXQ==
+X-Received: by 2002:a5d:654e:0:b0:31d:db92:31ae with SMTP id
+ z14-20020a5d654e000000b0031ddb9231aemr21596947wrv.44.1697101855392; 
+ Thu, 12 Oct 2023 02:10:55 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ j16-20020adff010000000b0032008f99216sm17797775wro.96.2023.10.12.02.10.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Oct 2023 02:01:38 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 12 Oct 2023 11:01:31 +0200
+ Thu, 12 Oct 2023 02:10:54 -0700 (PDT)
+Date: Thu, 12 Oct 2023 12:10:51 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: konrad.dybcio@linaro.org
+Message-ID: <de03d47f-27e5-412f-aac0-42d95f6a5501@moroto.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20231012-topic-sm8550-graphics-sspp-split-clk-v3-5-4bcad69812d3@linaro.org>
-References: <20231012-topic-sm8550-graphics-sspp-split-clk-v3-0-4bcad69812d3@linaro.org>
-In-Reply-To: <20231012-topic-sm8550-graphics-sspp-split-clk-v3-0-4bcad69812d3@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1504;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=vyJ6HrSHxd1BhoDm2ZS2X6iLQcaDh5cmR3iYl608YDI=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlJ7XsHlKh4HhsSvaOGbNW/+YAM5zOZ+oyFbVDIPNX
- qECnY0mJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZSe17AAKCRB33NvayMhJ0XuLD/
- 9lXK5dl1D1HkFMJGVu5YuPjA4p8gZXfq5eJ3dA2POtdjOeM6w+j88Hc1pKNsNXLn5Dh4OU/snjwb/W
- lTsQSbdyIyIN06a/9+9yvBubXtwwlRNh2djXIJS21Czx2PgGlxJUe0z+zs2pGpN6XhBirR+INY/z+J
- V3JvH4wy7TExA/EyF6KaWouKA1Kh+CR4jkNUbdf01y04BbBKu5QejN0/3NsgB1yWj3k9zvvfDBkiMk
- d5RXeiHnztdkPPYF8gmf1fu9ZCIUvbw8+QTYA939MxKDm9NuitajrK2f/snpKCSuboZvPNAXuvV/ab
- V3PTL60IofWMYEfZO/hU+AbGVzNYZcuPZz1cut35EVCKk8byK7nbhJHaapWlg7OQKY9Cpm3TDU212z
- JZVwo64huhx8PN7bFHuBalcNzx9Fro5QFmvF7QEpLApd9AB1dYlBIyX4XQWmGmJGHcnP7vZEcvLkXN
- itwjKvwJRnfHn+D11jg7GbNNiokbYVCTfjeKqdbGwnZLYyGLnScGCariBY9lFURWQYtWopu++gXEdZ
- tHuP779D0+J3g2g/Qar0n75t8n6mOTWOdNUhEsLZRUC6jN9zklWPC3J4QrxROLfdPHn6neokzZk2us
- FIiT6LEw6I/iAjj7hkkhY8zHzbfXWKeczVmjuwqxPS3rlDIHHvjpuqMD7sjQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH v3 5/5] drm/msm/dpu: enable writeback on SM8550
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Freedreno] [bug report] drm/msm/a6xx: Send ACD state to QMP at GMU
+ resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,55 +69,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Neil Armstrong <neil.armstrong@linaro.org>
+Cc: freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable WB2 hardware block, enabling writeback support on this platform.
+Hello Konrad Dybcio,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+The patch 88a0997f2f94: "drm/msm/a6xx: Send ACD state to QMP at GMU
+resume" from Sep 25, 2023 (linux-next), leads to the following Smatch
+static checker warning:
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-index 4590a01c1252..d83a68a2cc0a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h
-@@ -321,6 +321,20 @@ static const struct dpu_dsc_cfg sm8550_dsc[] = {
- 	},
- };
- 
-+static const struct dpu_wb_cfg sm8550_wb[] = {
-+	{
-+		.name = "wb_2", .id = WB_2,
-+		.base = 0x65000, .len = 0x2c8,
-+		.features = WB_SM8250_MASK,
-+		.format_list = wb2_formats,
-+		.num_formats = ARRAY_SIZE(wb2_formats),
-+		.xin_id = 6,
-+		.vbif_idx = VBIF_RT,
-+		.maxlinewidth = 4096,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-+	},
-+};
-+
- static const struct dpu_intf_cfg sm8550_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
-@@ -418,6 +432,8 @@ const struct dpu_mdss_cfg dpu_sm8550_cfg = {
- 	.dsc = sm8550_dsc,
- 	.merge_3d_count = ARRAY_SIZE(sm8550_merge_3d),
- 	.merge_3d = sm8550_merge_3d,
-+	.wb_count = ARRAY_SIZE(sm8550_wb),
-+	.wb = sm8550_wb,
- 	.intf_count = ARRAY_SIZE(sm8550_intf),
- 	.intf = sm8550_intf,
- 	.vbif_count = ARRAY_SIZE(sm8550_vbif),
+	drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1813 a6xx_gmu_init()
+	warn: ignoring unreachable code.
 
--- 
-2.34.1
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+    1774         gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
+    1775         if (IS_ERR(gmu->cxpd)) {
+    1776                 ret = PTR_ERR(gmu->cxpd);
+    1777                 goto err_mmio;
+    1778         }
+    1779 
+    1780         if (!device_link_add(gmu->dev, gmu->cxpd,
+    1781                                         DL_FLAG_PM_RUNTIME)) {
+    1782                 ret = -ENODEV;
+    1783                 goto detach_cxpd;
+    1784         }
+    1785 
+    1786         gmu->qmp = qmp_get(gmu->dev);
+    1787         if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu))
+    1788                 return PTR_ERR(gmu->qmp);
 
+This should be a goto something_undo_device_link_add;
+
+    1789 
+    1790         init_completion(&gmu->pd_gate);
+    1791         complete_all(&gmu->pd_gate);
+    1792         gmu->pd_nb.notifier_call = cxpd_notifier_cb;
+    1793 
+    1794         /*
+    1795          * Get a link to the GX power domain to reset the GPU in case of GMU
+    1796          * crash
+    1797          */
+    1798         gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
+    1799 
+    1800         /* Get the power levels for the GMU and GPU */
+    1801         a6xx_gmu_pwrlevels_probe(gmu);
+    1802 
+    1803         /* Set up the HFI queues */
+    1804         a6xx_hfi_init(gmu);
+    1805 
+    1806         /* Initialize RPMh */
+    1807         a6xx_gmu_rpmh_init(gmu);
+    1808 
+    1809         gmu->initialized = true;
+    1810 
+    1811         return 0;
+    1812 
+--> 1813         if (!IS_ERR_OR_NULL(gmu->qmp))
+    1814                 qmp_put(gmu->qmp);
+
+Unreachable.  But we don't need to undo the qmp_get() in this funciton
+because that's the last failure path.  Do we need to add a qmp_put() to
+a6xx_gmu_remove()?  At first glance that looks like the undo function
+for a6xx_gmu_init().
+
+    1815 
+    1816 detach_cxpd:
+    1817         dev_pm_domain_detach(gmu->cxpd, false);
+    1818 
+    1819 err_mmio:
+    1820         iounmap(gmu->mmio);
+    1821         if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
+    1822                 iounmap(gmu->rscc);
+    1823         free_irq(gmu->gmu_irq, gmu);
+    1824         free_irq(gmu->hfi_irq, gmu);
+    1825 
+    1826 err_memory:
+    1827         a6xx_gmu_memory_free(gmu);
+    1828 err_put_device:
+    1829         /* Drop reference taken in of_find_device_by_node */
+    1830         put_device(gmu->dev);
+    1831 
+    1832         return ret;
+    1833 }
+
+regards,
+dan carpenter
