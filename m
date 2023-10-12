@@ -1,68 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A117C623C
-	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 03:29:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B0717C630F
+	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 04:49:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 838D010E3C5;
-	Thu, 12 Oct 2023 01:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 134C610E3E6;
+	Thu, 12 Oct 2023 02:49:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2C110E3BA
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 01:29:14 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-5056ca2b6d1so466408e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Oct 2023 18:29:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697074152; x=1697678952; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9ygVFzbXQkh6CQUh1+4BvkXGvWZ85BOUPB5Iw0lcA8s=;
- b=JtAp5fjZ0kNafynLwE9nC4Xp1OAELdgpfuufh4L3GWSyr98I90k/Jkvv5TR03lsRyo
- xJwlgvlH/TIaiyze5Mhl4g9b5/Vym6GDjUIhTpLgTZRFd45Qq9I/MAVe592Gw1BC1Sno
- zNwHOD+/NnF8d0Pa5U6UsNelF6HgGU00aONdIYjwX7Wfrpgj4G7QChlxx2ADCyWVrkwb
- NhOX8HrYgb2MgD5+K/N3bhtzzU+jm4eAec4+N7MkbwVpkGjraprZdEWSTmvAka06bN9H
- LTqP61eXWv8hoNoZCu9UqYt74luxiXJIiT3OSVj16sSHVRw2sHY+70Zgr+k0NRSc7zzz
- uRcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697074152; x=1697678952;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9ygVFzbXQkh6CQUh1+4BvkXGvWZ85BOUPB5Iw0lcA8s=;
- b=QkV6skIV92+75nt5cowAuvGCHyuceUWgxa+utEYdy+KzjVjDUryJAPWno/jAHQ+xVI
- Rzw60pJ/phbJs7bPJ7OkO2ohhq9T2CMoUryfRYgbXX/tzsTlX4LV4kA9iakRhNWbbd5e
- PcnCqFFLyvGsDmpgA8sfKIO8FVro2vSVjA84ffyWiCs+ZaKfp/1uS4/GUMAHV5ngCucO
- DYSQ7px7lngwtEVwd3nWwGxtfTPW1iF4jI51fbPLIiPHPZ3PFKPYLWwe3eqZbOdTfIce
- TgyCKx9x/Vm5RY3yPMWuzQ0VZGuymkUJb4lyYoN71ENvENe4f2nBv6rNYbezOI/wXw0H
- tZ8Q==
-X-Gm-Message-State: AOJu0YwgUBzg3d0HqmjpB/DpY/RQRiIlQnUefeJbw3mttYtluqqqBN4j
- qHRJ5HqXBY/krjXUCkK+YZKofA==
-X-Google-Smtp-Source: AGHT+IFiSxQOChmdo18qJuc+v8e4E6Z70A1BOOiFuFGeKNwZ9sp+95TVIAjUY/HyaslbFxNqfVuBeQ==
-X-Received: by 2002:a05:6512:33d2:b0:503:385d:611b with SMTP id
- d18-20020a05651233d200b00503385d611bmr16030189lfg.30.1697074152267; 
- Wed, 11 Oct 2023 18:29:12 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- k10-20020ac2456a000000b004fe3a8a9a0bsm2526588lfm.202.2023.10.11.18.29.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Oct 2023 18:29:11 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Date: Thu, 12 Oct 2023 04:29:09 +0300
-Message-Id: <20231012012909.450501-3-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231012012909.450501-1-dmitry.baryshkov@linaro.org>
-References: <20231012012909.450501-1-dmitry.baryshkov@linaro.org>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Oct 2023 02:49:44 UTC
+Received: from out199-3.us.a.mail.aliyun.com (out199-3.us.a.mail.aliyun.com
+ [47.90.199.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0256C10E3E6
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 02:49:44 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R431e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0Vtyh2Z6_1697078662; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0Vtyh2Z6_1697078662) by smtp.aliyun-inc.com;
+ Thu, 12 Oct 2023 10:44:31 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: robdclark@gmail.com
+Date: Thu, 12 Oct 2023 10:44:21 +0800
+Message-Id: <20231012024421.102832-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/dsi: free TX buffer in unbind
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Remove some unused functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,118 +43,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sean@poorly.run,
+ Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If the drm/msm init code gets an error during output modeset
-initialisation, the kernel will report an error regarding DRM memory
-manager not being clean during shutdown. This is because
-msm_dsi_modeset_init() allocates a piece of GEM memory for the TX
-buffer, but destruction of the buffer happens only at
-msm_dsi_host_destroy(), which is called during DSI driver's remove()
-time, much later than the DRM MM shutdown.
+These functions are defined in the a6xx_gpu_state.h file, but not called
+elsewhere, so delete these unused functions.
 
-To solve this issue, move the TX buffer destruction to dsi_unbind(), so
-that the buffer is destructed at the correct time. Note, we also have to
-store a reference to the address space, because priv->kms->aspace is
-cleared before components are unbound.
+drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:356:36: warning: ‘a7xx_ahb_reglist’ defined but not used.
+drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:360:36: warning: ‘a7xx_gbif_reglist’ defined but not used.
 
-Reported-by: Bjorn Andersson <andersson@kernel.org>
-Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6785
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/msm/dsi/dsi.c      |  1 +
- drivers/gpu/drm/msm/dsi/dsi.h      |  1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c | 15 +++++++++------
- 3 files changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 47f327e68471..c6bd7bf15605 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -131,6 +131,7 @@ static void dsi_unbind(struct device *dev, struct device *master,
- 	struct msm_drm_private *priv = dev_get_drvdata(master);
- 	struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+index 8d7e6f26480a..76e021063732 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+@@ -353,13 +353,6 @@ static const u32 a7xx_gbif_registers[] = {
+ 	0x3cc0, 0x3cd1,
+ };
  
-+	msm_dsi_tx_buf_free(msm_dsi->host);
- 	priv->dsi[msm_dsi->id] = NULL;
- }
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index a01c326774a6..28379b1af63f 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -124,6 +124,7 @@ int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size);
- void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host);
- void *dsi_tx_buf_get_v2(struct msm_dsi_host *msm_host);
- void dsi_tx_buf_put_6g(struct msm_dsi_host *msm_host);
-+void msm_dsi_tx_buf_free(struct mipi_dsi_host *mipi_host);
- int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *iova);
- int dsi_dma_base_get_v2(struct msm_dsi_host *msm_host, uint64_t *iova);
- int dsi_clk_init_v2(struct msm_dsi_host *msm_host);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 19019c764f11..deeecdfd6c4e 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -147,6 +147,7 @@ struct msm_dsi_host {
- 
- 	/* DSI 6G TX buffer*/
- 	struct drm_gem_object *tx_gem_obj;
-+	struct msm_gem_address_space *aspace;
- 
- 	/* DSI v2 TX buffer */
- 	void *tx_buf;
-@@ -1134,8 +1135,10 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
- 	uint64_t iova;
- 	u8 *data;
- 
-+	msm_host->aspace = msm_gem_address_space_get(priv->kms->aspace);
-+
- 	data = msm_gem_kernel_new(dev, size, MSM_BO_WC,
--					priv->kms->aspace,
-+					msm_host->aspace,
- 					&msm_host->tx_gem_obj, &iova);
- 
- 	if (IS_ERR(data)) {
-@@ -1164,10 +1167,10 @@ int dsi_tx_buf_alloc_v2(struct msm_dsi_host *msm_host, int size)
- 	return 0;
- }
- 
--static void dsi_tx_buf_free(struct msm_dsi_host *msm_host)
-+void msm_dsi_tx_buf_free(struct mipi_dsi_host *host)
- {
-+	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	struct drm_device *dev = msm_host->dev;
--	struct msm_drm_private *priv;
- 
- 	/*
- 	 * This is possible if we're tearing down before we've had a chance to
-@@ -1178,10 +1181,11 @@ static void dsi_tx_buf_free(struct msm_dsi_host *msm_host)
- 	if (!dev)
- 		return;
- 
--	priv = dev->dev_private;
- 	if (msm_host->tx_gem_obj) {
--		msm_gem_kernel_put(msm_host->tx_gem_obj, priv->kms->aspace);
-+		msm_gem_kernel_put(msm_host->tx_gem_obj, msm_host->aspace);
-+		msm_gem_address_space_put(msm_host->aspace);
- 		msm_host->tx_gem_obj = NULL;
-+		msm_host->aspace = NULL;
- 	}
- 
- 	if (msm_host->tx_buf)
-@@ -1967,7 +1971,6 @@ void msm_dsi_host_destroy(struct mipi_dsi_host *host)
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 
- 	DBG("");
--	dsi_tx_buf_free(msm_host);
- 	if (msm_host->workqueue) {
- 		destroy_workqueue(msm_host->workqueue);
- 		msm_host->workqueue = NULL;
+-static const struct a6xx_registers a7xx_ahb_reglist[] = {
+-	REGS(a7xx_ahb_registers, 0, 0),
+-};
+-
+-static const struct a6xx_registers a7xx_gbif_reglist =
+-	REGS(a7xx_gbif_registers, 0, 0);
+-
+ static const u32 a6xx_gmu_gx_registers[] = {
+ 	/* GMU GX */
+ 	0x0000, 0x0000, 0x0010, 0x0013, 0x0016, 0x0016, 0x0018, 0x001b,
 -- 
-2.39.2
+2.20.1.7.g153144c
 
