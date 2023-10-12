@@ -2,35 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B0717C630F
-	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 04:49:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C64C47C68C8
+	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 11:01:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 134C610E3E6;
-	Thu, 12 Oct 2023 02:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D47610E470;
+	Thu, 12 Oct 2023 09:01:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Thu, 12 Oct 2023 02:49:44 UTC
-Received: from out199-3.us.a.mail.aliyun.com (out199-3.us.a.mail.aliyun.com
- [47.90.199.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0256C10E3E6
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 02:49:44 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R431e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0Vtyh2Z6_1697078662; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0Vtyh2Z6_1697078662) by smtp.aliyun-inc.com;
- Thu, 12 Oct 2023 10:44:31 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: robdclark@gmail.com
-Date: Thu, 12 Oct 2023 10:44:21 +0800
-Message-Id: <20231012024421.102832-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 499BC10E471
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 09:01:35 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3232be274a0so1193095f8f.1
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 02:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1697101293; x=1697706093; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=q+pO3IusB6Bw/Hr5HARw2srJIw0uRRAbPFroWEjy80w=;
+ b=pmYDIcVhkfbisfPVT09mTwF8NtucDAAk2jPiGucRarB3Gpd/VGhWhFmuDJx1RwQse8
+ eNiUc1RwfNromdohNltDo01CzKYZ0MPgdA9A0c4d6Ypk4ziIg5Ed5Bbmu4rYg6sglFMx
+ kZk7d0I0ffuyO4qNRv21Os5okL+8K2xfTl/owEMFePLDjXx75v8e08kys+evFlbsnz+/
+ PPJ6ApGaxzodJn+oRD/B87m0+rOFYRQW34vPudp4CFQRSN1aWBgy5c+U8bl9ntU3QyJL
+ QlhRtK3EDTBiBYfcJ6ThcqYV3gJrmARap9ASkqFwJ4GgWRNjxttsdkNxz5FEJqcgP2iL
+ w9Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697101293; x=1697706093;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=q+pO3IusB6Bw/Hr5HARw2srJIw0uRRAbPFroWEjy80w=;
+ b=qL7GilnaG8QdSDMTf2eiXWQwP5ACdv4BdpjMXOgDuh5mJ0fqfoh0kqH1xIjsGnm3mQ
+ nhBhBHE1Y15S5yqpWnWjbb01cxWdh1pS7yXoTfZX4i6XwTf9bdwr0C2KNjbalysukyzl
+ BrIKkNKQ4ENf94ueik4NrwRc2UnAbptC+kxyGrFBjlFg2lXIrvyPxr02zflCfrl22jtm
+ GqnOfN6FXMyRzWmrulgo57vOwSb7cNAIEAVyKjFOpwliGMsUdZ5YMSOqLKj2PEyLADcs
+ k5FV0j+MyAL06gQiJ5tygSzFIccyDOFSPmYCBuEI+ZFFH59qpQbZrJMtsYUMtsw/V3wY
+ h2sw==
+X-Gm-Message-State: AOJu0YyiugCipVVhKpf0NJhiBQAXP5ieSSEDSYCtqgabi3/RhzaQTLbi
+ 6eHDojh3maWYrrCjU+FeiD1Dvw==
+X-Google-Smtp-Source: AGHT+IG8WccrRyCK/XDBM3PYDRcZNDL+ubfoPWuWJiH8G0N7gX1v/lDr8/+ydN3sEm7izyd6Uuqd+w==
+X-Received: by 2002:a5d:595d:0:b0:31a:cca0:2f3a with SMTP id
+ e29-20020a5d595d000000b0031acca02f3amr17203729wri.0.1697101293480; 
+ Thu, 12 Oct 2023 02:01:33 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ c16-20020a5d4f10000000b00324ae863ac1sm17811176wru.35.2023.10.12.02.01.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Oct 2023 02:01:32 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 12 Oct 2023 11:01:26 +0200
+Message-Id: <20231012-topic-sm8550-graphics-sspp-split-clk-v3-0-4bcad69812d3@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Remove some unused functions
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOa1J2UC/5XNyw6CMBCF4VchXTumF0Bw5XsYF7UMMBFp0yFEY
+ 3h3Cyvd6fKcxfe/BGMkZHHMXiLiTEx+TMPsMuF6O3YI1KQttNRGSVnD5AM54HtVFBK6aENPjoE
+ 5BOAw0ARuuEFunNFoDtfSWpGoELGlx5Y5X9LuiScfn1t1Vuv7Z2BWIKGSpZMNYo65OQ002uj3P
+ nZiLcz6Q1XqR1Un9apV7eq8aNriW12W5Q2NO5sCLwEAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2419;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=xVwF2wCj+2epUmlO4jNCKz0K0MhWs+/80Nc2sJa8Kag=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlJ7XpV569dzspU8hJgWuEwo8SdZzrDYfclZRso/u9
+ HRViSGSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZSe16QAKCRB33NvayMhJ0UDbD/
+ 0QQDRn+gUqbImdHyKol03IJh2u4YzK23wPoHQOWPjfG6OhkeER00qDRIWAwKhqj0pJq8vqhVCw1wRe
+ 3fRz1eb8RMkBhvUCaD343d+g2nr84RsynsilUmFn34YdnzK6wpKT9UV0OH2hfIRPP+IGXg/jA0WCvS
+ yFLhkAgIwIDSCn80B5CWROwTr+Wx/AGO4OpqQB41vyZJX31KSGj861L0QxfaGJdEoMaR2vL+I3yfdp
+ mvp4u8GWMA88UzN8c437LNRlXFGe4jhi4rQQQ062Tmz7V/aefh09I/6sR/2IH36pIfRyVexX6QUarW
+ p8ZFe+sZJ9Ri3bLhyYUrAlF7HkHuUUveXpV3+rG07pEDLzmVle0wxb0bxChWMEAID66ZP0SGcWRHuO
+ zOxNwcLQV7sI4R4u6lNslUTHqhRzMw72QIj583mzydiKLvyZGv1R7oS2/R+VqdtD7ztxc2BdGYYwLU
+ z68/7DQmGwsrLb2N0AJPuzmiGjf7aXNKoJbiN2EnUKcKGziC+mNNJHfSmjb6eEpkt64+j0eEYd/+iC
+ bFGn/w+UCkFNhZ9aZAZBWYXV/caCb22epHtqvkADhycxSBuZers26TaaQuadrr0ofRAJ+DHhxhRYe5
+ O8jhfFFrNGixOOr/Gey7+cI90uub+2ncUtkXKs2o3hTG3l1lW1jx+l7j7ANA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Subject: [Freedreno] [PATCH v3 0/5] drm/msm/dpu: correctly implement SSPP &
+ WB Clock Control Split
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,46 +96,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, sean@poorly.run,
- Abaci Robot <abaci@linux.alibaba.com>, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, airlied@gmail.com
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-These functions are defined in the a6xx_gpu_state.h file, but not called
-elsewhere, so delete these unused functions.
+Starting with the SM8550 platform, the SSPP & WB Clock Controls are
+no more in the MDP TOP registers, but in the SSPP & WB register space.
 
-drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:356:36: warning: ‘a7xx_ahb_reglist’ defined but not used.
-drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h:360:36: warning: ‘a7xx_gbif_reglist’ defined but not used.
+Add the corresponding SSPP & WB ops and use them before/after calling the
+QoS and OT limit setup functions.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6785
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+WB tested with:
+$ modetest -M msm -a -s 40@103:1024x768 -o test.d -P 47@103:1024x768
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h | 7 -------
- 1 file changed, 7 deletions(-)
+Changes in v3:
+- Collected reviews
+- Add static const to clk_ctrl struct in sspp/wb
+- Link to v2: https://lore.kernel.org/r/20231011-topic-sm8550-graphics-sspp-split-clk-v2-0-b219c945df53@linaro.org
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-index 8d7e6f26480a..76e021063732 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
-@@ -353,13 +353,6 @@ static const u32 a7xx_gbif_registers[] = {
- 	0x3cc0, 0x3cd1,
- };
- 
--static const struct a6xx_registers a7xx_ahb_reglist[] = {
--	REGS(a7xx_ahb_registers, 0, 0),
--};
--
--static const struct a6xx_registers a7xx_gbif_reglist =
--	REGS(a7xx_gbif_registers, 0, 0);
--
- static const u32 a6xx_gmu_gx_registers[] = {
- 	/* GMU GX */
- 	0x0000, 0x0000, 0x0010, 0x0013, 0x0016, 0x0016, 0x0018, 0x001b,
+Changes in v2:
+- moved all force_clk_ctrl code out of vbif
+- use major ver test to add force_clk_ctrl op
+- do not add clk_ctrl reg into sspp/wb cap struct
+- add WB2 on sm8550
+- Link to v1: https://lore.kernel.org/r/20231009-topic-sm8550-graphics-sspp-split-clk-v1-0-806c0dee4e43@linaro.org
+
+---
+Neil Armstrong (5):
+      drm/msm/dpu: create a dpu_hw_clk_force_ctrl() helper
+      drm/msm/dpu: add setup_clk_force_ctrl() op to sspp & wb
+      drm/msm/dpu: move setup_force_clk_ctrl handling into plane and wb
+      drm/msm/dpu: sm8550: remove unused VIG and DMA clock controls entries
+      drm/msm/dpu: enable writeback on SM8550
+
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h | 36 +++++++++----------
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 37 +++++++++++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        | 21 +++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        | 12 ++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         | 23 +-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c        | 21 +++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h        |  4 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          | 20 +++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |  7 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 42 +++++++++++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  4 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           | 30 +++-------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h           |  4 ---
+ 13 files changed, 173 insertions(+), 88 deletions(-)
+---
+base-commit: 9119cf579b4432b36be9d33a92f4331922067d92
+change-id: 20231009-topic-sm8550-graphics-sspp-split-clk-43c32e37b6aa
+
+Best regards,
 -- 
-2.20.1.7.g153144c
+Neil Armstrong <neil.armstrong@linaro.org>
 
