@@ -1,66 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85C7E7C7E45
-	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 08:57:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA437C7E74
+	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 09:17:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B5E010E5BD;
-	Fri, 13 Oct 2023 06:57:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E25C10E5CB;
+	Fri, 13 Oct 2023 07:17:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 193C810E5BD
- for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 06:57:53 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40572aeb673so19062635e9.0
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 23:57:53 -0700 (PDT)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C003B10E5A9
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 07:17:14 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-406618d080eso18978135e9.2
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 00:17:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697180271; x=1697785071; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YBy9l+XEWClCcH4OOaUAznM7V+kIpNxTL3AkOu2ZlF8=;
- b=z6yYDI8nIwRXAlCmNzNfHvSyUB2/MlDJ3oR4fDdVPEX3MrjvsGSa1/D/p834YCakio
- 8LrxmwpwHXOpPoVg06zhpBhNmTsQPzOWF7HcS+JK08lI3xpL2BHUH0f+bV2hHLOKIUlY
- dcc+5PHOy7vezbI587LE19RZ8mLIyZb0Q53q6EXvd2vEwn7QBrXQiQ1EPzsYpYTjmr3r
- xsS5LmkskCcdul+VLm2eHmB5DoGwbJlgELeeOIkmlaLlukpCE0Gz5Rlqrh43t/tJ9j0b
- wo9JKb7Rv4WNkmHlvssqE/b+kFqZArheAptQh4fNig9HRqYizKUt/kIc5tx7cvNEO0CK
- Lp7A==
+ d=linaro.org; s=google; t=1697181433; x=1697786233; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kWaFz4n8BLo1UJoI34jBeJHgdxXO/CE+i3BR2uQsDEA=;
+ b=mexGIOP3yXqEjPuEKFJbb1ir4146HS+9GCUh02YmBx1eQJmCC/EM7d2W7pR2SN9xRH
+ s4TM7Gk/i17bBFvVSaC5X/Q4ug0DNocnKUAiScrXkNylhNk2/B54oNb/pGUMrPB/2b3Y
+ xWcOCcQCmXFQ7llpyYpQiTR5kAFVo0NWFwpcUat2B/RPBkXvfPwzf5/6J3GvknXpUj3N
+ 0+ZmDKLzZdIQ5WLdJOKMCk0nFmdudp5jGV2M9YRU/XBmoC6uwCmn2oPPTSXKgfmQdNJu
+ I5IExFMIzU5aHeVg+zf4OCQzD/uTNXXhErwqgkykn1mzYgOsuhrUbk+4g0Zm3skdMFs5
+ bj8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697180271; x=1697785071;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YBy9l+XEWClCcH4OOaUAznM7V+kIpNxTL3AkOu2ZlF8=;
- b=K6ZmE8Pk6blF+hH4tyjA3lHHVEtzU6ovS8cloqV4h3jMOJ1nH74h5EnX74wd3oayrk
- 7rDCJMTce7sMNeQckPuJH7ut5O7MN7RU1DUlqRddhJuH4UML0lXUz/YSFIFv5qI9+tvp
- oCKdEyKoNR2okHxhd2VkW4hk8cp/D6P2i8fwAEgiYMjrD0KPzlmcvRJ6bj3/cRogKEXz
- pepFSqjsTLesNIp6BFgTtvON0JMVMNhnNEhbEgEnn594ubv10q3HrR2j6XAObnA9slu2
- xxSsIXYVetqG8VYhrjQe5EmotCB93KQgAu5vMZR4TjRKpc8U9nlFz3z7BMOywZLTIsk9
- wm5g==
-X-Gm-Message-State: AOJu0YyGJqIkrC969M5svVeVlJ0e++Chk4XgpRr5fl7NHXV9o0Ls8Eew
- r+m4kDbOZHMcvkcGEQeVD5bxUaPGauoiq/Bpcpk=
-X-Google-Smtp-Source: AGHT+IEyoDJdhh++O13oXxShHbpJTi9KhjM4IDj834nwqW3H9PJvRR4kepkTe0JszzOG0xCv8HXfng==
-X-Received: by 2002:a5d:4fd2:0:b0:31f:f829:49aa with SMTP id
- h18-20020a5d4fd2000000b0031ff82949aamr20364123wrw.23.1697180271533; 
- Thu, 12 Oct 2023 23:57:51 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1697181433; x=1697786233;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kWaFz4n8BLo1UJoI34jBeJHgdxXO/CE+i3BR2uQsDEA=;
+ b=eH3cT3/4o8yqPxWEnuRw6UhJGGaf/XBomyHm0Paq+i5Zhtnj5aDsHsAKwiDr8RPKiS
+ xk23fU+yiGA7d49ZGtKNc9yUIFxHMZ3e0rQrfVExMGmG8AEbtHM8MW66y+8Dfg9Z4lv7
+ GnIKdF0X6+vGD39MjZ70+7pkIedJQxCe+RIHaN48xnU2AkNu23wlunpIvWOL0+eJDtL5
+ T5BOxfBxClvqXKL6RbRCVh+xLbooeoKwbPigCdaOzSR8sfl2Ed9kVAbj+zPnD5addztx
+ T7WUbNkxqgIVYyGKEebHvr2d42IabWpNW944SFPfpVAnyAPuP2LKZFBdE3Qivpd4Iwnx
+ rHuw==
+X-Gm-Message-State: AOJu0YxI3ZEO/bFHJBCzw0NeufbCfhyPcmUxsUnA4YjA+WbLsVsV8Rwb
+ wGpoRVQBjDFrkxf0sb8ovjDRGw==
+X-Google-Smtp-Source: AGHT+IEMChUF1nF5n5VUZpjuNffyhQxqCtCzn921jYAb9ji1wXEYdUyTy8LrYKKnYNgqSRFV3TqNLg==
+X-Received: by 2002:a1c:7c0a:0:b0:405:39c1:a98b with SMTP id
+ x10-20020a1c7c0a000000b0040539c1a98bmr22624232wmc.20.1697181433171; 
+ Fri, 13 Oct 2023 00:17:13 -0700 (PDT)
 Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- o17-20020a5d6851000000b0031779a6b451sm20025673wrw.83.2023.10.12.23.57.50
+ y11-20020a05600c20cb00b0040531f5c51asm1751016wmm.5.2023.10.13.00.17.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Oct 2023 23:57:50 -0700 (PDT)
-Date: Fri, 13 Oct 2023 09:57:47 +0300
+ Fri, 13 Oct 2023 00:17:12 -0700 (PDT)
+Date: Fri, 13 Oct 2023 10:17:08 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <f19a598c-7e22-4399-bb14-a2e757ec498c@kadam.mountain>
-References: <de03d47f-27e5-412f-aac0-42d95f6a5501@moroto.mountain>
- <5170f4f9-d414-4b53-976d-5df2cb8b8314@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <5de18b71-c3db-4820-b35e-262b4cac35fc@moroto.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5170f4f9-d414-4b53-976d-5df2cb8b8314@linaro.org>
-Subject: Re: [Freedreno] [bug report] drm/msm/a6xx: Send ACD state to QMP at
- GMU resume
+X-Mailer: git-send-email haha only kidding
+Subject: [Freedreno] [PATCH] drm/msm: remove unnecessary NULL check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,26 +69,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Su Hui <suhui@nfschina.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 12, 2023 at 06:33:20PM +0200, Konrad Dybcio wrote:
-> @@ -1810,8 +1816,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct
-> device_node *node)
-> 
->  	return 0;
-> 
-> -	if (!IS_ERR_OR_NULL(gmu->qmp))
-> -		qmp_put(gmu->qmp);
-> +remove_device_link:
-> +	device_link_del(link);
-> 
+This NULL check was required when it was added, but we shuffled the code
+around in commit 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation
+to the _probe function") and now it's not.  The inconsistent NULL
+checking triggers a Smatch warning:
 
-This patch looks good to me but there is something happening here which
-I don't understand.  This is not related to you patch, but where does
-the device_link_del() happen in the remove() function?
+    drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c:847 mdp5_init() warn:
+    variable dereferenced before check 'mdp5_kms' (see line 782)
 
-regards,
-dan carpenter
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 11d9fc2c6bf5..ec933d597e20 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -844,8 +844,7 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 
+ 	return 0;
+ fail:
+-	if (mdp5_kms)
+-		mdp5_destroy(mdp5_kms);
++	mdp5_destroy(mdp5_kms);
+ 	return ret;
+ }
+ 
+-- 
+2.39.2
 
