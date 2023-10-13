@@ -1,62 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D26F7C8AFE
-	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 18:30:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F8D7C9129
+	for <lists+freedreno@lfdr.de>; Sat, 14 Oct 2023 01:08:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4CE10E61C;
-	Fri, 13 Oct 2023 16:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DCE710E071;
+	Fri, 13 Oct 2023 23:08:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7FE410E61C
- for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 16:30:18 +0000 (UTC)
-Received: by mail-yb1-xb34.google.com with SMTP id
- 3f1490d57ef6-d84f18e908aso2454853276.1
- for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 09:30:18 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9888510E071
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 23:07:59 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-507973f3b65so2189736e87.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 16:07:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697214618; x=1697819418; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=veDHOSSglRPxO++sDqxd9T/imdhN2ow5EstVAAB24X4=;
- b=I6iL6aun77EVIw/Wk/Dggsqq3j44XUrS8gjSg/RNaVgc9hMGPr2W6efgHuKT9hOHDd
- nRkWEO7w+xIlYx5AoYQK9eS2/Qh0+x2tfrb1zItQljBTQraX9+20X3yFzrbUlt6fN9Nc
- qZdEvd4MjRoOtfVqBdw94LNGDbzvMGnl3wEjHKFiVZOz7cosJoZnvBhR/4WRRu59LARL
- lIhOlWRTA7svPytwc6HAb46wxE7wXOSHcsAPe14eD7fWWSMaNh9kXDlZYj5ZF0WoLweH
- rt7y2pnr1nSNrtELZ0Hu8te0EVz/bWQrA/+v4aFDSI+IYG/l3uU9duw3GKuNyroiNliV
- 6Ssw==
+ d=linaro.org; s=google; t=1697238478; x=1697843278; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ntpWA0KpoWbL2Mip0SNW/VcCmMEOAdpN3Qpqu/MvN+k=;
+ b=IxOj7CLgThdJyk+HByJFf/wtHtgmjnQKdMchSfLvp/PNTFxP7vCLVAKLwIf8OoUvVF
+ /8RBfWroOcYAjA/w+JmTxA6wbIKWhxaM345EGnC0UBdmmoZ4hnD/k5z1fNBcz7tkyiyh
+ DyLn76QAyWQTfQD3585I9mkMUEASTfqtJEilmNzPda9QR/G8OrOAUJREhgznsCqVuSAK
+ qmnScD0VhezfdEoftHHqwJT4K8Qn8HC9UopH1QtJ2+4qEkrX4Nn3vgI5NtvVf2lgymFt
+ h9PnAM6VdkN+SBpBlEUOsE41+4EUol3SjK2eN78FHhmVMHtynZ5A7zuC22vmcaQmiw2y
+ 2P9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697214618; x=1697819418;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1697238478; x=1697843278;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=veDHOSSglRPxO++sDqxd9T/imdhN2ow5EstVAAB24X4=;
- b=gIsVx9ktHvw8JgsPxpAfzvOk+KE9IPeFaaxs6r+YgAuJ+owzUzxtm5oh1XMrUyjjYx
- hMoyV4qR4ogKlNOHtHsS2m8hSXL/KKQEAZWRLyAy4LhufthJsiVqNJIj9gDQY9x0qJt2
- 8uxFj+Q0Wfbf8QRRWjU/J7bBN7Lw4WXKUgQ1rRglhhoRW/08ik+I7tG27d2fLFwDleZH
- rSSvfnyVBXfRW6H0/7UpGjT3cthuPbXvQkg1sul9BMAdmk16NhNeHA9zvp0UWJgTlgNi
- 9p3feOjbh44dtRXEoFRyuZ7HvtASjdsTgBZymf5/bH6LFENRnzB+1L9FkZ8NEuSlDKDz
- 1cSw==
-X-Gm-Message-State: AOJu0Yzm8hVRGJ41H3qenVFEw95Qenj7kxzCLbSikIEX3/i8cUN11jAZ
- uPTpxsWtJH8HdfBQZt0ZjCEtstm8hocI1UXfEmmM0A==
-X-Google-Smtp-Source: AGHT+IGmGROLxFTg/QvBurrmJrb0DRXEr3xD4vja5abWktrT0Y4AE2J8f1r0WagBilg8IjNVZtcXk8Ii3xs4Np+B6ec=
-X-Received: by 2002:a5b:f86:0:b0:d7a:d716:233c with SMTP id
- q6-20020a5b0f86000000b00d7ad716233cmr23602244ybh.41.1697214617968; Fri, 13
- Oct 2023 09:30:17 -0700 (PDT)
+ bh=ntpWA0KpoWbL2Mip0SNW/VcCmMEOAdpN3Qpqu/MvN+k=;
+ b=WenVi9DUkN6FFjH+8a9UZ221k0QuaBG9dylhbUAuZy5qVwkvXrgRUnrd+cLSXIPYf1
+ UPSZEqDpgLdWQHHg5T4jTtqAZVi9DMdru9Kg8aIiYPHZOKlDGVlQpWr6e/QphxKt4s1G
+ iDaAQXTV5mrQdSkBkb9cVJAp7qv5osQRHZ+fDIJDP5vO9tI8B/Yay4j1NkoLMSNK8ECy
+ 7Az9iBUeZHWQ1rChPygiti6bTrVKwgAJ2KPO3Cw82QY4tgo8KdM8bwgLAfM872gm+Bf4
+ WvuglktoTYQy4mN2DcBJL3uN/aB7kCrdQzi1lF/mjFqkQZCvhVtRv6QVypftHu5nEtVf
+ 8IHw==
+X-Gm-Message-State: AOJu0YwCCJbd8JbiGKVaz4rJf6KUo9WPGhXALxIIjBaJnvI4blCK6C/W
+ FcQSxZTQ9dLZq9oboypcoJL0aA==
+X-Google-Smtp-Source: AGHT+IEJMwBj1J0JzYtqJnElPMCb2Qn7Ch45pieeJc7RnMmM9cj9AkGLOPOfCuprWfC3Xg3v4+RMlA==
+X-Received: by 2002:a05:6512:1246:b0:500:9839:b13a with SMTP id
+ fb6-20020a056512124600b005009839b13amr30206505lfb.66.1697238477814; 
+ Fri, 13 Oct 2023 16:07:57 -0700 (PDT)
+Received: from [10.167.154.1]
+ (178235177169.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.169])
+ by smtp.gmail.com with ESMTPSA id
+ u13-20020ac248ad000000b00504818fcb07sm3553202lfg.266.2023.10.13.16.07.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Oct 2023 16:07:57 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Sat, 14 Oct 2023 01:07:46 +0200
 MIME-Version: 1.0
-References: <20230817145940.9887-1-dmitry.baryshkov@linaro.org>
- <20230817145940.9887-5-dmitry.baryshkov@linaro.org>
- <dff4bd1d-e32a-9541-94d2-c354adf3d23b@arm.com>
-In-Reply-To: <dff4bd1d-e32a-9541-94d2-c354adf3d23b@arm.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 13 Oct 2023 19:30:06 +0300
-Message-ID: <CAA8EJpod3X_HJEUK4i=uO0KmBLUCE0D3pH1xGhezxF0U+cDucQ@mail.gmail.com>
-To: Aishwarya TCV <aishwarya.tcv@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] Warning notice "Memory manager not clean during
- takedown" on RB5 runs
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20231014-topic-a7xxv3-v1-1-616bc95f21ce@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAMHNKWUC/x2N0QqDMAwAf0XyvEBTNxR/RfYQ2zgDUqV1UhD/f
+ WGPd3DcBUWySoGhuSDLqUW3ZECPBsLC6SOo0Ri88y05euKx7RqQu1rPFqOb2UfqO08vsGTiIjh
+ lTmGxKH3X1eSeZdb6f4zv+/4Bzr+H7HMAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1697238476; l=2554;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=L0RoG9B+wKNyrZ4UA2Vwj13Xo0muadgjIRaCHVUzQ3I=;
+ b=0Tz640xtbRU3aIFgDrl3cQRCFtrEfteAL/Yvax+E5GHso3rsWZ6bqFX9Y5eSvxekDoMSTJduI
+ Bz7I7UTi6RMAfWwBf2cx/MoFPYBqP+UETorzEdjQS28mwPa60aYQxVG
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Fix up QMP handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +85,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- broonie@kernel.org, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Dan Carpenter <dan.carpenter@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Aishwarya,
+The commit referenced in the Fixes tag had a couple problems (as
+pointed out by Dan):
 
-On Fri, 13 Oct 2023 at 19:05, Aishwarya TCV <aishwarya.tcv@arm.com> wrote:
->
-> Hi Dmitry
->
->
-> On 17/08/2023 15:59, Dmitry Baryshkov wrote:
-> > Add displayport altmode declaration to the Type-C controller node to
-> > enable DP altmode negotiation.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  arch/arm64/boot/dts/qcom/qrb5165-rb5.dts | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
->
-> At present RB5 runs against next-master are consistently throwing
-> warning messages (attached below with call trace) on "Memory manager not
-> clean during takedown". I can send full logs if required. However, the
-> runs are booting successfully so the logs are quite big. Tried running
-> with older dtb built, where these
-> warnings was not observed.
+- qmp_put was never called, resulting in refcnt leaks
+- failling to acquire the QMP mailbox on A7xx would not undo the probe
+  function properly
+- the qmp_put call present in the code was unreachable
 
-Thank you for the report. These patches should be fixed by the
-patchset at https://patchwork.freedesktop.org/series/125010/
+Fix all of these issues.
 
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Fixes: 88a0997f2f94 ("drm/msm/a6xx: Send ACD state to QMP at GMU resume")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 0555a0134fad..8c4900444b2c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1558,6 +1558,9 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
+ 		dev_pm_domain_detach(gmu->gxpd, false);
+ 	}
+ 
++	if (!IS_ERR_OR_NULL(gmu->qmp))
++		qmp_put(gmu->qmp);
++
+ 	iounmap(gmu->mmio);
+ 	if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
+ 		iounmap(gmu->rscc);
+@@ -1654,6 +1657,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+ 	struct platform_device *pdev = of_find_device_by_node(node);
++	struct device_link *link;
+ 	int ret;
+ 
+ 	if (!pdev)
+@@ -1777,15 +1781,17 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 		goto err_mmio;
+ 	}
+ 
+-	if (!device_link_add(gmu->dev, gmu->cxpd,
+-					DL_FLAG_PM_RUNTIME)) {
++	link = device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME);
++	if (!link) {
+ 		ret = -ENODEV;
+ 		goto detach_cxpd;
+ 	}
+ 
+ 	gmu->qmp = qmp_get(gmu->dev);
+-	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu))
+-		return PTR_ERR(gmu->qmp);
++	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu)) {
++		ret = PTR_ERR(gmu->qmp);
++		goto remove_device_link;
++	}
+ 
+ 	init_completion(&gmu->pd_gate);
+ 	complete_all(&gmu->pd_gate);
+@@ -1810,8 +1816,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 
+ 	return 0;
+ 
+-	if (!IS_ERR_OR_NULL(gmu->qmp))
+-		qmp_put(gmu->qmp);
++remove_device_link:
++	device_link_del(link);
+ 
+ detach_cxpd:
+ 	dev_pm_domain_detach(gmu->cxpd, false);
+
+---
+base-commit: e3b18f7200f45d66f7141136c25554ac1e82009b
+change-id: 20231014-topic-a7xxv3-d0fa2d187215
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
