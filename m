@@ -1,47 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E2C7C8547
-	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 14:05:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 443F87C8590
+	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 14:20:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43F7F10E5E3;
-	Fri, 13 Oct 2023 12:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F176110E5F0;
+	Fri, 13 Oct 2023 12:20:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C9E310E5DE;
- Fri, 13 Oct 2023 12:05:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 38D60CE3110;
- Fri, 13 Oct 2023 12:05:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67647C433C7;
- Fri, 13 Oct 2023 12:05:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697198738;
- bh=nzkUtLBqmirZ6m/6sa9MukyVECkrLso7I7MyMjnA/gA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b35zLxn+F38/TILhl6VO9FmvMCSuPNzIzpLpZP/jSMd2JDh4SEwthFaIjP0ODkdO3
- HNLOXWKvywrH9gZ/vLIXaTGucPlEoeG/eUyM0U6zc0ZhQkKuxp+78PJyK0P0ePXx9z
- K3F3pnukV15Ld7Z+WWjcxRHnMXAJ9MQJoag8ODDaAyba7gAoRYV8FvipC5yvInrEDZ
- Foo1vxyJJ7zM8BqsXdVvr+wCHfCdIJIBjVEmyb8u4GYvuTLEy8IcB9NiL5Glk9O4XX
- b86ICOUpCa3IezU9mi3Oxv3HWhYpStHNMSMWnT8podKi7Aa4G3FmOdEV5UkHBL0i+5
- 8vNXJdsdg4m0Q==
-Received: from johan by xi.lan with local (Exim 4.96)
- (envelope-from <johan@kernel.org>) id 1qrGvh-0000sd-1v;
- Fri, 13 Oct 2023 14:06:09 +0200
-Date: Fri, 13 Oct 2023 14:06:09 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <ZSkysaMcOQO89zpd@hovoldconsulting.com>
-References: <1691533190-19335-1-git-send-email-quic_khsieh@quicinc.com>
- <ZRvaoz7CbNncM3t6@hovoldconsulting.com>
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 601C610E5F0
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 12:20:53 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50481a0eee7so3805255e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 05:20:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1697199651; x=1697804451; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=scKE2AsXVylNf1Oa0+21s+niEDX4QrR948iXnuohg8k=;
+ b=Fc49KJgZCGUKcyve2wgWKR1wXuZG6jO1gM0uAfB/zX+Kl5hWqq512xQ9qUH9/yKndb
+ o+Udg6jtwl8d8Ao8e630mlNGMkjrgA7jLUWhTicsx23BXdpjfoZvubAVfW2lsImbTNkh
+ 8HwjSwRMCrwPzecx/50TvUYJObc9qFpu6y/E+ZRl2pw5r63s4hwQ/8HHqlcyrS8dZAO7
+ PrCf6p5r68JfCLsIYEKD7BH5h9ewCnVNlqrpfW+eWmyU034OqvmI0xz4mRgbh36a2K1G
+ ADz3MKJCD1eHBVR9ctT045vrcvNHDir3lEVkqIFsKH1le7K22B4luQ8hWPM2I3+/9ei7
+ iCqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697199651; x=1697804451;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=scKE2AsXVylNf1Oa0+21s+niEDX4QrR948iXnuohg8k=;
+ b=V2IFgWE7NsaGgQJy8KMs/R+/seNfnEF+H7tMp5tbNbtAc+MSem4wppC88N2yKTU2XM
+ np8qpUEjtZzJif9lstbI2wVA8z0XM1HRz0gGYag+sQ19OcG5nBJ5GAg8thgh/tE5V7hd
+ htRlNGBKxES8/tf41qFr+GjGokmM8p33EvM6RbPniWqxJKKSYPnNdhrgfQ0DVzshZbZj
+ pgZ5EhNFgmbZZx0bLGs7iRPNMKBcCCBPrpx/KEy5jCeISA9v1tDFDjhEpZFPM41HrBqX
+ yIRsvMBD7yz5+tBtoxgpMeySJ2S1uqYhQQv932pbtkWiId2Is0r2LpvCNo5s5R/Rd9TT
+ TLcQ==
+X-Gm-Message-State: AOJu0YwIoaB19uBYWJpuvfWCrcUqXKknMflqF1gB6O8Yz76aF0Y1Jzju
+ Jl5NjcyPGd8EkWNAgxaksEiZwQXzZxe4WKqAO9w=
+X-Google-Smtp-Source: AGHT+IGi98bLs5nVM+QdnF38hQByCGGiYgXMYjRmxi6NZTOn1JFvjU0gMpfXGHUnveySsc95lW3nQg==
+X-Received: by 2002:a19:641c:0:b0:503:7f6:ac20 with SMTP id
+ y28-20020a19641c000000b0050307f6ac20mr18311483lfb.5.1697199651508; 
+ Fri, 13 Oct 2023 05:20:51 -0700 (PDT)
+Received: from [172.30.204.142] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ u4-20020ac243c4000000b0050089b26ea1sm3313860lfl.276.2023.10.13.05.20.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Oct 2023 05:20:51 -0700 (PDT)
+Message-ID: <4f41fc79-b5d9-48f2-9895-38f474b1860d@linaro.org>
+Date: Fri, 13 Oct 2023 14:20:50 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZRvaoz7CbNncM3t6@hovoldconsulting.com>
-Subject: Re: [Freedreno] [PATCH v1] drm/msm/dp: do not reinitialize phy
- unless retry during link training
+User-Agent: Mozilla Thunderbird
+To: Dan Carpenter <dan.carpenter@linaro.org>
+References: <de03d47f-27e5-412f-aac0-42d95f6a5501@moroto.mountain>
+ <5170f4f9-d414-4b53-976d-5df2cb8b8314@linaro.org>
+ <f19a598c-7e22-4399-bb14-a2e757ec498c@kadam.mountain>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <f19a598c-7e22-4399-bb14-a2e757ec498c@kadam.mountain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [bug report] drm/msm/a6xx: Send ACD state to QMP at
+ GMU resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,52 +78,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, swboyd@chromium.org, sean@poorly.run,
- linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 03, 2023 at 11:10:59AM +0200, Johan Hovold wrote:
-> On Tue, Aug 08, 2023 at 03:19:50PM -0700, Kuogee Hsieh wrote:
-> > DP PHY re-initialization done using dp_ctrl_reinitialize_mainlink() will
-> > cause PLL unlocked initially and then PLL gets locked at the end of
-> > initialization. PLL_UNLOCKED interrupt will fire during this time if the
-> > interrupt mask is enabled.
-> > However currently DP driver link training implementation incorrectly
-> > re-initializes PHY unconditionally during link training as the PHY was
-> > already configured in dp_ctrl_enable_mainlink_clocks().
-> > 
-> > Fix this by re-initializing the PHY only if the previous link training
-> > failed.
-> > 
-> > [drm:dp_aux_isr] *ERROR* Unexpected DP AUX IRQ 0x01000000 when not busy
-> > 
-> > Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> > Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/30
-> > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> 
-> This fixes the above warning and avoids the unnecessary PHY power-off
-> and power-on during boot of the ThinkPad X13s:
-> 
-> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
-> Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> 
-> I guess this one should go to stable as well:
-> 
-> Cc: stable@vger.kernel.org	# 5.10
-> 
-> Is anyone planning on getting this fixed in 6.6-rc? I noticed that this
-> one still hasn't shown up linux-next.
 
-For the record, this one showed up in a PR from Rob and has now been
-forwarded to Linus.
 
-No stable tag included, but I guess we can ping the stable team unless
-AUTOSEL picks this up.
+On 10/13/23 08:57, Dan Carpenter wrote:
+> On Thu, Oct 12, 2023 at 06:33:20PM +0200, Konrad Dybcio wrote:
+>> @@ -1810,8 +1816,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct
+>> device_node *node)
+>>
+>>   	return 0;
+>>
+>> -	if (!IS_ERR_OR_NULL(gmu->qmp))
+>> -		qmp_put(gmu->qmp);
+>> +remove_device_link:
+>> +	device_link_del(link);
+>>
+> 
+> This patch looks good to me but there is something happening here which
+> I don't understand.  This is not related to you patch, but where does
+> the device_link_del() happen in the remove() function?
+Well, you might have discovered another funny issue with the Adreno driver..
 
-Johan
+Cleaning up after the GPU failure was always an issue, that is HOPEFULLY 
+solved today, but perhaps nobody had ever imagined to test rmmod..
+
+I'll take a deeper look later to check if it's not hidden in some API
+
+Konrad
