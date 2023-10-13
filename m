@@ -2,66 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659FB7C8024
-	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 10:26:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D757C828F
+	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 11:54:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2371410E094;
-	Fri, 13 Oct 2023 08:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE7710E0C5;
+	Fri, 13 Oct 2023 09:54:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ECF010E5D7
- for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 08:26:14 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-31c5cac3ae2so1671184f8f.3
- for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 01:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697185573; x=1697790373; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=5lZIjZUIrHJnpE4t/QLHPx/DZrADcMrWtR2aEpPyl1M=;
- b=dNVz+w0Tmb2ZxrUyE9df7v6PPrth6hDVOmxOucXVNMB0Auv7b0haMYlYlGRgVl6Qhq
- BEXlsP7y7jTh00Y8KGqNjXiYfsZYVUwzHgSyayVtLtEtf12y8sH9dkKw8Oa2yAPFYKxa
- ajrrh7PCLC/c5Su2OBqGPMiPJULERCyvN1BnLMxDHPtxOG0jxKqrfDMlSjjeN6ckvqb3
- 2eTns9lka8nWy7kMz5Qb15JmlIxTWfhw3hw8q1ftgCMCD3n1MyA346BfezC6euqumFHu
- 2i6d5gTcmEr8kFbS41uU6h6RtwkVvCioBU8aDJFwU0rqtG70IFj9cLk1B52S/pqFwFV3
- XH5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697185573; x=1697790373;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5lZIjZUIrHJnpE4t/QLHPx/DZrADcMrWtR2aEpPyl1M=;
- b=ZuC8GEYlArzSlKXtG4nkISEA2OTQ/c4wq+vHcuHVQj6ajDUTvSfR4BEwj2ZnXtk4r4
- qGY/zyuARPPMj2Lq7CTuXgX9G4PVdDz1qgv4jWm7mQQN376VPPNRb0rGlwPVcobXm25z
- LtF3NpCFbBunsANBX4/294K0UGYyZidVIJTatDDWw285C5j4y2evlbK7COn7yTw5aDNw
- 2ddmeyv5VLz5iwxpDZLxvfBbwvJG1U4QsnRI5ZgcVriSiyAGanJpNt1gYP4t45kDyexB
- 2deJdDxRSipNLbPXZLwovlwfgQM5kqrDFSfjNp00N/Dk23xtujF1yIwZKdizx1ozk0aX
- NPag==
-X-Gm-Message-State: AOJu0Yz+hBSNvnPqVC9La6EzIPRk5wjz+yz54dXth2asO3h9iWmWzNF3
- zVlHn1fvoDg78LDeq9t911Q8uA==
-X-Google-Smtp-Source: AGHT+IHFwmu2jkp0Wem5odeef0kN4MbW9MLkLDGoEmUDINiSFC1xy+l7yDeEAV6+kZu/zr8QTLnrOw==
-X-Received: by 2002:adf:eac6:0:b0:32d:9a7c:56ed with SMTP id
- o6-20020adfeac6000000b0032d9a7c56edmr1164992wrn.10.1697185573035; 
- Fri, 13 Oct 2023 01:26:13 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- f4-20020a5d4dc4000000b003253523d767sm3778669wru.109.2023.10.13.01.26.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 01:26:12 -0700 (PDT)
-Date: Fri, 13 Oct 2023 11:26:10 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <2ac432ce-b253-41c9-9814-19e2afafad5c@kadam.mountain>
-References: <5de18b71-c3db-4820-b35e-262b4cac35fc@moroto.mountain>
- <20231013080149.hbcuxww6w362g6xh@pengutronix.de>
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF4B410E09B
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 09:54:45 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qrEsQ-0007Xb-Kn; Fri, 13 Oct 2023 11:54:38 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qrEsP-001Mg2-3t; Fri, 13 Oct 2023 11:54:37 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qrEsO-00FU43-QC; Fri, 13 Oct 2023 11:54:36 +0200
+Date: Fri, 13 Oct 2023 11:54:36 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Message-ID: <20231013095436.fo5rieew5z74ck42@pengutronix.de>
+References: <ZSj+6/J6YsoSpLak@kadam>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="azie4tzhhm5wnxd7"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231013080149.hbcuxww6w362g6xh@pengutronix.de>
-Subject: Re: [Freedreno] [PATCH] drm/msm: remove unnecessary NULL check
+In-Reply-To: <ZSj+6/J6YsoSpLak@kadam>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: remove unnecessary NULL check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,32 +63,48 @@ Cc: freedreno@lists.freedesktop.org, Su Hui <suhui@nfschina.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 13, 2023 at 10:01:49AM +0200, Uwe Kleine-König wrote:
-> Hello,
-> 
-> On Fri, Oct 13, 2023 at 10:17:08AM +0300, Dan Carpenter wrote:
-> > This NULL check was required when it was added, but we shuffled the code
-> > around in commit 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation
-> > to the _probe function") and now it's not.  The inconsistent NULL
-> > checking triggers a Smatch warning:
-> > 
-> >     drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c:847 mdp5_init() warn:
-> >     variable dereferenced before check 'mdp5_kms' (see line 782)
-> > 
-> > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> 
-> LGTM
-> 
-> Reviewed-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-> 
-> This patch opportunity is valid since commit 1f50db2f3e1e
-> ("drm/msm/mdp5: move resource allocation to the _probe function") but
-> applies to older trees (where it introduces a bug).
-> On one hand it's not really a fix, but maybe still add a Fixes: line to
-> ensure it's not backported to older stables? Hmm, I don't know.
 
-Sure.  Being extra safe is good.
+--azie4tzhhm5wnxd7
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-regards,
-dan carpenter
+On Fri, Oct 13, 2023 at 11:25:15AM +0300, Dan Carpenter wrote:
+> This NULL check was required when it was added, but we shuffled the code
+> around and now it's not.  The inconsistent NULL checking triggers a
+> Smatch warning:
+>=20
+>     drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c:847 mdp5_init() warn:
+>     variable dereferenced before check 'mdp5_kms' (see line 782)
+>=20
+> Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the _prob=
+e function"
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 
+Reviewed-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+
+(already provided for (implicit) v1, but wasn't picked up)
+
+Thanks
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--azie4tzhhm5wnxd7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmUpE9sACgkQj4D7WH0S
+/k7/mgf/eePbGSTxnx4bSU48gePsiOai39SNEhuEk2iMBkHEaEE8kbcY9d2HO/Fn
+ULnenRAalSQCnIDqzahTlQLieRBsBHdyT68+Y+4TS3n6gpGKUxi03gq1NJiIeql2
+tNtmWBtntXzSBb02rbdzJEfoWUu9VUajD6cY+PVPSDMLnwMImygX+0WFsM3AACPG
+eTb1bwsu08/JRAzkj5nWqshlZekBEVg3KKucphJA+jKP0R9yCkR1ErzACUSFrK1E
+yTBJYS28zv3OfxKUUoEGQ0S7BHZiYCMjALJk1C1sUDmYoLDkI0MtRQ5o83d79kPx
+2c64Eqk0cGyDnsy6ygTwEFkI6DvwXw==
+=UDqN
+-----END PGP SIGNATURE-----
+
+--azie4tzhhm5wnxd7--
