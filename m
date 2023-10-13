@@ -1,47 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D757C828F
-	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 11:54:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E2C7C8547
+	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 14:05:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE7710E0C5;
-	Fri, 13 Oct 2023 09:54:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F7F10E5E3;
+	Fri, 13 Oct 2023 12:05:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4B410E09B
- for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 09:54:45 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qrEsQ-0007Xb-Kn; Fri, 13 Oct 2023 11:54:38 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qrEsP-001Mg2-3t; Fri, 13 Oct 2023 11:54:37 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qrEsO-00FU43-QC; Fri, 13 Oct 2023 11:54:36 +0200
-Date: Fri, 13 Oct 2023 11:54:36 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Message-ID: <20231013095436.fo5rieew5z74ck42@pengutronix.de>
-References: <ZSj+6/J6YsoSpLak@kadam>
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C9E310E5DE;
+ Fri, 13 Oct 2023 12:05:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 38D60CE3110;
+ Fri, 13 Oct 2023 12:05:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67647C433C7;
+ Fri, 13 Oct 2023 12:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1697198738;
+ bh=nzkUtLBqmirZ6m/6sa9MukyVECkrLso7I7MyMjnA/gA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=b35zLxn+F38/TILhl6VO9FmvMCSuPNzIzpLpZP/jSMd2JDh4SEwthFaIjP0ODkdO3
+ HNLOXWKvywrH9gZ/vLIXaTGucPlEoeG/eUyM0U6zc0ZhQkKuxp+78PJyK0P0ePXx9z
+ K3F3pnukV15Ld7Z+WWjcxRHnMXAJ9MQJoag8ODDaAyba7gAoRYV8FvipC5yvInrEDZ
+ Foo1vxyJJ7zM8BqsXdVvr+wCHfCdIJIBjVEmyb8u4GYvuTLEy8IcB9NiL5Glk9O4XX
+ b86ICOUpCa3IezU9mi3Oxv3HWhYpStHNMSMWnT8podKi7Aa4G3FmOdEV5UkHBL0i+5
+ 8vNXJdsdg4m0Q==
+Received: from johan by xi.lan with local (Exim 4.96)
+ (envelope-from <johan@kernel.org>) id 1qrGvh-0000sd-1v;
+ Fri, 13 Oct 2023 14:06:09 +0200
+Date: Fri, 13 Oct 2023 14:06:09 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <ZSkysaMcOQO89zpd@hovoldconsulting.com>
+References: <1691533190-19335-1-git-send-email-quic_khsieh@quicinc.com>
+ <ZRvaoz7CbNncM3t6@hovoldconsulting.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="azie4tzhhm5wnxd7"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZSj+6/J6YsoSpLak@kadam>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: freedreno@lists.freedesktop.org
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: remove unnecessary NULL check
+In-Reply-To: <ZRvaoz7CbNncM3t6@hovoldconsulting.com>
+Subject: Re: [Freedreno] [PATCH v1] drm/msm/dp: do not reinitialize phy
+ unless retry during link training
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,57 +54,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Su Hui <suhui@nfschina.com>,
- David Airlie <airlied@gmail.com>, kernel-janitors@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, swboyd@chromium.org, sean@poorly.run,
+ linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Oct 03, 2023 at 11:10:59AM +0200, Johan Hovold wrote:
+> On Tue, Aug 08, 2023 at 03:19:50PM -0700, Kuogee Hsieh wrote:
+> > DP PHY re-initialization done using dp_ctrl_reinitialize_mainlink() will
+> > cause PLL unlocked initially and then PLL gets locked at the end of
+> > initialization. PLL_UNLOCKED interrupt will fire during this time if the
+> > interrupt mask is enabled.
+> > However currently DP driver link training implementation incorrectly
+> > re-initializes PHY unconditionally during link training as the PHY was
+> > already configured in dp_ctrl_enable_mainlink_clocks().
+> > 
+> > Fix this by re-initializing the PHY only if the previous link training
+> > failed.
+> > 
+> > [drm:dp_aux_isr] *ERROR* Unexpected DP AUX IRQ 0x01000000 when not busy
+> > 
+> > Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+> > Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/30
+> > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> 
+> This fixes the above warning and avoids the unnecessary PHY power-off
+> and power-on during boot of the ThinkPad X13s:
+> 
+> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+> 
+> I guess this one should go to stable as well:
+> 
+> Cc: stable@vger.kernel.org	# 5.10
+> 
+> Is anyone planning on getting this fixed in 6.6-rc? I noticed that this
+> one still hasn't shown up linux-next.
 
---azie4tzhhm5wnxd7
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+For the record, this one showed up in a PR from Rob and has now been
+forwarded to Linus.
 
-On Fri, Oct 13, 2023 at 11:25:15AM +0300, Dan Carpenter wrote:
-> This NULL check was required when it was added, but we shuffled the code
-> around and now it's not.  The inconsistent NULL checking triggers a
-> Smatch warning:
->=20
->     drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c:847 mdp5_init() warn:
->     variable dereferenced before check 'mdp5_kms' (see line 782)
->=20
-> Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the _prob=
-e function"
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+No stable tag included, but I guess we can ping the stable team unless
+AUTOSEL picks this up.
 
-Reviewed-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-
-(already provided for (implicit) v1, but wasn't picked up)
-
-Thanks
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---azie4tzhhm5wnxd7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmUpE9sACgkQj4D7WH0S
-/k7/mgf/eePbGSTxnx4bSU48gePsiOai39SNEhuEk2iMBkHEaEE8kbcY9d2HO/Fn
-ULnenRAalSQCnIDqzahTlQLieRBsBHdyT68+Y+4TS3n6gpGKUxi03gq1NJiIeql2
-tNtmWBtntXzSBb02rbdzJEfoWUu9VUajD6cY+PVPSDMLnwMImygX+0WFsM3AACPG
-eTb1bwsu08/JRAzkj5nWqshlZekBEVg3KKucphJA+jKP0R9yCkR1ErzACUSFrK1E
-yTBJYS28zv3OfxKUUoEGQ0S7BHZiYCMjALJk1C1sUDmYoLDkI0MtRQ5o83d79kPx
-2c64Eqk0cGyDnsy6ygTwEFkI6DvwXw==
-=UDqN
------END PGP SIGNATURE-----
-
---azie4tzhhm5wnxd7--
+Johan
