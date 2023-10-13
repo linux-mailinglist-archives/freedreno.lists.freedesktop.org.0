@@ -1,67 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD8DA7C731B
-	for <lists+freedreno@lfdr.de>; Thu, 12 Oct 2023 18:33:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C7E7C7E45
+	for <lists+freedreno@lfdr.de>; Fri, 13 Oct 2023 08:57:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D0110E151;
-	Thu, 12 Oct 2023 16:33:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B5E010E5BD;
+	Fri, 13 Oct 2023 06:57:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9A710E151
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 16:33:34 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2c501bd6ff1so3627491fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 09:33:34 -0700 (PDT)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 193C810E5BD
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Oct 2023 06:57:53 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40572aeb673so19062635e9.0
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Oct 2023 23:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697128413; x=1697733213; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BDsJcoep9nnn3P3Eb61u6SrgYyC1a4gBYDvipvhuGuA=;
- b=LKrTE5d+PQwcWcjaWOwGsoN5P9Kixnku2ppMuFcwJ2AiYWeSuq+Wzl7ZFJgc8XroFQ
- YiDP1AcoM+MxKivgiDWSgPtNNhLP4C/3b5tFyaghgw4fKw2F05UdlP2MS25ipcP4RfA8
- NYshvxbCV/LjjR0zfNi3FRDilLbVMqBCNvx1mxz+xrWOf22Srsm13f6jZ9OBKj21IfVR
- c1ef69SQ17zuJ7p7mcKpCMyJ+Z70GDewEjXzwkHVOYFT65E1L8vonW44eBg7iRcyWONQ
- C3thhTAxK6wqIYIY9tA8o/hO2EEiSzsNf2aXGuO76JOFz7VjAfZpmJOiuNlEFYczcB+3
- Skcw==
+ d=linaro.org; s=google; t=1697180271; x=1697785071; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=YBy9l+XEWClCcH4OOaUAznM7V+kIpNxTL3AkOu2ZlF8=;
+ b=z6yYDI8nIwRXAlCmNzNfHvSyUB2/MlDJ3oR4fDdVPEX3MrjvsGSa1/D/p834YCakio
+ 8LrxmwpwHXOpPoVg06zhpBhNmTsQPzOWF7HcS+JK08lI3xpL2BHUH0f+bV2hHLOKIUlY
+ dcc+5PHOy7vezbI587LE19RZ8mLIyZb0Q53q6EXvd2vEwn7QBrXQiQ1EPzsYpYTjmr3r
+ xsS5LmkskCcdul+VLm2eHmB5DoGwbJlgELeeOIkmlaLlukpCE0Gz5Rlqrh43t/tJ9j0b
+ wo9JKb7Rv4WNkmHlvssqE/b+kFqZArheAptQh4fNig9HRqYizKUt/kIc5tx7cvNEO0CK
+ Lp7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697128413; x=1697733213;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BDsJcoep9nnn3P3Eb61u6SrgYyC1a4gBYDvipvhuGuA=;
- b=gExs8wrgDliHILNW184Y/StNIPBgwCKLY7rBQSqzmtQnWf2SC2ecfv0GUKwDw9Gr7m
- Hc631JhysFIMPYEc3FoYyS70KIrRqs+wsPLyiOW/TgQ0/uzCJS+6CcC7j3951Bz4HZAN
- aWbIrAlUxv1NzAYRHNXWaLfsRDNMtOJRSMiwa/01aKlUon5ZbsaiT05ErFM8x2TYvgeU
- TiI7sAnqY80fA/M6DQk7ff2p1AbhQLMHGIqvLlhu+1bi14KkbNPJwLPLths/wdWTEZI0
- 3KWyahWOAzx8ctCK33mplFRRfT9OJpag1M+2z1IfbEo7agSiRkd2ecj+8rH1n6HpHzS8
- TpOg==
-X-Gm-Message-State: AOJu0YwyFXWImJVd2IFwPzH3CBe4Pp3DVYWVWQG/BgTK5iQSjB8FTHNs
- sAICtWK/q6Hx5euUN7Pq7BGLAWUoNI1SrPvDs+k=
-X-Google-Smtp-Source: AGHT+IGfqwyYJTe4CA6g+I/sCt/fm4+fbfqG+8yDXCMamWXXRLqQKVEHlFnuU5HkP/Ks+P1l6Lte3g==
-X-Received: by 2002:a2e:8059:0:b0:2c1:522a:8e1b with SMTP id
- p25-20020a2e8059000000b002c1522a8e1bmr22610665ljg.51.1697128411477; 
- Thu, 12 Oct 2023 09:33:31 -0700 (PDT)
-Received: from [172.30.204.175] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- t8-20020a2e9d08000000b002bff8ed8e2bsm3633246lji.9.2023.10.12.09.33.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Oct 2023 09:33:31 -0700 (PDT)
-Message-ID: <5170f4f9-d414-4b53-976d-5df2cb8b8314@linaro.org>
-Date: Thu, 12 Oct 2023 18:33:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@linaro.org>
+ d=1e100.net; s=20230601; t=1697180271; x=1697785071;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YBy9l+XEWClCcH4OOaUAznM7V+kIpNxTL3AkOu2ZlF8=;
+ b=K6ZmE8Pk6blF+hH4tyjA3lHHVEtzU6ovS8cloqV4h3jMOJ1nH74h5EnX74wd3oayrk
+ 7rDCJMTce7sMNeQckPuJH7ut5O7MN7RU1DUlqRddhJuH4UML0lXUz/YSFIFv5qI9+tvp
+ oCKdEyKoNR2okHxhd2VkW4hk8cp/D6P2i8fwAEgiYMjrD0KPzlmcvRJ6bj3/cRogKEXz
+ pepFSqjsTLesNIp6BFgTtvON0JMVMNhnNEhbEgEnn594ubv10q3HrR2j6XAObnA9slu2
+ xxSsIXYVetqG8VYhrjQe5EmotCB93KQgAu5vMZR4TjRKpc8U9nlFz3z7BMOywZLTIsk9
+ wm5g==
+X-Gm-Message-State: AOJu0YyGJqIkrC969M5svVeVlJ0e++Chk4XgpRr5fl7NHXV9o0Ls8Eew
+ r+m4kDbOZHMcvkcGEQeVD5bxUaPGauoiq/Bpcpk=
+X-Google-Smtp-Source: AGHT+IEyoDJdhh++O13oXxShHbpJTi9KhjM4IDj834nwqW3H9PJvRR4kepkTe0JszzOG0xCv8HXfng==
+X-Received: by 2002:a5d:4fd2:0:b0:31f:f829:49aa with SMTP id
+ h18-20020a5d4fd2000000b0031ff82949aamr20364123wrw.23.1697180271533; 
+ Thu, 12 Oct 2023 23:57:51 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ o17-20020a5d6851000000b0031779a6b451sm20025673wrw.83.2023.10.12.23.57.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Oct 2023 23:57:50 -0700 (PDT)
+Date: Fri, 13 Oct 2023 09:57:47 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <f19a598c-7e22-4399-bb14-a2e757ec498c@kadam.mountain>
 References: <de03d47f-27e5-412f-aac0-42d95f6a5501@moroto.mountain>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <de03d47f-27e5-412f-aac0-42d95f6a5501@moroto.mountain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <5170f4f9-d414-4b53-976d-5df2cb8b8314@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5170f4f9-d414-4b53-976d-5df2cb8b8314@linaro.org>
 Subject: Re: [Freedreno] [bug report] drm/msm/a6xx: Send ACD state to QMP at
  GMU resume
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -80,101 +77,22 @@ Cc: freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 10/12/23 11:10, Dan Carpenter wrote:
-> Hello Konrad Dybcio,
+On Thu, Oct 12, 2023 at 06:33:20PM +0200, Konrad Dybcio wrote:
+> @@ -1810,8 +1816,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct
+> device_node *node)
 > 
-> The patch 88a0997f2f94: "drm/msm/a6xx: Send ACD state to QMP at GMU
-> resume" from Sep 25, 2023 (linux-next), leads to the following Smatch
-> static checker warning:
-Thanks for the heads up, Dan!
+>  	return 0;
+> 
+> -	if (!IS_ERR_OR_NULL(gmu->qmp))
+> -		qmp_put(gmu->qmp);
+> +remove_device_link:
+> +	device_link_del(link);
+> 
 
-Can you give my below solution a quick looksee and check if it looks right?
+This patch looks good to me but there is something happening here which
+I don't understand.  This is not related to you patch, but where does
+the device_link_del() happen in the remove() function?
 
-Konrad
+regards,
+dan carpenter
 
-
- From 5b2dd0b74cc06f2d4af9aed95fa314001a2facf5 Mon Sep 17 00:00:00 2001
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Thu, 12 Oct 2023 18:29:28 +0200
-Subject: [PATCH] drm/msm/a6xx: Fix up QMP handling
-
-The commit referenced in the Fixes tag had a couple problems, (as
-pointed out by Dan):
-
-- qmp_put was never called, resulting in refcnt leaks
-- failling to acquire the QMP mailbox on A7xx would not undo the probe
-   function properly
-- the qmp_put call present in the code was unreachable
-
-Fix all of these issues.
-
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Fixes: 88a0997f2f94 ("drm/msm/a6xx: Send ACD state to QMP at GMU resume")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
-  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 18 ++++++++++++------
-  1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c 
-b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 0555a0134fad..8c4900444b2c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1558,6 +1558,9 @@ void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu)
-  		dev_pm_domain_detach(gmu->gxpd, false);
-  	}
-
-+	if (!IS_ERR_OR_NULL(gmu->qmp))
-+		qmp_put(gmu->qmp);
-+
-  	iounmap(gmu->mmio);
-  	if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
-  		iounmap(gmu->rscc);
-@@ -1654,6 +1657,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, 
-struct device_node *node)
-  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-  	struct platform_device *pdev = of_find_device_by_node(node);
-+	struct device_link *link;
-  	int ret;
-
-  	if (!pdev)
-@@ -1777,15 +1781,17 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, 
-struct device_node *node)
-  		goto err_mmio;
-  	}
-
--	if (!device_link_add(gmu->dev, gmu->cxpd,
--					DL_FLAG_PM_RUNTIME)) {
-+	link = device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME);
-+	if (!link) {
-  		ret = -ENODEV;
-  		goto detach_cxpd;
-  	}
-
-  	gmu->qmp = qmp_get(gmu->dev);
--	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu))
--		return PTR_ERR(gmu->qmp);
-+	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu)) {
-+		ret = PTR_ERR(gmu->qmp);
-+		goto remove_device_link;
-+	}
-
-  	init_completion(&gmu->pd_gate);
-  	complete_all(&gmu->pd_gate);
-@@ -1810,8 +1816,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, 
-struct device_node *node)
-
-  	return 0;
-
--	if (!IS_ERR_OR_NULL(gmu->qmp))
--		qmp_put(gmu->qmp);
-+remove_device_link:
-+	device_link_del(link);
-
-  detach_cxpd:
-  	dev_pm_domain_detach(gmu->cxpd, false);
--- 
-2.39.2
