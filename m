@@ -2,72 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0A57CB422
-	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 22:12:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C077CB48A
+	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 22:22:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5563E10E0D0;
-	Mon, 16 Oct 2023 20:12:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD17D10E181;
+	Mon, 16 Oct 2023 20:22:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A04C910E0D0;
- Mon, 16 Oct 2023 20:12:31 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1244E10E161;
+ Mon, 16 Oct 2023 20:22:28 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39GKCBYX005670; Mon, 16 Oct 2023 20:12:11 GMT
+ 39GJBxV9007547; Mon, 16 Oct 2023 20:22:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=date : from : to :
  cc : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=qcppdkim1; bh=9byl/lLhIxYYtGiGlPgMckCJZec72dWbspiyKRKlEg4=;
- b=IUteNXSTbP33SulPGXdNwA703jyVpNHumgQD23tTADL/V8yzAC61cIQZzlsih0W7PRbw
- DH2cxSH3oOP8JnbxNxZXHVhyqPy30TXkCsUoegEmboxxKOTvnI9+K6mvsdg7e2UywMvG
- 31ToAjGqQiMr/BM9S6Mmnz8AHB64cET14PjJ6AXhp3L+CgfGGp+tRRrCOM2ccNQTAT72
- nUTPakFQ9OBWf4GY38c6+XO1htVP0jalh7j7EbkBMTnB5bPPkgo5p1SgGdl516KkuCQc
- l1JTLUP4itYI0UOXhH5ci7WenRsSvMBextuZ4wPl9AvOmSsgY4jGUIXbf1bZPr4uth8L aA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ in-reply-to; s=qcppdkim1; bh=yo/VcCytQZLCczrUcswAkWVFFEaQqipMLKsFZgqy1+k=;
+ b=NDK+9ruQu38DXNu7ZWh0QZMfPInQzaAF5dRPFM7UEL3dCQx1ZIpVIYKNRLQ1ouxioZPh
+ hMRYJvX6WUhz05mpOrhQrxm1JC6u8ODMofSSx0O1e8tbXxXCs54h35tD+EqylNk3veG8
+ KYAO4jy1DXP+jxxphRwgECEltsJaZs4wd1MxcvjajXhl0rGohiUokaUHpYb5ZOaF4RLo
+ aPorMaUB8CV927bn5hinZCQa4dwYJ4pDSJldkSCfL9cWHgYllPga2qyAJrGPih9UZQy9
+ Aavw1k4P9hmjK4L/q/WntJLmMt5XE2grNQcN8XxTtJITW4mL6McvLEJkAHuxHzDRhDgh GQ== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tsc00r02n-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tsb3xr5d6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Oct 2023 20:12:11 +0000
+ Mon, 16 Oct 2023 20:22:16 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39GKCAvB010719
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39GKMFlH021327
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Oct 2023 20:12:10 GMT
+ Mon, 16 Oct 2023 20:22:15 GMT
 Received: from akhilpo-linux.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.39; Mon, 16 Oct 2023 13:12:03 -0700
-Date: Tue, 17 Oct 2023 01:41:59 +0530
+ 15.2.1118.39; Mon, 16 Oct 2023 13:22:08 -0700
+Date: Tue, 17 Oct 2023 01:52:05 +0530
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Message-ID: <43q6mui3lofa4rqh667o54b2qcbqn5fg34ss5o7y7k7uxbxsro@dxgovofsrvqx>
+Message-ID: <opqdrmyj3y64nqqqmakjydn5rkspizufyeavm7ec7c7ufqz4wk@ey2a7bq3shfj>
 References: <20230926-topic-a643-v1-0-7af6937ac0a3@linaro.org>
- <20230926-topic-a643-v1-2-7af6937ac0a3@linaro.org>
+ <20230926-topic-a643-v1-5-7af6937ac0a3@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20230926-topic-a643-v1-2-7af6937ac0a3@linaro.org>
+In-Reply-To: <20230926-topic-a643-v1-5-7af6937ac0a3@linaro.org>
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: UOJ-DHna11eErJfOFBfC8zsLHc8pm-az
-X-Proofpoint-GUID: UOJ-DHna11eErJfOFBfC8zsLHc8pm-az
+X-Proofpoint-GUID: be6AiHNEdKzb1op1gFhqcd2WyzM30CHP
+X-Proofpoint-ORIG-GUID: be6AiHNEdKzb1op1gFhqcd2WyzM30CHP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-16_10,2023-10-12_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  suspectscore=0
- impostorscore=0 priorityscore=1501 mlxlogscore=999 adultscore=0
- clxscore=1015 bulkscore=0 spamscore=0 mlxscore=0 phishscore=0
- lowpriorityscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2309180000 definitions=main-2310160176
-Subject: Re: [Freedreno] [PATCH 2/7] drm/msm/adreno: Add ZAP firmware name
- to A635
+ impostorscore=0 phishscore=0 mlxlogscore=999 malwarescore=0
+ priorityscore=1501 mlxscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2309180000 definitions=main-2310160177
+Subject: Re: [Freedreno] [PATCH 5/7] arm64: dts: qcom: sc7280: Fix up GPU
+ SIDs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,37 +96,41 @@ Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 26, 2023 at 08:24:37PM +0200, Konrad Dybcio wrote:
+On Tue, Sep 26, 2023 at 08:24:40PM +0200, Konrad Dybcio wrote:
 > 
-> Some (many?) devices with A635 expect a ZAP shader to be loaded.
+> GPU_SMMU SID 1 is meant for Adreno LPAC (Low Priority Async Compute).
+> On platforms that support it (in firmware), it is necessary to
+> describe that link, or Adreno register access will hang the board.
 > 
-> Set the file name to allow for that.
+> Add that and fix up the SMR mask of SID 0, which seems to have been
+> copypasted from another SoC.
 > 
+> Fixes: 96c471970b7b ("arm64: dts: qcom: sc7280: Add gpu support")
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 1 +
->  1 file changed, 1 insertion(+)
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index fa527935ffd4..16527fe8584d 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -454,6 +454,7 @@ static const struct adreno_info gpulist[] = {
->  		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
->  			ADRENO_QUIRK_HAS_HW_APRIV,
->  		.init = a6xx_gpu_init,
-> +		.zapfw = "a660_zap.mbn",
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index c38ddf267ef5..0d96d1454c49 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2603,7 +2603,8 @@ gpu: gpu@3d00000 {
+>  				    "cx_mem",
+>  				    "cx_dbgc";
+>  			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+> -			iommus = <&adreno_smmu 0 0x401>;
+> +			iommus = <&adreno_smmu 0 0x400>,
+> +				 <&adreno_smmu 1 0x400>;
+Aren't both functionally same? 401 works fine on sc7280. You might be
+having issue due to Qcom TZ policies on your platform. I am okay with the change, but can
+you please reword the commit text?
 
-sc7280 doesn't have a TZ and so no zap shader support. Can we handle
-this using "firmware-name" property in your top level platform dt? Zap
-firmwares are signed with different keys for each OEMs. So there is
-cross-compatibility anyway.
+-Akhil.
 
--Ahil.
-
->  		.hwcg = a660_hwcg,
->  		.address_space_size = SZ_16G,
->  		.speedbins = ADRENO_SPEEDBINS(
+>  			operating-points-v2 = <&gpu_opp_table>;
+>  			qcom,gmu = <&gmu>;
+>  			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
 > 
 > -- 
 > 2.42.0
