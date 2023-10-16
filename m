@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5447CB068
-	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 18:54:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B052A7CB06B
+	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 18:54:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E8D10E239;
-	Mon, 16 Oct 2023 16:54:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5755110E240;
+	Mon, 16 Oct 2023 16:54:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2520510E239
- for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 16:54:12 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4066692ad35so48886965e9.1
- for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 09:54:12 -0700 (PDT)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6C810E239
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 16:54:13 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-405524e6768so45595945e9.2
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 09:54:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697475250; x=1698080050; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1697475252; x=1698080052; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tDlsbj0O4m938XJJJjIOKHw+A0HfBTEQDaR3qGbI7EM=;
- b=H7qph/Z7Y5Id/FMLMrCCvE501tMaKVCe3WFrLmZsO1kcsv50ywcdfpQovCYAtaQEbw
- +UvjGUcW3rah8f3TqwegxWk/Crdczzp7B1EEjkLRtOyf3ge5+0ZmLJUuGFgrXQDZbLhI
- Ha4DjswIPwAl0rMw8ZdHvhjOYsbHfZfkrXGY5WWfBL92QUfPZwT59kpuCf4H/URw7o/4
- B+K3Q5nNeW43oOoQDIJy2ag2HgYPgAWyY/gJq0n5j4hmDwz5NhitZ1tHqTIQnxUpqSMI
- 077B5u5rVNnD2ChInsdBg+z0j6+WmXTIBTntQ9QzwqMPSRq8Whssn4jb3Uf9nqjNpuB0
- SapA==
+ bh=7atWdHX87tg37dPcf4FsazD++qIF8t5k5lbbaEv6EjQ=;
+ b=k9mLRd3Z23te3YWC0fxIVPXa4wsX08nK2GWLRIdFZ0kK4vaK6imiQGh/mwLcnTxYgr
+ 6etD+KjoZUCqaICvw4/C54o9Xx/Lpra/9YhlKC4anjMABT8cacv928y/xW/pcbylRsHX
+ 3JCtqlnFIHh7ZK8I7RHIw1LRQXQk8+Suj+nlbWVL73Ph+9ZA2KFSTNuC+pA7+G/AzR9R
+ 3TLIzzTH9S9ENgalDhMg50MZiZob/4EblagnU/U4cEGqiJBMJxY5cak8dJ4PXRJItBPw
+ p860IMS/iv47oc49v8p126ShD4N/7WlyMbsezuOns+gm74CPJSu9ri+kcMJQxlV0QETy
+ 7biQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697475250; x=1698080050;
+ d=1e100.net; s=20230601; t=1697475252; x=1698080052;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tDlsbj0O4m938XJJJjIOKHw+A0HfBTEQDaR3qGbI7EM=;
- b=vodMYL8DrtFgUNq58zk2wGs1ROPm3yHDY6o5YRWdAz8kXztbMRy+AHQLuviIGg17BI
- hzg7PdDyTusVchCRn35zxhMNHFuv5ILMgp/3V74vi4MvWXipWYZuK5RWLb7oVWPIKM6j
- bnK3r8o7lSZxghPHMzEp/jyI3B6b+YVnDP4Eq5tIYhdohlhSiDdalI5FM3F3R7OjIqqI
- 2BTXkFIgPlECw4ndGhixX0BETpsaI8D1UntyVqTXzaQoi7U8LA72975N/48S2NkR5Y0t
- y5gxekLrt/YRxx3MyUwu502WRgyZE8UN28oJXC8XdNJ4yjpwffZ+h1xWWMplJYbZXy1F
- Gc2g==
-X-Gm-Message-State: AOJu0Yyhl0QR8XtPTGb+7nu58Smn/6v+3RFv2dLTjPiWoELqXRKNxsqj
- I6hRYh+3JdVDd+nG48bRFPmIiA==
-X-Google-Smtp-Source: AGHT+IHo4VTLj6QFSkMq4vzDZuAnsr0A18LuIJLePvTKSU99Hb1c9SVuY4KiSXHIr1fuYLLcUJPY5Q==
-X-Received: by 2002:a7b:c7d7:0:b0:3fd:2e89:31bd with SMTP id
- z23-20020a7bc7d7000000b003fd2e8931bdmr30618680wmk.14.1697475250508; 
- Mon, 16 Oct 2023 09:54:10 -0700 (PDT)
+ bh=7atWdHX87tg37dPcf4FsazD++qIF8t5k5lbbaEv6EjQ=;
+ b=ODF496xID091GhYFj6c1aasgWHkyEjz1OGLpJtdGcMz1M7+gCt/FzpdCzX6M7mZTdf
+ R2+VbNP0EgXsHQfnomG2RgyuXmaZoNpMNpPos6QQE4EcNfVNEdOFmKAuqbKghuhR9jN3
+ neAeLJeitvfeqJTGacINJ5cJbxRODG8K1kTNHfQk7+RaK9mFUgTQVaNTGuBUtE+mIDXi
+ RZoYtSu186lUFs9zOvSYxsP7CrPpm0U7Sc+CdfAt+An4NSb/3q49Yibs1yLko0CRfpxA
+ z0ARC+m5521cWxtYvVVzO1BExDjHzmKkMF/Kz5m0kE+yArofyZtqnGdNhDC4eIB9oQKI
+ jUTA==
+X-Gm-Message-State: AOJu0YzRHQCBpJGwZQ0EUtudNdpn2ZLwZ3vShlu7DrD8CjzeWrBOVgra
+ u57ugw7NOeea6xhDvlj6Rrf2Jg==
+X-Google-Smtp-Source: AGHT+IFkELKtKgynuffB+oWpclXHrxccbH7YSTd/rxvV58WereDXS35Dcn2oCjeZlgI0vrzf+kaXkQ==
+X-Received: by 2002:a7b:c5c9:0:b0:403:272:4414 with SMTP id
+ n9-20020a7bc5c9000000b0040302724414mr29903330wmk.0.1697475252155; 
+ Mon, 16 Oct 2023 09:54:12 -0700 (PDT)
 Received: from eriador.lumag.spb.ru ([45.84.211.189])
  by smtp.gmail.com with ESMTPSA id
- s19-20020a05600c45d300b0040648217f4fsm7638996wmo.39.2023.10.16.09.54.08
+ s19-20020a05600c45d300b0040648217f4fsm7638996wmo.39.2023.10.16.09.54.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Oct 2023 09:54:10 -0700 (PDT)
+ Mon, 16 Oct 2023 09:54:11 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -67,15 +67,15 @@ To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Mon, 16 Oct 2023 19:53:52 +0300
-Message-ID: <20231016165355.1327217-8-dmitry.baryshkov@linaro.org>
+Date: Mon, 16 Oct 2023 19:53:53 +0300
+Message-ID: <20231016165355.1327217-9-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
 References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH 07/10] drm/bridge: ps8640: require manual
- DSI power control
+Subject: [Freedreno] [RFC PATCH 08/10] drm/bridge: lt9611: mark for
+ automatic DSI power control
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,62 +94,27 @@ Cc: Marek Vasut <marex@denx.de>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Parade PS8640 bridge will fail to start if the DSI link is enabled
-when the bridge is being reset / powered up (even to the LP-11 state).
-To ensure that the DSI link is powered down, require manual control over
-the DSI link state.
+The Lontium LT9611 driver doesn't need to control DSI power
+lines manually. Mark it for automatic power control.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/bridge/parade-ps8640.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/bridge/parade-ps8640.c
-index 8161b1a1a4b1..6c5daaa70cb7 100644
---- a/drivers/gpu/drm/bridge/parade-ps8640.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8640.c
-@@ -458,6 +458,10 @@ static void ps8640_atomic_pre_enable(struct drm_bridge *bridge,
- 
- 	ps8640_bridge_vdo_control(ps_bridge, ENABLE);
- 
-+	ret = mipi_dsi_host_power_up(ps_bridge->dsi->host);
-+	if (ret < 0)
-+		dev_warn(dev, "failed to power up DSI host: %d\n", ret);
-+
- 	ps_bridge->pre_enabled = true;
- }
- 
-@@ -468,6 +472,8 @@ static void ps8640_atomic_post_disable(struct drm_bridge *bridge,
- 
- 	ps_bridge->pre_enabled = false;
- 
-+	mipi_dsi_host_power_down(ps_bridge->dsi->host);
-+
- 	ps8640_bridge_vdo_control(ps_bridge, DISABLE);
- 	pm_runtime_put_sync_suspend(&ps_bridge->page[PAGE0_DP_CNTL]->dev);
- }
-@@ -562,6 +568,11 @@ static int ps8640_bridge_get_dsi_resources(struct device *dev, struct ps8640 *ps
- 	if (!host)
- 		return -EPROBE_DEFER;
- 
-+	if (!mipi_dsi_host_power_control_available(host)) {
-+		dev_err(dev, "MIPI DSI host doesn't provide tight power control\n");
-+		return -ENODEV;
-+	}
-+
- 	dsi = devm_mipi_dsi_device_register_full(dev, host, &info);
- 	if (IS_ERR(dsi)) {
- 		dev_err(dev, "failed to create dsi device\n");
-@@ -572,7 +583,8 @@ static int ps8640_bridge_get_dsi_resources(struct device *dev, struct ps8640 *ps
- 
- 	dsi->host = host;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
--			  MIPI_DSI_MODE_VIDEO_SYNC_PULSE;
-+			  MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+			  MIPI_DSI_MANUAL_POWERUP;
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+index 9663601ce098..10b7093bd5c5 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+@@ -774,7 +774,7 @@ static struct mipi_dsi_device *lt9611_attach_dsi(struct lt9611 *lt9611,
+ 	dsi->lanes = 4;
  	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = NUM_MIPI_LANES;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+-			  MIPI_DSI_MODE_VIDEO_HSE;
++			  MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_AUTO_POWERUP;
  
+ 	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
 -- 
 2.42.0
 
