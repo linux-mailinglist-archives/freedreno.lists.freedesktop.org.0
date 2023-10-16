@@ -2,78 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 167847C91D4
-	for <lists+freedreno@lfdr.de>; Sat, 14 Oct 2023 02:33:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B565D7CA47B
+	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 11:47:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9ABF10E034;
-	Sat, 14 Oct 2023 00:33:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5132A10E177;
+	Mon, 16 Oct 2023 09:47:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39A0010E034;
- Sat, 14 Oct 2023 00:33:29 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39DMmB17020965; Sat, 14 Oct 2023 00:33:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=cjipiq3+EJ1v6XustUMA+8h3rIsxAxc3vEfkaVgcIPo=;
- b=ajTDmgHfvQroK560PsctRlgutYR8IznAjXnoC6AykAwmxWEAB4CBDJvtVsuy3ugcQ4F2
- X9itI4JNlxb6vDsKm+cQq3gPvCLF0UfpWtoVh9bCrPvHRQt6OCoLlie2hti4cUbg2+3q
- yhwmewxD/ptK0x1V96hvbgPg+BNYpC3lYIFZahNFCOtMe6S+904Q5egNZLkOz9/+lIQC
- VpMH64xbD8eZIeMoIDEVMLKagYkqCaspkmjSRF3MtCx6qRkcj4Om/GmvqqEbZdJb6SJJ
- pIeM20uW9FC6xnhlv5fsqhZDadzalAgy2y+y/UWvUsr72yqXamyn6HSnEXGLfjtH2KPM 9Q== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tpt10b4ug-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 14 Oct 2023 00:33:14 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39E0XDgu013616
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 14 Oct 2023 00:33:13 GMT
-Received: from [10.110.47.104] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Fri, 13 Oct
- 2023 17:33:12 -0700
-Message-ID: <956c53b4-d4f4-5a08-b86d-8c48374caa4f@quicinc.com>
-Date: Fri, 13 Oct 2023 17:33:11 -0700
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F8910E177;
+ Mon, 16 Oct 2023 09:47:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 081EB60DF5;
+ Mon, 16 Oct 2023 09:47:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47337C433C7;
+ Mon, 16 Oct 2023 09:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1697449649;
+ bh=G4zxpVoIMd4Dnto6BtVe4r6qfQl1/1fiHD54t0GVFU4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hVAkS7u8Fc5baxMKgoXIQdQb5R/sdJcjx1QHfKbjdKFLXlqMoIzgTGaY/nb/i0hcr
+ 9R2cDxdFjF3fUcIbuxxv37SWswJwQqo9dyFz5A52VT/wiMZlfZagU3YkvHrZMyTE8z
+ kUIceh+GveaonVkHMUh9FzwBVKDxiWw+KPEdtIKHxFF+FVnem2jvOFLjZO4BEycbCV
+ LR5l6NKf+NOLS9Wj9rgcxjzy7RXOeqT1X7RdHBAgwmOtUP9BDFpi66ug8PRQTkmlju
+ 9xcitjY7+Oxq2qAV20oZ6tGY0Y+Zg62Q7ekpKwao0AV871HVeIxRs7Mno8vigbThZn
+ lNk+FxWJ5ILsA==
+From: Robert Foss <rfoss@kernel.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Vinod Koul <vkoul@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Date: Mon, 16 Oct 2023 11:47:23 +0200
+Message-ID: <169744963234.583969.6401171307334981045.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20231011220002.382422-1-dmitry.baryshkov@linaro.org>
+References: <20231011220002.382422-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20231012012909.450501-1-dmitry.baryshkov@linaro.org>
- <20231012012909.450501-2-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231012012909.450501-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: AVvVmyd2onyecKIVG7xlYKl-2qpar6u2
-X-Proofpoint-ORIG-GUID: AVvVmyd2onyecKIVG7xlYKl-2qpar6u2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-13_12,2023-10-12_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0
- spamscore=0 bulkscore=0 suspectscore=0 mlxscore=0 lowpriorityscore=0
- priorityscore=1501 mlxlogscore=830 phishscore=0 malwarescore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2310140002
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: use msm_gem_kernel_put
- to free TX buffer
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/bridge: lt9611uxc: fix the race in the
+ error path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,27 +56,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Robert Foss <rfoss@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 10/11/2023 6:29 PM, Dmitry Baryshkov wrote:
-> Use exiting function to free the allocated GEM object instead of
-> open-coding it. This has a bonus of internally calling
-> msm_gem_put_vaddr() to compensate for msm_gem_get_vaddr() in
-> msm_get_kernel_new().
+On Thu, 12 Oct 2023 01:00:02 +0300, Dmitry Baryshkov wrote:
+> If DSI host attachment fails, the LT9611UXC driver will remove the
+> bridge without ensuring that there is no outstanding HPD work being
+> done. In rare cases this can result in the warnings regarding the mutex
+> being incorrect. Fix this by forcebly freing IRQ and flushing the work.
 > 
-> Fixes: 1e29dff00400 ("drm/msm: Add a common function to free kernel buffer objects")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+> DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+> WARNING: CPU: 0 PID: 10 at kernel/locking/mutex.c:582 __mutex_lock+0x468/0x77c
+> Modules linked in:
+> CPU: 0 PID: 10 Comm: kworker/0:1 Tainted: G     U             6.6.0-rc5-next-20231011-gd81f81c2b682-dirty #1206
+> Hardware name: Qualcomm Technologies, Inc. Robotics RB5 (DT)
+> Workqueue: events lt9611uxc_hpd_work
+> pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : __mutex_lock+0x468/0x77c
+> lr : __mutex_lock+0x468/0x77c
+> sp : ffff8000800a3c70
+> x29: ffff8000800a3c70 x28: 0000000000000000 x27: ffffd595fe333000
+> x26: ffff7c2f0002c005 x25: ffffd595ff1b3000 x24: ffffd595fccda5a0
+> x23: 0000000000000000 x22: 0000000000000002 x21: ffff7c2f056d91c8
+> x20: 0000000000000000 x19: ffff7c2f056d91c8 x18: fffffffffffe8db0
+> x17: 000000040044ffff x16: 005000f2b5503510 x15: 0000000000000000
+> x14: 000000000006efb8 x13: 0000000000000000 x12: 0000000000000037
+> x11: 0000000000000001 x10: 0000000000001470 x9 : ffff8000800a3ae0
+> x8 : ffff7c2f0027f8d0 x7 : ffff7c2f0027e400 x6 : ffffd595fc702b54
+> x5 : 0000000000000000 x4 : ffff8000800a0000 x3 : 0000000000000000
+> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff7c2f0027e400
+> Call trace:
+>  __mutex_lock+0x468/0x77c
+>  mutex_lock_nested+0x24/0x30
+>  drm_bridge_hpd_notify+0x2c/0x5c
+>  lt9611uxc_hpd_work+0x6c/0x80
+>  process_one_work+0x1ec/0x51c
+>  worker_thread+0x1ec/0x3e4
+>  kthread+0x120/0x124
+>  ret_from_fork+0x10/0x20
+> irq event stamp: 15799
+> hardirqs last  enabled at (15799): [<ffffd595fc702ba4>] finish_task_switch.isra.0+0xa8/0x278
+> hardirqs last disabled at (15798): [<ffffd595fd5a1580>] __schedule+0x7b8/0xbd8
+> softirqs last  enabled at (15794): [<ffffd595fc690698>] __do_softirq+0x498/0x4e0
+> softirqs last disabled at (15771): [<ffffd595fc69615c>] ____do_softirq+0x10/0x1c
 > 
+> [...]
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Applied, thanks!
+
+[1/1] drm/bridge: lt9611uxc: fix the race in the error path
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=15fe53be46ea
+
+
+
+Rob
 
