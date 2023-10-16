@@ -1,49 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B565D7CA47B
-	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 11:47:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC9C7CB05D
+	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 18:54:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5132A10E177;
-	Mon, 16 Oct 2023 09:47:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F9E010E225;
+	Mon, 16 Oct 2023 16:54:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F8910E177;
- Mon, 16 Oct 2023 09:47:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 081EB60DF5;
- Mon, 16 Oct 2023 09:47:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47337C433C7;
- Mon, 16 Oct 2023 09:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697449649;
- bh=G4zxpVoIMd4Dnto6BtVe4r6qfQl1/1fiHD54t0GVFU4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hVAkS7u8Fc5baxMKgoXIQdQb5R/sdJcjx1QHfKbjdKFLXlqMoIzgTGaY/nb/i0hcr
- 9R2cDxdFjF3fUcIbuxxv37SWswJwQqo9dyFz5A52VT/wiMZlfZagU3YkvHrZMyTE8z
- kUIceh+GveaonVkHMUh9FzwBVKDxiWw+KPEdtIKHxFF+FVnem2jvOFLjZO4BEycbCV
- LR5l6NKf+NOLS9Wj9rgcxjzy7RXOeqT1X7RdHBAgwmOtUP9BDFpi66ug8PRQTkmlju
- 9xcitjY7+Oxq2qAV20oZ6tGY0Y+Zg62Q7ekpKwao0AV871HVeIxRs7Mno8vigbThZn
- lNk+FxWJ5ILsA==
-From: Robert Foss <rfoss@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E17D510E228
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 16:53:59 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4060b623e64so29835795e9.0
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 09:53:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1697475238; x=1698080038; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vIIdmNh1k8eBG9uBUahNJ3kj0YyYALSyO9RgB2j97yc=;
+ b=f+aW9+AEDai2+2x/rHiTyuDQSfIdCKnk+FrNhcBT2g+7GEuy6LJCQrkRbyPyl1dL3B
+ x6uA11rFUBw2nGdMRlfEoeTW/HdHY60RkM0thWcEBsoGTxYJC0X6XAjqhKba0YHasiXF
+ INhQkJxTY6KsAVuNIfndfU6OAn9DBs6b1xDHliD9yy508AyYC+Y4PJrCaQBKzXgbekXd
+ P7hds0sFVAzPWllUoVhP7lRElOWp0QJqT1DTOgnL6p/a0t8matITdxJITsMOrLiEpepR
+ eRuupp9V6mmgPFIDQGEYywfUuhAzyFWTCL69GrtEmT+kHzVwK0ZHXy/oOxV1d+nGcIyJ
+ A6dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1697475238; x=1698080038;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vIIdmNh1k8eBG9uBUahNJ3kj0YyYALSyO9RgB2j97yc=;
+ b=YsCr8PpX19kOvKTjYt26C1W7dtXYRZ8JG7tTJWE0IqZWFdRTjM5ap1N0q7+EycQu11
+ IpT8wfhwg7QxzmobQbA5J2g2MdStY+AGlMXvZIR2cnW0r21gBanGdTgt4NP9+cRhlWgv
+ Euaf+tPNGxn2rqorDGzcCr2uF+DQFxi4soj+Zrdoqvit9NfHaX4PPTemgLKsEZB/JNoG
+ tWuwGgRSJKlEBBSi6x6YOLhjHXoeGld+uEDZyL6zMNiMrfgfA2AgJeUf9SnVii5A7EWI
+ rF98PrpAUPOuPGEnoPs+um3rk1NK0/SbMKHdhefq5pitu+4ecHUutv4rfByQDc75updR
+ ypfA==
+X-Gm-Message-State: AOJu0YwlHsKQzW4IynWPMwTeDp35wLcGSbaLzfrkBc2qSnO8PNuSLIbc
+ IiAIvz9Hr6lkpkF5kXWbJD2APw==
+X-Google-Smtp-Source: AGHT+IGNQrJKWVZTwl1M8CB81+la/NYfwFevzUPH8Cxa+b0iPaxGyHdMaaObw+TNq7n1VkEeyw/20g==
+X-Received: by 2002:a05:600c:4fd4:b0:405:3622:382c with SMTP id
+ o20-20020a05600c4fd400b004053622382cmr6366074wmq.17.1697475238254; 
+ Mon, 16 Oct 2023 09:53:58 -0700 (PDT)
+Received: from eriador.lumag.spb.ru ([45.84.211.189])
+ by smtp.gmail.com with ESMTPSA id
+ s19-20020a05600c45d300b0040648217f4fsm7638996wmo.39.2023.10.16.09.53.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Oct 2023 09:53:57 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Vinod Koul <vkoul@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Douglas Anderson <dianders@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 16 Oct 2023 11:47:23 +0200
-Message-ID: <169744963234.583969.6401171307334981045.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231011220002.382422-1-dmitry.baryshkov@linaro.org>
-References: <20231011220002.382422-1-dmitry.baryshkov@linaro.org>
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Mon, 16 Oct 2023 19:53:45 +0300
+Message-ID: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/bridge: lt9611uxc: fix the race in the
- error path
+Subject: [Freedreno] [RFC PATCH 00/10] drm/mipi-dsi: another attempt at
+ sorting out DSI link powerup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,61 +85,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Robert Foss <rfoss@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: Marek Vasut <marex@denx.de>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 12 Oct 2023 01:00:02 +0300, Dmitry Baryshkov wrote:
-> If DSI host attachment fails, the LT9611UXC driver will remove the
-> bridge without ensuring that there is no outstanding HPD work being
-> done. In rare cases this can result in the warnings regarding the mutex
-> being incorrect. Fix this by forcebly freing IRQ and flushing the work.
-> 
-> DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-> WARNING: CPU: 0 PID: 10 at kernel/locking/mutex.c:582 __mutex_lock+0x468/0x77c
-> Modules linked in:
-> CPU: 0 PID: 10 Comm: kworker/0:1 Tainted: G     U             6.6.0-rc5-next-20231011-gd81f81c2b682-dirty #1206
-> Hardware name: Qualcomm Technologies, Inc. Robotics RB5 (DT)
-> Workqueue: events lt9611uxc_hpd_work
-> pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> pc : __mutex_lock+0x468/0x77c
-> lr : __mutex_lock+0x468/0x77c
-> sp : ffff8000800a3c70
-> x29: ffff8000800a3c70 x28: 0000000000000000 x27: ffffd595fe333000
-> x26: ffff7c2f0002c005 x25: ffffd595ff1b3000 x24: ffffd595fccda5a0
-> x23: 0000000000000000 x22: 0000000000000002 x21: ffff7c2f056d91c8
-> x20: 0000000000000000 x19: ffff7c2f056d91c8 x18: fffffffffffe8db0
-> x17: 000000040044ffff x16: 005000f2b5503510 x15: 0000000000000000
-> x14: 000000000006efb8 x13: 0000000000000000 x12: 0000000000000037
-> x11: 0000000000000001 x10: 0000000000001470 x9 : ffff8000800a3ae0
-> x8 : ffff7c2f0027f8d0 x7 : ffff7c2f0027e400 x6 : ffffd595fc702b54
-> x5 : 0000000000000000 x4 : ffff8000800a0000 x3 : 0000000000000000
-> x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff7c2f0027e400
-> Call trace:
->  __mutex_lock+0x468/0x77c
->  mutex_lock_nested+0x24/0x30
->  drm_bridge_hpd_notify+0x2c/0x5c
->  lt9611uxc_hpd_work+0x6c/0x80
->  process_one_work+0x1ec/0x51c
->  worker_thread+0x1ec/0x3e4
->  kthread+0x120/0x124
->  ret_from_fork+0x10/0x20
-> irq event stamp: 15799
-> hardirqs last  enabled at (15799): [<ffffd595fc702ba4>] finish_task_switch.isra.0+0xa8/0x278
-> hardirqs last disabled at (15798): [<ffffd595fd5a1580>] __schedule+0x7b8/0xbd8
-> softirqs last  enabled at (15794): [<ffffd595fc690698>] __do_softirq+0x498/0x4e0
-> softirqs last disabled at (15771): [<ffffd595fc69615c>] ____do_softirq+0x10/0x1c
-> 
-> [...]
+It is well known that DSI dosn't fully fit into the DRM enable/disable
+model thanks to the intermediate LP-11 state: (roughly) the link is already
+up, but the video stream is not yet enabled.
 
-Applied, thanks!
+Previously we have handled this by forcing DSI link powerup in the
+mode_set callback. This worked, but it was not an ideal solution. For
+example, it didn't play well with the atomicity part.
 
-[1/1] drm/bridge: lt9611uxc: fix the race in the error path
-      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=15fe53be46ea
+Then Dave attempted to solve the issue by adding pre_enable_prev_first.
+It also seemed to work fine, until we stumbled at the issue of the
+driver being unable to negotiate whether the bridge/panel didn't enable
+pre_enable_prev_first because it is not updated yet or because it
+doesn't need the callbacks to be inverted.
 
+This series is yet another attempt at solving the DSI link powerup
+story. It adds two flags for the DSI evice. One of them should trigger
+implicit link powerup at the atomic_pre_enable / atomic_post_disable
+callbacks. Another one requests excplicit DSI link power control.
 
+Dmitry Baryshkov (10):
+  Revert "drm/bridge: tc358762: Split register programming from
+    pre-enable to enable"
+  drm/mipi-dsi: document DSI hosts limitations
+  drm/mipi-dsi: add API for manual control over the DSI link power state
+  drm/msm/dsi: use dsi_mgr_bridge_power_off in
+    dsi_mgr_bridge_post_disable
+  drm/msm/dsi: implement manual power control
+  drm/bridge: tc358762: add support for manual DSI power control
+  drm/bridge: ps8640: require manual DSI power control
+  drm/bridge: lt9611: mark for automatic DSI power control
+  drm/bridge: lt9611uxc: implement automatic DSI power control
+  drm/msm/dsi: drop (again) the ps8640 workaround
 
-Rob
+ drivers/gpu/drm/bridge/lontium-lt9611.c    |  2 +-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c |  2 +-
+ drivers/gpu/drm/bridge/parade-ps8640.c     | 14 ++++-
+ drivers/gpu/drm/bridge/tc358762.c          | 24 +++++---
+ drivers/gpu/drm/drm_mipi_dsi.c             | 31 ++++++++++
+ drivers/gpu/drm/msm/dsi/dsi.h              |  4 ++
+ drivers/gpu/drm/msm/dsi/dsi_host.c         | 44 ++++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi_manager.c      | 70 +++++++++++++---------
+ include/drm/drm_mipi_dsi.h                 | 33 ++++++++--
+ 9 files changed, 180 insertions(+), 44 deletions(-)
+
+-- 
+2.42.0
 
