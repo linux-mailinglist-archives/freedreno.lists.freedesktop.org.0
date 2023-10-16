@@ -1,81 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF297CB071
-	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 18:54:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A53D37CB309
+	for <lists+freedreno@lfdr.de>; Mon, 16 Oct 2023 20:55:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC09110E248;
-	Mon, 16 Oct 2023 16:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B72810E030;
+	Mon, 16 Oct 2023 18:55:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD14A10E243
- for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 16:54:17 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40666aa674fso46989435e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 09:54:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697475256; x=1698080056; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Z2KAQh5biIaDjy3JspEokfbAFpOptd05O572lVX96aY=;
- b=JCA1H5nK7P6zLn4K7423BQHTvKmhlvzfOaEc2dfellFapmz4r4djZ1ufvMAsSoAbCX
- qj7HJ3Hrhnv80B98zy25xKThMpu9Xktq5T8f8EVKj2q/byuREp6hbuL5Tw7GykHxX2c5
- ynyRRiIudu9trNZ9ObJMqgJYigGcTwdoLWo6i9bJkHsTvZ4IkxhdMJftwPFbXju+MD4K
- NDiZ8dVDMIvCjphG2dIo8DmFPoIkSZ2SY4XRuwlw6G8cKUHdxEtNvex8Y+0RNCexGMVO
- 3d29x2EjCnPp3GMLVpJEIhqAfEe1zohcVacYX7K46zYM2J7znFTtH/HXKiIV52NG5KCP
- QkQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697475256; x=1698080056;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Z2KAQh5biIaDjy3JspEokfbAFpOptd05O572lVX96aY=;
- b=ORi9sfUrUVVBMHcCuKWyVTJ4i9SDbYv3Wc19YYA+f0uLYzuGD3uRhL8cBX3j9egxAg
- 8Xk4041HD+jzx3BZ0/M280V0OJe+VueRtHKpqjZ18t4mJgfnEpopBvsS02+ELtx/lq+l
- f4/nmhVcvDMJMX1e7hVoZBVjjnsElRtRIZqm9HpKPo4joyiMALPDUvNYA76kOQCZTFAx
- 3UO4PTyY7EnQzTIHn1XVaB8KbzZSz1OffEnMfPr+Ersh/xkyNT+l65mxxB3bqVabwCEv
- 21cPRxZ6pAmCYCxid6zdGm5d0uF1ddUyclGbizFKssSSX021y83XUZUI3tKHRYmJ6V1b
- cZ7Q==
-X-Gm-Message-State: AOJu0Ywr5s7ZKSuWfwegc/ma/BUrQI3SPkcQerwCrPwd4AtwK3NFGVGw
- dWJeca23Lf4x8wYRAzwWYOzehA==
-X-Google-Smtp-Source: AGHT+IEqmnobiCsIMYAdCDeaCtj3AGb0jtlboDlqcQ+Atx1a8i0m4PfESVkAoxvu6F9wIJAh3Bb39A==
-X-Received: by 2002:a1c:7711:0:b0:405:959e:dc7c with SMTP id
- t17-20020a1c7711000000b00405959edc7cmr29757671wmi.30.1697475256293; 
- Mon, 16 Oct 2023 09:54:16 -0700 (PDT)
-Received: from eriador.lumag.spb.ru ([45.84.211.189])
- by smtp.gmail.com with ESMTPSA id
- s19-20020a05600c45d300b0040648217f4fsm7638996wmo.39.2023.10.16.09.54.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Oct 2023 09:54:15 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Mon, 16 Oct 2023 19:53:55 +0300
-Message-ID: <20231016165355.1327217-11-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
-References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3711A10E030
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Oct 2023 18:55:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 59319B816AC;
+ Mon, 16 Oct 2023 18:55:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3429FC433C8;
+ Mon, 16 Oct 2023 18:55:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1697482520;
+ bh=ybBFFxckp/7Pt2ygo1vu/EHKckpT5bl4YF7dxTBhogI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mmfkBY9fQwl657JEe/ndzsyRouP0LKBOlPQxhEyYX4Ux6NilSDHOtzYJQUbsCtLYq
+ t2CBmattSGS84PRxWaz5k8gmWyQAwVOGRngk28A26yeQ8U07EYdTUZuFxHjrUE5efO
+ Auz5KNnc44qJQcvaIGwsNddQpxSa8zaoOWtGopUoasBKjZ+Le/VzHarMmvppI2ZPL+
+ eWwnn1mSKF7mXFtXEG5G3/C7h6uy0JZHbsZ5BYtQQW44SVexFoRnhW6SawTAFjSTa9
+ FNo3PWhHKhAYXhCYqJd0FffqGAsGbxIHWJHoxqdT3B8c8BRGJabqfKdNa+93nZl976
+ 0NvPpHxtVG+1g==
+Date: Mon, 16 Oct 2023 11:59:08 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <svwawy3lzocyaq6zg2tvnocukjacv237ff3el627s4ecreezl6@yu2y7oexqpnv>
+References: <20231010225229.77027-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH 10/10] drm/msm/dsi: drop (again) the ps8640
- workaround
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231010225229.77027-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH] soc: qcom: pmic_glink: fix connector type
+ to be DisplayPort
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,65 +51,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Marek Vasut <marex@denx.de>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ Simon Ser <contact@emersion.fr>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now as the Parade PS8640 driver sets the MIPI_DSI_MANUAL_POWERUP flag,
-drop the workaround enforcing the late DSI link powerup in the case the
-next bridge is ps8640.
+On Wed, Oct 11, 2023 at 01:52:29AM +0300, Dmitry Baryshkov wrote:
+> As it was pointed out by Simon Ser, the DRM_MODE_CONNECTOR_USB connector
+> is reserved for the GUD devices. Other drivers (i915, amdgpu) use
+> DRM_MODE_CONNECTOR_DisplayPort even if the DP stream is handled by the
+> USB-C altmode. While we are still working on implementing the proper way
+> to let userspace know that the DP is wrapped into USB-C, change
+> connector type to be DRM_MODE_CONNECTOR_DisplayPort.
+> 
+> Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
+> Cc: Simon Ser <contact@emersion.fr>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 20 --------------------
- 1 file changed, 20 deletions(-)
+Applied, thanks.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 2d7040d21239..b6b8171cf382 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -198,29 +198,12 @@ static int dsi_mgr_bridge_get_id(struct drm_bridge *bridge)
- 	return dsi_bridge->id;
- }
- 
--/*
-- * If the next bridge in the chain is the Parade ps8640 bridge chip then don't
-- * power on early since it seems to violate the expectations of the firmware
-- * that the bridge chip is running.
-- */
--static bool dsi_mgr_next_is_ps8640(struct drm_bridge *bridge)
--{
--	struct drm_bridge *next_bridge = drm_bridge_get_next_bridge(bridge);
--
--	return next_bridge &&
--		next_bridge->of_node &&
--		of_device_is_compatible(next_bridge->of_node, "parade,ps8640");
--}
--
- static bool dsi_mgr_auto_powerup(struct drm_bridge *bridge)
- {
- 	int id = dsi_mgr_bridge_get_id(bridge);
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
- 	struct mipi_dsi_host *host = msm_dsi->host;
- 
--	if (dsi_mgr_next_is_ps8640(bridge))
--		return true;
--
- 	return msm_dsi_host_auto_powerup(host);
- }
- 
-@@ -230,9 +213,6 @@ static bool dsi_mgr_early_powerup(struct drm_bridge *bridge)
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
- 	struct mipi_dsi_host *host = msm_dsi->host;
- 
--	if (dsi_mgr_next_is_ps8640(bridge))
--		return false;
--
- 	return msm_dsi_host_early_powerup(host);
- }
- 
--- 
-2.42.0
-
+> ---
+>  drivers/soc/qcom/pmic_glink_altmode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
+> index 9569d999391d..6f8b2f7ae3cc 100644
+> --- a/drivers/soc/qcom/pmic_glink_altmode.c
+> +++ b/drivers/soc/qcom/pmic_glink_altmode.c
+> @@ -467,7 +467,7 @@ static int pmic_glink_altmode_probe(struct auxiliary_device *adev,
+>  		alt_port->bridge.funcs = &pmic_glink_altmode_bridge_funcs;
+>  		alt_port->bridge.of_node = to_of_node(fwnode);
+>  		alt_port->bridge.ops = DRM_BRIDGE_OP_HPD;
+> -		alt_port->bridge.type = DRM_MODE_CONNECTOR_USB;
+> +		alt_port->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
+>  
+>  		ret = devm_drm_bridge_add(dev, &alt_port->bridge);
+>  		if (ret) {
+> -- 
+> 2.39.2
+> 
