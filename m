@@ -1,61 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28BAA7CD643
-	for <lists+freedreno@lfdr.de>; Wed, 18 Oct 2023 10:20:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C817CD7D0
+	for <lists+freedreno@lfdr.de>; Wed, 18 Oct 2023 11:24:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C777410E3C1;
-	Wed, 18 Oct 2023 08:20:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD44210E094;
+	Wed, 18 Oct 2023 09:24:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B55ED10E3C4
- for <freedreno@lists.freedesktop.org>; Wed, 18 Oct 2023 08:20:19 +0000 (UTC)
-Received: by mail-yb1-xb2e.google.com with SMTP id
- 3f1490d57ef6-d9a4c0d89f7so7676343276.1
- for <freedreno@lists.freedesktop.org>; Wed, 18 Oct 2023 01:20:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697617218; x=1698222018; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=x3vk9WdgsgALGZ8oIqyx1M2Q98eDsGMriT18jqbbO68=;
- b=uYhXXoWLfZHfDsBxmjHqpnYmfnmp/Ef6/Iw7W6oPL9jvG8sf1gnYX288NGY3z4f/Ya
- dxtV4BBhlfS+rksSauNfjDTwBdhbbgg7aM9iUWxMGQkGSG14RhNyJ4kdoqe0v7oTllAi
- jjRjbIw/p9UY3urUShPpw8fvzOUk8dwWFLqXtnw1HSeHN5TOarBZ2CRZXSM4iMR9/j9p
- gPSWbAxSPHe/B8tG9bb5LPTbtrMQk3v/FquVL7NSHJRKCWkJd0cwIDcNk2rGjJS+BLSU
- 4Rixse4Jh9pH2vzhq5h80oxh8K633FzKe1L98XRvuN2vVNqVsi9NFsW7nsJOSWEPevQJ
- PucA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697617218; x=1698222018;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=x3vk9WdgsgALGZ8oIqyx1M2Q98eDsGMriT18jqbbO68=;
- b=BDJ3LMCXe/2BdZ1DTD2hDBapuzBb5kfKEfOBIn+JV5d2cni5kR8AgsBuFDfj3lQCRe
- u/gcfM/F8G84GgMdfjAXcvWUu0ercWFKMb//OW8mGm3gb7coLO8N7jJIh1OBQFzWWJLU
- uJEB0gfZUfR0AhI/mCaK4UaX5OyeqggN6aCjHbvm/qx4LPcndQB4tWU7KAdfQz2FdvQn
- FPkoYh2uSYb88RzAHNxFmiJTRgpL5DRR1Syjij4A/KoAhELqGeDTDFfr4eRwPQPDq0Fs
- So5Ik0Qbmso3jxGu6YBYWGVm4PTJRJdWid31EhCYMNt6nGkghvGSKo7i6ZPqxFz6ln8S
- 9ZPA==
-X-Gm-Message-State: AOJu0YzgzSQFqEvl3UtJIs3dNRmm9a5/lyegZnAYH4YHY6kU26ytq0Lr
- Ub0ItYE56XQrB+qoeQRzHToIAlAD4GvQep/KbmWTiQ==
-X-Google-Smtp-Source: AGHT+IHggL2ml69cTNJWS6QIps9q5qyFOKcfc/dxJ4/BM2XmWD+4v6A6o1A5nTOANs51qAxT9nbcCCKDJ7tLeD7rao8=
-X-Received: by 2002:a25:aab3:0:b0:d9a:e397:3b4 with SMTP id
- t48-20020a25aab3000000b00d9ae39703b4mr4208649ybi.46.1697617218711; Wed, 18
- Oct 2023 01:20:18 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5982E10E091;
+ Wed, 18 Oct 2023 09:24:25 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39I7kfDU028707; Wed, 18 Oct 2023 09:24:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=eqUAhgGFfN5evV7dATP9rpPAsRPLoLRHkDNDdhr8sbQ=;
+ b=QQlv6xoqIJ0sN+Ags1Z91RMLkULGiXPY8kuLDc92A6VwvMw5QZYqo/lVB0HLxtW+2UNs
+ N64YjKjXKp9oD0B/pH7TxP1isf7Slnq56k7cEvJNNukVv+tGZCopfuyIpHSNfRpOXUaA
+ kGQzkZ8D21MZGbI+Kbmbnr22Wn1+iqgFawcup9TJPVmgG4OuYJmKVqsAARNVCQjNuvmH
+ 22CUdNgjlNuq1F8Fal7rLTbGK5sH3trpFdWYltVJYUreW7jfnm+TOIp6/kCZgYNu+iP4
+ 5GdqPNOuV926RTFvcT396opibHfbczsPE3RY95rzFPGzfIJmcUHcfj6HBssswxQYNg/M Ag== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tsb7xm6np-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Oct 2023 09:24:19 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39I9OI8X028815
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Oct 2023 09:24:18 GMT
+Received: from [10.110.28.170] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 18 Oct
+ 2023 02:24:14 -0700
+Message-ID: <883e40de-7d1d-03fb-014f-74db5b6ab406@quicinc.com>
+Date: Wed, 18 Oct 2023 02:24:11 -0700
 MIME-Version: 1.0
-References: <20231017021805.1083350-9-mailingradian@gmail.com>
- <20231017021805.1083350-14-mailingradian@gmail.com>
-In-Reply-To: <20231017021805.1083350-14-mailingradian@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 18 Oct 2023 11:20:07 +0300
-Message-ID: <CAA8EJppTrH0DG_i+hUeagsXodt88TG6vD3W-y9gKmxevWZbJig@mail.gmail.com>
-To: Richard Acayan <mailingradian@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 5/6] drm/msm/dpu: Add hw revision 4.1
- (SDM670)
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231018074627.55637-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231018074627.55637-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 56nuk7U11qEA2F_4U_WkGMpi4IYu5Hx8
+X-Proofpoint-GUID: 56nuk7U11qEA2F_4U_WkGMpi4IYu5Hx8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-18_07,2023-10-17_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ mlxlogscore=999 suspectscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ mlxscore=0 phishscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310180079
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: attach the DP subconnector
+ property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,46 +85,68 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ryan McCann <quic_rmccann@quicinc.com>, dri-devel@lists.freedesktop.org,
- Liu Shixin <liushixin2@huawei.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, David Airlie <airlied@gmail.com>,
- Robert Foss <rfoss@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Andy Gross <agross@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 17 Oct 2023 at 05:18, Richard Acayan <mailingradian@gmail.com> wrote:
->
-> The Snapdragon 670 uses similar clocks (with one frequency added) to the
-> Snapdragon 845 but reports DPU revision 4.1. Add support for this DPU
-> with configuration from the Pixel 3a downstream kernel.
->
-> Since revision 4.0 is SDM845, reuse some configuration from its catalog
-> entry.
->
-> Link: https://android.googlesource.com/kernel/msm/+/368478b0ae76566927a2769a2bf24dfe7f38bb78/arch/arm64/boot/dts/qcom/sdm670-sde.dtsi
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+On 10/18/2023 12:46 AM, Dmitry Baryshkov wrote:
+> While developing and testing the commit bfcc3d8f94f4 ("drm/msm/dp:
+> support setting the DP subconnector type") I had the patch [1] in my
+> tree. I haven't noticed that it was a dependency for the commit in
+> question. Mea culpa.
+> 
+
+I agree with you that, we should be setting this in the framework is better.
+
+Will review that one on the other patch.
+
+But yes, we need to fix this regression first.
+
+> Since the patch has not landed yet (and even was not reviewed)
+> and since one of the bridges erroneously uses USB connector type instead
+> of DP, attach the property directly from the MSM DP driver.
+> 
+> This fixes the following oops on DP HPD event:
+> 
+>   drm_object_property_set_value (drivers/gpu/drm/drm_mode_object.c:288)
+>   dp_display_process_hpd_high (drivers/gpu/drm/msm/dp/dp_display.c:402)
+>   dp_hpd_plug_handle.isra.0 (drivers/gpu/drm/msm/dp/dp_display.c:604)
+>   hpd_event_thread (drivers/gpu/drm/msm/dp/dp_display.c:1110)
+>   kthread (kernel/kthread.c:388)
+>   ret_from_fork (arch/arm64/kernel/entry.S:858)
+> 
+> Fixes: bfcc3d8f94f4 ("drm/msm/dp: support setting the DP subconnector type")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../msm/disp/dpu1/catalog/dpu_4_1_sdm670.h    | 104 ++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   1 +
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
->  4 files changed, 107 insertions(+)
->  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+One question, while reviewing the code, I see you have two calls to 
+drm_dp_set_subconnector_property() for the connect and disconnect case.
+
+Why cant we have just one call in dp_display_send_hpd_notification() for 
+both cases?
+
+
+>   drivers/gpu/drm/msm/dp/dp_drm.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 40e7344180e3..e3bdd7dd4cdc 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -345,6 +345,9 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct dr
+>   	if (IS_ERR(connector))
+>   		return connector;
+>   
+> +	if (!dp_display->is_edp)
+> +		drm_connector_attach_dp_subconnector_property(connector);
+> +
+>   	drm_connector_attach_encoder(connector, encoder);
+>   
+>   	return connector;
