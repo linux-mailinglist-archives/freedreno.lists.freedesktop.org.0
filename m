@@ -2,70 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED257CEEEC
-	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 07:19:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 954BD7CF401
+	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 11:26:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C29310E0AE;
-	Thu, 19 Oct 2023 05:19:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F73010E4B1;
+	Thu, 19 Oct 2023 09:26:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65D8310E008;
- Thu, 19 Oct 2023 05:19:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697692740; x=1729228740;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=CHgu8VDG/VsrVs4cHfAZnVU204i5DaWqZKJi7cU7Wk4=;
- b=G96/tylF4JQThu2BATBMi+qIH5R8KiGvPuQ99vT5aEUWvjSGb9b2NXrc
- ppm1bs2pzp2R5JW/GR7tUsSGbjSqj7AmoXPwXGR58IiKcG9RY95w0fn7Y
- QcElSXy9Zn3QDxEln0Yjpp4Vo2qL0Sm5W5BQeeu2fgKQkRBp+RZk3SuWk
- 590XoIbP/SlOk3+Pqgc8W2NBZklUzuP47Vs0lIqzYCJxHV4aWfsMKNY5A
- s5/i0QN8f5hW67qAySJBbxLcCR12WqWmpIOcWcRmfJDKLkWjPEuqwe4Zg
- vx2lWo5qAUiRa10mOXwaBmOuvJw6uMjxUO7HzkH4cVTa7HzYbAwcquaRm Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="452644718"
-X-IronPort-AV: E=Sophos;i="6.03,236,1694761200"; d="scan'208";a="452644718"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2023 22:18:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="756866215"
-X-IronPort-AV: E=Sophos;i="6.03,236,1694761200"; d="scan'208";a="756866215"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
- by orsmga002.jf.intel.com with ESMTP; 18 Oct 2023 22:18:51 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qtLQn-0001fi-1d;
- Thu, 19 Oct 2023 05:18:49 +0000
-Date: Thu, 19 Oct 2023 13:18:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Richard Acayan <mailingradian@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>,
- Ryan McCann <quic_rmccann@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Liu Shixin <liushixin2@huawei.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Message-ID: <202310191232.PtdOnTbi-lkp@intel.com>
-References: <20231017021805.1083350-14-mailingradian@gmail.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D50310E4B0;
+ Thu, 19 Oct 2023 09:26:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id AB35861B4C;
+ Thu, 19 Oct 2023 09:26:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B766EC433C7;
+ Thu, 19 Oct 2023 09:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1697707585;
+ bh=OCDUlYLWKH4hPIGJgGmkgyAHhL7/848MWsrLLQz3nbQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q9FqAg7Z6b7b6Q+l58S5MAWVseQF0hpk4HZJmu/Hy2hgyt/hquWS//yFAFbJPXpcG
+ X4hOWD8y7KfJVGQ/eQL4O5JNMKRj8HKmPlKLZX5i8buLhzX+9g7jHDRGrLj9JjUTPX
+ DQrBMOOppV2i/G26YN4EKlDl3ibLcvVPJrTOGb4tYc3VFUZMCRBRlVqkw99uabprEt
+ SY0NBKCLqyNNgfC5G2jzbL1q7AYVrU6c8WN/+g30iejbiE4ZvhdsbR67AfG22oI3Ym
+ h0G4t60zOQjJPH4PS9JSY8nlfZC889dgSie0TKOnqdIF9FI+Fla58dEyHFqqmZUjZv
+ r/6eOlbpmKpvg==
+Date: Thu, 19 Oct 2023 11:26:16 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
+References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
+ <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231017021805.1083350-14-mailingradian@gmail.com>
-Subject: Re: [Freedreno] [PATCH v4 5/6] drm/msm/dpu: Add hw revision 4.1
- (SDM670)
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
+ control over the DSI link power state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,93 +52,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Richard Acayan <mailingradian@gmail.com>, oe-kbuild-all@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Richard,
+On Mon, Oct 16, 2023 at 07:53:48PM +0300, Dmitry Baryshkov wrote:
+> The MIPI DSI links do not fully fall into the DRM callbacks model.
 
-kernel test robot noticed the following build errors:
+Explaining why would help
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next robh/for-next linus/master v6.6-rc6 next-20231018]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> The drm_bridge_funcs abstraction.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Acayan/dt-bindings-display-msm-dsi-controller-main-add-SDM670-compatible/20231017-155345
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20231017021805.1083350-14-mailingradian%40gmail.com
-patch subject: [PATCH v4 5/6] drm/msm/dpu: Add hw revision 4.1 (SDM670)
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20231019/202310191232.PtdOnTbi-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231019/202310191232.PtdOnTbi-lkp@intel.com/reproduce)
+Is there a typo or missing words?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310191232.PtdOnTbi-lkp@intel.com/
+> Instead of having just two states (off and on) the DSI hosts have
+> separate LP-11 state. In this state the host is on, but the video
+> stream is not yet enabled.
+>=20
+> Introduce API that allows DSI bridges / panels to control the DSI host
+> power up state.
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/drm_mipi_dsi.c | 31 +++++++++++++++++++++++++++++++
+>  include/drm/drm_mipi_dsi.h     | 29 +++++++++++++++++++++++++----
+>  2 files changed, 56 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_ds=
+i.c
+> index 14201f73aab1..c467162cb7d8 100644
+> --- a/drivers/gpu/drm/drm_mipi_dsi.c
+> +++ b/drivers/gpu/drm/drm_mipi_dsi.c
+> @@ -428,6 +428,37 @@ int devm_mipi_dsi_attach(struct device *dev,
+>  }
+>  EXPORT_SYMBOL_GPL(devm_mipi_dsi_attach);
+> =20
+> +bool mipi_dsi_host_power_control_available(struct mipi_dsi_host *host)
+> +{
+> +	const struct mipi_dsi_host_ops *ops =3D host->ops;
+> +
+> +	return ops && ops->power_up;
+> +}
+> +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_control_available);
+> +
+> +int mipi_dsi_host_power_up(struct mipi_dsi_host *host)
+> +{
+> +	const struct mipi_dsi_host_ops *ops =3D host->ops;
+> +
+> +	if (!mipi_dsi_host_power_control_available(host))
+> +		return -EOPNOTSUPP;
+> +
+> +	return ops->power_up ? ops->power_up(host) : 0;
+> +}
+> +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_up);
+> +
+> +void mipi_dsi_host_power_down(struct mipi_dsi_host *host)
+> +{
+> +	const struct mipi_dsi_host_ops *ops =3D host->ops;
+> +
+> +	if (!mipi_dsi_host_power_control_available(host))
+> +		return;
+> +
+> +	if (ops->power_down)
+> +		ops->power_down(host);
+> +}
+> +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_down);
+> +
 
-All errors (new ones prefixed by >>):
+If this API is supposed to be used by DSI devices, it should probably
+take a mipi_dsi_device pointer as a parameter?
 
-   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:658:
->> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h:29:26: error: 'dpu_vig_sblk_qseed3_1_3' undeclared here (not in a function)
-      29 |                 .sblk = &dpu_vig_sblk_qseed3_1_3,
-         |                          ^~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h:45:26: error: 'dpu_dma_sblk' undeclared here (not in a function); did you mean 'dpu_dsc_blk'?
-      45 |                 .sblk = &dpu_dma_sblk,
-         |                          ^~~~~~~~~~~~
-         |                          dpu_dsc_blk
+We should probably make sure it hasn't been powered on already too?
 
-
-vim +/dpu_vig_sblk_qseed3_1_3 +29 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-
-    23	
-    24	static const struct dpu_sspp_cfg sdm670_sspp[] = {
-    25		{
-    26			.name = "sspp_0", .id = SSPP_VIG0,
-    27			.base = 0x4000, .len = 0x1c8,
-    28			.features = VIG_SDM845_MASK_SDMA,
-  > 29			.sblk = &dpu_vig_sblk_qseed3_1_3,
-    30			.xin_id = 0,
-    31			.type = SSPP_TYPE_VIG,
-    32			.clk_ctrl = DPU_CLK_CTRL_VIG0,
-    33		}, {
-    34			.name = "sspp_1", .id = SSPP_VIG1,
-    35			.base = 0x6000, .len = 0x1c8,
-    36			.features = VIG_SDM845_MASK_SDMA,
-    37			.sblk = &dpu_vig_sblk_qseed3_1_3,
-    38			.xin_id = 4,
-    39			.type = SSPP_TYPE_VIG,
-    40			.clk_ctrl = DPU_CLK_CTRL_VIG0,
-    41		}, {
-    42			.name = "sspp_8", .id = SSPP_DMA0,
-    43			.base = 0x24000, .len = 0x1c8,
-    44			.features = DMA_SDM845_MASK_SDMA,
-  > 45			.sblk = &dpu_dma_sblk,
-    46			.xin_id = 1,
-    47			.type = SSPP_TYPE_DMA,
-    48			.clk_ctrl = DPU_CLK_CTRL_DMA0,
-    49		}, {
-    50			.name = "sspp_9", .id = SSPP_DMA1,
-    51			.base = 0x26000, .len = 0x1c8,
-    52			.features = DMA_CURSOR_SDM845_MASK_SDMA,
-    53			.sblk = &dpu_dma_sblk,
-    54			.xin_id = 5,
-    55			.type = SSPP_TYPE_DMA,
-    56			.clk_ctrl = DPU_CLK_CTRL_DMA1,
-    57		}, {
-    58			.name = "sspp_10", .id = SSPP_DMA2,
-    59			.base = 0x28000, .len = 0x1c8,
-    60			.features = DMA_CURSOR_SDM845_MASK_SDMA,
-    61			.sblk = &dpu_dma_sblk,
-    62			.xin_id = 9,
-    63			.type = SSPP_TYPE_DMA,
-    64			.clk_ctrl = DPU_CLK_CTRL_DMA2,
-    65		},
-    66	};
-    67	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Maxime
