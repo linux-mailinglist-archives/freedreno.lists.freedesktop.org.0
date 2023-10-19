@@ -1,71 +1,82 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 355577CE8A2
-	for <lists+freedreno@lfdr.de>; Wed, 18 Oct 2023 22:20:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B57C7CED0B
+	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 03:00:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0256610E459;
-	Wed, 18 Oct 2023 20:20:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF0B10E461;
+	Thu, 19 Oct 2023 01:00:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD8110E45A
- for <freedreno@lists.freedesktop.org>; Wed, 18 Oct 2023 20:20:42 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2c1807f3400so764501fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 18 Oct 2023 13:20:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697660441; x=1698265241; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KQKss7gP05u0WG9WVmMnpWQKE2m5h/QydzbHUfL2Pls=;
- b=obOmVKk3LcqblbknTEaBkoitbgc6HZltvJIyCY4IkHGGCLQaZjNu1MjHaDlAOhZHt+
- APzH5e4cVP+9rpdskvt9Ms97yUdP2JEIBk2mrVx4rfiM/hjF6+raSqsjdBdAfJY+dYyh
- yGdImzAAA+vCTw3Zqlavey/MlN61JIgAvdKfA0k4kIUU0t7lpCqzuBI03sA5MMxBkxg8
- gSaDdxyy24Uze8TPR1irs5Xir73SeN/rxRZbaWpKrIY6Nzl4JuxP5SPGjOdp7hVsD+0v
- UKoj5H9VlvfX1VgPPdZL32Hp9UVG6xV5Wj2TVd+3wzmkygR585+vV+avgyqQsciySY0I
- qx+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697660441; x=1698265241;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KQKss7gP05u0WG9WVmMnpWQKE2m5h/QydzbHUfL2Pls=;
- b=NcEttyCB4DfAlf7iXMdLk/6KDZGr3XIZ43eh20Gf4RBCaaAEoa3mhT0HVyA0GwxTSE
- ei2CH4CVJiAc8LYELqQ+DIuZt16YyLcU6z2kfxECPh5iLqk/Ujp/uwsp4pHRH2UVGrT+
- FVMIPrrMRrRbUg2zYeF0VLE1Q6dYzG3jwOxXX6qTxBfzXgMVuav4vDpG97vBjyNvWahQ
- ksY5ov/FSB87JW+w2QI5pD4F1o7ezqM6SBvX1CR9/mJasWNNG7O1MjZDR7eLQbXfEP67
- W2q2VkUgFjG0mJcz25bijtWdFinNcH6v1KdgwRDn7h6vqMzPU3Lv8wuO8fFEZbi0g3/G
- lAEA==
-X-Gm-Message-State: AOJu0YwmlNI/3cSO+Y2ckJ1ACzPlEWcDa7Vn9I/QKvYj9Nil125Dlgfz
- bPd4Bwp3xFgGOjXdUK9Wq0TtEw==
-X-Google-Smtp-Source: AGHT+IFeDKwEwJ3M5ZLG1RKyvsLBfGrzubtGFe+FHVuwHAAM5yqRBP1MtToK7ZstjT0d4wYbYT5nYA==
-X-Received: by 2002:a2e:a414:0:b0:2c1:86da:3f61 with SMTP id
- p20-20020a2ea414000000b002c186da3f61mr2349795ljn.9.1697660440730; 
- Wed, 18 Oct 2023 13:20:40 -0700 (PDT)
-Received: from [172.30.205.86] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- y16-20020a05651c021000b002bcda31af28sm833526ljn.42.2023.10.18.13.20.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Oct 2023 13:20:40 -0700 (PDT)
-Message-ID: <11b5db69-49f5-4d7b-81c9-687d66a5cb0d@linaro.org>
-Date: Wed, 18 Oct 2023 22:20:35 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 742FD10E071;
+ Thu, 19 Oct 2023 01:00:03 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39J0ZDTI022612; Thu, 19 Oct 2023 00:59:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=735xJrDsXj0f3h1c0u/TcUL5MFagIe1ChPAPEdruYbM=;
+ b=EWorW6vMMSfiWj9fyaW+IDh8tm+hGuz7QV8HoEI+nOMYJPxBKy+H4CKu/EARkLGSraRj
+ NK3SM1o0dB5OAWOv2idWOOW9TgGilp6GADFTlygy6bAHBJrQBZEupO7Lzu5WjH9kceNf
+ d9uFXo6kNaC5BFrDFnyIi8zEJDPSNxmju7FgwNkRNofleBEDcVhCEQRpIaqHTkoj81Ot
+ Pd2to84yNUFaph1wAcNqKPFS2NCNhDqMmogtPY1y61dZAWWybDXf/8y+f1qz85jjXNe9
+ +GVyMqegh+Qh9do3yWTc8HuDHWsZG6tw3SNCVlb4KxNp2M1Hw/SjKEFV7olrN+xuFxVA gw== 
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ttfeu9h0q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 19 Oct 2023 00:59:38 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39J0xbTu000956
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 19 Oct 2023 00:59:37 GMT
+Received: from [10.71.110.254] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 18 Oct
+ 2023 17:59:37 -0700
+Message-ID: <2dace097-affe-4bc6-ac7c-b5606bd86a89@quicinc.com>
+Date: Wed, 18 Oct 2023 17:59:22 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230926-topic-a643-v1-0-7af6937ac0a3@linaro.org>
- <20230926-topic-a643-v1-5-7af6937ac0a3@linaro.org>
- <opqdrmyj3y64nqqqmakjydn5rkspizufyeavm7ec7c7ufqz4wk@ey2a7bq3shfj>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <opqdrmyj3y64nqqqmakjydn5rkspizufyeavm7ec7c7ufqz4wk@ey2a7bq3shfj>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 5/7] arm64: dts: qcom: sc7280: Fix up GPU
- SIDs
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
+ <20230828-solid-fill-v6-8-a820efcce852@quicinc.com>
+ <494ede51-46bf-437b-98b8-2460f4c40285@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <494ede51-46bf-437b-98b8-2460f4c40285@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: nV9ckG_qzcqOWifFAWc49DtNzwNouqat
+X-Proofpoint-GUID: nV9ckG_qzcqOWifFAWc49DtNzwNouqat
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-19_01,2023-10-18_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0
+ spamscore=0 impostorscore=0 bulkscore=0 adultscore=0 phishscore=0
+ mlxlogscore=999 suspectscore=0 priorityscore=1501 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310190005
+Subject: Re: [Freedreno] [PATCH RFC v6 08/10] drm/msm/dpu: Allow NULL FBs in
+ atomic commit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,56 +89,165 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Luca Weiss <luca.weiss@fairphone.com>, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: sebastian.wick@redhat.com, contact@emersion.fr, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ppaalanen@gmail.com, laurent.pinchart@ideasonboard.com,
+ linux-arm-msm@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 10/16/23 22:22, Akhil P Oommen wrote:
-> On Tue, Sep 26, 2023 at 08:24:40PM +0200, Konrad Dybcio wrote:
+On 9/24/2023 3:29 AM, Dmitry Baryshkov wrote:
+> On 29/08/2023 03:05, Jessica Zhang wrote:
+>> Since solid fill planes allow for a NULL framebuffer in a valid commit,
+>> add NULL framebuffer checks to atomic commit calls within DPU.
 >>
->> GPU_SMMU SID 1 is meant for Adreno LPAC (Low Priority Async Compute).
->> On platforms that support it (in firmware), it is necessary to
->> describe that link, or Adreno register access will hang the board.
->>
->> Add that and fix up the SMR mask of SID 0, which seems to have been
->> copypasted from another SoC.
->>
->> Fixes: 96c471970b7b ("arm64: dts: qcom: sc7280: Add gpu support")
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 >> ---
->>   arch/arm64/boot/dts/qcom/sc7280.dtsi | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 ++++++-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 41 
+>> ++++++++++++++++++++-----------
+>>   2 files changed, 34 insertions(+), 16 deletions(-)
 >>
->> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> index c38ddf267ef5..0d96d1454c49 100644
->> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> @@ -2603,7 +2603,8 @@ gpu: gpu@3d00000 {
->>   				    "cx_mem",
->>   				    "cx_dbgc";
->>   			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
->> -			iommus = <&adreno_smmu 0 0x401>;
->> +			iommus = <&adreno_smmu 0 0x400>,
->> +				 <&adreno_smmu 1 0x400>;
-> Aren't both functionally same? 401 works fine on sc7280. You might be
-> having issue due to Qcom TZ policies on your platform. I am okay with the change, but can
-> you please reword the commit text?
-Hm, looking at what the SMR registers represent, it looks like
-they should do the same thing and it may indeed be down to the
-TZ being picky.. I'll rephrase.
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> index 8ce7586e2ddf..5e845510e8c1 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> @@ -451,6 +451,7 @@ static void _dpu_crtc_blend_setup_mixer(struct 
+>> drm_crtc *crtc,
+>>       struct drm_plane_state *state;
+>>       struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
+>>       struct dpu_plane_state *pstate = NULL;
+>> +    const struct msm_format *fmt;
+>>       struct dpu_format *format;
+>>       struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+>> @@ -470,7 +471,13 @@ static void _dpu_crtc_blend_setup_mixer(struct 
+>> drm_crtc *crtc,
+>>           pstate = to_dpu_plane_state(state);
+>>           fb = state->fb;
+>> -        format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
+>> +        if (drm_plane_solid_fill_enabled(state))
+>> +            fmt = dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
+>> +                    DRM_FORMAT_ABGR8888, 0);
+>> +        else
+>> +            fmt = msm_framebuffer_format(pstate->base.fb);
+>> +
+>> +        format = to_dpu_format(fmt);
+>>           if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
+>>               bg_alpha_enable = true;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> index c2aaaded07ed..114c803ff99b 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> @@ -837,8 +837,13 @@ static int dpu_plane_atomic_check(struct 
+>> drm_plane *plane,
+>>       pipe_cfg->dst_rect = new_plane_state->dst;
+>> -    fb_rect.x2 = new_plane_state->fb->width;
+>> -    fb_rect.y2 = new_plane_state->fb->height;
+>> +    if (drm_plane_solid_fill_enabled(new_plane_state))
+>> +        return 0;
+> 
+> This would skip all the width checks, dpu_plane_atomic_check_pipe(), 
+> etc. Could you please confirm that all of those checks are irrelevant 
+> for solid fill?
 
-Konrad
+Hi Dmitry,
+
+Good point -- I think it would be good to keep the rect and pipe checks 
+for solid fill.
+
+> 
+>> +
+>> +    if (new_plane_state->pixel_source == DRM_PLANE_PIXEL_SOURCE_FB && 
+>> new_plane_state->fb) {
+>> +        fb_rect.x2 = new_plane_state->fb->width;
+>> +        fb_rect.y2 = new_plane_state->fb->height;
+>> +    }
+>>       /* Ensure fb size is supported */
+>>       if (drm_rect_width(&fb_rect) > MAX_IMG_WIDTH ||
+>> @@ -1082,21 +1087,32 @@ static void 
+>> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>>       struct drm_crtc *crtc = state->crtc;
+>>       struct drm_framebuffer *fb = state->fb;
+>>       bool is_rt_pipe;
+>> -    const struct dpu_format *fmt =
+>> -        to_dpu_format(msm_framebuffer_format(fb));
+>> +    const struct dpu_format *fmt;
+>>       struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
+>>       struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
+>>       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+>>       struct msm_gem_address_space *aspace = kms->base.aspace;
+>>       struct dpu_hw_fmt_layout layout;
+>>       bool layout_valid = false;
+>> -    int ret;
+>> -    ret = dpu_format_populate_layout(aspace, fb, &layout);
+>> -    if (ret)
+>> -        DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
+>> -    else
+>> -        layout_valid = true;
+>> +    if (state->pixel_source == DRM_PLANE_PIXEL_SOURCE_FB && fb) {
+>> +        int ret;
+>> +
+>> +        fmt = to_dpu_format(msm_framebuffer_format(fb));
+>> +
+>> +        ret = dpu_format_populate_layout(aspace, fb, &layout);
+>> +        if (ret)
+>> +            DPU_ERROR_PLANE(pdpu, "failed to get format layout, 
+>> %d\n", ret);
+>> +        else
+>> +            layout_valid = true;
+>> +
+>> +        DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " 
+>> DRM_RECT_FMT
+>> +                ", %4.4s ubwc %d\n", fb->base.id, 
+>> DRM_RECT_FP_ARG(&state->src),
+>> +                crtc->base.id, DRM_RECT_ARG(&state->dst),
+>> +                (char *)&fmt->base.pixel_format, 
+>> DPU_FORMAT_IS_UBWC(fmt));
+>> +    } else {
+>> +        fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
+> 
+> #define DPU_SOLID_FILL_FORMAT ?
+
+Acked.
+
+> 
+> Also, I don't think that solid_fill planes consume bandwidth, so this 
+> likely needs to be fixed too.
+
+You're right -- I think we can actually return early here if solid fill 
+is enabled.
+
+Thanks,
+
+Jessica Zhang
+
+> 
+> 
+>> +    }
+>>       pstate->pending = true;
+>> @@ -1104,11 +1120,6 @@ static void dpu_plane_sspp_atomic_update(struct 
+>> drm_plane *plane)
+>>       pstate->needs_qos_remap |= (is_rt_pipe != pdpu->is_rt_pipe);
+>>       pdpu->is_rt_pipe = is_rt_pipe;
+>> -    DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " 
+>> DRM_RECT_FMT
+>> -            ", %4.4s ubwc %d\n", fb->base.id, 
+>> DRM_RECT_FP_ARG(&state->src),
+>> -            crtc->base.id, DRM_RECT_ARG(&state->dst),
+>> -            (char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
+>> -
+>>       dpu_plane_sspp_update_pipe(plane, pipe, pipe_cfg, fmt,
+>>                      drm_mode_vrefresh(&crtc->mode),
+>>                      layout_valid ? &layout : NULL);
+>>
+> 
+> -- 
+> With best wishes
+> Dmitry
+> 
