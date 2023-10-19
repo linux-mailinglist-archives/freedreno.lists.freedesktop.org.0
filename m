@@ -1,77 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C6B77CF593
-	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 12:45:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA707CF683
+	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 13:20:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 039A110E4C0;
-	Thu, 19 Oct 2023 10:45:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEB710E4C7;
+	Thu, 19 Oct 2023 11:20:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 171AC10E4BA
- for <freedreno@lists.freedesktop.org>; Thu, 19 Oct 2023 10:45:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1697712331;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ua/yfYpU7+zl1l3SSe5ziWE4vmE5rVSZxbl9iCkPeqA=;
- b=hyDsgoZpV6muSYB/kk3xG4/1q4jo6kVsdnAS2fUioTfiAp+hzbId7Zwuz8rBGZBV6znt2t
- Futqt3aUTRfZofI3ssheh54WXgUb5nC38KDJmKgl5NNeTtJwrsRbUmUcZ8PqJEFY6TuTX4
- 1wuUuVK5hEeLQorCFbcDcdOd7lj5CRM=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-573-PBdULL3oMsWlIAdQGrjWdg-1; Thu, 19 Oct 2023 06:45:29 -0400
-X-MC-Unique: PBdULL3oMsWlIAdQGrjWdg-1
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-323334992fbso4783842f8f.1
- for <freedreno@lists.freedesktop.org>; Thu, 19 Oct 2023 03:45:29 -0700 (PDT)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64E9210E4C6
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Oct 2023 11:20:03 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-5a7ab31fb8bso93798537b3.1
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Oct 2023 04:20:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1697714402; x=1698319202; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=LClJmbXBbgZZ9PL/ptRr8uW+H9M+Lhuk/jPg67TAQuM=;
+ b=O8vbAMF5xTWu58Gjoai9PrWnsc+u1HBs/J7fCB1/uXHERS2Elh5CNc4yLFnM+zfk63
+ DaM/9gYUi39ZMGgomPPelh2h+y+2sLYv2hV3ctIfMV5Mpn94SBkg8HJptHFFZeP/Q7b+
+ l70sGuPYn77US3+NxvHTi3rT29aDr1tVSR1J+37DSVxoqBrmtCAorWpZQT1E+BxoTDgd
+ l8O+qW32LxPJgUpGpWl/nzqgVifQKrZqaLm0SBEKdiJpeFAjDDBHvZkoXld1PQ2diqNB
+ gyCnD/3czyBNZRlOa1vdKJlaoZrFsjt+71MTST4PBJw4axv/xhUvmTXZ2n8nEdu8245J
+ fRug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697712328; x=1698317128;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ua/yfYpU7+zl1l3SSe5ziWE4vmE5rVSZxbl9iCkPeqA=;
- b=aMiGHum7R6rX3UXvWmQMwK1t4zjp7ggoQtYXlBDQCja9KdNyo8yLGLt0osWMycrzzs
- SM2keyw7W5q3q1ldwqrm5AD2TiL4YxRT6Q6Y0N/IJMDmMTFDy8X2kxPAQeCV92VyC7qW
- R7uH+csc/eP94UXCSILCOZewzD7F0bdb8EiGG3nSy5ER7I8rRSKO1JDuJkm6NB8uib5M
- L0z+H9eDtvQ5b3bcX3QGP8BJkKLKyC+E+BPNf7yPA2fjTz8kQZFuxRmBxEF1GATEK1pt
- pvURy4tTwLd/EX3LmOZniBXNsos5S7gRGSNtlkV6Z0oou3VTrTvyx0ISs17csLcNZpsy
- zNNQ==
-X-Gm-Message-State: AOJu0YypNM+eXz+BhMRir2GuVDQJV0tQABxbajsE7cf8VBtlQwF+FdZ7
- dKNOgN5mzrGG3x8cCxgierhhm2NJPLVD5b1aSW0v48BDwaWlUa00acbBgTrOTM4ofdKqnf3sgi1
- Y4ufZwZ8Mc+afONE9PsnuQe55cE7q
-X-Received: by 2002:a5d:4f06:0:b0:31f:dc60:13b5 with SMTP id
- c6-20020a5d4f06000000b0031fdc6013b5mr1137639wru.25.1697712328759; 
- Thu, 19 Oct 2023 03:45:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG25/eVk9iv4COKDv+qQlPbnnRO8EIl418/81iMMJYQzOMP8gUFG61SSFa31vdA9nVeHX3V5A==
-X-Received: by 2002:a5d:4f06:0:b0:31f:dc60:13b5 with SMTP id
- c6-20020a5d4f06000000b0031fdc6013b5mr1137614wru.25.1697712328383; 
- Thu, 19 Oct 2023 03:45:28 -0700 (PDT)
-Received: from toolbox ([2001:9e8:89b6:9600:497b:a355:d2a9:2bb])
- by smtp.gmail.com with ESMTPSA id
- i11-20020a5d630b000000b00327bf4f2f14sm4172028wru.88.2023.10.19.03.45.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Oct 2023 03:45:28 -0700 (PDT)
-Date: Thu, 19 Oct 2023 12:45:26 +0200
-From: Sebastian Wick <sebastian.wick@redhat.com>
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Message-ID: <20231019104526.GA755220@toolbox>
-References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
- <20230828-solid-fill-v6-1-a820efcce852@quicinc.com>
- <20230829104816.19122c6d@eldfell>
+ d=1e100.net; s=20230601; t=1697714402; x=1698319202;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LClJmbXBbgZZ9PL/ptRr8uW+H9M+Lhuk/jPg67TAQuM=;
+ b=Nyh6EIENEetM/+b7EXrmYVV5TNrJqtR+88iYYrSLccZAH9U1tSJVRzv4XGK3lL/wHl
+ 9otMzYwQ3ii+A/yE0mBruU0O8mtJtNGfwX2+Lss2biLf5hJW0F9+EwWVVm1JSsJSAs5+
+ mH5k88mrOh5IG5K/iy9h+pd0kf2itBCI7jPP5LSJOx3HzYcrpib53iRxovtYxWhz04MB
+ DM3LFRlAn8M1bxEeEuBIaH+j2bVYf53qGe1EM/ql39P+xtqLc3j6FxasWDGj6HjlbmvT
+ 7ci7yFfU6DNPgl9l2wjL2t+gxoNSlVIsdcrg94hxx+nUXt+Fn+G3MSj8IzqBFyR9gM6w
+ Xk1w==
+X-Gm-Message-State: AOJu0YyfT1wUNpxBciAqxb2GWtNwsFy/Ja52sGJjFUZLFax5oers+6eM
+ t6FEaQakrxXCrb9MVqAt26QKQGrTbzzkMl4OSWkq9A==
+X-Google-Smtp-Source: AGHT+IHsKrnC+HnnF2UK0XWJsB/bhHUzaseUh9wgYFQMhnXiNl5Q/h72pZzdPFWB8GR4VoHaQazj+FeGDz8qhVkt4fA=
+X-Received: by 2002:a25:285:0:b0:d9a:5f91:c616 with SMTP id
+ 127-20020a250285000000b00d9a5f91c616mr2004733ybc.46.1697714402196; Thu, 19
+ Oct 2023 04:20:02 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20230829104816.19122c6d@eldfell>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [Freedreno] [PATCH RFC v6 01/10] drm: Introduce pixel_source
- DRM plane property
+References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
+ <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
+ <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
+In-Reply-To: <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 19 Oct 2023 14:19:51 +0300
+Message-ID: <CAA8EJpp48AdJmx_U=bEJZUWZgOiT1Ctz6Lpe9QwjLXkMQvsw5w@mail.gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
+ control over the DSI link power state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,86 +69,152 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <sean@poorly.run>,
- dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, laurent.pinchart@ideasonboard.com,
- Daniel Vetter <daniel@ffwll.ch>,
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, contact@emersion.fr,
- David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 29, 2023 at 10:48:16AM +0300, Pekka Paalanen wrote:
-> On Mon, 28 Aug 2023 17:05:07 -0700
-> Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> 
-> > Add support for pixel_source property to drm_plane and related
-> > documentation. In addition, force pixel_source to
-> > DRM_PLANE_PIXEL_SOURCE_FB in DRM_IOCTL_MODE_SETPLANE as to not break
-> > legacy userspace.
-> > 
-> > This enum property will allow user to specify a pixel source for the
-> > plane. Possible pixel sources will be defined in the
-> > drm_plane_pixel_source enum.
-> > 
-> > Currently, the only pixel sources are DRM_PLANE_PIXEL_SOURCE_FB (the
-> > default value) and DRM_PLANE_PIXEL_SOURCE_NONE.
-> > 
-> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+On Thu, 19 Oct 2023 at 12:26, Maxime Ripard <mripard@kernel.org> wrote:
+>
+> On Mon, Oct 16, 2023 at 07:53:48PM +0300, Dmitry Baryshkov wrote:
+> > The MIPI DSI links do not fully fall into the DRM callbacks model.
+>
+> Explaining why would help
+
+A kind of explanation comes afterwards, but probably I should change
+the order of the phrases and expand it:
+
+The atomic_pre_enable / atomic_enable and correspondingly
+atomic_disable / atomic_post_disable expect that the bridge links
+follow a simple paradigm: either it is off, or it is on and streaming
+video. Thus, it is fine to just enable the link at the enable time,
+doing some preparations during the pre_enable.
+
+But then it causes several issues with DSI. First, some of the DSI
+bridges and most of the DSI panels would like to send commands over
+the DSI link to setup the device. Next, some of the DSI hosts have
+limitations on sending the commands. The proverbial sunxi DSI host can
+not send DSI commands after the video stream has started. Thus most of
+the panels have opted to send all DSI commands from pre_enable (or
+prepare) callback (before the video stream has started).
+
+However this leaves no good place for the DSI host to power up the DSI
+link. By default the host's pre_enable callback is called after the
+DSI bridge's pre_enable. For quite some time we were powering up the
+DSI link from mode_set. This doesn't look fully correct. And also we
+got into the issue with ps8640 bridge, which requires for the DSI link
+to be quiet / unpowered at the bridge's reset time.
+
+Dave has come with the idea of pre_enable_prev_first /
+prepare_prev_first flags, which attempt to solve the issue by
+reversing the order of pre_enable callbacks. This mostly solves the
+issue. However during this cycle it became obvious that this approach
+is not ideal too. There is no way for the DSI host to know whether the
+DSI panel / bridge has been updated to use this flag or not, see the
+discussion at [1].
+
+Thus comes this proposal. It allows for the panels to explicitly bring
+the link up and down at the correct time, it supports automatic use
+case, where no special handling is required. And last, but not least,
+it allows the DSI host to note that the bridge / panel were not
+updated to follow new protocol and thus the link should be powered on
+at the mode_set time. This leaves us with the possibility of dropping
+support for this workaround once all in-kernel drivers are updated.
+
+> > The drm_bridge_funcs abstraction.
+>
+> Is there a typo or missing words?
+
+missing comma in front of The
+
+>
+> > Instead of having just two states (off and on) the DSI hosts have
+> > separate LP-11 state. In this state the host is on, but the video
+> > stream is not yet enabled.
+> >
+> > Introduce API that allows DSI bridges / panels to control the DSI host
+> > power up state.
+
+[1] https://lore.kernel.org/dri-devel/6c0dd9fd-5d8e-537c-804f-7a03d5899a07@linaro.org/
+
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > ---
-> >  drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
-> >  drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
-> >  drivers/gpu/drm/drm_blend.c               | 90 +++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_plane.c               | 19 +++++--
-> >  include/drm/drm_blend.h                   |  2 +
-> >  include/drm/drm_plane.h                   | 21 ++++++++
-> >  6 files changed, 133 insertions(+), 4 deletions(-)
-> 
-> ...
-> 
-> > diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
-> > index 6e74de833466..c3c57bae06b7 100644
-> > --- a/drivers/gpu/drm/drm_blend.c
-> > +++ b/drivers/gpu/drm/drm_blend.c
-> > @@ -185,6 +185,21 @@
-> >   *		 plane does not expose the "alpha" property, then this is
-> >   *		 assumed to be 1.0
-> >   *
-> > + * pixel_source:
-> > + *	pixel_source is set up with drm_plane_create_pixel_source_property().
-> > + *	It is used to toggle the active source of pixel data for the plane.
-> > + *	The plane will only display data from the set pixel_source -- any
-> > + *	data from other sources will be ignored.
-> > + *
-> > + *	Possible values:
-> > + *
-> > + *	"NONE":
-> > + *		No active pixel source.
-> > + *		Committing with a NONE pixel source will disable the plane.
-> > + *
-> > + *	"FB":
-> > + *		Framebuffer source set by the "FB_ID" property.
-> > + *
-> >   * Note that all the property extensions described here apply either to the
-> >   * plane or the CRTC (e.g. for the background color, which currently is not
-> >   * exposed and assumed to be black).
-> 
-> This UAPI:
-> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >  drivers/gpu/drm/drm_mipi_dsi.c | 31 +++++++++++++++++++++++++++++++
+> >  include/drm/drm_mipi_dsi.h     | 29 +++++++++++++++++++++++++----
+> >  2 files changed, 56 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
+> > index 14201f73aab1..c467162cb7d8 100644
+> > --- a/drivers/gpu/drm/drm_mipi_dsi.c
+> > +++ b/drivers/gpu/drm/drm_mipi_dsi.c
+> > @@ -428,6 +428,37 @@ int devm_mipi_dsi_attach(struct device *dev,
+> >  }
+> >  EXPORT_SYMBOL_GPL(devm_mipi_dsi_attach);
+> >
+> > +bool mipi_dsi_host_power_control_available(struct mipi_dsi_host *host)
+> > +{
+> > +     const struct mipi_dsi_host_ops *ops = host->ops;
+> > +
+> > +     return ops && ops->power_up;
+> > +}
+> > +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_control_available);
+> > +
+> > +int mipi_dsi_host_power_up(struct mipi_dsi_host *host)
+> > +{
+> > +     const struct mipi_dsi_host_ops *ops = host->ops;
+> > +
+> > +     if (!mipi_dsi_host_power_control_available(host))
+> > +             return -EOPNOTSUPP;
+> > +
+> > +     return ops->power_up ? ops->power_up(host) : 0;
+> > +}
+> > +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_up);
+> > +
+> > +void mipi_dsi_host_power_down(struct mipi_dsi_host *host)
+> > +{
+> > +     const struct mipi_dsi_host_ops *ops = host->ops;
+> > +
+> > +     if (!mipi_dsi_host_power_control_available(host))
+> > +             return;
+> > +
+> > +     if (ops->power_down)
+> > +             ops->power_down(host);
+> > +}
+> > +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_down);
+> > +
+>
+> If this API is supposed to be used by DSI devices, it should probably
+> take a mipi_dsi_device pointer as a parameter?
 
-Thanks Jessica, same for me
+Ack.
 
-Acked-by: Sebastian Wick <sebastian@sebastianwick.net>
+>
+> We should probably make sure it hasn't been powered on already too?
 
-> 
-> 
-> Thanks,
-> pq
+Ack, I can add an atomic count there and a WARN_ON. However I don't
+think that it is a real problem.
+
+>
+> Maxime
 
 
+
+--
+With best wishes
+
+Dmitry
