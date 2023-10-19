@@ -2,46 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B57C7CED0B
-	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 03:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FED7CEEDC
+	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 06:59:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF0B10E461;
-	Thu, 19 Oct 2023 01:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3906810E1CD;
+	Thu, 19 Oct 2023 04:59:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 742FD10E071;
- Thu, 19 Oct 2023 01:00:03 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2151210E1CD;
+ Thu, 19 Oct 2023 04:59:37 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39J0ZDTI022612; Thu, 19 Oct 2023 00:59:38 GMT
+ 39J488bJ020106; Thu, 19 Oct 2023 04:59:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=735xJrDsXj0f3h1c0u/TcUL5MFagIe1ChPAPEdruYbM=;
- b=EWorW6vMMSfiWj9fyaW+IDh8tm+hGuz7QV8HoEI+nOMYJPxBKy+H4CKu/EARkLGSraRj
- NK3SM1o0dB5OAWOv2idWOOW9TgGilp6GADFTlygy6bAHBJrQBZEupO7Lzu5WjH9kceNf
- d9uFXo6kNaC5BFrDFnyIi8zEJDPSNxmju7FgwNkRNofleBEDcVhCEQRpIaqHTkoj81Ot
- Pd2to84yNUFaph1wAcNqKPFS2NCNhDqMmogtPY1y61dZAWWybDXf/8y+f1qz85jjXNe9
- +GVyMqegh+Qh9do3yWTc8HuDHWsZG6tw3SNCVlb4KxNp2M1Hw/SjKEFV7olrN+xuFxVA gw== 
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ bh=Shv/gu2WxqfXj6igQ+HBZiXVP6UaZGRxmsD45tl/jyg=;
+ b=Gh/2IQ3ISUEQcSVxmSeYRdFeW91bAiERcXMywKVG+DfIOKZpsi6TorgoAUT7J6xwaZcz
+ ojbVzZBi+RuC/X3SR7Z0rovOiE4CKNCvVJnGmX6IdulZewd1ZE9aX61oKN5cijaF2USk
+ fAGI8Nb52GIbC2UV2vzCLs9jjO/IccxTy3qZL+43lAoZbd+BWPA2xR0OsCvKQt0gmT7B
+ VNY5srQUukllkqSnTJYZepgbKIN5hyzWBEnSRTLXg+qzKkPjo2pRUVHPPNolaQN4RbIz
+ hX5nEBa4hHY+fKbNm2LkmsCaxfZ8bzt48ksUzG9v1G8yqlE2ApNZyjwL+5CDZ19Zkt3M HQ== 
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ttfeu9h0q-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tt5v8313b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Oct 2023 00:59:38 +0000
+ Thu, 19 Oct 2023 04:59:14 +0000
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39J0xbTu000956
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39J4xDDQ017397
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Oct 2023 00:59:37 GMT
-Received: from [10.71.110.254] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ Thu, 19 Oct 2023 04:59:13 GMT
+Received: from [10.110.13.99] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 18 Oct
- 2023 17:59:37 -0700
-Message-ID: <2dace097-affe-4bc6-ac7c-b5606bd86a89@quicinc.com>
-Date: Wed, 18 Oct 2023 17:59:22 -0700
+ 2023 21:59:11 -0700
+Message-ID: <95de0504-dc26-4cb8-9339-9aa811cac315@quicinc.com>
+Date: Wed, 18 Oct 2023 21:59:11 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -52,31 +52,31 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>
 References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
- <20230828-solid-fill-v6-8-a820efcce852@quicinc.com>
- <494ede51-46bf-437b-98b8-2460f4c40285@linaro.org>
+ <20230828-solid-fill-v6-1-a820efcce852@quicinc.com>
+ <93a64016-0dca-4480-a178-9085c312c8e5@linaro.org>
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <494ede51-46bf-437b-98b8-2460f4c40285@linaro.org>
+In-Reply-To: <93a64016-0dca-4480-a178-9085c312c8e5@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: nV9ckG_qzcqOWifFAWc49DtNzwNouqat
-X-Proofpoint-GUID: nV9ckG_qzcqOWifFAWc49DtNzwNouqat
+X-Proofpoint-GUID: xY049vsMtkqvsd2raFIZDHsLPqJhaJXG
+X-Proofpoint-ORIG-GUID: xY049vsMtkqvsd2raFIZDHsLPqJhaJXG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-19_01,2023-10-18_01,2023-05-22_02
+ definitions=2023-10-19_02,2023-10-18_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0
- spamscore=0 impostorscore=0 bulkscore=0 adultscore=0 phishscore=0
- mlxlogscore=999 suspectscore=0 priorityscore=1501 mlxscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2310190005
-Subject: Re: [Freedreno] [PATCH RFC v6 08/10] drm/msm/dpu: Allow NULL FBs in
- atomic commit
+ malwarescore=0
+ mlxlogscore=657 lowpriorityscore=0 phishscore=0 impostorscore=0
+ suspectscore=0 mlxscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ spamscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310190042
+Subject: Re: [Freedreno] [PATCH RFC v6 01/10] drm: Introduce pixel_source
+ DRM plane property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,152 +99,324 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/24/2023 3:29 AM, Dmitry Baryshkov wrote:
+On 9/24/2023 3:06 AM, Dmitry Baryshkov wrote:
 > On 29/08/2023 03:05, Jessica Zhang wrote:
->> Since solid fill planes allow for a NULL framebuffer in a valid commit,
->> add NULL framebuffer checks to atomic commit calls within DPU.
+>> Add support for pixel_source property to drm_plane and related
+>> documentation. In addition, force pixel_source to
+>> DRM_PLANE_PIXEL_SOURCE_FB in DRM_IOCTL_MODE_SETPLANE as to not break
+>> legacy userspace.
 >>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> This enum property will allow user to specify a pixel source for the
+>> plane. Possible pixel sources will be defined in the
+>> drm_plane_pixel_source enum.
+>>
+>> Currently, the only pixel sources are DRM_PLANE_PIXEL_SOURCE_FB (the
+>> default value) and DRM_PLANE_PIXEL_SOURCE_NONE.
+>>
 >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 ++++++-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 41 
->> ++++++++++++++++++++-----------
->>   2 files changed, 34 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> index 8ce7586e2ddf..5e845510e8c1 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> @@ -451,6 +451,7 @@ static void _dpu_crtc_blend_setup_mixer(struct 
->> drm_crtc *crtc,
->>       struct drm_plane_state *state;
->>       struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc->state);
->>       struct dpu_plane_state *pstate = NULL;
->> +    const struct msm_format *fmt;
->>       struct dpu_format *format;
->>       struct dpu_hw_ctl *ctl = mixer->lm_ctl;
->> @@ -470,7 +471,13 @@ static void _dpu_crtc_blend_setup_mixer(struct 
->> drm_crtc *crtc,
->>           pstate = to_dpu_plane_state(state);
->>           fb = state->fb;
->> -        format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
->> +        if (drm_plane_solid_fill_enabled(state))
->> +            fmt = dpu_get_msm_format(&_dpu_crtc_get_kms(crtc)->base,
->> +                    DRM_FORMAT_ABGR8888, 0);
->> +        else
->> +            fmt = msm_framebuffer_format(pstate->base.fb);
->> +
->> +        format = to_dpu_format(fmt);
->>           if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
->>               bg_alpha_enable = true;
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index c2aaaded07ed..114c803ff99b 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -837,8 +837,13 @@ static int dpu_plane_atomic_check(struct 
->> drm_plane *plane,
->>       pipe_cfg->dst_rect = new_plane_state->dst;
->> -    fb_rect.x2 = new_plane_state->fb->width;
->> -    fb_rect.y2 = new_plane_state->fb->height;
->> +    if (drm_plane_solid_fill_enabled(new_plane_state))
->> +        return 0;
 > 
-> This would skip all the width checks, dpu_plane_atomic_check_pipe(), 
-> etc. Could you please confirm that all of those checks are irrelevant 
-> for solid fill?
+> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Minor question below
+> 
+>> ---
+>>   drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
+>>   drivers/gpu/drm/drm_atomic_uapi.c         |  4 ++
+>>   drivers/gpu/drm/drm_blend.c               | 90 
+>> +++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/drm_plane.c               | 19 +++++--
+>>   include/drm/drm_blend.h                   |  2 +
+>>   include/drm/drm_plane.h                   | 21 ++++++++
+>>   6 files changed, 133 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c 
+>> b/drivers/gpu/drm/drm_atomic_state_helper.c
+>> index 784e63d70a42..01638c51ce0a 100644
+>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+>> @@ -252,6 +252,7 @@ void __drm_atomic_helper_plane_state_reset(struct 
+>> drm_plane_state *plane_state,
+>>       plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
+>>       plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
+>> +    plane_state->pixel_source = DRM_PLANE_PIXEL_SOURCE_FB;
+>>       if (plane->color_encoding_property) {
+>>           if (!drm_object_property_get_default_value(&plane->base,
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
+>> b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index d867e7f9f2cd..454f980e16c9 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -544,6 +544,8 @@ static int drm_atomic_plane_set_property(struct 
+>> drm_plane *plane,
+>>           state->src_w = val;
+>>       } else if (property == config->prop_src_h) {
+>>           state->src_h = val;
+>> +    } else if (property == plane->pixel_source_property) {
+>> +        state->pixel_source = val;
+>>       } else if (property == plane->alpha_property) {
+>>           state->alpha = val;
+>>       } else if (property == plane->blend_mode_property) {
+>> @@ -616,6 +618,8 @@ drm_atomic_plane_get_property(struct drm_plane 
+>> *plane,
+>>           *val = state->src_w;
+>>       } else if (property == config->prop_src_h) {
+>>           *val = state->src_h;
+>> +    } else if (property == plane->pixel_source_property) {
+>> +        *val = state->pixel_source;
+>>       } else if (property == plane->alpha_property) {
+>>           *val = state->alpha;
+>>       } else if (property == plane->blend_mode_property) {
+>> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+>> index 6e74de833466..c3c57bae06b7 100644
+>> --- a/drivers/gpu/drm/drm_blend.c
+>> +++ b/drivers/gpu/drm/drm_blend.c
+>> @@ -185,6 +185,21 @@
+>>    *         plane does not expose the "alpha" property, then this is
+>>    *         assumed to be 1.0
+>>    *
+>> + * pixel_source:
+>> + *    pixel_source is set up with 
+>> drm_plane_create_pixel_source_property().
+>> + *    It is used to toggle the active source of pixel data for the 
+>> plane.
+>> + *    The plane will only display data from the set pixel_source -- any
+>> + *    data from other sources will be ignored.
+>> + *
+>> + *    Possible values:
+>> + *
+>> + *    "NONE":
+>> + *        No active pixel source.
+>> + *        Committing with a NONE pixel source will disable the plane.
+>> + *
+>> + *    "FB":
+>> + *        Framebuffer source set by the "FB_ID" property.
+>> + *
+>>    * Note that all the property extensions described here apply either 
+>> to the
+>>    * plane or the CRTC (e.g. for the background color, which currently 
+>> is not
+>>    * exposed and assumed to be black).
+>> @@ -615,3 +630,78 @@ int drm_plane_create_blend_mode_property(struct 
+>> drm_plane *plane,
+>>       return 0;
+>>   }
+>>   EXPORT_SYMBOL(drm_plane_create_blend_mode_property);
+>> +
+>> +static const struct drm_prop_enum_list drm_pixel_source_enum_list[] = {
+>> +    { DRM_PLANE_PIXEL_SOURCE_NONE, "NONE" },
+>> +    { DRM_PLANE_PIXEL_SOURCE_FB, "FB" },
+>> +};
+>> +
+>> +/**
+>> + * drm_plane_create_pixel_source_property - create a new pixel source 
+>> property
+>> + * @plane: DRM plane
+>> + * @extra_sources: Bitmask of additional supported pixel_sources for 
+>> the driver.
+>> + *           DRM_PLANE_PIXEL_SOURCE_FB and 
+>> DRM_PLANE_PIXEL_SOURCE_NONE will
+>> + *           always be enabled as supported sources.
+>> + *
+>> + * This creates a new property describing the current source of pixel 
+>> data for the
+>> + * plane. The pixel_source will be initialized as 
+>> DRM_PLANE_PIXEL_SOURCE_FB by default.
+>> + *
+>> + * Drivers can set a custom default source by overriding the 
+>> pixel_source value in
+>> + * drm_plane_funcs.reset()
+>> + *
+>> + * The property is exposed to userspace as an enumeration property 
+>> called
+>> + * "pixel_source" and has the following enumeration values:
+>> + *
+>> + * "NONE":
+>> + *     No active pixel source
+>> + *
+>> + * "FB":
+>> + *    Framebuffer pixel source
+>> + *
+>> + * Returns:
+>> + * Zero on success, negative errno on failure.
+>> + */
+>> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
+>> +                       unsigned long extra_sources)
+>> +{
+>> +    struct drm_device *dev = plane->dev;
+>> +    struct drm_property *prop;
+>> +    static const unsigned int valid_source_mask = 
+>> BIT(DRM_PLANE_PIXEL_SOURCE_FB) |
+>> +                              BIT(DRM_PLANE_PIXEL_SOURCE_NONE);
+> 
+> Nit: if valid_source_mask and supported_sources are moved towards the 
+> top, it might look better. It doesn't warrant sending v7 just to fix 
+> this issue though.
 
 Hi Dmitry,
 
-Good point -- I think it would be good to keep the rect and pipe checks 
-for solid fill.
+Acked, I can move these to the top of the function.
 
 > 
+>> +    int i;
 >> +
->> +    if (new_plane_state->pixel_source == DRM_PLANE_PIXEL_SOURCE_FB && 
->> new_plane_state->fb) {
->> +        fb_rect.x2 = new_plane_state->fb->width;
->> +        fb_rect.y2 = new_plane_state->fb->height;
->> +    }
->>       /* Ensure fb size is supported */
->>       if (drm_rect_width(&fb_rect) > MAX_IMG_WIDTH ||
->> @@ -1082,21 +1087,32 @@ static void 
->> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->>       struct drm_crtc *crtc = state->crtc;
->>       struct drm_framebuffer *fb = state->fb;
->>       bool is_rt_pipe;
->> -    const struct dpu_format *fmt =
->> -        to_dpu_format(msm_framebuffer_format(fb));
->> +    const struct dpu_format *fmt;
->>       struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
->>       struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
->>       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->>       struct msm_gem_address_space *aspace = kms->base.aspace;
->>       struct dpu_hw_fmt_layout layout;
->>       bool layout_valid = false;
->> -    int ret;
->> -    ret = dpu_format_populate_layout(aspace, fb, &layout);
->> -    if (ret)
->> -        DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
->> -    else
->> -        layout_valid = true;
->> +    if (state->pixel_source == DRM_PLANE_PIXEL_SOURCE_FB && fb) {
->> +        int ret;
->> +
->> +        fmt = to_dpu_format(msm_framebuffer_format(fb));
->> +
->> +        ret = dpu_format_populate_layout(aspace, fb, &layout);
->> +        if (ret)
->> +            DPU_ERROR_PLANE(pdpu, "failed to get format layout, 
->> %d\n", ret);
->> +        else
->> +            layout_valid = true;
->> +
->> +        DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " 
->> DRM_RECT_FMT
->> +                ", %4.4s ubwc %d\n", fb->base.id, 
->> DRM_RECT_FP_ARG(&state->src),
->> +                crtc->base.id, DRM_RECT_ARG(&state->dst),
->> +                (char *)&fmt->base.pixel_format, 
->> DPU_FORMAT_IS_UBWC(fmt));
->> +    } else {
->> +        fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
+>> +    /* FB is supported by default */
+>> +    unsigned long supported_sources = extra_sources |
+>> +                      BIT(DRM_PLANE_PIXEL_SOURCE_FB) |
+>> +                      BIT(DRM_PLANE_PIXEL_SOURCE_NONE);
 > 
-> #define DPU_SOLID_FILL_FORMAT ?
+> As you are going to extend planes to support non-FB sources, would it be 
+> logical to stop declaring FB as a default one as well? I think DIM layer 
+> planes will only support solid fill source.
 
-Acked.
-
-> 
-> Also, I don't think that solid_fill planes consume bandwidth, so this 
-> likely needs to be fixed too.
-
-You're right -- I think we can actually return early here if solid fill 
-is enabled.
+I think there was some discussion about this in v4 -- I chose to have FB 
+supported by default so we could set FB as the default pixel source in 
+the plane state reset(). Otherwise we'd have to track the default pixel 
+source for each plane.
 
 Thanks,
 
 Jessica Zhang
 
 > 
-> 
+>> +
+>> +    if (WARN_ON(supported_sources & ~valid_source_mask))
+>> +        return -EINVAL;
+>> +
+>> +    prop = drm_property_create(dev, DRM_MODE_PROP_ENUM | 
+>> DRM_MODE_PROP_ATOMIC, "pixel_source",
+>> +            hweight32(supported_sources));
+>> +
+>> +    if (!prop)
+>> +        return -ENOMEM;
+>> +
+>> +    for (i = 0; i < ARRAY_SIZE(drm_pixel_source_enum_list); i++) {
+>> +        int ret;
+>> +
+>> +        if (!test_bit(drm_pixel_source_enum_list[i].type, 
+>> &supported_sources))
+>> +            continue;
+>> +
+>> +        ret = drm_property_add_enum(prop, 
+>> drm_pixel_source_enum_list[i].type,
+>> +                drm_pixel_source_enum_list[i].name);
+>> +        if (ret) {
+>> +            drm_property_destroy(dev, prop);
+>> +
+>> +            return ret;
+>> +        }
 >> +    }
->>       pstate->pending = true;
->> @@ -1104,11 +1120,6 @@ static void dpu_plane_sspp_atomic_update(struct 
->> drm_plane *plane)
->>       pstate->needs_qos_remap |= (is_rt_pipe != pdpu->is_rt_pipe);
->>       pdpu->is_rt_pipe = is_rt_pipe;
->> -    DPU_DEBUG_PLANE(pdpu, "FB[%u] " DRM_RECT_FP_FMT "->crtc%u " 
->> DRM_RECT_FMT
->> -            ", %4.4s ubwc %d\n", fb->base.id, 
->> DRM_RECT_FP_ARG(&state->src),
->> -            crtc->base.id, DRM_RECT_ARG(&state->dst),
->> -            (char *)&fmt->base.pixel_format, DPU_FORMAT_IS_UBWC(fmt));
->> -
->>       dpu_plane_sspp_update_pipe(plane, pipe, pipe_cfg, fmt,
->>                      drm_mode_vrefresh(&crtc->mode),
->>                      layout_valid ? &layout : NULL);
+>> +
+>> +    drm_object_attach_property(&plane->base, prop, 
+>> DRM_PLANE_PIXEL_SOURCE_FB);
+>> +    plane->pixel_source_property = prop;
+>> +
+>> +    return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_plane_create_pixel_source_property);
+>> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+>> index 24e7998d1731..559d101162ba 100644
+>> --- a/drivers/gpu/drm/drm_plane.c
+>> +++ b/drivers/gpu/drm/drm_plane.c
+>> @@ -839,6 +839,14 @@ bool drm_any_plane_has_format(struct drm_device 
+>> *dev,
+>>   }
+>>   EXPORT_SYMBOL(drm_any_plane_has_format);
+>> +static bool drm_plane_needs_disable(struct drm_plane_state *state, 
+>> struct drm_framebuffer *fb)
+>> +{
+>> +    if (state->pixel_source == DRM_PLANE_PIXEL_SOURCE_NONE)
+>> +        return true;
+>> +
+>> +    return state->pixel_source == DRM_PLANE_PIXEL_SOURCE_FB && fb == 
+>> NULL;
+>> +}
+>> +
+>>   /*
+>>    * __setplane_internal - setplane handler for internal callers
+>>    *
+>> @@ -861,8 +869,8 @@ static int __setplane_internal(struct drm_plane 
+>> *plane,
+>>       WARN_ON(drm_drv_uses_atomic_modeset(plane->dev));
+>> -    /* No fb means shut it down */
+>> -    if (!fb) {
+>> +    /* No visible data means shut it down */
+>> +    if (drm_plane_needs_disable(plane->state, fb)) {
+>>           plane->old_fb = plane->fb;
+>>           ret = plane->funcs->disable_plane(plane, ctx);
+>>           if (!ret) {
+>> @@ -913,8 +921,8 @@ static int __setplane_atomic(struct drm_plane *plane,
+>>       WARN_ON(!drm_drv_uses_atomic_modeset(plane->dev));
+>> -    /* No fb means shut it down */
+>> -    if (!fb)
+>> +    /* No visible data means shut it down */
+>> +    if (drm_plane_needs_disable(plane->state, fb))
+>>           return plane->funcs->disable_plane(plane, ctx);
+>>       /*
+>> @@ -987,6 +995,9 @@ int drm_mode_setplane(struct drm_device *dev, void 
+>> *data,
+>>           return -ENOENT;
+>>       }
+>> +    if (plane->state)
+>> +        plane->state->pixel_source = DRM_PLANE_PIXEL_SOURCE_FB;
+>> +
+>>       if (plane_req->fb_id) {
+>>           fb = drm_framebuffer_lookup(dev, file_priv, plane_req->fb_id);
+>>           if (!fb) {
+>> diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
+>> index 88bdfec3bd88..122bbfbaae33 100644
+>> --- a/include/drm/drm_blend.h
+>> +++ b/include/drm/drm_blend.h
+>> @@ -58,4 +58,6 @@ int drm_atomic_normalize_zpos(struct drm_device *dev,
+>>                     struct drm_atomic_state *state);
+>>   int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>>                        unsigned int supported_modes);
+>> +int drm_plane_create_pixel_source_property(struct drm_plane *plane,
+>> +                       unsigned long extra_sources);
+>>   #endif
+>> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+>> index 51291983ea44..89508b4dea4a 100644
+>> --- a/include/drm/drm_plane.h
+>> +++ b/include/drm/drm_plane.h
+>> @@ -40,6 +40,12 @@ enum drm_scaling_filter {
+>>       DRM_SCALING_FILTER_NEAREST_NEIGHBOR,
+>>   };
+>> +enum drm_plane_pixel_source {
+>> +    DRM_PLANE_PIXEL_SOURCE_NONE,
+>> +    DRM_PLANE_PIXEL_SOURCE_FB,
+>> +    DRM_PLANE_PIXEL_SOURCE_MAX
+>> +};
+>> +
+>>   /**
+>>    * struct drm_plane_state - mutable plane state
+>>    *
+>> @@ -116,6 +122,14 @@ struct drm_plane_state {
+>>       /** @src_h: height of visible portion of plane (in 16.16) */
+>>       uint32_t src_h, src_w;
+>> +    /**
+>> +     * @pixel_source:
+>> +     *
+>> +     * Source of pixel information for the plane. See
+>> +     * drm_plane_create_pixel_source_property() for more details.
+>> +     */
+>> +    enum drm_plane_pixel_source pixel_source;
+>> +
+>>       /**
+>>        * @alpha:
+>>        * Opacity of the plane with 0 as completely transparent and 
+>> 0xffff as
+>> @@ -699,6 +713,13 @@ struct drm_plane {
+>>        */
+>>       struct drm_plane_state *state;
+>> +    /*
+>> +     * @pixel_source_property:
+>> +     * Optional pixel_source property for this plane. See
+>> +     * drm_plane_create_pixel_source_property().
+>> +     */
+>> +    struct drm_property *pixel_source_property;
+>> +
+>>       /**
+>>        * @alpha_property:
+>>        * Optional alpha property for this plane. See
 >>
 > 
 > -- 
