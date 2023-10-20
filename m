@@ -2,42 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22DF07CFC5E
-	for <lists+freedreno@lfdr.de>; Thu, 19 Oct 2023 16:22:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04C5A7D0608
+	for <lists+freedreno@lfdr.de>; Fri, 20 Oct 2023 03:11:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9747810E4FE;
-	Thu, 19 Oct 2023 14:22:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E02910E56F;
+	Fri, 20 Oct 2023 01:11:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
- [185.70.41.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8530A10E4FD
- for <freedreno@lists.freedesktop.org>; Thu, 19 Oct 2023 14:22:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1697725360; x=1697984560;
- bh=BZ8m8hzLlbVZD5/QhXKn58C893KnGUrMpTj8JXVT2AQ=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=H1+Oki2gdHeuc6uivf186YbX2aVRFqzk58KCtapUjdpyeKLfc5ViwjbyW2II5GrTa
- /yR0xnHBhij7EQ2JA5fZaDKvuYEFJVMkre4vMlYsGIO2ell5EmA1iwOLN40tEQJqni
- G1KRtiMj0y6IpDTlq4w/S7tenbCaccDBpYGAlRTRSWQE2Jzi/fxyXRvYlbLKbviMRr
- 3aHhp8IQIN+bfXRDhznoO98LLye2JlbEM1qFz/FP5TkS2exNtNPbrvtS79rFCR0V2n
- YYxjTVAJeUoNV2w4FC7qpiQDdab95M1YE59+q9wIMhAzU6lgGJU7LvO2s7+HRfhs1B
- tEmNUaSoNn/Fg==
-Date: Thu, 19 Oct 2023 14:22:28 +0000
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-From: Simon Ser <contact@emersion.fr>
-Message-ID: <DrmsyZK_ptUMO9pdU0ESXgVdv4Mjhp_A5A0x6U4N3HoKNQZKfU4E4xNPN-PXa4gpxqk-Urv8-9mWWTK8GUcadIX61FttgzCJOL-Nszh0n9w=@emersion.fr>
-In-Reply-To: <20230828-solid-fill-v6-1-a820efcce852@quicinc.com>
-References: <20230828-solid-fill-v6-0-a820efcce852@quicinc.com>
- <20230828-solid-fill-v6-1-a820efcce852@quicinc.com>
-Feedback-ID: 1358184:user:proton
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B5210E56E;
+ Fri, 20 Oct 2023 01:11:02 +0000 (UTC)
+Received: from [IPV6:2804:14d:e646:872b:8302:9b9b:d59b:1681] (unknown
+ [IPv6:2804:14d:e646:872b:8302:9b9b:d59b:1681])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: koike)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 1C1D5660734B;
+ Fri, 20 Oct 2023 02:10:57 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1697764261;
+ bh=ywMJzRW3dw4Ip1emXFLkn9DL28UP7yqyfBt07XAkUdI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fqngVhTGDaHGK4trzmLA4hsqTQ2b592YleV+hbSSGfKOziARe5MhGPZyTGekkxPE0
+ oO48m6MRHnLU6x8NaHCbe2rGHVJfbFAEJElkYl0KwrYUmjdOqsvTRRslH9NV+mGf00
+ MWKc2clZlOZUTR+zoO8vcZjpJg48JVie5LrpyMI6JhaL9RD6CUdMdS9cEhYv55BcUr
+ 6feXfX+AaQyHeZZAKAFpiPUL+cye3dD8Bfw1QVvUEqWWeabc6eTCK0fBfDPdf1IgcW
+ ZX6byhGn96IEX1d0ggLy5IulUw7LizQxoeH9fNHgBGEMII+p82EKv7UnfA0TAEmFXS
+ Ju8ZwJe6ZzF+g==
+Message-ID: <9e0607dd-ffaf-4751-887c-cac1a450e6d8@collabora.com>
+Date: Thu, 19 Oct 2023 22:10:52 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH RFC v6 01/10] drm: Introduce pixel_source
- DRM plane property
+User-Agent: Mozilla Thunderbird
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20231008132320.762542-1-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Helen Koike <helen.koike@collabora.com>
+In-Reply-To: <20231008132320.762542-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/2] drm/ci: pick up -external-fixes from
+ the merge target repo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,20 +58,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, sebastian.wick@redhat.com,
- ppaalanen@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-For the uAPI:
 
-Acked-by: Simon Ser <contact@emersion.fr>
+
+On 08/10/2023 10:23, Dmitry Baryshkov wrote:
+> In case of the merge requests it might be useful to push repo-specific
+> fixes which have not yet propagated to the -external-fixes branch in the
+> main UPSTREAM_REPO. For example, in case of drm/msm development, we are
+> staging fixes locally for testing, before pushing them to the drm/drm
+> repo. Thus, if the CI run was triggered by merge request, also pick up
+> the -external fixes basing on the the CI_MERGE target repo / and branch.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Acked-by: Helen Koike <helen.koike@collabora.com>
+
+Thanks!
+
+> ---
+>   drivers/gpu/drm/ci/build.sh | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
+> index 7b014287a041..20a6ba8a7b04 100644
+> --- a/drivers/gpu/drm/ci/build.sh
+> +++ b/drivers/gpu/drm/ci/build.sh
+> @@ -64,10 +64,15 @@ if [ "$(git ls-remote --exit-code --heads ${UPSTREAM_REPO} ${TARGET_BRANCH}-exte
+>   fi
+>   
+>   # Try to merge fixes from local repo if this isn't a merge request
+> +# otherwise try merging the fixes from the merge target
+>   if [ -z "$CI_MERGE_REQUEST_PROJECT_PATH" ]; then
+>       if [ "$(git ls-remote --exit-code --heads origin ${TARGET_BRANCH}-external-fixes)" ]; then
+>           git pull origin ${TARGET_BRANCH}-external-fixes
+>       fi
+> +else
+> +    if [ "$(git ls-remote --exit-code --heads ${CI_MERGE_REQUEST_PROJECT_URL} ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}-external-fixes)" ]; then
+> +        git pull ${CI_MERGE_REQUEST_PROJECT_URL} ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}-external-fixes
+> +    fi
+>   fi
+>   
+>   for opt in $ENABLE_KCONFIGS; do
