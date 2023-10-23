@@ -1,60 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B15247D2B85
-	for <lists+freedreno@lfdr.de>; Mon, 23 Oct 2023 09:40:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 824587D2C5E
+	for <lists+freedreno@lfdr.de>; Mon, 23 Oct 2023 10:14:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B466110E15A;
-	Mon, 23 Oct 2023 07:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 366E310E174;
+	Mon, 23 Oct 2023 08:14:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-xa2f.google.com (mail-vk1-xa2f.google.com
- [IPv6:2607:f8b0:4864:20::a2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE4310E158
- for <freedreno@lists.freedesktop.org>; Mon, 23 Oct 2023 07:40:17 +0000 (UTC)
-Received: by mail-vk1-xa2f.google.com with SMTP id
- 71dfb90a1353d-49b289adca9so1071347e0c.3
- for <freedreno@lists.freedesktop.org>; Mon, 23 Oct 2023 00:40:17 -0700 (PDT)
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4E810E171;
+ Mon, 23 Oct 2023 08:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698046817; x=1698651617; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=LTwZL7ZB+4qPOTcj2G/meZmbL6HBlSSmbTIpmPj/DWo=;
- b=vo+9DRj/nt7UaWsCNlmSjLwqmq7ofKW5fjK6jUm9sZjQdcW1Opf2g0hpMiNTlCp0Zr
- 8UbdT5OnDSpcDB0NTWKS454x9bpU/x/vTwnAawu1V8jqyn3R5287/oqgM5InH7FoxxbE
- u0vnJFlfYqmy5hSgG/SG3FsoH1g+hmuHLPCUlmozaeEwYdnjV2G1w33C6LM5geypqsZT
- bdUNNrrYzreHA5ZwMBioVqxRMPIk60AHjW2FHJ+RFpasHi5CGl8SQKzpFihE8YafS5Sh
- 4+SrFo/o5P5ztTrIHBP9i7PsxJYifhCnsFy3FMNRSe54Gnnh/A0n5R5cWWcHsXQO8ZOy
- cBGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698046817; x=1698651617;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=LTwZL7ZB+4qPOTcj2G/meZmbL6HBlSSmbTIpmPj/DWo=;
- b=PGbipwTvpeD/gxC1XOwf1YrXXBdMG2E9Alvlw3gUXXSACIPdjUClv2TPF+WZbPyz3g
- nAhMTjsLdF4+lj4XVlq1xqWg8JjwGDcH04QEzb2Uz8+POtFq61MSJpT+7PC3rJYWF5go
- 3VNdWzTptW2upXv8uIFPVb12iXoNVFXOis1ZlQunNNgQAuln8KlIGQHIK2mcND6emm5X
- F22yidCEmf9A38fwWS/hX02Ps2VxD1/3XMX9ejac9bOrQoDgAigbtXaRpSns29XvN14H
- uuYf0rqkpqqBWCpUkKTqvY2iQGfgtTyAPq5xNtpULxJvvxO5s3SRhQlBAPNoQpor3B0s
- SKIQ==
-X-Gm-Message-State: AOJu0YydJsf2evV7XKs8owHZij7qnN32Q/0Ra9h39oUT50xvb2Wi2dG7
- 4sxDI8eU9EXLwvYNG7ejz3Z7ECnS/Q/Y4kd+/xzbEw==
-X-Google-Smtp-Source: AGHT+IFIuNOE5csO/dEMQna24sjlvo6iAi0uk2UHGNbT+8VHC5+6qCdvQw7xewHtIa5zcWhbY15Yzb9NZ+ZLP2wfiNg=
-X-Received: by 2002:a1f:fc07:0:b0:49b:adce:e2d1 with SMTP id
- a7-20020a1ffc07000000b0049badcee2d1mr7498986vki.10.1698046816744; Mon, 23 Oct
- 2023 00:40:16 -0700 (PDT)
-MIME-Version: 1.0
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1698048858; x=1729584858;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DJIoa1RTdkD1fSp9jZLaNJ/hvLsWUoMLsm3c5R90P60=;
+ b=eGSpmkGzO9PFVeozpRj/50Xr3ZwB9ZALnkK3/qJfAQd2exqwWR4n75uy
+ cFvEUgdPMXjFmyH2MAMp4bhdSs951/UMy94Z2fhEKlCQCPvZrxq8PFsfa
+ ut54NwJuv2jJ+13T7JBCqWk/iCvUZi6SUQSczrVljuScHiWKEHZtCmiQ/
+ PvD7DI99ICHcXB3rP2uSpkhF+a08dHgDVUvC7rjea99D3nToc8tIjcIvf
+ H6Tyw76DYFLlesqRdkdIvwj0diGzqgHC4QDwR/Mxy7lH5L2yHfd6+fmF9
+ 0ncG/k46/El8NbKxEeMcVbXcB7BLg+Wvl+6axgaeju6ggsU9fb4xp6caK g==;
+X-IronPort-AV: E=Sophos;i="6.03,244,1694728800"; d="scan'208";a="33594481"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+ by mx1.tq-group.com with ESMTP; 23 Oct 2023 10:14:16 +0200
+Received: from steina-w.localnet (steina-w.tq-net.de [10.123.53.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 9B66028007F;
+ Mon, 23 Oct 2023 10:14:15 +0200 (CEST)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 23 Oct 2023 10:14:18 +0200
+Message-ID: <3266380.44csPzL39Z@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <CAA8EJpofiawC5z3jw1-TsxS+ZWz4QobCby3kScDDdk9Z-74mgQ@mail.gmail.com>
 References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
- <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
- <d941462e-1ac8-4dce-bd09-ddb99d79578a@linaro.org>
-In-Reply-To: <d941462e-1ac8-4dce-bd09-ddb99d79578a@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 23 Oct 2023 10:40:05 +0300
-Message-ID: <CAA8EJpqB6eMCEEg3Ptg531mTiOsnP=3qE_C6dyA1_TO4ZbJAbw@mail.gmail.com>
-To: neil.armstrong@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+ <1871104.tdWV9SEqCh@steina-w>
+ <CAA8EJpofiawC5z3jw1-TsxS+ZWz4QobCby3kScDDdk9Z-74mgQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
 Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
  control over the DSI link power state
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,186 +59,140 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: Maxime Ripard <mripard@kernel.org>, Marek Vasut <marex@denx.de>,
+ Douglas Anderson <dianders@chromium.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Robert Foss <rfoss@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-arm-msm@vger.kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Robert Foss <rfoss@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Sean Paul <sean@poorly.run>, Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 23 Oct 2023 at 10:35, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->
-> On 16/10/2023 18:53, Dmitry Baryshkov wrote:
-> > The MIPI DSI links do not fully fall into the DRM callbacks model. The
-> > drm_bridge_funcs abstraction. Instead of having just two states (off and
-> > on) the DSI hosts have separate LP-11 state. In this state the host is
-> > on, but the video stream is not yet enabled.
-> >
-> > Introduce API that allows DSI bridges / panels to control the DSI host
-> > power up state.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/drm_mipi_dsi.c | 31 +++++++++++++++++++++++++++++++
-> >   include/drm/drm_mipi_dsi.h     | 29 +++++++++++++++++++++++++----
-> >   2 files changed, 56 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
-> > index 14201f73aab1..c467162cb7d8 100644
-> > --- a/drivers/gpu/drm/drm_mipi_dsi.c
-> > +++ b/drivers/gpu/drm/drm_mipi_dsi.c
-> > @@ -428,6 +428,37 @@ int devm_mipi_dsi_attach(struct device *dev,
-> >   }
-> >   EXPORT_SYMBOL_GPL(devm_mipi_dsi_attach);
-> >
-> > +bool mipi_dsi_host_power_control_available(struct mipi_dsi_host *host)
-> > +{
-> > +     const struct mipi_dsi_host_ops *ops = host->ops;
-> > +
-> > +     return ops && ops->power_up;
-> > +}
-> > +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_control_available);
-> > +
-> > +int mipi_dsi_host_power_up(struct mipi_dsi_host *host)
-> > +{
-> > +     const struct mipi_dsi_host_ops *ops = host->ops;
-> > +
-> > +     if (!mipi_dsi_host_power_control_available(host))
-> > +             return -EOPNOTSUPP;
-> > +
-> > +     return ops->power_up ? ops->power_up(host) : 0;
-> > +}
-> > +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_up);
-> > +
-> > +void mipi_dsi_host_power_down(struct mipi_dsi_host *host)
-> > +{
-> > +     const struct mipi_dsi_host_ops *ops = host->ops;
-> > +
-> > +     if (!mipi_dsi_host_power_control_available(host))
-> > +             return;
-> > +
-> > +     if (ops->power_down)
-> > +             ops->power_down(host);
-> > +}
-> > +EXPORT_SYMBOL_GPL(mipi_dsi_host_power_down);
-> > +
-> >   static ssize_t mipi_dsi_device_transfer(struct mipi_dsi_device *dsi,
-> >                                       struct mipi_dsi_msg *msg)
-> >   {
-> > diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-> > index 167742e579e3..e503c3e4d057 100644
-> > --- a/include/drm/drm_mipi_dsi.h
-> > +++ b/include/drm/drm_mipi_dsi.h
-> > @@ -68,6 +68,8 @@ int mipi_dsi_create_packet(struct mipi_dsi_packet *packet,
-> >    * @attach: attach DSI device to DSI host
-> >    * @detach: detach DSI device from DSI host
-> >    * @transfer: transmit a DSI packet
-> > + * @power_up: enable DSI link and bring it to the LP-11 state
-> > + * @power_down: fully disable DSI link
-> >    *
-> >    * DSI packets transmitted by .transfer() are passed in as mipi_dsi_msg
-> >    * structures. This structure contains information about the type of packet
-> > @@ -81,10 +83,18 @@ int mipi_dsi_create_packet(struct mipi_dsi_packet *packet,
-> >    * function will seldomly return anything other than the number of bytes
-> >    * contained in the transmit buffer on success.
-> >    *
-> > - * Also note that those callbacks can be called no matter the state the
-> > - * host is in. Drivers that need the underlying device to be powered to
-> > - * perform these operations will first need to make sure it's been
-> > - * properly enabled.
-> > + * Note: currently there are two modes of DSI power control. Legacy drivers
-> > + * will call those callbacks no matter the state the host is in. DSI host
-> > + * drivers that need the underlying device to be powered to perform these
-> > + * operations will first need to make sure it's been properly enabled.
-> > + *
-> > + * Newer drivers will set the @MIPI_DSI_MANUAL_POWERUP flag to indicate that
-> > + * they will call @mipi_dsi_power_up() and @mipi_dsi_power_down() to control
-> > + * the link state of the DSI host or they will set @MIPI_DSI_AUTO_POWERUP to
-> > + * indicate that the driver is fine with the link being powered up in DSI
-> > + * host's (atomic_)pre_enable() callback and then being disabled in the
-> > + * (atomic_)post_disable() callback. The transfer callback must only be called
-> > + * if the DSI host has been powered up and was not brought down.
-> >    *
-> >    * Note: some hosts (sunxi) can not send LP commands between HS video
-> >    * packets. Thus all DSI transfers sent in LP mode should be limited to the
-> > @@ -97,6 +107,8 @@ struct mipi_dsi_host_ops {
-> >                     struct mipi_dsi_device *dsi);
-> >       ssize_t (*transfer)(struct mipi_dsi_host *host,
-> >                           const struct mipi_dsi_msg *msg);
-> > +     int (*power_up)(struct mipi_dsi_host *host);
-> > +     void (*power_down)(struct mipi_dsi_host *host);
-> >   };
-> >
-> >   /**
-> > @@ -143,6 +155,10 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(struct device_node *node);
-> >   #define MIPI_DSI_MODE_LPM           BIT(11)
-> >   /* transmit data ending at the same time for all lanes within one hsync */
-> >   #define MIPI_DSI_HS_PKT_END_ALIGNED BIT(12)
-> > +/* DSI peripheral driver manually controls DSI link powerup */
-> > +#define MIPI_DSI_MANUAL_POWERUP              BIT(13)
-> > +/* DSI peripheral driver is fine with automatic DSI link power control */
-> > +#define MIPI_DSI_AUTO_POWERUP                BIT(14)
->
-> What happens if none of the bits are in the flags ?
->
-> Can't we implement "opportunistic power-up" on the first DSI command sent?
+Am Montag, 23. Oktober 2023, 09:34:42 CEST schrieb Dmitry Baryshkov:
+> On Mon, 23 Oct 2023 at 09:52, Alexander Stein
+>=20
+> <alexander.stein@ew.tq-group.com> wrote:
+> > Hi Dmitry,
+> >=20
+> > Am Sonntag, 22. Oktober 2023, 12:49:41 CEST schrieb Dmitry Baryshkov:
+> > > On Thu, 19 Oct 2023 at 14:42, Alexander Stein
+> > >=20
+> > > <alexander.stein@ew.tq-group.com> wrote:
+> > > > Hi,
+> > > >=20
+> > > > Am Donnerstag, 19. Oktober 2023, 13:19:51 CEST schrieb Dmitry=20
+Baryshkov:
+> > > > > On Thu, 19 Oct 2023 at 12:26, Maxime Ripard <mripard@kernel.org>=
+=20
+wrote:
+> > > > > > On Mon, Oct 16, 2023 at 07:53:48PM +0300, Dmitry Baryshkov wrot=
+e:
+> > > > > > > The MIPI DSI links do not fully fall into the DRM callbacks
+> > > > > > > model.
+> > > > > >=20
+> > > > > > Explaining why would help
+> > > > >=20
+> > > > > A kind of explanation comes afterwards, but probably I should cha=
+nge
+> > > > > the order of the phrases and expand it:
+> > > > >=20
+> > > > > The atomic_pre_enable / atomic_enable and correspondingly
+> > > > > atomic_disable / atomic_post_disable expect that the bridge links
+> > > > > follow a simple paradigm: either it is off, or it is on and
+> > > > > streaming
+> > > > > video. Thus, it is fine to just enable the link at the enable tim=
+e,
+> > > > > doing some preparations during the pre_enable.
+> > > > >=20
+> > > > > But then it causes several issues with DSI. First, some of the DSI
+> > > > > bridges and most of the DSI panels would like to send commands ov=
+er
+> > > > > the DSI link to setup the device. Next, some of the DSI hosts have
+> > > > > limitations on sending the commands. The proverbial sunxi DSI host
+> > > > > can
+> > > > > not send DSI commands after the video stream has started. Thus mo=
+st
+> > > > > of
+> > > > > the panels have opted to send all DSI commands from pre_enable (or
+> > > > > prepare) callback (before the video stream has started).
+> > > > >=20
+> > > > > However this leaves no good place for the DSI host to power up the
+> > > > > DSI
+> > > > > link. By default the host's pre_enable callback is called after t=
+he
+> > > > > DSI bridge's pre_enable. For quite some time we were powering up =
+the
+> > > > > DSI link from mode_set. This doesn't look fully correct. And also=
+ we
+> > > > > got into the issue with ps8640 bridge, which requires for the DSI
+> > > > > link
+> > > > > to be quiet / unpowered at the bridge's reset time.
+> > > >=20
+> > > > There are also bridges (e.g. tc358767) which require DSI-LP11 upon
+> > > > bridge
+> > > > reset. And additionally this DSI-(e)DP bridge requires LP11 while
+> > > > accessing
+> > > > DP-AUX channel, e.g. reading EDID. So bridges need at least some
+> > > > control
+> > > > over DSI line state.
+> > >=20
+> > > For sending commands in LP11 it is typical to toggle the
+> > > MIPI_DSI_MODE_LPM flag, for example see panel-=3Djdi-lt070me05000.c or
+> > > some other drives. It might be a good idea to make that more explicit.
+> > > All suggestions here would be appreciated.
+> >=20
+> > The biggest difference between that display and the tc358767 bridge is
+> > that
+> > the display uses DSI commands, while the bridge is using i2c transfer to
+> > issue DP-AUX commands. There is no host_transfer [1] which would enable
+> > LP-11. It seems this DSI-DP bridge requires LP-11/HS on DSI lanes all
+> > times. This contradicts current Linux behaviour.
+>=20
+> I see. I took a quick glance at the driver. Does the device mark AUX
+> as busy when there is a HS transfer?
+> Because otherwise it might be pretty hard to synchronise DP-AUX
+> transfers with the DSI link state. We might need to add an API for
+> this, if the DSI hosts actually can signal the blanking / DSI LP.
 
-Not really. Such an opportunistic power up was expected to be there
-and ... it failed, as you can see from the pre_enable_prev_first and
-then by this series.
+I don't see that a synchronization would be required. AUX should be=20
+independent from DSI transfers. ASFAICS the bridge internals just requires =
+DSI=20
+lines to be LP-00 or HS for AUX channel to be functioning.
 
-If the device doesn't set either of these flags, the DSI host can not
-make any guesses about the time to power up the link. So, it should
-follow the previous approach of enabling the DSI link no later than
-mode_set. Otherwise the DSI sink might not be able to send DSI
-commands from pre_enable callback.
+>=20
+> Side note: the driver needs some care. It doesn't support the aux-bus
+> bindings for eDP panels, it doesn't support other bridges on top of DP
+> connectors (but there can be e..g. dp-connector device).
 
->
-> If a bridge/panel sends a DSI command, and if it happens before the DSI host enable, then
-> the DSI host will "pre-enable" the host and put the link in LP-11.
->
-> This would be simpler and would work whatever the pre_enable order.
->
-> But this won't work for the tc358767, except if we add a dummy DSI host command
-> which powers up the DSI link.
->
-> This won't fix the PS8640 either who also needs a disabled DSI link to initialize.
+I don't think that this is necessary as you add an optional endpoint to por=
+t2=20
+which will then add an eDP display panel bridge. This should then handle au=
+x-
+bus bindings.
 
-Well, you have said it. The automatic enabling doesn't work if the DSI
-host has no information about the DSI sink.
+Best regards,
+Alexander
 
->
-> Neil
->
-> >
-> >   enum mipi_dsi_pixel_format {
-> >       MIPI_DSI_FMT_RGB888,
-> > @@ -235,6 +251,11 @@ void mipi_dsi_device_unregister(struct mipi_dsi_device *dsi);
-> >   struct mipi_dsi_device *
-> >   devm_mipi_dsi_device_register_full(struct device *dev, struct mipi_dsi_host *host,
-> >                                  const struct mipi_dsi_device_info *info);
-> > +
-> > +bool mipi_dsi_host_power_control_available(struct mipi_dsi_host *host);
-> > +int mipi_dsi_host_power_up(struct mipi_dsi_host *host);
-> > +void mipi_dsi_host_power_down(struct mipi_dsi_host *host);
-> > +
-> >   struct mipi_dsi_device *of_find_mipi_dsi_device_by_node(struct device_node *np);
-> >   int mipi_dsi_attach(struct mipi_dsi_device *dsi);
-> >   int mipi_dsi_detach(struct mipi_dsi_device *dsi);
->
+> > Best regards,
+> > Alexander
+> >=20
+> > [1]
+> > https://www.kernel.org/doc/html/latest/gpu/drm-kms-helpers.html#mipi-ds=
+i-> > bridge-operation
 
 
--- 
-With best wishes
-Dmitry
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
+
