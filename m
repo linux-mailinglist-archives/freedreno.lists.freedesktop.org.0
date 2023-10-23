@@ -1,79 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7867D394E
-	for <lists+freedreno@lfdr.de>; Mon, 23 Oct 2023 16:29:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B647D3F30
+	for <lists+freedreno@lfdr.de>; Mon, 23 Oct 2023 20:24:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B3810E1F0;
-	Mon, 23 Oct 2023 14:29:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D35CB10E037;
+	Mon, 23 Oct 2023 18:24:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F20D10E1E2
- for <freedreno@lists.freedesktop.org>; Mon, 23 Oct 2023 14:29:40 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2c503da4fd6so49029121fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 23 Oct 2023 07:29:40 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0584A10E056
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Oct 2023 18:24:35 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-507a55302e0so4930445e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Oct 2023 11:24:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698071379; x=1698676179; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=59STP8IG3xhkl1R+OwWbm4nT/u7IRLl4iyf5Y7WczEY=;
- b=IxmWmB5ca50rUvQvdgQ1PD7658U5lFscnNjfgRv5LKlGJHB9u2SYH/WQzVYSS7dUBr
- h1/ccD5xx+tDLu1y2Euz9Ruf+bRNlXW49EcvP4rOwjDMY+UWH/BFNY2PmPWnTjfHfese
- 2Drz5jJkPqPj4p2jJsI+R833Pj6P3z8CJdOMo/qRlcv0u1JU2NH/CiLM3u5TeVlRF8Jp
- EYeAH30nUqaOhzlwVmdPdcJr2G4tSyYrNpCTC8nsxanxbPdpdQFiquqSfR7C4k6WV2Em
- WG5zGqEp68oELiDyGVNA/e9o3liVxMpd46auIGYvoKXFxi4jqMUUb4jXQI7YZse26MC7
- HENA==
+ d=linaro.org; s=google; t=1698085474; x=1698690274; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=AXl7QD45QL6sivgQCN1vZsJFBc1tqDJMcsR0n1+9ZVA=;
+ b=LT8FbZ93X4p7oYlOYSFqiKHIzjZZWhcDYwv+LVap0tsE8JOaEP6exKeIpTCUjkPMPB
+ rmDXSoFZw3JZoOtcCZ7p0lEu0X9LM/NPZu8nDnz2UCJFQLgzGHkLf9FY8DU/bLHBGxc3
+ rnbFWRO/g2w+XEoAUkZFNW8+YYunedJV26LToFCZpeubw4APLD4jdvE5CGjXT/3DLJZj
+ 8LnYFY/FOCIXdXI6WK7Yo42mTDwpx7vB96JxDQoNpubzIRUH9sje6OpEur+yhM9SZi3l
+ tCTIre6KBmxm3jaSqxWxJrTcMaliXmrVk6qRG+olviN88h3jgvP2bU0q7YUS5DOmBBeZ
+ wf0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698071379; x=1698676179;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=59STP8IG3xhkl1R+OwWbm4nT/u7IRLl4iyf5Y7WczEY=;
- b=C1tJe050JHESxYivgTPZ5VtMwSvFLLijyZ+G1KOmc+0GMMqV7LFr+n7Tr4tKeT4n+l
- eS3wQQCjsevXwAqp9JJi7vWbo3h0Bwo48Q6U788yWk8Cn65OSio2hvGA12LkwizuANxn
- LiKGzhEeVQY+SZTQAFiWFr9vMngOdx4LMATLVO1gl+N8fEsUXs3JVMpcwARXYOkKVIbj
- DZGOK/f/bQLjfO7NiBVpm8CaB8EydEsQbuZ/W1T5A6HxhFrnfwPCDIvBsumlZxZvo7zW
- Gx9sr2CgrTb6ruGi2vBsrTN9E8Ta2ObPAFWlWE8kJMMB3Co0ukq4U8ShJa3YgtXGeH5q
- iWQA==
-X-Gm-Message-State: AOJu0YxKANjDdoVYSE87R8cbTEl5/ysF2GQE9XVIsuJjUUPzIk40Sh3q
- O2NVzmais2zzdYkud+moH5TTUw==
-X-Google-Smtp-Source: AGHT+IH5WFoFfyNzJgl4CLmejLA/ZgHuJygZLcv0FelZqLu9BJ1k+mLHsMaN3Mm0ni7tH5Yu0rnSiQ==
-X-Received: by 2002:a2e:a7c7:0:b0:2c1:5645:a2c0 with SMTP id
- x7-20020a2ea7c7000000b002c15645a2c0mr5768343ljp.35.1698071378607; 
- Mon, 23 Oct 2023 07:29:38 -0700 (PDT)
-Received: from [10.167.154.1]
- (178235177080.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.80])
+ d=1e100.net; s=20230601; t=1698085474; x=1698690274;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AXl7QD45QL6sivgQCN1vZsJFBc1tqDJMcsR0n1+9ZVA=;
+ b=KEOa6tqub4gni99/ZyXwavrSB3jSYJgBSO1z51VKamzB9WTZR4zQRFnZq7e/hQlT3s
+ PpSrmhCXHIdDUg+y2bTlqr78ioHy18Pv5vuNw6SduKgi4CqmxVikMztZWaMOb6HZBCvD
+ fGIrXLZcLDg/TKCy9kXUITiyGYrouGKjBsMGQq+Ob6wV/ciagnRXF0Ak8Z/Ci39ZkecJ
+ mC9JY9EoL6mVAj/i2mLPKsU5ieMSEy25oGGKBmGOI/9gy5x/QqGISh68cWRv3l6qB9KK
+ 4tQZPOY8BdGhQZk2v/2XcGaUjO7moruzTjUoHpmqz+oseHAEk8Xh0bX/rao1fbcGmZxA
+ C0uA==
+X-Gm-Message-State: AOJu0YzOReCRdGaAeJ2Yepeo3HlPCLTCnKPdrLMW8dFX1iKg5wyl0wRR
+ eQ8QQYHMiF9x1u4z0fe1yav6OA==
+X-Google-Smtp-Source: AGHT+IHkBgeiF76Bx8knzqTGYbXJFudDOPHcgula2SENkD2657KkYSAFEtuZJ/OAVh+6CzJaf2DBDA==
+X-Received: by 2002:ac2:5456:0:b0:507:b074:ecd4 with SMTP id
+ d22-20020ac25456000000b00507b074ecd4mr6516885lfn.7.1698085474021; 
+ Mon, 23 Oct 2023 11:24:34 -0700 (PDT)
+Received: from [127.0.0.1] (85-76-147-63-nat.elisa-mobile.fi. [85.76.147.63])
  by smtp.gmail.com with ESMTPSA id
- t13-20020a2e8e6d000000b002c4faf47378sm1616655ljk.28.2023.10.23.07.29.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Oct 2023 07:29:38 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 23 Oct 2023 16:29:31 +0200
+ z19-20020a19f713000000b00507a3b16d29sm1785836lfe.191.2023.10.23.11.24.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Oct 2023 11:24:33 -0700 (PDT)
+Date: Mon, 23 Oct 2023 21:24:33 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+User-Agent: K-9 Mail for Android
+In-Reply-To: <ZQRKq7K8jKlH/Y4X@kuha.fi.intel.com>
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-13-dmitry.baryshkov@linaro.org>
+ <ZQRKq7K8jKlH/Y4X@kuha.fi.intel.com>
+Message-ID: <0F1BE090-92C4-4233-A77A-9B4C653DA1A7@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20231023-topic-adreno_warn-v1-1-bb1ee9391aa2@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAEqDNmUC/x2NywrCQAxFf6VkbaAdB0F/RUSSaWoDJVMyvqD03
- w0u7uJcOJwNmrhKg0u3gctbm1YLGA4dlJnsIahjMKQ+HYcYPuuqBWl0sXr/kBvmRP2ZOfN0yhA
- eUxNkJytzmPZaljhXl0m//9D1tu8/hqsr1XgAAAA=
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1698071376; l=1189;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=CI9uW4HFCd+sT4l3B8ani/4HRFmQfbbgjJhTrM3t/ig=;
- b=SCcIvz1UzYt8XexR/pBOz+V+i46dV2cDA1630eMo2ve5CMi9C6GzQ58HdfRNOoV17ffhl+axh
- GqYKdlDyyY/DwK9zWKbyUnlzLfk2p9kjX0+mVT5IVcj8WRb7GEdWRi7
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Subject: [Freedreno] [PATCH] drm/msm/adreno: Drop WARN_ON from patchid
- lookup for new GPUs
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [RFC PATCH v1 12/12] usb: typec: qcom: define the
+ bridge's path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,46 +78,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Abel Vesa <abel.vesa@linaro.org>, freedreno@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Simon Ser <contact@emersion.fr>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-New GPUs still use the lower 2 bytes of the chip id (in whatever form
-it comes) to signify silicon revision. Drop the warning that makes it
-sound as if that was unintended.
+On 15 September 2023 15:14:35 EEST, Heikki Krogerus <heikki=2Ekrogerus@linu=
+x=2Eintel=2Ecom> wrote:
+>Hi Dmitry,
+>
+>On Mon, Sep 04, 2023 at 12:41:50AM +0300, Dmitry Baryshkov wrote:
+>> In order to notify the userspace about the DRM connector's USB-C port,
+>> export the corresponding port's name as the bridge's path field=2E
+>>=20
+>> Signed-off-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
+>> ---
+>>  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec=2Ec     | 11 +++++++----
+>>  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_drm=2Ec |  4 +++-
+>>  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_drm=2Eh |  6 ++++--
+>>  3 files changed, 14 insertions(+), 7 deletions(-)
+>>=20
+>> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec=2Ec b/drivers/=
+usb/typec/tcpm/qcom/qcom_pmic_typec=2Ec
+>> index b9d4856101c7=2E=2E452dc6437861 100644
+>> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec=2Ec
+>> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec=2Ec
+>> @@ -156,6 +156,7 @@ static int qcom_pmic_typec_probe(struct platform_de=
+vice *pdev)
+>>  	struct device_node *np =3D dev->of_node;
+>>  	const struct pmic_typec_resources *res;
+>>  	struct regmap *regmap;
+>> +	char *tcpm_name;
+>>  	u32 base[2];
+>>  	int ret;
+>> =20
+>> @@ -211,10 +212,6 @@ static int qcom_pmic_typec_probe(struct platform_d=
+evice *pdev)
+>>  	mutex_init(&tcpm->lock);
+>>  	platform_set_drvdata(pdev, tcpm);
+>> =20
+>> -	tcpm->pmic_typec_drm =3D qcom_pmic_typec_init_drm(dev);
+>> -	if (IS_ERR(tcpm->pmic_typec_drm))
+>> -		return PTR_ERR(tcpm->pmic_typec_drm);
+>> -
+>>  	tcpm->tcpc=2Efwnode =3D device_get_named_child_node(tcpm->dev, "conne=
+ctor");
+>>  	if (!tcpm->tcpc=2Efwnode)
+>>  		return -EINVAL;
+>> @@ -225,6 +222,12 @@ static int qcom_pmic_typec_probe(struct platform_d=
+evice *pdev)
+>>  		goto fwnode_remove;
+>>  	}
+>> =20
+>> +	tcpm_name =3D tcpm_port_get_name(tcpm->tcpm_port);
+>> +	tcpm->pmic_typec_drm =3D qcom_pmic_typec_init_drm(dev, tcpm_name);
+>
+>So I got some questions and concerns off-list=2E This was one of the
+>concerns=2E That tcpm_name is now the actual port device name, so I'm
+>afraid this is not acceptable=2E
+>
+>You can't use device name as a reference, ever=2E There is no way to
+>guarantee that a device with a specific name is what you meant it to
+>be by the time it's accessed=2E
 
-Fixes: 90b593ce1c9e ("drm/msm/adreno: Switch to chip-id for identifying GPU")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 -----
- 1 file changed, 5 deletions(-)
+Hmm, could you please be more specific, why? I mean, class devices are not=
+ that easy to be renamed in sysfs, are they? Or are you concerned about the=
+ device being destroyed behind userspace's back? At least for MSM this will=
+ be a huge problem already, with the bridge driver suddenly being removed=
+=2E
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 80b3f6312116..9a1ec42155fd 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -203,11 +203,6 @@ struct adreno_platform_config {
- 
- static inline uint8_t adreno_patchid(const struct adreno_gpu *gpu)
- {
--	/* It is probably ok to assume legacy "adreno_rev" format
--	 * for all a6xx devices, but probably best to limit this
--	 * to older things.
--	 */
--	WARN_ON_ONCE(gpu->info->family >= ADRENO_6XX_GEN1);
- 	return gpu->chip_id & 0xff;
- }
- 
-
----
-base-commit: e8361b005d7c92997d12f2b85a9e4a525738bd9d
-change-id: 20231023-topic-adreno_warn-42a09bb4bf64
-
-Best regards,
--- 
-Konrad Dybcio <konrad.dybcio@linaro.org>
+>
+>If you need to deal with a device, then you have to get an actual
+>reference to it (class_find_device_by_fwnode() should work in this
+>case)=2E
+>
+>Ideally you would get the reference in the place where you actually
+>use it (so drm_connector=2Ec or more likely drm_sysfs=2Ec) but that would
+>mean a dependency on typec in there, if the component framework or
+>something like that (device links?) is not an option=2E You could of
+>course try to confine the dependency somehow=2E drm_class does not have
+>implementation for dev_uevent, so you could take over that as a
+>temporary solution=2E
+>
+>The only way to avoid the dependency completely would be to pass that
+>device reference from here through your drm bridge chain somehow=2E
+>But that's also really fragile=2E But it could be acceptable as a
+>temporary solution perhaps, if it's even possible=2E
+>
+>Br,
+>
 
