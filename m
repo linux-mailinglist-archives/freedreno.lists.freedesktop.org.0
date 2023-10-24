@@ -2,66 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B82A7D5968
-	for <lists+freedreno@lfdr.de>; Tue, 24 Oct 2023 19:08:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893847D5B05
+	for <lists+freedreno@lfdr.de>; Tue, 24 Oct 2023 21:02:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D9210E312;
-	Tue, 24 Oct 2023 17:08:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F93210E47B;
+	Tue, 24 Oct 2023 19:02:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6821410E437;
- Tue, 24 Oct 2023 17:08:16 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-1ca74e77aecso41802595ad.1; 
- Tue, 24 Oct 2023 10:08:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698167295; x=1698772095; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=L1FF1gJxqcl+lR8fc3NGAGh6ZriqzXwUPpSOpQVAdLg=;
- b=DsvaGXu3kh/a7ecm7OWwSWTqFg8QL6vcwwcaae+2NTgYVuVDNeNd3reptd45FO47SD
- bR/RbjFJx2akosSSW+XCX207cYajUhu7H11zmcTgamq+HjPIYMm4r6tFy+OIs2VVSPcr
- HAk8sOWGvruBJTDu2mZkB7jVY8QeYlIIyDubDIr/OBqAv1nBK1a9Q2O+o16nlqb/nOqZ
- lVM/ke7O4b0ehmFuKaj6URiLt1d1WIALn3Z5eLXsH0r0DDmgxhOZrA1CJThWJ7zJeihT
- 5PsVAzJT5jlzTA1huucaVrFBICOfAwrTSWZ29Bq771uWcmS0QgN2imNH3SfIlpMclh9l
- lxiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698167295; x=1698772095;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=L1FF1gJxqcl+lR8fc3NGAGh6ZriqzXwUPpSOpQVAdLg=;
- b=CNChW+b8s+sYkYpXSng1sfHP0CprN6R2iTHzRogUvl4GusghsBV8prOLJpi/y9Ojus
- CwczGLHuieZQtm7dCN3BmM0BB89IV5+TB8WNr68OEAiyQnzKO5gu5+HQjzalslFcq30N
- +7K4vqTZ7hkNNDeWd4+ye62PTQxcxI5YiXtQ9VqNZ5TBJ+sgUuCunsvq0qAXq/JpbUtD
- coiiLU0Z2eZ8mXr0WgAdFdDEXdURuwuOCxFeZ0uzRughBucmgLyZ9m8MLm0sttUFI8r+
- ns5LHGrJBBtOc3ME8x5ZTOyD75b9wgUt9if8dDOSvn2DoSDdjeIXGuASM8XTgoD6t4SG
- Y+Og==
-X-Gm-Message-State: AOJu0YzKBRG3Pju0gJxkaOpM6tgBmmm1+aqK1pulMehRYpI5ERCQQ0SA
- MfDIyh8+w+ppK4XHG4NluyAd0CJbJac=
-X-Google-Smtp-Source: AGHT+IFrYw8dsyIm3wa76gPXIlJD6mCKZud3nLXbi2Pkdu07NBSpFOpwpLw8r87FtVPVDzGmLLxbPg==
-X-Received: by 2002:a17:90a:db82:b0:27d:2ce9:d6d5 with SMTP id
- h2-20020a17090adb8200b0027d2ce9d6d5mr16990053pjv.12.1698167295057; 
- Tue, 24 Oct 2023 10:08:15 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
- by smtp.gmail.com with ESMTPSA id
- ha8-20020a17090af3c800b0026f919ff9a1sm9041271pjb.10.2023.10.24.10.08.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Oct 2023 10:08:14 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 10:08:05 -0700
-Message-ID: <20231024170806.194563-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231024170806.194563-1-robdclark@gmail.com>
-References: <20231024170806.194563-1-robdclark@gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16EA810E479;
+ Tue, 24 Oct 2023 19:02:30 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39OIpZGt025550; Tue, 24 Oct 2023 19:02:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=IeuYxMXjXXNfk7VdxjPKqFSawy4/s+8QUZE1IpwkpRI=;
+ b=IA9zZU6z+2Wjw6VfpzIGjWc3WQ3sJDgwF9vLg0c6iCJPR8LGO5m+N1O/f5ZRRKbn2ZeW
+ zeqUTyLjSaY8L/QvtjGTRt5dOVAu0YJ5A3SV9/tRGSo25ZtFFLJojOY4DmXANWpmete7
+ 3WZT6K2F5mvHEbSb1wqI5+Zd2StzHqN3ytD+fjibSshuM08JQi+KLTP5k1T4Klan+Obc
+ fFWDrELMtn5qLuKZf8iqOqBeJEQQdRFGbmvPUso1ib1GAXNRE1Gowbb6o2MBZOasQRVc
+ SNcfiTqjkNcf9yAGaXZHF1BzIvkRvdHxL7Cpjd2zsnyXFbW4ok6sbpSq9eqkLyEH0Dra tw== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3twxn42qa3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Oct 2023 19:02:03 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39OJ22De013547
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Oct 2023 19:02:02 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Tue, 24 Oct
+ 2023 12:02:01 -0700
+Message-ID: <d003384d-3b4b-da05-f4b7-8497749fc843@quicinc.com>
+Date: Tue, 24 Oct 2023 12:01:53 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>
+References: <20231023221250.116500-1-robdclark@gmail.com>
+ <CAA8EJpqVL5U7yaZsG5F=q7EFP1bsApySdjycywox6cZUd8JqdA@mail.gmail.com>
+ <CAF6AEGvbKjHYU6qv4v3017DguEye23yMoYvTbEo=JZ+QW3=Atg@mail.gmail.com>
+ <CAA8EJprRdezFBP=+aBinA-=tbTGWPcj-izOthA=cbehes0UYng@mail.gmail.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJprRdezFBP=+aBinA-=tbTGWPcj-izOthA=cbehes0UYng@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/gem: Demote allocations to
- __GFP_NOWARN
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: dKGwiQsrGrzFtWGSS5bog8nPNvqqAorG
+X-Proofpoint-ORIG-GUID: dKGwiQsrGrzFtWGSS5bog8nPNvqqAorG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-24_18,2023-10-24_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0
+ clxscore=1011 spamscore=0 mlxlogscore=999 lowpriorityscore=0 phishscore=0
+ mlxscore=0 impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2310170001
+ definitions=main-2310240164
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix encoder CRC to account for
+ CTM enablement
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,82 +87,232 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Jeykumar
+ Sankaran <quic_jeykumar@quicinc.com>, Kalyan Thota <quic_kalyant@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>, Arnaud
+ Vrac <rawoul@gmail.com>, dri-devel@lists.freedesktop.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-For allocations with userspace controlled size, we should not warn on
-allocation failure.  Fixes KASAN splat:
 
-   WARNING: CPU: 6 PID: 29557 at mm/page_alloc.c:5398 __alloc_pages+0x160c/0x2204
-   Modules linked in: bridge stp llc hci_vhci tun veth xt_cgroup uinput xt_MASQUERADE rfcomm ip6table_nat fuse 8021q r8153_ecm cdc_ether usbnet r8152 mii venus_enc venus_dec uvcvideo algif_hash algif_skcipher af_alg qcom_spmi_adc_tm5 qcom_spmi_adc5 qcom_vadc_common qcom_spmi_temp_alarm cros_ec_typec typec hci_uart btqca qcom_stats snd_soc_sc7180 venus_core ath10k_snoc ath10k_core ath coresight_tmc coresight_replicator coresight_etm4x coresight_funnel snd_soc_lpass_sc7180 mac80211 coresight bluetooth ecdh_generic ecc cfg80211 cros_ec_sensorhub lzo_rle lzo_compress zram joydev
-   CPU: 6 PID: 29557 Comm: syz-executor Not tainted 5.15.110-lockdep-19320-g89d010b0a9df #1 45bdd400697a78353f2927c116615abba810e5dd
-   Hardware name: Google Kingoftown (DT)
-   pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-   pc : __alloc_pages+0x160c/0x2204
-   lr : __alloc_pages+0x58/0x2204
-   sp : ffffffc0214176c0
-   x29: ffffffc0214178a0 x28: ffffff801f7b4000 x27: 0000000000000000
-   x26: ffffff808a4fa000 x25: 1ffffff011290781 x24: ffffff808a59c000
-   x23: 0000000000000010 x22: ffffffc0080e6980 x21: 0000000000000010
-   x20: 0000000000000000 x19: 00000000080001f8 x18: 0000000000000000
-   x17: 0000000000000000 x16: 0000000000000000 x15: 0000000020000500
-   x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000001
-   x11: 0000000000000000 x10: 1ffffff804282f06 x9 : 0000000000000000
-   x8 : ffffffc021417848 x7 : 0000000000000000 x6 : ffffffc0082ac788
-   x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000010
-   x2 : 0000000000000008 x1 : 0000000000000000 x0 : ffffffc021417830
-   Call trace:
-   __alloc_pages+0x160c/0x2204
-   kmalloc_order+0x50/0xf4
-   kmalloc_order_trace+0x38/0x18c
-   __kmalloc+0x300/0x45c
-   msm_ioctl_gem_submit+0x284/0x5988
-   drm_ioctl_kernel+0x270/0x418
-   drm_ioctl+0x5e0/0xbf8
-   __arm64_sys_ioctl+0x154/0x1d0
-   invoke_syscall+0x98/0x278
-   el0_svc_common+0x214/0x274
-   do_el0_svc+0x9c/0x19c
-   el0_svc+0x5c/0xc0
-   el0t_64_sync_handler+0x78/0x108
-   el0t_64_sync+0x1a4/0x1a8
+On 10/23/2023 4:03 PM, Dmitry Baryshkov wrote:
+> On Tue, 24 Oct 2023 at 01:36, Rob Clark <robdclark@gmail.com> wrote:
+>>
+>> On Mon, Oct 23, 2023 at 3:30 PM Dmitry Baryshkov
+>> <dmitry.baryshkov@linaro.org> wrote:
+>>>
+>>> On Tue, 24 Oct 2023 at 01:12, Rob Clark <robdclark@gmail.com> wrote:
+>>>>
+>>>> From: Rob Clark <robdclark@chromium.org>
+>>>>
+>>>> Seems like we need to pick INPUT_SEL=1 when CTM is enabled.  But not
+>>>> otherwise.
+>>>>
+>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>>> ---
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I cannot find anything in the docs which suggest this solution is correct.
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 9f16af761bf0..6d8ec1337e8b 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -43,7 +43,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
- 	if (sz > SIZE_MAX)
- 		return ERR_PTR(-ENOMEM);
- 
--	submit = kzalloc(sz, GFP_KERNEL);
-+	submit = kzalloc(sz, GFP_KERNEL | __GFP_NOWARN);
- 	if (!submit)
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -234,7 +234,7 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
- 			ret = -ENOMEM;
- 			goto out;
- 		}
--		submit->cmd[i].relocs = kmalloc(sz, GFP_KERNEL);
-+		submit->cmd[i].relocs = kmalloc(sz, GFP_KERNEL | __GFP_NOWARN);
- 		if (!submit->cmd[i].relocs) {
- 			ret = -ENOMEM;
- 			goto out;
--- 
-2.41.0
+Different blocks in the DPU pipeline have their own CRC (MISR) registers 
+like LM, intf etc.
 
+We dont need to change INPUT_SEL to tell DPU from which pipeline to take 
+the CRC from as each of them have their own registers.
+
+INPUT_SEL is controlling whether the CRC needs to be calculated over the 
+entire display timings or only the active pixels. I am unable to tell at 
+the moment why this is making a difference in this use-case.
+
+Since I am unable to find any documentation proving this solution is 
+correct so far, unfortunately I would hold this back till then.
+
+We will investigate this issue and report our findings on this thread on 
+how to proceed.
+
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 2 +-
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 3 ++-
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 ++--
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h | 2 +-
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   | 2 +-
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 5 ++++-
+>>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h | 3 ++-
+>>>>   8 files changed, 15 insertions(+), 10 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> index 2b83a13b3aa9..d93a92ffd5df 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>>> @@ -134,7 +134,7 @@ static void dpu_crtc_setup_encoder_misr(struct drm_crtc *crtc)
+>>>>          struct drm_encoder *drm_enc;
+>>>>
+>>>>          drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask)
+>>>> -               dpu_encoder_setup_misr(drm_enc);
+>>>> +               dpu_encoder_setup_misr(drm_enc, !!crtc->state->ctm);
+>>>>   }
+>>>>
+>>>>   static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>> index b0a7908418ed..12ee7acb5ea6 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>> @@ -241,7 +241,7 @@ int dpu_encoder_get_crc_values_cnt(const struct drm_encoder *drm_enc)
+>>>>          return num_intf;
+>>>>   }
+>>>>
+>>>> -void dpu_encoder_setup_misr(const struct drm_encoder *drm_enc)
+>>>> +void dpu_encoder_setup_misr(const struct drm_encoder *drm_enc, bool has_ctm)
+>>>>   {
+>>>>          struct dpu_encoder_virt *dpu_enc;
+>>>>
+>>>> @@ -255,7 +255,7 @@ void dpu_encoder_setup_misr(const struct drm_encoder *drm_enc)
+>>>>                  if (!phys->hw_intf || !phys->hw_intf->ops.setup_misr)
+>>>>                          continue;
+>>>>
+>>>> -               phys->hw_intf->ops.setup_misr(phys->hw_intf, true, 1);
+>>>> +               phys->hw_intf->ops.setup_misr(phys->hw_intf, true, 1, has_ctm);
+>>>>          }
+>>>>   }
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>>> index 4c05fd5e9ed1..510783b2fb24 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+>>>> @@ -169,8 +169,9 @@ int dpu_encoder_get_crc_values_cnt(const struct drm_encoder *drm_enc);
+>>>>   /**
+>>>>    * dpu_encoder_setup_misr - enable misr calculations
+>>>>    * @drm_enc:    Pointer to previously created drm encoder structure
+>>>> + * @has_ctm:    Is CTM enabled
+>>>>    */
+>>>> -void dpu_encoder_setup_misr(const struct drm_encoder *drm_encoder);
+>>>> +void dpu_encoder_setup_misr(const struct drm_encoder *drm_encoder, bool has_ctm);
+>>>>
+>>>>   /**
+>>>>    * dpu_encoder_get_crc - get the crc value from interface blocks
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>> index e8b8908d3e12..cb06f80cc671 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>> @@ -318,9 +318,9 @@ static u32 dpu_hw_intf_get_line_count(struct dpu_hw_intf *intf)
+>>>>          return DPU_REG_READ(c, INTF_LINE_COUNT);
+>>>>   }
+>>>>
+>>>> -static void dpu_hw_intf_setup_misr(struct dpu_hw_intf *intf, bool enable, u32 frame_count)
+>>>> +static void dpu_hw_intf_setup_misr(struct dpu_hw_intf *intf, bool enable, u32 frame_count, bool has_ctm)
+>>>>   {
+>>>> -       dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL, enable, frame_count);
+>>>> +       dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL, enable, frame_count, has_ctm);
+>>>
+>>> I'm not sure about the dpu_encoder and dpu_hw_intf interfaces. But
+>>> dpu_hw_setup_misr definitely needs the `u8 input_sel` parameter
+>>> instead of `bool has_ctm`.
+>>
+>> That seems a bit premature without knowing what the other values are.
+>> (And I also question a bit the whole abstraction layer thing if it is
+>> taking directly register bitfield enum's..)
+> 
+> dpu_hw_intf and especially dpu_hw_util are not real abstractions. I
+> always viewed them as useful low-level helpers.
+> 
+> I think that has_ctm is valid at the dpu_encoder level, which selects
+> which input to use. on the lower levels has_ctm doesn't make sense.
+> IOW dpu_hw_setup_misr can be used to setup MISR for other blocks,
+> where CTM doesn't exist.
+> 
+>>
+>> BR,
+>> -R
+>>
+>>> Most likely, I'd use u8 for dpu_hw_intf operation too.
+>>>
+>>> Could you please adjust?
+>>>
+>>>>   }
+>>>>
+>>>>   static int dpu_hw_intf_collect_misr(struct dpu_hw_intf *intf, u32 *misr_value)
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>>>> index c539025c418b..95aafc4cf58e 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>>>> @@ -95,7 +95,7 @@ struct dpu_hw_intf_ops {
+>>>>
+>>>>          void (*bind_pingpong_blk)(struct dpu_hw_intf *intf,
+>>>>                          const enum dpu_pingpong pp);
+>>>> -       void (*setup_misr)(struct dpu_hw_intf *intf, bool enable, u32 frame_count);
+>>>> +       void (*setup_misr)(struct dpu_hw_intf *intf, bool enable, u32 frame_count, bool has_ctm);
+>>>>          int (*collect_misr)(struct dpu_hw_intf *intf, u32 *misr_value);
+>>>>
+>>>>          // Tearcheck on INTF since DPU 5.0.0
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
+>>>> index d1c3bd8379ea..2efe29396c6a 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
+>>>> @@ -83,7 +83,7 @@ static void dpu_hw_lm_setup_border_color(struct dpu_hw_mixer *ctx,
+>>>>
+>>>>   static void dpu_hw_lm_setup_misr(struct dpu_hw_mixer *ctx, bool enable, u32 frame_count)
+>>>>   {
+>>>> -       dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL, enable, frame_count);
+>>>> +       dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL, enable, frame_count, false);
+>>>>   }
+>>>>
+>>>>   static int dpu_hw_lm_collect_misr(struct dpu_hw_mixer *ctx, u32 *misr_value)
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+>>>> index 9d2273fd2fed..528b8439209f 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+>>>> @@ -483,7 +483,7 @@ void _dpu_hw_setup_qos_lut(struct dpu_hw_blk_reg_map *c, u32 offset,
+>>>>
+>>>>   void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c,
+>>>>                  u32 misr_ctrl_offset,
+>>>> -               bool enable, u32 frame_count)
+>>>> +               bool enable, u32 frame_count, bool has_ctm)
+>>>>   {
+>>>>          u32 config = 0;
+>>>>
+>>>> @@ -496,6 +496,9 @@ void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c,
+>>>>                  config = (frame_count & MISR_FRAME_COUNT_MASK) |
+>>>>                          MISR_CTRL_ENABLE | MISR_CTRL_FREE_RUN_MASK;
+>>>>
+>>>> +               if (!has_ctm)
+>>>> +                       config |= 1 << 24;
+>>>
+>>> Please define MISR_CTRL_INPUT_SEL instead.
+>>>
+>>>> +
+>>>>                  DPU_REG_WRITE(c, misr_ctrl_offset, config);
+>>>>          } else {
+>>>>                  DPU_REG_WRITE(c, misr_ctrl_offset, 0);
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+>>>> index 1f6079f47071..e42d9d00e40e 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+>>>> @@ -360,7 +360,8 @@ void _dpu_hw_setup_qos_lut(struct dpu_hw_blk_reg_map *c, u32 offset,
+>>>>   void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c,
+>>>>                  u32 misr_ctrl_offset,
+>>>>                  bool enable,
+>>>> -               u32 frame_count);
+>>>> +               u32 frame_count,
+>>>> +               bool has_ctm);
+>>>>
+>>>>   int dpu_hw_collect_misr(struct dpu_hw_blk_reg_map *c,
+>>>>                  u32 misr_ctrl_offset,
+>>>> --
+>>>> 2.41.0
+>>>>
+>>>
+>>>
+>>> --
+>>> With best wishes
+>>> Dmitry
+> 
+> 
+> 
