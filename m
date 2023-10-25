@@ -2,63 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 139497D633D
-	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 09:35:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FCE7D633F
+	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 09:35:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B584E10E55C;
-	Wed, 25 Oct 2023 07:35:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3CBC10E56D;
+	Wed, 25 Oct 2023 07:35:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D05E10E55C
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 07:35:08 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-507b96095abso7956257e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 00:35:08 -0700 (PDT)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C4610E56C
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 07:35:09 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40853c639abso38960395e9.0
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 00:35:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698219306; x=1698824106; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sSYQpLoxd/vTN3zIpzIjjE32x4L+dyHKf7hVMquCel8=;
- b=njAzphzbrN0ZBtlRlpcqQdMsdl4HWR28i0GBn6PvXaNaIc6o2zQnkvq1qXovESvU0k
- OcaGRTXWgxj5bdtut0UhRHEDu5SifNPRztVxUXpWgAptdi5y0Bbq1Yhpp4TEtE9GVcqZ
- nx26xyeE3+/QYJRL3m/aWUcUmNylOU27RfEy7OiAGsLrlIiTeJpV7xizhQMEyroWHCtX
- qxWobFDVdIJQPeD25JMyT1DvLunyCGvXGWCz94Z0qV3JrjVbvaJ+D9g+vJ+M3Fugg44e
- YVUA61fqqN51tOK9yBHWeQoqZTFRuhU88uxWUcQKRx/xSEXL+OI++C5CuZ5p91Fu5+lp
- oAGw==
+ d=linaro.org; s=google; t=1698219307; x=1698824107; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=pe4SRUofU2WFm2fmN823Um+mIBdgfTseC5LX2TC6qmk=;
+ b=Q9gIX6316QW3iHeNhOeNX1VkTac6QSXZ9TPClWD04Ph6s1KwjTtn2bRYMJZrOa7W5a
+ gQjKODwua7o3hNdpjGIqJY6oEr/5o8E4EIQFQhdvvDk+KOJLrvI/LEVdfaX720+1e5eo
+ qZbWA7I+JxV9RcDfiA+qlNLbVdByJcxLLdl0BvL913nTMJdd5J3vOsQ19BuoWE7QUfWs
+ 04lOVOol+xgbPcbpHQlv8pB6pY7kDU6VOGxXZfFyDAOfj10PsdCWae4f41EZJb4Uc2/K
+ m1ZDGNYhS2NwtUw9/u83hWEr7Skqj+uqz1tegyCh52LXIU2PhSjKpuSNj+JFZru/XY2r
+ 8QyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698219306; x=1698824106;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sSYQpLoxd/vTN3zIpzIjjE32x4L+dyHKf7hVMquCel8=;
- b=pSmuRfRLJuj8vEGK3/EIZiLa/cJwZUTQ7UPV6WxhJjOC2eHFUvRNhNPPgc3cRcjsUK
- VIKAivf03Nn1Nw03BNNxo7KenyuucJ1fP8k58t78d87SchiVsuWkduarYkXaWoi/F4Bp
- lPZGSsARl2skWkKpnpZZovBcu0HGPGoAQTF+XGv/t5zO8LihDUjI0XnKQXoaO6BX9/vm
- ZqsbwwAlpgUTZ2s7ZfYTOaPLpRXuoOMtWi+RHlAlrmpGx7eaEr//cqHNQ2EogDDLE3wI
- 1+RY2MtIDT1FJGyAaFK8GhxQXiUfvlYt7jChCeQmlR3W8qJa5yECFjQ0MK9Hra/dV0wp
- zGpA==
-X-Gm-Message-State: AOJu0YzYDwyTObwxjTPZK1BWMegi+lSYXNsFvtiop6bKYvZYi5auC92E
- u2QUifwABHiMJXKKbc6LjhkL0weKdNgE9RPDcrw/7Q6a
-X-Google-Smtp-Source: AGHT+IGurdsk+zX+6QXgEz0gEKxO+y3oo0icVhPQGYAW6na1Lo1fkepVRaRDbwBsE8L8Xro8oCJLgw==
-X-Received: by 2002:a2e:a404:0:b0:2c5:d10:248f with SMTP id
- p4-20020a2ea404000000b002c50d10248fmr11157029ljn.49.1698219306331; 
- Wed, 25 Oct 2023 00:35:06 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1698219307; x=1698824107;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pe4SRUofU2WFm2fmN823Um+mIBdgfTseC5LX2TC6qmk=;
+ b=podg094PB3fgCCOAZPJUzp5Of9jq9PHGRJkPiHLe7ZelnEGq57psUWOmduwd4EAu12
+ VSzgNsDAr0MYVfQJnNgtR2YvMzdorTwI9p4cW13b2Kzq7zt5I3l8FS9ZmObGtm0YrSa/
+ ey9E4krvRYAjqvP7cUS3ZaH/EL8gZdVqc8fFL2z35iGxaZbQ11h54TyhFIt7pFILdzJL
+ AXHkNUTENdzxNefJFuhkJR7IagRwWwEsYSlS9DRCVJAUpiB+qlk/pS/TUIbo7CQLOTlc
+ rtW2S4Wx6C1UIGzIdP3JsOhrNDS6PJkJ8+dDMUnLt1gxa1JCHh7fAiFT9+XpUv8PLkr8
+ Nlaw==
+X-Gm-Message-State: AOJu0Yw+0wtHq+3bp0EcHXopzPXzBaU3+JRw2H/UQTg06/NRHtkwnLZF
+ nn6+2o7sSjFfA7OFLO7OHrnaPQ==
+X-Google-Smtp-Source: AGHT+IEiQvJPZXUSoJ+rvGAVwkMDv40zmLqfwbPBtb7KlNbEPmm3TB9RLLv1bPNuVdvy0rjD8U7C4A==
+X-Received: by 2002:a05:600c:1c29:b0:408:3d91:8251 with SMTP id
+ j41-20020a05600c1c2900b004083d918251mr10926835wms.5.1698219307607; 
+ Wed, 25 Oct 2023 00:35:07 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- x18-20020a5d60d2000000b003248a490e3asm11449058wrt.39.2023.10.25.00.35.05
+ x18-20020a5d60d2000000b003248a490e3asm11449058wrt.39.2023.10.25.00.35.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Oct 2023 00:35:05 -0700 (PDT)
+ Wed, 25 Oct 2023 00:35:07 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 25 Oct 2023 09:34:58 +0200
-Message-Id: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
+Date: Wed, 25 Oct 2023 09:34:59 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACLFOGUC/x3MOwqAMAwA0KtIZgOt4vcq4qBt1AzV0qgIxbtbH
- N/yIggFJoE+ixDoZuFjT9B5Bmab9pWQbTIUqii10jWeh2eD4tq6Unh5OQNNDp0VQSptV5HqTDO
- 3kAIfaOHnz4fxfT8k7ypmbAAAAA==
+Message-Id: <20231025-topic-sm8650-upstream-mdss-v1-1-bb219b8c7a51@linaro.org>
+References: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
+In-Reply-To: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -71,24 +70,24 @@ To: Rob Clark <robdclark@gmail.com>,
  Conor Dooley <conor+dt@kernel.org>, Jonathan Marek <jonathan@marek.ca>, 
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2455;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=748;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=nlS7V9RDxDsW5lp+zO+/rnJBlfiyvlUNuUD8vMZXJtM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlOMUlKghnMXY6BmgIYR9wKs5nCGd8a5RJCWR4WfKY
- oW8HPZaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZTjFJQAKCRB33NvayMhJ0X7/EA
- COSCAPZ2obB3+VHNndHNi5nCdsdO/aexNkdu5JwPUst7Mw0DTj1cpf7BHVkbP95tmKcLPacxv41O6U
- of/p/Rjsv33iYvldRQH6hIwII6rBh1tlpzlubNuGjskb99H7e1fDuEx38lmYoIiejGwW3EUO68WoBl
- FE5blcuBBGUGzRNEL8XJpucKcN6PbuU334OF5x5vssNtqxcinkMmDO+ifPUhmAonSYiuxWpqigswEz
- 4KelqQjr9Ua/bNfj7xS8wHj97Sjqi28gn031Hm3KcyXkbDeL3SoNXNpbdvkkaJL/RoBySn7U+Gr93b
- 3i2wYYde5rXtgwyGXEKtmOVSNmbxNdblLaR4Zh1MG2scpw5wwQgjmXsB3grE9vj7l8CnqIs2v5J4UF
- EfMUfiuvYqrjhU3pV0C5jVlYOueEXrw1el/zyDWrdHFyt6OCpSkpRa6EOPAW0xJnt/0LbdLj9wxLxE
- CSzIRAI1JIzubuTaLXI2kfVKlq7lI+roW7N1xHnViWtEng8duwswQMo8Q3Q7kjYJYY8jURVWKs+NAN
- 2JDY5L11fFKn0kLveeN2e2IITKiEGG+rU4NiKbBSVUpxC9VXr8yGNUqO9RYta1LApEXHe4nTOU9ojD
- cAeTDYL8UOcfSDFyIyQ6CofjljrSaC89x7idlmzlQjkpTamL/4h7t+RzNdYQ==
+ bh=LjEsqHAGp+UfualC/tIMljUQuvkQEZ5WI4NYmB6cs2o=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlOMUlzhTUsc4upScdy9doWeeZ8Av0tdD3FxQMALDK
+ w6zzprCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZTjFJQAKCRB33NvayMhJ0QJqEA
+ CUt/Fq2kgT90yTup1XhV+j3NhHGt6q7dqGEjHB+5YL+39c+RYWVhJ8fq+9zDhTot7kYVsS8nJZlrbn
+ JhZ44Zf77PWDphzIjLmVzSgW9QHZbzsIlNCX5Z2NyFVhbm3q/OcJKY9bRA8addCLKdo4ublGUg0Gsy
+ EOMNZpc20cA0Ujl3WGyU/m3vdVRI/2J2YiEATw3d+MueFgm7w4DJnjEmnkSuwmDnuwahIlNPK++/M8
+ 20I32mfmeIhUe4eRUn8bnM6fSuOOqrHXxNhRHdzFIh4bCrSpJEk0QVj+pBs2nmtkczf/fK2+wpsbFs
+ 5sOKycIN2dIVv8mIi2w8w44dTpVT7d+VL6XrvetdsSqO9iMMy8/nrhvSJGFRt2RCQZRnYmaW8GoRWI
+ zUNt4XdlIrnkdY0RovJdvaLHLGO7vw7KHd3nr0P3uKwnb0sCdnbsisxvHE6zZb5twIU1ojpsru0owQ
+ vk0iBMrK4HoGvQuAC0iVoXnSip+GE1hcS/S9ULjhFqQBzYc1oTqmi6gxpkOeMYHJobJnFJFJuSwQLo
+ piFfPx9T2CsDrGFIK2/A5aKSEufirnWnpd4Hpnj8blFh5MDV9rEpvEsoyBv4kxKTDwFfyLEPuqg3+W
+ WegGC7+fkK1/ViVzn2uEywsilYnlcYXkeBMoT8WtERZBXQs5XMfrMBABJqPA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH 0/8] drm/msm: Introduce display support for
- SM8650
+Subject: [Freedreno] [PATCH 1/8] dt-bindings: display: msm-dsi-phy-7nm:
+ document the SM8650 DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,59 +106,26 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SM8650 MDSS is very close from the MDSS 9.0.0 found
-on the SM8550 SoC, with the following difference:
-- DSI PHY 2.8.8, no significant differences
-- DPU 10.0.0:
-  - Enhanced max_linewidth to 8k
-  - PINGPONG_8 & PINGPONG_9
-  - MERGE_3D_4
-  - DSC_4 & DSC_5, DSC_NATIVE_42x on DSC0/1
-
-This patchset contains DSI PHY, DSI Controller, DPU & MDSS bindings
-in addition to the driver changes.
-
-Support for Display Port output is expected for later.
-
-Dependencies: None
-
-For convenience, a regularly refreshed linux-next based git tree containing
-all the SM8650 related work is available at:
-https://git.codelinaro.org/neil.armstrong/linux/-/tree/topic/sm85650/upstream/integ
+Document the DSI PHY on the SM8650 Platform.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Neil Armstrong (8):
-      dt-bindings: display: msm-dsi-phy-7nm: document the SM8650 DSI PHY
-      dt-bindings: display: msm-dsi-controller-main: document the SM8650 DSI Controller
-      dt-bindings: display: msm: document the SM8650 DPU
-      dt-bindings: display: msm: document the SM8650 Mobile Display Subsystem
-      drm/msm: dpu1: add support for SM8650 DPU
-      drm/msm: mdss: add support for SM8650
-      drm/msm: dsi: add support for DSI-PHY on SM8650
-      drm/msm: dsi: add support for DSI 2.8.0
+ Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
- .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
- .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 127 ++++++
- .../bindings/display/msm/qcom,sm8650-mdss.yaml     | 322 +++++++++++++++
- .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    | 458 +++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  23 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   3 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
- drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  17 +
- drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  27 ++
- drivers/gpu/drm/msm/msm_mdss.c                     |   1 +
- 15 files changed, 987 insertions(+)
----
-base-commit: fe1998aa935b44ef873193c0772c43bce74f17dc
-change-id: 20231016-topic-sm8650-upstream-mdss-e3d95e09c7b8
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+index dd6619555a12..7e764eac3ef3 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
+@@ -22,6 +22,7 @@ properties:
+       - qcom,sm8350-dsi-phy-5nm
+       - qcom,sm8450-dsi-phy-5nm
+       - qcom,sm8550-dsi-phy-4nm
++      - qcom,sm8650-dsi-phy-4nm
+ 
+   reg:
+     items:
 
-Best regards,
 -- 
-Neil Armstrong <neil.armstrong@linaro.org>
+2.34.1
 
