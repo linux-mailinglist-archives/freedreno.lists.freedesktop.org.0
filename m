@@ -2,67 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB067D6762
-	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 11:47:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F51A7D6B44
+	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 14:22:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC7610E62A;
-	Wed, 25 Oct 2023 09:47:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F71710E5A8;
+	Wed, 25 Oct 2023 12:22:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17F1710E62A
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 09:47:11 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2c50305c5c4so82837331fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 02:47:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698227229; x=1698832029; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BpOpmDLtAqArpJSPKcIM3DaKWUTQYNNNS011ZdujvEw=;
- b=v24BB1CDWYfD5MbycEPZ7ljgDIQmoh7MShjRwO4HML9ahn6x8/vsBklrf+Z3v7dIPZ
- +pEq/bimkK4v1NK6sAez0kMsTTJ9aeaLNZmKbAGWAsNt9Sa43g+zvVVZQYvaZ5yL40yL
- T47YrlTlD84OWcBo17mvEpeVxgrBVEZy2IOs59+2LQvK/rhNcD7XgeYFb9mV/q/jq6Ic
- d/DilFVJWkAWfy0dRK1Ch0eFXWBx4Uo/hjphAfjhKNVS6lcRhMA2Dlz7n7aN6HDa2anG
- 2tmxmio5H92Lfs3QBEkzzGTHPVQrk8MarpgT5zFt/GgtcjDoksmxet3BlLv1sD4lbsBJ
- HoTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698227229; x=1698832029;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BpOpmDLtAqArpJSPKcIM3DaKWUTQYNNNS011ZdujvEw=;
- b=PFs7A9F72zhIMg3qNpLRNRy1ZQXMjf/5PFUJqOPUibdBRIb5254fGB39HFg+dl0rrM
- xPX6sjLJpjqk1zLjXn5BV/A7N+xiN8YAqi/lQRtRn2HCi597rsbi06x3C5Ondxlnw9Wp
- ioAnxTQ91SqXJst6MUYn49W2hIKIMDCN58qSxs2VAICMArcylzMHtWJeGi96YzMb+nQg
- hYvoVN5kq8lv4tyDAYH7FPJ0fjlhv+et8NYG0qrH7LuXvE7zfGLm1cSqPQch6kfncUh9
- DCgz3Bs9fp9bNg2vgxOC83Kvih+DHb8PPNWFL6U4jR0CUcYqMlpCEwftdSM7HWSPc06L
- 4fNQ==
-X-Gm-Message-State: AOJu0Ywi4Kk8PlVg+9y3N/snQmYeboPYl5KQN3riw0fBOGH6lE7K1RIH
- blxEkqnfSbgRAKnANIilYp/C6A==
-X-Google-Smtp-Source: AGHT+IFfoE5O1nQZ7hXWildQtNSnhIVdJ5jytEwleTyUMk9tayjcCN7BpnQ4sQx8gdWyCztiGvDZsA==
-X-Received: by 2002:a05:651c:155:b0:2c5:2423:e225 with SMTP id
- c21-20020a05651c015500b002c52423e225mr10223859ljd.6.1698227229257; 
- Wed, 25 Oct 2023 02:47:09 -0700 (PDT)
-Received: from [192.168.1.212] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- d18-20020a2e3612000000b002c503c2dc97sm2287970lja.64.2023.10.25.02.47.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Oct 2023 02:47:08 -0700 (PDT)
-Message-ID: <2142be46-53e7-4e8d-956d-c82d1abb21a2@linaro.org>
-Date: Wed, 25 Oct 2023 12:47:07 +0300
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAFF10E5BD
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 12:22:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id A7170CE37E3;
+ Wed, 25 Oct 2023 12:22:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD994C433C8;
+ Wed, 25 Oct 2023 12:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1698236560;
+ bh=FHGd6NpfB/B13XEZMLkAe39ErfCw2QU5DJd1J3NruBM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=C2yz81KLl+r9bAd6j0nYVV1FUAIOb7j/ADcabXK/5pQfccoWCGy0SfDP8Qxnkj8bU
+ buzLByBay9Rt7Bh9VLsCrkU3ZIlS3YXnrgh+k/HkZjyElFzkmOVRu7CT8olxi3HzJ0
+ VvfmH8oGBTs8RpPemIcUfzQOOsuqB/1zvhem0MjRRWoKmgGHdnPVynmN0owXtc61yd
+ 031HfnKxICkOMCHvWKk0IpYo43FvoU9pspwipKOhng8OBtpC3JZaMygNc4Id97lTer
+ WKFfLvdd1yQeWAMk3q2YVQSfUse1B7eAPpj9ii3CPuAdfdez4GDpyN+l9zQ+pNiFEI
+ kroFwE2kU4RbA==
+Received: from johan by xi.lan with local (Exim 4.96)
+ (envelope-from <johan@kernel.org>) id 1qvcua-0006E3-2o;
+ Wed, 25 Oct 2023 14:23:00 +0200
+Date: Wed, 25 Oct 2023 14:23:00 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Message-ID: <ZTkIpMWpxKzSE7gQ@hovoldconsulting.com>
+References: <20231010225229.77027-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Dan Carpenter <dan.carpenter@linaro.org>, Rob Clark <robdclark@gmail.com>
-References: <ZSj+6/J6YsoSpLak@kadam>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <ZSj+6/J6YsoSpLak@kadam>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: remove unnecessary NULL check
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231010225229.77027-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH] soc: qcom: pmic_glink: fix connector type
+ to be DisplayPort
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,47 +54,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Su Hui <suhui@nfschina.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Andy Gross <agross@kernel.org>,
+ Simon Ser <contact@emersion.fr>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13/10/2023 11:25, Dan Carpenter wrote:
-> This NULL check was required when it was added, but we shuffled the code
-> around and now it's not.  The inconsistent NULL checking triggers a
-> Smatch warning:
+On Wed, Oct 11, 2023 at 01:52:29AM +0300, Dmitry Baryshkov wrote:
+> As it was pointed out by Simon Ser, the DRM_MODE_CONNECTOR_USB connector
+> is reserved for the GUD devices. Other drivers (i915, amdgpu) use
+> DRM_MODE_CONNECTOR_DisplayPort even if the DP stream is handled by the
+> USB-C altmode. While we are still working on implementing the proper way
+> to let userspace know that the DP is wrapped into USB-C, change
+> connector type to be DRM_MODE_CONNECTOR_DisplayPort.
 > 
->      drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c:847 mdp5_init() warn:
->      variable dereferenced before check 'mdp5_kms' (see line 782)
-> 
-> Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the _probe function"
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
+> Cc: Simon Ser <contact@emersion.fr>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-> v2: Added a Fixes tag.  It's not really a bug fix and so adding the
-> fixes tag is slightly unfair but it should prevent this patch from
-> accidentally getting backported before the refactoring and causing an
-> issue.
+>  drivers/soc/qcom/pmic_glink_altmode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Btw, fixes tags are often unfair like this.  People look at fixes tags
-> and think, "the fix introduced a bug" but actually it's really common
-> that the fix was just not complete.  But from a backporting perspective
-> it makes sense to tie them together.
-> 
-> Plus everyone introduces bugs.  If you're not introducing bugs, then
-> you're probably not writing a lot of code.
-> 
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+> diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
+> index 9569d999391d..6f8b2f7ae3cc 100644
+> --- a/drivers/soc/qcom/pmic_glink_altmode.c
+> +++ b/drivers/soc/qcom/pmic_glink_altmode.c
+> @@ -467,7 +467,7 @@ static int pmic_glink_altmode_probe(struct auxiliary_device *adev,
+>  		alt_port->bridge.funcs = &pmic_glink_altmode_bridge_funcs;
+>  		alt_port->bridge.of_node = to_of_node(fwnode);
+>  		alt_port->bridge.ops = DRM_BRIDGE_OP_HPD;
+> -		alt_port->bridge.type = DRM_MODE_CONNECTOR_USB;
+> +		alt_port->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
+>  
+>  		ret = devm_drm_bridge_add(dev, &alt_port->bridge);
+>  		if (ret) {
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I was just going to post a patch fixing this after finally investigating
+why the DisplayPort outputs on the X13s were annoyingly identified as
+"Unknown20-1" and "Unknown20-2" instead of the expected "DP-1" and
+"DP-2".
 
+A lore search just before posting led me to this fix from two weeks ago.
 
--- 
-With best wishes
-Dmitry
+I think the commit message should have mentioned something about the how
+this change affects user space. My patch also had a CC stable, but I
+guess we can ping the stable team once it hits mainline:
 
+commit e5f55bf5ad4effdd59d4d06c839a0ac553a73c7d (HEAD -> work)
+Author: Johan Hovold <johan+linaro@kernel.org>
+Date:   Wed Oct 25 11:54:09 2023 +0200
+
+    soc: qcom: pmic_glink_altmode: fix DP alt mode connector type
+    
+    The PMIC glink altmode bridge connector type should be "DisplayPort"
+    rather than "USB", which is intended for custom USB display protocols
+    (e.g. see 40e1a70b4aed ("drm: Add GUD USB Display driver")).
+    
+    This specifically makes the DisplayPort outputs on the Lenovo ThinkPad
+    X13s show up as "DP-1" and "DP-2" rather than "Unknown20-1" and
+    "Unknown20-2" with xrandr as expected (by users and tools):
+    
+      Screen 0: minimum 320 x 200, current 1920 x 1200, maximum 5120 x 4096
+      eDP-1 connected primary 1920x1200+0+0 (normal left inverted right x axis y axis) 286mm x 178mm
+         1920x1200     60.03*+
+         1600x1200     60.00
+      DP-1 disconnected (normal left inverted right x axis y axis)
+      DP-2 connected (normal left inverted right x axis y axis)
+         1920x1200     59.95 +
+      ...
+    
+    Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
+    Cc: stable@vger.kernel.org      # 6.3
+    Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+
+Johan
