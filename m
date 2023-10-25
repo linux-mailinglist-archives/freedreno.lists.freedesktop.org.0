@@ -1,73 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D08387D7091
-	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 17:16:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF44A7D77DD
+	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 00:30:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9496210E6AB;
-	Wed, 25 Oct 2023 15:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 120E910E5F0;
+	Wed, 25 Oct 2023 22:30:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A430610E6AA
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 15:16:18 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-507a98517f3so8075911e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 08:16:18 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFCAB10E5F0
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 22:30:31 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2c509d5ab43so3977241fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 15:30:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698246977; x=1698851777; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Td1Qp2jEYN6EwIlzvrnD5w5N2Jcs878/iCYHd4DtvAU=;
- b=wbBB/K7wvXpPm2b8LVoYbYa8Qkm6o4GrjQoNvzVR+vgg6WRjretT6AfcxNtTneH+Vo
- jMtRVE0vVzranosa/ZBE5F85lPh+v6JZzkGvFMwckXiNJZRRiDXdmqC1dXsPLGouq+l3
- qA41ZEFRyh3SzNy27zZIdHQ4SR6p7RImQTCoO+k3FJkh3P7D37Sqj4SUMEyZ0hWZV6Ku
- pNhYLEbXDVj2GWUuN5S0l8m14hae/V01fjvudWhQ/T3f115PFQh7kriGqx4tbHubOeHS
- w0LCpxpBRqvooe1QgnM268CO7Nav6zZN47F0cONHoE4JX2YghbDSMx1ex8qXpiqgYU88
- rTvQ==
+ d=linaro.org; s=google; t=1698273030; x=1698877830; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mzM/s3QFeCJxxTk8M20oowbvJAmjAHB6oasYtF2H1f0=;
+ b=kW4GuSydQenjhp6iyh90f8N7aoiLckHBlAiPFOo6Mr5D6jLqvgRd+n/mY6vx5y3yLF
+ pVWy/aS7ns394M6XWCOuAqDsFsup1OJSRbXpkmAw0Z+iGio24uEx8PI/uV/HywcLkgO2
+ aZW+Mrlg12SbXFM5ihtmaw+PWXIiNvaSspNItsjgiI37l9oWko+Ex0FgOAPixkg650Va
+ 8o3pi99VewrbVrmQcF0aqufU7fsdLYSVuIllqV/OIRRpuiq50Elw2+5HD50G7GN59cUh
+ 8erl+1RFvzl5dKjaUS34X4kJvn0VCf0jKYRtv9JqA0iQMtm+kr/mcLW5Vv6+oPiyMHMU
+ 3ndQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698246977; x=1698851777;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Td1Qp2jEYN6EwIlzvrnD5w5N2Jcs878/iCYHd4DtvAU=;
- b=Hazynehe94kIymKCBXJHEc0S/iC9NWTTnzxixrfhPOjV5zGgAqs8Krlfa1Sw16kWQS
- QQvgugvnKEBFvzf9jM8qzRXH2mLLE3YpMvU3as6KB+JX5YBIx5w9lxiM1FEos0rOc6hd
- VFEYAvRHP9d3h+0d8jfgt65zfzFhWuRJ0YJfLb3+YnrlYkczJ+8Ybghhkj8IzUBzzp/Y
- r+4wpyIclw3f4ea9KCKYReANaAL/GYxoIC22v5m3KvyZ2ODICSTmKmxId8X9myAiG/96
- ioILSZ91kdG6CR2CvY3uW3OYZzOkxKoyBhGSHRaMQA+Y1nixTE1XOcNmMsHXehaE0Apt
- +ztg==
-X-Gm-Message-State: AOJu0Yx6XMbJviZOwSDWHNb0pwLQ2mauWmcFRzwESlSOiUZN+PB3L+mI
- EQYDuk+dGLDZsqLmg82rPf6Slg==
-X-Google-Smtp-Source: AGHT+IFU0aD6A6CHpv9y7jOR2dZ44pugJWs69QC07vhVJ3EOmVWLtgzjKARGyA2TIeyVSr1x2sn0Dw==
-X-Received: by 2002:a05:6512:71:b0:507:a6b2:c63e with SMTP id
- i17-20020a056512007100b00507a6b2c63emr9706041lfo.53.1698246976791; 
- Wed, 25 Oct 2023 08:16:16 -0700 (PDT)
-Received: from [192.168.1.212] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- v26-20020ac258fa000000b00507a3b8b008sm2586135lfo.112.2023.10.25.08.16.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Oct 2023 08:16:16 -0700 (PDT)
-Message-ID: <1696f131-83fb-4d0c-b4d7-0bdb61e4ae65@linaro.org>
-Date: Wed, 25 Oct 2023 18:16:14 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Maxime Ripard <mripard@kernel.org>
-References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
- <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
- <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
- <CAA8EJpp48AdJmx_U=bEJZUWZgOiT1Ctz6Lpe9QwjLXkMQvsw5w@mail.gmail.com>
- <uj6rtlionmacnwlqxy6ejt5iaczgbbe5z54ipte5ffbixcx3p4@pps7fcr3uqhf>
+ d=1e100.net; s=20230601; t=1698273030; x=1698877830;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mzM/s3QFeCJxxTk8M20oowbvJAmjAHB6oasYtF2H1f0=;
+ b=LRkI6Tu0JrUiJaTH6W7EqKAPL/4/EqwnzXlqYnYoZ7+K1mYzVHj1ZP3JW80wxB8yin
+ aTwwJvw9VvusLR6LxY+c9tsinkyZSsdGIhI/+vTqPw/sa41Z9WEwjM44mYgvFnJTMkH/
+ 926PUStF3qFp8spVJvASO8EUlTw9sSCKyPSwA/6D7mGcX1qLyNetoaOjMLX1/lCt8oN2
+ zmqMHL85lGqAiS7J5T9x4knF2/53CwOGeebHBindLDrYrmobpycFoZ+/2rzOZNsSZ1Oh
+ 2LQSgtsS1qBVRHJ3o78fdkgWVSDE+tFHwJNslBF72phspIhNjNDpYrNp+Bjz3j3qJxTY
+ xChA==
+X-Gm-Message-State: AOJu0YzZ3dvRHSDN6mp8CtjOAnYCC/eZVJV/J3ARAsEoL3GM1zUPuuGt
+ nOqa0UO66N4bQdj0GI2h4uJmLg==
+X-Google-Smtp-Source: AGHT+IE80qJBvoknc8MJoPYBc+MJgH2P0PJwGZo6QC/PZct9VXHGi7xuXRbkjbNG/YWYXz51jiD1cg==
+X-Received: by 2002:a05:651c:1695:b0:2c5:1a89:41c6 with SMTP id
+ bd21-20020a05651c169500b002c51a8941c6mr11515534ljb.33.1698273029414; 
+ Wed, 25 Oct 2023 15:30:29 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ a36-20020a05651c212400b002bcbae4c21fsm2612543ljq.50.2023.10.25.15.30.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Oct 2023 15:30:28 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <uj6rtlionmacnwlqxy6ejt5iaczgbbe5z54ipte5ffbixcx3p4@pps7fcr3uqhf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
- control over the DSI link power state
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Thu, 26 Oct 2023 01:28:01 +0300
+Message-ID: <20231025223027.943563-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5 0/6] drm: simplify support for transparent
+ DRM bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,146 +79,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Robert Foss <rfoss@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+Cc: linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-usb@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/10/2023 15:44, Maxime Ripard wrote:
-> On Thu, Oct 19, 2023 at 02:19:51PM +0300, Dmitry Baryshkov wrote:
->> On Thu, 19 Oct 2023 at 12:26, Maxime Ripard <mripard@kernel.org> wrote:
->>>
->>> On Mon, Oct 16, 2023 at 07:53:48PM +0300, Dmitry Baryshkov wrote:
->>>> The MIPI DSI links do not fully fall into the DRM callbacks model.
->>>
->>> Explaining why would help
->>
->> A kind of explanation comes afterwards, but probably I should change
->> the order of the phrases and expand it:
->>
->> The atomic_pre_enable / atomic_enable and correspondingly
->> atomic_disable / atomic_post_disable expect that the bridge links
->> follow a simple paradigm: either it is off, or it is on and streaming
->> video. Thus, it is fine to just enable the link at the enable time,
->> doing some preparations during the pre_enable.
->>
->> But then it causes several issues with DSI. First, some of the DSI
->> bridges and most of the DSI panels would like to send commands over
->> the DSI link to setup the device.
-> 
-> What prevent them from doing it in enable when the link is enabled?
-> 
->> Next, some of the DSI hosts have limitations on sending the commands.
->> The proverbial sunxi DSI host can not send DSI commands after the
->> video stream has started. Thus most of the panels have opted to send
->> all DSI commands from pre_enable (or prepare) callback (before the
->> video stream has started).
-> 
-> I'm not sure we should account for a single driver when designing a
-> framework. We should focus on designing something sound, and then making
-> that driver work with whatever we designed, but not the other way
-> around. And if we can't, we should get rid of that driver because it's
-> de-facto unmaintainable. And I'm saying that as the author of that
-> driver.
 
-That's not the only driver with strange peculiarities. For example, see 
-commit 8a4b2fc9c91a ("drm/bridge: tc358762: Split register programming 
-from pre-enable to enable"), which was one of the issues that actually 
-prompted me to send this this patchset (after my previous version of 
-this patch being rejected because of sunxi).
+Supporting DP/USB-C can result in a chain of several transparent
+bridges (PHY, redrivers, mux, etc). All attempts to implement DP support
+in a different way resulted either in series of hacks or in device tree
+not reflecting the actual hardware design. This results in drivers
+having similar boilerplate code for such bridges.
 
-> 
->> However this leaves no good place for the DSI host to power up the DSI
->> link. By default the host's pre_enable callback is called after the
->> DSI bridge's pre_enable. For quite some time we were powering up the
->> DSI link from mode_set. This doesn't look fully correct.
-> 
-> Yeah, it's not.
-> 
->> And also we got into the issue with ps8640 bridge, which requires for
->> the DSI link to be quiet / unpowered at the bridge's reset time.
->>
->> Dave has come with the idea of pre_enable_prev_first /
->> prepare_prev_first flags, which attempt to solve the issue by
->> reversing the order of pre_enable callbacks. This mostly solves the
->> issue. However during this cycle it became obvious that this approach
->> is not ideal too. There is no way for the DSI host to know whether the
->> DSI panel / bridge has been updated to use this flag or not, see the
->> discussion at [1].
-> 
-> Yeah. Well, that happens. I kind of disagree with Neil here though when
-> he says that "A panel driver should not depend on features of a DSI
-> controller". Panels definitely rely on particular features, like the
-> number of lanes, the modes supported, etc.
+Next, these drivers are susceptible to -EPROBE_DEFER loops: the next
+bridge can either be probed from the bridge->attach callback, when it is
+too late to return -EPROBE_DEFER, or from the probe() callback, when the
+next bridge might not yet be available, because it depends on the
+resources provided by the probing device. Device links can not fully
+solve this problem since there are mutual dependencies between adjancent
+devices.
 
-In the mentioned discussion it was more about 'DSI host should not 
-assume panel driver features', like the panel sending commands in 
-pre_enable or not, or having pre_enable_prev_first.
+Last, but not least, this results in the the internal knowledge of DRM
+subsystem slowly diffusing into other subsystems, like PHY or USB/TYPEC.
 
-So the pre_enable_prev_first clearly lacks feature negotiation.
+To solve all these issues, define a separate DRM helper, which creates
+separate aux device just for the bridge. During probe such aux device
+doesn't result in the EPROBE_DEFER loops. Instead it allows the device
+drivers to probe properly, according to the actual resource
+dependencies. The bridge auxdevs are then probed when the next bridge
+becomes available, sparing drivers from drm_bridge_attach() returning
+-EPROBE_DEFER.
 
+Changes since v4:
+ - Added documentation for new API (Sima)
+ - Added generic code to handle "last mile" DP bridges implementing just
+   the HPD functionality.
+ - Rebased on top of linux-next to be able to drop #ifdef's around
+   drm_bridge->of_node
 
-> 
-> Panels shouldn't depend on a particular driver *behaviour*. But the
-> features are fine.
-> 
-> For our particular discussion, I think that that kind of discussion is a
-> dead-end, and we just shouldn't worry about it. Yes, some panels have
-> not yet been updated to take the new flags into account. However, the
-> proper thing to do is to update them if we see a problem with that (and
-> thus move forward to the ideal solution), not revert the beginning of
-> that feature enablement (thus moving away from where we want to end up
-> in).
-> 
->> Thus comes this proposal. It allows for the panels to explicitly bring
->> the link up and down at the correct time, it supports automatic use
->> case, where no special handling is required. And last, but not least,
->> it allows the DSI host to note that the bridge / panel were not
->> updated to follow new protocol and thus the link should be powered on
->> at the mode_set time. This leaves us with the possibility of dropping
->> support for this workaround once all in-kernel drivers are updated.
-> 
-> I'm kind of skeptical for these kind of claims that everything will be
-> automatic and will be handled fine. What if we have conflicting
-> requirements, for example two bridges drivers that would request the
-> power up at different times?
+Changes since v3:
+ - Moved bridge driver to gpu/drm/bridge (Neil Armstrong)
+ - Renamed it to aux-bridge (since there is already a simple_bridge driver)
+ - Made CONFIG_OF mandatory for this driver (Neil Armstrong)
+ - Added missing kfree and ida_free (Dan Carpenter)
 
-Well, we do not support DSI sublinks, do we?
+Changes since v2:
+ - ifdef'ed bridge->of_node access (LKP)
 
-> 
-> Also, we would still need to update every single panel driver, which is
-> going to create a lot of boilerplate that people might get wrong.
+Changes since v1:
+ - Added EXPORT_SYMBOL_GPL / MODULE_LICENSE / etc. to drm_simple_bridge
 
-Yes, quite unfortunately. Another approach that I have in mind is to add 
-two callbacks to mipi_dsi_device. This way the DSI host will call into 
-the device to initialise it once the link has been powered up and just 
-before tearing it down. We solve a lot of problems this way, no 
-boilerplate and the panel / bridge are in control of the initialisation 
-procedure. WDYT?
+Dmitry Baryshkov (6):
+  drm/bridge: add transparent bridge helper
+  phy: qcom: qmp-combo: switch to DRM_AUX_BRIDGE
+  usb: typec: nb7vpq904m: switch to DRM_AUX_BRIDGE
+  drm/bridge: implement generic DP HPD bridge
+  soc: qcom: pmic-glink: switch to DRM_AUX_HPD_BRIDGE
+  usb: typec: qcom-pmic-typec: switch to DRM_AUX_HPD_BRIDGE
 
-> I have the feeling that we should lay out the problem without talking
-> about any existing code base first. So, what does the MIPI-DSI spec
-> requires and what does panels and bridges expect?
-
-There is not that much in the DSI spec (or maybe I do not understand the 
-question). The spec is more about the power states and the commands. Our 
-problem is that this doesn't fully match kernel expectations.
+ drivers/gpu/drm/bridge/Kconfig                |  17 ++
+ drivers/gpu/drm/bridge/Makefile               |   2 +
+ drivers/gpu/drm/bridge/aux-bridge.c           | 140 +++++++++++++++
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c       | 164 ++++++++++++++++++
+ drivers/phy/qualcomm/Kconfig                  |   2 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c     |  44 +----
+ drivers/soc/qcom/Kconfig                      |   1 +
+ drivers/soc/qcom/pmic_glink_altmode.c         |  33 +---
+ drivers/usb/typec/mux/Kconfig                 |   2 +-
+ drivers/usb/typec/mux/nb7vpq904m.c            |  44 +----
+ drivers/usb/typec/tcpm/Kconfig                |   1 +
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c |  41 +----
+ include/drm/bridge/aux-bridge.h               |  37 ++++
+ 13 files changed, 383 insertions(+), 145 deletions(-)
+ create mode 100644 drivers/gpu/drm/bridge/aux-bridge.c
+ create mode 100644 drivers/gpu/drm/bridge/aux-hpd-bridge.c
+ create mode 100644 include/drm/bridge/aux-bridge.h
 
 -- 
-With best wishes
-Dmitry
+2.42.0
 
