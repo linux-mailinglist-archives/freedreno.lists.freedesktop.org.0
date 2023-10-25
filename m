@@ -2,59 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAB6A7D6482
-	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 10:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5B447D66BB
+	for <lists+freedreno@lfdr.de>; Wed, 25 Oct 2023 11:27:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10B1710E588;
-	Wed, 25 Oct 2023 08:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79D7810E619;
+	Wed, 25 Oct 2023 09:27:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0293010E56E
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 08:06:24 +0000 (UTC)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-5a7e5dc8573so52797907b3.0
- for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 01:06:24 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 733AE10E617
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 09:27:14 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-507d1cc0538so7848142e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Oct 2023 02:27:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698221184; x=1698825984; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9N86T/fG3CiL6tT7DD8PpjcJ48kzS/vl5vzR+4WaF7s=;
- b=rccL5Gay4pSFhJaA9FT9SQSndBcFI7cI6Tb7L4yEUuemnbx0lyrG6F4YneWAhs50Vp
- 2GLlJgfj2+Uj3YOZqxMR5bhtxkgnGob4HNQ5FY/p+e/1CxebNNl8qUaqvz4mIluspQrU
- oy9v6FoOG7ERJUXiheNZz7AKRV6qI8PQKZGDtlj7qM/3n1NubfwVRcSO+kWshjXWz3Ys
- hZsqDP2KtljzcTQFdGgAHNfeCzXlgQVh9zKfZYRVU2+gcAZk9pGHJL7nk9sNPcEz1+Jp
- uBtSyvP/XRpZ9z7drhZlckuTuQbs9YxTvtgEI83/D3ApooAyRrf2037/us23su2tD84A
- WNnQ==
+ d=linaro.org; s=google; t=1698226032; x=1698830832; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=i8USfd2cXtMS5J3mM9vTi2tspxUYy+b4DZDSMhYADls=;
+ b=yDmrNHw14y0MEs3cqpqWwJNI7ynOjVmuqxQ1INQauklgwY2jvjLhS+Cik8soufIGsz
+ DoB+mBqXn8ixOv8nKKxg2XDCOEkiwjXaFUXqhanWOku3MzXhbqa8zC3DBCLc3zhU6m7N
+ aTJjFegC5R5xK7Jab6vntHHSHFdfeSZkrCN78TLiCye4NuZKqOestj4SBG9TQoZkBH38
+ xho6FcP/aNiHMm99pPRMkCbkqnhWSzxTEH4JSJ/Rwc90W7oHZz8or2bl5glBDzpXJL7w
+ D1xr69SVRwMVCjisVUPpxKWmKjweZryKv7+BZBNSyehmAyxgQSq9ogdZqoWnbyI6K6Ye
+ NJng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698221184; x=1698825984;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1698226032; x=1698830832;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9N86T/fG3CiL6tT7DD8PpjcJ48kzS/vl5vzR+4WaF7s=;
- b=rVG7Wo7IpY+g0CWFP2/UN1MqZEqwKw8tf6sLTXDigCbDJJjKPFRovRbaAnRjYRW7W4
- GRcljfDPseE0gLaWLu783nDzHRgwNe4Ykxxr1FdpMkrIXUNgQYQyU9Jgp+5SsqkiKbet
- x3D6hYbKCRVMNBMeOYmBNjbs0v9Iqt0cm1wJuW7/0U6wwO0ZPdin+Pb11ec78MVaOXYn
- iEvOJttglpsIYyW12NfMxREeU1c7I6ydcOS3oFi7TNKjTsjPuLfc9oBif/HYYKe5Q2bJ
- xrjf28QoPw81EWtQbeVKfJUsm76ddURs+AtFOO9QERhCQCwOT9y/a6J58rmF3Gt80drT
- 00yg==
-X-Gm-Message-State: AOJu0YwxHQc4TCtd8vJ3T8a04017O8nxxdM0QUU0dujRoVSbguDUkD+v
- hybD/q5P//XdiWzYQ9LiRKnygfPlrfmV2kYXZHP5JA==
-X-Google-Smtp-Source: AGHT+IFOv7ktMHogTahZY8772P50C84Y6Y6IVMSF12aYBnzD0gZtk/sfInd6pg/uGamC/Q/rKxezX3XuQVgFyeYbTQ4=
-X-Received: by 2002:a0d:cb10:0:b0:5a7:c4a7:21c3 with SMTP id
- n16-20020a0dcb10000000b005a7c4a721c3mr16860297ywd.38.1698221184039; Wed, 25
- Oct 2023 01:06:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
- <20231025-topic-sm8650-upstream-mdss-v1-8-bb219b8c7a51@linaro.org>
-In-Reply-To: <20231025-topic-sm8650-upstream-mdss-v1-8-bb219b8c7a51@linaro.org>
+ bh=i8USfd2cXtMS5J3mM9vTi2tspxUYy+b4DZDSMhYADls=;
+ b=W7hFJk/PzTwdzIEfuC2ovvnmrRb/mZEJ57+z7efDrk9tVc3Y0n2I/x4f6xNWXjJpwp
+ EW5i/O7AeTUKhDSqWPzyjrViD5nlPVdTsVNkFl9/7Zrz48SuHaCmXV3W/k8WqlGdHWGB
+ 3xNz69k+Gx+CbmmNJUV+rbYD8paMRr8aC32ZzhZCjvluveaKN4Hhy3bgNfe7B65MCxsY
+ Zg7X91fSyJ4a/bJbLpv2BDSYkz9YJl9J+8PaeVwalsFOS+BLw6zAJt/JXOlQnTWWQ8AE
+ HuH6JoHql1qf2kRZbJHgELTYpN/1VuJqsCsckriYseTY8G+sejXz+r3EsnlYJoPf8rPx
+ pJPQ==
+X-Gm-Message-State: AOJu0YwqXuKv4d4gFOeILjc9lLV46Un2v1w7TMCUH35JuABAXQL1u2dn
+ lcTfO8HGLvcXMiOYmBkI2jjH/w==
+X-Google-Smtp-Source: AGHT+IHTmUTCmb8MZXEisS6oCGCWvEuXG58i+0LOySJCTSTxUc7vXiT2YUaa5P7vgH3I4IZPYTsNqQ==
+X-Received: by 2002:a19:655d:0:b0:507:9d70:b297 with SMTP id
+ c29-20020a19655d000000b005079d70b297mr9607031lfj.60.1698226032561; 
+ Wed, 25 Oct 2023 02:27:12 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ eq25-20020a056512489900b005079fff83d2sm2470377lfb.3.2023.10.25.02.27.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Oct 2023 02:27:12 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 25 Oct 2023 11:06:13 +0300
-Message-ID: <CAA8EJpowPrNyXfyXC5wHz4OugzNFfp0E7qPo=5WS4k18U1LSqA@mail.gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 8/8] drm/msm: dsi: add support for DSI 2.8.0
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Wed, 25 Oct 2023 12:23:08 +0300
+Message-ID: <20231025092711.851168-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/2] drm/msm/dp: fix DP subconnector handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,89 +71,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Jonathan Marek <jonathan@marek.ca>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Abel Vesa <abel.vesa@linaro.org>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 25 Oct 2023 at 10:35, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->
-> Add DSI Controller version 2.8.0 support for the SM8650 platform.
->
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_cfg.c | 17 +++++++++++++++++
->  drivers/gpu/drm/msm/dsi/dsi_cfg.h |  1 +
->  2 files changed, 18 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> index 1f98ff74ceb0..10ba7d153d1c 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-> @@ -190,6 +190,21 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
->         },
->  };
->
-> +static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
-> +       { .supply = "vdda", .init_load_uA = 16600 },    /* 1.2 V */
+Fix two failovers in the DP subconnector's patch. I didn't notice that I
+had another patch adding the property in my tree and later Abel pointed
+out that we shouldn't use subconnector type for eDP panels.
 
-Same comment regarding uA and sm8550 cfg.
+Fixes since v1:
+ - Add Abel's patch.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Abel Vesa (1):
+  drm/msm/dp: don't touch DP subconnector property in eDP case
 
-> +};
-> +
-> +static const struct msm_dsi_config sm8650_dsi_cfg = {
-> +       .io_offset = DSI_6G_REG_SHIFT,
-> +       .regulator_data = sm8650_dsi_regulators,
-> +       .num_regulators = ARRAY_SIZE(sm8650_dsi_regulators),
-> +       .bus_clk_names = dsi_v2_4_clk_names,
-> +       .num_bus_clks = ARRAY_SIZE(dsi_v2_4_clk_names),
-> +       .io_start = {
-> +               { 0xae94000, 0xae96000 },
-> +       },
-> +};
-> +
->  static const struct regulator_bulk_data sc7280_dsi_regulators[] = {
->         { .supply = "vdda", .init_load_uA = 8350 },     /* 1.2 V */
->         { .supply = "refgen" },
-> @@ -281,6 +296,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
->                 &sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
->         {MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_7_0,
->                 &sm8550_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-> +       {MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_8_0,
-> +               &sm8650_dsi_cfg, &msm_dsi_6g_v2_host_ops},
->  };
->
->  const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> index 43f0dd74edb6..4c9b4b37681b 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-> @@ -28,6 +28,7 @@
->  #define MSM_DSI_6G_VER_MINOR_V2_5_0    0x20050000
->  #define MSM_DSI_6G_VER_MINOR_V2_6_0    0x20060000
->  #define MSM_DSI_6G_VER_MINOR_V2_7_0    0x20070000
-> +#define MSM_DSI_6G_VER_MINOR_V2_8_0    0x20080000
->
->  #define MSM_DSI_V2_VER_MINOR_8064      0x0
->
->
-> --
-> 2.34.1
->
+Dmitry Baryshkov (1):
+  drm/msm/dp: attach the DP subconnector property
 
+ drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++-----
+ drivers/gpu/drm/msm/dp/dp_drm.c     |  3 +++
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.42.0
+
