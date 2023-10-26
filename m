@@ -1,98 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1FDD7D8015
-	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 11:55:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A897D81CD
+	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 13:31:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD4310E795;
-	Thu, 26 Oct 2023 09:55:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B24B110E7B5;
+	Thu, 26 Oct 2023 11:31:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A14CF10E79A
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 09:55:53 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-32ddfb38c02so489145f8f.3
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 02:55:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698314152; x=1698918952; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=HzK9VMU7biBwtYpWfbq1vfPfka6gtKA3XTGeKlqZMFE=;
- b=O5Ura00NN011S+Un72BHeeSXscgPfqkF/ghujW3ojWY1A3oI5YgMF9qyVtjuG8co0m
- 4y4ZAtyOiEuAiCcgOLeOajSSrKaouIjgoJ7maleUJSE/lHz98DNTG0CGm9fveTwEqvym
- TXq88kEPqi0JNrYLsosWcHeNCVk7pbCm4BU2vwbrVzWar59Dw/GX8mTrpoiUPPBkdS7D
- ZVsx7CBhCUjQiYsM4i6a3nykuJ/GVXE3D3ST80bI7dBvSlJBg/l1PNePP41j+js/XbIN
- hg2oyr7/PbLCyaRWT5eLc/joPdKru9c46GmbSzjug1AiOS/weKlRU0k4lD0lfCGaAfIW
- 7iIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698314152; x=1698918952;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=HzK9VMU7biBwtYpWfbq1vfPfka6gtKA3XTGeKlqZMFE=;
- b=YEzEkb8AGOOAeJLzv8jxyETQr+8j14kk2uka+R7kNgJW+0SLeZLW5IzVnETObea7N+
- JdE9A/5vqKSTxpt9CpJhAqCyvBohJ0qKg6bX1LGSAcY4YRisioWtxfr+8Esz6cb3ALUC
- 3uLDQW1aPjen5nMQ9bDnoZ34PxL+Ka8B6XLniu9xRz8Tykg9lAlV5ozSu4Wo/ta9O9cb
- muXD6Xa3v+GlsbZHXGB1RxE7Y7B68BPhMGBFXttCpXwcGTbzNcRXP9y2rUZ0LkdweJZD
- B1ieH3angDsP+Y3JIbp4G1FkYUyUdAR5QjLDBYt+/WzopJsuhv4uWyduvV/+DApx8jvx
- DSLA==
-X-Gm-Message-State: AOJu0YyomJ2VifPOW2CUTX0Ruecfk+OKjvdG7PHXtWI01QhoCCB5faue
- FKVsPMW8diuQiImNWNwYNVY0hw==
-X-Google-Smtp-Source: AGHT+IFb0olVf7k+kG9TMpqi8I49DaAUrabsj77Wjiv7YCbMUEoPbXGZ2VvBCXxZiIXUx1mwSdp7Ww==
-X-Received: by 2002:adf:ef48:0:b0:32d:84a3:f3fe with SMTP id
- c8-20020adfef48000000b0032d84a3f3femr12620181wrp.41.1698314151935; 
- Thu, 26 Oct 2023 02:55:51 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:f57f:eb08:d29b:8c9c?
- ([2a01:e0a:982:cbb0:f57f:eb08:d29b:8c9c])
- by smtp.gmail.com with ESMTPSA id
- n12-20020adfe78c000000b00326f0ca3566sm13990599wrm.50.2023.10.26.02.55.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Oct 2023 02:55:51 -0700 (PDT)
-Message-ID: <24ee41f5-1eb3-4f46-b198-a3123a64a39c@linaro.org>
-Date: Thu, 26 Oct 2023 11:55:50 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCFC310E0A5;
+ Thu, 26 Oct 2023 11:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1698319882; x=1729855882;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hocvURNRVGMko0eLbel4gjvaPDXA/uayLf4WPzDZtNY=;
+ b=SwK9DJ52OkOx13JAHpuZfC+w7CgNVluYezEL/EMR8qzmL+/aQrk0gQuz
+ 192bA7FIMJkz72hZs1GbMG7pOSZIgkXOMON/MPKH8zIsOh9tNBDWjXueI
+ lBbxpjW9l/jCHIKKi8mJx85V4R39RRMzkpE02IHIyvY6SbzDWyBNZlOpi
+ xubMWey7CnE6Zs0gB3go47pq2qcdLZhn1KAhD8UERqE9oT9yBDpZNNuta
+ FpA0jnr5ci7q1E2L0amv3yA+podjZbeZ/J5S8Aph0xMKZcPKjKapM5djB
+ XISCI9ITG6v4gI45LkDISbn341rk1qCFs0QJPdwlJfbfhdW6397vgnbCk w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="367741128"
+X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="367741128"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2023 04:31:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="849890467"
+X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="849890467"
+Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 26 Oct 2023 04:31:17 -0700
+Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qvya3-0009jr-13;
+ Thu, 26 Oct 2023 11:31:15 +0000
+Date: Thu, 26 Oct 2023 19:31:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <202310261906.C62L4fc2-lkp@intel.com>
+References: <20231025223027.943563-5-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
- <20231025-topic-sm8650-upstream-mdss-v1-7-bb219b8c7a51@linaro.org>
- <CAA8EJpr+QGBFchG9aXJLxyhbMwMWZF6RjSVOpORkP_KFrV=P1A@mail.gmail.com>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <CAA8EJpr+QGBFchG9aXJLxyhbMwMWZF6RjSVOpORkP_KFrV=P1A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 7/8] drm/msm: dsi: add support for DSI-PHY
- on SM8650
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231025223027.943563-5-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v5 4/6] drm/bridge: implement generic DP HPD
+ bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,124 +70,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Jonathan Marek <jonathan@marek.ca>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
+ linux-phy@lists.infradead.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/10/2023 10:03, Dmitry Baryshkov wrote:
-> On Wed, 25 Oct 2023 at 10:35, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->>
->> Add DSI PHY support for the SM8650 platform.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  2 ++
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 27 +++++++++++++++++++++++++++
->>   3 files changed, 30 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
->> index 05621e5e7d63..7612be6c3618 100644
->> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
->> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
->> @@ -585,6 +585,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
->>            .data = &dsi_phy_5nm_8450_cfgs },
->>          { .compatible = "qcom,sm8550-dsi-phy-4nm",
->>            .data = &dsi_phy_4nm_8550_cfgs },
->> +       { .compatible = "qcom,sm8650-dsi-phy-4nm",
->> +         .data = &dsi_phy_4nm_8650_cfgs },
->>   #endif
->>          {}
->>   };
->> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
->> index 8b640d174785..e4275d3ad581 100644
->> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
->> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
->> @@ -62,6 +62,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_7nm_7280_cfgs;
->>   extern const struct msm_dsi_phy_cfg dsi_phy_5nm_8350_cfgs;
->>   extern const struct msm_dsi_phy_cfg dsi_phy_5nm_8450_cfgs;
->>   extern const struct msm_dsi_phy_cfg dsi_phy_4nm_8550_cfgs;
->> +extern const struct msm_dsi_phy_cfg dsi_phy_4nm_8650_cfgs;
->>
->>   struct msm_dsi_dphy_timing {
->>          u32 clk_zero;
->> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> index 3b1ed02f644d..c66193f2dc0d 100644
->> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
->> @@ -1121,6 +1121,10 @@ static const struct regulator_bulk_data dsi_phy_7nm_37750uA_regulators[] = {
->>          { .supply = "vdds", .init_load_uA = 37550 },
->>   };
->>
->> +static const struct regulator_bulk_data dsi_phy_7nm_98000uA_regulators[] = {
->> +       { .supply = "vdds", .init_load_uA = 98000 },
->> +};
->> +
->>   static const struct regulator_bulk_data dsi_phy_7nm_97800uA_regulators[] = {
->>          { .supply = "vdds", .init_load_uA = 97800 },
->>   };
->> @@ -1281,3 +1285,26 @@ const struct msm_dsi_phy_cfg dsi_phy_4nm_8550_cfgs = {
->>          .num_dsi_phy = 2,
->>          .quirks = DSI_PHY_7NM_QUIRK_V5_2,
->>   };
->> +
->> +const struct msm_dsi_phy_cfg dsi_phy_4nm_8650_cfgs = {
-> 
-> So, this is the same as sm8550 config, just using 400 uA less? I
-> wonder if it makes sense to go for setting the regulator mode instead
-> of setting the load.
+Hi Dmitry,
 
-I have no idea, we keep changing this but indeed we should instead change
-the regulator mode, it's safer to keep it that way until we figure that out.
+kernel test robot noticed the following build errors:
 
-I'll double check anyway
+[auto build test ERROR on next-20231025]
+[also build test ERROR on v6.6-rc7]
+[cannot apply to drm-misc/drm-misc-next usb/usb-testing usb/usb-next usb/usb-linus drm/drm-next linus/master v6.6-rc7 v6.6-rc6 v6.6-rc5]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> 
-> Nevertheless (unless you'd like to reuse sm8550 config entry):
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-bridge-add-transparent-bridge-helper/20231026-063135
+base:   next-20231025
+patch link:    https://lore.kernel.org/r/20231025223027.943563-5-dmitry.baryshkov%40linaro.org
+patch subject: [PATCH v5 4/6] drm/bridge: implement generic DP HPD bridge
+config: csky-randconfig-002-20231026 (https://download.01.org/0day-ci/archive/20231026/202310261906.C62L4fc2-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231026/202310261906.C62L4fc2-lkp@intel.com/reproduce)
 
-Thanks,
-Neil
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310261906.C62L4fc2-lkp@intel.com/
 
-> 
->> +       .has_phy_lane = true,
->> +       .regulator_data = dsi_phy_7nm_98000uA_regulators,
->> +       .num_regulators = ARRAY_SIZE(dsi_phy_7nm_98000uA_regulators),
->> +       .ops = {
->> +               .enable = dsi_7nm_phy_enable,
->> +               .disable = dsi_7nm_phy_disable,
->> +               .pll_init = dsi_pll_7nm_init,
->> +               .save_pll_state = dsi_7nm_pll_save_state,
->> +               .restore_pll_state = dsi_7nm_pll_restore_state,
->> +               .set_continuous_clock = dsi_7nm_set_continuous_clock,
->> +       },
->> +       .min_pll_rate = 600000000UL,
->> +#ifdef CONFIG_64BIT
->> +       .max_pll_rate = 5000000000UL,
->> +#else
->> +       .max_pll_rate = ULONG_MAX,
->> +#endif
->> +       .io_start = { 0xae95000, 0xae97000 },
->> +       .num_dsi_phy = 2,
->> +       .quirks = DSI_PHY_7NM_QUIRK_V5_2,
->> +};
->>
->> --
->> 2.34.1
->>
-> 
-> 
+All error/warnings (new ones prefixed by >>):
 
+   In file included from drivers/phy/qualcomm/phy-qcom-qmp-combo.c:24:
+>> include/drm/bridge/aux-bridge.h:28:1: error: expected identifier or '(' before '{' token
+      28 | {
+         | ^
+>> include/drm/bridge/aux-bridge.h:26:30: warning: 'drm_dp_hpd_bridge_register' declared 'static' but never defined [-Wunused-function]
+      26 | static inline struct device *drm_dp_hpd_bridge_register(struct device *parent,
+         |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +28 include/drm/bridge/aux-bridge.h
+
+    20	
+    21	#if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
+    22	struct device *drm_dp_hpd_bridge_register(struct device *parent,
+    23						  struct device_node *np);
+    24	void drm_aux_hpd_bridge_notify(struct device *dev, enum drm_connector_status status);
+    25	#else
+  > 26	static inline struct device *drm_dp_hpd_bridge_register(struct device *parent,
+    27								struct device_node *np);
+  > 28	{
+    29		return 0;
+    30	}
+    31	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
