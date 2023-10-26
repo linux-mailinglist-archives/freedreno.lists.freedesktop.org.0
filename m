@@ -2,53 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66F367D7CE9
-	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 08:34:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 116C07D7E0C
+	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 10:04:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C07010E767;
-	Thu, 26 Oct 2023 06:34:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C661C10E106;
+	Thu, 26 Oct 2023 08:04:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8DC10E603;
- Thu, 26 Oct 2023 06:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698302054; x=1729838054;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=WnfySFta4QeyblMHJF2qrIR4NYcvPeowwA+r9sQNFkE=;
- b=GW+PZKmCEJ1cNvAS4wh5IVpVAYBYjtXE7dN2oglOuiLfBWgQeCDcrrKS
- jjg1UoIDUpTdIA9APCMp7WIMDwyqk2nYAO2NoQ5q/8eLP7CEj7Jrr/h4M
- rM7OLphActxeu4vZxdLfJ6ZsbDwK11iB4b0r4NDDcZ5p7wGs7i0hXPg82
- PLnzODuYY4BZYw7jzIOtJco5Ci3KvYUwEJShO1Dc4P++b79RiTjJTtBCK
- I2jt4OsGm6xZJCXC2n2vok+pmljK9ONyzWU7S7juou02qijpAYJ3MX8en
- FhQszZzHhShPulwyGudlCQdE47k7B/lciTg0Nhkpt9uBXTCuTn4QeHN4I A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="387297548"
-X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="387297548"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2023 23:34:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; 
-   d="scan'208";a="6818850"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 25 Oct 2023 23:32:45 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qvtwQ-0009Z4-2S;
- Thu, 26 Oct 2023 06:34:02 +0000
-Date: Thu, 26 Oct 2023 14:33:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Message-ID: <202310261439.3rbAtEoB-lkp@intel.com>
-References: <20231026041236.1273694-4-matthew.brost@intel.com>
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6A6210E106;
+ Thu, 26 Oct 2023 08:04:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id BDD71B80935;
+ Thu, 26 Oct 2023 08:04:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D14AC433C8;
+ Thu, 26 Oct 2023 08:04:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1698307492;
+ bh=EAQ7g0hX/FrxSMaglusDeCTnn471+1/pfyILaNojVhU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fgekZGHe9w5dxxPKuk6zn5H1uJjUgh68Hyyq0hVSmesw81fAlMk4TVQuV+fG/Ifi1
+ bi/OMcbGSszHDTuVCfHrQcOiYv3LTv20fvoU1SpywODggvG/p4HrkVYhfgA8G/qA1K
+ hq13Qi/F68Tl8sEwYkUI/j7oUhxsyaodVcl4/HP7yzK7y4t2wRZwYwoTFSM79ueRYJ
+ t1gpgTbHagm39EF4326A8/n1Bjl28LzBwLUXBy4K6CFtS7RkxG0Hs4hxI6M4heugEC
+ rmhGrFUtI9Er0T2HPvwVxaNJz1ohb/CzatsuXO6zXUA8YxRIjNRkVZhOVjkzn/xjKi
+ l94O/mMwJ6K+Q==
+Date: Thu, 26 Oct 2023 10:04:48 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <mxtb6vymowutj7whbrygwlcupbdnfqxjralc3nwwapsbvrcmbm@sewxtdslfoen>
+References: <20231016165355.1327217-1-dmitry.baryshkov@linaro.org>
+ <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
+ <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
+ <CAA8EJpp48AdJmx_U=bEJZUWZgOiT1Ctz6Lpe9QwjLXkMQvsw5w@mail.gmail.com>
+ <uj6rtlionmacnwlqxy6ejt5iaczgbbe5z54ipte5ffbixcx3p4@pps7fcr3uqhf>
+ <1696f131-83fb-4d0c-b4d7-0bdb61e4ae65@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="t5jjjcy33i2jy7lt"
 Content-Disposition: inline
-In-Reply-To: <20231026041236.1273694-4-matthew.brost@intel.com>
-Subject: Re: [Freedreno] [PATCH v7 3/6] drm/sched: Convert the GPU scheduler
- to variable number of run-queues
+In-Reply-To: <1696f131-83fb-4d0c-b4d7-0bdb61e4ae65@linaro.org>
+Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
+ control over the DSI link power state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,237 +56,186 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, thomas.hellstrom@linux.intel.com,
- lina@asahilina.net, Liviu.Dudau@arm.com,
- Matthew Brost <matthew.brost@intel.com>, lima@lists.freedesktop.org,
- mcanal@igalia.com, luben.tuikov@amd.com, dakr@redhat.com,
- donald.robson@imgtec.com, nouveau@lists.freedesktop.org,
- robdclark@chromium.org, sarah.walker@imgtec.com, ketil.johnsen@arm.com,
- linux-arm-msm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, etnaviv@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, oe-kbuild-all@lists.linux.dev,
- faith.ekstrand@collabora.com, boris.brezillon@collabora.com,
- Qiang Yu <yuq825@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
- freedreno@lists.freedesktop.org, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Matthew,
 
-kernel test robot noticed the following build warnings:
+--t5jjjcy33i2jy7lt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[auto build test WARNING on 201c8a7bd1f3f415920a2df4b8a8817e973f42fe]
+On Wed, Oct 25, 2023 at 06:16:14PM +0300, Dmitry Baryshkov wrote:
+> On 25/10/2023 15:44, Maxime Ripard wrote:
+> > On Thu, Oct 19, 2023 at 02:19:51PM +0300, Dmitry Baryshkov wrote:
+> > > On Thu, 19 Oct 2023 at 12:26, Maxime Ripard <mripard@kernel.org> wrot=
+e:
+> > > >=20
+> > > > On Mon, Oct 16, 2023 at 07:53:48PM +0300, Dmitry Baryshkov wrote:
+> > > > > The MIPI DSI links do not fully fall into the DRM callbacks model.
+> > > >=20
+> > > > Explaining why would help
+> > >=20
+> > > A kind of explanation comes afterwards, but probably I should change
+> > > the order of the phrases and expand it:
+> > >=20
+> > > The atomic_pre_enable / atomic_enable and correspondingly
+> > > atomic_disable / atomic_post_disable expect that the bridge links
+> > > follow a simple paradigm: either it is off, or it is on and streaming
+> > > video. Thus, it is fine to just enable the link at the enable time,
+> > > doing some preparations during the pre_enable.
+> > >=20
+> > > But then it causes several issues with DSI. First, some of the DSI
+> > > bridges and most of the DSI panels would like to send commands over
+> > > the DSI link to setup the device.
+> >=20
+> > What prevent them from doing it in enable when the link is enabled?
+> >=20
+> > > Next, some of the DSI hosts have limitations on sending the commands.
+> > > The proverbial sunxi DSI host can not send DSI commands after the
+> > > video stream has started. Thus most of the panels have opted to send
+> > > all DSI commands from pre_enable (or prepare) callback (before the
+> > > video stream has started).
+> >=20
+> > I'm not sure we should account for a single driver when designing a
+> > framework. We should focus on designing something sound, and then making
+> > that driver work with whatever we designed, but not the other way
+> > around. And if we can't, we should get rid of that driver because it's
+> > de-facto unmaintainable. And I'm saying that as the author of that
+> > driver.
+>=20
+> That's not the only driver with strange peculiarities. For example, see
+> commit 8a4b2fc9c91a ("drm/bridge: tc358762: Split register programming fr=
+om
+> pre-enable to enable"), which was one of the issues that actually prompted
+> me to send this this patchset (after my previous version of this patch be=
+ing
+> rejected because of sunxi).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Brost/drm-sched-Add-drm_sched_wqueue_-helpers/20231026-121313
-base:   201c8a7bd1f3f415920a2df4b8a8817e973f42fe
-patch link:    https://lore.kernel.org/r/20231026041236.1273694-4-matthew.brost%40intel.com
-patch subject: [PATCH v7 3/6] drm/sched: Convert the GPU scheduler to variable number of run-queues
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20231026/202310261439.3rbAtEoB-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231026/202310261439.3rbAtEoB-lkp@intel.com/reproduce)
+The datasheet for that bridge is available so at least we can try to fix
+it (and bridges are much simpler than controllers anyway). It's not
+something we can do with the sunxi driver.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310261439.3rbAtEoB-lkp@intel.com/
+> > > However this leaves no good place for the DSI host to power up the DSI
+> > > link. By default the host's pre_enable callback is called after the
+> > > DSI bridge's pre_enable. For quite some time we were powering up the
+> > > DSI link from mode_set. This doesn't look fully correct.
+> >=20
+> > Yeah, it's not.
+> >=20
+> > > And also we got into the issue with ps8640 bridge, which requires for
+> > > the DSI link to be quiet / unpowered at the bridge's reset time.
+> > >=20
+> > > Dave has come with the idea of pre_enable_prev_first /
+> > > prepare_prev_first flags, which attempt to solve the issue by
+> > > reversing the order of pre_enable callbacks. This mostly solves the
+> > > issue. However during this cycle it became obvious that this approach
+> > > is not ideal too. There is no way for the DSI host to know whether the
+> > > DSI panel / bridge has been updated to use this flag or not, see the
+> > > discussion at [1].
+> >=20
+> > Yeah. Well, that happens. I kind of disagree with Neil here though when
+> > he says that "A panel driver should not depend on features of a DSI
+> > controller". Panels definitely rely on particular features, like the
+> > number of lanes, the modes supported, etc.
+>=20
+> In the mentioned discussion it was more about 'DSI host should not assume
+> panel driver features', like the panel sending commands in pre_enable or
+> not, or having pre_enable_prev_first.
+>=20
+> So the pre_enable_prev_first clearly lacks feature negotiation.
+>=20
+> > Panels shouldn't depend on a particular driver *behaviour*. But the
+> > features are fine.
+> >=20
+> > For our particular discussion, I think that that kind of discussion is a
+> > dead-end, and we just shouldn't worry about it. Yes, some panels have
+> > not yet been updated to take the new flags into account. However, the
+> > proper thing to do is to update them if we see a problem with that (and
+> > thus move forward to the ideal solution), not revert the beginning of
+> > that feature enablement (thus moving away from where we want to end up
+> > in).
+> >=20
+> > > Thus comes this proposal. It allows for the panels to explicitly bring
+> > > the link up and down at the correct time, it supports automatic use
+> > > case, where no special handling is required. And last, but not least,
+> > > it allows the DSI host to note that the bridge / panel were not
+> > > updated to follow new protocol and thus the link should be powered on
+> > > at the mode_set time. This leaves us with the possibility of dropping
+> > > support for this workaround once all in-kernel drivers are updated.
+> >=20
+> > I'm kind of skeptical for these kind of claims that everything will be
+> > automatic and will be handled fine. What if we have conflicting
+> > requirements, for example two bridges drivers that would request the
+> > power up at different times?
+>=20
+> Well, we do not support DSI sublinks, do we?
 
-All warnings (new ones prefixed by >>):
+No, but we start to consider adding support for muxes for example. A DSI
+mux + a DSI bridge behind it might trigger that behaviour, even if we
+don't support sublinks.
 
-   drivers/gpu/drm/etnaviv/etnaviv_sched.c: In function 'etnaviv_sched_init':
->> drivers/gpu/drm/etnaviv/etnaviv_sched.c:138:30: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     138 |                              DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                              ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                              |
-         |                              int
-   In file included from drivers/gpu/drm/etnaviv/etnaviv_drv.h:20,
-                    from drivers/gpu/drm/etnaviv/etnaviv_sched.c:8:
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
-   In file included from include/uapi/linux/posix_types.h:5,
-                    from include/uapi/linux/types.h:14,
-                    from include/linux/types.h:6,
-                    from include/linux/kasan-checks.h:5,
-                    from include/asm-generic/rwonce.h:26,
-                    from ./arch/m68k/include/generated/asm/rwonce.h:1,
-                    from include/linux/compiler.h:246,
-                    from include/linux/build_bug.h:5,
-                    from include/linux/init.h:5,
-                    from include/linux/moduleparam.h:5,
-                    from drivers/gpu/drm/etnaviv/etnaviv_sched.c:6:
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/etnaviv/etnaviv_sched.c:138:56: note: in expansion of macro 'NULL'
-     138 |                              DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                        ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
---
-   drivers/gpu/drm/lima/lima_sched.c: In function 'lima_sched_pipe_init':
->> drivers/gpu/drm/lima/lima_sched.c:492:31: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     492 |                               DRM_SCHED_PRIORITY_COUNT, NULL, 1,
-         |                               ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                               |
-         |                               int
-   In file included from drivers/gpu/drm/lima/lima_sched.h:7,
-                    from drivers/gpu/drm/lima/lima_device.h:12,
-                    from drivers/gpu/drm/lima/lima_ctx.h:10,
-                    from drivers/gpu/drm/lima/lima_drv.h:9,
-                    from drivers/gpu/drm/lima/lima_sched.c:11:
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
-   In file included from include/uapi/linux/posix_types.h:5,
-                    from include/uapi/linux/types.h:14,
-                    from include/linux/types.h:6,
-                    from include/linux/io.h:9,
-                    from include/linux/iosys-map.h:10,
-                    from drivers/gpu/drm/lima/lima_sched.c:4:
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/lima/lima_sched.c:492:57: note: in expansion of macro 'NULL'
-     492 |                               DRM_SCHED_PRIORITY_COUNT, NULL, 1,
-         |                                                         ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
---
-   drivers/gpu/drm/v3d/v3d_sched.c: In function 'v3d_sched_init':
->> drivers/gpu/drm/v3d/v3d_sched.c:391:50: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     391 |                              &v3d_bin_sched_ops, DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                                                  |
-         |                                                  int
-   In file included from drivers/gpu/drm/v3d/v3d_drv.h:12,
-                    from drivers/gpu/drm/v3d/v3d_sched.c:23:
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
-   In file included from include/uapi/linux/posix_types.h:5,
-                    from include/uapi/linux/types.h:14,
-                    from include/linux/types.h:6,
-                    from include/linux/kasan-checks.h:5,
-                    from include/asm-generic/rwonce.h:26,
-                    from ./arch/m68k/include/generated/asm/rwonce.h:1,
-                    from include/linux/compiler.h:246,
-                    from include/linux/err.h:5,
-                    from include/linux/kthread.h:5,
-                    from drivers/gpu/drm/v3d/v3d_sched.c:21:
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/v3d/v3d_sched.c:391:76: note: in expansion of macro 'NULL'
-     391 |                              &v3d_bin_sched_ops, DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                                            ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
-   drivers/gpu/drm/v3d/v3d_sched.c:399:53: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     399 |                              &v3d_render_sched_ops, DRM_SCHED_PRIORITY_COUNT,
-         |                                                     ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                                                     |
-         |                                                     int
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/v3d/v3d_sched.c:400:30: note: in expansion of macro 'NULL'
-     400 |                              NULL, hw_jobs_limit, job_hang_limit,
-         |                              ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
-   drivers/gpu/drm/v3d/v3d_sched.c:407:50: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     407 |                              &v3d_tfu_sched_ops, DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                                                  |
-         |                                                  int
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/v3d/v3d_sched.c:407:76: note: in expansion of macro 'NULL'
-     407 |                              &v3d_tfu_sched_ops, DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                                            ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
-   drivers/gpu/drm/v3d/v3d_sched.c:417:38: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     417 |                                      DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                      ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                                      |
-         |                                      int
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/v3d/v3d_sched.c:417:64: note: in expansion of macro 'NULL'
-     417 |                                      DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                                ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
-   drivers/gpu/drm/v3d/v3d_sched.c:426:38: warning: passing argument 3 of 'drm_sched_init' makes pointer from integer without a cast [-Wint-conversion]
-     426 |                                      DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                      ^~~~~~~~~~~~~~~~~~~~~~~~
-         |                                      |
-         |                                      int
-   include/drm/gpu_scheduler.h:530:45: note: expected 'struct workqueue_struct *' but argument is of type 'int'
-     530 |                    struct workqueue_struct *submit_wq,
-         |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
->> include/linux/stddef.h:8:14: warning: passing argument 4 of 'drm_sched_init' makes integer from pointer without a cast [-Wint-conversion]
-       8 | #define NULL ((void *)0)
-         |              ^~~~~~~~~~~
-         |              |
-         |              void *
-   drivers/gpu/drm/v3d/v3d_sched.c:426:64: note: in expansion of macro 'NULL'
-     426 |                                      DRM_SCHED_PRIORITY_COUNT, NULL,
-         |                                                                ^~~~
-   include/drm/gpu_scheduler.h:531:24: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'void *'
-     531 |                    u32 num_rqs, uint32_t hw_submission, unsigned hang_limit,
-         |                    ~~~~^~~~~~~
+> > Also, we would still need to update every single panel driver, which is
+> > going to create a lot of boilerplate that people might get wrong.
+>=20
+> Yes, quite unfortunately. Another approach that I have in mind is to add =
+two
+> callbacks to mipi_dsi_device. This way the DSI host will call into the
+> device to initialise it once the link has been powered up and just before
+> tearing it down. We solve a lot of problems this way, no boilerplate and =
+the
+> panel / bridge are in control of the initialisation procedure. WDYT?
+>=20
+> > I have the feeling that we should lay out the problem without talking
+> > about any existing code base first. So, what does the MIPI-DSI spec
+> > requires and what does panels and bridges expect?
+>=20
+> There is not that much in the DSI spec (or maybe I do not understand the
+> question). The spec is more about the power states and the commands. Our
+> problem is that this doesn't fully match kernel expectations.
 
+You're explicitly asking for comments on that series. How can we provide
+any comment if you're dead-set on a particular implementation and not
+explain what the problem you are trying to solve is?
 
-vim +/drm_sched_init +138 drivers/gpu/drm/etnaviv/etnaviv_sched.c
+Thinking more about it, I'm even more skeptical about the general
+approach that this should be implemented at the bridge level (or in
+KMS).
 
-   132	
-   133	int etnaviv_sched_init(struct etnaviv_gpu *gpu)
-   134	{
-   135		int ret;
-   136	
-   137		ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
- > 138				     DRM_SCHED_PRIORITY_COUNT, NULL,
-   139				     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
-   140				     msecs_to_jiffies(500), NULL, NULL,
-   141				     dev_name(gpu->dev), gpu->dev);
-   142		if (ret)
-   143			return ret;
-   144	
-   145		return 0;
-   146	}
-   147	
+It looks to me that this is very much a bus problem. USB device drivers
+also require the bus to be powered and generally available to send data
+to their device, and you don't fix that up in the HID or storage
+drivers, you make the bus behave that way.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+What prevents us from fixing it at the bus level?
+
+Maxime
+
+--t5jjjcy33i2jy7lt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZTodoAAKCRDj7w1vZxhR
+xXxfAP9VCXaQR2cQ7p55Qlz1ohFIbsH/qdui1vb3BqtSku+upgEAjT4JPOz2oULJ
+J5eoQVTdscVpioLNgkJXMKMNMAd0+A0=
+=lsQF
+-----END PGP SIGNATURE-----
+
+--t5jjjcy33i2jy7lt--
