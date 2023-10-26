@@ -2,61 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7807D89CA
-	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 22:46:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8C987D89CF
+	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 22:47:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18BCF10E8A9;
-	Thu, 26 Oct 2023 20:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85DC510E8A5;
+	Thu, 26 Oct 2023 20:47:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41F4810E8A8
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 20:46:46 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- 46e09a7af769-6cd0963c61cso885663a34.0
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 13:46:46 -0700 (PDT)
+Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
+ [IPv6:2607:f8b0:4864:20::b29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A794C10E8A5
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 20:47:39 +0000 (UTC)
+Received: by mail-yb1-xb29.google.com with SMTP id
+ 3f1490d57ef6-d9c7bba32beso978689276.1
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 13:47:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698353205; x=1698958005; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1698353259; x=1698958059; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=I/G02VsxhYJWjx+P8kMFTWWV+s1yYYgHb9RgEPb8krc=;
- b=eYutkuaXl3BBzWj6IjKxL2y4ExNpWeuZ+5EzAi8acrekI+MQrpqP9U6k19rFDpwGRe
- WC6NwhDgp9YcLYOZQyDQsLrU7ErnDKKeAa/Iad1/tosyB2wRGtVRZaJhA5dAeJA9Cf6r
- ZEdUBtbgfbZlgzpZEwoF9X7TY/Es0NLc2ahgGBqv2xcuKpJhha1ZqO3VMYowDNIUvc66
- KgSIuQ8cvKRnxMymhnnd+/rA8nnK9v4xLCaDogpi4FY3SQZ0flaFpWWKzq8QRi8oojkW
- Lncfu2l7+PhcnbZ2sSIguQGjv72772HP0nzoCeD2LRtVbb+3cS5kVUdKbivonAj/0erP
- GTrw==
+ bh=jKSlzStaatEuvyuk4N2jzmzAhRhglEf2C7Yl+0Y/OSw=;
+ b=lFwrxs1vpjCZBolB/Z60VCzFLOwEkEwF4NB8JcPD9Wo17JQ0NHa3Ih52LWWTRhqpQ1
+ YOG5TlvzCc95KhikrIu365qklkt3hVXPnaHf5zD4BohmdYDaTpMPWTzSnLZV+Ka5wZce
+ IlLE5HP3/DqcjeK9JflTClWOzgKIF+2Vo9ExsBfjiRj5wzNhTCq/DDZKVzqs6PQJ7TF8
+ gQ9f6bQwccdCKa8CQZgRhAwsxMiWWF1864ihkrY+KhNqpFxb3deEMA5zHNdJA11ZKJ4Y
+ OMYIaA2o7vruKa2XCFddfQ0Jw3gSqzmqPPlhvBR2q0ddUYsiJgOjX/Aqk7grUnPLbnuR
+ IXKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698353205; x=1698958005;
+ d=1e100.net; s=20230601; t=1698353259; x=1698958059;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=I/G02VsxhYJWjx+P8kMFTWWV+s1yYYgHb9RgEPb8krc=;
- b=AdlFGXnxqiENxuXHAAU/MLXA1zba7cLvkrkSIEzurZzCQoxmEYzUyiM0UpV0JYqxuh
- hmpUdWEwD3nzm3tGY7rUJ1D3lKZU+FUfv/G+jcilGfvAl3MLdQu35ZL/7vG7MMNDbZUr
- N8xkiqJilmPn4s0W1eeqvieV/49kcPzXKQQ7Ux7/MfTR5keV+L+mg54dVsvkzfVdKqdT
- sTR2jULlUQpXS4hISAJYmPWFUxGXbh8ddzH/OSm50giyX1m7yNwWKt6CARxU48QGizIX
- GUV4+53iQFx3rdMPQMOMhhtmtYbJlyj8z5I3IySJ/KYLgsQ6J4CT/9FSQJmiV+oMQrLB
- EUVA==
-X-Gm-Message-State: AOJu0YwQlz7WWyPzyZb+shZjTvWwnEL4GzcG557AUMiem7x3pVPZUsK3
- TF1KnjcU5CvuZf9caz6NCxi6pKa14YG6AvgRHkLTdw==
-X-Google-Smtp-Source: AGHT+IFVa6fJL5TjjQrb46JjIVUSocFW+PYDsLYQl5v/O4exSYbtWF5+eYNBjXmSZw79pzDpYDJn2OV8FuRMoqSfUoo=
-X-Received: by 2002:a9d:66ce:0:b0:6c5:233:fc28 with SMTP id
- t14-20020a9d66ce000000b006c50233fc28mr664232otm.33.1698353205417; Thu, 26 Oct
- 2023 13:46:45 -0700 (PDT)
+ bh=jKSlzStaatEuvyuk4N2jzmzAhRhglEf2C7Yl+0Y/OSw=;
+ b=fE53zAl9JRz3kMMcVXatO2qce9daaJU7pk33nPQLtnj0RQt5wvcBTKEqZd+L+A5cuv
+ +88kJobFGF6bno27E8FF+hMOXu0zOqV3WRlGpwzRL3ACTjhjbWPpWSVIyIvGaUtfZkkW
+ /m/02ts0uH0eKkb556/9NA6LiB2cL2cQ+jYWIEqqiQay8T3JYB7sHUuKp4TluIUISirt
+ owsDV5l0TB1ytSaFT3JYLPjcdyL5nUtlHPjqdbxuJBkEYFafuwDuXtsR4kuqm+sKK6FM
+ zVAnc9MyL5acNhp6Bxk/hl3M0K6kOgVRjsYTEv8GtozU+A2ETWQK9TjZa+vaje0AqR0z
+ c13A==
+X-Gm-Message-State: AOJu0Yw/Z0gtfCzLurOBYygqJeabfqpkXnEt75xw+0YDztJDXWp/bMuO
+ 91eAmOdCy+DlMxr6i2kIP0OqBuqmu/0843C7B4G9Fw==
+X-Google-Smtp-Source: AGHT+IG+vwPhPJYaA4HNyWvGtr14eA6vW2gDwAzAGDdlIAmWF+e+hGm2+Yi26mj+SjfZHi191GbY0gPPPP5Y0eHY5sE=
+X-Received: by 2002:a25:b201:0:b0:d9a:45d7:4eae with SMTP id
+ i1-20020a25b201000000b00d9a45d74eaemr555013ybj.62.1698353258762; Thu, 26 Oct
+ 2023 13:47:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230928111630.1217419-1-dmitry.baryshkov@linaro.org>
- <20230928111630.1217419-14-dmitry.baryshkov@linaro.org>
- <36d6379b-66e6-4781-b08d-ef90f6e47828@linaro.org>
-In-Reply-To: <36d6379b-66e6-4781-b08d-ef90f6e47828@linaro.org>
+References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
+ <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
+ <abc36c33-bfd9-4451-80ab-a631492044de@linaro.org>
+ <ed18292b-efe8-48fc-8696-79e51acf8ab4@linaro.org>
+In-Reply-To: <ed18292b-efe8-48fc-8696-79e51acf8ab4@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 26 Oct 2023 23:46:34 +0300
-Message-ID: <CAA8EJppa8-M8Uah+=GBhG4bHvdGUwqgh0aj8o9rLfEdZq=JUKA@mail.gmail.com>
+Date: Thu, 26 Oct 2023 23:47:27 +0300
+Message-ID: <CAA8EJpo_H3-Lk1GQXGQikXiCtaEQ4C+FBW-fz9D2TbuX2HDhRA@mail.gmail.com>
 To: Konrad Dybcio <konrad.dybcio@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 13/15] drm/msm/hdmi: pair
- msm_hdmi_phy_powerup with msm_hdmi_phy_powerdown
+Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
+ clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,36 +70,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kishon Vijay Abraham I <kishon@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
+ Taniya Das <quic_tdas@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ Michael Turquette <mturquette@baylibre.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 26 Oct 2023 at 22:54, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+On Thu, 26 Oct 2023 at 21:57, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
 >
 >
 >
-> On 9/28/23 13:16, Dmitry Baryshkov wrote:
-> > In preparation to converting MSM HDMI driver to use PHY framework, which
-> > requires phy_power_on() calls to be paired with phy_power_off(), add a
-> > conditional call to msm_hdmi_phy_powerdown() before the call to
-> > msm_hdmi_phy_powerup().
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> Is this a conversion artifact that will be undone, or does the
-> framework actually expect that refcounting may not be enough and
-> phy resetting will have to take place?
+> On 10/7/23 01:43, Konrad Dybcio wrote:
+> > On 4.10.2023 02:31, Dmitry Baryshkov wrote:
+> >> clk_rcg2_shared_ops implements support for the case of the RCG which
+> >> must not be completely turned off. However its design has one major
+> >> drawback: it doesn't allow us to properly implement the is_enabled
+> >> callback, which causes different kinds of misbehaviour from the CCF.
+> >>
+> >> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
+> >> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
+> >> switched off (and shared most of the implementation with
+> >> clk_rcg2_shared_ops). The major difference is that it requires that the
+> >> parent map doesn't conain the safe (parked) clock source. Instead if the
+> >> CFG_REG register points to the safe source, the clock is considered to
+> >> be disabled.
+> >>
+> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> ---
+> > Would the intention here be to replace all usages of _shared_?
 
-I don't remember why I did it this way. Let me check, most likely this
-patch can be completely dropped as the enable / disable operations are
-paired by the DRM core.
+Yes
 
 -- 
 With best wishes
