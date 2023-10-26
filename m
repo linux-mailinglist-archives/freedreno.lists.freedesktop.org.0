@@ -1,74 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A459F7D8A0F
-	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 23:09:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 911AF7D8BF1
+	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 00:56:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CAC210E8AF;
-	Thu, 26 Oct 2023 21:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42BE310E8D0;
+	Thu, 26 Oct 2023 22:56:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E90A10E8AF
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 21:08:58 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-53e08b60febso2081459a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 14:08:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698354537; x=1698959337; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bMfPZQG3/ucH8AVq/i3Ub3YrK7tt+d1+4bgiELGiq+Q=;
- b=FcnTEkuIUt+nafs+nu1j8dofnn/xINBZzjkwf+1LbG5ZS0mtB5Z2Z7L9HnuoabbOQj
- 4TJvN8MdKGnmu4kHfjHjlyq2Q4thJHJnOoQP735aBSCE0SCwKF2i19YHGQHHqeIwn26q
- ykpGZ6fuKKhctfBF870J9++DlPQhaQ39quPq5L3BlfTCd8m/Fg4tDIOGykVBV2yGgK7k
- bPM08ftHrSCNvP8xrwXTp1lqlL6ITDOpeJyvpfIxDVMxO1vuAnWZIvNR6i97VHGP42If
- kbZr81N1vTiyjYdp1stb6lRUtSnyL1+dKsLC1PGBb+DtTOLs+RJYS56U3jfudz2Aj1vG
- YORg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698354537; x=1698959337;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bMfPZQG3/ucH8AVq/i3Ub3YrK7tt+d1+4bgiELGiq+Q=;
- b=ka2yJoOIE9JhGSPr5bpcCza9y0iaoUVNcwJhaNT8Dtc7JQfmOq84pbn5U4S6ViBU9f
- hpLWXPOsElc050CQs96O+36CYZjUlo7kAIA5AJ8pFbvKSZtPzwf8ppwcjD0ZXmmoESb9
- BLQaCsVEF0hBx6xI5VzMMK9VrktQER4MBbhKyhDqxg+N/Xho9uzaaxz8H39hE0NEGoUj
- W02DVf8TNzxbTelYA63+2HSsVMDlPERpYsVVgW7939EJCayzkFS4FgN/OgTeYjxVTSAN
- Voa7OmuUuwfBvg5/VSU3cuSHi/OPyOP650+ALj8S+ZyVzZU6pLY4jq1C7viF9D/ShFgu
- LksQ==
-X-Gm-Message-State: AOJu0YzRcc4v99xnrzR0f8aS/6Pwm3lXjEl0zFx37tlqxbdsZ0ahrO7D
- WM1KjK/IBhkxcOe32yY9ognuRg==
-X-Google-Smtp-Source: AGHT+IHpOWLcn7w5EuLJRpdXs6AF75XUE7TiA9NDj5B80gxhszVR/o2uDb+GN+7c1/0kxpF8rKNm6A==
-X-Received: by 2002:a05:6402:1a35:b0:53e:467c:33f8 with SMTP id
- be21-20020a0564021a3500b0053e467c33f8mr799145edb.20.1698354536903; 
- Thu, 26 Oct 2023 14:08:56 -0700 (PDT)
-Received: from [172.30.205.55] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- g27-20020a50d5db000000b005402c456892sm167715edj.33.2023.10.26.14.08.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Oct 2023 14:08:56 -0700 (PDT)
-Message-ID: <cd3df2b1-f384-4d26-99a1-e53ecf9f332e@linaro.org>
-Date: Thu, 26 Oct 2023 23:08:54 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEE3710E8D0
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 22:56:30 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39QMmMXh021706; Thu, 26 Oct 2023 22:56:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=date : from : to :
+ cc : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=qcppdkim1; bh=QuNE39pL9uhA7ikWBr/DWjgOB9r3XgvMfAUjDQ67mig=;
+ b=E15AkcE0HVKIVbwte5yNBFaQeHxi/FyDj2g2A1iYuC5SqtAfOkv2/3umWvjJOPZKxoUB
+ toIMPCZFsfQg3ROrhh2q1NEek4/DmFe4I8GsFUPQP+vT9xBoRogeSrvBtKUi4i1c6wYd
+ NborTCxQt58sTx3CXiEXm6vNe01kvoHQI5fIAr86vKMbUM5c3gBdvSxcvRTzviclXc5M
+ kMMKJ68o4cv22+8AhvqxhmVkBxdKIqcYzlhkfah8qyZr5A7uuqhn1AqrNOJgrBFwRAUa
+ zDmebajex3fmbIHCfGIMlhtDillqJbl72lZ4Juy+RuI1IA9g2Qu1FYpx3b385W5OsQfZ hw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tywvt8dqs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Oct 2023 22:56:25 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39QMuOHv010754
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Oct 2023 22:56:24 GMT
+Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.39; Thu, 26 Oct 2023 15:56:24 -0700
+Date: Thu, 26 Oct 2023 15:56:22 -0700
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20231026225622.GT3553829@hu-bjorande-lv.qualcomm.com>
+References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
+ <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
-References: <20230928111630.1217419-1-dmitry.baryshkov@linaro.org>
- <20230928111630.1217419-6-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230928111630.1217419-6-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 05/15] phy: qualcomm: add legacy HDMI PHY
- driver
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: jAiN9jfR8OpRC1-LVXMkz4tInl0Z2uUR
+X-Proofpoint-ORIG-GUID: jAiN9jfR8OpRC1-LVXMkz4tInl0Z2uUR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-26_22,2023-10-26_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ clxscore=1011 lowpriorityscore=0 mlxlogscore=999 adultscore=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 mlxscore=0 bulkscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2310240000 definitions=main-2310260200
+Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
+ clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,54 +80,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-phy@lists.infradead.org,
- David Airlie <airlied@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
+ Taniya Das <quic_tdas@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ freedreno@lists.freedesktop.org, Michael Turquette <mturquette@baylibre.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, Oct 04, 2023 at 03:31:24AM +0300, Dmitry Baryshkov wrote:
+> clk_rcg2_shared_ops implements support for the case of the RCG which
+> must not be completely turned off. However its design has one major
+> drawback: it doesn't allow us to properly implement the is_enabled
+> callback, which causes different kinds of misbehaviour from the CCF.
 
+I have some behaviors in mind when reading this, others might not.
+Please give some specific behavior(s) here.
 
-On 9/28/23 13:16, Dmitry Baryshkov wrote:
-> Add the driver for pre-QMP Qualcomm HDMI PHYs. Currently it suppports
-> Qualcomm MSM8960 / APQ8064 platforms, other platforms will come later.
+Thanks,
+Bjorn
+
+> 
+> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
+> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
+> switched off (and shared most of the implementation with
+> clk_rcg2_shared_ops). The major difference is that it requires that the
+> parent map doesn't conain the safe (parked) clock source. Instead if the
+> CFG_REG register points to the safe source, the clock is considered to
+> be disabled.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-[...]
-
-
+>  drivers/clk/qcom/clk-rcg.h  |  1 +
+>  drivers/clk/qcom/clk-rcg2.c | 34 ++++++++++++++++++++++++++++++++++
+>  2 files changed, 35 insertions(+)
+> 
+> diff --git a/drivers/clk/qcom/clk-rcg.h b/drivers/clk/qcom/clk-rcg.h
+> index e6d84c8c7989..9fbbf1251564 100644
+> --- a/drivers/clk/qcom/clk-rcg.h
+> +++ b/drivers/clk/qcom/clk-rcg.h
+> @@ -176,6 +176,7 @@ extern const struct clk_ops clk_byte2_ops;
+>  extern const struct clk_ops clk_pixel_ops;
+>  extern const struct clk_ops clk_gfx3d_ops;
+>  extern const struct clk_ops clk_rcg2_shared_ops;
+> +extern const struct clk_ops clk_rcg2_parked_ops;
+>  extern const struct clk_ops clk_dp_ops;
+>  
+>  struct clk_rcg_dfs_data {
+> diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
+> index 5183c74b074f..3f52abf0025e 100644
+> --- a/drivers/clk/qcom/clk-rcg2.c
+> +++ b/drivers/clk/qcom/clk-rcg2.c
+> @@ -5,6 +5,7 @@
+>  
+>  #include <linux/kernel.h>
+>  #include <linux/bitops.h>
+> +#include <linux/bitfield.h>
+>  #include <linux/err.h>
+>  #include <linux/bug.h>
+>  #include <linux/export.h>
+> @@ -1150,6 +1151,39 @@ const struct clk_ops clk_rcg2_shared_ops = {
+>  };
+>  EXPORT_SYMBOL_GPL(clk_rcg2_shared_ops);
+>  
+> +static int clk_rcg2_park_is_enabled(struct clk_hw *hw)
 > +{
-> +	unsigned int pixclk = hdmi_phy->hdmi_opts.pixel_clk_rate;
-> +        unsigned int int_ref_freq;
-there's some misaligned things
-
-[...]
-
-> +	lf_cfg0 = dc_offset >= 30 ? 0 : (dc_offset >= 16 ? 0x10 : 0x20);
-some unreadable things
-
-[...]
-
-> +	hdmi_pll_write(hdmi_phy, REG_HDMI_8960_PHY_PLL_SDM_CFG2,
-> +		       sdm_freq_seed & 0xff);
+> +	struct clk_rcg2 *rcg = to_clk_rcg2(hw);
+> +	u32 cfg;
+> +	int ret;
 > +
-> +	hdmi_pll_write(hdmi_phy, REG_HDMI_8960_PHY_PLL_SDM_CFG3,
-> +		       (sdm_freq_seed >> 8) & 0xff);
+> +	if (!clk_rcg2_is_enabled(hw))
+> +		return false;
 > +
-> +	hdmi_pll_write(hdmi_phy, REG_HDMI_8960_PHY_PLL_SDM_CFG4,
-> +		       sdm_freq_seed >> 16);
-and a lot of magic bits in this submission
-
-and some non-reverse-Christmas-trees
-
-and some leftover comments like /* XXX: 19.2 for qcs404 */
-
-I see a lot of RMW, maybe regmap could help make this more readable
-
-on the !style front, it looks sane to an unknowing eye, so I guess
-that's the end of my complaints
-
-Konrad
+> +	ret = regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, &cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return FIELD_GET(CFG_SRC_SEL_MASK, cfg) != rcg->safe_src_index;
+> +}
+> +
+> +/*
+> + * Unlike clk_rcg2_shared_ops, the safe_src_index aka XO must NOT be present in
+> + * parent_map. This allows us to implement proper is_enabled callback.
+> + */
+> +const struct clk_ops clk_rcg2_parked_ops = {
+> +	.is_enabled = clk_rcg2_park_is_enabled,
+> +	.enable = clk_rcg2_shared_enable,
+> +	.disable = clk_rcg2_shared_disable,
+> +	.get_parent = clk_rcg2_shared_get_parent,
+> +	.set_parent = clk_rcg2_shared_set_parent,
+> +	.recalc_rate = clk_rcg2_shared_recalc_rate,
+> +	.determine_rate = clk_rcg2_determine_rate,
+> +	.set_rate = clk_rcg2_shared_set_rate,
+> +	.set_rate_and_parent = clk_rcg2_shared_set_rate_and_parent,
+> +};
+> +EXPORT_SYMBOL_GPL(clk_rcg2_parked_ops);
+> +
+>  /* Common APIs to be used for DFS based RCGR */
+>  static void clk_rcg2_dfs_populate_freq(struct clk_hw *hw, unsigned int l,
+>  				       struct freq_tbl *f)
+> -- 
+> 2.39.2
+> 
