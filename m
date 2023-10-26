@@ -1,74 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C867D889C
-	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 20:57:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 594F97D88D5
+	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 21:16:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D72E10E867;
-	Thu, 26 Oct 2023 18:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 093C010E86A;
+	Thu, 26 Oct 2023 19:16:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41D4A10E867
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 18:57:40 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-507b18cf2e1so1760866e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 11:57:40 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBC810E049
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 19:16:21 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-507962561adso1943705e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 12:16:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698346658; x=1698951458; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1698347780; x=1698952580; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=AMg17KxuWBUiUv6A0i2QEQW2s5Z+lVHigup08bOBCUE=;
- b=sphVyJ14mCKDKlMVd9Xwkv/JO2ScQA9xAbaX3fT9WG/WIk+EcIKUfp9eB3l606Lv8D
- SspfMp1F68W4qe5ZvdJPlu3LXC450wUp1aLG7PqHpwdN+y0t8ho59IZkI+Pm0GwhRr9K
- Y6ASYnC0Sfwi+mIJgNIDP5oNcLCUfIDvDO2mOFcCDMb5yfOOZkWX/fQiqZhnY6F38Gna
- J1Pz8t/hFFwbVtgiLYX4gIw57E/Mexy5wV1J1loOMG5QC6hQ9saVtXOXYSSEvMi7AOiz
- Cdek3JRM7ma1LG+u6wXwOwgIN/vL9vHgCPjVRfXwvXKHV1z/Dpmlcn9UPXG8x/0hXx6W
- jR/A==
+ bh=MmfACo16Znzmc2tlkLC7HANA11z5OmTtfKSPsuqMXkQ=;
+ b=luNO6ro1Bcptd4tJLrO2Is/khoH6lLipbVMYR6oRzB2BXmcc+EZWvs8wrXi7qOg/ON
+ 3vUPnkxLc9PTED5gMJ741YJSRmz32+5qgFXNCYM/1q/2HH9R3PLRGH6wo6w0XTeAxDtW
+ KHioRhiQZ9QXXvAXODsNuotXkCaMNSjbzNdbQI0hDZl8+tna9K0UwcFTx7QBx+CZdCoM
+ GVdm1IkfaT/4SF7t9cZ2DUtDfn9xBxUA2g5jbkhBIG0jAGAObD0G+w1qU213EwrTuGPX
+ HXJhWJM/NcY8138B97fQqhp/imaV3n8DOwEYF+aWgzKlLv+LmYvvN/ZcYDEDYsc1dSPU
+ TVGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698346658; x=1698951458;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
- :content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1698347780; x=1698952580;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AMg17KxuWBUiUv6A0i2QEQW2s5Z+lVHigup08bOBCUE=;
- b=gSm5oTY/duzPOVGTKH0Ak4t2dHDCO/tK9KSPRNLXVYnLgOX8J75PQrAK6rIp8q9OJp
- MvR6BcQuTbH3PEA3ZWbBR/YJBcaGA974AzGrcBWP1uSE3zLIebiMS3ajhZiKSOIMJKtF
- JZVxSvEcQmG632gYIVze/fOu60XO6j2Q+NydFC4/LRk6f55LhZ6+xwiFK37VuyMg9fc3
- 5J6wKK3Wm0ZoPeoVJwRB0OBFrTzC+UOj7Gq7r/r7MkqwTi/4ei9DYrGsZYWuQJzZ3Gbz
- TWpRW3mFv1sTt2y/JL8uoCsM3wvSVdC1S1B7oBUFD8t1xZPuk8fhQCD11dEGaefTs6yv
- Jrcg==
-X-Gm-Message-State: AOJu0YwEjZuGKwIneT/fxni7yFYWRQlq/jqz4sfQHuDG+bjxcd3U2IwK
- BvYKqfLP2lUIS/myabZs5zhnfg==
-X-Google-Smtp-Source: AGHT+IHuQWDn7OUiBtFrH0a1lZxUUGtlxrPanh02+ZPMGloHbEwjjoFN8dI3E0sKr4JffKJU2N8AoQ==
-X-Received: by 2002:a05:6512:2256:b0:503:1aae:eca0 with SMTP id
- i22-20020a056512225600b005031aaeeca0mr175782lfu.44.1698346658359; 
- Thu, 26 Oct 2023 11:57:38 -0700 (PDT)
-Received: from [172.30.205.8] (UNUSED.212-182-62-129.lubman.net.pl.
+ bh=MmfACo16Znzmc2tlkLC7HANA11z5OmTtfKSPsuqMXkQ=;
+ b=EqXecJZDzmoebMVDuq/DWHjyYKw3AsGab99JkitDSyUfWcZDhqFAlixDcGrxg51bW0
+ V18RIAK7cw/n0GshP0ISkhHOHx6v+BlH7BGaQppSyHMEENZEVbFB/P0YoVQsGQ6JQkPn
+ RKC0X6X20dMBHX/u6i9C7BqqblymVg51J0/susi52Q/phDQOueuaTGSLWiFez5bczV1y
+ 1ejmVVaU7Bm2cX4LWLUG+0fcO3iLRzpIJsTJkxFPlTp3RhxmqrNPWaHEDka4OcsfgMV0
+ 55pSR+ZkiX0Cnjn7HnpRZJKwr579zx4lKIo640GGa8/+P0VGMaPx0AQc5FDA4BaVPk7U
+ k4Hg==
+X-Gm-Message-State: AOJu0YxZqSdercSx2x7Vzu6y+AVn7nd/dtDB35U9kJ8RRFIkaxaS0asO
+ qXV0av/9WjvkXyuUebHj9/lLkw==
+X-Google-Smtp-Source: AGHT+IG+I8IqwyM3X+sAvm1ZUN54t+CWanNfCrnKDrk6SJrmu26XlqPpUrDfvcoLvyebrtu/2Fnzew==
+X-Received: by 2002:a05:6512:1156:b0:503:7be:c85d with SMTP id
+ m22-20020a056512115600b0050307bec85dmr246597lfg.35.1698347779684; 
+ Thu, 26 Oct 2023 12:16:19 -0700 (PDT)
+Received: from [172.30.204.229] (UNUSED.212-182-62-129.lubman.net.pl.
  [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- q18-20020a194312000000b0050797cbfa82sm3122255lfa.17.2023.10.26.11.57.36
+ be43-20020a056512252b00b004f13cd61ebbsm3119078lfb.175.2023.10.26.12.16.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Oct 2023 11:57:37 -0700 (PDT)
-Message-ID: <ed18292b-efe8-48fc-8696-79e51acf8ab4@linaro.org>
-Date: Thu, 26 Oct 2023 20:57:36 +0200
+ Thu, 26 Oct 2023 12:16:19 -0700 (PDT)
+Message-ID: <6146cc54-b3f9-4875-851e-3d2981b23ffc@linaro.org>
+Date: Thu, 26 Oct 2023 21:16:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: Rob Clark <robdclark@gmail.com>
+References: <20231023-topic-adreno_warn-v1-1-bb1ee9391aa2@linaro.org>
+ <CAF6AEGuS3PhNbh9Gmu1g9YpUcr3LOh1gZK-XBE+urdb5jRjorg@mail.gmail.com>
+ <6a0398d1-22f4-4eb7-ba43-c448055be323@linaro.org>
+ <CAF6AEGuqrm0pssjRDa9DK=NppU4Qq5cPZicbGfxKH2czJmjK2A@mail.gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Taniya Das <quic_tdas@quicinc.com>
-References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
- <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
- <abc36c33-bfd9-4451-80ab-a631492044de@linaro.org>
-In-Reply-To: <abc36c33-bfd9-4451-80ab-a631492044de@linaro.org>
+In-Reply-To: <CAF6AEGuqrm0pssjRDa9DK=NppU4Qq5cPZicbGfxKH2czJmjK2A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
- clock support
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/adreno: Drop WARN_ON from patchid
+ lookup for new GPUs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,31 +79,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Abel Vesa <abel.vesa@linaro.org>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 10/7/23 01:43, Konrad Dybcio wrote:
-> On 4.10.2023 02:31, Dmitry Baryshkov wrote:
->> clk_rcg2_shared_ops implements support for the case of the RCG which
->> must not be completely turned off. However its design has one major
->> drawback: it doesn't allow us to properly implement the is_enabled
->> callback, which causes different kinds of misbehaviour from the CCF.
+On 10/23/23 22:20, Rob Clark wrote:
+> On Mon, Oct 23, 2023 at 12:56 PM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
 >>
->> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
->> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
->> switched off (and shared most of the implementation with
->> clk_rcg2_shared_ops). The major difference is that it requires that the
->> parent map doesn't conain the safe (parked) clock source. Instead if the
->> CFG_REG register points to the safe source, the clock is considered to
->> be disabled.
 >>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
-> Would the intention here be to replace all usages of _shared_?
-?
+>>
+>> On 10/23/23 21:42, Rob Clark wrote:
+>>> On Mon, Oct 23, 2023 at 7:29 AM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>>>
+>>>> New GPUs still use the lower 2 bytes of the chip id (in whatever form
+>>>> it comes) to signify silicon revision. Drop the warning that makes it
+>>>> sound as if that was unintended.
+>>>>
+>>>> Fixes: 90b593ce1c9e ("drm/msm/adreno: Switch to chip-id for identifying GPU")
+>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 -----
+>>>>    1 file changed, 5 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>>> index 80b3f6312116..9a1ec42155fd 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>>> @@ -203,11 +203,6 @@ struct adreno_platform_config {
+>>>>
+>>>>    static inline uint8_t adreno_patchid(const struct adreno_gpu *gpu)
+>>>>    {
+>>>> -       /* It is probably ok to assume legacy "adreno_rev" format
+>>>> -        * for all a6xx devices, but probably best to limit this
+>>>> -        * to older things.
+>>>> -        */
+>>>> -       WARN_ON_ONCE(gpu->info->family >= ADRENO_6XX_GEN1);
+>>>
+>>> Maybe just change it to ADRENO_6XX_GEN4?
+>> That also applies to 700
+> 
+> Then the warn is warning about what it is supposed to ;-)
+> 
+> I guess this is coming from a6xx_gmu_fw_start()?  I think we need a
+> different way to construct the gmu chipid, since the point of this was
+> to not depend on the low 8b having any particular meaning.  Perhaps we
+> should just get the gmu chipid from the device table.
+Guess that could work as well..
 
 Konrad
