@@ -2,73 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5815A7D8A00
-	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 23:03:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D285F7D8A02
+	for <lists+freedreno@lfdr.de>; Thu, 26 Oct 2023 23:04:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1EDA10E8B1;
-	Thu, 26 Oct 2023 21:03:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE05010E8AF;
+	Thu, 26 Oct 2023 21:04:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59EFC10E8AF
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 21:03:54 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-32d9b507b00so987777f8f.1
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 14:03:54 -0700 (PDT)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C168A10E8AF
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 21:04:24 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-31f71b25a99so854046f8f.2
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 14:04:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698354233; x=1698959033; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1698354263; x=1698959063; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=B/wgqf7zM8eB9vC8458/vz6gwRWY3/cTZbVdubKjZKo=;
- b=JIMw503Co1BbcSmLkMxT5/uZZ+bjDGmhIat2CvOXlL4fpQrU4vRRev5LRzq5lOMKJv
- ajBAVOcpCwbDkMxrbbGUzJgZjdgh7+503qgkpMlQ0WgymcsKEmbBnYFnou8GpXO9JdgE
- BJsUQLMEiZo0kxW5Y/7fWNcPuiS0jG9H05skCzrZjDuzuojqsHxr4OJPk+Kk9NWEEUAb
- 0xxPhsv85c2cOAkMHGoWuMgIIqSrc/YWV9kQjMNCFMkogmTbDqZz7gpyel+Jv+kQrwX7
- spIym7je2VqGxiBYUn8SyVbDPo9oQiNNO/5SC1omA+LMtvVdL+i4IntYJGiLTNPWPQF0
- rnSw==
+ bh=A+WjwVDuEjfphxivxZ019Dx0u0fobKcWgfHyoUTG59Q=;
+ b=yI7lgGy2mpRDLUGVtCLUHYq5rSHEGqR5S09X5YDgYqtJt06ji0/lm11f5+4eFNOSDy
+ tHkTq3YTARD07WbM9T89z59dpp9DgoLwXXX129Ih7iexRLNkzC7qrHzDjFM2FswDoGZG
+ CVg+MLcgtXwIpNNTE4S/B1uJjArAct3wCDL2pDuLG4OO5/ZXMODTHlErFLo+e5tDhtJj
+ 5eW3CnNl8+XrBK+uPU5JaCvpbtjCJDRyic3rlCLXug214pYgVa5qbEHyRs0/OMO7UUIj
+ nWlILbFphAnpr3i5stxF6bwh4LMEwoJLS/88BGy3R4bOnwOl+sPgg36lkQg0yBWElxgI
+ 0IGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698354233; x=1698959033;
+ d=1e100.net; s=20230601; t=1698354263; x=1698959063;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=B/wgqf7zM8eB9vC8458/vz6gwRWY3/cTZbVdubKjZKo=;
- b=EfAj/0fHUAZkxRVDWbOcL3zzQ0KVdxRD60fSYufrAlGW35QcAMKQmJrF1G8X5pTZpb
- 1T+RrAIKLX3UqazPBZr5AeABlDiax7qZeebMN8WCLUhKpAIaEgG9otuOUDzX/qtLVWji
- ITwcEaIRWCTAy+y5S4VMM18+jd3mkUDYaqy2idH9FoIpqJcyBMJhVHtkMB3Bo3lzbz8o
- yjTNjK0BFS0Q0hMrA2A6ED0w0Sx08hESiIbiEt7JcLEkQqjl1pf7/902Kmb/+l6ZBWiQ
- yXf0NzsDcEofbR6vRfIGZW/S7jV7ZO4tf16RuUW/pilzwjwpYDEpPWAueG54uD35jQuS
- I4hw==
-X-Gm-Message-State: AOJu0Yz4EE3A7p5KadQiK4sEPeitILuxVVA/m6DyHQ89QdNYMjX6EWTR
- hDPieom6TcPYJYZMrUr8Y6AqXw==
-X-Google-Smtp-Source: AGHT+IHCcKAcemS8hwf9I07v2oLrBnbMRG5xiXH08cWmqWS1KElMruGadt46xV+u93VTSaietpea8w==
-X-Received: by 2002:a5d:598d:0:b0:32d:827e:7bd8 with SMTP id
- n13-20020a5d598d000000b0032d827e7bd8mr612280wri.70.1698354232769; 
- Thu, 26 Oct 2023 14:03:52 -0700 (PDT)
+ bh=A+WjwVDuEjfphxivxZ019Dx0u0fobKcWgfHyoUTG59Q=;
+ b=Y7dp+gjGRTZ3cl0+EhGxasx9JFhrEx0OXtGMGG9elTMqRhCWMFaxxuTIG3iClosOZ8
+ Focij6gxtJWl6AuAGJa8kjDCjiz/ZXsiN1cJQgFcIZCCHaqyzM0cziwrofItbyBVpJqO
+ 2Z1cbEjLUhrcJ4G07iZf17qlABUE59zxx8g2wITuJhEis9x2TeSp77bszVAmAc2esHwj
+ swrGOxp3mlijuf2uS8m1k9+88cZFwiNCSdLZzPFOEu5dICowvuAmhWcsLOCYwoRQMVUf
+ B2Y7HGYTiZQ2S4qq/OnMw/oyXJF8DCC/P5yHdFBIAbhDGitfF554tsvIzRFGkKEgR7+z
+ 0n8g==
+X-Gm-Message-State: AOJu0Yx2escG+T2WoISOAKGe+44mGLz12venzL+W8x6zE49Hs009lvi1
+ 8d2RR6jfZQzvYYNETygSLJF2Ww==
+X-Google-Smtp-Source: AGHT+IEDywECpnt7wzKwh/plP8K8CxNVzDQhhmdPRvs5IAb52+K0gslBi53+Q2RRbjXloa2XGGxWlg==
+X-Received: by 2002:adf:ed83:0:b0:32d:a688:8814 with SMTP id
+ c3-20020adfed83000000b0032da6888814mr679214wro.19.1698354263261; 
+ Thu, 26 Oct 2023 14:04:23 -0700 (PDT)
 Received: from [172.30.205.55] (UNUSED.212-182-62-129.lubman.net.pl.
  [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- r16-20020a5d4950000000b0032d81837433sm256158wrs.30.2023.10.26.14.03.51
+ r16-20020a5d4950000000b0032d81837433sm256158wrs.30.2023.10.26.14.04.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Oct 2023 14:03:52 -0700 (PDT)
-Message-ID: <e081ca54-e8a6-40da-b101-194e6a6a351b@linaro.org>
-Date: Thu, 26 Oct 2023 23:03:50 +0200
+ Thu, 26 Oct 2023 14:04:22 -0700 (PDT)
+Message-ID: <90c8b0c3-7f42-4d35-9cf2-d5274184d8b6@linaro.org>
+Date: Thu, 26 Oct 2023 23:04:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230928111630.1217419-1-dmitry.baryshkov@linaro.org>
- <20230928111630.1217419-3-dmitry.baryshkov@linaro.org>
+ <20230928111630.1217419-16-dmitry.baryshkov@linaro.org>
+ <b779b911-dff3-420c-9bf9-5b7bef24337c@linaro.org>
+ <CAA8EJppFi6jJ=PKCdwBqM8hXdgp41XTY=QZkdiHkPPJ9KdTfTA@mail.gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230928111630.1217419-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAA8EJppFi6jJ=PKCdwBqM8hXdgp41XTY=QZkdiHkPPJ9KdTfTA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 02/15] phy: qualcomm: add QMP HDMI PHY
- driver
+Subject: Re: [Freedreno] [PATCH v3 15/15] drm/msm/hdmi: drop old HDMI PHY
+ code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,26 +79,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-phy@lists.infradead.org,
- David Airlie <airlied@gmail.com>
+Cc: Kishon Vijay Abraham I <kishon@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/28/23 13:16, Dmitry Baryshkov wrote:
-> Port Qualcomm QMP HDMI PHY to the generic PHY framework. Split the
-> generic part and the msm8996 part. When adding support for msm8992/4 and
-> msm8998 (which also employ QMP for HDMI PHY), one will have to provide
-> the PLL programming part only.
+On 10/26/23 23:03, Dmitry Baryshkov wrote:
+> On Fri, 27 Oct 2023 at 00:00, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>
+>>
+>>
+>> On 9/28/23 13:16, Dmitry Baryshkov wrote:
+>>> Drop source files used by old HDMI PHY and HDMI PLL drivers.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/hdmi/hdmi_phy.c      | 216 -------
+>>>    drivers/gpu/drm/msm/hdmi/hdmi_phy_8960.c |  51 --
+>>>    drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c | 765 -----------------------
+>>>    drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c | 141 -----
+>>>    drivers/gpu/drm/msm/hdmi/hdmi_phy_8x74.c |  44 --
+>>>    drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c | 458 --------------
+>>>    6 files changed, 1675 deletions(-)
+>>>    delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+>>>    delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8960.c
+>>>    delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+>> Uh-oh, is the 8996 HDMI phy accounted for somwhere else?
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-Taking a quick look, my comments from v2 were not taken into account
-
-https://lore.kernel.org/linux-arm-msm/1513ea17-2807-4f7c-30f2-6158b5f3e55e@linaro.org/
+> Yes, it is the QMP PHY now.
+Right, I realized that as soon as I've seen that you replied :D
 
 Konrad
