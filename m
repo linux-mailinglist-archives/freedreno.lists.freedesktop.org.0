@@ -2,61 +2,123 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B35F7D8C96
-	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 02:35:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C087D98B4
+	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 14:43:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5947210E8EF;
-	Fri, 27 Oct 2023 00:35:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587D910E9A1;
+	Fri, 27 Oct 2023 12:43:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F41F10E8EF
- for <freedreno@lists.freedesktop.org>; Fri, 27 Oct 2023 00:35:55 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-581f78a0206so833552eaf.2
- for <freedreno@lists.freedesktop.org>; Thu, 26 Oct 2023 17:35:55 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E15FD10E9A7
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Oct 2023 12:43:53 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2bb9a063f26so30222921fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Oct 2023 05:43:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698366954; x=1698971754; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=F80iHno91JCv1Uj52E9vutPeUGQGB84uBRbdzpgvxfY=;
- b=lOjC5MQicx1yNE11zXUrTcmonAwVmg053P+Q7Yv9xxJCbzSUnYNpUIhl6x1xVV/ihm
- eT6n0A+Hze5HEI5pRG5ce8WYNnnsPMdisMRZF8oaUVqF7RvvKizxWEcrOF3+o14Duhei
- uy2S/wwo3/G7nC0VT3aMISt2LS236xLZR+G6YN1tVaf5/nc5flKM6rgR2NR9TBVI6Iho
- hvzcQyDIIRkoQyCe61ki0kvakUQGkyDOpVxZrsEB8xYivqaXKdsMY8Aiz/8RDBqQE79N
- JikDfnQ+5J/NG4nV047S9i2qdjRmb1crcjQqti0dgqyVk5Dzo6tBwMRTQTMMGXAwPo/y
- uk9A==
+ d=linaro.org; s=google; t=1698410632; x=1699015432; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Y/2WBVQskAZL/ZnL07uvUlUtqe/GgmrTi4LkbbyTYsM=;
+ b=jF5aWlKxrzgf3Msg5IdhqECf4OczV51xhfmccfdlhPbhKLDErDfQTaQMMFhJi3ceem
+ pQKzf8zFcnd1btUT8vJR56T4iGUiurf55WmIlDck9wQaYDbM113YzuZ5Q1hk77Y3361d
+ +miQTbaZBbMTQJTj9wNFBLn2g2RYtxTLN2HD/LP7gA2UmYf3JT3L5tOcR0fZDvXKgWoo
+ tdJ6PTKEpvCyRNF4I7uAWFrTHHWUUw0bB2qIzaBBVjhgYsFG8nFFgnPrt6jnqLYIlSx/
+ uZx8SbUUnlqTIOcJOj3SSBEIDeGrqZjXv3NQf8axKZ88szQ1ngK/Qnzs8TaYo3g/HsHg
+ 24tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698366954; x=1698971754;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=F80iHno91JCv1Uj52E9vutPeUGQGB84uBRbdzpgvxfY=;
- b=vHfNvs7m/85HabwpRp7iYxVgTo7Fjpt5Hpr6SaQ6n0zWuujvnNNS7BSfK4UyvZdqnU
- nO7Yyq7UUp0RzTeeUN3znh29nYfSUtRg4fZhxcBWVkklL6vwu69+hX3DRID/8SXX+RBk
- p8tsn50tDaAI2X6sq3XfOpXpCYiknWZm6Fdp2FO7+3oD0cKbLlFCLWiZ0A9V0aFo9c4e
- xUherA4uOxLqyT1+209eib8CM7nCQCRG8R/3a+QPiby4cDsfo19EnwRyF8vsGQXyNYX3
- GZPKckvA+i+IyMP3tSnlSpGpXA4DcbD1tHt/n4+gx8tptUYgQQ6xycMZ4xbYrdjysat3
- 4zPw==
-X-Gm-Message-State: AOJu0Yx5D8r9SIWKQy3dZ/YWivSR2Mehy9dbS30+TcST6jof08SgclGG
- mfWFk04jRn+ULBy0tKIO9XQnOYE49xWtcWOLyH4tTA==
-X-Google-Smtp-Source: AGHT+IEcUzbPOkOWvjp/fe5w7R1pKSB7pe+4Z7WOc6Z7tCpLWBp758kcYR8l2Wn8zbZmVR88yiUuEXQOI6d+Oe8PUJs=
-X-Received: by 2002:aca:1907:0:b0:3b2:df83:3aec with SMTP id
- l7-20020aca1907000000b003b2df833aecmr950492oii.54.1698366954184; Thu, 26 Oct
- 2023 17:35:54 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1698410632; x=1699015432;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y/2WBVQskAZL/ZnL07uvUlUtqe/GgmrTi4LkbbyTYsM=;
+ b=Hsu4DzI/9mEbcKzIlPjyOoyZNquFP9vsCOMaTLIff/K4e28XWEZyi13eZDZiJjxeYb
+ 7Bk0EJje3I4H8XIDxxRWu9/jPyHoDnIT89G+i5N+VXGEJ1Hkxboxr/cLsiHosWODAdcA
+ Zocn296myOxMhnZmt2lz8Zll9AI4mpnfeQmb4jPjCHgOPHF5fZBFMjZxk8a0h6DcV1lF
+ wBN3uhWmFJXMuQnvb6qJvrfqN/CHXilxVwb46eH8wRhHoz+v6QgMcmf5VqBqfs2I7bS/
+ kZ2PuOxNW6WGvePOoLBlEgkiDcbzP2kneNFf+GELIf5wMNUGrWltBvyn0fQZMdYo9h3P
+ oMKQ==
+X-Gm-Message-State: AOJu0Yww5QACg1sqQUHLcO01ZQ/Q4hhftl4QAh/Rw9TZLOIoozP9yk03
+ QMKcBDmcJQMe+VzMAXbw8LGmkw==
+X-Google-Smtp-Source: AGHT+IFs8Q9M62RKXrVIBm8TUTlmpaVhnflx6w0J7Lt8qioi9eVdOPFJLBrLU/CIv0ZJjX1BKVkRuA==
+X-Received: by 2002:a2e:7e0e:0:b0:2c0:34ed:b5ea with SMTP id
+ z14-20020a2e7e0e000000b002c034edb5eamr1975338ljc.45.1698410632203; 
+ Fri, 27 Oct 2023 05:43:52 -0700 (PDT)
+Received: from [192.168.0.22] ([78.10.206.168])
+ by smtp.gmail.com with ESMTPSA id
+ z24-20020a2e3518000000b002bc3fbe9fd5sm267914ljz.55.2023.10.27.05.43.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Oct 2023 05:43:51 -0700 (PDT)
+Message-ID: <5c616851-4090-4ae1-97a8-bd27ca9005b4@linaro.org>
+Date: Fri, 27 Oct 2023 14:43:49 +0200
 MIME-Version: 1.0
-References: <20231004003125.2289613-1-dmitry.baryshkov@linaro.org>
- <20231004003125.2289613-2-dmitry.baryshkov@linaro.org>
- <20231026225622.GT3553829@hu-bjorande-lv.qualcomm.com>
-In-Reply-To: <20231026225622.GT3553829@hu-bjorande-lv.qualcomm.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 27 Oct 2023 03:35:42 +0300
-Message-ID: <CAA8EJpr3VZiyCHCDPh6uhYKOPruLGF=WbOHdGYNZWiZBxU9UMA@mail.gmail.com>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 1/2] clk: qcom: implement RCG2 'parked'
- clock support
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+References: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
+ <20231025-topic-sm8650-upstream-mdss-v1-1-bb219b8c7a51@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20231025-topic-sm8650-upstream-mdss-v1-1-bb219b8c7a51@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/8] dt-bindings: display: msm-dsi-phy-7nm:
+ document the SM8650 DSI PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,118 +131,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
- Taniya Das <quic_tdas@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- freedreno@lists.freedesktop.org, Michael Turquette <mturquette@baylibre.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 27 Oct 2023 at 01:56, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
->
-> On Wed, Oct 04, 2023 at 03:31:24AM +0300, Dmitry Baryshkov wrote:
-> > clk_rcg2_shared_ops implements support for the case of the RCG which
-> > must not be completely turned off. However its design has one major
-> > drawback: it doesn't allow us to properly implement the is_enabled
-> > callback, which causes different kinds of misbehaviour from the CCF.
->
-> I have some behaviors in mind when reading this, others might not.
-> Please give some specific behavior(s) here.
+On 25/10/2023 09:34, Neil Armstrong wrote:
+> Document the DSI PHY on the SM8650 Platform.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Bjorn (and other interested parties). At this RFC stage it would be
-really nice to check whether the patch idea is worth the trouble and
-if it fixes the issue.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
->
-> Thanks,
-> Bjorn
->
-> >
-> > Follow the idea behind clk_regmap_phy_mux_ops and implement the new
-> > clk_rcg2_parked_ops. It also targets the clocks which must not be fully
-> > switched off (and shared most of the implementation with
-> > clk_rcg2_shared_ops). The major difference is that it requires that the
-> > parent map doesn't conain the safe (parked) clock source. Instead if the
-> > CFG_REG register points to the safe source, the clock is considered to
-> > be disabled.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/clk/qcom/clk-rcg.h  |  1 +
-> >  drivers/clk/qcom/clk-rcg2.c | 34 ++++++++++++++++++++++++++++++++++
-> >  2 files changed, 35 insertions(+)
-> >
-> > diff --git a/drivers/clk/qcom/clk-rcg.h b/drivers/clk/qcom/clk-rcg.h
-> > index e6d84c8c7989..9fbbf1251564 100644
-> > --- a/drivers/clk/qcom/clk-rcg.h
-> > +++ b/drivers/clk/qcom/clk-rcg.h
-> > @@ -176,6 +176,7 @@ extern const struct clk_ops clk_byte2_ops;
-> >  extern const struct clk_ops clk_pixel_ops;
-> >  extern const struct clk_ops clk_gfx3d_ops;
-> >  extern const struct clk_ops clk_rcg2_shared_ops;
-> > +extern const struct clk_ops clk_rcg2_parked_ops;
-> >  extern const struct clk_ops clk_dp_ops;
-> >
-> >  struct clk_rcg_dfs_data {
-> > diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
-> > index 5183c74b074f..3f52abf0025e 100644
-> > --- a/drivers/clk/qcom/clk-rcg2.c
-> > +++ b/drivers/clk/qcom/clk-rcg2.c
-> > @@ -5,6 +5,7 @@
-> >
-> >  #include <linux/kernel.h>
-> >  #include <linux/bitops.h>
-> > +#include <linux/bitfield.h>
-> >  #include <linux/err.h>
-> >  #include <linux/bug.h>
-> >  #include <linux/export.h>
-> > @@ -1150,6 +1151,39 @@ const struct clk_ops clk_rcg2_shared_ops = {
-> >  };
-> >  EXPORT_SYMBOL_GPL(clk_rcg2_shared_ops);
-> >
-> > +static int clk_rcg2_park_is_enabled(struct clk_hw *hw)
-> > +{
-> > +     struct clk_rcg2 *rcg = to_clk_rcg2(hw);
-> > +     u32 cfg;
-> > +     int ret;
-> > +
-> > +     if (!clk_rcg2_is_enabled(hw))
-> > +             return false;
-> > +
-> > +     ret = regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, &cfg);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     return FIELD_GET(CFG_SRC_SEL_MASK, cfg) != rcg->safe_src_index;
-> > +}
-> > +
-> > +/*
-> > + * Unlike clk_rcg2_shared_ops, the safe_src_index aka XO must NOT be present in
-> > + * parent_map. This allows us to implement proper is_enabled callback.
-> > + */
-> > +const struct clk_ops clk_rcg2_parked_ops = {
-> > +     .is_enabled = clk_rcg2_park_is_enabled,
-> > +     .enable = clk_rcg2_shared_enable,
-> > +     .disable = clk_rcg2_shared_disable,
-> > +     .get_parent = clk_rcg2_shared_get_parent,
-> > +     .set_parent = clk_rcg2_shared_set_parent,
-> > +     .recalc_rate = clk_rcg2_shared_recalc_rate,
-> > +     .determine_rate = clk_rcg2_determine_rate,
-> > +     .set_rate = clk_rcg2_shared_set_rate,
-> > +     .set_rate_and_parent = clk_rcg2_shared_set_rate_and_parent,
-> > +};
-> > +EXPORT_SYMBOL_GPL(clk_rcg2_parked_ops);
-> > +
-> >  /* Common APIs to be used for DFS based RCGR */
-> >  static void clk_rcg2_dfs_populate_freq(struct clk_hw *hw, unsigned int l,
-> >                                      struct freq_tbl *f)
-> > --
-> > 2.39.2
-> >
+Best regards,
+Krzysztof
 
-
-
--- 
-With best wishes
-Dmitry
