@@ -2,65 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B0967D9E5E
-	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 18:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD307DA16E
+	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 21:45:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E961B10EA14;
-	Fri, 27 Oct 2023 16:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACC8F10E0EF;
+	Fri, 27 Oct 2023 19:45:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
  [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A35B10EA21;
- Fri, 27 Oct 2023 16:59:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D404910E0EF;
+ Fri, 27 Oct 2023 19:45:52 +0000 (UTC)
 Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-1ca816f868fso18705255ad.1; 
- Fri, 27 Oct 2023 09:59:34 -0700 (PDT)
+ d9443c01a7336-1cc20df5187so7209895ad.0; 
+ Fri, 27 Oct 2023 12:45:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698425973; x=1699030773; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lBQNNIt/vkL5JM4K598Nxz2cKMUcFsO25vk1EUXbR50=;
- b=aEV1LyDb/XygcDNbMtEHBDgMeu0IhIyzvmOq1ELZuiLNGbRORGYR5mZJaqmVg/ptok
- z9nKkW3mKLEELckxXiR1Pls4MpvmlEuWEqpRGVUJ9VLLzhsLFDw+GkLeVN0RxFUe7IIn
- QQ7HWisl37d7lA8OzbAGeKpMp44FOpyVE6V/LYg9TTCBTULAeov/pBD/rIxtD5q5802Z
- k2Dxgs4cDqgjCgpzZoh4D3O5UqN6JEOfFg/nuwz18MjIjn8pu8yXvy3+D7z2mixRn+2l
- tFMUTsoLTOtEBb3qH75YpqWd3tIR+q5esT5va9bSzSIZWBgMEMXdMD6usNU4VaHrg/7Y
- +/Ow==
+ d=gmail.com; s=20230601; t=1698435952; x=1699040752; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Cy6IbgFuL135BKR91oRxByMVAKgGs/1dk+ALnWKFvUw=;
+ b=kAIMDRLKbLckONw5ZCo17GgLTzI6DlTw0P2xWzhT4SQouV9vh9I8llRXHisQlo8j3z
+ 1SZbIloz/QeGTF/o60w1gPNRIUEewR1/pxRuG8yulnPN62yJUVAEMJCa690vryDszByZ
+ LicH9dIj6Rxp68Zz1nksroEPDWjxGT8nGL1M8RnV2f/monikJdqsrdkQPhKLtltOVb7g
+ IOQz2TQDtTBaqxuUw/PLVgOr98Lki951IqQtItU7G4f2cLUi4CJr+NOCxx3h50CZhlkG
+ y7lb2Xw4NX29ODPlJy3OXfJ36pSScFn6GvN9tRkWIbKUThmmzneDfvoN5CAHurGmwjek
+ z0iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698425973; x=1699030773;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lBQNNIt/vkL5JM4K598Nxz2cKMUcFsO25vk1EUXbR50=;
- b=GmSoLi9BE0pAPyAk+aQ8ToAv11C0hmQh8ZM5vsienm3ROOfmJ800e8d7c5mVX2bTpp
- WGw65qEePLzdyZChy75nja5pY6KdSqDhqGwTxMD8SxcFXM7yRwFcRh+HgHjnp5rpY0Qs
- wFT7GUI2O447PoBz2wihbvlMjCkTE64UWcZt964zDWINAWStksURtzjjePOJ+Tv0aR64
- 1cf7DGxyJyGv24HLFvOGvLWqydYlp/92Dnb/WPd5zVuvIwam40HUaXIaVvxRbtWzcxYW
- 4hO76y3vkkCtkJRz0RFu5r/2hX8ycUM6UGxdsjKL8SmJlFEAh2i2s2i1eB7pAF/0QWxP
- DKcw==
-X-Gm-Message-State: AOJu0Yzgb7GyvwGTd+NTf13lupOlo145cqRweq1c4/mN9dWgcZvYyX13
- WBeWhvjL1KNiBiLdAHrfK8z7jgKayv8=
-X-Google-Smtp-Source: AGHT+IHBTm+5z/fHBWh00iOPRyv7KaJ98NHocJTvikC6+us105MrhdbrvmxsHi4kdGraKDPXyJ9M0w==
-X-Received: by 2002:a17:903:110d:b0:1ca:d778:a9ce with SMTP id
- n13-20020a170903110d00b001cad778a9cemr4041902plh.38.1698425973365; 
- Fri, 27 Oct 2023 09:59:33 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1698435952; x=1699040752;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Cy6IbgFuL135BKR91oRxByMVAKgGs/1dk+ALnWKFvUw=;
+ b=JDiUOu/GzW5PT/AG5qaEBFqH0OTnsLAIalhyALSHh9VtlEuRqH0/3i92ZZ++PnxU/l
+ n3ksL/hi8xCu5PJOg8mIaL6drq/6JzZjkpLQehW31v9SbWL8GTdVU7f7Q5JdVAz9MVnI
+ dIYiz6rqLJjfViLDoWLGbMRm5VIdhgBrLKnHJ6YT2HZgwzVC9evRxBQ7O4GcXi7hEzaB
+ LSWPA6q/G6DoN9xX0/bV1uFBQh9BRo+v+cqEUgJd0GmZRuFXGOt+tKsIvO+oFUtpv8cQ
+ 5d5QVNroUw5OCXWmlbdn6VfNYEQvM3ANytSENSeIeplQ3wBjbOr7Sa7ejWz5N1g6iidE
+ dSjQ==
+X-Gm-Message-State: AOJu0YxQkF6keSS4PqJkzenf0cSUf9Dzeij4rbtsuLM7ijgVSTx4cxTM
+ qSXBQeqPSn5AvNCG7OHTv4L2zL4iCJI=
+X-Google-Smtp-Source: AGHT+IGNfpLwVZYgsKfstsi00o+X3315W5bkhk4p0g9uo4d8PBR1FrlLIhgEKv8mSqdIInkoZ6Tvyg==
+X-Received: by 2002:a17:902:e74e:b0:1cb:fcfb:61af with SMTP id
+ p14-20020a170902e74e00b001cbfcfb61afmr8280487plf.30.1698435951704; 
+ Fri, 27 Oct 2023 12:45:51 -0700 (PDT)
 Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
  by smtp.gmail.com with ESMTPSA id
- n14-20020a170902d2ce00b001c322a41188sm1801445plc.117.2023.10.27.09.59.32
+ ju19-20020a170903429300b001ae0152d280sm1944708plb.193.2023.10.27.12.45.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Oct 2023 09:59:32 -0700 (PDT)
+ Fri, 27 Oct 2023 12:45:50 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 27 Oct 2023 09:58:41 -0700
-Message-ID: <20231027165859.395638-8-robdclark@gmail.com>
+Date: Fri, 27 Oct 2023 12:45:37 -0700
+Message-ID: <20231027194537.408922-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231027165859.395638-1-robdclark@gmail.com>
-References: <20231027165859.395638-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 7/7] drm/msm/gem: Convert to drm_exec
+Subject: [Freedreno] [PATCH] drm/msm/gem: Add metadata
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,240 +82,146 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Replace the ww_mutex locking dance with the drm_exec helper.
+The EXT_external_objects extension is a bit awkward as it doesn't pass
+explicit modifiers, leaving the importer to guess with incomplete
+information.  In the case of vk (turnip) exporting and gl (freedreno)
+importing, the "OPTIMAL_TILING_EXT" layout depends on VkImageCreateInfo
+flags (among other things), which the importer does not know.  Which
+unfortunately leaves us with the need for a metadata back-channel.
+
+The contents of the metadata are defined by userspace.  The
+EXT_external_objects extension is only required to work between
+compatible versions of gl and vk drivers, as defined by device and
+driver UUIDs.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/Kconfig          |   1 +
- drivers/gpu/drm/msm/msm_gem.h        |   5 +-
- drivers/gpu/drm/msm/msm_gem_submit.c | 117 +++++----------------------
- 3 files changed, 24 insertions(+), 99 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c | 59 +++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/msm_gem.h |  4 +++
+ include/uapi/drm/msm_drm.h    |  2 ++
+ 3 files changed, 63 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 6309a857ca31..f91d87afc0d3 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -16,6 +16,7 @@ config DRM_MSM
- 	select DRM_DP_AUX_BUS
- 	select DRM_DISPLAY_DP_HELPER
- 	select DRM_DISPLAY_HELPER
-+	select DRM_EXEC
- 	select DRM_KMS_HELPER
- 	select DRM_PANEL
- 	select DRM_BRIDGE
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index b61ccea05327..8fe2677ea37a 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -37,9 +37,10 @@
+  * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
+  * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
+  * - 1.11.0 - Add wait boost (MSM_WAIT_FENCE_BOOST, MSM_PREP_BOOST)
++ * - 1.12.0 - Add MSM_INFO_SET_METADATA and MSM_INFO_GET_METADATA
+  */
+ #define MSM_VERSION_MAJOR	1
+-#define MSM_VERSION_MINOR	10
++#define MSM_VERSION_MINOR	12
+ #define MSM_VERSION_PATCHLEVEL	0
+ 
+ static void msm_deinit_vram(struct drm_device *ddev);
+@@ -566,6 +567,8 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 		break;
+ 	case MSM_INFO_SET_NAME:
+ 	case MSM_INFO_GET_NAME:
++	case MSM_INFO_SET_METADATA:
++	case MSM_INFO_GET_METADATA:
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -618,7 +621,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 		break;
+ 	case MSM_INFO_GET_NAME:
+ 		if (args->value && (args->len < strlen(msm_obj->name))) {
+-			ret = -EINVAL;
++			ret = -ETOOSMALL;
+ 			break;
+ 		}
+ 		args->len = strlen(msm_obj->name);
+@@ -627,6 +630,58 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 					 msm_obj->name, args->len))
+ 				ret = -EFAULT;
+ 		}
++		break;
++	case MSM_INFO_SET_METADATA:
++		/* Impose a moderate upper bound on metadata size: */
++		if (args->len > 128) {
++			ret = -EOVERFLOW;
++			break;
++		}
++
++		ret = msm_gem_lock_interruptible(obj);
++		if (ret)
++			break;
++
++		msm_obj->metadata =
++			krealloc(msm_obj->metadata, args->len, GFP_KERNEL);
++		msm_obj->metadata_size = args->len;
++
++		if (copy_from_user(msm_obj->metadata, u64_to_user_ptr(args->value),
++				   args->len)) {
++			msm_obj->metadata_size = 0;
++			ret = -EFAULT;
++		}
++
++		msm_gem_unlock(obj);
++
++		break;
++	case MSM_INFO_GET_METADATA:
++		if (!args->value) {
++			/*
++			 * Querying the size is inherently racey, but
++			 * EXT_external_objects expects the app to confirm
++			 * via device and driver UUIDs that the exporter and
++			 * importer versions match.  All we can do from the
++			 * kernel side is check the length under obj lock
++			 * when userspace tries to retrieve the metadata
++			 */
++			args->len = msm_obj->metadata_size;
++			break;
++		}
++
++		ret = msm_gem_lock_interruptible(obj);
++		if (ret)
++			break;
++
++		if (args->len < msm_obj->metadata_size) {
++			ret = -ETOOSMALL;
++		} else if (copy_to_user(u64_to_user_ptr(args->value),
++					msm_obj->metadata, args->len)) {
++			ret = -EFAULT;
++		}
++
++		msm_gem_unlock(obj);
++
+ 		break;
+ 	}
+ 
 diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index af884ced7a0d..7f34263048a3 100644
+index 7f34263048a3..8d414b072c29 100644
 --- a/drivers/gpu/drm/msm/msm_gem.h
 +++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -9,6 +9,7 @@
+@@ -109,6 +109,10 @@ struct msm_gem_object {
  
- #include <linux/kref.h>
- #include <linux/dma-resv.h>
-+#include "drm/drm_exec.h"
- #include "drm/gpu_scheduler.h"
- #include "msm_drv.h"
+ 	char name[32]; /* Identifier to print for the debugfs files */
  
-@@ -254,7 +255,7 @@ struct msm_gem_submit {
- 	struct msm_gpu *gpu;
- 	struct msm_gem_address_space *aspace;
- 	struct list_head node;   /* node in ring submit list */
--	struct ww_acquire_ctx ticket;
-+	struct drm_exec exec;
- 	uint32_t seqno;		/* Sequence number of the submit on the ring */
- 
- 	/* Hw fence, which is created when the scheduler executes the job, and
-@@ -287,8 +288,6 @@ struct msm_gem_submit {
- 		struct drm_msm_gem_submit_reloc *relocs;
- 	} *cmd;  /* array of size nr_cmds */
- 	struct {
--/* make sure these don't conflict w/ MSM_SUBMIT_BO_x */
--#define BO_LOCKED	0x4000	/* obj lock is held */
- 		uint32_t flags;
- 		union {
- 			struct drm_gem_object *obj;
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 603f04d851d9..f8d14d4ccfef 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -248,85 +248,31 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
- 	return ret;
- }
- 
--static void submit_unlock_bo(struct msm_gem_submit *submit, int i)
--{
--	struct drm_gem_object *obj = submit->bos[i].obj;
--	unsigned cleanup_flags = BO_LOCKED;
--	unsigned flags = submit->bos[i].flags & cleanup_flags;
--
--	/*
--	 * Clear flags bit before dropping lock, so that the msm_job_run()
--	 * path isn't racing with submit_cleanup() (ie. the read/modify/
--	 * write is protected by the obj lock in all paths)
--	 */
--	submit->bos[i].flags &= ~cleanup_flags;
--
--	if (flags & BO_LOCKED)
--		dma_resv_unlock(obj->resv);
--}
--
- /* This is where we make sure all the bo's are reserved and pin'd: */
- static int submit_lock_objects(struct msm_gem_submit *submit)
- {
--	int contended, slow_locked = -1, i, ret = 0;
--
--retry:
--	for (i = 0; i < submit->nr_bos; i++) {
--		struct drm_gem_object *obj = submit->bos[i].obj;
--
--		if (slow_locked == i)
--			slow_locked = -1;
-+	int ret;
- 
--		contended = i;
-+	drm_exec_init(&submit->exec, DRM_EXEC_INTERRUPTIBLE_WAIT, submit->nr_bos);
- 
--		if (!(submit->bos[i].flags & BO_LOCKED)) {
--			ret = dma_resv_lock_interruptible(obj->resv,
--							  &submit->ticket);
-+	drm_exec_until_all_locked (&submit->exec) {
-+		for (unsigned i = 0; i < submit->nr_bos; i++) {
-+			struct drm_gem_object *obj = submit->bos[i].obj;
-+			ret = drm_exec_prepare_obj(&submit->exec, obj, 1);
-+			drm_exec_retry_on_contention(&submit->exec);
- 			if (ret)
--				goto fail;
--			submit->bos[i].flags |= BO_LOCKED;
-+				goto error;
- 		}
- 	}
- 
--	ww_acquire_done(&submit->ticket);
--
- 	return 0;
- 
--fail:
--	if (ret == -EALREADY) {
--		SUBMIT_ERROR(submit, "handle %u at index %u already on submit list\n",
--			     submit->bos[i].handle, i);
--		ret = -EINVAL;
--	}
--
--	for (; i >= 0; i--)
--		submit_unlock_bo(submit, i);
--
--	if (slow_locked > 0)
--		submit_unlock_bo(submit, slow_locked);
--
--	if (ret == -EDEADLK) {
--		struct drm_gem_object *obj = submit->bos[contended].obj;
--		/* we lost out in a seqno race, lock and retry.. */
--		ret = dma_resv_lock_slow_interruptible(obj->resv,
--						       &submit->ticket);
--		if (!ret) {
--			submit->bos[contended].flags |= BO_LOCKED;
--			slow_locked = contended;
--			goto retry;
--		}
--
--		/* Not expecting -EALREADY here, if the bo was already
--		 * locked, we should have gotten -EALREADY already from
--		 * the dma_resv_lock_interruptable() call.
--		 */
--		WARN_ON_ONCE(ret == -EALREADY);
--	}
--
-+error:
-+	drm_exec_fini(&submit->exec);
- 	return ret;
- }
- 
--static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-+static int submit_fence_sync(struct msm_gem_submit *submit)
- {
- 	int i, ret = 0;
- 
-@@ -334,22 +280,6 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
- 		struct drm_gem_object *obj = submit->bos[i].obj;
- 		bool write = submit->bos[i].flags & MSM_SUBMIT_BO_WRITE;
- 
--		/* NOTE: _reserve_shared() must happen before
--		 * _add_shared_fence(), which makes this a slightly
--		 * strange place to call it.  OTOH this is a
--		 * convenient can-fail point to hook it in.
--		 */
--		ret = dma_resv_reserve_fences(obj->resv, 1);
--		if (ret)
--			return ret;
--
--		/* If userspace has determined that explicit fencing is
--		 * used, it can disable implicit sync on the entire
--		 * submit:
--		 */
--		if (no_implicit)
--			continue;
--
- 		/* Otherwise userspace can ask for implicit sync to be
- 		 * disabled on specific buffers.  This is useful for internal
- 		 * usermode driver managed buffers, suballocation, etc.
-@@ -531,15 +461,13 @@ static void submit_cleanup(struct msm_gem_submit *submit, bool error)
- {
- 	unsigned i;
- 
--	if (error)
-+	if (error) {
- 		submit_unpin_objects(submit);
--
--	for (i = 0; i < submit->nr_bos; i++) {
--		struct drm_gem_object *obj = submit->bos[i].obj;
--		submit_unlock_bo(submit, i);
--		if (error)
--			drm_gem_object_put(obj);
-+		/* job wasn't enqueued to scheduler, so early retirement: */
-+		msm_submit_retire(submit);
- 	}
++	/* userspace metadata backchannel */
++	void *metadata;
++	u32 metadata_size;
 +
-+	drm_exec_fini(&submit->exec);
- }
+ 	/**
+ 	 * pin_count: Number of times the pages are pinned
+ 	 *
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 6c34272a13fd..6f2a7ad04aa4 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -139,6 +139,8 @@ struct drm_msm_gem_new {
+ #define MSM_INFO_GET_NAME	0x03   /* get debug name, returned by pointer */
+ #define MSM_INFO_SET_IOVA	0x04   /* set the iova, passed by value */
+ #define MSM_INFO_GET_FLAGS	0x05   /* get the MSM_BO_x flags */
++#define MSM_INFO_SET_METADATA	0x06   /* set userspace metadata */
++#define MSM_INFO_GET_METADATA	0x07   /* get userspace metadata */
  
- void msm_submit_retire(struct msm_gem_submit *submit)
-@@ -733,7 +661,6 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	struct msm_submit_post_dep *post_deps = NULL;
- 	struct drm_syncobj **syncobjs_to_reset = NULL;
- 	int out_fence_fd = -1;
--	bool has_ww_ticket = false;
- 	unsigned i;
- 	int ret;
- 
-@@ -839,15 +766,15 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		goto out;
- 
- 	/* copy_*_user while holding a ww ticket upsets lockdep */
--	ww_acquire_init(&submit->ticket, &reservation_ww_class);
--	has_ww_ticket = true;
- 	ret = submit_lock_objects(submit);
- 	if (ret)
- 		goto out;
- 
--	ret = submit_fence_sync(submit, !!(args->flags & MSM_SUBMIT_NO_IMPLICIT));
--	if (ret)
--		goto out;
-+	if (!(args->flags & MSM_SUBMIT_NO_IMPLICIT)) {
-+		ret = submit_fence_sync(submit);
-+		if (ret)
-+			goto out;
-+	}
- 
- 	ret = submit_pin_objects(submit);
- 	if (ret)
-@@ -978,8 +905,6 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 
- out:
- 	submit_cleanup(submit, !!ret);
--	if (has_ww_ticket)
--		ww_acquire_fini(&submit->ticket);
- out_unlock:
- 	mutex_unlock(&queue->lock);
- out_post_unlock:
+ struct drm_msm_gem_info {
+ 	__u32 handle;         /* in */
 -- 
 2.41.0
 
