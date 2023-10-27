@@ -2,123 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64FA77D98CA
-	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 14:45:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2618C7D9E41
+	for <lists+freedreno@lfdr.de>; Fri, 27 Oct 2023 18:59:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD1310E9A2;
-	Fri, 27 Oct 2023 12:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D816710E141;
+	Fri, 27 Oct 2023 16:59:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C7710E9A4
- for <freedreno@lists.freedesktop.org>; Fri, 27 Oct 2023 12:45:30 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2c523ac38fbso30522371fa.0
- for <freedreno@lists.freedesktop.org>; Fri, 27 Oct 2023 05:45:30 -0700 (PDT)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23DDC10E141;
+ Fri, 27 Oct 2023 16:59:15 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id
+ 41be03b00d2f7-5a9bc2ec556so1850151a12.0; 
+ Fri, 27 Oct 2023 09:59:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698410729; x=1699015529; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=t19R5BIrFfEuSBm/TM6rpzKrgSm7TvLjTJR3URDOKek=;
- b=d2E2XbhMUVHlrJocy5vc522z1HVCy3zffpB43sQ7FQzkyWHPoiDrpnEvgSs+5EtoXf
- 2vhUUa2RCNNKocHvU0g9yglRvOJqY6z40tfzz4mohiU9KXU1clPYznGgxKC7j6UYvB6v
- DcwT+cO9+5hKG+Ss+xnIOucPvGA8DQAsRVuOU0vQC64YSQ06j1nLjZg35lCPV0UVC+JE
- tUAIZuC0na0pQve/Z2XzRMEqBfiI0GVdrxaleUMKAOdwtEHem++OIEm/CndC4UXT0820
- XUbMLkKbETc5JwqwRZ0/zePG7NsO+uub7woMr8J+9AKXNr67N29LoZky8Wz2qoQKFMND
- 2kBQ==
+ d=gmail.com; s=20230601; t=1698425954; x=1699030754; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l2XOiyO7ELntzgtLuOwOBKhVQExybEKPgHk4URVDgho=;
+ b=FjFy+FOkCP9RMiPr369zyKzQ1BLB4JhIXhoRIKSHIzm0J6M5x/oq8tbctibYaN50Dp
+ yiPjYbqP0WoWuycO9Z3Waw3ETGZl8p9D7kHwKTlS8BU841D1ZfybT+Gj6CRS9ibcj/xY
+ ZFMOeTklBCn/EK96GnHX5Md5jfMlJ4WEe+yZWgsaPBhAWvTdCmj14BPalH1hGYboXWjR
+ m3/qJtWLuhsWltsfkuRgN3UusznHbdTBWTzX1eO9LO1nVYb7u3zDwDfq/p8hW+TR8qXK
+ /181Q74YuYiawQQ/GoPJEWcekgwUzMG6xSsUG0wcWvStDggvTeGL5RpImD9nCDsBRjcU
+ Rfsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698410729; x=1699015529;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=t19R5BIrFfEuSBm/TM6rpzKrgSm7TvLjTJR3URDOKek=;
- b=snE8mXDZrkt2Z4cEU/8+ebS/DNUMQPBTid8hk8RmMyQ22lt09D7znPqbC07v+GQ+z5
- 5GEkUT98TQz5SqzylfIjN1HJKhhuxSocPWVTMb1MrmCAkzvtYlBzZHhMSUxuEzvx7zk1
- qdg6Ra0gcJsprIZn2fn7BOKK7WhLxgzaAtnWJHDYKnXhzONkf9/MxOD/6QyKegVJciyZ
- K1q8kOUbO9hSRkT4LpyWGmryRR5kmnfMfMSZ7CruPikP9Rn83B1yQZmnRGIRedDtb5D9
- ZLid5M7vk8UmKSntE7puUXNy/RjbVwD3qyCICpnpQD1TvpJjNEivZrZ6mZja8SPaeibr
- oVAw==
-X-Gm-Message-State: AOJu0Yw8n+OsTa1MKAlboAcnIgjFQTBjYSmOU/Poho2v2pGR3b4aDj//
- gjF3W1oAmPUA79c3bsZVlxSmmg==
-X-Google-Smtp-Source: AGHT+IG0wyGmtwyIhwE796DUEK3liXFePPMqlC38wYl5W63bHntqesWmsF1/fLKgScwTqNmyR/GWGw==
-X-Received: by 2002:a2e:b889:0:b0:2c5:22b4:b573 with SMTP id
- r9-20020a2eb889000000b002c522b4b573mr1994804ljp.36.1698410728845; 
- Fri, 27 Oct 2023 05:45:28 -0700 (PDT)
-Received: from [192.168.0.22] ([78.10.206.168])
+ d=1e100.net; s=20230601; t=1698425954; x=1699030754;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l2XOiyO7ELntzgtLuOwOBKhVQExybEKPgHk4URVDgho=;
+ b=BdRvSKw+zrFDBInmsv1/tdPX0ZN2Diwh+M+KQKeh+n9hoTTiwJGPNwMqiYBO2U13RK
+ B2Al1rRx1ML7ZE9Se29O94g8oztGWis57Jzby1kPPzwjpjRUKAxUbWaObLyqckseKazq
+ nFh8EkW8QqcuuAHgvknk8iCQrqS1D3n6MFOLz4L/fR4gRY3Gft/df9pzwVSm/Jc1MBKD
+ wO/I1y1tn2/7uPR9ZKFZCamCkRCTd/vIlZTmABoDS/MWBikuj6JELNz/n4TznZAV+uYl
+ pY+jTShMkW/0qsC8MokmGf+G4YUy/Ukwkm6d7FZD+AKZcv8Z0G2b9xNeQ9w0wH60KZBH
+ Ep4g==
+X-Gm-Message-State: AOJu0Yz/mYPD5eLw1tpQYSj9G51QqYiGIbW6LwVafq/RGgVg8lhmUQnZ
+ 3oF9u4d8cl9GPKA7EgC6cyJJuM9TZAc=
+X-Google-Smtp-Source: AGHT+IGmj0N9Vkha046UwwcpchKPTTZ+UtBOMnjmz7YeYZi5yoFGRN7OlD9zVh2noyVB62tlU/Jayw==
+X-Received: by 2002:a17:90a:1a0b:b0:280:1022:f00e with SMTP id
+ 11-20020a17090a1a0b00b002801022f00emr1807988pjk.29.1698425954002; 
+ Fri, 27 Oct 2023 09:59:14 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
  by smtp.gmail.com with ESMTPSA id
- z24-20020a2e3518000000b002bc3fbe9fd5sm267914ljz.55.2023.10.27.05.45.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Oct 2023 05:45:28 -0700 (PDT)
-Message-ID: <8ffc7747-646a-4113-95b2-7be4816c072d@linaro.org>
-Date: Fri, 27 Oct 2023 14:45:27 +0200
+ s31-20020a17090a2f2200b0028017a2a8fasm733629pjd.3.2023.10.27.09.59.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Oct 2023 09:59:13 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 27 Oct 2023 09:58:34 -0700
+Message-ID: <20231027165859.395638-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-References: <20231025-topic-sm8650-upstream-mdss-v1-0-bb219b8c7a51@linaro.org>
- <20231025-topic-sm8650-upstream-mdss-v1-4-bb219b8c7a51@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231025-topic-sm8650-upstream-mdss-v1-4-bb219b8c7a51@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 4/8] dt-bindings: display: msm: document the
- SM8650 Mobile Display Subsystem
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/7] drm/msm/gem: drm_exec conversion
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,23 +70,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Mario Limonciello <mario.limonciello@amd.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ "open list:SUSPEND TO RAM" <linux-pm@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Dong Chenchen <dongchenchen2@huawei.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org, James Zhu <James.Zhu@amd.com>,
+ Sean Paul <sean@poorly.run>, Jack Xiao <Jack.Xiao@amd.com>,
+ Jonathan Kim <jonathan.kim@amd.com>, freedreno@lists.freedesktop.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/10/2023 09:35, Neil Armstrong wrote:
-> Document the Mobile Display Subsystem (MDSS) on the SM8650 Platform.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  .../bindings/display/msm/qcom,sm8650-mdss.yaml     | 322 +++++++++++++++++++++
->  1 file changed, 322 insertions(+)
-> 
+From: Rob Clark <robdclark@chromium.org>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Simplify the exec path (removing a legacy optimization) and convert to
+drm_exec.  One drm_exec patch to allow passing in the expected # of GEM
+objects to avoid re-allocation.
 
-Best regards,
-Krzysztof
+I'd be a bit happier if I could avoid the extra objects table allocation
+in drm_exec in the first place, but wasn't really happy with any of the
+things I tried to get rid of that.
+
+Rob Clark (7):
+  drm/msm/gem: Remove "valid" tracking
+  drm/msm/gem: Remove submit_unlock_unpin_bo()
+  drm/msm/gem: Don't queue job to sched in error cases
+  drm/msm/gem: Split out submit_unpin_objects() helper
+  drm/msm/gem: Cleanup submit_cleanup_bo()
+  drm/exec: Pass in initial # of objects
+  drm/msm/gem: Convert to drm_exec
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |   4 +-
+ drivers/gpu/drm/drm_exec.c              |  15 +-
+ drivers/gpu/drm/msm/Kconfig             |   1 +
+ drivers/gpu/drm/msm/msm_gem.h           |  13 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c    | 197 ++++++------------------
+ drivers/gpu/drm/msm/msm_ringbuffer.c    |   3 +-
+ drivers/gpu/drm/nouveau/nouveau_exec.c  |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c  |   2 +-
+ include/drm/drm_exec.h                  |   2 +-
+ 12 files changed, 79 insertions(+), 170 deletions(-)
+
+-- 
+2.41.0
 
