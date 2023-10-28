@@ -1,86 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658B07DA375
-	for <lists+freedreno@lfdr.de>; Sat, 28 Oct 2023 00:34:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 064027DA462
+	for <lists+freedreno@lfdr.de>; Sat, 28 Oct 2023 02:38:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86F8810EA68;
-	Fri, 27 Oct 2023 22:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A402410EA89;
+	Sat, 28 Oct 2023 00:38:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87BB310EA5B;
- Fri, 27 Oct 2023 22:33:46 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39RMQE1f022475; Fri, 27 Oct 2023 22:33:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : date :
- subject : mime-version : content-type : content-transfer-encoding :
- message-id : references : in-reply-to : to : cc; s=qcppdkim1;
- bh=dOdpw7EyZ1GXU+LOOIo1PUFEA6FIP1IdBQqFuuPhHAc=;
- b=Uc0Mvqxnf5J3/reUmu/RpGRq4Pmwc7/rJSoz75YflaHNUrcSaqny23UJ1Ko+VlBh1hnh
- z7dQqmKzIdEBr1K0PizXnCp3eJU31SPVNHOojsOtxd1woM2zArx8DaOAK0TFir/fLTO2
- bU771wQEv8lBJ3qKScONeeVSH4iwU7Ho8IKIEuzwhogPBDpUvTS9r+VJXvuHPIS3+oUY
- tPS5IOriUUOc5NfRHX1dVzhlv4nNdDdeGlqwtCUpkcaqn6nS7cg3uUv1rTy6h09gJM+i
- nD9Fd6SJDvb1YTu9RIsJ+wXsUNxafG8e6XYksm5HU2kshBjTt4yTp5jm6E5t6Nvcxlq4 Cw== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tyxas35fg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Oct 2023 22:33:30 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 39RMXTcE022615
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Oct 2023 22:33:29 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.39; Fri, 27 Oct 2023 15:33:28 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Fri, 27 Oct 2023 15:33:00 -0700
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5CD310EA88
+ for <freedreno@lists.freedesktop.org>; Sat, 28 Oct 2023 00:37:59 +0000 (UTC)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-5a877e0f0d8so32781347b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Oct 2023 17:37:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1698453479; x=1699058279; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=DmV04Dp8n+rjqqag6HgSNHHH01v3B7yQX+cBFsCk30Q=;
+ b=YWPFM34hjQy9CI3mwhoLpnmHjA/rzj+ENs3zbHl1S+IQdCcsb1omkKtsNBp4UgsaQT
+ DL+rkqc6+BNl+/ZDWr3u2Q2rj/6hqcCQx0umQfEILjXS+3Vpksnjlg4lXSCL4AcAa/Cu
+ xBxRo0tsVqEIVX3k3Lzd4ZpoIdT3UlbmuMJf2JHhJDKmnD4b0l+exxZfONdDMlcjxGhv
+ dVh93nflvqbnyE/2AhUVaIa8CwxN3uucZJhCOyyRZZm8FzqejCnYMAncRz++IjWzKp18
+ 7HIt3qzF2uQSEYQtr4cHNjN8ELMcuntRNsHvyt6nYh4juT6dhrhNEEzaE9bUJuHeVsLV
+ B4Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698453479; x=1699058279;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DmV04Dp8n+rjqqag6HgSNHHH01v3B7yQX+cBFsCk30Q=;
+ b=OvNwEWIG6mL11GRnPHgzpeTmQ4mRPqMptzcNLOD7403V08ycIIKF7uLE0auIJCcEhO
+ Tcpugn8mFJb+3OPOBqpgkikvdTG15A2+jDGX8WDL+sR2ibn+Nwqiu5j+4x6/jNOUOpRS
+ FDbiRCQp0mnJnVgiAxMRyRmbpb0VZtbUTSciUUeqBW5kf+bSJnJ4L24gEGq4If4KCcbD
+ E+cKPOXng0TKb7TGhWEG/BA/opfD23/udyOVYrB2X5SozhBZ9Ri28UfGnTnfNEVqHDEz
+ FqkuwnGnn6yag124OPc1JpIZ2JjUOO6Vj3Wis7Rio7rtrPr2Abp0Dje66+rzgVlMoZsK
+ JiKQ==
+X-Gm-Message-State: AOJu0Yw2iocU0dsz2RXFFawR/xMNnuQBUqjF1H3jEUqPJdAE7eLRVwrS
+ 4kCbSDhZpwP1UNGkkXYtlCQ4ftYsOx2NVVOQlZ0niw==
+X-Google-Smtp-Source: AGHT+IE29XUeiiTmE/KmVbh4xF/1yO3eBtK3ViC6hAlTaHc1uavtyLD/MOuUAuFFiGdzA1p4cT87alBlLCasJvYcxRk=
+X-Received: by 2002:a81:4328:0:b0:5a7:d8c8:aa17 with SMTP id
+ q40-20020a814328000000b005a7d8c8aa17mr8366769ywa.13.1698453478747; Fri, 27
+ Oct 2023 17:37:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20231027-solid-fill-v7-10-780188bfa7b2@quicinc.com>
-References: <20231027-solid-fill-v7-0-780188bfa7b2@quicinc.com>
-In-Reply-To: <20231027-solid-fill-v7-0-780188bfa7b2@quicinc.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Sean Paul" <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-X-Mailer: b4 0.13-dev-26615
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1698446005; l=975;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=e7e4xcO9eZ83cozj+iixlLO6aclrBgczSRuOXvlhWdU=;
- b=KToEfJUQlQIuxLTjyFfuLIwS5h7Aq1o7LOgkee9N/FY59muJnxjLgMesv2R8mCggphzi+as9N
- 1hcusSyThHHBrxM3R2LoYmFMvpORCE+dYVwhpl0Svr2kkqnOfrYnTiK
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 9gD1jLIGSh4702lwXm0MiD9DHjEX_IFp
-X-Proofpoint-ORIG-GUID: 9gD1jLIGSh4702lwXm0MiD9DHjEX_IFp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-27_21,2023-10-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- phishscore=0 suspectscore=0 clxscore=1015 spamscore=0 mlxscore=0
- mlxlogscore=710 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2310240000 definitions=main-2310270193
-Subject: [Freedreno] [PATCH RFC v7 10/10] drm/msm/dpu: Add solid fill and
- pixel source properties
+References: <20231025092711.851168-1-dmitry.baryshkov@linaro.org>
+ <20231025092711.851168-2-dmitry.baryshkov@linaro.org>
+ <37b52c67-7abb-d607-dc46-1cde33606997@quicinc.com>
+In-Reply-To: <37b52c67-7abb-d607-dc46-1cde33606997@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 28 Oct 2023 03:37:47 +0300
+Message-ID: <CAA8EJpqMXMU__zKU+_4rwjyg0kEB1HvRhUviRBwKnbjABS_xQA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dp: don't touch DP
+ subconnector property in eDP case
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,37 +69,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sebastian.wick@redhat.com, contact@emersion.fr, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ppaalanen@gmail.com, laurent.pinchart@ideasonboard.com,
- linux-arm-msm@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- wayland-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Abel Vesa <abel.vesa@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add solid_fill and pixel_source properties to DPU plane
+On Sat, 28 Oct 2023 at 00:02, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 10/25/2023 2:23 AM, Dmitry Baryshkov wrote:
+> > From: Abel Vesa <abel.vesa@linaro.org>
+> >
+> > In case of the eDP connection there is no subconnetor and as such no
+> > subconnector property. Put drm_dp_set_subconnector_property() calls
+> > under the !is_edp condition.
+> >
+> > Fixes: bfcc3d8f94f4 ("drm/msm/dp: support setting the DP subconnector type")
+> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++-----
+> >   1 file changed, 10 insertions(+), 5 deletions(-)
+> >
+>
+> We still need to unify the calls to drm_dp_set_subconnector_property()
+> for the hpd connect/disconnect places preferably in
+> dp_display_send_hpd_notification().
+>
+> That way, we would have had to make this change only in one location.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 ++
- 1 file changed, 2 insertions(+)
+Good point, I'd like to take another look at the HPD handling in the
+DP driver after we land the pending pm_runtime changes. As a part of
+that I'll check the drm_dp_set_subconnector_property() calls.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 832747080daf..8e9fda541211 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1493,6 +1493,8 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 		DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
- 
- 	drm_plane_create_alpha_property(plane);
-+	drm_plane_create_solid_fill_property(plane);
-+	drm_plane_create_pixel_source_property(plane, BIT(DRM_PLANE_PIXEL_SOURCE_SOLID_FILL));
- 	drm_plane_create_blend_mode_property(plane,
- 			BIT(DRM_MODE_BLEND_PIXEL_NONE) |
- 			BIT(DRM_MODE_BLEND_PREMULTI) |
+> If you want to pursue that as a separate patch, I am fine as well.
+>
+> Hence,
+>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+
 
 -- 
-2.42.0
-
+With best wishes
+Dmitry
