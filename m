@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 688D17DB840
-	for <lists+freedreno@lfdr.de>; Mon, 30 Oct 2023 11:36:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 073657DB844
+	for <lists+freedreno@lfdr.de>; Mon, 30 Oct 2023 11:37:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B3E10E293;
-	Mon, 30 Oct 2023 10:36:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD22010E295;
+	Mon, 30 Oct 2023 10:36:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 018AF10E292
- for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 10:36:46 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40838915cecso34089005e9.2
- for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 03:36:46 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8EE10E294
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 10:36:48 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-507a29c7eefso6148023e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 03:36:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698662205; x=1699267005; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1698662206; x=1699267006; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1jJA6FvyzBdV4oaFFbQEfL8vLOpiwYy2jt4W5/R0Bx0=;
- b=JK+2u6asVdl/fl206AqRSY8ASosjbvA26Pu+itlgFF8H+5pbUYrfZSZxO79Qs7HN0b
- CdF1pqWnXd1VKkHN8uO5NUDuyD868ZAyqJT2nGt1ivzojqlAyBGJVP8EGBHqQa7QFKJI
- BvdBJwNAiSaqCDABoQa61XLWDsunNVx+4DyJmFn3Vapv0tynSBQ8g+wgQkuGmIxGZPLW
- CVETUD3601skCLwopOd+ruXuiJ2tDQ3NAM+TbER/uZ3TJGL2wTs+mx+/Y8xNEosZ4f9Z
- uoIygwLDYjSSvyfMe3s1BeA1bdsZruOls60dXNRD3auic/p2d01UjtqVy0PAlidwVctT
- 8/EQ==
+ :reply-to; bh=Wf35menyqr8aV3TpKLI5N9BqVbClrvYhoeEs/60fXVg=;
+ b=ckv1la3A6QDTPtPrRtDAsb9S2wjSTnsiWA/WTfM5/al9K+ka0/Z3t3UZBDOBK6k0ea
+ RHGVp+kU4htfkyUymng9yc44ehr0y/AuiGoJdaUzC4YwqwsEPn4TnkHQGIB2tmXbJ4ZH
+ MIexNACgL8Vk+gly5HkXM/xGbZrr0r55ZMy5dM1dpQBczx1R6jItiuawjo93YrunAOBO
+ Aeb3fmsc6mawJ2crAWeYhzj5+9wXr1gZKdMGdxtrNtY1FWgiBQoKVsr296j6iO8GKRoT
+ /Lw2411aI7kKHAcTZN27M/i9X4fs/fLmostSQdzRTex9dixgU8kA6FTlMeA4p8Wye9M0
+ nF3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698662205; x=1699267005;
+ d=1e100.net; s=20230601; t=1698662206; x=1699267006;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1jJA6FvyzBdV4oaFFbQEfL8vLOpiwYy2jt4W5/R0Bx0=;
- b=iutyV38678sE8mNp+1QsPxWYwXZrfmFerw1Tvas+YQksqdkw91OnNXwFBrvDnYJEKk
- EE1PdAf3PplY8drRXaHzElBPJMpmK5cTnj0mqxmuHLvgKd40Y6HZ3nXrYAfkkHBU28Sm
- UPcbW4e1NCsNvjFgSxRrzARqQwxlCaxPQCR3ADjJL8xUVg6Mih8cPYH5x5lUePT/maz3
- +W07ihhQXLe/Re1IZLK9j5RoQ/78yVFEibZ9cX3zC0Twc3DvVi4B8KLQzQYMCNopj5PG
- aFTEyPgJSsIuePB6Q7z5ihwPacUOgSZhCxgVVkuHbZXJ29Tq6MddGZ/O69UpUBYz0Q5J
- 6/pQ==
-X-Gm-Message-State: AOJu0Yy4fOb+BkC/ijGCc/9ibiTBT65m1k9c9snGf8GhaVD5/4Onl1ks
- CcC4Pqzdm0rbBdFGsN2VAsJmEw==
-X-Google-Smtp-Source: AGHT+IEeVna2B4vgqYf3qgMr60NDi22xHHrS6/BBHHXFfgvcpqpbfmjptxClZMjSiCnTSyuKvx8Muw==
-X-Received: by 2002:a05:600c:548f:b0:405:49aa:d578 with SMTP id
- iv15-20020a05600c548f00b0040549aad578mr7921279wmb.37.1698662205383; 
- Mon, 30 Oct 2023 03:36:45 -0700 (PDT)
+ bh=Wf35menyqr8aV3TpKLI5N9BqVbClrvYhoeEs/60fXVg=;
+ b=oZeHwF+mmxgrX3zDUhSjhs2gDucWqi6t+XMUUza1WgSGqIFZIVKmb1DY/tLHgDSuDx
+ bfkFjqhoeqd/IQ+Ey3OcU5gGD/SIvdxIBb9EImtA4uxiRdVDvDBALvZwTMcnA+U6MKj8
+ zKJ8dcLTELww3QgNjAZfbrJk1sdmjBHL2o7OhZYDGkNF/Z0fkvZdVsqfjrCg9yVpIK7E
+ iKtsZDmG/rfD3pZ+rE0ySZkNaexFbM6Qg6frIOZkrQmAnRbzvlb35GRHJZQ2YLub56iW
+ euTsoAa3ut1cMi+Q8Zi5dDcg9JJTLqgIon208HFnaSfTQgPjDi7kfl3cn3H1/VL4kM+U
+ L8cw==
+X-Gm-Message-State: AOJu0YxN0PmOL6noSOb5HLF17eApEKdsHi6sqCXvfaWDznfMB9pVFiAf
+ 1nJVmwGiSl6tUQELKlYkbjimcQ==
+X-Google-Smtp-Source: AGHT+IFz6Ft90TRonvQtv8uTyisQIWRdtlOcAPkw4W4JfYAch/zI2oxf2/JzXKAbRL9M0Cns+/3X5g==
+X-Received: by 2002:a2e:b617:0:b0:2c5:f54:2477 with SMTP id
+ r23-20020a2eb617000000b002c50f542477mr6260498ljn.40.1698662206636; 
+ Mon, 30 Oct 2023 03:36:46 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- r5-20020a05600c458500b004060f0a0fd5sm8783209wmo.13.2023.10.30.03.36.44
+ r5-20020a05600c458500b004060f0a0fd5sm8783209wmo.13.2023.10.30.03.36.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Oct 2023 03:36:44 -0700 (PDT)
+ Mon, 30 Oct 2023 03:36:46 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 30 Oct 2023 11:36:24 +0100
+Date: Mon, 30 Oct 2023 11:36:25 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20231030-topic-sm8650-upstream-mdss-v2-2-43f1887c82b8@linaro.org>
+Message-Id: <20231030-topic-sm8650-upstream-mdss-v2-3-43f1887c82b8@linaro.org>
 References: <20231030-topic-sm8650-upstream-mdss-v2-0-43f1887c82b8@linaro.org>
 In-Reply-To: <20231030-topic-sm8650-upstream-mdss-v2-0-43f1887c82b8@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -70,24 +70,24 @@ To: Rob Clark <robdclark@gmail.com>,
  Conor Dooley <conor+dt@kernel.org>, Jonathan Marek <jonathan@marek.ca>, 
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1188;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3954;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=7BNrdKXKV/4oNSNX94Rau4amrT1G6Ff4tZmVAsgnGfc=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlP4c2KiuBCvGC/0B+iGFp+H3PYmMuJgRbWk6YxTEt
- d5YR552JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZT+HNgAKCRB33NvayMhJ0Wh+D/
- 0Y/5gtQcRq7vuhQwuHw3AnD0Z3+L21BQKv1jHU6rRC62TGX6Am6cJNJo38ALwbPEI6Cll7FN9Bsf49
- zcRXYaQAEWcfYEWuB9dk9TYazLbdfTtOkvuWPZXAWaYLHpTn8B0aSdL08FUSdRdA6KvAEVWUSpHz6r
- Frzzt9SjZ9VWjcnHXv4ilpHjYE4JIuiQ7/jKVES3pi1CLXfwqR/nv00D5uqGc7iIqXQQrLXE5MXIBB
- RKceLx+1k6HLGnud13rE0ecpezq2EjMkx3yZdha7uXopPs2XzopoHSSaH11/hgp7XhZc6G3k4/2kdP
- XuaVrbh10qQ/2Z8dNc1bnb1crxWhkNSRLUEpHNCjiY0jeHm06aR7kwoSrTpA7xyHcXA7kKw0jUaRvU
- dCS5yUqyXOgzAjZ2B0elg3fvc17V1jmHUmUpNbNQgjfuj6+K5JT5faTMIc5rzOQ5apTI56Oi541raj
- wZdl96EkyURlFGTNVuVN6LWAnODDsRO/TfUDG+hd0f4yuu6acITm6wSlYMGY1K+vIHdBIEjwva6gWz
- tnH4sc0NNFMUrJU+Hr7r/X5QFaVgc8/G5chL23Z+yPgV7wvBWditnlIGIWGLnToxw6YkdV+3hdG+H3
- bsaINBAvJ/Tb9h5oWyquHx7g8WMwagk3ST08WsCdYI0I9+SKQd7LzuReIFSw==
+ bh=x4ucVNCXjv/ys2+lExZHj2JGfBeSHaxw/qEVsQolx7Q=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlP4c39C3XCIWkeUOAFhgJ5Bd6MROfRA/Dx6BZ6h92
+ 8CnHhu2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZT+HNwAKCRB33NvayMhJ0bmrEA
+ DOUjSLVs9t8C4eF3W2kRW53G+zLQ/j0SSMY9YQqi7bm/akTFYsIjUGxCU8FsbDQsXJzqBxBWJBz+19
+ GCZiDfRpRhx/ezfmHHsUL/HbV5rGP/kA1ZY0Az4LIZN88jQKbGDbgcTwdHFXxyW2oQ07cQoTNZCcwF
+ /qfL/Nv3vnYY9YN4jW0yozmo+nmCPdCUT++mh+B1zM+lvelDLo/5Eg8AIdEcnnSdDlmpkztKkHsb5O
+ HwvUCW8ErRbBncAw2bkvpyOYH1reOhZxUh3T+W9KDXKCgzChadSj2cib7nClGRzW6n/LtWS8/TNOOq
+ kMZhVDduca+iUZHDJVE9SpkIXfNW0vYBfuhay4rjeH6MqbfFX7JNBUXICyXAZLLdbzvJA/nFTXDcqd
+ jm2jyROXDhzOura1PA3wj/OxYd+XaQxn0dhyPglf0v9tJCo0vJkJb2Rx0IseeO+N/5mjscBDWZPsp7
+ 57kG4aCduZYlqR7rMISKEKdPQ4BGvkUSkDyXqCk5WYa8AQ/U5pRreZAYFITLuwrGarGmu6xVpCtwSC
+ Rw66VkD8kdauPPkldjRUETaY84hoHHSIQUlNMbFIg+WnBfhYaMlah53DSu0P68PJGS8rJze0Lu9DyM
+ k/ZCRkQJKOkzNqDfnmxfTbVtXl/l9U/gfKKhD9mZOaANI/idUuHqZxgQp6zg==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH v2 2/8] dt-bindings: display:
- msm-dsi-controller-main: document the SM8650 DSI Controller
+Subject: [Freedreno] [PATCH v2 3/8] dt-bindings: display: msm: document the
+ SM8650 DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,34 +108,147 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the DSI Controller on the SM8650 Platform.
+Document the DPU Display Controller on the SM8650 Platform.
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 127 +++++++++++++++++++++
+ 1 file changed, 127 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index c6dbab65d5f7..24944979d500 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -35,6 +35,7 @@ properties:
-               - qcom,sm8350-dsi-ctrl
-               - qcom,sm8450-dsi-ctrl
-               - qcom,sm8550-dsi-ctrl
-+              - qcom,sm8650-dsi-ctrl
-           - const: qcom,mdss-dsi-ctrl
-       - enum:
-           - qcom,dsi-ctrl-6g-qcm2290
-@@ -333,6 +334,7 @@ allOf:
-               - qcom,sm8350-dsi-ctrl
-               - qcom,sm8450-dsi-ctrl
-               - qcom,sm8550-dsi-ctrl
-+              - qcom,sm8650-dsi-ctrl
-     then:
-       properties:
-         clocks:
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+new file mode 100644
+index 000000000000..a01d15a03317
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+@@ -0,0 +1,127 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm SM8650 Display DPU
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++$ref: /schemas/display/msm/dpu-common.yaml#
++
++properties:
++  compatible:
++    const: qcom,sm8650-dpu
++
++  reg:
++    items:
++      - description: Address offset and size for mdp register set
++      - description: Address offset and size for vbif register set
++
++  reg-names:
++    items:
++      - const: mdp
++      - const: vbif
++
++  clocks:
++    items:
++      - description: Display hf axi
++      - description: Display MDSS ahb
++      - description: Display lut
++      - description: Display core
++      - description: Display vsync
++
++  clock-names:
++    items:
++      - const: nrt_bus
++      - const: iface
++      - const: lut
++      - const: core
++      - const: vsync
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - clock-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/qcom,rpmhpd.h>
++
++    display-controller@ae01000 {
++        compatible = "qcom,sm8650-dpu";
++        reg = <0x0ae01000 0x8f000>,
++              <0x0aeb0000 0x2008>;
++        reg-names = "mdp", "vbif";
++
++        clocks = <&gcc_axi_clk>,
++                 <&dispcc_ahb_clk>,
++                 <&dispcc_mdp_lut_clk>,
++                 <&dispcc_mdp_clk>,
++                 <&dispcc_vsync_clk>;
++        clock-names = "nrt_bus",
++                      "iface",
++                      "lut",
++                      "core",
++                      "vsync";
++
++        assigned-clocks = <&dispcc_vsync_clk>;
++        assigned-clock-rates = <19200000>;
++
++        operating-points-v2 = <&mdp_opp_table>;
++        power-domains = <&rpmhpd RPMHPD_MMCX>;
++
++        interrupt-parent = <&mdss>;
++        interrupts = <0>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                dpu_intf1_out: endpoint {
++                    remote-endpoint = <&dsi0_in>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++                dpu_intf2_out: endpoint {
++                    remote-endpoint = <&dsi1_in>;
++                };
++            };
++        };
++
++        mdp_opp_table: opp-table {
++            compatible = "operating-points-v2";
++
++            opp-200000000 {
++                opp-hz = /bits/ 64 <200000000>;
++                required-opps = <&rpmhpd_opp_low_svs>;
++            };
++
++            opp-325000000 {
++                opp-hz = /bits/ 64 <325000000>;
++                required-opps = <&rpmhpd_opp_svs>;
++            };
++
++            opp-375000000 {
++                opp-hz = /bits/ 64 <375000000>;
++                required-opps = <&rpmhpd_opp_svs_l1>;
++            };
++
++            opp-514000000 {
++                opp-hz = /bits/ 64 <514000000>;
++                required-opps = <&rpmhpd_opp_nom>;
++            };
++        };
++    };
++...
 
 -- 
 2.34.1
