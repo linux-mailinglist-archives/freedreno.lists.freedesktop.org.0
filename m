@@ -1,92 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABE667DB84B
-	for <lists+freedreno@lfdr.de>; Mon, 30 Oct 2023 11:37:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EECEB7DB9A9
+	for <lists+freedreno@lfdr.de>; Mon, 30 Oct 2023 13:12:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6BA10E299;
-	Mon, 30 Oct 2023 10:36:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DCA010E0BE;
+	Mon, 30 Oct 2023 12:12:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5667310E299
- for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 10:36:54 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2c6b30aca06so21010961fa.3
- for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 03:36:54 -0700 (PDT)
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [IPv6:2607:f8b0:4864:20::112a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC16010E2A1
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 12:12:18 +0000 (UTC)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-5a7eef0b931so39074287b3.0
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Oct 2023 05:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698662212; x=1699267012; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=DA6PVD1pNqlF4BUixIYFQIvuTNht/64ah3v95olbiNw=;
- b=fwGTt0jMnjf7Txab/2NahDrz6SofRAcHYl/CtknIGUwaJ8pdz5ezzHmEFLRpjoVb2U
- 7K3Y6fQ2HPnfKVhow7EywfYHBtOPxfn+kZzZjDlh60W7Do+LYuGV8HaiolAsBFEdlf7F
- p97gtBQ+7DCodtbHxVskKVs/WEbNW6yyRzHbnIxa3+R6Nl7t6QMw9pSuOIfK3DkYdD7x
- lFodhkks9a42rrkhoNJrPvksHUEF7VQXSH259fuuVvSptLz/Cm5yBzY/hMwIonto3D44
- sLxDNEK+LqggPUOAuhYMZP+KcnG81DrjRF3Ry927WjbpjsLcd7ATL8jBZ0+jo99yp0WD
- qMKA==
+ d=linaro.org; s=google; t=1698667938; x=1699272738; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=uGGSQFPL3Jk07HUtIQ8OBKKUYnpLSAaX2KsFu6Um6GQ=;
+ b=fwrirZsc5BubsQ/ZoQAGI077a+idmJqsv7XScWLWDh+HgW3lYDAhrTB3ai85vwb/ug
+ 1NU1yCrKGuif9AmEdwAB52/2iGwvDMQwzspbbWjh4cmdnM1XABXTL7jkdYnCu+GnMsSP
+ TU+AdolQdC8IP3KV416oxwnlVvSaggwQpsRdIhnpI9gCx8eSBO6OuTeWSIAht0zfR3NL
+ B6uGwcVbCfegsAYsiT2W/NKz+txIgnM8mtPPMvjw96IJFPADxrSb/D/T/PYtYKC7Z15u
+ LZPmtZxiWuTcoF47YfZI+2ZOW8sp7dZOeCwHmCz7Hz9V1kcUh0kmmvLzY45xEy5HxkvA
+ x0oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698662212; x=1699267012;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DA6PVD1pNqlF4BUixIYFQIvuTNht/64ah3v95olbiNw=;
- b=TF3xiMDmWZ/UkMPR9gI1e1a5EizGJUuiyBJ9RtHq6lEj8bA4HbblgS78EB55dpAXXi
- Xri++VFF+I4zeVFNFO0JdZVJaKq1vLhpoo8VF8LFYXS7mF1dBCiY3ftgFDJYFcXDpXn1
- XfzlZUfmqDkyIckUUtYulXUIisW+DLV/Khuxu1cS1XBDpP/uZrvx7bIq3dDQK3PRfATD
- xyperrtVuiq82qZg3RTregFmEUIlwcxOpk4A3t99rtGS54OTTcl5lGh+plRjuSKj/ryM
- kv1BA89fXjKhOkdydjL4quT0I0fYSoud9E/GNSHo5Cci8EeUv+e94zaQltu7FDbaEOik
- rOGA==
-X-Gm-Message-State: AOJu0YzVkbDnckeA1x0kpCCgWHp+Sask2uiA12HbdWw12vC9z3XXY5mc
- Rr+JkyiG3pzIwnu7AKHveJOqKg==
-X-Google-Smtp-Source: AGHT+IF5rt60Krlu4XkRUEi0s9/CrfpATLDmDfv9/0Mtg2XZ+mRpHAfn82dZyCp8UC9qcW9Jh7dTgQ==
-X-Received: by 2002:a2e:9184:0:b0:2c5:1ad3:7798 with SMTP id
- f4-20020a2e9184000000b002c51ad37798mr7355852ljg.52.1698662212627; 
- Mon, 30 Oct 2023 03:36:52 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- r5-20020a05600c458500b004060f0a0fd5sm8783209wmo.13.2023.10.30.03.36.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Oct 2023 03:36:52 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 30 Oct 2023 11:36:30 +0100
+ d=1e100.net; s=20230601; t=1698667938; x=1699272738;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uGGSQFPL3Jk07HUtIQ8OBKKUYnpLSAaX2KsFu6Um6GQ=;
+ b=kRtWKkOfqAAlX1ixDgYRJv9ZnEWAA4jsnR/BfKHdjpsu8Nwq+hMFROTKUk5H/0spzj
+ C2Q1e4kSDQLzoT7w5CIpP04xa0VysqI+FwRnV+HuF8PgcZd4+08fJ8dRgWIEx08YOQwC
+ xMuJ1uqOrFeMUTX68T/ZG0QvQzd3psp7oYhs1AxPylYQuEkVPW4PcrjuYRLuUUTx9C1i
+ YlzRplj1XNgyNQ/1lDzz/hRh3BL5CpadDTRsw/7wy5ybZyfFdUbXiTMeUfZ1QwY5utKF
+ W6D+vak9HvjQJHTbeVwMP2u+gF+l2Jn4T5CumcYmWqRiLlODfBqYaPOFme8qnwrHWyc1
+ Cwmw==
+X-Gm-Message-State: AOJu0YxnnRCtCZEXcCEPZ8CiQNoJ+fDC6n9yYNIFnJ/YUey9gx21ERlr
+ JeppH6L9hEdWYyTlwhZQYCdai8jmKPMGUx4GETOmBA==
+X-Google-Smtp-Source: AGHT+IEIU5YGxlDfDS8T1H4xLh9KXN/ujJ6nx1J3s3yMH1x2dLaQt7oyQkWnmQ0+toE71rTekpelIaLNxT/y2t0u2tA=
+X-Received: by 2002:a81:9ad2:0:b0:5a7:f002:4fe4 with SMTP id
+ r201-20020a819ad2000000b005a7f0024fe4mr9657467ywg.23.1698667937668; Mon, 30
+ Oct 2023 05:12:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20231030-topic-sm8650-upstream-mdss-v2-8-43f1887c82b8@linaro.org>
-References: <20231030-topic-sm8650-upstream-mdss-v2-0-43f1887c82b8@linaro.org>
-In-Reply-To: <20231030-topic-sm8650-upstream-mdss-v2-0-43f1887c82b8@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Marek <jonathan@marek.ca>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2167;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=mOPAs9fZnFHnWKWTDzyDhJJvT1b82KyCyg4RUEyUBOc=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlP4c5PQd/l9lmI/IHAedI22CO88us5G1Wn2T2zHiT
- u5TkJDeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZT+HOQAKCRB33NvayMhJ0UeID/
- 9C5ihJ8N2WmdSPfB9UUSO2RACNYSosGJIIQpZ72sH+3Auc1eatlQdp1J18OmS0v1EUfueyLFztzgYc
- PYvL85QlipzQGnRsAmC18sFZA29GDdawbLS8Qv3069TT2yqcYyAKOTGv901sGOufbaByEYJIUCe0aE
- jnt+z+pjQraQO28jQWdHASBrEUkbIvGMDw+9x7AsoEWNx9LfNDRDuwaCCHRuMzM4FVtPeBUVUiOEk/
- 6D0B5+T7JUOmGXHVuSHcvTso/IUtWBn286L2SAT/LAAiwDY293STD/+6pCfxuUgpVEROWO/egsgUHe
- ANamWpRbaqB+QoGhpw3lhdsFwign4mUbsvGi5Pt6USLP8iMA8tczyAlB0RYGUqabEDohRViQidlz6W
- 7LGXucKOq3Y1TpwXqVTOUyLbElyMRQ50IvXW2QjeF3pzp6tnXgp6CMdKMG4iaMSwXOAvNmF0qk0yfW
- mbXbzqiJPYLWYSNjF48l38FDvSAjKkfwR9fuSw4de5EzpyCfhbWeArpxbBUir6roVqxn7Pi2dgoCQA
- 496W0TlQLXpPBmfX+PAe6FCipIcCkP5FXt14chJO8fW5paxLIFl6Q1zlduX7geIIaS+w1rdv9DZayd
- r6flv/2ILTbe2krxEigZWGNKZAEIYCtTclv+m3DXPzYtq+p5gs604uw3arSQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Subject: [Freedreno] [PATCH v2 8/8] drm/msm: dsi: add support for DSI 2.8.0
+References: <20230903214150.2877023-1-dmitry.baryshkov@linaro.org>
+ <20230903214150.2877023-13-dmitry.baryshkov@linaro.org>
+ <ZQRKq7K8jKlH/Y4X@kuha.fi.intel.com>
+ <0F1BE090-92C4-4233-A77A-9B4C653DA1A7@linaro.org>
+ <ZT9m/OoFUiZaWy9s@kuha.fi.intel.com>
+ <CAA8EJprgpfh_GOeV+557YHWUJC-9W1Tw7nzb0jy5mPAv35VuGA@mail.gmail.com>
+ <B8P9onfq9cXaSM_GbX3N_PSdo19FY_donmDWeAwLGlrrRvclqNcOA2LCGBnVYuJtAlJJFanedJL6GygtJHDS6WP5twzb-L7VJYnmqyFXZtk=@emersion.fr>
+ <CAA8EJpoWuRw_eDSEL=khDoXrS1GctxJzXhdMy9iLb5PDG-=Vfg@mail.gmail.com>
+ <ggE_bGq2Q6EpabJVQHH3boOhxNpTZLD9RVaI-RdchIuQZNkRRL5L9WL4-91foZPnzP59SI_ChrQszENrYBXsFUqK9nSvMv2e-yGYpsz5jUA=@emersion.fr>
+In-Reply-To: <ggE_bGq2Q6EpabJVQHH3boOhxNpTZLD9RVaI-RdchIuQZNkRRL5L9WL4-91foZPnzP59SI_ChrQszENrYBXsFUqK9nSvMv2e-yGYpsz5jUA=@emersion.fr>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 30 Oct 2023 14:12:06 +0200
+Message-ID: <CAA8EJprtkC_-HXTNGT9-WOCOP15FLFkfirrUJp+nK74njPw4Ew@mail.gmail.com>
+To: Simon Ser <contact@emersion.fr>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH v1 12/12] usb: typec: qcom: define the
+ bridge's path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,69 +75,158 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DSI Controller version 2.8.0 support for the SM8650 platform.
+On Mon, 30 Oct 2023 at 12:27, Simon Ser <contact@emersion.fr> wrote:
+>
+> On Monday, October 30th, 2023 at 11:22, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+>
+> > On Mon, 30 Oct 2023 at 12:13, Simon Ser contact@emersion.fr wrote:
+> >
+> > > On Monday, October 30th, 2023 at 10:47, Dmitry Baryshkov dmitry.baryshkov@linaro.org wrote:
+> > >
+> > > > On Mon, 30 Oct 2023 at 10:19, Heikki Krogerus
+> > > > heikki.krogerus@linux.intel.com wrote:
+> > > >
+> > > > > On Mon, Oct 23, 2023 at 09:24:33PM +0300, Dmitry Baryshkov wrote:
+> > > > >
+> > > > > > On 15 September 2023 15:14:35 EEST, Heikki Krogerus heikki.krogerus@linux.intel.com wrote:
+> > > > > >
+> > > > > > > Hi Dmitry,
+> > > > > > >
+> > > > > > > On Mon, Sep 04, 2023 at 12:41:50AM +0300, Dmitry Baryshkov wrote:
+> > > > > > >
+> > > > > > > > In order to notify the userspace about the DRM connector's USB-C port,
+> > > > > > > > export the corresponding port's name as the bridge's path field.
+> > > > > > > >
+> > > > > > > > Signed-off-by: Dmitry Baryshkov dmitry.baryshkov@linaro.org
+> > > > > > > > ---
+> > > > > > > > drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c | 11 +++++++----
+> > > > > > > > drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_drm.c | 4 +++-
+> > > > > > > > drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_drm.h | 6 ++++--
+> > > > > > > > 3 files changed, 14 insertions(+), 7 deletions(-)
+> > > > > > > >
+> > > > > > > > diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
+> > > > > > > > index b9d4856101c7..452dc6437861 100644
+> > > > > > > > --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
+> > > > > > > > +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
+> > > > > > > > @@ -156,6 +156,7 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
+> > > > > > > > struct device_node *np = dev->of_node;
+> > > > > > > > const struct pmic_typec_resources *res;
+> > > > > > > > struct regmap *regmap;
+> > > > > > > > + char *tcpm_name;
+> > > > > > > > u32 base[2];
+> > > > > > > > int ret;
+> > > > > > > >
+> > > > > > > > @@ -211,10 +212,6 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
+> > > > > > > > mutex_init(&tcpm->lock);
+> > > > > > > > platform_set_drvdata(pdev, tcpm);
+> > > > > > > >
+> > > > > > > > - tcpm->pmic_typec_drm = qcom_pmic_typec_init_drm(dev);
+> > > > > > > > - if (IS_ERR(tcpm->pmic_typec_drm))
+> > > > > > > > - return PTR_ERR(tcpm->pmic_typec_drm);
+> > > > > > > > -
+> > > > > > > > tcpm->tcpc.fwnode = device_get_named_child_node(tcpm->dev, "connector");
+> > > > > > > > if (!tcpm->tcpc.fwnode)
+> > > > > > > > return -EINVAL;
+> > > > > > > > @@ -225,6 +222,12 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
+> > > > > > > > goto fwnode_remove;
+> > > > > > > > }
+> > > > > > > >
+> > > > > > > > + tcpm_name = tcpm_port_get_name(tcpm->tcpm_port);
+> > > > > > > > + tcpm->pmic_typec_drm = qcom_pmic_typec_init_drm(dev, tcpm_name);
+> > > > > > >
+> > > > > > > So I got some questions and concerns off-list. This was one of the
+> > > > > > > concerns. That tcpm_name is now the actual port device name, so I'm
+> > > > > > > afraid this is not acceptable.
+> > > > > > >
+> > > > > > > You can't use device name as a reference, ever. There is no way to
+> > > > > > > guarantee that a device with a specific name is what you meant it to
+> > > > > > > be by the time it's accessed.
+> > > > > >
+> > > > > > Hmm, could you please be more specific, why? I mean, class devices are not
+> > > > > > that easy to be renamed in sysfs, are they? Or are you concerned about the
+> > > > > > device being destroyed behind userspace's back? At least for MSM this will be
+> > > > > > a huge problem already, with the bridge driver suddenly being removed.
+> > > > >
+> > > > > The race exists even in your case, but please do not look at this as a
+> > > > > solution for only your platform.
+> > > >
+> > > > Yes!
+> > > >
+> > > > > This is about showing the user space a link between two device
+> > > > > instances (struct device), and the way you do that is by creating a
+> > > > > symlink. That way the kernel can take care of reference counting and
+> > > > > guarantee that the link always points to the correct device. That way
+> > > > > the link will also be always visible in user space without requirement
+> > > > > for any specific ABI like it should.
+> > > >
+> > > > I'm fine with the symlink approach (and I'll follow that up after
+> > > > finishing the UCSI glue driver rework). However I feel several
+> > > > deficiencies there:
+> > > >
+> > > > 1) It creates asymmetry with the DP MST case. Do we want to have
+> > > > symlinks in each of the MST connectors? Or do we follow the PATH
+> > > > properties in the MST case until we find the root port, which has
+> > > > symlink? Please note, that fine X11 renames DP MST connectors
+> > > > internally, so in xrandr I see DP-2-1, which maps to
+> > > > /sys/class/drm/card0-DP-2. Kind of hard to follow.
+> > > >
+> > > > 2) For the multi-card cases, one has to remap the connector to the
+> > > > card index + connector path. And this needs to be done by all user
+> > > > space applications, which would like to present this kind of
+> > > > information for the user.
+> > > >
+> > > > 3) If we were to support non-USB-C connectors (e.g. MyDP / SlimPort
+> > > > and MHL used simple micro-USB connectors) there would be a completely
+> > > > new uABI. And any external port / wrapper will also require a
+> > > > completely new symlink kind.
+> > > >
+> > > > I understand your concerns regarding mentioning external device in the
+> > > > PATH property. However I think we should make it easier for the
+> > > > userspace app to determine the kind of the external connector. What
+> > > > would you think about extending the PATH property in the following
+> > > > way:
+> > > >
+> > > > For the USB-C connectors the PATH property has the value of
+> > > > `typec:cardN-DP-m` value. Userspace app can then look for the
+> > > > typec_connector symlink at the /sys/class/drm/cardN-DP-m subdir to
+> > > > find the information about the corresponding USB-C port.
+> > >
+> > > This doesn't make sense to me. "cardN-DP-m" has nothing to do with the
+> > > physical path of the connector. All of the parts of this string are
+> > > exposed elsewhere in the KMS uAPI already.
+> >
+> > True. It seems I mixed KMS and xrandr clients in my head.
+> > Just 'typec:' then? This way userspace will still know that it is a
+> > USB-C connector (and can stop there) and if it needs more information
+> > (e.g. physical location) it can further look for the symlink in the
+> > sysfs.
+>
+> It sounds like an abuse of the PATH property. PATH is supposed to
+> contain an actual path, not just some connector type.
+>
+> User-space can directly look into sysfs if it wants to figure out
+> whether a connector is typec.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_cfg.c | 17 +++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h |  1 +
- 2 files changed, 18 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 1f98ff74ceb0..10ba7d153d1c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -190,6 +190,21 @@ static const struct msm_dsi_config sm8550_dsi_cfg = {
- 	},
- };
- 
-+static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
-+	{ .supply = "vdda", .init_load_uA = 16600 },	/* 1.2 V */
-+};
-+
-+static const struct msm_dsi_config sm8650_dsi_cfg = {
-+	.io_offset = DSI_6G_REG_SHIFT,
-+	.regulator_data = sm8650_dsi_regulators,
-+	.num_regulators = ARRAY_SIZE(sm8650_dsi_regulators),
-+	.bus_clk_names = dsi_v2_4_clk_names,
-+	.num_bus_clks = ARRAY_SIZE(dsi_v2_4_clk_names),
-+	.io_start = {
-+		{ 0xae94000, 0xae96000 },
-+	},
-+};
-+
- static const struct regulator_bulk_data sc7280_dsi_regulators[] = {
- 	{ .supply = "vdda", .init_load_uA = 8350 },	/* 1.2 V */
- 	{ .supply = "refgen" },
-@@ -281,6 +296,8 @@ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
- 		&sdm845_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- 	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_7_0,
- 		&sm8550_dsi_cfg, &msm_dsi_6g_v2_host_ops},
-+	{MSM_DSI_VER_MAJOR_6G, MSM_DSI_6G_VER_MINOR_V2_8_0,
-+		&sm8650_dsi_cfg, &msm_dsi_6g_v2_host_ops},
- };
- 
- const struct msm_dsi_cfg_handler *msm_dsi_cfg_get(u32 major, u32 minor)
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index 43f0dd74edb6..4c9b4b37681b 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -28,6 +28,7 @@
- #define MSM_DSI_6G_VER_MINOR_V2_5_0	0x20050000
- #define MSM_DSI_6G_VER_MINOR_V2_6_0	0x20060000
- #define MSM_DSI_6G_VER_MINOR_V2_7_0	0x20070000
-+#define MSM_DSI_6G_VER_MINOR_V2_8_0	0x20080000
- 
- #define MSM_DSI_V2_VER_MINOR_8064	0x0
- 
+typec:N, where N is an id of the port?
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
