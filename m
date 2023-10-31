@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A017DCB91
-	for <lists+freedreno@lfdr.de>; Tue, 31 Oct 2023 12:16:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 622177DCB9E
+	for <lists+freedreno@lfdr.de>; Tue, 31 Oct 2023 12:17:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1546310E15C;
-	Tue, 31 Oct 2023 11:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18B6210E15C;
+	Tue, 31 Oct 2023 11:17:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8020710E157
- for <freedreno@lists.freedesktop.org>; Tue, 31 Oct 2023 11:16:07 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-507c8316abcso7823669e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 31 Oct 2023 04:16:07 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7516610E15C
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Oct 2023 11:17:34 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-507b9408c61so7681084e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Oct 2023 04:17:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698750965; x=1699355765; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1698751053; x=1699355853; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=hJu2yLllJ94MBomatNabmyNQ4Uloi0vS+isN5mDPCt0=;
- b=G5+2Qv2Fx1MOB2XtQBQLX1Jz0GRXq0uAJECTTzZpq+iBv5hhWY0sd/Zq+q1eu78Nzk
- ZXWZ0XwTRX54u9AJvsMn5fZqm4lZnJXVGXlPZODfHTgDbFi4sPnEHvZrJfkQej5snQIl
- oEfYg3PXC27ZchKdMkd31qw5TPy3STK4ra0Hq55wVspuDXbdVmDA6iCSEW9hJhc+Cfhb
- LFSedBzIOv7OdtfiSpTdiE5tjCL5tvFRowQDKD46GrYKyavWC3CSKIvi2L5CcsrYwED5
- bHAhT7ALlFbobJPim59RFPeKJNLuASfyieiP3MSXLXUh/wBJbHq+HrzGpqacQHV2HRLm
- ElrQ==
+ bh=PbO/SJMgbSYC0KZVuF9ouObuyktOrD1BDzymUqZmreY=;
+ b=ZFem5a8qmViBUiySsEOly34D0oL9t76yOGDosrlvtA8TDqIQoqeprgMbyYBrv2zxHx
+ cFY7G7RIjbhMQnxCSOcgRmoD44y/1kBDfLdCBwm0iL0I2U9EECFvUevLDehD4VdXaOWM
+ /PFO8chSpTYAMWPqNAE8aNoaGixx5/nU12IOo97TeMbaj86Ifx6TeKhll+GR5FG2LalV
+ BTZUm9CSSTfORCuMGYRk1+sJA1RoRuAqfdWSARsEgQYr3F9nDkhhGR4C5tWE5KYDUPgE
+ WnZjOhGh8x6XpPX10ZjPB1VK7a0s4rpYAspkoITE6Fnr7oC2mh7J4GvUzUcMYjdsOZ59
+ rQow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698750965; x=1699355765;
+ d=1e100.net; s=20230601; t=1698751053; x=1699355853;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hJu2yLllJ94MBomatNabmyNQ4Uloi0vS+isN5mDPCt0=;
- b=rtntc9bNPllabZLttjCs12pm1Sdtc6ENLNu9mNWLHR/sQ9FVcmRlwqJFE1qZb3wMCM
- XnZ6//bOiD9PLfM+mCFKwPlh0dakkXfdD5dBdE8R/Z08ocX2TAdhI4j1Kz4YKQqOffUP
- xK48R1SHQtMM9xe6xiChnHAdDtlPdLUEKqYTyqvH8y4S8Uw+SN+N50+O8AQrezABDSR8
- zUhstrybzbpgCTD3AOiCc/BwA/CJiCjOP2kMNruNu3Ii37QTVBl1GPEEdeu7h6LzzCRd
- S1lGyHPETQgDoPpJ8YroiKjI0SmTKIzrg1IInj5n4xviw5NFncxh9q6YWgxI+CtnQSoF
- CEkQ==
-X-Gm-Message-State: AOJu0YzAcy6mdoeS2wXHAWSBVsZ7Xa6PKUQDJOVuYuaf62KVpgLJH/UL
- /URvZvZGgCGJMHEbnmexbyuElA==
-X-Google-Smtp-Source: AGHT+IHxZpOgWXPogwfe9mGa8MdZqaC12TgzQiZMNeuhq/Y1ScximNnSKTqRhS/LRgGekXZxobp+yA==
-X-Received: by 2002:a05:6512:370c:b0:503:1c58:8a46 with SMTP id
- z12-20020a056512370c00b005031c588a46mr8812041lfr.9.1698750965529; 
- Tue, 31 Oct 2023 04:16:05 -0700 (PDT)
+ bh=PbO/SJMgbSYC0KZVuF9ouObuyktOrD1BDzymUqZmreY=;
+ b=BKaKSz34DpG/S5EftzFa/ga+gYJdq6E1t2Dc7hL2dlg71dwbh/dFonAhFLvK6CDNuU
+ OfavyLfLOzsXBSe3B1YMLNYHa7nAQsNwP3jiRTwqTXf5r8SaOP/cBKyd7/1X90nRBhuL
+ I4jCst5w8ztx+xxH1FDvAvhMReab42+R6uFMn8bnwvqlyrDFrdRnJRM6EWdwKL11rwzA
+ oe3yNO7Bb8pssYZuaq1eZHSoYnUflT0mafTT3WhdIHQoqoRWhqC4AJ2JoZkTbariYkNt
+ geF3FVbTvrrmT1L+6pO+1ra1ETlVGy+t2iVgRz1CVD+JwH6J6VWTTaHDlbx0/g5+mfL2
+ /YCw==
+X-Gm-Message-State: AOJu0Yy5mENb8hGOSXI1/Esi3X8n1ZzS31aoruKMFJ7+IdI4paIv9sZD
+ TLit4I4RYjRE6skMdcJ6Zg+eNA==
+X-Google-Smtp-Source: AGHT+IHXNYRv2AT3XhUelDzTPoBiXNz1tD5ww21sCa6PrACDWAigV2GQEcBbj5XtsasA4AssPAthiA==
+X-Received: by 2002:a05:6512:709:b0:500:ac0b:8d58 with SMTP id
+ b9-20020a056512070900b00500ac0b8d58mr9124924lfs.18.1698751052006; 
+ Tue, 31 Oct 2023 04:17:32 -0700 (PDT)
 Received: from [192.168.143.96]
  (178235177091.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.91])
  by smtp.gmail.com with ESMTPSA id
- g20-20020a056512119400b0050318bdad45sm181224lfr.64.2023.10.31.04.16.03
+ g20-20020a056512119400b0050318bdad45sm181224lfr.64.2023.10.31.04.17.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Oct 2023 04:16:05 -0700 (PDT)
-Message-ID: <2202b6e6-afe0-4bce-bdb5-43a7c5c4162f@linaro.org>
-Date: Tue, 31 Oct 2023 12:16:02 +0100
+ Tue, 31 Oct 2023 04:17:31 -0700 (PDT)
+Message-ID: <ca3a0d84-befc-4426-8cdb-ea9d55e7fac9@linaro.org>
+Date: Tue, 31 Oct 2023 12:17:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -63,7 +63,7 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
  <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
 References: <20230928111630.1217419-1-dmitry.baryshkov@linaro.org>
- <20230928111630.1217419-7-dmitry.baryshkov@linaro.org>
+ <20230928111630.1217419-8-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -100,10 +100,10 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20230928111630.1217419-7-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230928111630.1217419-8-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 06/15] phy: qualcomm: add MSM8974 HDMI
+Subject: Re: [Freedreno] [PATCH v3 07/15] phy: qualcomm: add MSM8x60 HDMI
  PHY support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,153 +126,10 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 28.09.2023 13:16, Dmitry Baryshkov wrote:
-> Add support for HDMI PHY on Qualcomm MSM8974 / APQ8074 platforms.
+> Add support for HDMI PHY on Qualcomm MSM8x60 / APQ8060 platforms.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-I only have a few style comments (and timers-howto.txt fixes)
-
-[...]
-
-> +#define HDMI_8974_VCO_MAX_FREQ 1800000000UL
-> +#define HDMI_8974_VCO_MIN_FREQ  600000000UL
-> +
-> +#define HDMI_8974_COMMON_DIV 5
-> +
-> +static void qcom_uniphy_setup(void __iomem *base, unsigned int ref_freq,
-> +			      bool sdm_mode,
-> +			      bool ref_freq_mult_2,
-> +			      bool dither,
-> +			      unsigned int refclk_div,
-> +			      unsigned int vco_freq)
-> +{
-> +	unsigned int int_ref_freq = ref_freq * (ref_freq_mult_2 ? 2 : 1);
-> +	unsigned int div_in_freq = vco_freq / refclk_div;
-> +	unsigned int dc_offset = div_in_freq / int_ref_freq - 1;
-> +	unsigned int sdm_freq_seed;
-> +	unsigned int val;
-> +	unsigned int remain = div_in_freq - (dc_offset + 1) * int_ref_freq;
-> +	sdm_freq_seed = mult_frac(remain, 0x10000, int_ref_freq);
-> +
-> +	val = (ref_freq_mult_2 ? BIT(0) : 0) |
-> +		((refclk_div - 1) << 2);
-> +	writel(val, base + UNIPHY_PLL_REFCLK_CFG);
-> +
-> +	writel(sdm_mode ? 0 : 0x40 + dc_offset, base + UNIPHY_PLL_SDM_CFG0);
-> +
-> +	writel(dither ? 0x40 + dc_offset: 0, base + UNIPHY_PLL_SDM_CFG1);
-> +
-> +	writel(sdm_freq_seed & 0xff, base + UNIPHY_PLL_SDM_CFG2);
-The ternary operator doesn't really improve readability here, imo
-
-> +
-> +	writel((sdm_freq_seed >> 8) & 0xff, base + UNIPHY_PLL_SDM_CFG3);
-> +
-> +	writel(sdm_freq_seed >> 16, base + UNIPHY_PLL_SDM_CFG4);
-> +
-> +	ref_freq = ref_freq * 5 / 1000;
-> +	writel(ref_freq & 0xff, base + UNIPHY_PLL_CAL_CFG8);
-> +
-> +	writel(ref_freq >> 8, base + UNIPHY_PLL_CAL_CFG9);
-> +
-> +	vco_freq /= 1000;
-> +	writel(vco_freq & 0xff, base + UNIPHY_PLL_CAL_CFG10);
-> +
-> +	writel(vco_freq >> 8, base + UNIPHY_PLL_CAL_CFG11);
-> +}
-> +
-> +static unsigned long qcom_uniphy_recalc(void __iomem *base, unsigned long parent_rate)
-> +{
-> +	unsigned long rate;
-> +	u32 refclk_cfg;
-> +	u32 dc_offset;
-> +	u64 fraq_n;
-> +	u32 val;
-> +
-> +	refclk_cfg = readl(base + UNIPHY_PLL_REFCLK_CFG);
-> +	if (refclk_cfg & BIT(0))
-Can we name this bit?
-
-> +		parent_rate *= 2;
-> +
-> +	val = readl(base + UNIPHY_PLL_SDM_CFG0);
-> +	if (val & 0x40) {
-BIT(6)? can we name it?
-
-> +		dc_offset = val & 0x3f;
-GENMASK?
-
-> +		fraq_n = 0;
-> +	} else {
-> +		dc_offset = readl(base + UNIPHY_PLL_SDM_CFG1) & 0x3f;
-GENMASK?
-> +		fraq_n = readl(base + UNIPHY_PLL_SDM_CFG2) |
-> +			(readl(base + UNIPHY_PLL_SDM_CFG3) << 8);
-FIELD_PREP?
-
-> +	}
-> +
-> +	rate = (dc_offset + 1) * parent_rate;
-> +	rate += mult_frac(fraq_n, parent_rate, 0x10000);
-> +
-> +	rate *= (refclk_cfg >> 2) * 0x3 + 1;
-3 would be more clear than 0x3 imo
-
-[...]
-> +	udelay(50);
-usleep_range
-
-[...]
-
-> +	udelay(200);
-usleep_range
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_hdmi_msm8974_phy_pll_enable(struct qcom_hdmi_preqmp_phy *hdmi_phy)
-> +{
-> +	int ret;
-> +	unsigned long status;
-> +
-> +	/* Global enable */
-> +	hdmi_phy_write(hdmi_phy, REG_HDMI_8x74_GLB_CFG, 0x81);
-> +
-> +	/* Power up power gen */
-> +	hdmi_phy_write(hdmi_phy, REG_HDMI_8x74_PD_CTRL0, 0x00);
-> +	udelay(350);
-usleep_range
-
-> +
-> +	/* PLL power up */
-> +	hdmi_pll_write(hdmi_phy, UNIPHY_PLL_GLB_CFG, 0x01);
-> +	udelay(5);
-> +
-> +	/* Power up PLL LDO */
-> +	hdmi_pll_write(hdmi_phy, UNIPHY_PLL_GLB_CFG, 0x03);
-> +	udelay(350);
-usleep_range
-
-> +
-> +	/* PLL power up */
-> +	hdmi_pll_write(hdmi_phy, UNIPHY_PLL_GLB_CFG, 0x0f);
-> +	udelay(350);
-usleep_range
-
-> +
-> +	/* Poll for PLL ready status */
-> +	ret = readl_poll_timeout(hdmi_phy->pll_reg + UNIPHY_PLL_STATUS,
-> +				 status, status & BIT(0),
-magic bit name?
-
-> +				 100, 2000);
-> +	if (ret) {
-> +		dev_warn(hdmi_phy->dev, "HDMI PLL not ready\n");
-> +		goto err;
-> +	}
-> +
-> +	udelay(350);
-usleep_range
+Do you have the PLL working locally? Would it make sense to ship them both?
 
 Konrad
