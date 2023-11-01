@@ -1,64 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B707DDB0D
-	for <lists+freedreno@lfdr.de>; Wed,  1 Nov 2023 03:37:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C19037DE475
+	for <lists+freedreno@lfdr.de>; Wed,  1 Nov 2023 17:19:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F3C110E626;
-	Wed,  1 Nov 2023 02:37:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 778B010E735;
+	Wed,  1 Nov 2023 16:19:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437AC10E099;
- Wed,  1 Nov 2023 02:37:32 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50939d39d0fso990199e87.1; 
- Tue, 31 Oct 2023 19:37:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698806250; x=1699411050; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=RhToUgDGewUPgf6OgyTbPtKvOyKo7IWG8IUQAlqOJOY=;
- b=P35+hqu12tiZ8QK+re9+advRRW/PEt4Jw0NXnADV4pNB6c3f0FF/TR/8V4XWIOo2yn
- i0lePYn7r5ds+TAu6i58aoilsaU5HxmnZcw7q9OuA5CZxw+1vKWHkbjECJ6iVcClY44M
- I02UbFv/naXj2PWzWDXe99sejKSC30qMjoQ0ZQxrwUipmaRaJNWnRTwMCazzmHpb51xp
- NtXraME1FRxTRwjt+p/iFyDtTChj6qm7nbvdF1oVqUbFDZYwf9rCAaZc6CMDmxLHSnEg
- HF/ca1YKQ9d9fz081zLMDwqpbWqvV2lrB1T+18xFRmtTeBYrDgF+AijuXnQD7ceezglq
- b67A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698806250; x=1699411050;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RhToUgDGewUPgf6OgyTbPtKvOyKo7IWG8IUQAlqOJOY=;
- b=kgQTvZrh1qS7rd+9PxD4OEzO2hb/SLGDjymU4zvx1r9swfFvMdbbbxK3XarPzvbnAg
- GJ1NJ+QSjYheUX59Is/gixr4jhCmaqtz+YMKc40ntBCYOjYBQk80U3fHr7EWyWVK/NlK
- iLCoyi5aJwF5ABMKBicDV+y3Rzf2IC8MnDAxNK888HkXmIOFAOheKHK0SDszYTz0m+i1
- /8jS2+nts3TfO0ihVWfHd6XWoLQfUgX9XP1BjoQ5/j2eQssu2hMOwO8G2gl6TCx3RsAl
- VYMQhbzHrP/9wnvE/KLHYV2C02tWWhbLl02vubYzmuzge1bfjMJFwYKSwEWDW6dL3xVn
- s4OA==
-X-Gm-Message-State: AOJu0YyxaZl7S2n1DqllTx/qSfJqkWOXwI8Iv/XJyxXVsLJEHSmfoVWs
- 5Wz2WY1qL1ExN4YeQb2wnTjtot29dX6mVMsE+5E=
-X-Google-Smtp-Source: AGHT+IFeh9ikxIDnkDlTHkH1PXpR/kgi5gze/lZYbODyZgaDnbprmcGirGJlGwiGQ95RhKrHlfaYPFytDVNE91zQ2Q8=
-X-Received: by 2002:a05:6512:4845:b0:500:acf1:b432 with SMTP id
- ep5-20020a056512484500b00500acf1b432mr11708881lfb.63.1698806250074; Tue, 31
- Oct 2023 19:37:30 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C0C10E735;
+ Wed,  1 Nov 2023 16:19:29 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3A1D4aoJ015879; Wed, 1 Nov 2023 16:19:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=MgILOF+Vh0PfgLESTCkAgx0RiBlPVUa1StBHb19C1zU=;
+ b=RhqdMyyiG88i0/JgZ+xz+7rh3+17OxMCVNZVXQs1p1Q+pY6UYBiFp4ja/u1wOzg6lH7U
+ it5jo8GDAlZKO6EkCW6kYLU0Byh6ty3DDJV3zpv40UFcF7fwzhaMG/oU0A/z0YW2S7e3
+ ZYZytfrc/1Mp/jFRCXRRnQhu/Sap8OkyqcB5fKxdpICy/anJg6rXPSQ8PjknIcSv8ORn
+ upCFlRsK9Pq4FlHgqampOm9bQ2nIff7iAfZXlAG45ufdxdBO+ohA6q50gF0bO1hMCtfm
+ sRUr3pGOjzFL3ta74RyTTafXytbMrIh1lsuWCjaSt65g/QHCjWdJiSs98+tBXYR4rn0a Gg== 
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u3eq1j8nd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Nov 2023 16:19:20 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A1GJK4u010946
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 1 Nov 2023 16:19:20 GMT
+Received: from [10.134.69.165] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 1 Nov
+ 2023 09:19:19 -0700
+Message-ID: <118a8d20-2032-4689-b5c1-26797492f5c5@quicinc.com>
+Date: Wed, 1 Nov 2023 09:19:19 -0700
 MIME-Version: 1.0
-References: <20231023032251.164775-1-luben.tuikov@amd.com>
- <8f53f7ef-7621-4f0b-bdef-d8d20bc497ff@redhat.com>
- <6f3e9b93-2be5-46b2-bbd9-d61d2603c14a@gmail.com>
- <c57c7217-bfb9-4770-b17e-587f3b8a038c@redhat.com>
- <bef15942-9543-4118-89c9-62c63c6215d4@gmail.com>
-In-Reply-To: <bef15942-9543-4118-89c9-62c63c6215d4@gmail.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 1 Nov 2023 12:37:18 +1000
-Message-ID: <CAPM=9ty3X6ods9e9g47PNEZO0Kr35a36ffq+o4b0wNg6B+zsyQ@mail.gmail.com>
-To: Luben Tuikov <ltuikov89@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/sched: Convert the GPU scheduler to
- variable number of run-queues
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Marijn Suijten <marijn.suijten@somainline.org>
+References: <20231025092711.851168-1-dmitry.baryshkov@linaro.org>
+ <20231025092711.851168-2-dmitry.baryshkov@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20231025092711.851168-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: FXF3sm4txgQW_2wNLDf_m7xV7mbNMpTL
+X-Proofpoint-ORIG-GUID: FXF3sm4txgQW_2wNLDf_m7xV7mbNMpTL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-01_15,2023-11-01_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ suspectscore=0 bulkscore=0 spamscore=0 clxscore=1011 phishscore=0
+ mlxscore=0 impostorscore=0 adultscore=0 mlxlogscore=999 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2310240000 definitions=main-2311010129
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dp: don't touch DP
+ subconnector property in eDP case
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,91 +85,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Brost <matthew.brost@intel.com>, Emma Anholt <emma@anholt.net>,
- lima@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>, etnaviv@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Danilo Krummrich <dakr@redhat.com>, Qiang Yu <yuq825@gmail.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn
+ Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Abel Vesa <abel.vesa@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 1 Nov 2023 at 11:46, Luben Tuikov <ltuikov89@gmail.com> wrote:
->
-> On 2023-10-31 09:33, Danilo Krummrich wrote:
-> >
-> > On 10/26/23 19:25, Luben Tuikov wrote:
-> >> On 2023-10-26 12:39, Danilo Krummrich wrote:
-> >>> On 10/23/23 05:22, Luben Tuikov wrote:
-> >>>> The GPU scheduler has now a variable number of run-queues, which are set up at
-> >>>> drm_sched_init() time. This way, each driver announces how many run-queues it
-> >>>> requires (supports) per each GPU scheduler it creates. Note, that run-queues
-> >>>> correspond to scheduler "priorities", thus if the number of run-queues is set
-> >>>> to 1 at drm_sched_init(), then that scheduler supports a single run-queue,
-> >>>> i.e. single "priority". If a driver further sets a single entity per
-> >>>> run-queue, then this creates a 1-to-1 correspondence between a scheduler and
-> >>>> a scheduled entity.
-> >>>
-> >>> Generally, I'm fine with this patch and how it replaces / generalizes the single
-> >>> entity approach.
-> >>
-> >> Great!
-> >>
-> >>> However, I'm not quite sure how to properly use this. What is a driver supposed to
-> >>> do, which previously took advantage of DRM_SCHED_POLICY_SINGLE_ENTITY?
-> >>>
-> >>> Is it supposed to call drm_sched_init() with num_rqs=1? If so, what's the correct way
-> >>
-> >> Yes, you call drm_sched_init() with num_rqs set to 1.
-> >>
-> >>> to initialize the drm_sched_entity then? Calling drm_sched_entity_init() with priority=0?
-> >>
-> >> Yes, with priority set to 0.
-> >>
-> >> One unfortunate fact I noticed when doing this patch is that the numerical values
-> >> assigned to enum drm_sched_priority is that the names to values are upside down.
-> >> Instead of min being 0, normal:1, high:2, kernel:3, it should've been kernel:0 (highest),
-> >> high:1, normal:2, low:4, and so on.
-> >>
-> >> The reason for this is absolutely clear: if you had a single priority, it would be
-> >> 0, the kernel, one, highest one. This is similar to how lanes in a highway are counted:
-> >> you always have lane 1. Similarly to nice(1) and kernel priorities...
-> >>
-> >>> Any other priority consequently faults in drm_sched_job_arm().
-> >>
-> >> drm_sched_job_arm() faults on !ENTITY, but the "priority" is just
-> >> assigned to s_priority:
-> >>      job->s_priority = entity->priority;
-> >>
-> >>
-> >>> While I might sound like a broken record (sorry for that), I really think everything
-> >>> related to Matt's series needs documentation, as in:
-> >>
-> >> Yes, I agree.
-> >
-> > Great! Do you plan to send a subsequent patch adding some documentation for this one? I
-> > think it'd be good to get all the above documented.
->
-> A lot of this would be the magic sauce of drivers and hardware--as we've seen with Xe,
-> and it would be presumptuous of me to write down to the detail of what and how this
-> and that should be used.
 
-Nope it wouldn't be. Please feel free to persume how drivers might
-work in the form of documentation.
 
-At some point the scheduler needs to be documented and so far two
-maintainers have avoided doing so, and it's causing no end of
-problems.
+On 10/25/2023 2:23 AM, Dmitry Baryshkov wrote:
+> From: Abel Vesa <abel.vesa@linaro.org>
+> 
+> In case of the eDP connection there is no subconnetor and as such no
+> subconnector property. Put drm_dp_set_subconnector_property() calls
+> under the !is_edp condition.
+> 
+> Fixes: bfcc3d8f94f4 ("drm/msm/dp: support setting the DP subconnector type")
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Write documentation, this goes for Xe scheduler patches, Danilo's work.
+Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # SC7280
 
-When someone asks you for docs, consider it a blocker on getting stuff
-merged, because this stuff isn't obvious.
-
-Dave.
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++-----
+>   1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index e329e03e068d..1b88fb52726f 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -365,9 +365,11 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+>   	/* reset video pattern flag on disconnect */
+>   	if (!hpd) {
+>   		dp->panel->video_test = false;
+> -		drm_dp_set_subconnector_property(dp->dp_display.connector,
+> -						 connector_status_disconnected,
+> -						 dp->panel->dpcd, dp->panel->downstream_ports);
+> +		if (!dp->dp_display.is_edp)
+> +			drm_dp_set_subconnector_property(dp->dp_display.connector,
+> +							 connector_status_disconnected,
+> +							 dp->panel->dpcd,
+> +							 dp->panel->downstream_ports);
+>   	}
+>   
+>   	dp->dp_display.is_connected = hpd;
+> @@ -396,8 +398,11 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+>   
+>   	dp_link_process_request(dp->link);
+>   
+> -	drm_dp_set_subconnector_property(dp->dp_display.connector, connector_status_connected,
+> -					 dp->panel->dpcd, dp->panel->downstream_ports);
+> +	if (!dp->dp_display.is_edp)
+> +		drm_dp_set_subconnector_property(dp->dp_display.connector,
+> +						 connector_status_connected,
+> +						 dp->panel->dpcd,
+> +						 dp->panel->downstream_ports);
+>   
+>   	edid = dp->panel->edid;
+>   
+> -- 
+> 2.42.0
+> 
