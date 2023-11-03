@@ -2,82 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC2027DE76F
-	for <lists+freedreno@lfdr.de>; Wed,  1 Nov 2023 22:33:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D1D7E0BC3
+	for <lists+freedreno@lfdr.de>; Sat,  4 Nov 2023 00:04:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4C1810E7B7;
-	Wed,  1 Nov 2023 21:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A3F610EAF6;
+	Fri,  3 Nov 2023 23:04:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFBD210E7B5;
- Wed,  1 Nov 2023 21:32:55 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3A1KwwBa011494; Wed, 1 Nov 2023 21:32:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=lvSlxL9K7g3+sJ5q3nV6NpS3XYTP9bt7fZuWG9wQ+9c=;
- b=orZXuOqjuThGFan+qurYjWGDHqmAROltVhrP62fFUV7wyCPiBTp1eiTxQtcRvvPlfHa8
- +08S1u56JDx6HpTW2v75KToFCFAeI518aCmeRq+v/zLyAO6+is/J0nXf+vUCLU6jmRLo
- 3q3kzNP7y7bP7vU/843fmqgrI0zbKQMriJIlIqIXkihTI6eun26lS0gCCtoxUePc/7Q0
- qa2/zP6I1TEKHYfTCczPgez4EFjjdo4ZDGC8xUfMXb1nDhVFawbCeeEcXCN1vrg5MVRu
- CrZH0NXgLIIvutY19m7g1SyGgHdLFbIfqIa9F9b9fic5RkJuVp6yK6m9fReOQtr/kNL3 wQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u34sc4geu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Nov 2023 21:32:47 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A1LWkeY004288
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 1 Nov 2023 21:32:46 GMT
-Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 1 Nov
- 2023 14:32:45 -0700
-Message-ID: <e9b54301-584d-3d5c-1484-f97b32f06de6@quicinc.com>
-Date: Wed, 1 Nov 2023 14:32:45 -0700
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08BE510EAF5
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Nov 2023 23:04:16 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2c50305c5c4so36555731fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Nov 2023 16:04:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1699052655; x=1699657455; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GXIeW4GsOHRxaU3fctULVZJpGwQnd0E/lSvL3ZRRAIk=;
+ b=Dksjh1N/WK/DOQkYvP0c3Owl8wpkccL+7BOCNxTcoXiPD5g0EvdzqKS5NYaXY0iVB3
+ qn9nj0vAuJT9S45LbWjVJxfadJi4gp4JJq3hUi1zUpweTBZgFeb5or4mq0MAhsydGsR4
+ JTLHVyKlbc9k8FjjlnZ/GCNfxtQZqfGRoCLtblGB1BytfaTAfVlNfLcogXtxGIJAa+XW
+ thMSFKFvbE9UGzQJfBodwFNDt9pz5E4JIfhGUtQV/ixkKH7OvspExPy9lL/O8LJjGRXw
+ 52PMxa6P6OqHoSV4W7J20HKM6SdTaszKGs66SajymhzlQcABfyDl4CdLP7m5f08rKY8s
+ ix5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699052655; x=1699657455;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GXIeW4GsOHRxaU3fctULVZJpGwQnd0E/lSvL3ZRRAIk=;
+ b=QraLK49T/Zco+Om6nXvvC6faS3GBwb5AcIBCA563nP5s/z0ATOGhm5XcdU2OiMkesM
+ 87tpnfRsTSxrQbLuaXIFlZxXaKRUlhiPMS+LCF5wD/9rZt1i08Rmzm3HQUrNJEnUcPu0
+ J+CA2W+EYw96e2FIaCuAjENAd8whWR1DX7ZemSUk/ye82NNO+A/ikGguEopSaEuDXMSJ
+ 4COIFNiGlKp+NOMqAo1vCRnatszw4eH7X//bmQdqNO5b8OOIGRCSXB7YChiNO4V9PhKD
+ 9Oj+0fe/fF/g+lIg573l2Agdv/aXDDjGzsrT7Wzg/4nNXV/x0T7BN2iXWjnhp/xHHTzs
+ bbhw==
+X-Gm-Message-State: AOJu0YxiNDXK2s6I4KRrvOwKaha9GXgCROC8nV6RwXl4ss74D+ZkytkE
+ 2/HgoGxUkZ5g18n5zFdBtxQ0Jg==
+X-Google-Smtp-Source: AGHT+IFoXzOXhXBxDzb1hTvIAcYEh+H5qZuHfzgUAzlorrDsdIJFHrrZhJIyqpoiknvP1IZYHUsBww==
+X-Received: by 2002:a05:6512:688:b0:507:9a13:27bd with SMTP id
+ t8-20020a056512068800b005079a1327bdmr22258057lfe.7.1699052655045; 
+ Fri, 03 Nov 2023 16:04:15 -0700 (PDT)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ s16-20020ac24650000000b00504211d2a7bsm329919lfo.297.2023.11.03.16.04.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Nov 2023 16:04:14 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Sat,  4 Nov 2023 01:03:03 +0200
+Message-ID: <20231103230414.1483428-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231006131450.2436688-1-dmitry.baryshkov@linaro.org>
- <20231006131450.2436688-10-dmitry.baryshkov@linaro.org>
- <c2f7733b-bfa3-a8a6-6909-5da26cd513af@quicinc.com>
- <CAA8EJpr35LgyfNOcwiE0FgGR-CfS6b996HZk0tnQrVpOX99aRg@mail.gmail.com>
- <6d25aaec-58ef-6f66-d2f8-d351ab703d05@quicinc.com>
- <CAA8EJprX=8w7WDb8YF3Tf5bmkeym024oESSeoBtq5OU25CtcgQ@mail.gmail.com>
- <167ab91e-7194-0cb9-e2d8-2bbb83098e75@quicinc.com>
- <CAA8EJpoZMYQKsPiiwNv7v-72L9nOcN2Jc4dkdmTQyzB9trYgag@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpoZMYQKsPiiwNv7v-72L9nOcN2Jc4dkdmTQyzB9trYgag@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: JAb35PcTyFCnJq0nDu1PQgBph4lF_GGZ
-X-Proofpoint-GUID: JAb35PcTyFCnJq0nDu1PQgBph4lF_GGZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-01_19,2023-11-01_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 mlxlogscore=999 bulkscore=0 phishscore=0 priorityscore=1501
- mlxscore=0 spamscore=0 clxscore=1015 adultscore=0 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2310240000 definitions=main-2311010159
-Subject: Re: [Freedreno] [PATCH v6 09/10] drm/msm/dpu: merge
- DPU_SSPP_SCALER_QSEED3, QSEED3LITE, QSEED4
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v6 0/6] drm: simplify support for transparent
+ DRM bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,234 +80,85 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-usb@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Supporting DP/USB-C can result in a chain of several transparent
+bridges (PHY, redrivers, mux, etc). All attempts to implement DP support
+in a different way resulted either in series of hacks or in device tree
+not reflecting the actual hardware design. This results in drivers
+having similar boilerplate code for such bridges.
 
+Next, these drivers are susceptible to -EPROBE_DEFER loops: the next
+bridge can either be probed from the bridge->attach callback, when it is
+too late to return -EPROBE_DEFER, or from the probe() callback, when the
+next bridge might not yet be available, because it depends on the
+resources provided by the probing device. Device links can not fully
+solve this problem since there are mutual dependencies between adjancent
+devices.
 
-On 11/1/2023 2:23 PM, Dmitry Baryshkov wrote:
-> On Wed, 1 Nov 2023 at 21:56, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 11/1/2023 12:39 PM, Dmitry Baryshkov wrote:
->>> On Wed, 1 Nov 2023 at 20:43, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 10/31/2023 1:19 AM, Dmitry Baryshkov wrote:
->>>>> On Mon, 30 Oct 2023 at 22:24, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 10/6/2023 6:14 AM, Dmitry Baryshkov wrote:
->>>>>>> Three different features, DPU_SSPP_SCALER_QSEED3, QSEED3LITE and QSEED4
->>>>>>> are all related to different versions of the same HW scaling block.
->>>>>>> Corresponding driver parts use scaler_blk.version to identify the
->>>>>>> correct way to program the hardware. In order to simplify the driver
->>>>>>> codepath, merge these three feature bits.
->>>>>>>
->>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>>>> ---
->>>>>>>      drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 ++--
->>>>>>>      drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 6 +-----
->>>>>>>      drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    | 9 ++-------
->>>>>>>      drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 3 +--
->>>>>>>      4 files changed, 6 insertions(+), 16 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>>>> index 32c396abf877..eb867c8123d7 100644
->>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->>>>>>> @@ -31,10 +31,10 @@
->>>>>>>          (VIG_SDM845_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
->>>>>>>
->>>>>>>      #define VIG_SC7180_MASK \
->>>>>>> -     (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED4))
->>>>>>> +     (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
->>>>>>>
->>>>>>>      #define VIG_SM6125_MASK \
->>>>>>> -     (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3LITE))
->>>>>>> +     (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3))
->>>>>>>
->>>>>>
->>>>>> This merging is coming at a cost of inaccuracy. We are marking sc7180
->>>>>> and sm6125 as scaler_qseed3. But they are not. Let me know what you
->>>>>> think of below idea instead.
->>>>>>
->>>>>>>      #define VIG_SC7180_MASK_SDMA \
->>>>>>>          (VIG_SC7180_MASK | BIT(DPU_SSPP_SMART_DMA_V2))
->>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->>>>>>> index fc5027b0123a..ba262b3f0bdc 100644
->>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->>>>>>> @@ -51,9 +51,7 @@ enum {
->>>>>>>      /**
->>>>>>>       * SSPP sub-blocks/features
->>>>>>>       * @DPU_SSPP_SCALER_QSEED2,  QSEED2 algorithm support
->>>>>>> - * @DPU_SSPP_SCALER_QSEED3,  QSEED3 alogorithm support
->>>>>>> - * @DPU_SSPP_SCALER_QSEED3LITE,  QSEED3 Lite alogorithm support
->>>>>>> - * @DPU_SSPP_SCALER_QSEED4,  QSEED4 algorithm support
->>>>>>> + * @DPU_SSPP_SCALER_QSEED3,  QSEED3 alogorithm support (also QSEED3LITE and QSEED4)
->>>>>>>       * @DPU_SSPP_SCALER_RGB,     RGB Scaler, supported by RGB pipes
->>>>>>>       * @DPU_SSPP_CSC,            Support of Color space converion
->>>>>>>       * @DPU_SSPP_CSC_10BIT,      Support of 10-bit Color space conversion
->>>>>>> @@ -72,8 +70,6 @@ enum {
->>>>>>>      enum {
->>>>>>>          DPU_SSPP_SCALER_QSEED2 = 0x1,
->>>>>>>          DPU_SSPP_SCALER_QSEED3,
->>>>>>> -     DPU_SSPP_SCALER_QSEED3LITE,
->>>>>>> -     DPU_SSPP_SCALER_QSEED4,
->>>>>>>          DPU_SSPP_SCALER_RGB,
->>>>>>>          DPU_SSPP_CSC,
->>>>>>>          DPU_SSPP_CSC_10BIT,
->>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>>>>>> index 7e9c87088e17..d1b70cf72eef 100644
->>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
->>>>>>> @@ -594,9 +594,7 @@ static void _setup_layer_ops(struct dpu_hw_sspp *c,
->>>>>>>                  test_bit(DPU_SSPP_SMART_DMA_V2, &c->cap->features))
->>>>>>>                  c->ops.setup_multirect = dpu_hw_sspp_setup_multirect;
->>>>>>>
->>>>>>> -     if (test_bit(DPU_SSPP_SCALER_QSEED3, &features) ||
->>>>>>> -                     test_bit(DPU_SSPP_SCALER_QSEED3LITE, &features) ||
->>>>>>> -                     test_bit(DPU_SSPP_SCALER_QSEED4, &features))
->>>>>>> +     if (test_bit(DPU_SSPP_SCALER_QSEED3, &features))
->>>>>>>                  c->ops.setup_scaler = _dpu_hw_sspp_setup_scaler3;
->>>>>>
->>>>>> Can we just do sblk->scaler_blk.version >= 0x3000 instead of this
->>>>>> merging? That way you can still drop those enums without inaccuracy.
->>>>>
->>>>> No. QSEED3 from sdm845 has version 1.3, msm8998, sdm660 and sdm630
->>>>> have version 1.2.
->>>>>
->>>>
->>>> Ah got it.
->>>>
->>>> HW versioning is getting harder to generalize with the example you have
->>>> given. In my opinion, in that case lets keep these enums intact because
->>>> we dont have any other way of knowing the Qseed version otherwise and in
->>>> terms of LOC, we are not really saving so much in this change.
->>>>
->>>> In the prev change I agreed because along with the name and the version,
->>>> we could still interpret the version but with compressing the enums into
->>>> just QSEED3, this becomes very confusing. So now, in the future if we
->>>> have QSEED5 HW, we will have to change this anyway as its LUT
->>>> programming can change. So we need this distinction.
->>>
->>> I'm trying to eliminate them, because they cause more confusion than
->>> the bonuses.
->>> Currently we have QSEED3  / 3LITE / 4, which are somewhat compatible.
->>>
->>> We are aiming to support QSEED2 and RGB, which are incompatible with
->>> the QSEED3/3lite/4 family programming sequence. So they get their own
->>> feature bits (DPU_SSPP_SCALER_QSEED2 and DPU_SSPP_SCALER_RGB).
->>>
->>> QSEED5-to-be will either be compatible with QSEED3 (and thus can fall
->>> into the same bucket) or it will be a different kind of scaler (and
->>> will get its own feature).
->>>
->>> I'm not a fan of DPU_SSPP_SCALER_QSEED3LITE/QSEED4 and I'd like to
->>> remove those two bits for the following reasons:
->>> - We already encode this info into the scaler version. How should
->>> driver behave it it has e.g. version 3.1, but DPU_SSPP_SCALER_QSEED3?
->>> Or vice versa: version 1.2 but QSEED4 feature bit? Having a single
->>> QSEED3 removes this issue.
->>> - Adding QSEED5-compatible-with-QSEED3 requires changing several
->>> places which deal with the feature bits and the per-version setup
->>> sequence. This seems like an overkill. It is easy to miss one of the
->>> places and thus end up with the half-supported scaler
->>>
->>> I admit, it might not be ideal to use QSEED3 for all scaler versions.
->>> I'm open to suggestions on the better name for this feature bit. But I
->>> have no doubts that there should be a single feature bit for all
->>> QSEED3/3LITE/4 scalers.
->>>
->>
->> hmmm, the concern i had was that from the version the driver doesnt seem
->> to know which qseed it is as you rightly pointed out in your earlier
->> response with the examples of sdm845, msm8998 etc.
->>
->> It needs this feature bit to know which qseed version it is to use the
->> correct scaler function. If you remove the other two places below, this
->> will be the only one left right?
->>
->> I was thinking of solving this problem with something like
->> QSEED3_3LITE_4 but then this is not scalable if QSEED5 is also a variant
->> of QSEED3.
->>
->> After we remove below 2 places, are there more places where we test
->> these feature bits?
-> 
-> Hmm, true, this is the only place enumerating them.
-> 
->> One thing we can perhaps do is move all this feature bit handling to one
->> function like dpu_scaler_is_qseed3_compatible() and move these feature
->> bits there. That way you will have only one place to change for all the
->> code.
-> 
-> What about renaming QSEED3 to QSEED3_COMPATIBLE then? This would leave
-> us with RGB, QSEED2, QSEED3_COMPATIBLE. The QSEED5-to-be will either
-> be added as a new entry (and a new scaler function) or it will fall
-> into the QSEED3_COMPATIBLE bucket.
-> 
-> I'd really like to remove any chance of confusion between QSEEDn and
-> the scaler_block.version. I think we already had that wrong in several
-> catalog entries, so let's not walk twice into the same water.
-> 
+Last, but not least, this results in the the internal knowledge of DRM
+subsystem slowly diffusing into other subsystems, like PHY or USB/TYPEC.
 
-Ok thats fine. Lets go ahead with QSEED3_COMPATIBLE as that aligns with 
-the expectation that we will use the scaler3_lut for everything thats 
-compatible with QSEED3.
+To solve all these issues, define a separate DRM helper, which creates
+separate aux device just for the bridge. During probe such aux device
+doesn't result in the EPROBE_DEFER loops. Instead it allows the device
+drivers to probe properly, according to the actual resource
+dependencies. The bridge auxdevs are then probed when the next bridge
+becomes available, sparing drivers from drm_bridge_attach() returning
+-EPROBE_DEFER.
 
->>>> The below two changes seem fine and that way we are eliminating the
->>>> usages of the enum and we will end up with only one place using this.
->>>>
->>>>
->>>>>>
->>>>>>>
->>>>>>>          if (test_bit(DPU_SSPP_CDP, &features))
->>>>>>> @@ -629,10 +627,7 @@ int _dpu_hw_sspp_init_debugfs(struct dpu_hw_sspp *hw_pipe, struct dpu_kms *kms,
->>>>>>>                          cfg->len,
->>>>>>>                          kms);
->>>>>>>
->>>>>>> -     if (cfg->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
->>>>>>> -                     cfg->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
->>>>>>> -                     cfg->features & BIT(DPU_SSPP_SCALER_QSEED2) ||
->>>>>>> -                     cfg->features & BIT(DPU_SSPP_SCALER_QSEED4))
->>>>>>> +     if (sblk->scaler_blk.len)
->>>>>>
->>>>>> This part seems fine.
->>>>>>
->>>>>>>                  dpu_debugfs_create_regset32("scaler_blk", 0400,
->>>>>>>                                  debugfs_root,
->>>>>>>                                  sblk->scaler_blk.base + cfg->base,
->>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>>>> index 43135894263c..ba3ee4ba25b3 100644
->>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>>>>>> @@ -438,8 +438,7 @@ static void _dpu_plane_setup_scaler3(struct dpu_hw_sspp *pipe_hw,
->>>>>>>                          scale_cfg->src_height[i] /= chroma_subsmpl_v;
->>>>>>>                  }
->>>>>>>
->>>>>>> -             if (pipe_hw->cap->features &
->>>>>>> -                     BIT(DPU_SSPP_SCALER_QSEED4)) {
->>>>>>> +             if (pipe_hw->cap->sblk->scaler_blk.version >= 0x3000) {
->>>>>> This is fine too.
->>>>>>>                          scale_cfg->preload_x[i] = DPU_QSEED4_DEFAULT_PRELOAD_H;
->>>>>>>                          scale_cfg->preload_y[i] = DPU_QSEED4_DEFAULT_PRELOAD_V;
->>>>>>>                  } else {
->>>>>
->>>>>
->>>>>
->>>
->>>
->>>
-> 
-> 
-> 
+Changes since v5:
+ - Removed extra semicolon in !DRM_AUX_HPD_BRIDGE stubs definition.
+
+Changes since v4:
+ - Added documentation for new API (Sima)
+ - Added generic code to handle "last mile" DP bridges implementing just
+   the HPD functionality.
+ - Rebased on top of linux-next to be able to drop #ifdef's around
+   drm_bridge->of_node
+
+Changes since v3:
+ - Moved bridge driver to gpu/drm/bridge (Neil Armstrong)
+ - Renamed it to aux-bridge (since there is already a simple_bridge driver)
+ - Made CONFIG_OF mandatory for this driver (Neil Armstrong)
+ - Added missing kfree and ida_free (Dan Carpenter)
+
+Changes since v2:
+ - ifdef'ed bridge->of_node access (LKP)
+
+Changes since v1:
+ - Added EXPORT_SYMBOL_GPL / MODULE_LICENSE / etc. to drm_simple_bridge
+
+Dmitry Baryshkov (6):
+  drm/bridge: add transparent bridge helper
+  phy: qcom: qmp-combo: switch to DRM_AUX_BRIDGE
+  usb: typec: nb7vpq904m: switch to DRM_AUX_BRIDGE
+  drm/bridge: implement generic DP HPD bridge
+  soc: qcom: pmic-glink: switch to DRM_AUX_HPD_BRIDGE
+  usb: typec: qcom-pmic-typec: switch to DRM_AUX_HPD_BRIDGE
+
+ drivers/gpu/drm/bridge/Kconfig                |  17 ++
+ drivers/gpu/drm/bridge/Makefile               |   2 +
+ drivers/gpu/drm/bridge/aux-bridge.c           | 140 +++++++++++++++
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c       | 164 ++++++++++++++++++
+ drivers/phy/qualcomm/Kconfig                  |   2 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c     |  44 +----
+ drivers/soc/qcom/Kconfig                      |   1 +
+ drivers/soc/qcom/pmic_glink_altmode.c         |  33 +---
+ drivers/usb/typec/mux/Kconfig                 |   2 +-
+ drivers/usb/typec/mux/nb7vpq904m.c            |  44 +----
+ drivers/usb/typec/tcpm/Kconfig                |   1 +
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c |  41 +----
+ include/drm/bridge/aux-bridge.h               |  37 ++++
+ 13 files changed, 383 insertions(+), 145 deletions(-)
+ create mode 100644 drivers/gpu/drm/bridge/aux-bridge.c
+ create mode 100644 drivers/gpu/drm/bridge/aux-hpd-bridge.c
+ create mode 100644 include/drm/bridge/aux-bridge.h
+
+-- 
+2.42.0
+
