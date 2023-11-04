@@ -2,75 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2807E0BCB
-	for <lists+freedreno@lfdr.de>; Sat,  4 Nov 2023 00:04:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 850D37E0D0B
+	for <lists+freedreno@lfdr.de>; Sat,  4 Nov 2023 02:24:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6055210EB01;
-	Fri,  3 Nov 2023 23:04:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8F3210E1B1;
+	Sat,  4 Nov 2023 01:24:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 452CB10EAFF
- for <freedreno@lists.freedesktop.org>; Fri,  3 Nov 2023 23:04:22 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-507c78d258fso3366053e87.2
- for <freedreno@lists.freedesktop.org>; Fri, 03 Nov 2023 16:04:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1699052660; x=1699657460; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RMc9DJrhHFukjQ0QSTQddBGYIHrkhtn026KunSVyHrs=;
- b=WqpRtss7rR65harzuNkzkugLZUZwznv8j2LQ3EfRsOh1Zr5V5z5/EYfpbiZcDzEIxU
- nCJGMutfLrZwE+ImLVN2TcvOs6W1EthtrPbM69aYV8fgH+WGDZT7JzB4hLG9OjVYH4An
- 9uR7yEx9HctUM3UKEznXu+VquqCUcD38ca2IfuLxDvVLhs07IkyGcqpLADLP3dXfoe9H
- rSUJ1/PW8KKE9Zh+xGh3xo7EGdxoGfDSWLdt44KkaPquclwiVOmODDJQpZXwByR4DCVx
- 4txru6+1iQqhTLG6879Xu6bCP+BiQ37xS/ae/FLitIFpmPpyCc+tkr4sJNcLd8MBVvlK
- roEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699052660; x=1699657460;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RMc9DJrhHFukjQ0QSTQddBGYIHrkhtn026KunSVyHrs=;
- b=Rs3S68VBL6y2SZ/za8piJ/Meo0irCBwxRuu3Zl0dJ3I9Aq64GGOMYSZewKx1MeUW42
- zumQqmMvtesrqqlgV2pWF6+L1+bGHLWXfY6G59d+krOFaUZCQMBS1s5Daebxk0cVU89z
- o+tgRpt1Dp8pRR3kZuav/rYTcizrDlJUEKIFjNXvpwVA8t/tBauvGQEp81MIjqZsCSDr
- 5vLD+YWgatiUT8qJP/P1XmdpFWHGWGrMe0Tuw7+EYbS2TYvIvEtnvRncnQ9b3hsut/J5
- VLv7jNmtuimKJHXSIZaiiNILxoZIDEPe9SIw4Uu0rmdanTm83MdK2oiwmG8ugV8OH2am
- uENw==
-X-Gm-Message-State: AOJu0Yx11ZsuQvs2QiOw4EfhFRo0SXUO/8+Fkzd4Ka4CnRgKuOc5LI3l
- 4V8KS91jXmz/crrttMzxcaqD/w==
-X-Google-Smtp-Source: AGHT+IFZ7oB8PJ8HIVCwttUFOTPFsyuly9xwudtCOZ+IkVYj1zJZPMykPCji5igqCU5JxU9LfDeAiw==
-X-Received: by 2002:a19:5206:0:b0:507:adc9:a739 with SMTP id
- m6-20020a195206000000b00507adc9a739mr18412890lfb.37.1699052660610; 
- Fri, 03 Nov 2023 16:04:20 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- s16-20020ac24650000000b00504211d2a7bsm329919lfo.297.2023.11.03.16.04.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Nov 2023 16:04:20 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Sat,  4 Nov 2023 01:03:09 +0200
-Message-ID: <20231103230414.1483428-7-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231103230414.1483428-1-dmitry.baryshkov@linaro.org>
-References: <20231103230414.1483428-1-dmitry.baryshkov@linaro.org>
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D8910E1B1
+ for <freedreno@lists.freedesktop.org>; Sat,  4 Nov 2023 01:24:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id D8FC4CE2319;
+ Sat,  4 Nov 2023 01:24:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABF8C433C8;
+ Sat,  4 Nov 2023 01:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699061090;
+ bh=kES0qfVWNXA43mUOzfx7bbZfhya/EhlrolZFrykp/mk=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=uiqLKjYYNdmn9eRRgg1sV/bdBbBEGo6kR9BtlHOgm4sPEfDKN/bdzPjgCyQ+pytcO
+ AVUYlz0R4eEumAiwR3YKnModEZTCSaTZ7MyInyoMivC/F90PTJhampMCXVjSgXsZiw
+ 3qt3uuDxFlA4cpqjpXmDDRfyLblDXAfDAsMj+AsW56whv7M0BAIIzhFIM/TlJZXxaw
+ 2oTYNPCCbGWHdNJviWbTtvBOBDwZXwq08iYqqo0k8fJytX8EaZCe4ZQ597AnWg1EVw
+ 4PqYoxYGp3xdNQnOu9nU6ROkqAkX7Va/gHaTr0AGcQrtfiYHAWrBia6azuwBQOd62h
+ KK86xLUwE7+gQ==
+Message-ID: <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 6/6] usb: typec: qcom-pmic-typec: switch to
- DRM_AUX_HPD_BRIDGE
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
+References: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
+ <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Taniya Das <quic_tdas@quicinc.com>
+Date: Fri, 03 Nov 2023 18:24:47 -0700
+User-Agent: alot/0.10
+Subject: Re: [Freedreno] [RFC PATCH v2 2/3] clk: qcom: implement RCG2
+ 'parked' clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,117 +57,218 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-usb@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use the freshly defined DRM_AUX_HPD_BRIDGE instead of open-coding the
-same functionality for the DRM bridge chain termination.
+Quoting Dmitry Baryshkov (2023-10-03 18:23:07)
+> clk_rcg2_shared_ops implements support for the case of the RCG which
+> must not be completely turned off. However its design has one major
+> drawback: it doesn't allow us to properly implement the is_enabled
+> callback, which causes different kinds of misbehaviour from the CCF.
+>=20
+> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
+> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
+> switched off (and shared most of the implementation with
+> clk_rcg2_shared_ops). The major difference is that it requires that the
+> parent map doesn't conain the safe (parked) clock source. Instead if the
+> CFG_REG register points to the safe source, the clock is considered to
+> be disabled.
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/clk/qcom/clk-rcg.h  |  1 +
+>  drivers/clk/qcom/clk-rcg2.c | 56 +++++++++++++++++++++++++++++++++++++
+>  2 files changed, 57 insertions(+)
+>=20
+> diff --git a/drivers/clk/qcom/clk-rcg.h b/drivers/clk/qcom/clk-rcg.h
+> index e6d84c8c7989..9fbbf1251564 100644
+> --- a/drivers/clk/qcom/clk-rcg.h
+> +++ b/drivers/clk/qcom/clk-rcg.h
+> @@ -176,6 +176,7 @@ extern const struct clk_ops clk_byte2_ops;
+>  extern const struct clk_ops clk_pixel_ops;
+>  extern const struct clk_ops clk_gfx3d_ops;
+>  extern const struct clk_ops clk_rcg2_shared_ops;
+> +extern const struct clk_ops clk_rcg2_parked_ops;
+>  extern const struct clk_ops clk_dp_ops;
+> =20
+>  struct clk_rcg_dfs_data {
+> diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
+> index 5183c74b074f..fc75e2bc2d70 100644
+> --- a/drivers/clk/qcom/clk-rcg2.c
+> +++ b/drivers/clk/qcom/clk-rcg2.c
+> @@ -5,6 +5,7 @@
+> =20
+>  #include <linux/kernel.h>
+>  #include <linux/bitops.h>
+> +#include <linux/bitfield.h>
+>  #include <linux/err.h>
+>  #include <linux/bug.h>
+>  #include <linux/export.h>
+> @@ -1150,6 +1151,61 @@ const struct clk_ops clk_rcg2_shared_ops =3D {
+>  };
+>  EXPORT_SYMBOL_GPL(clk_rcg2_shared_ops);
+> =20
+> +static int clk_rcg2_parked_is_enabled(struct clk_hw *hw)
+> +{
+> +       struct clk_rcg2 *rcg =3D to_clk_rcg2(hw);
+> +       u32 cmd, cfg;
+> +       int ret;
+> +
+> +       ret =3D regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CMD_REG, &c=
+md);
+> +       if (ret)
+> +               return ret;
+> +
+> +       if ((cmd & CMD_ROOT_EN) =3D=3D 0)
+> +               return false;
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/usb/typec/tcpm/Kconfig                |  1 +
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c | 41 +++----------------
- 2 files changed, 7 insertions(+), 35 deletions(-)
+return 0?
 
-diff --git a/drivers/usb/typec/tcpm/Kconfig b/drivers/usb/typec/tcpm/Kconfig
-index 0b2993fef564..64d5421c69e6 100644
---- a/drivers/usb/typec/tcpm/Kconfig
-+++ b/drivers/usb/typec/tcpm/Kconfig
-@@ -80,6 +80,7 @@ config TYPEC_QCOM_PMIC
- 	tristate "Qualcomm PMIC USB Type-C Port Controller Manager driver"
- 	depends on ARCH_QCOM || COMPILE_TEST
- 	depends on DRM || DRM=n
-+	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE
- 	help
- 	  A Type-C port and Power Delivery driver which aggregates two
- 	  discrete pieces of silicon in the PM8150b PMIC block: the
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-index 581199d37b49..1a2b4bddaa97 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-@@ -18,7 +18,7 @@
- #include <linux/usb/tcpm.h>
- #include <linux/usb/typec_mux.h>
- 
--#include <drm/drm_bridge.h>
-+#include <drm/bridge/aux-bridge.h>
- 
- #include "qcom_pmic_typec_pdphy.h"
- #include "qcom_pmic_typec_port.h"
-@@ -36,7 +36,6 @@ struct pmic_typec {
- 	struct pmic_typec_port	*pmic_typec_port;
- 	bool			vbus_enabled;
- 	struct mutex		lock;		/* VBUS state serialization */
--	struct drm_bridge	bridge;
- };
- 
- #define tcpc_to_tcpm(_tcpc_) container_of(_tcpc_, struct pmic_typec, tcpc)
-@@ -150,35 +149,6 @@ static int qcom_pmic_typec_init(struct tcpc_dev *tcpc)
- 	return 0;
- }
- 
--#if IS_ENABLED(CONFIG_DRM)
--static int qcom_pmic_typec_attach(struct drm_bridge *bridge,
--				     enum drm_bridge_attach_flags flags)
--{
--	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
--}
--
--static const struct drm_bridge_funcs qcom_pmic_typec_bridge_funcs = {
--	.attach = qcom_pmic_typec_attach,
--};
--
--static int qcom_pmic_typec_init_drm(struct pmic_typec *tcpm)
--{
--	tcpm->bridge.funcs = &qcom_pmic_typec_bridge_funcs;
--#ifdef CONFIG_OF
--	tcpm->bridge.of_node = of_get_child_by_name(tcpm->dev->of_node, "connector");
--#endif
--	tcpm->bridge.ops = DRM_BRIDGE_OP_HPD;
--	tcpm->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
--
--	return devm_drm_bridge_add(tcpm->dev, &tcpm->bridge);
--}
--#else
--static int qcom_pmic_typec_init_drm(struct pmic_typec *tcpm)
--{
--	return 0;
--}
--#endif
--
- static int qcom_pmic_typec_probe(struct platform_device *pdev)
- {
- 	struct pmic_typec *tcpm;
-@@ -186,6 +156,7 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
- 	struct device_node *np = dev->of_node;
- 	const struct pmic_typec_resources *res;
- 	struct regmap *regmap;
-+	struct device *bridge_dev;
- 	u32 base[2];
- 	int ret;
- 
-@@ -241,14 +212,14 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
- 	mutex_init(&tcpm->lock);
- 	platform_set_drvdata(pdev, tcpm);
- 
--	ret = qcom_pmic_typec_init_drm(tcpm);
--	if (ret)
--		return ret;
--
- 	tcpm->tcpc.fwnode = device_get_named_child_node(tcpm->dev, "connector");
- 	if (!tcpm->tcpc.fwnode)
- 		return -EINVAL;
- 
-+	bridge_dev = drm_dp_hpd_bridge_register(tcpm->dev, to_of_node(tcpm->tcpc.fwnode));
-+	if (IS_ERR(bridge_dev))
-+		return PTR_ERR(bridge_dev);
-+
- 	tcpm->tcpm_port = tcpm_register_port(tcpm->dev, &tcpm->tcpc);
- 	if (IS_ERR(tcpm->tcpm_port)) {
- 		ret = PTR_ERR(tcpm->tcpm_port);
--- 
-2.42.0
+CMD_ROOT_OFF can be 0 and CMD_ROOT_EN can also be 0 at the same time.
+When that happens, some branch child clk is enabled and the rcg is
+actually enabled. There's a hardware feedback mechanism from the
+branches to the rcg so the rcg is guaranteed enabled. I'm trying to say
+that this bit is unreliable on its own, so we need to take care here. In
+fact, this bit is only used as a software override to make sure the
+branches don't turn off the rcg inadvertently.
 
+What if a branch is enabled, but the rcg root_en bit isn't set, and XO
+is used? In that case, this will report the clk as disabled when it's
+really enabled. That will look confusing to the clk framework because a
+child will be enabled without the parent being enabled. Things will
+probably still work though, because this only matters during disabling
+unused clks.
+
+Maybe it's better to not implement an is_enabled() callback for this clk
+and simply call a function to see which parent the hardware is using (XO
+or not). Basically don't go through clk_hw_is_enabled() and just call
+clk_rcg2_parked_is_enabled() directly wherever the clk_hw API is used.
+Then the framework doesn't get confused about enabled children with
+disabled parents, but the downside is that the framework doesn't know if
+the rcg is enabled. This is most likely fine though because an enabled
+rcg doesn't really make a difference. The important thing is knowing
+which branches are enabled at the framework level. Furthermore, the
+framework doesn't currently handle propagating up the enable state at
+boot to parents, so if say we have a child branch that is enabled, the
+enable state of the parent _must_ be enabled as well, or the branch is
+wedged and the only way to unwedge that is to enable the parent. It's
+quite a mess!
+
+Long story short, I question why we need to implement is_enabled() for
+this clk. What's the benefit? The branches being off is more important
+if we're concerned about saving power. There's the problem of handing
+off enable state from when the driver probes, but that's not so easy to
+solve given that a branch could be enabled (or a branch could be enabled
+that isn't even known to linux). And it also sort of doesn't matter
+because we know XO is practically always enabled and what really matters
+is making sure the driver can't wedge the RCG by changing the source to
+something that isn't enabled if it thinks the RCG is disabled when it is
+really enabled.
+
+That's sort of the only rule here, don't write the hardware when the
+current parent isn't enabled or the new parent isn't enabled. We don't
+know if the rcg is ever enabled, so we can only write the "go bit"
+(CMD_UPDATE) when we're 100% certain that the parent (or next parent
+when switching) is enabled. XO we know is always enabled, but otherwise
+we don't know unless the framework has enabled the clk (and therefore
+implicitly enabled the parent). The set_rate op could be called from
+either enabled or disabled state, same for the set_parent op. And we
+want the other clk APIs to report the state of the clk (like the parent
+or rate) even if the hardware hasn't been changed.
+
+> +
+> +       ret =3D regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, &c=
+fg);
+> +       if (ret)
+> +               return ret;
+> +
+> +       return FIELD_GET(CFG_SRC_SEL_MASK, cfg) !=3D rcg->safe_src_index;
+> +}
+> +
+> +static int clk_rcg2_parked_init(struct clk_hw *hw)
+> +{
+> +       struct clk_rcg2 *rcg =3D to_clk_rcg2(hw);
+> +       const struct freq_tbl *f =3D rcg->freq_tbl;
+> +
+> +       regmap_read(rcg->clkr.regmap, RCG_CFG_OFFSET(rcg), &rcg->parked_c=
+fg);
+
+I need this part today to fix a stuck clk problem I see on trogdor.lazor
+where during registration a call to clk_ops::get_parent() sees the clk
+isn't enabled at boot (because there isn't a clk_ops::is_enabled()
+function) so clk_rcg2_shared_get_parent() reads the parent from the
+'parked_cfg' value, which is zero. If the hardware actually has non-zero
+for the parent then the framework will get the wrong parent, which is
+what happens on trogdor when the devmode screen is shown. The parent is
+the display PLL instead of XO. I haven't dug far enough to understand
+why disabling unused clks wedges the branch when we try to enable it
+again, but not disabling unused clks fixes the problem or reading the
+config register at registration to get the proper parent also fixes it.
+I guess the problem is that we're switching the RCG value when we
+shouldn't be doing that.
+
+> +
+> +       if (FIELD_GET(CFG_SRC_SEL_MASK, rcg->parked_cfg) !=3D rcg->safe_s=
+rc_index)
+> +               return 0;
+> +
+> +       if (WARN_ON(!f) ||
+> +           WARN_ON(qcom_find_src_cfg(hw, rcg->parent_map, f->src) =3D=3D=
+ rcg->safe_src_index))
+> +               return -EINVAL;
+> +
+> +       return __clk_rcg2_configure(rcg, f, &rcg->parked_cfg);
+
+It would be good to have a comment above this like
+
+	/*
+	 * Dirty the rcg registers to point at the first frequency table
+	 * entry which is guaranteed to not use the safe_src_index.
+	 * Setting the rate of the clk with rcg registers containing the
+	 * safe_src_index will confuse clk_rcg2_parked_is_enabled() as
+	 * to the enable state and lead to actually changing the rate of
+	 * the clk when it isn't enabled.
+	 */
+
+> +}
+> +
+> +/*
+> + * Unlike clk_rcg2_shared_ops, the safe_src_index aka XO must NOT be pre=
+sent in
+> + * parent_map. This allows us to implement proper is_enabled callback.
+
+We could also modify clk_ops::set_rate() and clk_ops::determine_rate()
+to ignore frequency table entries with the safe_src_index, so that no
+driver can change the frequency to be XO. Then XO is still "reserved",
+and it still means the clk is disabled when the parent is XO, but we
+don't have to change the RCG registers during clk_rcg2_parked_init() to
+move off the safe_src/XO parent. We also have to prevent the parent from
+being set to XO with clk_set_parent(). That should be doable by failing
+the clk_ops::set_parent() op when the parent is XO.
+
+I'd actually prefer that approach if it's workable, so that we don't
+dirty the RCG registers during clk registration. I think qcom folks were
+unhappy with the rcg registers being dirty for a long time
+(CMD_DIRTY_CFG), because the other entity (the gdsc?) was triggering the
+rcg switch (CMD_UPDATE) and that was causing the wrong parent to be
+used.
+
+I still come back to the why question though. What are we gaining by
+implementing is_enabled for this clk?
+
+> + */
+> +const struct clk_ops clk_rcg2_parked_ops =3D {
+> +       .init =3D clk_rcg2_parked_init,
+> +       .is_enabled =3D clk_rcg2_parked_is_enabled,
+> +       .enable =3D clk_rcg2_shared_enable,
+> +       .disable =3D clk_rcg2_shared_disable,
+> +       .get_parent =3D clk_rcg2_shared_get_parent,
+> +       .set_parent =3D clk_rcg2_shared_set_parent,
+> +       .recalc_rate =3D clk_rcg2_shared_recalc_rate,
+> +       .determine_rate =3D clk_rcg2_determine_rate,
+> +       .set_rate =3D clk_rcg2_shared_set_rate,
+> +       .set_rate_and_parent =3D clk_rcg2_shared_set_rate_and_parent,
+> +};
+> +EXPORT_SYMBOL_GPL(clk_rcg2_parked_ops);
