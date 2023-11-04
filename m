@@ -1,50 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 850D37E0D0B
-	for <lists+freedreno@lfdr.de>; Sat,  4 Nov 2023 02:24:58 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 575847E0F89
+	for <lists+freedreno@lfdr.de>; Sat,  4 Nov 2023 14:02:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F3210E1B1;
-	Sat,  4 Nov 2023 01:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8BB10E207;
+	Sat,  4 Nov 2023 13:02:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68D8910E1B1
- for <freedreno@lists.freedesktop.org>; Sat,  4 Nov 2023 01:24:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D8FC4CE2319;
- Sat,  4 Nov 2023 01:24:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABF8C433C8;
- Sat,  4 Nov 2023 01:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699061090;
- bh=kES0qfVWNXA43mUOzfx7bbZfhya/EhlrolZFrykp/mk=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=uiqLKjYYNdmn9eRRgg1sV/bdBbBEGo6kR9BtlHOgm4sPEfDKN/bdzPjgCyQ+pytcO
- AVUYlz0R4eEumAiwR3YKnModEZTCSaTZ7MyInyoMivC/F90PTJhampMCXVjSgXsZiw
- 3qt3uuDxFlA4cpqjpXmDDRfyLblDXAfDAsMj+AsW56whv7M0BAIIzhFIM/TlJZXxaw
- 2oTYNPCCbGWHdNJviWbTtvBOBDwZXwq08iYqqo0k8fJytX8EaZCe4ZQ597AnWg1EVw
- 4PqYoxYGp3xdNQnOu9nU6ROkqAkX7Va/gHaTr0AGcQrtfiYHAWrBia6azuwBQOd62h
- KK86xLUwE7+gQ==
-Message-ID: <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDA1410E207;
+ Sat,  4 Nov 2023 13:02:53 +0000 (UTC)
+Received: from [100.116.205.35] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: koike)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 60DC1660741E;
+ Sat,  4 Nov 2023 13:02:49 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1699102972;
+ bh=EkRtCSIzLcp5vJ0IcXlrtE4gq3E3Lqmd9C7ZVWJrkPU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=G8yvOPlYueM6CsDNgiekG7kfg/N8aaS4t4I3c0V8K1ku04ja035NR93jkM58kXxl2
+ 4ZFLXouL/QT3z4izg8kHUVchjXilsrfCq+Dd7JJCQ0OJHw0N3BzBGmbkBYogASr90S
+ roNLIY/5BsEozs2hGIrf5ZZIuNUw62YmBZIGZ0k3/Qh/geZ5e0W6pU+qgRV2JViTBY
+ 4mAJEvIHBMSiBktkck7N5xgZMaj/ZP/ffEtuotqGR1Ku6cCLWistj00h/hmetvZIPY
+ hQodXwzB2Oa5gYAmoppso21xxClN3h4eY43+lUWOWM/4vjv7V2zg3bcVXOhtvyiyEA
+ wRfKRbCtDZ9/w==
+Message-ID: <0b0b1065-06e8-44ea-a4a1-395980afac5a@collabora.com>
+Date: Sat, 4 Nov 2023 10:02:43 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
-References: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
- <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Taniya Das <quic_tdas@quicinc.com>
-Date: Fri, 03 Nov 2023 18:24:47 -0700
-User-Agent: alot/0.10
-Subject: Re: [Freedreno] [RFC PATCH v2 2/3] clk: qcom: implement RCG2
- 'parked' clock support
+User-Agent: Mozilla Thunderbird
+To: Jessica Zhang <quic_jesszhan@quicinc.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20231010-rb5-runner-v1-0-aba1fcc6e3aa@quicinc.com>
+Content-Language: en-US
+From: Helen Koike <helen.koike@collabora.com>
+In-Reply-To: <20231010-rb5-runner-v1-0-aba1fcc6e3aa@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 0/3] drm/ci: Add support for SM8250 Gitlab
+ Runner
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,218 +55,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
+Cc: robdclark@chromium.org, freedreno@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2023-10-03 18:23:07)
-> clk_rcg2_shared_ops implements support for the case of the RCG which
-> must not be completely turned off. However its design has one major
-> drawback: it doesn't allow us to properly implement the is_enabled
-> callback, which causes different kinds of misbehaviour from the CCF.
->=20
-> Follow the idea behind clk_regmap_phy_mux_ops and implement the new
-> clk_rcg2_parked_ops. It also targets the clocks which must not be fully
-> switched off (and shared most of the implementation with
-> clk_rcg2_shared_ops). The major difference is that it requires that the
-> parent map doesn't conain the safe (parked) clock source. Instead if the
-> CFG_REG register points to the safe source, the clock is considered to
-> be disabled.
->=20
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Hi Jessica,
+
+On 10/10/2023 19:25, Jessica Zhang wrote:
+> Recently, we've registered a Gitlab runner for a Qualcomm RB5 device that will be
+> hosted and maintained in Qualcomm labs.
+> 
+> This series will add a corresponding CI job for testing SM8250 devices and add the
+> skip/fails/flakes list. We were able to complete a successful run [1] with these
+> changes.
+> 
+> For now, we will keep the job as manual trigger only and drop that rule later
+> after we stabilize the tests.
+> 
+> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/50092719
+> 
 > ---
->  drivers/clk/qcom/clk-rcg.h  |  1 +
->  drivers/clk/qcom/clk-rcg2.c | 56 +++++++++++++++++++++++++++++++++++++
->  2 files changed, 57 insertions(+)
->=20
-> diff --git a/drivers/clk/qcom/clk-rcg.h b/drivers/clk/qcom/clk-rcg.h
-> index e6d84c8c7989..9fbbf1251564 100644
-> --- a/drivers/clk/qcom/clk-rcg.h
-> +++ b/drivers/clk/qcom/clk-rcg.h
-> @@ -176,6 +176,7 @@ extern const struct clk_ops clk_byte2_ops;
->  extern const struct clk_ops clk_pixel_ops;
->  extern const struct clk_ops clk_gfx3d_ops;
->  extern const struct clk_ops clk_rcg2_shared_ops;
-> +extern const struct clk_ops clk_rcg2_parked_ops;
->  extern const struct clk_ops clk_dp_ops;
-> =20
->  struct clk_rcg_dfs_data {
-> diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
-> index 5183c74b074f..fc75e2bc2d70 100644
-> --- a/drivers/clk/qcom/clk-rcg2.c
-> +++ b/drivers/clk/qcom/clk-rcg2.c
-> @@ -5,6 +5,7 @@
-> =20
->  #include <linux/kernel.h>
->  #include <linux/bitops.h>
-> +#include <linux/bitfield.h>
->  #include <linux/err.h>
->  #include <linux/bug.h>
->  #include <linux/export.h>
-> @@ -1150,6 +1151,61 @@ const struct clk_ops clk_rcg2_shared_ops =3D {
->  };
->  EXPORT_SYMBOL_GPL(clk_rcg2_shared_ops);
-> =20
-> +static int clk_rcg2_parked_is_enabled(struct clk_hw *hw)
-> +{
-> +       struct clk_rcg2 *rcg =3D to_clk_rcg2(hw);
-> +       u32 cmd, cfg;
-> +       int ret;
-> +
-> +       ret =3D regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CMD_REG, &c=
-md);
-> +       if (ret)
-> +               return ret;
-> +
-> +       if ((cmd & CMD_ROOT_EN) =3D=3D 0)
-> +               return false;
 
-return 0?
+Thank you for you patchset.
 
-CMD_ROOT_OFF can be 0 and CMD_ROOT_EN can also be 0 at the same time.
-When that happens, some branch child clk is enabled and the rcg is
-actually enabled. There's a hardware feedback mechanism from the
-branches to the rcg so the rcg is guaranteed enabled. I'm trying to say
-that this bit is unreliable on its own, so we need to take care here. In
-fact, this bit is only used as a software override to make sure the
-branches don't turn off the rcg inadvertently.
+I'm getting the following error:
 
-What if a branch is enabled, but the rcg root_en bit isn't set, and XO
-is used? In that case, this will report the clk as disabled when it's
-really enabled. That will look confusing to the clk framework because a
-child will be enabled without the parent being enabled. Things will
-probably still work though, because this only matters during disabling
-unused clks.
+"serial.serialutil.SerialException: [Errno 2] could not open port 
+/dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'"
 
-Maybe it's better to not implement an is_enabled() callback for this clk
-and simply call a function to see which parent the hardware is using (XO
-or not). Basically don't go through clk_hw_is_enabled() and just call
-clk_rcg2_parked_is_enabled() directly wherever the clk_hw API is used.
-Then the framework doesn't get confused about enabled children with
-disabled parents, but the downside is that the framework doesn't know if
-the rcg is enabled. This is most likely fine though because an enabled
-rcg doesn't really make a difference. The important thing is knowing
-which branches are enabled at the framework level. Furthermore, the
-framework doesn't currently handle propagating up the enable state at
-boot to parents, so if say we have a child branch that is enabled, the
-enable state of the parent _must_ be enabled as well, or the branch is
-wedged and the only way to unwedge that is to enable the parent. It's
-quite a mess!
+https://gitlab.freedesktop.org/helen.fornazier/linux/-/jobs/51193215#L146
 
-Long story short, I question why we need to implement is_enabled() for
-this clk. What's the benefit? The branches being off is more important
-if we're concerned about saving power. There's the problem of handing
-off enable state from when the driver probes, but that's not so easy to
-solve given that a branch could be enabled (or a branch could be enabled
-that isn't even known to linux). And it also sort of doesn't matter
-because we know XO is practically always enabled and what really matters
-is making sure the driver can't wedge the RCG by changing the source to
-something that isn't enabled if it thinks the RCG is disabled when it is
-really enabled.
+I'm wondering if I'm missing some configuration.
 
-That's sort of the only rule here, don't write the hardware when the
-current parent isn't enabled or the new parent isn't enabled. We don't
-know if the rcg is ever enabled, so we can only write the "go bit"
-(CMD_UPDATE) when we're 100% certain that the parent (or next parent
-when switching) is enabled. XO we know is always enabled, but otherwise
-we don't know unless the framework has enabled the clk (and therefore
-implicitly enabled the parent). The set_rate op could be called from
-either enabled or disabled state, same for the set_parent op. And we
-want the other clk APIs to report the state of the clk (like the parent
-or rate) even if the hardware hasn't been changed.
+I tested on top of drm-misc-next.
 
-> +
-> +       ret =3D regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, &c=
-fg);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return FIELD_GET(CFG_SRC_SEL_MASK, cfg) !=3D rcg->safe_src_index;
-> +}
-> +
-> +static int clk_rcg2_parked_init(struct clk_hw *hw)
-> +{
-> +       struct clk_rcg2 *rcg =3D to_clk_rcg2(hw);
-> +       const struct freq_tbl *f =3D rcg->freq_tbl;
-> +
-> +       regmap_read(rcg->clkr.regmap, RCG_CFG_OFFSET(rcg), &rcg->parked_c=
-fg);
+Also, I'd like to add in the docs an entry about the devices we have, 
+which tag they need, which dts they correspond to, which farm they are 
+located, who to contact if there is any problem and maybe some comment 
+about the device (how it is hooked up, the logs comes from uart or ssh, 
+does it use fastboot, etc) if you find it useful.
+Would you mind adding an entry in the docs with this information for the 
+sm8250? (Than I'll add the info of the other devices after yours).
 
-I need this part today to fix a stuck clk problem I see on trogdor.lazor
-where during registration a call to clk_ops::get_parent() sees the clk
-isn't enabled at boot (because there isn't a clk_ops::is_enabled()
-function) so clk_rcg2_shared_get_parent() reads the parent from the
-'parked_cfg' value, which is zero. If the hardware actually has non-zero
-for the parent then the framework will get the wrong parent, which is
-what happens on trogdor when the devmode screen is shown. The parent is
-the display PLL instead of XO. I haven't dug far enough to understand
-why disabling unused clks wedges the branch when we try to enable it
-again, but not disabling unused clks fixes the problem or reading the
-config register at registration to get the proper parent also fixes it.
-I guess the problem is that we're switching the RCG value when we
-shouldn't be doing that.
 
-> +
-> +       if (FIELD_GET(CFG_SRC_SEL_MASK, rcg->parked_cfg) !=3D rcg->safe_s=
-rc_index)
-> +               return 0;
-> +
-> +       if (WARN_ON(!f) ||
-> +           WARN_ON(qcom_find_src_cfg(hw, rcg->parent_map, f->src) =3D=3D=
- rcg->safe_src_index))
-> +               return -EINVAL;
-> +
-> +       return __clk_rcg2_configure(rcg, f, &rcg->parked_cfg);
+> Jessica Zhang (3):
+>        drm/ci: Add SM8250 job to CI
 
-It would be good to have a comment above this like
+I would also move this patch to last, so we don't have a commit where 
+things shouldn't work properly.
+Or maybe squash them all.
 
-	/*
-	 * Dirty the rcg registers to point at the first frequency table
-	 * entry which is guaranteed to not use the safe_src_index.
-	 * Setting the rate of the clk with rcg registers containing the
-	 * safe_src_index will confuse clk_rcg2_parked_is_enabled() as
-	 * to the enable state and lead to actually changing the rate of
-	 * the clk when it isn't enabled.
-	 */
+Regards,
+Helen
 
-> +}
-> +
-> +/*
-> + * Unlike clk_rcg2_shared_ops, the safe_src_index aka XO must NOT be pre=
-sent in
-> + * parent_map. This allows us to implement proper is_enabled callback.
-
-We could also modify clk_ops::set_rate() and clk_ops::determine_rate()
-to ignore frequency table entries with the safe_src_index, so that no
-driver can change the frequency to be XO. Then XO is still "reserved",
-and it still means the clk is disabled when the parent is XO, but we
-don't have to change the RCG registers during clk_rcg2_parked_init() to
-move off the safe_src/XO parent. We also have to prevent the parent from
-being set to XO with clk_set_parent(). That should be doable by failing
-the clk_ops::set_parent() op when the parent is XO.
-
-I'd actually prefer that approach if it's workable, so that we don't
-dirty the RCG registers during clk registration. I think qcom folks were
-unhappy with the rcg registers being dirty for a long time
-(CMD_DIRTY_CFG), because the other entity (the gdsc?) was triggering the
-rcg switch (CMD_UPDATE) and that was causing the wrong parent to be
-used.
-
-I still come back to the why question though. What are we gaining by
-implementing is_enabled for this clk?
-
-> + */
-> +const struct clk_ops clk_rcg2_parked_ops =3D {
-> +       .init =3D clk_rcg2_parked_init,
-> +       .is_enabled =3D clk_rcg2_parked_is_enabled,
-> +       .enable =3D clk_rcg2_shared_enable,
-> +       .disable =3D clk_rcg2_shared_disable,
-> +       .get_parent =3D clk_rcg2_shared_get_parent,
-> +       .set_parent =3D clk_rcg2_shared_set_parent,
-> +       .recalc_rate =3D clk_rcg2_shared_recalc_rate,
-> +       .determine_rate =3D clk_rcg2_determine_rate,
-> +       .set_rate =3D clk_rcg2_shared_set_rate,
-> +       .set_rate_and_parent =3D clk_rcg2_shared_set_rate_and_parent,
-> +};
-> +EXPORT_SYMBOL_GPL(clk_rcg2_parked_ops);
+>        drm/ci: enable CONFIG_INTERCONNECT_QCOM_SM8250 for arm64 config
+>        drm/ci: Add skips, fails and flakes for SM8250
+> 
+>   drivers/gpu/drm/ci/arm64.config                 |  1 +
+>   drivers/gpu/drm/ci/build.sh                     |  1 +
+>   drivers/gpu/drm/ci/test.yml                     | 15 +++++++++++++
+>   drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt  | 29 +++++++++++++++++++++++++
+>   drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt |  3 +++
+>   drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt  |  8 +++++++
+>   6 files changed, 57 insertions(+)
+> ---
+> base-commit: dcd88f8c63341ed11a8c5019408f62202cd9d1f2
+> change-id: 20230919-rb5-runner-77ec32bd61e7
+> 
+> Best regards,
