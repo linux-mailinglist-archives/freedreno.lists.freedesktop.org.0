@@ -2,76 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F4F17E2B05
-	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 18:36:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1C07E2C24
+	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 19:39:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704DC10E39A;
-	Mon,  6 Nov 2023 17:36:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5806410E3AE;
+	Mon,  6 Nov 2023 18:39:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C310010E396;
- Mon,  6 Nov 2023 17:36:01 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1DD10E3AD;
+ Mon,  6 Nov 2023 18:39:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3A6GdBP5022997; Mon, 6 Nov 2023 17:35:57 GMT
+ 3A6HsOej026196; Mon, 6 Nov 2023 18:39:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=FrfXeWtjU0Ruex8wMO6jSQzaCluEQ3NY8dv9N4305wc=;
- b=Uac931rR+5ooJz4n5ak651QTsQM9wUunEY0Crd0orpfBOP7xX9znq4smui4mSlHrBoLc
- XMvx2hFLvEpd6IPGxdaCieZUJys9Z6EC+VXSDqw2e3Qy/cDak+SIbUhn4hiGxsK9/gtB
- ZvCEhGod9fzcqErd435y0Ruvrl+4xMLbBsn2GLKqqo0An2tZ1OQ9vDwnNqzoZfr6wz+Y
- Yj7mxrR/6fp3T31HBqQAqY7sJry3jfq0Mk3OAN+FoMTdb22eX8wyNAQumVEgUMbjHt14
- thjTIGWkCvkSSZna7JKOUSeimbLad5DYdz6QlK3dyCFPCzPcAX8iOJY7JoIimjdrBoy8 jA== 
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u5f8dvx6u-1
+ bh=5v9Ozv28xqt7xzsIePHRUig9LVHYUIs4aWLRgkev1js=;
+ b=dV4EKrzcMuFlQi1m0flRL8K1XCSr1iWhW+lH6STd5xuf8NYpQqW4fe+N8qbQaXQ7ar6w
+ ob5yagczUumAp0mBT0HU9/hwHR5tneTVNy/YTBgLsKwtRC4nxFlHeTfHr6uUxRWBo5mK
+ yS/yhpL+o37FITjTodqLYKB3f8hAakoVo5fKhK8mG37+rIiYLUe/KJw3XcRPx36jaIRL
+ aVt98kkiWzUcTnVVEEoKypKBxOzQCrqOvAYc5Fvf54wj8gk6TorDLi9ZZ0MvOEjSA/Aw
+ /ywUO9olO1akgcoxZvsv6lS4tehZP8DXuD8IBQFipNHUhTj8LQvaMIVjN26/ekPXnvAx Vw== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u5efyn5a6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Nov 2023 17:35:56 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A6HZuQO003465
+ Mon, 06 Nov 2023 18:39:16 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A6IdFCf030479
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 6 Nov 2023 17:35:56 GMT
-Received: from [10.71.110.254] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ Mon, 6 Nov 2023 18:39:15 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Mon, 6 Nov
- 2023 09:35:56 -0800
-Message-ID: <f97c86a6-34d3-45e1-8673-8a3f02f88392@quicinc.com>
-Date: Mon, 6 Nov 2023 09:35:55 -0800
+ 2023 10:39:13 -0800
+Message-ID: <e4c94f9d-773a-e894-d655-41afeb01dae1@quicinc.com>
+Date: Mon, 6 Nov 2023 10:38:45 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231009171139.2691218-1-dmitry.baryshkov@linaro.org>
 Content-Language: en-US
-To: Helen Koike <helen.koike@collabora.com>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>
-References: <20231010-rb5-runner-v1-0-aba1fcc6e3aa@quicinc.com>
- <0b0b1065-06e8-44ea-a4a1-395980afac5a@collabora.com>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <0b0b1065-06e8-44ea-a4a1-395980afac5a@collabora.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231009171139.2691218-1-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+ nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: oidrzqcyGQaChlGbzrGUmlmHaPwU8_VC
-X-Proofpoint-GUID: oidrzqcyGQaChlGbzrGUmlmHaPwU8_VC
+X-Proofpoint-GUID: Q0kYKXlBu7GBLw7oZ4gZjbDzmM1V0c93
+X-Proofpoint-ORIG-GUID: Q0kYKXlBu7GBLw7oZ4gZjbDzmM1V0c93
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-06_13,2023-11-02_03,2023-05-22_02
+ definitions=2023-11-06_14,2023-11-02_03,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
- mlxscore=0 suspectscore=0 phishscore=0 mlxlogscore=999 spamscore=0
+ impostorscore=0
+ mlxlogscore=999 priorityscore=1501 malwarescore=0 mlxscore=0 clxscore=1015
+ phishscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
  bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2310240000 definitions=main-2311060143
-Subject: Re: [Freedreno] [PATCH 0/3] drm/ci: Add support for SM8250 Gitlab
- Runner
+ engine=8.12.0-2310240000 definitions=main-2311060154
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: correct clk bit for WB2 block
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,101 +84,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Sorry for the delay in getting back on this. There was quite a bit of 
+history digging I had to do myself to give a certain response.
 
 
-On 11/4/2023 6:02 AM, Helen Koike wrote:
-> Hi Jessica,
+On 10/9/2023 10:11 AM, Dmitry Baryshkov wrote:
+> On sc7280 there are two clk bits for WB2: control and status. While
+> programming the VBIF params of WB, the driver should be toggling the
+> former bit, while the sc7280_mdp struct lists the latter one.
 > 
-> On 10/10/2023 19:25, Jessica Zhang wrote:
->> Recently, we've registered a Gitlab runner for a Qualcomm RB5 device 
->> that will be
->> hosted and maintained in Qualcomm labs.
->>
->> This series will add a corresponding CI job for testing SM8250 devices 
->> and add the
->> skip/fails/flakes list. We were able to complete a successful run [1] 
->> with these
->> changes.
->>
->> For now, we will keep the job as manual trigger only and drop that 
->> rule later
->> after we stabilize the tests.
->>
->> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/50092719
->>
->> ---
-> 
-> Thank you for you patchset.
-> 
-> I'm getting the following error:
-> 
-> "serial.serialutil.SerialException: [Errno 2] could not open port 
-> /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'"
-> 
-> https://gitlab.freedesktop.org/helen.fornazier/linux/-/jobs/51193215#L146
-> 
-> I'm wondering if I'm missing some configuration.
-> 
-> I tested on top of drm-misc-next.
 
-Hi Helen,
+No, this is not correct. Both are control bits. But for the context of 
+where this is being used today, that is setting the VBIF OT limit, we 
+should be using the VBIF_CLI one. So the below change itself is correct 
+but not the commit text.
 
-Sorry for the inconvenience, but I had to temporarily take down the 
-runner last Friday to physically move the setup (as part of a 
-reorganization of our lab here).
+We need to make the same change on sm8250 WB2 as well as this register 
+is present there too. In fact, anything >=msm8994 for setting VBIF OT 
+for WB2 we should be using VBIF_CLI bits of register MDP_CLK_CTRL2 
+(offset 0x2bc).
 
-I'll update this thread as soon as the runner is back up -- the move 
-will be complete by the end of this week.
+For anything >=sm8550, we need to use WB_2_CLK_CTRL present within the 
+WB block and not the one in the top.
 
+Hence for this change, we can do below:
+
+-> update the commit text to indicate both are control bits but for the 
+vbif ot context we should using the corrected one
+-> if you can also add sm8250 in the same change i can ack it and pick it up
+
+Have you re-validated WB with this change? If not, let me know I shall 
+while picking this up for -fixes.
+
+> Correct that to ensure proper programming sequence for WB2 on sc7280.
 > 
-> Also, I'd like to add in the docs an entry about the devices we have, 
-> which tag they need, which dts they correspond to, which farm they are 
-> located, who to contact if there is any problem and maybe some comment 
-> about the device (how it is hooked up, the logs comes from uart or ssh, 
-> does it use fastboot, etc) if you find it useful.
-> Would you mind adding an entry in the docs with this information for the 
-> sm8250? (Than I'll add the info of the other devices after yours).
-
-Sure, sounds good.
-
+> Fixes: 3ce166380567 ("drm/msm/dpu: add writeback support for sc7280")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> 
->> Jessica Zhang (3):
->>        drm/ci: Add SM8250 job to CI
-> 
-> I would also move this patch to last, so we don't have a commit where 
-> things shouldn't work properly.
-> Or maybe squash them all.
-
-Acked -- I'll move this patch to the end.
-
-Thanks,
-
-Jessica Zhang
-
-> 
-> Regards,
-> Helen
-> 
->>        drm/ci: enable CONFIG_INTERCONNECT_QCOM_SM8250 for arm64 config
->>        drm/ci: Add skips, fails and flakes for SM8250
->>
->>   drivers/gpu/drm/ci/arm64.config                 |  1 +
->>   drivers/gpu/drm/ci/build.sh                     |  1 +
->>   drivers/gpu/drm/ci/test.yml                     | 15 +++++++++++++
->>   drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt  | 29 
->> +++++++++++++++++++++++++
->>   drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt |  3 +++
->>   drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt  |  8 +++++++
->>   6 files changed, 57 insertions(+)
->> ---
->> base-commit: dcd88f8c63341ed11a8c5019408f62202cd9d1f2
->> change-id: 20230919-rb5-runner-77ec32bd61e7
->>
->> Best regards,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> index 3b5061c4402a..9195cb996f44 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> @@ -25,7 +25,7 @@ static const struct dpu_mdp_cfg sc7280_mdp = {
+>   		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+>   		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+>   		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
+> -		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
+> +		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
+>   	},
+>   };
+>   
