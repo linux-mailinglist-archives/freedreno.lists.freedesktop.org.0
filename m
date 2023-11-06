@@ -1,66 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0AE37E2C55
-	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 19:50:41 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B307E2F9C
+	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 23:12:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80BAC10E3CD;
-	Mon,  6 Nov 2023 18:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0CAB10E44D;
+	Mon,  6 Nov 2023 22:12:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C64B510E3C6;
- Mon,  6 Nov 2023 18:50:37 +0000 (UTC)
-Received: by mail-pg1-x52f.google.com with SMTP id
- 41be03b00d2f7-5bd33abbb90so2661302a12.2; 
- Mon, 06 Nov 2023 10:50:37 -0800 (PST)
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D586910E448
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Nov 2023 22:11:59 +0000 (UTC)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-5af5b532d8fso57844767b3.2
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Nov 2023 14:11:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699296636; x=1699901436; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DMBUj2Kt6SbeiWM5ttIg3zTrO2lSIQVfD3WAaZwy4rI=;
- b=O7fI3D95haUeusu3AAZ7YoPgfpMRHtBXALArWtOKaObqltCUoiwV5kqtp6FG3krBog
- XihO6+TMyI5BNv/3YlyS/q758/2fK+4u8QNy1v4jkcCcrt5D5hV5F2D6ur0dhz5vumEz
- PugRC/pgul4gM5LM5Xd+vGMF7kdAfictXG40zJlrW/9ImnxROYr8QQFp6dzWPqqiSXJ/
- 5SKvkPi+FaM81xmPtgpaVvtBVBGGY3p2jJTJvukSg8DRLj7cBfVcdcaGz4Onz15t5BKZ
- 1ERJMyf0C1BXsRx48806oncpRlHqzj0de7LBjv4XWXFl1KaNhSTl0z3B9n4kUwFHgtMr
- tKAA==
+ d=linaro.org; s=google; t=1699308719; x=1699913519; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TGM/lCcxyrtlyI0/1HNh1y04S/ydjRYuctHpQFy0HgE=;
+ b=b9reIAJFMzZ2yGo43J0bdC1x9EpePaztqILKe3Gs3DJDYNNNV21JG4zlr24FaBzHiT
+ Rjse1pyvBvx9zt4wbSA09GkCRmKX7D0I4ymIfU+hzCqK5E4jjfEHJuZrt/cfm5zThfrm
+ Y8jWbiCxxmH09DBHgt8SpEWfjh/SDlhCMpHvO1fXjNb9Rl45cCz2miza+T1QmfQX7NcY
+ zaok6Ror1jKG3ufMoPn6QuTVSSJesunDHtpzZVZr9JFoz0atu+3IAZBAWDykoaZjTGQ9
+ cg8Ya4QFx8lyZ/oMIwag15YWKPU0ltZX+3gvASW3pHLlR3bUKSXOmts3BzX/ao+6QOLW
+ gPSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699296636; x=1699901436;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DMBUj2Kt6SbeiWM5ttIg3zTrO2lSIQVfD3WAaZwy4rI=;
- b=ll8oGaOSHzha9HzDf4kq1Ix9aopU9yZwOG8TOvY7GNMjGxCvAAgZ7FmlRTnC8sdhv7
- 1oXfr/2TXns0wr33Dp6zbby/vgITafRTl97J1wDPE1+79N4ICtLc/7rQer2QO5HDEpRk
- CefqSLLiiv7Bu8GorC7Hw3KjOd9+WlGKp1+zeLDS9w2RkCozixq4f4xt2V1/DTfxaKPa
- Bxnxu7tmHPC6YgsfsQGf/S9EhLJbo1nxOWkRA0UtIy4pg3bCk9O96nzML3HE7KShYI2B
- GkzwJ+zIXEj927EwwIyQ95ryqB6svef2MpOcthceSlwTxHmMAmKVaq4x0ItCHxROaXRt
- HYKA==
-X-Gm-Message-State: AOJu0Yw/fgYeL5jher2lf7KKYmUlc3q+j0+jQz8MGMV6TllAfQkR0Ggu
- H6TrOA6WUZvcKKLx2WUTY0NtLL/zEK8=
-X-Google-Smtp-Source: AGHT+IEpIxI6HOgD4VG/z4qSIMgMurh0j6eSjFkqM7cUS1WvSwGLhAKP7XbFexVhwhJXkI3Dg0BZhQ==
-X-Received: by 2002:a05:6a20:a115:b0:13d:df16:cf29 with SMTP id
- q21-20020a056a20a11500b0013ddf16cf29mr27399556pzk.15.1699296636342; 
- Mon, 06 Nov 2023 10:50:36 -0800 (PST)
-Received: from localhost ([2a00:79e1:abd:4a00:6c80:7c10:75a0:44f4])
- by smtp.gmail.com with ESMTPSA id
- g13-20020aa7874d000000b006c31c0dfb69sm5919796pfo.188.2023.11.06.10.50.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Nov 2023 10:50:35 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon,  6 Nov 2023 10:50:26 -0800
-Message-ID: <20231106185028.209462-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231106185028.209462-1-robdclark@gmail.com>
-References: <20231106185028.209462-1-robdclark@gmail.com>
+ d=1e100.net; s=20230601; t=1699308719; x=1699913519;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TGM/lCcxyrtlyI0/1HNh1y04S/ydjRYuctHpQFy0HgE=;
+ b=NlwH1uSfpYJoZX3b8Xd4Q0jrbhfopG9im1QcJpf6qcj3nq1DSnYLEqLIidfLlMnnWp
+ 4aES0Ppx6DYoF9fUx/63QFmIFYPgKQCneg2vpHeQTKZ+cADOP8nIxE7UpOcKAn6ZdZP9
+ 8uC+NYe7fXs0b/K7/FA2kC5kfqTrCtbkQrF1wo8j5g15ZXdQ9i53h2mUPq36D86XKKPU
+ xnMg8QsR1hGY8scDOB2kfPanrU58f7CcFgtJ45G6rSAcyaak6PECTX12/Sj+Av5JnFI2
+ BeYDLjxj8UO+9Cgnsn+N5uHZNUYtJs/oamWAIh5TeIDwjcOLgwUhLQxDdvy68mPYf7i6
+ Avlg==
+X-Gm-Message-State: AOJu0YwhK90dme76NDa7eaD0HFnXlNMV9GhF83+g4YZpPaZdWGo0iucR
+ R6E30Zegc4L/CqVwZmjaJP7Acm4+7i9EENuy/TSf1w==
+X-Google-Smtp-Source: AGHT+IH4OKDEo0z40E9ned6EK3zJyr56Otbk/sjKYRo1vUt/B3CisEMRaJv/JlQGTxVvoMPU5l/04Q9U9RkfcQ4U0Ds=
+X-Received: by 2002:a81:990d:0:b0:5af:196c:dfcc with SMTP id
+ q13-20020a81990d000000b005af196cdfccmr10650083ywg.8.1699308718929; Mon, 06
+ Nov 2023 14:11:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 2/2] drm/msm/gem: Add metadata
+References: <20231009171139.2691218-1-dmitry.baryshkov@linaro.org>
+ <e4c94f9d-773a-e894-d655-41afeb01dae1@quicinc.com>
+In-Reply-To: <e4c94f9d-773a-e894-d655-41afeb01dae1@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 7 Nov 2023 00:11:47 +0200
+Message-ID: <CAA8EJprpBy6UhtScRkFS24TgKevBOb9nVBFCqPhEof=-k58Mwg@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: correct clk bit for WB2 block
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,211 +67,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Stone <daniels@collabora.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Mon, 6 Nov 2023 at 20:39, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> Sorry for the delay in getting back on this. There was quite a bit of
+> history digging I had to do myself to give a certain response.
+>
+>
+> On 10/9/2023 10:11 AM, Dmitry Baryshkov wrote:
+> > On sc7280 there are two clk bits for WB2: control and status. While
+> > programming the VBIF params of WB, the driver should be toggling the
+> > former bit, while the sc7280_mdp struct lists the latter one.
+> >
+>
+> No, this is not correct. Both are control bits. But for the context of
+> where this is being used today, that is setting the VBIF OT limit, we
+> should be using the VBIF_CLI one. So the below change itself is correct
+> but not the commit text.
 
-The EXT_external_objects extension is a bit awkward as it doesn't pass
-explicit modifiers, leaving the importer to guess with incomplete
-information.  In the case of vk (turnip) exporting and gl (freedreno)
-importing, the "OPTIMAL_TILING_EXT" layout depends on VkImageCreateInfo
-flags (among other things), which the importer does not know.  Which
-unfortunately leaves us with the need for a metadata back-channel.
+Maybe you can update dt bindings for the SDE driver? Because they
+clearly speak about the control and status bits.
 
-The contents of the metadata are defined by userspace.  The
-EXT_external_objects extension is only required to work between
-compatible versions of gl and vk drivers, as defined by device and
-driver UUIDs.
+>
+> We need to make the same change on sm8250 WB2 as well as this register
+> is present there too. In fact, anything >=msm8994 for setting VBIF OT
+> for WB2 we should be using VBIF_CLI bits of register MDP_CLK_CTRL2
+> (offset 0x2bc).
+>
+> For anything >=sm8550, we need to use WB_2_CLK_CTRL present within the
+> WB block and not the one in the top.
+>
+> Hence for this change, we can do below:
+>
+> -> update the commit text to indicate both are control bits but for the
+> vbif ot context we should using the corrected one
+> -> if you can also add sm8250 in the same change i can ack it and pick it up
+>
+> Have you re-validated WB with this change? If not, let me know I shall
+> while picking this up for -fixes.
 
-v2: add missing metadata kfree
-v3: Rework to move copy_from/to_user out from under gem obj lock
-    to avoid angering lockdep about deadlocks against fs-reclaim
+No, I haven't validated this on sc7280. I'll try this on sm8250 and
+then I'll send v2.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
-Note, I dropped Dmitry's r-b on this version because it was a bit of
-a re-write of the original patch.
+>
+> > Correct that to ensure proper programming sequence for WB2 on sc7280.
+> >
+> > Fixes: 3ce166380567 ("drm/msm/dpu: add writeback support for sc7280")
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> > index 3b5061c4402a..9195cb996f44 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+> > @@ -25,7 +25,7 @@ static const struct dpu_mdp_cfg sc7280_mdp = {
+> >               [DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+> >               [DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+> >               [DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
+> > -             [DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
+> > +             [DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
+> >       },
+> >   };
+> >
 
- drivers/gpu/drm/msm/msm_drv.c | 92 ++++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/msm_gem.c |  1 +
- drivers/gpu/drm/msm/msm_gem.h |  4 ++
- include/uapi/drm/msm_drm.h    |  2 +
- 4 files changed, 98 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 781db689fb16..c05c27a70c34 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -49,9 +49,10 @@
-  * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
-  * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
-  * - 1.11.0 - Add wait boost (MSM_WAIT_FENCE_BOOST, MSM_PREP_BOOST)
-+ * - 1.12.0 - Add MSM_INFO_SET_METADATA and MSM_INFO_GET_METADATA
-  */
- #define MSM_VERSION_MAJOR	1
--#define MSM_VERSION_MINOR	11
-+#define MSM_VERSION_MINOR	12
- #define MSM_VERSION_PATCHLEVEL	0
- 
- static void msm_deinit_vram(struct drm_device *ddev);
-@@ -822,6 +823,85 @@ static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
- 	return msm_gem_set_iova(obj, ctx->aspace, iova);
- }
- 
-+static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
-+					   __user void *metadata,
-+					   u32 metadata_size)
-+{
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	void *buf;
-+	int ret;
-+
-+	/* Impose a moderate upper bound on metadata size: */
-+	if (metadata_size > 128) {
-+		return -EOVERFLOW;
-+	}
-+
-+	/* Use a temporary buf to keep copy_from_user() outside of gem obj lock: */
-+	buf = memdup_user(metadata, metadata_size);
-+	if (IS_ERR(buf))
-+		return PTR_ERR(buf);
-+
-+	ret = msm_gem_lock_interruptible(obj);
-+	if (ret)
-+		goto out;
-+
-+	msm_obj->metadata =
-+		krealloc(msm_obj->metadata, metadata_size, GFP_KERNEL);
-+	msm_obj->metadata_size = metadata_size;
-+	memcpy(msm_obj->metadata, buf, metadata_size);
-+
-+	msm_gem_unlock(obj);
-+
-+out:
-+	kfree(buf);
-+
-+	return ret;
-+}
-+
-+static int msm_ioctl_gem_info_get_metadata(struct drm_gem_object *obj,
-+					   __user void *metadata,
-+					   u32 *metadata_size)
-+{
-+	struct msm_gem_object *msm_obj = to_msm_bo(obj);
-+	void *buf;
-+	int ret, len;
-+
-+	if (!metadata) {
-+		/*
-+		 * Querying the size is inherently racey, but
-+		 * EXT_external_objects expects the app to confirm
-+		 * via device and driver UUIDs that the exporter and
-+		 * importer versions match.  All we can do from the
-+		 * kernel side is check the length under obj lock
-+		 * when userspace tries to retrieve the metadata
-+		 */
-+		*metadata_size = msm_obj->metadata_size;
-+		return 0;
-+	}
-+
-+	ret = msm_gem_lock_interruptible(obj);
-+	if (ret)
-+		return ret;
-+
-+	/* Avoid copy_to_user() under gem obj lock: */
-+	len = msm_obj->metadata_size;
-+	buf = kmemdup(msm_obj->metadata, len, GFP_KERNEL);
-+
-+	msm_gem_unlock(obj);
-+
-+	if (*metadata_size < len) {
-+		ret = -ETOOSMALL;
-+	} else if (copy_to_user(metadata, buf, len)) {
-+		ret = -EFAULT;
-+	} else {
-+		*metadata_size = len;
-+	}
-+
-+	kfree(buf);
-+
-+	return 0;
-+}
-+
- static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
- 		struct drm_file *file)
- {
-@@ -844,6 +924,8 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
- 		break;
- 	case MSM_INFO_SET_NAME:
- 	case MSM_INFO_GET_NAME:
-+	case MSM_INFO_SET_METADATA:
-+	case MSM_INFO_GET_METADATA:
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -906,6 +988,14 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
- 				ret = -EFAULT;
- 		}
- 		break;
-+	case MSM_INFO_SET_METADATA:
-+		ret = msm_ioctl_gem_info_set_metadata(
-+			obj, u64_to_user_ptr(args->value), args->len);
-+		break;
-+	case MSM_INFO_GET_METADATA:
-+		ret = msm_ioctl_gem_info_get_metadata(
-+			obj, u64_to_user_ptr(args->value), &args->len);
-+		break;
- 	}
- 
- 	drm_gem_object_put(obj);
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 1113e6b2ec8e..175ee4ab8a6f 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -1058,6 +1058,7 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
- 
- 	drm_gem_object_release(obj);
- 
-+	kfree(msm_obj->metadata);
- 	kfree(msm_obj);
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 7f34263048a3..8d414b072c29 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -109,6 +109,10 @@ struct msm_gem_object {
- 
- 	char name[32]; /* Identifier to print for the debugfs files */
- 
-+	/* userspace metadata backchannel */
-+	void *metadata;
-+	u32 metadata_size;
-+
- 	/**
- 	 * pin_count: Number of times the pages are pinned
- 	 *
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 6c34272a13fd..6f2a7ad04aa4 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -139,6 +139,8 @@ struct drm_msm_gem_new {
- #define MSM_INFO_GET_NAME	0x03   /* get debug name, returned by pointer */
- #define MSM_INFO_SET_IOVA	0x04   /* set the iova, passed by value */
- #define MSM_INFO_GET_FLAGS	0x05   /* get the MSM_BO_x flags */
-+#define MSM_INFO_SET_METADATA	0x06   /* set userspace metadata */
-+#define MSM_INFO_GET_METADATA	0x07   /* get userspace metadata */
- 
- struct drm_msm_gem_info {
- 	__u32 handle;         /* in */
+
 -- 
-2.41.0
-
+With best wishes
+Dmitry
