@@ -2,99 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A877E28F3
-	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 16:45:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F4F17E2B05
+	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 18:36:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB6710E34C;
-	Mon,  6 Nov 2023 15:45:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 704DC10E39A;
+	Mon,  6 Nov 2023 17:36:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9F210E34C
- for <freedreno@lists.freedesktop.org>; Mon,  6 Nov 2023 15:45:37 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2c50cf61f6dso63792831fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 06 Nov 2023 07:45:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1699285535; x=1699890335; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :references:cc:to:content-language:subject:reply-to:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=j4zNa66tU9LDu4ntzAjdNZcWXIQRXUIkVKUhIyKqwfs=;
- b=fbP6EIJF2DAc/RC0YxV2ziICkIFE8Q8SYEgnv89SZ+/Ynz5zKYGRzvNfzqRIJwCKTr
- NZf/PZg00hk5nF2tC/tDpIo8BUqlocPLTHsSKxdV+VUO9bRdM9Y0Fi/yKgyAsb0EVMAX
- FWKiWvRaAeKG81dbgdKUSv274sixv1XqunatbIksySOVrMqqp6bRjiyvdaKrhCTAXN7q
- 5d/4eTopVWRbB6G+Kj+buf6FEpBNVvI52fEoU0HxqcgwZuDApDWgNcoG2823PV3n3cR4
- IsPzfV3ILRJrnLHQVjk6nrdxnBGdpO1MrF7hypFpqoAJhreWMQ2Z6cR4tssM7/plHtBH
- J6Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699285535; x=1699890335;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :references:cc:to:content-language:subject:reply-to:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=j4zNa66tU9LDu4ntzAjdNZcWXIQRXUIkVKUhIyKqwfs=;
- b=uzFxfuqIj5qUjUVUPQTzlZM7kNin5yVEaMkwkr+BLZ2H2TR4I8plcqaqcopF64WufA
- Zqhy0QAzegTtbf2xWUrgmjBEBuyOGsLKXOruYNqR3MyU2lgWe0DrTwi6tQ5zpah80Tqq
- VviYCYO59n7yu2XNsdJex7aEMSEfLQaUh5NoVYMP2vDglxzzPoCBO8CxlC/vzzPKPVMO
- 6q/7gQDRXChj9bQAYUU5UXs1pkOrwdhkqPNqqIOASoNbOK7aPExon8fnT87h/wlilbUp
- mI1YaNxVi8JbWeJycY2YsNIlEoFHjFs4DQMS3gmcfD1YbolVcj6Re9ascMPRSIrKJS8G
- 6Zrw==
-X-Gm-Message-State: AOJu0YyeqQYxhWJFhv2uGT4IDX4mEWs4UnThxjJZVOA/EUhOjEKeTDru
- dRtfirA/u3ZNpFlL4w3Asa9KKA==
-X-Google-Smtp-Source: AGHT+IEKrFLBL4eYJLlAb1eNsc/xpLwlEqxPzH/et4FbIUCOtrwSehAb36ib1E4knPd7s7Av6UgHSA==
-X-Received: by 2002:a2e:8e94:0:b0:2c5:2133:a9fc with SMTP id
- z20-20020a2e8e94000000b002c52133a9fcmr22315017ljk.40.1699285535542; 
- Mon, 06 Nov 2023 07:45:35 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:7a54:34e:8001:fb7d?
- ([2a01:e0a:982:cbb0:7a54:34e:8001:fb7d])
- by smtp.gmail.com with ESMTPSA id
- n20-20020a05600c4f9400b00407efbc4361sm12735833wmq.9.2023.11.06.07.45.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Nov 2023 07:45:35 -0800 (PST)
-Message-ID: <aaacd997-4b85-4086-982a-c992ad52831a@linaro.org>
-Date: Mon, 6 Nov 2023 16:45:34 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C310010E396;
+ Mon,  6 Nov 2023 17:36:01 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3A6GdBP5022997; Mon, 6 Nov 2023 17:35:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=FrfXeWtjU0Ruex8wMO6jSQzaCluEQ3NY8dv9N4305wc=;
+ b=Uac931rR+5ooJz4n5ak651QTsQM9wUunEY0Crd0orpfBOP7xX9znq4smui4mSlHrBoLc
+ XMvx2hFLvEpd6IPGxdaCieZUJys9Z6EC+VXSDqw2e3Qy/cDak+SIbUhn4hiGxsK9/gtB
+ ZvCEhGod9fzcqErd435y0Ruvrl+4xMLbBsn2GLKqqo0An2tZ1OQ9vDwnNqzoZfr6wz+Y
+ Yj7mxrR/6fp3T31HBqQAqY7sJry3jfq0Mk3OAN+FoMTdb22eX8wyNAQumVEgUMbjHt14
+ thjTIGWkCvkSSZna7JKOUSeimbLad5DYdz6QlK3dyCFPCzPcAX8iOJY7JoIimjdrBoy8 jA== 
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u5f8dvx6u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Nov 2023 17:35:56 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A6HZuQO003465
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 6 Nov 2023 17:35:56 GMT
+Received: from [10.71.110.254] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Mon, 6 Nov
+ 2023 09:35:56 -0800
+Message-ID: <f97c86a6-34d3-45e1-8673-8a3f02f88392@quicinc.com>
+Date: Mon, 6 Nov 2023 09:35:55 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US, fr
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230928113535.1217613-1-dmitry.baryshkov@linaro.org>
- <20230928113535.1217613-3-dmitry.baryshkov@linaro.org>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20230928113535.1217613-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 2/6] dt-bindings: display/msm: Add reg
- bus and rotator interconnects
+Content-Language: en-US
+To: Helen Koike <helen.koike@collabora.com>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20231010-rb5-runner-v1-0-aba1fcc6e3aa@quicinc.com>
+ <0b0b1065-06e8-44ea-a4a1-395980afac5a@collabora.com>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <0b0b1065-06e8-44ea-a4a1-395980afac5a@collabora.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: oidrzqcyGQaChlGbzrGUmlmHaPwU8_VC
+X-Proofpoint-GUID: oidrzqcyGQaChlGbzrGUmlmHaPwU8_VC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-06_13,2023-11-02_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ mlxscore=0 suspectscore=0 phishscore=0 mlxlogscore=999 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2310240000 definitions=main-2311060143
+Subject: Re: [Freedreno] [PATCH 0/3] drm/ci: Add support for SM8250 Gitlab
+ Runner
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,83 +84,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: robdclark@chromium.org, freedreno@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 28/09/2023 13:35, Dmitry Baryshkov wrote:
-> From: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+On 11/4/2023 6:02 AM, Helen Koike wrote:
+> Hi Jessica,
 > 
-> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there are
-> other connection paths:
-> - a path that connects rotator block to the DDR.
-> - a path that needs to be handled to ensure MDSS register access
->    functions properly, namely the "reg bus", a.k.a the CPU-MDSS CFG
->    interconnect.
+> On 10/10/2023 19:25, Jessica Zhang wrote:
+>> Recently, we've registered a Gitlab runner for a Qualcomm RB5 device 
+>> that will be
+>> hosted and maintained in Qualcomm labs.
+>>
+>> This series will add a corresponding CI job for testing SM8250 devices 
+>> and add the
+>> skip/fails/flakes list. We were able to complete a successful run [1] 
+>> with these
+>> changes.
+>>
+>> For now, we will keep the job as manual trigger only and drop that 
+>> rule later
+>> after we stabilize the tests.
+>>
+>> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/50092719
+>>
+>> ---
 > 
-> Describe these paths bindings to allow using them in device trees and in
-> the driver
+> Thank you for you patchset.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   Documentation/devicetree/bindings/display/msm/mdss-common.yaml | 2 ++
->   1 file changed, 2 insertions(+)
+> I'm getting the following error:
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> index f69196e4cc76..6b4ce08a60dc 100644
-> --- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-> @@ -66,12 +66,14 @@ properties:
->       items:
->         - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
->         - description: Interconnect path from mdp1 port to the data bus
-> +      - description: Interconnect path from CPU to the reg bus
->   
->     interconnect-names:
->       minItems: 1
->       items:
->         - const: mdp0-mem
->         - const: mdp1-mem
-> +      - const: cpu-cfg
->   
->     resets:
->       items:
+> "serial.serialutil.SerialException: [Errno 2] could not open port 
+> /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'"
+> 
+> https://gitlab.freedesktop.org/helen.fornazier/linux/-/jobs/51193215#L146
+> 
+> I'm wondering if I'm missing some configuration.
+> 
+> I tested on top of drm-misc-next.
 
-This is not enough, on sm8450 this still appears with patch applied:
-arch/arm64/boot/dts/qcom/sm8450-hdk.dtb: display-subsystem@ae00000: interconnects: [[182, 14, 0, 30, 3, 0], [182, 14, 0, 30, 3, 0], [53, 2, 3, 183, 14, 3]] is too long
-         from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
-arch/arm64/boot/dts/qcom/sm8450-hdk.dtb: display-subsystem@ae00000: interconnect-names: ['mdp0-mem', 'mdp1-mem', 'cpu-cfg'] is too long
-         from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
+Hi Helen,
 
-This is also needed:
-==========><================================
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-index 001b26e65301..e94e8630cc85 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
-@@ -30,10 +30,10 @@ properties:
-      maxItems: 1
+Sorry for the inconvenience, but I had to temporarily take down the 
+runner last Friday to physically move the setup (as part of a 
+reorganization of our lab here).
 
-    interconnects:
--    maxItems: 2
-+    maxItems: 3
+I'll update this thread as soon as the runner is back up -- the move 
+will be complete by the end of this week.
 
-    interconnect-names:
--    maxItems: 2
-+    maxItems: 3
+> 
+> Also, I'd like to add in the docs an entry about the devices we have, 
+> which tag they need, which dts they correspond to, which farm they are 
+> located, who to contact if there is any problem and maybe some comment 
+> about the device (how it is hooked up, the logs comes from uart or ssh, 
+> does it use fastboot, etc) if you find it useful.
+> Would you mind adding an entry in the docs with this information for the 
+> sm8250? (Than I'll add the info of the other devices after yours).
 
-  patternProperties:
-    "^display-controller@[0-9a-f]+$":
-==============================================
+Sure, sounds good.
+
+> 
+> 
+>> Jessica Zhang (3):
+>>        drm/ci: Add SM8250 job to CI
+> 
+> I would also move this patch to last, so we don't have a commit where 
+> things shouldn't work properly.
+> Or maybe squash them all.
+
+Acked -- I'll move this patch to the end.
 
 Thanks,
-Neil
+
+Jessica Zhang
+
+> 
+> Regards,
+> Helen
+> 
+>>        drm/ci: enable CONFIG_INTERCONNECT_QCOM_SM8250 for arm64 config
+>>        drm/ci: Add skips, fails and flakes for SM8250
+>>
+>>   drivers/gpu/drm/ci/arm64.config                 |  1 +
+>>   drivers/gpu/drm/ci/build.sh                     |  1 +
+>>   drivers/gpu/drm/ci/test.yml                     | 15 +++++++++++++
+>>   drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt  | 29 
+>> +++++++++++++++++++++++++
+>>   drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt |  3 +++
+>>   drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt  |  8 +++++++
+>>   6 files changed, 57 insertions(+)
+>> ---
+>> base-commit: dcd88f8c63341ed11a8c5019408f62202cd9d1f2
+>> change-id: 20230919-rb5-runner-77ec32bd61e7
+>>
+>> Best regards,
