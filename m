@@ -1,48 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 220E97E0F91
-	for <lists+freedreno@lfdr.de>; Sat,  4 Nov 2023 14:19:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F00DA7E1837
+	for <lists+freedreno@lfdr.de>; Mon,  6 Nov 2023 01:58:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B528910E215;
-	Sat,  4 Nov 2023 13:19:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E06510E249;
+	Mon,  6 Nov 2023 00:58:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 101CF10E215;
- Sat,  4 Nov 2023 13:19:28 +0000 (UTC)
-Received: from [100.116.205.35] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: koike)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id C3773660741E;
- Sat,  4 Nov 2023 13:19:23 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1699103966;
- bh=1dBKOCU2op7HA41h9kKU4lIb1sXgfhlNw7dDoYMGmGs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UQk4F+bsfvQ9WNm/y0l2nCk4XVq4T3jE2qV70rZH0vK5SRUM3mCxX+dlYOvnVWt7K
- U0qVuJkbSARRj1XJE3/vv6epFmbMAJSp/ppb8n53GY95Eb17Kt51BqN1B3oGdB6YTn
- R7320wWhxsDirvgRJtNm/2JlQvoAtrx9wCi4N8PgKJvjz64orYF+HVjE7C2Fs39nkq
- FCeTjVnsDNEaxX7JlEUkNQtI7hx3rw1ASCIRTd0eaBBBNm3F782qBn9jMfkEFR6yx6
- 5tmhIrafeQSi0yCt3XaPvA4M++sY10X7p7YX85+mfKBq2lEsMDKZV12eBYZg3t+uQz
- mIZWFaTAaNTRQ==
-Message-ID: <836c7166-0a42-4fdc-acf4-65e0a096c41f@collabora.com>
-Date: Sat, 4 Nov 2023 10:19:17 -0300
+X-Greylist: delayed 402 seconds by postgrey-1.36 at gabe;
+ Mon, 06 Nov 2023 00:58:50 UTC
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EEED10E249
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Nov 2023 00:58:49 +0000 (UTC)
+Received: (qmail 5941 invoked by uid 990); 6 Nov 2023 00:52:06 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Message-ID: <06d6a503-7770-4e99-a4be-9a2870678d56@lausen.nl>
+Date: Sun, 5 Nov 2023 19:51:58 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Jessica Zhang <quic_jesszhan@quicinc.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20231010-rb5-runner-v1-0-aba1fcc6e3aa@quicinc.com>
- <20231010-rb5-runner-v1-3-aba1fcc6e3aa@quicinc.com>
-From: Helen Koike <helen.koike@collabora.com>
-In-Reply-To: <20231010-rb5-runner-v1-3-aba1fcc6e3aa@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch, airlied@gmail.com,
+ agross@kernel.org, dmitry.baryshkov@linaro.org, andersson@kernel.org
+References: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
+From: Leonard Lausen <leonard@lausen.nl>
+In-Reply-To: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 3/3] drm/ci: Add skips,
- fails and flakes for SM8250
+X-Rspamd-Bar: -
+X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) BAYES_HAM(-2.678521)
+ XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -1.268521
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Mon, 06 Nov 2023 01:52:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=Ikukj+p56W9fQ+/M9OzNzKR+W0ErNk+42/TcUwyRmz0=;
+ b=R2auO9p68OArumCmabX5uYYT0C0H3wZauRF9PztKLs7FLVT6uxoqb02hZYFFVaNqoB+gvazJ9X
+ 43YA6vm+ky8XGD6kfG1QMfcTWCjsrIPNNt59r9NNmonQhvZXSGi/GYO+JIujTn0vfFgM3HGEnNPF
+ q35YswdGLjiGLPEDb27r/WfezTmV2GzNhtFvXWDpT4CcSfbyTSc05nBJreSjpgnL/kgRfBHjuomM
+ dLNSewaBYEW4ac09AZJeKQMET2gSHHWXevgjTU3zwZaK254fE15xr6F0bJ6LpIuz2IK5+ya9NWjp
+ g5CyRNhuZ/89Pe/jxhm3phufaAvB0ItHmsqzB+eSryCtd2/FbhZmzZ7eiRGvuXBGnnlx5AOZuXPA
+ qbXifh/Dc4Z5xsQY5w48uLecsLgd0tNPYruHkR073iWS1hQ/ACf5RVn5ZItdhUyFcxLzXyMgXKzL
+ 4MJkwDleW5c15mAbLRk2+uYk+mHqGhnR6ZU5TeS/tq3ai3RqvNO13TdoI3FGMvwiGXqNbLxqavTN
+ Zh7MKFEycnKQ7QqTxuizVNDglIp2WgrBV2C4wqUH+oHOjT3cc+atYiG9IkirZUF4u9vgVAnECm2/
+ XpwzOSHbTiE9wX4o+n3kQ3tgabMXGw2R6rjsi/obMgTO3d2yUvuFh3mR64rgkVksQlDRbUfgEWYR
+ w=
+Subject: Re: [Freedreno] [PATCH v7 0/7] incorporate pm runtime framework and
+ eDP clean up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,94 +64,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Verified this fixes the "[drm:drm_mode_config_helper_resume] *ERROR* Failed to
+resume (-107)" issue https://gitlab.freedesktop.org/drm/msm/-/issues/25
 
+Tested-by: Leonard Lausen <leonard@lausen.nl> # on sc7180 lazor
 
-On 10/10/2023 19:25, Jessica Zhang wrote:
-> Add skips, fails and flakes for the SM8250 test.
+On 10/6/23 18:55, Kuogee Hsieh wrote:
+> The purpose of this patch series is to incorporate pm runtime framework
+> into MSM eDP/DP driver so that eDP panel can be detected by DRM eDP panel
+> driver during system probe time. During incorporating procedure, original
+> customized pm realted fucntions, such as dp_pm_prepare(), dp_pm_suspend(),
+> dp_pm_resume() and dp_pm_prepare(), are removed and replaced with functions
+> provided by pm runtiem framework such as pm_runtime_force_suspend() and
+> pm_runtime_force_resume(). In addition, both eDP aux-bus and irq handler
+> are bound at system probe time too.
 > 
-> Generated using update-xfails.py [1]
+> Kuogee Hsieh (7):
+>   drm/msm/dp: tie dp_display_irq_handler() with dp driver
+>   drm/msm/dp: rename is_connected with link_ready
+>   drm/msm/dp: use drm_bridge_hpd_notify() to report HPD status changes
+>   drm/msm/dp: move parser->parse() and dp_power_client_init() to probe
+>   drm/msm/dp: incorporate pm_runtime framework into DP driver
+>   drm/msm/dp: delete EV_HPD_INIT_SETUP
+>   drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()
 > 
-> [1] https://patchwork.freedesktop.org/patch/561453/?series=124793&rev=1
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt  | 29 +++++++++++++++++++++++++
->   drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt |  3 +++
->   drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt  |  8 +++++++
->   3 files changed, 40 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt
-> new file mode 100644
-> index 000000000000..cc8ae32e90e7
-> --- /dev/null
-> +++ b/drivers/gpu/drm/ci/xfails/msm-sm8250-fails.txt
-> @@ -0,0 +1,29 @@
-> +kms_3d,Fail
-> +kms_atomic_transition@plane-all-modeset-transition,Timeout
-> +kms_color@ctm-0-25,Fail
-> +kms_color@ctm-0-50,Fail
-> +kms_color@ctm-0-75,Fail
-> +kms_color@ctm-blue-to-red,Fail
-> +kms_color@ctm-negative,Fail
-> +kms_color@ctm-red-to-blue,Fail
-> +kms_color@ctm-signed,Fail
-> +kms_cursor_legacy@basic-flip-after-cursor-varying-size,Fail
-> +kms_cursor_legacy@basic-flip-before-cursor-varying-size,Fail
-> +kms_cursor_legacy@cursor-vs-flip-atomic-transitions-varying-size,Fail
-> +kms_cursor_legacy@cursor-vs-flip-toggle,Fail
-> +kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
-> +kms_cursor_legacy@short-flip-after-cursor-atomic-transitions-varying-size,Fail
-> +kms_cursor_legacy@short-flip-before-cursor-atomic-transitions-varying-size,Fail
-> +kms_cursor_legacy@short-flip-before-cursor-toggle,Fail
-> +kms_hdmi_inject@inject-4k,Fail
-> +kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
-> +kms_plane@pixel-format,Fail
-> +kms_plane@pixel-format-source-clamping,Fail
-> +kms_plane@plane-position-covered,Fail
-> +kms_plane@plane-position-hole,Fail
-> +kms_plane@plane-position-hole-dpms,Fail
-> +kms_plane_alpha_blend@alpha-7efc,Fail
-> +kms_plane_alpha_blend@coverage-7efc,Fail
-> +kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
-> +kms_plane_cursor@overlay,Fail
-> +kms_rmfb@close-fd,Fail
-> diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt
-> new file mode 100644
-> index 000000000000..0b55665184c1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/ci/xfails/msm-sm8250-flakes.txt
-> @@ -0,0 +1,3 @@
-> +kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size
-> +kms_cursor_legacy@flip-vs-cursor-varying-size
-> +kms_plane_cursor@viewport
-
-We are trying to add some docs, specially to the flakes, please check: 
-https://lists.freedesktop.org/archives/dri-devel/2023-October/427982.html
-
-Could you add it for those? (I'm glad to see there are just a few flakes).
-
-Thanks
-Helen
-
-> diff --git a/drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt
-> new file mode 100644
-> index 000000000000..c20422c58e4d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/ci/xfails/msm-sm8250-skips.txt
-> @@ -0,0 +1,8 @@
-> +# Suspend to RAM seems to be broken on this machine
-> +.*suspend.*
-> +
-> +# reboots device
-> +kms_plane_scaling.*
-> +
-> +# long execution time
-> +kms_flip.*
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |   4 -
+>  drivers/gpu/drm/msm/dp/dp_aux.c         |  39 +++-
+>  drivers/gpu/drm/msm/dp/dp_display.c     | 333 ++++++++++++--------------------
+>  drivers/gpu/drm/msm/dp/dp_display.h     |   3 +-
+>  drivers/gpu/drm/msm/dp/dp_drm.c         |  14 +-
+>  drivers/gpu/drm/msm/dp/dp_power.c       |  16 --
+>  drivers/gpu/drm/msm/dp/dp_power.h       |  11 --
+>  drivers/gpu/drm/msm/msm_drv.h           |   5 -
+>  8 files changed, 161 insertions(+), 264 deletions(-)
 > 
