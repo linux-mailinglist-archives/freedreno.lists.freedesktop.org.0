@@ -2,61 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9120D7E319B
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 00:49:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9617E3256
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 01:44:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A86210E111;
-	Mon,  6 Nov 2023 23:49:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37C1E10E48B;
+	Tue,  7 Nov 2023 00:44:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6E6210E111
- for <freedreno@lists.freedesktop.org>; Mon,  6 Nov 2023 23:49:15 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-da41e70e334so4474963276.3
- for <freedreno@lists.freedesktop.org>; Mon, 06 Nov 2023 15:49:15 -0800 (PST)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9F310E49A
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Nov 2023 00:44:27 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-507d1cc0538so6865936e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Nov 2023 16:44:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1699314555; x=1699919355; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=tQFqDSAgiWaPIVshMRb+fCRuV7mmBlmC784sMYp/hys=;
- b=AXXmwsQDgYvtlxo9EjslXJsmJIQnEHwrcbZpg/ZiwhHZJAHorz0/5mU+zayYvr5EVL
- NJzaXMu5skw69/H3Lwf96lqjne0m71SRKoHYtMGO+rTaxZqzfg+5TsTra0gIKIIqA0+v
- +CCN5V0HNh0oEZtS3uho1ujF0yXUDhC6PLSbNYGa0aNosSy2QtYdfj5AowAxGIHr9Lup
- 70oXilPdjOJ2Yxad32+o1mNtamZUOvuGyKNccz9mNYxk1sbUc9IOcv5JusahC4sq/3V4
- QBm2cXkEwyyyrqtomLNdsVQXSrgvIyfEc5WXoObI+uCxMj3Oh94tS1hGsPxU0ocpYkq7
- ttfw==
+ d=linaro.org; s=google; t=1699317866; x=1699922666; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l4sQQn36L2+/zoCkGPO8pkAoerlaydAQhrz7oIT51ro=;
+ b=Jqr5p7xwFH7Z2SkAoXmRbrio2XXj2C73uIY0IiMHjjG6iLbn5HMi3Eanwn3TR2J6u0
+ DA9DHXtCaXEK8iFsa4Dl0M3JC2yosZIyQfTWAPNTU469Gv1MAJ6cEhyTzbbzN3tGANHZ
+ roGeHF4jKPr0CKy4Bco8aEIWlDjdsTJ5YbUzqk6Wt/80m17ucyQr85iYkweYlOIzlv+T
+ w6Ye62zMeBm7TxQlFUvIlTI/Re0hrBTVE86tVOrpbCrQjb71GznyEdrd3SLcNTqHaQyU
+ QL6xYPwUA6/771g2NdRbdUJQZ9z05OqtiQwcE1SNlMntMOj0tSv7OkHsHZXgrVdUGQU7
+ xECw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699314555; x=1699919355;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1699317866; x=1699922666;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=tQFqDSAgiWaPIVshMRb+fCRuV7mmBlmC784sMYp/hys=;
- b=kkS5RcNaUz78c+wy/pkzFPqvRGjjzcUzgzHwLm1ALL5lQggRagMUnDkNC/7KfXTFXm
- kqreiAJziVXlZLahuLjey3IortQIOHLnKXISzRwjZypw9wIfMhJTbA7J10qP9uryzMZj
- /PaQWWvMNgG+PZ1T2hqaCJfB9LJJldJd1i2qGu7YI8U9D1/+9kPGU9egFFJhKhUwl0Ai
- 1A4PxZ7aRyl3CJao+YD6nhVYDxqoCoHGcNVJIbO6Gv+dYntgUHlPmQfgCG6564KnNVH4
- Y+neSucGgefvaAD2bTjoyu13ViqHq9yX9VAJ7kgrarYyVOd0gdpmV/HkP4rS03K2vNAv
- /n9A==
-X-Gm-Message-State: AOJu0YwWx0hqQWhYWUf/jz/pog82YqacFNYrDC8yhF9FHKSLx0LLTHGW
- RiBzGwhmPmRDcKqLnQXJjr560pSetNe2Z5YgCoOVNQ==
-X-Google-Smtp-Source: AGHT+IFAkvpy/g1sY/1xUwAKmKYfgd46amCuq1aXEiffyp4vSVs/pWccSw/DXuVqcLLSwjX8OS1pefTcKi6rRIgLSoM=
-X-Received: by 2002:a05:6902:1204:b0:d7b:90c6:683c with SMTP id
- s4-20020a056902120400b00d7b90c6683cmr35829665ybu.26.1699314554997; Mon, 06
- Nov 2023 15:49:14 -0800 (PST)
-MIME-Version: 1.0
-References: <20231009171139.2691218-1-dmitry.baryshkov@linaro.org>
- <e4c94f9d-773a-e894-d655-41afeb01dae1@quicinc.com>
- <CAA8EJprpBy6UhtScRkFS24TgKevBOb9nVBFCqPhEof=-k58Mwg@mail.gmail.com>
- <1ac30bfd-86d9-8186-1aee-f201b8ff4370@quicinc.com>
-In-Reply-To: <1ac30bfd-86d9-8186-1aee-f201b8ff4370@quicinc.com>
+ bh=l4sQQn36L2+/zoCkGPO8pkAoerlaydAQhrz7oIT51ro=;
+ b=jnphvq0Z7mObKpceu8AyuaimTZbTejQWU9xhtlvjY1nC4aYQtw29VujrrSYNmeUhCR
+ 5tp+YhvFUNoj+uVMFg9w65JMm+D9a50q2E08eNyto41OjK7Pm4fyzpQ1OwQsoDI8G/UD
+ yr12J8bzZiYieFlHZtmYUap1W/iiNhmpcLdAwvBbfjcEJZaD0L4cFpBRtUyDm0yN4fTI
+ q0VY+rAoGll7SuRf7JfPfqvPH/UK4ifZt1blB/j3Yxomb50a8z9zwr1jwbBvYg0amfB2
+ SgL98VFAX93EKZc3VMT12h34q9PcxAK2CVSbCOqc5bu5uk7BJ/8if7w9zmDZ9lLeAhWm
+ b64g==
+X-Gm-Message-State: AOJu0YxHbXYnVO/A8uCiwC23n77XaK7khWBh5ZcMeDGYGGHXYboUZY/M
+ 6oqLBzZMpEhAREXWH6YnPDSYwQ==
+X-Google-Smtp-Source: AGHT+IGq/gbVJACFjo+UjFOrO/9DZFv8U31OsE7j5XrfgMAni1X9Tg3EXzFgOQQAbQtrdqyqkHPeyA==
+X-Received: by 2002:ac2:57c4:0:b0:4fd:c715:5667 with SMTP id
+ k4-20020ac257c4000000b004fdc7155667mr20544414lfo.20.1699317865656; 
+ Mon, 06 Nov 2023 16:44:25 -0800 (PST)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ m15-20020a05651202ef00b0050567a8b36esm142974lfq.251.2023.11.06.16.44.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Nov 2023 16:44:25 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 7 Nov 2023 01:49:03 +0200
-Message-ID: <CAA8EJppY0V20rF1kV-b8X2xuCQ6ZHy_+0YGp5s6b_Srvq-LLNg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: correct clk bit for WB2 block
+To: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+Date: Tue,  7 Nov 2023 02:43:33 +0200
+Message-ID: <20231107004424.2112698-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: call dp_display_get_next_bridge()
+ during probe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,104 +74,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 7 Nov 2023 at 01:30, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 11/6/2023 2:11 PM, Dmitry Baryshkov wrote:
-> > On Mon, 6 Nov 2023 at 20:39, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >> Sorry for the delay in getting back on this. There was quite a bit of
-> >> history digging I had to do myself to give a certain response.
-> >>
-> >>
-> >> On 10/9/2023 10:11 AM, Dmitry Baryshkov wrote:
-> >>> On sc7280 there are two clk bits for WB2: control and status. While
-> >>> programming the VBIF params of WB, the driver should be toggling the
-> >>> former bit, while the sc7280_mdp struct lists the latter one.
-> >>>
-> >>
-> >> No, this is not correct. Both are control bits. But for the context of
-> >> where this is being used today, that is setting the VBIF OT limit, we
-> >> should be using the VBIF_CLI one. So the below change itself is correct
-> >> but not the commit text.
-> >
-> > Maybe you can update dt bindings for the SDE driver? Because they
-> > clearly speak about the control and status bits.
-> >
->
-> There is nothing to update here if we both are referring to the same
-> entries in the dt bindings.
->
-> qcom,sde-wb-clk-status = <0x3bc 20>;
->
-> the clk status is indeed bit 20 of 0x3bc.
->
-> What we have before your patch was bit 24 of 0x3b8 which was indeed
-> clk_ctl bit for wb2. But the only issue was it was not the vbif_cli one.
->
-> So we are talking about two different registers?
+The funcion dp_display_get_next_bridge() can return -EPROBE_DEFER if the
+next bridge is not (yet) available. However returning -EPROBE_DEFER from
+msm_dp_modeset_init() is not ideal. This leads to -EPROBE return from
+component_bind, which can easily result in -EPROBE_DEFR loops.
 
-Ah, excuse me then, I didn't notice 24 vs 20.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
->
-> >>
-> >> We need to make the same change on sm8250 WB2 as well as this register
-> >> is present there too. In fact, anything >=msm8994 for setting VBIF OT
-> >> for WB2 we should be using VBIF_CLI bits of register MDP_CLK_CTRL2
-> >> (offset 0x2bc).
-> >>
-> >> For anything >=sm8550, we need to use WB_2_CLK_CTRL present within the
-> >> WB block and not the one in the top.
-> >>
-> >> Hence for this change, we can do below:
-> >>
-> >> -> update the commit text to indicate both are control bits but for the
-> >> vbif ot context we should using the corrected one
-> >> -> if you can also add sm8250 in the same change i can ack it and pick it up
-> >>
-> >> Have you re-validated WB with this change? If not, let me know I shall
-> >> while picking this up for -fixes.
-> >
-> > No, I haven't validated this on sc7280. I'll try this on sm8250 and
-> > then I'll send v2.
-> >
-> >>
-> >>> Correct that to ensure proper programming sequence for WB2 on sc7280.
-> >>>
-> >>> Fixes: 3ce166380567 ("drm/msm/dpu: add writeback support for sc7280")
-> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>> ---
-> >>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
-> >>>    1 file changed, 1 insertion(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> >>> index 3b5061c4402a..9195cb996f44 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
-> >>> @@ -25,7 +25,7 @@ static const struct dpu_mdp_cfg sc7280_mdp = {
-> >>>                [DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
-> >>>                [DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
-> >>>                [DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
-> >>> -             [DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
-> >>> +             [DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
-> >>>        },
-> >>>    };
-> >>>
-> >
-> >
-> >
+Dependencies: https://patchwork.freedesktop.org/series/120375/
 
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 36 +++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 15 deletions(-)
 
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d542db37763a..ddb3c84f39a2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1197,15 +1197,27 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
+ 	return NULL;
+ }
+ 
+-static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
++static int dp_display_get_next_bridge(struct msm_dp *dp);
++
++static int dp_display_probe_tail(struct device *dev)
+ {
+-	int rc;
++	struct msm_dp *dp = dev_get_drvdata(dev);
++	int ret;
+ 
+-	rc = component_add(aux->dev, &dp_display_comp_ops);
+-	if (rc)
+-		DRM_ERROR("eDP component add failed, rc=%d\n", rc);
++	ret = dp_display_get_next_bridge(dp);
++	if (ret)
++		return ret;
+ 
+-	return rc;
++	ret = component_add(dev, &dp_display_comp_ops);
++	if (ret)
++		DRM_ERROR("component add failed, rc=%d\n", ret);
++
++	return ret;
++}
++
++static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
++{
++	return dp_display_probe_tail(aux->dev);
+ }
+ 
+ static int dp_display_probe(struct platform_device *pdev)
+@@ -1280,11 +1292,9 @@ static int dp_display_probe(struct platform_device *pdev)
+ 			goto err;
+ 		}
+ 	} else {
+-		rc = component_add(&pdev->dev, &dp_display_comp_ops);
+-		if (rc) {
+-			DRM_ERROR("component add failed, rc=%d\n", rc);
++		rc = dp_display_probe_tail(&pdev->dev);
++		if (rc)
+ 			goto err;
+-		}
+ 	}
+ 
+ 	return rc;
+@@ -1415,7 +1425,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+ 	 * For DisplayPort interfaces external bridges are optional, so
+ 	 * silently ignore an error if one is not present (-ENODEV).
+ 	 */
+-	rc = devm_dp_parser_find_next_bridge(dp->drm_dev->dev, dp_priv->parser);
++	rc = devm_dp_parser_find_next_bridge(&dp->pdev->dev, dp_priv->parser);
+ 	if (!dp->is_edp && rc == -ENODEV)
+ 		return 0;
+ 
+@@ -1435,10 +1445,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 
+ 	dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
+ 
+-	ret = dp_display_get_next_bridge(dp_display);
+-	if (ret)
+-		return ret;
+-
+ 	ret = dp_bridge_init(dp_display, dev, encoder);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev,
 -- 
-With best wishes
-Dmitry
+2.42.0
+
