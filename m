@@ -1,47 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390BF7E3DCB
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 13:31:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C00D27E4360
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 16:26:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F159410E5C2;
-	Tue,  7 Nov 2023 12:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC43710E60B;
+	Tue,  7 Nov 2023 15:26:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0837D10E5C2;
- Tue,  7 Nov 2023 12:31:09 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFA1510E60B;
+ Tue,  7 Nov 2023 15:26:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8280C611C2;
- Tue,  7 Nov 2023 12:31:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1D8C433CA;
- Tue,  7 Nov 2023 12:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360268;
- bh=eNA5gp6HFbGz4UtiuIERCsSvA6OW8EkQ0csvECZGDtA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RB7mRNIU8z+kHvFGrW+NZpHruIkq85Ej69syzqdtBHOHh1TdN6v5kjXfKBRudOEXS
- wWOTVO/XklO4H/sBok/1Dqb5LD2XymvKjBPINPR3xlCYvuWhHi8SXeX5zcfxX89Pev
- yQkpOR/TTIKZsUy9BQKElarfcghNJQdd6gD3n7yzGGCRG7qAiixHRr1S1MR8ozyta6
- 0cXQOZ4Fsr1UaG+oLY9Rhmj0ZZuN4E+veK7mpT8rdMLiYe2uQ90+j746tLFrkNRp1e
- 7h1xS8AQIaldA8bUXygZ93h0w23wM1OxXHDIaYJslutjhYtdQRegH/2i+HyLMd7LPA
- wTZUnjcCk2nbQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue,  7 Nov 2023 07:30:35 -0500
-Message-ID: <20231107123100.3762796-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231107123100.3762796-1-sashal@kernel.org>
-References: <20231107123100.3762796-1-sashal@kernel.org>
+ by sin.source.kernel.org (Postfix) with ESMTP id CB9CDCE0F14;
+ Tue,  7 Nov 2023 15:26:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E20CC433C7;
+ Tue,  7 Nov 2023 15:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1699370798;
+ bh=ljmnGxLYReiQWa6Iv86aTfS9zhxAvbUWtes+QtFunpE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=m63ny3zpg+SV/+cDpDbbJmMFdZ0EBKySKBGuQAqjxFNkqQGhaOdWSgvY56ZF7FxX5
+ kuHXtm0T3Wc4V1mbYpuqOn+x5n3xTZQtKiq/5u5bnCpOOZcQDSk8kE5CciAZ88Uh9/
+ aPKVARvlyxzu/U+Qj2T7+Sxos5JQIV3/OL2G8F1g=
+Date: Tue, 7 Nov 2023 16:26:34 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Maxime Ripard <mripard@kernel.org>
+Message-ID: <2023110704-deem-jigsaw-0bbf@gregkh>
+References: <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
+ <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
+ <CAA8EJpp48AdJmx_U=bEJZUWZgOiT1Ctz6Lpe9QwjLXkMQvsw5w@mail.gmail.com>
+ <uj6rtlionmacnwlqxy6ejt5iaczgbbe5z54ipte5ffbixcx3p4@pps7fcr3uqhf>
+ <1696f131-83fb-4d0c-b4d7-0bdb61e4ae65@linaro.org>
+ <mxtb6vymowutj7whbrygwlcupbdnfqxjralc3nwwapsbvrcmbm@sewxtdslfoen>
+ <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
+ <2z3yvvtd6ttsd7qw43sl5svtfijxevdr6omxxmws64k6l5qv55@5nnh2b32h2ep>
+ <2023110704-playback-grit-7a27@gregkh>
+ <hkzoi4sazufi5xdgr6hacuzk72cnbtmm6dwm2bzfgwh5yij6wj@2g4eb6ea4dgd>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.10.199
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.10 02/11] drm/msm/dp: skip validity
- check for DP CTS EDID checksum
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <hkzoi4sazufi5xdgr6hacuzk72cnbtmm6dwm2bzfgwh5yij6wj@2g4eb6ea4dgd>
+Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
+ control over the DSI link power state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,89 +56,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, daniel@ffwll.ch,
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, airlied@gmail.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
- quic_vpolimer@quicinc.com
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Jani Nikula <jani.nikula@intel.com>
+On Tue, Nov 07, 2023 at 01:18:14PM +0100, Maxime Ripard wrote:
+> On Tue, Nov 07, 2023 at 12:22:21PM +0100, Greg Kroah-Hartman wrote:
+> > On Tue, Nov 07, 2023 at 11:57:49AM +0100, Maxime Ripard wrote:
+> > > +GKH
+> > 
+> > Why?  I don't see a question for me here, sorry.
+> 
+> I guess the question is: we have a bus with various power states
+> (powered off, low power, high speed)
 
-[ Upstream commit a251c9d8e30833b260101edb9383b176ee2b7cb1 ]
+Great, have fun!  And is this per-device or per-bus-instance?
 
-The DP CTS test for EDID last block checksum expects the checksum for
-the last block, invalid or not. Skip the validity check.
+> low power is typically used to send commands to a device, high speed to
+> transmit pixels, but still allows to send commands.
+> 
+> Depending on the devices, there's different requirements about the state
+> devices expect the bus to be in to send commands. Some will need to send
+> all the commands in the low power state, some don't care, etc. See
+> the mail I was replying too for more details.
+> 
+> We've tried so far to model that in KMS itself, so the framework the
+> drivers would register too, but we're kind of reaching the limits of
+> what we can do there. It also feels to me that "the driver can't access
+> its device" is more of a problem for the bus to solve rather than the
+> framework.
 
-For the most part (*), the EDIDs returned by drm_get_edid() will be
-valid anyway, and there's the CTS workaround to get the checksum for
-completely invalid EDIDs. See commit 7948fe12d47a ("drm/msm/dp: return
-correct edid checksum after corrupted edid checksum read").
+This is up to the specific bus to resolve, there's nothing special
+needed in the driver core for it, right?
 
-This lets us remove one user of drm_edid_block_valid() with hopes the
-function can be removed altogether in the future.
+> Do you agree? Are you aware of any other bus in Linux with similar
+> requirements we could look at? Or any suggestion on how to solve it?
 
-(*) drm_get_edid() ignores checksum errors on CTA extensions.
+There might be others, yes, look at how the dynamic power management
+works for different devices on most busses, that might help you out
+here.
 
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Kuogee Hsieh <khsieh@codeaurora.org>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Stephen Boyd <swboyd@chromium.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Patchwork: https://patchwork.freedesktop.org/patch/555361/
-Link: https://lore.kernel.org/r/20230901142034.580802-1-jani.nikula@intel.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/dp/dp_panel.c | 21 ++-------------------
- 1 file changed, 2 insertions(+), 19 deletions(-)
+good luck!
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 4e8a19114e87d..93a2ee0f772fc 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -264,26 +264,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
- 
- static u8 dp_panel_get_edid_checksum(struct edid *edid)
- {
--	struct edid *last_block;
--	u8 *raw_edid;
--	bool is_edid_corrupt = false;
-+	edid += edid->extensions;
- 
--	if (!edid) {
--		DRM_ERROR("invalid edid input\n");
--		return 0;
--	}
--
--	raw_edid = (u8 *)edid;
--	raw_edid += (edid->extensions * EDID_LENGTH);
--	last_block = (struct edid *)raw_edid;
--
--	/* block type extension */
--	drm_edid_block_valid(raw_edid, 1, false, &is_edid_corrupt);
--	if (!is_edid_corrupt)
--		return last_block->checksum;
--
--	DRM_ERROR("Invalid block, no checksum\n");
--	return 0;
-+	return edid->checksum;
- }
- 
- void dp_panel_handle_sink_request(struct dp_panel *dp_panel)
--- 
-2.42.0
-
+greg k-h
