@@ -1,67 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA9617E3256
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 01:44:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 710897E32A0
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 02:36:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37C1E10E48B;
-	Tue,  7 Nov 2023 00:44:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D510C10E49F;
+	Tue,  7 Nov 2023 01:36:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9F310E49A
- for <freedreno@lists.freedesktop.org>; Tue,  7 Nov 2023 00:44:27 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-507d1cc0538so6865936e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 06 Nov 2023 16:44:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1699317866; x=1699922666; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=l4sQQn36L2+/zoCkGPO8pkAoerlaydAQhrz7oIT51ro=;
- b=Jqr5p7xwFH7Z2SkAoXmRbrio2XXj2C73uIY0IiMHjjG6iLbn5HMi3Eanwn3TR2J6u0
- DA9DHXtCaXEK8iFsa4Dl0M3JC2yosZIyQfTWAPNTU469Gv1MAJ6cEhyTzbbzN3tGANHZ
- roGeHF4jKPr0CKy4Bco8aEIWlDjdsTJ5YbUzqk6Wt/80m17ucyQr85iYkweYlOIzlv+T
- w6Ye62zMeBm7TxQlFUvIlTI/Re0hrBTVE86tVOrpbCrQjb71GznyEdrd3SLcNTqHaQyU
- QL6xYPwUA6/771g2NdRbdUJQZ9z05OqtiQwcE1SNlMntMOj0tSv7OkHsHZXgrVdUGQU7
- xECw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699317866; x=1699922666;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=l4sQQn36L2+/zoCkGPO8pkAoerlaydAQhrz7oIT51ro=;
- b=jnphvq0Z7mObKpceu8AyuaimTZbTejQWU9xhtlvjY1nC4aYQtw29VujrrSYNmeUhCR
- 5tp+YhvFUNoj+uVMFg9w65JMm+D9a50q2E08eNyto41OjK7Pm4fyzpQ1OwQsoDI8G/UD
- yr12J8bzZiYieFlHZtmYUap1W/iiNhmpcLdAwvBbfjcEJZaD0L4cFpBRtUyDm0yN4fTI
- q0VY+rAoGll7SuRf7JfPfqvPH/UK4ifZt1blB/j3Yxomb50a8z9zwr1jwbBvYg0amfB2
- SgL98VFAX93EKZc3VMT12h34q9PcxAK2CVSbCOqc5bu5uk7BJ/8if7w9zmDZ9lLeAhWm
- b64g==
-X-Gm-Message-State: AOJu0YxHbXYnVO/A8uCiwC23n77XaK7khWBh5ZcMeDGYGGHXYboUZY/M
- 6oqLBzZMpEhAREXWH6YnPDSYwQ==
-X-Google-Smtp-Source: AGHT+IGq/gbVJACFjo+UjFOrO/9DZFv8U31OsE7j5XrfgMAni1X9Tg3EXzFgOQQAbQtrdqyqkHPeyA==
-X-Received: by 2002:ac2:57c4:0:b0:4fd:c715:5667 with SMTP id
- k4-20020ac257c4000000b004fdc7155667mr20544414lfo.20.1699317865656; 
- Mon, 06 Nov 2023 16:44:25 -0800 (PST)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- m15-20020a05651202ef00b0050567a8b36esm142974lfq.251.2023.11.06.16.44.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Nov 2023 16:44:25 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Date: Tue,  7 Nov 2023 02:43:33 +0200
-Message-ID: <20231107004424.2112698-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.42.0
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F66A10E49F
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Nov 2023 01:36:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id BB905B81283;
+ Tue,  7 Nov 2023 01:36:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC55C433C7;
+ Tue,  7 Nov 2023 01:36:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699320972;
+ bh=kL48fIOTndmBh9Sq5LIKKaJC+DRa+TCqhCyeEJzBeMM=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=bT6izTAGxcTL/ZNfNkJosin+OA6yE/q62UZD4hOeuNGWMWsUfLiY4Bs66omKmdIue
+ hTPLvI4TT1Hj/3UlDOLEKAyG0zkdF9r6uGPoWPxv5AV88qfUI7H20JvsigwGRayd3m
+ U6/nivePTruLGPCjMzhgwSc6naHAafLVgXDxIvhsJm5ay2wCF0TmfwU1dmQCPa3QJ5
+ zxGqZbM3aPQvoPu7pyM2HRwl7Cn4otihDAx7venQDwcsfTlNXqdrR6ti+bbhza3e3o
+ XLREMr07NH3WqyLLUiOXB45F+kWIZzfAbqLO8bkOPQ9QxhnfoKOMIQfxGJFkiyQgTd
+ SOjeflTLK0+lg==
+Message-ID: <1290a5a0f7f584fcce722eeb2a1fd898.sboyd@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: call dp_display_get_next_bridge()
- during probe
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
+References: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
+ <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
+ <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Taniya Das <quic_tdas@quicinc.com>
+Date: Mon, 06 Nov 2023 17:36:09 -0800
+User-Agent: alot/0.10
+Subject: Re: [Freedreno] [RFC PATCH v2 2/3] clk: qcom: implement RCG2
+ 'parked' clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,98 +57,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The funcion dp_display_get_next_bridge() can return -EPROBE_DEFER if the
-next bridge is not (yet) available. However returning -EPROBE_DEFER from
-msm_dp_modeset_init() is not ideal. This leads to -EPROBE return from
-component_bind, which can easily result in -EPROBE_DEFR loops.
+Quoting Stephen Boyd (2023-11-03 18:24:47)
+> Quoting Dmitry Baryshkov (2023-10-03 18:23:07)
+> > +
+> > +       ret =3D regmap_read(rcg->clkr.regmap, rcg->cmd_rcgr + CFG_REG, =
+&cfg);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       return FIELD_GET(CFG_SRC_SEL_MASK, cfg) !=3D rcg->safe_src_inde=
+x;
+> > +}
+> > +
+> > +static int clk_rcg2_parked_init(struct clk_hw *hw)
+> > +{
+> > +       struct clk_rcg2 *rcg =3D to_clk_rcg2(hw);
+> > +       const struct freq_tbl *f =3D rcg->freq_tbl;
+> > +
+> > +       regmap_read(rcg->clkr.regmap, RCG_CFG_OFFSET(rcg), &rcg->parked=
+_cfg);
+>=20
+> I need this part today to fix a stuck clk problem I see on trogdor.lazor
+> where during registration a call to clk_ops::get_parent() sees the clk
+> isn't enabled at boot (because there isn't a clk_ops::is_enabled()
+> function) so clk_rcg2_shared_get_parent() reads the parent from the
+> 'parked_cfg' value, which is zero. If the hardware actually has non-zero
+> for the parent then the framework will get the wrong parent, which is
+> what happens on trogdor when the devmode screen is shown. The parent is
+> the display PLL instead of XO. I haven't dug far enough to understand
+> why disabling unused clks wedges the branch when we try to enable it
+> again, but not disabling unused clks fixes the problem or reading the
+> config register at registration to get the proper parent also fixes it.
+> I guess the problem is that we're switching the RCG value when we
+> shouldn't be doing that.
+>=20
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
+I looked at this more today. It seems that I need to both read the
+config register at init and also move over the rcg to the safe source at
+init (i.e. park the clk at init). That's doable with a call to
+clk_rcg2_shared_disable() for the clk_ops::init callback. Otherwise I
+get a stuck clk warning.
 
-Dependencies: https://patchwork.freedesktop.org/series/120375/
+Either
 
----
- drivers/gpu/drm/msm/dp/dp_display.c | 36 +++++++++++++++++------------
- 1 file changed, 21 insertions(+), 15 deletions(-)
+ disp_cc_mdss_mdp_clk status stuck at 'off'
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index d542db37763a..ddb3c84f39a2 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1197,15 +1197,27 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
- 	return NULL;
- }
- 
--static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
-+static int dp_display_get_next_bridge(struct msm_dp *dp);
-+
-+static int dp_display_probe_tail(struct device *dev)
- {
--	int rc;
-+	struct msm_dp *dp = dev_get_drvdata(dev);
-+	int ret;
- 
--	rc = component_add(aux->dev, &dp_display_comp_ops);
--	if (rc)
--		DRM_ERROR("eDP component add failed, rc=%d\n", rc);
-+	ret = dp_display_get_next_bridge(dp);
-+	if (ret)
-+		return ret;
- 
--	return rc;
-+	ret = component_add(dev, &dp_display_comp_ops);
-+	if (ret)
-+		DRM_ERROR("component add failed, rc=%d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
-+{
-+	return dp_display_probe_tail(aux->dev);
- }
- 
- static int dp_display_probe(struct platform_device *pdev)
-@@ -1280,11 +1292,9 @@ static int dp_display_probe(struct platform_device *pdev)
- 			goto err;
- 		}
- 	} else {
--		rc = component_add(&pdev->dev, &dp_display_comp_ops);
--		if (rc) {
--			DRM_ERROR("component add failed, rc=%d\n", rc);
-+		rc = dp_display_probe_tail(&pdev->dev);
-+		if (rc)
- 			goto err;
--		}
- 	}
- 
- 	return rc;
-@@ -1415,7 +1425,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 	 * For DisplayPort interfaces external bridges are optional, so
- 	 * silently ignore an error if one is not present (-ENODEV).
- 	 */
--	rc = devm_dp_parser_find_next_bridge(dp->drm_dev->dev, dp_priv->parser);
-+	rc = devm_dp_parser_find_next_bridge(&dp->pdev->dev, dp_priv->parser);
- 	if (!dp->is_edp && rc == -ENODEV)
- 		return 0;
- 
-@@ -1435,10 +1445,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
- 
- 	dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
- 
--	ret = dp_display_get_next_bridge(dp_display);
--	if (ret)
--		return ret;
--
- 	ret = dp_bridge_init(dp_display, dev, encoder);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev->dev,
--- 
-2.42.0
+or
 
+ disp_cc_mdss_rot_clk status stuck at 'on'
+
+When I don't park the rcg, the disp_cc_mdss_rot_clk gets stuck during
+disabling of unused clks. I think I understand that problem. What
+happens is disp_cc_mdss_mdp_clk_src and disp_cc_mdss_rot_clk_src are
+both sourcing from disp_cc_pll0 at boot. Fixing the parent mapping makes
+it so that enabling and then disabling disp_cc_mdss_ahb_clk causes
+disp_cc_pll0 to be turned off when disp_cc_mdss_rot_clk_src is sourced
+from it (and the branch disp_cc_mdss_rot_clk is enabled). If we park
+both the rcgs at clk registration time we avoid this problem because the
+PLL is disabled but nothing is actually a child clk. The act of reading
+the config register and stashing that in the 'parked_cfg' only helps
+avoid duplicate calls to change the rate, and doesn't help when we try
+to repoint the clk at XO when the parent PLL is off.
+
+The part I still don't understand is why reading the config register at
+init and stashing that in 'parked_cfg' fixes the disp_cc_mdss_mdp_clk
+stuck at off problem. I see that the branch clk is turned off and on
+many times during boot and there aren't any warnings regardless of
+stashing the config register. That means we should be moving the RCG to
+XO source, between forcibly enabling and disabling the RCG, which
+presumably would complain about being unable to update the config
+register, but it doesn't. Only after late init does the clk fail to
+enable, and the source is still XO at that time. Something else must be
+happening that wedges the branch to the point that it can't be
+recovered. But simply reporting the proper parent is enough for
+disp_cc_mdss_mdp_clk.
