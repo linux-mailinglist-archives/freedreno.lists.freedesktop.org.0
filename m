@@ -1,47 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32BA37E3D18
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 13:25:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1770F7E3D6F
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 13:28:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B311B10E56E;
-	Tue,  7 Nov 2023 12:25:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3FE110E595;
+	Tue,  7 Nov 2023 12:28:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F154A10E56C;
- Tue,  7 Nov 2023 12:25:47 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D415810E595;
+ Tue,  7 Nov 2023 12:28:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id AF3EBB816AC;
- Tue,  7 Nov 2023 12:25:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E835C433C8;
- Tue,  7 Nov 2023 12:25:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4FC71611E0;
+ Tue,  7 Nov 2023 12:28:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1496FC433C9;
+ Tue,  7 Nov 2023 12:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699359946;
- bh=3OYL5VWEzRe+iQ42mGAB+A4HUsFS9L4nMjmhEojW4Dc=;
+ s=k20201202; t=1699360114;
+ bh=kxuYbZVR7ft7C3zIio+kedGzMoIPQDhSKly1xJtq0T8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J0U1+RrCJT3fk5bkMCND/Z9BFTZkSY9gneBO/eZf57ebpCVLiR8t3VHsssmOBLPap
- V8RN7LQ72Aeryd8KTrwWnNzRwnahvsVouJouuawsmTkjM1F89fzdwWzeb2CMl/eSB3
- +sGNSK8bXB5raapi1YAxAGWqkdBkma1jw4sgqHo+RDA/dhZs/z/KpilB1QNHIwZuOw
- cJqexd6vMyLstnM+zogStKignJprBR9qJBMwj9SQ2ZogmabSQxMtieCWMLxPgjC2xY
- 22vg4shpRt+rrSITXlQHZqMXFbd4JVrhHx23xndL6vusC1ujFJIFhILVVrAl5XqOsb
- /MKWPzwKV1vVQ==
+ b=EMNGmOZdNz8Ex5Hg3MM22k0qyMIWQFau7QLOD3lsVR4aDsAQcWMIAVPAYJkmy9fA1
+ k+BCAVGfw8qapYpAkjE4j5YZpn7QTh2W8Hv7LM1zAJMUtMJOBnTpA0GBjHz5WZKMw5
+ CaBM/agiNUHwPYY3R3r8j3dXrrUd4oUhjAe2SAf5kVaBRAxYFrGjniqezKXgZVgywG
+ YGSmPhy7HPZqObyiG6ebLQqO0CKgeLnTy9sU2PmPKQ2c/+o9LbOkQrAIF9PK8liADI
+ 8R1uzVyyMK1sq5Xpv5aQYY9gx70hBWQ7tqaEu+Cej+lOYU3wrHndK+BzwaZh8E/jrQ
+ xmgbKPwymCDUw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue,  7 Nov 2023 07:21:29 -0500
-Message-ID: <20231107122407.3760584-18-sashal@kernel.org>
+Date: Tue,  7 Nov 2023 07:26:51 -0500
+Message-ID: <20231107122745.3761613-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231107122407.3760584-1-sashal@kernel.org>
-References: <20231107122407.3760584-1-sashal@kernel.org>
+In-Reply-To: <20231107122745.3761613-1-sashal@kernel.org>
+References: <20231107122745.3761613-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.5.10
+X-stable-base: Linux 6.1.61
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.5 18/37] drm/msm/dp: skip validity
+Subject: [Freedreno] [PATCH AUTOSEL 6.1 12/25] drm/msm/dp: skip validity
  check for DP CTS EDID checksum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,11 +55,11 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
- quic_sbillaka@quicinc.com, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- daniel@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, daniel@ffwll.ch,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, airlied@gmail.com,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
  quic_vpolimer@quicinc.com
@@ -106,10 +105,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 42d52510ffd4a..86a8e06c7a60f 100644
+index 5149cebc93f61..d38086650fcf7 100644
 --- a/drivers/gpu/drm/msm/dp/dp_panel.c
 +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -289,26 +289,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+@@ -266,26 +266,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
  
  static u8 dp_panel_get_edid_checksum(struct edid *edid)
  {
