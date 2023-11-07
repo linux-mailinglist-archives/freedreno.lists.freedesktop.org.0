@@ -1,46 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1770F7E3D6F
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 13:28:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 787807E3DA8
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 13:30:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3FE110E595;
-	Tue,  7 Nov 2023 12:28:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2256510E5AF;
+	Tue,  7 Nov 2023 12:30:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D415810E595;
- Tue,  7 Nov 2023 12:28:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E9410E5AF;
+ Tue,  7 Nov 2023 12:30:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4FC71611E0;
- Tue,  7 Nov 2023 12:28:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1496FC433C9;
- Tue,  7 Nov 2023 12:28:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5045A611C2;
+ Tue,  7 Nov 2023 12:30:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24801C433C8;
+ Tue,  7 Nov 2023 12:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699360114;
- bh=kxuYbZVR7ft7C3zIio+kedGzMoIPQDhSKly1xJtq0T8=;
+ s=k20201202; t=1699360206;
+ bh=wbvTLQGJtpuf12rYqZUR8WtVSjj/6AgcxHuFTeloxgY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EMNGmOZdNz8Ex5Hg3MM22k0qyMIWQFau7QLOD3lsVR4aDsAQcWMIAVPAYJkmy9fA1
- k+BCAVGfw8qapYpAkjE4j5YZpn7QTh2W8Hv7LM1zAJMUtMJOBnTpA0GBjHz5WZKMw5
- CaBM/agiNUHwPYY3R3r8j3dXrrUd4oUhjAe2SAf5kVaBRAxYFrGjniqezKXgZVgywG
- YGSmPhy7HPZqObyiG6ebLQqO0CKgeLnTy9sU2PmPKQ2c/+o9LbOkQrAIF9PK8liADI
- 8R1uzVyyMK1sq5Xpv5aQYY9gx70hBWQ7tqaEu+Cej+lOYU3wrHndK+BzwaZh8E/jrQ
- xmgbKPwymCDUw==
+ b=mcoCZ6Hq1xVXZ/OLOXAERAobBi9bYAZk284zcBuXc60bLzkQkpTgIZOd0Nq7REGWi
+ C24DmMoRU5XJ4jlMCXKbWnrgKqWw8z/V6gY1yCv1qXfAX84bau8D2PaMIXYspMMVib
+ pJ9qRMe020iE0UKOkMmZHWdNREb2lwe8Kap+hrPYTbx8KR00uKiQfGBSK7JyjhSDtx
+ ZSMt+7BbkGJtbOSVOLYS2tldZNres/lHrRvj7u++gO7IA96btftXTPHR1E1jbr4EGC
+ QQeowxW2Oa7OOxCFKNfeehYQWqZtAb32pZtWaZXusf7eZWLRgWIMyxW7Wn5QikbnVm
+ Kjf4l50Nzwq1A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue,  7 Nov 2023 07:26:51 -0500
-Message-ID: <20231107122745.3761613-12-sashal@kernel.org>
+Date: Tue,  7 Nov 2023 07:29:02 -0500
+Message-ID: <20231107122940.3762228-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231107122745.3761613-1-sashal@kernel.org>
-References: <20231107122745.3761613-1-sashal@kernel.org>
+In-Reply-To: <20231107122940.3762228-1-sashal@kernel.org>
+References: <20231107122940.3762228-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.61
+X-stable-base: Linux 5.15.137
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 6.1 12/25] drm/msm/dp: skip validity
+Subject: [Freedreno] [PATCH AUTOSEL 5.15 08/20] drm/msm/dp: skip validity
  check for DP CTS EDID checksum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,10 +106,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 5149cebc93f61..d38086650fcf7 100644
+index 62b742e701d2c..f9d31069f4848 100644
 --- a/drivers/gpu/drm/msm/dp/dp_panel.c
 +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -266,26 +266,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+@@ -263,26 +263,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
  
  static u8 dp_panel_get_edid_checksum(struct edid *edid)
  {
