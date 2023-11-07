@@ -1,74 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 853057E4ABC
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 22:32:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B7E7E4C0B
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 23:50:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D023810E6BD;
-	Tue,  7 Nov 2023 21:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90D8E10E166;
+	Tue,  7 Nov 2023 22:50:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D23E10E6BC
- for <freedreno@lists.freedesktop.org>; Tue,  7 Nov 2023 21:32:54 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2c50305c5c4so88961691fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 07 Nov 2023 13:32:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1699392772; x=1699997572; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cKkRos3AxLhlHLKkODxjEWuIyo1+V0s7ezJV36Xh+VA=;
- b=Cu1EiyITRZGEqKxbBFL8iEerMiSZNAg+pPXauGWDcvxcF6RYH9JAo+xBlKRu5ajudo
- nlZVZHUsP8mFqBLXR5VLhWF89gjN01PB0wRnGXmCdEqgfOcYLqpMSTSInVrMVDFZcTTN
- XJstl3Ajb/aRpxZ8fp7oa0Hy9JZVyUm7X62Rizcr3EBwhor7xqZLAbSWz00ij4A1+qZv
- ZdBlN4xLNy1le9RHuSS9WqdYIWLn3nRI1wDujsvYUfBPNxzD7HSR/CdyUUEtJBVt8jaI
- wRZfJjpQ5hui+Ky8AamNAqGUkorTmj8Q1APg7ZQrR8AtLv4BPxT02hqsv5hdHnDP/hPC
- 2Mng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699392772; x=1699997572;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cKkRos3AxLhlHLKkODxjEWuIyo1+V0s7ezJV36Xh+VA=;
- b=RBDlSLhkRd+X+gl24LmN/8o3oB+/jk0+k0L9PdcVbOynxFXl3bNnMdjlHjiU92u96x
- ES8KwFMMZ5wvsLtSRyq2sTxwmMHhR+EFnoeu9CrOdLua6Mmz1inWp1TqDwfaDh24kxXC
- pByFZl3brBHydT/Wtslm7POyRLTC+KlvCYvc9YTC/P1FV04J922hYp7l33oWRzuoGlv7
- Bpy3edpueV/YNzzrzWd87unHDi/6UujMBCRUhYyPWlZBl4LrsJRSUhx3tLo1RkMPqaId
- xn0EkiEQSiS2yrdrU7NmYGXOKwGZlReqVqP4m09RGydpjXRauI23qRpHtBxtEa5SEtBF
- aH9A==
-X-Gm-Message-State: AOJu0Yxv5DmPlKWYgSBEakAqGueYFesHHbyil2vj2cjgzCe7SFC8OMPZ
- z+NOMcds3EdiYlYFJK6hjgu0CQ==
-X-Google-Smtp-Source: AGHT+IGwYIGt9B8zSOa/PbmGSb6wiXglnteks8C5u7N6FQhpALXFUimVeS/glybjViPVk1eEEX9IQw==
-X-Received: by 2002:a05:651c:1065:b0:2c5:25f3:8e1c with SMTP id
- y5-20020a05651c106500b002c525f38e1cmr146186ljm.21.1699392772585; 
- Tue, 07 Nov 2023 13:32:52 -0800 (PST)
-Received: from [172.30.205.109] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- t4-20020a05651c148400b002b6daa3fa2csm1607587lje.69.2023.11.07.13.32.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Nov 2023 13:32:52 -0800 (PST)
-Message-ID: <45fa235c-c09b-4ded-abc8-ac1d9835890d@linaro.org>
-Date: Tue, 7 Nov 2023 22:32:50 +0100
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF10510E166
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Nov 2023 22:50:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id F2426B818FB;
+ Tue,  7 Nov 2023 22:50:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF90C433C7;
+ Tue,  7 Nov 2023 22:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699397420;
+ bh=vhpxP9W32kSckOc73FHFhFgFKCzMo9dlSgDTjFo24Mc=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=jeDml5Iu/1vS+TGsS0SOoccFl9S4bi4nD8PVxo6ZHTYKaJnlE+EHANnFTyTD+tf6/
+ O+D1NsLbeT9CNPYxcyf5zTwI/2Xs16dNe8LwM9R0vLjEOsQRC8St3abRGjNlIk4A2J
+ 34Ln2wfbWn4ydNq38CVJ5P/g8i5wiJ78b20dSh7roMmzpUiyu59RA7tUhzsxEti1Lo
+ 0VHgBhEQnZ/qvnBsLTgAKgJNdc4XbGYKQgAHrcIkkjKSRkn65SSQ0NMaa+vB4DOBcF
+ Wjf6kNVkLaqFfl3oCUE4VzTJ1cYIvMftiDWrPGfXS0pC06DjPhKYyI8ECv8/LV8Y0v
+ jU9UAOUIzF0lg==
+Message-ID: <849046e96437d11e8fb997597b40979e.sboyd@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: neil.armstrong@linaro.org, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>
-References: <20230928113535.1217613-1-dmitry.baryshkov@linaro.org>
- <20230928113535.1217613-3-dmitry.baryshkov@linaro.org>
- <aaacd997-4b85-4086-982a-c992ad52831a@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <aaacd997-4b85-4086-982a-c992ad52831a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3 2/6] dt-bindings: display/msm: Add reg
- bus and rotator interconnects
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAA8EJpq_pvtCxuPKrHmUOgsDFmDeG8cuUcynvvk-0SJNY3HJnA@mail.gmail.com>
+References: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
+ <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
+ <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
+ <1290a5a0f7f584fcce722eeb2a1fd898.sboyd@kernel.org>
+ <CAA8EJpq_pvtCxuPKrHmUOgsDFmDeG8cuUcynvvk-0SJNY3HJnA@mail.gmail.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 07 Nov 2023 14:50:18 -0800
+User-Agent: alot/0.10
+Subject: Re: [Freedreno] [RFC PATCH v2 2/3] clk: qcom: implement RCG2
+ 'parked' clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,66 +55,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-clk@vger.kernel.org, Taniya Das <quic_tdas@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ Michael Turquette <mturquette@baylibre.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Dmitry Baryshkov (2023-11-06 18:00:04)
+> On Tue, 7 Nov 2023 at 03:36, Stephen Boyd <sboyd@kernel.org> wrote:
+> >
+> > Quoting Stephen Boyd (2023-11-03 18:24:47)
+> >
+> > I looked at this more today. It seems that I need to both read the
+> > config register at init and also move over the rcg to the safe source at
+> > init (i.e. park the clk at init). That's doable with a call to
+> > clk_rcg2_shared_disable() for the clk_ops::init callback. Otherwise I
+> > get a stuck clk warning.
+> >
+> > Either
+> >
+> >  disp_cc_mdss_mdp_clk status stuck at 'off'
+> >
+> > or
+> >
+> >  disp_cc_mdss_rot_clk status stuck at 'on'
+> >
+> > When I don't park the rcg, the disp_cc_mdss_rot_clk gets stuck during
+> > disabling of unused clks. I think I understand that problem. What
+> > happens is disp_cc_mdss_mdp_clk_src and disp_cc_mdss_rot_clk_src are
+> > both sourcing from disp_cc_pll0 at boot. Fixing the parent mapping makes
+> > it so that enabling and then disabling disp_cc_mdss_ahb_clk causes
+> > disp_cc_pll0 to be turned off when disp_cc_mdss_rot_clk_src is sourced
+> > from it (and the branch disp_cc_mdss_rot_clk is enabled). If we park
+> > both the rcgs at clk registration time we avoid this problem because the
+> > PLL is disabled but nothing is actually a child clk. The act of reading
+> > the config register and stashing that in the 'parked_cfg' only helps
+> > avoid duplicate calls to change the rate, and doesn't help when we try
+> > to repoint the clk at XO when the parent PLL is off.
+> >
+> > The part I still don't understand is why reading the config register at
+> > init and stashing that in 'parked_cfg' fixes the disp_cc_mdss_mdp_clk
+> > stuck at off problem. I see that the branch clk is turned off and on
+> > many times during boot and there aren't any warnings regardless of
+> > stashing the config register. That means we should be moving the RCG to
+> > XO source, between forcibly enabling and disabling the RCG, which
+> > presumably would complain about being unable to update the config
+> > register, but it doesn't. Only after late init does the clk fail to
+> > enable, and the source is still XO at that time. Something else must be
+> > happening that wedges the branch to the point that it can't be
+> > recovered. But simply reporting the proper parent is enough for
+> > disp_cc_mdss_mdp_clk.
+>=20
+> I suppose that the issue is caused by mdss_gdsc or mmcx also being
+> shut down at the late_init. And if I remember correctly, properly
+> parking disp_cc_mdss_mdp_clk to the XO solves this issue. This is
+> where is_enabled comes to play. Adding it changes the
+> clk_disable_unused behaviour.
 
-
-On 11/6/23 16:45, Neil Armstrong wrote:
-> Hi,
-> 
-> On 28/09/2023 13:35, Dmitry Baryshkov wrote:
->> From: Konrad Dybcio <konrad.dybcio@linaro.org>
->>
->> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there are
->> other connection paths:
->> - a path that connects rotator block to the DDR.
->> - a path that needs to be handled to ensure MDSS register access
->>    functions properly, namely the "reg bus", a.k.a the CPU-MDSS CFG
->>    interconnect.
->>
->> Describe these paths bindings to allow using them in device trees and in
->> the driver
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   Documentation/devicetree/bindings/display/msm/mdss-common.yaml | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
->> index f69196e4cc76..6b4ce08a60dc 100644
->> --- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
->> @@ -66,12 +66,14 @@ properties:
->>       items:
->>         - description: Interconnect path from mdp0 (or a single mdp) port to the data bus
->>         - description: Interconnect path from mdp1 port to the data bus
->> +      - description: Interconnect path from CPU to the reg bus
->>     interconnect-names:
->>       minItems: 1
->>       items:
->>         - const: mdp0-mem
->>         - const: mdp1-mem
->> +      - const: cpu-cfg
->>     resets:
->>       items:
-> 
-> This is not enough, on sm8450 this still appears with patch applied:
-> arch/arm64/boot/dts/qcom/sm8450-hdk.dtb: display-subsystem@ae00000: interconnects: [[182, 14, 0, 30, 3, 0], [182, 14, 0, 30, 3, 0], [53, 2, 3, 183, 14, 3]] is too long
->          from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
-> arch/arm64/boot/dts/qcom/sm8450-hdk.dtb: display-subsystem@ae00000: interconnect-names: ['mdp0-mem', 'mdp1-mem', 'cpu-cfg'] is too long
->          from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
-I assume this is with the path actually added in the dt, and
-not just with this patch applied?
-
-I guess increasing the numbers from the getgo would probably
-be good idea too :)
-
-Konrad
+The thing is that disp_cc_mdss_mdp_clk_src has been parked to XO by the
+time late_init runs. The branch clk (disp_cc_mdss_mdp_clk) has been
+enabled and disabled repeatedly during boot as well, and all those times
+nothing has signaled a failure. That means the RCG has supposedly
+switched away from the disp_cc_pll0 to XO (parked) and the branch isn't
+stuck on or off. So how does turning the mdss_gdsc or mmcx off during
+late_init cause the branch to get stuck off if the parent of the RCG is
+XO? Is something changing the parent back to the display PLL?
