@@ -2,48 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C00D27E4360
-	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 16:26:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64DB87E46CB
+	for <lists+freedreno@lfdr.de>; Tue,  7 Nov 2023 18:24:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC43710E60B;
-	Tue,  7 Nov 2023 15:26:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37A1810E0D5;
+	Tue,  7 Nov 2023 17:24:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA1510E60B;
- Tue,  7 Nov 2023 15:26:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CB9CDCE0F14;
- Tue,  7 Nov 2023 15:26:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E20CC433C7;
- Tue,  7 Nov 2023 15:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1699370798;
- bh=ljmnGxLYReiQWa6Iv86aTfS9zhxAvbUWtes+QtFunpE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m63ny3zpg+SV/+cDpDbbJmMFdZ0EBKySKBGuQAqjxFNkqQGhaOdWSgvY56ZF7FxX5
- kuHXtm0T3Wc4V1mbYpuqOn+x5n3xTZQtKiq/5u5bnCpOOZcQDSk8kE5CciAZ88Uh9/
- aPKVARvlyxzu/U+Qj2T7+Sxos5JQIV3/OL2G8F1g=
-Date: Tue, 7 Nov 2023 16:26:34 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Maxime Ripard <mripard@kernel.org>
-Message-ID: <2023110704-deem-jigsaw-0bbf@gregkh>
-References: <20231016165355.1327217-4-dmitry.baryshkov@linaro.org>
- <7e4ak4e77fp5dat2aopyq3g4wnqu3tt7di7ytdr3dvgjviyhrd@vqiqx6iso6vg>
- <CAA8EJpp48AdJmx_U=bEJZUWZgOiT1Ctz6Lpe9QwjLXkMQvsw5w@mail.gmail.com>
- <uj6rtlionmacnwlqxy6ejt5iaczgbbe5z54ipte5ffbixcx3p4@pps7fcr3uqhf>
- <1696f131-83fb-4d0c-b4d7-0bdb61e4ae65@linaro.org>
- <mxtb6vymowutj7whbrygwlcupbdnfqxjralc3nwwapsbvrcmbm@sewxtdslfoen>
- <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
- <2z3yvvtd6ttsd7qw43sl5svtfijxevdr6omxxmws64k6l5qv55@5nnh2b32h2ep>
- <2023110704-playback-grit-7a27@gregkh>
- <hkzoi4sazufi5xdgr6hacuzk72cnbtmm6dwm2bzfgwh5yij6wj@2g4eb6ea4dgd>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C304510E0D5;
+ Tue,  7 Nov 2023 17:24:41 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3A7HLY5W008528; Tue, 7 Nov 2023 17:24:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=jf46ZARDhPY4ulOPp4yC65wqr0FNTZ7VVb1Rfw5O4RA=;
+ b=b6ZbeDMem1jibPAWhy1AJloXxWXeomk/ez6nF2am2/bBj5rKSpmJIfMyW4xqI4qyHu8v
+ z/1e3U+mFF1zjmCfAKPnUXiSFK/aHiqG4Gie091pNavLx8VwUAU4BdPP7eNslEYa4IwM
+ 8xOSZrGN7dqVY47Oh+VURy6IF5EHDVNHBE15Q97oLnsCt3RmOtpQ8ZF3v8RrDUHWW0fx
+ jYve21NMtzZla+pdNV6NuNmRixsd6818GDQb9ib6NninV39RAy7mnVcEBwPENPJloXcp
+ cWbA6gulyD5ekqXiLvJVynxClpDpbZ3taDYr6oMQMk904B1ZhmSTXOjn3idaDhlOjnn4 xg== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u7sjfg05x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Nov 2023 17:24:34 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A7HNxnR006876
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 7 Nov 2023 17:23:59 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Tue, 7 Nov
+ 2023 09:23:56 -0800
+Message-ID: <44936b14-c419-8de6-b9af-ede77bfae6b0@quicinc.com>
+Date: Tue, 7 Nov 2023 09:23:54 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <hkzoi4sazufi5xdgr6hacuzk72cnbtmm6dwm2bzfgwh5yij6wj@2g4eb6ea4dgd>
-Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
- control over the DSI link power state
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231107111413.2212942-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231107111413.2212942-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 2NzPZ33nzaYJLCMhTdTFim49IzZ2jvMW
+X-Proofpoint-GUID: 2NzPZ33nzaYJLCMhTdTFim49IzZ2jvMW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-07_09,2023-11-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 adultscore=0 malwarescore=0 mlxscore=0 phishscore=0
+ mlxlogscore=592 spamscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2310240000 definitions=main-2311070144
+Subject: Re: [Freedreno] [PATCH] drm/msm: remove exra
+ drm_kms_helper_poll_init() call
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,63 +85,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Robert Foss <rfoss@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 07, 2023 at 01:18:14PM +0100, Maxime Ripard wrote:
-> On Tue, Nov 07, 2023 at 12:22:21PM +0100, Greg Kroah-Hartman wrote:
-> > On Tue, Nov 07, 2023 at 11:57:49AM +0100, Maxime Ripard wrote:
-> > > +GKH
-> > 
-> > Why?  I don't see a question for me here, sorry.
+
+
+On 11/7/2023 3:14 AM, Dmitry Baryshkov wrote:
+> It seems during rebases I have left a call to drm_kms_helper_poll_init()
+> which is not guarded by the (priv->kms_init) check. This leads to the
+> crash for the boards which don't have KMS output. Drop this call, as
+> there is a correctly guarded one next to the one being removed.
 > 
-> I guess the question is: we have a bus with various power states
-> (powered off, low power, high speed)
+> Fixes: 506efcba3129 ("drm/msm: carve out KMS code from msm_drv.c")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Great, have fun!  And is this per-device or per-bus-instance?
-
-> low power is typically used to send commands to a device, high speed to
-> transmit pixels, but still allows to send commands.
-> 
-> Depending on the devices, there's different requirements about the state
-> devices expect the bus to be in to send commands. Some will need to send
-> all the commands in the low power state, some don't care, etc. See
-> the mail I was replying too for more details.
-> 
-> We've tried so far to model that in KMS itself, so the framework the
-> drivers would register too, but we're kind of reaching the limits of
-> what we can do there. It also feels to me that "the driver can't access
-> its device" is more of a problem for the bus to solve rather than the
-> framework.
-
-This is up to the specific bus to resolve, there's nothing special
-needed in the driver core for it, right?
-
-> Do you agree? Are you aware of any other bus in Linux with similar
-> requirements we could look at? Or any suggestion on how to solve it?
-
-There might be others, yes, look at how the dynamic power management
-works for different devices on most busses, that might help you out
-here.
-
-good luck!
-
-greg k-h
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
