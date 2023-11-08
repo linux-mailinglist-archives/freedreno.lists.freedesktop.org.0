@@ -2,48 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AADD7E5AB4
-	for <lists+freedreno@lfdr.de>; Wed,  8 Nov 2023 16:58:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED9CF7E5CE7
+	for <lists+freedreno@lfdr.de>; Wed,  8 Nov 2023 19:10:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C654110E16D;
-	Wed,  8 Nov 2023 15:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C2E10E185;
+	Wed,  8 Nov 2023 18:10:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9100810E16C;
- Wed,  8 Nov 2023 15:58:32 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
- [213.243.189.158])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5A103836;
- Wed,  8 Nov 2023 16:58:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1699459089;
- bh=izE/Se8rUqOBfxbMWlpwO5GUGwdoyHD9suQzG0SGspw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fss9AgJYrN0+Qayo8mLopZvrPG7jv3/ZA0r6GpZlxZDQLxqz54BK+nYBJfup9SfFN
- waIpiSfLLau0baqb3JRQ6xgSY/Q4GPk6IoFSKwKcKEaKlbzVPjS43lwG6qDVLYjCRI
- uaju3bofxFSpl4YYPPftGEGrQCQ+iQrpcjqhaEjY=
-Date: Wed, 8 Nov 2023 17:58:36 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Message-ID: <20231108155836.GB21616@pendragon.ideasonboard.com>
-References: <CAA8EJpp48AdJmx_U=bEJZUWZgOiT1Ctz6Lpe9QwjLXkMQvsw5w@mail.gmail.com>
- <uj6rtlionmacnwlqxy6ejt5iaczgbbe5z54ipte5ffbixcx3p4@pps7fcr3uqhf>
- <1696f131-83fb-4d0c-b4d7-0bdb61e4ae65@linaro.org>
- <mxtb6vymowutj7whbrygwlcupbdnfqxjralc3nwwapsbvrcmbm@sewxtdslfoen>
- <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
- <2z3yvvtd6ttsd7qw43sl5svtfijxevdr6omxxmws64k6l5qv55@5nnh2b32h2ep>
- <2023110704-playback-grit-7a27@gregkh>
- <hkzoi4sazufi5xdgr6hacuzk72cnbtmm6dwm2bzfgwh5yij6wj@2g4eb6ea4dgd>
- <2023110704-deem-jigsaw-0bbf@gregkh>
- <kuzbg4a52onojyfh2cc7h7c4iruzfbbbo2lm2jve72rnrpfk6f@2hars5pwujg3>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C634610E185;
+ Wed,  8 Nov 2023 18:10:40 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3A8E15Y8005641; Wed, 8 Nov 2023 18:10:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=2dDaqrLyD6bgBMl0XHyCu6Dr2G0wgU+OOOC2HymfpiQ=;
+ b=eIzoqse1eFYoOEi+9rIM1h3RevrobYkdQCJBXrF9Cx9QXtyVI01+Zjbg10r3di43HBIu
+ GG0bnnqJmZHJe87u9LEb+oZI40gfvGG4f/gylyEP98bxX2dW0UOG48SS5CGf9FRUwcFE
+ y0XP84rLYEuQUve1Idh+2tHp/wpAlHxc8T06MoQE7NbbWE8EuxtdMULUf/fp6ThIWY9F
+ l56y/mqtkDCoL/aqbPAfZ8ukXnLuHTmwNkMLm0OnavGsm5BTQAxdzUZnYn4kwWWZ8CWM
+ bD5AoGy8MXb4kRGK4Zbj73aJXUCzVEjiq1go4cWQaT35XdLNVv0vAOOA7rqLeqH9v8je UQ== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u7w7rag6k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Nov 2023 18:10:35 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A8IAXpF023228
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 Nov 2023 18:10:33 GMT
+Received: from [10.71.110.181] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 8 Nov
+ 2023 10:10:32 -0800
+Message-ID: <b708df07-6812-df43-1313-cf6f1289fd47@quicinc.com>
+Date: Wed, 8 Nov 2023 10:10:32 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <kuzbg4a52onojyfh2cc7h7c4iruzfbbbo2lm2jve72rnrpfk6f@2hars5pwujg3>
-Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
- control over the DSI link power state
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJpoFRp+7GyO=F3Ar21tfG5Yt0cL6zkAquqg7D1XXQjp50Q@mail.gmail.com>
+ <55a4f98e-2772-e4fd-ae8a-132f92582c78@quicinc.com>
+ <CAA8EJpo9CFf-Z3eiuKPvwf-y6eGkSibro-q-=SBxKK_L-zFOBA@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAA8EJpo9CFf-Z3eiuKPvwf-y6eGkSibro-q-=SBxKK_L-zFOBA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Am_BIKSb7zh0kfSKvK4xO3IHTv373wpf
+X-Proofpoint-ORIG-GUID: Am_BIKSb7zh0kfSKvK4xO3IHTv373wpf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-08_07,2023-11-08_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ lowpriorityscore=0 phishscore=0 malwarescore=0 spamscore=0 impostorscore=0
+ mlxscore=0 mlxlogscore=625 priorityscore=1501 suspectscore=0 bulkscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311080149
+Subject: Re: [Freedreno] [PATCH v7 0/7] incorporate pm runtime framework and
+ eDP clean up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,89 +86,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Robert Foss <rfoss@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 08, 2023 at 04:34:39PM +0100, Maxime Ripard wrote:
-> On Tue, Nov 07, 2023 at 04:26:34PM +0100, Greg Kroah-Hartman wrote:
-> > On Tue, Nov 07, 2023 at 01:18:14PM +0100, Maxime Ripard wrote:
-> > > On Tue, Nov 07, 2023 at 12:22:21PM +0100, Greg Kroah-Hartman wrote:
-> > > > On Tue, Nov 07, 2023 at 11:57:49AM +0100, Maxime Ripard wrote:
-> > > > > +GKH
-> > > > 
-> > > > Why?  I don't see a question for me here, sorry.
-> > > 
-> > > I guess the question is: we have a bus with various power states
-> > > (powered off, low power, high speed)
-> > 
-> > Great, have fun!  And is this per-device or per-bus-instance?
-> 
-> Per bus instance
 
-To be precise, those power states are link states. They don't
-necessarily translate directly to device power states, and they're not
-so much about power management than speed (and bus turn-around for
-reads) management.
-
-Also, while DSI allows for multiple peripherals on a bus, the link is
-point-to-point, with the peripherals being all behind a single DSI RX.
-
-> > > low power is typically used to send commands to a device, high speed to
-> > > transmit pixels, but still allows to send commands.
-
-Low power (LP) is a link state where commands can be transmitted at a
-low speed, as opposed to the high speed (HS) link state that is used to
-transmit both video data and commands at high speed. Any device-to-host
-data transfer (in response to read commands) occurs exclusively in LP
-mode (at least with DSI v1.3, I don't have acces to newer
-specifications).
-
-> > > Depending on the devices, there's different requirements about the state
-> > > devices expect the bus to be in to send commands. Some will need to send
-> > > all the commands in the low power state, some don't care, etc. See
-> > > the mail I was replying too for more details.
-> > > 
-> > > We've tried so far to model that in KMS itself, so the framework the
-> > > drivers would register too, but we're kind of reaching the limits of
-> > > what we can do there. It also feels to me that "the driver can't access
-> > > its device" is more of a problem for the bus to solve rather than the
-> > > framework.
-> > 
-> > This is up to the specific bus to resolve, there's nothing special
-> > needed in the driver core for it, right?
-> 
-> Yeah, we weren't really looking to handle this into the driver core, but
-> rather if there was a set of guidelines or feedback on implementing
-> those kind of features for a bus.
-> 
-> > > Do you agree? Are you aware of any other bus in Linux with similar
-> > > requirements we could look at? Or any suggestion on how to solve it?
-> > 
-> > There might be others, yes, look at how the dynamic power management
-> > works for different devices on most busses, that might help you out
-> > here.
-> 
-> Thanks for the pointers, we'll have a look
-
--- 
-Regards,
-
-Laurent Pinchart
+On 11/7/2023 1:23 PM, Dmitry Baryshkov wrote:
+> On Tue, 7 Nov 2023 at 23:01, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>
+>> On 11/6/2023 5:55 PM, Dmitry Baryshkov wrote:
+>>> On Sat, 7 Oct 2023 at 01:55, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>>> The purpose of this patch series is to incorporate pm runtime framework
+>>>> into MSM eDP/DP driver so that eDP panel can be detected by DRM eDP panel
+>>>> driver during system probe time. During incorporating procedure, original
+>>>> customized pm realted fucntions, such as dp_pm_prepare(), dp_pm_suspend(),
+>>>> dp_pm_resume() and dp_pm_prepare(), are removed and replaced with functions
+>>>> provided by pm runtiem framework such as pm_runtime_force_suspend() and
+>>>> pm_runtime_force_resume(). In addition, both eDP aux-bus and irq handler
+>>>> are bound at system probe time too.
+>>> With this patchset in place I can crash the board using the following
+>>> sequence (SM8350-HDK):
+>>>
+>>> - plug the USBC DP dongle
+>>> - run modetest at any mode, don't press Enter yet
+>>> - unplug the dongle
+>>> - press Enter to stop modetest
+>>>
+>>> => the board resets to Sahara.
+>>>
+>>> Please ping me if you need any additional information from my side.
+>> questiosn,
+>>
+>> 1) which dongle are you used?
+> I have used several Dell and Hama USB-C dongles.
+>
+>> 2) what code branch shoud I used to duplicate this problem.
+> I have pushed my kernel tree to
+> git.codelinaro.org/dmitry.baryshkov/linux.git, branch test-dp-rpm
+> I had several UCSI patches on top, but they should not be relevant.
+git.codelinaro.org/dmitry.baryshkov/linux.git, branch test-dp-rpm <== I 
+synced out his branch and it is still work at my chromebook Kodiak DUT.
+>
+>> I can not duplicate  system crash problem at my setup kodiak (SM7325)
+>> chrome book with my PM runtime patch series.
+>>
+>> my code base is Linux 6.6-rc2 + pm runtime patch series (7 patches)
+>>
+>> I did:
+>>
+>> 1) plugin either apple dongle (DP-to-HDMI) + 1080p display or DP typeC
+>> cable directly to 1080p display
+>>
+>> 2)  stop ui
+>>
+>> 3) /usr/bin/modetest -M msm -s 34:1920x1080 (see test pattern show at
+>> display)
+>>
+>> 4) unplug apple dongle or DP typeC cable
+>>
+>> 5) hit enter key
+>>
+>> 6) start ui
+>>
+>> 7) display back to login page of chrome book
+>>
+>>
+>
