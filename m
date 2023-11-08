@@ -1,50 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CECC17E4F6B
-	for <lists+freedreno@lfdr.de>; Wed,  8 Nov 2023 04:18:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 334A37E55E8
+	for <lists+freedreno@lfdr.de>; Wed,  8 Nov 2023 13:07:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F28910E6F8;
-	Wed,  8 Nov 2023 03:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E753D10E729;
+	Wed,  8 Nov 2023 12:07:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D847310E6F8
- for <freedreno@lists.freedesktop.org>; Wed,  8 Nov 2023 03:18:51 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63EF110E72E;
+ Wed,  8 Nov 2023 12:07:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 64260CE0FB9;
- Wed,  8 Nov 2023 03:18:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B25EC433C8;
- Wed,  8 Nov 2023 03:18:47 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id A857BCE1084;
+ Wed,  8 Nov 2023 12:06:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A35BC433C7;
+ Wed,  8 Nov 2023 12:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699413527;
- bh=nr23IYqJ52gB7VQC3QYRB9jW/a2ZZpMsz8yfJxERIYk=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=T+2i7M+op4d2+dFKg9orvplaQTtNHLu9MyPG5WQ7s7WPZ5GFAcqhp3WgMIZtgvnr+
- Zob6sZJg4RO2WZsKd0+OKuMvRCK9Qls2AXc+aGJzjo46yrhbxtxZqSaBbU7aeJZcJf
- zvSKnGDB3pfGVlC5RZiRR+dDXpW6gFsPJIUF+1LNfSYQCl+FjqhMFWXV5dKEzicOzz
- SrENZWPx+EQpQCmHANDmIAudG6r76+T+H6bbbogAhisxZQy0IZT1ZhVCKyXXB/V1s5
- rfNlv5naIBhFEgLdusOeEjWw5p/aYDvvuRBfysfbdMVmgXU0xhAeatw2RkkhQPlLUj
- 5ymA7jHt+FdEg==
-Message-ID: <e20129cd99e0685de27d48d73cc2b045.sboyd@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+ s=k20201202; t=1699445217;
+ bh=E8ffCvvVSy06+RkLnh3gDcrcEXxVvHjtlU89OGGbBwU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=h2FLrWlBUaAsotYQvQXCbzq+GBtEZGHCW66vHWouh/atqF8maj3CV6pi4Jq89NMRe
+ 7w1e9PO3usdQ/dHZPJv8NugSwScFCCLLtBJjBmAGsXwRFG1h3E5XeAxVmu6wMS1OtK
+ kc5xrJgr60JD5RNa4VWX3f7g77QmGulaW+KBLXFIMe529nSJgm9p50N/Jp1j2HzP/F
+ 4Zy5fSPptinnCqvhNqJzPhDMnx0/XMOWMDqMjIcqNkqwE6ilwb2yU2ngvtZLxwsLu1
+ 4Z2bzp5iMD8ih9oaN12oEwwef4ZOsAnDp/g5Ow3yJHdp2KggL7LmD1XeqN/VGzXZBG
+ l1HpKeVl9RUNA==
+Date: Wed, 8 Nov 2023 12:06:51 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20231108-shady-fretted-04b62ebc3a9d@spud>
+References: <20231107103600.27424-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <849046e96437d11e8fb997597b40979e.sboyd@kernel.org>
-References: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
- <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
- <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
- <1290a5a0f7f584fcce722eeb2a1fd898.sboyd@kernel.org>
- <CAA8EJpq_pvtCxuPKrHmUOgsDFmDeG8cuUcynvvk-0SJNY3HJnA@mail.gmail.com>
- <849046e96437d11e8fb997597b40979e.sboyd@kernel.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 07 Nov 2023 19:18:45 -0800
-User-Agent: alot/0.10
-Subject: Re: [Freedreno] [RFC PATCH v2 2/3] clk: qcom: implement RCG2
- 'parked' clock support
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="nKFadshYx5Iq5ePI"
+Content-Disposition: inline
+In-Reply-To: <20231107103600.27424-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: qcom,
+ sm8250-mdss: add DisplayPort controller node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,108 +51,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-clk@vger.kernel.org, Taniya Das <quic_tdas@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
- Michael Turquette <mturquette@baylibre.com>
+Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Stephen Boyd (2023-11-07 14:50:18)
-> Quoting Dmitry Baryshkov (2023-11-06 18:00:04)
-> > On Tue, 7 Nov 2023 at 03:36, Stephen Boyd <sboyd@kernel.org> wrote:
-> > >
-> > > Quoting Stephen Boyd (2023-11-03 18:24:47)
-> > >
-> > > I looked at this more today. It seems that I need to both read the
-> > > config register at init and also move over the rcg to the safe source=
- at
-> > > init (i.e. park the clk at init). That's doable with a call to
-> > > clk_rcg2_shared_disable() for the clk_ops::init callback. Otherwise I
-> > > get a stuck clk warning.
-> > >
-> > > Either
-> > >
-> > >  disp_cc_mdss_mdp_clk status stuck at 'off'
-> > >
-> > > or
-> > >
-> > >  disp_cc_mdss_rot_clk status stuck at 'on'
-> > >
-> > > When I don't park the rcg, the disp_cc_mdss_rot_clk gets stuck during
-> > > disabling of unused clks. I think I understand that problem. What
-> > > happens is disp_cc_mdss_mdp_clk_src and disp_cc_mdss_rot_clk_src are
-> > > both sourcing from disp_cc_pll0 at boot. Fixing the parent mapping ma=
-kes
-> > > it so that enabling and then disabling disp_cc_mdss_ahb_clk causes
-> > > disp_cc_pll0 to be turned off when disp_cc_mdss_rot_clk_src is sourced
-> > > from it (and the branch disp_cc_mdss_rot_clk is enabled). If we park
-> > > both the rcgs at clk registration time we avoid this problem because =
-the
-> > > PLL is disabled but nothing is actually a child clk. The act of readi=
-ng
-> > > the config register and stashing that in the 'parked_cfg' only helps
-> > > avoid duplicate calls to change the rate, and doesn't help when we try
-> > > to repoint the clk at XO when the parent PLL is off.
-> > >
-> > > The part I still don't understand is why reading the config register =
-at
-> > > init and stashing that in 'parked_cfg' fixes the disp_cc_mdss_mdp_clk
-> > > stuck at off problem. I see that the branch clk is turned off and on
-> > > many times during boot and there aren't any warnings regardless of
-> > > stashing the config register. That means we should be moving the RCG =
-to
-> > > XO source, between forcibly enabling and disabling the RCG, which
-> > > presumably would complain about being unable to update the config
-> > > register, but it doesn't. Only after late init does the clk fail to
-> > > enable, and the source is still XO at that time. Something else must =
-be
-> > > happening that wedges the branch to the point that it can't be
-> > > recovered. But simply reporting the proper parent is enough for
-> > > disp_cc_mdss_mdp_clk.
-> >=20
-> > I suppose that the issue is caused by mdss_gdsc or mmcx also being
-> > shut down at the late_init. And if I remember correctly, properly
-> > parking disp_cc_mdss_mdp_clk to the XO solves this issue. This is
-> > where is_enabled comes to play. Adding it changes the
-> > clk_disable_unused behaviour.
+
+--nKFadshYx5Iq5ePI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Nov 07, 2023 at 11:36:00AM +0100, Krzysztof Kozlowski wrote:
+> Document the DisplayPort controller node in MDSS binding, already used
+> in DTS:
 >=20
-> The thing is that disp_cc_mdss_mdp_clk_src has been parked to XO by the
-> time late_init runs. The branch clk (disp_cc_mdss_mdp_clk) has been
-> enabled and disabled repeatedly during boot as well, and all those times
-> nothing has signaled a failure. That means the RCG has supposedly
-> switched away from the disp_cc_pll0 to XO (parked) and the branch isn't
-> stuck on or off. So how does turning the mdss_gdsc or mmcx off during
-> late_init cause the branch to get stuck off if the parent of the RCG is
-> XO? Is something changing the parent back to the display PLL?
+>   sm8250-xiaomi-elish-boe.dtb: display-subsystem@ae00000: Unevaluated pro=
+perties are not allowed ('displayport-controller@ae90000' was unexpected)
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+Cheers,
+Conor.
+
+> ---
+>  .../bindings/display/msm/qcom,sm8250-mdss.yaml         | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-md=
+ss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.ya=
+ml
+> index 994975909fea..51368cda7b2f 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
+> @@ -52,6 +52,16 @@ patternProperties:
+>        compatible:
+>          const: qcom,sm8250-dpu
+> =20
+> +  "^displayport-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,sm8250-dp
+> +          - const: qcom,sm8350-dp
+> +
+>    "^dsi@[0-9a-f]+$":
+>      type: object
+>      additionalProperties: true
+> --=20
+> 2.34.1
 >=20
 
-I've found that only marking disp_cc_pll0 as CLK_IGNORE_UNUSED fixes the
-problem as well. In this case, mdp and rot clks are both actually
-parented to disp_cc_pll0 at boot, but mdp is switched to XO due to
-parking while rot is left on disp_cc_pll0 because only the branch is
-disabled during unused clk disabling.
+--nKFadshYx5Iq5ePI
+Content-Type: application/pgp-signature; name="signature.asc"
 
-When I fix the parent by reading the parked_cfg value at init time,
-disp_cc_pll0 is turned off pretty early because the parent of mdp is
-discovered to be disp_cc_pll0. I wonder if turning off disp_cc_pll0
-somehow "clears" state, but it has to be done in a controlled manner. I
-also found that simply never disabling the PLL also fixes it (i.e.
-returning early from alpha_pll_fabia_disable if the clk is
-disp_cc_pll0). That seems to imply that something about disabling the
-PLL during unused clks disabling is bad.
+-----BEGIN PGP SIGNATURE-----
 
-I've also noticed that when the RCG is enabled before turning on the
-stuck off disp_cc_mdss_mdp_clk that the RCG root_off bit (bit 31) is
-clear. Something is turning the RCG clk on when software thinks it is
-off, but that should be OK because the parent is XO. Before this point
-(and late init), the RCG is off when software thinks it is off. I
-printed the config register from the unused clk disabling code and the
-rcg is still off after we disable the PLL.
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZUt52wAKCRB4tDGHoIJi
+0jNCAP913yxIWogE9QqPm+1GT8ZYPoNmJBQ48DPDYxIIJTtx+QD/bAY8GRpKjJ4K
+z0nP0V083UgpjsG73rOJ4pFJl5Vx6gE=
+=YNNb
+-----END PGP SIGNATURE-----
 
-I also tried skipping slamming a bunch of PLL config register writes
-into the PLL at probe by removing the clk_fabia_pll_configure() call but
-it doesn't fix it. Maybe I need to measure the clk at probe time to see
-if it is actually on XO or if it is stuck on the PLL but all the
-registers are saying it is XO.
+--nKFadshYx5Iq5ePI--
