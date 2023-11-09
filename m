@@ -1,84 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30BD77E7440
-	for <lists+freedreno@lfdr.de>; Thu,  9 Nov 2023 23:13:03 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC467E755A
+	for <lists+freedreno@lfdr.de>; Fri, 10 Nov 2023 00:57:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4B0D10E401;
-	Thu,  9 Nov 2023 22:13:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0969510E34C;
+	Thu,  9 Nov 2023 23:56:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4784310E401
- for <freedreno@lists.freedesktop.org>; Thu,  9 Nov 2023 22:12:57 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3A9LCxVH014060
- for <freedreno@lists.freedesktop.org>; Thu, 9 Nov 2023 22:12:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=33KgG6CHRSEf7MnBCq8lZczbZPWe46CFEV0c6Ljv3XE=;
- b=NRY+fsLLPhvR03oihCNwlNjE073EcbOPdZEtmWfa98fr/vgyU9as0Gv5UgGRjvD20Uqr
- rgKrNXs3mjdnoP2UqqRQT1LgXnKXLV0WQrS0UoPs5ykW1YI1Elts552ah26G9KjYvZcO
- YV+S1YwM8WuYHzOvrdk4EVdRMCMgqOQbuALH8E+IhH2g2Q4KVMeVJ1qxUFr9XPaVZpmm
- VXsrhtDAdjchKq0/s+6iHtAX6qGmfhTYYrbi6XQZUEX/tBEn/joWIb7R90bKng5EiWCv
- brHZANnYsoQbFbl6Qj+YHtnfxYRX2oKaYzTKC9RpHARUfOR5Px9f9Se/zuoyHAVSo7yy dA== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3u93tq8ky3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 09 Nov 2023 22:12:56 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3A9MCtG5029372
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 9 Nov 2023 22:12:55 GMT
-Received: from [10.110.84.171] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Thu, 9 Nov
- 2023 14:12:55 -0800
-Message-ID: <7862d3a6-bf53-b705-e601-65852e38dcf2@quicinc.com>
-Date: Thu, 9 Nov 2023 14:12:46 -0800
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [IPv6:2607:f8b0:4864:20::734])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2969E10E34C
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Nov 2023 23:56:51 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id
+ af79cd13be357-77a453eb01cso91604885a.0
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Nov 2023 15:56:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek.ca; s=google; t=1699574210; x=1700179010; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=KOGnrwGuPglkUh0+Fj19u8kSBzGFAbbmPxBOgbMVl8k=;
+ b=NIsVLCjIEIkyKygGxfohyKqa1m6QcKaWIoW92kbYXXPh3C5VOijUcHJ16UV+gK0qYV
+ og1tAMoFt/YNViBe5BwQtmBeT4LpE1KBadF20BOFEZ+1gk1o6tGL7LJwg58Ru2ZJTd6S
+ ExXQN76/epZDweD3dab93lt/RfCrow05RwrSSPAACvsm213K//xKinSi7jIJBE31OcKh
+ IaKjVZE8zWwiXUClipNESAwZzXxBXrxIi1XvxgcwlmIXlDcdsiJQmsRMnmFeTU1JNGsz
+ U8e43EvdANSz2cgUDueMpwtJeGbbhjJF0IpaonbLlI5G9uzVj8AKv3FQMWtNBBqnmHzt
+ nz7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699574210; x=1700179010;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=KOGnrwGuPglkUh0+Fj19u8kSBzGFAbbmPxBOgbMVl8k=;
+ b=v4eTMRkNzzrsNQmiVHltPQk2QxOoltXwJ7XUqRDnsu39D9jbTUnA1IwauZpPER11us
+ jd88MhrxtR2B9TY8HevFTRKiMsi1kuJL+3AZ6kXEXqBmrBkPR8EKFClTzgAq6XEuCezo
+ V5r5xqHBUITpRxBG2VAS5U4/kWneYLaVRzS3BTDU+r8jOMNZfHjwJ6p5UBJxj0ZwuOaw
+ ryHTlGN0UerZblYUxXuzS5JyX3w1CpN2T7o4H0AupU50itUvMY20ItdjuJJEinyHvgNj
+ XbWlkFq+RPmEOJ8WKS+TwBiLGeS9ySb1MuLf+C+7dNWITCotWDoA5NaJQtxQ8u1DfNSV
+ 94mA==
+X-Gm-Message-State: AOJu0Yy/EI/nUvC0C/rtegAPmJ4vVkBSItPP+HaG0Z95DQXZ5kLJTTk5
+ MkdRJdOoy7rExJZO7PXH50+4z/27wHkLHgVWkQc=
+X-Google-Smtp-Source: AGHT+IGCEs76KiGmSEnDezMN2gqFvgJH8aqukcTT1Et69lNkzS+DPn40neuscPII0MMkpYwp9e1tCQ==
+X-Received: by 2002:a05:620a:29c9:b0:778:91f0:e541 with SMTP id
+ s9-20020a05620a29c900b0077891f0e541mr7487802qkp.23.1699574210077; 
+ Thu, 09 Nov 2023 15:56:50 -0800 (PST)
+Received: from localhost.localdomain
+ (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
+ by smtp.gmail.com with ESMTPSA id
+ bl1-20020a05620a1a8100b00777063b89casm299211qkb.5.2023.11.09.15.56.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Nov 2023 15:56:49 -0800 (PST)
+From: Jonathan Marek <jonathan@marek.ca>
+To: freedreno@lists.freedesktop.org
+Date: Thu,  9 Nov 2023 18:54:10 -0500
+Message-Id: <20231109235412.29343-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: <freedreno@lists.freedesktop.org>
-References: <1696632910-21942-1-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpoFRp+7GyO=F3Ar21tfG5Yt0cL6zkAquqg7D1XXQjp50Q@mail.gmail.com>
- <55a4f98e-2772-e4fd-ae8a-132f92582c78@quicinc.com>
- <CAA8EJpo9CFf-Z3eiuKPvwf-y6eGkSibro-q-=SBxKK_L-zFOBA@mail.gmail.com>
- <b708df07-6812-df43-1313-cf6f1289fd47@quicinc.com>
- <d597554a-ad3a-0af1-e21b-3001c80f6d30@quicinc.com>
- <748da144-af4c-5a2a-e82b-3a870995cbce@quicinc.com>
- <CAA8EJppsyS_BTWwtVdX-B3V=O7nSWsadW4G6o-nshUNo-Z71rQ@mail.gmail.com>
-Content-Language: en-US
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAA8EJppsyS_BTWwtVdX-B3V=O7nSWsadW4G6o-nshUNo-Z71rQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: dLMSErx4qP_CLaVsgjFnjAdFrnjLGrQL
-X-Proofpoint-ORIG-GUID: dLMSErx4qP_CLaVsgjFnjAdFrnjLGrQL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-09_14,2023-11-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 mlxscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 mlxlogscore=999
- spamscore=0 phishscore=0 impostorscore=0 bulkscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311090161
-Subject: Re: [Freedreno] [PATCH v7 0/7] incorporate pm runtime framework and
- eDP clean up
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dsi: use the correct VREG_CTRL_1 value
+ for 4nm cphy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,140 +72,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Vinod Koul <vkoul@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, David Airlie <airlied@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Use the same value as the downstream driver. This change is needed for CPHY
+mode to work correctly.
 
-On 11/9/2023 12:35 PM, Dmitry Baryshkov wrote:
-> Hello Kuogee,
->
->
-> On Thu, 9 Nov 2023 at 19:51, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>
->> On 11/8/2023 10:27 AM, Abhinav Kumar wrote:
->>>
->>> On 11/8/2023 10:10 AM, Kuogee Hsieh wrote:
->>>> On 11/7/2023 1:23 PM, Dmitry Baryshkov wrote:
->>>>> On Tue, 7 Nov 2023 at 23:01, Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>>> wrote:
->>>>>> On 11/6/2023 5:55 PM, Dmitry Baryshkov wrote:
->>>>>>> On Sat, 7 Oct 2023 at 01:55, Kuogee Hsieh
->>>>>>> <quic_khsieh@quicinc.com> wrote:
->>>>>>>> The purpose of this patch series is to incorporate pm runtime
->>>>>>>> framework
->>>>>>>> into MSM eDP/DP driver so that eDP panel can be detected by DRM
->>>>>>>> eDP panel
->>>>>>>> driver during system probe time. During incorporating procedure,
->>>>>>>> original
->>>>>>>> customized pm realted fucntions, such as dp_pm_prepare(),
->>>>>>>> dp_pm_suspend(),
->>>>>>>> dp_pm_resume() and dp_pm_prepare(), are removed and replaced with
->>>>>>>> functions
->>>>>>>> provided by pm runtiem framework such as
->>>>>>>> pm_runtime_force_suspend() and
->>>>>>>> pm_runtime_force_resume(). In addition, both eDP aux-bus and irq
->>>>>>>> handler
->>>>>>>> are bound at system probe time too.
->>>>>>> With this patchset in place I can crash the board using the following
->>>>>>> sequence (SM8350-HDK):
->>>>>>>
->>>>>>> - plug the USBC DP dongle
->>>>>>> - run modetest at any mode, don't press Enter yet
->>>>>>> - unplug the dongle
->>>>>>> - press Enter to stop modetest
->>>>>>>
->>>>>>> => the board resets to Sahara.
->>>>>>>
->>>>>>> Please ping me if you need any additional information from my side.
->>>>>> questiosn,
->>>>>>
->>>>>> 1) which dongle are you used?
->>>>> I have used several Dell and Hama USB-C dongles.
->>>>>
->>>>>> 2) what code branch shoud I used to duplicate this problem.
->>>>> I have pushed my kernel tree to
->>>>> git.codelinaro.org/dmitry.baryshkov/linux.git, branch test-dp-rpm
->>>>> I had several UCSI patches on top, but they should not be relevant.
->>>> git.codelinaro.org/dmitry.baryshkov/linux.git, branch test-dp-rpm <==
->>>> I synced out his branch and it is still work at my chromebook Kodiak
->>>> DUT.
->>> Perhaps the gap in test results with the same tree is due to internal
->>> hpd vs hpd pin. We need to try this on a device which does not use
->>> internal hpd.
->>
->> Hi Dmitry,
-> First of all, I was able to reproduce the issue without this patch
-> series. Kuogee, I must ask your pardon, it is not a regression and it
-> is not caused by this series.
-> So, we have a bug, but not a regression.
+Fixes: 93f0ca6fd61c ("drm/msm/dsi: fix VREG_CTRL_1 value for 4nm cphy")
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-np, i will keep debugging this issue but with a little low priority.
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index 3b1ed02f644d..89a6344bc865 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -918,7 +918,7 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 	if ((phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2)) {
+ 		if (phy->cphy_mode) {
+ 			vreg_ctrl_0 = 0x45;
+-			vreg_ctrl_1 = 0x45;
++			vreg_ctrl_1 = 0x41;
+ 			glbl_rescode_top_ctrl = 0x00;
+ 			glbl_rescode_bot_ctrl = 0x00;
+ 		} else {
+-- 
+2.26.1
 
-I think we like to have exactly same dongle as you have to duplicate 
-this problem.
-
-Would you please provide the manufacture and model number of the dongle?
-
-
->
-> Second, a stable reproducer:
->
-> When you unplug and re-plug the dongle, switch the orientation of the dongle.
-> This way the system crashes in 100% of cases.
-sorry, I am new to HDK device. where and how to switch the orientation 
-of the dongle?
-> Here are the last messages that I see on my console:
->
-> trying to open device 'tilcdc'...failed
-> trying to open device 'msm'...done
-> setting mode 3840x2160-30.00Hz on connectors 34, crtc 84
-> failed to set gamma: Function not implemented
-> [   25.504828] [drm:dpu_encoder_phys_vid_wait_for_commit_done:487]
-> [dpu error]vblank timeout
-> [   25.515024] [drm:dpu_kms_wait_for_commit_done:494] [dpu error]wait
-> for commit done returned -110
-> [   25.621146] [drm:dpu_encoder_frame_done_timeout:2342] [dpu
-> error]enc33 frame done timeout
-> Format: Log Type - Time(microsec) - Message - Optional Info
-> Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
-> S - QC_IMAGE_VERSION_STRING=BOOT.MXF.1.0-00848-LAHAINA-1
-Those messages looks like timing engine configuration is not correct.
->
->> I have two more questions,
->>
->> 1) are you see test pattern shows at external DP when you run modetest?
-> Yes, I see the pattern
->
->> 2) is *.kcrash file created under /var/spool/crash/ when system crashed.
->> If it is, can you share it?
-> There is no kcrash, as there is no kernel crash. The system reboots to
-> the download mode.
->
->> Thanks,
->>
->>>>>> I can not duplicate  system crash problem at my setup kodiak (SM7325)
->>>>>> chrome book with my PM runtime patch series.
->>>>>>
->>>>>> my code base is Linux 6.6-rc2 + pm runtime patch series (7 patches)
->>>>>>
->>>>>> I did:
->>>>>>
->>>>>> 1) plugin either apple dongle (DP-to-HDMI) + 1080p display or DP typeC
->>>>>> cable directly to 1080p display
->>>>>>
->>>>>> 2)  stop ui
->>>>>>
->>>>>> 3) /usr/bin/modetest -M msm -s 34:1920x1080 (see test pattern show at
->>>>>> display)
->>>>>>
->>>>>> 4) unplug apple dongle or DP typeC cable
->>>>>>
->>>>>> 5) hit enter key
->>>>>>
->>>>>> 6) start ui
->>>>>>
->>>>>> 7) display back to login page of chrome book
->>>>>>
->>>>>>
->
->
