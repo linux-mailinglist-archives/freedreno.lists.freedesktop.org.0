@@ -2,64 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7997E759F
-	for <lists+freedreno@lfdr.de>; Fri, 10 Nov 2023 01:04:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 672987E7767
+	for <lists+freedreno@lfdr.de>; Fri, 10 Nov 2023 03:26:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C69210E23B;
-	Fri, 10 Nov 2023 00:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0519910E23D;
+	Fri, 10 Nov 2023 02:25:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [IPv6:2607:f8b0:4864:20::f32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A4C10E38A
- for <freedreno@lists.freedesktop.org>; Fri, 10 Nov 2023 00:03:32 +0000 (UTC)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-66d134a019cso9421676d6.3
- for <freedreno@lists.freedesktop.org>; Thu, 09 Nov 2023 16:03:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek.ca; s=google; t=1699574611; x=1700179411; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=X8kRvGVwwQROTbtBALdJ/O4XXBQy9n/2BNY8tadKsdI=;
- b=NDD+1uooTrY1Mb+7b38RFKqM++EBCwqqM5hCdasZ70VEMplx8qjzYnw0gOkpYg4K5i
- UkIjJkgSLATFdmrEGxYvNdMQb3HUMMgbhN0qNIrU6hU4AZAjUeWCkgbUFiTvOgWecERB
- jpkYYgUMWFZrNFFfASurcAmJqXj+4LBIIid2SHCI2ewDM7666Xa+aOSF4EXRZTJTcyND
- gVFyqJcyEoYVY6KLKPbOh8xJNB4Rfgmu1SNDy8wVdcKvzmKv5lDH8kBRHrL7n2EdtGko
- bCMWcrAxMDYbouosGr3qYZVx+vAac1dwsSmD4NOWj7qvE0g9E6vgdB/SR324/UtNrPlm
- 7/cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699574611; x=1700179411;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=X8kRvGVwwQROTbtBALdJ/O4XXBQy9n/2BNY8tadKsdI=;
- b=VwurlA+Acc0wh9EcdqbEZI66UGtkiLCPjh6NkKqK1BIP3hx1LKM9JRrGH9IqPNMTf6
- zbO1ou5Veg5VM7q/ilnKY3eDoAFdkORGF8sVFCNwxkH1kLBZOyvQGvMVAKbJk8liRFB9
- CsXiN4u2Sjt3diVbEC8pXx4ZFholM+DeZbG9gk6kDbjL4FRWQ9d/hfT6PcxXpzOiZPcz
- Kqf0TWzfbyHWuX9QogRgG8oXdyZdj9h4va8jd6aFEEylzoMS0PztJ47Jy3ErcFFcbIbb
- oL9ShEi0/+cQ+aF+wFNPRnNMAtHSsHufwcq9ZrS4BhXlQbV7pOx0XD/Ui+INQ07nu7qE
- Xp5Q==
-X-Gm-Message-State: AOJu0YwVPn5lNe/C1cQqfT1N+IFQv4BEYlE5q+vb08B+zlXVKA1FwfN+
- S8ooRk7XGyt21kMFomesJgYJ5orZbRozy1J3TPE=
-X-Google-Smtp-Source: AGHT+IGYCXADfCmllu0MdkQC6KJQ2Cnx9eUW550qzPyNlADCiAziRwgvnW3qjd1nZZKBRjkl2P01xQ==
-X-Received: by 2002:a05:6214:411:b0:66d:1624:2203 with SMTP id
- z17-20020a056214041100b0066d16242203mr7062080qvx.20.1699574611676; 
- Thu, 09 Nov 2023 16:03:31 -0800 (PST)
-Received: from localhost.localdomain
- (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
- by smtp.gmail.com with ESMTPSA id
- x4-20020a0cfe04000000b0065b0554ae78sm2455969qvr.100.2023.11.09.16.03.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Nov 2023 16:03:31 -0800 (PST)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-Date: Thu,  9 Nov 2023 19:02:14 -0500
-Message-Id: <20231110000216.29979-1-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A80610E23D
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Nov 2023 02:25:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8C4B3618C8;
+ Fri, 10 Nov 2023 02:25:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B7DC433C8;
+ Fri, 10 Nov 2023 02:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699583116;
+ bh=nCqJntDqtr3Op8eiSqf8/ZXz/ghvEugYu+jVdT6SWHs=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=qfOw3bKv/WRzdyAGiUKgvzzZJdSjugDsJE5QFa/TwCeRCK/r8X41TCZWewzxPF+dX
+ 26OF5MvxycRdwK11otk17kQC4j3w0m7iMlvMXu3t9xFf2qDgsvDWN0KVMQiXpTWk3L
+ zm1XNVxu2CiGqApnMBRVeGF3FdSRaOJgkIW2MFNZdhE/QtMPDZrxx639fD/OriYTzK
+ 7LbAZZvW5cPNNbqK7ArdoZ9EoDWod/766RWct9TlgQ7YPqtLhYjyMTSf+tUHqpVWVz
+ 9rdm+dweWTZfVeK1oGxCfF7pf/eAKMI2InCcP5xQMpQLQMQN8MCa3K0M9Kd0i1ptJq
+ 1hCi6cwJaKwLw==
+Message-ID: <d1279446a7eb4109c73355a7983ba3f1.sboyd@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm/dsi: use the correct VREG_CTRL_1
- value for 4nm cphy
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <28c8559b9eba1a2b7c3554859c095cde.sboyd@kernel.org>
+References: <20231004012308.2305273-1-dmitry.baryshkov@linaro.org>
+ <20231004012308.2305273-3-dmitry.baryshkov@linaro.org>
+ <2346f541be5b8528ad1a16df256a2f50.sboyd@kernel.org>
+ <1290a5a0f7f584fcce722eeb2a1fd898.sboyd@kernel.org>
+ <CAA8EJpq_pvtCxuPKrHmUOgsDFmDeG8cuUcynvvk-0SJNY3HJnA@mail.gmail.com>
+ <849046e96437d11e8fb997597b40979e.sboyd@kernel.org>
+ <e20129cd99e0685de27d48d73cc2b045.sboyd@kernel.org>
+ <28c8559b9eba1a2b7c3554859c095cde.sboyd@kernel.org>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 09 Nov 2023 18:25:13 -0800
+User-Agent: alot/0.10
+Subject: Re: [Freedreno] [RFC PATCH v2 2/3] clk: qcom: implement RCG2
+ 'parked' clock support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,43 +58,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, David Airlie <airlied@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-clk@vger.kernel.org, Taniya Das <quic_tdas@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, freedreno@lists.freedesktop.org,
+ Michael Turquette <mturquette@baylibre.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use the same value as the downstream driver. This change is needed for CPHY
-mode to work correctly.
+Quoting Stephen Boyd (2023-11-08 20:20:50)
+>=20
+> Here's what's happening without any changes
+>=20
+>  1. mdp and rot are sourcing from disp_cc_pll0 at driver probe, disp_cc_p=
+ll0 is enabled
+>  2. mdp is configured to restore on XO
+>  3. rot is configured to restore on XO
+>  4. mdp is switched to XO on clk_enable()
+>  5. mdp is switched to XO on clk_disable()
+>  6. disp_cc_pll0 is left untouched
+>  7. rot branch clk is disabled during late init (disp_cc_mdss_rot_clk)
+>  8. rot rcg is still enabled
+>  9. disp_cc_pll0 is disabled during late init
+>  10. mdp is switched to XO on clk_enable()
+>  11. mdp branch is stuck off
+>=20
+> I could see the problem happening if mdp branch and rot branch were
+> swapped. When we enable/disable mdp branch it will actually
+> enable/disable the rot rcg because feedback is going there. During boot
+> this is fine because disp_cc_pll0 is enabled. Leaving it enabled
+> throughout boot hides the problem because enabling mdp branch is
+> actually enabling rot branch. Once we get to late init, we disable rot
+> branch (actually mdp branch). The mdp rcg is already parked, so this
+> should be OK. The problem is the mdp branch (actually rot branch) has
+> been disabled, while the rot rcg is still sourcing disp_cc_pll0. We'll
+> disable the pll during late init, and this will wedge the clk off. When
+> we go to turn on the mdp branch (actually the rot branch) after late
+> init, we'll try to turn on the branch and the rot rcg will be parented
+> to the disp_cc_pll0 still (because we never moved it off).
+>=20
+> This patch fixes the problem for me. Obviously, things are still bad
+> though because we don't report the proper parent to the framework. We
+> can do that pretty easily by parking at clk registration time though and
+> also by saving the config register.
 
-Fixes: 8b034e6771113 ("drm/msm/dsi: add support for DSI-PHY on SM8550")
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
-v2: fixed the Fixes: line
+Argh! I forgot to put back disabling unused clks. This patch is garbage
+and doesn't actually work. I started directly writing things with devmem
+and saw that the branch bits are correct. The status bit in the rcg
+changes when the corresponding branch is enabled.
 
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It seems that rot must be parked on XO, otherwise mdp branch will fail
+to enable after late init. I was hoping these two clks weren't related,
+but they must be related somehow. I've parked rot on XO right after
+disp_cc_pll0 is disabled and that also works.
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index 3b1ed02f644d..89a6344bc865 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -918,7 +918,7 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
- 	if ((phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V5_2)) {
- 		if (phy->cphy_mode) {
- 			vreg_ctrl_0 = 0x45;
--			vreg_ctrl_1 = 0x45;
-+			vreg_ctrl_1 = 0x41;
- 			glbl_rescode_top_ctrl = 0x00;
- 			glbl_rescode_bot_ctrl = 0x00;
- 		} else {
--- 
-2.26.1
+My guess is the GDSC is restoring rcg registers, and that restoring
+requires the source clk to be running (maybe they hardcoded that
+requirement in the hardware). In the case of rot, the source clk is
+disp_cc_pll0, which is always enabled during boot. When I hack it so
+that disp_cc_pll0 is disabled at the end of dispcc probe, and rot is the
+only clk still sourcing from it, nothing is busted until the gdsc powers
+off, saves state, and then powers on again. That's the case where I
+reported the stuck clk warning happens early, before late init. Once the
+gdsc powers on the second time, it must wedge the rcg hardware and
+affect mdp even though mdp was parked on XO.
 
+Fun! This must be why qcom didn't want to have dirty registers. It must
+confuse the gdsc hardware and cause it to restore the clk to the parent
+that isn't enabled.
+
+BTW, I tried changing the rcg source for rot after the mdp branch is
+stuck off, and the rot rcg goes from reporting root off, to reporting
+root is on, which is weird. Maybe that's just showing the rot rcg is in
+some sort of wedged state as well.
+
+So long story short, I think I understand the problem now. The gdsc is
+saving and restoring the register contents, and enabling the rcg clks
+when it does so. If that runs into some stuck rcg problem, it will wedge
+the clks in weird ways. The only safe thing to do is make sure that when
+the gdsc is turned off, all the rcgs are parked on sources that are
+going to be enabled when the gdsc powers on the next time. For now,
+we've decided that source is XO, because it is simple. It seems like
+that means we need to park all shared rcg clks at registration time.
+Or we need to teach the clks about their gdsc and switch rcgs over to
+the safe source when disabling the gdsc.
+
+Parking at init is easy, we call clk_rcg2_shared_disable() from the init
+routine, and that parks the clk and stashes the config register. I just
+don't know if that causes some sort of problem for bootsplash logic. The
+mdp clk could be running quite fast, and we'll basically force it over
+to XO immediately. It may be better to teach the gdsc code to park the
+rcgs when disabling the gdsc. Then we can maintain the mdp clk rate out
+of boot for as long as the gdsc is enabled out of boot, and we contain
+the "fix" to where the problem is, gdsc can't restore a clk sourcing
+something that's off. If we did this we still need to fix the parent
+mapping at clk registration, i.e. parked_cfg needs to be read from the
+hardware so that get_parent works.
