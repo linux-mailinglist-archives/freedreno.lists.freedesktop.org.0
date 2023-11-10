@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC467E755A
-	for <lists+freedreno@lfdr.de>; Fri, 10 Nov 2023 00:57:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB7997E759F
+	for <lists+freedreno@lfdr.de>; Fri, 10 Nov 2023 01:04:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0969510E34C;
-	Thu,  9 Nov 2023 23:56:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C69210E23B;
+	Fri, 10 Nov 2023 00:04:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2969E10E34C
- for <freedreno@lists.freedesktop.org>; Thu,  9 Nov 2023 23:56:51 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-77a453eb01cso91604885a.0
- for <freedreno@lists.freedesktop.org>; Thu, 09 Nov 2023 15:56:51 -0800 (PST)
+Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
+ [IPv6:2607:f8b0:4864:20::f32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36A4C10E38A
+ for <freedreno@lists.freedesktop.org>; Fri, 10 Nov 2023 00:03:32 +0000 (UTC)
+Received: by mail-qv1-xf32.google.com with SMTP id
+ 6a1803df08f44-66d134a019cso9421676d6.3
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Nov 2023 16:03:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek.ca; s=google; t=1699574210; x=1700179010; darn=lists.freedesktop.org; 
+ d=marek.ca; s=google; t=1699574611; x=1700179411; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=KOGnrwGuPglkUh0+Fj19u8kSBzGFAbbmPxBOgbMVl8k=;
- b=NIsVLCjIEIkyKygGxfohyKqa1m6QcKaWIoW92kbYXXPh3C5VOijUcHJ16UV+gK0qYV
- og1tAMoFt/YNViBe5BwQtmBeT4LpE1KBadF20BOFEZ+1gk1o6tGL7LJwg58Ru2ZJTd6S
- ExXQN76/epZDweD3dab93lt/RfCrow05RwrSSPAACvsm213K//xKinSi7jIJBE31OcKh
- IaKjVZE8zWwiXUClipNESAwZzXxBXrxIi1XvxgcwlmIXlDcdsiJQmsRMnmFeTU1JNGsz
- U8e43EvdANSz2cgUDueMpwtJeGbbhjJF0IpaonbLlI5G9uzVj8AKv3FQMWtNBBqnmHzt
- nz7A==
+ bh=X8kRvGVwwQROTbtBALdJ/O4XXBQy9n/2BNY8tadKsdI=;
+ b=NDD+1uooTrY1Mb+7b38RFKqM++EBCwqqM5hCdasZ70VEMplx8qjzYnw0gOkpYg4K5i
+ UkIjJkgSLATFdmrEGxYvNdMQb3HUMMgbhN0qNIrU6hU4AZAjUeWCkgbUFiTvOgWecERB
+ jpkYYgUMWFZrNFFfASurcAmJqXj+4LBIIid2SHCI2ewDM7666Xa+aOSF4EXRZTJTcyND
+ gVFyqJcyEoYVY6KLKPbOh8xJNB4Rfgmu1SNDy8wVdcKvzmKv5lDH8kBRHrL7n2EdtGko
+ bCMWcrAxMDYbouosGr3qYZVx+vAac1dwsSmD4NOWj7qvE0g9E6vgdB/SR324/UtNrPlm
+ 7/cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699574210; x=1700179010;
+ d=1e100.net; s=20230601; t=1699574611; x=1700179411;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=KOGnrwGuPglkUh0+Fj19u8kSBzGFAbbmPxBOgbMVl8k=;
- b=v4eTMRkNzzrsNQmiVHltPQk2QxOoltXwJ7XUqRDnsu39D9jbTUnA1IwauZpPER11us
- jd88MhrxtR2B9TY8HevFTRKiMsi1kuJL+3AZ6kXEXqBmrBkPR8EKFClTzgAq6XEuCezo
- V5r5xqHBUITpRxBG2VAS5U4/kWneYLaVRzS3BTDU+r8jOMNZfHjwJ6p5UBJxj0ZwuOaw
- ryHTlGN0UerZblYUxXuzS5JyX3w1CpN2T7o4H0AupU50itUvMY20ItdjuJJEinyHvgNj
- XbWlkFq+RPmEOJ8WKS+TwBiLGeS9ySb1MuLf+C+7dNWITCotWDoA5NaJQtxQ8u1DfNSV
- 94mA==
-X-Gm-Message-State: AOJu0Yy/EI/nUvC0C/rtegAPmJ4vVkBSItPP+HaG0Z95DQXZ5kLJTTk5
- MkdRJdOoy7rExJZO7PXH50+4z/27wHkLHgVWkQc=
-X-Google-Smtp-Source: AGHT+IGCEs76KiGmSEnDezMN2gqFvgJH8aqukcTT1Et69lNkzS+DPn40neuscPII0MMkpYwp9e1tCQ==
-X-Received: by 2002:a05:620a:29c9:b0:778:91f0:e541 with SMTP id
- s9-20020a05620a29c900b0077891f0e541mr7487802qkp.23.1699574210077; 
- Thu, 09 Nov 2023 15:56:50 -0800 (PST)
+ bh=X8kRvGVwwQROTbtBALdJ/O4XXBQy9n/2BNY8tadKsdI=;
+ b=VwurlA+Acc0wh9EcdqbEZI66UGtkiLCPjh6NkKqK1BIP3hx1LKM9JRrGH9IqPNMTf6
+ zbO1ou5Veg5VM7q/ilnKY3eDoAFdkORGF8sVFCNwxkH1kLBZOyvQGvMVAKbJk8liRFB9
+ CsXiN4u2Sjt3diVbEC8pXx4ZFholM+DeZbG9gk6kDbjL4FRWQ9d/hfT6PcxXpzOiZPcz
+ Kqf0TWzfbyHWuX9QogRgG8oXdyZdj9h4va8jd6aFEEylzoMS0PztJ47Jy3ErcFFcbIbb
+ oL9ShEi0/+cQ+aF+wFNPRnNMAtHSsHufwcq9ZrS4BhXlQbV7pOx0XD/Ui+INQ07nu7qE
+ Xp5Q==
+X-Gm-Message-State: AOJu0YwVPn5lNe/C1cQqfT1N+IFQv4BEYlE5q+vb08B+zlXVKA1FwfN+
+ S8ooRk7XGyt21kMFomesJgYJ5orZbRozy1J3TPE=
+X-Google-Smtp-Source: AGHT+IGYCXADfCmllu0MdkQC6KJQ2Cnx9eUW550qzPyNlADCiAziRwgvnW3qjd1nZZKBRjkl2P01xQ==
+X-Received: by 2002:a05:6214:411:b0:66d:1624:2203 with SMTP id
+ z17-20020a056214041100b0066d16242203mr7062080qvx.20.1699574611676; 
+ Thu, 09 Nov 2023 16:03:31 -0800 (PST)
 Received: from localhost.localdomain
  (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
  by smtp.gmail.com with ESMTPSA id
- bl1-20020a05620a1a8100b00777063b89casm299211qkb.5.2023.11.09.15.56.48
+ x4-20020a0cfe04000000b0065b0554ae78sm2455969qvr.100.2023.11.09.16.03.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Nov 2023 15:56:49 -0800 (PST)
+ Thu, 09 Nov 2023 16:03:31 -0800 (PST)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Thu,  9 Nov 2023 18:54:10 -0500
-Message-Id: <20231109235412.29343-1-jonathan@marek.ca>
+Date: Thu,  9 Nov 2023 19:02:14 -0500
+Message-Id: <20231110000216.29979-1-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dsi: use the correct VREG_CTRL_1 value
- for 4nm cphy
+Subject: [Freedreno] [PATCH v2] drm/msm/dsi: use the correct VREG_CTRL_1
+ value for 4nm cphy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,9 +77,8 @@ Cc: Vinod Koul <vkoul@kernel.org>, Robert Foss <rfoss@kernel.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
@@ -89,9 +88,11 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 Use the same value as the downstream driver. This change is needed for CPHY
 mode to work correctly.
 
-Fixes: 93f0ca6fd61c ("drm/msm/dsi: fix VREG_CTRL_1 value for 4nm cphy")
+Fixes: 8b034e6771113 ("drm/msm/dsi: add support for DSI-PHY on SM8550")
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
+v2: fixed the Fixes: line
+
  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
