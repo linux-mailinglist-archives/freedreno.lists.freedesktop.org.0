@@ -1,67 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F2F7E9DD8
-	for <lists+freedreno@lfdr.de>; Mon, 13 Nov 2023 14:52:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 607457E9DD7
+	for <lists+freedreno@lfdr.de>; Mon, 13 Nov 2023 14:52:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60ED010E379;
-	Mon, 13 Nov 2023 13:52:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE9810E393;
+	Mon, 13 Nov 2023 13:52:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5706D10E066;
- Mon, 13 Nov 2023 11:24:02 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40859c466efso33253355e9.3; 
- Mon, 13 Nov 2023 03:24:02 -0800 (PST)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EEBD10E353;
+ Mon, 13 Nov 2023 11:24:15 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-407da05f05aso31960505e9.3; 
+ Mon, 13 Nov 2023 03:24:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699874641; x=1700479441; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
- b=ReU3n2VR/eDzsvpcwoBaylOONtUUzQYaE1EHdRkNHzJo9tP/cWtnAASy8MwRnIpEkf
- dY67iclsy4hBTB/1FUpDooa3msWSO76IlsvVE9DocHrNewI/zhSX30K1YlppKDDifA9h
- FRcACapFxSU3OKq12GT8hmruAPTP/whFyX6gcBHg3cVXhYKYhRCmtxEBCcg1oNwqurm3
- az+1xI5Kqp4k7rVA7GBMZ2W4TUknCk0xrIO9bvw51kiCNrnV12NAWfWUDPut1JXLx2Z4
- T5tFrmwYl9/DN1x3TIVZeWmYtYkURAbP+qFQMUbn9ORjU3NSpv198p9DDVR8otrn2cJX
- Bq6g==
+ d=gmail.com; s=20230601; t=1699874654; x=1700479454; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RwYQsxTIlPnpbp305mlbq5GplvUv/n/Jh48i1GH8+AY=;
+ b=H57oAMA+MtBP40SJQZeKxDrQb0sz60tJWol0vK7/Vr0gh7KJT5AWBPg+chuVIMHx7M
+ jgmhwNpuxoGBZbWA68Y1z3LbPE3rP4s63SnG4E3zxji1WLn3IL5A6iRCQARWM4vNGfHm
+ xw9eyOOYE35WeithXrxxkkvyopWMwJvKpIGI2DHCRnps6niWlVQoesKJUWE0ZeclIYan
+ UEB5ee7iAVxH87Z1UCIGphhkYIH6/EtTERtUz9caZqNcMvh3mns+EQivbZo+zfp35ahU
+ WdmoAzyy/mz0Zyj0gT2AbS9JlRHhq8SWw/cGb11b/1UB1MZzvWpU+yLKnamB3m88WiTg
+ segw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699874641; x=1700479441;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
- b=Ojau1HxDsVoGxW096zZRrIlsu21XgxM0cUhu+n1VmBtl6e/lO/9aseRezb1LQvTFw+
- JtQLRlj7yfutxEDFlunDPbCkQhaKAWthii0VPSZEl6+H02JHZRr/EoBecoqDiz6Z3sct
- yjez6oX+P3gHW9ExIJmFxC5wR++g/r1iGWZM6q3MLVms+/rcSIvEMJkC/iPgDwSBKSaj
- GM2PU49kHia8ILw+Upaqs+iYoRiYncu0LRQDtf52AjgixE6fRP433XMpQ/XH6nxCFhLz
- qYZpr6zeC5cHpua62xAqa3Gi4X7yBbKGCJZpM3H8dU80+MIiZFVRbwX3IcEWngYY7PLl
- fG3w==
-X-Gm-Message-State: AOJu0YxeojRDtZewBAAsF0R0slKXhc5y6ApsPuFBAScwzlwCh0vNJ7X0
- JybSUCWBrDHNNZuBF6jbVjc=
-X-Google-Smtp-Source: AGHT+IHeSfxulnBJhsxmWDCBwohx10bO7bTu1BHjhSiyjqQiFY1QaU+JjC7xoDkTmTAquVkbrdJhaA==
-X-Received: by 2002:a05:600c:4fd2:b0:404:7670:90b8 with SMTP id
- o18-20020a05600c4fd200b00404767090b8mr5004204wmq.27.1699874640270; 
- Mon, 13 Nov 2023 03:24:00 -0800 (PST)
+ d=1e100.net; s=20230601; t=1699874654; x=1700479454;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RwYQsxTIlPnpbp305mlbq5GplvUv/n/Jh48i1GH8+AY=;
+ b=GEyDlpMyUdpg51Q0WnKsSKVvDAREXma6RPaa+jGHlK+eHUACZxoHxjImUTHHb0+l8E
+ rNwcCLJVFPJAEy8y4iwnYDsTuEcJkmYnRrQF0pFkpYHg6j3XLV06uca3JlnkSf2Ajkdb
+ tn6QUsuGY+6dbDThwxyhGsrWFg6EKWbDLtpv9a049Qccj3a9+njQXbH2vbshyO1Afd+a
+ jweFDTbqhsWXn9EDnMM5rV++XJmjK/LRklo1Oh56oSlpsRrznxnaM8sUay3pZtevdpMd
+ KOrYuTxSmSdz1LwEk/601MaC7DYQWT0w4btGGSsK2bzZ2wtBqYeVQoCkeSjxnhYs+tsw
+ nhzg==
+X-Gm-Message-State: AOJu0YydcV5S/HT5oDiboHIMPy4D99862yIzNs0LuEgG2+b1TZyZsE5A
+ 9iinuyJulkbMIbbISyfkwgE=
+X-Google-Smtp-Source: AGHT+IFbNwXT87/A3jEt8J3J2IIJaKfXP5VLFa7X0d4Q5ivIh7Rq49/jVdFtcRm7vBeOvUh6yIYXWQ==
+X-Received: by 2002:a05:600c:4f54:b0:401:daf2:2735 with SMTP id
+ m20-20020a05600c4f5400b00401daf22735mr5024747wmq.31.1699874653800; 
+ Mon, 13 Nov 2023 03:24:13 -0800 (PST)
 Received: from zotac.lan.
  (dynamic-2a01-0c22-6e16-fe00-2223-08ff-fe18-0310.c22.pool.telefonica.de.
  [2a01:c22:6e16:fe00:2223:8ff:fe18:310])
  by smtp.gmail.com with ESMTPSA id
- l19-20020a05600c4f1300b0040772138bb7sm13565787wmq.2.2023.11.13.03.23.59
+ l19-20020a05600c4f1300b0040772138bb7sm13565787wmq.2.2023.11.13.03.24.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Nov 2023 03:23:59 -0800 (PST)
+ Mon, 13 Nov 2023 03:24:13 -0800 (PST)
 From: Heiner Kallweit <hkallweit1@gmail.com>
 To: Wolfram Sang <wsa@kernel.org>,
-	intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Nov 2023 12:23:24 +0100
-Message-ID: <20231113112344.719-1-hkallweit1@gmail.com>
+	Rob Clark <robdclark@gmail.com>
+Date: Mon, 13 Nov 2023 12:23:38 +0100
+Message-ID: <20231113112344.719-15-hkallweit1@gmail.com>
 X-Mailer: git-send-email 2.42.1
+In-Reply-To: <20231113112344.719-1-hkallweit1@gmail.com>
+References: <20231113112344.719-1-hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Nov 2023 13:52:15 +0000
-Subject: [Freedreno] [PATCH 00/20] remove I2C_CLASS_DDC support
+Subject: [Freedreno] [PATCH 14/20] drivers/gpu/drm/msm/hdmi/hdmi_i2c.c:
+ remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,20 +78,13 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ Heiner Kallweit <hkallweit1@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
@@ -101,36 +98,19 @@ Preferably this series should be applied via the i2c tree.
 Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
 ---
+ drivers/gpu/drm/msm/hdmi/hdmi_i2c.c |    1 -
+ 1 file changed, 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
- drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
- drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
- drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
- drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
- drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
- drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
- drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
- drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
- drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
- drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
- drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
- drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
- drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
- drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
- drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
- drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
- drivers/video/fbdev/core/fb_ddc.c                 |    1 -
- drivers/video/fbdev/cyber2000fb.c                 |    1 -
- drivers/video/fbdev/i740fb.c                      |    1 -
- drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
- drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
- drivers/video/fbdev/s3fb.c                        |    1 -
- drivers/video/fbdev/tdfxfb.c                      |    1 -
- drivers/video/fbdev/tridentfb.c                   |    1 -
- drivers/video/fbdev/via/via_i2c.c                 |    1 -
- include/linux/i2c.h                               |    1 -
- 31 files changed, 9 insertions(+), 47 deletions(-)
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
+index de182c004..7aa500d24 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
+@@ -249,7 +249,6 @@ struct i2c_adapter *msm_hdmi_i2c_init(struct hdmi *hdmi)
+ 
+ 
+ 	i2c->owner = THIS_MODULE;
+-	i2c->class = I2C_CLASS_DDC;
+ 	snprintf(i2c->name, sizeof(i2c->name), "msm hdmi i2c");
+ 	i2c->dev.parent = &hdmi->pdev->dev;
+ 	i2c->algo = &msm_hdmi_i2c_algorithm;
+
