@@ -1,44 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16ED7E8B95
-	for <lists+freedreno@lfdr.de>; Sat, 11 Nov 2023 17:23:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F2F7E9DD8
+	for <lists+freedreno@lfdr.de>; Mon, 13 Nov 2023 14:52:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7F310E291;
-	Sat, 11 Nov 2023 16:23:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60ED010E379;
+	Mon, 13 Nov 2023 13:52:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB1F010E03E;
- Sat, 11 Nov 2023 16:23:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id DEC31B81236;
- Sat, 11 Nov 2023 16:23:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711F6C433C8;
- Sat, 11 Nov 2023 16:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699719784;
- bh=5ApyJFLP36dXfmFHh7CpSrZFu9/cV8AIr8fMVRrW0j8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pS+4nXjE01DaLYcI3BzoTy7ROuV7ZjJuf9sU7AFjCuONU1cMYhz4hj2InxpGGaScv
- y628VcTDA5JPQbKgL5oBTj+oLlxcr0xTHyahhoxXR8ZE5TVuZT/ee3noAUc2c62pFI
- jeJ7+QuQD0xGvEufBOAvJJqbfAoLadDwmiXoo5AafafkEeytyRjl/1l13uX6KQJUum
- zh5NFTVvg++CnybV4YFJhcj0fFfmofbytNbM5RERiTDKHNLSiNk/DylJMndLgbrfPg
- 6TYsjJFnptSOzHx0Iq2VgpbMd0gOIqtPgAfKCGEb/q5AViFOO8g9VqGTqH2dbr8PBZ
- 8JD2Whb9Ce52A==
-Date: Sat, 11 Nov 2023 16:23:00 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20231111-underwear-elf-17d4a88f5332@squawk>
-References: <20231111142017.51922-1-krzysztof.kozlowski@linaro.org>
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5706D10E066;
+ Mon, 13 Nov 2023 11:24:02 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40859c466efso33253355e9.3; 
+ Mon, 13 Nov 2023 03:24:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1699874641; x=1700479441; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
+ b=ReU3n2VR/eDzsvpcwoBaylOONtUUzQYaE1EHdRkNHzJo9tP/cWtnAASy8MwRnIpEkf
+ dY67iclsy4hBTB/1FUpDooa3msWSO76IlsvVE9DocHrNewI/zhSX30K1YlppKDDifA9h
+ FRcACapFxSU3OKq12GT8hmruAPTP/whFyX6gcBHg3cVXhYKYhRCmtxEBCcg1oNwqurm3
+ az+1xI5Kqp4k7rVA7GBMZ2W4TUknCk0xrIO9bvw51kiCNrnV12NAWfWUDPut1JXLx2Z4
+ T5tFrmwYl9/DN1x3TIVZeWmYtYkURAbP+qFQMUbn9ORjU3NSpv198p9DDVR8otrn2cJX
+ Bq6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699874641; x=1700479441;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4/UMvWLGwbB65y4MgNgbTrhLeriroJNqxOaU5RBpd/A=;
+ b=Ojau1HxDsVoGxW096zZRrIlsu21XgxM0cUhu+n1VmBtl6e/lO/9aseRezb1LQvTFw+
+ JtQLRlj7yfutxEDFlunDPbCkQhaKAWthii0VPSZEl6+H02JHZRr/EoBecoqDiz6Z3sct
+ yjez6oX+P3gHW9ExIJmFxC5wR++g/r1iGWZM6q3MLVms+/rcSIvEMJkC/iPgDwSBKSaj
+ GM2PU49kHia8ILw+Upaqs+iYoRiYncu0LRQDtf52AjgixE6fRP433XMpQ/XH6nxCFhLz
+ qYZpr6zeC5cHpua62xAqa3Gi4X7yBbKGCJZpM3H8dU80+MIiZFVRbwX3IcEWngYY7PLl
+ fG3w==
+X-Gm-Message-State: AOJu0YxeojRDtZewBAAsF0R0slKXhc5y6ApsPuFBAScwzlwCh0vNJ7X0
+ JybSUCWBrDHNNZuBF6jbVjc=
+X-Google-Smtp-Source: AGHT+IHeSfxulnBJhsxmWDCBwohx10bO7bTu1BHjhSiyjqQiFY1QaU+JjC7xoDkTmTAquVkbrdJhaA==
+X-Received: by 2002:a05:600c:4fd2:b0:404:7670:90b8 with SMTP id
+ o18-20020a05600c4fd200b00404767090b8mr5004204wmq.27.1699874640270; 
+ Mon, 13 Nov 2023 03:24:00 -0800 (PST)
+Received: from zotac.lan.
+ (dynamic-2a01-0c22-6e16-fe00-2223-08ff-fe18-0310.c22.pool.telefonica.de.
+ [2a01:c22:6e16:fe00:2223:8ff:fe18:310])
+ by smtp.gmail.com with ESMTPSA id
+ l19-20020a05600c4f1300b0040772138bb7sm13565787wmq.2.2023.11.13.03.23.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Nov 2023 03:23:59 -0800 (PST)
+From: Heiner Kallweit <hkallweit1@gmail.com>
+To: Wolfram Sang <wsa@kernel.org>,
+	intel-gfx@lists.freedesktop.org
+Date: Mon, 13 Nov 2023 12:23:24 +0100
+Message-ID: <20231113112344.719-1-hkallweit1@gmail.com>
+X-Mailer: git-send-email 2.42.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lcK6iluwpXLPr5CJ"
-Content-Disposition: inline
-In-Reply-To: <20231111142017.51922-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: qcom,
- sm8150-mdss: correct DSI PHY compatible
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 13 Nov 2023 13:52:15 +0000
+Subject: [Freedreno] [PATCH 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,90 +74,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Jocelyn Falempe <jfalempe@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, John Stultz <jstultz@google.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+Class-based device auto-detection is a legacy mechanism and shouldn't
+be used in new code. So we can remove this class completely now.
 
---lcK6iluwpXLPr5CJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Preferably this series should be applied via the i2c tree.
 
-On Sat, Nov 11, 2023 at 03:20:17PM +0100, Krzysztof Kozlowski wrote:
-> Qualcomm SM8150 MDSS comes with a bit different 7nm DSI PHY with its own
-> compatible.  DTS already use it:
->=20
->   sa8155p-adp.dtb: display-subsystem@ae00000: phy@ae94400:compatible:0: '=
-qcom,dsi-phy-7nm' was expected
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
 
-Thanks,
-Conor.
-
-> ---
->  .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml   | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-md=
-ss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.ya=
-ml
-> index a2a8be7f64a9..c0d6a4fdff97 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-> @@ -69,7 +69,7 @@ patternProperties:
-> =20
->      properties:
->        compatible:
-> -        const: qcom,dsi-phy-7nm
-> +        const: qcom,dsi-phy-7nm-8150
-> =20
->  unevaluatedProperties: false
-> =20
-> @@ -247,7 +247,7 @@ examples:
->          };
-> =20
->          dsi0_phy: phy@ae94400 {
-> -            compatible =3D "qcom,dsi-phy-7nm";
-> +            compatible =3D "qcom,dsi-phy-7nm-8150";
->              reg =3D <0x0ae94400 0x200>,
->                    <0x0ae94600 0x280>,
->                    <0x0ae94900 0x260>;
-> @@ -318,7 +318,7 @@ examples:
->          };
-> =20
->          dsi1_phy: phy@ae96400 {
-> -            compatible =3D "qcom,dsi-phy-7nm";
-> +            compatible =3D "qcom,dsi-phy-7nm-8150";
->              reg =3D <0x0ae96400 0x200>,
->                    <0x0ae96600 0x280>,
->                    <0x0ae96900 0x260>;
-> --=20
-> 2.34.1
->=20
-
---lcK6iluwpXLPr5CJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZU+qYQAKCRB4tDGHoIJi
-0pNbAQC10CbyYHGczoldMb1DAzsqaJQkprUd25qRJzlQcGnX9gD9HeEvukvY6AyL
-iTOIv+rcLmiuz0PVJXyBzl3XhKQi2gs=
-=yiQ2
------END PGP SIGNATURE-----
-
---lcK6iluwpXLPr5CJ--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
+ drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
+ drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
+ drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
+ drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
+ drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
+ drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
+ drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
+ drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
+ drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
+ drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
+ drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
+ drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
+ drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
+ drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
+ drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
+ drivers/video/fbdev/core/fb_ddc.c                 |    1 -
+ drivers/video/fbdev/cyber2000fb.c                 |    1 -
+ drivers/video/fbdev/i740fb.c                      |    1 -
+ drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++----------
+ drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
+ drivers/video/fbdev/s3fb.c                        |    1 -
+ drivers/video/fbdev/tdfxfb.c                      |    1 -
+ drivers/video/fbdev/tridentfb.c                   |    1 -
+ drivers/video/fbdev/via/via_i2c.c                 |    1 -
+ include/linux/i2c.h                               |    1 -
+ 31 files changed, 9 insertions(+), 47 deletions(-)
