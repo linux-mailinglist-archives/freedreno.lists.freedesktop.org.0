@@ -2,70 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 607457E9DD7
-	for <lists+freedreno@lfdr.de>; Mon, 13 Nov 2023 14:52:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF9C7EA257
+	for <lists+freedreno@lfdr.de>; Mon, 13 Nov 2023 18:50:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE9810E393;
-	Mon, 13 Nov 2023 13:52:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 627F910E3D4;
+	Mon, 13 Nov 2023 17:50:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EEBD10E353;
- Mon, 13 Nov 2023 11:24:15 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-407da05f05aso31960505e9.3; 
- Mon, 13 Nov 2023 03:24:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699874654; x=1700479454; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RwYQsxTIlPnpbp305mlbq5GplvUv/n/Jh48i1GH8+AY=;
- b=H57oAMA+MtBP40SJQZeKxDrQb0sz60tJWol0vK7/Vr0gh7KJT5AWBPg+chuVIMHx7M
- jgmhwNpuxoGBZbWA68Y1z3LbPE3rP4s63SnG4E3zxji1WLn3IL5A6iRCQARWM4vNGfHm
- xw9eyOOYE35WeithXrxxkkvyopWMwJvKpIGI2DHCRnps6niWlVQoesKJUWE0ZeclIYan
- UEB5ee7iAVxH87Z1UCIGphhkYIH6/EtTERtUz9caZqNcMvh3mns+EQivbZo+zfp35ahU
- WdmoAzyy/mz0Zyj0gT2AbS9JlRHhq8SWw/cGb11b/1UB1MZzvWpU+yLKnamB3m88WiTg
- segw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699874654; x=1700479454;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RwYQsxTIlPnpbp305mlbq5GplvUv/n/Jh48i1GH8+AY=;
- b=GEyDlpMyUdpg51Q0WnKsSKVvDAREXma6RPaa+jGHlK+eHUACZxoHxjImUTHHb0+l8E
- rNwcCLJVFPJAEy8y4iwnYDsTuEcJkmYnRrQF0pFkpYHg6j3XLV06uca3JlnkSf2Ajkdb
- tn6QUsuGY+6dbDThwxyhGsrWFg6EKWbDLtpv9a049Qccj3a9+njQXbH2vbshyO1Afd+a
- jweFDTbqhsWXn9EDnMM5rV++XJmjK/LRklo1Oh56oSlpsRrznxnaM8sUay3pZtevdpMd
- KOrYuTxSmSdz1LwEk/601MaC7DYQWT0w4btGGSsK2bzZ2wtBqYeVQoCkeSjxnhYs+tsw
- nhzg==
-X-Gm-Message-State: AOJu0YydcV5S/HT5oDiboHIMPy4D99862yIzNs0LuEgG2+b1TZyZsE5A
- 9iinuyJulkbMIbbISyfkwgE=
-X-Google-Smtp-Source: AGHT+IFbNwXT87/A3jEt8J3J2IIJaKfXP5VLFa7X0d4Q5ivIh7Rq49/jVdFtcRm7vBeOvUh6yIYXWQ==
-X-Received: by 2002:a05:600c:4f54:b0:401:daf2:2735 with SMTP id
- m20-20020a05600c4f5400b00401daf22735mr5024747wmq.31.1699874653800; 
- Mon, 13 Nov 2023 03:24:13 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a01-0c22-6e16-fe00-2223-08ff-fe18-0310.c22.pool.telefonica.de.
- [2a01:c22:6e16:fe00:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- l19-20020a05600c4f1300b0040772138bb7sm13565787wmq.2.2023.11.13.03.24.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Nov 2023 03:24:13 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	Rob Clark <robdclark@gmail.com>
-Date: Mon, 13 Nov 2023 12:23:38 +0100
-Message-ID: <20231113112344.719-15-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.42.1
-In-Reply-To: <20231113112344.719-1-hkallweit1@gmail.com>
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2BEC10E17D;
+ Mon, 13 Nov 2023 17:49:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 1DF57B80EF4;
+ Mon, 13 Nov 2023 17:49:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4991AC433C7;
+ Mon, 13 Nov 2023 17:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699897796;
+ bh=OlVdpAafS+/TnL2gNZWocfkiT+WXch7O/Gj4jH3CWTI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LIjkaZQjXatW09ZeXbTIPo+q5RrNWjCsOk0HG3uQ9jZx/Jj/JwWg8masZL8QKT0ZZ
+ WQhSyQhVc2mhkpHTByG3kY/lTylyhO+Jz5Xe32ZS4JAfPZ3uZEtnt2UfkpAMfVaYra
+ Z3MLkka6LfZyMsAw09xuTPN7X38dJDuZgUxM5ddajimSmVXShqJDnkUemjsy82m6XW
+ kfYKsF2y/34lhawChlHd8v7/XDDz13zS5JPzIQ0wGWvUiEcJxhx8/E8P39xxN3f2nj
+ yON8dcggobGU7B0jvYDgW8cWNd2lF2xwMBQwNELv/PcH6ryjBoTuxjmxRgM7bnhZrW
+ B1cIyTJrNKMmw==
+Date: Mon, 13 Nov 2023 12:49:53 -0500
+From: Wolfram Sang <wsa@kernel.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <ZVJhwSS16+/Zzt0f@shikoro>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ John Stultz <jstultz@google.com>
 References: <20231113112344.719-1-hkallweit1@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 13 Nov 2023 13:52:15 +0000
-Subject: [Freedreno] [PATCH 14/20] drivers/gpu/drm/msm/hdmi/hdmi_i2c.c:
- remove I2C_CLASS_DDC support
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Zxnb7iIcQAl5ewYC"
+Content-Disposition: inline
+In-Reply-To: <20231113112344.719-1-hkallweit1@gmail.com>
+Subject: Re: [Freedreno] [PATCH 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,39 +69,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- Heiner Kallweit <hkallweit1@gmail.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ John Stultz <jstultz@google.com>, freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
 
-Preferably this series should be applied via the i2c tree.
+--Zxnb7iIcQAl5ewYC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
----
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c |    1 -
- 1 file changed, 1 deletion(-)
+> Preferably this series should be applied via the i2c tree.
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
-index de182c004..7aa500d24 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
-@@ -249,7 +249,6 @@ struct i2c_adapter *msm_hdmi_i2c_init(struct hdmi *hdmi)
- 
- 
- 	i2c->owner = THIS_MODULE;
--	i2c->class = I2C_CLASS_DDC;
- 	snprintf(i2c->name, sizeof(i2c->name), "msm hdmi i2c");
- 	i2c->dev.parent = &hdmi->pdev->dev;
- 	i2c->algo = &msm_hdmi_i2c_algorithm;
+Are we in a hurry here, i.e. does it block further development of the
+i801 smbus driver? My gut feeling says the patches should rather go via
+drm and fbdev trees, but I may be convinced otherwise.
 
+
+--Zxnb7iIcQAl5ewYC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmVSYcEACgkQFA3kzBSg
+KbZH2w//eUnZg+R48cg2NHPwlDqb/Y0KJdo6xOk9tXkaIu+sNP9+GauuCw1EMTe3
+AIDZoh7pkBamF2ZsoBRIOQOkzRpNj4bN+2L9mbd8SrPSpxaRa8jU3E1prJ7+/NS0
+FJUPmwO6XA9JCOmTtkNvivsp16QjSQfVE+UjbBT0qH0+lKo6RQ9PDbwtIdkmzVOZ
+vGvEqYzOpUB9UkUekEYESgJ/SCbm2lm397qC+d79JXapjDjD8AZliufTjd/jiOCG
+MTVbm6mw9CPGThQsyNd9bjUbaNnqyoz3D0SjxKUG3NPlEYy9uigCj853+J56xO27
+JjENHBt0RFz/oPHWpKko6kfMaDCS7m/aNnETGRuZ4fHBb6rviz/3EGLWYc0HoRds
+6kw7kmMfmh4T0ZMERMDnRsgRiLHzueUujA9Uhh972jiX62CCaWuSjQm/s6lXpAzC
+TT+UETbrdSSX6IJN5eP4E9Rg6ouyKxWGT1N+B4/NPMEjPUfzMFQQgna0ph8aHNcd
+JEI9d/HAUvjvf8tQwo2+1UajwmmX1Yf/C905CT+IGqOLF21LsX7B0zoXELDRsPMD
+ISj6RpuOXI0jhWV6YPlFTA8pFvqvG+lFfpP6kW1VEkYnXMwSbp+K8aN9bcYITWeH
+4OB/vXxnxxEtQ8CgH6yC+jwJWW6jd7KllJQjmD5qi+F4xxOCzwY=
+=fxbp
+-----END PGP SIGNATURE-----
+
+--Zxnb7iIcQAl5ewYC--
