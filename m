@@ -1,68 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 760CF7EBA0C
-	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 00:00:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F31777EBA10
+	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 00:00:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15C3B10E409;
-	Tue, 14 Nov 2023 23:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5661710E4E3;
+	Tue, 14 Nov 2023 23:00:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [IPv6:2607:f8b0:4864:20::112d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE69F10E4C9
- for <freedreno@lists.freedesktop.org>; Tue, 14 Nov 2023 23:00:38 +0000 (UTC)
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-5b31c5143a0so71308817b3.3
- for <freedreno@lists.freedesktop.org>; Tue, 14 Nov 2023 15:00:38 -0800 (PST)
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D7610E4C9
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Nov 2023 23:00:42 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-5a92782615dso72391237b3.2
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Nov 2023 15:00:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek.ca; s=google; t=1700002838; x=1700607638; darn=lists.freedesktop.org; 
+ d=marek.ca; s=google; t=1700002841; x=1700607641; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cpJg20SvqJHFde7hdRwbQhfmXK7eKDJA+6y+igvktAk=;
- b=Ws2GeoH854bwBmXOGv8LdesCm95OB4rjk9W3/zOf6d46JmO3X9J/buVCWGpnYmGhg3
- ESDV6u6PYwRCq41rhSqyem6GPUbtkahv+Tyxvd0AECahNaUU4N5j9bKRVd2nEuvcLn2c
- jBHemnEVHpCg0VIhwGNLqTaQILnhbVk7hY2OFyLzpE7H8odHvabYxc3KneyOzGwt4Qea
- 4pZyDi+DPhIkJxENCJ08sdSd2LEgXBA93Z9aG1GiY/JbzlXslEt3k3m4qhPqrOOBL6T6
- vbi4+JvHGO5tK2hUeKAElKJlntbHoIsTOQZFJGCLgko+gCPodXlE6MfTS6IB4PLF7nSX
- AY8w==
+ bh=QnYJwckhVUb/hQ+VqWd+HwwnYfkR02viqwW11QKBHpA=;
+ b=TI7uKmsJ6YQ9l0IPa8acb1XFL2xqmXbCs6+t764hYCK0nZZEoRomhFtFhcq9QW6kUA
+ 5vZYPoa8g5/3QTqzWhjfAVXMZhjlFQdAVCLC5UBLMp45Q5FPZ4l4eghjev+LvQ0MdLgF
+ EUWP2BoWprLpH0Dp+x1k7wa1sSfzkyP8f+MZA+SpljCIQZqWVYw3K3rCpNebzLQ7rcny
+ Z0TEG8E0WFFmtEX+qmwsRRUR1njoJBZUVxTsarW0EN9ciXgDyW76jVKjLDAnBYopASsM
+ XrRuL0cWiVkzsVULzy5qNFTVi58cqGy71yCJa79HsdiJZOZcrr4MKXi8u3spmVqkzFD+
+ FTCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700002838; x=1700607638;
+ d=1e100.net; s=20230601; t=1700002841; x=1700607641;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cpJg20SvqJHFde7hdRwbQhfmXK7eKDJA+6y+igvktAk=;
- b=SJBxOCXAcGn8cVL9FpGPYBI0VteMc6yHlCemD6wFB6TS3+HWeAfHBNuiiqsqVRjoD2
- 5CAaZKO1aXnu+64O8kB70noGvQP8CmcC1UoR2HgWL+7M85B/Fi8JNHFSPHVg/fOGW+Ep
- wtDoxg1Gx10FaBZw5g65F0n1m82B40yUsXS6OO9aL7CIXslKEZ+AGIPqzoWFKaZlqF2H
- SIAhsxUj/cyYF+ZeJ1lKF5oCCgZJmBrynw1sigfL/lhlkG3g+IhRBjC12Cl1cLSvV6Oy
- bZ58Auza6hoJoUGxdOhwsKAa7F/RSZFPzriDYnkyLk6Z9L+36b6/dgJGGCmeaaDNrhB/
- 8jvw==
-X-Gm-Message-State: AOJu0YzbpLZg68IKWlVaaf12RRmoHess+MPZwMD+60dlTWVOgquG/wmj
- Fvr+VSqHPTGW+IcMnXVzVKzoGaoRmqquWvW0rQg=
-X-Google-Smtp-Source: AGHT+IF625S3cBQuZUFbUGBAhZkGCmiGu+ZC9noNuDSK6oc2pQ7dDTxwb4mFW7Ih4VTIW4LqjLUQKA==
-X-Received: by 2002:a0d:ca84:0:b0:5a7:bfbf:1bbb with SMTP id
- m126-20020a0dca84000000b005a7bfbf1bbbmr11185827ywd.17.1700002837716; 
- Tue, 14 Nov 2023 15:00:37 -0800 (PST)
+ bh=QnYJwckhVUb/hQ+VqWd+HwwnYfkR02viqwW11QKBHpA=;
+ b=Ve1kNWXB2IvzfIaX2oIvN7W44OHR1OpwflljrivGuuS+BRv6DtfxEYjzAzoSrwqhtT
+ NJQJ92kgywV5Jd5w0OCbF5Nyf6nK4oANGIAGXznACrWubrA3dATU+AyErUY0zmhPGshM
+ zsXrXmSi78cFWZU6vs06c9Kcv7p8YsGx02V4Aw0VCUUBP38BKE6wOTfuqU6SRtfg82pr
+ 64kAyeb9NBwuLmPkWDNBkgBwU7QCyTL9OUvJfCE++7m3geaxGVP1JSnirxS2D3b3y0gE
+ cZXEkkihc1NQMgK3vSrk4Msd9YydrVzAkEeqGICLR9GSDqCHmjCHLXz2hQqWRvl4CN6t
+ 1bFA==
+X-Gm-Message-State: AOJu0Yz0xaXZpLQvYJBRWCkPj6MB2VAfsDmUoC/B36r+hrWn24V2Nmav
+ 1Rr6ithpIDzvbvITrXqq+msPEwsLT935EEjjfIY=
+X-Google-Smtp-Source: AGHT+IF5YfJuojzCU5ZWpyNCZKZW27YiSBpBSE/rs8E1m68mg6G6/rODESlNkQJ5KMcm5C8qahqevA==
+X-Received: by 2002:a81:5241:0:b0:5be:94a6:d919 with SMTP id
+ g62-20020a815241000000b005be94a6d919mr12307437ywb.25.1700002840841; 
+ Tue, 14 Nov 2023 15:00:40 -0800 (PST)
 Received: from localhost.localdomain
  (modemcable125.110-19-135.mc.videotron.ca. [135.19.110.125])
  by smtp.gmail.com with ESMTPSA id
- u2-20020a05621411a200b00674a45499dcsm25274qvv.88.2023.11.14.15.00.36
+ u2-20020a05621411a200b00674a45499dcsm25274qvv.88.2023.11.14.15.00.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Nov 2023 15:00:37 -0800 (PST)
+ Tue, 14 Nov 2023 15:00:40 -0800 (PST)
 From: Jonathan Marek <jonathan@marek.ca>
 To: freedreno@lists.freedesktop.org
-Date: Tue, 14 Nov 2023 17:58:32 -0500
-Message-Id: <20231114225857.19702-5-jonathan@marek.ca>
+Date: Tue, 14 Nov 2023 17:58:33 -0500
+Message-Id: <20231114225857.19702-6-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20231114225857.19702-1-jonathan@marek.ca>
 References: <20231114225857.19702-1-jonathan@marek.ca>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/6] drm/msm/dsi: add a comment to explain
- pkt_per_line encoding
+Subject: [Freedreno] [PATCH v2 5/6] drm/msm/dsi: support DSC configurations
+ with slice_per_pkt > 1
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +75,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@gmail.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
  Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Make it clear why the pkt_per_line value is being "divided by 2".
+Add a dsc_slice_per_pkt field to mipi_dsi_device struct and the necessary
+changes to msm driver to support this field.
+
+Note that the removed "pkt_per_line = slice_per_intf * slice_per_pkt"
+comment is incorrect.
 
 Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+ include/drm/drm_mipi_dsi.h         |  1 +
+ 2 files changed, 11 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 66f198e21a7e..842765063b1b 100644
+index 842765063b1b..892a463a7e03 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -877,6 +877,8 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
- 	/* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
- 	 * registers have similar offsets, so for below common code use
- 	 * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
-+	 *
-+	 * pkt_per_line is log2 encoded, >>1 works for supported values (1,2,4)
- 	 */
- 	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
- 	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
+@@ -161,6 +161,7 @@ struct msm_dsi_host {
+ 
+ 	struct drm_display_mode *mode;
+ 	struct drm_dsc_config *dsc;
++	unsigned int dsc_slice_per_pkt;
+ 
+ 	/* connected device info */
+ 	unsigned int channel;
+@@ -857,17 +858,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 	slice_per_intf = msm_dsc_get_slices_per_intf(dsc, hdisplay);
+ 
+ 	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+-	bytes_per_pkt = dsc->slice_chunk_size; /* * slice_per_pkt; */
++	bytes_per_pkt = dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt;
+ 
+ 	eol_byte_num = total_bytes_per_intf % 3;
+-
+-	/*
+-	 * Typically, pkt_per_line = slice_per_intf * slice_per_pkt.
+-	 *
+-	 * Since the current driver only supports slice_per_pkt = 1,
+-	 * pkt_per_line will be equal to slice per intf for now.
+-	 */
+-	pkt_per_line = slice_per_intf;
++	pkt_per_line = slice_per_intf / msm_host->dsc_slice_per_pkt;
+ 
+ 	if (is_cmd_mode) /* packet data type */
+ 		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+@@ -1004,12 +998,8 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		else
+ 			/*
+ 			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+-			 * Currently, the driver only supports default value of slice_per_pkt = 1
+-			 *
+-			 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+-			 *       and adjust DSC math to account for slice_per_pkt.
+ 			 */
+-			wc = msm_host->dsc->slice_chunk_size + 1;
++			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt + 1;
+ 
+ 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+ 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+@@ -1636,8 +1626,13 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+ 	msm_host->lanes = dsi->lanes;
+ 	msm_host->format = dsi->format;
+ 	msm_host->mode_flags = dsi->mode_flags;
+-	if (dsi->dsc)
++	if (dsi->dsc) {
+ 		msm_host->dsc = dsi->dsc;
++		msm_host->dsc_slice_per_pkt = dsi->dsc_slice_per_pkt;
++		/* for backwards compatibility, assume 1 if not set */
++		if (!msm_host->dsc_slice_per_pkt)
++			msm_host->dsc_slice_per_pkt = 1;
++	}
+ 
+ 	/* Some gpios defined in panel DT need to be controlled by host */
+ 	ret = dsi_host_init_panel_gpios(msm_host, &dsi->dev);
+diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+index c9df0407980c..3e32fa52d94b 100644
+--- a/include/drm/drm_mipi_dsi.h
++++ b/include/drm/drm_mipi_dsi.h
+@@ -193,6 +193,7 @@ struct mipi_dsi_device {
+ 	unsigned long hs_rate;
+ 	unsigned long lp_rate;
+ 	struct drm_dsc_config *dsc;
++	unsigned int dsc_slice_per_pkt;
+ };
+ 
+ #define MIPI_DSI_MODULE_PREFIX "mipi-dsi:"
 -- 
 2.26.1
 
