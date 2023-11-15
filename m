@@ -1,60 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481EE7EC6B3
-	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 16:08:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D3FE67EC999
+	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 18:23:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0238E10E04D;
-	Wed, 15 Nov 2023 15:07:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F19D10E0D2;
+	Wed, 15 Nov 2023 17:23:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 187FD10E057
- for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 15:07:54 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-5a8ee23f043so78543557b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 07:07:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700060873; x=1700665673; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dAkdFR38VbZr+retwYJvC4pXK2CLkuRAU6TUrfj2Y/Q=;
- b=QtdEUW+7LaRVSIs/saImZWMFPiJzz8wmnkhRECRc2n3NRwzJZq4fyqIUffTBOYMdQ5
- 2X6q/mWh05SMWbTaKMVFWSD/yY/PJaeA02Yfm5j0RRGl0mWQTsgfZfr3wTEvX6sSCd9E
- 2Cj1b4LdjiJHmTKi7xcvDnqhHURZqFKj6j2B99CDPRcGSUrVMoHTm3s3reddnCT6/aRs
- qHJXq9f3pO+iXtyFPjh69zYN659aiJnDsksKjArEzffLxQ2fCnQVO/wZzglUXMqGenkc
- i4DBAwhw8HLiebWbePLBHVFMCX9MuUKtVZpc3/mgvAAx322j1gybqrI0cVnqpRsDpraT
- 6Sfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700060873; x=1700665673;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dAkdFR38VbZr+retwYJvC4pXK2CLkuRAU6TUrfj2Y/Q=;
- b=pgxM3XabAYRlvkcBdjb1Nq2w1cb72FPUy0XybYh7M1RoyMxsxmOO/akH16qsrFirYZ
- /H555L7l3f6x53rB3kBM36Qy777YS2N7IXk6LfCUoB6oedbJK7uVqSC4J6UTSgm2rdbu
- 30jqKOo4tgO37GmC7hFG7Y77GkEML83fSTyCX/QjQYvYKqX/hdC8kYh3ql8wXwcKmXAO
- 7uWbBopXTAW/StAmLmk4rlKan6pQlWpB1ZTJIZATnE/jmOJHHBKtSUQLld1f7SmKWiSS
- 2/ISlUccf8F2JG4zPyZl7nIthfhkbBcBkhdel0+SntL2fRBLbx4oZKSDBFv41Bb5HVqL
- 9cnA==
-X-Gm-Message-State: AOJu0YzOeG+LE6tdEOGFYz+UTbBkOQAXiMXoa4PCS2bl7RKzKzowZd0K
- iu/1pk6oiitldQMP/XyV5UQmJncZl+A55xguFd20AQ==
-X-Google-Smtp-Source: AGHT+IFWMAAPr69IJZOrpc5SNuEM+oacpGbG5vuVdTWdzsr6zLBxZ1vBt7gGnTY8n6wgmwhM4whO4LzzuHfj/jYhdaU=
-X-Received: by 2002:a0d:cb0f:0:b0:5a7:dbd1:4889 with SMTP id
- n15-20020a0dcb0f000000b005a7dbd14889mr15802748ywd.2.1700060873202; Wed, 15
- Nov 2023 07:07:53 -0800 (PST)
+X-Greylist: delayed 82500 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Nov 2023 17:23:50 UTC
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0026110E0D2
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 17:23:50 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 09CA93F8F8;
+ Wed, 15 Nov 2023 18:23:47 +0100 (CET)
+Date: Wed, 15 Nov 2023 18:23:46 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Message-ID: <74ou4xly7pjnsqbavvt2iuonvpgioznriq2vgbccprn5uagkhm@ntq6sq7ywelv>
+References: <20231114174218.19765-1-jonathan@marek.ca>
+ <20231114174218.19765-4-jonathan@marek.ca>
+ <eanx45rnasj7lu3r2tfhtg4qkqkcidd6zctsz6ci6jlklu4fgi@3nf73w2ka4li>
+ <a9712ef1-5f60-b127-a276-9e437d95914f@marek.ca>
 MIME-Version: 1.0
-References: <20231115141928.429688-1-dipamt1729@gmail.com>
-In-Reply-To: <20231115141928.429688-1-dipamt1729@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 15 Nov 2023 17:07:41 +0200
-Message-ID: <CAA8EJprqnUGQxmj4Y=qttVuj0zJxdD9B6neHa6sPseLLETpk5A@mail.gmail.com>
-To: Dipam Turkar <dipamt1729@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] Remove custom dumb_map_offset
- implementation in msm driver
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a9712ef1-5f60-b127-a276-9e437d95914f@marek.ca>
+Subject: Re: [Freedreno] [PATCH 4/4] drm/msm/dsi: fix DSC for the bonded DSI
+ case
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,99 +47,180 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@gmail.com,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org, sean@poorly.run
+Cc: freedreno@lists.freedesktop.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Doug Anderson <dianders@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Nov 2023 at 16:30, Dipam Turkar <dipamt1729@gmail.com> wrote:
->
-> Make msm use drm_gem_create_map_offset() instead of its custom
-> implementation for associating GEM object with a fake offset. Since,
-> we already have this generic implementation, we don't need the custom
-> implementation and it is better to standardize the code for GEM based
-> drivers. This also removes the outdated locking leftovers.
+On 2023-11-14 14:00:19, Jonathan Marek wrote:
+> On 11/14/23 1:28 PM, Marijn Suijten wrote:
+> > On what hardware have you been testing this?  Dmitry and I have a stack of
+> > patches to resolve support for Active CTL programming on newer hardware (DPU
+> > 5.0+ IIRC), where a single CTL is responsible for programming multiple INTF and
+> > DSC blocks as used in bonded DSI.
+> > 
+> 
+> I am also using DPU 6+ but I won't be posting patches for DPU to support 
+> this as I am not using the upstream DPU codebase.
 
-Why are they outdated?
+Oh that is an odd situation!  At least glad to hear we aren't completely
+duplicating our efforts :)
 
->
-> Signed-off-by: Dipam Turkar <dipamt1729@gmail.com>
-> ---
->  drivers/gpu/drm/msm/msm_drv.c |  2 +-
->  drivers/gpu/drm/msm/msm_gem.c | 21 ---------------------
->  drivers/gpu/drm/msm/msm_gem.h |  2 --
->  3 files changed, 1 insertion(+), 24 deletions(-)
->
-> Changes in v2:
-> Modify commit message to include the absence of internal locking leftovers
-> around allocating a fake offset in msm_gem_mmap_offset() in the generic
-> implementation drm_gem_create_map_offset().
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index a428951ee539..86a15992c717 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -1085,7 +1085,7 @@ static const struct drm_driver msm_driver = {
->         .open               = msm_open,
->         .postclose          = msm_postclose,
->         .dumb_create        = msm_gem_dumb_create,
-> -       .dumb_map_offset    = msm_gem_dumb_map_offset,
-> +       .dumb_map_offset    = drm_gem_dumb_map_offset,
->         .gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
->  #ifdef CONFIG_DEBUG_FS
->         .debugfs_init       = msm_debugfs_init,
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index db1e748daa75..489694ef79cb 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -671,27 +671,6 @@ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
->                         MSM_BO_SCANOUT | MSM_BO_WC, &args->handle, "dumb");
->  }
->
-> -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
-> -               uint32_t handle, uint64_t *offset)
-> -{
-> -       struct drm_gem_object *obj;
-> -       int ret = 0;
-> -
-> -       /* GEM does all our handle to object mapping */
-> -       obj = drm_gem_object_lookup(file, handle);
-> -       if (obj == NULL) {
-> -               ret = -ENOENT;
-> -               goto fail;
-> -       }
-> -
-> -       *offset = msm_gem_mmap_offset(obj);
-> -
-> -       drm_gem_object_put(obj);
-> -
-> -fail:
-> -       return ret;
-> -}
-> -
->  static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
->  {
->         struct msm_gem_object *msm_obj = to_msm_bo(obj);
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> index 8ddef5443140..dc74a0ef865d 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -139,8 +139,6 @@ struct page **msm_gem_pin_pages(struct drm_gem_object *obj);
->  void msm_gem_unpin_pages(struct drm_gem_object *obj);
->  int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
->                 struct drm_mode_create_dumb *args);
-> -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
-> -               uint32_t handle, uint64_t *offset);
->  void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj);
->  void *msm_gem_get_vaddr(struct drm_gem_object *obj);
->  void *msm_gem_get_vaddr_active(struct drm_gem_object *obj);
-> --
-> 2.34.1
->
+> > On 2023-11-14 12:42:16, Jonathan Marek wrote:
+> >> For the bonded DSI case, DSC pic_width and timing calculations should use
+> >> the width of a single panel instead of the total combined width.
+> >>
+> >> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> >> ---
+> >>   drivers/gpu/drm/msm/dsi/dsi.h         |  3 ++-
+> >>   drivers/gpu/drm/msm/dsi/dsi_host.c    | 20 +++++++++++---------
+> >>   drivers/gpu/drm/msm/dsi/dsi_manager.c |  2 +-
+> >>   3 files changed, 14 insertions(+), 11 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> >> index 28379b1af63f..3a641e69447c 100644
+> >> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> >> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> >> @@ -93,7 +93,8 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+> >>   int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+> >>   				  const struct drm_display_mode *mode);
+> >>   enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+> >> -					    const struct drm_display_mode *mode);
+> >> +					    const struct drm_display_mode *mode,
+> >> +					    bool is_bonded_dsi);
+> >>   unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host);
+> >>   int msm_dsi_host_register(struct mipi_dsi_host *host);
+> >>   void msm_dsi_host_unregister(struct mipi_dsi_host *host);
+> >> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> >> index 7284346ab787..a6286eb9d006 100644
+> >> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> >> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> >> @@ -938,8 +938,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> >>   			       mode->hdisplay, mode->vdisplay);
+> >>   			return;
+> >>   		}
+> >> -
+> >> -		dsc->pic_width = mode->hdisplay;
+> >> +		dsc->pic_width = hdisplay;
+> > 
+> > In my testing and debugging on CMDmode panels downstream this value/register
+> > was always programmed to the _full_ width of the bonded panel.  Is that maybe
+> > different for video mode?
+> > 
+> 
+> downstream dual DSI panel timings are specified for a single panel 
+> ("qcom,mdss-dsi-panel-width" is for a single panel, not both panels)
 
+_dual panels_?  In my case I have a "single panel" that is driven by two
+"bonded" DSI hosts, just to achieve enough bandwidth.
 
--- 
-With best wishes
-Dmitry
+Indeed my downstream DTS has qcom,mdss-dsi-panel-width set to half the total
+panel width, but I recall seeing the full width in the register dump.  I'll scan
+through my logs and see if I can back this up.
+
+> >>   		dsc->pic_height = mode->vdisplay;
+> >>   		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+> >>   
+> >> @@ -950,6 +949,11 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> >>   		if (ret)
+> >>   			return;
+> >>   
+> >> +		if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
+> >> +			dsi_update_dsc_timing(msm_host, false, hdisplay);
+> >> +		else
+> >> +			dsi_update_dsc_timing(msm_host, true, hdisplay);
+
+Another thought: it's probably clearer to write:
+
+	bool is_cmd_mode = msm_host->mode_flags & MIPI_DSI_MODE_VIDEO;
+	dsi_update_dsc_timing(msm_host, is_cmd_mode, hdisplay);
+
+> >> +
+> > 
+> > Such cleanups (which appear unrelated) should probably be posted as separate
+> > patches.
+> > 
+> > - Marijn
+> > 
+> 
+> Its not unrelated, dsi_update_dsc_timing call is moved up so it can use 
+> the single-panel "hdisplay" value before it gets adjusted for DSC.
+
+This reply was mostly expected after not looking at the original code folded in
+the diff, and pretty much solidifies my point: it's a hidden semantical change
+that's not immediately obvious from reading the patch, and why I'd like to see
+this split up in a few smaller patches.
+
+> >>   		/* Divide the display by 3 but keep back/font porch and
+> >>   		 * pulse width same
+> >>   		 */
+> >> @@ -966,9 +970,6 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> >>   	}
+> >>   
+> >>   	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
+> >> -		if (msm_host->dsc)
+> >> -			dsi_update_dsc_timing(msm_host, false, mode->hdisplay);
+> >> -
+> >>   		dsi_write(msm_host, REG_DSI_ACTIVE_H,
+> >>   			DSI_ACTIVE_H_START(ha_start) |
+> >>   			DSI_ACTIVE_H_END(ha_end));
+> >> @@ -987,9 +988,6 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+> >>   			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
+> >>   			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
+> >>   	} else {		/* command mode */
+> >> -		if (msm_host->dsc)
+> >> -			dsi_update_dsc_timing(msm_host, true, mode->hdisplay);
+> >> -
+> >>   		/* image data and 1 byte write_memory_start cmd */
+> >>   		if (!msm_host->dsc)
+> >>   			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
+
+Regarding another patch: cmdmode calculates and uses word count here, but video
+mode does it as part of timing calculations?
+
+- Marijn
+
+> >> @@ -2487,7 +2485,8 @@ int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+> >>   }
+> >>   
+> >>   enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+> >> -					    const struct drm_display_mode *mode)
+> >> +					    const struct drm_display_mode *mode,
+> >> +					    bool is_bonded_dsi)
+> >>   {
+> >>   	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> >>   	struct drm_dsc_config *dsc = msm_host->dsc;
+> >> @@ -2497,6 +2496,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
+> >>   	if (!msm_host->dsc)
+> >>   		return MODE_OK;
+> >>   
+> >> +	if (is_bonded_dsi)
+> >> +		pic_width = mode->hdisplay / 2;
+> >> +
+> >>   	if (pic_width % dsc->slice_width) {
+> >>   		pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
+> >>   		       pic_width, dsc->slice_width);
+> >> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> >> index 896f369fdd53..2ca1a7ca3659 100644
+> >> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> >> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> >> @@ -455,7 +455,7 @@ static enum drm_mode_status dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
+> >>   			return MODE_ERROR;
+> >>   	}
+> >>   
+> >> -	return msm_dsi_host_check_dsc(host, mode);
+> >> +	return msm_dsi_host_check_dsc(host, mode, IS_BONDED_DSI());
+> >>   }
+> >>   
+> >>   static const struct drm_bridge_funcs dsi_mgr_bridge_funcs = {
+> >> -- 
+> >> 2.26.1
+> >>
