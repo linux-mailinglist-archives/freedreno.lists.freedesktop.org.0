@@ -2,63 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71A07ECCEC
-	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 20:33:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A34F97ED77D
+	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 23:44:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8E810E181;
-	Wed, 15 Nov 2023 19:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71C3610E284;
+	Wed, 15 Nov 2023 22:44:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8281910E181
- for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 19:33:18 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id
- 5614622812f47-3b6f4d8ddccso21510b6e.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 11:33:18 -0800 (PST)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF4810E284;
+ Wed, 15 Nov 2023 22:44:19 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-1f03db0a410so83244fac.1; 
+ Wed, 15 Nov 2023 14:44:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700076797; x=1700681597; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/IlDh6BA25cklyVUGxLrq0BMBGhOE7EADMlj8E0gBvo=;
- b=IvS+svaofigNiHm4ZkQAxvv8/IXOXN7yzK3KaxlFf6Fbgm1e9mX4pDeWbqwl3F4846
- 0FCyNtfoq9zgK/7NHbOqyU+2FPeipxK9JJ1qdkC878oLQ3bd3L8v9MqVra1glsmtHWeZ
- iVpskAQdrQryQ3jUT/vrC/6qeR6zfFuccg0aD7eD6lzsacziSytFz3P5/ZiSSj/rirPr
- cPm+1ExPq/n6mAYqxmiKY2hThPjvpq4WJqAdPfdSRJYTZo05diFYCy5/KdmnAhHcf3bz
- bt3jFYSQ7Z/TgYMr4wXBFT4iAeVEhPw6BMPNaAOlPluMZQp4GyV3WSvSbuW6fR3qYl2U
- 0qNA==
+ d=gmail.com; s=20230601; t=1700088258; x=1700693058; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=x+9rvLvdX2lnfyBf2vZqm86qvEOYTf/3b77ELh1X624=;
+ b=ePFFWLujLtLuQoppO+pj/fgHxwKcwQED2ND8iLIO7r8hkc69TkjHr3KXgXLsOB2Up5
+ BEVjyJln0Lyoxai1m2bx52XApisiar4jizfkRq9qe//z/H7bCXduweh6Mm6/v+h+jEph
+ qJIqUuw3Ton1Qxnhv0IQhe8SyaIq+yuB0zOWYksNQb0JRU1oYSqHTVzVf1oZCrX9TBZX
+ 8seDTcSOpBk5HmQYaCE6H3M8084HaWjBECmixNW9TZw1J2Rq8O6XzHqD2xjbQUrQx7jZ
+ c9m35oDkJaH+wumn5ROA7B4FRcTQ++GcleTKlccIxUv/5gfNErZl+Khz5Ie++eYam5v5
+ eMBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700076797; x=1700681597;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/IlDh6BA25cklyVUGxLrq0BMBGhOE7EADMlj8E0gBvo=;
- b=IJCSr821dg9U9RtAZe1fqZVGSXY7Ix+PDiv9eUoDfxI8DZQugGc/AVKATANHh0QM94
- LrpQGEo5iB9CkoqaV9Kk1TzyDNxsj8ukzN4/CmrtxU7XiKsLj+CsJmeVI2Isa95m1JH9
- J8GfBxcp+OuQNtrjZdBCKKthFPTjBMTCJy+dj/kxYOvK4hl+Ijf9x7pkg6RwhTkaqzfp
- VbJnP3Q08nHsffFApVIo2ZtDZBD2xBlfaHJ5ASt+DE/P5DRLWvt0Xcbfr4ifnhNchoRb
- mbAoonrl3+Pu/3prVzj49pOp/8bMLXh4mV2H0cChaJJuGgDjiGrzLvhTD2oiNZ6UXr9P
- RIDg==
-X-Gm-Message-State: AOJu0Yy7TMFH38z7y6d8W06RElBMujH3wkZys/K/SfDdFun+iZ8pDl2h
- wQT8ZqIcp0Lm8nzvmQBXKKoTUqLIgov7uRX+243mWA==
-X-Google-Smtp-Source: AGHT+IFMFDUkGUwWEvF5Saq4BbZXy0sqfAid4D3HEq1LQ7pFsGYsyZceAB4Tsza0BqyiFHT2wREERfNM4XOtta+XAmc=
-X-Received: by 2002:a05:6358:9386:b0:169:9859:ccc3 with SMTP id
- h6-20020a056358938600b001699859ccc3mr6697212rwb.12.1700076797522; Wed, 15 Nov
- 2023 11:33:17 -0800 (PST)
+ d=1e100.net; s=20230601; t=1700088258; x=1700693058;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=x+9rvLvdX2lnfyBf2vZqm86qvEOYTf/3b77ELh1X624=;
+ b=JYWj6lcot6MMpqrwWRHb0Lm4qZCcMmCEcwCAexLigwRGvXguI54+pSf+k+1CEmEXg9
+ FU3bq637Wd4Xyetkj6Ek35bA3Tsv237w9rWwXZu/CPwRzOewLxNjrNCtflA91StX0KZc
+ NdyS6fZ+nbqJZ/xSYvQvXbbnW1V1VdrsUTeZyK6elhIC94GLW6eErMhUvpXYidEWRNaG
+ 4ukZs/WyqtR7RTo18LEQZemjXvqIXl+cckXKHXW8e+MA2cMW7zB5JrUI+buf5dUDmqxI
+ sn5VPhiyjUdDuqW9b2Uy6UDZQ50jxII0Mp6Jak6UzNCIn0gpYfaWsT7I1eDSwEkoYRdC
+ 4cWw==
+X-Gm-Message-State: AOJu0Yw6LjD+b8ydivxCeLh6chk2W3gcn3+hw8qlGqLTL4GRQZYo0VxN
+ g4MY3CMAhn/dXScvbQ+KfxVp0PiEs7g=
+X-Google-Smtp-Source: AGHT+IGGu9YvLECkiUq/lUX8OxBjWJ2MyG6XyX8H/OEa527Kf4K81t3xUlEcdPUh+ltOWMuaIPKgcg==
+X-Received: by 2002:a05:6870:b48e:b0:1e9:8182:a29d with SMTP id
+ y14-20020a056870b48e00b001e98182a29dmr18474426oap.41.1700088258174; 
+ Wed, 15 Nov 2023 14:44:18 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
+ by smtp.gmail.com with ESMTPSA id
+ r4-20020aa78b84000000b006870ed427b2sm3358092pfd.94.2023.11.15.14.44.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Nov 2023 14:44:17 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 15 Nov 2023 14:44:09 -0800
+Message-ID: <20231115224409.240935-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20231115141928.429688-1-dipamt1729@gmail.com>
- <CAA8EJprqnUGQxmj4Y=qttVuj0zJxdD9B6neHa6sPseLLETpk5A@mail.gmail.com>
- <CALHmwsoC5h7_w9OzpUS_-xM6x5WF5V-vFExLEf4y99b2eCcqGQ@mail.gmail.com>
-In-Reply-To: <CALHmwsoC5h7_w9OzpUS_-xM6x5WF5V-vFExLEf4y99b2eCcqGQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 15 Nov 2023 21:33:05 +0200
-Message-ID: <CAA8EJpoyC=paF1ZuznXgJAkT1fne0RwYfqJh-cdz0WLt02i+bw@mail.gmail.com>
-To: Dipam Turkar <dipamt1729@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2] Remove custom dumb_map_offset
- implementation in msm driver
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/gpu: Move gpu devcore's to gpu device
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,135 +70,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@gmail.com,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, marijn.suijten@somainline.org, sean@poorly.run
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Nov 2023 at 20:46, Dipam Turkar <dipamt1729@gmail.com> wrote:
->
-> They are not outdated, my bad. I went through the locks' code and saw tha=
-t they have been updated. But they are probably not necessary here as most =
-of the drivers do not use any form of locking in their implementations. The=
- generic implementations drm_gem_dumb_map_offset() and drm_gem_ttm_dumb_map=
-_offset() do not have any locking mechanisms either.
+From: Rob Clark <robdclark@chromium.org>
 
-Excuse me, but this doesn't sound right to me. There are different
-drivers with different implementations. So either we'd need a good
-explanation of why it is not necessary, or this patch is NAKed.
+The dpu devcore's are already associated with the dpu device.  So we
+should associate the gpu devcore's with the gpu device, for easier
+classification.
 
->
-> Thanks and regards
-> Dipam Turkar
->
-> On Wed, Nov 15, 2023 at 8:37=E2=80=AFPM Dmitry Baryshkov <dmitry.baryshko=
-v@linaro.org> wrote:
->>
->> On Wed, 15 Nov 2023 at 16:30, Dipam Turkar <dipamt1729@gmail.com> wrote:
->> >
->> > Make msm use drm_gem_create_map_offset() instead of its custom
->> > implementation for associating GEM object with a fake offset. Since,
->> > we already have this generic implementation, we don't need the custom
->> > implementation and it is better to standardize the code for GEM based
->> > drivers. This also removes the outdated locking leftovers.
->>
->> Why are they outdated?
->>
->> >
->> > Signed-off-by: Dipam Turkar <dipamt1729@gmail.com>
->> > ---
->> >  drivers/gpu/drm/msm/msm_drv.c |  2 +-
->> >  drivers/gpu/drm/msm/msm_gem.c | 21 ---------------------
->> >  drivers/gpu/drm/msm/msm_gem.h |  2 --
->> >  3 files changed, 1 insertion(+), 24 deletions(-)
->> >
->> > Changes in v2:
->> > Modify commit message to include the absence of internal locking lefto=
-vers
->> > around allocating a fake offset in msm_gem_mmap_offset() in the generi=
-c
->> > implementation drm_gem_create_map_offset().
->> >
->> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_d=
-rv.c
->> > index a428951ee539..86a15992c717 100644
->> > --- a/drivers/gpu/drm/msm/msm_drv.c
->> > +++ b/drivers/gpu/drm/msm/msm_drv.c
->> > @@ -1085,7 +1085,7 @@ static const struct drm_driver msm_driver =3D {
->> >         .open               =3D msm_open,
->> >         .postclose          =3D msm_postclose,
->> >         .dumb_create        =3D msm_gem_dumb_create,
->> > -       .dumb_map_offset    =3D msm_gem_dumb_map_offset,
->> > +       .dumb_map_offset    =3D drm_gem_dumb_map_offset,
->> >         .gem_prime_import_sg_table =3D msm_gem_prime_import_sg_table,
->> >  #ifdef CONFIG_DEBUG_FS
->> >         .debugfs_init       =3D msm_debugfs_init,
->> > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_g=
-em.c
->> > index db1e748daa75..489694ef79cb 100644
->> > --- a/drivers/gpu/drm/msm/msm_gem.c
->> > +++ b/drivers/gpu/drm/msm/msm_gem.c
->> > @@ -671,27 +671,6 @@ int msm_gem_dumb_create(struct drm_file *file, st=
-ruct drm_device *dev,
->> >                         MSM_BO_SCANOUT | MSM_BO_WC, &args->handle, "du=
-mb");
->> >  }
->> >
->> > -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device =
-*dev,
->> > -               uint32_t handle, uint64_t *offset)
->> > -{
->> > -       struct drm_gem_object *obj;
->> > -       int ret =3D 0;
->> > -
->> > -       /* GEM does all our handle to object mapping */
->> > -       obj =3D drm_gem_object_lookup(file, handle);
->> > -       if (obj =3D=3D NULL) {
->> > -               ret =3D -ENOENT;
->> > -               goto fail;
->> > -       }
->> > -
->> > -       *offset =3D msm_gem_mmap_offset(obj);
->> > -
->> > -       drm_gem_object_put(obj);
->> > -
->> > -fail:
->> > -       return ret;
->> > -}
->> > -
->> >  static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
->> >  {
->> >         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
->> > diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_g=
-em.h
->> > index 8ddef5443140..dc74a0ef865d 100644
->> > --- a/drivers/gpu/drm/msm/msm_gem.h
->> > +++ b/drivers/gpu/drm/msm/msm_gem.h
->> > @@ -139,8 +139,6 @@ struct page **msm_gem_pin_pages(struct drm_gem_obj=
-ect *obj);
->> >  void msm_gem_unpin_pages(struct drm_gem_object *obj);
->> >  int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev=
-,
->> >                 struct drm_mode_create_dumb *args);
->> > -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device =
-*dev,
->> > -               uint32_t handle, uint64_t *offset);
->> >  void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj);
->> >  void *msm_gem_get_vaddr(struct drm_gem_object *obj);
->> >  void *msm_gem_get_vaddr_active(struct drm_gem_object *obj);
->> > --
->> > 2.34.1
->> >
->>
->>
->> --
->> With best wishes
->> Dmitry
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index cfcb4317afdb..3fad5d58262f 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -292,8 +292,7 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
+ 	/* Set the active crash state to be dumped on failure */
+ 	gpu->crashstate = state;
+ 
+-	/* FIXME: Release the crashstate if this errors out? */
+-	dev_coredumpm(gpu->dev->dev, THIS_MODULE, gpu, 0, GFP_KERNEL,
++	dev_coredumpm(&gpu->pdev->dev, THIS_MODULE, gpu, 0, GFP_KERNEL,
+ 		msm_gpu_devcoredump_read, msm_gpu_devcoredump_free);
+ }
+ #else
+-- 
+2.41.0
 
-
---=20
-With best wishes
-Dmitry
