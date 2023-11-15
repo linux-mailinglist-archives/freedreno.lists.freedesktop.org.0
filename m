@@ -2,60 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C70A17EBEE4
-	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 09:54:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E86297EC550
+	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 15:30:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A65B10E506;
-	Wed, 15 Nov 2023 08:54:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FCF10E03F;
+	Wed, 15 Nov 2023 14:30:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
- [IPv6:2607:f8b0:4864:20::1133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C97B10E503
- for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 08:54:11 +0000 (UTC)
-Received: by mail-yw1-x1133.google.com with SMTP id
- 00721157ae682-5a7c08b7744so76092447b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 15 Nov 2023 00:54:11 -0800 (PST)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B20F10E010;
+ Wed, 15 Nov 2023 14:30:02 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1cc131e52f1so6974445ad.0; 
+ Wed, 15 Nov 2023 06:30:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700038450; x=1700643250; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Pbjo3TAguD6KXTLjuIu3/cGWUkxEw1wpK/hlHSFO3xI=;
- b=zgqW59yYYMD/HKqlF8pmN1cYsuI7ReKPkWYx5MoX1ljXq6i0B5sPkIVcYyIxjqh8jE
- cppMbv5gBtBWeluAM+ooze0ioVF+NJA+Y2sjZ1wbXiS2EqJMW6RxgvKIDMKIrX2WmIAq
- y+wq8nJD6Gih+47aIxB78FXdRlVBgMG0pZ5O9qKTQsI6be4dOJrpsEVqpRAvCV7I7kVt
- nKn9OyETB0r97PWdcpA7CR5gagLJfWTaJP6nT9+DA+EV/mve3SnAJuv5N6v3kA3nEgpA
- OPsD8pl3tNq+YZkemsibkciJaWZgnuW5ST/6co8Wa7YD8R8ZQtBHN9Ga+FEFln4BB3R1
- Vt7A==
+ d=gmail.com; s=20230601; t=1700058601; x=1700663401; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GPMvuBHzrnyzsvQOdVNlUdgVRHRy9nrQ04fDZWtnk3k=;
+ b=A8JYxoIeoBuWPy3Hby3Caot6cqnkRuaNgfRovOhr+LcuIvRvYeHOkZvXLqwIRCb5Cv
+ icwhDZ9W6MTOjUajLaCISjkl/wzOHLxo0UvnxBTZDn2J4YKKsZpTo4jkMYJhi0nh10dd
+ F401SjioWwN0AM+H9NJWXJXbGIrRgpQrxUwHMOTHNnpCw0+kp63gp3+1oyDQon1Y8aqW
+ a891BC6YYwjrYAMWe8HCi3b/sGCX8jH01YZjifrj5HexMj00Dp9ouHEqKYcemkYm+5IY
+ OXqJCu4H7jBajRyckzEkrm5GdIXsVACAF8EFV7Gn670ouMFdMx/9kDeM1fBmmSoMhFQJ
+ 0QUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700038450; x=1700643250;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1700058601; x=1700663401;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Pbjo3TAguD6KXTLjuIu3/cGWUkxEw1wpK/hlHSFO3xI=;
- b=KtXvmdqNsWuMyasBUDDnLAMQ8rWpLvOnnxPFp5hjJ6Q6AfklwzDDh96Pof5jb+fGnr
- b4ucDUpBFMTVq+gSN09xNMBVctgP9ZFCH4DNt9ERr8TFSGrrrqUJk20+JKfnyizdEL3W
- twXzzlA+UsgG+casMbHOxYUZ7SYDHdvmvHR3GA1IM29UCA8ux9EE3l38zR+rNDeKe+oc
- m1EPsGQVUKqlOXo4CYnHrayZ/Vg5ZR/qFAM7IABs7v2tXZDbo4outeMVT6BMWCvPg6cs
- uNq1igI4xxs7holmfVsP+vC8PdvB3sIPR6uch4QyN8ymRk9poxsuLBfAw7Mb31R9g9eJ
- Vx0Q==
-X-Gm-Message-State: AOJu0Yw36gbswRgmhyhmnOZOnp0HL5ejsmfm91xU4y4JO/Y9tQRuYHMU
- GibQJYg2POc6FAP7B4vFRe62uz/2Deq4oxsgC3mtVw==
-X-Google-Smtp-Source: AGHT+IEDMvHcwrOwIhCANMLXvIPUaFUum2/1YHpZwaESZfy2I2Os/5+HMHREWDFFhrgyeOeFEN55Ab6h3bYKn0zn45o=
-X-Received: by 2002:a0d:f9c6:0:b0:5be:9a1e:5864 with SMTP id
- j189-20020a0df9c6000000b005be9a1e5864mr10921663ywf.10.1700038450409; Wed, 15
- Nov 2023 00:54:10 -0800 (PST)
+ bh=GPMvuBHzrnyzsvQOdVNlUdgVRHRy9nrQ04fDZWtnk3k=;
+ b=kTgerRuG7Q+GY8UrSmwmVzKCs/R91baUoWGmiDP3dijnmFWnQWOSq6Hg+sjQMT4jd8
+ Us+8yBelFfwVMARQ+480cNf1x5kydu8ZR1mZVA38hAFJqOBxxy5wOLm4Dws65yjR6595
+ mtN+WJzvIalkkW2xizobEtmEkDEMmVK9TCID+e8/gBmIV3Xp1DHnuuv/74UfUoJZ3fW3
+ 9pIIvMPPIBMnt9klcar8PL7CA3bxsDiV3nOSd2bQ1h4t/z06bZZJjL0lt8n6DCk8L4xC
+ kA6jBQO8lmmLwa+PswgHzeO66imopsw0LcV/rNZ6vp7I0XYW2DqxL2SeaAMXfgcTgAEu
+ Ysxw==
+X-Gm-Message-State: AOJu0YxkpkQS+CPqlRqlI6xrQL0fYxFa13TmzvHz3L2bbdT6X7bnGMXb
+ X9ahdc8tPuG69cLix99tXiI=
+X-Google-Smtp-Source: AGHT+IHR+sZxIEfC2uUZdghvt6bSSRkjl+Y9PXIX6Xv0Rdgv1JOVM2jGbrua15b2q46+mFVr1Pajzw==
+X-Received: by 2002:a17:903:41c8:b0:1cc:47c1:c2cb with SMTP id
+ u8-20020a17090341c800b001cc47c1c2cbmr8442197ple.2.1700058601324; 
+ Wed, 15 Nov 2023 06:30:01 -0800 (PST)
+Received: from anfanite396-Predator-PH315-51.gateway.iitmandi.ac.in
+ ([14.139.34.151]) by smtp.gmail.com with ESMTPSA id
+ q9-20020a170902dac900b001cc50f67fbasm7429751plx.281.2023.11.15.06.29.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Nov 2023 06:30:00 -0800 (PST)
+From: Dipam Turkar <dipamt1729@gmail.com>
+To: robdclark@gmail.com
+Date: Wed, 15 Nov 2023 19:49:29 +0530
+Message-Id: <20231115141928.429688-1-dipamt1729@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20231114225857.19702-1-jonathan@marek.ca>
- <20231114225857.19702-2-jonathan@marek.ca>
-In-Reply-To: <20231114225857.19702-2-jonathan@marek.ca>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 15 Nov 2023 10:53:59 +0200
-Message-ID: <CAA8EJpp0OGkgf0P6LcwE-H6BVN9kbtF_eRCsef+7NgDFmJOZfA@mail.gmail.com>
-To: Jonathan Marek <jonathan@marek.ca>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/6] drm/msm/dpu: fix video mode DSC for
- DSI
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] Remove custom dumb_map_offset implementation
+ in msm driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,144 +71,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, freedreno@lists.freedesktop.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
- Sean Paul <sean@poorly.run>, Arnaud Vrac <rawoul@gmail.com>
+Cc: freedreno@lists.freedesktop.org, Dipam Turkar <dipamt1729@gmail.com>,
+ sean@poorly.run, quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Nov 2023 at 01:00, Jonathan Marek <jonathan@marek.ca> wrote:
->
-> Add necessary DPU changes for DSC to work with DSI video mode.
->
-> Note this changes the logic to enable HCTL to match downstream, it will
-> now be enabled for the no-DSC no-widebus case.
->
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h    |  2 +-
->  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    | 11 +++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c         | 13 ++++++++++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h         |  1 +
->  5 files changed, 26 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1cf7ff6caff4..d745c8678b9d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2477,7 +2477,7 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder)
->         return INTF_MODE_NONE;
->  }
->
-> -unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc)
-> +unsigned int dpu_encoder_helper_get_dsc(const struct dpu_encoder_phys *phys_enc)
+Make msm use drm_gem_create_map_offset() instead of its custom
+implementation for associating GEM object with a fake offset. Since,
+we already have this generic implementation, we don't need the custom
+implementation and it is better to standardize the code for GEM based
+drivers. This also removes the outdated locking leftovers.
 
-Why?
+Signed-off-by: Dipam Turkar <dipamt1729@gmail.com>
+---
+ drivers/gpu/drm/msm/msm_drv.c |  2 +-
+ drivers/gpu/drm/msm/msm_gem.c | 21 ---------------------
+ drivers/gpu/drm/msm/msm_gem.h |  2 --
+ 3 files changed, 1 insertion(+), 24 deletions(-)
 
->  {
->         struct drm_encoder *encoder = phys_enc->parent;
->         struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(encoder);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> index 6f04c3d56e77..7e27a7da0887 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> @@ -332,7 +332,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
->   *   used for this encoder.
->   * @phys_enc: Pointer to physical encoder structure
->   */
-> -unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc);
-> +unsigned int dpu_encoder_helper_get_dsc(const struct dpu_encoder_phys *phys_enc);
->
->  /**
->   * dpu_encoder_helper_split_config - split display configuration helper function
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> index a01fda711883..df10800a9615 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> @@ -100,6 +100,8 @@ static void drm_mode_to_intf_timing_params(
->         }
->
->         timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
-> +       if (dpu_encoder_helper_get_dsc(phys_enc))
-> +               timing->compression_en = true;
->
->         /*
->          * for DP, divide the horizonal parameters by 2 when
-> @@ -112,6 +114,15 @@ static void drm_mode_to_intf_timing_params(
->                 timing->h_front_porch = timing->h_front_porch >> 1;
->                 timing->hsync_pulse_width = timing->hsync_pulse_width >> 1;
->         }
-> +
-> +       /*
-> +        * for DSI, if compression is enabled, then divide the horizonal active
-> +        * timing parameters by compression ratio.
-> +        */
-> +       if (phys_enc->hw_intf->cap->type != INTF_DP && timing->compression_en) {
-> +               timing->width = timing->width / 3; /* XXX: don't assume 3:1 compression ratio */
+Changes in v2:
+Modify commit message to include the absence of internal locking leftovers
+around allocating a fake offset in msm_gem_mmap_offset() in the generic
+implementation drm_gem_create_map_offset().
 
-Is this /3 from bpp / compressed_bpp?
-
-> +               timing->xres = timing->width;
-> +       }
->  }
->
->  static u32 get_horizontal_total(const struct dpu_hw_intf_timing_params *timing)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index e8b8908d3e12..d6fe45a6da2d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -166,10 +166,21 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->          * video timing. It is recommended to enable it for all cases, except
->          * if compression is enabled in 1 pixel per clock mode
->          */
-> +       if (!p->compression_en || p->wide_bus_en)
-> +               intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
-> +
->         if (p->wide_bus_en)
-> -               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
-> +               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
->
->         data_width = p->width;
-> +       if (p->wide_bus_en && !dp_intf)
-> +               data_width = p->width >> 1;
-> +
-> +       if (p->compression_en)
-> +               intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
-> +
-> +       if (p->compression_en && dp_intf)
-> +               DPU_ERROR("missing adjustments for DSC+DP\n");
->
->         hsync_data_start_x = hsync_start_x;
->         hsync_data_end_x =  hsync_start_x + data_width - 1;
-
-This should go into a separate commit with the proper justification.
-
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> index c539025c418b..15a5fdadd0a0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> @@ -33,6 +33,7 @@ struct dpu_hw_intf_timing_params {
->         u32 hsync_skew;
->
->         bool wide_bus_en;
-> +       bool compression_en;
->  };
->
->  struct dpu_hw_intf_prog_fetch {
-> --
-> 2.26.1
->
-
-
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index a428951ee539..86a15992c717 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1085,7 +1085,7 @@ static const struct drm_driver msm_driver = {
+ 	.open               = msm_open,
+ 	.postclose          = msm_postclose,
+ 	.dumb_create        = msm_gem_dumb_create,
+-	.dumb_map_offset    = msm_gem_dumb_map_offset,
++	.dumb_map_offset    = drm_gem_dumb_map_offset,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index db1e748daa75..489694ef79cb 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -671,27 +671,6 @@ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 			MSM_BO_SCANOUT | MSM_BO_WC, &args->handle, "dumb");
+ }
+ 
+-int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+-		uint32_t handle, uint64_t *offset)
+-{
+-	struct drm_gem_object *obj;
+-	int ret = 0;
+-
+-	/* GEM does all our handle to object mapping */
+-	obj = drm_gem_object_lookup(file, handle);
+-	if (obj == NULL) {
+-		ret = -ENOENT;
+-		goto fail;
+-	}
+-
+-	*offset = msm_gem_mmap_offset(obj);
+-
+-	drm_gem_object_put(obj);
+-
+-fail:
+-	return ret;
+-}
+-
+ static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 8ddef5443140..dc74a0ef865d 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -139,8 +139,6 @@ struct page **msm_gem_pin_pages(struct drm_gem_object *obj);
+ void msm_gem_unpin_pages(struct drm_gem_object *obj);
+ int msm_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 		struct drm_mode_create_dumb *args);
+-int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+-		uint32_t handle, uint64_t *offset);
+ void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj);
+ void *msm_gem_get_vaddr(struct drm_gem_object *obj);
+ void *msm_gem_get_vaddr_active(struct drm_gem_object *obj);
 -- 
-With best wishes
-Dmitry
+2.34.1
+
