@@ -1,76 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930B97EE8A4
-	for <lists+freedreno@lfdr.de>; Thu, 16 Nov 2023 22:06:04 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6887EE913
+	for <lists+freedreno@lfdr.de>; Thu, 16 Nov 2023 23:01:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2199010E2C8;
-	Thu, 16 Nov 2023 21:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E342610E6FB;
+	Thu, 16 Nov 2023 22:01:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A9910E28A;
- Thu, 16 Nov 2023 21:05:58 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AGJ2GTE016673; Thu, 16 Nov 2023 21:05:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : from : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=h/ceQFvVd7icRg18RKM+vHrf4FiKh0owxs7zhww8GgQ=;
- b=Uzwwwt1Xv5PMnINNbk9NxzxpLf8pEvbyPa9Zn4xcgCMTBAhJ+m12mbKxM+GiAchwJTYm
- 2WLmSc5OGKyjevxLNMvhsFUkelIsHJVRWgfBzlLVCEkE9/raueDvUXTVwdsI86xpajL1
- zGgWl3G3/D2ysJzCkmYunJ9LERjzuGaVB5Ebs18SdL8SAYPRpkRCcSq8qRIaG5YTsOwu
- SwuFr2fvri4N7rTnHuWcV8rVORyinnsJi/RqWA7mMcfmi0EgrqT1gK+ZvHGvEHfajc3G
- L3szu0DaBPO6xLMEn6MgCLGbePwXJsxS6AF6qPm3qDq+XGkkTwfx/LQ44m6IUDSajp/Y 2w== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3udrvs0bf2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Nov 2023 21:05:55 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AGL5sZ1014322
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Nov 2023 21:05:54 GMT
-Received: from [10.110.71.50] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Thu, 16 Nov
- 2023 13:05:53 -0800
-Message-ID: <62943ca3-26ac-8712-2caa-102dc98f099c@quicinc.com>
-Date: Thu, 16 Nov 2023 13:05:52 -0800
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 882C510E6FC
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Nov 2023 22:01:04 +0000 (UTC)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-5afbdbf3a19so14487097b3.2
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Nov 2023 14:01:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1700172063; x=1700776863; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=XrDfTqC4kCNkXvqk06JZuMHZ8F1CQgx8Er0ge2sMlCI=;
+ b=xcTKoTSYuL7iRAcauFlCa9cKPnQa61+U14PELs7RCmnSoF0/3uiBKgqwtW6rTT43QC
+ m0hs6lsuzmlDECBZZ5WtSEJNaWE6nmjRCwweo46er3AHZY9558Qmt2Yozc1sHyNmtGGZ
+ 7xLGdFyVpbnfD2qCa7LUKvmZhyVf1CskWGXMemSEdLLv1ARc66Ia71bsD/0x4jToKLe7
+ lB47xz2XmV6fkaf5hIz22dUfc/czBc2w6hC0ZeZmVN1qKUR0eB9S5RZwB6C+ft11GrIe
+ sy4FmqyeG30u2v4vygOSczkQ5VHfDEjzK24GGkzZPoOUryW1DV5+DrqZGJmNKOVy+fP0
+ izvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700172063; x=1700776863;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XrDfTqC4kCNkXvqk06JZuMHZ8F1CQgx8Er0ge2sMlCI=;
+ b=NUHfWHn1PyrY4aOsvKa65iiLUPamkMWWhHBi4EcMwFY6CfCdRAUMuBVAXzdtHIk9sY
+ rHKR4Z1oeiuASJx6W09D1gt0TOxJcL6cTs162ITErGvCgqxx+FKBYlqlNrCkm2IxBEak
+ MoCO4ONuLIUMilGA9Ht03BQ72FvmierszGn3nxSEylUzkh4glJqlr1ptH8i9ivzeKKoB
+ 6hckeglQluV1vfq6zWkOBGyYyT/E1qTVCPWShEafJFB7xA0XZ+QXMHjGTlg2jtf8ZPXx
+ AFS5cGQC3NkvU0J2RcjN/WiDG8lrjym4JKKa+xG+aXIulvdjwCDTaGM6uLh6FKmAWJbi
+ AwAA==
+X-Gm-Message-State: AOJu0YzjvWRsLmMZ64zTPI0rfIgL1xe1MSQc21AroaA02uU7Jh9E4o1g
+ 2hKnBvGmCrr3euNweNRCKEowrBoV4SCNoJpRNTdixQ==
+X-Google-Smtp-Source: AGHT+IFar8dbn8tWGRc5Du9nzxi2agmew03+it+BDi75j3YNagGC4edoDYvKPdFZlty1Nzek7YOPn3SS7ZFTZyvb9QY=
+X-Received: by 2002:a05:690c:a87:b0:5c1:8075:5a7d with SMTP id
+ ci7-20020a05690c0a8700b005c180755a7dmr18665864ywb.39.1700172063677; Thu, 16
+ Nov 2023 14:01:03 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>, Rob Clark <robdclark@gmail.com>
-References: <ZSj+6/J6YsoSpLak@kadam>
- <095b7283-3555-cc38-a73e-83efec8a9bf8@quicinc.com>
-In-Reply-To: <095b7283-3555-cc38-a73e-83efec8a9bf8@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: QlIewNp0jlFkpuRtJKY-uWweuP2I9WYO
-X-Proofpoint-ORIG-GUID: QlIewNp0jlFkpuRtJKY-uWweuP2I9WYO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-16_23,2023-11-16_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=956
- priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0
- mlxscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311160163
-Subject: Re: [Freedreno] [PATCH v2] drm/msm: remove unnecessary NULL check
+References: <20231115224409.240935-1-robdclark@gmail.com>
+ <6107757c-1217-1759-8bcf-7dbce6f2e730@quicinc.com>
+In-Reply-To: <6107757c-1217-1759-8bcf-7dbce6f2e730@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 17 Nov 2023 00:00:52 +0200
+Message-ID: <CAA8EJpqUBTMnkcR_dmvRCaBGNCn6x-mvnna4qVkzCVqQKBFyJQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Move gpu devcore's to gpu
+ device
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,57 +68,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Su Hui <suhui@nfschina.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/1/2023 12:23 PM, Abhinav Kumar wrote:
-> 
-> 
-> On 10/13/2023 1:25 AM, Dan Carpenter wrote:
->> This NULL check was required when it was added, but we shuffled the code
->> around and now it's not.  The inconsistent NULL checking triggers a
->> Smatch warning:
->>
->>      drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c:847 mdp5_init() warn:
->>      variable dereferenced before check 'mdp5_kms' (see line 782)
->>
->> Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the 
->> _probe function"
-
-A small error here. Its missing the closing brace for the Fixes tag.
-Checkpatch cries without it.
-
-I have fixed it while applying.
-
->> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
->> ---
->> v2: Added a Fixes tag.  It's not really a bug fix and so adding the
->> fixes tag is slightly unfair but it should prevent this patch from
->> accidentally getting backported before the refactoring and causing an
->> issue.
->>
->> Btw, fixes tags are often unfair like this.  People look at fixes tags
->> and think, "the fix introduced a bug" but actually it's really common
->> that the fix was just not complete.  But from a backporting perspective
->> it makes sense to tie them together.
->>
->> Plus everyone introduces bugs.  If you're not introducing bugs, then
->> you're probably not writing a lot of code.
->>
->>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 3 +--
->>   1 file changed, 1 insertion(+), 2 deletions(-)
->>
-> 
-> LGTM,
-> 
+On Thu, 16 Nov 2023 at 00:58, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 11/15/2023 2:44 PM, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > The dpu devcore's are already associated with the dpu device.  So we
+> > should associate the gpu devcore's with the gpu device, for easier
+> > classification.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+>
 > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
