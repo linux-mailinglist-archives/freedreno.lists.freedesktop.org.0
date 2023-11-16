@@ -1,72 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9017EE700
-	for <lists+freedreno@lfdr.de>; Thu, 16 Nov 2023 19:46:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E41F87EE751
+	for <lists+freedreno@lfdr.de>; Thu, 16 Nov 2023 20:18:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 252AC10E665;
-	Thu, 16 Nov 2023 18:46:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A92910E681;
+	Thu, 16 Nov 2023 19:18:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE32C10E667
- for <freedreno@lists.freedesktop.org>; Thu, 16 Nov 2023 18:46:45 +0000 (UTC)
-Received: by mail-qt1-x82f.google.com with SMTP id
- d75a77b69052e-41cb615c6fbso6380771cf.1
- for <freedreno@lists.freedesktop.org>; Thu, 16 Nov 2023 10:46:45 -0800 (PST)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FEF110E680;
+ Thu, 16 Nov 2023 19:18:00 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ 46e09a7af769-6d30d9f4549so648347a34.0; 
+ Thu, 16 Nov 2023 11:18:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek.ca; s=google; t=1700160405; x=1700765205; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-language:in-reply-to:mime-version
- :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
- :subject:date:message-id:reply-to;
- bh=If/44f1KPyVE2d2iqlt11gTcl1EXO2kaaJZBfwh5YxI=;
- b=JtfItmZopGuYyvkL7iJLkMEEkQsxf2JHTNZhJtsyYqegatRNWZB0ZfkXZ64fti4EMM
- fN0Lylp6CHQTPv6lzwKTS4WF9jbW3tcaNQBNhDvbf67LkDVXPnAE2tsIRWzFM7DFoU2M
- giY4KzSJVuQh+jmcx0Voc7W0ROmDPm22CPBUYWy0RRtRwcaR2GI3D0sW7R+5hfyn4Nam
- 86zICLb7Tsj7t+gIYWxkf5Z6X51EMPpdPEawiAtTT1BGLdz44HYFDK9Yyo6h9tUMf8tq
- b4rttZRjgaU0x+3+9pGAfxIc+IE2TOrrDHQOT92o35FW6MzuaaaOrXrVejZ60y5eAKXK
- yUeQ==
+ d=gmail.com; s=20230601; t=1700162280; x=1700767080; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NQvW2mlQLaPe9zQwh1aRBhkCYad5wvCc2L3vPohQIMU=;
+ b=NeESLs+W6oZR5ZJC4zvw/lvRqFuG9lkEWpwJuie2HOsxNc2+ZrGmkahiWaYmKs9+L1
+ lD6Q/Ai/nfO0ptceWR0nrAHbMG8S1qNP1il8jsAx/T1lmDb3Y+UjkNuKv2+gQadptziB
+ ol0YNkpiDtp6zVIetJioK9S42RQ/vDheTOu0LQIRvTyB2UVXFCC5s3k3uPpT6nxSeK7i
+ 9mEdVjc9oJQBgXX3k3slY4w6bZhh2/F8FCY6OKRnXQLlglXUjKuPyJ/62wERn1addXAw
+ iXhM+I2d2TxqQGlt2Iv0yg7r2llrEKrEKmwJmzE53/Wb8tz3hi+P8raDYs4aCdcpuRh7
+ VjhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700160405; x=1700765205;
- h=content-transfer-encoding:content-language:in-reply-to:mime-version
- :user-agent:date:message-id:from:references:cc:to:subject
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=If/44f1KPyVE2d2iqlt11gTcl1EXO2kaaJZBfwh5YxI=;
- b=AQgpRWQmgvbYQszA9OfoJTmaosORIG/VCHOWcqWlPgiwKaa2l6/Z2vAeQoCKJTmYHR
- 4YRAqwKwtge4XJKUIAbgYXEFZ2RnCh6l6PvuiFHBwjFF8OfhB/DCjle/rSjEOy2F6tUJ
- +RiN2mOT9UJt8SAJEMrBBXOZl1DH7b5fiS+mNGhZL3kxEKi6lBjkrSyC5KTVreXCR8gu
- 3DLGoDP/YPIogrw7uDCAlELrVHgfnyAkLR1OCkDn09teWg8+UauAbMi1vqRoph4NGzFP
- rjY8DZfNgs/EzWI9/DHsj3xL5gD4bBIlxhmra8GT5iqPA9ILZJHuTKoZA28ULQllkDO5
- GZdw==
-X-Gm-Message-State: AOJu0YwX8i1VqCK4g2UtGnyzHIu361G/0k2yTjzV6CoMV/qiSfJ13A7B
- 6QjRC9yZkX0xHrFVRZRrwTrA2g==
-X-Google-Smtp-Source: AGHT+IFQlwjNqtRd3lxS5p0T5Vg8UQ+JyMTZejmIFz8gVnKZabprGWmddPa0pf0JYS0omO1Kk+ALrQ==
-X-Received: by 2002:ac8:7f14:0:b0:419:6954:3ba2 with SMTP id
- f20-20020ac87f14000000b0041969543ba2mr11124161qtk.43.1700160404914; 
- Thu, 16 Nov 2023 10:46:44 -0800 (PST)
-Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca.
- [135.19.110.125]) by smtp.gmail.com with ESMTPSA id
- w19-20020ac843d3000000b0041991642c62sm4493571qtn.73.2023.11.16.10.46.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Nov 2023 10:46:44 -0800 (PST)
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231114225857.19702-1-jonathan@marek.ca>
- <20231114225857.19702-5-jonathan@marek.ca>
- <CAA8EJppg=pYh73ncHBCO6Ddv9gG7+WNnpwLYGEv6xEu_3MRNWw@mail.gmail.com>
-From: Jonathan Marek <jonathan@marek.ca>
-Message-ID: <ebec534a-4c72-7d33-4c18-4e0b43338568@marek.ca>
-Date: Thu, 16 Nov 2023 13:45:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ d=1e100.net; s=20230601; t=1700162280; x=1700767080;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NQvW2mlQLaPe9zQwh1aRBhkCYad5wvCc2L3vPohQIMU=;
+ b=DU5ZoPZe47svPsVNW/gsJLZ4hMjQJTEiorAK8TgCIcEEip2lOptxLk+ACHTTArZu95
+ IOzZRLK7RFcopTUsh9kQGpM1tRq+ebIjsOcRr8Y+jpBf2FOsFCzoBwUmCg05BfuAk53I
+ e6H7d5k6xZ8zCvctRe1vnOCcVu3bIx/64ZB/yEybJ7i6ocIUopPtzcW26bd2gk6jBAI0
+ 22OeHj36KcZAzDMFxvbXkbcnVtwCEcux+7OPWyE2M0DHYwH7Cneb1cv9YAektFs2nuY+
+ YB+JcuBcFRuaP1JtLawjHztrHMbpLl1FTjrILP9OOo2PyKor5NVw2PecsqyE+ynBLTB0
+ luxw==
+X-Gm-Message-State: AOJu0Yx9u+DBDkbUWoiQkICfa0hQeduRUp7bc1YFxETotq62wisyG+AN
+ qb6XobdiIbf6IS+Zv4AkUmZaJMuN7e0+oQJX1dg=
+X-Google-Smtp-Source: AGHT+IFchzrhEbVbz5AEifNKluJrx6zIDMG5gc5BfPiF7RMJY6+/+9azNscfVMvB74Y03sWBedUaDVz9bS5Uf4oPXtE=
+X-Received: by 2002:a05:6871:2312:b0:1e9:cb7f:2287 with SMTP id
+ sf18-20020a056871231200b001e9cb7f2287mr21389323oab.46.1700162279900; Thu, 16
+ Nov 2023 11:17:59 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAA8EJppg=pYh73ncHBCO6Ddv9gG7+WNnpwLYGEv6xEu_3MRNWw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 4/6] drm/msm/dsi: add a comment to
- explain pkt_per_line encoding
+References: <20231113112344.719-1-hkallweit1@gmail.com>
+ <ZVJhwSS16+/Zzt0f@shikoro>
+ <887657ba-86ca-49bc-b6c3-8543610c3230@gmail.com> <ZVKNIn1eSlZ9yzco@shikoro>
+In-Reply-To: <ZVKNIn1eSlZ9yzco@shikoro>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Nov 2023 14:17:48 -0500
+Message-ID: <CADnq5_NgzZ+1FTzZObivnjJbbuYcafY-fbvgiGA9ryqA9wYedg@mail.gmail.com>
+To: Wolfram Sang <wsa@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ intel-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev, 
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu <yongqin.liu@linaro.org>, 
+ John Stultz <jstultz@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,52 +83,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/15/23 2:38 AM, Dmitry Baryshkov wrote:
-> On Wed, 15 Nov 2023 at 01:00, Jonathan Marek <jonathan@marek.ca> wrote:
->>
->> Make it clear why the pkt_per_line value is being "divided by 2".
->>
->> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
->> ---
->>   drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index 66f198e21a7e..842765063b1b 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -877,6 +877,8 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
->>          /* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
->>           * registers have similar offsets, so for below common code use
->>           * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
->> +        *
->> +        * pkt_per_line is log2 encoded, >>1 works for supported values (1,2,4)
->>           */
->>          reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
-> 
-> Should we switch to ffs() or fls() instead?
-> 
+On Mon, Nov 13, 2023 at 3:55=E2=80=AFPM Wolfram Sang <wsa@kernel.org> wrote=
+:
+>
+>
+> > We're not in a hurry. It's just my experience with patch series' affect=
+ing
+> > multiple subsystems that typically the decision was to apply the full
+> > series via one tree. Also to avoid inquires from maintainers like:
+> > Shall I take it or are you going to take it?
+> > Of course there may be different opinions. Please advise.
+>
+> Ok, then this turns out to be a negotation thing between the drm/fbdev
+> maintainers and me. I *can* take all the patches, of course. But since
+> the number of patches touching the non-i2c subsystems is high, I'd like
+> to hear their preference, too.
+>
 
-Just a ffs() on its own can be confusing as well (without the 
-information that only powers of two are possible), I think like this is 
-better.
+I don't have a preference if you would prefer to take these via i2c.
 
->>          reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
->> --
->> 2.26.1
->>
-> 
-> 
+Alex
