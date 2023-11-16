@@ -2,75 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB6307ED7AC
-	for <lists+freedreno@lfdr.de>; Wed, 15 Nov 2023 23:58:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C327EE6C2
+	for <lists+freedreno@lfdr.de>; Thu, 16 Nov 2023 19:31:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C27110E298;
-	Wed, 15 Nov 2023 22:58:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB6D10E66D;
+	Thu, 16 Nov 2023 18:31:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2CFC10E298;
- Wed, 15 Nov 2023 22:58:43 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AFMwdK5028464; Wed, 15 Nov 2023 22:58:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=CFFe/tma71Nzm3q3uaEi+UNcsA+0+RvIe/Hg4W4Uqfw=;
- b=fqaoueza1F/suuwguRjXD7k00aRheUhfjwOotGj7FeulqxNHGKBlFETDlkJZnz7tLw0j
- hKniqcYFQCLqDNsaUJqwzLkpXx7NF9n3BZvtwebbFK/xv1Pwztyk4JwmE7IhQzVZD1CA
- B3TQaSNoS3nl/R1buF5qBTq2kngD4FatyfOQg0iqKLavQX8CmrDxGft8eG5iZjPmU2Uq
- OD2g1O7xbYEhk5D+oiW7Ne6c3gDOG2YcJbv+PsHB2UZuBAhLm7LWRQNoofzrgDMpj+9c
- KsObaj1c7IHwHOHzsI2nNf0iO8xt5eMdcRacDWz2VE9d8VcUHQEDbq9uZefWSv9aUqic 5Q== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ud5fhg6rh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Nov 2023 22:58:39 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AFMwcnd000884
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Nov 2023 22:58:38 GMT
-Received: from [10.110.71.50] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Wed, 15 Nov
- 2023 14:58:37 -0800
-Message-ID: <6107757c-1217-1759-8bcf-7dbce6f2e730@quicinc.com>
-Date: Wed, 15 Nov 2023 14:58:37 -0800
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6761C10E65C
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Nov 2023 18:31:30 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id
+ 6a1803df08f44-66d122e0c85so5764186d6.3
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Nov 2023 10:31:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek.ca; s=google; t=1700159489; x=1700764289; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:references:cc:to:subject:from:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rU0Onv3SuE+K6mh1ouNAPCMkOiMWIv4TJL2AZdCOGUw=;
+ b=WLeZ40ZxI9X1q/x5DAZ4lozrHmzrHsUO70S0rNVfLcAS4JepjKEk58ZxoPMm9xDdXw
+ kRFJqIokYTtxrPo/558GvEJ91QlmQJchZnaYlmRbSuM0o9kyGr4SBrDTGIgEfZO05IgK
+ hbWYLe+VSAXllY1jlGednOXKiqMKyxfxbqVvbHU06SNoVfvn7rLnc+FJAxfKz5KWlhXg
+ LtrZfg1S+BzOaU5cEztQqz/BQBYZGgoQMREu9Iii/tt37pbscWJ4+spl7rad8vEjyJbl
+ hqYvYiMy0ydseexfIol1Up1HRnWgJ1he1tgBbUhaHchar8IwfttvL5irzpFRADTIXNQ0
+ UbqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700159489; x=1700764289;
+ h=content-transfer-encoding:content-language:in-reply-to:mime-version
+ :user-agent:date:message-id:references:cc:to:subject:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rU0Onv3SuE+K6mh1ouNAPCMkOiMWIv4TJL2AZdCOGUw=;
+ b=jlsktrzWmfWHMLZtXMbg+4ZtbQT/d9dCPoM8YnA5VKx70b/7JVFryWX2RVlmGVmQvI
+ f7x8hJOkXIHwf/nUQPUrhIKmweF33chP+y7FXnQ/SY85GScgAN2or7r+VVKHqz8WZD2k
+ Bz+SNlDmOT04hZ02ych60O0ihzEVWV0s3knyHazKYY9Q8GhYF3YrtuZw4ZESAWKdvSaL
+ rfelVqi8oT4vpoyHY6wCpzdY/as1J7GKqeU3oFUH/6n6OHxKHPPh6FBrzgH6Zfzj+6gj
+ iEg+sfieU2oc2dfq5MIvEizWyE4dBK4AyCZuu/H9fhMOv2t7/nNQ4JIhvv+924p2lrAQ
+ Z6fA==
+X-Gm-Message-State: AOJu0YwRAA48iP4lxOgSEZ3ldAERrpnZHgHr8b+w7P/lehwyR7ieTfmT
+ BLh3GfAwAILzjKSeEidCwnDuRw==
+X-Google-Smtp-Source: AGHT+IG1dtT861g2sp4EuKubGCs2MqPMYXbAKW0AsBqZnVTbe7Dwjir9T3SG6Z6PX3ZoTrHqa61+GQ==
+X-Received: by 2002:a05:6214:1255:b0:66d:42d9:fc83 with SMTP id
+ r21-20020a056214125500b0066d42d9fc83mr13813746qvv.10.1700159489365; 
+ Thu, 16 Nov 2023 10:31:29 -0800 (PST)
+Received: from [192.168.0.189] (modemcable125.110-19-135.mc.videotron.ca.
+ [135.19.110.125]) by smtp.gmail.com with ESMTPSA id
+ k13-20020a0cebcd000000b00670c15033aesm1528608qvq.144.2023.11.16.10.31.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Nov 2023 10:31:29 -0800 (PST)
+From: Jonathan Marek <jonathan@marek.ca>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20231114225857.19702-1-jonathan@marek.ca>
+ <20231114225857.19702-2-jonathan@marek.ca>
+ <CAA8EJpp0OGkgf0P6LcwE-H6BVN9kbtF_eRCsef+7NgDFmJOZfA@mail.gmail.com>
+Message-ID: <d93a7c6f-a798-c9ec-6c10-08e4e5a70f4d@marek.ca>
+Date: Thu, 16 Nov 2023 13:30:32 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+In-Reply-To: <CAA8EJpp0OGkgf0P6LcwE-H6BVN9kbtF_eRCsef+7NgDFmJOZfA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20231115224409.240935-1-robdclark@gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231115224409.240935-1-robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 5XK6lS6q0-sL_QiRoX8dL9aKXLnOdp0s
-X-Proofpoint-ORIG-GUID: 5XK6lS6q0-sL_QiRoX8dL9aKXLnOdp0s
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-15_20,2023-11-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 mlxlogscore=700
- suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311150181
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Move gpu devcore's to gpu
- device
+Subject: Re: [Freedreno] [PATCH v2 1/6] drm/msm/dpu: fix video mode DSC for
+ DSI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,24 +79,159 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, freedreno@lists.freedesktop.org,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+ David Airlie <airlied@gmail.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Arnaud Vrac <rawoul@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/15/2023 2:44 PM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 11/15/23 3:53 AM, Dmitry Baryshkov wrote:
+> On Wed, 15 Nov 2023 at 01:00, Jonathan Marek <jonathan@marek.ca> wrote:
+>>
+>> Add necessary DPU changes for DSC to work with DSI video mode.
+>>
+>> Note this changes the logic to enable HCTL to match downstream, it will
+>> now be enabled for the no-DSC no-widebus case.
+>>
+>> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  2 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h    |  2 +-
+>>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    | 11 +++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c         | 13 ++++++++++++-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h         |  1 +
+>>   5 files changed, 26 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index 1cf7ff6caff4..d745c8678b9d 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -2477,7 +2477,7 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder)
+>>          return INTF_MODE_NONE;
+>>   }
+>>
+>> -unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc)
+>> +unsigned int dpu_encoder_helper_get_dsc(const struct dpu_encoder_phys *phys_enc)
 > 
-> The dpu devcore's are already associated with the dpu device.  So we
-> should associate the gpu devcore's with the gpu device, for easier
-> classification.
+> Why?
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+drm_mode_to_intf_timing_params has "phys_enc" pointer declared as const, 
+so one of them needs to change to call dpu_encoder_helper_get_dsc
+
+>>   {
+>>          struct drm_encoder *encoder = phys_enc->parent;
+>>          struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(encoder);
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+>> index 6f04c3d56e77..7e27a7da0887 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+>> @@ -332,7 +332,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+>>    *   used for this encoder.
+>>    * @phys_enc: Pointer to physical encoder structure
+>>    */
+>> -unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc);
+>> +unsigned int dpu_encoder_helper_get_dsc(const struct dpu_encoder_phys *phys_enc);
+>>
+>>   /**
+>>    * dpu_encoder_helper_split_config - split display configuration helper function
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>> index a01fda711883..df10800a9615 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>> @@ -100,6 +100,8 @@ static void drm_mode_to_intf_timing_params(
+>>          }
+>>
+>>          timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
+>> +       if (dpu_encoder_helper_get_dsc(phys_enc))
+>> +               timing->compression_en = true;
+>>
+>>          /*
+>>           * for DP, divide the horizonal parameters by 2 when
+>> @@ -112,6 +114,15 @@ static void drm_mode_to_intf_timing_params(
+>>                  timing->h_front_porch = timing->h_front_porch >> 1;
+>>                  timing->hsync_pulse_width = timing->hsync_pulse_width >> 1;
+>>          }
+>> +
+>> +       /*
+>> +        * for DSI, if compression is enabled, then divide the horizonal active
+>> +        * timing parameters by compression ratio.
+>> +        */
+>> +       if (phys_enc->hw_intf->cap->type != INTF_DP && timing->compression_en) {
+>> +               timing->width = timing->width / 3; /* XXX: don't assume 3:1 compression ratio */
+> 
+> Is this /3 from bpp / compressed_bpp?
+> 
+
+It is the compression ratio of DSC for 8bpc (24bpp) compressed to 8bpp. 
+DSI driver doesn't support any other cases so this assumption should be 
+OK for now (the other common ratio is 3.75 for 10bpc compressed to 8bpp 
+- from downstream driver it appears this would mean a division by 3.75 
+here).
+
+>> +               timing->xres = timing->width;
+>> +       }
+>>   }
+>>
+>>   static u32 get_horizontal_total(const struct dpu_hw_intf_timing_params *timing)
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> index e8b8908d3e12..d6fe45a6da2d 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> @@ -166,10 +166,21 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>>           * video timing. It is recommended to enable it for all cases, except
+>>           * if compression is enabled in 1 pixel per clock mode
+>>           */
+>> +       if (!p->compression_en || p->wide_bus_en)
+>> +               intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
+>> +
+>>          if (p->wide_bus_en)
+>> -               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
+>> +               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
+>>
+>>          data_width = p->width;
+>> +       if (p->wide_bus_en && !dp_intf)
+>> +               data_width = p->width >> 1;
+>> +
+>> +       if (p->compression_en)
+>> +               intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
+>> +
+>> +       if (p->compression_en && dp_intf)
+>> +               DPU_ERROR("missing adjustments for DSC+DP\n");
+>>
+>>          hsync_data_start_x = hsync_start_x;
+>>          hsync_data_end_x =  hsync_start_x + data_width - 1;
+> 
+> This should go into a separate commit with the proper justification.
+> 
+
+All of it? setting the INTF_CFG2_DCE_DATA_COMPRESS flag at least doesn't 
+make sense to make a separate patch. And DSI widebus is only used with 
+DSC (and always used when available), so IMO also in the scope of this 
+commit.
+
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> index c539025c418b..15a5fdadd0a0 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> @@ -33,6 +33,7 @@ struct dpu_hw_intf_timing_params {
+>>          u32 hsync_skew;
+>>
+>>          bool wide_bus_en;
+>> +       bool compression_en;
+>>   };
+>>
+>>   struct dpu_hw_intf_prog_fetch {
+>> --
+>> 2.26.1
+>>
+> 
+> 
