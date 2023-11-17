@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D97A27EF4EF
-	for <lists+freedreno@lfdr.de>; Fri, 17 Nov 2023 16:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E7B7EF535
+	for <lists+freedreno@lfdr.de>; Fri, 17 Nov 2023 16:24:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAF4F10E1A6;
-	Fri, 17 Nov 2023 15:14:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B380D10E2F6;
+	Fri, 17 Nov 2023 15:24:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1CF910E152;
- Fri, 17 Nov 2023 15:14:26 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-6c4eaa5202aso2089646b3a.1; 
- Fri, 17 Nov 2023 07:14:26 -0800 (PST)
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B39010E1A6;
+ Fri, 17 Nov 2023 15:24:33 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1ce627400f6so4005235ad.2; 
+ Fri, 17 Nov 2023 07:24:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700234065; x=1700838865; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1700234672; x=1700839472; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=neKamCZO2wHDVbcksPS6RZHdFnPapK4yzUpgs5f2M5Y=;
- b=UB3RoXkJ6ElXz0u4tDQCb+Jbbp996jcQNZOCxENbXEXEbWOOoA7sHFpggZf/eg2XPu
- uLgHAioZFZOP2mZj5+0XWaiUcrIXwV4I8z1lZvQ9mRxUssPdKyDqPlj8z0cv8DD66g02
- sADVUTFLq//fD7m5udrN72upVYKELI0YyKlraRMdP9Jc9TMuxY0EWjtjfZ4qm4biVQYX
- 5q3JMvBdUyDviUay0jLRkq93DURX7ZzDCvh0hI12MmuGrfQyGKjqphs/agdHuEC7qqkt
- OXf7yZrTMEX4JM2W5bAL48Bgpng7A8wmYPQmoZlBtl/dpNIKSRXHwH+qv8JLO7cOrW3p
- MS/Q==
+ bh=uBvEQIGbC4HURF/ntUyUlcav9b00XtnohKM7H7UZq1s=;
+ b=YAZa8skI7E6+gDp1rKZAko7sUR0CeFZEKxgOSZFEHTMFNPyKYD9xDE9wXdICVd8TS0
+ OgIAe5+LJ9lKneqbmB14xA8sSMecmyIqNFqFfQUD+MEU8rnsF0bh9HgYbZA15a8T+BJv
+ cJrZQTh7vepN5mAValN8G/kpN8uGRWijIPF+hubYsCCZeKb/oHozF2EyoepfebWYKr/9
+ e4kU/oy0IuVmQkhMDFwST3iljnP2U5P/FJnAK0uaIr5IygmrVFUAAHvwqhSyQEltfHeK
+ NiYN/MHZy4l2VWlnujGh+SLtq3xpw9TDWc9MOMCemX1CY5hBeyJOc4kUiK5gm6BoZpb0
+ kl3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700234065; x=1700838865;
+ d=1e100.net; s=20230601; t=1700234672; x=1700839472;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=neKamCZO2wHDVbcksPS6RZHdFnPapK4yzUpgs5f2M5Y=;
- b=ujDU78etO0SPhsO/YqbCz285biDj6noNmoTymywpiS8IveYwdx8ZXJTsSLDz360oCf
- +UAP0nVVSN9UCrKvoEPKAkSXHqxdTsn5tRZ/hyzTrHsHKSqVza/b5LuXsFGYb8HVAtEB
- 4lMzqWaa0k/NUZsmV+s76bXRnAkrDyMftBre9MZTmd3hcOdiK7KDB1xT/KZBUQ9Y8416
- 0MuLmYwX40YS5xezZv7nOB/q7ZRckJPG3m0h6zFQI3ItyCzD4g7zGB05aidM0w790r0I
- XYKoJgIIJGZ5JfZ8sBh8iSPC6prw2kIGTx8e5YME03bUpO/oi68WGVw1bRP7jfY/TUCp
- fstw==
-X-Gm-Message-State: AOJu0YxrP74Zkqfv5unLT+utzrsb4NPg4qronw6GfhMKnVoRtEpgbj9/
- NgZSYx3Y0g9PXbUKJ98Q8Nphno01u8U=
-X-Google-Smtp-Source: AGHT+IHNamJGjWsZcOgdHZgk/IVdURgF/leP60XW8Fd2vRVnOipM3gRSx8X3je7JYe506jJkwKWbDg==
-X-Received: by 2002:a17:902:d4cb:b0:1cc:5a74:b1df with SMTP id
- o11-20020a170902d4cb00b001cc5a74b1dfmr13978668plg.2.1700234064990; 
- Fri, 17 Nov 2023 07:14:24 -0800 (PST)
+ bh=uBvEQIGbC4HURF/ntUyUlcav9b00XtnohKM7H7UZq1s=;
+ b=n3u7eCQsyd1r1X+6hwJzI6Dyg8+z4PHMVFjL7e5x8rBU5DjDTJUwgIEakldRYNxXfD
+ Sy6JovRM7X4xUqBUzpU7jZLuQJkdEerGiSGY6DIN0C55RxPHwnwVS9KtgJOKYKsRHVo+
+ 0Z7hwfbJZ/UhoT2rWE0JaTLZFL0j8oKR4lCuQ2qEOYE8pF9U57w5bQlaRecRns2Pv1Y4
+ wb2b5XC/emHa4oqPAbaLzIcQPxKefJrM9H9MfJJGXqJCvNSTMrd/RPA+2T4NomDdIZXE
+ QD4CDevTQBHDNK1xDqomCOtUO3LfbUwJhnVXZjCRpu64xdPrGZvkFQQqIIVXiuPjSpB+
+ he0w==
+X-Gm-Message-State: AOJu0YwH1ZzeGn/Pj/feuQvv8NPpVCEG8M95n4Z0NM7HavAzUoD8s4RJ
+ jA9gGrYAbx3qVzWacKb7FHv8JiNOy+E=
+X-Google-Smtp-Source: AGHT+IGTPCDBXhcUUjrXC4Dbd4cFWutY1Bl9KA7ZGsMeXgRJUlzNmkIzq5Rli0oYI5LYgJOwaYw/Zw==
+X-Received: by 2002:a17:902:e5c3:b0:1ce:5b6d:e6b1 with SMTP id
+ u3-20020a170902e5c300b001ce5b6de6b1mr3482012plf.17.1700234671579; 
+ Fri, 17 Nov 2023 07:24:31 -0800 (PST)
 Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
  by smtp.gmail.com with ESMTPSA id
- m18-20020a170902db1200b001c8a0879805sm1474315plx.206.2023.11.17.07.14.23
+ d12-20020a170902cecc00b001c73f3a9b88sm1504162plg.110.2023.11.17.07.24.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Nov 2023 07:14:24 -0800 (PST)
+ Fri, 17 Nov 2023 07:24:31 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 17 Nov 2023 07:14:19 -0800
-Message-ID: <20231117151420.351995-1-robdclark@gmail.com>
+Date: Fri, 17 Nov 2023 07:24:28 -0800
+Message-ID: <20231117152428.367592-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Reduce fallout of fence signaling vs
- reclaim hangs
+Subject: [Freedreno] [PATCH] drm/msm/gpu: Skip retired submits in recover
+ worker
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,31 +83,78 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Until various PM devfreq/QoS and interconnect patches land, we could
-potentially trigger reclaim from gpu scheduler thread, and under enough
-memory pressure that could trigger a sort of deadlock.  Eventually the
-wait will timeout and we'll move on to consider other GEM objects.  But
-given that there is still a potential for deadlock/stalling, we should
-reduce the timeout to contain the damage.
+If we somehow raced with submit retiring, either while waiting for
+worker to have a chance to run or acquiring the gpu lock, then the
+recover worker should just bail.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_gpu.c | 41 +++++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-index 5a7d48c02c4b..07ca4ddfe4e3 100644
---- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-+++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-@@ -75,7 +75,7 @@ static bool
- wait_for_idle(struct drm_gem_object *obj)
- {
- 	enum dma_resv_usage usage = dma_resv_usage_rw(true);
--	return dma_resv_wait_timeout(obj->resv, usage, false, 1000) > 0;
-+	return dma_resv_wait_timeout(obj->resv, usage, false, 10) > 0;
- }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 3fad5d58262f..fd3dceed86f8 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -365,29 +365,31 @@ static void recover_worker(struct kthread_work *work)
+ 	DRM_DEV_ERROR(dev->dev, "%s: hangcheck recover!\n", gpu->name);
  
- static bool
+ 	submit = find_submit(cur_ring, cur_ring->memptrs->fence + 1);
+-	if (submit) {
+-		/* Increment the fault counts */
+-		submit->queue->faults++;
+-		if (submit->aspace)
+-			submit->aspace->faults++;
+ 
+-		get_comm_cmdline(submit, &comm, &cmd);
++	/*
++	 * If the submit retired while we were waiting for the worker to run,
++	 * or waiting to acquire the gpu lock, then nothing more to do.
++	 */
++	if (!submit)
++		goto out_unlock;
+ 
+-		if (comm && cmd) {
+-			DRM_DEV_ERROR(dev->dev, "%s: offending task: %s (%s)\n",
+-				gpu->name, comm, cmd);
++	/* Increment the fault counts */
++	submit->queue->faults++;
++	if (submit->aspace)
++		submit->aspace->faults++;
+ 
+-			msm_rd_dump_submit(priv->hangrd, submit,
+-				"offending task: %s (%s)", comm, cmd);
+-		} else {
+-			msm_rd_dump_submit(priv->hangrd, submit, NULL);
+-		}
++	get_comm_cmdline(submit, &comm, &cmd);
++
++	if (comm && cmd) {
++		DRM_DEV_ERROR(dev->dev, "%s: offending task: %s (%s)\n",
++			      gpu->name, comm, cmd);
++
++		msm_rd_dump_submit(priv->hangrd, submit,
++				   "offending task: %s (%s)", comm, cmd);
+ 	} else {
+-		/*
+-		 * We couldn't attribute this fault to any particular context,
+-		 * so increment the global fault count instead.
+-		 */
+-		gpu->global_faults++;
++		DRM_DEV_ERROR(dev->dev, "%s: offending task: unknown\n", gpu->name);
++
++		msm_rd_dump_submit(priv->hangrd, submit, NULL);
+ 	}
+ 
+ 	/* Record the crash state */
+@@ -440,6 +442,7 @@ static void recover_worker(struct kthread_work *work)
+ 
+ 	pm_runtime_put(&gpu->pdev->dev);
+ 
++out_unlock:
+ 	mutex_unlock(&gpu->lock);
+ 
+ 	msm_gpu_retire(gpu);
 -- 
 2.41.0
 
