@@ -1,64 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E7B7EF535
-	for <lists+freedreno@lfdr.de>; Fri, 17 Nov 2023 16:24:36 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22DFB7F0029
+	for <lists+freedreno@lfdr.de>; Sat, 18 Nov 2023 15:40:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B380D10E2F6;
-	Fri, 17 Nov 2023 15:24:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9CCB10E08A;
+	Sat, 18 Nov 2023 14:40:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B39010E1A6;
- Fri, 17 Nov 2023 15:24:33 +0000 (UTC)
-Received: by mail-pl1-x635.google.com with SMTP id
- d9443c01a7336-1ce627400f6so4005235ad.2; 
- Fri, 17 Nov 2023 07:24:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700234672; x=1700839472; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=uBvEQIGbC4HURF/ntUyUlcav9b00XtnohKM7H7UZq1s=;
- b=YAZa8skI7E6+gDp1rKZAko7sUR0CeFZEKxgOSZFEHTMFNPyKYD9xDE9wXdICVd8TS0
- OgIAe5+LJ9lKneqbmB14xA8sSMecmyIqNFqFfQUD+MEU8rnsF0bh9HgYbZA15a8T+BJv
- cJrZQTh7vepN5mAValN8G/kpN8uGRWijIPF+hubYsCCZeKb/oHozF2EyoepfebWYKr/9
- e4kU/oy0IuVmQkhMDFwST3iljnP2U5P/FJnAK0uaIr5IygmrVFUAAHvwqhSyQEltfHeK
- NiYN/MHZy4l2VWlnujGh+SLtq3xpw9TDWc9MOMCemX1CY5hBeyJOc4kUiK5gm6BoZpb0
- kl3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700234672; x=1700839472;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uBvEQIGbC4HURF/ntUyUlcav9b00XtnohKM7H7UZq1s=;
- b=n3u7eCQsyd1r1X+6hwJzI6Dyg8+z4PHMVFjL7e5x8rBU5DjDTJUwgIEakldRYNxXfD
- Sy6JovRM7X4xUqBUzpU7jZLuQJkdEerGiSGY6DIN0C55RxPHwnwVS9KtgJOKYKsRHVo+
- 0Z7hwfbJZ/UhoT2rWE0JaTLZFL0j8oKR4lCuQ2qEOYE8pF9U57w5bQlaRecRns2Pv1Y4
- wb2b5XC/emHa4oqPAbaLzIcQPxKefJrM9H9MfJJGXqJCvNSTMrd/RPA+2T4NomDdIZXE
- QD4CDevTQBHDNK1xDqomCOtUO3LfbUwJhnVXZjCRpu64xdPrGZvkFQQqIIVXiuPjSpB+
- he0w==
-X-Gm-Message-State: AOJu0YwH1ZzeGn/Pj/feuQvv8NPpVCEG8M95n4Z0NM7HavAzUoD8s4RJ
- jA9gGrYAbx3qVzWacKb7FHv8JiNOy+E=
-X-Google-Smtp-Source: AGHT+IGTPCDBXhcUUjrXC4Dbd4cFWutY1Bl9KA7ZGsMeXgRJUlzNmkIzq5Rli0oYI5LYgJOwaYw/Zw==
-X-Received: by 2002:a17:902:e5c3:b0:1ce:5b6d:e6b1 with SMTP id
- u3-20020a170902e5c300b001ce5b6de6b1mr3482012plf.17.1700234671579; 
- Fri, 17 Nov 2023 07:24:31 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
- by smtp.gmail.com with ESMTPSA id
- d12-20020a170902cecc00b001c73f3a9b88sm1504162plg.110.2023.11.17.07.24.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Nov 2023 07:24:31 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 17 Nov 2023 07:24:28 -0800
-Message-ID: <20231117152428.367592-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.41.0
+X-Greylist: delayed 1789 seconds by postgrey-1.36 at gabe;
+ Sat, 18 Nov 2023 14:40:29 UTC
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8106F10E08A
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Nov 2023 14:40:29 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1r4M1t-0001Xo-H8; Sat, 18 Nov 2023 15:10:37 +0100
+Message-ID: <3aa32b39-ee2f-405e-b4fe-983e351c2e20@leemhuis.info>
+Date: Sat, 18 Nov 2023 15:10:36 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/gpu: Skip retired submits in recover
- worker
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, de-DE
+To: Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20231025092711.851168-1-dmitry.baryshkov@linaro.org>
+ <20231025092711.851168-3-dmitry.baryshkov@linaro.org>
+ <ZVR8Flrjxy-wgqgJ@hovoldconsulting.com>
+From: "Linux regression tracking #adding (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <ZVR8Flrjxy-wgqgJ@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1700318429;
+ 19ba47fa; 
+X-HE-SMSGID: 1r4M1t-0001Xo-H8
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dp: attach the DP
+ subconnector property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,90 +50,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+[TLDR: I'm adding this report to the list of tracked Linux kernel
+regressions; the text you find below is based on a few templates
+paragraphs you might have encountered already in similar form.
+See link in footer if these mails annoy you.]
 
-If we somehow raced with submit retiring, either while waiting for
-worker to have a chance to run or acquiring the gpu lock, then the
-recover worker should just bail.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gpu.c | 41 +++++++++++++++++++----------------
- 1 file changed, 22 insertions(+), 19 deletions(-)
+On 15.11.23 09:06, Johan Hovold wrote:
+> On Wed, Oct 25, 2023 at 12:23:10PM +0300, Dmitry Baryshkov wrote:
+>> While developing and testing the commit bfcc3d8f94f4 ("drm/msm/dp:
+>> support setting the DP subconnector type") I had the patch [1] in my
+>> tree. I haven't noticed that it was a dependency for the commit in
+>> question. Mea culpa.
+> This also broke boot on the Lenovo ThinkPad X13s.
+> [...]
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 3fad5d58262f..fd3dceed86f8 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -365,29 +365,31 @@ static void recover_worker(struct kthread_work *work)
- 	DRM_DEV_ERROR(dev->dev, "%s: hangcheck recover!\n", gpu->name);
- 
- 	submit = find_submit(cur_ring, cur_ring->memptrs->fence + 1);
--	if (submit) {
--		/* Increment the fault counts */
--		submit->queue->faults++;
--		if (submit->aspace)
--			submit->aspace->faults++;
- 
--		get_comm_cmdline(submit, &comm, &cmd);
-+	/*
-+	 * If the submit retired while we were waiting for the worker to run,
-+	 * or waiting to acquire the gpu lock, then nothing more to do.
-+	 */
-+	if (!submit)
-+		goto out_unlock;
- 
--		if (comm && cmd) {
--			DRM_DEV_ERROR(dev->dev, "%s: offending task: %s (%s)\n",
--				gpu->name, comm, cmd);
-+	/* Increment the fault counts */
-+	submit->queue->faults++;
-+	if (submit->aspace)
-+		submit->aspace->faults++;
- 
--			msm_rd_dump_submit(priv->hangrd, submit,
--				"offending task: %s (%s)", comm, cmd);
--		} else {
--			msm_rd_dump_submit(priv->hangrd, submit, NULL);
--		}
-+	get_comm_cmdline(submit, &comm, &cmd);
-+
-+	if (comm && cmd) {
-+		DRM_DEV_ERROR(dev->dev, "%s: offending task: %s (%s)\n",
-+			      gpu->name, comm, cmd);
-+
-+		msm_rd_dump_submit(priv->hangrd, submit,
-+				   "offending task: %s (%s)", comm, cmd);
- 	} else {
--		/*
--		 * We couldn't attribute this fault to any particular context,
--		 * so increment the global fault count instead.
--		 */
--		gpu->global_faults++;
-+		DRM_DEV_ERROR(dev->dev, "%s: offending task: unknown\n", gpu->name);
-+
-+		msm_rd_dump_submit(priv->hangrd, submit, NULL);
- 	}
- 
- 	/* Record the crash state */
-@@ -440,6 +442,7 @@ static void recover_worker(struct kthread_work *work)
- 
- 	pm_runtime_put(&gpu->pdev->dev);
- 
-+out_unlock:
- 	mutex_unlock(&gpu->lock);
- 
- 	msm_gpu_retire(gpu);
--- 
-2.41.0
+>> Fixes: bfcc3d8f94f4 ("drm/msm/dp: support setting the DP subconnector type")
+>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+> Tested-by: Johan Hovold <johan+linaro@kernel.org>
 
+
+Thanks for the report. To be sure the issue doesn't fall through the
+cracks unnoticed, I'm adding it to regzbot, the Linux kernel regression
+tracking bot:
+
+#regzbot ^introduced bfcc3d8f94f4
+#regzbot title drm/msm/dp: boot broken on the Lenovo ThinkPad X13s and
+some other machines
+#regzbot fix: drm/msm/dp: attach the DP subconnector property
+#regzbot ignore-activity
+
+This isn't a regression? This issue or a fix for it are already
+discussed somewhere else? It was fixed already? You want to clarify when
+the regression started to happen? Or point out I got the title or
+something else totally wrong? Then just reply and tell me -- ideally
+while also telling regzbot about it, as explained by the page listed in
+the footer of this mail.
+
+Developers: When fixing the issue, remember to add 'Link:' tags pointing
+to the report (the parent of this mail). See page linked in footer for
+details.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.
