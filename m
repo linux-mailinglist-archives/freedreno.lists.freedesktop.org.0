@@ -1,40 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BA77F09DC
-	for <lists+freedreno@lfdr.de>; Mon, 20 Nov 2023 00:31:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E3C297F09DB
+	for <lists+freedreno@lfdr.de>; Mon, 20 Nov 2023 00:31:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3158410E0FA;
-	Sun, 19 Nov 2023 23:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA6FC10E02E;
+	Sun, 19 Nov 2023 23:31:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCB110E0E8;
- Sun, 19 Nov 2023 20:29:08 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D771110E02E;
+ Sun, 19 Nov 2023 21:57:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
- t=1700425726; x=1701030526; i=deller@gmx.de;
- bh=miLPHMfrxwqmKAd27ektH7WBR0JCMcBObraky+HNbnc=;
+ t=1700431034; x=1701035834; i=deller@gmx.de;
+ bh=GZw86HrxI4KNbAsNQxkedUxJj0YIJUQmH1y/U7vq1Ng=;
  h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
  In-Reply-To;
- b=E4jYA/oNAE1F4fRLys0rhnfWTR6mbTmPHQKKEJCETWu0LBaCX91aeusBuo8GftgP
- u5Yf+8CJMYTesutHmhgZPjLc0YIey1P58hytjI3W2oI6cmJD4a66ddUDeMTYL8cPz
- 06sC6LXnnMMug/2n122HJpqwJaCvsitj+wSg4/dgVqWovLl7DbuexVwk5XZQWvs6G
- qqlc6B7JrjRbgGzZ/67UtE1y7q+aAam2vyubXPuewtivWKGQphESEIF/5ZfjYElhX
- fJgtaP/GBWiy0Y5u/q27PPZDVcdZ5rJ2M15RPfuUwzZELKSuLF7iMrykojzgG+H2w
- kueKdwgmN4PFyJii8Q==
+ b=kMPNqmEr/O4vxRmUfGYFNYHKdQM4FjsFXv+r+JR5RQentvXpWvSfK1PAaLRbWEII
+ n4gE9wjNLeIij0plx5gfQPgPsGbJEtviEasJInTFHPaOVXNw6gICe09ZS8Ra/cyDu
+ sD5GPVjbbH2fTCCsaCnz3JQ0NVEkJsFoakQZAG14PdBP+5Adl117127MQVFuL8bYm
+ wkM0jHFFUeiQR9CIadLUWrXfRzSPEpHOJ18SQcWFpMfpzJyY2tp2Uq6mwo5GfESGB
+ lwjXjp+KyyENmAqEmPgLN4gsrOXHJ6ZSeQU/xVW9F8VGV9tuO5fLn8/LYltNnFHYD
+ r9EKeS/5wjADzrNmlA==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from [192.168.20.60] ([94.134.146.64]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N0oBx-1rJSwN2Ptl-00wmKV; Sun, 19
- Nov 2023 21:28:46 +0100
-Message-ID: <e40b913f-379f-4b6e-a0d2-844887a17284@gmx.de>
-Date: Sun, 19 Nov 2023 21:28:42 +0100
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MDhhX-1rEUc30rkl-00AmGw; Sun, 19
+ Nov 2023 22:51:04 +0100
+Message-ID: <106b818d-ad4b-4539-a159-751e2108d77e@gmx.de>
+Date: Sun, 19 Nov 2023 22:51:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
  intel-gfx@lists.freedesktop.org
 References: <20231119112826.5115-1-hkallweit1@gmail.com>
+ <e40b913f-379f-4b6e-a0d2-844887a17284@gmx.de>
+ <b336a8e3-44e7-4f56-a950-5155675b5628@gmail.com>
+ <bd4be069-b86d-4a69-aa0f-71257f93691f@gmail.com>
 From: Helge Deller <deller@gmx.de>
 Autocrypt: addr=deller@gmx.de; keydata=
  xsFNBF3Ia3MBEAD3nmWzMgQByYAWnb9cNqspnkb2GLVKzhoH2QD4eRpyDLA/3smlClbeKkWT
@@ -79,29 +82,29 @@ Autocrypt: addr=deller@gmx.de; keydata=
  FwRDcGV6nxanxZGKEkSHHOm8jHwvQWvPP73pvuPBEPtKGLzbgd7OOcGZWtq2hNC6cRtsRdDx
  4TAGMCz4j238m+2mdbdhRh3iBnWT5yPFfnv/2IjFAk+sdix1Mrr+LIDF++kiekeq0yUpDdc4
  ExBy2xf6dd+tuFFBp3/VDN4U0UfG4QJ2fg19zE5Z8dS4jGIbLg==
-In-Reply-To: <20231119112826.5115-1-hkallweit1@gmail.com>
+In-Reply-To: <bd4be069-b86d-4a69-aa0f-71257f93691f@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:AOqyT+NYfpLX8ZR5FyXZkrdchrLDHO79+2/Qu8gOe5asfRsZTI/
- IriLQSNbku4YQ+qp0/psHOEUtwe2GGW1KQKpfJRDT6tPEzLiP39Yb3jaivbCF34rs3NAAAK
- P77AvvT/8I3KI1mZu0lQ/gc8VMpyLMtSdecqmqbnSEio473SWbeyQnNtoP5uzUPbcX0IuM2
- 8iJWd3wafDn6+LxRy4xYg==
+Content-Transfer-Encoding: base64
+X-Provags-ID: V03:K1:4bo0YQp4nOX04fSlYKU7Ed7/Lx5pYstzA4JPyY4mAXCHdJpljs3
+ yDd16cdeh0gpASf/ZInpwaZcM23Ih+PXc+ledOmLjOwybtxI+dQvoN3Ii81KHFb9+qriDX0
+ u4h7DchrevyaHQ1ae714S54Y7JiqdBj1ZGyD2Ivq+axKYXxVpGJqoQnP7NEaF0sV7o2tumQ
+ /R1hkMAw27qE6kexZk1iw==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:3klw1RSna4g=;NZvvWyleiLnoQ8OEiVQyCF0geUn
- nn/XK+nqayeGU7XpzHB2xZWPxSeQ0TuaqQNo5XKDdkjffQ4mScPbkzxfO9ECE0g2o9LHF/OYT
- U6yLvwgXnTHZKnDQPgOxFmvtFrIsyfdPS5g97tBjmA97aGXzPaZYZ0iCTkkfSmTwkHbjCg5qd
- HGUwtFENdTexjJOqcMiN3bYTJx+FtZpl/57KhpOz7lK/o9bNYP3taYD4o8bU/rnqSmhnmkj6C
- CSHDSv8SP6bMPkGDEZMhOlkARgyENdqiKlopMUrUtLemjT4DN6IF/OixCcBFUOpuhRXs81XP3
- toMLZAIvkj3RPf7b7eW6PQ91dbAagZCmzWyVg6wKxGORVgHu6JKeIyGyfzNXru9mK4F7RHz+f
- YU0z97BEViaNubXCd7VOHEUYYNPV6jnXeF3NCaeAb+ZrLcfRFPvpI47xFK8ZmEvs/myvtOVJ7
- kkrpy2Nnp+Ied0vCKeqT/uKKAhBCp4LmTUpDM7zagtPIlSESuwLdGM7oxTGS4RTWH6tZnRwxs
- Kcv8ok/g8GBzbylu0F0Mi9MpggjTmTetgZtJ0O1f8Px/1/lV/FtHpHV4ifpjdpI1UKkJgKcps
- ZbC+C1cJnT9MlPFKGHdZHuBfH1gcz/5Pfuj6/P1s/tgc2CiQKEMAFvFiNFBnL5/aREPKxH13S
- h/r11uIpW9F9rQoWWzWXa1BtrMFrcycVfOJALbQtU8gilexeWnHUbPnhQqdjMPmbpNcBgBJwO
- crpbmKctnh3VXv80OG3fJQp+c4fNoJE95P5kZXyAii1keAfTjwzboKsqGEMB4lfhLRYp3z41C
- xMm21d0Q5JGoWeY0gC/ZaS8A+1Jp79XUHwYUCPOVpa2FLkx0lIYxEycHSXXgrZpzBd0P/pt06
- D147Z5XdRZHyh9dhBcQGisXZ3gtvbA4nBK1CO1grjhgR66s47R1ONMw52V2yIVEXJIyqAty5v
- PUXMfmHELDEjshgicEPFWlfBqK8=
+UI-OutboundReport: notjunk:1;M01:P0:ysBm8rYSgaU=;i94dSAp6PfZAIH7+417JicQwWsM
+ 12xTxz5urKRkAZjKmwbzyhAAPRtPrUZkutye3orWngoGmxKb221OqIcAovhZlwA1vyGU0L7Yb
+ HPhn6LwTklmoEiu+VwvwwqRovEaas5Bnu8Etf3eAgiPKRpJKONh4DwPvi3aazupVybl0JLbbj
+ iMMP7JEmeHIFXNwsnASEnksa9i1N2cxRGKpFj5ZhomWTNIK10jgtdtrzHuaryRL78iureIcUr
+ SbGgm45L4SiCweQ6AQkJJMPJr/pgn7s/uQRr/8hy8mahnpgdPdGl7kRZonfpqJgBeGKF+4WmK
+ GYmUfUXAZcjelvRBf5j88lc45osBgvH/F/wxaOoiQX039OlsKNT5SUM8czunT/CjCqfyRkToL
+ FgvH4gt8pW3Ig2/SBUb4L1iQSQOQuzIiGmmLm7a6s2R7udvxMuQdV2hTXOeY2iQw7yaCA8QFM
+ jp78emRdl3gCPCqU3prSvj/fnla0YmerSNrQ8IlG5R1+VCRLVwbbNEbN/D7oZqhHMzQwMADgL
+ KNDHNgZJKMIvsvZfGkEtk7nEN0wXYYuQnmsXnELUYEd466Uko4m+6kiL/RnI8oppJFBw3TzAZ
+ M6TAQsuzMzl+AvN24i2GX5Qs35ea1AaMIhR/0ZD9okwrOG3IdflF1CVNR8YBkhH9WDbrb4qDw
+ B27hl2j7fPVP9DvvvzkKK5oxuZQbVHHTTedFYOhmd/rHekL00Qj1RCP/pusqzxcWc3IfmSBrg
+ 94jGJfcw3oPvrqvxJ3H7dJpDqrFML5kGF6HCera74j/jdacp9jmKUV48W096+R2X5O/Nekq1w
+ DD5VFLFYkF0t87X0/PFRyV3nKnkoPYgIsUQ0Xb6LwVcAMVrkRAyC7Z3L8zgn3npqnZZXfqyEv
+ gLTZN/97aJ/K6kIiPXpLmJl6P8xllbCXSEWmkuxqGuYomuflSCBM/vJn0NrC0hoAoRYBMAKuL
+ JTRtYI4q1LXwTETN5bko5kk8b2o=
 X-Mailman-Approved-At: Sun, 19 Nov 2023 23:31:06 +0000
 Subject: Re: [Freedreno] [PATCH v3 RESEND 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -132,60 +135,72 @@ Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/19/23 12:28, Heiner Kallweit wrote:
-> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-> Class-based device auto-detection is a legacy mechanism and shouldn't
-> be used in new code. So we can remove this class completely now.
->
-> Preferably this series should be applied via the i2c tree.
-
-The fbdev changes look at least ok so far, so:
-Acked-by: Helge Deller <deller@gmx.de>   #fbdev
-
-
-> v2:
-> - change tag in commit subject of patch 03
-> - add ack tags
-> v3:
-> - fix a compile error in patch 5
->
-> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
->
-> ---
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c           |    1 -
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    1 -
->   drivers/gpu/drm/ast/ast_i2c.c                     |    1 -
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c         |    1 -
->   drivers/gpu/drm/display/drm_dp_helper.c           |    1 -
->   drivers/gpu/drm/display/drm_dp_mst_topology.c     |    1 -
->   drivers/gpu/drm/gma500/cdv_intel_dp.c             |    1 -
->   drivers/gpu/drm/gma500/intel_gmbus.c              |    1 -
->   drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c        |    1 -
->   drivers/gpu/drm/gma500/psb_intel_sdvo.c           |    1 -
->   drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |    1 -
->   drivers/gpu/drm/i915/display/intel_gmbus.c        |    1 -
->   drivers/gpu/drm/i915/display/intel_sdvo.c         |    1 -
->   drivers/gpu/drm/loongson/lsdc_i2c.c               |    1 -
->   drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c           |    1 -
->   drivers/gpu/drm/mgag200/mgag200_i2c.c             |    1 -
->   drivers/gpu/drm/msm/hdmi/hdmi_i2c.c               |    1 -
->   drivers/gpu/drm/radeon/radeon_i2c.c               |    1 -
->   drivers/gpu/drm/rockchip/inno_hdmi.c              |    1 -
->   drivers/gpu/drm/rockchip/rk3066_hdmi.c            |    1 -
->   drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c            |    1 -
->   drivers/video/fbdev/core/fb_ddc.c                 |    1 -
->   drivers/video/fbdev/cyber2000fb.c                 |    1 -
->   drivers/video/fbdev/i740fb.c                      |    1 -
->   drivers/video/fbdev/intelfb/intelfb_i2c.c         |   15 +++++--------=
---
->   drivers/video/fbdev/matrox/i2c-matroxfb.c         |   12 ++++--------
->   drivers/video/fbdev/s3fb.c                        |    1 -
->   drivers/video/fbdev/tdfxfb.c                      |    1 -
->   drivers/video/fbdev/tridentfb.c                   |    1 -
->   drivers/video/fbdev/via/via_i2c.c                 |    1 -
->   include/linux/i2c.h                               |    1 -
->   31 files changed, 9 insertions(+), 47 deletions(-)
->
-
+T24gMTEvMTkvMjMgMjE6NTEsIEhlaW5lciBLYWxsd2VpdCB3cm90ZToNCj4gT24gMTkuMTEuMjAy
+MyAyMTo0OCwgSGVpbmVyIEthbGx3ZWl0IHdyb3RlOg0KPj4gT24gMTkuMTEuMjAyMyAyMToyOCwg
+SGVsZ2UgRGVsbGVyIHdyb3RlOg0KPj4+IE9uIDExLzE5LzIzIDEyOjI4LCBIZWluZXIgS2FsbHdl
+aXQgd3JvdGU6DQo+Pj4+IEFmdGVyIHJlbW92YWwgb2YgdGhlIGxlZ2FjeSBFRVBST00gZHJpdmVy
+IGFuZCBJMkNfQ0xBU1NfRERDIHN1cHBvcnQgaW4NCj4+Pj4gb2xwY19kY29uIHRoZXJlJ3Mgbm8g
+aTJjIGNsaWVudCBkcml2ZXIgbGVmdCBzdXBwb3J0aW5nIEkyQ19DTEFTU19EREMuDQo+Pj4+IENs
+YXNzLWJhc2VkIGRldmljZSBhdXRvLWRldGVjdGlvbiBpcyBhIGxlZ2FjeSBtZWNoYW5pc20gYW5k
+IHNob3VsZG4ndA0KPj4+PiBiZSB1c2VkIGluIG5ldyBjb2RlLiBTbyB3ZSBjYW4gcmVtb3ZlIHRo
+aXMgY2xhc3MgY29tcGxldGVseSBub3cuDQo+Pj4+DQo+Pj4+IFByZWZlcmFibHkgdGhpcyBzZXJp
+ZXMgc2hvdWxkIGJlIGFwcGxpZWQgdmlhIHRoZSBpMmMgdHJlZS4NCj4+Pg0KPj4+IFRoZSBmYmRl
+diBjaGFuZ2VzIGxvb2sgYXQgbGVhc3Qgb2sgc28gZmFyLCBzbzoNCj4+PiBBY2tlZC1ieTogSGVs
+Z2UgRGVsbGVyIDxkZWxsZXJAZ214LmRlPsKgwqAgI2ZiZGV2DQo+Pj4NCj4+IEkgdGhpbmsgdGhp
+cyByZWZlcnMgdG8gcGF0Y2ggNSBvZiB0aGUgc2VyaWVzLiBDb3VsZCB5b3UgcGxlYXNlIHJlcGx5
+DQo+PiB0byBwYXRjaCA1IGluc3RlYWQgb2YgdGhlIGNvdmVyIGxldHRlciB3aXRoIHlvdXIgYWNr
+ZWQtYnkgc28gdGhhdA0KPj4gcGF0Y2h3b3JrIGdldHMgaXQgcmlnaHQ/IFRoYW5rcyENCj4+DQo+
+IFNvcnJ5LCBqdXN0IGxvb2tlZCBhdCB3aGVyZSB5b3UgYXJlIGluIFRvLCBub3QgQ2MuDQo+IFNv
+IHlvdXIgYWNrIGluY2x1ZGVzIHBhdGNoZXMgNiwgOSwgMTAsIDEzPw0KDQpZZXMuDQoNCkhlbGdl
+DQogIA0KPj4+DQo+Pj4+IHYyOg0KPj4+PiAtIGNoYW5nZSB0YWcgaW4gY29tbWl0IHN1YmplY3Qg
+b2YgcGF0Y2ggMDMNCj4+Pj4gLSBhZGQgYWNrIHRhZ3MNCj4+Pj4gdjM6DQo+Pj4+IC0gZml4IGEg
+Y29tcGlsZSBlcnJvciBpbiBwYXRjaCA1DQo+Pj4+DQo+Pj4+IFNpZ25lZC1vZmYtYnk6IEhlaW5l
+ciBLYWxsd2VpdCA8aGthbGx3ZWl0MUBnbWFpbC5jb20+DQo+Pj4+DQo+Pj4+IC0tLQ0KPj4+Pg0K
+Pj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2kyYy5jwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZlcnMv
+Z3B1L2RybS9hc3QvYXN0X2kyYy5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB8wqDCoMKgIDEgLQ0KPj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5
+cy9kdy1oZG1pLmPCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCBkcml2ZXJz
+L2dwdS9kcm0vZGlzcGxheS9kcm1fZHBfaGVscGVyLmPCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDC
+oMKgIDEgLQ0KPj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2Rpc3BsYXkvZHJtX2RwX21zdF90b3Bv
+bG9neS5jwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9nbWE1
+MDAvY2R2X2ludGVsX2RwLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+
+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9nbWE1MDAvaW50ZWxfZ21idXMuY8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vZ21hNTAw
+L29ha3RyYWlsX2hkbWlfaTJjLmPCoMKgwqDCoMKgwqDCoCB8wqDCoMKgIDEgLQ0KPj4+PiAgwqAg
+ZHJpdmVycy9ncHUvZHJtL2dtYTUwMC9wc2JfaW50ZWxfc2R2by5jwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9oaXNpbGljb24vaGlibWMv
+aGlibWNfZHJtX2kyYy5jwqDCoCB8wqDCoMKgIDEgLQ0KPj4+PiAgwqAgZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9nbWJ1cy5jwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+
+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfc2R2by5jwqDCoMKgwqDC
+oMKgwqDCoCB8wqDCoMKgIDEgLQ0KPj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2xvb25nc29uL2xz
+ZGNfaTJjLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDC
+oCBkcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2hkbWlfZGRjLmPCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB8wqDCoMKgIDEgLQ0KPj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL21nYWcyMDAvbWdhZzIw
+MF9pMmMuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgIDEgLQ0KPj4+PiAgwqAgZHJp
+dmVycy9ncHUvZHJtL21zbS9oZG1pL2hkbWlfaTJjLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9p
+MmMuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRy
+aXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9pbm5vX2hkbWkuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcmszMDY2
+X2hkbWkuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZl
+cnMvZ3B1L2RybS9zdW40aS9zdW40aV9oZG1pX2kyYy5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+wqDCoMKgIDEgLQ0KPj4+PiAgwqAgZHJpdmVycy92aWRlby9mYmRldi9jb3JlL2ZiX2RkYy5jwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZl
+cnMvdmlkZW8vZmJkZXYvY3liZXIyMDAwZmIuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2k3NDBmYi5jwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqAgMSAtDQo+Pj4+
+ICDCoCBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2ludGVsZmIvaW50ZWxmYl9pMmMuY8KgwqDCoMKgwqDC
+oMKgwqAgfMKgwqAgMTUgKysrKystLS0tLS0tLS0tDQo+Pj4+ICDCoCBkcml2ZXJzL3ZpZGVvL2Zi
+ZGV2L21hdHJveC9pMmMtbWF0cm94ZmIuY8KgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMTIgKysrKy0t
+LS0tLS0tDQo+Pj4+ICDCoCBkcml2ZXJzL3ZpZGVvL2ZiZGV2L3MzZmIuY8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRy
+aXZlcnMvdmlkZW8vZmJkZXYvdGRmeGZiLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0NCj4+Pj4gIMKgIGRyaXZlcnMvdmlkZW8vZmJkZXYvdHJp
+ZGVudGZiLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoCAxIC0N
+Cj4+Pj4gIMKgIGRyaXZlcnMvdmlkZW8vZmJkZXYvdmlhL3ZpYV9pMmMuY8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCBpbmNsdWRlL2xpbnV4L2ky
+Yy5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHzCoMKgwqAgMSAtDQo+Pj4+ICDCoCAzMSBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlv
+bnMoKyksIDQ3IGRlbGV0aW9ucygtKQ0KPj4+Pg0KPj4+DQo+Pg0KPiANCg0K
