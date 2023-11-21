@@ -1,66 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 303E07F2E15
-	for <lists+freedreno@lfdr.de>; Tue, 21 Nov 2023 14:14:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 066E17F338B
+	for <lists+freedreno@lfdr.de>; Tue, 21 Nov 2023 17:21:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D59F910E4A3;
-	Tue, 21 Nov 2023 13:14:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D34D810E505;
+	Tue, 21 Nov 2023 16:21:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A55410E4A3
- for <freedreno@lists.freedesktop.org>; Tue, 21 Nov 2023 13:14:40 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-5c9cdc78c37so21786797b3.3
- for <freedreno@lists.freedesktop.org>; Tue, 21 Nov 2023 05:14:40 -0800 (PST)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26DDA10E505;
+ Tue, 21 Nov 2023 16:21:52 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id
+ 41be03b00d2f7-5bd5809f63aso3292901a12.3; 
+ Tue, 21 Nov 2023 08:21:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700572479; x=1701177279; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T1FVx31ny1UIsUYTN0FvTESgACbfkRrXqAtlZm7hdMQ=;
- b=Ytrx9fDQbzeFZzfCAlzvoksPAzE4pujlCc1lxp4IH2wlB6fECjWPS17f93i2GyIft3
- Msp0woGBKyGFT/Ycti97AztjpP5tSuD8tAFA6Id/XgcMgicLI3b7Mi3T2kB+2NCysyiI
- 3AOLQPxOIZdpV2COq/rU4lfRKtOsQPtvXrIyuchIKKPbj8uwtyErkfZHvHqJm1BLM8UB
- bxpmEDbY2Fw7fEyJlRjmAFuS4++7V+zuzdqaTTtIWL3Lr7gyCFphH/jOVfa83Vm+k7Lx
- 0EISZo9232cseNpDgahHDthkPm9SZjcfy27HYiIFksuPvCu/9qJBED5JJFCTL2ReGxZP
- zkHQ==
+ d=gmail.com; s=20230601; t=1700583711; x=1701188511; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=KTFRsgH40UD7MzukJZyHOiKKI64hMJVUbzazPe+Qj2U=;
+ b=C1PoBxi9L5mv9K111An8CcnWsx++Ls5UELoRoCyT8XvnhPNTbSCbvsm20N7gZIWliQ
+ 4U/dfAPZIDmZXXMl5PnVUOS/5sBSmYzBVGo3wLUkTj6WXkxUHwgt154D2YM+4V4gl//b
+ ECgLygtyefP+9FsoPZ5WJmios9PUOh3svzHe+XzjRkWzQUjQQuS0VdwVyKpGj/y4k/Dk
+ uyB9ceAxtPxypgOkQi//TcNIVHNuSMhjfHgCy4CAq6RsJ78isleG6Cnx+obPqvahPW8V
+ vqihkkx6Z5kSwSsP7mii2rpFTLMxfmS8LI6VnIGrS27lKLsJOYOhU7ARs1XUee9DoCOP
+ pclQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700572479; x=1701177279;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=T1FVx31ny1UIsUYTN0FvTESgACbfkRrXqAtlZm7hdMQ=;
- b=xUkfFlmfozi+Y+lejadevjQfZRa0AP4fx20vgsxO+/eYb93EQmu2lHV7Ds5fy5ymdO
- WGMFcdYKr/3plEODqYH1K89fkmrDjEcsNoWQm8eY/H7qtK9Nej+r41M0Fh4GkhNIvvB1
- 7qAi7rwbY6D3dpcW/XENaUTNSlLZI/YltGU6wp4RbDWYfTZXa5MFR0Fm4yWAwmAlytDJ
- 7vvujz1agwPmNofyWefCtLzARr7VhC15gzb/7DCYtYpfFHNWiq73fqJgPajR833ifE8m
- OL20tbvuzc+e5yT5WJ3x2o1v6/7aOMSYmK/1cDIRhutENpXe1EphN//AFaKGEywto9z2
- ESjg==
-X-Gm-Message-State: AOJu0YyFxcm1eIxMVAdNgd1NK13GnZeqJLgNqT88aqHbBgZYKV+Dgzz1
- qwklhaAlRChvvk1HHXNmLhnU9cH4sV9hiNPI8ZzjSg==
-X-Google-Smtp-Source: AGHT+IGdy0glLtv5dcrxHz/dOPuR1DdG5UQYfnJPpwRpz2KnBMCt7ft48fu4aJhKTM32UX2jKzQNfexAUsNEH1vJArE=
-X-Received: by 2002:a81:5342:0:b0:5c8:d81d:763d with SMTP id
- h63-20020a815342000000b005c8d81d763dmr7840991ywb.44.1700572479464; Tue, 21
- Nov 2023 05:14:39 -0800 (PST)
+ d=1e100.net; s=20230601; t=1700583711; x=1701188511;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=KTFRsgH40UD7MzukJZyHOiKKI64hMJVUbzazPe+Qj2U=;
+ b=T+WBWr1TqyByqPXx65Syjs4HVb4QShSPsY8ntcl8E1nB1g6BdNlnouY1z4/OBB6vF/
+ 2FmtwzX1RjYxSQlqAUqr8y51hTMQQEyLqroRXDyVTMy6Q5NXS1Ydofz+aQ6SCGLNz+WO
+ QmB6HhSihWe/BQfZmSxDAyvR3gdSk3WVS4j0KfOrs5sTJf5iBg89UbMzb3shjL/wrDEr
+ 856f0mEorwTM8H6tt7ptgMOurnzdaaVqC9fk7IIAi7+e7DR7/7NLP/lw9nk59aLkRK8E
+ EtYeIvuLulDTnHlomcVZCXQVXFKyYJ0ugsepqyYRlsgAN0llrCL+ebI4RiQHH/XcNcri
+ 8VmQ==
+X-Gm-Message-State: AOJu0Yw9dHR2FyWJ0oD9dgMsrXCQGqbbEwMIt5O6n3N3coWMqW2th5BI
+ UrkK86TTrkYnkHsD77eiesjHV0ImshI=
+X-Google-Smtp-Source: AGHT+IGGtBENf9dS160s3wzmeIjVz/3q7r1rgfd53W48Vj7jDLdwxWWpKeJHhYrbHGCukPK/mmxSuA==
+X-Received: by 2002:a17:90a:19c:b0:280:4f82:68ac with SMTP id
+ 28-20020a17090a019c00b002804f8268acmr8403000pjc.24.1700583710574; 
+ Tue, 21 Nov 2023 08:21:50 -0800 (PST)
+Received: from localhost ([47.215.232.245]) by smtp.gmail.com with ESMTPSA id
+ t2-20020a17090aae0200b00274262bcf8dsm9306648pjq.41.2023.11.21.08.21.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Nov 2023 08:21:49 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 21 Nov 2023 08:21:34 -0800
+Message-ID: <20231121162137.60488-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-References: <20231115141928.429688-1-dipamt1729@gmail.com>
- <CAA8EJprqnUGQxmj4Y=qttVuj0zJxdD9B6neHa6sPseLLETpk5A@mail.gmail.com>
- <CALHmwsoC5h7_w9OzpUS_-xM6x5WF5V-vFExLEf4y99b2eCcqGQ@mail.gmail.com>
- <CAA8EJpoyC=paF1ZuznXgJAkT1fne0RwYfqJh-cdz0WLt02i+bw@mail.gmail.com>
- <CAF6AEGtdKD6-xA+AeZDXuKc+k4MnP8Ba4-12hHxt00bXLhJ7Eg@mail.gmail.com>
-In-Reply-To: <CAF6AEGtdKD6-xA+AeZDXuKc+k4MnP8Ba4-12hHxt00bXLhJ7Eg@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 21 Nov 2023 15:14:28 +0200
-Message-ID: <CAA8EJprj7F_K1zxnGdz1ReLNMR2CiYfRxWHUmudTZC+qjKA+kA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2] Remove custom dumb_map_offset
- implementation in msm driver
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/a690: Fix reg values for a690
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,163 +69,98 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Dipam Turkar <dipamt1729@gmail.com>,
- sean@poorly.run, quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- marijn.suijten@somainline.org, airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Danylo Piliaiev <dpiliaiev@igalia.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 21 Nov 2023 at 04:26, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Wed, Nov 15, 2023 at 11:33=E2=80=AFAM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Wed, 15 Nov 2023 at 20:46, Dipam Turkar <dipamt1729@gmail.com> wrote=
-:
-> > >
-> > > They are not outdated, my bad. I went through the locks' code and saw=
- that they have been updated. But they are probably not necessary here as m=
-ost of the drivers do not use any form of locking in their implementations.=
- The generic implementations drm_gem_dumb_map_offset() and drm_gem_ttm_dumb=
-_map_offset() do not have any locking mechanisms either.
-> >
-> > Excuse me, but this doesn't sound right to me. There are different
-> > drivers with different implementations. So either we'd need a good
-> > explanation of why it is not necessary, or this patch is NAKed.
->
-> Digging a bit thru history, it looks like commit 0de23977cfeb
-> ("drm/gem: convert to new unified vma manager") made external locking
-> unnecessary, since the vma mgr already had it's own internal locking.
+From: Danylo Piliaiev <dpiliaiev@igalia.com>
 
-So, should we drop our own locking system?
+KGSL doesn't support a690 so all reg values were the same as
+on a660. Now we know the values and they are different from the
+windows driver.
 
->
-> BR,
-> -R
->
-> > >
-> > > Thanks and regards
-> > > Dipam Turkar
-> > >
-> > > On Wed, Nov 15, 2023 at 8:37=E2=80=AFPM Dmitry Baryshkov <dmitry.bary=
-shkov@linaro.org> wrote:
-> > >>
-> > >> On Wed, 15 Nov 2023 at 16:30, Dipam Turkar <dipamt1729@gmail.com> wr=
-ote:
-> > >> >
-> > >> > Make msm use drm_gem_create_map_offset() instead of its custom
-> > >> > implementation for associating GEM object with a fake offset. Sinc=
-e,
-> > >> > we already have this generic implementation, we don't need the cus=
-tom
-> > >> > implementation and it is better to standardize the code for GEM ba=
-sed
-> > >> > drivers. This also removes the outdated locking leftovers.
-> > >>
-> > >> Why are they outdated?
-> > >>
-> > >> >
-> > >> > Signed-off-by: Dipam Turkar <dipamt1729@gmail.com>
-> > >> > ---
-> > >> >  drivers/gpu/drm/msm/msm_drv.c |  2 +-
-> > >> >  drivers/gpu/drm/msm/msm_gem.c | 21 ---------------------
-> > >> >  drivers/gpu/drm/msm/msm_gem.h |  2 --
-> > >> >  3 files changed, 1 insertion(+), 24 deletions(-)
-> > >> >
-> > >> > Changes in v2:
-> > >> > Modify commit message to include the absence of internal locking l=
-eftovers
-> > >> > around allocating a fake offset in msm_gem_mmap_offset() in the ge=
-neric
-> > >> > implementation drm_gem_create_map_offset().
-> > >> >
-> > >> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/m=
-sm_drv.c
-> > >> > index a428951ee539..86a15992c717 100644
-> > >> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > >> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > >> > @@ -1085,7 +1085,7 @@ static const struct drm_driver msm_driver =
-=3D {
-> > >> >         .open               =3D msm_open,
-> > >> >         .postclose          =3D msm_postclose,
-> > >> >         .dumb_create        =3D msm_gem_dumb_create,
-> > >> > -       .dumb_map_offset    =3D msm_gem_dumb_map_offset,
-> > >> > +       .dumb_map_offset    =3D drm_gem_dumb_map_offset,
-> > >> >         .gem_prime_import_sg_table =3D msm_gem_prime_import_sg_tab=
-le,
-> > >> >  #ifdef CONFIG_DEBUG_FS
-> > >> >         .debugfs_init       =3D msm_debugfs_init,
-> > >> > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/m=
-sm_gem.c
-> > >> > index db1e748daa75..489694ef79cb 100644
-> > >> > --- a/drivers/gpu/drm/msm/msm_gem.c
-> > >> > +++ b/drivers/gpu/drm/msm/msm_gem.c
-> > >> > @@ -671,27 +671,6 @@ int msm_gem_dumb_create(struct drm_file *file=
-, struct drm_device *dev,
-> > >> >                         MSM_BO_SCANOUT | MSM_BO_WC, &args->handle,=
- "dumb");
-> > >> >  }
-> > >> >
-> > >> > -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_dev=
-ice *dev,
-> > >> > -               uint32_t handle, uint64_t *offset)
-> > >> > -{
-> > >> > -       struct drm_gem_object *obj;
-> > >> > -       int ret =3D 0;
-> > >> > -
-> > >> > -       /* GEM does all our handle to object mapping */
-> > >> > -       obj =3D drm_gem_object_lookup(file, handle);
-> > >> > -       if (obj =3D=3D NULL) {
-> > >> > -               ret =3D -ENOENT;
-> > >> > -               goto fail;
-> > >> > -       }
-> > >> > -
-> > >> > -       *offset =3D msm_gem_mmap_offset(obj);
-> > >> > -
-> > >> > -       drm_gem_object_put(obj);
-> > >> > -
-> > >> > -fail:
-> > >> > -       return ret;
-> > >> > -}
-> > >> > -
-> > >> >  static void *get_vaddr(struct drm_gem_object *obj, unsigned madv)
-> > >> >  {
-> > >> >         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
-> > >> > diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/m=
-sm_gem.h
-> > >> > index 8ddef5443140..dc74a0ef865d 100644
-> > >> > --- a/drivers/gpu/drm/msm/msm_gem.h
-> > >> > +++ b/drivers/gpu/drm/msm/msm_gem.h
-> > >> > @@ -139,8 +139,6 @@ struct page **msm_gem_pin_pages(struct drm_gem=
-_object *obj);
-> > >> >  void msm_gem_unpin_pages(struct drm_gem_object *obj);
-> > >> >  int msm_gem_dumb_create(struct drm_file *file, struct drm_device =
-*dev,
-> > >> >                 struct drm_mode_create_dumb *args);
-> > >> > -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm_dev=
-ice *dev,
-> > >> > -               uint32_t handle, uint64_t *offset);
-> > >> >  void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj);
-> > >> >  void *msm_gem_get_vaddr(struct drm_gem_object *obj);
-> > >> >  void *msm_gem_get_vaddr_active(struct drm_gem_object *obj);
-> > >> > --
-> > >> > 2.34.1
-> > >> >
-> > >>
-> > >>
-> > >> --
-> > >> With best wishes
-> > >> Dmitry
-> >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+This fixes hangs on D3D12 games and some CTS tests.
 
+Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 8176ea8da7a7..75e1ea0404d3 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1326,6 +1326,7 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+ 		amsbc = 1;
+ 		rgb565_predicator = 1;
+ 		uavflagprd_inv = 2;
++		ubwc_mode = 2;
+ 	}
+ 
+ 	if (adreno_is_7c3(adreno_gpu)) {
+@@ -1741,7 +1742,9 @@ static int hw_init(struct msm_gpu *gpu)
+ 	/* Setting the primFifo thresholds default values,
+ 	 * and vccCacheSkipDis=1 bit (0x200) for A640 and newer
+ 	*/
+-	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu) || adreno_is_a690(adreno_gpu))
++	if (adreno_is_a690(adreno_gpu))
++		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00800200);
++	else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
+ 	else if (adreno_is_a640_family(adreno_gpu) || adreno_is_7c3(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
+@@ -1775,6 +1778,8 @@ static int hw_init(struct msm_gpu *gpu)
+ 	if (adreno_is_a730(adreno_gpu) ||
+ 	    adreno_is_a740_family(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0xcfffff);
++	else if (adreno_is_a690(adreno_gpu))
++		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x4fffff);
+ 	else if (adreno_is_a619(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3fffff);
+ 	else if (adreno_is_a610(adreno_gpu))
+@@ -1782,7 +1787,10 @@ static int hw_init(struct msm_gpu *gpu)
+ 	else
+ 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x1fffff);
+ 
+-	gpu_write(gpu, REG_A6XX_UCHE_CLIENT_PF, 1);
++	if (adreno_is_a690(adreno_gpu))
++		gpu_write(gpu, REG_A6XX_UCHE_CLIENT_PF, 0x81);
++	else
++		gpu_write(gpu, REG_A6XX_UCHE_CLIENT_PF, 1);
+ 
+ 	/* Set weights for bicubic filtering */
+ 	if (adreno_is_a650_family(adreno_gpu)) {
+@@ -1808,12 +1816,17 @@ static int hw_init(struct msm_gpu *gpu)
+ 	a6xx_set_cp_protect(gpu);
+ 
+ 	if (adreno_is_a660_family(adreno_gpu)) {
+-		gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x1);
++		if (adreno_is_a690(adreno_gpu))
++			gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x00028801);
++		else
++			gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x1);
+ 		gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x0);
+ 	}
+ 
++	if (adreno_is_a690(adreno_gpu))
++		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x90);
+ 	/* Set dualQ + disable afull for A660 GPU */
+-	if (adreno_is_a660(adreno_gpu))
++	else if (adreno_is_a660(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x66906);
+ 	else if (adreno_is_a7xx(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG,
+-- 
+2.42.0
 
---=20
-With best wishes
-Dmitry
