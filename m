@@ -2,69 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89B17F1F7A
-	for <lists+freedreno@lfdr.de>; Mon, 20 Nov 2023 22:46:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B3F7F2245
+	for <lists+freedreno@lfdr.de>; Tue, 21 Nov 2023 01:40:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC62B10E1F9;
-	Mon, 20 Nov 2023 21:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84F210E012;
+	Tue, 21 Nov 2023 00:40:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57E2410E1F4;
- Mon, 20 Nov 2023 21:46:42 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4083dbc43cfso16966675e9.3; 
- Mon, 20 Nov 2023 13:46:42 -0800 (PST)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA0E10E00B;
+ Tue, 21 Nov 2023 00:40:03 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1ce3084c2d1so42367565ad.3; 
+ Mon, 20 Nov 2023 16:40:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700516801; x=1701121601; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EQ/FEK2mYsIsrLAMj1ftUkEFHG7z/MaBn+ksqWZD4+o=;
- b=g2VGKZCHnM9MRIzFnsZO74hK3fBmdQCXooZU1YNvCMJsOqBDcyf42H1V8kUmhtjsRd
- KvivgzT4f9lv2Tf0fNUqBBo5PrZcS36IYeukbuiSpqalfnf1tL/PMrWzSOXNv98i2ZWS
- ofWerhdRyCY+yYvQTZNEVivjxPBGGBrRSbhO/CXDGfU0DY00Yli6Otf6PvCmiBJnrTP4
- IvyMitwqVuVKfHPq6mESIPq+BcxHubDmwkyU/D10uUDGA2k4Xd6OuP50uNhArUMFeOqy
- Mpjb/LkQiJTZLneTWkmeamaeBF+lIpZdqVFHGwgWUCtlSaFFVYgvrWAE69BLAT2V6Mck
- LlUg==
+ d=gmail.com; s=20230601; t=1700527203; x=1701132003; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bWNEMhZS/K0TJv2uoFh3uKzFoySYNwsIpa4bcavYV+M=;
+ b=UNIMvzUXuR88ShzjHhxLwBPY0k3sB/U/qIBadD+f3ycteOl+Itl7oqWznB894V07Tr
+ Yla2SqW4BHVx/TnbMt/ayVYMtoST1SfgrvdRzjzZDAM+9yHm9SAMn5TONN9ouoh0hY6I
+ 9CDC9Zyp8O3DLrQdn5V8wwVdl3GaeTpjdbwLSF0aeoQI4xW7WuWmpaLyY2eALcTWrxxf
+ XOUHdAHhNbY0iz6XDyeBhFFIuYuvn6eYxJwB4GniNkQ/drv9zjnmuv42UbyX8U8JMEX8
+ 7Kb+tNpMQ431p08tNHRQMLvCJmASGkIH2jGAV5PgakO5dxc7DX8culphs+91TY6JVzvz
+ +43Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700516801; x=1701121601;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EQ/FEK2mYsIsrLAMj1ftUkEFHG7z/MaBn+ksqWZD4+o=;
- b=v3NeBmzy9nLYjwT6FZWjl7D2blMkRZFoYB24ZvZqbGoPJ5HmMb+iQ3RF5KxaH/3gA6
- W7DC4I/Fx5vTPLZ9H1u1/IPDD0HIZ97504SD74hCpb4OY5EbNDbDaZ7ImubVzgMqWLf6
- RHIvTjEFyKl05XTXI7ObhGF04jn9oY8AofYM0zSqV8C+hcJwoNM1xTz51krzqqwFSocT
- cyMThxT6YC8bR0e5Ptkfl19OoHVLQ5MZQs45Xu+qkEC5dmuknfH1Zf6KCU4EcTIHWk95
- TdbmFuEZkJ9l2Aksh4T1vJYiH5KXqDVuzYLf/+Jqru5fQm5jdRprSr6vn0fp+mPT/2Md
- 7iew==
-X-Gm-Message-State: AOJu0Yy/XXdut0v6rVfP7U8sYXZ/9KZCZZ92BlmLUMhWq/7KjnUaEyJ7
- S/s1k41iUMKohNVMXIWaxOw=
-X-Google-Smtp-Source: AGHT+IEJmFFE3EHKXQ4RGWFBYumObm40aSlus52AgE+TXXlh+CCacbrX+eglWn0cbPoyet+nNAcCRg==
-X-Received: by 2002:a05:6000:4010:b0:332:c1da:4cca with SMTP id
- cp16-20020a056000401000b00332c1da4ccamr4845981wrb.14.1700516800595; 
- Mon, 20 Nov 2023 13:46:40 -0800 (PST)
-Received: from zotac.lan.
- (dynamic-2a02-3100-9030-5a00-2223-08ff-fe18-0310.310.pool.telefonica.de.
- [2a02:3100:9030:5a00:2223:8ff:fe18:310])
- by smtp.gmail.com with ESMTPSA id
- i13-20020a5d584d000000b00332cb0937f4sm2667052wrf.33.2023.11.20.13.46.39
+ d=1e100.net; s=20230601; t=1700527203; x=1701132003;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bWNEMhZS/K0TJv2uoFh3uKzFoySYNwsIpa4bcavYV+M=;
+ b=kzMuZotExaQ+qdaiIxAfYh6A1IXq/WmJou0tqabrMSFtuzxPS2P0tR6TXgEE4YgJBx
+ Ekybtzw5laHByB7MCj/fewFop0brCM79cickj/Zh0p7c3KfrgbOF2puXkN0EA1PBqNd8
+ H/k3YpJD4SovtUmzz3FTb2S+3ormoFEZq4uWE02DQy9NTbAD5EJs1dEyByT0KUFa/l5f
+ ySfJODzSn7h6fonhrnv9ewh8nMTwwrJu2YYK4/hr96ncXeacaD7KlzZJBwkJ8OUYfkSu
+ b24lqSWbrk7PXOHb1Y36Yx7fRaB685exEPJu+CNOF7Igm9SsGNnq+/U+x3rtJt5bJq/B
+ IjUg==
+X-Gm-Message-State: AOJu0YygpVR/nkE9W+8tktFu7h+V00l9p1QXXX1Pgj5cweVlyI/VuERt
+ SCLjrflgJmDagsAAQPHm0ta5n3xbP3A=
+X-Google-Smtp-Source: AGHT+IFXhiAAFyErJlqOO1DTQVYb7f74uon84kYLMLdTjeTRCnwI6JR3VAOwwCqryfnQrGSMB9oxFQ==
+X-Received: by 2002:a17:902:eccd:b0:1cf:54e1:8c8c with SMTP id
+ a13-20020a170902eccd00b001cf54e18c8cmr9016957plh.63.1700527202832; 
+ Mon, 20 Nov 2023 16:40:02 -0800 (PST)
+Received: from localhost ([47.215.232.245]) by smtp.gmail.com with ESMTPSA id
+ g3-20020a170902868300b001cc436e9806sm6636258plo.81.2023.11.20.16.40.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Nov 2023 13:46:40 -0800 (PST)
-From: Heiner Kallweit <hkallweit1@gmail.com>
-To: Wolfram Sang <wsa@kernel.org>,
-	Rob Clark <robdclark@gmail.com>
-Date: Mon, 20 Nov 2023 22:46:17 +0100
-Message-ID: <20231120214624.9378-15-hkallweit1@gmail.com>
-X-Mailer: git-send-email 2.42.1
-In-Reply-To: <20231120214624.9378-1-hkallweit1@gmail.com>
-References: <20231120214624.9378-1-hkallweit1@gmail.com>
+ Mon, 20 Nov 2023 16:40:02 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 20 Nov 2023 16:38:44 -0800
+Message-ID: <20231121003935.5868-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 14/20] drivers/gpu/drm/msm/hdmi/hdmi_i2c.c:
- remove I2C_CLASS_DDC support
+Subject: [Freedreno] [PATCH v2 0/7] drm/msm/gem: drm_exec conversion
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,40 +70,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Philip Yang <Philip.Yang@amd.com>,
+ "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
+ <nouveau@lists.freedesktop.org>, Lijo Lazar <lijo.lazar@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Arthur Grillo <arthurgrillo@riseup.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@chromium.org>,
+ Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
+ "open list:AMD KFD" <amd-gfx@lists.freedesktop.org>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>,
+ freedreno@lists.freedesktop.org,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Jack Xiao <Jack.Xiao@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Leo Liu <leo.liu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-Class-based device auto-detection is a legacy mechanism and shouldn't
-be used in new code. So we can remove this class completely now.
+From: Rob Clark <robdclark@chromium.org>
 
-Preferably this series should be applied via the i2c tree.
+Simplify the exec path (removing a legacy optimization) and convert to
+drm_exec.  One drm_exec patch to allow passing in the expected # of GEM
+objects to avoid re-allocation.
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+I'd be a bit happier if I could avoid the extra objects table allocation
+in drm_exec in the first place, but wasn't really happy with any of the
+things I tried to get rid of that.
 
----
- drivers/gpu/drm/msm/hdmi/hdmi_i2c.c |    1 -
- 1 file changed, 1 deletion(-)
+v2: updates in 6/7 and other nit-addressing
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
-index de182c004..7aa500d24 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_i2c.c
-@@ -249,7 +249,6 @@ struct i2c_adapter *msm_hdmi_i2c_init(struct hdmi *hdmi)
- 
- 
- 	i2c->owner = THIS_MODULE;
--	i2c->class = I2C_CLASS_DDC;
- 	snprintf(i2c->name, sizeof(i2c->name), "msm hdmi i2c");
- 	i2c->dev.parent = &hdmi->pdev->dev;
- 	i2c->algo = &msm_hdmi_i2c_algorithm;
+Rob Clark (7):
+  drm/msm/gem: Remove "valid" tracking
+  drm/msm/gem: Remove submit_unlock_unpin_bo()
+  drm/msm/gem: Don't queue job to sched in error cases
+  drm/msm/gem: Split out submit_unpin_objects() helper
+  drm/msm/gem: Cleanup submit_cleanup_bo()
+  drm/exec: Pass in initial # of objects
+  drm/msm/gem: Convert to drm_exec
+
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |   4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |   2 +-
+ drivers/gpu/drm/drm_exec.c                    |  13 +-
+ drivers/gpu/drm/msm/Kconfig                   |   1 +
+ drivers/gpu/drm/msm/msm_gem.h                 |  13 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c          | 199 +++++-------------
+ drivers/gpu/drm/msm/msm_ringbuffer.c          |   3 +-
+ drivers/gpu/drm/nouveau/nouveau_exec.c        |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c        |   2 +-
+ drivers/gpu/drm/tests/drm_exec_test.c         |  16 +-
+ include/drm/drm_exec.h                        |   2 +-
+ 16 files changed, 92 insertions(+), 187 deletions(-)
+
+-- 
+2.42.0
 
