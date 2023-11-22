@@ -1,33 +1,32 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 619347F52E8
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 21CD87F52E7
 	for <lists+freedreno@lfdr.de>; Wed, 22 Nov 2023 23:00:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D4C310E31F;
-	Wed, 22 Nov 2023 22:00:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F02310E31B;
+	Wed, 22 Nov 2023 22:00:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 380 seconds by postgrey-1.36 at gabe;
- Wed, 22 Nov 2023 16:09:32 UTC
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
- [95.215.58.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 502CA10E1A0
- for <freedreno@lists.freedesktop.org>; Wed, 22 Nov 2023 16:09:32 +0000 (UTC)
-Message-ID: <7a4a6698-0954-4225-82ff-02dd13bd64bb@linux.dev>
+Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com
+ [95.215.58.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42BAF10E0D4;
+ Wed, 22 Nov 2023 17:50:50 +0000 (UTC)
+Message-ID: <09a78110-99d7-44ca-8558-dd300c353632@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1700668987;
+ t=1700675447;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+zG0kaVtnpV1mCBkeYtmeeP9ZdCmJp4PqJOO3u62dFQ=;
- b=Cb8BhfpIktRns14fQSXGAH/4j/9ZYiiVeI8I9z+nO7gzTFtcGXMu7ls0oNR2YJKx3dqopS
- kazLRJ/Gmk4zy4RUqS+Bfu+O4a28AZIAHj/lyNDOukN7UuVL1h/70fkno9SLme+g82q0NQ
- AFF4KmSe4DaIFbOdt2IHFnBxsnsORP0=
-Date: Thu, 23 Nov 2023 00:02:51 +0800
+ bh=yOw+hHrA4r+TfdEE+WVDT6I3vzKD2GREfHEw4jCowto=;
+ b=NNY0P3nkEdXIvTFdZgaEspupWc3C0vtePf8nbykCdgIOtMGqvdds/UkMdKZrFnfRkqAJpa
+ yGRvRmyTeKle8rm7TxjZmNjkEsL4OYQ2TSRxg/KLwyB+510LT+j1uOjTAtigWzypkOzmnG
+ TtGHevd26yRWoajYzSxHzQSQVkcjYOc=
+Date: Thu, 23 Nov 2023 01:50:37 +0800
 MIME-Version: 1.0
+Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -38,19 +37,18 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20231103230414.1483428-1-dmitry.baryshkov@linaro.org>
-Content-Language: en-US
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Maxime Ripard <mripard@kernel.org>
+References: <20231103230414.1483428-2-dmitry.baryshkov@linaro.org>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <20231103230414.1483428-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231103230414.1483428-2-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 22 Nov 2023 22:00:46 +0000
-Subject: Re: [Freedreno] [PATCH v6 0/6] drm: simplify support for
- transparent DRM bridges
+Subject: Re: [Freedreno] [v6,1/6] drm/bridge: add transparent bridge helper
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,102 +71,276 @@ Hi,
 
 
 On 2023/11/4 07:03, Dmitry Baryshkov wrote:
-> Supporting DP/USB-C can result in a chain of several transparent
-> bridges (PHY, redrivers, mux, etc). All attempts to implement DP support
-> in a different way resulted either in series of hacks or in device tree
-> not reflecting the actual hardware design. This results in drivers
-> having similar boilerplate code for such bridges.
+> Define a helper for creating simple transparent bridges which serve the
+> only purpose of linking devices into the bridge chain up to the last
+> bridge representing the connector.
 
-Please improve the written,  "resulted" -> "yield" ?
+As far as I can tell, traditionally, transparent display bridges are
+used to refer to the hardware encoders which transform the video signals.
+Such as ADV7123/ADV7125(RGB888 to VGA), TFP410 (RGB888 to DVI) etc.
+Which can be used without the need of software configuration. TFP410
+is a little bit special, it can be configured by I2C interface, but
+TFP410 don't support read edid for the monitor. But at the least,
+there do has a corresponding *hardware entity* working in the chains.
+It is just that it don't need a driver to configure.
 
-> Next, these drivers are susceptible to -EPROBE_DEFER loops: the next
-> bridge can either be probed from the bridge->attach callback, when it is
-> too late to return -EPROBE_DEFER, or from the probe() callback, when the
-> next bridge might not yet be available, because it depends on the
-> resources provided by the probing device. Device links can not fully
-> solve this problem since there are mutual dependencies between adjancent
-> devices.
+Does the "simple transparent bridges" you created has a corresponding
+hardware entity? Are you trying to solve software side problems by
+abusing the device-driver model?
+
+I'm afraid that the written "simple transparent bridges" is not a
+accurate description if you don't really has a hardware entity to
+corresponding with. Because all of the classic drm display bridges
+are able to transform transfer/consume video(and/or audio) data.
+Well, the device you create just can't. Probably, you should call
+it as "simple auxiliary device".
+
+
+> This is especially useful for
+> DP/USB-C bridge chains, which can span across several devices, but do
+> not require any additional functionality from the intermediate bridges.
 >
-> Last, but not least, this results in the the internal knowledge of DRM
-
-There is a duplicated "the" word in this sentence.
-
-As far as I can understand, nearly all of those troubles are because the display bridges
-drivers are designed as a kernel module(.ko) instead of making them as static link-able
-helpers. I means that a display bridge device can not work standalone, as it have to be
-used with a display controller. So a display bridge is just a slave device or a auxiliary
-device. My question is: if it can't works by itself, we probably shouldn't design them as
-kernel modules style. Am I correct?
-
-> subsystem slowly diffusing into other subsystems, like PHY or USB/TYPEC.
-
-Yeah, this indeed a problem.
-
-> To solve all these issues, define a separate DRM helper, which creates
-> separate aux device just for the bridge.
-
-I'm supporting you if want to solve all these problems, this is fine and thanks a lot.
-But I want to ask a question, now that you are solving these problems by creating separate
-devices, does this manner match the hardware design perfectly? which is the hardware units
-you newly created device is corresponding to?
-
-
-> During probe such aux device
-> doesn't result in the EPROBE_DEFER loops. Instead it allows the device
-> drivers to probe properly, according to the actual resource
-> dependencies. The bridge auxdevs are then probed when the next bridge
-> becomes available, sparing drivers from drm_bridge_attach() returning
-> -EPROBE_DEFER.
-
-OK, as far as I can understand,  in order to solve the mentioned problem
-you are also retire the defer probe mechanism.
-
-
-> Changes since v5:
->   - Removed extra semicolon in !DRM_AUX_HPD_BRIDGE stubs definition.
->
-> Changes since v4:
->   - Added documentation for new API (Sima)
->   - Added generic code to handle "last mile" DP bridges implementing just
->     the HPD functionality.
->   - Rebased on top of linux-next to be able to drop #ifdef's around
->     drm_bridge->of_node
->
-> Changes since v3:
->   - Moved bridge driver to gpu/drm/bridge (Neil Armstrong)
->   - Renamed it to aux-bridge (since there is already a simple_bridge driver)
->   - Made CONFIG_OF mandatory for this driver (Neil Armstrong)
->   - Added missing kfree and ida_free (Dan Carpenter)
->
-> Changes since v2:
->   - ifdef'ed bridge->of_node access (LKP)
->
-> Changes since v1:
->   - Added EXPORT_SYMBOL_GPL / MODULE_LICENSE / etc. to drm_simple_bridge
->
-> Dmitry Baryshkov (6):
->    drm/bridge: add transparent bridge helper
->    phy: qcom: qmp-combo: switch to DRM_AUX_BRIDGE
->    usb: typec: nb7vpq904m: switch to DRM_AUX_BRIDGE
->    drm/bridge: implement generic DP HPD bridge
->    soc: qcom: pmic-glink: switch to DRM_AUX_HPD_BRIDGE
->    usb: typec: qcom-pmic-typec: switch to DRM_AUX_HPD_BRIDGE
->
->   drivers/gpu/drm/bridge/Kconfig                |  17 ++
->   drivers/gpu/drm/bridge/Makefile               |   2 +
->   drivers/gpu/drm/bridge/aux-bridge.c           | 140 +++++++++++++++
->   drivers/gpu/drm/bridge/aux-hpd-bridge.c       | 164 ++++++++++++++++++
->   drivers/phy/qualcomm/Kconfig                  |   2 +-
->   drivers/phy/qualcomm/phy-qcom-qmp-combo.c     |  44 +----
->   drivers/soc/qcom/Kconfig                      |   1 +
->   drivers/soc/qcom/pmic_glink_altmode.c         |  33 +---
->   drivers/usb/typec/mux/Kconfig                 |   2 +-
->   drivers/usb/typec/mux/nb7vpq904m.c            |  44 +----
->   drivers/usb/typec/tcpm/Kconfig                |   1 +
->   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c |  41 +----
->   include/drm/bridge/aux-bridge.h               |  37 ++++
->   13 files changed, 383 insertions(+), 145 deletions(-)
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>   drivers/gpu/drm/bridge/Kconfig      |   9 ++
+>   drivers/gpu/drm/bridge/Makefile     |   1 +
+>   drivers/gpu/drm/bridge/aux-bridge.c | 140 ++++++++++++++++++++++++++++
+>   include/drm/bridge/aux-bridge.h     |  19 ++++
+>   4 files changed, 169 insertions(+)
 >   create mode 100644 drivers/gpu/drm/bridge/aux-bridge.c
->   create mode 100644 drivers/gpu/drm/bridge/aux-hpd-bridge.c
 >   create mode 100644 include/drm/bridge/aux-bridge.h
 >
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> index ba82a1142adf..f12eab62799f 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -12,6 +12,15 @@ config DRM_PANEL_BRIDGE
+>   	help
+>   	  DRM bridge wrapper of DRM panels
+>   
+> +config DRM_AUX_BRIDGE
+> +	tristate
+> +	depends on DRM_BRIDGE && OF
+> +	select AUXILIARY_BUS
+> +	select DRM_PANEL_BRIDGE
+> +	help
+> +	  Simple transparent bridge that is used by several non-DRM drivers to
+> +	  build bridges chain.
+> +
+>   menu "Display Interface Bridges"
+>   	depends on DRM && DRM_BRIDGE
+>   
+> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+> index 2b892b7ed59e..918e3bfff079 100644
+> --- a/drivers/gpu/drm/bridge/Makefile
+> +++ b/drivers/gpu/drm/bridge/Makefile
+> @@ -1,4 +1,5 @@
+>   # SPDX-License-Identifier: GPL-2.0
+> +obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
+>   obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
+>   obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
+>   obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
+> diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
+> new file mode 100644
+> index 000000000000..6245976b8fef
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/aux-bridge.c
+> @@ -0,0 +1,140 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright (C) 2023 Linaro Ltd.
+> + *
+> + * Author: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> + */
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/module.h>
+> +
+> +#include <drm/drm_bridge.h>
+> +#include <drm/bridge/aux-bridge.h>
+> +
+> +static DEFINE_IDA(drm_aux_bridge_ida);
+> +
+> +static void drm_aux_bridge_release(struct device *dev)
+> +{
+> +	struct auxiliary_device *adev = to_auxiliary_dev(dev);
+> +
+> +	ida_free(&drm_aux_bridge_ida, adev->id);
+> +
+> +	kfree(adev);
+> +}
+> +
+> +static void drm_aux_bridge_unregister_adev(void *_adev)
+> +{
+> +	struct auxiliary_device *adev = _adev;
+
+It seems that the single underscore(prefix) at here is a little bit
+not good in looking, please replace it with 'void *data'.
+
+
+> +
+> +	auxiliary_device_delete(adev);
+> +	auxiliary_device_uninit(adev);
+> +}
+> +
+> +/**
+> + * drm_aux_bridge_register - Create a simple bridge device to link the chain
+> + * @parent: device instance providing this bridge
+> + *
+> + * Creates a simple DRM bridge that doesn't implement any drm_bridge
+> + * operations. Such bridges merely fill a place in the bridge chain linking
+> + * surrounding DRM bridges.
+> + *
+> + * Return: zero on success, negative error code on failure
+> + */
+> +int drm_aux_bridge_register(struct device *parent)
+> +{
+> +	struct auxiliary_device *adev;
+> +	int ret;
+> +
+> +	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+> +	if (!adev)
+> +		return -ENOMEM;
+> +
+> +	ret = ida_alloc(&drm_aux_bridge_ida, GFP_KERNEL);
+> +	if (ret < 0) {
+> +		kfree(adev);
+> +		return ret;
+> +	}
+> +
+> +	adev->id = ret;
+> +	adev->name = "aux_bridge";
+> +	adev->dev.parent = parent;
+> +	adev->dev.of_node = parent->of_node;
+> +	adev->dev.release = drm_aux_bridge_release;
+> +
+> +	ret = auxiliary_device_init(adev);
+> +	if (ret) {
+> +		ida_free(&drm_aux_bridge_ida, adev->id);
+> +		kfree(adev);
+> +		return ret;
+> +	}
+> +
+> +	ret = auxiliary_device_add(adev);
+> +	if (ret) {
+
+kfree(adev)
+
+> +		auxiliary_device_uninit(adev);
+> +		return ret;
+> +	}
+> +
+> +	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
+
+
+Yet still coupling. Since you choose to export this function symbol,
+then dose this means that the provided approach is still to solve the
+problem by allowing static linking? If so, sorry, I think this does
+not make a difference with my it66121 series.
+
+
+> +
+> +struct drm_aux_bridge_data {
+> +	struct drm_bridge bridge;
+> +	struct drm_bridge *next_bridge;
+> +	struct device *dev;
+> +};
+> +
+> +static int drm_aux_bridge_attach(struct drm_bridge *bridge,
+> +				    enum drm_bridge_attach_flags flags)
+> +{
+> +	struct drm_aux_bridge_data *data;
+> +
+> +	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
+> +		return -EINVAL;
+
+Does this flags really useful in practice?
+
+Since this bridge is a identity bridge, intend to be used on middle of the whole
+chain. Display controller drivers which this module work with should definitely
+set the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag. It is definitely a bug if not set.
+It should be found during code review stage, I mean that the enum drm_bridge_attach_flags
+is a compile-time thing, not a runtime thing anymore, Am I correct?
+  
+
+> +	data = container_of(bridge, struct drm_aux_bridge_data, bridge);
+> +
+> +	return drm_bridge_attach(bridge->encoder, data->next_bridge, bridge,
+> +				 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +}
+> +
+> +static const struct drm_bridge_funcs drm_aux_bridge_funcs = {
+> +	.attach	= drm_aux_bridge_attach,
+> +};
+> +
+> +static int drm_aux_bridge_probe(struct auxiliary_device *auxdev,
+> +				   const struct auxiliary_device_id *id)
+> +{
+> +	struct drm_aux_bridge_data *data;
+> +
+> +	data = devm_kzalloc(&auxdev->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->dev = &auxdev->dev;
+> +	data->next_bridge = devm_drm_of_get_bridge(&auxdev->dev, auxdev->dev.of_node, 0, 0);
+> +	if (IS_ERR(data->next_bridge))
+> +		return dev_err_probe(&auxdev->dev, PTR_ERR(data->next_bridge),
+> +				     "failed to acquire drm_bridge\n");
+> +
+> +	data->bridge.funcs = &drm_aux_bridge_funcs;
+> +	data->bridge.of_node = data->dev->of_node;
+> +
+> +	return devm_drm_bridge_add(data->dev, &data->bridge);
+> +}
+> +
+> +static const struct auxiliary_device_id drm_aux_bridge_table[] = {
+> +	{ .name = KBUILD_MODNAME ".aux_bridge" },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(auxiliary, drm_aux_bridge_table);
+> +
+> +static struct auxiliary_driver drm_aux_bridge_drv = {
+> +	.name = "aux_bridge",
+> +	.id_table = drm_aux_bridge_table,
+> +	.probe = drm_aux_bridge_probe,
+> +};
+> +module_auxiliary_driver(drm_aux_bridge_drv);
+
+
+Sorry, I don't understand. In effect, this is still works by export function symbol.
+Why the kernel module related stuff at here make sense in the end?
+Since we are a helper, why we deserve a driver? satisfy the component?
+
+
+> +
+> +MODULE_AUTHOR("Dmitry Baryshkov <dmitry.baryshkov@linaro.org>");
+> +MODULE_DESCRIPTION("DRM transparent bridge");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
+> new file mode 100644
+> index 000000000000..441ab3f0e920
+> --- /dev/null
+> +++ b/include/drm/bridge/aux-bridge.h
+> @@ -0,0 +1,19 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright (C) 2023 Linaro Ltd.
+> + *
+> + * Author: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> + */
+> +#ifndef DRM_AUX_BRIDGE_H
+> +#define DRM_AUX_BRIDGE_H
+> +
+> +#if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
+> +int drm_aux_bridge_register(struct device *parent);
+> +#else
+> +static inline int drm_aux_bridge_register(struct device *parent)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+> +#endif
