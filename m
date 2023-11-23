@@ -2,78 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 787C27F5294
-	for <lists+freedreno@lfdr.de>; Wed, 22 Nov 2023 22:31:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BFF47F58AC
+	for <lists+freedreno@lfdr.de>; Thu, 23 Nov 2023 07:57:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8532510E0E3;
-	Wed, 22 Nov 2023 21:31:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FDF10E6CE;
+	Thu, 23 Nov 2023 06:57:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1580 seconds by postgrey-1.36 at gabe;
- Wed, 22 Nov 2023 21:31:16 UTC
-Received: from fallback21.i.mail.ru (fallback21.i.mail.ru [79.137.243.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0461810E0E3;
- Wed, 22 Nov 2023 21:31:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com;
- s=mailru; 
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=jblfQLaXgN57NJdQHsW9Nwoj6gP8mAKnFa+pJM3/qeE=; 
- t=1700688676;x=1700778676; 
- b=I4ymifgTdKoyey6N62bi8ryMAuqmVaTzTSm/CT0aXVtNg2kl0vGN77/whsC/LkaAjtDgTqkHrkf/xgXaoNPSuhT3sDvCP3ej4x8zoWOxZNnzZOSA7xLnuIQZgKfaCPPH9RTZuHkGwwC6Fai7QAaoE0O+qclC0K0HgN8jtJ/bkt4=;
-Received: from [10.12.4.19] (port=52030 helo=smtp43.i.mail.ru)
- by fallback21.i.mail.ru with esmtp (envelope-from <danila@jiaxyga.com>)
- id 1r5uP0-000OZY-L6; Thu, 23 Nov 2023 00:04:54 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
- ; s=mailru;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To
- :Cc:Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive:X-Cloud-Ids:Disposition-Notification-To;
- bh=jblfQLaXgN57NJdQHsW9Nwoj6gP8mAKnFa+pJM3/qeE=; t=1700687094; x=1700777094; 
- b=hqrEwHolpOoPo/dkW79x+56p4PBtQVazew1OUW6OIPVAUslPCcLfnRyQNaUby3XuN/6iSF31KjW
- WptItnjSM8BP28fjKf8KhWH8htAB/PJ3fcEJGHbgNj53UYhYfp/jdPasKsLtiqlFPuVoRaMQHDSiv
- PEyUiyiUWi7zfO3MY2U=;
-Received: by smtp43.i.mail.ru with esmtpa (envelope-from <danila@jiaxyga.com>)
- id 1r5uOc-008zQK-2j; Thu, 23 Nov 2023 00:04:31 +0300
-Message-ID: <99ffd03f-b888-4222-939b-603c10f2307b@jiaxyga.com>
-Date: Thu, 23 Nov 2023 00:03:56 +0300
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25ED010E07A;
+ Thu, 23 Nov 2023 06:57:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A972F2192D;
+ Thu, 23 Nov 2023 06:56:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1700722619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+cyotAqL8AduDM5+Y4Kh5EBMjuBXnBF9LgA0c07VSx8=;
+ b=khMJDMZ73wZbWfp00ra0Z6efVYxQD/34+y1If9SLEjb3SE0lLgmaj3MW3iqWu2sGQxM852
+ 9iv7tId0W9hYPwGBcuhP9HOPS5W6oNg5GBvq7XNg5qIdp1rt3Om8nShqpS9BMYcf7A1iPs
+ I4RyuUmt8fZ7ehsjoJnaXePercV9OFM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1700722619;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+cyotAqL8AduDM5+Y4Kh5EBMjuBXnBF9LgA0c07VSx8=;
+ b=IwktbC3zvGYGDcAPkvoq16OUkmjP98Yln46qE2evYjUeKg8wA3oZMCnNsBCDGUjBO6TWbi
+ 9gkNZHdNNFTUurBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 32A74133B6;
+ Thu, 23 Nov 2023 06:56:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /aJ2C7v3XmX5XAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Nov 2023 06:56:59 +0000
+Message-ID: <4e0cc556-a7eb-48ce-8226-0f5281f3ef0a@suse.de>
+Date: Thu, 23 Nov 2023 07:56:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+References: <20231120214624.9378-1-hkallweit1@gmail.com>
 Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, daniel@ffwll.ch, johan+linaro@kernel.org,
- andersson@kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20230926174243.161422-1-danila@jiaxyga.com>
- <20230926174243.161422-2-danila@jiaxyga.com>
- <42a1d0ab-4e8d-461d-bb2c-977a793e52b2@linaro.org>
- <1695755445.902336096@f165.i.mail.ru>
- <84e63b82-4fef-416b-8dbe-3838ad788824@linaro.org>
- <c684d0a7-3336-48e3-9d2b-5c92f9132550@linaro.org>
- <f76637f9-8242-4258-932e-b879145a5cfd@linaro.org>
-From: Danila Tikhonov <danila@jiaxyga.com>
-In-Reply-To: <f76637f9-8242-4258-932e-b879145a5cfd@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailru-Src: smtp
-X-7564579A: EEAE043A70213CC8
-X-77F55803: 4F1203BC0FB41BD9FEA8E122FE2215F5F9A7F26A9461D4801668790ACF3513421867C24CE74E72BB5FE18E9CBFBE7C07241E1071E2B2D02006023B87ED3BEECD951DA7CF553926D1ACCB5262BB601CA2
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE701173C01F417A2A6EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637204D59D994DFFAD78638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8A85988B41A48817BB4090DA2F2DB256A117882F4460429724CE54428C33FAD305F5C1EE8F4F765FC8C7ADC89C2F0B2A5A471835C12D1D9774AD6D5ED66289B52BA9C0B312567BB23117882F446042972877693876707352033AC447995A7AD18E5D25F19253116ADD2E47CDBA5A96583BA9C0B312567BB2376E601842F6C81A19E625A9149C048EE140C956E756FBB7ABDB03A3F2A65D472D8FC6C240DEA76429C9F4D5AE37F343AA9539A8B242431040A6AB1C7CE11FEE3E753FA5741D1AD0203F1AB874ED89028C4224003CC836476E2F48590F00D11D6E2021AF6380DFAD1A18204E546F3947C1D471462564A2E192E808ACE2090B5E1725E5C173C3A84C3C5EA940A35A165FF2DBA43225CD8A89FD2A95C73FD1EFF45156CCFE7AF13BCA4B5C8C57E37DE458BEDA766A37F9254B7
-X-C1DE0DAB: 0D63561A33F958A558E0945AD6A1CE49C7D1B61F0E22AB3EDCD281A92BBA7DA0F87CCE6106E1FC07E67D4AC08A07B9B04E7D9683544204AFCB5012B2E24CD356
-X-C8649E89: 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CFD3107C73A4316D00DE5271C7D9B56E81DE88995E47143240567AF9FE9C99B2B0963129249CAA680A88AD3775A6B0C83443447918D0247561A0A6CFF861C8033909F6894F2AE002664C41F94D744909CE4BCAC77546666B612CC0CD5AA9A1B9887EE09F5AAA95A50543082AE146A756F3
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojGZhPsaRkbbk3fOmNk7fScw==
-X-Mailru-Sender: 9EB879F2C80682A09F26F806C73949813146EB258E4CBD74EB5277BAE3EB1823E9438CDA4132709F643683D8C0F3ED1CA3C71A376745D86BBE86167304C7680C3980CE5AAA35C7CD60F22E8815EDE5EAEAB4BC95F72C04283CDA0F3B3F5B9367
-X-Mras: Ok
-X-7564579A: 646B95376F6C166E
-X-77F55803: 6242723A09DB00B4C412E14AEF4742E1D915F33BAFA678CCA9926E5A99BFA133049FFFDB7839CE9E432D8BDF4FB0405F661F4097165CE4A672D8DF364A9363439C866DA6A8CBEA58
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5xhPKz0ZEsZ5k6NOOPWz5QAiZSCXKGQRq3/7KxbCLSB2ESzQkaOXqCBFZPLWFrEGlV1shfWe2EVcxl5toh0c/aCGOghz/frdRhzMe95NxDFdjNtV51DQSTDsvBazPo9aTw==
-X-Mailru-MI: C000000000000800
-X-Mras: Ok
-Subject: Re: [Freedreno] [PATCH v2 1/1] drm/msm/adreno: Add support for
- SM7150 SoC machine
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20231120214624.9378-1-hkallweit1@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vifXtZ8GAwM1Zi9nNGG8Dq4u"
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -3.79
+X-Spamd-Result: default: False [-3.79 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ XM_UA_NO_VERSION(0.01)[]; TO_DN_SOME(0.00)[];
+ HAS_ATTACHMENT(0.00)[]; MIME_BASE64_TEXT_BOGUS(1.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_BASE64_TEXT(0.10)[];
+ SIGNED_PGP(-2.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,kernel.org,lists.freedesktop.org];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+ MID_RHS_MATCH_FROM(0.00)[]; BAYES_HAM(-3.00)[100.00%];
+ ARC_NA(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
+ MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_TWELVE(0.00)[24]; FUZZY_BLOCKED(0.00)[rspamd.com];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ SUSPICIOUS_RECIPS(1.50)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org, gmail.com, kwiboo.se, ideasonboard.com,
+ lists.freedesktop.org, lists.infradead.org, redhat.com, lists.linux.dev,
+ poorly.run, somainline.org, hisilicon.com, linaro.org, google.com]
+X-Spam-Flag: NO
+Subject: Re: [Freedreno] [PATCH v4 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,78 +118,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Yongqin Liu <yongqin.liu@linaro.org>, freedreno@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ linux-mediatek@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-i2c@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-sc7180/sm7125 (atoll) expects speedbins from atoll.dtsi:
-And has a parameter: /delete-property/ qcom,gpu-speed-bin;
-107 for 504Mhz max freq, pwrlevel 4
-130 for 610Mhz max freq, pwrlevel 3
-159 for 750Mhz max freq, pwrlevel 5
-169 for 800Mhz max freq, pwrlevel 2
-174 for 825Mhz max freq, pwrlevel 1 (Downstream says 172, but thats 
-probably typo)
-For rest of the speed bins, speed-bin value is calulated as
-FMAX/4.8MHz + 2 round up to zero decimal places.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vifXtZ8GAwM1Zi9nNGG8Dq4u
+Content-Type: multipart/mixed; boundary="------------IiZwcTSMBVj1VO2fSGDyCS5o";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Heiner Kallweit <hkallweit1@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+ intel-gfx@lists.freedesktop.org
+Cc: linux-i2c@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
+ <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>
+Message-ID: <4e0cc556-a7eb-48ce-8226-0f5281f3ef0a@suse.de>
+Subject: Re: [PATCH v4 00/20] remove I2C_CLASS_DDC support
+References: <20231120214624.9378-1-hkallweit1@gmail.com>
+In-Reply-To: <20231120214624.9378-1-hkallweit1@gmail.com>
 
-sm7150 (sdmmagpie) expects speedbins from sdmmagpie-gpu.dtsi:
-128 for 610Mhz max freq, pwrlevel 3
-146 for 700Mhz max freq, pwrlevel 2
-167 for 800Mhz max freq, pwrlevel 4
-172 for 504Mhz max freq, pwrlevel 1
-For rest of the speed bins, speed-bin value is calulated as
-FMAX/4.8 MHz round up to zero decimal places.
+--------------IiZwcTSMBVj1VO2fSGDyCS5o
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Creating a new entry does not make much sense.
-I can suggest expanding the standard entry:
+SGkNCg0KQW0gMjAuMTEuMjMgdW0gMjI6NDYgc2NocmllYiBIZWluZXIgS2FsbHdlaXQ6DQo+
+IEFmdGVyIHJlbW92YWwgb2YgdGhlIGxlZ2FjeSBFRVBST00gZHJpdmVyIGFuZCBJMkNfQ0xB
+U1NfRERDIHN1cHBvcnQgaW4NCj4gb2xwY19kY29uIHRoZXJlJ3Mgbm8gaTJjIGNsaWVudCBk
+cml2ZXIgbGVmdCBzdXBwb3J0aW5nIEkyQ19DTEFTU19EREMuDQo+IENsYXNzLWJhc2VkIGRl
+dmljZSBhdXRvLWRldGVjdGlvbiBpcyBhIGxlZ2FjeSBtZWNoYW5pc20gYW5kIHNob3VsZG4n
+dA0KPiBiZSB1c2VkIGluIG5ldyBjb2RlLiBTbyB3ZSBjYW4gcmVtb3ZlIHRoaXMgY2xhc3Mg
+Y29tcGxldGVseSBub3cuDQo+IA0KPiBQcmVmZXJhYmx5IHRoaXMgc2VyaWVzIHNob3VsZCBi
+ZSBhcHBsaWVkIHZpYSB0aGUgaTJjIHRyZWUuDQo+IA0KPiB2MjoNCj4gLSBjaGFuZ2UgdGFn
+IGluIGNvbW1pdCBzdWJqZWN0IG9mIHBhdGNoIDAzDQo+IC0gYWRkIGFjayB0YWdzDQo+IHYz
+Og0KPiAtIGZpeCBhIGNvbXBpbGUgZXJyb3IgaW4gcGF0Y2ggNQ0KPiB2NDoNCj4gLSBtb3Jl
+IGFjayBhbmQgcmV2aWV3IHRhZ3MNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEhlaW5lciBLYWxs
+d2VpdCA8aGthbGx3ZWl0MUBnbWFpbC5jb20+DQoNCkFja2VkLWJ5OiBUaG9tYXMgWmltbWVy
+bWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCg0KZm9yIHRoZSBwYXRjaGVzIHRoYXQgZG9u
+J3QgYWxyZWFkeSBoYXZlIG15IHItYi4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KPiAN
+Cj4gLS0tDQo+IA0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pMmMu
+YyAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Fz
+dC9hc3RfaTJjLmMgICAgICAgICAgICAgICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jICAgICAgICAgfCAgICAxIC0NCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vZGlzcGxheS9kcm1fZHBfaGVscGVyLmMgICAgICAgICAgIHwg
+ICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Rpc3BsYXkvZHJtX2RwX21zdF90b3BvbG9n
+eS5jICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9nbWE1MDAvY2R2X2ludGVs
+X2RwLmMgICAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vZ21hNTAw
+L2ludGVsX2dtYnVzLmMgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL2dtYTUwMC9vYWt0cmFpbF9oZG1pX2kyYy5jICAgICAgICB8ICAgIDEgLQ0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9nbWE1MDAvcHNiX2ludGVsX3Nkdm8uYyAgICAgICAgICAgfCAgICAx
+IC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vaGlzaWxpY29uL2hpYm1jL2hpYm1jX2RybV9pMmMu
+YyAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9n
+bWJ1cy5jICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfc2R2by5jICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
+bG9vbmdzb24vbHNkY19pMmMuYyAgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVy
+cy9ncHUvZHJtL21lZGlhdGVrL210a19oZG1pX2RkYy5jICAgICAgICAgICB8ICAgIDEgLQ0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9tZ2FnMjAwL21nYWcyMDBfaTJjLmMgICAgICAgICAgICAg
+fCAgICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkvaGRtaV9pMmMuYyAgICAg
+ICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25f
+aTJjLmMgICAgICAgICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9yb2Nr
+Y2hpcC9pbm5vX2hkbWkuYyAgICAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL2dw
+dS9kcm0vcm9ja2NoaXAvcmszMDY2X2hkbWkuYyAgICAgICAgICAgIHwgICAgMSAtDQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjRpX2hkbWlfaTJjLmMgICAgICAgICAgICB8ICAg
+IDEgLQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYl9kZGMuYyAgICAgICAgICAg
+ICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL3ZpZGVvL2ZiZGV2L2N5YmVyMjAwMGZiLmMg
+ICAgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJpdmVycy92aWRlby9mYmRldi9pNzQw
+ZmIuYyAgICAgICAgICAgICAgICAgICAgICB8ICAgIDEgLQ0KPiAgIGRyaXZlcnMvdmlkZW8v
+ZmJkZXYvaW50ZWxmYi9pbnRlbGZiX2kyYy5jICAgICAgICAgfCAgIDE1ICsrKysrLS0tLS0t
+LS0tLQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvbWF0cm94L2kyYy1tYXRyb3hmYi5jICAg
+ICAgICAgfCAgIDEyICsrKystLS0tLS0tLQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvczNm
+Yi5jICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAxIC0NCj4gICBkcml2ZXJzL3ZpZGVv
+L2ZiZGV2L3RkZnhmYi5jICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgZHJp
+dmVycy92aWRlby9mYmRldi90cmlkZW50ZmIuYyAgICAgICAgICAgICAgICAgICB8ICAgIDEg
+LQ0KPiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvdmlhL3ZpYV9pMmMuYyAgICAgICAgICAgICAg
+ICAgfCAgICAxIC0NCj4gICBpbmNsdWRlL2xpbnV4L2kyYy5oICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHwgICAgMSAtDQo+ICAgMzEgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRp
+b25zKCspLCA0NyBkZWxldGlvbnMoLSkNCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3Jh
+cGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFu
+eSBHbWJIDQpGcmFua2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0K
+R0Y6IEl2byBUb3RldiwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4g
+TW9lcm1hbg0KSFJCIDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
 
-.speedbins = ADRENO_SPEEDBINS(
-     { 0, 0 },
-     /* sc7180/sm7125 */
-     { 107, 3 },
-     { 130, 4 },
-     { 159, 5 },
-     { 168, 1 }, has already
-     { 174, 2 }, has already
-     /* sm7150 */
-     { 128, 1 },
-     { 146, 2 },
-     { 167, 3 },
-     { 172, 4 }, ),
+--------------IiZwcTSMBVj1VO2fSGDyCS5o--
 
-All the best,
-Danila
+--------------vifXtZ8GAwM1Zi9nNGG8Dq4u
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-On 11/22/23 23:28, Konrad Dybcio wrote:
->
->
-> On 10/16/23 16:32, Dmitry Baryshkov wrote:
->> On 26/09/2023 23:03, Konrad Dybcio wrote:
->>> On 26.09.2023 21:10, Danila Tikhonov wrote:
->>>>
->>>> I think you mean by name downstream dt - sdmmagpie-gpu.dtsi
->>>>
->>>> You can see the forked version of the mainline here:
->>>> https://github.com/sm7150-mainline/linux/blob/next/arch/arm64/boot/dts/qcom/sm7150.dtsi 
->>>>
->>>>
->>>> All fdt that we got here, if it is useful for you:
->>>> https://github.com/sm7150-mainline/downstream-fdt
->>>>
->>>> Best wishes, Danila
->>> Taking a look at downstream, atoll.dtsi (SC7180) includes
->>> sdmmagpie-gpu.dtsi.
->>>
->>> Bottom line is, they share the speed bins, so it should be
->>> fine to just extend the existing entry.
->>
->> But then atoll.dtsi rewrites speed bins and pwrlevel bins. So they 
->> are not shared.
-> +Akhil
->
-> could you please check internally?
->
-> Konrad
+-----BEGIN PGP SIGNATURE-----
 
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmVe97oFAwAAAAAACgkQlh/E3EQov+BL
+pRAAofCcHzKlz7RbTPrrcEcKn9btAb4NPmvFo3wpV8ZrJ3GDqaCOYx1jnoYJqfjk6iFqXqHFEOr3
+lmzuzL/jCzE6gA1fAlP0Uc0Fm9AwJoCYYQ9x81EGKKuQUMXkwnYYVMk1VtTdW3t2OcEQqFT1Mr1f
+GNZIVtD5iwXyEWdFDtWHqEPIR3Mgqk2u5twaqkxYkQrp5W594ZJxRJqdSj3AQf6stCxwd8cqHyH+
+m39bh2zMwVNC8LUQZNe+7UUB3uJUypHhtrexw07YRzHgvCo57c4i6YT69MzMarbREhxElAf5mPON
+Rb46KLVyJaTH8KVgGISA8pCVXadJwdf5h9hmUXgwp9Z8mHn/z0oXOK2WtAelRdQvMx1nHnCG/MUd
+bTpRzPI9SNEkTL6Q2r+ieDugUOWy5V3b+1RTd5lkzwvSbZZFfbYuIFpfY+h0UQdOQ8EvuKfibCMX
+0/Tp/o5qF5AP6bR9JZmB4mrfom85fqTFZoJjaN6uOaXkdLr+KK4ZhxiUmIhhsYJwB1rd5+STruaO
+6TbfOCLe+q69FMzuNn+95fb/iur0BMuV5ZKgpnOAaffivnGuztF9pGpKZLbT+so3OAy7LaoxiunE
+9/GJEStgnV43QE84GnfkMDEsRKMGwFXfCJNWcVJG9pBrYiN8nA5SAb0rWJNCKLMPi4aZwc7bj9Mu
+KaA=
+=qc7l
+-----END PGP SIGNATURE-----
+
+--------------vifXtZ8GAwM1Zi9nNGG8Dq4u--
