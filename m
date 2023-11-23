@@ -2,71 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02F577F5DEA
-	for <lists+freedreno@lfdr.de>; Thu, 23 Nov 2023 12:37:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373577F68B1
+	for <lists+freedreno@lfdr.de>; Thu, 23 Nov 2023 22:33:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD0BC10E71E;
-	Thu, 23 Nov 2023 11:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F6910E194;
+	Thu, 23 Nov 2023 21:33:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8303A10E008
- for <freedreno@lists.freedesktop.org>; Thu, 23 Nov 2023 11:37:39 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-50aabfa1b75so989974e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 23 Nov 2023 03:37:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700739457; x=1701344257; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nm0hbEIAX6bA2MYwiGpkCXzOiz2e3i3AxzXDyzNcE4Q=;
- b=BXNeSYyJYbosjI0lnPzUYw58D0hTukHZDUMkF/oRmfRjOJWq9AYFoSSt2pEreWXpM3
- LSk/BEIhWVr6B/RMbELBxtqhGNrFir++ktlXSHazXCrdFU5rfbMvf1+LKYWM3DYzOKNE
- BRHx5G6b7EwO6+msNJhjCl+EMKDOTDWzmPHJJuFr2uwgm4SGbSXCbRK9RTTd6Z0+EAbX
- biHzfJreik3UmhVHnPdQ5jGvTEYlcdnD7FaWYpwIFx0MdIs6Z/Ikvwta4v7OWoHLz6CB
- arQKP60VLQNh78Syj0DaGfuwA0XR/VENUAWmhSfUdCG09V9mJi08rXlfAv9OTo3E0oxF
- s35g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700739457; x=1701344257;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nm0hbEIAX6bA2MYwiGpkCXzOiz2e3i3AxzXDyzNcE4Q=;
- b=n5YUGBWZ/+3gfFRx6h9jnrUSqcX3x8KJzbwSrjSIsRgoUMfkVTRo1AqeFdxwstqAMv
- zS8KxvaT1D/pM2LkWPYubRiC7buG6IaJwXPsV7+1NDiRkkgF3cSo8MyxP6ThciGlIgev
- PuWgXhLPr4lStvrUBMlasOPKwiu3yyfYCP1BWq/qnxmo/e6EwFBHARTjZxShAm515RAm
- O6Wd5efMPGwikGDGXjrgdUigLB1+5oLEE0TbFOTaUsXmW00vK4IUJArW025GnDB+1Des
- 6ZeYUgGlvXNUh93FxgQqHl5GvCoiVQvLQeADk6RYDvosE16nfX+LtoWFbP7MtB9zqv/i
- 9T3w==
-X-Gm-Message-State: AOJu0YzYJnSz1eBNgauSh1lOG7pooPTi2GsvAu4tLiw8HbKivgE1ibNH
- guIO5ElprG0kfYY4y4KvsX32wQ==
-X-Google-Smtp-Source: AGHT+IGVn/cRKB4SR5kspsiZK5lcGwtL1/UJAwGrszDITZYjaYkgwg7kZEfFdYmBBnxpyjbBVu+e8A==
-X-Received: by 2002:ac2:43a5:0:b0:500:daec:2817 with SMTP id
- t5-20020ac243a5000000b00500daec2817mr3796344lfl.54.1700739457263; 
- Thu, 23 Nov 2023 03:37:37 -0800 (PST)
-Received: from [172.30.204.221] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- x15-20020a056512078f00b00507a96d17b3sm167232lfr.237.2023.11.23.03.37.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 03:37:36 -0800 (PST)
-Message-ID: <70836806-5228-4b32-be97-f00a476bbe47@linaro.org>
-Date: Thu, 23 Nov 2023 12:37:33 +0100
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC41B10E194;
+ Thu, 23 Nov 2023 21:33:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A2BB36172F;
+ Thu, 23 Nov 2023 21:33:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BADBCC433C7;
+ Thu, 23 Nov 2023 21:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1700775224;
+ bh=nmgRXoCC/6bVdvvn+DsQpOtnPLlwkOcJBQD/gcvPILU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QX5gnL6JXj8vwBd2hjrgTWmiQNvpaIU3ub8DZJit9Gh0ljsPaGJPx49AWqTyKl4EA
+ MxLsTmaI0J08GfBbNmZjOMk5kO/qqeDp4cbPt3UIxlPrCxNX9Ybbo8D/5zN6YIT/c5
+ Hnj6bfqt1z0klQSfKgjf1u2TKv2FBCx5URjphkB83BntI5fFoPmHmoZCLyARPTWK6O
+ tphuxc8VElCdY2DqFnyhtojL941RLPd+x7YqE3ObFsb0vpG92ljXG0z8CMOuNRgrow
+ rasw3VtSw505b5SaknZkPzLjb2F1Etfd4VuPA9L3fLwdIadEeib6E5YIE9YSMXlWfX
+ 3WbVK/7XEz8bA==
+Date: Thu, 23 Nov 2023 22:33:41 +0100
+From: Wolfram Sang <wsa@kernel.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <ZV/FNWfw0jdXSglr@ninjato>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ John Stultz <jstultz@google.com>
+References: <20231123094040.592-1-hkallweit1@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kunwu Chan <chentao@kylinos.cn>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- jordan@cosmicpenguin.net
-References: <20231123033329.27477-1-chentao@kylinos.cn>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20231123033329.27477-1-chentao@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix null-pointer dereference
- in zap_shader_load_mdt
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="xLjxEuZaeN8xgDN1"
+Content-Disposition: inline
+In-Reply-To: <20231123094040.592-1-hkallweit1@gmail.com>
+Subject: Re: [Freedreno] [PATCH v5 00/20] remove I2C_CLASS_DDC support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,22 +69,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kunwu.chan@hotmail.com
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Jocelyn Falempe <jfalempe@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ John Stultz <jstultz@google.com>, freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+--xLjxEuZaeN8xgDN1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 11/23/23 04:33, Kunwu Chan wrote:
-> kasprintf() returns a pointer to dynamically allocated memory
-> which can be NULL upon failure. Ensure the allocation was successful
-> by checking the pointer validity.
-> 
-> Fixes: a9e2559c931d ("drm/msm/gpu: Move zap shader loading to adreno")
-> Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+On Thu, Nov 23, 2023 at 10:40:20AM +0100, Heiner Kallweit wrote:
+> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
+> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
+> Class-based device auto-detection is a legacy mechanism and shouldn't
+> be used in new code. So we can remove this class completely now.
+>=20
+> Preferably this series should be applied via the i2c tree.
+>=20
+> v2:
+> - change tag in commit subject of patch 03
+> - add ack tags
+> v3:
+> - fix a compile error in patch 5
+> v4:
+> - more ack and review tags
+> v5:
+> - more acks
+>=20
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 
-Konrad
+I created an immutable branch for this which the buildbots will
+hopefully check over night. I will reply with comments tomorrow when I
+got the buildbot results.
+
+
+--xLjxEuZaeN8xgDN1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmVfxTEACgkQFA3kzBSg
+KbarPBAAkN43LMGC9b1vpMsl5y6W1jnEMTjSF+7tzpFga/xsqL+jL9B/h0bO4NQ4
+ATDYno+0o6BwCEUeBSgYEs7/gNJHlWCq2SisLmhVXXOTzWZ09VRSPaXU49gXviog
+LZbTffK3ABbQSCBbzAhx6/Aog9BH2md1QBdbrCmkf/+i8OOhDUzPiyz6txmIimC2
+6YRBRpLdY1cnme1uvNPJv8GI8UYUgdrYeFQQd4qbPsz5WIzl5/MbMeev4jtUzXC0
+exE4jjPds5scEDyf7QdoeOsHRxZ5pGEu6/luiIhN+SFolyYWzX3Yun37Ac1WWmnR
+Wo97HN7iUlhAQVQ6phTbiVCp8HISNGiWkh/Z0/NoMPO21Vr4WV1/p4TX+5shPicc
+OhBT1NydXft0pPSmT0adOalbsEv4x4P3Oa0I6A+HQCea7Acsz5Ya1+AxY2LehDKz
+lyYnz7L0pcF+k3II/wqSeiK8CidamPnVPamCG+Df3F/NDBXEih9jaI23Hkjyp8xM
+7AO5GH/0ihgont0oYMIl6bAeK9BGrKOt0AM+fF0dC+byFDGxffRvFwYnPIqJfxCr
+6NKvDBM37nY4pHxbDu1b9iamk8WN3tpdrC/XZ8BxqKaciOF+w52ac/v4+znNeo2X
+J9U48VknVCyH0l1Fpph+/ukvqwpdWMVtk4GI2wgR7mdFp8c44Z8=
+=oQZk
+-----END PGP SIGNATURE-----
+
+--xLjxEuZaeN8xgDN1--
