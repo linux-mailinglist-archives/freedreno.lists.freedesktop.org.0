@@ -2,42 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7A37F7B80
-	for <lists+freedreno@lfdr.de>; Fri, 24 Nov 2023 19:05:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D57147F7DD7
+	for <lists+freedreno@lfdr.de>; Fri, 24 Nov 2023 19:27:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E398B10E20C;
-	Fri, 24 Nov 2023 18:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A05B10E371;
+	Fri, 24 Nov 2023 18:27:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C2410E20C
- for <freedreno@lists.freedesktop.org>; Fri, 24 Nov 2023 18:05:42 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC9DD10E371
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Nov 2023 18:27:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 80C7CB830E4;
- Fri, 24 Nov 2023 18:05:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66885C433C7;
- Fri, 24 Nov 2023 18:05:40 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 16E23B82DB7;
+ Fri, 24 Nov 2023 18:27:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE074C433C8;
+ Fri, 24 Nov 2023 18:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1700849140;
- bh=7gn0FXNzKrQDT6LRCYWKaem3vAud75VlTdIO6Jmyw3k=;
+ s=korg; t=1700850469;
+ bh=GNBBjODQIb2KqloBzYRl4FFdR5lyJyOuy0MFkIQECk8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=faYdgmB9wWTNOf1QU3ONvuiCUPP5rWT0UNOfFCffj9Opb1wdr1x9a7/9dSwS00KgT
- AQTNGNNPQb4oiJGO7o340M98xYo3pvpBNJWQKcN9WdZJ6YCFLund1IljUWx0Av7CX6
- dmev10ts3I5laO7AlrQ1TQYyFrMDmqdyQAZ7tXXo=
+ b=LPNWwE5E+4ZiGEWlF68f4ZnldWZj7iovyVK/+NUXSGrFPyvQBTnsy26/hqN18tgeX
+ xMpr+lmMf7MP3wDE8WjVwJlQa6wPe5LwC+2KnJeLApwMJhDj10naeZTUwoCj0mPTIz
+ YScq8ru9ihRV28YSxQN37p2MRqGbOna5ZTjdj3Uc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Fri, 24 Nov 2023 17:43:50 +0000
-Message-ID: <20231124172030.007562384@linuxfoundation.org>
+Date: Fri, 24 Nov 2023 17:44:58 +0000
+Message-ID: <20231124172026.517762782@linuxfoundation.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231124172028.107505484@linuxfoundation.org>
-References: <20231124172028.107505484@linuxfoundation.org>
+In-Reply-To: <20231124172024.664207345@linuxfoundation.org>
+References: <20231124172024.664207345@linuxfoundation.org>
 User-Agent: quilt/0.67
 X-stable: review
 X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 6.6 064/530] drm/msm/dp: skip validity check for
+Subject: [Freedreno] [PATCH 6.5 062/491] drm/msm/dp: skip validity check for
  DP CTS EDID checksum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,7 +62,7 @@ Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+6.5-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
