@@ -2,42 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38B827F8034
-	for <lists+freedreno@lfdr.de>; Fri, 24 Nov 2023 19:47:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD417F81DC
+	for <lists+freedreno@lfdr.de>; Fri, 24 Nov 2023 20:02:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0156910E373;
-	Fri, 24 Nov 2023 18:47:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E357110E374;
+	Fri, 24 Nov 2023 19:02:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2B1C10E373
- for <freedreno@lists.freedesktop.org>; Fri, 24 Nov 2023 18:47:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5230310E374
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Nov 2023 19:02:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id E863FB831C1;
- Fri, 24 Nov 2023 18:47:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1023C433C8;
- Fri, 24 Nov 2023 18:47:32 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 59E92B831F1;
+ Fri, 24 Nov 2023 19:02:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1A8C433C8;
+ Fri, 24 Nov 2023 19:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1700851653;
- bh=9Eur1v9Zeo/ycYYRJwAoCvrKqqnczaC69baPaW2eWyA=;
+ s=korg; t=1700852523;
+ bh=xSX0sPwff08dsrESNGOd4G9Ev6oqhwWl1ekYVtjbHmM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rPFUAg2XLzJOtIfenVPZsGJBrbMpHu/6rSpGUU9WcLi3JAgcCUda4uOvDxMQMw/pG
- zsYNtHEjpTER9/v1+N1o+ERK0u/G3hbG77xGBY6J3DHw+FQVO1FVm9LYjJFU0dKFp6
- puL5lgTt8HYbHlwktZJZg/TDUtUhHQmkSXGp5LtY=
+ b=lCPa/jPDx0/OkrYj+B9UHUKANkd7aAnNvvDcbsknCpueOW2NtFOPGDJcnAeHQNuG6
+ RoKjaM/2iVCjydo3pVnB2mDT7JUk+5kq3wqSA/ledoh4fNwz2M29VHtfI3NvphHbvk
+ IXsQDXbixpHL2JOLzHcpTJhJKiBvHy2hMaHfQpqE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Fri, 24 Nov 2023 17:47:09 +0000
-Message-ID: <20231124172011.887975634@linuxfoundation.org>
+Date: Fri, 24 Nov 2023 17:52:25 +0000
+Message-ID: <20231124171947.904413107@linuxfoundation.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231124172010.413667921@linuxfoundation.org>
-References: <20231124172010.413667921@linuxfoundation.org>
+In-Reply-To: <20231124171947.127438872@linuxfoundation.org>
+References: <20231124171947.127438872@linuxfoundation.org>
 User-Agent: quilt/0.67
 X-stable: review
 X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 6.1 042/372] drm/msm/dp: skip validity check for
- DP CTS EDID checksum
+Subject: [Freedreno] [PATCH 5.10 018/193] drm/msm/dp: skip validity check
+ for DP CTS EDID checksum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,7 +62,7 @@ Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -105,10 +105,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 5149cebc93f61..d38086650fcf7 100644
+index 4e8a19114e87d..93a2ee0f772fc 100644
 --- a/drivers/gpu/drm/msm/dp/dp_panel.c
 +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -266,26 +266,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+@@ -264,26 +264,9 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
  
  static u8 dp_panel_get_edid_checksum(struct edid *edid)
  {
