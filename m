@@ -1,62 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373577F68B1
-	for <lists+freedreno@lfdr.de>; Thu, 23 Nov 2023 22:33:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCBBB7F6BAC
+	for <lists+freedreno@lfdr.de>; Fri, 24 Nov 2023 06:28:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6F6910E194;
-	Thu, 23 Nov 2023 21:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B597210E33A;
+	Fri, 24 Nov 2023 05:28:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC41B10E194;
- Thu, 23 Nov 2023 21:33:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A2BB36172F;
- Thu, 23 Nov 2023 21:33:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BADBCC433C7;
- Thu, 23 Nov 2023 21:33:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1700775224;
- bh=nmgRXoCC/6bVdvvn+DsQpOtnPLlwkOcJBQD/gcvPILU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QX5gnL6JXj8vwBd2hjrgTWmiQNvpaIU3ub8DZJit9Gh0ljsPaGJPx49AWqTyKl4EA
- MxLsTmaI0J08GfBbNmZjOMk5kO/qqeDp4cbPt3UIxlPrCxNX9Ybbo8D/5zN6YIT/c5
- Hnj6bfqt1z0klQSfKgjf1u2TKv2FBCx5URjphkB83BntI5fFoPmHmoZCLyARPTWK6O
- tphuxc8VElCdY2DqFnyhtojL941RLPd+x7YqE3ObFsb0vpG92ljXG0z8CMOuNRgrow
- rasw3VtSw505b5SaknZkPzLjb2F1Etfd4VuPA9L3fLwdIadEeib6E5YIE9YSMXlWfX
- 3WbVK/7XEz8bA==
-Date: Thu, 23 Nov 2023 22:33:41 +0100
-From: Wolfram Sang <wsa@kernel.org>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <ZV/FNWfw0jdXSglr@ninjato>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- intel-gfx@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>, linux-sunxi@lists.linux.dev,
- linux-mediatek@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>,
- John Stultz <jstultz@google.com>
-References: <20231123094040.592-1-hkallweit1@gmail.com>
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED7010E33A;
+ Fri, 24 Nov 2023 05:28:10 +0000 (UTC)
+Received: by mail-qt1-x82f.google.com with SMTP id
+ d75a77b69052e-41c157bbd30so7814481cf.0; 
+ Thu, 23 Nov 2023 21:28:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700803689; x=1701408489; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=A+g/jSytR8KV47uGGJN5Pp83HT1uHDIXM+AadWQ9RdY=;
+ b=Hjtvu/wCnuH2LAdsVK1l28MbhgBZYe5waVgfD8tW9cofnyui5fsTD/fqb3Ib7slkFR
+ hNoXbEx2dDu7VV4TVEzC4qkabUV9Wewvq4QdCUYbtE6LusD0VSgK2fwRwbV47mGpAWxi
+ Yaa6+c++2PDqDaDhOeH+Tz/80CW6cTOx3MIjT/RjuRwnBrgE2bz3pEeD/PCGMx9A5O4l
+ e/9cqzEPrQvlb5RM7B2560QAcxOdjB3b5plG/juK75gSrD2PGnuRm0UjW3qSAPApq0vv
+ l+xkS8WIu/j6A0Lg2GBtFoIu29XChgO3uVY9QbKX/CGElxQqvHc0cvtgbpc8E9nVxmaM
+ a5yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700803689; x=1701408489;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=A+g/jSytR8KV47uGGJN5Pp83HT1uHDIXM+AadWQ9RdY=;
+ b=AswvWPI+27MuP4j0cx1Ib4tFIza5BnK60xeKNWtC8Ln/Fmn886J1IawM00rH/vgAK9
+ ggg80NfgXj/o0VOeiFpjE+F5eSr66GNgSMKr497zYeg5+D36sdUaabNU1El/J6PncEPk
+ iZ/PZ2W0eu/4UCYHix2QFF/poyyLkfyfRVPmgMSqANnzXy217GsIJ5m/2TRT3qPxy0cT
+ tBfZD55ctT2st+zP+hPnTVo+CsQJYo6bVeSecEAxU7xMSNu8u7Ne6//tYKlr3sxbWTZ4
+ gTSTdg5x54uHGV7/y9hySQLQoJSdijRGWIJxGB9/+oVeTQvGw6ZDNUJPn28L2il0Fbra
+ kbEQ==
+X-Gm-Message-State: AOJu0YwzF48cCcvaRvp9VLW/bK0XLfQj180TsoDa6zZzujKeqOxW5zmj
+ d1H7spbP7fmALqcMdIn7rqa7Yv3ppETTEg==
+X-Google-Smtp-Source: AGHT+IGm+xtyokx8k4hy+Buxm8YsDEwOmKBEc5pdNoy78fxzknvd/uWSJkc4U3i0/iWZVl1V2Y3C7w==
+X-Received: by 2002:ac8:7c4b:0:b0:412:309f:c0fa with SMTP id
+ o11-20020ac87c4b000000b00412309fc0famr2158332qtv.64.1700803689185; 
+ Thu, 23 Nov 2023 21:28:09 -0800 (PST)
+Received: from localhost.localdomain ([76.65.20.140])
+ by smtp.gmail.com with ESMTPSA id
+ g11-20020ac842cb000000b004181c32dcc3sm1017819qtm.16.2023.11.23.21.28.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Nov 2023 21:28:08 -0800 (PST)
+From: Luben Tuikov <ltuikov89@gmail.com>
+To: Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>
+Date: Fri, 24 Nov 2023 00:27:53 -0500
+Message-ID: <20231124052752.6915-4-ltuikov89@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xLjxEuZaeN8xgDN1"
-Content-Disposition: inline
-In-Reply-To: <20231123094040.592-1-hkallweit1@gmail.com>
-Subject: Re: [Freedreno] [PATCH v5 00/20] remove I2C_CLASS_DDC support
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/2] Make scheduling of the same index, the same
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,72 +72,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- Jocelyn Falempe <jfalempe@redhat.com>, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- John Stultz <jstultz@google.com>, freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Luben Tuikov <ltuikov89@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Rob Clark <robdclark@gmail.com>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The first patch renames priority MIN to LOW.
 
---xLjxEuZaeN8xgDN1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The second patch makes the "priority" of the same run-queue index in any two
+schedulers, the same.
 
-On Thu, Nov 23, 2023 at 10:40:20AM +0100, Heiner Kallweit wrote:
-> After removal of the legacy EEPROM driver and I2C_CLASS_DDC support in
-> olpc_dcon there's no i2c client driver left supporting I2C_CLASS_DDC.
-> Class-based device auto-detection is a legacy mechanism and shouldn't
-> be used in new code. So we can remove this class completely now.
->=20
-> Preferably this series should be applied via the i2c tree.
->=20
-> v2:
-> - change tag in commit subject of patch 03
-> - add ack tags
-> v3:
-> - fix a compile error in patch 5
-> v4:
-> - more ack and review tags
-> v5:
-> - more acks
->=20
-> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+This series sits on top on this fix
+https://patchwork.freedesktop.org/patch/568723/ which I sent yesterday.
 
-I created an immutable branch for this which the buildbots will
-hopefully check over night. I will reply with comments tomorrow when I
-got the buildbot results.
+Luben Tuikov (2):
+  drm/sched: Rename priority MIN to LOW
+  drm/sched: Reverse run-queue priority enumeration
 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c  |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  2 +-
+ drivers/gpu/drm/msm/msm_gpu.h            |  2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c |  7 ++++---
+ drivers/gpu/drm/scheduler/sched_main.c   | 15 +++++++--------
+ include/drm/gpu_scheduler.h              |  6 +++---
+ 6 files changed, 18 insertions(+), 18 deletions(-)
 
---xLjxEuZaeN8xgDN1
-Content-Type: application/pgp-signature; name="signature.asc"
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Danilo Krummrich <dakr@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 
------BEGIN PGP SIGNATURE-----
+base-commit: e4d983acffff270ccee417445a69b9ed198658b1
+prerequisite-patch-id: d0fec7c91768937b5e22ce9508017e5b9d462000
+-- 
+2.43.0
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmVfxTEACgkQFA3kzBSg
-KbarPBAAkN43LMGC9b1vpMsl5y6W1jnEMTjSF+7tzpFga/xsqL+jL9B/h0bO4NQ4
-ATDYno+0o6BwCEUeBSgYEs7/gNJHlWCq2SisLmhVXXOTzWZ09VRSPaXU49gXviog
-LZbTffK3ABbQSCBbzAhx6/Aog9BH2md1QBdbrCmkf/+i8OOhDUzPiyz6txmIimC2
-6YRBRpLdY1cnme1uvNPJv8GI8UYUgdrYeFQQd4qbPsz5WIzl5/MbMeev4jtUzXC0
-exE4jjPds5scEDyf7QdoeOsHRxZ5pGEu6/luiIhN+SFolyYWzX3Yun37Ac1WWmnR
-Wo97HN7iUlhAQVQ6phTbiVCp8HISNGiWkh/Z0/NoMPO21Vr4WV1/p4TX+5shPicc
-OhBT1NydXft0pPSmT0adOalbsEv4x4P3Oa0I6A+HQCea7Acsz5Ya1+AxY2LehDKz
-lyYnz7L0pcF+k3II/wqSeiK8CidamPnVPamCG+Df3F/NDBXEih9jaI23Hkjyp8xM
-7AO5GH/0ihgont0oYMIl6bAeK9BGrKOt0AM+fF0dC+byFDGxffRvFwYnPIqJfxCr
-6NKvDBM37nY4pHxbDu1b9iamk8WN3tpdrC/XZ8BxqKaciOF+w52ac/v4+znNeo2X
-J9U48VknVCyH0l1Fpph+/ukvqwpdWMVtk4GI2wgR7mdFp8c44Z8=
-=oQZk
------END PGP SIGNATURE-----
-
---xLjxEuZaeN8xgDN1--
