@@ -1,66 +1,106 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1E97F8DBD
-	for <lists+freedreno@lfdr.de>; Sat, 25 Nov 2023 20:12:21 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7072E7F8FB4
+	for <lists+freedreno@lfdr.de>; Sat, 25 Nov 2023 23:19:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B0510E038;
-	Sat, 25 Nov 2023 19:12:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 303F310E05A;
+	Sat, 25 Nov 2023 22:19:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2208210E038;
- Sat, 25 Nov 2023 19:12:09 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id
- e9e14a558f8ab-35c690f6e00so5044905ab.1; 
- Sat, 25 Nov 2023 11:12:09 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E4B10E05B
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Nov 2023 22:19:45 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-50baa3e5c00so921812e87.1
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Nov 2023 14:19:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700939527; x=1701544327; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=InO944iGhkpnbZZ89M4jhM8BqOJsrw18SbpUTux2+2c=;
- b=UpypIZ7DjOF2B4XOpQpbeAhOKNkhss7c5pR6UBTZ7g/vk1E689eQAHl4FmsBd5yNhv
- m6qxLSfPAoj3GrUNJnF0C03ZFW3UwDk+iv+YOREvG4T4kogM42Gqnjyh+nWQR85B2wd2
- /2qCMu9MnWVgthigBh5P/xd1FmXfjew60Pk+kilCuYcggz0j8Y+qU4KYQb/cx8KcFviw
- zRfoP+Syse1ZI1NEvnDiYXzUQmYylIqy7inaEUIApj1cwFUneoupwE5OsV9DuOWEna5g
- oRRTVB1b5m6XP0TbXgimTkhTtJxh96M6BwXlzerFj9CFf5f+6flXyG0ObUDfnAWkcetx
- 4rqw==
+ d=linaro.org; s=google; t=1700950784; x=1701555584; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=q6SbKdQ7lQXf9800oYBDr332T2f2/hW1NVqkx7+W38M=;
+ b=VuJAJAn1NIkGRe3KGTqsmbIfo4mtcmNxY6b+3dnTADVmxhW6lEpvou900hWEa4QhiV
+ pe/8YUF8E1Z4FiTD/a/BJnfqnPpLaz3gV9RU4x9IiQOVmr1icV5bihwoCw0hAdZ3sl60
+ ucSjuhTmb/XisSPTnBi6tEENQKoVTiUpsQBTKNTpYLYazVAFBtgS+FH1RH/3jhuvRvz4
+ kNGyPN25LzkejxbdYh5b2dU/9sJNTt0xQ9nnE9lhqfG77psd52UY/ivfWV1ZhA5vJKmh
+ W4nT8LP89s9e9eMC48R/qkx2XWV7Ss9E7rxS3w9SHEKd9OIOSvgV/grBSL4P+jgF3kTf
+ k/oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700939527; x=1701544327;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=InO944iGhkpnbZZ89M4jhM8BqOJsrw18SbpUTux2+2c=;
- b=h8gHC/ktoJXV2NbvjYzU0RXofb5BHGuBhXWJqPwbOQcmuBYz4hA61XH8Zpx6O//39n
- oMD2Lxs1X6yXMdMPqEDIb0HzAqIq2lmLxZ/ow7wPh9WjQDqNyuZdk/0jRF2CkvwD3l3N
- MLGCB8/zIeI6L+VwnVil/xHk35LlzvYec2cl1nzz3rKIB/oCRE7p4skZm1ZVhdAb3fnN
- q6EFvg0ERlQxNlQW3CShq/JnLXNwkyE7/889ZJf63f2Ak2CrZIZpouLeZzDLDBYV5w3k
- EvTdJu/qSrRpSnWivpfLgp/1lpkeaRGvpnjyJv0M8Z/IAVlt/WDyDcKdjB3hlo4HhVZq
- 6S5w==
-X-Gm-Message-State: AOJu0Yy8Kavj5q/70IoJtgwr9wpreiY4qB2R5wDiPSUzWWFN44d8+gXf
- UWIr42sy5mkJUFQfWUZQlx1UQFFVJ7U=
-X-Google-Smtp-Source: AGHT+IFwE/dHHJzHe6umOUV9J8rWksNeOz/QBwxeptGGIiqOaT/t/oac6tTFX63Ey8kBhnkhJUYKeA==
-X-Received: by 2002:a05:6e02:2142:b0:35c:9577:dee with SMTP id
- d2-20020a056e02214200b0035c95770deemr2672154ilv.1.1700939527119; 
- Sat, 25 Nov 2023 11:12:07 -0800 (PST)
-Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
+ d=1e100.net; s=20230601; t=1700950784; x=1701555584;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=q6SbKdQ7lQXf9800oYBDr332T2f2/hW1NVqkx7+W38M=;
+ b=dR0QEwbBEqCL3sxxs68IFkK+8pVnBN8UQHsNGjGQA9YxdjC0HtBTgfju/kCQP0rC+q
+ 9PIVQg5qtb3XQ2C9PYTI6YxnWxv/cHD8eGgRYOg18IGsS5eKpEElAFNjuomO9rKAervk
+ y8WlumW3kx014qQEBuNrLRNV+fuvCXo6xO10CyUuuO48y8n77fsWQZTflEEgId2CLQvC
+ UMxPE3Nv+71jgtASg2SSoWMfll+LGWMGl9jmz7Stslr3qeSdQ/hu44o7Q6Wemscohsq6
+ OVAv2azJHpx/z/p6yN53YUxP3nj/XeBQUZ5+it85iDA+rpOoHiPlC7xPXnq1r91NcV1a
+ 27vw==
+X-Gm-Message-State: AOJu0Yzp2o8t2EPsyFMgNJ/0d1U3EeUz7ozjhlwQT1rLKkvfwm9NrOlX
+ dkfYeD4N2U6iMeupIicR6DqwbQ==
+X-Google-Smtp-Source: AGHT+IHB4Ys5BBphGeNYSrirD0ZD/Br3ORRKCYPNfcsXTRgYRuytxPTCZDF8V/vxxlgYwR8m8BmhNA==
+X-Received: by 2002:ac2:4e08:0:b0:50b:ab5e:2083 with SMTP id
+ e8-20020ac24e08000000b0050bab5e2083mr1490504lfr.21.1700950783900; 
+ Sat, 25 Nov 2023 14:19:43 -0800 (PST)
+Received: from [192.168.201.100]
+ (178235187180.dynamic-4-waw-k-2-3-0.vectranet.pl. [178.235.187.180])
  by smtp.gmail.com with ESMTPSA id
- d25-20020aa78159000000b006cbae51f335sm4817092pfn.144.2023.11.25.11.12.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Nov 2023 11:12:06 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 25 Nov 2023 11:11:51 -0800
-Message-ID: <20231125191155.5375-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231121162137.60488-1-robdclark@gmail.com>
-References: <20231121162137.60488-1-robdclark@gmail.com>
+ r12-20020aa7cb8c000000b0053deb97e8e6sm3461236edt.28.2023.11.25.14.19.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 25 Nov 2023 14:19:43 -0800 (PST)
+Message-ID: <fc91cbb2-2c80-4467-873b-24d5ed606dd9@linaro.org>
+Date: Sat, 25 Nov 2023 23:19:41 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/a690: Fix reg values for a690
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20231121162137.60488-1-robdclark@gmail.com>
+ <20231125191155.5375-1-robdclark@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20231125191155.5375-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/a6xx: Add missing BIT(7) to
+ REG_A6XX_UCHE_CLIENT_PF
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,12 +114,10 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, Danylo Piliaiev <dpiliaiev@igalia.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
@@ -87,86 +125,18 @@ Cc: Rob Clark <robdclark@chromium.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Danylo Piliaiev <dpiliaiev@igalia.com>
+On 25.11.2023 20:11, Rob Clark wrote:
+> From: Danylo Piliaiev <dpiliaiev@igalia.com>
+> 
+> Downstream always set BIT(7)
+> 
+> Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+FWIW this was only introduced in:
 
-KGSL doesn't support a690 so all reg values were the same as
-on a660. Now we know the values and they are different from the
-windows driver.
+https://git.codelinaro.org/clo/la/platform/vendor/qcom/opensource/graphics-kernel/-/commit/704575ac510a6de3ae7813a851c942d19fbcb20d
 
-This fixes hangs on D3D12 games and some CTS tests.
+(around msm-5.15 / sm8550)
 
-Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index d10b22eeda74..7784d7d39192 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1312,6 +1312,7 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
- 
- 	if (adreno_is_a650(adreno_gpu) ||
- 	    adreno_is_a660(adreno_gpu) ||
-+	    adreno_is_a690(adreno_gpu) ||
- 	    adreno_is_a730(adreno_gpu) ||
- 	    adreno_is_a740_family(adreno_gpu)) {
- 		/* TODO: get ddr type from bootloader and use 2 for LPDDR4 */
-@@ -1321,13 +1322,6 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
- 		uavflagprd_inv = 2;
- 	}
- 
--	if (adreno_is_a690(adreno_gpu)) {
--		hbb_lo = 2;
--		amsbc = 1;
--		rgb565_predicator = 1;
--		uavflagprd_inv = 2;
--	}
--
- 	if (adreno_is_7c3(adreno_gpu)) {
- 		hbb_lo = 1;
- 		amsbc = 1;
-@@ -1741,7 +1735,9 @@ static int hw_init(struct msm_gpu *gpu)
- 	/* Setting the primFifo thresholds default values,
- 	 * and vccCacheSkipDis=1 bit (0x200) for A640 and newer
- 	*/
--	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu) || adreno_is_a690(adreno_gpu))
-+	if (adreno_is_a690(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00800200);
-+	else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
- 	else if (adreno_is_a640_family(adreno_gpu) || adreno_is_7c3(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
-@@ -1775,6 +1771,8 @@ static int hw_init(struct msm_gpu *gpu)
- 	if (adreno_is_a730(adreno_gpu) ||
- 	    adreno_is_a740_family(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0xcfffff);
-+	else if (adreno_is_a690(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x4fffff);
- 	else if (adreno_is_a619(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x3fffff);
- 	else if (adreno_is_a610(adreno_gpu))
-@@ -1808,12 +1806,17 @@ static int hw_init(struct msm_gpu *gpu)
- 	a6xx_set_cp_protect(gpu);
- 
- 	if (adreno_is_a660_family(adreno_gpu)) {
--		gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x1);
-+		if (adreno_is_a690(adreno_gpu))
-+			gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x00028801);
-+		else
-+			gpu_write(gpu, REG_A6XX_CP_CHICKEN_DBG, 0x1);
- 		gpu_write(gpu, REG_A6XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x0);
- 	}
- 
-+	if (adreno_is_a690(adreno_gpu))
-+		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x90);
- 	/* Set dualQ + disable afull for A660 GPU */
--	if (adreno_is_a660(adreno_gpu))
-+	else if (adreno_is_a660(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x66906);
- 	else if (adreno_is_a7xx(adreno_gpu))
- 		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG,
--- 
-2.42.0
-
+Konrad
