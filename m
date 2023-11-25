@@ -1,65 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7072E7F8FB4
-	for <lists+freedreno@lfdr.de>; Sat, 25 Nov 2023 23:19:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A5CEC7F8FB7
+	for <lists+freedreno@lfdr.de>; Sat, 25 Nov 2023 23:20:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 303F310E05A;
-	Sat, 25 Nov 2023 22:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5696110E05E;
+	Sat, 25 Nov 2023 22:20:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E4B10E05B
- for <freedreno@lists.freedesktop.org>; Sat, 25 Nov 2023 22:19:45 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-50baa3e5c00so921812e87.1
- for <freedreno@lists.freedesktop.org>; Sat, 25 Nov 2023 14:19:45 -0800 (PST)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3D3510E05E
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Nov 2023 22:20:53 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-54b0310f536so2827161a12.0
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Nov 2023 14:20:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700950784; x=1701555584; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1700950852; x=1701555652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=q6SbKdQ7lQXf9800oYBDr332T2f2/hW1NVqkx7+W38M=;
- b=VuJAJAn1NIkGRe3KGTqsmbIfo4mtcmNxY6b+3dnTADVmxhW6lEpvou900hWEa4QhiV
- pe/8YUF8E1Z4FiTD/a/BJnfqnPpLaz3gV9RU4x9IiQOVmr1icV5bihwoCw0hAdZ3sl60
- ucSjuhTmb/XisSPTnBi6tEENQKoVTiUpsQBTKNTpYLYazVAFBtgS+FH1RH/3jhuvRvz4
- kNGyPN25LzkejxbdYh5b2dU/9sJNTt0xQ9nnE9lhqfG77psd52UY/ivfWV1ZhA5vJKmh
- W4nT8LP89s9e9eMC48R/qkx2XWV7Ss9E7rxS3w9SHEKd9OIOSvgV/grBSL4P+jgF3kTf
- k/oQ==
+ bh=pf1n7XsDSax3M30meganwiWWjObIiqG+Mom5DM5JoVo=;
+ b=ajPOUDwB1gqw4U+CeCxki92VBQ4vxgx+1TqCq8/QaoJ4/r5PbeRXe/hJfGHN7W7XOg
+ Rxt2LYj0LX7hTEaM1eKv+/SZnM0o/xeIgL13MR1vHLnwGNhdXrsda+8E/klWflPsiVrj
+ 6OSuF6wFT0kA2k2J3ev4Q+UfXXu0GxFUtl79ez2mTeL1etglljqkWW1B1M0joGL7U4ti
+ NGXwcOizLKHWTLLM9wwo6H0LEvhmBjCh3PL3PT+nSuUb49yfum/MEsfPrPHz1d1Aw5UD
+ dxfNIYCqVc04v6Ilek1RmqxdCGaIhIAnCKFCKoB4XJZLYkNLID3Iy8EAwr5bTTQBbx7t
+ Xtvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700950784; x=1701555584;
+ d=1e100.net; s=20230601; t=1700950852; x=1701555652;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=q6SbKdQ7lQXf9800oYBDr332T2f2/hW1NVqkx7+W38M=;
- b=dR0QEwbBEqCL3sxxs68IFkK+8pVnBN8UQHsNGjGQA9YxdjC0HtBTgfju/kCQP0rC+q
- 9PIVQg5qtb3XQ2C9PYTI6YxnWxv/cHD8eGgRYOg18IGsS5eKpEElAFNjuomO9rKAervk
- y8WlumW3kx014qQEBuNrLRNV+fuvCXo6xO10CyUuuO48y8n77fsWQZTflEEgId2CLQvC
- UMxPE3Nv+71jgtASg2SSoWMfll+LGWMGl9jmz7Stslr3qeSdQ/hu44o7Q6Wemscohsq6
- OVAv2azJHpx/z/p6yN53YUxP3nj/XeBQUZ5+it85iDA+rpOoHiPlC7xPXnq1r91NcV1a
- 27vw==
-X-Gm-Message-State: AOJu0Yzp2o8t2EPsyFMgNJ/0d1U3EeUz7ozjhlwQT1rLKkvfwm9NrOlX
- dkfYeD4N2U6iMeupIicR6DqwbQ==
-X-Google-Smtp-Source: AGHT+IHB4Ys5BBphGeNYSrirD0ZD/Br3ORRKCYPNfcsXTRgYRuytxPTCZDF8V/vxxlgYwR8m8BmhNA==
-X-Received: by 2002:ac2:4e08:0:b0:50b:ab5e:2083 with SMTP id
- e8-20020ac24e08000000b0050bab5e2083mr1490504lfr.21.1700950783900; 
- Sat, 25 Nov 2023 14:19:43 -0800 (PST)
+ bh=pf1n7XsDSax3M30meganwiWWjObIiqG+Mom5DM5JoVo=;
+ b=AqWwngdR+jxxIyJ0cMHVK8c9vnnDDb3zRpKcXOHD8uAopG833iXmiSyZF3mBFzTulq
+ nsvDMdYC/SDscBs3pk4o4UPGIg2oQj3eGf02Z0ewH6GPfPLIrXuGFTGAHW08ZdUD0VJT
+ JoP/zP8NADrsLP6UkpVFTtQvjap9hhc30nyEKS0m+mjrO+tNS8Wvq033VHnOofZQjtiQ
+ V+W3J8CX8i8ibeUq3vw3lkwVeo6ddsvnJZIgzx/RxPmbabHQbL7l5nM5Wwfw96xffOeo
+ g81sWD3+QpRDHn3lyaV93cAhiRYJ2KBtrOmRuOsT+aIqa5IzLhO3V8FrbMkWyMHsmmz2
+ b3fw==
+X-Gm-Message-State: AOJu0YwU8ESbF7o7m6mfGzlktQiSHWxWWsJvbJ3ZkrHk2FdMu4kS8VA/
+ /Tj3JOjuckcz6ebYUn+rLzK1fg==
+X-Google-Smtp-Source: AGHT+IE9JK89KqkLkVFP6K5vwybNSSAe1kkdHHznfextHga8I21CzcQtHouaR6yHEqrhGm1TiqespQ==
+X-Received: by 2002:a50:f60c:0:b0:548:af20:1b7e with SMTP id
+ c12-20020a50f60c000000b00548af201b7emr6812586edn.8.1700950852108; 
+ Sat, 25 Nov 2023 14:20:52 -0800 (PST)
 Received: from [192.168.201.100]
  (178235187180.dynamic-4-waw-k-2-3-0.vectranet.pl. [178.235.187.180])
  by smtp.gmail.com with ESMTPSA id
- r12-20020aa7cb8c000000b0053deb97e8e6sm3461236edt.28.2023.11.25.14.19.42
+ r12-20020aa7cb8c000000b0053deb97e8e6sm3461236edt.28.2023.11.25.14.20.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 25 Nov 2023 14:19:43 -0800 (PST)
-Message-ID: <fc91cbb2-2c80-4467-873b-24d5ed606dd9@linaro.org>
-Date: Sat, 25 Nov 2023 23:19:41 +0100
+ Sat, 25 Nov 2023 14:20:51 -0800 (PST)
+Message-ID: <9d294c13-4d59-40a1-ab9f-3a1305395aa3@linaro.org>
+Date: Sat, 25 Nov 2023 23:20:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20231121162137.60488-1-robdclark@gmail.com>
- <20231125191155.5375-1-robdclark@gmail.com>
+ <20231125191155.5375-2-robdclark@gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -96,11 +96,10 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20231125191155.5375-1-robdclark@gmail.com>
+In-Reply-To: <20231125191155.5375-2-robdclark@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/a6xx: Add missing BIT(7) to
- REG_A6XX_UCHE_CLIENT_PF
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/a690: Fix reg values for a690
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,6 +113,7 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>, Danylo Piliaiev <dpiliaiev@igalia.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -128,15 +128,17 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 25.11.2023 20:11, Rob Clark wrote:
 > From: Danylo Piliaiev <dpiliaiev@igalia.com>
 > 
-> Downstream always set BIT(7)
+> KGSL doesn't support a690 so all reg values were the same as
+> on a660. Now we know the values and they are different from the
+> windows driver.
+> 
+> This fixes hangs on D3D12 games and some CTS tests.
 > 
 > Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
-FWIW this was only introduced in:
+Looks sane
 
-https://git.codelinaro.org/clo/la/platform/vendor/qcom/opensource/graphics-kernel/-/commit/704575ac510a6de3ae7813a851c942d19fbcb20d
-
-(around msm-5.15 / sm8550)
+Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
