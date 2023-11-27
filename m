@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 798DB7F9A5D
-	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 07:57:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A02A7F9A65
+	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 07:58:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 372BA10E1CD;
-	Mon, 27 Nov 2023 06:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B81310E1B6;
+	Mon, 27 Nov 2023 06:58:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7502C10E1BA
- for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 06:57:30 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a0b65cbf096so189194866b.1
- for <freedreno@lists.freedesktop.org>; Sun, 26 Nov 2023 22:57:30 -0800 (PST)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8F7310E1B6
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 06:58:24 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a08e4352992so332489266b.1
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Nov 2023 22:58:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701068249; x=1701673049; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701068303; x=1701673103; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=fQWfitv18ORc9/USvUJVF1huPbml9HkmehHEfqgU8EA=;
- b=M6lF1Xz7b013ygnp91q9lQ1S+PMNc1+HFC/hFWO++4SAA6+z5jMrGgG8o7TYJYzPZ2
- 8Wp++VeS59QAnRyL8P3js6BmTHntw9fjAAV2JWd4h+l+zPjzCtzrN+GjOjYi5EMafeSp
- kRCzgQmSA+PfsrmGyvfonZsosuchwlDsjT9RCsgHPgeAR3MdJ/lGhk0h5VUPH6XYLS0L
- +K/1qApr06I1ytDGJ4uDMIdruAy/T8ENYAYvtyeEkFtmEdYV5buO9LgzIy648NpByqNE
- u0KJV5AkzWkNBz8EHURcjKDpGuVqjKAnKXHC5xMFGOCkmA/DjzHN7vfEAZkflFtxrRCm
- GZow==
+ bh=W77NnNP4ZVuW1WjW6wyi/bvlo3XiP3nnrA4RIS+7zUs=;
+ b=PwhSpr5ez2GhwWr3OSxytCaPvhTa/vpjHZOIMeVN2JDSE4KE3XsXfpEIKJA21opVqc
+ Vvzo72lhZhRkwDL0El3raqCetFXOzFSd7ut+Nmw8eIwLWtC6T5/uiTPT2gQ94wufVvOe
+ Fp50Rlmhuo3TecuJzdXRxp1X/RoxpuicFrTRPYtVO3JUPmb4CzORZRx4Se1hxkbW4+rt
+ JwtHyrhQukqN0dIWSnW82YglPIpmgi+ORClQaJttvekKCyTPKYzAr7JL21qo+4J86RcM
+ uPYlulwb3ny6LEse9MlLAf76M39YesXBxv3xdpx3NjMUgbkrQLqjnsVYOFcAf9cRKJdY
+ uh7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701068249; x=1701673049;
+ d=1e100.net; s=20230601; t=1701068303; x=1701673103;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fQWfitv18ORc9/USvUJVF1huPbml9HkmehHEfqgU8EA=;
- b=OuY2gTSkdogXjdjxtHu7pRDPsGKqs4eIWQibRyMEO5ahsBPOzutO1gMGCR93VZgP9h
- um+rbOPxJ66EjHIjBqDRqE1GuurqK8Mal+zn/QAguE/eOLf35DvvOI5lR8bIk4B5C6MJ
- WqYgt5vTfdUWPVni4hERBe4E0qePUYGnc0VTlocgRAtEywuave2Q2UTWhIN/czsH0YJE
- 9pEZ0z4aMzlxKox8vN/wa4ddDyyfl5mPKQqca8vyI5QRdwoG4i2Bfr3+M61044f/MhBQ
- tFxIV2iiRPj/5nkN5vaQTpAvX0ZpY37ZdTSeTvmgKokoHgxF5zk4uHsPDn01QrMLQbTM
- M4eQ==
-X-Gm-Message-State: AOJu0YyE9NIWQcCCJgX+4viVBJxyQ/YsFnu6+N5f9TBG2dSKH+lBp7H2
- UQyUyvO67eHJq2Rj6MlLzfSGXQ==
-X-Google-Smtp-Source: AGHT+IGnaOY6UqqkGlohuWVoBLraQEN9HQbTV+4TI7Mwks3kyfEukG+HVT/DEcFn43jttfy/0rDkVw==
-X-Received: by 2002:a17:906:40ca:b0:9dc:2291:d384 with SMTP id
- a10-20020a17090640ca00b009dc2291d384mr7756720ejk.22.1701068248854; 
- Sun, 26 Nov 2023 22:57:28 -0800 (PST)
+ bh=W77NnNP4ZVuW1WjW6wyi/bvlo3XiP3nnrA4RIS+7zUs=;
+ b=fm7MpXwWNnlQrU6THyuVFiKZd0RqTezl6RYdPwonGjB6BqOjkFKiLrRopwbpOtVyXG
+ vEe0M/EbCMUYMJilf55kafd7/35gXFSIKqDneSeTJvHgd2vezokrjNSUnHO+ynPYY2pW
+ kWkypPBtFAQ3wuEh72gk/OI26cQ4VV6j8I2ieY4IdrKkEDL9736Umwearx8jDRDQzbOa
+ FYbCe3RYcmqYdjBL8xjJFGe4wwpKa3fYgpQitbivba29iveGCR66r7dhi0nG4jyOZqMq
+ ZfOKIrz1+3FfEO2+ru+CTz2zcejghsc2iuwc22NC3ewoELBWNWSD3x7ovaEZgzghi1qH
+ UnfA==
+X-Gm-Message-State: AOJu0YwdtRdImVKIp7//KoLQncMyKbZQKQHce/GQThjPFHnNvVByR5eJ
+ 4umwv/hrPFjLMNM7kntvfZIabQ==
+X-Google-Smtp-Source: AGHT+IEk87xVB4hyXdESdrJNTz2Nm6jp02qaDjknNezspe+31fk+3LxEo3WZ7eXbjjYHZOOvg5oM/g==
+X-Received: by 2002:a17:906:a1c9:b0:9be:2b53:ac4d with SMTP id
+ bx9-20020a170906a1c900b009be2b53ac4dmr7352566ejb.74.1701068303185; 
+ Sun, 26 Nov 2023 22:58:23 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.223.109])
  by smtp.gmail.com with ESMTPSA id
- a19-20020a170906469300b009ade1a4f795sm5291000ejr.168.2023.11.26.22.57.25
+ a19-20020a170906469300b009ade1a4f795sm5291000ejr.168.2023.11.26.22.58.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 26 Nov 2023 22:57:28 -0800 (PST)
-Message-ID: <456b2f76-f4c3-4d51-8a07-7d14bd89ba53@linaro.org>
-Date: Mon, 27 Nov 2023 07:57:25 +0100
+ Sun, 26 Nov 2023 22:58:22 -0800 (PST)
+Message-ID: <c0de6206-daf5-4dcc-8a61-cc1ff7d6efc8@linaro.org>
+Date: Mon, 27 Nov 2023 07:58:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -72,7 +72,7 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>
 References: <20231125-topic-rb1_feat-v1-0-11d71b12b058@linaro.org>
- <20231125-topic-rb1_feat-v1-5-11d71b12b058@linaro.org>
+ <20231125-topic-rb1_feat-v1-6-11d71b12b058@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -118,11 +118,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231125-topic-rb1_feat-v1-5-11d71b12b058@linaro.org>
+In-Reply-To: <20231125-topic-rb1_feat-v1-6-11d71b12b058@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 05/12] dt-bindings: interconnect: qcom,
- msm8998-bwmon: Add QCM2290 bwmon instance
+Subject: Re: [Freedreno] [PATCH 06/12] dt-bindings: firmware: qcom,
+ scm: Allow interconnect for everyone
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,7 +144,8 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/11/2023 15:17, Konrad Dybcio wrote:
-> QCM2290 has a single BWMONv4 intance for CPU. Document it.
+> Every Qualcomm SoC physically has a "CRYPTO0<->DDR" interconnect lane.
+> Allow this property to be present, no matter the SoC.
 > 
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
