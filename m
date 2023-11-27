@@ -1,44 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA6E27FA5A6
-	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 17:07:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F7AC7FA913
+	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 19:40:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 775E410E38E;
-	Mon, 27 Nov 2023 16:07:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0BF310E3C8;
+	Mon, 27 Nov 2023 18:40:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 235A910E396;
- Mon, 27 Nov 2023 16:07:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CBDAECE127E;
- Mon, 27 Nov 2023 16:07:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071E7C433C8;
- Mon, 27 Nov 2023 16:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701101236;
- bh=CAVT3JTOqdhtMpmyz9hZHgwDT59aK+uHYtnwfXlCXjI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=neC+N+L85KemwluYfyC3P9D8ihbrOkVoCvJ1GV+ZCiqo+YeGQ+HY4hTVBV3Lgst1c
- 9cRWM9QUolfeC7sLFu6CjfnGHEDCD91cdhkG28ea4OXjfhYrvhX5ZHfsYnRlg6ZUiA
- k5CiTAic0qf0jfdGSnB0j/vVsSAOKia85mq/DgzEfOhmXZMDihTqw1oFDrM9Z5aHch
- ky2TtMRPtTg3TjuAT89xXCSoa61vxHGKzsrk1bl/q17DIUsoctaErgIcTVn0Dsc2IP
- dh+C+nnHqZTChSA4mHWgVcFt7UPRn6r2KKG0p0K8s/8KfvDTrB8/EIIjr5+uu8DELK
- fnKjh5PjHfbmw==
-From: Michael Walle <mwalle@kernel.org>
-To: dmitry.baryshkov@linaro.org
-Date: Mon, 27 Nov 2023 17:06:58 +0100
-Message-Id: <20231127160658.2164612-1-mwalle@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
-References: <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
-MIME-Version: 1.0
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B67110E3C0;
+ Mon, 27 Nov 2023 18:40:19 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-6d8162ca490so951308a34.0; 
+ Mon, 27 Nov 2023 10:40:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701110418; x=1701715218;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=YVywRnjvKfc8s710BUTyZQrNkS90y58RpBYg6vLXBw8=;
+ b=ToVo2ZCiPLC+X9HpvW+SllDeTpqtcQUmpFS6v+ldApJz2XV67LA5KZHKi7gUH3dLNp
+ bbTB7c/wUxkNWbZbZuh22pXrXsbYWy519R6RPi4FSDYB7EkjzqJFfovf1Qrg6fmhe4J9
+ Jhg3Xr7jAK6704Mvqmaex4DxFLGRaA4CoxOeqOFDbM3mSfoth4uxoHRJKS6/LZs4h+YE
+ HRQn4CoctsEezL2vZ/yRewZuMq094E00evlAZQthsusGgWwjF4r+YQXHXMTzrFkPEnZF
+ EgHwT3GNrQ+IW+3vIyJZHQM1upuLVJ+T0ZAdDLSu8kLT0d6dJ7LtGkfafAQ0IGmqERZ+
+ Fvtg==
+X-Gm-Message-State: AOJu0Yxscr7lIt5XCkSxawn39EJYIzRIZ/Q78URQaGcvzk1r086jD0sh
+ u/ihsDaw3qMpb0lwsF/L+g==
+X-Google-Smtp-Source: AGHT+IGHvWxLgKw7dql3sJyA5cZNuv1wzTmsB/VlB7zUtFnIdhq8vigkguuW5My1RrnY70l0VypYTQ==
+X-Received: by 2002:a05:6830:7183:b0:6cd:9b5:f07f with SMTP id
+ el3-20020a056830718300b006cd09b5f07fmr9899391otb.8.1701110418184; 
+ Mon, 27 Nov 2023 10:40:18 -0800 (PST)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ z18-20020a9d7a52000000b006cd09ba046fsm1415622otm.61.2023.11.27.10.40.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Nov 2023 10:40:17 -0800 (PST)
+Received: (nullmailer pid 2283504 invoked by uid 1000);
+ Mon, 27 Nov 2023 18:40:13 -0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
- control over the DSI link power state
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20231125-topic-rb1_feat-v1-4-11d71b12b058@linaro.org>
+References: <20231125-topic-rb1_feat-v1-0-11d71b12b058@linaro.org>
+ <20231125-topic-rb1_feat-v1-4-11d71b12b058@linaro.org>
+Message-Id: <170111041311.2283445.17798398754881124107.robh@kernel.org>
+Date: Mon, 27 Nov 2023 12:40:13 -0600
+Subject: Re: [Freedreno] [PATCH 04/12] dt-bindings: display: msm:
+ sm8450-mdss: Allow 3 interconnects
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,71 +65,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michael Walle <mwalle@kernel.org>, tony@atomide.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Laurent.pinchart@ideasonboard.com, andrzej.hajda@intel.com,
- marijn.suijten@somainline.org, marex@denx.de, rfoss@kernel.org,
- dave.stevenson@raspberrypi.com, jernej.skrabec@gmail.com,
- alexander.stein@ew.tq-group.com, quic_jesszhan@quicinc.com, jonas@kwiboo.se,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org,
- sean@poorly.run, neil.armstrong@linaro.org, dianders@chromium.org,
- konrad.dybcio@linaro.org, tzimmermann@suse.de, freedreno@lists.freedesktop.org
+Cc: Das Srinagesh <quic_gurus@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, iommu@lists.linux.dev,
+ Andy Gross <agross@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Loic Poulain <loic.poulain@linaro.org>, Robin Murphy <robin.murphy@arm.com>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Georgi Djakov <djakov@kernel.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-> DSI device lifetime has three different stages:
-> 1. before the DSI link being powered up and clocking,
-> 2. when the DSI link is in LP state (for the purpose of this question,
-> this is the time between the DSI link being powered up and the video
-> stream start)
-> 3. when the DSI link is in HS state (while streaming the video).
-
-It's not clear to me what (2) is. What is the state of the clock and
-data lanes?
-
-I'm facing similar issues with the tc358775 bridge. This bridge needs
-to release its reset while both clock and data lanes are in LP-11 mode.
-But then it needs to be configured (via I2C) while the clock lane is
-in enabled (HS mode), but the data lanes are still in LP-11 mode.
-
-To me it looks like there is a fouth case then:
-1. unpowered
-2. DSI clock and data are in LP-11
-3. DSI clock is in HS and data are in LP-11
-4. DSI clock is in HS and data is in HS
-
-(And of course the bridge needs continuous clock mode).
-
-> Different DSI bridges have different requirements with respect to the
-> code being executed at stages 1 and 2. For example several DSI-to-eDP
-> bridges (ps8640, tc358767 require for the link to be quiet during
-> reset time.
-> The DSI-controlled bridges and DSI panels need to send some commands
-> in stage 2, before starting up video
+On Sat, 25 Nov 2023 15:17:32 +0100, Konrad Dybcio wrote:
+> In addition to MDP01, the cpu-cfg interconnect is also necessary.
+> Allow it.
 > 
-> In the DRM subsystem stage 3 naturally maps to the
-> drm_bridge_funcs::enable, stage 1 also naturally maps to the
-> drm_bridge_funcs::pre_enable. Stage 2 doesn't have its own place in
-> the DRM call chain.
-> Earlier we attempted to solve that using the pre_enable_prev_first,
-> which remapped pre-enable callback execution order. However it has led
-> us to the two issues. First, at the DSI host driver we do not know
-> whether the panel / bridge were updated to use pre_enable_prev_first
-> or not. Second, if the bridge has to perform steps during both stages
-> 1 and 2, it can not do that.
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> I'm trying to find a way to express the difference between stages 1
-> and 2 in the generic code, so that we do not to worry about particular
-> DSI host and DSI bridge / panel peculiarities when implementing the
-> DSI host and/or DSI panel driver.
 
-For now, I have a rather hacky ".dsi_lp11_notify" callback in
-drm_bridge_funcs which is supposed to be called by the DSI host while the
-clock and data lanes are in LP-11 mode. But that is rather an RFC and me
-needing something to get the driver for this bridge working. Because it's
-badly broken. FWIW, you can find my work-in-progress patches at
-https://github.com/mwalle/linux/tree/feature-tc358775-fixes
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
--michael
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-subsystem@ae00000: interconnects: [[4294967295, 14, 0, 4294967295, 3, 0], [4294967295, 14, 0, 4294967295, 3, 0]] is too short
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: display-subsystem@ae00000: interconnect-names: ['mdp0-mem', 'mdp1-mem'] is too short
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8450-mdss.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231125-topic-rb1_feat-v1-4-11d71b12b058@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
