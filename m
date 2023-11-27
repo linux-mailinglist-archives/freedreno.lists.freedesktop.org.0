@@ -2,67 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A18B07FAC3B
-	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 22:07:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4527A7FACD0
+	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 22:54:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71AC410E3F8;
-	Mon, 27 Nov 2023 21:07:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C3010E3B2;
+	Mon, 27 Nov 2023 21:54:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
- [IPv6:2607:f8b0:4864:20::1135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5938310E3F8
- for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 21:07:07 +0000 (UTC)
-Received: by mail-yw1-x1135.google.com with SMTP id
- 00721157ae682-5cca68f6e01so46834207b3.2
- for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 13:07:07 -0800 (PST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46E1810E3FA
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 21:54:04 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2c8880f14eeso60737251fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 13:54:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701119226; x=1701724026; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HUU3+89wZrgDbzq+c00gpiQNcqaCPhQOfgZ74RHd2SY=;
- b=rJzYogIpR8cC5vL/oDpvaMnnXRdisRwdCXGx5pYQFFIIjSVHrJOHCMOdGpCSjg/Spp
- piz636ToL5Ljnps2ACX+HYXwNlcP/ai/4Su7k2KyL98iQRJgabkQNZ0lC9oyikOISl61
- 8y8yk6LD0yv7uNCNQBTHDMKdK4bhGdl/aVi6rfufXLFdMCcma0Q6KphtnRCl+bz2P25E
- RvsKD4erqjsh2kKm/2Y+PAKleyyDhPN2x+8XfEj3AiHDKBE8XKD1ZUPzHN2ej8wHo73J
- brzvT3IbD6hLNvE/UcH+L8FH6Xj8xeTBgpmf2NKZnhk45GiU+pxoBa20VtopoTPt7qjC
- I0HA==
+ d=linaro.org; s=google; t=1701122042; x=1701726842; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ArlAEnUqFzFF52c5Tk73UD/2KvIsYGODuDfHTLaWfCA=;
+ b=apVLeDJaNDlgurJDJOWeCtx1dkvm0zFuQnZJfCi+bL92YPp9BtPdLYNsDpBD21nzYo
+ di0LTMJ3W0l9RnWwTMLXEg7sTz4iggTFp3HPsqEykc1nAGbNCTcU6ruJRm1j0x04L6yN
+ oFlLRCDaPK8wt1GGsFE3TwmTVMeurENABeLkD2vBejWZTk6raiyIZgcvgyHrRuS/hqMf
+ Hc6MQEGXhyHFraHJTCs3FoKWtQt7d3J1eUhJtqV/fTkOVPwAVbtimZcJrB7nMvh75hUu
+ io1zypPrxvq22cShMHTy96OlgnThxqSodreafuhrObKrb9oKwGeFFvy8iBBDbmPFgRAu
+ AzpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701119226; x=1701724026;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HUU3+89wZrgDbzq+c00gpiQNcqaCPhQOfgZ74RHd2SY=;
- b=DkwnI7EbOxWA8ktyDiwisFJv4DzUjgfwNvb5fL3sB7wgqvkrKuO7AKUPW3Oib775Wc
- dEeevCQUsOlkpIeqmvTGq5mlqOjhWzzjYrDEnrpxosFUSF60gxNnNuEJnZGcch7Wzspt
- IRaT1RBL2teEk5b9csEM+ZDgTt/jSkFkxvFg7UQasSTe3unNoByVwSLXWmCFyW6OCVcA
- UQAUA7ALgRMwFNhJrXSWIO1YkkpnTRZqb4OKJP8cEfPYU/wPbkGMZMu7huZFnKa650c8
- VBK9GiC3RgVJXzqdjXIPBxStFdTd5tEFdOTKR9K9Zk6gvxWmqC43y2tasd+a5scsuCXu
- oVwQ==
-X-Gm-Message-State: AOJu0YwSfYmE020YUEZRBP//DG82uVLgOcqwaBP9JMAENIkDwsu/4qLl
- RSX4aq4qney+CJoqlpqTjV/4iY6fg3vDNe95wO5rSA==
-X-Google-Smtp-Source: AGHT+IF+k1LKe2Ufl37lo2dRXkW3bDFo2hDN+DJaSNvvCtX+/g+2Hd5wjHLMUZMnlAdWEBan4IGHhabadU7daPRnizw=
-X-Received: by 2002:a81:6006:0:b0:5c9:af70:8e99 with SMTP id
- u6-20020a816006000000b005c9af708e99mr13101599ywb.41.1701119226420; Mon, 27
- Nov 2023 13:07:06 -0800 (PST)
-MIME-Version: 1.0
-References: <20231115141928.429688-1-dipamt1729@gmail.com>
- <CAA8EJprqnUGQxmj4Y=qttVuj0zJxdD9B6neHa6sPseLLETpk5A@mail.gmail.com>
- <CALHmwsoC5h7_w9OzpUS_-xM6x5WF5V-vFExLEf4y99b2eCcqGQ@mail.gmail.com>
- <CAA8EJpoyC=paF1ZuznXgJAkT1fne0RwYfqJh-cdz0WLt02i+bw@mail.gmail.com>
- <CAF6AEGtdKD6-xA+AeZDXuKc+k4MnP8Ba4-12hHxt00bXLhJ7Eg@mail.gmail.com>
- <CAA8EJprj7F_K1zxnGdz1ReLNMR2CiYfRxWHUmudTZC+qjKA+kA@mail.gmail.com>
- <CAF6AEGtW5XZS+S0xQViE8RwmdsxXsSg3yz8-1=oGO5+HTzw52g@mail.gmail.com>
-In-Reply-To: <CAF6AEGtW5XZS+S0xQViE8RwmdsxXsSg3yz8-1=oGO5+HTzw52g@mail.gmail.com>
+ d=1e100.net; s=20230601; t=1701122042; x=1701726842;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ArlAEnUqFzFF52c5Tk73UD/2KvIsYGODuDfHTLaWfCA=;
+ b=MVSqDtXTw4jYhrEt/XVVNfkdaMr9lbis0wg5RzVjyVyQJxRnC/WSUIyPsF1O5PGiU1
+ fSaSRxwJHPvv+xcx/lekmsG3oU6o4j6aHIjvOcJ/o8RT1vVa6SXGyOxf0QFtUnh5L9J3
+ LiEW80CKDbrUBb0VT35zxYs3fd7Y+hCM8JD5YYeItA+bnMRS+L7GTAAV9uNWfbW1NIiv
+ IHLwDOTGPN7MqHu5VRulRkvlnHSHv8mfYSxEenbfeGQjWRG+Vv5X5VNTTg8HnTuTJEU7
+ IG83IlEZ5r9GVwr55VKFppDwJ2zNQ9FlXdJ/rM+yJFJaunoUbINXBUMzQpkvknUOpXB5
+ tPjQ==
+X-Gm-Message-State: AOJu0YyLAhV1FfRjbVAcBATl76HWGMSmENdTz74o+740pbyYvOjLjc0A
+ JItumJ3Eqh5G5kbOTIR0ozTpfQ==
+X-Google-Smtp-Source: AGHT+IEJ0MrB1oiO9t4k0oOQGCb2i0ZvEyweQLr45Ug10MCxF9Ksc3lEgYPRf/H43l4221vP7BHN5w==
+X-Received: by 2002:a05:651c:70e:b0:2c9:a1c3:487f with SMTP id
+ z14-20020a05651c070e00b002c9a1c3487fmr2907888ljb.23.1701122042393; 
+ Mon, 27 Nov 2023 13:54:02 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ b9-20020a2ebc09000000b002c6ec01aa08sm1471830ljf.110.2023.11.27.13.54.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Nov 2023 13:54:01 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 27 Nov 2023 23:06:55 +0200
-Message-ID: <CAA8EJpr6QerE_VhfQksgSUFHY=-gg3xWAqY9cfAHzfMtyBnNKA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v2] Remove custom dumb_map_offset
- implementation in msm driver
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Tue, 28 Nov 2023 00:54:01 +0300
+Message-Id: <20231127215401.4064128-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/mdp4: flush vblank event on disable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,185 +72,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Dipam Turkar <dipamt1729@gmail.com>,
- sean@poorly.run, quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- marijn.suijten@somainline.org, airlied@gmail.com
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 27 Nov 2023 at 22:52, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Tue, Nov 21, 2023 at 5:14=E2=80=AFAM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Tue, 21 Nov 2023 at 04:26, Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > On Wed, Nov 15, 2023 at 11:33=E2=80=AFAM Dmitry Baryshkov
-> > > <dmitry.baryshkov@linaro.org> wrote:
-> > > >
-> > > > On Wed, 15 Nov 2023 at 20:46, Dipam Turkar <dipamt1729@gmail.com> w=
-rote:
-> > > > >
-> > > > > They are not outdated, my bad. I went through the locks' code and=
- saw that they have been updated. But they are probably not necessary here =
-as most of the drivers do not use any form of locking in their implementati=
-ons. The generic implementations drm_gem_dumb_map_offset() and drm_gem_ttm_=
-dumb_map_offset() do not have any locking mechanisms either.
-> > > >
-> > > > Excuse me, but this doesn't sound right to me. There are different
-> > > > drivers with different implementations. So either we'd need a good
-> > > > explanation of why it is not necessary, or this patch is NAKed.
-> > >
-> > > Digging a bit thru history, it looks like commit 0de23977cfeb
-> > > ("drm/gem: convert to new unified vma manager") made external locking
-> > > unnecessary, since the vma mgr already had it's own internal locking.
-> >
-> > So, should we drop our own locking system?
->
-> specifically for _just_ vma_offset_manager/vma_node, we could.  But I
-> think that only amounts to mmap_offset().
+Flush queued events when disabling the crtc. This avoids timeouts when
+we come back and wait for dependencies (like the previous frame's
+flip_done).
 
-I see. I'll try digging into the mentioned commit. In the meantime,
-this looks like an R-B from you, doesn't it?
+Fixes: c8afe684c95c ("drm/msm: basic KMS driver for snapdragon")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
->
-> BR,
-> -R
->
-> > >
-> > > BR,
-> > > -R
-> > >
-> > > > >
-> > > > > Thanks and regards
-> > > > > Dipam Turkar
-> > > > >
-> > > > > On Wed, Nov 15, 2023 at 8:37=E2=80=AFPM Dmitry Baryshkov <dmitry.=
-baryshkov@linaro.org> wrote:
-> > > > >>
-> > > > >> On Wed, 15 Nov 2023 at 16:30, Dipam Turkar <dipamt1729@gmail.com=
-> wrote:
-> > > > >> >
-> > > > >> > Make msm use drm_gem_create_map_offset() instead of its custom
-> > > > >> > implementation for associating GEM object with a fake offset. =
-Since,
-> > > > >> > we already have this generic implementation, we don't need the=
- custom
-> > > > >> > implementation and it is better to standardize the code for GE=
-M based
-> > > > >> > drivers. This also removes the outdated locking leftovers.
-> > > > >>
-> > > > >> Why are they outdated?
-> > > > >>
-> > > > >> >
-> > > > >> > Signed-off-by: Dipam Turkar <dipamt1729@gmail.com>
-> > > > >> > ---
-> > > > >> >  drivers/gpu/drm/msm/msm_drv.c |  2 +-
-> > > > >> >  drivers/gpu/drm/msm/msm_gem.c | 21 ---------------------
-> > > > >> >  drivers/gpu/drm/msm/msm_gem.h |  2 --
-> > > > >> >  3 files changed, 1 insertion(+), 24 deletions(-)
-> > > > >> >
-> > > > >> > Changes in v2:
-> > > > >> > Modify commit message to include the absence of internal locki=
-ng leftovers
-> > > > >> > around allocating a fake offset in msm_gem_mmap_offset() in th=
-e generic
-> > > > >> > implementation drm_gem_create_map_offset().
-> > > > >> >
-> > > > >> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/m=
-sm/msm_drv.c
-> > > > >> > index a428951ee539..86a15992c717 100644
-> > > > >> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > > >> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > > >> > @@ -1085,7 +1085,7 @@ static const struct drm_driver msm_drive=
-r =3D {
-> > > > >> >         .open               =3D msm_open,
-> > > > >> >         .postclose          =3D msm_postclose,
-> > > > >> >         .dumb_create        =3D msm_gem_dumb_create,
-> > > > >> > -       .dumb_map_offset    =3D msm_gem_dumb_map_offset,
-> > > > >> > +       .dumb_map_offset    =3D drm_gem_dumb_map_offset,
-> > > > >> >         .gem_prime_import_sg_table =3D msm_gem_prime_import_sg=
-_table,
-> > > > >> >  #ifdef CONFIG_DEBUG_FS
-> > > > >> >         .debugfs_init       =3D msm_debugfs_init,
-> > > > >> > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/m=
-sm/msm_gem.c
-> > > > >> > index db1e748daa75..489694ef79cb 100644
-> > > > >> > --- a/drivers/gpu/drm/msm/msm_gem.c
-> > > > >> > +++ b/drivers/gpu/drm/msm/msm_gem.c
-> > > > >> > @@ -671,27 +671,6 @@ int msm_gem_dumb_create(struct drm_file *=
-file, struct drm_device *dev,
-> > > > >> >                         MSM_BO_SCANOUT | MSM_BO_WC, &args->han=
-dle, "dumb");
-> > > > >> >  }
-> > > > >> >
-> > > > >> > -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm=
-_device *dev,
-> > > > >> > -               uint32_t handle, uint64_t *offset)
-> > > > >> > -{
-> > > > >> > -       struct drm_gem_object *obj;
-> > > > >> > -       int ret =3D 0;
-> > > > >> > -
-> > > > >> > -       /* GEM does all our handle to object mapping */
-> > > > >> > -       obj =3D drm_gem_object_lookup(file, handle);
-> > > > >> > -       if (obj =3D=3D NULL) {
-> > > > >> > -               ret =3D -ENOENT;
-> > > > >> > -               goto fail;
-> > > > >> > -       }
-> > > > >> > -
-> > > > >> > -       *offset =3D msm_gem_mmap_offset(obj);
-> > > > >> > -
-> > > > >> > -       drm_gem_object_put(obj);
-> > > > >> > -
-> > > > >> > -fail:
-> > > > >> > -       return ret;
-> > > > >> > -}
-> > > > >> > -
-> > > > >> >  static void *get_vaddr(struct drm_gem_object *obj, unsigned m=
-adv)
-> > > > >> >  {
-> > > > >> >         struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
-> > > > >> > diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/m=
-sm/msm_gem.h
-> > > > >> > index 8ddef5443140..dc74a0ef865d 100644
-> > > > >> > --- a/drivers/gpu/drm/msm/msm_gem.h
-> > > > >> > +++ b/drivers/gpu/drm/msm/msm_gem.h
-> > > > >> > @@ -139,8 +139,6 @@ struct page **msm_gem_pin_pages(struct drm=
-_gem_object *obj);
-> > > > >> >  void msm_gem_unpin_pages(struct drm_gem_object *obj);
-> > > > >> >  int msm_gem_dumb_create(struct drm_file *file, struct drm_dev=
-ice *dev,
-> > > > >> >                 struct drm_mode_create_dumb *args);
-> > > > >> > -int msm_gem_dumb_map_offset(struct drm_file *file, struct drm=
-_device *dev,
-> > > > >> > -               uint32_t handle, uint64_t *offset);
-> > > > >> >  void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj);
-> > > > >> >  void *msm_gem_get_vaddr(struct drm_gem_object *obj);
-> > > > >> >  void *msm_gem_get_vaddr_active(struct drm_gem_object *obj);
-> > > > >> > --
-> > > > >> > 2.34.1
-> > > > >> >
-> > > > >>
-> > > > >>
-> > > > >> --
-> > > > >> With best wishes
-> > > > >> Dmitry
-> > > >
-> > > >
-> > > >
-> > > > --
-> > > > With best wishes
-> > > > Dmitry
-> >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+index 169f9de4a12a..3100957225a7 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+@@ -269,6 +269,7 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc *crtc,
+ {
+ 	struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
+ 	struct mdp4_kms *mdp4_kms = get_kms(crtc);
++	unsigned long flags;
+ 
+ 	DBG("%s", mdp4_crtc->name);
+ 
+@@ -281,6 +282,14 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc *crtc,
+ 	mdp_irq_unregister(&mdp4_kms->base, &mdp4_crtc->err);
+ 	mdp4_disable(mdp4_kms);
+ 
++	if (crtc->state->event && !crtc->state->active) {
++		WARN_ON(mdp4_crtc->event);
++		spin_lock_irqsave(&mdp4_kms->dev->event_lock, flags);
++		drm_crtc_send_vblank_event(crtc, crtc->state->event);
++		crtc->state->event = NULL;
++		spin_unlock_irqrestore(&mdp4_kms->dev->event_lock, flags);
++	}
++
+ 	mdp4_crtc->enabled = false;
+ }
+ 
+-- 
+2.39.2
 
-
-
---=20
-With best wishes
-Dmitry
