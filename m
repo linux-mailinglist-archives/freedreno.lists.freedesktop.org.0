@@ -2,86 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F3B7FA2F5
-	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 15:35:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 290E27FA469
+	for <lists+freedreno@lfdr.de>; Mon, 27 Nov 2023 16:28:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC9C010E2CE;
-	Mon, 27 Nov 2023 14:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6806210E2E9;
+	Mon, 27 Nov 2023 15:28:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA38010E2DC;
- Mon, 27 Nov 2023 14:35:31 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id
- d75a77b69052e-4237346c6efso22458681cf.0; 
- Mon, 27 Nov 2023 06:35:31 -0800 (PST)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F0A10E2DD
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 15:28:50 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-54b0310f536so5337962a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 07:28:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701095731; x=1701700531; darn=lists.freedesktop.org;
- h=in-reply-to:autocrypt:from:references:cc:to:content-language
- :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=2B4bMCdtnwdoGPakwVrUs+LrD9K7dJqM4LxYamoMPsc=;
- b=E/ngPaj7k6I0soH4d3s98wGRfpyIizvBcXTKSDkPXYYNtPzcdBSL6q/63WQIxSOyVs
- OTVist99waeIeQKFg6bOtCBobD2EAJUpZvaiLfzQEkNitqESLiQROaOnr1YG+sJlkeRG
- HVgqeKMFYKwu0NWECtxD5esOunCan2Yayt4xUDVrgWDKtyFLZZ4XeuM8NzXlh2Z9GwBH
- 99UHUDoPU01sx9kVREEY5SDh0xTeryVVTsIgow/AnXcxoxugmdOwS8/xyKIsdAYR+qDX
- 6MZMGZq7xENWfvzZNJhEOGJA5BCLlnD//yFe0TVA9WDujaIGjV5b9KzBzuYV39xnE6Dn
- qDEQ==
+ d=linaro.org; s=google; t=1701098929; x=1701703729; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xH7djIzH2lWtg+ZnnlMA49TMMB9EdHS+GmuOJoHr84A=;
+ b=p6aytW/jQe4M3KBYEaPOz8xS2pxerukj3xI22P9PL7nhpUMPpkVWpjeEvsUzw5YNGa
+ oPvqRDheqWirEDf1u/Iq2rCaTuk7EmyZJqmqx/eec4URKcMVck+z9XlgQ7nsU3UnRLUQ
+ 13sj8HjSINyJOxtMYEo9ZZsh18jvpz8JJE11hPwf/ppOhzXo6ym/VYxS6wzugAjP9XBf
+ TSAyBJ3uvhE1vrJyWbtVLHmTJrYpEY9X2nmRIX/lpaQtU9lrZ4eoLZEfTyrk1mIh4VTj
+ xH7p0VPUXjW6Mcb4EZ8P7L2OzYkd4sXW0Szsl8gRWUxjtObdSJILRFxK2cpAkRDjRb+c
+ xuBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701095731; x=1701700531;
- h=in-reply-to:autocrypt:from:references:cc:to:content-language
- :subject:user-agent:mime-version:date:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2B4bMCdtnwdoGPakwVrUs+LrD9K7dJqM4LxYamoMPsc=;
- b=fQD/8vWURfrrrFS8z9HKmOCB2g7+svcVGFxAhZF69l5xMVCL0/+lGB/EhH7omObU4r
- bp6DS3BCoaA2CMkfvOwfd2QjM+MCtJAtqP6spYqMQBPOUPbjzHyTdz6sGDXOZKyZ4QdF
- Gz8KJsq0AjH936VcdQOnxJxfG7XjTcChXvVnqR7mmIxAbJYQ3Rkj4ybj788q+4BU22p5
- z63kbQVktziSXPDHdNc2+wNFIgPSvDijT+C5g2l6jScMAFIGeNm6joM/ZdSziDX5sl/R
- gDaMyLd1tjs4HGa1Mc8IHGOBOb11ch9qXvx3uz1OBkvq50W930zFDs79pfrPSJ1PZrPA
- SOCw==
-X-Gm-Message-State: AOJu0Yzh9Lgm6j9LA0vjJ/MSlnhbHnUcPJa3R16fG+BCTwjD1mG0hL9Q
- opWXHW7vXhGz7Edv86ErJks=
-X-Google-Smtp-Source: AGHT+IHkqtNIYFQtGjRhqBHdorUWSd4IxHUJVMJ023H/FDvloASUbRXcU6kumdrkB3LQRj0vufCRTA==
-X-Received: by 2002:a05:622a:514:b0:421:9f8c:e42 with SMTP id
- l20-20020a05622a051400b004219f8c0e42mr12726184qtx.63.1701095730820; 
- Mon, 27 Nov 2023 06:35:30 -0800 (PST)
-Received: from [192.168.2.14]
- (bras-base-toroon0964w-grc-76-76-65-20-140.dsl.bell.ca. [76.65.20.140])
+ d=1e100.net; s=20230601; t=1701098929; x=1701703729;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xH7djIzH2lWtg+ZnnlMA49TMMB9EdHS+GmuOJoHr84A=;
+ b=k5gKbqdB8wCpbSPEvwNdK/oWG43kUUHELfwmvAc+IhXa9fKXIw9ClkjkhP63AwZYXH
+ vSdzT0LOflZiu4OTY3fEPKjc7Xjt7LQkumwjuMFHdHYyoEh/cOkvNmgrmJ5AtpzKHhok
+ DMpStpWzPmr090E/xQBcIqPAf9iht9Nor2Ex1pj98a5ugIGgR/tnFFiXIYqEu3fEHlLs
+ hl00E0apD+GIQaBc2H4WRxHuHdQczTsX1aZ4WAwA1yn0fqUfHsYNthdbyuGHpnfWvuPK
+ NVtuwCC37S7YmOd3+qUL0sqxbwT7Qp32c0x56WjdlX39GnVWYvDkfSqmDxW4IgUrxpTW
+ jz/g==
+X-Gm-Message-State: AOJu0YyI6aYTMZ0WthW/xPsFnRXNrbGHC5stCg8o+FhFJ73jR8sXLarU
+ xsusydaMKmhGkJMQs71uW7/d5g==
+X-Google-Smtp-Source: AGHT+IFVq8VVBBAB+9CYcFJYQtXvol9+Oolg8Bycg8P4iRm8ZI2RLM5GY7iy8CP/g/zrCxgD8BoRag==
+X-Received: by 2002:aa7:c401:0:b0:54b:3bba:8372 with SMTP id
+ j1-20020aa7c401000000b0054b3bba8372mr5619318edq.5.1701098929327; 
+ Mon, 27 Nov 2023 07:28:49 -0800 (PST)
+Received: from [10.167.154.1]
+ (178235187180.dynamic-4-waw-k-2-3-0.vectranet.pl. [178.235.187.180])
  by smtp.gmail.com with ESMTPSA id
- y3-20020ac85243000000b004181e5a724csm3768229qtn.88.2023.11.27.06.35.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Nov 2023 06:35:30 -0800 (PST)
-Message-ID: <4cc1a0fb-a6e4-4d90-b2c3-423ed6c1d44c@gmail.com>
-Date: Mon, 27 Nov 2023 09:35:29 -0500
+ e7-20020a056402104700b00542db304680sm5321002edu.63.2023.11.27.07.28.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Nov 2023 07:28:48 -0800 (PST)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Mon, 27 Nov 2023 16:28:40 +0100
+Message-Id: <20231125-topic-rb1_feat-v2-0-979b28f35e4a@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101
- Thunderbird/115.5.0
-Content-Language: en-CA, en-US
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>
-References: <20231124052752.6915-4-ltuikov89@gmail.com>
- <20231124052752.6915-5-ltuikov89@gmail.com>
- <76749276-dc73-4f6f-a467-aa8a721b0878@amd.com>
- <f5a4d51d-82d6-435d-92cd-fdd2d1683404@amd.com>
- <49388112-f42a-448c-9f68-e41266c4408c@gmail.com>
- <7429262c-6dea-4dcc-bf7e-54d2277dabf1@amd.com>
-From: Luben Tuikov <ltuikov89@gmail.com>
-Autocrypt: addr=ltuikov89@gmail.com; keydata=
- xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1APnbnnRHN
- Ikx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoAQRYhBJkj7+VmFO9b
- eaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
- AAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlTMqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfy
- JwktF7REl1yt7IU2Sye1qmQMfJxdt9JMbMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSP
- cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
- 10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
- aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
-In-Reply-To: <7429262c-6dea-4dcc-bf7e-54d2277dabf1@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------PepzSRcxqI9eB3CbgR6zBi8S"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/sched: Rename priority MIN to LOW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKm1ZGUC/3WNQQqDMBBFryJZNyUzkrZ01XuIlMSMOiCJTKy0i
+ Hdv6r7L9+D/t6lMwpTVvdqU0MqZUyyAp0p1o4sDaQ6FFRqsAdDqJc3cafHw7MktOgQLxtZ4QfC
+ qjLzLpL242I1lFl/TVOQs1PP7qDRt4ZHzkuRzRFf42b//K2ijAcIVPKA39vaYODpJ5ySDavd9/
+ wI0+5IFwgAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Loic Poulain <loic.poulain@linaro.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Georgi Djakov <djakov@kernel.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>, 
+ cros-qcom-dts-watchers@chromium.org
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1701098925; l=2755;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=yZgEzYKRpKaQPQoGOfb7ONUfzFPf2ls77sgBQdDr3ME=;
+ b=V5UwjbXyluYT3sCqyhvxMPLK7n4ewU5ni508NwKZPVwcvivC25/OkbkbE+ilYnCDD3fCiiOod
+ mruf6Ot8p8aBmYMfhBp209eYwgjnXewqW2wsmN8WL5VleHqw0qEtTZV
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Subject: [Freedreno] [PATCH v2 00/12] RB1/QCM2290 features
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,134 +99,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Alex Deucher <alexander.deucher@amd.com>, Rob Clark <robdclark@gmail.com>,
- Danilo Krummrich <dakr@redhat.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, iommu@lists.linux.dev,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------PepzSRcxqI9eB3CbgR6zBi8S
-Content-Type: multipart/mixed; boundary="------------zibjDWxyoel9r0KEW6xMDOuZ";
- protected-headers="v1"
-From: Luben Tuikov <ltuikov89@gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Danilo Krummrich <dakr@redhat.com>, Alex Deucher
- <alexander.deucher@amd.com>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Message-ID: <4cc1a0fb-a6e4-4d90-b2c3-423ed6c1d44c@gmail.com>
-Subject: Re: [PATCH 1/2] drm/sched: Rename priority MIN to LOW
-References: <20231124052752.6915-4-ltuikov89@gmail.com>
- <20231124052752.6915-5-ltuikov89@gmail.com>
- <76749276-dc73-4f6f-a467-aa8a721b0878@amd.com>
- <f5a4d51d-82d6-435d-92cd-fdd2d1683404@amd.com>
- <49388112-f42a-448c-9f68-e41266c4408c@gmail.com>
- <7429262c-6dea-4dcc-bf7e-54d2277dabf1@amd.com>
-In-Reply-To: <7429262c-6dea-4dcc-bf7e-54d2277dabf1@amd.com>
+This series brings:
+- interconnect plumbing
+- display setup
 
---------------zibjDWxyoel9r0KEW6xMDOuZ
-Content-Type: multipart/mixed; boundary="------------f5JZn0y6x0y04tb3jFRRbS2E"
+for QCM2290/QRB2210 and
 
---------------f5JZn0y6x0y04tb3jFRRbS2E
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+- CAN bus controller
+- HDMI display
+- wifi fw variant name
 
-On 2023-11-27 09:20, Christian K=C3=B6nig wrote:
-> Am 27.11.23 um 15:13 schrieb Luben Tuikov:
->> On 2023-11-27 08:55, Christian K=C3=B6nig wrote:
->>> Hi Luben,
->>>
->>> Am 24.11.23 um 08:57 schrieb Christian K=C3=B6nig:
->>>> Am 24.11.23 um 06:27 schrieb Luben Tuikov:
->>>>> Rename DRM_SCHED_PRIORITY_MIN to DRM_SCHED_PRIORITY_LOW.
->>>>>
->>>>> This mirrors DRM_SCHED_PRIORITY_HIGH, for a list of DRM scheduler
->>>>> priorities
->>>>> in ascending order,
->>>>>  =C2=A0=C2=A0 DRM_SCHED_PRIORITY_LOW,
->>>>>  =C2=A0=C2=A0 DRM_SCHED_PRIORITY_NORMAL,
->>>>>  =C2=A0=C2=A0 DRM_SCHED_PRIORITY_HIGH,
->>>>>  =C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL.
->>>>>
->>>>> Cc: Rob Clark <robdclark@gmail.com>
->>>>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> Cc: Danilo Krummrich <dakr@redhat.com>
->>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
->>>>> Cc: linux-arm-msm@vger.kernel.org
->>>>> Cc: freedreno@lists.freedesktop.org
->>>>> Cc: dri-devel@lists.freedesktop.org
->>>>> Signed-off-by: Luben Tuikov <ltuikov89@gmail.com>
->>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->>> Looks like you missed one usage in Nouveau:
->>>
->>> drivers/gpu/drm/nouveau/nouveau_sched.c:21:41: error:
->>> =E2=80=98DRM_SCHED_PRIORITY_MIN=E2=80=99 undeclared here (not in a fu=
-nction); did you
->>> mean =E2=80=98DRM_SCHED_PRIORITY_LOW=E2=80=99?
->>>   =C2=A0=C2=A0 21 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 N=
-OUVEAU_SCHED_PRIORITY_SINGLE =3D DRM_SCHED_PRIORITY_MIN,
->>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | ^~~~~~~~~~~~~~~~~~~~~~
->>>   =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | DRM_SCHED_PRIORITY_LOW
->>>
->>> This now results in a build error on drm-misc-next.
->> I'm waiting for someone to R-B the fix I posted two days ago:
->> https://lore.kernel.org/r/20231125192246.87268-2-ltuikov89@gmail.com
->=20
-> There must be something wrong with the dri-devel mailing list (or my=20
-> gmail, but I doubt so). I don't see this mail in my inbox anywhere.
->=20
-> Feel free to add my rb and push it.
+for QTI RB1
 
-Done.
+and the necessary bindings changes
 
-Thanks.
---=20
-Regards,
-Luben
+Patch 1-2 is for Dmitry/freedreno
+Patch 3 for Georgi/icc
+Patch 5 for Will/iommu
+the rest are for Bjorn/qcom
 
---------------f5JZn0y6x0y04tb3jFRRbS2E
-Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Changes in v2:
+- Fix up the bindings example in "qcm2290-mdss: Use the non-deprecated DSI compat" (krzk)
+- Fix up sc7180 & sc7280 DTs as a result of the bindings changes
+- Pick up rbs where it makes sense
+- Link to v1: https://lore.kernel.org/r/20231125-topic-rb1_feat-v1-0-11d71b12b058@linaro.org
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+---
+Dmitry Baryshkov (1):
+      arm64: dts: qcom: qrb2210-rb1: add wifi variant property
 
-xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1A
-PnbnnRHNIkx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoA
-QRYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiIC
-BhUKCQgLAgQWAgMBAh4HAheAAAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlT
-MqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfyJwktF7REl1yt7IU2Sye1qmQMfJxdt9JM
-bMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSPcCE8uGe7FWo8C+nTSyWPXKTx
-9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJl
-OiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKoaMDzO9eG
-z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
-=3DqCaZ
------END PGP PUBLIC KEY BLOCK-----
+Konrad Dybcio (11):
+      dt-bindings: display: msm: qcm2290-mdss: Use the non-deprecated DSI compat
+      dt-bindings: display: msm: Add reg bus and rotator interconnects
+      dt-bindings: interconnect: qcom,msm8998-bwmon: Add QCM2290 bwmon instance
+      dt-bindings: firmware: qcom,scm: Allow interconnect for everyone
+      iommu/arm-smmu-qcom: Add QCM2290 DPU compatible
+      arm64: dts: qcom: sc7180: Add the missing MDSS icc path
+      arm64: dts: qcom: sc7280: Add the missing MDSS icc path
+      arm64: dts: qcom: qcm2290: Add display nodes
+      arm64: dts: qcom: qcm2290: Hook up interconnects
+      arm64: dts: qcom: qrb2210-rb1: Set up HDMI
+      arm64: dts: qcom: qrb2210-rb1: Enable CAN bus controller
 
---------------f5JZn0y6x0y04tb3jFRRbS2E--
+ .../bindings/display/msm/mdss-common.yaml          |  18 +-
+ .../bindings/display/msm/qcom,qcm2290-mdss.yaml    |  21 +-
+ .../bindings/display/msm/qcom,sc7180-mdss.yaml     |  14 +-
+ .../bindings/display/msm/qcom,sc7280-mdss.yaml     |  14 +-
+ .../bindings/display/msm/qcom,sm6115-mdss.yaml     |  10 +
+ .../bindings/display/msm/qcom,sm6125-mdss.yaml     |   8 +-
+ .../bindings/display/msm/qcom,sm6350-mdss.yaml     |   8 +-
+ .../bindings/display/msm/qcom,sm6375-mdss.yaml     |   8 +-
+ .../bindings/display/msm/qcom,sm8450-mdss.yaml     |  13 +-
+ .../devicetree/bindings/firmware/qcom,scm.yaml     |  15 -
+ .../bindings/interconnect/qcom,msm8998-bwmon.yaml  |   1 +
+ arch/arm64/boot/dts/qcom/qcm2290.dtsi              | 462 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qrb2210-rb1.dts           | 109 +++++
+ arch/arm64/boot/dts/qcom/sc7180.dtsi               |   8 +-
+ arch/arm64/boot/dts/qcom/sc7280.dtsi               |   9 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         |   1 +
+ 16 files changed, 671 insertions(+), 48 deletions(-)
+---
+base-commit: 48bbaf8b793e0770798519f8ee1ea2908ff0943a
+change-id: 20231125-topic-rb1_feat-dd510532621b
 
---------------zibjDWxyoel9r0KEW6xMDOuZ--
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
---------------PepzSRcxqI9eB3CbgR6zBi8S
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCZWSpMQUDAAAAAAAKCRBMFUeUMaM0r9uR
-AP4puMB/qHKd9jBHPABQCNfWJmFrh252RevzGJYaIiqOdgD+LXhefPMxysudiSB1K8/fC8Qvbky0
-DmxdBKJgXU2ehAM=
-=Atc+
------END PGP SIGNATURE-----
-
---------------PepzSRcxqI9eB3CbgR6zBi8S--
