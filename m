@@ -2,62 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2BD7FC011
-	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 18:12:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6765F7FC074
+	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 18:43:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4401988BE3;
-	Tue, 28 Nov 2023 17:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB6910E182;
+	Tue, 28 Nov 2023 17:43:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 269C210E16B
- for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 17:12:41 +0000 (UTC)
-Received: by mail-yb1-xb2e.google.com with SMTP id
- 3f1490d57ef6-da7ea62e76cso5582477276.3
- for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 09:12:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701191560; x=1701796360; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=mgBZ8Y+rNOoLuSl7x3moNxTVYzOfvoDEGWK6S2+IbSQ=;
- b=ABuPd7sxaKKLoLbQFkLl+RJ26c6sOuWEzgvjV1hv1oahmBz8BWyhL6pxi2eEoOj9SD
- miTVbjGARB6jPLplOUlsZHgVgxvE2jShRgHLz+uBUqSLcEirFl9CLIzp8tL480jI2XTH
- bH962ojtQ747k9WnVrPWNkd3noeQkebS+edD3jcqzl7kVq4Na+bdcZHdqa60WRDjQp0Z
- BAxHWBr/KPDrvazh0K9DLHskWJ+Uf1owaT5t8e8egG6mtaWNo6JLatmlb1BrPy3yWOsO
- c4K5mBic1h+B3S7iKzGxGxvijQiZMb8DLZaqhdj+ObSIgf/Jw7Xp/3N/Q7rxpgbg8s2y
- FwUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701191560; x=1701796360;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mgBZ8Y+rNOoLuSl7x3moNxTVYzOfvoDEGWK6S2+IbSQ=;
- b=NtXdszA8O2vjN4Xca3oSGNdsZOOEG80FY/3I6T2XaHgwn31iP/QxQimR0tSQ/djxVY
- UbezD2FRAhtt4rAicDFdjF8EcOSDo69VbNn/2Zn8w4qRIa7NtxKzf6+tdHKUfyPFXhHP
- TtaxlZx32v9OTjYuyctRFFMMO9LoOsGAmnsh2OXsQtDFGd0i3PlI1B/mDNyTzXqhvr5L
- 5p8wtoTOTkJ0UdHPEkEUzPfI28MmikjU9Ekrr96+fAST4CePKVBcTShq7qFxPkyzZ7GD
- /wjT5ppmYkLZpe/96YeKr2jgj/kXAz0Vc6JOH0vvikeh4aTwW9UBGaPw393ClPTgzBca
- F2QQ==
-X-Gm-Message-State: AOJu0YxZ1+PR9ef2nZpplKH6e2OBjNYiT1VswYTJnHYmb7ZYJAYtG90I
- fbx4/nXDiJkdXg/1CM0UgAVLjWoeIfxoaQt5zduRHA==
-X-Google-Smtp-Source: AGHT+IGeEkp7jRoTTCguYASiA5X3yJvWFiHTpeQCCzm04ulwl10C5sz2jB4Pa75elxnx/YrTQRyoZ1k8B5sJyf3OsLA=
-X-Received: by 2002:a25:fc04:0:b0:d9a:6855:14cd with SMTP id
- v4-20020a25fc04000000b00d9a685514cdmr16604075ybd.39.1701191560067; Tue, 28
- Nov 2023 09:12:40 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE7910E08B;
+ Tue, 28 Nov 2023 17:43:03 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3ASHUGC3014049; Tue, 28 Nov 2023 17:42:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=b/cVlRF/WxN1lPuFMmDlspdw8SFU+pBUIfULsoUv1SU=;
+ b=NP39tZhvjgS1sLZplIDAWA/yvfb0llnc71T8r22REfgvR5lEh3milAfyDKgTSMTxe5zD
+ fCyhcFaMXT2v1b5C1AH2CEGbfdhVB707rZvdYpU8QQTD7XhUXhZpcQpNTaeMrb46et6d
+ AEYNwLYMFOnpk4Oh28lSTNylignnjrpxZ7NJQeahj14RwgHX1GuN/lETkAe/TA1s95iI
+ aaRFL0iiALU0GVg1oXlJcX3dtyWYw64cOsEEBo4EumyRtaGAd8tzCwCRo4YDF0LAtsUp
+ IGOLhgV8zJigdfZFhVVmSPMaBNENu4Pk9pRLU847xtcGdy3iVpsO87+B6+OBxAojm/PU AQ== 
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ungru8wmp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Nov 2023 17:42:59 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ASHgwDh007333
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Nov 2023 17:42:58 GMT
+Received: from [10.71.111.96] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 28 Nov
+ 2023 09:42:58 -0800
+Message-ID: <cf850520-0906-0291-fd21-be8cd687bcde@quicinc.com>
+Date: Tue, 28 Nov 2023 09:42:57 -0800
 MIME-Version: 1.0
-References: <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
- <20231127160658.2164612-1-mwalle@kernel.org>
- <CAA8EJpphwXoKnzDkY3cBqzsDZwdw+nze-Ev2toPBJm-2VJvY_g@mail.gmail.com>
- <dce76a6e1321a6374ad39125bead56b3@kernel.org>
-In-Reply-To: <dce76a6e1321a6374ad39125bead56b3@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 28 Nov 2023 19:12:29 +0200
-Message-ID: <CAA8EJpr9PDgSrTpP2-joQ09fxmJKZB1B+ESbDbMjkLNiqZ1m3A@mail.gmail.com>
-To: Michael Walle <mwalle@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
- control over the DSI link power state
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20231128011122.14711-1-quic_parellan@quicinc.com>
+ <CAA8EJpprP7mQLm47d07AtNRjLtpQCSAw5PuXjwGXNO2rXVUPZw@mail.gmail.com>
+From: Paloma Arellano <quic_parellan@quicinc.com>
+In-Reply-To: <CAA8EJpprP7mQLm47d07AtNRjLtpQCSAw5PuXjwGXNO2rXVUPZw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: jAaFZnu0kmzc0cUgNUhlm6zCfRKhytFO
+X-Proofpoint-ORIG-GUID: jAaFZnu0kmzc0cUgNUhlm6zCfRKhytFO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-28_19,2023-11-27_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxscore=0
+ malwarescore=0 bulkscore=0 mlxlogscore=999 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311280141
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Capture dpu snapshot when
+ frame_done_timer timeouts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,115 +84,96 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: tony@atomide.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Laurent.pinchart@ideasonboard.com,
- andrzej.hajda@intel.com, marijn.suijten@somainline.org, marex@denx.de,
- rfoss@kernel.org, dave.stevenson@raspberrypi.com, jernej.skrabec@gmail.com,
- alexander.stein@ew.tq-group.com, quic_jesszhan@quicinc.com, jonas@kwiboo.se,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org,
- sean@poorly.run, neil.armstrong@linaro.org, dianders@chromium.org,
- konrad.dybcio@linaro.org, tzimmermann@suse.de, freedreno@lists.freedesktop.org
+Cc: neil.armstrong@linaro.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 28 Nov 2023 at 18:56, Michael Walle <mwalle@kernel.org> wrote:
->
-> >> > DSI device lifetime has three different stages:
-> >> > 1. before the DSI link being powered up and clocking,
-> >> > 2. when the DSI link is in LP state (for the purpose of this question,
-> >> > this is the time between the DSI link being powered up and the video
-> >> > stream start)
-> >> > 3. when the DSI link is in HS state (while streaming the video).
-> >>
-> >> It's not clear to me what (2) is. What is the state of the clock and
-> >> data lanes?
-> >
-> > Clk an Data0 should be in the LP mode, ready for LP Data Transfer.
->
-> Then this is somehow missing
-> https://docs.kernel.org/gpu/drm-kms-helpers.html#mipi-dsi-bridge-operation
->
->    A DSI host should keep the PHY powered down until the pre_enable
-> operation
->    is called. All lanes are in an undefined idle state up to this point,
-> and
->    it must not be assumed that it is LP-11. pre_enable should initialise
-> the
->    PHY, set the data lanes to LP-11, and the clock lane to either LP-11
-> or HS
->    depending on the mode_flag MIPI_DSI_CLOCK_NON_CONTINUOUS.
->
-> So I don't think these three states are sufficient, see below, that
-> there
-> should be at least four.
 
-Which one is #4?
+On 11/27/2023 5:48 PM, Dmitry Baryshkov wrote:
+> On Tue, 28 Nov 2023 at 03:12, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+>> Trigger a devcoredump to dump dpu registers and capture the drm atomic
+>> state when the frame_done_timer timeouts.
+>>
+>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 +++++++++++--
+>>   1 file changed, 11 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index 1cf7ff6caff4..5cf7594feb5a 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -191,6 +191,7 @@ struct dpu_encoder_virt {
+>>          void *crtc_frame_event_cb_data;
+>>
+>>          atomic_t frame_done_timeout_ms;
+>> +       atomic_t frame_done_timeout_cnt;
+>>          struct timer_list frame_done_timer;
+>>
+>>          struct msm_display_info disp_info;
+>> @@ -1204,6 +1205,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
+>>
+>>          dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
+>>
+>> +       atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
+>> +
+>>          if (disp_info->intf_type == INTF_DP)
+>>                  dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
+>>          else if (disp_info->intf_type == INTF_DSI)
+>> @@ -2115,11 +2118,12 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
+>>          for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+>>                  struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>>
+>> -               seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    ",
+>> +               seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    frame_done_cnt:%d",
+>>                                  phys->hw_intf ? phys->hw_intf->idx - INTF_0 : -1,
+>>                                  phys->hw_wb ? phys->hw_wb->idx - WB_0 : -1,
+>>                                  atomic_read(&phys->vsync_cnt),
+>> -                               atomic_read(&phys->underrun_cnt));
+>> +                               atomic_read(&phys->underrun_cnt),
+>> +                               atomic_read(&dpu_enc->frame_done_timeout_cnt));
+>>
+>>                  seq_printf(s, "mode: %s\n", dpu_encoder_helper_get_intf_type(phys->intf_mode));
+>>          }
+>> @@ -2341,6 +2345,10 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+>>
+>>          DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
+>>
+>> +       atomic_inc(&dpu_enc->frame_done_timeout_cnt);
+>> +       if (atomic_read(&dpu_enc->frame_done_timeout_cnt) == 1)
+>> +               msm_disp_snapshot_state(drm_enc->dev);
+> atomic_inc_and_test(), please
+
+Hi Dmitry,
+
+We only want to create a snapshot for the first instance in which the 
+timer timeouts. atomic_int_and_test() increments the value and then 
+returns whether it has a value of zero or not. FWIW I think I should 
+change it to 'atomic_add_return(1, &dpu_enc->frame_done_timeout_cnt)' so 
+that we can check only when this value equals one.
+
+Thank you,
+
+Paloma
 
 >
-> -michael
+>> +
+>>          event = DPU_ENCODER_FRAME_EVENT_ERROR;
+>>          trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
+>>          dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
+>> @@ -2392,6 +2400,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
+>>                  goto fail;
+>>
+>>          atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
+>> +       atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
+>>          timer_setup(&dpu_enc->frame_done_timer,
+>>                          dpu_encoder_frame_done_timeout, 0);
+>>
+>> --
+>> 2.41.0
+>>
 >
-> >
-> > I don't think we support ULPS currently.
-> >
-> >
-> >>
-> >> I'm facing similar issues with the tc358775 bridge. This bridge needs
-> >> to release its reset while both clock and data lanes are in LP-11
-> >> mode.
-> >> But then it needs to be configured (via I2C) while the clock lane is
-> >> in enabled (HS mode), but the data lanes are still in LP-11 mode.
-> >>
-> >> To me it looks like there is a fouth case then:
-> >> 1. unpowered
-> >> 2. DSI clock and data are in LP-11
-> >> 3. DSI clock is in HS and data are in LP-11
-> >> 4. DSI clock is in HS and data is in HS
-> >>
-> >> (And of course the bridge needs continuous clock mode).
-> >>
-> >> > Different DSI bridges have different requirements with respect to the
-> >> > code being executed at stages 1 and 2. For example several DSI-to-eDP
-> >> > bridges (ps8640, tc358767 require for the link to be quiet during
-> >> > reset time.
-> >> > The DSI-controlled bridges and DSI panels need to send some commands
-> >> > in stage 2, before starting up video
-> >> >
-> >> > In the DRM subsystem stage 3 naturally maps to the
-> >> > drm_bridge_funcs::enable, stage 1 also naturally maps to the
-> >> > drm_bridge_funcs::pre_enable. Stage 2 doesn't have its own place in
-> >> > the DRM call chain.
-> >> > Earlier we attempted to solve that using the pre_enable_prev_first,
-> >> > which remapped pre-enable callback execution order. However it has led
-> >> > us to the two issues. First, at the DSI host driver we do not know
-> >> > whether the panel / bridge were updated to use pre_enable_prev_first
-> >> > or not. Second, if the bridge has to perform steps during both stages
-> >> > 1 and 2, it can not do that.
-> >> >
-> >> > I'm trying to find a way to express the difference between stages 1
-> >> > and 2 in the generic code, so that we do not to worry about particular
-> >> > DSI host and DSI bridge / panel peculiarities when implementing the
-> >> > DSI host and/or DSI panel driver.
-> >>
-> >> For now, I have a rather hacky ".dsi_lp11_notify" callback in
-> >> drm_bridge_funcs which is supposed to be called by the DSI host while
-> >> the
-> >> clock and data lanes are in LP-11 mode. But that is rather an RFC and
-> >> me
-> >> needing something to get the driver for this bridge working. Because
-> >> it's
-> >> badly broken. FWIW, you can find my work-in-progress patches at
-> >> https://github.com/mwalle/linux/tree/feature-tc358775-fixes
-> >>
-> >> -michael
-> >>
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
-
-
-
--- 
-With best wishes
-Dmitry
