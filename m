@@ -2,70 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45B07FAF68
-	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 02:12:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BDB87FAFC0
+	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 02:48:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E74BE10E004;
-	Tue, 28 Nov 2023 01:12:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16DF910E037;
+	Tue, 28 Nov 2023 01:48:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB5510E004;
- Tue, 28 Nov 2023 01:12:09 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AS0uuH1028511; Tue, 28 Nov 2023 01:12:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=4O9nT9qrVkrTkIAh9FoKyL3NTb7WlObxESj18pHOOiE=;
- b=fwwgMQpZY6QTyUANzgsNmlGlTJXaoGN7XMIoL6CtYoGma2UevL9CgSj+JIVCKmsTJ8ne
- f+aNbPrZtsi5KKmjhBtB1nrm22ncUW3gvAKUZ5vGGKCjwgSO1qgMxuDUYbKElOlR4NV2
- iQTaVS8HMQlj9ATednmMejCynWt44yRZBas38xJKyIIygNnq3DkpG5kNtGOxRKAOzrPp
- wWCEVMoK8s7II5suWyxIuheoUENolkH75O3w59spy3OYp4mDWFCDN+FFpemmkY/WRAlo
- 1fllO4+bxAp93C3LRk9QXPx9iHyu6QhetnK8W7x1OO7/4iGc+u8pw4SWd4s5OrZqbVyj 2w== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3umwn5sac4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Nov 2023 01:12:05 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AS1C5DT024493
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Nov 2023 01:12:05 GMT
-Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 27 Nov 2023 17:12:04 -0800
-From: Paloma Arellano <quic_parellan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Mon, 27 Nov 2023 17:11:17 -0800
-Message-ID: <20231128011122.14711-1-quic_parellan@quicinc.com>
-X-Mailer: git-send-email 2.41.0
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7513B10E0A9
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 01:48:22 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-5a877e0f0d8so44974567b3.1
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Nov 2023 17:48:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701136101; x=1701740901; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=7vxz+tHNBNWZVc8EcJHObY+dUX9GxZl9+4l9Gmig2ak=;
+ b=Hs2yLQFtT+4hHe86DiQni3olJE5kh9uH6yIZuGkCcEjKXmy6KuY+DggP8Fp0gNJI3J
+ ykfsDl/k9sam8o16bWG5CVQT1nVGue3HJhB5nB4n0FzVyDJ0EqICHraSUGMvQwi+nvfh
+ rOpWnScsHemGxxXVzWaK3GMtZCGB3ey8/IA2pc7sN+x8j2la4WEDZIHLuSn2Bv8EPyeK
+ 9Cah47Ol++LMN0Wxie87kPkeuou1kBgbdv2GhUZu2W9J44cfHkT1UlU8tkkd02QkEqLh
+ +gZQgYXELWK63nCEIkW+D9vlIpmQazytPHlKBMdkBAdi1FkSAzPNs0yU0xtQxT3b7Iiy
+ l+hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701136101; x=1701740901;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7vxz+tHNBNWZVc8EcJHObY+dUX9GxZl9+4l9Gmig2ak=;
+ b=spQsrDrbjxoJuZqRrrM40ongUJAXXbcQmPVvzm1Xk762lnXxO/YF+KHkWZzFop6Zle
+ m2aYzKbPFigz1HIw+pRJ4aaSpc2YZZZsc6kELtUfbFJ+aPY1syOUdHggtMmg/bktHMPH
+ ytf/tv5ToBjwl6IStbzoxo4wEcmfjJs4EIDOLsIkN6tKhNB8F+fRQ+185m1XbjWDLRNc
+ Q4NBt6ORoJmDMVkWfLisj0332Vipkc0KKezFALM8UHk/EE4gLq0ggt47Q1w9pZ0qgMye
+ u6CVrcRUbd+71oVd9VsNaafkOInk9UV6OjFzhEhNjw9xXnGtXKijy3kH9NXTCsBvJrbH
+ M26w==
+X-Gm-Message-State: AOJu0YyAeNXGJNqtTz3lKEaZJ+gHeMmBe+j36g1QRDDAjH7ExE36Je2a
+ df1XBUCMZ91fEhXrru50hpH0razjEzFe4OFEvjb7HQ==
+X-Google-Smtp-Source: AGHT+IGYQElil91O5cH+HFnOPnDGOe0frEhW3uvtQCLF5IPu3HSvzwR/Wc1fbGURrXChA9Dz45L784GG2VN/D75eRF4=
+X-Received: by 2002:a81:6c82:0:b0:5cc:9ef4:b01d with SMTP id
+ h124-20020a816c82000000b005cc9ef4b01dmr14954961ywc.21.1701136101408; Mon, 27
+ Nov 2023 17:48:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 6KAe7elOGMvnSlo6GzDQOLnXgEP8RFjx
-X-Proofpoint-GUID: 6KAe7elOGMvnSlo6GzDQOLnXgEP8RFjx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-28_01,2023-11-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- adultscore=0 mlxlogscore=999 mlxscore=0 spamscore=0 bulkscore=0
- lowpriorityscore=0 malwarescore=0 impostorscore=0 clxscore=1011
- suspectscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2311060000 definitions=main-2311280007
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Capture dpu snapshot when
+References: <20231128011122.14711-1-quic_parellan@quicinc.com>
+In-Reply-To: <20231128011122.14711-1-quic_parellan@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 28 Nov 2023 03:48:10 +0200
+Message-ID: <CAA8EJpprP7mQLm47d07AtNRjLtpQCSAw5PuXjwGXNO2rXVUPZw@mail.gmail.com>
+To: Paloma Arellano <quic_parellan@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Capture dpu snapshot when
  frame_done_timer timeouts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,77 +67,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
- Paloma Arellano <quic_parellan@quicinc.com>
+Cc: neil.armstrong@linaro.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Trigger a devcoredump to dump dpu registers and capture the drm atomic
-state when the frame_done_timer timeouts.
+On Tue, 28 Nov 2023 at 03:12, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+>
+> Trigger a devcoredump to dump dpu registers and capture the drm atomic
+> state when the frame_done_timer timeouts.
+>
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 1cf7ff6caff4..5cf7594feb5a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -191,6 +191,7 @@ struct dpu_encoder_virt {
+>         void *crtc_frame_event_cb_data;
+>
+>         atomic_t frame_done_timeout_ms;
+> +       atomic_t frame_done_timeout_cnt;
+>         struct timer_list frame_done_timer;
+>
+>         struct msm_display_info disp_info;
+> @@ -1204,6 +1205,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
+>
+>         dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
+>
+> +       atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
+> +
+>         if (disp_info->intf_type == INTF_DP)
+>                 dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
+>         else if (disp_info->intf_type == INTF_DSI)
+> @@ -2115,11 +2118,12 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
+>         for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+>                 struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>
+> -               seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    ",
+> +               seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    frame_done_cnt:%d",
+>                                 phys->hw_intf ? phys->hw_intf->idx - INTF_0 : -1,
+>                                 phys->hw_wb ? phys->hw_wb->idx - WB_0 : -1,
+>                                 atomic_read(&phys->vsync_cnt),
+> -                               atomic_read(&phys->underrun_cnt));
+> +                               atomic_read(&phys->underrun_cnt),
+> +                               atomic_read(&dpu_enc->frame_done_timeout_cnt));
+>
+>                 seq_printf(s, "mode: %s\n", dpu_encoder_helper_get_intf_type(phys->intf_mode));
+>         }
+> @@ -2341,6 +2345,10 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+>
+>         DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
+>
+> +       atomic_inc(&dpu_enc->frame_done_timeout_cnt);
+> +       if (atomic_read(&dpu_enc->frame_done_timeout_cnt) == 1)
+> +               msm_disp_snapshot_state(drm_enc->dev);
 
-Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+atomic_inc_and_test(), please
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1cf7ff6caff4..5cf7594feb5a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -191,6 +191,7 @@ struct dpu_encoder_virt {
- 	void *crtc_frame_event_cb_data;
- 
- 	atomic_t frame_done_timeout_ms;
-+	atomic_t frame_done_timeout_cnt;
- 	struct timer_list frame_done_timer;
- 
- 	struct msm_display_info disp_info;
-@@ -1204,6 +1205,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
- 
- 	dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
- 
-+	atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
-+
- 	if (disp_info->intf_type == INTF_DP)
- 		dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
- 	else if (disp_info->intf_type == INTF_DSI)
-@@ -2115,11 +2118,12 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
- 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
- 
--		seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    ",
-+		seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    frame_done_cnt:%d",
- 				phys->hw_intf ? phys->hw_intf->idx - INTF_0 : -1,
- 				phys->hw_wb ? phys->hw_wb->idx - WB_0 : -1,
- 				atomic_read(&phys->vsync_cnt),
--				atomic_read(&phys->underrun_cnt));
-+				atomic_read(&phys->underrun_cnt),
-+				atomic_read(&dpu_enc->frame_done_timeout_cnt));
- 
- 		seq_printf(s, "mode: %s\n", dpu_encoder_helper_get_intf_type(phys->intf_mode));
- 	}
-@@ -2341,6 +2345,10 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
- 
- 	DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
- 
-+	atomic_inc(&dpu_enc->frame_done_timeout_cnt);
-+	if (atomic_read(&dpu_enc->frame_done_timeout_cnt) == 1)
-+		msm_disp_snapshot_state(drm_enc->dev);
-+
- 	event = DPU_ENCODER_FRAME_EVENT_ERROR;
- 	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
- 	dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
-@@ -2392,6 +2400,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
- 		goto fail;
- 
- 	atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
-+	atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
- 	timer_setup(&dpu_enc->frame_done_timer,
- 			dpu_encoder_frame_done_timeout, 0);
- 
+> +
+>         event = DPU_ENCODER_FRAME_EVENT_ERROR;
+>         trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
+>         dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
+> @@ -2392,6 +2400,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
+>                 goto fail;
+>
+>         atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
+> +       atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
+>         timer_setup(&dpu_enc->frame_done_timer,
+>                         dpu_encoder_frame_done_timeout, 0);
+>
+> --
+> 2.41.0
+>
+
+
 -- 
-2.41.0
-
+With best wishes
+Dmitry
