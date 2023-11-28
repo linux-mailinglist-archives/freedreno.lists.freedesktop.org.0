@@ -1,87 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75F47FBB43
-	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 14:18:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB2E87FBF8E
+	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 17:49:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BD310E519;
-	Tue, 28 Nov 2023 13:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30FC610E166;
+	Tue, 28 Nov 2023 16:49:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAE8A10E07D
- for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 13:18:32 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2c9b8363683so4811951fa.3
- for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 05:18:32 -0800 (PST)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C26210E166
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 16:49:49 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-5ce8eff71e1so39028827b3.0
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 08:49:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701177511; x=1701782311; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tTf2yUtECbY/OYuChMFvXRgzzGsfDdzdXOehMmGhewk=;
- b=XkuSWrY1Qph4pfTqw3fsAq1c1exwf9OahJy6gyEDVK56klgkRDquxSv1bzGAHYCID2
- tvgnzJjuWBaNm/RW/z+QzAtDokDb3Rvh5QGI/HJsa5ok6w1aBsjBlrEsuN2rBbWq5Cae
- 0JqCl6EPtC5h0JqJqP5+ysvtQQROR8o1/t60uGyjuCrC6uUStnsjAofqhGy1+2xXUiO2
- NPIuasPzNkEMTmTjWFdOGemXouzveo7QCgrLq9G8L/kAJBh1BxtrFXJyfxHlY+Y5bCew
- ptubUyzUP2To1CX8MrYawGfUOswuXu92uupySd6Z9mRFQjYtg2H4B4HuX2pJCO7lhVXG
- LJYg==
+ d=linaro.org; s=google; t=1701190188; x=1701794988; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=GD78XLjf7azY9M1YBLSr3MhFJROFOKxRGQJfpbe9EqI=;
+ b=gDgWPKcuzAymdIBSIVbMQ6r29xVW5uddMDDcb2MfWuooYeQNN3MWR9VPBnYUwWaVrg
+ NTpvoOmbEwenLgqnBSr/1xpYm7NmjySol2Fbn1qo0AmJO9G9Zo/0unqL9rEIgXeu9qkj
+ 3V46DMlUwww1cBtbGa9Z5IaJP8UsR0HhVz5aN6xUKpVgsyKntm4a0iwoZufBIpDbOha0
+ Le36qpLhb0pQ4NOLquymF56JS+z8q7D+KBtq8ti2cBUAe392QPQbU0B/Udcc5PP91RNP
+ YpzKd6xQXfzKyfP5rHXZK65pIFkA6UZNQleEcBjJtOytYKlDn1PrJd9OSB1pqAC7UIHf
+ nOLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701177511; x=1701782311;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tTf2yUtECbY/OYuChMFvXRgzzGsfDdzdXOehMmGhewk=;
- b=iF2JDm1KY93VWa0s6VptUjN/6x2jHmNUwPuUOG4dvE/cKv1EpPtinPc6pPQCIKahNT
- JjHKv81pc83t9Y/lEiOzLF0FYyNuXz4NcrIJ3KI8XAs9uPZLDQ6Kuc2iCTfJqGxFMrip
- vi89lWpXlVFLz6+CKo6JvMhdtoHMuImAoCEiutY2nhURz/7Rkj1VDAHOvvHQGo0m1C9M
- yIeRD4qRGjqbPILwYarRNP9is5AJ43CJ9lYBp7KRaFSDa2azYAoD21tLTvjB7GC89MJB
- tm0RaJGI3a7wwfTisq6YiErBuqcVpRCbRLehxnqL/EAU5h4I3JZdh+wUozA87NGDlI5j
- r62Q==
-X-Gm-Message-State: AOJu0Yy1iKUAfo8N1jGSVpKh5hvtTpcKc6h17+Tmw9blRe4dOpVnuyT/
- ayHpHprL9sDmXhyOtewqjPHaSA==
-X-Google-Smtp-Source: AGHT+IGqrSCmGnNKknw600PvCwdJ4nyNLsm/yU9AqIvf2jLutSas7DdHhjfbocjXyLUEEP7CqlRP5A==
-X-Received: by 2002:a05:651c:39d:b0:2c9:9983:6fba with SMTP id
- e29-20020a05651c039d00b002c999836fbamr5636031ljp.52.1701177511295; 
- Tue, 28 Nov 2023 05:18:31 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a0db:1f00::227?
- (dzdqv0yyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::227])
- by smtp.gmail.com with ESMTPSA id
- t7-20020a2e9547000000b002b657f10b78sm1707226ljh.58.2023.11.28.05.18.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Nov 2023 05:18:30 -0800 (PST)
-Message-ID: <83e4f84f-63bd-4f53-886e-5cff215fd802@linaro.org>
-Date: Tue, 28 Nov 2023 15:18:30 +0200
+ d=1e100.net; s=20230601; t=1701190188; x=1701794988;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GD78XLjf7azY9M1YBLSr3MhFJROFOKxRGQJfpbe9EqI=;
+ b=MshbzK+fjnwlBHLPBRkpkmbOiqAt6H1AVPD30WiHHx1ULLdnKaPh4aWT7xjFhpNRcA
+ AoNdcWNAI7YSVmRAHBomrA4UURuGuiWvV4VW3S1mW8fPTy+bFyWeFEdnILBwwGYbRVUw
+ 4hS9YZU+AbVGIJmExPjmvIfKPCl7edZP5BhneM/J3Cg49Gtx6ywfCHOX1tuxNXAIG+It
+ aB3pHOjjH76q/ze/JkDLux8Kj0KIteh6mea5vkSyf24IBLfwbXhsTlsJgBaUAUYTI26L
+ 0+aiCrPnQw7cMesQx06GxUVwYtB/KFZBZ09s0ylhQzOl8XMnX0sAdNJtzy778xzUFdx2
+ YkYA==
+X-Gm-Message-State: AOJu0Yy2XrCsiSrDp2gFQSTt+WtMp/VPwoRJ3G7xWgVtea15Qy3b1Cs8
+ dGp+VkyNfhXGGYwWaKS08TXNLBECrJu7/ltk5/ctyA==
+X-Google-Smtp-Source: AGHT+IHvWlPlRTUJ/I2oNwEaIU1VT4yRPgec2UooToA0iRvEqgCTansBlFO5MCgGr8obm68fHQ3hfvqtxUtgQALcFMs=
+X-Received: by 2002:a05:690c:3383:b0:5d0:57a6:5f21 with SMTP id
+ fl3-20020a05690c338300b005d057a65f21mr7997955ywb.2.1701190188094; Tue, 28 Nov
+ 2023 08:49:48 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Georgi Djakov <djakov@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>,
- cros-qcom-dts-watchers@chromium.org
-References: <20231125-topic-rb1_feat-v2-0-979b28f35e4a@linaro.org>
- <20231125-topic-rb1_feat-v2-5-979b28f35e4a@linaro.org>
+References: <CAA8EJpozZkEswnioKjRCqBg4fcjVHFwGivoFNTNHVwyocKprQw@mail.gmail.com>
+ <20231127160658.2164612-1-mwalle@kernel.org>
+In-Reply-To: <20231127160658.2164612-1-mwalle@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20231125-topic-rb1_feat-v2-5-979b28f35e4a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 05/12] iommu/arm-smmu-qcom: Add QCM2290
- DPU compatible
+Date: Tue, 28 Nov 2023 18:49:36 +0200
+Message-ID: <CAA8EJpphwXoKnzDkY3cBqzsDZwdw+nze-Ev2toPBJm-2VJvY_g@mail.gmail.com>
+To: Michael Walle <mwalle@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH 03/10] drm/mipi-dsi: add API for manual
+ control over the DSI link power state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,46 +68,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: tony@atomide.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Laurent.pinchart@ideasonboard.com,
+ andrzej.hajda@intel.com, marijn.suijten@somainline.org, marex@denx.de,
+ rfoss@kernel.org, dave.stevenson@raspberrypi.com, jernej.skrabec@gmail.com,
+ alexander.stein@ew.tq-group.com, quic_jesszhan@quicinc.com, jonas@kwiboo.se,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com, mripard@kernel.org,
+ sean@poorly.run, neil.armstrong@linaro.org, dianders@chromium.org,
+ konrad.dybcio@linaro.org, tzimmermann@suse.de, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/11/2023 17:28, Konrad Dybcio wrote:
-> Add the QCM2290 DPU compatible to clients compatible list, as it also
-> needs the workarounds.
+On Mon, 27 Nov 2023 at 18:07, Michael Walle <mwalle@kernel.org> wrote:
+>
+> Hi,
+>
+> > DSI device lifetime has three different stages:
+> > 1. before the DSI link being powered up and clocking,
+> > 2. when the DSI link is in LP state (for the purpose of this question,
+> > this is the time between the DSI link being powered up and the video
+> > stream start)
+> > 3. when the DSI link is in HS state (while streaming the video).
+>
+> It's not clear to me what (2) is. What is the state of the clock and
+> data lanes?
 
-Nit: MDSS, not DPU compatible
+Clk an Data0 should be in the LP mode, ready for LP Data Transfer.
 
-With that fixed:
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I don't think we support ULPS currently.
 
 
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> index 549ae4dba3a6..aea5e85b20ff 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -245,6 +245,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
->   	{ .compatible = "qcom,adreno" },
->   	{ .compatible = "qcom,mdp4" },
->   	{ .compatible = "qcom,mdss" },
-> +	{ .compatible = "qcom,qcm2290-mdss" },
->   	{ .compatible = "qcom,sc7180-mdss" },
->   	{ .compatible = "qcom,sc7180-mss-pil" },
->   	{ .compatible = "qcom,sc7280-mdss" },
-> 
+>
+> I'm facing similar issues with the tc358775 bridge. This bridge needs
+> to release its reset while both clock and data lanes are in LP-11 mode.
+> But then it needs to be configured (via I2C) while the clock lane is
+> in enabled (HS mode), but the data lanes are still in LP-11 mode.
+>
+> To me it looks like there is a fouth case then:
+> 1. unpowered
+> 2. DSI clock and data are in LP-11
+> 3. DSI clock is in HS and data are in LP-11
+> 4. DSI clock is in HS and data is in HS
+>
+> (And of course the bridge needs continuous clock mode).
+>
+> > Different DSI bridges have different requirements with respect to the
+> > code being executed at stages 1 and 2. For example several DSI-to-eDP
+> > bridges (ps8640, tc358767 require for the link to be quiet during
+> > reset time.
+> > The DSI-controlled bridges and DSI panels need to send some commands
+> > in stage 2, before starting up video
+> >
+> > In the DRM subsystem stage 3 naturally maps to the
+> > drm_bridge_funcs::enable, stage 1 also naturally maps to the
+> > drm_bridge_funcs::pre_enable. Stage 2 doesn't have its own place in
+> > the DRM call chain.
+> > Earlier we attempted to solve that using the pre_enable_prev_first,
+> > which remapped pre-enable callback execution order. However it has led
+> > us to the two issues. First, at the DSI host driver we do not know
+> > whether the panel / bridge were updated to use pre_enable_prev_first
+> > or not. Second, if the bridge has to perform steps during both stages
+> > 1 and 2, it can not do that.
+> >
+> > I'm trying to find a way to express the difference between stages 1
+> > and 2 in the generic code, so that we do not to worry about particular
+> > DSI host and DSI bridge / panel peculiarities when implementing the
+> > DSI host and/or DSI panel driver.
+>
+> For now, I have a rather hacky ".dsi_lp11_notify" callback in
+> drm_bridge_funcs which is supposed to be called by the DSI host while the
+> clock and data lanes are in LP-11 mode. But that is rather an RFC and me
+> needing something to get the driver for this bridge working. Because it's
+> badly broken. FWIW, you can find my work-in-progress patches at
+> https://github.com/mwalle/linux/tree/feature-tc358775-fixes
+>
+> -michael
+>
 
--- 
+
+--
 With best wishes
 Dmitry
-
