@@ -2,76 +2,128 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2EBD7FAFDD
-	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 03:05:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E197FB3F5
+	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 09:23:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC0510E411;
-	Tue, 28 Nov 2023 02:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ADA410E10A;
+	Tue, 28 Nov 2023 08:23:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D453310E40E;
- Tue, 28 Nov 2023 02:05:53 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AS0uuIR028511; Tue, 28 Nov 2023 02:05:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=SVeXcK+Nv4n4xxLY2e9Af6K/gI+CEi7+y1nYoGbbgUg=;
- b=GCpOggXsufpb5fekZhHet+LBWtPTOWNzZOtBLpAX8pUxriuLTb71Xtr6o8Qd5RVmzfWz
- 3Gj5P451ZL+RD82fhEu7+NrCmdTAFvHCH7hGnq3ByIS35Fx4bTB2ox7Kbchhw052XNnH
- rfkFCZ19fW4krCG0M+ExTWCun/DZlQ3ugWYJ8t3yaHlJ4xeZOEKwnYqnHOxCuvidd2Dx
- OwvyMCwU3KGHhzegCv+B5/rpH9D8QCj310ztH5Oc5TD+/cu+DG638RGA9BBxMImk9zuk
- whXxZP7wfmnDcpOQnh8MRWA9v3wHqCLCIZUb+MoWIFQf+P0JiMP6G+zIlmKiYO4+64DK Xg== 
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3umwn5scyb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Nov 2023 02:05:47 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AS25kOL002397
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Nov 2023 02:05:46 GMT
-Received: from [10.110.19.196] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 27 Nov
- 2023 18:05:46 -0800
-Message-ID: <3b2ec0ce-a931-9eee-6d6e-261990800524@quicinc.com>
-Date: Mon, 27 Nov 2023 18:05:45 -0800
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62A4110E468
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 08:23:09 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-54b7ef7f4d5so2055980a12.1
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 00:23:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701159788; x=1701764588; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=coVxxRvKmyhaCH6G8RxJ1YJH2PseX2AUV8csYjv/pKg=;
+ b=pwED3iEv+6gEMWZYzUAh1KSOH63AVCcCF74FdWxfv1zt6oUjLyVnm7AFMfb4yelkvv
+ 174aScm1O7OkzqOSSHnAPxxSdh199Q856lpKEGGjlsx7Az8rSBFGOnwkjXSp0C/giR2f
+ Z9f+RuQbPEqWmKwlrASstwawIH7RLkfT4e9B43zbnz/8V30p7F9MFN79nkaiiGWr10xO
+ FqwjwmJthrpDEKL6wL1YdUjJtJMSrno2DaVNwi6XCbgu4KDd5AdYa+D0STDee4bouHg9
+ IcHGyIYROUQWK4nmIwy2GlHXj9rFqVTHN0YHkk7z/QnsXnLWChO/nz2I0VcQh68vhoCS
+ fhPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701159788; x=1701764588;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=coVxxRvKmyhaCH6G8RxJ1YJH2PseX2AUV8csYjv/pKg=;
+ b=Jc6ZsACV+ENxxnW4QashzF9AvDJL0lwcGZohewjzidQFrH4RZSITWTtic1RNiGn2so
+ x3ptqmydV9E53KYrahuNXfZKPhQ0uCKb3BqCNkJ8DJbObcppCMtsJt63QT0yov0DsvaT
+ 7ucDjxG7svF4s54P4XnQwnXvzbh6RafVOr4jhK8wQYWJW63z8314psrOsi8AYPAgry3u
+ IHvqRdpDpx7NtXPzg8zfdIkUCzYvL3Y5UYBUyR1JOX51C1skBfW1VlDMdf4J8Qx9xJc3
+ yu1b5DB0LFRISsI/VCTl8HkuBaoREyFtJcP584YXIjW2GLdP5n9n/twGnd2zFso9UsFi
+ EX3g==
+X-Gm-Message-State: AOJu0YyJsBjEhMWASVdajD5w94/MtM0PRmrVIi9zrlOFILW8WJ2CEpmY
+ UuOxKGCSbxflyGj/S31oOATLbg==
+X-Google-Smtp-Source: AGHT+IEgMh/OBItu88G3t9aQ2Zwzb8hKRW87qL5/jTOsepyznXcGoQuNepBzzWmCjKnpVCRBxkGYaQ==
+X-Received: by 2002:a50:cd15:0:b0:54b:20a7:cf82 with SMTP id
+ z21-20020a50cd15000000b0054b20a7cf82mr8455451edi.24.1701159787840; 
+ Tue, 28 Nov 2023 00:23:07 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.223.109])
+ by smtp.gmail.com with ESMTPSA id
+ x1-20020aa7d381000000b00548ab1abc75sm6180302edq.51.2023.11.28.00.23.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Nov 2023 00:23:07 -0800 (PST)
+Message-ID: <2164e693-875a-44c1-9bf5-9fa192dc589a@linaro.org>
+Date: Tue, 28 Nov 2023 09:23:03 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231127215401.4064128-1-dmitry.baryshkov@linaro.org>
- <60dc2b72-188f-7b6e-4e14-b90f10997a44@quicinc.com>
- <CAA8EJpoKOPVLC9n_2MC2Es7XssEs5G5O4ESJ_-krA8aGG_fb0Q@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpoKOPVLC9n_2MC2Es7XssEs5G5O4ESJ_-krA8aGG_fb0Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Georgi Djakov <djakov@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>,
+ cros-qcom-dts-watchers@chromium.org
+References: <20231125-topic-rb1_feat-v2-0-979b28f35e4a@linaro.org>
+ <20231125-topic-rb1_feat-v2-1-979b28f35e4a@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
+ m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
+ HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
+ XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
+ mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
+ v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
+ cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
+ rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
+ qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
+ aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
+ gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
+ dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
+ NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
+ hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
+ oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
+ H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
+ yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
+ 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
+ 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
+ +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
+ FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
+ 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
+ DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
+ oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
+ 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
+ Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
+ qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
+ /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
+ qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
+ EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
+ KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
+ fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20231125-topic-rb1_feat-v2-1-979b28f35e4a@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: WXR1tRmyPf8IXtfkBzenYds3dYkkBkn5
-X-Proofpoint-GUID: WXR1tRmyPf8IXtfkBzenYds3dYkkBkn5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-28_01,2023-11-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- adultscore=0 mlxlogscore=971 mlxscore=0 spamscore=0 bulkscore=0
- lowpriorityscore=0 malwarescore=0 impostorscore=0 clxscore=1015
- suspectscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2311060000 definitions=main-2311280015
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp4: flush vblank event on disable
+Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display: msm:
+ qcm2290-mdss: Use the non-deprecated DSI compat
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,80 +136,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/27/2023 3:17 PM, Dmitry Baryshkov wrote:
-> On Tue, 28 Nov 2023 at 00:00, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 11/27/2023 1:54 PM, Dmitry Baryshkov wrote:
->>> Flush queued events when disabling the crtc. This avoids timeouts when
->>> we come back and wait for dependencies (like the previous frame's
->>> flip_done).
->>>
->>> Fixes: c8afe684c95c ("drm/msm: basic KMS driver for snapdragon")
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c | 9 +++++++++
->>>    1 file changed, 9 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
->>> index 169f9de4a12a..3100957225a7 100644
->>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
->>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
->>> @@ -269,6 +269,7 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc *crtc,
->>>    {
->>>        struct mdp4_crtc *mdp4_crtc = to_mdp4_crtc(crtc);
->>>        struct mdp4_kms *mdp4_kms = get_kms(crtc);
->>> +     unsigned long flags;
->>>
->>>        DBG("%s", mdp4_crtc->name);
->>>
->>> @@ -281,6 +282,14 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc *crtc,
->>>        mdp_irq_unregister(&mdp4_kms->base, &mdp4_crtc->err);
->>>        mdp4_disable(mdp4_kms);
->>>
->>> +     if (crtc->state->event && !crtc->state->active) {
->>> +             WARN_ON(mdp4_crtc->event);
->>
->> Do you need a WARN_ON() here? Just wondering how often this might happen
->> and spam.
+On 27/11/2023 16:28, Konrad Dybcio wrote:
+> The "qcom,dsi-ctrl-6g-qcm2290" has been deprecated in commit 0c0f65c6dd44
+> ("dt-bindings: msm: dsi-controller-main: Add compatible strings for every
+> current SoC"), but the example hasn't been updated to reflect that.
 > 
-> Well, it is atomic_disable(), so it happens only on modesets or output
-> disable. Also, this is a port of mdp5 code, see commit e765ea77b0fd
-> ("drm/msm: Issue queued events when disabling crtc"). We don't have
-> reports from MDP5 code, so there should be no comparable reports for
-> MDP4.
-> 
+> Fix that.
 
-Ok, I thought this was ported from dpu code, even that has the same 
-logic but not the WARN_ON().
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-But I am fine with this,
+Best regards,
+Krzysztof
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-
->> otherwise LGTM.
->>
->>> +             spin_lock_irqsave(&mdp4_kms->dev->event_lock, flags);
->>> +             drm_crtc_send_vblank_event(crtc, crtc->state->event);
->>> +             crtc->state->event = NULL;
->>> +             spin_unlock_irqrestore(&mdp4_kms->dev->event_lock, flags);
->>> +     }
->>> +
->>>        mdp4_crtc->enabled = false;
->>>    }
->>>
-> 
-> 
-> 
