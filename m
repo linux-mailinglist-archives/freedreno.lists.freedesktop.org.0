@@ -1,65 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A22907FB3FC
-	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 09:23:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F9997FBB17
+	for <lists+freedreno@lfdr.de>; Tue, 28 Nov 2023 14:16:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2618110E443;
-	Tue, 28 Nov 2023 08:23:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 692FD10E516;
+	Tue, 28 Nov 2023 13:16:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C73810E443
- for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 08:23:48 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-54bb260100eso265459a12.0
- for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 00:23:48 -0800 (PST)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59CFF10E515
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 13:16:00 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2c9b7bd6fffso5102541fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Nov 2023 05:16:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701159827; x=1701764627; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1701177358; x=1701782158; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=1UOlh2DBPRlglTZsxnljR4k/aNf8IkPiVHCesZDf2rE=;
- b=iZGhHjYbBM0yJnEklIxQMr6z0D4oZIq0pKPzXkisS8qDZAqz/szmwqTZI4/ZraZfGG
- 8H4+LxKzKFCkqou2u91RzunqQuUEQRXghWWGEF+W1HNEAMNpPp5Ntqp023qhRVRIn0/H
- TesJzG3KC9nEd/ph43M13B05hyIUYYLByG3o5QQSOfCCsqFmO5JaqUiI0Ht8NIm3qJ36
- xu8zjsQjFBwAel1EJA81x6yFcsFpGDo2c3QSYl8uOhWLs50vjzEKc8pREsmA7Apy5sG4
- 9WTTx0gW9vgqMLpwze4ozGOKZqC3JHsgkNq8GJE2tuUDz6Bowtmrs0Tchf1MIVYPmkPV
- ezpA==
+ bh=o2U0Dw+C6h6+RoUlbLOMo/lv9uHPeB9SLzHDaRTZV7s=;
+ b=pEsKQyipcVu8Rm8CpoEBkIVY+JAI/S0cl4fE1rSVJBK4DQv04t1bTBp6nJ93cmXcBD
+ 3A0+7bSg3UdkKOJZEDoK4HCW352HbyO8QVpBv3l7+kjcosCuSjm0t9yjdu5eSnVjLmTy
+ oqLiH6TTjdX5q4p7kfDPeIJnxImcbtAmjZ6iPtQTZassAo6fxIIci0TuhQQwdB4HLFHQ
+ CpFYYwCWCxp+ejD/EhXfIOS5C0rOoTcKlTSnkLDS8fG8NSQNFV4Cgs/WjPpGK26/rM5C
+ MWJQUUmoSvoLW8JJ+M1/NR2n8tyCROvOHTu6K4MgRVp3kcy+fWU7YpCimioMV93MMxgp
+ TV3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701159827; x=1701764627;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1701177358; x=1701782158;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1UOlh2DBPRlglTZsxnljR4k/aNf8IkPiVHCesZDf2rE=;
- b=f2BlPZBtGnbpldpzrzRlz6qOe+pcSYDOZ4Y+o5NkdFjPCPKH1yBT3uV/2Q6V6zLDtR
- VHNyW2y/ruY2WHBu03E7gJIs46JZcOz0w1qTFz+IXy++9693BusqNTu+TMFgZ/Gm5rsD
- ZfMoDcTE90j+l2PUf2TPCWYNxm4SjXJsoqouO2PpDcuslX1Cc7UCX9RG1SgDP+iapWgJ
- EQVdIWnJRo/VpTEShHi7TWdvMHbgV9mYpzAesEw7LLqENExrz24ByFnxwKTO7x8L+4fN
- hI5fPZ5qHdtaOImtcgKwwdQrNzPgBjb894wyT35RK6DXqTnqPfKGwzv93fSV0G6TYBuF
- vLgQ==
-X-Gm-Message-State: AOJu0YwN8pSk7AeKsR3M8syr9e1rm663BffbR4UPOS4Ar3prPiMkNvF0
- JoyN0G3Jh0vaeFG07HoM6xpQ7w==
-X-Google-Smtp-Source: AGHT+IEWSLfSH2rm0ZeDonvf6plZljG4gTf78THbXKuJ5NkitUThcGz4eAHzdOYzRW5mLVZYsC0kWQ==
-X-Received: by 2002:a05:6402:42c5:b0:54a:ed2a:fa7e with SMTP id
- i5-20020a05640242c500b0054aed2afa7emr13330706edc.24.1701159827034; 
- Tue, 28 Nov 2023 00:23:47 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.223.109])
+ bh=o2U0Dw+C6h6+RoUlbLOMo/lv9uHPeB9SLzHDaRTZV7s=;
+ b=IeK0Yi9wYWD1oXAJJhnL86ZFgg+QQiugonnTh/8oqaKh+LgwOj6HGfMdbae8xR2gKK
+ Js9WBlQ3JQQi9OaB8PYuuXIr1BtRmuwW4NVF0e5V6+J3EOLYStUHCgCMfx47pAp1JbSj
+ gDUmHSKDn+3SEQDR1ALXHlhPyUxUpoIAW7ImW3nh1gn3eBoS52a4r4mi8pwJhmdrhOsi
+ aWhcipCNY0y0YxFnnlpovAvCcutLo5x2GbrCQB5XatEnlJwPbNoaeant313lBOWzI5d0
+ OeWYkLQuU6ivPAIQ2oKllql7xXg03btbOktxREVG6WA/YiZm3An3zQxVLqzlMp0d/v4y
+ Mr9w==
+X-Gm-Message-State: AOJu0YxWrWomM9ujp08OVSU1ZeExvpmwZd0fe4kefbx1dlx5BItgCLTt
+ 9XiMRYgI7JkI/wBXhX1mD9xRnA==
+X-Google-Smtp-Source: AGHT+IEzEaz+EEBfeJx7la23pJ4m/XXEUN3X5Za/9Q6XMgt9Zg15Eol47FvI5Utk4vk+9djDSK1vPg==
+X-Received: by 2002:a2e:888f:0:b0:2c9:b96e:16e4 with SMTP id
+ k15-20020a2e888f000000b002c9b96e16e4mr403296lji.42.1701177358355; 
+ Tue, 28 Nov 2023 05:15:58 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a0db:1f00::227?
+ (dzdqv0yyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::227])
  by smtp.gmail.com with ESMTPSA id
- x1-20020aa7d381000000b00548ab1abc75sm6180302edq.51.2023.11.28.00.23.43
+ t7-20020a2e9547000000b002b657f10b78sm1707226ljh.58.2023.11.28.05.15.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Nov 2023 00:23:46 -0800 (PST)
-Message-ID: <79916a3e-70c2-4eaa-b4eb-9375c859f53e@linaro.org>
-Date: Tue, 28 Nov 2023 09:23:43 +0100
+ Tue, 28 Nov 2023 05:15:57 -0800 (PST)
+Message-ID: <37bfdc21-8d2a-4a6c-a2eb-9eaa1e808496@linaro.org>
+Date: Tue, 28 Nov 2023 15:15:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Content-Language: en-GB
 To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Rob Herring <robh+dt@kernel.org>,
@@ -67,63 +68,20 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
  Conor Dooley <conor+dt@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Andy Gross
  <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Georgi Djakov <djakov@kernel.org>, Will Deacon <will@kernel.org>,
  Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>,
  Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>,
  cros-qcom-dts-watchers@chromium.org
 References: <20231125-topic-rb1_feat-v2-0-979b28f35e4a@linaro.org>
- <20231125-topic-rb1_feat-v2-2-979b28f35e4a@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231125-topic-rb1_feat-v2-2-979b28f35e4a@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+ <20231125-topic-rb1_feat-v2-12-979b28f35e4a@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231125-topic-rb1_feat-v2-12-979b28f35e4a@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 02/12] dt-bindings: display: msm: Add reg
- bus and rotator interconnects
+Subject: Re: [Freedreno] [PATCH v2 12/12] arm64: dts: qcom: qrb2210-rb1: add
+ wifi variant property
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,27 +102,54 @@ Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/11/2023 16:28, Konrad Dybcio wrote:
-> Apart from the already handled data bus (MAS_MDP_Pn<->DDR), there are
-> other connection paths:
-> - a path that connects rotator block to the DDR.
-> - a path that needs to be handled to ensure MDSS register access
->   functions properly, namely the "reg bus", a.k.a the CPU-MDSS CFG
->   interconnect.
+On 27/11/2023 17:28, Konrad Dybcio wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> Describe these paths to allow using them in device trees and in the
-> driver.
+> The RB1 platform doesn't have board-specific board-id programmed, it uses
+> generic 0xff. Thus add the property with the 'variant' of the
+> calibration data.
+> 
+> Note: the driver will check for the calibration data for the following
+> IDs, so existing board-2.bin files will continue to work.
+> 
+> - 'bus=snoc,qmi-board-id=ff,qmi-chip-id=120,variant=Thundercomm_RB1'
+> - 'bus=snoc,qmi-board-id=ff,qmi-chip-id=120'
+> - 'bus=snoc,qmi-board-id=ff'
+> 
+> For the reference, the board is identified by the driver in the
+> following way:
+> 
+> ath10k_snoc c800000.wifi: qmi chip_id 0x120 chip_family 0x4007 board_id 0xff soc_id 0x40670000
+> ath10k_snoc c800000.wifi: qmi fw_version 0x337302d3 fw_build_timestamp 2023-01-06 01:50 fw_build_id QC_IMAGE_VERSION_STRING=WLAN.HL.3.3.7.c2-00723-QCAHLSWMTPLZ-1
+> ath10k_snoc c800000.wifi: wcn3990 hw1.0 target 0x00000008 chip_id 0x00000000 sub 0000:0000
+> ath10k_snoc c800000.wifi: kconfig debug 0 debugfs 0 tracing 0 dfs 0 testmode 0
+> ath10k_snoc c800000.wifi: firmware ver  api 5 features wowlan,mgmt-tx-by-reference,non-bmi crc32 b3d4b790
+> ath10k_snoc c800000.wifi: htt-ver 3.114 wmi-op 4 htt-op 3 cal file max-sta 32 raw 0 hwcrypto 1
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> [Konrad: rework for one vs two MDP paths, update examples]
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+As you are resending this patch, you should add your S-o-b.
+
 > ---
+>   arch/arm64/boot/dts/qcom/qrb2210-rb1.dts | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+> index ac597eb3fe9d..bd7bcf803654 100644
+> --- a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+> +++ b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+> @@ -535,6 +535,7 @@ &wifi {
+>   	vdd-1.8-xo-supply = <&pm2250_l13>;
+>   	vdd-1.3-rfa-supply = <&pm2250_l10>;
+>   	vdd-3.3-ch0-supply = <&pm2250_l22>;
+> +	qcom,ath10k-calibration-variant = "Thundercomm_RB1";
+>   	status = "okay";
+>   };
+>   
+> 
 
-Thanks, looks good.
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
 
