@@ -2,78 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6915C7FDE69
-	for <lists+freedreno@lfdr.de>; Wed, 29 Nov 2023 18:32:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1AA57FDEAA
+	for <lists+freedreno@lfdr.de>; Wed, 29 Nov 2023 18:47:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C97AB10E645;
-	Wed, 29 Nov 2023 17:32:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7083410E648;
+	Wed, 29 Nov 2023 17:47:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14EB810E221;
- Wed, 29 Nov 2023 17:32:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2184F10E648;
+ Wed, 29 Nov 2023 17:47:14 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AT2jijC002989; Wed, 29 Nov 2023 17:32:24 GMT
+ 3AT2DFD0003183; Wed, 29 Nov 2023 17:47:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=ouJrtsBUiyFi4oBjRWqRYF1n/5TG9j6kA7+J7ZNnf0E=;
- b=fG2pNw7Jf/+zW8oEo4pYjzCcWK040JFxNJnuKmKCg0eVrDzuzBtlBC752K8loCMntUlt
- UTrA01B/nJzJEtiS8j0xFfGUVzLooxenjrPZtvL/QlRmTuqI/q19htrdngcPQMhrIyuQ
- aqj8Dhv6ofVFsmK6ort4QSKL/lG9NaGSWF1LyMSBEs5GnVv5M8JhEVWisnUX7qPvzM5C
- WqjR+g7ZeBmKjJg8T8luqeI2nMrz1bQdH1qPR+dgYi2D0Jywupqqd8jfbaUgRNZOOnVu
- fsx6M6z1xibZ4mBWsj6G1p6US/Cz5GMPx280W37XjhNAzclmY1wAv3ST0/PnmiZNUFwX ZA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=9D/c0zYcD6qyD3co2fDOOrez7t4+DKIKuMSCZDqtPTY=;
+ b=RfdP2G+9ABoRS1Vmt7mzdtlxK8vfCWrU01NNJSrtKnfzTj5yqbUgfpSFt7HJ0JqScNRG
+ eBLjs5wXRI22U9DbMEiJG28fU0M5+XgnqwTiqBBXAt++llymhbzd8cjFa8pRLppMBIIb
+ bqqRf8lg9FYinAREcbCN3zwI5wF09882WP+UQMqvh9sd1mtGPABst8ssbpXlNX205TkK
+ QseTRfJ2j50ZQATRqQAuZyudBite05cXLXGPFZrxpBAHl2x2FavDVpGBrND3au6Tjx8g
+ G/oMadktyudKM5zr61LiF1QmPAHp5W6cN9q6+c99+8cizoQpDf0RupfuHO5UxO93J4jb Cw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3unnpeu48t-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3unnpeu5ed-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Nov 2023 17:32:24 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ATHWNhl006509
+ Wed, 29 Nov 2023 17:47:08 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ATHl7P3001378
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Nov 2023 17:32:23 GMT
-Received: from [10.71.111.96] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 29 Nov
- 2023 09:32:22 -0800
-Message-ID: <6a5a466a-0799-6538-429e-2fd8d862247c@quicinc.com>
-Date: Wed, 29 Nov 2023 09:32:22 -0800
+ Wed, 29 Nov 2023 17:47:07 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 29 Nov 2023 09:47:06 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Wed, 29 Nov 2023 09:46:43 -0800
+Message-ID: <1701280010-32476-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231128011122.14711-1-quic_parellan@quicinc.com>
- <CAA8EJpprP7mQLm47d07AtNRjLtpQCSAw5PuXjwGXNO2rXVUPZw@mail.gmail.com>
- <cf850520-0906-0291-fd21-be8cd687bcde@quicinc.com>
- <CAA8EJpqj5nPPxK=AzS=owURRZEgO3zdQZEMcJ8XjHOJfQrUEwg@mail.gmail.com>
-From: Paloma Arellano <quic_parellan@quicinc.com>
-In-Reply-To: <CAA8EJpqj5nPPxK=AzS=owURRZEgO3zdQZEMcJ8XjHOJfQrUEwg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: b7wQJ5d4ZBlS4NaVfgNTvr9pd3oM1Ugz
-X-Proofpoint-ORIG-GUID: b7wQJ5d4ZBlS4NaVfgNTvr9pd3oM1Ugz
+X-Proofpoint-GUID: CYX9_UL5BXvbZj7UiSiuKUBwm2wd9Mgl
+X-Proofpoint-ORIG-GUID: CYX9_UL5BXvbZj7UiSiuKUBwm2wd9Mgl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-11-29_15,2023-11-29_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 impostorscore=0
- mlxscore=0 phishscore=0 mlxlogscore=999 priorityscore=1501 adultscore=0
- clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ mlxscore=0 phishscore=0 mlxlogscore=786 priorityscore=1501 adultscore=0
+ clxscore=1011 bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311060000
- definitions=main-2311290133
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Capture dpu snapshot when
- frame_done_timer timeouts
+ definitions=main-2311290135
+Subject: [Freedreno] [PATCH v8 0/7] incorporate pm runtime framework and eDP
+ clean up
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,107 +80,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
  marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The purpose of this patch series is to incorporate pm runtime framework
+into MSM eDP/DP driver so that eDP panel can be detected by DRM eDP panel
+driver during system probe time. During incorporating procedure, original
+customized pm realted fucntions, such as dp_pm_prepare(), dp_pm_suspend(),
+dp_pm_resume() and dp_pm_prepare(), are removed and replaced with functions
+provided by pm runtiem framework such as pm_runtime_force_suspend() and
+pm_runtime_force_resume(). In addition, both eDP aux-bus and irq handler
+are bound at system probe time too.
 
-On 11/28/2023 12:24 PM, Dmitry Baryshkov wrote:
-> On Tue, 28 Nov 2023 at 19:43, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->>
->> On 11/27/2023 5:48 PM, Dmitry Baryshkov wrote:
->>> On Tue, 28 Nov 2023 at 03:12, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->>>> Trigger a devcoredump to dump dpu registers and capture the drm atomic
->>>> state when the frame_done_timer timeouts.
->>>>
->>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 +++++++++++--
->>>>    1 file changed, 11 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> index 1cf7ff6caff4..5cf7594feb5a 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> @@ -191,6 +191,7 @@ struct dpu_encoder_virt {
->>>>           void *crtc_frame_event_cb_data;
->>>>
->>>>           atomic_t frame_done_timeout_ms;
->>>> +       atomic_t frame_done_timeout_cnt;
->>>>           struct timer_list frame_done_timer;
->>>>
->>>>           struct msm_display_info disp_info;
->>>> @@ -1204,6 +1205,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
->>>>
->>>>           dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
->>>>
->>>> +       atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
->>>> +
->>>>           if (disp_info->intf_type == INTF_DP)
->>>>                   dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
->>>>           else if (disp_info->intf_type == INTF_DSI)
->>>> @@ -2115,11 +2118,12 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
->>>>           for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->>>>                   struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->>>>
->>>> -               seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    ",
->>>> +               seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    frame_done_cnt:%d",
->>>>                                   phys->hw_intf ? phys->hw_intf->idx - INTF_0 : -1,
->>>>                                   phys->hw_wb ? phys->hw_wb->idx - WB_0 : -1,
->>>>                                   atomic_read(&phys->vsync_cnt),
->>>> -                               atomic_read(&phys->underrun_cnt));
->>>> +                               atomic_read(&phys->underrun_cnt),
->>>> +                               atomic_read(&dpu_enc->frame_done_timeout_cnt));
->>>>
->>>>                   seq_printf(s, "mode: %s\n", dpu_encoder_helper_get_intf_type(phys->intf_mode));
->>>>           }
->>>> @@ -2341,6 +2345,10 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
->>>>
->>>>           DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
->>>>
->>>> +       atomic_inc(&dpu_enc->frame_done_timeout_cnt);
->>>> +       if (atomic_read(&dpu_enc->frame_done_timeout_cnt) == 1)
->>>> +               msm_disp_snapshot_state(drm_enc->dev);
->>> atomic_inc_and_test(), please
->> Hi Dmitry,
->>
->> We only want to create a snapshot for the first instance in which the
->> timer timeouts. atomic_int_and_test() increments the value and then
->> returns whether it has a value of zero or not. FWIW I think I should
->> change it to 'atomic_add_return(1, &dpu_enc->frame_done_timeout_cnt)' so
->> that we can check only when this value equals one.
-> Works for me too.
->
-> I suggested atomic_inc_test() because then we can let devcoredump take
-> care of duplicate events.
+Please be noted that v8 patches is rebase on top of latest msm-next branch
 
-Ack
+Kuogee Hsieh (7):
+  drm/msm/dp: tie dp_display_irq_handler() with dp driver
+  drm/msm/dp: rename is_connected with link_ready
+  drm/msm/dp: use drm_bridge_hpd_notify() to report HPD status changes
+  drm/msm/dp: move parser->parse() and dp_power_client_init() to probe
+  drm/msm/dp: incorporate pm_runtime framework into DP driver
+  drm/msm/dp: delete EV_HPD_INIT_SETUP
+  drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()
 
--Paloma
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |   4 -
+ drivers/gpu/drm/msm/dp/dp_aux.c         |  39 +++-
+ drivers/gpu/drm/msm/dp/dp_display.c     | 337 ++++++++++++--------------------
+ drivers/gpu/drm/msm/dp/dp_display.h     |   3 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c         |  14 +-
+ drivers/gpu/drm/msm/dp/dp_power.c       |  16 --
+ drivers/gpu/drm/msm/dp/dp_power.h       |  11 --
+ drivers/gpu/drm/msm/msm_drv.h           |   5 -
+ 8 files changed, 164 insertions(+), 265 deletions(-)
 
->
->> Thank you,
->>
->> Paloma
->>
->>>> +
->>>>           event = DPU_ENCODER_FRAME_EVENT_ERROR;
->>>>           trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
->>>>           dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
->>>> @@ -2392,6 +2400,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
->>>>                   goto fail;
->>>>
->>>>           atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
->>>> +       atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
->>>>           timer_setup(&dpu_enc->frame_done_timer,
->>>>                           dpu_encoder_frame_done_timeout, 0);
->>>>
->>>> --
->>>> 2.41.0
->>>>
->
->
+-- 
+2.7.4
+
