@@ -1,72 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B83897FDF7A
-	for <lists+freedreno@lfdr.de>; Wed, 29 Nov 2023 19:42:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BFE7FE106
+	for <lists+freedreno@lfdr.de>; Wed, 29 Nov 2023 21:32:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B90C10E236;
-	Wed, 29 Nov 2023 18:42:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FCE710E674;
+	Wed, 29 Nov 2023 20:31:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27E9C10E21C;
- Wed, 29 Nov 2023 18:42:18 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 006D910E673;
+ Wed, 29 Nov 2023 20:31:56 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3ATIcV2P010946; Wed, 29 Nov 2023 18:42:13 GMT
+ 3ATK6mNJ009375; Wed, 29 Nov 2023 20:31:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=Fsb74b+UULnhQpAiTzTuLSy2GwUVjNP+7s694KMUgdE=;
- b=a/s0k84LThIyfru25jEvpcHa9OjHcGRpY88177aQZ3efvEAJX3lzoTTaxQ+JheBc0YrO
- /Qzpzet2VxShK5CFIP0EF/Bp50pa0MIbIxWttSOnfyj9xSKnFe7pThxkdF3TAc/2rAHL
- vSHu+LhWhhktOv1pWhPBQOwZDUUq9KZguRAIy+75qdAMPxj7KNjducuMKS98+JTtndXk
- /gVAMljlzhZXqAaM1VGvQvQ5cV1Tl7WsqHPe8bhcqaydxwRVxLGBz/IDuGE03iAa67AB
- 2MBLZO29UdaTrnqzA3QS7SIevEWy88XJUSUpwncTTQc6PoHLGDwtpOko8FyWkwrpbzv6 zA== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ subject : date : message-id : mime-version : content-type; s=qcppdkim1;
+ bh=5KqutIxZnAHGo7kpr3+C7uJULTrGEiihfCuwTAWKZdo=;
+ b=ZZGvx5tJfRIdbGOhLnWzNtqOVbLQ0WlQP8yCFe/Gt1usLgCNuwVFq7Yj3F9HBx0TWHnx
+ HQDtxl3tcI7/sgxq85kxEo8sET6Bj/G7WhcL3qmRQFqHx9M08VWZI790xGpsgk9I2Dr0
+ 8f7RuXpz7pfNLwpLfPlgfig/sIFBr8mpLbYTwriQZ3WXIiOi4rgCNCC0egs92YSRZlmF
+ DTIuSmbZgo9bXji2PD3d+/mHHUgCcL27RGrPYVU6NLD+DbzGeIO8dfueZ2JadAqh+S43
+ poI7wa9MVe8X2hJxly8srDry4QH1eCDEsSPapGTZghYJa0F08o5blfyXpuOhzl3mOuG9 xg== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3up02xsxbf-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3unmrabmyc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Nov 2023 18:42:13 +0000
+ Wed, 29 Nov 2023 20:31:50 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ATIgCKP029923
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ATKVn6v004691
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Nov 2023 18:42:12 GMT
-Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
+ Wed, 29 Nov 2023 20:31:49 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Wed, 29 Nov 2023 10:42:12 -0800
-From: Paloma Arellano <quic_parellan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Wed, 29 Nov 2023 10:41:57 -0800
-Message-ID: <20231129184159.24216-1-quic_parellan@quicinc.com>
-X-Mailer: git-send-email 2.41.0
+ 15.2.1118.40; Wed, 29 Nov 2023 12:31:48 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Date: Wed, 29 Nov 2023 12:31:38 -0800
+Message-ID: <1701289898-12235-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: rt45ttW7jgOb4blqW7TrupSFAhw0cci9
-X-Proofpoint-GUID: rt45ttW7jgOb4blqW7TrupSFAhw0cci9
+X-Proofpoint-GUID: NrbIISQm5L4ZZzKkyTUZNzSXpKDIVA2Y
+X-Proofpoint-ORIG-GUID: NrbIISQm5L4ZZzKkyTUZNzSXpKDIVA2Y
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-29_16,2023-11-29_01,2023-05-22_02
+ definitions=2023-11-29_19,2023-11-29_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
- priorityscore=1501 impostorscore=0 mlxlogscore=999 clxscore=1015
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311290140
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Capture dpu snapshot when
- frame_done_timer timeouts
+ impostorscore=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 mlxscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0 phishscore=0
+ mlxlogscore=814 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311290156
+Subject: [Freedreno] [PATCH v1] drm/msm/dpu: improve DSC allocation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,81 +79,137 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
- Paloma Arellano <quic_parellan@quicinc.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Trigger a devcoredump to dump dpu registers and capture the drm atomic
-state when the frame_done_timer timeouts.
+A DCE (Display Compression Engine) contains two DSC hard slice encoders.
+Each DCE start with even DSC encoder index followed by an odd DSC encoder
+index. Each encoder can work independently. But Only two DSC encoders from
+same DCE can be paired to work together to support merge mode. In addition,
+the DSC with even index have to mapping to even pingpong index and DSC with
+odd index have to mapping to odd pingpong index at its data path. This patch
+improve DSC allocation mechanism with consideration of above factors.
 
-Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 94 +++++++++++++++++++++++++++++-----
+ 1 file changed, 82 insertions(+), 12 deletions(-)
 
-Changes since v1:
-- Optimized the format in which frame_done_timeout_cnt is incremented
-
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1cf7ff6caff4e..ae3309ebb8f8a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -191,6 +191,7 @@ struct dpu_encoder_virt {
- 	void *crtc_frame_event_cb_data;
- 
- 	atomic_t frame_done_timeout_ms;
-+	atomic_t frame_done_timeout_cnt;
- 	struct timer_list frame_done_timer;
- 
- 	struct msm_display_info disp_info;
-@@ -1204,6 +1205,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
- 
- 	dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
- 
-+	atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+index f9215643..427d70d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+@@ -466,24 +466,94 @@ static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+ 			       struct drm_encoder *enc,
+ 			       const struct msm_display_topology *top)
+ {
+-	int num_dsc = top->num_dsc;
+-	int i;
++	int num_dsc = 0;
++	int i, pp_idx;
++	bool pair = false;
++	int dsc_idx[DSC_MAX - DSC_0];
++	uint32_t pp_to_enc_id[PINGPONG_MAX - PINGPONG_0];
++	int pp_max = PINGPONG_MAX - PINGPONG_0;
 +
- 	if (disp_info->intf_type == INTF_DP)
- 		dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
- 	else if (disp_info->intf_type == INTF_DSI)
-@@ -2115,11 +2118,12 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
- 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
++	if (!top->num_dsc || !top->num_intf)
++		return 0;
++
++	/*
++	 * Truth:
++	 * 1) every layer mixer only connects to one pingpong
++	 * 2) no pingpong split -- two layer mixers shared one pingpong
++	 * 3) each DSC engine contains two dsc encoders
++	 *    -- index(0,1), index (2,3),... etc
++	 * 4) dsc pair can only happens with same DSC engine except 4 dsc
++	 *    merge mode application (8k) which need two DSC engines
++	 * 5) odd pingpong connect to odd dsc
++	 * 6) even pingpong connect even dsc
++	 */
++
++	/* num_dsc should be either 1, 2 or 4 */
++	if (top->num_dsc > top->num_intf)	/* merge mode */
++		pair = true;
++
++	/* fill working copy with pingpong list */
++	memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id, sizeof(pp_to_enc_id));
++
++	for (i = 0; i < ARRAY_SIZE(rm->dsc_blks); i++) {
++		if (!rm->dsc_blks[i])	/* end of dsc list */
++			break;
  
--		seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    ",
-+		seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    frame_done_cnt:%d",
- 				phys->hw_intf ? phys->hw_intf->idx - INTF_0 : -1,
- 				phys->hw_wb ? phys->hw_wb->idx - WB_0 : -1,
- 				atomic_read(&phys->vsync_cnt),
--				atomic_read(&phys->underrun_cnt));
-+				atomic_read(&phys->underrun_cnt),
-+				atomic_read(&dpu_enc->frame_done_timeout_cnt));
+-	/* check if DSC required are allocated or not */
+-	for (i = 0; i < num_dsc; i++) {
+-		if (!rm->dsc_blks[i]) {
+-			DPU_ERROR("DSC %d does not exist\n", i);
+-			return -EIO;
++		if (global_state->dsc_to_enc_id[i]) {	/* used */
++			/* consective dsc index to be paired */
++			if (pair && num_dsc) {	/* already start pairing, re start */
++				num_dsc = 0;
++				/* fill working copy with pingpong list */
++				memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id,
++								sizeof(pp_to_enc_id));
++			}
++			continue;
+ 		}
  
- 		seq_printf(s, "mode: %s\n", dpu_encoder_helper_get_intf_type(phys->intf_mode));
+-		if (global_state->dsc_to_enc_id[i]) {
+-			DPU_ERROR("DSC %d is already allocated\n", i);
+-			return -EIO;
++		/* odd index can not become start of pairing */
++		if (pair && (i & 0x01) && !num_dsc)
++			continue;
++
++		/*
++		 * find the pingpong index which had been reserved
++		 * previously at layer mixer allocation
++		 */
++		for (pp_idx = 0; pp_idx < pp_max; pp_idx++) {
++			if (pp_to_enc_id[pp_idx] == enc->base.id)
++				break;
+ 		}
++
++		/*
++		 * dsc even index must map to pingpong even index
++		 * dsc odd index must map to pingpong odd index
++		 */
++		if ((i & 0x01) != (pp_idx & 0x01))
++			continue;
++
++		/*
++		 * delete pp_idx so that it can not be found at next search
++		 * in the case of pairing
++		 */
++		pp_to_enc_id[pp_idx] = NULL;
++
++		dsc_idx[num_dsc++] = i;
++		if (num_dsc >= top->num_dsc)
++			break;
  	}
-@@ -2341,6 +2345,9 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
  
- 	DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
- 
-+	if (atomic_inc_return(&dpu_enc->frame_done_timeout_cnt) == 1)
-+		msm_disp_snapshot_state(drm_enc->dev);
+-	for (i = 0; i < num_dsc; i++)
+-		global_state->dsc_to_enc_id[i] = enc->base.id;
++	if (num_dsc < top->num_dsc) {
++		DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
++						num_dsc, top->num_dsc );
++		return -ENAVAIL;
++	}
 +
- 	event = DPU_ENCODER_FRAME_EVENT_ERROR;
- 	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
- 	dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
-@@ -2392,6 +2399,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
- 		goto fail;
++	/* reserve dsc */
++	for (i = 0; i < top->num_dsc; i++) {
++		int j;
++
++		j = dsc_idx[i];
++		global_state->dsc_to_enc_id[j] = enc->base.id;
++	}
  
- 	atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
-+	atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
- 	timer_setup(&dpu_enc->frame_done_timer,
- 			dpu_encoder_frame_done_timeout, 0);
- 
+ 	return 0;
+ }
 -- 
-2.39.2
+2.7.4
 
