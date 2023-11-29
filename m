@@ -2,75 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 556517FDEC5
-	for <lists+freedreno@lfdr.de>; Wed, 29 Nov 2023 18:47:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83897FDF7A
+	for <lists+freedreno@lfdr.de>; Wed, 29 Nov 2023 19:42:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4F610E657;
-	Wed, 29 Nov 2023 17:47:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B90C10E236;
+	Wed, 29 Nov 2023 18:42:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD3A10E649;
- Wed, 29 Nov 2023 17:47:26 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27E9C10E21C;
+ Wed, 29 Nov 2023 18:42:18 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3ATEK6QZ014748; Wed, 29 Nov 2023 17:47:19 GMT
+ 3ATIcV2P010946; Wed, 29 Nov 2023 18:42:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
+ subject : date : message-id : mime-version : content-transfer-encoding :
  content-type; s=qcppdkim1;
- bh=uIxf+ZKLGL7g2ELKPG4AkNXCOvEGLX2PrXKPG5Fuh8U=;
- b=a9L1OYFlhWZzd9BjJaF67t+G/svlSf//VMFVy7Bb33Y23rWxziQkHbT0c2UshpAGlGDb
- o62nm/xD/l6ifdOhHAIPZJ19PkDKXReW1nsjvhZZv+R9ghj+PJLv6vCCla2CTPxudfJR
- rvEFoRmPQCe9PCNRlkM9rMjkwe8Mqeaa9NKK3p8rHTBmh7WEv6SyB3LaQlaTnvM9bIki
- M9JEZAn6zjusDrfm6ahYQG5ze6bDuhplorB8Sj5MwS7+O7TPUELT4NiVpbTbPXV1jdwj
- DO4bwvdRpsFYiIdYAWAYsr36LG2paAQDU5VXJwGz9q/PMZzMy+kVMMkAQqTWyi9RYT+n GQ== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=Fsb74b+UULnhQpAiTzTuLSy2GwUVjNP+7s694KMUgdE=;
+ b=a/s0k84LThIyfru25jEvpcHa9OjHcGRpY88177aQZ3efvEAJX3lzoTTaxQ+JheBc0YrO
+ /Qzpzet2VxShK5CFIP0EF/Bp50pa0MIbIxWttSOnfyj9xSKnFe7pThxkdF3TAc/2rAHL
+ vSHu+LhWhhktOv1pWhPBQOwZDUUq9KZguRAIy+75qdAMPxj7KNjducuMKS98+JTtndXk
+ /gVAMljlzhZXqAaM1VGvQvQ5cV1Tl7WsqHPe8bhcqaydxwRVxLGBz/IDuGE03iAa67AB
+ 2MBLZO29UdaTrnqzA3QS7SIevEWy88XJUSUpwncTTQc6PoHLGDwtpOko8FyWkwrpbzv6 zA== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3unmrab90a-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3up02xsxbf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Nov 2023 17:47:19 +0000
+ Wed, 29 Nov 2023 18:42:13 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ATHlIor030343
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ATIgCKP029923
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Nov 2023 17:47:18 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ Wed, 29 Nov 2023 18:42:12 GMT
+Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Wed, 29 Nov 2023 09:47:17 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Date: Wed, 29 Nov 2023 09:46:50 -0800
-Message-ID: <1701280010-32476-8-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1701280010-32476-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1701280010-32476-1-git-send-email-quic_khsieh@quicinc.com>
+ 15.2.1118.40; Wed, 29 Nov 2023 10:42:12 -0800
+From: Paloma Arellano <quic_parellan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Wed, 29 Nov 2023 10:41:57 -0800
+Message-ID: <20231129184159.24216-1-quic_parellan@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: jrJ2Lk_wETXBPOMFc--QE-c4VuyBKUnk
-X-Proofpoint-ORIG-GUID: jrJ2Lk_wETXBPOMFc--QE-c4VuyBKUnk
+X-Proofpoint-ORIG-GUID: rt45ttW7jgOb4blqW7TrupSFAhw0cci9
+X-Proofpoint-GUID: rt45ttW7jgOb4blqW7TrupSFAhw0cci9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-29_15,2023-11-29_01,2023-05-22_02
+ definitions=2023-11-29_16,2023-11-29_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 priorityscore=1501 suspectscore=0 mlxscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0 phishscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311290135
-Subject: [Freedreno] [PATCH v8 7/7] drm/msm/dp: move
- of_dp_aux_populate_bus() to eDP probe()
+ mlxscore=0 bulkscore=0
+ suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 mlxlogscore=999 clxscore=1015
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311290140
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Capture dpu snapshot when
+ frame_done_timer timeouts
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,206 +79,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
+ Paloma Arellano <quic_parellan@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently eDP population is done at msm_dp_modeset_init() which happen
-at binding time. Move eDP population to be done at display probe time
-so that probe deferral cases can be handled effectively.
-wait_for_hpd_asserted callback is added during drm_dp_aux_init()
-to ensure eDP's HPD is up before proceeding eDP population.
+Trigger a devcoredump to dump dpu registers and capture the drm atomic
+state when the frame_done_timer timeouts.
 
-Changes in v5:
--- inline dp_display_auxbus_population() and delete it
-
-Changes in v4:
--- delete duplicate initialize code to dp_aux before drm_dp_aux_register()
--- delete of_get_child_by_name(dev->of_node, "aux-bus") and inline the
-   function
--- not initialize rc = 0
-
-Changes in v3:
--- add done_probing callback into devm_of_dp_aux_populate_bus()
-
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 ---
- drivers/gpu/drm/msm/dp/dp_aux.c     | 34 ++++++++++++++++-----
- drivers/gpu/drm/msm/dp/dp_display.c | 59 +++++++++++++++----------------------
- 2 files changed, 51 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 10b6eeb..03f4951 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -479,7 +479,6 @@ void dp_aux_deinit(struct drm_dp_aux *dp_aux)
+Changes since v1:
+- Optimized the format in which frame_done_timeout_cnt is incremented
+
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1cf7ff6caff4e..ae3309ebb8f8a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -191,6 +191,7 @@ struct dpu_encoder_virt {
+ 	void *crtc_frame_event_cb_data;
  
- int dp_aux_register(struct drm_dp_aux *dp_aux)
- {
--	struct dp_aux_private *aux;
- 	int ret;
+ 	atomic_t frame_done_timeout_ms;
++	atomic_t frame_done_timeout_cnt;
+ 	struct timer_list frame_done_timer;
  
- 	if (!dp_aux) {
-@@ -487,12 +486,7 @@ int dp_aux_register(struct drm_dp_aux *dp_aux)
- 		return -EINVAL;
+ 	struct msm_display_info disp_info;
+@@ -1204,6 +1205,8 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
+ 
+ 	dpu_enc->dsc = dpu_encoder_get_dsc_config(drm_enc);
+ 
++	atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
++
+ 	if (disp_info->intf_type == INTF_DP)
+ 		dpu_enc->wide_bus_en = msm_dp_wide_bus_available(priv->dp[index]);
+ 	else if (disp_info->intf_type == INTF_DSI)
+@@ -2115,11 +2118,12 @@ static int _dpu_encoder_status_show(struct seq_file *s, void *data)
+ 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+ 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+ 
+-		seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    ",
++		seq_printf(s, "intf:%d  wb:%d  vsync:%8d     underrun:%8d    frame_done_cnt:%d",
+ 				phys->hw_intf ? phys->hw_intf->idx - INTF_0 : -1,
+ 				phys->hw_wb ? phys->hw_wb->idx - WB_0 : -1,
+ 				atomic_read(&phys->vsync_cnt),
+-				atomic_read(&phys->underrun_cnt));
++				atomic_read(&phys->underrun_cnt),
++				atomic_read(&dpu_enc->frame_done_timeout_cnt));
+ 
+ 		seq_printf(s, "mode: %s\n", dpu_encoder_helper_get_intf_type(phys->intf_mode));
  	}
+@@ -2341,6 +2345,9 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
  
--	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
--
--	aux->dp_aux.name = "dpu_dp_aux";
--	aux->dp_aux.dev = aux->dev;
--	aux->dp_aux.transfer = dp_aux_transfer;
--	ret = drm_dp_aux_register(&aux->dp_aux);
-+	ret = drm_dp_aux_register(dp_aux);
- 	if (ret) {
- 		DRM_ERROR("%s: failed to register drm aux: %d\n", __func__,
- 				ret);
-@@ -507,6 +501,21 @@ void dp_aux_unregister(struct drm_dp_aux *dp_aux)
- 	drm_dp_aux_unregister(dp_aux);
- }
+ 	DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
  
-+static int dp_wait_hpd_asserted(struct drm_dp_aux *dp_aux,
-+				 unsigned long wait_us)
-+{
-+	int ret;
-+	struct dp_aux_private *aux;
++	if (atomic_inc_return(&dpu_enc->frame_done_timeout_cnt) == 1)
++		msm_disp_snapshot_state(drm_enc->dev);
 +
-+	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
-+
-+	pm_runtime_get_sync(aux->dev);
-+	ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
-+	pm_runtime_put_sync(aux->dev);
-+
-+	return ret;
-+}
-+
- struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
- 			      bool is_edp)
- {
-@@ -530,6 +539,17 @@ struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
- 	aux->catalog = catalog;
- 	aux->retry_cnt = 0;
+ 	event = DPU_ENCODER_FRAME_EVENT_ERROR;
+ 	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
+ 	dpu_enc->crtc_frame_event_cb(dpu_enc->crtc_frame_event_cb_data, event);
+@@ -2392,6 +2399,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
+ 		goto fail;
  
-+	/*
-+	 * Use the drm_dp_aux_init() to use the aux adapter
-+	 * before registering AUX with the DRM device so that
-+	 * msm eDP panel can be detected by generic_dep_panel_probe().
-+	 */
-+	aux->dp_aux.name = "dpu_dp_aux";
-+	aux->dp_aux.dev = dev;
-+	aux->dp_aux.transfer = dp_aux_transfer;
-+	aux->dp_aux.wait_hpd_asserted = dp_wait_hpd_asserted;
-+	drm_dp_aux_init(&aux->dp_aux);
-+
- 	return &aux->dp_aux;
- }
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 6693582..cfbc610 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1199,6 +1199,17 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
- 	return NULL;
- }
- 
-+static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
-+{
-+	int rc;
-+
-+	rc = component_add(aux->dev, &dp_display_comp_ops);
-+	if (rc)
-+		DRM_ERROR("eDP component add failed, rc=%d\n", rc);
-+
-+	return rc;
-+}
-+
- static int dp_display_probe(struct platform_device *pdev)
- {
- 	int rc = 0;
-@@ -1264,10 +1275,18 @@ static int dp_display_probe(struct platform_device *pdev)
- 	if (rc)
- 		goto err;
- 
--	rc = component_add(&pdev->dev, &dp_display_comp_ops);
--	if (rc) {
--		DRM_ERROR("component add failed, rc=%d\n", rc);
--		goto err;
-+	if (dp->dp_display.is_edp) {
-+		rc = devm_of_dp_aux_populate_bus(dp->aux, dp_auxbus_done_probe);
-+		if (rc) {
-+			DRM_ERROR("eDP auxbus population failed, rc=%d\n", rc);
-+			goto err;
-+		}
-+	} else {
-+		rc = component_add(&pdev->dev, &dp_display_comp_ops);
-+		if (rc) {
-+			DRM_ERROR("component add failed, rc=%d\n", rc);
-+			goto err;
-+		}
- 	}
- 
- 	return rc;
-@@ -1283,7 +1302,6 @@ static void dp_display_remove(struct platform_device *pdev)
- 
- 	component_del(&pdev->dev, &dp_display_comp_ops);
- 	dp_display_deinit_sub_modules(dp);
--
- 	platform_set_drvdata(pdev, NULL);
- }
- 
-@@ -1389,29 +1407,8 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- {
- 	int rc;
- 	struct dp_display_private *dp_priv;
--	struct device_node *aux_bus;
--	struct device *dev;
- 
- 	dp_priv = container_of(dp, struct dp_display_private, dp_display);
--	dev = &dp_priv->dp_display.pdev->dev;
--	aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
--
--	if (aux_bus && dp->is_edp) {
--		/*
--		 * The code below assumes that the panel will finish probing
--		 * by the time devm_of_dp_aux_populate_ep_devices() returns.
--		 * This isn't a great assumption since it will fail if the
--		 * panel driver is probed asynchronously but is the best we
--		 * can do without a bigger driver reorganization.
--		 */
--		rc = of_dp_aux_populate_bus(dp_priv->aux, NULL);
--		of_node_put(aux_bus);
--		if (rc)
--			goto error;
--	} else if (dp->is_edp) {
--		DRM_ERROR("eDP aux_bus not found\n");
--		return -ENODEV;
--	}
- 
- 	/*
- 	 * External bridges are mandatory for eDP interfaces: one has to
-@@ -1424,17 +1421,9 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 	if (!dp->is_edp && rc == -ENODEV)
- 		return 0;
- 
--	if (!rc) {
-+	if (!rc)
- 		dp->next_bridge = dp_priv->parser->next_bridge;
--		return 0;
--	}
- 
--error:
--	if (dp->is_edp) {
--		of_dp_aux_depopulate_bus(dp_priv->aux);
--		dp_display_host_phy_exit(dp_priv);
--		dp_display_host_deinit(dp_priv);
--	}
- 	return rc;
- }
+ 	atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
++	atomic_set(&dpu_enc->frame_done_timeout_cnt, 0);
+ 	timer_setup(&dpu_enc->frame_done_timer,
+ 			dpu_encoder_frame_done_timeout, 0);
  
 -- 
-2.7.4
+2.39.2
 
