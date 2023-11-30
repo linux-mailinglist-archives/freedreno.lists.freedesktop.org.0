@@ -1,60 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F407FFD74
-	for <lists+freedreno@lfdr.de>; Thu, 30 Nov 2023 22:25:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D743D7FFD79
+	for <lists+freedreno@lfdr.de>; Thu, 30 Nov 2023 22:25:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE1AD10E047;
-	Thu, 30 Nov 2023 21:25:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B09310E042;
+	Thu, 30 Nov 2023 21:25:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE7110E042
- for <freedreno@lists.freedesktop.org>; Thu, 30 Nov 2023 21:25:04 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-54c11430624so1657322a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Nov 2023 13:25:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kali.org; s=google; t=1701379502; x=1701984302; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/8c4Eu/Dubr5HSF4fDhNSD3Be+bs9dIetpJRDNp7v/M=;
- b=lnwHswlSlbRDKGTsretmxuKQ5eWjHoxKdZ+wJNh6eLbPPFII6XiAd7XQIohlbBdnmj
- NQBJ2fLJM7uzZlw1Zz8kTgKRXZJOZUaI50ZsBscGpAAMjc1kcXDG1PnOhIuT2wuYgATx
- j8Dixi8YJQI2Nm7+6wDLfjCtYCWivozkD8CTTYoPZx6Uw6DI3No3Mcp55KWj6bP/HkOC
- CsQ+0RSb3BrpREC3ujOGanXGQ+qUqeaqvmPDvuparHKr27W1VDkuLJ4y9K3yx7d263uh
- tUFiFM62h2y53OGxJmimj1MIEOoehYrWImFjoKIWAICt99rXVpWAUAuBqJjtEZk0Lakd
- n4uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701379502; x=1701984302;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/8c4Eu/Dubr5HSF4fDhNSD3Be+bs9dIetpJRDNp7v/M=;
- b=E1lNCugtqCSX2R7zguH9AUm0vC5nYQ/6ercycT5qk7yZcgR+hBc/EmZXxaI2tpcYkF
- Q57W0flPbk20WV3KPxkFShGPcPenIUFQVYWB9mOQwetVnLhHz/vMSDirCbzwfT5Qc361
- KfBH3u7sxM7AcJsAzPV5cCrimL4ON1noZlal9NQnc7o/hQ93w0XHaVlMcqszF2757F1H
- d2+UsFc2rDmubR/O563fBW3Ul+0Rg4EyCRtTplVorrWg1f7lIZIyzWMO2UDjSMfIrirM
- v+5G/N5mgHB1P7WeolI9PpKNw0EQmipvYrSThBhSEeh03OOkKD4jXVQ8no4Nn9+cI0cp
- 6sYg==
-X-Gm-Message-State: AOJu0YzyV2s8ocBmd7Oy0vceKD/SN11nDWxL2EnoZ30YhJCE1jFQ08oE
- K/CZYuDOSrYLCeXs6fD3M3syn9mzCddFX+quaiPEbQ==
-X-Google-Smtp-Source: AGHT+IG0ta2XtylneHDppsL8gcmXtn/Q/+7/EPbWdZikXUYS2NOvcQ4OqXc4VNcjnztwP5GcK+tdQYNKGciNXohB/fY=
-X-Received: by 2002:a50:aa9b:0:b0:545:3b25:d142 with SMTP id
- q27-20020a50aa9b000000b005453b25d142mr198098edc.15.1701379502435; Thu, 30 Nov
- 2023 13:25:02 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A91A110E042;
+ Thu, 30 Nov 2023 21:25:46 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AUFUed9007773; Thu, 30 Nov 2023 21:25:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=SinarTaG18/Jxu/GEfEglXJrj97OXep1bjFax2ms69M=;
+ b=l9RZCdSkQo3UYNI4StfM59m9Q1kcyHtypVaQ/9nb5VhyblEu763e5lN7VQxZSGtZtPwG
+ VlnUOi5QfgtPdaAR26w9Vt3nws24fCCnJ6y4cuWpAmwHw2siQdIK6pgTqeAZy4OVMkv6
+ GLcREX5xVd9+WPwlJql+Idz5qaAi1Iz2k1l9Ej6Wp6vmc0ocYRlRHL1vhK31xZjlc6q9
+ maoQWgHThruV0rKs2j3MvYuQ5scqKepdyn8cxTMPmnLTZ2s6lQoHpUmKgEjKplrhsKU6
+ wove9IjatiZsef1BGfRI6dyipy0wNrzd/v9DeYDnCYK4nNMQv9g6MXuEbz6jwBsYciAq 1g== 
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3upbxskey7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Nov 2023 21:25:35 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AULPYBQ021634
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Nov 2023 21:25:34 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 30 Nov
+ 2023 13:25:33 -0800
+Message-ID: <7569f43e-4446-2565-57d5-d8b43e1b4a8d@quicinc.com>
+Date: Thu, 30 Nov 2023 13:25:33 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
 References: <20231130192119.32538-1-robdclark@gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 In-Reply-To: <20231130192119.32538-1-robdclark@gmail.com>
-From: Steev Klimaszewski <steev@kali.org>
-Date: Thu, 30 Nov 2023 15:24:51 -0600
-Message-ID: <CAKXuJqgrKLw7rFdJcgueR4=tUdpP52i0P8pJoins6-9z6=sxfQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: HvwV4zuC6SWa-MIPsXEKpTOBFEiUaqzP
+X-Proofpoint-GUID: HvwV4zuC6SWa-MIPsXEKpTOBFEiUaqzP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-30_21,2023-11-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0
+ suspectscore=0 mlxlogscore=788 lowpriorityscore=0 mlxscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 clxscore=1011
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311300156
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Correct UBWC settings for
  sc8280xp
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,49 +83,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Danylo Piliaiev <dpiliaiev@igalia.com>, Sean Paul <sean@poorly.run>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Danylo Piliaiev <dpiliaiev@igalia.com>,
+ Steev Klimaszewski <steev@kali.org>, open list <linux-kernel@vger.kernel.org>,
  Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 30, 2023 at 1:21=E2=80=AFPM Rob Clark <robdclark@gmail.com> wro=
-te:
->
+
+
+On 11/30/2023 11:21 AM, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
->
+> 
 > The UBWC settings need to match between the display and GPU.  When we
 > updated the GPU settings, we forgot to make the corresponding update on
 > the display side.
->
+> 
 > Reported-by: Steev Klimaszewski <steev@kali.org>
 > Fixes: 07e6de738aa6 ("drm/msm/a690: Fix reg values for a690")
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mds=
-s.c
-> index 6865db1e3ce8..29bb38f0bb2c 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -545,7 +545,7 @@ static const struct msm_mdss_data sc8280xp_data =3D {
->         .ubwc_dec_version =3D UBWC_4_0,
->         .ubwc_swizzle =3D 6,
->         .ubwc_static =3D 1,
-> -       .highest_bank_bit =3D 2,
-> +       .highest_bank_bit =3D 3,
->         .macrotile_mode =3D 1,
->  };
->
-> --
-> 2.42.0
->
-Tested on Lenovo Thinkpad X13s
-Tested-by: Steev Klimaszewski <steev@kali.org>
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
