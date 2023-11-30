@@ -1,63 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABC2A7FFB1D
-	for <lists+freedreno@lfdr.de>; Thu, 30 Nov 2023 20:21:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38DBF7FFD07
+	for <lists+freedreno@lfdr.de>; Thu, 30 Nov 2023 21:46:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6364310E76E;
-	Thu, 30 Nov 2023 19:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C106610E755;
+	Thu, 30 Nov 2023 20:46:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 249CF10E76E;
- Thu, 30 Nov 2023 19:21:24 +0000 (UTC)
-Received: by mail-pf1-x433.google.com with SMTP id
- d2e1a72fcca58-6cde11fb647so1312724b3a.1; 
- Thu, 30 Nov 2023 11:21:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701372083; x=1701976883; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FNcHli21vir5baYj9ku8MMNBlCqv0AKIpWf2Lyqz8B0=;
- b=RqrrwCzo3ZPkenvo0ylhFsF+Zaf/eguZ1q7dfcNFvoO8cA/USMbKstrS+3GN3Hjeqm
- MNZJ67okOCBkp/1WT561i4EKQKFr1VZRKFoBKzm1HsHeiO9uP6RxtEAEQmMXXPiVTy3E
- W0ptbneAE/R0TmyomanFNPaKJCWqV4I/+SxAOgDoDegJqYpEk+D0chBXhx9WY8vhcZHG
- jQDXOkqzT75ezhBey+U9MEBHzk1XiRvKzlEL5rXcplTvLxvZ703e4zQf86NXGSQDqPQA
- VF8yT8vLt3bzMT9o+8dGxha4BampK54hdB5ILsHKrhltirpKHBuSytpjES/ocSep4qKH
- yHww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701372083; x=1701976883;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FNcHli21vir5baYj9ku8MMNBlCqv0AKIpWf2Lyqz8B0=;
- b=ryg2r2DCJ3TpPR+rks9/eGGBP1NkMUlThQ0Z2lk5QL9HudNjWgIF4xXgd+CI5b/M/2
- XSf9KXNXt/MwYTEjDikudHDGUBI3lv6LuLSYFVipg1nZoKi1F6CT24hmCeJcNx4/Mm6p
- RQEl7Oc1QfK6PEQF7RY0erHLRMF9KAO5vQFPbjlnH06k+bAWcbWsYiw4aHGheqOQZFX3
- 6E6Zr3DOu96397pqCYZxSpJObeqOfLrU4riqb4G7YRdCOd7VWvAo7PdO6c/WyXfTQ49u
- Hu2tjobh+4wkjeKTdaW77ndc4iUcjJQpJIgPiV9K0Kw82RO6ZhrgGrZ/oRjhtYWzHlbw
- q/SQ==
-X-Gm-Message-State: AOJu0YynnnyQQdWapJMCyO1jblyciaMtF4GrmOkWsavBhVWO/g6WkiIV
- +StYBpYot3o+IQQ9rXKxn6W+zIwVEck=
-X-Google-Smtp-Source: AGHT+IE2f9qp1SjvrsRN4lxzgsw0h/B5/kyMl8ci2BReCokFmvVJMt2wKJZqfjD/VXwiZhodFeQ39Q==
-X-Received: by 2002:a05:6a00:21c9:b0:6cb:8ec7:ad01 with SMTP id
- t9-20020a056a0021c900b006cb8ec7ad01mr27603366pfj.10.1701372082809; 
- Thu, 30 Nov 2023 11:21:22 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
- by smtp.gmail.com with ESMTPSA id
- y63-20020a62ce42000000b006c3069547bfsm1628882pfg.79.2023.11.30.11.21.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Nov 2023 11:21:22 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 30 Nov 2023 11:21:18 -0800
-Message-ID: <20231130192119.32538-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.42.0
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3A810E04D;
+ Thu, 30 Nov 2023 20:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1701376551; bh=AfUfFkZlUVV8xnA1PoNR+te0G++zGye/8BENKSIEvPs=;
+ h=From:Subject:Date:To:Cc;
+ b=S64T9aAZQ/Y0yXhmFaL8xcNLp6L+jqL5h5lAEpxWZ9qqzowKOb3UObrMgWnFiFGfF
+ hzmUeQ9PcyDcUIgWGZwTPn03S1EpsojK16kGmwlVZj2TCIqxCB+I3onx4WZ95yUG8Q
+ dvM1AODbTmJVL5MtxwMj/lPX+SUbV9XgBpSUuMJo=
+From: Luca Weiss <luca@z3ntu.xyz>
+Date: Thu, 30 Nov 2023 21:35:17 +0100
+Message-Id: <20231130-msm8226-gpu-v1-0-6bb2f1b29e49@z3ntu.xyz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Correct UBWC settings for sc8280xp
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAXyaGUC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI2NDQ2MD3dziXAsjIzPd9IJS3WSjtDQLE3PjRMu0NCWgjoKi1LTMCrBp0bG
+ 1tQASSii6XQAAAA==
+To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=860; i=luca@z3ntu.xyz;
+ h=from:subject:message-id; bh=AfUfFkZlUVV8xnA1PoNR+te0G++zGye/8BENKSIEvPs=;
+ b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBlaPIX4qWS7sr58b9UMT9Pnw41UlYig//AX8prq
+ MGX0XqPg0aJAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZWjyFwAKCRBy2EO4nU3X
+ ViqxD/0QXEuGfMIQ8ksMhfE+hjDJ2k4hub4zyzhOzFTU33niAmwPkSxHI1bvfOlNdYGzjeqMz5s
+ hb8OKR0WCGJwEvqDUoCHyx/H+p++pz6FnSHfzkY19nec4uoo0jdIgM+m+tEwudIt+yqa2Vw5KJh
+ ysdFh+Tq9Osk6hMY0SPuEGMrPpmS6RO0FXsk7D+6uBRbmUQoas7DNtkYIhwLSky3t/rBGrccgj8
+ aH5SbYIJrU+It8v/yYrNThPpcy0meGqX5h12moUxgS0DMuazitdLBs4rmh+v3v9UblOkm4NKqCi
+ 1Z3rb6vyvy3aXQwoANEDVPAwZqmWs0t4n8DgT/laDQz+PdG8MGNY4lAmC8irjxWx7UGy1Q0+w+2
+ nafqOQvMnxoJOX3oYlrogxiRtvB/GZlaJq4snkBfVTaqVrlOX2To/0xmn9zC5a3IyuXhRk9Yw/7
+ JqQzuhrZY3EOQHhYZ6ry73NqU0Uej3Yu/is0UfapQXrlI4MjSgqS1PhS92ZwsnTFugyLxirKxYo
+ opr7+JM+iLKBo15zNyE+Re4UNN63qutzh0R7KKTmz9qwKkF7y3JEJ2gPb3JcwoW01covleYfw67
+ +77P6N7lTj7Pz+Y3mHeFKgHLhhKbYJwMQdg9y3iVSEKb1u+1bMpTmVQMAgRK/ev6XK+xt2UQsQC
+ JtPMcpvmyKOgecA==
+X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
+ fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
+Subject: [Freedreno] [PATCH 0/3] Add GPU support for MSM8226 (Adreno A305B)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,43 +69,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Steev Klimaszewski <steev@kali.org>,
- Danylo Piliaiev <dpiliaiev@igalia.com>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Luca Weiss <luca@z3ntu.xyz>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Add the necessary bits to bring up the GPU on msm8226.
 
-The UBWC settings need to match between the display and GPU.  When we
-updated the GPU settings, we forgot to make the corresponding update on
-the display side.
+Tested on apq8026-lg-lenok.
 
-Reported-by: Steev Klimaszewski <steev@kali.org>
-Fixes: 07e6de738aa6 ("drm/msm/a690: Fix reg values for a690")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Luca Weiss (3):
+      dt-bindings: display/msm: gpu: Allow multiple digits for patchid
+      drm/msm/adreno: Add A305B support
+      ARM: dts: qcom: msm8226: Add GPU
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 6865db1e3ce8..29bb38f0bb2c 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -545,7 +545,7 @@ static const struct msm_mdss_data sc8280xp_data = {
- 	.ubwc_dec_version = UBWC_4_0,
- 	.ubwc_swizzle = 6,
- 	.ubwc_static = 1,
--	.highest_bank_bit = 2,
-+	.highest_bank_bit = 3,
- 	.macrotile_mode = 1,
- };
- 
+ .../devicetree/bindings/display/msm/gpu.yaml       |  6 ++--
+ arch/arm/boot/dts/qcom/qcom-msm8226.dtsi           | 40 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c              | 15 ++++++--
+ drivers/gpu/drm/msm/adreno/adreno_device.c         | 15 +++++---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 +++
+ 5 files changed, 71 insertions(+), 10 deletions(-)
+---
+base-commit: 32bbbdc6dbe6ca65a3e3e2ed2ca3c562793e7797
+change-id: 20231130-msm8226-gpu-c2ff8473a9ff
+
+Best regards,
 -- 
-2.42.0
+Luca Weiss <luca@z3ntu.xyz>
 
