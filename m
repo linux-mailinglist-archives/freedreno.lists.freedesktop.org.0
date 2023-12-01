@@ -1,60 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 259BB8004D2
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 08:39:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C22D08004DF
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 08:41:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3E6110E801;
-	Fri,  1 Dec 2023 07:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3042210E809;
+	Fri,  1 Dec 2023 07:41:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [IPv6:2607:f8b0:4864:20::112a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAEDD10E802
- for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 07:39:55 +0000 (UTC)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-59b5484fbe6so20046337b3.1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Nov 2023 23:39:55 -0800 (PST)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A736210E804
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 07:41:41 +0000 (UTC)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-5d35a952943so15481877b3.3
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Nov 2023 23:41:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701416394; x=1702021194; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701416501; x=1702021301; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=r4ZRsjdL9I2iUGO1VnJG1tezBUm0g0FIW6dRQVzc5r8=;
- b=AQ1YjS90He88D8KQfn+GhUZaYFwAO/7FEfKMp46MKFpodILL/kYP335OAAhcMetdcP
- zcHQewvS/0I7BV/UxqaO7Ly2R/wqK/HCXiixmtNzxJXt+yhX4ujHPR51bD1kdTJnuEI/
- nJw4sttf+cqcj/9e6CdKCi9ZHJa4+JyrFQ2TFW7zseDhUx5LGo96ijx3rAqsISDMapFg
- 1LrCT0Pu4+y6CzyjpKeLe8YDEiyPJPCTiFYjJbJq18dRCvg6/VjCCAtRLSzHr0NYyMpS
- LLUGPkVZ0dSVk368xjWTMb0NJSqINRzmCvNypcnD2nYrQhTM+kiXzeaVjfyVoa1BkW7D
- 1uXw==
+ bh=i0XSc3CmqydMornUaDDfp0sHFoeCR+iaudYxBuXUebQ=;
+ b=EmXLiLw83YVjzQRyuhsrl6El6NA5QPPLj6w6otNKM4FzyngpjQsaSjMQxXlYa7MHcV
+ 1Ou6uEtSgRt6OywBBIRFQtGTpwxUiXS9V8cRrJp4X084aGh8us2fhUApovhWMyJOmm2a
+ 3liU5k2gdMfJXutEM/bMeh5hY7QGPgOWayMtRQQIvD5wu6nUEgPDBkF0YSHIgpjEQTW0
+ 6BlqhyZSAVH0LRTuIKlhZmghsnym12mGYOTPjarVXt4NGyE/jPTnrKkVBJZlBV2AaD8A
+ ncEtcw5SlGJePCd2TnUdsHS+tQPywTvMv3GQ70SFMUvPiUk4lZjOv5WeUO5sKLNZ/aRz
+ zYsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701416394; x=1702021194;
+ d=1e100.net; s=20230601; t=1701416501; x=1702021301;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=r4ZRsjdL9I2iUGO1VnJG1tezBUm0g0FIW6dRQVzc5r8=;
- b=efWlea+X2hK65HhSjg35DqMpjhGB4WEev7rUdIIESqIWjpxFFzfhK7YF035bMV4/rL
- zLlYkZjDVv8OzWF/LYG6dEiKksAC28v6xeUnYXn7Kov6PCapIhFPD16RuA+QZq6WUKLQ
- aI4yCYLxNy2/xla+S7RJyzvO2TMu7uKM6SBItX6tt5evJp7+rS7m7JaXb7fj9EiKcq5d
- d0RXfv3++s5x3fr5oCCwmlluYfwDkxLWLq22NYXS2P/oC43T5XTsbck5k65w6lZis8EM
- 7SAJbWd6tuABqfE2e/568ugs+w/MWWGaiwLAfC721MkYNdeHCUfm0ydhWUC2BZtDz9w8
- ZMQA==
-X-Gm-Message-State: AOJu0Yx+QvJnkjQ1awPk6VZffl8bL9oM4AID4X/KhgMxhP8xoMFZa/LH
- dpCMzbP1A2e/lAc4OtIflRgsi/9mL4LzYx7yu6oFcQiPBDJ3d4zm
-X-Google-Smtp-Source: AGHT+IG6YJFYpxxDEGA5/9WsFpWY9Xkeap+TYkek9J98RCloSx+NNN/prVWH9iqo7eEB0Fko9lDJ0o8Q44uv8RIxQR8=
-X-Received: by 2002:a5b:ec7:0:b0:d9a:4cc2:1961 with SMTP id
- a7-20020a5b0ec7000000b00d9a4cc21961mr21395804ybs.26.1701416394767; Thu, 30
- Nov 2023 23:39:54 -0800 (PST)
+ bh=i0XSc3CmqydMornUaDDfp0sHFoeCR+iaudYxBuXUebQ=;
+ b=fQ/6Sd2fFhpSUQgcCJsNplv/p3WeGd5936Piagl8FHvJOxojfKl4SkZN1rKZzupjeB
+ hVk760zX08QBuXZx8VWcFqUD9CmbsWVGJZGnwt1ZCyuBklrr25osbFmcV1hm4G8ccLLI
+ 5lVWWiaJfCp/vcZFuId1LFCS80jbBBvNRA4eFmcxlWPc+zlZATbZZi3YyFrbs+yOY0VI
+ U4FgBH8ORgyYHjxAgGhrxwTGTtScEXwjhHN0frntoUChCOTO4Vfq495uSknPHiFalP/p
+ F1oTrdo++wswWMzcKt8fFUlahkFZYReFpVr2toXjXstGwfkxwbAD87Q5bfdZ6dLKJFTS
+ ASHg==
+X-Gm-Message-State: AOJu0YzNnkH8Af6qifHlP+bMxIlE3iln1qeWA2+w7YvbT5ZIcLZZi1i+
+ xuRdao14KZSLggI5ZAU4F8tTCdcecCboXiZh3oIwcIk0UBsciAT7
+X-Google-Smtp-Source: AGHT+IHdkwEvjszcJvfywc8Jpimsn1KEvtMQIBx9T044fmlSpJfllVrTTdQUFvJqGwQtnx6zsdDOuMBQYw8GmjCE0wU=
+X-Received: by 2002:a81:7808:0:b0:5d3:c23c:d6a with SMTP id
+ t8-20020a817808000000b005d3c23c0d6amr2594670ywc.18.1701416500809; Thu, 30 Nov
+ 2023 23:41:40 -0800 (PST)
 MIME-Version: 1.0
-References: <20231130-encoder-fixup-v1-0-585c54cd046e@quicinc.com>
-In-Reply-To: <20231130-encoder-fixup-v1-0-585c54cd046e@quicinc.com>
+References: <20231201014101.15802-1-quic_parellan@quicinc.com>
+In-Reply-To: <20231201014101.15802-1-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 1 Dec 2023 09:39:43 +0200
-Message-ID: <CAA8EJpof5LO7pyXaqgtbL=sL2a2Te2tzLF-NrTFT7n58pB3iww@mail.gmail.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Fri, 1 Dec 2023 09:41:29 +0200
+Message-ID: <CAA8EJprzcWTmqkUNN2r81APkv3rE039xhmaZW5=Zp7WkkQ=pHQ@mail.gmail.com>
+To: Paloma Arellano <quic_parellan@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 0/2] drm/msm/dpu: INTF CRC configuration
- cleanups and fix
+Subject: Re: [Freedreno] [PATCH v3 0/2] Stabilize use of vblank_refcount
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +66,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, steev@kali.org, marijn.suijten@somainline.org,
+ quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 1 Dec 2023 at 03:31, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+On Fri, 1 Dec 2023 at 03:41, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> This series drops the frame_count and enable parameters (as they're always
-> set to the same value). It also sets input_sel=0x1 for INTF.
+> There is currently a race condition occuring when accessing
+> vblank_refcount. Therefore, vblank irq timeouts may occur.
 >
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
-> Jessica Zhang (2):
->       drm/msm/dpu: Drop enable and frame_count parameters from dpu_hw_setup_misr()
->       drm/msm/dpu: Set input_sel bit for INTF
+> Avoid any vblank irq timeouts by stablizing the use of vblank_refcount.
+>
+> Changes from prior versions:
+>    v2: - Slightly changed wording of patch #2 commit message
+>    v3: - Mistakenly did not change wording of patch #2 in last version.
+>          It is done now.
 
-Please change the order of the commits: fix (input_sel) comes first,
-then comes the improvement.
-Otherwise if one needs to backport this fix, they either need to pick
-up the irrelevant patch, or they have to rework the fix.
+Usually sending a series once a day is enough. If you have any pending
+changes, it might be better to reply to your patch stating that you
+want to do this and that, while still allowing reviewers to respond
+(and thus you can incorporate their review in the next iteration).
 
 >
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 ++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 ++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c |  6 +++---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  4 ++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   |  6 +++---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h   |  3 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 18 +++++++-----------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h | 11 +++++------
->  8 files changed, 26 insertions(+), 30 deletions(-)
-> ---
-> base-commit: 4047f50eb64d980fcd581a19bbe6164dab25ebc7
-> change-id: 20231122-encoder-fixup-61c190b16085
+> Paloma Arellano (2):
+>   drm/msm/dpu: Modify vblank_refcount if error in callback
+>   drm/msm/dpu: Add mutex lock in control vblank irq
 >
-> Best regards,
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          |  6 ++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h     |  6 ++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 11 +++++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 11 +++++++++--
+>  4 files changed, 30 insertions(+), 4 deletions(-)
+>
 > --
-> Jessica Zhang <quic_jesszhan@quicinc.com>
+> 2.41.0
 >
 
 
