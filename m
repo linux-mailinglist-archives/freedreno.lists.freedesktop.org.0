@@ -1,78 +1,116 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D8C80155C
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:30:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB418015C1
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:53:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE6610E96A;
-	Fri,  1 Dec 2023 21:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6F710E96E;
+	Fri,  1 Dec 2023 21:53:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB94910E988;
- Fri,  1 Dec 2023 21:29:06 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B1FnIkd020299; Fri, 1 Dec 2023 21:29:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=7U3ff1W6UBAzgIEOf0ODrlvoD7YzizM1OIwxjAZ9kvo=;
- b=j2zi3UMmJsYFnxdLjeSG5thi56qFB30ifmtk73DE62tQ6uCNkExXEKvC/cTLq9OxPMoL
- vMpl+mWCFXHKU3VA8A1gOwLHu7thQ0W2Tj+9sMPjsQU+Jr/sWgeK4F9m44LL3M7SNxBm
- MnRB4VCS1e3d8RN/hj+vSmdI4VnVee98Vj4nJLlTEGm+xOv1uD95WBnS+U8WzmQeDThk
- 5BGpwyZ1fMtVJmN9n7Mp1Gr8o+aP1NYsmhG8wNAttDRdWAxDg2QuNw3P9MFidmwc0sF9
- LvKgXfth8if9DopBaZu6xLVSde7MndYfTkSiaZvJ10z9lWxOCmyw/gby+BUmrien04L0 7w== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uqjf1rrex-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Dec 2023 21:29:04 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B1LT3XD032234
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 1 Dec 2023 21:29:03 GMT
-Received: from [10.110.73.134] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 1 Dec
- 2023 13:29:02 -0800
-Message-ID: <a076fced-f4b9-804e-eb73-1fbb510c4951@quicinc.com>
-Date: Fri, 1 Dec 2023 13:29:01 -0800
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D76C210E788
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:53:52 +0000 (UTC)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-77dd4532a60so156315885a.2
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 13:53:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701467632; x=1702072432; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jrHo3xuqedRIfDFM3RFqZlEkD9CY6RqxHH0K+7ZtnxQ=;
+ b=K6ZiYJ7ffPUZkWC14FLFjskNu9LTnTKo//0/+m3sqW8mz62/mnRvz142plwQFVTIJy
+ GfK+qMuHifm5axVHIvdvDk5JBooCoXsrMtRMLRSrjTu171gGe81ha2bpPob/lqttPfxb
+ hZi6xGkXex+h5Uj6a4gGbh1ZqdE+ypFKJc2+rncr/MxOlBF5lBVi5YiXRLgEzYN4ssjz
+ ZyCyXYyXO3dxeJ89dsmbq0gmN4/c1Mb94mAkVCX/bJwhdvdEN8rehfQHdQ+hgYFR2Yg6
+ L+WvcRtivjXYPcA/V8jPwUZ8/Z1q4eiQLRfZtZp7UW0m7Y/s6wXMLZT1XPEWpXepzLev
+ 4YcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701467632; x=1702072432;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jrHo3xuqedRIfDFM3RFqZlEkD9CY6RqxHH0K+7ZtnxQ=;
+ b=sfLxfRURc6dc9AZOqz1iAwldQ2lvBlfHF5/t4VxoLEhYGjmw24h4JarFXjSByswH/O
+ S8YQWviLrVxX3O7w4ZXhEcbQsReB0OHYtQzs1gHZ7gwcivaTpIei0qXfLJmTVoy/Ak+B
+ n9qg0119CbRsulBi+0qkP5WVLAXCszZuqGJfFdiKOBtNAEHrx/+A3Cp1obnrvR8iobCa
+ AIpkXfZSJ3IV3i581+aXcJFtOGQy2z14tTFomvWN0D+tZOlupEaXfBoWQ7SJXonzrFdI
+ UI8ovYn71DpiGtAQ4ny/pTk8qYmt29/e/m7HSNkanYg9dt5zor6keKUJIzBojA2iEsXT
+ V4Kg==
+X-Gm-Message-State: AOJu0Yx/4tTS87aZO8FxpnhRyp2r21Ylb7Idm2v4iPN0KJ+cgdPmBAeC
+ 8GiaUKTJzJdjvht9P4fLbdckGA==
+X-Google-Smtp-Source: AGHT+IHTUJmHRh893X18NM3LJCP4XO/vSxZP0oWw/Y9wh8wa4UeH9g8oTwEOYj02IhSJ/5+opO6W7A==
+X-Received: by 2002:a05:620a:8a8a:b0:77e:fba3:9d2d with SMTP id
+ qu10-20020a05620a8a8a00b0077efba39d2dmr137248qkn.145.1701467631830; 
+ Fri, 01 Dec 2023 13:53:51 -0800 (PST)
+Received: from [192.168.209.83]
+ (178235187166.dynamic-4-waw-k-2-3-0.vectranet.pl. [178.235.187.166])
+ by smtp.gmail.com with ESMTPSA id
+ j5-20020a05620a288500b0077d8526bcdesm1858880qkp.86.2023.12.01.13.53.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Dec 2023 13:53:51 -0800 (PST)
+Message-ID: <153ba359-fd73-47d8-8c6e-a70e24943bf1@linaro.org>
+Date: Fri, 1 Dec 2023 22:53:45 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jessica Zhang
- <quic_jesszhan@quicinc.com>
-References: <20231130-encoder-fixup-v1-0-585c54cd046e@quicinc.com>
- <20231130-encoder-fixup-v1-2-585c54cd046e@quicinc.com>
- <CAA8EJpqeu18q4jN82fUvsEdBRmEjG_mYLQQUWD+LDxjiQQQPsg@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpqeu18q4jN82fUvsEdBRmEjG_mYLQQUWD+LDxjiQQQPsg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Luca Weiss <luca@z3ntu.xyz>, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+References: <20231130-msm8226-gpu-v1-0-6bb2f1b29e49@z3ntu.xyz>
+ <20231130-msm8226-gpu-v1-2-6bb2f1b29e49@z3ntu.xyz>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20231130-msm8226-gpu-v1-2-6bb2f1b29e49@z3ntu.xyz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: FaAJTLVBrxjZMaUplJE3OMLVGB9EcvM9
-X-Proofpoint-GUID: FaAJTLVBrxjZMaUplJE3OMLVGB9EcvM9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-01_20,2023-11-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0
- phishscore=0 adultscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311060000
- definitions=main-2312010132
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: Set input_sel bit for INTF
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/adreno: Add A305B support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,129 +123,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Marijn
- Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/30/2023 11:36 PM, Dmitry Baryshkov wrote:
-> On Fri, 1 Dec 2023 at 03:31, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->>
->> Set the input_sel bit for encoders as it was missed in the initial
->> implementation.
->>
->> Reported-by: Rob Clark <robdclark@gmail.com>
->> Fixes: 91143873a05d ("drm/msm/dpu: Add MISR register support for interface")
->> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/39
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 2 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   | 2 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 7 ++++++-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h | 4 +++-
->>   4 files changed, 11 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> index 3442cf65b86f..d0884997ecb7 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> @@ -320,7 +320,7 @@ static u32 dpu_hw_intf_get_line_count(struct dpu_hw_intf *intf)
->>
->>   static void dpu_hw_intf_setup_misr(struct dpu_hw_intf *intf)
->>   {
->> -       dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL);
->> +       dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL, true);
->>   }
->>
->>   static int dpu_hw_intf_collect_misr(struct dpu_hw_intf *intf, u32 *misr_value)
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
->> index f38473e68f79..77b14107c84a 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
->> @@ -83,7 +83,7 @@ static void dpu_hw_lm_setup_border_color(struct dpu_hw_mixer *ctx,
->>
->>   static void dpu_hw_lm_setup_misr(struct dpu_hw_mixer *ctx)
->>   {
->> -       dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL);
->> +       dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL, false);
->>   }
->>
->>   static int dpu_hw_lm_collect_misr(struct dpu_hw_mixer *ctx, u32 *misr_value)
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
->> index a8a0a4e76b94..f441df47fdde 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
->> @@ -481,7 +481,8 @@ void _dpu_hw_setup_qos_lut(struct dpu_hw_blk_reg_map *c, u32 offset,
->>                        cfg->danger_safe_en ? QOS_QOS_CTRL_DANGER_SAFE_EN : 0);
->>   }
->>
->> -void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 misr_ctrl_offset)
->> +void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 misr_ctrl_offset,
->> +               bool set_input_sel)
->>   {
->>          u32 config = 0;
->>
->> @@ -491,6 +492,10 @@ void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 misr_ctrl_offset)
->>          wmb();
->>
->>          config = MISR_FRAME_COUNT | MISR_CTRL_ENABLE | MISR_CTRL_FREE_RUN_MASK;
->> +
->> +       if (set_input_sel)
->> +               config |= MISR_CTRL_INPUT_SEL;
->> +
->>          DPU_REG_WRITE(c, misr_ctrl_offset, config);
->>   }
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
->> index bb496ebe283b..793670d62414 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
->> @@ -17,6 +17,7 @@
->>   #define MISR_CTRL_ENABLE                BIT(8)
->>   #define MISR_CTRL_STATUS                BIT(9)
->>   #define MISR_CTRL_STATUS_CLEAR          BIT(10)
->> +#define MISR_CTRL_INPUT_SEL             BIT(24)
+On 30.11.2023 21:35, Luca Weiss wrote:
+> Add support for the Adreno 305B GPU that is found in MSM8226(v2) SoC.
+> Previously this was mistakenly claimed to be supported but using wrong
+> a configuration.
 > 
-> The public apq8916 TRM documents this as a 4-bit field. I think this
-> was followed into the later generations. Can we please document it
-> correctly and use an uint instead of just bool for set_input_sel?
+> In MSM8226v1 there's also a A305B but with chipid 0x03000510 which
+> should work with the same configuration but due to lack of hardware for
+> testing this is not added.
 > 
-
-Can you pls point us to this document you are referring?
-
-I was not aware that bit level details are revealed in external documents :)
-
-Even though its a 4-bit field, it only takes a 0 or 1 as others are 
-undefined.
-
-Exposing all the bits will only cause more confusion like it did for 
-others thinking that input select is actually configurable when its not.
-
-I think what we should do is just pass "misr_type" to this API to tell 
-whether its lm misr or intf misr and set BIT(24) based on that.
-
-
->>   #define MISR_CTRL_FREE_RUN_MASK         BIT(31)
->>
->>   /*
->> @@ -357,7 +358,8 @@ void _dpu_hw_setup_qos_lut(struct dpu_hw_blk_reg_map *c, u32 offset,
->>                             bool qos_8lvl,
->>                             const struct dpu_hw_qos_cfg *cfg);
->>
->> -void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 misr_ctrl_offset);
->> +void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 misr_ctrl_offset,
->> +                      bool set_input_sel);
->>
->>   int dpu_hw_collect_misr(struct dpu_hw_blk_reg_map *c,
->>                  u32 misr_ctrl_offset,
->>
->> --
->> 2.43.0
->>
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+> ---
+>  drivers/gpu/drm/msm/adreno/a3xx_gpu.c      | 15 ++++++++++++---
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 15 +++++++++++----
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
+>  3 files changed, 28 insertions(+), 7 deletions(-)
 > 
-> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> index c86b377f6f0d..5fc29801c4c7 100644
+> --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> @@ -134,6 +134,13 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
+>  		/* Set up AOOO: */
+>  		gpu_write(gpu, REG_A3XX_VBIF_OUT_AXI_AOOO_EN, 0x0000003c);
+>  		gpu_write(gpu, REG_A3XX_VBIF_OUT_AXI_AOOO, 0x003c003c);
+> +	} else if (adreno_is_a305b(adreno_gpu)) {
+> +		gpu_write(gpu, REG_A3XX_VBIF_IN_RD_LIM_CONF0, 0x00181818);
+> +		gpu_write(gpu, REG_A3XX_VBIF_IN_WR_LIM_CONF0, 0x00181818);
+> +		gpu_write(gpu, REG_A3XX_VBIF_OUT_RD_LIM_CONF0, 0x00000018);
+> +		gpu_write(gpu, REG_A3XX_VBIF_OUT_WR_LIM_CONF0, 0x00000018);
+> +		gpu_write(gpu, REG_A3XX_VBIF_DDR_OUT_MAX_BURST, 0x00000303);
+> +		gpu_write(gpu, REG_A3XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x0003);
+>  	} else if (adreno_is_a306(adreno_gpu)) {
+>  		gpu_write(gpu, REG_A3XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x0003);
+>  		gpu_write(gpu, REG_A3XX_VBIF_OUT_RD_LIM_CONF0, 0x0000000a);
+> @@ -230,7 +237,9 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
+>  	gpu_write(gpu, REG_A3XX_UCHE_CACHE_MODE_CONTROL_REG, 0x00000001);
+>  
+>  	/* Enable Clock gating: */
+> -	if (adreno_is_a306(adreno_gpu))
+> +	if (adreno_is_a305b(adreno_gpu))
+> +		gpu_write(gpu, REG_A3XX_RBBM_CLOCK_CTL, 0xaaaaaaaa);
+> +	else if (adreno_is_a306(adreno_gpu))
+>  		gpu_write(gpu, REG_A3XX_RBBM_CLOCK_CTL, 0xaaaaaaaa);
+||?
+
+[...]
+
+Otherwise looks in line with msm-3.10
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Konrad
