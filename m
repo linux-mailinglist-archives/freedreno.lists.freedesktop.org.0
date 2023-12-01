@@ -2,62 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE778014FC
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:13:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BF8801509
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:16:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D064E10E146;
-	Fri,  1 Dec 2023 21:13:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 380DE10E961;
+	Fri,  1 Dec 2023 21:16:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0227010E96A
- for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:13:11 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-5d2d0661a8dso28659097b3.2
- for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 13:13:11 -0800 (PST)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96CFB10E955
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:15:26 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 46e09a7af769-6d81173a219so683961a34.3
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 13:15:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701465191; x=1702069991; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701465326; x=1702070126; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=qFcscOKS+KeBuJ79kHtYrcnP4y16ClEYnsDu1e9phGc=;
- b=bbyUQDUXDqT0VDLKctrCnlNvxAXCytwk6CXRi96/OP2Rmp9+rOKB2YGAbM6CCDNYfC
- XzXXCDaNf+4mOf73mZX28PmAE3BA/jJF9CcpmBU0YoK6tE3kzQoDsEBuBH4ls97lgMli
- aTbT06fAZ+LWytoNVTjV5Q3Xzgjd/zhYETtT1FqkJ5Yh+uqK4ttOMqLdsQEw5SVCpwT+
- Tj6jkVkxs9MEOHSneELG0J/Gh0HYPFJo/lUw+NQX0OwuPtp+7nhPfv7dlNavorop1f9P
- mGi5Ssax6I8473uciAErDZmdQE+uokvtz9l6PkFNe9SRhpVdjmuu6XuuZtfoyJWMLjj2
- ykmg==
+ bh=P5Nsgw7Fsbf0MtthNfgpXOXTqUhR9kk0U40KgyN6HaA=;
+ b=tJnoLGbyJ6j8gLEM8+BpJ9+u9GVtiVgD3503oItL84C/gxO6tnsrVqhs7VaMyFus1a
+ soy/JqQ2kXXjJcB4ZVFYZB8LgyqGoVIo8DRn6Kq7LqQT4+AELyvqGkmTgDLWan+wi8eV
+ 7Uq0XycNOh0DMvbSUnpnAgsTB1wJN1wT1g4eYjaTQYnM8fBa2y8XRZbxDJfMv4Wc/iO9
+ mS0mSFE0TvdVzQRqz6KXdrY+UA8zYi7Yrbn1Dgd+wQKpZUd26sAWX1SmtKBrkQ/UCLax
+ RN5monIqtIaIq2vrRngQ6KFvVTcZSCnI2EdgHPF8DZXkSiPhZVnxom7JgG/VTd73IRO4
+ Vapw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701465191; x=1702069991;
+ d=1e100.net; s=20230601; t=1701465326; x=1702070126;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=qFcscOKS+KeBuJ79kHtYrcnP4y16ClEYnsDu1e9phGc=;
- b=kGXSAPxWuTlm8U3r7dRf2nWykec1JoXz+2ix+Xp7rBq1BKmxU5nRnjJbEk5LZTH/Z/
- /TsYeQlKbeLjKASgXPI+QR0ir4CbBVW++ozKpCx50fUIVtbyVp00lIx55s8KjqI77um8
- qTX5YHCN7tx72eICXTmAgO9Vg9/E6YzNrpMwaGyg6EDjIPcgjEdGEhMHlwHR02+32xHF
- JhtBSyXyakLDMnBPKr40DaryfpVo+jUFY+DWKzq+5N8nmVL/khn0f4Ts2Hb78hKzn1CG
- 1o+JN4N7xQGIrs0GYduoJyUj1CfxMTU8pl5wwaeqZxoVLo3jYw0P27Rvdfag6lYd3c/I
- wn0w==
-X-Gm-Message-State: AOJu0Yzstk//3J2TzQqJel9YvAwUwreoWFRfqV1DkunjzYbHSo2ezwa3
- tz4xlYwZ/wdNXEEWTOJirGVz503ujtGbH2VKMQFo5g==
-X-Google-Smtp-Source: AGHT+IEjhMbg+u8d2JTKNyFigsjKYOvhHdb/RZ1AFJXxaavi0QLf9ngcSuMDgs4UQpxI1yREp/yiDoEACIs+yDv+4TM=
-X-Received: by 2002:a0d:ee41:0:b0:57a:cf8:5b4 with SMTP id
- x62-20020a0dee41000000b0057a0cf805b4mr25615864ywe.51.1701465191106; 
- Fri, 01 Dec 2023 13:13:11 -0800 (PST)
+ bh=P5Nsgw7Fsbf0MtthNfgpXOXTqUhR9kk0U40KgyN6HaA=;
+ b=Za6Q7R5yAcSBB0AHxb2BkEIMSnfek7/7NvCesuT2QcFMJhN6/g9y6hY5rwhHVuamd/
+ VWhoW52TVi6ck2Ss5Wv5HOfOHMM9HGYwBKNytOzpWcYeCMdJalSH0q1CnoyHef1/KPzf
+ CZ5nMn7hWya2jmAzRURuVnAWOoLexcbO48tHgqknqC/HnxPWQkUg3BiMG/Xc4fMQmqeg
+ 2SSH3EV+aE8I0k7Db7TCR0AeEMaq4SA9EmUTCK1vDqUz1rpG6SqNlLTOJOv6dIRcMlLm
+ WnR88wEtXGoCduoYOcuH0sitmGE+9U9nTriKe4hGbDNQwURXmzncqHLyImRZLmrZ9vAw
+ 04Kg==
+X-Gm-Message-State: AOJu0YzOLAl4qD6Sd2vu7mWfHBEITBbgcBwZTtefuV4g53QiMhzbCo19
+ SjISazo2UQ02l8KagVgwV550Ptx9ISW6RN+bslwoiA==
+X-Google-Smtp-Source: AGHT+IHuwhLn+zInww9mxHxJCEBy2e8xfh60Ea2qqSiB+aC5hbbbaK5duJQYb6+BMmXOqHk8swOKkjxoJxIzjJzNXcM=
+X-Received: by 2002:a9d:674d:0:b0:6d8:1308:97fb with SMTP id
+ w13-20020a9d674d000000b006d8130897fbmr155520otm.35.1701465325595; Fri, 01 Dec
+ 2023 13:15:25 -0800 (PST)
 MIME-Version: 1.0
-References: <20231201014101.15802-1-quic_parellan@quicinc.com>
- <20231201014101.15802-2-quic_parellan@quicinc.com>
- <CAA8EJpqGx3eQ3o6bJhv3OBmHqtp67x8ODupZgKfSLSfFcRRmHQ@mail.gmail.com>
- <730d7e5b-e748-465d-cfee-06bfdcee5844@quicinc.com>
-In-Reply-To: <730d7e5b-e748-465d-cfee-06bfdcee5844@quicinc.com>
+References: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
+ <20230830224910.8091-12-quic_abhinavk@quicinc.com>
+ <CAA8EJppBskavOzn4_vUa=kvyYi2zn2XR70Ft-6ZyuOdGYWWL2A@mail.gmail.com>
+ <3085d544-b6d9-5064-2789-2bbccf4b6818@quicinc.com>
+ <CAA8EJpoP1T3SRT+7i+P7iuKEdCW5D76sEdLpVvBzHWvrqQCe3g@mail.gmail.com>
+ <12490147-d9f9-2695-7a0b-04961003de38@quicinc.com>
+In-Reply-To: <12490147-d9f9-2695-7a0b-04961003de38@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 1 Dec 2023 23:13:00 +0200
-Message-ID: <CAA8EJpoobZe-TzTdEU_+eKgsu6Any7C+LJU4ePDKgVkabT=gcg@mail.gmail.com>
+Date: Fri, 1 Dec 2023 23:15:14 +0200
+Message-ID: <CAA8EJpoJERnM=URhfODO73Z816PBfF9q930yLdBJF3-jtL6jYA@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 1/2] drm/msm/dpu: Modify vblank_refcount
- if error in callback
+Subject: Re: [Freedreno] [PATCH 11/16] drm/msm/dpu: add an API to setup the
+ CDM block for writeback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,51 +72,293 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: marijn.suijten@somainline.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, steev@kali.org, quic_jesszhan@quicinc.com,
- Paloma Arellano <quic_parellan@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, Rob Clark <robdclark@gmail.com>,
+ quic_parellan@quicinc.com, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, quic_jesszhan@quicinc.com,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 1 Dec 2023 at 21:14, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Fri, 1 Dec 2023 at 21:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
 >
 >
-> On 11/30/2023 11:45 PM, Dmitry Baryshkov wrote:
-> > On Fri, 1 Dec 2023 at 03:41, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+> On 11/30/2023 11:20 PM, Dmitry Baryshkov wrote:
+> > On Fri, 1 Dec 2023 at 02:41, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 > >>
-> >> When the irq callback returns a value other than zero,
-> >> modify vblank_refcount by performing the inverse
-> >> operation of its corresponding if-else condition.
+> >>
+> >>
+> >> On 8/30/2023 5:11 PM, Dmitry Baryshkov wrote:
+> >>> On Thu, 31 Aug 2023 at 01:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> >>>>
+> >>>> Add an API dpu_encoder_helper_phys_setup_cdm() which can be used by
+> >>>> the writeback encoder to setup the CDM block.
+> >>>>
+> >>>> Currently, this is defined and used within the writeback's physical
+> >>>> encoder layer however, the function can be modified to be used to setup
+> >>>> the CDM block even for non-writeback interfaces.
+> >>>>
+> >>>> Until those modifications are planned and made, keep it local to
+> >>>> writeback.
+> >>>>
+> >>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >>>> ---
+> >>>>    .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |   3 +
+> >>>>    .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 123 +++++++++++++++++-
+> >>>>    2 files changed, 125 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> index 510c1c41ddbc..93a8ae67beff 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> @@ -16,6 +16,7 @@
+> >>>>    #include "dpu_hw_pingpong.h"
+> >>>>    #include "dpu_hw_ctl.h"
+> >>>>    #include "dpu_hw_top.h"
+> >>>> +#include "dpu_hw_cdm.h"
+> >>>>    #include "dpu_encoder.h"
+> >>>>    #include "dpu_crtc.h"
+> >>>>
+> >>>> @@ -209,6 +210,7 @@ static inline int dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
+> >>>>     * @wbirq_refcount:     Reference count of writeback interrupt
+> >>>>     * @wb_done_timeout_cnt: number of wb done irq timeout errors
+> >>>>     * @wb_cfg:  writeback block config to store fb related details
+> >>>> + * @cdm_cfg: cdm block config needed to store writeback block's CDM configuration
+> >>>>     * @wb_conn: backpointer to writeback connector
+> >>>>     * @wb_job: backpointer to current writeback job
+> >>>>     * @dest:   dpu buffer layout for current writeback output buffer
+> >>>> @@ -218,6 +220,7 @@ struct dpu_encoder_phys_wb {
+> >>>>           atomic_t wbirq_refcount;
+> >>>>           int wb_done_timeout_cnt;
+> >>>>           struct dpu_hw_wb_cfg wb_cfg;
+> >>>> +       struct dpu_hw_cdm_cfg cdm_cfg;
+> >>>>           struct drm_writeback_connector *wb_conn;
+> >>>>           struct drm_writeback_job *wb_job;
+> >>>>           struct dpu_hw_fmt_layout dest;
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> >>>> index 4c2736c3ee6d..11935aac9fd5 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> >>>> @@ -24,6 +24,20 @@
+> >>>>    #define to_dpu_encoder_phys_wb(x) \
+> >>>>           container_of(x, struct dpu_encoder_phys_wb, base)
+> >>>>
+> >>>> +#define TO_S15D16(_x_)((_x_) << 7)
+> >>>> +
+> >>>> +static struct dpu_csc_cfg dpu_encoder_phys_wb_rgb2yuv_601l = {
+> >>>> +       {
+> >>>> +               TO_S15D16(0x0083), TO_S15D16(0x0102), TO_S15D16(0x0032),
+> >>>> +               TO_S15D16(0x1fb5), TO_S15D16(0x1f6c), TO_S15D16(0x00e1),
+> >>>> +               TO_S15D16(0x00e1), TO_S15D16(0x1f45), TO_S15D16(0x1fdc)
+> >>>> +       },
+> >>>> +       { 0x00, 0x00, 0x00 },
+> >>>> +       { 0x0040, 0x0200, 0x0200 },
+> >>>> +       { 0x000, 0x3ff, 0x000, 0x3ff, 0x000, 0x3ff },
+> >>>> +       { 0x040, 0x3ac, 0x040, 0x3c0, 0x040, 0x3c0 },
+> >>>> +};
+> >>>
+> >>> Nit: we probably need to have a single place with all dpu_csc_cfg entries.
+> >>>
+> >>
+> >> hmmm ... so we have YUV2RGB matrices for dpu plane and RGB2YUV matrices
+> >> for WB and DP.
+> >>
+> >> We can move all this to dpu_hw_util.c but lets do that in the DP series
+> >> as that completes the consumer list of these matrices.
 > >
-> > I think it might be better to follow Bjorn's suggestion: once we have
-> > the lock, we don't need atomics at all.
-> > Then you rearrange the code to set the new value after getting return
-> > code from dpu_core_irq_register_callback() /
-> > dpu_core_irq_unregister_callback().
+> > Doing it earlier is usually better. Can we please do it as a part of
+> > this series?
 > >
 >
-> Even if we drop the atomics, we will have to replace it with a simple
-> refcount. The refcount checks will be before calling
-> dpu_core_irq_register_callback() / dpu_core_irq_unregister_callback().
+> Would be strange as RGB2YUV matrix is not used by anyone other than WB
+> till DP lands.
 >
-> So we will still need the corresponding inverse refcount when either of
-> those calls fail but just that they wont be atomics.
+> If you are fine with that anomaly, no concerns.
 
-Within the critical section you can check the value before
-register_callback and increment it afterwards if registration
-succeeds.
+Yes. Because it keeps all instances in a single place.
 
->
-> Am I missing something here?
 >
 > >>
-> >> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 9 +++++++--
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 9 +++++++--
-> >>   2 files changed, 14 insertions(+), 4 deletions(-)
+> >>>> +
+> >>>>    /**
+> >>>>     * dpu_encoder_phys_wb_is_master - report wb always as master encoder
+> >>>>     * @phys_enc:  Pointer to physical encoder
+> >>>> @@ -225,6 +239,112 @@ static void dpu_encoder_phys_wb_setup_ctl(struct dpu_encoder_phys *phys_enc)
+> >>>>           }
+> >>>>    }
+> >>>>
+> >>>> +/**
+> >>>> + * dpu_encoder_phys_wb_setup_cdp - setup chroma down sampling block
+> >>>> + * @phys_enc:Pointer to physical encoder
+> >>>> + */
+> >>>> +static void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
+> >>>> +{
+> >>>> +       struct dpu_hw_cdm *hw_cdm;
+> >>>> +       struct dpu_hw_cdm_cfg *cdm_cfg;
+> >>>> +       struct dpu_hw_pingpong *hw_pp;
+> >>>> +       struct dpu_encoder_phys_wb *wb_enc;
+> >>>> +       const struct msm_format *format;
+> >>>> +       const struct dpu_format *dpu_fmt;
+> >>>> +       struct drm_writeback_job *wb_job;
+> >>>> +       int ret;
+> >>>> +
+> >>>> +       if (!phys_enc)
+> >>>> +               return;
+> >>>> +
+> >>>> +       wb_enc = to_dpu_encoder_phys_wb(phys_enc);
+> >>>> +       cdm_cfg = &wb_enc->cdm_cfg;
+> >>>> +       hw_pp = phys_enc->hw_pp;
+> >>>> +       hw_cdm = phys_enc->hw_cdm;
+> >>>> +       wb_job = wb_enc->wb_job;
+> >>>> +
+> >>>> +       format = msm_framebuffer_format(wb_enc->wb_job->fb);
+> >>>> +       dpu_fmt = dpu_get_dpu_format_ext(format->pixel_format, wb_job->fb->modifier);
+> >>>> +
+> >>>> +       if (!hw_cdm)
+> >>>> +               return;
+> >>>> +
+> >>>> +       if (!DPU_FORMAT_IS_YUV(dpu_fmt)) {
+> >>>> +               DPU_DEBUG("[enc:%d] cdm_disable fmt:%x\n", DRMID(phys_enc->parent),
+> >>>> +                         dpu_fmt->base.pixel_format);
+> >>>> +               if (hw_cdm->ops.disable)
+> >>>> +                       hw_cdm->ops.disable(hw_cdm);
+> >>>> +
+> >>>> +               return;
+> >>>> +       }
+> >>>> +
+> >>>> +       memset(cdm_cfg, 0, sizeof(struct dpu_hw_cdm_cfg));
+> >>>> +
+> >>>> +       cdm_cfg->output_width = wb_job->fb->width;
+> >>>> +       cdm_cfg->output_height = wb_job->fb->height;
+> >>>> +       cdm_cfg->output_fmt = dpu_fmt;
+> >>>> +       cdm_cfg->output_type = CDM_CDWN_OUTPUT_WB;
+> >>>> +       cdm_cfg->output_bit_depth = DPU_FORMAT_IS_DX(dpu_fmt) ?
+> >>>> +                       CDM_CDWN_OUTPUT_10BIT : CDM_CDWN_OUTPUT_8BIT;
+> >>>> +
+> >>>> +       /* enable 10 bit logic */
+> >>>> +       switch (cdm_cfg->output_fmt->chroma_sample) {
+> >>>> +       case DPU_CHROMA_RGB:
+> >>>> +               cdm_cfg->h_cdwn_type = CDM_CDWN_DISABLE;
+> >>>> +               cdm_cfg->v_cdwn_type = CDM_CDWN_DISABLE;
+> >>>> +               break;
+> >>>> +       case DPU_CHROMA_H2V1:
+> >>>> +               cdm_cfg->h_cdwn_type = CDM_CDWN_COSITE;
+> >>>> +               cdm_cfg->v_cdwn_type = CDM_CDWN_DISABLE;
+> >>>> +               break;
+> >>>> +       case DPU_CHROMA_420:
+> >>>> +               cdm_cfg->h_cdwn_type = CDM_CDWN_COSITE;
+> >>>> +               cdm_cfg->v_cdwn_type = CDM_CDWN_OFFSITE;
+> >>>> +               break;
+> >>>> +       case DPU_CHROMA_H1V2:
+> >>>> +       default:
+> >>>> +               DPU_ERROR("[enc:%d] unsupported chroma sampling type\n",
+> >>>> +                         DRMID(phys_enc->parent));
+> >>>> +               cdm_cfg->h_cdwn_type = CDM_CDWN_DISABLE;
+> >>>> +               cdm_cfg->v_cdwn_type = CDM_CDWN_DISABLE;
+> >>>> +               break;
+> >>>> +       }
+> >>>> +
+> >>>> +       DPU_DEBUG("[enc:%d] cdm_enable:%d,%d,%X,%d,%d,%d,%d]\n",
+> >>>> +                 DRMID(phys_enc->parent), cdm_cfg->output_width,
+> >>>> +                 cdm_cfg->output_height, cdm_cfg->output_fmt->base.pixel_format,
+> >>>> +                 cdm_cfg->output_type, cdm_cfg->output_bit_depth,
+> >>>> +                 cdm_cfg->h_cdwn_type, cdm_cfg->v_cdwn_type);
+> >>>> +
+> >>>> +       if (hw_cdm && hw_cdm->ops.setup_csc_data) {
+> >>>> +               ret = hw_cdm->ops.setup_csc_data(hw_cdm, &dpu_encoder_phys_wb_rgb2yuv_601l);
+> >>>> +               if (ret < 0) {
+> >>>> +                       DPU_ERROR("[enc:%d] failed to setup CSC; ret:%d\n",
+> >>>> +                                 DRMID(phys_enc->parent), ret);
+> >>>> +                       return;
+> >>>> +               }
+> >>>> +       }
+> >>>> +
+> >>>> +       if (hw_cdm && hw_cdm->ops.setup_cdwn) {
+> >>>
+> >>> You have checked for (!hw_cdm) several lines above. We can drop this
+> >>> condition here.
+> >>>
+> >>
+> >> Ack.
+> >>
+> >>>> +               ret = hw_cdm->ops.setup_cdwn(hw_cdm, cdm_cfg);
+> >>>> +               if (ret < 0) {
+> >>>> +                       DPU_ERROR("[enc:%d] failed to setup CDWN; ret:%d\n",
+> >>>> +                                 DRMID(phys_enc->parent), ret);
+> >>>> +                       return;
+> >>>> +               }
+> >>>> +       }
+> >>>> +
+> >>>> +       if (hw_cdm && hw_pp && hw_cdm->ops.enable) {
+> >>>
+> >>> And what if !hw_pp ? Can it happen here? No, if I understand correctly.
+> >>>
+> >>
+> >> I dont see any other protection for !hw_pp in this flow so would prefer
+> >> to keep it.
+> >
+> > But can we end up in this function if we have no hw_pp at all?
+> >
+>
+> Just from code flow yes,
+>
+> dpu_encoder_prepare_for_kickoff ---> phys->ops.prepare_for_kickoff --->
+> this function
+>
+> None of them have !hw_pp.
+>
+> But, if hw_pp failed allocation, then atomic_check will fail so the
+> commit will not happen.
+>
+> I was thinking of the former, if we are fine with the latter we can drop.
+
+Yes, I'm fine with that, unless there is any special mode (like
+ppsplit, cwb, etc.) where we can end up with no PP assigned on
+purpose.
+
+>
+> >>
+> >>>> +               cdm_cfg->pp_id = hw_pp->idx;
+> >>>> +               ret = hw_cdm->ops.enable(hw_cdm, cdm_cfg);
+> >>>
+> >>> As we are calling these three ops in a row, can we merge them together
+> >>> into a single callback to be called from dpu_encoder.c?
+> >>>
+> >>
+> >> Good idea. I can add a csc_cfg entry to cdm_cfg and merge all three into
+> >> the enable() op itself and drop the other two.
+> >>
+> >>>> +               if (ret < 0) {
+> >>>> +                       DPU_ERROR("[enc:%d] failed to enable CDM; ret:%d\n",
+> >>>> +                                 DRMID(phys_enc->parent), ret);
+> >>>> +                       return;
+> >>>> +               }
+> >>>> +       }
+> >>>> +}
+> >>>> +
+> >>>>    /**
+> >>>>     * dpu_encoder_phys_wb_atomic_check - verify and fixup given atomic states
+> >>>>     * @phys_enc:  Pointer to physical encoder
+> >>>> @@ -348,8 +468,9 @@ static void dpu_encoder_phys_wb_setup(
+> >>>>
+> >>>>           dpu_encoder_phys_wb_setup_fb(phys_enc, fb);
+> >>>>
+> >>>> -       dpu_encoder_phys_wb_setup_ctl(phys_enc);
+> >>>> +       dpu_encoder_helper_phys_setup_cdm(phys_enc);
+> >>>>
+> >>>> +       dpu_encoder_phys_wb_setup_ctl(phys_enc);
+> >>>>    }
+> >>>>
+> >>>>    static void _dpu_encoder_phys_wb_frame_done_helper(void *arg)
+> >>>> --
+> >>>> 2.40.1
+> >>>>
+> >>>
+> >>>
+> >
+> >
 > >
 
 
