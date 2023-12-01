@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E439B80152C
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:19:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A89FF801521
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:19:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA0810E976;
-	Fri,  1 Dec 2023 21:19:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5852A10E96B;
+	Fri,  1 Dec 2023 21:19:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
  [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE9EF10E962
- for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:18:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3446110E962
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:19:00 +0000 (UTC)
 Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2c9ee6fed3eso904261fa.0
- for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 13:18:58 -0800 (PST)
+ 38308e7fff4ca-2c9d2ca9a96so26333491fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 13:19:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701465537; x=1702070337; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701465538; x=1702070338; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8A2Dx7VYhQ6DejQmgmtOb7Y7Nu7+NFqerEdDyz1CvrU=;
- b=gFN2N5gPjq3QvWskaO/duilpLooznLD1k7LbJjpiX3OMdAoxyRaeSabIKJ25YLE6el
- g6qTkIW+DptmljKU4Lp0DBSmzZ+CEeA4p/PM8tApdMXvnPJ/DOzxN8KMlNG/l0JI/7dF
- uZWc3lsZWpDt0p0mKTTyulpIf1SfzaYkQ1asxyaTzhjG2X6wkquOSrzumCMvA2adm+Ae
- wHyx30s6LDQvqIgMGAGS4uJwW4a4PKZND/jm6Nkh1/+WmzTO31urhJ8QuvwgBsKBWoJh
- y52IhSp0EwTkkWgPKXeZLtFD347uXBTXncEUmJtzumoS1T7YP6fImnFAQH3rXe+74ms3
- srHw==
+ bh=D82rHnXTJ3M2XwFRTadUfTqBGG9AxaRbqkRHkJTO34w=;
+ b=Lnh/r4t3nnPp7aMys4LkM7KV8UCzQQaHAR9XEf8DxTR+pIE2eQWJ5O8dnNMCHKHWnN
+ gZM4FzeHfYaGhr9tO7Fey6mcN919aK5FV0ewBn+wHlLGHs/El4kQRoy6Y9XcL3XQvTJI
+ drSYd3ErZ36a3CHKW2YF0IVjZGq4o4SHWKLK8iCLVHiFm2ntnuRrFI47Q3hGd3Fso93s
+ 0gRC5j9/5tkhCDPMyQ+05F576pZ0tfyFZ5cYS7bPSbdy4wZe/420DKPkh753wymWpjmr
+ pY6z19wksnKzu/5xXsLAVtJJo00LjQPDBydNrvqaUbAB8SL4d4dF3FvdyIVnseVcXo28
+ n5iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701465537; x=1702070337;
+ d=1e100.net; s=20230601; t=1701465538; x=1702070338;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8A2Dx7VYhQ6DejQmgmtOb7Y7Nu7+NFqerEdDyz1CvrU=;
- b=eyqplBNSlZ/rmk0VAIw4SCwEjxXFnc2o8atQasir4X/cFHxc+zrdbhhtrqgxTrICvg
- R2v3UkoAhCUA31BWZ8x/7r6xecvAl4fZ31xGvRtZULFVRiv08/b5Drf9hhyItvYwuXlj
- y9r0Hawzjl/fZsjT/TA21yefyWTjN+idhRLybLhxgO9hVicMrnRaCOMQ8YZlk7XX+YC4
- SGj+zUDHnpVDCH5r+dvUVOI/fzr4Ojd+dK5wwOmwqycH/9E9A8ZFmU5tP1CD+z6LMBEb
- pG2NcGXdiue3NSD0sdNvNFusiPmzUlifq553QWMvJK7Lhs8Wf0/cwmpT+v2kqs7SGJSx
- B5kQ==
-X-Gm-Message-State: AOJu0Yx+OlD8bBg05nG4e6wcsnCFUsuD3N0kT6RNXyIHTavUFZzC1zKW
- GYox0DEqeAd6pGo/47DOmddYGA==
-X-Google-Smtp-Source: AGHT+IHX6Mb2s7pu/elJO/1eGQuHMRBR48UE4DjUSn4X4bgn/+S7y3OUSxPcInJMWLtVJ/n78TIC4w==
-X-Received: by 2002:a2e:9f43:0:b0:2c8:8813:2e6e with SMTP id
- v3-20020a2e9f43000000b002c888132e6emr1378152ljk.11.1701465536941; 
- Fri, 01 Dec 2023 13:18:56 -0800 (PST)
+ bh=D82rHnXTJ3M2XwFRTadUfTqBGG9AxaRbqkRHkJTO34w=;
+ b=mw7zlAijPGe96sLYyKUp4c2qXLK7BC0i5Ml9yaaCo95rQqWhhErT8Dradbn6eqpTwT
+ OyCKqXNbW/fGVSv/qpxd7jYFOxGLkyB5cRkX4AF+KDP4hpF77/VU3caoyk95o2ldS+W8
+ mAuRgD8JnrqjbWlmLYYxC+4eUyQqhP84ym+WL4TJpWx8BjzZWu4iMGWyU/URv5/NZl5z
+ 3r8NgwdGeeN9WPn+iOp1odnrykBh35Hpfed8SFbB3UzucQjtPWwmYgUoTbYi+xlOwTsI
+ U43plO5iuZm9HrUdj9UQ0pKfutRtm9SgGf8EOseUjFNXJusozle0476u36ADW0E7tkJI
+ FPBw==
+X-Gm-Message-State: AOJu0YxrSUHBB42VB1N6vOsuaie/c/Q/eM4Nuk1L0YgFS2mYCqGan0bL
+ gdWp81U14hXhVYphTvGg8J9c6A==
+X-Google-Smtp-Source: AGHT+IFe1EX60SYP6vv7JeHjkm7/WFOY7n0b/gZZ4Q9L3LbncmqdFZyBopGrWjLFW4bxA+415LJqHg==
+X-Received: by 2002:a2e:530c:0:b0:2c9:bad0:9c0f with SMTP id
+ h12-20020a2e530c000000b002c9bad09c0fmr1040169ljb.47.1701465538499; 
+ Fri, 01 Dec 2023 13:18:58 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- z4-20020a05651c022400b002c123b976acsm503612ljn.76.2023.12.01.13.18.55
+ z4-20020a05651c022400b002c123b976acsm503612ljn.76.2023.12.01.13.18.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Dec 2023 13:18:55 -0800 (PST)
+ Fri, 01 Dec 2023 13:18:57 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat,  2 Dec 2023 00:18:40 +0300
-Message-Id: <20231201211845.1026967-9-dmitry.baryshkov@linaro.org>
+Date: Sat,  2 Dec 2023 00:18:41 +0300
+Message-Id: <20231201211845.1026967-10-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231201211845.1026967-1-dmitry.baryshkov@linaro.org>
 References: <20231201211845.1026967-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 08/13] drm/msm/dpu: remove QoS teardown on
- plane destruction
+Subject: [Freedreno] [PATCH v4 09/13] drm/msm/dpu: use drmm-managed
+ allocation for dpu_plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,38 +83,103 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is little point in disabling QoS on plane destruction: it happens
-during DPU device destruction process, after which there will be no
-running planes.
+Change struct dpu_plane allocation to use drmm_universal_plane_alloc().
+This removes the need to perform any actions on plane destruction.
 
 Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 46 +++++------------------
+ 1 file changed, 10 insertions(+), 36 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 20908f3d8f81..ab9f93f15536 100644
+index ab9f93f15536..32b4b08ffe35 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1214,17 +1214,10 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
- static void dpu_plane_destroy(struct drm_plane *plane)
+@@ -1211,20 +1211,6 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
+ 	}
+ }
+ 
+-static void dpu_plane_destroy(struct drm_plane *plane)
+-{
+-	struct dpu_plane *pdpu = plane ? to_dpu_plane(plane) : NULL;
+-
+-	DPU_DEBUG_PLANE(pdpu, "\n");
+-
+-	if (pdpu) {
+-		/* this will destroy the states as well */
+-		drm_plane_cleanup(plane);
+-
+-		kfree(pdpu);
+-	}
+-}
+-
+ static void dpu_plane_destroy_state(struct drm_plane *plane,
+ 		struct drm_plane_state *state)
  {
- 	struct dpu_plane *pdpu = plane ? to_dpu_plane(plane) : NULL;
--	struct dpu_plane_state *pstate;
- 
- 	DPU_DEBUG_PLANE(pdpu, "\n");
- 
- 	if (pdpu) {
--		pstate = to_dpu_plane_state(plane->state);
--		_dpu_plane_set_qos_ctrl(plane, &pstate->pipe, false);
+@@ -1394,7 +1380,6 @@ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
+ static const struct drm_plane_funcs dpu_plane_funcs = {
+ 		.update_plane = drm_atomic_helper_update_plane,
+ 		.disable_plane = drm_atomic_helper_disable_plane,
+-		.destroy = dpu_plane_destroy,
+ 		.reset = dpu_plane_reset,
+ 		.atomic_duplicate_state = dpu_plane_duplicate_state,
+ 		.atomic_destroy_state = dpu_plane_destroy_state,
+@@ -1422,35 +1407,28 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+ 	struct dpu_hw_sspp *pipe_hw;
+ 	uint32_t num_formats;
+ 	uint32_t supported_rotations;
+-	int ret = -EINVAL;
 -
--		if (pstate->r_pipe.sspp)
--			_dpu_plane_set_qos_ctrl(plane, &pstate->r_pipe, false);
+-	/* create and zero local structure */
+-	pdpu = kzalloc(sizeof(*pdpu), GFP_KERNEL);
+-	if (!pdpu) {
+-		DPU_ERROR("[%u]failed to allocate local plane struct\n", pipe);
+-		ret = -ENOMEM;
+-		return ERR_PTR(ret);
+-	}
 -
- 		/* this will destroy the states as well */
- 		drm_plane_cleanup(plane);
+-	/* cache local stuff for later */
+-	plane = &pdpu->base;
+-	pdpu->pipe = pipe;
++	int ret;
  
+ 	/* initialize underlying h/w driver */
+ 	pipe_hw = dpu_rm_get_sspp(&kms->rm, pipe);
+ 	if (!pipe_hw || !pipe_hw->cap || !pipe_hw->cap->sblk) {
+ 		DPU_ERROR("[%u]SSPP is invalid\n", pipe);
+-		goto clean_plane;
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	format_list = pipe_hw->cap->sblk->format_list;
+ 	num_formats = pipe_hw->cap->sblk->num_formats;
+ 
+-	ret = drm_universal_plane_init(dev, plane, 0xff, &dpu_plane_funcs,
++	pdpu = drmm_universal_plane_alloc(dev, struct dpu_plane, base,
++				0xff, &dpu_plane_funcs,
+ 				format_list, num_formats,
+ 				supported_format_modifiers, type, NULL);
+-	if (ret)
+-		goto clean_plane;
++	if (IS_ERR(pdpu))
++		return ERR_CAST(pdpu);
++
++	/* cache local stuff for later */
++	plane = &pdpu->base;
++	pdpu->pipe = pipe;
+ 
+ 	pdpu->catalog = kms->catalog;
+ 
+@@ -1480,8 +1458,4 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+ 	DPU_DEBUG("%s created for pipe:%u id:%u\n", plane->name,
+ 					pipe, plane->base.id);
+ 	return plane;
+-
+-clean_plane:
+-	kfree(pdpu);
+-	return ERR_PTR(ret);
+ }
 -- 
 2.39.2
 
