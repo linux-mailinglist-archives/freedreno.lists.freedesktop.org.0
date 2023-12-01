@@ -2,78 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D5AA8017BE
-	for <lists+freedreno@lfdr.de>; Sat,  2 Dec 2023 00:28:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B7D18017E6
+	for <lists+freedreno@lfdr.de>; Sat,  2 Dec 2023 00:42:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9538010E97D;
-	Fri,  1 Dec 2023 23:28:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8711C89A1E;
+	Fri,  1 Dec 2023 23:42:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C45AF10E98E;
- Fri,  1 Dec 2023 23:28:06 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B1NHq56028300; Fri, 1 Dec 2023 23:28:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=nKJF4iLOef09wHKORWi/pn1BDVWsXOvO67axppgIa+o=;
- b=SmQWC+VQ/BE1vc9y19Jg3uSkyPdrQ7j7NsOmN9r9aUFovOHVDya3RTHrqvFka5d+65eI
- bcgclQ6nJpv0jFDToglScK7IDXrczuNneKpyfwA7J9NyJYhg/I+aYeOggBnnBuriymlF
- Gn3kYAInFTON2U2/BKOGjOVCI49RZq5ZnHltAygeexqWrkyfoEV4cUaHdCEtUWi/tiV1
- oWV2oMvVNnSzHthZKsCkN0nphsOLlYdez49qR1bG2xMj9QNPVhkMvwnElkfYVu3WJM45
- cSak585+O9MtrDGUy6brZJleyPm3H37rIazLX6yV7OFCGytNjR+M2GI+WYmzT45ZfTdQ 2A== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uq3f7u6u5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Dec 2023 23:28:00 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B1NS0fp021264
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 1 Dec 2023 23:28:00 GMT
-Received: from [10.110.73.134] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 1 Dec
- 2023 15:27:59 -0800
-Message-ID: <7d5a2299-9201-d473-ac4b-14ac14c91b72@quicinc.com>
-Date: Fri, 1 Dec 2023 15:27:58 -0800
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7C510E99E
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 23:42:37 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-50bc8a9503fso3762692e87.3
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 15:42:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701474155; x=1702078955; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ycxynjmtRt/XVGvqx16uPR6ksjV7oaeAV/Qc50+s7Yw=;
+ b=wEZvo6/7ZeiH12VS0U1glw4LrOB4KioeboT3BrrCQIbsh0thylyUfvOpYMb0sgBV2U
+ GrHH+qzC71yDCdjSRc0pMHSeJrbsoi4yKFuchZYvkvO9VM1K5yUzuM+rqp/6xAosTIKN
+ fzwqPCON/uuYCXVkxD+RmyKhm0lVd0pNgAukToDOsiR80Cpi4SAVSKtB1kjfYCCbw7iV
+ kU4+28Bl6kqeaWe0Bi1wH/IuhfnUkNWbCU35ukqOTpPNSCaX/k8jkxvndKp6xbkrgTIt
+ Xqao4ApM4J5csWMLEmID8AqlpDy2jtwI9D23TpkVg9V02d+zz3DL9wWhgL1aX9gnbAFE
+ zB2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701474155; x=1702078955;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ycxynjmtRt/XVGvqx16uPR6ksjV7oaeAV/Qc50+s7Yw=;
+ b=UelR5FTsii6cMerrMNqimqPwIWr6qGWrui26V9xysCYjnH/f2aFYrA++vpSLlScGcO
+ 1CSRLItabmNGjX6VOUQCNvmOqo00ThMrqhaJX3r47TO/DIbETi4CBM5GTCni3nVXsMnJ
+ ru6GgHZA5U3Zbmrk4YT7wni8e8Msml3PHiZdQqdtyA4uZ6Qq2+MsitOoPm3MLJamFaaU
+ CLZUJ0FyoBFRqRkAqXATmp3y4ev7Wpx5MCC2AeNDUxKsPukqknrMsjCdd5I9jeKvmKTT
+ BcVDP0ZS0OE7/FbpoaFYEyIYAx9Dwn+wMF/59azFUiIVe9WmIt/SQ1T+6otqhC3osltU
+ Rq8g==
+X-Gm-Message-State: AOJu0YxR43h8ZfVzv9X+YqcTtFz/2XzoOcc/55TSIlt/Xfi9M4tv+tHV
+ 45BzOBAXqJJOg2eA0vPF3YlVAg==
+X-Google-Smtp-Source: AGHT+IGAd7fnI91i4slPrz65STgvKx2zQuzr38iUxZWkNmG6MAvGyJrGwRQrCctMuy6rdAXt6t9OHg==
+X-Received: by 2002:a05:6512:48f:b0:50b:e056:396a with SMTP id
+ v15-20020a056512048f00b0050be056396amr449640lfq.28.1701474155273; 
+ Fri, 01 Dec 2023 15:42:35 -0800 (PST)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ m14-20020a056512358e00b0050803043fc6sm554248lfr.265.2023.12.01.15.42.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Dec 2023 15:42:34 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sat,  2 Dec 2023 01:40:24 +0200
+Message-ID: <20231201234234.2065610-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20230708010407.3871346-1-dmitry.baryshkov@linaro.org>
- <20230708010407.3871346-12-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20230708010407.3871346-12-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 9suFHwiiVyDb_HQ4RDH40-diBn4uI9_J
-X-Proofpoint-GUID: 9suFHwiiVyDb_HQ4RDH40-diBn4uI9_J
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-01_22,2023-11-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- spamscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 mlxlogscore=999 bulkscore=0 clxscore=1015 mlxscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2312010145
-Subject: Re: [Freedreno] [PATCH 11/17] drm/msm/mdp4: use bulk regulators API
- for LCDC encoder
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v7 00/10] drm/msm/dpu: simplify DPU sub-blocks
+ info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,16 +80,80 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The handling code also usually knows, which sub-block it is now looking
+at. Drop unused 'id' field and arguments and merge some of sub-block
+declarations.
 
+While we are at it, also fix all VIG subblocks to contain correct scaler
+block version and drop the becoming unused QSEED-related feature bits.
 
-On 7/7/2023 6:04 PM, Dmitry Baryshkov wrote:
-> Switch mdp4_lcdc_encoder to using regulator_bulk_* API instead of
-> enumerating regulators by hand.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   .../gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c | 51 ++++++-------------
->   1 file changed, 15 insertions(+), 36 deletions(-)
-> 
+Changes since v6:
+- Renamed the merged DPU_SSPP_SCALER_QSEED3 to
+  DPU_SSPP_SCALER_QSEED3_COMPATIBLE (Abhinav)
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Changes since v5:
+- Fixed the rogue vig_qseed3_noscale sblk. There is no qseed3 in the
+  noscale VIG blocks.
+
+Changes since v4:
+- Renamed dpu_vig_sblk_x_y to dpu_vig_sblk_qseed3_1_2 (Abhinav)
+  Note: I've choosen _qseed3_ instead of the suggested _scaler_, as
+  there are other scaler types which might have their own versioning
+  scheme
+- Dropped the DPU_SSPP_SCALER and DPU_SSPP_CSC_ANY defines (Abhinav)
+
+Changes since v3:
+- Proprely describe dpu_scaler_blk::version field as the register value
+  (Marijn)
+- Picked up Marijn's prior art patches (sorry, missed them while
+  preparing v3) (Marijn)
+
+Changes since v2:
+- Reworked the VIG SBLK definitions to set the scaler version (Marijn,
+  Abhinav)
+- Rebased the reset of the patches on top of this (intrusive) change.
+- Folded QSEED3LITE and QSEED4 feature bits into QSEED3
+
+Dmitry Baryshkov (8):
+  drm/msm/dpu: populate SSPP scaler block version
+  drm/msm/dpu: drop the `id' field from DPU_HW_SUBBLK_INFO
+  drm/msm/dpu: drop the `smart_dma_priority' field from struct
+    dpu_sspp_sub_blks
+  drm/msm/dpu: deduplicate some (most) of SSPP sub-blocks
+  drm/msm/dpu: drop DPU_HW_SUBBLK_INFO macro
+  drm/msm/dpu: rewrite scaler and CSC presense checks
+  drm/msm/dpu: merge DPU_SSPP_SCALER_QSEED3, QSEED3LITE, QSEED4
+  drm/msm/gpu: drop duplicating VIG feature masks
+
+Marijn Suijten (2):
+  drm/msm/dpu: Drop unused get_scaler_ver callback from SSPP
+  drm/msm/dpu: Drop unused qseed_type from catalog dpu_caps
+
+ .../msm/disp/dpu1/catalog/dpu_3_0_msm8998.h   |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_4_0_sdm845.h    |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_0_sm8150.h    |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h   |  17 +-
+ .../msm/disp/dpu1/catalog/dpu_5_4_sm6125.h    |   8 +-
+ .../msm/disp/dpu1/catalog/dpu_6_0_sm8250.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_6_2_sc7180.h    |  11 +-
+ .../msm/disp/dpu1/catalog/dpu_6_3_sm6115.h    |   7 +-
+ .../msm/disp/dpu1/catalog/dpu_6_4_sm6350.h    |  11 +-
+ .../msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h   |   4 +-
+ .../msm/disp/dpu1/catalog/dpu_6_9_sm6375.h    |   7 +-
+ .../msm/disp/dpu1/catalog/dpu_7_0_sm8350.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_7_2_sc7280.h    |   9 +-
+ .../msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h  |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_8_1_sm8450.h    |  25 ++-
+ .../msm/disp/dpu1/catalog/dpu_9_0_sm8550.h    |  29 ++--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 149 +++++++-----------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  57 +++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  20 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  21 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   3 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   7 +-
+ 23 files changed, 204 insertions(+), 313 deletions(-)
+
+-- 
+2.42.0
+
