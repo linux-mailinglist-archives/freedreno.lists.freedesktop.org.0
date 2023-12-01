@@ -1,78 +1,85 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E197FFFC7
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 00:58:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD3780002D
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 01:26:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DBCD10E58D;
-	Thu, 30 Nov 2023 23:58:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10FFD10E787;
+	Fri,  1 Dec 2023 00:26:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8974E10E070;
- Thu, 30 Nov 2023 23:58:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F77510E786;
+ Fri,  1 Dec 2023 00:26:45 +0000 (UTC)
 Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AUNPUni017996; Thu, 30 Nov 2023 23:58:26 GMT
+ 3B10EbUt010867; Fri, 1 Dec 2023 00:26:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=yguVhYhaPgaT56vaA4oIRBB9Et0MyAZJozsteXHD2Tg=;
- b=Ax6goS4mIlbn31BCIec2U0RmoMNh9mH/QKGWa1hnT/Qbf+gnVqKijITsItiSUdqniFws
- /ExBT2lHyfHs/uNoIBE8IgPKjIXoNQRB4xFaFE0WlKmRiY11p1uC1KZhyH2wVoQc3s5a
- UOZBbgrA10fuOZR4XnK3FeuPZsGz0Y4Ufz9uYD8AScA8k1xr/dG4ARj+j89nlcjIRhxQ
- BIw2rQJMIMHcLlj5GXnbyNf8TqYYoIvqSDMhfTdo7q3KcOXk5NM1sFzSK9PGZN26b6kV
- CHEPjeEl2rlR4rzWFiFyUM28jr/UYP9kvminQJL2YFMwzWQWyBeHuTxw7qCW3OVGgtmz zQ== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ h=from : date :
+ subject : mime-version : content-type : content-transfer-encoding :
+ message-id : to : cc; s=qcppdkim1;
+ bh=TQuxclhsoOWYraeK4LJ7qRxMrWht+5yhos2PlOPoVCo=;
+ b=f/+PGGhXOocTG7pb0ukhiAuBe2fui5Cerv6Bs9WfHX2rpHHh4bpKfe8NUbzs2yPrkDGd
+ tvYQt+EmSv0OFfSO9EsxGXrY08B5KdvusP9p0fqKaqzHHAfEx1z78XgzSZpxUKxkXK15
+ ao2IoaacSNBVeLR54TwLuUfRqJI5gmyMU6WYBN9/t7viZaJLA+fgOqkLBFKcgyrPlviQ
+ PBJfQQjwJZkem1II9gSjh2wPM9oxAFkD1h/BabLg7ZfZ83Cso3DUnCv69ztGAyNnceZr
+ G8GFzc8+x8A1GllnVfS8K89tWNU90IWGlCGIZYVeZkrokgZHzpk3H+a5b64ChDrgmWKv ew== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3upvm1saq2-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3upvm1scpk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Nov 2023 23:58:26 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AUNwPgD027040
+ Fri, 01 Dec 2023 00:26:43 +0000
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B10QgLV028277
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Nov 2023 23:58:25 GMT
-Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ Fri, 1 Dec 2023 00:26:42 GMT
+Received: from [169.254.0.1] (10.49.16.6) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 30 Nov
- 2023 15:58:24 -0800
-Message-ID: <5c16e398-4010-718b-d91d-5fc3781b9c0a@quicinc.com>
-Date: Thu, 30 Nov 2023 15:58:24 -0800
+ 2023 16:26:41 -0800
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+Date: Thu, 30 Nov 2023 16:26:41 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
- <20230830224910.8091-11-quic_abhinavk@quicinc.com>
- <CAA8EJpoUDjTEytGnx0NUKD_grY=azoXgm_sqwNBJVTD7LwCe0g@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpoUDjTEytGnx0NUKD_grY=azoXgm_sqwNBJVTD7LwCe0g@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+Message-ID: <20231130-adreno-a680-1-v1-1-a0798a23e557@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIAEAoaWUC/x2NQQrCQAwAv1JyNrDp0q36FfGQbaMNlFSyKELp3
+ w0eZ2CYHZq4SoNrt4PLR5tuFkCnDqaF7SmoczD0qc9EOSHPLrYhl3NCwpIvI4085DoUiKZyE6z
+ ONi1R2XtdQ75cHvr9T2734/gBGR1M23QAAAA=
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1701390401; l=1159;
+ i=quic_bjorande@quicinc.com; s=20230915; h=from:subject:message-id;
+ bh=Ja1nxq0hj6FnxHX279dpWz5r3a+reUUr6ffAMBMBdsc=;
+ b=q0pd9tZbmAFXcSrHIXJKREYCS+lPtnyBrJlTiUrG5r1qRt5QK+QjDN+sqZx1NN72GLl4EgJ5AUNF
+ DFYEah9uANkKgtNz+yoZoyxNJ0hxB1dWr1oORIJrvgb26sZQpPMo
+X-Developer-Key: i=quic_bjorande@quicinc.com; a=ed25519;
+ pk=VkhObtljigy9k0ZUIE1Mvr0Y+E1dgBEH9WoLQnUtbIM=
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: XJaikXbEGvVeE-34BnxXxws-Mk3ba9PJ
-X-Proofpoint-GUID: XJaikXbEGvVeE-34BnxXxws-Mk3ba9PJ
+X-Proofpoint-ORIG-GUID: aRi7IJvwBUy6oE7h2Ph_gYR-Rakz4oD-
+X-Proofpoint-GUID: aRi7IJvwBUy6oE7h2Ph_gYR-Rakz4oD-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-11-30_24,2023-11-30_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  suspectscore=0
  priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 malwarescore=0
- bulkscore=0 adultscore=0 clxscore=1015 mlxscore=0 mlxlogscore=826
+ bulkscore=0 adultscore=0 clxscore=1011 mlxscore=0 mlxlogscore=999
  lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311300177
-Subject: Re: [Freedreno] [PATCH 10/16] drm/msm/dpu: add support to disable
- CDM block during encoder cleanup
+ engine=8.12.0-2311060000 definitions=main-2312010000
+Subject: [Freedreno] [PATCH] drm/msm/adreno: Fix A680 chip id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,89 +92,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, Rob Clark <robdclark@gmail.com>,
- quic_parellan@quicinc.com, Daniel Vetter <daniel@ffwll.ch>,
- quic_jesszhan@quicinc.com, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The only A680 referenced from DeviceTree is patch level 1, which since
+commit '90b593ce1c9e ("drm/msm/adreno: Switch to chip-id for identifying
+GPU")' isn't a known chip id.
 
+Correct the chip id to allow the A680 to be recognized again.
 
-On 8/30/2023 5:14 PM, Dmitry Baryshkov wrote:
-> On Thu, 31 Aug 2023 at 01:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->> In preparation of setting up CDM block, add the logic to disable it
->> properly during encoder cleanup.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 8 ++++++++
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h | 2 ++
->>   2 files changed, 10 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 582680804016..1b1e07292a9e 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -26,6 +26,7 @@
->>   #include "dpu_hw_dspp.h"
->>   #include "dpu_hw_dsc.h"
->>   #include "dpu_hw_merge3d.h"
->> +#include "dpu_hw_cdm.h"
->>   #include "dpu_formats.h"
->>   #include "dpu_encoder_phys.h"
->>   #include "dpu_crtc.h"
->> @@ -2097,6 +2098,13 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
->>                                          phys_enc->hw_pp->merge_3d->idx);
->>          }
->>
->> +       if (phys_enc->hw_cdm && phys_enc->hw_cdm->ops.bind_pingpong_blk && phys_enc->hw_pp) {
->> +               phys_enc->hw_cdm->ops.bind_pingpong_blk(phys_enc->hw_cdm,
->> +                                                       false, phys_enc->hw_pp->idx);
-> 
-> But it was already bound in the cdm->enable, wasn't it?
-> 
+Fixes: 90b593ce1c9e ("drm/msm/adreno: Switch to chip-id for identifying GPU")
+Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This is disable. I think you missed the "false" parameter.
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index f62ab5257e66..2ce7d7b1690d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -464,7 +464,7 @@ static const struct adreno_info gpulist[] = {
+ 			{ 190, 1 },
+ 		),
+ 	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x06080000),
++		.chip_ids = ADRENO_CHIP_IDS(0x06080001),
+ 		.family = ADRENO_6XX_GEN2,
+ 		.revn = 680,
+ 		.fw = {
 
-> Also the update_pending_flush_cdm should be called even for DPU < 5.0,
-> where there should be no bind_pingpong_blk callback.
-> 
+---
+base-commit: 3cd3fe06ff81cfb3a969acb12a56796cff5af23d
+change-id: 20231130-adreno-a680-1-639717a53b56
 
-Ack. This is a good catch!
+Best regards,
+-- 
+Bjorn Andersson <quic_bjorande@quicinc.com>
 
->> +               if (phys_enc->hw_ctl->ops.update_pending_flush_cdm)
->> +                       phys_enc->hw_ctl->ops.update_pending_flush_cdm(phys_enc->hw_ctl);
->> +       }
->> +
->>          if (dpu_enc->dsc) {
->>                  dpu_encoder_unprep_dsc(dpu_enc);
->>                  dpu_enc->dsc = NULL;
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> index 24dbc28be4f8..510c1c41ddbc 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> @@ -150,6 +150,7 @@ enum dpu_intr_idx {
->>    * @hw_pp:             Hardware interface to the ping pong registers
->>    * @hw_intf:           Hardware interface to the intf registers
->>    * @hw_wb:             Hardware interface to the wb registers
->> + * @hw_cdm:            Hardware interface to the CDM registers
->>    * @dpu_kms:           Pointer to the dpu_kms top level
->>    * @cached_mode:       DRM mode cached at mode_set time, acted on in enable
->>    * @enabled:           Whether the encoder has enabled and running a mode
->> @@ -178,6 +179,7 @@ struct dpu_encoder_phys {
->>          struct dpu_hw_pingpong *hw_pp;
->>          struct dpu_hw_intf *hw_intf;
->>          struct dpu_hw_wb *hw_wb;
->> +       struct dpu_hw_cdm *hw_cdm;
->>          struct dpu_kms *dpu_kms;
->>          struct drm_display_mode cached_mode;
->>          enum dpu_enc_split_role split_role;
->> --
->> 2.40.1
->>
-> 
-> 
