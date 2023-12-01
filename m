@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89FF801521
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:19:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A52C9801531
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 22:19:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5852A10E96B;
-	Fri,  1 Dec 2023 21:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A857710E96B;
+	Fri,  1 Dec 2023 21:19:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3446110E962
- for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:19:00 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2c9d2ca9a96so26333491fa.3
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04ECE10E969
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 21:19:01 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2c9b88cf626so35542901fa.3
  for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 13:19:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701465538; x=1702070338; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701465539; x=1702070339; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=D82rHnXTJ3M2XwFRTadUfTqBGG9AxaRbqkRHkJTO34w=;
- b=Lnh/r4t3nnPp7aMys4LkM7KV8UCzQQaHAR9XEf8DxTR+pIE2eQWJ5O8dnNMCHKHWnN
- gZM4FzeHfYaGhr9tO7Fey6mcN919aK5FV0ewBn+wHlLGHs/El4kQRoy6Y9XcL3XQvTJI
- drSYd3ErZ36a3CHKW2YF0IVjZGq4o4SHWKLK8iCLVHiFm2ntnuRrFI47Q3hGd3Fso93s
- 0gRC5j9/5tkhCDPMyQ+05F576pZ0tfyFZ5cYS7bPSbdy4wZe/420DKPkh753wymWpjmr
- pY6z19wksnKzu/5xXsLAVtJJo00LjQPDBydNrvqaUbAB8SL4d4dF3FvdyIVnseVcXo28
- n5iA==
+ bh=YCMvkvY8soAo2vXd/S8Bek2w5hd5WwclA/3CQcGY+Iw=;
+ b=ixDRN9cj09asjGQVzlqpyIDftczK6eHC6ZLNLz9IMVhYo0UALOSVThTCwpK/GqGcNi
+ NFk9lPbXHPk5EgFf68ULALURLAB6B0qm+JHXa6pKcjO6so7mc3ONyoxWSCZrktE1q7D3
+ zEI9fgg63aow2K7a79y8GQfoIJXivZfDLru8tOtI/l//CboErzNaQKgIauN1Rq5xoyok
+ IXYxqRQ4n4hploeZWEuatXia6/5zpEeNXebiIFscUICBZcyz3rL8Z6W5vUKoQRhyfR5g
+ z1vdHjwSOrKwcfye/iJSz6ndo3UdVeZbzI2zq1GRlHQda0tDuizwLV6BG6gv+WbNlHjS
+ P3zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701465538; x=1702070338;
+ d=1e100.net; s=20230601; t=1701465539; x=1702070339;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=D82rHnXTJ3M2XwFRTadUfTqBGG9AxaRbqkRHkJTO34w=;
- b=mw7zlAijPGe96sLYyKUp4c2qXLK7BC0i5Ml9yaaCo95rQqWhhErT8Dradbn6eqpTwT
- OyCKqXNbW/fGVSv/qpxd7jYFOxGLkyB5cRkX4AF+KDP4hpF77/VU3caoyk95o2ldS+W8
- mAuRgD8JnrqjbWlmLYYxC+4eUyQqhP84ym+WL4TJpWx8BjzZWu4iMGWyU/URv5/NZl5z
- 3r8NgwdGeeN9WPn+iOp1odnrykBh35Hpfed8SFbB3UzucQjtPWwmYgUoTbYi+xlOwTsI
- U43plO5iuZm9HrUdj9UQ0pKfutRtm9SgGf8EOseUjFNXJusozle0476u36ADW0E7tkJI
- FPBw==
-X-Gm-Message-State: AOJu0YxrSUHBB42VB1N6vOsuaie/c/Q/eM4Nuk1L0YgFS2mYCqGan0bL
- gdWp81U14hXhVYphTvGg8J9c6A==
-X-Google-Smtp-Source: AGHT+IFe1EX60SYP6vv7JeHjkm7/WFOY7n0b/gZZ4Q9L3LbncmqdFZyBopGrWjLFW4bxA+415LJqHg==
-X-Received: by 2002:a2e:530c:0:b0:2c9:bad0:9c0f with SMTP id
- h12-20020a2e530c000000b002c9bad09c0fmr1040169ljb.47.1701465538499; 
- Fri, 01 Dec 2023 13:18:58 -0800 (PST)
+ bh=YCMvkvY8soAo2vXd/S8Bek2w5hd5WwclA/3CQcGY+Iw=;
+ b=AEL28KTbyuNvU9R04/K2lQjE2HGvsJRBT/L6hbIdtBIQqsRo1HzHUSXB41SZs7VErh
+ 7WBC82FlOLlEWTMTggyNnRhETLfnnUegn6zTsBjrykoPLSVwxwv6mKzPXPXRxnEczFW/
+ oPp6HmWnPVFvCEVJ4CnpoRCHtt7hjpEbp5TDsBq+oLtr6RnRxTbH6F2DiIslgKOc9meW
+ DUn3TzdIr3Q1Z96gIbwY+AtvrzZUalyxsviyOff+bfUbiTEnj0wDgJUcmZwspS121smk
+ W3wqvQGCDgKc2no8S/d5dlzAJfzYNqxJHibpMIc+S1klgchRiWMojWGCoFHTasaIZjWt
+ pA9Q==
+X-Gm-Message-State: AOJu0YyYjd9yfml8c+rtkwC+zGrUex2kB0msjuzT4qVHuy4zfO1YCtvd
+ sOn6oULJ10sX6RJZRGhm4WKCGQ==
+X-Google-Smtp-Source: AGHT+IFro+SwRHo7Nn8XoqVBAdlF1asAkKLbl397/lSbMSfEFyf1tsXIISs/xqZJaALEmo5RqOKZVg==
+X-Received: by 2002:a2e:700b:0:b0:2c9:bcb7:5e33 with SMTP id
+ l11-20020a2e700b000000b002c9bcb75e33mr1296843ljc.44.1701465539368; 
+ Fri, 01 Dec 2023 13:18:59 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- z4-20020a05651c022400b002c123b976acsm503612ljn.76.2023.12.01.13.18.57
+ z4-20020a05651c022400b002c123b976acsm503612ljn.76.2023.12.01.13.18.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Dec 2023 13:18:57 -0800 (PST)
+ Fri, 01 Dec 2023 13:18:58 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sat,  2 Dec 2023 00:18:41 +0300
-Message-Id: <20231201211845.1026967-10-dmitry.baryshkov@linaro.org>
+Date: Sat,  2 Dec 2023 00:18:42 +0300
+Message-Id: <20231201211845.1026967-11-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231201211845.1026967-1-dmitry.baryshkov@linaro.org>
 References: <20231201211845.1026967-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 09/13] drm/msm/dpu: use drmm-managed
- allocation for dpu_plane
+Subject: [Freedreno] [PATCH v4 10/13] drm/msm/dpu: use drmm-managed
+ allocation for dpu_crtc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,103 +83,72 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Change struct dpu_plane allocation to use drmm_universal_plane_alloc().
-This removes the need to perform any actions on plane destruction.
+Change struct dpu_crtc allocation to use drmm_crtc_alloc_with_planes().
+This removes the need to perform any actions on CRTC destruction.
 
 Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 46 +++++------------------
- 1 file changed, 10 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 25 +++++++-----------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index ab9f93f15536..32b4b08ffe35 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1211,20 +1211,6 @@ static void dpu_plane_atomic_update(struct drm_plane *plane,
- 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 3c475f8042b0..a798c10036e1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -51,17 +51,6 @@ static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+ 	return to_dpu_kms(priv->kms);
  }
  
--static void dpu_plane_destroy(struct drm_plane *plane)
+-static void dpu_crtc_destroy(struct drm_crtc *crtc)
 -{
--	struct dpu_plane *pdpu = plane ? to_dpu_plane(plane) : NULL;
+-	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
 -
--	DPU_DEBUG_PLANE(pdpu, "\n");
+-	if (!crtc)
+-		return;
 -
--	if (pdpu) {
--		/* this will destroy the states as well */
--		drm_plane_cleanup(plane);
--
--		kfree(pdpu);
--	}
+-	drm_crtc_cleanup(crtc);
+-	kfree(dpu_crtc);
 -}
 -
- static void dpu_plane_destroy_state(struct drm_plane *plane,
- 		struct drm_plane_state *state)
+ static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
  {
-@@ -1394,7 +1380,6 @@ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
- static const struct drm_plane_funcs dpu_plane_funcs = {
- 		.update_plane = drm_atomic_helper_update_plane,
- 		.disable_plane = drm_atomic_helper_disable_plane,
--		.destroy = dpu_plane_destroy,
- 		.reset = dpu_plane_reset,
- 		.atomic_duplicate_state = dpu_plane_duplicate_state,
- 		.atomic_destroy_state = dpu_plane_destroy_state,
-@@ -1422,35 +1407,28 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 	struct dpu_hw_sspp *pipe_hw;
- 	uint32_t num_formats;
- 	uint32_t supported_rotations;
--	int ret = -EINVAL;
--
--	/* create and zero local structure */
--	pdpu = kzalloc(sizeof(*pdpu), GFP_KERNEL);
--	if (!pdpu) {
--		DPU_ERROR("[%u]failed to allocate local plane struct\n", pipe);
--		ret = -ENOMEM;
--		return ERR_PTR(ret);
--	}
--
--	/* cache local stuff for later */
--	plane = &pdpu->base;
--	pdpu->pipe = pipe;
-+	int ret;
+ 	struct drm_device *dev = crtc->dev;
+@@ -1435,7 +1424,6 @@ static int dpu_crtc_late_register(struct drm_crtc *crtc)
  
- 	/* initialize underlying h/w driver */
- 	pipe_hw = dpu_rm_get_sspp(&kms->rm, pipe);
- 	if (!pipe_hw || !pipe_hw->cap || !pipe_hw->cap->sblk) {
- 		DPU_ERROR("[%u]SSPP is invalid\n", pipe);
--		goto clean_plane;
-+		return ERR_PTR(-EINVAL);
+ static const struct drm_crtc_funcs dpu_crtc_funcs = {
+ 	.set_config = drm_atomic_helper_set_config,
+-	.destroy = dpu_crtc_destroy,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.reset = dpu_crtc_reset,
+ 	.atomic_duplicate_state = dpu_crtc_duplicate_state,
+@@ -1469,9 +1457,13 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+ 	struct dpu_crtc *dpu_crtc;
+ 	int i, ret;
+ 
+-	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
+-	if (!dpu_crtc)
+-		return ERR_PTR(-ENOMEM);
++	dpu_crtc = drmm_crtc_alloc_with_planes(dev, struct dpu_crtc, base,
++					       plane, cursor,
++					       &dpu_crtc_funcs,
++					       NULL);
++
++	if (IS_ERR(dpu_crtc))
++		return ERR_CAST(dpu_crtc);
+ 
+ 	crtc = &dpu_crtc->base;
+ 	crtc->dev = dev;
+@@ -1491,9 +1483,6 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+ 				dpu_crtc_frame_event_work);
  	}
  
- 	format_list = pipe_hw->cap->sblk->format_list;
- 	num_formats = pipe_hw->cap->sblk->num_formats;
- 
--	ret = drm_universal_plane_init(dev, plane, 0xff, &dpu_plane_funcs,
-+	pdpu = drmm_universal_plane_alloc(dev, struct dpu_plane, base,
-+				0xff, &dpu_plane_funcs,
- 				format_list, num_formats,
- 				supported_format_modifiers, type, NULL);
--	if (ret)
--		goto clean_plane;
-+	if (IS_ERR(pdpu))
-+		return ERR_CAST(pdpu);
-+
-+	/* cache local stuff for later */
-+	plane = &pdpu->base;
-+	pdpu->pipe = pipe;
- 
- 	pdpu->catalog = kms->catalog;
- 
-@@ -1480,8 +1458,4 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
- 	DPU_DEBUG("%s created for pipe:%u id:%u\n", plane->name,
- 					pipe, plane->base.id);
- 	return plane;
+-	drm_crtc_init_with_planes(dev, crtc, plane, cursor, &dpu_crtc_funcs,
+-				NULL);
 -
--clean_plane:
--	kfree(pdpu);
--	return ERR_PTR(ret);
- }
+ 	drm_crtc_helper_add(crtc, &dpu_crtc_helper_funcs);
+ 
+ 	if (dpu_kms->catalog->dspp_count)
 -- 
 2.39.2
 
