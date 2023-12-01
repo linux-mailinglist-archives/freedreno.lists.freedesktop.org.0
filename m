@@ -2,45 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1219980052E
-	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 09:06:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9327880054E
+	for <lists+freedreno@lfdr.de>; Fri,  1 Dec 2023 09:18:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBE0E10E810;
-	Fri,  1 Dec 2023 08:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208CB10E0F1;
+	Fri,  1 Dec 2023 08:18:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB9910E80F;
- Fri,  1 Dec 2023 08:06:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 15B75CE25B5;
- Fri,  1 Dec 2023 08:06:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9066FC433C7;
- Fri,  1 Dec 2023 08:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701417971;
- bh=rSTgwpB4g0HFcXSHaBEs360QwFlsfjE5INflcdboa6Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bxgvgbWMEJ996BM61zZpPKE1MFIbj/k5V8TbNU7apa3Wb1IQwowCQR8wyo+Vc8UbW
- gtAd2d0aA9g1Eke/dZmv5v4yHxQKmoo2AW7Hpe+trJfxlhIR+lVal1W/1O2KH0lksH
- 1ds/DqxuZYCb1bQ5rHCwI+zvhr/KjA5BoufD5hDsReZ2+31HYGTsxw5/x90mZXiz9v
- 9oPc+3PwFG9L1uczidEz60/ufBYaPuKwTT6HvBFUzV6RFLi1HxmbCrZ1Y4beb1C+3a
- 9n39e2EEv2A0TVsXhUA10xh7KDMblgJn9Opzw2llVou4V2GrB8NZBQmTEPU1ddD0Ed
- 2X4Im0pVhtn/A==
-Received: from johan by xi.lan with local (Exim 4.96.2)
- (envelope-from <johan@kernel.org>) id 1r8yXt-0005H6-2b;
- Fri, 01 Dec 2023 09:06:46 +0100
-Date: Fri, 1 Dec 2023 09:06:45 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Message-ID: <ZWmUFdWif3QGrqQc@hovoldconsulting.com>
-References: <20231130-sc8180x-dpu-safe-lut-v1-1-a8a6bbac36b8@quicinc.com>
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 786C010E0F1
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Dec 2023 08:18:51 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a00b01955acso268940766b.1
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Dec 2023 00:18:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701418730; x=1702023530; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+HhNZrtG9hsY/ugvNneqcYie0/5RzKtNLPewvDyCT5g=;
+ b=JljFd1fFzDyDLxpiF24txJ6yw29i2UlsS1NoFKJdA5mOFT1K0/eLd61gUS5NsXzNZS
+ blihKcfCI72iS/mqCD1wynsJCnXuRxI6Kgs6x2y8BGJoYcm9NfvElQOegNnujudjhkxg
+ YeugOv2pxIJ8N1bleFOCwebEzS5ix7IUGzK8RnRv4DvP/RMgNh2H+kU+qHSISXS7+D8e
+ M8ZX9zPNtyMA5qzFWodgBdpbhKyE21LWZerIK2JEX4UxhpmpFk8QaGoTnamkdl/zCib3
+ BnaKPlNN2jtAeXlFnnIGkzrmt6P4lss6BVx/AO8X9YzVWTXBIZ2q4C4GL3Wc8PJqG/i1
+ j5Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701418730; x=1702023530;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+HhNZrtG9hsY/ugvNneqcYie0/5RzKtNLPewvDyCT5g=;
+ b=wAee2BcVPXTPyAoIJ2AsXubD1dxQN3tMaZlXbUJEbbquz0C7dW+qurG8+T/MFIVF3r
+ 3t/rlYv7UHpIoUHzH5kGHeDJEjp7KaGV716lLQODefAmYe/yYYwqKjw+Qd/nTm5kOq4h
+ GxpneVxdSM3nqngd2rl5XnHzVYLnhCgFHKuf7fv5Suab0D4O9a8OLEpa/1G3gwy6f8/e
+ ChfaDy7xRjRucMlJIfct2wSgGU8jGa5ZWo3H83PjKQWe1uRKtVBeUl1PfGno7vOLy5Ys
+ RhU4+sM1wZfQ9NENEPwwQ+dDwuSiFnDHarD2um+Q0VcIe7MY/PrWd0wY2kH1yasLkEfu
+ swyA==
+X-Gm-Message-State: AOJu0Yz2WpjiJTswCSmCy7ObFfLd1OapTkLGQQB3zWxLyiXmuN8yD2dc
+ 4xsBjJXN3qkGh8EI2jiwIvTHOg==
+X-Google-Smtp-Source: AGHT+IHQeGmxVOhsc8Rty5Ko7YGzv+HnZ7kPmLQGlX08d7/IR0OspYjP2l4nOPiU5eRR8y+BDntqWg==
+X-Received: by 2002:a17:907:119e:b0:a19:a19b:7897 with SMTP id
+ uz30-20020a170907119e00b00a19a19b7897mr483319ejb.90.1701418729839; 
+ Fri, 01 Dec 2023 00:18:49 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.223.109])
+ by smtp.gmail.com with ESMTPSA id
+ qb18-20020a1709077e9200b009f8af454d0dsm1601120ejc.112.2023.12.01.00.18.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Dec 2023 00:18:49 -0800 (PST)
+Message-ID: <41a177c9-c319-4c48-bcc6-4705e7de2a2c@linaro.org>
+Date: Fri, 1 Dec 2023 09:18:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231130-sc8180x-dpu-safe-lut-v1-1-a8a6bbac36b8@quicinc.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add missing safe_lut_tbl in
- sc8180x catalog
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Luca Weiss <luca@z3ntu.xyz>, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20231130-msm8226-gpu-v1-0-6bb2f1b29e49@z3ntu.xyz>
+ <20231130-msm8226-gpu-v1-1-6bb2f1b29e49@z3ntu.xyz>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20231130-msm8226-gpu-v1-1-6bb2f1b29e49@z3ntu.xyz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/3] dt-bindings: display/msm: gpu: Allow
+ multiple digits for patchid
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,27 +133,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 30, 2023 at 04:35:01PM -0800, Bjorn Andersson wrote:
-> Similar to SC8280XP, the misconfigured SAFE logic causes rather
-> significant delays in __arm_smmu_tlb_sync(), resulting in poor
-> performance for things such as USB.
+On 30/11/2023 21:35, Luca Weiss wrote:
+> Some GPUs like the Adreno A305B has a patchid higher than 9, in this
+> case 18. Make sure the regexes can account for that.
 > 
-> Introduce appropriate SAFE values for SC8180X to correct this.
-> 
-> Fixes: f3af2d6ee9ab ("drm/msm/dpu: Add SC8180x to hw catalog")
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+> ---
 
-Missing CC stable tag?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+Best regards,
+Krzysztof
 
-Johan
