@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B55801F29
-	for <lists+freedreno@lfdr.de>; Sat,  2 Dec 2023 23:43:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA35801F2E
+	for <lists+freedreno@lfdr.de>; Sat,  2 Dec 2023 23:43:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00ECA10E22C;
-	Sat,  2 Dec 2023 22:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 141BF10E238;
+	Sat,  2 Dec 2023 22:43:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1C8F10E22B
- for <freedreno@lists.freedesktop.org>; Sat,  2 Dec 2023 22:42:51 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50be08b8fd9so1704448e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 14:42:51 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8F0210E230
+ for <freedreno@lists.freedesktop.org>; Sat,  2 Dec 2023 22:42:52 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-50bbb79f97cso3465192e87.0
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 14:42:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701556970; x=1702161770; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701556971; x=1702161771; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tg6ik6jkhCoYifkR5PJD5UGVthg925S5B4jBHf5xlEE=;
- b=TBP2SNdLmQlQjhyYWeEwdu5T9EwOcjW523vDHBfG0UuPLOwckbZLG0yEEB025K5MuK
- 7i7CYOEF/z6VWI5FKHGOWo8kmq+7bxzkujEOGVftWSpSY296Yp15Nwn2CYA4M+Ap1zWR
- DZmfXhualaOyrbR+8XlajAl/09LdASLiGjIEVePrdlGaIP92Xz5ubOCdMJVfL4Trc0g8
- g11Qutkupd8h4GhZfsZIN1vqplWQSbK4T7/BwyKDJCEo+OGdpJNESOHl3vGyfnMoGboB
- QgYmmQvuEGY5odJUdjj+7zUIbKqqNUhCrTgR3QdlA9dU3msX3tXlmb2RG5a+F5gM4FjS
- sC+Q==
+ bh=7zovWCGMEaCBXEAS5mSNY7Kpzzx6U3mmVxujhNd8FwI=;
+ b=iGXUoQLTFpgPwM5TuWjsLY9HuTfr0YuqN5gQbcQnRtD5P+RTGu6tGoqW8SH7F7fAxb
+ GOz3O0gkZNkrIgKPla77UGL9+9rJj0yFmjtw/GFZQ8L1wJHFCsoCq0v70YXM/ZXwfKin
+ fFhbFJLX06bLH5e8/qIu93W+xBUtnSPcLpn5SvK+MyDmgL4cNVTiLz5xRbi20LRDthnJ
+ puzg7mIJCdtvuoWA2nmyo7ns9UyGbplmsw7jAQ0+dkQgzPc50LsioULATeCc/wZxg80R
+ Ru0EwmLRTt9kYjVSTqgAJ7mwPcHI28X9CSsLTbBBUU0p/1GxDHjyXCnzjGV7LM+D3VIF
+ Obvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701556970; x=1702161770;
+ d=1e100.net; s=20230601; t=1701556971; x=1702161771;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tg6ik6jkhCoYifkR5PJD5UGVthg925S5B4jBHf5xlEE=;
- b=TYeLZejYYTgPRU8cId00kmZQwvKv+BJh3GBB01VlsMtI69OxlfEfYqJ+ndJICkseVo
- vWsS1qkiXyM0mYZdmOdYeS9TyHhbK0tL3uyFbON8rhw7fG6bspNoTaqjW1uj8GqgLXPB
- /nLOVgiU43w7ptBW9o86RjoflLnKfeoBFrUvAqdSKthZC/nTgLaugwJtRkF92QIEJ6cY
- kAkCkD/bE2ONpPHK1GTvrAAOOhrrwz0nBOVnLXpSR1HjU2lSUIT7lpdHYB3pFMZogU20
- yuyJFRObwp7XD+IKGhA8dCsWfm0iquX672LGwFKQS937gdYRj4a9J+13mz4Y8zdOV7rT
- L60g==
-X-Gm-Message-State: AOJu0YxHO7VrpFAUFXvlaLlW7xxzDNuZSqRUPVzcfgL6DjVq6bUtkBxz
- 1IJOglW9eiTuLZlmocWAkWIozQ==
-X-Google-Smtp-Source: AGHT+IEye2IVR+NrlvezqDcD6ayk0gBP0mIG/TZ5I9WBZeru+5TsGk2sWcqpSzPVYcFa+ELtckQ6iw==
-X-Received: by 2002:ac2:5e83:0:b0:50b:ef70:8d66 with SMTP id
- b3-20020ac25e83000000b0050bef708d66mr333083lfq.26.1701556969996; 
- Sat, 02 Dec 2023 14:42:49 -0800 (PST)
+ bh=7zovWCGMEaCBXEAS5mSNY7Kpzzx6U3mmVxujhNd8FwI=;
+ b=g2rKM70M0wxlxiBropDHLUNYAQpd7Y1hzv6ZWa1l37LihL+Lt9TR6LnUSVtsaBw6Nw
+ J4fetol8vU/DV/FHIneHKmEqIPWPLi4Q9JV1vdPs3UjUPQUSXb12VNh+MSJrLF0tCBsw
+ ggDdBNcHvtEq0M0KsosQTiWSfn1T0CfNjfbcx7p+2ECXKT7o/1JV0TFj01AXvyTtQrSs
+ oAHqIwgY1kKyEN1uHYqhMqasWzpKnPbds4Si0XLYem+oIBQfpxQYC1ZVFr0X6exN9kaC
+ czdDi7UBGt9qNc32uTHRKcyudN5GqZrp7557pdW2G2szhAF9eC+iZXoZgri4p/1yBJew
+ wDAA==
+X-Gm-Message-State: AOJu0YzAuscYt+rDJN04EsTxxrfyeHLT0Wl4xz5buzgjmxtIoLNUqqrE
+ zn7SFXPIGtI49vKUAvWarI45Vw==
+X-Google-Smtp-Source: AGHT+IGCx/hr9NPk4n8oWXdCugVcqzn1jGMHeBV9inPV/Mf00IxYZnUA8gjKRMpAvoYKPjvV+1LA0w==
+X-Received: by 2002:ac2:5989:0:b0:50b:ec8c:a293 with SMTP id
+ w9-20020ac25989000000b0050bec8ca293mr471560lfn.15.1701556970837; 
+ Sat, 02 Dec 2023 14:42:50 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- o20-20020a056512051400b0050bed700f5esm187015lfb.91.2023.12.02.14.42.49
+ o20-20020a056512051400b0050bed700f5esm187015lfb.91.2023.12.02.14.42.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Dec 2023 14:42:49 -0800 (PST)
+ Sat, 02 Dec 2023 14:42:50 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Date: Sun,  3 Dec 2023 01:42:45 +0300
-Message-Id: <20231202224247.1282567-3-dmitry.baryshkov@linaro.org>
+Date: Sun,  3 Dec 2023 01:42:46 +0300
+Message-Id: <20231202224247.1282567-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231202224247.1282567-1-dmitry.baryshkov@linaro.org>
 References: <20231202224247.1282567-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 2/4] drm/msm/mdss: Rename path references to
- mdp_path
+Subject: [Freedreno] [PATCH v4 3/4] drm/msm/mdss: inline
+ msm_mdss_icc_request_bw()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,66 +83,66 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
+There are just two places where we set the bandwidth: in the resume and
+in the suspend paths. Drop the wrapping function
+msm_mdss_icc_request_bw() and call icc_set_bw() directly.
 
-The DPU1 driver needs to handle all MDPn<->DDR paths, as well as
-CPU<->SLAVE_DISPLAY_CFG. The former ones share how their values are
-calculated, but the latter one has static predefines spanning all SoCs.
-
-In preparation for supporting the CPU<->SLAVE_DISPLAY_CFG path, rename
-the path-related struct members to include "mdp_".
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/msm/msm_mdss.c | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 53bc496ace99..e1b208fd072e 100644
+index e1b208fd072e..eeca281e9d6d 100644
 --- a/drivers/gpu/drm/msm/msm_mdss.c
 +++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -40,8 +40,8 @@ struct msm_mdss {
- 		struct irq_domain *domain;
- 	} irq_controller;
- 	const struct msm_mdss_data *mdss_data;
--	struct icc_path *path[2];
--	u32 num_paths;
-+	struct icc_path *mdp_path[2];
-+	u32 num_mdp_paths;
- };
- 
- static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
-@@ -54,13 +54,13 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
- 	if (IS_ERR_OR_NULL(path0))
- 		return PTR_ERR_OR_ZERO(path0);
- 
--	msm_mdss->path[0] = path0;
--	msm_mdss->num_paths = 1;
-+	msm_mdss->mdp_path[0] = path0;
-+	msm_mdss->num_mdp_paths = 1;
- 
- 	path1 = devm_of_icc_get(dev, "mdp1-mem");
- 	if (!IS_ERR_OR_NULL(path1)) {
--		msm_mdss->path[1] = path1;
--		msm_mdss->num_paths++;
-+		msm_mdss->mdp_path[1] = path1;
-+		msm_mdss->num_mdp_paths++;
- 	}
- 
+@@ -66,14 +66,6 @@ static int msm_mdss_parse_data_bus_icc_path(struct device *dev,
  	return 0;
-@@ -70,8 +70,8 @@ static void msm_mdss_icc_request_bw(struct msm_mdss *msm_mdss, unsigned long bw)
- {
- 	int i;
- 
--	for (i = 0; i < msm_mdss->num_paths; i++)
--		icc_set_bw(msm_mdss->path[i], 0, Bps_to_icc(bw));
-+	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
-+		icc_set_bw(msm_mdss->mdp_path[i], 0, Bps_to_icc(bw));
  }
  
+-static void msm_mdss_icc_request_bw(struct msm_mdss *msm_mdss, unsigned long bw)
+-{
+-	int i;
+-
+-	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
+-		icc_set_bw(msm_mdss->mdp_path[i], 0, Bps_to_icc(bw));
+-}
+-
  static void msm_mdss_irq(struct irq_desc *desc)
+ {
+ 	struct msm_mdss *msm_mdss = irq_desc_get_handler_data(desc);
+@@ -227,14 +219,15 @@ const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev)
+ 
+ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+ {
+-	int ret;
++	int ret, i;
+ 
+ 	/*
+ 	 * Several components have AXI clocks that can only be turned on if
+ 	 * the interconnect is enabled (non-zero bandwidth). Let's make sure
+ 	 * that the interconnects are at least at a minimum amount.
+ 	 */
+-	msm_mdss_icc_request_bw(msm_mdss, MIN_IB_BW);
++	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
++		icc_set_bw(msm_mdss->mdp_path[i], 0, Bps_to_icc(MIN_IB_BW));
+ 
+ 	ret = clk_bulk_prepare_enable(msm_mdss->num_clocks, msm_mdss->clocks);
+ 	if (ret) {
+@@ -286,8 +279,12 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+ 
+ static int msm_mdss_disable(struct msm_mdss *msm_mdss)
+ {
++	int i;
++
+ 	clk_bulk_disable_unprepare(msm_mdss->num_clocks, msm_mdss->clocks);
+-	msm_mdss_icc_request_bw(msm_mdss, 0);
++
++	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
++		icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
+ 
+ 	return 0;
+ }
 -- 
 2.39.2
 
