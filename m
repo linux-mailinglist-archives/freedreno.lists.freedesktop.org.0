@@ -1,73 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56C5A801E5D
-	for <lists+freedreno@lfdr.de>; Sat,  2 Dec 2023 20:54:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 216B3801EDB
+	for <lists+freedreno@lfdr.de>; Sat,  2 Dec 2023 22:42:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D077910E0C9;
-	Sat,  2 Dec 2023 19:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D40910E226;
+	Sat,  2 Dec 2023 21:42:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4373710E0C9
- for <freedreno@lists.freedesktop.org>; Sat,  2 Dec 2023 19:54:54 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id
- 2adb3069b0e04-50bc57d81f4so4547032e87.2
- for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 11:54:54 -0800 (PST)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3A0410E0D4
+ for <freedreno@lists.freedesktop.org>; Sat,  2 Dec 2023 21:40:19 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-50bee606265so455475e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 13:40:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701546892; x=1702151692; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=mypENOTvjGc6UKp6SNlOk81hu+cXKNAEwrYZ0eb98SE=;
- b=Th2K/DYtaW7kaRyoJQlWhHrEKuzyasj0xGiQCb7OFznhzQHoXGNSYWksGJ50PGB0Aw
- kiEMkJ0lEAF51XiJlYdG3eznHfftlYU+tZjzGM4OSOWUAXuDeZvmCQ3KvHc0v6ZvIc0y
- +YwV/Ex/n5pu4rSj3pA8IqdDQc5Fy38v22DIhkMfUbW2tWk59Xtty34sHJOFHpZjbTuW
- XlDiQJ4EnKN3UnD+PWw7tSwV6yNx+sQ/l72DxwWNnZKokJs8ZpUw7DnegAFso+GQgfwG
- zSc3aCp/0PGkwavV8ZNkxRUpRwJELJGBKGJNrioSsUel1rreRJL3nSYat/Hsi7FlH/Vn
- RS7A==
+ d=linaro.org; s=google; t=1701553217; x=1702158017; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SBC2etg0t87/NEQAbw4GxIuosiaBjUOZpDVVT0P9EvQ=;
+ b=O5Rw31ZUGuaAamnWITVDyTSbEuk9XrdciMa0Nuc8EMtFv092SdLT3b4P+KKpWF8Zvk
+ u2w3yul5IgGShkgz7A2ZCgxdbdLc7VZmFNFs9Pidfr/BjNLjcdgc30FxpQao3KpXrBuL
+ WXLWZ/5KOFGcwAQzYADgWzPl/itaKICZ6vmKIXIBhpiJV3jkDNNY9f1DL6s7Z8LshdYQ
+ 4dQ+kvkvrc6V+lanBxbCjfqXwFls3U4kJ+fQveAdwNMmomRwudF8r34suyXvzSncvrml
+ iAsPAFb/NegI+RTQJOc8c+SwNoFCMx961QmKeZFF9EVHVzwWyxNycjwL3SP6KRn5JNZ5
+ wuyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701546892; x=1702151692;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mypENOTvjGc6UKp6SNlOk81hu+cXKNAEwrYZ0eb98SE=;
- b=RY8nBI1mt0mE9O3m6+x4Ab+ztUCGwwMguKnaDTshmtgfnRLNRWk2hHQkCqOZBaDSYE
- gPzDca92rJybMJb//0rsf7KS3+EB+qVSti9cOTQU/+/ry6QmZb1qbLXRlRuQxAw8bJhf
- 7cZ++9u4q2hax1niVa6q++g4entgJVjT9E0LOYQtZzDCTI7T4S+S1Ry7MJQqECCAwlAO
- ZXE9MYOfRaqg+5cy4kLhRSLvIPb/xRB3zE2JYTMHVlgo41R1MA+GxWF4s8bpRHFKFrqv
- DkbwzIRqgsw4CaO/1spYqFkDac/LI6TW1gxnPtZxuOkP92bwWQOZtxlkI9jwik2mzoiC
- yFKA==
-X-Gm-Message-State: AOJu0Yypz9Wzcym/3JcUzvP6f8oU74UzQcaFF+RnhO8nmozXMgOZQHXw
- ueclYh68M/iwB67cCrBmTfHS+w==
-X-Google-Smtp-Source: AGHT+IH3My8XPBaauAwFiRuvgLhrkMUD2b5HPKUvjhIU+O7KAUS3Yyc7nyJY4nMMh7APjo3+nzysjg==
-X-Received: by 2002:a05:6512:10ce:b0:50b:d764:28ee with SMTP id
- k14-20020a05651210ce00b0050bd76428eemr1441389lfg.134.1701546892350; 
- Sat, 02 Dec 2023 11:54:52 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20230601; t=1701553217; x=1702158017;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SBC2etg0t87/NEQAbw4GxIuosiaBjUOZpDVVT0P9EvQ=;
+ b=XqBkTCg9LHO4Yw+4tmDwUN/u6HVIgJepJtQvg48bOk4uUQeC/Tsw4mZZ0tWhsQbDcI
+ nWFB1eeVXF9UVQe8xolnqsb2g3k8Gqq8VTcTA/27l0wlxJ4SBlmZgEqeUUaYedd7+QxQ
+ mqGZw9qX3redwGrrczxMapM+y8FBpYhuEwBKFfDObirAy+Vpr5kwZdYRWqBcMo4qtt1n
+ MCIRA5NtW/HMjD5U39mGsfZ7lj+Y6wKx5xeIEpeDNonk6dst6zvnx+v5BBRUpvxzEM9+
+ fyL0oWV2QF5Jtv5bJF6jsXDn9u9S2zU+ABvYrMGWpfmXqAtnvLdesZoc9QT6ut44S1G2
+ NxmA==
+X-Gm-Message-State: AOJu0YyU1mNuA9ozPGB8cciHptg0oEj+faQnniyuFGTGWyNz8xrkoY5f
+ A+Eph03Geu0q7bIp4XkCmekVBw==
+X-Google-Smtp-Source: AGHT+IF5YX9R0gQVH2TWa8b1HlMk/s4pSRy3Qk5p94J6OHigE3id3WsnP2AAZXxSg9IBfJW/WuFa/w==
+X-Received: by 2002:a05:6512:3086:b0:50b:cb52:3c2c with SMTP id
+ z6-20020a056512308600b0050bcb523c2cmr2452649lfd.29.1701553217543; 
+ Sat, 02 Dec 2023 13:40:17 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- c27-20020ac25f7b000000b00507a0098424sm37426lfc.109.2023.12.02.11.54.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 02 Dec 2023 11:54:51 -0800 (PST)
-Message-ID: <77c229fd-5414-49ad-bccd-7a5732345695@linaro.org>
-Date: Sat, 2 Dec 2023 21:54:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-References: <20231130-encoder-fixup-v1-0-585c54cd046e@quicinc.com>
- <20231130-encoder-fixup-v1-2-585c54cd046e@quicinc.com>
- <CAA8EJpqeu18q4jN82fUvsEdBRmEjG_mYLQQUWD+LDxjiQQQPsg@mail.gmail.com>
- <a076fced-f4b9-804e-eb73-1fbb510c4951@quicinc.com>
+ f24-20020ac25338000000b0050be6038170sm282996lfh.48.2023.12.02.13.40.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 Dec 2023 13:40:16 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <a076fced-f4b9-804e-eb73-1fbb510c4951@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sun,  3 Dec 2023 00:40:04 +0300
+Message-Id: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dpu: Set input_sel bit for INTF
+Subject: [Freedreno] [PATCH 00/12] drm/msm: fold dpu_format into mdp_formats
+ database
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,166 +73,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/12/2023 23:29, Abhinav Kumar wrote:
-> 
-> 
-> On 11/30/2023 11:36 PM, Dmitry Baryshkov wrote:
->> On Fri, 1 Dec 2023 at 03:31, Jessica Zhang <quic_jesszhan@quicinc.com> 
->> wrote:
->>>
->>> Set the input_sel bit for encoders as it was missed in the initial
->>> implementation.
->>>
->>> Reported-by: Rob Clark <robdclark@gmail.com>
->>> Fixes: 91143873a05d ("drm/msm/dpu: Add MISR register support for 
->>> interface")
->>> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/39
->>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 2 +-
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   | 2 +-
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 7 ++++++-
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h | 4 +++-
->>>   4 files changed, 11 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>> index 3442cf65b86f..d0884997ecb7 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>> @@ -320,7 +320,7 @@ static u32 dpu_hw_intf_get_line_count(struct 
->>> dpu_hw_intf *intf)
->>>
->>>   static void dpu_hw_intf_setup_misr(struct dpu_hw_intf *intf)
->>>   {
->>> -       dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL);
->>> +       dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL, true);
->>>   }
->>>
->>>   static int dpu_hw_intf_collect_misr(struct dpu_hw_intf *intf, u32 
->>> *misr_value)
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
->>> index f38473e68f79..77b14107c84a 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
->>> @@ -83,7 +83,7 @@ static void dpu_hw_lm_setup_border_color(struct 
->>> dpu_hw_mixer *ctx,
->>>
->>>   static void dpu_hw_lm_setup_misr(struct dpu_hw_mixer *ctx)
->>>   {
->>> -       dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL);
->>> +       dpu_hw_setup_misr(&ctx->hw, LM_MISR_CTRL, false);
->>>   }
->>>
->>>   static int dpu_hw_lm_collect_misr(struct dpu_hw_mixer *ctx, u32 
->>> *misr_value)
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
->>> index a8a0a4e76b94..f441df47fdde 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
->>> @@ -481,7 +481,8 @@ void _dpu_hw_setup_qos_lut(struct 
->>> dpu_hw_blk_reg_map *c, u32 offset,
->>>                        cfg->danger_safe_en ? 
->>> QOS_QOS_CTRL_DANGER_SAFE_EN : 0);
->>>   }
->>>
->>> -void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 
->>> misr_ctrl_offset)
->>> +void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 
->>> misr_ctrl_offset,
->>> +               bool set_input_sel)
->>>   {
->>>          u32 config = 0;
->>>
->>> @@ -491,6 +492,10 @@ void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map 
->>> *c, u32 misr_ctrl_offset)
->>>          wmb();
->>>
->>>          config = MISR_FRAME_COUNT | MISR_CTRL_ENABLE | 
->>> MISR_CTRL_FREE_RUN_MASK;
->>> +
->>> +       if (set_input_sel)
->>> +               config |= MISR_CTRL_INPUT_SEL;
->>> +
->>>          DPU_REG_WRITE(c, misr_ctrl_offset, config);
->>>   }
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
->>> index bb496ebe283b..793670d62414 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
->>> @@ -17,6 +17,7 @@
->>>   #define MISR_CTRL_ENABLE                BIT(8)
->>>   #define MISR_CTRL_STATUS                BIT(9)
->>>   #define MISR_CTRL_STATUS_CLEAR          BIT(10)
->>> +#define MISR_CTRL_INPUT_SEL             BIT(24)
->>
->> The public apq8916 TRM documents this as a 4-bit field. I think this
->> was followed into the later generations. Can we please document it
->> correctly and use an uint instead of just bool for set_input_sel?
->>
-> 
-> Can you pls point us to this document you are referring?
+During the review of [1] Abhinav pointed out that mdp_rgb_formats and
+mdp_rgb_yuv_formats arrays from patch 1 are directly based on the struct
+mdp_format formats array. This was true, because MDP4 / MDP5 drivers
+used their own (small) list of supported formats. The DPU driver,
+supporting more formats, had larger database of the formats and their
+properties. While we don't have plans to expand MDP5 formats support, it
+make sense to merge these two databases into a common dataset.
 
-I have this link in my bookmarks, which doesn't seem to work no longer:
+[1] https://patchwork.freedesktop.org/series/120377/
 
-https://developer.qualcomm.com/download/sd410/snapdragon-410e-technical-reference-manual.pdf?referrer=node/29241
+Dmitry Baryshkov (12):
+  drm/msm: fix BPC1 -> BPC4
+  drm/msm/disp: add mdp_fetch_mode enum
+  drm/msm/dpu: use format-related definitions from mdp_common.xml.h
+  drm/msm: add arrays listing formats supported by MDP4/MDP5 hardware
+  drm/msm/dpu: in dpu_format replace bitmap with unsigned long field
+  drm/msm/dpu: pull format flag definitions to msm_drv.h
+  drm/msm: merge dpu_format and mdp_format in struct msm_format
+  drm/msm: convert msm_format::unpack_tight to the flag
+  drm/msm: convert msm_format::unpack_align_msb to the flag
+  drm/msm: convert msm_format::alpha_enable to the flag
+  drm/msm: merge dpu format database to MDP formats
+  drm/msm: drop msm_kms_funcs::get_format() callback
 
-96boards forum has several links and mentions of this doc.
-
-> 
-> I was not aware that bit level details are revealed in external 
-> documents :)
-> 
-> Even though its a 4-bit field, it only takes a 0 or 1 as others are 
-> undefined.
-> 
-> Exposing all the bits will only cause more confusion like it did for 
-> others thinking that input select is actually configurable when its not.
-> 
-> I think what we should do is just pass "misr_type" to this API to tell 
-> whether its lm misr or intf misr and set BIT(24) based on that.
-
-This would be another simplification. Can we instead just use values 0 
-and 1 instead and maybe document that by default everybody should use 0.
-
-> 
-> 
->>>   #define MISR_CTRL_FREE_RUN_MASK         BIT(31)
->>>
->>>   /*
->>> @@ -357,7 +358,8 @@ void _dpu_hw_setup_qos_lut(struct 
->>> dpu_hw_blk_reg_map *c, u32 offset,
->>>                             bool qos_8lvl,
->>>                             const struct dpu_hw_qos_cfg *cfg);
->>>
->>> -void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 
->>> misr_ctrl_offset);
->>> +void dpu_hw_setup_misr(struct dpu_hw_blk_reg_map *c, u32 
->>> misr_ctrl_offset,
->>> +                      bool set_input_sel);
->>>
->>>   int dpu_hw_collect_misr(struct dpu_hw_blk_reg_map *c,
->>>                  u32 misr_ctrl_offset,
->>>
->>> -- 
->>> 2.43.0
->>>
->>
->>
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  22 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   4 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   | 658 +-----------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h   |  23 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |  16 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   | 123 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  45 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |  17 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |  22 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h     |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |  75 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |   6 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c      |   1 -
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c    |  89 ++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  16 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      |   1 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    |  98 ++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c      |   4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h      |   2 +-
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h     |   8 +-
+ drivers/gpu/drm/msm/disp/mdp_format.c         | 611 +++++++++++++---
+ drivers/gpu/drm/msm/disp/mdp_kms.h            |  17 -
+ drivers/gpu/drm/msm/msm_drv.h                 |  64 ++
+ drivers/gpu/drm/msm/msm_fb.c                  |   2 +-
+ drivers/gpu/drm/msm/msm_kms.h                 |   4 -
+ 30 files changed, 884 insertions(+), 1065 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
