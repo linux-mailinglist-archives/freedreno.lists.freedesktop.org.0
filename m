@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D358780235C
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 12:44:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654EF802360
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 12:44:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16F9B10E2A4;
-	Sun,  3 Dec 2023 11:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 375A010E2A7;
+	Sun,  3 Dec 2023 11:44:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF1F810E29B
- for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 11:43:37 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2c9bd3ec4f6so42971261fa.2
- for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 03:43:37 -0800 (PST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7288510E29C
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 11:43:38 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2c9f62fca3bso8653011fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 03:43:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701603816; x=1702208616; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701603817; x=1702208617; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Aam3IeZZYou7qOiCLTfYpnFJoW7z3fkJsLhT2kv0/so=;
- b=AUrYFJnXTRRrzI6QAUNbr+Hpbfi+3lgaQ1I7n23ZLznmAS2lY7KVwJALul4w2+zMBa
- xYuwUf6EnwRXyiJmr7FBOdp8zkFD6ND7ToXXQJjTtqaKc629+9uiNlNGw6XCCOjbJrcJ
- 7og00EOMB7C3kwD4Q20Vyzn1+qP4IfdP693O4bA0HTHgmZ+jN6nc2DbqxmN/VNmlNd0D
- Vr/0lwh253g26vvhUVikS/L/FAETWpnTQnc/okiJCeieGjfRQU8IhjJmMLzJuJftmpOS
- oqHo5lJUQH4ZEoW+6NWnWnYmtRmGPnYppL44Mzr0Zk8H9VOFY26JzHGTj6Ua7r+36hxR
- OuLQ==
+ bh=Vgu14wOUYfk/aPZS3WEVtfQrsxZGJfAenmY4bb1CTCI=;
+ b=p42qeltsom2wmOgvqv2r0OovZh0Slq7Amhy8N+sh7lJOXGz7ryV3BdXWnHuHWWsP6L
+ I+M+WiFkNkciqJnofyZRVhAIg+C94dvLofGQw5OKy1BPWOSTxlZCtuk4JCNhN+TY6f/D
+ OfDMyNBOv70CaDA3VTao8Wg/KpPYr3Dwhe04UrESEOqDMLj4kz75FSPU987aaBwI/ixj
+ hiHr4JYM6O/dIVbEOef1hfNDSTQojRnNhumRZSB3NUWde/2Z1ojOg6yFJySO55/yY8ld
+ enyruklzqZjk8i9IYx4CmZGy2OZm+ybqMyVJ9MWbyHF/bM4vEEb2s1Ea0AKFHm2ZV8t/
+ yDrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701603816; x=1702208616;
+ d=1e100.net; s=20230601; t=1701603817; x=1702208617;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Aam3IeZZYou7qOiCLTfYpnFJoW7z3fkJsLhT2kv0/so=;
- b=ta391QN7VhcDh7D5UdA5if6eT5BHjpuJPjPfAl3qy3LUl2nM1u2OMzypkO7rQK+98J
- 7eJVzV4amQIL4ShSde3Qu7nVl2/HA0ve3tUD+u3drfcahS2Is32E13M38oSHmgOR3eNG
- OS1Poqr0xr3mwzY+fUUXYBpK2zSE663A4V6xWGX5sv3xDnxTL9ec1TsDD7Gb1yKIz3vo
- LdMjRBI11eSaKQfwWVMKkNNnD+zMgF/yxSo5Ln8WH+hdSG4/GMWYJ3J27mv50Sc1BCXZ
- 1aXaehPzTSgk7l6LI4W9lHuZkndLG/KHlDQ71kwHBEdepZtOOuqmUHljI/946cd/bF2v
- +nmg==
-X-Gm-Message-State: AOJu0YxKdVhNYZ5sq+aGuPLu231+p1uVR7L6EJD7rtF32evu/Rb2l8QS
- CY4rSGjWh/BWolavaJDWNYnp0kf3Y5o2I2AF7QU=
-X-Google-Smtp-Source: AGHT+IGQOl1f6KMGAm7kO5TDXZyrRAW/4peDnzvo3+EM4Ij4eFCpMQ47UXHc7VDNe3+gkvzZ/FZ8Dg==
-X-Received: by 2002:a19:2d05:0:b0:50b:f0e5:70fd with SMTP id
- k5-20020a192d05000000b0050bf0e570fdmr191998lfj.103.1701603816108; 
+ bh=Vgu14wOUYfk/aPZS3WEVtfQrsxZGJfAenmY4bb1CTCI=;
+ b=sF2cmNeb4F97jazv9ejNASLQ7j21/pSKQu0vMkpZ5ummZF5zcC5QZ3usTUI3MRJNzF
+ 2oI+18WeFDoEZa7xWHCdRhUp2Nl7KZo22oZn66EyUNM+5TfbSHoAYzBarV/xqoE5v0lU
+ 5+RyvIVAdJcOuirubVEhU0seu2ja4BL4DkI0eihHMAtJAGz7jhfo6zfWSOvxqaL33QDK
+ Q87jGaDxalIeH46NIzSFkzm/n3ra88glhvedc4HKOUv4mFgpI5j0Cz8U3PAZhbkYphV7
+ w7oB9H2vYbPFX98O3WXdA/+FmFuncTXUPIF5pCY9rdnB+/kw99szsJ8p85T8WLY0MVoa
+ xGwA==
+X-Gm-Message-State: AOJu0Yzv9pE6BVV0SDq2lL3s5atMTUZqbQoONdFrMWQrQyve+QEQ0bqB
+ 4Idj7fMfr9XXucng8+A8YE+m6w==
+X-Google-Smtp-Source: AGHT+IGpdl7fWJQIGxRsBqrjE7aHBfv9IPEeR4THl/btbgpbWHaLxkg6rn7d/QZw8P7QZDpNwlZcTA==
+X-Received: by 2002:a2e:a3c6:0:b0:2c9:d862:c64a with SMTP id
+ w6-20020a2ea3c6000000b002c9d862c64amr2041950lje.55.1701603816803; 
  Sun, 03 Dec 2023 03:43:36 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- o17-20020a2e90d1000000b002c993c5d4c6sm894666ljg.105.2023.12.03.03.43.35
+ o17-20020a2e90d1000000b002c993c5d4c6sm894666ljg.105.2023.12.03.03.43.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Dec 2023 03:43:35 -0800 (PST)
+ Sun, 03 Dec 2023 03:43:36 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -67,14 +67,14 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Janne Grunau <j@jannau.net>, Simon Ser <contact@emersion.fr>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Sun,  3 Dec 2023 14:43:29 +0300
-Message-Id: <20231203114333.1305826-3-dmitry.baryshkov@linaro.org>
+Date: Sun,  3 Dec 2023 14:43:30 +0300
+Message-Id: <20231203114333.1305826-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231203114333.1305826-1-dmitry.baryshkov@linaro.org>
 References: <20231203114333.1305826-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH RESEND 2/6] phy: qcom: qmp-combo: switch to
+Subject: [Freedreno] [PATCH RESEND 3/6] usb: typec: nb7vpq904m: switch to
  DRM_AUX_BRIDGE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,8 +89,8 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Vinod Koul <vkoul@kernel.org>, freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
@@ -98,65 +98,66 @@ Switch to using the new DRM_AUX_BRIDGE helper to create the
 transparent DRM bridge device instead of handcoding corresponding
 functionality.
 
-Acked-by: Vinod Koul <vkoul@kernel.org>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/phy/qualcomm/Kconfig              |  2 +-
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 44 ++---------------------
+ drivers/usb/typec/mux/Kconfig      |  2 +-
+ drivers/usb/typec/mux/nb7vpq904m.c | 44 ++----------------------------
  2 files changed, 3 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
-index d891058b7c39..846f8c99547f 100644
---- a/drivers/phy/qualcomm/Kconfig
-+++ b/drivers/phy/qualcomm/Kconfig
-@@ -63,7 +63,7 @@ config PHY_QCOM_QMP_COMBO
+diff --git a/drivers/usb/typec/mux/Kconfig b/drivers/usb/typec/mux/Kconfig
+index 816b9bd08355..5120942f309d 100644
+--- a/drivers/usb/typec/mux/Kconfig
++++ b/drivers/usb/typec/mux/Kconfig
+@@ -40,7 +40,7 @@ config TYPEC_MUX_NB7VPQ904M
+ 	tristate "On Semiconductor NB7VPQ904M Type-C redriver driver"
+ 	depends on I2C
  	depends on DRM || DRM=n
- 	select GENERIC_PHY
- 	select MFD_SYSCON
 -	select DRM_PANEL_BRIDGE if DRM
 +	select DRM_AUX_BRIDGE if DRM_BRIDGE
+ 	select REGMAP_I2C
  	help
- 	  Enable this to support the QMP Combo PHY transceiver that is used
- 	  with USB3 and DisplayPort controllers on Qualcomm chips.
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 0417856b8e7b..435cd849e82e 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -21,7 +21,7 @@
- #include <linux/usb/typec.h>
- #include <linux/usb/typec_mux.h>
- 
+ 	  Say Y or M if your system has a On Semiconductor NB7VPQ904M Type-C
+diff --git a/drivers/usb/typec/mux/nb7vpq904m.c b/drivers/usb/typec/mux/nb7vpq904m.c
+index cda206cf0c38..b17826713753 100644
+--- a/drivers/usb/typec/mux/nb7vpq904m.c
++++ b/drivers/usb/typec/mux/nb7vpq904m.c
+@@ -11,7 +11,7 @@
+ #include <linux/regmap.h>
+ #include <linux/bitfield.h>
+ #include <linux/of_graph.h>
 -#include <drm/drm_bridge.h>
 +#include <drm/bridge/aux-bridge.h>
- 
- #include <dt-bindings/phy/phy-qcom-qmp.h>
- 
-@@ -1419,8 +1419,6 @@ struct qmp_combo {
- 	struct clk_hw dp_link_hw;
- 	struct clk_hw dp_pixel_hw;
+ #include <linux/usb/typec_dp.h>
+ #include <linux/usb/typec_mux.h>
+ #include <linux/usb/typec_retimer.h>
+@@ -70,8 +70,6 @@ struct nb7vpq904m {
+ 	bool swap_data_lanes;
+ 	struct typec_switch *typec_switch;
  
 -	struct drm_bridge bridge;
 -
- 	struct typec_switch_dev *sw;
- 	enum typec_orientation orientation;
- };
-@@ -3191,44 +3189,6 @@ static int qmp_combo_typec_switch_register(struct qmp_combo *qmp)
- }
- #endif
+ 	struct mutex lock; /* protect non-concurrent retimer & switch */
  
--#if IS_ENABLED(CONFIG_DRM)
--static int qmp_combo_bridge_attach(struct drm_bridge *bridge,
--				   enum drm_bridge_attach_flags flags)
+ 	enum typec_orientation orientation;
+@@ -297,44 +295,6 @@ static int nb7vpq904m_retimer_set(struct typec_retimer *retimer, struct typec_re
+ 	return ret;
+ }
+ 
+-#if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
+-static int nb7vpq904m_bridge_attach(struct drm_bridge *bridge,
+-				    enum drm_bridge_attach_flags flags)
 -{
--	struct qmp_combo *qmp = container_of(bridge, struct qmp_combo, bridge);
+-	struct nb7vpq904m *nb7 = container_of(bridge, struct nb7vpq904m, bridge);
 -	struct drm_bridge *next_bridge;
 -
 -	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
 -		return -EINVAL;
 -
--	next_bridge = devm_drm_of_get_bridge(qmp->dev, qmp->dev->of_node, 0, 0);
+-	next_bridge = devm_drm_of_get_bridge(&nb7->client->dev, nb7->client->dev.of_node, 0, 0);
 -	if (IS_ERR(next_bridge)) {
--		dev_err(qmp->dev, "failed to acquire drm_bridge: %pe\n", next_bridge);
+-		dev_err(&nb7->client->dev, "failed to acquire drm_bridge: %pe\n", next_bridge);
 -		return PTR_ERR(next_bridge);
 -	}
 -
@@ -164,35 +165,35 @@ index 0417856b8e7b..435cd849e82e 100644
 -				 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
 -}
 -
--static const struct drm_bridge_funcs qmp_combo_bridge_funcs = {
--	.attach	= qmp_combo_bridge_attach,
+-static const struct drm_bridge_funcs nb7vpq904m_bridge_funcs = {
+-	.attach	= nb7vpq904m_bridge_attach,
 -};
 -
--static int qmp_combo_dp_register_bridge(struct qmp_combo *qmp)
+-static int nb7vpq904m_register_bridge(struct nb7vpq904m *nb7)
 -{
--	qmp->bridge.funcs = &qmp_combo_bridge_funcs;
--	qmp->bridge.of_node = qmp->dev->of_node;
+-	nb7->bridge.funcs = &nb7vpq904m_bridge_funcs;
+-	nb7->bridge.of_node = nb7->client->dev.of_node;
 -
--	return devm_drm_bridge_add(qmp->dev, &qmp->bridge);
+-	return devm_drm_bridge_add(&nb7->client->dev, &nb7->bridge);
 -}
 -#else
--static int qmp_combo_dp_register_bridge(struct qmp_combo *qmp)
+-static int nb7vpq904m_register_bridge(struct nb7vpq904m *nb7)
 -{
 -	return 0;
 -}
 -#endif
 -
- static int qmp_combo_parse_dt_lecacy_dp(struct qmp_combo *qmp, struct device_node *np)
- {
- 	struct device *dev = qmp->dev;
-@@ -3440,7 +3400,7 @@ static int qmp_combo_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
+ static const struct regmap_config nb7_regmap = {
+ 	.max_register = 0x1f,
+ 	.reg_bits = 8,
+@@ -461,7 +421,7 @@ static int nb7vpq904m_probe(struct i2c_client *client)
  
--	ret = qmp_combo_dp_register_bridge(qmp);
+ 	gpiod_set_value(nb7->enable_gpio, 1);
+ 
+-	ret = nb7vpq904m_register_bridge(nb7);
 +	ret = drm_aux_bridge_register(dev);
  	if (ret)
- 		return ret;
+ 		goto err_disable_gpio;
  
 -- 
 2.39.2
