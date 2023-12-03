@@ -2,77 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C629B8022E3
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 12:27:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 300338022F1
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 12:27:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A95C10E287;
-	Sun,  3 Dec 2023 11:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF34D10E28C;
+	Sun,  3 Dec 2023 11:27:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7621110E279
- for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 11:26:42 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50bc4fe8158so5058991e87.0
- for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 03:26:42 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F38A10E13C
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 11:26:43 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-50be24167efso1569847e87.3
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 03:26:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1701602801; x=1702207601; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=sbKwG3bsiy6N+N1DD1CLsj/Q/q+O1WSIDYwjhlWFEhk=;
- b=jwgbVMZ5gaPYy1xopiwBW9jBimttqEGbmhdvqGNC/XVMh1I9fy5azI12UIi3X5izUw
- II87jG2VHFuz3aqOSqw2vwI/vXj+kGjzxotY9FELcrMsFQ4/CBHlNjg9u+rwhoh92sXE
- tJlwXplrvd2SvlbC5KkRy1/GKlxlUNPgA4LsG3MOXoXW2h/dKdZw/egmEWkYLS8EPrtA
- EKC+iZIQnNEVHqr01kU3p1GKu/O+SuZMTDpDU7t0bvgSw+QW7l+FA92Eyk4+l/+LBwWB
- pEGjCoQpdCk9JIPx1UZwwWdG7qkiga0pN+XHHIW3y3fUYJX8ISgHit9Ipznahz2ZYX9Y
- OclA==
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JDvSSyhIogsacvQW40yMxNj+Caft2xG+QOP3JVD4tRY=;
+ b=P+2E89+hbQJrCxhYT5jnReAW+1LmDA7tNWlJQZcGro5sTqrW7V8SXn5hjqkE2ueyBH
+ Xs4Hq2SPa/TZefbXKxltf15DRnLSiywR1FGLNiTN3A3BlDgrbwYXfv4kMrG4W3TgLvp6
+ rVyvnjSZTbW3wtx2ZUPp6WKxWRw6MEUY5JWiMk4Vk/qEYkCzHaV43uLY7ix6tW7Pzqpx
+ N5kf4gjcbAiMO6WgO9ovNPeSm+RtBx6gIBcRXLeQo7dBm7jLP/Od1ioqgJQJEQB4HyEC
+ 2I8D6EIX4aGj1T33MJ4YN9yylQuZUcvdnPcogSXa8mT9LnoeEzTibgSbCYEY993cgg05
+ t6QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1701602801; x=1702207601;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=sbKwG3bsiy6N+N1DD1CLsj/Q/q+O1WSIDYwjhlWFEhk=;
- b=WNo9kGvoKvlhU/zOiA7kKCyOJdleg/S0eXvDj4+AIoPQBuiFEajrbj9BlhAHMBDs2S
- lRrpZsJVz88ABlB9cSxuI0HQQa3rfEniNpJfyyVML4WxqzMelz4faHAjjRGgdx2rXBQ4
- Fnp2sf/ceZvY3L6gHMJkEKJreMjLANbIkBoucCdWhqWu9Cdd0vrQWR0zkyhDveItk0DW
- KHsbUzHH8asO2vt4hla+zUCR3C75SifgTgKT/Fdgr+vnem+w04MG5s+TicIMnOlVu/v+
- jFfajtRRjOnDgD4JkKM2DZQq6D3XkX7mCljKpS1YkwVP8WBM9SASTK92qv9gfDbSorA1
- H+Eg==
-X-Gm-Message-State: AOJu0YwEO8jT/uhVUV04lXKj+lcqt8ncwglaVMqLZI3Hbt8WKXYSME3e
- BgfR7SWMya6yyc4w5iTfT+QuYg==
-X-Google-Smtp-Source: AGHT+IHXObFn5iWeVaQxMjM8NCWQ1Rahby/WyhApUWMTJIT7Qf7SFVR14cwLp/UcG7bQecH6ZqyZlg==
-X-Received: by 2002:a19:8c48:0:b0:50b:d764:9691 with SMTP id
- i8-20020a198c48000000b0050bd7649691mr1631354lfj.117.1701602800856; 
- Sun, 03 Dec 2023 03:26:40 -0800 (PST)
+ bh=JDvSSyhIogsacvQW40yMxNj+Caft2xG+QOP3JVD4tRY=;
+ b=PbrEwb+32U+C4ywYXRfL2ndp+z6E5m/aRM2C1NfQpn2Ol42FY44VznwyQ+kyILXsUj
+ VANhLqa6QnKJdbvVKbEiZQq8ZtYjCqjUU4DCnYSv4EG+cd2cYsFqBI2gpCq2Q6WFUpBG
+ v7sL4JO431ZVn+UUXqD6U6xl5hnYjNcqJD2RVjR1DH1NVmQboTFymYjWEoOpHNKcAv1m
+ PmmFE1tFeEOHamSQIn8yIqzTTdnRPtDI6jgVamPEBNrpwsob+1IdxX0NSXaZ70BO4+jV
+ 3IPw0o5/hCobc8Y6fH394y58xmk2XFSh8xk/i4u1xem81R/IbotOSCdD1ctHbq0YugVO
+ hBqQ==
+X-Gm-Message-State: AOJu0YxcYjLEDwNOQzf6POiy/IOduoS//9yEBsWypKIYxjuGDtxOlAdl
+ cRpcHoFx5zM594JWRhL0dnk90nsGyQyknWHDl6M=
+X-Google-Smtp-Source: AGHT+IHeQWsaMBnunkzlkzcMxwXy3zyg7txAp2V9eKonjJ9riO+tx8XwpNeNPJTEU8JMafH3go4NbA==
+X-Received: by 2002:a05:6512:10d4:b0:50b:f04e:6629 with SMTP id
+ k20-20020a05651210d400b0050bf04e6629mr180503lfg.224.1701602801775; 
+ Sun, 03 Dec 2023 03:26:41 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  b9-20020ac25629000000b0050bf01760a1sm241224lff.295.2023.12.03.03.26.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Dec 2023 03:26:40 -0800 (PST)
+ Sun, 03 Dec 2023 03:26:41 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Sun,  3 Dec 2023 14:26:25 +0300
-Message-Id: <170160265545.1305159.1208126196892932328.b4-ty@linaro.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sun,  3 Dec 2023 14:26:26 +0300
+Message-Id: <170160265547.1305159.4757803162001385229.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231107103600.27424-1-krzysztof.kozlowski@linaro.org>
-References: <20231107103600.27424-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230908193314.27008-1-quic_abhinavk@quicinc.com>
+References: <20230908193314.27008-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: qcom,
- sm8250-mdss: add DisplayPort controller node
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: enable smartdma on sm8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,22 +78,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, quic_parellan@quicinc.com,
+ quic_jesszhan@quicinc.com, nespera@igalia.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 07 Nov 2023 11:36:00 +0100, Krzysztof Kozlowski wrote:
-> Document the DisplayPort controller node in MDSS binding, already used
-> in DTS:
-> 
->   sm8250-xiaomi-elish-boe.dtb: display-subsystem@ae00000: Unevaluated properties are not allowed ('displayport-controller@ae90000' was unexpected)
+On Fri, 08 Sep 2023 12:33:13 -0700, Abhinav Kumar wrote:
+> To support high resolutions on sm8350, enable smartdma
+> in its catalog.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] dt-bindings: display/msm: qcom,sm8250-mdss: add DisplayPort controller node
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/52e36770b174
+[1/1] drm/msm/dpu: enable smartdma on sm8350
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/921e32bf6c0c
 
 Best regards,
 -- 
