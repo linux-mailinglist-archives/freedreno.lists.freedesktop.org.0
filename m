@@ -2,41 +2,39 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF84B8023A6
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 13:16:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9B6880247E
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 15:24:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99E3D10E2C3;
-	Sun,  3 Dec 2023 12:16:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9228D10E276;
+	Sun,  3 Dec 2023 14:24:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A254910E180;
- Sun,  3 Dec 2023 12:15:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1701605741; x=1701864941;
- bh=zeJoJaDEd/VJIzT04Xj0cuJGWNQ8PVAG6G1sblS0Nyw=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=gzlNXqtxmiGejNIfLz4esavOMLl5pQMwwYqxpB6F06RkVWa7dI3Ipy7d5+RH1d3Xu
- 5tHOtT5oO7Ya+pH2qxH/nmZVE21DQhJWuc+smqr0GtBdMh5vfwZF1kkCIJYevA4WAY
- E+7wVJ2bhKk06PAGYgHLlxZZ9tB7WmkOm7/67+KFbFiFJvKf78OY44GmVi7aSN0dMS
- cbpjNrEc+mzbir0n63jbEcTrwlSPqay9EB4jgT3epqZdb3+zplMiWXjE6Maq940gqC
- l4wIW6+AQa3MiBMwS/e7tOvEJ5n5+qJq06i9FDwK3FtHWBQq/wS5GYJlUuGcA4z3ff
- dDupDPAFHgLIg==
-Date: Sun, 03 Dec 2023 12:15:32 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-From: Simon Ser <contact@emersion.fr>
-Message-ID: <OiX1EToyQ0JBECS-Vs6IOw1vqLTt42PYkTlTCBhsPUi-VXC2UoLjkRfEW-OFucxsTqz93Q3IIXZZ3Lw_Lqs1dFt4YbuFSUGrKfDPnnKDCbw=@emersion.fr>
-In-Reply-To: <170155324921.2215646.4829699354481827834.b4-ty@linaro.org>
-References: <20231027-solid-fill-v7-0-780188bfa7b2@quicinc.com>
- <170155324921.2215646.4829699354481827834.b4-ty@linaro.org>
-Feedback-ID: 1358184:user:proton
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9E2D10E273;
+ Sun,  3 Dec 2023 14:24:36 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
+ [213.243.189.158])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 171E525A;
+ Sun,  3 Dec 2023 15:23:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1701613436;
+ bh=tHh/dUnJ5r4RBftwQVK/y6yde5Na2FuFMRERe2LbEBs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YF8/ZEIUYW4zMjjqiGudkdTkM19WuEZQS+8d25SvHsQC7i2RQ88mLNEbPe2WCpeVs
+ nuGOcGfylY72p+A0bmNhMeETIpVwubqqvAYAfvdLlz0eE54RmQPpW/VrkwkTTDLhzB
+ xCfYCazK5QjAALujo4Hvi8Iwl9tMZd1WfZxFBlJs=
+Date: Sun, 3 Dec 2023 16:24:41 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <20231203142441.GA26644@pendragon.ideasonboard.com>
+References: <20230920201358.27597-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] (subset) [PATCH RFC v7 00/10] Support for Solid
- Fill Planes
+Content-Disposition: inline
+In-Reply-To: <20230920201358.27597-1-quic_abhinavk@quicinc.com>
+Subject: Re: [Freedreno] [PATCH] drm: improve the documentation of connector
+ hpd ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,40 +47,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Wick <sebastian@sebastianwick.net>,
- laurent.pinchart@ideasonboard.com,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com,
- sebastian.wick@redhat.com, wayland-devel@lists.freedesktop.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org,
+Cc: jani.nikula@linux.intel.com, Thomas Zimmermann <tzimmermann@suse.de>,
+ freedreno@lists.freedesktop.org, andersson@kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- ppaalanen@gmail.com, Sean Paul <sean@poorly.run>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- freedreno@lists.freedesktop.org
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ quic_parellan@quicinc.com, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, quic_jesszhan@quicinc.com,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Saturday, December 2nd, 2023 at 22:41, Dmitry Baryshkov <dmitry.baryshko=
-v@linaro.org> wrote:
+Hi Abhinav,
 
-> On Fri, 27 Oct 2023 15:32:50 -0700, Jessica Zhang wrote:
->=20
-> > Some drivers support hardware that have optimizations for solid fill
-> > planes. This series aims to expose these capabilities to userspace as
-> > some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> > hardware composer HAL) that can be set by apps like the Android Gears
-> > test app.
-> >=20
-> > In order to expose this capability to userspace, this series will:
-> >=20
-> > [...]
->=20
->=20
-> Applied to drm-misc-next, thanks!
+Thank you for the patch (and thank to Dmitry for pinging me on IRC, this
+patch got burried in my inbox).
 
-Where are the IGT and userspace for this uAPI addition? 
+On Wed, Sep 20, 2023 at 01:13:58PM -0700, Abhinav Kumar wrote:
+> While making the changes in [1], it was noted that the documentation
+> of the enable_hpd() and disable_hpd() does not make it clear that
+> these ops should not try to do hpd state maintenance and should only
+> attempt to enable/disable hpd related hardware for the connector.
+
+s/attempt to //
+
+> 
+> The state management of these calls to make sure these calls are
+> balanced is handled by the DRM core and we should keep it that way
+> to minimize the overhead in the drivers which implement these ops.
+> 
+> [1]: https://patchwork.freedesktop.org/patch/558387/
+> 
+
+You could add a
+
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> ---
+>  include/drm/drm_modeset_helper_vtables.h | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+> index e3c3ac615909..a33cf7488737 100644
+> --- a/include/drm/drm_modeset_helper_vtables.h
+> +++ b/include/drm/drm_modeset_helper_vtables.h
+> @@ -1154,6 +1154,11 @@ struct drm_connector_helper_funcs {
+>  	 * This operation is optional.
+>  	 *
+>  	 * This callback is used by the drm_kms_helper_poll_enable() helpers.
+> +	 *
+> +	 * This operation does not need to perform any hpd state tracking as
+> +	 * the DRM core handles that maintenance and ensures the calls to enable
+> +	 * and disable hpd are balanced.
+> +	 *
+>  	 */
+>  	void (*enable_hpd)(struct drm_connector *connector);
+>  
+> @@ -1165,6 +1170,11 @@ struct drm_connector_helper_funcs {
+>  	 * This operation is optional.
+>  	 *
+>  	 * This callback is used by the drm_kms_helper_poll_disable() helpers.
+> +	 *
+> +	 * This operation does not need to perform any hpd state tracking as
+> +	 * the DRM core handles that maintenance and ensures the calls to enable
+> +	 * and disable hpd are balanced.
+> +	 *
+>  	 */
+>  	void (*disable_hpd)(struct drm_connector *connector);
+>  };
+
+-- 
+Regards,
+
+Laurent Pinchart
