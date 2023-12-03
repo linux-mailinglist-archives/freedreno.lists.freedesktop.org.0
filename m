@@ -1,61 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B667F8020B9
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 05:52:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1964E8022B9
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 12:26:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BED310E24F;
-	Sun,  3 Dec 2023 04:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A82810E10A;
+	Sun,  3 Dec 2023 11:26:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B23A10E083;
- Sun,  3 Dec 2023 04:51:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id BB95BCE0920;
- Sun,  3 Dec 2023 04:51:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969F3C433C9;
- Sun,  3 Dec 2023 04:51:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701579106;
- bh=+mcK+T08LUgzP9YfqK4zh9i6t9Yd2MbXJsZSM5gqgbc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ClC7S2eTLXzjsH0+pEQz0cSBjgV2+nHLT/+/akgQpyM7CS2/bBplE4exGO6GkgQZ7
- VTVz8K0QniTpz5KqPi5Nx1PIRakIfq4FA4KhQcJRc3k46YFSCl9XM1mX9Ti0Jyttmm
- FS1QvTXU0B7qTzCvAJRZTOejdiPDOGZm5rbMkj2BQ0xDrVR7jjaXvLKoVGyhz36KaL
- ArZHVVgjV+UpXE3Qu2wBb+2M7RC/1nvkfQ4mvtkZPSz6kX2IcDvl9f3HQpr3In/C97
- JlIux05ueGDr+TxzCzUM0rZtjisw9dOk2vykOZ/xLbq/OKrqCwC5SF9hANg79srjq3
- QtwOlcTpMTwpA==
-From: Bjorn Andersson <andersson@kernel.org>
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A4A10E13C
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 11:26:35 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2c9ee6fed3eso14525251fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 03:26:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701602793; x=1702207593; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YmhXK4vL3E4nWjMPFEArxq3v2irEKwOONy77m2lg+qc=;
+ b=qGSyj28PiFrZ1aH9YC+PHIYtvfEFEz5je+D7j7E9+ZmXhuYkLNn7ohCWzMRwKrWh0k
+ QfwXtYxJvVWqR54RO46pihrcSKhnmPM/0kSCO2R13l7FuLL2i86L7mqQFmhLi5es0Kby
+ 1qAyNR9mriTjfuvRzcsX0C9n7q7CnsWaxUqxryA6u0r1WsxOfFP95aaIEQF80roc2+fV
+ pB+Jm+lCqdTk97b0GNcLFVSlxezQYvbBxSK9ZVKOGDaXnrynmTqgJZxhjUubH3t0hL+Q
+ HNe17heNZnVB/kVYuLmehJ9U5TYaIGUdSfWcxOqv9OtQvxyJ+n2sed/ZOqAUqF78oFiT
+ /VcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701602793; x=1702207593;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YmhXK4vL3E4nWjMPFEArxq3v2irEKwOONy77m2lg+qc=;
+ b=Yh40TIHQV+QhyRbyVFGyy6hWK3dCijnR+zaJwP7dz3ZfzRztimHug+tznv6pFmAPM+
+ cMJ+8LYGw87hrU9Qgnys7KnX1kM+j2au/9l/cWAC9iwuZ25TKYLxRFu6/642XxWpUKtU
+ 8jJ0fuOYRWv8kVUKGZOxNcA1V2s1Wk53Un9nrgP2lhc+nlr5r34QF2TRv2cI92y/csYf
+ smqnp7HWjfT3LJlWkvDx9skkTs7lH3UWj4fvOC6AMDomSRtCUCivN9BoLwjminwt4alo
+ IvdsY38/wLxxjwWc9So4+tYIepNGXgZpf1SoEns+V3v9FQhvIl9d2mgl5jvL9FT49AuK
+ o81w==
+X-Gm-Message-State: AOJu0YzknllZ0NdaJFgZOy8i840JGv9b8dQLCqyvUCS2Rh4R6b8kZ4O7
+ WXO4AWipWQkLI1kBEdtk7bqwrQ==
+X-Google-Smtp-Source: AGHT+IHlLYyyC21TH0FtIj5NM4vWDxanSGH9w8egAW9vnCLxMxgkRyfvr22YsKy9g8OxxxGBM7H5hA==
+X-Received: by 2002:ac2:4244:0:b0:50b:e4a7:93c with SMTP id
+ m4-20020ac24244000000b0050be4a7093cmr913587lfl.11.1701602793049; 
+ Sun, 03 Dec 2023 03:26:33 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ b9-20020ac25629000000b0050bf01760a1sm241224lff.295.2023.12.03.03.26.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Dec 2023 03:26:32 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Loic Poulain <loic.poulain@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Georgi Djakov <djakov@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Robert Marko <robimarko@gmail.com>, Das Srinagesh <quic_gurus@quicinc.com>,
- cros-qcom-dts-watchers@chromium.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Sat,  2 Dec 2023 20:54:35 -0800
-Message-ID: <170157925828.1717511.10065827987884757444.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231125-topic-rb1_feat-v3-0-4cbb567743bb@linaro.org>
-References: <20231125-topic-rb1_feat-v3-0-4cbb567743bb@linaro.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Arnd Bergmann <arnd@kernel.org>
+Date: Sun,  3 Dec 2023 14:26:17 +0300
+Message-Id: <170160265547.1305159.16031924969779572625.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231016200415.791090-1-arnd@kernel.org>
+References: <20231016200415.791090-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v3 00/12] RB1/QCM2290 features
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: add QMP dependency
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,45 +76,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Wed, 29 Nov 2023 15:43:57 +0100, Konrad Dybcio wrote:
-> This series brings:
-> - interconnect plumbing
-> - display setup
+On Mon, 16 Oct 2023 22:04:03 +0200, Arnd Bergmann wrote:
+> When QMP is in a loadable module, the A6xx GPU driver fails to link
+> as built-in:
 > 
-> for QCM2290/QRB2210 and
+> x86_64-linux-ld: drivers/gpu/drm/msm/adreno/a6xx_gmu.o: in function `a6xx_gmu_resume':
+> a6xx_gmu.c:(.text+0xd62): undefined reference to `qmp_send'
 > 
-> - CAN bus controller
-> - HDMI display
-> - wifi fw variant name
+> Add the usual dependency that still allows compiling without QMP but
+> otherwise avoids the broken combination of options.
 > 
 > [...]
 
 Applied, thanks!
 
-[06/12] arm64: dts: qcom: sc7180: Add the missing MDSS icc path
-        commit: 8786398f8686d1a4267ab52f830b25f17e6d62fc
-[07/12] arm64: dts: qcom: sc7280: Add the missing MDSS icc path
-        commit: c657056d99878c8a8ea84d5d4a9101bcb90b47f2
-[08/12] arm64: dts: qcom: qcm2290: Add display nodes
-        commit: a2b32096709dbf4af02675d98356a9d3ad86ff05
-[09/12] arm64: dts: qcom: qcm2290: Hook up interconnects
-        commit: 5b970ff0193d67da4a8d2d5fda50dd8ddb50a71e
-[10/12] arm64: dts: qcom: qrb2210-rb1: Set up HDMI
-        commit: 616eda24edd48b8b56516886c51d211fbfd2679b
-[11/12] arm64: dts: qcom: qrb2210-rb1: Enable CAN bus controller
-        commit: 252bc7ad359478dba8d77bce9502f2cc7bb547a3
-[12/12] arm64: dts: qcom: qrb2210-rb1: add wifi variant property
-        commit: b6a56a5a25d6273729b2b5139d58e3d390318ed2
+[1/1] drm/msm/a6xx: add QMP dependency
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/96ab215b2d5e
 
 Best regards,
 -- 
-Bjorn Andersson <andersson@kernel.org>
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
