@@ -2,68 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83B6801FEE
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 01:06:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC24801FF1
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 01:08:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4190010E249;
-	Sun,  3 Dec 2023 00:06:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A61910E241;
+	Sun,  3 Dec 2023 00:08:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43DFC10E24A
- for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 00:05:40 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-50be6c65112so850975e87.1
- for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 16:05:40 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5253610E256
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 00:08:30 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-50bd8efb765so2790554e87.1
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 16:08:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701561938; x=1702166738; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2Dumt1dCkdFi8NtSV/s2hFPU6604xTCuNq1eJtpJNJ0=;
- b=WmDP2DPC1CxvDTup3IUHHHpfnLqG8wb7Io7xT06tft0JOAPxqm8qWaQb2Hz7zfZy7T
- 2mOQsdVpq5wSovxHUhWSbUsE6wkt/39ZJE3Wcv/prtCNByQFlQzze0dibuIV6JD4V6j0
- 534celN82cUD+Dh4uMY5lPNfBODmhmv+YZ9S24AoreU7Xadb8YZNdnXLHlfTbIGW1qyK
- DVsdO2D9mgVZT60+pJ+b+gorN6kbEjBAiaoPuvPVTFhrmK1hSNwt2TTiBgGwzY4qBTQF
- pZci57MUC5LmqOrMHf2dTAvGNv5jGb0ycTid3Rh1TFykBqHdkxMYg8Qlh2BosS1PtGdT
- VTkQ==
+ d=linaro.org; s=google; t=1701562108; x=1702166908; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zdl2HKrC6VDqcQMieLin647Q0Xn6ap4MwvU9WaW0Y5Q=;
+ b=Oy+20aFIBa8qKPkNhuKRUM+fAdqntwPbincKBz21Oxu+cUsEqEPtjD1X5JNp3J0yDX
+ wp5Qi6kEx4MZfMiNgmGdX/BJ2inHwxRoSOC5EG2PJXJN3isPK9GWHyhPuLlwUAaCCOXa
+ wpmh/noBvGZVR6ONQUQzPKaO4GyFwAGpI45K+Da931uoMZ/7dPwRuIMDmWKrOnSznxgW
+ eJckasf194JIiYK41DmJhMR7lpVC2UrPa621gO4j09TIRspiG7S+XkFl3QdKzzgRT67i
+ XRwOzUhthVLixN8JCgc/XboXz2Rvjgfs1QITHXFYzXnZY0MebqIDlu2w2LEoPmRg5z7T
+ ksTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701561938; x=1702166738;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2Dumt1dCkdFi8NtSV/s2hFPU6604xTCuNq1eJtpJNJ0=;
- b=K0oYmJAgKfMjCyO/g7p3vfJf7p4BKTsz4R1PFGmHXk3iCpe/B093mYagQfhdbYZRbI
- siIR+dL0T3wy5dAoXxngU62kXKMigLjXjwTvbxeTjlVxiRqOXtgzH1Mc9krnA9wR+J6w
- 5Zwn7DkX6lwR57cQAmsGNWvqjZSgLojU62OM9yRKjOorpSPFKYmTjsGUk0PtwkFPh+/W
- EEwJkK6v7lWwmyMPT+heK+6FTSOfuMzi+n/RC5RgX3OS3wLaBwZprQkQ3R46swiDZF03
- 42RSjZp0+vs1Dek59uxqePa0EVVmy/FaSyvMP9V7U2L2TG/L0ph888SbEOVoi/K3mk4D
- n5kw==
-X-Gm-Message-State: AOJu0Yyl75AW0bfuSPyh3m6s8pDHlgs+5WZcsS1zvXFr4dm+ogp3Gj0w
- EEBq1KFwbdaEaVek3dmuNIDw2A==
-X-Google-Smtp-Source: AGHT+IER/lkHM6YBgTm+oPsGjrSaaKUQgAkDiVcDNXYpjXX8xjsC9WdyApirtDFvBpmfZpCP9+ry7g==
-X-Received: by 2002:ac2:4a8b:0:b0:50b:bce5:2cca with SMTP id
- l11-20020ac24a8b000000b0050bbce52ccamr768305lfp.61.1701561938550; 
- Sat, 02 Dec 2023 16:05:38 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20230601; t=1701562108; x=1702166908;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zdl2HKrC6VDqcQMieLin647Q0Xn6ap4MwvU9WaW0Y5Q=;
+ b=IBBe6Ktz9Y9DvajPxqbF9nMWUQP4ND1slHlcAT4mV1D7+NETvu7ZiovN4BPHqRX3at
+ bpMfnoxYiVvMzAbdBQrK5cGsZFkwfQCJJmi5Fl02sJuIDSPlKzy0jBuDcWakndB4Fd0X
+ dENEFEC4YU4BIsvjlT4RAPReOe+RukJKGB12Q0FVZqE79VwwSzmS9hw1nog6bF0RYLiH
+ Bt++Ia+b7w4VLK87pxiO+vvHel+SI2NNj6uomydcF+dCBKQxs4w2+wGwStClN07J2tny
+ Sbd3d6xQ3Iuvk3w5wQg/HbGXifLHFho0WdKOYvKQtlXq4XU9P5T9Ys9qNx5rrUJnvpXw
+ jNEQ==
+X-Gm-Message-State: AOJu0YxmvotnZGiIpSwOP6l2/0UDQxxuDPbeRD+0o4YhGNJot/yS/VE+
+ 8ce594T8nKdGVnzc704iL0tZ/w==
+X-Google-Smtp-Source: AGHT+IGKKKovG+G/EKvfWVyIsAtKAdovDgxSn7t9v9ctBMOdpY6B633LhdgxF9RCRhAKLajhX41/FA==
+X-Received: by 2002:a05:6512:b20:b0:50b:d764:969c with SMTP id
+ w32-20020a0565120b2000b0050bd764969cmr2043149lfu.128.1701562108507; 
+ Sat, 02 Dec 2023 16:08:28 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
  by smtp.gmail.com with ESMTPSA id
- t2-20020a19ad02000000b0050bc5edfa45sm826273lfc.85.2023.12.02.16.05.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Dec 2023 16:05:38 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Date: Sun,  3 Dec 2023 03:05:32 +0300
-Message-Id: <20231203000532.1290480-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231203000532.1290480-1-dmitry.baryshkov@linaro.org>
-References: <20231203000532.1290480-1-dmitry.baryshkov@linaro.org>
+ e14-20020ac2546e000000b0050bbcd68e8bsm830211lfn.47.2023.12.02.16.08.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 02 Dec 2023 16:08:27 -0800 (PST)
+Message-ID: <fa10b293-9c7f-4904-88bf-4ec6528bd0ef@linaro.org>
+Date: Sun, 3 Dec 2023 02:08:26 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH RESEND 5/5] drm/msm/mdp5: drop global_state_lock
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230914172453.9707-1-robdclark@gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230914172453.9707-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC] drm/msm/rd: Check PT_PTRACED for cmdstream
+ dumping
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,68 +77,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since the commit b962a12050a3 ("drm/atomic: integrate modeset lock with
-private objects") the DRM framework no longer requires the external
-lock for private objects. Drop the lock, letting the DRM to manage
-private object locking.
+On 14/09/2023 20:24, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> So, when you want to get a cmdstream trace of some deqp or piglit test,
+> but you happen to be running it on the same laptop with full desktop
+> env, the current dump-everything firehose of `cat $debugfs/dri/n/rd` is
+> quite a bit too much.  Ptrace seemed kind of a natural way to control
+> it, ie. either run what you want to trace under gdb or hack in a
+> ptrace(PTRACE_TRACEME) call.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 8 --------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h | 1 -
- 2 files changed, 9 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index cd46c2b0ec0c..b1d2f00974d5 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -84,11 +84,6 @@ struct mdp5_global_state *mdp5_get_global_state(struct drm_atomic_state *s)
- 	struct msm_drm_private *priv = s->dev->dev_private;
- 	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
- 	struct drm_private_state *priv_state;
--	int ret;
--
--	ret = drm_modeset_lock(&mdp5_kms->glob_state_lock, s->acquire_ctx);
--	if (ret)
--		return ERR_PTR(ret);
- 
- 	priv_state = drm_atomic_get_private_obj_state(s, &mdp5_kms->glob_state);
- 	if (IS_ERR(priv_state))
-@@ -138,8 +133,6 @@ static int mdp5_global_obj_init(struct mdp5_kms *mdp5_kms)
- {
- 	struct mdp5_global_state *state;
- 
--	drm_modeset_lock_init(&mdp5_kms->glob_state_lock);
--
- 	state = kzalloc(sizeof(*state), GFP_KERNEL);
- 	if (!state)
- 		return -ENOMEM;
-@@ -613,7 +606,6 @@ static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
- 		pm_runtime_disable(&mdp5_kms->pdev->dev);
- 
- 	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
--	drm_modeset_lock_fini(&mdp5_kms->glob_state_lock);
- }
- 
- static int construct_pipes(struct mdp5_kms *mdp5_kms, int cnt,
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-index 29bf11f08601..70fdc0b6c7c5 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-@@ -40,7 +40,6 @@ struct mdp5_kms {
- 	 * Global private object state, Do not access directly, use
- 	 * mdp5_global_get_state()
- 	 */
--	struct drm_modeset_lock glob_state_lock;
- 	struct drm_private_obj glob_state;
- 
- 	struct mdp5_smp *smp;
+I think this is a good idea, to be able to separate process being 
+debugged and all other tasks.
+
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index a908373cf34b..a105ca1f2102 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -979,7 +979,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>   	/* The scheduler owns a ref now: */
+>   	msm_gem_submit_get(submit);
+>   
+> -	msm_rd_dump_submit(priv->rd, submit, NULL);
+> +	if (current->ptrace & PT_PTRACED)
+> +		msm_rd_dump_submit(priv->rd, submit, NULL);
+>   
+>   	pm_runtime_get_sync(&gpu->pdev->dev);
+>   
+
 -- 
-2.39.2
+With best wishes
+Dmitry
 
