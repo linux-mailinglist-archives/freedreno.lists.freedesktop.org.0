@@ -1,70 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC24801FF1
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 01:08:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4525F801FFD
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 01:24:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A61910E241;
-	Sun,  3 Dec 2023 00:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3569810E0BF;
+	Sun,  3 Dec 2023 00:24:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5253610E256
- for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 00:08:30 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50bd8efb765so2790554e87.1
- for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 16:08:30 -0800 (PST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCC510E031
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 00:24:40 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-50bc053a9a7so4697840e87.1
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Dec 2023 16:24:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701562108; x=1702166908; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zdl2HKrC6VDqcQMieLin647Q0Xn6ap4MwvU9WaW0Y5Q=;
- b=Oy+20aFIBa8qKPkNhuKRUM+fAdqntwPbincKBz21Oxu+cUsEqEPtjD1X5JNp3J0yDX
- wp5Qi6kEx4MZfMiNgmGdX/BJ2inHwxRoSOC5EG2PJXJN3isPK9GWHyhPuLlwUAaCCOXa
- wpmh/noBvGZVR6ONQUQzPKaO4GyFwAGpI45K+Da931uoMZ/7dPwRuIMDmWKrOnSznxgW
- eJckasf194JIiYK41DmJhMR7lpVC2UrPa621gO4j09TIRspiG7S+XkFl3QdKzzgRT67i
- XRwOzUhthVLixN8JCgc/XboXz2Rvjgfs1QITHXFYzXnZY0MebqIDlu2w2LEoPmRg5z7T
- ksTQ==
+ d=linaro.org; s=google; t=1701563078; x=1702167878; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Rf74TgVE6c89NJ1rulWkzk64cOHHD6BUQbdqtDGbung=;
+ b=KSqDybh+oXShKPm8oK4+11ikmjcxmtjdyPDGbBTBYj5uKy4nauHonBJJ+FC503RL7e
+ tc4uA71lRBgtsPbbcK9rGG7cHhYwD/Fr+tNlodWBAK0jMfI7oacbVXR84zrwR2Isnzg1
+ iVIfudorva2OsLOY9oizArFccoZqboUyEk6jWUhvlyjpYn+8gn+iLWVM0K97uYhgqBb5
+ nsGnWdd7ctg8FTkuVGju7Ii1QiTfy1gRQAXoUflsBsJyr+n2PYzGob/Xn0sj3v1F3sxY
+ /gl7l3OeP8Sm1OsI8ZCc7HFiOgjAojd6QikXDnnr6sXBAuIpDy/pLsh8ewl3EQ2mkmR8
+ 9TRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701562108; x=1702166908;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zdl2HKrC6VDqcQMieLin647Q0Xn6ap4MwvU9WaW0Y5Q=;
- b=IBBe6Ktz9Y9DvajPxqbF9nMWUQP4ND1slHlcAT4mV1D7+NETvu7ZiovN4BPHqRX3at
- bpMfnoxYiVvMzAbdBQrK5cGsZFkwfQCJJmi5Fl02sJuIDSPlKzy0jBuDcWakndB4Fd0X
- dENEFEC4YU4BIsvjlT4RAPReOe+RukJKGB12Q0FVZqE79VwwSzmS9hw1nog6bF0RYLiH
- Bt++Ia+b7w4VLK87pxiO+vvHel+SI2NNj6uomydcF+dCBKQxs4w2+wGwStClN07J2tny
- Sbd3d6xQ3Iuvk3w5wQg/HbGXifLHFho0WdKOYvKQtlXq4XU9P5T9Ys9qNx5rrUJnvpXw
- jNEQ==
-X-Gm-Message-State: AOJu0YxmvotnZGiIpSwOP6l2/0UDQxxuDPbeRD+0o4YhGNJot/yS/VE+
- 8ce594T8nKdGVnzc704iL0tZ/w==
-X-Google-Smtp-Source: AGHT+IGKKKovG+G/EKvfWVyIsAtKAdovDgxSn7t9v9ctBMOdpY6B633LhdgxF9RCRhAKLajhX41/FA==
-X-Received: by 2002:a05:6512:b20:b0:50b:d764:969c with SMTP id
- w32-20020a0565120b2000b0050bd764969cmr2043149lfu.128.1701562108507; 
- Sat, 02 Dec 2023 16:08:28 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ d=1e100.net; s=20230601; t=1701563078; x=1702167878;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Rf74TgVE6c89NJ1rulWkzk64cOHHD6BUQbdqtDGbung=;
+ b=V2iKoUV9iGuE9UORy2+bP9zxNaitm6cKA3Q4FPvRXjHUEzTgnjGkHW7ZWoURn4PaPa
+ Vt1kFVHvHch7yYIDB6BO4LygpdpVA7wPbetL/8reucSmkYFSGZ/oTWOZ+l8avhhIehjL
+ TmdNjald/07vugJiXMLPIiporq5ma7zHsm8XDanxlkyXxVVOkKa72wHn540IbInir+qi
+ vrVI7bR+LbZ0nTJPtiXVQRGyEj2abgbdVpK4l3lnAVBdqTnF40Hqpl+DeVczHMZKcpE4
+ OJ8QwIYp6oWHJwb/G1FbB87w5AsUrmFPdyDxNurYXr5zomZ7NUfX4FE/Gl8l8KpAi1rv
+ CeqA==
+X-Gm-Message-State: AOJu0YyqHpXhUI3jdKR7NAMMWt6flUJD2l2CSdhomazpTFmYLlF3TSYD
+ lyxA/Jjn9j8JP39oy89b/nfKKQ==
+X-Google-Smtp-Source: AGHT+IFI4QSUqjokUeyuXqYAWJTZ39ivWH0zvZ6uP5+mw0UBfmb0EYoIPs/r3tGyF/WQjGpLfrFb8A==
+X-Received: by 2002:ac2:4249:0:b0:50b:d74e:d487 with SMTP id
+ m9-20020ac24249000000b0050bd74ed487mr1337931lfl.78.1701563078340; 
+ Sat, 02 Dec 2023 16:24:38 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- e14-20020ac2546e000000b0050bbcd68e8bsm830211lfn.47.2023.12.02.16.08.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 02 Dec 2023 16:08:27 -0800 (PST)
-Message-ID: <fa10b293-9c7f-4904-88bf-4ec6528bd0ef@linaro.org>
-Date: Sun, 3 Dec 2023 02:08:26 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20230914172453.9707-1-robdclark@gmail.com>
+ q25-20020ac246f9000000b0050bbc100b90sm837615lfo.146.2023.12.02.16.24.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 Dec 2023 16:24:37 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230914172453.9707-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC] drm/msm/rd: Check PT_PTRACED for cmdstream
- dumping
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sun,  3 Dec 2023 03:24:37 +0300
+Message-Id: <20231203002437.1291595-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: correct clk bit for WB2 block
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,51 +72,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/09/2023 20:24, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> So, when you want to get a cmdstream trace of some deqp or piglit test,
-> but you happen to be running it on the same laptop with full desktop
-> env, the current dump-everything firehose of `cat $debugfs/dri/n/rd` is
-> quite a bit too much.  Ptrace seemed kind of a natural way to control
-> it, ie. either run what you want to trace under gdb or hack in a
-> ptrace(PTRACE_TRACEME) call.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+On sc7280 there are two clk bits for WB2: vbif_cli and clk_ctrl. While
+programming the VBIF params of WB, the driver should be toggling the
+former bit, while the sc7180_mdp, sc7280_mdp and sm8250_mdp structs
+list the latter one.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Correct that to ensure proper programming sequence for WB2 on these
+platforms.
 
-I think this is a good idea, to be able to separate process being 
-debugged and all other tasks.
+Fixes: 255f056181ac ("drm/msm/dpu: sc7180: add missing WB2 clock control")
+Fixes: 3ce166380567 ("drm/msm/dpu: add writeback support for sc7280")
+Fixes: 53324b99bd7b ("drm/msm/dpu: add writeback blocks to the sm8250 DPU catalog")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index a908373cf34b..a105ca1f2102 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -979,7 +979,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->   	/* The scheduler owns a ref now: */
->   	msm_gem_submit_get(submit);
->   
-> -	msm_rd_dump_submit(priv->rd, submit, NULL);
-> +	if (current->ptrace & PT_PTRACED)
-> +		msm_rd_dump_submit(priv->rd, submit, NULL);
->   
->   	pm_runtime_get_sync(&gpu->pdev->dev);
->   
+Changes since v1:
+ - Fixed the bits for all three platforms supporting WB (Abhinav)
 
+---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+index 94278a3e3483..9f8068fa0175 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h
+@@ -32,7 +32,7 @@ static const struct dpu_mdp_cfg sm8250_mdp = {
+ 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
+-		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
++		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+index c0d88ddccb28..9bfa15e4e645 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h
+@@ -25,7 +25,7 @@ static const struct dpu_mdp_cfg sc7180_mdp = {
+ 		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
+-		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
++		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
+ 	},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+index 15942fa5a8e0..b9c296e51e36 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h
+@@ -25,7 +25,7 @@ static const struct dpu_mdp_cfg sc7280_mdp = {
+ 		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2c4, .bit_off = 8 },
+-		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
++		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
+ 	},
+ };
+ 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
