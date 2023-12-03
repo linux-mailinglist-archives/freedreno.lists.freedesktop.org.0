@@ -1,62 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28EE6802621
-	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 19:11:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B08D980262C
+	for <lists+freedreno@lfdr.de>; Sun,  3 Dec 2023 19:15:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59F0210E15D;
-	Sun,  3 Dec 2023 18:11:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB49B10E098;
+	Sun,  3 Dec 2023 18:15:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7451B10E08B
- for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 18:10:43 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- 46e09a7af769-6d9a1a2fb22so91681a34.0
- for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 10:10:43 -0800 (PST)
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [IPv6:2607:f8b0:4864:20::1132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E057E10E0B7
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Dec 2023 18:15:07 +0000 (UTC)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-5d4f71f7e9fso21969247b3.0
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Dec 2023 10:15:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701627042; x=1702231842; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701627307; x=1702232107; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hNWrRac9X2HwvORQ757NwocfD1vnHP+xf8IZ/qHDI6Y=;
- b=SDUCeGauOivMcETfmXx6hltODOK6yDoRDHG9EsYL3WkAhLy4HmrO4Vc/aGALRVnTDe
- ZnnIHqlB7p/V0QW7X+mJHM1mB6XWs+sTFUes13S1b5VyWFLALN7y9EFdE6Uv8iJmunYz
- 98ihZIgnUKdes1PorVxn9OXq18YtPkzHiH7mMrxMHzBEzTb0QjXB+DezGKArY+44MOjY
- 0ERgvGsCjZ/H0f+DyiBxghq5AS37A1PNFbjIWWOrVIqvY8jxADYArUtagyXYkOXP9EwA
- W7RvBfPkadV157zpeD28lHMdZoFBMkJCe/YLw53iNE26jpH3vCS34KhwtLnQRQD79dKe
- D/vw==
+ bh=VBw8A5WuhAfyasORYk3sNHDucWPtvrzZdNlLhqgrg1E=;
+ b=g3te0d48pUVV3lbLgVk26T13OENPR+nEGLY0Q/+5iwmGT0e2dHHDwiwK5nkPLr8NKg
+ mWxpYKWCRfa+Zx0SyFZAc/z/KLgQN21Rtohru0MIUN38dGlamEQXRYJgFFz2kc/Otxtn
+ xqkeRUCVlGxKPV/tBFSdodLzUIq+Ta7UpsUrJoV5WrbOc+LIkrEnUKeVZ+Pf9Y7HyIBM
+ b2r5deFyqo4r3aFaXizsu1aEftDTCVzOR2BIX6BYJbSurVBkypAQebOhlC/obV+WGSDu
+ qA7se6njCvKNry3aGqSkRqrHEn+PrHHRLHEu9TLDFXiudZznNZaKaPsdwM3BIs9G9zLZ
+ NWuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701627042; x=1702231842;
+ d=1e100.net; s=20230601; t=1701627307; x=1702232107;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=hNWrRac9X2HwvORQ757NwocfD1vnHP+xf8IZ/qHDI6Y=;
- b=P3R01LzXNIieXPbKbkgmbagN6zU/CnOEzI2XwUOrH0IE+Cb80nz582XlSL4W+4hHTA
- ur21asNEHiAJM15vBr//m4PiSjWwQIUPk/G7sOokpLlJgChdBk7FkmuDK9ePL3LieWMY
- BjvsszAoT/RqGh69VBGY3bdQ3RJ9dO0uLGX6XKs7uPo4EQOYVBa28Dn3Gu3EjBmckEv2
- koB5kO16VfB+vOZJpG139Q35GArRwHvvDd4j595SAeZFxiNsyS82uawlqAn9To4Wgwjp
- bm5246FVQsGyfLY6UOdU8VohYczp15gBDPoFKsR2IZ/Ah6I3cEMFVjouk1OS7SgHAjxs
- oa0g==
-X-Gm-Message-State: AOJu0Yxdmfsg5VV45EXY4Ut4/e+gq9ErXpbhUbuKohO5Oe+YLvfNCgN7
- aow27tqO/zqXDuTALAdKIcASfdm7y7GoQjKfXr8Ddg==
-X-Google-Smtp-Source: AGHT+IHb3Z+Gg112hSwn2ALLmEQLugH9ogYS6oGgilydDX+dwhOwywfw0uwnNsBepyMljqTdUfek1dtr5E8c4G2RWMA=
-X-Received: by 2002:a05:6358:9214:b0:169:49f7:cb1c with SMTP id
- d20-20020a056358921400b0016949f7cb1cmr3149078rwb.8.1701627042402; Sun, 03 Dec
- 2023 10:10:42 -0800 (PST)
+ bh=VBw8A5WuhAfyasORYk3sNHDucWPtvrzZdNlLhqgrg1E=;
+ b=QC9GoLX78vkGHLq+/CnX108QC4PhTglF5juMZSUWauIE3T5EWrnLGeB+iHeUpIY/ys
+ Q6oYJfeRtj74YLvbBpnftiH1IoREqf0oBM7B7x9uDvINWJH3/I5Cp0JrzzfwBhpRRDTH
+ 6Do9MMM0vgUrRdg2ERQHi4SEre71Ahbcnqdlpr6RPHANJ+p55Dt2tql1v1ZSQi99aN7X
+ 8LfmOlwm9+A+BBxU8HJErwvjSbLeGdpqlLM/IoAUeza4tcuz3fsDMi1qa454rAvXXCtV
+ upGyMivVb0VvAeEhMLCKkfs7ZbBXfuTGDev8yDcUUMyd3WgBsqXxKe1gD+B31AaMS2o0
+ aWrg==
+X-Gm-Message-State: AOJu0Yyo+q2PYJGmmv18J9DtXmSQhHUn27NzKi6c5c1CaWqINV0wvyYM
+ A5zXfN+kOyOLLjVRXavNMNh9u0vrRLOwGWRULLcTng==
+X-Google-Smtp-Source: AGHT+IFUy8B/4S31oVJp9dqmSc+u4tDNY7+u9M9vX7qbZTp0uUteKIcgNDwDYa2dp4XivmCNvukRiq8p2gb2GfW9Zyg=
+X-Received: by 2002:a05:690c:3381:b0:5d6:c347:4b11 with SMTP id
+ fl1-20020a05690c338100b005d6c3474b11mr1829719ywb.42.1701627307031; Sun, 03
+ Dec 2023 10:15:07 -0800 (PST)
 MIME-Version: 1.0
-References: <20231027-solid-fill-v7-0-780188bfa7b2@quicinc.com>
- <170155324921.2215646.4829699354481827834.b4-ty@linaro.org>
- <OiX1EToyQ0JBECS-Vs6IOw1vqLTt42PYkTlTCBhsPUi-VXC2UoLjkRfEW-OFucxsTqz93Q3IIXZZ3Lw_Lqs1dFt4YbuFSUGrKfDPnnKDCbw=@emersion.fr>
-In-Reply-To: <OiX1EToyQ0JBECS-Vs6IOw1vqLTt42PYkTlTCBhsPUi-VXC2UoLjkRfEW-OFucxsTqz93Q3IIXZZ3Lw_Lqs1dFt4YbuFSUGrKfDPnnKDCbw=@emersion.fr>
+References: <20230920201358.27597-1-quic_abhinavk@quicinc.com>
+ <20231203142441.GA26644@pendragon.ideasonboard.com>
+In-Reply-To: <20231203142441.GA26644@pendragon.ideasonboard.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 3 Dec 2023 20:10:31 +0200
-Message-ID: <CAA8EJpom-guy0p_u2kLhXgLZnJaVXCXaHAUGhv2EH=xyrHtL6A@mail.gmail.com>
-To: Simon Ser <contact@emersion.fr>
+Date: Sun, 3 Dec 2023 20:14:56 +0200
+Message-ID: <CAA8EJpoykwsMWX+msDAB3TZaBmwE4iA4fiDiA-iOELmWd50s-w@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] (subset) [PATCH RFC v7 00/10] Support for Solid
- Fill Planes
+Subject: Re: [Freedreno] [PATCH] drm: improve the documentation of connector
+ hpd ops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,49 +68,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Wick <sebastian@sebastianwick.net>,
- laurent.pinchart@ideasonboard.com,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, ville.syrjala@linux.intel.com,
- sebastian.wick@redhat.com, wayland-devel@lists.freedesktop.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Harry Wentland <harry.wentland@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
- ppaalanen@gmail.com, Sean Paul <sean@poorly.run>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ andersson@kernel.org, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, jani.nikula@linux.intel.com,
+ linux-kernel@vger.kernel.org, quic_parellan@quicinc.com,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ quic_jesszhan@quicinc.com, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 3 Dec 2023 at 14:15, Simon Ser <contact@emersion.fr> wrote:
+On Sun, 3 Dec 2023 at 16:24, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
 >
-> On Saturday, December 2nd, 2023 at 22:41, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> Hi Abhinav,
 >
-> > On Fri, 27 Oct 2023 15:32:50 -0700, Jessica Zhang wrote:
-> >
-> > > Some drivers support hardware that have optimizations for solid fill
-> > > planes. This series aims to expose these capabilities to userspace as
-> > > some compositors have a solid fill flag (ex. SOLID_COLOR in the Android
-> > > hardware composer HAL) that can be set by apps like the Android Gears
-> > > test app.
-> > >
-> > > In order to expose this capability to userspace, this series will:
-> > >
-> > > [...]
-> >
-> >
-> > Applied to drm-misc-next, thanks!
+> Thank you for the patch (and thank to Dmitry for pinging me on IRC, this
+> patch got burried in my inbox).
 >
-> Where are the IGT and userspace for this uAPI addition?
+> On Wed, Sep 20, 2023 at 01:13:58PM -0700, Abhinav Kumar wrote:
+> > While making the changes in [1], it was noted that the documentation
+> > of the enable_hpd() and disable_hpd() does not make it clear that
+> > these ops should not try to do hpd state maintenance and should only
+> > attempt to enable/disable hpd related hardware for the connector.
+>
+> s/attempt to //
 
-Indeed. I checked that there are uABI acks/reviews, but I didn't check
-these requirements. Frankly speaking, I thought that they were handled
-already, before giving the ack. How should we proceed? Should I land a
-revert?
+I can probably fix this while applying the patch.
+
+>
+> >
+> > The state management of these calls to make sure these calls are
+> > balanced is handled by the DRM core and we should keep it that way
+> > to minimize the overhead in the drivers which implement these ops.
+> >
+> > [1]: https://patchwork.freedesktop.org/patch/558387/
+> >
+>
+> You could add a
+>
+> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>
+> > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>
+> > ---
+> >  include/drm/drm_modeset_helper_vtables.h | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+> > index e3c3ac615909..a33cf7488737 100644
+> > --- a/include/drm/drm_modeset_helper_vtables.h
+> > +++ b/include/drm/drm_modeset_helper_vtables.h
+> > @@ -1154,6 +1154,11 @@ struct drm_connector_helper_funcs {
+> >        * This operation is optional.
+> >        *
+> >        * This callback is used by the drm_kms_helper_poll_enable() helpers.
+> > +      *
+> > +      * This operation does not need to perform any hpd state tracking as
+> > +      * the DRM core handles that maintenance and ensures the calls to enable
+> > +      * and disable hpd are balanced.
+> > +      *
+> >        */
+> >       void (*enable_hpd)(struct drm_connector *connector);
+> >
+> > @@ -1165,6 +1170,11 @@ struct drm_connector_helper_funcs {
+> >        * This operation is optional.
+> >        *
+> >        * This callback is used by the drm_kms_helper_poll_disable() helpers.
+> > +      *
+> > +      * This operation does not need to perform any hpd state tracking as
+> > +      * the DRM core handles that maintenance and ensures the calls to enable
+> > +      * and disable hpd are balanced.
+> > +      *
+> >        */
+> >       void (*disable_hpd)(struct drm_connector *connector);
+> >  };
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
 
 -- 
 With best wishes
