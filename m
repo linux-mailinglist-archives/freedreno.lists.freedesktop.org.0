@@ -1,48 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 520A4802A89
-	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 04:28:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B888802D57
+	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 09:38:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F7110E193;
-	Mon,  4 Dec 2023 03:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1411410E065;
+	Mon,  4 Dec 2023 08:38:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE5610E18E;
- Mon,  4 Dec 2023 03:28:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E8B10E065;
+ Mon,  4 Dec 2023 08:38:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D75D7CE0C27;
- Mon,  4 Dec 2023 03:28:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2CDC433C8;
- Mon,  4 Dec 2023 03:28:01 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id CB007CE0CF3;
+ Mon,  4 Dec 2023 08:38:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA95FC433C7;
+ Mon,  4 Dec 2023 08:38:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701660482;
- bh=BJZz6nVmqz6quuK5mdvaIGmGVFLK9L9GYYYqfQvkeRk=;
+ s=k20201202; t=1701679096;
+ bh=iYblRoLiAyw+4MVUgM01pY5EMN79I+qpmjqdEB/wdx8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=f1wLOVgCa20qtSBHiV2Si+qCvGDV2VbWtwRMqEiEe/hDan1nBoZEbNE0OoLfwMEfD
- Pq39pU04AMQCoKIfCyEzJa8Qa1vpkwxDRLswIhH1VGPNzn1VddRvXBkhbm/e3YcTSL
- J8Mr/CAMLS94Pj3T3evN+oKlLpTWP+HOcLth6yeyn3Rjh8uh6JMUa28oPkbH+g0rWx
- gP8vtult4bKwfPv8ZyAiNq8gSLd+ghPZH/cGfyGZXGzeez3WpE60yPwlmsIew5swTe
- 8K3UDCSv5VUpVEtEpLGS3owcDgae9ikS0NSoFX7Qr90CXPjKLLoL8cwjZv3fX4z8lp
- qcBrJWOVPGEpg==
-Date: Sun, 3 Dec 2023 19:31:25 -0800
-From: Bjorn Andersson <andersson@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <knm2uvjuad47famhr5uzibxxx3reknxdpb5raj3fox2vlkarvc@w6xer6jo4yok>
-References: <20231201014101.15802-1-quic_parellan@quicinc.com>
- <20231201014101.15802-3-quic_parellan@quicinc.com>
- <20231201034710.GB1766637@hu-bjorande-lv.qualcomm.com>
- <CAA8EJpqFya5H+4PPZ8A3CqqqRJXsJ3KKbbcfS=C13QTr1vAtSw@mail.gmail.com>
- <20231201162252.GG1766637@hu-bjorande-lv.qualcomm.com>
- <a78c42d1-6ce0-2c34-5513-c04948d2ff31@quicinc.com>
+ b=ngZoYZz/1DFnyxJb6KcnY+pGvJfO+4BbQLQSF14d1wP8/MLNA5Sa6uJCNnzhcYrBX
+ 2hW4G3m77anJZBmX05DADpyuE3Va2JzhDrstvRXMINe0HdwXy1ekJ5QWV1ZQVBsLnw
+ qq/EhxczlZUXB/4yzhfKEfno0ssDCUtT0peid80dqOHze1rs4NeHY8I7Fi3asMn6DS
+ iCI8KQkT/j8I0f6df8A9hNCpQQKRHidfzOpEVi+FbIYIUS6enBlxTy2nlQydie4NWE
+ cx3lmSBfmA6vbZ6PFUouWBRd2QqC/mtW+kp853DKTTjtuLjblcljbhfjxi0v7O7UsQ
+ Irf82iV67uJYw==
+Date: Mon, 4 Dec 2023 09:38:13 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <uqrsl3gehpjybzb6cish7vpub3xznouomn4246b7j4i3qiiumv@enskrm5kpwa5>
+References: <20231201220843.2023117-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ddv35uuo4le3hcui"
 Content-Disposition: inline
-In-Reply-To: <a78c42d1-6ce0-2c34-5513-c04948d2ff31@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v3 2/2] drm/msm/dpu: Add mutex lock in
- control vblank irq
+In-Reply-To: <20231201220843.2023117-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH RESEND] drm/atomic-helper: rename
+ drm_atomic_helper_check_wb_encoder_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,86 +51,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bjorn Andersson <quic_bjorande@quicinc.com>, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com,
- Paloma Arellano <quic_parellan@quicinc.com>, steev@kali.org,
- quic_jesszhan@quicinc.com, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- seanpaul@chromium.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 01, 2023 at 11:43:36AM -0800, Abhinav Kumar wrote:
-> 
-> 
-> On 12/1/2023 8:22 AM, Bjorn Andersson wrote:
-> > On Fri, Dec 01, 2023 at 10:34:50AM +0200, Dmitry Baryshkov wrote:
-> > > On Fri, 1 Dec 2023 at 05:47, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
-> > > > On Thu, Nov 30, 2023 at 05:40:55PM -0800, Paloma Arellano wrote:
-> > [..]
-> > > > > @@ -2386,6 +2390,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
-> > > > >        dpu_enc->enabled = false;
-> > > > >        mutex_init(&dpu_enc->enc_lock);
-> > > > >        mutex_init(&dpu_enc->rc_lock);
-> > > > > +     mutex_init(&dpu_enc->vblank_ctl_lock);
-> > > > 
-> > > > Is this somehow propagated to multiple different dpu_encoder_phys
-> > > > instances, or why do you need to initialize it here and pass the pointer
-> > > > through 2 different intermediate structures before assigning it to
-> > > > phys_enc->vblank_ctl_lock below?
-> > > 
-> > > Yes, there can be two phys_enc instances for a single encoder, so this
-> > > part is fine.
-> > > 
-> > 
-> > Thanks for the clarification, Dmitry. Sounds like it make sense then.
-> > 
-> > But, if I read the code correctly the two instances will have separate
-> > vblank_refcount copies, and the dpu_core_irq_*() interface does mutual
-> > exclusion within. So why do we need shared mutual exclusion between the
-> > two? (This is where a proper description of the problem in the commit
-> > message would have been very helpful)
-> > 
-> 
-> Are you suggesting we just have one vblank_ctl_lock per encoder and not have
-> one vblank_ctl_lock per phys encoder? I cannot think of a display specific
-> reason for that other than just the SW layout.
-> 
-> The reason its like this today is that control_vblank_irq is an encoder phys
-> op because it does different things based on the type of encoder.
-> 
-> Because its an encoder phys op, it has the vblank_ctl_lock at the phys
-> structure and not the encoder one.
-> 
-> Its just more about how the phys op is defined that each phys op operates on
-> its phys's structure.
-> 
-> Generally, if we have one encoder with two physical encoders we anyways bail
-> out early for the other encoder so this is mostly a no-op for the slave phys
-> encoder.
-> 
-> Please take a look at below return point.
-> 
-> 715 	/* Slave encoders don't report vblank */
-> 716 	if (!sde_encoder_phys_vid_is_master(phys_enc))
-> 717 		goto end;
-> 718
-> 
-> So technically its still providing protection for the same phys encoder but
-> the catch is this control_vblank_irq can get called from different threads
-> hence we need exclusion.
-> 
 
-The way I understand the code is that the atomic is used to refcount
-when to enable/disable the interrupt, and the new lock protects this
-refcount during concurrent updates. I have no concerns with this part.
+--ddv35uuo4le3hcui
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Dec 02, 2023 at 12:07:49AM +0200, Dmitry Baryshkov wrote:
+> The drm_atomic_helper_check_wb_encoder_state() function doesn't use
+> encoder for anything other than getting the drm_device instance. The
+> function's description talks about checking the writeback connector
+> state, not the encoder state. Moreover, there is no such thing as an
+> encoder state, encoders generally do not have a state on their own.
+>=20
+> Drop the first argument and rename the function to
+> drm_atomic_helper_check_wb_connector_state().
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>=20
+> Resending, no reaction for two months
+>=20
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c   | 10 ++++------
+>  drivers/gpu/drm/vkms/vkms_writeback.c |  2 +-
+>  include/drm/drm_atomic_helper.h       |  3 +--
+>  3 files changed, 6 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_at=
+omic_helper.c
+> index 2444fc33dd7c..d69591381f00 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -795,8 +795,7 @@ drm_atomic_helper_check_modeset(struct drm_device *de=
+v,
+>  EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
+> =20
+>  /**
+> - * drm_atomic_helper_check_wb_encoder_state() - Check writeback encoder =
+state
+> - * @encoder: encoder state to check
+> + * drm_atomic_helper_check_wb_connector_state() - Check writeback connec=
+tor state
+>   * @conn_state: connector state to check
+>   *
+>   * Checks if the writeback connector state is valid, and returns an erro=
+r if it
+> @@ -806,8 +805,7 @@ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
+>   * Zero for success or -errno
+>   */
+>  int
+> -drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+> -					 struct drm_connector_state *conn_state)
+> +drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *c=
+onn_state)
 
-What I'm seeing is that the refcount it per phys_enc, and as such there
-would be no reason to have a common mutex to protect the two independent
-refcounts.
+AFAIK, all the helpers take the object as first argument, so I'm fine
+with the name change but it should take a drm_connector too. And ideally
+a drm_atomic_state pointer instead of drm_connector_state too.
 
-But I'm probably misunderstanding something here...
+>  {
+>  	struct drm_writeback_job *wb_job =3D conn_state->writeback_job;
+>  	struct drm_property_blob *pixel_format_blob;
+> @@ -827,11 +825,11 @@ drm_atomic_helper_check_wb_encoder_state(struct drm=
+_encoder *encoder,
+>  		if (fb->format->format =3D=3D formats[i])
+>  			return 0;
+> =20
+> -	drm_dbg_kms(encoder->dev, "Invalid pixel format %p4cc\n", &fb->format->=
+format);
+> +	drm_dbg_kms(conn_state->connector->dev, "Invalid pixel format %p4cc\n",=
+ &fb->format->format);
 
-Regards,
-Bjorn
+Which would also avoid the checkpatch warning there.
+
+Maxime
+
+--ddv35uuo4le3hcui
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZW2P9AAKCRDj7w1vZxhR
+xXZvAQDutZPCVYVik2WXC+7xFZxQpfEJYRgG2lQSsq0Ohku97gD8D67TasF17b0O
+5Aa1Dp7gI2qiBLOQ3cTMkiNPGx4k1Qc=
+=EEoZ
+-----END PGP SIGNATURE-----
+
+--ddv35uuo4le3hcui--
