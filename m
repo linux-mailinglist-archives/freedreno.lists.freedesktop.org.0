@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED38A80312B
-	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 12:02:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FE01803135
+	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 12:03:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D412910E33B;
-	Mon,  4 Dec 2023 11:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1153510E347;
+	Mon,  4 Dec 2023 11:03:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47F8A10E33B
- for <freedreno@lists.freedesktop.org>; Mon,  4 Dec 2023 11:02:31 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a1b03886fd7so167991466b.2
- for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 03:02:31 -0800 (PST)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6F2410E347
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Dec 2023 11:03:21 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a1b54b58769so152271666b.0
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 03:03:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701687750; x=1702292550; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701687800; x=1702292600; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=kvCpwjImoYWLvinjMDGOnfCxgHCwEX0Wp0hmlvMkuhM=;
- b=W631g1V9tdkmtKLdSOx3tlfPtHjjg2wGa4b1vNWzpIQXfB2ji4RDJWw3YLTaJeHMe1
- X9HXK5KysdiaCo4BmwlCFVvtgXkf7qTuvo5FLmbvZggVli2/nZTRPQuVrgFrC68c6zxR
- MEyeCZm1uuDKCqSZ6n8It+Ny8rLop7kfgyqPlmGAxiciB6bVMLTg7os7Xuktq91rZCkd
- 0Gb40QGIjCY21L5LbCrm2oPNnRmIrjyeSfAa0E6yzX5vv124BMVv/tG/6AjplpUmKKpn
- TUtS0K5uSjt/TrtLBnOz2CsD96PbnePEGOcLrHXYNm5G49wOIu+61X62IJX8Xi9mzURh
- EfiA==
+ bh=/V7/qttpYUSVs/dqMEkEMSdP8vUt/vCkEeFP/v6WMb4=;
+ b=YkoxA7JJX/IoV6itbEMnkLHCFDDHjEZrsTDoJTJxGAYVm4lpVprQy5jRk92yCNM9Ld
+ +jVIR70BVfwTMaVXl6vy2KqylwNcLNSLt2L538YperKx+9S0i63PCjroqJWx62aeu5f+
+ F7iVTtfzJQ/8rxMMu1JELgqDauKbhjP1tAovS1wuCYMGEk/z4/7sL/f+Ly3JNq1gKFUs
+ SstyMSKmZVrNqggJjmNTP/qnz6EtgW85oniQnTQzO0FbNY0oUxhubG2E0rdjxZAp0iid
+ iqP7Yw1U42sXUEju+1mYv49oHPzDBnkDLg/nX2Lj4cYKaTA1bAoYaISMJohxOWnjNbfe
+ R46Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701687750; x=1702292550;
+ d=1e100.net; s=20230601; t=1701687800; x=1702292600;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kvCpwjImoYWLvinjMDGOnfCxgHCwEX0Wp0hmlvMkuhM=;
- b=d5XpZ5KGvOLPzqv8E3eD2kBxVp3iUhBVDhC2qin+8X6WeUuKi37Own8eozNKANCZgV
- uwdQZRFFGM0vQtGdBIs344ijHEA+wJY0xxCwflKI5IqNep7YjyJOkMboZ08zW2+CYPeS
- rrPJKMZ16g6cR+M+4+3Jw0rwpxGnUeH4BCmoZG/zdDXwfw/k4qJYQJihIGLUj9eqLoEv
- I0s3OzGYl49hOGTLBEptJvC9DdtBPISAubrFi0ZUCJ6GV9MADpxtNR5IMbDLCPq4Yxw5
- yjVwqQuNExxfsWyttyrK4e0XWv7g4LimoZeGK8mq7+RAZfvcP91SSyHbBZ4wCo0sQM+W
- nnGQ==
-X-Gm-Message-State: AOJu0Yz3qLtKczH8da+2fQ4R80VNdXQJXniG/sIZPLH0MNWBokIJ57m/
- agNlonpoQgtyJDOlmJnxF9uAaA==
-X-Google-Smtp-Source: AGHT+IF6zDxwYWco6meugRImHyKt+d7STRTyWCwdIHOEBs1fN7k3Q2y16RNRCVa1b6oAu4PR06JgfA==
-X-Received: by 2002:a17:906:22d5:b0:9dc:2291:d384 with SMTP id
- q21-20020a17090622d500b009dc2291d384mr2839881eja.22.1701687749715; 
- Mon, 04 Dec 2023 03:02:29 -0800 (PST)
+ bh=/V7/qttpYUSVs/dqMEkEMSdP8vUt/vCkEeFP/v6WMb4=;
+ b=NOteKr02HgqLfMz6l57dzkhglp5r0Nw7kfJO7ymtF5mJkZtsKwGlsEN/PQyq+sslcR
+ X9U8fVFRyWZQ926kDySq04ol7SlYu/dYjdku1nHnyh0Uit5RtIH/V0TO+aQVzkOJBiGj
+ QlM/S+dBubtazPo2jgBJQw3v1ylVQaIbMjAJIb+tNyYjdMxHoqr0WpZmKcZAAGMIvFmr
+ aXic5OMHi3gIPRPXVgv0YkVDPEA/hLmVTRFFulKix0YxuN0eLsCp8Fhku0xsRELuZ9uX
+ SZipSi3bquWNnEwgqIw+6ZkRh/KgFQ6nQ5AEbXYJwk4+vWT2ic+VGtBRlNX2V+nmvon6
+ hEJA==
+X-Gm-Message-State: AOJu0YwIlkhgxwMnhxRG2HBKV39VHGSGAZn07vdzVa+2AFm+serbC0i+
+ dJpRybEZItEO0uDPGTNuKbch/Q==
+X-Google-Smtp-Source: AGHT+IG/DZ7DWecHguhxVyCpS579WAetX8TUEe0h6ckVQp4TLerxiS6L7i+ssFEjODGt+cWbzm/NCA==
+X-Received: by 2002:a17:906:7152:b0:a19:a19b:78c9 with SMTP id
+ z18-20020a170906715200b00a19a19b78c9mr3388627ejj.140.1701687800185; 
+ Mon, 04 Dec 2023 03:03:20 -0800 (PST)
 Received: from [192.168.209.83]
  (178235179097.dynamic-4-waw-k-1-3-0.vectranet.pl. [178.235.179.97])
  by smtp.gmail.com with ESMTPSA id
- sa12-20020a1709076d0c00b00a0a5a794575sm5124335ejc.216.2023.12.04.03.02.28
+ sa12-20020a1709076d0c00b00a0a5a794575sm5124335ejc.216.2023.12.04.03.03.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Dec 2023 03:02:29 -0800 (PST)
-Message-ID: <fd51b768-8c0d-4f37-887d-b9bb350ea201@linaro.org>
-Date: Mon, 4 Dec 2023 12:02:27 +0100
+ Mon, 04 Dec 2023 03:03:19 -0800 (PST)
+Message-ID: <05d9194c-beea-443a-823d-b98213c63760@linaro.org>
+Date: Mon, 4 Dec 2023 12:03:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -62,7 +62,7 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
 References: <20231202224247.1282567-1-dmitry.baryshkov@linaro.org>
- <20231202224247.1282567-2-dmitry.baryshkov@linaro.org>
+ <20231202224247.1282567-4-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -99,11 +99,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20231202224247.1282567-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231202224247.1282567-4-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 1/4] drm/msm/mdss: switch mdss to use
- devm_of_icc_get()
+Subject: Re: [Freedreno] [PATCH v4 3/4] drm/msm/mdss: inline
+ msm_mdss_icc_request_bw()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,8 +124,9 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 2.12.2023 23:42, Dmitry Baryshkov wrote:
-> Stop using hand-written reset function for ICC release, use
-> devm_of_icc_get() instead.
+> There are just two places where we set the bandwidth: in the resume and
+> in the suspend paths. Drop the wrapping function
+> msm_mdss_icc_request_bw() and call icc_set_bw() directly.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
