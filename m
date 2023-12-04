@@ -1,60 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56184803E5D
-	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 20:27:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C91803E6E
+	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 20:34:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02C2A10E237;
-	Mon,  4 Dec 2023 19:27:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D15AF10E206;
+	Mon,  4 Dec 2023 19:34:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE9410E337
- for <freedreno@lists.freedesktop.org>; Mon,  4 Dec 2023 19:27:15 +0000 (UTC)
-Received: by mail-yb1-xb2c.google.com with SMTP id
- 3f1490d57ef6-db5311eab29so3028814276.3
- for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 11:27:15 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B60CE10E206
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Dec 2023 19:34:20 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-50bf69afa99so1809948e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 11:34:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701718034; x=1702322834; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=UF8RbcFRVKtyYFhAN8G8o+Q8uKVHcH8Bwv/QadBueXY=;
- b=cXGqDn1Kl56KCueXEG95ir7YYrwD5UgTSJumd3u9zi0205hHYQJE7EDv3U61WTTAkr
- rCjb1g5V0eJ9NR7X2Bx8Veh9JvMLKkPqejx11lC3u4PFGoYTTOoYhpI6xipQS35rOrbm
- 3q+BIM1tSRCVrazTQtMQ2q/46Z8zhbp871h58f4u3T7xxQusb2+6qGQEqTejB1vJ0gaq
- yo5LcK/KXGbSoMEwyxQBRLToJk0B/kPY7io9cUZS0tzMAzqiSSVkUlktNkSIbM/66pYr
- +WPHI8S2sQ6SPPrAhHvpbI18oQt4dNuOCT0tURqCLmoCBel24MLZYEYXn9FZA3mcz+A/
- hCVg==
+ d=linaro.org; s=google; t=1701718459; x=1702323259; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eR9FOP7osfeybp7nocEf0/oeWGeApIfG0zb/HJjjao0=;
+ b=oNiKiQ5kkFdeYhE8ye8uuywLDMZxb1abHvTkAevVs2lMLqRuo31l9HLE6FrcNEzCwO
+ P9XRPooIfvuqmFU4831hSWwSzlQjEiHK8IMxX/A+31BxIurKyEz6voYBsaGtKZV1pL57
+ Wek5ze/qa9cv9WKaJPVIUmFvPx8IkVA1L5f4TLU1mfZjx7bobgXD+MFdE6s26dJtTLQ2
+ 6CaHe+S5Y2h14/kLrdSzEvyD/4t4Q6dbZtMV79pw9w4Sh0b4o6sUqhpBQouvdwe8GDTD
+ P7Ju7u+UJNkoroprOXjf7hjkDcvBjDIcIa35rir2NSrtK5JcASk8lVHZkSFWcRQoFhfU
+ K2bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701718034; x=1702322834;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UF8RbcFRVKtyYFhAN8G8o+Q8uKVHcH8Bwv/QadBueXY=;
- b=jTwj0ipRjiWnpl6mWPdS7qo/V1WqymgTKM+ASyAb56ioe3hWiPzmjvlTuvbX2WtLcJ
- ANNOlpvhDuZeXjrqLkMNfa1XVCorJzMfgM/Ywb7bXP2Xmaefgylsr6TJfZBfSeNPmh5I
- y0Qs7jNKLSiNuRlCKDy+BhZKrBtVUe4fo11b145OA/BbXikQ1DXFWvKhsKD8GEcBGCc2
- B6IA190freS+c3+m33RroXDLZGAuczbi8/+n/GlEcbzfrmBaFqlnueNulZqgQXM7MwZ3
- y9OoFMlsLv8agkU1XA2JihKl9oXzI3w1OrjyUsJHaXvYV4tQfYlr3ELNS5KhDqRbcMhR
- +8Lg==
-X-Gm-Message-State: AOJu0Yz3XgpOrm+o8ER+mzjHBJDDpaKKXZ7Tc1VHB0dqLYcpsj6DzfRO
- IJtxs9Udtjhbh38LX/ZUdFHLAKgyPGF2WgpkwJS6HA==
-X-Google-Smtp-Source: AGHT+IFoS9lomMmrh7QB8FJlwDVYrAZR+sV2AF3ZiBtQnFSGI4Cd7vfNSSh1Odm+EvCiVHdtf49u0rl6x9sTO4+Vl14=
-X-Received: by 2002:a5b:6c4:0:b0:da1:5a1a:e79c with SMTP id
- r4-20020a5b06c4000000b00da15a1ae79cmr28151716ybq.50.1701718034319; Mon, 04
- Dec 2023 11:27:14 -0800 (PST)
-MIME-Version: 1.0
-References: <20231004031903.518223-1-dmitry.baryshkov@linaro.org>
- <5ae4729d-3a06-ef77-be9f-d93e91caa06c@quicinc.com>
-In-Reply-To: <5ae4729d-3a06-ef77-be9f-d93e91caa06c@quicinc.com>
+ d=1e100.net; s=20230601; t=1701718459; x=1702323259;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eR9FOP7osfeybp7nocEf0/oeWGeApIfG0zb/HJjjao0=;
+ b=ifS25BNc5G2WOFX1YTMyzYuPGGERIjiUL0OfntZrLlsOiPhhkDNJcqJOTqVbzH2eJL
+ EKdlYm/8dbqIgyCSNrp3YMmRpglNZ5N2SmwN7ahJUZJFNGQC3xP/mCGVwdC2V1WJpUUA
+ or1YGRfrWfdDgPADFOuv2Q4Lrd9IECAfPY7xAtLuadi7BzVSjptxapWO+anihN/Le/Xs
+ lzW/PgdUCkqD+zsoyxwmofyXvFBGW7DIVO/W1IkSmVWgShTCf628+Sozk4O3KUmb3xfG
+ UI5YNUNLccYvPAGfRzwlogV4K10xIWUj3/qBwVcFYoRMdqfL+RyYHBsg9VFZ7s0aPwFX
+ /ONg==
+X-Gm-Message-State: AOJu0Yx8dA/iJTfu6VCYsExx82morLjA4Bz4MkQ3LUYx1Xb5Et1IGusm
+ 0Ksfds1UYOV15ZupcmY8i3KAGQ==
+X-Google-Smtp-Source: AGHT+IHOmXl4JU0d0Bxq4l5fPTOsy3vUVBtyOQtd7qdMhfNrKvXx/vrAWXI5B2yerw2W4IfVhw+6EQ==
+X-Received: by 2002:a05:6512:2803:b0:50b:f913:c338 with SMTP id
+ cf3-20020a056512280300b0050bf913c338mr1436639lfb.16.1701718458839; 
+ Mon, 04 Dec 2023 11:34:18 -0800 (PST)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyyykxt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::227]) by smtp.gmail.com with ESMTPSA id
+ j15-20020a056512344f00b0050be956ade1sm777798lfr.278.2023.12.04.11.34.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Dec 2023 11:34:17 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 4 Dec 2023 21:27:03 +0200
-Message-ID: <CAA8EJpr7ot-JLD3J7NY2AVQSE6UKhRmZErckwwa+6Wk+8cvwfA@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: drop MSM_ENC_VBLANK support
+To: Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon,  4 Dec 2023 21:34:16 +0200
+Message-ID: <170171844607.100324.5132284596400452217.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231204131455.19023-1-dmitry.baryshkov@linaro.org>
+References: <20231204131455.19023-1-dmitry.baryshkov@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 0/7] drm: revert solid fill support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,43 +79,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 4 Dec 2023 at 20:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> On 10/3/2023 8:19 PM, Dmitry Baryshkov wrote:
-> > There are no in-kernel users of MSM_ENC_VBLANK wait type. Drop it
-> > together with the corresponding wait_for_vblank callback.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  3 --
-> >   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  1 -
-> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 28 -------------------
-> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  9 +++---
-> >   drivers/gpu/drm/msm/msm_drv.h                 |  2 --
-> >   5 files changed, 4 insertions(+), 39 deletions(-)
-> >
->
-> No users today but will need to be added back when features such as
-> autorefresh get added. But, as usual, we go by what in the driver today
-> so I am aware that this will be a lost argument.
+On Mon, 04 Dec 2023 15:13:47 +0200, Dmitry Baryshkov wrote:
+> Altough the Solid Fill planes patchset got all reviews and
+> acknowledgements, it doesn't fulfill requirements for the new uABI.
+> Merging it was a fault of mine.
+> 
+> It has neither corresponding open-source userspace implementation nor
+> the IGT tests coverage. Revert this patchset until userspace obligations
+> are fulfilled.
+> 
+> [...]
 
-Hmm, what is the difference between autorefresh and the PSR / self-refresh?
+Applied to drm-misc-next, thanks!
 
->
-> Hence,
->
->
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+[1/7] Revert "drm/atomic: Loosen FB atomic checks"
+      commit: 1c0a80f160965c88f16e73ff69015db2f044c486
+[2/7] Revert "drm/atomic: Move framebuffer checks to helper"
+      commit: b881ba8faa5c7689eb1cb487ad891c46dbbed0e8
+[3/7] Revert "drm/atomic: Add solid fill data to plane state dump"
+      commit: a513f095b941e9e96196f04f11f253d763310c08
+[4/7] Revert "drm/atomic: Add pixel source to plane state dump"
+      commit: fe28421d4fedb90cadcef4932be0e8364f79283d
+[5/7] Revert "drm: Add solid fill pixel source"
+      commit: 5fb1ad3f5725c5c4d1a0c24ba4f82f239dc6878d
+[6/7] Revert "drm: Introduce solid fill DRM plane property"
+      commit: e5fba1ada1c1d676438138d815acd8f427a1eaf0
+[7/7] Revert "drm: Introduce pixel_source DRM plane property"
+      commit: 90422201f8f2b4e26ab7bd43b92786a11c1ffebf
 
-
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
