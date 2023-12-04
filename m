@@ -1,42 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CC3A802D8C
-	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 09:50:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A5BB9802DBC
+	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 10:01:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1114B10E2D4;
-	Mon,  4 Dec 2023 08:50:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC59210E2EB;
+	Mon,  4 Dec 2023 09:01:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA1010E2CE;
- Mon,  4 Dec 2023 08:49:57 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FFE710E1E9;
+ Mon,  4 Dec 2023 09:00:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 53B27CE0E00;
- Mon,  4 Dec 2023 08:49:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FAC1C433C7;
- Mon,  4 Dec 2023 08:49:54 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 019CDCE0E54;
+ Mon,  4 Dec 2023 09:00:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99424C433C8;
+ Mon,  4 Dec 2023 09:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701679794;
- bh=uG10quNAaJD23Flc15bDB89K/G4XtxgxZ8Ig/bMsvwg=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
- b=Z9/YXd2FuWQfC8SXxbmvuad2BsQzC8grc2YLa+GPJ9JTXbwydLMq7kC3vFMhd70yo
- 4O83uHoCRZoBgTGTXAZOQoDlC+xFt3t0RXEa1FA7Glgsa5AEGCBrmGws3Qjgkp9znB
- Mdz3alfvFgkPbN/LLj5W7cHkE4HPPzN0azApR3Hug5B3aGkZnrh7LssoEnSsfAmFoJ
- ZzJQrW632grwyeq03MA/ZGZ6MR3LtXSl/aOtSDGnAgRXcIcEFrDfE6W77KMvL7n2gC
- gsxFVmQFJoxEmHDM52t/rrrMG5YP/0qIR5+/SU7rV8gNKjwfYVF3WpATtGcO/Ye9Fo
- YcIv0PIw+JfjQ==
-Message-ID: <335240cdb8b6b980c2380bdc25fb2833.mripard@kernel.org>
-Date: Mon, 04 Dec 2023 08:49:52 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20231203000532.1290480-2-dmitry.baryshkov@linaro.org>
-References: <20231203000532.1290480-2-dmitry.baryshkov@linaro.org>
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH RESEND 1/5] drm/atomic: add private obj
- state to state dump
+ s=k20201202; t=1701680422;
+ bh=kTk/FMT1KfBdMsUbh6k7mndZwOboypNrqNc3z0K4YIc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=g6eudHG3xwv7ybQA6Yhz4IwzesZ+x398p11YdjUpW29XTnnA83IxQZTvC4sJMsFhf
+ vSsSf64j485RxRIS9s+tXrSwOgqcmEm55kNpak4pDE+lYbyNfpXEAYmjy3yk/W1ov/
+ pxGrPTyLoXwGQRec0xgCEzekgK0RI6j9vdw4LhMMvYQZn8PmHmHfOEes6IzY5M2u8c
+ WrPQCro3pH5YFpeTbFWhHVF84jTo2ffIUumdDRpsXDXGtOn8E+dKOBqjY0qEKsO2KM
+ FPJPHW7O2AGjS9hgF8/x8/b+BvQ0WnvbolsGJCh24x7PybswMQuf4BpJP7Pd6wnTi4
+ uFQww8ibYAJkw==
+Date: Mon, 4 Dec 2023 10:00:20 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <2ldbif6vidsfj65gp2v5tkoobdsnget2w6q6o4mtie4mjcoxvu@uhllchrdrjs2>
+References: <20231203115315.1306124-1-dmitry.baryshkov@linaro.org>
+ <20231203115315.1306124-2-dmitry.baryshkov@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="myqmtjw23q5jirb2"
+Content-Disposition: inline
+In-Reply-To: <20231203115315.1306124-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH RESEND v2 1/3] drm/encoder: register
+ per-encoder debugfs dir
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,26 +52,141 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Thomas
- Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Abhinav
- Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Maxime
- Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>, David
- Airlie <airlied@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 3 Dec 2023 03:05:28 +0300, Dmitry Baryshkov wrote:
-> The drm_atomic_print_new_state() already prints private object state via
-> drm_atomic_private_obj_print_state(). Add private object state dumping
-> to __drm_state_dump(), so that it is also included into drm_state_dump()
-> output and into debugfs/dri/N/state file.
-> 
-> 
-> [ ... ]
 
+--myqmtjw23q5jirb2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Sun, Dec 03, 2023 at 02:53:13PM +0300, Dmitry Baryshkov wrote:
+> Each of connectors and CRTCs used by the DRM device provides debugfs
+> directory, which is used by several standard debugfs files and can
+> further be extended by the driver. Add such generic debugfs directories
+> for encoder.
+>=20
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/drm_debugfs.c  | 25 +++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_encoder.c  |  4 ++++
+>  drivers/gpu/drm/drm_internal.h |  9 +++++++++
+>  include/drm/drm_encoder.h      | 16 +++++++++++++++-
+>  4 files changed, 53 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+> index f291fb4b359f..00406b4f3235 100644
+> --- a/drivers/gpu/drm/drm_debugfs.c
+> +++ b/drivers/gpu/drm/drm_debugfs.c
+> @@ -589,4 +589,29 @@ void drm_debugfs_crtc_remove(struct drm_crtc *crtc)
+>  	crtc->debugfs_entry =3D NULL;
+>  }
+> =20
+> +void drm_debugfs_encoder_add(struct drm_encoder *encoder)
+> +{
+> +	struct drm_minor *minor =3D encoder->dev->primary;
+> +	struct dentry *root;
+> +	char *name;
+> +
+> +	name =3D kasprintf(GFP_KERNEL, "encoder-%d", encoder->index);
+> +	if (!name)
+> +		return;
+> +
+> +	root =3D debugfs_create_dir(name, minor->debugfs_root);
+> +	kfree(name);
+> +
+> +	encoder->debugfs_entry =3D root;
+> +
+> +	if (encoder->funcs->debugfs_init)
+> +		encoder->funcs->debugfs_init(encoder, root);
+> +}
+> +
+> +void drm_debugfs_encoder_remove(struct drm_encoder *encoder)
+> +{
+> +	debugfs_remove_recursive(encoder->debugfs_entry);
+> +	encoder->debugfs_entry =3D NULL;
+> +}
+> +
+>  #endif /* CONFIG_DEBUG_FS */
+> diff --git a/drivers/gpu/drm/drm_encoder.c b/drivers/gpu/drm/drm_encoder.c
+> index 1143bc7f3252..8f2bc6a28482 100644
+> --- a/drivers/gpu/drm/drm_encoder.c
+> +++ b/drivers/gpu/drm/drm_encoder.c
+> @@ -30,6 +30,7 @@
+>  #include <drm/drm_print.h>
+> =20
+>  #include "drm_crtc_internal.h"
+> +#include "drm_internal.h"
+> =20
+>  /**
+>   * DOC: overview
+> @@ -74,6 +75,8 @@ int drm_encoder_register_all(struct drm_device *dev)
+>  	int ret =3D 0;
+> =20
+>  	drm_for_each_encoder(encoder, dev) {
+> +		drm_debugfs_encoder_add(encoder);
+> +
+>  		if (encoder->funcs && encoder->funcs->late_register)
+>  			ret =3D encoder->funcs->late_register(encoder);
+>  		if (ret)
+> @@ -90,6 +93,7 @@ void drm_encoder_unregister_all(struct drm_device *dev)
+>  	drm_for_each_encoder(encoder, dev) {
+>  		if (encoder->funcs && encoder->funcs->early_unregister)
+>  			encoder->funcs->early_unregister(encoder);
+> +		drm_debugfs_encoder_remove(encoder);
+>  	}
+>  }
+> =20
+> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_interna=
+l.h
+> index b12c463bc460..7df17e4b0513 100644
+> --- a/drivers/gpu/drm/drm_internal.h
+> +++ b/drivers/gpu/drm/drm_internal.h
+> @@ -194,6 +194,8 @@ void drm_debugfs_connector_remove(struct drm_connecto=
+r *connector);
+>  void drm_debugfs_crtc_add(struct drm_crtc *crtc);
+>  void drm_debugfs_crtc_remove(struct drm_crtc *crtc);
+>  void drm_debugfs_crtc_crc_add(struct drm_crtc *crtc);
+> +void drm_debugfs_encoder_add(struct drm_encoder *encoder);
+> +void drm_debugfs_encoder_remove(struct drm_encoder *encoder);
+>  #else
+>  static inline void drm_debugfs_dev_fini(struct drm_device *dev)
+>  {
+> @@ -231,6 +233,13 @@ static inline void drm_debugfs_crtc_crc_add(struct d=
+rm_crtc *crtc)
+>  {
+>  }
+> =20
+> +static inline void drm_debugfs_encoder_add(struct drm_encoder *encoder)
+> +{
+> +}
+
+<- You need to insert a new line here.
+
+Once fixed,
 Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Thanks!
 Maxime
+
+--myqmtjw23q5jirb2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZW2VIwAKCRDj7w1vZxhR
+xfjoAP4xvwxFS9poLETIETd2j+ZzM2DobxAsw6WVncGDt9Q/FAEAtcBT/3gZyO3W
+Gvpo3+k88LvgJeH5LIhahdySxcawZQY=
+=pyU4
+-----END PGP SIGNATURE-----
+
+--myqmtjw23q5jirb2--
