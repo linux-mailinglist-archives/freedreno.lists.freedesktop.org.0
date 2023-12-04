@@ -2,60 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1DD3803291
-	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 13:26:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B424A80342B
+	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 14:15:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F6510E1BC;
-	Mon,  4 Dec 2023 12:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 571B010E1CB;
+	Mon,  4 Dec 2023 13:15:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8562B10E1BC
- for <freedreno@lists.freedesktop.org>; Mon,  4 Dec 2023 12:26:27 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-db3fa47c2f7so2718131276.0
- for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 04:26:27 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C49510E1C5
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Dec 2023 13:14:58 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-50bdec453c8so3069195e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 05:14:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701692786; x=1702297586; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=tFWyFPjADp1Fc6HbLi6uPiaZmfeg0/fMint0EXwMSxg=;
- b=w0/ImTECyidqeBC9pzoR02PqZP+eipTwOxTR5xgVcr02OL+HgHFiFm+apIubVyPbtA
- JcwsEP/X4oiPe4H5A9QWzHML2QYaYFI+ORcz+xpHyOVG73MZotrtT+mdVy2Dt/VMp/iQ
- XMmsr7hZUzY1JKExsNBU++NsLoaC5rbdw6WfJ904noW2OeCKT+V1FMIK2+/+4B5gM/U8
- xgN+a7yUEhXVppBtwRtk4NorB9llxc1yCCJFpyFd1CUYEWstifJkSSUS0hhcivvJKBj+
- fiZf743+O+li1C3OX7tpBql0p739UEkdYwd39kjlh1D+Wbw1AYSrRar/dNc87Y9Ep7w/
- MEkA==
+ d=linaro.org; s=google; t=1701695696; x=1702300496; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8FXfNmjk0/FPoln77FIQlKYMoeFsew2x/wYq+84u+hg=;
+ b=irL6GP2su9IYR3pNRvNxUusJCEIwaLLiEIV06+7HkSbt0S8xIo4/qSFmpMI5mhXHlA
+ HBTsB87zVzMjJfl87nMq5Lv2OKokOxVwBf/dqeAfA3JTl2vFzHoRa6s8/LXuOscTIX1h
+ K83yr7XsGpGDi1Jc6hq74wfzj/rMq/hwRRshHfW31e/geWcHRmQhr+tpixQdgvlXRgl6
+ HNevKDK6j4NwbrEdszbNNeXrH7uRGsVbheuHZBHNjDCLJAUw0o7wuvLx10b7n3J2bd2C
+ d/ZYxMun/h2oXUT7peMuujnVgEQrgyjYPCQdrmCBYFSJShXOmQtp+h6OG6naEvckHDrp
+ 488Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701692786; x=1702297586;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1701695696; x=1702300496;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=tFWyFPjADp1Fc6HbLi6uPiaZmfeg0/fMint0EXwMSxg=;
- b=TG/D0Zd++Lmro7+v5hODMhwjSHJYiYP/2UPKYa6cgWfB2ehkfiG5l2nv3u6VMhoY85
- VgcuoWL5tspbnnnCRuxZ7VDgmX0/TBJoJFaKjYqjH09H+Ztn6bggLFrzxVlDrdfTIDdV
- CFDyXzZ9iyrVoFsD7cVZy56jqa/UVHYAqv9GQ/hgWBpAeVYtjIfVK0A4XJCo1naa0GSm
- SbGdIysksYwVX4zuVtdZ2afvxeSigZZmSPwmkh3i8WbyplfH503xhBrzB2fUphwpPW5J
- ueI1byj+S6zHul/LJohSO0ans4lL7nvvc+wrLrjujkmZDkuWBfy0n6F7gEw/7A/KadbZ
- ui7Q==
-X-Gm-Message-State: AOJu0YyYjxA+MK/gKWN/lX2OuLTFswua55txfdxkqx5m29H10Gse0Xw7
- 7KEgxWU0nqI7SrDRAm9ZM1+5iA1fbDio8FfSOQwVSA==
-X-Google-Smtp-Source: AGHT+IE+L1664SYHtY+cUpFkqq4X1I85OOyU1mq606IScbstXyiJjcP/Vfcc7mySBINjIKn/y2Cz19SvoVwqk/DjCeM=
-X-Received: by 2002:a25:d85:0:b0:db5:4d4f:b3bb with SMTP id
- 127-20020a250d85000000b00db54d4fb3bbmr1816647ybn.18.1701692786300; Mon, 04
- Dec 2023 04:26:26 -0800 (PST)
-MIME-Version: 1.0
-References: <20231203114333.1305826-1-dmitry.baryshkov@linaro.org>
- <2023120426-frosting-manliness-14bd@gregkh>
-In-Reply-To: <2023120426-frosting-manliness-14bd@gregkh>
+ bh=8FXfNmjk0/FPoln77FIQlKYMoeFsew2x/wYq+84u+hg=;
+ b=BuysU6t0Iuqu6QOwzin+2+DF8tZBgLEqRy6FR9W/d9vYWU1JwnCN4eQ78+a7Q7WMhS
+ WZJOEWPffBSlKiCj5Au890brZUJA4lOy86DNAvWJo+lYMDiBnuyuHc5OJN7CVlv9B1QI
+ skS0Brg8y88FUHKbiZ3iRpVAJwzVEekqerx9ZmfogId0jwTn8Pje/yP4gby4gjCkL4G4
+ v0kyY0/qDolMe45yz1ysfZmKnWgTxy0O1heC0Mn+I12T23R15uoJoBp3PQYfInaZWxeQ
+ 6+fowfAGqo3qk5HZ2xnB+FKm+nnQXhA6zf+fDXmI0ProOAdmsB/MmspCXePNcNLRjZds
+ RvRQ==
+X-Gm-Message-State: AOJu0YyAfyQngehYuhNqYuQwyR9jjzsfazlOYJ39rkwE57PdsgfM1zl1
+ pym7a/bcj01aB6HfX6fj8moSfA==
+X-Google-Smtp-Source: AGHT+IGD0A8642jBm/8iajKiw6EkrNIqrKxuiUZkj2SDjATgXK7NJGhtxWQa5GEz/hYoM63L/w1G1g==
+X-Received: by 2002:ac2:5f5a:0:b0:50b:f792:3265 with SMTP id
+ 26-20020ac25f5a000000b0050bf7923265mr732882lfz.123.1701695696448; 
+ Mon, 04 Dec 2023 05:14:56 -0800 (PST)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyyykxt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::227]) by smtp.gmail.com with ESMTPSA id
+ br25-20020a056512401900b0050bc59642casm1251924lfb.286.2023.12.04.05.14.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Dec 2023 05:14:56 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 4 Dec 2023 14:26:15 +0200
-Message-ID: <CAA8EJpriJ-Y0Gb+PW7f5p4Sh_BXsDpeDckgnGZ+eKmWTQBegaA@mail.gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH RESEND 0/6] drm: simplify support for
- transparent DRM bridges
+To: Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Date: Mon,  4 Dec 2023 15:13:47 +0200
+Message-ID: <20231204131455.19023-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/7] drm: revert solid fill support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,38 +74,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Simon Ser <contact@emersion.fr>, Bjorn Andersson <andersson@kernel.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 4 Dec 2023 at 14:21, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Sun, Dec 03, 2023 at 02:43:27PM +0300, Dmitry Baryshkov wrote:
-> > Greg, could you please ack the last patch to be merged through the
-> > drm-misc tree? You have acked patch 3, but since that time I've added
-> > patches 4-6.
->
-> That is up to the typec maintainer to ack, not me!
+Altough the Solid Fill planes patchset got all reviews and
+acknowledgements, it doesn't fulfill requirements for the new uABI.
+Merging it was a fault of mine.
 
-Hmm, true. I didn't notice supporter vs maintainer.
+It has neither corresponding open-source userspace implementation nor
+the IGT tests coverage. Revert this patchset until userspace obligations
+are fulfilled.
 
-Heikki, then we should bug you about that patch.
+Dmitry Baryshkov (7):
+  Revert "drm/atomic: Loosen FB atomic checks"
+  Revert "drm/atomic: Move framebuffer checks to helper"
+  Revert "drm/atomic: Add solid fill data to plane state dump"
+  Revert "drm/atomic: Add pixel source to plane state dump"
+  Revert "drm: Add solid fill pixel source"
+  Revert "drm: Introduce solid fill DRM plane property"
+  Revert "drm: Introduce pixel_source DRM plane property"
+
+ drivers/gpu/drm/drm_atomic.c              | 148 +++++++++-------------
+ drivers/gpu/drm/drm_atomic_helper.c       |  39 +++---
+ drivers/gpu/drm/drm_atomic_state_helper.c |  10 --
+ drivers/gpu/drm/drm_atomic_uapi.c         |  30 -----
+ drivers/gpu/drm/drm_blend.c               | 133 -------------------
+ drivers/gpu/drm/drm_crtc_internal.h       |   1 -
+ drivers/gpu/drm/drm_plane.c               |  27 +---
+ include/drm/drm_atomic_helper.h           |   4 +-
+ include/drm/drm_blend.h                   |   3 -
+ include/drm/drm_plane.h                   |  90 -------------
+ include/uapi/drm/drm_mode.h               |  24 ----
+ 11 files changed, 86 insertions(+), 423 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.42.0
+
