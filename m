@@ -2,46 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459C0802D73
-	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 09:43:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CC3A802D8C
+	for <lists+freedreno@lfdr.de>; Mon,  4 Dec 2023 09:50:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE1F410E09E;
-	Mon,  4 Dec 2023 08:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1114B10E2D4;
+	Mon,  4 Dec 2023 08:50:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 611C910E092;
- Mon,  4 Dec 2023 08:43:48 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA1010E2CE;
+ Mon,  4 Dec 2023 08:49:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D0F0260F52;
- Mon,  4 Dec 2023 08:43:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3194AC433C7;
- Mon,  4 Dec 2023 08:43:47 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 53B27CE0E00;
+ Mon,  4 Dec 2023 08:49:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FAC1C433C7;
+ Mon,  4 Dec 2023 08:49:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701679427;
- bh=7hGwnvV/znPEpwiJjYANraB69RFrj7nI1Ml8VtCdtzk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=RBYUMdw3ArodhkfMx8zay/IvAnAFif4xxhoS4zaNWoAYILdNfED141Z6aYyHO2uk4
- HWLIqNzpNXYt2E9Vz0+Xl3dPFT+fLDbTJbH5Ld9j+qtI8oh1LENwxmUuOkpW03XhbJ
- ns7H5dPeyn3TvQSUEqUZVyBVn6HQPUlBd7/tSmUkjL2GJkB3f6RoSLAnZLNN9e3iJ2
- AH842rmIvM8J2rYR+nKEw3IUTthhVg8dDxEmCHIbA76jRGa05f7jJ0AZzYeJx/mKlf
- 75EgHvSzA/bVMYeE7SHCAUvok19GNpQ7kw5CLzLLXEIGX7aZbEp6V58Tm9NaNhcHXw
- qyKyoLrmZrlGg==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20231202225552.1283638-1-dmitry.baryshkov@linaro.org>
-References: <20231202225552.1283638-1-dmitry.baryshkov@linaro.org>
-Message-Id: <170167942469.3617818.5168906828473373855.b4-ty@kernel.org>
-Date: Mon, 04 Dec 2023 09:43:44 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ s=k20201202; t=1701679794;
+ bh=uG10quNAaJD23Flc15bDB89K/G4XtxgxZ8Ig/bMsvwg=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=Z9/YXd2FuWQfC8SXxbmvuad2BsQzC8grc2YLa+GPJ9JTXbwydLMq7kC3vFMhd70yo
+ 4O83uHoCRZoBgTGTXAZOQoDlC+xFt3t0RXEa1FA7Glgsa5AEGCBrmGws3Qjgkp9znB
+ Mdz3alfvFgkPbN/LLj5W7cHkE4HPPzN0azApR3Hug5B3aGkZnrh7LssoEnSsfAmFoJ
+ ZzJQrW632grwyeq03MA/ZGZ6MR3LtXSl/aOtSDGnAgRXcIcEFrDfE6W77KMvL7n2gC
+ gsxFVmQFJoxEmHDM52t/rrrMG5YP/0qIR5+/SU7rV8gNKjwfYVF3WpATtGcO/Ye9Fo
+ YcIv0PIw+JfjQ==
+Message-ID: <335240cdb8b6b980c2380bdc25fb2833.mripard@kernel.org>
+Date: Mon, 04 Dec 2023 08:49:52 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231203000532.1290480-2-dmitry.baryshkov@linaro.org>
+References: <20231203000532.1290480-2-dmitry.baryshkov@linaro.org>
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.3
-Subject: Re: [Freedreno] (subset) [PATCH RESEND] drm/drv: propagate errors
- from drm_modeset_register_all()
+Subject: Re: [Freedreno] [PATCH RESEND 1/5] drm/atomic: add private obj
+ state to state dump
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,21 +49,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Thomas
+ Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Abhinav
+ Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Maxime
+ Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>, David
+ Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 03 Dec 2023 01:55:52 +0300, Dmitry Baryshkov wrote:
-> In case the drm_modeset_register_all() function fails, its error code
-> will be ignored. Instead make the drm_dev_register() bail out in case of
-> such an error.
+On Sun, 3 Dec 2023 03:05:28 +0300, Dmitry Baryshkov wrote:
+> The drm_atomic_print_new_state() already prints private object state via
+> drm_atomic_private_obj_print_state(). Add private object state dumping
+> to __drm_state_dump(), so that it is also included into drm_state_dump()
+> output and into debugfs/dri/N/state file.
 > 
 > 
+> [ ... ]
 
-Applied to drm/drm-misc (drm-misc-next).
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
 Thanks!
 Maxime
-
