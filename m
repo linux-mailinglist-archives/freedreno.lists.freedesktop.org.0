@@ -1,70 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D6B804428
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 02:37:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6A08044EB
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 03:31:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A735B10E461;
-	Tue,  5 Dec 2023 01:37:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB38510E466;
+	Tue,  5 Dec 2023 02:31:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D795B10E460
- for <freedreno@lists.freedesktop.org>; Tue,  5 Dec 2023 01:37:19 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2c9bd3ec4f6so64051571fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 17:37:19 -0800 (PST)
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFB110E466
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Dec 2023 02:31:53 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-50bf1e32571so2434232e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Dec 2023 18:31:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701740238; x=1702345038; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WASjpjTYaDMI+M/17yk15wAWPvG4vdjSosKnmO8NGfY=;
- b=amTJ6ZWPIl4dNRkYtczx7ogjey5UZyFsCdE0htUvS236lxdyeEIB5iSF2nPHJxd70d
- ZOC3l0mhFd6Fou2bzWd2QMavKPOtBULgC2bX7hUiW1qO0TN1Ojc4Li+BC+VWyYHz8tO7
- 8Hvm87wjYbkhf6gotNH24PWtMEt3S42eXaiwMMG2VNf1jLBOnsLl1LoWWFKwA1FhPICp
- CSPx3EhwxB6GUbdgHzBE+qrfw6y+ua5yHo2hpIXmbpqsozYcPm0aO+V6O7lI+jfnI3Qc
- mJE2NZjuSqFDEHQmNQnr2Iq2aIOZ8K45CdQRsBZzMJa7oiF9BCM6B5IiFicAH+6lPQMV
- 0BYA==
+ d=linaro.org; s=google; t=1701743512; x=1702348312; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=DbHE9BPTRIRsV88TvG0gZTWaeA9wHAPMM62YddZwnZA=;
+ b=m97LchrLpq39+WPJzTrp5U8+dliIwaisROipTwGcaJTMopu5q6a4EkVFWDo6y5ND8+
+ VyGhPj6Xa5sb+uxGR+kv6uwDzLTBsqvSWkKNrmbE3NyNpQz4/JHVASMQm+spkCzk1wZ0
+ szbKYITiFizBmNJ9E+1+IIj5j48W98zOQqt8WznGEwPZPAnEoNKpIg5x7ok0H4JSyBzY
+ JSOiV/zAiHNwDx8vz0LZWozIIQOoIvz0LnwuqzFan1JyhUCqPb/4dWuOKnGp2ySuisNo
+ V/g/7kjIJtpdruGFWDKLZmAxKSRe8uy5cX53QjDG2/e8rCXa9cjSrYF/cNY3KqxnbC7G
+ Uo/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701740238; x=1702345038;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WASjpjTYaDMI+M/17yk15wAWPvG4vdjSosKnmO8NGfY=;
- b=RKnEeCWTTh4oYC98afi+CEMEQdXwfUQWJKqMpeXuhVdUE75JqgQ5WY2SeSMVj7nRug
- VdZ8ud1fL22nHvJp5bScTLbcmyMwQYFRuCWWYIL/GFGfAsoxEiZ7zvwXJ3hmQ9qpikvh
- icFlhdrxvo8jD5fSPE2SQSAJTBg+Rfqmv1nIGl1I/XJeG84h0c5vXYbb8JJhhMeSrvmf
- jhBoz7hJkTAMDPEGpgSs+T7jXUH15PoqmxmKsKeMGSx5y9fqyaIcGWxXnkg82d82OYke
- zExsMUL83nVZBfqB2Aatj+ncrXtPz7p30vwp3gOO51llPSs6QBWDmkvwVvIWYp+23FYb
- Fzfg==
-X-Gm-Message-State: AOJu0YyyBT3nUUW26Hh68lT7Jxsrg9WAGlrIMdP/TKBThiGcZeWxIm4m
- yNv96nUJIdqTBw1VLWCDwUiLFA==
-X-Google-Smtp-Source: AGHT+IFslhiOic1qREeaSAz0mp7DKToeKSsKbXF1VH2ZlFwxZ1cI2ZJ9EDSlD4n7/CMoKxgEbVJkow==
-X-Received: by 2002:a05:6512:3b0b:b0:50b:f51a:299c with SMTP id
- f11-20020a0565123b0b00b0050bf51a299cmr1142916lfv.30.1701740237875; 
- Mon, 04 Dec 2023 17:37:17 -0800 (PST)
-Received: from ?IPV6:2001:14ba:a0db:1f00::227?
- (dzdqv0yyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::227])
+ d=1e100.net; s=20230601; t=1701743512; x=1702348312;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DbHE9BPTRIRsV88TvG0gZTWaeA9wHAPMM62YddZwnZA=;
+ b=lw0HRpI/bFWIO1Iv7Lofm7n6vNXGGJEMFpIKIi3memoZ7iJUGBXoO9CTf6y3GnPaNU
+ E+3vrrcQn0y8Tz8LGrWZBJepemOIN8MXj+SRGVooC5tC9pFYDPDk0zZhrMC2pnE/k/p6
+ lQAy/x0XFjsranuP08zM68wQdoU/beLL25g+L1v0Yq3bI9Dx2UeXGaDRCmE8j7SJRGDX
+ 7rVdo5eGrE78marXb6azkpgQUuAHREWK06xH93Nr9KEIl2Ru1rHaQn1xjwvSFJgtCs6Y
+ Zw8IaXwHHf4/lqKR5dam6vFXKXGSaoL6CutFcTFRYgBrCyb6TLRWvX5NSyzURZwN0AQT
+ wrYg==
+X-Gm-Message-State: AOJu0YyRwWKSfr8xFM32EeeygsSOxtPJKttqFNj2SFhcok4oWXSFcqYd
+ H4cYA2wkfITln5p6ykhT/YtqXA==
+X-Google-Smtp-Source: AGHT+IHj4RrgA3yIRfjkHr/FC4YWFuT0bc/fAnNvvSdZ66FbSu+DwF4JqrgODiqGTpqRbe66VifBVg==
+X-Received: by 2002:a05:6512:3ba0:b0:50b:fe77:196c with SMTP id
+ g32-20020a0565123ba000b0050bfe77196cmr1069018lfv.27.1701743511658; 
+ Mon, 04 Dec 2023 18:31:51 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- g13-20020a19ac0d000000b0050bfdaf01e0sm269941lfc.260.2023.12.04.17.37.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Dec 2023 17:37:16 -0800 (PST)
-Message-ID: <ff89354d-c9d1-486a-982b-0bb976f6b699@linaro.org>
-Date: Tue, 5 Dec 2023 03:37:15 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Maxime Ripard <mripard@kernel.org>
-References: <20231201220843.2023117-1-dmitry.baryshkov@linaro.org>
- <uqrsl3gehpjybzb6cish7vpub3xznouomn4246b7j4i3qiiumv@enskrm5kpwa5>
+ t10-20020ac24c0a000000b0050bc57ec288sm1414726lfq.44.2023.12.04.18.31.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Dec 2023 18:31:50 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <uqrsl3gehpjybzb6cish7vpub3xznouomn4246b7j4i3qiiumv@enskrm5kpwa5>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH RESEND] drm/atomic-helper: rename
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>
+Date: Tue,  5 Dec 2023 05:31:48 +0300
+Message-Id: <20231205023150.1581875-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/2] drm/atomic-helper: rename
  drm_atomic_helper_check_wb_encoder_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,83 +78,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Sam Ravnborg <sam@ravnborg.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/12/2023 10:38, Maxime Ripard wrote:
-> On Sat, Dec 02, 2023 at 12:07:49AM +0200, Dmitry Baryshkov wrote:
->> The drm_atomic_helper_check_wb_encoder_state() function doesn't use
->> encoder for anything other than getting the drm_device instance. The
->> function's description talks about checking the writeback connector
->> state, not the encoder state. Moreover, there is no such thing as an
->> encoder state, encoders generally do not have a state on their own.
->>
->> Drop the first argument and rename the function to
->> drm_atomic_helper_check_wb_connector_state().
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>
->> Resending, no reaction for two months
->>
->> ---
->>   drivers/gpu/drm/drm_atomic_helper.c   | 10 ++++------
->>   drivers/gpu/drm/vkms/vkms_writeback.c |  2 +-
->>   include/drm/drm_atomic_helper.h       |  3 +--
->>   3 files changed, 6 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
->> index 2444fc33dd7c..d69591381f00 100644
->> --- a/drivers/gpu/drm/drm_atomic_helper.c
->> +++ b/drivers/gpu/drm/drm_atomic_helper.c
->> @@ -795,8 +795,7 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
->>   EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
->>   
->>   /**
->> - * drm_atomic_helper_check_wb_encoder_state() - Check writeback encoder state
->> - * @encoder: encoder state to check
->> + * drm_atomic_helper_check_wb_connector_state() - Check writeback connector state
->>    * @conn_state: connector state to check
->>    *
->>    * Checks if the writeback connector state is valid, and returns an error if it
->> @@ -806,8 +805,7 @@ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
->>    * Zero for success or -errno
->>    */
->>   int
->> -drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
->> -					 struct drm_connector_state *conn_state)
->> +drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *conn_state)
-> 
-> AFAIK, all the helpers take the object as first argument, so I'm fine
-> with the name change but it should take a drm_connector too. And ideally
-> a drm_atomic_state pointer instead of drm_connector_state too.
+The function drm_atomic_helper_check_wb_encoder_state() doesn't use
+drm_encoder for anything sensible. Internally it checks
+drm_writeback_connector's state. Thus it makes sense to let this
+function accept drm_writeback_connector object and the drm_atomic_state
+and rename it to drm_atomic_helper_check_wb_connector_state().
 
-I think we then might take even further step and pass 
-drm_writeback_connector to this function. I'll send this as a part of v2.
+Maxime suggested that the function should take drm_connector, but I
+think that drm_writeback_connector is more appropriate, following the
+purpose of the function.
 
-> 
->>   {
->>   	struct drm_writeback_job *wb_job = conn_state->writeback_job;
->>   	struct drm_property_blob *pixel_format_blob;
->> @@ -827,11 +825,11 @@ drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
->>   		if (fb->format->format == formats[i])
->>   			return 0;
->>   
->> -	drm_dbg_kms(encoder->dev, "Invalid pixel format %p4cc\n", &fb->format->format);
->> +	drm_dbg_kms(conn_state->connector->dev, "Invalid pixel format %p4cc\n", &fb->format->format);
-> 
-> Which would also avoid the checkpatch warning there.
-> 
-> Maxime
+Changes since v1:
+- Make the function accept drm_writeback_connector and drm_atomic_state
+  (Maxime)
+- Added a patch for VKMS to move atomic_check of WB path from encoder to
+  connector helpers.
+
+Dmitry Baryshkov (2):
+  drm/atomic-helper: rename drm_atomic_helper_check_wb_encoder_state
+  drm/vkms: move wb's atomic_check from encoder to connector
+
+ drivers/gpu/drm/drm_atomic_helper.c   | 16 +++++++++-------
+ drivers/gpu/drm/vkms/vkms_writeback.c | 27 +++++++++++++++++----------
+ include/drm/drm_atomic_helper.h       |  5 ++---
+ 3 files changed, 28 insertions(+), 20 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
 
