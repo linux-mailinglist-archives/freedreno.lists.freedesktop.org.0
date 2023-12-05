@@ -1,63 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE49680538D
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 12:54:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 729FD805604
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 14:34:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC5E10E15C;
-	Tue,  5 Dec 2023 11:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED7110E52E;
+	Tue,  5 Dec 2023 13:34:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [IPv6:2607:f8b0:4864:20::b2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFFD10E15C
- for <freedreno@lists.freedesktop.org>; Tue,  5 Dec 2023 11:54:49 +0000 (UTC)
-Received: by mail-yb1-xb2d.google.com with SMTP id
- 3f1490d57ef6-db5311eab29so3761700276.3
- for <freedreno@lists.freedesktop.org>; Tue, 05 Dec 2023 03:54:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701777288; x=1702382088; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vsA5gKrCxzLqx2Z8rQ+ATME7jYK1uxeVjWJRCZRRKX0=;
- b=PxfW5LFgLk9V5BpBu7CQX/iH3O0wNP9UZ6D6MAZrTA9GM0hhP0p/0iIfHkb8WBWhzC
- BTlolFwam2KGXJyL0+vd/xFkF8riI2JZviI1H0v/bIMUMeKtbelEFqgR6iegM71UqJND
- CeMtUoKiV/Tko3/5KMlFbox+HazFoR7cEb2oS9ep26iQ/s6pLeapHp3r1HftTPukQuvA
- it8eQnQ/vj5CuwsEvgEZ5xohpwarGT3qHlcmzkAnUcNfMPs/bwZg2En+qhrtNOHcEG+F
- ePB47dTb4Y4L5pAEGMalhr4CbYhXYOCqEfQAD2LW0lcceuTnLxG5CI5sCGr8YYxqc1sG
- b0BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701777288; x=1702382088;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vsA5gKrCxzLqx2Z8rQ+ATME7jYK1uxeVjWJRCZRRKX0=;
- b=mJge3ZHh9AJSNUbmeew8bk9t28X+32N50xorl7kHBmarjMJCKBZ30VfA6upYcw/P5s
- Qng5CfFRll+acRx/norrJkBSDcN8gWrDa15laAYId3wkDZcgWFE1Heih0uy7VcXe0VxU
- 3vtrWgQJw3vK6MLsS9lIItOq4cbykd724aIHDtbfbrsDP2gzXEsJn28zG7zbP2p/JJXg
- j3Fxr3cA8+pGQ/i23nRmUlWr6qpOHUi9J6VvnEXZ/HOueJ1cB8VBcEmJvVSEPWFMTeIW
- a1s9yueH82uBrTJ3BneGhKhKsYZf+cl1aJvvEOnm6nTyPWPGc8HmdzORFBDCP9inkati
- E8Nw==
-X-Gm-Message-State: AOJu0Yw+i3KbCRSW9MPxjVSoBiSaGYRQhbIpfDZylHE+5NsbuN7hK61J
- 9mtG/+YtarvCpDvbgPY9ywOPARiwkOnMCgyE9D7AWw==
-X-Google-Smtp-Source: AGHT+IFMwAe9miKrOxVD6uAUhCfufm0lCJxdcuUgHbE3FCiC5QxQrneRoqm3VDEwKO56zsgD+hw9MVkSQgry6YlCdjU=
-X-Received: by 2002:a5b:a52:0:b0:db5:d88:d463 with SMTP id
- z18-20020a5b0a52000000b00db50d88d463mr3881570ybq.51.1701777288460; 
- Tue, 05 Dec 2023 03:54:48 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61AE410E2AF;
+ Tue,  5 Dec 2023 13:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1701783243; x=1733319243;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=b2GfwFST1ueM5U/2wKHdX45CfQpeB2wtXVu/9e0FuVQ=;
+ b=acfNOIG7zR+IoEGfbF8TBIr0Lgoz0b4yqiAwUlVcU2F+Ml1UwCoMjNvW
+ zLYrnnstIGkPajMtYY/JB20bBDqBavvpCzO1WOILzMgyWrvhRLAGjD5LN
+ BZ9YoT2pIefxvcosRB3FheYibkNkdHNyZ5z+ZtuZ1+yX6UAoIFkj1rmDD
+ y4b8HGdMD69ZrQz+zHoEl1c9SMSh+W3Hb8Df1LpGI6ZJPh+HJXXc6NeKZ
+ AkjmdF3C3r8x5YGGlsupMh0h4VvKHTO57u5FdDvdIIg4YdcHBXJR+vVV1
+ h7ECpi11EkaBwCgFYsx2KXXlT6ubqCMPo22hmm9g6T6IcclSZ0KNprkOS Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="396688869"
+X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="396688869"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2023 05:34:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="747232424"
+X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="747232424"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+ by orsmga006.jf.intel.com with ESMTP; 05 Dec 2023 05:33:59 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rAVYg-000934-1P;
+ Tue, 05 Dec 2023 13:33:54 +0000
+Date: Tue, 5 Dec 2023 21:32:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <202312052138.qMYI7bXS-lkp@intel.com>
+References: <20231203003203.1293087-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-References: <20231201220843.2023117-1-dmitry.baryshkov@linaro.org>
- <uqrsl3gehpjybzb6cish7vpub3xznouomn4246b7j4i3qiiumv@enskrm5kpwa5>
- <ff89354d-c9d1-486a-982b-0bb976f6b699@linaro.org>
- <hfvttbhsztcbagsimvhoeqadwtcrxhcs5gt7ssjipszndqzxeg@co2jxo3smli6>
-In-Reply-To: <hfvttbhsztcbagsimvhoeqadwtcrxhcs5gt7ssjipszndqzxeg@co2jxo3smli6>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 5 Dec 2023 13:54:37 +0200
-Message-ID: <CAA8EJpoAGN+8smPEWAAGaD80JoCC5RwPEqQYvNa9aSQ355KCwA@mail.gmail.com>
-To: Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH RESEND] drm/atomic-helper: rename
- drm_atomic_helper_check_wb_encoder_state
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231203003203.1293087-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [RFT PATCH v2 1/4] drm/msm/dpu: enable writeback on
+ SM8150
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,79 +63,173 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Sam Ravnborg <sam@ravnborg.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, oe-kbuild-all@lists.linux.dev,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 5 Dec 2023 at 13:48, Maxime Ripard <mripard@kernel.org> wrote:
->
-> On Tue, Dec 05, 2023 at 03:37:15AM +0200, Dmitry Baryshkov wrote:
-> > On 04/12/2023 10:38, Maxime Ripard wrote:
-> > > On Sat, Dec 02, 2023 at 12:07:49AM +0200, Dmitry Baryshkov wrote:
-> > > > The drm_atomic_helper_check_wb_encoder_state() function doesn't use
-> > > > encoder for anything other than getting the drm_device instance. The
-> > > > function's description talks about checking the writeback connector
-> > > > state, not the encoder state. Moreover, there is no such thing as an
-> > > > encoder state, encoders generally do not have a state on their own.
-> > > >
-> > > > Drop the first argument and rename the function to
-> > > > drm_atomic_helper_check_wb_connector_state().
-> > > >
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > ---
-> > > >
-> > > > Resending, no reaction for two months
-> > > >
-> > > > ---
-> > > >   drivers/gpu/drm/drm_atomic_helper.c   | 10 ++++------
-> > > >   drivers/gpu/drm/vkms/vkms_writeback.c |  2 +-
-> > > >   include/drm/drm_atomic_helper.h       |  3 +--
-> > > >   3 files changed, 6 insertions(+), 9 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> > > > index 2444fc33dd7c..d69591381f00 100644
-> > > > --- a/drivers/gpu/drm/drm_atomic_helper.c
-> > > > +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> > > > @@ -795,8 +795,7 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
-> > > >   EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
-> > > >   /**
-> > > > - * drm_atomic_helper_check_wb_encoder_state() - Check writeback encoder state
-> > > > - * @encoder: encoder state to check
-> > > > + * drm_atomic_helper_check_wb_connector_state() - Check writeback connector state
-> > > >    * @conn_state: connector state to check
-> > > >    *
-> > > >    * Checks if the writeback connector state is valid, and returns an error if it
-> > > > @@ -806,8 +805,7 @@ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
-> > > >    * Zero for success or -errno
-> > > >    */
-> > > >   int
-> > > > -drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
-> > > > -                                  struct drm_connector_state *conn_state)
-> > > > +drm_atomic_helper_check_wb_connector_state(struct drm_connector_state *conn_state)
-> > >
-> > > AFAIK, all the helpers take the object as first argument, so I'm fine
-> > > with the name change but it should take a drm_connector too. And ideally
-> > > a drm_atomic_state pointer instead of drm_connector_state too.
-> >
-> > I think we then might take even further step and pass
-> > drm_writeback_connector to this function. I'll send this as a part of v2.
->
-> ... Which is still not the usual function prototype for atomic_check
-> helpers.
+Hi Dmitry,
 
-On one hand, you are correct. On the other hand, don't we want to
-emphasise that this function is to be called only for
-drm_writeback_connector objects?
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.7-rc4 next-20231205]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-dpu-enable-writeback-on-SM8150/20231203-083350
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20231203003203.1293087-2-dmitry.baryshkov%40linaro.org
+patch subject: [RFT PATCH v2 1/4] drm/msm/dpu: enable writeback on SM8150
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20231205/202312052138.qMYI7bXS-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231205/202312052138.qMYI7bXS-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202312052138.qMYI7bXS-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:658:
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h:299:15: error: use of undeclared identifier 'WB_SDM845_MASK'
+     299 |                 .features = WB_SDM845_MASK,
+         |                             ^
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h:404:14: error: invalid application of 'sizeof' to an incomplete type 'const struct dpu_wb_cfg[]'
+     404 |         .wb_count = ARRAY_SIZE(sm8150_wb),
+         |                     ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                ^~~~~
+   2 errors generated.
 
 
+vim +/WB_SDM845_MASK +299 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
 
+   294	
+   295	static const struct dpu_wb_cfg sm8150_wb[] = {
+   296		{
+   297			.name = "wb_2", .id = WB_2,
+   298			.base = 0x65000, .len = 0x2c8,
+ > 299			.features = WB_SDM845_MASK,
+   300			.format_list = wb2_formats,
+   301			.num_formats = ARRAY_SIZE(wb2_formats),
+   302			.clk_ctrl = DPU_CLK_CTRL_WB2,
+   303			.xin_id = 6,
+   304			.vbif_idx = VBIF_RT,
+   305			.maxlinewidth = 4096,
+   306			.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
+   307		},
+   308	};
+   309	
+   310	static const struct dpu_intf_cfg sm8150_intf[] = {
+   311		{
+   312			.name = "intf_0", .id = INTF_0,
+   313			.base = 0x6a000, .len = 0x280,
+   314			.features = INTF_SC7180_MASK,
+   315			.type = INTF_DP,
+   316			.controller_id = MSM_DP_CONTROLLER_0,
+   317			.prog_fetch_lines_worst_case = 24,
+   318			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+   319			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
+   320		}, {
+   321			.name = "intf_1", .id = INTF_1,
+   322			.base = 0x6a800, .len = 0x2bc,
+   323			.features = INTF_SC7180_MASK,
+   324			.type = INTF_DSI,
+   325			.controller_id = MSM_DSI_CONTROLLER_0,
+   326			.prog_fetch_lines_worst_case = 24,
+   327			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+   328			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+   329			.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2),
+   330		}, {
+   331			.name = "intf_2", .id = INTF_2,
+   332			.base = 0x6b000, .len = 0x2bc,
+   333			.features = INTF_SC7180_MASK,
+   334			.type = INTF_DSI,
+   335			.controller_id = MSM_DSI_CONTROLLER_1,
+   336			.prog_fetch_lines_worst_case = 24,
+   337			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
+   338			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
+   339			.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2),
+   340		}, {
+   341			.name = "intf_3", .id = INTF_3,
+   342			.base = 0x6b800, .len = 0x280,
+   343			.features = INTF_SC7180_MASK,
+   344			.type = INTF_DP,
+   345			.controller_id = MSM_DP_CONTROLLER_1,
+   346			.prog_fetch_lines_worst_case = 24,
+   347			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
+   348			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
+   349		},
+   350	};
+   351	
+   352	static const struct dpu_perf_cfg sm8150_perf_data = {
+   353		.max_bw_low = 12800000,
+   354		.max_bw_high = 12800000,
+   355		.min_core_ib = 2400000,
+   356		.min_llcc_ib = 800000,
+   357		.min_dram_ib = 800000,
+   358		.min_prefill_lines = 24,
+   359		.danger_lut_tbl = {0xf, 0xffff, 0x0},
+   360		.safe_lut_tbl = {0xfff8, 0xf000, 0xffff},
+   361		.qos_lut_tbl = {
+   362			{.nentry = ARRAY_SIZE(sm8150_qos_linear),
+   363			.entries = sm8150_qos_linear
+   364			},
+   365			{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
+   366			.entries = sc7180_qos_macrotile
+   367			},
+   368			{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
+   369			.entries = sc7180_qos_nrt
+   370			},
+   371			/* TODO: macrotile-qseed is different from macrotile */
+   372		},
+   373		.cdp_cfg = {
+   374			{.rd_enable = 1, .wr_enable = 1},
+   375			{.rd_enable = 1, .wr_enable = 0}
+   376		},
+   377		.clk_inefficiency_factor = 105,
+   378		.bw_inefficiency_factor = 120,
+   379	};
+   380	
+   381	static const struct dpu_mdss_version sm8150_mdss_ver = {
+   382		.core_major_ver = 5,
+   383		.core_minor_ver = 0,
+   384	};
+   385	
+   386	const struct dpu_mdss_cfg dpu_sm8150_cfg = {
+   387		.mdss_ver = &sm8150_mdss_ver,
+   388		.caps = &sm8150_dpu_caps,
+   389		.mdp = &sm8150_mdp,
+   390		.ctl_count = ARRAY_SIZE(sm8150_ctl),
+   391		.ctl = sm8150_ctl,
+   392		.sspp_count = ARRAY_SIZE(sm8150_sspp),
+   393		.sspp = sm8150_sspp,
+   394		.mixer_count = ARRAY_SIZE(sm8150_lm),
+   395		.mixer = sm8150_lm,
+   396		.dspp_count = ARRAY_SIZE(sm8150_dspp),
+   397		.dspp = sm8150_dspp,
+   398		.dsc_count = ARRAY_SIZE(sm8150_dsc),
+   399		.dsc = sm8150_dsc,
+   400		.pingpong_count = ARRAY_SIZE(sm8150_pp),
+   401		.pingpong = sm8150_pp,
+   402		.merge_3d_count = ARRAY_SIZE(sm8150_merge_3d),
+   403		.merge_3d = sm8150_merge_3d,
+ > 404		.wb_count = ARRAY_SIZE(sm8150_wb),
+   405		.wb = sm8150_wb,
+   406		.intf_count = ARRAY_SIZE(sm8150_intf),
+   407		.intf = sm8150_intf,
+   408		.vbif_count = ARRAY_SIZE(sdm845_vbif),
+   409		.vbif = sdm845_vbif,
+   410		.perf = &sm8150_perf_data,
+   411	};
+   412	
 
 -- 
-With best wishes
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
