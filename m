@@ -2,78 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 875828060AC
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 22:25:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 511B1806154
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 23:05:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF05910E629;
-	Tue,  5 Dec 2023 21:25:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC6910E630;
+	Tue,  5 Dec 2023 22:05:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B95FA10E628;
- Tue,  5 Dec 2023 21:25:26 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B5K9uQY029820; Tue, 5 Dec 2023 21:25:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=rpmbVQ6G2nMcHvVGDQXnH+yhqXwn5yt86CzMe9CHXKs=;
- b=WDTkjQC/b5Sw0FrbmnPqFY/1xv4J04FJBCwkff9r3C7Q/TJWXHd5DPBvdseK+6sFALDY
- OVNnPkLOPwTA0CRKdp8W7wMsvVAADT9UkzlCAKLCEUIS4qW6GPG/U1A1YPF3tKXLnwMk
- l8AejQDN1FaGBmV1dGSIezOaRpYKlLsIO1vOTuUeNI+qPpPZDIE7AucDJ5Sjc6jHpn5R
- HoscjhwfugcKk7rpj7AAVMJzZChkKyZhl2lFXgdZ514a+x9f6T7YfVPFg7Oprc6uPr3Y
- CSuW5Tnmq7PYEV7Y/+eAodWq6BZxtwOJMyiIWER+5RVLFeryUbfzQyjXse1OrQM2FTOt wg== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3utanm84s2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 Dec 2023 21:25:21 +0000
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B5LPLju014223
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 5 Dec 2023 21:25:21 GMT
-Received: from [10.71.111.96] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 5 Dec
- 2023 13:25:20 -0800
-Message-ID: <fcf07bc3-9d09-939e-c66b-3ff2a5bbbb83@quicinc.com>
-Date: Tue, 5 Dec 2023 13:25:20 -0800
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF00410E62D;
+ Tue,  5 Dec 2023 22:05:48 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id
+ 41be03b00d2f7-5c1a75a4b6cso2453665a12.2; 
+ Tue, 05 Dec 2023 14:05:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701813947; x=1702418747; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Lt1kIBCZQd3LG/iBwo/J1swllC6IeMh/7niRSSG8eSM=;
+ b=CbCuniAS8QJyIYLP0ccHrOYpXsuh6jJz2cR1rxk+gbH/mjcLCEpRRunayv7Q4AbqDu
+ sIupHdTCP6rDC+eCCj5Zbka+QNYxKLYLlY9tPns7NzLfC4WUyu8t8cOP46Sg/4XURzNh
+ Ic1G+IXS4B0Yz3L8pxPgkGZEIlGpLO0mRN8y+OOQD14IbwGKBpfpZtjcIt1LdDJMJhew
+ TnjMsLKmxWFlWbjiI8ktQT3KYsGlMBB7Gw54g8QpkOoi8VN4hmcC6NxuQg6ywYtBKnn7
+ x/gtkLCVKHOV/7h+DfVVANM6lAYkTkP7uSo7XKdFg2HUCASB0nlBdPELibiBLFya6t9n
+ N2pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701813947; x=1702418747;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Lt1kIBCZQd3LG/iBwo/J1swllC6IeMh/7niRSSG8eSM=;
+ b=k2VoIX/Vd5eQu5SpWfEXva6nYjj66mh81K7ZBX3ISWbFKyY57DHY/4zhwtU/HXFI03
+ ewPyua+6ufzb2KL3QvaIMlotLyDA/qSTEsCRByYogrLLw6pa1jaDJq6D3Ls8/eEGjMbV
+ iVFtyrJOynYNH+6ypFBdkUiTLZ/6ZxaiOxnzgQAkK6IamgCSjNWqpS4ecnIMVoCd4E7G
+ AByyZPtyvqdz36IW7eZA1zb7a2eUfaFXXoyswP4Ue4mrjc1m/Ut/BfeFiKyjE+XQptj+
+ J0daj8atcZM8s84xgd57XrWZeRAdghz+fYyN250jAKHrVC734IqkbSOdDnUHfLebwKsb
+ HpzQ==
+X-Gm-Message-State: AOJu0YwaSxOOIKsNrYNAoDH/P/unIOfIjWLnLDgK0JhisIvp77B4EYX5
+ +8PalxiJGUw81fib6MfRPWFH57YmQcU=
+X-Google-Smtp-Source: AGHT+IGCYdrq8ZCbOguCKZk5oP4hEivw111igFkO+eYDHvqYTmFBPkRzxrRBea62JTpfvkPxKwziLA==
+X-Received: by 2002:a17:90b:1e0b:b0:286:bd82:1435 with SMTP id
+ pg11-20020a17090b1e0b00b00286bd821435mr1671891pjb.22.1701813947284; 
+ Tue, 05 Dec 2023 14:05:47 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
+ by smtp.gmail.com with ESMTPSA id
+ bt10-20020a17090af00a00b00286e69c8fb1sm1498921pjb.52.2023.12.05.14.05.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Dec 2023 14:05:46 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  5 Dec 2023 14:03:26 -0800
+Message-ID: <20231205220526.417719-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-References: <20231203002437.1291595-1-dmitry.baryshkov@linaro.org>
- <684b467c-a4f2-9c8d-b81c-0a21cefdb422@quicinc.com>
-From: Paloma Arellano <quic_parellan@quicinc.com>
-In-Reply-To: <684b467c-a4f2-9c8d-b81c-0a21cefdb422@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: wsZKFap8M6fhRl6Pk6AX9C73O5hbrLWL
-X-Proofpoint-ORIG-GUID: wsZKFap8M6fhRl6Pk6AX9C73O5hbrLWL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-05_17,2023-12-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxscore=0
- bulkscore=0 mlxlogscore=557 clxscore=1011 malwarescore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2312050166
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: correct clk bit for WB2
- block
+Subject: [Freedreno] [PATCH 0/5] drm/msm/adreno: Introduce/rework device hw
+ catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,44 +71,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn
- Andersson <andersson@kernel.org>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ "open list:SUSPEND TO RAM" <linux-pm@vger.kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
+ Johan Hovold <johan+linaro@kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
-On 12/5/2023 12:30 PM, Abhinav Kumar wrote:
->
->
-> On 12/2/2023 4:24 PM, Dmitry Baryshkov wrote:
->> On sc7280 there are two clk bits for WB2: vbif_cli and clk_ctrl. While
->> programming the VBIF params of WB, the driver should be toggling the
->> former bit, while the sc7180_mdp, sc7280_mdp and sm8250_mdp structs
->> list the latter one.
->>
->> Correct that to ensure proper programming sequence for WB2 on these
->> platforms.
->>
->> Fixes: 255f056181ac ("drm/msm/dpu: sc7180: add missing WB2 clock 
->> control")
->> Fixes: 3ce166380567 ("drm/msm/dpu: add writeback support for sc7280")
->> Fixes: 53324b99bd7b ("drm/msm/dpu: add writeback blocks to the sm8250 
->> DPU catalog")
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>
->> Changes since v1:
->>   - Fixed the bits for all three platforms supporting WB (Abhinav)
->>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h | 2 +-
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h | 2 +-
->>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h | 2 +-
->>   3 files changed, 3 insertions(+), 3 deletions(-)
->>
->
-> LGTM now.
->
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Tested-by: Paloma Arellano <quic_parellan@quicinc.com>
+Split the single flat gpulist table into per-gen tables that exist in
+their own per-gen files, and start moving more info into the device
+table.  This at least gets all the big tables of register settings out
+of the heart of the a6xx_gpu code.  Probably more could be moved, to
+remove at least some of the per-gen if/else ladders, but this seemed
+like a reasonably good start.
+
+Rob Clark (5):
+  drm/msm/adreno: Split up giant device table
+  drm/msm/adreno: Split catalog into separate files
+  drm/msm/adreno: Move hwcg regs to a6xx hw catalog
+  drm/msm/adreno: Move hwcg table into a6xx specific info
+  drm/msm/adreno: Move CP_PROTECT settings to hw catalog
+
+ drivers/gpu/drm/msm/Makefile               |    5 +
+ drivers/gpu/drm/msm/adreno/a2xx_catalog.c  |   53 +
+ drivers/gpu/drm/msm/adreno/a3xx_catalog.c  |   75 ++
+ drivers/gpu/drm/msm/adreno/a4xx_catalog.c  |   51 +
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c  |  145 +++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c  | 1118 ++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  817 +-------------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   11 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  559 +---------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   22 +-
+ 10 files changed, 1506 insertions(+), 1350 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/adreno/a2xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a3xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a4xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+
+-- 
+2.42.0
+
