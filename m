@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C28C4805E6D
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 20:14:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EFBA805E94
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 20:23:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BED310E502;
-	Tue,  5 Dec 2023 19:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF69710E23E;
+	Tue,  5 Dec 2023 19:23:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2578C10E4FE;
- Tue,  5 Dec 2023 19:14:36 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1d06819a9cbso25084635ad.1; 
- Tue, 05 Dec 2023 11:14:36 -0800 (PST)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCA5710E23E
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Dec 2023 19:23:56 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-5d3c7ef7b31so54669077b3.3
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Dec 2023 11:23:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701803675; x=1702408475; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Pknw/VvLYNK3NWesRCpLV0ugYlmOF45KcA+VhnXY908=;
- b=S654pL4QTiJ1sIVGR8xiW5AfuLbLseN80AjZsPTswkkOtjqfL+77Z7CX9RvWHo3/12
- XgmWch4PYafoVDBphuBl8nqr4A80Eh+x5mmvY9ay2kqhRJSGYCvdIujhVecmwORk6SY2
- IECWQIO4m5XUXdY2cJ1B1Ovl12+cmRFxhaoikqk9XYnZGAwMgp9KUcSJrSj4/ejfCJPy
- e1Qr4gLi/Cfue9FFIfKfW10r8IDaCBDkfUXnocPKZ8tJZchc6TMXOKDj5jHIUJBEr+Av
- EF66zM0uouoSIAaG1DNMMgFB2kyGouHtWGtizbZeA37okVlUbDDNtPvbjFc3P/RzFqof
- nQhw==
+ d=linaro.org; s=google; t=1701804236; x=1702409036; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=BdRBhUdiy88VquPMK67xhYktoxpymuyrZgVHcTfKEvE=;
+ b=Qc6S2qI87y6OBfkinsOBXDAPilrUDkukKHCS7eqkx2gciN4V3nVLQ6FogbCBnauVkJ
+ i3YYjPsysyZz805XfxxP5jDjh/hhOwrmu6iTNQuvmSeQplZqT6ZfbbJcYDDgZpmRmb2p
+ tFQKDNMkZga5w0M6GTuURiQbnzUtJthThmAohsBX9zb7VUByVIBzAyh/s86bo+whmJmf
+ Qk0adDhcWljEcMBzw03yscXz2bsPYJI7dTlKx9UnCTswyA9brdlKVpTyxLvIivKFIlx9
+ yBSdL3jnQesWl3RGhakSR1d/yohPdXh/aA34+5edF3MhN5hrey1/H1WjGErQ2BAg6uz5
+ QMOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701803675; x=1702408475;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1701804236; x=1702409036;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Pknw/VvLYNK3NWesRCpLV0ugYlmOF45KcA+VhnXY908=;
- b=w8MiMAHD33hpfQtTyDFi2vh2YRlV7f95vguJjRxddxnNImBuHLsk+wG2iqBJYLuUix
- n0vFRO6DpwFATcx9f/9qbqvN3Fqxnw4tIybcRMTrb/EDrTX/lmmW/4e2PSUtxHw1VSJp
- 4P2r7AiDbkUwH9fKhtVeeD+7FChCMRl0cyPvXrh4Mo3gRINh6YqqwuaLE8vAYhCQmpTU
- UJxxhfYQdCQW/umpR06UkLJbr+74YvKosPUe/8gIlweIDDZ9USGP36YhCEdE8hsH9L64
- xG5h1aJ8OVS1K6sO+bmRF0EfnFKJEHaWiWZMQlp7qWbgO3QcnmtfAdX/aExwuefjMMl2
- k0vg==
-X-Gm-Message-State: AOJu0YwT8o+WgvopvKg0+Bfj4M2dXdnaYCEk4pHeHwo5ZIegO+behx2m
- NdZ0nIWraGe+Aq6Hn2e/15jAHx2gObw=
-X-Google-Smtp-Source: AGHT+IH4QhGGCVQMZI6/S/JvN8KqYxLVz7LDAfS1buVk/65HdT/cEHqN5rKl2W7Ul3X8Yiq0f49aKQ==
-X-Received: by 2002:a17:902:8f8c:b0:1d0:6ffd:ae0a with SMTP id
- z12-20020a1709028f8c00b001d06ffdae0amr3516430plo.113.1701803674929; 
- Tue, 05 Dec 2023 11:14:34 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
- by smtp.gmail.com with ESMTPSA id
- h14-20020a170902f54e00b001cfd2cb1907sm3871557plf.206.2023.12.05.11.14.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Dec 2023 11:14:34 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  5 Dec 2023 11:14:30 -0800
-Message-ID: <20231205191431.373564-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.42.0
+ bh=BdRBhUdiy88VquPMK67xhYktoxpymuyrZgVHcTfKEvE=;
+ b=n2y5ZoLlx4g18cOCOiXAw159c23/3imVt9z4kMmIdXolkU5E3lo9j0r8rmpQNZWYIU
+ 4u5xhIQlUsFEuwqxchl9/PU9BMU51slEYgoBAxPGD/CHwrF9sUMlS7lnmw0oxqIzZUSD
+ KNuSJdrQrwSGVdULK1mOSc2zBmD1+ylCXtQfWIrLTJTIASbRH2Oa2c1bqMgcAxmKcwb1
+ x9hCyqMMbvMO1T1ZoRh7G/KZVINEaKfUTZTcanpA622EzmQvhcl2xqv0tvl9tpb2x+ro
+ wQcWPLUbtyJQdSqgeAH3EbjzcnviZZAdgcPwB+dyICVEUGIkX2o44pbScNcpivEwGG9d
+ NWxw==
+X-Gm-Message-State: AOJu0YyhA4amwvFMUwe/s2dfeZ3WvRO5NSzs/j2TEIbPjdKq3ReFRGky
+ 9PhLckPW/I3UGKxqEJwB98WNivHaGQjNBfY4SnaFRbNjIncD6p0a
+X-Google-Smtp-Source: AGHT+IGB24KSnxVVlF0WcGTerZgKeR7iu4J2TyHqkH8G5+AR3JONk0fWgkApmnJi7B2J3ElKVEbAH456C7zrG8FOpQk=
+X-Received: by 2002:a81:af4c:0:b0:5d7:1941:355f with SMTP id
+ x12-20020a81af4c000000b005d71941355fmr4547451ywj.70.1701804235869; Tue, 05
+ Dec 2023 11:23:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Expose syncobj timeline support
+References: <1701734134-7816-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJprgES1tA1E=17Bnrz8n7mX1COpkx=w-vhWge4ywZ1E0ZQ@mail.gmail.com>
+ <e5cc8bb5-f704-73fa-7801-8fc59c7fc4eb@quicinc.com>
+In-Reply-To: <e5cc8bb5-f704-73fa-7801-8fc59c7fc4eb@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 5 Dec 2023 21:23:44 +0200
+Message-ID: <CAA8EJpqHaTx0mCXetLn2cMUJcPPpV-FGTnTs1zLn9MUE0P5StA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: improve DSC allocation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,80 +68,274 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Tue, 5 Dec 2023 at 20:12, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+>
+> On 12/4/2023 4:23 PM, Dmitry Baryshkov wrote:
+> > On Tue, 5 Dec 2023 at 01:55, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> >> A DCE (Display Compression Engine) contains two DSC hard slice
+> >> encoders. Each DCE start with even DSC encoder index followed by
+> >> an odd DSC encoder index. Each encoder can work independently.
+> >> But Only two DSC encoders from same DCE can be paired to work
+> >> together to support merge mode. In addition, the DSC with even
+> >> index have to mapping to even pingpong index and DSC with odd
+> >> index have to mapping to odd pingpong index at its data path.
+> >> This patch improve DSC allocation mechanism with consideration
+> >> of above factors.
+> >>
+> >> Changes in V2:
+> >> -- split _dpu_rm_reserve_dsc() into _dpu_rm_reserve_dsc_single() and
+> >>     _dpu_rm_reserve_dsc_pair()
+> > Please don't send the new iteration of the patch if the discussion is ongoing.
+> Got it, thanks.
+> >
+> > Quoting v1 review:
+> >
+> > Are the limitations (odd:odd, allocation in pairs, etc) applicable to
+> > v1.1 encoders?
+> >
+> > I assume that at least 'allocate two consecutive DSC for DSC merge' is
+> > not applicable, since there are no separate DCE units.
+>
+> yes, you are correct in the hardware point of view.
+>
+> However, at software, we can think think of dsc index 0 and 1 are bound
+> to DCE #1, index 2 and 3 are bound to DCE #2 and etc in regardless of
+> v1.1 or v1.2.
+>
+> By doing that,this dsc allocation algorithm should be able to apply to
+> both.
+>
+> There is no case to have dsc index 1 and dsc index 2 bind together (skip
+> dsc index 0) to support merge mode.
 
-This does unfortunately require a mesa fix to avoid turnip hanging, but
-we don't have a good way to know the userspace version.  Fortunately
-that fix is now in mesa-23.3.0-rc3 and later[1].
+Yes. However this might cause issues on the platforms which have DSI,
+DP and just two DSC encoders. Consider RM allocating two odd (or two
+even) PP blocks. One for DSI, one for DP. Then if we need DSC on both
+interfaces, the RM won't be able to allocate it.
 
-[1] https://gitlab.freedesktop.org/mesa/mesa/-/commit/2bd7e293bfed5d2956a5dcb3e17555d0f6817986
+>
+> >
+> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> >> ---
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 171 ++++++++++++++++++++++++++++++---
+> >>   1 file changed, 156 insertions(+), 15 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> >> index 17ecf23..dafe1ee 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> >> @@ -470,33 +470,174 @@ static int _dpu_rm_reserve_ctls(
+> >>          return 0;
+> >>   }
+> >>
+> >> -static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+> >> +static int _dpu_rm_reserve_dsc_single(struct dpu_rm *rm,
+> >>                                 struct dpu_global_state *global_state,
+> >> -                              struct drm_encoder *enc,
+> >> +                              uint32_t enc_id,
+> >>                                 const struct msm_display_topology *top)
+> >>   {
+> >> -       int num_dsc = top->num_dsc;
+> >> -       int i;
+> >> +       int num_dsc = 0;
+> >> +       int i, pp_idx;
+> >> +       int dsc_idx[DSC_MAX - DSC_0];
+> >> +       uint32_t pp_to_enc_id[PINGPONG_MAX - PINGPONG_0];
+> >> +       int pp_max = PINGPONG_MAX - PINGPONG_0;
+> >> +
+> >> +       for (i = 0; i < DSC_MAX - DSC_0; i++)
+> >> +               dsc_idx[i] = 0;
+> >> +
+> >> +       /* fill working copy with pingpong list */
+> >> +       memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id, sizeof(pp_to_enc_id));
+> >> +
+> >> +       for (i = 0; i < ARRAY_SIZE(rm->dsc_blks) && num_dsc >= top->num_dsc; i++) {
+> >> +               if (!rm->dsc_blks[i])
+> >> +                       continue;
+> >>
+> >> -       /* check if DSC required are allocated or not */
+> >> -       for (i = 0; i < num_dsc; i++) {
+> >> -               if (!rm->dsc_blks[i]) {
+> >> -                       DPU_ERROR("DSC %d does not exist\n", i);
+> >> -                       return -EIO;
+> >> +               if (global_state->dsc_to_enc_id[i])     /* used */
+> >> +                       continue;
+> >> +
+> >> +               /*
+> >> +                * find the pingpong index which had been reserved
+> >> +                * previously at layer mixer allocation
+> >> +                */
+> >> +               for (pp_idx = 0; pp_idx < pp_max; pp_idx++) {
+> >> +                       if (pp_to_enc_id[pp_idx] == enc_id)
+> >> +                               break;
+> >>                  }
+> >>
+> >> -               if (global_state->dsc_to_enc_id[i]) {
+> >> -                       DPU_ERROR("DSC %d is already allocated\n", i);
+> >> -                       return -EIO;
+> >> +               /*
+> >> +                * dsc even index must map to pingpong even index
+> >> +                * dsc odd index must map to pingpong odd index
+> >> +                */
+> >> +               if ((i & 0x01) != (pp_idx & 0x01))
+> >> +                       continue;
+> >> +
+> >> +               dsc_idx[num_dsc++] = i + 1;     /* found, start from 1 */
+> >> +       }
+> >> +
+> >> +       if (num_dsc < top->num_dsc) {
+> >> +               DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
+> >> +                                               num_dsc, top->num_dsc);
+> >> +               return -ENAVAIL;
+> >> +       }
+> >> +
+> >> +       /* reserve dsc */
+> >> +       for (i = 0; i < top->num_dsc; i++) {
+> >> +               int j;
+> >> +
+> >> +               j = dsc_idx[i];
+> >> +               if (j)
+> >> +                       global_state->dsc_to_enc_id[j-1] = enc_id;
+> >> +       }
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +static int _dpu_rm_reserve_dsc_pair(struct dpu_rm *rm,
+> >> +                              struct dpu_global_state *global_state,
+> >> +                              uint32_t enc_id,
+> >> +                              const struct msm_display_topology *top)
+> >> +{
+> >> +       int num_dsc = 0;
+> >> +       int i, pp_idx;
+> >> +       int dsc_idx[DSC_MAX - DSC_0];
+> >> +       uint32_t pp_to_enc_id[PINGPONG_MAX - PINGPONG_0];
+> >> +       int pp_max = PINGPONG_MAX - PINGPONG_0;
+> >> +
+> >> +       for (i = 0; i < DSC_MAX - DSC_0; i++)
+> >> +               dsc_idx[i] = 0;
+> >> +
+> >> +       /* fill working copy with pingpong list */
+> >> +       memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id, sizeof(pp_to_enc_id));
+> >> +
+> >> +       for (i = 0; i < ARRAY_SIZE(rm->dsc_blks) && num_dsc >= top->num_dsc; i++) {
+> >> +               if (!rm->dsc_blks[i])
+> >> +                       continue;
+> >> +
+> >> +               if (global_state->dsc_to_enc_id[i]) {   /* used */
+> >> +                       /* consective dsc index to be paired */
+> >> +                       if (num_dsc) {  /* already start pairing, re start search */
+> >> +                               num_dsc = 0;
+> >> +                               /* fill working copy with pingpong list */
+> >> +                               memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id,
+> >> +                                                               sizeof(pp_to_enc_id));
+> >> +                       }
+> >> +                       continue;
+> >> +               }
+> >> +
+> >> +               /* odd index can not become start of pairing */
+> >> +               if (i & 0x01 && !num_dsc)
+> >> +                       continue;
+> >> +
+> >> +               /*
+> >> +                * find the pingpong index which had been reserved
+> >> +                * previously at layer mixer allocation
+> >> +                */
+> >> +               for (pp_idx = 0; pp_idx < pp_max; pp_idx++) {
+> >> +                       if (pp_to_enc_id[pp_idx] == enc_id)
+> >> +                               break;
+> >>                  }
+> >> +
+> >> +               /*
+> >> +                * dsc even index must map to pingpong even index
+> >> +                * dsc odd index must map to pingpong odd index
+> >> +                */
+> >> +               if ((i & 0x01) != (pp_idx & 0x01))
+> >> +                       continue;
+> >> +
+> >> +               /*
+> >> +                * delete pp_idx so that next pp_idx can be paired with
+> >> +                * next dsc_idx
+> >> +                */
+> >> +               pp_to_enc_id[pp_idx] = 0xffff;
+> >> +
+> >> +               dsc_idx[num_dsc++] = i + 1;     /* found, start from 1 */
+> >>          }
+> >>
+> >> -       for (i = 0; i < num_dsc; i++)
+> >> -               global_state->dsc_to_enc_id[i] = enc->base.id;
+> >> +       if (num_dsc < top->num_dsc) {
+> >> +               DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
+> >> +                                               num_dsc, top->num_dsc);
+> >> +               return -ENAVAIL;
+> >> +       }
+> >> +
+> >> +       /* reserve dsc */
+> >> +       for (i = 0; i < top->num_dsc; i++) {
+> >> +               int j;
+> >> +
+> >> +               j = dsc_idx[i];
+> >> +               if (j)
+> >> +                       global_state->dsc_to_enc_id[j-1] = enc_id;
+> >> +       }
+> >>
+> >>          return 0;
+> >>   }
+> >>
+> >> +static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+> >> +                              struct dpu_global_state *global_state,
+> >> +                              uint32_t enc_id,
+> >> +                              const struct msm_display_topology *top)
+> >> +{
+> >> +       if (!top->num_dsc || !top->num_intf)
+> >> +               return 0;
+> >> +
+> >> +       /*
+> >> +        * Truth:
+> >> +        * 1) every layer mixer only connects to one pingpong
+> >> +        * 2) no pingpong split -- which is two layer mixers shared one pingpong
+> >> +        * 3) each DSC engine contains two dsc encoders
+> >> +        *    -- index(0,1), index (2,3),... etc
+> > Does this apply to v1.1 encoders?
+> >
+> >> +        * 4) dsc pair can only happens with same DSC engine
+> >> +        * 5) odd pingpong connect to odd dsc
+> >> +        * 6) even pingpong connect to even dsc
+> >> +        * 7) pair: encoder +--> pp_idx_0 --> dsc_idx_0
+> >> +                           +--> pp_idx_1 --> dsc_idx_1
+> >> +        */
+> >> +
+> >> +       /* num_dsc should be either 1, 2 or 4 */
+> >> +       if (top->num_dsc > top->num_intf)       /* merge mode */
+> >> +               return _dpu_rm_reserve_dsc_pair(rm, global_state, enc_id, top);
+> >> +       else
+> >> +               return _dpu_rm_reserve_dsc_single(rm, global_state, enc_id, top);
+> >> +}
+> >> +
+> >>   static int _dpu_rm_make_reservation(
+> >>                  struct dpu_rm *rm,
+> >>                  struct dpu_global_state *global_state,
+> >> @@ -518,7 +659,7 @@ static int _dpu_rm_make_reservation(
+> >>                  return ret;
+> >>          }
+> >>
+> >> -       ret  = _dpu_rm_reserve_dsc(rm, global_state, enc, &reqs->topology);
+> >> +       ret  = _dpu_rm_reserve_dsc(rm, global_state, enc->base.id, &reqs->topology);
+> >>          if (ret)
+> >>                  return ret;
+> >>
+> >> --
+> >> 2.7.4
+> >>
+> >
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_drv.c        |  1 +
- drivers/gpu/drm/msm/msm_gem_submit.c | 13 +------------
- 2 files changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 50b65ffc24b1..c7ac2c0a7e27 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -893,6 +893,7 @@ static const struct drm_driver msm_driver = {
- 				DRIVER_RENDER |
- 				DRIVER_ATOMIC |
- 				DRIVER_MODESET |
-+				DRIVER_SYNCOBJ_TIMELINE |
- 				DRIVER_SYNCOBJ,
- 	.open               = msm_open,
- 	.postclose          = msm_postclose,
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 40878c26a749..9cffa4b50c39 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -511,12 +511,6 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
- 			break;
- 		}
- 
--		if (syncobj_desc.point &&
--		    !drm_core_check_feature(submit->dev, DRIVER_SYNCOBJ_TIMELINE)) {
--			ret = -EOPNOTSUPP;
--			break;
--		}
--
- 		if (syncobj_desc.flags & ~MSM_SUBMIT_SYNCOBJ_FLAGS) {
- 			ret = -EINVAL;
- 			break;
-@@ -593,12 +587,6 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
- 		}
- 
- 		if (syncobj_desc.point) {
--			if (!drm_core_check_feature(dev,
--			                            DRIVER_SYNCOBJ_TIMELINE)) {
--				ret = -EOPNOTSUPP;
--				break;
--			}
--
- 			post_deps[i].chain = dma_fence_chain_alloc();
- 			if (!post_deps[i].chain) {
- 				ret = -ENOMEM;
-@@ -617,6 +605,7 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
- 	if (ret) {
- 		for (j = 0; j <= i; ++j) {
- 			dma_fence_chain_free(post_deps[j].chain);
-+			post_deps[j].chain = NULL;
- 			if (post_deps[j].syncobj)
- 				drm_syncobj_put(post_deps[j].syncobj);
- 		}
+
 -- 
-2.42.0
-
+With best wishes
+Dmitry
