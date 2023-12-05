@@ -2,44 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB126804CB4
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 09:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3212F805183
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 12:05:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91E2010E46C;
-	Tue,  5 Dec 2023 08:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DF6E10E4F0;
+	Tue,  5 Dec 2023 11:05:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFE5610E46C;
- Tue,  5 Dec 2023 08:39:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 219D9CE0B03;
- Tue,  5 Dec 2023 08:39:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A11AC433C7;
- Tue,  5 Dec 2023 08:39:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701765545;
- bh=dSJniFJvuhlzGffz0+9vfpug0bjv1vvAyeb5/+VYCOI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DR8HiwhCT4uVoisMTrY7TjEF6d+wbbY3TM32TLF9nkS7i1zvGTTLo+J19B8IZQWwM
- nXhXOGJitnsCBae8OIW5q736VWtgHM+hzt4hinl9YWcJdss0khNR3dD1Jq9JT7zZdv
- OUkhVUMuSHejw+4e63+8JyWkrbUXYrBMywJhMfSCY+xUiSxCiWh6XOGaJB+2wrfjfD
- lErQQ5qbDNIB+ULAJ5QSbeOJUjzjaSLC0XyjgdV5qaE5jH8enXpr5L9Cn2a6t5hrcY
- 3hVk2Xm25/cJuk5eeTH15Fqy57e7qBZPE6fCCPKNG8hEu1kW4+8yNDdlyCKDLrFUWy
- Uj/hvBOSVOK/g==
-Date: Tue, 5 Dec 2023 09:39:02 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Message-ID: <nxxuloh65mlajjwvu5tazxraolrhvpz3kcsjji4alda76xgctv@ua6zwrrgucml>
-References: <20231027-solid-fill-v7-0-780188bfa7b2@quicinc.com>
- <20231027-solid-fill-v7-7-780188bfa7b2@quicinc.com>
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B17BA10E4EF;
+ Tue,  5 Dec 2023 11:05:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1701774327; x=1733310327;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=g2IiNCZKkf0z4VEVzhLMsiNKMJiqcRWCkCgz8VEIZa8=;
+ b=iSL1IiQw7yye0S1eGCYZLaRu/RmF+SnBguKHAGzDEYHdU5VK1E0+zK/A
+ vkgW93fQj38fhqQGwfaFi/0GO6UxOicbZsGj2LtGMuBZ9/yzn4UYr7/oe
+ Y0G4ymuDsZj9DwKHDIFWrjzdYtM0Jh0Y/rxe+mXZ12KeGyCBTJvPqxnKz
+ 4Xbb9hp68SK6HaXuMUErgl2YTuLRtIIwyh3zPOdnER7Iu+PzQFyaOZOkC
+ ogUCYjAvjfIKxR4+4mX017MeAnH9d333d3mQ6LTOVCpnO88yM8BWiDD4o
+ 4YoNPV1CWCcnBnZ5xlvF3SSF03vcU13wuymoHZ6vfX/mGu8JxIKh53gbx Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="458199440"
+X-IronPort-AV: E=Sophos;i="6.04,251,1695711600"; d="scan'208";a="458199440"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2023 03:05:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="861708568"
+X-IronPort-AV: E=Sophos;i="6.04,251,1695711600"; d="scan'208";a="861708568"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+ by FMSMGA003.fm.intel.com with ESMTP; 05 Dec 2023 03:05:23 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rATEs-0008pZ-3D;
+ Tue, 05 Dec 2023 11:05:20 +0000
+Date: Tue, 5 Dec 2023 19:04:30 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>
+Message-ID: <202312051810.e0QCZPbY-lkp@intel.com>
+References: <20231205023150.1581875-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vg2ogmm6wxqd5eta"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231027-solid-fill-v7-7-780188bfa7b2@quicinc.com>
-Subject: Re: [Freedreno] [PATCH RFC v7 07/10] drm/atomic: Loosen FB atomic
- checks
+In-Reply-To: <20231205023150.1581875-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/atomic-helper: rename
+ drm_atomic_helper_check_wb_encoder_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,56 +68,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, sebastian.wick@redhat.com,
- ppaalanen@gmail.com, Thomas Zimmermann <tzimmermann@suse.de>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- laurent.pinchart@ideasonboard.com, Daniel Vetter <daniel@ffwll.ch>,
- contact@emersion.fr, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- wayland-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
---vg2ogmm6wxqd5eta
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+kernel test robot noticed the following build warnings:
 
-Hi,
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v6.7-rc4 next-20231205]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-On Fri, Oct 27, 2023 at 03:32:57PM -0700, Jessica Zhang wrote:
-> Loosen the requirements for atomic and legacy commit so that, in cases
-> where pixel_source !=3D FB, the commit can still go through.
->=20
-> This includes adding framebuffer NULL checks in other areas to account for
-> FB being NULL when non-FB pixel sources are enabled.
->=20
-> To disable a plane, the pixel_source must be NONE or the FB must be NULL
-> if pixel_source =3D=3D FB.
->=20
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-atomic-helper-rename-drm_atomic_helper_check_wb_encoder_state/20231205-103552
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20231205023150.1581875-2-dmitry.baryshkov%40linaro.org
+patch subject: [PATCH v2 1/2] drm/atomic-helper: rename drm_atomic_helper_check_wb_encoder_state
+config: i386-buildonly-randconfig-003-20231205 (https://download.01.org/0day-ci/archive/20231205/202312051810.e0QCZPbY-lkp@intel.com/config)
+compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231205/202312051810.e0QCZPbY-lkp@intel.com/reproduce)
 
-This breaks some plane kunit tests we have:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202312051810.e0QCZPbY-lkp@intel.com/
 
-See https://lore.kernel.org/dri-devel/20231204173536.51003-1-naresh.kamboju=
-@linaro.org/
+All warnings (new ones prefixed by >>):
 
-Maxime
+>> drivers/gpu/drm/drm_atomic_helper.c:811: warning: Function parameter or member 'wb_conn' not described in 'drm_atomic_helper_check_wb_connector_state'
+>> drivers/gpu/drm/drm_atomic_helper.c:811: warning: Excess function parameter 'connector' description in 'drm_atomic_helper_check_wb_connector_state'
 
---vg2ogmm6wxqd5eta
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+vim +811 drivers/gpu/drm/drm_atomic_helper.c
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZW7hpgAKCRDj7w1vZxhR
-xRaSAP4ozFoBHnSVpdZs8a5pPi+lP4+/seXLresmMqgkjyFRNQD/ZVWVZ6F9ldOa
-j7LNrKY0oxu+rklJhK3G1KPgR+rzyg4=
-=3ESI
------END PGP SIGNATURE-----
+623369e533e8a5 Daniel Vetter    2014-09-16  796  
+254fe9c106ed69 Igor Torrente    2022-09-05  797  /**
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  798   * drm_atomic_helper_check_wb_connector_state() - Check writeback connector state
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  799   * @connector: corresponding connector
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  800   * @state: the driver state object
+254fe9c106ed69 Igor Torrente    2022-09-05  801   *
+254fe9c106ed69 Igor Torrente    2022-09-05  802   * Checks if the writeback connector state is valid, and returns an error if it
+254fe9c106ed69 Igor Torrente    2022-09-05  803   * isn't.
+254fe9c106ed69 Igor Torrente    2022-09-05  804   *
+254fe9c106ed69 Igor Torrente    2022-09-05  805   * RETURNS:
+254fe9c106ed69 Igor Torrente    2022-09-05  806   * Zero for success or -errno
+254fe9c106ed69 Igor Torrente    2022-09-05  807   */
+254fe9c106ed69 Igor Torrente    2022-09-05  808  int
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  809  drm_atomic_helper_check_wb_connector_state(struct drm_writeback_connector *wb_conn,
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  810  					   struct drm_atomic_state *state)
+254fe9c106ed69 Igor Torrente    2022-09-05 @811  {
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  812  	struct drm_connector_state *conn_state =
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  813  		drm_atomic_get_new_connector_state(state, &wb_conn->base);
+254fe9c106ed69 Igor Torrente    2022-09-05  814  	struct drm_writeback_job *wb_job = conn_state->writeback_job;
+254fe9c106ed69 Igor Torrente    2022-09-05  815  	struct drm_property_blob *pixel_format_blob;
+254fe9c106ed69 Igor Torrente    2022-09-05  816  	struct drm_framebuffer *fb;
+254fe9c106ed69 Igor Torrente    2022-09-05  817  	size_t i, nformats;
+254fe9c106ed69 Igor Torrente    2022-09-05  818  	u32 *formats;
+254fe9c106ed69 Igor Torrente    2022-09-05  819  
+254fe9c106ed69 Igor Torrente    2022-09-05  820  	if (!wb_job || !wb_job->fb)
+254fe9c106ed69 Igor Torrente    2022-09-05  821  		return 0;
+254fe9c106ed69 Igor Torrente    2022-09-05  822  
+254fe9c106ed69 Igor Torrente    2022-09-05  823  	pixel_format_blob = wb_job->connector->pixel_formats_blob_ptr;
+254fe9c106ed69 Igor Torrente    2022-09-05  824  	nformats = pixel_format_blob->length / sizeof(u32);
+254fe9c106ed69 Igor Torrente    2022-09-05  825  	formats = pixel_format_blob->data;
+254fe9c106ed69 Igor Torrente    2022-09-05  826  	fb = wb_job->fb;
+254fe9c106ed69 Igor Torrente    2022-09-05  827  
+254fe9c106ed69 Igor Torrente    2022-09-05  828  	for (i = 0; i < nformats; i++)
+254fe9c106ed69 Igor Torrente    2022-09-05  829  		if (fb->format->format == formats[i])
+254fe9c106ed69 Igor Torrente    2022-09-05  830  			return 0;
+254fe9c106ed69 Igor Torrente    2022-09-05  831  
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  832  	drm_dbg_kms(wb_conn->base.dev, "Invalid pixel format %p4cc\n", &fb->format->format);
+254fe9c106ed69 Igor Torrente    2022-09-05  833  
+254fe9c106ed69 Igor Torrente    2022-09-05  834  	return -EINVAL;
+254fe9c106ed69 Igor Torrente    2022-09-05  835  }
+d538670e1a27f5 Dmitry Baryshkov 2023-12-05  836  EXPORT_SYMBOL(drm_atomic_helper_check_wb_connector_state);
+254fe9c106ed69 Igor Torrente    2022-09-05  837  
 
---vg2ogmm6wxqd5eta--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
