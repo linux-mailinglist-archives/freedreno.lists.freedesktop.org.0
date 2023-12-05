@@ -1,77 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DD2D805D04
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 19:12:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13850805E18
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 19:51:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FDD10E5EA;
-	Tue,  5 Dec 2023 18:12:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D96E10E5FD;
+	Tue,  5 Dec 2023 18:51:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5303610E5EA
- for <freedreno@lists.freedesktop.org>; Tue,  5 Dec 2023 18:12:31 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B5HipCF030481
- for <freedreno@lists.freedesktop.org>; Tue, 5 Dec 2023 18:12:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=TYGrmqCBxMmEANBVdWyXEn9nn3rT+IlZZYotStXA2Ow=;
- b=N7rg5NnptlSa+KuoLtwyZqb6cuxvUovKscTlw0+WtBubvDeOqut5LzJOPDak4Lh2uWBj
- hjJNRhTbw4RYeC24ppEwc3eslpfkXU2sLj85biKsd958fMH7C4YNNINsJYACGb+RK9+e
- itdGDg7D/tBWcrEI4dLXmg6n3m8my/x0TeRwgGm3/W7gaaz8YRIn7157WSw7cGMHhcN3
- czcCqqHpWjWcB0UKLZ7Gndb71XeZ2Xwlvrtwz3p5WUTRo4sK+5Kh+YBl+9YqXDpYXXUm
- ZDhoQ+Ic7JL5zHoB4viHYG9xBIFqqw3F1bHONqj0bdQl/AdS53z4g97MUll6uq7HqOWT 3Q== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ut71qrbh5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 05 Dec 2023 18:12:29 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B5ICTGT010791
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Tue, 5 Dec 2023 18:12:29 GMT
-Received: from [10.71.108.39] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 5 Dec
- 2023 10:12:29 -0800
-Message-ID: <e5cc8bb5-f704-73fa-7801-8fc59c7fc4eb@quicinc.com>
-Date: Tue, 5 Dec 2023 10:12:21 -0800
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8DE10E5FC;
+ Tue,  5 Dec 2023 18:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1701802280; x=1733338280;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=dT4NRjW0RT7c2QCYobwRufBLK9f4E4s8VI2cqsOh2oU=;
+ b=Qp1wgtWkQR0udpUGqOr/vIO6xOaB9b//oF5FwDtJjhDVqmebAPiYY6ax
+ JNKsuks3NIRuWsVxYT8w6H3FViTbIUtjsfwGW6zqtIsgXJlXPy/qM87ap
+ q6zoWrE6uTrLvhWh2aOQSJUVbxHCUP0PRXJg35ovg83avQIcddrRlSlUk
+ qfSo2eKAWNencyIrL1mclST4ABAGNPqFo0UUP4VhOATcaBbmVD7habOgt
+ Nwr1VMVpxMmwt4bxw+yWS2ahEORwbfRNB+U8swOYdE28PlJBpw9pMEqkl
+ OM+M+CxMWBhp8c5gQ1pvKH3c6+6aee2mb7mLAN8GBCItgHIIe/ekW7G5e A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="458261260"
+X-IronPort-AV: E=Sophos;i="6.04,253,1695711600"; d="scan'208";a="458261260"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2023 10:51:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="747336973"
+X-IronPort-AV: E=Sophos;i="6.04,253,1695711600"; d="scan'208";a="747336973"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+ by orsmga006.jf.intel.com with ESMTP; 05 Dec 2023 10:51:14 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rAaVk-0009Zr-13;
+ Tue, 05 Dec 2023 18:51:12 +0000
+Date: Wed, 6 Dec 2023 02:50:14 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <202312060251.UlwzdD4v-lkp@intel.com>
+References: <20231203003203.1293087-3-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: <freedreno@lists.freedesktop.org>
-References: <1701734134-7816-1-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJprgES1tA1E=17Bnrz8n7mX1COpkx=w-vhWge4ywZ1E0ZQ@mail.gmail.com>
-Content-Language: en-US
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAA8EJprgES1tA1E=17Bnrz8n7mX1COpkx=w-vhWge4ywZ1E0ZQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: wCZrKhLqYoYnH3sHfmd3Yc1vdHG2oMdS
-X-Proofpoint-ORIG-GUID: wCZrKhLqYoYnH3sHfmd3Yc1vdHG2oMdS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-05_13,2023-12-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- impostorscore=0 spamscore=0 mlxscore=0 mlxlogscore=963 priorityscore=1501
- adultscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2312050144
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: improve DSC allocation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231203003203.1293087-3-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [RFT PATCH v2 2/4] drm/msm/dpu: enable writeback on
+ SC8108X
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,259 +63,201 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, oe-kbuild-all@lists.linux.dev,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
-On 12/4/2023 4:23 PM, Dmitry Baryshkov wrote:
-> On Tue, 5 Dec 2023 at 01:55, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->> A DCE (Display Compression Engine) contains two DSC hard slice
->> encoders. Each DCE start with even DSC encoder index followed by
->> an odd DSC encoder index. Each encoder can work independently.
->> But Only two DSC encoders from same DCE can be paired to work
->> together to support merge mode. In addition, the DSC with even
->> index have to mapping to even pingpong index and DSC with odd
->> index have to mapping to odd pingpong index at its data path.
->> This patch improve DSC allocation mechanism with consideration
->> of above factors.
->>
->> Changes in V2:
->> -- split _dpu_rm_reserve_dsc() into _dpu_rm_reserve_dsc_single() and
->>     _dpu_rm_reserve_dsc_pair()
-> Please don't send the new iteration of the patch if the discussion is ongoing.
-Got it, thanks.
->
-> Quoting v1 review:
->
-> Are the limitations (odd:odd, allocation in pairs, etc) applicable to
-> v1.1 encoders?
->
-> I assume that at least 'allocate two consecutive DSC for DSC merge' is
-> not applicable, since there are no separate DCE units.
+kernel test robot noticed the following build errors:
 
-yes, you are correct in the hardware point of view.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.7-rc4 next-20231205]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-However, at software, we can think think of dsc index 0 and 1 are bound 
-to DCE #1, index 2 and 3 are bound to DCE #2 and etc in regardless of 
-v1.1 or v1.2.
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-dpu-enable-writeback-on-SM8150/20231203-083350
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20231203003203.1293087-3-dmitry.baryshkov%40linaro.org
+patch subject: [RFT PATCH v2 2/4] drm/msm/dpu: enable writeback on SC8108X
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20231206/202312060251.UlwzdD4v-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231206/202312060251.UlwzdD4v-lkp@intel.com/reproduce)
 
-By doing that,this dsc allocation algorithm should be able to apply to 
-both.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202312060251.UlwzdD4v-lkp@intel.com/
 
-There is no case to have dsc index 1 and dsc index 2 bind together (skip 
-dsc index 0) to support merge mode.
+All errors (new ones prefixed by >>):
 
->
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 171 ++++++++++++++++++++++++++++++---
->>   1 file changed, 156 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> index 17ecf23..dafe1ee 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> @@ -470,33 +470,174 @@ static int _dpu_rm_reserve_ctls(
->>          return 0;
->>   }
->>
->> -static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
->> +static int _dpu_rm_reserve_dsc_single(struct dpu_rm *rm,
->>                                 struct dpu_global_state *global_state,
->> -                              struct drm_encoder *enc,
->> +                              uint32_t enc_id,
->>                                 const struct msm_display_topology *top)
->>   {
->> -       int num_dsc = top->num_dsc;
->> -       int i;
->> +       int num_dsc = 0;
->> +       int i, pp_idx;
->> +       int dsc_idx[DSC_MAX - DSC_0];
->> +       uint32_t pp_to_enc_id[PINGPONG_MAX - PINGPONG_0];
->> +       int pp_max = PINGPONG_MAX - PINGPONG_0;
->> +
->> +       for (i = 0; i < DSC_MAX - DSC_0; i++)
->> +               dsc_idx[i] = 0;
->> +
->> +       /* fill working copy with pingpong list */
->> +       memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id, sizeof(pp_to_enc_id));
->> +
->> +       for (i = 0; i < ARRAY_SIZE(rm->dsc_blks) && num_dsc >= top->num_dsc; i++) {
->> +               if (!rm->dsc_blks[i])
->> +                       continue;
->>
->> -       /* check if DSC required are allocated or not */
->> -       for (i = 0; i < num_dsc; i++) {
->> -               if (!rm->dsc_blks[i]) {
->> -                       DPU_ERROR("DSC %d does not exist\n", i);
->> -                       return -EIO;
->> +               if (global_state->dsc_to_enc_id[i])     /* used */
->> +                       continue;
->> +
->> +               /*
->> +                * find the pingpong index which had been reserved
->> +                * previously at layer mixer allocation
->> +                */
->> +               for (pp_idx = 0; pp_idx < pp_max; pp_idx++) {
->> +                       if (pp_to_enc_id[pp_idx] == enc_id)
->> +                               break;
->>                  }
->>
->> -               if (global_state->dsc_to_enc_id[i]) {
->> -                       DPU_ERROR("DSC %d is already allocated\n", i);
->> -                       return -EIO;
->> +               /*
->> +                * dsc even index must map to pingpong even index
->> +                * dsc odd index must map to pingpong odd index
->> +                */
->> +               if ((i & 0x01) != (pp_idx & 0x01))
->> +                       continue;
->> +
->> +               dsc_idx[num_dsc++] = i + 1;     /* found, start from 1 */
->> +       }
->> +
->> +       if (num_dsc < top->num_dsc) {
->> +               DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
->> +                                               num_dsc, top->num_dsc);
->> +               return -ENAVAIL;
->> +       }
->> +
->> +       /* reserve dsc */
->> +       for (i = 0; i < top->num_dsc; i++) {
->> +               int j;
->> +
->> +               j = dsc_idx[i];
->> +               if (j)
->> +                       global_state->dsc_to_enc_id[j-1] = enc_id;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int _dpu_rm_reserve_dsc_pair(struct dpu_rm *rm,
->> +                              struct dpu_global_state *global_state,
->> +                              uint32_t enc_id,
->> +                              const struct msm_display_topology *top)
->> +{
->> +       int num_dsc = 0;
->> +       int i, pp_idx;
->> +       int dsc_idx[DSC_MAX - DSC_0];
->> +       uint32_t pp_to_enc_id[PINGPONG_MAX - PINGPONG_0];
->> +       int pp_max = PINGPONG_MAX - PINGPONG_0;
->> +
->> +       for (i = 0; i < DSC_MAX - DSC_0; i++)
->> +               dsc_idx[i] = 0;
->> +
->> +       /* fill working copy with pingpong list */
->> +       memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id, sizeof(pp_to_enc_id));
->> +
->> +       for (i = 0; i < ARRAY_SIZE(rm->dsc_blks) && num_dsc >= top->num_dsc; i++) {
->> +               if (!rm->dsc_blks[i])
->> +                       continue;
->> +
->> +               if (global_state->dsc_to_enc_id[i]) {   /* used */
->> +                       /* consective dsc index to be paired */
->> +                       if (num_dsc) {  /* already start pairing, re start search */
->> +                               num_dsc = 0;
->> +                               /* fill working copy with pingpong list */
->> +                               memcpy(pp_to_enc_id, global_state->pingpong_to_enc_id,
->> +                                                               sizeof(pp_to_enc_id));
->> +                       }
->> +                       continue;
->> +               }
->> +
->> +               /* odd index can not become start of pairing */
->> +               if (i & 0x01 && !num_dsc)
->> +                       continue;
->> +
->> +               /*
->> +                * find the pingpong index which had been reserved
->> +                * previously at layer mixer allocation
->> +                */
->> +               for (pp_idx = 0; pp_idx < pp_max; pp_idx++) {
->> +                       if (pp_to_enc_id[pp_idx] == enc_id)
->> +                               break;
->>                  }
->> +
->> +               /*
->> +                * dsc even index must map to pingpong even index
->> +                * dsc odd index must map to pingpong odd index
->> +                */
->> +               if ((i & 0x01) != (pp_idx & 0x01))
->> +                       continue;
->> +
->> +               /*
->> +                * delete pp_idx so that next pp_idx can be paired with
->> +                * next dsc_idx
->> +                */
->> +               pp_to_enc_id[pp_idx] = 0xffff;
->> +
->> +               dsc_idx[num_dsc++] = i + 1;     /* found, start from 1 */
->>          }
->>
->> -       for (i = 0; i < num_dsc; i++)
->> -               global_state->dsc_to_enc_id[i] = enc->base.id;
->> +       if (num_dsc < top->num_dsc) {
->> +               DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
->> +                                               num_dsc, top->num_dsc);
->> +               return -ENAVAIL;
->> +       }
->> +
->> +       /* reserve dsc */
->> +       for (i = 0; i < top->num_dsc; i++) {
->> +               int j;
->> +
->> +               j = dsc_idx[i];
->> +               if (j)
->> +                       global_state->dsc_to_enc_id[j-1] = enc_id;
->> +       }
->>
->>          return 0;
->>   }
->>
->> +static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
->> +                              struct dpu_global_state *global_state,
->> +                              uint32_t enc_id,
->> +                              const struct msm_display_topology *top)
->> +{
->> +       if (!top->num_dsc || !top->num_intf)
->> +               return 0;
->> +
->> +       /*
->> +        * Truth:
->> +        * 1) every layer mixer only connects to one pingpong
->> +        * 2) no pingpong split -- which is two layer mixers shared one pingpong
->> +        * 3) each DSC engine contains two dsc encoders
->> +        *    -- index(0,1), index (2,3),... etc
-> Does this apply to v1.1 encoders?
->
->> +        * 4) dsc pair can only happens with same DSC engine
->> +        * 5) odd pingpong connect to odd dsc
->> +        * 6) even pingpong connect to even dsc
->> +        * 7) pair: encoder +--> pp_idx_0 --> dsc_idx_0
->> +                           +--> pp_idx_1 --> dsc_idx_1
->> +        */
->> +
->> +       /* num_dsc should be either 1, 2 or 4 */
->> +       if (top->num_dsc > top->num_intf)       /* merge mode */
->> +               return _dpu_rm_reserve_dsc_pair(rm, global_state, enc_id, top);
->> +       else
->> +               return _dpu_rm_reserve_dsc_single(rm, global_state, enc_id, top);
->> +}
->> +
->>   static int _dpu_rm_make_reservation(
->>                  struct dpu_rm *rm,
->>                  struct dpu_global_state *global_state,
->> @@ -518,7 +659,7 @@ static int _dpu_rm_make_reservation(
->>                  return ret;
->>          }
->>
->> -       ret  = _dpu_rm_reserve_dsc(rm, global_state, enc, &reqs->topology);
->> +       ret  = _dpu_rm_reserve_dsc(rm, global_state, enc->base.id, &reqs->topology);
->>          if (ret)
->>                  return ret;
->>
->> --
->> 2.7.4
->>
->
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:658:
+   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h:299:15: error: use of undeclared identifier 'WB_SDM845_MASK'
+     299 |                 .features = WB_SDM845_MASK,
+         |                             ^
+   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h:404:14: error: invalid application of 'sizeof' to an incomplete type 'const struct dpu_wb_cfg[]'
+     404 |         .wb_count = ARRAY_SIZE(sm8150_wb),
+         |                     ^~~~~~~~~~~~~~~~~~~~~
+   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                ^~~~~
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:659:
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h:306:15: error: use of undeclared identifier 'WB_SDM845_MASK'
+     306 |                 .features = WB_SDM845_MASK,
+         |                             ^
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h:429:14: error: invalid application of 'sizeof' to an incomplete type 'const struct dpu_wb_cfg[]'
+     429 |         .wb_count = ARRAY_SIZE(sc8180x_wb),
+         |                     ^~~~~~~~~~~~~~~~~~~~~~
+   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                ^~~~~
+   4 errors generated.
+
+
+vim +/WB_SDM845_MASK +306 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
+
+   301	
+   302	static const struct dpu_wb_cfg sc8180x_wb[] = {
+   303		{
+   304			.name = "wb_2", .id = WB_2,
+   305			.base = 0x65000, .len = 0x2c8,
+ > 306			.features = WB_SDM845_MASK,
+   307			.format_list = wb2_formats,
+   308			.num_formats = ARRAY_SIZE(wb2_formats),
+   309			.clk_ctrl = DPU_CLK_CTRL_WB2,
+   310			.xin_id = 6,
+   311			.vbif_idx = VBIF_RT,
+   312			.maxlinewidth = 4096,
+   313			.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
+   314		},
+   315	};
+   316	
+   317	static const struct dpu_intf_cfg sc8180x_intf[] = {
+   318		{
+   319			.name = "intf_0", .id = INTF_0,
+   320			.base = 0x6a000, .len = 0x280,
+   321			.features = INTF_SC7180_MASK,
+   322			.type = INTF_DP,
+   323			.controller_id = MSM_DP_CONTROLLER_0,
+   324			.prog_fetch_lines_worst_case = 24,
+   325			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+   326			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
+   327		}, {
+   328			.name = "intf_1", .id = INTF_1,
+   329			.base = 0x6a800, .len = 0x2bc,
+   330			.features = INTF_SC7180_MASK,
+   331			.type = INTF_DSI,
+   332			.controller_id = MSM_DSI_CONTROLLER_0,
+   333			.prog_fetch_lines_worst_case = 24,
+   334			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
+   335			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
+   336			.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2),
+   337		}, {
+   338			.name = "intf_2", .id = INTF_2,
+   339			.base = 0x6b000, .len = 0x2bc,
+   340			.features = INTF_SC7180_MASK,
+   341			.type = INTF_DSI,
+   342			.controller_id = MSM_DSI_CONTROLLER_1,
+   343			.prog_fetch_lines_worst_case = 24,
+   344			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
+   345			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
+   346			.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2),
+   347		},
+   348		/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+   349		{
+   350			.name = "intf_3", .id = INTF_3,
+   351			.base = 0x6b800, .len = 0x280,
+   352			.features = INTF_SC7180_MASK,
+   353			.type = INTF_DP,
+   354			.controller_id = 999,
+   355			.prog_fetch_lines_worst_case = 24,
+   356			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
+   357			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
+   358		}, {
+   359			.name = "intf_4", .id = INTF_4,
+   360			.base = 0x6c000, .len = 0x280,
+   361			.features = INTF_SC7180_MASK,
+   362			.type = INTF_DP,
+   363			.controller_id = MSM_DP_CONTROLLER_1,
+   364			.prog_fetch_lines_worst_case = 24,
+   365			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 20),
+   366			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 21),
+   367		}, {
+   368			.name = "intf_5", .id = INTF_5,
+   369			.base = 0x6c800, .len = 0x280,
+   370			.features = INTF_SC7180_MASK,
+   371			.type = INTF_DP,
+   372			.controller_id = MSM_DP_CONTROLLER_2,
+   373			.prog_fetch_lines_worst_case = 24,
+   374			.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 22),
+   375			.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 23),
+   376		},
+   377	};
+   378	
+   379	static const struct dpu_perf_cfg sc8180x_perf_data = {
+   380		.max_bw_low = 9600000,
+   381		.max_bw_high = 9600000,
+   382		.min_core_ib = 2400000,
+   383		.min_llcc_ib = 800000,
+   384		.min_dram_ib = 800000,
+   385		.danger_lut_tbl = {0xf, 0xffff, 0x0},
+   386		.qos_lut_tbl = {
+   387			{.nentry = ARRAY_SIZE(sc7180_qos_linear),
+   388			.entries = sc7180_qos_linear
+   389			},
+   390			{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
+   391			.entries = sc7180_qos_macrotile
+   392			},
+   393			{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
+   394			.entries = sc7180_qos_nrt
+   395			},
+   396			/* TODO: macrotile-qseed is different from macrotile */
+   397		},
+   398		.cdp_cfg = {
+   399			{.rd_enable = 1, .wr_enable = 1},
+   400			{.rd_enable = 1, .wr_enable = 0}
+   401		},
+   402		.clk_inefficiency_factor = 105,
+   403		.bw_inefficiency_factor = 120,
+   404	};
+   405	
+   406	static const struct dpu_mdss_version sc8180x_mdss_ver = {
+   407		.core_major_ver = 5,
+   408		.core_minor_ver = 1,
+   409	};
+   410	
+   411	const struct dpu_mdss_cfg dpu_sc8180x_cfg = {
+   412		.mdss_ver = &sc8180x_mdss_ver,
+   413		.caps = &sc8180x_dpu_caps,
+   414		.mdp = &sc8180x_mdp,
+   415		.ctl_count = ARRAY_SIZE(sc8180x_ctl),
+   416		.ctl = sc8180x_ctl,
+   417		.sspp_count = ARRAY_SIZE(sc8180x_sspp),
+   418		.sspp = sc8180x_sspp,
+   419		.mixer_count = ARRAY_SIZE(sc8180x_lm),
+   420		.mixer = sc8180x_lm,
+   421		.dspp_count = ARRAY_SIZE(sc8180x_dspp),
+   422		.dspp = sc8180x_dspp,
+   423		.dsc_count = ARRAY_SIZE(sc8180x_dsc),
+   424		.dsc = sc8180x_dsc,
+   425		.pingpong_count = ARRAY_SIZE(sc8180x_pp),
+   426		.pingpong = sc8180x_pp,
+   427		.merge_3d_count = ARRAY_SIZE(sc8180x_merge_3d),
+   428		.merge_3d = sc8180x_merge_3d,
+ > 429		.wb_count = ARRAY_SIZE(sc8180x_wb),
+   430		.wb = sc8180x_wb,
+   431		.intf_count = ARRAY_SIZE(sc8180x_intf),
+   432		.intf = sc8180x_intf,
+   433		.vbif_count = ARRAY_SIZE(sdm845_vbif),
+   434		.vbif = sdm845_vbif,
+   435		.perf = &sc8180x_perf_data,
+   436	};
+   437	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
