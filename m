@@ -2,60 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3212F805183
-	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 12:05:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9302E805350
+	for <lists+freedreno@lfdr.de>; Tue,  5 Dec 2023 12:47:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DF6E10E4F0;
-	Tue,  5 Dec 2023 11:05:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39DAA10E4D9;
+	Tue,  5 Dec 2023 11:47:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17BA10E4EF;
- Tue,  5 Dec 2023 11:05:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1E210E07B;
+ Tue,  5 Dec 2023 11:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701774327; x=1733310327;
+ t=1701776859; x=1733312859;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=g2IiNCZKkf0z4VEVzhLMsiNKMJiqcRWCkCgz8VEIZa8=;
- b=iSL1IiQw7yye0S1eGCYZLaRu/RmF+SnBguKHAGzDEYHdU5VK1E0+zK/A
- vkgW93fQj38fhqQGwfaFi/0GO6UxOicbZsGj2LtGMuBZ9/yzn4UYr7/oe
- Y0G4ymuDsZj9DwKHDIFWrjzdYtM0Jh0Y/rxe+mXZ12KeGyCBTJvPqxnKz
- 4Xbb9hp68SK6HaXuMUErgl2YTuLRtIIwyh3zPOdnER7Iu+PzQFyaOZOkC
- ogUCYjAvjfIKxR4+4mX017MeAnH9d333d3mQ6LTOVCpnO88yM8BWiDD4o
- 4YoNPV1CWCcnBnZ5xlvF3SSF03vcU13wuymoHZ6vfX/mGu8JxIKh53gbx Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="458199440"
-X-IronPort-AV: E=Sophos;i="6.04,251,1695711600"; d="scan'208";a="458199440"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 03:05:27 -0800
+ bh=l/pPGhlGTnM9oQLy7M6WtIxrVGP6wBtkBr8qngEB5GA=;
+ b=AdPGrhPRS3aGhy1NCGDPlIgslBD8UtIjmVu49iQeIpzvh8+9/E7UdWiT
+ 5+45Ws6QuWCm/JOnaE6EhtNfUD46qv+TwOgKtFHGO29MZ3NSGEQ7nkFxv
+ rwK5wW8I05iD0pKeU8vCNwn6Z6YMoMyMnisnT/bX9PiY3tmUSSo07kdNv
+ 0X8hlPF9UUoJop9Xxax/HA2V+vY5ixl7/lH4SYIq5sKXjr6sbkO5xTFIS
+ iYnYEgvi4OphPHK06OLPQ8WF5K+NWdfaalQ7JZujHgOL0hxqMLz2rUHC4
+ CNjiFhT3+um1Ou4cenCNBPWfKusWkhlfJbN4gSgcWx+azp10ZqcmiVdw2 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="384279815"
+X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="384279815"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2023 03:47:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="861708568"
-X-IronPort-AV: E=Sophos;i="6.04,251,1695711600"; d="scan'208";a="861708568"
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="1018198398"
+X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="1018198398"
 Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by FMSMGA003.fm.intel.com with ESMTP; 05 Dec 2023 03:05:23 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 05 Dec 2023 03:47:35 -0800
 Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rATEs-0008pZ-3D;
- Tue, 05 Dec 2023 11:05:20 +0000
-Date: Tue, 5 Dec 2023 19:04:30 +0800
+ (envelope-from <lkp@intel.com>) id 1rATtl-0008uf-0V;
+ Tue, 05 Dec 2023 11:47:33 +0000
+Date: Tue, 5 Dec 2023 19:46:33 +0800
 From: kernel test robot <lkp@intel.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- Haneen Mohammed <hamohammed.sa@gmail.com>
-Message-ID: <202312051810.e0QCZPbY-lkp@intel.com>
-References: <20231205023150.1581875-2-dmitry.baryshkov@linaro.org>
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <202312051918.XcPf4xI6-lkp@intel.com>
+References: <20231203003203.1293087-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231205023150.1581875-2-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/atomic-helper: rename
- drm_atomic_helper_check_wb_encoder_state
+In-Reply-To: <20231203003203.1293087-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [RFT PATCH v2 1/4] drm/msm/dpu: enable writeback on
+ SM8150
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,85 +63,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- oe-kbuild-all@lists.linux.dev
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ oe-kbuild-all@lists.linux.dev, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi Dmitry,
 
-kernel test robot noticed the following build warnings:
+kernel test robot noticed the following build errors:
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.7-rc4 next-20231205]
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.7-rc4 next-20231205]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-atomic-helper-rename-drm_atomic_helper_check_wb_encoder_state/20231205-103552
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-dpu-enable-writeback-on-SM8150/20231203-083350
 base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20231205023150.1581875-2-dmitry.baryshkov%40linaro.org
-patch subject: [PATCH v2 1/2] drm/atomic-helper: rename drm_atomic_helper_check_wb_encoder_state
-config: i386-buildonly-randconfig-003-20231205 (https://download.01.org/0day-ci/archive/20231205/202312051810.e0QCZPbY-lkp@intel.com/config)
-compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231205/202312051810.e0QCZPbY-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20231203003203.1293087-2-dmitry.baryshkov%40linaro.org
+patch subject: [RFT PATCH v2 1/4] drm/msm/dpu: enable writeback on SM8150
+config: i386-buildonly-randconfig-001-20231203 (https://download.01.org/0day-ci/archive/20231205/202312051918.XcPf4xI6-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231205/202312051918.XcPf4xI6-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202312051810.e0QCZPbY-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202312051918.XcPf4xI6-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
->> drivers/gpu/drm/drm_atomic_helper.c:811: warning: Function parameter or member 'wb_conn' not described in 'drm_atomic_helper_check_wb_connector_state'
->> drivers/gpu/drm/drm_atomic_helper.c:811: warning: Excess function parameter 'connector' description in 'drm_atomic_helper_check_wb_connector_state'
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:658:
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h:299:29: error: 'WB_SDM845_MASK' undeclared here (not in a function); did you mean 'WB_SM8250_MASK'?
+     299 |                 .features = WB_SDM845_MASK,
+         |                             ^~~~~~~~~~~~~~
+         |                             WB_SM8250_MASK
 
 
-vim +811 drivers/gpu/drm/drm_atomic_helper.c
+vim +299 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h
 
-623369e533e8a5 Daniel Vetter    2014-09-16  796  
-254fe9c106ed69 Igor Torrente    2022-09-05  797  /**
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  798   * drm_atomic_helper_check_wb_connector_state() - Check writeback connector state
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  799   * @connector: corresponding connector
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  800   * @state: the driver state object
-254fe9c106ed69 Igor Torrente    2022-09-05  801   *
-254fe9c106ed69 Igor Torrente    2022-09-05  802   * Checks if the writeback connector state is valid, and returns an error if it
-254fe9c106ed69 Igor Torrente    2022-09-05  803   * isn't.
-254fe9c106ed69 Igor Torrente    2022-09-05  804   *
-254fe9c106ed69 Igor Torrente    2022-09-05  805   * RETURNS:
-254fe9c106ed69 Igor Torrente    2022-09-05  806   * Zero for success or -errno
-254fe9c106ed69 Igor Torrente    2022-09-05  807   */
-254fe9c106ed69 Igor Torrente    2022-09-05  808  int
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  809  drm_atomic_helper_check_wb_connector_state(struct drm_writeback_connector *wb_conn,
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  810  					   struct drm_atomic_state *state)
-254fe9c106ed69 Igor Torrente    2022-09-05 @811  {
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  812  	struct drm_connector_state *conn_state =
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  813  		drm_atomic_get_new_connector_state(state, &wb_conn->base);
-254fe9c106ed69 Igor Torrente    2022-09-05  814  	struct drm_writeback_job *wb_job = conn_state->writeback_job;
-254fe9c106ed69 Igor Torrente    2022-09-05  815  	struct drm_property_blob *pixel_format_blob;
-254fe9c106ed69 Igor Torrente    2022-09-05  816  	struct drm_framebuffer *fb;
-254fe9c106ed69 Igor Torrente    2022-09-05  817  	size_t i, nformats;
-254fe9c106ed69 Igor Torrente    2022-09-05  818  	u32 *formats;
-254fe9c106ed69 Igor Torrente    2022-09-05  819  
-254fe9c106ed69 Igor Torrente    2022-09-05  820  	if (!wb_job || !wb_job->fb)
-254fe9c106ed69 Igor Torrente    2022-09-05  821  		return 0;
-254fe9c106ed69 Igor Torrente    2022-09-05  822  
-254fe9c106ed69 Igor Torrente    2022-09-05  823  	pixel_format_blob = wb_job->connector->pixel_formats_blob_ptr;
-254fe9c106ed69 Igor Torrente    2022-09-05  824  	nformats = pixel_format_blob->length / sizeof(u32);
-254fe9c106ed69 Igor Torrente    2022-09-05  825  	formats = pixel_format_blob->data;
-254fe9c106ed69 Igor Torrente    2022-09-05  826  	fb = wb_job->fb;
-254fe9c106ed69 Igor Torrente    2022-09-05  827  
-254fe9c106ed69 Igor Torrente    2022-09-05  828  	for (i = 0; i < nformats; i++)
-254fe9c106ed69 Igor Torrente    2022-09-05  829  		if (fb->format->format == formats[i])
-254fe9c106ed69 Igor Torrente    2022-09-05  830  			return 0;
-254fe9c106ed69 Igor Torrente    2022-09-05  831  
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  832  	drm_dbg_kms(wb_conn->base.dev, "Invalid pixel format %p4cc\n", &fb->format->format);
-254fe9c106ed69 Igor Torrente    2022-09-05  833  
-254fe9c106ed69 Igor Torrente    2022-09-05  834  	return -EINVAL;
-254fe9c106ed69 Igor Torrente    2022-09-05  835  }
-d538670e1a27f5 Dmitry Baryshkov 2023-12-05  836  EXPORT_SYMBOL(drm_atomic_helper_check_wb_connector_state);
-254fe9c106ed69 Igor Torrente    2022-09-05  837  
+   294	
+   295	static const struct dpu_wb_cfg sm8150_wb[] = {
+   296		{
+   297			.name = "wb_2", .id = WB_2,
+   298			.base = 0x65000, .len = 0x2c8,
+ > 299			.features = WB_SDM845_MASK,
+   300			.format_list = wb2_formats,
+   301			.num_formats = ARRAY_SIZE(wb2_formats),
+   302			.clk_ctrl = DPU_CLK_CTRL_WB2,
+   303			.xin_id = 6,
+   304			.vbif_idx = VBIF_RT,
+   305			.maxlinewidth = 4096,
+   306			.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
+   307		},
+   308	};
+   309	
 
 -- 
 0-DAY CI Kernel Test Service
