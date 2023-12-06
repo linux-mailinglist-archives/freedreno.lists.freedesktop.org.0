@@ -2,73 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1752806BA8
-	for <lists+freedreno@lfdr.de>; Wed,  6 Dec 2023 11:15:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ECC1806F5C
+	for <lists+freedreno@lfdr.de>; Wed,  6 Dec 2023 13:02:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BBFF10E6BB;
-	Wed,  6 Dec 2023 10:15:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21DAC10E6E8;
+	Wed,  6 Dec 2023 12:02:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA40A10E0F6
- for <freedreno@lists.freedesktop.org>; Wed,  6 Dec 2023 10:14:59 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2c9fdf53abcso7253701fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 06 Dec 2023 02:14:59 -0800 (PST)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA8A10E6E8
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Dec 2023 12:02:11 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3335397607dso780875f8f.1
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Dec 2023 04:02:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701857698; x=1702462498; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TRXp7Tk+V86C1yaIiO+GTt7udFDOuzNm3PPg635Y8sk=;
- b=zXx7c5o/cUro793z0PbONDSgZ3p3pQlTXpJkQQE0LNFqeiX/s9FR0TjFYIZ8jwZE8L
- 9eAaXDL1j8xsszIxB2iRkWZgUJXwNJglFz2mAkfqQQZN0h5BTpoqR22wH2FnMaeb02o+
- YZ84rwydW4GoLvRYXQT950LGlj4PNmCaagBKLSmF/ieukE/JCHrAL+7F9+Bs+tgL2+fn
- RSSt1pkNpY8byHIot2ezq5F4ENyh4so6SE5L7Ktp+kQ5y8DDTadaO6idiT0tveEG5IOI
- Kwl58/I5bhCkGdL12bMcBvQ8LqGBkIGqaQm9xsqnIFCUWs9YS9lhm+HDMsjHU1puf61o
- 5u1A==
+ d=linaro.org; s=google; t=1701864130; x=1702468930; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=C9luEiqd3rNZRXjehlbFdnQ2e1wzzmxPWamwzOSoC4I=;
+ b=OCcU1J3kEJyX/GvHG4Fr/ZvPxhJYVqSxR+jwyu/L7mbxZNroOVE/AB8W1ahiqTlinr
+ ZSgl/dqyGyBmaNLK2OCZekxJq6rWAY12lbA7Iee+aNgQ8X1+dhDR2lA2PhxYQFfsQ05i
+ 7ZBwn0BR5s7+yxosMKb4SwSdGQUtb3h+plB/WDtRnN8UyTGpjISoW6P7pUX6Qhd7MrG1
+ fwzevHCsri7znYxI/bHz1BMKV4GJFy/DVUECe0mFP8Nktbod3o2KaeeC0aEf8E5qQKVm
+ rC1bJzmbRkMJ4ZXTVrN9jgIQHVvIqlGFSfLfDzq2GUHgljYAP9Q/EDttihne6j4yIo9g
+ aukg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701857698; x=1702462498;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TRXp7Tk+V86C1yaIiO+GTt7udFDOuzNm3PPg635Y8sk=;
- b=rxpYAH8uN2v2WXKeLHM8QS2UY6LyaIIi63+BxIVoi7oJ6KGMriEiYkDRoU02qjSjRA
- yTag68OSyZ2THZ2cgR+/Q2/nsIoyaPmCDvEu5aP0vQWtvV+n5XlESTae9iJR+P6+50vu
- nWUPVqJXZvHADXFKQq9LyWLJeNrsVQPUxsMO/toC/fhQuthlf4pf//okdtMYmoeRNZw6
- Ce6Qh0+Nj3c9GKhG/h5c/qHb2f6cRxGibKOBfSpMVoSEz4BWqH8hG2m0IW3EbwJ3t4D4
- vehY7Hz+2j0b1EPTiXNGIE4ZLR/nlTEw/24/fYgtDu0Y0R8VEatReNVRcxvqfmDuqfQx
- NW8A==
-X-Gm-Message-State: AOJu0YwHxG/fvbEyjPmBl+5qvwiwHnIk2F7BCLhxoE9+3vNt5YCoY2E1
- wBetDpzbodoTMeIGlQIs8tAUfw==
-X-Google-Smtp-Source: AGHT+IGMbYMSqyqDdJKBk/0nGjgxdwMTkaGVRTb1v+YfO6mN8GKGOSE5+h1FhJ1u/6em+Ea/fawNTA==
-X-Received: by 2002:a2e:6a10:0:b0:2c9:f3d6:e1d with SMTP id
- f16-20020a2e6a10000000b002c9f3d60e1dmr576604ljc.15.1701857698158; 
- Wed, 06 Dec 2023 02:14:58 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- f1-20020a05651c03c100b002c9e6cbf78esm1519012ljp.19.2023.12.06.02.14.57
+ d=1e100.net; s=20230601; t=1701864130; x=1702468930;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=C9luEiqd3rNZRXjehlbFdnQ2e1wzzmxPWamwzOSoC4I=;
+ b=VABEz/tqfTt6aSjDVUDJ3UOZ/IbUfVC7GDdLCHZk7SaL5PlPXxsT+XWo/I/QCBpF2Z
+ mB1tHO7fw77xYdosvt25O73DdZBIP+bmfO+JAGheaYSnpWFSdMIq/+nk2Ma11hKigGat
+ ienDwAFADF3jXJKHxe43Hpb2ecgxPAykZm9fIyIFmkUP8T9wdvEHgeKbvCWJA856t1vp
+ ln8E8vxTb9oVGqSDVNvfYF/FZcz8VZEhQrjJ0qycSIvfNxnosOpDTt8d/R1ELM4gfL5/
+ JvSZCDMBTS50AC8FZp8yRO/ARv9y3J0Bc61Lw7cCYs9EoTQqM5QV+JZ1OOlY0K0eq1tu
+ h0RA==
+X-Gm-Message-State: AOJu0YxsU7QIqbHwklf7cpnbv7wHwOov3NuHlNnkP8jNRlbehWgn5GUY
+ sVqk+7CTgKkWX6dEEGUc0d1WHlasDd0YL+Gj6M4=
+X-Google-Smtp-Source: AGHT+IFJokEpInd+DiAKxLDKJAGHst4aJ50KC/hLVyMjr37BE7LjVcnWh8PkujsMGpwy/wk3eMm1WA==
+X-Received: by 2002:a7b:cd0d:0:b0:40b:5e4a:4072 with SMTP id
+ f13-20020a7bcd0d000000b0040b5e4a4072mr523452wmj.146.1701864129773; 
+ Wed, 06 Dec 2023 04:02:09 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ w17-20020a05600c475100b0040b45356b72sm25543935wmo.33.2023.12.06.04.02.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Dec 2023 02:14:57 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- Haneen Mohammed <hamohammed.sa@gmail.com>
-Date: Wed,  6 Dec 2023 13:14:55 +0300
-Message-Id: <20231206101455.1664463-3-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231206101455.1664463-1-dmitry.baryshkov@linaro.org>
-References: <20231206101455.1664463-1-dmitry.baryshkov@linaro.org>
+ Wed, 06 Dec 2023 04:02:09 -0800 (PST)
+Date: Wed, 6 Dec 2023 15:02:05 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <c12bb69b-d676-4345-9712-48aab48f2b48@moroto.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 2/2] drm/vkms: move wb's atomic_check from
- encoder to connector
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Subject: [Freedreno] [PATCH] drm/msm/dp: Fix platform_get_irq() check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,96 +69,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, David Airlie <airlied@gmail.com>,
+ kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the renamed drm_atomic_helper_check_wb_connector_state() now accepts
-drm_writeback_connector as the first argument (instead of drm_encoder),
-move the VKMS writeback atomic_check from drm_encoder_helper_funcs to
-drm_connector_helper_funcs. Also drop the vkms_wb_encoder_helper_funcs,
-which have become empty now.
+The platform_get_irq() function returns negative error codes.  It never
+returns zero.  Fix the check accordingly.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Fixes: 82c2a5751227 ("drm/msm/dp: tie dp_display_irq_handler() with dp driver")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
- drivers/gpu/drm/vkms/vkms_writeback.c | 28 ++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index 23c4f7b61cb6..bc724cbd5e3a 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -30,20 +30,25 @@ static const struct drm_connector_funcs vkms_wb_connector_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 61b7103498a7..d80cb3d14c6b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1166,9 +1166,9 @@ static int dp_display_request_irq(struct dp_display_private *dp)
+ 	struct platform_device *pdev = dp->dp_display.pdev;
  
--static int vkms_wb_encoder_atomic_check(struct drm_encoder *encoder,
--					struct drm_crtc_state *crtc_state,
--					struct drm_connector_state *conn_state)
-+static int vkms_wb_atomic_check(struct drm_connector *connector,
-+				struct drm_atomic_state *state)
- {
--	struct drm_connector *connector = conn_state->connector;
--	struct drm_writeback_connector *wb_conn =
--		drm_connector_to_writeback(connector);
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_framebuffer *fb;
--	const struct drm_display_mode *mode = &crtc_state->mode;
-+	const struct drm_display_mode *mode;
- 	int ret;
- 
- 	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
- 		return 0;
- 
-+	if (!conn_state->crtc)
-+		return 0;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	mode = &crtc_state->mode;
-+
- 	fb = conn_state->writeback_job->fb;
- 	if (fb->width != mode->hdisplay || fb->height != mode->vdisplay) {
- 		DRM_DEBUG_KMS("Invalid framebuffer size %ux%u\n",
-@@ -51,17 +56,13 @@ static int vkms_wb_encoder_atomic_check(struct drm_encoder *encoder,
- 		return -EINVAL;
+ 	dp->irq = platform_get_irq(pdev, 0);
+-	if (!dp->irq) {
++	if (dp->irq < 0) {
+ 		DRM_ERROR("failed to get irq\n");
+-		return -EINVAL;
++		return dp->irq;
  	}
  
--	ret = drm_atomic_helper_check_wb_connector_state(wb_conn, conn_state->state);
-+	ret = drm_atomic_helper_check_wb_connector_state(connector, state);
- 	if (ret < 0)
- 		return ret;
- 
- 	return 0;
- }
- 
--static const struct drm_encoder_helper_funcs vkms_wb_encoder_helper_funcs = {
--	.atomic_check = vkms_wb_encoder_atomic_check,
--};
--
- static int vkms_wb_connector_get_modes(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
-@@ -164,6 +165,7 @@ static const struct drm_connector_helper_funcs vkms_wb_conn_helper_funcs = {
- 	.prepare_writeback_job = vkms_wb_prepare_job,
- 	.cleanup_writeback_job = vkms_wb_cleanup_job,
- 	.atomic_commit = vkms_wb_atomic_commit,
-+	.atomic_check = vkms_wb_atomic_check,
- };
- 
- int vkms_enable_writeback_connector(struct vkms_device *vkmsdev)
-@@ -174,7 +176,7 @@ int vkms_enable_writeback_connector(struct vkms_device *vkmsdev)
- 
- 	return drm_writeback_connector_init(&vkmsdev->drm, wb,
- 					    &vkms_wb_connector_funcs,
--					    &vkms_wb_encoder_helper_funcs,
-+					    NULL,
- 					    vkms_wb_formats,
- 					    ARRAY_SIZE(vkms_wb_formats),
- 					    1);
+ 	rc = devm_request_irq(&pdev->dev, dp->irq, dp_display_irq_handler,
 -- 
-2.39.2
+2.42.0
 
