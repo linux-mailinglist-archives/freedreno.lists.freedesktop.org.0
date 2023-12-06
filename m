@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFCE5806A75
-	for <lists+freedreno@lfdr.de>; Wed,  6 Dec 2023 10:12:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B150B806A79
+	for <lists+freedreno@lfdr.de>; Wed,  6 Dec 2023 10:12:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46E4910E6C7;
-	Wed,  6 Dec 2023 09:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9561010E69A;
+	Wed,  6 Dec 2023 09:12:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7783410E6CD
- for <freedreno@lists.freedesktop.org>; Wed,  6 Dec 2023 09:11:56 +0000 (UTC)
-Received: by mail-yb1-xb2a.google.com with SMTP id
- 3f1490d57ef6-db5311eab29so4905097276.3
- for <freedreno@lists.freedesktop.org>; Wed, 06 Dec 2023 01:11:56 -0800 (PST)
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92CE810E6C1
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Dec 2023 09:12:47 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id
+ 3f1490d57ef6-db549f869a3so5262196276.1
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Dec 2023 01:12:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701853915; x=1702458715; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1701853966; x=1702458766; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YqJKf6k3LqdMOajnfjgr4qlTOkc+4XpnvbfWlmqLEqw=;
- b=P5Tfrez/bgV2GrAU89BDcNtgVqnyVZL+l//oRKtwg1tPDlbeQpqDp96smt3jCPfP8E
- 3hw8k8BNq4kSS9ACLA0X/jeuWeI6Et6CY25dlEJTEn7+B23Yf8un3GU4HdGUvsoSHCKh
- HOubNtMp2JerehjogoR4hPSwrSILTNOshnMcoVF28wNCReXYcUmOVEIuCd60YYaVXotf
- uirGitR+NpDKol0lPUTI0pkUfBJVa3Vnxcdmr6d01rkn9dQtQ8IiYmHMmu4TmIhSyK+m
- MmGODCXYLoQU/mQo+ziR/GxtZfIO5SFLRFi99orEKXziyZXHCU33ditOujS6ILcAL7qV
- Zx2g==
+ bh=ff5+UzJ+HzQvyI9Kv5LqVNtPJDYPRZAn3y8IpX5aL58=;
+ b=rJajSRrWz5LSZ7op188dBFWUY6nL1CBlEbMrpZr9T5nqoj9b9fyq2QmCKd3cMngo64
+ OKLXa6d4g86qvRKz8MeOFtKyy9XW+rcJ4F4Htu2zQ7n2Sg6XsGy2+/QEBkSmOirvohx9
+ t5yo94R8IyGd0gUHXm4aKzAGvvdqXqeSyJpvgqCGdEaOUsWf0BSG2fYVQUPM5xGVrGWA
+ qPdW/tXJQtpuF5evxaTtdPPitxipT5cJDAo4hhZcOmgBXF9c1gDS45ril4vYlxYOA9T8
+ +a8FV7D5+3i/FtqCySHWrgwOkxJf6dGeakwIobLZch+3UrYZb0cjW0YSWJhW/C61o/lv
+ d3KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701853915; x=1702458715;
+ d=1e100.net; s=20230601; t=1701853966; x=1702458766;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=YqJKf6k3LqdMOajnfjgr4qlTOkc+4XpnvbfWlmqLEqw=;
- b=wKWu1HLgW4SuwTRZyXJRfFFAxt+P/Sfj6TrC9MBR0+4rP7JXtCu1m1BFtCeo3WMcdY
- Ij1/p5l07gG/k/BRGUhD3b+3C6HqQ/3egzV7bu3zOQMr7iH2am6kPlFrsnLWbAn5dxXR
- b29p32lg9tbfKS4bSQ+h00tt1B+fDrY9nJrsZ2SYZGtMiDEME+xHgszzS0BIl/YabQoR
- WxCmK/O5/+jizMixE1fnK/qAnmSIlsTrVZ0HsJQoFvfx5ndmdoC1cY8FHQLjGG0TY1u/
- MLJ9r0ZkF/2DSimHCzOiJgTe8Y+gidqVWcfnHOKpZBQyly8oRmHuqVpt2lQRT8kR6nOU
- LW9A==
-X-Gm-Message-State: AOJu0YwEbL+QS+BhHpbk4ev34YesT39tc22NmpOOVOfQqbYrj3JQtEPc
- I9K/+fIVfdjjsH4lIIHTLzKbeFO1U/h/h2F3u+jVTg==
-X-Google-Smtp-Source: AGHT+IEa3a5UoBcKWU2a9NslT+MOBgjSAC1zjicINvB9Ra2bERFvGcDVtQBsO6xLpYDOkNYNwp2dm8OphFFSIX5tAN0=
-X-Received: by 2002:a25:3497:0:b0:db7:dacf:622a with SMTP id
- b145-20020a253497000000b00db7dacf622amr375926yba.124.1701853915593; Wed, 06
- Dec 2023 01:11:55 -0800 (PST)
+ bh=ff5+UzJ+HzQvyI9Kv5LqVNtPJDYPRZAn3y8IpX5aL58=;
+ b=YZWRswdwg/+q7vVtxhjJxIs6kD6/g0hYhJHB+DH43E+p/7P/VeCRiY4qzSoDysqHZS
+ eyUiM8914uIoeCsA4OxwAwPPAOAD9MD30k1GLtzXgG7t2rb3x+sl+ilH9/9ihpumfEp1
+ 7roBNCTkeRsxlCyuGZaH7Psx37aAbZEsyQCtzqhiflgfwJHlDwBwqk3XoOnr7/+Q1mXo
+ d56TtWt0E+Cx8IOzHf2yxXP6i1g7XF7zXWWKYm0HsTV+dAG4qFHXyuLG5/46gveT6AM6
+ Pc/e/6ZGv8k4vVw8jk/9rQZhQNXzPLEZQps8OPByElgxR6ahV9mo+Lv/6xG0hJqST5IV
+ sR/g==
+X-Gm-Message-State: AOJu0Yx5jOGCJX3+1Y++lodo04buQIH7JPjAtCMW0wD4DWKbhJmc5QjA
+ ZJVIkDF0MXqvXKZfQ8rESbqhFCznJNBvtjl6ckTTIw==
+X-Google-Smtp-Source: AGHT+IF0IeDJuQTQHa31o0GrY9n748UF5ySeUAAC+78Y2uK2gEvwmXjDq5q4H7heMWz5QEHQTEqoZpREOkNduuqkEVs=
+X-Received: by 2002:a25:2fca:0:b0:db5:4e46:891d with SMTP id
+ v193-20020a252fca000000b00db54e46891dmr385828ybv.12.1701853966723; Wed, 06
+ Dec 2023 01:12:46 -0800 (PST)
 MIME-Version: 1.0
 References: <20231205220526.417719-1-robdclark@gmail.com>
- <20231205220526.417719-3-robdclark@gmail.com>
-In-Reply-To: <20231205220526.417719-3-robdclark@gmail.com>
+ <20231205220526.417719-4-robdclark@gmail.com>
+In-Reply-To: <20231205220526.417719-4-robdclark@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 6 Dec 2023 11:11:44 +0200
-Message-ID: <CAA8EJppNjBCx2NDe4zS_41hEUBiiXcuG63frJ7E67A5M9-FSzg@mail.gmail.com>
+Date: Wed, 6 Dec 2023 11:12:35 +0200
+Message-ID: <CAA8EJpppdueDRZ+J+X=QVViQNdhdY93TnDRfUyHXE7-AfQM6+w@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/adreno: Split catalog into
- separate files
+Subject: Re: [Freedreno] [PATCH 3/5] drm/msm/adreno: Move hwcg regs to a6xx
+ hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,13 +69,14 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- Johan Hovold <johan+linaro@kernel.org>
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
@@ -83,114 +84,16 @@ On Wed, 6 Dec 2023 at 00:06, Rob Clark <robdclark@gmail.com> wrote:
 >
 > From: Rob Clark <robdclark@chromium.org>
 >
-> Split each gen's gpu table into it's own file.  Only code-motion, no
-> functional change.
+> Move the hwcg tables into the hw catalog.
 >
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/Makefile               |   5 +
->  drivers/gpu/drm/msm/adreno/a2xx_catalog.c  |  53 ++
->  drivers/gpu/drm/msm/adreno/a3xx_catalog.c  |  75 +++
->  drivers/gpu/drm/msm/adreno/a4xx_catalog.c  |  51 ++
->  drivers/gpu/drm/msm/adreno/a5xx_catalog.c  | 145 ++++++
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c  | 285 +++++++++++
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 570 +--------------------
->  7 files changed, 620 insertions(+), 564 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/adreno/a2xx_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/adreno/a4xx_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/adreno/a5xx_catalog.c
->  create mode 100644 drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 560 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 558 ---------------------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   3 -
+>  3 files changed, 560 insertions(+), 561 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
->
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 49671364fdcf..32f2fd980452 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -7,12 +7,17 @@ ccflags-$(CONFIG_DRM_MSM_DP) += -I $(srctree)/$(src)/dp
->  msm-y := \
->         adreno/adreno_device.o \
->         adreno/adreno_gpu.o \
-> +       adreno/a2xx_catalog.o \
->         adreno/a2xx_gpu.o \
-> +       adreno/a3xx_catalog.o \
->         adreno/a3xx_gpu.o \
-> +       adreno/a4xx_catalog.o \
->         adreno/a4xx_gpu.o \
-> +       adreno/a5xx_catalog.o \
->         adreno/a5xx_gpu.o \
->         adreno/a5xx_power.o \
->         adreno/a5xx_preempt.o \
-> +       adreno/a6xx_catalog.o \
->         adreno/a6xx_gpu.o \
->         adreno/a6xx_gmu.o \
->         adreno/a6xx_hfi.o \
-> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_catalog.c b/drivers/gpu/drm/msm/adreno/a2xx_catalog.c
-> new file mode 100644
-> index 000000000000..1a4d182279fc
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/adreno/a2xx_catalog.c
-> @@ -0,0 +1,53 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2013-2014 Red Hat
-> + * Author: Rob Clark <robdclark@gmail.com>
-> + *
-> + * Copyright (c) 2014,2017 The Linux Foundation. All rights reserved.
-> + */
-> +
-> +#include "adreno_gpu.h"
-> +
-> +const struct adreno_info a2xx_gpus[] = {
-> +       {
-> +               .chip_ids = ADRENO_CHIP_IDS(0x02000000),
-> +               .family = ADRENO_2XX_GEN1,
-> +               .revn  = 200,
-> +               .fw = {
-> +                       [ADRENO_FW_PM4] = "yamato_pm4.fw",
-> +                       [ADRENO_FW_PFP] = "yamato_pfp.fw",
-> +               },
-> +               .gmem  = SZ_256K,
-> +               .inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +               .init  = a2xx_gpu_init,
-> +       }, { /* a200 on i.mx51 has only 128kib gmem */
-> +               .chip_ids = ADRENO_CHIP_IDS(0x02000001),
-> +               .family = ADRENO_2XX_GEN1,
-> +               .revn  = 201,
-> +               .fw = {
-> +                       [ADRENO_FW_PM4] = "yamato_pm4.fw",
-> +                       [ADRENO_FW_PFP] = "yamato_pfp.fw",
-> +               },
-> +               .gmem  = SZ_128K,
-> +               .inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +               .init  = a2xx_gpu_init,
-> +       }, {
-> +               .chip_ids = ADRENO_CHIP_IDS(0x02020000),
-> +               .family = ADRENO_2XX_GEN2,
-> +               .revn  = 220,
-> +               .fw = {
-> +                       [ADRENO_FW_PM4] = "leia_pm4_470.fw",
-> +                       [ADRENO_FW_PFP] = "leia_pfp_470.fw",
-> +               },
-> +               .gmem  = SZ_512K,
-> +               .inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +               .init  = a2xx_gpu_init,
-> +       }, {
-> +               /* sentinal */
-> +       }
-> +};
-> +
-> +MODULE_FIRMWARE("qcom/leia_pfp_470.fw");
-> +MODULE_FIRMWARE("qcom/leia_pm4_470.fw");
-> +MODULE_FIRMWARE("qcom/yamato_pfp.fw");
-> +MODULE_FIRMWARE("qcom/yamato_pm4.fw");
-> \ No newline at end of file
-
-Nit: you might want to fix newlines (here and in other catalog files).
-
-
 
 -- 
 With best wishes
