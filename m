@@ -2,62 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61556807B4B
-	for <lists+freedreno@lfdr.de>; Wed,  6 Dec 2023 23:24:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415A0807D9D
+	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 02:09:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 476E410E7D1;
-	Wed,  6 Dec 2023 22:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D32F10E147;
+	Thu,  7 Dec 2023 01:09:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5263D10E7CE
- for <freedreno@lists.freedesktop.org>; Wed,  6 Dec 2023 22:24:08 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id
- 3f1490d57ef6-daf4f0e3a0fso359412276.1
- for <freedreno@lists.freedesktop.org>; Wed, 06 Dec 2023 14:24:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701901447; x=1702506247; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=OFW1BtHzKKyWMjTKsTgJeCE0JqHRAauG27klyOmROjc=;
- b=VSLIPRdszbMucuES9w9tL9sNrPBhhtE0q0ZaKNLN5ZKiuZ4+N4/wfE4DLzBGgnI7Oc
- 6QsIjDreX6YVgr8ae88sICFFUO5LNMq4rtybAC1Cw1fy7JStJbo75HeS5WdGgBIpQaYa
- X2WprmzHt0KQUdIb70Yc82dBMFLTzI3X1hzPEC2sgADm6FSB4kELXn71E1ckBWDUFOJM
- P5ZETT7VXFlRU/ZHb9FmVAOj56phuPCoK170qrfxtmTr4WaRre36KUCRYohbx9ANEAJO
- rjzYVQHQFMCFqGPUppUGz/qKyv9YfVOtrDfkYwwVSi3YMsHLrTf9mw675efh75ZxzK0k
- wDRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701901447; x=1702506247;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OFW1BtHzKKyWMjTKsTgJeCE0JqHRAauG27klyOmROjc=;
- b=dqd2zYUDCy7xB/BN/4ls7FwNP7Ftk9mhvYU30EIA6tJcQMg5CEBr8xuDZ9A5bSB3FZ
- Z1DvsFX++IeiSMLoC5TxW+rY1+PyNHPyw8ggjn35yv5XjJKdNNyC/BdHsU2mjupBwcG+
- AuKSC8g/0jBm5Gi7xmlCDryPjNwYT0D2m1zsIS/Dst2/0hDOooQkEyMGFJXnIOle2KMs
- g9Z7WautieH4oIWis9voMNoyqFn52SqtZ8HMftRQ0P2Sxx4zgdPDfd9ax7rcFRnyzprv
- fT1W/04VdKmcIeSzmEgKHngjwNl/5KFHeW4v1Tmyf7ZqWn3WRKpFtWPiFqihCO6+Ndy9
- mEhQ==
-X-Gm-Message-State: AOJu0Yzw07CN7NdNE1B+jrgZni5bmc1SzyuaLWXnltH/tg4OTsQRe9WM
- CwWIOJ072mqrG/ZNTahpvqXz5Umh49WwXy8o/w1nUA==
-X-Google-Smtp-Source: AGHT+IEHcerkxXFp1Wf9mkkpYSruKLDzVFs7vUbnsFJMGyrEWX2GOTzqPWBuAvK/kL7CD3Fu11efxf1XOn9R17miGKI=
-X-Received: by 2002:a25:8102:0:b0:db5:3f84:25f4 with SMTP id
- o2-20020a258102000000b00db53f8425f4mr1484992ybk.65.1701901447301; Wed, 06 Dec
- 2023 14:24:07 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9958E10E10F;
+ Thu,  7 Dec 2023 01:09:51 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3B70dVlg012927; Thu, 7 Dec 2023 01:09:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=JPdO/uN/Su6nXISn/OuEsAh8vo5IilsEU6w+tY8QL5M=;
+ b=WnbZ89vXDiowinQ6++xwv0+C8d/rA7dbZNpkvFVQcfLO/Ye9Nn3uiBu6JIfpOzWpVD3K
+ g2vbMst3LLhq4xaKliI/UU2UGK/inu6ulsXuUzNCHYaouBO3QMVtsJoB09tM2J8+0541
+ EsD3c0fvZx3zIpRuCzdBIyujE7+kFzu2enK7RIctnm8fknxDBKgs6hrsm6KLhyWBnPGv
+ 9I7INmrBGUAsWiz4XpIe7L/uggKgjczwc8rQnwunNvCTPfa6ZEkhLh0iy9t6fzuLHwul
+ bjbkhyrVRKwr4DsmXdaxzH9ldq19kcQOWBuK9tOxneLwqnSwPLk0IImvEhZAUdLvEnrd pg== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uu2p885a4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Dec 2023 01:09:48 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B719lal004719
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 7 Dec 2023 01:09:47 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 6 Dec
+ 2023 17:09:44 -0800
+Message-ID: <50201766-c033-37fd-2219-6a98ba919e0b@quicinc.com>
+Date: Wed, 6 Dec 2023 17:09:43 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
- <20230830224910.8091-8-quic_abhinavk@quicinc.com>
- <CAA8EJpoRcdHtyp3mym5HB2A=O6V4qUNTpnMkvm+OiSt7nHuXJw@mail.gmail.com>
- <5bcbb092-1d29-f795-3be4-5ab1c708cba0@quicinc.com>
- <27074b58-25ed-dbcc-1048-dbd9ba3135c9@quicinc.com>
-In-Reply-To: <27074b58-25ed-dbcc-1048-dbd9ba3135c9@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 7 Dec 2023 00:23:56 +0200
-Message-ID: <CAA8EJppKG=Jxd1rh3UB4qUhrVW2SYOiwBiXum-RD-10T63yPmg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 07/16] drm/msm/dpu: add cdm blocks to RM
+ <20230830224910.8091-16-quic_abhinavk@quicinc.com>
+ <CAA8EJpp=kr0XTrzq0sjssDh3oJYLqYHZjpDxeyKDxV5jfTcaBA@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpp=kr0XTrzq0sjssDh3oJYLqYHZjpDxeyKDxV5jfTcaBA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: uQffHaRbOREM4oSkAxDH0_6azDJ2hC2o
+X-Proofpoint-ORIG-GUID: uQffHaRbOREM4oSkAxDH0_6azDJ2hC2o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-06_22,2023-12-06_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015
+ suspectscore=0 mlxlogscore=999 mlxscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 spamscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311290000
+ definitions=main-2312070007
+Subject: Re: [Freedreno] [PATCH 15/16] drm/msm/dpu: add NV12 in the list of
+ supported WB formats
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,149 +85,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_parellan@quicinc.com,
- Marijn Suijten <marijn.suijten@somainline.org>, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+ quic_khsieh@quicinc.com, Rob Clark <robdclark@gmail.com>,
+ quic_parellan@quicinc.com, Daniel Vetter <daniel@ffwll.ch>,
+ quic_jesszhan@quicinc.com, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 6 Dec 2023 at 23:02, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 11/30/2023 3:47 PM, Abhinav Kumar wrote:
-> >
-> >
-> > On 8/30/2023 4:48 PM, Dmitry Baryshkov wrote:
-> >> On Thu, 31 Aug 2023 at 01:50, Abhinav Kumar
-> >> <quic_abhinavk@quicinc.com> wrote:
-> >>>
-> >>> Add the RM APIs necessary to initialize and allocate CDM
-> >>> blocks by the rest of the DPU pipeline.
-> >>
-> >> ... to be used by the rest?
-> >>
-> >
-> > Yes, thanks.
-> >
-> >
-> >>>
-> >>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>> ---
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 17 +++++++++++++++++
-> >>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h |  2 ++
-> >>>   2 files changed, 19 insertions(+)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >>> index f9215643c71a..7b6444a3fcb1 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >>> @@ -8,6 +8,7 @@
-> >>>   #include "dpu_kms.h"
-> >>>   #include "dpu_hw_lm.h"
-> >>>   #include "dpu_hw_ctl.h"
-> >>> +#include "dpu_hw_cdm.h"
-> >>>   #include "dpu_hw_pingpong.h"
-> >>>   #include "dpu_hw_sspp.h"
-> >>>   #include "dpu_hw_intf.h"
-> >>> @@ -90,6 +91,9 @@ int dpu_rm_destroy(struct dpu_rm *rm)
-> >>>                  }
-> >>>          }
-> >>>
-> >>> +       if (rm->cdm_blk)
-> >>> +               dpu_hw_cdm_destroy(to_dpu_hw_cdm(rm->cdm_blk));
-> >>> +
-> >>>          for (i = 0; i < ARRAY_SIZE(rm->hw_wb); i++)
-> >>>                  dpu_hw_wb_destroy(rm->hw_wb[i]);
-> >>>
-> >>> @@ -240,6 +244,19 @@ int dpu_rm_init(struct dpu_rm *rm,
-> >>>                  rm->hw_sspp[sspp->id - SSPP_NONE] = hw;
-> >>>          }
-> >>>
-> >>> +       if (cat->cdm) {
-> >>> +               struct dpu_hw_cdm *hw;
-> >>> +
-> >>> +               hw = dpu_hw_cdm_init(cat->cdm, mmio);
-> >>> +               /* CDM is optional so no need to bail out */
-> >>> +               if (IS_ERR(hw)) {
-> >>> +                       rc = PTR_ERR(hw);
-> >>> +                       DPU_DEBUG("failed cdm object creation: err
-> >>> %d\n", rc);
-> >>
-> >> No. If it is a part of the catalog, we should fail here as we do in
-> >> other cases.
-> >>
-> >
-> > I guess, the only reason for not failing here was other hw blocks are
-> > needed even for basic display to come up but cdm is only for YUV formats.
-> >
-> > Thats the only reason to mark this a failure which is "OK" to ignore.
-> >
-> > But I see your point that if someone is listing this in the catalog but
-> > still RM fails thats an error.
-> >
-> > Hence, ack.
-> >
-> >>
-> >>> +               } else {
-> >>> +                       rm->cdm_blk = &hw->base;
-> >>> +               }
-> >>> +       }
-> >>> +
-> >>>          return 0;
-> >>>
-> >>>   fail:
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> >>> index 2b551566cbf4..29b221491926 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> >>> @@ -22,6 +22,7 @@ struct dpu_global_state;
-> >>>    * @hw_wb: array of wb hardware resources
-> >>>    * @dspp_blks: array of dspp hardware resources
-> >>>    * @hw_sspp: array of sspp hardware resources
-> >>> + * @cdm_blk: cdm hardware resource
-> >>>    */
-> >>>   struct dpu_rm {
-> >>>          struct dpu_hw_blk *pingpong_blks[PINGPONG_MAX - PINGPONG_0];
-> >>> @@ -33,6 +34,7 @@ struct dpu_rm {
-> >>>          struct dpu_hw_blk *merge_3d_blks[MERGE_3D_MAX - MERGE_3D_0];
-> >>>          struct dpu_hw_blk *dsc_blks[DSC_MAX - DSC_0];
-> >>>          struct dpu_hw_sspp *hw_sspp[SSPP_MAX - SSPP_NONE];
-> >>> +       struct dpu_hw_blk *cdm_blk;
-> >>
-> >> struct dpu_hw_cdm *cdm (or cdm_blk), please.
-> >
-> > Ack.
-> >
->
-> I was going through this more. I think its better we leave this as a
-> dpu_hw_blk because if you see the other blks in struct dpu_rm, all the
-> blocks which are allocated dynamically / can change dynamically are of
-> dpu_hw_blk type. That way the dpu_rm_get_assigned_resources() remains
-> generic. Hence I would prefer to leave it this way.
-
-Ack
-
->
-> >>
-> >>>   };
-> >>>
-> >>>   /**
-> >>> --
-> >>> 2.40.1
-> >>>
-> >>
-> >>
-> >> --
-> >> With best wishes
-> >> Dmitry
 
 
+On 8/30/2023 5:26 PM, Dmitry Baryshkov wrote:
+> On Thu, 31 Aug 2023 at 01:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>> Since CDM block support has now been added for writeback blocks
+>> add NV12 in the list of supported WB formats.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> index 713dfc079718..978330c6678e 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>> @@ -244,6 +244,7 @@ static const uint32_t wb2_formats[] = {
+>>          DRM_FORMAT_BGRA4444,
+>>          DRM_FORMAT_BGRX4444,
+>>          DRM_FORMAT_XBGR4444,
+>> +       DRM_FORMAT_NV12,
+>>   };
+> 
+> No. This way the driver would announce availability of NV12 even on
+> chipsets where NV12 is not supported for the writeback. Please define
+> separate formats array.
+> 
+> BTW: does HW only support NV12 for the writeback? What about YV12 or e.g. NV21?
+> 
 
--- 
-With best wishes
-Dmitry
+Yes, as we discussed in the prev patch, I will split the wb2_formats 
+array to RGB only and RGB+YUV to address this issue.
+
+Regarding the full list of supported formats, here it is:
+
+https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/clo/main/msm/sde/sde_hw_catalog_format.h?ref_type=heads#L107
+
+But YUV420 shouldnt be here as its not supported.
+
+I have to see if I can add some test cases in IGT to validate NV16 and 
+DRM_FORMAT_YUYV. Hence I only exposed this one for now.
+
+>>
+>>   /*************************************************************
+>> --
+>> 2.40.1
+>>
+> 
+> 
