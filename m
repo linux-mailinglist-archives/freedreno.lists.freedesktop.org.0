@@ -2,76 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 624088091DD
-	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 20:48:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5943280924B
+	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 21:29:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3042A10E0C8;
-	Thu,  7 Dec 2023 19:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D59D10E95B;
+	Thu,  7 Dec 2023 20:29:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C557610E96E
- for <freedreno@lists.freedesktop.org>; Thu,  7 Dec 2023 19:48:40 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50c0f13ea11so1349002e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 11:48:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701978519; x=1702583319; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=UhvAcona8JE9mqSkyUEEifprTp821EbSPpKf2QS4sas=;
- b=RkSVH8RHoy/RPUs8ovJswGR3NYQVQ5gH15wQBJMjiVHN6sXG5rn3xfByFELQIFu9Es
- kWdPsKW6Fsvs1oJEYnZ50kgbPnR3dLBBq5L/KZTWzxWwz8mWnUG03Q70eXqHkygUo8lO
- aUbqB4yfwL445fjRqDQds7SD4T8ZCOlCW+sZrV8l1PwVkwN/ecyDEfQwZ/6ez/KaZXIJ
- YwzdvssacCtSIFU6QB6kEzgKE2TGlyyfVQFeR8lKzCsLdYIgFIGZT3YFZmW6DzyeCNFW
- q5szJUJ628wjnodx6ro4+ibz59vCu3O/z8LCz+/xKjJdxzukCgw9hfQdJw5b5HDkXcwc
- Byxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701978519; x=1702583319;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UhvAcona8JE9mqSkyUEEifprTp821EbSPpKf2QS4sas=;
- b=N8rfxXMJ7KfVBVOKrvg0e8vcVC5RtV2wWaXKxSbxirb36TBlVC8sBd/2UGDSp6WIZ3
- 9Y7RkSL8jQqQeiphrHZ3Cdt4+4lvsd/hdtRR116q9SYH1moeqnNrKCIzl0YEvoRMoPmj
- 2zy3//EsuhvZOrbNDM1Y07izmcvDCTiM/6hPvbUrKh5LyO/dR/LaWIp8De7KXdh7+MVb
- YfUXRhjwyK7d9NoU26yfoojNItHiB1CIDflvW5AF8Da7SHo+YyAUog0wO6CJ2M0XXigJ
- zPrPfaZvefKBXmUTGfKjQWCEEF1mnuKwqKd2Y1JebdTcsV8CeEQHjIBHFUXb5Hi9XD7O
- RAhw==
-X-Gm-Message-State: AOJu0YwrEXMOemDfz155WJO2+Xd5gvTCCCqptS6F8iy3LHnNKIu6BpPu
- r4NGxiOUQsH0Dl3IbmIoMHEx7A==
-X-Google-Smtp-Source: AGHT+IFljctdvuyZS7CVZkeukvmHRNSLUGo+jsvHFsItAp5VfL6Nc6kSd4dOhvsJ3yfP3i4ct2webg==
-X-Received: by 2002:a05:6512:4cf:b0:50b:ee7f:a0be with SMTP id
- w15-20020a05651204cf00b0050bee7fa0bemr1615515lfq.5.1701978519021; 
- Thu, 07 Dec 2023 11:48:39 -0800 (PST)
-Received: from [172.30.205.181] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- i38-20020a0565123e2600b0050bf789f501sm29324lfv.11.2023.12.07.11.48.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 11:48:38 -0800 (PST)
-Message-ID: <d830f067-7037-4303-aad7-82b9a1cc660e@linaro.org>
-Date: Thu, 7 Dec 2023 20:48:37 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D67D10E95B;
+ Thu,  7 Dec 2023 20:29:09 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3B7FxiUh020210; Thu, 7 Dec 2023 20:28:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : from : subject : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=X2pYs0UuuiWun4R0IKV5p6WkW0EnE3ha9WWHG3w/E+M=;
+ b=GSc0fQy/lQZ5VIy3lkohbzjIoJDJ3ROxSeoICjGQV4vi8UiwrYu5eoWMBQCK6MemRZLN
+ o2TNsB/OCCSpdw1QczR3EIkw673q3v1PMphZj81XsJVhLtSJ0ztgaA555GjWELtIMFF1
+ +E1xwtKbyBvD0rvaPPDUC7jDUMLnF3iu3dUMse2+Q50mSgMefPyl+J6oklKcm1CtFkjS
+ eiisxcLoWmfN6kE0CP+knILu+KNcJhXSoJKfik3nwNrwlXTedPLx8e9XLWxtpga5BoTZ
+ b+tQondfUPQ5Ox5PsZFg/bLNiYIEJOfT+WtUiE3WlxcQBA4U6loeA9goLiKbcn5sxMLH bA== 
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3utt70c31n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Dec 2023 20:28:14 +0000
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B7KSCYK022543
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 7 Dec 2023 20:28:12 GMT
+Received: from [10.110.31.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 7 Dec
+ 2023 12:28:11 -0800
+Message-ID: <3a15dc76-12ab-4ef5-8aa7-8a853ce1ec68@quicinc.com>
+Date: Thu, 7 Dec 2023 12:28:09 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm/msm/adreno: Add support for SM7150 SoC machine
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Subject: Re: [PATCH v2 5/6] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+To: Jonathan Marek <jonathan@marek.ca>, <freedreno@lists.freedesktop.org>
+References: <20231114225857.19702-1-jonathan@marek.ca>
+ <20231114225857.19702-6-jonathan@marek.ca>
 Content-Language: en-US
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Danila Tikhonov <danila@jiaxyga.com>
-References: <20230926174243.161422-1-danila@jiaxyga.com>
- <20230926174243.161422-2-danila@jiaxyga.com>
- <42a1d0ab-4e8d-461d-bb2c-977a793e52b2@linaro.org>
- <1695755445.902336096@f165.i.mail.ru>
- <84e63b82-4fef-416b-8dbe-3838ad788824@linaro.org>
- <c684d0a7-3336-48e3-9d2b-5c92f9132550@linaro.org>
- <f76637f9-8242-4258-932e-b879145a5cfd@linaro.org>
- <99ffd03f-b888-4222-939b-603c10f2307b@jiaxyga.com>
- <n3y5vfgznufdzdkyv6ygtohkepat5ayrpklearjw6jin57ussu@6uds6wtgaeaq>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <n3y5vfgznufdzdkyv6ygtohkepat5ayrpklearjw6jin57ussu@6uds6wtgaeaq>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231114225857.19702-6-jonathan@marek.ca>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: IIwfnC3Q5vyMuuGYq2YHajjVnxo7oQvK
+X-Proofpoint-GUID: IIwfnC3Q5vyMuuGYq2YHajjVnxo7oQvK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-07_17,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 clxscore=1011
+ adultscore=0 phishscore=0 priorityscore=1501 mlxscore=0 bulkscore=0
+ mlxlogscore=999 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2311290000 definitions=main-2312070172
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,62 +83,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@gmail.com, andersson@kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- marijn.suijten@somainline.org, sean@poorly.run, johan+linaro@kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ open
+ list <linux-kernel@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, "open
+ list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "open
+ list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/7/23 20:46, Akhil P Oommen wrote:
-> On Thu, Nov 23, 2023 at 12:03:56AM +0300, Danila Tikhonov wrote:
->>
->> sc7180/sm7125 (atoll) expects speedbins from atoll.dtsi:
->> And has a parameter: /delete-property/ qcom,gpu-speed-bin;
->> 107 for 504Mhz max freq, pwrlevel 4
->> 130 for 610Mhz max freq, pwrlevel 3
->> 159 for 750Mhz max freq, pwrlevel 5
->> 169 for 800Mhz max freq, pwrlevel 2
->> 174 for 825Mhz max freq, pwrlevel 1 (Downstream says 172, but thats probably
->> typo)
-> A bit confused. where do you see 172 in downstream code? It is 174 in the downstream
-> code when I checked.
->> For rest of the speed bins, speed-bin value is calulated as
->> FMAX/4.8MHz + 2 round up to zero decimal places.
->>
->> sm7150 (sdmmagpie) expects speedbins from sdmmagpie-gpu.dtsi:
->> 128 for 610Mhz max freq, pwrlevel 3
->> 146 for 700Mhz max freq, pwrlevel 2
->> 167 for 800Mhz max freq, pwrlevel 4
->> 172 for 504Mhz max freq, pwrlevel 1
->> For rest of the speed bins, speed-bin value is calulated as
->> FMAX/4.8 MHz round up to zero decimal places.
->>
->> Creating a new entry does not make much sense.
->> I can suggest expanding the standard entry:
->>
->> .speedbins = ADRENO_SPEEDBINS(
->>      { 0, 0 },
->>      /* sc7180/sm7125 */
->>      { 107, 3 },
->>      { 130, 4 },
->>      { 159, 5 },
->>      { 168, 1 }, has already
->>      { 174, 2 }, has already
->>      /* sm7150 */
->>      { 128, 1 },
->>      { 146, 2 },
->>      { 167, 3 },
->>      { 172, 4 }, ),
->>
+On 11/14/2023 2:58 PM, Jonathan Marek wrote:
+> Add a dsc_slice_per_pkt field to mipi_dsi_device struct and the necessary
+> changes to msm driver to support this field.
 > 
-> A difference I see between atoll and sdmmagpie is that the former
-> doesn't support 180Mhz. If you want to do the same, then you need to use
-> a new bit in the supported-hw bitfield instead of reusing an existing one.
-> Generally it is better to stick to exactly what downstream does.
-OK I take my doubts back, let's go with adding a new one.
+> Note that the removed "pkt_per_line = slice_per_intf * slice_per_pkt"
+> comment is incorrect.
 
-Konrad
+Hi John,
+
+Thanks for catching the typo.
+
+> 
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 25 ++++++++++---------------
+>   include/drm/drm_mipi_dsi.h         |  1 +
+>   2 files changed, 11 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 842765063b1b..892a463a7e03 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -161,6 +161,7 @@ struct msm_dsi_host {
+>   
+>   	struct drm_display_mode *mode;
+>   	struct drm_dsc_config *dsc;
+> +	unsigned int dsc_slice_per_pkt;
+>   
+>   	/* connected device info */
+>   	unsigned int channel;
+> @@ -857,17 +858,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>   	slice_per_intf = msm_dsc_get_slices_per_intf(dsc, hdisplay);
+>   
+>   	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+> -	bytes_per_pkt = dsc->slice_chunk_size; /* * slice_per_pkt; */
+> +	bytes_per_pkt = dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt;
+>   
+>   	eol_byte_num = total_bytes_per_intf % 3;
+> -
+> -	/*
+> -	 * Typically, pkt_per_line = slice_per_intf * slice_per_pkt.
+> -	 *
+> -	 * Since the current driver only supports slice_per_pkt = 1,
+> -	 * pkt_per_line will be equal to slice per intf for now.
+> -	 */
+> -	pkt_per_line = slice_per_intf;
+> +	pkt_per_line = slice_per_intf / msm_host->dsc_slice_per_pkt;
+>   
+>   	if (is_cmd_mode) /* packet data type */
+>   		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+> @@ -1004,12 +998,8 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>   		else
+>   			/*
+>   			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+> -			 * Currently, the driver only supports default value of slice_per_pkt = 1
+> -			 *
+> -			 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+> -			 *       and adjust DSC math to account for slice_per_pkt.
+>   			 */
+> -			wc = msm_host->dsc->slice_chunk_size + 1;
+> +			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt + 1;
+
+Maybe we can reuse bytes_per_pkt here.
+
+>   
+>   		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+>   			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+> @@ -1636,8 +1626,13 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+>   	msm_host->lanes = dsi->lanes;
+>   	msm_host->format = dsi->format;
+>   	msm_host->mode_flags = dsi->mode_flags;
+> -	if (dsi->dsc)
+> +	if (dsi->dsc) {
+>   		msm_host->dsc = dsi->dsc;
+> +		msm_host->dsc_slice_per_pkt = dsi->dsc_slice_per_pkt;
+> +		/* for backwards compatibility, assume 1 if not set */
+> +		if (!msm_host->dsc_slice_per_pkt)
+> +			msm_host->dsc_slice_per_pkt = 1;
+> +	}
+>   
+>   	/* Some gpios defined in panel DT need to be controlled by host */
+>   	ret = dsi_host_init_panel_gpios(msm_host, &dsi->dev);
+> diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+> index c9df0407980c..3e32fa52d94b 100644
+> --- a/include/drm/drm_mipi_dsi.h
+> +++ b/include/drm/drm_mipi_dsi.h
+> @@ -193,6 +193,7 @@ struct mipi_dsi_device {
+>   	unsigned long hs_rate;
+>   	unsigned long lp_rate;
+>   	struct drm_dsc_config *dsc;
+
+Any reason for not putting this in drm_dsc_config?
+
+Thanks,
+
+Jessica Zhang
+
+> +	unsigned int dsc_slice_per_pkt;
+>   };
+>   
+>   #define MIPI_DSI_MODULE_PREFIX "mipi-dsi:"
+> -- 
+> 2.26.1
+> 
