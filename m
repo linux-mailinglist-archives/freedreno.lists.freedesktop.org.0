@@ -2,77 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 415A0807D9D
-	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 02:09:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFF51808534
+	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 11:10:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D32F10E147;
-	Thu,  7 Dec 2023 01:09:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C403710E84C;
+	Thu,  7 Dec 2023 10:10:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9958E10E10F;
- Thu,  7 Dec 2023 01:09:51 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B70dVlg012927; Thu, 7 Dec 2023 01:09:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=JPdO/uN/Su6nXISn/OuEsAh8vo5IilsEU6w+tY8QL5M=;
- b=WnbZ89vXDiowinQ6++xwv0+C8d/rA7dbZNpkvFVQcfLO/Ye9Nn3uiBu6JIfpOzWpVD3K
- g2vbMst3LLhq4xaKliI/UU2UGK/inu6ulsXuUzNCHYaouBO3QMVtsJoB09tM2J8+0541
- EsD3c0fvZx3zIpRuCzdBIyujE7+kFzu2enK7RIctnm8fknxDBKgs6hrsm6KLhyWBnPGv
- 9I7INmrBGUAsWiz4XpIe7L/uggKgjczwc8rQnwunNvCTPfa6ZEkhLh0iy9t6fzuLHwul
- bjbkhyrVRKwr4DsmXdaxzH9ldq19kcQOWBuK9tOxneLwqnSwPLk0IImvEhZAUdLvEnrd pg== 
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uu2p885a4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Dec 2023 01:09:48 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B719lal004719
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 7 Dec 2023 01:09:47 GMT
-Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 6 Dec
- 2023 17:09:44 -0800
-Message-ID: <50201766-c033-37fd-2219-6a98ba919e0b@quicinc.com>
-Date: Wed, 6 Dec 2023 17:09:43 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76C4A10E84C;
+ Thu,  7 Dec 2023 10:10:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 0530FCE22B2;
+ Thu,  7 Dec 2023 10:10:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8507C433C8;
+ Thu,  7 Dec 2023 10:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1701943803;
+ bh=T/ShUQaMztJ97CmJ49sFmOfYjo5OS/dCBxONTsOlT3s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=aKf2eFsnwrzknvGSYDewtFqEcVgRhnbp7QGpGoo+t/YQA8n+15WOsW2Bphg+CiZYC
+ ee6c2Rc+O9z1LqxSZht0huLasj0GAsSUGokE8uL9Ii8RmuvTBcM/3MK1NuMAuAaafa
+ xyl5NwPxhhdOboTvmoDqibjDgE+Q1Xyopa9oSLiCDO8yTvNA+pStq2qw/MovncDEzk
+ jSIJkw0Q4QwsIH/FK1iYQjcsH2ONq12r96gM8VCORTvUHoJWJCMY7OCAVZwRIQgfqQ
+ WLgvOLlhrX5tiNlHFJ3GkVJAKFf0djHTQ/8vh3m0Sa8K9OpyF0hKewKRLW3r3chgXI
+ MuEfhVbW7OlEA==
+Date: Thu, 7 Dec 2023 11:10:00 +0100
+From: Maxime Ripard <mripard@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20230830224910.8091-1-quic_abhinavk@quicinc.com>
- <20230830224910.8091-16-quic_abhinavk@quicinc.com>
- <CAA8EJpp=kr0XTrzq0sjssDh3oJYLqYHZjpDxeyKDxV5jfTcaBA@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpp=kr0XTrzq0sjssDh3oJYLqYHZjpDxeyKDxV5jfTcaBA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: uQffHaRbOREM4oSkAxDH0_6azDJ2hC2o
-X-Proofpoint-ORIG-GUID: uQffHaRbOREM4oSkAxDH0_6azDJ2hC2o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-06_22,2023-12-06_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015
- suspectscore=0 mlxlogscore=999 mlxscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 impostorscore=0 spamscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311290000
- definitions=main-2312070007
-Subject: Re: [Freedreno] [PATCH 15/16] drm/msm/dpu: add NV12 in the list of
- supported WB formats
+Subject: Re: [PATCH v3 1/2] drm/atomic-helper: rename
+ drm_atomic_helper_check_wb_encoder_state
+Message-ID: <ohka6xa4xf5zo2txpqlyipsjuafcmmvnvnlfci2hvuhvwagr4k@jqx3do2q3ug3>
+References: <20231206101455.1664463-1-dmitry.baryshkov@linaro.org>
+ <20231206101455.1664463-2-dmitry.baryshkov@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="r5fjienqysgjbwz6"
+Content-Disposition: inline
+In-Reply-To: <20231206101455.1664463-2-dmitry.baryshkov@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,62 +52,138 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, Rob Clark <robdclark@gmail.com>,
- quic_parellan@quicinc.com, Daniel Vetter <daniel@ffwll.ch>,
- quic_jesszhan@quicinc.com, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+--r5fjienqysgjbwz6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 8/30/2023 5:26 PM, Dmitry Baryshkov wrote:
-> On Thu, 31 Aug 2023 at 01:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->> Since CDM block support has now been added for writeback blocks
->> add NV12 in the list of supported WB formats.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> index 713dfc079718..978330c6678e 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> @@ -244,6 +244,7 @@ static const uint32_t wb2_formats[] = {
->>          DRM_FORMAT_BGRA4444,
->>          DRM_FORMAT_BGRX4444,
->>          DRM_FORMAT_XBGR4444,
->> +       DRM_FORMAT_NV12,
->>   };
-> 
-> No. This way the driver would announce availability of NV12 even on
-> chipsets where NV12 is not supported for the writeback. Please define
-> separate formats array.
-> 
-> BTW: does HW only support NV12 for the writeback? What about YV12 or e.g. NV21?
-> 
+Hi,
 
-Yes, as we discussed in the prev patch, I will split the wb2_formats 
-array to RGB only and RGB+YUV to address this issue.
+On Wed, Dec 06, 2023 at 01:14:54PM +0300, Dmitry Baryshkov wrote:
+> The drm_atomic_helper_check_wb_encoder_state() function doesn't use
+> encoder for anything other than getting the drm_device instance. The
+> function's description talks about checking the writeback connector
+> state, not the encoder state. Moreover, there is no such thing as an
+> encoder state, encoders generally do not have a state on their own.
+>=20
+> Rename the function to drm_atomic_helper_check_wb_connector_state()
+> and change arguments to drm_writeback_connector and drm_atomic_state.
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c   | 16 +++++++++-------
+>  drivers/gpu/drm/vkms/vkms_writeback.c |  5 ++++-
+>  include/drm/drm_atomic_helper.h       |  5 ++---
+>  3 files changed, 15 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_at=
+omic_helper.c
+> index c3f677130def..c98a766ca3bd 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -795,9 +795,9 @@ drm_atomic_helper_check_modeset(struct drm_device *de=
+v,
+>  EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
+> =20
+>  /**
+> - * drm_atomic_helper_check_wb_encoder_state() - Check writeback encoder =
+state
+> - * @encoder: encoder state to check
+> - * @conn_state: connector state to check
+> + * drm_atomic_helper_check_wb_connector_state() - Check writeback connec=
+tor state
+> + * @connector: corresponding connector
+> + * @state: the driver state object
+>   *
+>   * Checks if the writeback connector state is valid, and returns an erro=
+r if it
+>   * isn't.
+> @@ -806,9 +806,11 @@ EXPORT_SYMBOL(drm_atomic_helper_check_modeset);
+>   * Zero for success or -errno
+>   */
+>  int
+> -drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+> -					 struct drm_connector_state *conn_state)
+> +drm_atomic_helper_check_wb_connector_state(struct drm_connector *connect=
+or,
+> +					   struct drm_atomic_state *state)
+>  {
+> +	struct drm_connector_state *conn_state =3D
+> +		drm_atomic_get_new_connector_state(state, connector);
+>  	struct drm_writeback_job *wb_job =3D conn_state->writeback_job;
+>  	struct drm_property_blob *pixel_format_blob;
+>  	struct drm_framebuffer *fb;
+> @@ -827,11 +829,11 @@ drm_atomic_helper_check_wb_encoder_state(struct drm=
+_encoder *encoder,
+>  		if (fb->format->format =3D=3D formats[i])
+>  			return 0;
+> =20
+> -	drm_dbg_kms(encoder->dev, "Invalid pixel format %p4cc\n", &fb->format->=
+format);
+> +	drm_dbg_kms(connector->dev, "Invalid pixel format %p4cc\n", &fb->format=
+->format);
+> =20
+>  	return -EINVAL;
+>  }
+> -EXPORT_SYMBOL(drm_atomic_helper_check_wb_encoder_state);
+> +EXPORT_SYMBOL(drm_atomic_helper_check_wb_connector_state);
 
-Regarding the full list of supported formats, here it is:
+Thanks for updating the prototype ...
 
-https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/clo/main/msm/sde/sde_hw_catalog_format.h?ref_type=heads#L107
+>  /**
+>   * drm_atomic_helper_check_plane_state() - Check plane state for validity
+> diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms=
+/vkms_writeback.c
+> index d7e63aa14663..23c4f7b61cb6 100644
+> --- a/drivers/gpu/drm/vkms/vkms_writeback.c
+> +++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+> @@ -34,6 +34,9 @@ static int vkms_wb_encoder_atomic_check(struct drm_enco=
+der *encoder,
+>  					struct drm_crtc_state *crtc_state,
+>  					struct drm_connector_state *conn_state)
+>  {
+> +	struct drm_connector *connector =3D conn_state->connector;
+> +	struct drm_writeback_connector *wb_conn =3D
+> +		drm_connector_to_writeback(connector);
+>  	struct drm_framebuffer *fb;
+>  	const struct drm_display_mode *mode =3D &crtc_state->mode;
+>  	int ret;
+> @@ -48,7 +51,7 @@ static int vkms_wb_encoder_atomic_check(struct drm_enco=
+der *encoder,
+>  		return -EINVAL;
+>  	}
+> =20
+> -	ret =3D drm_atomic_helper_check_wb_encoder_state(encoder, conn_state);
+> +	ret =3D drm_atomic_helper_check_wb_connector_state(wb_conn, conn_state-=
+>state);
 
-But YUV420 shouldnt be here as its not supported.
+=2E.. but it looks like you forgot to update it here
 
-I have to see if I can add some test cases in IGT to validate NV16 and 
-DRM_FORMAT_YUYV. Hence I only exposed this one for now.
+Maxime
 
->>
->>   /*************************************************************
->> --
->> 2.40.1
->>
-> 
-> 
+--r5fjienqysgjbwz6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZXGZ+AAKCRDj7w1vZxhR
+xZVKAP9nS5FbyvcmSMtQSnrLitcczEMQlT0AiqZPkMLp3PEGMgD+MI34sAz3mzdq
+6Ed7sUpDQDhCqHTyW0l15cxTNrSJeAQ=
+=pmD9
+-----END PGP SIGNATURE-----
+
+--r5fjienqysgjbwz6--
