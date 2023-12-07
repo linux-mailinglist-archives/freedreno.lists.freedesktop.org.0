@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E8648093D0
-	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 22:27:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52FA809424
+	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 22:30:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE20710E98E;
-	Thu,  7 Dec 2023 21:27:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C45C10E995;
+	Thu,  7 Dec 2023 21:30:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51B1110E98E
- for <freedreno@lists.freedesktop.org>; Thu,  7 Dec 2023 21:27:07 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id
- 41be03b00d2f7-5c690c3d113so1136084a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 13:27:07 -0800 (PST)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9EAF10E990
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Dec 2023 21:30:53 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40c32df9174so332755e9.3
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 13:30:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701984427; x=1702589227; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1701984652; x=1702589452; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Px2TdaotpIYQ6sIN9yY8qaT1+HH5T+pH93w2l1LXKbY=;
- b=g+QRv8XdNsUfxWG6LFgUMz5mt3ZDxEuSCI+RvZ+ZmopDHyAI40lR5/I70paXiknx91
- pkKLKygDBbmj6kNZoXASAa64O6/tCaE7AGKngeFqh2UNVkaowrp2H3ciVi3tWZvN7lp0
- AMz+U0uSiWwsemwMJTwA6pubHkuX+s3HXExCsV6P5Y+SIcShEZFf4GY40m/umK16SZ6b
- MHFpBX0g02XnTIePEnQ88tZYEXeuxvqkXzMANkTCLDFYexsJjdn8F9UVUNETEASzb066
- 2fZPniFt3XXAxyHODX6s4wSZO3pdpJ6hZe3UXNUaY7RAwLuNrYgkWbzdaKn6YZqoHF5a
- d5Yg==
+ bh=Kv7WKqsewmUapKUyFSaVXbiz5Tdgf6hTLK9Dopl1Xvg=;
+ b=KZLZPPCZk+QEJhVsmpygQsmREIru6nux/wzcIsA8RaHnJGqZ9VQUJRyXnSRSDFFq6h
+ R5CxIDS4FJG/kr0AOxEXH2BZNsDXhOhOoNMuQ3CrtH/G9xjIZmebs7jTMaW+JALIg+Yj
+ CeTmmFDc2MFDxmq1EzyqHg2DtUv1AeALmgMjMjwhwcZQi9UTgFpjj4HEVZ6uoD/aTguU
+ GGW+A9uXhnlpW6Oxc68KPQm0Rvv/In5q7CYFNdWc+Cx1yCJhQDSnKx/IXjdMDNPwub8N
+ IETGwgwQ8mAsUz1n3TTAnSDsmATCmsiqLAlkR3kbE+yZXcydaDppZ9YtQg5lVkoJ0CrD
+ 0fdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701984427; x=1702589227;
+ d=1e100.net; s=20230601; t=1701984652; x=1702589452;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Px2TdaotpIYQ6sIN9yY8qaT1+HH5T+pH93w2l1LXKbY=;
- b=i733qzmIGEgroAudQYuNSdF0WmmBOBdr8UbIOf8eaKjNB0E55y9y1DK/teEO0HTkue
- 1To61pVlwUw0Lob2F77bH+gMl2d0XaY8T3WMT6RgMN+PUUkQVMsMTnb6B3otZhmhZTnW
- J7di6EUod23M6Nn4Y9Z3Fu0BIPUnrkZXy5fqxyp4/BbZB9sihGuJKzWC3D3itmfVvMPS
- 2XuLUP/jxZYxl9uwwR5H3eKrfA+kEQECca7Bg4haqqEi2kQb5kdrbPsy2uTwBtvQq6hm
- 5u0cFT7nH4CEkrrIBEy8vF7GHt+NxR/mpfV1PYtIaO3J+vGEGd3i8rFkUkmKGyGBVXRK
- ZsCw==
-X-Gm-Message-State: AOJu0YyS1bOjcKIA9mHxdrXZNNYoOTOuqGUI61yzA+lljA0sHe2ddzfO
- ILsU6Zks9TUcSal75ku8Fxw=
-X-Google-Smtp-Source: AGHT+IHmgFAdaNpu9/4tm5vsxNdq2+tiP4Ccd9SFpbqI/bLYNy2EA7+7YCXFBASFrF7Nf+u/eTyJbg==
-X-Received: by 2002:a05:6a20:12ca:b0:187:df72:48ef with SMTP id
- v10-20020a056a2012ca00b00187df7248efmr3188889pzg.0.1701984426614; 
- Thu, 07 Dec 2023 13:27:06 -0800 (PST)
-Received: from localhost ([100.84.200.15]) by smtp.gmail.com with ESMTPSA id
- q19-20020a056a00151300b006cdcfd814e9sm241008pfu.147.2023.12.07.13.27.05
+ bh=Kv7WKqsewmUapKUyFSaVXbiz5Tdgf6hTLK9Dopl1Xvg=;
+ b=buR532tVyodK0khnqP/hDaq5yHxXF88nCQvVa8twgIetc5TBrlbDbIXI4Um3hlL9xy
+ N9T177ObPfqG8vWoumztFqxueJp7HJxrYfHC7THYkFCmUaqRtxfNIoQjPkldOeBvua/D
+ A0kp+mjzm+2DFy3mMWYL1gOAzSrBS8bD7UUSgFIPzcR5M/yA7oy+wDQ8HHkQWbKC6F0G
+ bsRZIPJ9B0D5f74oBlnrbTq4F4tEZL+lxOxNjEK8s4+TkV6VlgdyqvF07X/8fk3P5YrL
+ egwlBAO9GlMKe2wuRQGd5COzWmQ2UTjnWtjLZ7yL3Ry8hgEz3poQH4N1mMwYIKVju6DG
+ ktkg==
+X-Gm-Message-State: AOJu0YxK6KTAaypxhiBQtT3T7eBsNDhTuIJY8cBm4M8OwR3uXFF6ySqN
+ XiHkRAM/cUDXZhe9IBD0tbZD2FB0xog=
+X-Google-Smtp-Source: AGHT+IF9otFCHY4SAn6+5yericrC5hWUiveUicDnPWB4n6kleqsFDs5YLXKg2qbv1cqKQYf3SKS7EQ==
+X-Received: by 2002:a05:600c:3591:b0:40b:5e21:c5b2 with SMTP id
+ p17-20020a05600c359100b0040b5e21c5b2mr1375877wmq.128.1701984651631; 
+ Thu, 07 Dec 2023 13:30:51 -0800 (PST)
+Received: from lucy.. (cpc115984-dals23-2-0-cust371.20-2.cable.virginm.net.
+ [82.25.1.116]) by smtp.gmail.com with ESMTPSA id
+ p9-20020a05600c468900b0040b42df75fcsm788310wmo.39.2023.12.07.13.30.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Dec 2023 13:27:05 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: iommu@lists.linux-foundation.org
-Subject: [PATCH] iommu/arm-smmu-qcom: Add missing GMU entry to match table
-Date: Thu,  7 Dec 2023 13:24:39 -0800
-Message-ID: <20231207212441.6199-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Thu, 07 Dec 2023 13:30:51 -0800 (PST)
+From: Connor Abbott <cwabbott0@gmail.com>
+To: freedreno@lists.freedesktop.org
+Subject: [PATCH 0/2] Add param for the highest bank bit
+Date: Thu,  7 Dec 2023 21:30:46 +0000
+Message-Id: <20231207213048.1377147-1-cwabbott0@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,47 +70,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, Will Deacon <will@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>, Richard Acayan <mailingradian@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, open list <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Elliot Berman <quic_eberman@quicinc.com>, freedreno@lists.freedesktop.org,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
+Cc: Connor Abbott <cwabbott0@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+The highest bank bit is a parameter that influences the Adreno tiling
+scheme. It is programmed by the kernel, and is supposed to be based on
+the DRAM configuration. In order for Mesa to tile/until images itself,
+it needs to know this parameter, and because it's programmed by the
+kernel, the kernel should be the source of truth.
 
-We also want the default domain for the GMU to be an identy domain,
-so it does not get a context bank assigned.  Without this, both
-of_dma_configure() and drm/msm's iommu_domain_attach() will trigger
-allocating and configuring a context bank.  So GMU ends up attached
-to both cbndx 1 and cbndx 2.  This arrangement seemingly confounds
-and surprises the firmware if the GPU later triggers a translation
-fault, resulting (on sc8280xp / lenovo x13s, at least) in the SMMU
-getting wedged and the GPU stuck without memory access.
+Mesa series: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26578
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
- 1 file changed, 1 insertion(+)
+Connor Abbott (2):
+  drm/msm: Refactor UBWC config setting
+  drm/msm: Add param for the highest bank bit
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index 549ae4dba3a6..d326fa230b96 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -243,6 +243,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
- 
- static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
- 	{ .compatible = "qcom,adreno" },
-+	{ .compatible = "qcom,adreno-gmu" },
- 	{ .compatible = "qcom,mdp4" },
- 	{ .compatible = "qcom,mdss" },
- 	{ .compatible = "qcom,sc7180-mdss" },
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  21 ++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 101 +++++++++++++-----------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |   3 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |   9 +++
+ include/uapi/drm/msm_drm.h              |   1 +
+ 5 files changed, 82 insertions(+), 53 deletions(-)
+
 -- 
-2.43.0
+2.31.1
 
