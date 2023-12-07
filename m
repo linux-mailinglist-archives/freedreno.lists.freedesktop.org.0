@@ -1,76 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F956809259
-	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 21:33:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E8648093D0
+	for <lists+freedreno@lfdr.de>; Thu,  7 Dec 2023 22:27:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C04E10E97B;
-	Thu,  7 Dec 2023 20:33:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE20710E98E;
+	Thu,  7 Dec 2023 21:27:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28ABA10E972;
- Thu,  7 Dec 2023 20:33:32 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B7Fvb0w002794; Thu, 7 Dec 2023 20:33:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : from : subject : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=KE84m7jSCLDZSitSp0ZCXBSAkzsdFgASbeQ45RDczPc=;
- b=G4VspXtwpHUHrK9s7xxFlHoeiVr+1t8cvJu+dxd3ezziRdkqpuyMxXB6STOxvumH1WY9
- RCPL8Zs6WiOQztNGBf8rFYMwepVGH5mhPA+qGaoju8hMqd6OlTgANI/rXKgxCONrkmfm
- UN/ezKyvVONn0t3hiuwQfHGaPKS3I5MHU8Dqf5Gqz+Gd0pKl+cEubdJTP+Ze09Zg/SAY
- NcO5LzfKTM9ie7N8EjkBjFhSo2v9SmVbhbBHq5QYVOKovgS9R+PWesT9mOJcr6IX43wB
- ENgUz7/SRvb1H7ufC8Rlvh1IjqqgyW27tk+iRqVqc4IUm4+oDm6SVe4K6vrNQKKR0pjU +A== 
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uu2trjpv5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Dec 2023 20:33:24 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B7KXNRD009969
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 7 Dec 2023 20:33:23 GMT
-Received: from [10.110.31.193] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 7 Dec
- 2023 12:33:21 -0800
-Message-ID: <6a05436d-a89f-43f9-b2d3-a664a6a36185@quicinc.com>
-Date: Thu, 7 Dec 2023 12:33:20 -0800
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B1110E98E
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Dec 2023 21:27:07 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id
+ 41be03b00d2f7-5c690c3d113so1136084a12.1
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 13:27:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701984427; x=1702589227; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Px2TdaotpIYQ6sIN9yY8qaT1+HH5T+pH93w2l1LXKbY=;
+ b=g+QRv8XdNsUfxWG6LFgUMz5mt3ZDxEuSCI+RvZ+ZmopDHyAI40lR5/I70paXiknx91
+ pkKLKygDBbmj6kNZoXASAa64O6/tCaE7AGKngeFqh2UNVkaowrp2H3ciVi3tWZvN7lp0
+ AMz+U0uSiWwsemwMJTwA6pubHkuX+s3HXExCsV6P5Y+SIcShEZFf4GY40m/umK16SZ6b
+ MHFpBX0g02XnTIePEnQ88tZYEXeuxvqkXzMANkTCLDFYexsJjdn8F9UVUNETEASzb066
+ 2fZPniFt3XXAxyHODX6s4wSZO3pdpJ6hZe3UXNUaY7RAwLuNrYgkWbzdaKn6YZqoHF5a
+ d5Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701984427; x=1702589227;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Px2TdaotpIYQ6sIN9yY8qaT1+HH5T+pH93w2l1LXKbY=;
+ b=i733qzmIGEgroAudQYuNSdF0WmmBOBdr8UbIOf8eaKjNB0E55y9y1DK/teEO0HTkue
+ 1To61pVlwUw0Lob2F77bH+gMl2d0XaY8T3WMT6RgMN+PUUkQVMsMTnb6B3otZhmhZTnW
+ J7di6EUod23M6Nn4Y9Z3Fu0BIPUnrkZXy5fqxyp4/BbZB9sihGuJKzWC3D3itmfVvMPS
+ 2XuLUP/jxZYxl9uwwR5H3eKrfA+kEQECca7Bg4haqqEi2kQb5kdrbPsy2uTwBtvQq6hm
+ 5u0cFT7nH4CEkrrIBEy8vF7GHt+NxR/mpfV1PYtIaO3J+vGEGd3i8rFkUkmKGyGBVXRK
+ ZsCw==
+X-Gm-Message-State: AOJu0YyS1bOjcKIA9mHxdrXZNNYoOTOuqGUI61yzA+lljA0sHe2ddzfO
+ ILsU6Zks9TUcSal75ku8Fxw=
+X-Google-Smtp-Source: AGHT+IHmgFAdaNpu9/4tm5vsxNdq2+tiP4Ccd9SFpbqI/bLYNy2EA7+7YCXFBASFrF7Nf+u/eTyJbg==
+X-Received: by 2002:a05:6a20:12ca:b0:187:df72:48ef with SMTP id
+ v10-20020a056a2012ca00b00187df7248efmr3188889pzg.0.1701984426614; 
+ Thu, 07 Dec 2023 13:27:06 -0800 (PST)
+Received: from localhost ([100.84.200.15]) by smtp.gmail.com with ESMTPSA id
+ q19-20020a056a00151300b006cdcfd814e9sm241008pfu.147.2023.12.07.13.27.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Dec 2023 13:27:05 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: iommu@lists.linux-foundation.org
+Subject: [PATCH] iommu/arm-smmu-qcom: Add missing GMU entry to match table
+Date: Thu,  7 Dec 2023 13:24:39 -0800
+Message-ID: <20231207212441.6199-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: Re: [PATCH v2 2/6] drm/msm/dsi: set video mode widebus enable bit
- when widebus is enabled
-To: Jonathan Marek <jonathan@marek.ca>, <freedreno@lists.freedesktop.org>
-References: <20231114225857.19702-1-jonathan@marek.ca>
- <20231114225857.19702-3-jonathan@marek.ca>
-Content-Language: en-US
-In-Reply-To: <20231114225857.19702-3-jonathan@marek.ca>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: hAd7VvXACY9sPzVUcJGz1ElWYnTCORUe
-X-Proofpoint-ORIG-GUID: hAd7VvXACY9sPzVUcJGz1ElWYnTCORUe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-07_17,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- malwarescore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 mlxscore=0 adultscore=0 priorityscore=1501 mlxlogscore=856
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2312070172
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,72 +69,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@gmail.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Konrad
- Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, Will Deacon <will@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Richard Acayan <mailingradian@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+ Elliot Berman <quic_eberman@quicinc.com>, freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+We also want the default domain for the GMU to be an identy domain,
+so it does not get a context bank assigned.  Without this, both
+of_dma_configure() and drm/msm's iommu_domain_attach() will trigger
+allocating and configuring a context bank.  So GMU ends up attached
+to both cbndx 1 and cbndx 2.  This arrangement seemingly confounds
+and surprises the firmware if the GPU later triggers a translation
+fault, resulting (on sc8280xp / lenovo x13s, at least) in the SMMU
+getting wedged and the GPU stuck without memory access.
 
-On 11/14/2023 2:58 PM, Jonathan Marek wrote:
-> The value returned by msm_dsi_wide_bus_enabled() doesn't match what the
-> driver is doing in video mode. Fix that by actually enabling widebus for
-> video mode.
-> 
-> Fixes: efcbd6f9cdeb ("drm/msm/dsi: Enable widebus for DSI")
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->   drivers/gpu/drm/msm/dsi/dsi.xml.h  | 1 +
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
->   2 files changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> index 2a7d980e12c3..f0b3cdc020a1 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> @@ -231,6 +231,7 @@ static inline uint32_t DSI_VID_CFG0_TRAFFIC_MODE(enum dsi_traffic_mode val)
->   #define DSI_VID_CFG0_HSA_POWER_STOP				0x00010000
->   #define DSI_VID_CFG0_HBP_POWER_STOP				0x00100000
->   #define DSI_VID_CFG0_HFP_POWER_STOP				0x01000000
-> +#define DSI_VID_CFG0_DATABUS_WIDEN				0x02000000
->   #define DSI_VID_CFG0_PULSE_MODE_HSA_HE				0x10000000
->   
->   #define REG_DSI_VID_CFG1					0x0000001c
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index deeecdfd6c4e..f2c1cbd08d4d 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -745,6 +745,8 @@ static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
->   		data |= DSI_VID_CFG0_TRAFFIC_MODE(dsi_get_traffic_mode(flags));
->   		data |= DSI_VID_CFG0_DST_FORMAT(dsi_get_vid_fmt(mipi_fmt));
->   		data |= DSI_VID_CFG0_VIRT_CHANNEL(msm_host->channel);
-> +		if (msm_dsi_host_is_wide_bus_enabled(&msm_host->base))
-> +			data |= DSI_VID_CFG0_DATABUS_WIDEN;
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Hi Jonathan,
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index 549ae4dba3a6..d326fa230b96 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -243,6 +243,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
+ 
+ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,adreno" },
++	{ .compatible = "qcom,adreno-gmu" },
+ 	{ .compatible = "qcom,mdp4" },
+ 	{ .compatible = "qcom,mdss" },
+ 	{ .compatible = "qcom,sc7180-mdss" },
+-- 
+2.43.0
 
-Now that widebus is enabled for video mode, I think you can also drop 
-the TODO here [1]. Other than that, this LGTM.
-
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-
-Thanks,
-
-Jessica Zhang
-
-[1] 
-https://elixir.bootlin.com/linux/v6.7-rc3/source/drivers/gpu/drm/msm/dsi/dsi_host.c#L772
-
->   		dsi_write(msm_host, REG_DSI_VID_CFG0, data);
->   
->   		/* Do not swap RGB colors */
-> -- 
-> 2.26.1
-> 
