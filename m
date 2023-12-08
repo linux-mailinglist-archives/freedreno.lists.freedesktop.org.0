@@ -1,61 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B28D080A9BA
-	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 17:50:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9F8D80AA23
+	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 18:09:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7970F89233;
-	Fri,  8 Dec 2023 16:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9B810EADF;
+	Fri,  8 Dec 2023 17:09:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1962010EAC9;
- Fri,  8 Dec 2023 16:50:24 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3708A10EAEF;
+ Fri,  8 Dec 2023 17:09:24 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B8Ghibg013101; Fri, 8 Dec 2023 16:50:21 GMT
+ 3B8GkCk1012806; Fri, 8 Dec 2023 17:09:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=d7iaiuLnTs1nTerRivXfsPIu2c4lLoqHhnJU4Qwcqx0=;
- b=JMRR/+EvFWStI5Rl+13oe9fZUwwrTxIFcOx6Z0VeOwc9Y1yIOO0MPa54eq5MEMPYFHDs
- HgU+a+edGcrmWLbVhVBfecqsoCFPXI1mQFm3rguJaO7H/to1n9DbarkgCB1Fd1Zb8zGl
- co9+PZN7LIWxb6wtNbhdqn0AiER9z/eY4dMPo1xXKfIMX7gpI5QlpUsLnv6zF5WPQj+6
- WFMGKBC+LnZiMAIs32cgvbMddYS3/MuyddYcdeWzL9K9u9sECX8Cse3LKSZ7nxyORvnx
- KRCyJdkU5ISxLYbrv7RFp1DNpLYM56YGlTDciIgurTq9HRwyHoAFD2IKmxr34YTietco qQ== 
+ bh=4qAJyucwuxVOycOHhfj6e18l+tG1SKnYxjp8VXqMeME=;
+ b=lu1RO99vudvfRhqdc+BFEWdjJArIt/HjBsnXKq2/DcPUO+0YTYc+SbR3MHdOnSd3xjzR
+ 9lSUK7Qw75ORu2aUtHdLSnQ4gE7RiKRx0W52AKmth7FX/CuQx+lscKIBvH5Pz5IpDO2o
+ 128ay+W1Ct/ZnjYBFsugF7VrOGw2/XVWpeHFlFGps2OfisdatVWI+hQeptSwSNe4KxLi
+ QKFE3MINSU4D5fUBYe9IEecC+6mjpprsFvrClFXqkllPQ8ScQxulp3MgSx9e2UEinOLa
+ gG1zhu6QXra2r//8mk+Wq5oxvTqVezD80j/0IaQG0c/NnHEokoZm1CE3P+gLflx7f/w3 iA== 
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uux1998d5-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uv5wpg8bv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Dec 2023 16:50:20 +0000
+ Fri, 08 Dec 2023 17:09:20 +0000
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B8GoKsH027427
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B8H90ua014825
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 8 Dec 2023 16:50:20 GMT
+ Fri, 8 Dec 2023 17:09:00 GMT
 Received: from [10.110.30.94] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 8 Dec
- 2023 08:50:17 -0800
-Message-ID: <0484fef8-872d-a5cd-cafa-307b93487d2c@quicinc.com>
-Date: Fri, 8 Dec 2023 08:50:15 -0800
+ 2023 09:08:57 -0800
+Message-ID: <36c86e28-b1ee-045b-487c-4d3c9b4849cb@quicinc.com>
+Date: Fri, 8 Dec 2023 09:08:56 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2 14/16] drm/msm/dpu: reserve cdm blocks for writeback in
- case of YUV output
+Subject: Re: [PATCH v2 07/16] drm/msm/dpu: add dpu_hw_cdm abstraction for CDM
+ block
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20231208050641.32582-1-quic_abhinavk@quicinc.com>
- <20231208050641.32582-15-quic_abhinavk@quicinc.com>
- <CAA8EJpo4XVMJ7RqsZZ6Eh_PjoPeWiMmAW3P1a4dkZ_EHqz7GkQ@mail.gmail.com>
- <188e0168-a45b-6e38-ac49-8b0fd41e9110@quicinc.com>
- <CAA8EJpoVfuybVPddKy2Sn-YsovkbiWmoNa48jKjdpKg4HiJaAg@mail.gmail.com>
+ <20231208050641.32582-8-quic_abhinavk@quicinc.com>
+ <CAA8EJpp_9ForVxyQLOaeL3qbPcpEq8fkVR0FmZD+RDhn-quLEA@mail.gmail.com>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpoVfuybVPddKy2Sn-YsovkbiWmoNa48jKjdpKg4HiJaAg@mail.gmail.com>
+In-Reply-To: <CAA8EJpp_9ForVxyQLOaeL3qbPcpEq8fkVR0FmZD+RDhn-quLEA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -64,17 +62,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: _7QgQ0c9S1qlfJbGyQvnj8KrZNxY3_dJ
-X-Proofpoint-ORIG-GUID: _7QgQ0c9S1qlfJbGyQvnj8KrZNxY3_dJ
+X-Proofpoint-GUID: CBWA6gmsh63IeCIB1Aojd42725LGUH7J
+X-Proofpoint-ORIG-GUID: CBWA6gmsh63IeCIB1Aojd42725LGUH7J
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-12-08_11,2023-12-07_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- clxscore=1015 lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2312080139
+ lowpriorityscore=0
+ mlxlogscore=999 impostorscore=0 adultscore=0 priorityscore=1501 mlxscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311290000 definitions=main-2312080142
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,118 +96,506 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/8/2023 8:38 AM, Dmitry Baryshkov wrote:
-> On Fri, 8 Dec 2023 at 18:34, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On 12/8/2023 4:06 AM, Dmitry Baryshkov wrote:
+> On Fri, 8 Dec 2023 at 07:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >>
->>
->>
->> On 12/8/2023 3:54 AM, Dmitry Baryshkov wrote:
->>> On Fri, 8 Dec 2023 at 07:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>> Reserve CDM blocks for writeback if the format of the output fb
->>>> is YUV. At the moment, the reservation is done only for writeback
->>>> but can easily be extended by relaxing the checks once other
->>>> interfaces are ready to output YUV.
->>>>
->>>> changes in v2:
->>>>           - use needs_cdm from topology struct
->>>>           - drop fb related checks from atomic_mode_set()
->>>
->>> It looks like this should be squashed with the patch 11. The 'unbind
->>> CDM' doesn't really make sense without this patch. We need to allocate
->>> it first,  before touching it.
->>>
->>
->> The way I was thinking was that patch just completes the
->> dpu_encoder_phys_cleanup() and yes it was intentionally kept ahead
->> because that will not kick in till hw_cdm is assigned.
->>
->> Then, this patch only handles reserving/assignment of hw_cdm when needed.
->>
->> That was the motivation behind this split.
+>> CDM block comes with its own set of registers and operations
+>> which can be done. In-line with other hardware sub-blocks, this
 > 
-> It leaves a leaf code that is not used at all. There is no need to
-> cleanup anything if it was not allocated. Please remove the split and
-> squash it with allocation.
+> I always thought that sub-blocks refer to the dpu_foo_sub_blks data,
+> which CDM doesn't have.
 > 
 
-Ack. No concerns with squashing them.
+All of these are DPU-sub blks in some sense. If this is confusing to 
+you, I will just say "in-line with other DPU hardware blocks".
 
+> 
+>> change adds the dpu_hw_cdm abstraction for the CDM block.
 >>
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 27 +++++++++++++++++++++
->>>>    1 file changed, 27 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> index 862912727925..a576e3e62429 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>>> @@ -16,6 +16,7 @@
->>>>    #include <drm/drm_crtc.h>
->>>>    #include <drm/drm_file.h>
->>>>    #include <drm/drm_probe_helper.h>
->>>> +#include <drm/drm_framebuffer.h>
->>>>
->>>>    #include "msm_drv.h"
->>>>    #include "dpu_kms.h"
->>>> @@ -583,6 +584,7 @@ static int dpu_encoder_virt_atomic_check(
->>>>           struct drm_display_mode *adj_mode;
->>>>           struct msm_display_topology topology;
->>>>           struct dpu_global_state *global_state;
->>>> +       struct drm_framebuffer *fb;
->>>>           struct drm_dsc_config *dsc;
->>>>           int i = 0;
->>>>           int ret = 0;
->>>> @@ -623,6 +625,22 @@ static int dpu_encoder_virt_atomic_check(
->>>>
->>>>           topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state, dsc);
->>>>
->>>> +       /*
->>>> +        * Use CDM only for writeback at the moment as other interfaces cannot handle it.
->>>> +        * if writeback itself cannot handle cdm for some reason it will fail in its atomic_check()
->>>> +        * earlier.
->>>> +        */
->>>> +       if (dpu_enc->disp_info.intf_type == INTF_WB && conn_state->writeback_job) {
->>>> +               fb = conn_state->writeback_job->fb;
->>>> +
->>>> +               if (fb && DPU_FORMAT_IS_YUV(to_dpu_format(msm_framebuffer_format(fb))))
->>>> +                       topology.needs_cdm = true;
->>>> +               if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
->>>> +                       crtc_state->mode_changed = true;
->>>> +               else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
->>>> +                       crtc_state->mode_changed = true;
->>>> +       }
->>>> +
->>>>           /*
->>>>            * Release and Allocate resources on every modeset
->>>>            * Dont allocate when active is false.
->>>> @@ -1063,6 +1081,15 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->>>>
->>>>           dpu_enc->dsc_mask = dsc_mask;
->>>>
->>>> +       if (dpu_enc->disp_info.intf_type == INTF_WB && conn_state->writeback_job) {
->>>> +               struct dpu_hw_blk *hw_cdm = NULL;
->>>> +
->>>> +               dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->>>> +                                             drm_enc->base.id, DPU_HW_BLK_CDM,
->>>> +                                             &hw_cdm, 1);
->>>> +               dpu_enc->cur_master->hw_cdm = hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
->>>> +       }
->>>> +
->>>>           cstate = to_dpu_crtc_state(crtc_state);
->>>>
->>>>           for (i = 0; i < num_lm; i++) {
->>>> --
->>>> 2.40.1
->>>>
->>>
->>>
->>> --
->>> With best wishes
->>>
->>> Dmitry
+>> changes in v2:
+>>          - replace bit magic with relevant defines
+>>          - use drmm_kzalloc instead of kzalloc/free
+>>          - some formatting fixes
+>>          - inline _setup_cdm_ops()
+>>          - protect bind_pingpong_blk with core_rev check
+>>          - drop setup_csc_data() and setup_cdwn() ops as they
+>>            are merged into enable()
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/Makefile                |   1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c  | 276 ++++++++++++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h  | 114 ++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |   1 +
+>>   4 files changed, 392 insertions(+)
+>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c
+>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h
+>>
+>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+>> index 49671364fdcf..b1173128b5b9 100644
+>> --- a/drivers/gpu/drm/msm/Makefile
+>> +++ b/drivers/gpu/drm/msm/Makefile
+>> @@ -63,6 +63,7 @@ msm-$(CONFIG_DRM_MSM_DPU) += \
+>>          disp/dpu1/dpu_encoder_phys_wb.o \
+>>          disp/dpu1/dpu_formats.o \
+>>          disp/dpu1/dpu_hw_catalog.o \
+>> +       disp/dpu1/dpu_hw_cdm.o \
+>>          disp/dpu1/dpu_hw_ctl.o \
+>>          disp/dpu1/dpu_hw_dsc.o \
+>>          disp/dpu1/dpu_hw_dsc_1_2.o \
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c
+>> new file mode 100644
+>> index 000000000000..0dbe2df56cc8
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c
+>> @@ -0,0 +1,276 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (c) 2023, The Linux Foundation. All rights reserved.
+>> + */
+>> +
+>> +#include <drm/drm_managed.h>
+>> +
+>> +#include "dpu_hw_mdss.h"
+>> +#include "dpu_hw_util.h"
+>> +#include "dpu_hw_catalog.h"
+>> +#include "dpu_hw_cdm.h"
+>> +#include "dpu_kms.h"
+>> +
+>> +#define CDM_CSC_10_OPMODE                  0x000
+>> +#define CDM_CSC_10_BASE                    0x004
+>> +
+>> +#define CDM_CDWN2_OP_MODE                  0x100
+>> +#define CDM_CDWN2_CLAMP_OUT                0x104
+>> +#define CDM_CDWN2_PARAMS_3D_0              0x108
+>> +#define CDM_CDWN2_PARAMS_3D_1              0x10C
+>> +#define CDM_CDWN2_COEFF_COSITE_H_0         0x110
+>> +#define CDM_CDWN2_COEFF_COSITE_H_1         0x114
+>> +#define CDM_CDWN2_COEFF_COSITE_H_2         0x118
+>> +#define CDM_CDWN2_COEFF_OFFSITE_H_0        0x11C
+>> +#define CDM_CDWN2_COEFF_OFFSITE_H_1        0x120
+>> +#define CDM_CDWN2_COEFF_OFFSITE_H_2        0x124
+>> +#define CDM_CDWN2_COEFF_COSITE_V           0x128
+>> +#define CDM_CDWN2_COEFF_OFFSITE_V          0x12C
+>> +#define CDM_CDWN2_OUT_SIZE                 0x130
+>> +
+>> +#define CDM_HDMI_PACK_OP_MODE              0x200
+>> +#define CDM_CSC_10_MATRIX_COEFF_0          0x004
+>> +
+>> +#define CDM_MUX                            0x224
+>> +
+>> +/* CDM CDWN2 sub-block bit definitions */
+>> +#define CDM_CDWN2_OP_MODE_EN                  BIT(0)
+>> +#define CDM_CDWN2_OP_MODE_ENABLE_H            BIT(1)
+>> +#define CDM_CDWN2_OP_MODE_ENABLE_V            BIT(2)
+>> +#define CDM_CDWN2_OP_MODE_METHOD_H_AVG        BIT(3)
+>> +#define CDM_CDWN2_OP_MODE_METHOD_H_COSITE     BIT(4)
+>> +#define CDM_CDWN2_OP_MODE_METHOD_V_AVG        BIT(5)
+>> +#define CDM_CDWN2_OP_MODE_METHOD_V_COSITE     BIT(6)
+>> +#define CDM_CDWN2_OP_MODE_BITS_OUT_8BIT       BIT(7)
+>> +#define CDM_CDWN2_OP_MODE_METHOD_H_OFFSITE    GENMASK(4, 3)
+>> +#define CDM_CDWN2_OP_MODE_METHOD_V_OFFSITE    GENMASK(6, 5)
+>> +#define CDM_CDWN2_V_PIXEL_DROP_MASK           GENMASK(6, 5)
+>> +#define CDM_CDWN2_H_PIXEL_DROP_MASK           GENMASK(4, 3)
+>> +
+>> +/* CDM CSC10 sub-block bit definitions */
+>> +#define CDM_CSC10_OP_MODE_EN               BIT(0)
+>> +#define CDM_CSC10_OP_MODE_SRC_FMT_YUV      BIT(1)
+>> +#define CDM_CSC10_OP_MODE_DST_FMT_YUV      BIT(2)
+>> +
+>> +/* CDM HDMI pack sub-block bit definitions */
+>> +#define CDM_HDMI_PACK_OP_MODE_EN           BIT(0)
+>> +
+>> +/**
+>> + * Horizontal coefficients for cosite chroma downscale
+>> + * s13 representation of coefficients
+>> + */
+>> +static u32 cosite_h_coeff[] = {0x00000016, 0x000001cc, 0x0100009e};
+>> +
+>> +/**
+>> + * Horizontal coefficients for offsite chroma downscale
+>> + */
+>> +static u32 offsite_h_coeff[] = {0x000b0005, 0x01db01eb, 0x00e40046};
+>> +
+>> +/**
+>> + * Vertical coefficients for cosite chroma downscale
+>> + */
+>> +static u32 cosite_v_coeff[] = {0x00080004};
+>> +/**
+>> + * Vertical coefficients for offsite chroma downscale
+>> + */
+>> +static u32 offsite_v_coeff[] = {0x00060002};
+>> +
+>> +static int dpu_hw_cdm_setup_cdwn(struct dpu_hw_cdm *ctx, struct dpu_hw_cdm_cfg *cfg)
+>> +{
+>> +       struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>> +       u32 opmode = 0;
+>> +       u32 out_size = 0;
+>> +
+>> +       if (cfg->output_bit_depth == CDM_CDWN_OUTPUT_10BIT)
+>> +               opmode &= ~CDM_CDWN2_OP_MODE_BITS_OUT_8BIT;
+> 
+> We start from opmode = 0. Does it really make sense to mask bits from
+> the zero opmode?
+> 
+
+Ack, We can drop the ~ and just keep the | below.
+
+>> +       else
+>> +               opmode |= CDM_CDWN2_OP_MODE_BITS_OUT_8BIT;
+>> +
+>> +       /* ENABLE DWNS_H bit */
+>> +       opmode |= CDM_CDWN2_OP_MODE_ENABLE_H;
+>> +
+>> +       switch (cfg->h_cdwn_type) {
+>> +       case CDM_CDWN_DISABLE:
+>> +               /* CLEAR METHOD_H field */
+>> +               opmode &= ~CDM_CDWN2_H_PIXEL_DROP_MASK;
+>> +               /* CLEAR DWNS_H bit */
+>> +               opmode &= ~CDM_CDWN2_OP_MODE_ENABLE_H;
+>> +               break;
+>> +       case CDM_CDWN_PIXEL_DROP:
+>> +               /* Clear METHOD_H field (pixel drop is 0) */
+>> +               opmode &= ~CDM_CDWN2_H_PIXEL_DROP_MASK;
+>> +               break;
+>> +       case CDM_CDWN_AVG:
+>> +               /* Clear METHOD_H field (Average is 0x1) */
+>> +               opmode &= ~CDM_CDWN2_H_PIXEL_DROP_MASK;
+>> +               opmode |= CDM_CDWN2_OP_MODE_METHOD_H_AVG;
+>> +               break;
+>> +       case CDM_CDWN_COSITE:
+>> +               /* Clear METHOD_H field (Average is 0x2) */
+>> +               opmode &= ~CDM_CDWN2_H_PIXEL_DROP_MASK;
+>> +               opmode |= CDM_CDWN2_OP_MODE_METHOD_H_COSITE;
+>> +               /* Co-site horizontal coefficients */
+>> +               DPU_REG_WRITE(c, CDM_CDWN2_COEFF_COSITE_H_0,
+>> +                               cosite_h_coeff[0]);
+>> +               DPU_REG_WRITE(c, CDM_CDWN2_COEFF_COSITE_H_1,
+>> +                               cosite_h_coeff[1]);
+>> +               DPU_REG_WRITE(c, CDM_CDWN2_COEFF_COSITE_H_2,
+>> +                               cosite_h_coeff[2]);
+>> +               break;
+>> +       case CDM_CDWN_OFFSITE:
+>> +               /* Clear METHOD_H field (Average is 0x3) */
+>> +               opmode &= ~CDM_CDWN2_H_PIXEL_DROP_MASK;
+>> +               opmode |= CDM_CDWN2_OP_MODE_METHOD_H_OFFSITE;
+>> +
+>> +               /* Off-site horizontal coefficients */
+>> +               DPU_REG_WRITE(c, CDM_CDWN2_COEFF_OFFSITE_H_0,
+>> +                               offsite_h_coeff[0]);
+>> +               DPU_REG_WRITE(c, CDM_CDWN2_COEFF_OFFSITE_H_1,
+>> +                               offsite_h_coeff[1]);
+>> +               DPU_REG_WRITE(c, CDM_CDWN2_COEFF_OFFSITE_H_2,
+>> +                               offsite_h_coeff[2]);
+>> +               break;
+>> +       default:
+>> +               pr_err("%s invalid horz down sampling type\n", __func__);
+> 
+> DPU_ERROR or drm_err
+> 
+
+Ack.
+
+>> +               return -EINVAL;
+>> +       }
+>> +
+>> +       /* ENABLE DWNS_V bit */
+>> +       opmode |= CDM_CDWN2_OP_MODE_ENABLE_V;
+>> +
+>> +       switch (cfg->v_cdwn_type) {
+>> +       case CDM_CDWN_DISABLE:
+>> +               /* CLEAR METHOD_V field */
+>> +               opmode &= ~CDM_CDWN2_V_PIXEL_DROP_MASK;
+>> +               /* CLEAR DWNS_V bit */
+>> +               opmode &= ~CDM_CDWN2_OP_MODE_ENABLE_V;
+>> +               break;
+>> +       case CDM_CDWN_PIXEL_DROP:
+>> +               /* Clear METHOD_V field (pixel drop is 0) */
+>> +               opmode &= ~CDM_CDWN2_V_PIXEL_DROP_MASK;
+>> +               break;
+>> +       case CDM_CDWN_AVG:
+>> +               /* Clear METHOD_V field (Average is 0x1) */
+>> +               opmode &= ~CDM_CDWN2_V_PIXEL_DROP_MASK;
+>> +               opmode |= CDM_CDWN2_OP_MODE_METHOD_V_AVG;
+>> +               break;
+>> +       case CDM_CDWN_COSITE:
+>> +               /* Clear METHOD_V field (Average is 0x2) */
+>> +               opmode &= ~CDM_CDWN2_V_PIXEL_DROP_MASK;
+>> +               opmode |= CDM_CDWN2_OP_MODE_METHOD_V_COSITE;
+>> +               /* Co-site vertical coefficients */
+>> +               DPU_REG_WRITE(c,
+>> +                             CDM_CDWN2_COEFF_COSITE_V,
+>> +                             cosite_v_coeff[0]);
+>> +               break;
+>> +       case CDM_CDWN_OFFSITE:
+>> +               /* Clear METHOD_V field (Average is 0x3) */
+>> +               opmode &= ~CDM_CDWN2_V_PIXEL_DROP_MASK;
+>> +               opmode |= CDM_CDWN2_OP_MODE_METHOD_V_OFFSITE;
+>> +
+>> +               /* Off-site vertical coefficients */
+>> +               DPU_REG_WRITE(c,
+>> +                             CDM_CDWN2_COEFF_OFFSITE_V,
+>> +                             offsite_v_coeff[0]);
+>> +               break;
+>> +       default:
+>> +               return -EINVAL;
+>> +       }
+>> +
+>> +       if (cfg->v_cdwn_type || cfg->h_cdwn_type)
+>> +               opmode |= CDM_CDWN2_OP_MODE_EN; /* EN CDWN module */
+>> +       else
+>> +               opmode &= ~CDM_CDWN2_OP_MODE_EN;
+>> +
+>> +       out_size = (cfg->output_width & 0xFFFF) | ((cfg->output_height & 0xFFFF) << 16);
+>> +       DPU_REG_WRITE(c, CDM_CDWN2_OUT_SIZE, out_size);
+>> +       DPU_REG_WRITE(c, CDM_CDWN2_OP_MODE, opmode);
+>> +       DPU_REG_WRITE(c, CDM_CDWN2_CLAMP_OUT, ((0x3FF << 16) | 0x0));
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +int dpu_hw_cdm_enable(struct dpu_hw_cdm *ctx, struct dpu_hw_cdm_cfg *cdm)
+>> +{
+>> +       struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>> +       const struct dpu_format *fmt;
+>> +       u32 opmode = 0;
+>> +       u32 csc = 0;
+>> +
+>> +       if (!ctx || !cdm)
+>> +               return -EINVAL;
+>> +
+>> +       fmt = cdm->output_fmt;
+>> +
+>> +       if (!DPU_FORMAT_IS_YUV(fmt))
+>> +               return -EINVAL;
+>> +
+>> +       dpu_hw_csc_setup(&ctx->hw, CDM_CSC_10_MATRIX_COEFF_0, cdm->csc_cfg, true);
+>> +       dpu_hw_cdm_setup_cdwn(ctx, cdm);
+>> +
+>> +       if (cdm->output_type == CDM_CDWN_OUTPUT_HDMI) {
+>> +               if (fmt->chroma_sample != DPU_CHROMA_H1V2)
+>> +                       return -EINVAL; /*unsupported format */
+>> +               opmode = CDM_HDMI_PACK_OP_MODE_EN;
+>> +               opmode |= (fmt->chroma_sample << 1);
+>> +       }
+>> +
+>> +       csc |= CDM_CSC10_OP_MODE_DST_FMT_YUV;
+>> +       csc &= ~CDM_CSC10_OP_MODE_SRC_FMT_YUV;
+>> +       csc |= CDM_CSC10_OP_MODE_EN;
+>> +
+>> +       if (ctx && ctx->ops.bind_pingpong_blk)
+>> +               ctx->ops.bind_pingpong_blk(ctx, true, cdm->pp_id);
+>> +
+>> +       DPU_REG_WRITE(c, CDM_CSC_10_OPMODE, csc);
+>> +       DPU_REG_WRITE(c, CDM_HDMI_PACK_OP_MODE, opmode);
+>> +       return 0;
+>> +}
+>> +
+>> +void dpu_hw_cdm_disable(struct dpu_hw_cdm *ctx)
+>> +{
+>> +       if (!ctx)
+>> +               return;
+>> +
+>> +       if (ctx && ctx->ops.bind_pingpong_blk)
+>> +               ctx->ops.bind_pingpong_blk(ctx, false, PINGPONG_NONE);
+> 
+> So the bind/un_pingpong_block gets hidden here. Why do we need to
+> unbind it manually in the dpu_encoder then?
+> 
+
+hmm .... I think we can drop the disable op and just call 
+bind_pingpong_blk directly.
+
+>> +}
+>> +
+>> +static void dpu_hw_cdm_bind_pingpong_blk(struct dpu_hw_cdm *ctx, bool enable,
+>> +                                        const enum dpu_pingpong pp)
+> 
+> I think we settled on the PINGPONG_NONE for removing the binding
+> 
+
+Ah okay. i probably missed this. so just drop "enable" and use pp val.
+
+>> +{
+>> +       struct dpu_hw_blk_reg_map *c;
+>> +       int mux_cfg = 0xF;
+>> +
+>> +       c = &ctx->hw;
+>> +
+>> +       if (enable)
+>> +               mux_cfg = (pp - PINGPONG_0) & 0x7;
+>> +
+>> +       DPU_REG_WRITE(c, CDM_MUX, mux_cfg);
+>> +}
+>> +
+>> +struct dpu_hw_cdm *dpu_hw_cdm_init(struct drm_device *dev,
+>> +                                  const struct dpu_cdm_cfg *cfg, void __iomem *addr,
+>> +                                  const struct dpu_mdss_version *mdss_rev)
+>> +{
+>> +       struct dpu_hw_cdm *c;
+>> +
+>> +       c = drmm_kzalloc(dev, sizeof(*c), GFP_KERNEL);
+>> +       if (!c)
+>> +               return ERR_PTR(-ENOMEM);
+>> +
+>> +       c->hw.blk_addr = addr + cfg->base;
+>> +       c->hw.log_mask = DPU_DBG_MASK_CDM;
+>> +
+>> +       /* Assign ops */
+>> +       c->idx = cfg->id;
+>> +       c->caps = cfg;
+>> +
+>> +       c->ops.enable = dpu_hw_cdm_enable;
+>> +       c->ops.disable = dpu_hw_cdm_disable;
+>> +       if (mdss_rev->core_major_ver >= 5)
+>> +               c->ops.bind_pingpong_blk = dpu_hw_cdm_bind_pingpong_blk;
+>> +
+>> +       return c;
+>> +}
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h
+>> new file mode 100644
+>> index 000000000000..1ca806f9d18d
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h
+>> @@ -0,0 +1,114 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) 2023, The Linux Foundation. All rights reserved.
+>> + */
+>> +
+>> +#ifndef _DPU_HW_CDM_H
+>> +#define _DPU_HW_CDM_H
+>> +
+>> +#include "dpu_hw_mdss.h"
+>> +#include "dpu_hw_top.h"
+>> +
+>> +struct dpu_hw_cdm;
+>> +
+>> +struct dpu_hw_cdm_cfg {
+>> +       u32 output_width;
+>> +       u32 output_height;
+>> +       u32 output_bit_depth;
+>> +       u32 h_cdwn_type;
+>> +       u32 v_cdwn_type;
+>> +       const struct dpu_format *output_fmt;
+>> +       const struct dpu_csc_cfg *csc_cfg;
+>> +       u32 output_type;
+>> +       int pp_id;
+>> +};
+>> +
+>> +enum dpu_hw_cdwn_type {
+>> +       CDM_CDWN_DISABLE,
+>> +       CDM_CDWN_PIXEL_DROP,
+>> +       CDM_CDWN_AVG,
+>> +       CDM_CDWN_COSITE,
+>> +       CDM_CDWN_OFFSITE,
+>> +};
+>> +
+>> +enum dpu_hw_cdwn_output_type {
+>> +       CDM_CDWN_OUTPUT_HDMI,
+>> +       CDM_CDWN_OUTPUT_WB,
+>> +};
+>> +
+>> +enum dpu_hw_cdwn_output_bit_depth {
+>> +       CDM_CDWN_OUTPUT_8BIT,
+>> +       CDM_CDWN_OUTPUT_10BIT,
+>> +};
+> 
+> Can we please get some documentation for these enums?
+> 
+
+Ack.
+
+>> +
+>> +/**
+>> + * struct dpu_hw_cdm_ops : Interface to the chroma down Hw driver functions
+>> + *                         Assumption is these functions will be called after
+>> + *                         clocks are enabled
+>> + *  @enable:               Enables the output to interface and programs the
+>> + *                         output packer
+>> + *  @disable:              Puts the cdm in bypass mode
+>> + *  @bind_pingpong_blk:    enable/disable the connection with pingpong which
+>> + *                         will feed pixels to this cdm
+>> + */
+>> +struct dpu_hw_cdm_ops {
+>> +       /**
+>> +        * Enable the CDM module
+>> +        * @cdm         Pointer to chroma down context
+>> +        */
+>> +       int (*enable)(struct dpu_hw_cdm *cdm, struct dpu_hw_cdm_cfg *cfg);
+>> +
+>> +       /**
+>> +        * Disable the CDM module
+>> +        * @cdm         Pointer to chroma down context
+>> +        */
+>> +       void (*disable)(struct dpu_hw_cdm *cdm);
+>> +
+>> +       /**
+>> +        * Enable/disable the connection with pingpong
+>> +        * @cdm         Pointer to chroma down context
+>> +        * @enable      Enable/disable control
+>> +        * @pp          pingpong block id.
+>> +        */
+>> +       void (*bind_pingpong_blk)(struct dpu_hw_cdm *cdm, bool enable,
+>> +                                 const enum dpu_pingpong pp);
+>> +};
+>> +
+>> +/**
+>> + * struct dpu_hw_cdm - cdm description
+>> + * @base: Hardware block base structure
+>> + * @hw: Block hardware details
+>> + * @idx: CDM index
+>> + * @caps: Pointer to cdm_cfg
+>> + * @ops: handle to operations possible for this CDM
+>> + */
+>> +struct dpu_hw_cdm {
+>> +       struct dpu_hw_blk base;
+>> +       struct dpu_hw_blk_reg_map hw;
+>> +
+>> +       /* chroma down */
+>> +       const struct dpu_cdm_cfg *caps;
+>> +       enum  dpu_cdm  idx;
+>> +
+>> +       /* ops */
+>> +       struct dpu_hw_cdm_ops ops;
+>> +};
+>> +
+>> +/**
+>> + * dpu_hw_cdm_init - initializes the cdm hw driver object.
+>> + * should be called once before accessing every cdm.
+>> + * @dev: DRM device handle
+>> + * @cdm: CDM catalog entry for which driver object is required
+>> + * @addr :   mapped register io address of MDSS
+>> + * @mdss_rev: mdss hw core revision
+>> + */
+>> +struct dpu_hw_cdm *dpu_hw_cdm_init(struct drm_device *dev,
+>> +                                  const struct dpu_cdm_cfg *cdm, void __iomem *addr,
+>> +                                  const struct dpu_mdss_version *mdss_rev);
+>> +
+>> +static inline struct dpu_hw_cdm *to_dpu_hw_cdm(struct dpu_hw_blk *hw)
+>> +{
+>> +       return container_of(hw, struct dpu_hw_cdm, base);
+>> +}
+>> +
+>> +#endif /*_DPU_HW_CDM_H */
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+>> index f319c8232ea5..9db4cf61bd29 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+>> @@ -466,6 +466,7 @@ struct dpu_mdss_color {
+>>   #define DPU_DBG_MASK_ROT      (1 << 9)
+>>   #define DPU_DBG_MASK_DSPP     (1 << 10)
+>>   #define DPU_DBG_MASK_DSC      (1 << 11)
+>> +#define DPU_DBG_MASK_CDM      (1 << 12)
+>>
+>>   /**
+>>    * struct dpu_hw_tear_check - Struct contains parameters to configure
+>> --
+>> 2.40.1
+>>
 > 
 > 
+> --
+> With best wishes
 > 
+> Dmitry
