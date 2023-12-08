@@ -2,52 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FADE809F87
-	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 10:36:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30B2980A1E3
+	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 12:12:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C49B10EA32;
-	Fri,  8 Dec 2023 09:36:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E30B610EA95;
+	Fri,  8 Dec 2023 11:11:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8375910EA32;
- Fri,  8 Dec 2023 09:36:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 4C97FCE25E2;
- Fri,  8 Dec 2023 09:36:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36410C433C8;
- Fri,  8 Dec 2023 09:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1702028178;
- bh=qVk3EK9ezayq67rrdxqh4L6o43FNM8c/o+5+uydbZRA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=HKu9juMonwj7b7GSuf8G9ZYE9dk8etP77XppZIZD2ouJ1FUpYPItkFCj6g0xgH0Eu
- ncic9XhtKib++MYvS7EMJrJ3ldGx7Rzr2gw6F+p3ppFhB1mP3th1fOqgPvXylAVyRf
- mxSQNydy9+yivsYR8M2t0lm5AyzCAmwj5q92sA8qbOBPOYaLi24Ss9KFm9ihu6siB9
- Ue+Un+M9SIfpIEvwTIMyMLYvdyiTtc5AV6Nt8gAlWvImU141j/dQvork7wSEzS7onh
- rSGyiM+vvSZj5hW6UlMgFQa+RRCxTOZ05gclzeM9esZhlwmEYnOq15by7YkWnhE5ah
- aQpguOzNzG6/Q==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, 
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mairacanal@riseup.net>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20231208010314.3395904-3-dmitry.baryshkov@linaro.org>
-References: <20231208010314.3395904-1-dmitry.baryshkov@linaro.org>
- <20231208010314.3395904-3-dmitry.baryshkov@linaro.org>
-Subject: Re: (subset) [PATCH v4 2/2] drm/vkms: move wb's atomic_check from
- encoder to connector
-Message-Id: <170202817600.16687.2759695284451407147.b4-ty@kernel.org>
-Date: Fri, 08 Dec 2023 10:36:16 +0100
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A337F10EA58
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 11:11:56 +0000 (UTC)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-5d8d2b5d1b5so16468387b3.0
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Dec 2023 03:11:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1702033916; x=1702638716; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=d5sTiUJetif/fgYO2zq3XsvRjD/RlEkJTpjxX1dPW9o=;
+ b=E/ROTQ7TbqG1A59b60mqJZGuqBNvtTrOTCXPdNxXEkVjbKIJhHfx120mZdvb1jGjZp
+ imf9VsA1eo56ol/+z0nUohue0nM+WNJ3+EHZlGo4rp1VW8xyfciP0FNvM8M1NSzDXaNf
+ 1I1IVoQ+fX+xLMNKThyzUhTpXR4eVfxglUl7V55VehY/RU2elNmL/9IuS68I6j4JoTks
+ ImYjncZsTD+h9DJvE7zdNjPMzaLc+oeybyBgrKBgmhwIj+wDZFd8KU5OI7+phE43VT4W
+ BKyw7e1ajXHyxSFQXl9kWAFcE3Qn8em2XQ1oL8GfIWMnDx3XZPA3IthI3XUjo28RB5Nb
+ PuCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702033916; x=1702638716;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=d5sTiUJetif/fgYO2zq3XsvRjD/RlEkJTpjxX1dPW9o=;
+ b=XGYxXWTOrJoURwRFUWjeySAXHOTrbm+qzvIbJBmuhkT7HxbQVva2PPruJerXTH3Pyb
+ 6nDPeIwwlGqmb2nBJjmya6GtOgNgoPqs0nzAENtOWL2NoCP8uuJdMdIeYuuoINCXRnjk
+ k2scUvNpps7Bg1v87rUlNleDwBqJ+g1BEQzq1NtB9uSo3iirjeRFQVpBlBS6BzEguBG/
+ X+Es5OaBgWd16wfrJSsT+H9d/HnTPgAzoZCeL6nKqlRME80JgLBzF08tf7/E8pcKYkto
+ LDabb7B9c9/4KFqmxHI1EKk7mdaS9DCCrRFLctBE2MFHu5bu0OCcvYw+OqUZMqBRj4SG
+ F8sA==
+X-Gm-Message-State: AOJu0YwcvhVf7UyLoyVGGyxjpFMa3qaRgW61iVJZ7PLOPiJSLsV+Hee2
+ MnRXaGYGHP5TyFXM7g0UXL0I7e1SnNtgJ0Fx8JzBaw==
+X-Google-Smtp-Source: AGHT+IGadWRb7RLKWnHwQIGRXCckpkVS7uf7R7LgUD+cmDd+xOtJ0ovssIG5r2vaLiyKiudQIHYP9pqYEOJNDQwjEx0=
+X-Received: by 2002:a81:ae01:0:b0:5d0:aa04:7b71 with SMTP id
+ m1-20020a81ae01000000b005d0aa047b71mr3251777ywh.24.1702033915757; Fri, 08 Dec
+ 2023 03:11:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.3
+References: <20231208050641.32582-1-quic_abhinavk@quicinc.com>
+ <20231208050641.32582-4-quic_abhinavk@quicinc.com>
+In-Reply-To: <20231208050641.32582-4-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 8 Dec 2023 13:11:44 +0200
+Message-ID: <CAA8EJpqaZc7xB8Jb8uweKZHgLRb8SBtEN_rUCxWAK_u7hW8H-A@mail.gmail.com>
+Subject: Re: [PATCH v2 03/16] drm/msm/dpu: fix writeback programming for YUV
+ cases
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,24 +68,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, quic_parellan@quicinc.com,
+ Daniel Vetter <daniel@ffwll.ch>, quic_jesszhan@quicinc.com,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 08 Dec 2023 04:03:14 +0300, Dmitry Baryshkov wrote:
-> As the renamed drm_atomic_helper_check_wb_connector_state() now accepts
-> drm_writeback_connector as the first argument (instead of drm_encoder),
-> move the VKMS writeback atomic_check from drm_encoder_helper_funcs to
-> drm_connector_helper_funcs. Also drop the vkms_wb_encoder_helper_funcs,
-> which have become empty now.
-> 
-> 
-> [...]
+On Fri, 8 Dec 2023 at 07:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> For YUV cases, setting the required format bits was missed
+> out in the register programming. Lets fix it now in preparation
+> of adding YUV formats support for writeback.
+>
+> changes in v2:
+>     - dropped the fixes tag as its not a fix but adding
+>       new functionality
+>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Applied to drm/drm-misc (drm-misc-next).
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Thanks!
-Maxime
-
+-- 
+With best wishes
+Dmitry
