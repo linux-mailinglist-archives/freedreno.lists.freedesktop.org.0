@@ -2,66 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF72809892
-	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 02:25:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0A82809897
+	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 02:25:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 287C710E248;
-	Fri,  8 Dec 2023 01:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9943E10E9C0;
+	Fri,  8 Dec 2023 01:25:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3EE10E249
- for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 01:25:22 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ca0f21e48cso19396411fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 17:25:22 -0800 (PST)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F7510E248
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 01:25:23 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2ca03103155so18623031fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 17:25:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1701998721; x=1702603521; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cB1OKrbRDLzBqraa4AEj/IskXYNJ0qKZbmReSLdVQ8g=;
- b=vdIaI9qBDtNwsmIs3Kp8Za3ZFOmcIMroTxPNVsHYskLYEtwurY9Yt9yxz/ByDe6MAP
- MWVVsIz71GfgeHk1RSMI9ylqHjutu8/lboOo0F/Vqtbt38fBW9Wpj+YbViQR/ajlpPHJ
- 5cP74+UWtNsOse8H6DXW8cxv9oVRdPpiKadc5Og8rbQOFGhGykx2YnLLOARg783Afdu7
- WouZui6NnwV13OUXDAaXJrhZYMuAC1x6pGMcXCupE9jm/a0Z/1Q04F/IxI5+09fbGoGN
- OUsWMRIoJVHgkvk8czjytuR4qlGYsE6gK7Qx+95CYk+vfNrjZRos3NoI/qFUTak8LCRU
- Jcqg==
+ bh=/z8ttjuthA9TvzbZIjtwgrrvCWpxqoAfEEPAXm+j5bk=;
+ b=P8dSJ9hRkKixWwn5SWqCmtZviiOHRkZ8SE+8BoPgA8uZsMkKXx40IGxYR45jPv/6yD
+ Bz91/lfyaYVI18hfGl1FRNou+EfmtVq4Bw80/J2BRRZUY3v3J+dsWzk/9uCX3GZvw9yX
+ KUf/EAR65+7Adsllln+rNiTXd3ddFNedbOW/IB3YcFMu44fSndraZozvC+XlwDucgHyo
+ /HPNukhvOJLK7OrCYBWzslJLUTuCiZKZYO4tUqX0v+BC5+/snnFTxa5ja50XQ/lHXKrl
+ oCAqv3wfOfOB1tlzEnpbfVopX4zolr6z+a9mS1/1d7I/jw1AV+Hr69rnV1H1vZscfKGh
+ RQ4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1701998721; x=1702603521;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cB1OKrbRDLzBqraa4AEj/IskXYNJ0qKZbmReSLdVQ8g=;
- b=xSLGf8b1QNUtiZxdtHYLPWT2TSuSbGPWIIFJmT/T9OIaMMikqHs2nGLtW7HilPrfFI
- ctJUhZlYms8vkiWAa3AKCNbUKACa3H/wSj1htOGKk8VL8ms3ebhntdLo728f5ICjtQKO
- Bzf/ikuaOgj/OF/Eo+6DCxHpl49k5bSE5ASWJU/yIkhsN15ejUvDqXePNoIpk+lJsPew
- +pvhiGVcf00CrHaOwdz3n/tlLApLL9/54wM42vDAlczBBivTeMNQZTBQ91fvoQ8I9c8p
- zRZZFVLGDd7Hz5tcqW5VIB4v53M2PC4DHfJcnL02RadsaSDsC5wt0XaW/mDoDPHNMwps
- s2iQ==
-X-Gm-Message-State: AOJu0YwsWoJSC5KE/sBtKBsBk/lrjue83RPXLkBfUHnKhTdj8C7HMQnD
- yOdCTHpq0wb2eiOn/0lQ6AUR1g==
-X-Google-Smtp-Source: AGHT+IEG32ibemvnVqzQR03JIJcqGTySxu7bxTXGMkWfda4JV4s8UhuVGuCzkuvEh1tmv0A6UKKcwg==
-X-Received: by 2002:a2e:7410:0:b0:2c9:fb42:cd28 with SMTP id
- p16-20020a2e7410000000b002c9fb42cd28mr2201824ljc.6.1701998720821; 
- Thu, 07 Dec 2023 17:25:20 -0800 (PST)
+ bh=/z8ttjuthA9TvzbZIjtwgrrvCWpxqoAfEEPAXm+j5bk=;
+ b=AyeR7A4irSzRSPMlHJaT08prSTQLyuyUgvaIfQq//kPgNBpIXnx4cStHM0cmiC5UQZ
+ FLXa3Asws+RMoEfpB0pMH8rUrh1qU9AvxN/7I1PnW6brdLFdPF+R28/xH8I1YCR1DDPD
+ X5oIUY2J0UxZQwOn0z0TgnuCrvzXrRPaZ5z0Hh8CBke+dY1n/O6YO813cGEZrjW92c2H
+ NdsWT6exBmjgC7ZoDdglQi9gdrFD/lGffZsXUnQRP/ayCe6mk4Dn4AMInNFn8QqUkurE
+ wxr0O8X9K2R++cCHaWn2IdMjQkdFIP2W9yGX6k6BQInpREKlJGU47mB0zZTqNjn5Wq+S
+ kDRg==
+X-Gm-Message-State: AOJu0YyiM87gx8ElbTRh0jOW2Kgkb2W8oHjnt8UOuGtjKrkMaQO/zb+C
+ iKoMbpunujon7rZm7Yf8ljAPuQ==
+X-Google-Smtp-Source: AGHT+IED1aYK3F3bcWEyFFjhG4PnuYCSof6Qej8fBdgpS3Q3VImntL1MaQ3H87zPoqDDxO/1vki0ng==
+X-Received: by 2002:a2e:a407:0:b0:2c9:feda:3923 with SMTP id
+ p7-20020a2ea407000000b002c9feda3923mr1320753ljn.77.1701998721804; 
+ Thu, 07 Dec 2023 17:25:21 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  g26-20020a2ea4ba000000b002c9f58169a8sm88639ljm.120.2023.12.07.17.25.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Dec 2023 17:25:20 -0800 (PST)
+ Thu, 07 Dec 2023 17:25:21 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH] drm/msm/dpu: drop MSM_ENC_VBLANK support
-Date: Fri,  8 Dec 2023 04:25:18 +0300
-Message-Id: <170199868359.3399536.11819408317863820491.b4-ty@linaro.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: (subset) [PATCH 0/3] arm64: qcom: sm8650: add support for
+ DisplayPort Controller
+Date: Fri,  8 Dec 2023 04:25:19 +0300
+Message-Id: <170199868358.3399536.1110149612486448094.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231004031903.518223-1-dmitry.baryshkov@linaro.org>
-References: <20231004031903.518223-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231207-topic-sm8650-upstream-dp-v1-0-b762c06965bb@linaro.org>
+References: <20231207-topic-sm8650-upstream-dp-v1-0-b762c06965bb@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -77,24 +86,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Wed, 04 Oct 2023 06:19:03 +0300, Dmitry Baryshkov wrote:
-> There are no in-kernel users of MSM_ENC_VBLANK wait type. Drop it
-> together with the corresponding wait_for_vblank callback.
+On Thu, 07 Dec 2023 17:37:16 +0100, Neil Armstrong wrote:
+> This adds support for the DisplayPort Controller found in the SM8650
+> SoC, but it requires a specific compatible because the registers offsets
+> has changed since SM8550.
 > 
+> This also updates the SM8650 MDSS bindings to allow a displayport subnode,
+> and adds the necessary changes in the SM8650 DTSI to declare the DisplayPort
+> Controller.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: drop MSM_ENC_VBLANK support
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/d4c74a150cce
+[1/3] dt-bindings: display: msm: dp-controller: document SM8650 compatible
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/157fd368561e
+[2/3] drm/msm/dp: Add DisplayPort controller for SM8650
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/1b2d98bdd7b7
 
 Best regards,
 -- 
