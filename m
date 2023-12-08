@@ -1,58 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6AB80A242
-	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 12:33:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC92C80A247
+	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 12:34:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C43910EA70;
-	Fri,  8 Dec 2023 11:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88BE910EA75;
+	Fri,  8 Dec 2023 11:34:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F02A10EA70
- for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 11:33:21 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-5d7692542beso18654997b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 08 Dec 2023 03:33:21 -0800 (PST)
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 341BE10EA88
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 11:34:29 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-5d3c7ef7b31so19031907b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Dec 2023 03:34:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702035200; x=1702640000; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1702035268; x=1702640068; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=/JU0Aix+3eTJLA5VTicLCCippJlTJve3gMl1qQImHXo=;
- b=fAlW5u47OSIycnAp25OMnkwrCpzL/F1j2jw5Yz6VbEfjUFueC+ocKzwUqpE/c5GJcw
- LiiQRcaa10p2UEmIsQvzQnEEN04KLUH+PTHukkicCMMrSiCY9gE/ok/34aLS28wKKacx
- ZUaGXCwZ2cajP4eKoLyw4yL5g3Ahq4SuDNn8+yUEJKngnj6G7eJ3sRhjrIZphOF+5hqw
- xUz3kw0mha3jdJHZ+wteGe7zl4SgxTdD8IFsP8Lo90Ucglmk38/AwCwj6FjTNTJWw/9f
- p+MDG/B1QZvtW05zD2CdaHDjWIow32etVjEilW9cUY2TSkPAugTpfVTPxeM3h5P35e7v
- QD4A==
+ bh=Ioy7a4mjD1TM5aUtdQWmEC4pgXl3wwexCFdK6aCY8Cc=;
+ b=mEwXk+FHwoWzC8UbzpboYq1So4Pk7XO4tESVKfBYtHC0DQJfN0VE8IpYG+MZ3Y/Go+
+ +r81xBHmKYIEAd63ywnyTCd4Op0eKvkz2K5Xrwi3h+aB3ujpVNHzyf+tMHqGBwjjdsRM
+ x/24KPdZxpp49eHkZagxO0BlDEMkArIp1nafq5vaWJKB2YXain1/3d9lNKZfV0wPkcVM
+ praSGTkwolRorLc+E4U+J4PhWGAEhtROponWVHfWFzuxjM6qoZyYfliw1IfEdvUzIiLv
+ TM4nAfaZPK6TTv/jInPLy3y57PZ994vYud93dVnG9bE96xKVZh8EAwaxc/7PRCC+gwCZ
+ hqJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702035200; x=1702640000;
+ d=1e100.net; s=20230601; t=1702035268; x=1702640068;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=/JU0Aix+3eTJLA5VTicLCCippJlTJve3gMl1qQImHXo=;
- b=sZyZgvCT5/6r07qaBB/lnZ5MMenx/oKPVSDtc1vKnR+m+MLZ1t8ZB+iQrmNsRROVDn
- bxHnabvKi5VMr6t8gTN9DxtqtX4UnEOL2Xqnm2MSAlofE/D30LQfdHVy+UUoCmnlmPL0
- iqQpQABcYaU1riDXgvioaysCdx+nuVaVhsE0DEPIW5CcmES0YC6C0mWmkvAJj7WUGQpA
- bvsIwgDEtMQZCR7LzkoPCPszbgCMlIgptjM6xTJwIdI0K5mGKXb95KwsN+POvA0oI1M/
- SJIpEmfHB8EEzTOTxPxCoCsE+HugHk5fTSeh2lSwuHr+XtlFp80svx2DRX/NgXCLjT4i
- 7b3w==
-X-Gm-Message-State: AOJu0YzmoCrQeTXTVUBWrcZ7UL4da/xdCFerb5VRKSZx7Ve4QIqP+FEM
- eNuYRStx4qUpULRU+Ai9t+KCopVBHlE8XNzl01JObQ==
-X-Google-Smtp-Source: AGHT+IG926dy16YwagP5QBNbXqNoptmJLvVLG6OqY9cTBrpxcxKQB+Y9cblTj14KWw6m6Na1tgvvMZHS3Hl9xYt898U=
-X-Received: by 2002:a81:a605:0:b0:5d7:1940:53e1 with SMTP id
- i5-20020a81a605000000b005d7194053e1mr3952459ywa.89.1702035200621; Fri, 08 Dec
- 2023 03:33:20 -0800 (PST)
+ bh=Ioy7a4mjD1TM5aUtdQWmEC4pgXl3wwexCFdK6aCY8Cc=;
+ b=N67+F2fWqLu8C1JVHUBksIkuKeQ1B5h4BV7lvG0nJLaEbchRAuca8wusRQxE3+6iMJ
+ BU9yuVRg5yWZpHM9QjBmSPkVZIMpWtBYczcAI9gPbFHs3LFllziRyYNTRft+9uudmsWk
+ VxN4K09Rqsjt1DWKIUqpFzz9sokaOf1ZQrANjCpLctLKSDQWGm8kbnJLd8L92BaJtHyW
+ vmsGU5i+5BVlvEVSmxOlU0pmZO7lnKiHU2JuHIvBj14VyRiQh3OL+qzpKL0gP2Ya+QPi
+ Mi4roP+/kidHXzeGUqgtwM5eVSc/r1/go90w5byoRzHtLOVVOVJD0wpWFZ/dipTbl+dE
+ 7Z1w==
+X-Gm-Message-State: AOJu0YzGEQs1kMcUMdC64+vzFz4rkpg9LqVDwGL8vrqOcSoqmyT4LQAg
+ qXay1wc4k5KP2pIkybngzKR8nBmlM8hs0NxSs9u6zg==
+X-Google-Smtp-Source: AGHT+IEnxfoJSBiNek6sdMc7Ud4skvctpIP2+cEf8vddxE69b7AorZ3VH3y8fLa2ZwsZWhID77sUwyYka6dZEElUZlU=
+X-Received: by 2002:a0d:cbc4:0:b0:5de:955e:24a6 with SMTP id
+ n187-20020a0dcbc4000000b005de955e24a6mr639733ywd.2.1702035268406; Fri, 08 Dec
+ 2023 03:34:28 -0800 (PST)
 MIME-Version: 1.0
 References: <20231208050641.32582-1-quic_abhinavk@quicinc.com>
- <20231208050641.32582-10-quic_abhinavk@quicinc.com>
-In-Reply-To: <20231208050641.32582-10-quic_abhinavk@quicinc.com>
+ <20231208050641.32582-11-quic_abhinavk@quicinc.com>
+In-Reply-To: <20231208050641.32582-11-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 8 Dec 2023 13:33:09 +0200
-Message-ID: <CAA8EJpp0v0_0BRguZOskbtv69-OZ32uMtdnb7i4xLyhz=UR8og@mail.gmail.com>
-Subject: Re: [PATCH v2 09/16] drm/msm/dpu: add support to allocate CDM from RM
+Date: Fri, 8 Dec 2023 13:34:17 +0200
+Message-ID: <CAA8EJpowcKmn_xXbmwXZGiTJXuwJcArjyDii7m1WjofPE_xoxA@mail.gmail.com>
+Subject: Re: [PATCH v2 10/16] drm/msm/dpu: add CDM related logic to dpu_hw_ctl
+ layer
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -78,155 +79,22 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Fri, 8 Dec 2023 at 07:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> Even though there is usually only one CDM block, it can be
-> used by either HDMI, DisplayPort OR Writeback interfaces.
+> CDM block will need its own logic to program the flush and active
+> bits in the dpu_hw_ctl layer.
 >
-> Hence its allocation needs to be tracked properly by the
-> resource manager to ensure appropriate availability of the
-> block.
+> Make necessary changes in dpu_hw_ctl to support CDM programming.
 >
 > changes in v2:
->         - move needs_cdm to topology struct
+>         - remove unused empty line
+>         - pass in cdm_num to update_pending_flush_cdm()
 >
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 38 +++++++++++++++++++--
->  drivers/gpu/drm/msm/msm_drv.h               |  2 ++
->  4 files changed, 40 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 35 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h | 12 ++++++++
+>  2 files changed, 47 insertions(+)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index 9db4cf61bd29..5df545904057 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -98,6 +98,7 @@ enum dpu_hw_blk_type {
->         DPU_HW_BLK_DSPP,
->         DPU_HW_BLK_MERGE_3D,
->         DPU_HW_BLK_DSC,
-> +       DPU_HW_BLK_CDM,
->         DPU_HW_BLK_MAX,
->  };
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index df6271017b80..a0cd36e45a01 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -135,6 +135,7 @@ struct dpu_global_state {
->         uint32_t ctl_to_enc_id[CTL_MAX - CTL_0];
->         uint32_t dspp_to_enc_id[DSPP_MAX - DSPP_0];
->         uint32_t dsc_to_enc_id[DSC_MAX - DSC_0];
-> +       uint32_t cdm_to_enc_id;
->  };
->
->  struct dpu_global_state
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index 7ed476b96304..b58a9c2ae326 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -435,6 +435,26 @@ static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
->         return 0;
->  }
->
-> +static int _dpu_rm_reserve_cdm(struct dpu_rm *rm,
-> +                              struct dpu_global_state *global_state,
-> +                              struct drm_encoder *enc)
-> +{
-> +       /* try allocating only one CDM block */
-> +       if (!rm->cdm_blk) {
-> +               DPU_ERROR("CDM block does not exist\n");
-
-Nit: maybe this should be an info or a warning instead?
-
-> +               return -EIO;
-> +       }
-> +
-> +       if (global_state->cdm_to_enc_id) {
-> +               DPU_ERROR("CDM_0 is already allocated\n");
-> +               return -EIO;
-> +       }
-> +
-> +       global_state->cdm_to_enc_id = enc->base.id;
-> +
-> +       return 0;
-> +}
-> +
->  static int _dpu_rm_make_reservation(
->                 struct dpu_rm *rm,
->                 struct dpu_global_state *global_state,
-> @@ -460,6 +480,14 @@ static int _dpu_rm_make_reservation(
->         if (ret)
->                 return ret;
->
-> +       if (reqs->topology.needs_cdm) {
-> +               ret = _dpu_rm_reserve_cdm(rm, global_state, enc);
-> +               if (ret) {
-> +                       DPU_ERROR("unable to find CDM blk\n");
-> +                       return ret;
-> +               }
-> +       }
-> +
->         return ret;
->  }
->
-> @@ -470,9 +498,9 @@ static int _dpu_rm_populate_requirements(
->  {
->         reqs->topology = req_topology;
->
-> -       DRM_DEBUG_KMS("num_lm: %d num_dsc: %d num_intf: %d\n",
-> +       DRM_DEBUG_KMS("num_lm: %d num_dsc: %d num_intf: %d cdm: %d\n",
->                       reqs->topology.num_lm, reqs->topology.num_dsc,
-> -                     reqs->topology.num_intf);
-> +                     reqs->topology.num_intf, reqs->topology.needs_cdm);
->
->         return 0;
->  }
-> @@ -501,6 +529,7 @@ void dpu_rm_release(struct dpu_global_state *global_state,
->                 ARRAY_SIZE(global_state->dsc_to_enc_id), enc->base.id);
->         _dpu_rm_clear_mapping(global_state->dspp_to_enc_id,
->                 ARRAY_SIZE(global_state->dspp_to_enc_id), enc->base.id);
-> +       _dpu_rm_clear_mapping(&global_state->cdm_to_enc_id, 1, enc->base.id);
->  }
->
->  int dpu_rm_reserve(
-> @@ -574,6 +603,11 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
->                 hw_to_enc_id = global_state->dsc_to_enc_id;
->                 max_blks = ARRAY_SIZE(rm->dsc_blks);
->                 break;
-> +       case DPU_HW_BLK_CDM:
-> +               hw_blks = &rm->cdm_blk;
-> +               hw_to_enc_id = &global_state->cdm_to_enc_id;
-> +               max_blks = 1;
-> +               break;
->         default:
->                 DPU_ERROR("blk type %d not managed by rm\n", type);
->                 return 0;
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index a205127ccc93..1ebad634781c 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -92,12 +92,14 @@ enum msm_event_wait {
->   * @num_intf:     number of interfaces the panel is mounted on
->   * @num_dspp:     number of dspp blocks used
->   * @num_dsc:      number of Display Stream Compression (DSC) blocks used
-> + * @needs_cdm:    indicates whether cdm block is needed for this display topology
->   */
->  struct msm_display_topology {
->         u32 num_lm;
->         u32 num_intf;
->         u32 num_dspp;
->         u32 num_dsc;
-> +       bool needs_cdm;
->  };
->
->  /* Commit/Event thread specific structure */
-> --
-> 2.40.1
->
-
 
 -- 
 With best wishes
