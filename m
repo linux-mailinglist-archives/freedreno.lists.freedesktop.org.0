@@ -2,73 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10AE809854
-	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 02:03:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C8C809867
+	for <lists+freedreno@lfdr.de>; Fri,  8 Dec 2023 02:11:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0613510E9C0;
-	Fri,  8 Dec 2023 01:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4287E10E249;
+	Fri,  8 Dec 2023 01:11:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E478110E9BD
- for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 01:03:21 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50bf82f4409so1415085e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 17:03:21 -0800 (PST)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DB010E9C8
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Dec 2023 01:11:06 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2c9f4bb2e5eso20683011fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Dec 2023 17:11:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701997400; x=1702602200; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KH74X69CknSJEAqKADUYJy0tIjkWf/mm9wfbBS4QRQA=;
- b=xjY1WzIKpYLyJCC0bUzGv64dFa3RdhB6VCWJv2KE6E6bTl4BhaIYahgvOoBZ7T1mjw
- IHtksouFAiNq+wFKsQvan1wcfPQnEWpM6cxAG13brSHH8DWR9Nfct5gCubMYlTFAlcQ3
- gFZWy91lzDSrI7X9rnT3Pr76O3dmz1FTNYot9kuc4vbVXDE0KgQHZNYin5hGTrzpl2+u
- nc7q5ZGfDsIPWgoSm+xffrR10ktItWfE0R0QlXw7VKy3iH1zNq4aRug8yF8+4RR8mzqd
- dOgAPTucZ3BzgPBoseD4Ssp3lxLz8HVy95qnILbROd6oTtQHIXcm7ibIrWYMLXUtQ8El
- btLQ==
+ d=linaro.org; s=google; t=1701997864; x=1702602664; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cPIpR2OhS8FsOJYuELc4EcfXoYVEFO3KDU00U/AniAY=;
+ b=Gf7X5e74P8tlns0Kv9eLwuR2MrXW2BhP1zh++SaAKOSf37PB2Rjn+9ILohQW9OfT2+
+ O47LBRADOesRsmPJicArS9K1N6nH48Bb55b/YviUXGJdKOGvlbo/eItBsZWMOx9i7eRR
+ Tbdbbv7ijJZr4Zkv6ac4/BZCAPIaRq41cGxfx5hTCc0RD3GFzGBl6L65TpvchCkMyBdl
+ s5Y9KTs3k6d8XYSJOWxvO99rNl4Gw4hWVTCMUIEqcGDIyME1RQ/Qu3vSkHWGcb9sXFHp
+ ij0M/kwMu/dfiYhYjy/7CSV3ZMDgLIaXjdg/ZkXhNOrj7X9ClHco3YbjIqWPFQrRezNn
+ TlKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701997400; x=1702602200;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KH74X69CknSJEAqKADUYJy0tIjkWf/mm9wfbBS4QRQA=;
- b=EDxQ0qMKw+3oriM/Gj1Ae4zeoBQIYUZnvxInqdcyM2ShNrxWHVM+575/GuUHRXCJar
- C95aP11VPW9zSuqSfzSogU5fvnNL7FuCAVOXyjfqpjKGUP2O3vd2KpMJZTUaARHD9uCk
- YskkkfH+EhTyVKFnZq3R+fxGUK2gHRFYwEtBzd33cBavmRqwuQq6JfoghGfO4FkjIF+v
- q69XhltwlJlQYecj5mPgkEnsZ0P9H7WvGCCjeZmgVmYwBnUIENgaWvobsaK/kepq2ioF
- mi3IFY2oDuom4An9aNwjFFf1KFjxDG30u9gU1k5XkCOkqfX5SYsPeLBl5oNPP3nzMys6
- VMzg==
-X-Gm-Message-State: AOJu0Yw214xviyv7D688Bs5a2GHmkTJNrnve+0XQhSRJzpjkEQNsQBCo
- 5vJg0798DLkc/SNkH8wB4Y37Jg==
-X-Google-Smtp-Source: AGHT+IGp18wUjpiOvhYgSK2UicMqSaBn8WCyD/Y+QwBeT3gAg85czosN3/RcOwKmUieKQg9qE+WKWA==
-X-Received: by 2002:a05:6512:10d2:b0:50b:efbc:185d with SMTP id
- k18-20020a05651210d200b0050befbc185dmr50714lfg.18.1701997400242; 
- Thu, 07 Dec 2023 17:03:20 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20230601; t=1701997864; x=1702602664;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cPIpR2OhS8FsOJYuELc4EcfXoYVEFO3KDU00U/AniAY=;
+ b=A+ntiJR0RbSBAtEqb4MwpSb/m/qmEKj9UDoeI0MpvFOmGTXPnLDOY04KXGq5r0H3E7
+ Qx0/X3FHSyya7RKh/pGniSB+K4aHy9jHq87LlPIlkF79Hd7H9VQgtyzUUYYcENxiwMRa
+ SrlqV7gG9qmoHsdaKaq6Q9STSN7ZU4Hd6jySipLsTb2yUSsLHflIoHQRTW0x0ZMj9W7i
+ 1FNyJfVAMAFzghGdpUb+tyqR3/AVklFNMIWWbsuTvrK9SvVROjKxgYFMhkPSokzhBw/Q
+ Srq+K7bwJ4t+/Zj1ENBidzauvN86DLdgQlutE1PtYlEGuLroJ5lVU+1fuMxH22i1aBTK
+ jwGg==
+X-Gm-Message-State: AOJu0YyQLrwS725/9igR1//IHyQ7Gb9q+eXF4YzvrazTfPvke32OoD2T
+ ujVWLii87VrcZLogZP8l3jTA/w==
+X-Google-Smtp-Source: AGHT+IEWZjda2fsJ0zD6R8OaPvGCIhuiY+08NdpNxfUAkKx96xvmVTnzBUfNL5Fr1v/oeWTLLPMssw==
+X-Received: by 2002:a05:651c:117:b0:2c9:fa20:89e1 with SMTP id
+ a23-20020a05651c011700b002c9fa2089e1mr2063453ljb.9.1701997864531; 
+ Thu, 07 Dec 2023 17:11:04 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a0db:1f00::227?
+ (dzdqv0yyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::227])
  by smtp.gmail.com with ESMTPSA id
- t28-20020ac2549c000000b0050bcb5b443dsm68415lfk.171.2023.12.07.17.03.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Dec 2023 17:03:18 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- Haneen Mohammed <hamohammed.sa@gmail.com>
-Subject: [PATCH v4 2/2] drm/vkms: move wb's atomic_check from encoder to
- connector
-Date: Fri,  8 Dec 2023 04:03:14 +0300
-Message-Id: <20231208010314.3395904-3-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231208010314.3395904-1-dmitry.baryshkov@linaro.org>
-References: <20231208010314.3395904-1-dmitry.baryshkov@linaro.org>
+ r1-20020a2e94c1000000b002c9e6cbf78esm86616ljh.19.2023.12.07.17.11.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Dec 2023 17:11:03 -0800 (PST)
+Message-ID: <22f39a38-6293-424e-898e-77edc071ef75@linaro.org>
+Date: Fri, 8 Dec 2023 03:11:03 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dp: Fix platform_get_irq() check
+Content-Language: en-GB
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+References: <c12bb69b-d676-4345-9712-48aab48f2b48@moroto.mountain>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <c12bb69b-d676-4345-9712-48aab48f2b48@moroto.mountain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,94 +77,30 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, David Airlie <airlied@gmail.com>,
+ kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As the renamed drm_atomic_helper_check_wb_connector_state() now accepts
-drm_writeback_connector as the first argument (instead of drm_encoder),
-move the VKMS writeback atomic_check from drm_encoder_helper_funcs to
-drm_connector_helper_funcs. Also drop the vkms_wb_encoder_helper_funcs,
-which have become empty now.
+On 06/12/2023 14:02, Dan Carpenter wrote:
+> The platform_get_irq() function returns negative error codes.  It never
+> returns zero.  Fix the check accordingly.
+> 
+> Fixes: 82c2a5751227 ("drm/msm/dp: tie dp_display_irq_handler() with dp driver")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/vkms/vkms_writeback.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index fef7f3daf2c9..bc724cbd5e3a 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -30,18 +30,25 @@ static const struct drm_connector_funcs vkms_wb_connector_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
- 
--static int vkms_wb_encoder_atomic_check(struct drm_encoder *encoder,
--					struct drm_crtc_state *crtc_state,
--					struct drm_connector_state *conn_state)
-+static int vkms_wb_atomic_check(struct drm_connector *connector,
-+				struct drm_atomic_state *state)
- {
--	struct drm_connector *connector = conn_state->connector;
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_framebuffer *fb;
--	const struct drm_display_mode *mode = &crtc_state->mode;
-+	const struct drm_display_mode *mode;
- 	int ret;
- 
- 	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
- 		return 0;
- 
-+	if (!conn_state->crtc)
-+		return 0;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	mode = &crtc_state->mode;
-+
- 	fb = conn_state->writeback_job->fb;
- 	if (fb->width != mode->hdisplay || fb->height != mode->vdisplay) {
- 		DRM_DEBUG_KMS("Invalid framebuffer size %ux%u\n",
-@@ -49,17 +56,13 @@ static int vkms_wb_encoder_atomic_check(struct drm_encoder *encoder,
- 		return -EINVAL;
- 	}
- 
--	ret = drm_atomic_helper_check_wb_connector_state(connector, conn_state->state);
-+	ret = drm_atomic_helper_check_wb_connector_state(connector, state);
- 	if (ret < 0)
- 		return ret;
- 
- 	return 0;
- }
- 
--static const struct drm_encoder_helper_funcs vkms_wb_encoder_helper_funcs = {
--	.atomic_check = vkms_wb_encoder_atomic_check,
--};
--
- static int vkms_wb_connector_get_modes(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
-@@ -162,6 +165,7 @@ static const struct drm_connector_helper_funcs vkms_wb_conn_helper_funcs = {
- 	.prepare_writeback_job = vkms_wb_prepare_job,
- 	.cleanup_writeback_job = vkms_wb_cleanup_job,
- 	.atomic_commit = vkms_wb_atomic_commit,
-+	.atomic_check = vkms_wb_atomic_check,
- };
- 
- int vkms_enable_writeback_connector(struct vkms_device *vkmsdev)
-@@ -172,7 +176,7 @@ int vkms_enable_writeback_connector(struct vkms_device *vkmsdev)
- 
- 	return drm_writeback_connector_init(&vkmsdev->drm, wb,
- 					    &vkms_wb_connector_funcs,
--					    &vkms_wb_encoder_helper_funcs,
-+					    NULL,
- 					    vkms_wb_formats,
- 					    ARRAY_SIZE(vkms_wb_formats),
- 					    1);
 -- 
-2.39.2
+With best wishes
+Dmitry
 
