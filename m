@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998B680B782
-	for <lists+freedreno@lfdr.de>; Sun, 10 Dec 2023 00:21:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6229980B77A
+	for <lists+freedreno@lfdr.de>; Sun, 10 Dec 2023 00:21:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4C2010E31F;
-	Sat,  9 Dec 2023 23:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D68D210E314;
+	Sat,  9 Dec 2023 23:21:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E9D010E30B
- for <freedreno@lists.freedesktop.org>; Sat,  9 Dec 2023 23:21:39 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2c9f559b82cso36860531fa.0
- for <freedreno@lists.freedesktop.org>; Sat, 09 Dec 2023 15:21:39 -0800 (PST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5862410E30B
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Dec 2023 23:21:40 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2c9eca5bbaeso39877161fa.3
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Dec 2023 15:21:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1702164098; x=1702768898; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qFNU2Uw0pSijZLO+gDI3Cy6lXyGk9xUoibHaeplshjA=;
- b=ZvQwykjKcYRfyjJgT87nLGFP1aZiTuLcIBS/SmTmkNu5ePL3FX7M8saj2ccgb2IzAj
- WCb8vcAwoXJQ52yVUElcEaZqiTsaKtpc/i8yiIOc2b49/9iyLL3rKAJEtSWAMHr34fSi
- XMJ1XaOLodpwEcv6l9xXTs+HNCJfAKXurtrnlns8JG6Og8k91z2u9rnEV9R+E2gxEfSh
- UNN9l3eOoJnUqCGPqKT5D3BclBX55iHSaUH8II5Icoa/DAXydKnROKT4y106FPK/hklq
- JxJTJacCiIuCtx8Wn2RPXd1NFhDv2NbbdSmLRKeKYvZC0Kn8tHG4s9NGnTLTW2o+Mmc8
- fmEQ==
+ bh=MNYp3d1ic8j7Eae+I7H4QEOmaR7sG5mmr/TaRL+G3z8=;
+ b=Aa7lJv7jeADwG2LIJhCCNOsbu/WZO/OxgtpYdJ+Ps8S3KX0EskpgnTf2ZUFyu5bJA9
+ 1nYyAjESlAueImf8MapEpXdPyeNZMfF2ws3Y1HLkDTm2r/giPhTlr0ga4kBNPD8P7iBX
+ XFpmBogRL+25VWq/FMyQmz5lPNOS24ioi1DP9ip3fe/+EvJJYPi3YYj45riXeA0K1uc1
+ sQx4quJmVqvnK3WnjNUi6u1oJbHjCR5xCPp6+lKkbw4BrHdsCRD/SmSfgF2JaRZUs9Bw
+ T/NP3aJmOuRdb2jVtezd6qlgupLMWgx380l5saabp+T43VoqqNtH9fEDAtpJYtgCpUpZ
+ gMVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1702164098; x=1702768898;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qFNU2Uw0pSijZLO+gDI3Cy6lXyGk9xUoibHaeplshjA=;
- b=IXbHOmEUW46DzQZWOpPQMo3M3PUMpyWGHqIH43ZDwRArBabVGRA69lA63ErK8V4rQ2
- bSLpTTlEpVOuFMGsjhxALIuqBaArJ+x5VH6Ai+Hl28/3LmIXxw1dMP4KoTpkWoRODo4+
- KK3RT3NFB3lT1T9ch/Oiq33Cq9wWQAdemRPmJBYlN1nmu6JPKxhFmbu9KET7lUHSGZ1e
- CdYyKK5nuM7s2/SVbkPT3Vei9uF5qkVTeM16k3QeQfrdZkhLETeDfMWwPQyT6eGVe1PH
- etXk39wQKiok1VX/KvgFaYKk0iFG/PJIUKHEHxrQdk0cXhk+vnAcS0XgrmV2IJEl0+Vs
- 2Vfw==
-X-Gm-Message-State: AOJu0Yw9W938+K9ggqS7NT0XwbC7N/5NnN65C6AWDMohKkAuetrxIQ3j
- YgzFmwOGR1jm6HcisRxtKfh0Og==
-X-Google-Smtp-Source: AGHT+IFHcplFcv60XwQPEicmotat4bKqCFXkbEoKpfVySFHQsY0mq3mrzXNQ5TiQAVQ6R8peoAv4Mg==
-X-Received: by 2002:a05:651c:1247:b0:2cb:2a2c:55b5 with SMTP id
- h7-20020a05651c124700b002cb2a2c55b5mr464415ljh.10.1702164097820; 
- Sat, 09 Dec 2023 15:21:37 -0800 (PST)
+ bh=MNYp3d1ic8j7Eae+I7H4QEOmaR7sG5mmr/TaRL+G3z8=;
+ b=hxBc38+HITPcglGFgT/JD0FAST/D6a94F7EkeUMrCn45m6f40Z2WkVBXQJbEtN1J9J
+ P+ymP42v/6k9NJ9iXWXPEUncCKAUziTRVNVpBYXPxBD5WFPAN6vsnPpVgg0nDopclGJ3
+ luTmVPd8272ruqbCiqxUpzf+1jE6rsS2ss4Q9gi7vpHzWlqjxtAyO3J38mmPD7kooyi2
+ 7hf690nrsMNPu2WxDRoAzSsRWBZUuEoiOsTcWgMtQTBMvGqaJcPPTKz/ok1HLdHS6X/m
+ u7oZY99KuEquCx9DnvDnGBId0vhNzITRnUXolGmaj2D7/6YILWWSMAJqYbQ+LA6909MC
+ F8kA==
+X-Gm-Message-State: AOJu0YxSFXHQk96G5QpzyVmPhZN+dkcdRpWgv+x++OalZ2pn6HRcWHxn
+ kCi7HjKD4wEmdQvS6ddEbu1MoxmOQcyalCfxUes=
+X-Google-Smtp-Source: AGHT+IEKN7Ff4C9uGUgDJ2n0EVzbCQqIPNVYTm8yWNs+FrppKiFaOj7gJepy4WcJFJ3UY6gLmiMo2g==
+X-Received: by 2002:a2e:82c9:0:b0:2c9:f83c:5bc1 with SMTP id
+ n9-20020a2e82c9000000b002c9f83c5bc1mr322829ljh.58.1702164098688; 
+ Sat, 09 Dec 2023 15:21:38 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  z18-20020a2ebe12000000b002c9f59f1748sm685258ljq.7.2023.12.09.15.21.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Dec 2023 15:21:37 -0800 (PST)
+ Sat, 09 Dec 2023 15:21:38 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
@@ -58,9 +58,9 @@ To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH 5/9] arm64: dts: qcom: sm8150-hdk: fix SS USB regulators
-Date: Sun, 10 Dec 2023 02:21:28 +0300
-Message-Id: <20231209232132.3580045-6-dmitry.baryshkov@linaro.org>
+Subject: [PATCH 6/9] arm64: dts: qcom: sm8150: add DisplayPort controller
+Date: Sun, 10 Dec 2023 02:21:29 +0300
+Message-Id: <20231209232132.3580045-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
 References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
@@ -85,60 +85,119 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The SM8150-HDK uses two different regulators to power up SuperSpeed USB
-PHYs. The L5A regulator is used for the second USB host, while the first
-(OTG) USB host uses different regulator, L18A. Fix the regulator for the
-usb_1 QMPPHY and (to remove possible confusion) drop the
-usb_ss_dp_core_1/_2 labels.
+Add device tree node for the DisplayPort controller and link it to the
+display controller interface.
 
-Fixes: 0ab1b2d10afe ("arm64: dts: qcom: add sm8150 hdk dts")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8150-hdk.dts | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8150.dtsi | 87 ++++++++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150-hdk.dts b/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
-index 6a036f9ba1c9..ea4d75308ac8 100644
---- a/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
-@@ -138,8 +138,6 @@ vdda_qrefs_0p875_5:
- 		vdda_sp_sensor:
- 		vdda_ufs_2ln_core_1:
- 		vdda_ufs_2ln_core_2:
--		vdda_usb_ss_dp_core_1:
--		vdda_usb_ss_dp_core_2:
- 		vdda_qlink_lv:
- 		vdda_qlink_lv_ck:
- 		vreg_l5a_0p875: ldo5 {
-@@ -221,6 +219,12 @@ vreg_l17a_3p0: ldo17 {
- 			regulator-max-microvolt = <3008000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
+diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+index 153c531c1d41..ea7c92c0e405 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+@@ -3712,6 +3712,13 @@ dpu_intf2_out: endpoint {
+ 							remote-endpoint = <&mdss_dsi1_in>;
+ 						};
+ 					};
 +
-+		vreg_l18a_0p8: ldo18 {
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
- 	};
++					port@2 {
++						reg = <2>;
++						dpu_intf0_out: endpoint {
++							remote-endpoint = <&mdss_dp_in>;
++						};
++					};
+ 				};
  
- 	regulators-1 {
-@@ -563,13 +567,13 @@ &usb_2_hsphy {
- &usb_1_qmpphy {
- 	status = "okay";
- 	vdda-phy-supply = <&vreg_l3c_1p2>;
--	vdda-pll-supply = <&vdda_usb_ss_dp_core_1>;
-+	vdda-pll-supply = <&vreg_l18a_0p8>;
- };
+ 				mdp_opp_table: opp-table {
+@@ -3739,6 +3746,86 @@ opp-460000000 {
+ 				};
+ 			};
  
- &usb_2_qmpphy {
- 	status = "okay";
- 	vdda-phy-supply = <&vreg_l3c_1p2>;
--	vdda-pll-supply = <&vdda_usb_ss_dp_core_1>;
-+	vdda-pll-supply = <&vreg_l5a_0p875>;
- };
- 
- &usb_1 {
++			mdss_dp: displayport-controller@ae90000 {
++				compatible = "qcom,sm8150-dp", "qcom,sm8350-dp";
++				reg = <0 0xae90000 0 0x200>,
++				      <0 0xae90200 0 0x200>,
++				      <0 0xae90400 0 0x600>,
++				      <0 0x0ae90a00 0 0x600>,
++				      <0 0x0ae91000 0 0x600>;
++
++				interrupt-parent = <&mdss>;
++				interrupts = <12>;
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
++				clock-names = "core_iface",
++					      "core_aux",
++					      "ctrl_link",
++					      "ctrl_link_iface",
++					      "stream_pixel";
++
++				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
++						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
++				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
++							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
++
++				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
++				phy-names = "dp";
++
++				#sound-dai-cells = <0>;
++
++				operating-points-v2 = <&dp_opp_table>;
++				power-domains = <&rpmhpd SM8250_MMCX>;
++
++				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						mdss_dp_in: endpoint {
++							remote-endpoint = <&dpu_intf0_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						mdss_dp_out: endpoint {
++						};
++					};
++				};
++
++				dp_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					opp-160000000 {
++						opp-hz = /bits/ 64 <160000000>;
++						required-opps = <&rpmhpd_opp_low_svs>;
++					};
++
++					opp-270000000 {
++						opp-hz = /bits/ 64 <270000000>;
++						required-opps = <&rpmhpd_opp_svs>;
++					};
++
++					opp-540000000 {
++						opp-hz = /bits/ 64 <540000000>;
++						required-opps = <&rpmhpd_opp_svs_l1>;
++					};
++
++					opp-810000000 {
++						opp-hz = /bits/ 64 <810000000>;
++						required-opps = <&rpmhpd_opp_nom>;
++					};
++				};
++			};
++
+ 			mdss_dsi0: dsi@ae94000 {
+ 				compatible = "qcom,sm8150-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+ 				reg = <0 0x0ae94000 0 0x400>;
 -- 
 2.39.2
 
