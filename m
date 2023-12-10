@@ -1,72 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8156680B786
-	for <lists+freedreno@lfdr.de>; Sun, 10 Dec 2023 00:22:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CBE7F80B857
+	for <lists+freedreno@lfdr.de>; Sun, 10 Dec 2023 03:00:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1613110E320;
-	Sat,  9 Dec 2023 23:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14DA410E300;
+	Sun, 10 Dec 2023 02:00:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA8C10E318
- for <freedreno@lists.freedesktop.org>; Sat,  9 Dec 2023 23:21:42 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2ca03103155so40129691fa.0
- for <freedreno@lists.freedesktop.org>; Sat, 09 Dec 2023 15:21:42 -0800 (PST)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E7A10E300;
+ Sun, 10 Dec 2023 02:00:16 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id
+ 6a1803df08f44-67abd020f40so35453486d6.0; 
+ Sat, 09 Dec 2023 18:00:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702164101; x=1702768901; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CB+gYpOOF5znwwoZmws+FfZHIzH+rl1BpCW0+2oHpfo=;
- b=d8N7kdilpxRpyE8pbphjte5Bxf7Nj27parzdKxuPfC0PnTn5sehRNtfggb1KEoh6yF
- ZoJs1L2Z1+cz11A9MY04Ljltwduj2FL/BS5YPja3aGDhVCQjDuL+c58ftlgj/PZGOHGr
- mdW2gyGcuElbvvWQv0gH+RVN7ZfZOVZG6k1/WzYvT5rXVqD8WV8uxBE5Pz5DBEnbTazC
- GC7XF9PppiNixd2mtKnlIatJiVT0BIk5Y7ZTGzVErvxDI749tH7Y4zKFjIf3H/vHKl77
- PEaHFizUo5s6D2CtWBFqcaqy11tYIUp7rbQQVQY4STBZ+E3HE2eTXLlS8gXB5Uz7haZJ
- 44lw==
+ d=gmail.com; s=20230601; t=1702173615; x=1702778415; darn=lists.freedesktop.org;
+ h=in-reply-to:autocrypt:from:references:cc:to:content-language
+ :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Iirnk+K80ukU5tUHF57C2FdkiPvuVc7P/UMA6GstnZ0=;
+ b=LzmX7W4RG6RQwOVkPPGKfPj/hH6ecDgZpZfKMZIMxZ73P78vLSDmw1w8Y+evx+egQo
+ 6mcn9sO6gIjlw48XTiOypnZeRA7Qb38C+4bUUPcx5hwQnErRPPaJ/OgNM8PK1TlZalNP
+ Ey4uClVFgOcm668cH9JeEzdQFquk0C3u2qL8NNbFrLTiCJL8rj06QJ+6mS8ccpmr6jE1
+ lo7PZQIu5glBN1XzDVICH91gWZPpUzW621aqVoJmdwoOTqQ9vNX+Kb7TIwIrqKXCvaY+
+ Rpe1CTaVWKkVYh2MRdcXcMFPfFDikbZKsjJ4859lC3Uq+AaD8s1UioSwKSu6utNDLO67
+ S1Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702164101; x=1702768901;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CB+gYpOOF5znwwoZmws+FfZHIzH+rl1BpCW0+2oHpfo=;
- b=N3ZvKv+6HzW3mMAS/p+pYSecIuychBH215LtkYGpBf7kI0uejOpWEqkkg36aqxrYgj
- hN0jPE7ug6s4nE4NDCoFOtzVfZ8uYiuzQT8dbOQIRZGj9MJn9gRFCrl25pcEH5mLDben
- KzxU6S6ySxfd3BkpiTW2ZRte9y4DKoN/cpGlR0AN7WNGDc9QbhtdTLdkuWEmNG0M1VsF
- 0+NDaBnosmFPRwM6uEEuMHTSrr9FBt5c7pslK+DAfnVW1ZnuVqef1G9fiMuYOQV5muxe
- 6FIwXBGMJHPjG4VDW5jtMt0w7FIykNsFx/SQWPQrXiRczCOZFqKIP/bMmM2tMxM8HgIs
- A88Q==
-X-Gm-Message-State: AOJu0Yw1UajgAnYko/nXUjw24O4b95gnRufxqyPHNmavpSublPW8wlvX
- 8k5oIilPqePKib10X3aHyLFf+Q==
-X-Google-Smtp-Source: AGHT+IErepnmxlUSSu2LtUamdHgtGjBYsOtJfnOnFgtxzoGlTjAlnVsfcK+Nm6HU/oPr4UL1C2+jSg==
-X-Received: by 2002:a2e:380b:0:b0:2c9:f874:d93a with SMTP id
- f11-20020a2e380b000000b002c9f874d93amr563537lja.59.1702164101144; 
- Sat, 09 Dec 2023 15:21:41 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
+ d=1e100.net; s=20230601; t=1702173615; x=1702778415;
+ h=in-reply-to:autocrypt:from:references:cc:to:content-language
+ :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Iirnk+K80ukU5tUHF57C2FdkiPvuVc7P/UMA6GstnZ0=;
+ b=kJmtHiLdVrZWlZXv4zpAF/pKYfKPbojF8+BMYZn4xm8jaARq0SkJ9VA7fsBsMjYoTh
+ DA0fI5eL/7oOM9IZ/uS5wYkTWxSph0vVJkQy6vo6YQ3gEAi6kFC39NEpA5e59u/SaBit
+ 3wKnsqt7MAbT+EJnyFnUigOaF0JMtwkzCYgvTt4dsA4pXfEugfodzuSAndjnXbgqKui7
+ qLDdB/cuWtpCeJ4oxT4nONuU1dc+h7aMWEZ/eqS+woKTwgSqhqSOTzD4k+jLYJpK/d9Q
+ 28wjIwvERiXSsf69NNPIISWM/JqDbeczHYDXmEFbahbJB7UVU9YOqI+ask/eWF06NL3h
+ 3ZKg==
+X-Gm-Message-State: AOJu0YzleSUVpg75r7K/9QoBFvyO7slVV8j1itHWZ0MrZ/OIIfHOf+ug
+ Vl1RHVzY17zqt8/3NCE5NJA=
+X-Google-Smtp-Source: AGHT+IHmmO8yEQxrJ3T556l1Tmtu1x5im4Nj1OUazKYtPscjv2QXgn0AAZMkSWymutV6XmCr0Gc/AA==
+X-Received: by 2002:a05:6214:1549:b0:67a:a2a2:3935 with SMTP id
+ t9-20020a056214154900b0067aa2a23935mr3074853qvw.7.1702173614950; 
+ Sat, 09 Dec 2023 18:00:14 -0800 (PST)
+Received: from [192.168.2.14] ([76.65.20.140])
  by smtp.gmail.com with ESMTPSA id
- z18-20020a2ebe12000000b002c9f59f1748sm685258ljq.7.2023.12.09.15.21.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Dec 2023 15:21:40 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH 9/9] arm64: dts: qcom: sm8150-hdk: enable DisplayPort and
- USB-C altmode
-Date: Sun, 10 Dec 2023 02:21:32 +0300
-Message-Id: <20231209232132.3580045-10-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
-References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
+ pp12-20020a056214138c00b0067a14238fa9sm2051161qvb.94.2023.12.09.18.00.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 09 Dec 2023 18:00:14 -0800 (PST)
+Message-ID: <cd286d71-811e-4976-8538-4f946dca6da8@gmail.com>
+Date: Sat, 9 Dec 2023 21:00:04 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101
+ Thunderbird/115.5.1
+Subject: Re: [PATCH] drm/scheduler: Unwrap job dependencies
+Content-Language: en-CA, en-US
+To: Rob Clark <robdclark@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20231205190234.371322-1-robdclark@gmail.com>
+From: Luben Tuikov <ltuikov89@gmail.com>
+Autocrypt: addr=ltuikov89@gmail.com; keydata=
+ xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1APnbnnRHN
+ Ikx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoAQRYhBJkj7+VmFO9b
+ eaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
+ AAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlTMqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfy
+ JwktF7REl1yt7IU2Sye1qmQMfJxdt9JMbMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSP
+ cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
+ 10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
+ aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
+In-Reply-To: <20231205190234.371322-1-robdclark@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------DH1b43QTRDFYjum9TFiZzmL0"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,206 +87,201 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ "moderated list:DMA BUFFER SHARING
+ FRAMEWORK:Keyword:bdma_\(?:buf|fence|resv\)b"
+ <linaro-mm-sig@lists.linaro.org>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_\(?:buf|fence|resv\)b"
+ <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable the USB-C related functionality for the USB-C port on this board.
-This includes OTG, PowerDelivery and DP AltMode. Also enable the
-DisplayPort itself.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------DH1b43QTRDFYjum9TFiZzmL0
+Content-Type: multipart/mixed; boundary="------------5AcjGbok14q8wunARMWuRa49";
+ protected-headers="v1"
+From: Luben Tuikov <ltuikov89@gmail.com>
+To: Rob Clark <robdclark@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_(?:buf|fence|resv)b"
+ <linux-media@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_(?:buf|fence|resv)b"
+ <linaro-mm-sig@lists.linaro.org>
+Message-ID: <cd286d71-811e-4976-8538-4f946dca6da8@gmail.com>
+Subject: Re: [PATCH] drm/scheduler: Unwrap job dependencies
+References: <20231205190234.371322-1-robdclark@gmail.com>
+In-Reply-To: <20231205190234.371322-1-robdclark@gmail.com>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8150-hdk.dts | 124 +++++++++++++++++++++++-
- 1 file changed, 123 insertions(+), 1 deletion(-)
+--------------5AcjGbok14q8wunARMWuRa49
+Content-Type: multipart/mixed; boundary="------------Xnbegemyy81hwQG4dwAVqouJ"
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150-hdk.dts b/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
-index ea4d75308ac8..3b9499b0bbe8 100644
---- a/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/usb/pd.h>
- #include "sm8150.dtsi"
- #include "pm8150.dtsi"
- #include "pm8150b.dtsi"
-@@ -374,6 +375,10 @@ &gmu {
- 	status = "okay";
- };
- 
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
- &gpi_dma1 {
- 	status = "okay";
- };
-@@ -382,6 +387,29 @@ &gpu {
- 	status = "okay";
- };
- 
-+&i2c4 {
-+	clock-frequency = <100000>;
-+
-+	status = "okay";
-+
-+	typec-mux@42 {
-+		compatible = "fcs,fsa4480";
-+		reg = <0x42>;
-+
-+		interrupts-extended = <&tlmm 152 IRQ_TYPE_LEVEL_LOW>;
-+
-+		vcc-supply = <&vreg_bob>;
-+		mode-switch;
-+		orientation-switch;
-+
-+		port {
-+			fsa4480_sbu_mux: endpoint {
-+				remote-endpoint = <&pm8150b_typec_sbu_out>;
-+			};
-+		};
-+	};
-+};
-+
- &i2c9 {
- 	status = "okay";
- 	clock-frequency = <400000>;
-@@ -436,6 +464,15 @@ &mdss {
- 	status = "okay";
- };
- 
-+&mdss_dp {
-+	status = "okay";
-+};
-+
-+&mdss_dp_out {
-+	data-lanes = <0 1>;
-+	remote-endpoint = <&usb_1_qmpphy_dp_in>;
-+};
-+
- &mdss_dsi0 {
- 	status = "okay";
- 	vdda-supply = <&vreg_l3c_1p2>;
-@@ -483,6 +520,65 @@ &mdss_dsi1_phy {
- 	status = "okay";
- };
- 
-+&pm8150b_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <3000000>;
-+	status = "okay";
-+};
-+
-+&pm8150b_typec {
-+	status = "okay";
-+
-+	vdd-pdphy-supply = <&vreg_l2a_3p1>;
-+
-+	connector {
-+		compatible = "usb-c-connector";
-+
-+		power-role = "source";
-+		data-role = "dual";
-+		self-powered;
-+
-+		source-pdos = <PDO_FIXED(5000, 3000,
-+					 PDO_FIXED_DUAL_ROLE |
-+					 PDO_FIXED_USB_COMM |
-+					 PDO_FIXED_DATA_SWAP)>;
-+
-+		altmodes {
-+			displayport {
-+				svid = <0xff01>;
-+				vdo = <0x00001c46>;
-+			};
-+		};
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				pm8150b_role_switch_in: endpoint {
-+					remote-endpoint = <&usb_1_dwc3_hs>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				pm8150b_typec_mux_in: endpoint {
-+					remote-endpoint = <&usb_1_qmpphy_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				pm8150b_typec_sbu_out: endpoint {
-+					remote-endpoint = <&fsa4480_sbu_mux>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &pon_pwrkey {
- 	status = "okay";
- };
-@@ -493,6 +589,10 @@ &pon_resin {
- 	linux,code = <KEY_VOLUMEDOWN>;
- };
- 
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
- &qupv3_id_1 {
- 	status = "okay";
- };
-@@ -568,6 +668,19 @@ &usb_1_qmpphy {
- 	status = "okay";
- 	vdda-phy-supply = <&vreg_l3c_1p2>;
- 	vdda-pll-supply = <&vreg_l18a_0p8>;
-+	orientation-switch;
-+};
-+
-+&usb_1_qmpphy_dp_in {
-+	remote-endpoint = <&mdss_dp_out>;
-+};
-+
-+&usb_1_qmpphy_out {
-+	remote-endpoint = <&pm8150b_typec_mux_in>;
-+};
-+
-+&usb_1_qmpphy_usb_ss_in {
-+	remote-endpoint = <&usb_1_dwc3_ss>;
- };
- 
- &usb_2_qmpphy {
-@@ -585,7 +698,16 @@ &usb_2 {
- };
- 
- &usb_1_dwc3 {
--	dr_mode = "peripheral";
-+	dr_mode = "otg";
-+	usb-role-switch;
-+};
-+
-+&usb_1_dwc3_hs {
-+	remote-endpoint = <&pm8150b_role_switch_in>;
-+};
-+
-+&usb_1_dwc3_ss {
-+	remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
- };
- 
- &usb_2_dwc3 {
--- 
-2.39.2
+--------------Xnbegemyy81hwQG4dwAVqouJ
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
+
+On 2023-12-05 14:02, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+>=20
+> Container fences have burner contexts, which makes the trick to store a=
+t
+> most one fence per context somewhat useless if we don't unwrap array or=
+
+> chain fences.
+>=20
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+
+Link: https://lore.kernel.org/all/20230322224403.35742-1-robdclark@gmail.=
+com/
+
+Let's include a link to the original thread, as the main discussion can b=
+e found
+therein.
+
+Christian, could you review this patch please?
+
+Thanks!
+--=20
+Regards,
+Luben
+
+> ---
+>  drivers/gpu/drm/scheduler/sched_main.c | 47 ++++++++++++++++++--------=
+
+>  1 file changed, 32 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/s=
+cheduler/sched_main.c
+> index 9762464e3f99..16b550949c57 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -52,6 +52,7 @@
+>  #include <linux/wait.h>
+>  #include <linux/sched.h>
+>  #include <linux/completion.h>
+> +#include <linux/dma-fence-unwrap.h>
+>  #include <linux/dma-resv.h>
+>  #include <uapi/linux/sched/types.h>
+> =20
+> @@ -684,27 +685,14 @@ void drm_sched_job_arm(struct drm_sched_job *job)=
+
+>  }
+>  EXPORT_SYMBOL(drm_sched_job_arm);
+> =20
+> -/**
+> - * drm_sched_job_add_dependency - adds the fence as a job dependency
+> - * @job: scheduler job to add the dependencies to
+> - * @fence: the dma_fence to add to the list of dependencies.
+> - *
+> - * Note that @fence is consumed in both the success and error cases.
+> - *
+> - * Returns:
+> - * 0 on success, or an error on failing to expand the array.
+> - */
+> -int drm_sched_job_add_dependency(struct drm_sched_job *job,
+> -				 struct dma_fence *fence)
+> +static int drm_sched_job_add_single_dependency(struct drm_sched_job *j=
+ob,
+> +					       struct dma_fence *fence)
+>  {
+>  	struct dma_fence *entry;
+>  	unsigned long index;
+>  	u32 id =3D 0;
+>  	int ret;
+> =20
+> -	if (!fence)
+> -		return 0;
+> -
+>  	/* Deduplicate if we already depend on a fence from the same context.=
+
+>  	 * This lets the size of the array of deps scale with the number of
+>  	 * engines involved, rather than the number of BOs.
+> @@ -728,6 +716,35 @@ int drm_sched_job_add_dependency(struct drm_sched_=
+job *job,
+> =20
+>  	return ret;
+>  }
+> +
+> +/**
+> + * drm_sched_job_add_dependency - adds the fence as a job dependency
+> + * @job: scheduler job to add the dependencies to
+> + * @fence: the dma_fence to add to the list of dependencies.
+> + *
+> + * Note that @fence is consumed in both the success and error cases.
+> + *
+> + * Returns:
+> + * 0 on success, or an error on failing to expand the array.
+> + */
+> +int drm_sched_job_add_dependency(struct drm_sched_job *job,
+> +				 struct dma_fence *fence)
+> +{
+> +	struct dma_fence_unwrap iter;
+> +	struct dma_fence *f;
+> +	int ret =3D 0;
+> +
+> +	dma_fence_unwrap_for_each (f, &iter, fence) {
+> +		dma_fence_get(f);
+> +		ret =3D drm_sched_job_add_single_dependency(job, f);
+> +		if (ret)
+> +			break;
+> +	}
+> +
+> +	dma_fence_put(fence);
+> +
+> +	return ret;
+> +}
+>  EXPORT_SYMBOL(drm_sched_job_add_dependency);
+> =20
+>  /**
+
+--------------Xnbegemyy81hwQG4dwAVqouJ
+Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1A
+PnbnnRHNIkx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoA
+QRYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiIC
+BhUKCQgLAgQWAgMBAh4HAheAAAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlT
+MqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfyJwktF7REl1yt7IU2Sye1qmQMfJxdt9JM
+bMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSPcCE8uGe7FWo8C+nTSyWPXKTx
+9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJl
+OiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKoaMDzO9eG
+z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
+=3DqCaZ
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------Xnbegemyy81hwQG4dwAVqouJ--
+
+--------------5AcjGbok14q8wunARMWuRa49--
+
+--------------DH1b43QTRDFYjum9TFiZzmL0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCZXUbpAUDAAAAAAAKCRBMFUeUMaM0r4CB
+AP9BzdKV0/Demva8WlC8Tg3QI4lENeTPM8OVE+DczzG1/wEArLptFP004Ze3PTau6EO21XXw68MP
+6GZn+DgxJOc7nQQ=
+=MtnB
+-----END PGP SIGNATURE-----
+
+--------------DH1b43QTRDFYjum9TFiZzmL0--
