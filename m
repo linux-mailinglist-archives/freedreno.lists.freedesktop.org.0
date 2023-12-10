@@ -2,58 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07ADA80BB85
-	for <lists+freedreno@lfdr.de>; Sun, 10 Dec 2023 15:07:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7C5C80BC82
+	for <lists+freedreno@lfdr.de>; Sun, 10 Dec 2023 19:07:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B077110E15C;
-	Sun, 10 Dec 2023 14:07:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A72D010E036;
+	Sun, 10 Dec 2023 18:07:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56E010E0F7;
- Sun, 10 Dec 2023 14:07:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702217257; x=1733753257;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=AqMQ12hypplovnBMfrnx3Zg6ItOfjkwRtKkMHvGMTUQ=;
- b=SJ2LnbdZKqcEGWcnOaXiM1zfoP+4U6Vhrep/6d3RrWSh23MFacewplb0
- Sq05Y/dG8lObddFbVlvwec0SI+XPgjT8h2bwaEq+qgiHv5UqIZOJ34Lqu
- gtLazybtQdqykJfCE7t/huhU1MufZesBVBXflKB5Dj4GmXmiP6ue+clBx
- DiZ2O+MbfYzH+hnNtffm2lwUua6YYCV6pebWBUsCPVhkTVjMxMUXSi/MG
- aaB4p/e19VfKj30ASUg2nzUE1kLausuLi50tYNp0di7nuwnjRUCg/sIVH
- hHT1xQ7pfZHBYlgSlQoeP6QxWpueQ/pa+DyeHnHL94o3mz0RAzDFE8yLC Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10920"; a="7914855"
-X-IronPort-AV: E=Sophos;i="6.04,265,1695711600"; 
-   d="scan'208";a="7914855"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2023 06:07:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10920"; a="722435368"
-X-IronPort-AV: E=Sophos;i="6.04,265,1695711600"; d="scan'208";a="722435368"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 10 Dec 2023 06:07:32 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rCKSv-000GuU-29;
- Sun, 10 Dec 2023 14:07:29 +0000
-Date: Sun, 10 Dec 2023 22:06:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH v2 12/16] drm/msm/dpu: add an API to setup the CDM block
- for writeback
-Message-ID: <202312102149.qmbCdsg2-lkp@intel.com>
-References: <20231208050641.32582-13-quic_abhinavk@quicinc.com>
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C4E10E036
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Dec 2023 18:07:02 +0000 (UTC)
+Received: by mail-pf1-x42a.google.com with SMTP id
+ d2e1a72fcca58-6cea2a38b48so3139387b3a.3
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Dec 2023 10:07:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702231622; x=1702836422; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/OTV7HGPkUIAwckXy51M7re7fb1HUU7ow6BY0UtdbRw=;
+ b=N+yMkN7QAmWY5CRI51gFA1nJ3bXTSeEMJr0D+OG2nmQ7417W4ovu20pR2D0GSEmt0a
+ P5cIRGBAccTVoOsgQCr5xI+g8fWVN++qei+F3B7A5OSj9gMDVGJvsATBzQyp2Oim4A5n
+ LMQK5p6gS0e0xp4P/tTVsZ9s1Z+yAJf3ZuLMmmhfXe5bu4jMt773Zi8IijN3r2etTji+
+ rxnEDgu7NZOUEjGCrHq5zQliYw45DvmoI1234aya5WzcYNJnFvigOI+RfDohSY77uVk5
+ 0Nh39LkGDSrbLe2iV8UK1Zeg3mQ2UAelPZPmGAWkM1IFlAaiH8D0ufiEWwNnEpaTCxRh
+ +xGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702231622; x=1702836422;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/OTV7HGPkUIAwckXy51M7re7fb1HUU7ow6BY0UtdbRw=;
+ b=gWIkj7CvIiP67PnKyBBlgGWPafFL8GlWSq7MbrqYCXSlLgJVsKMABS2uaB0HInKSjV
+ MPQMZqzsFGGLGKP++lY/2CHwv+rHLHbmXThnzno0jP2JlEbmYBbWH+Ay9/4+IEuPh0EX
+ Yfhi9rDxtrnXoyjOZCfzM9VEhTcjfzsZkDEdBn1SLUFgsXd2SUltKEDOx3Q+V6YbVQkg
+ jg066u7qgj9Z98E4Ed3qiP4Oy2yLRH8GixNQsBB56w6Zzz98FWbdvqRh9Obm1g89QuqJ
+ TeGVBF8bGd+Lnv/Et1uBM9CdINzqNE7hZpNAecAjQ7R7WKuHdRtB1S4EFXgqrswmVpVq
+ mHMQ==
+X-Gm-Message-State: AOJu0Yyo2STqnYsz3RMQKIHbDGdPB9+2A7bL23Tjs9MuTM83BuVp+c3D
+ IZ65YB6f/oDhdNeRc0A/amY=
+X-Google-Smtp-Source: AGHT+IGf1cjoJui1YLxDAmJIwqwz1hXkSEY0wBxCHb7JCefydWE1QX71XuqaZiGK7iUv67Arc0VJrQ==
+X-Received: by 2002:a05:6a20:7f9b:b0:18f:97c:8a3b with SMTP id
+ d27-20020a056a207f9b00b0018f097c8a3bmr5034958pzj.102.1702231621767; 
+ Sun, 10 Dec 2023 10:07:01 -0800 (PST)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
+ by smtp.gmail.com with ESMTPSA id
+ 11-20020a63154b000000b005b458aa0541sm4769792pgv.15.2023.12.10.10.07.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 Dec 2023 10:07:01 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: iommu@lists.linux-foundation.org
+Subject: [PATCH v2] iommu/arm-smmu-qcom: Add missing GMU entry to match table
+Date: Sun, 10 Dec 2023 10:06:53 -0800
+Message-ID: <20231210180655.75542-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231208050641.32582-13-quic_abhinavk@quicinc.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,139 +70,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_parellan@quicinc.com, oe-kbuild-all@lists.linux.dev,
- quic_jesszhan@quicinc.com
+Cc: Rob Clark <robdclark@chromium.org>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>, Will Deacon <will@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, stable@vger.kernel.org,
+ Johan Hovold <johan@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ Danila Tikhonov <danila@jiaxyga.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Elliot Berman <quic_eberman@quicinc.com>, freedreno@lists.freedesktop.org,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
+From: Rob Clark <robdclark@chromium.org>
 
-kernel test robot noticed the following build warnings:
+In some cases the firmware expects cbndx 1 to be assigned to the GMU,
+so we also want the default domain for the GMU to be an identy domain.
+This way it does not get a context bank assigned.  Without this, both
+of_dma_configure() and drm/msm's iommu_domain_attach() will trigger
+allocating and configuring a context bank.  So GMU ends up attached to
+both cbndx 1 and later cbndx 2.  This arrangement seemingly confounds
+and surprises the firmware if the GPU later triggers a translation
+fault, resulting (on sc8280xp / lenovo x13s, at least) in the SMMU
+getting wedged and the GPU stuck without memory access.
 
-[auto build test WARNING on next-20231207]
-[also build test WARNING on v6.7-rc4]
-[cannot apply to drm-misc/drm-misc-next linus/master v6.7-rc4 v6.7-rc3 v6.7-rc2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Cc: stable@vger.kernel.org
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Abhinav-Kumar/drm-msm-dpu-add-formats-check-for-writeback-encoder/20231208-130820
-base:   next-20231207
-patch link:    https://lore.kernel.org/r/20231208050641.32582-13-quic_abhinavk%40quicinc.com
-patch subject: [PATCH v2 12/16] drm/msm/dpu: add an API to setup the CDM block for writeback
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20231210/202312102149.qmbCdsg2-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231210/202312102149.qmbCdsg2-lkp@intel.com/reproduce)
+I didn't add a fixes tag because really this issue has been there
+all along, but either didn't matter with other firmware or we didn't 
+notice the problem.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202312102149.qmbCdsg2-lkp@intel.com/
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:267: warning: expecting prototype for dpu_encoder_phys_wb_setup_cdp(). Prototype was for dpu_encoder_helper_phys_setup_cdm() instead
-
-
-vim +267 drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-
-   261	
-   262	/**
-   263	 * dpu_encoder_phys_wb_setup_cdp - setup chroma down sampling block
-   264	 * @phys_enc:Pointer to physical encoder
-   265	 */
-   266	static void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
- > 267	{
-   268		struct dpu_hw_cdm *hw_cdm;
-   269		struct dpu_hw_cdm_cfg *cdm_cfg;
-   270		struct dpu_hw_pingpong *hw_pp;
-   271		struct dpu_encoder_phys_wb *wb_enc;
-   272		const struct msm_format *format;
-   273		const struct dpu_format *dpu_fmt;
-   274		struct drm_writeback_job *wb_job;
-   275		int ret;
-   276	
-   277		if (!phys_enc)
-   278			return;
-   279	
-   280		wb_enc = to_dpu_encoder_phys_wb(phys_enc);
-   281		cdm_cfg = &wb_enc->cdm_cfg;
-   282		hw_pp = phys_enc->hw_pp;
-   283		hw_cdm = phys_enc->hw_cdm;
-   284		wb_job = wb_enc->wb_job;
-   285	
-   286		format = msm_framebuffer_format(wb_enc->wb_job->fb);
-   287		dpu_fmt = dpu_get_dpu_format_ext(format->pixel_format, wb_job->fb->modifier);
-   288	
-   289		if (!hw_cdm)
-   290			return;
-   291	
-   292		if (!DPU_FORMAT_IS_YUV(dpu_fmt)) {
-   293			DPU_DEBUG("[enc:%d] cdm_disable fmt:%x\n", DRMID(phys_enc->parent),
-   294				  dpu_fmt->base.pixel_format);
-   295			if (hw_cdm->ops.disable)
-   296				hw_cdm->ops.disable(hw_cdm);
-   297	
-   298			return;
-   299		}
-   300	
-   301		memset(cdm_cfg, 0, sizeof(struct dpu_hw_cdm_cfg));
-   302	
-   303		cdm_cfg->output_width = wb_job->fb->width;
-   304		cdm_cfg->output_height = wb_job->fb->height;
-   305		cdm_cfg->output_fmt = dpu_fmt;
-   306		cdm_cfg->output_type = CDM_CDWN_OUTPUT_WB;
-   307		cdm_cfg->output_bit_depth = DPU_FORMAT_IS_DX(dpu_fmt) ?
-   308				CDM_CDWN_OUTPUT_10BIT : CDM_CDWN_OUTPUT_8BIT;
-   309		cdm_cfg->csc_cfg = dpu_hw_get_csc_cfg(DPU_HW_RGB2YUV_601L_10BIT);
-   310		if (!cdm_cfg->csc_cfg) {
-   311			DPU_ERROR("valid csc not found\n");
-   312			return;
-   313		}
-   314	
-   315		/* enable 10 bit logic */
-   316		switch (cdm_cfg->output_fmt->chroma_sample) {
-   317		case DPU_CHROMA_RGB:
-   318			cdm_cfg->h_cdwn_type = CDM_CDWN_DISABLE;
-   319			cdm_cfg->v_cdwn_type = CDM_CDWN_DISABLE;
-   320			break;
-   321		case DPU_CHROMA_H2V1:
-   322			cdm_cfg->h_cdwn_type = CDM_CDWN_COSITE;
-   323			cdm_cfg->v_cdwn_type = CDM_CDWN_DISABLE;
-   324			break;
-   325		case DPU_CHROMA_420:
-   326			cdm_cfg->h_cdwn_type = CDM_CDWN_COSITE;
-   327			cdm_cfg->v_cdwn_type = CDM_CDWN_OFFSITE;
-   328			break;
-   329		case DPU_CHROMA_H1V2:
-   330		default:
-   331			DPU_ERROR("[enc:%d] unsupported chroma sampling type\n",
-   332				  DRMID(phys_enc->parent));
-   333			cdm_cfg->h_cdwn_type = CDM_CDWN_DISABLE;
-   334			cdm_cfg->v_cdwn_type = CDM_CDWN_DISABLE;
-   335			break;
-   336		}
-   337	
-   338		DPU_DEBUG("[enc:%d] cdm_enable:%d,%d,%X,%d,%d,%d,%d]\n",
-   339			  DRMID(phys_enc->parent), cdm_cfg->output_width,
-   340			  cdm_cfg->output_height, cdm_cfg->output_fmt->base.pixel_format,
-   341			  cdm_cfg->output_type, cdm_cfg->output_bit_depth,
-   342			  cdm_cfg->h_cdwn_type, cdm_cfg->v_cdwn_type);
-   343	
-   344		if (hw_cdm->ops.enable) {
-   345			cdm_cfg->pp_id = hw_pp->idx;
-   346			ret = hw_cdm->ops.enable(hw_cdm, cdm_cfg);
-   347			if (ret < 0) {
-   348				DPU_ERROR("[enc:%d] failed to enable CDM; ret:%d\n",
-   349					  DRMID(phys_enc->parent), ret);
-   350				return;
-   351			}
-   352		}
-   353	}
-   354	
-
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index 549ae4dba3a6..d326fa230b96 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -243,6 +243,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
+ 
+ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,adreno" },
++	{ .compatible = "qcom,adreno-gmu" },
+ 	{ .compatible = "qcom,mdp4" },
+ 	{ .compatible = "qcom,mdss" },
+ 	{ .compatible = "qcom,sc7180-mdss" },
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.0
+
