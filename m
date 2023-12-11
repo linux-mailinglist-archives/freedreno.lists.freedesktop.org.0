@@ -1,62 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 316E280D34E
-	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 18:10:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F89E80CFE0
+	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 16:44:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5A510E4BD;
-	Mon, 11 Dec 2023 17:10:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A676B10E490;
+	Mon, 11 Dec 2023 15:44:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6690F10E4BD
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 17:10:26 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id
- 98e67ed59e1d1-286867cac72so2920682a91.2
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 09:10:26 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F097A10E477
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 15:44:48 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-50bffb64178so5419083e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 07:44:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702314626; x=1702919426; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=/6gM179AhgbJYgtngtZQEEEqDaJNXVBNn+YvWsmBBJo=;
- b=VpeLC6R+YkS8AG5OxUGEx/qGLaoglwUoxuTrbnap0mwoWRhUQ0dg4jQ6OM5A/NI9oc
- UW28RrbcAF1GCbgJjw1Zm6Zu8ickFuDQ8HwAOeGRxf7vrps2psKLtqbRItt7Z39mm0l7
- ef08oFHdqHnU/Nr+Znpswld+WIOsdSUzYPFo/eVWKdVoaIU9DpF6A5bj6VAMQtVEJAtz
- 90pB1SIjUHGRJszGg3YPOnplVdlFkiSyiBwkYYIudkgq4Zih29+3NQLUFl+g519LLYPb
- zkSBs7Z4WZd9l7n3s9S2JhKluTu9xk1K0jbjS75z5kbN5qaMq1Hpdjgn12H8FCAhDXE/
- tCGw==
+ d=linaro.org; s=google; t=1702309487; x=1702914287; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Hdsbz8sb9Hj8XgnhSW7DmZ4IXqWL9DwyDiWpjOSfMt8=;
+ b=xPzmKanihGJwaS+nGrJzn1aK0hSceeMduNrPq68JzXcsQU3h3X3fWt1E10ShQeGPw+
+ mkwSwDR/UwZcBxO5AhuzZiesJQUeHOl/1nhqxHTZ/rtWXYL9LMDYwZJqNZO5ZFQwz8Rv
+ 6D85pNi7l3KTjJE0f5Ny47zCEctClZ0hSIN6o9cGyy8hM7CQ9ieO7fwGs1tjjHtvj+S0
+ nbgtjifFwrWpy4ALFU+DPliHzkbn6ZAwD+cB5Oc32Mu6cPhjdROrjpudpoX0zdFydC91
+ r/HxN6ohHenQUDVvuT7Esr8K4yocq7Bvu6Hil6y1vrNf3qfIij+RvUrUmEZ0vOnMPMw7
+ 33hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702314626; x=1702919426;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1702309487; x=1702914287;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=/6gM179AhgbJYgtngtZQEEEqDaJNXVBNn+YvWsmBBJo=;
- b=oBMtNSfC2StUDxQnRLf6sr+jOfl57D7e8NIpqUbwgukq0If7n5j8ACeO/dmFHTzk3H
- Sj3xIkOt1O0GcWTB3sG+bNQq+ei4+8h0nfz8A0pi7kJRa2b1zNZfb9DqDM/sSvtydB8B
- wHwr7bNHVWeMZTF6hTeIovw1BBXra3SU8Yvlt34gY/diiWtpqClqISNonGf+mhnq0lwQ
- 1N5QiwzjWh6/hXHDtftX1Nzhvj7G6e2Y28Hs2JdZWsdK8th6CPjZtZu4/sO9BpZcdL/I
- IUq2CY6znoqPEFYC6e7xObRgm//4Otw9glRaksZlhHEmYpfIYPMk+V4T349EekyOgnon
- nORQ==
-X-Gm-Message-State: AOJu0YzbiWVMpjNbpBbiGWjd5KhcVwdA/FpEA+Ykdy+UooeKqfG/+mY8
- KyB0Zua8e/ddWTSGQC/BDY89g2OBQXXfsEiue9H90DtGru9c9fTvieAVLeRF
-X-Google-Smtp-Source: AGHT+IERgX/N6WxJ2f7s+W1y4IPQCtA9N5Au3g8U83QTHBFu4iTUR8qZCwcvhWlqECUYpewXIMLbccd5Gia20X1e5XU=
-X-Received: by 2002:a81:dd08:0:b0:5d7:1940:b373 with SMTP id
- e8-20020a81dd08000000b005d71940b373mr3793149ywn.63.1702308088859; Mon, 11 Dec
- 2023 07:21:28 -0800 (PST)
-MIME-Version: 1.0
-References: <20231211145440.3647001-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20231211145440.3647001-1-dmitry.baryshkov@linaro.org>
+ bh=Hdsbz8sb9Hj8XgnhSW7DmZ4IXqWL9DwyDiWpjOSfMt8=;
+ b=tmpHzv1bz7Q5++Zw+G8A+AK7/P3gGtBlkVsWVaJjaQ8DrWTZvwzaYTloy3K6cjFb7d
+ z9lGwGzhy7p7y/v5jNF9RFfuULj5y9DQs9EWM7sVh2ZuUOxEesJg1X62nF4SEkwhVqIU
+ mSYW3bJFDK9C/VSz84rXnVn5+RurBsDaX53Xr/sbG9M0cB2REFblV6Fbj6VFQ58EfMGP
+ VkwRi6I+GunTDHhd/08hHUaUgES1PSD5Y7h9TdMW7Po3kIYQeYl+BXyoVj4KR7WFKSWs
+ nDWauhI4iyScXNt+Q2dva1/ZtM8SOTwkZq+Zaycex/SHsEzdaS1havYnzbjs+Zwaupsi
+ uIJQ==
+X-Gm-Message-State: AOJu0Yzl1LpMuPhOMaC92754QIQA7q2pmHO4+fJQaYZ/1WlRkocnq+HM
+ p6l6v4shKQr4icVvNndSOh7ATA==
+X-Google-Smtp-Source: AGHT+IHxCoL+l7KSHEGd7xaqHpmuKdHomR8emcbB6urk0ah7wnrXlsfrXB4VbFDvVisb924E6PSOAg==
+X-Received: by 2002:a05:6512:1329:b0:50d:f93b:97a9 with SMTP id
+ x41-20020a056512132900b0050df93b97a9mr1464713lfu.1.1702309486926; 
+ Mon, 11 Dec 2023 07:44:46 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ c5-20020ac244a5000000b0050aa6e2ae87sm1109646lfm.2.2023.12.11.07.44.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Dec 2023 07:44:46 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 11 Dec 2023 17:21:17 +0200
-Message-ID: <CAA8EJppn9=jwPL5WhK4Cr5Z=OKG6gVicoYq_x5YJ3eakKmyZUQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: remove extra drm_encoder_cleanup from the
- error path
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: [PATCH v2 0/8] arm64: dts: qcom: sm8150-hdk: enable display output
+Date: Mon, 11 Dec 2023 18:44:37 +0300
+Message-Id: <20231211154445.3666732-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,20 +79,30 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 11 Dec 2023 at 16:54, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> The drmm handler will perform drm_encoder_cleanup() for us. Moreover if
-> we call drm_encoder_cleanup() manually, the drmm_encoder_alloc_release()
-> will spawn warnings at drivers/gpu/drm/drm_encoder.c:214. Drop these
-> extra drm_encoder_cleanup() calls.
->
-> Fixes: cd42c56d9c0b ("drm/msm/dpu: use drmm-managed allocation for dpu_encoder_virt")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Enable display output on the SM8150 HDK device. This includes HDMI
+output through the onboard DSI-HDMI bridge and DP output on the USB-C
+port.
 
-Reported-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Changes since v1
+- Dropped irrelevant stats patch
+- Fixed endpoint stye (Konrad)
+- Changed SVID from u32 to 16-bits value (Konrad)
 
+Dmitry Baryshkov (8):
+  dt-bindings: display: msm: dp: declare compatible string for sm8150
+  arm64: dts: qcom: sm8150: make dispcc cast minimal vote on MMCX
+  arm64: dts: qcom: sm8150-hdk: enable HDMI output
+  arm64: dts: qcom: sm8150-hdk: fix SS USB regulators
+  arm64: dts: qcom: sm8150: add DisplayPort controller
+  arm64: dts: qcom: sm8150: add USB-C ports to the USB+DP QMP PHY
+  arm64: dts: qcom: sm8150: add USB-C ports to the OTG USB host
+  arm64: dts: qcom: sm8150-hdk: enable DisplayPort and USB-C altmode
+
+ .../bindings/display/msm/dp-controller.yaml   |   1 +
+ arch/arm64/boot/dts/qcom/sm8150-hdk.dts       | 264 +++++++++++++++++-
+ arch/arm64/boot/dts/qcom/sm8150.dtsi          | 133 +++++++++
+ 3 files changed, 388 insertions(+), 10 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.39.2
+
