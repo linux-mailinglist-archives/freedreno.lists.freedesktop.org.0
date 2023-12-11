@@ -1,35 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F1B380DE00
-	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 23:09:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF1880DEBB
+	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 23:59:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E83BD10E50A;
-	Mon, 11 Dec 2023 22:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2CEC10E154;
+	Mon, 11 Dec 2023 22:59:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA80A10E50A
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 22:09:51 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 360E4201B2;
- Mon, 11 Dec 2023 23:09:49 +0100 (CET)
-Date: Mon, 11 Dec 2023 23:09:46 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: Ratelimit framedone timeout msgs
-Message-ID: <lcsqjcqwvmhys3tzrznyqhlmk3p4wbv2rcu77tecbsioscxbal@3s4qeztkktx5>
-References: <20231211182000.218088-1-robdclark@gmail.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 104CC10E154
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 22:59:03 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 35F631007;
+ Mon, 11 Dec 2023 14:59:50 -0800 (PST)
+Received: from [10.57.85.194] (unknown [10.57.85.194])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DF0CF3F5A1;
+ Mon, 11 Dec 2023 14:59:00 -0800 (PST)
+Message-ID: <86d3ee06-7c8d-4f60-bcba-80b772ec0faf@arm.com>
+Date: Mon, 11 Dec 2023 22:58:58 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231211182000.218088-1-robdclark@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] iommu/arm-smmu-qcom: Add missing GMU entry to match
+ table
+Content-Language: en-GB
+To: Rob Clark <robdclark@gmail.com>, iommu@lists.linux-foundation.org
+References: <20231210180655.75542-1-robdclark@gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <20231210180655.75542-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,84 +43,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Kalyan Thota <quic_kalyant@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Johan Hovold <johan@kernel.org>,
+ stable@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ Danila Tikhonov <danila@jiaxyga.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, David Airlie <airlied@gmail.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, freedreno@lists.freedesktop.org,
- Dan Carpenter <dan.carpenter@linaro.org>
+ Elliot Berman <quic_eberman@quicinc.com>, Will Deacon <will@kernel.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2023-12-11 10:19:55, Rob Clark wrote:
+On 2023-12-10 6:06 pm, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> When we start getting these, we get a *lot*.  So ratelimit it to not
-> flood dmesg.
-> 
+> In some cases the firmware expects cbndx 1 to be assigned to the GMU,
+> so we also want the default domain for the GMU to be an identy domain.
+> This way it does not get a context bank assigned.  Without this, both
+> of_dma_configure() and drm/msm's iommu_domain_attach() will trigger
+> allocating and configuring a context bank.  So GMU ends up attached to
+> both cbndx 1 and later cbndx 2.  This arrangement seemingly confounds
+> and surprises the firmware if the GPU later triggers a translation
+> fault, resulting (on sc8280xp / lenovo x13s, at least) in the SMMU
+> getting wedged and the GPU stuck without memory access.
+
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+
+> Cc: stable@vger.kernel.org
 > Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
 > 
-> dpu should probably stop rolling it's own trace macros, but that would
-> be a larger cleanup.
-
-That would be lovely, use is currently all over the place.
-
-Should this patch also ratelimit the corresponding:
-
-	[drm:dpu_encoder_phys_cmd_prepare_for_kickoff] *ERROR* failed wait_for_idle: id:31 ret:-110 pp:0
-
-On CMD-mode panels?
-
-Note that this is a prime example of using DRM_ERROR over DPU_ERROR*, resulting
-in unnecessary divergence (and un-readability) between error messages and the
-code (DPU_DEBUG_CMDENC, which has a corresponding DPU_ERROR variant, is also
-used within that function...)
-
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     | 1 +
->  2 files changed, 5 insertions(+), 1 deletion(-)
+> I didn't add a fixes tag because really this issue has been there
+> all along, but either didn't matter with other firmware or we didn't
+> notice the problem.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 82538844614b..7c22235d0eba 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -39,6 +39,9 @@
->  #define DPU_ERROR_ENC(e, fmt, ...) DPU_ERROR("enc%d " fmt,\
->  		(e) ? (e)->base.base.id : -1, ##__VA_ARGS__)
->  
-> +#define DPU_ERROR_ENC_RATELIMITED(e, fmt, ...) DPU_ERROR_RATELIMITED("enc%d " fmt,\
-> +		(e) ? (e)->base.base.id : -1, ##__VA_ARGS__)
-> +
->  /*
->   * Two to anticipate panels that can do cmd/vid dynamic switching
->   * plan is to create all possible physical encoder types, and switch between
-> @@ -2339,7 +2342,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
->  		return;
->  	}
->  
-> -	DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
-> +	DPU_ERROR_ENC_RATELIMITED(dpu_enc, "frame done timeout\n");
->  
->  	event = DPU_ENCODER_FRAME_EVENT_ERROR;
->  	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index b6f53ca6e962..f5473d4dea92 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -51,6 +51,7 @@
->  	} while (0)
->  
->  #define DPU_ERROR(fmt, ...) pr_err("[dpu error]" fmt, ##__VA_ARGS__)
-> +#define DPU_ERROR_RATELIMITED(fmt, ...) pr_err_ratelimited("[dpu error]" fmt, ##__VA_ARGS__)
->  
->  /**
->   * ktime_compare_safe - compare two ktime structures
-> -- 
-> 2.43.0
+>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> index 549ae4dba3a6..d326fa230b96 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> @@ -243,6 +243,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
+>   
+>   static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+>   	{ .compatible = "qcom,adreno" },
+> +	{ .compatible = "qcom,adreno-gmu" },
+>   	{ .compatible = "qcom,mdp4" },
+>   	{ .compatible = "qcom,mdss" },
+>   	{ .compatible = "qcom,sc7180-mdss" },
