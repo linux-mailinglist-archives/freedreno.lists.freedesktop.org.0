@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0196E80C495
-	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 10:30:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE70980C499
+	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 10:31:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98EDF10E379;
-	Mon, 11 Dec 2023 09:30:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BFFB10E37A;
+	Mon, 11 Dec 2023 09:31:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
  [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE1510E379
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 09:30:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0618210E37B
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 09:31:00 +0000 (UTC)
 Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-54cd2281ccbso5644336a12.2
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 01:30:37 -0800 (PST)
+ 4fb4d7f45d1cf-54dccf89cfdso5361287a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 01:30:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702287036; x=1702891836; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1702287058; x=1702891858; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=1jD0szHRhibQFEVIxAfnXZoJSQM4U+eTwaiaduB3d/Q=;
- b=M9qBKuzVOKNQh5NNS7oRxLZjCvE7NJbRFNZxgp9wsdi1OadTOazDHJbomXn5ezsAmB
- aq36zuJAOFcISc7ZMiUBIyL7Wsys2OdcjL69QimoON4sYXfWvs3fFB3t9PXotpMZf947
- eYm6HvVRwvwdAepETV8u4DPoYFKuzFK/e4d1P8OYRLUfky3Sii3W9n+9qz7dRLVeGfjH
- zWCG04fmXGHTqf1sniOBeInFDDc6boo0NB6ld9G9jpQySyjqfaI/rg+4LLJLSC9LGWW1
- XA7Ed+6+5hQvX4AiJ1lsNQpXZjC1v8YdZ+CXzWvSub1OwziWs5U9Fkx2uodjgOj94C+s
- DVeQ==
+ bh=J4ya0lujSeUSX8VvwDdG/MVgYrYqCbNDA/YoFd0PFbo=;
+ b=j03n8NoZbXV3MZv1Cl0nTW2ez3Y9tobHqxx2cyxtiCOMiwSotDJiq7AAtH1zUvmyms
+ Mjl0GwVbLR8N4TIr7uBaIrqqMC4FTB7e+FBGuFppj0OBz3URshyQzgjfC3WIqmyWChhD
+ KXKjiqfXrnYqihq4y9tVgbUqMbCPMRzVITJTjRGoqCPk0icLsnkeFSdb6j2ANS3dnA+N
+ xrIHFRI5g9UfrCQJKlZRkG78G8pD0DY8RFK+BOdmcnyJRcAcbqaF6N2XK6IIdi9NP46h
+ NyVOK+SQGz5yJdBrYs7QG7K+siWTIkNANS734JR+GU7HYMz+Lx5vpWwSh9Fvj0fsD0zV
+ ytrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702287036; x=1702891836;
+ d=1e100.net; s=20230601; t=1702287058; x=1702891858;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1jD0szHRhibQFEVIxAfnXZoJSQM4U+eTwaiaduB3d/Q=;
- b=u2PaOpAW0+q4PcPooVOCdCc0Ov1dYahHqxsae5Y2v5JP6ke+ofoUe2G8Fx9SulnSdu
- vsx9FiQAk+C7SP3fUjrHfL+MoBreuBjBmFshCsVReRRKSHfmJFBQ9R9IiQe7mCo8WRwA
- 68OxA+JS+w1AXjd2Bm23B7tC/cQwV1292WUfsApIywpeBie7Dn2CAUcyDLLRyY/1vh7V
- GUQO6hCyjoNRMcbEIYaPY6mbQM7UkyLkKado/HiFxAQmnSXGt4BO2zxgpL0puwCuXOby
- NTvr231IsCjjCSgySzgpUzcKJttBDicqegkiRx/v3v0itsPkpt/hef2kr1GJIOcy4fuj
- 1fYw==
-X-Gm-Message-State: AOJu0YwJdP6F4yPP8dBaZRQBz4YD9Kx63/UTuJ5hi8dfo6dS68RUyYLW
- zsY6LvQjixDUUTsk49y/1EaEqQ==
-X-Google-Smtp-Source: AGHT+IFXtZpjrnlbBecYKwg53c8yz8h2m1IZ1LY9fLpFgvEHtkesQuQxC7Vg0DiDLGcjWMWexPRJjA==
-X-Received: by 2002:a50:c907:0:b0:54c:e43f:e1e1 with SMTP id
- o7-20020a50c907000000b0054ce43fe1e1mr3099265edh.35.1702287036284; 
- Mon, 11 Dec 2023 01:30:36 -0800 (PST)
+ bh=J4ya0lujSeUSX8VvwDdG/MVgYrYqCbNDA/YoFd0PFbo=;
+ b=w/MqEGvV3orjvBpecDT6NGVwBZy4qao4f4o/JKc1Pcm1kHhpcexDZd6JdRRlytYFLt
+ IiowT5yHhFpb+6PyDOB6TQJggBn2qkY5YW1b08izBpfcqc4xLJD3bih7dcGmQbZXQRrs
+ NUdZB7QYEXLUbq/iiyXFnsSyiVEaAfoVwTE00ulhZHG8SYAqJh2mtTR7pzpW1+t7EY6A
+ B3AYqf918C+JHK9D/6oy+DBC6OivAqPWnKdO3Ci4c1XZ/W7z8DP96WqLfEdTVnBH3AvH
+ VVyJ5B4k0CKefhPPeJWzD491NhhbaUDd/rYAp71kiiQE4Ne9eWPOeB5WKr+rHpYiIaUC
+ kU/g==
+X-Gm-Message-State: AOJu0YzDU9HUI51iZze3aMoEO9hTvmebAhZI5WkhQHkFqTXvieEVTdRL
+ uRa9+QDm5+05ZIClatbTKJGoLQ==
+X-Google-Smtp-Source: AGHT+IFxb0uOO1rPrgR2RUveeX32BhOLvWlWLMzVC+S5ys09tfdJqDUpr6KzR9Zz1sGL83+JoSBQfQ==
+X-Received: by 2002:a50:f608:0:b0:54c:4837:9a9c with SMTP id
+ c8-20020a50f608000000b0054c48379a9cmr2223739edn.67.1702287058399; 
+ Mon, 11 Dec 2023 01:30:58 -0800 (PST)
 Received: from [192.168.36.128]
  (178235179179.dynamic-4-waw-k-1-3-0.vectranet.pl. [178.235.179.179])
  by smtp.gmail.com with ESMTPSA id
- cm27-20020a0564020c9b00b0054db088c437sm3445802edb.27.2023.12.11.01.30.34
+ cm27-20020a0564020c9b00b0054db088c437sm3445802edb.27.2023.12.11.01.30.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Dec 2023 01:30:35 -0800 (PST)
-Message-ID: <3712b09c-53e4-418f-a2cd-79231dceea10@linaro.org>
-Date: Mon, 11 Dec 2023 10:30:34 +0100
+ Mon, 11 Dec 2023 01:30:58 -0800 (PST)
+Message-ID: <53ab7902-bc69-41ef-ba49-608efda9f5b0@linaro.org>
+Date: Mon, 11 Dec 2023 10:30:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] arm64: dts: qcom: sm8150: use SoC-specific compat for
- RPMh stats
+Subject: Re: [PATCH 3/9] arm64: dts: qcom: sm8150: make dispcc cast minimal
+ vote on MMCX
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -67,7 +67,7 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
- <20231209232132.3580045-3-dmitry.baryshkov@linaro.org>
+ <20231209232132.3580045-4-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -104,7 +104,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20231209232132.3580045-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231209232132.3580045-4-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -127,13 +127,13 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10.12.2023 00:21, Dmitry Baryshkov wrote:
-> The SM8150 platform doesn't support DDR sleep stats, so it needs
-> SoC-specific compat string for the RPMh stats data.
+> Add required-opps property to the display clock controller. This makes
+> it cast minimal vote on the MMCX lane and prevents further 'clock stuck'
+> errors when enabling the display.
 > 
+> Fixes: 2ef3bb17c45c ("arm64: dts: qcom: sm8150: Add DISPCC node")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-Not a fan, see my comments over at [1].
+Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
-
-[1] https://lore.kernel.org/linux-arm-msm/20231209215601.3543895-1-dmitry.baryshkov@linaro.org/T/#t
