@@ -1,62 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 877D180C4AD
-	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 10:32:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E735380C4B1
+	for <lists+freedreno@lfdr.de>; Mon, 11 Dec 2023 10:33:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5461C10E37C;
-	Mon, 11 Dec 2023 09:32:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C142110E380;
+	Mon, 11 Dec 2023 09:33:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58E9710E37C
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 09:32:37 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-54dccf89cfdso5364315a12.0
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 01:32:37 -0800 (PST)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 336C910E37F
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 09:33:09 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-54ba86ae133so3980522a12.2
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 01:33:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702287156; x=1702891956; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1702287187; x=1702891987; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Evs09/6k73KyXkgYK1JEf7mGFvrx7/4lLZO2BKMDAFQ=;
- b=bWWBMZy6mY0v8B0ppzlT2ZR/6fJO4/djDBk/pv7V0Kez/rLX98+TPYjYl78Fx3+9PU
- v95LnzRNywcyWvU2i+qEli111fuCkO/hHzDHxbjt52vonIRxhVRV2Q8iNfIZ84O4sZBl
- 1JcUfFyr0J83c9XFVthofqdTQ4ORW6vsm+G/3bOMhHZ+UOpV/gS8+2fqlN8vTZ/ajQfT
- SV/pKpdESPfUxPbLXpKxmDDGI3fn/iqKDkdtbkh94RV8x859yST/+kzDAtxGfau5lLmV
- Wz0T27iMyAdU79zVMzqVm2g4bRVjfIVdc2TjTJNQHvuJcv+3zkiplPNXk6SBQylhvIoi
- bIxw==
+ bh=atmeFNQzltplIvCIczo+siLduZ00xfKriBR1O6gEgK8=;
+ b=SXxMjQtAAVZXJqE7RPU0xenbVmHCRqz0s/qmmeQzdZqjctUMaNxmvvb3W1QWqReAqX
+ EkRzwKWx3gQJ8An712L9v4LodPTM9RUNFNGXb4o6mmBI/KzYe/4skNmLdwG3JnErIO27
+ nXvts6lJa7vG8y9bjP4ASntgRmg//d+XWnIt2Bra8Ve3dZXrJlIIw5B8GcDCxMRjly9Q
+ rLWGFiPGxLfiiQ6hWZGlHs4eSOEB3L3vx5Yxg6s+3CU9efV43CHBockYGIMT4D3LKBOw
+ u4mSEohEzOA2aseZk5QB/Sw2mtPhIJjQ2gAGgQMQLUeUSYwaD8JpubjGVVorKYx7nJmT
+ ywDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702287156; x=1702891956;
+ d=1e100.net; s=20230601; t=1702287187; x=1702891987;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Evs09/6k73KyXkgYK1JEf7mGFvrx7/4lLZO2BKMDAFQ=;
- b=qklDXm56kgms8RxiRSf9+GDrQs91UrkR9pa2q53zqa4Wjb8VWNF+NZqmGGCgmmgPWX
- RUhOqzsK5+jzEzDL0f+ARQ/Lxodsw9mvm0GFRe3f4pdrqICyVFQh47SJ8NexpoFC5w0v
- jk22SG6IdPDIQGEFcaiI7qrenPhHz1hOlf9Y0MOApECo62tK2oSZZvhsNFYeJZT6/qDo
- p5LOZyRkbRJFlxUI17C2RbbpFwer5Fosu1K1/mvaoLfJkFyEC3Q/STt0jMkVAXr4PDSt
- quSX1ID8OCz9h6RbUI5wkCR02enQdmRpHRqmrvu0nci8e95z/nxAn9q55CKFLk4St+PO
- 6kuQ==
-X-Gm-Message-State: AOJu0YxzjAL12ASV5kkBQPbBR6HeqzcDaag84avWSxP0ALW080w8cIe/
- Xm4/+tbeTTmf1KVJ9N0gZ2luKg==
-X-Google-Smtp-Source: AGHT+IEsnUU8CoeaC4IgXUrFX+IHGQRId9VcHIaLEwLJ3zDtX07PIlOCaJ1XJCJw2WCi4ECUGBK44g==
-X-Received: by 2002:a50:c945:0:b0:54c:60f0:7511 with SMTP id
- p5-20020a50c945000000b0054c60f07511mr2589981edh.35.1702287155891; 
- Mon, 11 Dec 2023 01:32:35 -0800 (PST)
+ bh=atmeFNQzltplIvCIczo+siLduZ00xfKriBR1O6gEgK8=;
+ b=bdtj4tM8v3/OCXpV1tAms9av8XZ2jwxaZwYDVuAo3h8gSQG/Rsl/9NhHJHneLM0C1W
+ LoX4SAa4rC5SOpoD+CTOm4SzrfsCsJAVDII+9J1r+ZPk5oZVFn667n+zf9QN2ycDtiWt
+ sFj5+BlTpdpJsy9MCLWVZykety9JRoRZkbIQOy2lkBtmTjIFWt1dvXY2hZ0X4LMroHMZ
+ gbYuT64kMXYewI7ttCQErBkO5CN7+TzthRF3RRpBNwWKUPePfxPOJf0/QUI4TCVgKWam
+ hRiiwexxBSxQEQOiK9edgQcUhWJQMNMQ/TXxRi0kdrP2Cw0U/Li3H6vx+K7Z6A3kJXTY
+ ezcA==
+X-Gm-Message-State: AOJu0YyyW3uDAhb0Voim3j22dbIgYMKlfN76RWbhN7IQEsg8zZowuNww
+ tU/tQigg5hIT6TxY/2t/5m1CwQ==
+X-Google-Smtp-Source: AGHT+IGkTOolZn8JpGCz4x6s3GJBN29jRNanslAGkCoOUJMPAqOa/Z7k7YK7j/lvvTe56DgMiU8ExA==
+X-Received: by 2002:a50:85cb:0:b0:54c:6d09:3e3d with SMTP id
+ q11-20020a5085cb000000b0054c6d093e3dmr2413499edh.26.1702287187524; 
+ Mon, 11 Dec 2023 01:33:07 -0800 (PST)
 Received: from [192.168.36.128]
  (178235179179.dynamic-4-waw-k-1-3-0.vectranet.pl. [178.235.179.179])
  by smtp.gmail.com with ESMTPSA id
- cm27-20020a0564020c9b00b0054db088c437sm3445802edb.27.2023.12.11.01.32.34
+ cm27-20020a0564020c9b00b0054db088c437sm3445802edb.27.2023.12.11.01.33.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Dec 2023 01:32:35 -0800 (PST)
-Message-ID: <caef9439-883b-43f2-afa8-0f3918ce5876@linaro.org>
-Date: Mon, 11 Dec 2023 10:32:34 +0100
+ Mon, 11 Dec 2023 01:33:07 -0800 (PST)
+Message-ID: <5025892d-0cbc-462a-b7d8-95828680dd8b@linaro.org>
+Date: Mon, 11 Dec 2023 10:33:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/9] arm64: dts: qcom: sm8150-hdk: fix SS USB regulators
+Subject: Re: [PATCH 7/9] arm64: dts: qcom: sm8150: add USB-C ports to the
+ USB+DP QMP PHY
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -66,7 +67,7 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
- <20231209232132.3580045-6-dmitry.baryshkov@linaro.org>
+ <20231209232132.3580045-8-dmitry.baryshkov@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -103,7 +104,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20231209232132.3580045-6-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231209232132.3580045-8-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -126,15 +127,47 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10.12.2023 00:21, Dmitry Baryshkov wrote:
-> The SM8150-HDK uses two different regulators to power up SuperSpeed USB
-> PHYs. The L5A regulator is used for the second USB host, while the first
-> (OTG) USB host uses different regulator, L18A. Fix the regulator for the
-> usb_1 QMPPHY and (to remove possible confusion) drop the
-> usb_ss_dp_core_1/_2 labels.
+> Expand Combo USB+DP QMP PHY device node with the OF ports required to
+> support USB-C / DisplayPort switching.
 > 
-> Fixes: 0ab1b2d10afe ("arm64: dts: qcom: add sm8150 hdk dts")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>  arch/arm64/boot/dts/qcom/sm8150.dtsi | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+> index ea7c92c0e405..38423a9f8408 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+> @@ -3447,6 +3447,29 @@ usb_1_qmpphy: phy@88e8000 {
+>  			#phy-cells = <1>;
+>  
+>  			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +					usb_1_qmpphy_out: endpoint {};
+style 1
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					usb_1_qmpphy_usb_ss_in: endpoint {
+> +					};
+style 2
+> +				};
+> +
+> +				port@2 {
+> +					reg = <2>;
+> +
+> +					usb_1_qmpphy_dp_in: endpoint {};
+style 3
+
+:(
 
 Konrad
