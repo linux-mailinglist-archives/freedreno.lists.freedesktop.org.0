@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB7D80E437
-	for <lists+freedreno@lfdr.de>; Tue, 12 Dec 2023 07:23:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 09E5380E446
+	for <lists+freedreno@lfdr.de>; Tue, 12 Dec 2023 07:32:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2FD10E120;
-	Tue, 12 Dec 2023 06:23:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3300110E0C2;
+	Tue, 12 Dec 2023 06:32:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88E9210E120
- for <freedreno@lists.freedesktop.org>; Tue, 12 Dec 2023 06:23:16 +0000 (UTC)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-5d8ddcc433fso38265247b3.1
- for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 22:23:16 -0800 (PST)
+Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
+ [IPv6:2607:f8b0:4864:20::112d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5BF410E557
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Dec 2023 06:31:59 +0000 (UTC)
+Received: by mail-yw1-x112d.google.com with SMTP id
+ 00721157ae682-5d3644ca426so51636007b3.1
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Dec 2023 22:31:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702362195; x=1702966995; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1702362719; x=1702967519; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=iiILM31E6DkzVgO2qo0gFXNyzTl9J/ly6YMsqQ+U4+s=;
- b=FdtpzUR2mNpRRuTq5ijvbYq02sZLSbilepW4YSmFUzdslHHXFaNLetEfynlKh6wuf3
- 4cdjkmzxfmW1OdSscAMemF9PMUVHB+l5/OHdTG/Kzcn/nERFkjzq+7FYO1D2HJAJVkaV
- OQcbPJXECsl75GWVtj8j1lnVguc7TyJ1DdCeAWNRcRgA9AtKiQdd8GQsfVgFTki/t0G1
- snmF17gALPMTQkUpNecwzyMyQN5LYbTuIhTC7Kvqe9BN7mu4CJFr7HwNF2/CbEdWsfJ4
- Qp3Spgb3+SKvNpUy/5lJCVEcsISULC7UwKr5YmsnXkOt2Co29CL9LoTwBr2lg5dbZ9qV
- P8SQ==
+ bh=GTyimt7NL0UKlmZiXkz9uafKVfa8o+8ACsFlcy9zsvM=;
+ b=tNG0KJPSCO5TmrSLnvBOtX5kXfM4Xh1PJoAEYG4PqW0Pna8N/kBflasdAHbmVPT+eu
+ lPpSuxqAWTnf6Z415C9Dvrk29BbB1SNE2y0JQb9xF5OHbrt3UkiXMWD4noj/vBZ5QvB+
+ 4xzUZpGFSSMAPWToCdivoD7Saz2Bbr/CkFDizdkhXQXJQT7F3jzaITfua1BM0NuBD3fD
+ mHQJHsF537pv/LwaZMC1TH32RMhmc5yrTwqGUmpf1FLfknF2c4jaOj8K8nywVa0GuNPR
+ 3tPn1uGKOdJ7FuGLaFfi508DhVJzq8PtOPow1/K/vnoDx5zlfQzDsu8K1Tb5/A+ufbja
+ Is/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702362195; x=1702966995;
+ d=1e100.net; s=20230601; t=1702362719; x=1702967519;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=iiILM31E6DkzVgO2qo0gFXNyzTl9J/ly6YMsqQ+U4+s=;
- b=K45hSIrkqTwWkGHpFbG/nhkU1OI9MF9DY9F3kdhlZv1lFNXG3JNTUKB7dK4PVKYthy
- vAaiXTbSlU4/J4TxUyA0SQAKMfR8ZOMsiD8jYI/61BbA5h5cvaZlEhhFyCJTpZy92xkQ
- Nd7pZtSM1AAQQvvd45FkHACZ8jkHwm6qXB6SAr2HPHfDUnLUSpUX4TGZcR3pTuwiTMmY
- VgPIKNqeZ4S8K74Fwg5e5QE1Kchiq+vXk0cwTTGdDhBJKMa/kwXDtSNgpSDt3mcZGWRz
- aQKy9IaMKN8ng6X8xfdH93KeCGjxRZrAG55aN61Fd/jnr8qbDF+G5wMHg2N/BIVMOtRn
- HMxw==
-X-Gm-Message-State: AOJu0YyuoDXSks8GItEk3Rer/zo6KqsCD6R2/C3Cdhab1K4CrzYx5Psw
- 89k4kylOa3GpCKvkTCAnTO6qcDFGy0IgERgkcPPGPw==
-X-Google-Smtp-Source: AGHT+IHMSmzL1GhX733i9qyeRqWSt5GjXz2vhpxca8+A+ee2K5EieVksUobvlXU13YxCT8ZtBI1vuiBvCLvFDFFustg=
-X-Received: by 2002:a81:7b42:0:b0:5d7:1940:8dd4 with SMTP id
- w63-20020a817b42000000b005d719408dd4mr2237054ywc.59.1702362195612; Mon, 11
- Dec 2023 22:23:15 -0800 (PST)
+ bh=GTyimt7NL0UKlmZiXkz9uafKVfa8o+8ACsFlcy9zsvM=;
+ b=gL1PN8Ie7sG1CxVuUn9t1xfa6EKtIIfHc7OAN5PK2wjux1DedIqQVaEa68x3WnM60C
+ u/YYV3lPY7EXIY3Kuo8Rq7Pfrp7sI7KOwK/1erC6DT6seEvRM+33vM8IVSJZInUtjpTF
+ AHAXccwl6cAVt8As8N8NXKkXkI5nB5hrq7uPl0anEqYdkmbIs2sK+pGe03iVDSqK9e07
+ tWgeHXA5WVDYDQJ6r/ZxYjC7GQN57e60iOMasD5LkxJY9BYkSHGCgHVz9WxW4NSCn1kL
+ QenA1JewhQZ3ZajCluPLBDibpeMT9B/2FAkRk6JgTB5UdqsbPO6iJV43nOR9xrn79csh
+ F4PQ==
+X-Gm-Message-State: AOJu0Yzt78qdxrFkOsMIhVgEhWlQVDLI0k5GHv1j7PSl9HKVFeIlD+Ly
+ 0F0TN7deFqimpUeq02aiiGo/NYB2dOhBMlUo0kuIaw==
+X-Google-Smtp-Source: AGHT+IGs3HI6JS3zf1kNU/4zxKRcKFHbTh53Sxa3Dui91Qy2eQXtvbSqGZ/ne5wF8+f6nUF/3SZPXetlFOQSuaig8Ag=
+X-Received: by 2002:a0d:d305:0:b0:5d7:2c6b:623 with SMTP id
+ v5-20020a0dd305000000b005d72c6b0623mr4258949ywd.39.1702362718756; Mon, 11 Dec
+ 2023 22:31:58 -0800 (PST)
 MIME-Version: 1.0
-References: <20231203003203.1293087-1-dmitry.baryshkov@linaro.org>
- <06daf3a5-f069-1209-8029-79c766e034e4@quicinc.com>
-In-Reply-To: <06daf3a5-f069-1209-8029-79c766e034e4@quicinc.com>
+References: <1702319923-24518-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJpqAch3Qhq_nfecA06d9fk1jUMD1Dx0ZgNGrom6BrwFo5A@mail.gmail.com>
+ <baf2ebe7-7895-9249-8487-a7c7e61a67c6@quicinc.com>
+In-Reply-To: <baf2ebe7-7895-9249-8487-a7c7e61a67c6@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 12 Dec 2023 08:23:04 +0200
-Message-ID: <CAA8EJpqYAmbX6=wKYJ34=FxewCaqp9Lb8kqqCumL1i_wSZdvfw@mail.gmail.com>
-Subject: Re: [RFT PATCH v2 0/4] drm/msm/dpu: enable writeback on the other
- platforms
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Tue, 12 Dec 2023 08:31:47 +0200
+Message-ID: <CAA8EJpoN8OVhPEyHzAjO7DUK9b+7_iJmc0k-XO8B8PrG12ZTVA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/msm/dpu: improve DSC allocation
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,57 +68,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 12 Dec 2023 at 02:30, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Tue, 12 Dec 2023 at 02:03, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
 >
+> On 12/11/2023 1:30 PM, Dmitry Baryshkov wrote:
+> > On Mon, 11 Dec 2023 at 20:38, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> >> A DCE (Display Compression Engine) contains two DSC hard slice
+> >> encoders. Each DCE start with even DSC encoder index followed by
+> > "starts". But it will not be correct. The DCE doesn't start with the
+> > DSC encoder. DCE consists of two DSC encoders, one has an odd index
+> > and another one has an even index.
+> >
+> >> an odd DSC encoder index. Each encoder can work independently.
+> >> But Only two DSC encoders from same DCE can be paired to work
+> > only
+> >
+> >> together to support merge mode. In addition, the DSC with even
+> > There are different merge modes. Here you are talking about the DSC merge mode.
+> >
+> >> index have to mapping to even pingpong index and DSC with odd
+> > PINGPONG (end everywhere else).
+> >
+> > have to be mapped, should be used, etc.
+> >
+> >> index have to mapping to odd pingpong index at its data path.
+> >> This patch improve DSC allocation mechanism with consideration
+> > improves
+> >
+> >> of above factors.
+> > of these factors.
+> >
+> >> Changes in V3:
+> >> -- add dpu_rm_pingpong_dsc_check()
+> >> -- for pair allocation use i += 2 at for loop
+> >>
+> >> Changes in V2:
+> >>      -- split _dpu_rm_reserve_dsc() into _dpu_rm_reserve_dsc_single() and
+> >>         _dpu_rm_reserve_dsc_pair()
+> >>
+> >> Fixes: f2803ee91a41 ("drm/msm/disp/dpu1: Add DSC support in RM")
+> > This tag is incorrect. The patch should be split into two pieces. One
+> > which fixes DSC allocation for DSC 1.1 encoders, where there were no
+> > DCE blocks, another one which adds proper handling for DCE.
+> > Unless the paired allocation requirement also applies to pre-DCE DSC
+> > encoders. But in that case the commit message doesn't make any sense.
+> >
+> > I checked 4.x Qualcomm kernels. None of them contained any of these
+> > restrictions for DSC blocks. Only the displaypack targeting 4.19
+> > kernel got these changes. But it predates DCE pairs support.
 >
-> On 12/2/2023 4:31 PM, Dmitry Baryshkov wrote:
-> > I was not able to test it on my own, this is a call for testing for the
-> > owners of these platforms. The git version of modetest now fully
-> > supports writeback.
-> >
-> > Use libdrm >= 2.4.117, run modetest -ac to determine the writeback
-> > connector, cat /sys/kernel/debug/dri/0/state to determine
-> > spare CRTC and plane, then run something like:
-> >
-> > modetest -M msm -a -s 36@85:1024x768 -o test.d -P 79@85:1024x768
-> >
-> > where 36 is the Writeback connector id, 85 is CRTC and 79 is the plane.
-> >
-> > Then press Enter and check the test.d file for the raw image dump.
-> >
-> > Changes since v1:
-> > - Fixed the DPU_CLK_CTRL_WB2 definition
-> >
+> as I said earlier the rule of odd/even pp-index map to odd/even
+> dsc-index is there since dsc v1.1.
 >
-> I think this series needs to be re-based as WB_SDM845_MASK is no longer
-> present in msm-next and 3/4 patches in this series use that.
+> I think current code (including down stream code) works by luck to not
+> encounter a configuration with two independence paths, one with single
+> dsc and the other one use two dsc to support dsc merge mode.
+>
+> this patch is the fix to enforce this rule for both dsc v1.1 and v1.2
+> and I will rework commit message yo have better description.
 
-Quite the contrary: the WB_SDM845_MASK was added in
-https://patchwork.freedesktop.org/patch/570189/?series=127245&rev=1,
-which is now merged to msm-next-lumag
+Good. Does this apply to paired allocation too? I think so, as the
+techpack first got the paired allocation and only afterwards it has
+got the DSC/PP idx check.
 
->
-> > Dmitry Baryshkov (4):
-> >    drm/msm/dpu: enable writeback on SM8150
-> >    drm/msm/dpu: enable writeback on SC8108X
-> >    drm/msm/dpu: enable writeback on SM6125
-> >    drm/msm/dpu: enable writeback on SM6350
-> >
-> >   .../drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h | 18 ++++++++++++++++++
-> >   .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    | 18 ++++++++++++++++++
-> >   .../drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h | 18 ++++++++++++++++++
-> >   .../drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 18 ++++++++++++++++++
-> >   4 files changed, 72 insertions(+)
-> >
+Regarding the patch itself. May I suggest an alternative approach,
+which should work better, I think. At least it will not require
+'deleting' the PP indices. First you preprocess the pp_to_enc_id array
+and list all PP indices selected for this encoder. Then you work with
+this array, matching PP and DSC blocks.
+
 
 
 
