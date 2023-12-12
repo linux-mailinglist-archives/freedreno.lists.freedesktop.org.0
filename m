@@ -1,79 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC7680FA2E
-	for <lists+freedreno@lfdr.de>; Tue, 12 Dec 2023 23:21:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC79080FB0F
+	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 00:11:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5C710E214;
-	Tue, 12 Dec 2023 22:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D92DF10E0DA;
+	Tue, 12 Dec 2023 23:11:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2B810E214;
- Tue, 12 Dec 2023 22:21:06 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E82410E0D4;
+ Tue, 12 Dec 2023 23:11:17 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BCMFUNC025319; Tue, 12 Dec 2023 22:21:03 GMT
+ 3BCMdNS5023439; Tue, 12 Dec 2023 23:11:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=jWYvq0lPk1O+dbwc4Fr/alVnAmWxr57RBysJceZ7SaI=; b=a4
- 8kClVEVybgUYlDXCHN6R6rbU813FuET103gXh3BiSnoRNLTwTNL4mfg/pURsmMAm
- 0IpSyjQVU4Rf+hEoDC9g5MqvRVjA3IUoNxiUwgoOgLhePc5UO1ktc6qKzdE4xaXT
- sWrNi0Lp9C7RQoWTmld0PaAauNL3k4H33/BW5vf0moIb9cwqYArbcwN+84IUUf3E
- T75VKb4+jHF9olAJ3/cM2mKxAxM/kfbzW+66xrsXFrDvX8Ti1TvdaVHWUKF09n/i
- AfZH/QPNA8r9nN2F6IyMHijWr68zL7QdqBkWbSpyTbqAhiS8n5SIVvC82kBRhmRz
- mbi3ninQrn6h1Ec+AO4w==
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=bc1VBvE
+ RnN5p7LrCrbgx8yugGZNtrXgEF0a51g3axDw=; b=Jul0L/w7443sKHpnjOGFiaL
+ ICS9A8WBC5NRT8PfmMswY5MtE0to3hrUzYGKNRKMY4cLlzKW5Q2K+GE6NiYs4N9o
+ QHbrIDVne6euwmC4lyhA/AKC5I0DAt19h0Wh75+GRjyZqUwZXUN5ApAFRkcPxymQ
+ NvD06QcI+k9c3gBZxrMy4YEsuVeT5mo69yEUVJ6Dv2lBPzzWuzq/3Q5wBgogxsj4
+ RZqxpKmcLJV5kPZgEW1HGV9Y0UqfgB/AA2ELEQ7woCc2/BQta5905SuAsHiJKgNE
+ rzwnQOcv6LGpD+kXmdBvaZR+rZtF2nVJwE1en1pbYCS4bTj9CvhZfL3sUF/tXQQ=
+ =
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ux6533n4n-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uxru2h7mg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Dec 2023 22:21:03 +0000 (GMT)
+ Tue, 12 Dec 2023 23:11:12 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BCML24v013131
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BCNBB30006338
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Dec 2023 22:21:02 GMT
-Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 12 Dec
- 2023 14:21:01 -0800
-Message-ID: <80ac821a-bc7a-b293-cace-f977819e707a@quicinc.com>
-Date: Tue, 12 Dec 2023 14:21:00 -0800
+ Tue, 12 Dec 2023 23:11:11 GMT
+Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Tue, 12 Dec 2023 15:11:11 -0800
+From: Paloma Arellano <quic_parellan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Subject: [PATCH v4 0/1] Stabilize use of vblank_refcount
+Date: Tue, 12 Dec 2023 15:10:57 -0800
+Message-ID: <20231212231101.9240-1-quic_parellan@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v4 01/15] drm/msm/dpu: add formats check for writeback
- encoder
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231212205254.12422-1-quic_abhinavk@quicinc.com>
- <20231212205254.12422-2-quic_abhinavk@quicinc.com>
- <CAA8EJpr4X3RLFPfgfnsA+UpiOkV0eRzw_FnrEFykS908YuV9Aw@mail.gmail.com>
- <CAA8EJpooSO3vR+Kp+XHgwOwQy43CKdUsOJOD3LiQ1LxbyW_39w@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpooSO3vR+Kp+XHgwOwQy43CKdUsOJOD3LiQ1LxbyW_39w@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: N_u7Wl7siR0Nrd6T482Jbvt7zLhsBn1F
-X-Proofpoint-GUID: N_u7Wl7siR0Nrd6T482Jbvt7zLhsBn1F
+X-Proofpoint-GUID: QyF4EiTAa2ZvYRkx57gVjPzgIGt91W3f
+X-Proofpoint-ORIG-GUID: QyF4EiTAa2ZvYRkx57gVjPzgIGt91W3f
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0
- mlxscore=0 mlxlogscore=993 clxscore=1015 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
- definitions=main-2312120174
+ malwarescore=0 mlxscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 mlxlogscore=907 adultscore=0 phishscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2312120181
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,93 +78,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, seanpaul@chromium.org,
- Daniel Vetter <daniel@ffwll.ch>, quic_jesszhan@quicinc.com,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>
+Cc: marijn.suijten@somainline.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, quic_bjorande@quicinc.com,
+ seanpaul@chromium.org, steev@kali.org, quic_jesszhan@quicinc.com,
+ dmitry.baryshkov@linaro.org, Paloma Arellano <quic_parellan@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+There is currently a race condition occuring when accessing
+vblank_refcount. Therefore, vblank irq timeouts may occur.
 
+Avoid any vblank irq timeouts by stablizing the use of vblank_refcount.
 
-On 12/12/2023 2:03 PM, Dmitry Baryshkov wrote:
-> On Tue, 12 Dec 2023 at 23:30, Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> On Tue, 12 Dec 2023 at 22:53, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>
->>> In preparation for adding more formats to dpu writeback add
->>> format validation to it to fail any unsupported formats.
->>>
->>> changes in v4:
->>>          - change the failure message of the API
->>>            drm_atomic_helper_check_wb_connector_state() to a generic
->>>            one in case it checks more errors later and moreoever it
->>>            already has debug message to indicate its failure
->>>          - change the corresponding DPU_ERROR to DPU_DEBUG in-line with
->>>            other atomic_check failure messages
->>>
->>> changes in v3:
->>>          - rebase on top of msm-next
->>>          - replace drm_atomic_helper_check_wb_encoder_state() with
->>>            drm_atomic_helper_check_wb_connector_state() due to the
->>>            rebase
->>>
->>> changes in v2:
->>>          - correct some grammar in the commit text
->>>
->>> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
->>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 7 +++++++
->>>   1 file changed, 7 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
->>> index bb94909caa25..4953d87affa1 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
->>> @@ -272,6 +272,7 @@ static int dpu_encoder_phys_wb_atomic_check(
->>>   {
->>>          struct drm_framebuffer *fb;
->>>          const struct drm_display_mode *mode = &crtc_state->mode;
->>> +       int ret;
->>>
->>>          DPU_DEBUG("[atomic_check:%d, \"%s\",%d,%d]\n",
->>>                          phys_enc->hw_wb->idx, mode->name, mode->hdisplay, mode->vdisplay);
->>> @@ -308,6 +309,12 @@ static int dpu_encoder_phys_wb_atomic_check(
->>>                  return -EINVAL;
->>>          }
->>>
->>> +       ret = drm_atomic_helper_check_wb_connector_state(conn_state->connector, conn_state->state);
->>> +       if (ret < 0) {
->>> +               DPU_DEBUG("wb check connector state failed ret = %d\n", ret);
->>
->> We already have a debug message in
->> drm_atomic_helper_check_wb_connector_state(). Can we please drop this
->> one?
-> 
-> If you don't mind, I can just drop it while applying
-> 
+Changes from prior versions:
+   v4: - Removed vblank_ctl_lock from dpu_encoder_virt, so it is only a
+         parameter of dpu_encoder_phys.
+       - Switch from atomic refcnt to a simple int counter as mutex has
+         now been added
+   v3: - Mistakenly did not change wording of patch #2 in last version.
+         It is done now.
+   v2: - Slightly changed wording of patch #2 commit message
 
-Ack. Thank you.
+Paloma Arellano (1):
+  drm/msm/dpu: Add mutex lock in control vblank irq
 
->>
->>> +               return ret;
->>> +       }
->>> +
->>>          return 0;
->>>   }
->>>
->>> --
->>> 2.40.1
->>>
->>
->>
->> --
->> With best wishes
->> Dmitry
-> 
-> 
-> 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  1 -
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 ++-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 32 ++++++++++++------
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 33 ++++++++++++-------
+ 4 files changed, 47 insertions(+), 23 deletions(-)
+
+-- 
+2.39.2
+
