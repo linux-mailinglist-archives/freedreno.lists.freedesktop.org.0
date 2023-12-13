@@ -2,59 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4489810674
-	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 01:28:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9455F8106AD
+	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 01:37:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97CC810E14A;
-	Wed, 13 Dec 2023 00:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD8710E0DE;
+	Wed, 13 Dec 2023 00:37:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4D2010E159
- for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 00:28:17 +0000 (UTC)
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-5df49931b4eso40383587b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 12 Dec 2023 16:28:17 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5092710E0DE
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 00:37:38 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-50bee606265so6696138e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Dec 2023 16:37:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702427296; x=1703032096; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Tb8aSVzncfyxWYm9ow9y0V7DPZwSdLYGXr8ZJbeVeXk=;
- b=L8N718WG2MXpQ3SV4JlfnEWwu1RGGJLtFqhBBW+NXOXBjhgPuL+KSkxrCAdoUj2Cq5
- 4XUK6uPAzCcbY8vBVoJcSwZhlwowpBaEMA6T1KmaRSUmr6hx1LdzAf6j+X3w0FTodl6C
- vXnbaTiiySHqIpOQmsXgkIYqsquYltUMvru/5bynhpDyZpd4bzLrkZDCE2BQzHR/5+vg
- GXmwwJuPYtfIuqG/1BosK4M2dLXABacj3uQqCjWWmeiPw4bmgkWmVcdEvAV7DFdc4apJ
- uyjWvNnMeTiFL22NAROrUAN1dPmBl5a+yKsO5P3bVHnKJEusu2HPNfHJ/EbGNq38EIr1
- pvcg==
+ d=linaro.org; s=google; t=1702427856; x=1703032656; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2Qy64QWxJAPVkUwYgcUS97lSr6WwyxeboAAZZoCa+8s=;
+ b=AeT/JwZOeo8Mdhssjt2by6KWPkawfyjMV8lA0D3ATkCpagp9Nq1CpWX3QIdiN5UhaZ
+ Zy3e3on124wxbLpbb6j3bBq4e0adCetwOzClMeq4rnJlcJxhn+Pe/vvA9GqaxoKBHczR
+ xeG9T6vBNslc06D8hHetvjjcB4FlLLLTfcMsd/IV+yBWlqlpNiX7Xgfv7i+w2R+YFazJ
+ Ne9s/kS9d6xCD8l6LcBeBaWAE8S1iILdi8eu2vG88nq0jDhsD108v8dnZjuJ42c227cM
+ 5YD8Z8X6rYYEcQLIhKnYaxE/uu3wNGZpPazQihuZ05DOA8oC6l6T2eOkDHJ8ORnsxD6C
+ iP3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702427296; x=1703032096;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Tb8aSVzncfyxWYm9ow9y0V7DPZwSdLYGXr8ZJbeVeXk=;
- b=e2p2YugznRbWkvrHxhV4x+z24lVqR4RP0tDHEwz4Nqq/Ga5FsKxVhaPamVvTUE/ilV
- opF5pNx0SBgvVhVufSr0PVuzh4XTWojruSq4FsvGMM3Dy8fv09L0+53FlFMA4EasgdXm
- mNdMOQ6ujW/yU2lTBpldzFs3qGDl8coCjq2y+Xb1LH5Po6WDAlVhSipcSnMtoPCZSNaL
- DmwFjU0nez61oJLQwfn1HqxbW3VKTYHeLRKCqiJqvjq5+cUCHBYMQ5e9pKm1UEH63N7g
- MV/yJ4Q68GzGWgtIuy8dbUbbWdNdn9n2TWm/A7vkJN7gSX3cpDWRMFm4DOaOZrtNJqgq
- tiOQ==
-X-Gm-Message-State: AOJu0Yz6SU0YKZ3TbQN01Bk53c0+C0/7sDJm1kcSXZWvpszwCsHIujjn
- za7FgD1sABtzpEzdq7X3mkdVwdvfJOdqIoCc9viPm4XP2Atyp4SYgmkt+g==
-X-Google-Smtp-Source: AGHT+IHG/jUedozgL5SGa448xXkNlA78a/sNsmuZlJogKjmEDh0VLDGbZPHcXZSz85VeopQiVm5cQCRmqKovzMN83i4=
-X-Received: by 2002:a0d:cb0c:0:b0:5e2:bd18:b253 with SMTP id
- n12-20020a0dcb0c000000b005e2bd18b253mr87186ywd.24.1702427296677; Tue, 12 Dec
- 2023 16:28:16 -0800 (PST)
-MIME-Version: 1.0
-References: <20231212231101.9240-1-quic_parellan@quicinc.com>
- <20231212231101.9240-2-quic_parellan@quicinc.com>
-In-Reply-To: <20231212231101.9240-2-quic_parellan@quicinc.com>
+ d=1e100.net; s=20230601; t=1702427856; x=1703032656;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2Qy64QWxJAPVkUwYgcUS97lSr6WwyxeboAAZZoCa+8s=;
+ b=qoTrBS/Kd1KFDvftQ9SCdhc4kGnU1DrM+dU+GBNYa2tgcvA2Xirk8OwG1yj4j1DXkK
+ MIem9zFsEktkP9sTFcGsYHXbP2zzRfVz/srgmbMjs6ryBbBXeoi9TbkQLRFYy8ZCRFOu
+ /iw6J8Emu2VaOigAEjqKVTO+AYaZlSzBB2Vz/2Ed/TmLYfWFQ0McVVk96uat/bewxkl7
+ nOHcPpUHtCpnDQGDlRJdB/DqFDkN/X2Yc8Mzp94E++qsSBYfIlwiX8I85t0n72wfW+dJ
+ 7aPVEeeJDnUg7OEehnNRwEIyqgTPkvgbqGzRWHbqmgDYmCAI1XUM6VcFryyYvfu+Gmhc
+ 1LMA==
+X-Gm-Message-State: AOJu0Yy8aY+G/g+rnwfzlBIy22mYn854Dafy3kIx2D9LSMEJbf0ZPa/C
+ 2zZFbSFt135/GfKuU6NjDZ888Q==
+X-Google-Smtp-Source: AGHT+IHQFt8OQIXxdl03CphfReY+l9SomhKym2TaxIOF+GkTzz6HHzUSRNBIZeYP3zSDGey6ZCAOVA==
+X-Received: by 2002:ac2:5f46:0:b0:50c:14d6:ebce with SMTP id
+ 6-20020ac25f46000000b0050c14d6ebcemr2634065lfz.54.1702427855498; 
+ Tue, 12 Dec 2023 16:37:35 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ a4-20020a194f44000000b0050bef1c5a50sm1517467lfk.267.2023.12.12.16.37.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Dec 2023 16:37:34 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 13 Dec 2023 02:28:05 +0200
-Message-ID: <CAA8EJprRknmPSh-7iYMp6vBxcbBDSyp4fyD3VtXUxeVzp-F2vg@mail.gmail.com>
-Subject: Re: [PATCH v4 1/1] drm/msm/dpu: Add mutex lock in control vblank irq
-To: Paloma Arellano <quic_parellan@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [PATCH 0/9] arm64: dts: qcom: sm8150-hdk: enable display output
+Date: Wed, 13 Dec 2023 02:37:28 +0200
+Message-Id: <170242755505.12964.13391263979827367977.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
+References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,37 +80,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- steev@kali.org, marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 13 Dec 2023 at 01:11, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->
-> Add a mutex lock to control vblank irq to synchronize vblank
-> enable/disable operations happening from different threads to prevent
-> race conditions while registering/unregistering the vblank irq callback.
->
-> v4: -Removed vblank_ctl_lock from dpu_encoder_virt, so it is only a
->     parameter of dpu_encoder_phys.
->     -Switch from atomic refcnt to a simple int counter as mutex has
->     now been added
-> v3: Mistakenly did not change wording in last version. It is done now.
-> v2: Slightly changed wording of commit message
->
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  1 -
->  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 ++-
->  .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 32 ++++++++++++------
->  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 33 ++++++++++++-------
->  4 files changed, 47 insertions(+), 23 deletions(-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Sun, 10 Dec 2023 02:21:23 +0300, Dmitry Baryshkov wrote:
+> Enable display output on the SM8150 HDK device. This includes HDMI
+> output through the onboard DSI-HDMI bridge and DP output on the USB-C
+> port.
+> 
+> Dmitry Baryshkov (9):
+>   dt-bindings: display: msm: dp: declare compatible string for sm8150
+>   arm64: dts: qcom: sm8150: use SoC-specific compat for RPMh stats
+>   arm64: dts: qcom: sm8150: make dispcc cast minimal vote on MMCX
+>   arm64: dts: qcom: sm8150-hdk: enable HDMI output
+>   arm64: dts: qcom: sm8150-hdk: fix SS USB regulators
+>   arm64: dts: qcom: sm8150: add DisplayPort controller
+>   arm64: dts: qcom: sm8150: add USB-C ports to the USB+DP QMP PHY
+>   arm64: dts: qcom: sm8150: add USB-C ports to the OTG USB host
+>   arm64: dts: qcom: sm8150-hdk: enable DisplayPort and USB-C altmode
+> 
+> [...]
 
+Applied, thanks!
+
+[1/9] dt-bindings: display: msm: dp: declare compatible string for sm8150
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/0d196633771c
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
