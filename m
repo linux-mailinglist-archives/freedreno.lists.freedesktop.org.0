@@ -1,101 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D95810CDB
-	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 10:01:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C6691811DAA
+	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 19:58:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34E0410E710;
-	Wed, 13 Dec 2023 09:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0349410E153;
+	Wed, 13 Dec 2023 18:58:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10CCA10E718
- for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 09:01:34 +0000 (UTC)
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-1d3448937ddso7764905ad.2
- for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 01:01:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702458093; x=1703062893; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=53Yx2oyNvccls8Q69HZyTUsKG1EVUBhUWv/h4RTQOE8=;
- b=gDyC8pGRilqCL46bNLs6jxzv/v5rCCukDSLBP7uo37fHmnocqz4BsyTCTFkbVpLrOa
- 0GEputXHDLuR3LJsn8xwWFv2ANxJpgmDRfuckny9tARjU4AKr0IOa+ITXkPSn0wg/kDQ
- hGzdZr9JSmAL990CEkdO5llEOhemFWBGqUMJjTLTbCFjSvq19xSVm5KprmBYd6wUmmH8
- QevZVFuiI5zmqI0GaLHl3M7dBNJIEpB4g5Aghhw9aq6pAdaVPvXljFCd9GSbPcH+QCoA
- BzmfKdPplne5gKJHA++rnLGobPcLS7VVU4xiY8+kX3Wevt/Ub3ZhSpzxU1Z+uvillJR2
- cPnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702458093; x=1703062893;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=53Yx2oyNvccls8Q69HZyTUsKG1EVUBhUWv/h4RTQOE8=;
- b=SccIteFfBpV2t9KLH4HPMaXTN5uGNpXg7eCyZkd6GABdZuTDt/j7061M0f36DXxpmZ
- 3JGq7iYHBB5TEr9eda+mKn/9V17Rv7Wcwmw87sNShN4VhmSqbPpnuizupa/URK5mPHF9
- t1Gv0cQ0BM3EuZM1cDIait/MM1iYvy9VOA2au59ZDuFU/MkfoVCd0+wosQjKZ0RF/Ut5
- +PwX8BNBn/qN/L7ckrze/QEhDTfjWhrMl+v9FoiSopRRVGdcRbt5kW5cFYHU9yB4bkLR
- FrWJFDYixN/D5kLf02Z2BGmlwpVpiB1lx2cKXW7j+Pp58vGxB7giR5nZaRRS1wIfyaqu
- OeeA==
-X-Gm-Message-State: AOJu0YxR7a+4ouD18KfomYWp8NydVydu6SBSKaLex3MzRR37SwAUxTGV
- P7ZS+lgq6b9mHerVQ49vdy4ACw==
-X-Google-Smtp-Source: AGHT+IG4QyI7RGxXk3kSpPRgRBNiVvXnrI7fkjweoJj3AbhsPhMFNkFCfei8CH8UIUS9hpxYTJbA0w==
-X-Received: by 2002:a17:902:650e:b0:1d0:6ffd:f22c with SMTP id
- b14-20020a170902650e00b001d06ffdf22cmr4207798plk.130.1702458092071; 
- Wed, 13 Dec 2023 01:01:32 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:596e:6d4f:fc0a:ec65?
- ([2a01:e0a:982:cbb0:596e:6d4f:fc0a:ec65])
- by smtp.gmail.com with ESMTPSA id
- h9-20020a170902748900b001d33e6521c1sm2516143pll.102.2023.12.13.01.01.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Dec 2023 01:01:31 -0800 (PST)
-Message-ID: <e45e4887-9a28-4f58-8c1b-247ae6d2ca67@linaro.org>
-Date: Wed, 13 Dec 2023 10:01:25 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0D4F10E12D;
+ Wed, 13 Dec 2023 18:58:20 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BDHhTWM018512; Wed, 13 Dec 2023 18:58:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version:content-type; s=
+ qcppdkim1; bh=HnbiFdeXaBpD/ly87YP7EIgnbAl0ppzelNTm3H7KtII=; b=NO
+ LKVW+1JBqKFPFegWfhxinz7qLjeeXK3MwHnNKlKKuAbdRBA+iYHnuaMdE0+do5o9
+ RohsW3VREPAzI6/JwPqb/JXFNQJ79kY4fMCZAKB+uMFNdq0ICKqlGrcFGMh/Dv0V
+ 9z68tZRUwAUzIyniqhLart/d9XjLJWFYN+HKWfi5rlVa6XR+efQXhXu1gZiqmPWi
+ HMu6J8/fV5O9G3Q+YyP49QQeW/YXF7TZh+IO5nOhiyuFRZu3H2RyyKjVte5vj2yK
+ oqUyfi1SQG47NL2xWTIVoGb0RTxGMV3uGARhUjs4W1ONy7RGoQ9pMQBir70bArTe
+ Ix7kOKC9tKxwbUyAfFbQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uy9gd1dsc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Dec 2023 18:58:12 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BDIwBRF005849
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Dec 2023 18:58:11 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 13 Dec 2023 10:58:10 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Subject: [PATCH v5] drm/msm/dpu: improve DSC allocation
+Date: Wed, 13 Dec 2023 10:58:03 -0800
+Message-ID: <1702493883-30148-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH 7/9] arm64: dts: qcom: sm8150: add USB-C ports to the
- USB+DP QMP PHY
-Content-Language: en-US, fr
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
- <20231209232132.3580045-8-dmitry.baryshkov@linaro.org>
- <5025892d-0cbc-462a-b7d8-95828680dd8b@linaro.org>
- <CAA8EJprp+Rf5BKEnaoCooWVKGfg6SRg-uc=NRywc10qy=Yj2Xw@mail.gmail.com>
- <f0f40f33-ebcd-4d68-86b2-3839bb8e49a3@linaro.org>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <f0f40f33-ebcd-4d68-86b2-3839bb8e49a3@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: E9B7IaHlpTTYE0L2gzpIebJ5JNmClQ4o
+X-Proofpoint-GUID: E9B7IaHlpTTYE0L2gzpIebJ5JNmClQ4o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501 mlxscore=0
+ suspectscore=0 clxscore=1015 phishscore=0 adultscore=0 mlxlogscore=784
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2312130136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,74 +79,232 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/12/2023 10:50, Konrad Dybcio wrote:
-> On 11.12.2023 10:46, Dmitry Baryshkov wrote:
->> On Mon, 11 Dec 2023 at 11:33, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>>
->>> On 10.12.2023 00:21, Dmitry Baryshkov wrote:
->>>> Expand Combo USB+DP QMP PHY device node with the OF ports required to
->>>> support USB-C / DisplayPort switching.
->>>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>>   arch/arm64/boot/dts/qcom/sm8150.dtsi | 23 +++++++++++++++++++++++
->>>>   1 file changed, 23 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
->>>> index ea7c92c0e405..38423a9f8408 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
->>>> @@ -3447,6 +3447,29 @@ usb_1_qmpphy: phy@88e8000 {
->>>>                        #phy-cells = <1>;
->>>>
->>>>                        status = "disabled";
->>>> +
->>>> +                     ports {
->>>> +                             #address-cells = <1>;
->>>> +                             #size-cells = <0>;
->>>> +
->>>> +                             port@0 {
->>>> +                                     reg = <0>;
->>>> +                                     usb_1_qmpphy_out: endpoint {};
->>> style 1
->>>> +                             };
->>>> +
->>>> +                             port@1 {
->>>> +                                     reg = <1>;
->>>> +
->>>> +                                     usb_1_qmpphy_usb_ss_in: endpoint {
->>>> +                                     };
->>> style 2
->>>> +                             };
->>>> +
->>>> +                             port@2 {
->>>> +                                     reg = <2>;
->>>> +
->>>> +                                     usb_1_qmpphy_dp_in: endpoint {};
->>> style 3
->>>
->>> :(
->>
->> Which one should I stick to?
-> style 2 seems to be used in 8650
+At DSC V1.1 DCE (Display Compression Engine) contains a DSC encoder.
+However, at DSC V1.2 DCE consists of two DSC encoders, one has an odd
+index and another one has an even index. Each encoder can work
+independently. But only two DSC encoders from same DCE can be paired
+to work together to support DSC merge mode at DSC V1.2. For DSC V1.1
+two consecutive DSC encoders (start with even index) have to be paired
+to support DSC merge mode.  In addition, the DSC with even index have
+to be mapped to even PINGPONG index and DSC with odd index have to be
+mapped to odd PINGPONG index at its data path in regardless of DSC
+V1.1 or V1.2. This patch improves DSC allocation mechanism with
+consideration of those factors.
 
-I used style 2 for 8450/8550/8650 usb & dp ports, but the 3 styles are present in the qcom dts.
+Changes in V5:
+-- delete dsc_id[]
+-- update to global_state->dsc_to_enc_id[] directly
+-- replace ndx with idx
+-- fix indentation at function declaration
+-- only one for loop at _dpu_rm_reserve_dsc_single()
 
-Neil
+Changes in V4:
+-- rework commit message
+-- use reserved_by_other()
+-- add _dpu_rm_pingpong_next_index()
+-- revise _dpu_rm_pingpong_dsc_check()
 
-> 
-> Konrad
-> 
+Changes in V3:
+-- add dpu_rm_pingpong_dsc_check()
+-- for pair allocation use i += 2 at for loop
+
+Changes in V2:
+    -- split _dpu_rm_reserve_dsc() into _dpu_rm_reserve_dsc_single() and
+       _dpu_rm_reserve_dsc_pair()
+
+Fixes: f2803ee91a41 ("drm/msm/disp/dpu1: Add DSC support in RM")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 162 +++++++++++++++++++++++++++++----
+ 1 file changed, 146 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+index f9215643..7c7a88f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+@@ -461,29 +461,159 @@ static int _dpu_rm_reserve_ctls(
+ 	return 0;
+ }
+ 
+-static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+-			       struct dpu_global_state *global_state,
+-			       struct drm_encoder *enc,
+-			       const struct msm_display_topology *top)
++static int _dpu_rm_pingpong_next_index(int start,
++				       uint32_t enc_id,
++				       uint32_t *pp_to_enc_id,
++				       int pp_max)
+ {
+-	int num_dsc = top->num_dsc;
+ 	int i;
+ 
+-	/* check if DSC required are allocated or not */
+-	for (i = 0; i < num_dsc; i++) {
+-		if (!rm->dsc_blks[i]) {
+-			DPU_ERROR("DSC %d does not exist\n", i);
+-			return -EIO;
+-		}
++	for (i = start; i < pp_max; i++) {
++		if (pp_to_enc_id[i] == enc_id)
++			return i;
++	}
++
++	return -ENAVAIL;
++}
++
++static int _dpu_rm_pingpong_dsc_check(int dsc_idx, int pp_idx)
++{
++
++	/*
++	 * DSC with even index must be used with the PINGPONG with even index
++	 * DSC with odd index must be used with the PINGPONG with odd index
++	 */
++	if ((dsc_idx & 0x01) != (pp_idx & 0x01))
++		return -ENAVAIL;
++
++	return 0;
++}
++
++static int _dpu_rm_reserve_dsc_single(struct dpu_rm *rm,
++				      struct dpu_global_state *global_state,
++				      uint32_t enc_id,
++				      const struct msm_display_topology *top)
++{
++	int num_dsc = 0;
++	uint32_t *pp_to_enc_id = global_state->pingpong_to_enc_id;
++	uint32_t *dsc_enc_id = global_state->dsc_to_enc_id;
++	int pp_max = PINGPONG_MAX - PINGPONG_0;
++	int pp_idx;
++	int dsc_idx;
++	int ret;
++
++	for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
++			  num_dsc < 1; dsc_idx++) {
++		if (!rm->dsc_blks[dsc_idx])
++			continue;
++
++		if (reserved_by_other(dsc_enc_id, dsc_idx, enc_id))
++			continue;
++
++		pp_idx = _dpu_rm_pingpong_next_index(0, enc_id,
++						     pp_to_enc_id, pp_max);
++		if (pp_idx < 0)
++			return -ENAVAIL;
++
++		ret = _dpu_rm_pingpong_dsc_check(dsc_idx, pp_idx);
++		if (ret)
++			return -ENAVAIL;
++
++		dsc_enc_id[dsc_idx] = enc_id;
++		num_dsc++;
++	}
++
++	if (!num_dsc) {
++		DPU_ERROR("DSC allocation failed num_dsc=%d\n", num_dsc);
++		return -ENAVAIL;
++	}
+ 
+-		if (global_state->dsc_to_enc_id[i]) {
+-			DPU_ERROR("DSC %d is already allocated\n", i);
+-			return -EIO;
++	return 0;
++}
++
++static int _dpu_rm_reserve_dsc_pair(struct dpu_rm *rm,
++				    struct dpu_global_state *global_state,
++				    uint32_t enc_id,
++				    const struct msm_display_topology *top)
++{
++	int num_dsc = 0;
++	uint32_t *pp_to_enc_id = global_state->pingpong_to_enc_id;
++	uint32_t *dsc_enc_id = global_state->dsc_to_enc_id;
++	int pp_max = PINGPONG_MAX - PINGPONG_0;
++	int start_pp_idx = 0;
++	int dsc_idx, pp_idx;
++	int ret;
++
++	/* only start from even dsc index */
++	for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
++			  num_dsc < top->num_dsc; dsc_idx += 2) {
++		if (!rm->dsc_blks[dsc_idx] ||
++		    !rm->dsc_blks[dsc_idx + 1])
++			continue;
++
++		/* consective dsc index to be paired */
++		if (reserved_by_other(dsc_enc_id, dsc_idx, enc_id) ||
++		    reserved_by_other(dsc_enc_id, dsc_idx + 1, enc_id))
++			continue;
++
++		pp_idx = _dpu_rm_pingpong_next_index(start_pp_idx, enc_id,
++						     pp_to_enc_id, pp_max);
++		if (pp_idx < 0)
++			return -ENAVAIL;
++
++		ret = _dpu_rm_pingpong_dsc_check(dsc_idx, pp_idx);
++		if (ret) {
++			pp_idx = 0;
++			continue;
+ 		}
++
++		pp_idx = _dpu_rm_pingpong_next_index(pp_idx + 1, enc_id,
++						     pp_to_enc_id, pp_max);
++		if (pp_idx < 0)
++			return -ENAVAIL;
++
++		dsc_enc_id[dsc_idx] = enc_id;
++		dsc_enc_id[dsc_idx + 1] = enc_id;
++		num_dsc += 2;
++
++		start_pp_idx = pp_idx + 1;	/* start for next pair */
+ 	}
+ 
+-	for (i = 0; i < num_dsc; i++)
+-		global_state->dsc_to_enc_id[i] = enc->base.id;
++	if (num_dsc < top->num_dsc) {
++		DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
++						num_dsc, top->num_dsc);
++		return -ENAVAIL;
++	}
++
++	return 0;
++}
++
++static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
++			       struct dpu_global_state *global_state,
++			       struct drm_encoder *enc,
++			       const struct msm_display_topology *top)
++{
++	uint32_t enc_id = enc->base.id;
++
++	if (!top->num_dsc || !top->num_intf)
++		return 0;
++
++	/*
++	 * Facts:
++	 * 1) DSCs ouput to an interface
++	 * 2) no pingpong split (two layer mixers shared one pingpong)
++	 * 3) DSC pair start from even index, such as index(0,1), (2,3), etc
++	 * 4) even PINGPONG connects to even DSC
++	 * 5) odd PINGPONG connects to odd DSC
++	 * 6) pair: encoder +--> pp_idx_0 --> dsc_idx_0
++	 *                  +--> pp_idx_1 --> dsc_idx_1
++	 */
++
++	/* num_dsc should be either 1, 2 or 4 */
++	if (top->num_dsc > top->num_intf)	/* merge mode */
++		return _dpu_rm_reserve_dsc_pair(rm, global_state, enc_id, top);
++	else
++		return _dpu_rm_reserve_dsc_single(rm, global_state, enc_id, top);
+ 
+ 	return 0;
+ }
+-- 
+2.7.4
 
