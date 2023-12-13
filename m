@@ -2,75 +2,100 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04D381084A
-	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 03:37:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9D95810CDB
+	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 10:01:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C58110E240;
-	Wed, 13 Dec 2023 02:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34E0410E710;
+	Wed, 13 Dec 2023 09:01:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 195D510E23F;
- Wed, 13 Dec 2023 02:37:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BCNxLTA013353; Wed, 13 Dec 2023 02:37:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=GH7d3b3O5n+iS8TUgWJ4YhWeM/IfUOQCdp64CsAQ4PU=; b=Iw
- 1rxKZz6PGDH+5HpuFHwYbnPDSUSbotdpkqhjNEWPAoftLQl0U+1MaYous2wXzBcf
- kbB/3xjtT8bO2WVAWUKKCIc51zchOz/C0EOrERt7wz1fcMilR5ZHeqwP5Yp29pC2
- HWuYDXwtOQ7/pzKcS35KiOC7onek+Ro6E4TTEH0OcD17Zq9HzGe4hhASPwBYRiZV
- TJcNhvsPETbiaoXXlZf+kOInLPND0kcuJyhCPcq/jZfKYubdZsY+FZbS8R/f72jU
- OEG3Q9igha4GXAwKYrsiYYuomRlUns8dpywltsx3gCUqC+YuHdiPcx8yzJfqHwRj
- S3uA92rb00ciFWR6xLdw==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ux65341fk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Dec 2023 02:37:12 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BD2bBJk011457
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Dec 2023 02:37:11 GMT
-Received: from [10.110.0.246] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 12 Dec
- 2023 18:37:09 -0800
-Message-ID: <27423c14-bdcb-4053-a7c3-b2c9d6c4e771@quicinc.com>
-Date: Tue, 12 Dec 2023 18:37:08 -0800
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CCA10E718
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 09:01:34 +0000 (UTC)
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-1d3448937ddso7764905ad.2
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 01:01:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1702458093; x=1703062893; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=53Yx2oyNvccls8Q69HZyTUsKG1EVUBhUWv/h4RTQOE8=;
+ b=gDyC8pGRilqCL46bNLs6jxzv/v5rCCukDSLBP7uo37fHmnocqz4BsyTCTFkbVpLrOa
+ 0GEputXHDLuR3LJsn8xwWFv2ANxJpgmDRfuckny9tARjU4AKr0IOa+ITXkPSn0wg/kDQ
+ hGzdZr9JSmAL990CEkdO5llEOhemFWBGqUMJjTLTbCFjSvq19xSVm5KprmBYd6wUmmH8
+ QevZVFuiI5zmqI0GaLHl3M7dBNJIEpB4g5Aghhw9aq6pAdaVPvXljFCd9GSbPcH+QCoA
+ BzmfKdPplne5gKJHA++rnLGobPcLS7VVU4xiY8+kX3Wevt/Ub3ZhSpzxU1Z+uvillJR2
+ cPnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702458093; x=1703062893;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=53Yx2oyNvccls8Q69HZyTUsKG1EVUBhUWv/h4RTQOE8=;
+ b=SccIteFfBpV2t9KLH4HPMaXTN5uGNpXg7eCyZkd6GABdZuTDt/j7061M0f36DXxpmZ
+ 3JGq7iYHBB5TEr9eda+mKn/9V17Rv7Wcwmw87sNShN4VhmSqbPpnuizupa/URK5mPHF9
+ t1Gv0cQ0BM3EuZM1cDIait/MM1iYvy9VOA2au59ZDuFU/MkfoVCd0+wosQjKZ0RF/Ut5
+ +PwX8BNBn/qN/L7ckrze/QEhDTfjWhrMl+v9FoiSopRRVGdcRbt5kW5cFYHU9yB4bkLR
+ FrWJFDYixN/D5kLf02Z2BGmlwpVpiB1lx2cKXW7j+Pp58vGxB7giR5nZaRRS1wIfyaqu
+ OeeA==
+X-Gm-Message-State: AOJu0YxR7a+4ouD18KfomYWp8NydVydu6SBSKaLex3MzRR37SwAUxTGV
+ P7ZS+lgq6b9mHerVQ49vdy4ACw==
+X-Google-Smtp-Source: AGHT+IG4QyI7RGxXk3kSpPRgRBNiVvXnrI7fkjweoJj3AbhsPhMFNkFCfei8CH8UIUS9hpxYTJbA0w==
+X-Received: by 2002:a17:902:650e:b0:1d0:6ffd:f22c with SMTP id
+ b14-20020a170902650e00b001d06ffdf22cmr4207798plk.130.1702458092071; 
+ Wed, 13 Dec 2023 01:01:32 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:596e:6d4f:fc0a:ec65?
+ ([2a01:e0a:982:cbb0:596e:6d4f:fc0a:ec65])
+ by smtp.gmail.com with ESMTPSA id
+ h9-20020a170902748900b001d33e6521c1sm2516143pll.102.2023.12.13.01.01.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Dec 2023 01:01:31 -0800 (PST)
+Message-ID: <e45e4887-9a28-4f58-8c1b-247ae6d2ca67@linaro.org>
+Date: Wed, 13 Dec 2023 10:01:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Freedreno] [PATCH 0/2] drm/msm/dpu: INTF CRC configuration
- cleanups and fix
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20231130-encoder-fixup-v1-0-585c54cd046e@quicinc.com>
- <CAA8EJpof5LO7pyXaqgtbL=sL2a2Te2tzLF-NrTFT7n58pB3iww@mail.gmail.com>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <CAA8EJpof5LO7pyXaqgtbL=sL2a2Te2tzLF-NrTFT7n58pB3iww@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH 7/9] arm64: dts: qcom: sm8150: add USB-C ports to the
+ USB+DP QMP PHY
+Content-Language: en-US, fr
+To: Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20231209232132.3580045-1-dmitry.baryshkov@linaro.org>
+ <20231209232132.3580045-8-dmitry.baryshkov@linaro.org>
+ <5025892d-0cbc-462a-b7d8-95828680dd8b@linaro.org>
+ <CAA8EJprp+Rf5BKEnaoCooWVKGfg6SRg-uc=NRywc10qy=Yj2Xw@mail.gmail.com>
+ <f0f40f33-ebcd-4d68-86b2-3839bb8e49a3@linaro.org>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <f0f40f33-ebcd-4d68-86b2-3839bb8e49a3@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 0jf2xS-RJCDQoDu-F6Vv1z690TgLCCND
-X-Proofpoint-GUID: 0jf2xS-RJCDQoDu-F6Vv1z690TgLCCND
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0
- mlxscore=0 mlxlogscore=999 clxscore=1015 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
- definitions=main-2312130017
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,61 +108,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>
+Reply-To: neil.armstrong@linaro.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 11/30/2023 11:39 PM, Dmitry Baryshkov wrote:
-> On Fri, 1 Dec 2023 at 03:31, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+On 11/12/2023 10:50, Konrad Dybcio wrote:
+> On 11.12.2023 10:46, Dmitry Baryshkov wrote:
+>> On Mon, 11 Dec 2023 at 11:33, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>>
+>>> On 10.12.2023 00:21, Dmitry Baryshkov wrote:
+>>>> Expand Combo USB+DP QMP PHY device node with the OF ports required to
+>>>> support USB-C / DisplayPort switching.
+>>>>
+>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> ---
+>>>>   arch/arm64/boot/dts/qcom/sm8150.dtsi | 23 +++++++++++++++++++++++
+>>>>   1 file changed, 23 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+>>>> index ea7c92c0e405..38423a9f8408 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+>>>> @@ -3447,6 +3447,29 @@ usb_1_qmpphy: phy@88e8000 {
+>>>>                        #phy-cells = <1>;
+>>>>
+>>>>                        status = "disabled";
+>>>> +
+>>>> +                     ports {
+>>>> +                             #address-cells = <1>;
+>>>> +                             #size-cells = <0>;
+>>>> +
+>>>> +                             port@0 {
+>>>> +                                     reg = <0>;
+>>>> +                                     usb_1_qmpphy_out: endpoint {};
+>>> style 1
+>>>> +                             };
+>>>> +
+>>>> +                             port@1 {
+>>>> +                                     reg = <1>;
+>>>> +
+>>>> +                                     usb_1_qmpphy_usb_ss_in: endpoint {
+>>>> +                                     };
+>>> style 2
+>>>> +                             };
+>>>> +
+>>>> +                             port@2 {
+>>>> +                                     reg = <2>;
+>>>> +
+>>>> +                                     usb_1_qmpphy_dp_in: endpoint {};
+>>> style 3
+>>>
+>>> :(
 >>
->> This series drops the frame_count and enable parameters (as they're always
->> set to the same value). It also sets input_sel=0x1 for INTF.
->>
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->> ---
->> Jessica Zhang (2):
->>        drm/msm/dpu: Drop enable and frame_count parameters from dpu_hw_setup_misr()
->>        drm/msm/dpu: Set input_sel bit for INTF
+>> Which one should I stick to?
+> style 2 seems to be used in 8650
+
+I used style 2 for 8450/8550/8650 usb & dp ports, but the 3 styles are present in the qcom dts.
+
+Neil
+
 > 
-> Please change the order of the commits: fix (input_sel) comes first,
-> then comes the improvement.
-> Otherwise if one needs to backport this fix, they either need to pick
-> up the irrelevant patch, or they have to rework the fix.
-
-Acked.
-
-Thanks,
-
-Jessica Zhang
-
+> Konrad
 > 
->>
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 ++--
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 ++--
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c |  6 +++---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  4 ++--
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   |  6 +++---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h   |  3 ++-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 18 +++++++-----------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h | 11 +++++------
->>   8 files changed, 26 insertions(+), 30 deletions(-)
->> ---
->> base-commit: 4047f50eb64d980fcd581a19bbe6164dab25ebc7
->> change-id: 20231122-encoder-fixup-61c190b16085
->>
->> Best regards,
->> --
->> Jessica Zhang <quic_jesszhan@quicinc.com>
->>
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+
