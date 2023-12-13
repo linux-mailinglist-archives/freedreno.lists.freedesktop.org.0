@@ -1,68 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74458106B3
-	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 01:37:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E94E8106B7
+	for <lists+freedreno@lfdr.de>; Wed, 13 Dec 2023 01:37:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC3710E229;
-	Wed, 13 Dec 2023 00:37:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ABC110E22A;
+	Wed, 13 Dec 2023 00:37:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F014B10E14A
- for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 00:37:38 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-50c0f6b1015so7429187e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 12 Dec 2023 16:37:38 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E6310E226
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 00:37:39 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-50bfd7be487so7185425e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Dec 2023 16:37:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702427857; x=1703032657; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1702427858; x=1703032658; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bSCgKJVh7Aq6raN1kOP54ZRfx8NzvoUiUSv9wHSRjAY=;
- b=T2u0FL2wSEWrGag4Im/hsrz4Vwq1vOXYPXf3eQksqKVDPjrZd399WAp+QcmzROSAKP
- n3o7z0W6ybBW6MVeJOeYZX42YFu4qcXuk8k4Y4zzXUBTT3OVIuDQqoK2zZHNjtvUK+nV
- 5GyDzviwCaoB0CZXAh08APwXqH9Nb2b8Z5mWKTzsFqAep6MWOqdeuT6SQiIM7SYYGKjO
- 05LuIQJ5+oHaUoRuGEv2rw7Tvj/QLdFRnD7kS8S0h35jLGcIbOdFieLbqPGu2UgZG7af
- /x2rND7mTe6aLh8ou4mmoEs76ifepKwPECeAqChoalVtlE6PCl4cDAHMguypw3K4xnNo
- iwcA==
+ bh=k7k/V39rRtO0gu3kma7GBDeady/50PeXiMUR6JPR3gM=;
+ b=Sb9QKXTY6Lymn6LpKhGzyP5Vam7k5V5AREEf1R9euDJjOCco8gB+Z0H3kAg3qnMnGF
+ pNJlBfdQxrMjNBSJXZxeypvICMwFWIpPRKmG0CUjZwEUhf296vRSQbRcsxptgKdMkyx/
+ WflyOxqpVPiS676OAtZ47lDWFlMR8nz3qm4he/FemYVI0UybSYe4pXzqi4VvjsNa9gul
+ w++KVfg/wkX8MfLnuGO7FJ81JVJ/g93TStkVFT3TNfdmDerV0Hn9UOTLT4a+gvTtNm/L
+ mgutEIk82JzzcSy1skDFpEYw/oVnmfBifCHfgrXLlAEliBHiuinWhrFGcJ3onYdqXSUI
+ r/7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702427857; x=1703032657;
+ d=1e100.net; s=20230601; t=1702427858; x=1703032658;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bSCgKJVh7Aq6raN1kOP54ZRfx8NzvoUiUSv9wHSRjAY=;
- b=ptoKRqMjTLeYeAzh5NTK0RY6JIbbtJaHal2kzSyiWBvdC3CL5s5k3SpW95GRH0z4iA
- Ax6ow17BpfB7518mZMrDx3Fm8aCAYjgXQEevMkSk9wGyeAyLtSuepHzkrk2dTbonSULp
- C8bKLpNI6IFr02LZvqTxTD5ulf7O/DRiSEuFv0rGn4fuKKR3frZCwKlRZ7Ns9YI9jtd9
- bGw/p3zCEYc54gSUw3cxcifwosIZ/ounkKwT6+4A7FzmsWjDOSMk/+efXgsIEqhRjgtI
- b9kM3b0aY7B1p3tFhwIYh4WJ+tqDZv/E5dWqTOSzU7QIAoiiUtWKzySkA5wIqEThegT7
- eeHA==
-X-Gm-Message-State: AOJu0YxcxiifqHqxXkjpW2iXkVLcn2fQMM+6sv1b4tClh3xcEGmWEdzt
- ApYSzaj+Oh/4alidXXrAhelE/w==
-X-Google-Smtp-Source: AGHT+IF73nfm56nkB2mm650VJtqU71JG3ISCUoo3YLH1Caud8GmPxaBSrn51FVw0yj8hkxHfHPfmhA==
-X-Received: by 2002:ac2:499d:0:b0:50b:d990:39b5 with SMTP id
- f29-20020ac2499d000000b0050bd99039b5mr3112617lfl.11.1702427857210; 
- Tue, 12 Dec 2023 16:37:37 -0800 (PST)
+ bh=k7k/V39rRtO0gu3kma7GBDeady/50PeXiMUR6JPR3gM=;
+ b=Z5IHSJQ9LUIWXyWb84gZ2spnO+LaUNw7V4fDnHK1r0GCZYnpKpsDT0TtpQzC4FEdiP
+ 3rOACV5kkAJPWOtC83LcC/TcihdWZGMhKUtC4pbHwkrUg2MU8DaVrQrhPHUVaWAcvzHC
+ zFCWp8pxSMlECVZ+2TIjbvQb+Gk+UmJQwtETkvcsNyVrPISWEhMwaS24HzoA//LoLQUx
+ A5n/2g/eEpg38Y0UQlN0ael8Vf5p0nLUvBGTbaE8xC7tec9D8+Ftgekuw6rgnq3MwiBH
+ lbXOpJgUF9hCE2aghlpz74XEekEqyv8uQWAtqBaNzjlO8iiKd3T03W4tY2frinFFfbty
+ hoJg==
+X-Gm-Message-State: AOJu0Yw/5XImCRE+CfUZTIX5NN1BWX0F0SIWhkbTlq2gk56WK8t2KCVf
+ IXAaUTD9fLSLGRw7HID3487yAA==
+X-Google-Smtp-Source: AGHT+IGE9Db6y1Dp0Tz5IuwllQVF7GN18pg+hEKPwP1GOohVNZRzQKzU5fKx57ILT9BVICNh7+Ixow==
+X-Received: by 2002:a19:7706:0:b0:50c:f227:ac0c with SMTP id
+ s6-20020a197706000000b0050cf227ac0cmr2893314lfc.10.1702427858308; 
+ Tue, 12 Dec 2023 16:37:38 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- a4-20020a194f44000000b0050bef1c5a50sm1517467lfk.267.2023.12.12.16.37.36
+ a4-20020a194f44000000b0050bef1c5a50sm1517467lfk.267.2023.12.12.16.37.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Dec 2023 16:37:36 -0800 (PST)
+ Tue, 12 Dec 2023 16:37:37 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH RESEND v2 0/3] drm: introduce per-encoder debugfs directory
-Date: Wed, 13 Dec 2023 02:37:30 +0200
-Message-Id: <170242755507.12964.9347100992434762477.b4-ty@linaro.org>
+Subject: Re: [PATCH v2 0/3] drm/msm/dpu: enable writeback on several platforms
+Date: Wed, 13 Dec 2023 02:37:31 +0200
+Message-Id: <170242755506.12964.4576140189504852980.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231203115315.1306124-1-dmitry.baryshkov@linaro.org>
-References: <20231203115315.1306124-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20231203002743.1291956-1-dmitry.baryshkov@linaro.org>
+References: <20231203002743.1291956-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -78,30 +77,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 03 Dec 2023 14:53:12 +0300, Dmitry Baryshkov wrote:
-> Resending, patch 1 needs review from DRM core maintainers, but it got no
-> attention since October.
+On Sun, 03 Dec 2023 03:27:40 +0300, Dmitry Baryshkov wrote:
+> This enables writeback on several platforms where I could actually test
+> it.
 > 
-> Each of connectors and CRTCs used by the DRM device provides debugfs
-> directory, which is used by several standard debugfs files and can
-> further be extended by the driver. Add such generic debugfs directories
-> for encoder. As a showcase for this dir, migrate `bridge_chains' debugfs
-> file (which contains per-encoder data) and MSM custom encoder status to
-> this new debugfs directory.
+> Changes since v1:
+> - Fixed the CLK_CTRL for SDM845 platform.
+> 
+> Dmitry Baryshkov (3):
+>   drm/msm/dpu: enable writeback on SDM845
+>   drm/msm/dpu: enable writeback on SM8350
+>   drm/msm/dpu: enable writeback on SM8450
 > 
 > [...]
 
 Applied, thanks!
 
-[3/3] drm/msm/dpu: move encoder status to standard encoder debugfs dir
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/62d35629da80
+[1/3] drm/msm/dpu: enable writeback on SDM845
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d907efe518e4
+[2/3] drm/msm/dpu: enable writeback on SM8350
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/1a8dfd51d6e4
+[3/3] drm/msm/dpu: enable writeback on SM8450
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/e512b4a8ec37
 
 Best regards,
 -- 
