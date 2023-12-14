@@ -1,71 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5DC38122A5
-	for <lists+freedreno@lfdr.de>; Thu, 14 Dec 2023 00:11:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 568A68129E6
+	for <lists+freedreno@lfdr.de>; Thu, 14 Dec 2023 09:01:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A3310E86F;
-	Wed, 13 Dec 2023 23:11:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0CE10E842;
+	Thu, 14 Dec 2023 08:01:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BA4A10E86E
- for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 23:11:15 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-50e1112b95cso1300132e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 13 Dec 2023 15:11:14 -0800 (PST)
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B21D10E190
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Dec 2023 08:00:53 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id
+ 3f1490d57ef6-dbc666461daso4998459276.0
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Dec 2023 00:00:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702509073; x=1703113873; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=L/j1Onoc3138zJnsU8yDEiGjQqVsbV45Cqho1Gb5ccE=;
- b=aTP/AZlRnLah4mpFb+H1GPljI7qN6hA+rneUPpmh7M6zi5jazcXg0tGGqxwR3HUzpi
- gulBJP0AlrCeNdM4gA0uS+Av6b5ii1ZbItAeskyEArmdEf8iA8QOFzOwZEiQR1Yu17av
- LGuUy+vBpWkz4tqMwGaTI8sk9LV+WLzDqc5cvLtALYdTKmASmfdqwgyncDp6D3zGbl5F
- EpTolFOdWBBmJ0SbvIeAl0mngPGeItBs6DNN1H4xz6U8/lFeohVZ8ern0revwShGJ8Wv
- +xoKYtQcDHfWKDMd7TCSY8irwc8RSdceD7XyQfU0w4QxYFXisRAD1z6gxJDgSlyFauzy
- PBUw==
+ d=linaro.org; s=google; t=1702540852; x=1703145652; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=hxvoxrsdJSPbjJs7z8cGp1BRDLR051KEfgQFlaNlMoA=;
+ b=qyNDessnf/xN7kF0JV/5plEloLtwXSpHpzJtWIUfChe+fkaANdep13+Bv/u8nLH6Y/
+ 9eA75IEv7Dp+7QHg3nVqSACmiN6fXc9iO9W0Ap0UtNtN0c+LXN7PMAbAcsJuuLUMYoin
+ kRfstop9rIo5b2gyHbLVLBCe0PwnYX9MPJovD5f6o9E430Cp8tZP+GnXtfDhcXXEacH0
+ LWAmzou1dUmay+bYngpwZh4HYixvRRPq85vihPKaFH6OC7kUDLmmQUTV+VDFzv4MAguv
+ J2OtYBtAXpG7SOFklBIoMZGCoT7luiVaIZkAuv4XjHB/HmOnoBVQOJn7++yTDF+RJ3xX
+ ot2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702509073; x=1703113873;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=L/j1Onoc3138zJnsU8yDEiGjQqVsbV45Cqho1Gb5ccE=;
- b=FqIEyVNZD5x8yZuYtJiUkEFox+0Rfql1gJDdGHDbaYVHzU+TTu4vY+WOhMl9tNkQGL
- O2VpLWe0uRL8Ck3j1KQUNBate1ypyT8b4hOTLG63bzwokD6jqDf4GLtc02b/HFoPidmZ
- CJhRBhiMZFcv3tqsbgiXjwe6W/pc+PQRMegDEEHlfF9tm5+jIiCuuz+K1B2DPM2dZ2Ah
- io3X/DLivtznAx0HYYT4fjRROBSV1w0j0uRbbyYqFEFBFIfjCTKilTvn/XhIu+oBd36M
- 4TIUYrdZv0sMpjva2eUc/pk19qL+4OilCVg6UGHam4LPnKdChvFzlWd1wnDIg70OD4KH
- HjAw==
-X-Gm-Message-State: AOJu0Yz5HUHGPvQxj5fblpd1cQHu9/RkiHC0PcVd0vgbIXKPAvMGgCZA
- DM36uQNpnGwEq4wAwo5pH9Tqjg==
-X-Google-Smtp-Source: AGHT+IEhLGLbpNE5ofHBlyMYQRBnTcLYD16vUtw/hL1PzWKS86x81znzu3niMguSuXMWF+hvlixwCg==
-X-Received: by 2002:ac2:592f:0:b0:50b:c2ed:e28a with SMTP id
- v15-20020ac2592f000000b0050bc2ede28amr2806480lfi.13.1702509073150; 
- Wed, 13 Dec 2023 15:11:13 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- u17-20020ac248b1000000b0050c031e2873sm1735908lfg.288.2023.12.13.15.11.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Dec 2023 15:11:12 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: Re: [PATCH v4 0/2] drm/msm/dpu: INTF CRC configuration cleanups and
- fix
-Date: Thu, 14 Dec 2023 01:11:11 +0200
-Message-Id: <170250905097.800728.11004644949884575762.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231213-encoder-fixup-v4-0-6da6cd1bf118@quicinc.com>
-References: <20231213-encoder-fixup-v4-0-6da6cd1bf118@quicinc.com>
+ d=1e100.net; s=20230601; t=1702540852; x=1703145652;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hxvoxrsdJSPbjJs7z8cGp1BRDLR051KEfgQFlaNlMoA=;
+ b=qour2Zv800Tu/Aoh2x5O88ADLp44/LYftPKePcaAJ+P9K5Cd/EBSFS6LJQxMXySrFA
+ 7FVPmE9FGXg4pAqDHl3QfXo3fxWm7a/4QixYtTWlDBB7Kw9hzmpL3tqS7Zs4v9OMpNVO
+ D9sjHK6vnG+G5GhXDfuEDTNvXiAl8wcgXwJa2Ak+Z0mLnyfyTwUZw404iw122ZXzrl+l
+ AjuQs/2znSo42l2GaZfnBVQwdr6/s7Fmw1uGVR+z/4L04wVS9sQ6o62WHLMgnhsiUu2x
+ 1dzdwMV+g89CZPblyg/UBz+zDwM8vRLtQqnMQwWO51jqvmFCA8IgSTpRA+ET91NG5uAj
+ fGZg==
+X-Gm-Message-State: AOJu0YwfMlg3vA6rTnh+lPrRyKfyn8B3YQUldY4PKOYmJUPK8P5It7sW
+ MHQvfZpuvgKpavTJnATdDaQ5dGDGIrA+oh/HXO4vrw==
+X-Google-Smtp-Source: AGHT+IEnRsZCGxPZoaC9TlxZCpwZRrhdgilZbD3aUw2tigkOCiLHSxoK/nVPHCaSKjzElObYgpZcrTxqROsqkKsWfYo=
+X-Received: by 2002:a25:e20b:0:b0:db7:dacf:6ff7 with SMTP id
+ h11-20020a25e20b000000b00db7dacf6ff7mr6738896ybe.127.1702540852537; Thu, 14
+ Dec 2023 00:00:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20231212160448.883358-1-vignesh.raman@collabora.com>
+In-Reply-To: <20231212160448.883358-1-vignesh.raman@collabora.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 14 Dec 2023 10:00:41 +0200
+Message-ID: <CAA8EJpro5Hb0yRaxPWzBQBikKjw9JnNVkUuPFvWeXjegzCuxHw@mail.gmail.com>
+Subject: Re: [PATCH] drm/ci: uprev mesa version: fix kdl commit fetch
+To: Vignesh Raman <vignesh.raman@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,25 +66,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+Cc: daniels@collabora.com, emma@anholt.net, freedreno@lists.freedesktop.org,
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, david.heidelberg@collabora.com,
+ helen.koike@collabora.com, daniel@ffwll.ch, airlied@gmail.com,
  linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 12 Dec 2023 at 18:04, Vignesh Raman <vignesh.raman@collabora.com> wrote:
+>
+> build-kdl.sh was doing a `clone --depth 1` of the default branch,
+> then checking out a commit that might not be the latest of that
+> branch, resulting in container build error.
+>
+> https://gitlab.freedesktop.org/mesa/mesa/-/commit/5efa4d56 fixes
+> kdl commit fetch issue. Uprev mesa in drm-ci to fix this.
+>
+> This commit also updates the kernel tag and adds .never-post-merge-rules
+> due to the mesa uprev.
+>
+> Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
 
-On Wed, 13 Dec 2023 13:30:16 -0800, Jessica Zhang wrote:
-> This series drops the frame_count and enable parameters (as they're always
-> set to the same value). It also sets input_sel=0x1 for INTF.
-> 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Applied, thanks!
+> ---
+>  drivers/gpu/drm/ci/gitlab-ci.yml | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
 
-[1/2] drm/msm/dpu: Set input_sel bit for INTF
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/1b932e07c321
-[2/2] drm/msm/dpu: Drop enable and frame_count parameters from dpu_hw_setup_misr()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/e5c08a41bcf3
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+With best wishes
+Dmitry
