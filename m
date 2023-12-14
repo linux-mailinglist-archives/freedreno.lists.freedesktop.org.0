@@ -2,46 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB0DD8137B8
-	for <lists+freedreno@lfdr.de>; Thu, 14 Dec 2023 18:11:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A15FD813896
+	for <lists+freedreno@lfdr.de>; Thu, 14 Dec 2023 18:34:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 022F910E1C3;
-	Thu, 14 Dec 2023 17:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E39810E9B0;
+	Thu, 14 Dec 2023 17:34:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2604710E1C0;
- Thu, 14 Dec 2023 17:11:44 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD87610E9C4;
+ Thu, 14 Dec 2023 17:34:17 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BE7Rh5N003416; Thu, 14 Dec 2023 17:11:36 GMT
+ 3BEDPfll004151; Thu, 14 Dec 2023 17:34:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=+rZapPt9WbacdJFkI+AbBPDUwZgMyB0gAFuy9ycSzlE=; b=B5
- HGk11YkJeo9EFLgHc+NZmgtZe2EGE5/xJNK0EU0/l1q5O38G4ktrVIMK8N2PXuI/
- YtTa80etgXC2LFJAoHnOQYoTV3Avl5CwJ4oej+wr8UYNt5MpxEopnYOycDBJGWlK
- Rk1F3Ne6ZHfUESCJq2lSSmenmy9Y8FmhlO0S9bMI+WsFKYOqXHq20/tSoAHoI6PJ
- OZSefg/WfzHz7iKWDybJNUggNsdrTw0NvJRGqXPQEZwjixlRxaljtKA5pawOtiEy
- 9rBcMr1YGUdXtMHzvuhJZL8Ya5uwNVSAR6A49aCHrLyDjX1Gb5Vcv4A2bf3273ew
- 0ZWyacigbddRjreo6/0A==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ qcppdkim1; bh=VFbAmisByn8IfjR+LDffJlNuR76c9CFmr/6HrPlGMBM=; b=IV
+ LvUS//hys68Y0Mfn/cj3W60wI8OHRbGMmM3PjjmFGMzZl3WggQS3X5SMEqPB3y8F
+ uyeuYs5YmOJ9JDbmcSEvszRHERenzXEtDyKBW0jYciCGaBGzVRx5GXiPhoVqh2r8
+ G33u5SOHOOR39xFcqOdAn+GPZ78/EzxCc+mBFJ6mMKfBdXsiUpN+1Q4RxfENCyPB
+ C1FlJb4uSI/6jJ1Tz5acZtYati2n5Ko+8ZB5dkUlmRX5PmtkNpI+jsrZuZ/9SzEI
+ iICKuv9hXXz3UT+MeykLBrx9okufujzd45ztEeQpIuYg0eNlqVU2SPgXy97PY0L4
+ Zs6SkotqYEq9ifvV3O+A==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uynre228b-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uytn69mjw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Dec 2023 17:11:35 +0000 (GMT)
+ Thu, 14 Dec 2023 17:34:07 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BEHBYdm011501
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BEHY7dK015389
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Dec 2023 17:11:34 GMT
+ Thu, 14 Dec 2023 17:34:07 GMT
 Received: from [10.110.80.224] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 14 Dec
- 2023 09:11:33 -0800
-Message-ID: <35b8005d-c4a5-66fa-5158-e48109210864@quicinc.com>
-Date: Thu, 14 Dec 2023 09:11:32 -0800
+ 2023 09:34:06 -0800
+Message-ID: <dab2beed-78de-6638-8389-d3e03c8cfc44@quicinc.com>
+Date: Thu, 14 Dec 2023 09:34:05 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
@@ -60,17 +60,17 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: m7aBbiOugR-fg1CfLEE_ofxIdejSBrOp
-X-Proofpoint-GUID: m7aBbiOugR-fg1CfLEE_ofxIdejSBrOp
+X-Proofpoint-GUID: JjUnvfSeRHaJk9V08fzsqu5vFoNQXsxN
+X-Proofpoint-ORIG-GUID: JjUnvfSeRHaJk9V08fzsqu5vFoNQXsxN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=738
- suspectscore=0 impostorscore=0 phishscore=0 bulkscore=0 spamscore=0
- malwarescore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312140122
+ clxscore=1015 malwarescore=0
+ phishscore=0 mlxlogscore=785 mlxscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2312140125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -200,6 +200,11 @@ On 12/13/2023 3:00 PM, Dmitry Baryshkov wrote:
 >> +       for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
 >> +                         num_dsc < 1; dsc_idx++) {
 > The condition is wrong here. Also it is misaligned.
+
+i will remove checking  num_dsc < 1 here and add break at end of body of 
+for loop since it only allocate one dsc
+
+
 >
 >> +               if (!rm->dsc_blks[dsc_idx])
 >> +                       continue;
@@ -209,6 +214,9 @@ On 12/13/2023 3:00 PM, Dmitry Baryshkov wrote:
 >> +
 >> +               pp_idx = _dpu_rm_pingpong_next_index(0, enc_id,
 > And this is wrong too. You should start relatively to your previous PP index.
+
+It does not have previous pp_index since it only allocate on dsc.
+
 >
 >> +                                                    pp_to_enc_id, pp_max);
 >> +               if (pp_idx < 0)
@@ -354,9 +362,4 @@ On 12/13/2023 3:00 PM, Dmitry Baryshkov wrote:
 > code editor should also have a similar setting. Also could you please
 > establish a practice of using checkpatch.pl at least until we stop
 > hitting obvious issues there?
-
-1) yes, i have "set cino=(0" seeting t my vim editor
-
-2)  i had run checkpaych.pl at previous patches, I will make sure run 
-checkpatch.pl for every patch from now on
-
+>
