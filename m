@@ -1,44 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6D98157C1
-	for <lists+freedreno@lfdr.de>; Sat, 16 Dec 2023 06:26:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8DE0815D13
+	for <lists+freedreno@lfdr.de>; Sun, 17 Dec 2023 02:40:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6021310E05E;
-	Sat, 16 Dec 2023 05:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1EC10E3CD;
+	Sun, 17 Dec 2023 01:04:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24ADE10E05E
- for <freedreno@lists.freedesktop.org>; Sat, 16 Dec 2023 05:26:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 702BBCE3109;
- Sat, 16 Dec 2023 05:26:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EDAFC433C8;
- Sat, 16 Dec 2023 05:26:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1702704400;
- bh=k+HLfjiotNDdVkHZHPA8yO2hBIysL09Q2lJMiNnUa44=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ofEErLlT+b+m/fmlepLCT++JDLi3yPPnJyCUphwt7syqNT/9ZhptTJGovAn0CKNkE
- 09qrbA4RafIeeCltUNVbYhqDRiBSifBC9kb7lzoHfeU7m+LOPgjPexkfjRyLjwgM2F
- O3s+eX/TuWHlE7XhlcLHWBx0gSYcwm5oRVKTiNeIEsgqvevb+MBnpt77K/RT33xSoS
- 8uBFQMuK0qFYrRh+fuRakGmXws5zyStAtQ6JQDjOUJSVfv7pqbTfB43Ca0dQ/MptTc
- 3TkfMAOqON19cFJe0VC8QDEq2mHns6yqvVdZ8LwTC8nIwW4NEcbVjTeomfwYYTbNKc
- RQyvjbFlBNb9w==
-Date: Fri, 15 Dec 2023 23:26:37 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH 3/3] ARM: qcom: merge remaining subplatforms into
- sensible Kconfig entry
-Message-ID: <hhaf3ocpnejsxpkg6mfodwnkbjttyb2h5p3qsifbyukosvsavj@rwdpgzsovwak>
-References: <20231207125500.3322229-1-dmitry.baryshkov@linaro.org>
- <20231207125500.3322229-4-dmitry.baryshkov@linaro.org>
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B089910E3CD
+ for <freedreno@lists.freedesktop.org>; Sun, 17 Dec 2023 01:04:25 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-40c2db2ee28so23763735e9.2
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Dec 2023 17:04:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1702775004; x=1703379804; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=EORJjch+kRHuve9tu+TzRixoDnkZ1DPCxZXBpooX2uA=;
+ b=ehTZvUS9VVCDxBdbbaCCIkinUj8Naxov4j+Spj58JQ7AYjZ0Y7YZ+SOOniuuCWn9Co
+ MZYxmDtLeGKzdgagZWkKbuC9RGyOY7x/JD1Y4/1gGQNiI0+fhpYjbzqhdUWqzcCqeRMx
+ hSKZzGCFp8tOLSPWTQyYt18y8sujUJ12oGr/tfsTFzoTJysr01ZZn5oZi/JKbpgnQu58
+ leQhxn28VR429F5Ytgc48tJ3VzvMbFnuguaySMHo7kIiAoGIBcUXYwpfz9kc0bTCR69X
+ ii7PTlr7WFNRL3qCL+VA7XMAGqZRGDh20wMmHU2AYiq1Ijnv+maMy5pNj6ASxfkEEzAW
+ Cacw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702775004; x=1703379804;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EORJjch+kRHuve9tu+TzRixoDnkZ1DPCxZXBpooX2uA=;
+ b=Ja4J+h/ZTXqSVpqk4x8UDRgoWTUbO7xgaTyY7+FwIMXjC+rLla7Dr0qRmBiDxAkg/4
+ k5G7lcRr34zQBfYtq5hc2QojZqv1UX6j0LMtOmCSQHA4IqJ1lOe6J2Pzg+H3uC3srga9
+ +DeqmBl4C5H/oNMeUUg6OWbHi7sFxxJ6AVpmcWpZnk9XgK6BZZNZJbBhpvBvH201JYuo
+ xTxG0TQ6jjnFEFlXhQOSOVgE9xbpfxwcLJ5WvYtx/PoU1H9nY69vzWnCq9k0xRbUzIP3
+ 8Se53GbAkyAvcxNPrIn4ft/f6n6Fru1AsrBp4meJzZxX1aRKXFkiz3pGMqlixFwWqCvm
+ 2fqg==
+X-Gm-Message-State: AOJu0Yzn9jBb0y8edx2R5F4BkzlYxHxA0FjnKTnB6KeaPEVeC/Rn7o/I
+ zpGk4NnjZVjpamgxnw8yBlF4BeJ2aW3CAGobllo=
+X-Google-Smtp-Source: AGHT+IEnQkmrsNJ9hVsfbCKkIsEeu+nZ5bTu4VgzAc0L6WjUXz9o6uCxqdywfG2uf/4EhzNmoYDb+Q==
+X-Received: by 2002:a05:6512:ba8:b0:50c:d30:3a05 with SMTP id
+ b40-20020a0565120ba800b0050c0d303a05mr8894366lfv.25.1702771152155; 
+ Sat, 16 Dec 2023 15:59:12 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ v11-20020ac2592b000000b0050bfda10057sm2506647lfi.85.2023.12.16.15.59.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 Dec 2023 15:59:11 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/bridge: properly refcount DT nodes in aux bridge drivers
+Date: Sun, 17 Dec 2023 01:59:10 +0200
+Message-Id: <20231216235910.911958-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231207125500.3322229-4-dmitry.baryshkov@linaro.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,77 +75,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
- iommu@lists.linux.dev, Will Deacon <will@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, Vinod Koul <vkoul@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ Luca Weiss <luca.weiss@fairphone.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 07, 2023 at 03:55:00PM +0300, Dmitry Baryshkov wrote:
-> Three remaining Qualcomm platforms have special handling of the
-> TEXT_OFFSET to reserve the memory at the beginnig of the system RAM, see
-> the commit 9e775ad19f52 ("ARM: 7012/1: Set proper TEXT_OFFSET for newer
-> MSMs"). This is required for older platforms like IPQ40xx, MSM8x60,
-> MSM8960 and APQ8064 and is compatible with other 32-bit Qualcomm
-> platforms.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  arch/arm/Makefile          |  4 +---
->  arch/arm/mach-qcom/Kconfig | 13 +++++--------
->  2 files changed, 6 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-> index 5ba42f69f8ce..45fa8ac001c5 100644
-> --- a/arch/arm/Makefile
-> +++ b/arch/arm/Makefile
-> @@ -158,9 +158,7 @@ textofs-$(CONFIG_ARCH_REALTEK)  := 0x00108000
->  ifeq ($(CONFIG_ARCH_SA1100),y)
->  textofs-$(CONFIG_SA1111) := 0x00208000
->  endif
-> -textofs-$(CONFIG_ARCH_IPQ40XX) := 0x00208000
-> -textofs-$(CONFIG_ARCH_MSM8X60) := 0x00208000
-> -textofs-$(CONFIG_ARCH_MSM8960) := 0x00208000
-> +textofs-$(CONFIG_ARCH_QCOM_SMEM) := 0x00208000
->  textofs-$(CONFIG_ARCH_MESON) := 0x00208000
->  textofs-$(CONFIG_ARCH_AXXIA) := 0x00308000
->  
-> diff --git a/arch/arm/mach-qcom/Kconfig b/arch/arm/mach-qcom/Kconfig
-> index 27d5ca0043be..0c99d0a746d4 100644
-> --- a/arch/arm/mach-qcom/Kconfig
-> +++ b/arch/arm/mach-qcom/Kconfig
-> @@ -15,13 +15,10 @@ menuconfig ARCH_QCOM
->  
->  if ARCH_QCOM
->  
-> -config ARCH_IPQ40XX
-> -	bool "Enable support for IPQ40XX"
-> -
-> -config ARCH_MSM8X60
-> -	bool "Enable support for MSM8X60"
-> -
-> -config ARCH_MSM8960
-> -	bool "Enable support for MSM8960"
-> +config ARCH_QCOM_SMEM
+The aux-bridge and aux-hpd-bridge drivers didn't call of_node_get() on
+the device nodes further used for dev->of_node and platform data. When
+bridge devices are released, the reference counts are decreased,
+resulting in refcount underflow / use-after-free warnings. Get
+corresponding refcounts during AUX bridge allocation.
 
-How about expanding this to ARCH_QCOM_RESERVE_SMEM or similar, to make
-it more descriptive and less similar to the existing QCOM_SMEM option?
+Reported-by: Luca Weiss <luca.weiss@fairphone.com>
+Fixes: 2a04739139b2 ("drm/bridge: add transparent bridge helper")
+Fixes: 26f4bac3d884 ("drm/bridge: aux-hpd: Replace of_device.h with explicit include")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/bridge/aux-bridge.c     | 2 +-
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Regards,
-Bjorn
+diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
+index 49d7c2ab1ecc..54d721db0ea6 100644
+--- a/drivers/gpu/drm/bridge/aux-bridge.c
++++ b/drivers/gpu/drm/bridge/aux-bridge.c
+@@ -57,7 +57,7 @@ int drm_aux_bridge_register(struct device *parent)
+ 	adev->id = ret;
+ 	adev->name = "aux_bridge";
+ 	adev->dev.parent = parent;
+-	adev->dev.of_node = parent->of_node;
++	adev->dev.of_node = of_node_get(parent->of_node);
+ 	adev->dev.release = drm_aux_bridge_release;
+ 
+ 	ret = auxiliary_device_init(adev);
+diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+index 1999a053d59b..bb55f697a181 100644
+--- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
++++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+@@ -68,9 +68,9 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent,
+ 	adev->id = ret;
+ 	adev->name = "dp_hpd_bridge";
+ 	adev->dev.parent = parent;
+-	adev->dev.of_node = parent->of_node;
++	adev->dev.of_node = of_node_get(parent->of_node);
+ 	adev->dev.release = drm_aux_hpd_bridge_release;
+-	adev->dev.platform_data = np;
++	adev->dev.platform_data = of_node_get(np);
+ 
+ 	ret = auxiliary_device_init(adev);
+ 	if (ret) {
+-- 
+2.39.2
 
-
-> +	bool "Reserve SMEM at the beginning of RAM"
-> +	help
-> +	  Reserve 2MB at the beginning of the System RAM for shared mem.
-> +	  This is required on IPQ40xx, MSM8x60 and MSM8960 platforms.
->  
->  endif
-> -- 
-> 2.39.2
-> 
