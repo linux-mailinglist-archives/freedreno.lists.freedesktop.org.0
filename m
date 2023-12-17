@@ -2,64 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DE0815D13
-	for <lists+freedreno@lfdr.de>; Sun, 17 Dec 2023 02:40:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE266815D17
+	for <lists+freedreno@lfdr.de>; Sun, 17 Dec 2023 02:46:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1EC10E3CD;
-	Sun, 17 Dec 2023 01:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CCB10E02C;
+	Sun, 17 Dec 2023 01:46:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B089910E3CD
- for <freedreno@lists.freedesktop.org>; Sun, 17 Dec 2023 01:04:25 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-40c2db2ee28so23763735e9.2
- for <freedreno@lists.freedesktop.org>; Sat, 16 Dec 2023 17:04:25 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C715A10E02C
+ for <freedreno@lists.freedesktop.org>; Sun, 17 Dec 2023 01:46:38 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-50c0f13ea11so2234410e87.3
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Dec 2023 17:46:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702775004; x=1703379804; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1702777537; x=1703382337; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=EORJjch+kRHuve9tu+TzRixoDnkZ1DPCxZXBpooX2uA=;
- b=ehTZvUS9VVCDxBdbbaCCIkinUj8Naxov4j+Spj58JQ7AYjZ0Y7YZ+SOOniuuCWn9Co
- MZYxmDtLeGKzdgagZWkKbuC9RGyOY7x/JD1Y4/1gGQNiI0+fhpYjbzqhdUWqzcCqeRMx
- hSKZzGCFp8tOLSPWTQyYt18y8sujUJ12oGr/tfsTFzoTJysr01ZZn5oZi/JKbpgnQu58
- leQhxn28VR429F5Ytgc48tJ3VzvMbFnuguaySMHo7kIiAoGIBcUXYwpfz9kc0bTCR69X
- ii7PTlr7WFNRL3qCL+VA7XMAGqZRGDh20wMmHU2AYiq1Ijnv+maMy5pNj6ASxfkEEzAW
- Cacw==
+ bh=6uo5Lzxunvm9Mynn/2j9jUQRRy7PFq4vPnnfrTSaOqM=;
+ b=cQ7aZUyTeiShvFha8WeUd+HKevDTCMvp2KAjgavz7jencnmXge0+vCl0nbcQ+y1zj8
+ y1b3tlAL/Mss073AiV/h27/LzznRPngRyn/d3iX21kjQB9UCkrz6OH6KtlwcODHWcSEC
+ cUrZE0dSniWLxEkDnJWtXMh1oVyDGYNCR+lgJyOD1/WJFdNDYye9I/8+l3B6F3otZ8An
+ l9u0FS6p2js3UiUUEwmdakbE6Nn4Oy8saSBtP96fxm69w8sB8MB2ryseHvVaznGp6g/Y
+ NAg+ilxHYVD4ImkUi38FbOU2a8HcyvjsvZeZT7HvF5AvvUrJhLq94F1VtFHKq70Efivw
+ 7czg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702775004; x=1703379804;
+ d=1e100.net; s=20230601; t=1702777537; x=1703382337;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=EORJjch+kRHuve9tu+TzRixoDnkZ1DPCxZXBpooX2uA=;
- b=Ja4J+h/ZTXqSVpqk4x8UDRgoWTUbO7xgaTyY7+FwIMXjC+rLla7Dr0qRmBiDxAkg/4
- k5G7lcRr34zQBfYtq5hc2QojZqv1UX6j0LMtOmCSQHA4IqJ1lOe6J2Pzg+H3uC3srga9
- +DeqmBl4C5H/oNMeUUg6OWbHi7sFxxJ6AVpmcWpZnk9XgK6BZZNZJbBhpvBvH201JYuo
- xTxG0TQ6jjnFEFlXhQOSOVgE9xbpfxwcLJ5WvYtx/PoU1H9nY69vzWnCq9k0xRbUzIP3
- 8Se53GbAkyAvcxNPrIn4ft/f6n6Fru1AsrBp4meJzZxX1aRKXFkiz3pGMqlixFwWqCvm
- 2fqg==
-X-Gm-Message-State: AOJu0Yzn9jBb0y8edx2R5F4BkzlYxHxA0FjnKTnB6KeaPEVeC/Rn7o/I
- zpGk4NnjZVjpamgxnw8yBlF4BeJ2aW3CAGobllo=
-X-Google-Smtp-Source: AGHT+IEnQkmrsNJ9hVsfbCKkIsEeu+nZ5bTu4VgzAc0L6WjUXz9o6uCxqdywfG2uf/4EhzNmoYDb+Q==
-X-Received: by 2002:a05:6512:ba8:b0:50c:d30:3a05 with SMTP id
- b40-20020a0565120ba800b0050c0d303a05mr8894366lfv.25.1702771152155; 
- Sat, 16 Dec 2023 15:59:12 -0800 (PST)
+ bh=6uo5Lzxunvm9Mynn/2j9jUQRRy7PFq4vPnnfrTSaOqM=;
+ b=ekSY7zKX3mCr48KMNE951YOOPdacp+cuevwCjcNb0xhlR0kstBNClt0KOOCFUICkkW
+ 5E+gEIqFQebpa0knh5J9LKVfiBSBBUWoGgARwYxNQiN2Gglrb9vT2UZZ8mToFQWmDeRH
+ AsP7Hf6ocb3IbFsU2hI6bQwsiJjw3awXdMzum83iofu/4ufT8V+lyesPmBJgYhIXkUia
+ Oqkj3/V2K858P3RVfXqF5OSlLincHNh50V0iISYjAFWtExETTCCOkg1beCw0KrZR3tWo
+ cXUezHZD0lbHCjrCLvYndl9O80MBiXpQolo42J1SwyAJlnSKTJlX6yGbhA6lebB0YJmK
+ IW7g==
+X-Gm-Message-State: AOJu0Yxqq0uhe62rwdMb6oLOYp6OrUnCuUuDqMXsGBXjybYjf3wF7NkK
+ LVAIdzVarNlyJlDGw6zSLZBby9JfaTMKB/feEI0=
+X-Google-Smtp-Source: AGHT+IFzE8rG8RHeKf3trBTPvFqBV9VmDl0XIPR+mfv5S97Pwe963Auef5azXGURAwcyY531Rm+oKQ==
+X-Received: by 2002:a05:6512:2211:b0:50c:a89:a70e with SMTP id
+ h17-20020a056512221100b0050c0a89a70emr7926725lfu.94.1702771319064; 
+ Sat, 16 Dec 2023 16:01:59 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- v11-20020ac2592b000000b0050bfda10057sm2506647lfi.85.2023.12.16.15.59.11
+ q1-20020ac25141000000b0050e356b61c2sm30387lfd.179.2023.12.16.16.01.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 Dec 2023 15:59:11 -0800 (PST)
+ Sat, 16 Dec 2023 16:01:58 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH] drm/bridge: properly refcount DT nodes in aux bridge drivers
-Date: Sun, 17 Dec 2023 01:59:10 +0200
-Message-Id: <20231216235910.911958-1-dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Subject: [PATCH] drm/msm/dpu: drop obsolete documentation for dpu_encoder_virt
+Date: Sun, 17 Dec 2023 02:01:58 +0200
+Message-Id: <20231217000158.912062-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,56 +72,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- Luca Weiss <luca.weiss@fairphone.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The aux-bridge and aux-hpd-bridge drivers didn't call of_node_get() on
-the device nodes further used for dev->of_node and platform data. When
-bridge devices are released, the reference counts are decreased,
-resulting in refcount underflow / use-after-free warnings. Get
-corresponding refcounts during AUX bridge allocation.
+Drop obsolete kerneldoc for several fields in struct dpu_encoder_virt
 
-Reported-by: Luca Weiss <luca.weiss@fairphone.com>
-Fixes: 2a04739139b2 ("drm/bridge: add transparent bridge helper")
-Fixes: 26f4bac3d884 ("drm/bridge: aux-hpd: Replace of_device.h with explicit include")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202312170641.5exlvQQx-lkp@intel.com/
+Fixes: 62d35629da80 ("drm/msm/dpu: move encoder status to standard encoder debugfs dir")
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/bridge/aux-bridge.c     | 2 +-
- drivers/gpu/drm/bridge/aux-hpd-bridge.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-index 49d7c2ab1ecc..54d721db0ea6 100644
---- a/drivers/gpu/drm/bridge/aux-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-bridge.c
-@@ -57,7 +57,7 @@ int drm_aux_bridge_register(struct device *parent)
- 	adev->id = ret;
- 	adev->name = "aux_bridge";
- 	adev->dev.parent = parent;
--	adev->dev.of_node = parent->of_node;
-+	adev->dev.of_node = of_node_get(parent->of_node);
- 	adev->dev.release = drm_aux_bridge_release;
- 
- 	ret = auxiliary_device_init(adev);
-diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-index 1999a053d59b..bb55f697a181 100644
---- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-@@ -68,9 +68,9 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent,
- 	adev->id = ret;
- 	adev->name = "dp_hpd_bridge";
- 	adev->dev.parent = parent;
--	adev->dev.of_node = parent->of_node;
-+	adev->dev.of_node = of_node_get(parent->of_node);
- 	adev->dev.release = drm_aux_hpd_bridge_release;
--	adev->dev.platform_data = np;
-+	adev->dev.platform_data = of_node_get(np);
- 
- 	ret = auxiliary_device_init(adev);
- 	if (ret) {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 83380bc92a00..f2b82ca5efb3 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -144,10 +144,6 @@ enum dpu_enc_rc_states {
+  *			to track crtc in the disable() hook which is called
+  *			_after_ encoder_mask is cleared.
+  * @connector:		If a mode is set, cached pointer to the active connector
+- * @crtc_kickoff_cb:		Callback into CRTC that will flush & start
+- *				all CTL paths
+- * @crtc_kickoff_cb_data:	Opaque user data given to crtc_kickoff_cb
+- * @debugfs_root:		Debug file system root file node
+  * @enc_lock:			Lock around physical encoder
+  *				create/destroy/enable/disable
+  * @frame_busy_mask:		Bitmask tracking which phys_enc we are still
 -- 
 2.39.2
 
