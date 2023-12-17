@@ -2,63 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF44D815D09
-	for <lists+freedreno@lfdr.de>; Sun, 17 Dec 2023 02:33:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D5988179DF
+	for <lists+freedreno@lfdr.de>; Mon, 18 Dec 2023 19:43:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A5710E109;
-	Sun, 17 Dec 2023 01:33:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D8C10E1E5;
+	Mon, 18 Dec 2023 18:42:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3016F10E109
- for <freedreno@lists.freedesktop.org>; Sun, 17 Dec 2023 01:33:52 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2cc3facf0c0so18215351fa.0
- for <freedreno@lists.freedesktop.org>; Sat, 16 Dec 2023 17:33:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1702776770; x=1703381570;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=hl782NtFmKPulrM6nPcx+9M9EkIbH3sXgzxwfUjhxxY=;
- b=N3D6HUc8SEHHzyrj+S/3lIpFQjnrYoPR+Mm0MmEfF5STFRyDsAA2AC8QIxXsxpEiU8
- FB/LV/PSgl13rBBEzEzy1kcPcfLDGeAeN+uwm2N7Mk/TtDrUCdRAxB11BoBmFxuN1mHt
- a6c4USozsT31YLfouUfFUmXGok+XCUY2ro4sg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702776770; x=1703381570;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hl782NtFmKPulrM6nPcx+9M9EkIbH3sXgzxwfUjhxxY=;
- b=W48uiKv6f2DsYSMkYrhZKfi04mmRKKgppKrk5vuQiC3xFFlz7YEEcWugv1zS4+qB9u
- nqdwJ13L/SFzHEeMEE24IO8gv6UW/c9qyjPWyeYmAfMc+VEdJC8VR97iOguhcqP8Xkrm
- 13yEV+z+KcLVdqmOvFGHfmxf6v5WKPPYOy007Pqd7rTkF150zWfFbaH+FcQJaA1I4a7n
- prTmW9pvfIuhM2oLC4p9/POK/ruBJm0YyGVqMtMhav0ej5lNpHXZOmZTtv/FDcNyslXH
- Kl5uijyAKBpyCyXWfbM8NWjlODQWcSQwbGAbcLh0vNaGtjdzlwGYyvVsqdPw2btR1IjD
- y1Pw==
-X-Gm-Message-State: AOJu0Yxwpe2lOKyCj/f7aW4EMHGJxFzW1PxAG2zGKjUbGA+GYPfrOBAI
- g4WI4A3sv4o4+B47VLbq/iKIVS6M26RBtTpaDXdd5je08AFeTmGT
-X-Google-Smtp-Source: AGHT+IGI/qIxJ+tAk/PNQNrLNhT7HuVcrrKpVt70q44XRpAb37rhW3MUD7pq1ZTc5wUOEpLk5A4wOU9udQLAHzJod+c=
-X-Received: by 2002:a05:6512:b95:b0:50c:2177:f184 with SMTP id
- b21-20020a0565120b9500b0050c2177f184mr9901201lfv.17.1702775095723; Sat, 16
- Dec 2023 17:04:55 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 17 Dec 2023 01:04:55 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0D2710E29D;
+ Mon, 18 Dec 2023 18:42:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 18AC760C75;
+ Sun, 17 Dec 2023 20:24:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8B7C433BB;
+ Sun, 17 Dec 2023 20:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1702844671;
+ bh=+DX0N7UdIUqjXqpFVCPOLF099qME+OXVv4kkpQPaS9w=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=tE8XIjpiaHI1UXKM4RRe8VsYU03DL9s8UV3sNs3LwmPrhwtzOb6o83hzDr2bocAHu
+ cX/mSKqrtHPzv0Jgw1Iz26EgZs4o62eGBjRsqeY3+/+1bsvE+kUn2POrrOG9eOKMyw
+ WdabEXIbz0CnHSd2/hxhwqqSMmSotRnlHHal9nGkr7Zdtu4lscOKUN+LaxVfe+jazX
+ VqdwGckSxuOsJFBtH5nvaAAHwMnUKOGbeT57Ei7yX+H1AlSnZ0rKzAFDo9n5vDX41i
+ leiFIl/UCSGqybpds17i1hMOt32cAlJjXoWR9bR968AKmpYyME3pXfTiWjglHRqhRF
+ tyUNqR/rslG4Q==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Ryan McCann <quic_rmccann@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Richard Acayan <mailingradian@gmail.com>
+Subject: Re: (subset) [PATCH v4 0/6] SDM670 display subsystem support
+Date: Sun, 17 Dec 2023 14:24:25 -0600
+Message-ID: <170284466197.74678.17866515484062477720.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231017021805.1083350-9-mailingradian@gmail.com>
+References: <20231017021805.1083350-9-mailingradian@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20231217000158.912062-1-dmitry.baryshkov@linaro.org>
-References: <20231217000158.912062-1-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Sun, 17 Dec 2023 01:04:55 +0000
-Message-ID: <CAE-0n52PqzgUJjvFZdURKvFCN9imR-bGxqadtphwkBf5XKJZDA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: drop obsolete documentation for
- dpu_encoder_virt
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,21 +68,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2023-12-16 16:01:58)
-> Drop obsolete kerneldoc for several fields in struct dpu_encoder_virt
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202312170641.5exlvQQx-lkp@intel.com/
-> Fixes: 62d35629da80 ("drm/msm/dpu: move encoder status to standard encoder debugfs dir")
-> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+On Mon, 16 Oct 2023 22:18:07 -0400, Richard Acayan wrote:
+> Changes since v3 (20231009233337.485054-8-mailingradian@gmail.com):
+>  - move status properties down (review tag retained) (6/6)
+>  - accumulate review tag (3/6)
+> 
+> Changes since v2 (20231003012119.857198-9-mailingradian@gmail.com):
+>  - rebase on series and reference generic sblk definitions (5/6)
+>  - add interconnects properties in example (3/6)
+>  - remove phy-names properties from dtsi (6/6)
+>  - accumulate review tags (4/6, 6/6)
+> 
+> [...]
+
+Applied, thanks!
+
+[6/6] arm64: dts: qcom: sdm670: add display subsystem
+      commit: 5f8ba4f28ddb432c8a9720c337f9047e38fa7e36
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
