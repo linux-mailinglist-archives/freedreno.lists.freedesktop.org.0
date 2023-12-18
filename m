@@ -2,100 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3EBC817BD7
-	for <lists+freedreno@lfdr.de>; Mon, 18 Dec 2023 21:28:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2D55817D79
+	for <lists+freedreno@lfdr.de>; Mon, 18 Dec 2023 23:55:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7E7510E27F;
-	Mon, 18 Dec 2023 20:28:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82D1C10E153;
+	Mon, 18 Dec 2023 22:55:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B389910E1D8
- for <freedreno@lists.freedesktop.org>; Mon, 18 Dec 2023 20:28:45 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-5e75005bd0cso6221027b3.1
- for <freedreno@lists.freedesktop.org>; Mon, 18 Dec 2023 12:28:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702931325; x=1703536125; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=i0QEjs1Jg1kz4BkfgQOg0LY+rMkPfi56QP0+9ep3H8I=;
- b=NQOz7+sU7ggsuuwUl+2POZQj2u2gnOMyiJl53Owc622QaSSBvi1TM9gchFU1+GKKIn
- cZAW7xm1zWrdp3AhbAQK9Cwfp8KQM2k6RWXeZxDwS3fcKDSxO2ZQg8QGTV19QDpXgOez
- I9EeEb0sQwwinTY3ffsSGz+xImAA9jDcnQG0bfYHP4wdxz/ZBSqDLXkLuuuSLaBjqmfR
- LVxI1lg7DUw8w7Y8nz5KflKMugYd4Xph78q+TYH+9T2qI0SN7uDp6RmNivbpKYAL/UQY
- rvAkTUTVD36g+CoJVDe0W2R1qrAiVWiaJ2Ekm/JrxbGV3IggBH6DAWjOisfOjE+QEJBN
- GaCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702931325; x=1703536125;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=i0QEjs1Jg1kz4BkfgQOg0LY+rMkPfi56QP0+9ep3H8I=;
- b=VExavm4QHLkgJRpwVfwy9Ib0ETYG+hcrAQO+ivTrBrQ/X3Fdu+KPXEEkg7AA4JnKsq
- 9dr8fZmRGN9TZlmxeNDgtcrJ4ums3MGGoTu+G0tCkIP5W2FSJpfS7oZlNB6IlvHUHoCK
- /ntXgKFbirAPWiMoW+taALi71QFzJs+lJI2x8uQG8xAGX7e08AjUkKEXNU58CEwmfeFn
- aoQSNSyy1KgjZOBrkxBOHvX6wLpFWFxdo6C1vpKFEkYFSqykTcnfZpbKWF9FW7fKu+ac
- oj++sux4YBuGPNFrKmS2FxMM7iBImV+XTdD8bHgdpWbyAhO6UnbTtQHZg/Jkvsk+7y+g
- 3IEQ==
-X-Gm-Message-State: AOJu0Yzt54Av0TRQsu4nfznQzUxh8M2Z0CqeFgNUuyX/KTk+DxC6Dl0U
- pKD9xi6aXNiH6ZUv7SaJfWIvTFEFN5IoThMbnyn/L08M
-X-Google-Smtp-Source: AGHT+IHH/VJngh1h4Twl3A0LIkPfDZJx2LyXecl9lddnCK5jb40U8/11sJPG9CpUb1qda/iILrQf/g==
-X-Received: by 2002:a17:903:25c3:b0:1d3:b860:5a99 with SMTP id
- jc3-20020a17090325c300b001d3b8605a99mr379449plb.71.1702887720233; 
- Mon, 18 Dec 2023 00:22:00 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:b425:da5d:c0cf:a505?
- ([2a01:e0a:982:cbb0:b425:da5d:c0cf:a505])
- by smtp.gmail.com with ESMTPSA id
- v3-20020a170902d68300b001d2ed17751asm1034446ply.261.2023.12.18.00.21.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 00:21:59 -0800 (PST)
-Message-ID: <8491febf-de39-4dd5-891f-fd844b83b7b4@linaro.org>
-Date: Mon, 18 Dec 2023 09:21:50 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A2E10E153;
+ Mon, 18 Dec 2023 22:55:08 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BIMXrOR032305; Mon, 18 Dec 2023 22:55:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=38oXHVLuVJosgfo4oBRnBUDTIPPW4qLXMm4580SqCr4=; b=mK
+ oX47Gfyu9UyEbdzHPiCWq5K9xlt5WALTn1Fa6OvyKl9GrRnS6CZExvwc6wQR+N9q
+ 3osvmv8Qm7Rb4nW1yLV6u+HxY7xdIl//pnoAEccQBz6PgQihLH1QozbABi12l0uW
+ ect+XyH2Ry496IlSVZ+av+ibxXNsAGNKSpv11AADojgOZBiot4k5by5CXt1J/5A2
+ 6F0clY/DYeMK8IRV85VwnQCxBA2RcuEg3qoo2nuUhJiBtKkVwwuIlZl12ZbOIdlK
+ BI26nCOXdQdw0Gp12j1FnPGZuAU033m30FMTG4Hhy5iRTPq7IZjNzYd4sWkO5K3l
+ xLwigGp3bwMTkWt8/tKQ==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v2md2srxj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Dec 2023 22:55:01 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BIMt0Ar004364
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Dec 2023 22:55:00 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Dec
+ 2023 14:54:59 -0800
+Message-ID: <ca05245f-ad6d-9ab8-2477-d1fd90356b7f@quicinc.com>
+Date: Mon, 18 Dec 2023 14:54:59 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] drm/bridge: properly refcount DT nodes in aux bridge
- drivers
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-References: <20231216235910.911958-1-dmitry.baryshkov@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20231216235910.911958-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/msm/mdss: specify cfg bandwidth for SDM670
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231215013222.827975-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231215013222.827975-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: iFnIfsXzUOedHIuuzkBG42Dz5mDGYhMv
+X-Proofpoint-GUID: iFnIfsXzUOedHIuuzkBG42Dz5mDGYhMv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ priorityscore=1501 malwarescore=0 adultscore=0 phishscore=0 bulkscore=0
+ mlxscore=0 impostorscore=0 mlxlogscore=999 suspectscore=0
+ lowpriorityscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2311290000 definitions=main-2312180171
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,57 +84,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- Luca Weiss <luca.weiss@fairphone.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/12/2023 00:59, Dmitry Baryshkov wrote:
-> The aux-bridge and aux-hpd-bridge drivers didn't call of_node_get() on
-> the device nodes further used for dev->of_node and platform data. When
-> bridge devices are released, the reference counts are decreased,
-> resulting in refcount underflow / use-after-free warnings. Get
-> corresponding refcounts during AUX bridge allocation.
+
+
+On 12/14/2023 5:32 PM, Dmitry Baryshkov wrote:
+> Lower the requested CFG bus bandwidth for the SDM670 platform. The
+> default value is 153600 kBps, which is twice as big as required by the
+> platform according to the vendor kernel.
 > 
-> Reported-by: Luca Weiss <luca.weiss@fairphone.com>
-> Fixes: 2a04739139b2 ("drm/bridge: add transparent bridge helper")
-> Fixes: 26f4bac3d884 ("drm/bridge: aux-hpd: Replace of_device.h with explicit include")
+> Fixes: a55c8ff252d3 ("drm/msm/mdss: Handle the reg bus ICC path")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/bridge/aux-bridge.c     | 2 +-
->   drivers/gpu/drm/bridge/aux-hpd-bridge.c | 4 ++--
->   2 files changed, 3 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/msm/msm_mdss.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-> index 49d7c2ab1ecc..54d721db0ea6 100644
-> --- a/drivers/gpu/drm/bridge/aux-bridge.c
-> +++ b/drivers/gpu/drm/bridge/aux-bridge.c
-> @@ -57,7 +57,7 @@ int drm_aux_bridge_register(struct device *parent)
->   	adev->id = ret;
->   	adev->name = "aux_bridge";
->   	adev->dev.parent = parent;
-> -	adev->dev.of_node = parent->of_node;
-> +	adev->dev.of_node = of_node_get(parent->of_node);
->   	adev->dev.release = drm_aux_bridge_release;
->   
->   	ret = auxiliary_device_init(adev);
-> diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> index 1999a053d59b..bb55f697a181 100644
-> --- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> @@ -68,9 +68,9 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent,
->   	adev->id = ret;
->   	adev->name = "dp_hpd_bridge";
->   	adev->dev.parent = parent;
-> -	adev->dev.of_node = parent->of_node;
-> +	adev->dev.of_node = of_node_get(parent->of_node);
->   	adev->dev.release = drm_aux_hpd_bridge_release;
-> -	adev->dev.platform_data = np;
-> +	adev->dev.platform_data = of_node_get(np);
->   
->   	ret = auxiliary_device_init(adev);
->   	if (ret) {
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
