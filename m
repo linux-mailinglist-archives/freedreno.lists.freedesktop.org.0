@@ -2,62 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ACCF817A5E
-	for <lists+freedreno@lfdr.de>; Mon, 18 Dec 2023 19:59:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B798179D2
+	for <lists+freedreno@lfdr.de>; Mon, 18 Dec 2023 19:39:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD4710E3D9;
-	Mon, 18 Dec 2023 18:59:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED10710E2D8;
+	Mon, 18 Dec 2023 18:39:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 760A310E398;
- Mon, 18 Dec 2023 18:58:48 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-77f8308616eso322019585a.2; 
- Mon, 18 Dec 2023 10:58:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702925924; x=1703530724; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=X5RGGPLxL7RmqDldU4zVC+vRt1k5TON9j6VLsGbzQWQ=;
- b=itab5J4X4shaZzSXoG9Ihjg7+EAXpMPuvE/drTP18TziPGBjtd57/H+H3OyCc6rCTN
- 56OGVyrcAfrSEP3UDlnvcDtVXEFtd/3Z5T45wNTNSaJ8vZqK0wut25oAOFcTk6AgmaVf
- ccQq4qrxx9TBQDY2LJH6EHQbij+txBfwMXdCPb4TmvHV9u29i+2qEDPHWqLX0RuF/tpo
- tyCaVhVOl5244AknEbhdRkgEKaP4WybnSndIlU+RMjGw3sHAj5JqHyXHrWlX9/rthbpU
- ZUwUnP+3wdrRsr7wvfxeV8kfgC65vLLBwySf/P9thOZf6brtym0QvzykxHMSvxhILwDg
- PJ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702925924; x=1703530724;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=X5RGGPLxL7RmqDldU4zVC+vRt1k5TON9j6VLsGbzQWQ=;
- b=OTTGjJexhwtbaU7z9nloDPCg0exmUs5FsQWjFBqSrNsf5Jqz83is+15vOVOCvOg3e2
- 7tUDXx947qIvLxztlI7uDIr1u3e5sUoDcBmmZEgk2saTsF49FEDcZnT/vofIwsmrMcNR
- PuOAUDcNm+s7aWFKDPcphDbuy43COzceY3VLBUg2GUkEL7cNiDT1Hu2yglo0gKorEOMb
- 1XkIaqWHGI3TpXnl0moipN6lbuffxiQjQ4dvhHIPu+Cwh+nvZxp7BCX3YERn20mAVpv3
- 1+HUrv7F/+lsY2kRuceCGn60KF7is5tpeEjtgu3rq2llL0p7HR3DRTXo4HoGgO08OmzD
- UB/w==
-X-Gm-Message-State: AOJu0YyOW0j/X4UIKXoXGpD5yMJq754hqujR4wEWz86/IyiP5Kbr+4bv
- LcpxdXBBJQGmvtDBIMUH9790houzE/4=
-X-Google-Smtp-Source: AGHT+IE7d7GDHTHnS8E5/AboMKPlZPnuoc6gcsADQrBLRGPYI2JmLd8QBiWoJ/biThaG/8vYNNumhg==
-X-Received: by 2002:a17:90a:bb04:b0:280:cd7b:1fa5 with SMTP id
- u4-20020a17090abb0400b00280cd7b1fa5mr6789760pjr.4.1702915175541; 
- Mon, 18 Dec 2023 07:59:35 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
- by smtp.gmail.com with ESMTPSA id
- pb7-20020a17090b3c0700b0028aea6c24bcsm6535129pjb.53.2023.12.18.07.59.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Dec 2023 07:59:34 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/msm/a6xx: Fix recovery vs runpm race
-Date: Mon, 18 Dec 2023 07:59:24 -0800
-Message-ID: <20231218155927.368881-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C699910E2D2;
+ Mon, 18 Dec 2023 18:39:31 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BIFGl19023039; Mon, 18 Dec 2023 17:57:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=oy1j4gHw9m8wJi/sQa6RAt8VyMz1RG9TKk7aRrTamTQ=; b=nM
+ 37E/7dQ/JFJEcYpxiXVd9MBze3cYPtWr3LM9ahVJZcsxoa+nrstshIpBqvkT8oVr
+ F45BDDxiucrn983nGLGqneZxKAH4HVPCNm25r2MCmUtcvrZ7d6xNywcUXOycJhdw
+ 6VlUkCSSqcdBmZSGYwqgwClm9esq46ngTZBT8vgY66MDtOfdmibMSwYO1jxRpznZ
+ 9hrcEWCVn8/2aAE8OpPys4lmoc2QU4G1UDJCj3hU1skOTfg7yBfoSkJV1EMr+IYc
+ yAJRJNpysjwQGtMaUwBpKrgWnmxA6Cz9E1tE8OZyZ1HAtIoIAMzJbGR6MWdzqS0S
+ p6fXOA81IgO6gq6MNacQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v2nxs8yu3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Dec 2023 17:57:37 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BIHvaaa006098
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Dec 2023 17:57:37 GMT
+Received: from [10.71.109.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Dec
+ 2023 09:57:36 -0800
+Message-ID: <64967f7a-8c7d-ca63-c126-e187905d3470@quicinc.com>
+Date: Mon, 18 Dec 2023 09:57:28 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/msm/dpu: drop obsolete documentation for
+ dpu_encoder_virt
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231217000158.912062-1-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231217000158.912062-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 7K-L2vIPhns4q4kg2V6qmHkVn4NKaZVB
+X-Proofpoint-ORIG-GUID: 7K-L2vIPhns4q4kg2V6qmHkVn4NKaZVB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=684
+ malwarescore=0 bulkscore=0 phishscore=0 spamscore=0 mlxscore=0
+ impostorscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
+ adultscore=0 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2311290000 definitions=main-2312180133
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,69 +85,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Danylo Piliaiev <dpiliaiev@igalia.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- David Heidelberg <david.heidelberg@collabora.com>,
- Rob Clark <robdclark@gmail.com>, David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-a6xx_recover() is relying on the gpu lock to serialize against incoming
-submits doing a runpm get, as it tries to temporarily balance out the
-runpm gets with puts in order to power off the GPU.  Unfortunately this
-gets worse when we (in a later patch) will move the runpm get out of the
-scheduler thread/work to move it out of the fence signaling path.
 
-Instead we can just simplify the whole thing by using force_suspend() /
-force_resume() instead of trying to be clever.
+On 12/16/2023 4:01 PM, Dmitry Baryshkov wrote:
+> Drop obsolete kerneldoc for several fields in struct dpu_encoder_virt
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202312170641.5exlvQQx-lkp@intel.com/
+> Fixes: 62d35629da80 ("drm/msm/dpu: move encoder status to standard encoder debugfs dir")
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ----
+>   1 file changed, 4 deletions(-)
+> 
 
-Reported-by: David Heidelberg <david.heidelberg@collabora.com>
-Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/10272
-Fixes: abe2023b4cea ("drm/msm/gpu: Push gpu lock down past runpm")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 268737e59131..a5660d63535b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1244,12 +1244,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 	dev_pm_genpd_add_notifier(gmu->cxpd, &gmu->pd_nb);
- 	dev_pm_genpd_synced_poweroff(gmu->cxpd);
- 
--	/* Drop the rpm refcount from active submits */
--	if (active_submits)
--		pm_runtime_put(&gpu->pdev->dev);
--
--	/* And the final one from recover worker */
--	pm_runtime_put_sync(&gpu->pdev->dev);
-+	pm_runtime_force_suspend(&gpu->pdev->dev);
- 
- 	if (!wait_for_completion_timeout(&gmu->pd_gate, msecs_to_jiffies(1000)))
- 		DRM_DEV_ERROR(&gpu->pdev->dev, "cx gdsc didn't collapse\n");
-@@ -1258,10 +1253,7 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 
- 	pm_runtime_use_autosuspend(&gpu->pdev->dev);
- 
--	if (active_submits)
--		pm_runtime_get(&gpu->pdev->dev);
--
--	pm_runtime_get_sync(&gpu->pdev->dev);
-+	pm_runtime_force_resume(&gpu->pdev->dev);
- 
- 	gpu->active_submits = active_submits;
- 	mutex_unlock(&gpu->active_lock);
--- 
-2.43.0
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
