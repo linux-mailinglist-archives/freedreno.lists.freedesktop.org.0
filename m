@@ -1,73 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774A4818B59
-	for <lists+freedreno@lfdr.de>; Tue, 19 Dec 2023 16:39:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D7BE818C06
+	for <lists+freedreno@lfdr.de>; Tue, 19 Dec 2023 17:18:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F053810E2E3;
-	Tue, 19 Dec 2023 15:39:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D76BC10E2E3;
+	Tue, 19 Dec 2023 16:18:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02D4010E137
- for <freedreno@lists.freedesktop.org>; Tue, 19 Dec 2023 15:39:37 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-54c79968ffbso5198995a12.3
- for <freedreno@lists.freedesktop.org>; Tue, 19 Dec 2023 07:39:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1703000376; x=1703605176; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=33rECMRqDeZ6LFCSYivys/cg11bX52zFIasnF3TDX6Y=;
- b=KmDCXdyZ8pjnWJ/NBggEz+U9YJipDKz760vqwGUrypu030Q3f3aj/CtEilrtQpiNJY
- Em4PoRzSdpZOINwhCNEgyxoz4zr6gf6d5pzEKK2civOSVlxFhP2WCuor9v4+Ah3xFFjE
- UIMNjABttwAEnqaDuObOucfasyz+pjceOAM+I1QuJ2792aQWDism57z1IC+ZSOIqgKfI
- OqQs4GxdVbUFbflwBOnaZj2cKf1+6Xhh889xj3TCxhvRbyS0zTe0luMEPC8A4Ran5xQu
- 2tYRaShDssyCwVKqoBG3xRMfgWWlSKd4WrL55ad2WWVb/eN8KYOx/CvJR4IzUyfZlvhK
- zEmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703000376; x=1703605176;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=33rECMRqDeZ6LFCSYivys/cg11bX52zFIasnF3TDX6Y=;
- b=JHZt+3WPqBzOPn9GUtX95jWOFpMwSqGIlCjy10vHqIJIDmQwKwBf0Rix1mLkcgOiNq
- fxv12A9JDnYKTelnvOgVTuSjs2M9Bs3u2M/WCrG4TK2Aso9y63Z3SKPfobHbT5zF+nNG
- 9Gx02hlzY8hSzHO3oVS3Nfy/iabW4imqevhoQysRpt4DSSxgvAeC0Dmy+LxYC8xwRm7j
- nN0XelxIIS0IYZkrRgeqLuVenhNTX8IOlgcP7bhSk7qNOsmuitUfevBTjnZOzWsqm3+7
- CKm2biSDmrrjvsKLxp5UEB8a11UazayI4PiTWsQfxmBDy/XinEHGkH/0JETKIjD71g+x
- wFVg==
-X-Gm-Message-State: AOJu0YzRX5mz0SXTaIUljbDz65R+yKfPuFNNpTLNhwVpXeIIJjOiLdoT
- SP9rnSD+2SwLefGW38DVtaWSvA==
-X-Google-Smtp-Source: AGHT+IGRCCZ9M/tSiYLOOr44KOGM/Syqm1u08LfUdX2y/9Lq3TeklhrujtRQ7TfnC0nSCK0Pum82lQ==
-X-Received: by 2002:a17:907:b59c:b0:a23:699a:8421 with SMTP id
- qx28-20020a170907b59c00b00a23699a8421mr1234208ejc.147.1703000376206; 
- Tue, 19 Dec 2023 07:39:36 -0800 (PST)
-Received: from localhost
- (2a02-8388-6584-6400-d322-7350-96d2-429d.cable.dynamic.v6.surfer.at.
- [2a02:8388:6584:6400:d322:7350:96d2:429d])
- by smtp.gmail.com with ESMTPSA id
- my44-20020a1709065a6c00b00a2471bb0d11sm775510ejc.31.2023.12.19.07.39.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 07:39:35 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 19 Dec 2023 16:39:34 +0100
-Message-Id: <CXSF8ZPWKRD9.9CMJU31KG4KP@fairphone.com>
-Subject: Re: [RFT PATCH v2 4/4] drm/msm/dpu: enable writeback on SM6350
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, "Rob Clark"
- <robdclark@gmail.com>, "Sean Paul" <sean@poorly.run>, "Abhinav Kumar"
- <quic_abhinavk@quicinc.com>, "Marijn Suijten"
- <marijn.suijten@somainline.org>
-X-Mailer: aerc 0.15.2
-References: <20231203003203.1293087-1-dmitry.baryshkov@linaro.org>
- <20231203003203.1293087-5-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20231203003203.1293087-5-dmitry.baryshkov@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB95810E2E3;
+ Tue, 19 Dec 2023 16:18:16 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BJDHMBq024729; Tue, 19 Dec 2023 16:18:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=LSJU1PCBeUBLaNat6gfbvaoOouX28U+s2eS3VhqPhC0=; b=Dz
+ NZNhOtrqOs/k4ugToBqSjQ2TqyCNdsmcWETDrIC4e1tYdSDstd9Z6gLdgHW8+1cE
+ A+x5eKmWAsSdzz+SPimKKCob1Y6ni23xj1MRrJYzJrquBizfBou1EkVrhlASzsmu
+ 9HK44jgRiZoNp2ArJgUxpB9Z1YacQs0t3sRZtW3P/laaHTHQvlwZYvnGin8cdMAl
+ gQwLS8LESQ8GH+Hm1YXfrSNLJT9RjMW2vMpNgWoXdra+7plm2oh2vJsFthl55HuU
+ gTD28Evo2Le1WbtaVuy4ww9Z0aVcamiLbSJF5kHROanraFqoyVE5pKz5QKQGd0ic
+ dt/TCHsUJXjBzOoc8Prg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v37tr937x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Dec 2023 16:18:07 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BJGI6b2025082
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Dec 2023 16:18:06 GMT
+Received: from [10.110.111.239] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 19 Dec
+ 2023 08:18:05 -0800
+Message-ID: <a5ec8760-cdfe-b420-43c1-913b0095ba93@quicinc.com>
+Date: Tue, 19 Dec 2023 08:17:56 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v6] drm/msm/dpu: improve DSC allocation
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+References: <1702580172-30606-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Language: en-US
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1702580172-30606-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: t8gosAeREkkoedPHBjv6MBbyJAA05rxT
+X-Proofpoint-GUID: t8gosAeREkkoedPHBjv6MBbyJAA05rxT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=907 adultscore=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 mlxscore=0 spamscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
+ definitions=main-2312190121
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,294 +85,236 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun Dec 3, 2023 at 1:32 AM CET, Dmitry Baryshkov wrote:
-> Enable WB2 hardware block, enabling writeback support on this platform.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 Hi Dmitry,
 
-I've tried this on sm7225-fairphone-fp4 but having trouble testing this.
-
-I guess I'm using some ID wrong with modetest, could you check and see
-what I do wrong?
-
-libdrm is on version 2.4.118 from Alpine Linux/postmarketOS, kernel is
-v6.7.0-rc6 plus a few patches for hardware enablement (like display).
-
-See log:
-
-fairphone-fp4:~$ sudo modetest -ac
-trying to open device 'i915'...failed
-trying to open device 'amdgpu'...failed
-trying to open device 'radeon'...failed
-trying to open device 'nouveau'...failed
-trying to open device 'vmwgfx'...failed
-trying to open device 'omapdrm'...failed
-trying to open device 'exynos'...failed
-trying to open device 'tilcdc'...failed
-trying to open device 'msm'...done
-Connectors:
-id      encoder status          name            size (mm)       modes   enc=
-oders
-32      31      connected       DSI-1           65x115          1       31
-  modes:
-        index name refresh (Hz) hdisp hss hse htot vdisp vss vse vtot
-  #0 1080x2340 60.00 1080 1108 1116 1124 2340 2367 2372 2377 160304 flags: =
-; type: preferred, driver
-  props:
-        1 EDID:
-                flags: immutable blob
-                blobs:
-
-                value:
-        2 DPMS:
-                flags: enum
-                enums: On=3D0 Standby=3D1 Suspend=3D2 Off=3D3
-                value: 0
-        5 link-status:
-                flags: enum
-                enums: Good=3D0 Bad=3D1
-                value: 0
-        6 non-desktop:
-                flags: immutable range
-                values: 0 1
-                value: 0
-        4 TILE:
-                flags: immutable blob
-                blobs:
-
-                value:
-        20 CRTC_ID:
-                flags: object
-                value: 63
-38      0       unknown Writeback-1     0x0             0       33
-  props:
-        2 DPMS:
-                flags: enum
-                enums: On=3D0 Standby=3D1 Suspend=3D2 Off=3D3
-                value: 0
-        5 link-status:
-                flags: enum
-                enums: Good=3D0 Bad=3D1
-                value: 0
-        6 non-desktop:
-                flags: immutable range
-                values: 0 1
-                value: 0
-        4 TILE:
-                flags: immutable blob
-                blobs:
-
-                value:
-        20 CRTC_ID:
-                flags: object
-                value: 0
-        36 WRITEBACK_OUT_FENCE_PTR:
-                flags: range
-                values: 0 18446744073709551615
-                value: 0
-        34 WRITEBACK_FB_ID:
-                flags: object
-                value: 0
-        35 WRITEBACK_PIXEL_FORMATS:
-                flags: immutable blob
-                blobs:
-
-                value:
-                        52473136424731365247323441523234
-                        52413234414232345852323452583234
-                        58423234415231355241313558523135
-                        52583135415231325241313252583132
-                        58523132424731364247323441423234
-                        42413234425832345842323441423135
-                        42413135584231354258313541423132
-                        424131324258313258423132
+Anymore comments from you?
 
 
 
-fairphone-fp4:~$ sudo cat /sys/kernel/debug/dri/0/state
-plane[39]: plane-0
-        crtc=3Dcrtc-0
-        fb=3D66
-                allocated by =3D phoc
-                refcount=3D2
-                format=3DXR24 little-endian (0x34325258)
-                modifier=3D0x500000000000001
-                size=3D1080x2340
-                layers:
-                        size[0]=3D1080x2340
-                        pitch[0]=3D4352
-                        offset[0]=3D0
-                        obj[0]:
-                                name=3D0
-                                refcount=3D3
-                                start=3D00101fec
-                                size=3D10485760
-                                imported=3Dno
-        crtc-pos=3D1080x2340+0+0
-        src-pos=3D1080.000000x2340.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        stage=3D1
-        sspp[0]=3Dsspp_0
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D1080x2340+0+0
-        dst[0]=3D1080x2340+0+0
-plane[45]: plane-1
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        stage=3D0
-        sspp[0]=3Dsspp_8
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-plane[51]: plane-2
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        stage=3D0
-        sspp[0]=3Dsspp_9
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-plane[57]: plane-3
-        crtc=3D(null)
-        fb=3D0
-        crtc-pos=3D0x0+0+0
-        src-pos=3D0.000000x0.000000+0.000000+0.000000
-        rotation=3D1
-        normalized-zpos=3D0
-        color-encoding=3DITU-R BT.601 YCbCr
-        color-range=3DYCbCr limited range
-        stage=3D0
-        sspp[0]=3Dsspp_10
-        multirect_mode[0]=3Dnone
-        multirect_index[0]=3Dsolo
-        src[0]=3D0x0+0+0
-        dst[0]=3D0x0+0+0
-crtc[63]: crtc-0
-        enable=3D1
-        active=3D1
-        self_refresh_active=3D0
-        planes_changed=3D1
-        mode_changed=3D0
-        active_changed=3D0
-        connectors_changed=3D0
-        color_mgmt_changed=3D0
-        plane_mask=3D1
-        connector_mask=3D1
-        encoder_mask=3D1
-        mode: "1080x2340": 60 160304 1080 1108 1116 1124 2340 2367 2372 237=
-7 0x48 0x0
-        lm[0]=3D0
-        ctl[0]=3D0
-crtc[64]: crtc-1
-        enable=3D0
-        active=3D0
-        self_refresh_active=3D0
-        planes_changed=3D0
-        mode_changed=3D0
-        active_changed=3D0
-        connectors_changed=3D0
-        color_mgmt_changed=3D0
-        plane_mask=3D0
-        connector_mask=3D0
-        encoder_mask=3D0
-        mode: "": 0 0 0 0 0 0 0 0 0 0 0x0 0x0
-connector[32]: DSI-1
-        crtc=3Dcrtc-0
-        self_refresh_aware=3D0
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-connector[38]: Writeback-1
-        crtc=3D(null)
-        self_refresh_aware=3D0
-        max_requested_bpc=3D0
-        colorspace=3DDefault
-
-
-fairphone-fp4:~$ sudo modetest -M msm -a -s 38@64:1080x2340 -o test.d -P 45=
-@64:1080x2340
-failed to find mode "1080x2340" for connector 38
-no mode for writeback
-failed to set gamma: Permission denied
-testing 1080x2340@XR24 on plane 45, crtc 64
-Atomic Commit failed [1]
-
-Regards
-Luca
-
-
-> ---
->  .../drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+On 12/14/2023 10:56 AM, Kuogee Hsieh wrote:
+> At DSC V1.1 DCE (Display Compression Engine) contains a DSC encoder.
+> However, at DSC V1.2 DCE consists of two DSC encoders, one has an odd
+> index and another one has an even index. Each encoder can work
+> independently. But only two DSC encoders from same DCE can be paired
+> to work together to support DSC merge mode at DSC V1.2. For DSC V1.1
+> two consecutive DSC encoders (start with even index) have to be paired
+> to support DSC merge mode.  In addition, the DSC with even index have
+> to be mapped to even PINGPONG index and DSC with odd index have to be
+> mapped to odd PINGPONG index at its data path in regardless of DSC
+> V1.1 or V1.2. This patch improves DSC allocation mechanism with
+> consideration of those factors.
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/dri=
-vers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-> index 62db84bd15f2..3c179a73c030 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
-> @@ -27,6 +27,7 @@ static const struct dpu_mdp_cfg sm6350_mdp =3D {
->  		[DPU_CLK_CTRL_DMA0] =3D { .reg_off =3D 0x2ac, .bit_off =3D 8 },
->  		[DPU_CLK_CTRL_DMA1] =3D { .reg_off =3D 0x2b4, .bit_off =3D 8 },
->  		[DPU_CLK_CTRL_DMA2] =3D { .reg_off =3D 0x2c4, .bit_off =3D 8 },
-> +		[DPU_CLK_CTRL_WB2] =3D { .reg_off =3D 0x2bc, .bit_off =3D 16 },
->  		[DPU_CLK_CTRL_REG_DMA] =3D { .reg_off =3D 0x2bc, .bit_off =3D 20 },
->  	},
->  };
-> @@ -146,6 +147,21 @@ static const struct dpu_dsc_cfg sm6350_dsc[] =3D {
->  	},
->  };
-> =20
-> +static const struct dpu_wb_cfg sm6350_wb[] =3D {
-> +	{
-> +		.name =3D "wb_2", .id =3D WB_2,
-> +		.base =3D 0x65000, .len =3D 0x2c8,
-> +		.features =3D WB_SM8250_MASK,
-> +		.format_list =3D wb2_formats,
-> +		.num_formats =3D ARRAY_SIZE(wb2_formats),
-> +		.clk_ctrl =3D DPU_CLK_CTRL_WB2,
-> +		.xin_id =3D 6,
-> +		.vbif_idx =3D VBIF_RT,
-> +		.maxlinewidth =3D 1920,
-> +		.intr_wb_done =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-> +	},
-> +};
+> Changes in V6:
+> -- rename _dpu_rm_reserve_dsc_single to _dpu_rm_dsc_alloc
+> -- rename _dpu_rm_reserve_dsc_pair to _dpu_rm_dsc_alloc_pair
+> -- pass global_state to _dpu_rm_pingpong_next_index()
+> -- remove pp_max
+> -- fix for loop condition check at _dpu_rm_dsc_alloc()
+>
+> Changes in V5:
+> -- delete dsc_id[]
+> -- update to global_state->dsc_to_enc_id[] directly
+> -- replace ndx with idx
+> -- fix indentation at function declaration
+> -- only one for loop at _dpu_rm_reserve_dsc_single()
+>
+> Changes in V4:
+> -- rework commit message
+> -- use reserved_by_other()
+> -- add _dpu_rm_pingpong_next_index()
+> -- revise _dpu_rm_pingpong_dsc_check()
+>
+> Changes in V3:
+> -- add dpu_rm_pingpong_dsc_check()
+> -- for pair allocation use i += 2 at for loop
+>
+> Changes in V2:
+>      -- split _dpu_rm_reserve_dsc() into _dpu_rm_reserve_dsc_single() and
+>         _dpu_rm_reserve_dsc_pair()
+>
+> Fixes: f2803ee91a41 ("drm/msm/disp/dpu1: Add DSC support in RM")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 154 +++++++++++++++++++++++++++++----
+>   1 file changed, 139 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> index f9215643..0ce2a25 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> @@ -461,29 +461,153 @@ static int _dpu_rm_reserve_ctls(
+>   	return 0;
+>   }
+>   
+> -static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+> -			       struct dpu_global_state *global_state,
+> -			       struct drm_encoder *enc,
+> -			       const struct msm_display_topology *top)
+> +static int _dpu_rm_pingpong_next_index(struct dpu_global_state *global_state,
+> +				       int start,
+> +				       uint32_t enc_id)
+>   {
+> -	int num_dsc = top->num_dsc;
+>   	int i;
+>   
+> -	/* check if DSC required are allocated or not */
+> -	for (i = 0; i < num_dsc; i++) {
+> -		if (!rm->dsc_blks[i]) {
+> -			DPU_ERROR("DSC %d does not exist\n", i);
+> -			return -EIO;
+> +	for (i = start; i < (PINGPONG_MAX - PINGPONG_0); i++) {
+> +		if (global_state->pingpong_to_enc_id[i] == enc_id)
+> +			return i;
+> +	}
 > +
->  static const struct dpu_intf_cfg sm6350_intf[] =3D {
->  	{
->  		.name =3D "intf_0", .id =3D INTF_0,
-> @@ -219,6 +235,8 @@ const struct dpu_mdss_cfg dpu_sm6350_cfg =3D {
->  	.dsc =3D sm6350_dsc,
->  	.pingpong_count =3D ARRAY_SIZE(sm6350_pp),
->  	.pingpong =3D sm6350_pp,
-> +	.wb_count =3D ARRAY_SIZE(sm6350_wb),
-> +	.wb =3D sm6350_wb,
->  	.intf_count =3D ARRAY_SIZE(sm6350_intf),
->  	.intf =3D sm6350_intf,
->  	.vbif_count =3D ARRAY_SIZE(sdm845_vbif),
-
+> +	return -ENAVAIL;
+> +}
+> +
+> +static int _dpu_rm_pingpong_dsc_check(int dsc_idx, int pp_idx)
+> +{
+> +	/*
+> +	 * DSC with even index must be used with the PINGPONG with even index
+> +	 * DSC with odd index must be used with the PINGPONG with odd index
+> +	 */
+> +	if ((dsc_idx & 0x01) != (pp_idx & 0x01))
+> +		return -ENAVAIL;
+> +
+> +	return 0;
+> +}
+> +
+> +static int _dpu_rm_dsc_alloc(struct dpu_rm *rm,
+> +			     struct dpu_global_state *global_state,
+> +			     uint32_t enc_id,
+> +			     const struct msm_display_topology *top)
+> +{
+> +	int num_dsc = 0;
+> +	int pp_idx = 0;
+> +	int dsc_idx;
+> +	int ret;
+> +
+> +	for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
+> +	     num_dsc < top->num_dsc; dsc_idx++) {
+> +		if (!rm->dsc_blks[dsc_idx])
+> +			continue;
+> +
+> +		if (reserved_by_other(global_state->dsc_to_enc_id, dsc_idx, enc_id))
+> +			continue;
+> +
+> +		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, enc_id);
+> +		if (pp_idx < 0)
+> +			return -ENAVAIL;
+> +
+> +		ret = _dpu_rm_pingpong_dsc_check(dsc_idx, pp_idx);
+> +		if (ret)
+> +			return -ENAVAIL;
+> +
+> +		global_state->dsc_to_enc_id[dsc_idx] = enc_id;
+> +		num_dsc++;
+> +		pp_idx++;
+> +	}
+> +
+> +	if (num_dsc < top->num_dsc) {
+> +		DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
+> +			   num_dsc, top->num_dsc);
+> +		return -ENAVAIL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
+> +				  struct dpu_global_state *global_state,
+> +				  uint32_t enc_id,
+> +				  const struct msm_display_topology *top)
+> +{
+> +	int num_dsc = 0;
+> +	int dsc_idx, pp_idx = 0;
+> +	int ret;
+> +
+> +	/* only start from even dsc index */
+> +	for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
+> +	     num_dsc < top->num_dsc; dsc_idx += 2) {
+> +		if (!rm->dsc_blks[dsc_idx] ||
+> +		    !rm->dsc_blks[dsc_idx + 1])
+> +			continue;
+> +
+> +		/* consective dsc index to be paired */
+> +		if (reserved_by_other(global_state->dsc_to_enc_id, dsc_idx, enc_id) ||
+> +		    reserved_by_other(global_state->dsc_to_enc_id, dsc_idx + 1, enc_id))
+> +			continue;
+> +
+> +		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, enc_id);
+> +		if (pp_idx < 0)
+> +			return -ENAVAIL;
+> +
+> +		ret = _dpu_rm_pingpong_dsc_check(dsc_idx, pp_idx);
+> +		if (ret) {
+> +			pp_idx = 0;
+> +			continue;
+>   		}
+>   
+> -		if (global_state->dsc_to_enc_id[i]) {
+> -			DPU_ERROR("DSC %d is already allocated\n", i);
+> -			return -EIO;
+> +		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx + 1, enc_id);
+> +		if (pp_idx < 0)
+> +			return -ENAVAIL;
+> +
+> +		ret = _dpu_rm_pingpong_dsc_check(dsc_idx + 1, pp_idx);
+> +		if (ret) {
+> +			pp_idx = 0;
+> +			continue;
+>   		}
+> +
+> +		global_state->dsc_to_enc_id[dsc_idx] = enc_id;
+> +		global_state->dsc_to_enc_id[dsc_idx + 1] = enc_id;
+> +		num_dsc += 2;
+> +		pp_idx++;	/* start for next pair */
+>   	}
+>   
+> -	for (i = 0; i < num_dsc; i++)
+> -		global_state->dsc_to_enc_id[i] = enc->base.id;
+> +	if (num_dsc < top->num_dsc) {
+> +		DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
+> +			   num_dsc, top->num_dsc);
+> +		return -ENAVAIL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+> +			       struct dpu_global_state *global_state,
+> +			       struct drm_encoder *enc,
+> +			       const struct msm_display_topology *top)
+> +{
+> +	uint32_t enc_id = enc->base.id;
+> +
+> +	if (!top->num_dsc || !top->num_intf)
+> +		return 0;
+> +
+> +	/*
+> +	 * Facts:
+> +	 * 1) no pingpong split (two layer mixers shared one pingpong)
+> +	 * 2) DSC pair starts from even index, such as index(0,1), (2,3), etc
+> +	 * 3) even PINGPONG connects to even DSC
+> +	 * 4) odd PINGPONG connects to odd DSC
+> +	 * 5) pair: encoder +--> pp_idx_0 --> dsc_idx_0
+> +	 *                  +--> pp_idx_1 --> dsc_idx_1
+> +	 */
+> +
+> +	/* num_dsc should be either 1, 2 or 4 */
+> +	if (top->num_dsc > top->num_intf)	/* merge mode */
+> +		return _dpu_rm_dsc_alloc_pair(rm, global_state, enc_id, top);
+> +	else
+> +		return _dpu_rm_dsc_alloc(rm, global_state, enc_id, top);
+>   
+>   	return 0;
+>   }
