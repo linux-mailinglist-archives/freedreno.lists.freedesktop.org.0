@@ -1,77 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3741981A595
-	for <lists+freedreno@lfdr.de>; Wed, 20 Dec 2023 17:49:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E87581B379
+	for <lists+freedreno@lfdr.de>; Thu, 21 Dec 2023 11:25:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDFE310E23B;
-	Wed, 20 Dec 2023 16:49:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D997E10E694;
+	Thu, 21 Dec 2023 10:25:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E723810E23B;
- Wed, 20 Dec 2023 16:49:07 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BKGe6XA026803; Wed, 20 Dec 2023 16:49:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=ZbFRKfQ8apHOhegnAQD1nmzIFGR465JSBOj3gnYHwtM=; b=Na
- gBxEGFhWLZDZ8bVq573pBUokR+i/OojEsme+jqQmtdTPivp6m1xv5khWF9CYwlX0
- atVGQpLuB7nW9sIw6cEFEhAIW066FgS/hipaRKUXHBlbSnBH1l4Rgk9bAtGtsnaG
- cAyRBu2Su/zY2fdO/mT2V+FX9z4vdSFIAL6o/u/pDnGM212RSncmQ4C4eDSbfEzh
- 60J6bwRk10A16I+7KmCoeuDMAGud/5lnotaD2/tCrI9hYY9TzFHo5PD9ZB5JmO7T
- hgmQtL1LiuJ+9AL4aFjekoydExzQ245ryzpC/9L9fF2NqKmogzMEJ751rwfD57dh
- C5Kt7snbv24i9UTLBkCQ==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v37vxv940-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Dec 2023 16:49:00 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BKGmxDM001242
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Dec 2023 16:48:59 GMT
-Received: from [10.110.111.239] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 20 Dec
- 2023 08:48:57 -0800
-Message-ID: <91628bd3-45ab-0e2b-2331-f3f1ea2232b4@quicinc.com>
-Date: Wed, 20 Dec 2023 08:48:56 -0800
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D9F10E66B
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Dec 2023 10:25:09 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-50c0f13ea11so783286e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Dec 2023 02:25:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1703154307; x=1703759107; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pYNLBDFWO3LrdFkIMvJ8nxiptH8Derg0mKqbJmtxv8s=;
+ b=E7AcLiGLoIQi5+KJF2kpFY+P3AtRoR3rWtYVtlzPB2McEyQqHJ77IFN1GUMli+mQgD
+ VZEUoAYd9UysqOhDB8+3+DXKD60OHsAoZSeza9uch8FHlCKS4RWoFkhrhOXjHTiEzViN
+ lIOKNB4b5bw97XZLlO1e360pHfZ8Dz/aj10fRVHpKshM0G+HBGef9YIecjDun4W2nqav
+ PAcGrFtFfgGkesqdX88elDaPA2THsY9T8j3aw4+2RD4IVS8XOpq6Hg7TAfMPIZQzZBQ4
+ 9/FsSpJbSts31+yy+kuqv9NebE9kRfHwVi/uOzSgarQJmctAmTxJ1G89X+ooJnBOhTd6
+ wMeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703154307; x=1703759107;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pYNLBDFWO3LrdFkIMvJ8nxiptH8Derg0mKqbJmtxv8s=;
+ b=iLG6Z1kegVEgO3NmwfeqmP7iN3FqQJOyUSl4Zs4RqgDXvv1iMMzrEKpLd7O2XyXL3C
+ ULboulR4o/FOr3VhDktI3FQfw6SEWOzPaiw+M+N7vOQKuVPVcvlYnoMQeTMx+LrAcYoE
+ +gQxXaGHrJhlB/+ENYE/Iyx+fTQG0rHJ7UKHrt5quF8ur+jMwvgyHV/OFzoy4ax2Oany
+ UerRuaabVJsSZTOVkDQ4BoHYdBxbQrELdzmSqn0ER262TSsaeqaIAxWI5UzhArS5PyId
+ D7WnSyGa9lRFgUJ0aw7L798OteVE5P6EKYowdAi0VCZMhqEcn87Hu2LW/9ji+AApQKkc
+ kPAQ==
+X-Gm-Message-State: AOJu0YxcUjO9eIr3urfHwoo26phB1VtQJskSNsI6bFnhAwUMhBA+Jhsr
+ BvxOZ358LqL9x5f//5k/yY5JAQ==
+X-Google-Smtp-Source: AGHT+IH6pMrLYwHqjlp1850CLT8V4kczgmX00VnjUzgg0aKA4yDbM+awaOvHnZsumP3WdOAsyEN9Dg==
+X-Received: by 2002:a05:6512:238e:b0:50e:4c33:1266 with SMTP id
+ c14-20020a056512238e00b0050e4c331266mr2146675lfv.72.1703154307282; 
+ Thu, 21 Dec 2023 02:25:07 -0800 (PST)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ m26-20020a056512359a00b0050aaae62dbdsm231671lfr.62.2023.12.21.02.25.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Dec 2023 02:25:06 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
+Subject: [RFC PATCH 0/2] dt-bindings: display: msm: correct schema filenames
+Date: Thu, 21 Dec 2023 12:25:04 +0200
+Message-Id: <20231221102506.18320-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v6] drm/msm/dpu: improve DSC allocation
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1702580172-30606-1-git-send-email-quic_khsieh@quicinc.com>
- <a5ec8760-cdfe-b420-43c1-913b0095ba93@quicinc.com>
- <CAA8EJpoBiiTbc91E8hSK0seBOXAW++8V8yJzbGmCJJcXbZ3raQ@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAA8EJpoBiiTbc91E8hSK0seBOXAW++8V8yJzbGmCJJcXbZ3raQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Lja8mOxvgY7cajDk_jdUI6JXc2yWi9pv
-X-Proofpoint-GUID: Lja8mOxvgY7cajDk_jdUI6JXc2yWi9pv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- suspectscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
- bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 mlxscore=0 adultscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312200120
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,253 +76,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-phy@lists.infradead.org, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+During the email discussion Aiqun Yu (Maria) pointed out that the file
+names for some of the MSM display schema files might not be obvious.
+Indeed they do not fully follow the established practice of matching the
+file name and one of compat strings.
 
-On 12/19/2023 2:32 PM, Dmitry Baryshkov wrote:
-> On Tue, 19 Dec 2023 at 18:18, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->> Hi Dmitry,
->>
->> Anymore comments from you?
-> No, for some reason I missed this patch. Please excuse me.
->
->> On 12/14/2023 10:56 AM, Kuogee Hsieh wrote:
->>> At DSC V1.1 DCE (Display Compression Engine) contains a DSC encoder.
->>> However, at DSC V1.2 DCE consists of two DSC encoders, one has an odd
->>> index and another one has an even index. Each encoder can work
->>> independently. But only two DSC encoders from same DCE can be paired
->>> to work together to support DSC merge mode at DSC V1.2. For DSC V1.1
->>> two consecutive DSC encoders (start with even index) have to be paired
->>> to support DSC merge mode.  In addition, the DSC with even index have
->>> to be mapped to even PINGPONG index and DSC with odd index have to be
->>> mapped to odd PINGPONG index at its data path in regardless of DSC
->>> V1.1 or V1.2. This patch improves DSC allocation mechanism with
->>> consideration of those factors.
->>>
->>> Changes in V6:
->>> -- rename _dpu_rm_reserve_dsc_single to _dpu_rm_dsc_alloc
->>> -- rename _dpu_rm_reserve_dsc_pair to _dpu_rm_dsc_alloc_pair
->>> -- pass global_state to _dpu_rm_pingpong_next_index()
->>> -- remove pp_max
->>> -- fix for loop condition check at _dpu_rm_dsc_alloc()
->>>
->>> Changes in V5:
->>> -- delete dsc_id[]
->>> -- update to global_state->dsc_to_enc_id[] directly
->>> -- replace ndx with idx
->>> -- fix indentation at function declaration
->>> -- only one for loop at _dpu_rm_reserve_dsc_single()
->>>
->>> Changes in V4:
->>> -- rework commit message
->>> -- use reserved_by_other()
->>> -- add _dpu_rm_pingpong_next_index()
->>> -- revise _dpu_rm_pingpong_dsc_check()
->>>
->>> Changes in V3:
->>> -- add dpu_rm_pingpong_dsc_check()
->>> -- for pair allocation use i += 2 at for loop
->>>
->>> Changes in V2:
->>>       -- split _dpu_rm_reserve_dsc() into _dpu_rm_reserve_dsc_single() and
->>>          _dpu_rm_reserve_dsc_pair()
->>>
->>> Fixes: f2803ee91a41 ("drm/msm/disp/dpu1: Add DSC support in RM")
->>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 154 +++++++++++++++++++++++++++++----
->>>    1 file changed, 139 insertions(+), 15 deletions(-)
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> See below for minor nit.
->
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>> index f9215643..0ce2a25 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>> @@ -461,29 +461,153 @@ static int _dpu_rm_reserve_ctls(
->>>        return 0;
->>>    }
->>>
->>> -static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
->>> -                            struct dpu_global_state *global_state,
->>> -                            struct drm_encoder *enc,
->>> -                            const struct msm_display_topology *top)
->>> +static int _dpu_rm_pingpong_next_index(struct dpu_global_state *global_state,
->>> +                                    int start,
-> I'd still prefer to see `enum dpu_pingpong` as a parameter here
-> instead of just an index, but this is just my taste.
+Move DSI PHY schemas to the PHY subdir (renaming them meanwhile) and
+rename remaining schema files.
 
-Can you please elaborate more details (pseudo code)  for this?
+Note, I have intentinally left dpu-common.yaml and mdss-common.yaml
+untouched, they describe common properties for a family of devices.
 
-i can add it at my next DP dsc patches.
+Also I have left dp-controller.yaml intact. I could not come up with a
+good enough file name. Suggestions for this file are appreciated.
 
->
->>> +                                    uint32_t enc_id)
->>>    {
->>> -     int num_dsc = top->num_dsc;
->>>        int i;
->>>
->>> -     /* check if DSC required are allocated or not */
->>> -     for (i = 0; i < num_dsc; i++) {
->>> -             if (!rm->dsc_blks[i]) {
->>> -                     DPU_ERROR("DSC %d does not exist\n", i);
->>> -                     return -EIO;
->>> +     for (i = start; i < (PINGPONG_MAX - PINGPONG_0); i++) {
->>> +             if (global_state->pingpong_to_enc_id[i] == enc_id)
->>> +                     return i;
->>> +     }
->>> +
->>> +     return -ENAVAIL;
->>> +}
->>> +
->>> +static int _dpu_rm_pingpong_dsc_check(int dsc_idx, int pp_idx)
->>> +{
->>> +     /*
->>> +      * DSC with even index must be used with the PINGPONG with even index
->>> +      * DSC with odd index must be used with the PINGPONG with odd index
->>> +      */
->>> +     if ((dsc_idx & 0x01) != (pp_idx & 0x01))
->>> +             return -ENAVAIL;
->>> +
->>> +     return 0;
->>> +}
->>> +
->>> +static int _dpu_rm_dsc_alloc(struct dpu_rm *rm,
->>> +                          struct dpu_global_state *global_state,
->>> +                          uint32_t enc_id,
->>> +                          const struct msm_display_topology *top)
->>> +{
->>> +     int num_dsc = 0;
->>> +     int pp_idx = 0;
->>> +     int dsc_idx;
->>> +     int ret;
->>> +
->>> +     for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
->>> +          num_dsc < top->num_dsc; dsc_idx++) {
->>> +             if (!rm->dsc_blks[dsc_idx])
->>> +                     continue;
->>> +
->>> +             if (reserved_by_other(global_state->dsc_to_enc_id, dsc_idx, enc_id))
->>> +                     continue;
->>> +
->>> +             pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, enc_id);
->>> +             if (pp_idx < 0)
->>> +                     return -ENAVAIL;
->>> +
->>> +             ret = _dpu_rm_pingpong_dsc_check(dsc_idx, pp_idx);
->>> +             if (ret)
->>> +                     return -ENAVAIL;
->>> +
->>> +             global_state->dsc_to_enc_id[dsc_idx] = enc_id;
->>> +             num_dsc++;
->>> +             pp_idx++;
->>> +     }
->>> +
->>> +     if (num_dsc < top->num_dsc) {
->>> +             DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
->>> +                        num_dsc, top->num_dsc);
->>> +             return -ENAVAIL;
->>> +     }
->>> +
->>> +     return 0;
->>> +}
->>> +
->>> +static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
->>> +                               struct dpu_global_state *global_state,
->>> +                               uint32_t enc_id,
->>> +                               const struct msm_display_topology *top)
->>> +{
->>> +     int num_dsc = 0;
->>> +     int dsc_idx, pp_idx = 0;
->>> +     int ret;
->>> +
->>> +     /* only start from even dsc index */
->>> +     for (dsc_idx = 0; dsc_idx < ARRAY_SIZE(rm->dsc_blks) &&
->>> +          num_dsc < top->num_dsc; dsc_idx += 2) {
->>> +             if (!rm->dsc_blks[dsc_idx] ||
->>> +                 !rm->dsc_blks[dsc_idx + 1])
->>> +                     continue;
->>> +
->>> +             /* consective dsc index to be paired */
->>> +             if (reserved_by_other(global_state->dsc_to_enc_id, dsc_idx, enc_id) ||
->>> +                 reserved_by_other(global_state->dsc_to_enc_id, dsc_idx + 1, enc_id))
->>> +                     continue;
->>> +
->>> +             pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, enc_id);
->>> +             if (pp_idx < 0)
->>> +                     return -ENAVAIL;
->>> +
->>> +             ret = _dpu_rm_pingpong_dsc_check(dsc_idx, pp_idx);
->>> +             if (ret) {
->>> +                     pp_idx = 0;
->>> +                     continue;
->>>                }
->>>
->>> -             if (global_state->dsc_to_enc_id[i]) {
->>> -                     DPU_ERROR("DSC %d is already allocated\n", i);
->>> -                     return -EIO;
->>> +             pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx + 1, enc_id);
->>> +             if (pp_idx < 0)
->>> +                     return -ENAVAIL;
->>> +
->>> +             ret = _dpu_rm_pingpong_dsc_check(dsc_idx + 1, pp_idx);
->>> +             if (ret) {
->>> +                     pp_idx = 0;
->>> +                     continue;
->>>                }
->>> +
->>> +             global_state->dsc_to_enc_id[dsc_idx] = enc_id;
->>> +             global_state->dsc_to_enc_id[dsc_idx + 1] = enc_id;
->>> +             num_dsc += 2;
->>> +             pp_idx++;       /* start for next pair */
->>>        }
->>>
->>> -     for (i = 0; i < num_dsc; i++)
->>> -             global_state->dsc_to_enc_id[i] = enc->base.id;
->>> +     if (num_dsc < top->num_dsc) {
->>> +             DPU_ERROR("DSC allocation failed num_dsc=%d required=%d\n",
->>> +                        num_dsc, top->num_dsc);
->>> +             return -ENAVAIL;
->>> +     }
->>> +
->>> +     return 0;
->>> +}
->>> +
->>> +static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
->>> +                            struct dpu_global_state *global_state,
->>> +                            struct drm_encoder *enc,
->>> +                            const struct msm_display_topology *top)
->>> +{
->>> +     uint32_t enc_id = enc->base.id;
->>> +
->>> +     if (!top->num_dsc || !top->num_intf)
->>> +             return 0;
->>> +
->>> +     /*
->>> +      * Facts:
->>> +      * 1) no pingpong split (two layer mixers shared one pingpong)
->>> +      * 2) DSC pair starts from even index, such as index(0,1), (2,3), etc
->>> +      * 3) even PINGPONG connects to even DSC
->>> +      * 4) odd PINGPONG connects to odd DSC
->>> +      * 5) pair: encoder +--> pp_idx_0 --> dsc_idx_0
->>> +      *                  +--> pp_idx_1 --> dsc_idx_1
->>> +      */
->>> +
->>> +     /* num_dsc should be either 1, 2 or 4 */
->>> +     if (top->num_dsc > top->num_intf)       /* merge mode */
->>> +             return _dpu_rm_dsc_alloc_pair(rm, global_state, enc_id, top);
->>> +     else
->>> +             return _dpu_rm_dsc_alloc(rm, global_state, enc_id, top);
->>>
->>>        return 0;
->>>    }
->
->
+Dmitry Baryshkov (2):
+  dt-bindings: display: msm: move DSI PHY schema to bindings/phy
+  dt-bindings: display: msm: mass-rename files
+
+ .../bindings/display/msm/{gmu.yaml => qcom,adreno-gmu.yaml}   | 2 +-
+ .../bindings/display/msm/{gpu.yaml => qcom,adreno.yaml}       | 2 +-
+ .../bindings/display/msm/{hdmi.yaml => qcom,hdmi-tx.yaml}     | 2 +-
+ .../bindings/display/msm/{mdp4.yaml => qcom,mdp4.yaml}        | 2 +-
+ .../msm/{dsi-controller-main.yaml => qcom,mdss-dsi-ctrl.yaml} | 2 +-
+ .../msm/dsi-phy-10nm.yaml => phy/qcom,dsi-phy-10nm.yaml}      | 4 ++--
+ .../msm/dsi-phy-14nm.yaml => phy/qcom,dsi-phy-14nm.yaml}      | 4 ++--
+ .../msm/dsi-phy-20nm.yaml => phy/qcom,dsi-phy-20nm.yaml}      | 4 ++--
+ .../msm/dsi-phy-28nm.yaml => phy/qcom,dsi-phy-28nm.yaml}      | 4 ++--
+ .../msm/dsi-phy-7nm.yaml => phy/qcom,dsi-phy-7nm.yaml}        | 4 ++--
+ .../msm/dsi-phy-common.yaml => phy/qcom,dsi-phy-common.yaml}  | 2 +-
+ 11 files changed, 16 insertions(+), 16 deletions(-)
+ rename Documentation/devicetree/bindings/display/msm/{gmu.yaml => qcom,adreno-gmu.yaml} (99%)
+ rename Documentation/devicetree/bindings/display/msm/{gpu.yaml => qcom,adreno.yaml} (99%)
+ rename Documentation/devicetree/bindings/display/msm/{hdmi.yaml => qcom,hdmi-tx.yaml} (98%)
+ rename Documentation/devicetree/bindings/display/msm/{mdp4.yaml => qcom,mdp4.yaml} (97%)
+ rename Documentation/devicetree/bindings/display/msm/{dsi-controller-main.yaml => qcom,mdss-dsi-ctrl.yaml} (99%)
+ rename Documentation/devicetree/bindings/{display/msm/dsi-phy-10nm.yaml => phy/qcom,dsi-phy-10nm.yaml} (96%)
+ rename Documentation/devicetree/bindings/{display/msm/dsi-phy-14nm.yaml => phy/qcom,dsi-phy-14nm.yaml} (94%)
+ rename Documentation/devicetree/bindings/{display/msm/dsi-phy-20nm.yaml => phy/qcom,dsi-phy-20nm.yaml} (93%)
+ rename Documentation/devicetree/bindings/{display/msm/dsi-phy-28nm.yaml => phy/qcom,dsi-phy-28nm.yaml} (94%)
+ rename Documentation/devicetree/bindings/{display/msm/dsi-phy-7nm.yaml => phy/qcom,dsi-phy-7nm.yaml} (94%)
+ rename Documentation/devicetree/bindings/{display/msm/dsi-phy-common.yaml => phy/qcom,dsi-phy-common.yaml} (90%)
+
+-- 
+2.39.2
+
