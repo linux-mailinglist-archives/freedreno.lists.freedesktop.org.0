@@ -1,36 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E427081C202
-	for <lists+freedreno@lfdr.de>; Fri, 22 Dec 2023 00:36:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B81581C389
+	for <lists+freedreno@lfdr.de>; Fri, 22 Dec 2023 04:34:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD79110E733;
-	Thu, 21 Dec 2023 23:36:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 275BA10E00A;
+	Fri, 22 Dec 2023 03:34:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 249FC10E733
- for <freedreno@lists.freedesktop.org>; Thu, 21 Dec 2023 23:36:46 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [IPv6:2a00:1098:ed:100::25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09A5210E00A;
+ Fri, 22 Dec 2023 03:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1703216090;
+ bh=kYml0Gc4mkk9AGwn9xZiP3xtZyxN1BrFoO4NDAvzy7M=;
+ h=From:To:Cc:Subject:Date:From;
+ b=C5/5DCLfh1RAXWeDcnqu/aZSxdB5pJ/kzz3a6epSwrhVHDEVQyK6YJiqY55KpAWAd
+ fgnCixIt86jHLocC+6wPQi7nnWB3rimlS2L7S7yeQvDAj6rTsum+ZTn/J8frytzzuG
+ qxwDC6IqNMQYsrIN3PSJe7xBn+f96WrwsKJeFFPSX1EMiSG9s2Kkd2L2ECM/aW4FQp
+ RXjevOLKpCGyncC0IlYgnDUgPUlaAUi2gOtjhGperz1CLjTAx42v1V1Z7LJdNpjZq5
+ i3bLfK+l+7V7OzRtvxqTlkKguizCmMKuwjmgAXG/EM7dkO5Yhyf6K8Q8TBMCD9G40Q
+ OpnNv/1TdDXAg==
+Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 95E7E404FD;
- Fri, 22 Dec 2023 00:36:43 +0100 (CET)
-Date: Fri, 22 Dec 2023 00:36:42 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [RFT PATCH v2 2/4] drm/msm/dpu: enable writeback on SC8108X
-Message-ID: <hv4w6w23nlgnma6fdxpkwucj2nagu5vegxiztsf5qey2ssocij@ndi7a5ossul4>
-References: <20231203003203.1293087-1-dmitry.baryshkov@linaro.org>
- <20231203003203.1293087-3-dmitry.baryshkov@linaro.org>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id AF4A137813DA;
+ Fri, 22 Dec 2023 03:34:45 +0000 (UTC)
+From: Vignesh Raman <vignesh.raman@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH v2] drm/ci: uprev mesa version: fix kdl commit fetch
+Date: Fri, 22 Dec 2023 09:04:34 +0530
+Message-Id: <20231222033434.1537761-1-vignesh.raman@collabora.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231203003203.1293087-3-dmitry.baryshkov@linaro.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,68 +49,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+Cc: daniels@collabora.com, emma@anholt.net, freedreno@lists.freedesktop.org,
+ guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com, david.heidelberg@collabora.com,
+ helen.koike@collabora.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ airlied@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Title typo: SC8108X -> SC8180X :)
+build-kdl.sh was doing a `clone --depth 1` of the default branch,
+then checking out a commit that might not be the latest of that
+branch, resulting in container build error.
 
-On 2023-12-03 03:32:01, Dmitry Baryshkov wrote:
-> Enable WB2 hardware block, enabling writeback support on this platform.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  .../msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> index 9ffc8804a6fc..d4b531752ec2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h
-> @@ -34,6 +34,7 @@ static const struct dpu_mdp_cfg sc8180x_mdp = {
->  		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
->  		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
->  		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
-> +		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
->  	},
->  };
->  
-> @@ -298,6 +299,21 @@ static const struct dpu_dsc_cfg sc8180x_dsc[] = {
->  	},
->  };
->  
-> +static const struct dpu_wb_cfg sc8180x_wb[] = {
-> +	{
-> +		.name = "wb_2", .id = WB_2,
-> +		.base = 0x65000, .len = 0x2c8,
-> +		.features = WB_SDM845_MASK,
-> +		.format_list = wb2_formats,
-> +		.num_formats = ARRAY_SIZE(wb2_formats),
-> +		.clk_ctrl = DPU_CLK_CTRL_WB2,
-> +		.xin_id = 6,
-> +		.vbif_idx = VBIF_RT,
-> +		.maxlinewidth = 4096,
-> +		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-> +	},
-> +};
-> +
->  static const struct dpu_intf_cfg sc8180x_intf[] = {
->  	{
->  		.name = "intf_0", .id = INTF_0,
-> @@ -411,6 +427,8 @@ const struct dpu_mdss_cfg dpu_sc8180x_cfg = {
->  	.pingpong = sc8180x_pp,
->  	.merge_3d_count = ARRAY_SIZE(sc8180x_merge_3d),
->  	.merge_3d = sc8180x_merge_3d,
-> +	.wb_count = ARRAY_SIZE(sc8180x_wb),
-> +	.wb = sc8180x_wb,
->  	.intf_count = ARRAY_SIZE(sc8180x_intf),
->  	.intf = sc8180x_intf,
->  	.vbif_count = ARRAY_SIZE(sdm845_vbif),
-> -- 
-> 2.39.2
-> 
+https://gitlab.freedesktop.org/mesa/mesa/-/commit/5efa4d56 fixes
+kdl commit fetch issue. Uprev mesa in drm-ci to fix this.
+
+This commit updates the kernel tag and adds .never-post-merge-rules
+due to the mesa uprev. It also fixes an issue where the virtio-gpu
+pipeline was not getting created with the mesa uprev.
+
+Reviewed-by: David Heidelberg <david.heidelberg@collabora.com>
+Acked-by: Helen Koike <helen.koike@collabora.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+---
+
+v2:
+  - Fix an issue where the virtio-gpu pipeline was not getting created with the mesa uprev
+    https://gitlab.freedesktop.org/vigneshraman/linux/-/pipelines/1062221
+
+---
+ drivers/gpu/drm/ci/gitlab-ci.yml | 14 ++++++++++++--
+ drivers/gpu/drm/ci/test.yml      |  1 +
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
+index dac92cc2777c..084e3ff8e3f4 100644
+--- a/drivers/gpu/drm/ci/gitlab-ci.yml
++++ b/drivers/gpu/drm/ci/gitlab-ci.yml
+@@ -1,6 +1,6 @@
+ variables:
+   DRM_CI_PROJECT_PATH: &drm-ci-project-path mesa/mesa
+-  DRM_CI_COMMIT_SHA: &drm-ci-commit-sha edfbf74df1d4d6ce54ffe24566108be0e1a98c3d
++  DRM_CI_COMMIT_SHA: &drm-ci-commit-sha 9d162de9a05155e1c4041857a5848842749164cf
+ 
+   UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
+   TARGET_BRANCH: drm-next
+@@ -25,7 +25,9 @@ variables:
+   # per-job artifact storage on MinIO
+   JOB_ARTIFACTS_BASE: ${PIPELINE_ARTIFACTS_BASE}/${CI_JOB_ID}
+   # default kernel for rootfs before injecting the current kernel tree
+-  KERNEL_IMAGE_BASE: https://${S3_HOST}/mesa-lava/gfx-ci/linux/v6.4.12-for-mesa-ci-f6b4ad45f48d
++  KERNEL_REPO: "gfx-ci/linux"
++  KERNEL_TAG: "v6.6.4-for-mesa-ci-e4f4c500f7fb"
++  KERNEL_IMAGE_BASE: https://${S3_HOST}/mesa-lava/${KERNEL_REPO}/${KERNEL_TAG}
+   LAVA_TAGS: subset-1-gfx
+   LAVA_JOB_PRIORITY: 30
+ 
+@@ -133,6 +135,11 @@ stages:
+     - if: &is-pre-merge-for-marge '$GITLAB_USER_LOGIN == "marge-bot" && $CI_PIPELINE_SOURCE == "merge_request_event"'
+       when: on_success
+ 
++.never-post-merge-rules:
++  rules:
++    - if: *is-post-merge
++      when: never
++
+ # Rule to filter for only scheduled pipelines.
+ .scheduled_pipeline-rules:
+   rules:
+@@ -150,6 +157,7 @@ stages:
+ .build-rules:
+   rules:
+     - !reference [.no_scheduled_pipelines-rules, rules]
++    - !reference [.never-post-merge-rules, rules]
+     # Run automatically once all dependency jobs have passed
+     - when: on_success
+ 
+@@ -157,6 +165,7 @@ stages:
+ .container+build-rules:
+   rules:
+     - !reference [.no_scheduled_pipelines-rules, rules]
++    - !reference [.never-post-merge-rules, rules]
+     - when: manual
+ 
+ .ci-deqp-artifacts:
+@@ -175,6 +184,7 @@ stages:
+ .container-rules:
+   rules:
+     - !reference [.no_scheduled_pipelines-rules, rules]
++    - !reference [.never-post-merge-rules, rules]
+     # Run pipeline by default in the main project if any CI pipeline
+     # configuration files were changed, to ensure docker images are up to date
+     - if: *is-post-merge
+diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+index 2c9a1838e728..1705f268547a 100644
+--- a/drivers/gpu/drm/ci/test.yml
++++ b/drivers/gpu/drm/ci/test.yml
+@@ -324,6 +324,7 @@ virtio_gpu:none:
+     GPU_VERSION: none
+   extends:
+     - .test-gl
++    - .test-rules
+   tags:
+     - kvm
+   script:
+-- 
+2.40.1
+
