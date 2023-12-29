@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB5B82026F
-	for <lists+freedreno@lfdr.de>; Fri, 29 Dec 2023 23:57:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4826082025B
+	for <lists+freedreno@lfdr.de>; Fri, 29 Dec 2023 23:57:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1B2310E2D5;
-	Fri, 29 Dec 2023 22:57:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15EB610E2F4;
+	Fri, 29 Dec 2023 22:57:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F08D10E2EC
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0BB510E2EA
  for <freedreno@lists.freedesktop.org>; Fri, 29 Dec 2023 22:57:02 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-50e7c76897dso4224786e87.2
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-50e7dd8bce8so4331120e87.1
  for <freedreno@lists.freedesktop.org>; Fri, 29 Dec 2023 14:57:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1703890620; x=1704495420; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1703890621; x=1704495421; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qM7v7H4C7NJc/DYsSIJw28KxiueS/YTZkND4gF968yU=;
- b=Ow1gMXm7fjpxeMJ/PIr0zpsO6MOK795aCePAml3U/JZC2TwBixDMjhhptG4MHECucx
- qmKKITZV10dTaIOGbq76MXmH5MMw3/B5gKX7eA9JDu6tt6qggp2WLpbBhSNsHax+Bhry
- wt4V+EHAIgK/PfdJyyvrg9iTe0Wcir6Uuz4OXYJBuAY0v0ubN4XBxnf9E74LDzxlx/Ts
- PPy2D0+EFVW+R2Tgg24uq4OKYW+Vwky2pE9DJYmN9AIpuPNHhhnc5YXUW1aYCUYpkWHJ
- bTkh8NHi6V+C6FM3KMcpzrkEC5F79SD0qSy1I+IJRXnTmOXewwRsXw2gBbu/92mQlPqB
- uqZQ==
+ bh=gN+QhfjzW6P1W7O8ikSW8Wdk6+ITJyhlX+DJs6XFBy4=;
+ b=ltgxipInh4N+867US3jHyYZISRIC39rKo8ymHNb0ocGY/+BD43TS4m6h3Rpo84Y0MC
+ w1PjqLidZwlHRQR+kNO1A4G+N2oEkU9XjA4S+/S1eox1CRU9bjbiAZLaKLhKRMrVjAzX
+ 2WngtwumEBGTJq4Ef8ncuWK2JgfEoR/aeayo3ycihwIyA7jzzbKlCZTLH8ouXyaj+Ysi
+ Wos8Ob0MwuRh6WyDmHIJ8TGqi9z6uPrsH7FyOz5zfQM+uyKzy+OmieHyWwLayTKFjT8N
+ LqBq28SGOMiGgRhzlfPxmr86VE0i6juU/0c+tMMLu+WhUAa/04Sla9sqaDMVihvQ20eX
+ 3W5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703890620; x=1704495420;
+ d=1e100.net; s=20230601; t=1703890621; x=1704495421;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qM7v7H4C7NJc/DYsSIJw28KxiueS/YTZkND4gF968yU=;
- b=FZooejNRUjijT3UEky8f3/74ABMVB5ptsVtupjlzuPJ7XAF8eknLWolcklrX0UeerW
- bDaj0P5/XlzEKmw9a/luzroz5nV7Jh6G+sD8sJYO6ZtKLp4HTLxlCPddwbELFnRVvmJN
- 1Ar07Be3U/KME9jKWHVhVqSv5RNZvjxsapPdPSYgnWxKGrhTIcQNIKXgsQGR3C97QiDZ
- q6Qf32YLxuHR3oooeGMoA13OjbJYK5nROaeY8Rnzmwrf8cuQAZ70E70u1zRJEh5NMlu8
- Fr5pLkQnXYC9lzisqNCVqcoN7tfM9nxtPbn0mXWZGx4cmsKPl6PrBCuSwisdhCWjplG7
- 8i/g==
-X-Gm-Message-State: AOJu0Yw0pUqoppjrtIWQOUj6FG3GGXXQPIFyPGI5x8tj3DV3poMCzyl4
- JSRtlD9pdhNK7CCe0BmXb3+039CNQrUVPQ==
-X-Google-Smtp-Source: AGHT+IFvCjxdR7PRLZ8XmoQ6Nz9SKbICkYIJx72GsIW9SkxbWAjPb1V7fiMVRPlT1oTtqamIHSSpWQ==
-X-Received: by 2002:a19:7405:0:b0:50e:7f8b:ec51 with SMTP id
- v5-20020a197405000000b0050e7f8bec51mr1559242lfe.210.1703890620620; 
- Fri, 29 Dec 2023 14:57:00 -0800 (PST)
+ bh=gN+QhfjzW6P1W7O8ikSW8Wdk6+ITJyhlX+DJs6XFBy4=;
+ b=aFS9Qnj768nJXV9kjAoYtYZIAL0gcu31u/e5LYFfiV61VZdxFp8+fWydaP44Nq7EtK
+ ZkNcOkjzIKKLhblsMhSVWMuLZOBwEqPi0QVFRl7hhULBAn4AGrEAI0HqL0LncAqfZVrI
+ y1+YbV9uo4JLltHMPegbsclfpOlJWCCpZOouQR3HQFV6VGbSV+z/z66JYbTrL1XXpuGy
+ ZdmuSEnKAMeZDRteFqFSno2Bp30KtuTJGWU29g0QUmEfbUBkBrYSShZkfWTPW0f2msRq
+ RQ0iQl9z7ohhOjMdIDcQmCDwqmPvO+oJGMHAeYjT51WaVlOXgLHmk6S/gdEouFkVH33f
+ R5TQ==
+X-Gm-Message-State: AOJu0Yy/zvt58be+tUyWoPGj5fh3U4zasMODJMci76efQRI0n8Kncvie
+ NWqSdFPDJl/I+e0z5PQjJPNdBj0n/E5Q6Q==
+X-Google-Smtp-Source: AGHT+IGFvnyGaUZgzOXysYSJJFs72wqZ9ABaDZ+u9s2biWLoEy3FICm1Llc5zAhNYHFhQvSNOjKqvA==
+X-Received: by 2002:ac2:51a7:0:b0:50e:4bf6:8848 with SMTP id
+ f7-20020ac251a7000000b0050e4bf68848mr5097967lfk.38.1703890621344; 
+ Fri, 29 Dec 2023 14:57:01 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- j26-20020ac2455a000000b0050e7f5794cbsm1326952lfm.309.2023.12.29.14.56.59
+ j26-20020ac2455a000000b0050e7f5794cbsm1326952lfm.309.2023.12.29.14.57.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 29 Dec 2023 14:57:00 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -56,9 +56,9 @@ To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>,
  Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Subject: [PATCH 12/14] drm/msm/dp: move link property handling to dp_panel
-Date: Sat, 30 Dec 2023 00:56:48 +0200
-Message-Id: <20231229225650.912751-13-dmitry.baryshkov@linaro.org>
+Subject: [PATCH 13/14] drm/msm/dp: move next_bridge handling to dp_display
+Date: Sat, 30 Dec 2023 00:56:49 +0200
+Message-Id: <20231229225650.912751-14-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231229225650.912751-1-dmitry.baryshkov@linaro.org>
 References: <20231229225650.912751-1-dmitry.baryshkov@linaro.org>
@@ -83,251 +83,136 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Instead of passing link properties through the separate struct, parse
-them directly in the dp_panel.
+Remove two levels of indirection and fetch next bridge directly in
+dp_display_probe_tail().
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c |  8 ----
- drivers/gpu/drm/msm/dp/dp_display.h |  1 -
- drivers/gpu/drm/msm/dp/dp_panel.c   | 63 +++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_parser.c  | 54 -------------------------
- drivers/gpu/drm/msm/dp/dp_parser.h  |  4 --
- 5 files changed, 63 insertions(+), 67 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 42 +++++++++--------------------
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ----------
+ drivers/gpu/drm/msm/dp/dp_parser.h  | 14 ----------
+ 3 files changed, 13 insertions(+), 57 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9e0217a9ec07..4de0857c31ce 100644
+index 4de0857c31ce..923df47efcc9 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -356,12 +356,6 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 	int rc = 0;
- 	struct edid *edid;
- 
--	dp->panel->max_dp_lanes = dp->parser->max_dp_lanes;
--	dp->panel->max_dp_link_rate = dp->parser->max_dp_link_rate;
--
--	drm_dbg_dp(dp->drm_dev, "max_lanes=%d max_link_rate=%d\n",
--		dp->panel->max_dp_lanes, dp->panel->max_dp_link_rate);
--
- 	rc = dp_panel_read_sink_caps(dp->panel, dp->dp_display.connector);
- 	if (rc)
- 		goto end;
-@@ -381,8 +375,6 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 	dp->audio_supported = drm_detect_monitor_audio(edid);
- 	dp_panel_handle_sink_request(dp->panel);
- 
--	dp->dp_display.max_dp_lanes = dp->parser->max_dp_lanes;
--
- 	/*
- 	 * set sink to normal operation mode -- D0
- 	 * before dpcd read
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 102f3507d824..70759dd1bfd0 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -28,7 +28,6 @@ struct msm_dp {
- 
- 	bool wide_bus_en;
- 
--	u32 max_dp_lanes;
- 	struct dp_audio *dp_audio;
- 	bool psr_supported;
- };
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 127f6af995cd..8ef55cc4aa48 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -7,8 +7,12 @@
- 
- #include <drm/drm_connector.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_print.h>
- 
-+#define DP_MAX_NUM_DP_LANES	4
-+#define DP_LINK_RATE_HBR2	540000 /* kbytes */
-+
- struct dp_panel_private {
- 	struct device *dev;
- 	struct drm_device *drm_dev;
-@@ -138,6 +142,9 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
- 
- 	panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
- 
-+	drm_dbg_dp(panel->drm_dev, "max_lanes=%d max_link_rate=%d\n",
-+		dp_panel->max_dp_lanes, dp_panel->max_dp_link_rate);
-+
- 	rc = dp_panel_read_dpcd(dp_panel);
- 	if (rc) {
- 		DRM_ERROR("read dpcd failed %d\n", rc);
-@@ -386,10 +393,62 @@ int dp_panel_init_panel_info(struct dp_panel *dp_panel)
- 	return 0;
+@@ -1195,16 +1195,24 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
+ 	return NULL;
  }
  
-+static u32 dp_panel_link_frequencies(struct device_node *of_node)
-+{
-+	struct device_node *endpoint;
-+	u64 frequency = 0;
-+	int cnt;
-+
-+	endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-+	if (!endpoint)
-+		return 0;
-+
-+	cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
-+
-+	if (cnt > 0)
-+		of_property_read_u64_index(endpoint, "link-frequencies",
-+						cnt - 1, &frequency);
-+	of_node_put(endpoint);
-+
-+	do_div(frequency,
-+		10 * /* from symbol rate to link rate */
-+		1000); /* kbytes */
-+
-+	return frequency;
-+}
-+
-+static int dp_panel_parse_dt(struct dp_panel *dp_panel)
-+{
-+	struct dp_panel_private *panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
-+	struct device_node *of_node = panel->dev->of_node;
-+	int cnt;
-+
-+	/*
-+	 * data-lanes is the property of dp_out endpoint
-+	 */
-+	cnt = drm_of_get_data_lanes_count_ep(of_node, 1, 0, 1, DP_MAX_NUM_DP_LANES);
-+	if (cnt < 0) {
-+		/* legacy code, data-lanes is the property of mdss_dp node */
-+		cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
-+	}
-+
-+	if (cnt > 0)
-+		dp_panel->max_dp_lanes = cnt;
-+	else
-+		dp_panel->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-+
-+	dp_panel->max_dp_link_rate = dp_panel_link_frequencies(of_node);
-+	if (!dp_panel->max_dp_link_rate)
-+		dp_panel->max_dp_link_rate = DP_LINK_RATE_HBR2;
-+
-+	return 0;
-+}
-+
- struct dp_panel *dp_panel_get(struct dp_panel_in *in)
+-static int dp_display_get_next_bridge(struct msm_dp *dp);
+-
+ static int dp_display_probe_tail(struct device *dev)
  {
- 	struct dp_panel_private *panel;
- 	struct dp_panel *dp_panel;
-+	int ret;
+ 	struct msm_dp *dp = dev_get_drvdata(dev);
+ 	int ret;
  
- 	if (!in->dev || !in->catalog || !in->aux || !in->link) {
- 		DRM_ERROR("invalid input\n");
-@@ -408,6 +467,10 @@ struct dp_panel *dp_panel_get(struct dp_panel_in *in)
- 	dp_panel = &panel->dp_panel;
- 	dp_panel->max_bw_code = DP_LINK_BW_8_1;
+-	ret = dp_display_get_next_bridge(dp);
+-	if (ret)
+-		return ret;
++	/*
++	 * External bridges are mandatory for eDP interfaces: one has to
++	 * provide at least an eDP panel (which gets wrapped into panel-bridge).
++	 *
++	 * For DisplayPort interfaces external bridges are optional, so
++	 * silently ignore an error if one is not present (-ENODEV).
++	 */
++	dp->next_bridge = devm_drm_of_get_bridge(&dp->pdev->dev, dp->pdev->dev.of_node, 1, 0);
++	if (IS_ERR(dp->next_bridge)) {
++		ret = PTR_ERR(dp->next_bridge);
++		if (dp->is_edp || ret != -ENODEV)
++			return ret;
++	}
  
-+	ret = dp_panel_parse_dt(dp_panel);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	return dp_panel;
+ 	ret = component_add(dev, &dp_display_comp_ops);
+ 	if (ret)
+@@ -1397,30 +1405,6 @@ void dp_display_debugfs_init(struct msm_dp *dp_display, struct dentry *root, boo
+ 	}
  }
  
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index 2d0dd4353cdf..aa135d5cedbd 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -24,56 +24,6 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
- 	return 0;
- }
- 
--static u32 dp_parser_link_frequencies(struct device_node *of_node)
+-static int dp_display_get_next_bridge(struct msm_dp *dp)
 -{
--	struct device_node *endpoint;
--	u64 frequency = 0;
--	int cnt;
+-	int rc;
+-	struct dp_display_private *dp_priv;
 -
--	endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
--	if (!endpoint)
--		return 0;
--
--	cnt = of_property_count_u64_elems(endpoint, "link-frequencies");
--
--	if (cnt > 0)
--		of_property_read_u64_index(endpoint, "link-frequencies",
--						cnt - 1, &frequency);
--	of_node_put(endpoint);
--
--	do_div(frequency,
--		10 * /* from symbol rate to link rate */
--		1000); /* kbytes */
--
--	return frequency;
--}
--
--static int dp_parser_misc(struct dp_parser *parser)
--{
--	struct device_node *of_node = parser->pdev->dev.of_node;
--	int cnt;
+-	dp_priv = container_of(dp, struct dp_display_private, dp_display);
 -
 -	/*
--	 * data-lanes is the property of dp_out endpoint
+-	 * External bridges are mandatory for eDP interfaces: one has to
+-	 * provide at least an eDP panel (which gets wrapped into panel-bridge).
+-	 *
+-	 * For DisplayPort interfaces external bridges are optional, so
+-	 * silently ignore an error if one is not present (-ENODEV).
 -	 */
--	cnt = drm_of_get_data_lanes_count_ep(of_node, 1, 0, 1, DP_MAX_NUM_DP_LANES);
--	if (cnt < 0) {
--		/* legacy code, data-lanes is the property of mdss_dp node */
--		cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
--	}
+-	rc = devm_dp_parser_find_next_bridge(&dp->pdev->dev, dp_priv->parser);
+-	if (!dp->is_edp && rc == -ENODEV)
+-		return 0;
 -
--	if (cnt > 0)
--		parser->max_dp_lanes = cnt;
--	else
--		parser->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
+-	if (!rc)
+-		dp->next_bridge = dp_priv->parser->next_bridge;
 -
--	parser->max_dp_link_rate = dp_parser_link_frequencies(of_node);
--	if (!parser->max_dp_link_rate)
--		parser->max_dp_link_rate = DP_LINK_RATE_HBR2;
+-	return rc;
+-}
+-
+ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 			struct drm_encoder *encoder)
+ {
+diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
+index aa135d5cedbd..f95ab3c5c72c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_parser.c
++++ b/drivers/gpu/drm/msm/dp/dp_parser.c
+@@ -24,20 +24,6 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
+ 	return 0;
+ }
+ 
+-int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser)
+-{
+-	struct platform_device *pdev = parser->pdev;
+-	struct drm_bridge *bridge;
+-
+-	bridge = devm_drm_of_get_bridge(dev, pdev->dev.of_node, 1, 0);
+-	if (IS_ERR(bridge))
+-		return PTR_ERR(bridge);
+-
+-	parser->next_bridge = bridge;
 -
 -	return 0;
 -}
 -
- int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser)
+ static int dp_parser_parse(struct dp_parser *parser)
  {
- 	struct platform_device *pdev = parser->pdev;
-@@ -101,10 +51,6 @@ static int dp_parser_parse(struct dp_parser *parser)
- 	if (rc)
- 		return rc;
- 
--	rc = dp_parser_misc(parser);
--	if (rc)
--		return rc;
--
- 	return 0;
- }
- 
+ 	int rc = 0;
 diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 1e2ca4efb029..bc56e0e8c446 100644
+index bc56e0e8c446..2b39b1c394ae 100644
 --- a/drivers/gpu/drm/msm/dp/dp_parser.h
 +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -11,8 +11,6 @@
- #include "msm_drv.h"
- 
- #define DP_MAX_PIXEL_CLK_KHZ	675000
--#define DP_MAX_NUM_DP_LANES	4
--#define DP_LINK_RATE_HBR2	540000 /* kbytes */
- 
- /**
-  * struct dp_parser - DP parser's data exposed to clients
-@@ -24,8 +22,6 @@
+@@ -22,7 +22,6 @@
  struct dp_parser {
  	struct platform_device *pdev;
  	struct phy *phy;
--	u32 max_dp_lanes;
--	u32 max_dp_link_rate;
- 	struct drm_bridge *next_bridge;
+-	struct drm_bridge *next_bridge;
  };
  
+ /**
+@@ -38,17 +37,4 @@ struct dp_parser {
+  */
+ struct dp_parser *dp_parser_get(struct platform_device *pdev);
+ 
+-/**
+- * devm_dp_parser_find_next_bridge() - find an additional bridge to DP
+- *
+- * @dev: device to tie bridge lifetime to
+- * @parser: dp_parser data from client
+- *
+- * This function is used to find any additional bridge attached to
+- * the DP controller. The eDP interface requires a panel bridge.
+- *
+- * Return: 0 if able to get the bridge, otherwise negative errno for failure.
+- */
+-int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser);
+-
+ #endif
 -- 
 2.39.2
 
