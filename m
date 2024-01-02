@@ -2,103 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2055982226D
-	for <lists+freedreno@lfdr.de>; Tue,  2 Jan 2024 21:12:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D44A822496
+	for <lists+freedreno@lfdr.de>; Tue,  2 Jan 2024 23:13:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B644110E208;
-	Tue,  2 Jan 2024 20:12:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E525410E213;
+	Tue,  2 Jan 2024 22:13:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2309810E214
- for <freedreno@lists.freedesktop.org>; Tue,  2 Jan 2024 20:12:10 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a285d66a79eso84637466b.1
- for <freedreno@lists.freedesktop.org>; Tue, 02 Jan 2024 12:12:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704226328; x=1704831128; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=83KzRFNIq8oU5Nj4Shp1QMt0bacyGnMWjKJnFXT8GWI=;
- b=iBoi35vxfuSLzyKuH+hrmm2hM38Koq9t1tz57VBDai4uvkuVWU0CT/eHSjkgAW9dJv
- xjIAa9lmhDjPFa6vZMjt+0R3O+/Iq73nEJAKTxmTHiG1TeJzPrkKmZcLudU1knkevJ+p
- 9BtmymOoyx96NlIyX/KhW0oAqA/vzEk64hos294vL9fSyYPD/L2RNte9D6y36NJPzHMa
- dyHS1yryTWlFoXEkcYhiDTYOELaRZL8yAWDV6iVvXFyTInglSH8nAasiQ060IXhEq4iq
- GMUgRoEi0VkTaNcR5F15bRz+Tw4dTLcSyxPid1EsUWJZ2VzJxBggx4Ih2jZh+RW/AJkP
- wWMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704226328; x=1704831128;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=83KzRFNIq8oU5Nj4Shp1QMt0bacyGnMWjKJnFXT8GWI=;
- b=TSXv9XYGxYjahKfxbGrWIDjuI6NFU8sh22q8F3VpZry4J8DC+K4QRCW2ThcU06K2ef
- eDGXeJVSyeNo+GcXfAJY8L0+0xqgUOqwpnZRx/9a9uLHmA4ypCwOgknLW3hnx3Jh+Ec3
- QWfJDqeLRjO0b+X+pSqWpxtU6rg0SN3HiH4M+rgxyr+b/c5hmDWzWFmZJxdY8zRCmEhP
- 3vxT5r8B8paCfI2x+wpjmpRAgSdzfKC6sVevGfnEZGFwzxMWacGjwK4AWvVqeUcbI41K
- 3C8Lo44Opp2/YtlDoS99U/xYPsDHISc96OoAIjDuzprFW6mukoTjnJEKsqhU3OPDGcBc
- Zlrw==
-X-Gm-Message-State: AOJu0YwqbzqyzkG+eWL+hfJ4He7eTgWPxVRYDQnY+tBwFwmY8TQr75EM
- 698T5836Kxu+uuuvDDVFvmeUixHyMCwfdg==
-X-Google-Smtp-Source: AGHT+IEHgbxgrLS6WjDmBKPQ4cLFP36Dx/H40eaBSPB34rFAq2V0N5x9S2EIpACMXr5yLcN2PCVMLQ==
-X-Received: by 2002:a17:906:2249:b0:a27:14f2:d0d with SMTP id
- 9-20020a170906224900b00a2714f20d0dmr5473874ejr.70.1704226328521; 
- Tue, 02 Jan 2024 12:12:08 -0800 (PST)
-Received: from [192.168.199.125]
- (178235179036.dynamic-4-waw-k-1-3-0.vectranet.pl. [178.235.179.36])
- by smtp.gmail.com with ESMTPSA id
- pk17-20020a170906d7b100b00a22fb8901c4sm3169684ejb.12.2024.01.02.12.12.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jan 2024 12:12:08 -0800 (PST)
-Message-ID: <fd88a067-63f6-4467-9787-989890287083@linaro.org>
-Date: Tue, 2 Jan 2024 21:12:05 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2747810E213;
+ Tue,  2 Jan 2024 22:13:35 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 402M0sHD000831; Tue, 2 Jan 2024 22:13:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=81lbXW4HImZGl+eDhFTN5fAxXcaost06Oz288uO0jaQ=; b=Qa
+ FV9zW1EoWOM4jG3lejXyWdFpZnkFxrocibQp4TXCDJd2uJ/yWd8KWGLT43mARpfL
+ szlezZMPE61NDiMWrpw2+i4Tdy2AOJjpSNldman6yV9XAHZuKQXR3aw3mbmEH+q9
+ u2bX9SCy5QPMCF8EWQzq0YpeHSQkJpQYr0R+29g80syJy1LDmTibr+D17L9spQfH
+ 6vNP6RwzDYo98Keuzhv5YifL1u3KHfstdRaCyy99AP+iCY00kiuinpX1zrMlL9YK
+ x0G6M4hTfUndSLfFC1PtQJGH3tA1TcRlQyvut84kEN9AedpsCtdq2LKsguyzBQQO
+ 3GWKdHlVRAiuZ1IB0Xqw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vch7n98pr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 02 Jan 2024 22:13:17 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 402MDGMm013272
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 2 Jan 2024 22:13:16 GMT
+Received: from [10.71.111.96] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 2 Jan
+ 2024 14:13:16 -0800
+Message-ID: <48e19422-77ba-a876-4552-783d54ac9bf6@quicinc.com>
+Date: Tue, 2 Jan 2024 14:13:15 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a7xx: Fix LLC typo
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] drm/msm/dpu: fix kernel-doc warnings
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20240102193348.250917-1-robdclark@gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20240102193348.250917-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: Randy Dunlap <rdunlap@infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20231231060823.1934-1-rdunlap@infradead.org>
+From: Paloma Arellano <quic_parellan@quicinc.com>
+In-Reply-To: <20231231060823.1934-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: vVOOCgP4NBmMg3iT98FJWBz6hEU1c1Q9
+X-Proofpoint-ORIG-GUID: vVOOCgP4NBmMg3iT98FJWBz6hEU1c1Q9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ impostorscore=0 phishscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0 clxscore=1011
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2401020165
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,43 +82,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Danylo Piliaiev <dpiliaiev@igalia.com>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Sean Paul <sean@poorly.run>, Vegard Nossum <vegard.nossum@oracle.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2.01.2024 20:33, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> We'd miss actually activating LLC.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index a5660d63535b..54dc5eb37f70 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1646,7 +1646,7 @@ static int a6xx_gmu_pm_resume(struct msm_gpu *gpu)
->  
->  	msm_devfreq_resume(gpu);
->  
-> -	adreno_is_a7xx(adreno_gpu) ? a7xx_llc_activate : a6xx_llc_activate(a6xx_gpu);
-> +	adreno_is_a7xx(adreno_gpu) ? a7xx_llc_activate(a6xx_gpu) : a6xx_llc_activate(a6xx_gpu);
 
-/me cleans glasses
-
-oh..
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-
-Konrad
+On 12/30/2023 10:08 PM, Randy Dunlap wrote:
+> Correct all kernel-doc warnings in dpu_encoder.c and dpu_rm.c:
+>
+> dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb' description in 'dpu_encoder_virt'
+> dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb_data' description in 'dpu_encoder_virt'
+> dpu_encoder.c:212: warning: Excess struct member 'debugfs_root' description in 'dpu_encoder_virt'
+>
+> dpu_rm.c:35: warning: Excess struct member 'hw_res' description in 'dpu_rm_requirements'
+> dpu_rm.c:208: warning: No description found for return value of '_dpu_rm_get_lm_peer'
+>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Paloma Arellano <quic_parellan@quicinc.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Vegard Nossum <vegard.nossum@oracle.com>
