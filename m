@@ -1,36 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FD28209DF
-	for <lists+freedreno@lfdr.de>; Sun, 31 Dec 2023 07:08:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3980982220E
+	for <lists+freedreno@lfdr.de>; Tue,  2 Jan 2024 20:33:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8ED010E046;
-	Sun, 31 Dec 2023 06:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3147B10E202;
+	Tue,  2 Jan 2024 19:33:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 118D810E046;
- Sun, 31 Dec 2023 06:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=Pdi5ZtHpaZp9Kggr/yaJ0U8/BDWSSZaYMUzC+gCeArI=; b=NrvB6Tb8ns3knSE1FFQWcCpQmA
- TBARokTfNINIlgExGe1w8/dUTRRFP/ErXNL/TONz8XXT9zP/1KGvyCo7F+XVkPt4nXGIabttUdnze
- ln3vUlceKcMCd2Mjrt07AOtKr7WW/E3Yf47VxVOBdg1+HdqZp827wzcU7mnbrDERuCV610OENFD2P
- OC7Hn/dHpFHRIN2/fA1ktDGxEmzAHpXGRFV/PeazBJ1Ldu9LQqKWTvOMPhuxwDWbmZNk9V16Gy+9r
- ZMepz4aSi5NTk7AcQbiCPBpFdzhi/D5AmJfyeV1jxeEDw76guY3fGxrs3W4dzw5d0yODviTdiXTa6
- cc6hxB1w==;
-Received: from [50.53.46.231] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1rJozo-0042hK-2l; Sun, 31 Dec 2023 06:08:24 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: fix kernel-doc warnings
-Date: Sat, 30 Dec 2023 22:08:23 -0800
-Message-ID: <20231231060823.1934-1-rdunlap@infradead.org>
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84ACD10E149;
+ Tue,  2 Jan 2024 19:33:54 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1d409bcb0e7so32569945ad.1; 
+ Tue, 02 Jan 2024 11:33:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704224033; x=1704828833; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=luPtVbWA4WkeKb/ML1jEiRoj2bd2p8W6YJcqHctkuXs=;
+ b=hSqPG93K7RUb3psDaXubq4Ho32zhPb3j5Z6cY3qnUs3SQtll5civNve3c/PP2nYKMw
+ TT8pzGu0MLR2V47+puXZXIbB4emWweF0SA7T344kszJCpGOLq3TfV85iTxsfaJDtR5dh
+ SC1sccuU1wEvMw0ZpEzcxpQifTZu8Tv9roI+M0Z9wSQqmmh4h0h1B8HbCEZtsJz5Kxbg
+ k+WAFDFuCpU6jc4QFkB2zngjSlLVaVYX1in8x/06N/GtzbRIl8xCGjJmUFROq250ZzCu
+ 5VvqXOq35/BWqHPBkLKLxbk1tQfnrhgtja4cR6XOj1Urh3ZyKJBvunnEZkKkUF0Lj6S+
+ 6dtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704224033; x=1704828833;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=luPtVbWA4WkeKb/ML1jEiRoj2bd2p8W6YJcqHctkuXs=;
+ b=CxTtao/QuGIT0WqDd/2Ex9EZgL/Oflc0xizykbd7epgFsAYG5SJzl7pyltFpBEuruA
+ TXSDrE0qDA+NJlyZ4TqMDv23lxxHReD1WulJt3qeeAx8jPYqiiB5d0y7hgoZSns3/m49
+ C2IHbvohy0pDYIRgXSfzFJ39yjKrsC4PVekAhK1fmkVOF5rdKT1CcneIFvJWj1FsJA64
+ HriDDXAXPUGdCZAQqqBPdExMbqXNyRkDVkayj0JHZHDe47u28hV+m4xWDWPnMvT/cW/+
+ emv5GBkG0AsDl+RyTCAHPYZYLqW5+rv8AfFbpldLEuLyQ6e/C79a1BBIF62dss8cQQxG
+ kM5Q==
+X-Gm-Message-State: AOJu0Yx7Z77IGYyx4udeOqGzwdzp8ymbQuFjW44Zk5si6XnXtgtRF5VL
+ OWZBSL8dc+AU/c78SzScvortrq6dMQA=
+X-Google-Smtp-Source: AGHT+IFhwzQzpZlwnGPVfu0XEYA8BSoSkhH6CurSOcH7BLHojR2bA2a6+ZxoT09Eb80mmHaTQ/2xXQ==
+X-Received: by 2002:a17:902:daca:b0:1d4:3797:f829 with SMTP id
+ q10-20020a170902daca00b001d43797f829mr8680675plx.5.1704224032869; 
+ Tue, 02 Jan 2024 11:33:52 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
+ by smtp.gmail.com with ESMTPSA id
+ d14-20020a170902654e00b001d3563c87a6sm22863074pln.281.2024.01.02.11.33.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Jan 2024 11:33:52 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/msm/a7xx: Fix LLC typo
+Date: Tue,  2 Jan 2024 11:33:45 -0800
+Message-ID: <20240102193348.250917-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -46,77 +70,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Vegard Nossum <vegard.nossum@oracle.com>,
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
- Randy Dunlap <rdunlap@infradead.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Danylo Piliaiev <dpiliaiev@igalia.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Correct all kernel-doc warnings in dpu_encoder.c and dpu_rm.c:
+From: Rob Clark <robdclark@chromium.org>
 
-dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb' description in 'dpu_encoder_virt'
-dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb_data' description in 'dpu_encoder_virt'
-dpu_encoder.c:212: warning: Excess struct member 'debugfs_root' description in 'dpu_encoder_virt'
+We'd miss actually activating LLC.
 
-dpu_rm.c:35: warning: Excess struct member 'hw_res' description in 'dpu_rm_requirements'
-dpu_rm.c:208: warning: No description found for return value of '_dpu_rm_get_lm_peer'
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Vegard Nossum <vegard.nossum@oracle.com>
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index a5660d63535b..54dc5eb37f70 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1646,7 +1646,7 @@ static int a6xx_gmu_pm_resume(struct msm_gpu *gpu)
+ 
+ 	msm_devfreq_resume(gpu);
+ 
+-	adreno_is_a7xx(adreno_gpu) ? a7xx_llc_activate : a6xx_llc_activate(a6xx_gpu);
++	adreno_is_a7xx(adreno_gpu) ? a7xx_llc_activate(a6xx_gpu) : a6xx_llc_activate(a6xx_gpu);
+ 
+ 	return ret;
+ }
 -- 
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |    4 ----
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |    3 ++-
- 2 files changed, 2 insertions(+), 5 deletions(-)
+2.43.0
 
-diff -- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -144,10 +144,6 @@ enum dpu_enc_rc_states {
-  *			to track crtc in the disable() hook which is called
-  *			_after_ encoder_mask is cleared.
-  * @connector:		If a mode is set, cached pointer to the active connector
-- * @crtc_kickoff_cb:		Callback into CRTC that will flush & start
-- *				all CTL paths
-- * @crtc_kickoff_cb_data:	Opaque user data given to crtc_kickoff_cb
-- * @debugfs_root:		Debug file system root file node
-  * @enc_lock:			Lock around physical encoder
-  *				create/destroy/enable/disable
-  * @frame_busy_mask:		Bitmask tracking which phys_enc we are still
-diff -- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -29,7 +29,6 @@ static inline bool reserved_by_other(uin
- /**
-  * struct dpu_rm_requirements - Reservation requirements parameter bundle
-  * @topology:  selected topology for the display
-- * @hw_res:	   Hardware resources required as reported by the encoders
-  */
- struct dpu_rm_requirements {
- 	struct msm_display_topology topology;
-@@ -204,6 +203,8 @@ static bool _dpu_rm_needs_split_display(
-  * _dpu_rm_get_lm_peer - get the id of a mixer which is a peer of the primary
-  * @rm: dpu resource manager handle
-  * @primary_idx: index of primary mixer in rm->mixer_blks[]
-+ *
-+ * Returns: lm peer mixed id on success or %-EINVAL on error
-  */
- static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
- {
