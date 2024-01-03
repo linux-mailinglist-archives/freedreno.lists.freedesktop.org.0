@@ -1,75 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D44A822496
-	for <lists+freedreno@lfdr.de>; Tue,  2 Jan 2024 23:13:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81035822663
+	for <lists+freedreno@lfdr.de>; Wed,  3 Jan 2024 02:09:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E525410E213;
-	Tue,  2 Jan 2024 22:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3B1410E0B7;
+	Wed,  3 Jan 2024 01:09:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2747810E213;
- Tue,  2 Jan 2024 22:13:35 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 402M0sHD000831; Tue, 2 Jan 2024 22:13:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=81lbXW4HImZGl+eDhFTN5fAxXcaost06Oz288uO0jaQ=; b=Qa
- FV9zW1EoWOM4jG3lejXyWdFpZnkFxrocibQp4TXCDJd2uJ/yWd8KWGLT43mARpfL
- szlezZMPE61NDiMWrpw2+i4Tdy2AOJjpSNldman6yV9XAHZuKQXR3aw3mbmEH+q9
- u2bX9SCy5QPMCF8EWQzq0YpeHSQkJpQYr0R+29g80syJy1LDmTibr+D17L9spQfH
- 6vNP6RwzDYo98Keuzhv5YifL1u3KHfstdRaCyy99AP+iCY00kiuinpX1zrMlL9YK
- x0G6M4hTfUndSLfFC1PtQJGH3tA1TcRlQyvut84kEN9AedpsCtdq2LKsguyzBQQO
- 3GWKdHlVRAiuZ1IB0Xqw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vch7n98pr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Jan 2024 22:13:17 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 402MDGMm013272
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 2 Jan 2024 22:13:16 GMT
-Received: from [10.71.111.96] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 2 Jan
- 2024 14:13:16 -0800
-Message-ID: <48e19422-77ba-a876-4552-783d54ac9bf6@quicinc.com>
-Date: Tue, 2 Jan 2024 14:13:15 -0800
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [IPv6:2607:f8b0:4864:20::b2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD6310E14E
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Jan 2024 01:09:49 +0000 (UTC)
+Received: by mail-yb1-xb2b.google.com with SMTP id
+ 3f1490d57ef6-dbd990ad852so6286612276.1
+ for <freedreno@lists.freedesktop.org>; Tue, 02 Jan 2024 17:09:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1704244188; x=1704848988; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=DG4L4lYtCuZJbRBE8lQJs1HFF5YGxemE517QXOU6TF0=;
+ b=ouhKvs7AcKANYdd2vzf/KS/2efs7bckkEmvcsbG3eCDDt4nKSMdtKvu7xSdbb5UYh2
+ x2/cc8eVRVzVy9Tq5eX4T9XTQFgzQAXLkadhdQKXDqqniwWTK/LLQRx4GtHH+2AxHHer
+ ++QBjrGVZNJUszId+YsHi9TIn1Bh6Fs93FK0PD4Saoh2F56BaNETDasIpLYRyjNSWh3T
+ agb62cgXC5kdOAT2CTmLdVpA9bdy1ABhj6xB6Z0q+EVMhYJuiHPHZHGeXz7x1jvuyZSK
+ aRi57Rl6WiEznRhvMVhJA8X1k+8HA6Sej2w3L8gHzXBYAuRRFD9qdPJVoKspFI+CRb2j
+ ughQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704244188; x=1704848988;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DG4L4lYtCuZJbRBE8lQJs1HFF5YGxemE517QXOU6TF0=;
+ b=a62+5IcHybAONtkbuVKMEREUe38UOqzCCl3A90U9dV4SnkUtxTn4tctRZMoICyJNOi
+ EkS/2fUEYuj0LoWIl0RV/EoBnXVicQLhazA2dyb464yKwIZquQUbDOZcz/uZk2+ul4OG
+ trClMVX1m7fxYvQbNPtg5fxPFZDoNsDtMI5NnZAp1Sim0XrSjPNJ3OuRM0SYEg6skoXc
+ RzBP3fN5Kh9nh+cVy492fdBLhZ/GkhvPk7xFc5dLHjcm2jMe4hNVCYI2W2Z5WkSsX88J
+ LpoKVMO80ZSGWqBDzDc7RbgN9KxABcWt+e9c+HJfNob/bnZ9vAIx5Cg4eV3BdWcQ5c6+
+ gAxQ==
+X-Gm-Message-State: AOJu0YzhYmsYw/ugxNpgrNsOinvek+lWAuT+zAe8dR2lolNSxM7MW6cz
+ yt+y8JWX5sL7aQJW8xSKd7N84+IRfdF0iUA8QJHcwpPlSoSw6A==
+X-Google-Smtp-Source: AGHT+IF2SG5jIzKRHJmYZYwmnlnpiJrFcs9I5f2XICXUuB+krrM5Glrodkr57n36g6T86Q04dS384DBfSqPKcmQel8Y=
+X-Received: by 2002:a5b:60b:0:b0:dbe:6c6a:af85 with SMTP id
+ d11-20020a5b060b000000b00dbe6c6aaf85mr2226326ybq.91.1704244188068; Tue, 02
+ Jan 2024 17:09:48 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/msm/dpu: fix kernel-doc warnings
-Content-Language: en-US
-To: Randy Dunlap <rdunlap@infradead.org>, <linux-kernel@vger.kernel.org>
 References: <20231231060823.1934-1-rdunlap@infradead.org>
-From: Paloma Arellano <quic_parellan@quicinc.com>
 In-Reply-To: <20231231060823.1934-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: vVOOCgP4NBmMg3iT98FJWBz6hEU1c1Q9
-X-Proofpoint-ORIG-GUID: vVOOCgP4NBmMg3iT98FJWBz6hEU1c1Q9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 phishscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0 clxscore=1011
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2401020165
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 3 Jan 2024 03:09:37 +0200
+Message-ID: <CAA8EJpprirmP1=2sJNozWe8GPKCCXXPtf1XQP2u6K2CfsD378w@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dpu: fix kernel-doc warnings
+To: Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,20 +66,18 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Vegard Nossum <vegard.nossum@oracle.com>,
+Cc: freedreno@lists.freedesktop.org, Vegard Nossum <vegard.nossum@oracle.com>,
  Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 12/30/2023 10:08 PM, Randy Dunlap wrote:
+On Sun, 31 Dec 2023 at 08:08, Randy Dunlap <rdunlap@infradead.org> wrote:
+>
 > Correct all kernel-doc warnings in dpu_encoder.c and dpu_rm.c:
 >
 > dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb' description in 'dpu_encoder_virt'
@@ -106,7 +88,6 @@ On 12/30/2023 10:08 PM, Randy Dunlap wrote:
 > dpu_rm.c:208: warning: No description found for return value of '_dpu_rm_get_lm_peer'
 >
 > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Paloma Arellano <quic_parellan@quicinc.com>
 > Cc: Rob Clark <robdclark@gmail.com>
 > Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -120,3 +101,14 @@ Reviewed-by: Paloma Arellano <quic_parellan@quicinc.com>
 > Cc: Thomas Zimmermann <tzimmermann@suse.de>
 > Cc: Jonathan Corbet <corbet@lwn.net>
 > Cc: Vegard Nossum <vegard.nossum@oracle.com>
+> --
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |    4 ----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |    3 ++-
+>  2 files changed, 2 insertions(+), 5 deletions(-)
+>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
