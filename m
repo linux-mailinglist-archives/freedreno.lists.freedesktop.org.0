@@ -2,58 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81035822663
-	for <lists+freedreno@lfdr.de>; Wed,  3 Jan 2024 02:09:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3CCC8234E4
+	for <lists+freedreno@lfdr.de>; Wed,  3 Jan 2024 19:49:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3B1410E0B7;
-	Wed,  3 Jan 2024 01:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDFD10E343;
+	Wed,  3 Jan 2024 18:49:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD6310E14E
- for <freedreno@lists.freedesktop.org>; Wed,  3 Jan 2024 01:09:49 +0000 (UTC)
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-dbd990ad852so6286612276.1
- for <freedreno@lists.freedesktop.org>; Tue, 02 Jan 2024 17:09:49 -0800 (PST)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC4910E32B;
+ Wed,  3 Jan 2024 18:49:10 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ccbf8cbf3aso102867761fa.3; 
+ Wed, 03 Jan 2024 10:49:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704244188; x=1704848988; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DG4L4lYtCuZJbRBE8lQJs1HFF5YGxemE517QXOU6TF0=;
- b=ouhKvs7AcKANYdd2vzf/KS/2efs7bckkEmvcsbG3eCDDt4nKSMdtKvu7xSdbb5UYh2
- x2/cc8eVRVzVy9Tq5eX4T9XTQFgzQAXLkadhdQKXDqqniwWTK/LLQRx4GtHH+2AxHHer
- ++QBjrGVZNJUszId+YsHi9TIn1Bh6Fs93FK0PD4Saoh2F56BaNETDasIpLYRyjNSWh3T
- agb62cgXC5kdOAT2CTmLdVpA9bdy1ABhj6xB6Z0q+EVMhYJuiHPHZHGeXz7x1jvuyZSK
- aRi57Rl6WiEznRhvMVhJA8X1k+8HA6Sej2w3L8gHzXBYAuRRFD9qdPJVoKspFI+CRb2j
- ughQ==
+ d=gmail.com; s=20230601; t=1704307749; x=1704912549; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HSwdtsY61fYy46M5QE5KizBE3QaiBoSxLHAq5Tnp4Uw=;
+ b=aSDgCoxPTV66XGpEXdVXsrvnpEZdDHfzmbPwouxkRiYgaKyKnGryHwaQ5T4epXpSBM
+ 4b4zulgHXzmNTJyPxIYSLey51Pf9bXnoKpzm+JVsiIvMtv40aJmdCYJ+d8gfYMwcaFWp
+ F2UkOCiLVW4kVodg1RZdkNJAdAK0AAGuArfxxsbP87kQEueuTpjBOJ/emaO/Cn9/ALMd
+ oMEUndshKOsIUuAiXiONMJI3cwIWMx2cpGce4F669gv/0vUZ+Uj+iLSLLUjHLjEonsNW
+ DjNsNufglhhWklX3CO2c5ZWKI5DY7S9ZMMY/jqEIRMRj9Aadh+wd/zL3nXxpGCrZzzvz
+ SRIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704244188; x=1704848988;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DG4L4lYtCuZJbRBE8lQJs1HFF5YGxemE517QXOU6TF0=;
- b=a62+5IcHybAONtkbuVKMEREUe38UOqzCCl3A90U9dV4SnkUtxTn4tctRZMoICyJNOi
- EkS/2fUEYuj0LoWIl0RV/EoBnXVicQLhazA2dyb464yKwIZquQUbDOZcz/uZk2+ul4OG
- trClMVX1m7fxYvQbNPtg5fxPFZDoNsDtMI5NnZAp1Sim0XrSjPNJ3OuRM0SYEg6skoXc
- RzBP3fN5Kh9nh+cVy492fdBLhZ/GkhvPk7xFc5dLHjcm2jMe4hNVCYI2W2Z5WkSsX88J
- LpoKVMO80ZSGWqBDzDc7RbgN9KxABcWt+e9c+HJfNob/bnZ9vAIx5Cg4eV3BdWcQ5c6+
- gAxQ==
-X-Gm-Message-State: AOJu0YzhYmsYw/ugxNpgrNsOinvek+lWAuT+zAe8dR2lolNSxM7MW6cz
- yt+y8JWX5sL7aQJW8xSKd7N84+IRfdF0iUA8QJHcwpPlSoSw6A==
-X-Google-Smtp-Source: AGHT+IF2SG5jIzKRHJmYZYwmnlnpiJrFcs9I5f2XICXUuB+krrM5Glrodkr57n36g6T86Q04dS384DBfSqPKcmQel8Y=
-X-Received: by 2002:a5b:60b:0:b0:dbe:6c6a:af85 with SMTP id
- d11-20020a5b060b000000b00dbe6c6aaf85mr2226326ybq.91.1704244188068; Tue, 02
- Jan 2024 17:09:48 -0800 (PST)
+ d=1e100.net; s=20230601; t=1704307749; x=1704912549;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HSwdtsY61fYy46M5QE5KizBE3QaiBoSxLHAq5Tnp4Uw=;
+ b=wmnOWPXwblFqSERGHeXvPH9d6km1b8Mz3rov6ufKtDpOoqnYMqqEb1Q02CmvGuB9dT
+ IE/tsPZrm1NtzDFnEHVltRTZEq3Dj2s5Kp6LVuPeDUCcCWhRxE6ulyL010bC8Y7Zkvpi
+ 6QzpdnIX+0KUyK+g8JHr1T0sVaKSALemj4GurNCy+HP6+dVY3V/4nzaNvTifB1JUkNsO
+ ml7Euqs474t9c5tW4M3UgMyLecpeHd95BT6q7rcbk+e3xFvL3dyuUQyyYkkTHLC7PrZH
+ eauubJLq9qJK0y3tjg7fce6VrhPGkT6gsUXk0egktw7sqqLUmgUWI2AlmMwIuw5HVSlP
+ bCuA==
+X-Gm-Message-State: AOJu0Yz0FdJ/we9dZYMX1OytJahvEQGsVgF5conh68ISnserHPBn9Qb7
+ iahwyr7Rs/F7SA/sIlr+aiPJE4pO2HKWe3QGW5g=
+X-Google-Smtp-Source: AGHT+IG+OC/fH5CHJHM4KYYgGuSRIAloVFSbQRrYKWlazIMzUbmSodkBi162LLgz+u6vZOa9YXsBO0vakCfp0mrOPbY=
+X-Received: by 2002:a05:651c:4c6:b0:2cd:dfe:74bb with SMTP id
+ e6-20020a05651c04c600b002cd0dfe74bbmr2277411lji.49.1704307748788; Wed, 03 Jan
+ 2024 10:49:08 -0800 (PST)
 MIME-Version: 1.0
-References: <20231231060823.1934-1-rdunlap@infradead.org>
-In-Reply-To: <20231231060823.1934-1-rdunlap@infradead.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 3 Jan 2024 03:09:37 +0200
-Message-ID: <CAA8EJpprirmP1=2sJNozWe8GPKCCXXPtf1XQP2u6K2CfsD378w@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: fix kernel-doc warnings
-To: Randy Dunlap <rdunlap@infradead.org>
+References: <20240102193348.250917-1-robdclark@gmail.com>
+ <fd88a067-63f6-4467-9787-989890287083@linaro.org>
+In-Reply-To: <fd88a067-63f6-4467-9787-989890287083@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 3 Jan 2024 10:48:56 -0800
+Message-ID: <CAF6AEGtk7qS5hPYDGKVnrcEfcQEkr1J4=UTL7sikVJB3AvDBFQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/a7xx: Fix LLC typo
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,49 +69,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Vegard Nossum <vegard.nossum@oracle.com>,
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Danylo Piliaiev <dpiliaiev@igalia.com>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 31 Dec 2023 at 08:08, Randy Dunlap <rdunlap@infradead.org> wrote:
+On Tue, Jan 2, 2024 at 12:12=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
 >
-> Correct all kernel-doc warnings in dpu_encoder.c and dpu_rm.c:
+> On 2.01.2024 20:33, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > We'd miss actually activating LLC.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gpu.c
+> > index a5660d63535b..54dc5eb37f70 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -1646,7 +1646,7 @@ static int a6xx_gmu_pm_resume(struct msm_gpu *gpu=
+)
+> >
+> >       msm_devfreq_resume(gpu);
+> >
+> > -     adreno_is_a7xx(adreno_gpu) ? a7xx_llc_activate : a6xx_llc_activat=
+e(a6xx_gpu);
+> > +     adreno_is_a7xx(adreno_gpu) ? a7xx_llc_activate(a6xx_gpu) : a6xx_l=
+lc_activate(a6xx_gpu);
 >
-> dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb' description in 'dpu_encoder_virt'
-> dpu_encoder.c:212: warning: Excess struct member 'crtc_kickoff_cb_data' description in 'dpu_encoder_virt'
-> dpu_encoder.c:212: warning: Excess struct member 'debugfs_root' description in 'dpu_encoder_virt'
+> /me cleans glasses
 >
-> dpu_rm.c:35: warning: Excess struct member 'hw_res' description in 'dpu_rm_requirements'
-> dpu_rm.c:208: warning: No description found for return value of '_dpu_rm_get_lm_peer'
+> oh..
 >
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Vegard Nossum <vegard.nossum@oracle.com>
-> --
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |    4 ----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |    3 ++-
->  2 files changed, 2 insertions(+), 5 deletions(-)
->
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I suppose I should also add,
 
--- 
-With best wishes
-Dmitry
+Fixes: af66706accdf ("drm/msm/a6xx: Add skeleton A7xx support")
+
+> Konrad
