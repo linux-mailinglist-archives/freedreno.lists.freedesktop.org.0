@@ -2,41 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 496E5823D38
-	for <lists+freedreno@lfdr.de>; Thu,  4 Jan 2024 09:14:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3032982497A
+	for <lists+freedreno@lfdr.de>; Thu,  4 Jan 2024 21:17:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184AA10E3E3;
-	Thu,  4 Jan 2024 08:14:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED03510E53D;
+	Thu,  4 Jan 2024 20:16:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [IPv6:2a00:1098:ed:100::25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9687610E3DD;
- Thu,  4 Jan 2024 08:14:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1704356094;
- bh=ncd3XYdroNJ1ztYRtxUH+GhX1SePVlp2/xSXN9MvZ2g=;
- h=From:To:Cc:Subject:Date:From;
- b=ZB/5N7iVC4SLBbk6KhzT9dXGCjW4qDdrMHdOJLvYYiJAu/sIp1nme8mEyDmbyN+y4
- OT9fV4XkAav4hdMqQlLfaNJa/ClRbEPjI4Y17GBAzkcYjUrut25KgrGf9lPfS7kp+b
- rRLd538wVdHJxKCmQ8CjlQO5rstxaNWt/ufRWx8Q2W3ziygRC3672h/NgZx7Eein+0
- h0XseszQ8r2/xxxckwdfZJN73Vf8SDVcfWtqj05X55Tiu7g7W/EXMpyW3CaxP1ZDoD
- 3dnz45z8Y0WS0g+nGXlvZ94m1mdC3iOfeG6YwmIfYU8C5avi0XDCAwsRb1DPaKgCvP
- g09xN8Cyun6bA==
-Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id D77A33780629;
- Thu,  4 Jan 2024 08:14:48 +0000 (UTC)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: [PATCH v1] drm/ci: add sc7180-trogdor-kingoftown
-Date: Thu,  4 Jan 2024 13:44:35 +0530
-Message-Id: <20240104081435.1936059-1-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.40.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A5A10E53A;
+ Thu,  4 Jan 2024 20:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704399418; x=1735935418;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=QG7cZgfLPqhPz+2RD5M13z2nw+gbzX0cHbb88mnsuxA=;
+ b=Akgu0bmkffM++dmaIDpd92dUEnOviPRNLzVANg2GWU756b4t5R06uhcn
+ yz35DkMvmCYYAkJMLhHyHAXMUHHeVvbsMYqKQOaO0fjOOL///VDMwy/6n
+ FCshuHeZOhjCvB7lRQ8kt0KPo6qloULRWJqWawDsf0tC1rlCTXgV1Oopj
+ FhVOus+r2bB/foGt8CdUCUgKA2XUbdnDenb90PerFPJyuC8PgsGOv4HAF
+ CvBYU0UljDBYieME4YxoWD2TfdXHhpc7bsB3aFVBjzoveKee/ByEaTvQA
+ XJBrylqGMPLG4dk8JMoAOlf7k3/cYyQdL/SDCHrmfbYXvkyokVb4CVgRH g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="15976711"
+X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; d="scan'208";a="15976711"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2024 12:16:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="871037934"
+X-IronPort-AV: E=Sophos;i="6.04,331,1695711600"; d="scan'208";a="871037934"
+Received: from pdelarag-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.36.32])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2024 12:16:50 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Subject: [PATCH 3/3] ASoC: hdmi-codec: drop drm/drm_edid.h include
+Date: Thu,  4 Jan 2024 22:16:32 +0200
+Message-Id: <20240104201632.1100753-3-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240104201632.1100753-1-jani.nikula@intel.com>
+References: <20240104201632.1100753-1-jani.nikula@intel.com>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,212 +60,141 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniels@collabora.com, sean@poorly.run, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, david.heidelberg@collabora.com,
- helen.koike@collabora.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, airlied@gmail.com, linux-kernel@vger.kernel.org
+Cc: Maxime Ripard <mripard@kernel.org>, freedreno@lists.freedesktop.org,
+ Robert Foss <rfoss@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ jani.nikula@intel.com, linux-arm-msm@vger.kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>, linux-sound@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Takashi Iwai <tiwai@suse.com>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add job that executes the IGT test suite for sc7180-trogdor-kingoftown.
-This commit also updates xfails for sc7180-trogdor-lazor-limozeen.
+hdmi-codec.h does not appear to directly need drm/drm_edid.h for
+anything. Remove it.
 
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+There are some files that get drm/drm_edid.h by proxy; include it where
+needed.
+
+v2-v4: Fix build (kernel test robot <lkp@intel.com>)
+
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Robert Foss <rfoss@kernel.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org
+Acked-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
+ drivers/gpu/drm/bridge/lontium-lt9611.c    | 1 +
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c  | 1 +
+ drivers/gpu/drm/msm/dp/dp_display.c        | 1 +
+ drivers/gpu/drm/tegra/hdmi.c               | 1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c             | 1 +
+ include/sound/hdmi-codec.h                 | 1 -
+ 7 files changed, 6 insertions(+), 1 deletion(-)
 
-See pipeline: https://gitlab.freedesktop.org/vigneshraman/linux/-/pipelines/1069934
-
----
- drivers/gpu/drm/ci/build.sh                   |  1 +
- drivers/gpu/drm/ci/test.yml                   | 25 ++++++++++++----
- .../gpu/drm/ci/xfails/msm-sc7180-fails.txt    | 30 -------------------
- .../gpu/drm/ci/xfails/msm-sc7180-flakes.txt   | 17 -----------
- .../gpu/drm/ci/xfails/msm-sc7180-skips.txt    |  7 -----
- .../msm-sc7180-trogdor-kingoftown-fails.txt   | 17 +++++++++++
- ...sm-sc7180-trogdor-lazor-limozeen-fails.txt | 17 +++++++++++
- 7 files changed, 55 insertions(+), 59 deletions(-)
- delete mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
- delete mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt
- delete mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
-
-diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
-index 97ff43759b91..331a61e0d25a 100644
---- a/drivers/gpu/drm/ci/build.sh
-+++ b/drivers/gpu/drm/ci/build.sh
-@@ -26,6 +26,7 @@ if [[ "$KERNEL_ARCH" = "arm64" ]]; then
-     DEVICE_TREES+=" arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-juniper-sku16.dtb"
-     DEVICE_TREES+=" arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dtb"
-     DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-limozeen-nots-r5.dtb"
-+    DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sc7180-trogdor-kingoftown.dtb"
- elif [[ "$KERNEL_ARCH" = "arm" ]]; then
-     GCC_ARCH="arm-linux-gnueabihf"
-     DEBIAN_ARCH="armhf"
-diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-index a079f3632a95..0c7920c0254d 100644
---- a/drivers/gpu/drm/ci/test.yml
-+++ b/drivers/gpu/drm/ci/test.yml
-@@ -82,20 +82,35 @@
-   tags:
-     - $RUNNER_TAG
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+index 9663601ce098..b9205d14d943 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+@@ -18,6 +18,7 @@
  
--msm:sc7180:
-+.msm-sc7180:
-   extends:
-     - .lava-igt:arm64
-   stage: msm
--  parallel: 4
-   variables:
-     DRIVER_NAME: msm
--    DEVICE_TYPE: sc7180-trogdor-lazor-limozeen
--    DTB: sc7180-trogdor-lazor-limozeen-nots-r5
-     BOOT_METHOD: depthcharge
-     KERNEL_IMAGE_TYPE: ""
--    GPU_VERSION: sc7180
-+
-+msm:sc7180-trogdor-lazor-limozeen:
-+  extends:
-+    - .msm-sc7180
-+  parallel: 4
-+  variables:
-+    DEVICE_TYPE: sc7180-trogdor-lazor-limozeen
-+    DTB: sc7180-trogdor-lazor-limozeen-nots-r5
-+    GPU_VERSION: ${DEVICE_TYPE}
-     RUNNER_TAG: mesa-ci-x86-64-lava-sc7180-trogdor-lazor-limozeen
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+index e971b75e90ad..f3f130c1ef0a 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+@@ -21,6 +21,7 @@
  
-+msm:sc7180-trogdor-kingoftown:
-+  extends:
-+    - .msm-sc7180
-+  parallel: 6
-+  variables:
-+    DEVICE_TYPE: sc7180-trogdor-kingoftown
-+    DTB: sc7180-trogdor-kingoftown
-+    GPU_VERSION: ${DEVICE_TYPE}
-+    RUNNER_TAG: mesa-ci-x86-64-lava-sc7180-trogdor-kingoftown
-+
- msm:apq8016:
-   extends:
-     - .baremetal-igt-arm64
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
-deleted file mode 100644
-index f71166a57731..000000000000
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-fails.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--kms_color@ctm-0-25,Fail
--kms_color@ctm-0-50,Fail
--kms_color@ctm-0-75,Fail
--kms_color@ctm-blue-to-red,Fail
--kms_color@ctm-green-to-red,Fail
--kms_color@ctm-negative,Fail
--kms_color@ctm-red-to-blue,Fail
--kms_color@ctm-signed,Fail
--kms_cursor_legacy@cursor-vs-flip-toggle,Fail
--kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
--kms_cursor_legacy@cursorA-vs-flipA-atomic-transitions,Crash
--kms_flip@flip-vs-modeset-vs-hang,Fail
--kms_flip@flip-vs-panning-vs-hang,Fail
--kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
--kms_plane_alpha_blend@alpha-7efc,Fail
--kms_plane_alpha_blend@coverage-7efc,Fail
--kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
--kms_plane_alpha_blend@pipe-A-alpha-7efc,Fail
--kms_plane_alpha_blend@pipe-A-coverage-7efc,Fail
--kms_plane_alpha_blend@pipe-A-coverage-vs-premult-vs-constant,Fail
--kms_plane_alpha_blend@pipe-B-alpha-7efc,Fail
--kms_plane_alpha_blend@pipe-B-alpha-basic,Fail
--kms_plane_alpha_blend@pipe-B-alpha-opaque-fb,Fail
--kms_plane_alpha_blend@pipe-B-constant-alpha-max,Fail
--kms_plane_alpha_blend@pipe-B-constant-alpha-mid,Fail
--kms_plane_alpha_blend@pipe-B-coverage-7efc,Fail
--kms_plane_alpha_blend@pipe-B-coverage-vs-premult-vs-constant,Fail
--kms_rmfb@close-fd,Fail
--kms_universal_plane@disable-primary-vs-flip-pipe-b,Fail
--kms_universal_plane@universal-plane-pipe-B-sanity,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt
-deleted file mode 100644
-index 04730044ed12..000000000000
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-flakes.txt
-+++ /dev/null
-@@ -1,17 +0,0 @@
--kms_color@ctm-0-25
--kms_color@ctm-0-50
--kms_color@ctm-0-75
--kms_color@ctm-blue-to-red
--kms_color@ctm-green-to-red
--kms_color@ctm-negative
--kms_color@ctm-red-to-blue
--kms_color@ctm-signed
--kms_flip@flip-vs-modeset-vs-hang
--kms_flip@flip-vs-panning-vs-hang
--kms_plane@pixel-format
--kms_plane@pixel-format-source-clamping
--kms_plane@plane-position-covered
--kms_plane@plane-position-hole
--kms_plane@plane-position-hole-dpms
--kms_writeback@writeback-fb-id
--kms_writeback@writeback-invalid-parameters
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
-deleted file mode 100644
-index e59a2fddfde0..000000000000
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
-+++ /dev/null
-@@ -1,7 +0,0 @@
--# Suspend to RAM seems to be broken on this machine
--.*suspend.*
--
--# Test incorrectly assumes that CTM support implies gamma/degamma
--# LUT support.  None of the subtests handle the case of only having
--# CTM support
--#kms_color.*
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
-new file mode 100644
-index 000000000000..7e4d8744fcc6
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
-@@ -0,0 +1,17 @@
-+kms_color@ctm-0-25,Fail
-+kms_color@ctm-0-50,Fail
-+kms_color@ctm-0-75,Fail
-+kms_color@ctm-blue-to-red,Fail
-+kms_color@ctm-green-to-red,Fail
-+kms_color@ctm-negative,Fail
-+kms_color@ctm-red-to-blue,Fail
-+kms_color@ctm-signed,Fail
-+kms_cursor_legacy@cursor-vs-flip-toggle,Fail
-+kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
-+kms_flip@flip-vs-modeset-vs-hang,Fail
-+kms_flip@flip-vs-panning-vs-hang,Fail
-+kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
-+kms_plane_alpha_blend@alpha-7efc,Fail
-+kms_plane_alpha_blend@coverage-7efc,Fail
-+kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
-+kms_rmfb@close-fd,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
-new file mode 100644
-index 000000000000..7e4d8744fcc6
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-fails.txt
-@@ -0,0 +1,17 @@
-+kms_color@ctm-0-25,Fail
-+kms_color@ctm-0-50,Fail
-+kms_color@ctm-0-75,Fail
-+kms_color@ctm-blue-to-red,Fail
-+kms_color@ctm-green-to-red,Fail
-+kms_color@ctm-negative,Fail
-+kms_color@ctm-red-to-blue,Fail
-+kms_color@ctm-signed,Fail
-+kms_cursor_legacy@cursor-vs-flip-toggle,Fail
-+kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
-+kms_flip@flip-vs-modeset-vs-hang,Fail
-+kms_flip@flip-vs-panning-vs-hang,Fail
-+kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
-+kms_plane_alpha_blend@alpha-7efc,Fail
-+kms_plane_alpha_blend@coverage-7efc,Fail
-+kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
-+kms_rmfb@close-fd,Fail
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 52d91a0df85e..fa63a21bdd1c 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -31,6 +31,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d37d599aec27..c8e1bbebdffe 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -11,6 +11,7 @@
+ #include <linux/of_irq.h>
+ #include <linux/delay.h>
+ #include <drm/display/drm_dp_aux_bus.h>
++#include <drm/drm_edid.h>
+ 
+ #include "msm_drv.h"
+ #include "msm_kms.h"
+diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
+index 417fb884240a..09987e372e3e 100644
+--- a/drivers/gpu/drm/tegra/hdmi.c
++++ b/drivers/gpu/drm/tegra/hdmi.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_debugfs.h>
++#include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_fourcc.h>
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index f05e2c95a60d..34f807ed1c31 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -35,6 +35,7 @@
+ #include <drm/display/drm_scdc_helper.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_edid.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+ #include <linux/clk.h>
+diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
+index 9b162ac1e08e..5e1a9eafd10f 100644
+--- a/include/sound/hdmi-codec.h
++++ b/include/sound/hdmi-codec.h
+@@ -12,7 +12,6 @@
+ 
+ #include <linux/of_graph.h>
+ #include <linux/hdmi.h>
+-#include <drm/drm_edid.h>
+ #include <sound/asoundef.h>
+ #include <sound/soc.h>
+ #include <uapi/sound/asound.h>
 -- 
-2.40.1
+2.39.2
 
