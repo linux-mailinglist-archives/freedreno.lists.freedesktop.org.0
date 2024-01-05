@@ -2,61 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C88C825794
-	for <lists+freedreno@lfdr.de>; Fri,  5 Jan 2024 17:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0BA825D21
+	for <lists+freedreno@lfdr.de>; Sat,  6 Jan 2024 00:34:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E868A10E637;
-	Fri,  5 Jan 2024 16:04:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0430810E6AB;
+	Fri,  5 Jan 2024 23:34:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A617A10E634;
- Fri,  5 Jan 2024 16:04:27 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-20400d5b54eso928683fac.1; 
- Fri, 05 Jan 2024 08:04:27 -0800 (PST)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F8410E6AC
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Jan 2024 23:34:18 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cd08f0c12aso648721fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Jan 2024 15:34:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704470667; x=1705075467; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=whv4GannslDB5rLdYo9kigOWmeo7QZDRfIfNrJXqKEw=;
- b=fpzkmB6uCP3FqUw8dsOFTj46wIu+teFmGCtbMxWIp8yg0DKUoRGyQrke+CulbvEUXf
- jLeD+G3BUUY8MHbSL3ejEz7t0AUmwXZUVBn/ExifwmiyaxVBNFTC57u6B+C3X7wWPq7h
- OLXNVN/ABd8vbQV1oKZnpzazX1CcTgVZ28hQFK3YQPwkev9fLP8hrOdrg60hFlgSPH6g
- b/fWXKOk2OJz4JT06fzLmw3NjQQ3uKVsdbS62d6y4GALoCBjsBvB3EP8Yyl7Y9p1HJd+
- SI8ryy3ZB7oSN+UnnKOfI1mLdQEDT2niM+SFfIe/EBQPpfENXUf2E4LEMdFB6mqnsZ1L
- xpPA==
+ d=linaro.org; s=google; t=1704497657; x=1705102457; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hw1I7zlexZk5iP3niM8oRxjLKv+HZe/PhMWNQUKYIfU=;
+ b=fl2cVWa0HGPi25F7GG4xhExijQSY5cGKs8QrPsqIlgB/AMv3C72ctbdgeiu8Xlvek/
+ nZ+Wl/GhRqbV6ogmVvvR9qJawCMl7pYlQqhJiL4vUL8qIgUs7XG4IwcTLxrowyC1UDyd
+ GsUlUaq9LIRjf7K7An8VOCJQh00TcbshNEer1PHlav1QXmLPcpVT8XEGAp9lMaX9w4qC
+ sTcLBwGIQ94izw/z3wjKxN/xr9A58auR2A9PLni54ofHt/OP3WXN98J+1wOA+ddeWYph
+ V0f69EFtzZp0yPyoPR2cC6Mo05KU7MW4dJnZv9/bPbG+AjXWFma414VJHJEmPc3yCBQK
+ so8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704470667; x=1705075467;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=whv4GannslDB5rLdYo9kigOWmeo7QZDRfIfNrJXqKEw=;
- b=mjKyIbHRikwIK+Hi+Q6gICnjKACD9zlScQk8EJSP/1GTrBdnxirrBmf9dyEvdr6zkD
- yA8pLyzDE/FFN/wfstd/5Na6YeiSsS5FBEdQgLVw1uwjVo3HhAXHcdJcCf3Kp3OtqPwz
- iWd4PNAkhGmzx/nP/CuZk/Y7WNs85mC0eZ93UI8FPpwu+u/SE2mfIA64yFSX5rIZ0miG
- WdfE3aOvJT+cdAshIO8wvyItXKCKUYfv23EQhg+zr7R863ASVjcjxXm1sFY2uPCkU/Az
- oj4dwuW0Y/HnpvjRM6y/gEUdyOfVQRCLPlIihboUaomxKZLVDQjSvZrFQJM+n/z5hV0a
- vPRA==
-X-Gm-Message-State: AOJu0YyG4m/0wvibm4BChV/Eyb9F+YZ/FKoqkgeCqIc3OK1Kn9VL+oTR
- 5ipcwNF8H0xIdG6m2dzbHn7aC4tRPGQx12CIQxk=
-X-Google-Smtp-Source: AGHT+IEyWFcej5XGL9+gHh+h2IKOiy8VOKFo3RMc9yjKxFm8wxHp0Hv+8oSB86SBuzomapKqFUADrLdZsYPC/g2EVRs=
-X-Received: by 2002:a05:6870:a118:b0:205:c4d3:ef8d with SMTP id
- m24-20020a056870a11800b00205c4d3ef8dmr2376611oae.104.1704470666931; Fri, 05
- Jan 2024 08:04:26 -0800 (PST)
+ d=1e100.net; s=20230601; t=1704497657; x=1705102457;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hw1I7zlexZk5iP3niM8oRxjLKv+HZe/PhMWNQUKYIfU=;
+ b=O3SXt2jhAjVktrMEf/+jR2eDK05w3/CDa3BwmIRh4BnVokbpATDWYIfnuTgx16NQ+u
+ kjUa9WSKKAQX6iq1nt/FsgIKKkYNuNrHB3BANZuh4+m7i3VDRrQOj75ZxjM4I3NgLcSB
+ gVXjopkON5shG0oVN4aBmhEqyVERxtu90jwPurHzBw2GpGrPM1y7jT7lLn9udhIAzgFJ
+ KHWu+inQHZ24qtrmusP1b94aOFTCifdu99nZH4HlJzXnS+tEr2gotsioGhQjX899XqEx
+ 5ez3+j4/L+sP2A2fBpteBTT6G8TJu+UOM5AaEFekJSaJYcM/S2kV5QabdPt+aEcH2PPs
+ 0Jrw==
+X-Gm-Message-State: AOJu0YyMLb/WMKEkSkJsPoHxv25VQ/tWYsC/lfypjHGFQh2jnziSDOmk
+ LmJAhq8nxE4JdOFAWCrm/r5KRSbtbmqGUA==
+X-Google-Smtp-Source: AGHT+IE4aCRn3wpU5GBLKoPj8usYV6U1B5P46v5fiYF7vz9hdG+s494PcqSl8gwkFp7NHd+h5I6diw==
+X-Received: by 2002:a05:6512:29a:b0:50e:7723:8f9a with SMTP id
+ j26-20020a056512029a00b0050e77238f9amr48362lfp.30.1704497656929; 
+ Fri, 05 Jan 2024 15:34:16 -0800 (PST)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ k4-20020ac24f04000000b0050e74d04c8asm362211lfr.132.2024.01.05.15.34.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jan 2024 15:34:16 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v3 0/4] drm/msm: provide migration path from MDP5 to DPU driver
+Date: Sat, 06 Jan 2024 01:34:14 +0200
+Message-Id: <20240106-fd-migrate-mdp5-v3-0-3d2750378063@linaro.org>
 MIME-Version: 1.0
-References: <20240104201632.1100753-1-jani.nikula@intel.com>
- <20240104201632.1100753-3-jani.nikula@intel.com>
-In-Reply-To: <20240104201632.1100753-3-jani.nikula@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Jan 2024 11:04:15 -0500
-Message-ID: <CADnq5_OBNc8TOErS+sXMB2OuaqT0PdOU7O0+MHGU2pEKF10GTA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: hdmi-codec: drop drm/drm_edid.h include
-To: Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPaRmGUC/zXMTQqDMBBA4atI1h3Jj5rSVe9RupiYqEMbIxORi
+ nj3hkKX3+K9Q+TAFLK4VYfgsFGmNBeYSyX6CecxAPlioaVupJItDB4ijYxrgOiXFjrUiK1y/dU
+ 4UaqFw0Cf3/HxLB44RVgnDvj/GCVlp4yxWta6scpaCQp8pJX32iHveXql7f6mGTnViUdxnl/3c
+ w/hqAAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3800;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=KUdXwpI/YN5rftR/xtXfz6XLsavlmPLDRjTXtZnSfxo=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlmJH3FdLTlMl2ZcdUuJf9jcN0r2RzMdlHiMayh
+ NPaQ162OkeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZZiR9wAKCRCLPIo+Aiko
+ 1e3GCACuj3zmjz0eHx843g4D2oT9V+gJe5p5s4HlCialwX0IW/fEAfBU5+KG4tUYkl39aiVmePs
+ K/BxoUWjM+l52ZQk9Dpfjkbcz6Dbq6Ad3w4B8J4VHn3iDQ5jl5gghs+ZOqRpeJ3d/uqzpVvc4yl
+ nH/wtpQqJ/xszLU/94EY+ZoaKsrhpdU6t0yinRS2ULHpTr/Q4xB7xx8ToXjAtrC2Pw0Lm20iQx6
+ KsH1vtNjkpRKFfBRRjmmnI6DGXAWfJAwvOEqJSJ92Pvq36nyBn3DQfVLQ8Z021ahveORCWRhxKW
+ eIm2ur+wm2/8ZIVQ5tdZZMm+rPKjaXo2QylYvvXNF1NSCx6l
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,152 +90,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Robert Foss <rfoss@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Maxime Ripard <mripard@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 4, 2024 at 3:17=E2=80=AFPM Jani Nikula <jani.nikula@intel.com> =
-wrote:
->
-> hdmi-codec.h does not appear to directly need drm/drm_edid.h for
-> anything. Remove it.
->
-> There are some files that get drm/drm_edid.h by proxy; include it where
-> needed.
->
-> v2-v4: Fix build (kernel test robot <lkp@intel.com>)
->
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Robert Foss <rfoss@kernel.org>
-> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> Cc: Jonas Karlman <jonas@kwiboo.se>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: linux-sound@vger.kernel.org
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Over the last several years the DPU driver has been actively developed,
+while the MDP5 is mostly in the maintenance mode. This results in some
+features being available only in the DPU driver. For example, bandwidth
+scaling, writeback support, properly supported bonded DSI aka dual DSI
+support, DSC (display stream compression).
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+All the pre-SDM845 platforms were originally supported by the MDP5
+driver only. However it is possible and easy to support some of the
+older SoCs in the DPU driver. For example in the v5.18 it got
+support for MSM8998.  This can not be considered as a proper migration,
+since there msm8998.dtsi didn't describe the display hardware
+beforehand. Instead new bindings were added, making MSM8998 just another
+display hardware to be supported by the DPU driver.
 
-> ---
->  drivers/gpu/drm/bridge/lontium-lt9611.c    | 1 +
->  drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 1 +
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c  | 1 +
->  drivers/gpu/drm/msm/dp/dp_display.c        | 1 +
->  drivers/gpu/drm/tegra/hdmi.c               | 1 +
->  drivers/gpu/drm/vc4/vc4_hdmi.c             | 1 +
->  include/sound/hdmi-codec.h                 | 1 -
->  7 files changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/br=
-idge/lontium-lt9611.c
-> index 9663601ce098..b9205d14d943 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-> @@ -18,6 +18,7 @@
->
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_bridge.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_mipi_dsi.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_print.h>
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm=
-/bridge/lontium-lt9611uxc.c
-> index e971b75e90ad..f3f130c1ef0a 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> @@ -21,6 +21,7 @@
->
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_bridge.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_mipi_dsi.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/=
-bridge/synopsys/dw-hdmi.c
-> index 52d91a0df85e..fa63a21bdd1c 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -31,6 +31,7 @@
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_bridge.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index d37d599aec27..c8e1bbebdffe 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -11,6 +11,7 @@
->  #include <linux/of_irq.h>
->  #include <linux/delay.h>
->  #include <drm/display/drm_dp_aux_bus.h>
-> +#include <drm/drm_edid.h>
->
->  #include "msm_drv.h"
->  #include "msm_kms.h"
-> diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-> index 417fb884240a..09987e372e3e 100644
-> --- a/drivers/gpu/drm/tegra/hdmi.c
-> +++ b/drivers/gpu/drm/tegra/hdmi.c
-> @@ -24,6 +24,7 @@
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_debugfs.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_eld.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_fourcc.h>
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
-i.c
-> index f05e2c95a60d..34f807ed1c31 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -35,6 +35,7 @@
->  #include <drm/display/drm_scdc_helper.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_drv.h>
-> +#include <drm/drm_edid.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/drm_simple_kms_helper.h>
->  #include <linux/clk.h>
-> diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
-> index 9b162ac1e08e..5e1a9eafd10f 100644
-> --- a/include/sound/hdmi-codec.h
-> +++ b/include/sound/hdmi-codec.h
-> @@ -12,7 +12,6 @@
->
->  #include <linux/of_graph.h>
->  #include <linux/hdmi.h>
-> -#include <drm/drm_edid.h>
->  #include <sound/asoundef.h>
->  #include <sound/soc.h>
->  #include <uapi/sound/asound.h>
-> --
-> 2.39.2
->
+This series provides a way to gradually migrate support for several
+existing and well-supported SoCs from the MDP5 to the DPU driver without
+changing the DT. From the user experience point of view this is
+facilitated by the `msm.prefer_mdp5' kernel param. If the parameter is
+set to `true' (current default), all `shared' platforms will be handled
+by the MDP5 driver. If the switch is flipped to `false' (or if the MDP5
+driver is disabled), these platforms will be handled by the DPU driver.
+Handling this by the modparam (rather than solely by kernel config)
+allows one to easly switch between the drivers, simplifying testing.
+
+This series implements support for two DPU 3.n platforms, SDM660 and
+SDM630. The MSM8996 support was a part of the previous iterations of
+this patchset, but it was removed in v3. It requires additional
+development and testing.
+
+In theory after additional testing we can drop most of migration code
+and some parts of MDP5 driver. The proposed boundary is to move all
+platforms supporting cursor planes to the DPU driver, while limiting
+MDP5 to support only the older platforms which implement cursor as a
+part of the LM hardware block (MSM8974, APQ8084, MSM8x26, MSM8x16 and
+MSM8x39).
+
+Changes since v2:
+- Rebased on top of linux-next
+- After additional consideration dropped MSM8996 patch. It will be
+  reiterated later, once the generic migration framework is accepted
+  (and after we implement scalers support for that platform).
+
+Changes since v1:
+- Dropped accepted patches
+- Rebased on top of updated [1]
+- Added defines for MDSS hw revisions (Stephen)
+- Changed msm_mdss_generate_mdp5_mdss_data() to return const struct
+  pointer (Stephen)
+- Fixed error handling in msm_ioremap_mdss() (Stephen)
+
+[1] https://patchwork.freedesktop.org/series/119804/
+
+---
+Dmitry Baryshkov (4):
+      drm/msm/mdss: generate MDSS data for MDP5 platforms
+      drm/msm/dpu: support binding to the mdp5 devices
+      drm/msm: add a kernel param to select between MDP5 and DPU drivers
+      drm/msm/dpu: add support for SDM660 and SDM630 platforms
+
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h | 291 +++++++++++++++++++++
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h | 225 ++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 103 ++++++--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   3 +
+ drivers/gpu/drm/msm/msm_drv.c                      |  33 +++
+ drivers/gpu/drm/msm/msm_drv.h                      |   4 +
+ drivers/gpu/drm/msm/msm_io_utils.c                 |  13 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  51 ++++
+ 10 files changed, 706 insertions(+), 21 deletions(-)
+---
+base-commit: 39676dfe52331dba909c617f213fdb21015c8d10
+change-id: 20240105-fd-migrate-mdp5-6a2aa51bc83b
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
