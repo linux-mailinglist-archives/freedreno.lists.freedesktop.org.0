@@ -1,64 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AE7F82781E
-	for <lists+freedreno@lfdr.de>; Mon,  8 Jan 2024 20:08:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 742438278BA
+	for <lists+freedreno@lfdr.de>; Mon,  8 Jan 2024 20:50:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6D310E2B4;
-	Mon,  8 Jan 2024 19:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30CFC10E2CA;
+	Mon,  8 Jan 2024 19:50:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7958210E2B4
- for <freedreno@lists.freedesktop.org>; Mon,  8 Jan 2024 19:08:03 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id
- 3f1490d57ef6-dbdd013c68bso1258943276.2
- for <freedreno@lists.freedesktop.org>; Mon, 08 Jan 2024 11:08:03 -0800 (PST)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A255910E2C3;
+ Mon,  8 Jan 2024 19:50:23 +0000 (UTC)
+Received: by mail-pg1-x52d.google.com with SMTP id
+ 41be03b00d2f7-5cdbc4334edso669447a12.3; 
+ Mon, 08 Jan 2024 11:50:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704740882; x=1705345682; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=SM3aC6olapTfRcKgxOoQ7CTMu8MLMwnZq6KcPmvWqC0=;
- b=pn1twkdyd030BTdlsbYXqwdiP6maZ9uKmQarxbtjXpMLPjHiSA/5jaD78AWJ1UDA3r
- Ms1wh6noa0YyF1iWCOQTdmgKtLQ6E/0iprIeCUSfCz0LMONAV/kc9tm02whJVixVFavh
- w9zj3KawbZhtSywZxSYhstdN6ZlJocuLB78cNPdVJ9EbFQXhNbijPDoWmEoquCjapjp/
- l+sR758+MJzylJWUPKGZnhvpI/bntDrzr04HyDAsAgSTQPz9nWw/tNXtuYOnl4FhwAhK
- B9Wf3cxus45nj9WoXh7c9fHkMc6rSiwb4gzLiD6G6zo0qY+4NtG/9cFQKdd2EWHGZ6ZQ
- 3dVg==
+ d=gmail.com; s=20230601; t=1704743422; x=1705348222; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2R0zlBz2DXccrkgQnIyzHmDUvfxpJFjGNN3AHHEOyFM=;
+ b=RrU7NJnxoTd52adz0stpROQc4ncEAY5MlGz6/Jgy3wjBBskVNCl6dJjNPeN3YMA9Z3
+ tiAVqRhwKPUQjUwA/ODDgCoH6KV2cW0ymC372N5Oc6nykyalG4iC2YPa3YfQZLkR1CDW
+ D71lI0nXTV5G+vrgz72ZjQklkA1d/bANWCGS7YcF5gHVIzhnJ0lCG7o+0fBpyjPv5zk3
+ m2wf+ES9zrQ7n2TqFGpeIdsJiYtm8YzUQdQLjl++umHPj5TARD2/qbDj2EpAYbUdhcap
+ EyWFP0EISJkl32Fq5vPdvuuDzCzN7PLMj5Era20AKIS0TDKQWlr+At/vIgwVcfJJo6t0
+ bVWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704740882; x=1705345682;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1704743422; x=1705348222;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=SM3aC6olapTfRcKgxOoQ7CTMu8MLMwnZq6KcPmvWqC0=;
- b=XW4eFP/W3Q7RLc4lUBxCt/3DdS0TkD2gT8l88Zqn/CESw5w65og4bVCbOfXfaSqSAI
- kLkbw7isfCeeYJayaNVRZTdH2X3AdIwtadCNn/0dI05NuyCkId0SGAOl1MjqEhMEUVNn
- iWyHSZFIKkqbKmAdDrrJsiGwpFbfHFXBVaoHlBed7/XDL2YboV+qvAVhDe66K1JV7d9D
- vYq3ZD/P2vUlb4f/SMgmDcpWz+U8Ha2lBXJZOnFdmqB0iO5Y9IONniAqX0qTSdGynB4S
- h2q6O03kbNJ/L8/29hzS5GBUFNcszvaAbcHXxj3ZBhgSOin1xlgtszFABQwVrnu/gYLt
- xz5Q==
-X-Gm-Message-State: AOJu0YyHNtTt5wkR1uI0Ciqrc+azCtwmhoIaYFY4wKt4hGq3D/dXxX8d
- 0iPpUiA4ik4q4y76s26avYFwhCk8G/c/8kAzRuFcMQY8A8xbsA==
-X-Google-Smtp-Source: AGHT+IFUDrKtN6+cLggfKBa01OY/UJnyibyg/gt78qguBxgUpnHsr3JF10cBom9sAGfl7XW03Vr81pUVakoZkhwEwFk=
-X-Received: by 2002:a25:ce10:0:b0:dbd:d4ea:7b7 with SMTP id
- x16-20020a25ce10000000b00dbdd4ea07b7mr1916063ybe.60.1704740882574; Mon, 08
- Jan 2024 11:08:02 -0800 (PST)
+ bh=2R0zlBz2DXccrkgQnIyzHmDUvfxpJFjGNN3AHHEOyFM=;
+ b=ftXXTaPFin/ahX+a4GklFpuw/xwOvomcbyDOhMwB2eCqvwvbViFZJcmBBwQk+jPOYX
+ 8Jz/l0QD4XRyTiReFQqqqHfWsrToijRTuehGKyAXP0mIjbhfIPvbscjlr9g9E8lx4aIh
+ 7oYrxne6s1BctkaM7/OrZ+YVqU7ZxBSJC1sXBfp/v73/jd+dmDYCH7dCw+xka0MFcHsW
+ GW6Dv1HZFrd1VgSgjqMNeyGgRJ40HVUkxqnCN76cR+Q8AOyuXy2IwYNRnO61b5z6eNQ+
+ 4dVT8UvFqp7Auerd/IJ4FApcLtIX4f3KYZGT8fAxexziwzQAV0OD6kVvj4Ozr6NfbEwJ
+ /KeQ==
+X-Gm-Message-State: AOJu0YwEb3OMpeKJS76XW8YKjlYi2O+qXEeftdBPOrfSd/sx4Oq8k7Yk
+ Q+ab1byNTM1NS0z8IzhOOJ8XpkwXn3M=
+X-Google-Smtp-Source: AGHT+IFf7bb+iQyGZCfeOZ4yETzKVzgPT8q475MfZ+Nn78kr9SK7zahR4amHIomcUp8eIV9KVHXxbw==
+X-Received: by 2002:a17:90a:9742:b0:28d:7b8c:1038 with SMTP id
+ i2-20020a17090a974200b0028d7b8c1038mr863770pjw.43.1704743422053; 
+ Mon, 08 Jan 2024 11:50:22 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
+ by smtp.gmail.com with ESMTPSA id
+ fr18-20020a17090ae2d200b0028ae0184bfasm6753441pjb.49.2024.01.08.11.50.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Jan 2024 11:50:21 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/ci: Add msm tests
+Date: Mon,  8 Jan 2024 11:50:15 -0800
+Message-ID: <20240108195016.156583-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240106-fd-migrate-mdp5-v3-0-3d2750378063@linaro.org>
- <20240106-fd-migrate-mdp5-v3-3-3d2750378063@linaro.org>
- <c8d6769b-eb28-337c-fa55-4dae86611da5@quicinc.com>
- <CAA8EJpoF3uKobGzjHbLMKYvcQbdqYzur7Mn1cNDPyc+wiiZ+SQ@mail.gmail.com>
- <9807bb4a-98d9-8f4b-b24d-0134f42f6cd3@quicinc.com>
-In-Reply-To: <9807bb4a-98d9-8f4b-b24d-0134f42f6cd3@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 8 Jan 2024 21:07:51 +0200
-Message-ID: <CAA8EJpqmkzOaewrW8tqSV5wz+0zovZx-kpMdVWp_nW_g1KrRzA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] drm/msm: add a kernel param to select between MDP5
- and DPU drivers
-To: Carl Vanderlip <quic_carlv@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,59 +70,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Helen Koike <helen.koike@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 8 Jan 2024 at 19:57, Carl Vanderlip <quic_carlv@quicinc.com> wrote:
->
->
->
-> On 1/5/2024 4:38 PM, Dmitry Baryshkov wrote:
-> > On Sat, 6 Jan 2024 at 02:04, Carl Vanderlip <quic_carlv@quicinc.com> wrote:
-> >>
-> >>
-> >> On 1/5/2024 3:34 PM, Dmitry Baryshkov wrote:
-> >>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> >>> index 50b65ffc24b1..ef57586fbeca 100644
-> >>> --- a/drivers/gpu/drm/msm/msm_drv.c
-> >>> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> >>> @@ -969,6 +969,37 @@ static int add_components_mdp(struct device *master_dev,
-> >>>        return 0;
-> >>>    }
-> >>>
-> >>> +#if !IS_REACHABLE(CONFIG_DRM_MSM_MDP5) || !IS_REACHABLE(CONFIG_DRM_MSM_DPU)
-> >>> +bool msm_disp_drv_should_bind(struct device *dev, bool mdp5_driver)
-> >>> +{
-> >>> +     /* If just a single driver is enabled, use it no matter what */
-> >>> +     return true;
-> >>> +}
-> >>
-> >> This will cause both MDP/DPU probes to return -ENODEV, rather than
-> >> select the enabled one.
-> >
-> > No. The code (e.g. for DPU) is:
-> >
-> >         if (!msm_disp_drv_should_bind(&pdev->dev, true))
-> >                  return -ENODEV;
-> >
-> > So the driver returns -ENODEV if msm_disp_drv_should_bind() returns
-> > false. Which is logical from the function name point of view.
-> >
->
-> but msm_disp_drv_should_bind() is returning true in the #if !REACHABLE()
-> case?
->
-> at minimum the comment is incorrect since returning true causes the
-> driver to NOT be used.
+From: Rob Clark <robdclark@chromium.org>
 
-No. Returning _false_ causes the driver to not be used.
+The msm tests should skip on non-msm hw, so I think it should be safe to
+enable everywhere.
 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/ci/testlist.txt | 49 +++++++++++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+
+diff --git a/drivers/gpu/drm/ci/testlist.txt b/drivers/gpu/drm/ci/testlist.txt
+index f82cd90372f4..eaeb751bb0ad 100644
+--- a/drivers/gpu/drm/ci/testlist.txt
++++ b/drivers/gpu/drm/ci/testlist.txt
+@@ -2910,3 +2910,52 @@ kms_writeback@writeback-invalid-parameters
+ kms_writeback@writeback-fb-id
+ kms_writeback@writeback-check-output
+ prime_mmap_kms@buffer-sharing
++msm_shrink@copy-gpu-sanitycheck-8
++msm_shrink@copy-gpu-sanitycheck-32
++msm_shrink@copy-gpu-8
++msm_shrink@copy-gpu-32
++msm_shrink@copy-gpu-madvise-8
++msm_shrink@copy-gpu-madvise-32
++msm_shrink@copy-gpu-oom-8
++msm_shrink@copy-gpu-oom-32
++msm_shrink@copy-mmap-sanitycheck-8
++msm_shrink@copy-mmap-sanitycheck-32
++msm_shrink@copy-mmap-8
++msm_shrink@copy-mmap-32
++msm_shrink@copy-mmap-madvise-8
++msm_shrink@copy-mmap-madvise-32
++msm_shrink@copy-mmap-oom-8
++msm_shrink@copy-mmap-oom-32
++msm_shrink@copy-mmap-dmabuf-sanitycheck-8
++msm_shrink@copy-mmap-dmabuf-sanitycheck-32
++msm_shrink@copy-mmap-dmabuf-8
++msm_shrink@copy-mmap-dmabuf-32
++msm_shrink@copy-mmap-dmabuf-madvise-8
++msm_shrink@copy-mmap-dmabuf-madvise-32
++msm_shrink@copy-mmap-dmabuf-oom-8
++msm_shrink@copy-mmap-dmabuf-oom-32
++msm_mapping@ring
++msm_mapping@sqefw
++msm_mapping@shadow
++msm_submitoverhead@submitbench-10-bos
++msm_submitoverhead@submitbench-10-bos-no-implicit-sync
++msm_submitoverhead@submitbench-100-bos
++msm_submitoverhead@submitbench-100-bos-no-implicit-sync
++msm_submitoverhead@submitbench-250-bos
++msm_submitoverhead@submitbench-250-bos-no-implicit-sync
++msm_submitoverhead@submitbench-500-bos
++msm_submitoverhead@submitbench-500-bos-no-implicit-sync
++msm_submitoverhead@submitbench-1000-bos
++msm_submitoverhead@submitbench-1000-bos-no-implicit-sync
++msm_recovery@hangcheck
++msm_recovery@gpu-fault
++msm_recovery@gpu-fault-parallel
++msm_recovery@iova-fault
++msm_submit@empty-submit
++msm_submit@invalid-queue-submit
++msm_submit@invalid-flags-submit
++msm_submit@invalid-in-fence-submit
++msm_submit@invalid-duplicate-bo-submit
++msm_submit@invalid-cmd-idx-submit
++msm_submit@invalid-cmd-type-submit
++msm_submit@valid-submit
 -- 
-With best wishes
-Dmitry
+2.43.0
+
