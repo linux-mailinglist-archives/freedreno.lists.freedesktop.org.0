@@ -1,63 +1,79 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 742438278BA
-	for <lists+freedreno@lfdr.de>; Mon,  8 Jan 2024 20:50:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 285C4827A2E
+	for <lists+freedreno@lfdr.de>; Mon,  8 Jan 2024 22:27:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30CFC10E2CA;
-	Mon,  8 Jan 2024 19:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E71A810E301;
+	Mon,  8 Jan 2024 21:27:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A255910E2C3;
- Mon,  8 Jan 2024 19:50:23 +0000 (UTC)
-Received: by mail-pg1-x52d.google.com with SMTP id
- 41be03b00d2f7-5cdbc4334edso669447a12.3; 
- Mon, 08 Jan 2024 11:50:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704743422; x=1705348222; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2R0zlBz2DXccrkgQnIyzHmDUvfxpJFjGNN3AHHEOyFM=;
- b=RrU7NJnxoTd52adz0stpROQc4ncEAY5MlGz6/Jgy3wjBBskVNCl6dJjNPeN3YMA9Z3
- tiAVqRhwKPUQjUwA/ODDgCoH6KV2cW0ymC372N5Oc6nykyalG4iC2YPa3YfQZLkR1CDW
- D71lI0nXTV5G+vrgz72ZjQklkA1d/bANWCGS7YcF5gHVIzhnJ0lCG7o+0fBpyjPv5zk3
- m2wf+ES9zrQ7n2TqFGpeIdsJiYtm8YzUQdQLjl++umHPj5TARD2/qbDj2EpAYbUdhcap
- EyWFP0EISJkl32Fq5vPdvuuDzCzN7PLMj5Era20AKIS0TDKQWlr+At/vIgwVcfJJo6t0
- bVWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704743422; x=1705348222;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2R0zlBz2DXccrkgQnIyzHmDUvfxpJFjGNN3AHHEOyFM=;
- b=ftXXTaPFin/ahX+a4GklFpuw/xwOvomcbyDOhMwB2eCqvwvbViFZJcmBBwQk+jPOYX
- 8Jz/l0QD4XRyTiReFQqqqHfWsrToijRTuehGKyAXP0mIjbhfIPvbscjlr9g9E8lx4aIh
- 7oYrxne6s1BctkaM7/OrZ+YVqU7ZxBSJC1sXBfp/v73/jd+dmDYCH7dCw+xka0MFcHsW
- GW6Dv1HZFrd1VgSgjqMNeyGgRJ40HVUkxqnCN76cR+Q8AOyuXy2IwYNRnO61b5z6eNQ+
- 4dVT8UvFqp7Auerd/IJ4FApcLtIX4f3KYZGT8fAxexziwzQAV0OD6kVvj4Ozr6NfbEwJ
- /KeQ==
-X-Gm-Message-State: AOJu0YwEb3OMpeKJS76XW8YKjlYi2O+qXEeftdBPOrfSd/sx4Oq8k7Yk
- Q+ab1byNTM1NS0z8IzhOOJ8XpkwXn3M=
-X-Google-Smtp-Source: AGHT+IFf7bb+iQyGZCfeOZ4yETzKVzgPT8q475MfZ+Nn78kr9SK7zahR4amHIomcUp8eIV9KVHXxbw==
-X-Received: by 2002:a17:90a:9742:b0:28d:7b8c:1038 with SMTP id
- i2-20020a17090a974200b0028d7b8c1038mr863770pjw.43.1704743422053; 
- Mon, 08 Jan 2024 11:50:22 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
- by smtp.gmail.com with ESMTPSA id
- fr18-20020a17090ae2d200b0028ae0184bfasm6753441pjb.49.2024.01.08.11.50.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jan 2024 11:50:21 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/ci: Add msm tests
-Date: Mon,  8 Jan 2024 11:50:15 -0800
-Message-ID: <20240108195016.156583-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9341B10E301;
+ Mon,  8 Jan 2024 21:27:33 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 408LRRbf020110; Mon, 8 Jan 2024 21:27:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=fJ31jQS7Dt9jLXxkzNiy99zQohXILwV9j/M0lZKl4uA=; b=o7
+ 0z/K8RMAgiv3sYCNAAawpF8l2/X7F1A9e9ztyld6coXcsSH0hTKh0jZEIMzSMr3S
+ p9/1BuA+tNYJTNWI+cd6tn5vNkyBue1CmLKETVPvrud5LYGeyh1jdQ1o2TeMv5Vi
+ N7eW87MagjvwhWV14oR2Zju77gFZuwDgkPEbw+tnWir7h3bvSS/F8g7h2P/6PW5W
+ 1eC/aKVjYg+LBoJ5E47bucUKnazk9neTmm943dN4LWaL8lh2s4jSxE4W0cphDqJX
+ G760gPS30bO5PE+J1CZOaIufNh4wK5M6xaSv6h5xK0z8mJYVRD+489vPG3lfehiJ
+ ekP4VGK41wKRI770cVKw==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vgch51ss0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 08 Jan 2024 21:27:26 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 408LRQN6008164
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 8 Jan 2024 21:27:26 GMT
+Received: from [10.110.115.78] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 8 Jan
+ 2024 13:27:25 -0800
+Message-ID: <086eb162-441f-01db-807e-8d57de0c9547@quicinc.com>
+Date: Mon, 8 Jan 2024 13:26:56 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 1/5] drm/msm/dpu: split irq_control into irq_enable and
+ _disable
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231225130853.3659424-1-dmitry.baryshkov@linaro.org>
+ <20231225130853.3659424-2-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231225130853.3659424-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: CTGUJjEZVLWdig5AY9t4vSii1JMlr_H9
+X-Proofpoint-GUID: CTGUJjEZVLWdig5AY9t4vSii1JMlr_H9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1011
+ lowpriorityscore=0 malwarescore=0 mlxscore=0 adultscore=0 impostorscore=0
+ phishscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=769 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
+ definitions=main-2401080177
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,83 +86,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Helen Koike <helen.koike@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-The msm tests should skip on non-msm hw, so I think it should be safe to
-enable everywhere.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/ci/testlist.txt | 49 +++++++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
+On 12/25/2023 5:08 AM, Dmitry Baryshkov wrote:
+> The single helper for both enable and disable cases is too complicated,
+> especially if we start adding more code to these helpers. Split it into
+> irq_enable and irq_disable cases.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 36 +++++++---
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  6 +-
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 65 ++++++++++---------
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 46 +++++++------
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 29 ++++++---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     | 62 ++++++++++++++----
+>   6 files changed, 158 insertions(+), 86 deletions(-)
+> 
 
-diff --git a/drivers/gpu/drm/ci/testlist.txt b/drivers/gpu/drm/ci/testlist.txt
-index f82cd90372f4..eaeb751bb0ad 100644
---- a/drivers/gpu/drm/ci/testlist.txt
-+++ b/drivers/gpu/drm/ci/testlist.txt
-@@ -2910,3 +2910,52 @@ kms_writeback@writeback-invalid-parameters
- kms_writeback@writeback-fb-id
- kms_writeback@writeback-check-output
- prime_mmap_kms@buffer-sharing
-+msm_shrink@copy-gpu-sanitycheck-8
-+msm_shrink@copy-gpu-sanitycheck-32
-+msm_shrink@copy-gpu-8
-+msm_shrink@copy-gpu-32
-+msm_shrink@copy-gpu-madvise-8
-+msm_shrink@copy-gpu-madvise-32
-+msm_shrink@copy-gpu-oom-8
-+msm_shrink@copy-gpu-oom-32
-+msm_shrink@copy-mmap-sanitycheck-8
-+msm_shrink@copy-mmap-sanitycheck-32
-+msm_shrink@copy-mmap-8
-+msm_shrink@copy-mmap-32
-+msm_shrink@copy-mmap-madvise-8
-+msm_shrink@copy-mmap-madvise-32
-+msm_shrink@copy-mmap-oom-8
-+msm_shrink@copy-mmap-oom-32
-+msm_shrink@copy-mmap-dmabuf-sanitycheck-8
-+msm_shrink@copy-mmap-dmabuf-sanitycheck-32
-+msm_shrink@copy-mmap-dmabuf-8
-+msm_shrink@copy-mmap-dmabuf-32
-+msm_shrink@copy-mmap-dmabuf-madvise-8
-+msm_shrink@copy-mmap-dmabuf-madvise-32
-+msm_shrink@copy-mmap-dmabuf-oom-8
-+msm_shrink@copy-mmap-dmabuf-oom-32
-+msm_mapping@ring
-+msm_mapping@sqefw
-+msm_mapping@shadow
-+msm_submitoverhead@submitbench-10-bos
-+msm_submitoverhead@submitbench-10-bos-no-implicit-sync
-+msm_submitoverhead@submitbench-100-bos
-+msm_submitoverhead@submitbench-100-bos-no-implicit-sync
-+msm_submitoverhead@submitbench-250-bos
-+msm_submitoverhead@submitbench-250-bos-no-implicit-sync
-+msm_submitoverhead@submitbench-500-bos
-+msm_submitoverhead@submitbench-500-bos-no-implicit-sync
-+msm_submitoverhead@submitbench-1000-bos
-+msm_submitoverhead@submitbench-1000-bos-no-implicit-sync
-+msm_recovery@hangcheck
-+msm_recovery@gpu-fault
-+msm_recovery@gpu-fault-parallel
-+msm_recovery@iova-fault
-+msm_submit@empty-submit
-+msm_submit@invalid-queue-submit
-+msm_submit@invalid-flags-submit
-+msm_submit@invalid-in-fence-submit
-+msm_submit@invalid-duplicate-bo-submit
-+msm_submit@invalid-cmd-idx-submit
-+msm_submit@invalid-cmd-type-submit
-+msm_submit@valid-submit
--- 
-2.43.0
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
