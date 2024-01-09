@@ -1,78 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0CC828AD5
-	for <lists+freedreno@lfdr.de>; Tue,  9 Jan 2024 18:16:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C845828C78
+	for <lists+freedreno@lfdr.de>; Tue,  9 Jan 2024 19:22:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 858DF10E469;
-	Tue,  9 Jan 2024 17:16:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6633B10E4B1;
+	Tue,  9 Jan 2024 18:22:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17F8D10E469;
- Tue,  9 Jan 2024 17:16:11 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 409GDcW8002997; Tue, 9 Jan 2024 17:16:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=3svU7b0tyFCpSBoa3yLQ52v339bU9u/QNEENmlt0W+E=; b=St
- DNcWHjRUH1bPF1HGvbVTXE2WRNLOnIK1GiYgNDsg9nNE3UDcgN+pQkgaE1FoSaJc
- jOsI06cu5WLQ29HaA8KUF7m+kevkxhliZpHI/pYzjdbKwYz7DuK4CCnEFuqkD40y
- qyTXegK4BtD+KW7JMxpNLAGtcnogXWCE+cYVdKQNg3FhEDoTF1z7w39xCnlt6iVs
- dYzZiP1j1XxqX/D8No95TjTGkYELKmarT1VWcIBstzVDp6nJjNuw6oA3mPVOzgQS
- VoukeDflxjqIykUBbiAuQ1JcDi4bh5KYwrg3oUadErPvRwCUpcp+tUhng5OeUhHj
- q357ovpM1sxOWoV0yB6Q==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vh9evr53b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Jan 2024 17:16:04 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 409HG2SF011247
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 9 Jan 2024 17:16:02 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 9 Jan
- 2024 09:16:02 -0800
-Message-ID: <865486be-df38-c732-b329-13b4cfdafe1c@quicinc.com>
-Date: Tue, 9 Jan 2024 09:16:01 -0800
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE4A10E4C0;
+ Tue,  9 Jan 2024 18:22:22 +0000 (UTC)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-1d3f2985425so15398665ad.3; 
+ Tue, 09 Jan 2024 10:22:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704824541; x=1705429341; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=k4A842bIbNaLxIo03lzXt0/VhyZzfulbNd4Jc/GgvJg=;
+ b=OB5sHQtLqM8i59XnerunOH83SlKcJkEd7dctDQrMyuMAVcQ+0ovoKtGjnSUoN41KHc
+ tpiRLZSgYRFhd91vq5DQZWQGqVNYb6wdKbRI/OUafwh3XigJVLnnN7p0+HPSvN6u/9yS
+ CW4m6P+e5MwyDoQFEX/F/EkKTS1TCP4DfkFQItQIzYpa9oCeyAYKCdRQ2dMvBLzMqrO6
+ d+vI7ytFynZLa/oWXa68XuN5YCEbjcuu3NsNwaf1ryf0st1PdLkibdDMaU3KNihvME8/
+ /iST5Cd8RFMUNCnmn5dqHTQNg1IqHD+EwIYP51lrh7e8UOfrxOLDAbrmGne1Sv+WNeIq
+ GVCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704824541; x=1705429341;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=k4A842bIbNaLxIo03lzXt0/VhyZzfulbNd4Jc/GgvJg=;
+ b=eiugq47vfH/NOoiKB1YiJCfGkObbvx23My4yHNZavyVeuKxjhkfy6V5eXYdOiWuIb/
+ lHboT8F9XxO0mRlUMBcWU0Q25oEJcMhqdCEn1bnFP8D81UDAhzvbCu9E9HoEYv0ZFro8
+ gOeq/FkJcY81D+nhVgGat0kl7pxvYhnk3QIvqkCDL64K7mBT4xRsiMCzXaEDC0+0cT2n
+ E6lmzDSP56V1w9J1jd7Z5BWvOWS4OL+pSZkQBX5jQ7GdiFyXd5YPCDmOpCy6+xZ0qBQb
+ Zx4gfVyeUv3qUYDmMIOkJvtiVHXYUw7QYl69pJDw6jv80jxmBYunr6BbaQCoGITgXp6l
+ O3ow==
+X-Gm-Message-State: AOJu0YxoEobrLtPFA9V8akeTTP8nc5cQDjgQYPyno/SBThLA9xPzfb+a
+ Fg0YVN8c73HCTtFvNCWFOs7yDxGvL04=
+X-Google-Smtp-Source: AGHT+IHnNJgT4Frcmf+mu0NObp6XPVh7FkAVBM9nfEuBx/+VqBzGvs5E5OOVp4iBa8sQu9sssKuqoA==
+X-Received: by 2002:a17:903:32c3:b0:1d4:1a55:6e70 with SMTP id
+ i3-20020a17090332c300b001d41a556e70mr3390318plr.113.1704824540985; 
+ Tue, 09 Jan 2024 10:22:20 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
+ by smtp.gmail.com with ESMTPSA id
+ jf15-20020a170903268f00b001d3e6f58e5esm2104217plb.6.2024.01.09.10.22.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jan 2024 10:22:20 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/msm/gpu: Push gpu lock down past runpm"
+Date: Tue,  9 Jan 2024 10:22:17 -0800
+Message-ID: <20240109182218.193804-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/ci: Add msm tests
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20240108195016.156583-1-robdclark@gmail.com>
- <454873e5-1b5a-28d3-ffed-c1e502898d17@quicinc.com>
- <CAF6AEGuVk=a-SwHyVwqOew-+WAdH1Gt011H50kvkSBe1j5ri_A@mail.gmail.com>
- <CAF6AEGs7NxB2ox+JMW0tP_XOkFie=f=w1sWSQjTUM8AZQ0V3TQ@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAF6AEGs7NxB2ox+JMW0tP_XOkFie=f=w1sWSQjTUM8AZQ0V3TQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: yA1HLDZbL39XdULj4kQn7-QSriDkRYc0
-X-Proofpoint-ORIG-GUID: yA1HLDZbL39XdULj4kQn7-QSriDkRYc0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- mlxlogscore=999 lowpriorityscore=0 mlxscore=0 priorityscore=1501
- adultscore=0 suspectscore=0 clxscore=1015 spamscore=0 phishscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2401090140
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,118 +71,93 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Helen Koike <helen.koike@collabora.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+This reverts commit abe2023b4cea192ab266b351fd38dc9dbd846df0.
 
-On 1/9/2024 7:31 AM, Rob Clark wrote:
-> On Mon, Jan 8, 2024 at 6:13 PM Rob Clark <robdclark@gmail.com> wrote:
->>
->> On Mon, Jan 8, 2024 at 2:58 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>
->>>
->>>
->>> On 1/8/2024 11:50 AM, Rob Clark wrote:
->>>> From: Rob Clark <robdclark@chromium.org>
->>>>
->>>> The msm tests should skip on non-msm hw, so I think it should be safe to
->>>> enable everywhere.
->>>>
->>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>>> ---
->>>>    drivers/gpu/drm/ci/testlist.txt | 49 +++++++++++++++++++++++++++++++++
->>>>    1 file changed, 49 insertions(+)
->>>>
->>>
->>> I do see that all these tests use igt_msm_dev_open() to make sure it
->>> opens only the MSM card.
->>>
->>> But if igt_msm_dev_open() fails, I dont see a igt_require() on some of
->>> the tests to skip them. So how will it safely skip on non-msm HW?
->>>
->>> Unless i am missing something here ....
->>
->> hmm, at the time I added the initial msm tests, and
->> igt_msm_dev_open(), I verified that they skipped on intel.. but since
->> then I'd switched from intel to sc8280xp device for primary dev
->> device, so I'd need to re-test to remember how it works.  If these
->> aren't skipping on !msm, it is a bug
-> 
-> I double checked, these tests skip in drm_open_driver() with "No known
-> gpu found for chipset flags 0x64 (msm)", so no problem to run them on
-> all CI runners.
-> 
-> BR,
-> -R
-> 
+Changing the locking order means that scheduler/msm_job_run() can race
+with the recovery kthread worker, with the result that the GPU gets an
+extra runpm get when we are trying to power it off.  Leaving the GPU in
+an unrecovered state.
 
-Ack, thanks for checking
+I'll need to come up with a different scheme for appeasing lockdep.
 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu.c        | 11 +++++------
+ drivers/gpu/drm/msm/msm_ringbuffer.c |  7 +++++--
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 095390774f22..655002b21b0d 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -751,12 +751,14 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 	struct msm_ringbuffer *ring = submit->ring;
+ 	unsigned long flags;
+ 
+-	pm_runtime_get_sync(&gpu->pdev->dev);
++	WARN_ON(!mutex_is_locked(&gpu->lock));
+ 
+-	mutex_lock(&gpu->lock);
++	pm_runtime_get_sync(&gpu->pdev->dev);
+ 
+ 	msm_gpu_hw_init(gpu);
+ 
++	submit->seqno = submit->hw_fence->seqno;
++
+ 	update_sw_cntrs(gpu);
+ 
+ 	/*
+@@ -781,11 +783,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 	gpu->funcs->submit(gpu, submit);
+ 	gpu->cur_ctx_seqno = submit->queue->ctx->seqno;
+ 
+-	hangcheck_timer_reset(gpu);
+-
+-	mutex_unlock(&gpu->lock);
+-
+ 	pm_runtime_put(&gpu->pdev->dev);
++	hangcheck_timer_reset(gpu);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index e0ed27739449..548f5266a7d3 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -21,8 +21,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+ 
+ 	msm_fence_init(submit->hw_fence, fctx);
+ 
+-	submit->seqno = submit->hw_fence->seqno;
+-
+ 	mutex_lock(&priv->lru.lock);
+ 
+ 	for (i = 0; i < submit->nr_bos; i++) {
+@@ -35,8 +33,13 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+ 
+ 	mutex_unlock(&priv->lru.lock);
+ 
++	/* TODO move submit path over to using a per-ring lock.. */
++	mutex_lock(&gpu->lock);
++
+ 	msm_gpu_submit(gpu, submit);
+ 
++	mutex_unlock(&gpu->lock);
++
+ 	return dma_fence_get(submit->hw_fence);
+ }
+ 
+-- 
+2.43.0
 
-> 
->> BR,
->> -R
->>
->>>> diff --git a/drivers/gpu/drm/ci/testlist.txt b/drivers/gpu/drm/ci/testlist.txt
->>>> index f82cd90372f4..eaeb751bb0ad 100644
->>>> --- a/drivers/gpu/drm/ci/testlist.txt
->>>> +++ b/drivers/gpu/drm/ci/testlist.txt
->>>> @@ -2910,3 +2910,52 @@ kms_writeback@writeback-invalid-parameters
->>>>    kms_writeback@writeback-fb-id
->>>>    kms_writeback@writeback-check-output
->>>>    prime_mmap_kms@buffer-sharing
->>>> +msm_shrink@copy-gpu-sanitycheck-8
->>>> +msm_shrink@copy-gpu-sanitycheck-32
->>>> +msm_shrink@copy-gpu-8
->>>> +msm_shrink@copy-gpu-32
->>>> +msm_shrink@copy-gpu-madvise-8
->>>> +msm_shrink@copy-gpu-madvise-32
->>>> +msm_shrink@copy-gpu-oom-8
->>>> +msm_shrink@copy-gpu-oom-32
->>>> +msm_shrink@copy-mmap-sanitycheck-8
->>>> +msm_shrink@copy-mmap-sanitycheck-32
->>>> +msm_shrink@copy-mmap-8
->>>> +msm_shrink@copy-mmap-32
->>>> +msm_shrink@copy-mmap-madvise-8
->>>> +msm_shrink@copy-mmap-madvise-32
->>>> +msm_shrink@copy-mmap-oom-8
->>>> +msm_shrink@copy-mmap-oom-32
->>>> +msm_shrink@copy-mmap-dmabuf-sanitycheck-8
->>>> +msm_shrink@copy-mmap-dmabuf-sanitycheck-32
->>>> +msm_shrink@copy-mmap-dmabuf-8
->>>> +msm_shrink@copy-mmap-dmabuf-32
->>>> +msm_shrink@copy-mmap-dmabuf-madvise-8
->>>> +msm_shrink@copy-mmap-dmabuf-madvise-32
->>>> +msm_shrink@copy-mmap-dmabuf-oom-8
->>>> +msm_shrink@copy-mmap-dmabuf-oom-32
->>>> +msm_mapping@ring
->>>> +msm_mapping@sqefw
->>>> +msm_mapping@shadow
->>>> +msm_submitoverhead@submitbench-10-bos
->>>> +msm_submitoverhead@submitbench-10-bos-no-implicit-sync
->>>> +msm_submitoverhead@submitbench-100-bos
->>>> +msm_submitoverhead@submitbench-100-bos-no-implicit-sync
->>>> +msm_submitoverhead@submitbench-250-bos
->>>> +msm_submitoverhead@submitbench-250-bos-no-implicit-sync
->>>> +msm_submitoverhead@submitbench-500-bos
->>>> +msm_submitoverhead@submitbench-500-bos-no-implicit-sync
->>>> +msm_submitoverhead@submitbench-1000-bos
->>>> +msm_submitoverhead@submitbench-1000-bos-no-implicit-sync
->>>> +msm_recovery@hangcheck
->>>> +msm_recovery@gpu-fault
->>>> +msm_recovery@gpu-fault-parallel
->>>> +msm_recovery@iova-fault
->>>> +msm_submit@empty-submit
->>>> +msm_submit@invalid-queue-submit
->>>> +msm_submit@invalid-flags-submit
->>>> +msm_submit@invalid-in-fence-submit
->>>> +msm_submit@invalid-duplicate-bo-submit
->>>> +msm_submit@invalid-cmd-idx-submit
->>>> +msm_submit@invalid-cmd-type-submit
->>>> +msm_submit@valid-submit
