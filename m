@@ -1,62 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D60C82A06C
-	for <lists+freedreno@lfdr.de>; Wed, 10 Jan 2024 19:51:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B7CD182A202
+	for <lists+freedreno@lfdr.de>; Wed, 10 Jan 2024 21:18:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4920A10E649;
-	Wed, 10 Jan 2024 18:51:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5016010E67D;
+	Wed, 10 Jan 2024 20:18:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF16C10E649
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 18:51:42 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-336746c7b6dso3939050f8f.0
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 10:51:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704912701; x=1705517501; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KImknwHCfjo7defOTxMC7icEA/WDtqN8J+Tjv7MpnmA=;
- b=KOMUcwvi9yYp2WN2c5GxvMb71mhXs0LCcwulIazzf7FhsfA2aqqD8R51jo8lzVH/Vq
- rPiwUbWEkdOGpFnw9xAJCAmwDg5WIatB+law3DfTICkk4jlTyAiTiPByOSdnkQz9Ta9V
- lTgv8mMlDlQPpjrlMQ8PPsbSmCIh6f6SRGqYVqOMhXhJ7/JQMCKOMr+gM/69fU9r/HSi
- uYxy7WfeBs7vkNWFPaFlamBoZSAtiFwqS+xjK5mzEex4pIM3A4erlN/yFBOoH46Hn8QP
- xzLKMdq683N+ERdtVk4KVRTiFB1ndC+HbxK6Z79AVemcY7mocsbYsvPlpW3DPB9GZe4c
- 5CIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704912701; x=1705517501;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KImknwHCfjo7defOTxMC7icEA/WDtqN8J+Tjv7MpnmA=;
- b=Ytjr/s9SpRboZAV/H2n/lGCr1W8hykx+Ll39dX/EVy0FkrKP9i4Xd113X1ITT/D5kj
- tRp87rwCPUKQ2SkTWI8+Y1A6MC9M+tQjaZ3bwVE9ajfuPpEXWE9k8Aqy/e1bk9iBZF+A
- 9vC6eSSAb9/Q4CpgKgt/VexB2GZmpQ/wuIsMzx1elYH8yHvR3uajFrIn4/dM8cjtRrif
- oeIfygbHX0ocn1mo3bEM5nj1cyoc7fbs3ZFiJSrXoL6b/PaZQ9Tg5DOaDfQ4n1S45VQN
- qehbIe1AMjmXTEFGxD+NlRQGOw21nZyH2zglugqsZ41pIaSYAVByIsxeXdMfApw3I/hG
- wdzw==
-X-Gm-Message-State: AOJu0YyWXQk9eW7AiVDXZb+I8sYiMdk8KFn2w/7U5qnZHWqbwVsFbHGQ
- Us5lkaFfW60JLCmFJdmzkatUhpQb5Zv77g==
-X-Google-Smtp-Source: AGHT+IHfyiVRoGTSvtJFLxkAy/q/yVE6UqVCSeHD5wD2LmUM0UAGw2/l+aMuKRFd99oOf6oiLsACaQ==
-X-Received: by 2002:adf:f04c:0:b0:337:400c:eb75 with SMTP id
- t12-20020adff04c000000b00337400ceb75mr932847wro.94.1704912701125; 
- Wed, 10 Jan 2024 10:51:41 -0800 (PST)
-Received: from localhost ([102.140.209.237]) by smtp.gmail.com with ESMTPSA id
- l4-20020a5d4804000000b0033718210dd3sm5483675wrq.103.2024.01.10.10.51.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jan 2024 10:51:40 -0800 (PST)
-Date: Wed, 10 Jan 2024 21:51:37 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: quic_abhinavk@quicinc.com
-Subject: [bug report] drm/msm/dpu: reserve cdm blocks for writeback in case
- of YUV output
-Message-ID: <988e47ba-dce5-4014-b5b0-ff3f89a9b0db@moroto.mountain>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8154410E663;
+ Wed, 10 Jan 2024 20:18:41 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40AIheTU017424; Wed, 10 Jan 2024 20:18:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version:content-type; s=
+ qcppdkim1; bh=ysbxujXnPhIjHtzSYlXAMdBSwZYWEn2r0tXEe0Mnbnk=; b=Bn
+ bxP8mSMcUY32JNcC6PVIW8KGgBTA28j4eRXdhRvU/3rdAH6cYzEPxhMEvMtvplex
+ 1tUyd4eYO9HBVWT4KfVnESniiL/bIr0GDwrDu6rjX5KfvJTySFMrjLdMHs9PeaNk
+ J5FToME/HjFc91v+0TOXUdVQD2pp2j0jRmWpfWjb0+od4Gu6n6ZNXakSn3uwaTcn
+ HxaFhqjcv5nNZFpSRbY/JeKZ2+p1EDUwkW4OlCeel1JgfnJH2yDXu4P5ubPfmFJZ
+ xyW0wXE3ToHABX2ttWHVGtCupEi5enQC5NZkg3uExekpgalAQ6TEcpMQ9EM/T35y
+ HF4xYypffaaNJiYAcs8A==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vhvqw0vdg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 20:18:33 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40AKIWvC013660
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 20:18:32 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 10 Jan 2024 12:18:32 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Subject: [PATCH v1] drm/msm/dp: correct configure Colorimetry Indicator Field
+ at MISC0
+Date: Wed, 10 Jan 2024 12:18:08 -0800
+Message-ID: <1704917888-30039-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: bdJQBRI5X5MlpzrR7E1xqCWJ8A7rHsXS
+X-Proofpoint-ORIG-GUID: bdJQBRI5X5MlpzrR7E1xqCWJ8A7rHsXS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxscore=0
+ mlxlogscore=999 adultscore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1011 malwarescore=0
+ priorityscore=1501 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2311290000 definitions=main-2401100161
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,41 +80,194 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Abhinav Kumar,
+MSA MISC0 bit 1 to 7 contains Colorimetry Indicator Field. At current
+implementation, Colorimetry Indicator Field of MISC0 is not configured
+correctly. This patch add support of RGB formats Colorimetry.
 
-This is a semi-automatic email about new static checker warnings.
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c  |  5 ++--
+ drivers/gpu/drm/msm/dp/dp_link.c  | 26 ++++++++++++++++-----
+ drivers/gpu/drm/msm/dp/dp_panel.c | 48 +++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_panel.h |  2 ++
+ 4 files changed, 73 insertions(+), 8 deletions(-)
 
-The patch 8b45a26f2ba9: "drm/msm/dpu: reserve cdm blocks for
-writeback in case of YUV output" from Dec 12, 2023, leads to the
-following Smatch complaint:
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 77a8d93..2ef89fb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2012-2023, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved
+  */
+ 
+ #define pr_fmt(fmt)	"[drm-dp] %s: " fmt, __func__
+@@ -172,7 +173,7 @@ static void dp_ctrl_configure_source_params(struct dp_ctrl_private *ctrl)
+ 
+ 	tb = dp_link_get_test_bits_depth(ctrl->link,
+ 		ctrl->panel->dp_mode.bpp);
+-	cc = dp_link_get_colorimetry_config(ctrl->link);
++	cc = dp_panel_get_misc_colorimetry_val(ctrl->panel);
+ 	dp_catalog_ctrl_config_misc(ctrl->catalog, cc, tb);
+ 	dp_panel_timing_cfg(ctrl->panel);
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index 98427d4..21fa1a2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+  * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved
+  */
+ 
+ #define pr_fmt(fmt)	"[drm-dp] %s: " fmt, __func__
+@@ -12,6 +13,11 @@
+ 
+ #define DP_TEST_REQUEST_MASK		0x7F
+ 
++enum dynamic_range {
++	DP_DYNAMIC_RANGE_RGB_VESA,
++	DP_DYNAMIC_RANGE_RGB_CEA,
++};
++
+ enum audio_sample_rate {
+ 	AUDIO_SAMPLE_RATE_32_KHZ	= 0x00,
+ 	AUDIO_SAMPLE_RATE_44_1_KHZ	= 0x01,
+@@ -1083,6 +1089,7 @@ int dp_link_process_request(struct dp_link *dp_link)
+ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
+ {
+ 	u32 cc;
++	enum dynamic_range dr;
+ 	struct dp_link_private *link;
+ 
+ 	if (!dp_link) {
+@@ -1092,14 +1099,21 @@ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
+ 
+ 	link = container_of(dp_link, struct dp_link_private, dp_link);
+ 
+-	/*
+-	 * Unless a video pattern CTS test is ongoing, use RGB_VESA
+-	 * Only RGB_VESA and RGB_CEA supported for now
+-	 */
++	/* unless a video pattern CTS test is ongoing, use CEA_VESA */
+ 	if (dp_link_is_video_pattern_requested(link))
+-		cc = link->dp_link.test_video.test_dyn_range;
++		dr = link->dp_link.test_video.test_dyn_range;
+ 	else
+-		cc = DP_TEST_DYNAMIC_RANGE_VESA;
++		dr = DP_DYNAMIC_RANGE_RGB_VESA;
++
++	/* Only RGB_VESA and RGB_CEA supported for now */
++	switch (dr) {
++	case DP_DYNAMIC_RANGE_RGB_CEA:
++		cc = BIT(2);
++		break;
++	case DP_DYNAMIC_RANGE_RGB_VESA:
++	default:
++		cc = 0;
++	}
+ 
+ 	return cc;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 127f6af..785bb59 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+  * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved
+  */
+ 
+ #include "dp_panel.h"
+@@ -386,6 +387,53 @@ int dp_panel_init_panel_info(struct dp_panel *dp_panel)
+ 	return 0;
+ }
+ 
++/*
++ * Mapper function which outputs colorimetry to be used for a
++ * given colorspace value when misc field of MSA is used to
++ * change the colorimetry. Currently only RGB formats have been
++ * added. This API will be extended to YUV once it's supported on DP.
++ */
++u8 dp_panel_get_misc_colorimetry_val(struct dp_panel *dp_panel)
++{
++	u8 colorimetry;
++	u32 colorspace;
++	u32 cc;
++	struct dp_panel_private *panel;
++
++	panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
++
++	cc = dp_link_get_colorimetry_config(panel->link);
++	/*
++	 * If there is a non-zero value then compliance test-case
++	 * is going on, otherwise we can honor the colorspace setting
++	 */
++	if (cc)
++		return cc;
++
++	colorspace = dp_panel->connector->state->colorspace;
++	drm_dbg_dp(panel->drm_dev, "colorspace=%d\n", colorspace);
++
++	switch (colorspace) {
++	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
++	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
++		colorimetry = 0x7;
++		break;
++	case DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
++		colorimetry = 0x3;
++		break;
++	case DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
++		colorimetry = 0xb;
++		break;
++	case DRM_MODE_COLORIMETRY_OPRGB:
++		colorimetry = 0xc;
++		break;
++	default:
++		colorimetry = 0;	/* legacy RGB mode */
++	}
++
++	return colorimetry;
++}
++
+ struct dp_panel *dp_panel_get(struct dp_panel_in *in)
+ {
+ 	struct dp_panel_private *panel;
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+index a0dfc57..c34a51d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.h
++++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+@@ -1,6 +1,7 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ /*
+  * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved
+  */
+ 
+ #ifndef _DP_PANEL_H_
+@@ -65,6 +66,7 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+ 		struct drm_connector *connector);
+ void dp_panel_handle_sink_request(struct dp_panel *dp_panel);
+ void dp_panel_tpg_config(struct dp_panel *dp_panel, bool enable);
++u8 dp_panel_get_misc_colorimetry_val(struct dp_panel *dp_panel);
+ 
+ /**
+  * is_link_rate_valid() - validates the link rate
+-- 
+2.7.4
 
-    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:2084 dpu_encoder_helper_phys_cleanup()
-    warn: variable dereferenced before check 'phys_enc->hw_pp' (see line 2075)
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-  2074		/* reset the merge 3D HW block */
-  2075		if (phys_enc->hw_pp->merge_3d) {
-                    ^^^^^^^^^^^^^^^
-The existing code assumed that phys_enc->hw_pp is vald.
-
-  2076			phys_enc->hw_pp->merge_3d->ops.setup_3d_mode(phys_enc->hw_pp->merge_3d,
-  2077					BLEND_3D_NONE);
-  2078			if (phys_enc->hw_ctl->ops.update_pending_flush_merge_3d)
-  2079				phys_enc->hw_ctl->ops.update_pending_flush_merge_3d(ctl,
-  2080						phys_enc->hw_pp->merge_3d->idx);
-  2081		}
-  2082	
-  2083		if (phys_enc->hw_cdm) {
-  2084			if (phys_enc->hw_cdm->ops.bind_pingpong_blk && phys_enc->hw_pp)
-                                                                       ^^^^^^^^^^^^^^^
-But the patch assumes it can be NULL.
-
-  2085				phys_enc->hw_cdm->ops.bind_pingpong_blk(phys_enc->hw_cdm,
-  2086									PINGPONG_NONE);
-
-regards,
-dan carpenter
