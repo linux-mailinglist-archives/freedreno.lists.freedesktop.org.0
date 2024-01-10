@@ -1,73 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05A5B8298FF
-	for <lists+freedreno@lfdr.de>; Wed, 10 Jan 2024 12:27:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BDF7829CE6
+	for <lists+freedreno@lfdr.de>; Wed, 10 Jan 2024 15:55:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE67510E733;
-	Wed, 10 Jan 2024 11:27:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14A610E5FA;
+	Wed, 10 Jan 2024 14:55:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2A810E5C7
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 11:27:13 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-50e7b51b0ceso3795813e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 03:27:13 -0800 (PST)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0F7210E5F9;
+ Wed, 10 Jan 2024 14:55:07 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2cd61dd39d9so26778341fa.2; 
+ Wed, 10 Jan 2024 06:55:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704886032; x=1705490832; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=z8fqLJGB4BORM/e+032bZk6rSSH31yu0kVoWo4ILNqA=;
- b=ZVvjmBFuodxUe4Gl74JFbo0FOwY2IyqYMBzTJn1xExdrBJW3kxPgSDoIh3TH6yzD5E
- MxS5XQVfWGc1jtyAE//qLmj/HdoR7w6CslhrNrDUlDDnTuoXCNL+ktELEpfOLPoz5fbr
- W8iO5uXDPeUtKDxCbo0BaRJ7n1dIzRq/v+vIOV19cmz/COixb2wlkw03jdZpPEecyefs
- /TUU7srgIDTK1ols2X2yHvOW7iHA1wmvG87lr275KARofwkPFIumDz1tjRBBWuJAyek1
- 4pa/aPXeum8U19P+gjSuKAxc4W5MoiY0m5PqQ1iBmLzrD4O7Rhe7kDW7Uef8VtR0XmSL
- GWhg==
+ d=gmail.com; s=20230601; t=1704898506; x=1705503306; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5OgyR+ukWv0ZDFT7MD1S3e5qHTjIQxas4XOabhlAMc4=;
+ b=B4UqzZv+HIdsjVNEkDainm0OZ9EFUMMBOpuiQhgdZEpUgvL5Sd+gLFp03Buh+8h1oi
+ sv08ikEUEb0oGVQFD3We/+eK9l4CUsKeSEI4JHKCfZJrgz7aczUNMbP3iI9HiOC87PBx
+ ZZdQeBLBGZd4NErrou6umdyOMgQ1A5O4yYwEwvgnjI5g8b+9HkepzOr4gMT6qBCpDxnb
+ EWxg3n8JuaRlb9EkFOlq0IaqRCIJPWX7aKM63CVNzcIm7QGhnZNbIXBvlaijUXDphrCP
+ ZO0J/vQqK9FqyxBqacoRqJHacgoOUlTTM8iprFHwCm0dwAEkBRUGd37ZYqahtrswCFLh
+ JNCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704886032; x=1705490832;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=z8fqLJGB4BORM/e+032bZk6rSSH31yu0kVoWo4ILNqA=;
- b=mdN7ut2oBVpupxTo7F7XKLjHsAjGODyPGr5pkMQFEYuGlP3F1P061vBCPEXPmTlWNY
- tmMFBiG2uURtg5wxQW/OGm1fTy6KoOba1Bm7JoJj9/a34FYhUgGamtfmqeh41Z4cNPlM
- bbO1uO1tRY3rhItk9Ml7OfAX1+326kE2nxaq9FAdTI9LsBDCFBU/XJPQ5kbt+gVBq7NE
- 8C6FL1niRLWpfSvaQbtxYSaeaEaroUELrunYGX+sgCe/LziWrcmLgSuKgrVuRQSnkgvc
- QSEHmEmuzaFvUdY7QxiH4d/jFqY/VNhnXwfm57wOu9yKnPZjFVYWZMmntNL2TaStpDCc
- N11g==
-X-Gm-Message-State: AOJu0Yxaz3n07UozGnDFr5nrpaUWwS64R+EPuhg6D33S+a+9/RkIfM8k
- cWFJGIYiH7v9dGIipYHmcTz/MMCGv0kUZg==
-X-Google-Smtp-Source: AGHT+IFMzQJGktOuWmBl23WHZe2kgD5663wQfDGQ9NlnRH8dRYMaZKwgzVMCv8dUK8l/Na8BqMxgrg==
-X-Received: by 2002:a19:6453:0:b0:50e:a436:aafc with SMTP id
- b19-20020a196453000000b0050ea436aafcmr333897lfj.9.1704886031779; 
- Wed, 10 Jan 2024 03:27:11 -0800 (PST)
-Received: from [172.30.205.119] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- x8-20020a056512046800b0050eb7941041sm632908lfd.297.2024.01.10.03.27.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 03:27:11 -0800 (PST)
-Message-ID: <0c77e014-9f08-44ac-9495-eb2a8afaac80@linaro.org>
-Date: Wed, 10 Jan 2024 12:27:09 +0100
+ d=1e100.net; s=20230601; t=1704898506; x=1705503306;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5OgyR+ukWv0ZDFT7MD1S3e5qHTjIQxas4XOabhlAMc4=;
+ b=j+sKu3e4n+lmRtcioGsBITK5FzZoJOJafBErMW057jGSC8r/jaLnj0E9fgsdOLzAdD
+ YEpoEK2/zwOVL3HaXaKsDmkxUjBHFYA9mrozBigDSVZkrPuoSaL+/9jMSif/9ctNB6Vl
+ Kg3WnbzvMWIdGbCWPe95PCxk6t1jng3Z/Khaz4E1ag1LNazK14UEB491DiVAV4MynaYu
+ 1y4tJOuBuu9cJSO0unWYg8hRTleQwgxDlGqh1GHClbpIMnWnitDoYU2JN4q0F3EgftuK
+ oZmf8EJh7lW34ef675StJ6PbCgcXabclKxY7QGhrb/2RQSKwyFO8aD3gXCh1CKJrVuAo
+ 6FzA==
+X-Gm-Message-State: AOJu0YykBqKHRFFkQYsBhaOTUrMYw8Agv87BlrUC/pE738U2c7NeJPK7
+ lGbcxCFLbWZEq6EP8NtvvaIiqfno4JIjvMUx4IM=
+X-Google-Smtp-Source: AGHT+IH5zqO057mcocJ4I+GZxwLsrDWD8i7g35DwdFAwR9pfBQNmh3d7p+YMnEe0KuudH+4klSpSupj07kho3Jh0HfQ=
+X-Received: by 2002:a2e:9dd8:0:b0:2cd:16fe:da17 with SMTP id
+ x24-20020a2e9dd8000000b002cd16feda17mr609164ljj.71.1704898505430; Wed, 10 Jan
+ 2024 06:55:05 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/15] drm/msm/dp: drop dp_parser
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd <swboyd@chromium.org>
-References: <20231231-dp-power-parser-cleanup-v2-0-fc3e902a6f5b@linaro.org>
- <20231231-dp-power-parser-cleanup-v2-15-fc3e902a6f5b@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20231231-dp-power-parser-cleanup-v2-15-fc3e902a6f5b@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240109182218.193804-1-robdclark@gmail.com>
+ <ZZ52YNc-TkeG7PZO@phenom.ffwll.local>
+In-Reply-To: <ZZ52YNc-TkeG7PZO@phenom.ffwll.local>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 10 Jan 2024 06:54:53 -0800
+Message-ID: <CAF6AEGusfKGou-=4y4CDd99x6TgJ1ZhAmnKwQJs1k6s8Bu07SQ@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/msm/gpu: Push gpu lock down past runpm"
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Rob Clark <robdclark@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,21 +74,123 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, Jan 10, 2024 at 2:50=E2=80=AFAM Daniel Vetter <daniel@ffwll.ch> wro=
+te:
+>
+> On Tue, Jan 09, 2024 at 10:22:17AM -0800, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > This reverts commit abe2023b4cea192ab266b351fd38dc9dbd846df0.
+> >
+> > Changing the locking order means that scheduler/msm_job_run() can race
+> > with the recovery kthread worker, with the result that the GPU gets an
+> > extra runpm get when we are trying to power it off.  Leaving the GPU in
+> > an unrecovered state.
+>
+> The recovery kthread is supposed to stop all the relevant schedulers,
+> which should remove any possible race conditions. So unless there's more
+> going on, or you have your own recovery kthread (don't, reuse the one fro=
+m
+> the scheduler with your own work items, that's why you can provide that)
+> this looks like an incomplete/incorrect explanation ... ?
+>
+> Slightly confused
 
+msm still uses it's own recovery, which pre-dates the scheduler
+conversion.  At one point (a yr or two back?) I started looking at
+integrating recovery w/ scheduler.. at the time I think you talked me
+out of it, but I don't remember the reason
 
-On 12/31/23 01:44, Dmitry Baryshkov wrote:
-> Finally drop separate "parsing" submodule. There is no need in it
-> anymore. All submodules handle DT properties directly rather than
-> passing them via the separate structure pointer.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+BR,
+-R
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-
-Konrad
+> -Sima
+>
+> >
+> > I'll need to come up with a different scheme for appeasing lockdep.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/msm/msm_gpu.c        | 11 +++++------
+> >  drivers/gpu/drm/msm/msm_ringbuffer.c |  7 +++++--
+> >  2 files changed, 10 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gp=
+u.c
+> > index 095390774f22..655002b21b0d 100644
+> > --- a/drivers/gpu/drm/msm/msm_gpu.c
+> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> > @@ -751,12 +751,14 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct m=
+sm_gem_submit *submit)
+> >       struct msm_ringbuffer *ring =3D submit->ring;
+> >       unsigned long flags;
+> >
+> > -     pm_runtime_get_sync(&gpu->pdev->dev);
+> > +     WARN_ON(!mutex_is_locked(&gpu->lock));
+> >
+> > -     mutex_lock(&gpu->lock);
+> > +     pm_runtime_get_sync(&gpu->pdev->dev);
+> >
+> >       msm_gpu_hw_init(gpu);
+> >
+> > +     submit->seqno =3D submit->hw_fence->seqno;
+> > +
+> >       update_sw_cntrs(gpu);
+> >
+> >       /*
+> > @@ -781,11 +783,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct ms=
+m_gem_submit *submit)
+> >       gpu->funcs->submit(gpu, submit);
+> >       gpu->cur_ctx_seqno =3D submit->queue->ctx->seqno;
+> >
+> > -     hangcheck_timer_reset(gpu);
+> > -
+> > -     mutex_unlock(&gpu->lock);
+> > -
+> >       pm_runtime_put(&gpu->pdev->dev);
+> > +     hangcheck_timer_reset(gpu);
+> >  }
+> >
+> >  /*
+> > diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm=
+/msm_ringbuffer.c
+> > index e0ed27739449..548f5266a7d3 100644
+> > --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> > +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> > @@ -21,8 +21,6 @@ static struct dma_fence *msm_job_run(struct drm_sched=
+_job *job)
+> >
+> >       msm_fence_init(submit->hw_fence, fctx);
+> >
+> > -     submit->seqno =3D submit->hw_fence->seqno;
+> > -
+> >       mutex_lock(&priv->lru.lock);
+> >
+> >       for (i =3D 0; i < submit->nr_bos; i++) {
+> > @@ -35,8 +33,13 @@ static struct dma_fence *msm_job_run(struct drm_sche=
+d_job *job)
+> >
+> >       mutex_unlock(&priv->lru.lock);
+> >
+> > +     /* TODO move submit path over to using a per-ring lock.. */
+> > +     mutex_lock(&gpu->lock);
+> > +
+> >       msm_gpu_submit(gpu, submit);
+> >
+> > +     mutex_unlock(&gpu->lock);
+> > +
+> >       return dma_fence_get(submit->hw_fence);
+> >  }
+> >
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
