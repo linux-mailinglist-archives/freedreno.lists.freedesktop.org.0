@@ -1,73 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D11788297FB
-	for <lists+freedreno@lfdr.de>; Wed, 10 Jan 2024 11:50:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF8A829885
+	for <lists+freedreno@lfdr.de>; Wed, 10 Jan 2024 12:16:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4E810E749;
-	Wed, 10 Jan 2024 10:50:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C87110E571;
+	Wed, 10 Jan 2024 11:16:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FB1E10E749
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 10:50:12 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a2b27a67b7fso63288166b.0
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 02:50:12 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F191A10E5AB
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 11:16:33 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50eaabc36bcso4898421e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 03:16:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1704883811; x=1705488611; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pMG+VgwiuImv+J4aaZoTzNj8WyK0Rb5bzsnLEuXbNa0=;
- b=cvTNFPoZ/sWureKmcskUY1duz9OyMmDjytLfM2zNMH9Svm50wGhWZycn4wiWSDZHYf
- gii+aq2ekuZ1ng6diGEY+LG0SjdJ5aGqJFagIUI17fcefegHYnBh5Xi10qwrm+tgc5Nn
- Mjtz6yLpP/4A+EKmWgrjLT19mK+oRFaYvXuVo=
+ d=linaro.org; s=google; t=1704885392; x=1705490192; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xvNu0hS2gtTrfUSQddmhew5sv0RLzAxZIW7xh6bWghI=;
+ b=LxeabVw5qBn+0SvE/rSX304JT3sXePolIZYL6OPOHuMh9OfcZxJfg4kluDCJr6IpKT
+ k5ZSoHHVoWb52sa0ybaPpG4YzpjX5XehZgVCqbAO5kgf3ahwnn/xvMoM0VXsoILeuWXb
+ x4nd5w+BwMt6nMNraHVywKG2JfS7lKTwz6XtHoioxmKRLYmK/sGYDyE2t7ZdjyikSF4G
+ /Tsi4Nj2ETuMcSipZsNMBX66hKTidB9NMklYrENAqpdnCziNp3E751txRz4XfSQNELFN
+ TVVssItDd5w4EgPnWw5cSC+ECGCwmgcsQ6U/5QJ95K+6Q7jGL9kAcmC6UEwOedObXAkl
+ JMAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704883811; x=1705488611;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1704885392; x=1705490192;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pMG+VgwiuImv+J4aaZoTzNj8WyK0Rb5bzsnLEuXbNa0=;
- b=kRZNGF7TeiDR1N6c0TpTuPpSWSlSRsxalNz7uO7uq3wIjZIMp9ZyfPYciKhY0/K7aD
- hffBzGqpwBYNuQNgzPq+lW3d12hvQFRo7QXYvcRMPglEOF2/iKe3B3gHDaRvWD9qsNlH
- 13w6iFbmIwkOXZPTu/rN57YtYNGKO7DRIuxTXJ3uzQL81H9ivBUmAThPAXJtqyR5OhsT
- K6h471x5JNScj6yDCVxmcKwVp1H4HQRP/dnQNsMj4znyRon8EmkZr/hwfPItCMstmjVz
- 7az1Z00otxZsZVk0Fe9z1OJjU1CWAq81OwjedaCVOOQ4lOYmqXJzlJYmWkgUmbLPPDme
- 4GNQ==
-X-Gm-Message-State: AOJu0YyDWb15RksoVjs4Agxx4Rv/ft7o/z8U7YtPMQrj0rQubyC7aONM
- QJieMOD6szLlwjADm+ZG9gHJ37vNU7/VLg==
-X-Google-Smtp-Source: AGHT+IFmGBGjq+Stq8bSSseVf5E1hjSMX8cwJxnKryCkxLuDIS16HaXyqwkrbnPVGgV8P0B6D4RcWg==
-X-Received: by 2002:a17:906:c2d9:b0:a2b:d12c:ee48 with SMTP id
- ch25-20020a170906c2d900b00a2bd12cee48mr784942ejb.1.1704883811018; 
- Wed, 10 Jan 2024 02:50:11 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- s24-20020a1709060c1800b00a19afc16d23sm1964347ejf.104.2024.01.10.02.50.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jan 2024 02:50:10 -0800 (PST)
-Date: Wed, 10 Jan 2024 11:50:08 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [PATCH] Revert "drm/msm/gpu: Push gpu lock down past runpm"
-Message-ID: <ZZ52YNc-TkeG7PZO@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20240109182218.193804-1-robdclark@gmail.com>
+ bh=xvNu0hS2gtTrfUSQddmhew5sv0RLzAxZIW7xh6bWghI=;
+ b=jtvukWZYOQt9PNiDxEer1XOtR59+qGqYvXhZ6Z8mXuBrosrh0NdNDJSRYLHdcB5iSU
+ ZtDJo6y0pz+TuGZpJefHuT4OnsLYdQZblnAAbu6b0fXcvrnGrRnBewBRR+k7F3WdVshK
+ VtQmzZFZSD8yZMD9uPljyBOud0tK06DytganEdVyoqgeT3z/6dfj4z4G0Ai0ndx63DL3
+ 7VpTHBHTyi7qRbrgLpLsVjyE9XsLqOAIPCeG8c8D8ffr3sEnVqBosBQYDC4x8xYYhn1V
+ jJ64oKcUVi7ub/T38olYRrOSGBGt3cwT8P19ViOv7iNlWUHx+M8jDoCQNJltykRwLHbi
+ 9/SQ==
+X-Gm-Message-State: AOJu0YxKGTelAI2s9PGNtSiea2lMVDkUTj8DUX46fa8hofUgBV3nGPR7
+ 91leNCxnWMakbXgoIl2SzUDieNaJ21ag6Q==
+X-Google-Smtp-Source: AGHT+IGhgUfZ43c/+WfGHdbLhaKwjKuq51//bDK18QsXvhYG7HJGBLp8/XCMO+4qjzFpQ/vjsFQQ4w==
+X-Received: by 2002:a2e:9dd9:0:b0:2ca:30f5:7e02 with SMTP id
+ x25-20020a2e9dd9000000b002ca30f57e02mr495554ljj.78.1704885392183; 
+ Wed, 10 Jan 2024 03:16:32 -0800 (PST)
+Received: from [172.30.205.119] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ 7-20020a2e1547000000b002cd187bb0f1sm766479ljv.49.2024.01.10.03.16.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jan 2024 03:16:31 -0800 (PST)
+Message-ID: <7904dd33-6b6e-45af-b1bd-9d14301dba33@linaro.org>
+Date: Wed, 10 Jan 2024 12:16:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240109182218.193804-1-robdclark@gmail.com>
-X-Operating-System: Linux phenom 6.5.0-4-amd64 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/15] drm/msm/dp: move phy_configure_opts to dp_ctrl
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd <swboyd@chromium.org>
+References: <20231231-dp-power-parser-cleanup-v2-0-fc3e902a6f5b@linaro.org>
+ <20231231-dp-power-parser-cleanup-v2-9-fc3e902a6f5b@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20231231-dp-power-parser-cleanup-v2-9-fc3e902a6f5b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,110 +80,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 09, 2024 at 10:22:17AM -0800, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> This reverts commit abe2023b4cea192ab266b351fd38dc9dbd846df0.
-> 
-> Changing the locking order means that scheduler/msm_job_run() can race
-> with the recovery kthread worker, with the result that the GPU gets an
-> extra runpm get when we are trying to power it off.  Leaving the GPU in
-> an unrecovered state.
 
-The recovery kthread is supposed to stop all the relevant schedulers,
-which should remove any possible race conditions. So unless there's more
-going on, or you have your own recovery kthread (don't, reuse the one from
-the scheduler with your own work items, that's why you can provide that)
-this looks like an incomplete/incorrect explanation ... ?
 
-Slightly confused
--Sima
-
+On 12/31/23 01:43, Dmitry Baryshkov wrote:
+> There is little point in sharing phy configuration structure between
+> several modules. Move it to dp_ctrl, which becomes the only submodule
+> re-configuring the PHY.
 > 
-> I'll need to come up with a different scheme for appeasing lockdep.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/msm_gpu.c        | 11 +++++------
->  drivers/gpu/drm/msm/msm_ringbuffer.c |  7 +++++--
->  2 files changed, 10 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 095390774f22..655002b21b0d 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -751,12 +751,14 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->  	struct msm_ringbuffer *ring = submit->ring;
->  	unsigned long flags;
->  
-> -	pm_runtime_get_sync(&gpu->pdev->dev);
-> +	WARN_ON(!mutex_is_locked(&gpu->lock));
->  
-> -	mutex_lock(&gpu->lock);
-> +	pm_runtime_get_sync(&gpu->pdev->dev);
->  
->  	msm_gpu_hw_init(gpu);
->  
-> +	submit->seqno = submit->hw_fence->seqno;
-> +
->  	update_sw_cntrs(gpu);
->  
->  	/*
-> @@ -781,11 +783,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->  	gpu->funcs->submit(gpu, submit);
->  	gpu->cur_ctx_seqno = submit->queue->ctx->seqno;
->  
-> -	hangcheck_timer_reset(gpu);
-> -
-> -	mutex_unlock(&gpu->lock);
-> -
->  	pm_runtime_put(&gpu->pdev->dev);
-> +	hangcheck_timer_reset(gpu);
->  }
->  
->  /*
-> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> index e0ed27739449..548f5266a7d3 100644
-> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> @@ -21,8 +21,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
->  
->  	msm_fence_init(submit->hw_fence, fctx);
->  
-> -	submit->seqno = submit->hw_fence->seqno;
-> -
->  	mutex_lock(&priv->lru.lock);
->  
->  	for (i = 0; i < submit->nr_bos; i++) {
-> @@ -35,8 +33,13 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
->  
->  	mutex_unlock(&priv->lru.lock);
->  
-> +	/* TODO move submit path over to using a per-ring lock.. */
-> +	mutex_lock(&gpu->lock);
-> +
->  	msm_gpu_submit(gpu, submit);
->  
-> +	mutex_unlock(&gpu->lock);
-> +
->  	return dma_fence_get(submit->hw_fence);
->  }
->  
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Konrad
