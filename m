@@ -1,77 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C1C082B07C
-	for <lists+freedreno@lfdr.de>; Thu, 11 Jan 2024 15:19:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9271682B3B9
+	for <lists+freedreno@lfdr.de>; Thu, 11 Jan 2024 18:14:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E72B910E958;
-	Thu, 11 Jan 2024 14:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D1610E930;
+	Thu, 11 Jan 2024 17:14:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F1210E958
- for <freedreno@lists.freedesktop.org>; Thu, 11 Jan 2024 14:19:12 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-554d515c5a0so1555738a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 11 Jan 2024 06:19:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1704982751; x=1705587551; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xSSxh+RPIUMZKMpTsr13zKkvmGosyi4C4sKFagTsfmM=;
- b=P3QPDU5/yQnL83vk+PKIIogP1n9xnj9jcpVnymcYtEIXGlE+vStppLwRlcw6DQaVOJ
- xwaZycvPS2iZWruohMCReD1s0GaNvQIgnTMPaOL0Xart0Qbu3E/n9ZPnw83R9JmtlC/J
- Lq9NY1jURduTAwjB8hBTS1RV/N4Ofq+Q5LFys=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704982751; x=1705587551;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xSSxh+RPIUMZKMpTsr13zKkvmGosyi4C4sKFagTsfmM=;
- b=gIDe+lL6qQ0IWIt1g7MJ+krDMoDz0cqeM4cvrEf8CteaRUtA14AExzjSuwXBvQmSy0
- xu5pC781RM5xDFIJhXk9DHdhXrZoQLtl2B0ZCczzDsBRWP6SlnuGzQ8bD0dGoTVjLFBJ
- hEhWHl3qA2XGJNeiqovAJEv1Ql4lAHfqm2EKCFTAZy2ICW+CbdL5HLR81NLw/BrsuuqJ
- z1lkRlTepV52zzUWK7ru6EQoCvE59biG/fmDkUoVaCUiBMoU7R1PL3reK9vUFJt6AMDG
- L/mYEuIWvrJ8uxQ554zKL7JbyYgbtI2KPO97DTKADR1gSlUrGfYqAr2nAP0Lt2gIArRJ
- veRQ==
-X-Gm-Message-State: AOJu0YxYDePhpOuRzwhipR+s9y32jaHp/6Yb1WgEVTTBBXwwN8+yHDCZ
- L+CW6+ypFFgcbKlXvkLBQ217Czg9oJAb5g==
-X-Google-Smtp-Source: AGHT+IGQ8fkDdCLHmesvwOHSP1dlFaJi+Z27VHbTiwHplTSFM3BRzT5PNoP5kBL6v+Aokke4yw99vQ==
-X-Received: by 2002:a17:907:96a1:b0:a26:d233:80b0 with SMTP id
- hd33-20020a17090796a100b00a26d23380b0mr1600615ejc.0.1704982750749; 
- Thu, 11 Jan 2024 06:19:10 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- mb3-20020a170906eb0300b00a28956cf75esm629228ejb.130.2024.01.11.06.19.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jan 2024 06:19:10 -0800 (PST)
-Date: Thu, 11 Jan 2024 15:19:08 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [PATCH] Revert "drm/msm/gpu: Push gpu lock down past runpm"
-Message-ID: <ZZ_43N6OtvgClc8Y@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20240109182218.193804-1-robdclark@gmail.com>
- <ZZ52YNc-TkeG7PZO@phenom.ffwll.local>
- <CAF6AEGusfKGou-=4y4CDd99x6TgJ1ZhAmnKwQJs1k6s8Bu07SQ@mail.gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2144C10E91F;
+ Thu, 11 Jan 2024 17:14:31 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40BExWNr013063; Thu, 11 Jan 2024 17:14:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version:content-type; s=
+ qcppdkim1; bh=6bMyPUPE14ZybsNMO3LzBjdI9wYqf9xHh7+eqo87zh4=; b=Qy
+ hCROXAiOmFs9zDawFuEWnagFrvfRbOlWk5La93QCW2tuiLNwx32vTXkbvjdhg1RZ
+ xciEFpbtZY6bdhXNfXcLnPxdOQr/mggpn4Gg+D3hhA6V6F2pJGhoO0fwmnPYoFaQ
+ HzOkTkFhHFvlKbyshi9j8NdGY1BzQTqbs+xRg3CQMMStHFSFjm65rc11g9BTbxvF
+ ZRWf/EqIKMIqZBArN+DHcLXbgntrBxM6OV8WIDsm2bO1kWTkuvYOk4KnlIWgIB9T
+ 711eIrwHHbxmYItTuuIrP148S7sRp2VeLO/XVWqd2gtOy24kLF9MywKfB6V1P2Iv
+ Fbe0X4v6aLxHI01nwWLA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vjjjj0b90-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Jan 2024 17:14:25 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40BHEOIw012875
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Jan 2024 17:14:24 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 11 Jan 2024 09:14:23 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Subject: [PATCH v1] drm/msm/dp: remove mdss_dp_test_bit_depth_to_bpc()
+Date: Thu, 11 Jan 2024 09:14:15 -0800
+Message-ID: <1704993255-12753-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGusfKGou-=4y4CDd99x6TgJ1ZhAmnKwQJs1k6s8Bu07SQ@mail.gmail.com>
-X-Operating-System: Linux phenom 6.5.0-4-amd64 
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: ZpaN76iMHrE9ikFhkyKykw1A9ybkz516
+X-Proofpoint-GUID: ZpaN76iMHrE9ikFhkyKykw1A9ybkz516
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0
+ phishscore=0 mlxscore=0 spamscore=0 impostorscore=0 mlxlogscore=999
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2401110135
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,153 +79,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 10, 2024 at 06:54:53AM -0800, Rob Clark wrote:
-> On Wed, Jan 10, 2024 at 2:50 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Tue, Jan 09, 2024 at 10:22:17AM -0800, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > This reverts commit abe2023b4cea192ab266b351fd38dc9dbd846df0.
-> > >
-> > > Changing the locking order means that scheduler/msm_job_run() can race
-> > > with the recovery kthread worker, with the result that the GPU gets an
-> > > extra runpm get when we are trying to power it off.  Leaving the GPU in
-> > > an unrecovered state.
-> >
-> > The recovery kthread is supposed to stop all the relevant schedulers,
-> > which should remove any possible race conditions. So unless there's more
-> > going on, or you have your own recovery kthread (don't, reuse the one from
-> > the scheduler with your own work items, that's why you can provide that)
-> > this looks like an incomplete/incorrect explanation ... ?
-> >
-> > Slightly confused
-> 
-> msm still uses it's own recovery, which pre-dates the scheduler
-> conversion.  At one point (a yr or two back?) I started looking at
-> integrating recovery w/ scheduler.. at the time I think you talked me
-> out of it, but I don't remember the reason
+mdss_dp_test_bit_depth_to_bpc() can be replace by
+mdss_dp_test_bit_depth_to_bpp() / 3. Hence remove it.
 
-hm ... most scheduler discussions I remember was around the "allocate your
-own workqueue and hand that to scheduler to avoid races/deadlocks". Which
-iirc Boris implemented a while ago. Once you have that workqueue you can
-then also process any other error condition on there with the exact same
-locking design (like hw error or page faults or whatever), not just
-drm/sched tdr.
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_debug.c |  2 +-
+ drivers/gpu/drm/msm/dp/dp_link.h  | 23 -----------------------
+ 2 files changed, 1 insertion(+), 24 deletions(-)
 
-I don't remember anything else that ever came up at least at a fundamental
-level ...
-
-So if that discussion was older than 78efe21b6f8e ("drm/sched: Allow using
-a dedicated workqueue for the timeout/fault tdr") you should be covered.
-Fingers crossed :-)
-
-Meanwhile if you do not use drm/sched tdr at all then doing the exact same
-design but just on your own workqueue should also work. The critical thing
-is really only:
-- have one single-thread workqueue for all gpu recover
-- bracket each handler in there with drm_sched_stop/start for all affected
-  engines
-
-No more races!
-
-Cheers, Sima
-
-> 
-> BR,
-> -R
-> 
-> > -Sima
-> >
-> > >
-> > > I'll need to come up with a different scheme for appeasing lockdep.
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/msm_gpu.c        | 11 +++++------
-> > >  drivers/gpu/drm/msm/msm_ringbuffer.c |  7 +++++--
-> > >  2 files changed, 10 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> > > index 095390774f22..655002b21b0d 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > > @@ -751,12 +751,14 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-> > >       struct msm_ringbuffer *ring = submit->ring;
-> > >       unsigned long flags;
-> > >
-> > > -     pm_runtime_get_sync(&gpu->pdev->dev);
-> > > +     WARN_ON(!mutex_is_locked(&gpu->lock));
-> > >
-> > > -     mutex_lock(&gpu->lock);
-> > > +     pm_runtime_get_sync(&gpu->pdev->dev);
-> > >
-> > >       msm_gpu_hw_init(gpu);
-> > >
-> > > +     submit->seqno = submit->hw_fence->seqno;
-> > > +
-> > >       update_sw_cntrs(gpu);
-> > >
-> > >       /*
-> > > @@ -781,11 +783,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-> > >       gpu->funcs->submit(gpu, submit);
-> > >       gpu->cur_ctx_seqno = submit->queue->ctx->seqno;
-> > >
-> > > -     hangcheck_timer_reset(gpu);
-> > > -
-> > > -     mutex_unlock(&gpu->lock);
-> > > -
-> > >       pm_runtime_put(&gpu->pdev->dev);
-> > > +     hangcheck_timer_reset(gpu);
-> > >  }
-> > >
-> > >  /*
-> > > diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> > > index e0ed27739449..548f5266a7d3 100644
-> > > --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> > > +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> > > @@ -21,8 +21,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
-> > >
-> > >       msm_fence_init(submit->hw_fence, fctx);
-> > >
-> > > -     submit->seqno = submit->hw_fence->seqno;
-> > > -
-> > >       mutex_lock(&priv->lru.lock);
-> > >
-> > >       for (i = 0; i < submit->nr_bos; i++) {
-> > > @@ -35,8 +33,13 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
-> > >
-> > >       mutex_unlock(&priv->lru.lock);
-> > >
-> > > +     /* TODO move submit path over to using a per-ring lock.. */
-> > > +     mutex_lock(&gpu->lock);
-> > > +
-> > >       msm_gpu_submit(gpu, submit);
-> > >
-> > > +     mutex_unlock(&gpu->lock);
-> > > +
-> > >       return dma_fence_get(submit->hw_fence);
-> > >  }
-> > >
-> > > --
-> > > 2.43.0
-> > >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+index 3bba901..534079e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.c
++++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+@@ -105,7 +105,7 @@ static int dp_test_data_show(struct seq_file *m, void *data)
+ 		seq_printf(m, "vdisplay: %d\n",
+ 				debug->link->test_video.test_v_height);
+ 		seq_printf(m, "bpc: %u\n",
+-				dp_link_bit_depth_to_bpc(bpc));
++				dp_link_bit_depth_to_bpp(bpc) / 3);
+ 	} else {
+ 		seq_puts(m, "0");
+ 	}
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
+index 9dd4dd9..83da170 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.h
++++ b/drivers/gpu/drm/msm/dp/dp_link.h
+@@ -112,29 +112,6 @@ static inline u32 dp_link_bit_depth_to_bpp(u32 tbd)
+ 	}
+ }
+ 
+-/**
+- * dp_test_bit_depth_to_bpc() - convert test bit depth to bpc
+- * @tbd: test bit depth
+- *
+- * Returns the bits per comp (bpc) to be used corresponding to the
+- * bit depth value. This function assumes that bit depth has
+- * already been validated.
+- */
+-static inline u32 dp_link_bit_depth_to_bpc(u32 tbd)
+-{
+-	switch (tbd) {
+-	case DP_TEST_BIT_DEPTH_6:
+-		return 6;
+-	case DP_TEST_BIT_DEPTH_8:
+-		return 8;
+-	case DP_TEST_BIT_DEPTH_10:
+-		return 10;
+-	case DP_TEST_BIT_DEPTH_UNKNOWN:
+-	default:
+-		return 0;
+-	}
+-}
+-
+ void dp_link_reset_phy_params_vx_px(struct dp_link *dp_link);
+ u32 dp_link_get_test_bits_depth(struct dp_link *dp_link, u32 bpp);
+ int dp_link_process_request(struct dp_link *dp_link);
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.7.4
+
