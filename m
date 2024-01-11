@@ -2,59 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AB0982A513
-	for <lists+freedreno@lfdr.de>; Thu, 11 Jan 2024 00:50:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1C082B07C
+	for <lists+freedreno@lfdr.de>; Thu, 11 Jan 2024 15:19:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7893110E6A1;
-	Wed, 10 Jan 2024 23:50:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E72B910E958;
+	Thu, 11 Jan 2024 14:19:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2769810E6A1
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 23:50:49 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id
- 3f1490d57ef6-db3fa47c2f7so3976326276.0
- for <freedreno@lists.freedesktop.org>; Wed, 10 Jan 2024 15:50:49 -0800 (PST)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F1210E958
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Jan 2024 14:19:12 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-554d515c5a0so1555738a12.1
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Jan 2024 06:19:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704930648; x=1705535448; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IY2WHo656dlJft78J6VUeykbQH3OBUSeMuyIpTpTn1Y=;
- b=cqSUD1MHCU4P1ttNzAuPXZzJLy1FZdw8ogTzKKdIDe1mvrMCrWTVJKBOp2CpPqDySf
- 3YMeWjnfNfW2uDUd/IGzEAt7Ak1BFZJBMQMDbzk8VaDYhqYhRIJi7yDVWOPnijZrICzA
- Kmo/j51trR0oK6c0WVu77+nlLoHLiz+OEJfDetkviDtDGJpsg9iaccuFLxfW6a0BRBMF
- GbIvzsnPTtkCYIbwHF2yPOmKYT0YOrxjS1VAYhcgyRQl3kJXvmPRmgTR9I8g7Hh9VGHT
- rUOYynKkuNUBf6+879V3EHnrIw/qPOYxHQJ3mtt95m1tdfjVkJ7YtmuWhH6AczYLTbvp
- 2oKg==
+ d=ffwll.ch; s=google; t=1704982751; x=1705587551; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=xSSxh+RPIUMZKMpTsr13zKkvmGosyi4C4sKFagTsfmM=;
+ b=P3QPDU5/yQnL83vk+PKIIogP1n9xnj9jcpVnymcYtEIXGlE+vStppLwRlcw6DQaVOJ
+ xwaZycvPS2iZWruohMCReD1s0GaNvQIgnTMPaOL0Xart0Qbu3E/n9ZPnw83R9JmtlC/J
+ Lq9NY1jURduTAwjB8hBTS1RV/N4Ofq+Q5LFys=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704930648; x=1705535448;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1704982751; x=1705587551;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=IY2WHo656dlJft78J6VUeykbQH3OBUSeMuyIpTpTn1Y=;
- b=JFFelRM6FvklVPvatv+5UL7mua70U+eqPyyACSajwpn8lo5oddjsmrg7vKX5u9Nel+
- d6N0cZiwa+G7tKD1+wZEW6o0ID3MV1GUhMThgurKUTmYC03PeowS2w3Fx8g9tpMrS9eT
- 2+ALyPAOGHo3kGauMT4UDmjff8N9/uL+tK74iddxiYm5le6ZMY6f8jAO9caehvZNhVn9
- JpXmJVRU2bVGdxP+TBbGeytie68ypqLocxfveRf4TokvKssb6ApTdqECekpn3V1lK64R
- Q+Ri0E6TCRY42K8yXIJZiyZtMtvuDKkot3SlhNoau4lRt39KR0B56M+Ty8lWWaZ2wtYy
- mWZg==
-X-Gm-Message-State: AOJu0YwwWRbnRdI9GjIyatFXyzrdp+X2otM9q+oULyphEZj+Hn3u+b5F
- A+u9XLjtCx3qAF3Jrw3mDwroEY+mJ/e+FsQoZluLVleVnGXVDQ==
-X-Google-Smtp-Source: AGHT+IE0M9W/0P2Ae6mYe8PCrJ9dMKg+/Sc+SJ/3RpX4hnY2c5YNeNuY5R4SrTJIFAZOV6C8lq2rU9YH1tu7XsHEaA4=
-X-Received: by 2002:a5b:651:0:b0:dbd:b17c:802 with SMTP id
- o17-20020a5b0651000000b00dbdb17c0802mr409911ybq.52.1704930648185; 
- Wed, 10 Jan 2024 15:50:48 -0800 (PST)
+ bh=xSSxh+RPIUMZKMpTsr13zKkvmGosyi4C4sKFagTsfmM=;
+ b=gIDe+lL6qQ0IWIt1g7MJ+krDMoDz0cqeM4cvrEf8CteaRUtA14AExzjSuwXBvQmSy0
+ xu5pC781RM5xDFIJhXk9DHdhXrZoQLtl2B0ZCczzDsBRWP6SlnuGzQ8bD0dGoTVjLFBJ
+ hEhWHl3qA2XGJNeiqovAJEv1Ql4lAHfqm2EKCFTAZy2ICW+CbdL5HLR81NLw/BrsuuqJ
+ z1lkRlTepV52zzUWK7ru6EQoCvE59biG/fmDkUoVaCUiBMoU7R1PL3reK9vUFJt6AMDG
+ L/mYEuIWvrJ8uxQ554zKL7JbyYgbtI2KPO97DTKADR1gSlUrGfYqAr2nAP0Lt2gIArRJ
+ veRQ==
+X-Gm-Message-State: AOJu0YxYDePhpOuRzwhipR+s9y32jaHp/6Yb1WgEVTTBBXwwN8+yHDCZ
+ L+CW6+ypFFgcbKlXvkLBQ217Czg9oJAb5g==
+X-Google-Smtp-Source: AGHT+IGQ8fkDdCLHmesvwOHSP1dlFaJi+Z27VHbTiwHplTSFM3BRzT5PNoP5kBL6v+Aokke4yw99vQ==
+X-Received: by 2002:a17:907:96a1:b0:a26:d233:80b0 with SMTP id
+ hd33-20020a17090796a100b00a26d23380b0mr1600615ejc.0.1704982750749; 
+ Thu, 11 Jan 2024 06:19:10 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ mb3-20020a170906eb0300b00a28956cf75esm629228ejb.130.2024.01.11.06.19.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jan 2024 06:19:10 -0800 (PST)
+Date: Thu, 11 Jan 2024 15:19:08 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [PATCH] Revert "drm/msm/gpu: Push gpu lock down past runpm"
+Message-ID: <ZZ_43N6OtvgClc8Y@phenom.ffwll.local>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20240109182218.193804-1-robdclark@gmail.com>
+ <ZZ52YNc-TkeG7PZO@phenom.ffwll.local>
+ <CAF6AEGusfKGou-=4y4CDd99x6TgJ1ZhAmnKwQJs1k6s8Bu07SQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <1704917931-30133-1-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1704917931-30133-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 11 Jan 2024 01:50:37 +0200
-Message-ID: <CAA8EJppcsQtS7h4g+hK+sss7pDuvKjkJX1o7_DUO-rTg1BtWLQ@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/msms/dp: fixed link clock divider bits be over
- written in BPC unknown case
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGusfKGou-=4y4CDd99x6TgJ1ZhAmnKwQJs1k6s8Bu07SQ@mail.gmail.com>
+X-Operating-System: Linux phenom 6.5.0-4-amd64 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +84,153 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jan 2024 at 22:19, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> Since the value of DP_TEST_BIT_DEPTH_8 is already left shifted, in the
-> BPC unknown case, the additional shift causes spill over to the other
-> bits of the [DP_CONFIGURATION_CTRL] register.
-> Fix this by changing the return value of dp_link_get_test_bits_depth()
-> in the BPC unknown case to (DP_TEST_BIT_DEPTH_8 >> DP_TEST_BIT_DEPTH_SHIFT).
->
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+On Wed, Jan 10, 2024 at 06:54:53AM -0800, Rob Clark wrote:
+> On Wed, Jan 10, 2024 at 2:50 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Tue, Jan 09, 2024 at 10:22:17AM -0800, Rob Clark wrote:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > >
+> > > This reverts commit abe2023b4cea192ab266b351fd38dc9dbd846df0.
+> > >
+> > > Changing the locking order means that scheduler/msm_job_run() can race
+> > > with the recovery kthread worker, with the result that the GPU gets an
+> > > extra runpm get when we are trying to power it off.  Leaving the GPU in
+> > > an unrecovered state.
+> >
+> > The recovery kthread is supposed to stop all the relevant schedulers,
+> > which should remove any possible race conditions. So unless there's more
+> > going on, or you have your own recovery kthread (don't, reuse the one from
+> > the scheduler with your own work items, that's why you can provide that)
+> > this looks like an incomplete/incorrect explanation ... ?
+> >
+> > Slightly confused
+> 
+> msm still uses it's own recovery, which pre-dates the scheduler
+> conversion.  At one point (a yr or two back?) I started looking at
+> integrating recovery w/ scheduler.. at the time I think you talked me
+> out of it, but I don't remember the reason
 
-For the patch itself:
+hm ... most scheduler discussions I remember was around the "allocate your
+own workqueue and hand that to scheduler to avoid races/deadlocks". Which
+iirc Boris implemented a while ago. Once you have that workqueue you can
+then also process any other error condition on there with the exact same
+locking design (like hw error or page faults or whatever), not just
+drm/sched tdr.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I don't remember anything else that ever came up at least at a fundamental
+level ...
 
-Additional note. Since this made me look at how DP_TEST_BIT_DEPTH is
-handled in the driver, I stumbled upon dp_link_bit_depth_to_bpc() vs
-dp_link_bit_depth_to_bpp(). These two functions look pretty redundant.
-Since the former one is used only for the debugfs, please consider
-sending a patch that removes it for the sake of using the latter one
-and /3 in dp_test_data_show().
+So if that discussion was older than 78efe21b6f8e ("drm/sched: Allow using
+a dedicated workqueue for the timeout/fault tdr") you should be covered.
+Fingers crossed :-)
 
+Meanwhile if you do not use drm/sched tdr at all then doing the exact same
+design but just on your own workqueue should also work. The critical thing
+is really only:
+- have one single-thread workqueue for all gpu recover
+- bracket each handler in there with drm_sched_stop/start for all affected
+  engines
+
+No more races!
+
+Cheers, Sima
+
+> 
+> BR,
+> -R
+> 
+> > -Sima
+> >
+> > >
+> > > I'll need to come up with a different scheme for appeasing lockdep.
+> > >
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/msm_gpu.c        | 11 +++++------
+> > >  drivers/gpu/drm/msm/msm_ringbuffer.c |  7 +++++--
+> > >  2 files changed, 10 insertions(+), 8 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> > > index 095390774f22..655002b21b0d 100644
+> > > --- a/drivers/gpu/drm/msm/msm_gpu.c
+> > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> > > @@ -751,12 +751,14 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+> > >       struct msm_ringbuffer *ring = submit->ring;
+> > >       unsigned long flags;
+> > >
+> > > -     pm_runtime_get_sync(&gpu->pdev->dev);
+> > > +     WARN_ON(!mutex_is_locked(&gpu->lock));
+> > >
+> > > -     mutex_lock(&gpu->lock);
+> > > +     pm_runtime_get_sync(&gpu->pdev->dev);
+> > >
+> > >       msm_gpu_hw_init(gpu);
+> > >
+> > > +     submit->seqno = submit->hw_fence->seqno;
+> > > +
+> > >       update_sw_cntrs(gpu);
+> > >
+> > >       /*
+> > > @@ -781,11 +783,8 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+> > >       gpu->funcs->submit(gpu, submit);
+> > >       gpu->cur_ctx_seqno = submit->queue->ctx->seqno;
+> > >
+> > > -     hangcheck_timer_reset(gpu);
+> > > -
+> > > -     mutex_unlock(&gpu->lock);
+> > > -
+> > >       pm_runtime_put(&gpu->pdev->dev);
+> > > +     hangcheck_timer_reset(gpu);
+> > >  }
+> > >
+> > >  /*
+> > > diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> > > index e0ed27739449..548f5266a7d3 100644
+> > > --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> > > +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> > > @@ -21,8 +21,6 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+> > >
+> > >       msm_fence_init(submit->hw_fence, fctx);
+> > >
+> > > -     submit->seqno = submit->hw_fence->seqno;
+> > > -
+> > >       mutex_lock(&priv->lru.lock);
+> > >
+> > >       for (i = 0; i < submit->nr_bos; i++) {
+> > > @@ -35,8 +33,13 @@ static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+> > >
+> > >       mutex_unlock(&priv->lru.lock);
+> > >
+> > > +     /* TODO move submit path over to using a per-ring lock.. */
+> > > +     mutex_lock(&gpu->lock);
+> > > +
+> > >       msm_gpu_submit(gpu, submit);
+> > >
+> > > +     mutex_unlock(&gpu->lock);
+> > > +
+> > >       return dma_fence_get(submit->hw_fence);
+> > >  }
+> > >
+> > > --
+> > > 2.43.0
+> > >
+> >
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
 
 -- 
-With best wishes
-Dmitry
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
