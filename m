@@ -2,64 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39BB982B7E0
-	for <lists+freedreno@lfdr.de>; Fri, 12 Jan 2024 00:14:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2866C82BF62
+	for <lists+freedreno@lfdr.de>; Fri, 12 Jan 2024 12:42:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE2310E336;
-	Thu, 11 Jan 2024 23:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E270D10EA72;
+	Fri, 12 Jan 2024 11:42:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C89C310E336;
- Thu, 11 Jan 2024 23:14:38 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3bbbd4d2b4aso4987213b6e.0; 
- Thu, 11 Jan 2024 15:14:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705014878; x=1705619678; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wrVoNjP495STQIQ3FVMsai806YpFMUIXx4z0Rg6visI=;
- b=MHsDjb6bGHbp+/GgRRDpSvhGMFjgT3nAmDJ/Qultie1dTS3Ioe3EjOS0ICOIF61swB
- azNGeROlU4HnHwN9jeKuPVJxp+lFHezJT4Hyf42wNoNsG6f8X5R1iJ/n3rw/OpmYedK5
- pMWcqj5R1pLGO3ML1E5TZOBKp/dEzi974JWEaKnUjnwBxYeTlwvoeq5JyfLWT74tQUXx
- h/z/NQnSXeZIVebGZbR+n7HzaxTdGh3bDD0iEVPIshYajPF77zZ14KeC3rblDtQdPTUS
- xtCLSL3YG7RzhX8XMq/USABhsQdaMz96auLlypqOHuiwHXZWbrTRLq7ZvOnafftV0HMi
- bx/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705014878; x=1705619678;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wrVoNjP495STQIQ3FVMsai806YpFMUIXx4z0Rg6visI=;
- b=o34mAEKmruedgAMFU8Ern0A1ZRAvrcGyZEmWJDI4Oh68/8Sg8cQp+GjK+YhScn2rQk
- K0VHYCWG6M/UecEK6htBJJa12cDwsL/r44rgj32x/xxIfl1Y8RcPukOxFGFI5Df7I4R+
- JDn+6yvw/v2FELwX4tqjUO33wVb05QOnFZP11adEAKnxuSz01ynoJGvm/l3AFF+jCAFs
- 8kefPwsYN6O5l0pdJvSky4e+BswWuh5Y7nxbPpNoAmI0shCETM6Hj4CTCJKbvDotC1zv
- /msjLh1uyIUhb1pvXky5r572LLJLpnhSPRLN/OB2kLncSKOjSuRCroTeFOqQuDgNJGee
- RiFA==
-X-Gm-Message-State: AOJu0YzUmTK1BZxL9uKAf8Dbt3rYtIGT4S4ETuIVUQYM/e7lDxPuydZE
- Si9nFnyaTLhLSuTrVlr+UmlTTkvzH70xYQ==
-X-Google-Smtp-Source: AGHT+IGDpKcp2NUQHYqgIYov31tIUZuCdOiqNmsa1HKjxrxNTrNHs1Lbzf8wtArROVtJKBgCf+AvNA==
-X-Received: by 2002:a05:6808:1308:b0:3bd:5791:67f3 with SMTP id
- y8-20020a056808130800b003bd579167f3mr101557oiv.30.1705014877887; 
- Thu, 11 Jan 2024 15:14:37 -0800 (PST)
-Received: from localhost ([2607:fea8:52a3:d200::a40a])
- by smtp.gmail.com with ESMTPSA id
- s4-20020ad45004000000b0067f07683decsm627592qvo.99.2024.01.11.15.14.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jan 2024 15:14:37 -0800 (PST)
-Date: Thu, 11 Jan 2024 18:14:34 -0500
-From: Richard Acayan <mailingradian@gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH] drm/msm/mdss: specify cfg bandwidth for SDM670
-Message-ID: <ZaB2WjoHBNPnv0CN@radian>
-References: <20231215013222.827975-1-dmitry.baryshkov@linaro.org>
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [IPv6:2a00:1098:ed:100::25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B48710E08F;
+ Fri, 12 Jan 2024 11:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1705059729;
+ bh=v0ayvc6VxUrFVwfoqiV5RNkoO3lyHBgUhluMw+6vw+A=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=e364iGGrslydFLzQ5zrs8FMVSFGCTG3IE2djY1gcfg2xwEQB88GCiojRn3nk/inJ3
+ fxavbYD7jToad6JfgoGcjrRZtUBSU5qNZja8latrfr126RVOqrsdQx8FNuUJgfP79E
+ AIvnjl3jfM4mROB11VWPZtJLgTwrg/ZONR9zn6tlr3x8+LhqMzlpDbu7+EScCflkmT
+ 4nN49KBw0/tI8pHqDqwujP9QtzFu3VSMIphA7ntHzN/ZE3Vy3LHtq5EMpgovsrj1FU
+ FOqEhEcWnYxEOIiETLB1BMGaIvtRFsfKywwiyeq5Ae+RwdbpsnLfxI8TXq4BsXn8YR
+ 4Wzu6XNZTm5dw==
+Received: from [100.66.96.193] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id CC4423781F80;
+ Fri, 12 Jan 2024 11:42:05 +0000 (UTC)
+Message-ID: <27e64458-7cb1-99a4-f67e-60d911f28f44@collabora.com>
+Date: Fri, 12 Jan 2024 17:12:02 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231215013222.827975-1-dmitry.baryshkov@linaro.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] drm/ci: Add msm tests
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20240108195016.156583-1-robdclark@gmail.com>
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <20240108195016.156583-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,52 +54,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Helen Koike <helen.koike@collabora.com>, Daniel Stone <daniel@fooishbar.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 15, 2023 at 03:32:22AM +0200, Dmitry Baryshkov wrote:
-> Lower the requested CFG bus bandwidth for the SDM670 platform. The
-> default value is 153600 kBps, which is twice as big as required by the
-> platform according to the vendor kernel.
->
-> Fixes: a55c8ff252d3 ("drm/msm/mdss: Handle the reg bus ICC path")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Hi Rob,
+
+
+On 09/01/24 01:20, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> The msm tests should skip on non-msm hw, so I think it should be safe to
+> enable everywhere.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 455b2e3a0cdd..35423d10aafa 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -562,6 +562,7 @@ static const struct msm_mdss_data sdm670_data = {
->  	.ubwc_enc_version = UBWC_2_0,
->  	.ubwc_dec_version = UBWC_2_0,
->  	.highest_bank_bit = 1,
-> +	.reg_bus_bw = 76800,
+>   drivers/gpu/drm/ci/testlist.txt | 49 +++++++++++++++++++++++++++++++++
+>   1 file changed, 49 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/ci/testlist.txt b/drivers/gpu/drm/ci/testlist.txt
+> index f82cd90372f4..eaeb751bb0ad 100644
+> --- a/drivers/gpu/drm/ci/testlist.txt
+> +++ b/drivers/gpu/drm/ci/testlist.txt
+> @@ -2910,3 +2910,52 @@ kms_writeback@writeback-invalid-parameters
+>   kms_writeback@writeback-fb-id
+>   kms_writeback@writeback-check-output
+>   prime_mmap_kms@buffer-sharing
+> +msm_shrink@copy-gpu-sanitycheck-8
+> +msm_shrink@copy-gpu-sanitycheck-32
+> +msm_shrink@copy-gpu-8
+> +msm_shrink@copy-gpu-32
+> +msm_shrink@copy-gpu-madvise-8
+> +msm_shrink@copy-gpu-madvise-32
+> +msm_shrink@copy-gpu-oom-8
+> +msm_shrink@copy-gpu-oom-32
+> +msm_shrink@copy-mmap-sanitycheck-8
+> +msm_shrink@copy-mmap-sanitycheck-32
+> +msm_shrink@copy-mmap-8
+> +msm_shrink@copy-mmap-32
+> +msm_shrink@copy-mmap-madvise-8
+> +msm_shrink@copy-mmap-madvise-32
+> +msm_shrink@copy-mmap-oom-8
+> +msm_shrink@copy-mmap-oom-32
+> +msm_shrink@copy-mmap-dmabuf-sanitycheck-8
+> +msm_shrink@copy-mmap-dmabuf-sanitycheck-32
+> +msm_shrink@copy-mmap-dmabuf-8
+> +msm_shrink@copy-mmap-dmabuf-32
+> +msm_shrink@copy-mmap-dmabuf-madvise-8
+> +msm_shrink@copy-mmap-dmabuf-madvise-32
+> +msm_shrink@copy-mmap-dmabuf-oom-8
+> +msm_shrink@copy-mmap-dmabuf-oom-32
+> +msm_mapping@ring
+> +msm_mapping@sqefw
+> +msm_mapping@shadow
+> +msm_submitoverhead@submitbench-10-bos
+> +msm_submitoverhead@submitbench-10-bos-no-implicit-sync
+> +msm_submitoverhead@submitbench-100-bos
+> +msm_submitoverhead@submitbench-100-bos-no-implicit-sync
+> +msm_submitoverhead@submitbench-250-bos
+> +msm_submitoverhead@submitbench-250-bos-no-implicit-sync
+> +msm_submitoverhead@submitbench-500-bos
+> +msm_submitoverhead@submitbench-500-bos-no-implicit-sync
+> +msm_submitoverhead@submitbench-1000-bos
+> +msm_submitoverhead@submitbench-1000-bos-no-implicit-sync
+> +msm_recovery@hangcheck
+> +msm_recovery@gpu-fault
+> +msm_recovery@gpu-fault-parallel
+> +msm_recovery@iova-fault
+> +msm_submit@empty-submit
+> +msm_submit@invalid-queue-submit
+> +msm_submit@invalid-flags-submit
+> +msm_submit@invalid-in-fence-submit
+> +msm_submit@invalid-duplicate-bo-submit
+> +msm_submit@invalid-cmd-idx-submit
+> +msm_submit@invalid-cmd-type-submit
+> +msm_submit@valid-submit
 
-This seems to be the bandwidth applied to the "cpu-cfg" path, but it is
-not in the device tree yet and is not allowed by schema (for no
-particular reason). In sdm670.dtsi, it would be defined as:
+I tested this patch with latest drm-misc/drm-misc-next and there was 
+some failures seen for the newly added msm tests. I have updated the
+xfails with below commit,
 
-	<&gladiator_noc MASTER_AMPSS_M0 0 &config_noc SLAVE_DISPLAY_CFG 0>
+https://gitlab.freedesktop.org/vigneshraman/linux/-/commit/d012893597a661d6ebbb755bf2607dfb055524a1
 
-Furthermore, I have not yet emailed the patches that I use to test the
-display on SDM670, namely, the panel driver and device tree changes for
-the Pixel 3a. Nevertheless, this does not break anything, even with the
-interconnect path and everything needed to test.
+I will notify the maintainers about the flaky tests, update the url in 
+the flakes.txt, and submit a separate patch for this change.
 
-Tested-by: Richard Acayan <mailingradian@gmail.com>
-
->  };
->  
->  static const struct msm_mdss_data sdm845_data = {
-> -- 
-> 2.39.2
->
+Regards,
+Vignesh
