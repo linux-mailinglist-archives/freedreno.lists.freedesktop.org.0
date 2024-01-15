@@ -1,46 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C2E82D578
-	for <lists+freedreno@lfdr.de>; Mon, 15 Jan 2024 10:02:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB9382D713
+	for <lists+freedreno@lfdr.de>; Mon, 15 Jan 2024 11:19:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A2610E21A;
-	Mon, 15 Jan 2024 09:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DAD610E279;
+	Mon, 15 Jan 2024 10:19:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [IPv6:2a00:1098:ed:100::25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5BB10E21A;
- Mon, 15 Jan 2024 09:02:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3F0810E269;
+ Mon, 15 Jan 2024 10:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1705309370;
- bh=sftk4d280l+HctfqAtKqHrcK/J3Px2D7IIXq4GsVvDg=;
- h=Date:To:Cc:From:Subject:From;
- b=K8KFxOQdS1ydMRB9VNADqLf5mNe9FEJN1/06TE4qFR9Lqyc7B+Qypi9qYceKL8+zG
- 4ovabva4VCYnSaU+11e1BnTcVk+HsdOuxb1KjiRhfQH1jaKTds3SoUiLbncEZLFbC1
- BB+d+LT0TnCytncAhroB2BuEJyLxr7FDThSROanO5Am2NBVRdBFeV11JtlDRrvf/L2
- gPvmhsNekyzZdD6YhAKXypLKszsH+ZV4wdnGa1aPgbAVXQl3g7rv6RFyQxqbDjdTGw
- TCwi/TvbdwQObmNmDh8RGAAYhbhl5uXJ6shrxVkHIoRSMS6YuByhA2oBW0GUatYo5L
- i8gUcn8SZ90vA==
-Received: from [100.66.96.193] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ s=mail; t=1705313957;
+ bh=5M0CoigHI7gHurr6rjx+nK96Is9edBDpXARyeKnX9z4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=lcz7LTJmW55BgDO7x5bRtI0v7QyC6+FwKz5KDnuDq6U5j/IsS+RTbTcG/cWZybQZN
+ LD8QpA/7dTt4rwTJvpIyiHnb+EUu7oemSj4JkTn8GG+Znim0lm/yZ2BdA11NfxJfT4
+ 3guIQF5hAtXvoyNJna4bibJxLaY54hC+xYqEdZC+9ddLMGNJrRFMe1exotyMgCSOiI
+ aCCE29TNC/D39kGQD/aDGUYqFziXdH0pdD9wpoYELAzobGwLuM99aNfKBc8jbcJdhJ
+ v3s5dEuGuKVUZPjEXMPB0ExJHrdnaG9BJy0nPVYLyD5xVk1oqh4hbh9rW9TZLgtRFv
+ C4XkqvMjusHDw==
+Received: from localhost.localdomain (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: vignesh)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 179043781F80;
- Mon, 15 Jan 2024 09:02:41 +0000 (UTC)
-Message-ID: <46287831-edfa-78e8-6055-d7a08831c445@collabora.com>
-Date: Mon, 15 Jan 2024 14:32:38 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 3705A37811D0;
+ Mon, 15 Jan 2024 10:19:11 +0000 (UTC)
+From: Vignesh Raman <vignesh.raman@collabora.com>
 To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-From: Vignesh Raman <vignesh.raman@collabora.com>
-Subject: Flaky tests for msm sdm845
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [PATCH v1] drm/ci: Update xfails for newly added msm tests
+Date: Mon, 15 Jan 2024 15:47:50 +0530
+Message-Id: <20240115101750.27077-1-vignesh.raman@collabora.com>
+X-Mailer: git-send-email 2.40.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,59 +50,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, robdclark@gmail.com, daniel@fooishbar.org,
+Cc: daniels@collabora.com, sean@poorly.run, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, robdclark@gmail.com,
  quic_abhinavk@quicinc.com, david.heidelberg@collabora.com,
  helen.koike@collabora.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
  marijn.suijten@somainline.org, airlied@gmail.com, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Maintainers,
+msm tests are added to testlist.txt, so update the xfails
+for jobs in msm stage.
 
-There are some flaky tests reported for sdm845 msm driver testing in 
-drm-ci with commit 
-https://patchwork.kernel.org/project/linux-arm-msm/patch/20240108195016.156583-1-robdclark@gmail.com/
+Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+---
 
-=== msm:sdm845 ===
-# Board Name: msm:sdm845
-# Failure Rate: 50
-# IGT Version: 1.28-gd2af13d9f
-# Linux Version: 6.7.0-rc3
+Depends on https://patchwork.kernel.org/project/linux-arm-msm/patch/20240108195016.156583-1-robdclark@gmail.com/ 
 
-Pipeline url:
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53737049
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53737050
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53734294
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53714642
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53667209
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53647868
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53734121
-https://gitlab.freedesktop.org/vigneshraman/linux/-/jobs/53647999
+---
+ .../gpu/drm/ci/xfails/msm-apq8016-fails.txt   |  3 +-
+ .../gpu/drm/ci/xfails/msm-sdm845-fails.txt    |  5 +---
+ .../gpu/drm/ci/xfails/msm-sdm845-flakes.txt   | 28 +++++++++++++------
+ .../gpu/drm/ci/xfails/msm-sdm845-skips.txt    |  7 ++++-
+ 4 files changed, 27 insertions(+), 16 deletions(-)
 
-# Reported by deqp-runner
-kms_cursor_legacy@basic-flip-after-cursor-legacy
-kms_cursor_legacy@flip-vs-cursor-toggle
-kms_cursor_legacy@flip-vs-cursor-varying-size
-kms_cursor_legacy@short-flip-after-cursor-toggle
-kms_cursor_legacy@short-flip-before-cursor-atomic-transitions
-kms_cursor_legacy@short-flip-before-cursor-atomic-transitions-varying-size
-msm_shrink@copy-gpu-oom-32
+diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+index d39d254c935e..44a5c62dedad 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+@@ -6,8 +6,6 @@ kms_cursor_legacy@all-pipes-single-bo,Fail
+ kms_cursor_legacy@all-pipes-single-move,Fail
+ kms_cursor_legacy@all-pipes-torture-bo,Fail
+ kms_cursor_legacy@all-pipes-torture-move,Fail
+-kms_cursor_legacy@forked-bo,Fail
+-kms_cursor_legacy@forked-move,Fail
+ kms_cursor_legacy@pipe-A-forked-bo,Fail
+ kms_cursor_legacy@pipe-A-forked-move,Fail
+ kms_cursor_legacy@pipe-A-single-bo,Fail
+@@ -18,3 +16,4 @@ kms_force_connector_basic@force-edid,Fail
+ kms_hdmi_inject@inject-4k,Fail
+ kms_selftest@drm_format,Timeout
+ kms_selftest@drm_format_helper,Timeout
++msm_mapping@ring,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
+index c55baa2d18c1..e9043a00383e 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-fails.txt
+@@ -15,7 +15,7 @@ kms_color@pipe-A-ctm-max,Fail
+ kms_color@pipe-A-ctm-negative,Fail
+ kms_color@pipe-A-ctm-red-to-blue,Fail
+ kms_color@pipe-A-legacy-gamma,Fail
+-kms_cursor_legacy@basic-flip-after-cursor-legacy,Fail
++kms_cursor_legacy@basic-flip-after-cursor-atomic,Fail
+ kms_cursor_legacy@basic-flip-after-cursor-varying-size,Fail
+ kms_cursor_legacy@basic-flip-before-cursor-atomic,Fail
+ kms_cursor_legacy@basic-flip-before-cursor-legacy,Fail
+@@ -29,9 +29,6 @@ kms_cursor_legacy@flip-vs-cursor-atomic,Fail
+ kms_cursor_legacy@flip-vs-cursor-crc-atomic,Fail
+ kms_cursor_legacy@flip-vs-cursor-crc-legacy,Fail
+ kms_cursor_legacy@flip-vs-cursor-legacy,Fail
+-kms_cursor_legacy@short-flip-after-cursor-atomic-transitions,Fail
+-kms_cursor_legacy@short-flip-after-cursor-atomic-transitions-varying-size,Fail
+-kms_cursor_legacy@short-flip-after-cursor-toggle,Fail
+ kms_flip@flip-vs-modeset-vs-hang,Fail
+ kms_flip@flip-vs-panning-vs-hang,Fail
+ kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
+index 16d205c04cbb..8a492f01eaa4 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
+@@ -1,12 +1,22 @@
+-kms_cursor_legacy@basic-flip-after-cursor-atomic
+-kms_cursor_legacy@basic-flip-before-cursor-varying-size
+-kms_cursor_legacy@cursorA-vs-flipA-toggle
+-kms_cursor_legacy@flip-vs-cursor-atomic-transitions
++# Board Name: msm:sdm845
++# Bug Report: https://lore.kernel.org/dri-devel/46287831-edfa-78e8-6055-d7a08831c445@collabora.com/T/#u
++# Failure Rate: 50
++# IGT Version: 1.28-gd2af13d9f
++# Linux Version: 6.7.0-rc3
++
++# Reported by deqp-runner
++kms_cursor_legacy@basic-flip-after-cursor-legacy
+ kms_cursor_legacy@flip-vs-cursor-toggle
+ kms_cursor_legacy@flip-vs-cursor-varying-size
++kms_cursor_legacy@short-flip-after-cursor-toggle
+ kms_cursor_legacy@short-flip-before-cursor-atomic-transitions
+-kms_cursor_legacy@short-flip-before-cursor-toggle
+-kms_flip@flip-vs-modeset-vs-hang
+-kms_flip@flip-vs-panning-vs-hang
+-kms_plane@pixel-format
+-kms_plane@pixel-format-source-clamping
++kms_cursor_legacy@short-flip-before-cursor-atomic-transitions-varying-size
++msm_shrink@copy-gpu-32
++msm_shrink@copy-gpu-oom-32
++
++# The below test shows inconsistency across multiple runs, giving
++# results of Pass and Fail alternately.
++kms_cursor_legacy@basic-flip-before-cursor-varying-size
++kms_cursor_legacy@flip-vs-cursor-atomic-transitions
++kms_cursor_legacy@short-flip-after-cursor-atomic-transitions
++kms_cursor_legacy@short-flip-after-cursor-atomic-transitions-varying-size
+diff --git a/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt
+index 42675f1c6d76..618e3a3a7277 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-sdm845-skips.txt
+@@ -1,2 +1,7 @@
+ # Hangs machine
+-kms_bw.*
+\ No newline at end of file
++kms_bw.*
++
++# Failing due to a bootloader/fw issue. The workaround in mesa CI involves these two patches
++# https://gitlab.freedesktop.org/gfx-ci/linux/-/commit/4b49f902ec6f2bb382cbbf489870573f4b43371e
++# https://gitlab.freedesktop.org/gfx-ci/linux/-/commit/38cdf4c5559771e2474ae0fecef8469f65147bc1
++msm_mapping@*
+-- 
+2.40.1
 
-# The below test shows inconsistency across multiple runs, giving
-# results of Pass and Fail/Crash alternately.
-kms_cursor_legacy@basic-flip-before-cursor-varying-size
-kms_cursor_legacy@flip-vs-cursor-atomic-transitions
-kms_cursor_legacy@short-flip-after-cursor-atomic-transitions
-kms_cursor_legacy@short-flip-after-cursor-atomic-transitions-varying-size
-msm_shrink@copy-gpu-32
-
-I will add these tests in 
-drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt 
-(https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/gpu/automated_testing.rst#n70)
-
-Please could you have a look at these test results and let us know if 
-you need more information. Thank you.
-
-Regards,
-Vignesh
