@@ -2,53 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFEDE82F233
-	for <lists+freedreno@lfdr.de>; Tue, 16 Jan 2024 17:14:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D433830C49
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jan 2024 18:54:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B637B10E564;
-	Tue, 16 Jan 2024 16:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2CC110E769;
+	Wed, 17 Jan 2024 17:54:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66EC410E564;
- Tue, 16 Jan 2024 16:14:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705421673; x=1736957673;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Laa0CQd0yJ+fDuLvFZPVswEPeD7Y0wSXSidO7YjTej4=;
- b=I+eNSNtdotOSrSw+lq9ogqQ3s9ZEeImW1XTcZiDH9xnsj3w5jX6gDk96
- vh3CC3tK4BWAW4sG2D4xIPF/MogS9jogRXLf/08Ri5W+iGDjocqauMhAD
- TA4rfN/S5rkWUVIdCUKOfSBnQqR8266ytCUCmCgqkU9ehPSzxlXAL5fZv
- N+BY0ih5ISbrOPMQMNnJCvoY/Nl42EkfyGRKwkCM01ygZph0NnTxNqLsD
- dwcq7olFXX3PVXl3gSoJ974+Kw/DvbqibkNr0HEbliKbXQ0688dHg1PQ5
- lyQPuZuPfKmkXqsCer9IW64D/pE7kJxhQqybZyje7Ptv7eeI6ZxykXruh w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10955"; a="466284407"
-X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="466284407"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2024 08:14:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10955"; a="787497846"
-X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="787497846"
-Received: from jfunnell-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.39.52])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2024 08:14:21 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Sarha, Jyri" <jyri.sarha@intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Subject: Re: [3/3] ASoC: hdmi-codec: drop drm/drm_edid.h include
-In-Reply-To: <4eeb74d942acf24e468036e0732e5e32c6907f6f.camel@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240104201632.1100753-3-jani.nikula@intel.com>
- <4eeb74d942acf24e468036e0732e5e32c6907f6f.camel@intel.com>
-Date: Tue, 16 Jan 2024 18:14:18 +0200
-Message-ID: <87v87tqmqt.fsf@intel.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5731910E739;
+ Wed, 17 Jan 2024 17:54:45 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40HCiwhB028384; Wed, 17 Jan 2024 17:54:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version:content-type; s=
+ qcppdkim1; bh=Jqz0ufGKLuoj0EpzY4PrPet3WRBB9IFgOwd18dIBjH8=; b=XC
+ BUM95T+RtZMCUgm+5JCgpZkNkEFjwjAgimkOzgBrUK6ya3lqWEiIT5CXIsP/f5lz
+ umn2+irs/xrXVIVNi9czvX62TssSze5EaeUR0s/sRpTMa7fSDbR4NUsq9BAwmOKf
+ uhmkNwiKcwpChFYomQkrfypzsLd841PTXlKyR2sMN/MrXCkbGsalJeSECLUd6qKi
+ RQPfm86EF0DZoysu7CpmlbKeo2mZGmOGrQQF9LRQo3Ps020wly7trXrL4KuG7s9+
+ IEJiYenAmTnkS4Xrvoq72bLh7ihk0CjhjMecSSZW3OvwZ3Ck33jmxQdFs2+2mTLu
+ Ia/DF1jGP6fyDvFL5U2w==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vpdfgrxm6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jan 2024 17:54:37 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40HHsaBP005846
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jan 2024 17:54:36 GMT
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 17 Jan 2024 09:54:36 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
+Subject: [PATCH v2] drm/msm/dp: correct configure Colorimetry Indicator Field
+ at MISC0
+Date: Wed, 17 Jan 2024 09:54:28 -0800
+Message-ID: <1705514068-22394-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
 Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: C4JkQLmb9MX4lGQMlg2TYdOAnw2WlCCt
+X-Proofpoint-ORIG-GUID: C4JkQLmb9MX4lGQMlg2TYdOAnw2WlCCt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-17_10,2024-01-17_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ mlxlogscore=999 phishscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2311290000 definitions=main-2401170130
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,37 +80,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "mripard@kernel.org" <mripard@kernel.org>,
- "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
- "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>,
- "rfoss@kernel.org" <rfoss@kernel.org>, "jonas@kwiboo.se" <jonas@kwiboo.se>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
- "Hajda, Andrzej" <andrzej.hajda@intel.com>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "perex@perex.cz" <perex@perex.cz>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 12 Jan 2024, "Sarha, Jyri" <jyri.sarha@intel.com> wrote:
-> Reviewed-by: <jyri.sarha@linux.intel.com>
->
-> Thanks,
-> The including of drm_edid.h in hdmi-codec.h is a relic from my pre
-> upstreaming version of hdmi-codec. I don't think it was ever needed
-> in any upsteam version.
+MSA MISC0 bit 1 to 7 contains Colorimetry Indicator Field. At
+current implementation, at DP_TEST_DYNAMIC_RANGE_CEA case the
+Colorimetry Indicator Field is mistakenly left shifted one extra
+bit. This patch return correct value of colorimetry at
+dp_link_get_colorimetry_config() to fix this problem.
 
-Thanks for the reviews and acks, pushed to drm-misc-next, even if I
-didn't get an ack from Jaroslav or Takashi. Seems rather benign anyway.
+Changes in V2:
+-- drop retrieving colorimetry from colorspace
+-- drop dr = link->dp_link.test_video.test_dyn_range assignment
 
-BR,
-Jani.
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_link.c | 11 ++++++-----
+ drivers/gpu/drm/msm/dp/dp_link.h |  3 +++
+ 2 files changed, 9 insertions(+), 5 deletions(-)
 
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index 98427d4..2e1bdaf 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -1082,7 +1082,7 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
+ {
+-	u32 cc;
++	u32 cc = DP_MISC0_LEGACY_RGB;
+ 	struct dp_link_private *link;
+ 
+ 	if (!dp_link) {
+@@ -1096,10 +1096,11 @@ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
+ 	 * Unless a video pattern CTS test is ongoing, use RGB_VESA
+ 	 * Only RGB_VESA and RGB_CEA supported for now
+ 	 */
+-	if (dp_link_is_video_pattern_requested(link))
+-		cc = link->dp_link.test_video.test_dyn_range;
+-	else
+-		cc = DP_TEST_DYNAMIC_RANGE_VESA;
++	if (dp_link_is_video_pattern_requested(link)) {
++		if (link->dp_link.test_video.test_dyn_range &
++					DP_TEST_DYNAMIC_RANGE_CEA)
++			cc = DP_MISC0_CEA_RGB;
++	}
+ 
+ 	return cc;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
+index 9dd4dd9..fe8f716 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.h
++++ b/drivers/gpu/drm/msm/dp/dp_link.h
+@@ -12,6 +12,9 @@
+ #define DP_TEST_BIT_DEPTH_UNKNOWN 0xFFFFFFFF
+ #define DP_LINK_CAP_ENHANCED_FRAMING (1 << 0)
+ 
++#define DP_MISC0_LEGACY_RGB		0
++#define DP_MISC0_CEA_RGB		0x04
++
+ struct dp_link_info {
+ 	unsigned char revision;
+ 	unsigned int rate;
 -- 
-Jani Nikula, Intel
+2.7.4
+
