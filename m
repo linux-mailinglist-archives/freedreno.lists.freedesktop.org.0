@@ -2,72 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E216830E6A
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jan 2024 22:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C634831155
+	for <lists+freedreno@lfdr.de>; Thu, 18 Jan 2024 03:17:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5343910E85F;
-	Wed, 17 Jan 2024 21:14:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B47B10E0DF;
+	Thu, 18 Jan 2024 02:17:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14B210E847;
- Wed, 17 Jan 2024 21:13:58 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40HLA63A011740; Wed, 17 Jan 2024 21:13:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:mime-version:content-type; s=
- qcppdkim1; bh=bQDgy9xDLgmnYLFuYDo7Y/1XGAsi2c5U1sJTHjU5QmM=; b=ei
- qWlZTSbn+wlI+Mn4d+EvM2Qy2vRwM350b+H67blizbMmX7Ffl0ElVZrnBIx/ZamN
- qxRmLm899oQiGjepwzLD0pLlumia0xsukYvgRi19rgKpLj3ZyRi1MNKh4aZps+RN
- Zd1tEZDpA5hUnw8+TtSlEr+pKFaj1bslAitbFQk3nZXfDCuCrKb0L9fyilrtnYOh
- h9FKteRp4he18id60rHXanrsSQm0vmX5LPzY27X0wW6AHNvv+xMBwILE1vBZ82M4
- q7lz0/BX/10F31RSThk1Ehts7CrZsWXWdOGif9HnDCV+A9oZ9aA4svgdQYF7kYL7
- DMXRcFsV88dEvBTTCSKA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vp6p3t703-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Jan 2024 21:13:38 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40HLDckP023566
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Jan 2024 21:13:38 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Wed, 17 Jan 2024 13:13:37 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-Subject: [PATCH v3] drm/msm/dp: return correct Colorimetry for
- DP_TEST_DYNAMIC_RANGE_CEA case
-Date: Wed, 17 Jan 2024 13:13:30 -0800
-Message-ID: <1705526010-597-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9567D10E0DF;
+ Thu, 18 Jan 2024 02:17:19 +0000 (UTC)
+X-UUID: 43d0795174294d89904cf0b7504238dd-20240118
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.35, REQID:1c0bfad0-7b29-415b-9fa2-010a6f2d21e5, IP:10,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-9,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:1
+X-CID-INFO: VERSION:1.1.35, REQID:1c0bfad0-7b29-415b-9fa2-010a6f2d21e5, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:-9,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:1
+X-CID-META: VersionHash:5d391d7, CLOUDID:7c56f882-8d4f-477b-89d2-1e3bdbef96d1,
+ B
+ ulkID:240118101702QKGYL0XV,BulkQuantity:0,Recheck:0,SF:38|24|17|19|42|74|6
+ 4|66|102,TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:
+ nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
+X-UUID: 43d0795174294d89904cf0b7504238dd-20240118
+Received: from mail.kylinos.cn [(39.156.73.10)] by mailgw
+ (envelope-from <chentao@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1202952070; Thu, 18 Jan 2024 10:17:02 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id B3C66E000EB9;
+ Thu, 18 Jan 2024 10:17:01 +0800 (CST)
+X-ns-mid: postfix-65A88A1D-552403442
+Received: from [172.20.15.234] (unknown [172.20.15.234])
+ by mail.kylinos.cn (NSMail) with ESMTPA id 36366E000EB9;
+ Thu, 18 Jan 2024 10:16:58 +0800 (CST)
+Message-ID: <4d4f4ae4-e5e9-4d9e-ac25-d262e7ea23fc@kylinos.cn>
+Date: Thu, 18 Jan 2024 10:16:57 +0800
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Fzn28BTqKuncmYkGgN8Wug8X72hDAS6b
-X-Proofpoint-ORIG-GUID: Fzn28BTqKuncmYkGgN8Wug8X72hDAS6b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-17_12,2024-01-17_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 impostorscore=0
- adultscore=0 mlxlogscore=999 lowpriorityscore=0 suspectscore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
- definitions=main-2401170150
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/adreno: Add a null pointer check in
+ zap_shader_load_mdt()
+Content-Language: en-US
+To: Markus Elfring <Markus.Elfring@web.de>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20240116032732.65262-1-chentao@kylinos.cn>
+ <9e390783-05c5-47fc-a0c6-b95e249fe691@web.de>
+From: Kunwu Chan <chentao@kylinos.cn>
+In-Reply-To: <9e390783-05c5-47fc-a0c6-b95e249fe691@web.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,87 +72,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-MSA MISC0 bit 1 to 7 contains Colorimetry Indicator Field.
-dp_link_get_colorimetry_config() returns wrong colorimetry value
-in the DP_TEST_DYNAMIC_RANGE_CEA case in the current implementation.
-Hence fix this problem by having dp_link_get_colorimetry_config()
-return defined CEA RGB colorimetry value in the case of
-DP_TEST_DYNAMIC_RANGE_CEA.
+On 2024/1/18 02:50, Markus Elfring wrote:
+>> kasprintf() returns a pointer to dynamically allocated memory
+>> which can be NULL upon failure. Ensure the allocation was successful
+>> by checking the pointer validity.
+> =E2=80=A6
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>> @@ -144,6 +144,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gp=
+u, const char *fwname,
+>>   		char *newname;
+>>
+>>   		newname =3D kasprintf(GFP_KERNEL, "qcom/%s", fwname);
+>> +		if (!newname) {
+>> +			ret =3D -ENOMEM;
+>> +			goto out;
+>> +		}
+> =E2=80=A6
+>=20
+> How do you think about to avoid the repetition of the pointer check
+> for the variable =E2=80=9Cmem_region=E2=80=9D?
+"mem_region"? Is this a clerical error, do you mean 'newname'?
 
-Changes in V2:
--- drop retrieving colorimetry from colorspace
--- drop dr = link->dp_link.test_video.test_dyn_range assignment
+No check found in __qcom_mdt_load for 'newname'.
+'newname' is used for printing in '__qcom_mdt_load' in some cases, which=20
+is a bit dangerous.
+So it's necessary check it before using it.
 
-Changes in V3:
--- move defined MISCr0a Colorimetry vale to dp_reg.h
--- rewording commit title
--- rewording commit text to more precise describe this patch
-
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_link.c | 12 +++++++-----
- drivers/gpu/drm/msm/dp/dp_reg.h  |  3 +++
- 2 files changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 98427d4..5284e48 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -7,6 +7,7 @@
- 
- #include <drm/drm_print.h>
- 
-+#include "dp_reg.h"
- #include "dp_link.h"
- #include "dp_panel.h"
- 
-@@ -1082,7 +1083,7 @@ int dp_link_process_request(struct dp_link *dp_link)
- 
- int dp_link_get_colorimetry_config(struct dp_link *dp_link)
- {
--	u32 cc;
-+	u32 cc = DP_MISC0_COLORIMERY_CFG_LEGACY_RGB;
- 	struct dp_link_private *link;
- 
- 	if (!dp_link) {
-@@ -1096,10 +1097,11 @@ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
- 	 * Unless a video pattern CTS test is ongoing, use RGB_VESA
- 	 * Only RGB_VESA and RGB_CEA supported for now
- 	 */
--	if (dp_link_is_video_pattern_requested(link))
--		cc = link->dp_link.test_video.test_dyn_range;
--	else
--		cc = DP_TEST_DYNAMIC_RANGE_VESA;
-+	if (dp_link_is_video_pattern_requested(link)) {
-+		if (link->dp_link.test_video.test_dyn_range &
-+					DP_TEST_DYNAMIC_RANGE_CEA)
-+			cc = DP_MISC0_COLORIMERY_CFG_CEA_RGB;
-+	}
- 
- 	return cc;
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
-index ea85a69..78785ed 100644
---- a/drivers/gpu/drm/msm/dp/dp_reg.h
-+++ b/drivers/gpu/drm/msm/dp/dp_reg.h
-@@ -143,6 +143,9 @@
- #define DP_MISC0_COLORIMETRY_CFG_SHIFT		(0x00000001)
- #define DP_MISC0_TEST_BITS_DEPTH_SHIFT		(0x00000005)
- 
-+#define DP_MISC0_COLORIMERY_CFG_LEGACY_RGB	(0)
-+#define DP_MISC0_COLORIMERY_CFG_CEA_RGB		(0x04)
-+
- #define REG_DP_VALID_BOUNDARY			(0x00000030)
- #define REG_DP_VALID_BOUNDARY_2			(0x00000034)
- 
--- 
-2.7.4
+> Can the usage of other labels become more appropriate?
+>=20
+> Regards,
+> Markus
+--=20
+Thanks,
+   Kunwu
 
