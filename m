@@ -2,67 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1188831859
-	for <lists+freedreno@lfdr.de>; Thu, 18 Jan 2024 12:20:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 397578329A1
+	for <lists+freedreno@lfdr.de>; Fri, 19 Jan 2024 13:43:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B44F10E76C;
-	Thu, 18 Jan 2024 11:20:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88C4410E9B7;
+	Fri, 19 Jan 2024 12:42:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FFDD10E76C
- for <freedreno@lists.freedesktop.org>; Thu, 18 Jan 2024 11:20:04 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-50e78f1f41fso13024955e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 18 Jan 2024 03:20:04 -0800 (PST)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED03210E182
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Jan 2024 12:42:57 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-5f254d1a6daso7857597b3.2
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Jan 2024 04:42:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1705576743; x=1706181543; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=MDFd66KcIbKFIIX/WcgTl2/WLahORWiu0MGU1O5cSMo=;
- b=OO5CnF7Ox2fpdIiDIbsAzTRcw/8ad1iUCy4NAlGMIrfcgtXyWdb0bP9EiGsrlx+dF8
- Ni8Ap8j93zzZZBewOJsY8CbY5SkK3JJ79ZP2PRbyhJwnHGiek0NTHFSeOtBEOsDmCpgE
- ogfTgDV8gYnAdjE/SZ1yaGLlzrVtwA60g9Pbg/vr5TsdBVTiZ8TEGNZelswdXEdJgQqQ
- 3MDdAMq7xM4d50SJbDjc9n+SxRPpHVfu8yBrdPygScjYXNGJ6zv95JsGS0IwJqasSJ7F
- 1vh0MG4pAulScU8aGvbwMBA4bktqdDXqs//LF5M0z14nn2ZrksuxLJPdiHIr3u2i9Xzp
- jo0A==
+ d=linaro.org; s=google; t=1705668114; x=1706272914; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=23vuA1+7BgcGfSlqZ4nH0qFr70mqNSgh0bqFZoyYKpg=;
+ b=anAt07MoU7nZ/fTEOqyORcKFDVUpdOAOPDglHV8JsiYcgTXxUx7oW6zWo7CwJguJgq
+ AJVfH0NjT6XU+Q5IlVuQnfJZi3Wyow1tevbHjp3qP0Lgwyel4oZFc7KKNj8LR1Xeu5hR
+ wW/xTAAirlIwMvZqEVJD2PH0EtGNOkg24+51ERjKc3v2rpxKSK9BAyrE7WLNuRffiEIQ
+ OPCHB4i1VkgtH2CB/u7KHgHuK3uqdBekXXm6Bc4tGA6ho5f8fkX6DOUHTRhjLGxbu69c
+ aWZ44GacZeHRBHGgBt3xRBtJzsf1S3AqOW69e31zM8kQS464s8p0mvb1zCp74nXhj4IX
+ BXjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705576743; x=1706181543;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MDFd66KcIbKFIIX/WcgTl2/WLahORWiu0MGU1O5cSMo=;
- b=oLYjBwSUfBkPw2DWUAMJYz6eIGp252zT5tLysgDEyRN11eYZPQTTqCfXZp1h4YoaIz
- 8X8mTgW9qqsxpItrdAK8zfOhrzEssQypq4xxj7caAERuWP1dGd7HkYYn4FFUEBFEkHXu
- RT/G0WMB4eZ99NPanYrQcVbv+IAJJRUfvJ3sIFZ1VDSMxKgBbRWP1VNfMw3I2wppwq2+
- isEkDLxRwPihT+dITtCsp2Q4Jo4YyFfcTG/GZq7JHCBBIZXyhU1r51GXxy7BKexjFJVz
- 3pPlkHiPVnonp/sCDOnnukTl2j5iER4J9hyOOH3uRiGh26cGF+5f6zufWPe+sSL0WXg+
- EUWQ==
-X-Gm-Message-State: AOJu0YyOw+7ka+9qx8bHaVdAPOzoMqa/kyNk04shK5b0aCIXjdxKE/ap
- wOZ/8Sp5g+Wumc5bSXo8kz4yrx8+twjiyv6g7ljvvJNZ5psqQfiu9espBZYw6Rw=
-X-Google-Smtp-Source: AGHT+IHqoe2TVTZTVhMTb7zPOZYWEj/lioFMe60pwfbBpenxG7wEQKyuG3YE/bPiO2Lu8eFVuFv6CQ==
-X-Received: by 2002:a05:6512:4897:b0:50e:d5ad:9414 with SMTP id
- eq23-20020a056512489700b0050ed5ad9414mr386800lfb.50.1705576742745; 
- Thu, 18 Jan 2024 03:19:02 -0800 (PST)
-Received: from [172.30.204.173] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- n22-20020a0565120ad600b0050ef97332cbsm601903lfu.32.2024.01.18.03.19.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jan 2024 03:19:02 -0800 (PST)
-Message-ID: <4c4d7469-c28b-412d-aa30-7123d3c98d1e@linaro.org>
-Date: Thu, 18 Jan 2024 12:19:00 +0100
+ d=1e100.net; s=20230601; t=1705668114; x=1706272914;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=23vuA1+7BgcGfSlqZ4nH0qFr70mqNSgh0bqFZoyYKpg=;
+ b=g+ojxEWP/CQR1odIouf/kgVgavsAwHerrirWsUs3szqyPsJDDLZYU4i5IIFgLeu6Oj
+ MHc/Um4N/NK1wdquWAO7p2ty0k7+ym306aJB83GhTq6vJDW7KzPWZtYA+oVFMKwBtr80
+ l6VQDdBhz9mpWfw1IvJvySy8r9NBM2zhhKpJy8QJnt8l3lXkd2hOQf2dg68HO2P4FIa3
+ R+FXqS7mSwx9PUsXvAuKx+uiY6PpNmAjYRJnn6tr4LBxfrGnG8Q2bqJnzXSvOS/Afly0
+ jNWKKk1qrK+xFSo0T2tMdIINbm3IFeKpSrNsCPff5fVxzlOhBsZcopgPuO0GYBaDwFAw
+ fHWw==
+X-Gm-Message-State: AOJu0Ywi5uLwCSzubS3tinPRo1tB3QVsmcGqeH2CQl1keSG+yfi6r5B7
+ SEs3MPQJwcs4pKurFrXtCVGEzTQ5dVyWk41QuDAQPjtVLmsIn1DRsmpF8Fo32b8s0atnZ3GhBha
+ bbN5phNa/JAhmm+Nu6f9lLbvepplQsaMP7N09Sw==
+X-Google-Smtp-Source: AGHT+IGXaB/Qo5C8K/AVwVpt0k+i3/3nYM44JB7FzXsWZairbE64gJOEa8s/VJ7iEick4vjqREgSJWa6nU4h2xbXln0=
+X-Received: by 2002:a0d:df17:0:b0:5ff:7cca:a434 with SMTP id
+ i23-20020a0ddf17000000b005ff7ccaa434mr2084545ywe.51.1705668113943; Fri, 19
+ Jan 2024 04:41:53 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: Update generated headers
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20240117203744.394260-1-robdclark@gmail.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20240117203744.394260-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <1705526010-597-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1705526010-597-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 19 Jan 2024 14:41:43 +0200
+Message-ID: <CAA8EJpqm5KW_UOkvV1JhX+LEh_e8bo549NNQ1AgAXMZ=ZPVCOA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/msm/dp: return correct Colorimetry for
+ DP_TEST_DYNAMIC_RANGE_CEA case
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,36 +68,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Connor Abbott <cwabbott0@gmail.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
+ andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 1/17/24 21:37, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> This updates the GPU headers to latest from mesa, using gen_header.py
-> (which is used to generate headers at bulid time for mesa), rather than
-> headergen2 (which doesn't have proper support for A6XX vs A7XX register
-> variants).
-> 
-> Mostly just uninteresting churn, but there are a couple spots in a7xx
-> paths which update REG_A6XX_foo to REG_A7XX_foo for registers which are
-> a7xx specific.
-> 
-> Cc: Connor Abbott <cwabbott0@gmail.com>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+On Wed, 17 Jan 2024 at 23:13, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> MSA MISC0 bit 1 to 7 contains Colorimetry Indicator Field.
+> dp_link_get_colorimetry_config() returns wrong colorimetry value
+> in the DP_TEST_DYNAMIC_RANGE_CEA case in the current implementation.
+> Hence fix this problem by having dp_link_get_colorimetry_config()
+> return defined CEA RGB colorimetry value in the case of
+> DP_TEST_DYNAMIC_RANGE_CEA.
+>
+> Changes in V2:
+> -- drop retrieving colorimetry from colorspace
+> -- drop dr = link->dp_link.test_video.test_dyn_range assignment
+>
+> Changes in V3:
+> -- move defined MISCr0a Colorimetry vale to dp_reg.h
+> -- rewording commit title
+> -- rewording commit text to more precise describe this patch
+>
+> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
+>  drivers/gpu/drm/msm/dp/dp_link.c | 12 +++++++-----
+>  drivers/gpu/drm/msm/dp/dp_reg.h  |  3 +++
+>  2 files changed, 10 insertions(+), 5 deletions(-)
 
-Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Konrad
+-- 
+With best wishes
+Dmitry
