@@ -2,60 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397578329A1
-	for <lists+freedreno@lfdr.de>; Fri, 19 Jan 2024 13:43:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C84B83301F
+	for <lists+freedreno@lfdr.de>; Fri, 19 Jan 2024 22:14:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C4410E9B7;
-	Fri, 19 Jan 2024 12:42:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E7810EA6F;
+	Fri, 19 Jan 2024 21:14:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED03210E182
- for <freedreno@lists.freedesktop.org>; Fri, 19 Jan 2024 12:42:57 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-5f254d1a6daso7857597b3.2
- for <freedreno@lists.freedesktop.org>; Fri, 19 Jan 2024 04:42:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1705668114; x=1706272914; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=23vuA1+7BgcGfSlqZ4nH0qFr70mqNSgh0bqFZoyYKpg=;
- b=anAt07MoU7nZ/fTEOqyORcKFDVUpdOAOPDglHV8JsiYcgTXxUx7oW6zWo7CwJguJgq
- AJVfH0NjT6XU+Q5IlVuQnfJZi3Wyow1tevbHjp3qP0Lgwyel4oZFc7KKNj8LR1Xeu5hR
- wW/xTAAirlIwMvZqEVJD2PH0EtGNOkg24+51ERjKc3v2rpxKSK9BAyrE7WLNuRffiEIQ
- OPCHB4i1VkgtH2CB/u7KHgHuK3uqdBekXXm6Bc4tGA6ho5f8fkX6DOUHTRhjLGxbu69c
- aWZ44GacZeHRBHGgBt3xRBtJzsf1S3AqOW69e31zM8kQS464s8p0mvb1zCp74nXhj4IX
- BXjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705668114; x=1706272914;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=23vuA1+7BgcGfSlqZ4nH0qFr70mqNSgh0bqFZoyYKpg=;
- b=g+ojxEWP/CQR1odIouf/kgVgavsAwHerrirWsUs3szqyPsJDDLZYU4i5IIFgLeu6Oj
- MHc/Um4N/NK1wdquWAO7p2ty0k7+ym306aJB83GhTq6vJDW7KzPWZtYA+oVFMKwBtr80
- l6VQDdBhz9mpWfw1IvJvySy8r9NBM2zhhKpJy8QJnt8l3lXkd2hOQf2dg68HO2P4FIa3
- R+FXqS7mSwx9PUsXvAuKx+uiY6PpNmAjYRJnn6tr4LBxfrGnG8Q2bqJnzXSvOS/Afly0
- jNWKKk1qrK+xFSo0T2tMdIINbm3IFeKpSrNsCPff5fVxzlOhBsZcopgPuO0GYBaDwFAw
- fHWw==
-X-Gm-Message-State: AOJu0Ywi5uLwCSzubS3tinPRo1tB3QVsmcGqeH2CQl1keSG+yfi6r5B7
- SEs3MPQJwcs4pKurFrXtCVGEzTQ5dVyWk41QuDAQPjtVLmsIn1DRsmpF8Fo32b8s0atnZ3GhBha
- bbN5phNa/JAhmm+Nu6f9lLbvepplQsaMP7N09Sw==
-X-Google-Smtp-Source: AGHT+IGXaB/Qo5C8K/AVwVpt0k+i3/3nYM44JB7FzXsWZairbE64gJOEa8s/VJ7iEick4vjqREgSJWa6nU4h2xbXln0=
-X-Received: by 2002:a0d:df17:0:b0:5ff:7cca:a434 with SMTP id
- i23-20020a0ddf17000000b005ff7ccaa434mr2084545ywe.51.1705668113943; Fri, 19
- Jan 2024 04:41:53 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E58410EA6F;
+ Fri, 19 Jan 2024 21:14:35 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40JKWD0f015662; Fri, 19 Jan 2024 21:14:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=fvgTxVkd+Z5XZe4ztJT64BSinsdPYrbSQr8zLxqqp/U=; b=JA
+ ST1eFucviZwPVZp/O6NUhPw83871G1zfjenBaqOE9MThgNeadIih3yiwyFgn+hxK
+ bBONCtVoDJdStLxc3RdGgAl3sT6n1YrdgYUmZQOoz9fJQf73FIRkIJY8rnudGD4I
+ F7/RbzoZ5rjfCh0i3/1O173Fwa8BaFK94XRQ/7y8Yb6CVNH/BzcPm9dsRcFdMsg+
+ 1y0kT6BZe7YiudFgHhNKiqfKe5Am3AUvd6PUeRt5DafwvwA5oSgVZK202W8bpqoa
+ e5UMmEz9imP5wWPQbkLKbBLzT1fDDPvBpH3vgxOa3AKmGJSpRMYsJCnte//jL6mE
+ ttLf59SiEk4t7iQKK8VQ==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vqh2k9yk8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jan 2024 21:14:21 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40JLEKlF002914
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jan 2024 21:14:20 GMT
+Received: from [10.110.79.9] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 19 Jan
+ 2024 13:14:19 -0800
+Message-ID: <b5f571c6-dcf6-c416-ca86-fdbd0514676b@quicinc.com>
+Date: Fri, 19 Jan 2024 13:14:18 -0800
 MIME-Version: 1.0
-References: <1705526010-597-1-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1705526010-597-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 19 Jan 2024 14:41:43 +0200
-Message-ID: <CAA8EJpqm5KW_UOkvV1JhX+LEh_e8bo549NNQ1AgAXMZ=ZPVCOA@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/msm/dp: return correct Colorimetry for
- DP_TEST_DYNAMIC_RANGE_CEA case
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 13/14] drm/msm/dp: move next_bridge handling to dp_display
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+References: <20231229225650.912751-1-dmitry.baryshkov@linaro.org>
+ <20231229225650.912751-14-dmitry.baryshkov@linaro.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <20231229225650.912751-14-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ebDywD6xpQtIxcUFQjz-zBZhVgy458IN
+X-Proofpoint-ORIG-GUID: ebDywD6xpQtIxcUFQjz-zBZhVgy458IN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-19_12,2024-01-19_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0
+ clxscore=1011 impostorscore=0 phishscore=0 mlxlogscore=999 mlxscore=0
+ suspectscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2401190128
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,42 +86,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, quic_sbillaka@quicinc.com,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, airlied@gmail.com,
- andersson@kernel.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- dianders@chromium.org, vkoul@kernel.org, agross@kernel.org, daniel@ffwll.ch,
- marijn.suijten@somainline.org, quic_jesszhan@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 17 Jan 2024 at 23:13, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+Dmitry,
+
+I am testing this patch serial with msm-next branch.
+
+This patch cause system crash during booting up for me.
+
+Is this patch work for you?
+
+On 12/29/2023 2:56 PM, Dmitry Baryshkov wrote:
+> Remove two levels of indirection and fetch next bridge directly in
+> dp_display_probe_tail().
 >
-> MSA MISC0 bit 1 to 7 contains Colorimetry Indicator Field.
-> dp_link_get_colorimetry_config() returns wrong colorimetry value
-> in the DP_TEST_DYNAMIC_RANGE_CEA case in the current implementation.
-> Hence fix this problem by having dp_link_get_colorimetry_config()
-> return defined CEA RGB colorimetry value in the case of
-> DP_TEST_DYNAMIC_RANGE_CEA.
->
-> Changes in V2:
-> -- drop retrieving colorimetry from colorspace
-> -- drop dr = link->dp_link.test_video.test_dyn_range assignment
->
-> Changes in V3:
-> -- move defined MISCr0a Colorimetry vale to dp_reg.h
-> -- rewording commit title
-> -- rewording commit text to more precise describe this patch
->
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_link.c | 12 +++++++-----
->  drivers/gpu/drm/msm/dp/dp_reg.h  |  3 +++
->  2 files changed, 10 insertions(+), 5 deletions(-)
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
--- 
-With best wishes
-Dmitry
+>   drivers/gpu/drm/msm/dp/dp_display.c | 42 +++++++++--------------------
+>   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ----------
+>   drivers/gpu/drm/msm/dp/dp_parser.h  | 14 ----------
+>   3 files changed, 13 insertions(+), 57 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 4de0857c31ce..923df47efcc9 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1195,16 +1195,24 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
+>   	return NULL;
+>   }
+>   
+> -static int dp_display_get_next_bridge(struct msm_dp *dp);
+> -
+>   static int dp_display_probe_tail(struct device *dev)
+>   {
+>   	struct msm_dp *dp = dev_get_drvdata(dev);
+>   	int ret;
+>   
+> -	ret = dp_display_get_next_bridge(dp);
+> -	if (ret)
+> -		return ret;
+> +	/*
+> +	 * External bridges are mandatory for eDP interfaces: one has to
+> +	 * provide at least an eDP panel (which gets wrapped into panel-bridge).
+> +	 *
+> +	 * For DisplayPort interfaces external bridges are optional, so
+> +	 * silently ignore an error if one is not present (-ENODEV).
+> +	 */
+> +	dp->next_bridge = devm_drm_of_get_bridge(&dp->pdev->dev, dp->pdev->dev.of_node, 1, 0);
+> +	if (IS_ERR(dp->next_bridge)) {
+> +		ret = PTR_ERR(dp->next_bridge);
+> +		if (dp->is_edp || ret != -ENODEV)
+> +			return ret;
+> +	}
+>   
+>   	ret = component_add(dev, &dp_display_comp_ops);
+>   	if (ret)
+> @@ -1397,30 +1405,6 @@ void dp_display_debugfs_init(struct msm_dp *dp_display, struct dentry *root, boo
+>   	}
+>   }
+>   
+> -static int dp_display_get_next_bridge(struct msm_dp *dp)
+> -{
+> -	int rc;
+> -	struct dp_display_private *dp_priv;
+> -
+> -	dp_priv = container_of(dp, struct dp_display_private, dp_display);
+> -
+> -	/*
+> -	 * External bridges are mandatory for eDP interfaces: one has to
+> -	 * provide at least an eDP panel (which gets wrapped into panel-bridge).
+> -	 *
+> -	 * For DisplayPort interfaces external bridges are optional, so
+> -	 * silently ignore an error if one is not present (-ENODEV).
+> -	 */
+> -	rc = devm_dp_parser_find_next_bridge(&dp->pdev->dev, dp_priv->parser);
+> -	if (!dp->is_edp && rc == -ENODEV)
+> -		return 0;
+> -
+> -	if (!rc)
+> -		dp->next_bridge = dp_priv->parser->next_bridge;
+> -
+> -	return rc;
+> -}
+> -
+>   int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>   			struct drm_encoder *encoder)
+>   {
+> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
+> index aa135d5cedbd..f95ab3c5c72c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
+> @@ -24,20 +24,6 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
+>   	return 0;
+>   }
+>   
+> -int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser)
+> -{
+> -	struct platform_device *pdev = parser->pdev;
+> -	struct drm_bridge *bridge;
+> -
+> -	bridge = devm_drm_of_get_bridge(dev, pdev->dev.of_node, 1, 0);
+> -	if (IS_ERR(bridge))
+> -		return PTR_ERR(bridge);
+> -
+> -	parser->next_bridge = bridge;
+> -
+> -	return 0;
+> -}
+> -
+>   static int dp_parser_parse(struct dp_parser *parser)
+>   {
+>   	int rc = 0;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
+> index bc56e0e8c446..2b39b1c394ae 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
+> @@ -22,7 +22,6 @@
+>   struct dp_parser {
+>   	struct platform_device *pdev;
+>   	struct phy *phy;
+> -	struct drm_bridge *next_bridge;
+>   };
+>   
+>   /**
+> @@ -38,17 +37,4 @@ struct dp_parser {
+>    */
+>   struct dp_parser *dp_parser_get(struct platform_device *pdev);
+>   
+> -/**
+> - * devm_dp_parser_find_next_bridge() - find an additional bridge to DP
+> - *
+> - * @dev: device to tie bridge lifetime to
+> - * @parser: dp_parser data from client
+> - *
+> - * This function is used to find any additional bridge attached to
+> - * the DP controller. The eDP interface requires a panel bridge.
+> - *
+> - * Return: 0 if able to get the bridge, otherwise negative errno for failure.
+> - */
+> -int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser);
+> -
+>   #endif
