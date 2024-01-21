@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCB1833272
-	for <lists+freedreno@lfdr.de>; Sat, 20 Jan 2024 03:33:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1ECA83554F
+	for <lists+freedreno@lfdr.de>; Sun, 21 Jan 2024 11:41:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 487C610EAE9;
-	Sat, 20 Jan 2024 02:33:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7862910E010;
+	Sun, 21 Jan 2024 10:41:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3437710EAE9
- for <freedreno@lists.freedesktop.org>; Sat, 20 Jan 2024 02:32:56 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-3bbbc6bcc78so1182011b6e.1
- for <freedreno@lists.freedesktop.org>; Fri, 19 Jan 2024 18:32:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1705717916; x=1706322716; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nyeMNz1BdLz2Zw+KyXoni/RwA4cvZUvIGymiJ063oGg=;
- b=r+exA50JMnrJoOwTZvGaJwcf8oqlk1UAoUhbcnuvUpFrTPNug5HFGL0dKQmBzxro6v
- 0xoHJMoQHUq5VTq/13BQ6TRgNHjqthlgQJGJTCyEzN+x9XH+zh7bqLneeGGdTffMFFaR
- 0jbUuvAvy88c2b6ZHmqVHvPVpt+9n4bD/Ktf2RtmVnY2X0rvk/Pt0MuQlwf3S0zJOKUl
- mGibSPytZw8cPj8LFTDsAURINQ28cxlXfOMjuAlbD7xmcWy5pDi+dwhKVHQZzqcTnZCe
- FldccOvr4p11nNHFAcWrNxexbl9ZXGz74FVjh6au1lDF8uEdLgD+HF1G2w033/BgJ5T7
- Z+iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705717916; x=1706322716;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nyeMNz1BdLz2Zw+KyXoni/RwA4cvZUvIGymiJ063oGg=;
- b=UDf2iezut+E2UrJXfdkUiPi9OaCiZTFVyndLg8E0qq6ORiVVMi74sux1wjtRf3oW0W
- 91SN7VbnsJ6NUA0mPQ/iQasAq2DUwHHaxXKTDgMQMESOqFv2X8iOopgTmOqAngwSZtXw
- GDOkg8WXWcCCj3Hhd3ht/FbybN4oKBQjI2hN2yDBlzyjBTdh9fpHhdC6yQhtFufMdxlw
- a0f1TESRInUyelnQEDMDx6StBAG8lQOr1cVBE9a1GiPMSoJbW6CveGPB7YNkoxHzY0ws
- boaFVefQcJgXbzoT57QGAffh8b9vwtvz7qzg0BytTHp/8zc1jibXVilknYJO6NETPKcW
- xwfw==
-X-Gm-Message-State: AOJu0YwfUDng+pLwP0kBeoHN5HrXCaJpkOFlRi7FuHe76JQboTcdDevy
- Q8+H8gJhozt6WQdEsW+Ukm2O017E8ELtKo9KUj3J+BpbGZZpzTtFoYov4ScxrhXmhBMlSgpAZgx
- k4oLyBanpxP79xuz0YU8RGM8OROI+wh8ySfHDvg==
-X-Google-Smtp-Source: AGHT+IFOygdynqBpB7ozJkCg4VxzW6Dv2HATIwmVGSa+o7iXXznDuFaSsdJ1/FwKhms3ctO2S0y/hmwnqSi00tKbTuI=
-X-Received: by 2002:a05:6808:1595:b0:3bc:15eb:b9bc with SMTP id
- t21-20020a056808159500b003bc15ebb9bcmr900500oiw.73.1705717916033; Fri, 19 Jan
- 2024 18:31:56 -0800 (PST)
+Received: from ahti.lucaweiss.eu (ahti.lucaweiss.eu [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE77810E1F4;
+ Sun, 21 Jan 2024 10:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=z3ntu.xyz; s=s1;
+ t=1705833646; bh=Y/aNKL9qun+wRAcg/kdmKlSDqC8Nm5NAprHi0zYwPC4=;
+ h=From:Subject:Date:To:Cc;
+ b=i7rjG8Qkbtd+wkqWhFUQd2PtsJhanUASEliPL2d3GiKAq9lhCetjMVZNiww5kYeAx
+ +c6NbcudNrJQ3n8493caZXQJKoXs0KtQosDu2ByM08nZ/+nzwGkHXaNg1AZaMK0SiS
+ 7MbgtYztt/lkBa/uyPcyYjmlr2arUO1VqsEQz88w=
+From: Luca Weiss <luca@z3ntu.xyz>
+Subject: [PATCH v2 0/2] Add GPU support for MSM8226 (Adreno A305B)
+Date: Sun, 21 Jan 2024 11:40:37 +0100
+Message-Id: <20240121-msm8226-gpu-v2-0-77f4a6fbbca4@z3ntu.xyz>
 MIME-Version: 1.0
-References: <20231229225650.912751-1-dmitry.baryshkov@linaro.org>
- <20231229225650.912751-14-dmitry.baryshkov@linaro.org>
- <b5f571c6-dcf6-c416-ca86-fdbd0514676b@quicinc.com>
-In-Reply-To: <b5f571c6-dcf6-c416-ca86-fdbd0514676b@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 20 Jan 2024 04:31:45 +0200
-Message-ID: <CAA8EJpqvyOsPErUE08mcCAcG41zRJS+Q6qQi83-ZNCBcwv3kCw@mail.gmail.com>
-Subject: Re: [PATCH 13/14] drm/msm/dp: move next_bridge handling to dp_display
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKX0rGUC/23MSw6DIBSF4a2YOy4NXIyVjrqPxoFY0DsQDSjxE
+ fZe6rjD/yTnOyEYTybAszjBm0iBJpcDbwV0Q+t6w+iTG5CjFEJyNoaxRqxYP6+sQ2vr8iFbZS3
+ kx+yNpe3S3k3ugcIy+f3Co/it/50oGGeV1miFRmVK9TqkW9b7th/QpJS+KBREJqYAAAA=
+To: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=986; i=luca@z3ntu.xyz;
+ h=from:subject:message-id; bh=Y/aNKL9qun+wRAcg/kdmKlSDqC8Nm5NAprHi0zYwPC4=;
+ b=owEBbQKS/ZANAwAIAXLYQ7idTddWAcsmYgBlrPSqlwnLBQalHp1X9JLwPf7cZeE0GomrAUm6K
+ 4fEbfEopymJAjMEAAEIAB0WIQQ5utIvCCzakboVj/py2EO4nU3XVgUCZaz0qgAKCRBy2EO4nU3X
+ VlKQD/4+0eIXBxbX6Pv7/0sI/ZIJ3MRALmu7yQ0Ch360aLiqn/kGiuo6SZgKPGlW2GXQZNcCoEh
+ +slBN1T+cF8+43/nJ+ztdmP1Wyj/Xpq0CRv2AAdo+X09F3D5h2eTcxQvljvFv+2nhi5hZLTKAtb
+ Jh19npcwW3j6QLIJbCBAB5RCvmOh+YeX0s9cI9oSXWoiuf6baMVbERcTCfckQ8LrQBuQuWVPCvR
+ D0Y/upqe6rMSbzzNMfuWYIqLwhgsLWramH7iw0aoVkR4z0kKqzKNx/EVXheNJs+UfoPnBvutnha
+ Ozt0/KT7kPxIQgmNgkT2j3Z2Z+VyJq7SBaIgmGCkPC4htGtEHJ6HOFznHhjVcIauKUUBPvMS02F
+ u7+dyNqVEY5qBGo8rcGRZ3Py/OeMPmqfi8fQwFtQX2fMqh4W9XhTIYBK4G4fwBRQrgoKTI89tCd
+ viNKJccZ/pdNNSFJYxVZ5IBGXzzT2EQ6+F1u4wvYM0X8riuFQIv68IBLueONNyR1nEhFNy21Gx1
+ Jf+STDiUmUw001U9fLP3CcGWvlvO0PIeC2waXrMaUxACJYGHWENgYU081ow9wpb6VJiqmj3B1Fb
+ 3Z8iCWd3ZcMDg+JjjV1dzXE743VqDygQf0MGNMmRlFRLg9UWpMrHGNQAlmrhbE9ivjxuTTPKZK6
+ cLFzuatSvVfZWYg==
+X-Developer-Key: i=luca@z3ntu.xyz; a=openpgp;
+ fpr=BD04DA24C971B8D587B2B8D7FAF69CF6CD2D02CD
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,41 +69,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Luca Weiss <luca@z3ntu.xyz>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 19 Jan 2024 at 23:14, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> Dmitry,
->
-> I am testing this patch serial with msm-next branch.
->
-> This patch cause system crash during booting up for me.
->
-> Is this patch work for you?
+Add the necessary bits to bring up the GPU on msm8226.
 
-Yes, tested on top of linux-next. However I only tested it with
-DP-over-USBC. What is your testcase? Could you please share the crash
-log?
+Tested on apq8026-lg-lenok.
 
-> On 12/29/2023 2:56 PM, Dmitry Baryshkov wrote:
-> > Remove two levels of indirection and fetch next bridge directly in
-> > dp_display_probe_tail().
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/dp/dp_display.c | 42 +++++++++--------------------
-> >   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ----------
-> >   drivers/gpu/drm/msm/dp/dp_parser.h  | 14 ----------
-> >   3 files changed, 13 insertions(+), 57 deletions(-)
+Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+---
+Changes in v2:
+- Drop applied patch
+- Use "if (a305b || a306)" for writing REG_A3XX_RBBM_CLOCK_CTL
+- Pick up tags
+- Link to v1: https://lore.kernel.org/r/20231130-msm8226-gpu-v1-0-6bb2f1b29e49@z3ntu.xyz
 
+---
+Luca Weiss (2):
+      dt-bindings: display/msm: gpu: Allow multiple digits for patchid
+      drm/msm/adreno: Add A305B support
+
+ Documentation/devicetree/bindings/display/msm/gpu.yaml |  6 +++---
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c                  | 13 ++++++++++---
+ drivers/gpu/drm/msm/adreno/adreno_device.c             | 15 +++++++++++----
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h                |  5 +++++
+ 4 files changed, 29 insertions(+), 10 deletions(-)
+---
+base-commit: bda7a2e04984237bc14ade7c9660f76fbc035686
+change-id: 20231130-msm8226-gpu-c2ff8473a9ff
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Luca Weiss <luca@z3ntu.xyz>
+
