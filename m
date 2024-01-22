@@ -2,38 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 493E08366B8
-	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 16:06:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19B458366BA
+	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 16:06:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 164AF10F34C;
-	Mon, 22 Jan 2024 15:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B617D10F325;
+	Mon, 22 Jan 2024 15:06:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 652C610F33E;
- Mon, 22 Jan 2024 15:06:20 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2096C10E59D;
+ Mon, 22 Jan 2024 15:06:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D018C61516;
- Mon, 22 Jan 2024 15:05:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E594FC433F1;
- Mon, 22 Jan 2024 15:05:47 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 0A6A8CE2B22;
+ Mon, 22 Jan 2024 15:06:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4086CC43330;
+ Mon, 22 Jan 2024 15:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705935949;
- bh=czHMZ8afmUww3mrTkrBbxdizfsByb75ouQpZiiXkEuo=;
+ s=k20201202; t=1705936007;
+ bh=U/GmYvwZveJIn+gK5OKTDP5s5kd2TA9QgBjnAWPcvu8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i1SwxWwgfeAXS04JaQA6gpnwU7bvGKiGGtZSZb4FLEB7KkTu9hPvBu7Knm1ctwVbe
- pl7cPuQQgd0M+V5cyEO6foC6FgpO+1ik9gEkgLy4eT464BXdRKh+eKi5JS1Gd6rtOZ
- IJq6d1hE149Ek4zECIH64f9XjXR8Y8EAZL6tJgDPvCr/8esWnVNGMIwroFE+D72LL5
- aj4VrUdxTnqzf6ugr5zTPCNajglrj43ZYWxlHbChq6Tl955yFNEq5nTMf+80cWVTb1
- iEVDmenvXAKAIwukeVX9woBn3HbVo5RjIF5syS2qwgbLkco3V1VLX8ryoVZ5ADW4g6
- tw4jEyGQk5xKA==
+ b=tZHJfE0aFH/p9e/X49GMZg5sK0WZlOnw8R9wlXqC9j8wIMI7ca5gW+hlJ1Kg0GB7d
+ ++5E41nnigVtYDq/OGoBMNrF8Bt3n+8JSuBsuQWlxY79Jo/tgmxK5Gg3m4oS7vZx2J
+ DAaFkOj7QpvCJDySpqsbITwRrq60v6EB7tXhXRCFLk9Gz53HXEV5X57DLULgWTB9GI
+ oDEE2INr0QIxzmDX4uDv5hiyeypWvkbZlp7wUjebl7TLyDnVhn1iBnu0XdcUW3lEsf
+ xYwm6h5coKUP5hw2QewOLxaaOyBWxHbO0XnPZCqBzD4jjx7l1qupjwrW/iJnwdtyAO
+ 3dpvAW2/CAIYg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 26/73] drm/msm/dp: Add DisplayPort controller for
- SM8650
-Date: Mon, 22 Jan 2024 10:01:40 -0500
-Message-ID: <20240122150432.992458-26-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 46/73] drm/msm/dpu: enable writeback on SM8350
+Date: Mon, 22 Jan 2024 10:02:00 -0500
+Message-ID: <20240122150432.992458-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122150432.992458-1-sashal@kernel.org>
 References: <20240122150432.992458-1-sashal@kernel.org>
@@ -54,57 +53,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
- freedreno@lists.freedesktop.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com, robdclark@gmail.com,
+Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, konrad.dybcio@linaro.org, robdclark@gmail.com,
  daniel@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- quic_vpolimer@quicinc.com, airlied@gmail.com
+ marijn.suijten@somainline.org, airlied@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Neil Armstrong <neil.armstrong@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[ Upstream commit 1b2d98bdd7b7c64265732f5f0dace4c52c9ba8a8 ]
+[ Upstream commit c2949a49dfe960e952400029e14751dceff79d38 ]
 
-The Qualcomm SM8650 platform comes with a DisplayPort controller
-with a different base offset than the previous SM8550 SoC,
-add support for this in the DisplayPort driver.
+Enable WB2 hardware block, enabling writeback support on this platform.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Patchwork: https://patchwork.freedesktop.org/patch/571132/
-Link: https://lore.kernel.org/r/20231207-topic-sm8650-upstream-dp-v1-2-b762c06965bb@linaro.org
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Patchwork: https://patchwork.freedesktop.org/patch/570188/
+Link: https://lore.kernel.org/r/20231203002743.1291956-3-dmitry.baryshkov@linaro.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 76f13954015b..eec5768aac72 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -171,6 +171,11 @@ static const struct msm_dp_desc sm8350_dp_descs[] = {
- 	{}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+index f8d16f9bf528..428bcbcfbf19 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h
+@@ -31,6 +31,7 @@ static const struct dpu_mdp_cfg sm8350_mdp = {
+ 		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
++		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
+ 		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
+ 	},
+ };
+@@ -304,6 +305,21 @@ static const struct dpu_dsc_cfg sm8350_dsc[] = {
+ 	},
  };
  
-+static const struct msm_dp_desc sm8650_dp_descs[] = {
-+	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-+	{}
++static const struct dpu_wb_cfg sm8350_wb[] = {
++	{
++		.name = "wb_2", .id = WB_2,
++		.base = 0x65000, .len = 0x2c8,
++		.features = WB_SM8250_MASK,
++		.format_list = wb2_formats,
++		.num_formats = ARRAY_SIZE(wb2_formats),
++		.clk_ctrl = DPU_CLK_CTRL_WB2,
++		.xin_id = 6,
++		.vbif_idx = VBIF_RT,
++		.maxlinewidth = 4096,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
++	},
 +};
 +
- static const struct of_device_id dp_dt_match[] = {
- 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
- 	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
-@@ -181,6 +186,7 @@ static const struct of_device_id dp_dt_match[] = {
- 	{ .compatible = "qcom,sc8280xp-edp", .data = &sc8280xp_edp_descs },
- 	{ .compatible = "qcom,sdm845-dp", .data = &sc7180_dp_descs },
- 	{ .compatible = "qcom,sm8350-dp", .data = &sm8350_dp_descs },
-+	{ .compatible = "qcom,sm8650-dp", .data = &sm8650_dp_descs },
- 	{}
- };
- 
+ static const struct dpu_intf_cfg sm8350_intf[] = {
+ 	{
+ 		.name = "intf_0", .id = INTF_0,
+@@ -401,6 +417,8 @@ const struct dpu_mdss_cfg dpu_sm8350_cfg = {
+ 	.dsc = sm8350_dsc,
+ 	.merge_3d_count = ARRAY_SIZE(sm8350_merge_3d),
+ 	.merge_3d = sm8350_merge_3d,
++	.wb_count = ARRAY_SIZE(sm8350_wb),
++	.wb = sm8350_wb,
+ 	.intf_count = ARRAY_SIZE(sm8350_intf),
+ 	.intf = sm8350_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
 -- 
 2.43.0
 
