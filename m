@@ -2,45 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AF90836729
-	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 16:12:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F88836776
+	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 16:15:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 289CB10F300;
-	Mon, 22 Jan 2024 15:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF0410F3C3;
+	Mon, 22 Jan 2024 15:14:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 306E110F21C;
- Mon, 22 Jan 2024 15:12:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF6810F3C2;
+ Mon, 22 Jan 2024 15:14:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A264B61518;
- Mon, 22 Jan 2024 15:11:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD2FC433C7;
- Mon, 22 Jan 2024 15:11:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B3BCF61516;
+ Mon, 22 Jan 2024 15:14:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31ABCC43390;
+ Mon, 22 Jan 2024 15:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936292;
- bh=GMtXAPd9uAh19CdKOpwOskMcSN/bwKs1ae2WLjNwMBc=;
+ s=k20201202; t=1705936457;
+ bh=UARxSIhQ4M4QWdrFen/mdH/NjFzZ0DcUE66lNt4foag=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n6EYiCRne6ycV6VBN6edBBswQT4UdOkqIrMl52sYav9VLAAeGoozv6gW8zytRMx8O
- Meno7aJ7jLooxdf681IslTo+3NTO26cPemSIF/UlvvcCbtTGRuowLCsMQoz6vHtsPA
- mEYWc8fm1VZKj1ZqlgJf7yqCDDmphG7UJgdk8oxlGmsl9pAHpt+fbD2BJdsndJaNyv
- 0vk/TOmQygGNpgG9I8Y7JLxAFgluK8nXTzrm5FjrLLKhg9V3aMyeXuaKxnsH5tJ4yr
- sQpXyyE6PqxeNF+tE8E/KsbDk3aXb2W9B7mri2Q+9IN4QGCHLIfmnM+3Gmiix+/Kfh
- NNeByrKKvXlIQ==
+ b=FFrP/hkUZEtEVVtGGa4mfuC+uJF0Jr4xQmy0NkyoySpTBBMy2Q1RevgnJ3RerZpGn
+ Nd8aQ3QjwXOF+W2nvt7hxq47a3nN3eVqH+VLf39Ybi+ZeLLihYeeUgUSsalDbVBB+w
+ rPh2/NCRLZTQ5sEF5okwM5CU2h3VdhXaFip1JObkvUSngk38ZF/BvLYlpDwiM2YgJm
+ 770VNhG4o/pkcAio0JeuW57YNvHweI+NckHq4s0malemdfy/iSOUbahQAIaNNJ4K8M
+ sNk0AQlvRYH+EB/eIzkze72eQjsXzG73cQHa4Qz6HA6GT12nBrpBxqLrt5dC7oWJpW
+ pw+nih7PtLGwg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 37/53] drm/msm/dpu: fix writeback programming for
- YUV cases
-Date: Mon, 22 Jan 2024 10:08:38 -0500
-Message-ID: <20240122150949.994249-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 25/35] drm/msm/dpu: Ratelimit framedone timeout
+ msgs
+Date: Mon, 22 Jan 2024 10:12:22 -0500
+Message-ID: <20240122151302.995456-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122150949.994249-1-sashal@kernel.org>
-References: <20240122150949.994249-1-sashal@kernel.org>
+In-Reply-To: <20240122151302.995456-1-sashal@kernel.org>
+References: <20240122151302.995456-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.74
+X-stable-base: Linux 5.15.147
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,51 +54,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, neil.armstrong@linaro.org,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, quic_jeykumar@quicinc.com,
- robdclark@gmail.com, daniel@ffwll.ch,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, marijn.suijten@somainline.org,
- freedreno@lists.freedesktop.org, airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ quic_kalyant@quicinc.com, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com, robdclark@gmail.com,
+ daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, quic_vpolimer@quicinc.com,
+ airlied@gmail.com, dan.carpenter@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+From: Rob Clark <robdclark@chromium.org>
 
-[ Upstream commit 79caf2f2202b9eaad3a5a726e4b33807f67d0f1b ]
+[ Upstream commit 2b72e50c62de60ad2d6bcd86aa38d4ccbdd633f2 ]
 
-For YUV cases, setting the required format bits was missed
-out in the register programming. Lets fix it now in preparation
-of adding YUV formats support for writeback.
+When we start getting these, we get a *lot*.  So ratelimit it to not
+flood dmesg.
 
-changes in v2:
-    - dropped the fixes tag as its not a fix but adding
-      new functionality
-
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Patchwork: https://patchwork.freedesktop.org/patch/571814/
-Link: https://lore.kernel.org/r/20231212205254.12422-4-quic_abhinavk@quicinc.com
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+Patchwork: https://patchwork.freedesktop.org/patch/571584/
+Link: https://lore.kernel.org/r/20231211182000.218088-1-robdclark@gmail.com
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     | 1 +
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-index a3e413d27717..63dc2ee446d4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-@@ -105,6 +105,9 @@ static void dpu_hw_wb_setup_format(struct dpu_hw_wb *ctx,
- 			dst_format |= BIT(14); /* DST_ALPHA_X */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 03bddd904d1a..3d5e3b77bbbe 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -46,6 +46,9 @@
+ 		(p) ? ((p)->hw_pp ? (p)->hw_pp->idx - PINGPONG_0 : -1) : -1, \
+ 		##__VA_ARGS__)
+ 
++#define DPU_ERROR_ENC_RATELIMITED(e, fmt, ...) DPU_ERROR_RATELIMITED("enc%d " fmt,\
++		(e) ? (e)->base.base.id : -1, ##__VA_ARGS__)
++
+ /*
+  * Two to anticipate panels that can do cmd/vid dynamic switching
+  * plan is to create all possible physical encoder types, and switch between
+@@ -2126,7 +2129,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+ 		return;
  	}
  
-+	if (DPU_FORMAT_IS_YUV(fmt))
-+		dst_format |= BIT(15);
-+
- 	pattern = (fmt->element[3] << 24) |
- 		(fmt->element[2] << 16) |
- 		(fmt->element[1] << 8)  |
+-	DPU_ERROR_ENC(dpu_enc, "frame done timeout\n");
++	DPU_ERROR_ENC_RATELIMITED(dpu_enc, "frame done timeout\n");
+ 
+ 	event = DPU_ENCODER_FRAME_EVENT_ERROR;
+ 	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index 323a6bce9e64..170b3e9dd4b0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -52,6 +52,7 @@
+ 	} while (0)
+ 
+ #define DPU_ERROR(fmt, ...) pr_err("[dpu error]" fmt, ##__VA_ARGS__)
++#define DPU_ERROR_RATELIMITED(fmt, ...) pr_err_ratelimited("[dpu error]" fmt, ##__VA_ARGS__)
+ 
+ /**
+  * ktime_compare_safe - compare two ktime structures
 -- 
 2.43.0
 
