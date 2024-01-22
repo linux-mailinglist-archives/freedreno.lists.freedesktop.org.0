@@ -2,45 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53F88836776
-	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 16:15:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AE0D836794
+	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 16:16:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF0410F3C3;
-	Mon, 22 Jan 2024 15:14:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21A4E10F2E9;
+	Mon, 22 Jan 2024 15:16:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF6810F3C2;
- Mon, 22 Jan 2024 15:14:48 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E51A10F2E9;
+ Mon, 22 Jan 2024 15:16:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B3BCF61516;
- Mon, 22 Jan 2024 15:14:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31ABCC43390;
- Mon, 22 Jan 2024 15:14:15 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 13E38CE20C8;
+ Mon, 22 Jan 2024 15:16:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E91C433F1;
+ Mon, 22 Jan 2024 15:16:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705936457;
- bh=UARxSIhQ4M4QWdrFen/mdH/NjFzZ0DcUE66lNt4foag=;
+ s=k20201202; t=1705936580;
+ bh=us1nMoTi2Vr7q++bqFNXvK9S163UyXtqOFKer8c3dWA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FFrP/hkUZEtEVVtGGa4mfuC+uJF0Jr4xQmy0NkyoySpTBBMy2Q1RevgnJ3RerZpGn
- Nd8aQ3QjwXOF+W2nvt7hxq47a3nN3eVqH+VLf39Ybi+ZeLLihYeeUgUSsalDbVBB+w
- rPh2/NCRLZTQ5sEF5okwM5CU2h3VdhXaFip1JObkvUSngk38ZF/BvLYlpDwiM2YgJm
- 770VNhG4o/pkcAio0JeuW57YNvHweI+NckHq4s0malemdfy/iSOUbahQAIaNNJ4K8M
- sNk0AQlvRYH+EB/eIzkze72eQjsXzG73cQHa4Qz6HA6GT12nBrpBxqLrt5dC7oWJpW
- pw+nih7PtLGwg==
+ b=tvCGX06ioayJ+ZFW2PAQSTzUQJGY2qQoyLMdi3+rkKCqDpUf0jVyaeonds0vNR4Qq
+ ffdOUuyAHw10UkH1yLRre1/d3Sx94Yes7SZu/DosjrgNMIFtIWp/b9LbNAVWAnmeL6
+ j4/Gl4ym9jX5NYeJy2JbS8GBo9zCxJ3LJfplP4gCjjUw6DFCTjJHdBbHXOS+KNIpUT
+ iUR3ChuQQvAJVJeYOwz8SIgMUdEithcTv2UvCx4jgncj5Gu+eO89oUzOOKyzSWIgvR
+ AB77CsN9TbeTTEyvFeJQs5FJ1XY70uMu7gV/ZzBNzSSIcFmblzmJACMyDFMCwwh85n
+ 983kTlm2Ow0lg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 25/35] drm/msm/dpu: Ratelimit framedone timeout
+Subject: [PATCH AUTOSEL 5.10 22/28] drm/msm/dpu: Ratelimit framedone timeout
  msgs
-Date: Mon, 22 Jan 2024 10:12:22 -0500
-Message-ID: <20240122151302.995456-25-sashal@kernel.org>
+Date: Mon, 22 Jan 2024 10:14:48 -0500
+Message-ID: <20240122151521.996443-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240122151302.995456-1-sashal@kernel.org>
-References: <20240122151302.995456-1-sashal@kernel.org>
+In-Reply-To: <20240122151521.996443-1-sashal@kernel.org>
+References: <20240122151521.996443-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.147
+X-stable-base: Linux 5.10.208
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,10 +85,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 03bddd904d1a..3d5e3b77bbbe 100644
+index 408fc6c8a6df..44033a639419 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -46,6 +46,9 @@
+@@ -45,6 +45,9 @@
  		(p) ? ((p)->hw_pp ? (p)->hw_pp->idx - PINGPONG_0 : -1) : -1, \
  		##__VA_ARGS__)
  
@@ -98,7 +98,7 @@ index 03bddd904d1a..3d5e3b77bbbe 100644
  /*
   * Two to anticipate panels that can do cmd/vid dynamic switching
   * plan is to create all possible physical encoder types, and switch between
-@@ -2126,7 +2129,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+@@ -2135,7 +2138,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
  		return;
  	}
  
@@ -108,7 +108,7 @@ index 03bddd904d1a..3d5e3b77bbbe 100644
  	event = DPU_ENCODER_FRAME_EVENT_ERROR;
  	trace_dpu_enc_frame_done_timeout(DRMID(drm_enc), event);
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index 323a6bce9e64..170b3e9dd4b0 100644
+index 1c0e4c0c9ffb..bb7c7e437242 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
 @@ -52,6 +52,7 @@
