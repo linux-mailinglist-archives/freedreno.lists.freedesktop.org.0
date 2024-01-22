@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2E6E835D0F
-	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 09:49:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E25F835D16
+	for <lists+freedreno@lfdr.de>; Mon, 22 Jan 2024 09:50:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0B2A10EB5E;
-	Mon, 22 Jan 2024 08:49:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3706910EB92;
+	Mon, 22 Jan 2024 08:49:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18DCF10EB5E
- for <freedreno@lists.freedesktop.org>; Mon, 22 Jan 2024 08:49:00 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2cd64022164so40123191fa.3
- for <freedreno@lists.freedesktop.org>; Mon, 22 Jan 2024 00:48:59 -0800 (PST)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0446010EB92
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Jan 2024 08:49:38 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-55a356f8440so3246213a12.2
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Jan 2024 00:49:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1705913276; x=1706518076; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1705913317; x=1706518117; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=UA3AvF5W03CFG8Syx7OzslnWRFKrZDdxF6WHiQZeEgM=;
- b=QVpxVvms+1FEvw6/z3ziyydDVIs3yGnoT0MDayp1W4AFTovvs3vQXknZlDKX2Rsy4A
- q0eSWNrTye472tjL+W75PayHRXOxn7Vwm9Z2LkMVBuE0rQ+pbzGItCTKGErZYx4n8YDS
- iHESNhrMSNUL2QG9UZY0UsaqjsaWwj5cdRzjPH62kh/EUlGxARIGDtH/0SHDGgUXUbR4
- hiexXOg4x9FhyrGlQ0pfVq/mL7mS25MTM1yiPhJsfnkdLRSpAKr0xeFXdbdYK7GlHBBe
- 2DeX32T+q63K6sgtuubA6RrQ2zwvEEUTYQBYyXf4ac7FnQcBVNJNPyjAQSRK09e8Vbt3
- c1Jg==
+ bh=0OAg/4QRflrwPR3EisrUS+qLB0CwIFGGddlEH61BHuQ=;
+ b=NuqMqFxMqjH5hnvwXNA3EQs20XqXV7UQ2HMfvPT3OG4rXieCTYl4cg5FW8P0TuFr+d
+ Jlp6L/IABdR+1bjqtlbzKxkmWPpzISu2gUNnx+RaxemLeda5cVd61a0ovDCpSuSRtySv
+ tK6GMKNPffEk1NJNqJ10yGjlgCwDJIOv3PGr2p/IqyOXb5gyQX9zZh+51ghX7G1ZPd5r
+ gHwNoVqDf5HKcWIpBt9IwmmqKDWJi1P1fcZiAMLTHWEK1cK/T+uxjAADouJHHdhAtRPv
+ eDlJhQ7WyJO6krSCXWA7vhPgTO16iZ7erCt48DR/Q6Mjl/7y0G4N8Me0VXjYkizJ0dFT
+ poxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705913276; x=1706518076;
+ d=1e100.net; s=20230601; t=1705913317; x=1706518117;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UA3AvF5W03CFG8Syx7OzslnWRFKrZDdxF6WHiQZeEgM=;
- b=ckiE4D8TpZqWT2pcnLYCLKoGd4Obgx0BIq18/4Mloh/u23cqcbfqKrmKlT0uDGStC/
- FK4m+qaATawI/Z3X5lfa9iBFAYczPy4IIedxvdiudRT+Ha8tMcZyxe6MVFJHWyoOo26F
- qXY4SDmBgnOBDMqbgXLkywxmqq2Up3xeg5oYUJCylY9VVszFQENSf7tbNCOFuoyX1n9C
- 5zYOsdXGPDCBZko6I8+bQGJ3qUqtzw0fLnhLu5T00O1VI4oKywzyxjUbeCtXOxi5ahBk
- g4gIkeCLqwrMUlM46QD9en5DLBpoops+T29kEzUlAvyRQf1ljTckqmc1jP52FLVOuHwE
- 5+/g==
-X-Gm-Message-State: AOJu0YxnBv/S3RWr57ejuslwiqWVpA/4So4CizySbhfy92gAL5zZmDBy
- +paJluKwKSlAhPemYq+GpSg0KjHax3cKBARIsRffmc3UGNCULe27GM05uWncbcI=
-X-Google-Smtp-Source: AGHT+IFpFmspdtKYIndHsTUlus4HqoWyhQosP8Z/DxUHDQWAJjUs0X5p6p5MHiumRcbNBTQrzjE4Eg==
-X-Received: by 2002:a05:651c:1613:b0:2ce:93b:ba6e with SMTP id
- f19-20020a05651c161300b002ce093bba6emr1717159ljq.85.1705913276648; 
- Mon, 22 Jan 2024 00:47:56 -0800 (PST)
+ bh=0OAg/4QRflrwPR3EisrUS+qLB0CwIFGGddlEH61BHuQ=;
+ b=vl7ZJ6FBrAy6qFYjPR7f3n0rQX4YCfh1A0kWxhuK4NVaQMTsyIDybjliC7Gk6zLTE7
+ Dem+7pNNP6wItF6pf8djdp9QRnRfgkyssf/UTcVNMlsm/6Xxf15M6+GaroHb67AW1AtO
+ HxOZFkIK2cxewH0mYktG+oMxufN4Uba9h6vbTspwmSY4AyKAa/xhCdOJTOtXUi4edkbY
+ RbAjnTPZRhVy7SEHyzqUWCqCXoyqxV2K3a1mzW2klu4cFOCheTMJDyTzh8wHL2mwTwU/
+ s9frVOaY2myhMOInp9NG4qk2rMbpqG58KnVOmxdDrYiqxmDNHDSA06iHdQocQyGhpows
+ TH2A==
+X-Gm-Message-State: AOJu0Yx6FULKAahDisNi2KtZuxT3kqSJO9lCtvxlrJDpJqp91i+3kgwm
+ I0WQ0b3147HeOB/9bBHcwcqiJ6kGtaQBhJytr1s49HezsKOxdYVTi1LAG4ZuqnE=
+X-Google-Smtp-Source: AGHT+IHXNUl3GplQ11zK4LH2J9jHiCocGV2aifkfbVIMGhNU01bvb8TAy1rmaKOIHZWYZGs0Kwj7SQ==
+X-Received: by 2002:aa7:d343:0:b0:55c:650a:bdd5 with SMTP id
+ m3-20020aa7d343000000b0055c650abdd5mr23459edr.60.1705913317373; 
+ Mon, 22 Jan 2024 00:48:37 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.215.66])
  by smtp.gmail.com with ESMTPSA id
- c14-20020a05640227ce00b0055b49fc4e4esm2391394ede.26.2024.01.22.00.47.54
+ c14-20020a05640227ce00b0055b49fc4e4esm2391394ede.26.2024.01.22.00.48.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 00:47:56 -0800 (PST)
-Message-ID: <34f5074a-c6b3-4ef7-a505-4cab19197df8@linaro.org>
-Date: Mon, 22 Jan 2024 09:47:54 +0100
+ Mon, 22 Jan 2024 00:48:36 -0800 (PST)
+Message-ID: <6e34c1a8-59e2-404f-aa47-0cab772f59d6@linaro.org>
+Date: Mon, 22 Jan 2024 09:48:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] dt-bindings: dsi-controller-main: Document missing
- msm8976 compatible
+Subject: Re: [PATCH 3/8] dt-bindings: msm: qcom,mdss: Include ommited fam-b
+ compatible
 Content-Language: en-US
 To: Adam Skladowski <a39.skl@gmail.com>
 References: <20240121194221.13513-1-a39.skl@gmail.com>
- <20240121194221.13513-3-a39.skl@gmail.com>
+ <20240121194221.13513-4-a39.skl@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -106,7 +106,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240121194221.13513-3-a39.skl@gmail.com>
+In-Reply-To: <20240121194221.13513-4-a39.skl@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -137,12 +137,10 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 21/01/2024 20:41, Adam Skladowski wrote:
-> When all dsi-ctrl compats were added msm8976 was missed, include it too.
-> 
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> ---
+> During conversion 28nm-hpm-fam-b compat got lost, add it.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Please add Fixes tag and put this commit as first in your patchset or
+even as separate one.
 
 Best regards,
 Krzysztof
