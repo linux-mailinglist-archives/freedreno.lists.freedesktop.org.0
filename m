@@ -2,66 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94EFE83B1E1
-	for <lists+freedreno@lfdr.de>; Wed, 24 Jan 2024 20:09:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C15F83B433
+	for <lists+freedreno@lfdr.de>; Wed, 24 Jan 2024 22:42:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC3610EA2E;
-	Wed, 24 Jan 2024 19:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3490010E6D0;
+	Wed, 24 Jan 2024 21:41:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC49F10EE2E
- for <freedreno@lists.freedesktop.org>; Wed, 24 Jan 2024 19:08:44 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-5ff7dd8d7ceso52130817b3.0
- for <freedreno@lists.freedesktop.org>; Wed, 24 Jan 2024 11:08:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706123264; x=1706728064; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=83DOBD+z2opGGI/zvJafVqIF34IBUkWQmR4B890x+NI=;
- b=KuE8FMvfBvLHswEk9j8fIBl2/dtm0HCJhPPxy08LiHdwiX0GSaeiCIEFydHuy52NDY
- sfsEtprBk80b2UfluKzTlMgEOP7sxdqtjG2e/jjCfV2caDYIVjFAMbHlw9DNmeNO0SJR
- xaqkL6TGAbLcabyfyZ4XTC2psAbLVFTMxPN+PpZ921+0lx8T7+hakJ+ERENBiB2kKh3d
- r2LlBSXOTKcxM5FoBy3FC3ZN6uCxPi9lreKVNNum54n4Fly5jSMSEDpfldF1Wp1LxiEZ
- L8/g5LjasghaDDW4aEVonrphkgE2d/ME6Ruk7eHZHewMihZZbz8ChZoUtjkR9GHVV+Es
- d+YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706123264; x=1706728064;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=83DOBD+z2opGGI/zvJafVqIF34IBUkWQmR4B890x+NI=;
- b=XjJFxs/ShoWmDjsOWett2pa5bJ99xLUCfzHj2PuTCZDZ8+5gK8Xu9k37WoNvljtbFt
- 3NmF97ZbsAmW5V1DL/wGxvMT1rTPZCKS/vNheSmSBg9UfGxFa9ZHRfw+7mHtsYTwFebF
- B4XX9qeLDwM9cydaWpJrDBylDcj/58rNYNeSBX4BrwELy8+MPnnG3KXhc3Ae/gfj62uY
- wqYdMz2rvAdGkgKQR5JdBH33o/x9nXamJozkjwSrGymwwUMwJEH5zDjLhVhPdcpAtN4b
- harEsezq2z7aidXlmbdpYzd9ecoMXlZ0Y5Md2BkFGBS9qQv/Hw+zTm+uj9+OKP5gL3K6
- tM5A==
-X-Gm-Message-State: AOJu0Yzyxtl4XKnrB/OuRd9VMVUrEUyRfI5qaUKO/I4vzrYmJlUgSLlJ
- d52CwxRydYiHXywZ1mU/SBiQkzf7/3qN37V9mcMwQWLM/qPtdyt1KlWqdaOKZUjrdOr6GtGteLW
- sHkDyWQItoAKUqFQURV3CRZuiCfpxRZiZynGgIaxAXLLHEU6e
-X-Google-Smtp-Source: AGHT+IGxHDJKtOpairQWBigKPlbOlILS6SAYqOkhXt8vlBs3y9B0BP1S6LV5olG3zs9mSvdRIEFMUqYCBjlYI8HP8xM=
-X-Received: by 2002:a0d:e8c7:0:b0:5ff:9903:8347 with SMTP id
- r190-20020a0de8c7000000b005ff99038347mr1352856ywe.64.1706123263875; Wed, 24
- Jan 2024 11:07:43 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26B9E10E373;
+ Wed, 24 Jan 2024 21:41:48 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40ODvcWA010402; Wed, 24 Jan 2024 21:41:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:from:to:cc:references
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=uQX9xuShpgOtVrWiP3OZBHiY1ykF6TDzrzZZ7r10cOM=; b=Ta
+ 5qce0HNX3SFBPsbw2pePbOVJusLvRjnvfXl189XHnSo/ZhOkxVM8YEJ+ELORhE4H
+ InJRuD7kQH4gvy3zZ/deOsHya6lXzkXErWOhPyoeKa+7+26iQO3zwWspaPO8VPjF
+ zTTaLv4S1kcz/PpnLW3IJQF3yDMm6iJAbxMlrgz2Y012WxETdUByIfvbq98v0XGr
+ RcREem2fpTDO0QOBKwcew5aos8uEiC/lbCTmI1O1H/F3gk9S/OgVKxdcHXylPOWA
+ dT97yaY4/boPUXUC7rcqvpFs6Bazg0dkRijHVZgwfwERTKC1Awi7OXJqtUWy3eDJ
+ F3tWnHEbF6I2sMsYNYXg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vu1cche7k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jan 2024 21:41:40 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40OLfdkH003049
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jan 2024 21:41:39 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 24 Jan
+ 2024 13:41:39 -0800
+Message-ID: <5835e242-ea32-7d94-6247-6bfd236424cd@quicinc.com>
+Date: Wed, 24 Jan 2024 13:41:38 -0800
 MIME-Version: 1.0
-References: <20231229225650.912751-1-dmitry.baryshkov@linaro.org>
- <20231229225650.912751-14-dmitry.baryshkov@linaro.org>
- <b5f571c6-dcf6-c416-ca86-fdbd0514676b@quicinc.com>
- <CAA8EJpqvyOsPErUE08mcCAcG41zRJS+Q6qQi83-ZNCBcwv3kCw@mail.gmail.com>
- <18b7e28c-c969-c5f4-28a9-74ff79c94aca@quicinc.com>
- <bb4cac9c-4de7-8ad0-5cdc-f7c089eaa75c@quicinc.com>
- <CAA8EJprpbtwzQc5LBOV8KurfHQvQW7SY4LLQpyMzVeyfmQ=dBw@mail.gmail.com>
- <6525bfd7-4478-81c1-33cd-dd4dac76aff5@quicinc.com>
-In-Reply-To: <6525bfd7-4478-81c1-33cd-dd4dac76aff5@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 24 Jan 2024 21:07:32 +0200
-Message-ID: <CAA8EJpqdN2BmS+=Dh1-+8nzk6TqAbxHyuMuHjO8pa3eEkGP1PQ@mail.gmail.com>
-Subject: Re: [PATCH 13/14] drm/msm/dp: move next_bridge handling to dp_display
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/msm/dpu: drop obsolete documentation for
+ dpu_encoder_virt
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+References: <20231217000158.912062-1-dmitry.baryshkov@linaro.org>
+ <64967f7a-8c7d-ca63-c126-e187905d3470@quicinc.com>
+In-Reply-To: <64967f7a-8c7d-ca63-c126-e187905d3470@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: S41NaIM1uzw9Px3fsm1VpdamCOCwiPwz
+X-Proofpoint-GUID: S41NaIM1uzw9Px3fsm1VpdamCOCwiPwz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-24_10,2024-01-24_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 mlxlogscore=504
+ clxscore=1015 malwarescore=0 adultscore=0 suspectscore=0
+ priorityscore=1501 mlxscore=0 lowpriorityscore=0 impostorscore=0
+ spamscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401240157
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,92 +86,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 23 Jan 2024 at 19:31, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 1/22/2024 4:23 PM, Dmitry Baryshkov wrote:
-> > On Tue, 23 Jan 2024 at 01:20, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
-> >>
-> >> On 1/22/2024 9:28 AM, Kuogee Hsieh wrote:
-> >>> On 1/19/2024 6:31 PM, Dmitry Baryshkov wrote:
-> >>>> On Fri, 19 Jan 2024 at 23:14, Kuogee Hsieh <quic_khsieh@quicinc.com>
-> >>>> wrote:
-> >>>>> Dmitry,
-> >>>>>
-> >>>>> I am testing this patch serial with msm-next branch.
-> >>>>>
-> >>>>> This patch cause system crash during booting up for me.
-> >>>>>
-> >>>>> Is this patch work for you?
-> >>>> Yes, tested on top of linux-next. However I only tested it with
-> >>>> DP-over-USBC. What is your testcase? Could you please share the crash
-> >>>> log?
-> >>> I tested it on chrome device (sc7280) which has eDP as primary and
-> >>> without external USBC DP connected.
-> >>>
-> >>> It crashes during boot.
-> >>>
-> >>> I will debug it more and collect logs for you.
-> >>>
-> >> Below  patch work for chrome with both eDP and external DP.
-> >>
-> >> We have to return failed if it is the external DP and return value of
-> >> devm_drm_of_get_bridge()  is !ENODEV since DP does not have next bridge.
-> >>
-> >> Otherwise should continues to component_add()
-> > We also should not continue if it is eDP in case of any error.
-> >
-> > So it is if (is_edp || (!is_edp && ret != -ENODEV)) which is exactly
-> > equivalent to (is_edp || ret != -ENODEV).
->
-> yes, you are correct.
->
-> I just found that the real fix of crash is "+ dp->next_bridge = NULL;"
-> since dp->next_bridge will be used at dp_bridge_init() at dp_drm.c later.
->
-> Therefore it need to be restored to NULL at failed case.
-
-Ack, this sounds logical.
-
-> > Could you please post the backtrace that you have observed?
->
-> I do not have serial console port to collect logs.
->
-> If you still need it, i will collect it tomorrow.
-
-No, I think it is fine now, thank you!
-
->
-> >
-> >> @@ -1210,7 +1210,9 @@ static int dp_display_probe_tail(struct device *dev)
-> >>           dp->next_bridge = devm_drm_of_get_bridge(&dp->pdev->dev,
-> >> dp->pdev->dev.of_node, 1, 0);
-> >>           if (IS_ERR(dp->next_bridge)) {
-> >>                   ret = PTR_ERR(dp->next_bridge);
-> >> -               if (dp->is_edp || ret != -ENODEV)
-> >> +               dp->next_bridge = NULL;
-> >> +
-> >> +               if (!dp->is_edp && ret != -ENODEV)
-> >>                           return ret;
-> >>           }
-> >>>>> On 12/29/2023 2:56 PM, Dmitry Baryshkov wrote:
-> >>>>>> Remove two levels of indirection and fetch next bridge directly in
-> >>>>>> dp_display_probe_tail().
-> >>>>>>
-> >>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>>> ---
-> >>>>>>     drivers/gpu/drm/msm/dp/dp_display.c | 42
-> >>>>>> +++++++++--------------------
-> >>>>>>     drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ----------
-> >>>>>>     drivers/gpu/drm/msm/dp/dp_parser.h  | 14 ----------
-> >>>>>>     3 files changed, 13 insertions(+), 57 deletions(-)
 
 
+On 12/18/2023 9:57 AM, Abhinav Kumar wrote:
+> 
+> 
+> On 12/16/2023 4:01 PM, Dmitry Baryshkov wrote:
+>> Drop obsolete kerneldoc for several fields in struct dpu_encoder_virt
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: 
+>> https://lore.kernel.org/oe-kbuild-all/202312170641.5exlvQQx-lkp@intel.com/
+>> Fixes: 62d35629da80 ("drm/msm/dpu: move encoder status to standard 
+>> encoder debugfs dir")
+>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ----
+>>   1 file changed, 4 deletions(-)
+>>
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
 
--- 
-With best wishes
-Dmitry
+Have picked up https://patchwork.freedesktop.org/patch/572962/ instead 
+of this one as it also cleans up another doc error in addition to the 
+ones here.
