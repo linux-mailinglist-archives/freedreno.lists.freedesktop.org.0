@@ -2,78 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E653839C0B
-	for <lists+freedreno@lfdr.de>; Tue, 23 Jan 2024 23:24:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 620BE83A3AB
+	for <lists+freedreno@lfdr.de>; Wed, 24 Jan 2024 09:01:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D79710E8CD;
-	Tue, 23 Jan 2024 22:23:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A94D410E99D;
+	Wed, 24 Jan 2024 08:01:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDE2210E8CD;
- Tue, 23 Jan 2024 22:23:33 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40NMNPnX032173; Tue, 23 Jan 2024 22:23:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=XlC4JDxigxxjs2X/Ym32sTVO0mcIcKc7tXhItLRp/QE=; b=kN
- GTr3oSMiGTgZvjoULFjQlqReZS4OK0HjoNTD/Ss++KV4+6yeml5rqUfNpOQaKdtF
- Rry2HLzHIYIZUTOJkH94B18+plrEANK90cy0dSTkfvWcQa3LrtyKLGY4N9C8FAv0
- P54tNlaQvydadlfpbDv5o+gu4hyo46I5m0iX+cSm5PA6AH0PCT1qhEnSWrrQLT9L
- QagbC9cvbYYHiF8r4Xb7qt0u2nm7jwb89Eti7eLeQ+MQYNj0YnwBT0HzKBKyHzNF
- 0H6LHu7SeSMsqFyFO4V+TsCrlgifDYQq318tJtMbZZzfWRGPI96aaa5R8ZHAqPtt
- ahB8WAv1vHEE/zAAqtQw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vtmmeg606-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Jan 2024 22:23:23 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40NMNNPS009362
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Jan 2024 22:23:23 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 23 Jan
- 2024 14:23:22 -0800
-Message-ID: <211f0818-04a2-7dc3-fe37-c09b756765d1@quicinc.com>
-Date: Tue, 23 Jan 2024 14:23:02 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3 4/5] drm/msm/dpu: move writeback's atomic_check to
- dpu_writeback.c
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-References: <20231225130853.3659424-1-dmitry.baryshkov@linaro.org>
- <20231225130853.3659424-5-dmitry.baryshkov@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231225130853.3659424-5-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: F2JLE9z4SDTXQM2_Imb4sMzfUMEXJDRh
-X-Proofpoint-ORIG-GUID: F2JLE9z4SDTXQM2_Imb4sMzfUMEXJDRh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-23_12,2024-01-23_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 mlxscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 spamscore=0 mlxlogscore=999
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401230166
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4A610E99D
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Jan 2024 08:01:22 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-55c6bc3dd54so3768230a12.1
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Jan 2024 00:01:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fairphone.com; s=fair; t=1706083221; x=1706688021; darn=lists.freedesktop.org;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+1iNsBQtek6e9skYq9Z1rL6ps6zVCkkZxhyX4dVD9qQ=;
+ b=u3AbGcVHFSWuXwWXDKMUIQZwMJtAOHd8nC9S+ffxu+QoC3OPL4cC5v1+8q1w88gVc2
+ RsiduK/+ryEKTvLfpdYm/ZLQrcIiRL1Idf9rBKmoDvSUMpC70HTvqaXRCnNXpyrDU6up
+ hT6ub8cAefnakSGJc/2Ax87tRhTLVsk+Xk76XGZhScoiOt7TzRYYCcDjxSJERwVOyIJx
+ EHPl2b7cAw6kONIGI73Cp1UlOcfwVrIwvnlpx7gjjtzIbByn+SDxPDCWDOLibYBYRYIH
+ xrp0IrV/LGZLPC5/+VVjEhfJRd+hGqNIKRWygkCkufqOZkHMrF8bZWHB01OLRP6iS1ia
+ DiUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706083221; x=1706688021;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=+1iNsBQtek6e9skYq9Z1rL6ps6zVCkkZxhyX4dVD9qQ=;
+ b=Do/RH31s7GhkCcfouI7q6Ch4K8AiIsvQvAjrfVYCgstVhfrh64/dDTyB+pzMC4nWH7
+ dxlJNrbRgboea9g9dEeTNYMKFWjCL/yvrnhR2yWNQFWsx+j89ZfnPE5goKY0FSOJqgvE
+ 4l+d7iXRQ+o5ZCyXkYzjWoLQiu5JCDPyMZSDXQzEFkszWaEEOYDKbMCHeMxp+brSvV8Q
+ O9hOm7t96MIq/g9KHFKY99GdjyyXBuGbfoDBQ0HflEtarojmt/CM+BGkre77GnAJFKbj
+ 7Ag8MMeBYgHh7LlsoSruVlxxFVRMh8zBj21V81i2y7yQ6T6RBU9ygksE4qwwO5q3hrMm
+ timg==
+X-Gm-Message-State: AOJu0YxpXwjCwxusPDtfFjW8YGTKouotUteuxn0Es+6BoaOXQx532mt4
+ RnoRoZUJOU7PBpKI0eEH6rXCvHHvqBtV35nVK3zP783MuIcIBaqYieyOHgPUjY4=
+X-Google-Smtp-Source: AGHT+IGOfgJbOSQadnKGAiNooVHILk9J6Hx2PXu43Sowz5rh6eYZpKwjo0pLYhmByPKFPLpipcWFRg==
+X-Received: by 2002:a17:906:9c88:b0:a31:2ebe:38af with SMTP id
+ fj8-20020a1709069c8800b00a312ebe38afmr355681ejc.8.1706083220933; 
+ Wed, 24 Jan 2024 00:00:20 -0800 (PST)
+Received: from localhost (144-178-202-138.static.ef-service.nl.
+ [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
+ cd6-20020a170906b34600b00a2c8e9918casm14572641ejb.198.2024.01.24.00.00.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Jan 2024 00:00:20 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 24 Jan 2024 09:00:20 +0100
+Message-Id: <CYMS0ZCCYW70.2S0E9NYRR6YPR@fairphone.com>
+Subject: Re: [RFT PATCH v2 4/4] drm/msm/dpu: enable writeback on SM6350
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Luca Weiss" <luca.weiss@fairphone.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@linaro.org>, "Rob Clark" <robdclark@gmail.com>, "Sean
+ Paul" <sean@poorly.run>, "Abhinav Kumar" <quic_abhinavk@quicinc.com>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>
+X-Mailer: aerc 0.15.2
+References: <20231203003203.1293087-1-dmitry.baryshkov@linaro.org>
+ <20231203003203.1293087-5-dmitry.baryshkov@linaro.org>
+ <CXSF8ZPWKRD9.9CMJU31KG4KP@fairphone.com>
+In-Reply-To: <CXSF8ZPWKRD9.9CMJU31KG4KP@fairphone.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,295 +86,98 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue Dec 19, 2023 at 4:39 PM CET, Luca Weiss wrote:
+> On Sun Dec 3, 2023 at 1:32 AM CET, Dmitry Baryshkov wrote:
+> > Enable WB2 hardware block, enabling writeback support on this platform.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> Hi Dmitry,
+>
+> I've tried this on sm7225-fairphone-fp4 but having trouble testing this.
+>
+> I guess I'm using some ID wrong with modetest, could you check and see
+> what I do wrong?
+>
+> libdrm is on version 2.4.118 from Alpine Linux/postmarketOS, kernel is
+> v6.7.0-rc6 plus a few patches for hardware enablement (like display).
+>
+> See log:
+>
+> <snip>
+>
 
+Hi Dmitry,
 
-On 12/25/2023 5:08 AM, Dmitry Baryshkov wrote:
-> dpu_encoder_phys_wb is the only user of encoder's atomic_check callback.
-> Move corresponding checks to drm_writeback_connector's implementation
-> and drop the dpu_encoder_phys_wb_atomic_check() function.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 54 ------------------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  9 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 57 ++++++++++++++++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  3 +-
->   4 files changed, 64 insertions(+), 59 deletions(-)
-> 
+I've tested again now and made it work.
 
-While validating this change with kms_writeback, we found that this is 
-breaking back to back validate of kms_writeback with a NULL ptr 
-dereference in below stack:
+$ modetest -M msm -a -s 38@64:1024x768 -o test.d -P 45@64:1024x768
 
-[   86.701062] Call trace:
-[   86.701067]  dpu_wb_conn_atomic_check+0x118/0x18c
-[   86.701076]  drm_atomic_helper_check_modeset+0x2d8/0x688
-[   86.701084]  drm_atomic_helper_check+0x24/0x98
-[   86.701095]  msm_atomic_check+0x90/0x9c
-[   86.701103]  drm_atomic_check_only+0x4f4/0x8e8
-[   86.701111]  drm_atomic_commit+0x64/0xd8
-[   86.701120]  drm_mode_atomic_ioctl+0xbfc/0xe74
-[   86.701129]  drm_ioctl_kernel+0xd4/0x114
-[   86.701137]  drm_ioctl+0x274/0x508
-[   86.701143]  __arm64_sys_ioctl+0x98/0xd0
-[   86.701152]  invoke_syscall+0x48/0xfc
-[   86.701161]  el0_svc_common+0x88/0xe4
-[   86.701167]  do_el0_svc+0x24/0x30
-[   86.701175]  el0_svc+0x34/0x80
-[   86.701184]  el0t_64_sync_handler+0x44/0xec
-[   86.701192]  el0t_64_sync+0x1a8/0x1ac
-[   86.701200] ---[ end trace 0000000000000000 ]---
+Then display the image with
 
-We analysed this and found why. Please see below.
+$ magick display -size 1024x768 -depth 8 RGBA:test.d
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> index a0a28230fc31..8220cd920e6f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> @@ -354,59 +354,6 @@ static void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
->   	}
->   }
->   
-> -/**
-> - * dpu_encoder_phys_wb_atomic_check - verify and fixup given atomic states
-> - * @phys_enc:	Pointer to physical encoder
-> - * @crtc_state:	Pointer to CRTC atomic state
-> - * @conn_state:	Pointer to connector atomic state
-> - */
-> -static int dpu_encoder_phys_wb_atomic_check(
-> -		struct dpu_encoder_phys *phys_enc,
-> -		struct drm_crtc_state *crtc_state,
-> -		struct drm_connector_state *conn_state)
-> -{
-> -	struct drm_framebuffer *fb;
-> -	const struct drm_display_mode *mode = &crtc_state->mode;
-> -
-> -	DPU_DEBUG("[atomic_check:%d, \"%s\",%d,%d]\n",
-> -			phys_enc->hw_wb->idx, mode->name, mode->hdisplay, mode->vdisplay);
-> -
-> -	if (!conn_state || !conn_state->connector) {
-> -		DPU_ERROR("invalid connector state\n");
-> -		return -EINVAL;
-> -	} else if (conn_state->connector->status !=
-> -			connector_status_connected) {
-> -		DPU_ERROR("connector not connected %d\n",
-> -				conn_state->connector->status);
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
-> -		return 0;
-> -
-> -	fb = conn_state->writeback_job->fb;
-> -
-> -	DPU_DEBUG("[fb_id:%u][fb:%u,%u]\n", fb->base.id,
-> -			fb->width, fb->height);
-> -
-> -	if (fb->width != mode->hdisplay) {
-> -		DPU_ERROR("invalid fb w=%d, mode w=%d\n", fb->width,
-> -				mode->hdisplay);
-> -		return -EINVAL;
-> -	} else if (fb->height != mode->vdisplay) {
-> -		DPU_ERROR("invalid fb h=%d, mode h=%d\n", fb->height,
-> -				  mode->vdisplay);
-> -		return -EINVAL;
-> -	} else if (fb->width > phys_enc->hw_wb->caps->maxlinewidth) {
-> -		DPU_ERROR("invalid fb w=%d, maxlinewidth=%u\n",
-> -				  fb->width, phys_enc->hw_wb->caps->maxlinewidth);
-> -		return -EINVAL;
-> -	}
-> -
-> -	return drm_atomic_helper_check_wb_connector_state(conn_state->connector, conn_state->state);
-> -}
-> -
-> -
->   /**
->    * _dpu_encoder_phys_wb_update_flush - flush hardware update
->    * @phys_enc:	Pointer to physical encoder
-> @@ -777,7 +724,6 @@ static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
->   	ops->is_master = dpu_encoder_phys_wb_is_master;
->   	ops->enable = dpu_encoder_phys_wb_enable;
->   	ops->disable = dpu_encoder_phys_wb_disable;
-> -	ops->atomic_check = dpu_encoder_phys_wb_atomic_check;
->   	ops->wait_for_commit_done = dpu_encoder_phys_wb_wait_for_commit_done;
->   	ops->prepare_for_kickoff = dpu_encoder_phys_wb_prepare_for_kickoff;
->   	ops->handle_post_kickoff = dpu_encoder_phys_wb_handle_post_kickoff;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 723cc1d82143..48728be27e15 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -630,23 +630,26 @@ static int _dpu_kms_initialize_writeback(struct drm_device *dev,
->   {
->   	struct drm_encoder *encoder = NULL;
->   	struct msm_display_info info;
-> +	const enum dpu_wb wb_idx = WB_2;
-> +	u32 maxlinewidth;
->   	int rc;
->   
->   	memset(&info, 0, sizeof(info));
->   
->   	info.num_of_h_tiles = 1;
->   	/* use only WB idx 2 instance for DPU */
-> -	info.h_tile_instance[0] = WB_2;
-> +	info.h_tile_instance[0] = wb_idx;
->   	info.intf_type = INTF_WB;
->   
-> +	maxlinewidth = dpu_rm_get_wb(&dpu_kms->rm, info.h_tile_instance[0])->caps->maxlinewidth;
-> +
->   	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_VIRTUAL, &info);
->   	if (IS_ERR(encoder)) {
->   		DPU_ERROR("encoder init failed for dsi display\n");
->   		return PTR_ERR(encoder);
->   	}
->   
-> -	rc = dpu_writeback_init(dev, encoder, wb_formats,
-> -			n_formats);
-> +	rc = dpu_writeback_init(dev, encoder, wb_formats, n_formats, maxlinewidth);
->   	if (rc) {
->   		DPU_ERROR("dpu_writeback_init, rc = %d\n", rc);
->   		return rc;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> index 2a5a68366582..232b5f410de8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> @@ -4,6 +4,7 @@
->    */
->   
->   #include <drm/drm_edid.h>
-> +#include <drm/drm_framebuffer.h>
->   
->   #include "dpu_writeback.h"
->   
-> @@ -24,6 +25,57 @@ static int dpu_wb_conn_get_modes(struct drm_connector *connector)
->   			dev->mode_config.max_height);
->   }
->   
-> +static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
-> +				    struct drm_atomic_state *state)
-> +{
-> +	struct drm_writeback_connector *wb_conn = drm_connector_to_writeback(connector);
-> +	struct dpu_wb_connector *dpu_wb_conn = to_dpu_wb_conn(wb_conn);
-> +	struct drm_connector_state *conn_state =
-> +		drm_atomic_get_new_connector_state(state, connector);
-> +	struct drm_crtc *crtc = conn_state->crtc;
-> +	struct drm_crtc_state *crtc_state;
-> +	const struct drm_display_mode *mode;
-> +	struct drm_framebuffer *fb;
-> +
-> +	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+As discussed on IRC it seems the byte order of R and B might be wrong,
+so it looks like BGRA is the format we get the data in, not RGBA.
 
-To detach the CRTC associated with the connector, IGT will set the 
-associated CRTC_ID to 0 and the associated conn_state->crtc will be NULL.
+Anyways:
 
-This is valid as val will be 0 in this case:
+Tested-by: Luca Weiss <luca.weiss@fairphone.com>
 
-https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_uapi.c#L722
+Regards
+Luca
 
-Before this patch, for these cases, we used to call the encoder's 
-atomic_check which gets skipped when there is no valid crtc:
+>
+> Regards
+> Luca
+>
+>
+> > ---
+> >  .../drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h | 18 ++++++++++++++++++
+> >  1 file changed, 18 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h b/d=
+rivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> > index 62db84bd15f2..3c179a73c030 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h
+> > @@ -27,6 +27,7 @@ static const struct dpu_mdp_cfg sm6350_mdp =3D {
+> >  		[DPU_CLK_CTRL_DMA0] =3D { .reg_off =3D 0x2ac, .bit_off =3D 8 },
+> >  		[DPU_CLK_CTRL_DMA1] =3D { .reg_off =3D 0x2b4, .bit_off =3D 8 },
+> >  		[DPU_CLK_CTRL_DMA2] =3D { .reg_off =3D 0x2c4, .bit_off =3D 8 },
+> > +		[DPU_CLK_CTRL_WB2] =3D { .reg_off =3D 0x2bc, .bit_off =3D 16 },
+> >  		[DPU_CLK_CTRL_REG_DMA] =3D { .reg_off =3D 0x2bc, .bit_off =3D 20 },
+> >  	},
+> >  };
+> > @@ -146,6 +147,21 @@ static const struct dpu_dsc_cfg sm6350_dsc[] =3D {
+> >  	},
+> >  };
+> > =20
+> > +static const struct dpu_wb_cfg sm6350_wb[] =3D {
+> > +	{
+> > +		.name =3D "wb_2", .id =3D WB_2,
+> > +		.base =3D 0x65000, .len =3D 0x2c8,
+> > +		.features =3D WB_SM8250_MASK,
+> > +		.format_list =3D wb2_formats,
+> > +		.num_formats =3D ARRAY_SIZE(wb2_formats),
+> > +		.clk_ctrl =3D DPU_CLK_CTRL_WB2,
+> > +		.xin_id =3D 6,
+> > +		.vbif_idx =3D VBIF_RT,
+> > +		.maxlinewidth =3D 1920,
+> > +		.intr_wb_done =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
+> > +	},
+> > +};
+> > +
+> >  static const struct dpu_intf_cfg sm6350_intf[] =3D {
+> >  	{
+> >  		.name =3D "intf_0", .id =3D INTF_0,
+> > @@ -219,6 +235,8 @@ const struct dpu_mdss_cfg dpu_sm6350_cfg =3D {
+> >  	.dsc =3D sm6350_dsc,
+> >  	.pingpong_count =3D ARRAY_SIZE(sm6350_pp),
+> >  	.pingpong =3D sm6350_pp,
+> > +	.wb_count =3D ARRAY_SIZE(sm6350_wb),
+> > +	.wb =3D sm6350_wb,
+> >  	.intf_count =3D ARRAY_SIZE(sm6350_intf),
+> >  	.intf =3D sm6350_intf,
+> >  	.vbif_count =3D ARRAY_SIZE(sdm845_vbif),
 
-https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_helper.c#L440
-
-But now with connector atomic check, these calls are allowed by the DRM
-
-https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/drm_atomic_helper.c#L712
-
-So questions:
-
-1) Should we add protection in DRM to check if conn_state->crtc is valid 
-before calling connector's atomic_check()?
-
-OR
-
-2) Is it incorrect for us to dereference conn->crtc in connector's 
-atomic_check as its not guaranteed to be valid.
-
-We cannot fail atomic_check for !crtc, because if we add a !crtc check 
-and fail those checks, it bails out these disable commit calls thus 
-failing those commits.
-
-> +	if (IS_ERR(crtc_state))
-> +		return PTR_ERR(crtc_state);
-> +
-> +	mode = &crtc_state->mode;
-> +
-> +	DPU_DEBUG("[atomic_check:%d, \"%s\",%d,%d]\n",
-> +		  connector->base.id, mode->name, mode->hdisplay, mode->vdisplay);
-> +
-> +	if (!conn_state || !conn_state->connector) {
-> +		DPU_ERROR("invalid connector state\n");
-> +		return -EINVAL;
-> +	} else if (conn_state->connector->status != connector_status_connected) {
-> +		DPU_ERROR("connector not connected %d\n", conn_state->connector->status);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
-> +		return 0;
-> +
-> +	fb = conn_state->writeback_job->fb;
-> +
-> +	DPU_DEBUG("[fb_id:%u][fb:%u,%u]\n", fb->base.id, fb->width, fb->height);
-> +
-> +	if (fb->width != mode->hdisplay) {
-> +		DPU_ERROR("invalid fb w=%d, mode w=%d\n", fb->width, mode->hdisplay);
-> +		return -EINVAL;
-> +	} else if (fb->height != mode->vdisplay) {
-> +		DPU_ERROR("invalid fb h=%d, mode h=%d\n", fb->height, mode->vdisplay);
-> +		return -EINVAL;
-> +	} else if (fb->width > dpu_wb_conn->maxlinewidth) {
-> +		DPU_ERROR("invalid fb w=%d, maxlinewidth=%u\n",
-> +			  fb->width, dpu_wb_conn->maxlinewidth);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return drm_atomic_helper_check_wb_connector_state(conn_state->connector, conn_state->state);
-> +}
-> +
->   static const struct drm_connector_funcs dpu_wb_conn_funcs = {
->   	.reset = drm_atomic_helper_connector_reset,
->   	.fill_modes = drm_helper_probe_single_connector_modes,
-> @@ -59,12 +111,13 @@ static void dpu_wb_conn_cleanup_job(struct drm_writeback_connector *connector,
->   
->   static const struct drm_connector_helper_funcs dpu_wb_conn_helper_funcs = {
->   	.get_modes = dpu_wb_conn_get_modes,
-> +	.atomic_check = dpu_wb_conn_atomic_check,
->   	.prepare_writeback_job = dpu_wb_conn_prepare_job,
->   	.cleanup_writeback_job = dpu_wb_conn_cleanup_job,
->   };
->   
->   int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
-> -		const u32 *format_list, u32 num_formats)
-> +		const u32 *format_list, u32 num_formats, u32 maxlinewidth)
->   {
->   	struct dpu_wb_connector *dpu_wb_conn;
->   	int rc = 0;
-> @@ -73,6 +126,8 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
->   	if (!dpu_wb_conn)
->   		return -ENOMEM;
->   
-> +	dpu_wb_conn->maxlinewidth = maxlinewidth;
-> +
->   	drm_connector_helper_add(&dpu_wb_conn->base.base, &dpu_wb_conn_helper_funcs);
->   
->   	/* DPU initializes the encoder and sets it up completely for writeback
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h
-> index 5a75ea916101..4b11cca8014c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h
-> @@ -18,6 +18,7 @@
->   struct dpu_wb_connector {
->   	struct drm_writeback_connector base;
->   	struct drm_encoder *wb_enc;
-> +	u32 maxlinewidth;
->   };
->   
->   static inline struct dpu_wb_connector *to_dpu_wb_conn(struct drm_writeback_connector *conn)
-> @@ -26,6 +27,6 @@ static inline struct dpu_wb_connector *to_dpu_wb_conn(struct drm_writeback_conne
->   }
->   
->   int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
-> -		const u32 *format_list, u32 num_formats);
-> +		const u32 *format_list, u32 num_formats, u32 maxlinewidth);
->   
->   #endif /*_DPU_WRITEBACK_H */
