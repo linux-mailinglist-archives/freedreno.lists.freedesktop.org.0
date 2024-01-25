@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 320AC83D044
-	for <lists+freedreno@lfdr.de>; Fri, 26 Jan 2024 00:04:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5467183D060
+	for <lists+freedreno@lfdr.de>; Fri, 26 Jan 2024 00:10:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40D2A10ED1A;
-	Thu, 25 Jan 2024 23:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 254AD10EA30;
+	Thu, 25 Jan 2024 23:10:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C74D10E949
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 23:03:53 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2cddb2c2b54so75339581fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 15:03:53 -0800 (PST)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 507BA10EA30
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 23:10:16 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-337d32cd9c1so6220610f8f.2
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 15:10:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706223771; x=1706828571; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706224154; x=1706828954; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=l2yugd+v/ByLcDD9w+nePT0BWk3YvBKgR/XwHowmol4=;
- b=Y4zTv1dv5Pu9YBrswP0CLOtA778EwkISXIjhw2QjYALuWcRCbpoSivXOOBEk4Ul7Q9
- R4tWfYG2fe4EUX/NYSnEw5nkOsG/emZGPYaSD7BqdwIpUcjxHfye9NmSLRLx+6xK3rAr
- x4IsvIgTIz7nFr5FIKMBhFfq7DYf2puGkdLevnk3bgeAarJkbRBSRSJOKYE/aaai1d6J
- OdviNP2FyfyuBkXIeAcnMGMto72/2h6GRwozGqrNcWFCezRFXxM0eY18EXoNVHUAhdBR
- co2Rclw0Wan7RZ3GO6M4CWrWOFAqeUNx+WfQ+MsuYd3lm310Hi98jSkro8WJvaxrp+x1
- TbyQ==
+ :reply-to; bh=nJWE1GkcFImEj2DxRPKAZs3b3f9vVuqQlVDaF+/qbvU=;
+ b=iTqWU4PELp7zxuAuShKJWIlg6VxgKL1Jrlek5zflqEirIFOE4LpZeNgyoAjLDyjwG4
+ FikylyDkww6toDjVqU9Y8dYEBL9S+UqAY+WJyhOZlgJXj16a2VMKKmU+taM6lCzqMJ7Q
+ 2PD1rRLsENhkt+RuX9aHg/h3NNXlfoBGiBbdYg6wx/a1MrXgmdXSIU/Dq1hbfrRi5f8o
+ REvr9Lmx6mCMsSMbeiogJqOp16+4k0p0Y5BTvl/meHlPZdm5I4Dz+2ObdqY0qAdegJn3
+ DwpVHwtbJySMen8IaXuq35hmFpLbFNhqzBM4ZvfkZJj3tcxeXS0B6OJb+y1BGG99gSVB
+ UxJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706223771; x=1706828571;
+ d=1e100.net; s=20230601; t=1706224154; x=1706828954;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=l2yugd+v/ByLcDD9w+nePT0BWk3YvBKgR/XwHowmol4=;
- b=Q/rSJ1r0n7c3sbCefja0JI9Re+ZnE5PdkCn8W+aIrmBj9sa0iDA6JT8SV2ozD4vZ1D
- EzpoVVBO0qEXOFpiBMwz7vo+38YXvfhtL2NOC7/hel6W3go1ySUBH5r1cSCkNsoivWwt
- 3S5iY1xAYOan2Q2BSpeRuB311CtwQ1NzQ4i0YjrHBHFvqUbWiKkdMObSgW82Ywa7UcPj
- SoAPqAlLP0Axj3WrBBpFpHa9/43u2tOIkEX+hgji4P1jgxM5RnFmyXwXEaPtT4K6Mmqw
- 7z7Cu6gbch4dHxVK3wzKK2QOhlkEu6J0bWT4OY0cMablyzYY+Yq6wTv4dwB5kaS45tdp
- GctA==
-X-Gm-Message-State: AOJu0YwqrhWnqFFV6FG3cTOZQOMCSSNA7XCMuDLqNU2e0BkigmXIP1S/
- dWsIc02UY5DP29FuR7NGBHZ0xO3ItH1Ed8denoZV+Zo25sfaKm3H6a79hBhgMsnGpnqGkg1pPmP
- Z
-X-Google-Smtp-Source: AGHT+IGmKDAD6qyrs3VsY+PMKdgn762Ve45U47peU+ILGBqeOgk3OAiQe9OTP8o2IBeVJq1T7kLfow==
-X-Received: by 2002:a2e:720a:0:b0:2cf:e95:57fd with SMTP id
- n10-20020a2e720a000000b002cf0e9557fdmr340214ljc.28.1706223771105; 
- Thu, 25 Jan 2024 15:02:51 -0800 (PST)
+ bh=nJWE1GkcFImEj2DxRPKAZs3b3f9vVuqQlVDaF+/qbvU=;
+ b=C4UFWpVh0Nrq1jivd9Xp1H4ScjbXcIkxpo3bWSrok4JoAT7jqk937/I8iLs+SCBBlU
+ c/MbNfzH5kDo5/dACii+tYKUwDhhd0++xH2DVHuFPJnibUUScWcDeNi0SiSqCfDbB+5x
+ lCOJM859YhNqAJwCeTRNcfqFp9F7pFtF/5bJUXzA6xDkvCDnNgm5A5Y6NLxwfhApB6x4
+ gYgqL/g4eXC4SYuZR2FKN0KOzfmdE3k3JSfJR6GRkYZLBQ2UP12P4gwQWbZ1ucJriVOb
+ 8yfnHtufigWLTwgj6pxDzdl5j2/X8OOTC5G2lOkIHs2oxKojRpyh1vTCDsxlNhIY63vZ
+ 0enw==
+X-Gm-Message-State: AOJu0YySzdkIBIoXgdpMfA85Iy0mpHMvpEMwUCw1ugZ1ycdShjhX1E10
+ AV2MHhEIte1MriITQF+WZ2TpHIjz6L3EoZlvgKy1zyI10M2QuGGjBsCHfpwiHJHy+bA4FoFuUHX
+ 0
+X-Google-Smtp-Source: AGHT+IHQR9xb30p1PQP+RnbJTwEYjHlyADMF2qDXopTpAM44kRqLASOznMLfQ/vxh3n7uceSgtidJw==
+X-Received: by 2002:a2e:9958:0:b0:2cf:725:f93 with SMTP id
+ r24-20020a2e9958000000b002cf07250f93mr194150ljj.88.1706223759713; 
+ Thu, 25 Jan 2024 15:02:39 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- x19-20020a2e8813000000b002cdfc29b46dsm405872ljh.88.2024.01.25.15.02.49
+ x19-20020a2e8813000000b002cdfc29b46dsm405872ljh.88.2024.01.25.15.02.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 15:02:50 -0800 (PST)
+ Thu, 25 Jan 2024 15:02:38 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Jan 2024 01:02:43 +0200
-Subject: [PATCH v3 14/15] drm/msm/dp: move next_bridge handling to dp_display
+Date: Fri, 26 Jan 2024 01:02:34 +0200
+Subject: [PATCH v3 05/15] drm/msm/dp: fold dp_power into dp_ctrl module
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240126-dp-power-parser-cleanup-v3-14-e2e46f4d390c@linaro.org>
+Message-Id: <20240126-dp-power-parser-cleanup-v3-5-e2e46f4d390c@linaro.org>
 References: <20240126-dp-power-parser-cleanup-v3-0-e2e46f4d390c@linaro.org>
 In-Reply-To: <20240126-dp-power-parser-cleanup-v3-0-e2e46f4d390c@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -66,16 +66,16 @@ To: Rob Clark <robdclark@gmail.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd <swboyd@chromium.org>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4251;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20838;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=+QSUGzw12ZOJpwShyYqXjiKmNZgVat/nLLyxEBSUwK0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlsuiIZbEIG6ePUeSHmo6HDNTzKgQyiEKUf3Es1
- wJXEGJQewyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZbLoiAAKCRCLPIo+Aiko
- 1bzQCACxglS1CC9uFRPcEEUr7UJHoj3htMkE/XUO1B6U0tpdECepiP7U/8VkKgoQ/uVjURl9sjQ
- l/yTW4fygsWgHES/UmpQ8KuHaHtkXVetxr4kDZYaIn8NTFyvFNF5p9FyQO/BNPeGxjY8vx/zEcF
- Le7MgKt+FWiMzVfj62+8xK1Kh1WNMTO/QhwIa8MWqRXdT4/JzRwibEa5IhQSs9b7eDtE5Sf6dYa
- WiEn9Cv9e6admnfSZaVEg5emvaHL02F9Z/UfHGas8yLBbFQz7MvS9HoNMuwxaUpRob8DbR57fvL
- YtLERakxJf+jY0z2UWWjhCYWMvhZRWqkYsaCxnB1O+RIe2xz
+ bh=dCw0JTAvwTm3wGka2zU3RC0fLmOOYChcuRvVrtRzN5I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlsuiHFpX0AMNpS9YwPlOu+kAIfboFiTMNH987U
+ uHNiIY8AtiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZbLohwAKCRCLPIo+Aiko
+ 1b7GB/9MrEwH/xbx1o2xlQ+H010Rja6I9yMlMtKV4nMIQ/ehzM2YuaTDOE6dajx5OUTkjx6XyGl
+ 3+/rtzJonzG+tFUJpQRJZxu5Jn8liI7xtInqaBdyFXlwjABuBkOPEpexhQl9v8C4f3mmakAfkdB
+ 50Evrev6loaHEXl0JsxgAqqNlD//pblVp+ltaPh3kHCHGp24YkZCnrt/DiQ7ZxF2AwbkyjNbO99
+ XtcfnqEwn7d34eadNsN8SAbhT9SY8E9cHiA5jjtjedxOo9ggaB1Bl3IaPRJ+QVsUCThqPzW+Ap2
+ nPSo/vETuoV83tEwi498d4LTYtLI8NCtB/bOZmy8prttqj2u
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,137 +96,674 @@ Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Remove two levels of indirection and fetch next bridge directly in
-dp_display_probe_tail().
+The dp_power submodule is limited to handling the clocks only following
+previous cleanups. Fold it into the dp_ctrl submodule, removing one
+unnecessary level of indirection.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 43 ++++++++++++-------------------------
- drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------------
- drivers/gpu/drm/msm/dp/dp_parser.h  | 14 ------------
- 3 files changed, 14 insertions(+), 57 deletions(-)
+ drivers/gpu/drm/msm/Makefile        |   1 -
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 150 +++++++++++++++++++++++++++----
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   6 +-
+ drivers/gpu/drm/msm/dp/dp_display.c |  24 +----
+ drivers/gpu/drm/msm/dp/dp_power.c   | 170 ------------------------------------
+ drivers/gpu/drm/msm/dp/dp_power.h   |  74 ----------------
+ 6 files changed, 142 insertions(+), 283 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index b1173128b5b9..8dbdf3fba69e 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -128,7 +128,6 @@ msm-$(CONFIG_DRM_MSM_DP)+= dp/dp_aux.o \
+ 	dp/dp_link.o \
+ 	dp/dp_panel.o \
+ 	dp/dp_parser.o \
+-	dp/dp_power.o \
+ 	dp/dp_audio.o
+ 
+ msm-$(CONFIG_DRM_FBDEV_EMULATION) += msm_fbdev.o
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 77a8d9366ed7..da29281c575b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -76,13 +76,16 @@ struct dp_ctrl_private {
+ 	struct drm_dp_aux *aux;
+ 	struct dp_panel *panel;
+ 	struct dp_link *link;
+-	struct dp_power *power;
+ 	struct dp_parser *parser;
+ 	struct dp_catalog *catalog;
+ 
+ 	struct completion idle_comp;
+ 	struct completion psr_op_comp;
+ 	struct completion video_comp;
++
++	bool core_clks_on;
++	bool link_clks_on;
++	bool stream_clks_on;
+ };
+ 
+ static int dp_aux_link_configure(struct drm_dp_aux *aux,
+@@ -1338,6 +1341,83 @@ static void dp_ctrl_set_clock_rate(struct dp_ctrl_private *ctrl,
+ 				name, rate);
+ }
+ 
++int dp_ctrl_clk_enable(struct dp_ctrl *dp_ctrl,
++		       enum dp_pm_type pm_type, bool enable)
++{
++	struct dp_ctrl_private *ctrl;
++	struct dss_module_power *mp;
++	int ret = 0;
++
++	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
++
++	if (pm_type != DP_CORE_PM &&
++	    pm_type != DP_CTRL_PM &&
++	    pm_type != DP_STREAM_PM) {
++		DRM_ERROR("unsupported ctrl module: %s\n",
++			  dp_parser_pm_name(pm_type));
++		return -EINVAL;
++	}
++
++	if (enable) {
++		if (pm_type == DP_CORE_PM && ctrl->core_clks_on) {
++			drm_dbg_dp(ctrl->drm_dev,
++				   "core clks already enabled\n");
++			return 0;
++		}
++
++		if (pm_type == DP_CTRL_PM && ctrl->link_clks_on) {
++			drm_dbg_dp(ctrl->drm_dev,
++				   "links clks already enabled\n");
++			return 0;
++		}
++
++		if (pm_type == DP_STREAM_PM && ctrl->stream_clks_on) {
++			drm_dbg_dp(ctrl->drm_dev,
++				   "pixel clks already enabled\n");
++			return 0;
++		}
++
++		if ((pm_type == DP_CTRL_PM) && (!ctrl->core_clks_on)) {
++			drm_dbg_dp(ctrl->drm_dev,
++				   "Enable core clks before link clks\n");
++			mp = &ctrl->parser->mp[DP_CORE_PM];
++
++			ret = clk_bulk_prepare_enable(mp->num_clk, mp->clocks);
++			if (ret)
++				return ret;
++
++			ctrl->core_clks_on = true;
++		}
++	}
++
++	mp = &ctrl->parser->mp[pm_type];
++	if (enable) {
++		ret = clk_bulk_prepare_enable(mp->num_clk, mp->clocks);
++		if (ret)
++			return ret;
++	} else {
++		clk_bulk_disable_unprepare(mp->num_clk, mp->clocks);
++	}
++
++	if (pm_type == DP_CORE_PM)
++		ctrl->core_clks_on = enable;
++	else if (pm_type == DP_STREAM_PM)
++		ctrl->stream_clks_on = enable;
++	else
++		ctrl->link_clks_on = enable;
++
++	drm_dbg_dp(ctrl->drm_dev, "%s clocks for %s\n",
++		   enable ? "enable" : "disable",
++		   dp_parser_pm_name(pm_type));
++	drm_dbg_dp(ctrl->drm_dev,
++		   "stream_clks:%s link_clks:%s core_clks:%s\n",
++		   ctrl->stream_clks_on ? "on" : "off",
++		   ctrl->link_clks_on ? "on" : "off",
++		   ctrl->core_clks_on ? "on" : "off");
++
++	return 0;
++}
++
+ static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+ {
+ 	int ret = 0;
+@@ -1354,7 +1434,7 @@ static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+ 	phy_power_on(phy);
+ 
+ 	dev_pm_opp_set_rate(ctrl->dev, ctrl->link->link_params.rate * 1000);
+-	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, true);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CTRL_PM, true);
+ 	if (ret)
+ 		DRM_ERROR("Unable to start link clocks. ret=%d\n", ret);
+ 
+@@ -1502,7 +1582,7 @@ static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ 	 * link maintenance.
+ 	 */
+ 	dev_pm_opp_set_rate(ctrl->dev, 0);
+-	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CTRL_PM, false);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to disable clocks. ret=%d\n", ret);
+ 		return ret;
+@@ -1534,7 +1614,7 @@ static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ 	dp_catalog_ctrl_reset(ctrl->catalog);
+ 
+ 	dev_pm_opp_set_rate(ctrl->dev, 0);
+-	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CTRL_PM, false);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+ 	}
+@@ -1656,7 +1736,7 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+ 	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+ 	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel", pixel_rate * 1000);
+ 
+-	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, true);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_STREAM_PM, true);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+ 		return ret;
+@@ -1752,7 +1832,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ 	rate = ctrl->panel->link_info.rate;
+ 	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+ 
+-	dp_power_clk_enable(ctrl->power, DP_CORE_PM, true);
++	dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CORE_PM, true);
+ 
+ 	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
+ 		drm_dbg_dp(ctrl->drm_dev,
+@@ -1885,7 +1965,11 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+ 		ctrl->link->link_params.rate,
+ 		ctrl->link->link_params.num_lanes, pixel_rate);
+ 
+-	if (!dp_power_clk_status(ctrl->power, DP_CTRL_PM)) { /* link clk is off */
++	drm_dbg_dp(ctrl->drm_dev,
++		"core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
++		ctrl->core_clks_on, ctrl->link_clks_on, ctrl->stream_clks_on);
++
++	if (!ctrl->link_clks_on) { /* link clk is off */
+ 		ret = dp_ctrl_enable_mainlink_clocks(ctrl);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
+@@ -1895,7 +1979,7 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+ 
+ 	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel", pixel_rate * 1000);
+ 
+-	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, true);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_STREAM_PM, true);
+ 	if (ret) {
+ 		DRM_ERROR("Unable to start pixel clocks. ret=%d\n", ret);
+ 		goto end;
+@@ -1951,8 +2035,8 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 
+ 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+ 
+-	if (dp_power_clk_status(ctrl->power, DP_STREAM_PM)) {
+-		ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
++	if (ctrl->stream_clks_on) {
++		ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_STREAM_PM, false);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to disable pclk. ret=%d\n", ret);
+ 			return ret;
+@@ -1960,7 +2044,7 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 	}
+ 
+ 	dev_pm_opp_set_rate(ctrl->dev, 0);
+-	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CTRL_PM, false);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+ 		return ret;
+@@ -1990,7 +2074,7 @@ int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl)
+ 
+ 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+ 
+-	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CTRL_PM, false);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+ 	}
+@@ -2024,12 +2108,12 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+ 
+ 	dp_catalog_ctrl_reset(ctrl->catalog);
+ 
+-	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_STREAM_PM, false);
+ 	if (ret)
+ 		DRM_ERROR("Failed to disable pixel clocks. ret=%d\n", ret);
+ 
+ 	dev_pm_opp_set_rate(ctrl->dev, 0);
+-	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
++	ret = dp_ctrl_clk_enable(&ctrl->dp_ctrl, DP_CTRL_PM, false);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+ 	}
+@@ -2086,9 +2170,38 @@ irqreturn_t dp_ctrl_isr(struct dp_ctrl *dp_ctrl)
+ 	return ret;
+ }
+ 
++static int dp_ctrl_clk_init(struct dp_ctrl *dp_ctrl)
++{
++	struct dp_ctrl_private *ctrl_private;
++	int rc = 0;
++	struct dss_module_power *core, *ctrl, *stream;
++	struct device *dev;
++
++	ctrl_private = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
++	dev = ctrl_private->dev;
++
++	core = &ctrl_private->parser->mp[DP_CORE_PM];
++	ctrl = &ctrl_private->parser->mp[DP_CTRL_PM];
++	stream = &ctrl_private->parser->mp[DP_STREAM_PM];
++
++	rc = devm_clk_bulk_get(dev, core->num_clk, core->clocks);
++	if (rc)
++		return rc;
++
++	rc = devm_clk_bulk_get(dev, ctrl->num_clk, ctrl->clocks);
++	if (rc)
++		return -ENODEV;
++
++	rc = devm_clk_bulk_get(dev, stream->num_clk, stream->clocks);
++	if (rc)
++		return -ENODEV;
++
++	return 0;
++}
++
+ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
+ 			struct dp_panel *panel,	struct drm_dp_aux *aux,
+-			struct dp_power *power, struct dp_catalog *catalog,
++			struct dp_catalog *catalog,
+ 			struct dp_parser *parser)
+ {
+ 	struct dp_ctrl_private *ctrl;
+@@ -2125,11 +2238,16 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
+ 	/* in parameters */
+ 	ctrl->parser   = parser;
+ 	ctrl->panel    = panel;
+-	ctrl->power    = power;
+ 	ctrl->aux      = aux;
+ 	ctrl->link     = link;
+ 	ctrl->catalog  = catalog;
+ 	ctrl->dev      = dev;
+ 
++	ret = dp_ctrl_clk_init(&ctrl->dp_ctrl);
++	if (ret) {
++		dev_err(dev, "failed to init clocks\n");
++		return ERR_PTR(ret);
++	}
++
+ 	return &ctrl->dp_ctrl;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index b2c27d3532bf..85da5a7e5307 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -10,7 +10,6 @@
+ #include "dp_panel.h"
+ #include "dp_link.h"
+ #include "dp_parser.h"
+-#include "dp_power.h"
+ #include "dp_catalog.h"
+ 
+ struct dp_ctrl {
+@@ -28,7 +27,7 @@ irqreturn_t dp_ctrl_isr(struct dp_ctrl *dp_ctrl);
+ void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl);
+ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
+ 			struct dp_panel *panel,	struct drm_dp_aux *aux,
+-			struct dp_power *power, struct dp_catalog *catalog,
++			struct dp_catalog *catalog,
+ 			struct dp_parser *parser);
+ 
+ void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable);
+@@ -39,4 +38,7 @@ void dp_ctrl_irq_phy_exit(struct dp_ctrl *dp_ctrl);
+ void dp_ctrl_set_psr(struct dp_ctrl *dp_ctrl, bool enable);
+ void dp_ctrl_config_psr(struct dp_ctrl *dp_ctrl);
+ 
++int dp_ctrl_clk_enable(struct dp_ctrl *ctrl, enum dp_pm_type pm_type,
++		       bool enable);
++
+ #endif /* _DP_CTRL_H_ */
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index f19cb8c7e8cb..de1306a88748 100644
+index 8cd18705740f..33e9d7deb3f8 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1195,16 +1195,25 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
- 	return NULL;
+@@ -15,13 +15,12 @@
+ #include "msm_drv.h"
+ #include "msm_kms.h"
+ #include "dp_parser.h"
+-#include "dp_power.h"
++#include "dp_ctrl.h"
+ #include "dp_catalog.h"
+ #include "dp_aux.h"
+ #include "dp_reg.h"
+ #include "dp_link.h"
+ #include "dp_panel.h"
+-#include "dp_ctrl.h"
+ #include "dp_display.h"
+ #include "dp_drm.h"
+ #include "dp_audio.h"
+@@ -89,7 +88,6 @@ struct dp_display_private {
+ 	struct dentry *root;
+ 
+ 	struct dp_parser  *parser;
+-	struct dp_power   *power;
+ 	struct dp_catalog *catalog;
+ 	struct drm_dp_aux *aux;
+ 	struct dp_link    *link;
+@@ -434,7 +432,7 @@ static void dp_display_host_init(struct dp_display_private *dp)
+ 		dp->dp_display.connector_type, dp->core_initialized,
+ 		dp->phy_initialized);
+ 
+-	dp_power_clk_enable(dp->power, DP_CORE_PM, true);
++	dp_ctrl_clk_enable(dp->ctrl, DP_CORE_PM, true);
+ 	dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
+ 	dp_aux_init(dp->aux);
+ 	dp->core_initialized = true;
+@@ -448,7 +446,7 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
+ 
+ 	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
+ 	dp_aux_deinit(dp->aux);
+-	dp_power_clk_enable(dp->power, DP_CORE_PM, false);
++	dp_ctrl_clk_enable(dp->ctrl, DP_CORE_PM, false);
+ 	dp->core_initialized = false;
  }
  
--static int dp_display_get_next_bridge(struct msm_dp *dp);
--
- static int dp_display_probe_tail(struct device *dev)
- {
- 	struct msm_dp *dp = dev_get_drvdata(dev);
- 	int ret;
- 
--	ret = dp_display_get_next_bridge(dp);
--	if (ret)
--		return ret;
-+	/*
-+	 * External bridges are mandatory for eDP interfaces: one has to
-+	 * provide at least an eDP panel (which gets wrapped into panel-bridge).
-+	 *
-+	 * For DisplayPort interfaces external bridges are optional, so
-+	 * silently ignore an error if one is not present (-ENODEV).
-+	 */
-+	dp->next_bridge = devm_drm_of_get_bridge(&dp->pdev->dev, dp->pdev->dev.of_node, 1, 0);
-+	if (IS_ERR(dp->next_bridge)) {
-+		ret = PTR_ERR(dp->next_bridge);
-+		dp->next_bridge = NULL;
-+		if (dp->is_edp || ret != -ENODEV)
-+			return ret;
-+	}
- 
- 	ret = component_add(dev, &dp_display_comp_ops);
- 	if (ret)
-@@ -1397,30 +1406,6 @@ void dp_display_debugfs_init(struct msm_dp *dp_display, struct dentry *root, boo
+@@ -731,14 +729,6 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
+ 		goto error;
  	}
- }
  
--static int dp_display_get_next_bridge(struct msm_dp *dp)
--{
--	int rc;
--	struct dp_display_private *dp_priv;
+-	dp->power = dp_power_get(dev, dp->parser);
+-	if (IS_ERR(dp->power)) {
+-		rc = PTR_ERR(dp->power);
+-		DRM_ERROR("failed to initialize power, rc = %d\n", rc);
+-		dp->power = NULL;
+-		goto error;
+-	}
 -
--	dp_priv = container_of(dp, struct dp_display_private, dp_display);
--
--	/*
--	 * External bridges are mandatory for eDP interfaces: one has to
--	 * provide at least an eDP panel (which gets wrapped into panel-bridge).
--	 *
--	 * For DisplayPort interfaces external bridges are optional, so
--	 * silently ignore an error if one is not present (-ENODEV).
--	 */
--	rc = devm_dp_parser_find_next_bridge(&dp->pdev->dev, dp_priv->parser);
--	if (!dp->is_edp && rc == -ENODEV)
--		return 0;
--
--	if (!rc)
--		dp->next_bridge = dp_priv->parser->next_bridge;
--
--	return rc;
--}
--
- int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
- 			struct drm_encoder *encoder)
- {
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index aa135d5cedbd..f95ab3c5c72c 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -24,20 +24,6 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
- 	return 0;
- }
+ 	dp->aux = dp_aux_get(dev, dp->catalog, dp->dp_display.is_edp);
+ 	if (IS_ERR(dp->aux)) {
+ 		rc = PTR_ERR(dp->aux);
+@@ -768,7 +758,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
+ 	}
  
--int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser)
+ 	dp->ctrl = dp_ctrl_get(dev, dp->link, dp->panel, dp->aux,
+-			       dp->power, dp->catalog, dp->parser);
++			       dp->catalog, dp->parser);
+ 	if (IS_ERR(dp->ctrl)) {
+ 		rc = PTR_ERR(dp->ctrl);
+ 		DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
+@@ -1266,12 +1256,6 @@ static int dp_display_probe(struct platform_device *pdev)
+ 		return -EPROBE_DEFER;
+ 	}
+ 
+-	rc = dp_power_client_init(dp->power);
+-	if (rc) {
+-		DRM_ERROR("Power client create failed\n");
+-		goto err;
+-	}
+-
+ 	/* setup event q */
+ 	mutex_init(&dp->event_mutex);
+ 	init_waitqueue_head(&dp->event_q);
+diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
+deleted file mode 100644
+index f49e3aede308..000000000000
+--- a/drivers/gpu/drm/msm/dp/dp_power.c
++++ /dev/null
+@@ -1,170 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+- */
+-
+-#define pr_fmt(fmt)	"[drm-dp] %s: " fmt, __func__
+-
+-#include <linux/clk.h>
+-#include <linux/clk-provider.h>
+-#include <linux/regulator/consumer.h>
+-#include <linux/pm_opp.h>
+-#include "dp_power.h"
+-#include "msm_drv.h"
+-
+-struct dp_power_private {
+-	struct dp_parser *parser;
+-	struct device *dev;
+-	struct drm_device *drm_dev;
+-
+-	struct dp_power dp_power;
+-};
+-
+-static int dp_power_clk_init(struct dp_power_private *power)
 -{
--	struct platform_device *pdev = parser->pdev;
--	struct drm_bridge *bridge;
+-	int rc = 0;
+-	struct dss_module_power *core, *ctrl, *stream;
+-	struct device *dev = power->dev;
 -
--	bridge = devm_drm_of_get_bridge(dev, pdev->dev.of_node, 1, 0);
--	if (IS_ERR(bridge))
--		return PTR_ERR(bridge);
+-	core = &power->parser->mp[DP_CORE_PM];
+-	ctrl = &power->parser->mp[DP_CTRL_PM];
+-	stream = &power->parser->mp[DP_STREAM_PM];
 -
--	parser->next_bridge = bridge;
+-	rc = devm_clk_bulk_get(dev, core->num_clk, core->clocks);
+-	if (rc)
+-		return rc;
+-
+-	rc = devm_clk_bulk_get(dev, ctrl->num_clk, ctrl->clocks);
+-	if (rc)
+-		return -ENODEV;
+-
+-	rc = devm_clk_bulk_get(dev, stream->num_clk, stream->clocks);
+-	if (rc)
+-		return -ENODEV;
 -
 -	return 0;
 -}
 -
- static int dp_parser_parse(struct dp_parser *parser)
- {
- 	int rc = 0;
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 21a66932e35e..38fd335d5950 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -21,7 +21,6 @@
- struct dp_parser {
- 	struct platform_device *pdev;
- 	struct phy *phy;
--	struct drm_bridge *next_bridge;
- };
- 
- /**
-@@ -37,17 +36,4 @@ struct dp_parser {
-  */
- struct dp_parser *dp_parser_get(struct platform_device *pdev);
- 
--/**
-- * devm_dp_parser_find_next_bridge() - find an additional bridge to DP
-- *
-- * @dev: device to tie bridge lifetime to
-- * @parser: dp_parser data from client
-- *
-- * This function is used to find any additional bridge attached to
-- * the DP controller. The eDP interface requires a panel bridge.
-- *
-- * Return: 0 if able to get the bridge, otherwise negative errno for failure.
-- */
--int devm_dp_parser_find_next_bridge(struct device *dev, struct dp_parser *parser);
+-int dp_power_clk_status(struct dp_power *dp_power, enum dp_pm_type pm_type)
+-{
+-	struct dp_power_private *power;
 -
- #endif
+-	power = container_of(dp_power, struct dp_power_private, dp_power);
+-
+-	drm_dbg_dp(power->drm_dev,
+-		"core_clk_on=%d link_clk_on=%d stream_clk_on=%d\n",
+-		dp_power->core_clks_on, dp_power->link_clks_on, dp_power->stream_clks_on);
+-
+-	if (pm_type == DP_CORE_PM)
+-		return dp_power->core_clks_on;
+-
+-	if (pm_type == DP_CTRL_PM)
+-		return dp_power->link_clks_on;
+-
+-	if (pm_type == DP_STREAM_PM)
+-		return dp_power->stream_clks_on;
+-
+-	return 0;
+-}
+-
+-int dp_power_clk_enable(struct dp_power *dp_power,
+-		enum dp_pm_type pm_type, bool enable)
+-{
+-	int rc = 0;
+-	struct dp_power_private *power;
+-	struct dss_module_power *mp;
+-
+-	power = container_of(dp_power, struct dp_power_private, dp_power);
+-
+-	if (pm_type != DP_CORE_PM && pm_type != DP_CTRL_PM &&
+-			pm_type != DP_STREAM_PM) {
+-		DRM_ERROR("unsupported power module: %s\n",
+-				dp_parser_pm_name(pm_type));
+-		return -EINVAL;
+-	}
+-
+-	if (enable) {
+-		if (pm_type == DP_CORE_PM && dp_power->core_clks_on) {
+-			drm_dbg_dp(power->drm_dev,
+-					"core clks already enabled\n");
+-			return 0;
+-		}
+-
+-		if (pm_type == DP_CTRL_PM && dp_power->link_clks_on) {
+-			drm_dbg_dp(power->drm_dev,
+-					"links clks already enabled\n");
+-			return 0;
+-		}
+-
+-		if (pm_type == DP_STREAM_PM && dp_power->stream_clks_on) {
+-			drm_dbg_dp(power->drm_dev,
+-					"pixel clks already enabled\n");
+-			return 0;
+-		}
+-
+-		if ((pm_type == DP_CTRL_PM) && (!dp_power->core_clks_on)) {
+-			drm_dbg_dp(power->drm_dev,
+-					"Enable core clks before link clks\n");
+-			mp = &power->parser->mp[DP_CORE_PM];
+-
+-			rc = clk_bulk_prepare_enable(mp->num_clk, mp->clocks);
+-			if (rc)
+-				return rc;
+-
+-			dp_power->core_clks_on = true;
+-		}
+-	}
+-
+-	mp = &power->parser->mp[pm_type];
+-	if (enable) {
+-		rc = clk_bulk_prepare_enable(mp->num_clk, mp->clocks);
+-		if (rc)
+-			return rc;
+-	} else {
+-		clk_bulk_disable_unprepare(mp->num_clk, mp->clocks);
+-	}
+-
+-	if (pm_type == DP_CORE_PM)
+-		dp_power->core_clks_on = enable;
+-	else if (pm_type == DP_STREAM_PM)
+-		dp_power->stream_clks_on = enable;
+-	else
+-		dp_power->link_clks_on = enable;
+-
+-	drm_dbg_dp(power->drm_dev, "%s clocks for %s\n",
+-			enable ? "enable" : "disable",
+-			dp_parser_pm_name(pm_type));
+-	drm_dbg_dp(power->drm_dev,
+-		"strem_clks:%s link_clks:%s core_clks:%s\n",
+-		dp_power->stream_clks_on ? "on" : "off",
+-		dp_power->link_clks_on ? "on" : "off",
+-		dp_power->core_clks_on ? "on" : "off");
+-
+-	return 0;
+-}
+-
+-int dp_power_client_init(struct dp_power *dp_power)
+-{
+-	struct dp_power_private *power;
+-
+-	power = container_of(dp_power, struct dp_power_private, dp_power);
+-
+-	return dp_power_clk_init(power);
+-}
+-
+-struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser)
+-{
+-	struct dp_power_private *power;
+-	struct dp_power *dp_power;
+-
+-	power = devm_kzalloc(dev, sizeof(*power), GFP_KERNEL);
+-	if (!power)
+-		return ERR_PTR(-ENOMEM);
+-
+-	power->parser = parser;
+-	power->dev = dev;
+-
+-	dp_power = &power->dp_power;
+-
+-	return dp_power;
+-}
+diff --git a/drivers/gpu/drm/msm/dp/dp_power.h b/drivers/gpu/drm/msm/dp/dp_power.h
+deleted file mode 100644
+index eb836b5aa24a..000000000000
+--- a/drivers/gpu/drm/msm/dp/dp_power.h
++++ /dev/null
+@@ -1,74 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+- */
+-
+-#ifndef _DP_POWER_H_
+-#define _DP_POWER_H_
+-
+-#include "dp_parser.h"
+-
+-/**
+- * sruct dp_power - DisplayPort's power related data
+- *
+- * @init: initializes the regulators/core clocks/GPIOs/pinctrl
+- * @deinit: turns off the regulators/core clocks/GPIOs/pinctrl
+- * @clk_enable: enable/disable the DP clocks
+- * @set_pixel_clk_parent: set the parent of DP pixel clock
+- */
+-struct dp_power {
+-	bool core_clks_on;
+-	bool link_clks_on;
+-	bool stream_clks_on;
+-};
+-
+-/**
+- * dp_power_clk_status() - display controller clocks status
+- *
+- * @power: instance of power module
+- * @pm_type: type of pm, core/ctrl/phy
+- * return: status of power clocks
+- *
+- * This API return status of DP clocks
+- */
+-
+-int dp_power_clk_status(struct dp_power *dp_power, enum dp_pm_type pm_type);
+-
+-/**
+- * dp_power_clk_enable() - enable display controller clocks
+- *
+- * @power: instance of power module
+- * @pm_type: type of pm, core/ctrl/phy
+- * @enable: enables or disables
+- * return: pointer to allocated power module data
+- *
+- * This API will call setrate and enable for DP clocks
+- */
+-
+-int dp_power_clk_enable(struct dp_power *power, enum dp_pm_type pm_type,
+-				bool enable);
+-
+-/**
+- * dp_power_client_init() - initialize clock and regulator modules
+- *
+- * @power: instance of power module
+- * return: 0 for success, error for failure.
+- *
+- * This API will configure the DisplayPort's clocks and regulator
+- * modules.
+- */
+-int dp_power_client_init(struct dp_power *power);
+-
+-/**
+- * dp_power_get() - configure and get the DisplayPort power module data
+- *
+- * @parser: instance of parser module
+- * return: pointer to allocated power module data
+- *
+- * This API will configure the DisplayPort's power module and provides
+- * methods to be called by the client to configure the power related
+- * modules.
+- */
+-struct dp_power *dp_power_get(struct device *dev, struct dp_parser *parser);
+-
+-#endif /* _DP_POWER_H_ */
 
 -- 
 2.39.2
