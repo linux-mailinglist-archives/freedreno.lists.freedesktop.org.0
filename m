@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A927783CEB0
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:34:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24C983CEDF
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:49:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB6310E969;
-	Thu, 25 Jan 2024 21:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEC910E469;
+	Thu, 25 Jan 2024 21:49:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 537BB10E91B
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:34:00 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5101055a16fso3206579e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:34:00 -0800 (PST)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E1A610E469
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:49:11 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5100cb238bcso5026070e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:49:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706218378; x=1706823178; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706219289; x=1706824089; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=gC43oeEn6Z/dF88bOw97Mdza7qqFP/bsP45fUlFMHxc=;
- b=v2jPSjguKCtVMMZE74rVJSsQc9JuPVLmdwBYAd3DvGksODfRU+bxEDfgSMlAShNPgi
- lOY5P1wkjDxvVGWRJ209d7SeZ9OWukSgiPHGDYJFh2VPAvJFaVBQ6hcY8OaNcJHAOPKh
- QjPiXoybGjOomKea/CXs7xGYhVA/+aHcQJG7sXtkCrfmHMAwBdzN57qMiTGpSiUvJWv5
- 0c9U8KpSQvrHwNYarzn8bW15EzbqGHzOS/0aikJdyi08N6jebC9OozIKodyHsjpcnSHM
- 58EATfCKDROCEfs0r4iK3XkphuZaofa2IpuA8AvZ4sweTcE/peW0hRxdOSTURvd66O7L
- iBTQ==
+ bh=QTpw7P7AMy43afMGdLyQLOOGeTEVvo3DKM/GhoJqPaI=;
+ b=fjFxoDDnk7vSsNF5ayiS11mhDT+98mKbmF0Tqjf2yoy2x6nkeO9SG00naeo51v77lr
+ VJoJJ0CLb2o/6LjnlXzyRnNskIXFSb8ZDGoZNH/TRV21HylYi5BHOCG9qT6ufWAoRr78
+ vg27PsXC3BxbkMOtSo3sRG1zFhuzBKWS8QCMORo/BXx4wFUW1I6gGHiSFtX1rocnQI06
+ WnGFi0Qurk22Z4/6fQQcoNmHcx/4hhJd5x9tRbjS+UF+whNoaYsU12UUcVsm2rJB9VAd
+ Fdy/YUGklxUvyjGLrBkqifE3o14sgSaVSdiRyCCUKDrcom1zml0FQN96IVnsdGGHsME9
+ vUTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706218378; x=1706823178;
+ d=1e100.net; s=20230601; t=1706219289; x=1706824089;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gC43oeEn6Z/dF88bOw97Mdza7qqFP/bsP45fUlFMHxc=;
- b=nVZYDccbxdz4vJ0Htjr3xNl5YBu9OCWVt0pKWQ+5KZFYHOZtI4EGzCG/mjZ/DrUqhn
- zARlN8z3hiGJL4gO6z1vChlwrX5DvqKvQZ89PN0hN8+embdN9gNvecEwyfHvdMiHSM2n
- UGdSncnH8m99RJ1YS7w3Pba+iTHq+Yiz0NGpYxJMPPqwrrJU+wotGm/HnbSTSTrvhLWR
- PLrAWXlvMJeFsFBy7y8NtSCN1iHZ7EJK3+EX/wHAndH0lSv/ffnLqj6TIwrk7tZzTG/Q
- YqulYsEosLho0ob5/X7G5Sw5sfr8lhCEOwg67T/6cnYKQEZoEkf2ndomIV21w/Fs7wVg
- /ipQ==
-X-Gm-Message-State: AOJu0Yw2qm3VQAGRVqTvsrW9VUjJoMiA0QvVQHP8lT1P3XMNiXc+GO41
- a5011hvDR/omnMs3a+2EHfMlz5m8K+oK17mA5f98hrtHpb1SSbm+z7tH5qjaSVc=
-X-Google-Smtp-Source: AGHT+IEzUaCrfBiRov5NqQhtatOele2FId5ABPYRFyVNlLIi7xYZNBZ1H4QCUh+xC4UXwx/Ct7PWxg==
-X-Received: by 2002:ac2:4c02:0:b0:510:1a04:1e64 with SMTP id
- t2-20020ac24c02000000b005101a041e64mr229175lfq.25.1706218378350; 
- Thu, 25 Jan 2024 13:32:58 -0800 (PST)
+ bh=QTpw7P7AMy43afMGdLyQLOOGeTEVvo3DKM/GhoJqPaI=;
+ b=NYy/4Qy/or8qm9nAX89KM1paNe46dXsNdgCnVykCdEgfbbiLjvNCtp9jk+4uD556m6
+ RVjz7G8Kq1TsQN6SVSphznrzTE6vtcsJCdpROvy9jIeNq5tjlaHWN5g3/79On5E7zKng
+ uyrl0Bf2/im9P7r90F8km3zaoo7ywD2F6wtyttrqlceL8klAgW3fZnQPju+r49KrH8Qu
+ sX0UaG+7u68AaLNEA9m1U3cIsyhcJnPzjTqrM0soweop60ktWikg0hgCDxnSZNwj7RHK
+ OmDx5MQB6qyVabAhksG23dAcBtO7fnmGWtX6IwODzS5vQIUueo7qqWBdhx2fSkqI1Ypz
+ XHxg==
+X-Gm-Message-State: AOJu0YzOEakoxu4kMMvKLqWjkgRw6bc2Y2iUsJT9oqTvMPg7Az53KoLd
+ Z5mV6/EZHFUa9Gf9BlQYkqujMaSM3IaBX07vqeMuAghpu4D62E+bNLQ+/Rvq+j4=
+X-Google-Smtp-Source: AGHT+IG4oov4hE7wkIWwfmOSomgqSsX0EdqgYTWYXCJr5R6CNvYXLcC6BOpTNVqSf4Grfs25Zhf3FA==
+X-Received: by 2002:ac2:4ac2:0:b0:50e:3d69:69a7 with SMTP id
+ m2-20020ac24ac2000000b0050e3d6969a7mr244455lfp.42.1706219289474; 
+ Thu, 25 Jan 2024 13:48:09 -0800 (PST)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- h4-20020a056512350400b0050ecbfa6eeasm2962435lfs.305.2024.01.25.13.32.57
+ f12-20020a05651232cc00b0050f0dce126bsm2942118lfg.214.2024.01.25.13.48.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 13:32:57 -0800 (PST)
-Message-ID: <06f76827-bffb-4bc6-a0dd-bc272e4f6690@linaro.org>
-Date: Thu, 25 Jan 2024 23:32:57 +0200
+ Thu, 25 Jan 2024 13:48:08 -0800 (PST)
+Message-ID: <d94434ec-00fd-489f-98f2-8c811522ff82@linaro.org>
+Date: Thu, 25 Jan 2024 23:48:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/17] drm/msm/dp: move parity calculation to dp_catalog
+Subject: Re: [PATCH 11/17] drm/msm/dp: add VSC SDP support for YUV420 over DP
 Content-Language: en-GB
 To: Paloma Arellano <quic_parellan@quicinc.com>,
  freedreno@lists.freedesktop.org
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-10-quic_parellan@quicinc.com>
+ <20240125193834.7065-12-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20240125193834.7065-10-quic_parellan@quicinc.com>
+In-Reply-To: <20240125193834.7065-12-quic_parellan@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -86,328 +86,344 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/01/2024 21:38, Paloma Arellano wrote:
-> Parity calculation is necessary for VSC SDP implementation, therefore
-> move it to dp_catalog so it usable by both SDP programming and
-> dp_audio.c
+> Add support to pack and send the VSC SDP packet for DP. This therefore
+> allows the transmision of format information to the sinks which is
+> needed for YUV420 support over DP.
 > 
 > Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/dp/dp_audio.c   | 100 ++++------------------------
->   drivers/gpu/drm/msm/dp/dp_catalog.h |  72 ++++++++++++++++++++
->   2 files changed, 86 insertions(+), 86 deletions(-)
-
-There is nothing catalog-uish in the parity calculation. Just add 
-dp_utils.c. Another options is to push it to the drm/display/
-
-LGTM otherwise.
-
+>   drivers/gpu/drm/msm/dp/dp_catalog.c | 147 ++++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/dp/dp_catalog.h |   4 +
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c    |   4 +
+>   drivers/gpu/drm/msm/dp/dp_panel.c   |  47 +++++++++
+>   drivers/gpu/drm/msm/dp/dp_reg.h     |   3 +
+>   5 files changed, 205 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-> index 4a2e479723a85..7aa785018155a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-> @@ -16,13 +16,6 @@
->   #include "dp_panel.h"
->   #include "dp_display.h"
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index c025786170ba5..7e4c68be23e56 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -29,6 +29,9 @@
 >   
-> -#define HEADER_BYTE_2_BIT	 0
-> -#define PARITY_BYTE_2_BIT	 8
-> -#define HEADER_BYTE_1_BIT	16
-> -#define PARITY_BYTE_1_BIT	24
-> -#define HEADER_BYTE_3_BIT	16
-> -#define PARITY_BYTE_3_BIT	24
-> -
->   struct dp_audio_private {
->   	struct platform_device *audio_pdev;
->   	struct platform_device *pdev;
-> @@ -36,71 +29,6 @@ struct dp_audio_private {
->   	struct dp_audio dp_audio;
->   };
+>   #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
 >   
-> -static u8 dp_audio_get_g0_value(u8 data)
-> -{
-> -	u8 c[4];
-> -	u8 g[4];
-> -	u8 ret_data = 0;
-> -	u8 i;
-> -
-> -	for (i = 0; i < 4; i++)
-> -		c[i] = (data >> i) & 0x01;
-> -
-> -	g[0] = c[3];
-> -	g[1] = c[0] ^ c[3];
-> -	g[2] = c[1];
-> -	g[3] = c[2];
-> -
-> -	for (i = 0; i < 4; i++)
-> -		ret_data = ((g[i] & 0x01) << i) | ret_data;
-> -
-> -	return ret_data;
-> -}
-> -
-> -static u8 dp_audio_get_g1_value(u8 data)
-> -{
-> -	u8 c[4];
-> -	u8 g[4];
-> -	u8 ret_data = 0;
-> -	u8 i;
-> -
-> -	for (i = 0; i < 4; i++)
-> -		c[i] = (data >> i) & 0x01;
-> -
-> -	g[0] = c[0] ^ c[3];
-> -	g[1] = c[0] ^ c[1] ^ c[3];
-> -	g[2] = c[1] ^ c[2];
-> -	g[3] = c[2] ^ c[3];
-> -
-> -	for (i = 0; i < 4; i++)
-> -		ret_data = ((g[i] & 0x01) << i) | ret_data;
-> -
-> -	return ret_data;
-> -}
-> -
-> -static u8 dp_audio_calculate_parity(u32 data)
-> -{
-> -	u8 x0 = 0;
-> -	u8 x1 = 0;
-> -	u8 ci = 0;
-> -	u8 iData = 0;
-> -	u8 i = 0;
-> -	u8 parity_byte;
-> -	u8 num_byte = (data & 0xFF00) > 0 ? 8 : 2;
-> -
-> -	for (i = 0; i < num_byte; i++) {
-> -		iData = (data >> i*4) & 0xF;
-> -
-> -		ci = iData ^ x1;
-> -		x1 = x0 ^ dp_audio_get_g1_value(ci);
-> -		x0 = dp_audio_get_g0_value(ci);
-> -	}
-> -
-> -	parity_byte = x1 | (x0 << 4);
-> -
-> -	return parity_byte;
-> -}
-> -
->   static u32 dp_audio_get_header(struct dp_catalog *catalog,
->   		enum dp_catalog_audio_sdp_type sdp,
->   		enum dp_catalog_audio_header_type header)
-> @@ -134,7 +62,7 @@ static void dp_audio_stream_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_STREAM, DP_AUDIO_SDP_HEADER_1);
->   
->   	new_value = 0x02;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_1_BIT)
->   			| (parity_byte << PARITY_BYTE_1_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -147,7 +75,7 @@ static void dp_audio_stream_sdp(struct dp_audio_private *audio)
->   	value = dp_audio_get_header(catalog,
->   			DP_AUDIO_SDP_STREAM, DP_AUDIO_SDP_HEADER_2);
->   	new_value = value;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_2_BIT)
->   			| (parity_byte << PARITY_BYTE_2_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -162,7 +90,7 @@ static void dp_audio_stream_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_STREAM, DP_AUDIO_SDP_HEADER_3);
->   
->   	new_value = audio->channels - 1;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_3_BIT)
->   			| (parity_byte << PARITY_BYTE_3_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -184,7 +112,7 @@ static void dp_audio_timestamp_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_TIMESTAMP, DP_AUDIO_SDP_HEADER_1);
->   
->   	new_value = 0x1;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_1_BIT)
->   			| (parity_byte << PARITY_BYTE_1_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -198,7 +126,7 @@ static void dp_audio_timestamp_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_TIMESTAMP, DP_AUDIO_SDP_HEADER_2);
->   
->   	new_value = 0x17;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_2_BIT)
->   			| (parity_byte << PARITY_BYTE_2_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -212,7 +140,7 @@ static void dp_audio_timestamp_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_TIMESTAMP, DP_AUDIO_SDP_HEADER_3);
->   
->   	new_value = (0x0 | (0x11 << 2));
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_3_BIT)
->   			| (parity_byte << PARITY_BYTE_3_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -233,7 +161,7 @@ static void dp_audio_infoframe_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_INFOFRAME, DP_AUDIO_SDP_HEADER_1);
->   
->   	new_value = 0x84;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_1_BIT)
->   			| (parity_byte << PARITY_BYTE_1_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -247,7 +175,7 @@ static void dp_audio_infoframe_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_INFOFRAME, DP_AUDIO_SDP_HEADER_2);
->   
->   	new_value = 0x1b;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_2_BIT)
->   			| (parity_byte << PARITY_BYTE_2_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -261,7 +189,7 @@ static void dp_audio_infoframe_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_INFOFRAME, DP_AUDIO_SDP_HEADER_3);
->   
->   	new_value = (0x0 | (0x11 << 2));
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_3_BIT)
->   			| (parity_byte << PARITY_BYTE_3_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -282,7 +210,7 @@ static void dp_audio_copy_management_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_COPYMANAGEMENT, DP_AUDIO_SDP_HEADER_1);
->   
->   	new_value = 0x05;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_1_BIT)
->   			| (parity_byte << PARITY_BYTE_1_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -296,7 +224,7 @@ static void dp_audio_copy_management_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_COPYMANAGEMENT, DP_AUDIO_SDP_HEADER_2);
->   
->   	new_value = 0x0F;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_2_BIT)
->   			| (parity_byte << PARITY_BYTE_2_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -310,7 +238,7 @@ static void dp_audio_copy_management_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_COPYMANAGEMENT, DP_AUDIO_SDP_HEADER_3);
->   
->   	new_value = 0x0;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_3_BIT)
->   			| (parity_byte << PARITY_BYTE_3_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -331,7 +259,7 @@ static void dp_audio_isrc_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_ISRC, DP_AUDIO_SDP_HEADER_1);
->   
->   	new_value = 0x06;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_1_BIT)
->   			| (parity_byte << PARITY_BYTE_1_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> @@ -345,7 +273,7 @@ static void dp_audio_isrc_sdp(struct dp_audio_private *audio)
->   			DP_AUDIO_SDP_ISRC, DP_AUDIO_SDP_HEADER_2);
->   
->   	new_value = 0x0F;
-> -	parity_byte = dp_audio_calculate_parity(new_value);
-> +	parity_byte = dp_catalog_calculate_parity(new_value);
->   	value |= ((new_value << HEADER_BYTE_2_BIT)
->   			| (parity_byte << PARITY_BYTE_2_BIT));
->   	drm_dbg_dp(audio->drm_dev,
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-> index 6cb5e2a243de2..563903605b3a7 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
-> @@ -45,6 +45,13 @@ enum dp_phy_aux_config_type {
->   	PHY_AUX_CFG_MAX,
->   };
->   
-> +#define HEADER_BYTE_2_BIT	 0
-> +#define PARITY_BYTE_2_BIT	 8
-> +#define HEADER_BYTE_1_BIT	16
-> +#define PARITY_BYTE_1_BIT	24
-> +#define HEADER_BYTE_3_BIT	16
-> +#define PARITY_BYTE_3_BIT	24
+> +#define DP_GENERIC0_6_YUV_8_BPC		BIT(0)
+> +#define DP_GENERIC0_6_YUV_10_BPC	BIT(1)
 > +
->   enum dp_catalog_audio_sdp_type {
->   	DP_AUDIO_SDP_STREAM,
->   	DP_AUDIO_SDP_TIMESTAMP,
-> @@ -73,6 +80,71 @@ struct dp_catalog {
->   	bool wide_bus_en;
->   };
+>   #define DP_INTERRUPT_STATUS1 \
+>   	(DP_INTR_AUX_XFER_DONE| \
+>   	DP_INTR_WRONG_ADDR | DP_INTR_TIMEOUT | \
+> @@ -907,6 +910,150 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
+>   	return 0;
+>   }
 >   
-> +static inline u8 dp_catalog_get_g0_value(u8 data)
+> +static void dp_catalog_panel_setup_vsc_sdp(struct dp_catalog *dp_catalog)
 > +{
-> +	u8 c[4];
-> +	u8 g[4];
-> +	u8 ret_data = 0;
-> +	u8 i;
+> +	struct dp_catalog_private *catalog;
+> +	u32 header, parity, data;
+> +	u8 bpc, off = 0;
+> +	u8 buf[SZ_128];
 > +
-> +	for (i = 0; i < 4; i++)
-> +		c[i] = (data >> i) & 0x01;
-> +
-> +	g[0] = c[3];
-> +	g[1] = c[0] ^ c[3];
-> +	g[2] = c[1];
-> +	g[3] = c[2];
-> +
-> +	for (i = 0; i < 4; i++)
-> +		ret_data = ((g[i] & 0x01) << i) | ret_data;
-> +
-> +	return ret_data;
-> +}
-> +
-> +static inline u8 dp_catalog_get_g1_value(u8 data)
-> +{
-> +	u8 c[4];
-> +	u8 g[4];
-> +	u8 ret_data = 0;
-> +	u8 i;
-> +
-> +	for (i = 0; i < 4; i++)
-> +		c[i] = (data >> i) & 0x01;
-> +
-> +	g[0] = c[0] ^ c[3];
-> +	g[1] = c[0] ^ c[1] ^ c[3];
-> +	g[2] = c[1] ^ c[2];
-> +	g[3] = c[2] ^ c[3];
-> +
-> +	for (i = 0; i < 4; i++)
-> +		ret_data = ((g[i] & 0x01) << i) | ret_data;
-> +
-> +	return ret_data;
-> +}
-> +
-> +static inline u8 dp_catalog_calculate_parity(u32 data)
-> +{
-> +	u8 x0 = 0;
-> +	u8 x1 = 0;
-> +	u8 ci = 0;
-> +	u8 iData = 0;
-> +	u8 i = 0;
-> +	u8 parity_byte;
-> +	u8 num_byte = (data & 0xFF00) > 0 ? 8 : 2;
-> +
-> +	for (i = 0; i < num_byte; i++) {
-> +		iData = (data >> i * 4) & 0xF;
-> +
-> +		ci = iData ^ x1;
-> +		x1 = x0 ^ dp_catalog_get_g1_value(ci);
-> +		x0 = dp_catalog_get_g0_value(ci);
+> +	if (!dp_catalog) {
+> +		pr_err("invalid input\n");
+> +		return;
 > +	}
 > +
-> +	parity_byte = x1 | (x0 << 4);
+> +	catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
 > +
-> +	return parity_byte;
+> +	/* HEADER BYTE 1 */
+> +	header = dp_catalog->sdp.sdp_header.HB1;
+> +	parity = dp_catalog_calculate_parity(header);
+> +	data   = ((header << HEADER_BYTE_1_BIT) | (parity << PARITY_BYTE_1_BIT));
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_0, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	/* HEADER BYTE 2 */
+> +	header = dp_catalog->sdp.sdp_header.HB2;
+> +	parity = dp_catalog_calculate_parity(header);
+> +	data   = ((header << HEADER_BYTE_2_BIT) | (parity << PARITY_BYTE_2_BIT));
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_1, data);
+> +
+> +	/* HEADER BYTE 3 */
+> +	header = dp_catalog->sdp.sdp_header.HB3;
+> +	parity = dp_catalog_calculate_parity(header);
+> +	data   = ((header << HEADER_BYTE_3_BIT) | (parity << PARITY_BYTE_3_BIT));
+> +	data |= dp_read_link(catalog, MMSS_DP_GENERIC0_1);
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_1, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+
+This seems to be common with the dp_audio code. Please extract this 
+header writing too.
+
+> +
+> +	data = 0;
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_2, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+
+Generally this is not how these functions are expected to be written. 
+Please take a look at drivers/video/hdmi.c. It should be split into:
+- generic function that packs the C structure into a flat byte buffer,
+- driver-specific function that formats and writes the buffer to the 
+hardware.
+
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_3, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_4, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_5, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	switch (dp_catalog->vsc_sdp_data.bpc) {
+> +	case 10:
+> +		bpc = DP_GENERIC0_6_YUV_10_BPC;
+> +		break;
+> +	case 8:
+> +	default:
+> +		bpc = DP_GENERIC0_6_YUV_8_BPC;
+> +		break;
+> +	}
+> +
+> +	/* VSC SDP payload as per table 2-117 of DP 1.4 specification */
+> +	data = (dp_catalog->vsc_sdp_data.colorimetry & 0xF) |
+> +	       ((dp_catalog->vsc_sdp_data.pixelformat & 0xF) << 4) |
+> +	       (bpc << 8) |
+> +	       ((dp_catalog->vsc_sdp_data.dynamic_range & 0x1) << 15) |
+> +	       ((dp_catalog->vsc_sdp_data.content_type & 0x7) << 16);
+> +
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_6, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	data = 0;
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_7, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_8, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	dp_write_link(catalog, MMSS_DP_GENERIC0_9, data);
+> +	memcpy(buf + off, &data, sizeof(data));
+> +	off += sizeof(data);
+> +
+> +	print_hex_dump(KERN_DEBUG, "[drm-dp] VSC: ", DUMP_PREFIX_NONE, 16, 4, buf, off, false);
 > +}
 > +
->   /* Debug module */
->   void dp_catalog_snapshot(struct dp_catalog *dp_catalog, struct msm_disp_state *disp_state);
+> +void dp_catalog_panel_config_vsc_sdp(struct dp_catalog *dp_catalog, bool en)
+> +{
+> +	struct dp_catalog_private *catalog;
+> +	u32 cfg, cfg2, misc;
+> +	u16 major = 0, minor = 0;
+> +
+> +	if (!dp_catalog) {
+> +		pr_err("invalid input\n");
+> +		return;
+> +	}
+> +
+> +	catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
+> +
+> +	cfg = dp_read_link(catalog, MMSS_DP_SDP_CFG);
+> +	cfg2 = dp_read_link(catalog, MMSS_DP_SDP_CFG2);
+> +	misc = dp_read_link(catalog, REG_DP_MISC1_MISC0);
+> +
+> +	if (en) {
+> +		cfg |= GEN0_SDP_EN;
+> +		dp_write_link(catalog, MMSS_DP_SDP_CFG, cfg);
+> +
+> +		cfg2 |= GENERIC0_SDPSIZE;
+
+When I see a something_SIZE macro, I'd naturally expect it to be an 
+actual size of some data. Please consider renaming to e.g. 
+GENERIC0_SDPSIZE_VALID.
+
+> +		dp_write_link(catalog, MMSS_DP_SDP_CFG2, cfg2);
+> +
+> +		dp_catalog_panel_setup_vsc_sdp(dp_catalog);
+> +
+> +		/* indicates presence of VSC (BIT(6) of MISC1) */
+> +		misc |= DP_MISC1_VSC_SDP;
+> +
+> +		drm_dbg_dp(catalog->drm_dev, "vsc sdp enable=%d\n", en);
+> +	} else {
+> +		cfg &= ~GEN0_SDP_EN;
+> +		dp_write_link(catalog, MMSS_DP_SDP_CFG, cfg);
+> +
+> +		cfg2 &= ~GENERIC0_SDPSIZE;
+> +		dp_write_link(catalog, MMSS_DP_SDP_CFG2, cfg2);
+> +
+> +		/* switch back to MSA */
+> +		misc &= ~DP_MISC1_VSC_SDP;
+> +
+> +		drm_dbg_dp(catalog->drm_dev, "vsc sdp enable=%d\n", en);
+> +	}
+> +
+> +	pr_debug("misc settings = 0x%x\n", misc);
+> +	dp_write_link(catalog, REG_DP_MISC1_MISC0, misc);
+> +
+> +	dp_catalog_hw_revision(dp_catalog, &major, &minor);
+> +	if (major == 1 && minor < 2) {
+> +		dp_write_link(catalog, MMSS_DP_SDP_CFG3, 0x01);
+> +		dp_write_link(catalog, MMSS_DP_SDP_CFG3, 0x00);
+> +	}
+> +}
+> +
+>   void dp_catalog_panel_tpg_enable(struct dp_catalog *dp_catalog,
+>   				struct drm_display_mode *drm_mode)
+>   {
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index 94c377ef90c35..6b757249c0698 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -7,6 +7,7 @@
+>   #define _DP_CATALOG_H_
 >   
+>   #include <drm/drm_modes.h>
+> +#include <drm/display/drm_dp_helper.h>
+>   
+>   #include "dp_parser.h"
+>   #include "disp/msm_disp_snapshot.h"
+> @@ -76,6 +77,8 @@ struct dp_catalog {
+>   	u32 dp_active;
+>   	enum dp_catalog_audio_sdp_type sdp_type;
+>   	enum dp_catalog_audio_header_type sdp_header;
+> +	struct dp_sdp sdp;
+
+I assume that the sdp field contains only transient data, which is not 
+used after it gets written to the hardware. Please remove it from the 
+struct allocate on a stack or via kzalloc.
+
+> +	struct drm_dp_vsc_sdp vsc_sdp_data;
+>   	u32 audio_data;
+>   	bool wide_bus_en;
+>   };
+> @@ -196,6 +199,7 @@ u32 dp_catalog_ctrl_read_phy_pattern(struct dp_catalog *dp_catalog);
+>   
+>   /* DP Panel APIs */
+>   int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog);
+> +void dp_catalog_panel_config_vsc_sdp(struct dp_catalog *dp_catalog, bool en);
+>   void dp_catalog_dump_regs(struct dp_catalog *dp_catalog);
+>   void dp_catalog_panel_tpg_enable(struct dp_catalog *dp_catalog,
+>   				struct drm_display_mode *drm_mode);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 209cf2a35642f..ddd92a63d5a67 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1952,6 +1952,8 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+>   	dp_io = &ctrl->parser->io;
+>   	phy = dp_io->phy;
+>   
+> +	dp_catalog_panel_config_vsc_sdp(ctrl->catalog, false);
+> +
+>   	/* set dongle to D3 (power off) mode */
+>   	dp_link_psm_config(ctrl->link, &ctrl->panel->link_info, true);
+>   
+> @@ -2026,6 +2028,8 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+>   	dp_io = &ctrl->parser->io;
+>   	phy = dp_io->phy;
+>   
+> +	dp_catalog_panel_config_vsc_sdp(ctrl->catalog, false);
+> +
+>   	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+>   
+>   	dp_catalog_ctrl_reset(ctrl->catalog);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index af7820b6d35ec..d6af9898b00d8 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -307,6 +307,49 @@ bool dp_panel_vsc_sdp_supported(struct dp_panel *dp_panel)
+>   	return panel->major >= 1 && panel->minor >= 3 && panel->vsc_supported;
+>   }
+>   
+> +static int dp_panel_setup_vsc_sdp(struct dp_panel *dp_panel)
+> +{
+> +	struct dp_catalog *catalog;
+> +	struct dp_panel_private *panel;
+> +	struct dp_display_mode *dp_mode;
+> +	int rc = 0;
+> +
+> +	if (!dp_panel) {
+> +		pr_err("invalid input\n");
+> +		rc = -EINVAL;
+> +		return rc;
+> +	}
+> +
+> +	panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
+> +	catalog = panel->catalog;
+> +	dp_mode = &dp_panel->dp_mode;
+> +
+> +	memset(&catalog->sdp, 0, sizeof(catalog->sdp));
+> +	memset(&catalog->vsc_sdp_data, 0, sizeof(catalog->vsc_sdp_data));
+> +
+> +	/* VSC SDP header as per table 2-118 of DP 1.4 specification */
+> +	catalog->sdp.sdp_header.HB0 = 0x00;
+> +	catalog->sdp.sdp_header.HB1 = 0x07;
+> +	catalog->sdp.sdp_header.HB2 = 0x05;
+> +	catalog->sdp.sdp_header.HB3 = 0x13;
+> +
+> +	/* VSC SDP Payload for DB16 */
+> +	catalog->vsc_sdp_data.pixelformat = DP_PIXELFORMAT_YUV420;
+> +	catalog->vsc_sdp_data.colorimetry = DP_COLORIMETRY_DEFAULT;
+> +
+> +	/* VSC SDP Payload for DB17 */
+> +	catalog->vsc_sdp_data.dynamic_range = DP_DYNAMIC_RANGE_CTA;
+> +
+> +	/* VSC SDP Payload for DB18 */
+> +	catalog->vsc_sdp_data.content_type = DP_CONTENT_TYPE_GRAPHICS;
+> +
+> +	catalog->vsc_sdp_data.bpc = dp_mode->bpp / 3;
+> +
+> +	dp_catalog_panel_config_vsc_sdp(catalog, true);
+> +
+> +	return rc;
+> +}
+> +
+>   void dp_panel_dump_regs(struct dp_panel *dp_panel)
+>   {
+>   	struct dp_catalog *catalog;
+> @@ -370,6 +413,10 @@ int dp_panel_timing_cfg(struct dp_panel *dp_panel)
+>   	catalog->dp_active = data;
+>   
+>   	dp_catalog_panel_timing_cfg(catalog);
+> +
+> +	if (dp_panel->dp_mode.out_fmt_is_yuv_420)
+> +		dp_panel_setup_vsc_sdp(dp_panel);
+> +
+>   	panel->panel_on = true;
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+> index ea85a691e72b5..756ddf85b1e81 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_reg.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+> @@ -142,6 +142,7 @@
+>   #define DP_MISC0_SYNCHRONOUS_CLK		(0x00000001)
+>   #define DP_MISC0_COLORIMETRY_CFG_SHIFT		(0x00000001)
+>   #define DP_MISC0_TEST_BITS_DEPTH_SHIFT		(0x00000005)
+> +#define DP_MISC1_VSC_SDP			(0x00004000)
+>   
+>   #define REG_DP_VALID_BOUNDARY			(0x00000030)
+>   #define REG_DP_VALID_BOUNDARY_2			(0x00000034)
+> @@ -201,9 +202,11 @@
+>   #define MMSS_DP_AUDIO_CTRL_RESET		(0x00000214)
+>   
+>   #define MMSS_DP_SDP_CFG				(0x00000228)
+> +#define GEN0_SDP_EN				(0x00020000)
+>   #define MMSS_DP_SDP_CFG2			(0x0000022C)
+>   #define MMSS_DP_AUDIO_TIMESTAMP_0		(0x00000230)
+>   #define MMSS_DP_AUDIO_TIMESTAMP_1		(0x00000234)
+> +#define GENERIC0_SDPSIZE			(0x00010000)
+>   
+>   #define MMSS_DP_AUDIO_STREAM_0			(0x00000240)
+>   #define MMSS_DP_AUDIO_STREAM_1			(0x00000244)
 
 -- 
 With best wishes
