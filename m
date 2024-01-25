@@ -2,96 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2484883CAAF
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 19:18:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77DA83CC6F
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 20:38:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31DEF10E91E;
-	Thu, 25 Jan 2024 18:18:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7AE310F157;
+	Thu, 25 Jan 2024 19:38:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6027310E2D8
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 18:18:25 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a2e633c5365so191079766b.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 10:18:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1706206644; x=1706811444; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=LX2Biyswi3lcTJguDEv72aHM8YWWcEZE57McfhSqDfM=;
- b=Y1icyBU6jfzFIh9gAqXbIzs8l/etjnt0gK2vo8V4l81BM+8nL0hcBHxhDlFXqt8Se8
- Jeqg/VEN6QpvkUK4GTzU0/0T2MBbQRTyAG1OHNKrtgyPAtkkQf1YxdK6osJMn25wrOU4
- jiYJZW41U9NcHfPQlXKrFDiur1OISvHP/BCus=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706206644; x=1706811444;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=LX2Biyswi3lcTJguDEv72aHM8YWWcEZE57McfhSqDfM=;
- b=ksUQIaj2sYaCQAexEGA1ldsTZVjkQGagOxHWDn77eo0B/7CnVOznAt3RulUhbOG4Gj
- gYbXOEcIRFw8tIso8lpRQYFjK1iaUA5cmgtushhAB3MkCuqlMkQEKrvvEEcRAr4/tHuJ
- mt19NM7d9ZUgGH1qLNT1d28MfPHwZoQfuMQy24oAZBiiCiQV7lIPAl2qhf4fiUZv1XVN
- 9beN7mka6lqGvRHqQ/+FT4c7eG1SeRIrq13pVt+Lp1TZ+NopuxjuhyHJb9QA1Yg0xQqy
- 6bPJLDzdLtEeF89r/iEOtAWgi2VZz1p4s5klCw6PCTl+xYTIClNHwIII/XBzYG1jGft7
- d0RQ==
-X-Gm-Message-State: AOJu0YyZLyCGXgQ6gDFkWoFVkQtONYoHpfj1+ltnWCyWzL+54QW45kUS
- +YQsuX9WwegUXjBvCaV4Q133+bC/Tz1U6UU2SiST1lG3s4Y31lqSVHs3MufuGBk=
-X-Google-Smtp-Source: AGHT+IFFgR3FnuKNaxcbSF/D45iFGEkVO7DwIYkEGMWwJWTauy+SOrnz8WOVHQePtLtXFKX663PQaQ==
-X-Received: by 2002:a17:906:a2d6:b0:a31:7e9c:60bf with SMTP id
- by22-20020a170906a2d600b00a317e9c60bfmr23085ejb.0.1706206643807; 
- Thu, 25 Jan 2024 10:17:23 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- tl15-20020a170907c30f00b00a3186c2c254sm765083ejc.213.2024.01.25.10.17.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 10:17:23 -0800 (PST)
-Date: Thu, 25 Jan 2024 19:17:21 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?= <Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH] drm/atomic-helpers: remove legacy_cursor_update hacks
-Message-ID: <ZbKlsTEvGPiGtzS3@phenom.ffwll.local>
-Mail-Followup-To: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?=
- <Jason-JH.Lin@mediatek.com>, 
- "maxime@cerno.tech" <maxime@cerno.tech>,
- "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "michel@daenzer.net" <michel@daenzer.net>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "daniel.vetter@intel.com" <daniel.vetter@intel.com>,
- "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>, 
- "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
- "fshao@chromium.org" <fshao@chromium.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "jani.nikula@intel.com" <jani.nikula@intel.com>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>, 
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
- <20230307145613.xvhru3fpcudlpazt@houat>
- <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E36E10ECBB;
+ Thu, 25 Jan 2024 19:38:58 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40PJOIMh001884; Thu, 25 Jan 2024 19:38:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=58wOxlJ
+ bp3Kn/3g9GzCq33PP7tx3KaUvybCYMFQi0ws=; b=MY2Fm2C/tJJfQaK8fmeByrz
+ 1O/cjzjjXWgzLBJLqOrHiOXXGtu03NcxvC8z8lcOsnvMYocYjOVwXiwyUc5zGX5h
+ FlL/GjiO45HbM6qhD0KiL2JerbLNxHW/OC0EAR114qt1A9Kfj8lViYX5UFqRm3P9
+ N46IHpnR6BreGAxsFSbz9SS5PXHSSC+L87+b0pHTL2qyqV6QKgs7Ax2k+7xqKnVU
+ 5CbUqnEF+IOBKhLCr7GXyZZmb5h+KRQY4XGrhUM3GfWED5hZjAZKlh5tFt/AUn0v
+ Tz+baBns+u88sUADt+o6AvZNQrH+gi+8U8i+BkqeAPvLQWSXK15U/OxosOrGUxA=
+ =
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vuqra12ga-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jan 2024 19:38:53 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40PJcqsg023478
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jan 2024 19:38:52 GMT
+Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 25 Jan 2024 11:38:52 -0800
+From: Paloma Arellano <quic_parellan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Subject: [PATCH 00/17] Add support for CDM over DP
+Date: Thu, 25 Jan 2024 11:38:09 -0800
+Message-ID: <20240125193834.7065-1-quic_parellan@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
-X-Operating-System: Linux phenom 6.6.11-amd64 
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: djni7z6NjcZS465uKvDhKEp6yYCF5pJK
+X-Proofpoint-ORIG-GUID: djni7z6NjcZS465uKvDhKEp6yYCF5pJK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-25_12,2024-01-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ adultscore=0 mlxlogscore=836 phishscore=0 lowpriorityscore=0 bulkscore=0
+ spamscore=0 malwarescore=0 mlxscore=0 impostorscore=0 suspectscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401250142
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,101 +78,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "fshao@chromium.org" <fshao@chromium.org>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "daniel.vetter@intel.com" <daniel.vetter@intel.com>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "jani.nikula@intel.com" <jani.nikula@intel.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "michel@daenzer.net" <michel@daenzer.net>,
- "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maxime@cerno.tech" <maxime@cerno.tech>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>
+Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
+ Paloma Arellano <quic_parellan@quicinc.com>, quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 23, 2024 at 06:09:05AM +0000, Jason-JH Lin (林睿祥) wrote:
-> Hi Maxime, Daniel,
-> 
-> We encountered similar issue with mediatek SoCs.
-> 
-> We have found that in drm_atomic_helper_commit_rpm(), when disabling
-> the cursor plane, the old_state->legacy_cursor_update in
-> drm_atomic_wait_for_vblank() is set to true.
-> As the result, we are not actually waiting for a vlbank to wait for our
-> hardware to close the cursor plane. Subsequently, the execution
-> proceeds to drm_atomic_helper_cleanup_planes() to  free the cursor
-> buffer. This can lead to use-after-free issues with our hardware.
-> 
-> Could you please apply this patch to fix our problem?
-> Or are there any considerations for not applying this patch?
+The Chroma Down Sampling (CDM) block is a hardware component in the DPU
+pipeline that includes a CSC block capable of converting RGB input from
+the DPU to YUV data.
 
-Mostly it needs someone to collect a pile of acks/tested-by and then land
-it.
+This block can be used with either HDMI, DP, or writeback interfaces.
+This series adds support for the CDM block to be used with DP in
+YUV420 mode format.
 
-I'd be _very_ happy if someone else can take care of that ...
+This series allows selection of the YUV420 format for monitors which support
+certain resolutions only in YUV420 thus unblocking the validation of many
+other resolutions which were previously filtered out if the connector did
+not support YUV420.
 
-There's also the potential issue that it might slow down some of the
-legacy X11 use-cases that really needed a non-blocking cursor, but I think
-all the drivers where this matters have switched over to the async plane
-update stuff meanwhile. So hopefully that's good.
+This was validated using a DP connected monitor requiring the use of
+YUV420 format.
 
-Cheers, Sima
-> 
-> Regards,
-> Jason-JH.Lin
-> 
-> On Tue, 2023-03-07 at 15:56 +0100, Maxime Ripard wrote:
-> > Hi,
-> > 
-> > On Thu, Feb 16, 2023 at 12:12:13PM +0100, Daniel Vetter wrote:
-> > > The stuff never really worked, and leads to lots of fun because it
-> > > out-of-order frees atomic states. Which upsets KASAN, among other
-> > > things.
-> > > 
-> > > For async updates we now have a more solid solution with the
-> > > ->atomic_async_check and ->atomic_async_commit hooks. Support for
-> > > that
-> > > for msm and vc4 landed. nouveau and i915 have their own commit
-> > > routines, doing something similar.
-> > > 
-> > > For everyone else it's probably better to remove the use-after-free
-> > > bug, and encourage folks to use the async support instead. The
-> > > affected drivers which register a legacy cursor plane and don't
-> > > either
-> > > use the new async stuff or their own commit routine are: amdgpu,
-> > > atmel, mediatek, qxl, rockchip, sti, sun4i, tegra, virtio, and
-> > > vmwgfx.
-> > > 
-> > > Inspired by an amdgpu bug report.
-> > 
-> > Thanks for submitting that patch. It's been in the downstream RPi
-> > tree
-> > for a while, so I'd really like it to be merged eventually :)
-> > 
-> > Acked-by: Maxime Ripard <maxime@cerno.tech>
-> > 
-> > Maxime
+This series currently works as-is. But it was also validated to function on
+top of in the case of future integration:
+
+https://patchwork.freedesktop.org/series/118831/
+
+Kuogee Hsieh (1):
+  drm/msm/dpu: add support of new peripheral flush mechanism
+
+Paloma Arellano (16):
+  drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm to work for DP
+  drm/msm/dpu: move dpu_encoder_helper_phys_setup_cdm to dpu_encoder
+  drm/msm/dp: rename wide_bus_en to wide_bus_supported
+  drm/msm/dp: store mode YUV420 information to be used by rest of DP
+  drm/msm/dp: add an API to indicate if sink supports VSC SDP
+  drm/msm/dpu: move widebus logic to its own API
+  drm/msm/dpu: disallow widebus en in INTF_CONFIG2 when DP is YUV420
+  drm/msm/dp: change YUV420 related programming for DP
+  drm/msm/dp: move parity calculation to dp_catalog
+  drm/msm/dp: modify dp_catalog_hw_revision to show major and minor val
+  drm/msm/dp: add VSC SDP support for YUV420 over DP
+  drm/msm/dp: enable SDP and SDE periph flush update
+  drm/msm/dpu: modify encoder programming for CDM over DP
+  drm/msm/dpu: allow certain formats for CDM for DP
+  drm/msm/dpu: reserve CDM blocks for DP if mode is YUV420
+  drm/msm/dp: allow YUV420 mode for DP connector when VSC SDP supported
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 143 ++++++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  12 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  13 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  36 +++-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 101 +---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c    |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  17 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |  10 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |   4 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c             | 100 ++--------
+ drivers/gpu/drm/msm/dp/dp_catalog.c           | 182 +++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |  81 +++++++-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              |  17 +-
+ drivers/gpu/drm/msm/dp/dp_display.c           |  79 +++++---
+ drivers/gpu/drm/msm/dp/dp_panel.c             |  82 +++++++-
+ drivers/gpu/drm/msm/dp/dp_panel.h             |   2 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |   5 +
+ drivers/gpu/drm/msm/msm_drv.h                 |   9 +-
+ drivers/gpu/drm/msm/msm_kms.h                 |   3 +
+ 19 files changed, 655 insertions(+), 243 deletions(-)
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.39.2
+
