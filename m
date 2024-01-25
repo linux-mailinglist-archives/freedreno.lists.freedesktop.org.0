@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32DC683D04F
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3E283D050
 	for <lists+freedreno@lfdr.de>; Fri, 26 Jan 2024 00:04:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5638310EC9F;
-	Thu, 25 Jan 2024 23:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C744710ECF8;
+	Thu, 25 Jan 2024 23:03:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE1610EC9F
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 23:03:49 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2cd0d05838fso87152441fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 15:03:49 -0800 (PST)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB4C210E952
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 23:03:50 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2cf3a095ba6so11174371fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 15:03:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706223767; x=1706828567; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706223769; x=1706828569; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=JBWEWQ1lHx25M39T9M547AD4gOAvWiz91uIbsab7PCM=;
- b=M1GPQxg7tCH+deqBX8+7V655n5ml5zXljKnOjP/dpyHwAr9gBF4Wcfd0WPPESVHCZe
- eonypfrnhrQl0aX1RQwhfThEwRnm3S5hx82sO4tb7ZbMirVwNU1K9a9rWgmlww2R/NyD
- Ej4moV+DEdH08+SzT2VS5f2oU3hPjfxd8yqL22IWFYty0g8P+cqhIlKeQ4R1mCVO3zbB
- FEAJJjpl/5zE5PveSvIlpzXlLAkga2jzDDNJm73fxQhKG9gy1qXaDfZpUEDdWoA3xr7I
- u/LQxFf5uW8XlohEe6zhjIgFWt7bjcNNUc+hEeh2ggcHLug7qrMAeF3y5C6fIHBmB/zv
- Vhug==
+ :reply-to; bh=EPgkhGQ6zER9SACuWkra57baVOgflgf9HfV1jDO/gQk=;
+ b=KJvdRHjiQwme3cSZI1012c1Q0flvRIO4ryNvIKjBoX4068SBs3YPLHqFvwUkkYoLPL
+ DrU0PA6qHf0BoHy9uICPOovKI2Uf2sb4A2oBmFiDMsdeAjx1yaS9rUp+AO6/CtHBJGKp
+ xj48PugHlAcDkmfPvPJ7EY53PbO9C1Mbcpty2O0zwfvmKjhzc/a9B40YCNUu5uH+S2+R
+ /Po7/aB+LnysshhRBWaifsjXtquOt5C6AjgaxJ9NKHf59LW0shmqMa9Q11L6HH1bRFNx
+ /4YqZHn6sDEDtqRCJl3QXeydkZHnRNg9Q7kt2Ts3zsSUhZ6FwIVLnhX+oee/R4tCvnEa
+ /XIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706223767; x=1706828567;
+ d=1e100.net; s=20230601; t=1706223769; x=1706828569;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JBWEWQ1lHx25M39T9M547AD4gOAvWiz91uIbsab7PCM=;
- b=T/hmIEAyMwHopP2nCZtwDay8/jlS6aV1O4O/yjfgf/QYiv3X5RUPTSZTkStxnT0E4f
- R4Ig+7R6K6DH4uNn6HY9Se+w+8NNRrBDBg459xfe649WUnjiqWFq9oPqCQXsupk6rPon
- onHfp0zPAqoh+O6SFcYIeXMyx0426xUvwbMxGJs5xdNpSvqWYkNu/gCZVgGDIeka7zvP
- Bb0w5H4ytbr26hWq6EgyIQIhOPY5BJXyVR/NRYbEsU55HLqtk3My6oCvoXifxqe9g79L
- 8ZYU5hxIOj/AmcofVYpBTeuvfGptLU6mhcHRxVStYNmLcdRvjV/auQ0+/RPodllGhA3L
- 1hIg==
-X-Gm-Message-State: AOJu0YxaNxcUCA1vc3WZVI7DgBFuulHw+Ut3zBftiv6jNoADK4EtHf0N
- 7/tBfrZaYearB8hEsnjKhNg4y5yefC/dUw9NFaP4FqKO6ZONezvORlY/RirM3jZtLEnyPUdDtOh
- Y
-X-Google-Smtp-Source: AGHT+IGmXTzF1XCeO5l+noEmnjal0gV1HMGsrRPlq5RQxStpXWXCReOoLU/UL4lZ8ZSLk3uiTboRlA==
-X-Received: by 2002:a2e:9dc9:0:b0:2cd:3663:97a1 with SMTP id
- x9-20020a2e9dc9000000b002cd366397a1mr194033ljj.86.1706223767359; 
- Thu, 25 Jan 2024 15:02:47 -0800 (PST)
+ bh=EPgkhGQ6zER9SACuWkra57baVOgflgf9HfV1jDO/gQk=;
+ b=nX5lIKYrlL2V0Eq2t/tYb6zyw+7IWpaleXdPUOUYw4kzLnvdH4rEBZMbwGR7mQfXQx
+ gTrgWGwNgDRTXM+Z2Jtrs/GeEKX889v3ijF5QP8ToC/njN/ATaRP5OCN8lpFPHFKFw/B
+ tULX6vvHNowJA9Rnd/fZP/3ROgziUQSJjNZCAyeUqVXu7jqsdE9wgsrmF3OuR2C5GZEk
+ pL520wcepdZfNk2UkFkKCaVjwb+NPSVsVa4a4xSbiovHbSte3jsWBLcW9sGkDPjxfRvy
+ clPu6i5TeaPjDl8TCVY+zEg6IIJ5RLV4K8jS/7Q66Qe0E1/1cG04R1O7pgL5qPM3KBi2
+ 28lw==
+X-Gm-Message-State: AOJu0YxwloaZazM3mayuz75MZklINq3agz/qN5PraVqY/jjBlxg5JPOx
+ L13G7r52s7k1O8iRKXYaMAVpoiHo9qz+2olStMDxtiJeA7yQE9n39H1UqYtTYlbUP0L+pdXH3P1
+ j
+X-Google-Smtp-Source: AGHT+IE/o8+ehoh+QJYpoEHp9Ue/I+CxXBc+6FYjDzxInd7h/nwvNPkYWq2wjVOgUWE0gpMLR73zGg==
+X-Received: by 2002:a2e:8084:0:b0:2cf:2e11:a7e7 with SMTP id
+ i4-20020a2e8084000000b002cf2e11a7e7mr211138ljg.104.1706223768621; 
+ Thu, 25 Jan 2024 15:02:48 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- x19-20020a2e8813000000b002cdfc29b46dsm405872ljh.88.2024.01.25.15.02.46
+ x19-20020a2e8813000000b002cdfc29b46dsm405872ljh.88.2024.01.25.15.02.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 15:02:46 -0800 (PST)
+ Thu, 25 Jan 2024 15:02:47 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Jan 2024 01:02:40 +0200
-Subject: [PATCH v3 11/15] drm/msm/dp: handle PHY directly in dp_ctrl
+Date: Fri, 26 Jan 2024 01:02:41 +0200
+Subject: [PATCH v3 12/15] drm/msm/dp: move all IO handling to dp_catalog
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240126-dp-power-parser-cleanup-v3-11-e2e46f4d390c@linaro.org>
+Message-Id: <20240126-dp-power-parser-cleanup-v3-12-e2e46f4d390c@linaro.org>
 References: <20240126-dp-power-parser-cleanup-v3-0-e2e46f4d390c@linaro.org>
 In-Reply-To: <20240126-dp-power-parser-cleanup-v3-0-e2e46f4d390c@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -66,16 +66,16 @@ To: Rob Clark <robdclark@gmail.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd <swboyd@chromium.org>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6372;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15683;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=wVNyfHlk6qxMhT/7/ZVII3sNHgLBjpEAI4YnszPdTtw=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlsuiIRqRpFV7MlCt13vzYaKBl+VMyoS+o11Q6/
- v4w1y9VJuCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZbLoiAAKCRCLPIo+Aiko
- 1bK9B/40MdcrDQcEb60DSvsJZSRpF49oHC71229SZ23NVdvBi2c8JWkObQIoBZQ+rFXu3v7sgdN
- cBFuwZWCNBo27pwhA3Xu4/ehh7Pj4t4ctS8vKcsWukTl2OaLx91JbmKi2UiQNzuaL2ucPUjohA5
- /xsACn0UJ00Rjs4Mb1/KBKOAUlNTM3rRSg0iglQKZ4Lpei7WysIO6GyxBnnQPp/Cl6UlzNI/6Fd
- 5J6Mus6UrNuZZCGTidUGw+aFQ+5NOzQPMo45GxwuunU+wJSTedJxdbUs5K7UUZQBk/FsmLIvqi5
- Ks/zSDBSOxXK8RcCPbuVY+n6/0Li0x4wj4z/Ku9rTVQxQvu+
+ bh=4haPu/EU0pKy8SZtYGHLRCJK+SOCPq9DESc6lfR/q/8=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ+qmFx0d0U9nKfyZnLDmc7xas4aFzr1pza8r1mdULk428
+ H+3aqdeJ6MxCwMjF4OsmCKLT0HL1JhNyWEfdkythxnEygQyhYGLUwAmMrGM/SdjcT/vnqqIBJGl
+ n4JPFzaycM25mB834Ybl9LePb6hHXsnrKr9fHi1wW10k2XHKaZHs76yOgXnXz/v95Pm069ZnXzH
+ xfbc02Hd/Ebzoe/LYzas/9UzLJn6U2W3gz+140EfGvN7hbPSuaL61S/X0t0vlZ4vNfHbQ2IHznp
+ fR/ZScCROyyuTdXML3hgu3FvQWphizsDB1iygVctz3nnmTM4PToOGp32f2qFfvPv+s+d5TwqN8M
+ /rdj9xLmX3p8baul10ZdCJtp2loqB+RvxsRcXe5q23J+TuZnz4kKUQdT3zj7+yoviPA79mOaxua
+ /ONu8N7MUMqe5baAackTWValj51LtdlWf313Zo8yQ7orAA==
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,193 +96,442 @@ Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is little point in going trough dp_parser->io indirection each
-time the driver needs to access the PHY. Store the pointer directly in
-dp_ctrl_private.
+Rather than parsing the I/O addresses from dp_parser and then passing
+them via a struct pointer to dp_catalog, handle I/O region parsing in
+dp_catalog and drop it from dp_parser.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 37 +++++++++++++------------------------
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
- drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
- 3 files changed, 16 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 125 ++++++++++++++++++++++++++++++------
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c |   6 +-
+ drivers/gpu/drm/msm/dp/dp_parser.c  |  73 +--------------------
+ drivers/gpu/drm/msm/dp/dp_parser.h  |  26 +-------
+ 5 files changed, 114 insertions(+), 118 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 4aea72a2b8e8..fc7ce315ae41 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -76,9 +76,10 @@ struct dp_ctrl_private {
- 	struct drm_dp_aux *aux;
- 	struct dp_panel *panel;
- 	struct dp_link *link;
--	struct dp_parser *parser;
- 	struct dp_catalog *catalog;
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index 4c6207797c99..541aac2cb246 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -7,6 +7,7 @@
  
-+	struct phy *phy;
+ #include <linux/delay.h>
+ #include <linux/iopoll.h>
++#include <linux/platform_device.h>
+ #include <linux/rational.h>
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/drm_print.h>
+@@ -53,10 +54,31 @@
+ 	(PSR_UPDATE_MASK | PSR_CAPTURE_MASK | PSR_EXIT_MASK | \
+ 	PSR_UPDATE_ERROR_MASK | PSR_WAKE_ERROR_MASK)
+ 
++#define DP_DEFAULT_AHB_OFFSET	0x0000
++#define DP_DEFAULT_AHB_SIZE	0x0200
++#define DP_DEFAULT_AUX_OFFSET	0x0200
++#define DP_DEFAULT_AUX_SIZE	0x0200
++#define DP_DEFAULT_LINK_OFFSET	0x0400
++#define DP_DEFAULT_LINK_SIZE	0x0C00
++#define DP_DEFAULT_P0_OFFSET	0x1000
++#define DP_DEFAULT_P0_SIZE	0x0400
 +
- 	unsigned int num_core_clks;
- 	struct clk_bulk_data *core_clks;
- 
-@@ -1028,7 +1029,7 @@ static int dp_ctrl_set_vx_px(struct dp_ctrl_private *ctrl,
- 	phy_opts->dp.voltage[0] = v_level;
- 	phy_opts->dp.pre[0] = p_level;
- 	phy_opts->dp.set_voltages = 1;
--	phy_configure(ctrl->parser->io.phy, phy_opts);
-+	phy_configure(ctrl->phy, phy_opts);
- 	phy_opts->dp.set_voltages = 0;
- 
- 	return 0;
-@@ -1442,7 +1443,7 @@ static void dp_ctrl_link_clk_disable(struct dp_ctrl *dp_ctrl)
- static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
++struct dss_io_region {
++	size_t len;
++	void __iomem *base;
++};
++
++struct dss_io_data {
++	struct dss_io_region ahb;
++	struct dss_io_region aux;
++	struct dss_io_region link;
++	struct dss_io_region p0;
++};
++
+ struct dp_catalog_private {
+ 	struct device *dev;
+ 	struct drm_device *drm_dev;
+-	struct dp_io *io;
++	struct dss_io_data io;
+ 	u32 (*audio_map)[DP_AUDIO_SDP_HEADER_MAX];
+ 	struct dp_catalog dp_catalog;
+ 	u8 aux_lut_cfg_index[PHY_AUX_CFG_MAX];
+@@ -66,7 +88,7 @@ void dp_catalog_snapshot(struct dp_catalog *dp_catalog, struct msm_disp_state *d
  {
- 	int ret = 0;
--	struct phy *phy = ctrl->parser->io.phy;
-+	struct phy *phy = ctrl->phy;
- 	const u8 *dpcd = ctrl->panel->dpcd;
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 			struct dp_catalog_private, dp_catalog);
+-	struct dss_io_data *dss = &catalog->io->dp_controller;
++	struct dss_io_data *dss = &catalog->io;
  
- 	ctrl->phy_opts.dp.lanes = ctrl->link->link_params.num_lanes;
-@@ -1540,12 +1541,10 @@ void dp_ctrl_set_psr(struct dp_ctrl *dp_ctrl, bool enter)
- void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
+ 	msm_disp_snapshot_add_block(disp_state, dss->ahb.len, dss->ahb.base, "dp_ahb");
+ 	msm_disp_snapshot_add_block(disp_state, dss->aux.len, dss->aux.base, "dp_aux");
+@@ -76,7 +98,7 @@ void dp_catalog_snapshot(struct dp_catalog *dp_catalog, struct msm_disp_state *d
+ 
+ static inline u32 dp_read_aux(struct dp_catalog_private *catalog, u32 offset)
  {
- 	struct dp_ctrl_private *ctrl;
--	struct dp_io *dp_io;
- 	struct phy *phy;
+-	return readl_relaxed(catalog->io->dp_controller.aux.base + offset);
++	return readl_relaxed(catalog->io.aux.base + offset);
+ }
  
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
-+	phy = ctrl->phy;
+ static inline void dp_write_aux(struct dp_catalog_private *catalog,
+@@ -86,12 +108,12 @@ static inline void dp_write_aux(struct dp_catalog_private *catalog,
+ 	 * To make sure aux reg writes happens before any other operation,
+ 	 * this function uses writel() instread of writel_relaxed()
+ 	 */
+-	writel(data, catalog->io->dp_controller.aux.base + offset);
++	writel(data, catalog->io.aux.base + offset);
+ }
  
- 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
- 	phy_init(phy);
-@@ -1557,12 +1556,10 @@ void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
- void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl)
+ static inline u32 dp_read_ahb(const struct dp_catalog_private *catalog, u32 offset)
  {
- 	struct dp_ctrl_private *ctrl;
--	struct dp_io *dp_io;
- 	struct phy *phy;
+-	return readl_relaxed(catalog->io->dp_controller.ahb.base + offset);
++	return readl_relaxed(catalog->io.ahb.base + offset);
+ }
  
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
-+	phy = ctrl->phy;
+ static inline void dp_write_ahb(struct dp_catalog_private *catalog,
+@@ -101,7 +123,7 @@ static inline void dp_write_ahb(struct dp_catalog_private *catalog,
+ 	 * To make sure phy reg writes happens before any other operation,
+ 	 * this function uses writel() instread of writel_relaxed()
+ 	 */
+-	writel(data, catalog->io->dp_controller.ahb.base + offset);
++	writel(data, catalog->io.ahb.base + offset);
+ }
  
- 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
- 	phy_exit(phy);
-@@ -1587,7 +1584,7 @@ static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
+ static inline void dp_write_p0(struct dp_catalog_private *catalog,
+@@ -111,7 +133,7 @@ static inline void dp_write_p0(struct dp_catalog_private *catalog,
+ 	 * To make sure interface reg writes happens before any other operation,
+ 	 * this function uses writel() instread of writel_relaxed()
+ 	 */
+-	writel(data, catalog->io->dp_controller.p0.base + offset);
++	writel(data, catalog->io.p0.base + offset);
+ }
  
- static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ static inline u32 dp_read_p0(struct dp_catalog_private *catalog,
+@@ -121,12 +143,12 @@ static inline u32 dp_read_p0(struct dp_catalog_private *catalog,
+ 	 * To make sure interface reg writes happens before any other operation,
+ 	 * this function uses writel() instread of writel_relaxed()
+ 	 */
+-	return readl_relaxed(catalog->io->dp_controller.p0.base + offset);
++	return readl_relaxed(catalog->io.p0.base + offset);
+ }
+ 
+ static inline u32 dp_read_link(struct dp_catalog_private *catalog, u32 offset)
  {
--	struct phy *phy = ctrl->parser->io.phy;
-+	struct phy *phy = ctrl->phy;
- 	int ret = 0;
+-	return readl_relaxed(catalog->io->dp_controller.link.base + offset);
++	return readl_relaxed(catalog->io.link.base + offset);
+ }
  
- 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
-@@ -1617,11 +1614,9 @@ static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ static inline void dp_write_link(struct dp_catalog_private *catalog,
+@@ -136,7 +158,7 @@ static inline void dp_write_link(struct dp_catalog_private *catalog,
+ 	 * To make sure link reg writes happens before any other operation,
+ 	 * this function uses writel() instread of writel_relaxed()
+ 	 */
+-	writel(data, catalog->io->dp_controller.link.base + offset);
++	writel(data, catalog->io.link.base + offset);
+ }
  
- static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ /* aux related catalog functions */
+@@ -248,7 +270,7 @@ int dp_catalog_aux_wait_for_hpd_connect_state(struct dp_catalog *dp_catalog)
+ 				struct dp_catalog_private, dp_catalog);
+ 
+ 	/* poll for hpd connected status every 2ms and timeout after 500ms */
+-	return readl_poll_timeout(catalog->io->dp_controller.aux.base +
++	return readl_poll_timeout(catalog->io.aux.base +
+ 				REG_DP_DP_HPD_INT_STATUS,
+ 				state, state & DP_DP_HPD_STATE_STATUS_CONNECTED,
+ 				2000, 500000);
+@@ -276,7 +298,7 @@ void dp_catalog_dump_regs(struct dp_catalog *dp_catalog)
  {
--	struct dp_io *dp_io;
- 	struct phy *phy;
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 		struct dp_catalog_private, dp_catalog);
+-	struct dss_io_data *io = &catalog->io->dp_controller;
++	struct dss_io_data *io = &catalog->io;
  
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
-+	phy = ctrl->phy;
+ 	pr_info("AHB regs\n");
+ 	dump_regs(io->ahb.base, io->ahb.len);
+@@ -500,7 +522,7 @@ int dp_catalog_ctrl_set_pattern_state_bit(struct dp_catalog *dp_catalog,
+ 	bit = BIT(state_bit - 1) << DP_MAINLINK_READY_LINK_TRAINING_SHIFT;
  
- 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+ 	/* Poll for mainlink ready status */
+-	ret = readx_poll_timeout(readl, catalog->io->dp_controller.link.base +
++	ret = readx_poll_timeout(readl, catalog->io.link.base +
+ 					REG_DP_MAINLINK_READY,
+ 					data, data & bit,
+ 					POLLING_SLEEP_US, POLLING_TIMEOUT_US);
+@@ -563,7 +585,7 @@ bool dp_catalog_ctrl_mainlink_ready(struct dp_catalog *dp_catalog)
+ 				struct dp_catalog_private, dp_catalog);
  
-@@ -2047,12 +2042,10 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
- void dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 	/* Poll for mainlink ready status */
+-	ret = readl_poll_timeout(catalog->io->dp_controller.link.base +
++	ret = readl_poll_timeout(catalog->io.link.base +
+ 				REG_DP_MAINLINK_READY,
+ 				data, data & DP_MAINLINK_READY_FOR_VIDEO,
+ 				POLLING_SLEEP_US, POLLING_TIMEOUT_US);
+@@ -945,21 +967,84 @@ void dp_catalog_panel_tpg_disable(struct dp_catalog *dp_catalog)
+ 	dp_write_p0(catalog, MMSS_DP_TIMING_ENGINE_EN, 0x0);
+ }
+ 
+-struct dp_catalog *dp_catalog_get(struct device *dev, struct dp_io *io)
++static void __iomem *dp_ioremap(struct platform_device *pdev, int idx, size_t *len)
  {
- 	struct dp_ctrl_private *ctrl;
--	struct dp_io *dp_io;
- 	struct phy *phy;
+-	struct dp_catalog_private *catalog;
++	struct resource *res;
++	void __iomem *base;
++
++	base = devm_platform_get_and_ioremap_resource(pdev, idx, &res);
++	if (!IS_ERR(base))
++		*len = resource_size(res);
++
++	return base;
++}
++
++static int dp_catalog_get_io(struct dp_catalog_private *catalog)
++{
++	struct platform_device *pdev = to_platform_device(catalog->dev);
++	struct dss_io_data *dss = &catalog->io;
++
++	dss->ahb.base = dp_ioremap(pdev, 0, &dss->ahb.len);
++	if (IS_ERR(dss->ahb.base))
++		return PTR_ERR(dss->ahb.base);
  
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
-+	phy = ctrl->phy;
- 
- 	/* set dongle to D3 (power off) mode */
- 	dp_link_psm_config(ctrl->link, &ctrl->panel->link_info, true);
-@@ -2080,12 +2073,10 @@ void dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
- void dp_ctrl_off_link(struct dp_ctrl *dp_ctrl)
- {
- 	struct dp_ctrl_private *ctrl;
--	struct dp_io *dp_io;
- 	struct phy *phy;
- 
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
-+	phy = ctrl->phy;
- 
- 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
- 
-@@ -2103,12 +2094,10 @@ void dp_ctrl_off_link(struct dp_ctrl *dp_ctrl)
- void dp_ctrl_off(struct dp_ctrl *dp_ctrl)
- {
- 	struct dp_ctrl_private *ctrl;
--	struct dp_io *dp_io;
- 	struct phy *phy;
- 
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
-+	phy = ctrl->phy;
- 
- 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
- 
-@@ -2225,7 +2214,7 @@ static int dp_ctrl_clk_init(struct dp_ctrl *dp_ctrl)
- struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
- 			struct dp_panel *panel,	struct drm_dp_aux *aux,
- 			struct dp_catalog *catalog,
--			struct dp_parser *parser)
-+			struct phy *phy)
- {
- 	struct dp_ctrl_private *ctrl;
- 	int ret;
-@@ -2259,12 +2248,12 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
- 	init_completion(&ctrl->video_comp);
- 
- 	/* in parameters */
--	ctrl->parser   = parser;
- 	ctrl->panel    = panel;
- 	ctrl->aux      = aux;
- 	ctrl->link     = link;
- 	ctrl->catalog  = catalog;
- 	ctrl->dev      = dev;
-+	ctrl->phy      = phy;
- 
- 	ret = dp_ctrl_clk_init(&ctrl->dp_ctrl);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 023f14d0b021..6e9f375b856a 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -28,7 +28,7 @@ void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl);
- struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
- 			struct dp_panel *panel,	struct drm_dp_aux *aux,
- 			struct dp_catalog *catalog,
--			struct dp_parser *parser);
-+			struct phy *phy);
- 
- void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable);
- void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index c1a51c498e01..b8388e04bd0f 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -760,7 +760,8 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
+-	if (!io) {
+-		DRM_ERROR("invalid input\n");
+-		return ERR_PTR(-EINVAL);
++	dss->aux.base = dp_ioremap(pdev, 1, &dss->aux.len);
++	if (IS_ERR(dss->aux.base)) {
++		/*
++		 * The initial binding had a single reg, but in order to
++		 * support variation in the sub-region sizes this was split.
++		 * dp_ioremap() will fail with -EINVAL here if only a single
++		 * reg is specified, so fill in the sub-region offsets and
++		 * lengths based on this single region.
++		 */
++		if (PTR_ERR(dss->aux.base) == -EINVAL) {
++			if (dss->ahb.len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
++				DRM_ERROR("legacy memory region not large enough\n");
++				return -EINVAL;
++			}
++
++			dss->ahb.len = DP_DEFAULT_AHB_SIZE;
++			dss->aux.base = dss->ahb.base + DP_DEFAULT_AUX_OFFSET;
++			dss->aux.len = DP_DEFAULT_AUX_SIZE;
++			dss->link.base = dss->ahb.base + DP_DEFAULT_LINK_OFFSET;
++			dss->link.len = DP_DEFAULT_LINK_SIZE;
++			dss->p0.base = dss->ahb.base + DP_DEFAULT_P0_OFFSET;
++			dss->p0.len = DP_DEFAULT_P0_SIZE;
++		} else {
++			DRM_ERROR("unable to remap aux region: %pe\n", dss->aux.base);
++			return PTR_ERR(dss->aux.base);
++		}
++	} else {
++		dss->link.base = dp_ioremap(pdev, 2, &dss->link.len);
++		if (IS_ERR(dss->link.base)) {
++			DRM_ERROR("unable to remap link region: %pe\n", dss->link.base);
++			return PTR_ERR(dss->link.base);
++		}
++
++		dss->p0.base = dp_ioremap(pdev, 3, &dss->p0.len);
++		if (IS_ERR(dss->p0.base)) {
++			DRM_ERROR("unable to remap p0 region: %pe\n", dss->p0.base);
++			return PTR_ERR(dss->p0.base);
++		}
  	}
  
++	return 0;
++}
++
++struct dp_catalog *dp_catalog_get(struct device *dev)
++{
++	struct dp_catalog_private *catalog;
++	int ret;
++
+ 	catalog  = devm_kzalloc(dev, sizeof(*catalog), GFP_KERNEL);
+ 	if (!catalog)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	catalog->dev = dev;
+-	catalog->io = io;
++
++	ret = dp_catalog_get_io(catalog);
++	if (ret)
++		return ERR_PTR(ret);
+ 
+ 	return &catalog->dp_catalog;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+index 1f3f58d4b8de..989e4c4fd6fa 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.h
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+@@ -126,7 +126,7 @@ void dp_catalog_panel_tpg_enable(struct dp_catalog *dp_catalog,
+ 				struct drm_display_mode *drm_mode);
+ void dp_catalog_panel_tpg_disable(struct dp_catalog *dp_catalog);
+ 
+-struct dp_catalog *dp_catalog_get(struct device *dev, struct dp_io *io);
++struct dp_catalog *dp_catalog_get(struct device *dev);
+ 
+ /* DP Audio APIs */
+ void dp_catalog_audio_get_header(struct dp_catalog *catalog);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index b8388e04bd0f..5ad96989c5f2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -721,7 +721,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
+ 		goto error;
+ 	}
+ 
+-	dp->catalog = dp_catalog_get(dev, &dp->parser->io);
++	dp->catalog = dp_catalog_get(dev);
+ 	if (IS_ERR(dp->catalog)) {
+ 		rc = PTR_ERR(dp->catalog);
+ 		DRM_ERROR("failed to initialize catalog, rc = %d\n", rc);
+@@ -730,7 +730,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
+ 	}
+ 
+ 	dp->aux = dp_aux_get(dev, dp->catalog,
+-			     dp->parser->io.phy,
++			     dp->parser->phy,
+ 			     dp->dp_display.is_edp);
+ 	if (IS_ERR(dp->aux)) {
+ 		rc = PTR_ERR(dp->aux);
+@@ -761,7 +761,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
+ 
  	dp->ctrl = dp_ctrl_get(dev, dp->link, dp->panel, dp->aux,
--			       dp->catalog, dp->parser);
-+			       dp->catalog,
-+			       dp->parser->io.phy);
+ 			       dp->catalog,
+-			       dp->parser->io.phy);
++			       dp->parser->phy);
  	if (IS_ERR(dp->ctrl)) {
  		rc = PTR_ERR(dp->ctrl);
  		DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
+diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
+index de7cfc340f0c..2d0dd4353cdf 100644
+--- a/drivers/gpu/drm/msm/dp/dp_parser.c
++++ b/drivers/gpu/drm/msm/dp/dp_parser.c
+@@ -13,80 +13,13 @@
+ #include "dp_parser.h"
+ #include "dp_reg.h"
+ 
+-#define DP_DEFAULT_AHB_OFFSET	0x0000
+-#define DP_DEFAULT_AHB_SIZE	0x0200
+-#define DP_DEFAULT_AUX_OFFSET	0x0200
+-#define DP_DEFAULT_AUX_SIZE	0x0200
+-#define DP_DEFAULT_LINK_OFFSET	0x0400
+-#define DP_DEFAULT_LINK_SIZE	0x0C00
+-#define DP_DEFAULT_P0_OFFSET	0x1000
+-#define DP_DEFAULT_P0_SIZE	0x0400
+-
+-static void __iomem *dp_ioremap(struct platform_device *pdev, int idx, size_t *len)
+-{
+-	struct resource *res;
+-	void __iomem *base;
+-
+-	base = devm_platform_get_and_ioremap_resource(pdev, idx, &res);
+-	if (!IS_ERR(base))
+-		*len = resource_size(res);
+-
+-	return base;
+-}
+-
+ static int dp_parser_ctrl_res(struct dp_parser *parser)
+ {
+ 	struct platform_device *pdev = parser->pdev;
+-	struct dp_io *io = &parser->io;
+-	struct dss_io_data *dss = &io->dp_controller;
+-
+-	dss->ahb.base = dp_ioremap(pdev, 0, &dss->ahb.len);
+-	if (IS_ERR(dss->ahb.base))
+-		return PTR_ERR(dss->ahb.base);
+-
+-	dss->aux.base = dp_ioremap(pdev, 1, &dss->aux.len);
+-	if (IS_ERR(dss->aux.base)) {
+-		/*
+-		 * The initial binding had a single reg, but in order to
+-		 * support variation in the sub-region sizes this was split.
+-		 * dp_ioremap() will fail with -EINVAL here if only a single
+-		 * reg is specified, so fill in the sub-region offsets and
+-		 * lengths based on this single region.
+-		 */
+-		if (PTR_ERR(dss->aux.base) == -EINVAL) {
+-			if (dss->ahb.len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
+-				DRM_ERROR("legacy memory region not large enough\n");
+-				return -EINVAL;
+-			}
+-
+-			dss->ahb.len = DP_DEFAULT_AHB_SIZE;
+-			dss->aux.base = dss->ahb.base + DP_DEFAULT_AUX_OFFSET;
+-			dss->aux.len = DP_DEFAULT_AUX_SIZE;
+-			dss->link.base = dss->ahb.base + DP_DEFAULT_LINK_OFFSET;
+-			dss->link.len = DP_DEFAULT_LINK_SIZE;
+-			dss->p0.base = dss->ahb.base + DP_DEFAULT_P0_OFFSET;
+-			dss->p0.len = DP_DEFAULT_P0_SIZE;
+-		} else {
+-			DRM_ERROR("unable to remap aux region: %pe\n", dss->aux.base);
+-			return PTR_ERR(dss->aux.base);
+-		}
+-	} else {
+-		dss->link.base = dp_ioremap(pdev, 2, &dss->link.len);
+-		if (IS_ERR(dss->link.base)) {
+-			DRM_ERROR("unable to remap link region: %pe\n", dss->link.base);
+-			return PTR_ERR(dss->link.base);
+-		}
+-
+-		dss->p0.base = dp_ioremap(pdev, 3, &dss->p0.len);
+-		if (IS_ERR(dss->p0.base)) {
+-			DRM_ERROR("unable to remap p0 region: %pe\n", dss->p0.base);
+-			return PTR_ERR(dss->p0.base);
+-		}
+-	}
+ 
+-	io->phy = devm_phy_get(&pdev->dev, "dp");
+-	if (IS_ERR(io->phy))
+-		return PTR_ERR(io->phy);
++	parser->phy = devm_phy_get(&pdev->dev, "dp");
++	if (IS_ERR(parser->phy))
++		return PTR_ERR(parser->phy);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
+index b28052e87101..7306768547a6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_parser.h
++++ b/drivers/gpu/drm/msm/dp/dp_parser.h
+@@ -14,37 +14,15 @@
+ #define DP_MAX_NUM_DP_LANES	4
+ #define DP_LINK_RATE_HBR2	540000 /* kbytes */
+ 
+-struct dss_io_region {
+-	size_t len;
+-	void __iomem *base;
+-};
+-
+-struct dss_io_data {
+-	struct dss_io_region ahb;
+-	struct dss_io_region aux;
+-	struct dss_io_region link;
+-	struct dss_io_region p0;
+-};
+-
+-/**
+- * struct dp_ctrl_resource - controller's IO related data
+- *
+- * @dp_controller: Display Port controller mapped memory address
+- * @phy_io: phy's mapped memory address
+- */
+-struct dp_io {
+-	struct dss_io_data dp_controller;
+-	struct phy *phy;
+-};
+-
+ /**
+  * struct dp_parser - DP parser's data exposed to clients
+  *
+  * @pdev: platform data of the client
++ * @phy: PHY handle
+  */
+ struct dp_parser {
+ 	struct platform_device *pdev;
+-	struct dp_io io;
++	struct phy *phy;
+ 	u32 max_dp_lanes;
+ 	u32 max_dp_link_rate;
+ 	struct drm_bridge *next_bridge;
 
 -- 
 2.39.2
