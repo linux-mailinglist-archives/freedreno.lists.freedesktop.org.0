@@ -2,79 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D4383B46C
-	for <lists+freedreno@lfdr.de>; Wed, 24 Jan 2024 23:01:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B179083C360
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 14:13:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B63110EA6D;
-	Wed, 24 Jan 2024 22:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8341110F8C3;
+	Thu, 25 Jan 2024 13:13:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9A310EA6D;
- Wed, 24 Jan 2024 22:01:46 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40OKub20024285; Wed, 24 Jan 2024 22:01:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=T36vvmdBaye5dMkfKQLOf6XkNJoI15q5WQoR3Stfb3c=; b=AL
- fkKJI0xKmNHGEpX7NrT9JPbIaVE9C2NDOpmOvf0ot/4boMs39EPwoYPHoqWJTG+0
- rgdazfO+dMeLYgYlPMyBBGXNFWaVqv9JrnnAyfJ+KtPeyo7/YSyFfzLUr0ppABZs
- 7YofjQpCpVsFLj83u4uXFd4cqsxDZWBSS1uFJ7XnFaAzrwSfM8iI6Ms1GmHX6dfk
- vWLFV9SVjeaQzchesNXlRyZMZdg31r9oMWgide3lij65T+ltnx3kOn/w1+3UtzVl
- 6grFayXmCmXk/Q5+2xfi7BKIcBrW7EHP3wZACRHjjv+tp7+mvrAUUJstDJiU/7eM
- AxGZdzp0CMWTcW25zUBg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vtmh0ty8q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Jan 2024 22:01:40 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40OM1cgD019658
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Jan 2024 22:01:39 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 24 Jan
- 2024 14:01:38 -0800
-Message-ID: <e125a0dc-21a8-3aa5-ac83-db6015d61625@quicinc.com>
-Date: Wed, 24 Jan 2024 14:01:37 -0800
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459CD10F8BF
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:13:19 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-339231c062bso4726053f8f.0
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 05:13:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706188337; x=1706793137; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B7PODPqhJhHRMFMk/4hcyt7GbdXaKvsvK5R9ploJxGg=;
+ b=L8NzOYSn0w0+EJRiylarJXJffWWQHK1eUWIpxk9/u+DGN/8mjt9+9rqTq2MAI6ZAvz
+ V8VeZ9opGGQS6bj5fvjB6y4r6jfsbJaLK+shBOX6Y3tHR4Cs0rwBzB5ttlGdaj9h9+L9
+ Vl6sfHoNekBTrRjuSLbUHEOGVO9V6BNwuIPIr5SXodh+nRaTlv8ZqI3CUcbjBE1o0vUC
+ BpX486EG4a1xWloqFnAKhv49adurEzkRA+T8yZY2i7N8FRNtwpfU5U0B1IlRh/071Fxp
+ XjcqTE3KLEtc8AfmRYC0R/SKkAgYYwjQW7YE+SRWmOEUUv3VOr+SmduUj/MNflVhYZc4
+ jHGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706188337; x=1706793137;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B7PODPqhJhHRMFMk/4hcyt7GbdXaKvsvK5R9ploJxGg=;
+ b=KKo5N4+VoVHPc3zDBkvjKilyU3n2RnCPoYHgnlqqSTjsdWVhHuDNOyXO7D3P98y10X
+ kQ73jeTfO5iAxRB6Y3W0nnD03fGQJS8qoIbHNTuSntLaIyr9TvIo+xjkTBQN2R3FxO2U
+ hxVOuNRVq6Tpew6U+MvBdG9LIx5FiQIvluetOSaQm+qR2XR5x7rc+efiS0UGdc5b3l4y
+ OczWFEpwywNNvbU5uFOdnHM6Df/+OvnmLo8bTE0dD/gI3+6ZkbAs2WToRqeFv3n9HFK7
+ 54UdwC1tDA7rpFcSvEWmpksTU9LHtHc+GdZKgX0cnYKvWzf9DGfWeX3lpsh00ZWP57Uz
+ BULg==
+X-Gm-Message-State: AOJu0Yy1/tanUjwkLeIHw6ZbcVPvLshn1Ww7CL+IzBF4rnI8Poktn/ty
+ qvPbU9WQGbA5GZBxz5OgJMJpl/mmAWbHVBs/HCcrKUUm+vpye8/SNHaKaA0FXO8=
+X-Google-Smtp-Source: AGHT+IEHy9i+CPvhlfczS5LC3McXBp9MJCgSE45FtSfjosUjndCPJ0ns/o0rytn9n7Ob+kOwzfEAhA==
+X-Received: by 2002:a5d:6a10:0:b0:337:b402:afaa with SMTP id
+ m16-20020a5d6a10000000b00337b402afaamr543088wru.33.1706188336950; 
+ Thu, 25 Jan 2024 05:12:16 -0800 (PST)
+Received: from lucy.. (cpc115152-dals23-2-0-cust532.20-2.cable.virginm.net.
+ [86.12.82.21]) by smtp.gmail.com with ESMTPSA id
+ s17-20020a5d4251000000b00337d84efaf7sm17076114wrr.74.2024.01.25.05.12.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jan 2024 05:12:16 -0800 (PST)
+From: Connor Abbott <cwabbott0@gmail.com>
+To: freedreno@lists.freedesktop.org
+Subject: [PATCH 0/5] drm/msm: More complete devcoredump support for a7xx
+Date: Thu, 25 Jan 2024 13:10:53 +0000
+Message-Id: <20240125131058.2084628-1-cwabbott0@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v1] drm/msms/dp: fixed link clock divider bits be over
- written in BPC unknown case
-Content-Language: en-US
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, <dri-devel@lists.freedesktop.org>, 
- <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@gmail.com>, <agross@kernel.org>,
- <dmitry.baryshkov@linaro.org>, <andersson@kernel.org>
-References: <1704917931-30133-1-git-send-email-quic_khsieh@quicinc.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <1704917931-30133-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Mg2qkFV045zLwWOjlpuadpmFGlf4rgKn
-X-Proofpoint-ORIG-GUID: Mg2qkFV045zLwWOjlpuadpmFGlf4rgKn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-24_10,2024-01-24_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 adultscore=0
- mlxscore=0 clxscore=1015 bulkscore=0 malwarescore=0 impostorscore=0
- suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401240160
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,36 +70,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, marijn.suijten@somainline.org,
- quic_jesszhan@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Connor Abbott <cwabbott0@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+The current devcoredump support on a7xx is quite limited. Downstream,
+there are now autogenerated register headers for each generation (a730,
+a740, and a750), which means that we must try to re-use them as much as
+possible instead of reinventing our own register list descriptions as
+was done on a6xx. In addition, due to changes like:
 
+- The addition of the BV and LPAC pipes.
+- The addition of a VPC_PS cluster.
+- Some clusters having 4 contexts instead of 2.
+- HLSQ and SP registers getting merged, so the same register can now
+  be stored separately in HLSQ, SP "top", and each uSPTP (this also made
+  the HLSQ registers get shuffled around into SP).
 
-On 1/10/2024 12:18 PM, Kuogee Hsieh wrote:
-> Since the value of DP_TEST_BIT_DEPTH_8 is already left shifted, in the
-> BPC unknown case, the additional shift causes spill over to the other
-> bits of the [DP_CONFIGURATION_CTRL] register.
-> Fix this by changing the return value of dp_link_get_test_bits_depth()
-> in the BPC unknown case to (DP_TEST_BIT_DEPTH_8 >> DP_TEST_BIT_DEPTH_SHIFT).
-> 
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dp/dp_ctrl.c |  5 -----
->   drivers/gpu/drm/msm/dp/dp_link.c | 10 +++++++---
->   2 files changed, 7 insertions(+), 8 deletions(-)
-> 
+how we capture cluster registers needs to be significantly different.
 
-Checkpatch complained about this error:
+The downstream code seems to depend on a "regmap" that takes various
+disparate register spaces (like cx_misc aka cx_mem, cx_dbgc, gmu, etc.)
+defined in devicetree and pretends they are enlargements of the "base"
+register space at 3d00000. For now we don't dump the problematic
+register lists, but we'll need to come up with a solution for proplerly
+dumping GMU registers and what downstream calls "external core"
+registers.
 
-CHECK: Alignment should match open parenthesis
-#61: FILE: drivers/gpu/drm/msm/dp/dp_link.c:1203:
-+               drm_dbg_dp(link->drm_dev, "bpp=%d not supported, use 
-bpc=8\n",
-+                         bpp);
+It seems that the debugbus hasn't changed much, however I cannot test it
+because it seems either the debugbus is fused off on HDK8550 or I'm
+doing something wrong - it returns all 0.
 
+Initial crashdec support will come in a mesa MR.
 
-I will fix it while applying ... no need to spin another version for this.
+This series depends on [1] to avoid conflicts. The updated registers
+in the second commit come from [2] in mesa. The kgsl headers in the
+first commit come from [3] (I have no idea how their release scheme
+works, but it seems most branches have the same contents for these
+files).
+
+[1] https://patchwork.freedesktop.org/series/128902/
+[2] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27264
+[3] https://git.codelinaro.org/clo/la/platform/vendor/qcom/opensource/graphics-kernel/-/tree/gfx-auto-kernel.lnx.1.0.r8-rel?ref_type=heads
+
+Connor Abbott (5):
+  drm/msm: Import a7xx crashdump register lists from kgsl
+  drm/msm/adreno: Update a6xx headers for a7xx devcoredump
+  drm/msm: Fix snapshotting a7xx indexed regs
+  drm/msm: More fully implement devcoredump for a7xx
+  drm/msm: Fix page fault client detection on a660 family and a7xx
+
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h         | 785 ++++++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  95 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c   | 727 ++++++++++++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h   | 311 +++++-
+ .../drm/msm/adreno/adreno_gen7_0_0_snapshot.h | 928 ++++++++++++++++++
+ .../drm/msm/adreno/adreno_gen7_2_0_snapshot.h | 753 ++++++++++++++
+ 6 files changed, 3235 insertions(+), 364 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
+ create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
+
+-- 
+2.31.1
+
