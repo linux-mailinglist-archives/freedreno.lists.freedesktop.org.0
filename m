@@ -2,73 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72E0D83CC8E
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 20:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BD3C83CE4C
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:15:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6689110F966;
-	Thu, 25 Jan 2024 19:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3899B10EBD4;
+	Thu, 25 Jan 2024 21:15:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB63510F4D0;
- Thu, 25 Jan 2024 19:39:15 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40PDxcj9007267; Thu, 25 Jan 2024 19:39:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- qcppdkim1; bh=RNT9pg6jIeWU29Ifh0GlkQfkjtzYGOLCtviY2xL8NUw=; b=e7
- jhNSAfBXPh6n12HS8hY/DnM+VMyVfhhSuS7mVDxofs7MUFSRajmXv+erdHtQtAli
- lRcuAXsuGGcafj8ZByD/D3N683XZdJnNSYA7D9Tr3Ip1/tfVS04KEmqf+LqfUTpY
- RSPdbheGX0rZXtEEtET4r3wEBtPHGH4FoH2Wsj39x2Cr2kyKDjuL6iGkkiA2/muV
- 87OT/kMkLuzjI9nXBry71QK/PgEnqKOq7cpQ6RWG8O+P8kcZCUTjBDjr33e2r3bO
- AxuZm/+5pgF95G/uC/0N4a09cJHvyW2LbbWuSa5KP2jzgq84kz0uv7F9Nr8fBGaF
- PfhEIQ3xE9rVBNzD7nzg==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vun6w1nct-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jan 2024 19:39:13 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40PJdCbY025004
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jan 2024 19:39:12 GMT
-Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 25 Jan 2024 11:39:12 -0800
-From: Paloma Arellano <quic_parellan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Subject: [PATCH 17/17] drm/msm/dp: allow YUV420 mode for DP connector when VSC
- SDP supported
-Date: Thu, 25 Jan 2024 11:38:26 -0800
-Message-ID: <20240125193834.7065-18-quic_parellan@quicinc.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20240125193834.7065-1-quic_parellan@quicinc.com>
-References: <20240125193834.7065-1-quic_parellan@quicinc.com>
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B31610EBD4
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:15:15 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2cf206e4d56so23383331fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:15:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1706217254; x=1706822054; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xyDnPMOWxwzgswtw0IMgKlEsX3lHL6hISWqA0RropHw=;
+ b=P6UUFjYwsAhi9M7wgmQXy5iR/muvXOSGvsA8OBfi1pkXCGVVFaGTqHhzY3EGlYp/nA
+ FSTcyHD4yKc+86ZtpvSEnpStMrJ7gq24Vz/IwxR2IbkYwaBDdhUIWNL6sOunk2+tLV8z
+ npDxHD+wsaA406RCFPZOCiPToJRRbsWh5JLW/57slnG/kLLirkZ50WMEocn5kK+7NmG9
+ R/3asXrvGvUL9AANTbYF1r+JHW4TiBQjeAK7sTIbX1rPkYFAC+mYf71JGNHZvSKTKo7E
+ gbgrmznbo5qCSWcwoaRTwepSSubXroWhqSZ+6QJhvrIFekRj91Hk07Z/ZYROHk8lhq++
+ M2vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706217254; x=1706822054;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xyDnPMOWxwzgswtw0IMgKlEsX3lHL6hISWqA0RropHw=;
+ b=XiEc/FTMADwdkwRXUaRViJ8Umy70QDMUjZIhnQuzFazhneNnfylC8kFczQknwXOqcl
+ 8MNeTbBhaRUfaP0E8wfjwmRMqNi1IVa4VGNfB0V+P0I9Jyuo3GMfOfC23gv8pVolelWa
+ LsjW3aobPvMn1pwZZ9E/SOdTQkF8l0eYEP5ptA4VgXyiSKlBm1MNEKkbfaullmd/yJit
+ uMtLmu4O4/BMCTchihcEN6/aC9NNIYVTyb6V/dUDOvBCv2eVt8xccEQWU4a7LMSddt3O
+ OXz4/z/gAAqW0UqZcgyQDVZU8gOFzrAKKJfh/Lsf2x1dsG+qXKBTSXf1+NJn++zcW1um
+ OlQA==
+X-Gm-Message-State: AOJu0Yz0/d4cuAnE84dlFu7BUnWGIfhiK/HkBr0wboZRSSbS+uN+SXVo
+ 5685Hh0Dk6993PjscdJLveSH1kyFeA1BWQcwckLXrKZEClVgbpChNs38VYalzi0=
+X-Google-Smtp-Source: AGHT+IE2HyxddBJniXLkFHulFfzdu16urepUJYrm6JJvIKaAFhUjdIcp5G5LqZUmlwTbTkcpwvYv7w==
+X-Received: by 2002:a2e:b60f:0:b0:2cf:13c1:6a4 with SMTP id
+ r15-20020a2eb60f000000b002cf13c106a4mr90822ljn.75.1706217253929; 
+ Thu, 25 Jan 2024 13:14:13 -0800 (PST)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ x17-20020a2e9c91000000b002ce070a5141sm382497lji.11.2024.01.25.13.14.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Jan 2024 13:14:13 -0800 (PST)
+Message-ID: <31e4a033-1779-450c-980e-63c8567837ed@linaro.org>
+Date: Thu, 25 Jan 2024 23:14:12 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: E-LgGlCdRlARs3pC8nGZxDipdxMR_pxA
-X-Proofpoint-ORIG-GUID: E-LgGlCdRlARs3pC8nGZxDipdxMR_pxA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-25_12,2024-01-25_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=818
- lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0
- bulkscore=0 phishscore=0 impostorscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401250141
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/17] drm/msm/dpu: allow
+ dpu_encoder_helper_phys_setup_cdm to work for DP
+To: Paloma Arellano <quic_parellan@quicinc.com>,
+ freedreno@lists.freedesktop.org
+References: <20240125193834.7065-1-quic_parellan@quicinc.com>
+ <20240125193834.7065-2-quic_parellan@quicinc.com>
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20240125193834.7065-2-quic_parellan@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,43 +78,148 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, quic_jesszhan@quicinc.com, dmitry.baryshkov@linaro.org,
- Paloma Arellano <quic_parellan@quicinc.com>, quic_khsieh@quicinc.com
+Cc: neil.armstrong@linaro.org, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ marijn.suijten@somainline.org, quic_jesszhan@quicinc.com,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-All the components of YUV420 over DP are added. Therefore, let's mark the
-connector property as true for DP connector when the DP type is not eDP
-and when VSC SDP is supported.
+On 25/01/2024 21:38, Paloma Arellano wrote:
+> Generalize dpu_encoder_helper_phys_setup_cdm to be compatible with DP.
+> 
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> ---
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 +--
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 31 ++++++++++---------
+>   2 files changed, 18 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index 993f263433314..37ac385727c3b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -153,6 +153,7 @@ enum dpu_intr_idx {
+>    * @hw_intf:		Hardware interface to the intf registers
+>    * @hw_wb:		Hardware interface to the wb registers
+>    * @hw_cdm:		Hardware interface to the CDM registers
+> + * @cdm_cfg:	CDM block config needed to store WB/DP block's CDM configuration
 
-Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Please realign the description.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 4329435518351..97edd607400b8 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -370,11 +370,14 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 
- 	dp_link_process_request(dp->link);
- 
--	if (!dp->dp_display.is_edp)
-+	if (!dp->dp_display.is_edp) {
-+		if (dp_panel_vsc_sdp_supported(dp->panel))
-+			dp->dp_display.connector->ycbcr_420_allowed = true;
- 		drm_dp_set_subconnector_property(dp->dp_display.connector,
- 						 connector_status_connected,
- 						 dp->panel->dpcd,
- 						 dp->panel->downstream_ports);
-+	}
- 
- 	edid = dp->panel->edid;
- 
+>    * @dpu_kms:		Pointer to the dpu_kms top level
+>    * @cached_mode:	DRM mode cached at mode_set time, acted on in enable
+>    * @vblank_ctl_lock:	Vblank ctl mutex lock to protect vblank_refcount
+> @@ -183,6 +184,7 @@ struct dpu_encoder_phys {
+>   	struct dpu_hw_intf *hw_intf;
+>   	struct dpu_hw_wb *hw_wb;
+>   	struct dpu_hw_cdm *hw_cdm;
+> +	struct dpu_hw_cdm_cfg cdm_cfg;
+
+It might be slightly better to move it after all the pointers, so after 
+the dpu_kms.
+
+>   	struct dpu_kms *dpu_kms;
+>   	struct drm_display_mode cached_mode;
+>   	struct mutex vblank_ctl_lock;
+> @@ -213,7 +215,6 @@ static inline int dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
+>    * @wbirq_refcount:     Reference count of writeback interrupt
+>    * @wb_done_timeout_cnt: number of wb done irq timeout errors
+>    * @wb_cfg:  writeback block config to store fb related details
+> - * @cdm_cfg: cdm block config needed to store writeback block's CDM configuration
+>    * @wb_conn: backpointer to writeback connector
+>    * @wb_job: backpointer to current writeback job
+>    * @dest:   dpu buffer layout for current writeback output buffer
+> @@ -223,7 +224,6 @@ struct dpu_encoder_phys_wb {
+>   	atomic_t wbirq_refcount;
+>   	int wb_done_timeout_cnt;
+>   	struct dpu_hw_wb_cfg wb_cfg;
+> -	struct dpu_hw_cdm_cfg cdm_cfg;
+>   	struct drm_writeback_connector *wb_conn;
+>   	struct drm_writeback_job *wb_job;
+>   	struct dpu_hw_fmt_layout dest;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> index 4cd2d9e3131a4..072fc6950e496 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> @@ -269,28 +269,21 @@ static void dpu_encoder_phys_wb_setup_ctl(struct dpu_encoder_phys *phys_enc)
+>    *                                     This API does not handle DPU_CHROMA_H1V2.
+>    * @phys_enc:Pointer to physical encoder
+>    */
+> -static void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
+> +static void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc,
+> +					      const struct dpu_format *dpu_fmt,
+> +					      u32 output_type)
+>   {
+>   	struct dpu_hw_cdm *hw_cdm;
+>   	struct dpu_hw_cdm_cfg *cdm_cfg;
+>   	struct dpu_hw_pingpong *hw_pp;
+> -	struct dpu_encoder_phys_wb *wb_enc;
+> -	const struct msm_format *format;
+> -	const struct dpu_format *dpu_fmt;
+> -	struct drm_writeback_job *wb_job;
+>   	int ret;
+>   
+>   	if (!phys_enc)
+>   		return;
+>   
+> -	wb_enc = to_dpu_encoder_phys_wb(phys_enc);
+> -	cdm_cfg = &wb_enc->cdm_cfg;
+> +	cdm_cfg = &phys_enc->cdm_cfg;
+>   	hw_pp = phys_enc->hw_pp;
+>   	hw_cdm = phys_enc->hw_cdm;
+> -	wb_job = wb_enc->wb_job;
+> -
+> -	format = msm_framebuffer_format(wb_enc->wb_job->fb);
+> -	dpu_fmt = dpu_get_dpu_format_ext(format->pixel_format, wb_job->fb->modifier);
+>   
+>   	if (!hw_cdm)
+>   		return;
+> @@ -306,10 +299,10 @@ static void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
+>   
+>   	memset(cdm_cfg, 0, sizeof(struct dpu_hw_cdm_cfg));
+>   
+> -	cdm_cfg->output_width = wb_job->fb->width;
+> -	cdm_cfg->output_height = wb_job->fb->height;
+> +	cdm_cfg->output_width = phys_enc->cached_mode.hdisplay;
+> +	cdm_cfg->output_height = phys_enc->cached_mode.vdisplay;
+
+This is a semantic change. Instead of passing the FB size, this passes 
+the mode dimensions. They are not guaranteed to be the same, especially 
+for the WB case.
+
+>   	cdm_cfg->output_fmt = dpu_fmt;
+> -	cdm_cfg->output_type = CDM_CDWN_OUTPUT_WB;
+> +	cdm_cfg->output_type = output_type;
+>   	cdm_cfg->output_bit_depth = DPU_FORMAT_IS_DX(dpu_fmt) ?
+>   			CDM_CDWN_OUTPUT_10BIT : CDM_CDWN_OUTPUT_8BIT;
+>   	cdm_cfg->csc_cfg = &dpu_csc10_rgb2yuv_601l;
+> @@ -462,6 +455,14 @@ static void dpu_encoder_phys_wb_setup(
+>   	struct dpu_hw_wb *hw_wb = phys_enc->hw_wb;
+>   	struct drm_display_mode mode = phys_enc->cached_mode;
+>   	struct drm_framebuffer *fb = NULL;
+> +	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys_enc);
+> +	struct drm_writeback_job *wb_job;
+> +	const struct msm_format *format;
+> +	const struct dpu_format *dpu_fmt;
+> +
+> +	wb_job = wb_enc->wb_job;
+> +	format = msm_framebuffer_format(wb_enc->wb_job->fb);
+> +	dpu_fmt = dpu_get_dpu_format_ext(format->pixel_format, wb_job->fb->modifier);
+>   
+>   	DPU_DEBUG("[mode_set:%d, \"%s\",%d,%d]\n",
+>   			hw_wb->idx - WB_0, mode.name,
+> @@ -475,7 +476,7 @@ static void dpu_encoder_phys_wb_setup(
+>   
+>   	dpu_encoder_phys_wb_setup_fb(phys_enc, fb);
+>   
+> -	dpu_encoder_helper_phys_setup_cdm(phys_enc);
+> +	dpu_encoder_helper_phys_setup_cdm(phys_enc, dpu_fmt, CDM_CDWN_OUTPUT_WB);
+>   
+>   	dpu_encoder_phys_wb_setup_ctl(phys_enc);
+>   }
+
 -- 
-2.39.2
+With best wishes
+Dmitry
 
