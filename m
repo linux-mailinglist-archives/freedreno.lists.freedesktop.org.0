@@ -2,67 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B78EC83CE8D
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:26:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 605E183CE95
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:27:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2F810E665;
-	Thu, 25 Jan 2024 21:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E20310EB90;
+	Thu, 25 Jan 2024 21:27:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4461410E665
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:26:24 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-510221ab3ebso779614e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:26:24 -0800 (PST)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E8B10EE81
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:27:19 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5100fd7f71dso232672e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:27:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706217923; x=1706822723; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706217977; x=1706822777; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=elhkM67Cs41lqcgNbIlfKX6XP6h0qgN3PQBjLF+ju3A=;
- b=o44wVHwkLJaU6u/NF3tYbziUdWp06oMNGwyeNJq7M4Qx7DeO101Qbnd9zD1emSwXz8
- b69WjaqplpBstd8LRk203LcPfcHINJjkDQnKXKD8Pue2rpbRxpgxVJRJuyp+/z9z/I+H
- gt42bps9C6qYrXtDprHRm2gyJwxDrqJbQU8u7t0I3/+S3d4FZBNEvHBjwg++VuSLqEfk
- AnjI0wwV0nBFKmEjr6b5cEH+3VIlAPanZHPUq6oS4rFIMsRKUcSSlAWuBay5o0u3WS3x
- fkmYRzWMjxSNwENWs5h/lWvA+8IrpnKPhuZBTIoA4LpzOB1YW1BgH8r/sDK4bCgKRAuV
- tqqQ==
+ bh=opr0EZwZFRd7qWwZr6ONiP97uq3gqlCbm0L08Nd9OHI=;
+ b=X3rRa5Nsnfao+EYuL2cSAMWMCvlIAJLjBMI7SM00y16ELCS8qeh7VUwnwz8vLWDvCO
+ mxLjhetj1F+4cwTMUfpAJT9GpB0DcXeCEbv6uAlAGLN4tsTmIs6I0NJCsBg+jyTtr/MM
+ p/7maLSUDNYEK30ANX/uqE4gFqY+jiENZrbceLN2WJM6hBpa9kn/qjH3nf3iODCyLIkO
+ 9wB4Mfc9V8sbO6h8jNdQIQFvtDhFOn4gllIHufcafPx3ug2AL1yZiR8lI0ie4DGsSEez
+ zK31y3yIhp+2nEEul7+fhVo9fkz/n6YKNaq0dkwuQpCzg6Cu/nWnNKZFH2n06rFbedsY
+ eyqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706217923; x=1706822723;
+ d=1e100.net; s=20230601; t=1706217977; x=1706822777;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=elhkM67Cs41lqcgNbIlfKX6XP6h0qgN3PQBjLF+ju3A=;
- b=LPluWnhe2zOG7H1l+MVKijsWok0WFeyjQCPFK8Z5mM/xGUqXDkCIZbZUoXOLXXmpNn
- dWY3LjF0XR7SB/t/Sk2DcJX5p01f34nxlfpzdf4cBYbg3NdMgXRF+rRLKeGuMywNWKYk
- ifSDFqu/ivosc7RIdovp0snHiAqCVwjVLy33kmBx9N0GwSnMM/bEkb2szWbJ7Y2GK5+0
- 58Oq7dwAlfsle0tkESN3Q/MQdVNEFqhQRgeHUkdfv/wsdjalJw13pDfcZB+PlULNelaC
- kXJ6B/p8MPYHg//vUZok30JTOZ881lqRAOeqLW4bjY+RRfESa6xE74ZG/4kp4nGo1aCd
- NM7g==
-X-Gm-Message-State: AOJu0Yw5GuN/iqcW1XAlOKr7wbr7tQ1iVFIZCYBEmeIW4u+T0ukc6ZZN
- 1vcDtbSIPC2St2l8W31KDji/+i2mr4pBRoR5yVVrvL7wd/85bN/dORXczu6fxEc=
-X-Google-Smtp-Source: AGHT+IEOuxkztSIJnYC1jb08/V2RQZbS0ao9mVzPOrthmoCIzMInt3pHZk0TJDqBccE0bfSeSmnxJw==
-X-Received: by 2002:ac2:4342:0:b0:510:13a6:8af4 with SMTP id
- o2-20020ac24342000000b0051013a68af4mr219125lfl.122.1706217922701; 
- Thu, 25 Jan 2024 13:25:22 -0800 (PST)
+ bh=opr0EZwZFRd7qWwZr6ONiP97uq3gqlCbm0L08Nd9OHI=;
+ b=Qrh6/MkS1EWYtjQrhNwbfABPEhqFKfCgQGLYrHKH9P60Q7pD+OX3G03P7ZFORpZTJN
+ yLfkcep+F+M1RB9UVigDQmtZvFavb8tsiTeUIizbWJdbGIhFxLtErbzMB1IMRkx28qI9
+ X6luvw/N+vNqXotYT9w6l+IM46Pjyi5Lu5sO2gqQIlcPYIZ8yRSTTkuy/OvRqVXj/lbH
+ izitnb6y0jraIoiaAh2/CUKiTboxVdVk+kQI/nilvky2Z2WAm8Cc84DNnNyfgupphRm8
+ KDQA9PMvIvz6wgMZPyimU2Wmp+/71bI2EsOVrKZ05qCPgF5xTdMYStu5evo/0UW9zSGV
+ LZvQ==
+X-Gm-Message-State: AOJu0Yy3y3+IqTv4Q8uvfIHHayhWkyOMD9DgQmjTVWLS/AHG6a0ynQah
+ j9cmBAjJhLAgEKbw+GYvpAInZ2JzaCM/EME/1BM1lAgrtQp6t94vgFVC3ZG0Ezc=
+X-Google-Smtp-Source: AGHT+IEthVdS3oiU5SgGOGVij7Tqs27ox5N9f6J9OaKXHHoWrkKuT8IDlQFxTjG3KOLJhwasDUGdWQ==
+X-Received: by 2002:a05:6512:2208:b0:510:ce9:b2d5 with SMTP id
+ h8-20020a056512220800b005100ce9b2d5mr227864lfu.126.1706217977446; 
+ Thu, 25 Jan 2024 13:26:17 -0800 (PST)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- e22-20020a196916000000b005102196b586sm131568lfc.152.2024.01.25.13.25.21
+ e22-20020a196916000000b005102196b586sm131568lfc.152.2024.01.25.13.26.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 13:25:22 -0800 (PST)
-Message-ID: <9061c7ab-8166-4d8e-b706-9f79474aa97f@linaro.org>
-Date: Thu, 25 Jan 2024 23:25:20 +0200
+ Thu, 25 Jan 2024 13:26:17 -0800 (PST)
+Message-ID: <301cdbe2-7377-4b0f-bd24-5131f8928c29@linaro.org>
+Date: Thu, 25 Jan 2024 23:26:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/17] drm/msm/dpu: move widebus logic to its own API
+Subject: Re: [PATCH 07/17] drm/msm/dpu: disallow widebus en in INTF_CONFIG2
+ when DP is YUV420
 Content-Language: en-GB
 To: Paloma Arellano <quic_parellan@quicinc.com>,
  freedreno@lists.freedesktop.org
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-7-quic_parellan@quicinc.com>
+ <20240125193834.7065-8-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20240125193834.7065-7-quic_parellan@quicinc.com>
+In-Reply-To: <20240125193834.7065-8-quic_parellan@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -86,19 +87,33 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/01/2024 21:38, Paloma Arellano wrote:
-> Widebus enablement is decided by the interfaces based on their specific
-> checks and that already happens with DSI/DP specific helpers. Let's
-> invoke these helpers from dpu_encoder_is_widebus_enabled() to make it
-> cleaner overall.
+> INTF_CONFIG2 register cannot have widebus enabled when DP format is
+> YUV420. Therefore, program the INTF to send 1 ppc.
+
+I think this is handled in the DP driver, where we disallow wide bus for 
+YUV 4:2:0 modes.
+
 > 
 > Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 29 ++++++++++++---------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 +++
->   2 files changed, 20 insertions(+), 13 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> index 6bba531d6dc41..bfb93f02fe7c1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> @@ -168,7 +168,9 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>   	 * video timing. It is recommended to enable it for all cases, except
+>   	 * if compression is enabled in 1 pixel per clock mode
+>   	 */
+> -	if (p->wide_bus_en)
+> +	if (dp_intf && fmt->base.pixel_format == DRM_FORMAT_YUV420)
+> +		intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
+> +	else if (p->wide_bus_en)
+>   		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
+>   
+>   	data_width = p->width;
 
 -- 
 With best wishes
