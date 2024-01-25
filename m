@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 605E183CE95
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32EB983CEAA
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 22:31:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E20310EB90;
-	Thu, 25 Jan 2024 21:27:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F296310E27B;
+	Thu, 25 Jan 2024 21:30:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07E8B10EE81
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:27:19 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5100fd7f71dso232672e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:27:18 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DBB410E27B
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 21:30:52 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5100fd7f71dso236916e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:30:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706217977; x=1706822777; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706218191; x=1706822991; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=opr0EZwZFRd7qWwZr6ONiP97uq3gqlCbm0L08Nd9OHI=;
- b=X3rRa5Nsnfao+EYuL2cSAMWMCvlIAJLjBMI7SM00y16ELCS8qeh7VUwnwz8vLWDvCO
- mxLjhetj1F+4cwTMUfpAJT9GpB0DcXeCEbv6uAlAGLN4tsTmIs6I0NJCsBg+jyTtr/MM
- p/7maLSUDNYEK30ANX/uqE4gFqY+jiENZrbceLN2WJM6hBpa9kn/qjH3nf3iODCyLIkO
- 9wB4Mfc9V8sbO6h8jNdQIQFvtDhFOn4gllIHufcafPx3ug2AL1yZiR8lI0ie4DGsSEez
- zK31y3yIhp+2nEEul7+fhVo9fkz/n6YKNaq0dkwuQpCzg6Cu/nWnNKZFH2n06rFbedsY
- eyqg==
+ bh=Lk9rlFBsXVkQA8btAj6OVvojdjZuuLJwebzFzpRha/c=;
+ b=Vj2HvZd7BuEBtv1LEMsqTqsWi+OzhYHatEu0dUd0PxdaOUlj6Q7Q6oqGilV63XYVPt
+ HrlHcAUSaJP9cpO5H1EN3uyk9vepqjeaM4DSgT5Vt8GTr+wvNk4/soZiVD8kfUWWOPDr
+ KdNYPEY8vpgKKwEYV8XLnVzSKXEmlBgQUztXxgmMyWDLgxcvkox+vjYgYdDD/CSv7JAz
+ tLFIxs4M0rRywpf2GG/O26ZhcWWcN+UQ8667TfKdMLr5voTJLtbRpJwQxWR2mTRT1jUs
+ lZKAlHRo7NZjAHZBMa8EHYsaBDnJf46jpTmu1+yn+9ZlANf6pkf0MxieazNznVmxqXYq
+ t2Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706217977; x=1706822777;
+ d=1e100.net; s=20230601; t=1706218191; x=1706822991;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=opr0EZwZFRd7qWwZr6ONiP97uq3gqlCbm0L08Nd9OHI=;
- b=Qrh6/MkS1EWYtjQrhNwbfABPEhqFKfCgQGLYrHKH9P60Q7pD+OX3G03P7ZFORpZTJN
- yLfkcep+F+M1RB9UVigDQmtZvFavb8tsiTeUIizbWJdbGIhFxLtErbzMB1IMRkx28qI9
- X6luvw/N+vNqXotYT9w6l+IM46Pjyi5Lu5sO2gqQIlcPYIZ8yRSTTkuy/OvRqVXj/lbH
- izitnb6y0jraIoiaAh2/CUKiTboxVdVk+kQI/nilvky2Z2WAm8Cc84DNnNyfgupphRm8
- KDQA9PMvIvz6wgMZPyimU2Wmp+/71bI2EsOVrKZ05qCPgF5xTdMYStu5evo/0UW9zSGV
- LZvQ==
-X-Gm-Message-State: AOJu0Yy3y3+IqTv4Q8uvfIHHayhWkyOMD9DgQmjTVWLS/AHG6a0ynQah
- j9cmBAjJhLAgEKbw+GYvpAInZ2JzaCM/EME/1BM1lAgrtQp6t94vgFVC3ZG0Ezc=
-X-Google-Smtp-Source: AGHT+IEthVdS3oiU5SgGOGVij7Tqs27ox5N9f6J9OaKXHHoWrkKuT8IDlQFxTjG3KOLJhwasDUGdWQ==
-X-Received: by 2002:a05:6512:2208:b0:510:ce9:b2d5 with SMTP id
- h8-20020a056512220800b005100ce9b2d5mr227864lfu.126.1706217977446; 
- Thu, 25 Jan 2024 13:26:17 -0800 (PST)
+ bh=Lk9rlFBsXVkQA8btAj6OVvojdjZuuLJwebzFzpRha/c=;
+ b=oC+2hrYiTHYGMC5I7uQSYWLNsme/FADJkNUeZbkzij+0LWuKF1DsbUF3VcZEje9I5J
+ bMIws2jydTdPEYVrFm1IuCza1L+dNq6WRJ5uIPwrDlcqUlzhhkWacQPBTcPPhzZxdeJ0
+ ZYHZ5AUOi7rbNnlzEm9k7yqqBzSP7my58vXTteqlL2i4Ps7aW0rwca4iot1W+JWYEbpg
+ Q8P40Pd3dWRJDcc4oKo5ZkF+Y2s/FK55ahjBIpqU9IO7TIsC6CqDfVVlGENKSp8i1idL
+ 2gyrDLwCF9C/15cl6gp+pVfkPmrCmBtrNs7myWhvUQJka50XhkQk3A9dA4P4Q1cxxroG
+ S0HA==
+X-Gm-Message-State: AOJu0Yzp2fb/g6DIoMD5+L1VjowRdCCElM/eAgApdpbul23rVKEoSaRT
+ MBakrXEJX6h5NbL8MA6ZCsg6MOzN725HC5lYvN92Jj8qdHlYqBN0zzCa4GsW4XY=
+X-Google-Smtp-Source: AGHT+IEYuOP0FfJHektk6Ge/erp3gH2Gecc+r0Bkz4NRWvQkr3RbDmai1scG5LACq6AR8Iz9HlioXg==
+X-Received: by 2002:a05:6512:2089:b0:50f:1c06:f9ba with SMTP id
+ t9-20020a056512208900b0050f1c06f9bamr213218lfr.64.1706218190583; 
+ Thu, 25 Jan 2024 13:29:50 -0800 (PST)
 Received: from [10.10.15.130] ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- e22-20020a196916000000b005102196b586sm131568lfc.152.2024.01.25.13.26.16
+ j22-20020ac24556000000b00510210f7befsm153522lfm.49.2024.01.25.13.29.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 13:26:17 -0800 (PST)
-Message-ID: <301cdbe2-7377-4b0f-bd24-5131f8928c29@linaro.org>
-Date: Thu, 25 Jan 2024 23:26:16 +0200
+ Thu, 25 Jan 2024 13:29:50 -0800 (PST)
+Message-ID: <c666a271-e12c-41ad-af38-42d0c5b513b1@linaro.org>
+Date: Thu, 25 Jan 2024 23:29:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/17] drm/msm/dpu: disallow widebus en in INTF_CONFIG2
- when DP is YUV420
+Subject: Re: [PATCH 08/17] drm/msm/dp: change YUV420 related programming for DP
 Content-Language: en-GB
 To: Paloma Arellano <quic_parellan@quicinc.com>,
  freedreno@lists.freedesktop.org
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-8-quic_parellan@quicinc.com>
+ <20240125193834.7065-9-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20240125193834.7065-8-quic_parellan@quicinc.com>
+In-Reply-To: <20240125193834.7065-9-quic_parellan@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -87,33 +86,162 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 25/01/2024 21:38, Paloma Arellano wrote:
-> INTF_CONFIG2 register cannot have widebus enabled when DP format is
-> YUV420. Therefore, program the INTF to send 1 ppc.
+> Change all relevant DP controller related programming for YUV420 cases.
+> Namely, change the pixel clock math to consider YUV420, program the
+> configuration control to indicate YUV420, as well as modify the MVID
+> programming to consider YUV420.
 
-I think this is handled in the DP driver, where we disallow wide bus for 
-YUV 4:2:0 modes.
+Too many items for a single commit.
 
 > 
 > Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/dp/dp_catalog.c |  5 ++++-
+>   drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 12 +++++++++---
+>   drivers/gpu/drm/msm/dp/dp_display.c |  8 +++++++-
+>   drivers/gpu/drm/msm/msm_kms.h       |  3 +++
+>   5 files changed, 24 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index 6bba531d6dc41..bfb93f02fe7c1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -168,7 +168,9 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->   	 * video timing. It is recommended to enable it for all cases, except
->   	 * if compression is enabled in 1 pixel per clock mode
->   	 */
-> -	if (p->wide_bus_en)
-> +	if (dp_intf && fmt->base.pixel_format == DRM_FORMAT_YUV420)
-> +		intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
-> +	else if (p->wide_bus_en)
->   		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index 5142aeb705a44..5d84c089e520a 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -442,7 +442,7 @@ void dp_catalog_ctrl_config_misc(struct dp_catalog *dp_catalog,
 >   
->   	data_width = p->width;
+>   void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
+>   					u32 rate, u32 stream_rate_khz,
+> -					bool fixed_nvid)
+> +					bool fixed_nvid, bool is_ycbcr_420)
+>   {
+>   	u32 pixel_m, pixel_n;
+>   	u32 mvid, nvid, pixel_div = 0, dispcc_input_rate;
+> @@ -485,6 +485,9 @@ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
+>   		nvid = temp;
+>   	}
+>   
+> +	if (is_ycbcr_420)
+> +		mvid /= 2;
+> +
+>   	if (link_rate_hbr2 == rate)
+>   		nvid *= 2;
+>   
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index 38786e855b51a..6cb5e2a243de2 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -96,7 +96,7 @@ void dp_catalog_ctrl_mainlink_ctrl(struct dp_catalog *dp_catalog, bool enable);
+>   void dp_catalog_ctrl_psr_mainlink_enable(struct dp_catalog *dp_catalog, bool enable);
+>   void dp_catalog_ctrl_config_misc(struct dp_catalog *dp_catalog, u32 cc, u32 tb);
+>   void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog, u32 rate,
+> -				u32 stream_rate_khz, bool fixed_nvid);
+> +				u32 stream_rate_khz, bool fixed_nvid, bool is_ycbcr_420);
+>   int dp_catalog_ctrl_set_pattern_state_bit(struct dp_catalog *dp_catalog, u32 pattern);
+>   u32 dp_catalog_hw_revision(const struct dp_catalog *dp_catalog);
+>   void dp_catalog_ctrl_reset(struct dp_catalog *dp_catalog);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 77a8d9366ed7b..209cf2a35642f 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -128,6 +128,9 @@ static void dp_ctrl_config_ctrl(struct dp_ctrl_private *ctrl)
+>   	/* Default-> LSCLK DIV: 1/4 LCLK  */
+>   	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
+>   
+> +	if (ctrl->panel->dp_mode.out_fmt_is_yuv_420)
+> +		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+> +
+
+This definitely is not related to clock rate calculations.
+
+>   	/* Scrambler reset enable */
+>   	if (drm_dp_alternate_scrambler_reset_cap(dpcd))
+>   		config |= DP_CONFIGURATION_CTRL_ASSR;
+> @@ -957,7 +960,7 @@ static void dp_ctrl_calc_tu_parameters(struct dp_ctrl_private *ctrl,
+>   	in.hporch = drm_mode->htotal - drm_mode->hdisplay;
+>   	in.nlanes = ctrl->link->link_params.num_lanes;
+>   	in.bpp = ctrl->panel->dp_mode.bpp;
+> -	in.pixel_enc = 444;
+> +	in.pixel_enc = ctrl->panel->dp_mode.out_fmt_is_yuv_420 ? 420 : 444;
+>   	in.dsc_en = 0;
+>   	in.async_en = 0;
+>   	in.fec_en = 0;
+> @@ -1763,6 +1766,8 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>   		ctrl->link->link_params.rate = rate;
+>   		ctrl->link->link_params.num_lanes =
+>   			ctrl->panel->link_info.num_lanes;
+> +		if (ctrl->panel->dp_mode.out_fmt_is_yuv_420)
+> +			pixel_rate >>= 1;
+>   	}
+>   
+>   	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%lu\n",
+> @@ -1878,7 +1883,7 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+>   
+>   	pixel_rate = pixel_rate_orig = ctrl->panel->dp_mode.drm_mode.clock;
+>   
+> -	if (dp_ctrl->wide_bus_en)
+> +	if (dp_ctrl->wide_bus_en || ctrl->panel->dp_mode.out_fmt_is_yuv_420)
+>   		pixel_rate >>= 1;
+>   
+>   	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%lu\n",
+> @@ -1917,7 +1922,8 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+>   
+>   	dp_catalog_ctrl_config_msa(ctrl->catalog,
+>   		ctrl->link->link_params.rate,
+> -		pixel_rate_orig, dp_ctrl_use_fixed_nvid(ctrl));
+> +		pixel_rate_orig, dp_ctrl_use_fixed_nvid(ctrl),
+> +		ctrl->panel->dp_mode.out_fmt_is_yuv_420);
+>   
+>   	dp_ctrl_setup_tr_unit(ctrl);
+>   
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index f6b3b6ca242f8..6d764f5b08727 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -916,9 +916,10 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
+>   	const u32 num_components = 3, default_bpp = 24;
+>   	struct dp_display_private *dp_display;
+>   	struct dp_link_info *link_info;
+> -	u32 mode_rate_khz = 0, supported_rate_khz = 0, mode_bpp = 0;
+>   	struct msm_dp *dp;
+>   	int mode_pclk_khz = mode->clock;
+> +	int rate_ratio = RGB_24BPP_TMDS_CHAR_RATE_RATIO;
+> +	u32 mode_rate_khz = 0, supported_rate_khz = 0, mode_bpp = 0;
+>   
+>   	dp = to_dp_bridge(bridge)->dp_display;
+>   
+> @@ -933,6 +934,11 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
+>   	dp_display = container_of(dp, struct dp_display_private, dp_display);
+>   	link_info = &dp_display->panel->link_info;
+>   
+> +	if (drm_mode_is_420_only(&dp->connector->display_info, mode))
+> +		rate_ratio = YUV420_24BPP_TMDS_CHAR_RATE_RATIO;
+> +
+> +	mode_pclk_khz /= rate_ratio;
+
+I think it will be more obvious and simple to write:
+
+if (drm_mode_is_420...)
+     mode_pclk_khz /= 2;
+
+
+> +
+>   	mode_bpp = dp->connector->display_info.bpc * num_components;
+>   	if (!mode_bpp)
+>   		mode_bpp = default_bpp;
+> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> index 44aa435d68ce2..66e8151951807 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.h
+> +++ b/drivers/gpu/drm/msm/msm_kms.h
+> @@ -15,6 +15,9 @@
+>   
+>   #define MAX_PLANE	4
+>   
+> +#define RGB_24BPP_TMDS_CHAR_RATE_RATIO		1
+> +#define YUV420_24BPP_TMDS_CHAR_RATE_RATIO	2
+> +
+>   /* As there are different display controller blocks depending on the
+>    * snapdragon version, the kms support is split out and the appropriate
+>    * implementation is loaded at runtime.  The kms module is responsible
 
 -- 
 With best wishes
