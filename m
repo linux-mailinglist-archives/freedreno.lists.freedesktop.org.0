@@ -2,77 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 331ED83C999
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 18:15:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2484883CAAF
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 19:18:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1289010ECBD;
-	Thu, 25 Jan 2024 17:14:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31DEF10E91E;
+	Thu, 25 Jan 2024 18:18:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43EE410EB51;
- Thu, 25 Jan 2024 17:14:44 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40P6U5C7016792; Thu, 25 Jan 2024 17:14:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=QVBi23eTif8k1KMpbX3/5gFCMzFOXHrSwUxTig2rOoU=; b=FJ
- xgyyNh6KGEbV3J7nosNLR6HiZ8eB6gX8Jhi7VpfT+6XmGiw6Cyi1gaQ3f0w9qWOE
- bCA79aMwzv0sVF6s1PCRolBLgu475QtMnnnNvKYI873uHHnEiWdMmnu7tc64Ddw4
- DYuGpGPVHpXzsmDOlbV/3jR4+6xRjFU3DuiNszp5B+Aoh1sZBAR8Q5Yh2tp6SGEi
- otWyjGDKIHXc23vQseWnASv4rFeAS+k/gTjkz6lpAfVdWzW32wi7CGHrQ7yS62uI
- y1dRb4+IbEWaKaWe6g88jEDCYlWF52aISKQsqPZF4/rj3H/9Oae8eYWMA5ZkGPL0
- DzmbNr2hohDCy9hikvJw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vufc8245p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jan 2024 17:14:41 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40PHEeVH002310
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jan 2024 17:14:40 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 25 Jan
- 2024 09:14:39 -0800
-Message-ID: <ba27bb80-2234-60c8-5f76-34a9f7ae6ae9@quicinc.com>
-Date: Thu, 25 Jan 2024 09:14:39 -0800
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6027310E2D8
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 18:18:25 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-a2e633c5365so191079766b.1
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 10:18:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1706206644; x=1706811444; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LX2Biyswi3lcTJguDEv72aHM8YWWcEZE57McfhSqDfM=;
+ b=Y1icyBU6jfzFIh9gAqXbIzs8l/etjnt0gK2vo8V4l81BM+8nL0hcBHxhDlFXqt8Se8
+ Jeqg/VEN6QpvkUK4GTzU0/0T2MBbQRTyAG1OHNKrtgyPAtkkQf1YxdK6osJMn25wrOU4
+ jiYJZW41U9NcHfPQlXKrFDiur1OISvHP/BCus=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706206644; x=1706811444;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LX2Biyswi3lcTJguDEv72aHM8YWWcEZE57McfhSqDfM=;
+ b=ksUQIaj2sYaCQAexEGA1ldsTZVjkQGagOxHWDn77eo0B/7CnVOznAt3RulUhbOG4Gj
+ gYbXOEcIRFw8tIso8lpRQYFjK1iaUA5cmgtushhAB3MkCuqlMkQEKrvvEEcRAr4/tHuJ
+ mt19NM7d9ZUgGH1qLNT1d28MfPHwZoQfuMQy24oAZBiiCiQV7lIPAl2qhf4fiUZv1XVN
+ 9beN7mka6lqGvRHqQ/+FT4c7eG1SeRIrq13pVt+Lp1TZ+NopuxjuhyHJb9QA1Yg0xQqy
+ 6bPJLDzdLtEeF89r/iEOtAWgi2VZz1p4s5klCw6PCTl+xYTIClNHwIII/XBzYG1jGft7
+ d0RQ==
+X-Gm-Message-State: AOJu0YyZLyCGXgQ6gDFkWoFVkQtONYoHpfj1+ltnWCyWzL+54QW45kUS
+ +YQsuX9WwegUXjBvCaV4Q133+bC/Tz1U6UU2SiST1lG3s4Y31lqSVHs3MufuGBk=
+X-Google-Smtp-Source: AGHT+IFFgR3FnuKNaxcbSF/D45iFGEkVO7DwIYkEGMWwJWTauy+SOrnz8WOVHQePtLtXFKX663PQaQ==
+X-Received: by 2002:a17:906:a2d6:b0:a31:7e9c:60bf with SMTP id
+ by22-20020a170906a2d600b00a317e9c60bfmr23085ejb.0.1706206643807; 
+ Thu, 25 Jan 2024 10:17:23 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ tl15-20020a170907c30f00b00a3186c2c254sm765083ejc.213.2024.01.25.10.17.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jan 2024 10:17:23 -0800 (PST)
+Date: Thu, 25 Jan 2024 19:17:21 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?= <Jason-JH.Lin@mediatek.com>
+Subject: Re: [PATCH] drm/atomic-helpers: remove legacy_cursor_update hacks
+Message-ID: <ZbKlsTEvGPiGtzS3@phenom.ffwll.local>
+Mail-Followup-To: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?=
+ <Jason-JH.Lin@mediatek.com>, 
+ "maxime@cerno.tech" <maxime@cerno.tech>,
+ "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "michel@daenzer.net" <michel@daenzer.net>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "daniel.vetter@intel.com" <daniel.vetter@intel.com>,
+ "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>, 
+ "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
+ "fshao@chromium.org" <fshao@chromium.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "jani.nikula@intel.com" <jani.nikula@intel.com>,
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>, 
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
+ <20230307145613.xvhru3fpcudlpazt@houat>
+ <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/msm/dpu: make "vblank timeout" more useful
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>
-References: <20240106-fd-dpu-debug-timeout-v1-1-6d9762884641@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240106-fd-dpu-debug-timeout-v1-1-6d9762884641@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: SHvHfoZSlaQVkG37NNG_upCDrdy3PfRO
-X-Proofpoint-GUID: SHvHfoZSlaQVkG37NNG_upCDrdy3PfRO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-25_10,2024-01-25_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 mlxscore=0
- phishscore=0 lowpriorityscore=0 mlxlogscore=738 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401250122
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
+X-Operating-System: Linux phenom 6.6.11-amd64 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,51 +104,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: "fshao@chromium.org" <fshao@chromium.org>,
+ "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "daniel.vetter@intel.com" <daniel.vetter@intel.com>,
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "jani.nikula@intel.com" <jani.nikula@intel.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "michel@daenzer.net" <michel@daenzer.net>,
+ "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "maxime@cerno.tech" <maxime@cerno.tech>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 1/5/2024 3:50 PM, Dmitry Baryshkov wrote:
-> We have several reports of vblank timeout messages. However after some
-> debugging it was found that there might be different causes to that.
-> Include the actual CTL_FLUSH value into the timeout message. This allows
-> us to identify the DPU block that gets stuck.
+On Tue, Jan 23, 2024 at 06:09:05AM +0000, Jason-JH Lin (林睿祥) wrote:
+> Hi Maxime, Daniel,
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> We encountered similar issue with mediatek SoCs.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> index d0f56c5c4cce..fb34067ab6af 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> @@ -489,7 +489,7 @@ static int dpu_encoder_phys_vid_wait_for_commit_done(
->   		(hw_ctl->ops.get_flush_register(hw_ctl) == 0),
->   		msecs_to_jiffies(50));
->   	if (ret <= 0) {
-> -		DPU_ERROR("vblank timeout\n");
-> +		DPU_ERROR("vblank timeout: %x\n", hw_ctl->ops.get_flush_register(hw_ctl));
->   		return -ETIMEDOUT;
->   	}
-
-Nothing wrong with this change.
-
-But I dont know how much information this is giving to really find out 
-what is causing the vblank timeout. Sure, we know which flush bit is 
-actually stuck but we dont know why its stuck.
-
-We should add a logic here to get the snapshot on the first vblank 
-timeout that way we avoid excessive capture as well similar to the other 
-fatal locations of calling snapshot.
-
->   
+> We have found that in drm_atomic_helper_commit_rpm(), when disabling
+> the cursor plane, the old_state->legacy_cursor_update in
+> drm_atomic_wait_for_vblank() is set to true.
+> As the result, we are not actually waiting for a vlbank to wait for our
+> hardware to close the cursor plane. Subsequently, the execution
+> proceeds to drm_atomic_helper_cleanup_planes() to  free the cursor
+> buffer. This can lead to use-after-free issues with our hardware.
 > 
-> ---
-> base-commit: 39676dfe52331dba909c617f213fdb21015c8d10
-> change-id: 20240106-fd-dpu-debug-timeout-e917f0bc8063
+> Could you please apply this patch to fix our problem?
+> Or are there any considerations for not applying this patch?
+
+Mostly it needs someone to collect a pile of acks/tested-by and then land
+it.
+
+I'd be _very_ happy if someone else can take care of that ...
+
+There's also the potential issue that it might slow down some of the
+legacy X11 use-cases that really needed a non-blocking cursor, but I think
+all the drivers where this matters have switched over to the async plane
+update stuff meanwhile. So hopefully that's good.
+
+Cheers, Sima
 > 
-> Best regards,
+> Regards,
+> Jason-JH.Lin
+> 
+> On Tue, 2023-03-07 at 15:56 +0100, Maxime Ripard wrote:
+> > Hi,
+> > 
+> > On Thu, Feb 16, 2023 at 12:12:13PM +0100, Daniel Vetter wrote:
+> > > The stuff never really worked, and leads to lots of fun because it
+> > > out-of-order frees atomic states. Which upsets KASAN, among other
+> > > things.
+> > > 
+> > > For async updates we now have a more solid solution with the
+> > > ->atomic_async_check and ->atomic_async_commit hooks. Support for
+> > > that
+> > > for msm and vc4 landed. nouveau and i915 have their own commit
+> > > routines, doing something similar.
+> > > 
+> > > For everyone else it's probably better to remove the use-after-free
+> > > bug, and encourage folks to use the async support instead. The
+> > > affected drivers which register a legacy cursor plane and don't
+> > > either
+> > > use the new async stuff or their own commit routine are: amdgpu,
+> > > atmel, mediatek, qxl, rockchip, sti, sun4i, tegra, virtio, and
+> > > vmwgfx.
+> > > 
+> > > Inspired by an amdgpu bug report.
+> > 
+> > Thanks for submitting that patch. It's been in the downstream RPi
+> > tree
+> > for a while, so I'd really like it to be merged eventually :)
+> > 
+> > Acked-by: Maxime Ripard <maxime@cerno.tech>
+> > 
+> > Maxime
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
