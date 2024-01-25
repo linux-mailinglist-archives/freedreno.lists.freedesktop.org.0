@@ -2,66 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E69383C367
-	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 14:13:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A42F83C8E9
+	for <lists+freedreno@lfdr.de>; Thu, 25 Jan 2024 17:57:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 472A010F8CC;
-	Thu, 25 Jan 2024 13:13:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3833910EE21;
+	Thu, 25 Jan 2024 16:57:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57F9010F8C9
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 13:13:23 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3387ef9fc62so6063158f8f.2
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 05:13:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706188341; x=1706793141; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IQ/OiIJEQgcE/+giBYZBBrt/UrqjwIWZyUkL8gVlEDk=;
- b=fFq5vF6IUqWnrArx35bubnc6LHP+ur8PYMJxk9xvIpAWwW7sAgAaIJTD0EWi0529fN
- j//KaJmM5V9XgIk/roqNr/PyazD0aklOfV2ohSQ5RrFmpN4tcg5oHIKsLHI0HX64CEEE
- MU8ITizfEi+1G4DcQGxk3Fet3bV7VFOzx5lqsEJ7bgPRnN29jnxwVL0fKBb901Eosyz+
- 0YJYOj/9/DIkVS60gp+PDGTm2f3UYBM7f/BhsCVJ965LObND56E0UoiMyFBPYcSFL6NH
- bEoEAP/Jr9Js8vxg/xFzMdu7dR8BDtubViy0P4jGY7OM+k/xlP7DqWh2d/adrYDsSq31
- EAgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706188341; x=1706793141;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IQ/OiIJEQgcE/+giBYZBBrt/UrqjwIWZyUkL8gVlEDk=;
- b=BZohNMwlBuCPYgVafy+1qwQ3aB970lWP32i84urZKf31d1jc5Y3v5djp2ES7M8Q9z7
- YXEUikQy4lfRvzuCXJaez74sFynV7zX1gqQGKKiE5Nk98FS2LrNL+EeXu1cgI69xIA8L
- Nhl8lTjUyBPsayhGWz3rUKxRjlQEHhU8y4C0MX1Lwm4E2Pd1XbPX5xTkyj4xdHg27gbr
- cW25H/7XlHzAMjxCZy1Z6Odhis0lns3HCP6r3ak/N4jVJ8nD5LrLku4x8sv9k3xcQ8Ww
- fB+bKuIG5fC6Zm7dMT2qzz1XZehVdQHchtkxJIMI/u0Z7V62r+CWyPYkpOhGTqW68XpP
- Ieag==
-X-Gm-Message-State: AOJu0YyfOjpY3i6+cuq4q0/3uR6oAoCRahLBvV79VlXeo+1vKNiOecMR
- 18Nm/OSKJeK/40juc+0hC699Xhmb4cM5rht/BcosOZRM6eYI/bbSzfD5PECL1kc=
-X-Google-Smtp-Source: AGHT+IGwNS6YLwAFgq+s9JX2+RjXIsM6K5PJQZvxe6LFWoChtGggaZJl8D8u5PdnXREFRCODon6yvw==
-X-Received: by 2002:adf:fa84:0:b0:337:aeee:4bae with SMTP id
- h4-20020adffa84000000b00337aeee4baemr486794wrr.47.1706188341560; 
- Thu, 25 Jan 2024 05:12:21 -0800 (PST)
-Received: from lucy.. (cpc115152-dals23-2-0-cust532.20-2.cable.virginm.net.
- [86.12.82.21]) by smtp.gmail.com with ESMTPSA id
- s17-20020a5d4251000000b00337d84efaf7sm17076114wrr.74.2024.01.25.05.12.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 05:12:21 -0800 (PST)
-From: Connor Abbott <cwabbott0@gmail.com>
-To: freedreno@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/msm: Fix page fault client detection on a660 family
- and a7xx
-Date: Thu, 25 Jan 2024 13:10:58 +0000
-Message-Id: <20240125131058.2084628-6-cwabbott0@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20240125131058.2084628-1-cwabbott0@gmail.com>
-References: <20240125131058.2084628-1-cwabbott0@gmail.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1AF210E91F
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 16:57:15 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40PFLfBO031555; Thu, 25 Jan 2024 16:57:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=HzllMUvi5QW9WMhBpr/yS2Seya4wfq976EFujVMpIlg=; b=EI
+ ksxMYiae3FjnYE5vsuvMiyXDqwyzitt1PpQ1vZvtUr5V/jZ5HoI9F9gsB0CgL3I5
+ VUJE3GbE1XQYdLSfm2fujr3kt+05iINIqPruRSeCsq/1Gb/3vjeAi2HwjEuT++wS
+ aP4eTzHxqw3wqZVsLE/bZhcuYgAkCztUDejv1v0vsckTyiMBGgK689y+hJx2zxW7
+ aPygT8xvw6eUras69y8ODF6tlxKY1uhTHD+rGAwjyn7f9sICn1ld4idF3aGQIFIt
+ PBC3RPp5/1ufD+spMAmAvhkjY2IF2QJ7ZQ/lEW7SaVPIQ4X1xwyY8dkwsVEIIs9T
+ z6HKgDP64yQ+hvCqSMcw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vumcws8ws-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jan 2024 16:57:14 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40PGvDEA011075
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jan 2024 16:57:13 GMT
+Received: from [10.110.48.234] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 25 Jan
+ 2024 08:57:13 -0800
+Message-ID: <7d05d7c8-a75d-0f34-8049-2e524e85c43c@quicinc.com>
+Date: Thu, 25 Jan 2024 08:57:12 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 13/14] drm/msm/dp: move next_bridge handling to dp_display
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20231229225650.912751-1-dmitry.baryshkov@linaro.org>
+ <20231229225650.912751-14-dmitry.baryshkov@linaro.org>
+ <b5f571c6-dcf6-c416-ca86-fdbd0514676b@quicinc.com>
+ <CAA8EJpqvyOsPErUE08mcCAcG41zRJS+Q6qQi83-ZNCBcwv3kCw@mail.gmail.com>
+ <18b7e28c-c969-c5f4-28a9-74ff79c94aca@quicinc.com>
+ <bb4cac9c-4de7-8ad0-5cdc-f7c089eaa75c@quicinc.com>
+ <CAA8EJprpbtwzQc5LBOV8KurfHQvQW7SY4LLQpyMzVeyfmQ=dBw@mail.gmail.com>
+ <6525bfd7-4478-81c1-33cd-dd4dac76aff5@quicinc.com>
+ <CAA8EJpqdN2BmS+=Dh1-+8nzk6TqAbxHyuMuHjO8pa3eEkGP1PQ@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAA8EJpqdN2BmS+=Dh1-+8nzk6TqAbxHyuMuHjO8pa3eEkGP1PQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: zA3bvcgl9MaGWHwN6WNotq6h-5I8K21G
+X-Proofpoint-GUID: zA3bvcgl9MaGWHwN6WNotq6h-5I8K21G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-25_10,2024-01-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0
+ phishscore=0 mlxlogscore=999 impostorscore=0 priorityscore=1501 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2401190000
+ definitions=main-2401250121
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,145 +90,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Connor Abbott <cwabbott0@gmail.com>
+Cc: freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 95 ++++++++++++++++++++++++---
- 1 file changed, 85 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index c0bc924cd302..ab5b36ae5885 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2043,13 +2043,19 @@ static void a6xx_recover(struct msm_gpu *gpu)
- 
- static const char *a6xx_uche_fault_block(struct msm_gpu *gpu, u32 mid)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	static const char *uche_clients[7] = {
- 		"VFD", "SP", "VSC", "VPC", "HLSQ", "PC", "LRZ",
- 	};
- 	u32 val;
- 
--	if (mid < 1 || mid > 3)
--		return "UNKNOWN";
-+	if (adreno_is_a7xx(adreno_gpu)) {
-+		if (mid != 1 && mid != 2 && mid != 3 && mid != 8)
-+			return "UNKNOWN";
-+	} else {
-+		if (mid < 1 || mid > 3)
-+			return "UNKNOWN";
-+	}
- 
- 	/*
- 	 * The source of the data depends on the mid ID read from FSYNR1.
-@@ -2057,26 +2063,95 @@ static const char *a6xx_uche_fault_block(struct msm_gpu *gpu, u32 mid)
- 	 */
- 	val = gpu_read(gpu, REG_A6XX_UCHE_CLIENT_PF);
- 
--	/* mid = 3 is most precise and refers to only one block per client */
--	if (mid == 3)
--		return uche_clients[val & 7];
-+	if (adreno_is_a7xx(adreno_gpu)) {
-+		/* Bit 3 for mid=3 indicates BR or BV */
-+		static const char *uche_clients_a7xx[16] = {
-+			"BR_VFD", "BR_SP", "BR_VSC", "BR_VPC",
-+			"BR_HLSQ", "BR_PC", "BR_LRZ", "BR_TP",
-+			"BV_VFD", "BV_SP", "BV_VSC", "BV_VPC",
-+			"BV_HLSQ", "BV_PC", "BV_LRZ", "BV_TP",
-+		};
-+
-+		/* LPAC has the same clients as BR and BV, but because it is
-+		 * compute-only some of them do not exist and there are holes
-+		 * in the array.
-+		 */
-+		static const char *uche_clients_lpac_a7xx[8] = {
-+			"-", "LPAC_SP", "-", "-",
-+			"LPAC_HLSQ", "-", "-", "LPAC_TP",
-+		};
-+
-+		val &= GENMASK(6, 0);
-+
-+		/* mid=3 refers to BR or BV */
-+		if (mid == 3) {
-+			if (val < ARRAY_SIZE(uche_clients_a7xx))
-+				return uche_clients_a7xx[val];
-+			else
-+				return "UCHE";
-+		}
-+
-+		/* mid=8 refers to LPAC */
-+		if (mid == 8) {
-+			if (val < ARRAY_SIZE(uche_clients_lpac_a7xx))
-+				return uche_clients_lpac_a7xx[val];
-+			else
-+				return "UCHE_LPAC";
-+		}
- 
--	/* For mid=2 the source is TP or VFD except when the client id is 0 */
--	if (mid == 2)
--		return ((val & 7) == 0) ? "TP" : "TP|VFD";
-+		/* mid=2 is a catchall for everything else in LPAC */
-+		if (mid == 2)
-+			return "UCHE_LPAC";
-+
-+		/* mid=1 is a catchall for everything else in BR/BV */
-+		return "UCHE";
-+	} else if (adreno_is_a660_family(adreno_gpu)) {
-+		static const char *uche_clients_a660[8] = {
-+			"VFD", "SP", "VSC", "VPC", "HLSQ", "PC", "LRZ", "TP",
-+		};
- 
--	/* For mid=1 just return "UCHE" as a catchall for everything else */
--	return "UCHE";
-+		static const char *uche_clients_a660_not[8] = {
-+			"not VFD", "not SP", "not VSC", "not VPC",
-+			"not HLSQ", "not PC", "not LRZ", "not TP",
-+		};
-+
-+		val &= GENMASK(6, 0);
-+
-+		if (mid == 3 && val < ARRAY_SIZE(uche_clients_a660))
-+			return uche_clients_a660[val];
-+
-+		if (mid == 1 && val < ARRAY_SIZE(uche_clients_a660_not))
-+			return uche_clients_a660_not[val];
-+
-+		return "UCHE";
-+	} else {
-+		/* mid = 3 is most precise and refers to only one block per client */
-+		if (mid == 3)
-+			return uche_clients[val & 7];
-+
-+		/* For mid=2 the source is TP or VFD except when the client id is 0 */
-+		if (mid == 2)
-+			return ((val & 7) == 0) ? "TP" : "TP|VFD";
-+
-+		/* For mid=1 just return "UCHE" as a catchall for everything else */
-+		return "UCHE";
-+	}
- }
- 
- static const char *a6xx_fault_block(struct msm_gpu *gpu, u32 id)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+
- 	if (id == 0)
- 		return "CP";
- 	else if (id == 4)
- 		return "CCU";
- 	else if (id == 6)
- 		return "CDP Prefetch";
-+	else if (id == 7)
-+		return "GMU";
-+	else if (id == 5 && adreno_is_a7xx(adreno_gpu))
-+		return "Flag cache";
- 
- 	return a6xx_uche_fault_block(gpu, id);
- }
--- 
-2.31.1
+On 1/24/2024 11:07 AM, Dmitry Baryshkov wrote:
+> On Tue, 23 Jan 2024 at 19:31, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>
+>> On 1/22/2024 4:23 PM, Dmitry Baryshkov wrote:
+>>> On Tue, 23 Jan 2024 at 01:20, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>>>> On 1/22/2024 9:28 AM, Kuogee Hsieh wrote:
+>>>>> On 1/19/2024 6:31 PM, Dmitry Baryshkov wrote:
+>>>>>> On Fri, 19 Jan 2024 at 23:14, Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>>> wrote:
+>>>>>>> Dmitry,
+>>>>>>>
+>>>>>>> I am testing this patch serial with msm-next branch.
+>>>>>>>
+>>>>>>> This patch cause system crash during booting up for me.
+>>>>>>>
+>>>>>>> Is this patch work for you?
+>>>>>> Yes, tested on top of linux-next. However I only tested it with
+>>>>>> DP-over-USBC. What is your testcase? Could you please share the crash
+>>>>>> log?
+>>>>> I tested it on chrome device (sc7280) which has eDP as primary and
+>>>>> without external USBC DP connected.
+>>>>>
+>>>>> It crashes during boot.
+>>>>>
+>>>>> I will debug it more and collect logs for you.
+>>>>>
+>>>> Below  patch work for chrome with both eDP and external DP.
+>>>>
+>>>> We have to return failed if it is the external DP and return value of
+>>>> devm_drm_of_get_bridge()  is !ENODEV since DP does not have next bridge.
+>>>>
+>>>> Otherwise should continues to component_add()
+>>> We also should not continue if it is eDP in case of any error.
+>>>
+>>> So it is if (is_edp || (!is_edp && ret != -ENODEV)) which is exactly
+>>> equivalent to (is_edp || ret != -ENODEV).
+>> yes, you are correct.
+>>
+>> I just found that the real fix of crash is "+ dp->next_bridge = NULL;"
+>> since dp->next_bridge will be used at dp_bridge_init() at dp_drm.c later.
+>>
+>> Therefore it need to be restored to NULL at failed case.
+> Ack, this sounds logical.
 
+ok, I will add tested-by and reviewed-by at next upload.
+
+Thanks,
+
+>
+>>> Could you please post the backtrace that you have observed?
+>> I do not have serial console port to collect logs.
+>>
+>> If you still need it, i will collect it tomorrow.
+> No, I think it is fine now, thank you!
+>
+>>>> @@ -1210,7 +1210,9 @@ static int dp_display_probe_tail(struct device *dev)
+>>>>            dp->next_bridge = devm_drm_of_get_bridge(&dp->pdev->dev,
+>>>> dp->pdev->dev.of_node, 1, 0);
+>>>>            if (IS_ERR(dp->next_bridge)) {
+>>>>                    ret = PTR_ERR(dp->next_bridge);
+>>>> -               if (dp->is_edp || ret != -ENODEV)
+>>>> +               dp->next_bridge = NULL;
+>>>> +
+>>>> +               if (!dp->is_edp && ret != -ENODEV)
+>>>>                            return ret;
+>>>>            }
+>>>>>>> On 12/29/2023 2:56 PM, Dmitry Baryshkov wrote:
+>>>>>>>> Remove two levels of indirection and fetch next bridge directly in
+>>>>>>>> dp_display_probe_tail().
+>>>>>>>>
+>>>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>>>> ---
+>>>>>>>>      drivers/gpu/drm/msm/dp/dp_display.c | 42
+>>>>>>>> +++++++++--------------------
+>>>>>>>>      drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ----------
+>>>>>>>>      drivers/gpu/drm/msm/dp/dp_parser.h  | 14 ----------
+>>>>>>>>      3 files changed, 13 insertions(+), 57 deletions(-)
+>
+>
