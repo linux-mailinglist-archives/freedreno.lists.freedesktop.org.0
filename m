@@ -2,63 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF6B883D052
-	for <lists+freedreno@lfdr.de>; Fri, 26 Jan 2024 00:04:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B06E83E154
+	for <lists+freedreno@lfdr.de>; Fri, 26 Jan 2024 19:27:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED35410ED9E;
-	Thu, 25 Jan 2024 23:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 420E210FD14;
+	Fri, 26 Jan 2024 18:27:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 670CD10E949
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 23:03:54 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2cd1232a2c7so2031631fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 25 Jan 2024 15:03:54 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA1A910FD35
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jan 2024 18:27:28 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5101f2dfdadso1348858e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jan 2024 10:27:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706223772; x=1706828572; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8ySPPPenxiGTjdzeJAw9tYqihnqIkt3gl/pAGzcWDis=;
- b=pzGcR9JbnK4bMAoM/tWqzEzlGJym80BPEhU6I46Q6AsGTzRBL7rXUj3Fv+FCGJzmI7
- 3KCzAxsc9E6khZQrZbDwA2xXF6rfzFAidkSgc5tjZ4DDrRWYsn0AGef/bJPqQ5Rk0Vzn
- SonbM/ZfS6GZmXXggog9ilq45FAl48H9zXqzvqBFTk/NgR3TF9cU8ExIOVJXhsrXBlXI
- X41BQWtA0i4kSIbDdcaT1Aeh3NrO7lirs901MHjmXkSBd4/SQ2sfPA7MZoJW1VWVgYHb
- ekd74mEnd410+8YD9pHEJjYC6cPdxkhXJkuM79WsUZ/vC6HZpXtHVuiZVimtzq7U0s/R
- S72A==
+ d=linaro.org; s=google; t=1706293587; x=1706898387; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=LYGDfQbY/xCYYNsqD+fm8Yc+HDSRw2uFMdxVRxyadQY=;
+ b=I9qLWlA7I43s4EbJGAGO4iGOKvSBKpdUYJuVZP6wHxo8Pt4cemA98A3L+kUSIV6Rtf
+ PPiUAByR0k3yBIQqeJt34kPMjiraDz5nHHcJCctQR6cRStegvcckPL/gz3o4rPhKB+3E
+ srR2BQrqZ/d5lwu65EkJCABpIIQb2zJS77z60Mz5W6Our9Uoo5zC9TccbLu2ONJIYPIl
+ 09L67lYnjg6G00LK4nSxhrcLMAI9P7Kf61OPomZEGSRm99or/PahDfb+FqYTdREqVYN/
+ kbxLeg51ZgE1sf28GjLlbeeCXd/lRWQNmIvagvES0Dt1NcgzTgtQnKqjtYc8IE//aLaD
+ DXcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706223772; x=1706828572;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8ySPPPenxiGTjdzeJAw9tYqihnqIkt3gl/pAGzcWDis=;
- b=afuDe0DI99zg6Jbb0EFXdJIWr72jrdqiFyt2jCnJ0u9W6cbm7xk2ptn8Kyl1NVdMDe
- 6UwrN1SOeAl0N4gHoagDudNjCPS/TVPnwKc2nW0e4BK75N3pWBakOTwiUrKC1yIvnhW/
- WCMg82gBQTpLcKFqgV6FFvKXeVGW8ShjuaFRVuC1M0dBkomRxK7Ks+UrbgMHgZeeGvPb
- QdSZ5s70SVSVsKsjw22D4HDYP8lYfbis0jaIUiKLLq1qG6MnpceU3xDOJOwZ/XlHYX/J
- OXjwixdtVF9ea/WRudHPFo77dQVv7tZz3ZQ9ChsG6Lg5dlOUtM0DuoRT2hOQGHpY3sP9
- x9Mw==
-X-Gm-Message-State: AOJu0Yx2e0T41UKNTTdUTBjLZtEfrmprXJJpdRjtKPvsuGsfIzIS8ooH
- GTFw5oDhpoG7xfM2C3mnlZ3RsKeWWhFBsOCdAowoUxtG+OBOLhRzVGE9al6QIf4vSTbF6Mk+hiP
- E
-X-Google-Smtp-Source: AGHT+IHZI+1/VJ90tmrUCcxRjVCBkJ5QULFm/KnSiC9u9mVxSSQ1fDYgTkR6c4xvaPfp/HO+bB+lfw==
-X-Received: by 2002:a2e:be04:0:b0:2cc:f1aa:8a3f with SMTP id
- z4-20020a2ebe04000000b002ccf1aa8a3fmr214875ljq.88.1706223772483; 
- Thu, 25 Jan 2024 15:02:52 -0800 (PST)
+ d=1e100.net; s=20230601; t=1706293587; x=1706898387;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LYGDfQbY/xCYYNsqD+fm8Yc+HDSRw2uFMdxVRxyadQY=;
+ b=G6m8Aagi8onY6zzqrA3IM3IFk4pkhKhKtAFQAKmqsY3Ary5Z7hCftJtwjqVeuNVJmT
+ YoKCgszVoceXUnhuAqXI8/UxxdKp6XDy2u8gQbD6+fETa8SsKBfTbH6pzyZf5YWh+cWN
+ X0t2L9kcV7BHMQn1xRdlW1Pb8UsyqmePucJggLc5kPG/9WSJmLtlGi6pm7xg8Jg3lc8O
+ 1nN/KCbUEspolUywXfMbBgOH1LE01wL+C4xg/PbkI2qPFmLBCW8C9IyY9TBTbzQEGA1p
+ TEy6717rJPJ7SlvPWOwgFuWjtmgo7jeALr2zNJqo3sU0I+kIyWxX6GABY+pllzBNAUHO
+ ajrQ==
+X-Gm-Message-State: AOJu0YxciggzIuzomWAnB9fKKP8b5BP/E5GoteQk411tdDkwg4aIAZIw
+ Y/Vl9NZU5em/XSqkG+8f10K+mObyf8HcEkr9/bPVUgfCSJQ/nqqmN7BJCwwrAnI=
+X-Google-Smtp-Source: AGHT+IGaW8gWxmWZ0T7kgixxqervfpwlBJ40/w8GxSEe9gixUP0JvYejpmlB3AR9ZGPddSvkp/C+Uw==
+X-Received: by 2002:a2e:9b9a:0:b0:2ce:e49:5b38 with SMTP id
+ z26-20020a2e9b9a000000b002ce0e495b38mr142607lji.29.1706293586770; 
+ Fri, 26 Jan 2024 10:26:26 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- x19-20020a2e8813000000b002cdfc29b46dsm405872ljh.88.2024.01.25.15.02.51
+ l25-20020a2e8699000000b002cf30f27698sm232218lji.91.2024.01.26.10.26.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 15:02:51 -0800 (PST)
+ Fri, 26 Jan 2024 10:26:26 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Jan 2024 01:02:44 +0200
-Subject: [PATCH v3 15/15] drm/msm/dp: drop dp_parser
+Subject: [PATCH RESEND v3 00/15] drm/msm/dp: clear power and parser
+ submodules away
+Date: Fri, 26 Jan 2024 20:26:19 +0200
+Message-Id: <20240126-dp-power-parser-cleanup-v3-0-098d5f581dd3@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240126-dp-power-parser-cleanup-v3-15-e2e46f4d390c@linaro.org>
-References: <20240126-dp-power-parser-cleanup-v3-0-e2e46f4d390c@linaro.org>
-In-Reply-To: <20240126-dp-power-parser-cleanup-v3-0-e2e46f4d390c@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -66,16 +64,16 @@ To: Rob Clark <robdclark@gmail.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd <swboyd@chromium.org>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8054;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2906;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=RoKpTVBsxpMASa9yoVqt3JBq00erT3eMVvT5PSXJn9w=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ+qmF503lzQYcfYH3ZWXbJ5mLp549u5Vo5LYw7wxT56Ii
- Gmn3+fuZDRmYWDkYpAVU2TxKWiZGrMpOezDjqn1MINYmUCmMHBxCsBEuDnZ/8p2vNyhKbWUI0NG
- asmJzYeshF7xmPzclvveU/JVMVe10nxvIyaucwleL/0DgjcF3SldPH3tqvpI69+ZEhpTq1rMnU6
- 2Ktd7eM6RCPnpqT95zsvcAzP7UzVf2r9NZXVLOip532/q4/sVi/1O9y9/FvPS0VRuUeZu9QUO5q
- Y7jDOOrf93vyxXffbaws+G2dpMxjMzBGrdsrjC33tlxevMPqfwdemlpk8Fdtee3diQd2dyRUj1k
- eW/VjYE90ZVpdfFFz5WO6Q0a+UF96YH3UL7FaMZnLjeTxBIne8g8oezKOVq1t2CEDHL41p6D9dp
- Cyk4xGiIVPxxq55pIfFi5U3XxfEL1/lN/eE577TWVY33AA==
+ bh=O8mpqaR8HXjJgB3eXyOdLmL7m98OK8uSbhLioXRWhf0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBls/lPHsYJLRUKxYf/7pbJxS9Mgri7FPORZPncT
+ 2wxrr5OmQiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZbP5TwAKCRCLPIo+Aiko
+ 1ViWCACcrta6QUtcFHnUJxeO3FEeg1rptIvp1EfCOwrsR1kCTzuSzCuQvJOk4mm6+HEVaMzxoou
+ CaOu5vICYrZsFUVYvYgg/t7K3ggB8HGaapRaDyKbkjWA+TxG1/EaLe4op7KPoHJH70YoYKVPTcg
+ sV8EE28Co2nDGc7l+nv9slcXcyXjuL8cXxDMgJYUS3TL5G+6b8m0vkTyVgPr1fLfoSt6VW+qk47
+ +OK/9uPBgWgHlvVNEz9QuccmP59baIo7R3NSOJuqCMSehQzrxUQ2F8NWBMZpO9/p4ZtYDmCH5kc
+ uNvNHFYeOmO+/xGAj0yIgL9lQVSLy6EKt1DbPvZX9SImZBWP
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,281 +94,67 @@ Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Finally drop separate "parsing" submodule. There is no need in it
-anymore. All submodules handle DT properties directly rather than
-passing them via the separate structure pointer.
+Reshuffle code in the DP driver, cleaning up clocks and DT parsing and
+dropping the dp_power and dp_parser submodules.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Initially I started by looking onto stream_pixel clock handling only to
+find several wrapping layers around a single clocks. After inlining
+and/or dropping them (and thus dp_power submodule), it was more or less
+natural to continue cleaning up the dp_parser until it got removed
+completely.
+
 ---
- drivers/gpu/drm/msm/Makefile        |  1 -
- drivers/gpu/drm/msm/dp/dp_aux.h     |  1 +
- drivers/gpu/drm/msm/dp/dp_catalog.h |  1 -
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |  3 +-
- drivers/gpu/drm/msm/dp/dp_debug.c   |  1 -
- drivers/gpu/drm/msm/dp/dp_display.c | 18 +++++------
- drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
- drivers/gpu/drm/msm/dp/dp_parser.c  | 61 -------------------------------------
- drivers/gpu/drm/msm/dp/dp_parser.h  | 39 ------------------------
- 9 files changed, 12 insertions(+), 115 deletions(-)
+Changes in v3:
+- Fixed crash in the DP when there is no next bridge (Kuogee)
+- Removed excess documentation for the removed dp_parser::io field
+- Link to v2: https://lore.kernel.org/r/20231231-dp-power-parser-cleanup-v2-0-fc3e902a6f5b@linaro.org
 
-diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index 8dbdf3fba69e..543e04fa72e3 100644
---- a/drivers/gpu/drm/msm/Makefile
-+++ b/drivers/gpu/drm/msm/Makefile
-@@ -127,7 +127,6 @@ msm-$(CONFIG_DRM_MSM_DP)+= dp/dp_aux.o \
- 	dp/dp_drm.o \
- 	dp/dp_link.o \
- 	dp/dp_panel.o \
--	dp/dp_parser.o \
- 	dp/dp_audio.o
- 
- msm-$(CONFIG_DRM_FBDEV_EMULATION) += msm_fbdev.o
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h b/drivers/gpu/drm/msm/dp/dp_aux.h
-index 16d9b1758748..f47d591c1f54 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.h
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-@@ -16,6 +16,7 @@ void dp_aux_init(struct drm_dp_aux *dp_aux);
- void dp_aux_deinit(struct drm_dp_aux *dp_aux);
- void dp_aux_reconfig(struct drm_dp_aux *dp_aux);
- 
-+struct phy;
- struct drm_dp_aux *dp_aux_get(struct device *dev, struct dp_catalog *catalog,
- 			      struct phy *phy,
- 			      bool is_edp);
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-index 989e4c4fd6fa..a724a986b6ee 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.h
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
-@@ -8,7 +8,6 @@
- 
- #include <drm/drm_modes.h>
- 
--#include "dp_parser.h"
- #include "disp/msm_disp_snapshot.h"
- 
- /* interrupts */
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 6e9f375b856a..fa014cee7e21 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -9,7 +9,6 @@
- #include "dp_aux.h"
- #include "dp_panel.h"
- #include "dp_link.h"
--#include "dp_parser.h"
- #include "dp_catalog.h"
- 
- struct dp_ctrl {
-@@ -17,6 +16,8 @@ struct dp_ctrl {
- 	bool wide_bus_en;
- };
- 
-+struct phy;
-+
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train);
- void dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
-diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
-index 6c281dc095b9..ac68554801a4 100644
---- a/drivers/gpu/drm/msm/dp/dp_debug.c
-+++ b/drivers/gpu/drm/msm/dp/dp_debug.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_connector.h>
- #include <drm/drm_file.h>
- 
--#include "dp_parser.h"
- #include "dp_catalog.h"
- #include "dp_aux.h"
- #include "dp_ctrl.h"
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index de1306a88748..67956e34436d 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -9,12 +9,12 @@
- #include <linux/debugfs.h>
- #include <linux/component.h>
- #include <linux/of_irq.h>
-+#include <linux/phy/phy.h>
- #include <linux/delay.h>
- #include <drm/display/drm_dp_aux_bus.h>
- 
- #include "msm_drv.h"
- #include "msm_kms.h"
--#include "dp_parser.h"
- #include "dp_ctrl.h"
- #include "dp_catalog.h"
- #include "dp_aux.h"
-@@ -87,7 +87,6 @@ struct dp_display_private {
- 	struct drm_device *drm_dev;
- 	struct dentry *root;
- 
--	struct dp_parser  *parser;
- 	struct dp_catalog *catalog;
- 	struct drm_dp_aux *aux;
- 	struct dp_link    *link;
-@@ -704,14 +703,11 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
- 	struct dp_panel_in panel_in = {
- 		.dev = dev,
- 	};
-+	struct phy *phy;
- 
--	dp->parser = dp_parser_get(dp->dp_display.pdev);
--	if (IS_ERR(dp->parser)) {
--		rc = PTR_ERR(dp->parser);
--		DRM_ERROR("failed to initialize parser, rc = %d\n", rc);
--		dp->parser = NULL;
--		goto error;
--	}
-+	phy = devm_phy_get(dev, "dp");
-+	if (IS_ERR(phy))
-+		return PTR_ERR(phy);
- 
- 	dp->catalog = dp_catalog_get(dev);
- 	if (IS_ERR(dp->catalog)) {
-@@ -722,7 +718,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
- 	}
- 
- 	dp->aux = dp_aux_get(dev, dp->catalog,
--			     dp->parser->phy,
-+			     phy,
- 			     dp->dp_display.is_edp);
- 	if (IS_ERR(dp->aux)) {
- 		rc = PTR_ERR(dp->aux);
-@@ -753,7 +749,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
- 
- 	dp->ctrl = dp_ctrl_get(dev, dp->link, dp->panel, dp->aux,
- 			       dp->catalog,
--			       dp->parser->phy);
-+			       phy);
- 	if (IS_ERR(dp->ctrl)) {
- 		rc = PTR_ERR(dp->ctrl);
- 		DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 70759dd1bfd0..234dada88687 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -10,6 +10,8 @@
- #include <sound/hdmi-codec.h>
- #include "disp/msm_disp_snapshot.h"
- 
-+#define DP_MAX_PIXEL_CLK_KHZ	675000
-+
- struct msm_dp {
- 	struct drm_device *drm_dev;
- 	struct platform_device *pdev;
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-deleted file mode 100644
-index f95ab3c5c72c..000000000000
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ /dev/null
-@@ -1,61 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
-- */
--
--#include <linux/of_gpio.h>
--#include <linux/phy/phy.h>
--
--#include <drm/drm_of.h>
--#include <drm/drm_print.h>
--#include <drm/drm_bridge.h>
--
--#include "dp_parser.h"
--#include "dp_reg.h"
--
--static int dp_parser_ctrl_res(struct dp_parser *parser)
--{
--	struct platform_device *pdev = parser->pdev;
--
--	parser->phy = devm_phy_get(&pdev->dev, "dp");
--	if (IS_ERR(parser->phy))
--		return PTR_ERR(parser->phy);
--
--	return 0;
--}
--
--static int dp_parser_parse(struct dp_parser *parser)
--{
--	int rc = 0;
--
--	if (!parser) {
--		DRM_ERROR("invalid input\n");
--		return -EINVAL;
--	}
--
--	rc = dp_parser_ctrl_res(parser);
--	if (rc)
--		return rc;
--
--	return 0;
--}
--
--struct dp_parser *dp_parser_get(struct platform_device *pdev)
--{
--	struct dp_parser *parser;
--	int ret;
--
--	parser = devm_kzalloc(&pdev->dev, sizeof(*parser), GFP_KERNEL);
--	if (!parser)
--		return ERR_PTR(-ENOMEM);
--
--	parser->pdev = pdev;
--
--	ret = dp_parser_parse(parser);
--	if (ret) {
--		dev_err(&pdev->dev, "device tree parsing failed\n");
--		return ERR_PTR(ret);
--	}
--
--	return parser;
--}
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-deleted file mode 100644
-index 38fd335d5950..000000000000
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ /dev/null
-@@ -1,39 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
-- */
--
--#ifndef _DP_PARSER_H_
--#define _DP_PARSER_H_
--
--#include <linux/platform_device.h>
--
--#include "msm_drv.h"
--
--#define DP_MAX_PIXEL_CLK_KHZ	675000
--
--/**
-- * struct dp_parser - DP parser's data exposed to clients
-- *
-- * @pdev: platform data of the client
-- * @phy: PHY handle
-- */
--struct dp_parser {
--	struct platform_device *pdev;
--	struct phy *phy;
--};
--
--/**
-- * dp_parser_get() - get the DP's device tree parser module
-- *
-- * @pdev: platform data of the client
-- * return: pointer to dp_parser structure.
-- *
-- * This function provides client capability to parse the
-- * device tree and populate the data structures. The data
-- * related to clock, regulators, pin-control and other
-- * can be parsed using this module.
-- */
--struct dp_parser *dp_parser_get(struct platform_device *pdev);
--
--#endif
+Changes in v2:
+- Fixed unrelated power->ctrl change in comment (Konrad)
+- Made sure that all functions use reverse-Christmas-tree flow (Konrad)
+- Fixed indents in several moved functions
+- Added a patch splitting dp_ctlr_clk_enable
+- Link to v1: https://lore.kernel.org/r/20231229225650.912751-1-dmitry.baryshkov@linaro.org
 
+---
+Dmitry Baryshkov (15):
+      drm/msm/dp: drop unused parser definitions
+      drm/msm/dp: drop unused fields from dp_power_private
+      drm/msm/dp: parse DT from dp_parser_get
+      drm/msm/dp: inline dp_power_(de)init
+      drm/msm/dp: fold dp_power into dp_ctrl module
+      drm/msm/dp: simplify stream clocks handling
+      drm/msm/dp: stop parsing clock names from DT
+      drm/msm/dp: split dp_ctrl_clk_enable into four functuions
+      drm/msm/dp: move phy_configure_opts to dp_ctrl
+      drm/msm/dp: remove PHY handling from dp_catalog.c
+      drm/msm/dp: handle PHY directly in dp_ctrl
+      drm/msm/dp: move all IO handling to dp_catalog
+      drm/msm/dp: move link property handling to dp_panel
+      drm/msm/dp: move next_bridge handling to dp_display
+      drm/msm/dp: drop dp_parser
+
+ drivers/gpu/drm/msm/Makefile        |   2 -
+ drivers/gpu/drm/msm/dp/dp_aux.c     |   9 +-
+ drivers/gpu/drm/msm/dp/dp_aux.h     |   2 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 156 +++++++++++-----
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   6 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 358 ++++++++++++++++++++++++------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  17 +-
+ drivers/gpu/drm/msm/dp/dp_debug.c   |   1 -
+ drivers/gpu/drm/msm/dp/dp_display.c | 102 +++-------
+ drivers/gpu/drm/msm/dp/dp_display.h |   3 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  66 +++++++
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 327 --------------------------------
+ drivers/gpu/drm/msm/dp/dp_parser.h  | 155 ----------------
+ drivers/gpu/drm/msm/dp/dp_power.c   | 183 ------------------
+ drivers/gpu/drm/msm/dp/dp_power.h   |  95 ----------
+ 15 files changed, 465 insertions(+), 1017 deletions(-)
+---
+base-commit: 39676dfe52331dba909c617f213fdb21015c8d10
+change-id: 20231231-dp-power-parser-cleanup-9e3a5f9a6821
+
+Best regards,
 -- 
-2.39.2
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
