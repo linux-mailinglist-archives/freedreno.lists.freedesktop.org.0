@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE86083E9B9
-	for <lists+freedreno@lfdr.de>; Sat, 27 Jan 2024 03:28:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5EE883E9BB
+	for <lists+freedreno@lfdr.de>; Sat, 27 Jan 2024 03:30:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD942112184;
-	Sat, 27 Jan 2024 02:27:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC7011218C;
+	Sat, 27 Jan 2024 02:30:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C53D112184
- for <freedreno@lists.freedesktop.org>; Sat, 27 Jan 2024 02:27:50 +0000 (UTC)
-Received: by mail-yb1-f179.google.com with SMTP id
- 3f1490d57ef6-dc21d7a7042so930611276.2
- for <freedreno@lists.freedesktop.org>; Fri, 26 Jan 2024 18:27:50 -0800 (PST)
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B079C11218D
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Jan 2024 02:30:45 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-5ff7a8b5e61so10151287b3.2
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jan 2024 18:30:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706322406; x=1706927206; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706322585; x=1706927385; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PmD0X57CBkOq/PnKV2CMVVT58JH+EItJHOHqPK4CG34=;
- b=X/gt/1iHvl2Jwpkf11297wY7pLe4SIUUD9kvjSwdpmVl+aTtNDZRCFBoMrEbsAY3as
- 8CbuArydnfkjdmPnC/6SAXJM5jDAu+vRNXlHM3D7fWvolMKYDfoZnzhsjZg3wApl19/+
- SNPlGQZVpKlzJPZjCS6qkkDZxPnmj1ZcS9ImRERb+WbN4hmXa7UbwCPnxybL1lP+Th7M
- 2OZ3xo3H1xkm3oaoJFrQ+Q2Co1E1ydRiyTh2BHaIOZoJEYQwB+PDgclI8U4rId49sCe1
- iuqyuqfLmaCBpMU6brmLftWuRei+CcwowWQxUe+4c0C+ML8JwEVEtA9OTsaZ7osBHqfw
- ba1w==
+ bh=Wpsqw69PdTzTbpXVvFlS4sbbBUhS9ggqJuFkfLVYFbI=;
+ b=Mx6B5J+sziZ3GvU/ZZ5lErca0vtnawgkhtO1cw/amfFtKlisExjbPjPzipcwI6udEv
+ X4VEnooXWibPmh7MsFl46lXr2sVV7velxTFcxpS3JSFiSnMSGzrYJqXgTSEPkSvK/PVj
+ QEXC+ucJakLvewtU2w8q3Rc7+OEIjYNzUYzbqLdgr20i0vNM4Lhqz3Tyh3WDuVqFcBjx
+ aJxyFYHI9mBuaGe/OEmGgeD3rs3QdjAvYm+9pKjYHwolvz6xFu/b2RahFtAQaaAr/5nK
+ aVQqTzTVQ4YyCv25EnGaFBKjrpjaD1r+c94xXbiHdd44P0QJwehEd/ZgE+IEDoEiI6LD
+ ZykA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706322406; x=1706927206;
+ d=1e100.net; s=20230601; t=1706322585; x=1706927385;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=PmD0X57CBkOq/PnKV2CMVVT58JH+EItJHOHqPK4CG34=;
- b=nCOAj+f680LernpRiUyAA+3siGbhZ1Rx+/h6h3/D6nmhG9HAMWfDd6mEb9tU6MjU9Q
- agzIIvFtYnxHYa8kM82E/tEiyPKdbqUgphOyPQY1SGhaZgGZ34a24eZ46i+Tq/j+zH6L
- kEKbaIbQle1aGRpWBCOG4p6ZkO5wVl6fmwEcDUsYoLrd3TpvCdyb+2lmTnWCV+/WebD9
- VEwXMmpBplZa1RkHBo56rKsR8VqzINEa4NJeUrHiL7cN80BX8idrWNZNW4hd44CbRuca
- z/jUn5Nl4tO/FuHXyfqLlzlTmt7JwOTvyJD2FvJsO4eA17gfOh02+kQ/bq6IqS6xn4lF
- J5Mg==
-X-Gm-Message-State: AOJu0YxVBgEiN2o9I0QRkBnKl2eeiNcvkTVWzHWBIOIXDR/qqhhAt9Ra
- bAC8axHuvjtiVBRE/tlRbj3XtqTWf0oPgEE/TXhDam5tGzfuN5fxFiVPQw19qhrxK+1EFevj9wV
- xVn7c6r2X1Nmxz8SWWdMRW0cVh9vGgULAy13KbQ==
-X-Google-Smtp-Source: AGHT+IFCsLON6Jdu5eEiLpsO0NWcRtQO8eIKqPlmdt4XTl7lsF7Hd1eYuqT5luTIzXi5AQLRYtYd/PSi7R+VWs8Gn+w=
-X-Received: by 2002:a81:b60c:0:b0:5f6:d2ee:2686 with SMTP id
- u12-20020a81b60c000000b005f6d2ee2686mr853287ywh.2.1706322406174; Fri, 26 Jan
- 2024 18:26:46 -0800 (PST)
+ bh=Wpsqw69PdTzTbpXVvFlS4sbbBUhS9ggqJuFkfLVYFbI=;
+ b=kXqi/wKsMIWmLFM7h6fzlAG8G6opTOm7oBpIe6U6TkCS9YSWJlpX33Hm8pO/5DC84y
+ 4N+PfILlV/lRLyNHIo0iCPBPM/0GB5iRz3aFPcw0mfTGD74cPz4Uvw/vEDhTHNVtVhWs
+ X4RVV4bsrB1/1HakQdjUQev+alg/rz1T4fwYKkYAELAVjNad0AnWN1/TReXD/Ye7ZX9U
+ 2OpkLWh2vthCu1mR8LnVD9Osizb3DsREBUwAxlFEYKRDmKgiuUlvOmI66RWgeJQRFvZt
+ TDa7ymfdKoLrSGd1Ys80EG9eAewlTy6EUBecQ9iRrJVCppAJkmFZLxxxFP4fiVwbBDA2
+ ZSvQ==
+X-Gm-Message-State: AOJu0YwS9XZC4Hlp2oxgGdDL5ixzLtoiLp3+7nNqCCA4TkvgIolQmvVZ
+ z2it+nwqY2s8kaK4vs5Kuna1Vh4V7/9BUVyVRbS7NrQNj3dzG83uVusGVwOOdR6jgtU7yF/jsza
+ yokfzILf6avkcLBvhQO1EsxJQmN4qoxw9gTwuLw==
+X-Google-Smtp-Source: AGHT+IG2vGntEr90KPuH0Vnt8yyCvpdzPWEYqwk3E89bQCaR3ArjcaVx1rD0lHo909RHwhmoS2SrQlZi0lSmEfF0+40=
+X-Received: by 2002:a05:690c:338f:b0:5ff:b07c:3b72 with SMTP id
+ fl15-20020a05690c338f00b005ffb07c3b72mr844425ywb.62.1706322584299; Fri, 26
+ Jan 2024 18:29:44 -0800 (PST)
 MIME-Version: 1.0
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-3-quic_parellan@quicinc.com>
- <53356805-21f4-4329-bff0-82d266ab9399@linaro.org>
- <674c5e5c-29e9-ef4a-5c5d-a24bdab27059@quicinc.com>
-In-Reply-To: <674c5e5c-29e9-ef4a-5c5d-a24bdab27059@quicinc.com>
+ <20240125193834.7065-5-quic_parellan@quicinc.com>
+ <0c6e94ef-4e9f-420b-92d9-785ee9f6ae30@linaro.org>
+ <332892f0-41a4-1110-a39a-2571a5f5704e@quicinc.com>
+In-Reply-To: <332892f0-41a4-1110-a39a-2571a5f5704e@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 27 Jan 2024 04:26:34 +0200
-Message-ID: <CAA8EJpo+AB3q+TRYMXDJqfk3p=L-EQEdS5mjkWOw9Mfcn5kFpQ@mail.gmail.com>
-Subject: Re: [PATCH 02/17] drm/msm/dpu: move dpu_encoder_helper_phys_setup_cdm
- to dpu_encoder
+Date: Sat, 27 Jan 2024 04:29:33 +0200
+Message-ID: <CAA8EJposAA0PdD8a4hc9Hr+Btb-eSMXX5+usnyPiVzg8Bmpa_g@mail.gmail.com>
+Subject: Re: [PATCH 04/17] drm/msm/dp: store mode YUV420 information to be
+ used by rest of DP
 To: Paloma Arellano <quic_parellan@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -79,74 +79,55 @@ Cc: neil.armstrong@linaro.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 27 Jan 2024 at 02:44, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+On Sat, 27 Jan 2024 at 02:48, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
 >
-> On 1/25/2024 1:16 PM, Dmitry Baryshkov wrote:
+> On 1/25/2024 1:20 PM, Dmitry Baryshkov wrote:
 > > On 25/01/2024 21:38, Paloma Arellano wrote:
-> >> Move dpu_encoder_helper_phys_setup_cdm to dpu_encoder in preparation for
-> >> implementing CDM compatibility for DP.
-> >
-> > Nit: s/CDM compatibility/YUV support/. It might make sense to spell it
-> > out that YUV over DP requires CDM.
-> Ack
-> >
+> >> Wide bus is not supported when the mode is YUV420 in DP. In preparation
+> >> for changing the DPU programming to reflect this, the value and
+> >> assignment location of wide_bus_en for the DP submodules must be
+> >> changed. Move it from boot time in dp_init_sub_modules() to run time in
+> >> dp_display_mode_set.
 > >>
 > >> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 78 +++++++++++++++++
-> >>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  9 ++
-> >>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 84 -------------------
-> >>   3 files changed, 87 insertions(+), 84 deletions(-)
+> >>   drivers/gpu/drm/msm/dp/dp_display.c | 17 +++++++++++++----
+> >>   drivers/gpu/drm/msm/dp/dp_panel.h   |  1 +
+> >>   2 files changed, 14 insertions(+), 4 deletions(-)
 > >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> index 83380bc92a00a..6cef98f046ea6 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> @@ -2114,6 +2114,84 @@ void dpu_encoder_helper_phys_cleanup(struct
-> >> dpu_encoder_phys *phys_enc)
-> >>       ctl->ops.clear_pending_flush(ctl);
-> >>   }
-> >>   +void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys
-> >> *phys_enc,
-> >> +                       const struct dpu_format *dpu_fmt,
-> >> +                       u32 output_type)
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+> >> b/drivers/gpu/drm/msm/dp/dp_display.c
+> >> index 9df2a8b21021e..ddac55f45a722 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> >> @@ -784,10 +784,6 @@ static int dp_init_sub_modules(struct
+> >> dp_display_private *dp)
+> >>           goto error_ctrl;
+> >>       }
+> >>   -    /* populate wide_bus_supported to different layers */
+> >> -    dp->ctrl->wide_bus_en = dp->wide_bus_supported;
+> >> -    dp->catalog->wide_bus_en = dp->wide_bus_supported;
+> >> -
+> >>       return rc;
+> >>     error_ctrl:
+> >> @@ -808,6 +804,7 @@ static int dp_display_set_mode(struct msm_dp
+> >> *dp_display,
+> >>       drm_mode_copy(&dp->panel->dp_mode.drm_mode, &mode->drm_mode);
+> >>       dp->panel->dp_mode.bpp = mode->bpp;
+> >>       dp->panel->dp_mode.capabilities = mode->capabilities;
+> >> +    dp->panel->dp_mode.out_fmt_is_yuv_420 = mode->out_fmt_is_yuv_420;
 > >
-> > My email client suggests that the parameters are not idented properly
-> > anymore.
-> On my editor it appears to be aligned correctly. Running checkpatch.pl
-> doesn't give any warnings either. So perhaps it's the email client.
-
-Checked, you are correct here.
-
-> >
-
-[skipped]
-
-> >>    * dpu_encoder_phys_wb_atomic_check - verify and fixup given atomic
-> >> states
-> >>    * @phys_enc:    Pointer to physical encoder
-> >> @@ -399,7 +316,6 @@ static int dpu_encoder_phys_wb_atomic_check(
-> >>       return
-> >> drm_atomic_helper_check_wb_connector_state(conn_state->connector,
-> >> conn_state->state);
-> >>   }
-> >>   -
-> >
-> > irrelevant, please drop.
-> Ack
-
-With this fixed:
+> > Why do we need it in dp_panel too?
+> Not sure if you saw in the other later patches, but I use the
+> out_fmt_is_yuv_420 derived from dp_panel throughout dp_ctrl.c and dp_panel.c
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > >
-> >>   /**
-> >>    * _dpu_encoder_phys_wb_update_flush - flush hardware update
-> >>    * @phys_enc:    Pointer to physical encoder
-> >
-
+> >> dp_panel_init_panel_info(dp->panel);
+> >>       return 0;
+> >>   }
 
 
 -- 
