@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 106DD84096D
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 16:13:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E43AF840979
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 16:16:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D48F210F758;
-	Mon, 29 Jan 2024 15:12:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB28710F79A;
+	Mon, 29 Jan 2024 15:16:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0DB510F758
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 15:12:36 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-dbed0710c74so3029684276.1
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 07:12:36 -0800 (PST)
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
+ [209.85.219.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8A41129A1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 15:16:18 +0000 (UTC)
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-dc24ead4428so2045793276.1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 07:16:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706541096; x=1707145896; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706541317; x=1707146117; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=bzxGAI3uTZ4t8Yu0tkeNdDJhjt+ClUZzfi+ZIweVgvk=;
- b=kpBoY+oBxYkcBTr81l6uQprNsD01+9s0NX/puVlolDDKp62rtnA/sTtmoqGfII5L4F
- LHPay4SkifcTL/xM5CG+P+Esvq9BAqN6yLlA/ea6DksbfGXbVWcaTwOlkJTMEY3T8grq
- RXNFeUTNmORmT5P1EOtiQh5yzNQ3GiCsQgnA37PZd//BRe2RYnHB9e1FmK9tbYWqQEQr
- GKKP6OFiozu3nbz+aublPr49z5M7aUgMYXPbYP/4C9cRnuZNx1Lkr34Us2Eq9CCkQZb0
- 2TQDLsjX2SfLtgUCCfbu7OBhud0jPMJPioE51EfeYXQclqCqZDHG7tKCa/7osJh6ve6I
- NfYg==
+ bh=19g3oA8IiRUGTXPpvDGJllhbr2rfvg3/xxxfKuMshKI=;
+ b=zxUWwnsJZUD+Zm0PFdSj4dnjQVMR9uJ3wRZCCMOcHO4lFqP2zWMycpEbsQnC4wcJJF
+ pI+y+RH/F+Tnj952bgJqULYDl+aE7CLU/ug/3QP+n/3W1ab3j6KEvVx6A8Gt7bgHogfs
+ XG3pnLBCwICRuoRvRuWbYDNXg6A7ZrX1arXv5BQ2+9N6GLZaMCP6UGXghfyVseRadd/b
+ ABp3zs0yg1CegRzhtqTuCXI5QJPfNT4kgEaDzsI2vgWOanJhf8I8YJj5de6Isdv2wefL
+ D4Eb6boEMiHBuMizWXTBhTmlrL4XZ44DiCfgFjotR7jPBJqWv5+VjKYPtzm0ipKXF6hT
+ KK7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706541096; x=1707145896;
+ d=1e100.net; s=20230601; t=1706541317; x=1707146117;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=bzxGAI3uTZ4t8Yu0tkeNdDJhjt+ClUZzfi+ZIweVgvk=;
- b=BCBAf5/mRr++7/UrKx3Lsz+dx4zu6JPtl4Ufz42Y0ggAbdkb8lm0poTNMzDsAxbfao
- qMoudUlC74vJL2J3URTKr+C9Lr4NfVo8k/okvzoJIIhai08eR56iqJhZiUPHQyr6ZG3H
- zt4eUAvhlMzROl+n59EOkN6qmmTZMOtIF7caO7MOM1QUVhpKad+cGPc24TdSBntkcYry
- ZoW41KBaGRMGIUesYU83gqn+f6XWGsboY8pmbv8d8Ho66Usm3cmn5Tx6a3veikQgPAXo
- h8sTmX/AGgHg1jjhGDR7RHMWOL+BNDEjFkW54sd6sMqqHBVuMwNsP5aO1NJW5fW/3nxd
- VlJw==
-X-Gm-Message-State: AOJu0YzY7IZYfUuaRdrrmoywRJiO78H+bcB0/lG6N928E4NFKyNjsNaW
- L2p0zwEpaJYqNZ4qZ5bnT8AzU3b+tCFb+mfypkEG+YLCRXJKTqawAH32H4dOuyQuuCD1MSfsjys
- U2qC/+qAIM1DipYVrBCCsN6DAzEq0O3oPtEAtgw==
-X-Google-Smtp-Source: AGHT+IGTMQ/BAh4UMgioJdLPcXsz/GX4p8hJbTGo1lQCHr2AEV10T3HvflCpK8wmeYx9XsAaaWkgqAghpN7LLUDOvks=
-X-Received: by 2002:a05:6902:2808:b0:dbd:ac60:bcd4 with SMTP id
- ed8-20020a056902280800b00dbdac60bcd4mr4890852ybb.75.1706541096178; Mon, 29
- Jan 2024 07:11:36 -0800 (PST)
+ bh=19g3oA8IiRUGTXPpvDGJllhbr2rfvg3/xxxfKuMshKI=;
+ b=YV69TbeHiOPNpPieKT2Kah6L9zksjUxJCqPtSgTGPfbsrXlaUIlhp1NgGW4hfnFr7/
+ bckaBIyPxkgRP4qwI5sU/e+NG1TEjDaw9+AL4rFs5KXHGroBu8+0m2FrPaUOIO0FtTpq
+ z7HauzqXoyf9EHI1bDuUhC3hBNvbSUbqJI5nkDHQAhE167HMPYELP9CZ03hBEQ4gcW6S
+ XfjRNb+v6a5chyeWWy/VELP0YjDlPbwR8MY/LkHxF3uF7Qlc2FjLhPUfV8MITsiWgNf8
+ YcO4viOOrQdQTSZYwiQQXU208i9O85+Y51CLBSIgYGVMT9n2nd2/WLPTFgwcXc8Vi5uo
+ iFeg==
+X-Gm-Message-State: AOJu0Yz2eBULfXShcTRgjRlA/NIMAM3pKk48+oDizWSbeanweZMNg0Vz
+ 3uK7Jfhbvg1+SCxRMfh5o3owOibCF+BUdUaWukc6DJr68fAmsUxnTOi8mpFHi7yr++wA7r5rlvn
+ VvNo6F3aIy4uIl/WDzL+HWH0W51SMQYDJyNveUA==
+X-Google-Smtp-Source: AGHT+IFydtOcrIJRlNoXpg56zZ7tHX71n5y4JJpZgFrLYNKvhBr3oibPkEQ4p09wGzgkORErJGWYlBptWzGE6KVbIJ8=
+X-Received: by 2002:a25:ec0a:0:b0:dc2:52f4:2356 with SMTP id
+ j10-20020a25ec0a000000b00dc252f42356mr3387101ybh.119.1706541317649; Mon, 29
+ Jan 2024 07:15:17 -0800 (PST)
 MIME-Version: 1.0
 References: <20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org>
- <20240129-x1e80100-display-v1-3-0d9eb8254df0@linaro.org>
-In-Reply-To: <20240129-x1e80100-display-v1-3-0d9eb8254df0@linaro.org>
+ <20240129-x1e80100-display-v1-5-0d9eb8254df0@linaro.org>
+In-Reply-To: <20240129-x1e80100-display-v1-5-0d9eb8254df0@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 29 Jan 2024 17:11:25 +0200
-Message-ID: <CAA8EJponbo2vvuj2ftCQuxtrZp0w7JQqJ_ADF80Wd2y1V74BzA@mail.gmail.com>
-Subject: Re: [PATCH 3/5] drm/msm: mdss: Add X1E80100 support
+Date: Mon, 29 Jan 2024 17:15:06 +0200
+Message-ID: <CAA8EJpp_S4Ug8WoiQ5f3hEESTy9_u1wOo-ETMD2Tky1_OQH0kg@mail.gmail.com>
+Subject: Re: [PATCH 5/5] drm/msm/dpu: Add X1E80100 support
 To: Abel Vesa <abel.vesa@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -84,48 +84,22 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Mon, 29 Jan 2024 at 15:19, Abel Vesa <abel.vesa@linaro.org> wrote:
 >
-> Add support for MDSS on X1E80100.
+> Add definitions for the display hardware used on the Qualcomm X1E80100
+> platform.
 >
+> Co-developed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   | 449 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  4 files changed, 453 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 455b2e3a0cdd..eddf7fdbb60a 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -564,6 +564,15 @@ static const struct msm_mdss_data sdm670_data = {
->         .highest_bank_bit = 1,
->  };
->
-> +static const struct msm_mdss_data x1e80100_data = {
-> +       .ubwc_enc_version = UBWC_4_0,
-> +       .ubwc_dec_version = UBWC_4_3,
-> +       .ubwc_swizzle = 6,
-> +       .ubwc_static = 1,
-> +       .highest_bank_bit = 2,
-> +       .macrotile_mode = 1,
 
-Missing .reg_bus_bw, LGTM otherwise
 
-> +};
-> +
->  static const struct msm_mdss_data sdm845_data = {
->         .ubwc_enc_version = UBWC_2_0,
->         .ubwc_dec_version = UBWC_2_0,
-> @@ -655,6 +664,7 @@ static const struct of_device_id mdss_dt_match[] = {
->         { .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
->         { .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
->         { .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
-> +       { .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
->         {}
->  };
->  MODULE_DEVICE_TABLE(of, mdss_dt_match);
->
-> --
-> 2.34.1
->
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
 -- 
