@@ -2,68 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4329B83FD8C
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 06:13:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0D1583FDC4
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 06:37:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE7C11243F;
-	Mon, 29 Jan 2024 05:13:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1611510FCD2;
+	Mon, 29 Jan 2024 05:36:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A78811243F
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 05:13:13 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-5ff7ec8772dso24048287b3.0
- for <freedreno@lists.freedesktop.org>; Sun, 28 Jan 2024 21:13:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706505132; x=1707109932; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=5jltE+DN0JiS0RyjCpFGTNBkRmZTmxyV8OP3L4P+nVo=;
- b=r1n6thmgF9kmGfXizqVtowUeyRbqjggz7sqHUWNa0CjENgyA6EyKfzA1KLBYK51UEL
- H9YzBczsjCvDK4XVuov4LLRHLFkpgM2yuP9GIBpvU2vlT65H7fm0z1LZL0QtizhzyYO0
- HerjMYyUQhQEg5aVNIKfVobiMv+KNI+/otukyV6bf4swL/xMSB8c8eqUHLJG5LKmFGN5
- 1jj9KXQ+CRhQIGp4l4WJfKiSLiD1+L1NB5ywp+fWvhSVW1JoBxVtvo/dRbU28jC1rZ52
- lFiGBOh1EycrEKURuxSzpuvvtkLd8PeV7JJAelxiyJ2QswTvHqwkCJFvW0rF72LY5nSl
- 3OFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706505132; x=1707109932;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=5jltE+DN0JiS0RyjCpFGTNBkRmZTmxyV8OP3L4P+nVo=;
- b=WLxx/5Nwxqj3k/UUmDTXAb2DT7a2yPnTAw9D6QZS6Ih5vmxtJnUaWCf7id3ztJSHlt
- hNNw8o7tZ/zgYYdPh7EvDHMFBdaSGyImzqvEJder2lHljSCuflF9M8RXNCHb47KzYPrt
- LRDZjY6Kza9e4m8El+0taLOsMPOD4SRoA6nov89l0vvnL6H52Vs5BbTciosD6GPWxZl0
- iNEAsVmLqgz7Rdnu9/drIn1exM3fCTlTMX06SMM5X+/B/NDCh4TNeXxRN9D1iNFh6PgO
- wG4YxUCPBrLwBuf116BolCHFniNiPeoG6ZTBYgL5QfPzWbIDvkvSVO/aax6qKwojAIiP
- xJ0A==
-X-Gm-Message-State: AOJu0YwDMivqSmJjKJko6BF5oP0igWHRoCI5Asf6jEPUgXdwelaPRIwd
- BWAXrxy9SYlckixNtaG/4BwsuMFTLODjCBWotS2SJFZkMUZn3Fl3n4ew1gRxtg76j1Y5Xj8ba83
- oO17t4OMVmhY4nwJQV0oorS33Tpiqn83wfbDocg==
-X-Google-Smtp-Source: AGHT+IEtf+u7iU+6a6rOfEJQnzGLIxIVk3xMKscH3LqPL1c35CJiA93ucbtohUOjGwEBIPdpEWjhlB+wlEJwZHnquUg=
-X-Received: by 2002:a05:690c:fce:b0:5ff:ac2f:cd65 with SMTP id
- dg14-20020a05690c0fce00b005ffac2fcd65mr3672461ywb.88.1706505132213; Sun, 28
- Jan 2024 21:12:12 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E38DA10FCD2;
+ Mon, 29 Jan 2024 05:36:52 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40T5CIJc003778; Mon, 29 Jan 2024 05:36:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=A4+YhRJbxAj8pl4exb8U1Diw6ayXlnWsul8WoEggIOI=; b=f2
+ /sYrrp4EVA7QaID3Oc1M4V8QPShrNd66b3sIFLEq3jQH3arK9KclwYpReIM4xms2
+ xeQ+6pZOhKejIRc0NjaBQGcj4M8luL/PeNTdjsfMQZXej91iBbOLSHcHo9X31ejt
+ ktsqM3grAkBDQFh+vUKGKvYDO8cCvoYEAC1gwmPZfTKqsXI3v1pobiQ6oUH2mLos
+ 7olOVYbQohxt44SQ4adcw5ZBRihtv8g3jNduuGeW29sb4Zs1tbupiPA/QTo/Bsom
+ 9Pu/BXghYCj+4+azmMxLEowMnnxFm7ttt+xpQMdbQ3MOps1rzyfnznQZ/FJGI4X6
+ YzMDe1DpsggccT/B6hlA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vvqhmu27j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Jan 2024 05:36:44 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40T5ahfj023463
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Jan 2024 05:36:43 GMT
+Received: from [10.110.98.98] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Sun, 28 Jan
+ 2024 21:36:42 -0800
+Message-ID: <3c87c423-e290-c399-30d3-3b0d94903619@quicinc.com>
+Date: Sun, 28 Jan 2024 21:36:41 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 17/17] drm/msm/dp: allow YUV420 mode for DP connector when
+ VSC SDP supported
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-2-quic_parellan@quicinc.com>
- <31e4a033-1779-450c-980e-63c8567837ed@linaro.org>
- <fa5ce695-8c00-1ae4-04cd-d1b49b42c5d6@quicinc.com>
- <5d0b2da2-7683-f801-0acf-255a8c2bd618@quicinc.com>
- <CAA8EJpoTtzupauFah=65Yn_cRQzDbgpLw-6GuXWCUwPcNJvKOA@mail.gmail.com>
- <0bed7afe-b73a-b1de-edc0-a25b368556bf@quicinc.com>
- <CAA8EJprO9rvEnyOD83N0YFaTO64TxDvvg_XMQ2zF+ku1ucHi3A@mail.gmail.com>
- <b26b2660-0d7d-4758-8052-ca94e9162e2d@quicinc.com>
-In-Reply-To: <b26b2660-0d7d-4758-8052-ca94e9162e2d@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 29 Jan 2024 07:12:00 +0200
-Message-ID: <CAA8EJpr-kHNbGaJPnAugd3bOS9Y_UhOeeGMvrrM3A+R83SgWbQ@mail.gmail.com>
-Subject: Re: [PATCH 01/17] drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm
- to work for DP
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+ <20240125193834.7065-18-quic_parellan@quicinc.com>
+ <493926f1-90e9-493a-bd2f-ea1db16d7ee6@linaro.org>
+ <72ca08ac-ae16-37f6-6f85-f203ddf79084@quicinc.com>
+ <CAA8EJppj1xN8E==VGncvW5DKMtLPixynpgAqyZoJzPQXZEEYjg@mail.gmail.com>
+ <1666a8c3-f1f0-f050-aa06-cf221bdbcbb9@quicinc.com>
+ <CAA8EJprDUBb7yM-16QVa_i6ONRaNYSWRvJKMG=Z2rPhJ0JfwXw@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJprDUBb7yM-16QVa_i6ONRaNYSWRvJKMG=Z2rPhJ0JfwXw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: -LgbofhnBlEELVriZVXxfi08VXU09cyN
+X-Proofpoint-ORIG-GUID: -LgbofhnBlEELVriZVXxfi08VXU09cyN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-29_02,2024-01-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 mlxlogscore=999
+ spamscore=0 impostorscore=0 clxscore=1015 mlxscore=0 bulkscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401290038
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,190 +97,139 @@ Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 29 Jan 2024 at 06:33, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 1/28/2024 8:12 PM, Dmitry Baryshkov wrote:
-> > On Mon, 29 Jan 2024 at 06:01, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >>
-> >>
-> >> On 1/28/2024 7:23 PM, Dmitry Baryshkov wrote:
-> >>> On Mon, 29 Jan 2024 at 05:06, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 1/26/2024 4:39 PM, Paloma Arellano wrote:
-> >>>>>
-> >>>>> On 1/25/2024 1:14 PM, Dmitry Baryshkov wrote:
-> >>>>>> On 25/01/2024 21:38, Paloma Arellano wrote:
-> >>>>>>> Generalize dpu_encoder_helper_phys_setup_cdm to be compatible with DP.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> >>>>>>> ---
-> >>>>>>>     .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 +--
-> >>>>>>>     .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 31 ++++++++++---------
-> >>>>>>>     2 files changed, 18 insertions(+), 17 deletions(-)
-> >>>>>>>
-> >>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>>>>>> index 993f263433314..37ac385727c3b 100644
-> >>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>>>>>> @@ -153,6 +153,7 @@ enum dpu_intr_idx {
-> >>>>>>>      * @hw_intf:        Hardware interface to the intf registers
-> >>>>>>>      * @hw_wb:        Hardware interface to the wb registers
-> >>>>>>>      * @hw_cdm:        Hardware interface to the CDM registers
-> >>>>>>> + * @cdm_cfg:    CDM block config needed to store WB/DP block's CDM
-> >>>>>>> configuration
-> >>>>>>
-> >>>>>> Please realign the description.
-> >>>>> Ack
-> >>>>>>
-> >>>>>>>      * @dpu_kms:        Pointer to the dpu_kms top level
-> >>>>>>>      * @cached_mode:    DRM mode cached at mode_set time, acted on in
-> >>>>>>> enable
-> >>>>>>>      * @vblank_ctl_lock:    Vblank ctl mutex lock to protect
-> >>>>>>> vblank_refcount
-> >>>>>>> @@ -183,6 +184,7 @@ struct dpu_encoder_phys {
-> >>>>>>>         struct dpu_hw_intf *hw_intf;
-> >>>>>>>         struct dpu_hw_wb *hw_wb;
-> >>>>>>>         struct dpu_hw_cdm *hw_cdm;
-> >>>>>>> +    struct dpu_hw_cdm_cfg cdm_cfg;
-> >>>>>>
-> >>>>>> It might be slightly better to move it after all the pointers, so
-> >>>>>> after the dpu_kms.
-> >>>>> Ack
-> >>>>>>
-> >>>>>>>         struct dpu_kms *dpu_kms;
-> >>>>>>>         struct drm_display_mode cached_mode;
-> >>>>>>>         struct mutex vblank_ctl_lock;
-> >>>>>>> @@ -213,7 +215,6 @@ static inline int
-> >>>>>>> dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
-> >>>>>>>      * @wbirq_refcount:     Reference count of writeback interrupt
-> >>>>>>>      * @wb_done_timeout_cnt: number of wb done irq timeout errors
-> >>>>>>>      * @wb_cfg:  writeback block config to store fb related details
-> >>>>>>> - * @cdm_cfg: cdm block config needed to store writeback block's CDM
-> >>>>>>> configuration
-> >>>>>>>      * @wb_conn: backpointer to writeback connector
-> >>>>>>>      * @wb_job: backpointer to current writeback job
-> >>>>>>>      * @dest:   dpu buffer layout for current writeback output buffer
-> >>>>>>> @@ -223,7 +224,6 @@ struct dpu_encoder_phys_wb {
-> >>>>>>>         atomic_t wbirq_refcount;
-> >>>>>>>         int wb_done_timeout_cnt;
-> >>>>>>>         struct dpu_hw_wb_cfg wb_cfg;
-> >>>>>>> -    struct dpu_hw_cdm_cfg cdm_cfg;
-> >>>>>>>         struct drm_writeback_connector *wb_conn;
-> >>>>>>>         struct drm_writeback_job *wb_job;
-> >>>>>>>         struct dpu_hw_fmt_layout dest;
-> >>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>>>>>> index 4cd2d9e3131a4..072fc6950e496 100644
-> >>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>>>>>> @@ -269,28 +269,21 @@ static void
-> >>>>>>> dpu_encoder_phys_wb_setup_ctl(struct dpu_encoder_phys *phys_enc)
-> >>>>>>>      *                                     This API does not handle
-> >>>>>>> DPU_CHROMA_H1V2.
-> >>>>>>>      * @phys_enc:Pointer to physical encoder
-> >>>>>>>      */
-> >>>>>>> -static void dpu_encoder_helper_phys_setup_cdm(struct
-> >>>>>>> dpu_encoder_phys *phys_enc)
-> >>>>>>> +static void dpu_encoder_helper_phys_setup_cdm(struct
-> >>>>>>> dpu_encoder_phys *phys_enc,
-> >>>>>>> +                          const struct dpu_format *dpu_fmt,
-> >>>>>>> +                          u32 output_type)
-> >>>>>>>     {
-> >>>>>>>         struct dpu_hw_cdm *hw_cdm;
-> >>>>>>>         struct dpu_hw_cdm_cfg *cdm_cfg;
-> >>>>>>>         struct dpu_hw_pingpong *hw_pp;
-> >>>>>>> -    struct dpu_encoder_phys_wb *wb_enc;
-> >>>>>>> -    const struct msm_format *format;
-> >>>>>>> -    const struct dpu_format *dpu_fmt;
-> >>>>>>> -    struct drm_writeback_job *wb_job;
-> >>>>>>>         int ret;
-> >>>>>>>           if (!phys_enc)
-> >>>>>>>             return;
-> >>>>>>>     -    wb_enc = to_dpu_encoder_phys_wb(phys_enc);
-> >>>>>>> -    cdm_cfg = &wb_enc->cdm_cfg;
-> >>>>>>> +    cdm_cfg = &phys_enc->cdm_cfg;
-> >>>>>>>         hw_pp = phys_enc->hw_pp;
-> >>>>>>>         hw_cdm = phys_enc->hw_cdm;
-> >>>>>>> -    wb_job = wb_enc->wb_job;
-> >>>>>>> -
-> >>>>>>> -    format = msm_framebuffer_format(wb_enc->wb_job->fb);
-> >>>>>>> -    dpu_fmt = dpu_get_dpu_format_ext(format->pixel_format,
-> >>>>>>> wb_job->fb->modifier);
-> >>>>>>>           if (!hw_cdm)
-> >>>>>>>             return;
-> >>>>>>> @@ -306,10 +299,10 @@ static void
-> >>>>>>> dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
-> >>>>>>>           memset(cdm_cfg, 0, sizeof(struct dpu_hw_cdm_cfg));
-> >>>>>>>     -    cdm_cfg->output_width = wb_job->fb->width;
-> >>>>>>> -    cdm_cfg->output_height = wb_job->fb->height;
-> >>>>>>> +    cdm_cfg->output_width = phys_enc->cached_mode.hdisplay;
-> >>>>>>> +    cdm_cfg->output_height = phys_enc->cached_mode.vdisplay;
-> >>>>>>
-> >>>>>> This is a semantic change. Instead of passing the FB size, this passes
-> >>>>>> the mode dimensions. They are not guaranteed to be the same,
-> >>>>>> especially for the WB case.
-> >>>>>>
-> >>>>
-> >>>> The WB job is storing the output FB of WB. I cannot think of a use-case
-> >>>> where this cannot match the current mode programmed to the WB encoder.
-> >>>>
-> >>>> Yes, if it was the drm_plane's FB, then it cannot be guaranteed as the
-> >>>> plane can scale the contents but here thats not the case. Here its the
-> >>>> output FB of WB.
-> >>>
-> >>> Is it a part of WB uAPI, to have the FB dimensions equal to mode
-> >>> dimensions? Or is it just our current limitation? I can easily imagine
-> >>> WB outputting data to a part of the FB (just like we can clip FB using
-> >>> plane's clip rectangle).
-> >>>
-> >>> This boils down to a question, whether CDM should be setup in terms of
-> >>> actual output date or the physical memory buffer parameters. I suspect
-> >>> the former is the case (which makes this change correct). But it
-> >>> either should be described in the commit message or (even better)
-> >>> split to a separate commit.
-> >>>
-> >>
-> >> I would say its a combination of both today.
-> >>
-> >> The way I would look at it is even if WB crops a certain section of FB,
-> >> that will not change the FB size. FB size of WB should match the rest of
-> >> the DRM pipeline (the mode programmed to the CRTC/encoder). If WB
-> >> decides to write to only a small section of FB (cropping), then we need
-> >> another WB property like CROP_ROI so that we can program the WB to only
-> >> write to a small section of the programmed FB. So in some sense, there
-> >> is no such support in DRM UAPI today. Hence the FB of WB is the full
-> >> mode of the WB.
-> >
-> >   I'd say, CROP_ROI can refer to cropping of the image source (esp. in
-> > the cloned output case). For writing to the part of the FB there can
-> > be DST_X/_Y/_W/_H properties. But this becomes off-topic.
-> >
-> >> CDM is before WB so follows the rest of the pipeline that is whatever
-> >> the data feeding it was programmed to.
-> >
-> > Yes. So the change is correct, but it should be split or documented
-> > properly. I prefer the first option.
-> >
->
-> Ok just to clarify you prefer below part of the change to be moved to
-> its own commit right?
->
-> -    cdm_cfg->output_width = wb_job->fb->width;
-> -    cdm_cfg->output_height = wb_job->fb->height;
-> +    cdm_cfg->output_width = phys_enc->cached_mode.hdisplay;
-> +    cdm_cfg->output_height = phys_enc->cached_mode.vdisplay;
->
-> If so, ack.
+
+
+On 1/28/2024 9:05 PM, Dmitry Baryshkov wrote:
+> On Mon, 29 Jan 2024 at 06:30, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 1/28/2024 7:52 PM, Dmitry Baryshkov wrote:
+>>> On Mon, 29 Jan 2024 at 05:17, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 1/25/2024 2:05 PM, Dmitry Baryshkov wrote:
+>>>>> On 25/01/2024 21:38, Paloma Arellano wrote:
+>>>>>> All the components of YUV420 over DP are added. Therefore, let's mark the
+>>>>>> connector property as true for DP connector when the DP type is not eDP
+>>>>>> and when VSC SDP is supported.
+>>>>>>
+>>>>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/msm/dp/dp_display.c | 5 ++++-
+>>>>>>     1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>> index 4329435518351..97edd607400b8 100644
+>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>>>> @@ -370,11 +370,14 @@ static int dp_display_process_hpd_high(struct
+>>>>>> dp_display_private *dp)
+>>>>>>         dp_link_process_request(dp->link);
+>>>>>> -    if (!dp->dp_display.is_edp)
+>>>>>> +    if (!dp->dp_display.is_edp) {
+>>>>>> +        if (dp_panel_vsc_sdp_supported(dp->panel))
+>>>>>> +            dp->dp_display.connector->ycbcr_420_allowed = true;
+>>>>>
+>>>>> Please consider fixing a TODO in drm_bridge_connector_init().
+>>>>>
+>>>>
+>>>> I am not totally clear if that TODO can ever go for DP/HDMI usage of
+>>>> drm_bridge_connector.
+>>>>
+>>>> We do not know if the sink supports VSC SDP till we read the DPCD and
+>>>> till we know that sink supports VSC SDP, there is no reason to mark the
+>>>> YUV modes as supported. This is the same logic followed across vendors.
+>>>>
+>>>> drm_bride_connector_init() happens much earlier than the point where we
+>>>> read DPCD. The only thing which can be done is perhaps add some callback
+>>>> to update_ycbcr_420_allowed once DPCD is read. But I don't think its
+>>>> absolutely necessary to have a callback just for this.
+>>>
+>>> After checking the drm_connector docs, I'd still hold my opinion and
+>>> consider this patch to be a misuse of the property. If you check the
+>>> drm_connector::ycbcr_420_allowed docs, you'll see that it describes
+>>> the output from the source point of view. In other words, it should be
+>>> true if the DP connector can send YUV420 rather than being set if the
+>>> attached display supports such output. This matches ycbcr420_allowed
+>>> usage by AMD, dw-hdmi, intel_hdmi and even intel_dp usage.
+>>>
+>>
+>> hmmm I think I misread intel_dp_update_420(). I saw this is called after
+>> HPD so I thought they unset ycbcr_420_allowed if VSC SDP is not
+>> supported. But they have other DPCD checking there so anyway they will
+>> fail this bridge_connector_init() model.
+>>
+>> But one argument which I can give in my defense is, lets say the sink
+>> exposed YUV formats but did not support SDP, then atomic_check() will
+>> keep failing or should keep failing. This will avoid this scenario. But
+>> we can assume that would be a rogue sink.
+> 
+> This should be handled in DP's atomic_check. As usual, bonus point if
+> this is done via helpers that can be reused by other platforms.
+> 
+>> I think we can pass a yuv_supported flag to msm_dp_modeset_init() and
+>> set it to true from dpu_kms if catalog has CDM block and get rid of the
+>> dp_panel_vsc_sdp_supported().
+> 
+> These are two different issues. CDM should be checked in PDU (whether
+> the DPU can provide YUV data to the DP block).
+> 
+
+Yes, I found this issue while discussing this. We need to make this change.
+
+>>
+>> But that doesnt address the TODO you have pointed to. What is really the
+>> expectation of the TODO? Do we need to pass a ycbcr_420_allowed flag to
+>> drm_bridge_connector_init()?
+> 
+> Ugh. No. I was thinking about a `ycbcr420_allowed` flag in the struct
+> drm_bridge (to follow existing interlace_allowed) flag. But, this
+> might be not the best option. Each bridge can either pass through YUV
+> data from the previous bridge or generate YCbCr data on its own. So in
+> theory this demands two flags plus one flag for the encoder. Which
+> might be an overkill, until we end up in a situation when the driver
+> can not decide for the full bridge chain.
+> 
 
 Yes.
 
+> So let's probably ignore the TODO for the purpose of this series. Just
+> fix the usage of ycbcr420_allowed according to docs.
+> 
 
--- 
-With best wishes
-Dmitry
+Ack.
+
+>>
+>> That would need a tree wide cleanup and thats difficult to sign up for
+>> in this series and I would not as well.
+>>
+>> One thing which I can suggest to be less intrusive is have a new API
+>> called drm_bridge_connector_init_with_YUV() which looks something like
+>> below:
+>>
+>> struct drm_connector *drm_bridge_connector_init_with_ycbcr_420(struct
+>> drm_device *drm, struct drm_encoder *encoder)
+>> {
+>>          drm_bridge_connector_init();
+>>          connector->ycbcr_420_allowed = true;
+>> }
+>>
+>> But I don't know if the community would be interested in this idea or
+>> would find that useful.
+>>
+>>>>>>             drm_dp_set_subconnector_property(dp->dp_display.connector,
+>>>>>>                              connector_status_connected,
+>>>>>>                              dp->panel->dpcd,
+>>>>>>                              dp->panel->downstream_ports);
+>>>>>> +    }
+>>>>>>         edid = dp->panel->edid;
+>>>>>
+>>>
+>>>
+>>>
+> 
+> 
+> 
