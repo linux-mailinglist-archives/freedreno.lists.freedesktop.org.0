@@ -2,62 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2207183FCAC
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 04:25:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B205B83FCEC
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 04:44:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F499112186;
-	Mon, 29 Jan 2024 03:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7963710F5D4;
+	Mon, 29 Jan 2024 03:44:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40DE0112199
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 03:24:55 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-db3a09e96daso1780669276.3
- for <freedreno@lists.freedesktop.org>; Sun, 28 Jan 2024 19:24:55 -0800 (PST)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 664E010F5D4
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 03:44:06 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-6001449a2beso13520737b3.3
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Jan 2024 19:44:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706498634; x=1707103434; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706499785; x=1707104585; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=tRDEhCQbLKSx1e9jKW9m9uVml+QfUWWHZsQITGtv9yw=;
- b=kQfFPZj1nEfMsHwKHllrSs4Q6cSnR6+KLYhCaHkQG+U+SdmBUVNYS+ywHlFmeZbvgn
- BB9yEbKtD8Ox6T4OkahlXHqiOFFweU0ESO43uSp0TKDgBhvfdQY3HuWCognz0cMoAQNj
- 2Ep8WHHQunCBiwv7lXboYjG9BgSyzDYg2m8idnwt+CVGo5lwIlN++TsscDTjbPUxsUzO
- vVpHozWUnBFOGTGzS63rqr4U2FErqZWcZe61AKMdSieQBPbEm+l6PJBi5+TUsxHEsoZB
- kIjlgKXm6eQuGJzZrglFQSYpWmWbnMVgRWUhvhN8TWC89cQUW+xrHq4oHvPgQoUzGWwK
- pCpg==
+ bh=J0DV7QGMiPinKgD216LjWiY34diwCxfaE2ieTUqBaRM=;
+ b=PWXOTszshKnE/5vM3cl23I5+4zM2i//ChmvECAJs7lKvM/J22xA3CfiT7h3B/LoqCb
+ HQbL7rb7PZC9c0KqoBUzZvEYKCfb0OoyXJmycjVR7sJPPds/TP6XvmK2z9cn8sMOR2To
+ n1TXzfNp5GJFLL9ebnXo7wDgwC5NrFdiAhbiBO0P4gIZpQMmWzXrA2PHboXzGjA3i1Rx
+ uabOvXrX5OWLai9lclWeidiYUrS7i3seD8Q3/wmp4cZI+4qoeJA4+yJyyaWQbvrsmZDr
+ aA+BaBbVbmi1KuSVRWLhl3dNYM82xU6eYaA+q0/q8mZGs0iHairZs7kp+TfL6Qzy2ymc
+ QU5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706498634; x=1707103434;
+ d=1e100.net; s=20230601; t=1706499785; x=1707104585;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=tRDEhCQbLKSx1e9jKW9m9uVml+QfUWWHZsQITGtv9yw=;
- b=bXkoeMUZJjnMPv3BXpG/9zLBf2DFJ0ro/6aUejogi5Xn3SrGB6wJD1xACCfRpizVjn
- gJWRpak796Y5+HKJzlUojAdkiLc72prjohGcG+lm9W/y26n3tn8Oi2FVa539L5xg2O3+
- fT1UxtHjusVa3QKz17zDttZJy+dOpWA0Os898zu+qNY8wLMURSMgQSxJbr4cxbRBPct6
- HYGyHC0MDt3dxQjfvAayDy1vL7IVzZPOzKidLH+druBOUV7XzY4fu1iB9oP0B6IfKtrn
- 5HR+KPwPkVHUnr5At3rF/ZCCVxaM2jMMbDlOzpxkSwTG4MzcfY6Q7j18/5G0qP6GVgMu
- 74+Q==
-X-Gm-Message-State: AOJu0YwGoXBZrucuWG138tzqzCoE9u6deUm0vnuyrmzq/ZjmYLzATZxV
- XXK6e1ui+nweNDrdqFUuAFJmuye+vGEa7SUkSvRgnhRY1H6CdOPm8rrAV7Aop5cI3zW9IzpFhgc
- oTIrDnrD6VAQe9nEsFFlcsKjhYjYGewr9W3j6mQ==
-X-Google-Smtp-Source: AGHT+IF6zf1MsRwbD0c4lc43Au1jqd7ti2kqyqPXjj17xYWf7PNvSF4YZlRUSOnnYCBBGASumEomlSX+ZGxbweNusGY=
-X-Received: by 2002:a25:7489:0:b0:dc2:218b:7d71 with SMTP id
- p131-20020a257489000000b00dc2218b7d71mr1883839ybc.103.1706498634327; Sun, 28
- Jan 2024 19:23:54 -0800 (PST)
+ bh=J0DV7QGMiPinKgD216LjWiY34diwCxfaE2ieTUqBaRM=;
+ b=SZTd+NR/oooejRJ+1h1tBSLibmJhAn7DMyqUC39zcR0g/Tf3KlBxnoumC7LPJUacmc
+ p2s98WTkzPselEEXw7zNSpK2gsRzrxarMcOyoFAJlz4S1FzLd38D4nornOGZ7xtHe54t
+ hdVVPG4+GDatgI1S0hDsyTn8xGNCWOdWtRrO5UGOC0e4RWWVEf5vMRn0JZyv+1YgQdy1
+ 7pqRnhFntpHEF8lkGLhoZx+e3+lM2NoJROHHidtWxl+ZInLXFkyypHyL1Kk/bq/dBMC5
+ joxPaY1zOe/rOCOAJFNHy4zb5QVE8C4sCXnAovso0yXsZoabGptoKTDXesSpjPJiJeFG
+ 19ig==
+X-Gm-Message-State: AOJu0YwFWXTEXx62iIwkEh7RHyJRqsX6AOBibAWeFhwMf7OOKAtmS80j
+ hFY68YX2GMVoEm0cffQ73bbaz/v16l06f41qATVfPIqRE6F4BlYJh8zTMjGSyMqQEYs2+f9mJMm
+ ZnUmVVqnXDIwroC3mpg0dT8+iKhrKZMYbxBfu3Q==
+X-Google-Smtp-Source: AGHT+IECpxk8R+uyM8T0pPyBSCfiRgguiHKEHQwur04FX7i18RI0YyOX52E99gQx3swdSB7AwR5QqEnug+KgiLXwL6A=
+X-Received: by 2002:a25:f210:0:b0:dc2:7c84:8aaa with SMTP id
+ i16-20020a25f210000000b00dc27c848aaamr1410011ybe.84.1706499785463; Sun, 28
+ Jan 2024 19:43:05 -0800 (PST)
 MIME-Version: 1.0
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-2-quic_parellan@quicinc.com>
- <31e4a033-1779-450c-980e-63c8567837ed@linaro.org>
- <fa5ce695-8c00-1ae4-04cd-d1b49b42c5d6@quicinc.com>
- <5d0b2da2-7683-f801-0acf-255a8c2bd618@quicinc.com>
-In-Reply-To: <5d0b2da2-7683-f801-0acf-255a8c2bd618@quicinc.com>
+ <20240125193834.7065-15-quic_parellan@quicinc.com>
+ <52674357-2135-4784-a371-e7809b632c19@linaro.org>
+ <d1679d6f-a388-2a13-2924-1e6040217c01@quicinc.com>
+ <CAA8EJppPFuP4w-OAi0hDE36tjPXOHpigg1PMyzhkOTLL-q0VMQ@mail.gmail.com>
+ <771094aa-b8d9-6e6e-1945-b66818fa6d88@quicinc.com>
+In-Reply-To: <771094aa-b8d9-6e6e-1945-b66818fa6d88@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 29 Jan 2024 05:23:43 +0200
-Message-ID: <CAA8EJpoTtzupauFah=65Yn_cRQzDbgpLw-6GuXWCUwPcNJvKOA@mail.gmail.com>
-Subject: Re: [PATCH 01/17] drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm
- to work for DP
+Date: Mon, 29 Jan 2024 05:42:53 +0200
+Message-ID: <CAA8EJprBjq8OvE2tfjZmxHfp3EbxKpWWv-xTym70t6ksBoTojQ@mail.gmail.com>
+Subject: Re: [PATCH 14/17] drm/msm/dpu: modify encoder programming for CDM
+ over DP
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -80,143 +81,289 @@ Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 29 Jan 2024 at 05:06, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Mon, 29 Jan 2024 at 04:58, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
 >
 >
-> On 1/26/2024 4:39 PM, Paloma Arellano wrote:
+> On 1/27/2024 9:55 PM, Dmitry Baryshkov wrote:
+> > On Sun, 28 Jan 2024 at 07:48, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+> >>
+> >>
+> >> On 1/25/2024 1:57 PM, Dmitry Baryshkov wrote:
+> >>> On 25/01/2024 21:38, Paloma Arellano wrote:
+> >>>> Adjust the encoder format programming in the case of video mode for DP
+> >>>> to accommodate CDM related changes.
+> >>>>
+> >>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 16 +++++++++
+> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  8 +++++
+> >>>>    .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 35 ++++++++++++++++---
+> >>>>    drivers/gpu/drm/msm/dp/dp_display.c           | 12 +++++++
+> >>>>    drivers/gpu/drm/msm/msm_drv.h                 |  9 ++++-
+> >>>>    5 files changed, 75 insertions(+), 5 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> index b0896814c1562..99ec53446ad21 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> @@ -222,6 +222,22 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+> >>>>        15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+> >>>>    };
+> >>>>    +u32 dpu_encoder_get_drm_fmt(const struct drm_encoder *drm_enc,
+> >>>> const struct drm_display_mode *mode)
+> >>>> +{
+> >>>> +    const struct dpu_encoder_virt *dpu_enc;
+> >>>> +    const struct msm_display_info *disp_info;
+> >>>> +    struct msm_drm_private *priv;
+> >>>> +
+> >>>> +    dpu_enc = to_dpu_encoder_virt(drm_enc);
+> >>>> +    disp_info = &dpu_enc->disp_info;
+> >>>> +    priv = drm_enc->dev->dev_private;
+> >>>> +
+> >>>> +    if (disp_info->intf_type == INTF_DP &&
+> >>>> + msm_dp_is_yuv_420_enabled(priv->dp[disp_info->h_tile_instance[0]],
+> >>>> mode))
+> >>>
+> >>> This should not require interacting with DP. If we got here, we must
+> >>> be sure that 4:2:0 is supported and can be configured.
+> >> Ack. Will drop this function and only check for if the mode is YUV420.
+> >>>
+> >>>> +        return DRM_FORMAT_YUV420;
+> >>>> +
+> >>>> +    return DRM_FORMAT_RGB888;
+> >>>> +}
+> >>>>      bool dpu_encoder_is_widebus_enabled(const struct drm_encoder
+> >>>> *drm_enc)
+> >>>>    {
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >>>> index 7b4afa71f1f96..62255d0aa4487 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >>>> @@ -162,6 +162,14 @@ int dpu_encoder_get_vsync_count(struct
+> >>>> drm_encoder *drm_enc);
+> >>>>     */
+> >>>>    bool dpu_encoder_is_widebus_enabled(const struct drm_encoder
+> >>>> *drm_enc);
+> >>>>    +/**
+> >>>> + * dpu_encoder_get_drm_fmt - return DRM fourcc format
+> >>>> + * @drm_enc:    Pointer to previously created drm encoder structure
+> >>>> + * @mode:    Corresponding drm_display_mode for dpu encoder
+> >>>> + */
+> >>>> +u32 dpu_encoder_get_drm_fmt(const struct drm_encoder *drm_enc,
+> >>>> +                const struct drm_display_mode *mode);
+> >>>> +
+> >>>>    /**
+> >>>>     * dpu_encoder_get_crc_values_cnt - get number of physical encoders
+> >>>> contained
+> >>>>     *    in virtual encoder that can collect CRC values
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> >>>> index e284bf448bdda..a1dde0ff35dc8 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> >>>> @@ -234,6 +234,7 @@ static void
+> >>>> dpu_encoder_phys_vid_setup_timing_engine(
+> >>>>    {
+> >>>>        struct drm_display_mode mode;
+> >>>>        struct dpu_hw_intf_timing_params timing_params = { 0 };
+> >>>> +    struct dpu_hw_cdm *hw_cdm;
+> >>>>        const struct dpu_format *fmt = NULL;
+> >>>>        u32 fmt_fourcc = DRM_FORMAT_RGB888;
+> >>>>        unsigned long lock_flags;
+> >>>> @@ -254,17 +255,26 @@ static void
+> >>>> dpu_encoder_phys_vid_setup_timing_engine(
+> >>>>        DPU_DEBUG_VIDENC(phys_enc, "enabling mode:\n");
+> >>>>        drm_mode_debug_printmodeline(&mode);
+> >>>>    -    if (phys_enc->split_role != ENC_ROLE_SOLO) {
+> >>>> +    hw_cdm = phys_enc->hw_cdm;
+> >>>> +    if (hw_cdm) {
+> >>>> +        intf_cfg.cdm = hw_cdm->idx;
+> >>>> +        fmt_fourcc = dpu_encoder_get_drm_fmt(phys_enc->parent, &mode);
+> >>>> +    }
+> >>>> +
+> >>>> +    if (phys_enc->split_role != ENC_ROLE_SOLO ||
+> >>>> +        dpu_encoder_get_drm_fmt(phys_enc->parent, &mode) ==
+> >>>> DRM_FORMAT_YUV420) {
+> >>>>            mode.hdisplay >>= 1;
+> >>>>            mode.htotal >>= 1;
+> >>>>            mode.hsync_start >>= 1;
+> >>>>            mode.hsync_end >>= 1;
+> >>>> +        mode.hskew >>= 1;
+> >>>
+> >>> Separate patch.
+> >> Ack.
+> >>>
+> >>>>              DPU_DEBUG_VIDENC(phys_enc,
+> >>>> -            "split_role %d, halve horizontal %d %d %d %d\n",
+> >>>> +            "split_role %d, halve horizontal %d %d %d %d %d\n",
+> >>>>                phys_enc->split_role,
+> >>>>                mode.hdisplay, mode.htotal,
+> >>>> -            mode.hsync_start, mode.hsync_end);
+> >>>> +            mode.hsync_start, mode.hsync_end,
+> >>>> +            mode.hskew);
+> >>>>        }
+> >>>>          drm_mode_to_intf_timing_params(phys_enc, &mode, &timing_params);
+> >>>> @@ -412,8 +422,15 @@ static int dpu_encoder_phys_vid_control_vblank_irq(
+> >>>>    static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys
+> >>>> *phys_enc)
+> >>>>    {
+> >>>>        struct dpu_hw_ctl *ctl;
+> >>>> +    struct dpu_hw_cdm *hw_cdm;
+> >>>> +    const struct dpu_format *fmt = NULL;
+> >>>> +    u32 fmt_fourcc = DRM_FORMAT_RGB888;
+> >>>>          ctl = phys_enc->hw_ctl;
+> >>>> +    hw_cdm = phys_enc->hw_cdm;
+> >>>> +    if (hw_cdm)
+> >>>> +        fmt_fourcc = dpu_encoder_get_drm_fmt(phys_enc->parent,
+> >>>> &phys_enc->cached_mode);
+> >>>> +    fmt = dpu_get_dpu_format(fmt_fourcc);
+> >>>>          DPU_DEBUG_VIDENC(phys_enc, "\n");
+> >>>>    @@ -422,6 +439,8 @@ static void dpu_encoder_phys_vid_enable(struct
+> >>>> dpu_encoder_phys *phys_enc)
+> >>>>          dpu_encoder_helper_split_config(phys_enc,
+> >>>> phys_enc->hw_intf->idx);
+> >>>>    +    dpu_encoder_helper_phys_setup_cdm(phys_enc, fmt,
+> >>>> CDM_CDWN_OUTPUT_HDMI);
+> >>>
+> >>> If there is no CDM, why do we need to call this?
+> >> Inside of dpu_encoder_helper_phys_setup_cdm(), there's a check to see if
+> >> there is a hw_cdm. If there is not, then it immediately exits the function.
+> >>>
+> >>>> +
+> >>>>        dpu_encoder_phys_vid_setup_timing_engine(phys_enc);
+> >>>>          /*
+> >>>> @@ -437,7 +456,15 @@ static void dpu_encoder_phys_vid_enable(struct
+> >>>> dpu_encoder_phys *phys_enc)
+> >>>>        if (ctl->ops.update_pending_flush_merge_3d &&
+> >>>> phys_enc->hw_pp->merge_3d)
+> >>>>            ctl->ops.update_pending_flush_merge_3d(ctl,
+> >>>> phys_enc->hw_pp->merge_3d->idx);
+> >>>>    -    if (ctl->ops.update_pending_flush_periph &&
+> >>>> phys_enc->hw_intf->cap->type == INTF_DP)
+> >>>> +    if (ctl->ops.update_pending_flush_cdm && phys_enc->hw_cdm)
+> >>>> +        ctl->ops.update_pending_flush_cdm(ctl, hw_cdm->idx);
+> >>>> +
+> >>>> +    /*
+> >>>> +     * Peripheral flush must be updated whenever flushing SDP
+> >>>> packets is needed.
+> >>>> +     * SDP packets are required for any YUV format (YUV420, YUV422,
+> >>>> YUV444).
+> >>>> +     */
+> >>>> +    if (ctl->ops.update_pending_flush_periph &&
+> >>>> phys_enc->hw_intf->cap->type == INTF_DP &&
+> >>>> +        phys_enc->hw_cdm)
+> >>>>            ctl->ops.update_pending_flush_periph(ctl,
+> >>>> phys_enc->hw_intf->idx);
+> >>>
+> >>> Should there be a flush if we are switching from YUV 420 to RGB mode?
+> >> We only need to flush for the sdp packet, but for msa we do not need to
+> >> flush.
 > >
-> > On 1/25/2024 1:14 PM, Dmitry Baryshkov wrote:
-> >> On 25/01/2024 21:38, Paloma Arellano wrote:
-> >>> Generalize dpu_encoder_helper_phys_setup_cdm to be compatible with DP.
-> >>>
-> >>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> >>> ---
-> >>>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 +--
-> >>>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 31 ++++++++++---------
-> >>>   2 files changed, 18 insertions(+), 17 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>> index 993f263433314..37ac385727c3b 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> >>> @@ -153,6 +153,7 @@ enum dpu_intr_idx {
-> >>>    * @hw_intf:        Hardware interface to the intf registers
-> >>>    * @hw_wb:        Hardware interface to the wb registers
-> >>>    * @hw_cdm:        Hardware interface to the CDM registers
-> >>> + * @cdm_cfg:    CDM block config needed to store WB/DP block's CDM
-> >>> configuration
-> >>
-> >> Please realign the description.
-> > Ack
-> >>
-> >>>    * @dpu_kms:        Pointer to the dpu_kms top level
-> >>>    * @cached_mode:    DRM mode cached at mode_set time, acted on in
-> >>> enable
-> >>>    * @vblank_ctl_lock:    Vblank ctl mutex lock to protect
-> >>> vblank_refcount
-> >>> @@ -183,6 +184,7 @@ struct dpu_encoder_phys {
-> >>>       struct dpu_hw_intf *hw_intf;
-> >>>       struct dpu_hw_wb *hw_wb;
-> >>>       struct dpu_hw_cdm *hw_cdm;
-> >>> +    struct dpu_hw_cdm_cfg cdm_cfg;
-> >>
-> >> It might be slightly better to move it after all the pointers, so
-> >> after the dpu_kms.
-> > Ack
-> >>
-> >>>       struct dpu_kms *dpu_kms;
-> >>>       struct drm_display_mode cached_mode;
-> >>>       struct mutex vblank_ctl_lock;
-> >>> @@ -213,7 +215,6 @@ static inline int
-> >>> dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
-> >>>    * @wbirq_refcount:     Reference count of writeback interrupt
-> >>>    * @wb_done_timeout_cnt: number of wb done irq timeout errors
-> >>>    * @wb_cfg:  writeback block config to store fb related details
-> >>> - * @cdm_cfg: cdm block config needed to store writeback block's CDM
-> >>> configuration
-> >>>    * @wb_conn: backpointer to writeback connector
-> >>>    * @wb_job: backpointer to current writeback job
-> >>>    * @dest:   dpu buffer layout for current writeback output buffer
-> >>> @@ -223,7 +224,6 @@ struct dpu_encoder_phys_wb {
-> >>>       atomic_t wbirq_refcount;
-> >>>       int wb_done_timeout_cnt;
-> >>>       struct dpu_hw_wb_cfg wb_cfg;
-> >>> -    struct dpu_hw_cdm_cfg cdm_cfg;
-> >>>       struct drm_writeback_connector *wb_conn;
-> >>>       struct drm_writeback_job *wb_job;
-> >>>       struct dpu_hw_fmt_layout dest;
-> >>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>> index 4cd2d9e3131a4..072fc6950e496 100644
-> >>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> >>> @@ -269,28 +269,21 @@ static void
-> >>> dpu_encoder_phys_wb_setup_ctl(struct dpu_encoder_phys *phys_enc)
-> >>>    *                                     This API does not handle
-> >>> DPU_CHROMA_H1V2.
-> >>>    * @phys_enc:Pointer to physical encoder
-> >>>    */
-> >>> -static void dpu_encoder_helper_phys_setup_cdm(struct
-> >>> dpu_encoder_phys *phys_enc)
-> >>> +static void dpu_encoder_helper_phys_setup_cdm(struct
-> >>> dpu_encoder_phys *phys_enc,
-> >>> +                          const struct dpu_format *dpu_fmt,
-> >>> +                          u32 output_type)
-> >>>   {
-> >>>       struct dpu_hw_cdm *hw_cdm;
-> >>>       struct dpu_hw_cdm_cfg *cdm_cfg;
-> >>>       struct dpu_hw_pingpong *hw_pp;
-> >>> -    struct dpu_encoder_phys_wb *wb_enc;
-> >>> -    const struct msm_format *format;
-> >>> -    const struct dpu_format *dpu_fmt;
-> >>> -    struct drm_writeback_job *wb_job;
-> >>>       int ret;
-> >>>         if (!phys_enc)
-> >>>           return;
-> >>>   -    wb_enc = to_dpu_encoder_phys_wb(phys_enc);
-> >>> -    cdm_cfg = &wb_enc->cdm_cfg;
-> >>> +    cdm_cfg = &phys_enc->cdm_cfg;
-> >>>       hw_pp = phys_enc->hw_pp;
-> >>>       hw_cdm = phys_enc->hw_cdm;
-> >>> -    wb_job = wb_enc->wb_job;
-> >>> -
-> >>> -    format = msm_framebuffer_format(wb_enc->wb_job->fb);
-> >>> -    dpu_fmt = dpu_get_dpu_format_ext(format->pixel_format,
-> >>> wb_job->fb->modifier);
-> >>>         if (!hw_cdm)
-> >>>           return;
-> >>> @@ -306,10 +299,10 @@ static void
-> >>> dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc)
-> >>>         memset(cdm_cfg, 0, sizeof(struct dpu_hw_cdm_cfg));
-> >>>   -    cdm_cfg->output_width = wb_job->fb->width;
-> >>> -    cdm_cfg->output_height = wb_job->fb->height;
-> >>> +    cdm_cfg->output_width = phys_enc->cached_mode.hdisplay;
-> >>> +    cdm_cfg->output_height = phys_enc->cached_mode.vdisplay;
-> >>
-> >> This is a semantic change. Instead of passing the FB size, this passes
-> >> the mode dimensions. They are not guaranteed to be the same,
-> >> especially for the WB case.
-> >>
+> > What about having SDP with RGB as colorimetry? In other words, if
+> > there is a decision point, this one looks incorrect.
+> >
 >
-> The WB job is storing the output FB of WB. I cannot think of a use-case
-> where this cannot match the current mode programmed to the WB encoder.
+> There are two ways to do it:
 >
-> Yes, if it was the drm_plane's FB, then it cannot be guaranteed as the
-> plane can scale the contents but here thats not the case. Here its the
-> output FB of WB.
+> 1) Use SDP for both RGB and YUV as that supports both. If we implement
+> this policy, then what you are asking for is correct that we will need
+> SDP even to switch back to RGB. But to implement this we will also need
+> to have some sort of state management in the encoder layer about what is
+> the current encoder fmt Vs what is the prev fmt and then trigger
+> peripheral flush only during transitions from RGB to YUV and vice-versa
+>
+> 2) Use SDP only for YUV because MSA does not support YUV formats and use
+> MSA for RGB
+>
+> We decided to implement (2) and there is no significant impact of
+> switching between MSA and SDPs but state management becomes easier.
 
-Is it a part of WB uAPI, to have the FB dimensions equal to mode
-dimensions? Or is it just our current limitation? I can easily imagine
-WB outputting data to a part of the FB (just like we can clip FB using
-plane's clip rectangle).
+Yes. However as you wrote, there might be other usecases concerning
+SDP. Having this in mind, it sounds like the driver should decide
+whether to flush peripheral at a different place (when the SDP
+infoframe is being updated?). And the dpu_encoder_phys_vid_enable()
+should use this previous decision. Maybe this should be a part of
+msm_dp_ API, something like msm_dp_needs_peripheral_flush()?
 
-This boils down to a question, whether CDM should be setup in terms of
-actual output date or the physical memory buffer parameters. I suspect
-the former is the case (which makes this change correct). But it
-either should be described in the commit message or (even better)
-split to a separate commit.
+>
+> >>>
+> >>> Also, I'd say, we should move update_pending_flush_periph invocation
+> >>> to this patch.
+> >> Ack
+> >>>
+> >>>>      skip_flush:
+> >>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+> >>>> b/drivers/gpu/drm/msm/dp/dp_display.c
+> >>>> index 6d764f5b08727..4329435518351 100644
+> >>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> >>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> >>>> @@ -1399,6 +1399,18 @@ void __exit msm_dp_unregister(void)
+> >>>>        platform_driver_unregister(&dp_display_driver);
+> >>>>    }
+> >>>>    +bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
+> >>>> +                   const struct drm_display_mode *mode)
+> >>>> +{
+> >>>> +    struct dp_display_private *dp;
+> >>>> +    const struct drm_display_info *info;
+> >>>> +
+> >>>> +    dp = container_of(dp_display, struct dp_display_private,
+> >>>> dp_display);
+> >>>> +    info = &dp_display->connector->display_info;
+> >>>> +
+> >>>> +    return dp_panel_vsc_sdp_supported(dp->panel) &&
+> >>>> drm_mode_is_420_only(info, mode);
+> >>>
+> >>> YUV 420 modes should be filtered out in mode_valid if VSC SDP is not
+> >>> supported.
+> >> Ack. Will change
+> >>>
+> >>>> +}
+> >>>> +
+> >>>>    bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+> >>>>    {
+> >>>>        struct dp_display_private *dp;
+> >>>> diff --git a/drivers/gpu/drm/msm/msm_drv.h
+> >>>> b/drivers/gpu/drm/msm/msm_drv.h
+> >>>> index 16a7cbc0b7dd8..b9581bd934e9e 100644
+> >>>> --- a/drivers/gpu/drm/msm/msm_drv.h
+> >>>> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> >>>> @@ -387,7 +387,8 @@ void __exit msm_dp_unregister(void);
+> >>>>    int msm_dp_modeset_init(struct msm_dp *dp_display, struct
+> >>>> drm_device *dev,
+> >>>>                 struct drm_encoder *encoder);
+> >>>>    void msm_dp_snapshot(struct msm_disp_state *disp_state, struct
+> >>>> msm_dp *dp_display);
+> >>>> -
+> >>>> +bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
+> >>>> +                   const struct drm_display_mode *mode);
+> >>>>    bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
+> >>>>      #else
+> >>>> @@ -409,6 +410,12 @@ static inline void msm_dp_snapshot(struct
+> >>>> msm_disp_state *disp_state, struct msm
+> >>>>    {
+> >>>>    }
+> >>>>    +static inline bool msm_dp_is_yuv_420_enabled(const struct msm_dp
+> >>>> *dp_display,
+> >>>> +                         const struct drm_display_mode *mode)
+> >>>> +{
+> >>>> +    return false;
+> >>>> +}
+> >>>> +
+> >>>>    static inline bool msm_dp_wide_bus_available(const struct msm_dp
+> >>>> *dp_display)
+> >>>>    {
+> >>>>        return false;
+> >>>
+> >
+> >
+> >
+> > --
+> > With best wishes
+> > Dmitry
+
 
 
 -- 
