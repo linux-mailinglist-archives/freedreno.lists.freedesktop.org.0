@@ -2,59 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A43684095D
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 16:10:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106DD84096D
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jan 2024 16:13:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B62A010FF8E;
-	Mon, 29 Jan 2024 15:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48F210F758;
+	Mon, 29 Jan 2024 15:12:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9384610FF8E
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 15:09:41 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-db4364ecd6aso2210890276.2
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 07:09:41 -0800 (PST)
+Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
+ [209.85.219.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0DB510F758
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 15:12:36 +0000 (UTC)
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-dbed0710c74so3029684276.1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 07:12:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706540921; x=1707145721; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1706541096; x=1707145896; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WHc0ySmd3+BUchE2A6eeEhPhJOTzoceSWy6/UF2YYmg=;
- b=FbMy+QsU42aATf6ZjTrCY1tvRZ1q1ilKdSabwYra12/L263uGoeGnhjfS65mHrVeKX
- n+N4gI0TXpix4Y1iMGkUTbKPFyEb6BODrXUKLBQrnzaKHOYrcq7H8m0Y1F2q0aDFWGzc
- PUjXeG1jEqJhMomxBRjOFRkBi+q5C8tr/TlOfKnD9ltOownh741f5szLVEjkIsGk3vnc
- U4k9dejdVRben8Jb0doqbhwGXP9KEzJqYRsElT2q3vs02u/plvgBAKQ1w6REMpiXA4Od
- KtpJf/eQt5lYUVi/ITV2i++UEdw7xrgXhQnZa+sxLhOZHCZ7Ob3XbzqE5+ybfMzxxpuL
- k/Lw==
+ bh=bzxGAI3uTZ4t8Yu0tkeNdDJhjt+ClUZzfi+ZIweVgvk=;
+ b=kpBoY+oBxYkcBTr81l6uQprNsD01+9s0NX/puVlolDDKp62rtnA/sTtmoqGfII5L4F
+ LHPay4SkifcTL/xM5CG+P+Esvq9BAqN6yLlA/ea6DksbfGXbVWcaTwOlkJTMEY3T8grq
+ RXNFeUTNmORmT5P1EOtiQh5yzNQ3GiCsQgnA37PZd//BRe2RYnHB9e1FmK9tbYWqQEQr
+ GKKP6OFiozu3nbz+aublPr49z5M7aUgMYXPbYP/4C9cRnuZNx1Lkr34Us2Eq9CCkQZb0
+ 2TQDLsjX2SfLtgUCCfbu7OBhud0jPMJPioE51EfeYXQclqCqZDHG7tKCa/7osJh6ve6I
+ NfYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706540921; x=1707145721;
+ d=1e100.net; s=20230601; t=1706541096; x=1707145896;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=WHc0ySmd3+BUchE2A6eeEhPhJOTzoceSWy6/UF2YYmg=;
- b=H3vC2eW39sGx5e3gxvU9jzs8gwvB8B8TRON87nusR1326K1JDSpRcaZIHm9gUgQGSK
- fLdEMNFTUyncdz6QazZbVrPrELMHJPEuQmurH/LRuTneLW1rnxWVX4JwfyNs2w5KllnH
- dzsl9mnLm+oGOwgmDabRq1s1/mwTuzuHz4Ehlvah/iKiL5vcxJD5yn6HDgwuZP3CuDPx
- Edls0MD8zBNwxuB60R3zXmYaPUiDERa6mFGEChUOvp9+0v14t1LPpwkVcPNsJH6q7Ef9
- wLNU4BMuUnOcUcYTtmERoHn35qoG2ht979uuU0kT4GLm9ftgN2vXyWHS+JvDAINm1D0Q
- NMjQ==
-X-Gm-Message-State: AOJu0YyhqvhYswY6KI2WlZDlyPqlLzNdGoNN/No/rhP/H1kRpI2prOwP
- TppItOXM/ZcRgYdwVzHM6VMbfF2DBTHhQXEZkDwWSRG1SLl3veCNKQc2wcMnNQydTkUemcVC5nI
- WSjhzRaJ+PJJr/iiPtWv0Xeu+akfNKoBd+DWQEg==
-X-Google-Smtp-Source: AGHT+IEGAtVAdaZvHFjfmQf1IJOtCdXiDeGVR3eL7R75RzaD4DvPC28PHklGGBsD3t+yL5unf4AHNAwUb1afgQibw48=
-X-Received: by 2002:a5b:18d:0:b0:dc2:23cf:6ada with SMTP id
- r13-20020a5b018d000000b00dc223cf6adamr2403587ybl.73.1706540920775; Mon, 29
- Jan 2024 07:08:40 -0800 (PST)
+ bh=bzxGAI3uTZ4t8Yu0tkeNdDJhjt+ClUZzfi+ZIweVgvk=;
+ b=BCBAf5/mRr++7/UrKx3Lsz+dx4zu6JPtl4Ufz42Y0ggAbdkb8lm0poTNMzDsAxbfao
+ qMoudUlC74vJL2J3URTKr+C9Lr4NfVo8k/okvzoJIIhai08eR56iqJhZiUPHQyr6ZG3H
+ zt4eUAvhlMzROl+n59EOkN6qmmTZMOtIF7caO7MOM1QUVhpKad+cGPc24TdSBntkcYry
+ ZoW41KBaGRMGIUesYU83gqn+f6XWGsboY8pmbv8d8Ho66Usm3cmn5Tx6a3veikQgPAXo
+ h8sTmX/AGgHg1jjhGDR7RHMWOL+BNDEjFkW54sd6sMqqHBVuMwNsP5aO1NJW5fW/3nxd
+ VlJw==
+X-Gm-Message-State: AOJu0YzY7IZYfUuaRdrrmoywRJiO78H+bcB0/lG6N928E4NFKyNjsNaW
+ L2p0zwEpaJYqNZ4qZ5bnT8AzU3b+tCFb+mfypkEG+YLCRXJKTqawAH32H4dOuyQuuCD1MSfsjys
+ U2qC/+qAIM1DipYVrBCCsN6DAzEq0O3oPtEAtgw==
+X-Google-Smtp-Source: AGHT+IGTMQ/BAh4UMgioJdLPcXsz/GX4p8hJbTGo1lQCHr2AEV10T3HvflCpK8wmeYx9XsAaaWkgqAghpN7LLUDOvks=
+X-Received: by 2002:a05:6902:2808:b0:dbd:ac60:bcd4 with SMTP id
+ ed8-20020a056902280800b00dbdac60bcd4mr4890852ybb.75.1706541096178; Mon, 29
+ Jan 2024 07:11:36 -0800 (PST)
 MIME-Version: 1.0
 References: <20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org>
- <20240129-x1e80100-display-v1-4-0d9eb8254df0@linaro.org>
-In-Reply-To: <20240129-x1e80100-display-v1-4-0d9eb8254df0@linaro.org>
+ <20240129-x1e80100-display-v1-3-0d9eb8254df0@linaro.org>
+In-Reply-To: <20240129-x1e80100-display-v1-3-0d9eb8254df0@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 29 Jan 2024 17:08:29 +0200
-Message-ID: <CAA8EJpq1RSi4H6m6UQcyxEr=hip=ypKz9DhHziNKvDjUHsES8Q@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/msm/dp: Try looking for link-frequencies into the
- port@0's endpoint first
+Date: Mon, 29 Jan 2024 17:11:25 +0200
+Message-ID: <CAA8EJponbo2vvuj2ftCQuxtrZp0w7JQqJ_ADF80Wd2y1V74BzA@mail.gmail.com>
+Subject: Re: [PATCH 3/5] drm/msm: mdss: Add X1E80100 support
 To: Abel Vesa <abel.vesa@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -85,40 +84,44 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Mon, 29 Jan 2024 at 15:19, Abel Vesa <abel.vesa@linaro.org> wrote:
 >
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Add support for MDSS on X1E80100.
 >
-> On platforms where the endpoint used is on port@0, looking for port@1
-> instead results in just ignoring the max link-frequencies altogether.
-> Look at port@0 first, then, if not found, look for port@1.
-
-NAK. Platforms do not "use port@0". It is for the connection between
-DPU and DP, while the link-frequencies property is for the link
-between DP controller and the actual display.
-
->
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_parser.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/msm_mdss.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index 7032dcc8842b..eec5b8b83f4b 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -97,7 +97,11 @@ static u32 dp_parser_link_frequencies(struct device_node *of_node)
->         u64 frequency = 0;
->         int cnt;
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index 455b2e3a0cdd..eddf7fdbb60a 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -564,6 +564,15 @@ static const struct msm_mdss_data sdm670_data = {
+>         .highest_bank_bit = 1,
+>  };
 >
-> -       endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-> +       endpoint = of_graph_get_endpoint_by_regs(of_node, 0, 0); /* port@0 */
+> +static const struct msm_mdss_data x1e80100_data = {
+> +       .ubwc_enc_version = UBWC_4_0,
+> +       .ubwc_dec_version = UBWC_4_3,
+> +       .ubwc_swizzle = 6,
+> +       .ubwc_static = 1,
+> +       .highest_bank_bit = 2,
+> +       .macrotile_mode = 1,
+
+Missing .reg_bus_bw, LGTM otherwise
+
+> +};
 > +
-> +       if (!endpoint)
-> +               endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-> +
->         if (!endpoint)
->                 return 0;
->
+>  static const struct msm_mdss_data sdm845_data = {
+>         .ubwc_enc_version = UBWC_2_0,
+>         .ubwc_dec_version = UBWC_2_0,
+> @@ -655,6 +664,7 @@ static const struct of_device_id mdss_dt_match[] = {
+>         { .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
+>         { .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
+>         { .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
+> +       { .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
+>         {}
+>  };
+>  MODULE_DEVICE_TABLE(of, mdss_dt_match);
 >
 > --
 > 2.34.1
