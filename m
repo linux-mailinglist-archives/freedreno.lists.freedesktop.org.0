@@ -2,51 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE556841894
-	for <lists+freedreno@lfdr.de>; Tue, 30 Jan 2024 02:45:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56DF6841AEA
+	for <lists+freedreno@lfdr.de>; Tue, 30 Jan 2024 05:10:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53960112C38;
-	Tue, 30 Jan 2024 01:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCDF112D0A;
+	Tue, 30 Jan 2024 04:10:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754FF112C33
- for <freedreno@lists.freedesktop.org>; Tue, 30 Jan 2024 01:44:48 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-dc6431e6cc5so2605123276.1
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jan 2024 17:44:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706579027; x=1707183827; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=iNMtLiszpO2MGJDFT0qOweGWQ3laIBi7SMw0diUHki0=;
- b=K0s2uTooR9QJS2wX7KG1UI8J4Qkpd4V8cNcyfw7scKXqI1UTflDCsmFhEJzVQrdnB8
- d2I1ff92Xjz2oAknFLXwYxqRdKwbDrjdMZLAVjMqr/xpuTFDLwLLxBUmmz8CKa9i7MkH
- 343GijQddUGOOQ0ijlR9laKzhJ6dZ/j899FoO8o8ic2aS9puxAyTuY3WJzvWU4T/O2Kw
- Vzi75+GIsDMD+dDzLIvA9HzSOvJNfHCafaCkbLPQ9jD0hS8yqOAUEz7Lbn4l4mrV5763
- Jn8WZ8acBxTsgi8rNs2mAY9soUccUsQWHzXjrnAlvE3ZOdq0cJ0vQ+oHbGUOF256jCc3
- Yz8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706579027; x=1707183827;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iNMtLiszpO2MGJDFT0qOweGWQ3laIBi7SMw0diUHki0=;
- b=L5WLHjSBWPJje0iehG0TMGaYy00sgzrhMw9LDF4/O4f9V71M9/PVUx4iGZxyIPKkia
- NLKuEuZTGuf/JitckBizDuMYpluq57RWP+oweCwknFgd/3M+YtnDByzt8Vu/mGP9UkuZ
- iuhvGzYt3LnaFAnuLbFmlUCydkdJEZbG2pHAJAqRWu5aoCHmpp4ylAnXGUEnspZoFhR2
- E8jHNQmSkFBjQuaIUA75ZoDNaPc96ZcMKlm0QGVuUa3QjmcVeZ7hpy42WNb5u0lohDly
- Pe6PfZ5agxaq+7aI0a/0TbEh6v/FfDjKEmY+cvn6vxC59J/MaeGyOKRO2l4xaoxYd3K3
- QFaA==
-X-Gm-Message-State: AOJu0Ywc/NTuwHBQziAYHdFVYzjQFKIBnhl8oxiLWBn36deXZgR5dzFf
- 4tRfE18fyH0zTH+taVOtco4pAzRX8AqMvD4FyMqeG3eakzbuv6TuVd/2n75U5LlwH+11y0WIega
- 9/Rl+3RIeag4OUqG95E0C3r6YHUabjhlo7vmxBg==
-X-Google-Smtp-Source: AGHT+IHIu5PhwPZl03Fg/NYNNhrMV8Duy4ndL5qYE/uWqbZ5FA8+a2uCRFBFcO1YdeOiMjWWzPTEJb0554SpYJyq3sk=
-X-Received: by 2002:a25:c5ca:0:b0:dc2:2266:a111 with SMTP id
- v193-20020a25c5ca000000b00dc22266a111mr3860868ybe.78.1706579027235; Mon, 29
- Jan 2024 17:43:47 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36721112D0A;
+ Tue, 30 Jan 2024 04:10:51 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40U3RPsY030278; Tue, 30 Jan 2024 04:10:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=G8rECMOVPo/RgV6dDI0YHyT/sDNFUDmzVHbJs27uNd0=; b=I3
+ LeLNUArIW5VJqEdoB6uDpyZJFxSZ1TxOm6LBVn5GMr3gqqtYBXybB4G2su56xCJM
+ l0oumaGljA9286/i/dB5Z6aNFjMnPT8vgZaBmOovdP+hiOLHTTDaFugqLYDBw6AT
+ N+tWn8YOTYKAhCMGB67WdQdtXsYN6XeDSglPMGjiTKhXQ3Lq9dUUIhGpAuxZx7MV
+ fG5y/eFkdLXHGzBWpoCIpccpwolc1UY7qQi0n6vsSsej1jk9xRxBQaFvjvaVk/Bx
+ quzMRtIBBI1k1rCRupoplYY7CIdh9VGnh23ENC7cxB1pGmjNSupDeDCX2HcEOKKU
+ Mor4WUm/WW4ZX9JryXsg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vxrq084m7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jan 2024 04:10:48 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40U4Alx5022475
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jan 2024 04:10:47 GMT
+Received: from [10.110.15.32] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 29 Jan
+ 2024 20:10:46 -0800
+Message-ID: <697b153b-fb8e-6b58-fc4f-92f814f86d0f@quicinc.com>
+Date: Mon, 29 Jan 2024 20:10:45 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 07/17] drm/msm/dpu: disallow widebus en in INTF_CONFIG2
+ when DP is YUV420
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 References: <20240125193834.7065-1-quic_parellan@quicinc.com>
  <20240125193834.7065-8-quic_parellan@quicinc.com>
  <301cdbe2-7377-4b0f-bd24-5131f8928c29@linaro.org>
@@ -55,14 +57,28 @@ References: <20240125193834.7065-1-quic_parellan@quicinc.com>
  <31630fe2-045d-c5f1-4019-e8a8b89928c3@quicinc.com>
  <CAA8EJpr+tqWgj78LuPeDztQb+Tt_Zs0OKPaRsV1E-jqpRQJO6Q@mail.gmail.com>
  <1727d3ab-900b-9c7b-2afa-a47b0bb3c713@quicinc.com>
-In-Reply-To: <1727d3ab-900b-9c7b-2afa-a47b0bb3c713@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 30 Jan 2024 03:43:36 +0200
-Message-ID: <CAA8EJprhZ+AyjjUM46_qmYeOytX60ncLbFw0mC7V5bBT4MoN6w@mail.gmail.com>
-Subject: Re: [PATCH 07/17] drm/msm/dpu: disallow widebus en in INTF_CONFIG2
- when DP is YUV420
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+ <CAA8EJprhZ+AyjjUM46_qmYeOytX60ncLbFw0mC7V5bBT4MoN6w@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJprhZ+AyjjUM46_qmYeOytX60ncLbFw0mC7V5bBT4MoN6w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: B85y3luciK9jbwnssTJGTsCylzdxafQD
+X-Proofpoint-GUID: B85y3luciK9jbwnssTJGTsCylzdxafQD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-29_15,2024-01-29_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ impostorscore=0 mlxscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ adultscore=0 spamscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ mlxlogscore=808 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401300026
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,131 +99,164 @@ Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 30 Jan 2024 at 03:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 1/29/2024 4:03 PM, Dmitry Baryshkov wrote:
-> > On Tue, 30 Jan 2024 at 01:51, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >>
-> >>
-> >> On 1/27/2024 9:33 PM, Dmitry Baryshkov wrote:
-> >>> On Sun, 28 Jan 2024 at 07:16, Paloma Arellano <quic_parellan@quicinc.com> wrote:
-> >>>>
-> >>>>
-> >>>> On 1/25/2024 1:26 PM, Dmitry Baryshkov wrote:
-> >>>>> On 25/01/2024 21:38, Paloma Arellano wrote:
-> >>>>>> INTF_CONFIG2 register cannot have widebus enabled when DP format is
-> >>>>>> YUV420. Therefore, program the INTF to send 1 ppc.
-> >>>>>
-> >>>>> I think this is handled in the DP driver, where we disallow wide bus
-> >>>>> for YUV 4:2:0 modes.
-> >>>> Yes we do disallow wide bus for YUV420 modes, but we still need to
-> >>>> program the INTF_CFG2_DATA_HCTL_EN. Therefore, it is necessary to add
-> >>>> this check.
-> >>>
-> >>> As I wrote in my second email, I'd prefer to have one if which guards
-> >>> HCTL_EN and another one for WIDEN
-> >>>
-> >> Its hard to separate out the conditions just for HCTL_EN . Its more
-> >> about handling the various pixel per clock combinations.
-> >>
-> >> But, here is how I can best summarize it.
-> >>
-> >> Lets consider DSI and DP separately:
-> >>
-> >> 1) For DSI, for anything > DSI version 2.5 ( DPU version 7 ).
-> >>
-> >> This is same the same condition as widebus today in
-> >> msm_dsi_host_is_wide_bus_enabled().
-> >>
-> >> Hence no changes needed for DSI.
-> >
-> > Not quite. msm_dsi_host_is_wide_bus_enabled() checks for the DSC being
-> > enabled, while you have written that HCTL_EN should be set in all
-> > cases on a corresponding platform.
-> >
->
-> Agreed. This is true, we should enable HCTL_EN for DSI irrespective of
-> widebus for the versions I wrote.
->
-> Basically for the non-compressed case.
->
-> I will write something up to fix this for DSI. I think this can go as a
-> bug fix.
->
-> But that does not change the DP conditions OR in other words, I dont see
-> anything wrong with this patch yet.
->
-> >>
-> >> 2) For DP, whenever widebus is enabled AND YUV420 uncompressed case
-> >> as they are independent cases. We dont support YUV420 + DSC case.
-> >>
-> >> There are other cases which fall outside of this bucket but they are
-> >> optional ones. We only follow the "required" ones.
-> >>
-> >> With this summary in mind, I am fine with what we have except perhaps
-> >> better documentation above this block.
-> >>
-> >> When DSC over DP gets added, I am expecting no changes to this block as
-> >> it will fall under the widebus_en case.
-> >>
-> >> With this information, how else would you like the check?
-> >
-> > What does this bit really change?
-> >
->
-> This bit basically just tells that the data sent per line is programmed
-> with INTF_DISPLAY_DATA_HCTL like this cap is suggesting.
->
->          if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
->                  DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
->                  DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL,
-> display_data_hctl);
->                  DPU_REG_WRITE(c, INTF_ACTIVE_DATA_HCTL, active_data_hctl);
->          }
->
-> Prior to that it was programmed with INTF_DISPLAY_HCTL in the same function.
-
-Can we enable it unconditionally for DPU >= 5.0?
-
->
-> >>
-> >>>>>
-> >>>>>>
-> >>>>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> >>>>>> ---
-> >>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 +++-
-> >>>>>>     1 file changed, 3 insertions(+), 1 deletion(-)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> >>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> >>>>>> index 6bba531d6dc41..bfb93f02fe7c1 100644
-> >>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> >>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> >>>>>> @@ -168,7 +168,9 @@ static void
-> >>>>>> dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
-> >>>>>>          * video timing. It is recommended to enable it for all cases,
-> >>>>>> except
-> >>>>>>          * if compression is enabled in 1 pixel per clock mode
-> >>>>>>          */
-> >>>>>> -    if (p->wide_bus_en)
-> >>>>>> +    if (dp_intf && fmt->base.pixel_format == DRM_FORMAT_YUV420)
-> >>>>>> +        intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
-> >>>>>> +    else if (p->wide_bus_en)
-> >>>>>>             intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
-> >>>>>>           data_width = p->width;
-> >>>>>
-> >>>
-> >>>
-> >>>
-> >
-> >
-> >
 
 
+On 1/29/2024 5:43 PM, Dmitry Baryshkov wrote:
+> On Tue, 30 Jan 2024 at 03:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 1/29/2024 4:03 PM, Dmitry Baryshkov wrote:
+>>> On Tue, 30 Jan 2024 at 01:51, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 1/27/2024 9:33 PM, Dmitry Baryshkov wrote:
+>>>>> On Sun, 28 Jan 2024 at 07:16, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 1/25/2024 1:26 PM, Dmitry Baryshkov wrote:
+>>>>>>> On 25/01/2024 21:38, Paloma Arellano wrote:
+>>>>>>>> INTF_CONFIG2 register cannot have widebus enabled when DP format is
+>>>>>>>> YUV420. Therefore, program the INTF to send 1 ppc.
+>>>>>>>
+>>>>>>> I think this is handled in the DP driver, where we disallow wide bus
+>>>>>>> for YUV 4:2:0 modes.
+>>>>>> Yes we do disallow wide bus for YUV420 modes, but we still need to
+>>>>>> program the INTF_CFG2_DATA_HCTL_EN. Therefore, it is necessary to add
+>>>>>> this check.
+>>>>>
+>>>>> As I wrote in my second email, I'd prefer to have one if which guards
+>>>>> HCTL_EN and another one for WIDEN
+>>>>>
+>>>> Its hard to separate out the conditions just for HCTL_EN . Its more
+>>>> about handling the various pixel per clock combinations.
+>>>>
+>>>> But, here is how I can best summarize it.
+>>>>
+>>>> Lets consider DSI and DP separately:
+>>>>
+>>>> 1) For DSI, for anything > DSI version 2.5 ( DPU version 7 ).
+>>>>
+>>>> This is same the same condition as widebus today in
+>>>> msm_dsi_host_is_wide_bus_enabled().
+>>>>
+>>>> Hence no changes needed for DSI.
+>>>
+>>> Not quite. msm_dsi_host_is_wide_bus_enabled() checks for the DSC being
+>>> enabled, while you have written that HCTL_EN should be set in all
+>>> cases on a corresponding platform.
+>>>
+>>
+>> Agreed. This is true, we should enable HCTL_EN for DSI irrespective of
+>> widebus for the versions I wrote.
+>>
+>> Basically for the non-compressed case.
+>>
+>> I will write something up to fix this for DSI. I think this can go as a
+>> bug fix.
+>>
+>> But that does not change the DP conditions OR in other words, I dont see
+>> anything wrong with this patch yet.
+>>
+>>>>
+>>>> 2) For DP, whenever widebus is enabled AND YUV420 uncompressed case
+>>>> as they are independent cases. We dont support YUV420 + DSC case.
+>>>>
+>>>> There are other cases which fall outside of this bucket but they are
+>>>> optional ones. We only follow the "required" ones.
+>>>>
+>>>> With this summary in mind, I am fine with what we have except perhaps
+>>>> better documentation above this block.
+>>>>
+>>>> When DSC over DP gets added, I am expecting no changes to this block as
+>>>> it will fall under the widebus_en case.
+>>>>
+>>>> With this information, how else would you like the check?
+>>>
+>>> What does this bit really change?
+>>>
+>>
+>> This bit basically just tells that the data sent per line is programmed
+>> with INTF_DISPLAY_DATA_HCTL like this cap is suggesting.
+>>
+>>           if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
+>>                   DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
+>>                   DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL,
+>> display_data_hctl);
+>>                   DPU_REG_WRITE(c, INTF_ACTIVE_DATA_HCTL, active_data_hctl);
+>>           }
+>>
+>> Prior to that it was programmed with INTF_DISPLAY_HCTL in the same function.
+> 
+> Can we enable it unconditionally for DPU >= 5.0?
+> 
 
--- 
-With best wishes
-Dmitry
+There is a corner-case that we should not enable it when compression is 
+enabled without widebus as per the docs :(
+
+For DP there will not be a case like that because compression and 
+widebus go together but for DSI, it is possible.
+
+So I found that the reset value of this register does cover all cases 
+for DPU >= 7.0 so below fix will address the DSI concern and will fix 
+the issue even for YUV420 cases such as this one for DPU >= 7.0
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c 
+b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+index 6bba531d6dc4..cbd5ebd516cd 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+@@ -168,6 +168,8 @@ static void dpu_hw_intf_setup_timing_engine(struct 
+dpu_hw_intf *ctx,
+          * video timing. It is recommended to enable it for all cases, 
+except
+          * if compression is enabled in 1 pixel per clock mode
+          */
++
++       intf_cfg2 = DPU_REG_READ(c, INTF_CONFIG2);
+         if (p->wide_bus_en)
+                 intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | 
+INTF_CFG2_DATA_HCTL_EN;
+
+
+But, this does not still work for DPU < 7.0 such as sc7180 if we try 
+YUV420 over DP on that because its DPU version is 6.2 so we will have to 
+keep this patch for those cases.
+
+>>
+>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+>>>>>>>> ---
+>>>>>>>>      drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 +++-
+>>>>>>>>      1 file changed, 3 insertions(+), 1 deletion(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>>>>>> index 6bba531d6dc41..bfb93f02fe7c1 100644
+>>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>>>>>>>> @@ -168,7 +168,9 @@ static void
+>>>>>>>> dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>>>>>>>>           * video timing. It is recommended to enable it for all cases,
+>>>>>>>> except
+>>>>>>>>           * if compression is enabled in 1 pixel per clock mode
+>>>>>>>>           */
+>>>>>>>> -    if (p->wide_bus_en)
+>>>>>>>> +    if (dp_intf && fmt->base.pixel_format == DRM_FORMAT_YUV420)
+>>>>>>>> +        intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
+>>>>>>>> +    else if (p->wide_bus_en)
+>>>>>>>>              intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
+>>>>>>>>            data_width = p->width;
+>>>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>
+>>>
+>>>
+> 
+> 
+> 
