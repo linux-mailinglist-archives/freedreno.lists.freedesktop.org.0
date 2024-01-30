@@ -2,85 +2,123 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15683841BB8
-	for <lists+freedreno@lfdr.de>; Tue, 30 Jan 2024 07:04:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B083841D20
+	for <lists+freedreno@lfdr.de>; Tue, 30 Jan 2024 09:01:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C31112DC4;
-	Tue, 30 Jan 2024 06:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F134112DEB;
+	Tue, 30 Jan 2024 08:01:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B56F4112DBA;
- Tue, 30 Jan 2024 06:03:34 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40U2omLT004649; Tue, 30 Jan 2024 06:03:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=Pk7nS8nM01A3Vh0RhXya7/xihKQB34wXMNGjXxZ0GYc=; b=I3
- aGg/laEjpDoG0lc5dQr35dqr4hK0PDJLXB805y8lBBZP8MNZBWiofGiFb1dC78IF
- +4Ynv46vCJdIFxZuB6k1JJejkpbbDUTQnNQkMprCzdTtetEDFPP7JUASOgP/QWZK
- VDkn9sG5Jj71+uoQgIYOtc/wtTf8a59IMQCGgyw8Tl0/5InAtyjhwJuyl7ewAz83
- pjF1A5pj6WuUV4i+YXiPqC5WxBie727NLi5mWKz052QguSKlnmrk/Szd4u+T7KSf
- QXaD6iZ3ev1zOXoholWZc5Qu32ftolGnhtO1BbGT4dvW1pqjUR28+rbqp8BaM+W8
- +6TP6FIhqsDNT6aftv6g==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vxr2v0bm5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Jan 2024 06:03:30 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40U63U4s018934
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 30 Jan 2024 06:03:30 GMT
-Received: from [10.110.15.32] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 29 Jan
- 2024 22:03:29 -0800
-Message-ID: <8f834e24-cfa4-cf58-5c60-d26c042fc034@quicinc.com>
-Date: Mon, 29 Jan 2024 22:03:28 -0800
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33316112DEB
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Jan 2024 08:01:05 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5111c7d40deso426747e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Jan 2024 00:01:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1706601603; x=1707206403; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+HkH4XQMR2Fb/ctwAmYb0jzkl/3spUTrWnMDkagnUdU=;
+ b=hYQhUIyiBYRbbeQ+fAhWyFzjMBaedAD1SZXRBZpY5KcsKq+aQw4LEFsxuk2tP7ItJ2
+ nBZpUp3dWdJgQWf4OimXO9EJ2ixor5uuUNsJum7MIGBDIFQOmgxKRdWxiw/TSA87c+zO
+ a7WPjfYWuJCKaWnGqe8yxdW0LBtcobMm/wtirdLL8FX9pXrvmdDEl9zJsACp8APNsku9
+ aaW8u0Zk5WPi7CfJiyrUlLv5vDweJwaZaJGSizwuC7LDaGmwOPplecmpts8vD0Y5PpBH
+ MCc2h4TgmRxrxWbX8N3YbqgCDKiAiwNeQAty0PwO05bcZKhc8QC453qsvhm7pxIOucii
+ B5Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706601603; x=1707206403;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+HkH4XQMR2Fb/ctwAmYb0jzkl/3spUTrWnMDkagnUdU=;
+ b=sZpF8/NDvl76eKvIhkRtlKjRjVajSKDVRElfDGjgZN7sKS/k7BN8k2ZGVQRhCGZ4+X
+ FPcZVsKasOTeHcTAKY6liuZCEhXtQUnUuVFaaq2IXwnMdDgFdhZ+g7fCfdlugsaMbBtM
+ Yr2OHyFyRhLqXxqNBrKpNu9/iDvbnBE1l7RsYdFP/DR1pQqZYsDW7YxbNTyA5rSph5bv
+ uyXriMFHKb0V6eOcpXdtkOZR1pv7JugttDcTUu9smqCkhmfGUbTXrE6urTLk/7N+lkDa
+ MBz5SbS3R/x0Fx/V87z59z4G+xGJ6b12gX9eJQ7lU2ffjUO1y7E9aYNAM8/YDMWjBssK
+ u41w==
+X-Gm-Message-State: AOJu0YzpijReHsfM8QqJ473GSbtoX78neyPkiUN/SuktUT2CdeshNTcW
+ D2kTy3xKcmiY4Y2c9XjeC2ONZ+IgfMbhcEjCICPCpqlc3ivgv9NNyBGXyGwPBnI=
+X-Google-Smtp-Source: AGHT+IFuPg9GW35NCszZH+DhM+lLv9BCNrTEafYzWSWwdeVr6ZfYv4zy+S40oJYAS+lHGsoDq5uojQ==
+X-Received: by 2002:a05:6512:1082:b0:50e:75ee:ec4c with SMTP id
+ j2-20020a056512108200b0050e75eeec4cmr6389637lfg.11.1706601603441; 
+ Tue, 30 Jan 2024 00:00:03 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.222.62])
+ by smtp.gmail.com with ESMTPSA id
+ s15-20020a170906354f00b00a3186c2c254sm4797333eja.213.2024.01.30.00.00.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jan 2024 00:00:02 -0800 (PST)
+Message-ID: <37dae8b0-4e23-4325-810c-e7f555894964@linaro.org>
+Date: Tue, 30 Jan 2024 09:00:01 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 07/17] drm/msm/dpu: disallow widebus en in INTF_CONFIG2
- when DP is YUV420
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] dt-bindings: display/msm: Document the DPU for
+ X1E80100
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-8-quic_parellan@quicinc.com>
- <301cdbe2-7377-4b0f-bd24-5131f8928c29@linaro.org>
- <09a10811-ea7c-3e99-d5eb-755aac4ecf0e@quicinc.com>
- <CAA8EJpqFcY8yBmdW8qpMiS1p3bqY2+pgXtvR0Br9-p_VAUnN+Q@mail.gmail.com>
- <31630fe2-045d-c5f1-4019-e8a8b89928c3@quicinc.com>
- <CAA8EJpr+tqWgj78LuPeDztQb+Tt_Zs0OKPaRsV1E-jqpRQJO6Q@mail.gmail.com>
- <1727d3ab-900b-9c7b-2afa-a47b0bb3c713@quicinc.com>
- <CAA8EJprhZ+AyjjUM46_qmYeOytX60ncLbFw0mC7V5bBT4MoN6w@mail.gmail.com>
- <697b153b-fb8e-6b58-fc4f-92f814f86d0f@quicinc.com>
- <CAA8EJpp+k9u4L4O9_V4Ypu-8ROUkVkRt3pL5Tot+eGC39EqNaw@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpp+k9u4L4O9_V4Ypu-8ROUkVkRt3pL5Tot+eGC39EqNaw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Abel Vesa <abel.vesa@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org>
+ <20240129-x1e80100-display-v1-2-0d9eb8254df0@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240129-x1e80100-display-v1-2-0d9eb8254df0@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: L4XVTkUKcnp5tpbWatLwPHanG5BVfAFe
-X-Proofpoint-ORIG-GUID: L4XVTkUKcnp5tpbWatLwPHanG5BVfAFe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-30_02,2024-01-29_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=868
- impostorscore=0 bulkscore=0 suspectscore=0 spamscore=0 malwarescore=0
- clxscore=1015 mlxscore=0 priorityscore=1501 lowpriorityscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401300041
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,200 +131,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: neil.armstrong@linaro.org, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- quic_jesszhan@quicinc.com, Paloma Arellano <quic_parellan@quicinc.com>,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 29/01/2024 14:18, Abel Vesa wrote:
+> Document the DPU for Qualcomm X1E80100 platform in the SM8650 schema, as
+> they are similar.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+> index a01d15a03317..f84fa6d5e6a2 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
+> @@ -13,7 +13,10 @@ $ref: /schemas/display/msm/dpu-common.yaml#
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,sm8650-dpu
+> +    items:
+
+Drop items, it's just "enum :"
+
+> +      - enum:
+> +          - qcom,sm8650-dpu
+> +          - qcom,x1e80100-dpu
 
 
-On 1/29/2024 9:28 PM, Dmitry Baryshkov wrote:
-> On Tue, 30 Jan 2024 at 06:10, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 1/29/2024 5:43 PM, Dmitry Baryshkov wrote:
->>> On Tue, 30 Jan 2024 at 03:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 1/29/2024 4:03 PM, Dmitry Baryshkov wrote:
->>>>> On Tue, 30 Jan 2024 at 01:51, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 1/27/2024 9:33 PM, Dmitry Baryshkov wrote:
->>>>>>> On Sun, 28 Jan 2024 at 07:16, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 1/25/2024 1:26 PM, Dmitry Baryshkov wrote:
->>>>>>>>> On 25/01/2024 21:38, Paloma Arellano wrote:
->>>>>>>>>> INTF_CONFIG2 register cannot have widebus enabled when DP format is
->>>>>>>>>> YUV420. Therefore, program the INTF to send 1 ppc.
->>>>>>>>>
->>>>>>>>> I think this is handled in the DP driver, where we disallow wide bus
->>>>>>>>> for YUV 4:2:0 modes.
->>>>>>>> Yes we do disallow wide bus for YUV420 modes, but we still need to
->>>>>>>> program the INTF_CFG2_DATA_HCTL_EN. Therefore, it is necessary to add
->>>>>>>> this check.
->>>>>>>
->>>>>>> As I wrote in my second email, I'd prefer to have one if which guards
->>>>>>> HCTL_EN and another one for WIDEN
->>>>>>>
->>>>>> Its hard to separate out the conditions just for HCTL_EN . Its more
->>>>>> about handling the various pixel per clock combinations.
->>>>>>
->>>>>> But, here is how I can best summarize it.
->>>>>>
->>>>>> Lets consider DSI and DP separately:
->>>>>>
->>>>>> 1) For DSI, for anything > DSI version 2.5 ( DPU version 7 ).
->>>>>>
->>>>>> This is same the same condition as widebus today in
->>>>>> msm_dsi_host_is_wide_bus_enabled().
->>>>>>
->>>>>> Hence no changes needed for DSI.
->>>>>
->>>>> Not quite. msm_dsi_host_is_wide_bus_enabled() checks for the DSC being
->>>>> enabled, while you have written that HCTL_EN should be set in all
->>>>> cases on a corresponding platform.
->>>>>
->>>>
->>>> Agreed. This is true, we should enable HCTL_EN for DSI irrespective of
->>>> widebus for the versions I wrote.
->>>>
->>>> Basically for the non-compressed case.
->>>>
->>>> I will write something up to fix this for DSI. I think this can go as a
->>>> bug fix.
->>>>
->>>> But that does not change the DP conditions OR in other words, I dont see
->>>> anything wrong with this patch yet.
->>>>
->>>>>>
->>>>>> 2) For DP, whenever widebus is enabled AND YUV420 uncompressed case
->>>>>> as they are independent cases. We dont support YUV420 + DSC case.
->>>>>>
->>>>>> There are other cases which fall outside of this bucket but they are
->>>>>> optional ones. We only follow the "required" ones.
->>>>>>
->>>>>> With this summary in mind, I am fine with what we have except perhaps
->>>>>> better documentation above this block.
->>>>>>
->>>>>> When DSC over DP gets added, I am expecting no changes to this block as
->>>>>> it will fall under the widebus_en case.
->>>>>>
->>>>>> With this information, how else would you like the check?
->>>>>
->>>>> What does this bit really change?
->>>>>
->>>>
->>>> This bit basically just tells that the data sent per line is programmed
->>>> with INTF_DISPLAY_DATA_HCTL like this cap is suggesting.
->>>>
->>>>            if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
->>>>                    DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
->>>>                    DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL,
->>>> display_data_hctl);
->>>>                    DPU_REG_WRITE(c, INTF_ACTIVE_DATA_HCTL, active_data_hctl);
->>>>            }
->>>>
->>>> Prior to that it was programmed with INTF_DISPLAY_HCTL in the same function.
->>>
->>> Can we enable it unconditionally for DPU >= 5.0?
->>>
->>
->> There is a corner-case that we should not enable it when compression is
->> enabled without widebus as per the docs :(
-> 
-> What about explicitly disabling it in such a case?
-> I mean something like:
-> 
-> if (dpu_core_rev >= 5.0 && !(enc->hw_dsc && !enc->wide_bus_en))
->     intf_cfg |= INTF_CFG2_HCTL_EN;
-> 
 
-Condition is correct now. But we dont have enc or dpu version in this 
-function.
+Best regards,
+Krzysztof
 
-We need to pass a new parameter called compression_en to 
-dpu_hw_intf_timing_params and set it when dsc is used and then do this. 
-We have widebus_en already in dpu_hw_intf_timing_params.
-
-This was anyway part of the DSC over DP but we can add that here and 
-then the if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) is indicative 
-of dpu version >=5 so we can move this setup there.
-
-> 
->>
->> For DP there will not be a case like that because compression and
->> widebus go together but for DSI, it is possible.
->>
->> So I found that the reset value of this register does cover all cases
->> for DPU >= 7.0 so below fix will address the DSI concern and will fix
->> the issue even for YUV420 cases such as this one for DPU >= 7.0
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> index 6bba531d6dc4..cbd5ebd516cd 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->> @@ -168,6 +168,8 @@ static void dpu_hw_intf_setup_timing_engine(struct
->> dpu_hw_intf *ctx,
->>            * video timing. It is recommended to enable it for all cases,
->> except
->>            * if compression is enabled in 1 pixel per clock mode
->>            */
->> +
->> +       intf_cfg2 = DPU_REG_READ(c, INTF_CONFIG2);
->>           if (p->wide_bus_en)
->>                   intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN |
->> INTF_CFG2_DATA_HCTL_EN;
->>
->>
->> But, this does not still work for DPU < 7.0 such as sc7180 if we try
->> YUV420 over DP on that because its DPU version is 6.2 so we will have to
->> keep this patch for those cases.
->>
->>>>
->>>>>>
->>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
->>>>>>>>>> ---
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 +++-
->>>>>>>>>>       1 file changed, 3 insertions(+), 1 deletion(-)
->>>>>>>>>>
->>>>>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>>>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>>>>>>>> index 6bba531d6dc41..bfb93f02fe7c1 100644
->>>>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
->>>>>>>>>> @@ -168,7 +168,9 @@ static void
->>>>>>>>>> dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->>>>>>>>>>            * video timing. It is recommended to enable it for all cases,
->>>>>>>>>> except
->>>>>>>>>>            * if compression is enabled in 1 pixel per clock mode
->>>>>>>>>>            */
->>>>>>>>>> -    if (p->wide_bus_en)
->>>>>>>>>> +    if (dp_intf && fmt->base.pixel_format == DRM_FORMAT_YUV420)
->>>>>>>>>> +        intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
->>>>>>>>>> +    else if (p->wide_bus_en)
->>>>>>>>>>               intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
->>>>>>>>>>             data_width = p->width;
->>>>>>>>>
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>
->>>>>
->>>>>
->>>
->>>
->>>
-> 
-> 
-> 
