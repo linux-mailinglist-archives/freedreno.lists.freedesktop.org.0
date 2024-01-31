@@ -2,98 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5242D843A77
-	for <lists+freedreno@lfdr.de>; Wed, 31 Jan 2024 10:12:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9527D843BE1
+	for <lists+freedreno@lfdr.de>; Wed, 31 Jan 2024 11:08:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0CB3113AB6;
-	Wed, 31 Jan 2024 09:12:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2C510F115;
+	Wed, 31 Jan 2024 10:08:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC73E113AB6
- for <freedreno@lists.freedesktop.org>; Wed, 31 Jan 2024 09:12:08 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-a2e633c5365so184026066b.1
- for <freedreno@lists.freedesktop.org>; Wed, 31 Jan 2024 01:12:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1706692267; x=1707297067; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ORBEpQ5F08UVhnCzKa+jzZ+oJJNJsZKWbQ0DCuxPaWc=;
- b=A0Jch1DZcevK137wsPQsIkO7nyvwmSA5U1p3Fp0gr5YXAUPNCR8UJH80Fl9r+6tjIk
- R9o3hl/8lcs/3uT62oj3sgA9LGZ1UnNV0JV/0cQjmTyDJdNIUtKbTp/2/RLueFFJ0/Qm
- HKvWOxxigQ48YW7PduDDk5F0Gtqb5/Y/SGbSg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706692267; x=1707297067;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ORBEpQ5F08UVhnCzKa+jzZ+oJJNJsZKWbQ0DCuxPaWc=;
- b=gquDc+Mpp91MdgHmapmA1sMcu9HaxepVAcgjTijWEjek4mqu4osWxqAW9PzXegyirW
- JW55wJaKkAZjN76qipofPELCnilDmvzaAd5X1qOrhxewuhr/xYdBGWZyn50XZICr24nP
- 0LnVq0R3S/32pqgFbW2q/l3bGwimn0XrfbmMGJOHBfsCQHybQlENiiE2+awBVOeKxgMk
- hbGw5+8qra2SqW5LLqMGp+NniA6R5zyN+6fzHiqznZQEpNunXdikWJKPrEUMgqqbo65a
- R+AHKuTZR2OIkexI1am1DbdOgTawUozHFPkVShHgxyDG4qPTQJExaS8vi/v4v9vJTAj/
- Rwbg==
-X-Gm-Message-State: AOJu0YxRWUUMMw8xguJEquq+DUrZdQShjevr3YRT0IXCBbFN5FPxDxCX
- 5jynDMVmEVci1UXkNEdHXxBJgG0Vy7QA9Iyf7rZYZXAdxYPujlW6YtZNFrcnZkQ=
-X-Google-Smtp-Source: AGHT+IHHkRoncH5TZwJ2KO/1SVucsjdiD6pGPJaM5NKeKM2EzUdubU6eh2uy4dvG7OzWu32QgOh+eg==
-X-Received: by 2002:a17:906:4a52:b0:a35:b6a1:712d with SMTP id
- a18-20020a1709064a5200b00a35b6a1712dmr697445ejv.2.1706692266392; 
- Wed, 31 Jan 2024 01:11:06 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- j9-20020a170906254900b00a311685890csm5987876ejb.22.2024.01.31.01.11.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jan 2024 01:11:05 -0800 (PST)
-Date: Wed, 31 Jan 2024 10:11:03 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?= <Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH] drm/atomic-helpers: remove legacy_cursor_update hacks
-Message-ID: <ZboOp7JOp5teV1Cs@phenom.ffwll.local>
-Mail-Followup-To: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?=
- <Jason-JH.Lin@mediatek.com>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "michel@daenzer.net" <michel@daenzer.net>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "maxime@cerno.tech" <maxime@cerno.tech>,
- "daniel.vetter@intel.com" <daniel.vetter@intel.com>,
- "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>, 
- "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>,
- "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
- "fshao@chromium.org" <fshao@chromium.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "jani.nikula@intel.com" <jani.nikula@intel.com>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>, 
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
- <20230307145613.xvhru3fpcudlpazt@houat>
- <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
- <ZbKlsTEvGPiGtzS3@phenom.ffwll.local>
- <1349365de499bae53a8c868738c7270fc16813d5.camel@mediatek.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2056.outbound.protection.outlook.com [40.107.102.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80FE910E9F8;
+ Wed, 31 Jan 2024 10:08:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g+rwMFejQQKdB7mzMk6/BOneWiEvA8mkFKY6tT0lRD/nVDc7VOFIVxcCc2Swak5+uXqqhwQHFy/uCvNct0rqeHoZZK5mKd/8uwYZDX41NIWpDlFqImsBwHASBpAIu+NBMV1ZRJ8UQ6hDKW2tbAwJ0+uXBe7g+ERmP572U90WO6v1poP648+qvf3EzyM2ayYnFzKrwF7vLFOM02lMeGnPgMDvqYCuDWgrCBcUXR85rx704x48PVTIP2hOFy9K2oO7yqi/YPidSFkUljQImGwpF/b5KtapWkAuclxfGGd3K82ug3hCLpGWQFXyDO2v8f4eeQzVcHPA7CFjGzyIpuVPDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VxZAeKyar4lj664e5KVjs76LkhDUhulhWOJciKOLE5Y=;
+ b=kT0PS8BGMsYelOay4MBqVvPo4EYUsTEHuU/JyTvjbQW6DkjQB3nnhmctjciUaI3AopqfhOpe39gbTFaZN0DaXnAjS6DjRTJwySNOUcamMC0kFQot4598b+wVLXbbYZUkDXVMdNSmnqzdYk7z5iHLyFORSwqHKoKVw+rwuEV+7k3wxtOG4FOeaJduxu0+75MDE58NNUZekrhobBBN2sQzG0o86NdX1HYHwRQuZ4v6LSGRxpqSwmOK6f50qsISdOZIWFT+1czK6+pIo1pq9oOfkXRjk6wxE4cLjKk7GPX9DGsvXpmpIASLzSrvKlKrDmE+0tc8jss+MY9ZFquBzHtU2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VxZAeKyar4lj664e5KVjs76LkhDUhulhWOJciKOLE5Y=;
+ b=OdS+TdbtakTcpJAscY2fEdSsJ2mBnACEBDu1hfyP0fZMCpQh1Ri18C1zwCPKQs0i9bVsPy5OxChYfmW9I5Mycks95iaRojYL8VRQE8hIobIfqr+BSYXJQObPuNwzpMDL7W7IhsFQQtM4ikrsd48reMdWfAOygmJHed8/RLHgrvw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA0PR12MB4575.namprd12.prod.outlook.com (2603:10b6:806:73::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.22; Wed, 31 Jan
+ 2024 10:08:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7228.029; Wed, 31 Jan 2024
+ 10:08:04 +0000
+Message-ID: <223ce1a9-d0ca-4922-b0a5-030be084afa3@amd.com>
+Date: Wed, 31 Jan 2024 11:07:58 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/gem: Fix double resv lock aquire
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20240130223533.25713-1-robdclark@gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240130223533.25713-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1349365de499bae53a8c868738c7270fc16813d5.camel@mediatek.com>
-X-Operating-System: Linux phenom 6.6.11-amd64 
+X-ClientProxiedBy: AS4P189CA0066.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:659::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4575:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1079b6dd-e8d2-41ee-08b9-08dc2244838d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 675DqIxtWuEcadQbXFho/D6o/yr5r1+/U8S1kHCml9q8mmymW8Tic+fBUC5RpkhhIzOJ6xqEaD9jAdcE4364dmM1yyGeWCuYctEn8pHScosbN62NmYiZGfABW0k5t91PAhjPxuwAKOprEu1cSY7J1XJR4jdr2qox3QOYCBb3K1iIb572TcCa1f5x3+qV/cN3xX90raWeH5DHmg5rd8GeVEYLW98uBpLlUhv3m+JuySPojjNKGyLGcOEjjJxiDYRDZLENYk+Jz85lM94NUH+6G0yWkS4kkGcbqa0q7sfAJjDcqM7htd7Mt2Xh7qZ7tf8qvVUdMD8s5LcDNuNx7OTNFbWwO4+MEtIxRcKzAYBYhciWXEJNR2tY4Hjyxe7orZX3e1x/GvkQMzBv4HeD6tjKvDggS/DWPJf/BHum/eSGf08l42U1JNoy7jkczbipv4m5uHWMhg6tGJ0eUXxStSlV9PgoJmxCv8qEf1bYDYzQMUuhl7X0Ztihb2cwbDUM7BT5wDuFnXtxyklcJPpvqnfzRIW14P+F9vScSzNM40LajryuHdw/SsVqsJC5WbX7tvhkx9Uiir+08gWmJrZO/nxeOhj0Stf7d4MEdehjeyV8PHtFaWSM1eSahpqq0RZf5el6E/oCkkmuT3n0xGMprNpC/A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(136003)(376002)(366004)(396003)(346002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(316002)(6486002)(66946007)(66556008)(66476007)(54906003)(478600001)(6666004)(8936002)(6506007)(6512007)(8676002)(4326008)(5660300002)(26005)(2616005)(7416002)(66574015)(2906002)(83380400001)(31696002)(86362001)(38100700002)(41300700001)(36756003)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHVKVGFZaGFRWlA3WDhCN3dnak96Mjdqc1B2QTM1YnJueVZVcnNzcjlmZTZH?=
+ =?utf-8?B?UkJQcVQxRUUweVN5MmNmSktjMGRMeUl5MnY5TWZmNGU1dEJ4ejdPeGc2WDNh?=
+ =?utf-8?B?MnQ1QklPbVVwNWtiaHRoQVhzQkJFZG13OEtNU2JoOVBRTjJTMHZSYnI0M2Rw?=
+ =?utf-8?B?dnhBcEhQc1B4bFZKRmdQVnkxcmJyVS9wRHQzR2N5eVN0YWhSVHM2eXM2NnE0?=
+ =?utf-8?B?YVRHL2hrckVKWVFXdVkvV0tyOTNpaEdQYnhlbEVHM2RIYzIwbUNJcEZIN3hO?=
+ =?utf-8?B?Z2xqc2ZIUkg3MkhTNFh3bEFBMktPT1REdTgrRnRRM0cyczhoYitwOW13RDVi?=
+ =?utf-8?B?UEtERzFsWW1ITFBNZmVIMXYxc1Y1cUNMdFczaW1SUGVCTUUzbnI1ZytsUjVE?=
+ =?utf-8?B?Z1dZUzBoaFhPbzJlRG8vQnVZL3hWb0JVQ1RrTE9JUEdZb29OdVBJT2dJYmRm?=
+ =?utf-8?B?ZFcrUEptdWRHT3RVc0cvRHQwYkpucGJsbUc0NVF4UjBsWWxqYU5rVHNyMXNC?=
+ =?utf-8?B?NVdpckdpclpPc2RCZTVxMTFmdlFwVUwyNnZ3aXhCRkxvZzIySGNrR2ovdFhi?=
+ =?utf-8?B?Ums1V28vRmpHUUNiZ1hFUkM3VG1uRkZkNFZPZXpVdmdkKzZRYUQ1eDR5NnlZ?=
+ =?utf-8?B?c3czM042UFk1RWI5STZlb1pPR1Y4RFpsZFpMSm80Z2dIZDEvQUNqZU1nQ0xv?=
+ =?utf-8?B?UGRmMkVrTXcyUi9NcW1GaThvRzJPK0NDQzlkUjNGWEhWcU82NkQ1N2luT2pD?=
+ =?utf-8?B?RHliWkJZTE1NdkQvVWRhUVRWa3h0NzBzWFN1K0NHL3I5bkhibmFsZGJsNEEx?=
+ =?utf-8?B?VXF4SXE2Wm5HWm1POXhjNHA2ekRTTWViNGpWTjhjMFVrblZrVkdjalUvNk55?=
+ =?utf-8?B?eC85OW5FWENLMmUzL2MrRm9seXd6UXlpTWU4MStDMzArZlhBall4YW9JeDBP?=
+ =?utf-8?B?aHFmRTNKQ0ZlUkNzREFmZFhVbktqMUJ1RVZxdDlQLzdIM0FLaWZDR2V1UFVZ?=
+ =?utf-8?B?K1dLVWFuQVVKakVqZUxIS2ZnVHhqK0NwaVIzWk0wMkhlNjF1cHBtSTIrNzdI?=
+ =?utf-8?B?U0hQQ2RpUXRhbmdGeFQ1bENUempCQ0l4VlBZZUFxdldGQ1BHelFON1hVSHFW?=
+ =?utf-8?B?TlMySE1WTGZkYlhGZVltbWVWcVJSQTFNcUYxenllVUMwVG55S0Z3TzcrM2s1?=
+ =?utf-8?B?RHdnSmFpdjQyYW9LdVpyTUgrTGxGWnkyWXlNdzkxMUwrUmZJdW9lZyt0azJD?=
+ =?utf-8?B?a0poUDVpUjdNZ1JRQlJGMUQ4K1RHZlJ4T2s3N3U5T0VLZzFDcXhkUFVRaEgz?=
+ =?utf-8?B?TUMvZGFiMzFLRGdUNzNqdERScVlCMzk4SElvQ3dFTkRHS1ZhbGJZeU9GejQ0?=
+ =?utf-8?B?RHU0M3IrWUpzcWMwdWxURmo1YUJ6OWdMa0VOdHlHWmRvelJ0bUgxQkFrMEQy?=
+ =?utf-8?B?Q0VzN2Jqb3cyemh5cWdLdUF3TWVBQURod1VIc0VJS3g2eXpuRDUwYldTdEN1?=
+ =?utf-8?B?clRHZ213QXdwOW5BWXBKd0tBNnA1NGplamgxeGRwVHI2WkhJL0tSbkpWYTZs?=
+ =?utf-8?B?Vm1CSFZ2RDB0UVFJdjdwM2wvalJOSmxrbVJRZEpSRmxPd09id1d0b3NkdzBC?=
+ =?utf-8?B?dmFrUjVjNnJ6RFl2VExDWlVudzRiNHJZN2IwNzRGVjA2Z2NUQlBJaUErQlFN?=
+ =?utf-8?B?VVdEb1hRYWpGSDhDMVFYTFlLK1A2ZmV5ODBabk93UVFtOW55RkhYYlJxOWYv?=
+ =?utf-8?B?ZGVuM3dRemF2NWJac0FHWFVMbGw4Y0VGd0lJaVFVekZtencrWDQ2a2xKSjda?=
+ =?utf-8?B?RWZjVUFld2dQL3U0NXMvRjJlVkFIMW9sK29TNjZlVlYvU1RBM2Z1c3pBZmJo?=
+ =?utf-8?B?aDM2WE41V01HLzJ1ajdqeGdGYlF6d25TT0JCT2hTekhSLzYvUEhFTVNPRmMw?=
+ =?utf-8?B?cUZDaVJNNkxNbC9YUWRlQkprdkVWSnM5bmhjZ3NTTmlDZDZnY1VzMFhDbDNU?=
+ =?utf-8?B?dTVRakV2NDRaTVZwczk5RlNyRzdVUWh6dGFoZTVlNy9QY0J2b0xlVHBpRmw2?=
+ =?utf-8?B?YU9iOXF5T0l0Uk02dURVdXYxOHVMRHhmU08yUTVEMnFVUjNsM1V2Z3hCZnlI?=
+ =?utf-8?Q?rUec=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1079b6dd-e8d2-41ee-08b9-08dc2244838d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 10:08:04.2585 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4ydXLyJOfzdp6WV3sm+bF7CI/4ZhjkNMJDbFYDbDDxD8UQNS5PwiiMPwnElK0YKi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4575
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,150 +123,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "fshao@chromium.org" <fshao@chromium.org>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "daniel.vetter@intel.com" <daniel.vetter@intel.com>,
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "jani.nikula@intel.com" <jani.nikula@intel.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "michel@daenzer.net" <michel@daenzer.net>,
- "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maxime@cerno.tech" <maxime@cerno.tech>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "mikita.lipski@amd.com" <mikita.lipski@amd.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 31, 2024 at 05:17:08AM +0000, Jason-JH Lin (林睿祥) wrote:
-> On Thu, 2024-01-25 at 19:17 +0100, Daniel Vetter wrote:
-> >  	 
-> > External email : Please do not click links or open attachments until
-> > you have verified the sender or the content.
-> >  On Tue, Jan 23, 2024 at 06:09:05AM +0000, Jason-JH Lin (林睿祥) wrote:
-> > > Hi Maxime, Daniel,
-> > > 
-> > > We encountered similar issue with mediatek SoCs.
-> > > 
-> > > We have found that in drm_atomic_helper_commit_rpm(), when
-> > disabling
-> > > the cursor plane, the old_state->legacy_cursor_update in
-> > > drm_atomic_wait_for_vblank() is set to true.
-> > > As the result, we are not actually waiting for a vlbank to wait for
-> > our
-> > > hardware to close the cursor plane. Subsequently, the execution
-> > > proceeds to drm_atomic_helper_cleanup_planes() to  free the cursor
-> > > buffer. This can lead to use-after-free issues with our hardware.
-> > > 
-> > > Could you please apply this patch to fix our problem?
-> > > Or are there any considerations for not applying this patch?
-> > 
-> > Mostly it needs someone to collect a pile of acks/tested-by and then
-> > land
-> > it.
-> > 
-> 
-> Got it. I would add tested-by tag for mediatek SoC.
-> 
-> > I'd be _very_ happy if someone else can take care of that ...
-> > 
-> > There's also the potential issue that it might slow down some of the
-> > legacy X11 use-cases that really needed a non-blocking cursor, but I
-> > think
-> > all the drivers where this matters have switched over to the async
-> > plane
-> > update stuff meanwhile. So hopefully that's good.
-> > 
-> 
-> I think all the drivers should have switched to async plane update.
-> 
-> Can we add the checking condition to see if atomic_async_update/check
-> function are implemented?
+Am 30.01.24 um 23:35 schrieb Rob Clark:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Since commit 56e5abba8c3e ("dma-buf: Add unlocked variant of vmapping
+> functions"), the resv lock is already held in the prime vmap path, so
+> don't try to grab it again.
+>
+> Fixes: 56e5abba8c3e ("dma-buf: Add unlocked variant of vmapping functions")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Pretty sure not all have done that, so really it boils down to whether we
-break a real user's use-case. Which pretty much can only be checked by
-merging the patch (hence the requirement to get as many acks as possible
-from display drivers) and then being willing to handle any fallout that's
-reported as regressions for a specific driver.
+Acked-by: Christian König <christian.koenig@amd.com>
 
-It's a pile of work, at least when it goes south, that's why I'm looking
-for volunteers.
+> ---
+>   drivers/gpu/drm/msm/msm_gem_prime.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+> index 5f68e31a3e4e..8a27b57a5bea 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+> @@ -26,7 +26,7 @@ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+>   {
+>   	void *vaddr;
+>   
+> -	vaddr = msm_gem_get_vaddr(obj);
+> +	vaddr = msm_gem_get_vaddr_locked(obj);
+>   	if (IS_ERR(vaddr))
+>   		return PTR_ERR(vaddr);
+>   	iosys_map_set_vaddr(map, vaddr);
 
-Note that handling the fallout doesn't mean you have to fix that specific
-driver, the only realistic option might be to reinstate the legacy cursor
-behaviour, but as an explicit opt-in that only that specific driver
-enables.
-
-So maybe for next round of that patch it might be good to have a 2nd patch
-which implements this fallback plan in the shared atomic modeset code?
-
-Cheers, Sima
-
-> 
-> Regards,
-> Jason-JH.Lin
-> 
-> > Cheers, Sima
-> > > 
-> > > Regards,
-> > > Jason-JH.Lin
-> > > 
-> > > On Tue, 2023-03-07 at 15:56 +0100, Maxime Ripard wrote:
-> > > > Hi,
-> > > > 
-> > > > On Thu, Feb 16, 2023 at 12:12:13PM +0100, Daniel Vetter wrote:
-> > > > > The stuff never really worked, and leads to lots of fun because
-> > it
-> > > > > out-of-order frees atomic states. Which upsets KASAN, among
-> > other
-> > > > > things.
-> > > > > 
-> > > > > For async updates we now have a more solid solution with the
-> > > > > ->atomic_async_check and ->atomic_async_commit hooks. Support
-> > for
-> > > > > that
-> > > > > for msm and vc4 landed. nouveau and i915 have their own commit
-> > > > > routines, doing something similar.
-> > > > > 
-> > > > > For everyone else it's probably better to remove the use-after-
-> > free
-> > > > > bug, and encourage folks to use the async support instead. The
-> > > > > affected drivers which register a legacy cursor plane and don't
-> > > > > either
-> > > > > use the new async stuff or their own commit routine are:
-> > amdgpu,
-> > > > > atmel, mediatek, qxl, rockchip, sti, sun4i, tegra, virtio, and
-> > > > > vmwgfx.
-> > > > > 
-> > > > > Inspired by an amdgpu bug report.
-> > > > 
-> > > > Thanks for submitting that patch. It's been in the downstream RPi
-> > > > tree
-> > > > for a while, so I'd really like it to be merged eventually :)
-> > > > 
-> > > > Acked-by: Maxime Ripard <maxime@cerno.tech>
-> > > > 
-> > > > Maxime
-> > 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
