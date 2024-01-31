@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1ED5842FC0
-	for <lists+freedreno@lfdr.de>; Tue, 30 Jan 2024 23:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B732A8432A4
+	for <lists+freedreno@lfdr.de>; Wed, 31 Jan 2024 02:17:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821D210E3A3;
-	Tue, 30 Jan 2024 22:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8722D11379A;
+	Wed, 31 Jan 2024 01:16:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6B3D10E3A3;
- Tue, 30 Jan 2024 22:36:39 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-1d70b0e521eso32106775ad.1; 
- Tue, 30 Jan 2024 14:36:39 -0800 (PST)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9E811379A;
+ Wed, 31 Jan 2024 01:16:41 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1d7431e702dso32913725ad.1; 
+ Tue, 30 Jan 2024 17:16:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706654138; x=1707258938; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1706663740; x=1707268540; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=nQdNB3amLD3wgWN5nJoJwd+J8vfuxzeUi86+HaqASZA=;
- b=OKUIXhk+GfnLoxZKcklSDeqdoEtKMTofjoaosz0fjvqmb82XBStTxG5YRt5zuWwQR3
- NoubzBME9OfjqLZwYAyM+0aX/f1ZFv30F0KzkbA8Ra/kHNqg+TPrXxlbjj56Z9XJJWC1
- JAq0FcgvEgQQddoRF99pigGv/cUzqHCREssEd1dUjB8/Ng9OnQ0sE1Hmjzegbw6XNh6w
- tS/hiTfrh7/pA6Xz9cPYmiUB/apSIRXkKrySt/XKI3jW5UbwyO4rxRasogUiUnoUXRpx
- gHrkvfcXrwdR9B43lHBrc0bIoVkbKTocHsiBNTd8AdIfNe7X/QliHcqWZQiY1iRKQTaO
- ARSg==
+ bh=TMI3cnWrauJ0sVrAPWjosebBGINiaEuvqhQTmdIHpwU=;
+ b=MxYomRiEjku+gAZg7s72nS6gsWIy1qjBYgf/evjguI66KAdle1AnGcnN6DV8N3vzPg
+ kHcm/WG3wj8tJKpzGykAwjI/UFT/Dstj3ovCQNYQoZ1Ii20WzoOgDR05mUWOxNE+42QK
+ SgAftYiQjRIjeyr9QJtX87T5xql+4nL5PpJFoE2f+AvZ8Jk21VWVhkmdnWBNJrKyl17H
+ I6G8JeV8Nm2SCyNcxxT96pm96aMDK7jxM056Py//+7Gnjs5hLxvKJaYem92VFU6ZiIJt
+ 4kp1HTDBMyicl6rxb4nQ7rEF/t+CvAuwbevdeLe365koUbPiHodoXq9KzH5vG4jSlJEb
+ Pb+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706654138; x=1707258938;
+ d=1e100.net; s=20230601; t=1706663740; x=1707268540;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=nQdNB3amLD3wgWN5nJoJwd+J8vfuxzeUi86+HaqASZA=;
- b=UU0c5xtd9vyqwKouzEhFHiiHATG4fIuU2FKuHFkUkVc1eEnoN/giVyTRnCJxHq66Cp
- jMWdtKSYYr7ABTwnkyWHF9dKI0/Ed92uGoTCdkP/Y3ck58VPtp5kC5YIqwcyIUPVH242
- 0yugJ6pkegrDdAlNCu9tWXTKQ99n8pGcS6LMWsnRtrodXIcTLBVz1rpcE2uHX9jh6yi6
- ZihHpaUUISGYM+SNVawyu22jgpX5BGw7UzKeH+q0NvBxBb1WE2BkUiZ5y3S1tArmXscS
- yh7ukN2kV516CsVKd99Iy2dR3Y45gMnRdq2qhdldL2y6VD/yjZHrdeP4/wMwBE7firVS
- Pi9w==
-X-Gm-Message-State: AOJu0YwLs+EsCWuTnPMV8owagkx/VgM9K/p74v5LS+qIxcXxYuUJYkIc
- r0ZmcFaFMu/pk7o+E83Yw3aYjlzEPsIdxYxZZshRXvyGH+MHrSR6qBV5jh2k
-X-Google-Smtp-Source: AGHT+IFkj+E3wXJek3COMk2XISaWLhZObNoUmBCYA2ECXaBh+4x1L68p53d2Yn6DikZr614ZjhXc1w==
-X-Received: by 2002:a17:902:780f:b0:1d8:d6b9:c0c0 with SMTP id
- p15-20020a170902780f00b001d8d6b9c0c0mr5944770pll.46.1706654137509; 
- Tue, 30 Jan 2024 14:35:37 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
+ bh=TMI3cnWrauJ0sVrAPWjosebBGINiaEuvqhQTmdIHpwU=;
+ b=GL7ilNpLFvqI518Cj73/yMdBBAr103a/grsaS8KxoT/Gc2QrqLWR1EpfgekRMIlISe
+ Zu38uPAB5A4vfpN3eJOHPSrasP6fVv9RxoDRTyf5Tj98HW25nKsEP7jg9lVugTOnN9Pq
+ sYLwV4i28Ew/dgWUDjHCxExHOOiHPQQ86540h/TNNbRpyboxjKXp5rYZxAo5QEMntyHp
+ 4zU04t8wzADWTYLbH+Liu+xcH+tmvq520gMjrOwabr8fyDB95hKLKXWLJs5MLopb5Ihb
+ 4CnKFC/QIx7ghgsRB54JJr/FucgTuCj+LlrWk9KMxQnrMEfq6q2BWJoJTZ/L9hACHfP+
+ 5Eaw==
+X-Gm-Message-State: AOJu0YwxP3EBMxffQ6ZjwByoEy5+8GwN+thuPvgechWvU9nvoA1QKzkP
+ AqRhZqr6zRDikIxQgfsqprFcinUParoAVhWnDVS5Y/25t5Qh91MYyf/I/BO0
+X-Google-Smtp-Source: AGHT+IG8UGKG/Zt1rkUy45qpAPEJlPjYqNZszRCvj1fmkMfo62fVTpD1GY8zqyGU1X8ERHaQ08XHGA==
+X-Received: by 2002:a17:902:e805:b0:1d8:d01b:571e with SMTP id
+ u5-20020a170902e80500b001d8d01b571emr246288plg.33.1706663740422; 
+ Tue, 30 Jan 2024 17:15:40 -0800 (PST)
+Received: from localhost ([2601:1c0:5000:d5c:ae1c:de46:682a:206])
  by smtp.gmail.com with ESMTPSA id
- k11-20020a170902f28b00b001d8e4b85636sm4115407plc.138.2024.01.30.14.35.36
+ t18-20020a170902d29200b001d8d6ec2d7fsm4866303plc.61.2024.01.30.17.15.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jan 2024 14:35:36 -0800 (PST)
+ Tue, 30 Jan 2024 17:15:39 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/msm/gem: Fix double resv lock aquire
-Date: Tue, 30 Jan 2024 14:35:33 -0800
-Message-ID: <20240130223533.25713-1-robdclark@gmail.com>
+Subject: [PATCH v2] drm/msm/gem: Fix double resv lock aquire
+Date: Tue, 30 Jan 2024 17:15:37 -0800
+Message-ID: <20240131011537.31049-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -73,12 +73,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Rob Clark <robdclark@chromium.org>,
  Dmitry Osipenko <dmitry.osipenko@collabora.com>, linux-arm-msm@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
  open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
@@ -89,14 +90,16 @@ Since commit 56e5abba8c3e ("dma-buf: Add unlocked variant of vmapping
 functions"), the resv lock is already held in the prime vmap path, so
 don't try to grab it again.
 
+v2: This applies to vunmap path as well
+
 Fixes: 56e5abba8c3e ("dma-buf: Add unlocked variant of vmapping functions")
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/msm_gem_prime.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_gem_prime.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-index 5f68e31a3e4e..8a27b57a5bea 100644
+index 5f68e31a3e4e..0915f3b68752 100644
 --- a/drivers/gpu/drm/msm/msm_gem_prime.c
 +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
 @@ -26,7 +26,7 @@ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
@@ -108,6 +111,15 @@ index 5f68e31a3e4e..8a27b57a5bea 100644
  	if (IS_ERR(vaddr))
  		return PTR_ERR(vaddr);
  	iosys_map_set_vaddr(map, vaddr);
+@@ -36,7 +36,7 @@ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+ 
+ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
+ {
+-	msm_gem_put_vaddr(obj);
++	msm_gem_put_vaddr_locked(obj);
+ }
+ 
+ struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
 -- 
 2.43.0
 
