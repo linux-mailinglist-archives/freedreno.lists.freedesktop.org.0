@@ -2,63 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8CA8445AA
-	for <lists+freedreno@lfdr.de>; Wed, 31 Jan 2024 18:09:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F60844E1F
+	for <lists+freedreno@lfdr.de>; Thu,  1 Feb 2024 01:48:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB3C10FB8E;
-	Wed, 31 Jan 2024 17:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA19B10FE0B;
+	Thu,  1 Feb 2024 00:48:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 207D010FB8E
- for <freedreno@lists.freedesktop.org>; Wed, 31 Jan 2024 17:09:22 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-60406f4e1d0so11909037b3.1
- for <freedreno@lists.freedesktop.org>; Wed, 31 Jan 2024 09:09:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706720901; x=1707325701; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=v+9ppG/cDRjOPXvM/ttUkSSqu1lpu+kmdsbUzCZE3i8=;
- b=b/C9u0UORPIX/4lrjoRd1HR0U3p8OZ4M7DGNR7Yi14RZG40Jh/uTAdKxipQuBFqKDI
- GLuHmNXP+4F+zIvB3i1bgA2M/u8IXgfBgiWju4HmeuZkCke29ydft7UdnGlVEmxLvVuy
- 81Dcfh62K1ZznDX3BvoJjYBtZZlz6byz7h5OuASxYYfyFCz3YSoJbWNTYyr7cEfZmRd5
- KFmcAmK1HvB4eMJrwUNa4CBV0JyKa6Haw/TFsmVc1UnHRu6+VPz+PSclqZQtcAH4iEoD
- WtmjSGy8pIv3mOLcB0y3CDFR+oOSGZfRfFckJQsJKm5JQpfLNaOXA/MmRNzvOcjqMxaS
- MskA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706720901; x=1707325701;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=v+9ppG/cDRjOPXvM/ttUkSSqu1lpu+kmdsbUzCZE3i8=;
- b=VvXCHU9ty5aXIFJ2Ww1BmPssdp5AyxtDbC6QAxqzqlQXUtwLMSZXFVuppAWig52v1X
- RbYm6GI6yWAybKKE6AbsCabowKMUedEkbGZoVbUa6kE9kZLsnGMNklruJ4CTGMpubXRU
- b0xxaDUexqvQOicwmqWV7Y9ooGuQmHh1NOAupG3u3Ghcmcp13Ycdl30dhYF1tWNbkud0
- Obgm9ubewoIgf3scDsnwOwy43EFNdAIIp/2iS/fWK2rpQ3vpPXdslvNEJKc4CsR2A7G6
- 86pGI2/7WUEMkubnrUqxaZ1lA6brxwVDCwU/5GJVeFgjxJ3FCDgwHZuKZgSGPmjqvTUU
- xtRw==
-X-Gm-Message-State: AOJu0YxXS0s6FXoQKkFJ3S1Qh/os8WDi09yIePT+JKSPGyho5Fz0NMXT
- DsI4MCYZtB6gwz70siw4rWDTRjv5JoavjUhnt3/pP51a0mBpZsxzyBOtTtKOwCcyacwzTPcB8QZ
- 8gdiMmet5zjiC5wSdziBxD9HFQApEQsfBM3xFEA==
-X-Google-Smtp-Source: AGHT+IEjAoxuGHt0dRHpkQSUr2ocD7zocOhX1KcS7P9exXx9WLr9h/lmNgtDKQ10CwpzLbWx6M0j/D680+qaAJX+4Kk=
-X-Received: by 2002:a81:bc0b:0:b0:604:b8d:379d with SMTP id
- a11-20020a81bc0b000000b006040b8d379dmr1929231ywi.49.1706720901173; Wed, 31
- Jan 2024 09:08:21 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D93710FE0B;
+ Thu,  1 Feb 2024 00:48:02 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40VNgZ5t018185; Thu, 1 Feb 2024 00:47:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=f4wB/zP
+ Z0RVJ8FW1yM3ScdvW2VMg6+4NuyBlqUf5leY=; b=KRelzAet8e5xcvvAJ08elKv
+ fSrFf/e4QIaHi0dcaQvpIDUG3XYkfGDcjTVlm7fPTj9OKuIZ1bM7Q+Zo7bgKM/dm
+ q1tWVtXPllGAGOQeymz8xySWJqX7FQweOuOtB/GE0p/ou6Rw5XzJzMccMKhCiFH9
+ sgqzyKj1mTGdK59IvDOD6lThTr81QodM4rkL0TEw7KXl9oJHxPdMmJ8TnFsCJi3b
+ UB284u18rLEdbFycro6JKtjbsL3sLHFagKM4PZ9DBrlfq9tMcywVncCblII44K1F
+ IXCDgrD50s9LvtIqqVTYaIYittGitI+aLsi0qidPrMhxzpdCApCfP3vO2HR2gzQ=
+ =
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vyuatguvx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Feb 2024 00:47:59 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 4110lw7w008757
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Feb 2024 00:47:58 GMT
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 31 Jan 2024 16:47:57 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>
+Subject: [PATCH] drm/msm/dpu: fix the programming of INTF_CFG2_DATA_HCTL_EN
+Date: Wed, 31 Jan 2024 16:47:36 -0800
+Message-ID: <20240201004737.2478-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org>
- <20240129-x1e80100-display-v1-4-0d9eb8254df0@linaro.org>
- <CAA8EJpq1RSi4H6m6UQcyxEr=hip=ypKz9DhHziNKvDjUHsES8Q@mail.gmail.com>
- <Zbp9jPF2FspZEk6q@linaro.org>
-In-Reply-To: <Zbp9jPF2FspZEk6q@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 31 Jan 2024 19:08:09 +0200
-Message-ID: <CAA8EJpqpk_W3kDtQ2=eCQ5gY0PgTcejfjifOApC-tUwAd6S4BA@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/msm/dp: Try looking for link-frequencies into the
- port@0's endpoint first
-To: Abel Vesa <abel.vesa@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 9urCH-BBPDWuw4QHBmTJ2vE-CbHkaqGz
+X-Proofpoint-GUID: 9urCH-BBPDWuw4QHBmTJ2vE-CbHkaqGz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-31_10,2024-01-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 suspectscore=0 mlxscore=0 bulkscore=0
+ adultscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ mlxlogscore=949 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2402010004
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,81 +83,125 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, quic_parellan@quicinc.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ seanpaul@chromium.org, quic_jesszhan@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 31 Jan 2024 at 19:04, Abel Vesa <abel.vesa@linaro.org> wrote:
->
-> On 24-01-29 17:08:29, Dmitry Baryshkov wrote:
-> > On Mon, 29 Jan 2024 at 15:19, Abel Vesa <abel.vesa@linaro.org> wrote:
-> > >
-> > > From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > >
-> > > On platforms where the endpoint used is on port@0, looking for port@1
-> > > instead results in just ignoring the max link-frequencies altogether.
-> > > Look at port@0 first, then, if not found, look for port@1.
-> >
-> > NAK. Platforms do not "use port@0". It is for the connection between
-> > DPU and DP, while the link-frequencies property is for the link
-> > between DP controller and the actual display.
->
-> I messed up. This patch is not needed, plus the author is wrong.
->
-> Will drop in the next version.
->
-> Sorry about that.
+Currently INTF_CFG2_DATA_HCTL_EN is coupled with the enablement
+of widebus but this is incorrect because we should be enabling
+this bit independent of widebus except for cases where compression
+is enabled in one pixel per clock mode.
 
-No problem, don't worry.
+Fix this by making the condition checks more explicit and enabling
+INTF_CFG2_DATA_HCTL_EN for all other cases when supported by DPU.
 
->
-> >
-> > >
-> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/dp/dp_parser.c | 6 +++++-
-> > >  1 file changed, 5 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> > > index 7032dcc8842b..eec5b8b83f4b 100644
-> > > --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> > > +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> > > @@ -97,7 +97,11 @@ static u32 dp_parser_link_frequencies(struct device_node *of_node)
-> > >         u64 frequency = 0;
-> > >         int cnt;
-> > >
-> > > -       endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-> > > +       endpoint = of_graph_get_endpoint_by_regs(of_node, 0, 0); /* port@0 */
-> > > +
-> > > +       if (!endpoint)
-> > > +               endpoint = of_graph_get_endpoint_by_regs(of_node, 1, 0); /* port@1 */
-> > > +
-> > >         if (!endpoint)
-> > >                 return 0;
-> > >
-> > >
-> > > --
-> > > 2.34.1
-> > >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+Fixes: 3309a7563971 ("drm/msm/dpu: revise timing engine programming to support widebus feature")
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c       |  7 +++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h       |  7 +++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c       | 15 +++++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h       |  1 +
+ 5 files changed, 25 insertions(+), 6 deletions(-)
 
-
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 83380bc92a00..467f874979d5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -230,6 +230,13 @@ bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
+ 	return dpu_enc->wide_bus_en;
+ }
+ 
++bool dpu_encoder_is_dsc_enabled(const struct drm_encoder *drm_enc)
++{
++	const struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
++
++	return dpu_enc->dsc ? true : false;
++}
++
+ int dpu_encoder_get_crc_values_cnt(const struct drm_encoder *drm_enc)
+ {
+ 	struct dpu_encoder_virt *dpu_enc;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index 4c05fd5e9ed1..fe6b1d312a74 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -158,6 +158,13 @@ int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc);
+ 
+ bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc);
+ 
++/**
++ * dpu_encoder_is_dsc_enabled - indicate whether dsc is enabled
++ *				for the encoder.
++ * @drm_enc:    Pointer to previously created drm encoder structure
++ */
++bool dpu_encoder_is_dsc_enabled(const struct drm_encoder *drm_enc);
++
+ /**
+  * dpu_encoder_get_crc_values_cnt - get number of physical encoders contained
+  *	in virtual encoder that can collect CRC values
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index d0f56c5c4cce..f562beb6f797 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -102,6 +102,7 @@ static void drm_mode_to_intf_timing_params(
+ 	}
+ 
+ 	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
++	timing->compression_en = dpu_encoder_is_dsc_enabled(phys_enc->parent);
+ 
+ 	/*
+ 	 * for DP, divide the horizonal parameters by 2 when
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+index 6bba531d6dc4..965692ef7892 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+@@ -163,13 +163,8 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+ 	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
+ 	display_hctl = (hsync_end_x << 16) | hsync_start_x;
+ 
+-	/*
+-	 * DATA_HCTL_EN controls data timing which can be different from
+-	 * video timing. It is recommended to enable it for all cases, except
+-	 * if compression is enabled in 1 pixel per clock mode
+-	 */
+ 	if (p->wide_bus_en)
+-		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
++		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
+ 
+ 	data_width = p->width;
+ 
+@@ -229,6 +224,14 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+ 	DPU_REG_WRITE(c, INTF_CONFIG, intf_cfg);
+ 	DPU_REG_WRITE(c, INTF_PANEL_FORMAT, panel_format);
+ 	if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
++		/*
++		 * DATA_HCTL_EN controls data timing which can be different from
++		 * video timing. It is recommended to enable it for all cases, except
++		 * if compression is enabled in 1 pixel per clock mode
++		 */
++		if (!(p->compression_en && !p->wide_bus_en))
++			intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
++
+ 		DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
+ 		DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL, display_data_hctl);
+ 		DPU_REG_WRITE(c, INTF_ACTIVE_DATA_HCTL, active_data_hctl);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+index 0bd57a32144a..6f4c87244f94 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+@@ -33,6 +33,7 @@ struct dpu_hw_intf_timing_params {
+ 	u32 hsync_skew;
+ 
+ 	bool wide_bus_en;
++	bool compression_en;
+ };
+ 
+ struct dpu_hw_intf_prog_fetch {
 -- 
-With best wishes
-Dmitry
+2.40.1
+
