@@ -2,89 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D35778467FD
-	for <lists+freedreno@lfdr.de>; Fri,  2 Feb 2024 07:25:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B2284769B
+	for <lists+freedreno@lfdr.de>; Fri,  2 Feb 2024 18:49:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8ED10E615;
-	Fri,  2 Feb 2024 06:25:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C1310E84B;
+	Fri,  2 Feb 2024 17:49:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ZEcKgy36";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WPJJYvAz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3B710E5BB;
- Fri,  2 Feb 2024 06:25:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4124FaOi011948; Fri, 2 Feb 2024 06:25:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=E18shHMh9Z5ZGyjJWlzzaCC2s8AAWnHccVNxUBRVAbM=; b=ZE
- cKgy36XnrtrTXBGf78p3MJRIw9oKBUIvL2eJqeqnrPNFxSiHLIig5/9Op2U7Bwo6
- atacEXfBvP/+7xZG4nR5lfLP6xCO60it9wK+iIdCo3NU0vQr9rCJm8+VeSlhD6In
- AssfJp7Ju1/W3AevZlScXQBwTuaui8udcmAoqc3dhCyAIh89vrHnErgjSbP5qZWO
- 84iPIpeezovII+wK04qMwDP2y+X4xYr/LEv6IEfnianb3fFWvw0bgcpFOfPpKlSE
- bYJVOYifMcPVRUqAE3Hd0q8cf5Wu7kN3Y0Bf//9En1jtUWMuQRb7xeecyFzxlYK4
- WbU8dUqPZrFj9dOIvUHw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w0pwjgkng-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 02 Feb 2024 06:25:43 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 4126Pghk021073
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 2 Feb 2024 06:25:42 GMT
-Received: from [10.110.1.169] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 1 Feb
- 2024 22:25:41 -0800
-Message-ID: <62e3c81e-5f35-772b-6ed0-f660f7a792b2@quicinc.com>
-Date: Thu, 1 Feb 2024 22:25:40 -0800
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BDA510E84B;
+ Fri,  2 Feb 2024 17:49:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 34773CE2C6F;
+ Fri,  2 Feb 2024 17:49:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA7E5C433C7;
+ Fri,  2 Feb 2024 17:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1706896184;
+ bh=dOC6l/UpwJt+sDh73ImH2SYn2JbGC0ZF3A9tIFxdqtk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WPJJYvAz83PqbWfJevH/VqATyZyF8CMELM/qsF5iGbGg+7c08RkvpLVnt1A5GE/cF
+ tcu63FYZn4b7uhLLPzbN+EdUSZoRoygx/1agCdTpP9s/n883bAkiQP8gjBz/mp+kDW
+ qAUTtz5OnUdUz5st4dAWc5OGoV8IM7DK0KDm2fKGNgkvkbFxVCqblojdOgeVCjK2WT
+ 8TgIKe63Wz1bq6Pwy73SdDw6XnGCRuLJmukJO4LPOLdK/c9MQGRTbs1oxi0ZYlm/v9
+ h+6C4sTZAkHgIq2mWUe1PiL9Ix6Qz58Sj0f91Fwj4LzNhLlO4dG31aRGnZ1zxuS/WT
+ KdHH/uaxwI7ag==
+Date: Fri, 2 Feb 2024 11:49:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ "Lad,  Prabhakar" <prabhakar.csengg@gmail.com>,
+ =?iso-8859-1?Q?=22Niklas_S=C3=B6derlund=22?=
+ <niklas.soderlund+renesas@ragnatech.se>, 
+ =?iso-8859-1?Q?=22Uwe_Kleine-K=C3=B6nig=22?= <u.kleine-koenig@pengutronix.de>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Andy Gross <agross@kernel.org>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Emma Anholt <emma@anholt.net>,
+ Eugen Hristev <eugen.hristev@collabora.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>, Helge Deller <deller@gmx.de>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>,
+ Jacopo Mondi <jacopo@jmondi.org>, James Clark <james.clark@arm.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Liu Ying <victor.liu@nxp.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marek Vasut <marex@denx.de>, Mark Brown <broonie@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Michal Simek <michal.simek@amd.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rob Clark <robdclark@gmail.com>, Robert Foss <rfoss@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Saravana Kannan <saravanak@google.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Stefan Agner <stefan@agner.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tim Harvey <tharvey@gateworks.com>, Todor Tomov <todor.too@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Leo Yan <leo.yan@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mike Leach <mike.leach@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ Sean Paul <sean@poorly.run>, Tom Rix <trix@redhat.com>,
+ coresight@lists.linaro.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-tegra@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v3 05/24] media: i2c: switch to use
+ of_graph_get_next_device_endpoint()
+Message-ID: <20240202174941.GA310089-robh@kernel.org>
+References: <87o7d26qla.wl-kuninori.morimoto.gx@renesas.com>
+ <87h6iu6qjs.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 11/17] drm/msm/dp: add VSC SDP support for YUV420 over DP
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Paloma Arellano <quic_parellan@quicinc.com>,
- <freedreno@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <seanpaul@chromium.org>, <swboyd@chromium.org>,
- <quic_jesszhan@quicinc.com>, <quic_khsieh@quicinc.com>,
- <marijn.suijten@somainline.org>, <neil.armstrong@linaro.org>
-References: <20240125193834.7065-1-quic_parellan@quicinc.com>
- <20240125193834.7065-12-quic_parellan@quicinc.com>
- <d94434ec-00fd-489f-98f2-8c811522ff82@linaro.org>
- <11c6fdbe-f85a-088d-92df-abd8405c966b@quicinc.com>
- <CAA8EJprPziRHhxVK9mAdQZNEeon9q95ZMKSBhs-s95O-7W10NA@mail.gmail.com>
- <6fd0cc09-a1c4-123e-966d-111d44263286@quicinc.com>
- <CAA8EJppT_i4=O8hx96FF+9-PP5w__bP6iqqzxDtFQmHXPPROfw@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJppT_i4=O8hx96FF+9-PP5w__bP6iqqzxDtFQmHXPPROfw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Uc7RShKNjFRzmOmeXVTiuhz2tF8Pdjdf
-X-Proofpoint-ORIG-GUID: Uc7RShKNjFRzmOmeXVTiuhz2tF8Pdjdf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-01_10,2024-01-31_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 clxscore=1015 mlxscore=0 phishscore=0 mlxlogscore=999
- malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402020045
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87h6iu6qjs.wl-kuninori.morimoto.gx@renesas.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,179 +141,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 1/31/2024 8:36 PM, Dmitry Baryshkov wrote:
-> On Thu, 1 Feb 2024 at 03:56, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 1/27/2024 9:39 PM, Dmitry Baryshkov wrote:
->>> On Sun, 28 Jan 2024 at 07:34, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->>>>
->>>>
->>>> On 1/25/2024 1:48 PM, Dmitry Baryshkov wrote:
->>>>> On 25/01/2024 21:38, Paloma Arellano wrote:
->>>>>> Add support to pack and send the VSC SDP packet for DP. This therefore
->>>>>> allows the transmision of format information to the sinks which is
->>>>>> needed for YUV420 support over DP.
->>>>>>
->>>>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/msm/dp/dp_catalog.c | 147 ++++++++++++++++++++++++++++
->>>>>>     drivers/gpu/drm/msm/dp/dp_catalog.h |   4 +
->>>>>>     drivers/gpu/drm/msm/dp/dp_ctrl.c    |   4 +
->>>>>>     drivers/gpu/drm/msm/dp/dp_panel.c   |  47 +++++++++
->>>>>>     drivers/gpu/drm/msm/dp/dp_reg.h     |   3 +
->>>>>>     5 files changed, 205 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c
->>>>>> b/drivers/gpu/drm/msm/dp/dp_catalog.c
->>>>>> index c025786170ba5..7e4c68be23e56 100644
->>>>>> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
->>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
->>>>>> @@ -29,6 +29,9 @@
->>>>>>       #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
->>>>>>     +#define DP_GENERIC0_6_YUV_8_BPC        BIT(0)
->>>>>> +#define DP_GENERIC0_6_YUV_10_BPC    BIT(1)
->>>>>> +
->>>>>>     #define DP_INTERRUPT_STATUS1 \
->>>>>>         (DP_INTR_AUX_XFER_DONE| \
->>>>>>         DP_INTR_WRONG_ADDR | DP_INTR_TIMEOUT | \
->>>>>> @@ -907,6 +910,150 @@ int dp_catalog_panel_timing_cfg(struct
->>>>>> dp_catalog *dp_catalog)
->>>>>>         return 0;
->>>>>>     }
->>>>>>     +static void dp_catalog_panel_setup_vsc_sdp(struct dp_catalog
->>>>>> *dp_catalog)
->>>>>> +{
->>>>>> +    struct dp_catalog_private *catalog;
->>>>>> +    u32 header, parity, data;
->>>>>> +    u8 bpc, off = 0;
->>>>>> +    u8 buf[SZ_128];
->>>>>> +
->>>>>> +    if (!dp_catalog) {
->>>>>> +        pr_err("invalid input\n");
->>>>>> +        return;
->>>>>> +    }
->>>>>> +
->>>>>> +    catalog = container_of(dp_catalog, struct dp_catalog_private,
->>>>>> dp_catalog);
->>>>>> +
->>>>>> +    /* HEADER BYTE 1 */
->>>>>> +    header = dp_catalog->sdp.sdp_header.HB1;
->>>>>> +    parity = dp_catalog_calculate_parity(header);
->>>>>> +    data   = ((header << HEADER_BYTE_1_BIT) | (parity <<
->>>>>> PARITY_BYTE_1_BIT));
->>>>>> +    dp_write_link(catalog, MMSS_DP_GENERIC0_0, data);
->>>>>> +    memcpy(buf + off, &data, sizeof(data));
->>>>>> +    off += sizeof(data);
->>>>>> +
->>>>>> +    /* HEADER BYTE 2 */
->>>>>> +    header = dp_catalog->sdp.sdp_header.HB2;
->>>>>> +    parity = dp_catalog_calculate_parity(header);
->>>>>> +    data   = ((header << HEADER_BYTE_2_BIT) | (parity <<
->>>>>> PARITY_BYTE_2_BIT));
->>>>>> +    dp_write_link(catalog, MMSS_DP_GENERIC0_1, data);
->>>>>> +
->>>>>> +    /* HEADER BYTE 3 */
->>>>>> +    header = dp_catalog->sdp.sdp_header.HB3;
->>>>>> +    parity = dp_catalog_calculate_parity(header);
->>>>>> +    data   = ((header << HEADER_BYTE_3_BIT) | (parity <<
->>>>>> PARITY_BYTE_3_BIT));
->>>>>> +    data |= dp_read_link(catalog, MMSS_DP_GENERIC0_1);
->>>>>> +    dp_write_link(catalog, MMSS_DP_GENERIC0_1, data);
->>>>>> +    memcpy(buf + off, &data, sizeof(data));
->>>>>> +    off += sizeof(data);
->>>>>
->>>>> This seems to be common with the dp_audio code. Please extract this
->>>>> header writing too.
->>>> These are two different sdp's. audio and vsc, are different with
->>>> different registers being written to and different amount of registers
->>>> being set. Can you please clarify since in audio we only need 3
->>>> registers to write to, and in vsc we need 10.
->>>
->>> Bitmagic with the header is the same. Then the rest of the data is
->>> written one dword per register, if I'm not mistaken.
->>>
->>
->> We can generalize the MMSS_DP_GENERIC0 register writing by breaking it
->> up to two things:
->>
->> 1) Add a function vsc_sdp_pack() similar to hdmi_avi_infoframe_pack_only()
+On Wed, Jan 31, 2024 at 05:05:27AM +0000, Kuninori Morimoto wrote:
+> of_graph_get_next_endpoint() is now renamed to
+> of_graph_get_next_device_endpoint(). Switch to it.
 > 
-> Note, there is already a hdmi_audio_infoframe_pack_for_dp() function.
-> I think this patchset can add hdmi_colorimetry_infoframe_pack_for_dp()
-> [you can choose any other similar name that suits from your POV].
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  drivers/media/i2c/adv7343.c              | 2 +-
+>  drivers/media/i2c/adv748x/adv748x-core.c | 2 +-
+>  drivers/media/i2c/adv7604.c              | 2 +-
+>  drivers/media/i2c/isl7998x.c             | 2 +-
+>  drivers/media/i2c/max9286.c              | 2 +-
+>  drivers/media/i2c/mt9p031.c              | 2 +-
+>  drivers/media/i2c/mt9v032.c              | 2 +-
+>  drivers/media/i2c/ov2659.c               | 2 +-
+>  drivers/media/i2c/ov5645.c               | 2 +-
+>  drivers/media/i2c/ov5647.c               | 2 +-
+>  drivers/media/i2c/s5c73m3/s5c73m3-core.c | 2 +-
+>  drivers/media/i2c/s5k5baf.c              | 2 +-
+>  drivers/media/i2c/tc358743.c             | 2 +-
+>  drivers/media/i2c/tda1997x.c             | 2 +-
+>  drivers/media/i2c/tvp514x.c              | 2 +-
+>  drivers/media/i2c/tvp5150.c              | 4 ++--
+>  drivers/media/i2c/tvp7002.c              | 2 +-
+>  17 files changed, 18 insertions(+), 18 deletions(-)
 > 
-> Also please extract the function that inits the dp_sdp_header. It can
-> be reused as is for both existing hdmi_audio_infoframe_pack_for_dp(),
-> your new function and the dp_audio code.
-> 
+> diff --git a/drivers/media/i2c/adv7343.c b/drivers/media/i2c/adv7343.c
+> index ff21cd4744d3..7e4eb2f8bf0d 100644
+> --- a/drivers/media/i2c/adv7343.c
+> +++ b/drivers/media/i2c/adv7343.c
+> @@ -403,7 +403,7 @@ adv7343_get_pdata(struct i2c_client *client)
+>  	if (!IS_ENABLED(CONFIG_OF) || !client->dev.of_node)
+>  		return client->dev.platform_data;
+>  
+> -	np = of_graph_get_next_endpoint(client->dev.of_node, NULL);
+> +	np = of_graph_get_next_device_endpoint(client->dev.of_node, NULL);
 
-Not sure if extracting the header will work as all other functions in 
-hdmi.c pack the header too so its a half and half implementation.
+This is assuming there's just 1 port and 1 endpoint, but let's be 
+specific as the bindings are (first endpoint on port 0):
 
-I am going to start with keeping this pack function in msm/dp/dp_utils.c 
-to start with.
+of_graph_get_endpoint_by_regs(client->dev.of_node, 0, -1);
 
-If it gets to a form which is generic enough to keep in a helper which 
-can be common we can consider it once posted in v2.
+Note we could ask for endpoint 0 here, but the bindings generally allow 
+for more than 1.
 
->>
->> 2) dp_catalog_write_generic_pkt() which will just write the packed
->> buffer byte-by-byte to these MMSS_DP_GENERIC0_xxx register
->>
->> But audio seems a bit different. We use DP_AUDIO_STREAM_0/1.
->> More importantly, it uses this sdp_map and writes each header one by one
->> with dp_catalog_audio_set_header().
->>
->> Not sure if that entirely fits with this pack and then write model.
->>
->> It can be simplified. But I dont think this effort is needed for this
->> series.
->>
->> So I would prefer to generalize audio SDP programming separately.
-> 
-> I'd definitely ask to add a utility function that merges 4 header
-> bytes with the parity data. We already have 5 instances of that code
-> in dp_audio.c, which is already too much by the number of 4. Adding
-> the 6th copy is NAKed.
-> 
+I imagine most of the other cases here are the same.
 
-I acknowledge the overlap but coupling them with this feature doesn't 
-make sense as we have to individually test out audio after that change 
-even if its another cleanup.
+>  	if (!np)
+>  		return NULL;
+>  
+> diff --git a/drivers/media/i2c/adv748x/adv748x-core.c b/drivers/media/i2c/adv748x/adv748x-core.c
+> index 3eb6d5e8f082..4e9e4cef8954 100644
+> --- a/drivers/media/i2c/adv748x/adv748x-core.c
+> +++ b/drivers/media/i2c/adv748x/adv748x-core.c
+> @@ -657,7 +657,7 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+>  	bool in_found = false;
+>  	int ret;
+>  
+> -	for_each_endpoint_of_node(state->dev->of_node, ep_np) {
+> +	for_each_device_endpoint_of_node(state->dev->of_node, ep_np) {
 
-In case my previous response was not clear.
+I would skip the rename.
 
-I will certainly add a sdp packing function and utils which pack the 4 
-header/parity bytes so that they can be used by other sub-modules of DP 
-but will still prefer to push them as a separate series for audio as I 
-want to re-test audio with that.
-
-As discussed, I will work on that and post it in parallel.
-
-> BTW, I see both in this path and in dp_audio that the driver reads a
-> register, ORs it with the value for the next header byte and writes it
-> back to the hardware. Shouldn't the driver clear the corresponding
-> data bits first? I see the clears in the techpack, but not in the
-> upstream code. If my assumption is correct, we should end up with the
-> utility function that packs dp_sdp_header into u32[2], which can then
-> be used by both YUV and dp_audio code to just write two corresponding
-> registers.
-> 
-
-Correct. Thats my goal too to have a common utility function which can 
-be used by audio code as well but in this series i will only introduce 
-the function. The audio usage will be another one. I will also 
-incorporate the clearing part if applicable once I check it closely.
-
-> BTW2: where is the rest of the audio infoframe? I see that the old
-> fbdev driver was at least clearing the first 4 bytes of the frame.
-> 
-
-hmm .... in DP we use audio infoframe SDP to send the audio information.
-IIRC, we only fill the header/parity but the payload is fully controlled 
-by LPASS (audio side).
-
+Rob
