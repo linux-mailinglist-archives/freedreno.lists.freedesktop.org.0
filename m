@@ -2,74 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABBD7847F9B
-	for <lists+freedreno@lfdr.de>; Sat,  3 Feb 2024 03:56:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E2A848695
+	for <lists+freedreno@lfdr.de>; Sat,  3 Feb 2024 14:47:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 019FE10E310;
-	Sat,  3 Feb 2024 02:56:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00FD410F46B;
+	Sat,  3 Feb 2024 13:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RGBIj2VV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x4ZfH1Bx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D551010E310
- for <freedreno@lists.freedesktop.org>; Sat,  3 Feb 2024 02:56:06 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-6040a879e1eso28620147b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 02 Feb 2024 18:56:06 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC1D10F46B
+ for <freedreno@lists.freedesktop.org>; Sat,  3 Feb 2024 13:47:29 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5101cd91017so3842825e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 03 Feb 2024 05:47:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706928966; x=1707533766; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=lD8inCL3n27QmNoGKrfX9I7qIbx7Ok8T+KP8sX1X1QQ=;
- b=RGBIj2VVsOqRNDQeFYFwIBVndY0ZtDMaWrnnwd4PBD4/JknCLttfu+OffTVSWg2Wok
- 2i5FEnHsIXji99R7bak+Lw/AFhwYLIF3OCm3V6170WDtUf0gXC9V0Fvz+tfS0nRc2SCD
- 4V5qBbpEF4PhuweJHXodOVAuZnFDH1OiutguAol9W2pBE61vNGfmlAjgDeOlJjsWUvwC
- lz9UeP3K9wTIUzBFEHvlhlHOrkbb/Y597S4OkIzUzuSngzITFDZ75yockJg8prTepNQl
- WPYX/J3zFaQhhT8jW9bKeec2nu7W8H3Gpt/v1uuFyKXaPN+si9xSSeqov/FAEHzYU2t8
- KjGg==
+ d=linaro.org; s=google; t=1706968048; x=1707572848; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pw5pFN7i641hIu8JSJl2aLirgM2QU5HnN7Q1+QEDosg=;
+ b=x4ZfH1BxtsYkx8VfN57MY6S+WHi02afArhhkZjZKi63r932s/BKmsoBH5pvS0Lvo73
+ ohVcZwlDClkgUm+dsjCBefpNDkjC0P+2SKPkaVWuLzj6opLzPgqSx2aGHS4VaDA5pm/k
+ gBhzKkmIJVXuyd7fJ5vP1qgcFo7AG6K9WtDfe+Jz5TU3/43ojZFeFVv0fUwvmQlshmOb
+ sebllXEZZmAffk4oI6uH6ZIexZMktfrxJ2Y6v00o5csVp3OnMEHM7ztP0r3wClSPL8TW
+ PUTgeaClAeBxXCZfF760zDxmghcLdGeiiRkbBwFMBjRi6CJ6z8VdWHWWeHGo8MGxo5BX
+ G+nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706928966; x=1707533766;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1706968048; x=1707572848;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=lD8inCL3n27QmNoGKrfX9I7qIbx7Ok8T+KP8sX1X1QQ=;
- b=ssGkLYMCPYfsoqTxDq83Mv16sU2lwKw4qLMdBkfbRtzzSzTgu+W/FJvs8ogGdGx4WQ
- I732pgVRFJUOY5FRyLvd0bBQFsF3d4KIRkBzUo/e0ILv0o1FY6GxoPCM21UcSNz9SMfW
- D5EHqPQts2Gpsnh9xfVoEYdHnOdzY0C/BhfjsVfvkGvNP5tgtJ2n2BkbOtkEwf4u8TaU
- y0BFRmaUS6NFcY9m8gLmj7VJBpHoqNu7pcPwXtonJ46ZMa+bgQ63DDUwMjMysrMmIhXp
- Nka1/EaYeZY6wPWj5Vs7n9o/7JbCMf9b/yRzdAAzgeNfddHBvID7TxgJy6dH9Uik8Yho
- wC6Q==
-X-Gm-Message-State: AOJu0YwPuk6HmPlTvmias6+ceh7F0Bi8wRBijHh9Stq/ndUAkzNfnK8V
- W9NCHBKKMFbWMHqFGjngpzYVvDZpXkTZiz2SheDgwemcsAQ6GVRU0oPtyKv0YnUtUjWjOVtHNk5
- iYz4FjustY5cTHy08vNJ4bt38uJhYETyRaZT1Cw==
-X-Google-Smtp-Source: AGHT+IHmlfW1+Y+uGaT2G3NHFhtiRRriUyg0EgG+M84bGJD/GcVW5/hm/XCO5OApuPCvWl03vUjaXZykG56jQolv2XU=
-X-Received: by 2002:a81:ac20:0:b0:5f1:f638:2bd8 with SMTP id
- k32-20020a81ac20000000b005f1f6382bd8mr10182961ywh.31.1706928965823; Fri, 02
- Feb 2024 18:56:05 -0800 (PST)
-MIME-Version: 1.0
-References: <20240202222338.1652333-1-robh@kernel.org>
-In-Reply-To: <20240202222338.1652333-1-robh@kernel.org>
+ bh=pw5pFN7i641hIu8JSJl2aLirgM2QU5HnN7Q1+QEDosg=;
+ b=BPy+tYaHNCzffaCiY0yYru8GpKcfmyyfjCms7d4xeZ/BUmhgj4RrSzOOyv5WnFjIIb
+ 2s8YL72w3/J7LXtLJFXJ9Og8+uELKL9PIHxKL7zlnKCssqopyDL6D9mDSh3HYNKjlvfb
+ w/M8sshtQcdlVXugEgrNtIBBIjKH6dWCP93umAgtmemnTt45GgN7kyLM8Rs1yvPNYpOv
+ ++RMNLnuXe7lQDN7c7vNxRWFSHzAwM+idGu4c8kVMedVt157H18wRQ8iZGFks75bPkmT
+ mTYLf2PpDF0MO+8L7eos0oAayHNIPbfmVCDaqBHVggKz3dorcT87lhtgZq/2cx8h3MKP
+ 4bdQ==
+X-Gm-Message-State: AOJu0Yxi8mmhSrNT3zqveu8Km9EwRLc5UPp15+OXMdRBgCihoe52Z6J3
+ YQHSyuIoq8NW1oK7dMaA8uYSF6+4f+RoSwfijdilPoU0jCPsIM3U2zX84up83wCrEP0K9h3zCeB
+ xfRE=
+X-Google-Smtp-Source: AGHT+IEszdnDIn/Y5wPJVYvshohWKpTy3aZ8P4gLhxlbyuJBsxd7yMonStPFPg6uvroOanJh5C/Dow==
+X-Received: by 2002:ac2:43c8:0:b0:511:4860:425f with SMTP id
+ u8-20020ac243c8000000b005114860425fmr609160lfl.17.1706968047668; 
+ Sat, 03 Feb 2024 05:47:27 -0800 (PST)
+X-Forwarded-Encrypted: i=0;
+ AJvYcCXTzGT4XGIU5jd7krQi2gTAInO1eTDD20AYIXqfFy5sHfnr6wXKfYdHPN2DPwLX8xEXUzhmHZNIYZ+Vg62dEa14fxmr9sEJl1LTznOnCiBJCHXEJsdsNdES3Lb6HHTPgY27viWNJAeZ9SXs8yma1ut+TOccUiXWmUKM76iEVWXpFIcFbj/M3SXt9J20Xgvjw8VZrsPh6l0tAZ4QWGbt4PJRY1GaEZueieb3+ktbgSW4Rs+SApKjrW81U92cfzhScJMcK4XAl46J2chKvNecuU/io6tlW2suMWxGwGwKv7vt3Hl5aBNu/UJM1g6aTXm4ONMG+lgDLTcW4q9OTTYQSvS68YD+FT6U2tQmVKKEh9kDbfYIjVZ4tgKL7LvUMUjWROiaaGSiPMU1Y3sP4CgRnM2RLOkJLKRfqf4G41NbMIc1c26j9yVAvu8=
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ c29-20020a19655d000000b00511480138f6sm130173lfj.8.2024.02.03.05.47.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 03 Feb 2024 05:47:27 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 3 Feb 2024 03:55:54 +0100
-Message-ID: <CAA8EJpooe=RsZSD_mRKH2S8NUxAEqVw_AcMyn68_AWwhovPFsg@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: display: msm: sm8650-mdss: Add missing
- explicit "additionalProperties"
-To: Rob Herring <robh@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Sat, 03 Feb 2024 15:47:25 +0200
+Subject: [PATCH] drm/msm/dp: allow voltage swing / pre emphasis of 3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240203-dp-swing-3-v1-1-6545e1706196@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAOxDvmUC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDIwNj3ZQC3eLyzLx0XWPdJDOTtLTkVBND0xRLJaCGgqLUtMwKsGHRsbW
+ 1AIEJIy5cAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Stephen Boyd <swboyd@chromium.org>, Doug Anderson <dianders@chromium.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4768;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=uYr58wgFc5nItKc5X4u2aBvF0R7wzlYmYT4bOMAqMYs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlvkPuKfIwae5yOn0QbddgFmxk+UYA5FqHO4DUU
+ Diw2DiIa9mJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZb5D7gAKCRCLPIo+Aiko
+ 1eEzCACD7jF8Vz2stVzLH7NleE0wqUGkLFPAg5AdLNQHQKk1CxAE/eWIZ3Hz3D00IrDNcesJNI1
+ Rk+//3ghboGBEKE/fu67fo/Shj+HoV6uvmMCjq3/Gd0iBr/SLQF1/ux8QDWJv0V0DxBgCY69OuC
+ 4ufMn80d/zsBP0td/ZQKgs18nKO7E28Rm2Qzag5NZCP52YmfNXdy8tBlFxL/VZLxpATnG8v1P6q
+ tLk14UcCVkPXyXqVUQF2Gc1qQwz0qHhksAqOCF1xg4r/BvyYu1VAjMYsYh+nGnpsXO9dJwjhm9e
+ 7juD87ThD/cZ4VAlyC1FKXlsljqBkzDLFBlvkeEEJZj33v2s
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,62 +102,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 2 Feb 2024 at 23:23, Rob Herring <robh@kernel.org> wrote:
->
-> In order to check schemas for missing additionalProperties or
-> unevaluatedProperties, cases allowing extra properties must be explicit.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
+Both dp_link_adjust_levels() and dp_ctrl_update_vx_px() limit swing and
+pre-emphasis to 2, while the real maximum value for the sum of the
+voltage swing and pre-emphasis is 3. Fix the DP code to remove this
+limitation.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c |  6 +++---
+ drivers/gpu/drm/msm/dp/dp_link.c | 22 +++++++++++-----------
+ drivers/gpu/drm/msm/dp/dp_link.h | 14 +-------------
+ 3 files changed, 15 insertions(+), 27 deletions(-)
 
-Rob, if you need it for some rework, please feel free to pick it into
-your tree, otherwise I'll pick it for msm-next in the next few days.
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 77a8d9366ed7..26241970019f 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1024,14 +1024,14 @@ static int dp_ctrl_update_vx_px(struct dp_ctrl_private *ctrl)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (voltage_swing_level >= DP_TRAIN_VOLTAGE_SWING_MAX) {
++	if (voltage_swing_level >= DP_TRAIN_LEVEL_MAX) {
+ 		drm_dbg_dp(ctrl->drm_dev,
+ 				"max. voltage swing level reached %d\n",
+ 				voltage_swing_level);
+ 		max_level_reached |= DP_TRAIN_MAX_SWING_REACHED;
+ 	}
+ 
+-	if (pre_emphasis_level >= DP_TRAIN_PRE_EMPHASIS_MAX) {
++	if (pre_emphasis_level >= DP_TRAIN_LEVEL_MAX) {
+ 		drm_dbg_dp(ctrl->drm_dev,
+ 				"max. pre-emphasis level reached %d\n",
+ 				pre_emphasis_level);
+@@ -1122,7 +1122,7 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
+ 		}
+ 
+ 		if (ctrl->link->phy_params.v_level >=
+-			DP_TRAIN_VOLTAGE_SWING_MAX) {
++			DP_TRAIN_LEVEL_MAX) {
+ 			DRM_ERROR_RATELIMITED("max v_level reached\n");
+ 			return -EAGAIN;
+ 		}
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index 98427d45e9a7..e7da0571ecff 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -1107,6 +1107,7 @@ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
+ int dp_link_adjust_levels(struct dp_link *dp_link, u8 *link_status)
+ {
+ 	int i;
++	u8 max_p_level;
+ 	int v_max = 0, p_max = 0;
+ 	struct dp_link_private *link;
+ 
+@@ -1138,30 +1139,29 @@ int dp_link_adjust_levels(struct dp_link *dp_link, u8 *link_status)
+ 	 * Adjust the voltage swing and pre-emphasis level combination to within
+ 	 * the allowable range.
+ 	 */
+-	if (dp_link->phy_params.v_level > DP_TRAIN_VOLTAGE_SWING_MAX) {
++	if (dp_link->phy_params.v_level > DP_TRAIN_LEVEL_MAX) {
+ 		drm_dbg_dp(link->drm_dev,
+ 			"Requested vSwingLevel=%d, change to %d\n",
+ 			dp_link->phy_params.v_level,
+-			DP_TRAIN_VOLTAGE_SWING_MAX);
+-		dp_link->phy_params.v_level = DP_TRAIN_VOLTAGE_SWING_MAX;
++			DP_TRAIN_LEVEL_MAX);
++		dp_link->phy_params.v_level = DP_TRAIN_LEVEL_MAX;
+ 	}
+ 
+-	if (dp_link->phy_params.p_level > DP_TRAIN_PRE_EMPHASIS_MAX) {
++	if (dp_link->phy_params.p_level > DP_TRAIN_LEVEL_MAX) {
+ 		drm_dbg_dp(link->drm_dev,
+ 			"Requested preEmphasisLevel=%d, change to %d\n",
+ 			dp_link->phy_params.p_level,
+-			DP_TRAIN_PRE_EMPHASIS_MAX);
+-		dp_link->phy_params.p_level = DP_TRAIN_PRE_EMPHASIS_MAX;
++			DP_TRAIN_LEVEL_MAX);
++		dp_link->phy_params.p_level = DP_TRAIN_LEVEL_MAX;
+ 	}
+ 
+-	if ((dp_link->phy_params.p_level > DP_TRAIN_PRE_EMPHASIS_LVL_1)
+-		&& (dp_link->phy_params.v_level ==
+-			DP_TRAIN_VOLTAGE_SWING_LVL_2)) {
++	max_p_level = DP_TRAIN_LEVEL_MAX - dp_link->phy_params.v_level;
++	if (dp_link->phy_params.p_level > max_p_level) {
+ 		drm_dbg_dp(link->drm_dev,
+ 			"Requested preEmphasisLevel=%d, change to %d\n",
+ 			dp_link->phy_params.p_level,
+-			DP_TRAIN_PRE_EMPHASIS_LVL_1);
+-		dp_link->phy_params.p_level = DP_TRAIN_PRE_EMPHASIS_LVL_1;
++			max_p_level);
++		dp_link->phy_params.p_level = max_p_level;
+ 	}
+ 
+ 	drm_dbg_dp(link->drm_dev, "adjusted: v_level=%d, p_level=%d\n",
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
+index 9dd4dd926530..79c3a02b8dac 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.h
++++ b/drivers/gpu/drm/msm/dp/dp_link.h
+@@ -19,19 +19,7 @@ struct dp_link_info {
+ 	unsigned long capabilities;
+ };
+ 
+-enum dp_link_voltage_level {
+-	DP_TRAIN_VOLTAGE_SWING_LVL_0	= 0,
+-	DP_TRAIN_VOLTAGE_SWING_LVL_1	= 1,
+-	DP_TRAIN_VOLTAGE_SWING_LVL_2	= 2,
+-	DP_TRAIN_VOLTAGE_SWING_MAX	= DP_TRAIN_VOLTAGE_SWING_LVL_2,
+-};
+-
+-enum dp_link_preemaphasis_level {
+-	DP_TRAIN_PRE_EMPHASIS_LVL_0	= 0,
+-	DP_TRAIN_PRE_EMPHASIS_LVL_1	= 1,
+-	DP_TRAIN_PRE_EMPHASIS_LVL_2	= 2,
+-	DP_TRAIN_PRE_EMPHASIS_MAX	= DP_TRAIN_PRE_EMPHASIS_LVL_2,
+-};
++#define DP_TRAIN_LEVEL_MAX	3
+ 
+ struct dp_link_test_video {
+ 	u32 test_video_pattern;
 
+---
+base-commit: 41d66f96d0f15a0a2ad6fa2208f6bac1a66cbd52
+change-id: 20240203-dp-swing-3-b64ffce415d9
 
-> ---
->  .../devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml     | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml
-> index bd11119dc93d..24cece1e888b 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml
-> @@ -37,18 +37,21 @@ properties:
->  patternProperties:
->    "^display-controller@[0-9a-f]+$":
->      type: object
-> +    additionalProperties: true
->      properties:
->        compatible:
->          const: qcom,sm8650-dpu
->
->    "^displayport-controller@[0-9a-f]+$":
->      type: object
-> +    additionalProperties: true
->      properties:
->        compatible:
->          const: qcom,sm8650-dp
->
->    "^dsi@[0-9a-f]+$":
->      type: object
-> +    additionalProperties: true
->      properties:
->        compatible:
->          items:
-> @@ -57,6 +60,7 @@ patternProperties:
->
->    "^phy@[0-9a-f]+$":
->      type: object
-> +    additionalProperties: true
->      properties:
->        compatible:
->          const: qcom,sm8650-dsi-phy-4nm
-> --
-> 2.43.0
->
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-
---
-With best wishes
-Dmitry
