@@ -2,91 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E2A848695
-	for <lists+freedreno@lfdr.de>; Sat,  3 Feb 2024 14:47:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBFD1848F91
+	for <lists+freedreno@lfdr.de>; Sun,  4 Feb 2024 18:04:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FD410F46B;
-	Sat,  3 Feb 2024 13:47:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x4ZfH1Bx";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9BDB112236;
+	Sun,  4 Feb 2024 17:04:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC1D10F46B
- for <freedreno@lists.freedesktop.org>; Sat,  3 Feb 2024 13:47:29 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5101cd91017so3842825e87.2
- for <freedreno@lists.freedesktop.org>; Sat, 03 Feb 2024 05:47:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706968048; x=1707572848; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pw5pFN7i641hIu8JSJl2aLirgM2QU5HnN7Q1+QEDosg=;
- b=x4ZfH1BxtsYkx8VfN57MY6S+WHi02afArhhkZjZKi63r932s/BKmsoBH5pvS0Lvo73
- ohVcZwlDClkgUm+dsjCBefpNDkjC0P+2SKPkaVWuLzj6opLzPgqSx2aGHS4VaDA5pm/k
- gBhzKkmIJVXuyd7fJ5vP1qgcFo7AG6K9WtDfe+Jz5TU3/43ojZFeFVv0fUwvmQlshmOb
- sebllXEZZmAffk4oI6uH6ZIexZMktfrxJ2Y6v00o5csVp3OnMEHM7ztP0r3wClSPL8TW
- PUTgeaClAeBxXCZfF760zDxmghcLdGeiiRkbBwFMBjRi6CJ6z8VdWHWWeHGo8MGxo5BX
- G+nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706968048; x=1707572848;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pw5pFN7i641hIu8JSJl2aLirgM2QU5HnN7Q1+QEDosg=;
- b=BPy+tYaHNCzffaCiY0yYru8GpKcfmyyfjCms7d4xeZ/BUmhgj4RrSzOOyv5WnFjIIb
- 2s8YL72w3/J7LXtLJFXJ9Og8+uELKL9PIHxKL7zlnKCssqopyDL6D9mDSh3HYNKjlvfb
- w/M8sshtQcdlVXugEgrNtIBBIjKH6dWCP93umAgtmemnTt45GgN7kyLM8Rs1yvPNYpOv
- ++RMNLnuXe7lQDN7c7vNxRWFSHzAwM+idGu4c8kVMedVt157H18wRQ8iZGFks75bPkmT
- mTYLf2PpDF0MO+8L7eos0oAayHNIPbfmVCDaqBHVggKz3dorcT87lhtgZq/2cx8h3MKP
- 4bdQ==
-X-Gm-Message-State: AOJu0Yxi8mmhSrNT3zqveu8Km9EwRLc5UPp15+OXMdRBgCihoe52Z6J3
- YQHSyuIoq8NW1oK7dMaA8uYSF6+4f+RoSwfijdilPoU0jCPsIM3U2zX84up83wCrEP0K9h3zCeB
- xfRE=
-X-Google-Smtp-Source: AGHT+IEszdnDIn/Y5wPJVYvshohWKpTy3aZ8P4gLhxlbyuJBsxd7yMonStPFPg6uvroOanJh5C/Dow==
-X-Received: by 2002:ac2:43c8:0:b0:511:4860:425f with SMTP id
- u8-20020ac243c8000000b005114860425fmr609160lfl.17.1706968047668; 
- Sat, 03 Feb 2024 05:47:27 -0800 (PST)
-X-Forwarded-Encrypted: i=0;
- AJvYcCXTzGT4XGIU5jd7krQi2gTAInO1eTDD20AYIXqfFy5sHfnr6wXKfYdHPN2DPwLX8xEXUzhmHZNIYZ+Vg62dEa14fxmr9sEJl1LTznOnCiBJCHXEJsdsNdES3Lb6HHTPgY27viWNJAeZ9SXs8yma1ut+TOccUiXWmUKM76iEVWXpFIcFbj/M3SXt9J20Xgvjw8VZrsPh6l0tAZ4QWGbt4PJRY1GaEZueieb3+ktbgSW4Rs+SApKjrW81U92cfzhScJMcK4XAl46J2chKvNecuU/io6tlW2suMWxGwGwKv7vt3Hl5aBNu/UJM1g6aTXm4ONMG+lgDLTcW4q9OTTYQSvS68YD+FT6U2tQmVKKEh9kDbfYIjVZ4tgKL7LvUMUjWROiaaGSiPMU1Y3sP4CgRnM2RLOkJLKRfqf4G41NbMIc1c26j9yVAvu8=
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- c29-20020a19655d000000b00511480138f6sm130173lfj.8.2024.02.03.05.47.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Feb 2024 05:47:27 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 03 Feb 2024 15:47:25 +0200
-Subject: [PATCH] drm/msm/dp: allow voltage swing / pre emphasis of 3
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it [5.144.164.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57F5112236
+ for <freedreno@lists.freedesktop.org>; Sun,  4 Feb 2024 17:04:48 +0000 (UTC)
+Received: from Marijn-Arch-Book.localdomain
+ (2a02-a420-2a-6767-164f-8aff-fee4-5930.mobile6.kpn.net
+ [IPv6:2a02:a420:2a:6767:164f:8aff:fee4:5930])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 541161F6CF;
+ Sun,  4 Feb 2024 18:04:42 +0100 (CET)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Date: Sun, 04 Feb 2024 18:04:39 +0100
+Subject: [PATCH] drm/msm/dsi: Replace dsi_get_bpp() with mipi_dsi header
+ function
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240203-dp-swing-3-v1-1-6545e1706196@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAOxDvmUC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxMDIwNj3ZQC3eLyzLx0XWPdJDOTtLTkVBND0xRLJaCGgqLUtMwKsGHRsbW
- 1AIEJIy5cAAAA
+Message-Id: <20240204-drm-msm-dsi-remove-open-coded-get-bpp-v1-1-c16212de7e86@somainline.org>
+X-B4-Tracking: v=1; b=H4sIAKbDv2UC/x3NywrCQAxG4VcpWRuYVPH2KuLCaX5rFnMhU4pQ+
+ u4OLr/NORs1uKHRfdjIsVqzkjvkMND0eeUZbNpNYxiPEuTG6olTS6zN2JHKCi4VmaeiUJ6xcKy
+ VcbmeTzFEEVXqrep42/f/eTz3/QdOocv9dwAAAA==
 To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Stephen Boyd <swboyd@chromium.org>, Doug Anderson <dianders@chromium.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4768;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=uYr58wgFc5nItKc5X4u2aBvF0R7wzlYmYT4bOMAqMYs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlvkPuKfIwae5yOn0QbddgFmxk+UYA5FqHO4DUU
- Diw2DiIa9mJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZb5D7gAKCRCLPIo+Aiko
- 1eEzCACD7jF8Vz2stVzLH7NleE0wqUGkLFPAg5AdLNQHQKk1CxAE/eWIZ3Hz3D00IrDNcesJNI1
- Rk+//3ghboGBEKE/fu67fo/Shj+HoV6uvmMCjq3/Gd0iBr/SLQF1/ux8QDWJv0V0DxBgCY69OuC
- 4ufMn80d/zsBP0td/ZQKgs18nKO7E28Rm2Qzag5NZCP52YmfNXdy8tBlFxL/VZLxpATnG8v1P6q
- tLk14UcCVkPXyXqVUQF2Gc1qQwz0qHhksAqOCF1xg4r/BvyYu1VAjMYsYh+nGnpsXO9dJwjhm9e
- 7juD87ThD/cZ4VAlyC1FKXlsljqBkzDLFBlvkeEEJZj33v2s
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,133 +54,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Both dp_link_adjust_levels() and dp_ctrl_update_vx_px() limit swing and
-pre-emphasis to 2, while the real maximum value for the sum of the
-voltage swing and pre-emphasis is 3. Fix the DP code to remove this
-limitation.
+drm_mipi_dsi.h already provides a conversion function from MIPI_DSI_FMT_
+to bpp, named mipi_dsi_pixel_format_to_bpp().
 
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c |  6 +++---
- drivers/gpu/drm/msm/dp/dp_link.c | 22 +++++++++++-----------
- drivers/gpu/drm/msm/dp/dp_link.h | 14 +-------------
- 3 files changed, 15 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 77a8d9366ed7..26241970019f 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1024,14 +1024,14 @@ static int dp_ctrl_update_vx_px(struct dp_ctrl_private *ctrl)
- 	if (ret)
- 		return ret;
- 
--	if (voltage_swing_level >= DP_TRAIN_VOLTAGE_SWING_MAX) {
-+	if (voltage_swing_level >= DP_TRAIN_LEVEL_MAX) {
- 		drm_dbg_dp(ctrl->drm_dev,
- 				"max. voltage swing level reached %d\n",
- 				voltage_swing_level);
- 		max_level_reached |= DP_TRAIN_MAX_SWING_REACHED;
- 	}
- 
--	if (pre_emphasis_level >= DP_TRAIN_PRE_EMPHASIS_MAX) {
-+	if (pre_emphasis_level >= DP_TRAIN_LEVEL_MAX) {
- 		drm_dbg_dp(ctrl->drm_dev,
- 				"max. pre-emphasis level reached %d\n",
- 				pre_emphasis_level);
-@@ -1122,7 +1122,7 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
- 		}
- 
- 		if (ctrl->link->phy_params.v_level >=
--			DP_TRAIN_VOLTAGE_SWING_MAX) {
-+			DP_TRAIN_LEVEL_MAX) {
- 			DRM_ERROR_RATELIMITED("max v_level reached\n");
- 			return -EAGAIN;
- 		}
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
-index 98427d45e9a7..e7da0571ecff 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.c
-+++ b/drivers/gpu/drm/msm/dp/dp_link.c
-@@ -1107,6 +1107,7 @@ int dp_link_get_colorimetry_config(struct dp_link *dp_link)
- int dp_link_adjust_levels(struct dp_link *dp_link, u8 *link_status)
- {
- 	int i;
-+	u8 max_p_level;
- 	int v_max = 0, p_max = 0;
- 	struct dp_link_private *link;
- 
-@@ -1138,30 +1139,29 @@ int dp_link_adjust_levels(struct dp_link *dp_link, u8 *link_status)
- 	 * Adjust the voltage swing and pre-emphasis level combination to within
- 	 * the allowable range.
- 	 */
--	if (dp_link->phy_params.v_level > DP_TRAIN_VOLTAGE_SWING_MAX) {
-+	if (dp_link->phy_params.v_level > DP_TRAIN_LEVEL_MAX) {
- 		drm_dbg_dp(link->drm_dev,
- 			"Requested vSwingLevel=%d, change to %d\n",
- 			dp_link->phy_params.v_level,
--			DP_TRAIN_VOLTAGE_SWING_MAX);
--		dp_link->phy_params.v_level = DP_TRAIN_VOLTAGE_SWING_MAX;
-+			DP_TRAIN_LEVEL_MAX);
-+		dp_link->phy_params.v_level = DP_TRAIN_LEVEL_MAX;
- 	}
- 
--	if (dp_link->phy_params.p_level > DP_TRAIN_PRE_EMPHASIS_MAX) {
-+	if (dp_link->phy_params.p_level > DP_TRAIN_LEVEL_MAX) {
- 		drm_dbg_dp(link->drm_dev,
- 			"Requested preEmphasisLevel=%d, change to %d\n",
- 			dp_link->phy_params.p_level,
--			DP_TRAIN_PRE_EMPHASIS_MAX);
--		dp_link->phy_params.p_level = DP_TRAIN_PRE_EMPHASIS_MAX;
-+			DP_TRAIN_LEVEL_MAX);
-+		dp_link->phy_params.p_level = DP_TRAIN_LEVEL_MAX;
- 	}
- 
--	if ((dp_link->phy_params.p_level > DP_TRAIN_PRE_EMPHASIS_LVL_1)
--		&& (dp_link->phy_params.v_level ==
--			DP_TRAIN_VOLTAGE_SWING_LVL_2)) {
-+	max_p_level = DP_TRAIN_LEVEL_MAX - dp_link->phy_params.v_level;
-+	if (dp_link->phy_params.p_level > max_p_level) {
- 		drm_dbg_dp(link->drm_dev,
- 			"Requested preEmphasisLevel=%d, change to %d\n",
- 			dp_link->phy_params.p_level,
--			DP_TRAIN_PRE_EMPHASIS_LVL_1);
--		dp_link->phy_params.p_level = DP_TRAIN_PRE_EMPHASIS_LVL_1;
-+			max_p_level);
-+		dp_link->phy_params.p_level = max_p_level;
- 	}
- 
- 	drm_dbg_dp(link->drm_dev, "adjusted: v_level=%d, p_level=%d\n",
-diff --git a/drivers/gpu/drm/msm/dp/dp_link.h b/drivers/gpu/drm/msm/dp/dp_link.h
-index 9dd4dd926530..79c3a02b8dac 100644
---- a/drivers/gpu/drm/msm/dp/dp_link.h
-+++ b/drivers/gpu/drm/msm/dp/dp_link.h
-@@ -19,19 +19,7 @@ struct dp_link_info {
- 	unsigned long capabilities;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index deeecdfd6c4e..9fa0053fac74 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -183,16 +183,6 @@ struct msm_dsi_host {
+ 	int irq;
  };
  
--enum dp_link_voltage_level {
--	DP_TRAIN_VOLTAGE_SWING_LVL_0	= 0,
--	DP_TRAIN_VOLTAGE_SWING_LVL_1	= 1,
--	DP_TRAIN_VOLTAGE_SWING_LVL_2	= 2,
--	DP_TRAIN_VOLTAGE_SWING_MAX	= DP_TRAIN_VOLTAGE_SWING_LVL_2,
--};
--
--enum dp_link_preemaphasis_level {
--	DP_TRAIN_PRE_EMPHASIS_LVL_0	= 0,
--	DP_TRAIN_PRE_EMPHASIS_LVL_1	= 1,
--	DP_TRAIN_PRE_EMPHASIS_LVL_2	= 2,
--	DP_TRAIN_PRE_EMPHASIS_MAX	= DP_TRAIN_PRE_EMPHASIS_LVL_2,
--};
-+#define DP_TRAIN_LEVEL_MAX	3
+-static u32 dsi_get_bpp(const enum mipi_dsi_pixel_format fmt)
+-{
+-	switch (fmt) {
+-	case MIPI_DSI_FMT_RGB565:		return 16;
+-	case MIPI_DSI_FMT_RGB666_PACKED:	return 18;
+-	case MIPI_DSI_FMT_RGB666:
+-	case MIPI_DSI_FMT_RGB888:
+-	default:				return 24;
+-	}
+-}
  
- struct dp_link_test_video {
- 	u32 test_video_pattern;
+ static inline u32 dsi_read(struct msm_dsi_host *msm_host, u32 reg)
+ {
+@@ -567,7 +557,7 @@ unsigned long dsi_byte_clk_get_rate(struct mipi_dsi_host *host, bool is_bonded_d
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	u8 lanes = msm_host->lanes;
+-	u32 bpp = dsi_get_bpp(msm_host->format);
++	u32 bpp = mipi_dsi_pixel_format_to_bpp(msm_host->format);
+ 	unsigned long pclk_rate = dsi_get_pclk_rate(mode, msm_host->dsc, is_bonded_dsi);
+ 	unsigned long pclk_bpp;
+ 
+@@ -610,7 +600,7 @@ int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 
+ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ {
+-	u32 bpp = dsi_get_bpp(msm_host->format);
++	u32 bpp = mipi_dsi_pixel_format_to_bpp(msm_host->format);
+ 	unsigned int esc_mhz, esc_div;
+ 	unsigned long byte_mhz;
+ 
+@@ -993,7 +983,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 
+ 		/* image data and 1 byte write_memory_start cmd */
+ 		if (!msm_host->dsc)
+-			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
++			wc = hdisplay * mipi_dsi_pixel_format_to_bpp(msm_host->format) / 8 + 1;
+ 		else
+ 			/*
+ 			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+@@ -1413,7 +1403,7 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
+ {
+ 	int len, ret;
+ 	int bllp_len = msm_host->mode->hdisplay *
+-			dsi_get_bpp(msm_host->format) / 8;
++			mipi_dsi_pixel_format_to_bpp(msm_host->format) / 8;
+ 
+ 	len = dsi_cmd_dma_add(msm_host, msg);
+ 	if (len < 0) {
 
 ---
-base-commit: 41d66f96d0f15a0a2ad6fa2208f6bac1a66cbd52
-change-id: 20240203-dp-swing-3-b64ffce415d9
+base-commit: 01af33cc9894b4489fb68fa35c40e9fe85df63dc
+change-id: 20231019-drm-msm-dsi-remove-open-coded-get-bpp-e7864b0b11dd
 
 Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Marijn Suijten <marijn.suijten@somainline.org>
 
