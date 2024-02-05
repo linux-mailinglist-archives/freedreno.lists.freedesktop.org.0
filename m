@@ -2,69 +2,130 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EA9B84936E
-	for <lists+freedreno@lfdr.de>; Mon,  5 Feb 2024 06:37:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32A78849658
+	for <lists+freedreno@lfdr.de>; Mon,  5 Feb 2024 10:23:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E710711238C;
-	Mon,  5 Feb 2024 05:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB04A112476;
+	Mon,  5 Feb 2024 09:23:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lexUZnCf";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JHBlZLAp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
- [209.85.219.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5049811238C
- for <freedreno@lists.freedesktop.org>; Mon,  5 Feb 2024 05:37:36 +0000 (UTC)
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-db3a09e96daso3957865276.3
- for <freedreno@lists.freedesktop.org>; Sun, 04 Feb 2024 21:37:36 -0800 (PST)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20C95112476
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Feb 2024 09:23:26 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-a372a3773a5so222648566b.3
+ for <freedreno@lists.freedesktop.org>; Mon, 05 Feb 2024 01:23:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707111456; x=1707716256; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wJjNw35YY1+xIX+ZjXNQI8+RD6p5g5mUPgiVQOnjdUA=;
- b=lexUZnCflUc9k8Y/iWKSchQ8Esn2DgYmLyx+I0NzJj4l47wDo8QFoW77SsfLQdZkRj
- zPRvAnfgEL36xDqsEmQq7bLFqheBxAfqWrFtH0dloo9QrYbCUti031JcAGw8/yQaHFcn
- +9vuMRmq/zV/T4rTvE5KelNSA0vAV/hD977/uzVr5h7Cg0t7d0PwNMiu9P3ef+8PHdsF
- ulFxSnwrFCSxdiDmDN9HB7m63UWcs924T4hNOGJaG4hSgWZzHKKEQn9oyN/5EDTsc4zm
- A9xEf8k/0wAdQrFThOenMrtuiMuf+DHNW06QkSNWy2hfAzjMOyKVV3OCh+wT3JYZsQOX
- FM8A==
+ d=linaro.org; s=google; t=1707125004; x=1707729804; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=plBen78tfSSHk5XJw12rcPtrRcV/xDD72cRCl9pRHrY=;
+ b=JHBlZLApX2tB9hSVKc/TrNZHfnQQSsfQ7NnCJfMfUmnzC1ofP/82E5hAPOPpP+jZK+
+ PN89mKwjAE5N4NS1w7AItR5kBR7eCovGORqR3DZa5927Mm8hSk50vlRi/Bx5XHn71lQq
+ e5MDlY8GdWk84hn5+nm7zaMUJ9HyORrH9V+R/5HSsYpHnQL95ghLXhSqmdhbsijqjSsU
+ 0t8MAEjnqemx0Efh46ourswfx3DeFNhURWdwL4khuweo3pJEjkjf30vcGBSdbuh28AfG
+ CIGOcXrhqviIqvi4D8d6zg100pD/U99vNZ9pp6WoYv0tZl2m3jM3LiqTBhuaQgt/jNii
+ TgKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707111456; x=1707716256;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wJjNw35YY1+xIX+ZjXNQI8+RD6p5g5mUPgiVQOnjdUA=;
- b=PZc4x0Mi+S0Bg3olTjn4nEElO+K/i7qEqi3ksluJ9+m9a36eTjKBK9W+r5GMCZN33K
- INrmnyUH/bMopCA1jZie6R41I1Tz8MyaZaskgFd1HIfMHcht/KQ9W+Jo2MWf8RRBgkUw
- zYpEhetwjeuyme0dA7AF5500UAr4nNUVzD2dc0LsxFbiDl0OQC5bB5IaMKIkSpbTocG9
- WYlJjYJ988fnWb3BDtvxbtw5ji7Efx0V20Kk/7YO4XJzdxomychpI1TmC/dY0XxtcUtx
- KWD/51B9UQ2exYnbFJ6GJpftXC5TNdgLrHEQA+09xdFcdEprUMhOjxWT3NLi4I9kqVnd
- zehg==
-X-Gm-Message-State: AOJu0Yx7R3/ICe7VxkcxvMA9N98S9rpkeNyBwjsSffjmui72pyxxyOVT
- zM4LS4+8Wq4pQKcb4DNBU7M7/NrnbFK++PiNkarHjsf0jY9a4r1j9yDbB4DGuWArYOgDtJ3xAv0
- QMuP40+C9O5OMZnXB0VQph4cjyBrOSTV0FEMEuA==
-X-Google-Smtp-Source: AGHT+IH5h/GfScQ8uw8fhFGuFhxI9uT/VT10/zpE4KPupj/LoHJfbss5PCVGWktP+vBdNies+A9M979a/66kKLxePN8=
-X-Received: by 2002:a25:2681:0:b0:dc6:c2b2:c039 with SMTP id
- m123-20020a252681000000b00dc6c2b2c039mr12445401ybm.41.1707111455954; Sun, 04
- Feb 2024 21:37:35 -0800 (PST)
+ d=1e100.net; s=20230601; t=1707125004; x=1707729804;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=plBen78tfSSHk5XJw12rcPtrRcV/xDD72cRCl9pRHrY=;
+ b=ae2GUM16P6jweeHCf1Qz3W639FWxeoHAks6QXnktP9uf+GC12Z5FHoVPo9v5OM0gLd
+ +vNflGDIn+Q3Hf6ut/sgI97efGYekgDUD8xnjtFKvh3g1zOSiEbvk85DQjbBH0sbt7Mq
+ x6kMChVMS5tGB01MwcoGFzPeG5L8Qk43tN/RpZA9CE/UIAwVussaxu5AQjpvNsl4cIRL
+ ZbTU0aD7H/O8glwn+LlkTM7wje1/x43ApufmWqx+JJvNspHi+43LTiW1aHutuwDU+0cv
+ jJJM7XKq7KeJV0Uo9ZUF3pt5InwPKq7dkZw6r5q+LnbwoJK9MJSO4UgCI3tlgsga1zKe
+ bWFw==
+X-Gm-Message-State: AOJu0Yy9F6Uq+mjKNBLnl4fBA0v1kqJDIxO27BATXiy5xmkqnkItlr+K
+ UkM8+xWxSjqivuKsnYl3Sjmj9dbF0n13Orz1fGGSqRNT2oR7kZ5C2YjgCswzRPE=
+X-Google-Smtp-Source: AGHT+IETGO7hpzeBCm89doRh3FvvyFPtjKEFgsgRwP4vmWmpqTfipD/6sS60qeShbDbOc9jI/l974g==
+X-Received: by 2002:a17:906:c450:b0:a27:5446:27d9 with SMTP id
+ ck16-20020a170906c45000b00a27544627d9mr6300956ejb.5.1707125004444; 
+ Mon, 05 Feb 2024 01:23:24 -0800 (PST)
+X-Forwarded-Encrypted: i=0;
+ AJvYcCX2TMuzB4wTLScJqOeUfwQFnxYFrdc+XjbV2Yrj1Ubfagb52+syOwUeFdtuwecePz7lS5sqZTlW9OF1E1VEFwOBS5Gk7uvzEazG6TW//9E5sT4AgEv8iEA5P3N8VcucC6takvFNG0paAvDvMjH6u4Xcr4ft4txjDLf5L4zTCxllFJITVHW4k3+uLSBoAAVUX5xqJSYS6l6Ygs3NEe0tVLpUk+hlvheX6ljItf8rBkm5u5tfC+gjqS6iSuSXJn89YHw5JOHXzS680WBzSxZFaUY/xWELhTiwlmzVKfbJ0NcQpjYhbW9VDDB3f2tn2gs1YGmpHPhOIkqK4DE7lcIjVyvsExxF1vLRlWWUGiOHwW/J5bHpRTg4MAmFmeN4NceKfWkDWUlitZVx3zHeiCFtCho3sIkCcuy2H+y2PpdI2x/RBQrMqVavywq8T70Zn/+HrUwD143oHciSsJrYRymJINZ1y5aEalg1IiQDepAnUNoYvy16EOujrblaP73zcwk7XZbzcxyPopRhAnWhYmnbkZIMEcqhOymqJZND27pvUIBlMjOWIz8pJi+pG/owskb/AL74QzSbslv1tB+ze8AXMXnH+vHADPyGQmLMSgHhg+UDhUqW+B5yB/DjLj/DJpZS/IUc3TycZNjZ+zVy
+Received: from [192.168.1.20] ([178.197.222.62])
+ by smtp.gmail.com with ESMTPSA id
+ gw14-20020a170906f14e00b00a35200615d7sm4101066ejb.1.2024.02.05.01.23.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 01:23:24 -0800 (PST)
+Message-ID: <3d0ce98b-bb4a-44b5-a46a-aa0af9a4fcc8@linaro.org>
+Date: Mon, 5 Feb 2024 10:23:21 +0100
 MIME-Version: 1.0
-References: <20240204-dpu-dsc-multiplex-v1-1-080963233c52@somainline.org>
-In-Reply-To: <20240204-dpu-dsc-multiplex-v1-1-080963233c52@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 5 Feb 2024 06:37:25 +0100
-Message-ID: <CAA8EJpqBJDQ=Yodw8mQF-M7UFVA9POokqgM2rmErTSOASyMo7g@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: Only enable DSC_MODE_MULTIPLEX if dsc_merge
- is enabled
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: display: msm: sm8650-mdss: Add missing
+ explicit "additionalProperties"
+To: Rob Herring <robh@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20240202222338.1652333-1-robh@kernel.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240202222338.1652333-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,30 +141,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 4 Feb 2024 at 18:45, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
->
-> When the topology calls for two interfaces on the current fixed topology
-> of 2 DSC blocks, or uses 1 DSC block for a single interface (e.g. SC7280
-> with only one DSC block), there should be no merging of DSC output.
->
-> This is already represented by the return value of
-> dpu_encoder_use_dsc_merge(), but not yet used to correctly configure
-> this flag.
->
-> Fixes: 58dca9810749 ("drm/msm/disp/dpu1: Add support for DSC in encoder")
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+On 02/02/2024 23:23, Rob Herring wrote:
+> In order to check schemas for missing additionalProperties or
+> unevaluatedProperties, cases allowing extra properties must be explicit.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
-> Note that more changes are needed to properly support the proposed 2:2:2
-> and 1:1:1 topology (in contrast to the already-supported 2:2:1 topology),
-> but this could be a trivial patch to get going separately before all that
-> extra work is done.
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  .../devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml     | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
+
