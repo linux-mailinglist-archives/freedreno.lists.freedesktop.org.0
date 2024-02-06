@@ -2,132 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7BC3849FFF
-	for <lists+freedreno@lfdr.de>; Mon,  5 Feb 2024 17:55:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D2584AF26
+	for <lists+freedreno@lfdr.de>; Tue,  6 Feb 2024 08:43:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF1610FA99;
-	Mon,  5 Feb 2024 16:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E05C112A33;
+	Tue,  6 Feb 2024 07:27:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V4NzN+xx";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rqnAl+P1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6011710FA99;
- Mon,  5 Feb 2024 16:55:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B8D3D611DB;
- Mon,  5 Feb 2024 16:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFCAC433B1;
- Mon,  5 Feb 2024 16:55:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707152121;
- bh=sVWDGae8We/GTqGu3KZXsI4ao8GOXiioemxExEsLxqU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V4NzN+xxV2kwpgpmvzwCZPjJxe0p8svapOJGajeWjpEEriWr006tLpAtpBBcG14NI
- l7fHkZZTCCS2aZun+9xT18fkoZ/FMtKy9LlDCrv1uFwhHjeK2n19B4nBN7o649VSjD
- kYGKpO0o3BwY+Ahh0TeOWYCXz8+otRo3yXnErLJRN29uNdXJLWcsE4UEYU9xBrYL0Y
- 5EBIyjafRZpDVbbOWCUrKL9UVViaDMskAXZEUX2zUclSY3mEzo3VIqcDhKNa3FKHrK
- rehOGq4a9IDtDYOiom3YhLrNbFEjmM7KUgyXugv+FwASEWfoMD6zmOeVRIwz7AMYR2
- 3iJTbqU63Gc+A==
-Date: Mon, 5 Feb 2024 16:55:17 +0000
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- "Lad,  Prabhakar" <prabhakar.csengg@gmail.com>,
- =?iso-8859-1?Q?=22Niklas_S=C3=B6derlund=22?=
- <niklas.soderlund+renesas@ragnatech.se>, 
- =?iso-8859-1?Q?=22Uwe_Kleine-K=C3=B6nig=22?= <u.kleine-koenig@pengutronix.de>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Andy Gross <agross@kernel.org>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Emma Anholt <emma@anholt.net>,
- Eugen Hristev <eugen.hristev@collabora.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Frank Rowand <frowand.list@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, Helge Deller <deller@gmx.de>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Jacopo Mondi <jacopo@jmondi.org>, James Clark <james.clark@arm.com>,
- Jaroslav Kysela <perex@perex.cz>, Jonathan Hunter <jonathanh@nvidia.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Liu Ying <victor.liu@nxp.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marek Vasut <marex@denx.de>, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Michael Tretter <m.tretter@pengutronix.de>,
- Michal Simek <michal.simek@amd.com>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rob Clark <robdclark@gmail.com>, Robert Foss <rfoss@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Saravana Kannan <saravanak@google.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Stefan Agner <stefan@agner.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tim Harvey <tharvey@gateworks.com>, Todor Tomov <todor.too@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Jonas Karlman <jonas@kwiboo.se>, Leo Yan <leo.yan@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mike Leach <mike.leach@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
- Sean Paul <sean@poorly.run>, Tom Rix <trix@redhat.com>,
- coresight@lists.linaro.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-media@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-tegra@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v3 05/24] media: i2c: switch to use
- of_graph_get_next_device_endpoint()
-Message-ID: <20240205165517.GA3486840-robh@kernel.org>
-References: <87o7d26qla.wl-kuninori.morimoto.gx@renesas.com>
- <87h6iu6qjs.wl-kuninori.morimoto.gx@renesas.com>
- <20240202174941.GA310089-robh@kernel.org>
- <875xz3n6ag.wl-kuninori.morimoto.gx@renesas.com>
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A040112A33
+ for <freedreno@lists.freedesktop.org>; Tue,  6 Feb 2024 07:27:49 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-5ffdf06e009so46428377b3.3
+ for <freedreno@lists.freedesktop.org>; Mon, 05 Feb 2024 23:27:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1707204468; x=1707809268; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=JTwYss/MnnM13HyTf0vXaofwqZrwR8loiVFwU5LX2PY=;
+ b=rqnAl+P1cYtKK3cAu1a/XQpXkG4xFEg89YmrVgVgBSBFP2FxE/uyv+W3JmdqJJsHbG
+ rz3gVUJwXaPgfxk6bHODBo8tRy/Yw+9aYCtq8zKXLmLD2xqBcBFGZl2T0SJRAtMXaVFJ
+ 8cv4B7ZzjxYdgtW8Ck4CKY2JbhEdbe+8tCvOfk1GWTaVPx/tWVSyruho+67oddXW7VuZ
+ hLb2ACwtuNIFqE3x3HChVo/bt6J2kKlexLa7HSMS2TkGpWgWdq2G9KFcVovwaBUEoOLb
+ ekcAajI51wmkg/KXWLkloHd+ziKzNLrkG9DQheN74R3LYudBfK7nqWs0Ex3RNvatPEeG
+ zxzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707204468; x=1707809268;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JTwYss/MnnM13HyTf0vXaofwqZrwR8loiVFwU5LX2PY=;
+ b=na9ULvpe0FqcGfdWOES1p1aIfokp7qnNm4S27pqjz9Rq9qetjthsCibluSfQH/t6gw
+ Fp/cwWA7g3COHiy2pDd11F42FvBaS1iGm2lbMPWmy0fK/XRsSOtQ5AYYUCfgcZ1IO/OW
+ yes3mYleMknDXURkgHlRzLR7yu8lQZIdF3KMqOeWFzNjBndBsfrc1/p+A+PvDCDLyN69
+ xmzWzqM47YG0vp2cBTOmfT7C0Ryv2Lw7BD/6zuSGfTprsF8WTODSPHfZF8GF4YJb9HRU
+ WEEFcO8GOqphGquBjoxuRPfKWnf/AqOnoVL23orKg7jFjt5l2RJbNgqA9o8/VMC0C9Cr
+ mlKw==
+X-Gm-Message-State: AOJu0Yw1IRztUR5YgDfdS8PTJpy6LFLNI2khThUxUvp2FbbhiIw858QW
+ +GAUvjNp52zA3puzl6gysjoc5k/aWW6I/zZWpG7J0HrqOtKPbsF5oGaFwSJf/9AoVgVvG5n5Wq3
+ Qq3UqDahQt/lTzOhBxEwcnvg6rGDrLWDKHF4jJQ==
+X-Google-Smtp-Source: AGHT+IH5aZFBCbzPwOkfK/V7Pv0OlQXEJvQKSmrj7XFq6d9dhv5vj1J+OWKWV2kMYRxJQhWB7mB5XJ9vuezs7xZplJc=
+X-Received: by 2002:a81:f90f:0:b0:604:ea3:6525 with SMTP id
+ x15-20020a81f90f000000b006040ea36525mr737126ywm.0.1707204468304; Mon, 05 Feb
+ 2024 23:27:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <875xz3n6ag.wl-kuninori.morimoto.gx@renesas.com>
+References: <20240121194221.13513-1-a39.skl@gmail.com>
+ <20240121194221.13513-4-a39.skl@gmail.com>
+ <6e34c1a8-59e2-404f-aa47-0cab772f59d6@linaro.org>
+In-Reply-To: <6e34c1a8-59e2-404f-aa47-0cab772f59d6@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 6 Feb 2024 09:27:37 +0200
+Message-ID: <CAA8EJpo=mpEvSs_wSwZeAPvLErjkSkcMqkWHch0LC4KnuLp_eA@mail.gmail.com>
+Subject: Re: [PATCH 3/8] dt-bindings: msm: qcom,
+ mdss: Include ommited fam-b compatible
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Adam Skladowski <a39.skl@gmail.com>, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,35 +90,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Feb 04, 2024 at 11:44:39PM +0000, Kuninori Morimoto wrote:
-> 
-> Hi Rob
-> 
-> > This is assuming there's just 1 port and 1 endpoint, but let's be 
-> > specific as the bindings are (first endpoint on port 0):
-> > 
-> > of_graph_get_endpoint_by_regs(client->dev.of_node, 0, -1);
-> > 
-> > Note we could ask for endpoint 0 here, but the bindings generally allow 
-> > for more than 1.
-> > 
-> > I imagine most of the other cases here are the same.
-> 
-> I will do it on new patch-set
-> 
-> > > -	for_each_endpoint_of_node(state->dev->of_node, ep_np) {
-> > > +	for_each_device_endpoint_of_node(state->dev->of_node, ep_np) {
-> > 
-> > I would skip the rename.
-> 
-> It is needed to avoid confuse, because new function will add
-> another endpoint loop.
-> 
-> see
-> https://lore.kernel.org/r/20240131100701.754a95ee@booty
+On Mon, 22 Jan 2024 at 10:48, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 21/01/2024 20:41, Adam Skladowski wrote:
+> > During conversion 28nm-hpm-fam-b compat got lost, add it.
+>
+> Please add Fixes tag and put this commit as first in your patchset or
+> even as separate one.
 
-I've read the threads already and think you should skip the rename. Just 
-put 'port' in the name of the new one. That and taking a port number 
-param should be enough distinction.
+Fixes: f7d46c5efee2 ("dt-bindings: display/msm: split qcom, mdss bindings")
 
-Rob
+Krzysztof, if that was the only issue, could you please ack this
+patch, I can then merge it
+
+
+-- 
+With best wishes
+Dmitry
