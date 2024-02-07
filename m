@@ -2,60 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89CC084D06B
-	for <lists+freedreno@lfdr.de>; Wed,  7 Feb 2024 19:01:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D1684D124
+	for <lists+freedreno@lfdr.de>; Wed,  7 Feb 2024 19:25:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E4CB10E649;
-	Wed,  7 Feb 2024 18:01:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1D8310E70D;
+	Wed,  7 Feb 2024 18:25:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IcfyBb75";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ZaCgEz1h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FA910E649
- for <freedreno@lists.freedesktop.org>; Wed,  7 Feb 2024 18:01:23 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2DFC10E70D;
+ Wed,  7 Feb 2024 18:25:39 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 417GOT79027529
- for <freedreno@lists.freedesktop.org>; Wed, 7 Feb 2024 18:01:23 GMT
+ 417GwMgn005540; Wed, 7 Feb 2024 18:25:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:references:from
+ message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=FpiTJbWQ5G8XKdB/PlCSrB9YMjCPfUNcsqKBfDW3XBQ=; b=Ic
- fyBb75FFaxOBT9ylItLC4LKCHqoPqC3iwe81d5+bxxdrB1kFL+9ZupPtcFyocUfi
- GFqQRcwUNJ247YvqyGSyPfj4FWIfeO1VAgf6MT/RERZPQ4rDWSThHF/7uqFwgnME
- Bf4kiL61qYpkQEdq7Ko1LG4K/yB7Ju1HQrH0mRYbUlrT6df7aFKzozY2GXUE1vJU
- pfB8jZOQLm2BpP6ACmnHiMCtWV+EpfDoc5risbz9RkWJ32iYW0oudL8Vd6iW3IJ9
- h86hrQsDKlzEneeULOLJqVg5PFjpYtT02eu1O0mPjKqxlr3JoInHkH6Fuw8KDoR6
- qFfkfxCjaAakQk22z8yA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ qcppdkim1; bh=DNGi1YuawnNGPvxuU/R67KNRx2k3Pf4Cv/X30yQEooQ=; b=Za
+ CgEz1hdKcV8pYpPq8T9YT9DgWVWPYT25vU6X3Hzu5UCnHvvdl/ZTQytl3CKhr72b
+ /B8ni48yNRE1lVtBSnXsNsv4SaO04u5AaSRufWXPgBZUm77ikQCHTJO/+9BTcEw8
+ 7MvovK4C358zCoSAiLRguf64qGesKJNhH63iCeaLmRPCZxLUO3ycLAHGYwCuXEmk
+ jTEF5Oh+q2xIOL6dUxxMtFU21x/TA5cfmjcSM1J+AR8C5B5OzKIcbbqk4qb+ce/B
+ kM7UB2FpLX6PUrZmeQuGThJv3UmfFVsI/y+EDfQGDDumFxSzLbRVf5FGbf9N4pK6
+ y2PrBlcG+ISz6H9lI53A==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w44fwhdnn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 07 Feb 2024 18:01:21 +0000 (GMT)
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w46r816p3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Feb 2024 18:25:37 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 417I1Kl0009721
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Wed, 7 Feb 2024 18:01:20 GMT
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 417IPaXW010243
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 7 Feb 2024 18:25:36 GMT
 Received: from [10.110.9.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 7 Feb
- 2024 10:01:20 -0800
-Message-ID: <6bae5747-0eb4-5fa9-d207-b26a1ec8952f@quicinc.com>
-Date: Wed, 7 Feb 2024 10:01:20 -0800
+ 2024 10:25:36 -0800
+Message-ID: <89d02d5c-4af1-9f40-483f-1efb39b2a33d@quicinc.com>
+Date: Wed, 7 Feb 2024 10:25:35 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dsi: Document DSC related
- pclk_rate and hdisplay calculations
+Subject: Re: [PATCH v3 1/4] drm/msm/mdss: generate MDSS data for MDP5 platforms
 Content-Language: en-US
-To: <freedreno@lists.freedesktop.org>
-References: <20231202235947.1284568-1-dmitry.baryshkov@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
+References: <20240106-fd-migrate-mdp5-v3-0-3d2750378063@linaro.org>
+ <20240106-fd-migrate-mdp5-v3-1-3d2750378063@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231202235947.1284568-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20240106-fd-migrate-mdp5-v3-1-3d2750378063@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -64,17 +68,17 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: -C0jrzccUNGexYneefgqZQNohFx_gVzS
-X-Proofpoint-ORIG-GUID: -C0jrzccUNGexYneefgqZQNohFx_gVzS
+X-Proofpoint-GUID: Ku-_XetKQn9Z-QJtOK3bUvStBZ-fSlPN
+X-Proofpoint-ORIG-GUID: Ku-_XetKQn9Z-QJtOK3bUvStBZ-fSlPN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-02-07_09,2024-02-07_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 mlxscore=0 suspectscore=0
- adultscore=0 spamscore=0 mlxlogscore=999 impostorscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2401310000
- definitions=main-2402070133
+ phishscore=0 mlxlogscore=999
+ spamscore=0 mlxscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402070136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,85 +96,102 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/2/2023 3:59 PM, Dmitry Baryshkov wrote:
-> Provide actual documentation for the pclk and hdisplay calculations in
-> the case of DSC compression being used.
+On 1/5/2024 3:34 PM, Dmitry Baryshkov wrote:
+> Older (mdp5) platforms do not use per-SoC compatible strings. Instead
+> they use a single compat entry 'qcom,mdss'. To facilitate migrating
+> these platforms to the DPU driver provide a way to generate the MDSS /
+> UBWC data at runtime, when the DPU driver asks for it.
 > 
+> It is not possible to generate this data structure at the probe time,
+> since some platforms might not have MDP_CLK enabled, which makes reading
+> HW_REV register return 0.
+> 
+
+I would have expected a crash if clock was not enabled and we tried to 
+access the hw_rev register.
+
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
+>   drivers/gpu/drm/msm/msm_mdss.c | 51 ++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 51 insertions(+)
 > 
-> Changes since v2:
-> - Followed suggestion by Abhinav and Marijn to improve documentatry
->    comments.
-> 
-> Changes since v1:
-> - Converted dsi_adjust_pclk_for_compression() into kerneldoc (Marijn)
-> - Added a pointer from dsi_timing_setup() docs to
->    dsi_adjust_pclk_for_compression() (Marijn)
-> - Fixed two typo (Marijn)
-> 
-> ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 33 ++++++++++++++++++++++++++++--
->   1 file changed, 31 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index deeecdfd6c4e..d60ad796527c 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -529,6 +529,25 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
->   	clk_disable_unprepare(msm_host->byte_clk);
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index 455b2e3a0cdd..566a5dd5b8e8 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -3,6 +3,7 @@
+>    * Copyright (c) 2018, The Linux Foundation
+>    */
+>   
+> +#include <linux/bitfield.h>
+>   #include <linux/clk.h>
+>   #include <linux/delay.h>
+>   #include <linux/interconnect.h>
+> @@ -213,6 +214,49 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
+>   	}
 >   }
 >   
-> +/**
-> + * dsi_adjust_pclk_for_compression() - Adjust the pclk rate for compression case
-> + * @mode: The selected mode for the DSI output
-> + * @dsc: DRM DSC configuration for this DSI output
-> + *
-> + * Adjust the pclk rate by calculating a new hdisplay proportional to
-> + * the compression ratio such that:
-> + *     new_hdisplay = old_hdisplay * compressed_bpp / uncompressed_bpp
-> + *
-> + * Porches do not need to be adjusted:
-> + * - For VIDEO mode they are not compressed by DSC and are passed as is.
-> + * - For CMD mode there are no actual porches. Instead these fields
-> + *   currently represent the overhead to the image data transfer. As such, they
-> + *   are calculated for the final mode parameters (after the compression) and
-> + *   are not to be adjusted too.
-> + *
-> + *  FIXME: Reconsider this if/when CMD mode handling is rewritten to use
-> + *  refresh rate and data overhead as a starting point of the calculations.
-> + */
-
-I think instead of saying refresh rate, we should say "transfer time".
-
-refresh rate could be confused with drm_mode_vrefresh(). But technically 
-we could still have the same refresh rate but finish the transfer faster 
-by bumping the pixel clock of DSI but can still be limited by the 
-panel's refresh rate.
-
-But rest LGTM.
-
->   static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
->   		const struct drm_dsc_config *dsc)
->   {
-> @@ -951,8 +970,18 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->   		if (ret)
->   			return;
->   
-> -		/* Divide the display by 3 but keep back/font porch and
-> -		 * pulse width same
-> +		/*
-> +		 * DPU sends 3 bytes per pclk cycle to DSI. If widebus is
-> +		 * enabled, bus width is extended to 6 bytes.
-> +		 *
-> +		 * Calculate the number of pclks needed to transmit one line of
-> +		 * the compressed data.
+> +#define MDSS_HW_MAJ_MIN		GENMASK(31, 16)
 > +
-> +		 * The back/font porch and pulse width are kept intact. For
-> +		 * VIDEO mode they represent timing parameters rather than
-> +		 * actual data transfer, see the documentation for
-> +		 * dsi_adjust_pclk_for_compression(). For CMD mode they are
-> +		 * unused anyway.
->   		 */
->   		h_total -= hdisplay;
->   		if (wide_bus_enabled && !(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO))
+> +#define MDSS_HW_MSM8996		0x1007
+> +#define MDSS_HW_MSM8937		0x100e
+> +#define MDSS_HW_MSM8956		0x1010
+
+This should be 0x100B in the docs I see.
+
+> +#define MDSS_HW_MSM8998		0x3000
+> +#define MDSS_HW_SDM660		0x3002
+> +#define MDSS_HW_SDM630		0x3003
+> +
+> +/*
+> + * MDP5 platforms use generic qcom,mdp5 compat string, so we have to generate this data
+> + */
+> +static const struct msm_mdss_data *msm_mdss_generate_mdp5_mdss_data(struct msm_mdss *mdss)
+> +{
+> +	struct msm_mdss_data *data;
+> +	u32 hw_rev;
+> +
+> +	data = devm_kzalloc(mdss->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return NULL;
+> +
+> +	hw_rev = readl_relaxed(mdss->mmio + HW_REV);
+> +	hw_rev = FIELD_GET(MDSS_HW_MAJ_MIN, hw_rev);
+> +
+> +	if (hw_rev == MDSS_HW_MSM8996 ||
+> +	    hw_rev == MDSS_HW_MSM8937 ||
+> +	    hw_rev == MDSS_HW_MSM8956 ||
+> +	    hw_rev == MDSS_HW_MSM8998 ||
+> +	    hw_rev == MDSS_HW_SDM660 ||
+> +	    hw_rev == MDSS_HW_SDM630) {
+> +		data->ubwc_dec_version = UBWC_1_0;
+> +		data->ubwc_enc_version = UBWC_1_0;
+> +	}
+> +
+> +	if (hw_rev == MDSS_HW_MSM8996 ||
+> +	    hw_rev == MDSS_HW_MSM8998)
+> +		data->highest_bank_bit = 2;
+> +	else
+> +		data->highest_bank_bit = 1;
+> +
+> +	return data;
+> +}
+> +
+>   const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev)
+>   {
+>   	struct msm_mdss *mdss;
+> @@ -222,6 +266,13 @@ const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev)
+>   
+>   	mdss = dev_get_drvdata(dev);
+>   
+> +	/*
+> +	 * We could not do it at the probe time, since hw revision register was
+> +	 * not readable. Fill data structure now for the MDP5 platforms.
+> +	 */
+> +	if (!mdss->mdss_data && mdss->is_mdp5)
+> +		mdss->mdss_data = msm_mdss_generate_mdp5_mdss_data(mdss);
+> +
+>   	return mdss->mdss_data;
+>   }
+>   
+> 
