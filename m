@@ -2,85 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D3E84D262
-	for <lists+freedreno@lfdr.de>; Wed,  7 Feb 2024 20:50:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B74B084D26D
+	for <lists+freedreno@lfdr.de>; Wed,  7 Feb 2024 20:54:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0587F10E724;
-	Wed,  7 Feb 2024 19:50:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC8410E7EE;
+	Wed,  7 Feb 2024 19:54:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="i8xlVIq0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XXUJ6n2T";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F5610E719;
- Wed,  7 Feb 2024 19:50:06 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 417JUAwW011524; Wed, 7 Feb 2024 19:50:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=19v/MYBJ0enODt8M0NKUCXuXoTIrqKdfwEHdOkfNrNA=; b=i8
- xlVIq0pPv2pPi3rkBGxJCV7L3zxKG5KOT3cc++xclykuq5WI8iU/tp8haYS9dmwv
- xp3gZ57kTyR0Jd+NRxZJ/ABr60SC/pDuXhfcjLgcpGsgjAHLxzIF/F6hIIaicvlT
- +eqb5I2LYJp5jN7/nAUBzzYGG9HN4AgatiUYhthwTjvsUKz5lQ3jLLKGcCl8mNa1
- HqMg8Z8x8rWHmsAMRTaMqv80X8kSKikENBpAdswdams6idqKY83LQ4CYhm/W9Nf7
- l77HoG50sCwzqFC65qulkzwkJ37EbmXOBHg5L4TE084QlEZwZkLGPldabKmcR1qa
- 9/xK+LftmyQ9TG5/5CWw==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w4frwr2h4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 07 Feb 2024 19:50:03 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 417Jo2tV006897
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 7 Feb 2024 19:50:02 GMT
-Received: from [10.110.9.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 7 Feb
- 2024 11:50:02 -0800
-Message-ID: <91af0f8e-bfc5-1fb7-ae76-45feb4c724c0@quicinc.com>
-Date: Wed, 7 Feb 2024 11:50:01 -0800
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49FCA10E7EE;
+ Wed,  7 Feb 2024 19:54:17 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2d04c0b1cacso13135111fa.0; 
+ Wed, 07 Feb 2024 11:54:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1707335655; x=1707940455; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=i7SRBxYoK9LHUFD9hGgBcXZ8tzxyzNmubya79xIxsbE=;
+ b=XXUJ6n2TVeGPYzHJMyEYWk9KzBNAE3nI0aJpvX4Dpmlnzih+oEPbJbEKXyiu7p7ZYn
+ DTHmVjD8UX1UG6DBUtqPaGTiP4TxuBLnsfVh9BbD9rHaIOy5/loAXJVFMAyUZyZRFqDx
+ kxZH6dalVmiVxsld/z6NDyqVnxLcfLyw1h+bEBQe5heiputoI+hhqd7BEL+MKtolzbjv
+ Jcn7PipwoR/kuuADjnkiLg5n+ocVJqyW2EKV6+KQuCZwgzgErrOSwc0T5+UVAWpIyZKE
+ 3fjom8Dajp9xwbP0gwi5LktxlpfgXgIDh1hzYdN/L8xI1MlA9RMjKXrVB2idJYEi9sRJ
+ L9Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707335655; x=1707940455;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=i7SRBxYoK9LHUFD9hGgBcXZ8tzxyzNmubya79xIxsbE=;
+ b=J55hnfXY7G7WYeMGjHdtCG8DlfUeQcglYzMENS9ogy/IcWhh9xKOSkXV3++cUWbcNh
+ MWP4N0Z3CtGl6Nt1IidAtkj1s6lcK7r47KbIyVAzFWwZmqARhMxC1hymLSvDEVeCIkKg
+ p9r+DBYBPc6Nm+41QGBtGeZoNNP1jHsqykK344R/OWRmLBhRRY1AbYlOvXWOPoRnNcee
+ xM2uhiPHlBOaY6Y25vG2oqWEmWI7Ag2cMY5SZdMRgIEbMy2N/p8m+9zYIrplTlKHaBeR
+ QmmMGbbBL6cEI+/paVLYEn0ltfUJHEJG6Lx3rWa+ryoc5MiiQOQeC8EYdw1ZZzjPhSLx
+ YBoQ==
+X-Gm-Message-State: AOJu0YwGY4fltBuILkjf1B5OGUWAAvkeZht2apANk0Pbwx4NboGgRRkD
+ O49pWTkiODKoHi0dp3saMNnYLkKDjR1W9mBmoNMqjAS3bdL+PM2hO0V1xmwIh1zipnvYJz2Oxmo
+ lbC3mHfKZMJJep3CLTQFFHCW9pSqBLWkyiFw=
+X-Google-Smtp-Source: AGHT+IF9HE8a4amqQHEhMM6t1EjO3V/7Fs2Qoo+grFeA0gYWq9zuo4Ne8b1XUnMBHprJIRWQoJ4WJd+LAwYLXstRifU=
+X-Received: by 2002:a05:651c:1250:b0:2d0:ce72:570b with SMTP id
+ h16-20020a05651c125000b002d0ce72570bmr953313ljh.48.1707335654873; Wed, 07 Feb
+ 2024 11:54:14 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3 4/4] drm/msm/dpu: add support for SDM660 and SDM630
- platforms
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Konrad
- Dybcio <konrad.dybcio@somainline.org>
-References: <20240106-fd-migrate-mdp5-v3-0-3d2750378063@linaro.org>
- <20240106-fd-migrate-mdp5-v3-4-3d2750378063@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240106-fd-migrate-mdp5-v3-4-3d2750378063@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: SL7cGHZa2ee3ZY4tRC6c0HtYXScyVk5a
-X-Proofpoint-GUID: SL7cGHZa2ee3ZY4tRC6c0HtYXScyVk5a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-07_09,2024-02-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
- clxscore=1011 lowpriorityscore=0 mlxlogscore=999 adultscore=0
- priorityscore=1501 mlxscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2401310000 definitions=main-2402070148
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 7 Feb 2024 11:54:02 -0800
+Message-ID: <CAF6AEGvmW88vi3Ar6yw81t9X-MOL24NdqyZYjduMBfJoBNq5-A@mail.gmail.com>
+Subject: 
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,30 +75,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dave,
 
+A few fixes for v6.8, description below
 
-On 1/5/2024 3:34 PM, Dmitry Baryshkov wrote:
-> Bring in hardware support for the SDM660 and SDM630 platforms, which
-> belong to the same DPU generation as MSM8998.
-> 
-> Note, by default these platforms are still handled by the MDP5 driver
-> unless the `msm.prefer_mdp5=false' parameter is provided.
-> 
-> Co-developed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h | 291 +++++++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h | 225 ++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
->   drivers/gpu/drm/msm/msm_drv.c                      |   2 +
->   6 files changed, 524 insertions(+)
-> 
+The following changes since commit d4ca26ac4be0d9aea7005c40df75e6775749671b:
 
-I cross-checked a few entries with the downstream sources but certainly 
-not all, but based on whatever I checked all the entries were correct in 
-the catalog.
+  drm/msm/dp: call dp_display_get_next_bridge() during probe
+(2023-12-14 09:27:46 +0200)
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2024-02-07
+
+for you to fetch changes up to 8d35217149daa33358c284aca6a56d5ab92cfc6c:
+
+  drm/msm/mdss: specify cfg bandwidth for SDM670 (2024-01-25 14:36:04 -0800)
+
+----------------------------------------------------------------
+Fixes for v6.8-rc4
+
+DPU:
+- fix for kernel doc warnings and smatch warnings in dpu_encoder
+- fix for smatch warning in dpu_encoder
+- fix the bus bandwidth value for SDM670
+
+DP:
+- fixes to handle unknown bpc case correctly for DP. The current code was
+  spilling over into other bits of DP configuration register, had to be
+  fixed to avoid the extra shifts which were causing the spill over
+- fix for MISC0 programming in DP driver to program the correct
+  colorimetry value
+
+GPU:
+- dmabuf vmap fix
+- a610 UBWC corruption fix (incorrect hbb)
+- revert a commit that was making GPU recovery unreliable
+
+----------------------------------------------------------------
+Abhinav Kumar (1):
+      drm/msm/dpu: check for valid hw_pp in dpu_encoder_helper_phys_cleanup
+
+Dmitry Baryshkov (1):
+      drm/msm/mdss: specify cfg bandwidth for SDM670
+
+Kuogee Hsieh (2):
+      drm/msms/dp: fixed link clock divider bits be over written in
+BPC unknown case
+      drm/msm/dp: return correct Colorimetry for DP_TEST_DYNAMIC_RANGE_CEA case
+
+Randy Dunlap (1):
+      drm/msm/dpu: fix kernel-doc warnings
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  8 ++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c            |  5 -----
+ drivers/gpu/drm/msm/dp/dp_link.c            | 22 ++++++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_reg.h             |  3 +++
+ drivers/gpu/drm/msm/msm_mdss.c              |  1 +
+ 6 files changed, 22 insertions(+), 20 deletions(-)
