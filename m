@@ -2,70 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A29FE84D280
-	for <lists+freedreno@lfdr.de>; Wed,  7 Feb 2024 20:59:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1E1484D28E
+	for <lists+freedreno@lfdr.de>; Wed,  7 Feb 2024 21:05:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD4110E82D;
-	Wed,  7 Feb 2024 19:59:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98D6610E00D;
+	Wed,  7 Feb 2024 20:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Hr0mnCbH";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="H5D3I2wP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09A0010E724
- for <freedreno@lists.freedesktop.org>; Wed,  7 Feb 2024 19:59:40 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-604983ea984so7846247b3.1
- for <freedreno@lists.freedesktop.org>; Wed, 07 Feb 2024 11:59:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707335979; x=1707940779; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GwkfJHLn8/HfkCk/r+wwlW1fJAVG5oLG8A4VHYAkrHI=;
- b=Hr0mnCbHPUNLRTM5u8pMedwqkYyps/8C3I76Z/Q/1rrceMDgMoRfsJRFVsIVOm58uf
- LAgCE+bDMR7lWZwTrWgJBZjAUCsoXaLK6+BCOmyDmJEEOBaXZPZCoCQzZfdHtpvN6z82
- X3z8N1m9DphfxD/ou3F4cPXRVgbomAdoydBKmdMzi58ueIX690gRHb+BtZaznNcF2imq
- IkEbErZDpDi8ht/hSbKgN9YUZ146fQ9dctLsUyT2W/3V61lpzcvdVDkZQIHurA4Uo0ae
- chGdmPwm0oT/UQzAD9IKBzXLcB2LREy4An/eVYbSuT5dCNLOAVaswduLsv0ukRde/4cy
- dXig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707335979; x=1707940779;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GwkfJHLn8/HfkCk/r+wwlW1fJAVG5oLG8A4VHYAkrHI=;
- b=GSvDwCL9xdqo0UWNeUjg7Ln8VkXVM6+cWDQCByZv6YgUMiUUUGBKHqwtVw3E2gKGAJ
- OhmX0AsTeq1+EsPhgWYm5DQ1GbKI0aizysiBwORK2bsx3WVd1fQ/lVN2bYI7WjOK7573
- cHg9QxTAHhzEJSQMiZmGIqpuGGrujJyjK7J3SDf/Uz1wv01AEsBfmDyvoZq2eObabKaW
- +e1iWMjOmEvGkKf502/X8dIhiF+uV/kpXngwROcojUCTowQOBaQodnBXFkKZJt1f5gdD
- Bi06/7FzZkJWUIOE0UF143ZPm3DHIfGljZi4FgxA7IicbAsl3lzQtAsNjB20YHK4mn/4
- SXNg==
-X-Gm-Message-State: AOJu0YxKUlJWu63Qf773BgUlawiBhoL50XVcz9tpNBSwpfsJ4Z5gjOfF
- fJmIiKKpVrYdHlSDo39/7ipNOXkop/j3vUMHwFqqNnbaTJ7GJFrrOXgL9tX2K1GTpCjsOH/9Q+i
- 8Gvpctx7rIzr4syc7S/WO01f+K97Hm60blkJdRQ==
-X-Google-Smtp-Source: AGHT+IEuEU6FhY/I616wY+eWpvyqJscoEtGa/IwbEkSleqQN6CLz65NvHcecJWfYtSCQAm6B9A1dkykyMc95djTRxCc=
-X-Received: by 2002:a5b:c0d:0:b0:dc2:4f96:fc38 with SMTP id
- f13-20020a5b0c0d000000b00dc24f96fc38mr5720301ybq.50.1707335979137; Wed, 07
- Feb 2024 11:59:39 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D7B10E00D;
+ Wed,  7 Feb 2024 20:05:17 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 417GMhfn002137; Wed, 7 Feb 2024 20:05:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=fhRVKEHpe8MsrBlNncNCc93DuwM0zD4mv5ixgCfCuCQ=; b=H5
+ D3I2wPmhXrdcCdnVNfue4KWRi7SoVnpgM9ADaSKPcLmiunRhwNtt5DaiTPGU9AkG
+ wUCDNaVWftk/MvDa9zTXlQedv6FCrKlcptrWFbAdT/y33NpFvPAbL5DG0HbRqz9z
+ /TNGgsx5Opb9Pgk1pxGnmgqRcoj0dJtFcVfWwsXlGkhX/lYS5vRwYFJ/fXP4B7YJ
+ CqQwHDBFfNKbJX9KgXrtLAEIMr/F8kdmtktbziEiFN20dtyOj9FoHeKh5rNljosW
+ QceLHUx0SJxv2pkUtBpQiI3vcaoCLO3Ku5CP/AzHRMPRVIGjPGmO7rSxXjleZOum
+ 2dIym7/m79HAwffRKCHg==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w3x41tc5n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Feb 2024 20:05:13 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 417K5CGs027482
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 7 Feb 2024 20:05:12 GMT
+Received: from [10.110.9.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 7 Feb
+ 2024 12:05:11 -0800
+Message-ID: <092a230a-05cb-48ae-daa0-607b15b30177@quicinc.com>
+Date: Wed, 7 Feb 2024 12:05:11 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 2/4] drm/msm/dpu: support binding to the mdp5 devices
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 References: <20240106-fd-migrate-mdp5-v3-0-3d2750378063@linaro.org>
- <20240106-fd-migrate-mdp5-v3-1-3d2750378063@linaro.org>
- <89d02d5c-4af1-9f40-483f-1efb39b2a33d@quicinc.com>
-In-Reply-To: <89d02d5c-4af1-9f40-483f-1efb39b2a33d@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 7 Feb 2024 21:59:28 +0200
-Message-ID: <CAA8EJpro3jVPDAGWdpFiukCHTVif--Y-ZhEw=ir7U3ABsa_qbA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/4] drm/msm/mdss: generate MDSS data for MDP5 platforms
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ <20240106-fd-migrate-mdp5-v3-2-3d2750378063@linaro.org>
+ <b10d6097-b13d-4b47-7127-9200e414b7be@quicinc.com>
+ <CAA8EJppV_PYMyJBEogONrDVmZ91XmMkr=J0tsioO20GaAW8GoQ@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppV_PYMyJBEogONrDVmZ91XmMkr=J0tsioO20GaAW8GoQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: XUIiVlPM9QKQg9gobVX05fG-ykNAFtQT
+X-Proofpoint-GUID: XUIiVlPM9QKQg9gobVX05fG-ykNAFtQT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-07_09,2024-02-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0
+ mlxlogscore=999 clxscore=1015 spamscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402070149
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,120 +96,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 7 Feb 2024 at 20:25, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 1/5/2024 3:34 PM, Dmitry Baryshkov wrote:
-> > Older (mdp5) platforms do not use per-SoC compatible strings. Instead
-> > they use a single compat entry 'qcom,mdss'. To facilitate migrating
-> > these platforms to the DPU driver provide a way to generate the MDSS /
-> > UBWC data at runtime, when the DPU driver asks for it.
-> >
-> > It is not possible to generate this data structure at the probe time,
-> > since some platforms might not have MDP_CLK enabled, which makes reading
-> > HW_REV register return 0.
-> >
->
-> I would have expected a crash if clock was not enabled and we tried to
-> access the hw_rev register.
-
-No, for all the platforms I tested it returns 0 instead.
-However this doesn't make any difference, we don't read the register
-in MDP5 case until all clocks are enabled.
-
->
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_mdss.c | 51 ++++++++++++++++++++++++++++++++++++++++++
-> >   1 file changed, 51 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > index 455b2e3a0cdd..566a5dd5b8e8 100644
-> > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > @@ -3,6 +3,7 @@
-> >    * Copyright (c) 2018, The Linux Foundation
-> >    */
-> >
-> > +#include <linux/bitfield.h>
-> >   #include <linux/clk.h>
-> >   #include <linux/delay.h>
-> >   #include <linux/interconnect.h>
-> > @@ -213,6 +214,49 @@ static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss)
-> >       }
-> >   }
-> >
-> > +#define MDSS_HW_MAJ_MIN              GENMASK(31, 16)
-> > +
-> > +#define MDSS_HW_MSM8996              0x1007
-> > +#define MDSS_HW_MSM8937              0x100e
-> > +#define MDSS_HW_MSM8956              0x1010
->
-> This should be 0x100B in the docs I see.
-
-Yes, I mixed MSM8956 and MSM8953 here. The code support the latter one.
-
->
-> > +#define MDSS_HW_MSM8998              0x3000
-> > +#define MDSS_HW_SDM660               0x3002
-> > +#define MDSS_HW_SDM630               0x3003
-> > +
-> > +/*
-> > + * MDP5 platforms use generic qcom,mdp5 compat string, so we have to generate this data
-> > + */
-> > +static const struct msm_mdss_data *msm_mdss_generate_mdp5_mdss_data(struct msm_mdss *mdss)
-> > +{
-> > +     struct msm_mdss_data *data;
-> > +     u32 hw_rev;
-> > +
-> > +     data = devm_kzalloc(mdss->dev, sizeof(*data), GFP_KERNEL);
-> > +     if (!data)
-> > +             return NULL;
-> > +
-> > +     hw_rev = readl_relaxed(mdss->mmio + HW_REV);
-> > +     hw_rev = FIELD_GET(MDSS_HW_MAJ_MIN, hw_rev);
-> > +
-> > +     if (hw_rev == MDSS_HW_MSM8996 ||
-> > +         hw_rev == MDSS_HW_MSM8937 ||
-> > +         hw_rev == MDSS_HW_MSM8956 ||
-> > +         hw_rev == MDSS_HW_MSM8998 ||
-> > +         hw_rev == MDSS_HW_SDM660 ||
-> > +         hw_rev == MDSS_HW_SDM630) {
-> > +             data->ubwc_dec_version = UBWC_1_0;
-> > +             data->ubwc_enc_version = UBWC_1_0;
-> > +     }
-> > +
-> > +     if (hw_rev == MDSS_HW_MSM8996 ||
-> > +         hw_rev == MDSS_HW_MSM8998)
-> > +             data->highest_bank_bit = 2;
-> > +     else
-> > +             data->highest_bank_bit = 1;
-> > +
-> > +     return data;
-> > +}
-> > +
-> >   const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev)
-> >   {
-> >       struct msm_mdss *mdss;
-> > @@ -222,6 +266,13 @@ const struct msm_mdss_data *msm_mdss_get_mdss_data(struct device *dev)
-> >
-> >       mdss = dev_get_drvdata(dev);
-> >
-> > +     /*
-> > +      * We could not do it at the probe time, since hw revision register was
-> > +      * not readable. Fill data structure now for the MDP5 platforms.
-> > +      */
-> > +     if (!mdss->mdss_data && mdss->is_mdp5)
-> > +             mdss->mdss_data = msm_mdss_generate_mdp5_mdss_data(mdss);
-> > +
-> >       return mdss->mdss_data;
-> >   }
-> >
-> >
 
 
+On 2/7/2024 11:56 AM, Dmitry Baryshkov wrote:
+> On Wed, 7 Feb 2024 at 20:48, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 1/5/2024 3:34 PM, Dmitry Baryshkov wrote:
+>>> Existing MDP5 devices have slightly different bindings. The main
+>>> register region is called `mdp_phys' instead of `mdp'. Also vbif
+>>> register regions are a part of the parent, MDSS device. Add support for
+>>> handling this binding differences.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 98 ++++++++++++++++++++++++++-------
+>>>    drivers/gpu/drm/msm/msm_drv.h           |  3 +
+>>>    drivers/gpu/drm/msm/msm_io_utils.c      | 13 +++++
+>>>    3 files changed, 93 insertions(+), 21 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> index 723cc1d82143..aa9e0ad33ebb 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>>> @@ -1197,6 +1197,78 @@ static int dpu_kms_init(struct drm_device *ddev)
+>>>        return 0;
+>>>    }
+>>>
+>>> +static int dpu_kms_mmap_mdp5(struct dpu_kms *dpu_kms)
+>>> +{
+>>> +     struct platform_device *pdev = dpu_kms->pdev;
+>>> +     struct platform_device *mdss_dev;
+>>> +     int ret;
+>>> +
+>>> +     if (dpu_kms->pdev->dev.bus != &platform_bus_type)
+>>> +             return -EINVAL;
+>>> +
+>>
+>> !dev_is_platform() perhaps?
+> 
+> looks good
+> 
+>>
+>> But I would like to understand this check a bit more. Can you pls
+>> explain for which case this check was added?
+> 
+> It is necessary to be sure that we can perform to_platform_device() on
+> the next line.
+> 
 
--- 
-With best wishes
-Dmitry
+Got it but on the next line we are using to_platform_device on dpu's 
+parent device. So shouldnt the check also be dpu_kms->pdev->dev.parent.bus?
+
+>>
+>>> +     mdss_dev = to_platform_device(dpu_kms->pdev->dev.parent);
+>>> +
+>>> +     dpu_kms->mmio = msm_ioremap(pdev, "mdp_phys");
+>>> +     if (IS_ERR(dpu_kms->mmio)) {
+>>> +             ret = PTR_ERR(dpu_kms->mmio);
+>>> +             DPU_ERROR("mdp register memory map failed: %d\n", ret);
+>>> +             dpu_kms->mmio = NULL;
+>>> +             return ret;
+>>> +     }
+>>> +     DRM_DEBUG("mapped dpu address space @%pK\n", dpu_kms->mmio);
+>>> +
+>>> +     dpu_kms->vbif[VBIF_RT] = msm_ioremap_mdss(mdss_dev,
+>>> +                                               dpu_kms->pdev,
+>>> +                                               "vbif_phys");
+>>> +     if (IS_ERR(dpu_kms->vbif[VBIF_RT])) {
+>>> +             ret = PTR_ERR(dpu_kms->vbif[VBIF_RT]);
+>>> +             DPU_ERROR("vbif register memory map failed: %d\n", ret);
+>>> +             dpu_kms->vbif[VBIF_RT] = NULL;
+>>> +             return ret;
+>>> +     }
+>>> +
+>>> +     dpu_kms->vbif[VBIF_NRT] = msm_ioremap_mdss(mdss_dev,
+>>> +                                                dpu_kms->pdev,
+>>> +                                                "vbif_nrt_phys");
+>>
+>> Do you think a "quiet" version would be better?
+> 
+> Yep, why not.
+> 
+>>
+>>
+>>> +     if (IS_ERR(dpu_kms->vbif[VBIF_NRT])) {
+>>> +             dpu_kms->vbif[VBIF_NRT] = NULL;
+>>> +             DPU_DEBUG("VBIF NRT is not defined");
+>>> +     }
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +
+>>> +static int dpu_kms_mmap_dpu(struct dpu_kms *dpu_kms)
+>>> +{
+>>> +     struct platform_device *pdev = dpu_kms->pdev;
+>>> +     int ret;
+>>> +
+>>> +     dpu_kms->mmio = msm_ioremap(pdev, "mdp");
+>>> +     if (IS_ERR(dpu_kms->mmio)) {
+>>> +             ret = PTR_ERR(dpu_kms->mmio);
+>>> +             DPU_ERROR("mdp register memory map failed: %d\n", ret);
+>>> +             dpu_kms->mmio = NULL;
+>>> +             return ret;
+>>> +     }
+>>> +     DRM_DEBUG("mapped dpu address space @%pK\n", dpu_kms->mmio);
+>>> +
+>>> +     dpu_kms->vbif[VBIF_RT] = msm_ioremap(pdev, "vbif");
+>>> +     if (IS_ERR(dpu_kms->vbif[VBIF_RT])) {
+>>> +             ret = PTR_ERR(dpu_kms->vbif[VBIF_RT]);
+>>> +             DPU_ERROR("vbif register memory map failed: %d\n", ret);
+>>> +             dpu_kms->vbif[VBIF_RT] = NULL;
+>>> +             return ret;
+>>> +     }
+>>> +
+>>> +     dpu_kms->vbif[VBIF_NRT] = msm_ioremap_quiet(pdev, "vbif_nrt");
+>>> +     if (IS_ERR(dpu_kms->vbif[VBIF_NRT])) {
+>>> +             dpu_kms->vbif[VBIF_NRT] = NULL;
+>>> +             DPU_DEBUG("VBIF NRT is not defined");
+>>> +     }
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +
+>>>    static int dpu_dev_probe(struct platform_device *pdev)
+>>>    {
+>>>        struct device *dev = &pdev->dev;
+>>> @@ -1230,28 +1302,12 @@ static int dpu_dev_probe(struct platform_device *pdev)
+>>>
+>>>        dpu_kms->base.irq = irq;
+>>>
+>>> -     dpu_kms->mmio = msm_ioremap(pdev, "mdp");
+>>> -     if (IS_ERR(dpu_kms->mmio)) {
+>>> -             ret = PTR_ERR(dpu_kms->mmio);
+>>> -             DPU_ERROR("mdp register memory map failed: %d\n", ret);
+>>> -             dpu_kms->mmio = NULL;
+>>> -             return ret;
+>>> -     }
+>>> -     DRM_DEBUG("mapped dpu address space @%pK\n", dpu_kms->mmio);
+>>> -
+>>> -     dpu_kms->vbif[VBIF_RT] = msm_ioremap(pdev, "vbif");
+>>> -     if (IS_ERR(dpu_kms->vbif[VBIF_RT])) {
+>>> -             ret = PTR_ERR(dpu_kms->vbif[VBIF_RT]);
+>>> -             DPU_ERROR("vbif register memory map failed: %d\n", ret);
+>>> -             dpu_kms->vbif[VBIF_RT] = NULL;
+>>> +     if (of_device_is_compatible(dpu_kms->pdev->dev.of_node, "qcom,mdp5"))
+>>> +             ret = dpu_kms_mmap_mdp5(dpu_kms);
+>>> +     else
+>>> +             ret = dpu_kms_mmap_dpu(dpu_kms);
+>>> +     if (ret)
+>>>                return ret;
+>>> -     }
+>>> -
+>>> -     dpu_kms->vbif[VBIF_NRT] = msm_ioremap_quiet(pdev, "vbif_nrt");
+>>> -     if (IS_ERR(dpu_kms->vbif[VBIF_NRT])) {
+>>> -             dpu_kms->vbif[VBIF_NRT] = NULL;
+>>> -             DPU_DEBUG("VBIF NRT is not defined");
+>>> -     }
+>>>
+>>>        ret = dpu_kms_parse_data_bus_icc_path(dpu_kms);
+>>>        if (ret)
+>>> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+>>> index 16a7cbc0b7dd..01e783130054 100644
+>>> --- a/drivers/gpu/drm/msm/msm_drv.h
+>>> +++ b/drivers/gpu/drm/msm/msm_drv.h
+>>> @@ -476,6 +476,9 @@ void __iomem *msm_ioremap(struct platform_device *pdev, const char *name);
+>>>    void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
+>>>                phys_addr_t *size);
+>>>    void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name);
+>>> +void __iomem *msm_ioremap_mdss(struct platform_device *mdss_pdev,
+>>> +                            struct platform_device *dev,
+>>> +                            const char *name);
+>>>
+>>>    struct icc_path *msm_icc_get(struct device *dev, const char *name);
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+>>> index 59d2788c4510..afedd61c3e28 100644
+>>> --- a/drivers/gpu/drm/msm/msm_io_utils.c
+>>> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
+>>> @@ -50,6 +50,19 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
+>>>        return clk;
+>>>    }
+>>>
+>>> +void __iomem *msm_ioremap_mdss(struct platform_device *mdss_pdev,
+>>> +                            struct platform_device *pdev,
+>>> +                            const char *name)
+>>> +{
+>>> +     struct resource *res;
+>>> +
+>>> +     res = platform_get_resource_byname(mdss_pdev, IORESOURCE_MEM, name);
+>>> +     if (!res)
+>>> +             return ERR_PTR(-EINVAL);
+>>> +
+>>> +     return devm_ioremap_resource(&pdev->dev, res);
+>>> +}
+>>> +
+>>>    static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
+>>>                                  bool quiet, phys_addr_t *psize)
+>>>    {
+>>>
+> 
+> 
+> 
