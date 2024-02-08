@@ -2,87 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF88984E238
-	for <lists+freedreno@lfdr.de>; Thu,  8 Feb 2024 14:46:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5501184E373
+	for <lists+freedreno@lfdr.de>; Thu,  8 Feb 2024 15:50:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 774A010E30C;
-	Thu,  8 Feb 2024 13:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5F010E84E;
+	Thu,  8 Feb 2024 14:50:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FO0vnxmK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cmDDuEy0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5E910E355
- for <freedreno@lists.freedesktop.org>; Thu,  8 Feb 2024 13:46:32 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-55a179f5fa1so2323933a12.0
- for <freedreno@lists.freedesktop.org>; Thu, 08 Feb 2024 05:46:32 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A772A10E84D
+ for <freedreno@lists.freedesktop.org>; Thu,  8 Feb 2024 14:50:33 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5101cd91017so2224088e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 08 Feb 2024 06:50:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707399991; x=1708004791; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ScIY/HfFAFC0b03ICHw/iCduUDonnVRODJKogMNZR60=;
- b=FO0vnxmKmybCbHShCiCbQzjOyxp2Ik0mNnHmZreUks3fxWO72WvzMqMuW0BDO1eDSE
- V0sEhkCrh9NlQ4ny+26qLGtLmoQOolGl76tDGMqng6j1kJMrQkE3fF6uf9oAh8OAq0o7
- SrAy2pRZd8qTo8UNr/01oYbsHq/LU9lve8f/rgMYPvv6i4wA8fzg+tGQlkkJl/cBvA+m
- XSKswIQOLRRsogtnJVVTRoZyrPgM+OZqA3wiHgkQim74P2JR2Qvh1jXAz6x5PG6S1goR
- wqyof7hity2AaEC275yyhofgvJWXksr0Si67DjLwkrl203cvAqrJmw+itTwsIYy88AE/
- YtQw==
+ d=linaro.org; s=google; t=1707403832; x=1708008632; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=isFytFDXARzCh2Jm6b6WyMr5DRIgqurmR16IdjoLmWw=;
+ b=cmDDuEy0vRrg1S6M8ChtJS3RHumltIdQDr06L2Nm1ip2j2sw1zv1MLB+vXsdsi/bvY
+ 6xrcgi3kvzvRQ/LJh3c9t8WRheU60YhoL9bayWo6601ePYvnIGoMl3weYRuvNNBoSBAX
+ uC/PrPnk2OyZ3ytLJE11n8vVQbjELvbD5bKt76qamZioWLnVxV1TqwMy8Q0YEuqTu8gl
+ ZhjA1VnB1d1EzE28fBFe77V+7rJvvWt66lwuPa/5ct47Bx7iuYGUjXRBKL8QiOISIo8w
+ Zjl9o+VzZ4JoWl4gLzpQApwAF2SQdDCNevcD3CyEQgSdKH8CcpYjDNOhFHgSx30dspOw
+ mIfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707399991; x=1708004791;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ScIY/HfFAFC0b03ICHw/iCduUDonnVRODJKogMNZR60=;
- b=SU92cXsrQ772R4bl1X+Bd0eLlXMzQ37v0A8+6U4KmkA9R2K6vILD/2v/UTlCwuibjx
- VNpPJvm4GGtnJ2agFDIRxkx1S/RUFX/8/Udn0e1ZHPPEUyMzqu83qGvgnsLqmg/AgPrc
- rnWDSMQz+uxSJ7Kk5sMSLPfwSgqANLr+5o3EcfCaca5bmrsvRKp+JasHyPXSwJTWG3dM
- JR+qpVwnG5z4XSexbgs0jERQpJ4QWNk+Lo0ozbGpFhoxdeDfQW9TrJh+X6YS8RAG/ExY
- PwUJBVBQJOIfNcrrg+4SqUF3LbKWroZlGsS4oEdBNHsGbtP3oPMXJxlshA7F0cl1HRrs
- Qjlw==
+ d=1e100.net; s=20230601; t=1707403832; x=1708008632;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=isFytFDXARzCh2Jm6b6WyMr5DRIgqurmR16IdjoLmWw=;
+ b=id8afI2acXPYixV+KRgVMFBlbp4sNFi4kDrdct0E9Ash8IkZaqLk7JdK2ybpjaP3zV
+ VdfDi/ml8kXqp/hojthJIeplR+NPeZ78NzCQimxmOcUPRj2zpuF0IcK4xnlxX5k+vUMe
+ m8c4J8K2F9q7WeYm6XdJ0ZAC4Nx3oA9E+Y6O20qf+99MsXNedN51EY9N7+r3axjrVRmD
+ +rduk7dEdB7hD93bKuRmGOx4ANqbYkNAAPSG3WsxqI1AZKdsdKXI3hYD/ZzuWUgHYtS/
+ eRBa3Y8XLn3BoMZfT5fC3VXlOLFb9U2hKMmai9xsY1ntD0TNv34gEz9hPC0oywILHarV
+ Sp3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXwIzfVuaZYNgjkXnr3JlLg+adCGUiPF+945zYuZq+7FqwS78r5uisH/0cJMM0e9HeSe4G8uus4XoAoCL8qWTDoEGrvyj8psjIDZDpZ3ugG
-X-Gm-Message-State: AOJu0YzhuFLRZfiSHKjv2wdqrVJjjuNixoZDwjzzNdEUSSU3vOofWpcr
- kfH/cA4o+4cWomVRf8TygEe8GoazNDiw3tPnTQSUIuaxGmrR5+GLEwZcOtuDdXM=
-X-Google-Smtp-Source: AGHT+IGEgAx+YtgSvXCAni7u/Q8jcZGz0YDpaUwhJjgeCBWNA0up0ixKRS6a2nAtCknTAG1DqHHXwg==
-X-Received: by 2002:a17:906:1301:b0:a30:be5e:c8e7 with SMTP id
- w1-20020a170906130100b00a30be5ec8e7mr6149015ejb.44.1707399990675; 
- Thu, 08 Feb 2024 05:46:30 -0800 (PST)
+ AJvYcCWx9JIpviNW1byHUyZWAfYNo+1HZv3177OCcvk4VsGwu5nnemvW6Yih9dfH7ursTno/OFCMZNOphOPaYFDuzKyax9FYI6mpmQS4zeV/u0gF
+X-Gm-Message-State: AOJu0YwzWu+tIiS0POuxIzDCSEvYjej2EmDsEzm3zayDUyjxU8HC8er1
+ CynYp4LHMqNChLkykc2NRG1D5AhvJKppDJn8codev59zHmXuuDT8u+kticCukJliHZ1YsY4r1qY
+ C
+X-Google-Smtp-Source: AGHT+IE5P6J4KgAgsuL0CsQE8iHKVUyxpqlXKbhBUrR1OdOwxJGpw7JPp6luC1UX32OF+2q+jVtXsA==
+X-Received: by 2002:ac2:5e9d:0:b0:511:60eb:cb1e with SMTP id
+ b29-20020ac25e9d000000b0051160ebcb1emr5468828lfq.67.1707403831789; 
+ Thu, 08 Feb 2024 06:50:31 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXHgo6p4vMeqamFxEUAZUBJTOGpfgaf7zXt6WvJjoWOxUuHPxt3L0HDV+aOXE8Ee4nigmxEyNtLEAVfjthhf3+6/6j7nMxe2NUNLrQjGUvDL7NwX+0ZbVlmeUeLbAVRjlF4JcOA+dhsDAiRj+AGdswPXrjhdZ+oLhKmL1F6APFe86LCXRrI/kmODJrSFskXiJXcxeSBdjbTX/pL2J0NoOTP01h7cz6CbeCBWGkHiXnPA9glRi14it47kfnZWnOQ1I7HSBq4td6n82iw/n5i0zDrYjqfMJHDF064Tr0L3Xahs6cpMZ+SFWPgOjLvngZFTx05Uoshk+uA0B0guYxoY5fWTLgNRSj2e8cnaY5hAiR077McfoandG+LW3Qn6O5IMtINkWa7pHh6ApPC3m5ov8BxMF0dJ5i5vzh+1ghmbaSWGINAlrAbKQ4kylfhGdLMJF1w2tlVpjml2q14i7SeLHoIHbJAUNrnuNf2lp5fQITZ2kqXu8PfUsXBl6/Q1W6cZTHd+YlBvyYUP40BNvVfX0YWtqbD7nC+y9QuEkVxKt3/RC1qk6HX/KTtqPSgqqQ5cRJpeLR4kVwEvF/yy8MjY3rAVvzUdQUyEGnWTiDNnYuiU7z+pOsOzKx1z78/96YllhRuTdqTw1sEK+iE4Q==
-Received: from linaro.org ([62.231.97.49]) by smtp.gmail.com with ESMTPSA id
- y15-20020a170906070f00b00a3729ce6321sm53206ejb.166.2024.02.08.05.46.29
+ AJvYcCU889DrDkoP2EL0AQ5Awe3MnvmaThnO6wNUDDSKLLdLcLXSO01+Opd6tk6yqykwTUZs9JGEyU9uLk6UkHKOH3b6QJMwN+eQWdxsfBkRUnh1E7ecjhQ6zhekL6kCkzBwfbDz+aOhfJ2wUw5BYx5M1SZzZWorGD6WDIf+g8KNLbxTGwiu8zO73rN4Y9/KEZlmoOKxEDXttleer9tkLti7m/sGiFhoaqEor+PbZHE7HuW3X/IPGh8obaRVHPDc3ihESzcXKOzc5xyPPMW/M6qQ4BsrzRQrxaXuKUoRGg13o4RdX+kTIb7U2DkxEyV8QD4aj27rFA1dE+1uSGppFVUy
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ l4-20020ac25544000000b005114808a6a3sm18706lfk.168.2024.02.08.06.50.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Feb 2024 05:46:30 -0800 (PST)
-Date: Thu, 8 Feb 2024 15:46:28 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] drm/msm: mdss: Add X1E80100 support
-Message-ID: <ZcTbNGVGT/Kwtc68@linaro.org>
-References: <20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org>
- <20240129-x1e80100-display-v1-3-0d9eb8254df0@linaro.org>
- <CAA8EJponbo2vvuj2ftCQuxtrZp0w7JQqJ_ADF80Wd2y1V74BzA@mail.gmail.com>
- <ZcTZL+fls7A8O9P0@linaro.org>
- <CAA8EJpr3p286ff1pHhhBdF7GA=g8Pnv9yWDukwnnNaOuykPcTQ@mail.gmail.com>
+ Thu, 08 Feb 2024 06:50:31 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 08 Feb 2024 16:50:27 +0200
+Subject: [PATCH v2] drm/msm/dpu: make "vblank timeout" more useful
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpr3p286ff1pHhhBdF7GA=g8Pnv9yWDukwnnNaOuykPcTQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240208-fd-dpu-debug-timeout-v2-1-9f907f1bdd87@linaro.org>
+X-B4-Tracking: v=1; b=H4sIADLqxGUC/4WNQQ6CMBBFr0Jm7Zi2NgVccQ/DAugAkyglLW00h
+ LtbuYDL95L//g6BPFOAe7GDp8SB3ZJBXQoY5m6ZCNlmBiWUFlIYHC3aNaKlPk648Ytc3JBqWY6
+ iHyphbpCnq6eR32f20WaeOWzOf86XJH/2TzBJlGhsXRpVVdpo2Tx56by7Oj9BexzHFzdfS0C5A
+ AAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1528;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=x/YVZfjdNfpe+Sx6imXL9gORrTESWB+MUbneEnPObG4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlxOo3cq2IouUVB8De6f00vICVYzCDbalGwerEn
+ 5b+e6Wey8WJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZcTqNwAKCRCLPIo+Aiko
+ 1SpYB/9ulG3MmOsHSUbXR9H9Tq2M8lBcWigpdCj0CDDaOuXMQFDJk/Jjvu2xo9k6lT86PcKhf5x
+ QEE4Z8EAZai7fDQ0ugBk83nfi5loCR30Val4odndfGz3nF6dQFK1RoYcIIhMXHHR7yo6g/8NA1q
+ +R8lwDkp5TAT7KWWPk3siq/WbCgeOuYbUn+YdLgf6O5zFbBzvVFwYU+AdpZtu3YfqOl5da0g1wu
+ VTO8PJx280w5XFuTwyuZ74g3JKENeY7y7h3p7bIlldy69AhFLbJZnn61Ll/TMf1ar2ZqWVcDRqU
+ /CO85qi5PON2G/OoE5B5VxPqFK3vu5VgH20Ybw3esisaS8dy
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,79 +102,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24-02-08 15:42:04, Dmitry Baryshkov wrote:
-> On Thu, 8 Feb 2024 at 15:37, Abel Vesa <abel.vesa@linaro.org> wrote:
-> >
-> > On 24-01-29 17:11:25, Dmitry Baryshkov wrote:
-> > > On Mon, 29 Jan 2024 at 15:19, Abel Vesa <abel.vesa@linaro.org> wrote:
-> > > >
-> > > > Add support for MDSS on X1E80100.
-> > > >
-> > > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/msm_mdss.c | 10 ++++++++++
-> > > >  1 file changed, 10 insertions(+)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > > > index 455b2e3a0cdd..eddf7fdbb60a 100644
-> > > > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > > > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > > > @@ -564,6 +564,15 @@ static const struct msm_mdss_data sdm670_data = {
-> > > >         .highest_bank_bit = 1,
-> > > >  };
-> > > >
-> > > > +static const struct msm_mdss_data x1e80100_data = {
-> > > > +       .ubwc_enc_version = UBWC_4_0,
-> > > > +       .ubwc_dec_version = UBWC_4_3,
-> > > > +       .ubwc_swizzle = 6,
-> > > > +       .ubwc_static = 1,
-> > > > +       .highest_bank_bit = 2,
-> > > > +       .macrotile_mode = 1,
-> > >
-> > > Missing .reg_bus_bw, LGTM otherwise
-> >
-> > Dmitry, I do not have the exact value yet.
-> >
-> > Can I come back with a subsequent (different) patch to add it at a later stage
-> > when I have that information?
-> >
-> > I see no point in holding display support any further since it works
-> > fine with the default bandwith.
-> >
-> > If yes, I'll respin this series right away, but without the reg_bus_bw.
-> 
-> Please add a TODO or FIXME comment there.
+We have several reports of vblank timeout messages. However after some
+debugging it was found that there might be different causes to that.
+To allow us to identify the DPU block that gets stuck, include the
+actual CTL_FLUSH value into the timeout message and trigger the devcore
+snapshot capture.
 
-Sure thing. Thanks.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v2:
+- Added a call to msm_disp_snapshot_state() to trigger devcore dump
+  (Abhinav)
+- Link to v1: https://lore.kernel.org/r/20240106-fd-dpu-debug-timeout-v1-1-6d9762884641@linaro.org
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> 
-> >
-> > >
-> > > > +};
-> > > > +
-> > > >  static const struct msm_mdss_data sdm845_data = {
-> > > >         .ubwc_enc_version = UBWC_2_0,
-> > > >         .ubwc_dec_version = UBWC_2_0,
-> > > > @@ -655,6 +664,7 @@ static const struct of_device_id mdss_dt_match[] = {
-> > > >         { .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
-> > > >         { .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
-> > > >         { .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
-> > > > +       { .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
-> > > >         {}
-> > > >  };
-> > > >  MODULE_DEVICE_TABLE(of, mdss_dt_match);
-> > > >
-> > > > --
-> > > > 2.34.1
-> > > >
-> > >
-> > >
-> > > --
-> > > With best wishes
-> > > Dmitry
-> 
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index d0f56c5c4cce..a8d6165b3c0a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -489,7 +489,8 @@ static int dpu_encoder_phys_vid_wait_for_commit_done(
+ 		(hw_ctl->ops.get_flush_register(hw_ctl) == 0),
+ 		msecs_to_jiffies(50));
+ 	if (ret <= 0) {
+-		DPU_ERROR("vblank timeout\n");
++		DPU_ERROR("vblank timeout: %x\n", hw_ctl->ops.get_flush_register(hw_ctl));
++		msm_disp_snapshot_state(phys_enc->parent->dev);
+ 		return -ETIMEDOUT;
+ 	}
+ 
+
+---
+base-commit: 39676dfe52331dba909c617f213fdb21015c8d10
+change-id: 20240106-fd-dpu-debug-timeout-e917f0bc8063
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
