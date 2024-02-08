@@ -2,92 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A044984E3FC
-	for <lists+freedreno@lfdr.de>; Thu,  8 Feb 2024 16:23:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE0B84E5CD
+	for <lists+freedreno@lfdr.de>; Thu,  8 Feb 2024 17:59:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 141F510E907;
-	Thu,  8 Feb 2024 15:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55FB810E9A5;
+	Thu,  8 Feb 2024 16:59:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VCqWwFJU";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Xso+MMgb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B75F10E8FE
- for <freedreno@lists.freedesktop.org>; Thu,  8 Feb 2024 15:23:11 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5116063585aso2484680e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 08 Feb 2024 07:23:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707405789; x=1708010589; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4npPI+xkEoBmWEsuW9AtPIqMiVTTM7opc5TOPILRMZw=;
- b=VCqWwFJUWCKsa2Hqa/5HkBf1Hq1nM6GiV27VWWJ3ETrT38gHd/MUUleP5q+jX7h2W7
- Fk6oAr606tAyFGA3aDs6hRru+utRpFLImYoGYVwyHvYUXhklS62b+2q0KaubA0GwjTig
- xdOwZKy9aoVSIbUa1QyZTr/xSRNGkpZh/T+IPjvfTjMHFAW2SS0D17Qu+CplUPKbo4p1
- DDSF3cZWAf8tyoo8lROtb1mwm+i7uoQTB+/uDKEVJIoQUXNJaNL18nspvIIpOiACS34H
- mLyWTCxX9pb0TMz9xdrzXWo9nsSsszdh6OPYC6NCA1zyplXa8IA31hX+Q+8Hma9hvFZg
- rMjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707405789; x=1708010589;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4npPI+xkEoBmWEsuW9AtPIqMiVTTM7opc5TOPILRMZw=;
- b=WivmZxsKNOE5Y+cRXol2WKfxWkFm04rntOcwF5o2E2bI254VIFqzxMZQhpRpOig2rb
- HGoFGiHliQBK/JHCZgbUnI3z/kgUkc84s0vGre95qTVib+0tLZvkhHwCF0UgW6ZvWw32
- XCIbkoRmGZ1ZlVBIDKqTQ2kNz23t/J937n7WI+UyN0m+TI9Pif5PwJ8MY6SBCqlap/IU
- qIV2M3WgDcKR9LwqmSzHX8pr+QO0NvAH0V1Ruqs/Hzp2aabGp+MFSrHvFzTf3tWo+Ene
- e7qZu1zf8v87hNp53DuuxMCkaQRzMpILhHHr0teCLU3Uy5qz9HI30V36ZeIki2o88M4x
- Uq1w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWC/P7feSRgQqfcFmgAZaBxF+DkYFxgFWCyVs+NfPIZSbf2LYw8igxmZBPa9KQ95r7Wg1+QepoZGA/EGnGwobI4s8j36UK+Fp9Jktc7owaM
-X-Gm-Message-State: AOJu0YxtQ+sWLzXifDkRcpbgnm+UHb9tENq8po1k5szlqP2NT/Ht38ad
- usQpkxelBI7ufFSihT+JMtTmwScFj/vFMXjdCMnJ1rXGgd5GERszVyreMt9R7hX1igKCNr6nk3g
- g
-X-Google-Smtp-Source: AGHT+IEClYFAU9BGzt/VQLfJNohrnzM+p2jhFYYCp6CYfEyHfx7AsYuQKJxti7pLx/68DH5jyct8Iw==
-X-Received: by 2002:a05:6512:34ca:b0:511:729b:4a7b with SMTP id
- w10-20020a05651234ca00b00511729b4a7bmr553613lfr.23.1707405789329; 
- Thu, 08 Feb 2024 07:23:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7YNfQNUlgav+Sj7V7E/rWNOqacgBwg/58IvZWg25XLvdPZHvXXXghAukrZn1e+HH+sE5FTN7pSCkLviRJt5vf/2woaw+c3TB3i0KFnLocXUUX+vZlfacw/OYcPCOP8ha4IOyiMqE9mXrn4Ogk0j0MIs3hgnzv+IJmf+1l04aTsbawSF8m0p1VWnD0WIVJcGqeMuKBJpW2667DGwZt40/jnzrs0KO6YfPTIYaSlqYcjEbw7xYB22yEeKvhYtlQ6dkiS8y3o607O62u3shXsfzdpGYpcDKdzmwE1FytZlh+
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- ep8-20020a056512484800b00511549b15acsm25635lfb.123.2024.02.08.07.23.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Feb 2024 07:23:08 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 08 Feb 2024 17:23:08 +0200
-Subject: [PATCH v4] drm/msm/dsi: Document DSC related pclk_rate and
- hdisplay calculations
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E51E10E9A2;
+ Thu,  8 Feb 2024 16:59:53 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 418FR5Yv021218; Thu, 8 Feb 2024 16:59:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=vJ0Ng4GpEOGSL5tkjSsKqvDm5yvMqpG8nwhhwyAVv08=; b=Xs
+ o+MMgbMSB8SPIwYQA4mp1kEIQsT4hfWJQy+7LhSav2nSphTQtHiizceK/WvkdS+C
+ +aJg9KtGt7NcG+f8/4zkTQmCdgG1/hpJCXJXa3wgfHbhv8KYchWVfRzZRS/R0D39
+ mJUWuXAFNUcl9+otbzZ13kvydue+NLjMrueBEWcNzRr0Zh3c1hsRu8bzolj1U5IA
+ vZkRwWpCxTRTPmpmXCcd2aMUQwMTIJAOskQXDKQqWOkUUA5WE5Y77ZUt2siCeoV2
+ ZPjrkpW+pEE9cdaCzl3mXf1/VCChIjGRPQR7o+9W3Yn2lmpi7xL2CNlcCc9YYoJU
+ hmseroI4JV/KNVIOB3MA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w4rk81sre-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Feb 2024 16:59:46 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 418GxjS3006929
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 8 Feb 2024 16:59:45 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 8 Feb
+ 2024 08:59:44 -0800
+Message-ID: <66ecb179-a878-bfe0-af8d-0640560e0a9b@quicinc.com>
+Date: Thu, 8 Feb 2024 08:59:43 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 3/5] drm/msm: mdss: Add X1E80100 support
+Content-Language: en-US
+To: Abel Vesa <abel.vesa@linaro.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org>
+ <20240129-x1e80100-display-v1-3-0d9eb8254df0@linaro.org>
+ <CAA8EJponbo2vvuj2ftCQuxtrZp0w7JQqJ_ADF80Wd2y1V74BzA@mail.gmail.com>
+ <ZcTZL+fls7A8O9P0@linaro.org>
+ <CAA8EJpr3p286ff1pHhhBdF7GA=g8Pnv9yWDukwnnNaOuykPcTQ@mail.gmail.com>
+ <ZcTbNGVGT/Kwtc68@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <ZcTbNGVGT/Kwtc68@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240208-fd_document_dsc_pclk_rate-v4-1-56fe59d0a2e0@linaro.org>
-X-B4-Tracking: v=1; b=H4sIANvxxGUC/zXM0QqDIBiG4VsJj2eUmdmOdh9jiNO/kpbGr4tFd
- O+TwU4+eA6+9yAR0EEk1+IgCJuLLvgMfimImbQfgTqbTVjFeMUqSQerbDDvBXxSNhq1mtesUCe
- gVgstWF/3shMk/1eEwX1+7fsje8Cw0DQh6H+xqfOwpu15V9ZM8lZIWlO7uIR7+dS4x2kO2+3lv
- MZQBhzJeX4BktRJi7IAAAA=
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org
-X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3118;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=lSoN4c4dQ5GWOLY+G32I+ql9QdfGB1rpvCvoA8U1v4o=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBlxPHcwgWs9T+m+hVHbJbJbSQqaMUUJYv/XNPP5
- Vvegdcs1EKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZcTx3AAKCRCLPIo+Aiko
- 1XjrCACaCpbHCUdpJzaJfUSD4AVFocoo2MoARD/x8SnfIywSoJQTjmA723MqBvgvjsqI8bHRS2b
- xjuK3u2Rr+Ym6kkI0d/HRKd8WRzjMkxdjXac+VHKq4kZROH1kAlbFt9VK6ftpt4kGOYuOOMLQcp
- nw5P3uRNIOOtLMECGh/9GxIe26UiaC1EOvHYYg86VLVjZNseWSOxB2O69IijJ/7XCe7dgiTwspO
- agBk4zXFVH6v9bMGrttdkwpOCdcAdC7U+XuQ82CUcyvXhADwOqBbYSZ2JqVypAW7rm9KrFl05Dx
- LIx1JSAK21d85Ixj8TJbvjL3sWVlxZ7S9lZKNbkFJSiL4/F6
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: QP1-8XBNzTm3HdoaeKnLEIa-nx0-FWo1
+X-Proofpoint-ORIG-GUID: QP1-8XBNzTm3HdoaeKnLEIa-nx0-FWo1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-08_07,2024-02-08_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 mlxlogscore=999 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402080090
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,84 +105,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Provide actual documentation for the pclk and hdisplay calculations in
-the case of DSC compression being used.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
-Changes since v3:
-- refresh rate -> transfer time (Abhinav)
 
-Changes since v2:
-- Followed suggestion by Abhinav and Marijn to improve documentatry
-  comments.
+On 2/8/2024 5:46 AM, Abel Vesa wrote:
+> On 24-02-08 15:42:04, Dmitry Baryshkov wrote:
+>> On Thu, 8 Feb 2024 at 15:37, Abel Vesa <abel.vesa@linaro.org> wrote:
+>>>
+>>> On 24-01-29 17:11:25, Dmitry Baryshkov wrote:
+>>>> On Mon, 29 Jan 2024 at 15:19, Abel Vesa <abel.vesa@linaro.org> wrote:
+>>>>>
+>>>>> Add support for MDSS on X1E80100.
+>>>>>
+>>>>> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+>>>>> ---
+>>>>>   drivers/gpu/drm/msm/msm_mdss.c | 10 ++++++++++
+>>>>>   1 file changed, 10 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+>>>>> index 455b2e3a0cdd..eddf7fdbb60a 100644
+>>>>> --- a/drivers/gpu/drm/msm/msm_mdss.c
+>>>>> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+>>>>> @@ -564,6 +564,15 @@ static const struct msm_mdss_data sdm670_data = {
+>>>>>          .highest_bank_bit = 1,
+>>>>>   };
+>>>>>
+>>>>> +static const struct msm_mdss_data x1e80100_data = {
+>>>>> +       .ubwc_enc_version = UBWC_4_0,
+>>>>> +       .ubwc_dec_version = UBWC_4_3,
+>>>>> +       .ubwc_swizzle = 6,
+>>>>> +       .ubwc_static = 1,
+>>>>> +       .highest_bank_bit = 2,
+>>>>> +       .macrotile_mode = 1,
+>>>>
+>>>> Missing .reg_bus_bw, LGTM otherwise
+>>>
+>>> Dmitry, I do not have the exact value yet.
+>>>
+>>> Can I come back with a subsequent (different) patch to add it at a later stage
+>>> when I have that information?
+>>>
+>>> I see no point in holding display support any further since it works
+>>> fine with the default bandwith.
+>>>
+>>> If yes, I'll respin this series right away, but without the reg_bus_bw.
+>>
+>> Please add a TODO or FIXME comment there.
+> 
+> Sure thing. Thanks.
+> 
 
-Changes since v1:
-- Converted dsi_adjust_pclk_for_compression() into kerneldoc (Marijn)
-- Added a pointer from dsi_timing_setup() docs to
-  dsi_adjust_pclk_for_compression() (Marijn)
-- Fixed two typo (Marijn)
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 33 +++++++++++++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+I have not heard back from the clock team on the values.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index deeecdfd6c4e..6a6f1a21705e 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -529,6 +529,25 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
- 	clk_disable_unprepare(msm_host->byte_clk);
- }
- 
-+/**
-+ * dsi_adjust_pclk_for_compression() - Adjust the pclk rate for compression case
-+ * @mode: The selected mode for the DSI output
-+ * @dsc: DRM DSC configuration for this DSI output
-+ *
-+ * Adjust the pclk rate by calculating a new hdisplay proportional to
-+ * the compression ratio such that:
-+ *     new_hdisplay = old_hdisplay * compressed_bpp / uncompressed_bpp
-+ *
-+ * Porches do not need to be adjusted:
-+ * - For VIDEO mode they are not compressed by DSC and are passed as is.
-+ * - For CMD mode there are no actual porches. Instead these fields
-+ *   currently represent the overhead to the image data transfer. As such, they
-+ *   are calculated for the final mode parameters (after the compression) and
-+ *   are not to be adjusted too.
-+ *
-+ *  FIXME: Reconsider this if/when CMD mode handling is rewritten to use
-+ *  transfer time and data overhead as a starting point of the calculations.
-+ */
- static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mode *mode,
- 		const struct drm_dsc_config *dsc)
- {
-@@ -951,8 +970,18 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		if (ret)
- 			return;
- 
--		/* Divide the display by 3 but keep back/font porch and
--		 * pulse width same
-+		/*
-+		 * DPU sends 3 bytes per pclk cycle to DSI. If widebus is
-+		 * enabled, bus width is extended to 6 bytes.
-+		 *
-+		 * Calculate the number of pclks needed to transmit one line of
-+		 * the compressed data.
-+
-+		 * The back/font porch and pulse width are kept intact. For
-+		 * VIDEO mode they represent timing parameters rather than
-+		 * actual data transfer, see the documentation for
-+		 * dsi_adjust_pclk_for_compression(). For CMD mode they are
-+		 * unused anyway.
- 		 */
- 		h_total -= hdisplay;
- 		if (wide_bus_enabled && !(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO))
+But, what I can confirm at this point is for basic functional display 
+support, we could let it go back to the default value which we have 
+hard-coded and fill up this entry later.
 
----
-base-commit: b1d3a0e70c3881d2f8cf6692ccf7c2a4fb2d030d
-change-id: 20240208-fd_document_dsc_pclk_rate-da6a62919876
-
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+>>
+>>>
+>>>>
+>>>>> +};
+>>>>> +
+>>>>>   static const struct msm_mdss_data sdm845_data = {
+>>>>>          .ubwc_enc_version = UBWC_2_0,
+>>>>>          .ubwc_dec_version = UBWC_2_0,
+>>>>> @@ -655,6 +664,7 @@ static const struct of_device_id mdss_dt_match[] = {
+>>>>>          { .compatible = "qcom,sm8450-mdss", .data = &sm8350_data },
+>>>>>          { .compatible = "qcom,sm8550-mdss", .data = &sm8550_data },
+>>>>>          { .compatible = "qcom,sm8650-mdss", .data = &sm8550_data},
+>>>>> +       { .compatible = "qcom,x1e80100-mdss", .data = &x1e80100_data},
+>>>>>          {}
+>>>>>   };
+>>>>>   MODULE_DEVICE_TABLE(of, mdss_dt_match);
+>>>>>
+>>>>> --
+>>>>> 2.34.1
+>>>>>
+>>>>
+>>>>
+>>>> --
+>>>> With best wishes
+>>>> Dmitry
+>>
+>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
