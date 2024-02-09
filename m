@@ -2,65 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8B1984FEEA
-	for <lists+freedreno@lfdr.de>; Fri,  9 Feb 2024 22:32:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E9584FEF9
+	for <lists+freedreno@lfdr.de>; Fri,  9 Feb 2024 22:35:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0734010FE3E;
-	Fri,  9 Feb 2024 21:32:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 042F610FE48;
+	Fri,  9 Feb 2024 21:35:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="inX4cQEn";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eVp8Wtwa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ABE310FE3A
- for <freedreno@lists.freedesktop.org>; Fri,  9 Feb 2024 21:32:47 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-557dcb0f870so2029466a12.2
- for <freedreno@lists.freedesktop.org>; Fri, 09 Feb 2024 13:32:47 -0800 (PST)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E23010FE47
+ for <freedreno@lists.freedesktop.org>; Fri,  9 Feb 2024 21:35:14 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-511616b73ddso2346641e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 09 Feb 2024 13:35:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707514362; x=1708119162; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707514512; x=1708119312; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Os4qev7suud/YhIU9+WIu+rwnop6A4JmpVMTfm/Akss=;
- b=inX4cQEnUQRZaB9s62E2AKMiiZBaHd5Q53hKnSYu0DosewSvkssCycsOxIjRL1WuVd
- LJV84qF2Bd1eb0ySTxDmAd7ocpWt+0FTXwem6HQ6qB/kOAu/3RlS3E5vSwS0bKU+MjyF
- BAL1PzyECVtuhq8IqMsz/AQujBvIexPg+3DLl+failELsJI+IC8Mzi+YqQ7m9W2QlQH7
- Rc32x/5wHehIdRrlz1r7/0bnBEUVH6cklEM0LK0kvOimlLMRONv9j2li7TexZklAmUP3
- dFWEFokgv1j2HjivKNpX25jpRZlrzojuJpT5nfzVcM1uMe5z1Fs3OCxVkK51m9NHB8Hl
- 6KYg==
+ bh=yfHe8mbNDA8s5cfdUox3lpQULmJ6ZmrxM53dDWhPDSw=;
+ b=eVp8WtwaGF6T0FTYdKlstNzfVX5zWzwOlAstRJ8/K38TNCsvZfoMkqZf9wUf1nv5Rl
+ o3fiadwN0vJHcTlRQjQYc3vw9nwCHJBrfO5A9cpGr2epM4ceB13WyTDq6z8Ui/jVOTqs
+ MuvOuR2x5M1zcTr+MCbDL1Lf6u2wm8iFkYUKQTM91tlk7kANAImThy+I+ncza2QDppU/
+ bpY1XU+qfZoL3JEvs2Bx3BFi240qlyo8VPMKCb1B0IO5l6dtKJ38+1R7LE6Hz8CxH6rp
+ 5Jw2afKhMkyJRv0H199Q7kfFrwje6YaL1VO2JCAQmtH0YsKi5hUj9R2FMupoJw4XnXpv
+ N8yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707514362; x=1708119162;
+ d=1e100.net; s=20230601; t=1707514512; x=1708119312;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Os4qev7suud/YhIU9+WIu+rwnop6A4JmpVMTfm/Akss=;
- b=Ne1CVWmnn9wf7yeBuutg5vXza+jSlPSjBUeJUbft7P3T4SAxVhGpRHZWUCu5/c1ivo
- MPF4uT3dRcBBunmEAoRfypPxVzTGOMugFdicBNW8n+Lp+w6WEbObc75ngy4zOIEGzcIN
- Q4xhUTeS8jcPFSgd8Nu0ZUHVEUu3sLhH2zBtF2RDNojZwICJ1zHZaqi3zOIOvAKOSFUH
- Xl1uCf5fSdW918UuYbeMmX6pyNjnCqddx8sTHH2iAfA8EjD1QcjuvT2m+WjHr9tIxhS7
- lNo9fXmmE9i3BS+1zMC8P5xRb4N0ADJ5NVcXvjQu6SOnX6e5g21SjhVCkHZEO1VhxGWq
- DS5Q==
-X-Gm-Message-State: AOJu0Yz98DutTNZgVG71t7XOgt8p7gtFYVwhQGfRQ6tggGXrg3NGKk03
- KvPJ3XcRKba1KGWI0Sy7YDsTwgPMRuK7rr/H3lPx1btV//GTfcJV3miFwaEyiTA=
-X-Google-Smtp-Source: AGHT+IFIoYfxKHL9swRQV0MYgEkbxpFOUINdT2LjlcbSKaf7uj2hPzPUdJudSt8B/nJl4Redq7P9MQ==
-X-Received: by 2002:a05:6402:1295:b0:560:c9b5:c440 with SMTP id
- w21-20020a056402129500b00560c9b5c440mr99184edv.11.1707514362412; 
- Fri, 09 Feb 2024 13:32:42 -0800 (PST)
+ bh=yfHe8mbNDA8s5cfdUox3lpQULmJ6ZmrxM53dDWhPDSw=;
+ b=dUkVZrwWlBxRAJeZH7/XNSDQ7HL6yjYRrqFcktVJd0xYqueNk2d4cEEdvJLKjMftil
+ +6h9yuYQe9wWESjnEFrALpjSRJEpxbWyPTBpfzAb3Sr2jORtujxdxAgV5FTy3CTGNGE/
+ 7x2GrjZp75G6hoEetXIPcH1xjKQNXT/IVQPYbGkauS13WziK6B7AsP5XNdMn3vJn+YZ4
+ prVPLpWg3DEkk2X+c3PDDelugkWRmNnHUYmKlB8vEABr2I/dq/0ju200mhgwBQfKGNXI
+ Ki3u/DuHKMTw6of3cB0wG/n31bzahbG6pjehqTowS9FP7+qDJT6p50dcPBUUs7Wve7mk
+ E0uA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhM7Wv3B0b9S5Gg/kpkf8Zyy6sMDXu1ZgzNUyTGzK49js1OjK6ncpS4CI4LVbb573p1dvototMWqikdLS+JAaLWAwLtKAddE5qoVXzPaTV6g3SQSBZHG7akvcu7Txw3akiQZn9DRdyg2vq6lJUoeykfivHoYJ65I0Tw/PH7cSOMiJVode4vbNzjhmT79A73gmcx1OgeUZmcSY2uiSbS6R9wUtrdtH4pTTNUMg/Zxiby1ou5Ae43fvq9PqjadAx8BMc9ElOrd4vaqsBtqeod/EPbwDFKAz6gsyoCL0g3YNZOYLa7cPGzxBfymdKTVSJhsYkgZ0I7HwnUJoC+mvjSrhbblPJ5kgt7D3dyJvWDp6PecFX0gSOwJePVom3f6JWNGf1/Z2DPfa3XfUUV2ZDXGKDIjdA3qIUSzzv1kiNdOuV/EuKEMp5Iu2gtUGVi/1FIzxJjSwSWV0unin+mz0VCrir7OznnZbVbtO0g3MOi6w60QC+zBlh5ilnOD83A6F55zhW85i700tT6DhfrWH4C/ADDEBwz3n5DHyi49hNZsOvmv9w7/LLje6t6njem+UHqU+O/u0IK+EkJvYqfQ9brvFNVFUcw2Y6QCcYIVL3OllINFskkS0SnOoDss4Y8yxDZWZtMFCW4xtW9SbbVctxcKpci0SB0dyOfhYIi+BMATmuxUsnQDHSuILaux9ZMB5ky+1EOjKHW6pxAVtcBwthn6da
+ AJvYcCW2dSn8mB4tC4VuRWXqjdphXcfFQu8Cey5h8Vxclr1si9eabUk20e8qYDb1mDwX35S++GFK6Dko04MahgT9fJidFx1Dj+sCqGqt7bVQxWg2
+X-Gm-Message-State: AOJu0Yxp5sTdINxACAO+3wkrnSnis/ZHxxOAgvhuBHYA9rjP9KAKsU5H
+ g/P6OMJvkjPXL4UMKNeTN0mxnpnd7EDz9rbWxwgap76ad4biaTUdTygk8Wf0J4o=
+X-Google-Smtp-Source: AGHT+IFoLT3SfKBWP8DyRy9ygf90NUq3shRSmJFHWLt+ApMVgCHxdRF8plbApwaQxguTqvJl75K9ag==
+X-Received: by 2002:a19:ca15:0:b0:511:76ea:78f2 with SMTP id
+ a21-20020a19ca15000000b0051176ea78f2mr120461lfg.34.1707514512396; 
+ Fri, 09 Feb 2024 13:35:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXPYW8gPmD+ywhowQ/XytPbE4fBCdWa/I6pv+TgnsO1QFWmAWleRFdI6/MRWrhcHgpebUP5bjJXSTOQa25XdL1vB4i9ByCBx+1AtEMRZl5TkDLTmdEaOFDj39hgDY8GOccqHPNHD4zCRTE+Oqo3kWla0JJtUQTaPYm4J2opikuZRMyse7XgbTNQk3JrGg/vxy766Z/zDgOk+d8oRyA4F51npNu7JPlTE1oJCyQsa48YhArwZ+/DID8Ohq8w0mIbgs9M27CycxC2G1wOkSbO57idbMChrmAF0ArxO5xk33g1KhVyCCHg+qk9o43FB76pGcYpdLIbNUPpFWxg3kF7HTtzbl2ifWCsDv5oiYLoEytp8/POrpekFZWZw+O3vx7QPI/uN01VKRUFFQtBakAFkWxVI1dEzPgOeLQVYp5LjXQ7XPRlSFoDZeqk+3i/W2LskbMvszjt7o4MwebUqXWjRtr2X2PNACq+80PC5yz0v4RpJBGL/JxpSucXzS4RhEorsjd4QdK8MsqemvkWfN1pJEoyQRmNCvkGi6VAOaWc8KM3rov/4oaVYzniNuy+q/XoBIe1i+rxRgaRSVaapfE1VefSAJmWSnUu0plMaFZVLYLmuRuGoEI5TEoPjP8yp6U8l1/GUviJNNJIEeyDpI514zCekt/mJZM3+R2JHxy3/v2y7TXcsLyEXFh4BFpJLi95fGc69/iAOwfDJ70fyAS0GHzx
 Received: from [192.168.192.207] (037008245233.garwolin.vectranet.pl.
  [37.8.245.233]) by smtp.gmail.com with ESMTPSA id
- dm24-20020a05640222d800b005607fdd90b8sm114567edb.23.2024.02.09.13.32.39
+ fj7-20020a1709069c8700b00a3875804883sm1123512ejc.124.2024.02.09.13.35.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Feb 2024 13:32:42 -0800 (PST)
-Message-ID: <5e71d9d2-0115-4359-9502-b1cb462c10fd@linaro.org>
-Date: Fri, 9 Feb 2024 22:32:38 +0100
+ Fri, 09 Feb 2024 13:35:11 -0800 (PST)
+Message-ID: <0b8921f0-e4da-4b41-a032-1df54750fd9d@linaro.org>
+Date: Fri, 9 Feb 2024 22:35:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] arm64: dts: qcom: msm8976: Add Adreno GPU
+Subject: Re: [PATCH 8/8] arm64: dts: qcom: msm8976: Add WCNSS node
 Content-Language: en-US
 To: Adam Skladowski <a39.skl@gmail.com>
 Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
@@ -77,7 +79,7 @@ Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20240121194221.13513-1-a39.skl@gmail.com>
- <20240121194221.13513-7-a39.skl@gmail.com>
+ <20240121194221.13513-9-a39.skl@gmail.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -114,7 +116,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240121194221.13513-7-a39.skl@gmail.com>
+In-Reply-To: <20240121194221.13513-9-a39.skl@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -133,78 +135,91 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 21.01.2024 20:41, Adam Skladowski wrote:
-> Add Adreno GPU node.
+> Add node describing wireless connectivity subsystem.
 > 
 > Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 > ---
->  arch/arm64/boot/dts/qcom/msm8976.dtsi | 66 +++++++++++++++++++++++++++
->  1 file changed, 66 insertions(+)
+>  arch/arm64/boot/dts/qcom/msm8976.dtsi | 96 +++++++++++++++++++++++++++
+>  1 file changed, 96 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/msm8976.dtsi b/arch/arm64/boot/dts/qcom/msm8976.dtsi
-> index 2d71ce34f00e..765c90ac14cb 100644
+> index 5a7be93a0115..73ddfaecd3ad 100644
 > --- a/arch/arm64/boot/dts/qcom/msm8976.dtsi
 > +++ b/arch/arm64/boot/dts/qcom/msm8976.dtsi
-> @@ -1068,6 +1068,72 @@ mdss_dsi1_phy: phy@1a96a00 {
+> @@ -861,6 +861,36 @@ data-pins {
+>  					bias-pull-up;
+>  				};
 >  			};
+> +
+> +			wcss_wlan_default: wcss-wlan-default-state  {
+> +				wcss_wlan2-pins {
+
+No underscores in node names
+
+> +					pins = "gpio40";
+> +					function = "wcss_wlan2";
+> +					drive-strength = <6>;
+> +					bias-pull-up;
+> +				};
+> +
+> +				wcss_wlan1-pins {
+> +					pins = "gpio41";
+> +					function = "wcss_wlan1";
+> +					drive-strength = <6>;
+> +					bias-pull-up;
+> +				};
+> +
+> +				wcss_wlan0-pins {
+> +					pins = "gpio42";
+> +					function = "wcss_wlan0";
+> +					drive-strength = <6>;
+> +					bias-pull-up;
+> +				};
+> +
+> +				wcss_wlan-pins {
+> +					pins = "gpio43", "gpio44";
+> +					function = "wcss_wlan";
+> +					drive-strength = <6>;
+> +					bias-pull-up;
+> +				};
+> +			};
 >  		};
 >  
-> +		adreno_gpu: gpu@1c00000 {
-> +			compatible = "qcom,adreno-510.0", "qcom,adreno";
-> +
-> +			reg = <0x01c00000 0x40000>;
-> +			reg-names = "kgsl_3d0_reg_memory";
-> +
-> +			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "kgsl_3d0_irq";
-> +
-> +			clock-names = "core",
-> +				      "iface",
-> +				      "mem",
-> +				      "mem_iface",
-> +				      "rbbmtimer",
-> +				      "alwayson";
-> +
-> +			clocks = <&gcc GCC_GFX3D_OXILI_CLK>,
-> +			    <&gcc GCC_GFX3D_OXILI_AHB_CLK>,
-> +			    <&gcc GCC_GFX3D_OXILI_GMEM_CLK>,
-> +			    <&gcc GCC_GFX3D_BIMC_CLK>,
-> +			    <&gcc GCC_GFX3D_OXILI_TIMER_CLK>,
-> +			    <&gcc GCC_GFX3D_OXILI_AON_CLK>;
+>  		gcc: clock-controller@1800000 {
+> @@ -1540,6 +1570,72 @@ blsp2_i2c4: i2c@7af8000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		wcnss: remoteproc@a204000 {
+> +			compatible = "qcom,pronto-v3-pil", "qcom,pronto";
+> +			reg = <0xa204000 0x2000>, <0xa202000 0x1000>, <0xa21b000 0x3000>;
+> +			reg-names = "ccu", "dxe", "pmu";
 
-The entries are misaligned
-
-property
-property-names
-
-(and without a separating newline, please)
+One a line, please
 
 > +
-> +			power-domains = <&rpmpd MSM8976_VDDCX>;
+> +			memory-region = <&wcnss_fw_mem>;
 > +
-> +			iommus = <&gpu_iommu 0>;
-> +
-> +			status = "disabled";
-> +
-> +			operating-points-v2 = <&gpu_opp_table>;
-> +
-> +			gpu_opp_table: opp-table {
-> +				compatible  ="operating-points-v2";
-> +
-> +				opp-200000000 {
-> +					opp-hz = /bits/ 64 <200000000>;
+> +			interrupts-extended = <&intc GIC_SPI 149 IRQ_TYPE_EDGE_RISING>,
+> +					      <&wcnss_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+> +					      <&wcnss_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+> +					      <&wcnss_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+> +					      <&wcnss_smp2p_in 3 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names = "wdog", "fatal", "ready", "handover", "stop-ack";
 
-A random downstream I took has:
+And here too
 
-19.2 MHz
-266.6 MHz
-300.0 MHz
-432.0 MHz
-480.0 MHz
-550.0 MHz
-600.0 MHz
+> +
+> +			power-domains = <&rpmpd MSM8976_VDDCX>,
+> +					<&rpmpd MSM8976_VDDMX>;
+> +			power-domain-names = "cx", "mx";
+> +
+> +			qcom,smem-states = <&wcnss_smp2p_out 0>;
+> +			qcom,smem-state-names = "stop";
+> +
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&wcss_wlan_default>;
 
-> +					opp-level = <RPM_SMD_LEVEL_LOW_SVS>;
-
-you want required-opps here instead
+rev order
 
 Konrad
