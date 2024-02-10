@@ -2,69 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C05FA850438
-	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 12:33:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D4A3850598
+	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 18:13:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A44C1124C7;
-	Sat, 10 Feb 2024 11:33:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7BB210E220;
+	Sat, 10 Feb 2024 17:13:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5i6nk9p";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="rfTWOn8h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4F61124C9
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 11:33:43 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dc755832968so1139320276.0
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 03:33:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707564822; x=1708169622; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=O56nX6gJID+KyV2fDe81//nmM2wB8OEZn8QrSqYoKNg=;
- b=f5i6nk9paEIMJ+llgCokzUcNGP8+gm4sucSlGFBq9BAl00sPexX4gKCOD8IIr/Bmiq
- Wr8tbmF0AA3x4jw9kwlMrvpZU3W1etK7U7mZbGv6LKaP1FtOKoroURpAg//oLUq94cK9
- S7Th9seEj6UufkfKy64fNyMF21mbqqoDwaMPnB3OhxMUqxspGDp7xWz1H5kz4OUquqhF
- F77OT8HdcEEjDizOZZ5O2i8QxD8i4g28JfGSbaLalr9DStuJqTgNQinJbGEywYdiO3DR
- 0NLUGl4CdbEpxl8rQ9hprRXFR1ZOX3OKzD7RgpjAi0+CxjTrXRVMSIsFsoUzfFLbBw0+
- K5fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707564822; x=1708169622;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=O56nX6gJID+KyV2fDe81//nmM2wB8OEZn8QrSqYoKNg=;
- b=wn988eCRj2qYK3WczJSTAoEV7bfxdzNqLBlkqe5vvtMeFKuGN2JHMFlVnJtkHonWla
- nGUxrHrpG8BlduUJP3A86vhF0FmiorA4Lie+rp+L9hH/hMudDNpOGjs9aXIQsPytEUgJ
- ljjI4Vmg2fJ8WNl5pXxeGd6qjq54MylRfsJFzuAAg9yQKch9yuZ6QIuRsMBSYQk5D8RO
- Z+yJy95BdmVJIsBtrya82ZmW1xn3hDUvHLpU6Chi9LUNKhd1RKoRGnL+hn/ns4roC1Zq
- rgRms+xbhHHK2uPGRRCYb0oP0nO1dzZko7xGA08YZYyZ3Mp2GyagCvEo1YPYdxjv/mj+
- I3Mg==
-X-Gm-Message-State: AOJu0YxWmg7bXRPXM3VKdYPZ+/N8Fi3Wu0PdfsyJIcm1Rl4e939zv93c
- WAyf/TJZLCiy9NpsS/i0nLlDKvHUQU/gDz0IUyGnkcUF7tlsxpnWUkOrEne2TFMV8VVHXaB/5jK
- Bbh7XwXLNJuERFy9gBpetwtr2DvkK9HPXbi6+Lg==
-X-Google-Smtp-Source: AGHT+IEVspeMhPBXLY0ZGYrZ1jpuuWSoZJq4+qjdF5Vil/sLu/iuDRAlCLNWCszwEvuLEHfGnrLZGkAzoYEh8bcMxGo=
-X-Received: by 2002:a5b:90d:0:b0:dc6:c669:9914 with SMTP id
- a13-20020a5b090d000000b00dc6c6699914mr1476768ybq.15.1707564822553; Sat, 10
- Feb 2024 03:33:42 -0800 (PST)
+X-Greylist: delayed 436 seconds by postgrey-1.36 at gabe;
+ Sat, 10 Feb 2024 17:13:24 UTC
+Received: from ixit.cz (ip-89-177-23-149.bb.vodafone.cz [89.177.23.149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFCC310E220;
+ Sat, 10 Feb 2024 17:13:24 +0000 (UTC)
+Received: from [10.0.0.200] (unknown [10.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id 2FD87165078;
+ Sat, 10 Feb 2024 18:05:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1707584759;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Iegw3uSU/jDrRw1wO36FWEmxyFeRwPHeaAd3poNxct8=;
+ b=rfTWOn8hsJZ9VO96OhUFvyS7X7tW6HR4nm4yJUON1G88hkdLFHSpP6QNFSfX68Mq/VOS/y
+ oCgFAQ870Sab3D6ElhOpIHrhlNikNqSDZkctZYUB3z0M9Tx0vjO06KjLyilLigQj14N/rp
+ b+uKFWQksnkgM+R9l/OlKw/9fbdcbp8=
+Message-ID: <fc4d00d3-0bdc-4583-bc25-a34b6632db32@ixit.cz>
+Date: Sat, 10 Feb 2024 18:05:58 +0100
 MIME-Version: 1.0
-References: <20240210015223.24670-1-quic_parellan@quicinc.com>
- <20240210015223.24670-20-quic_parellan@quicinc.com>
-In-Reply-To: <20240210015223.24670-20-quic_parellan@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 10 Feb 2024 13:33:31 +0200
-Message-ID: <CAA8EJpq15w_Gjx+rPzN8vBg5Z8PGzABAztqmLpfnafuvNVLmRw@mail.gmail.com>
-Subject: Re: [PATCH v2 19/19] drm/msm/dp: allow YUV420 mode for DP connector
- when CDM available
-To: Paloma Arellano <quic_parellan@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
- swboyd@chromium.org, quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
- quic_khsieh@quicinc.com, marijn.suijten@somainline.org, 
- neil.armstrong@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird Beta
+To: luca@z3ntu.xyz
+Cc: agross@kernel.org, airlied@gmail.com, andersson@kernel.org,
+ conor+dt@kernel.org, daniel@ffwll.ch, devicetree@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, konrad.dybcio@linaro.org,
+ krzysztof.kozlowski+dt@linaro.org, krzysztof.kozlowski@linaro.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, marijn.suijten@somainline.org,
+ mripard@kernel.org, phone-devel@vger.kernel.org, quic_abhinavk@quicinc.com,
+ robdclark@gmail.com, robh+dt@kernel.org, sean@poorly.run,
+ tzimmermann@suse.de, ~postmarketos/upstreaming@lists.sr.ht
+References: <20240121-msm8226-gpu-v2-1-77f4a6fbbca4@z3ntu.xyz>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display/msm: gpu: Allow multiple
+ digits for patchid
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20240121-msm8226-gpu-v2-1-77f4a6fbbca4@z3ntu.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,145 +114,4 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 10 Feb 2024 at 03:52, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->
-> All the components of YUV420 over DP are added. Therefore, let's mark the
-> connector property as true for DP connector when the DP type is not eDP
-> and when there is a CDM block available.
->
-> Changes in v2:
->         - Check for if dp_catalog has a CDM block available instead of
->           checking if VSC SDP is allowed when setting the dp connector's
->           ycbcr_420_allowed parameter
->
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 +++-
->  drivers/gpu/drm/msm/dp/dp_display.c     | 4 ++--
->  drivers/gpu/drm/msm/dp/dp_drm.c         | 8 ++++++--
->  drivers/gpu/drm/msm/dp/dp_drm.h         | 3 ++-
->  drivers/gpu/drm/msm/msm_drv.h           | 5 +++--
->  5 files changed, 16 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 723cc1d821431..beeaabe499abf 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -565,6 +565,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
->  {
->         struct drm_encoder *encoder = NULL;
->         struct msm_display_info info;
-> +       bool yuv_supported;
->         int rc;
->         int i;
->
-> @@ -583,7 +584,8 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
->                         return PTR_ERR(encoder);
->                 }
->
-> -               rc = msm_dp_modeset_init(priv->dp[i], dev, encoder);
-> +               yuv_supported = !!(dpu_kms->catalog->cdm);
-
-Drop parentheses please.
-
-> +               rc = msm_dp_modeset_init(priv->dp[i], dev, encoder, yuv_supported);
->                 if (rc) {
->                         DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
->                         return rc;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index ebcc76ef1d590..9b9f5f2921903 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1471,7 +1471,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
->  }
->
->  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
-> -                       struct drm_encoder *encoder)
-> +                       struct drm_encoder *encoder, bool yuv_supported)
->  {
->         struct dp_display_private *dp_priv;
->         int ret;
-> @@ -1487,7 +1487,7 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->                 return ret;
->         }
->
-> -       dp_display->connector = dp_drm_connector_init(dp_display, encoder);
-> +       dp_display->connector = dp_drm_connector_init(dp_display, encoder, yuv_supported);
->         if (IS_ERR(dp_display->connector)) {
->                 ret = PTR_ERR(dp_display->connector);
->                 DRM_DEV_ERROR(dev->dev,
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> index 46e6889037e88..ab0d0d13b5e2c 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> @@ -353,7 +353,8 @@ int dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
->  }
->
->  /* connector initialization */
-> -struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder)
-> +struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder,
-> +                                           bool yuv_supported)
->  {
->         struct drm_connector *connector = NULL;
->
-> @@ -361,8 +362,11 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct dr
->         if (IS_ERR(connector))
->                 return connector;
->
-> -       if (!dp_display->is_edp)
-> +       if (!dp_display->is_edp) {
->                 drm_connector_attach_dp_subconnector_property(connector);
-> +               if (yuv_supported)
-> +                       connector->ycbcr_420_allowed = true;
-
-Is there any reason to disallow YUV420 for eDP connectors?
-
-> +       }
->
->         drm_connector_attach_encoder(connector, encoder);
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-> index b3d684db2383b..45e57ac25a4d9 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-> @@ -19,7 +19,8 @@ struct msm_dp_bridge {
->
->  #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
->
-> -struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder);
-> +struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder,
-> +                                           bool yuv_supported);
->  int dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
->                         struct drm_encoder *encoder);
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index b876ebd48effe..37335777f5c09 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -385,7 +385,7 @@ static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_
->  int __init msm_dp_register(void);
->  void __exit msm_dp_unregister(void);
->  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
-> -                        struct drm_encoder *encoder);
-> +                        struct drm_encoder *encoder, bool yuv_supported);
->  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
->  bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
->                                const struct drm_display_mode *mode);
-> @@ -403,7 +403,8 @@ static inline void __exit msm_dp_unregister(void)
->  }
->  static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
->                                        struct drm_device *dev,
-> -                                      struct drm_encoder *encoder)
-> +                                      struct drm_encoder *encoder,
-> +                                      bool yuv_supported)
->  {
->         return -EINVAL;
->  }
-> --
-> 2.39.2
->
-
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: David Heidelberg <david@ixit.cz>
