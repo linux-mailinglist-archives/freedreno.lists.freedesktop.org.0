@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8BA850436
-	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 12:31:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05FA850438
+	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 12:33:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB59C10FE8D;
-	Sat, 10 Feb 2024 11:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A44C1124C7;
+	Sat, 10 Feb 2024 11:33:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GioHjRXf";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5i6nk9p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFC6010FE8D
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 11:31:31 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-3bbbc6e51d0so1203146b6e.3
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 03:31:31 -0800 (PST)
+Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
+ [209.85.219.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4F61124C9
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 11:33:43 +0000 (UTC)
+Received: by mail-yb1-f171.google.com with SMTP id
+ 3f1490d57ef6-dc755832968so1139320276.0
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 03:33:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707564690; x=1708169490; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707564822; x=1708169622; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=M4AqEzTtCCjUhsIjO6HajtAUGJbh5B0Lu9dEnEpAroI=;
- b=GioHjRXfn/+vb4Y+pBg71NtkWIKCqPcOfTaVbrEgZOaD+Pcs5WrXULLt2cg3uzEZzP
- pdn8sUZ0LgugZFEJQj75XPBlkEX6mAgxvwpET9HuUv0BY9tJ3+LbDIL3cWJxlpWEtwaQ
- tCsZyTLS3hw+UyszBWlsmF2BB0wHr3nDw9gLQA9hcvv1ifNPuE5//QnTKhVQz0dn1WuG
- LZvfzq3Jh+IQGuquuRugXY44XYLNjl2+5GSXyv32YQ58LzcFWTyuZ9of0mr3PBOeG+om
- MxwHkCaeckspY8Ms/5oaGDNk52vL7z2EwGe+kGx8sAY0XWP/iMJDrbawx65y18U0nCvG
- Kkkw==
+ bh=O56nX6gJID+KyV2fDe81//nmM2wB8OEZn8QrSqYoKNg=;
+ b=f5i6nk9paEIMJ+llgCokzUcNGP8+gm4sucSlGFBq9BAl00sPexX4gKCOD8IIr/Bmiq
+ Wr8tbmF0AA3x4jw9kwlMrvpZU3W1etK7U7mZbGv6LKaP1FtOKoroURpAg//oLUq94cK9
+ S7Th9seEj6UufkfKy64fNyMF21mbqqoDwaMPnB3OhxMUqxspGDp7xWz1H5kz4OUquqhF
+ F77OT8HdcEEjDizOZZ5O2i8QxD8i4g28JfGSbaLalr9DStuJqTgNQinJbGEywYdiO3DR
+ 0NLUGl4CdbEpxl8rQ9hprRXFR1ZOX3OKzD7RgpjAi0+CxjTrXRVMSIsFsoUzfFLbBw0+
+ K5fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707564690; x=1708169490;
+ d=1e100.net; s=20230601; t=1707564822; x=1708169622;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=M4AqEzTtCCjUhsIjO6HajtAUGJbh5B0Lu9dEnEpAroI=;
- b=s307t+6nFoTm4/SRGDJuDomAoLtc2esQRIAsKwr6CnZxwQBxj1NXz43bxLFrU2TXh1
- LC87qpoxCLnJMZUhoUtm7fqokgepQIAsDaxajXw1dAbr2UBgeatILUC46LwbzCarGmHH
- ybNbgO2KUltgsoBdVP71oEAHgURORpitA4rAtjvumX4Q/9u3C0YXPwWM8iBN2IiKbes3
- cu0idN3/wsEe9nkDSvdYXbBW85QPRt3Z8tXhgzAp4XSjbBCDIW26M+pJ2blWCxBEr4q9
- yT1LQAK9UsocUvYnQ0W+IBnOMTMGyYr05Wn/POSKKvc5PNblbbKvoWH5TN9CgUdlLRcr
- 89/Q==
-X-Gm-Message-State: AOJu0Yzryv4eq61rwLlfOxJQ344+XuKamY8i1VuTrwb1i+GQcOHSbwGX
- +L2K8eg8okDddCU9puTBP4XQD2r8faWP8ceKf834+8jvqe65l8Pp8K4608iyLVE5AOub/D08e+v
- 1eR9M6RtUwwv0qCKvbLWUHdfAGemaerP5IPH7LQ==
-X-Google-Smtp-Source: AGHT+IEwbU4Urd+epmxc0Oq7zQyb2ah5l24AnSJhfOyIVqyt2jvHOugDdn5MyWEy7q3O4vfsPa7YZCHwU1rvF2/qAyg=
-X-Received: by 2002:a05:6358:199e:b0:178:8cc8:4c7b with SMTP id
- v30-20020a056358199e00b001788cc84c7bmr3127825rwn.24.1707564689944; Sat, 10
- Feb 2024 03:31:29 -0800 (PST)
+ bh=O56nX6gJID+KyV2fDe81//nmM2wB8OEZn8QrSqYoKNg=;
+ b=wn988eCRj2qYK3WczJSTAoEV7bfxdzNqLBlkqe5vvtMeFKuGN2JHMFlVnJtkHonWla
+ nGUxrHrpG8BlduUJP3A86vhF0FmiorA4Lie+rp+L9hH/hMudDNpOGjs9aXIQsPytEUgJ
+ ljjI4Vmg2fJ8WNl5pXxeGd6qjq54MylRfsJFzuAAg9yQKch9yuZ6QIuRsMBSYQk5D8RO
+ Z+yJy95BdmVJIsBtrya82ZmW1xn3hDUvHLpU6Chi9LUNKhd1RKoRGnL+hn/ns4roC1Zq
+ rgRms+xbhHHK2uPGRRCYb0oP0nO1dzZko7xGA08YZYyZ3Mp2GyagCvEo1YPYdxjv/mj+
+ I3Mg==
+X-Gm-Message-State: AOJu0YxWmg7bXRPXM3VKdYPZ+/N8Fi3Wu0PdfsyJIcm1Rl4e939zv93c
+ WAyf/TJZLCiy9NpsS/i0nLlDKvHUQU/gDz0IUyGnkcUF7tlsxpnWUkOrEne2TFMV8VVHXaB/5jK
+ Bbh7XwXLNJuERFy9gBpetwtr2DvkK9HPXbi6+Lg==
+X-Google-Smtp-Source: AGHT+IEVspeMhPBXLY0ZGYrZ1jpuuWSoZJq4+qjdF5Vil/sLu/iuDRAlCLNWCszwEvuLEHfGnrLZGkAzoYEh8bcMxGo=
+X-Received: by 2002:a5b:90d:0:b0:dc6:c669:9914 with SMTP id
+ a13-20020a5b090d000000b00dc6c6699914mr1476768ybq.15.1707564822553; Sat, 10
+ Feb 2024 03:33:42 -0800 (PST)
 MIME-Version: 1.0
 References: <20240210015223.24670-1-quic_parellan@quicinc.com>
- <20240210015223.24670-19-quic_parellan@quicinc.com>
-In-Reply-To: <20240210015223.24670-19-quic_parellan@quicinc.com>
+ <20240210015223.24670-20-quic_parellan@quicinc.com>
+In-Reply-To: <20240210015223.24670-20-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 10 Feb 2024 13:31:18 +0200
-Message-ID: <CAA8EJppnT2Rfi8R0yiSwD8TJCw9JS4Q4sVrgUjYg36qMTr85EQ@mail.gmail.com>
-Subject: Re: [PATCH v2 18/19] drm/msm/dpu: reserve CDM blocks for DP if mode
- is YUV420
+Date: Sat, 10 Feb 2024 13:33:31 +0200
+Message-ID: <CAA8EJpq15w_Gjx+rPzN8vBg5Z8PGzABAztqmLpfnafuvNVLmRw@mail.gmail.com>
+Subject: Re: [PATCH v2 19/19] drm/msm/dp: allow YUV420 mode for DP connector
+ when CDM available
 To: Paloma Arellano <quic_parellan@quicinc.com>
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
@@ -82,19 +82,142 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Sat, 10 Feb 2024 at 03:52, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> Reserve CDM blocks for DP if the mode format is YUV420. Currently this
-> reservation only works for writeback and DP if the format is YUV420. But
-> this can be easily extented to other YUV formats for DP.
+> All the components of YUV420 over DP are added. Therefore, let's mark the
+> connector property as true for DP connector when the DP type is not eDP
+> and when there is a CDM block available.
 >
 > Changes in v2:
->         - Minor code simplification
+>         - Check for if dp_catalog has a CDM block available instead of
+>           checking if VSC SDP is allowed when setting the dp connector's
+>           ycbcr_420_allowed parameter
 >
 > Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 +++-
+>  drivers/gpu/drm/msm/dp/dp_display.c     | 4 ++--
+>  drivers/gpu/drm/msm/dp/dp_drm.c         | 8 ++++++--
+>  drivers/gpu/drm/msm/dp/dp_drm.h         | 3 ++-
+>  drivers/gpu/drm/msm/msm_drv.h           | 5 +++--
+>  5 files changed, 16 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 723cc1d821431..beeaabe499abf 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -565,6 +565,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+>  {
+>         struct drm_encoder *encoder = NULL;
+>         struct msm_display_info info;
+> +       bool yuv_supported;
+>         int rc;
+>         int i;
+>
+> @@ -583,7 +584,8 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+>                         return PTR_ERR(encoder);
+>                 }
+>
+> -               rc = msm_dp_modeset_init(priv->dp[i], dev, encoder);
+> +               yuv_supported = !!(dpu_kms->catalog->cdm);
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Drop parentheses please.
+
+> +               rc = msm_dp_modeset_init(priv->dp[i], dev, encoder, yuv_supported);
+>                 if (rc) {
+>                         DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
+>                         return rc;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index ebcc76ef1d590..9b9f5f2921903 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1471,7 +1471,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
+>  }
+>
+>  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+> -                       struct drm_encoder *encoder)
+> +                       struct drm_encoder *encoder, bool yuv_supported)
+>  {
+>         struct dp_display_private *dp_priv;
+>         int ret;
+> @@ -1487,7 +1487,7 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>                 return ret;
+>         }
+>
+> -       dp_display->connector = dp_drm_connector_init(dp_display, encoder);
+> +       dp_display->connector = dp_drm_connector_init(dp_display, encoder, yuv_supported);
+>         if (IS_ERR(dp_display->connector)) {
+>                 ret = PTR_ERR(dp_display->connector);
+>                 DRM_DEV_ERROR(dev->dev,
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 46e6889037e88..ab0d0d13b5e2c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -353,7 +353,8 @@ int dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
+>  }
+>
+>  /* connector initialization */
+> -struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder)
+> +struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder,
+> +                                           bool yuv_supported)
+>  {
+>         struct drm_connector *connector = NULL;
+>
+> @@ -361,8 +362,11 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct dr
+>         if (IS_ERR(connector))
+>                 return connector;
+>
+> -       if (!dp_display->is_edp)
+> +       if (!dp_display->is_edp) {
+>                 drm_connector_attach_dp_subconnector_property(connector);
+> +               if (yuv_supported)
+> +                       connector->ycbcr_420_allowed = true;
+
+Is there any reason to disallow YUV420 for eDP connectors?
+
+> +       }
+>
+>         drm_connector_attach_encoder(connector, encoder);
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
+> index b3d684db2383b..45e57ac25a4d9 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.h
+> @@ -19,7 +19,8 @@ struct msm_dp_bridge {
+>
+>  #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
+>
+> -struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder);
+> +struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder,
+> +                                           bool yuv_supported);
+>  int dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
+>                         struct drm_encoder *encoder);
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index b876ebd48effe..37335777f5c09 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -385,7 +385,7 @@ static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_
+>  int __init msm_dp_register(void);
+>  void __exit msm_dp_unregister(void);
+>  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+> -                        struct drm_encoder *encoder);
+> +                        struct drm_encoder *encoder, bool yuv_supported);
+>  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
+>  bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
+>                                const struct drm_display_mode *mode);
+> @@ -403,7 +403,8 @@ static inline void __exit msm_dp_unregister(void)
+>  }
+>  static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
+>                                        struct drm_device *dev,
+> -                                      struct drm_encoder *encoder)
+> +                                      struct drm_encoder *encoder,
+> +                                      bool yuv_supported)
+>  {
+>         return -EINVAL;
+>  }
+> --
+> 2.39.2
+>
+
 
 -- 
 With best wishes
